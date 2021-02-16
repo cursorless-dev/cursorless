@@ -125,8 +125,23 @@ export function activate(context: vscode.ExtensionContext) {
           })
         );
 
+        const minDecorationIndex = min(
+          tokenCharacters.map(({ character }) =>
+            character in characterDecorationIndices
+              ? characterDecorationIndices[character]
+              : 0
+          )
+        );
+
         const bestCharacter = maxBy(
-          tokenCharacters,
+          tokenCharacters.filter(({ character }) => {
+            const decorationIndex =
+              character in characterDecorationIndices
+                ? characterDecorationIndices[character]
+                : 0;
+
+            return decorationIndex === minDecorationIndex;
+          }),
           ({ character }) =>
             min(
               [...characterTokens[character].values()]
