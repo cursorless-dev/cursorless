@@ -1,5 +1,5 @@
 {
-  "name": "decorative-navigation",
+	"name": "decorative-navigation",
 	"displayName": "Decorative Navigation",
 	"description": "Navigate files by decorated symbols",
 	"version": "0.0.1",
@@ -10,7 +10,7 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:decorative-navigation.helloWorld"
+		"onCommand:decorative-navigation.helloWorld"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -18,6 +18,98 @@
 			{
 				"command": "decorative-navigation.helloWorld",
 				"title": "Hello World"
+			}
+		],
+		"colors": [
+			{
+				"id": "decorativeNavigation.green",
+				"description": "Decoration color to use for green symbols",
+				"defaults": {
+					"dark": "#00FF00",
+					"light": "#00FF00",
+					"highContrast": "#00FF00"
+				}
+			},
+			{
+				"id": "decorativeNavigation.red",
+				"description": "Decoration color to use for red symbols",
+				"defaults": {
+					"dark": "#00FF00",
+					"light": "#00FF00",
+					"highContrast": "#00FF00"
+				}
+			},
+			{
+				"id": "decorativeNavigation.default",
+				"description": "Decoration color to use for default symbols",
+				"defaults": {
+					"dark": "#00FF00",
+					"light": "#00FF00",
+					"highContrast": "#00FF00"
+				}
+			},
+			{
+				"id": "decorativeNavigation.green",
+				"description": "Decoration color to use for green symbols",
+				"defaults": {
+					"dark": "#00FF00",
+					"light": "#00FF00",
+					"highContrast": "#00FF00"
+				}
+			},
+			{
+				"id": "decorativeNavigation.red",
+				"description": "Decoration color to use for red symbols",
+				"defaults": {
+					"dark": "#00FF00",
+					"light": "#00FF00",
+					"highContrast": "#00FF00"
+				}
+			},
+			{
+				"id": "decorativeNavigation.gray",
+				"description": "Decoration color to use for gray symbols",
+				"defaults": {
+					"dark": "#00FF00",
+					"light": "#00FF00",
+					"highContrast": "#00FF00"
+				}
+			},
+			{
+				"id": "decorativeNavigation.brown",
+				"description": "Decoration color to use for brown symbols",
+				"defaults": {
+					"dark": "#00FF00",
+					"light": "#00FF00",
+					"highContrast": "#00FF00"
+				}
+			},
+			{
+				"id": "decorativeNavigation.teal",
+				"description": "Decoration color to use for teal symbols",
+				"defaults": {
+					"dark": "#00FF00",
+					"light": "#00FF00",
+					"highContrast": "#00FF00"
+				}
+			},
+			{
+				"id": "decorativeNavigation.taupe",
+				"description": "Decoration color to use for taupe symbols",
+				"defaults": {
+					"dark": "#00FF00",
+					"light": "#00FF00",
+					"highContrast": "#00FF00"
+				}
+			},
+			{
+				"id": "decorativeNavigation.blue",
+				"description": "Decoration color to use for blue symbols",
+				"defaults": {
+					"dark": "#00FF00",
+					"light": "#00FF00",
+					"highContrast": "#00FF00"
+				}
 			}
 		]
 	},
@@ -30,16 +122,20 @@
 		"test": "node ./out/test/runTest.js"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.53.0",
 		"@types/glob": "^7.1.3",
 		"@types/mocha": "^8.0.4",
 		"@types/node": "^12.11.7",
-		"eslint": "^7.15.0",
+		"@types/vscode": "^1.53.0",
 		"@typescript-eslint/eslint-plugin": "^4.9.0",
 		"@typescript-eslint/parser": "^4.9.0",
+		"eslint": "^7.15.0",
 		"glob": "^7.1.6",
 		"mocha": "^8.1.3",
 		"typescript": "^4.1.2",
 		"vscode-test": "^1.4.1"
+	},
+	"dependencies": {
+		"@types/lodash": "^4.14.168",
+		"lodash": "^4.17.20"
 	}
 }

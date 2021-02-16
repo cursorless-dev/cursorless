@@ -1,26 +1,166 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import { flatten, maxBy, min } from "lodash";
+import * as vscode from "vscode";
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+interface Token {
+  text: string;
+  range: vscode.Range;
+}
+
+interface CharacterTokenInfo {
+  characterIdx: number;
+  tokenIdx: number;
+}
+
+const TOKEN_MATCHER = /\w+/g;
+
+const COLORS = [
+  "default",
+  "green",
+  "red",
+  "gray",
+  "brown",
+  "teal",
+  "taupe",
+  "blue",
+];
+
 export function activate(context: vscode.ExtensionContext) {
+  const decorations = COLORS.map((color) => ({
+    name: color,
+    decoration: vscode.window.createTextEditorDecorationType({
+      borderStyle: "solid",
+      borderColor: new vscode.ThemeColor(`decorativeNavigation.${color}`),
+      borderWidth: "1px 0px 0px 0px",
+    }),
+  }));
+  const decorationMap = Object.fromEntries(
+    decorations.map(({ name, decoration }) => [name, decoration])
+  );
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "decorative-navigation" is now active!');
+  function getTokens(editor: vscode.TextEditor, range: vscode.Range): Token[] {
+    const text = editor.document.getText(range).toLowerCase();
+    const rangeOffset = editor.document.offsetAt(range.start);
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('decorative-navigation.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
+    return Array.from(text.matchAll(TOKEN_MATCHER), (match) => ({
+      text: match[0],
+      range: new vscode.Range(
+        editor.document.positionAt(rangeOffset + match.index!),
+        editor.document.positionAt(rangeOffset + match.index! + match[0].length)
+      ),
+    }));
+  }
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Decorative Navigation!');
-	});
+  let disposable = vscode.commands.registerTextEditorCommand(
+    "decorative-navigation.helloWorld",
+    (editor: vscode.TextEditor) => {
+      const tokens = flatten(
+        editor.visibleRanges.map((range) => getTokens(editor, range))
+      );
 
-	context.subscriptions.push(disposable);
+      tokens.sort((token1, token2) => {
+        const token1LineDiff = Math.abs(
+          token1.range.start.line - editor.selection.start.line
+        );
+
+        const token2LineDiff = Math.abs(
+          token2.range.start.line - editor.selection.start.line
+        );
+
+        if (token1LineDiff < token2LineDiff) {
+          return -1;
+        }
+
+        if (token1LineDiff > token2LineDiff) {
+          return 1;
+        }
+
+        const token1CharacterDiff = Math.abs(
+          token1.range.start.character - editor.selection.start.character
+        );
+
+        const token2CharacterDiff = Math.abs(
+          token2.range.start.character - editor.selection.start.character
+        );
+
+        return token1CharacterDiff - token2CharacterDiff;
+      });
+
+      console.log(JSON.stringify(tokens.map((token) => token.text)));
+
+      const characterTokens: {
+        [key: string]: Map<Token, CharacterTokenInfo>;
+      } = {};
+
+      tokens.forEach((token, tokenIdx) => {
+        [...token.text].forEach((character, characterIdx) => {
+          var characterTokenMap: Map<Token, CharacterTokenInfo>;
+
+          if (character in characterTokens) {
+            characterTokenMap = characterTokens[character];
+          } else {
+            characterTokenMap = new Map();
+            characterTokens[character] = characterTokenMap;
+          }
+
+          characterTokenMap.set(token, {
+            characterIdx,
+            tokenIdx,
+          });
+        });
+      });
+
+      const characterDecorationIndices: { [character: string]: number } = {};
+
+      const decorationRanges: {
+        [decorationName: string]: vscode.Range[];
+      } = Object.fromEntries(
+        decorations.map((decoration) => [decoration.name, []])
+      );
+
+      tokens.forEach((token, tokenIdx) => {
+        const tokenCharacters = [...token.text].map(
+          (character, characterIdx) => ({
+            character,
+            characterIdx,
+          })
+        );
+
+        const bestCharacter = maxBy(
+          tokenCharacters,
+          ({ character }) =>
+            min(
+              [...characterTokens[character].values()]
+                .map(({ tokenIdx }) => tokenIdx)
+                .filter((laterTokenIdx) => laterTokenIdx > tokenIdx)
+            ) ?? Infinity
+        )!;
+
+        const currentDecorationIndex =
+          bestCharacter.character in characterDecorationIndices
+            ? characterDecorationIndices[bestCharacter.character]
+            : 0;
+
+        decorationRanges[decorations[currentDecorationIndex].name].push(
+          new vscode.Range(
+            token.range.start.translate(undefined, bestCharacter.characterIdx),
+            token.range.start.translate(
+              undefined,
+              bestCharacter.characterIdx + 1
+            )
+          )
+        );
+
+        characterDecorationIndices[bestCharacter.character] =
+          currentDecorationIndex + 1;
+      });
+
+      Object.entries(decorationRanges).forEach(([name, ranges]) => {
+        editor.setDecorations(decorationMap[name], ranges);
+      });
+    }
+  );
+
+  context.subscriptions.push(disposable);
 }
 
 // this method is called when your extension is deactivated
