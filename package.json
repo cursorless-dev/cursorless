@@ -22,93 +22,147 @@
 		],
 		"colors": [
 			{
-				"id": "decorativeNavigation.green",
-				"description": "Decoration color to use for green symbols",
+				"id": "decorativeNavigation.defaultBorder",
+				"description": "Border color to use for default symbols",
 				"defaults": {
-					"dark": "#00FF00",
-					"light": "#00FF00",
-					"highContrast": "#00FF00"
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
 				}
 			},
 			{
-				"id": "decorativeNavigation.red",
-				"description": "Decoration color to use for red symbols",
+				"id": "decorativeNavigation.greenBorder",
+				"description": "Border color to use for green symbols",
 				"defaults": {
-					"dark": "#00FF00",
-					"light": "#00FF00",
-					"highContrast": "#00FF00"
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
 				}
 			},
 			{
-				"id": "decorativeNavigation.default",
-				"description": "Decoration color to use for default symbols",
+				"id": "decorativeNavigation.redBorder",
+				"description": "Border color to use for red symbols",
 				"defaults": {
-					"dark": "#00FF00",
-					"light": "#00FF00",
-					"highContrast": "#00FF00"
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
 				}
 			},
 			{
-				"id": "decorativeNavigation.green",
-				"description": "Decoration color to use for green symbols",
+				"id": "decorativeNavigation.grayBorder",
+				"description": "Border color to use for gray symbols",
 				"defaults": {
-					"dark": "#00FF00",
-					"light": "#00FF00",
-					"highContrast": "#00FF00"
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
 				}
 			},
 			{
-				"id": "decorativeNavigation.red",
-				"description": "Decoration color to use for red symbols",
+				"id": "decorativeNavigation.brownBorder",
+				"description": "Border color to use for brown symbols",
 				"defaults": {
-					"dark": "#00FF00",
-					"light": "#00FF00",
-					"highContrast": "#00FF00"
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
 				}
 			},
 			{
-				"id": "decorativeNavigation.gray",
-				"description": "Decoration color to use for gray symbols",
+				"id": "decorativeNavigation.tealBorder",
+				"description": "Border color to use for teal symbols",
 				"defaults": {
-					"dark": "#00FF00",
-					"light": "#00FF00",
-					"highContrast": "#00FF00"
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
 				}
 			},
 			{
-				"id": "decorativeNavigation.brown",
-				"description": "Decoration color to use for brown symbols",
+				"id": "decorativeNavigation.mauveBorder",
+				"description": "Border color to use for mauve symbols",
 				"defaults": {
-					"dark": "#00FF00",
-					"light": "#00FF00",
-					"highContrast": "#00FF00"
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
 				}
 			},
 			{
-				"id": "decorativeNavigation.teal",
-				"description": "Decoration color to use for teal symbols",
+				"id": "decorativeNavigation.blueBorder",
+				"description": "Border color to use for blue symbols",
 				"defaults": {
-					"dark": "#00FF00",
-					"light": "#00FF00",
-					"highContrast": "#00FF00"
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
 				}
 			},
 			{
-				"id": "decorativeNavigation.mauve",
-				"description": "Decoration color to use for mauve symbols",
+				"id": "decorativeNavigation.defaultBackground",
+				"description": "Background color to use for default symbols",
 				"defaults": {
-					"dark": "#00FF00",
-					"light": "#00FF00",
-					"highContrast": "#00FF00"
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
 				}
 			},
 			{
-				"id": "decorativeNavigation.blue",
-				"description": "Decoration color to use for blue symbols",
+				"id": "decorativeNavigation.greenBackground",
+				"description": "Background color to use for green symbols",
 				"defaults": {
-					"dark": "#00FF00",
-					"light": "#00FF00",
-					"highContrast": "#00FF00"
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
+				}
+			},
+			{
+				"id": "decorativeNavigation.redBackground",
+				"description": "Background color to use for red symbols",
+				"defaults": {
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
+				}
+			},
+			{
+				"id": "decorativeNavigation.grayBackground",
+				"description": "Background color to use for gray symbols",
+				"defaults": {
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
+				}
+			},
+			{
+				"id": "decorativeNavigation.brownBackground",
+				"description": "Background color to use for brown symbols",
+				"defaults": {
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
+				}
+			},
+			{
+				"id": "decorativeNavigation.tealBackground",
+				"description": "Background color to use for teal symbols",
+				"defaults": {
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
+				}
+			},
+			{
+				"id": "decorativeNavigation.mauveBackground",
+				"description": "Background color to use for mauve symbols",
+				"defaults": {
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
+				}
+			},
+			{
+				"id": "decorativeNavigation.blueBackground",
+				"description": "Background color to use for blue symbols",
+				"defaults": {
+					"dark": "#00000000",
+					"light": "#00000000",
+					"highContrast": "#00000000"
 				}
 			}
 		]

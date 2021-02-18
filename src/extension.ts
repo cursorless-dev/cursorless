@@ -15,11 +15,11 @@ const COLORS = [
   "default",
   "green",
   "red",
-  "gray",
   "brown",
-  "teal",
   "mauve",
   "blue",
+  "gray",
+  "teal",
 ];
 
 export function activate(context: vscode.ExtensionContext) {
@@ -27,8 +27,12 @@ export function activate(context: vscode.ExtensionContext) {
     name: color,
     decoration: vscode.window.createTextEditorDecorationType({
       borderStyle: "solid",
-      borderColor: new vscode.ThemeColor(`decorativeNavigation.${color}`),
-      borderWidth: "2px 0px 0px 0px",
+      borderColor: new vscode.ThemeColor(`decorativeNavigation.${color}Border`),
+      borderWidth: "1px",
+      borderRadius: "1px",
+      backgroundColor: new vscode.ThemeColor(
+        `decorativeNavigation.${color}Background`
+      ),
     }),
   }));
   const decorationMap = Object.fromEntries(
