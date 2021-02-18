@@ -94,8 +94,8 @@
 				}
 			},
 			{
-				"id": "decorativeNavigation.taupe",
-				"description": "Decoration color to use for taupe symbols",
+				"id": "decorativeNavigation.mauve",
+				"description": "Decoration color to use for mauve symbols",
 				"defaults": {
 					"dark": "#00FF00",
 					"light": "#00FF00",

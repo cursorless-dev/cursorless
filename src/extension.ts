@@ -1,17 +1,15 @@
 import { flatten, maxBy, min } from "lodash";
 import * as vscode from "vscode";
-
-interface Token {
-  text: string;
-  range: vscode.Range;
-}
+import { getDisplayLineMap } from "./getDisplayLineMap";
+import { getTokenComparator as getTokenComparator } from "./getTokenComparator";
+import { Token } from "./Token";
 
 interface CharacterTokenInfo {
   characterIdx: number;
   tokenIdx: number;
 }
 
-const TOKEN_MATCHER = /\w+/g;
+const TOKEN_MATCHER = /[a-zA-Z_][a-zA-Z_0-9]+|\-?((\d+(\.\d*)?)|(\.\d+))|[^\s\w]/g;
 
 const COLORS = [
   "default",
@@ -20,7 +18,7 @@ const COLORS = [
   "gray",
   "brown",
   "teal",
-  "taupe",
+  "mauve",
   "blue",
 ];
 
@@ -30,60 +28,51 @@ export function activate(context: vscode.ExtensionContext) {
     decoration: vscode.window.createTextEditorDecorationType({
       borderStyle: "solid",
       borderColor: new vscode.ThemeColor(`decorativeNavigation.${color}`),
-      borderWidth: "1px 0px 0px 0px",
+      borderWidth: "2px 0px 0px 0px",
     }),
   }));
   const decorationMap = Object.fromEntries(
     decorations.map(({ name, decoration }) => [name, decoration])
   );
 
-  function getTokens(editor: vscode.TextEditor, range: vscode.Range): Token[] {
+  function getTokens(
+    editor: vscode.TextEditor,
+    range: vscode.Range,
+    displayLineMap: Map<number, number>
+  ): Token[] {
     const text = editor.document.getText(range).toLowerCase();
     const rangeOffset = editor.document.offsetAt(range.start);
 
-    return Array.from(text.matchAll(TOKEN_MATCHER), (match) => ({
-      text: match[0],
-      range: new vscode.Range(
+    return Array.from(text.matchAll(TOKEN_MATCHER), (match) => {
+      const range = new vscode.Range(
         editor.document.positionAt(rangeOffset + match.index!),
         editor.document.positionAt(rangeOffset + match.index! + match[0].length)
-      ),
-    }));
+      );
+      return {
+        text: match[0],
+        range,
+        displayLine: displayLineMap.get(range.start.line)!,
+      };
+    });
   }
 
   let disposable = vscode.commands.registerTextEditorCommand(
     "decorative-navigation.helloWorld",
     (editor: vscode.TextEditor) => {
+      const displayLineMap = getDisplayLineMap(editor);
+
       const tokens = flatten(
-        editor.visibleRanges.map((range) => getTokens(editor, range))
+        editor.visibleRanges.map((range) =>
+          getTokens(editor, range, displayLineMap)
+        )
       );
 
-      tokens.sort((token1, token2) => {
-        const token1LineDiff = Math.abs(
-          token1.range.start.line - editor.selection.start.line
-        );
-
-        const token2LineDiff = Math.abs(
-          token2.range.start.line - editor.selection.start.line
-        );
-
-        if (token1LineDiff < token2LineDiff) {
-          return -1;
-        }
-
-        if (token1LineDiff > token2LineDiff) {
-          return 1;
-        }
-
-        const token1CharacterDiff = Math.abs(
-          token1.range.start.character - editor.selection.start.character
-        );
-
-        const token2CharacterDiff = Math.abs(
-          token2.range.start.character - editor.selection.start.character
-        );
-
-        return token1CharacterDiff - token2CharacterDiff;
-      });
+      tokens.sort(
+        getTokenComparator(
+          displayLineMap.get(editor.selection.start.line)!,
+          editor.selection.start.character
+        )
+      );
 
       console.log(JSON.stringify(tokens.map((token) => token.text)));
 
@@ -122,26 +111,25 @@ export function activate(context: vscode.ExtensionContext) {
           (character, characterIdx) => ({
             character,
             characterIdx,
+            decorationIndex:
+              character in characterDecorationIndices
+                ? characterDecorationIndices[character]
+                : 0,
           })
         );
 
         const minDecorationIndex = min(
-          tokenCharacters.map(({ character }) =>
-            character in characterDecorationIndices
-              ? characterDecorationIndices[character]
-              : 0
-          )
-        );
+          tokenCharacters.map(({ decorationIndex }) => decorationIndex)
+        )!;
+
+        if (minDecorationIndex >= decorations.length) {
+          return;
+        }
 
         const bestCharacter = maxBy(
-          tokenCharacters.filter(({ character }) => {
-            const decorationIndex =
-              character in characterDecorationIndices
-                ? characterDecorationIndices[character]
-                : 0;
-
-            return decorationIndex === minDecorationIndex;
-          }),
+          tokenCharacters.filter(
+            ({ decorationIndex }) => decorationIndex === minDecorationIndex
+          ),
           ({ character }) =>
             min(
               [...characterTokens[character].values()]
@@ -150,10 +138,7 @@ export function activate(context: vscode.ExtensionContext) {
             ) ?? Infinity
         )!;
 
-        const currentDecorationIndex =
-          bestCharacter.character in characterDecorationIndices
-            ? characterDecorationIndices[bestCharacter.character]
-            : 0;
+        const currentDecorationIndex = bestCharacter.decorationIndex;
 
         decorationRanges[decorations[currentDecorationIndex].name].push(
           new vscode.Range(
