@@ -9,7 +9,7 @@ import { Token } from "./Types";
 export function getTokenComparator(
   selectionDisplayLine: number,
   selectionCharacterIndex: number
-): ((a: Token, b: Token) => number) | undefined {
+): (a: Token, b: Token) => number {
   return (token1, token2) => {
     const token1LineDiff = Math.abs(token1.displayLine - selectionDisplayLine);
     const token2LineDiff = Math.abs(token2.displayLine - selectionDisplayLine);

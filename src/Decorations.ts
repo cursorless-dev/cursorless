@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { COLORS } from "./extension";
+import { COLORS } from "./constants";
 
 export interface DecorationMap {
   [k: string]: vscode.TextEditorDecorationType;
@@ -22,7 +22,11 @@ export default class Decorations {
         borderColor: new vscode.ThemeColor(
           `decorativeNavigation.${color}Border`
         ),
-        borderWidth: "1px 0px 0px 0px",
+        borderWidth: "2px 0px 0px 0px",
+        borderRadius: "4px",
+        backgroundColor: new vscode.ThemeColor(
+          `decorativeNavigation.${color}Background`
+        ),
       }),
     }));
 

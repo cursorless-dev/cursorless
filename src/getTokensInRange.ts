@@ -1,11 +1,12 @@
 import * as vscode from "vscode";
+import { TOKEN_MATCHER } from "./constants";
 import { Token } from "./Types";
-import { TOKEN_MATCHER } from "./extension";
 
 export function getTokensInRange(
   editor: vscode.TextEditor,
   range: vscode.Range,
-  displayLineMap: Map<number, number>): Token[] {
+  displayLineMap: Map<number, number>
+): Token[] {
   const text = editor.document.getText(range).toLowerCase();
   const rangeOffset = editor.document.offsetAt(range.start);
 

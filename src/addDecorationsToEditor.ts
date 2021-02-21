@@ -4,8 +4,12 @@ import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator as getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
 import { Token } from "./Types";
-import { CharacterTokenInfo } from "./extension";
 import Decorations from "./Decorations";
+
+interface CharacterTokenInfo {
+  characterIdx: number;
+  tokenIdx: number;
+}
 
 export function addDecorationsToEditor(
   editor: vscode.TextEditor,
@@ -58,6 +62,16 @@ export function addDecorationsToEditor(
     decorations.decorations.map((decoration) => [decoration.name, []])
   );
 
+  // Picks the character with minimum color such that the next token that contains
+  // that character is as far away as possible.
+  // TODO: Could be improved by ignoring subsequent tokens that also contain
+  // another character that can be used with lower color. To compute that, look
+  // at all the other characters in the given subsequent token, look at their
+  // current color, and add the number of times it appears in between the
+  // current token and the given subsequent token.
+  //
+  // Here is an example where the existing algorithm false down:
+  // "ab ax b"
   tokens.forEach((token, tokenIdx) => {
     const tokenCharacters = [...token.text].map((character, characterIdx) => ({
       character,

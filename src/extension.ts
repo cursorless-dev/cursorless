@@ -3,24 +3,6 @@ import { addDecorationsToEditor } from "./addDecorationsToEditor";
 import { DEBOUNCE_DELAY } from "./constants";
 import Decorations from "./Decorations";
 
-export interface CharacterTokenInfo {
-  characterIdx: number;
-  tokenIdx: number;
-}
-
-export const TOKEN_MATCHER = /[a-zA-Z_][a-zA-Z_0-9]+|\-?((\d+(\.\d*)?)|(\.\d+))|[^\s\w]/g;
-
-export const COLORS = [
-  "default",
-  "green",
-  "red",
-  "brown",
-  "mauve",
-  "blue",
-  "gray",
-  "teal",
-];
-
 export function activate(context: vscode.ExtensionContext) {
   const decorations = new Decorations();
 
