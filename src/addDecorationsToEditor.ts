@@ -5,6 +5,8 @@ import { getTokenComparator as getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
 import { Token } from "./Types";
 import Decorations from "./Decorations";
+import { COLORS, SymbolColor } from "./constants";
+import NavigationMap from "./NavigationMap";
 
 interface CharacterTokenInfo {
   characterIdx: number;
@@ -57,10 +59,12 @@ export function addDecorationsToEditor(
   const characterDecorationIndices: { [character: string]: number } = {};
 
   const decorationRanges: {
-    [decorationName: string]: vscode.Range[];
+    [decorationName in SymbolColor]?: vscode.Range[];
   } = Object.fromEntries(
     decorations.decorations.map((decoration) => [decoration.name, []])
   );
+
+  const navigationMap = new NavigationMap();
 
   // Picks the character with minimum color such that the next token that contains
   // that character is as far away as possible.
@@ -104,18 +108,27 @@ export function addDecorationsToEditor(
 
     const currentDecorationIndex = bestCharacter.decorationIndex;
 
-    decorationRanges[decorations.decorations[currentDecorationIndex].name].push(
+    const colorName = decorations.decorations[currentDecorationIndex].name;
+
+    decorationRanges[colorName]!.push(
       new vscode.Range(
         token.range.start.translate(undefined, bestCharacter.characterIdx),
         token.range.start.translate(undefined, bestCharacter.characterIdx + 1)
       )
     );
 
+    navigationMap.addToken(colorName, bestCharacter.character, token);
+
     characterDecorationIndices[bestCharacter.character] =
       currentDecorationIndex + 1;
   });
 
-  Object.entries(decorationRanges).forEach(([name, ranges]) => {
-    editor.setDecorations(decorations.decorationMap[name], ranges);
+  COLORS.forEach((color) => {
+    editor.setDecorations(
+      decorations.decorationMap[color]!,
+      decorationRanges[color]!
+    );
   });
+
+  return navigationMap;
 }

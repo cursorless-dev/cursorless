@@ -16,8 +16,8 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "decorative-navigation.helloWorld",
-				"title": "Hello World"
+				"command": "decorative-navigation.selectToken",
+				"title": "Decorative navigation: Select token"
 			}
 		],
 		"colors": [

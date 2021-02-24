@@ -1,12 +1,13 @@
 import * as vscode from "vscode";
 import { COLORS } from "./constants";
+import { SymbolColor } from "./constants";
 
-export interface DecorationMap {
-  [k: string]: vscode.TextEditorDecorationType;
-}
+export type DecorationMap = {
+  [k in SymbolColor]?: vscode.TextEditorDecorationType;
+};
 
 export interface NamedDecoration {
-  name: string;
+  name: SymbolColor;
   decoration: vscode.TextEditorDecorationType;
 }
 
