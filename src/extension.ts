@@ -7,6 +7,10 @@ import NavigationMap from "./NavigationMap";
 export function activate(context: vscode.ExtensionContext) {
   const decorations = new Decorations();
 
+  var isActive = vscode.workspace
+    .getConfiguration("decorative-navigation")
+    .get("showOnStart");
+
   function clearEditorDecorations(editor: vscode.TextEditor) {
     decorations.decorations.forEach(({ decoration }) => {
       editor.setDecorations(decoration, []);
@@ -17,7 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   function addDecorations() {
     vscode.window.visibleTextEditors.forEach((editor) => {
-      if (editor === vscode.window.activeTextEditor) {
+      if (isActive && editor === vscode.window.activeTextEditor) {
         navigationMap = addDecorationsToEditor(editor, decorations);
       } else {
         clearEditorDecorations(editor);
@@ -38,6 +42,14 @@ export function activate(context: vscode.ExtensionContext) {
       timeoutHandle = null;
     }, DEBOUNCE_DELAY);
   }
+
+  const toggleDecorationsDisposable = vscode.commands.registerCommand(
+    "decorative-navigation.toggleDecorations",
+    () => {
+      isActive = !isActive;
+      addDecorationsDebounced();
+    }
+  );
 
   const selectTokenDisposable = vscode.commands.registerTextEditorCommand(
     "decorative-navigation.selectToken",
@@ -86,6 +98,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     selectTokenDisposable,
+    toggleDecorationsDisposable,
     vscode.window.onDidChangeTextEditorVisibleRanges(addDecorationsDebounced),
     vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),
     vscode.window.onDidChangeVisibleTextEditors(addDecorationsDebounced),

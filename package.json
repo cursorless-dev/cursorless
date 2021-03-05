@@ -2,7 +2,13 @@
 	"name": "decorative-navigation",
 	"displayName": "Decorative Navigation",
 	"description": "Navigate files by decorated symbols",
-	"version": "0.0.1",
+	"version": "0.1.0",
+	"publisher": "pokey",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pokey/decorative-navigation.git"
+	},
 	"engines": {
 		"vscode": "^1.53.0"
 	},
@@ -18,6 +24,10 @@
 			{
 				"command": "decorative-navigation.selectToken",
 				"title": "Decorative navigation: Select token"
+			},
+			{
+				"command": "decorative-navigation.toggleDecorations",
+				"title": "Decorative navigation: Toggle decorations"
 			}
 		],
 		"colors": [
@@ -25,57 +35,67 @@
 				"id": "decorativeNavigation.defaultBorder",
 				"description": "Border color to use for default symbols",
 				"defaults": {
-					"dark": "#b9b4da",
-					"light": "#b9b4da",
-					"highContrast": "#b9b4da"
+					"dark": "#cdc7f0",
+					"light": "#000000",
+					"highContrast": "#000000"
 				}
 			},
 			{
 				"id": "decorativeNavigation.greenBorder",
 				"description": "Border color to use for green symbols",
 				"defaults": {
-					"dark": "#13940d",
-					"light": "#13940d",
-					"highContrast": "#13940d"
+					"dark": "#22d618",
+					"light": "#2ec426",
+					"highContrast": "#2ec426"
 				}
 			},
 			{
 				"id": "decorativeNavigation.redBorder",
 				"description": "Border color to use for red symbols",
 				"defaults": {
-					"dark": "#a03b00",
-					"light": "#a03b00",
-					"highContrast": "#a03b00"
+					"dark": "#e96900",
+					"light": "#ff3300",
+					"highContrast": "#ff3300"
 				}
 			},
 			{
 				"id": "decorativeNavigation.yellowBorder",
 				"description": "Border color to use for yellow symbols",
 				"defaults": {
-					"dark": "#c5a800",
-					"light": "#c5a800",
-					"highContrast": "#c5a800"
+					"dark": "#f1cd00",
+					"light": "#f0b800",
+					"highContrast": "#f0b800"
 				}
 			},
 			{
 				"id": "decorativeNavigation.mauveBorder",
 				"description": "Border color to use for mauve symbols",
 				"defaults": {
-					"dark": "#9100f1",
-					"light": "#9100f1",
-					"highContrast": "#9100f1"
+					"dark": "#de25ff",
+					"light": "#ff00f2",
+					"highContrast": "#ff00f2"
 				}
 			},
 			{
 				"id": "decorativeNavigation.blueBorder",
 				"description": "Border color to use for blue symbols",
 				"defaults": {
-					"dark": "#00a0df",
-					"light": "#00a0df",
-					"highContrast": "#00a0df"
+					"dark": "#00b7ff",
+					"light": "#19a1d6",
+					"highContrast": "#19a1d6"
 				}
 			}
-		]
+		],
+		"configuration": {
+			"title": "Decorative navigation",
+			"properties": {
+				"decorative-navigation.showOnStart": {
+					"type": "boolean",
+					"default": true,
+					"description": "Whether to show decorations on vscode start."
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
