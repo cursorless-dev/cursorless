@@ -103,6 +103,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),
     vscode.window.onDidChangeVisibleTextEditors(addDecorationsDebounced),
     vscode.window.onDidChangeTextEditorSelection(addDecorationsDebounced),
+    vscode.workspace.onDidChangeTextDocument(addDecorationsDebounced),
     {
       dispose() {
         if (timeoutHandle !== null) {

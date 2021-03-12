@@ -27,8 +27,8 @@ export function addDecorationsToEditor(
 
   tokens.sort(
     getTokenComparator(
-      displayLineMap.get(editor.selection.start.line)!,
-      editor.selection.start.character
+      displayLineMap.get(editor.selection.active.line)!,
+      editor.selection.active.character
     )
   );
 
