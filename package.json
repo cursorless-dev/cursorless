@@ -1,13 +1,13 @@
 {
-	"name": "decorative-navigation",
-	"displayName": "Decorative Navigation",
-	"description": "Navigate files by decorated symbols",
+	"name": "cursorless",
+	"displayName": "Cursorless",
+	"description": "Don't let the cursor slow you down",
 	"version": "0.1.0",
 	"publisher": "pokey",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/pokey/decorative-navigation.git"
+		"url": "https://github.com/pokey/cursorless-vscode.git"
 	},
 	"engines": {
 		"vscode": "^1.53.0"
@@ -22,17 +22,21 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "decorative-navigation.selectToken",
-				"title": "Decorative navigation: Select token"
+				"command": "cursorless.selectToken",
+				"title": "Cursorless: Select token"
 			},
 			{
-				"command": "decorative-navigation.toggleDecorations",
-				"title": "Decorative navigation: Toggle decorations"
+				"command": "cursorless.command",
+				"title": "Cursorless: Perform command"
+			},
+			{
+				"command": "cursorless.toggleDecorations",
+				"title": "Cursorless: Toggle decorations"
 			}
 		],
 		"colors": [
 			{
-				"id": "decorativeNavigation.defaultBorder",
+				"id": "cursorless.defaultBorder",
 				"description": "Border color to use for default symbols",
 				"defaults": {
 					"dark": "#cdc7f0",
@@ -41,7 +45,7 @@
 				}
 			},
 			{
-				"id": "decorativeNavigation.greenBorder",
+				"id": "cursorless.greenBorder",
 				"description": "Border color to use for green symbols",
 				"defaults": {
 					"dark": "#22d618",
@@ -50,7 +54,7 @@
 				}
 			},
 			{
-				"id": "decorativeNavigation.redBorder",
+				"id": "cursorless.redBorder",
 				"description": "Border color to use for red symbols",
 				"defaults": {
 					"dark": "#e96900",
@@ -59,7 +63,7 @@
 				}
 			},
 			{
-				"id": "decorativeNavigation.yellowBorder",
+				"id": "cursorless.yellowBorder",
 				"description": "Border color to use for yellow symbols",
 				"defaults": {
 					"dark": "#f1cd00",
@@ -68,7 +72,7 @@
 				}
 			},
 			{
-				"id": "decorativeNavigation.mauveBorder",
+				"id": "cursorless.mauveBorder",
 				"description": "Border color to use for mauve symbols",
 				"defaults": {
 					"dark": "#de25ff",
@@ -77,7 +81,7 @@
 				}
 			},
 			{
-				"id": "decorativeNavigation.blueBorder",
+				"id": "cursorless.blueBorder",
 				"description": "Border color to use for blue symbols",
 				"defaults": {
 					"dark": "#00b7ff",
@@ -87,9 +91,9 @@
 			}
 		],
 		"configuration": {
-			"title": "Decorative navigation",
+			"title": "Cursorless",
 			"properties": {
-				"decorative-navigation.showOnStart": {
+				"cursorless.showOnStart": {
 					"type": "boolean",
 					"default": true,
 					"description": "Whether to show decorations on vscode start."

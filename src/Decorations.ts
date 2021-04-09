@@ -20,14 +20,10 @@ export default class Decorations {
       name: color,
       decoration: vscode.window.createTextEditorDecorationType({
         borderStyle: "solid",
-        borderColor: new vscode.ThemeColor(
-          `decorativeNavigation.${color}Border`
-        ),
+        borderColor: new vscode.ThemeColor(`cursorless.${color}Border`),
         borderWidth: "2px 0px 0px 0px",
         borderRadius: "4px",
-        backgroundColor: new vscode.ThemeColor(
-          `decorativeNavigation.${color}Background`
-        ),
+        backgroundColor: new vscode.ThemeColor(`cursorless.${color}Background`),
       }),
     }));
 

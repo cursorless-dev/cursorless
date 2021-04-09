@@ -8,7 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
   const decorations = new Decorations();
 
   var isActive = vscode.workspace
-    .getConfiguration("decorative-navigation")
+    .getConfiguration("cursorless")
     .get("showOnStart");
 
   function clearEditorDecorations(editor: vscode.TextEditor) {
@@ -44,15 +44,29 @@ export function activate(context: vscode.ExtensionContext) {
   }
 
   const toggleDecorationsDisposable = vscode.commands.registerCommand(
-    "decorative-navigation.toggleDecorations",
+    "cursorless.toggleDecorations",
     () => {
       isActive = !isActive;
       addDecorationsDebounced();
     }
   );
 
+  const cursorlessCommandDisposable = vscode.commands.registerTextEditorCommand(
+    "cursorless.command",
+    (
+      editor: vscode.TextEditor,
+      edit: vscode.TextEditorEdit,
+      action: string,
+      args: any
+    ) => {
+      console.log(`action: ${action}`);
+      console.log(`args:`);
+      console.dir(args);
+    }
+  );
+
   const selectTokenDisposable = vscode.commands.registerTextEditorCommand(
-    "decorative-navigation.selectToken",
+    "cursorless.selectToken",
     (
       editor: vscode.TextEditor,
       edit: vscode.TextEditorEdit,
@@ -97,6 +111,7 @@ export function activate(context: vscode.ExtensionContext) {
   addDecorationsDebounced();
 
   context.subscriptions.push(
+    cursorlessCommandDisposable,
     selectTokenDisposable,
     toggleDecorationsDisposable,
     vscode.window.onDidChangeTextEditorVisibleRanges(addDecorationsDebounced),
