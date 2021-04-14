@@ -1,8 +1,12 @@
+import { writeFileSync } from "fs";
 import * as vscode from "vscode";
 import { addDecorationsToEditor } from "./addDecorationsToEditor";
 import { COLORS, DEBOUNCE_DELAY, SymbolColor } from "./constants";
 import Decorations from "./Decorations";
+import { inferFullTargets } from "./inferFullTargets";
 import NavigationMap from "./NavigationMap";
+import processTargets from "./processTargets";
+import { PartialTarget, Position, Target } from "./Types";
 
 export function activate(context: vscode.ExtensionContext) {
   const decorations = new Decorations();
@@ -53,15 +57,57 @@ export function activate(context: vscode.ExtensionContext) {
 
   const cursorlessCommandDisposable = vscode.commands.registerTextEditorCommand(
     "cursorless.command",
-    (
+    async (
       editor: vscode.TextEditor,
       edit: vscode.TextEditorEdit,
       action: string,
-      args: any
+      ...partialTargets: PartialTarget[]
     ) => {
       console.log(`action: ${action}`);
-      console.log(`args:`);
-      console.dir(args);
+      console.log(`targets:`);
+      console.dir(partialTargets);
+
+      const selectionContents = editor.selections.map((selection) =>
+        editor.document.getText(selection)
+      );
+
+      const isPaste = action === "paste";
+
+      var clipboardContents: string | undefined;
+      var preferredPositions: (Position | null)[] = Array(
+        partialTargets.length
+      ).fill(null);
+
+      if (isPaste) {
+        clipboardContents = await vscode.env.clipboard.readText();
+        // clipboardContents = "hello";
+        // clipboardContents = "hello\n";
+        // clipboardContents = "\nhello\n";
+        preferredPositions = ["after"];
+      }
+
+      const context = {
+        selectionContents,
+        isPaste,
+        clipboardContents,
+      };
+
+      const targets = inferFullTargets(
+        context,
+        partialTargets,
+        preferredPositions
+      );
+
+      // writeFileSync(
+      //   "/Users/pokey/src/cursorless-vscode/inferFullTargetsTests.jsonl",
+      //   JSON.stringify({
+      //     input: { context, partialTargets, preferredPositions },
+      //     expectedOutput: targets,
+      //   }) + "\n",
+      //   { flag: "a" }
+      // );
+
+      // const processedTargets = processTargets(navigationMap!, targets);
     }
   );
 
