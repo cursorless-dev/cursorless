@@ -38,6 +38,7 @@ export type Delimiter =
   | "curlyBrackets"
   | "angleBrackets"
   | "parentheses"
+  | "singleQuotes"
   | "doubleQuotes";
 export type SymbolType = "class" | "function" | "symbol" | "namedFunction";
 export type PieceType = "subtoken" | "character";

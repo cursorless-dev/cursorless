@@ -2285,9 +2285,7 @@ const fixture: Fixture[] = [
           selectionType: "token",
           position: "contents",
           transformation: {
-            type: "surroundingPair",
-            delimiter: "doubleQuotes",
-            includePairDelimiter: false,
+            type: "identity",
           },
         },
       },
@@ -2306,18 +2304,74 @@ const fixture: Fixture[] = [
             type: "primitive",
             transformation: {
               type: "surroundingPair",
-              delimiter: "doubleQuotes",
+              delimiter: "singleQuotes",
               includePairDelimiter: false,
-            },
-            mark: {
-              type: "decoratedSymbol",
-              symbolColor: "default",
-              character: "f",
             },
           },
           end: {
             type: "primitive",
-            selectionType: "token",
+            mark: {
+              type: "decoratedSymbol",
+              symbolColor: "default",
+              character: "h",
+            },
+          },
+        },
+      ],
+      preferredPositions: [null],
+    },
+    expectedOutput: [
+      {
+        type: "range",
+        start: {
+          type: "primitive",
+          mark: {
+            type: "cursor",
+          },
+          selectionType: "token",
+          position: "contents",
+          transformation: {
+            type: "surroundingPair",
+            delimiter: "singleQuotes",
+            includePairDelimiter: false,
+          },
+        },
+        end: {
+          type: "primitive",
+          mark: {
+            type: "decoratedSymbol",
+            symbolColor: "default",
+            character: "h",
+          },
+          selectionType: "token",
+          position: "contents",
+          transformation: {
+            type: "identity",
+          },
+        },
+      },
+    ],
+  },
+  {
+    input: {
+      context: {
+        selectionContents: [""],
+        isPaste: false,
+      },
+      partialTargets: [
+        {
+          type: "range",
+          start: {
+            type: "primitive",
+            selectionType: "line",
+            transformation: {
+              type: "surroundingPair",
+              delimiter: "parentheses",
+              includePairDelimiter: false,
+            },
+          },
+          end: {
+            type: "primitive",
             mark: {
               type: "decoratedSymbol",
               symbolColor: "default",
@@ -2334,15 +2388,13 @@ const fixture: Fixture[] = [
         start: {
           type: "primitive",
           mark: {
-            type: "decoratedSymbol",
-            symbolColor: "default",
-            character: "f",
+            type: "cursor",
           },
-          selectionType: "token",
+          selectionType: "line",
           position: "contents",
           transformation: {
             type: "surroundingPair",
-            delimiter: "doubleQuotes",
+            delimiter: "parentheses",
             includePairDelimiter: false,
           },
         },
@@ -2353,13 +2405,209 @@ const fixture: Fixture[] = [
             symbolColor: "default",
             character: "g",
           },
-          selectionType: "token",
+          selectionType: "line",
           position: "contents",
           transformation: {
-            type: "surroundingPair",
-            delimiter: "doubleQuotes",
-            includePairDelimiter: false,
+            type: "identity",
           },
+        },
+      },
+    ],
+  },
+  {
+    input: {
+      context: {
+        selectionContents: [""],
+        isPaste: false,
+      },
+      partialTargets: [
+        {
+          type: "range",
+          start: {
+            type: "primitive",
+            selectionType: "line",
+            transformation: {
+              type: "containingSymbolDefinition",
+              symbolType: "function",
+            },
+          },
+          end: {
+            type: "primitive",
+            mark: {
+              type: "decoratedSymbol",
+              symbolColor: "default",
+              character: "g",
+            },
+          },
+        },
+      ],
+      preferredPositions: [null],
+    },
+    expectedOutput: [
+      {
+        type: "range",
+        start: {
+          type: "primitive",
+          mark: {
+            type: "cursor",
+          },
+          selectionType: "line",
+          position: "contents",
+          transformation: {
+            type: "containingSymbolDefinition",
+            symbolType: "function",
+          },
+        },
+        end: {
+          type: "primitive",
+          mark: {
+            type: "decoratedSymbol",
+            symbolColor: "default",
+            character: "g",
+          },
+          selectionType: "line",
+          position: "contents",
+          transformation: {
+            type: "containingSymbolDefinition",
+            symbolType: "function",
+          },
+        },
+      },
+    ],
+  },
+  {
+    input: {
+      context: {
+        selectionContents: [""],
+        isPaste: false,
+      },
+      partialTargets: [
+        {
+          type: "primitive",
+          selectionType: "line",
+          mark: {
+            type: "decoratedSymbol",
+            symbolColor: "default",
+            character: "g",
+          },
+          transformation: {
+            type: "matchingPairSymbol",
+          },
+        },
+      ],
+      preferredPositions: [null],
+    },
+    expectedOutput: [
+      {
+        type: "primitive",
+        mark: {
+          type: "decoratedSymbol",
+          symbolColor: "default",
+          character: "g",
+        },
+        selectionType: "line",
+        position: "contents",
+        transformation: {
+          type: "matchingPairSymbol",
+        },
+      },
+    ],
+  },
+  {
+    input: {
+      context: {
+        selectionContents: [""],
+        isPaste: false,
+      },
+      partialTargets: [
+        {
+          type: "primitive",
+          transformation: {
+            type: "matchingPairSymbol",
+          },
+        },
+      ],
+      preferredPositions: [null],
+    },
+    expectedOutput: [
+      {
+        type: "primitive",
+        mark: {
+          type: "cursor",
+        },
+        selectionType: "token",
+        position: "contents",
+        transformation: {
+          type: "matchingPairSymbol",
+        },
+      },
+    ],
+  },
+  {
+    input: {
+      context: {
+        selectionContents: [""],
+        isPaste: false,
+      },
+      partialTargets: [
+        {
+          type: "primitive",
+          selectionType: "line",
+          transformation: {
+            type: "matchingPairSymbol",
+          },
+        },
+      ],
+      preferredPositions: [null],
+    },
+    expectedOutput: [
+      {
+        type: "primitive",
+        mark: {
+          type: "cursor",
+        },
+        selectionType: "line",
+        position: "contents",
+        transformation: {
+          type: "matchingPairSymbol",
+        },
+      },
+    ],
+  },
+  {
+    input: {
+      context: {
+        selectionContents: [""],
+        isPaste: true,
+        clipboardContents: "hello",
+      },
+      partialTargets: [
+        {
+          type: "primitive",
+          mark: {
+            type: "decoratedSymbol",
+            symbolColor: "default",
+            character: "(",
+          },
+          transformation: {
+            type: "matchingPairSymbol",
+          },
+        },
+      ],
+      preferredPositions: ["after"],
+    },
+    expectedOutput: [
+      {
+        type: "primitive",
+        mark: {
+          type: "decoratedSymbol",
+          symbolColor: "default",
+          character: "(",
+        },
+        selectionType: "token",
+        position: "contents",
+        transformation: {
+          type: "matchingPairSymbol",
         },
       },
     ],

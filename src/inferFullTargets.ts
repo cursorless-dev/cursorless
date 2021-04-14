@@ -185,13 +185,9 @@ export function inferSinglePrimitiveTarget(
   context: InferenceContext,
   target: PartialPrimitiveTarget,
   prototypeTargets: Target[],
-  preferredPosition: Position | null,
-  inheritMark = false
+  preferredPosition: Position | null
 ): PrimitiveTarget {
-  const mark =
-    target.mark ??
-    (inheritMark ? extractAttributeFromList(prototypeTargets, "mark") : null) ??
-    CURSOR_MARK;
+  const mark = target.mark ?? CURSOR_MARK;
 
   const selectionType =
     target.selectionType ??
@@ -245,12 +241,12 @@ export function inferSingleNonListTarget(
       return {
         type: "range",
         start,
-        end: inferSinglePrimitiveTarget(
+        end: inferRangeEndTarget(
           context,
           target.end,
-          ([start] as Target[]).concat(prototypeTargets),
-          null,
-          true
+          start,
+          prototypeTargets,
+          null
         ),
       };
   }
@@ -258,15 +254,10 @@ export function inferSingleNonListTarget(
 
 function inferRangeStartSelectionType(
   context: InferenceContext,
-  target: PartialPrimitiveTarget,
   endTarget: PartialPrimitiveTarget,
   prototypeTargets: Target[],
   inferredMark: Mark
 ): SelectionType {
-  if (target.selectionType != null) {
-    return target.selectionType;
-  }
-
   if (
     endTarget.position !== "start" &&
     endTarget.position !== "end" &&
@@ -283,10 +274,6 @@ function inferRangeStartTransformation(
   endTarget: PartialPrimitiveTarget,
   prototypeTargets: Target[]
 ): Transformation {
-  if (target.transformation != null) {
-    return target.transformation;
-  }
-
   if (
     endTarget.position !== "start" &&
     endTarget.position !== "end" &&
@@ -304,6 +291,24 @@ function inferRangeStartTransformation(
   );
 }
 
+function inferRangeEndTransformation(
+  startTarget: PartialPrimitiveTarget,
+  prototypeTargets: Target[]
+): Transformation {
+  if (
+    startTarget.transformation != null &&
+    startTarget.transformation.type === "containingSymbolDefinition"
+  ) {
+    return startTarget.transformation;
+  }
+
+  return (
+    extractAttributeFromList(prototypeTargets, "transformation") ?? {
+      type: "identity",
+    }
+  );
+}
+
 function inferRangeStartTarget(
   context: InferenceContext,
   target: PartialPrimitiveTarget,
@@ -312,21 +317,65 @@ function inferRangeStartTarget(
 ): PrimitiveTarget {
   const mark = target.mark ?? CURSOR_MARK;
 
-  const selectionType = inferRangeStartSelectionType(
-    context,
-    target,
-    endTarget,
-    prototypeTargets,
-    mark
-  );
+  const selectionType =
+    target.selectionType ??
+    inferRangeStartSelectionType(context, endTarget, prototypeTargets, mark);
 
   const position: Position = target.position ?? "contents";
 
-  const transformation = inferRangeStartTransformation(
-    target,
-    endTarget,
-    prototypeTargets
-  );
+  const transformation =
+    target.transformation ??
+    inferRangeStartTransformation(target, endTarget, prototypeTargets);
+
+  return {
+    type: target.type,
+    mark,
+    selectionType,
+    position,
+    transformation,
+  };
+}
+
+export function inferRangeEndTarget(
+  context: InferenceContext,
+  target: PartialPrimitiveTarget,
+  startTarget: PartialPrimitiveTarget,
+  prototypeTargets: Target[],
+  preferredPosition: Position | null
+): PrimitiveTarget {
+  const prototypeTargetsIncludingStartTarget = ([
+    startTarget,
+  ] as Target[]).concat(prototypeTargets);
+
+  const mark =
+    target.mark ??
+    extractAttributeFromList(prototypeTargetsIncludingStartTarget, "mark") ??
+    CURSOR_MARK;
+
+  const selectionType =
+    target.selectionType ??
+    getPrimitiveSelectionType(
+      context,
+      mark,
+      prototypeTargetsIncludingStartTarget
+    );
+
+  // Note that we don't use prototypeTargetsIncludingStartTarget here because
+  // we don't want to blindly inherit transformation from startTarget.  In
+  // particular, we only want to inherit symbolType
+  const transformation =
+    target.transformation ??
+    inferRangeEndTransformation(startTarget, prototypeTargets);
+
+  const position: Position =
+    target.position ??
+    getPrimitivePosition(
+      context,
+      mark,
+      transformation,
+      prototypeTargets,
+      preferredPosition
+    );
 
   return {
     type: target.type,
