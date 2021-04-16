@@ -1,5 +1,7 @@
 import * as vscode from "vscode";
+import { Uri } from "vscode";
 import { SymbolColor } from "./constants";
+import NavigationMap from "./NavigationMap";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -7,6 +9,7 @@ import { SymbolColor } from "./constants";
 export interface Token {
   text: string;
   range: vscode.Range;
+  documentUri: Uri;
   displayLine: number;
 }
 
@@ -125,4 +128,21 @@ export interface InferenceContext {
   selectionContents: string[];
   clipboardContents?: string;
   isPaste: boolean;
+}
+
+export interface ProcessedTargetsContext {
+  currentSelections: SelectionWithUri[];
+  currentDocumentUri: vscode.Uri;
+  navigationMap: NavigationMap;
+  lastCursorPosition: vscode.Selection[];
+}
+
+export interface SelectionWithUri {
+  selection: vscode.Selection;
+  documentUri: vscode.Uri;
+}
+
+export interface TypedSelection {
+  selection: SelectionWithUri;
+  selectionType: SelectionType;
 }

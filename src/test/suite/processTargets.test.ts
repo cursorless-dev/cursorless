@@ -11,13 +11,14 @@ import { Target } from "../../Types";
 suite("processTargets", () => {
   test("simple processTargets", () => {
     const navigationMap = new NavigationMap();
-    const token = {
+    const token: Token = {
       text: "hello",
       range: new vscode.Range(
         new vscode.Position(0, 0),
         new vscode.Position(0, 5)
       ),
       displayLine: 0,
+      documentUri: "",
     };
     navigationMap.addToken("red", "h", token);
 

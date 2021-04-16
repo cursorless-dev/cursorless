@@ -6,7 +6,12 @@ import Decorations from "./Decorations";
 import { inferFullTargets } from "./inferFullTargets";
 import NavigationMap from "./NavigationMap";
 import processTargets from "./processTargets";
-import { PartialTarget, Position, Target } from "./Types";
+import {
+  PartialTarget,
+  Position,
+  ProcessedTargetsContext,
+  Target,
+} from "./Types";
 
 export function activate(context: vscode.ExtensionContext) {
   const decorations = new Decorations();
@@ -65,7 +70,7 @@ export function activate(context: vscode.ExtensionContext) {
     ) => {
       console.log(`action: ${action}`);
       console.log(`targets:`);
-      console.dir(partialTargets);
+      console.log(JSON.stringify(partialTargets[0], null, 3));
 
       const selectionContents = editor.selections.map((selection) =>
         editor.document.getText(selection)
@@ -86,23 +91,47 @@ export function activate(context: vscode.ExtensionContext) {
         preferredPositions = ["after"];
       }
 
-      const context = {
+      const inferenceContext = {
         selectionContents,
         isPaste,
         clipboardContents,
       };
 
       const targets = inferFullTargets(
-        context,
+        inferenceContext,
         partialTargets,
         preferredPositions
       );
+
+      const processedTargetsContext: ProcessedTargetsContext = {
+        currentSelections: editor.selections.map((selection) => ({
+          selection,
+          documentUri: editor.document.uri,
+        })),
+        currentDocumentUri: editor.document.uri,
+        navigationMap: navigationMap!,
+        lastCursorPosition: [],
+      };
+
+      const selections = processTargets(processedTargetsContext, targets);
 
       // writeFileSync(
       //   "/Users/pokey/src/cursorless-vscode/inferFullTargetsTests.jsonl",
       //   JSON.stringify({
       //     input: { context, partialTargets, preferredPositions },
       //     expectedOutput: targets,
+      //   }) + "\n",
+      //   { flag: "a" }
+      // );
+
+      // writeFileSync(
+      //   "/Users/pokey/src/cursorless-vscode/processTargetsTests.jsonl",
+      //   JSON.stringify({
+      //     input: {
+      //       context: processedTargetsContext,
+      //       targets,
+      //     },
+      //     expectedOutput: selections,
       //   }) + "\n",
       //   { flag: "a" }
       // );
