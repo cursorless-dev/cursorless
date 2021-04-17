@@ -1,3 +1,4 @@
+import { concat, zip } from "lodash";
 import * as vscode from "vscode";
 import { Selection } from "vscode";
 import {
@@ -5,6 +6,7 @@ import {
   Position,
   PrimitiveTarget,
   ProcessedTargetsContext,
+  RangeTarget,
   SelectionType,
   SelectionWithUri,
   Target,
@@ -16,14 +18,61 @@ export default function processTargets(
   context: ProcessedTargetsContext,
   targets: Target[]
 ): TypedSelection[][] {
-  return targets.map((target) => {
-    switch (target.type) {
-      case "list":
-      case "range":
-        throw new Error("Not implemented");
-      case "primitive":
-        return processSinglePrimitiveTarget(context, target);
+  return targets.map((target) => processSingleTarget(context, target));
+}
+
+function processSingleTarget(
+  context: ProcessedTargetsContext,
+  target: Target
+): TypedSelection[] {
+  switch (target.type) {
+    case "list":
+      return concat(
+        [],
+        ...target.elements.map((target) => processSingleTarget(context, target))
+      );
+    case "range":
+      return processSingleRangeTarget(context, target);
+    case "primitive":
+      return processSinglePrimitiveTarget(context, target);
+  }
+}
+
+function processSingleRangeTarget(
+  context: ProcessedTargetsContext,
+  target: RangeTarget
+): TypedSelection[] {
+  const startTargets = processSinglePrimitiveTarget(context, target.start);
+  const endTargets = processSinglePrimitiveTarget(context, target.end);
+
+  if (startTargets.length !== endTargets.length) {
+    throw new Error("startTargets and endTargets lengths don't match");
+  }
+
+  return zip(startTargets, endTargets).map(([startTarget, endTarget]) => {
+    if (
+      startTarget!.selection.documentUri !== endTarget!.selection.documentUri
+    ) {
+      throw new Error("startTarget and endTarget must be in same document");
     }
+
+    const startSelection = startTarget!.selection.selection;
+    const endSelection = endTarget!.selection.selection;
+
+    const isStartBeforeEnd = startSelection.start.isBeforeOrEqual(
+      endSelection.end
+    );
+
+    const anchor = isStartBeforeEnd ? startSelection.start : startSelection.end;
+    const active = isStartBeforeEnd ? endSelection.end : endSelection.start;
+
+    return {
+      selection: {
+        selection: new Selection(anchor, active),
+        documentUri: startTarget!.selection.documentUri,
+      },
+      selectionType: startTarget!.selectionType,
+    };
   });
 }
 

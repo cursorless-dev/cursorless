@@ -24,6 +24,7 @@ export default class Decorations {
         borderWidth: "2px 0px 0px 0px",
         borderRadius: "4px",
         backgroundColor: new vscode.ThemeColor(`cursorless.${color}Background`),
+        rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
       }),
     }));
 

@@ -1,5 +1,6 @@
 import { writeFileSync } from "fs";
 import * as vscode from "vscode";
+import actions from "./actions";
 import { addDecorationsToEditor } from "./addDecorationsToEditor";
 import { COLORS, DEBOUNCE_DELAY, SymbolColor } from "./constants";
 import Decorations from "./Decorations";
@@ -114,6 +115,7 @@ export function activate(context: vscode.ExtensionContext) {
       };
 
       const selections = processTargets(processedTargetsContext, targets);
+      actions[action](...selections);
 
       // writeFileSync(
       //   "/Users/pokey/src/cursorless-vscode/inferFullTargetsTests.jsonl",
