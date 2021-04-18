@@ -88,6 +88,15 @@
 					"light": "#19a1d6",
 					"highContrast": "#19a1d6"
 				}
+			},
+			{
+				"id": "cursorless.pendingDeleteBackground",
+				"description": "Background color to use for ranges about to be deleted",
+				"defaults": {
+					"dark": "#ff00008a",
+					"light": "#ff00008a",
+					"highContrast": "#ff00008a"
+				}
 			}
 		],
 		"configuration": {
@@ -97,6 +106,11 @@
 					"type": "boolean",
 					"default": true,
 					"description": "Whether to show decorations on vscode start."
+				},
+				"cursorless.pendingEditDecorationTime": {
+					"type": "integer",
+					"default": 100,
+					"description": "How long in milliseconds to show a pending edit decoration"
 				}
 			}
 		}

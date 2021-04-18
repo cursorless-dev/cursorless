@@ -1,9 +1,10 @@
 import { writeFileSync } from "fs";
 import * as vscode from "vscode";
-import actions from "./actions";
+import Actions from "./actions";
 import { addDecorationsToEditor } from "./addDecorationsToEditor";
 import { COLORS, DEBOUNCE_DELAY, SymbolColor } from "./constants";
 import Decorations from "./Decorations";
+import EditStyles from "./editStyles";
 import { inferFullTargets } from "./inferFullTargets";
 import NavigationMap from "./NavigationMap";
 import processTargets from "./processTargets";
@@ -19,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   var isActive = vscode.workspace
     .getConfiguration("cursorless")
-    .get("showOnStart");
+    .get<boolean>("showOnStart")!;
 
   function clearEditorDecorations(editor: vscode.TextEditor) {
     decorations.decorations.forEach(({ decoration }) => {
@@ -61,6 +62,9 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  const editStyles = new EditStyles();
+  const actions = new Actions(editStyles);
+
   const cursorlessCommandDisposable = vscode.commands.registerTextEditorCommand(
     "cursorless.command",
     async (
@@ -74,6 +78,12 @@ export function activate(context: vscode.ExtensionContext) {
       console.log(JSON.stringify(partialTargets[0], null, 3));
 
       const action = actions[actionName];
+
+      if (partialTargets.length !== action.length) {
+        throw new Error(
+          `Action ${action} expected ${action.length} args but received ${partialTargets.length}`
+        );
+      }
 
       const selectionContents = editor.selections.map((selection) =>
         editor.document.getText(selection)
@@ -116,11 +126,7 @@ export function activate(context: vscode.ExtensionContext) {
 
       const selections = processTargets(processedTargetsContext, targets);
 
-      if (selections.length !== action.func.length) {
-        throw new Error("Wrong number of targets provided");
-      }
-
-      return await action.func(...selections);
+      return await action(...selections);
 
       // writeFileSync(
       //   "/Users/pokey/src/cursorless-vscode/inferFullTargetsTests.jsonl",

@@ -1,53 +1,93 @@
 import { groupBy, toPairs } from "lodash";
-import { Uri, window } from "vscode";
+import { Uri, window, workspace } from "vscode";
+import EditStyles from "./editStyles";
 import { TypedSelection } from "./Types";
+import { promisify } from "util";
+import { isLineSelectionType } from "./selectionType";
+
+const sleep = promisify(setTimeout);
 
 interface Action {
-  func: (...args: TypedSelection[][]) => Promise<any>;
+  (...args: TypedSelection[][]): Promise<any>;
   preferredPositions?: string[];
 }
-const actions = {
-  setSelection: {
-    async func(targets: TypedSelection[]) {
-      const documentUris = targets.map(
-        (target) => target.selection.documentUri
-      );
-      if (new Set(documentUris).size > 1) {
-        throw new Error("Can only select from one document at a time");
-      }
-      const documentUri = documentUris[0];
-      const editor = window.visibleTextEditors.filter(
-        (textEditor) => textEditor.document.uri === documentUri
-      )[0];
 
-      editor.selections = targets.map((target) => target.selection.selection);
-      window.showTextDocument(editor.document);
-    },
-  } as Action,
+class Actions {
+  constructor(private styles: EditStyles) {
+    this.setSelection = this.setSelection.bind(this);
+    this.setSelectionBefore = this.setSelectionBefore.bind(this);
+    this.setSelectionAfter = this.setSelectionAfter.bind(this);
+    this.delete = this.delete.bind(this);
+    this.paste = this.paste.bind(this);
 
-  setSelectionBefore: {
-    async func(targets: TypedSelection[]) {
-      actions.setSelection.func(targets);
-    },
-    preferredPositions: ["before"],
-  } as Action,
+    this.paste.preferredPositions = ["after"];
+    this.setSelectionAfter.preferredPositions = ["after"];
+    this.setSelectionBefore.preferredPositions = ["before"];
+  }
 
-  setSelectionAfter: {
-    async func(targets: TypedSelection[]) {
-      actions.setSelection.func(targets);
-    },
-    preferredPositions: ["after"],
-  } as Action,
+  setSelection: Action = async (targets: TypedSelection[]) => {
+    const documentUris = targets.map((target) => target.selection.documentUri);
+    if (new Set(documentUris).size > 1) {
+      throw new Error("Can only select from one document at a time");
+    }
+    const documentUri = documentUris[0];
+    const editor = window.visibleTextEditors.filter(
+      (textEditor) => textEditor.document.uri === documentUri
+    )[0];
 
-  delete: {
-    async func(targets: TypedSelection[]) {
+    editor.selections = targets.map((target) => target.selection.selection);
+    window.showTextDocument(editor.document);
+  };
+
+  setSelectionBefore: Action = async (targets: TypedSelection[]) => {
+    this.setSelection(targets);
+  };
+
+  setSelectionAfter: Action = async (targets: TypedSelection[]) => {
+    this.setSelection(targets);
+  };
+
+  delete: Action = async (targets: TypedSelection[]) => {
+    await Promise.all(
       toPairs(
         groupBy(targets, (target) => target.selection.documentUri.toString())
-      ).forEach(([documentUriString, selections]) => {
+      ).map(async ([documentUriString, selections]) => {
         const editor = window.visibleTextEditors.filter(
           (textEditor) =>
             textEditor.document.uri.toString() === documentUriString
         )[0];
+
+        editor.setDecorations(
+          this.styles.pendingDelete,
+          selections
+            .filter(
+              (selection) => !isLineSelectionType(selection.selectionType)
+            )
+            .map((selection) => selection.selection.selection)
+        );
+
+        editor.setDecorations(
+          this.styles.pendingLineDelete,
+          selections
+            .filter((selection) => isLineSelectionType(selection.selectionType))
+            // NB: We move end up one line because it will be at beginning of
+            // next line
+            .map((selection) =>
+              selection.selection.selection.with(
+                undefined,
+                selection.selection.selection.end.translate(-1)
+              )
+            )
+        );
+
+        const pendingEditDecorationTime = workspace
+          .getConfiguration("cursorless")
+          .get<number>("pendingEditDecorationTime")!;
+
+        await sleep(pendingEditDecorationTime);
+
+        editor.setDecorations(this.styles.pendingDelete, []);
+        editor.setDecorations(this.styles.pendingLineDelete, []);
 
         editor.edit((editBuilder) => {
           selections.forEach((selection) => {
@@ -56,16 +96,13 @@ const actions = {
             editBuilder.delete(selection.selection.selection);
           });
         });
-      });
-    },
-  } as Action,
+      })
+    );
+  };
 
-  paste: {
-    async func(targets: TypedSelection[]) {
-      throw new Error("Not implemented");
-    },
-    preferredPositions: ["after"],
-  } as Action,
-};
+  paste: Action = async (targets: TypedSelection[]) => {
+    throw new Error("Not implemented");
+  };
+}
 
-export default actions;
+export default Actions;
