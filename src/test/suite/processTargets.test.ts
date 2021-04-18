@@ -5,7 +5,7 @@ import * as assert from "assert";
 import * as vscode from "vscode";
 import NavigationMap from "../../NavigationMap";
 import processTargets from "../../processTargets";
-import { Target } from "../../Types";
+import { Target, Token } from "../../Types";
 // import * as myExtension from '../../extension';
 
 suite("processTargets", () => {
@@ -18,7 +18,7 @@ suite("processTargets", () => {
         new vscode.Position(0, 5)
       ),
       displayLine: 0,
-      documentUri: "",
+      documentUri: vscode.Uri.parse("file://foo"),
     };
     navigationMap.addToken("red", "h", token);
 
@@ -39,6 +39,7 @@ suite("processTargets", () => {
     ];
     assert.deepStrictEqual(
       expectedReturnValue,
+      // @ts-ignore
       processTargets(navigationMap, [target])
     );
   });

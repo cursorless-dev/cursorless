@@ -66,30 +66,30 @@ export function activate(context: vscode.ExtensionContext) {
     async (
       editor: vscode.TextEditor,
       edit: vscode.TextEditorEdit,
-      action: string,
+      actionName: keyof typeof actions,
       ...partialTargets: PartialTarget[]
     ) => {
-      console.log(`action: ${action}`);
+      console.log(`action: ${actionName}`);
       console.log(`targets:`);
       console.log(JSON.stringify(partialTargets[0], null, 3));
+
+      const action = actions[actionName];
 
       const selectionContents = editor.selections.map((selection) =>
         editor.document.getText(selection)
       );
 
-      const isPaste = action === "paste";
+      const isPaste = actionName === "paste";
 
       var clipboardContents: string | undefined;
-      var preferredPositions: (Position | null)[] = Array(
-        partialTargets.length
-      ).fill(null);
+      var preferredPositions: (Position | null)[] =
+        action.preferredPositions ?? Array(partialTargets.length).fill(null);
 
       if (isPaste) {
         clipboardContents = await vscode.env.clipboard.readText();
         // clipboardContents = "hello";
         // clipboardContents = "hello\n";
         // clipboardContents = "\nhello\n";
-        preferredPositions = ["after"];
       }
 
       const inferenceContext = {
@@ -115,7 +115,12 @@ export function activate(context: vscode.ExtensionContext) {
       };
 
       const selections = processTargets(processedTargetsContext, targets);
-      actions[action](...selections);
+
+      if (selections.length !== action.func.length) {
+        throw new Error("Wrong number of targets provided");
+      }
+
+      return await action.func(...selections);
 
       // writeFileSync(
       //   "/Users/pokey/src/cursorless-vscode/inferFullTargetsTests.jsonl",
