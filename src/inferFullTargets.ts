@@ -49,7 +49,7 @@ export function inferSingleTarget(
   prototypeTarget: Target | null,
   preferredPosition: Position | null
 ): Target {
-  const topLevelPrototypes = prototypeTarget === null ? [] : [prototypeTarget];
+  const topLevelPrototypes = prototypeTarget == null ? [] : [prototypeTarget];
   switch (target.type) {
     case "list":
       if (target.elements.length === 0) {

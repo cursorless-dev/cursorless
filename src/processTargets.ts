@@ -8,7 +8,7 @@ import {
   ProcessedTargetsContext,
   RangeTarget,
   SelectionType,
-  SelectionWithUri,
+  SelectionWithEditor,
   Target,
   Transformation,
   TypedSelection,
@@ -50,9 +50,7 @@ function processSingleRangeTarget(
   }
 
   return zip(startTargets, endTargets).map(([startTarget, endTarget]) => {
-    if (
-      startTarget!.selection.documentUri !== endTarget!.selection.documentUri
-    ) {
+    if (startTarget!.selection.editor !== endTarget!.selection.editor) {
       throw new Error("startTarget and endTarget must be in same document");
     }
 
@@ -69,7 +67,7 @@ function processSingleRangeTarget(
     return {
       selection: {
         selection: new Selection(anchor, active),
-        documentUri: startTarget!.selection.documentUri,
+        editor: startTarget!.selection.editor,
       },
       selectionType: startTarget!.selectionType,
     };
@@ -95,7 +93,7 @@ function processSinglePrimitiveTarget(
 function getSelectionsFromMark(
   context: ProcessedTargetsContext,
   mark: Mark
-): SelectionWithUri[] {
+): SelectionWithEditor[] {
   switch (mark.type) {
     case "cursor":
       return context.currentSelections;
@@ -107,7 +105,7 @@ function getSelectionsFromMark(
       return [
         {
           selection: new Selection(token.range.start, token.range.end),
-          documentUri: token.documentUri,
+          editor: token.editor,
         },
       ];
     case "lastCursorPosition":
@@ -119,8 +117,8 @@ function getSelectionsFromMark(
 function transformSelection(
   context: ProcessedTargetsContext,
   transformation: Transformation,
-  selection: SelectionWithUri
-): SelectionWithUri {
+  selection: SelectionWithEditor
+): SelectionWithEditor {
   switch (transformation.type) {
     case "identity":
       return selection;
@@ -135,7 +133,7 @@ function transformSelection(
 function createTypedSelection(
   context: ProcessedTargetsContext,
   selectionType: SelectionType,
-  selection: SelectionWithUri
+  selection: SelectionWithEditor
 ): TypedSelection {
   switch (selectionType) {
     case "token":
@@ -161,7 +159,7 @@ function createTypedSelection(
       return {
         selection: {
           selection: new Selection(anchor, active),
-          documentUri: selection.documentUri,
+          editor: selection.editor,
         },
         selectionType,
       };
@@ -204,7 +202,7 @@ function performPositionAdjustment(
   return {
     selection: {
       selection: newSelection,
-      documentUri: selection.selection.documentUri,
+      editor: selection.selection.editor,
     },
     selectionType: selection.selectionType,
   };

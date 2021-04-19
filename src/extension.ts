@@ -43,7 +43,7 @@ export function activate(context: vscode.ExtensionContext) {
   var timeoutHandle: NodeJS.Timeout | null = null;
 
   function addDecorationsDebounced() {
-    if (timeoutHandle !== null) {
+    if (timeoutHandle != null) {
       clearTimeout(timeoutHandle);
     }
 
@@ -65,11 +65,9 @@ export function activate(context: vscode.ExtensionContext) {
   const editStyles = new EditStyles();
   const actions = new Actions(editStyles);
 
-  const cursorlessCommandDisposable = vscode.commands.registerTextEditorCommand(
+  const cursorlessCommandDisposable = vscode.commands.registerCommand(
     "cursorless.command",
     async (
-      editor: vscode.TextEditor,
-      edit: vscode.TextEditorEdit,
       actionName: keyof typeof actions,
       ...partialTargets: PartialTarget[]
     ) => {
@@ -85,9 +83,10 @@ export function activate(context: vscode.ExtensionContext) {
         );
       }
 
-      const selectionContents = editor.selections.map((selection) =>
-        editor.document.getText(selection)
-      );
+      const selectionContents =
+        vscode.window.activeTextEditor?.selections.map((selection) =>
+          vscode.window.activeTextEditor!.document.getText(selection)
+        ) ?? [];
 
       const isPaste = actionName === "paste";
 
@@ -115,11 +114,12 @@ export function activate(context: vscode.ExtensionContext) {
       );
 
       const processedTargetsContext: ProcessedTargetsContext = {
-        currentSelections: editor.selections.map((selection) => ({
-          selection,
-          documentUri: editor.document.uri,
-        })),
-        currentDocumentUri: editor.document.uri,
+        currentSelections:
+          vscode.window.activeTextEditor?.selections.map((selection) => ({
+            selection,
+            editor: vscode.window.activeTextEditor!,
+          })) ?? [],
+        currentEditor: vscode.window.activeTextEditor,
         navigationMap: navigationMap!,
         lastCursorPosition: [],
       };
@@ -161,7 +161,7 @@ export function activate(context: vscode.ExtensionContext) {
       color?: SymbolColor,
       character?: string
     ) => {
-      if (navigationMap === null) {
+      if (navigationMap == null) {
         return;
       }
 
@@ -209,7 +209,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.workspace.onDidChangeTextDocument(addDecorationsDebounced),
     {
       dispose() {
-        if (timeoutHandle !== null) {
+        if (timeoutHandle != null) {
           clearTimeout(timeoutHandle);
         }
       },

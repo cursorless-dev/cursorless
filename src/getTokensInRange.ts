@@ -19,7 +19,7 @@ export function getTokensInRange(
       text: match[0],
       range,
       displayLine: displayLineMap.get(range.start.line)!,
-      documentUri: editor.document.uri,
+      editor,
     };
   });
 }

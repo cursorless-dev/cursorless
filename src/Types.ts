@@ -1,5 +1,4 @@
 import * as vscode from "vscode";
-import { Uri } from "vscode";
 import { SymbolColor } from "./constants";
 import NavigationMap from "./NavigationMap";
 
@@ -9,7 +8,7 @@ import NavigationMap from "./NavigationMap";
 export interface Token {
   text: string;
   range: vscode.Range;
-  documentUri: Uri;
+  editor: vscode.TextEditor;
   displayLine: number;
 }
 
@@ -131,18 +130,18 @@ export interface InferenceContext {
 }
 
 export interface ProcessedTargetsContext {
-  currentSelections: SelectionWithUri[];
-  currentDocumentUri: vscode.Uri;
+  currentSelections: SelectionWithEditor[];
+  currentEditor: vscode.TextEditor | undefined;
   navigationMap: NavigationMap;
   lastCursorPosition: vscode.Selection[];
 }
 
-export interface SelectionWithUri {
+export interface SelectionWithEditor {
   selection: vscode.Selection;
-  documentUri: vscode.Uri;
+  editor: vscode.TextEditor;
 }
 
 export interface TypedSelection {
-  selection: SelectionWithUri;
+  selection: SelectionWithEditor;
   selectionType: SelectionType;
 }

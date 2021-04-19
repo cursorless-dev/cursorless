@@ -18,7 +18,7 @@ suite("processTargets", () => {
         new vscode.Position(0, 5)
       ),
       displayLine: 0,
-      documentUri: vscode.Uri.parse("file://foo"),
+      editor: vscode.window.activeTextEditor!,
     };
     navigationMap.addToken("red", "h", token);
 

@@ -1,9 +1,9 @@
-import { groupBy, toPairs } from "lodash";
-import { Uri, window, workspace } from "vscode";
+import { window, workspace } from "vscode";
 import EditStyles from "./editStyles";
 import { TypedSelection } from "./Types";
 import { promisify } from "util";
 import { isLineSelectionType } from "./selectionType";
+import { groupBy } from "./itertools";
 
 const sleep = promisify(setTimeout);
 
@@ -26,14 +26,11 @@ class Actions {
   }
 
   setSelection: Action = async (targets: TypedSelection[]) => {
-    const documentUris = targets.map((target) => target.selection.documentUri);
-    if (new Set(documentUris).size > 1) {
+    const editors = targets.map((target) => target.selection.editor);
+    if (new Set(editors).size > 1) {
       throw new Error("Can only select from one document at a time");
     }
-    const documentUri = documentUris[0];
-    const editor = window.visibleTextEditors.filter(
-      (textEditor) => textEditor.document.uri === documentUri
-    )[0];
+    const editor = editors[0];
 
     editor.selections = targets.map((target) => target.selection.selection);
     window.showTextDocument(editor.document);
@@ -49,54 +46,52 @@ class Actions {
 
   delete: Action = async (targets: TypedSelection[]) => {
     await Promise.all(
-      toPairs(
-        groupBy(targets, (target) => target.selection.documentUri.toString())
-      ).map(async ([documentUriString, selections]) => {
-        const editor = window.visibleTextEditors.filter(
-          (textEditor) =>
-            textEditor.document.uri.toString() === documentUriString
-        )[0];
-
-        editor.setDecorations(
-          this.styles.pendingDelete,
-          selections
-            .filter(
-              (selection) => !isLineSelectionType(selection.selectionType)
-            )
-            .map((selection) => selection.selection.selection)
-        );
-
-        editor.setDecorations(
-          this.styles.pendingLineDelete,
-          selections
-            .filter((selection) => isLineSelectionType(selection.selectionType))
-            // NB: We move end up one line because it will be at beginning of
-            // next line
-            .map((selection) =>
-              selection.selection.selection.with(
-                undefined,
-                selection.selection.selection.end.translate(-1)
+      Array.from(
+        groupBy(targets, (target) => target.selection.editor),
+        async ([editor, selections]) => {
+          editor.setDecorations(
+            this.styles.pendingDelete,
+            selections
+              .filter(
+                (selection) => !isLineSelectionType(selection.selectionType)
               )
-            )
-        );
+              .map((selection) => selection.selection.selection)
+          );
 
-        const pendingEditDecorationTime = workspace
-          .getConfiguration("cursorless")
-          .get<number>("pendingEditDecorationTime")!;
+          editor.setDecorations(
+            this.styles.pendingLineDelete,
+            selections
+              .filter((selection) =>
+                isLineSelectionType(selection.selectionType)
+              )
+              .map((selection) =>
+                selection.selection.selection.with(
+                  undefined,
+                  // NB: We move end up one line because it is at beginning of
+                  // next line
+                  selection.selection.selection.end.translate(-1)
+                )
+              )
+          );
 
-        await sleep(pendingEditDecorationTime);
+          const pendingEditDecorationTime = workspace
+            .getConfiguration("cursorless")
+            .get<number>("pendingEditDecorationTime")!;
 
-        editor.setDecorations(this.styles.pendingDelete, []);
-        editor.setDecorations(this.styles.pendingLineDelete, []);
+          await sleep(pendingEditDecorationTime);
 
-        editor.edit((editBuilder) => {
-          selections.forEach((selection) => {
-            // TODO Properly handle last line of file
-            // TODO Handle duplicate spaces and trim spaces
-            editBuilder.delete(selection.selection.selection);
+          editor.setDecorations(this.styles.pendingDelete, []);
+          editor.setDecorations(this.styles.pendingLineDelete, []);
+
+          await editor.edit((editBuilder) => {
+            selections.forEach((selection) => {
+              // TODO Properly handle last line of file
+              // TODO Handle duplicate spaces and trim spaces
+              editBuilder.delete(selection.selection.selection);
+            });
           });
-        });
-      })
+        }
+      )
     );
   };
 

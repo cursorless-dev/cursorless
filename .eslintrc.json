@@ -12,7 +12,13 @@
         "@typescript-eslint/naming-convention": "warn",
         "@typescript-eslint/semi": "warn",
         "curly": "warn",
-        "eqeqeq": "warn",
+        "eqeqeq": [
+            "warn",
+            "always",
+            {
+                "null": "never"
+            }
+        ],
         "no-throw-literal": "warn",
         "semi": "off"
     }
