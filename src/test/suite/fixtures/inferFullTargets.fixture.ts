@@ -91,8 +91,8 @@ const fixture: Fixture[] = [
         {
           type: "primitive",
           transformation: {
-            type: "containingSymbolDefinition",
-            symbolType: "function",
+            type: "containingScope",
+            scopeType: "namedFunction",
           },
         },
       ],
@@ -107,8 +107,8 @@ const fixture: Fixture[] = [
         selectionType: "token",
         position: "contents",
         transformation: {
-          type: "containingSymbolDefinition",
-          symbolType: "function",
+          type: "containingScope",
+          scopeType: "namedFunction",
         },
       },
     ],
@@ -157,8 +157,8 @@ const fixture: Fixture[] = [
             type: "primitive",
             position: "end",
             transformation: {
-              type: "containingSymbolDefinition",
-              symbolType: "function",
+              type: "containingScope",
+              scopeType: "namedFunction",
             },
           },
         },
@@ -187,8 +187,8 @@ const fixture: Fixture[] = [
           selectionType: "token",
           position: "end",
           transformation: {
-            type: "containingSymbolDefinition",
-            symbolType: "function",
+            type: "containingScope",
+            scopeType: "namedFunction",
           },
         },
       },
@@ -211,8 +211,8 @@ const fixture: Fixture[] = [
             type: "primitive",
             position: "end",
             transformation: {
-              type: "containingSymbolDefinition",
-              symbolType: "function",
+              type: "containingScope",
+              scopeType: "namedFunction",
             },
           },
         },
@@ -241,8 +241,8 @@ const fixture: Fixture[] = [
           selectionType: "line",
           position: "end",
           transformation: {
-            type: "containingSymbolDefinition",
-            symbolType: "function",
+            type: "containingScope",
+            scopeType: "namedFunction",
           },
         },
       },
@@ -260,8 +260,8 @@ const fixture: Fixture[] = [
           start: {
             type: "primitive",
             transformation: {
-              type: "containingSymbolDefinition",
-              symbolType: "function",
+              type: "containingScope",
+              scopeType: "namedFunction",
             },
             mark: {
               type: "decoratedSymbol",
@@ -294,8 +294,8 @@ const fixture: Fixture[] = [
           selectionType: "token",
           position: "contents",
           transformation: {
-            type: "containingSymbolDefinition",
-            symbolType: "function",
+            type: "containingScope",
+            scopeType: "namedFunction",
           },
         },
         end: {
@@ -308,8 +308,8 @@ const fixture: Fixture[] = [
           selectionType: "token",
           position: "contents",
           transformation: {
-            type: "containingSymbolDefinition",
-            symbolType: "function",
+            type: "containingScope",
+            scopeType: "namedFunction",
           },
         },
       },
@@ -381,8 +381,8 @@ const fixture: Fixture[] = [
           type: "primitive",
           selectionType: "line",
           transformation: {
-            type: "containingSymbolDefinition",
-            symbolType: "class",
+            type: "containingScope",
+            scopeType: "class",
           },
         },
       ],
@@ -397,8 +397,8 @@ const fixture: Fixture[] = [
         selectionType: "line",
         position: "contents",
         transformation: {
-          type: "containingSymbolDefinition",
-          symbolType: "class",
+          type: "containingScope",
+          scopeType: "class",
         },
       },
     ],
@@ -1151,8 +1151,8 @@ const fixture: Fixture[] = [
             {
               type: "primitive",
               transformation: {
-                type: "containingSymbolDefinition",
-                symbolType: "function",
+                type: "containingScope",
+                scopeType: "namedFunction",
               },
               mark: {
                 type: "decoratedSymbol",
@@ -1198,8 +1198,8 @@ const fixture: Fixture[] = [
             selectionType: "token",
             position: "contents",
             transformation: {
-              type: "containingSymbolDefinition",
-              symbolType: "function",
+              type: "containingScope",
+              scopeType: "namedFunction",
             },
           },
           {
@@ -1214,8 +1214,8 @@ const fixture: Fixture[] = [
               selectionType: "token",
               position: "contents",
               transformation: {
-                type: "containingSymbolDefinition",
-                symbolType: "function",
+                type: "containingScope",
+                scopeType: "namedFunction",
               },
             },
             end: {
@@ -1228,8 +1228,8 @@ const fixture: Fixture[] = [
               selectionType: "token",
               position: "contents",
               transformation: {
-                type: "containingSymbolDefinition",
-                symbolType: "function",
+                type: "containingScope",
+                scopeType: "namedFunction",
               },
             },
           },
@@ -1562,8 +1562,8 @@ const fixture: Fixture[] = [
               type: "primitive",
               selectionType: "line",
               transformation: {
-                type: "containingSymbolDefinition",
-                symbolType: "function",
+                type: "containingScope",
+                scopeType: "namedFunction",
               },
               mark: {
                 type: "decoratedSymbol",
@@ -1609,8 +1609,8 @@ const fixture: Fixture[] = [
             selectionType: "line",
             position: "contents",
             transformation: {
-              type: "containingSymbolDefinition",
-              symbolType: "function",
+              type: "containingScope",
+              scopeType: "namedFunction",
             },
           },
           {
@@ -1625,8 +1625,8 @@ const fixture: Fixture[] = [
               selectionType: "line",
               position: "contents",
               transformation: {
-                type: "containingSymbolDefinition",
-                symbolType: "function",
+                type: "containingScope",
+                scopeType: "namedFunction",
               },
             },
             end: {
@@ -1639,8 +1639,8 @@ const fixture: Fixture[] = [
               selectionType: "line",
               position: "contents",
               transformation: {
-                type: "containingSymbolDefinition",
-                symbolType: "function",
+                type: "containingScope",
+                scopeType: "namedFunction",
               },
             },
           },
@@ -1664,8 +1664,8 @@ const fixture: Fixture[] = [
                 type: "primitive",
                 selectionType: "line",
                 transformation: {
-                  type: "containingSymbolDefinition",
-                  symbolType: "function",
+                  type: "containingScope",
+                  scopeType: "namedFunction",
                 },
                 mark: {
                   type: "decoratedSymbol",
@@ -1711,8 +1711,8 @@ const fixture: Fixture[] = [
               selectionType: "line",
               position: "contents",
               transformation: {
-                type: "containingSymbolDefinition",
-                symbolType: "function",
+                type: "containingScope",
+                scopeType: "namedFunction",
               },
             },
             end: {
@@ -1725,8 +1725,8 @@ const fixture: Fixture[] = [
               selectionType: "line",
               position: "contents",
               transformation: {
-                type: "containingSymbolDefinition",
-                symbolType: "function",
+                type: "containingScope",
+                scopeType: "namedFunction",
               },
             },
           },
@@ -1740,8 +1740,8 @@ const fixture: Fixture[] = [
             selectionType: "line",
             position: "contents",
             transformation: {
-              type: "containingSymbolDefinition",
-              symbolType: "function",
+              type: "containingScope",
+              scopeType: "namedFunction",
             },
           },
         ],
@@ -1927,8 +1927,8 @@ const fixture: Fixture[] = [
             type: "primitive",
             position: "end",
             transformation: {
-              type: "containingSymbolDefinition",
-              symbolType: "function",
+              type: "containingScope",
+              scopeType: "namedFunction",
             },
           },
         },
@@ -1961,8 +1961,8 @@ const fixture: Fixture[] = [
           selectionType: "line",
           position: "end",
           transformation: {
-            type: "containingSymbolDefinition",
-            symbolType: "function",
+            type: "containingScope",
+            scopeType: "namedFunction",
           },
         },
       },
@@ -2056,8 +2056,8 @@ const fixture: Fixture[] = [
           end: {
             type: "primitive",
             transformation: {
-              type: "containingSymbolDefinition",
-              symbolType: "function",
+              type: "containingScope",
+              scopeType: "namedFunction",
             },
             mark: {
               type: "decoratedSymbol",
@@ -2095,8 +2095,8 @@ const fixture: Fixture[] = [
           selectionType: "token",
           position: "contents",
           transformation: {
-            type: "containingSymbolDefinition",
-            symbolType: "function",
+            type: "containingScope",
+            scopeType: "namedFunction",
           },
         },
       },
@@ -2117,8 +2117,8 @@ const fixture: Fixture[] = [
           end: {
             type: "primitive",
             transformation: {
-              type: "containingSymbolDefinition",
-              symbolType: "function",
+              type: "containingScope",
+              scopeType: "namedFunction",
             },
             mark: {
               type: "decoratedSymbol",
@@ -2141,8 +2141,8 @@ const fixture: Fixture[] = [
           selectionType: "token",
           position: "contents",
           transformation: {
-            type: "containingSymbolDefinition",
-            symbolType: "function",
+            type: "containingScope",
+            scopeType: "namedFunction",
           },
         },
         end: {
@@ -2155,8 +2155,8 @@ const fixture: Fixture[] = [
           selectionType: "token",
           position: "contents",
           transformation: {
-            type: "containingSymbolDefinition",
-            symbolType: "function",
+            type: "containingScope",
+            scopeType: "namedFunction",
           },
         },
       },
@@ -2427,8 +2427,8 @@ const fixture: Fixture[] = [
             type: "primitive",
             selectionType: "line",
             transformation: {
-              type: "containingSymbolDefinition",
-              symbolType: "function",
+              type: "containingScope",
+              scopeType: "namedFunction",
             },
           },
           end: {
@@ -2454,8 +2454,8 @@ const fixture: Fixture[] = [
           selectionType: "line",
           position: "contents",
           transformation: {
-            type: "containingSymbolDefinition",
-            symbolType: "function",
+            type: "containingScope",
+            scopeType: "namedFunction",
           },
         },
         end: {
@@ -2468,8 +2468,8 @@ const fixture: Fixture[] = [
           selectionType: "line",
           position: "contents",
           transformation: {
-            type: "containingSymbolDefinition",
-            symbolType: "function",
+            type: "containingScope",
+            scopeType: "namedFunction",
           },
         },
       },

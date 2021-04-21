@@ -1,5 +1,5 @@
 /**
- * Returns a map where the elemnts are grouped based on the value of `func` for
+ * Returns a map where the elements are grouped based on the value of `func` for
  * the given elements.
  * @param list LIst of elements to group
  * @param func Function to map elements to group key

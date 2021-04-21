@@ -1,4 +1,6 @@
+import { SyntaxNode } from "tree-sitter";
 import * as vscode from "vscode";
+import { Location } from "vscode";
 import { SymbolColor } from "./constants";
 import NavigationMap from "./NavigationMap";
 
@@ -42,7 +44,11 @@ export type Delimiter =
   | "parentheses"
   | "singleQuotes"
   | "doubleQuotes";
-export type SymbolType = "class" | "function" | "symbol" | "namedFunction";
+export type ScopeType =
+  | "class"
+  | "arrowFunction"
+  | "namedFunction"
+  | "ifStatement";
 export type PieceType = "subtoken" | "character";
 
 export interface SurroundingPairTransformation {
@@ -50,9 +56,9 @@ export interface SurroundingPairTransformation {
   delimiter: Delimiter;
   includePairDelimiter: boolean;
 }
-export interface ContainingSymbolDefinitionTransformation {
-  type: "containingSymbolDefinition";
-  symbolType: SymbolType;
+export interface ContainingScopeTransformation {
+  type: "containingScope";
+  scopeType: ScopeType;
   valueOnly?: boolean;
 }
 export interface SubpieceTransformation {
@@ -70,13 +76,14 @@ export interface IdentityTransformation {
 
 export type Transformation =
   | SurroundingPairTransformation
-  | ContainingSymbolDefinitionTransformation
+  | ContainingScopeTransformation
   | SubpieceTransformation
   | MatchingPairSymbolTransformation
   | IdentityTransformation;
 
 export type SelectionType = "character" | "token" | "line" | "block";
 export type Position = "before" | "after" | "start" | "end" | "contents";
+// export type Position = "before" | "after" | "start" | "end" | "inner" | "outer";
 
 export interface PartialPrimitiveTarget {
   type: "primitive";
@@ -134,6 +141,7 @@ export interface ProcessedTargetsContext {
   currentEditor: vscode.TextEditor | undefined;
   navigationMap: NavigationMap;
   lastCursorPosition: vscode.Selection[];
+  getNodeAtLocation: (location: Location) => SyntaxNode;
 }
 
 export interface SelectionWithEditor {

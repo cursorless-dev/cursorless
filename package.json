@@ -15,6 +15,9 @@
 	"categories": [
 		"Other"
 	],
+	"extensionDependencies": [
+		"pokey.parse-tree"
+	],
 	"activationEvents": [
 		"*"
 	],

@@ -15,8 +15,15 @@ import {
   Target,
 } from "./Types";
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
   const decorations = new Decorations();
+  const parseTreeExtension = vscode.extensions.getExtension("pokey.parse-tree");
+
+  if (parseTreeExtension == null) {
+    throw new Error("Depends on pokey.parse-tree extension");
+  }
+
+  const { getNodeAtLocation } = await parseTreeExtension.activate();
 
   var isActive = vscode.workspace
     .getConfiguration("cursorless")
@@ -122,6 +129,7 @@ export function activate(context: vscode.ExtensionContext) {
         currentEditor: vscode.window.activeTextEditor,
         navigationMap: navigationMap!,
         lastCursorPosition: [],
+        getNodeAtLocation,
       };
 
       const selections = processTargets(processedTargetsContext, targets);

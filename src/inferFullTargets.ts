@@ -279,7 +279,7 @@ function inferRangeStartTransformation(
     endTarget.position !== "end" &&
     endTarget.transformation != null &&
     target.mark == null &&
-    endTarget.transformation.type === "containingSymbolDefinition"
+    endTarget.transformation.type === "containingScope"
   ) {
     return endTarget.transformation;
   }
@@ -297,7 +297,7 @@ function inferRangeEndTransformation(
 ): Transformation {
   if (
     startTarget.transformation != null &&
-    startTarget.transformation.type === "containingSymbolDefinition"
+    startTarget.transformation.type === "containingScope"
   ) {
     return startTarget.transformation;
   }

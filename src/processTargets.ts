@@ -1,6 +1,8 @@
 import { concat, zip } from "lodash";
+import { SyntaxNode } from "tree-sitter";
 import * as vscode from "vscode";
 import { Selection } from "vscode";
+import nodeMatchers from "./nodeMatchers";
 import {
   Mark,
   Position,
@@ -122,7 +124,31 @@ function transformSelection(
   switch (transformation.type) {
     case "identity":
       return selection;
-    case "containingSymbolDefinition":
+    case "containingScope":
+      var node: SyntaxNode | null = context.getNodeAtLocation(
+        new vscode.Location(selection.editor.document.uri, selection.selection)
+      );
+
+      const nodeMatcher = nodeMatchers[transformation.scopeType];
+
+      while (node != null) {
+        if (nodeMatcher(node)) {
+          return {
+            editor: selection.editor,
+            selection: new Selection(
+              new vscode.Position(
+                node.startPosition.row,
+                node.startPosition.column
+              ),
+              new vscode.Position(node.endPosition.row, node.endPosition.column)
+            ),
+          };
+        }
+        console.log(node.type);
+        node = node.parent;
+      }
+
+      throw new Error(`Couldn't find containing ${transformation.scopeType}`);
     case "matchingPairSymbol":
     case "subpiece":
     case "surroundingPair":
