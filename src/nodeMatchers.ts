@@ -11,7 +11,10 @@ const nodeMatchers = {
   arrowFunction: makeSimpleTypeMatcher("arrow_function"),
   // TODO Handle situation where we are declaring a function using an arrow
   // function
-  namedFunction: makeSimpleTypeMatcher("function_declaration"),
+  namedFunction: makeSimpleTypeMatcher(
+    "function_declaration",
+    "method_definition"
+  ),
   ifStatement: makeSimpleTypeMatcher("if_statement"),
 };
 

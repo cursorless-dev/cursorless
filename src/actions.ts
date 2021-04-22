@@ -1,4 +1,5 @@
-import { window, workspace } from "vscode";
+import { Selection, window, workspace } from "vscode";
+import update from "immutability-helper";
 import EditStyles from "./editStyles";
 import { TypedSelection } from "./Types";
 import { promisify } from "util";
@@ -21,8 +22,6 @@ class Actions {
     this.paste = this.paste.bind(this);
 
     this.paste.preferredPositions = ["after"];
-    this.setSelectionAfter.preferredPositions = ["after"];
-    this.setSelectionBefore.preferredPositions = ["before"];
   }
 
   setSelection: Action = async (targets: TypedSelection[]) => {
@@ -34,14 +33,37 @@ class Actions {
 
     editor.selections = targets.map((target) => target.selection.selection);
     window.showTextDocument(editor.document);
+    editor.revealRange(editor.selections[0]);
   };
 
   setSelectionBefore: Action = async (targets: TypedSelection[]) => {
-    this.setSelection(targets);
+    this.setSelection(
+      targets.map((target) =>
+        update(target, {
+          selection: {
+            selection: {
+              $apply: (selection) =>
+                new Selection(selection.start, selection.start),
+            },
+          },
+        })
+      )
+    );
   };
 
   setSelectionAfter: Action = async (targets: TypedSelection[]) => {
-    this.setSelection(targets);
+    this.setSelection(
+      targets.map((target) =>
+        update(target, {
+          selection: {
+            selection: {
+              $apply: (selection) =>
+                new Selection(selection.end, selection.end),
+            },
+          },
+        })
+      )
+    );
   };
 
   delete: Action = async (targets: TypedSelection[]) => {
