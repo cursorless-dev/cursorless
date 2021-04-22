@@ -17,6 +17,8 @@ suite("processTargets", () => {
         new vscode.Position(0, 0),
         new vscode.Position(0, 5)
       ),
+      startOffset: 0,
+      endOffset: 5,
       displayLine: 0,
       editor: vscode.window.activeTextEditor!,
     };

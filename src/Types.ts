@@ -10,6 +10,8 @@ import NavigationMap from "./NavigationMap";
 export interface Token {
   text: string;
   range: vscode.Range;
+  startOffset: number;
+  endOffset: number;
   editor: vscode.TextEditor;
   displayLine: number;
 }

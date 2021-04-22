@@ -206,6 +206,14 @@ export async function activate(context: vscode.ExtensionContext) {
 
   addDecorationsDebounced();
 
+  function handleEdit(edit: vscode.TextDocumentChangeEvent) {
+    if (navigationMap != null) {
+      navigationMap.updateTokenRanges(edit);
+    }
+
+    addDecorationsDebounced();
+  }
+
   context.subscriptions.push(
     cursorlessCommandDisposable,
     selectTokenDisposable,
@@ -214,7 +222,7 @@ export async function activate(context: vscode.ExtensionContext) {
     vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),
     vscode.window.onDidChangeVisibleTextEditors(addDecorationsDebounced),
     vscode.window.onDidChangeTextEditorSelection(addDecorationsDebounced),
-    vscode.workspace.onDidChangeTextDocument(addDecorationsDebounced),
+    vscode.workspace.onDidChangeTextDocument(handleEdit),
     {
       dispose() {
         if (timeoutHandle != null) {
