@@ -25,10 +25,6 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "cursorless.selectToken",
-				"title": "Cursorless: Select token"
-			},
-			{
 				"command": "cursorless.command",
 				"title": "Cursorless: Perform command"
 			},

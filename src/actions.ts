@@ -1,4 +1,4 @@
-import { Selection, window, workspace } from "vscode";
+import { commands, Selection, ViewColumn, window, workspace } from "vscode";
 import update from "immutability-helper";
 import EditStyles from "./editStyles";
 import { TypedSelection } from "./Types";
@@ -12,6 +12,20 @@ interface Action {
   (...args: TypedSelection[][]): Promise<any>;
   preferredPositions?: string[];
 }
+
+const columnFocusCommands = {
+  [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",
+  [ViewColumn.Two]: "workbench.action.focusSecondEditorGroup",
+  [ViewColumn.Three]: "workbench.action.focusThirdEditorGroup",
+  [ViewColumn.Four]: "workbench.action.focusFourthEditorGroup",
+  [ViewColumn.Five]: "workbench.action.focusFifthEditorGroup",
+  [ViewColumn.Six]: "workbench.action.focusSixthEditorGroup",
+  [ViewColumn.Seven]: "workbench.action.focusSeventhEditorGroup",
+  [ViewColumn.Eight]: "workbench.action.focusEighthEditorGroup",
+  [ViewColumn.Nine]: "workbench.action.focusNinthEditorGroup",
+  [ViewColumn.Active]: "",
+  [ViewColumn.Beside]: "",
+};
 
 class Actions {
   constructor(private styles: EditStyles) {
@@ -32,7 +46,9 @@ class Actions {
     const editor = editors[0];
 
     editor.selections = targets.map((target) => target.selection.selection);
-    window.showTextDocument(editor.document);
+    if (editor.viewColumn != null) {
+      await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
+    }
     editor.revealRange(editor.selections[0]);
   };
 

@@ -1,4 +1,4 @@
-import { flatten, maxBy, min } from "lodash";
+import { concat, flatten, maxBy, min } from "lodash";
 import * as vscode from "vscode";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator as getTokenComparator } from "./getTokenComparator";
@@ -13,23 +13,38 @@ interface CharacterTokenInfo {
   tokenIdx: number;
 }
 
-export function addDecorationsToEditor(
-  editor: vscode.TextEditor,
-  decorations: Decorations
-) {
-  const displayLineMap = getDisplayLineMap(editor);
+export function addDecorationsToEditors(decorations: Decorations) {
+  var editors: vscode.TextEditor[];
 
-  const tokens = flatten(
-    editor.visibleRanges.map((range) =>
-      getTokensInRange(editor, range, displayLineMap)
-    )
-  );
+  if (vscode.window.activeTextEditor == null) {
+    editors = vscode.window.visibleTextEditors;
+  } else {
+    editors = vscode.window.visibleTextEditors.filter(
+      (editor) => editor !== vscode.window.activeTextEditor
+    );
+    editors.unshift(vscode.window.activeTextEditor);
+  }
 
-  tokens.sort(
-    getTokenComparator(
-      displayLineMap.get(editor.selection.active.line)!,
-      editor.selection.active.character
-    )
+  const tokens = concat(
+    [],
+    ...editors.map((editor) => {
+      const displayLineMap = getDisplayLineMap(editor);
+
+      const tokens = flatten(
+        editor.visibleRanges.map((range) =>
+          getTokensInRange(editor, range, displayLineMap)
+        )
+      );
+
+      tokens.sort(
+        getTokenComparator(
+          displayLineMap.get(editor.selection.active.line)!,
+          editor.selection.active.character
+        )
+      );
+
+      return tokens;
+    })
   );
 
   console.log(JSON.stringify(tokens.map((token) => token.text)));
@@ -58,10 +73,18 @@ export function addDecorationsToEditor(
 
   const characterDecorationIndices: { [character: string]: number } = {};
 
-  const decorationRanges: {
-    [decorationName in SymbolColor]?: vscode.Range[];
-  } = Object.fromEntries(
-    decorations.decorations.map((decoration) => [decoration.name, []])
+  const decorationRanges: Map<
+    vscode.TextEditor,
+    {
+      [decorationName in SymbolColor]?: vscode.Range[];
+    }
+  > = new Map(
+    editors.map((editor) => [
+      editor,
+      Object.fromEntries(
+        decorations.decorations.map((decoration) => [decoration.name, []])
+      ),
+    ])
   );
 
   const navigationMap = new NavigationMap();
@@ -110,12 +133,14 @@ export function addDecorationsToEditor(
 
     const colorName = decorations.decorations[currentDecorationIndex].name;
 
-    decorationRanges[colorName]!.push(
-      new vscode.Range(
-        token.range.start.translate(undefined, bestCharacter.characterIdx),
-        token.range.start.translate(undefined, bestCharacter.characterIdx + 1)
-      )
-    );
+    decorationRanges
+      .get(token.editor)!
+      [colorName]!.push(
+        new vscode.Range(
+          token.range.start.translate(undefined, bestCharacter.characterIdx),
+          token.range.start.translate(undefined, bestCharacter.characterIdx + 1)
+        )
+      );
 
     navigationMap.addToken(colorName, bestCharacter.character, token);
 
@@ -123,11 +148,10 @@ export function addDecorationsToEditor(
       currentDecorationIndex + 1;
   });
 
-  COLORS.forEach((color) => {
-    editor.setDecorations(
-      decorations.decorationMap[color]!,
-      decorationRanges[color]!
-    );
+  decorationRanges.forEach((ranges, editor) => {
+    COLORS.forEach((color) => {
+      editor.setDecorations(decorations.decorationMap[color]!, ranges[color]!);
+    });
   });
 
   return navigationMap;

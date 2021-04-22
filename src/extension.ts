@@ -1,7 +1,7 @@
 import { writeFileSync } from "fs";
 import * as vscode from "vscode";
 import Actions from "./actions";
-import { addDecorationsToEditor } from "./addDecorationsToEditor";
+import { addDecorationsToEditors } from "./addDecorationsToEditor";
 import { COLORS, DEBOUNCE_DELAY, SymbolColor } from "./constants";
 import Decorations from "./Decorations";
 import EditStyles from "./editStyles";
@@ -38,13 +38,12 @@ export async function activate(context: vscode.ExtensionContext) {
   var navigationMap: NavigationMap | null = null;
 
   function addDecorations() {
-    vscode.window.visibleTextEditors.forEach((editor) => {
-      if (isActive && editor === vscode.window.activeTextEditor) {
-        navigationMap = addDecorationsToEditor(editor, decorations);
-      } else {
-        clearEditorDecorations(editor);
-      }
-    });
+    if (isActive) {
+      navigationMap = addDecorationsToEditors(decorations);
+    } else {
+      vscode.window.visibleTextEditors.forEach(clearEditorDecorations);
+      navigationMap = new NavigationMap();
+    }
   }
 
   var timeoutHandle: NodeJS.Timeout | null = null;
@@ -74,10 +73,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
     "cursorless.command",
-    async (
-      actionName: keyof typeof actions,
-      ...partialTargets: PartialTarget[]
-    ) => {
+    async (actionName: keyof Actions, ...partialTargets: PartialTarget[]) => {
       console.log(`action: ${actionName}`);
       console.log(`targets:`);
       console.log(JSON.stringify(partialTargets[0], null, 3));
@@ -161,49 +157,6 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  const selectTokenDisposable = vscode.commands.registerTextEditorCommand(
-    "cursorless.selectToken",
-    (
-      editor: vscode.TextEditor,
-      edit: vscode.TextEditorEdit,
-      color?: SymbolColor,
-      character?: string
-    ) => {
-      if (navigationMap == null) {
-        return;
-      }
-
-      if (color !== undefined && character !== undefined) {
-        selectToken(color, character, editor);
-        return;
-      }
-
-      const inputBox = vscode.window.createInputBox();
-      inputBox.show();
-
-      inputBox.onDidChangeValue((value) => {
-        if (color !== undefined && value.length === 1) {
-          inputBox.dispose();
-
-          character = value[0];
-          selectToken(color, character, editor);
-        }
-        if (value.length === 2) {
-          inputBox.dispose();
-
-          color = COLORS.find((c) => c.startsWith(value[0]));
-
-          if (color === undefined) {
-            return;
-          }
-
-          character = value[1];
-          selectToken(color, character, editor);
-        }
-      });
-    }
-  );
-
   addDecorationsDebounced();
 
   function handleEdit(edit: vscode.TextDocumentChangeEvent) {
@@ -216,7 +169,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     cursorlessCommandDisposable,
-    selectTokenDisposable,
     toggleDecorationsDisposable,
     vscode.window.onDidChangeTextEditorVisibleRanges(addDecorationsDebounced),
     vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),
@@ -231,15 +183,6 @@ export async function activate(context: vscode.ExtensionContext) {
       },
     }
   );
-
-  function selectToken(
-    color: SymbolColor,
-    character: string,
-    editor: vscode.TextEditor
-  ) {
-    const token = navigationMap!.getToken(color, character);
-    editor.selection = new vscode.Selection(token.range.start, token.range.end);
-  }
 }
 
 // this method is called when your extension is deactivated
