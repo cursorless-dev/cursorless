@@ -2,7 +2,7 @@
 	"name": "cursorless",
 	"displayName": "Cursorless",
 	"description": "Don't let the cursor slow you down",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"publisher": "pokey",
 	"license": "MIT",
 	"repository": {
@@ -119,7 +119,11 @@
 		}
 	},
 	"scripts": {
-		"vscode:prepublish": "yarn run compile",
+		"vscode:prepublish": "npm run -S esbuild-base -- --minify",
+		"esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+		"esbuild": "npm run -S esbuild-base -- --sourcemap",
+		"esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch",
+		"test-compile": "tsc -p ./",
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "yarn run compile && yarn run lint",
@@ -133,6 +137,7 @@
 		"@types/vscode": "^1.53.0",
 		"@typescript-eslint/eslint-plugin": "^4.9.0",
 		"@typescript-eslint/parser": "^4.9.0",
+		"esbuild": "^0.11.12",
 		"eslint": "^7.15.0",
 		"glob": "^7.1.6",
 		"mocha": "^8.1.3",
@@ -141,6 +146,7 @@
 	},
 	"dependencies": {
 		"@types/lodash": "^4.14.168",
+		"immutability-helper": "^3.1.1",
 		"lodash": "^4.17.21"
 	}
 }
