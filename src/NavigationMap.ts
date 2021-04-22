@@ -7,12 +7,15 @@ import { Token } from "./Types";
  */
 export default class NavigationMap {
   updateTokenRanges(edit: TextDocumentChangeEvent) {
-    Object.entries(this.map).forEach(([coloredSymbol, token]) => {
-      if (token.editor.document !== edit.document) {
-        return;
-      }
+    edit.contentChanges.forEach((editComponent) => {
+      // Amount by which to shift ranges
+      const shift = editComponent.text.length - editComponent.rangeLength;
 
-      edit.contentChanges.forEach((editComponent) => {
+      Object.entries(this.map).forEach(([coloredSymbol, token]) => {
+        if (token.editor.document !== edit.document) {
+          return;
+        }
+
         if (editComponent.range.start.isAfterOrEqual(token.range.end)) {
           return;
         }
@@ -23,15 +26,15 @@ export default class NavigationMap {
           return;
         }
 
-        const editDiff = editComponent.text.length - editComponent.rangeLength;
-
-        const startOffset = token.startOffset + editDiff;
-        const endOffset = token.endOffset + editDiff;
+        const startOffset = token.startOffset + shift;
+        const endOffset = token.endOffset + shift;
 
         token.range = token.range.with(
           edit.document.positionAt(startOffset),
           edit.document.positionAt(endOffset)
         );
+        token.startOffset = startOffset;
+        token.endOffset = endOffset;
       });
     });
   }
