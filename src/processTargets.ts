@@ -119,8 +119,12 @@ function getSelectionsFromMark(
 function transformSelection(
   context: ProcessedTargetsContext,
   transformation: Transformation,
+  position: Position,
   selection: SelectionWithEditor
 ): SelectionWithEditor {
+  const isInside =
+    position === "end" || position === "start" || position === "inside";
+
   switch (transformation.type) {
     case "identity":
       return selection;
@@ -132,16 +136,11 @@ function transformSelection(
       const nodeMatcher = nodeMatchers[transformation.scopeType];
 
       while (node != null) {
-        if (nodeMatcher(node)) {
+        const matchedSelection = nodeMatcher(node, isInside);
+        if (matchedSelection != null) {
           return {
             editor: selection.editor,
-            selection: new Selection(
-              new vscode.Position(
-                node.startPosition.row,
-                node.startPosition.column
-              ),
-              new vscode.Position(node.endPosition.row, node.endPosition.column)
-            ),
+            selection: matchedSelection,
           };
         }
         console.log(node.type);

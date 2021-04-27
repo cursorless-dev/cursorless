@@ -45,10 +45,10 @@ class Actions {
     }
     const editor = editors[0];
 
-    editor.selections = targets.map((target) => target.selection.selection);
     if (editor.viewColumn != null) {
       await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
     }
+    editor.selections = targets.map((target) => target.selection.selection);
     editor.revealRange(editor.selections[0]);
   };
 

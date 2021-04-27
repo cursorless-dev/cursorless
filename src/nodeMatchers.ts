@@ -1,28 +1,14 @@
 import { SyntaxNode } from "tree-sitter";
 import { Position, Selection } from "vscode";
 
-type NodeMatcher = (node: SyntaxNode) => boolean;
-
-type NodeSelectionExtractor = (
-  node: SyntaxNode,
-  isInside: boolean
-) => Selection | null;
-
-interface NodeDescriptor {
-  matcher: NodeMatcher;
-  extractor: NodeSelectionExtractor;
-}
+type NodeMatcher = (node: SyntaxNode, isInside: boolean) => Selection | null;
 
 function hasType(...typeNames: string[]): NodeMatcher {
-  return (node: SyntaxNode) => typeNames.includes(node.type);
+  return (node: SyntaxNode, isInside: boolean) =>
+    typeNames.includes(node.type) ? simpleSelectionExtractor(node) : null;
 }
 
-const makeSimpleNodeDescriptor = (...typeNames: string[]) => ({
-  matcher: hasType("pair"),
-  extractor: simpleSelectionExtractor,
-});
-
-function simpleSelectionExtractor(node: SyntaxNode, isInside: boolean) {
+function simpleSelectionExtractor(node: SyntaxNode) {
   return new Selection(
     new Position(node.startPosition.row, node.startPosition.column),
     new Position(node.endPosition.row, node.endPosition.column)
@@ -30,25 +16,25 @@ function simpleSelectionExtractor(node: SyntaxNode, isInside: boolean) {
 }
 
 const nodeMatchers = {
-  class: makeSimpleNodeDescriptor("class_declaration"),
-  arrowFunction: makeSimpleNodeDescriptor("arrow_function"),
-  pair: {
-    matcher: hasType("pair"),
-    extractor: (node: SyntaxNode, isInside: boolean) => {
-      return new Selection(
-        new Position(node.startPosition.row, node.startPosition.column),
-        new Position(node.endPosition.row, node.endPosition.column)
-      );
-    },
+  class: hasType("class_declaration"),
+  arrowFunction: hasType("arrow_function"),
+  pair: (node: SyntaxNode, isInside: boolean) => {
+    if (node.type !== "pair") {
+      return null;
+    }
+    return new Selection(
+      new Position(node.startPosition.row, node.startPosition.column),
+      new Position(node.endPosition.row, node.endPosition.column)
+    );
   },
-  namedFunction(node: SyntaxNode) {
+  namedFunction(node: SyntaxNode, isInside: boolean) {
     // Simple case, eg
     // function foo() {}
     if (
       node.type === "function_declaration" ||
       node.type === "method_definition"
     ) {
-      return true;
+      return simpleSelectionExtractor(node);
     }
 
     // Class property defined as field definition with arrow
@@ -61,14 +47,14 @@ const nodeMatchers = {
       // @ts-ignore
       node.valueNode.type === "arrow_function"
     ) {
-      return true;
+      return simpleSelectionExtractor(node);
     }
 
     // eg:
     // const foo = () => "hello"
     if (node.type === "lexical_declaration") {
       if (node.namedChildCount !== 1) {
-        return false;
+        return null;
       }
 
       const child = node.firstNamedChild!;
@@ -78,13 +64,13 @@ const nodeMatchers = {
         // @ts-ignore
         child.valueNode.type === "arrow_function"
       ) {
-        return true;
+        return simpleSelectionExtractor(node);
       }
     }
 
-    return false;
+    return null;
   },
-  ifStatement: makeSimpleNodeDescriptor("if_statement"),
+  ifStatement: hasType("if_statement"),
 };
 
 export default nodeMatchers;
