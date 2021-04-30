@@ -57,7 +57,6 @@ export type PieceType = "subtoken" | "character";
 export interface SurroundingPairTransformation {
   type: "surroundingPair";
   delimiter: Delimiter;
-  includePairDelimiter: boolean;
 }
 export interface ContainingScopeTransformation {
   type: "containingScope";
@@ -85,8 +84,7 @@ export type Transformation =
   | IdentityTransformation;
 
 export type SelectionType = "character" | "token" | "line" | "block";
-export type Position = "before" | "after" | "start" | "end" | "contents";
-// export type Position = "before" | "after" | "start" | "end" | "inner" | "outer";
+export type Position = "before" | "after" | "contents";
 
 export interface PartialPrimitiveTarget {
   type: "primitive";
@@ -94,6 +92,7 @@ export interface PartialPrimitiveTarget {
   transformation?: Transformation;
   selectionType?: SelectionType;
   position?: Position;
+  isInside?: boolean;
 }
 
 export interface PartialRangeTarget {
@@ -118,6 +117,7 @@ export interface PrimitiveTarget {
   transformation: Transformation;
   selectionType: SelectionType;
   position: Position;
+  isInside: boolean;
 }
 
 export interface RangeTarget {
@@ -152,7 +152,13 @@ export interface SelectionWithEditor {
   editor: vscode.TextEditor;
 }
 
+export interface SelectionContext {
+  containingListDelimiter?: string;
+  isMissingTrailingDelimiter?: boolean;
+}
+
 export interface TypedSelection {
   selection: SelectionWithEditor;
   selectionType: SelectionType;
+  selectionContext: SelectionContext;
 }

@@ -321,7 +321,7 @@ function inferRangeStartTarget(
     target.selectionType ??
     inferRangeStartSelectionType(context, endTarget, prototypeTargets, mark);
 
-  const position: Position = target.position ?? "contents";
+  const position: Position = target.position ?? "outside";
 
   const transformation =
     target.transformation ??

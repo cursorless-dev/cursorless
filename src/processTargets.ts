@@ -9,6 +9,7 @@ import {
   PrimitiveTarget,
   ProcessedTargetsContext,
   RangeTarget,
+  SelectionContext,
   SelectionType,
   SelectionWithEditor,
   Target,
@@ -72,6 +73,7 @@ function processSingleRangeTarget(
         editor: startTarget!.selection.editor,
       },
       selectionType: startTarget!.selectionType,
+      selectionContext: startTarget!.selectionContext,
     };
   });
 }
@@ -82,10 +84,11 @@ function processSinglePrimitiveTarget(
 ): TypedSelection[] {
   const markSelections = getSelectionsFromMark(context, target.mark);
   const transformedSelections = markSelections.map((markSelection) =>
-    transformSelection(context, target.transformation, markSelection)
+    transformSelection(context, target, markSelection)
   );
-  const typedSelections = transformedSelections.map((selection) =>
-    createTypedSelection(context, target.selectionType, selection)
+  const typedSelections = transformedSelections.map(
+    ({ selection, context: selectionContext }) =>
+      createTypedSelection(context, target, selection, selectionContext)
   );
   return typedSelections.map((selection) =>
     performPositionAdjustment(context, target.position, selection)
@@ -118,16 +121,14 @@ function getSelectionsFromMark(
 
 function transformSelection(
   context: ProcessedTargetsContext,
-  transformation: Transformation,
-  position: Position,
+  target: PrimitiveTarget,
   selection: SelectionWithEditor
-): SelectionWithEditor {
-  const isInside =
-    position === "end" || position === "start" || position === "inside";
+): { selection: SelectionWithEditor; context: SelectionContext } {
+  const { transformation, isInside } = target;
 
   switch (transformation.type) {
     case "identity":
-      return selection;
+      return { selection, context: {} };
     case "containingScope":
       var node: SyntaxNode | null = context.getNodeAtLocation(
         new vscode.Location(selection.editor.document.uri, selection.selection)
@@ -136,11 +137,14 @@ function transformSelection(
       const nodeMatcher = nodeMatchers[transformation.scopeType];
 
       while (node != null) {
-        const matchedSelection = nodeMatcher(node, isInside);
+        const matchedSelection = nodeMatcher(selection.editor, node, isInside);
         if (matchedSelection != null) {
           return {
-            editor: selection.editor,
-            selection: matchedSelection,
+            selection: {
+              editor: selection.editor,
+              selection: matchedSelection.selection,
+            },
+            context: matchedSelection.context,
           };
         }
         console.log(node.type);
@@ -157,23 +161,43 @@ function transformSelection(
 
 function createTypedSelection(
   context: ProcessedTargetsContext,
-  selectionType: SelectionType,
-  selection: SelectionWithEditor
+  target: PrimitiveTarget,
+  selection: SelectionWithEditor,
+  selectionContext: SelectionContext
 ): TypedSelection {
+  const { selectionType, isInside } = target;
+
   switch (selectionType) {
     case "token":
-      return { selection, selectionType };
+      return { selection, selectionType, selectionContext };
 
     case "line":
       const originalSelectionStart = selection.selection.start;
       const originalSelectionEnd = selection.selection.end;
 
-      const start = new vscode.Position(originalSelectionStart.line, 0);
-      const end =
-        originalSelectionEnd.line > originalSelectionStart.line &&
-        originalSelectionEnd.character === 0
-          ? originalSelectionEnd
-          : new vscode.Position(originalSelectionEnd.line + 1, 0);
+      var start: vscode.Position;
+      var end: vscode.Position;
+
+      if (isInside) {
+        const startLine = selection.editor.document.lineAt(
+          originalSelectionStart.line
+        );
+        const endLine = selection.editor.document.lineAt(
+          originalSelectionEnd.line
+        );
+        start = new vscode.Position(
+          originalSelectionStart.line,
+          startLine.firstNonWhitespaceCharacterIndex
+        );
+        end = endLine.range.end;
+      } else {
+        start = new vscode.Position(originalSelectionStart.line, 0);
+        end =
+          originalSelectionEnd.line > originalSelectionStart.line &&
+          originalSelectionEnd.character === 0
+            ? originalSelectionEnd
+            : new vscode.Position(originalSelectionEnd.line + 1, 0);
+      }
 
       const isAnchorBeforeActive = selection.selection.anchor.isBeforeOrEqual(
         selection.selection.active
@@ -187,6 +211,7 @@ function createTypedSelection(
           editor: selection.editor,
         },
         selectionType,
+        selectionContext,
       };
 
     case "block":
@@ -219,9 +244,6 @@ function performPositionAdjustment(
         originalSelection.end
       );
       break;
-    case "start":
-    case "end":
-      throw new Error("Not implemented");
   }
 
   return {
@@ -230,5 +252,6 @@ function performPositionAdjustment(
       editor: selection.selection.editor,
     },
     selectionType: selection.selectionType,
+    selectionContext: selection.selectionContext,
   };
 }
