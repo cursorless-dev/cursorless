@@ -9,6 +9,7 @@ import { inferFullTargets } from "./inferFullTargets";
 import NavigationMap from "./NavigationMap";
 import processTargets from "./processTargets";
 import {
+  ActionPreferences,
   PartialTarget,
   Position,
   ProcessedTargetsContext,
@@ -94,8 +95,8 @@ export async function activate(context: vscode.ExtensionContext) {
       const isPaste = actionName === "paste";
 
       var clipboardContents: string | undefined;
-      var preferredPositions: (Position | null)[] =
-        action.preferredPositions ?? Array(partialTargets.length).fill(null);
+      var actionPreferences: ActionPreferences[] =
+        action.targetPreferences ?? Array(partialTargets.length).fill({});
 
       if (isPaste) {
         clipboardContents = await vscode.env.clipboard.readText();
@@ -113,7 +114,7 @@ export async function activate(context: vscode.ExtensionContext) {
       const targets = inferFullTargets(
         inferenceContext,
         partialTargets,
-        preferredPositions
+        actionPreferences
       );
 
       const processedTargetsContext: ProcessedTargetsContext = {
@@ -130,7 +131,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
       const selections = processTargets(processedTargetsContext, targets);
 
-      return await action(...selections);
+      return await action(selections);
 
       // writeFileSync(
       //   "/Users/pokey/src/cursorless-vscode/inferFullTargetsTests.jsonl",

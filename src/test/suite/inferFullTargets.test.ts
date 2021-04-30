@@ -11,7 +11,7 @@ suite("inferFullTargets", () => {
         inferFullTargets(
           input.context,
           input.partialTargets,
-          input.preferredPositions
+          input.actionPreferences
         )
       );
     });

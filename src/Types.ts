@@ -162,3 +162,8 @@ export interface TypedSelection {
   selectionType: SelectionType;
   selectionContext: SelectionContext;
 }
+
+export interface ActionPreferences {
+  position?: Position;
+  isInside?: boolean;
+}

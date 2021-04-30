@@ -1,14 +1,14 @@
 import {
+  ActionPreferences,
   InferenceContext,
   PartialTarget,
-  Position,
   Target,
 } from "../../../Types";
 
 interface FixtureInput {
   context: InferenceContext;
   partialTargets: PartialTarget[];
-  preferredPositions: (Position | null)[];
+  actionPreferences: ActionPreferences[];
 }
 
 interface Fixture {
@@ -33,7 +33,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -65,7 +65,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -96,7 +96,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -125,7 +125,7 @@ const fixture: Fixture[] = [
           selectionType: "line",
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -163,7 +163,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -217,7 +217,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -279,7 +279,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -338,7 +338,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -386,7 +386,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -420,7 +420,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -458,7 +458,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -493,7 +493,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -526,7 +526,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: ["after"],
+      actionPreferences: [{ position: "after" }],
     },
     expectedOutput: [
       {
@@ -561,7 +561,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: ["after"],
+      actionPreferences: [{ position: "after" }],
     },
     expectedOutput: [
       {
@@ -596,7 +596,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: ["after"],
+      actionPreferences: [{ position: "after" }],
     },
     expectedOutput: [
       {
@@ -636,7 +636,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: ["after"],
+      actionPreferences: [{ position: "after" }],
     },
     expectedOutput: [
       {
@@ -674,7 +674,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: ["after"],
+      actionPreferences: [{ position: "after" }],
     },
     expectedOutput: [
       {
@@ -709,7 +709,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: ["after"],
+      actionPreferences: [{ position: "after" }],
     },
     expectedOutput: [
       {
@@ -742,7 +742,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: ["after"],
+      actionPreferences: [{ position: "after" }],
     },
     expectedOutput: [
       {
@@ -775,7 +775,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: ["after"],
+      actionPreferences: [{ position: "after" }],
     },
     expectedOutput: [
       {
@@ -808,7 +808,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: ["after"],
+      actionPreferences: [{ position: "after" }],
     },
     expectedOutput: [
       {
@@ -839,7 +839,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: ["after"],
+      actionPreferences: [{ position: "after" }],
     },
     expectedOutput: [
       {
@@ -869,7 +869,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -899,7 +899,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -929,7 +929,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -974,7 +974,7 @@ const fixture: Fixture[] = [
           ],
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1040,7 +1040,7 @@ const fixture: Fixture[] = [
           ],
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1104,7 +1104,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1182,7 +1182,7 @@ const fixture: Fixture[] = [
           ],
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1254,7 +1254,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1290,7 +1290,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1331,7 +1331,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1374,7 +1374,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1412,7 +1412,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1450,7 +1450,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: ["after"],
+      actionPreferences: [{ position: "after" }],
     },
     expectedOutput: [
       {
@@ -1486,7 +1486,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1527,7 +1527,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1593,7 +1593,7 @@ const fixture: Fixture[] = [
           ],
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1693,7 +1693,7 @@ const fixture: Fixture[] = [
           ],
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1767,7 +1767,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1817,7 +1817,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1871,7 +1871,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -1933,7 +1933,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -2000,7 +2000,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -2067,7 +2067,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -2128,7 +2128,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -2189,7 +2189,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -2255,7 +2255,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -2318,7 +2318,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -2380,7 +2380,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -2441,7 +2441,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -2495,7 +2495,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -2527,7 +2527,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -2558,7 +2558,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: [null],
+      actionPreferences: [{}],
     },
     expectedOutput: [
       {
@@ -2594,7 +2594,7 @@ const fixture: Fixture[] = [
           },
         },
       ],
-      preferredPositions: ["after"],
+      actionPreferences: [{ position: "after" }],
     },
     expectedOutput: [
       {

@@ -1,7 +1,7 @@
 import { commands, Selection, ViewColumn, window, workspace } from "vscode";
 import update from "immutability-helper";
 import EditStyles from "./editStyles";
-import { TypedSelection } from "./Types";
+import { ActionPreferences, TypedSelection } from "./Types";
 import { promisify } from "util";
 import { isLineSelectionType } from "./selectionType";
 import { groupBy } from "./itertools";
@@ -9,8 +9,8 @@ import { groupBy } from "./itertools";
 const sleep = promisify(setTimeout);
 
 interface Action {
-  (...args: TypedSelection[][]): Promise<any>;
-  preferredPositions?: string[];
+  (targets: TypedSelection[][], ...args: any[]): Promise<any>;
+  targetPreferences?: ActionPreferences[];
 }
 
 const columnFocusCommands = {
@@ -27,6 +27,16 @@ const columnFocusCommands = {
   [ViewColumn.Beside]: "",
 };
 
+function getSingleEditor(targets: TypedSelection[]) {
+  const editors = targets.map((target) => target.selection.editor);
+
+  if (new Set(editors).size > 1) {
+    throw new Error("Can only select from one document at a time");
+  }
+
+  return editors[0];
+}
+
 class Actions {
   constructor(private styles: EditStyles) {
     this.setSelection = this.setSelection.bind(this);
@@ -35,15 +45,14 @@ class Actions {
     this.delete = this.delete.bind(this);
     this.paste = this.paste.bind(this);
 
-    this.paste.preferredPositions = ["after"];
+    this.paste.targetPreferences = [{ position: "after" }];
+    this.delete.targetPreferences = [{ isInside: false }];
+    this.clear.targetPreferences = [{ isInside: true }];
+    this.setSelection.targetPreferences = [{ isInside: true }];
   }
 
-  setSelection: Action = async (targets: TypedSelection[]) => {
-    const editors = targets.map((target) => target.selection.editor);
-    if (new Set(editors).size > 1) {
-      throw new Error("Can only select from one document at a time");
-    }
-    const editor = editors[0];
+  setSelection: Action = async ([targets]) => {
+    const editor = getSingleEditor(targets);
 
     if (editor.viewColumn != null) {
       await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
@@ -52,8 +61,8 @@ class Actions {
     editor.revealRange(editor.selections[0]);
   };
 
-  setSelectionBefore: Action = async (targets: TypedSelection[]) => {
-    this.setSelection(
+  setSelectionBefore: Action = async ([targets]) => {
+    this.setSelection([
       targets.map((target) =>
         update(target, {
           selection: {
@@ -63,12 +72,12 @@ class Actions {
             },
           },
         })
-      )
-    );
+      ),
+    ]);
   };
 
-  setSelectionAfter: Action = async (targets: TypedSelection[]) => {
-    this.setSelection(
+  setSelectionAfter: Action = async ([targets]) => {
+    this.setSelection([
       targets.map((target) =>
         update(target, {
           selection: {
@@ -78,11 +87,11 @@ class Actions {
             },
           },
         })
-      )
-    );
+      ),
+    ]);
   };
 
-  delete: Action = async (targets: TypedSelection[]) => {
+  delete: Action = async ([targets]) => {
     await Promise.all(
       Array.from(
         groupBy(targets, (target) => target.selection.editor),
@@ -133,7 +142,12 @@ class Actions {
     );
   };
 
-  paste: Action = async (targets: TypedSelection[]) => {
+  clear: Action = async ([targets]) => {
+    await this.setSelection([targets]);
+    await commands.executeCommand("deleteLeft");
+  };
+
+  paste: Action = async ([targets]) => {
     throw new Error("Not implemented");
   };
 }

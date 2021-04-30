@@ -1,6 +1,7 @@
 import { Selection } from "vscode";
 import NavigationMap from "./NavigationMap";
 import {
+  ActionPreferences,
   CursorMark,
   InferenceContext,
   Mark,
@@ -18,7 +19,7 @@ import {
 export function inferFullTargets(
   context: InferenceContext,
   targets: PartialTarget[],
-  preferredPositions: (Position | null)[]
+  actionPreferences: ActionPreferences[]
 ): Target[] {
   if (targets.length === 0) {
     return [];
@@ -27,7 +28,7 @@ export function inferFullTargets(
     context,
     targets[0],
     null,
-    preferredPositions[0]
+    actionPreferences[0]
   );
   return [firstTarget].concat(
     targets
@@ -37,7 +38,7 @@ export function inferFullTargets(
           context,
           target,
           firstTarget,
-          preferredPositions[index]
+          actionPreferences[index]
         )
       )
   );
@@ -47,7 +48,7 @@ export function inferSingleTarget(
   context: InferenceContext,
   target: PartialTarget,
   prototypeTarget: Target | null,
-  preferredPosition: Position | null
+  actionPreferences: ActionPreferences
 ): Target {
   const topLevelPrototypes = prototypeTarget == null ? [] : [prototypeTarget];
   switch (target.type) {
@@ -62,7 +63,7 @@ export function inferSingleTarget(
         context,
         target.elements[0],
         topLevelPrototypes,
-        preferredPosition
+        actionPreferences
       );
       return {
         ...target,
@@ -74,7 +75,7 @@ export function inferSingleTarget(
                 context,
                 element,
                 ([firstElement] as Target[]).concat(topLevelPrototypes),
-                preferredPosition
+                actionPreferences
               )
             )
         ),
@@ -85,7 +86,7 @@ export function inferSingleTarget(
         context,
         target,
         topLevelPrototypes,
-        preferredPosition
+        actionPreferences
       );
   }
 }
@@ -95,7 +96,7 @@ export function getPrimitivePosition(
   inferredMark: Mark,
   inferredTransformation: Transformation,
   prototypeTargets: Target[],
-  preferredPosition: Position | null
+  preferredPosition: Position | undefined
 ): Position {
   const prototypePosition = extractAttributeFromList(
     prototypeTargets,
@@ -151,6 +152,26 @@ export function getPrimitiveSelectionType(
   return "token";
 }
 
+export function getPrimitiveIsInside(
+  prototypeTargets: Target[],
+  preferredIsInside: boolean | undefined
+): boolean {
+  const prototypeIsInside = extractAttributeFromList(
+    prototypeTargets,
+    "isInside"
+  );
+
+  if (prototypeIsInside != null) {
+    return prototypeIsInside;
+  }
+
+  if (preferredIsInside != null) {
+    return preferredIsInside;
+  }
+
+  return false;
+}
+
 function extractAttributeFromList<T extends keyof PrimitiveTarget>(
   targets: Target[],
   attributeName: T
@@ -185,7 +206,7 @@ export function inferSinglePrimitiveTarget(
   context: InferenceContext,
   target: PartialPrimitiveTarget,
   prototypeTargets: Target[],
-  preferredPosition: Position | null
+  actionPreferences: ActionPreferences
 ): PrimitiveTarget {
   const mark = target.mark ?? CURSOR_MARK;
 
@@ -205,8 +226,12 @@ export function inferSinglePrimitiveTarget(
       mark,
       transformation,
       prototypeTargets,
-      preferredPosition
+      actionPreferences.position
     );
+
+  const isInside =
+    target.isInside ??
+    getPrimitiveIsInside(prototypeTargets, actionPreferences.isInside);
 
   return {
     type: target.type,
@@ -214,6 +239,7 @@ export function inferSinglePrimitiveTarget(
     selectionType,
     position,
     transformation,
+    isInside,
   };
 }
 
@@ -221,7 +247,7 @@ export function inferSingleNonListTarget(
   context: InferenceContext,
   target: PartialPrimitiveTarget | PartialRangeTarget,
   prototypeTargets: Target[],
-  preferredPosition: Position | null
+  actionPreferences: ActionPreferences
 ): PrimitiveTarget | RangeTarget {
   switch (target.type) {
     case "primitive":
@@ -229,14 +255,15 @@ export function inferSingleNonListTarget(
         context,
         target,
         prototypeTargets,
-        preferredPosition
+        actionPreferences
       );
     case "range":
       const start = inferRangeStartTarget(
         context,
         target.start,
         target.end,
-        prototypeTargets
+        prototypeTargets,
+        actionPreferences
       );
       return {
         type: "range",
@@ -246,7 +273,7 @@ export function inferSingleNonListTarget(
           target.end,
           start,
           prototypeTargets,
-          null
+          actionPreferences
         ),
       };
   }
@@ -259,8 +286,8 @@ function inferRangeStartSelectionType(
   inferredMark: Mark
 ): SelectionType {
   if (
-    endTarget.position !== "start" &&
-    endTarget.position !== "end" &&
+    endTarget.position !== "before" &&
+    endTarget.position !== "after" &&
     endTarget.selectionType != null
   ) {
     return endTarget.selectionType;
@@ -275,8 +302,8 @@ function inferRangeStartTransformation(
   prototypeTargets: Target[]
 ): Transformation {
   if (
-    endTarget.position !== "start" &&
-    endTarget.position !== "end" &&
+    endTarget.position !== "before" &&
+    endTarget.position !== "after" &&
     endTarget.transformation != null &&
     target.mark == null &&
     endTarget.transformation.type === "containingScope"
@@ -313,7 +340,8 @@ function inferRangeStartTarget(
   context: InferenceContext,
   target: PartialPrimitiveTarget,
   endTarget: PartialPrimitiveTarget,
-  prototypeTargets: Target[]
+  prototypeTargets: Target[],
+  actionPreferences: ActionPreferences
 ): PrimitiveTarget {
   const mark = target.mark ?? CURSOR_MARK;
 
@@ -321,7 +349,7 @@ function inferRangeStartTarget(
     target.selectionType ??
     inferRangeStartSelectionType(context, endTarget, prototypeTargets, mark);
 
-  const position: Position = target.position ?? "outside";
+  const position: Position = target.position ?? "contents";
 
   const transformation =
     target.transformation ??
@@ -333,6 +361,10 @@ function inferRangeStartTarget(
     selectionType,
     position,
     transformation,
+    isInside: getPrimitiveIsInside(
+      prototypeTargets,
+      actionPreferences.isInside
+    ),
   };
 }
 
@@ -341,7 +373,7 @@ export function inferRangeEndTarget(
   target: PartialPrimitiveTarget,
   startTarget: PartialPrimitiveTarget,
   prototypeTargets: Target[],
-  preferredPosition: Position | null
+  actionPreferences: ActionPreferences
 ): PrimitiveTarget {
   const prototypeTargetsIncludingStartTarget = ([
     startTarget,
@@ -374,7 +406,7 @@ export function inferRangeEndTarget(
       mark,
       transformation,
       prototypeTargets,
-      preferredPosition
+      actionPreferences.position
     );
 
   return {
@@ -383,6 +415,10 @@ export function inferRangeEndTarget(
     selectionType,
     position,
     transformation,
+    isInside: getPrimitiveIsInside(
+      prototypeTargets,
+      actionPreferences.isInside
+    ),
   };
 }
 
