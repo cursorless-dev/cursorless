@@ -51,6 +51,7 @@ export type ScopeType =
   | "arrowFunction"
   | "namedFunction"
   | "pair"
+  | "argumentOrParameter"
   | "ifStatement";
 export type PieceType = "subtoken" | "character";
 
