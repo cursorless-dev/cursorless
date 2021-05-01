@@ -46,9 +46,9 @@ class Actions {
     this.paste = this.paste.bind(this);
 
     this.paste.targetPreferences = [{ position: "after" }];
-    this.delete.targetPreferences = [{ isInside: false }];
-    this.clear.targetPreferences = [{ isInside: true }];
-    this.setSelection.targetPreferences = [{ isInside: true }];
+    this.delete.targetPreferences = [{ insideOutsideType: "outside" }];
+    this.clear.targetPreferences = [{ insideOutsideType: "inside" }];
+    this.setSelection.targetPreferences = [{ insideOutsideType: "inside" }];
   }
 
   setSelection: Action = async ([targets]) => {

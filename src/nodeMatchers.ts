@@ -9,13 +9,110 @@ interface SelectionWithContext {
 
 type NodeMatcher = (
   editor: TextEditor,
-  node: SyntaxNode,
-  isInside: boolean
+  node: SyntaxNode
 ) => SelectionWithContext | null;
 
 function hasType(...typeNames: string[]): NodeMatcher {
-  return (editor: TextEditor, node: SyntaxNode, isInside: boolean) =>
+  return (editor: TextEditor, node: SyntaxNode) =>
     typeNames.includes(node.type) ? simpleSelectionExtractor(node) : null;
+}
+
+function getNextNonDelimiterNode(
+  startNode: SyntaxNode,
+  isDelimiterNode: (node: SyntaxNode) => boolean
+): SyntaxNode | null {
+  var node = startNode.nextSibling;
+
+  while (node != null) {
+    if (!isDelimiterNode(node)) {
+      return node;
+    }
+
+    node = node.nextSibling;
+  }
+
+  return node;
+}
+
+function getPreviousNonDelimiterNode(
+  startNode: SyntaxNode,
+  isDelimiterNode: (node: SyntaxNode) => boolean
+): SyntaxNode | null {
+  var node = startNode.previousSibling;
+
+  while (node != null) {
+    if (!isDelimiterNode(node)) {
+      return node;
+    }
+
+    node = node.previousSibling;
+  }
+
+  return node;
+}
+
+function delimitedMatcher(
+  nodeMatches: (node: SyntaxNode) => boolean,
+  isDelimiterNode: (node: SyntaxNode) => boolean,
+  defaultDelimiter: string
+): NodeMatcher {
+  return (editor: TextEditor, node: SyntaxNode) => {
+    if (!nodeMatches(node)) {
+      return null;
+    }
+
+    var containingListDelimiter: string | null = null;
+    var leadingDelimiterRange: Range | null = null;
+    var trailingDelimiterRange: Range | null = null;
+
+    const nextNonDelimiterNode = getNextNonDelimiterNode(node, isDelimiterNode);
+    const previousNonDelimiterNode = getPreviousNonDelimiterNode(
+      node,
+      isDelimiterNode
+    );
+
+    if (nextNonDelimiterNode != null) {
+      trailingDelimiterRange = new Range(
+        new Position(node.endPosition.row, node.endPosition.column),
+        new Position(
+          nextNonDelimiterNode.startPosition.row,
+          nextNonDelimiterNode.startPosition.column
+        )
+      );
+
+      containingListDelimiter = editor.document.getText(trailingDelimiterRange);
+    }
+
+    if (previousNonDelimiterNode != null) {
+      leadingDelimiterRange = new Range(
+        new Position(
+          previousNonDelimiterNode.endPosition.row,
+          previousNonDelimiterNode.endPosition.column
+        ),
+        new Position(node.startPosition.row, node.startPosition.column)
+      );
+
+      if (containingListDelimiter == null) {
+        containingListDelimiter = editor.document.getText(
+          leadingDelimiterRange
+        );
+      }
+    }
+
+    if (containingListDelimiter == null) {
+      containingListDelimiter = defaultDelimiter;
+    }
+
+    return {
+      ...simpleSelectionExtractor(node),
+      context: {
+        isInDelimitedList: true,
+        containingListDelimiter,
+        leadingDelimiterRange,
+        trailingDelimiterRange,
+      },
+    };
+  };
 }
 
 function simpleSelectionExtractor(node: SyntaxNode): SelectionWithContext {
@@ -31,62 +128,12 @@ function simpleSelectionExtractor(node: SyntaxNode): SelectionWithContext {
 const nodeMatchers = {
   class: hasType("class_declaration"),
   arrowFunction: hasType("arrow_function"),
-  pair: (editor: TextEditor, node: SyntaxNode, isInside: boolean) => {
-    if (node.type !== "pair") {
-      return null;
-    }
-
-    var selection: Selection;
-    var isMissingTrailingDelimiter: boolean;
-    var containingListDelimiter: string;
-    const nextNamedSibling = node.nextNamedSibling;
-    const previousNamedSibling = node.previousNamedSibling;
-
-    if (nextNamedSibling?.type === "pair") {
-      const nextNamedSiblingStartPosition = new Position(
-        nextNamedSibling.startPosition.row,
-        nextNamedSibling.startPosition.column
-      );
-
-      selection = isInside
-        ? simpleSelectionExtractor(node).selection
-        : new Selection(
-            new Position(node.startPosition.row, node.startPosition.column),
-            nextNamedSiblingStartPosition
-          );
-
-      isMissingTrailingDelimiter = false;
-      containingListDelimiter = editor.document.getText(
-        new Range(
-          new Position(node.endPosition.row, node.endPosition.column),
-          nextNamedSiblingStartPosition
-        )
-      );
-    } else {
-      selection = simpleSelectionExtractor(node).selection;
-      isMissingTrailingDelimiter = true;
-
-      if (previousNamedSibling?.type === "pair") {
-        containingListDelimiter = editor.document.getText(
-          new Range(
-            new Position(
-              previousNamedSibling.endPosition.row,
-              previousNamedSibling.endPosition.column
-            ),
-            new Position(node.startPosition.row, node.startPosition.column)
-          )
-        );
-      } else {
-        containingListDelimiter = ", ";
-      }
-    }
-
-    return {
-      selection,
-      context: { containingListDelimiter, isMissingTrailingDelimiter },
-    };
-  },
-  namedFunction(editor: TextEditor, node: SyntaxNode, isInside: boolean) {
+  pair: delimitedMatcher(
+    (node) => node.type === "pair",
+    (node) => node.type === "," || node.type === "}" || node.type === "{",
+    ", "
+  ),
+  namedFunction(editor: TextEditor, node: SyntaxNode) {
     // Simple case, eg
     // function foo() {}
     if (

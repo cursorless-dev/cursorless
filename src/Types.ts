@@ -85,6 +85,7 @@ export type Transformation =
 
 export type SelectionType = "character" | "token" | "line" | "block";
 export type Position = "before" | "after" | "contents";
+export type InsideOutsideType = "inside" | "outside" | null;
 
 export interface PartialPrimitiveTarget {
   type: "primitive";
@@ -92,7 +93,7 @@ export interface PartialPrimitiveTarget {
   transformation?: Transformation;
   selectionType?: SelectionType;
   position?: Position;
-  isInside?: boolean;
+  insideOutsideType?: InsideOutsideType;
 }
 
 export interface PartialRangeTarget {
@@ -117,7 +118,7 @@ export interface PrimitiveTarget {
   transformation: Transformation;
   selectionType: SelectionType;
   position: Position;
-  isInside: boolean;
+  insideOutsideType: InsideOutsideType;
 }
 
 export interface RangeTarget {
@@ -153,17 +154,38 @@ export interface SelectionWithEditor {
 }
 
 export interface SelectionContext {
+  isInDelimitedList?: boolean;
   containingListDelimiter?: string;
-  isMissingTrailingDelimiter?: boolean;
+
+  /**
+   * The range of the delimiter before the selection, *if* the selection has a
+   * preceding sibling, else null
+   */
+  leadingDelimiterRange?: vscode.Range | null;
+
+  /**
+   * The range of the delimiter after the selection, *if* the selection has a
+   * following sibling, else null
+   */
+  trailingDelimiterRange?: vscode.Range | null;
 }
 
 export interface TypedSelection {
+  /**
+   * The selection.  If insideOutsideType is non-null, it will be adjusted to
+   * include delimiter if outside
+   */
   selection: SelectionWithEditor;
   selectionType: SelectionType;
   selectionContext: SelectionContext;
+
+  /**
+   * Is a boolean if user specifically requested inside or outside
+   */
+  insideOutsideType: InsideOutsideType;
 }
 
 export interface ActionPreferences {
   position?: Position;
-  isInside?: boolean;
+  insideOutsideType?: InsideOutsideType;
 }

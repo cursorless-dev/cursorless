@@ -1,21 +1,45 @@
 import { concat, zip } from "lodash";
+import update from "immutability-helper";
 import { SyntaxNode } from "tree-sitter";
 import * as vscode from "vscode";
 import { Selection } from "vscode";
 import nodeMatchers from "./nodeMatchers";
 import {
+  InsideOutsideType,
   Mark,
-  Position,
   PrimitiveTarget,
   ProcessedTargetsContext,
   RangeTarget,
   SelectionContext,
-  SelectionType,
   SelectionWithEditor,
   Target,
-  Transformation,
   TypedSelection,
 } from "./Types";
+
+function performInsideOutsideAdjustment(selection: TypedSelection) {
+  if (selection.insideOutsideType === "outside") {
+    const delimiterRange =
+      selection.selectionContext.trailingDelimiterRange ??
+      selection.selectionContext.leadingDelimiterRange;
+
+    if (delimiterRange == null) {
+      return selection;
+    }
+
+    const range = selection.selection.selection.union(delimiterRange);
+
+    return update(selection, {
+      selection: {
+        selection: (s) =>
+          s.isReversed
+            ? new Selection(range.end, range.start)
+            : new Selection(range.start, range.end),
+      },
+    });
+  }
+
+  return selection;
+}
 
 export default function processTargets(
   context: ProcessedTargetsContext,
@@ -35,9 +59,13 @@ function processSingleTarget(
         ...target.elements.map((target) => processSingleTarget(context, target))
       );
     case "range":
-      return processSingleRangeTarget(context, target);
+      return processSingleRangeTarget(context, target).map(
+        performInsideOutsideAdjustment
+      );
     case "primitive":
-      return processSinglePrimitiveTarget(context, target);
+      return processSinglePrimitiveTarget(context, target).map(
+        performInsideOutsideAdjustment
+      );
   }
 }
 
@@ -66,6 +94,12 @@ function processSingleRangeTarget(
 
     const anchor = isStartBeforeEnd ? startSelection.start : startSelection.end;
     const active = isStartBeforeEnd ? endSelection.end : endSelection.start;
+    const leadingDelimiterRange = isStartBeforeEnd
+      ? startTarget!.selectionContext.leadingDelimiterRange
+      : endTarget!.selectionContext.leadingDelimiterRange;
+    const trailingDelimiterRange = isStartBeforeEnd
+      ? endTarget!.selectionContext.trailingDelimiterRange
+      : startTarget!.selectionContext.trailingDelimiterRange;
 
     return {
       selection: {
@@ -73,7 +107,14 @@ function processSingleRangeTarget(
         editor: startTarget!.selection.editor,
       },
       selectionType: startTarget!.selectionType,
-      selectionContext: startTarget!.selectionContext,
+      selectionContext: {
+        containingListDelimiter: startTarget!.selectionContext
+          .containingListDelimiter,
+        isInDelimitedList: startTarget!.selectionContext.isInDelimitedList,
+        leadingDelimiterRange,
+        trailingDelimiterRange,
+      },
+      insideOutsideType: startTarget!.insideOutsideType,
     };
   });
 }
@@ -91,7 +132,7 @@ function processSinglePrimitiveTarget(
       createTypedSelection(context, target, selection, selectionContext)
   );
   return typedSelections.map((selection) =>
-    performPositionAdjustment(context, target.position, selection)
+    performPositionAdjustment(context, target, selection)
   );
 }
 
@@ -124,7 +165,7 @@ function transformSelection(
   target: PrimitiveTarget,
   selection: SelectionWithEditor
 ): { selection: SelectionWithEditor; context: SelectionContext } {
-  const { transformation, isInside } = target;
+  const { transformation } = target;
 
   switch (transformation.type) {
     case "identity":
@@ -137,7 +178,7 @@ function transformSelection(
       const nodeMatcher = nodeMatchers[transformation.scopeType];
 
       while (node != null) {
-        const matchedSelection = nodeMatcher(selection.editor, node, isInside);
+        const matchedSelection = nodeMatcher(selection.editor, node);
         if (matchedSelection != null) {
           return {
             selection: {
@@ -165,11 +206,16 @@ function createTypedSelection(
   selection: SelectionWithEditor,
   selectionContext: SelectionContext
 ): TypedSelection {
-  const { selectionType, isInside } = target;
+  const { selectionType, insideOutsideType } = target;
 
   switch (selectionType) {
     case "token":
-      return { selection, selectionType, selectionContext };
+      return {
+        selection,
+        selectionType,
+        selectionContext,
+        insideOutsideType: target.insideOutsideType ?? null,
+      };
 
     case "line":
       const originalSelectionStart = selection.selection.start;
@@ -178,7 +224,7 @@ function createTypedSelection(
       var start: vscode.Position;
       var end: vscode.Position;
 
-      if (isInside) {
+      if (insideOutsideType) {
         const startLine = selection.editor.document.lineAt(
           originalSelectionStart.line
         );
@@ -212,6 +258,7 @@ function createTypedSelection(
         },
         selectionType,
         selectionContext,
+        insideOutsideType: target.insideOutsideType ?? null,
       };
 
     case "block":
@@ -222,10 +269,11 @@ function createTypedSelection(
 
 function performPositionAdjustment(
   context: ProcessedTargetsContext,
-  position: Position,
+  target: PrimitiveTarget,
   selection: TypedSelection
 ): TypedSelection {
   var newSelection;
+  const { position } = target;
   const originalSelection = selection.selection.selection;
 
   switch (position) {
@@ -253,5 +301,6 @@ function performPositionAdjustment(
     },
     selectionType: selection.selectionType,
     selectionContext: selection.selectionContext,
+    insideOutsideType: target.insideOutsideType ?? null,
   };
 }

@@ -4,6 +4,7 @@ import {
   ActionPreferences,
   CursorMark,
   InferenceContext,
+  InsideOutsideType,
   Mark,
   PartialPrimitiveTarget,
   PartialRangeTarget,
@@ -152,24 +153,24 @@ export function getPrimitiveSelectionType(
   return "token";
 }
 
-export function getPrimitiveIsInside(
+export function getPrimitiveInsideOutsideType(
   prototypeTargets: Target[],
-  preferredIsInside: boolean | undefined
-): boolean {
-  const prototypeIsInside = extractAttributeFromList(
+  preferredInsideOutsideType: InsideOutsideType | undefined
+): InsideOutsideType {
+  const prototypeInsideOutsideType = extractAttributeFromList(
     prototypeTargets,
-    "isInside"
+    "insideOutsideType"
   );
 
-  if (prototypeIsInside != null) {
-    return prototypeIsInside;
+  if (prototypeInsideOutsideType != null) {
+    return prototypeInsideOutsideType;
   }
 
-  if (preferredIsInside != null) {
-    return preferredIsInside;
+  if (preferredInsideOutsideType != null) {
+    return preferredInsideOutsideType;
   }
 
-  return false;
+  return null;
 }
 
 function extractAttributeFromList<T extends keyof PrimitiveTarget>(
@@ -229,9 +230,12 @@ export function inferSinglePrimitiveTarget(
       actionPreferences.position
     );
 
-  const isInside =
-    target.isInside ??
-    getPrimitiveIsInside(prototypeTargets, actionPreferences.isInside);
+  const insideOutsideType =
+    target.insideOutsideType ??
+    getPrimitiveInsideOutsideType(
+      prototypeTargets,
+      actionPreferences.insideOutsideType
+    );
 
   return {
     type: target.type,
@@ -239,7 +243,7 @@ export function inferSinglePrimitiveTarget(
     selectionType,
     position,
     transformation,
-    isInside,
+    insideOutsideType,
   };
 }
 
@@ -355,16 +359,20 @@ function inferRangeStartTarget(
     target.transformation ??
     inferRangeStartTransformation(target, endTarget, prototypeTargets);
 
+  const insideOutsideType =
+    target.insideOutsideType ??
+    getPrimitiveInsideOutsideType(
+      prototypeTargets,
+      actionPreferences.insideOutsideType
+    );
+
   return {
     type: target.type,
     mark,
     selectionType,
     position,
     transformation,
-    isInside: getPrimitiveIsInside(
-      prototypeTargets,
-      actionPreferences.isInside
-    ),
+    insideOutsideType,
   };
 }
 
@@ -409,16 +417,20 @@ export function inferRangeEndTarget(
       actionPreferences.position
     );
 
+  const insideOutsideType =
+    target.insideOutsideType ??
+    getPrimitiveInsideOutsideType(
+      prototypeTargets,
+      actionPreferences.insideOutsideType
+    );
+
   return {
     type: target.type,
     mark,
     selectionType,
     position,
     transformation,
-    isInside: getPrimitiveIsInside(
-      prototypeTargets,
-      actionPreferences.isInside
-    ),
+    insideOutsideType,
   };
 }
 
