@@ -176,6 +176,7 @@ function isExpression(node: SyntaxNode) {
 const nodeMatchers = {
   class: hasType("class_declaration"),
   arrowFunction: hasType("arrow_function"),
+  dictionary: hasType("object"),
   pair: delimitedMatcher(
     (node) => node.type === "pair",
     (node) => node.type === "," || node.type === "}" || node.type === "{",

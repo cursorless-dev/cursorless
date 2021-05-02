@@ -2,7 +2,7 @@
 	"name": "cursorless",
 	"displayName": "Cursorless",
 	"description": "Don't let the cursor slow you down",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"publisher": "pokey",
 	"license": "MIT",
 	"repository": {
@@ -95,6 +95,15 @@
 					"dark": "#ff00008a",
 					"light": "#ff00008a",
 					"highContrast": "#ff00008a"
+				}
+			},
+			{
+				"id": "cursorless.justAddedBackground",
+				"description": "Background color to use for ranges that have just been added",
+				"defaults": {
+					"dark": "#09ff005b",
+					"light": "#09ff005b",
+					"highContrast": "#09ff005b"
 				}
 			}
 		],

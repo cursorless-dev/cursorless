@@ -15,3 +15,6 @@ This extension contributes the following settings:
 ## Known Issues
 
 ## Release Notes
+
+### 0.2.0
+- Add support for arguments and pairs

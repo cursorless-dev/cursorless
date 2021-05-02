@@ -155,7 +155,7 @@ export function getPrimitiveSelectionType(
 
 export function getPrimitiveInsideOutsideType(
   prototypeTargets: Target[],
-  preferredInsideOutsideType: InsideOutsideType | undefined
+  preferredInsideOutsideType: InsideOutsideType
 ): InsideOutsideType {
   const prototypeInsideOutsideType = extractAttributeFromList(
     prototypeTargets,
@@ -166,11 +166,7 @@ export function getPrimitiveInsideOutsideType(
     return prototypeInsideOutsideType;
   }
 
-  if (preferredInsideOutsideType != null) {
-    return preferredInsideOutsideType;
-  }
-
-  return null;
+  return preferredInsideOutsideType;
 }
 
 function extractAttributeFromList<T extends keyof PrimitiveTarget>(

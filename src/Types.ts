@@ -51,6 +51,7 @@ export type ScopeType =
   | "arrowFunction"
   | "namedFunction"
   | "pair"
+  | "dictionary"
   | "argumentOrParameter"
   | "ifStatement";
 export type PieceType = "subtoken" | "character";
@@ -188,5 +189,5 @@ export interface TypedSelection {
 
 export interface ActionPreferences {
   position?: Position;
-  insideOutsideType?: InsideOutsideType;
+  insideOutsideType: InsideOutsideType;
 }

@@ -34,7 +34,7 @@ suite("processTargets", () => {
       position: "contents",
       selectionType: "token",
       transformation: { type: "identity" },
-      isInside: true,
+      insideOutsideType: "inside",
     };
 
     const expectedReturnValue = [
