@@ -190,7 +190,7 @@ function transformSelection(
               .parent!.children.map((sibling) =>
                 nodeMatcher(selection.editor, sibling)
               )
-              .filter((selection) => selection != null);
+              .filter((selection) => selection != null) as SelectionWithContext[];
           } else {
             matchedSelections = [matchedSelection];
           }

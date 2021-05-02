@@ -182,14 +182,14 @@ const nodeMatchers = {
       return null;
     }
 
-    return simpleSelectionExtractor(node.keyNode);
+    return simpleSelectionExtractor(node.keyNode!);
   },
   pairValue(editor: TextEditor, node: SyntaxNode) {
     if (node.type !== "pair") {
       return null;
     }
 
-    return simpleSelectionExtractor(node.valueNode);
+    return simpleSelectionExtractor(node.valueNode!);
   },
   argumentOrParameter: delimitedMatcher(
     (node) =>
@@ -217,8 +217,7 @@ const nodeMatchers = {
     // }
     if (
       node.type === "public_field_definition" &&
-      // @ts-ignore
-      node.valueNode.type === "arrow_function"
+      node.valueNode!.type === "arrow_function"
     ) {
       return simpleSelectionExtractor(node);
     }
@@ -234,8 +233,7 @@ const nodeMatchers = {
 
       if (
         child.type === "variable_declarator" &&
-        // @ts-ignore
-        child.valueNode.type === "arrow_function"
+        child.valueNode!.type === "arrow_function"
       ) {
         return simpleSelectionExtractor(node);
       }
