@@ -11,6 +11,7 @@ import {
   ProcessedTargetsContext,
   RangeTarget,
   SelectionContext,
+  SelectionWithContext,
   SelectionWithEditor,
   Target,
   TypedSelection,
@@ -124,8 +125,11 @@ function processSinglePrimitiveTarget(
   target: PrimitiveTarget
 ): TypedSelection[] {
   const markSelections = getSelectionsFromMark(context, target.mark);
-  const transformedSelections = markSelections.map((markSelection) =>
-    transformSelection(context, target, markSelection)
+  const transformedSelections = concat(
+    [],
+    ...markSelections.map((markSelection) =>
+      transformSelection(context, target, markSelection)
+    )
   );
   const typedSelections = transformedSelections.map(
     ({ selection, context: selectionContext }) =>
@@ -164,12 +168,12 @@ function transformSelection(
   context: ProcessedTargetsContext,
   target: PrimitiveTarget,
   selection: SelectionWithEditor
-): { selection: SelectionWithEditor; context: SelectionContext } {
+): { selection: SelectionWithEditor; context: SelectionContext }[] {
   const { transformation } = target;
 
   switch (transformation.type) {
     case "identity":
-      return { selection, context: {} };
+      return [{ selection, context: {} }];
     case "containingScope":
       var node: SyntaxNode | null = context.getNodeAtLocation(
         new vscode.Location(selection.editor.document.uri, selection.selection)
@@ -180,13 +184,23 @@ function transformSelection(
       while (node != null) {
         const matchedSelection = nodeMatcher(selection.editor, node);
         if (matchedSelection != null) {
-          return {
+          var matchedSelections: SelectionWithContext[];
+          if (transformation.includeSiblings) {
+            matchedSelections = node
+              .parent!.children.map((sibling) =>
+                nodeMatcher(selection.editor, sibling)
+              )
+              .filter((selection) => selection != null);
+          } else {
+            matchedSelections = [matchedSelection];
+          }
+          return matchedSelections.map((matchedSelection) => ({
             selection: {
               editor: selection.editor,
               selection: matchedSelection.selection,
             },
             context: matchedSelection.context,
-          };
+          }));
         }
         console.log(node.type);
         node = node.parent;

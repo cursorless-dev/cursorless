@@ -47,13 +47,15 @@ export type Delimiter =
   | "singleQuotes"
   | "doubleQuotes";
 export type ScopeType =
-  | "class"
+  | "argumentOrParameter"
   | "arrowFunction"
+  | "class"
+  | "dictionary"
+  | "ifStatement"
   | "namedFunction"
   | "pair"
-  | "dictionary"
-  | "argumentOrParameter"
-  | "ifStatement";
+  | "pairKey"
+  | "pairValue";
 export type PieceType = "subtoken" | "character";
 
 export interface SurroundingPairTransformation {
@@ -64,6 +66,7 @@ export interface ContainingScopeTransformation {
   type: "containingScope";
   scopeType: ScopeType;
   valueOnly?: boolean;
+  includeSiblings?: boolean;
 }
 export interface SubpieceTransformation {
   type: "subpiece";
@@ -190,4 +193,9 @@ export interface TypedSelection {
 export interface ActionPreferences {
   position?: Position;
   insideOutsideType: InsideOutsideType;
+}
+
+export interface SelectionWithContext {
+  selection: Selection;
+  context: SelectionContext;
 }

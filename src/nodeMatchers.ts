@@ -1,11 +1,6 @@
 import { SyntaxNode } from "tree-sitter";
 import { Position, Range, Selection, TextEditor } from "vscode";
-import { SelectionContext } from "./Types";
-
-interface SelectionWithContext {
-  selection: Selection;
-  context: SelectionContext;
-}
+import { SelectionContext, SelectionWithContext } from "./Types";
 
 type NodeMatcher = (
   editor: TextEditor,
@@ -182,6 +177,20 @@ const nodeMatchers = {
     (node) => node.type === "," || node.type === "}" || node.type === "{",
     ", "
   ),
+  pairKey(editor: TextEditor, node: SyntaxNode) {
+    if (node.type !== "pair") {
+      return null;
+    }
+
+    return simpleSelectionExtractor(node.keyNode);
+  },
+  pairValue(editor: TextEditor, node: SyntaxNode) {
+    if (node.type !== "pair") {
+      return null;
+    }
+
+    return simpleSelectionExtractor(node.valueNode);
+  },
   argumentOrParameter: delimitedMatcher(
     (node) =>
       (node.parent?.type === "arguments" &&

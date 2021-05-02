@@ -16,6 +16,10 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 0.4.0
+- Support pair key and value nodes
+- Support selecting all siblings
+
 ### 0.3.0
 - Support wrap
 
