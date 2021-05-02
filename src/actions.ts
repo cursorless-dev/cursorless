@@ -4,7 +4,6 @@ import {
   Selection,
   TextEditor,
   ViewColumn,
-  window,
   workspace,
 } from "vscode";
 import update from "immutability-helper";
@@ -72,7 +71,7 @@ export const targetPreferences: Record<keyof Actions, ActionPreferences[]> = {
   setSelection: [{ insideOutsideType: "inside" }],
   setSelectionAfter: [{ insideOutsideType: "inside" }],
   setSelectionBefore: [{ insideOutsideType: "inside" }],
-  wrapWithFunction: [{ insideOutsideType: "inside" }],
+  wrap: [{ insideOutsideType: "inside" }],
 };
 
 class Actions {
@@ -83,7 +82,7 @@ class Actions {
     this.setSelection = this.setSelection.bind(this);
     this.setSelectionAfter = this.setSelectionAfter.bind(this);
     this.setSelectionBefore = this.setSelectionBefore.bind(this);
-    this.wrapWithFunction = this.wrapWithFunction.bind(this);
+    this.wrap = this.wrap.bind(this);
   }
 
   setSelection: Action = async ([targets]) => {
@@ -172,15 +171,12 @@ class Actions {
     throw new Error("Not implemented");
   };
 
-  wrapWithFunction: Action = async ([targets], functionName: string) => {
+  wrap: Action = async ([targets], left: string, right: string) => {
     await runForEachEditor(targets, async (editor, selections) => {
       await editor.edit((editBuilder) => {
         selections.forEach((selection) => {
-          editBuilder.insert(
-            selection.selection.selection.start,
-            `${functionName}(`
-          );
-          editBuilder.insert(selection.selection.selection.end, ")");
+          editBuilder.insert(selection.selection.selection.start, left);
+          editBuilder.insert(selection.selection.selection.end, right);
         });
       });
 
@@ -192,17 +188,17 @@ class Actions {
               selection.selection.selection.start,
               selection.selection.selection.start.translate(
                 undefined,
-                functionName.length + 1
+                left.length
               )
             ),
             new Range(
               selection.selection.selection.end.translate(
                 undefined,
-                functionName.length + 1
+                left.length
               ),
               selection.selection.selection.end.translate(
                 undefined,
-                functionName.length + 2
+                left.length + right.length
               )
             ),
           ])
