@@ -183,25 +183,28 @@ class Actions {
       editor.setDecorations(
         this.styles.justAdded,
         flatten(
-          selections.map((selection) => [
-            new Range(
-              selection.selection.selection.start,
-              selection.selection.selection.start.translate(
-                undefined,
-                left.length
-              )
-            ),
-            new Range(
-              selection.selection.selection.end.translate(
-                undefined,
-                left.length
+          selections.map((selection) => {
+            const originalSelectionStart = selection.selection.selection.start;
+            const originalSelectionEnd = selection.selection.selection.end;
+            const endTranslation =
+              originalSelectionStart.line === originalSelectionEnd.line
+                ? left.length
+                : 0;
+
+            return [
+              new Range(
+                originalSelectionStart,
+                originalSelectionStart.translate(undefined, left.length)
               ),
-              selection.selection.selection.end.translate(
-                undefined,
-                left.length + right.length
-              )
-            ),
-          ])
+              new Range(
+                originalSelectionEnd.translate(undefined, endTranslation),
+                originalSelectionEnd.translate(
+                  undefined,
+                  endTranslation + right.length
+                )
+              ),
+            ];
+          })
         )
       );
 
