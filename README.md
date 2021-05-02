@@ -16,5 +16,8 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 0.3.0
+- Support wrap
+
 ### 0.2.0
 - Add support for arguments and pairs
