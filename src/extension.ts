@@ -1,8 +1,7 @@
-import { writeFileSync } from "fs";
 import * as vscode from "vscode";
 import Actions, { targetPreferences } from "./actions";
 import { addDecorationsToEditors } from "./addDecorationsToEditor";
-import { COLORS, DEBOUNCE_DELAY, SymbolColor } from "./constants";
+import { DEBOUNCE_DELAY } from "./constants";
 import Decorations from "./Decorations";
 import EditStyles from "./editStyles";
 import { inferFullTargets } from "./inferFullTargets";
@@ -11,9 +10,8 @@ import processTargets from "./processTargets";
 import {
   ActionPreferences,
   PartialTarget,
-  Position,
   ProcessedTargetsContext,
-  Target,
+  SelectionWithEditor,
 } from "./Types";
 
 export async function activate(context: vscode.ExtensionContext) {
@@ -71,6 +69,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const editStyles = new EditStyles();
   const actions = new Actions(editStyles);
+  var thatMark: SelectionWithEditor[] = [];
 
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
     "cursorless.command",
@@ -125,13 +124,20 @@ export async function activate(context: vscode.ExtensionContext) {
           })) ?? [],
         currentEditor: vscode.window.activeTextEditor,
         navigationMap: navigationMap!,
-        lastCursorPosition: [],
+        thatMark,
         getNodeAtLocation,
       };
 
       const selections = processTargets(processedTargetsContext, targets);
 
-      return await action(selections, ...extraArgs);
+      const { returnValue, thatMark: newThatMark } = await action(
+        selections,
+        ...extraArgs
+      );
+
+      thatMark = newThatMark;
+
+      return returnValue;
 
       // writeFileSync(
       //   "/Users/pokey/src/cursorless-vscode/inferFullTargetsTests.jsonl",

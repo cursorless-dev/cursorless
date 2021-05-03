@@ -8,11 +8,16 @@ import {
 } from "vscode";
 import update from "immutability-helper";
 import EditStyles from "./editStyles";
-import { ActionPreferences, TypedSelection } from "./Types";
+import {
+  ActionPreferences,
+  SelectionWithEditor,
+  TypedSelection,
+} from "./Types";
 import { promisify } from "util";
 import { isLineSelectionType } from "./selectionType";
 import { groupBy } from "./itertools";
-import { flatten } from "lodash";
+import { flatten, zip } from "lodash";
+import { computeChangedOffsets } from "./computeChangedOffsets";
 
 const sleep = promisify(setTimeout);
 
@@ -24,8 +29,13 @@ async function decorationSleep() {
   await sleep(pendingEditDecorationTime);
 }
 
+interface ActionReturnValue {
+  returnValue: any;
+  thatMark: SelectionWithEditor[];
+}
+
 interface Action {
-  (targets: TypedSelection[][], ...args: any[]): Promise<any>;
+  (targets: TypedSelection[][], ...args: any[]): Promise<ActionReturnValue>;
 }
 
 const columnFocusCommands = {
@@ -52,10 +62,10 @@ function getSingleEditor(targets: TypedSelection[]) {
   return editors[0];
 }
 
-async function runForEachEditor(
+async function runForEachEditor<T>(
   targets: TypedSelection[],
-  func: (editor: TextEditor, selections: TypedSelection[]) => Promise<any>
-) {
+  func: (editor: TextEditor, selections: TypedSelection[]) => Promise<T>
+): Promise<T[]> {
   return await Promise.all(
     Array.from(
       groupBy(targets, (target) => target.selection.editor),
@@ -93,10 +103,15 @@ class Actions {
     }
     editor.selections = targets.map((target) => target.selection.selection);
     editor.revealRange(editor.selections[0]);
+
+    return {
+      returnValue: null,
+      thatMark: targets.map((target) => target.selection),
+    };
   };
 
   setSelectionBefore: Action = async ([targets]) => {
-    this.setSelection([
+    return await this.setSelection([
       targets.map((target) =>
         update(target, {
           selection: {
@@ -111,7 +126,7 @@ class Actions {
   };
 
   setSelectionAfter: Action = async ([targets]) => {
-    this.setSelection([
+    return await this.setSelection([
       targets.map((target) =>
         update(target, {
           selection: {
@@ -126,45 +141,76 @@ class Actions {
   };
 
   delete: Action = async ([targets]) => {
-    await runForEachEditor(targets, async (editor, selections) => {
-      editor.setDecorations(
-        this.styles.pendingDelete,
-        selections
-          .filter((selection) => !isLineSelectionType(selection.selectionType))
-          .map((selection) => selection.selection.selection)
-      );
+    const thatMark = flatten(
+      await runForEachEditor(targets, async (editor, selections) => {
+        const newOffsets = computeChangedOffsets(
+          selections.map((selection) => ({
+            startOffset: editor.document.offsetAt(
+              selection.selection.selection.start
+            ),
+            endOffset: editor.document.offsetAt(
+              selection.selection.selection.end
+            ),
+            newTextLength: 0,
+          }))
+        );
 
-      editor.setDecorations(
-        this.styles.pendingLineDelete,
-        selections
-          .filter((selection) => isLineSelectionType(selection.selectionType))
-          .map((selection) =>
-            selection.selection.selection.with(
-              undefined,
-              // NB: We move end up one line because it is at beginning of
-              // next line
-              selection.selection.selection.end.translate(-1)
+        editor.setDecorations(
+          this.styles.pendingDelete,
+          selections
+            .filter(
+              (selection) => !isLineSelectionType(selection.selectionType)
             )
-          )
-      );
+            .map((selection) => selection.selection.selection)
+        );
 
-      await decorationSleep();
+        editor.setDecorations(
+          this.styles.pendingLineDelete,
+          selections
+            .filter((selection) => isLineSelectionType(selection.selectionType))
+            .map((selection) =>
+              selection.selection.selection.with(
+                undefined,
+                // NB: We move end up one line because it is at beginning of
+                // next line
+                selection.selection.selection.end.translate(-1)
+              )
+            )
+        );
 
-      editor.setDecorations(this.styles.pendingDelete, []);
-      editor.setDecorations(this.styles.pendingLineDelete, []);
+        await decorationSleep();
 
-      await editor.edit((editBuilder) => {
-        selections.forEach((selection) => {
-          // TODO Properly handle last line of file
-          editBuilder.delete(selection.selection.selection);
+        editor.setDecorations(this.styles.pendingDelete, []);
+        editor.setDecorations(this.styles.pendingLineDelete, []);
+
+        await editor.edit((editBuilder) => {
+          selections.forEach((selection) => {
+            // TODO Properly handle last line of file
+            editBuilder.delete(selection.selection.selection);
+          });
         });
-      });
-    });
+
+        return newOffsets.map((offsetRange) => ({
+          editor,
+          selection: new Selection(
+            editor.document.positionAt(offsetRange.startOffset),
+            editor.document.positionAt(offsetRange.endOffset)
+          ),
+        }));
+      })
+    );
+
+    return { returnValue: null, thatMark };
   };
 
   clear: Action = async ([targets]) => {
-    await this.setSelection([targets]);
-    await commands.executeCommand("deleteLeft");
+    const editor = getSingleEditor(targets);
+
+    const { thatMark } = await this.delete([targets]);
+
+    editor.selections = thatMark.map(({ selection }) => selection);
+
+    return { returnValue: null, thatMark };
   };
 
   paste: Action = async ([targets]) => {
@@ -172,46 +218,100 @@ class Actions {
   };
 
   wrap: Action = async ([targets], left: string, right: string) => {
-    await runForEachEditor(targets, async (editor, selections) => {
-      await editor.edit((editBuilder) => {
-        selections.forEach((selection) => {
-          editBuilder.insert(selection.selection.selection.start, left);
-          editBuilder.insert(selection.selection.selection.end, right);
-        });
-      });
+    const thatMark = flatten(
+      await runForEachEditor<SelectionWithEditor[]>(
+        targets,
+        async (editor, selections) => {
+          const originalInsertions = flatten(
+            selections.map((selection, index) => [
+              {
+                originalOffset: editor.document.offsetAt(
+                  selection.selection.selection.start
+                ),
+                length: left.length,
+                selectionIndex: index,
+                side: "left",
+              },
+              {
+                originalOffset: editor.document.offsetAt(
+                  selection.selection.selection.end
+                ),
+                length: right.length,
+                selectionIndex: index,
+                side: "right",
+              },
+            ])
+          );
 
-      editor.setDecorations(
-        this.styles.justAdded,
-        flatten(
-          selections.map((selection) => {
-            const originalSelectionStart = selection.selection.selection.start;
-            const originalSelectionEnd = selection.selection.selection.end;
-            const endTranslation =
-              originalSelectionStart.line === originalSelectionEnd.line
-                ? left.length
-                : 0;
+          const newInsertions = zip(
+            originalInsertions,
+            computeChangedOffsets(
+              originalInsertions.map((insertion) => ({
+                startOffset: insertion.originalOffset,
+                endOffset: insertion.originalOffset,
+                newTextLength: insertion.length,
+              }))
+            )
+          ).map(([originalInsertion, changedInsertion]) => ({
+            selectionIndex: originalInsertion!.selectionIndex,
+            side: originalInsertion!.side,
+            newStartOffset: changedInsertion!.startOffset,
+            newEndOffset: changedInsertion!.endOffset,
+          }));
 
-            return [
-              new Range(
-                originalSelectionStart,
-                originalSelectionStart.translate(undefined, left.length)
-              ),
-              new Range(
-                originalSelectionEnd.translate(undefined, endTranslation),
-                originalSelectionEnd.translate(
-                  undefined,
-                  endTranslation + right.length
+          await editor.edit((editBuilder) => {
+            selections.forEach((selection) => {
+              editBuilder.insert(selection.selection.selection.start, left);
+              editBuilder.insert(selection.selection.selection.end, right);
+            });
+          });
+
+          editor.setDecorations(
+            this.styles.justAdded,
+            newInsertions.map(
+              ({ newStartOffset, newEndOffset }) =>
+                new Range(
+                  editor.document.positionAt(newStartOffset),
+                  editor.document.positionAt(newEndOffset)
                 )
+            )
+          );
+
+          await decorationSleep();
+
+          editor.setDecorations(this.styles.justAdded, []);
+
+          return selections.map((selection, index) => {
+            const start = editor.document.positionAt(
+              newInsertions.find(
+                (insertion) =>
+                  insertion.selectionIndex === index &&
+                  insertion.side === "left"
+              )!.newStartOffset
+            );
+            const end = editor.document.positionAt(
+              newInsertions.find(
+                (insertion) =>
+                  insertion.selectionIndex === index &&
+                  insertion.side === "right"
+              )!.newEndOffset
+            );
+
+            const isReversed = selection.selection.selection.isReversed;
+
+            return {
+              editor,
+              selection: new Selection(
+                isReversed ? end : start,
+                isReversed ? start : end
               ),
-            ];
-          })
-        )
-      );
+            };
+          });
+        }
+      )
+    );
 
-      await decorationSleep();
-
-      editor.setDecorations(this.styles.justAdded, []);
-    });
+    return { returnValue: null, thatMark };
   };
 }
 

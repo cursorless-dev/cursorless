@@ -20,8 +20,8 @@ export interface CursorMark {
   type: "cursor";
 }
 
-export interface LastEditRange {
-  type: "lastEditRange";
+export interface That {
+  type: "that";
 }
 
 export interface LastCursorPosition {
@@ -34,11 +34,7 @@ export interface DecoratedSymbol {
   character: string;
 }
 
-export type Mark =
-  | CursorMark
-  | LastEditRange
-  | LastCursorPosition
-  | DecoratedSymbol;
+export type Mark = CursorMark | That | LastCursorPosition | DecoratedSymbol;
 export type Delimiter =
   | "squareBrackets"
   | "curlyBrackets"
@@ -51,11 +47,15 @@ export type ScopeType =
   | "arrowFunction"
   | "class"
   | "dictionary"
+  | "list"
+  | "listElement"
+  | "functionCall"
   | "ifStatement"
   | "namedFunction"
   | "pair"
   | "pairKey"
-  | "pairValue";
+  | "value"
+  | "statement";
 export type PieceType = "subtoken" | "character";
 
 export interface SurroundingPairTransformation {
@@ -149,7 +149,7 @@ export interface ProcessedTargetsContext {
   currentSelections: SelectionWithEditor[];
   currentEditor: vscode.TextEditor | undefined;
   navigationMap: NavigationMap;
-  lastCursorPosition: vscode.Selection[];
+  thatMark: SelectionWithEditor[];
   getNodeAtLocation: (location: Location) => SyntaxNode;
 }
 
@@ -196,6 +196,6 @@ export interface ActionPreferences {
 }
 
 export interface SelectionWithContext {
-  selection: Selection;
+  selection: vscode.Selection;
   context: SelectionContext;
 }

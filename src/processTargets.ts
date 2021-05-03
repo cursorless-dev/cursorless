@@ -5,7 +5,6 @@ import * as vscode from "vscode";
 import { Selection } from "vscode";
 import nodeMatchers from "./nodeMatchers";
 import {
-  InsideOutsideType,
   Mark,
   PrimitiveTarget,
   ProcessedTargetsContext,
@@ -158,8 +157,9 @@ function getSelectionsFromMark(
           editor: token.editor,
         },
       ];
+    case "that":
+      return context.thatMark;
     case "lastCursorPosition":
-    case "lastEditRange":
       throw new Error("Not implemented");
   }
 }
@@ -190,7 +190,9 @@ function transformSelection(
               .parent!.children.map((sibling) =>
                 nodeMatcher(selection.editor, sibling)
               )
-              .filter((selection) => selection != null) as SelectionWithContext[];
+              .filter(
+                (selection) => selection != null
+              ) as SelectionWithContext[];
           } else {
             matchedSelections = [matchedSelection];
           }
