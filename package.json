@@ -2,7 +2,7 @@
 	"name": "cursorless",
 	"displayName": "Cursorless",
 	"description": "Don't let the cursor slow you down",
-	"version": "0.5.4",
+	"version": "0.5.5",
 	"publisher": "pokey",
 	"license": "MIT",
 	"repository": {
