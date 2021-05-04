@@ -6,6 +6,7 @@ from each token.
 ## Features
 
 ![main-demo](images/main-demo.gif)
+![demo-2](images/demo-2.gif)
 
 Many other marks / transformations / actions exist; documentation to follow.
 
