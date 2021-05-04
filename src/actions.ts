@@ -120,14 +120,7 @@ class Actions {
   };
 
   extractVariable: Action = async ([targets]) => {
-    const target = ensureSingleTarget(targets);
-
-    // const action = (await commands.executeCommand<CodeAction[]>(
-    //   "vscode.executeCodeActionProvider",
-    //   target.selection.editor.document.uri,
-    //   target.selection.selection,
-    //   "refactor.extract.constant"
-    // ))!.find((codeAction) => codeAction.isPreferred);
+    ensureSingleTarget(targets);
 
     await this.setSelection([targets]);
 
@@ -135,15 +128,6 @@ class Actions {
       kind: "refactor.extract.constant",
       preferred: true,
     });
-
-    // if (action == null) {
-    //   throw Error("No extract action exists");
-    // }
-
-    // commands.executeCommand(
-    //   action.command!.command,
-    //   ...action.command!.arguments!
-    // );
 
     return {
       returnValue: null,
