@@ -5,10 +5,9 @@ from each token.
 
 ## Features
 
-The following video is just simple navigation, but cursorless has many more
-undocumented features.
-
 ![main-demo](images/main-demo.gif)
+
+Many other marks / transformations / actions exist; documentation to follow.
 
 ## Installation
 
