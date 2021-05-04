@@ -27,6 +27,10 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 0.5.0
+- Support "that" to refer to previous target
+- Support "extract" action to extract to constant
+
 ### 0.4.0
 - Support pair key and value nodes
 - Support selecting all siblings
