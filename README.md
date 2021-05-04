@@ -1,4 +1,4 @@
-# cursorless README
+# Cursorless
 
 Allows cursorless editing and rapid navigation by decorating a single letter
 from each token.
