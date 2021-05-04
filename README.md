@@ -8,7 +8,7 @@ from each token.
 The following video is just simple navigation, but cursorless has many more
 undocumented features.
 
-![simple](images/cursorless-1.gif)
+![main-demo](images/main-demo.gif)
 
 ## Installation
 
