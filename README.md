@@ -1,10 +1,21 @@
 # cursorless README
 
-Allows rapid navigation within a file by decorating a single letter from each token.
+Allows cursorless editing and rapid navigation by decorating a single letter
+from each token.
 
 ## Features
 
+The following video is just simple navigation, but cursorless has many more
+undocumented features.
+
 ![simple](images/cursorless-1.gif)
+
+## Installation
+
+Currently depends on [Talon](https://talonvoice.com/), though a keyboard
+version is planned.
+
+See [cursorless-talon](https://github.com/pokey/cursorless-talon) for installation instructions.
 
 ## Extension Settings
 
