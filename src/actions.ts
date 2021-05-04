@@ -52,7 +52,7 @@ const columnFocusCommands = {
   [ViewColumn.Beside]: "",
 };
 
-function getSingleEditor(targets: TypedSelection[]) {
+function ensureSingleEditor(targets: TypedSelection[]) {
   const editors = targets.map((target) => target.selection.editor);
 
   if (new Set(editors).size > 1) {
@@ -60,6 +60,14 @@ function getSingleEditor(targets: TypedSelection[]) {
   }
 
   return editors[0];
+}
+
+function ensureSingleTarget(targets: TypedSelection[]) {
+  if (targets.length !== 1) {
+    throw new Error("Can only have one target with this action");
+  }
+
+  return targets[0];
 }
 
 async function runForEachEditor<T>(
@@ -77,6 +85,7 @@ async function runForEachEditor<T>(
 export const targetPreferences: Record<keyof Actions, ActionPreferences[]> = {
   clear: [{ insideOutsideType: "inside" }],
   delete: [{ insideOutsideType: "outside" }],
+  extractVariable: [{ insideOutsideType: "inside" }],
   paste: [{ position: "after", insideOutsideType: "outside" }],
   setSelection: [{ insideOutsideType: "inside" }],
   setSelectionAfter: [{ insideOutsideType: "inside" }],
@@ -96,7 +105,7 @@ class Actions {
   }
 
   setSelection: Action = async ([targets]) => {
-    const editor = getSingleEditor(targets);
+    const editor = ensureSingleEditor(targets);
 
     if (editor.viewColumn != null) {
       await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
@@ -107,6 +116,38 @@ class Actions {
     return {
       returnValue: null,
       thatMark: targets.map((target) => target.selection),
+    };
+  };
+
+  extractVariable: Action = async ([targets]) => {
+    const target = ensureSingleTarget(targets);
+
+    // const action = (await commands.executeCommand<CodeAction[]>(
+    //   "vscode.executeCodeActionProvider",
+    //   target.selection.editor.document.uri,
+    //   target.selection.selection,
+    //   "refactor.extract.constant"
+    // ))!.find((codeAction) => codeAction.isPreferred);
+
+    await this.setSelection([targets]);
+
+    await commands.executeCommand("editor.action.codeAction", {
+      kind: "refactor.extract.constant",
+      preferred: true,
+    });
+
+    // if (action == null) {
+    //   throw Error("No extract action exists");
+    // }
+
+    // commands.executeCommand(
+    //   action.command!.command,
+    //   ...action.command!.arguments!
+    // );
+
+    return {
+      returnValue: null,
+      thatMark: [],
     };
   };
 
@@ -204,7 +245,7 @@ class Actions {
   };
 
   clear: Action = async ([targets]) => {
-    const editor = getSingleEditor(targets);
+    const editor = ensureSingleEditor(targets);
 
     const { thatMark } = await this.delete([targets]);
 
