@@ -1,5 +1,6 @@
 import {
   commands,
+  env,
   Range,
   Selection,
   TextEditor,
@@ -13,21 +14,16 @@ import {
   SelectionWithEditor,
   TypedSelection,
 } from "./Types";
-import { promisify } from "util";
-import { isLineSelectionType } from "./selectionType";
-import { groupBy } from "./itertools";
 import { flatten, zip } from "lodash";
 import { computeChangedOffsets } from "./computeChangedOffsets";
-
-const sleep = promisify(setTimeout);
-
-async function decorationSleep() {
-  const pendingEditDecorationTime = workspace
-    .getConfiguration("cursorless")
-    .get<number>("pendingEditDecorationTime")!;
-
-  await sleep(pendingEditDecorationTime);
-}
+import {
+  ensureSingleEditor,
+  ensureSingleTarget,
+  runForEachEditor,
+} from "./targetUtils";
+import displayPendingEditDecorations, {
+  decorationSleep,
+} from "./editDisplayUtils";
 
 interface ActionReturnValue {
   returnValue: any;
@@ -52,38 +48,9 @@ const columnFocusCommands = {
   [ViewColumn.Beside]: "",
 };
 
-function ensureSingleEditor(targets: TypedSelection[]) {
-  const editors = targets.map((target) => target.selection.editor);
-
-  if (new Set(editors).size > 1) {
-    throw new Error("Can only select from one document at a time");
-  }
-
-  return editors[0];
-}
-
-function ensureSingleTarget(targets: TypedSelection[]) {
-  if (targets.length !== 1) {
-    throw new Error("Can only have one target with this action");
-  }
-
-  return targets[0];
-}
-
-async function runForEachEditor<T>(
-  targets: TypedSelection[],
-  func: (editor: TextEditor, selections: TypedSelection[]) => Promise<T>
-): Promise<T[]> {
-  return await Promise.all(
-    Array.from(
-      groupBy(targets, (target) => target.selection.editor),
-      async ([editor, selections]) => func(editor, selections)
-    )
-  );
-}
-
 export const targetPreferences: Record<keyof Actions, ActionPreferences[]> = {
   clear: [{ insideOutsideType: "inside" }],
+  copy: [{ insideOutsideType: "inside" }],
   delete: [{ insideOutsideType: "outside" }],
   extractVariable: [{ insideOutsideType: "inside" }],
   paste: [{ position: "after", insideOutsideType: "outside" }],
@@ -112,6 +79,27 @@ class Actions {
     }
     editor.selections = targets.map((target) => target.selection.selection);
     editor.revealRange(editor.selections[0]);
+
+    return {
+      returnValue: null,
+      thatMark: targets.map((target) => target.selection),
+    };
+  };
+
+  copy: Action = async ([targets]) => {
+    await displayPendingEditDecorations(
+      targets,
+      this.styles.referenced,
+      this.styles.referencedLine
+    );
+
+    await env.clipboard.writeText(
+      targets
+        .map((target) =>
+          target.selection.editor.document.getText(target.selection.selection)
+        )
+        .join("\n")
+    );
 
     return {
       returnValue: null,
@@ -166,6 +154,12 @@ class Actions {
   };
 
   delete: Action = async ([targets]) => {
+    await displayPendingEditDecorations(
+      targets,
+      this.styles.pendingDelete,
+      this.styles.pendingLineDelete
+    );
+
     const thatMark = flatten(
       await runForEachEditor(targets, async (editor, selections) => {
         const newOffsets = computeChangedOffsets(
@@ -179,34 +173,6 @@ class Actions {
             newTextLength: 0,
           }))
         );
-
-        editor.setDecorations(
-          this.styles.pendingDelete,
-          selections
-            .filter(
-              (selection) => !isLineSelectionType(selection.selectionType)
-            )
-            .map((selection) => selection.selection.selection)
-        );
-
-        editor.setDecorations(
-          this.styles.pendingLineDelete,
-          selections
-            .filter((selection) => isLineSelectionType(selection.selectionType))
-            .map((selection) =>
-              selection.selection.selection.with(
-                undefined,
-                // NB: We move end up one line because it is at beginning of
-                // next line
-                selection.selection.selection.end.translate(-1)
-              )
-            )
-        );
-
-        await decorationSleep();
-
-        editor.setDecorations(this.styles.pendingDelete, []);
-        editor.setDecorations(this.styles.pendingLineDelete, []);
 
         await editor.edit((editBuilder) => {
           selections.forEach((selection) => {

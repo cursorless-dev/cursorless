@@ -98,6 +98,15 @@
 				}
 			},
 			{
+				"id": "cursorless.referencedBackground",
+				"description": "Background color to use for ranges that are being referenced",
+				"defaults": {
+					"dark": "#00a2ff4d",
+					"light": "#00a2ff4d",
+					"highContrast": "#00a2ff4d"
+				}
+			},
+			{
 				"id": "cursorless.justAddedBackground",
 				"description": "Background color to use for ranges that have just been added",
 				"defaults": {
