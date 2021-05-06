@@ -24,6 +24,7 @@ import {
 import displayPendingEditDecorations, {
   decorationSleep,
 } from "./editDisplayUtils";
+import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
 
 interface ActionReturnValue {
   returnValue: any;
@@ -51,6 +52,7 @@ const columnFocusCommands = {
 export const targetPreferences: Record<keyof Actions, ActionPreferences[]> = {
   clear: [{ insideOutsideType: "inside" }],
   copy: [{ insideOutsideType: "inside" }],
+  cut: [{ insideOutsideType: null }],
   delete: [{ insideOutsideType: "outside" }],
   extractVariable: [{ insideOutsideType: "inside" }],
   paste: [{ position: "after", insideOutsideType: "outside" }],
@@ -104,6 +106,23 @@ class Actions {
     return {
       returnValue: null,
       thatMark: targets.map((target) => target.selection),
+    };
+  };
+
+  cut: Action = async ([targets]) => {
+    await this.copy([
+      targets.map((target) => performInsideOutsideAdjustment(target, "inside")),
+    ]);
+
+    const { thatMark } = await this.delete([
+      targets.map((target) =>
+        performInsideOutsideAdjustment(target, "outside")
+      ),
+    ]);
+
+    return {
+      returnValue: null,
+      thatMark,
     };
   };
 

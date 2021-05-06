@@ -1,5 +1,4 @@
 import { concat, zip } from "lodash";
-import update from "immutability-helper";
 import { SyntaxNode } from "tree-sitter";
 import * as vscode from "vscode";
 import { Selection } from "vscode";
@@ -15,31 +14,7 @@ import {
   Target,
   TypedSelection,
 } from "./Types";
-
-function performInsideOutsideAdjustment(selection: TypedSelection) {
-  if (selection.insideOutsideType === "outside") {
-    const delimiterRange =
-      selection.selectionContext.trailingDelimiterRange ??
-      selection.selectionContext.leadingDelimiterRange;
-
-    if (delimiterRange == null) {
-      return selection;
-    }
-
-    const range = selection.selection.selection.union(delimiterRange);
-
-    return update(selection, {
-      selection: {
-        selection: (s) =>
-          s.isReversed
-            ? new Selection(range.end, range.start)
-            : new Selection(range.start, range.end),
-      },
-    });
-  }
-
-  return selection;
-}
+import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
 
 export default function processTargets(
   context: ProcessedTargetsContext,

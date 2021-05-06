@@ -28,6 +28,9 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 0.7.0
+- Support "cut" action (default term in vscode-talon is "carve")
+
 ### 0.6.0
 - Support "copy" action
 
