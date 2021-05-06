@@ -28,6 +28,9 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 0.6.0
+- Support "copy" action
+
 ### 0.5.0
 - Support "that" to refer to previous target
 - Support "extract" action to extract to constant
