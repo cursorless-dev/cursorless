@@ -28,6 +28,9 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 0.8.0
+- Support "fold" and "unfold" actions
+
 ### 0.7.0
 - Support "cut" action (default term in vscode-talon is "carve")
 

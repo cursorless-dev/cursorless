@@ -1,18 +1,20 @@
 import * as vscode from "vscode";
-import Actions, { targetPreferences } from "./actions";
 import { addDecorationsToEditors } from "./addDecorationsToEditor";
 import { DEBOUNCE_DELAY } from "./constants";
 import Decorations from "./Decorations";
-import EditStyles from "./editStyles";
+import graphConstructors from "./graphConstructors";
 import { inferFullTargets } from "./inferFullTargets";
 import NavigationMap from "./NavigationMap";
 import processTargets from "./processTargets";
 import {
   ActionPreferences,
+  ActionType,
+  Graph,
   PartialTarget,
   ProcessedTargetsContext,
   SelectionWithEditor,
 } from "./Types";
+import makeGraph from "./makeGraph";
 
 export async function activate(context: vscode.ExtensionContext) {
   const decorations = new Decorations();
@@ -67,14 +69,13 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  const editStyles = new EditStyles();
-  const actions = new Actions(editStyles);
+  const graph = makeGraph(graphConstructors);
   var thatMark: SelectionWithEditor[] = [];
 
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
     "cursorless.command",
     async (
-      actionName: keyof Actions,
+      actionName: ActionType,
       partialTargets: PartialTarget[],
       ...extraArgs: any[]
     ) => {
@@ -84,7 +85,7 @@ export async function activate(context: vscode.ExtensionContext) {
       console.log(`extraArgs:`);
       console.log(JSON.stringify(extraArgs, null, 3));
 
-      const action = actions[actionName];
+      const action = graph.actions[actionName];
 
       const selectionContents =
         vscode.window.activeTextEditor?.selections.map((selection) =>
@@ -94,8 +95,6 @@ export async function activate(context: vscode.ExtensionContext) {
       const isPaste = actionName === "paste";
 
       var clipboardContents: string | undefined;
-      var actionPreferences: ActionPreferences[] =
-        targetPreferences[actionName];
 
       if (isPaste) {
         clipboardContents = await vscode.env.clipboard.readText();
@@ -113,7 +112,7 @@ export async function activate(context: vscode.ExtensionContext) {
       const targets = inferFullTargets(
         inferenceContext,
         partialTargets,
-        actionPreferences
+        action.targetPreferences
       );
 
       const processedTargetsContext: ProcessedTargetsContext = {
@@ -130,7 +129,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
       const selections = processTargets(processedTargetsContext, targets);
 
-      const { returnValue, thatMark: newThatMark } = await action(
+      const { returnValue, thatMark: newThatMark } = await action.run(
         selections,
         ...extraArgs
       );

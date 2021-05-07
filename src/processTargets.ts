@@ -34,12 +34,12 @@ function processSingleTarget(
         ...target.elements.map((target) => processSingleTarget(context, target))
       );
     case "range":
-      return processSingleRangeTarget(context, target).map(
-        performInsideOutsideAdjustment
+      return processSingleRangeTarget(context, target).map((selection) =>
+        performInsideOutsideAdjustment(selection)
       );
     case "primitive":
-      return processSinglePrimitiveTarget(context, target).map(
-        performInsideOutsideAdjustment
+      return processSinglePrimitiveTarget(context, target).map((selection) =>
+        performInsideOutsideAdjustment(selection)
       );
   }
 }

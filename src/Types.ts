@@ -2,6 +2,7 @@ import { SyntaxNode } from "tree-sitter";
 import * as vscode from "vscode";
 import { Location } from "vscode";
 import { SymbolColor } from "./constants";
+import EditStyles from "./editStyles";
 import NavigationMap from "./NavigationMap";
 
 /**
@@ -198,4 +199,36 @@ export interface ActionPreferences {
 export interface SelectionWithContext {
   selection: vscode.Selection;
   context: SelectionContext;
+}
+
+export interface ActionReturnValue {
+  returnValue: any;
+  thatMark: SelectionWithEditor[];
+}
+
+export interface Action {
+  run(targets: TypedSelection[][], ...args: any[]): Promise<ActionReturnValue>;
+  targetPreferences: ActionPreferences[];
+}
+
+export type ActionType =
+  | "clear"
+  | "copy"
+  | "cut"
+  | "delete"
+  | "extractVariable"
+  | "fold"
+  | "paste"
+  | "setSelection"
+  | "setSelectionAfter"
+  | "setSelectionBefore"
+  | "swap"
+  | "unfold"
+  | "wrap";
+
+export type ActionRecord = Record<ActionType, Action>;
+
+export interface Graph {
+  readonly actions: ActionRecord;
+  readonly editStyles: EditStyles;
 }

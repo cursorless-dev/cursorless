@@ -209,18 +209,11 @@ const STATEMENT_TYPES = [
 ];
 
 const nodeMatchers: Record<ScopeType, NodeMatcher> = {
+  ifStatement: hasType("if_statement"),
   class: hasType("class_declaration"),
   statement: hasType(...STATEMENT_TYPES),
   arrowFunction: hasType("arrow_function"),
   dictionary: hasType("object"),
-  list: hasType("array"),
-  listElement: delimitedMatcher(
-    (node) =>
-      node.parent?.type === "array" &&
-      (isExpression(node) || node.type === "spread_element"),
-    (node) => node.type === "," || node.type === "[" || node.type === "]",
-    ", "
-  ),
   functionCall: hasType("call_expression", "new_expression"),
   pair: delimitedMatcher(
     (node) => node.type === "pair",
@@ -257,6 +250,14 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
       },
     };
   },
+  list: hasType("array"),
+  listElement: delimitedMatcher(
+    (node) =>
+      node.parent?.type === "array" &&
+      (isExpression(node) || node.type === "spread_element"),
+    (node) => node.type === "," || node.type === "[" || node.type === "]",
+    ", "
+  ),
   argumentOrParameter: delimitedMatcher(
     (node) =>
       (node.parent?.type === "arguments" &&
@@ -307,7 +308,6 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
 
     return null;
   },
-  ifStatement: hasType("if_statement"),
 };
 
 export default nodeMatchers;
