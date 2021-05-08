@@ -47,16 +47,18 @@ export type ScopeType =
   | "argumentOrParameter"
   | "arrowFunction"
   | "class"
+  | "comment"
   | "dictionary"
-  | "list"
-  | "listElement"
   | "functionCall"
   | "ifStatement"
+  | "list"
+  | "listElement"
   | "namedFunction"
   | "pair"
   | "pairKey"
-  | "value"
-  | "statement";
+  | "statement"
+  | "string"
+  | "value";
 export type PieceType = "subtoken" | "character";
 
 export interface SurroundingPairTransformation {

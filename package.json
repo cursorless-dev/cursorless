@@ -2,7 +2,7 @@
 	"name": "cursorless",
 	"displayName": "Cursorless",
 	"description": "Don't let the cursor slow you down",
-	"version": "0.8.0",
+	"version": "0.9.0",
 	"publisher": "pokey",
 	"license": "MIT",
 	"repository": {
@@ -117,20 +117,20 @@
 			},
 			{
 				"id": "cursorless.pendingModification0Background",
-				"description": "Background color to use for ranges that are being referenced",
+				"description": "Background color to use for ranges that are being changed",
 				"defaults": {
-					"dark": "#d900ff4d",
-					"light": "#d900ff4d",
-					"highContrast": "#d900ff4d"
+					"dark": "#8c00ff86",
+					"light": "#8c00ff86",
+					"highContrast": "#8c00ff86"
 				}
 			},
 			{
 				"id": "cursorless.pendingModification1Background",
-				"description": "Background color to use for ranges that are being referenced",
+				"description": "Background color to use for ranges that are being changed",
 				"defaults": {
-					"dark": "#ff00954d",
-					"light": "#ff00954d",
-					"highContrast": "#ff00954d"
+					"dark": "#ff009d7e",
+					"light": "#ff009d7e",
+					"highContrast": "#ff009d7e"
 				}
 			}
 		],

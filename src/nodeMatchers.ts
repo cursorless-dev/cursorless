@@ -308,6 +308,8 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
 
     return null;
   },
+  string: hasType("string"),
+  comment: hasType("comment"),
 };
 
 export default nodeMatchers;

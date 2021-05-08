@@ -28,6 +28,9 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 0.9.0
+- Support "string" and "comment" scope types
+
 ### 0.8.0
 - Support "fold", "unfold", and "swap" actions
 
