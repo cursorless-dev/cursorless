@@ -7,7 +7,7 @@ import {
 } from "../Types";
 import { Selection } from "vscode";
 import { computeChangedOffsets } from "../computeChangedOffsets";
-import { runForEachEditor } from "../targetUtils";
+import { runOnTargetsForEachEditor } from "../targetUtils";
 import displayPendingEditDecorations from "../editDisplayUtils";
 import { flatten } from "lodash";
 
@@ -26,16 +26,12 @@ export default class Delete implements Action {
     );
 
     const thatMark = flatten(
-      await runForEachEditor(targets, async (editor, selections) => {
+      await runOnTargetsForEachEditor(targets, async (editor, selections) => {
         const newOffsets = computeChangedOffsets(
+          editor,
           selections.map((selection) => ({
-            startOffset: editor.document.offsetAt(
-              selection.selection.selection.start
-            ),
-            endOffset: editor.document.offsetAt(
-              selection.selection.selection.end
-            ),
-            newTextLength: 0,
+            range: selection.selection.selection,
+            newText: "",
           }))
         );
 

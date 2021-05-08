@@ -2,7 +2,7 @@ import { TextEditorDecorationType, workspace } from "vscode";
 import { TypedSelection } from "./Types";
 import { isLineSelectionType } from "./selectionType";
 import { promisify } from "util";
-import { runForEachEditor } from "./targetUtils";
+import { runOnTargetsForEachEditor } from "./targetUtils";
 
 const sleep = promisify(setTimeout);
 
@@ -19,7 +19,7 @@ export default async function displayPendingEditDecorations(
   tokenStyle: TextEditorDecorationType,
   lineStyle: TextEditorDecorationType
 ) {
-  await runForEachEditor(targets, async (editor, selections) => {
+  await runOnTargetsForEachEditor(targets, async (editor, selections) => {
     editor.setDecorations(
       tokenStyle,
       selections
@@ -44,7 +44,7 @@ export default async function displayPendingEditDecorations(
 
   await decorationSleep();
 
-  await runForEachEditor(targets, async (editor, selections) => {
+  await runOnTargetsForEachEditor(targets, async (editor, selections) => {
     editor.setDecorations(tokenStyle, []);
     editor.setDecorations(lineStyle, []);
   });

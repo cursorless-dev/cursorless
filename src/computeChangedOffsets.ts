@@ -1,11 +1,8 @@
-import { TextEditor } from "vscode";
-import { TypedSelection } from "./Types";
-import { flatten } from "lodash";
+import { Range, TextEditor } from "vscode";
 
 interface EditDescription {
-  startOffset: number;
-  endOffset: number;
-  newTextLength: number;
+  range: Range;
+  newText: string;
 }
 
 interface OffsetRange {
@@ -13,9 +10,14 @@ interface OffsetRange {
   endOffset: number;
 }
 
-export function computeChangedOffsets(edits: EditDescription[]) {
+export function computeChangedOffsets(
+  editor: TextEditor,
+  edits: EditDescription[]
+) {
   const labeledEdits = edits.map((edit, index) => ({
-    ...edit,
+    startOffset: editor.document.offsetAt(edit.range.start),
+    endOffset: editor.document.offsetAt(edit.range.end),
+    newTextLength: edit.newText.length,
     index,
   }));
 

@@ -114,6 +114,24 @@
 					"light": "#09ff005b",
 					"highContrast": "#09ff005b"
 				}
+			},
+			{
+				"id": "cursorless.pendingModification0Background",
+				"description": "Background color to use for ranges that are being referenced",
+				"defaults": {
+					"dark": "#d900ff4d",
+					"light": "#d900ff4d",
+					"highContrast": "#d900ff4d"
+				}
+			},
+			{
+				"id": "cursorless.pendingModification1Background",
+				"description": "Background color to use for ranges that are being referenced",
+				"defaults": {
+					"dark": "#ff00954d",
+					"light": "#ff00954d",
+					"highContrast": "#ff00954d"
+				}
 			}
 		],
 		"configuration": {

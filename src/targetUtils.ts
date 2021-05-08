@@ -20,14 +20,21 @@ export function ensureSingleTarget(targets: TypedSelection[]) {
   return targets[0];
 }
 
-export async function runForEachEditor<T>(
+export async function runForEachEditor<T, U>(
+  targets: T[],
+  getEditor: (target: T) => TextEditor,
+  func: (editor: TextEditor, editorTargets: T[]) => Promise<U>
+): Promise<U[]> {
+  return await Promise.all(
+    Array.from(groupBy(targets, getEditor), async ([editor, editorTargets]) =>
+      func(editor, editorTargets)
+    )
+  );
+}
+
+export async function runOnTargetsForEachEditor<T>(
   targets: TypedSelection[],
   func: (editor: TextEditor, selections: TypedSelection[]) => Promise<T>
 ): Promise<T[]> {
-  return await Promise.all(
-    Array.from(
-      groupBy(targets, (target) => target.selection.editor),
-      async ([editor, selections]) => func(editor, selections)
-    )
-  );
+  return runForEachEditor(targets, (target) => target.selection.editor, func);
 }

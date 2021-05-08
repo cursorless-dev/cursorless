@@ -7,7 +7,7 @@ import {
   SelectionWithEditor,
   TypedSelection,
 } from "../Types";
-import { runForEachEditor } from "../targetUtils";
+import { runOnTargetsForEachEditor } from "../targetUtils";
 import { flatten, zip } from "lodash";
 import { computeChangedOffsets } from "../computeChangedOffsets";
 import { decorationSleep } from "../editDisplayUtils";
@@ -25,24 +25,26 @@ export default class Wrap implements Action {
     right: string
   ): Promise<ActionReturnValue> {
     const thatMark = flatten(
-      await runForEachEditor<SelectionWithEditor[]>(
+      await runOnTargetsForEachEditor<SelectionWithEditor[]>(
         targets,
         async (editor, selections) => {
           const originalInsertions = flatten(
             selections.map((selection, index) => [
               {
-                originalOffset: editor.document.offsetAt(
+                range: new Range(
+                  selection.selection.selection.start,
                   selection.selection.selection.start
                 ),
-                length: left.length,
+                newText: left,
                 selectionIndex: index,
                 side: "left",
               },
               {
-                originalOffset: editor.document.offsetAt(
+                range: new Range(
+                  selection.selection.selection.end,
                   selection.selection.selection.end
                 ),
-                length: right.length,
+                newText: right,
                 selectionIndex: index,
                 side: "right",
               },
@@ -51,13 +53,7 @@ export default class Wrap implements Action {
 
           const newInsertions = zip(
             originalInsertions,
-            computeChangedOffsets(
-              originalInsertions.map((insertion) => ({
-                startOffset: insertion.originalOffset,
-                endOffset: insertion.originalOffset,
-                newTextLength: insertion.length,
-              }))
-            )
+            computeChangedOffsets(editor, originalInsertions)
           ).map(([originalInsertion, changedInsertion]) => ({
             selectionIndex: originalInsertion!.selectionIndex,
             side: originalInsertion!.side,
