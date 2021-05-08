@@ -5,6 +5,7 @@ from each token.
 
 ## Features
 
+![swap](images/swap.gif)
 ![main-demo](images/main-demo.gif)
 ![demo-2](images/demo-2.gif)
 ![demo-3](images/demo-3.gif)
