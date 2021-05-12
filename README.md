@@ -29,6 +29,9 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 0.11.0
+- Simplify token regex
+
 ### 0.10.0
 - Add Python support
 

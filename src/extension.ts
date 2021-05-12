@@ -7,9 +7,7 @@ import { inferFullTargets } from "./inferFullTargets";
 import NavigationMap from "./NavigationMap";
 import processTargets from "./processTargets";
 import {
-  ActionPreferences,
   ActionType,
-  Graph,
   PartialTarget,
   ProcessedTargetsContext,
   SelectionWithEditor,
