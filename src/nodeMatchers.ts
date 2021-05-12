@@ -143,6 +143,9 @@ export function possiblyWrappedNode(
 ): NodeMatcher {
   return (editor: TextEditor, node: SyntaxNode) => {
     if (isWrapperNode(node.parent!)) {
+      // We don't want to return the target node if it is wrapped.  We return
+      // null, knowing that the ancestor walk will call us again with the
+      // wrapper node
       return null;
     }
 
@@ -155,9 +158,11 @@ export function possiblyWrappedNode(
 }
 
 /**
- * Create a new matcher by cascading the given matchers
- * @param matchers A list of matchers to try in sequence until one doesn't return null
- * @returns A NodeMatcher that tries the given matters in sequence
+ * Create a new matcher that will try the given matchers in sequence until one
+ * returns non-null
+ * @param matchers A list of matchers to try in sequence until one doesn't
+ * return null
+ * @returns A NodeMatcher that tries the given matchers in sequence
  */
 export function cascadingMatcher(...matchers: NodeMatcher[]): NodeMatcher {
   return (editor: TextEditor, node: SyntaxNode) => {
