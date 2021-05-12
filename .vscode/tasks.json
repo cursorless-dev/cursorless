@@ -4,6 +4,38 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "Build",
+			"dependsOn": [
+				"ESBuild",
+				"TSBuild"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "ESBuild",
+			"type": "npm",
+			"script": "esbuild",
+			"isBackground": true,
+			"presentation": {
+				"reveal": "never"
+			},
+			"group": "build"
+		},
+		{
+			"label": "TSBuild",
+			"type": "npm",
+			"script": "compile",
+			"problemMatcher": "$tsc-watch",
+			"isBackground": true,
+			"presentation": {
+				"reveal": "never"
+			},
+			"group": "build"
+		},
+		{
 			"type": "npm",
 			"script": "watch",
 			"problemMatcher": "$tsc-watch",
@@ -11,10 +43,7 @@
 			"presentation": {
 				"reveal": "never"
 			},
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
+			"group": "build"
 		}
 	]
 }

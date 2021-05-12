@@ -2,7 +2,12 @@
 	"name": "cursorless",
 	"displayName": "Cursorless",
 	"description": "Don't let the cursor slow you down",
-	"version": "0.9.1",
+	"icon": "images/icon.png",
+	"galleryBanner": {
+		"color": "#000000",
+		"theme": "dark"
+	},
+	"version": "0.10.3",
 	"publisher": "pokey",
 	"license": "MIT",
 	"repository": {
@@ -21,7 +26,7 @@
 	"activationEvents": [
 		"*"
 	],
-	"main": "./out/extension.js",
+	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
 			{
@@ -144,7 +149,7 @@
 				},
 				"cursorless.pendingEditDecorationTime": {
 					"type": "integer",
-					"default": 100,
+					"default": 175,
 					"description": "How long in milliseconds to show a pending edit decoration"
 				}
 			}
@@ -152,7 +157,7 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run -S esbuild-base -- --minify",
-		"esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+		"esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
 		"esbuild": "npm run -S esbuild-base -- --sourcemap",
 		"esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch",
 		"test-compile": "tsc -p ./",

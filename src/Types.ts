@@ -1,4 +1,4 @@
-import { SyntaxNode } from "tree-sitter";
+import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
 import { Location } from "vscode";
 import { SymbolColor } from "./constants";
@@ -234,3 +234,8 @@ export interface Graph {
   readonly actions: ActionRecord;
   readonly editStyles: EditStyles;
 }
+
+export type NodeMatcher = (
+  editor: vscode.TextEditor,
+  node: SyntaxNode
+) => SelectionWithContext | null;

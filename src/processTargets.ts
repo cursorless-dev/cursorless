@@ -1,8 +1,8 @@
 import { concat, zip } from "lodash";
-import { SyntaxNode } from "tree-sitter";
+import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
 import { Selection } from "vscode";
-import nodeMatchers from "./nodeMatchers";
+import { nodeMatchers } from "./languages";
 import {
   Mark,
   PrimitiveTarget,
@@ -83,8 +83,8 @@ function processSingleRangeTarget(
       },
       selectionType: startTarget!.selectionType,
       selectionContext: {
-        containingListDelimiter: startTarget!.selectionContext
-          .containingListDelimiter,
+        containingListDelimiter:
+          startTarget!.selectionContext.containingListDelimiter,
         isInDelimitedList: startTarget!.selectionContext.isInDelimitedList,
         leadingDelimiterRange,
         trailingDelimiterRange,
@@ -154,7 +154,10 @@ function transformSelection(
         new vscode.Location(selection.editor.document.uri, selection.selection)
       );
 
-      const nodeMatcher = nodeMatchers[transformation.scopeType];
+      const nodeMatcher =
+        nodeMatchers[selection.editor.document.languageId][
+          transformation.scopeType
+        ];
 
       while (node != null) {
         const matchedSelection = nodeMatcher(selection.editor, node);

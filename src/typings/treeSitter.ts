@@ -1,40 +1,35 @@
-// From https://github.com/tree-sitter/node-tree-sitter/blob/964c7977b215f193226eddd3a5ca3ef945033696/tree-sitter.d.ts
-// License https://github.com/tree-sitter/node-tree-sitter/blob/964c7977b215f193226eddd3a5ca3ef945033696/LICENSE
-declare module "tree-sitter" {
+// From https://github.com/tree-sitter/tree-sitter/blob/2923c9cb62c964371ed7d6995ca1238356b00b45/lib/binding_web/tree-sitter-web.d.ts
+// License https://github.com/tree-sitter/tree-sitter/blob/2923c9cb62c964371ed7d6995ca1238356b00b45/LICENSE
+declare module "web-tree-sitter" {
   class Parser {
+    static init(): Promise<void>;
+    delete(): void;
     parse(
-      input: string | Parser.Input | Parser.InputReader,
-      oldTree?: Parser.Tree,
-      options?: { bufferSize?: number; includedRanges?: Parser.Range[] }
-    ): Parser.Tree;
-    parseTextBuffer(
-      buffer: Parser.TextBuffer,
-      oldTree?: Parser.Tree,
-      options?: { syncTimeoutMicros?: number; includedRanges?: Parser.Range[] }
-    ): Parser.Tree | Promise<Parser.Tree>;
-    parseTextBufferSync(
-      buffer: Parser.TextBuffer,
-      oldTree?: Parser.Tree,
-      options?: { includedRanges?: Parser.Range[] }
+      input: string | Parser.Input,
+      previousTree?: Parser.Tree,
+      options?: Parser.Options
     ): Parser.Tree;
     getLanguage(): any;
     setLanguage(language: any): void;
     getLogger(): Parser.Logger;
     setLogger(logFunc: Parser.Logger): void;
-    printDotGraphs(enabled: boolean): void;
   }
 
   namespace Parser {
+    export type Options = {
+      includedRanges?: Range[];
+    };
+
     export type Point = {
       row: number;
       column: number;
     };
 
     export type Range = {
-      startIndex: number;
-      endIndex: number;
       startPosition: Point;
       endPosition: Point;
+      startIndex: number;
+      endIndex: number;
     };
 
     export type Edit = {
@@ -52,22 +47,16 @@ declare module "tree-sitter" {
       type: "parse" | "lex"
     ) => void;
 
-    export type TextBuffer = Buffer;
-
-    export interface InputReader {
-      (index: any, position: Point): string;
-    }
-
-    export interface Input {
-      seek(index: number): void;
-      read(): any;
-    }
+    export type Input = (
+      startIndex: number,
+      startPoint?: Point,
+      endIndex?: number
+    ) => string | null;
 
     export interface SyntaxNode {
+      id: number;
       tree: Tree;
       type: string;
-      typeId: string;
-      isNamed: boolean;
       text: string;
       startPosition: Point;
       endPosition: Point;
@@ -87,21 +76,24 @@ declare module "tree-sitter" {
       previousSibling: SyntaxNode | null;
       previousNamedSibling: SyntaxNode | null;
 
-      // Added these because they sometimes exist
-      valueNode: SyntaxNode | null;
-      keyNode: SyntaxNode | null;
-
       hasChanges(): boolean;
       hasError(): boolean;
+      equals(other: SyntaxNode): boolean;
       isMissing(): boolean;
+      isNamed(): boolean;
       toString(): string;
       child(index: number): SyntaxNode | null;
       namedChild(index: number): SyntaxNode | null;
-      firstChildForIndex(index: number): SyntaxNode | null;
-      firstNamedChildForIndex(index: number): SyntaxNode | null;
+      childForFieldId(fieldId: number): SyntaxNode | null;
+      childForFieldName(fieldName: string): SyntaxNode | null;
 
       descendantForIndex(index: number): SyntaxNode;
       descendantForIndex(startIndex: number, endIndex: number): SyntaxNode;
+      descendantsOfType(
+        type: string | Array<string>,
+        startPosition?: Point,
+        endPosition?: Point
+      ): Array<SyntaxNode>;
       namedDescendantForIndex(index: number): SyntaxNode;
       namedDescendantForIndex(startIndex: number, endIndex: number): SyntaxNode;
       descendantForPosition(position: Point): SyntaxNode;
@@ -114,13 +106,7 @@ declare module "tree-sitter" {
         startPosition: Point,
         endPosition: Point
       ): SyntaxNode;
-      descendantsOfType(
-        types: String | Array<String>,
-        startPosition?: Point,
-        endPosition?: Point
-      ): Array<SyntaxNode>;
 
-      closest(types: String | Array<String>): SyntaxNode | null;
       walk(): TreeCursor;
     }
 
@@ -132,10 +118,12 @@ declare module "tree-sitter" {
       endPosition: Point;
       startIndex: number;
       endIndex: number;
-      readonly currentNode: SyntaxNode;
-      readonly currentFieldName: string;
 
       reset(node: SyntaxNode): void;
+      delete(): void;
+      currentNode(): SyntaxNode;
+      currentFieldId(): number;
+      currentFieldName(): string;
       gotoParent(): boolean;
       gotoFirstChild(): boolean;
       gotoFirstChildForIndex(index: number): boolean;
@@ -145,45 +133,61 @@ declare module "tree-sitter" {
     export interface Tree {
       readonly rootNode: SyntaxNode;
 
+      copy(): Tree;
+      delete(): void;
       edit(delta: Edit): Tree;
       walk(): TreeCursor;
       getChangedRanges(other: Tree): Range[];
       getEditedRange(other: Tree): Range;
-      printDotGraph(): void;
+      getLanguage(): any;
     }
 
-    export interface QueryMatch {
+    class Language {
+      static load(input: string | Uint8Array): Promise<Language>;
+
+      readonly version: number;
+      readonly fieldCount: number;
+      readonly nodeTypeCount: number;
+
+      fieldNameForId(fieldId: number): string | null;
+      fieldIdForName(fieldName: string): number | null;
+      idForNodeType(type: string, named: boolean): number;
+      nodeTypeForId(typeId: number): string | null;
+      nodeTypeIsNamed(typeId: number): boolean;
+      nodeTypeIsVisible(typeId: number): boolean;
+      query(source: string): Query;
+    }
+
+    interface QueryCapture {
+      name: string;
+      node: SyntaxNode;
+    }
+
+    interface QueryMatch {
       pattern: number;
       captures: QueryCapture[];
     }
 
-    export interface QueryCapture {
-      name: string;
-      text?: string;
-      node: SyntaxNode;
-      setProperties?: { [prop: string]: string | null };
-      assertedProperties?: { [prop: string]: string | null };
-      refutedProperties?: { [prop: string]: string | null };
+    interface PredicateResult {
+      operator: string;
+      operands: { name: string; type: string }[];
     }
 
-    export class Query {
-      readonly predicates: { [name: string]: Function }[];
-      readonly setProperties: any[];
-      readonly assertedProperties: any[];
-      readonly refutedProperties: any[];
+    class Query {
+      captureNames: string[];
 
-      constructor(language: any, source: string | Buffer);
-
+      delete(): void;
       matches(
-        rootNode: SyntaxNode,
+        node: SyntaxNode,
         startPosition?: Point,
         endPosition?: Point
       ): QueryMatch[];
       captures(
-        rootNode: SyntaxNode,
+        node: SyntaxNode,
         startPosition?: Point,
         endPosition?: Point
       ): QueryCapture[];
+      predicatesForPattern(patternIndex: number): PredicateResult[];
     }
   }
 

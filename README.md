@@ -29,6 +29,9 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 0.10.0
+- Add Python support
+
 ### 0.9.0
 - Support "string" and "comment" scope types
 
