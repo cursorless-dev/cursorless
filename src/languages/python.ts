@@ -3,6 +3,7 @@ import { getPojoMatchers } from "./getPojoMatchers";
 import {
   delimitedMatcher,
   hasType,
+  possiblyWrappedNode,
   simpleSelectionExtractor,
 } from "../nodeMatchers";
 import { NodeMatcher, ScopeType } from "../Types";
@@ -97,25 +98,12 @@ const ARGUMENT_TYPES = [
   "keyword_argument",
 ];
 
-export function possiblyDecoratedDefinition(
-  ...typeNames: string[]
-): NodeMatcher {
-  return (editor: TextEditor, node: SyntaxNode) => {
-    if (node.parent!.type === "decorated_definition") {
-      return null;
-    }
-
-    if (
-      node.type === "decorated_definition" &&
-      typeNames.includes(getDefinitionNode(node)!.type)
-    ) {
-      return simpleSelectionExtractor(node);
-    }
-
-    return typeNames.includes(node.type)
-      ? simpleSelectionExtractor(node)
-      : null;
-  };
+function possiblyDecoratedDefinition(...typeNames: string[]): NodeMatcher {
+  return possiblyWrappedNode(
+    (node) => node.type === "decorated_definition",
+    (node) => typeNames.includes(node.type),
+    getDefinitionNode
+  );
 }
 
 const nodeMatchers: Record<ScopeType, NodeMatcher> = {

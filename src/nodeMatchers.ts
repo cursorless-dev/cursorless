@@ -124,3 +124,50 @@ export function simpleSelectionExtractor(
     context: {},
   };
 }
+
+/**
+ * Creates a matcher that can match potentially wrapped nodes. For example
+ * typescript export statements or python decorators
+ * @param isWrapperNode Returns true if the given node has the right type to be
+ * a wrapper node
+ * @param isTargetNode Returns true if the given node has the right type to be
+ * the target
+ * @param getWrappedNode Given a wrapper node returns the given target node
+ * @returns A matcher that will return the given target node or the wrapper
+ * node, if it is wrapping a target node
+ */
+export function possiblyWrappedNode(
+  isWrapperNode: (node: SyntaxNode) => boolean,
+  isTargetNode: (node: SyntaxNode) => boolean,
+  getWrappedNode: (node: SyntaxNode) => SyntaxNode | null
+): NodeMatcher {
+  return (editor: TextEditor, node: SyntaxNode) => {
+    if (isWrapperNode(node.parent!)) {
+      return null;
+    }
+
+    if (isWrapperNode(node) && isTargetNode(getWrappedNode(node)!)) {
+      return simpleSelectionExtractor(node);
+    }
+
+    return isTargetNode(node) ? simpleSelectionExtractor(node) : null;
+  };
+}
+
+/**
+ * Create a new matcher by cascading the given matchers
+ * @param matchers A list of matchers to try in sequence until one doesn't return null
+ * @returns A NodeMatcher that tries the given matters in sequence
+ */
+export function cascadingMatcher(...matchers: NodeMatcher[]): NodeMatcher {
+  return (editor: TextEditor, node: SyntaxNode) => {
+    for (const matcher of matchers) {
+      const match = matcher(editor, node);
+      if (match != null) {
+        return match;
+      }
+    }
+
+    return null;
+  };
+}
