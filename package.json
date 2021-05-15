@@ -4,10 +4,10 @@
 	"description": "Don't let the cursor slow you down",
 	"icon": "images/icon.png",
 	"galleryBanner": {
-		"color": "#000000",
+		"color": "#00001A",
 		"theme": "dark"
 	},
-	"version": "0.11.1",
+	"version": "0.11.4",
 	"publisher": "pokey",
 	"license": "MIT",
 	"repository": {

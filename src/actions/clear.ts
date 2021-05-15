@@ -6,6 +6,7 @@ import {
   TypedSelection,
 } from "../Types";
 import { ensureSingleEditor } from "../targetUtils";
+import { setSelectionsAndFocusEditor } from "./setSelectionsAndFocusEditor";
 
 export default class Clear implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
@@ -19,7 +20,10 @@ export default class Clear implements Action {
 
     const { thatMark } = await this.graph.actions.delete.run([targets]);
 
-    editor.selections = thatMark.map(({ selection }) => selection);
+    await setSelectionsAndFocusEditor(
+      editor,
+      thatMark.map(({ selection }) => selection)
+    );
 
     return { returnValue: null, thatMark };
   }

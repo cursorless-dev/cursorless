@@ -8,20 +8,7 @@ import {
 import { ensureSingleEditor } from "../targetUtils";
 import { commands, ViewColumn, Selection } from "vscode";
 import update from "immutability-helper";
-
-const columnFocusCommands = {
-  [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",
-  [ViewColumn.Two]: "workbench.action.focusSecondEditorGroup",
-  [ViewColumn.Three]: "workbench.action.focusThirdEditorGroup",
-  [ViewColumn.Four]: "workbench.action.focusFourthEditorGroup",
-  [ViewColumn.Five]: "workbench.action.focusFifthEditorGroup",
-  [ViewColumn.Six]: "workbench.action.focusSixthEditorGroup",
-  [ViewColumn.Seven]: "workbench.action.focusSeventhEditorGroup",
-  [ViewColumn.Eight]: "workbench.action.focusEighthEditorGroup",
-  [ViewColumn.Nine]: "workbench.action.focusNinthEditorGroup",
-  [ViewColumn.Active]: "",
-  [ViewColumn.Beside]: "",
-};
+import { setSelectionsAndFocusEditor } from "./setSelectionsAndFocusEditor";
 
 export class SetSelection implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
@@ -33,11 +20,10 @@ export class SetSelection implements Action {
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
-    if (editor.viewColumn != null) {
-      await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
-    }
-    editor.selections = targets.map((target) => target.selection.selection);
-    editor.revealRange(editor.selections[0]);
+    setSelectionsAndFocusEditor(
+      editor,
+      targets.map((target) => target.selection.selection)
+    );
 
     return {
       returnValue: null,
