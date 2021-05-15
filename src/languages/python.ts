@@ -102,7 +102,7 @@ function possiblyDecoratedDefinition(...typeNames: string[]): NodeMatcher {
   return possiblyWrappedNode(
     (node) => node.type === "decorated_definition",
     (node) => typeNames.includes(node.type),
-    getDefinitionNode
+    (node) => [getDefinitionNode(node)]
   );
 }
 
