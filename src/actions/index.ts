@@ -11,6 +11,7 @@ import {
   SetSelectionAfter,
 } from "./setSelection";
 import Swap from "./swap";
+import Use from "./use";
 import Wrap from "./wrap";
 
 class Actions implements ActionRecord {
@@ -32,6 +33,7 @@ class Actions implements ActionRecord {
   setSelectionAfter = new SetSelectionAfter(this.graph);
   setSelectionBefore = new SetSelectionBefore(this.graph);
   swap = new Swap(this.graph);
+  use = new Use(this.graph);
   unfold = new Unfold(this.graph);
   wrap = new Wrap(this.graph);
 }

@@ -1,7 +1,8 @@
 import { concat, zip } from "lodash";
+import update from "immutability-helper";
 import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
-import { Selection } from "vscode";
+import { Position, Selection } from "vscode";
 import { nodeMatchers } from "./languages";
 import {
   Mark,
@@ -15,6 +16,7 @@ import {
   TypedSelection,
 } from "./Types";
 import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
+import { SUBWORD_MATCHER } from "./constants";
 
 export default function processTargets(
   context: ProcessedTargetsContext,
@@ -187,8 +189,49 @@ function transformSelection(
       }
 
       throw new Error(`Couldn't find containing ${transformation.scopeType}`);
-    case "matchingPairSymbol":
     case "subpiece":
+      if (transformation.pieceType === "subtoken") {
+        const token = selection.editor.document.getText(selection.selection);
+        const matches = token.matchAll(SUBWORD_MATCHER);
+
+        const subwords: { start: number; end: number }[] = [];
+        for (const match of matches) {
+          subwords.push({
+            start: match.index!,
+            end: match.index! + match[0].length,
+          });
+        }
+
+        // NB: We use the modulo here to handle negative offsets
+        const endIndex =
+          transformation.endIndex == null
+            ? subwords.length
+            : (transformation.endIndex + subwords.length) % subwords.length;
+        const startIndex =
+          (transformation.startIndex + subwords.length) % subwords.length;
+
+        const start = selection.selection.start.translate(
+          undefined,
+          subwords[startIndex].start
+        );
+        const end = selection.selection.start.translate(
+          undefined,
+          subwords[endIndex - 1].end
+        );
+
+        return [
+          {
+            selection: update(selection, {
+              selection: (s) =>
+                s.isReversed
+                  ? new Selection(end, start)
+                  : new Selection(start, end),
+            }),
+            context: {},
+          },
+        ];
+      }
+    case "matchingPairSymbol":
     case "surroundingPair":
       throw new Error("Not implemented");
   }

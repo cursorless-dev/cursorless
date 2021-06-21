@@ -75,7 +75,7 @@ export interface SubpieceTransformation {
   type: "subpiece";
   pieceType: PieceType;
   startIndex: number;
-  endIndex: number;
+  endIndex: number | null;
 }
 export interface MatchingPairSymbolTransformation {
   type: "matchingPairSymbol";
@@ -225,6 +225,7 @@ export type ActionType =
   | "setSelectionAfter"
   | "setSelectionBefore"
   | "swap"
+  | "use"
   | "unfold"
   | "wrap";
 

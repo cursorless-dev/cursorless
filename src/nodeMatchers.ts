@@ -143,7 +143,7 @@ export function possiblyWrappedNode(
   getWrappedNodes: (node: SyntaxNode) => (SyntaxNode | null)[]
 ): NodeMatcher {
   return (editor: TextEditor, node: SyntaxNode) => {
-    if (isWrapperNode(node.parent!)) {
+    if (node.parent != null && isWrapperNode(node.parent)) {
       // We don't want to return the target node if it is wrapped.  We return
       // null, knowing that the ancestor walk will call us again with the
       // wrapper node
@@ -152,7 +152,7 @@ export function possiblyWrappedNode(
 
     if (isWrapperNode(node)) {
       const isWrappingTargetNode = getWrappedNodes(node).some(
-        (node) => node != null && isTargetNode
+        (node) => node != null && isTargetNode(node)
       );
 
       if (isWrappingTargetNode) {
