@@ -20,7 +20,7 @@ export class SetSelection implements Action {
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
-    setSelectionsAndFocusEditor(
+    await setSelectionsAndFocusEditor(
       editor,
       targets.map((target) => target.selection.selection)
     );

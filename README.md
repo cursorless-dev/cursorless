@@ -29,6 +29,9 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 0.14.0
+- Support `insertLineBefore` and `insertLineAfter` actions ("drink" and "pour")
+
 ### 0.13.0
 - Support "file" selection type to refer to the entire file
 - Improve error messages

@@ -225,6 +225,8 @@ export type ActionType =
   | "delete"
   | "extractVariable"
   | "fold"
+  | "insertLineAfter"
+  | "insertLineBefore"
   | "paste"
   | "setSelection"
   | "setSelectionAfter"
