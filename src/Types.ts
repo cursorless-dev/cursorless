@@ -91,7 +91,12 @@ export type Transformation =
   | MatchingPairSymbolTransformation
   | IdentityTransformation;
 
-export type SelectionType = "character" | "token" | "line" | "block";
+export type SelectionType =
+  | "character"
+  | "token"
+  | "line"
+  | "block"
+  | "document";
 export type Position = "before" | "after" | "contents";
 export type InsideOutsideType = "inside" | "outside" | null;
 

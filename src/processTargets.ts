@@ -128,6 +128,11 @@ function getSelectionsFromMark(
         mark.symbolColor,
         mark.character
       );
+      if (token == null) {
+        throw new Error(
+          `Couldn't find mark ${mark.symbolColor} '${mark.character}'`
+        );
+      }
       return [
         {
           selection: new Selection(token.range.start, token.range.end),
@@ -244,6 +249,8 @@ function createTypedSelection(
   selectionContext: SelectionContext
 ): TypedSelection {
   const { selectionType, insideOutsideType } = target;
+  var start: vscode.Position;
+  var end: vscode.Position;
 
   switch (selectionType) {
     case "token":
@@ -257,9 +264,6 @@ function createTypedSelection(
     case "line":
       const originalSelectionStart = selection.selection.start;
       const originalSelectionEnd = selection.selection.end;
-
-      var start: vscode.Position;
-      var end: vscode.Position;
 
       if (insideOutsideType) {
         const startLine = selection.editor.document.lineAt(
@@ -297,7 +301,25 @@ function createTypedSelection(
         selectionContext,
         insideOutsideType: target.insideOutsideType ?? null,
       };
+    case "document":
+      const document = selection.editor.document;
+      // From https://stackoverflow.com/a/46427868
+      const firstLine = document.lineAt(0);
+      const lastLine = document.lineAt(document.lineCount - 1);
+      start = firstLine.range.start;
+      end = lastLine.range.end;
 
+      return {
+        selection: update(selection, {
+          selection: (s) =>
+            s.isReversed
+              ? new Selection(end, start)
+              : new Selection(start, end),
+        }),
+        selectionType,
+        selectionContext,
+        insideOutsideType: target.insideOutsideType ?? null,
+      };
     case "block":
     case "character":
       throw new Error("Not implemented");

@@ -163,6 +163,7 @@ export async function activate(context: vscode.ExtensionContext) {
         // const processedTargets = processTargets(navigationMap!, targets);
       } catch (e) {
         vscode.window.showErrorMessage(e.message);
+        throw e;
       }
     }
   );

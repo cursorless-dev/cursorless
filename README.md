@@ -29,6 +29,10 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 0.13.0
+- Support "file" selection type to refer to the entire file
+- Improve error messages
+
 ### 0.12.0
 - Add subword support
 - [python] Fix parameter transformation
