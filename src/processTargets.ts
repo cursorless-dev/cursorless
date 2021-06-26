@@ -214,10 +214,11 @@ function transformSelection(
       }
 
       // NB: We use the modulo here to handle negative offsets
-      const endIndex =
+      let endIndex =
         transformation.endIndex == null
           ? pieces.length
           : (transformation.endIndex + pieces.length) % pieces.length;
+      endIndex = endIndex === 0 ? pieces.length : endIndex;
       const startIndex =
         (transformation.startIndex + pieces.length) % pieces.length;
 
