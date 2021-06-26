@@ -195,47 +195,52 @@ function transformSelection(
 
       throw new Error(`Couldn't find containing ${transformation.scopeType}`);
     case "subpiece":
-      if (transformation.pieceType === "subtoken") {
-        const token = selection.editor.document.getText(selection.selection);
-        const matches = token.matchAll(SUBWORD_MATCHER);
+      const token = selection.editor.document.getText(selection.selection);
+      const pieces: { start: number; end: number }[] = [];
 
-        const subwords: { start: number; end: number }[] = [];
+      if (transformation.pieceType === "subtoken") {
+        const matches = token.matchAll(SUBWORD_MATCHER);
         for (const match of matches) {
-          subwords.push({
+          pieces.push({
             start: match.index!,
             end: match.index! + match[0].length,
           });
         }
-
-        // NB: We use the modulo here to handle negative offsets
-        const endIndex =
-          transformation.endIndex == null
-            ? subwords.length
-            : (transformation.endIndex + subwords.length) % subwords.length;
-        const startIndex =
-          (transformation.startIndex + subwords.length) % subwords.length;
-
-        const start = selection.selection.start.translate(
-          undefined,
-          subwords[startIndex].start
-        );
-        const end = selection.selection.start.translate(
-          undefined,
-          subwords[endIndex - 1].end
-        );
-
-        return [
-          {
-            selection: update(selection, {
-              selection: (s) =>
-                s.isReversed
-                  ? new Selection(end, start)
-                  : new Selection(start, end),
-            }),
-            context: {},
-          },
-        ];
+      } else if (transformation.pieceType === "character") {
+        const characters = token.split("");
+        for (let index = 0; index < characters.length; index++) {
+          pieces.push({ start: index, end: index + 1 });
+        }
       }
+
+      // NB: We use the modulo here to handle negative offsets
+      const endIndex =
+        transformation.endIndex == null
+          ? pieces.length
+          : (transformation.endIndex + pieces.length) % pieces.length;
+      const startIndex =
+        (transformation.startIndex + pieces.length) % pieces.length;
+
+      const start = selection.selection.start.translate(
+        undefined,
+        pieces[startIndex].start
+      );
+      const end = selection.selection.start.translate(
+        undefined,
+        pieces[endIndex - 1].end
+      );
+
+      return [
+        {
+          selection: update(selection, {
+            selection: (s) =>
+              s.isReversed
+                ? new Selection(end, start)
+                : new Selection(start, end),
+          }),
+          context: {},
+        },
+      ];
     case "matchingPairSymbol":
     case "surroundingPair":
       throw new Error("Not implemented");
