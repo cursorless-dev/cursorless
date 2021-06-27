@@ -58,6 +58,7 @@ export type ScopeType =
   | "pairKey"
   | "statement"
   | "string"
+  | "type"
   | "value";
 export type PieceType = "subtoken" | "character";
 
