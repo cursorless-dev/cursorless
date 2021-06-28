@@ -12,8 +12,11 @@ import { computeChangedOffsets } from "../computeChangedOffsets";
 import { flatten, zip } from "lodash";
 import { Selection } from "vscode";
 
-export default class Swap implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+export default class Use implements Action {
+  targetPreferences: ActionPreferences[] = [
+    { insideOutsideType: "inside" },
+    { position: "after", insideOutsideType: "outside" },
+  ];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
@@ -23,47 +26,40 @@ export default class Swap implements Action {
     TypedSelection[],
     TypedSelection[]
   ]): Promise<ActionReturnValue> {
+    if (targets0.length === 1) {
+      // If there is only one source target, expand it to same length as
+      // destination target
+      targets0 = Array(targets1.length).fill(targets0[0]);
+    }
+
     await Promise.all([
       displayPendingEditDecorations(
         targets0,
-        this.graph.editStyles.pendingModification0,
-        this.graph.editStyles.pendingLineModification0
+        this.graph.editStyles.referenced,
+        this.graph.editStyles.referencedLine
       ),
       displayPendingEditDecorations(
         targets1,
-        this.graph.editStyles.pendingModification1,
-        this.graph.editStyles.pendingLineModification1
+        this.graph.editStyles.pendingModification0,
+        this.graph.editStyles.pendingLineModification0
       ),
     ]);
 
-    const edits = flatten(
-      zip(targets0, targets1).map(([target0, target1]) => {
-        if (target0 == null || target1 == null) {
-          throw new Error("Targets must have same number of args");
-        }
+    const edits = zip(targets0, targets1).map(([target0, target1]) => {
+      if (target0 == null || target1 == null) {
+        throw new Error("Targets must have same number of args");
+      }
 
-        return [
-          {
-            editor: target0.selection.editor,
-            range: target0.selection.selection,
-            newText: target1.selection.editor.document.getText(
-              target1.selection.selection
-            ),
-            targetsIndex: 1,
-            originalSelection: target0,
-          },
-          {
-            editor: target1.selection.editor,
-            range: target1.selection.selection,
-            newText: target0.selection.editor.document.getText(
-              target0.selection.selection
-            ),
-            targetsIndex: 0,
-            originalSelection: target1,
-          },
-        ];
-      })
-    );
+      return {
+        editor: target1.selection.editor,
+        range: target1.selection.selection,
+        newText: target0.selection.editor.document.getText(
+          target0.selection.selection
+        ),
+        targetsIndex: 0,
+        originalSelection: target1,
+      };
+    });
 
     const thatMark = flatten(
       await runForEachEditor(
@@ -83,7 +79,11 @@ export default class Swap implements Action {
 
           await editor.edit((editBuilder) => {
             newEdits.forEach((edit) => {
-              editBuilder.replace(edit.originalRange, edit.newText);
+              if (edit.originalRange.isEmpty) {
+                editBuilder.insert(edit.originalRange.start, edit.newText);
+              } else {
+                editBuilder.replace(edit.originalRange, edit.newText);
+              }
             });
           });
 

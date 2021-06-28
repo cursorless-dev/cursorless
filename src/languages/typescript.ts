@@ -103,7 +103,7 @@ function possiblyExportedDeclaration(...typeNames: string[]): NodeMatcher {
   return possiblyWrappedNode(
     (node) => node.type === "export_statement",
     (node) => typeNames.includes(node.type),
-    getDeclarationNode
+    (node) => [getDeclarationNode(node), getValueNode(node)]
   );
 }
 
@@ -127,7 +127,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
     (node) => isExpression(node) || node.type === "spread_element"
   ),
   ifStatement: hasType("if_statement"),
-  class: possiblyExportedDeclaration("class_declaration"),
+  class: possiblyExportedDeclaration("class_declaration", "class"),
   statement: possiblyExportedDeclaration(...STATEMENT_TYPES),
   arrowFunction: hasType("arrow_function"),
   functionCall: hasType("call_expression", "new_expression"),
@@ -161,7 +161,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
     possiblyWrappedNode(
       (node) => node.type === "export_statement",
       isNamedArrowFunction,
-      getDeclarationNode
+      (node) => [getDeclarationNode(node)]
     )
   ),
   comment: hasType("comment"),

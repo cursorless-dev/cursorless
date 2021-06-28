@@ -5,12 +5,14 @@ import Cut from "./cut";
 import Delete from "./delete";
 import ExtractVariable from "./extractVariable";
 import { Fold, Unfold } from "./fold";
+import { InsertLineBefore, InsertLineAfter } from "./InsertLine";
 import {
   SetSelection,
   SetSelectionBefore,
   SetSelectionAfter,
 } from "./setSelection";
 import Swap from "./swap";
+import Use from "./use";
 import Wrap from "./wrap";
 
 class Actions implements ActionRecord {
@@ -22,6 +24,8 @@ class Actions implements ActionRecord {
   delete = new Delete(this.graph);
   extractVariable = new ExtractVariable(this.graph);
   fold = new Fold(this.graph);
+  insertLineBefore = new InsertLineBefore(this.graph);
+  insertLineAfter = new InsertLineAfter(this.graph);
   paste: Action = {
     run: async ([targets]) => {
       throw new Error("Not implemented");
@@ -32,6 +36,7 @@ class Actions implements ActionRecord {
   setSelectionAfter = new SetSelectionAfter(this.graph);
   setSelectionBefore = new SetSelectionBefore(this.graph);
   swap = new Swap(this.graph);
+  use = new Use(this.graph);
   unfold = new Unfold(this.graph);
   wrap = new Wrap(this.graph);
 }

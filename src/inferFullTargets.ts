@@ -205,6 +205,8 @@ export function inferSinglePrimitiveTarget(
   prototypeTargets: Target[],
   actionPreferences: ActionPreferences
 ): PrimitiveTarget {
+  prototypeTargets = hasContent(target) ? [] : prototypeTargets;
+
   const mark = target.mark ?? CURSOR_MARK;
 
   const selectionType =
@@ -344,6 +346,7 @@ function inferRangeStartTarget(
   actionPreferences: ActionPreferences
 ): PrimitiveTarget {
   const mark = target.mark ?? CURSOR_MARK;
+  prototypeTargets = hasContent(target) ? [] : prototypeTargets;
 
   const selectionType =
     target.selectionType ??
@@ -375,13 +378,13 @@ function inferRangeStartTarget(
 export function inferRangeEndTarget(
   context: InferenceContext,
   target: PartialPrimitiveTarget,
-  startTarget: PartialPrimitiveTarget,
+  startTarget: PrimitiveTarget,
   prototypeTargets: Target[],
   actionPreferences: ActionPreferences
 ): PrimitiveTarget {
-  const prototypeTargetsIncludingStartTarget = ([
-    startTarget,
-  ] as Target[]).concat(prototypeTargets);
+  const prototypeTargetsIncludingStartTarget = hasContent(target)
+    ? []
+    : ([startTarget] as Target[]).concat(prototypeTargets);
 
   const mark =
     target.mark ??
@@ -438,4 +441,17 @@ function getContentSelectionType(contents: string[]): SelectionType {
     return "line";
   }
   return "token";
+}
+
+/**
+ * Determine whether the target has content, so that we shouldn't do inference
+ * @param target The target to inspect
+ * @returns A boolean indicating whether the target has content
+ */
+function hasContent(target: PartialPrimitiveTarget) {
+  return (
+    target.selectionType != null ||
+    target.transformation != null ||
+    target.insideOutsideType != null
+  );
 }

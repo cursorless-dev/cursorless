@@ -1,7 +1,8 @@
 import { concat, zip } from "lodash";
+import update from "immutability-helper";
 import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
-import { Selection } from "vscode";
+import { Position, Selection } from "vscode";
 import { nodeMatchers } from "./languages";
 import {
   Mark,
@@ -15,6 +16,7 @@ import {
   TypedSelection,
 } from "./Types";
 import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
+import { SUBWORD_MATCHER } from "./constants";
 
 export default function processTargets(
   context: ProcessedTargetsContext,
@@ -126,6 +128,11 @@ function getSelectionsFromMark(
         mark.symbolColor,
         mark.character
       );
+      if (token == null) {
+        throw new Error(
+          `Couldn't find mark ${mark.symbolColor} '${mark.character}'`
+        );
+      }
       return [
         {
           selection: new Selection(token.range.start, token.range.end),
@@ -187,8 +194,49 @@ function transformSelection(
       }
 
       throw new Error(`Couldn't find containing ${transformation.scopeType}`);
-    case "matchingPairSymbol":
     case "subpiece":
+      if (transformation.pieceType === "subtoken") {
+        const token = selection.editor.document.getText(selection.selection);
+        const matches = token.matchAll(SUBWORD_MATCHER);
+
+        const subwords: { start: number; end: number }[] = [];
+        for (const match of matches) {
+          subwords.push({
+            start: match.index!,
+            end: match.index! + match[0].length,
+          });
+        }
+
+        // NB: We use the modulo here to handle negative offsets
+        const endIndex =
+          transformation.endIndex == null
+            ? subwords.length
+            : (transformation.endIndex + subwords.length) % subwords.length;
+        const startIndex =
+          (transformation.startIndex + subwords.length) % subwords.length;
+
+        const start = selection.selection.start.translate(
+          undefined,
+          subwords[startIndex].start
+        );
+        const end = selection.selection.start.translate(
+          undefined,
+          subwords[endIndex - 1].end
+        );
+
+        return [
+          {
+            selection: update(selection, {
+              selection: (s) =>
+                s.isReversed
+                  ? new Selection(end, start)
+                  : new Selection(start, end),
+            }),
+            context: {},
+          },
+        ];
+      }
+    case "matchingPairSymbol":
     case "surroundingPair":
       throw new Error("Not implemented");
   }
@@ -201,6 +249,8 @@ function createTypedSelection(
   selectionContext: SelectionContext
 ): TypedSelection {
   const { selectionType, insideOutsideType } = target;
+  var start: vscode.Position;
+  var end: vscode.Position;
 
   switch (selectionType) {
     case "token":
@@ -214,9 +264,6 @@ function createTypedSelection(
     case "line":
       const originalSelectionStart = selection.selection.start;
       const originalSelectionEnd = selection.selection.end;
-
-      var start: vscode.Position;
-      var end: vscode.Position;
 
       if (insideOutsideType) {
         const startLine = selection.editor.document.lineAt(
@@ -254,7 +301,25 @@ function createTypedSelection(
         selectionContext,
         insideOutsideType: target.insideOutsideType ?? null,
       };
+    case "document":
+      const document = selection.editor.document;
+      // From https://stackoverflow.com/a/46427868
+      const firstLine = document.lineAt(0);
+      const lastLine = document.lineAt(document.lineCount - 1);
+      start = firstLine.range.start;
+      end = lastLine.range.end;
 
+      return {
+        selection: update(selection, {
+          selection: (s) =>
+            s.isReversed
+              ? new Selection(end, start)
+              : new Selection(start, end),
+        }),
+        selectionType,
+        selectionContext,
+        insideOutsideType: target.insideOutsideType ?? null,
+      };
     case "block":
     case "character":
       throw new Error("Not implemented");

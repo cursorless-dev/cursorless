@@ -75,7 +75,7 @@ export interface SubpieceTransformation {
   type: "subpiece";
   pieceType: PieceType;
   startIndex: number;
-  endIndex: number;
+  endIndex: number | null;
 }
 export interface MatchingPairSymbolTransformation {
   type: "matchingPairSymbol";
@@ -91,7 +91,12 @@ export type Transformation =
   | MatchingPairSymbolTransformation
   | IdentityTransformation;
 
-export type SelectionType = "character" | "token" | "line" | "block";
+export type SelectionType =
+  | "character"
+  | "token"
+  | "line"
+  | "block"
+  | "document";
 export type Position = "before" | "after" | "contents";
 export type InsideOutsideType = "inside" | "outside" | null;
 
@@ -220,11 +225,14 @@ export type ActionType =
   | "delete"
   | "extractVariable"
   | "fold"
+  | "insertLineAfter"
+  | "insertLineBefore"
   | "paste"
   | "setSelection"
   | "setSelectionAfter"
   | "setSelectionBefore"
   | "swap"
+  | "use"
   | "unfold"
   | "wrap";
 

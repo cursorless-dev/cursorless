@@ -29,6 +29,22 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 0.14.0
+- Support `insertLineBefore` and `insertLineAfter` actions ("drink" and "pour")
+
+### 0.13.0
+- Support "file" selection type to refer to the entire file
+- Improve error messages
+
+### 0.12.0
+- Add subword support
+- [python] Fix parameter transformation
+- Show exceptions to user
+- Properly support using "token" to select only token, eg "take funk gust and
+  token fine" to prevent "fine" from being inferred to have the `function`
+  transformation.
+- Support "bring" action to use another target from elsewhere in the document
+
 ### 0.11.0
 - Simplify token regex
 

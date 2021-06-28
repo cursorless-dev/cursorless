@@ -77,87 +77,94 @@ export async function activate(context: vscode.ExtensionContext) {
       partialTargets: PartialTarget[],
       ...extraArgs: any[]
     ) => {
-      console.log(`action: ${actionName}`);
-      console.log(`targets:`);
-      console.log(JSON.stringify(partialTargets, null, 3));
-      console.log(`extraArgs:`);
-      console.log(JSON.stringify(extraArgs, null, 3));
+      try {
+        console.log(`action: ${actionName}`);
+        console.log(`partialTargets:`);
+        console.log(JSON.stringify(partialTargets, null, 3));
+        console.log(`extraArgs:`);
+        console.log(JSON.stringify(extraArgs, null, 3));
 
-      const action = graph.actions[actionName];
+        const action = graph.actions[actionName];
 
-      const selectionContents =
-        vscode.window.activeTextEditor?.selections.map((selection) =>
-          vscode.window.activeTextEditor!.document.getText(selection)
-        ) ?? [];
+        const selectionContents =
+          vscode.window.activeTextEditor?.selections.map((selection) =>
+            vscode.window.activeTextEditor!.document.getText(selection)
+          ) ?? [];
 
-      const isPaste = actionName === "paste";
+        const isPaste = actionName === "paste";
 
-      var clipboardContents: string | undefined;
+        var clipboardContents: string | undefined;
 
-      if (isPaste) {
-        clipboardContents = await vscode.env.clipboard.readText();
-        // clipboardContents = "hello";
-        // clipboardContents = "hello\n";
-        // clipboardContents = "\nhello\n";
+        if (isPaste) {
+          clipboardContents = await vscode.env.clipboard.readText();
+          // clipboardContents = "hello";
+          // clipboardContents = "hello\n";
+          // clipboardContents = "\nhello\n";
+        }
+
+        const inferenceContext = {
+          selectionContents,
+          isPaste,
+          clipboardContents,
+        };
+
+        const targets = inferFullTargets(
+          inferenceContext,
+          partialTargets,
+          action.targetPreferences
+        );
+        // console.log(`targets:`);
+        // console.log(JSON.stringify(targets, null, 3));
+
+        const processedTargetsContext: ProcessedTargetsContext = {
+          currentSelections:
+            vscode.window.activeTextEditor?.selections.map((selection) => ({
+              selection,
+              editor: vscode.window.activeTextEditor!,
+            })) ?? [],
+          currentEditor: vscode.window.activeTextEditor,
+          navigationMap: navigationMap!,
+          thatMark,
+          getNodeAtLocation,
+        };
+
+        const selections = processTargets(processedTargetsContext, targets);
+
+        const { returnValue, thatMark: newThatMark } = await action.run(
+          selections,
+          ...extraArgs
+        );
+
+        thatMark = newThatMark;
+
+        return returnValue;
+
+        // writeFileSync(
+        //   "/Users/pokey/src/cursorless-vscode/inferFullTargetsTests.jsonl",
+        //   JSON.stringify({
+        //     input: { context, partialTargets, preferredPositions },
+        //     expectedOutput: targets,
+        //   }) + "\n",
+        //   { flag: "a" }
+        // );
+
+        // writeFileSync(
+        //   "/Users/pokey/src/cursorless-vscode/processTargetsTests.jsonl",
+        //   JSON.stringify({
+        //     input: {
+        //       context: processedTargetsContext,
+        //       targets,
+        //     },
+        //     expectedOutput: selections,
+        //   }) + "\n",
+        //   { flag: "a" }
+        // );
+
+        // const processedTargets = processTargets(navigationMap!, targets);
+      } catch (e) {
+        vscode.window.showErrorMessage(e.message);
+        throw e;
       }
-
-      const inferenceContext = {
-        selectionContents,
-        isPaste,
-        clipboardContents,
-      };
-
-      const targets = inferFullTargets(
-        inferenceContext,
-        partialTargets,
-        action.targetPreferences
-      );
-
-      const processedTargetsContext: ProcessedTargetsContext = {
-        currentSelections:
-          vscode.window.activeTextEditor?.selections.map((selection) => ({
-            selection,
-            editor: vscode.window.activeTextEditor!,
-          })) ?? [],
-        currentEditor: vscode.window.activeTextEditor,
-        navigationMap: navigationMap!,
-        thatMark,
-        getNodeAtLocation,
-      };
-
-      const selections = processTargets(processedTargetsContext, targets);
-
-      const { returnValue, thatMark: newThatMark } = await action.run(
-        selections,
-        ...extraArgs
-      );
-
-      thatMark = newThatMark;
-
-      return returnValue;
-
-      // writeFileSync(
-      //   "/Users/pokey/src/cursorless-vscode/inferFullTargetsTests.jsonl",
-      //   JSON.stringify({
-      //     input: { context, partialTargets, preferredPositions },
-      //     expectedOutput: targets,
-      //   }) + "\n",
-      //   { flag: "a" }
-      // );
-
-      // writeFileSync(
-      //   "/Users/pokey/src/cursorless-vscode/processTargetsTests.jsonl",
-      //   JSON.stringify({
-      //     input: {
-      //       context: processedTargetsContext,
-      //       targets,
-      //     },
-      //     expectedOutput: selections,
-      //   }) + "\n",
-      //   { flag: "a" }
-      // );
-
-      // const processedTargets = processTargets(navigationMap!, targets);
     }
   );
 

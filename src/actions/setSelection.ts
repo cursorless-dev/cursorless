@@ -6,7 +6,7 @@ import {
   TypedSelection,
 } from "../Types";
 import { ensureSingleEditor } from "../targetUtils";
-import { commands, ViewColumn, Selection } from "vscode";
+import { Selection } from "vscode";
 import update from "immutability-helper";
 import { setSelectionsAndFocusEditor } from "./setSelectionsAndFocusEditor";
 
@@ -20,7 +20,7 @@ export class SetSelection implements Action {
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
-    setSelectionsAndFocusEditor(
+    await setSelectionsAndFocusEditor(
       editor,
       targets.map((target) => target.selection.selection)
     );
