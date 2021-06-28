@@ -1,6 +1,35 @@
-export const DEBOUNCE_DELAY = 175;
+const REPEATABLE_SYMBOLS = [
+  "\\+",
+  "-",
+  "\\*",
+  "/",
+  "=",
+  "<",
+  ">",
+  "_",
+  "#",
+  "\\.",
+  "\\|",
+  "&"
+].map(s => `${s}+`).join("|");
 
-export const TOKEN_MATCHER = /[a-zA-Z_0-9]+|[^\s\w]/g;
+const FIXED_TOKENS = [
+  "!==",
+  "!=",
+  "\\+=",
+  "-=",
+  "\\*=",
+  "/=",
+  "%=",
+  "<=",
+  ">="
+].join("|");
+
+export const TOKEN_MATCHER = new RegExp(`[a-zA-Z_0-9]+|${FIXED_TOKENS}|${REPEATABLE_SYMBOLS}|[^\\s\\w]`, "g");
+
+export const SUBWORD_MATCHER = /[A-Z]?[a-z]+/g;
+
+export const DEBOUNCE_DELAY = 175;
 
 export const COLORS = [
   "default",
