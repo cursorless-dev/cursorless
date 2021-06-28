@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { TOKEN_MATCHER } from "./constants";
+import { tokenize } from "./tokenizer";
 import { Token } from "./Types";
 
 export function getTokensInRange(
@@ -10,7 +10,7 @@ export function getTokensInRange(
   const text = editor.document.getText(range).toLowerCase();
   const rangeOffset = editor.document.offsetAt(range.start);
 
-  return Array.from(text.matchAll(TOKEN_MATCHER), (match) => {
+  return tokenize(text, (match) => {
     const startOffset = rangeOffset + match.index!;
     const endOffset = rangeOffset + match.index! + match[0].length;
     const range = new vscode.Range(
