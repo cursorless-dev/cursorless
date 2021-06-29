@@ -8,17 +8,17 @@ export function hasType(...typeNames: string[]): NodeMatcher {
 }
 
 export function childNodeMatcher(
-  getNode: (node: SyntaxNode) => SyntaxNode | null,
+  getMatchingChildNode: (node: SyntaxNode) => SyntaxNode | null,
   extractor: (node: SyntaxNode) => SelectionWithContext
 ): NodeMatcher {
   return (editor: TextEditor, node: SyntaxNode) => {
-    const returnNode = getNode(node);
+    const returnNode = getMatchingChildNode(node);
 
     if (returnNode == null) {
       return null;
     }
 
-    return extractor(node);
+    return extractor(returnNode);
   };
 }
 
