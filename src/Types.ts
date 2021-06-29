@@ -247,3 +247,9 @@ export type NodeMatcher = (
   editor: vscode.TextEditor,
   node: SyntaxNode
 ) => SelectionWithContext | null;
+
+export interface DecorationColorSetting {
+  dark: string;
+  light: string;
+  highContrast: string;
+}
