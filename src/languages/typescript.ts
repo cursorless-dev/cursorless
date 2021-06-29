@@ -142,12 +142,9 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
     childNodeMatcher(getTypeNode, getNodeWithLeadingDelimiter),
 
     // Type alias/interface declarations
-    possiblyWrappedNode(
-      (node) => node.type === "export_statement",
-      (node) =>
-        node.type === "type_alias_declaration" ||
-        node.type === "interface_declaration",
-      (node) => [getDeclarationNode(node)]
+    possiblyExportedDeclaration(
+      "type_alias_declaration",
+      "interface_declaration"
     )
   ),
   argumentOrParameter: delimitedMatcher(
