@@ -1,4 +1,4 @@
-import { concat, zip } from "lodash";
+import { concat, range, zip } from "lodash";
 import update from "immutability-helper";
 import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
@@ -195,47 +195,57 @@ function transformSelection(
 
       throw new Error(`Couldn't find containing ${transformation.scopeType}`);
     case "subpiece":
-      if (transformation.pieceType === "subtoken") {
-        const token = selection.editor.document.getText(selection.selection);
-        const matches = token.matchAll(SUBWORD_MATCHER);
+      const token = selection.editor.document.getText(selection.selection);
+      let pieces: { start: number; end: number }[] = [];
 
-        const subwords: { start: number; end: number }[] = [];
+      if (transformation.pieceType === "subtoken") {
+        const matches = token.matchAll(SUBWORD_MATCHER);
         for (const match of matches) {
-          subwords.push({
+          pieces.push({
             start: match.index!,
             end: match.index! + match[0].length,
           });
         }
-
-        // NB: We use the modulo here to handle negative offsets
-        const endIndex =
-          transformation.endIndex == null
-            ? subwords.length
-            : (transformation.endIndex + subwords.length) % subwords.length;
-        const startIndex =
-          (transformation.startIndex + subwords.length) % subwords.length;
-
-        const start = selection.selection.start.translate(
-          undefined,
-          subwords[startIndex].start
-        );
-        const end = selection.selection.start.translate(
-          undefined,
-          subwords[endIndex - 1].end
-        );
-
-        return [
-          {
-            selection: update(selection, {
-              selection: (s) =>
-                s.isReversed
-                  ? new Selection(end, start)
-                  : new Selection(start, end),
-            }),
-            context: {},
-          },
-        ];
+      } else if (transformation.pieceType === "character") {
+        pieces = range(token.length).map((index) => ({
+          start: index,
+          end: index + 1,
+        }));
       }
+
+      // NB: We use the modulo here to handle negative offsets
+      const endIndex =
+        transformation.endIndex == null
+          ? pieces.length
+          : transformation.endIndex <= 0
+          ? transformation.endIndex + pieces.length
+          : transformation.endIndex;
+
+      const startIndex =
+        transformation.startIndex < 0
+          ? transformation.startIndex + pieces.length
+          : transformation.startIndex;
+
+      const start = selection.selection.start.translate(
+        undefined,
+        pieces[startIndex].start
+      );
+      const end = selection.selection.start.translate(
+        undefined,
+        pieces[endIndex - 1].end
+      );
+
+      return [
+        {
+          selection: update(selection, {
+            selection: (s) =>
+              s.isReversed
+                ? new Selection(end, start)
+                : new Selection(start, end),
+          }),
+          context: {},
+        },
+      ];
     case "matchingPairSymbol":
     case "surroundingPair":
       throw new Error("Not implemented");
