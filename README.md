@@ -29,6 +29,9 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 0.15.0
+- Support "character" subtoken transformation (eg "take fine third character") (thanks @brxck!)
+
 ### 0.14.0
 - Support `insertLineBefore` and `insertLineAfter` actions ("drink" and "pour")
 
