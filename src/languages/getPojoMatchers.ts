@@ -5,6 +5,8 @@ import {
   hasType,
   simpleSelectionExtractor,
   makeRange,
+  childNodeMatcher,
+  getNodeWithLeadingDelimiter,
 } from "../nodeMatchers";
 import { getKeyNode, getValueNode } from "../treeSitterUtils";
 
@@ -27,27 +29,7 @@ export function getPojoMatchers(
 
       return simpleSelectionExtractor(getKeyNode(node)!);
     },
-    value(editor: TextEditor, node: SyntaxNode) {
-      const valueNode = getValueNode(node);
-
-      if (valueNode == null) {
-        return null;
-      }
-
-      const leadingDelimiterToken = valueNode.previousSibling!;
-
-      const leadingDelimiterRange = makeRange(
-        leadingDelimiterToken.startPosition,
-        valueNode.startPosition
-      );
-
-      return {
-        ...simpleSelectionExtractor(valueNode),
-        context: {
-          leadingDelimiterRange,
-        },
-      };
-    },
+    value: childNodeMatcher(getValueNode, getNodeWithLeadingDelimiter),
     list: hasType(...listTypes),
     listElement: delimitedMatcher(
       (node) =>
