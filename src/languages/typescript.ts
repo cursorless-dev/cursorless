@@ -7,14 +7,13 @@ import {
   hasType,
   possiblyWrappedNode,
   simpleSelectionExtractor,
-  makeRange,
   getNodeWithLeadingDelimiter,
   childNodeMatcher,
 } from "../nodeMatchers";
 import { NodeMatcher, ScopeType } from "../Types";
 import {
   getDeclarationNode,
-  getTypeAnnotationNode,
+  getTypeNode,
   getValueNode,
 } from "../treeSitterUtils";
 
@@ -140,7 +139,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   functionCall: hasType("call_expression", "new_expression"),
   type: cascadingMatcher(
     // Typed parameters, properties, and functions
-    childNodeMatcher(getTypeAnnotationNode, getNodeWithLeadingDelimiter),
+    childNodeMatcher(getTypeNode, getNodeWithLeadingDelimiter),
 
     // Type alias/interface declarations
     possiblyWrappedNode(
