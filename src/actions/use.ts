@@ -22,42 +22,42 @@ export default class Use implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets0, targets1]: [
+  async run([sources, destinations]: [
     TypedSelection[],
     TypedSelection[]
   ]): Promise<ActionReturnValue> {
-    if (targets0.length === 1) {
+    if (sources.length === 1) {
       // If there is only one source target, expand it to same length as
       // destination target
-      targets0 = Array(targets1.length).fill(targets0[0]);
+      sources = Array(destinations.length).fill(sources[0]);
     }
 
     await Promise.all([
       displayPendingEditDecorations(
-        targets0,
+        sources,
         this.graph.editStyles.referenced,
         this.graph.editStyles.referencedLine
       ),
       displayPendingEditDecorations(
-        targets1,
+        destinations,
         this.graph.editStyles.pendingModification0,
         this.graph.editStyles.pendingLineModification0
       ),
     ]);
 
-    const edits = zip(targets0, targets1).map(([target0, target1]) => {
-      if (target0 == null || target1 == null) {
+    const edits = zip(sources, destinations).map(([source, destination]) => {
+      if (source == null || destination == null) {
         throw new Error("Targets must have same number of args");
       }
 
       return {
-        editor: target1.selection.editor,
-        range: target1.selection.selection,
-        newText: target0.selection.editor.document.getText(
-          target0.selection.selection
+        editor: destination.selection.editor,
+        range: destination.selection.selection,
+        newText: source.selection.editor.document.getText(
+          source.selection.selection
         ),
         targetsIndex: 0,
-        originalSelection: target1,
+        originalSelection: destination,
       };
     });
 
