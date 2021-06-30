@@ -32,6 +32,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   namedFunction: notSupported,
   comment: notSupported,
   type: notSupported,
+  name: notSupported,
 };
 
 export default nodeMatchers;
