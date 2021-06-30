@@ -8,7 +8,7 @@ import {
   childNodeMatcher,
   getNodeWithLeadingDelimiter,
 } from "../nodeMatchers";
-import { getKeyNode, getValueNode } from "../treeSitterUtils";
+import { getKeyNode, getNameNode, getValueNode } from "../treeSitterUtils";
 
 export function getPojoMatchers(
   dictionaryTypes: string[],
@@ -30,6 +30,7 @@ export function getPojoMatchers(
       return simpleSelectionExtractor(getKeyNode(node)!);
     },
     value: childNodeMatcher(getValueNode, getNodeWithLeadingDelimiter),
+    name: childNodeMatcher(getNameNode, simpleSelectionExtractor),
     list: hasType(...listTypes),
     listElement: delimitedMatcher(
       (node) =>

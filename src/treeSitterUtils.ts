@@ -3,6 +3,8 @@ import { SyntaxNode } from "web-tree-sitter";
 export const getValueNode = (node: SyntaxNode) =>
   node.childForFieldName("value");
 
+export const getNameNode = (node: SyntaxNode) => node.childForFieldName("name");
+
 export const getKeyNode = (node: SyntaxNode) => node.childForFieldName("key");
 
 export const getDefinitionNode = (node: SyntaxNode) =>
