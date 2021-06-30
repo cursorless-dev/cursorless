@@ -19,10 +19,14 @@ export default class Decorations {
   decorationMap: DecorationMap;
 
   constructor() {
-    const iconWidth = "0.7em";
-    const iconHeight = "0.7em";
-    const iconPath = join(__dirname, "..", "images", "curved-hat.svg");
+    const fontWidthEm = 0.61923;
+    const iconWidthEm = 0.35;
+    const iconWidth = `${iconWidthEm}em`;
+    const iconHeight = "1.7em";
+    const iconPath = join(__dirname, "..", "images", "round-hat.svg");
     const rawSvg = readFileSync(iconPath, "utf8");
+
+    const spanWidthEm = iconWidthEm + (fontWidthEm - iconWidthEm) / 2;
 
     this.decorations = COLORS.map((color) => {
       var colorSetting = vscode.workspace
@@ -37,7 +41,9 @@ export default class Decorations {
             after: {
               contentIconPath: this.constructColoredSvgDataUri(
                 rawSvg,
-                colorSetting.light
+                colorSetting.light,
+                iconWidth,
+                iconHeight
               ),
             },
           },
@@ -52,8 +58,8 @@ export default class Decorations {
             },
           },
           after: {
-            margin: `-2em 0 0 -${iconWidth}`,
-            width: iconWidth,
+            margin: `-${iconHeight} 0 0 -${spanWidthEm}em`,
+            width: `${spanWidthEm}em`,
           },
         }),
       };
@@ -64,11 +70,19 @@ export default class Decorations {
     );
   }
 
-  private constructColoredSvgDataUri(rawSvg: string, color: string) {
+  private constructColoredSvgDataUri(
+    rawSvg: string,
+    color: string,
+    width: string,
+    height: string
+  ) {
     const svg = rawSvg
       .replace(/fill="[^"]+"/, `fill="${color}"`)
-      .replace(/fill:[^;]+;/, `fill:${color};`);
+      .replace(/fill:[^;]+;/, `fill:${color};`)
+      .replace(/width="[^"]+"/, `width="${width}"`)
+      .replace(/height="[^"]+"/, `height="${height}"`);
 
+    console.log(svg);
     const encoded = Buffer.from(svg).toString("base64");
 
     return vscode.Uri.parse(`data:image/svg+xml;base64,${encoded}`);
