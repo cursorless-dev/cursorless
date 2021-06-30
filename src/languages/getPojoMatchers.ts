@@ -4,11 +4,10 @@ import {
   delimitedMatcher,
   hasType,
   simpleSelectionExtractor,
-  makeRange,
   childNodeMatcher,
   getNodeWithLeadingDelimiter,
 } from "../nodeMatchers";
-import { getKeyNode, getNameNode, getValueNode } from "../treeSitterUtils";
+import { getNameNode, getKeyNode, getValueNode } from "../treeSitterUtils";
 
 export function getPojoMatchers(
   dictionaryTypes: string[],

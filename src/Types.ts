@@ -53,6 +53,7 @@ export type ScopeType =
   | "ifStatement"
   | "list"
   | "listElement"
+  | "name"
   | "namedFunction"
   | "pair"
   | "pairKey"
