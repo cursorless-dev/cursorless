@@ -1,14 +1,13 @@
 import { SyntaxNode } from "web-tree-sitter";
 import { getPojoMatchers } from "./getPojoMatchers";
 import {
+  childNodeMatcher,
   delimitedMatcher,
+  getNodeWithLeadingDelimiter,
   hasType,
-  notSupported,
   possiblyWrappedNode,
-  simpleSelectionExtractor,
 } from "../nodeMatchers";
 import { NodeMatcher, ScopeType } from "../Types";
-import { TextEditor } from "vscode";
 import { getDefinitionNode } from "../treeSitterUtils";
 
 // TODO figure out how to properly use super types
@@ -122,6 +121,9 @@ function possiblyDecoratedDefinition(...typeNames: string[]): NodeMatcher {
   );
 }
 
+export const getTypeNode = (node: SyntaxNode) =>
+  node.children.find((child) => child.type === "type") ?? null;
+
 const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   ...getPojoMatchers(
     ["dictionary", "dictionary_comprehension"],
@@ -144,7 +146,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   ),
   namedFunction: possiblyDecoratedDefinition("function_definition"),
   comment: hasType("comment"),
-  type: notSupported,
+  type: childNodeMatcher(getTypeNode, getNodeWithLeadingDelimiter),
 };
 
 export default nodeMatchers;
