@@ -3,6 +3,7 @@ import { getPojoMatchers } from "./getPojoMatchers";
 import {
   delimitedMatcher,
   hasType,
+  notSupported,
   possiblyWrappedNode,
   simpleSelectionExtractor,
 } from "../nodeMatchers";
@@ -143,6 +144,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   ),
   namedFunction: possiblyDecoratedDefinition("function_definition"),
   comment: hasType("comment"),
+  type: notSupported,
 };
 
 export default nodeMatchers;
