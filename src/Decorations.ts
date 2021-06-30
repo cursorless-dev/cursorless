@@ -20,6 +20,7 @@ export default class Decorations {
 
   constructor() {
     const iconWidth = "0.7em";
+    const iconHeight = "0.7em";
     const iconPath = join(__dirname, "..", "images", "curved-hat.svg");
     const rawSvg = readFileSync(iconPath, "utf8");
 
@@ -44,12 +45,14 @@ export default class Decorations {
             after: {
               contentIconPath: this.constructColoredSvgDataUri(
                 rawSvg,
-                colorSetting.dark
+                colorSetting.dark,
+                iconWidth,
+                iconHeight
               ),
             },
           },
           after: {
-            margin: `0 0 0 -${iconWidth}`,
+            margin: `-2em 0 0 -${iconWidth}`,
             width: iconWidth,
           },
         }),
