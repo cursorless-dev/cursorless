@@ -36,14 +36,14 @@ class Scroll implements Action {
   }
 }
 
-export class ScrollTopView extends Scroll {
+export class ScrollToTop extends Scroll {
   constructor(graph: Graph) {
     super(graph);
     this.revealType = TextEditorRevealType.AtTop;
   }
 }
 
-export class ScrollCenterView extends Scroll {
+export class ScrollToMid extends Scroll {
   constructor(graph: Graph) {
     super(graph);
     this.revealType = TextEditorRevealType.InCenter;

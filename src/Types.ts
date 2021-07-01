@@ -235,8 +235,8 @@ export type ActionType =
   | "use"
   | "unfold"
   | "wrap"
-  | "scrollTopView"
-  | "scrollCenterView";
+  | "scrollToTop"
+  | "scrollToMid";
 
 export type ActionRecord = Record<ActionType, Action>;
 

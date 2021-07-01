@@ -14,7 +14,7 @@ import {
 import Swap from "./swap";
 import Use from "./use";
 import Wrap from "./wrap";
-import { ScrollTopView, ScrollCenterView } from "./Scroll";
+import { ScrollToTop, ScrollToMid } from "./Scroll";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -40,8 +40,8 @@ class Actions implements ActionRecord {
   use = new Use(this.graph);
   unfold = new Unfold(this.graph);
   wrap = new Wrap(this.graph);
-  scrollTopView = new ScrollTopView(this.graph);
-  scrollCenterView = new ScrollCenterView(this.graph);
+  scrollToTop = new ScrollToTop(this.graph);
+  scrollToMid = new ScrollToMid(this.graph);
 }
 
 export default Actions;
