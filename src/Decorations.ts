@@ -19,14 +19,14 @@ export default class Decorations {
   decorationMap: DecorationMap;
 
   constructor() {
-    const fontWidthEm = 0.61923;
-    const iconWidthEm = 0.35;
-    const iconWidth = `${iconWidthEm}em`;
+    const fontWidthPx = 8.04;
+    const iconWidthPx = 4;
+    const iconWidth = `${iconWidthPx}px`;
     const iconHeight = "1.7em";
     const iconPath = join(__dirname, "..", "images", "round-hat.svg");
     const rawSvg = readFileSync(iconPath, "utf8");
 
-    const spanWidthEm = iconWidthEm + (fontWidthEm - iconWidthEm) / 2;
+    const spanWidthPx = iconWidthPx + (fontWidthPx - iconWidthPx) / 2;
 
     this.decorations = COLORS.map((color) => {
       var colorSetting = vscode.workspace
@@ -58,8 +58,8 @@ export default class Decorations {
             },
           },
           after: {
-            margin: `-${iconHeight} 0 0 -${spanWidthEm}em`,
-            width: `${spanWidthEm}em`,
+            margin: `-${iconHeight} 0 0 -${spanWidthPx}px`,
+            width: `${spanWidthPx}px`,
           },
         }),
       };
