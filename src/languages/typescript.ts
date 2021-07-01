@@ -123,8 +123,8 @@ const isNamedArrowFunction = (node: SyntaxNode) => {
 };
 
 export const getTypeNode = (node: SyntaxNode) => {
-  const typeAnnotationNode = node.children.find(
-    (child) => child.type === "type_annotation"
+  const typeAnnotationNode = node.children.find((child) =>
+    ["type_annotation", "opting_type_annotation"].includes(child.type)
   );
   return typeAnnotationNode?.lastChild ?? null;
 };
