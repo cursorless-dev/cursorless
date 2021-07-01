@@ -4,6 +4,7 @@ import { COLORS } from "./constants";
 import { SymbolColor } from "./constants";
 import { readFileSync } from "fs";
 import { DecorationColorSetting } from "./Types";
+import { FontSize } from "./computeFontSize";
 
 export type DecorationMap = {
   [k in SymbolColor]?: vscode.TextEditorDecorationType;
@@ -18,15 +19,15 @@ export default class Decorations {
   decorations: NamedDecoration[];
   decorationMap: DecorationMap;
 
-  constructor() {
-    const fontWidthPx = 8.04;
+  constructor(fontSize: FontSize) {
+    console.log(fontSize)
     const iconWidthPx = 4;
-    const iconWidth = `${iconWidthPx}px`;
-    const iconHeight = "1.7em";
+    const iconPadding = 0;
+    const iconWidth = `${iconWidthPx}`;
+    const iconHeight = `${fontSize.fontHeight + iconWidthPx + iconPadding}px`;
+    const spanWidthPx = iconWidthPx + (fontSize.fontWidth - iconWidthPx) / 2;
     const iconPath = join(__dirname, "..", "images", "round-hat.svg");
     const rawSvg = readFileSync(iconPath, "utf8");
-
-    const spanWidthPx = iconWidthPx + (fontWidthPx - iconWidthPx) / 2;
 
     this.decorations = COLORS.map((color) => {
       var colorSetting = vscode.workspace
@@ -82,7 +83,6 @@ export default class Decorations {
       .replace(/width="[^"]+"/, `width="${width}"`)
       .replace(/height="[^"]+"/, `height="${height}"`);
 
-    console.log(svg);
     const encoded = Buffer.from(svg).toString("base64");
 
     return vscode.Uri.parse(`data:image/svg+xml;base64,${encoded}`);
