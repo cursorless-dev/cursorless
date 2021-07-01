@@ -20,10 +20,9 @@ export default class Decorations {
   decorationMap: DecorationMap;
 
   constructor(fontSize: FontSize) {
-    console.log(fontSize)
     const iconWidthPx = 4;
     const iconPadding = 0;
-    const iconWidth = `${iconWidthPx}`;
+    const iconWidth = iconWidthPx + "px";
     const iconHeight = `${fontSize.fontHeight + iconWidthPx + iconPadding}px`;
     const spanWidthPx = iconWidthPx + (fontSize.fontWidth - iconWidthPx) / 2;
     const iconPath = join(__dirname, "..", "images", "round-hat.svg");
