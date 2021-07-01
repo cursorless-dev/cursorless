@@ -78,11 +78,11 @@ export async function activate(context: vscode.ExtensionContext) {
       ...extraArgs: any[]
     ) => {
       try {
-        console.log(`action: ${actionName}`);
-        console.log(`partialTargets:`);
-        console.log(JSON.stringify(partialTargets, null, 3));
-        console.log(`extraArgs:`);
-        console.log(JSON.stringify(extraArgs, null, 3));
+        console.debug(`action: ${actionName}`);
+        console.debug(`partialTargets:`);
+        console.debug(JSON.stringify(partialTargets, null, 3));
+        console.debug(`extraArgs:`);
+        console.debug(JSON.stringify(extraArgs, null, 3));
 
         const action = graph.actions[actionName];
 
