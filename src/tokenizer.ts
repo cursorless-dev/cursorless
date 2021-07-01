@@ -20,7 +20,7 @@ const REPEATABLE_SYMBOLS_REGEX = REPEATABLE_SYMBOLS.map(escapeRegExp)
 const FIXED_TOKENS_REGEX = FIXED_TOKENS.map(escapeRegExp).join("|");
 const IDENTIFIERS_REGEX = "[a-zA-Z_]+[a-zA-Z_0-9]*";
 const SINGLE_SYMBOLS_REGEX = "[^\\s\\w]";
-const NUMBERS_REGEX = "(?<!\\.)\\d+\\.\\d+(?!\\.)|\\d+"; // (not-dot digits dot digits not-dot) OR digits
+const NUMBERS_REGEX = "(?<=[^.\\d])\\d+\\.\\d+(?=[^.\\d])|\\d+"; // (not-dot/digit digits dot digits not-dot/digit) OR digits
 
 const REGEX = [
   IDENTIFIERS_REGEX,
