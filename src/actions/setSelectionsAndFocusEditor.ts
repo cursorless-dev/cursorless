@@ -25,3 +25,9 @@ export async function setSelectionsAndFocusEditor(
   editor.selections = selections;
   editor.revealRange(editor.selections[0]);
 }
+
+export async function focusEditor(editor: TextEditor) {
+  if (editor.viewColumn != null) {
+    await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
+  }
+}
