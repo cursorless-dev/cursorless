@@ -50,6 +50,7 @@ export type ScopeType =
   | "comment"
   | "dictionary"
   | "functionCall"
+  | "functionName"
   | "ifStatement"
   | "list"
   | "listElement"
@@ -249,6 +250,13 @@ export interface Graph {
 }
 
 export type NodeMatcher = (
+  editor: vscode.TextEditor,
+  node: SyntaxNode
+) => SelectionWithContext | null;
+
+export type NodeFinder = (node: SyntaxNode) => SyntaxNode | null;
+
+export type SelectionExtractor = (
   editor: vscode.TextEditor,
   node: SyntaxNode
 ) => SelectionWithContext | null;
