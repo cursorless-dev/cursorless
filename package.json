@@ -48,6 +48,10 @@
 			{
 				"command": "cursorless.recomputeDecorationStyles",
 				"title": "Cursorless: Recompute decoration styles"
+			},
+			{
+				"command": "cursorless.recordTestCase",
+				"title": "Cursorless: Record test case"
 			}
 		],
 		"colors": [

@@ -82,7 +82,12 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const graph = makeGraph(graphConstructors);
   var thatMark: SelectionWithEditor[] = [];
-
+  const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
+    "cursorless.recordTestCase",
+    () => {
+      console.log("Hello world");
+    }
+  );
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
     "cursorless.command",
     async (
@@ -200,6 +205,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     cursorlessCommandDisposable,
+    cursorlessRecordTestCaseDisposable,
     toggleDecorationsDisposable,
     recomputeDecorationStylesDisposable,
     vscode.workspace.onDidChangeConfiguration(recomputeDecorationStyles),
