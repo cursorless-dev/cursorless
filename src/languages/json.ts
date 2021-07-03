@@ -30,6 +30,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   functionCall: notSupported,
   argumentOrParameter: notSupported,
   namedFunction: notSupported,
+  functionName: notSupported,
   comment: notSupported,
   type: notSupported,
   name: notSupported,
