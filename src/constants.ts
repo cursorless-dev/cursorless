@@ -10,7 +10,7 @@ export const COLORS = [
   "green",
   "red",
   "yellow",
-  "mauve",
+  "purple",
 ] as const;
 
 export type SymbolColor = typeof COLORS[number];
