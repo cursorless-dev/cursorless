@@ -137,8 +137,8 @@
 						"highContrast": "#f0b800"
 					}
 				},
-				"cursorless.mauveBorder": {
-					"description": "Border color to use for mauve symbols",
+				"cursorless.purpleBorder": {
+					"description": "Border color to use for purple symbols",
 					"type": "object",
 					"default": {
 						"dark": "#de25ff",
