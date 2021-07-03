@@ -1,13 +1,8 @@
 import { SyntaxNode } from "web-tree-sitter";
-import { TextEditor } from "vscode";
-import {
-  delimitedMatcher,
-  hasType,
-  simpleSelectionExtractor,
-  childNodeMatcher,
-  getNodeWithLeadingDelimiter,
-} from "../nodeMatchers";
 import { getNameNode, getKeyNode, getValueNode } from "../treeSitterUtils";
+import { selectDelimited, selectWithLeadingDelimiter } from "../nodeSelectors";
+import { composedMatcher, matcher, typeMatcher } from "../nodeMatchers";
+import { findNode, findNodeOfType } from "../nodeFinders";
 
 export function getPojoMatchers(
   dictionaryTypes: string[],
@@ -15,28 +10,29 @@ export function getPojoMatchers(
   listElementMatcher: (node: SyntaxNode) => boolean
 ) {
   return {
-    dictionary: hasType(...dictionaryTypes),
-    pair: delimitedMatcher(
-      (node) => node.type === "pair",
-      (node) => node.type === "," || node.type === "}" || node.type === "{",
-      ", "
+    dictionary: typeMatcher(...dictionaryTypes),
+    pair: matcher(
+      findNode((node) => node.type === "pair"),
+      selectDelimited(
+        (node) => node.type === "," || node.type === "}" || node.type === "{",
+        ", "
+      )
     ),
-    pairKey(editor: TextEditor, node: SyntaxNode) {
-      if (node.type !== "pair") {
-        return null;
-      }
-
-      return simpleSelectionExtractor(getKeyNode(node)!);
-    },
-    value: childNodeMatcher(getValueNode, getNodeWithLeadingDelimiter),
-    name: childNodeMatcher(getNameNode, simpleSelectionExtractor),
-    list: hasType(...listTypes),
-    listElement: delimitedMatcher(
-      (node) =>
-        listTypes.includes(node.parent?.type ?? "") && listElementMatcher(node),
-      (node) => node.type === "," || node.type === "[" || node.type === "]",
-      ", "
+    pairKey: composedMatcher([findNodeOfType("pair"), getKeyNode]),
+    value: matcher(getValueNode, selectWithLeadingDelimiter),
+    name: matcher(getNameNode),
+    list: typeMatcher(...listTypes),
+    listElement: matcher(
+      findNode(
+        (node) =>
+          listTypes.includes(node.parent?.type ?? "") &&
+          listElementMatcher(node)
+      ),
+      selectDelimited(
+        (node) => node.type === "," || node.type === "[" || node.type === "]",
+        ", "
+      )
     ),
-    string: hasType("string"),
+    string: typeMatcher("string"),
   };
 }

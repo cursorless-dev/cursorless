@@ -50,6 +50,7 @@ export type ScopeType =
   | "comment"
   | "dictionary"
   | "functionCall"
+  | "functionName"
   | "ifStatement"
   | "list"
   | "listElement"
@@ -255,3 +256,10 @@ export interface DecorationColorSetting {
   light: string;
   highContrast: string;
 }
+
+export type NodeFinder = (node: SyntaxNode) => SyntaxNode | null;
+
+export type SelectionExtractor = (
+  editor: vscode.TextEditor,
+  node: SyntaxNode
+) => SelectionWithContext | null;
