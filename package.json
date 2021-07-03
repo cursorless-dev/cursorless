@@ -39,6 +39,10 @@
 			{
 				"command": "cursorless.toggleDecorations",
 				"title": "Cursorless: Toggle decorations"
+			},
+			{
+				"command": "cursorless.recordTestCase",
+				"title": "Cursorless: Record test case"
 			}
 		],
 		"colors": [
