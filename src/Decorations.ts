@@ -20,8 +20,8 @@ export default class Decorations {
   decorationMap: DecorationMap;
 
   constructor(fontSize: FontSize) {
-    const hatWidthToCharacterWidthRatio = 0.5;
-    const hatVerticalOffset = -3;
+    const hatWidthToCharacterWidthRatio = 0.39;
+    const hatVerticalOffset = -3.47;
     const { svg, svgWidthPx, svgHeightPx } = this.processSvg(
       fontSize,
       hatWidthToCharacterWidthRatio,
