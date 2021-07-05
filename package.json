@@ -102,7 +102,7 @@
 				},
 				"cursorless.pendingEditDecorationTime": {
 					"type": "integer",
-					"default": 175,
+					"default": 100,
 					"description": "How long in milliseconds to show a pending edit decoration"
 				},
 				"cursorless.hatScaleFactor": {
@@ -115,8 +115,8 @@
 					"default": 0,
 					"description": "How much to vertically shift the hats as a percentage of font size; positive is up"
 				},
-				"cursorless.defaultBorder": {
-					"description": "Border color to use for default symbols",
+				"cursorless.colors.default": {
+					"description": "Color to use for default symbols",
 					"type": "object",
 					"default": {
 						"dark": "#cdc7f0",
@@ -124,8 +124,8 @@
 						"highContrast": "#000000"
 					}
 				},
-				"cursorless.greenBorder": {
-					"description": "Border color to use for green symbols",
+				"cursorless.colors.green": {
+					"description": "Color to use for green symbols",
 					"type": "object",
 					"default": {
 						"dark": "#22d618",
@@ -133,8 +133,8 @@
 						"highContrast": "#2ec426"
 					}
 				},
-				"cursorless.redBorder": {
-					"description": "Border color to use for red symbols",
+				"cursorless.colors.red": {
+					"description": "Color to use for red symbols",
 					"type": "object",
 					"default": {
 						"dark": "#e96900",
@@ -142,8 +142,8 @@
 						"highContrast": "#ff3300"
 					}
 				},
-				"cursorless.yellowBorder": {
-					"description": "Border color to use for yellow symbols",
+				"cursorless.colors.yellow": {
+					"description": "Color to use for yellow symbols",
 					"type": "object",
 					"default": {
 						"dark": "#f1cd00",
@@ -151,8 +151,8 @@
 						"highContrast": "#f0b800"
 					}
 				},
-				"cursorless.mauveBorder": {
-					"description": "Border color to use for mauve symbols",
+				"cursorless.colors.mauve": {
+					"description": "Color to use for mauve symbols",
 					"type": "object",
 					"default": {
 						"dark": "#de25ff",
@@ -160,8 +160,8 @@
 						"highContrast": "#ff00f2"
 					}
 				},
-				"cursorless.blueBorder": {
-					"description": "Border color to use for blue symbols",
+				"cursorless.colors.blue": {
+					"description": "Color to use for blue symbols",
 					"type": "object",
 					"default": {
 						"dark": "#00b7ff",

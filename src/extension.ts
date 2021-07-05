@@ -6,7 +6,7 @@ import graphConstructors from "./graphConstructors";
 import { inferFullTargets } from "./inferFullTargets";
 import NavigationMap from "./NavigationMap";
 import processTargets from "./processTargets";
-import FontMeasurement from "./FontMeasurements";
+import FontMeasurements from "./FontMeasurements";
 import {
   ActionType,
   PartialTarget,
@@ -16,9 +16,10 @@ import {
 import makeGraph from "./makeGraph";
 
 export async function activate(context: vscode.ExtensionContext) {
-  const fontMeasurements = new FontMeasurement(context);
+  const fontMeasurements = new FontMeasurements(context);
   await fontMeasurements.calculate();
   const decorations = new Decorations(fontMeasurements);
+
   const parseTreeExtension = vscode.extensions.getExtension("pokey.parse-tree");
 
   if (parseTreeExtension == null) {

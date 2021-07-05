@@ -49,12 +49,12 @@ export default class Decorations {
     );
 
     const spanWidthPx =
-      svgWidthPx + (fontMeasurements.fontWidth - svgWidthPx) / 2;
+      svgWidthPx + (fontMeasurements.characterWidth - svgWidthPx) / 2;
 
     this.decorations = COLORS.map((color) => {
       const colorSetting = vscode.workspace
-        .getConfiguration("cursorless")
-        .get<DecorationColorSetting>(`${color}Border`)!;
+        .getConfiguration("cursorless.colors")
+        .get<DecorationColorSetting>(color)!;
 
       return {
         name: color,
@@ -91,6 +91,13 @@ export default class Decorations {
   }
 
   private constructColoredSvgDataUri(originalSvg: string, color: string) {
+    if (
+      originalSvg.match(/fill="[^"]+"/) == null &&
+      originalSvg.match(/fill:[^;]+;/) == null
+    ) {
+      throw Error("Raw svg doesn't have fill");
+    }
+
     const svg = originalSvg
       .replace(/fill="[^"]+"/, `fill="${color}"`)
       .replace(/fill:[^;]+;/, `fill:${color};`);
@@ -112,23 +119,30 @@ export default class Decorations {
       this.getViewBoxDimensions(rawSvg);
 
     const hatWidthPx =
-      hatWidthToCharacterWidthRatio * fontMeasurements.fontWidth;
-
+      hatWidthToCharacterWidthRatio * fontMeasurements.characterWidth;
     const hatHeightPx =
       (originalViewBoxHeight / originalViewBoxWidth) * hatWidthPx;
+
+    const svgWidthPx = Math.ceil(fontMeasurements.characterWidth);
     const svgHeightPx =
-      fontMeasurements.fontHeight + hatHeightPx + hatVerticalOffset;
-    const svgWidthPx = Math.ceil(fontMeasurements.fontWidth);
+      fontMeasurements.characterHeight + hatHeightPx + hatVerticalOffset;
 
     const newViewBoxWidth =
       ((originalViewBoxWidth / hatWidthToCharacterWidthRatio) *
-        fontMeasurements.fontWidth) /
+        fontMeasurements.characterWidth) /
       svgWidthPx;
     const newViewBoxHeight = (newViewBoxWidth * svgHeightPx) / svgWidthPx;
     const newViewBoxX = -(newViewBoxWidth - originalViewBoxWidth) / 2;
     const newViewBoxY = 0;
 
     const newViewBoxString = `${newViewBoxX} ${newViewBoxY} ${newViewBoxWidth} ${newViewBoxHeight}`;
+
+    if (
+      rawSvg.match(/width="[^"]+"/) == null ||
+      rawSvg.match(/height="[^"]+"/) == null
+    ) {
+      throw Error("Raw svg doesn't have height or width");
+    }
 
     const svg = rawSvg
       .replace(/width="[^"]+"/, `width="${svgWidthPx}px"`)
@@ -147,11 +161,14 @@ export default class Decorations {
     if (viewBoxMatch == null) {
       throw Error("View box not found in svg");
     }
+
     const originalViewBoxString = viewBoxMatch[1];
     const [_0, _1, originalViewBoxWidthStr, originalViewBoxHeightStr] =
       originalViewBoxString.split(" ");
+
     const originalViewBoxWidth = Number(originalViewBoxWidthStr);
     const originalViewBoxHeight = Number(originalViewBoxHeightStr);
+
     return { originalViewBoxHeight, originalViewBoxWidth };
   }
 }
