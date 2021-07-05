@@ -1,14 +1,13 @@
 import * as vscode from "vscode";
 import { join } from "path";
-import {
-  COLORS,
-  DEFAULT_HAT_VERTICAL_OFFSET,
-  DEFAULT_HAT_WIDTH_TO_CHARACTER_WITH_RATIO,
-} from "./constants";
+import { COLORS } from "./constants";
 import { SymbolColor } from "./constants";
 import { readFileSync } from "fs";
 import { DecorationColorSetting } from "./Types";
-import { FontSize } from "./computeFontSize";
+import FontMeasurements from "./FontMeasurements";
+
+const DEFAULT_HAT_WIDTH_TO_CHARACTER_WITH_RATIO = 0.39;
+const DEFAULT_HAT_VERTICAL_OFFSET_EM = -0.05;
 
 export type DecorationMap = {
   [k in SymbolColor]?: vscode.TextEditorDecorationType;
@@ -23,8 +22,8 @@ export default class Decorations {
   decorations!: NamedDecoration[];
   decorationMap!: DecorationMap;
 
-  constructor(fontSize: FontSize) {
-    this.constructDecorations(fontSize);
+  constructor(fontMeasurements: FontMeasurements) {
+    this.constructDecorations(fontMeasurements);
   }
 
   destroyDecorations() {
@@ -33,7 +32,7 @@ export default class Decorations {
     });
   }
 
-  constructDecorations(fontSize: FontSize) {
+  constructDecorations(fontMeasurements: FontMeasurements) {
     const hatScaleFactor = vscode.workspace
       .getConfiguration("cursorless")
       .get<number>(`hatScaleFactor`)!;
@@ -43,12 +42,14 @@ export default class Decorations {
       .get<number>(`hatVerticalOffset`)!;
 
     const { svg, svgWidthPx, svgHeightPx } = this.processSvg(
-      fontSize,
+      fontMeasurements,
       hatScaleFactor * DEFAULT_HAT_WIDTH_TO_CHARACTER_WITH_RATIO,
-      DEFAULT_HAT_VERTICAL_OFFSET + userHatVerticalOffsetAdjustment
+      (DEFAULT_HAT_VERTICAL_OFFSET_EM + userHatVerticalOffsetAdjustment / 100) *
+        fontMeasurements.fontSize
     );
 
-    const spanWidthPx = svgWidthPx + (fontSize.fontWidth - svgWidthPx) / 2;
+    const spanWidthPx =
+      svgWidthPx + (fontMeasurements.fontWidth - svgWidthPx) / 2;
 
     this.decorations = COLORS.map((color) => {
       const colorSetting = vscode.workspace
@@ -100,7 +101,7 @@ export default class Decorations {
   }
 
   private processSvg(
-    fontSize: FontSize,
+    fontMeasurements: FontMeasurements,
     hatWidthToCharacterWidthRatio: number,
     hatVerticalOffset: number
   ) {
@@ -110,16 +111,18 @@ export default class Decorations {
     const { originalViewBoxHeight, originalViewBoxWidth } =
       this.getViewBoxDimensions(rawSvg);
 
-    const hatWidthPx = hatWidthToCharacterWidthRatio * fontSize.fontWidth;
+    const hatWidthPx =
+      hatWidthToCharacterWidthRatio * fontMeasurements.fontWidth;
 
     const hatHeightPx =
       (originalViewBoxHeight / originalViewBoxWidth) * hatWidthPx;
-    const svgHeightPx = fontSize.fontHeight + hatHeightPx + hatVerticalOffset;
-    const svgWidthPx = Math.ceil(fontSize.fontWidth);
+    const svgHeightPx =
+      fontMeasurements.fontHeight + hatHeightPx + hatVerticalOffset;
+    const svgWidthPx = Math.ceil(fontMeasurements.fontWidth);
 
     const newViewBoxWidth =
       ((originalViewBoxWidth / hatWidthToCharacterWidthRatio) *
-        fontSize.fontWidth) /
+        fontMeasurements.fontWidth) /
       svgWidthPx;
     const newViewBoxHeight = (newViewBoxWidth * svgHeightPx) / svgWidthPx;
     const newViewBoxX = -(newViewBoxWidth - originalViewBoxWidth) / 2;

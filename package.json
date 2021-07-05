@@ -39,6 +39,10 @@
 			{
 				"command": "cursorless.toggleDecorations",
 				"title": "Cursorless: Toggle decorations"
+			},
+			{
+				"command": "cursorless.recomputeDecorationStyles",
+				"title": "Cursorless: Recompute decoration styles"
 			}
 		],
 		"colors": [
@@ -109,7 +113,7 @@
 				"cursorless.hatVerticalOffset": {
 					"type": "number",
 					"default": 0,
-					"description": "How much to vertically shift the hats; positive is up"
+					"description": "How much to vertically shift the hats as a percentage of font size; positive is up"
 				},
 				"cursorless.defaultBorder": {
 					"description": "Border color to use for default symbols",

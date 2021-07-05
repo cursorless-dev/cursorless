@@ -6,7 +6,7 @@ import graphConstructors from "./graphConstructors";
 import { inferFullTargets } from "./inferFullTargets";
 import NavigationMap from "./NavigationMap";
 import processTargets from "./processTargets";
-import computeFontSize from "./computeFontSize";
+import FontMeasurement from "./FontMeasurements";
 import {
   ActionType,
   PartialTarget,
@@ -16,8 +16,9 @@ import {
 import makeGraph from "./makeGraph";
 
 export async function activate(context: vscode.ExtensionContext) {
-  const fontSize = await computeFontSize();
-  const decorations = new Decorations(fontSize);
+  const fontMeasurements = new FontMeasurement(context);
+  await fontMeasurements.calculate();
+  const decorations = new Decorations(fontMeasurements);
   const parseTreeExtension = vscode.extensions.getExtension("pokey.parse-tree");
 
   if (parseTreeExtension == null) {
@@ -66,6 +67,14 @@ export async function activate(context: vscode.ExtensionContext) {
     () => {
       isActive = !isActive;
       addDecorationsDebounced();
+    }
+  );
+
+  const recomputeDecorationStylesDisposable = vscode.commands.registerCommand(
+    "cursorless.recomputeDecorationStyles",
+    () => {
+      fontMeasurements.clearCache();
+      recomputeDecorationStyles();
     }
   );
 
@@ -180,14 +189,18 @@ export async function activate(context: vscode.ExtensionContext) {
     addDecorationsDebounced();
   }
 
+  const recomputeDecorationStyles = async () => {
+    decorations.destroyDecorations();
+    await fontMeasurements.calculate();
+    decorations.constructDecorations(fontMeasurements);
+    addDecorations();
+  };
+
   context.subscriptions.push(
     cursorlessCommandDisposable,
     toggleDecorationsDisposable,
-    vscode.workspace.onDidChangeConfiguration(() => {
-      decorations.destroyDecorations();
-      decorations.constructDecorations(fontSize);
-      addDecorations();
-    }),
+    recomputeDecorationStylesDisposable,
+    vscode.workspace.onDidChangeConfiguration(recomputeDecorationStyles),
     vscode.window.onDidChangeTextEditorVisibleRanges(addDecorationsDebounced),
     vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),
     vscode.window.onDidChangeVisibleTextEditors(addDecorationsDebounced),
