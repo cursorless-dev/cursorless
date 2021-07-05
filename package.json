@@ -101,6 +101,16 @@
 					"default": 175,
 					"description": "How long in milliseconds to show a pending edit decoration"
 				},
+				"cursorless.hatScaleFactor": {
+					"type": "number",
+					"default": 1,
+					"description": "How much to scale the hats by"
+				},
+				"cursorless.hatVerticalOffset": {
+					"type": "number",
+					"default": 0,
+					"description": "How much to vertically shift the hats; positive is up"
+				},
 				"cursorless.defaultBorder": {
 					"description": "Border color to use for default symbols",
 					"type": "object",

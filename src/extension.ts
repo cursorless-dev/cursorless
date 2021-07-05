@@ -183,6 +183,11 @@ export async function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     cursorlessCommandDisposable,
     toggleDecorationsDisposable,
+    vscode.workspace.onDidChangeConfiguration(() => {
+      decorations.destroyDecorations();
+      decorations.constructDecorations(fontSize);
+      addDecorations();
+    }),
     vscode.window.onDidChangeTextEditorVisibleRanges(addDecorationsDebounced),
     vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),
     vscode.window.onDidChangeVisibleTextEditors(addDecorationsDebounced),

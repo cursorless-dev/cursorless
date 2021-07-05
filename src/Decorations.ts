@@ -1,6 +1,10 @@
 import * as vscode from "vscode";
 import { join } from "path";
-import { COLORS } from "./constants";
+import {
+  COLORS,
+  DEFAULT_HAT_VERTICAL_OFFSET,
+  DEFAULT_HAT_WIDTH_TO_CHARACTER_WITH_RATIO,
+} from "./constants";
 import { SymbolColor } from "./constants";
 import { readFileSync } from "fs";
 import { DecorationColorSetting } from "./Types";
@@ -16,21 +20,38 @@ export interface NamedDecoration {
 }
 
 export default class Decorations {
-  decorations: NamedDecoration[];
-  decorationMap: DecorationMap;
+  decorations!: NamedDecoration[];
+  decorationMap!: DecorationMap;
 
   constructor(fontSize: FontSize) {
-    const hatWidthToCharacterWidthRatio = 0.39;
-    const hatVerticalOffset = -3.47;
+    this.constructDecorations(fontSize);
+  }
+
+  destroyDecorations() {
+    this.decorations.forEach(({ decoration }) => {
+      decoration.dispose();
+    });
+  }
+
+  constructDecorations(fontSize: FontSize) {
+    const hatScaleFactor = vscode.workspace
+      .getConfiguration("cursorless")
+      .get<number>(`hatScaleFactor`)!;
+
+    const userHatVerticalOffsetAdjustment = vscode.workspace
+      .getConfiguration("cursorless")
+      .get<number>(`hatVerticalOffset`)!;
+
     const { svg, svgWidthPx, svgHeightPx } = this.processSvg(
       fontSize,
-      hatWidthToCharacterWidthRatio,
-      hatVerticalOffset
+      hatScaleFactor * DEFAULT_HAT_WIDTH_TO_CHARACTER_WITH_RATIO,
+      DEFAULT_HAT_VERTICAL_OFFSET + userHatVerticalOffsetAdjustment
     );
+
     const spanWidthPx = svgWidthPx + (fontSize.fontWidth - svgWidthPx) / 2;
 
     this.decorations = COLORS.map((color) => {
-      var colorSetting = vscode.workspace
+      const colorSetting = vscode.workspace
         .getConfiguration("cursorless")
         .get<DecorationColorSetting>(`${color}Border`)!;
 

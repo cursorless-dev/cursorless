@@ -14,3 +14,6 @@ export const COLORS = [
 ] as const;
 
 export type SymbolColor = typeof COLORS[number];
+
+export const DEFAULT_HAT_WIDTH_TO_CHARACTER_WITH_RATIO = 0.39;
+export const DEFAULT_HAT_VERTICAL_OFFSET = -3.47;
