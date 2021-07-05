@@ -7,6 +7,8 @@ import {
   hasType,
   possiblyWrappedNode,
   simpleSelectionExtractor,
+  getNodeWithLeadingDelimiter,
+  childNodeMatcher,
 } from "../nodeMatchers";
 import { NodeMatcher, ScopeType } from "../Types";
 import { getDeclarationNode, getValueNode } from "../treeSitterUtils";
@@ -120,6 +122,13 @@ const isNamedArrowFunction = (node: SyntaxNode) => {
   );
 };
 
+export const getTypeNode = (node: SyntaxNode) => {
+  const typeAnnotationNode = node.children.find((child) =>
+    ["type_annotation", "opting_type_annotation"].includes(child.type)
+  );
+  return typeAnnotationNode?.lastChild ?? null;
+};
+
 const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   ...getPojoMatchers(
     ["object"],
@@ -131,6 +140,16 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   statement: possiblyExportedDeclaration(...STATEMENT_TYPES),
   arrowFunction: hasType("arrow_function"),
   functionCall: hasType("call_expression", "new_expression"),
+  type: cascadingMatcher(
+    // Typed parameters, properties, and functions
+    childNodeMatcher(getTypeNode, getNodeWithLeadingDelimiter),
+
+    // Type alias/interface declarations
+    possiblyExportedDeclaration(
+      "type_alias_declaration",
+      "interface_declaration"
+    )
+  ),
   argumentOrParameter: delimitedMatcher(
     (node) =>
       (node.parent?.type === "arguments" &&

@@ -7,6 +7,39 @@ export function hasType(...typeNames: string[]): NodeMatcher {
     typeNames.includes(node.type) ? simpleSelectionExtractor(node) : null;
 }
 
+export function childNodeMatcher(
+  getMatchingChildNode: (node: SyntaxNode) => SyntaxNode | null,
+  extractor: (node: SyntaxNode) => SelectionWithContext
+): NodeMatcher {
+  return (editor: TextEditor, node: SyntaxNode) => {
+    const returnNode = getMatchingChildNode(node);
+
+    if (returnNode == null) {
+      return null;
+    }
+
+    return extractor(returnNode);
+  };
+}
+
+export function getNodeWithLeadingDelimiter(
+  node: SyntaxNode
+): SelectionWithContext {
+  const leadingDelimiterToken = node.previousSibling!;
+
+  const leadingDelimiterRange = makeRange(
+    leadingDelimiterToken.startPosition,
+    node.startPosition
+  );
+
+  return {
+    ...simpleSelectionExtractor(node),
+    context: {
+      leadingDelimiterRange,
+    },
+  };
+}
+
 export const notSupported: NodeMatcher = (
   editor: TextEditor,
   node: SyntaxNode
