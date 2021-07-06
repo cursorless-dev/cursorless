@@ -44,7 +44,7 @@ suite("tokenizer", () => {
 });
 
 /**
-    Return an array of all non-alnum symbols in the ascii range
+    Returns an array of single non-alphanumeric symbols in various ascii ranges to make sure they don't get dropped by the tokeniser
 */ 
 function getAsciiSymbols() {
   const rangesToTest = [["!", "/"], [":", "@"], ["[", "`"], ["{", "~"]];
