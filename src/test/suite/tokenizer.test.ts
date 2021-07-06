@@ -2,7 +2,7 @@ import * as assert from "assert";
 import { tokenize } from "../../tokenizer";
 import { flatten, range } from "lodash";
 
-type TestType = [string, string[]][];
+type TestCase = [string, string[]];
 const singleSymbolTests: TestType = getAsciiSymbols().map((s) => [s, [s]]);
 
 const tests: TestType = [
