@@ -21,7 +21,7 @@ const tests: TestCase[] = [
   ["my-variable", ["my", "-", "variable"]],
   ["my.variable", ["my", ".", "variable"]],
   ["my/variable", ["my", "/", "variable"]],
-  ["my::variable", ["my", ":", ":", "variable"]],
+  ["my::variable", ["my", "::", "variable"]],
   // Strings
   ['"my variable"', ['"', "my", "variable", '"']],
   ["'my variable'", ["'", "my", "variable", "'"]],
@@ -33,6 +33,8 @@ const tests: TestCase[] = [
   ["!!(()){{}}", ["!", "!", "(", "(", ")", ")", "{", "{", "}", "}"]],
   // Fixed tokens
   ["!=>=!====", ["!=", ">=", "!==", "=="]],
+  ["=>", ["=>"]],
+  ["::", ["::"]],
   // Comments
   ["// Hello world", ["//", "Hello", "world"]],
 ];
