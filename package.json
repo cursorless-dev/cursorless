@@ -151,8 +151,8 @@
 						"highContrast": "#f0b800"
 					}
 				},
-				"cursorless.colors.mauve": {
-					"description": "Color to use for mauve symbols",
+				"cursorless.colors.purple": {
+					"description": "Color to use for purple symbols",
 					"type": "object",
 					"default": {
 						"dark": "#de25ff",
