@@ -1,7 +1,11 @@
 import * as assert from "assert";
 import { tokenize } from "../../tokenizer";
+import { flatten, range } from "lodash";
 
-const tests = <[string | string[]]>(<unknown>[
+type TestType = [string, string[]][];
+const singleSymbolTests: TestType = getAsciiSymbols().map((s) => [s, [s]]);
+
+const tests: TestType = [
   // Numbers
   ["0.0 0 1 120 2.5 0.1", ["0.0", "0", "1", "120", "2.5", "0.1"]],
   // Semantic versioning
@@ -22,11 +26,13 @@ const tests = <[string | string[]]>(<unknown>[
   ['"my variable"', ['"', "my", "variable", '"']],
   ["'my variable'", ["'", "my", "variable", "'"]],
   // Symbols incl repeatable
-  ...getSymbols().map((s) => [s, [s]]),
-  ["!_|||>{.", ["!", "_", "|||", ">", "{", "."]],
+  ...singleSymbolTests,
+  ["!_|||>{.-----()", ["!", "_", "|||", ">", "{", ".", "-----", "(", ")"]],
   // Fixed tokens
-  ["!!=>===", ["!", "!=", ">=", "=="]],
-]);
+  ["!!=>=!====", ["!", "!=", ">=", "!==", "=="]],
+  // Comments
+  ["// Hello world", ["//", "Hello", "world"]],
+];
 
 suite("tokenizer", () => {
   tests.forEach(([input, expectedOutput]) => {
@@ -37,13 +43,16 @@ suite("tokenizer", () => {
   });
 });
 
-function getSymbols() {
-  const results = <string[]>[];
-  const range = [33, 48, 58, 65, 91, 97, 123, 126];
-  for (let i = 0; i < range.length; i += 2) {
-    for (let j = range[i]; j < range[i + 1]; ++j) {
-      results.push(String.fromCharCode(j));
-    }
-  }
-  return results;
+/**
+    Return an array of all non-alnum symbols in the ascii range
+*/ 
+function getAsciiSymbols() {
+  const rangesToTest = [["!", "/"], [":", "@"], ["[", "`"], ["{", "~"]];
+  return flatten(
+    rangesToTest.map(([start, end]) =>
+      range(start.charCodeAt(0), end.charCodeAt(0) + 1).map((charCode) =>
+        String.fromCharCode(charCode)
+      )
+    )
+  );
 }
