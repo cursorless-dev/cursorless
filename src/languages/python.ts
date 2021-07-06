@@ -2,6 +2,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import { getPojoMatchers } from "./getPojoMatchers";
 import {
   cascadingMatcher,
+  composedMatcher,
   matcher,
   notSupported,
   typeMatcher,
@@ -149,7 +150,14 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
     matcher(getNameNode),
     matcher((node) => (node.type === "assignment" ? getLeftNode(node) : null))
   ),
-  functionName: notSupported,
+  functionName: composedMatcher([
+    possiblyDecoratedDefinition("function_definition"),
+    getNameNode,
+  ]),
+  className: composedMatcher([
+    possiblyDecoratedDefinition("class_definition"),
+    getNameNode,
+  ]),
   arrowFunction: typeMatcher("lambda"),
   functionCall: typeMatcher("call"),
   argumentOrParameter: matcher(

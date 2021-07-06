@@ -163,6 +163,10 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
     composedMatcher([findClassPropertyArrowFunction, getNameNode]),
     composedMatcher([findNamedArrowFunction, getNameNode])
   ),
+  className: composedMatcher([
+    possiblyExportedDeclaration("class_declaration", "class"),
+    getNameNode,
+  ]),
   type: cascadingMatcher(
     // Typed parameters, properties, and functions
     matcher(findTypeNode, selectWithLeadingDelimiter),

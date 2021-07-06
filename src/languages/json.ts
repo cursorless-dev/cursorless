@@ -25,6 +25,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   ...getPojoMatchers(["object"], ["array"], isValue),
   ifStatement: notSupported,
   class: notSupported,
+  className: notSupported,
   statement: notSupported,
   arrowFunction: notSupported,
   functionCall: notSupported,

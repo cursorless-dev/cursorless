@@ -47,6 +47,7 @@ export type ScopeType =
   | "argumentOrParameter"
   | "arrowFunction"
   | "class"
+  | "className"
   | "comment"
   | "dictionary"
   | "functionCall"
