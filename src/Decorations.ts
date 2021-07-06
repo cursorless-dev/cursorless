@@ -107,6 +107,16 @@ export default class Decorations {
     return vscode.Uri.parse(`data:image/svg+xml;base64,${encoded}`);
   }
 
+  /**
+   * Creates an SVG from the hat SVG that pads, offsets and scales it to end up
+   * in the right size / place relative to the character it will be placed over.
+   * [This image](../images/svg-calculations.png) may or may not be helpful.
+   *
+   * @param fontMeasurements Info about the user's font
+   * @param hatWidthToCharacterWidthRatio How wide should hats be relative to character width
+   * @param hatVerticalOffset How far off top of characters should hats be
+   * @returns An object with the new SVG and its measurements
+   */
   private processSvg(
     fontMeasurements: FontMeasurements,
     hatWidthToCharacterWidthRatio: number,
