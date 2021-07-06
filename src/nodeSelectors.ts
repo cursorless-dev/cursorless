@@ -75,7 +75,7 @@ function getPreviousNonDelimiterNode(
   return node;
 }
 
-export function selectDelimited(
+export function delimitedSelector(
   isDelimiterNode: (node: SyntaxNode) => boolean,
   defaultDelimiter: string
 ): SelectionExtractor {

@@ -2,7 +2,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import { TextEditor } from "vscode";
 import { NodeMatcher, NodeFinder, SelectionExtractor } from "./Types";
 import { simpleSelectionExtractor } from "./nodeSelectors";
-import { findNodeOfType } from "./nodeFinders";
+import { typedNodeFinder } from "./nodeFinders";
 
 export function matcher(
   finder: NodeFinder,
@@ -19,17 +19,21 @@ export function composedMatcher(
   selector: SelectionExtractor = simpleSelectionExtractor
 ): NodeMatcher {
   return function (editor: TextEditor, initialNode: SyntaxNode) {
-    let returnNode: SyntaxNode | null = initialNode;
+    let returnNode: SyntaxNode = initialNode;
     for (const finder of finders) {
-      returnNode = returnNode ? finder(returnNode) : null;
+      const foundNode = finder(returnNode);
+      if (foundNode == null) {
+        return null;
+      }
+      returnNode = foundNode;
     }
 
-    return returnNode ? selector(editor, returnNode) : null;
+    return selector(editor, returnNode);
   };
 }
 
 export function typeMatcher(...typeNames: string[]) {
-  return matcher(findNodeOfType(...typeNames));
+  return matcher(typedNodeFinder(...typeNames));
 }
 
 /**

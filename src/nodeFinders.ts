@@ -1,17 +1,17 @@
 import { SyntaxNode } from "web-tree-sitter";
 import { NodeFinder } from "./Types";
 
-export const findNode =
-  (isTargetNode: (node: SyntaxNode) => boolean): NodeFinder =>
-  (node: SyntaxNode) => {
+export const findNode = (
+  isTargetNode: (node: SyntaxNode) => boolean
+): NodeFinder => {
+  return (node: SyntaxNode) => {
     return isTargetNode(node) ? node : null;
   };
+};
 
-export const findNodeOfType =
-  (...typeNames: string[]): NodeFinder =>
-  (node: SyntaxNode) => {
-    return typeNames.includes(node.type) ? node : null;
-  };
+export const typedNodeFinder = (...typeNames: string[]): NodeFinder => {
+  return findNode((node) => typeNames.includes(node.type));
+};
 
 /**
  * Creates a matcher that can match potentially wrapped nodes. For example

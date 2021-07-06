@@ -1,8 +1,11 @@
 import { SyntaxNode } from "web-tree-sitter";
 import { getNameNode, getKeyNode, getValueNode } from "../treeSitterUtils";
-import { selectDelimited, selectWithLeadingDelimiter } from "../nodeSelectors";
+import {
+  delimitedSelector,
+  selectWithLeadingDelimiter,
+} from "../nodeSelectors";
 import { composedMatcher, matcher, typeMatcher } from "../nodeMatchers";
-import { findNode, findNodeOfType } from "../nodeFinders";
+import { findNode, typedNodeFinder } from "../nodeFinders";
 
 export function getPojoMatchers(
   dictionaryTypes: string[],
@@ -13,12 +16,12 @@ export function getPojoMatchers(
     dictionary: typeMatcher(...dictionaryTypes),
     pair: matcher(
       findNode((node) => node.type === "pair"),
-      selectDelimited(
+      delimitedSelector(
         (node) => node.type === "," || node.type === "}" || node.type === "{",
         ", "
       )
     ),
-    pairKey: composedMatcher([findNodeOfType("pair"), getKeyNode]),
+    pairKey: composedMatcher([typedNodeFinder("pair"), getKeyNode]),
     value: matcher(getValueNode, selectWithLeadingDelimiter),
     name: matcher(getNameNode),
     list: typeMatcher(...listTypes),
@@ -28,7 +31,7 @@ export function getPojoMatchers(
           listTypes.includes(node.parent?.type ?? "") &&
           listElementMatcher(node)
       ),
-      selectDelimited(
+      delimitedSelector(
         (node) => node.type === "," || node.type === "[" || node.type === "]",
         ", "
       )

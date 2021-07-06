@@ -14,7 +14,7 @@ import {
   SelectionWithEditor,
 } from "./Types";
 import makeGraph from "./makeGraph";
-import { SyntaxNode } from "web-tree-sitter";
+import { logBranchTypes } from "./debug";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -198,25 +198,6 @@ export async function activate(context: vscode.ExtensionContext) {
     addDecorations();
   };
 
-  function logBranchTypes(event: vscode.TextEditorSelectionChangeEvent) {
-    const getBranch = (branch: SyntaxNode[]): SyntaxNode[] => {
-      if (branch[0].parent) {
-        return getBranch([branch[0].parent, ...branch]);
-      }
-      return branch;
-    };
-
-    const location = new vscode.Location(
-      vscode.window.activeTextEditor!.document.uri,
-      event.selections[0]
-    );
-    const leaf: SyntaxNode = getNodeAtLocation(location);
-    const branch = getBranch([leaf]);
-    branch.forEach((node, i) => console.log(">".repeat(i + 1), node.type));
-    const leafText = leaf.text.replace(/\s+/g, " ").substring(0, 100);
-    console.log(">".repeat(branch.length), `"${leafText}"`);
-  }
-
   context.subscriptions.push(
     cursorlessCommandDisposable,
     toggleDecorationsDisposable,
@@ -226,7 +207,9 @@ export async function activate(context: vscode.ExtensionContext) {
     vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),
     vscode.window.onDidChangeVisibleTextEditors(addDecorationsDebounced),
     vscode.window.onDidChangeTextEditorSelection(addDecorationsDebounced),
-    vscode.window.onDidChangeTextEditorSelection(logBranchTypes),
+    vscode.window.onDidChangeTextEditorSelection(
+      logBranchTypes(getNodeAtLocation)
+    ),
     vscode.workspace.onDidChangeTextDocument(handleEdit),
     {
       dispose() {
