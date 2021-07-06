@@ -3,9 +3,9 @@ import { tokenize } from "../../tokenizer";
 import { flatten, range } from "lodash";
 
 type TestCase = [string, string[]];
-const singleSymbolTests: TestType = getAsciiSymbols().map((s) => [s, [s]]);
+const singleSymbolTests: TestCase[] = getAsciiSymbols().map((s) => [s, [s]]);
 
-const tests: TestType = [
+const tests: TestCase[] = [
   // Numbers
   ["0.0 0 1 120 2.5 0.1", ["0.0", "0", "1", "120", "2.5", "0.1"]],
   // Semantic versioning
@@ -25,11 +25,14 @@ const tests: TestType = [
   // Strings
   ['"my variable"', ['"', "my", "variable", '"']],
   ["'my variable'", ["'", "my", "variable", "'"]],
-  // Symbols incl repeatable
+  // All single ascii symbols
   ...singleSymbolTests,
-  ["!_|||>{.-----()", ["!", "_", "|||", ">", "{", ".", "-----", "(", ")"]],
+  // Repeatable symbols
+  ["---|||///+++", ["---", "|||", "///", "+++"]],
+  // Non repeatable symbols
+  ["!!(()){{}}", ["!", "!", "(", "(", ")", ")", "{", "{", "}", "}"]],
   // Fixed tokens
-  ["!!=>=!====", ["!", "!=", ">=", "!==", "=="]],
+  ["!=>=!====", ["!=", ">=", "!==", "=="]],
   // Comments
   ["// Hello world", ["//", "Hello", "world"]],
 ];
@@ -45,9 +48,14 @@ suite("tokenizer", () => {
 
 /**
     Returns an array of single non-alphanumeric symbols in various ascii ranges to make sure they don't get dropped by the tokeniser
-*/ 
+*/
 function getAsciiSymbols() {
-  const rangesToTest = [["!", "/"], [":", "@"], ["[", "`"], ["{", "~"]];
+  const rangesToTest = [
+    ["!", "/"],
+    [":", "@"],
+    ["[", "`"],
+    ["{", "~"],
+  ];
   return flatten(
     rangesToTest.map(([start, end]) =>
       range(start.charCodeAt(0), end.charCodeAt(0) + 1).map((charCode) =>
