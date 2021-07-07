@@ -15,10 +15,15 @@ export async function decorationSleep() {
   await sleep(getPendingEditDecorationTime());
 }
 
-async function decorationSleepWithCallback(func: () => Promise<void>) {
+/**
+Wait for pending edit decoration time while subtracting the time it takes to actually run the callback
+*/
+async function decorationSleepWithCallback(
+  timeoutWaitForCallBack: () => Promise<void>
+) {
   const pendingEditDecorationTime = getPendingEditDecorationTime();
   const startTime = Date.now();
-  await func();
+  await timeoutWaitForCallBack();
   const deltaTime = Date.now() - startTime;
   await sleep(pendingEditDecorationTime - deltaTime);
 }
@@ -59,10 +64,15 @@ export default async function displayPendingEditDecorations(
   });
 }
 
+/**
+1. Shows decorations.
+2. Wait for pending edit decoration time while subtracting the time it takes to actually run the callback
+3. Removes decorations
+*/
 export async function displaySelectionDecorations(
   selections: SelectionWithEditor[],
   decorationType: TextEditorDecorationType,
-  func: () => Promise<void>
+  timeoutWaitForCallBack: () => Promise<void>
 ) {
   await runForEachEditor(
     selections,
@@ -75,7 +85,7 @@ export async function displaySelectionDecorations(
     }
   );
 
-  await decorationSleepWithCallback(func);
+  await decorationSleepWithCallback(timeoutWaitForCallBack);
 
   await runForEachEditor(
     selections,
