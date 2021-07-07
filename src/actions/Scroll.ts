@@ -54,7 +54,7 @@ class Scroll implements Action {
       );
 
       // If necessary focus back original editor
-      if (originalEditor && originalEditor !== window.activeTextEditor) {
+      if (originalEditor != null && originalEditor !== window.activeTextEditor) {
         await focusEditor(originalEditor);
       }
     };
