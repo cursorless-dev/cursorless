@@ -52,10 +52,12 @@ export const subwordFixture: Fixture[] = [
     input: "QUICK::BROWN::FOX",
     expectedOutput: ["QUICK", "BROWN", "FOX"],
   },
+  // Not currently handled properly: https://github.com/pokey/cursorless-vscode/issues/79
   {
     input: "APIClientFactory",
     expectedOutput: ["APIClientFactory"],
   },
+  // Not currently handled properly: https://github.com/pokey/cursorless-vscode/issues/79
   {
     input: "MockAPIClientFactory",
     expectedOutput: ["Mock", "APIClientFactory"],
