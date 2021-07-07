@@ -27,7 +27,7 @@ class Scroll implements Action {
     const selections: SelectionWithEditor[] = [];
     const lines: LineWithEditor[] = [];
 
-    [...selectionGroups].forEach(([editor, targets]) => {
+    selectionGroups.forEach((targets, editor) => {
       const { lineNumber, lineNumberDecorate } = getLineNumber(
         targets,
         this.at

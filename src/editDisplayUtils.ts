@@ -59,7 +59,7 @@ export async function displaySelectionDecorations(
     (s) => s.editor,
     async (editor, selections) => {
       editor.setDecorations(
-        lineStyle,
+        decorationType,
         selections.map((s) => s.selection)
       );
     }
@@ -71,7 +71,7 @@ export async function displaySelectionDecorations(
     selections,
     (s) => s.editor,
     async (editor) => {
-      editor.setDecorations(lineStyle, []);
+      editor.setDecorations(decorationType, []);
     }
   );
 }
