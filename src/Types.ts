@@ -47,12 +47,15 @@ export type ScopeType =
   | "argumentOrParameter"
   | "arrowFunction"
   | "class"
+  | "className"
   | "comment"
   | "dictionary"
   | "functionCall"
+  | "functionName"
   | "ifStatement"
   | "list"
   | "listElement"
+  | "name"
   | "namedFunction"
   | "pair"
   | "pairKey"
@@ -244,13 +247,25 @@ export interface Graph {
   readonly editStyles: EditStyles;
 }
 
-export type NodeMatcher = (
-  editor: vscode.TextEditor,
-  node: SyntaxNode
-) => SelectionWithContext | null;
-
 export interface DecorationColorSetting {
   dark: string;
   light: string;
   highContrast: string;
 }
+
+export type NodeMatcher = (
+  editor: vscode.TextEditor,
+  node: SyntaxNode
+) => SelectionWithContext | null;
+
+/**
+ * Returns the desired relative of the provided node.
+ * Returns null if matching node not found.
+ **/
+export type NodeFinder = (node: SyntaxNode) => SyntaxNode | null;
+
+/** Returns a selection for a given SyntaxNode */
+export type SelectionExtractor = (
+  editor: vscode.TextEditor,
+  node: SyntaxNode
+) => SelectionWithContext | null;

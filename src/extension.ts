@@ -14,6 +14,7 @@ import {
   SelectionWithEditor,
 } from "./Types";
 import makeGraph from "./makeGraph";
+import { logBranchTypes } from "./debug";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -206,6 +207,9 @@ export async function activate(context: vscode.ExtensionContext) {
     vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),
     vscode.window.onDidChangeVisibleTextEditors(addDecorationsDebounced),
     vscode.window.onDidChangeTextEditorSelection(addDecorationsDebounced),
+    vscode.window.onDidChangeTextEditorSelection(
+      logBranchTypes(getNodeAtLocation)
+    ),
     vscode.workspace.onDidChangeTextDocument(handleEdit),
     {
       dispose() {

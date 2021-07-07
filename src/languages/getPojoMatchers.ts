@@ -1,42 +1,41 @@
 import { SyntaxNode } from "web-tree-sitter";
-import { TextEditor } from "vscode";
-import {
-  delimitedMatcher,
-  hasType,
-  simpleSelectionExtractor,
-  makeRange,
-  childNodeMatcher,
-  getNodeWithLeadingDelimiter,
-} from "../nodeMatchers";
 import { getKeyNode, getValueNode } from "../treeSitterUtils";
+import {
+  delimitedSelector,
+  selectWithLeadingDelimiter,
+} from "../nodeSelectors";
+import { composedMatcher, matcher, typeMatcher } from "../nodeMatchers";
+import { nodeFinder, typedNodeFinder } from "../nodeFinders";
 
+// Matchers for "plain old javascript objects", like those found in JSON
 export function getPojoMatchers(
   dictionaryTypes: string[],
   listTypes: string[],
   listElementMatcher: (node: SyntaxNode) => boolean
 ) {
   return {
-    dictionary: hasType(...dictionaryTypes),
-    pair: delimitedMatcher(
-      (node) => node.type === "pair",
-      (node) => node.type === "," || node.type === "}" || node.type === "{",
-      ", "
+    dictionary: typeMatcher(...dictionaryTypes),
+    pair: matcher(
+      nodeFinder((node) => node.type === "pair"),
+      delimitedSelector(
+        (node) => node.type === "," || node.type === "}" || node.type === "{",
+        ", "
+      )
     ),
-    pairKey(editor: TextEditor, node: SyntaxNode) {
-      if (node.type !== "pair") {
-        return null;
-      }
-
-      return simpleSelectionExtractor(getKeyNode(node)!);
-    },
-    value: childNodeMatcher(getValueNode, getNodeWithLeadingDelimiter),
-    list: hasType(...listTypes),
-    listElement: delimitedMatcher(
-      (node) =>
-        listTypes.includes(node.parent?.type ?? "") && listElementMatcher(node),
-      (node) => node.type === "," || node.type === "[" || node.type === "]",
-      ", "
+    pairKey: composedMatcher([typedNodeFinder("pair"), getKeyNode]),
+    value: matcher(getValueNode, selectWithLeadingDelimiter),
+    list: typeMatcher(...listTypes),
+    listElement: matcher(
+      nodeFinder(
+        (node) =>
+          listTypes.includes(node.parent?.type ?? "") &&
+          listElementMatcher(node)
+      ),
+      delimitedSelector(
+        (node) => node.type === "," || node.type === "[" || node.type === "]",
+        ", "
+      )
     ),
-    string: hasType("string"),
+    string: typeMatcher("string"),
   };
 }
