@@ -272,19 +272,3 @@ export type SelectionExtractor = (
   editor: vscode.TextEditor,
   node: SyntaxNode
 ) => SelectionWithContext | null;
-
-export interface DecorationColorSetting {
-  dark: string;
-  light: string;
-  highContrast: string;
-}
-
-export type SimplePosition = {
-  line: number;
-  character: number;
-};
-
-export type SimpleRange = {
-  start: SimplePosition;
-  end: SimplePosition;
-};

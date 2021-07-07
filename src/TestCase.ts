@@ -1,28 +1,37 @@
+import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import { Position, Range, Selection } from "vscode";
 import NavigationMap from "./NavigationMap";
-import * as yaml from "js-yaml";
-import {
-  ActionType,
-  PartialTarget,
-  SimplePosition,
-  SimpleRange,
-} from "./Types";
-import { writeFileSync } from "fs";
+import { ActionType, PartialTarget, PrimitiveTarget, Target } from "./Types";
 
-export function serializeRange(range: Range): SimpleRange {
-  const { start, end } = range;
-  return { start: serializePosition(start), end: serializePosition(end) };
+export type SerializedPosition = {
+  line: number;
+  character: number;
+};
+
+export type SerializedRange = {
+  start: SerializedPosition;
+  end: SerializedPosition;
+};
+
+export type SerializedSelection = {
+  anchor: SerializedPosition;
+  active: SerializedPosition;
+};
+
+export function serializeRange(range: Range): SerializedRange {
+  return {
+    start: serializePosition(range.start),
+    end: serializePosition(range.end),
+  };
 }
 
-export function serializeSelection(selection: Selection) {
-  const { active, anchor } = selection;
-  return { active, anchor };
+export function serializeSelection(selection: Selection): SerializedSelection {
+  return { active: selection.active, anchor: selection.anchor };
 }
 
-export function serializePosition(position: Position): SimplePosition {
-  const { line, character } = position;
-  return { line, character };
+export function serializePosition(position: Position): SerializedPosition {
+  return { line: position.line, character: position.character };
 }
 
 type Command = {
@@ -32,55 +41,113 @@ type Command = {
 };
 
 type Snapshot = {
-  fileContent: string;
-  visibleRanges: SimpleRange[];
-  selections: {
-    active: { line: number; character: number };
-    anchor: { line: number; character: number };
-  }[];
+  document: string;
+  visibleRanges: SerializedRange[];
+  selections: SerializedSelection[];
 };
+
+type DecorationRanges = { [coloredSymbol: string]: SerializedRange };
 
 export default class TestCase {
   command: Command;
   languageId: string;
-  navigationMap: { [coloredSymbol: string]: SimpleRange } | null;
-  initial: Snapshot | null = null;
-  result: Snapshot | null = null;
+  decorations: DecorationRanges | null;
+  initialState: Snapshot | null = null;
+  finalState: Snapshot | null = null;
 
-  constructor(command: Command, navigationMap: NavigationMap | null) {
+  constructor(
+    command: Command,
+    targets: Target[],
+    navigationMap: NavigationMap
+  ) {
     const activeEditor = vscode.window.activeTextEditor!;
 
     this.command = command;
     this.languageId = activeEditor.document.languageId;
-    this.navigationMap = navigationMap!.serializeRanges();
+    this.decorations = this.extractTargetedDecorations(targets, navigationMap);
+  }
+
+  extractPrimitiveTargetKeys(...targets: PrimitiveTarget[]) {
+    const keys = [];
+    for (const target of targets) {
+      if (target.mark.type === "decoratedSymbol") {
+        keys.push(`${target.mark.symbolColor}.${target.mark.character}`);
+      }
+    }
+    return keys;
+  }
+
+  extractTargetKeys(target: Target): string[] {
+    switch (target.type) {
+      case "primitive":
+        return this.extractPrimitiveTargetKeys(target);
+
+      case "list":
+        return target.elements
+          .map((element) => this.extractTargetKeys(element))
+          .flat();
+
+      case "range":
+        return this.extractPrimitiveTargetKeys(target.start, target.end);
+
+      default:
+        return [];
+    }
+  }
+
+  extractTargetedDecorations(targets: Target[], navigationMap: NavigationMap) {
+    if (!navigationMap) {
+      return null;
+    }
+
+    const decorationRanges = navigationMap.serializeRanges();
+    const targetedDecorations: DecorationRanges = {};
+    for (const target of targets) {
+      this.extractTargetKeys(target).forEach((key) => {
+        targetedDecorations[key] = decorationRanges[key];
+      });
+    }
+    return targetedDecorations;
   }
 
   takeSnapshot() {
     const activeEditor = vscode.window.activeTextEditor!;
 
     const snapshot: Snapshot = {
-      fileContent: activeEditor.document.getText(),
+      document: activeEditor.document.getText(),
       selections: activeEditor.selections.map(serializeSelection),
       visibleRanges: activeEditor.visibleRanges.map(serializeRange),
     };
 
-    if (this.initial == null) {
-      this.initial = snapshot;
-    } else if (this.result == null) {
-      this.result = snapshot;
+    if (this.initialState == null) {
+      this.initialState = snapshot;
+    } else if (this.finalState == null) {
+      this.finalState = snapshot;
     } else {
-      throw Error("Initial and Result test snapshots already taken");
+      throw Error("Both test snapshots already taken");
     }
   }
 
-  writeToFile() {
-    const fixture = yaml.dump({
+  toYaml() {
+    return yaml.dump({
       command: this.command,
       languageId: this.languageId,
-      navigationMap: this.navigationMap,
-      initial: this.initial,
-      result: this.result,
+      decorations: this.decorations,
+      initialState: this.initialState,
+      finalState: this.finalState,
     });
-    writeFileSync("/home/brock/code/cursorless-vscode/test.yaml", fixture);
+  }
+
+  async presentFixture() {
+    const fixture = this.toYaml();
+    const document = await vscode.workspace.openTextDocument({
+      language: "yaml",
+      content: fixture,
+    });
+    await vscode.window.showTextDocument(document, {
+      preserveFocus: true,
+      preview: true,
+      viewColumn: vscode.ViewColumn.Beside,
+    });
   }
 }

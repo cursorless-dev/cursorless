@@ -83,7 +83,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const graph = makeGraph(graphConstructors);
   var thatMark: SelectionWithEditor[] = [];
-  var recordTestCase = true; //todo
+  var recordTestCase = false;
   const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
     "cursorless.recordTestCase",
     () => {
@@ -104,13 +104,6 @@ export async function activate(context: vscode.ExtensionContext) {
         console.debug(JSON.stringify(partialTargets, null, 3));
         console.debug(`extraArgs:`);
         console.debug(JSON.stringify(extraArgs, null, 3));
-
-        let testCase: TestCase | null = null;
-        if (recordTestCase) {
-          const command = { actionName, partialTargets, extraArgs };
-          testCase = new TestCase(command, navigationMap);
-          testCase.takeSnapshot();
-        }
 
         const action = graph.actions[actionName];
 
@@ -144,6 +137,13 @@ export async function activate(context: vscode.ExtensionContext) {
         // console.log(`targets:`);
         // console.log(JSON.stringify(targets, null, 3));
 
+        let testCase: TestCase | null = null;
+        if (recordTestCase) {
+          const command = { actionName, partialTargets, extraArgs };
+          testCase = new TestCase(command, targets, navigationMap!);
+          testCase.takeSnapshot();
+        }
+
         const processedTargetsContext: ProcessedTargetsContext = {
           currentSelections:
             vscode.window.activeTextEditor?.selections.map((selection) => ({
@@ -167,8 +167,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
         if (testCase != null) {
           testCase.takeSnapshot();
-          testCase.writeToFile();
-          recordTestCase = true; //todo
+          testCase.presentFixture();
+          recordTestCase = false;
         }
 
         return returnValue;
