@@ -28,41 +28,42 @@ class Scroll implements Action {
     const lines: LineWithEditor[] = [];
 
     selectionGroups.forEach((targets, editor) => {
-      const { lineNumber, lineNumberDecorate } = getLineNumber(
+      const { lineNumber, lineNumberToDecorate } = getLineNumber(
         targets,
         this.at
       );
       lines.push({ lineNumber, editor });
-      selections.push({
-        selection: new Selection(lineNumberDecorate, 0, lineNumberDecorate, 0),
-        editor,
-      });
+      const s = new Selection(lineNumberToDecorate, 0, lineNumberToDecorate, 0);
+      selections.push({ selection: s, editor });
     });
+
+    const scrollCallback = async () => {
+      const originalEditor = window.activeTextEditor;
+
+      await Promise.all(
+        lines.map(async (lineWithEditor) => {
+          // For reveal line to the work we have to have the correct editor focused
+          if (lineWithEditor.editor !== window.activeTextEditor) {
+            await focusEditor(lineWithEditor.editor);
+          }
+          await commands.executeCommand("revealLine", {
+            lineNumber: lineWithEditor.lineNumber,
+            at: this.at,
+          });
+        })
+      );
+
+      // If necessary focus back original editor
+      if (originalEditor && originalEditor !== window.activeTextEditor) {
+        await focusEditor(originalEditor);
+      }
+    };
 
     await displaySelectionDecorations(
       selections,
-      this.graph.editStyles.referencedLine
+      this.graph.editStyles.referencedLine,
+      scrollCallback
     );
-
-    const originalEditor = <TextEditor>window.activeTextEditor;
-
-    await Promise.all(
-      lines.map(async (lineWithEditor) => {
-        // For reveal line to the work we have to have the correct editor focused
-        if (lineWithEditor.editor !== window.activeTextEditor) {
-          await focusEditor(lineWithEditor.editor);
-        }
-        await commands.executeCommand("revealLine", {
-          lineNumber: lineWithEditor.lineNumber,
-          at: this.at,
-        });
-      })
-    );
-
-    // If necessary focus back original editor
-    if (originalEditor !== window.activeTextEditor) {
-      await focusEditor(originalEditor);
-    }
 
     return {
       returnValue: null,
@@ -97,18 +98,18 @@ function getLineNumber(targets: TypedSelection[], at: string) {
     endLine = Math.max(endLine, t.selection.selection.end.line);
   });
 
-  let lineNumber, lineNumberDecorate;
+  let lineNumber, lineNumberToDecorate;
   if (at === "top") {
-    lineNumber = lineNumberDecorate = startLine;
+    lineNumber = lineNumberToDecorate = startLine;
   } else if (at === "bottom") {
     // Necessary change to actually get vscode to put line at absolute bottom.function
     lineNumber = Math.max(0, endLine - 1);
-    lineNumberDecorate = endLine;
+    lineNumberToDecorate = endLine;
   } else {
-    lineNumber = lineNumberDecorate = Math.floor((startLine + endLine) / 2);
+    lineNumber = lineNumberToDecorate = Math.floor((startLine + endLine) / 2);
   }
 
-  return { lineNumber, lineNumberDecorate };
+  return { lineNumber, lineNumberToDecorate };
 }
 
 interface LineWithEditor {

@@ -6,12 +6,21 @@ import { runOnTargetsForEachEditor, runForEachEditor } from "./targetUtils";
 
 const sleep = promisify(setTimeout);
 
-export async function decorationSleep() {
-  const pendingEditDecorationTime = workspace
+const getPendingEditDecorationTime = () =>
+  workspace
     .getConfiguration("cursorless")
     .get<number>("pendingEditDecorationTime")!;
 
-  await sleep(pendingEditDecorationTime);
+export async function decorationSleep() {
+  await sleep(getPendingEditDecorationTime());
+}
+
+async function decorationSleepWithCallback(func: () => Promise<void>) {
+  const pendingEditDecorationTime = getPendingEditDecorationTime();
+  const startTime = Date.now();
+  await func();
+  const deltaTime = Date.now() - startTime;
+  await sleep(pendingEditDecorationTime - deltaTime);
 }
 
 export default async function displayPendingEditDecorations(
@@ -52,7 +61,8 @@ export default async function displayPendingEditDecorations(
 
 export async function displaySelectionDecorations(
   selections: SelectionWithEditor[],
-  decorationType: TextEditorDecorationType
+  decorationType: TextEditorDecorationType,
+  func: () => Promise<void>
 ) {
   await runForEachEditor(
     selections,
@@ -65,7 +75,7 @@ export async function displaySelectionDecorations(
     }
   );
 
-  await decorationSleep();
+  await decorationSleepWithCallback(func);
 
   await runForEachEditor(
     selections,
