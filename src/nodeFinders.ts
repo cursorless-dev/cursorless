@@ -1,7 +1,7 @@
 import { SyntaxNode } from "web-tree-sitter";
 import { NodeFinder } from "./Types";
 
-export const findNode = (
+export const nodeFinder = (
   isTargetNode: (node: SyntaxNode) => boolean
 ): NodeFinder => {
   return (node: SyntaxNode) => {
@@ -10,7 +10,7 @@ export const findNode = (
 };
 
 export const typedNodeFinder = (...typeNames: string[]): NodeFinder => {
-  return findNode((node) => typeNames.includes(node.type));
+  return nodeFinder((node) => typeNames.includes(node.type));
 };
 
 /**

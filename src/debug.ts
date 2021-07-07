@@ -10,7 +10,7 @@ export function logBranchTypes(getNodeAtLocation: any) {
 
     const ancestors: SyntaxNode[] = [];
     let node: SyntaxNode = getNodeAtLocation(location);
-    while (node.parent) {
+    while (node.parent != null) {
       ancestors.unshift(node.parent);
       node = node.parent;
     }

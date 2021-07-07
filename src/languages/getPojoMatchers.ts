@@ -1,12 +1,13 @@
 import { SyntaxNode } from "web-tree-sitter";
-import { getNameNode, getKeyNode, getValueNode } from "../treeSitterUtils";
+import { getKeyNode, getValueNode } from "../treeSitterUtils";
 import {
   delimitedSelector,
   selectWithLeadingDelimiter,
 } from "../nodeSelectors";
 import { composedMatcher, matcher, typeMatcher } from "../nodeMatchers";
-import { findNode, typedNodeFinder } from "../nodeFinders";
+import { nodeFinder, typedNodeFinder } from "../nodeFinders";
 
+// Matchers for "plain old javascript objects", like those found in JSON
 export function getPojoMatchers(
   dictionaryTypes: string[],
   listTypes: string[],
@@ -15,7 +16,7 @@ export function getPojoMatchers(
   return {
     dictionary: typeMatcher(...dictionaryTypes),
     pair: matcher(
-      findNode((node) => node.type === "pair"),
+      nodeFinder((node) => node.type === "pair"),
       delimitedSelector(
         (node) => node.type === "," || node.type === "}" || node.type === "{",
         ", "
@@ -23,10 +24,9 @@ export function getPojoMatchers(
     ),
     pairKey: composedMatcher([typedNodeFinder("pair"), getKeyNode]),
     value: matcher(getValueNode, selectWithLeadingDelimiter),
-    name: matcher(getNameNode),
     list: typeMatcher(...listTypes),
     listElement: matcher(
-      findNode(
+      nodeFinder(
         (node) =>
           listTypes.includes(node.parent?.type ?? "") &&
           listElementMatcher(node)

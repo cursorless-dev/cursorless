@@ -155,6 +155,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   statement: matcher(possiblyExportedDeclaration(...STATEMENT_TYPES)),
   arrowFunction: typeMatcher("arrow_function"),
   functionCall: typeMatcher("call_expression", "new_expression"),
+  name: matcher(getNameNode),
   functionName: cascadingMatcher(
     composedMatcher([
       typedNodeFinder("function_declaration", "method_definition"),
