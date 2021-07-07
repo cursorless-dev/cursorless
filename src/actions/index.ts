@@ -33,6 +33,9 @@ class Actions implements ActionRecord {
     },
     targetPreferences: [{ position: "after", insideOutsideType: "outside" }],
   };
+  scrollToBottom = new ScrollToBottom(this.graph);
+  scrollToCenter = new ScrollToCenter(this.graph);
+  scrollToTop = new ScrollToTop(this.graph);
   setSelection = new SetSelection(this.graph);
   setSelectionAfter = new SetSelectionAfter(this.graph);
   setSelectionBefore = new SetSelectionBefore(this.graph);
@@ -40,9 +43,6 @@ class Actions implements ActionRecord {
   use = new Use(this.graph);
   unfold = new Unfold(this.graph);
   wrap = new Wrap(this.graph);
-  scrollToTop = new ScrollToTop(this.graph);
-  scrollToCenter = new ScrollToCenter(this.graph);
-  scrollToBottom = new ScrollToBottom(this.graph);
 }
 
 export default Actions;

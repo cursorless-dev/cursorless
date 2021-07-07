@@ -228,16 +228,16 @@ export type ActionType =
   | "insertLineAfter"
   | "insertLineBefore"
   | "paste"
+  | "scrollToBottom"
+  | "scrollToCenter"
+  | "scrollToTop"
   | "setSelection"
   | "setSelectionAfter"
   | "setSelectionBefore"
   | "swap"
   | "use"
   | "unfold"
-  | "wrap"
-  | "scrollToTop"
-  | "scrollToCenter"
-  | "scrollToBottom";
+  | "wrap";
 
 export type ActionRecord = Record<ActionType, Action>;
 
