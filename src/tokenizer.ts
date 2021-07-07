@@ -25,6 +25,7 @@ const FIXED_TOKENS = [
   "<=",
   ">=",
   "=>",
+  "->",
 ];
 const REPEATABLE_SYMBOLS_REGEX = REPEATABLE_SYMBOLS.map(escapeRegExp)
   .map((s) => `${s}+`)
