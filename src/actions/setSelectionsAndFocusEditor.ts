@@ -18,9 +18,7 @@ export async function setSelectionsAndFocusEditor(
   editor: TextEditor,
   selections: Selection[]
 ) {
-  if (editor.viewColumn != null) {
-    await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
-  }
+  focusEditor(editor);
 
   editor.selections = selections;
   editor.revealRange(editor.selections[0]);
