@@ -15,6 +15,7 @@ import {
 } from "./Types";
 import makeGraph from "./makeGraph";
 import { logBranchTypes } from "./debug";
+import TestCase from "./TestCase";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -82,10 +83,12 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const graph = makeGraph(graphConstructors);
   var thatMark: SelectionWithEditor[] = [];
+  var recordTestCase = true; //todo
   const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
     "cursorless.recordTestCase",
     () => {
-      console.log("Hello world");
+      console.log("Recording test case for next command");
+      recordTestCase = true;
     }
   );
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
@@ -101,6 +104,13 @@ export async function activate(context: vscode.ExtensionContext) {
         console.debug(JSON.stringify(partialTargets, null, 3));
         console.debug(`extraArgs:`);
         console.debug(JSON.stringify(extraArgs, null, 3));
+
+        let testCase: TestCase | null = null;
+        if (recordTestCase) {
+          const command = { actionName, partialTargets, extraArgs };
+          testCase = new TestCase(command, navigationMap);
+          testCase.takeSnapshot();
+        }
 
         const action = graph.actions[actionName];
 
@@ -154,6 +164,12 @@ export async function activate(context: vscode.ExtensionContext) {
         );
 
         thatMark = newThatMark;
+
+        if (testCase != null) {
+          testCase.takeSnapshot();
+          testCase.writeToFile();
+          recordTestCase = true; //todo
+        }
 
         return returnValue;
 
