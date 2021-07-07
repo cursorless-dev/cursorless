@@ -40,21 +40,22 @@ class Scroll implements Action {
     const scrollCallback = async () => {
       const originalEditor = window.activeTextEditor;
 
-      await Promise.all(
-        lines.map(async (lineWithEditor) => {
-          // For reveal line to the work we have to have the correct editor focused
-          if (lineWithEditor.editor !== window.activeTextEditor) {
-            await focusEditor(lineWithEditor.editor);
-          }
-          await commands.executeCommand("revealLine", {
-            lineNumber: lineWithEditor.lineNumber,
-            at: this.at,
-          });
-        })
-      );
+      for (const lineWithEditor of lines) {
+        // For reveal line to the work we have to have the correct editor focused
+        if (lineWithEditor.editor !== window.activeTextEditor) {
+          await focusEditor(lineWithEditor.editor);
+        }
+        await commands.executeCommand("revealLine", {
+          lineNumber: lineWithEditor.lineNumber,
+          at: this.at,
+        });
+      }
 
       // If necessary focus back original editor
-      if (originalEditor != null && originalEditor !== window.activeTextEditor) {
+      if (
+        originalEditor != null &&
+        originalEditor !== window.activeTextEditor
+      ) {
         await focusEditor(originalEditor);
       }
     };
