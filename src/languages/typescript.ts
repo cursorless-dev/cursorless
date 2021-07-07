@@ -13,7 +13,7 @@ import {
   getValueNode,
 } from "../treeSitterUtils";
 import {
-  findNode,
+  nodeFinder,
   typedNodeFinder,
   findPossiblyWrappedNode,
 } from "../nodeFinders";
@@ -164,7 +164,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
     composedMatcher([findNamedArrowFunction, getNameNode])
   ),
   className: composedMatcher([
-    possiblyExportedDeclaration("class_declaration", "class"),
+    typedNodeFinder("class_declaration", "class"),
     getNameNode,
   ]),
   type: cascadingMatcher(
@@ -179,7 +179,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
     )
   ),
   argumentOrParameter: matcher(
-    findNode(
+    nodeFinder(
       (node) =>
         (node.parent?.type === "arguments" &&
           (isExpression(node) || node.type === "spread_element")) ||

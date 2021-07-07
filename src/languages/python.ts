@@ -14,7 +14,7 @@ import {
   getNameNode,
 } from "../treeSitterUtils";
 import {
-  findNode,
+  nodeFinder,
   typedNodeFinder,
   findPossiblyWrappedNode,
 } from "../nodeFinders";
@@ -151,17 +151,17 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
     matcher((node) => (node.type === "assignment" ? getLeftNode(node) : null))
   ),
   functionName: composedMatcher([
-    possiblyDecoratedDefinition("function_definition"),
+    typedNodeFinder("function_definition"),
     getNameNode,
   ]),
   className: composedMatcher([
-    possiblyDecoratedDefinition("class_definition"),
+    typedNodeFinder("class_definition"),
     getNameNode,
   ]),
   arrowFunction: typeMatcher("lambda"),
   functionCall: typeMatcher("call"),
   argumentOrParameter: matcher(
-    findNode(
+    nodeFinder(
       (node) =>
         (node.parent?.type === "argument_list" &&
           ARGUMENT_TYPES.includes(node.type)) ||
