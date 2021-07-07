@@ -18,7 +18,7 @@ export async function setSelectionsAndFocusEditor(
   editor: TextEditor,
   selections: Selection[]
 ) {
-  focusEditor(editor);
+  await focusEditor(editor);
 
   editor.selections = selections;
   editor.revealRange(editor.selections[0]);
