@@ -85,7 +85,7 @@ export async function displaySelectionDecorations(
     }
   );
 
-  await decorationSleepWithCallback(timeoutWaitForCallBack);
+  await decorationSleepWithCallback(callback);
 
   await runForEachEditor(
     selections,
