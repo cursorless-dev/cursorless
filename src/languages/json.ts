@@ -25,12 +25,16 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   ...getPojoMatchers(["object"], ["array"], isValue),
   ifStatement: notSupported,
   class: notSupported,
+  className: notSupported,
   statement: notSupported,
   arrowFunction: notSupported,
   functionCall: notSupported,
   argumentOrParameter: notSupported,
   namedFunction: notSupported,
+  functionName: notSupported,
   comment: notSupported,
+  type: notSupported,
+  name: notSupported,
 };
 
 export default nodeMatchers;

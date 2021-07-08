@@ -47,8 +47,6 @@ export function addDecorationsToEditors(decorations: Decorations) {
     })
   );
 
-  console.log(JSON.stringify(tokens.map((token) => token.text)));
-
   const characterTokens: {
     [key: string]: Map<Token, CharacterTokenInfo>;
   } = {};

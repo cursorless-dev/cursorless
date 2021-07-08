@@ -1,8 +1,6 @@
+export const SUBWORD_MATCHER = /([A-Z]?[a-z]+|[A-Za-z]+)/g;
+
 export const DEBOUNCE_DELAY = 175;
-
-export const TOKEN_MATCHER = /[a-zA-Z_0-9]+|[^\s\w]/g;
-
-export const SUBWORD_MATCHER = /[A-Z]?[a-z]+/g;
 
 export const COLORS = [
   "default",
@@ -10,7 +8,7 @@ export const COLORS = [
   "green",
   "red",
   "yellow",
-  "mauve",
+  "purple",
 ] as const;
 
 export type SymbolColor = typeof COLORS[number];

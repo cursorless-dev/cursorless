@@ -39,63 +39,13 @@
 			{
 				"command": "cursorless.toggleDecorations",
 				"title": "Cursorless: Toggle decorations"
+			},
+			{
+				"command": "cursorless.recomputeDecorationStyles",
+				"title": "Cursorless: Recompute decoration styles"
 			}
 		],
 		"colors": [
-			{
-				"id": "cursorless.defaultBorder",
-				"description": "Border color to use for default symbols",
-				"defaults": {
-					"dark": "#cdc7f0",
-					"light": "#000000",
-					"highContrast": "#000000"
-				}
-			},
-			{
-				"id": "cursorless.greenBorder",
-				"description": "Border color to use for green symbols",
-				"defaults": {
-					"dark": "#22d618",
-					"light": "#2ec426",
-					"highContrast": "#2ec426"
-				}
-			},
-			{
-				"id": "cursorless.redBorder",
-				"description": "Border color to use for red symbols",
-				"defaults": {
-					"dark": "#e96900",
-					"light": "#ff3300",
-					"highContrast": "#ff3300"
-				}
-			},
-			{
-				"id": "cursorless.yellowBorder",
-				"description": "Border color to use for yellow symbols",
-				"defaults": {
-					"dark": "#f1cd00",
-					"light": "#f0b800",
-					"highContrast": "#f0b800"
-				}
-			},
-			{
-				"id": "cursorless.mauveBorder",
-				"description": "Border color to use for mauve symbols",
-				"defaults": {
-					"dark": "#de25ff",
-					"light": "#ff00f2",
-					"highContrast": "#ff00f2"
-				}
-			},
-			{
-				"id": "cursorless.blueBorder",
-				"description": "Border color to use for blue symbols",
-				"defaults": {
-					"dark": "#00b7ff",
-					"light": "#19a1d6",
-					"highContrast": "#19a1d6"
-				}
-			},
 			{
 				"id": "cursorless.pendingDeleteBackground",
 				"description": "Background color to use for ranges about to be deleted",
@@ -152,8 +102,72 @@
 				},
 				"cursorless.pendingEditDecorationTime": {
 					"type": "integer",
-					"default": 175,
+					"default": 100,
 					"description": "How long in milliseconds to show a pending edit decoration"
+				},
+				"cursorless.hatScaleFactor": {
+					"type": "number",
+					"default": 1,
+					"description": "How much to scale the hats by"
+				},
+				"cursorless.hatVerticalOffset": {
+					"type": "number",
+					"default": 0,
+					"description": "How much to vertically shift the hats as a percentage of font size; positive is up"
+				},
+				"cursorless.colors.default": {
+					"description": "Color to use for default symbols",
+					"type": "object",
+					"default": {
+						"dark": "#cdc7f0",
+						"light": "#000000",
+						"highContrast": "#000000"
+					}
+				},
+				"cursorless.colors.green": {
+					"description": "Color to use for green symbols",
+					"type": "object",
+					"default": {
+						"dark": "#22d618",
+						"light": "#2ec426",
+						"highContrast": "#2ec426"
+					}
+				},
+				"cursorless.colors.red": {
+					"description": "Color to use for red symbols",
+					"type": "object",
+					"default": {
+						"dark": "#e96900",
+						"light": "#ff3300",
+						"highContrast": "#ff3300"
+					}
+				},
+				"cursorless.colors.yellow": {
+					"description": "Color to use for yellow symbols",
+					"type": "object",
+					"default": {
+						"dark": "#f1cd00",
+						"light": "#f0b800",
+						"highContrast": "#f0b800"
+					}
+				},
+				"cursorless.colors.purple": {
+					"description": "Color to use for purple symbols",
+					"type": "object",
+					"default": {
+						"dark": "#de25ff",
+						"light": "#ff00f2",
+						"highContrast": "#ff00f2"
+					}
+				},
+				"cursorless.colors.blue": {
+					"description": "Color to use for blue symbols",
+					"type": "object",
+					"default": {
+						"dark": "#00b7ff",
+						"light": "#19a1d6",
+						"highContrast": "#19a1d6"
+					}
 				}
 			}
 		}

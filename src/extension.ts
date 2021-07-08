@@ -6,6 +6,7 @@ import graphConstructors from "./graphConstructors";
 import { inferFullTargets } from "./inferFullTargets";
 import NavigationMap from "./NavigationMap";
 import processTargets from "./processTargets";
+import FontMeasurements from "./FontMeasurements";
 import {
   ActionType,
   PartialTarget,
@@ -13,9 +14,13 @@ import {
   SelectionWithEditor,
 } from "./Types";
 import makeGraph from "./makeGraph";
+import { logBranchTypes } from "./debug";
 
 export async function activate(context: vscode.ExtensionContext) {
-  const decorations = new Decorations();
+  const fontMeasurements = new FontMeasurements(context);
+  await fontMeasurements.calculate();
+  const decorations = new Decorations(fontMeasurements);
+
   const parseTreeExtension = vscode.extensions.getExtension("pokey.parse-tree");
 
   if (parseTreeExtension == null) {
@@ -67,6 +72,14 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  const recomputeDecorationStylesDisposable = vscode.commands.registerCommand(
+    "cursorless.recomputeDecorationStyles",
+    () => {
+      fontMeasurements.clearCache();
+      recomputeDecorationStyles();
+    }
+  );
+
   const graph = makeGraph(graphConstructors);
   var thatMark: SelectionWithEditor[] = [];
 
@@ -78,11 +91,11 @@ export async function activate(context: vscode.ExtensionContext) {
       ...extraArgs: any[]
     ) => {
       try {
-        console.log(`action: ${actionName}`);
-        console.log(`partialTargets:`);
-        console.log(JSON.stringify(partialTargets, null, 3));
-        console.log(`extraArgs:`);
-        console.log(JSON.stringify(extraArgs, null, 3));
+        console.debug(`action: ${actionName}`);
+        console.debug(`partialTargets:`);
+        console.debug(JSON.stringify(partialTargets, null, 3));
+        console.debug(`extraArgs:`);
+        console.debug(JSON.stringify(extraArgs, null, 3));
 
         const action = graph.actions[actionName];
 
@@ -178,13 +191,25 @@ export async function activate(context: vscode.ExtensionContext) {
     addDecorationsDebounced();
   }
 
+  const recomputeDecorationStyles = async () => {
+    decorations.destroyDecorations();
+    await fontMeasurements.calculate();
+    decorations.constructDecorations(fontMeasurements);
+    addDecorations();
+  };
+
   context.subscriptions.push(
     cursorlessCommandDisposable,
     toggleDecorationsDisposable,
+    recomputeDecorationStylesDisposable,
+    vscode.workspace.onDidChangeConfiguration(recomputeDecorationStyles),
     vscode.window.onDidChangeTextEditorVisibleRanges(addDecorationsDebounced),
     vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),
     vscode.window.onDidChangeVisibleTextEditors(addDecorationsDebounced),
     vscode.window.onDidChangeTextEditorSelection(addDecorationsDebounced),
+    vscode.window.onDidChangeTextEditorSelection(
+      logBranchTypes(getNodeAtLocation)
+    ),
     vscode.workspace.onDidChangeTextDocument(handleEdit),
     {
       dispose() {
