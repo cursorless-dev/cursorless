@@ -1,7 +1,7 @@
 import { TextDocumentChangeEvent } from "vscode";
 import { SymbolColor } from "./constants";
-import { serializeRange } from "./TestCase";
-import { SimpleRange, Token } from "./Types";
+import { SerializedRange, serializeRange } from "./TestCase";
+import { Token } from "./Types";
 
 /**
  * Maps from (color, character) pairs to tokens
@@ -57,7 +57,7 @@ export default class NavigationMap {
   }
 
   public serializeRanges() {
-    const rangeMap: { [coloredSymbol: string]: SimpleRange } = {};
+    const rangeMap: { [coloredSymbol: string]: SerializedRange } = {};
     Object.entries(this.map).forEach(([key, value]) => {
       rangeMap[key] = serializeRange(value.range);
     });

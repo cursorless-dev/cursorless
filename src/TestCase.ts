@@ -68,12 +68,12 @@ export default class TestCase {
   }
 
   extractPrimitiveTargetKeys(...targets: PrimitiveTarget[]) {
-    const keys = [];
-    for (const target of targets) {
+    const keys: string[] = [];
+    targets.forEach((target) => {
       if (target.mark.type === "decoratedSymbol") {
         keys.push(`${target.mark.symbolColor}.${target.mark.character}`);
       }
-    }
+    });
     return keys;
   }
 
@@ -83,9 +83,7 @@ export default class TestCase {
         return this.extractPrimitiveTargetKeys(target);
 
       case "list":
-        return target.elements
-          .map((element) => this.extractTargetKeys(element))
-          .flat();
+        return target.elements.map(this.extractTargetKeys, this).flat();
 
       case "range":
         return this.extractPrimitiveTargetKeys(target.start, target.end);
@@ -102,17 +100,15 @@ export default class TestCase {
 
     const decorationRanges = navigationMap.serializeRanges();
     const targetedDecorations: DecorationRanges = {};
-    for (const target of targets) {
-      this.extractTargetKeys(target).forEach((key) => {
-        targetedDecorations[key] = decorationRanges[key];
-      });
-    }
+    const targetKeys = targets.map(this.extractTargetKeys, this).flat();
+    targetKeys.forEach((key) => {
+      targetedDecorations[key] = decorationRanges[key];
+    });
     return targetedDecorations;
   }
 
   takeSnapshot() {
     const activeEditor = vscode.window.activeTextEditor!;
-
     const snapshot: Snapshot = {
       document: activeEditor.document.getText(),
       selections: activeEditor.selections.map(serializeSelection),
@@ -129,13 +125,14 @@ export default class TestCase {
   }
 
   toYaml() {
-    return yaml.dump({
+    const fixture = {
       command: this.command,
       languageId: this.languageId,
       decorations: this.decorations,
       initialState: this.initialState,
       finalState: this.finalState,
-    });
+    };
+    return yaml.dump(fixture, { noRefs: true });
   }
 
   async presentFixture() {
