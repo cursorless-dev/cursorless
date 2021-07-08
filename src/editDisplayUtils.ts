@@ -15,19 +15,6 @@ export async function decorationSleep() {
   await sleep(getPendingEditDecorationTime());
 }
 
-/**
-Run a callback function, then wait so that the total time before this function yields is the decoration sleep.  Useful to show a decoration while a function is running but make sure the decoration shows long enough to be visible
-*/
-async function decorationSleepWithCallback(
-  callback: () => Promise<void>
-) {
-  const pendingEditDecorationTime = getPendingEditDecorationTime();
-  const startTime = Date.now();
-  await timeoutWaitForCallBack();
-  const deltaTime = Date.now() - startTime;
-  await sleep(pendingEditDecorationTime - deltaTime);
-}
-
 export default async function displayPendingEditDecorations(
   targets: TypedSelection[],
   tokenStyle: TextEditorDecorationType,
@@ -85,7 +72,11 @@ export async function displayDecorationsWhileRunningFunc(
     }
   );
 
-  await decorationSleepWithCallback(callback);
+  const pendingEditDecorationTime = getPendingEditDecorationTime();
+
+  await sleep(pendingEditDecorationTime);
+  await callback();
+  await sleep(pendingEditDecorationTime);
 
   await runForEachEditor(
     selections,
