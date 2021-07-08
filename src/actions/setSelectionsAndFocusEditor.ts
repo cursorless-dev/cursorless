@@ -18,10 +18,14 @@ export async function setSelectionsAndFocusEditor(
   editor: TextEditor,
   selections: Selection[]
 ) {
-  if (editor.viewColumn != null) {
-    await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
-  }
+  await focusEditor(editor);
 
   editor.selections = selections;
   editor.revealRange(editor.selections[0]);
+}
+
+export async function focusEditor(editor: TextEditor) {
+  if (editor.viewColumn != null) {
+    await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
+  }
 }

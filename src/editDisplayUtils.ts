@@ -1,17 +1,18 @@
 import { TextEditorDecorationType, workspace } from "vscode";
-import { TypedSelection } from "./Types";
+import { TypedSelection, SelectionWithEditor } from "./Types";
 import { isLineSelectionType } from "./selectionType";
 import { promisify } from "util";
-import { runOnTargetsForEachEditor } from "./targetUtils";
+import { runOnTargetsForEachEditor, runForEachEditor } from "./targetUtils";
 
 const sleep = promisify(setTimeout);
 
-export async function decorationSleep() {
-  const pendingEditDecorationTime = workspace
+const getPendingEditDecorationTime = () =>
+  workspace
     .getConfiguration("cursorless")
     .get<number>("pendingEditDecorationTime")!;
 
-  await sleep(pendingEditDecorationTime);
+export async function decorationSleep() {
+  await sleep(getPendingEditDecorationTime());
 }
 
 export default async function displayPendingEditDecorations(
@@ -44,8 +45,52 @@ export default async function displayPendingEditDecorations(
 
   await decorationSleep();
 
-  await runOnTargetsForEachEditor(targets, async (editor, selections) => {
+  await runOnTargetsForEachEditor(targets, async (editor) => {
     editor.setDecorations(tokenStyle, []);
     editor.setDecorations(lineStyle, []);
   });
+}
+
+/**
+1. Shows decorations.
+2. Wait for pending edit decoration time while subtracting the time it takes to actually run the callback
+3. Removes decorations
+*/
+export async function displayDecorationsWhileRunningFunc(
+  selections: SelectionWithEditor[],
+  decorationType: TextEditorDecorationType,
+  callback: () => Promise<void>,
+  showAdditionalHighlightBeforeCallback: boolean
+) {
+  if (!showAdditionalHighlightBeforeCallback) {
+    await callback();
+  }
+
+  await runForEachEditor(
+    selections,
+    (s) => s.editor,
+    async (editor, selections) => {
+      editor.setDecorations(
+        decorationType,
+        selections.map((s) => s.selection)
+      );
+    }
+  );
+
+  const pendingEditDecorationTime = getPendingEditDecorationTime();
+
+  if (showAdditionalHighlightBeforeCallback) {
+    await sleep(pendingEditDecorationTime);
+    await callback();
+  }
+
+  await sleep(pendingEditDecorationTime);
+
+  await runForEachEditor(
+    selections,
+    (s) => s.editor,
+    async (editor) => {
+      editor.setDecorations(decorationType, []);
+    }
+  );
 }

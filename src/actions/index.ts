@@ -14,6 +14,7 @@ import {
 import Swap from "./swap";
 import Use from "./use";
 import Wrap from "./wrap";
+import { ScrollToTop, ScrollToCenter, ScrollToBottom } from "./Scroll";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -32,6 +33,9 @@ class Actions implements ActionRecord {
     },
     targetPreferences: [{ position: "after", insideOutsideType: "outside" }],
   };
+  scrollToBottom = new ScrollToBottom(this.graph);
+  scrollToCenter = new ScrollToCenter(this.graph);
+  scrollToTop = new ScrollToTop(this.graph);
   setSelection = new SetSelection(this.graph);
   setSelectionAfter = new SetSelectionAfter(this.graph);
   setSelectionBefore = new SetSelectionBefore(this.graph);
