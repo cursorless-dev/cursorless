@@ -7,7 +7,7 @@ import {
 } from "../Types";
 import { displayDecorationsWhileRunningFunc } from "../editDisplayUtils";
 import { groupBy } from "../itertools";
-import { commands, window } from "vscode";
+import { commands, window, workspace } from "vscode";
 import { focusEditor } from "./setSelectionsAndFocusEditor";
 
 class Scroll implements Action {
@@ -50,10 +50,15 @@ class Scroll implements Action {
       }
     };
 
+    const showAdditionalHighlightBeforeScroll = workspace
+      .getConfiguration("cursorless")
+      .get<boolean>("showAdditionalHighlightBeforeScroll")!;
+
     await displayDecorationsWhileRunningFunc(
       targets.map((target) => target.selection),
       this.graph.editStyles.referencedLine,
-      scrollCallback
+      scrollCallback,
+      showAdditionalHighlightBeforeScroll
     );
 
     return {

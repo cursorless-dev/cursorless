@@ -59,8 +59,13 @@ export default async function displayPendingEditDecorations(
 export async function displayDecorationsWhileRunningFunc(
   selections: SelectionWithEditor[],
   decorationType: TextEditorDecorationType,
-  callback: () => Promise<void>
+  callback: () => Promise<void>,
+  showAdditionalHighlightBeforeCallback: boolean
 ) {
+  if (!showAdditionalHighlightBeforeCallback) {
+    await callback();
+  }
+
   await runForEachEditor(
     selections,
     (s) => s.editor,
@@ -73,8 +78,12 @@ export async function displayDecorationsWhileRunningFunc(
   );
 
   const pendingEditDecorationTime = getPendingEditDecorationTime();
-  await sleep(pendingEditDecorationTime);
-  await callback();
+
+  if (showAdditionalHighlightBeforeCallback) {
+    await sleep(pendingEditDecorationTime);
+    await callback();
+  }
+
   await sleep(pendingEditDecorationTime);
 
   await runForEachEditor(
