@@ -72,7 +72,7 @@ export default async function displayPendingEditDecorations(
 export async function displaySelectionDecorations(
   selections: SelectionWithEditor[],
   decorationType: TextEditorDecorationType,
-  timeoutWaitForCallBack: () => Promise<void>
+  callback: () => Promise<void>
 ) {
   await runForEachEditor(
     selections,
