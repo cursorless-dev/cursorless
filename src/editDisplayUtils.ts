@@ -23,7 +23,7 @@ async function decorationSleepWithCallback(
 ) {
   const pendingEditDecorationTime = getPendingEditDecorationTime();
   const startTime = Date.now();
-  await timeoutWaitForCallBack();
+  await callback();
   const deltaTime = Date.now() - startTime;
   await sleep(pendingEditDecorationTime - deltaTime);
 }

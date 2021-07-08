@@ -6,7 +6,7 @@ import {
   TypedSelection,
   SelectionWithEditor,
 } from "../Types";
-import { displaySelectionDecorations } from "../editDisplayUtils";
+import { displayDecorationsWhileRunningFunc } from "../editDisplayUtils";
 import { groupBy } from "../itertools";
 import { commands, TextEditor, Selection, window } from "vscode";
 import { focusEditor } from "./setSelectionsAndFocusEditor";
@@ -60,7 +60,7 @@ class Scroll implements Action {
       }
     };
 
-    await displaySelectionDecorations(
+    await displayDecorationsWhileRunningFunc(
       selections,
       this.graph.editStyles.referencedLine,
       scrollCallback
