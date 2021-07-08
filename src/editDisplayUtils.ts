@@ -1,4 +1,4 @@
-import { TextEditorDecorationType, workspace, TextEditor } from "vscode";
+import { TextEditorDecorationType, workspace } from "vscode";
 import { TypedSelection, SelectionWithEditor } from "./Types";
 import { isLineSelectionType } from "./selectionType";
 import { promisify } from "util";
@@ -13,19 +13,6 @@ const getPendingEditDecorationTime = () =>
 
 export async function decorationSleep() {
   await sleep(getPendingEditDecorationTime());
-}
-
-/**
-Run a callback function, then wait so that the total time before this function yields is the decoration sleep.  Useful to show a decoration while a function is running but make sure the decoration shows long enough to be visible
-*/
-async function decorationSleepWithCallback(
-  callback: () => Promise<void>
-) {
-  const pendingEditDecorationTime = getPendingEditDecorationTime();
-  const startTime = Date.now();
-  await callback();
-  const deltaTime = Date.now() - startTime;
-  await sleep(pendingEditDecorationTime - deltaTime);
 }
 
 export default async function displayPendingEditDecorations(
@@ -85,7 +72,10 @@ export async function displayDecorationsWhileRunningFunc(
     }
   );
 
-  await decorationSleepWithCallback(callback);
+  const pendingEditDecorationTime = getPendingEditDecorationTime();
+  await sleep(pendingEditDecorationTime);
+  await callback();
+  await sleep(pendingEditDecorationTime);
 
   await runForEachEditor(
     selections,
