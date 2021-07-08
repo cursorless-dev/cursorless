@@ -69,7 +69,7 @@ export default async function displayPendingEditDecorations(
 2. Wait for pending edit decoration time while subtracting the time it takes to actually run the callback
 3. Removes decorations
 */
-export async function displaySelectionDecorations(
+export async function displayDecorationsWhileRunningFunc(
   selections: SelectionWithEditor[],
   decorationType: TextEditorDecorationType,
   callback: () => Promise<void>
