@@ -4,11 +4,10 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-  SelectionWithEditor,
 } from "../Types";
 import { displayDecorationsWhileRunningFunc } from "../editDisplayUtils";
 import { groupBy } from "../itertools";
-import { commands, TextEditor, Selection, window } from "vscode";
+import { commands, window } from "vscode";
 import { focusEditor } from "./setSelectionsAndFocusEditor";
 
 class Scroll implements Action {
@@ -24,17 +23,8 @@ class Scroll implements Action {
       (t: TypedSelection) => t.selection.editor
     );
 
-    const selections: SelectionWithEditor[] = [];
-    const lines: LineWithEditor[] = [];
-
-    selectionGroups.forEach((targets, editor) => {
-      const { lineNumber, lineNumberToDecorate } = getLineNumber(
-        targets,
-        this.at
-      );
-      lines.push({ lineNumber, editor });
-      const s = new Selection(lineNumberToDecorate, 0, lineNumberToDecorate, 0);
-      selections.push({ selection: s, editor });
+    const lines = Array.from(selectionGroups, ([editor, targets]) => {
+      return { lineNumber: getLineNumber(targets, this.at), editor };
     });
 
     const scrollCallback = async () => {
@@ -61,7 +51,7 @@ class Scroll implements Action {
     };
 
     await displayDecorationsWhileRunningFunc(
-      selections,
+      targets.map((target) => target.selection),
       this.graph.editStyles.referencedLine,
       scrollCallback
     );
@@ -99,21 +89,11 @@ function getLineNumber(targets: TypedSelection[], at: string) {
     endLine = Math.max(endLine, t.selection.selection.end.line);
   });
 
-  let lineNumber, lineNumberToDecorate;
   if (at === "top") {
-    lineNumber = lineNumberToDecorate = startLine;
-  } else if (at === "bottom") {
-    // Necessary change to actually get vscode to put line at absolute bottom.function
-    lineNumber = Math.max(0, endLine - 1);
-    lineNumberToDecorate = endLine;
-  } else {
-    lineNumber = lineNumberToDecorate = Math.floor((startLine + endLine) / 2);
+    return startLine;
   }
-
-  return { lineNumber, lineNumberToDecorate };
-}
-
-interface LineWithEditor {
-  editor: TextEditor;
-  lineNumber: number;
+  if (at === "bottom") {
+    return endLine;
+  }
+  return Math.floor((startLine + endLine) / 2);
 }
