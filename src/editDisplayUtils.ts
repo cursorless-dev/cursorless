@@ -19,7 +19,7 @@ export async function decorationSleep() {
 Run a callback function, then wait so that the total time before this function yields is the decoration sleep.  Useful to show a decoration while a function is running but make sure the decoration shows long enough to be visible
 */
 async function decorationSleepWithCallback(
-  timeoutWaitForCallBack: () => Promise<void>
+  callback: () => Promise<void>
 ) {
   const pendingEditDecorationTime = getPendingEditDecorationTime();
   const startTime = Date.now();
