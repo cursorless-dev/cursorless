@@ -42,7 +42,7 @@ const tests: TestCase[] = [
 
 suite("tokenizer", () => {
   tests.forEach(([input, expectedOutput]) => {
-    test(`tokenizer ${input}`, () => {
+    test(input, () => {
       const output = tokenize(input, (match) => match[0]);
       assert.deepStrictEqual(output, expectedOutput);
     });
