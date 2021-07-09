@@ -110,10 +110,10 @@
 					"default": false,
 					"description": "Whether to show a highlight before scrolling in addition to after"
 				},
-				"cursorless.hatScaleFactor": {
+				"cursorless.hatSizeAdjustment": {
 					"type": "number",
-					"default": 1,
-					"description": "How much to scale the hats by"
+					"default": 0,
+					"description": "Percentage to increase or decrease hat size; positive increases size"
 				},
 				"cursorless.hatVerticalOffset": {
 					"type": "number",

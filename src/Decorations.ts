@@ -33,13 +33,15 @@ export default class Decorations {
   }
 
   constructDecorations(fontMeasurements: FontMeasurements) {
-    const hatScaleFactor = vscode.workspace
+    const hatSizeAdjustment = vscode.workspace
       .getConfiguration("cursorless")
-      .get<number>(`hatScaleFactor`)!;
+      .get<number>(`hatSizeAdjustment`)!;
 
     const userHatVerticalOffsetAdjustment = vscode.workspace
       .getConfiguration("cursorless")
       .get<number>(`hatVerticalOffset`)!;
+
+    const hatScaleFactor = 1 + hatSizeAdjustment / 100;
 
     const { svg, svgWidthPx, svgHeightPx } = this.processSvg(
       fontMeasurements,
