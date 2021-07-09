@@ -141,7 +141,7 @@ export async function activate(context: vscode.ExtensionContext) {
         if (recordTestCase) {
           const command = { actionName, partialTargets, extraArgs };
           testCase = new TestCase(command, targets, navigationMap!);
-          testCase.takeSnapshot();
+          await testCase.takeSnapshot();
         }
 
         const processedTargetsContext: ProcessedTargetsContext = {
@@ -166,7 +166,7 @@ export async function activate(context: vscode.ExtensionContext) {
         thatMark = newThatMark;
 
         if (testCase != null) {
-          testCase.takeSnapshot();
+          await testCase.takeSnapshot();
           testCase.presentFixture();
           recordTestCase = false;
         }

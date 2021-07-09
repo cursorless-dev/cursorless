@@ -42,6 +42,7 @@ type Command = {
 
 type Snapshot = {
   document: string;
+  clipboard: string | undefined;
   visibleRanges: SerializedRange[];
   selections: SerializedSelection[];
 };
@@ -107,12 +108,13 @@ export default class TestCase {
     return targetedDecorations;
   }
 
-  takeSnapshot() {
+  async takeSnapshot() {
     const activeEditor = vscode.window.activeTextEditor!;
     const snapshot: Snapshot = {
       document: activeEditor.document.getText(),
       selections: activeEditor.selections.map(serializeSelection),
       visibleRanges: activeEditor.visibleRanges.map(serializeRange),
+      clipboard: await vscode.env.clipboard.readText(),
     };
 
     if (this.initialState == null) {
