@@ -10,7 +10,7 @@ from each token.
 ![demo-2](images/demo-2.gif)
 ![demo-3](images/demo-3.gif)
 
-Many other marks / transformations / actions exist; documentation to follow.
+Checkout the [docs](https://github.com/pokey/cursorless-talon/blob/master/docs), [tutorial video](https://www.youtube.com/watch?v=JxcNW0hnfTk) and [!!con talk](https://www.youtube.com/watch?v=Py9xjeIhxOg) to get started.
 
 ## Installation
 

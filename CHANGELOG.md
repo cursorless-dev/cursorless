@@ -2,6 +2,10 @@
 
 All notable changes to the "cursorless" extension will be documented in this file.
 
+## 0.17.0 (9 July 2021)
+### Documentation
+- Add cheatsheet ("cursorless help") (cursorless-talon#1)[https://github.com/pokey/cursorless-talon/pull/1]
+
 ## 0.16.0 (9 July 2021)
 
 ### Enhancements
