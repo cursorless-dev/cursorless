@@ -33,7 +33,7 @@ suite("processTargets", () => {
       },
       position: "contents",
       selectionType: "token",
-      transformation: { type: "identity" },
+      modifier: { type: "identity" },
       insideOutsideType: "inside",
     };
 

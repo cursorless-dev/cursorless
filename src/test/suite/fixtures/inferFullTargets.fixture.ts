@@ -46,7 +46,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -76,7 +76,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -91,7 +91,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "primitive",
-          transformation: {
+          modifier: {
             type: "containingScope",
             scopeType: "namedFunction",
           },
@@ -107,7 +107,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "containingScope",
           scopeType: "namedFunction",
         },
@@ -136,7 +136,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "line",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -157,7 +157,7 @@ const fixture: Fixture[] = [
           end: {
             type: "primitive",
             position: "end",
-            transformation: {
+            modifier: {
               type: "containingScope",
               scopeType: "namedFunction",
             },
@@ -176,7 +176,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -187,7 +187,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "end",
-          transformation: {
+          modifier: {
             type: "containingScope",
             scopeType: "namedFunction",
           },
@@ -211,7 +211,7 @@ const fixture: Fixture[] = [
           end: {
             type: "primitive",
             position: "end",
-            transformation: {
+            modifier: {
               type: "containingScope",
               scopeType: "namedFunction",
             },
@@ -230,7 +230,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "line",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -241,7 +241,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "line",
           position: "end",
-          transformation: {
+          modifier: {
             type: "containingScope",
             scopeType: "namedFunction",
           },
@@ -260,7 +260,7 @@ const fixture: Fixture[] = [
           type: "range",
           start: {
             type: "primitive",
-            transformation: {
+            modifier: {
               type: "containingScope",
               scopeType: "namedFunction",
             },
@@ -294,7 +294,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "containingScope",
             scopeType: "namedFunction",
           },
@@ -308,7 +308,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "containingScope",
             scopeType: "namedFunction",
           },
@@ -351,7 +351,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "block",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -364,7 +364,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "block",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -381,7 +381,7 @@ const fixture: Fixture[] = [
         {
           type: "primitive",
           selectionType: "line",
-          transformation: {
+          modifier: {
             type: "containingScope",
             scopeType: "class",
           },
@@ -397,7 +397,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "line",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "containingScope",
           scopeType: "class",
         },
@@ -433,7 +433,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "line",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -449,7 +449,7 @@ const fixture: Fixture[] = [
         {
           type: "primitive",
           selectionType: "line",
-          transformation: {
+          modifier: {
             type: "surroundingPair",
             delimiter: "parentheses",
             includePairDelimiter: false,
@@ -469,7 +469,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "line",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "surroundingPair",
           delimiter: "parentheses",
           includePairDelimiter: false,
@@ -487,7 +487,7 @@ const fixture: Fixture[] = [
         {
           type: "primitive",
           selectionType: "line",
-          transformation: {
+          modifier: {
             type: "surroundingPair",
             delimiter: "parentheses",
             includePairDelimiter: false,
@@ -504,7 +504,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "line",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "surroundingPair",
           delimiter: "parentheses",
           includePairDelimiter: false,
@@ -537,7 +537,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "after",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -574,7 +574,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "line",
         position: "before",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -590,7 +590,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "primitive",
-          transformation: {
+          modifier: {
             type: "surroundingPair",
             delimiter: "parentheses",
             includePairDelimiter: false,
@@ -607,7 +607,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "surroundingPair",
           delimiter: "parentheses",
           includePairDelimiter: false,
@@ -625,7 +625,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "primitive",
-          transformation: {
+          modifier: {
             type: "surroundingPair",
             delimiter: "parentheses",
             includePairDelimiter: false,
@@ -649,7 +649,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "surroundingPair",
           delimiter: "parentheses",
           includePairDelimiter: false,
@@ -687,7 +687,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "line",
         position: "after",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -722,7 +722,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "after",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -753,7 +753,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "line",
         position: "after",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -788,7 +788,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "block",
         position: "after",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -819,7 +819,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "block",
         position: "after",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -850,7 +850,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "block",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -880,7 +880,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "line",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -910,7 +910,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "block",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -940,7 +940,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "identity",
         },
       },
@@ -990,7 +990,7 @@ const fixture: Fixture[] = [
             },
             selectionType: "token",
             position: "contents",
-            transformation: {
+            modifier: {
               type: "identity",
             },
           },
@@ -1003,7 +1003,7 @@ const fixture: Fixture[] = [
             },
             selectionType: "token",
             position: "contents",
-            transformation: {
+            modifier: {
               type: "identity",
             },
           },
@@ -1056,7 +1056,7 @@ const fixture: Fixture[] = [
             },
             selectionType: "line",
             position: "contents",
-            transformation: {
+            modifier: {
               type: "identity",
             },
           },
@@ -1069,7 +1069,7 @@ const fixture: Fixture[] = [
             },
             selectionType: "line",
             position: "contents",
-            transformation: {
+            modifier: {
               type: "identity",
             },
           },
@@ -1119,7 +1119,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "line",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -1132,7 +1132,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "line",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -1151,7 +1151,7 @@ const fixture: Fixture[] = [
           elements: [
             {
               type: "primitive",
-              transformation: {
+              modifier: {
                 type: "containingScope",
                 scopeType: "namedFunction",
               },
@@ -1198,7 +1198,7 @@ const fixture: Fixture[] = [
             },
             selectionType: "token",
             position: "contents",
-            transformation: {
+            modifier: {
               type: "containingScope",
               scopeType: "namedFunction",
             },
@@ -1214,7 +1214,7 @@ const fixture: Fixture[] = [
               },
               selectionType: "token",
               position: "contents",
-              transformation: {
+              modifier: {
                 type: "containingScope",
                 scopeType: "namedFunction",
               },
@@ -1228,7 +1228,7 @@ const fixture: Fixture[] = [
               },
               selectionType: "token",
               position: "contents",
-              transformation: {
+              modifier: {
                 type: "containingScope",
                 scopeType: "namedFunction",
               },
@@ -1247,7 +1247,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "primitive",
-          transformation: {
+          modifier: {
             type: "subpiece",
             pieceType: "subtoken",
             startIndex: 3,
@@ -1265,7 +1265,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "subpiece",
           pieceType: "subtoken",
           startIndex: 3,
@@ -1283,7 +1283,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "primitive",
-          transformation: {
+          modifier: {
             type: "subpiece",
             pieceType: "subtoken",
             startIndex: 1,
@@ -1301,7 +1301,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "subpiece",
           pieceType: "subtoken",
           startIndex: 1,
@@ -1319,7 +1319,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "primitive",
-          transformation: {
+          modifier: {
             type: "subpiece",
             pieceType: "subtoken",
             startIndex: 1,
@@ -1344,7 +1344,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "subpiece",
           pieceType: "subtoken",
           startIndex: 1,
@@ -1367,7 +1367,7 @@ const fixture: Fixture[] = [
             symbolColor: "default",
             character: "g",
           },
-          transformation: {
+          modifier: {
             type: "subpiece",
             pieceType: "subtoken",
             startIndex: 2,
@@ -1387,7 +1387,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "subpiece",
           pieceType: "subtoken",
           startIndex: 2,
@@ -1405,7 +1405,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "primitive",
-          transformation: {
+          modifier: {
             type: "subpiece",
             pieceType: "character",
             startIndex: 2,
@@ -1423,7 +1423,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "subpiece",
           pieceType: "character",
           startIndex: 2,
@@ -1443,7 +1443,7 @@ const fixture: Fixture[] = [
         {
           type: "primitive",
           position: "after",
-          transformation: {
+          modifier: {
             type: "subpiece",
             pieceType: "subtoken",
             startIndex: 2,
@@ -1461,7 +1461,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "after",
-        transformation: {
+        modifier: {
           type: "subpiece",
           pieceType: "subtoken",
           startIndex: 2,
@@ -1479,7 +1479,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "primitive",
-          transformation: {
+          modifier: {
             type: "subpiece",
             pieceType: "character",
             startIndex: 3,
@@ -1497,7 +1497,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "subpiece",
           pieceType: "character",
           startIndex: 3,
@@ -1520,7 +1520,7 @@ const fixture: Fixture[] = [
             symbolColor: "default",
             character: "f",
           },
-          transformation: {
+          modifier: {
             type: "subpiece",
             pieceType: "character",
             startIndex: 3,
@@ -1540,7 +1540,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "subpiece",
           pieceType: "character",
           startIndex: 3,
@@ -1562,7 +1562,7 @@ const fixture: Fixture[] = [
             {
               type: "primitive",
               selectionType: "line",
-              transformation: {
+              modifier: {
                 type: "containingScope",
                 scopeType: "namedFunction",
               },
@@ -1609,7 +1609,7 @@ const fixture: Fixture[] = [
             },
             selectionType: "line",
             position: "contents",
-            transformation: {
+            modifier: {
               type: "containingScope",
               scopeType: "namedFunction",
             },
@@ -1625,7 +1625,7 @@ const fixture: Fixture[] = [
               },
               selectionType: "line",
               position: "contents",
-              transformation: {
+              modifier: {
                 type: "containingScope",
                 scopeType: "namedFunction",
               },
@@ -1639,7 +1639,7 @@ const fixture: Fixture[] = [
               },
               selectionType: "line",
               position: "contents",
-              transformation: {
+              modifier: {
                 type: "containingScope",
                 scopeType: "namedFunction",
               },
@@ -1664,7 +1664,7 @@ const fixture: Fixture[] = [
               start: {
                 type: "primitive",
                 selectionType: "line",
-                transformation: {
+                modifier: {
                   type: "containingScope",
                   scopeType: "namedFunction",
                 },
@@ -1711,7 +1711,7 @@ const fixture: Fixture[] = [
               },
               selectionType: "line",
               position: "contents",
-              transformation: {
+              modifier: {
                 type: "containingScope",
                 scopeType: "namedFunction",
               },
@@ -1725,7 +1725,7 @@ const fixture: Fixture[] = [
               },
               selectionType: "line",
               position: "contents",
-              transformation: {
+              modifier: {
                 type: "containingScope",
                 scopeType: "namedFunction",
               },
@@ -1740,7 +1740,7 @@ const fixture: Fixture[] = [
             },
             selectionType: "line",
             position: "contents",
-            transformation: {
+            modifier: {
               type: "containingScope",
               scopeType: "namedFunction",
             },
@@ -1780,7 +1780,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -1791,7 +1791,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "line",
           position: "end",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -1830,7 +1830,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "line",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -1841,7 +1841,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "block",
           position: "end",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -1886,7 +1886,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -1899,7 +1899,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "line",
           position: "end",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -1927,7 +1927,7 @@ const fixture: Fixture[] = [
           end: {
             type: "primitive",
             position: "end",
-            transformation: {
+            modifier: {
               type: "containingScope",
               scopeType: "namedFunction",
             },
@@ -1948,7 +1948,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "line",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -1961,7 +1961,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "line",
           position: "end",
-          transformation: {
+          modifier: {
             type: "containingScope",
             scopeType: "namedFunction",
           },
@@ -1988,7 +1988,7 @@ const fixture: Fixture[] = [
           },
           end: {
             type: "primitive",
-            transformation: {
+            modifier: {
               type: "surroundingPair",
               delimiter: "doubleQuotes",
               includePairDelimiter: true,
@@ -2015,7 +2015,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -2028,7 +2028,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "surroundingPair",
             delimiter: "doubleQuotes",
             includePairDelimiter: true,
@@ -2056,7 +2056,7 @@ const fixture: Fixture[] = [
           },
           end: {
             type: "primitive",
-            transformation: {
+            modifier: {
               type: "containingScope",
               scopeType: "namedFunction",
             },
@@ -2082,7 +2082,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -2095,7 +2095,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "containingScope",
             scopeType: "namedFunction",
           },
@@ -2117,7 +2117,7 @@ const fixture: Fixture[] = [
           },
           end: {
             type: "primitive",
-            transformation: {
+            modifier: {
               type: "containingScope",
               scopeType: "namedFunction",
             },
@@ -2141,7 +2141,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "containingScope",
             scopeType: "namedFunction",
           },
@@ -2155,7 +2155,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "containingScope",
             scopeType: "namedFunction",
           },
@@ -2177,7 +2177,7 @@ const fixture: Fixture[] = [
           },
           end: {
             type: "primitive",
-            transformation: {
+            modifier: {
               type: "surroundingPair",
               delimiter: "doubleQuotes",
               includePairDelimiter: true,
@@ -2202,7 +2202,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -2215,7 +2215,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "surroundingPair",
             delimiter: "doubleQuotes",
             includePairDelimiter: true,
@@ -2235,7 +2235,7 @@ const fixture: Fixture[] = [
           type: "range",
           start: {
             type: "primitive",
-            transformation: {
+            modifier: {
               type: "surroundingPair",
               delimiter: "doubleQuotes",
               includePairDelimiter: false,
@@ -2270,7 +2270,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "surroundingPair",
             delimiter: "doubleQuotes",
             includePairDelimiter: false,
@@ -2285,7 +2285,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -2303,7 +2303,7 @@ const fixture: Fixture[] = [
           type: "range",
           start: {
             type: "primitive",
-            transformation: {
+            modifier: {
               type: "surroundingPair",
               delimiter: "singleQuotes",
               includePairDelimiter: false,
@@ -2331,7 +2331,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "surroundingPair",
             delimiter: "singleQuotes",
             includePairDelimiter: false,
@@ -2346,7 +2346,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "token",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -2365,7 +2365,7 @@ const fixture: Fixture[] = [
           start: {
             type: "primitive",
             selectionType: "line",
-            transformation: {
+            modifier: {
               type: "surroundingPair",
               delimiter: "parentheses",
               includePairDelimiter: false,
@@ -2393,7 +2393,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "line",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "surroundingPair",
             delimiter: "parentheses",
             includePairDelimiter: false,
@@ -2408,7 +2408,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "line",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "identity",
           },
         },
@@ -2427,7 +2427,7 @@ const fixture: Fixture[] = [
           start: {
             type: "primitive",
             selectionType: "line",
-            transformation: {
+            modifier: {
               type: "containingScope",
               scopeType: "namedFunction",
             },
@@ -2454,7 +2454,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "line",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "containingScope",
             scopeType: "namedFunction",
           },
@@ -2468,7 +2468,7 @@ const fixture: Fixture[] = [
           },
           selectionType: "line",
           position: "contents",
-          transformation: {
+          modifier: {
             type: "containingScope",
             scopeType: "namedFunction",
           },
@@ -2491,7 +2491,7 @@ const fixture: Fixture[] = [
             symbolColor: "default",
             character: "g",
           },
-          transformation: {
+          modifier: {
             type: "matchingPairSymbol",
           },
         },
@@ -2508,7 +2508,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "line",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "matchingPairSymbol",
         },
       },
@@ -2523,7 +2523,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "primitive",
-          transformation: {
+          modifier: {
             type: "matchingPairSymbol",
           },
         },
@@ -2538,7 +2538,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "matchingPairSymbol",
         },
       },
@@ -2554,7 +2554,7 @@ const fixture: Fixture[] = [
         {
           type: "primitive",
           selectionType: "line",
-          transformation: {
+          modifier: {
             type: "matchingPairSymbol",
           },
         },
@@ -2569,7 +2569,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "line",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "matchingPairSymbol",
         },
       },
@@ -2590,7 +2590,7 @@ const fixture: Fixture[] = [
             symbolColor: "default",
             character: "(",
           },
-          transformation: {
+          modifier: {
             type: "matchingPairSymbol",
           },
         },
@@ -2607,7 +2607,7 @@ const fixture: Fixture[] = [
         },
         selectionType: "token",
         position: "contents",
-        transformation: {
+        modifier: {
           type: "matchingPairSymbol",
         },
       },

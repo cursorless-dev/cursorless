@@ -10,16 +10,16 @@ All notable changes to the "cursorless" extension will be documented in this fil
 
 ### Enhancements
 - Svg Hats (#66)
-- Add type transformation (#32)
+- Add type modifier (#32)
 - Updated regexp to support fixed tokens and sequential symbols (#33)
-- Add name transformation (#56)
+- Add name modifier (#56)
 - Added actions to scroll target top/center (#58)
 
 ### Fixes
 - Fix subword for all caps tokens (#67)
 
 ## 0.15.0
-- Support "character" subtoken transformation (eg "take fine third character") (thanks @brxck!)
+- Support "character" subtoken modifier (eg "take fine third character") (thanks @brxck!)
 
 ## 0.14.0
 
@@ -33,11 +33,11 @@ All notable changes to the "cursorless" extension will be documented in this fil
 ## 0.12.0
 
 - Add subword support
-- [python] Fix parameter transformation
+- [python] Fix parameter modifier
 - Show exceptions to user
 - Properly support using "token" to select only token, eg "take funk gust and
   token fine" to prevent "fine" from being inferred to have the `function`
-  transformation.
+  modifier.
 - Support "bring" action to use another target from elsewhere in the document
 
 ## 0.11.0

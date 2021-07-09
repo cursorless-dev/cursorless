@@ -14,7 +14,7 @@ import {
   RangeTarget,
   SelectionType,
   Target,
-  Transformation,
+  Modifier,
 } from "./Types";
 
 export function inferFullTargets(
@@ -95,7 +95,7 @@ export function inferSingleTarget(
 export function getPrimitivePosition(
   context: InferenceContext,
   inferredMark: Mark,
-  inferredTransformation: Transformation,
+  inferredModifier: Modifier,
   prototypeTargets: Target[],
   preferredPosition: Position | undefined
 ): Position {
@@ -117,7 +117,7 @@ export function getPrimitivePosition(
     return "contents";
   }
 
-  if (inferredTransformation.type !== "identity") {
+  if (inferredModifier.type !== "identity") {
     return "contents";
   }
 
@@ -213,8 +213,8 @@ export function inferSinglePrimitiveTarget(
     target.selectionType ??
     getPrimitiveSelectionType(context, mark, prototypeTargets);
 
-  const transformation = target.transformation ??
-    extractAttributeFromList(prototypeTargets, "transformation") ?? {
+  const modifier = target.modifier ??
+    extractAttributeFromList(prototypeTargets, "modifier") ?? {
       type: "identity",
     };
 
@@ -223,7 +223,7 @@ export function inferSinglePrimitiveTarget(
     getPrimitivePosition(
       context,
       mark,
-      transformation,
+      modifier,
       prototypeTargets,
       actionPreferences.position
     );
@@ -240,7 +240,7 @@ export function inferSinglePrimitiveTarget(
     mark,
     selectionType,
     position,
-    transformation,
+    modifier,
     insideOutsideType,
   };
 }
@@ -298,41 +298,41 @@ function inferRangeStartSelectionType(
   return getPrimitiveSelectionType(context, inferredMark, prototypeTargets);
 }
 
-function inferRangeStartTransformation(
+function inferRangeStartModifier(
   target: PartialPrimitiveTarget,
   endTarget: PartialPrimitiveTarget,
   prototypeTargets: Target[]
-): Transformation {
+): Modifier {
   if (
     endTarget.position !== "before" &&
     endTarget.position !== "after" &&
-    endTarget.transformation != null &&
+    endTarget.modifier != null &&
     target.mark == null &&
-    endTarget.transformation.type === "containingScope"
+    endTarget.modifier.type === "containingScope"
   ) {
-    return endTarget.transformation;
+    return endTarget.modifier;
   }
 
   return (
-    extractAttributeFromList(prototypeTargets, "transformation") ?? {
+    extractAttributeFromList(prototypeTargets, "modifier") ?? {
       type: "identity",
     }
   );
 }
 
-function inferRangeEndTransformation(
+function inferRangeEndModifier(
   startTarget: PartialPrimitiveTarget,
   prototypeTargets: Target[]
-): Transformation {
+): Modifier {
   if (
-    startTarget.transformation != null &&
-    startTarget.transformation.type === "containingScope"
+    startTarget.modifier != null &&
+    startTarget.modifier.type === "containingScope"
   ) {
-    return startTarget.transformation;
+    return startTarget.modifier;
   }
 
   return (
-    extractAttributeFromList(prototypeTargets, "transformation") ?? {
+    extractAttributeFromList(prototypeTargets, "modifier") ?? {
       type: "identity",
     }
   );
@@ -354,9 +354,9 @@ function inferRangeStartTarget(
 
   const position: Position = target.position ?? "contents";
 
-  const transformation =
-    target.transformation ??
-    inferRangeStartTransformation(target, endTarget, prototypeTargets);
+  const modifier =
+    target.modifier ??
+    inferRangeStartModifier(target, endTarget, prototypeTargets);
 
   const insideOutsideType =
     target.insideOutsideType ??
@@ -370,7 +370,7 @@ function inferRangeStartTarget(
     mark,
     selectionType,
     position,
-    transformation,
+    modifier,
     insideOutsideType,
   };
 }
@@ -400,18 +400,18 @@ export function inferRangeEndTarget(
     );
 
   // Note that we don't use prototypeTargetsIncludingStartTarget here because
-  // we don't want to blindly inherit transformation from startTarget.  In
+  // we don't want to blindly inherit modifier from startTarget.  In
   // particular, we only want to inherit symbolType
-  const transformation =
-    target.transformation ??
-    inferRangeEndTransformation(startTarget, prototypeTargets);
+  const modifier =
+    target.modifier ??
+    inferRangeEndModifier(startTarget, prototypeTargets);
 
   const position: Position =
     target.position ??
     getPrimitivePosition(
       context,
       mark,
-      transformation,
+      modifier,
       prototypeTargets,
       actionPreferences.position
     );
@@ -428,7 +428,7 @@ export function inferRangeEndTarget(
     mark,
     selectionType,
     position,
-    transformation,
+    modifier,
     insideOutsideType,
   };
 }
@@ -451,7 +451,7 @@ function getContentSelectionType(contents: string[]): SelectionType {
 function hasContent(target: PartialPrimitiveTarget) {
   return (
     target.selectionType != null ||
-    target.transformation != null ||
+    target.modifier != null ||
     target.insideOutsideType != null
   );
 }

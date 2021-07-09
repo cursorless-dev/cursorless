@@ -63,37 +63,37 @@ export type ScopeType =
   | "string"
   | "type"
   | "value";
-export type PieceType = "subtoken" | "character";
+export type PieceType = "word" | "character";
 
-export interface SurroundingPairTransformation {
+export interface SurroundingPairModifier {
   type: "surroundingPair";
   delimiter: Delimiter;
 }
-export interface ContainingScopeTransformation {
+export interface ContainingScopeModifier {
   type: "containingScope";
   scopeType: ScopeType;
   valueOnly?: boolean;
   includeSiblings?: boolean;
 }
-export interface SubpieceTransformation {
+export interface SubpieceModifier {
   type: "subpiece";
   pieceType: PieceType;
   startIndex: number;
   endIndex: number | null;
 }
-export interface MatchingPairSymbolTransformation {
+export interface MatchingPairSymbolModifier {
   type: "matchingPairSymbol";
 }
-export interface IdentityTransformation {
+export interface IdentityModifier {
   type: "identity";
 }
 
-export type Transformation =
-  | SurroundingPairTransformation
-  | ContainingScopeTransformation
-  | SubpieceTransformation
-  | MatchingPairSymbolTransformation
-  | IdentityTransformation;
+export type Modifier =
+  | SurroundingPairModifier
+  | ContainingScopeModifier
+  | SubpieceModifier
+  | MatchingPairSymbolModifier
+  | IdentityModifier;
 
 export type SelectionType =
   | "character"
@@ -107,7 +107,7 @@ export type InsideOutsideType = "inside" | "outside" | null;
 export interface PartialPrimitiveTarget {
   type: "primitive";
   mark?: Mark;
-  transformation?: Transformation;
+  modifier?: Modifier;
   selectionType?: SelectionType;
   position?: Position;
   insideOutsideType?: InsideOutsideType;
@@ -132,7 +132,7 @@ export type PartialTarget =
 export interface PrimitiveTarget {
   type: "primitive";
   mark: Mark;
-  transformation: Transformation;
+  modifier: Modifier;
   selectionType: SelectionType;
   position: Position;
   insideOutsideType: InsideOutsideType;

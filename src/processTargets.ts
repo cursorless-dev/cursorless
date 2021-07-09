@@ -151,9 +151,9 @@ function transformSelection(
   target: PrimitiveTarget,
   selection: SelectionWithEditor
 ): { selection: SelectionWithEditor; context: SelectionContext }[] {
-  const { transformation } = target;
+  const { modifier } = target;
 
-  switch (transformation.type) {
+  switch (modifier.type) {
     case "identity":
       return [{ selection, context: {} }];
     case "containingScope":
@@ -162,15 +162,13 @@ function transformSelection(
       );
 
       const nodeMatcher =
-        nodeMatchers[selection.editor.document.languageId][
-          transformation.scopeType
-        ];
+        nodeMatchers[selection.editor.document.languageId][modifier.scopeType];
 
       while (node != null) {
         const matchedSelection = nodeMatcher(selection.editor, node);
         if (matchedSelection != null) {
           var matchedSelections: SelectionWithContext[];
-          if (transformation.includeSiblings) {
+          if (modifier.includeSiblings) {
             matchedSelections = node
               .parent!.children.map((sibling) =>
                 nodeMatcher(selection.editor, sibling)
@@ -193,12 +191,12 @@ function transformSelection(
         node = node.parent;
       }
 
-      throw new Error(`Couldn't find containing ${transformation.scopeType}`);
+      throw new Error(`Couldn't find containing ${modifier.scopeType}`);
     case "subpiece":
       const token = selection.editor.document.getText(selection.selection);
       let pieces: { start: number; end: number }[] = [];
 
-      if (transformation.pieceType === "subtoken") {
+      if (modifier.pieceType === "word") {
         const matches = token.matchAll(SUBWORD_MATCHER);
         for (const match of matches) {
           pieces.push({
@@ -206,7 +204,7 @@ function transformSelection(
             end: match.index! + match[0].length,
           });
         }
-      } else if (transformation.pieceType === "character") {
+      } else if (modifier.pieceType === "character") {
         pieces = range(token.length).map((index) => ({
           start: index,
           end: index + 1,
@@ -215,16 +213,16 @@ function transformSelection(
 
       // NB: We use the modulo here to handle negative offsets
       const endIndex =
-        transformation.endIndex == null
+        modifier.endIndex == null
           ? pieces.length
-          : transformation.endIndex <= 0
-          ? transformation.endIndex + pieces.length
-          : transformation.endIndex;
+          : modifier.endIndex <= 0
+          ? modifier.endIndex + pieces.length
+          : modifier.endIndex;
 
       const startIndex =
-        transformation.startIndex < 0
-          ? transformation.startIndex + pieces.length
-          : transformation.startIndex;
+        modifier.startIndex < 0
+          ? modifier.startIndex + pieces.length
+          : modifier.startIndex;
 
       const start = selection.selection.start.translate(
         undefined,
