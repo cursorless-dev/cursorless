@@ -8,7 +8,7 @@ import processTargets from "../../processTargets";
 import { Target, Token } from "../../Types";
 // import * as myExtension from '../../extension';
 
-suite("processTargets", () => {
+suite.skip("processTargets", () => {
   test("simple processTargets", () => {
     const navigationMap = new NavigationMap();
     const token: Token = {

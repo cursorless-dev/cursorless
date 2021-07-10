@@ -89,6 +89,14 @@ export async function activate(context: vscode.ExtensionContext) {
     () => {
       console.log("Recording test case for next command");
       recordTestCase = true;
+      // Empty clipboard to avoid accidentally cluttering fixtures
+      vscode.env.clipboard.writeText("");
+    }
+  );
+  const cursorlessSetNavigationMapDisposable = vscode.commands.registerCommand(
+    "cursorless.setNavigationMap",
+    (newNavigationMap: NavigationMap) => {
+      navigationMap = newNavigationMap;
     }
   );
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
@@ -141,7 +149,7 @@ export async function activate(context: vscode.ExtensionContext) {
         if (recordTestCase) {
           const command = { actionName, partialTargets, extraArgs };
           testCase = new TestCase(command, targets, navigationMap!);
-          await testCase.takeSnapshot();
+          await testCase.saveSnapshot();
         }
 
         const processedTargetsContext: ProcessedTargetsContext = {
@@ -166,7 +174,7 @@ export async function activate(context: vscode.ExtensionContext) {
         thatMark = newThatMark;
 
         if (testCase != null) {
-          await testCase.takeSnapshot();
+          await testCase.saveSnapshot();
           testCase.presentFixture();
           recordTestCase = false;
         }
@@ -197,6 +205,7 @@ export async function activate(context: vscode.ExtensionContext) {
         // const processedTargets = processTargets(navigationMap!, targets);
       } catch (e) {
         vscode.window.showErrorMessage(e.message);
+        console.trace(e.message);
         throw e;
       }
     }
@@ -224,6 +233,7 @@ export async function activate(context: vscode.ExtensionContext) {
     cursorlessRecordTestCaseDisposable,
     toggleDecorationsDisposable,
     recomputeDecorationStylesDisposable,
+    cursorlessSetNavigationMapDisposable,
     vscode.workspace.onDidChangeConfiguration(recomputeDecorationStyles),
     vscode.window.onDidChangeTextEditorVisibleRanges(addDecorationsDebounced),
     vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),

@@ -27,7 +27,10 @@ export function serializeRange(range: Range): SerializedRange {
 }
 
 export function serializeSelection(selection: Selection): SerializedSelection {
-  return { active: selection.active, anchor: selection.anchor };
+  return {
+    active: serializePosition(selection.active),
+    anchor: serializePosition(selection.anchor),
+  };
 }
 
 export function serializePosition(position: Position): SerializedPosition {
@@ -42,17 +45,25 @@ type Command = {
 
 type Snapshot = {
   document: string;
-  clipboard: string | undefined;
+  clipboard: string;
   visibleRanges: SerializedRange[];
   selections: SerializedSelection[];
 };
 
 type DecorationRanges = { [coloredSymbol: string]: SerializedRange };
 
+export type TestCaseFixture = {
+  command: Command;
+  languageId: string;
+  decorations: DecorationRanges;
+  initialState: Snapshot;
+  finalState: Snapshot;
+};
+
 export default class TestCase {
   command: Command;
   languageId: string;
-  decorations: DecorationRanges | null;
+  decorations: DecorationRanges;
   initialState: Snapshot | null = null;
   finalState: Snapshot | null = null;
 
@@ -96,7 +107,7 @@ export default class TestCase {
 
   extractTargetedDecorations(targets: Target[], navigationMap: NavigationMap) {
     if (!navigationMap) {
-      return null;
+      return {};
     }
 
     const decorationRanges = navigationMap.serializeRanges();
@@ -108,26 +119,35 @@ export default class TestCase {
     return targetedDecorations;
   }
 
-  async takeSnapshot() {
+  static async getSnapshot(): Promise<Snapshot> {
     const activeEditor = vscode.window.activeTextEditor!;
-    const snapshot: Snapshot = {
+    return {
       document: activeEditor.document.getText(),
       selections: activeEditor.selections.map(serializeSelection),
       visibleRanges: activeEditor.visibleRanges.map(serializeRange),
       clipboard: await vscode.env.clipboard.readText(),
     };
+  }
+
+  async saveSnapshot() {
+    const snapshot = await TestCase.getSnapshot();
 
     if (this.initialState == null) {
       this.initialState = snapshot;
     } else if (this.finalState == null) {
       this.finalState = snapshot;
     } else {
-      throw Error("Both test snapshots already taken");
+      throw Error("Both snapshots already taken");
     }
+
+    return snapshot;
   }
 
   toYaml() {
-    const fixture = {
+    if (this.initialState == null || this.finalState == null) {
+      throw Error("Two snapshots must be taken before serializing");
+    }
+    const fixture: TestCaseFixture = {
       command: this.command,
       languageId: this.languageId,
       decorations: this.decorations,
@@ -138,6 +158,7 @@ export default class TestCase {
   }
 
   async presentFixture() {
+    // TODO: naming convention for fixture files?
     const fixture = this.toYaml();
     const document = await vscode.workspace.openTextDocument({
       language: "yaml",
