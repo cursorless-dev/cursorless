@@ -39,7 +39,7 @@ See [cursorless-talon](https://github.com/pokey/cursorless-talon) for installati
 This extension contributes the following settings:
 
 - `cursorless.showOnStart`: Whether decorations should appear on workspace start
-- `cursorless.hatScaleFactor`: How much to scale the hats by
+- `cursorless.hatSizeAdjustment`: Percentage to increase or decrease hat size; positive increases size
 - `cursorless.hatVerticalOffset`: How much to vertically shift the hats as a percentage of font size; positive is up
 
 ## Known Issues
