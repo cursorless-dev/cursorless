@@ -1,5 +1,5 @@
 <h1 align="center">Welcome to Cursorless!</h1>
-<p>
+<p align="center">
   <img alt="Version" src="https://img.shields.io/badge/version-0.17.2-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/vscode-%5E1.53.0-blue.svg" />
   <a href="https://github.com/pokey/cursorless-talon/tree/master/docs" target="_blank">
