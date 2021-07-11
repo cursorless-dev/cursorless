@@ -11,7 +11,7 @@
   <a href="https://github.com/pokey/cursorless-vscode/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/github/license/pokey/cursorless" />
   </a>
-  <a href="https://open.vscode.dev/pokey/cursorless" target="_blank">
+  <a href="https://open.vscode.dev/pokey/cursorless-vscode" target="_blank">
     <img alt="Open in Visual Studio Code" src="https://open.vscode.dev/badges/open-in-vscode.svg" />
   </a>
 </p>
