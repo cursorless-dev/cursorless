@@ -1,7 +1,19 @@
-# Cursorless
+<h1 align="center">Welcome to Cursorless!</h1>
+<p align="center">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.17.2-blue.svg?cacheSeconds=2592000" />
+  <img src="https://img.shields.io/badge/vscode-%5E1.53.0-blue.svg" />
+  <a href="https://github.com/pokey/cursorless-talon/tree/master/docs" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/pokey/cursorless-vscode/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+  <a href="https://github.com/pokey/cursorless-vscode/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/github/license/pokey/cursorless" />
+  </a>
+</p>
 
-Allows cursorless editing and rapid navigation by decorating a single letter
-from each token.
+> Allows cursorless editing and rapid navigation by decorating a single letter from each token.
 
 ## Features
 
@@ -24,7 +36,7 @@ See [cursorless-talon](https://github.com/pokey/cursorless-talon) for installati
 This extension contributes the following settings:
 
 - `cursorless.showOnStart`: Whether decorations should appear on workspace start
-- `cursorless.hatScaleFactor`: How much to scale the hats by
+- `cursorless.hatSizeAdjustment`: Percentage to increase or decrease hat size; positive increases size
 - `cursorless.hatVerticalOffset`: How much to vertically shift the hats as a percentage of font size; positive is up
 
 ## Known Issues
@@ -34,3 +46,20 @@ This extension contributes the following settings:
 ## Change Log
 
 See [CHANGELOG.md](CHANGELOG.md).
+
+## Contributing
+
+### Installation
+
+```sh
+yarn install
+```
+
+### Running tests
+
+```sh
+yarn run test
+```
+
+***
+_This README was partially generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
