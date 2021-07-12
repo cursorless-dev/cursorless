@@ -11,9 +11,6 @@
   <a href="https://github.com/pokey/cursorless-vscode/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/github/license/pokey/cursorless-vscode" />
   </a>
-  <a href="https://open.vscode.dev/pokey/cursorless-vscode" target="_blank">
-    <img alt="Open in Visual Studio Code" src="https://open.vscode.dev/badges/open-in-vscode.svg" />
-  </a>
 </p>
 
 > Allows cursorless editing and rapid navigation by decorating a single letter from each token.
@@ -51,6 +48,8 @@ This extension contributes the following settings:
 See [CHANGELOG.md](CHANGELOG.md).
 
 ## Contributing
+
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/pokey/cursorless-vscode)
 
 ### Installation
 
