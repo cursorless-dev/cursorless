@@ -30,6 +30,11 @@
 		"*"
 	],
 	"main": "./dist/extension.js",
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": true
+		}
+	},
 	"contributes": {
 		"commands": [
 			{
