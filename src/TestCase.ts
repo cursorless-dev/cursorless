@@ -54,6 +54,7 @@ type DecorationRanges = { [coloredSymbol: string]: SerializedRange };
 
 export type TestCaseFixture = {
   command: Command;
+  targets: Target[];
   languageId: string;
   decorations: DecorationRanges;
   initialState: Snapshot;
@@ -63,6 +64,7 @@ export type TestCaseFixture = {
 export default class TestCase {
   command: Command;
   languageId: string;
+  targets: Target[];
   decorations: DecorationRanges;
   initialState: Snapshot | null = null;
   finalState: Snapshot | null = null;
@@ -77,6 +79,7 @@ export default class TestCase {
     this.command = command;
     this.languageId = activeEditor.document.languageId;
     this.decorations = this.extractTargetedDecorations(targets, navigationMap);
+    this.targets = targets;
   }
 
   extractPrimitiveTargetKeys(...targets: PrimitiveTarget[]) {
@@ -155,6 +158,7 @@ export default class TestCase {
     const fixture: TestCaseFixture = {
       command: this.command,
       languageId: this.languageId,
+      targets: this.targets,
       decorations: this.decorations,
       initialState: this.initialState,
       finalState: this.finalState,
