@@ -89,8 +89,6 @@ export async function activate(context: vscode.ExtensionContext) {
     () => {
       console.log("Recording test case for next command");
       recordTestCase = true;
-      // Empty clipboard to avoid accidentally cluttering fixtures
-      vscode.env.clipboard.writeText("");
     }
   );
   const cursorlessSetNavigationMapDisposable = vscode.commands.registerCommand(

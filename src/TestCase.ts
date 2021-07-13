@@ -132,6 +132,10 @@ export default class TestCase {
   async saveSnapshot() {
     const snapshot = await TestCase.getSnapshot();
 
+    if (!["copy", "paste"].includes(this.command.actionName)) {
+      snapshot.clipboard = "";
+    }
+
     if (this.initialState == null) {
       this.initialState = snapshot;
     } else if (this.finalState == null) {
