@@ -63,4 +63,8 @@ export default class NavigationMap {
     });
     return rangeMap;
   }
+
+  public clear() {
+    this.map = {};
+  }
 }
