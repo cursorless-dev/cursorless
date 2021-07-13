@@ -83,7 +83,8 @@ export default class TestCase {
     const keys: string[] = [];
     targets.forEach((target) => {
       if (target.mark.type === "decoratedSymbol") {
-        keys.push(`${target.mark.symbolColor}.${target.mark.character}`);
+        const { character, symbolColor } = target.mark;
+        keys.push(NavigationMap.getKey(symbolColor, character));
       }
     });
     return keys;
@@ -162,7 +163,6 @@ export default class TestCase {
   }
 
   async presentFixture() {
-    // TODO: naming convention for fixture files?
     const fixture = this.toYaml();
     const document = await vscode.workspace.openTextDocument({
       language: "yaml",

@@ -44,16 +44,16 @@ export default class NavigationMap {
     [coloredSymbol: string]: Token;
   } = {};
 
-  private getKey(color: SymbolColor, character: string) {
+  static getKey(color: SymbolColor, character: string) {
     return `${color}.${character}`;
   }
 
   public addToken(color: SymbolColor, character: string, token: Token) {
-    this.map[this.getKey(color, character)] = token;
+    this.map[NavigationMap.getKey(color, character)] = token;
   }
 
   public getToken(color: SymbolColor, character: string) {
-    return this.map[this.getKey(color, character)];
+    return this.map[NavigationMap.getKey(color, character)];
   }
 
   public serializeRanges() {
