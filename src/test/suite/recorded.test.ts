@@ -3,14 +3,13 @@ import { promises as fsp } from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
-import NavigationMap from "../../NavigationMap";
+import * as sinon from "sinon";
 import TestCase, {
   SerializedPosition,
   SerializedRange,
   SerializedSelection,
   TestCaseFixture,
 } from "../../TestCase";
-import { Token } from "../../Types";
 
 function deserializePosition(position: SerializedPosition) {
   return new vscode.Position(position.line, position.character);
@@ -47,13 +46,16 @@ suite("recorded test cases", async function () {
         content: fixture.initialState.document,
       });
       const editor = await vscode.window.showTextDocument(document);
-
-      await vscode.env.clipboard.writeText(fixture.initialState.clipboard);
       editor.selections =
         fixture.initialState.selections.map(deserializeSelection);
 
-      // TODO restore visible ranges?
-      // Not sure of a straightforward way to do this. Maybe just use to test folding?
+      // TODO (Many) unsuccessful mocking attempts
+      // TypeError: Cannot assign to read only property 'readText' of object '#<Object>'
+      // sinon.replace(
+      //   vscode.env.clipboard,
+      //   "readText",
+      //   async () => fixture.initialState.clipboard
+      // );
 
       // TODO verify fixture decorations are in nav. map
 

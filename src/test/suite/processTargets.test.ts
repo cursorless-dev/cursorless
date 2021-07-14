@@ -8,6 +8,9 @@ import processTargets from "../../processTargets";
 import { Target, Token } from "../../Types";
 // import * as myExtension from '../../extension';
 
+/*
+ * FIXME: These tests are outdated and thus disabled for now
+ */
 suite.skip("processTargets", () => {
   test("simple processTargets", () => {
     const navigationMap = new NavigationMap();
