@@ -12,7 +12,7 @@ import {
   ProcessedTargetsContext,
   SelectionWithEditor,
 } from "./Types";
-import makeGraph from "./makeGraph";
+import { makeGraph } from "./makeGraph";
 import { logBranchTypes } from "./debug";
 import TestCase from "./TestCase";
 

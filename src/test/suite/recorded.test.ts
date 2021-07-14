@@ -10,6 +10,9 @@ import TestCase, {
   SerializedSelection,
   TestCaseFixture,
 } from "../../TestCase";
+import * as makeGraphModule from "../../makeGraph";
+import graphConstructors from "../../graphConstructors";
+import { SymbolColor } from "../../constants";
 
 function deserializePosition(position: SerializedPosition) {
   return new vscode.Position(position.line, position.character);
@@ -57,7 +60,15 @@ suite("recorded test cases", async function () {
       //   async () => fixture.initialState.clipboard
       // );
 
-      // TODO verify fixture decorations are in nav. map
+      // TODO This actually needs to happen before extension activation...
+      // Assert that recorded decorations are present
+      // const graph = makeGraphModule.makeGraph(graphConstructors);
+      // Object.entries(fixture.decorations).forEach(([key, _]) => {
+      //   const [color, character] = key.split(".") as [SymbolColor, string];
+      //   const token = graph.navigationMap.getToken(color, character);
+      //   assert(token != null);
+      // });
+      // sinon.replace(makeGraphModule, "makeGraph", sinon.fake.returns(graph));
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -69,6 +80,7 @@ suite("recorded test cases", async function () {
       );
 
       assert.deepStrictEqual(fixture.finalState, await TestCase.getSnapshot());
+      sinon.restore();
     });
   });
 });
