@@ -78,6 +78,14 @@ function processSingleRangeTarget(
       ? endTarget!.selectionContext.trailingDelimiterRange
       : startTarget!.selectionContext.trailingDelimiterRange;
 
+    const startOuterSelection =
+      startTarget!.selectionContext.outerSelection ?? startSelection;
+    const endOuterSelection =
+      endTarget!.selectionContext.outerSelection ?? endSelection;
+    const outerSelection = isStartBeforeEnd
+      ? new Selection(startOuterSelection.start, endOuterSelection.end)
+      : new Selection(endOuterSelection.start, startOuterSelection.end);
+
     return {
       selection: {
         selection: new Selection(anchor, active),
@@ -90,6 +98,7 @@ function processSingleRangeTarget(
         isInDelimitedList: startTarget!.selectionContext.isInDelimitedList,
         leadingDelimiterRange,
         trailingDelimiterRange,
+        outerSelection,
       },
       insideOutsideType: startTarget!.insideOutsideType,
     };
@@ -437,13 +446,13 @@ function getLineSelectionContext(
           end.line - 1,
           selection.editor.document.lineAt(end.line - 1).range.end.character,
           start.line,
-          0
+          start.character
         )
       : null;
 
   const trailingDelimiterRange =
     end.line + 1 < selection.editor.document.lineCount
-      ? new Range(end.line, 0, end.line + 1, 0)
+      ? new Range(end.line, end.character, end.line + 1, 0)
       : null;
 
   // Didn't find any delimiters
@@ -451,10 +460,19 @@ function getLineSelectionContext(
     return selectionContext;
   }
 
+  // Outer selection contains the entire lines
+  const outerSelection = new Selection(
+    start.line,
+    0,
+    end.line,
+    selection.editor.document.lineAt(end.line).range.end.character
+  );
+
   return {
     isInDelimitedList: true,
     containingListDelimiter: "\n",
     leadingDelimiterRange,
     trailingDelimiterRange,
+    outerSelection,
   };
 }

@@ -174,6 +174,9 @@ export interface SelectionContext {
   isInDelimitedList?: boolean;
   containingListDelimiter?: string;
 
+  // Selection used for outside selection
+  outerSelection?: vscode.Selection | null;
+
   /**
    * The range of the delimiter before the selection, *if* the selection has a
    * preceding sibling, else null
