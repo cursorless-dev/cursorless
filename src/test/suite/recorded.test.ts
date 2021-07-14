@@ -32,11 +32,7 @@ function deserializeSelection(
 }
 
 suite("recorded test cases", async function () {
-  const directory = path.join(
-    __dirname,
-    // TODO What's the best way to handle this?
-    "../../../src/test/suite/recordings"
-  );
+  const directory = path.join(__dirname, "../../../testFixtures");
   const files = await fsp.readdir(directory);
 
   files.forEach(async (file) => {
