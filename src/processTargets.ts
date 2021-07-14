@@ -101,6 +101,7 @@ function processSingleRangeTarget(
         outerSelection,
       },
       insideOutsideType: startTarget!.insideOutsideType,
+      position: "contents",
     };
   });
 }
@@ -275,6 +276,7 @@ function createTypedSelection(
         selectionType,
         selectionContext: getTokenSelectionContext(selection, selectionContext),
         insideOutsideType: target.insideOutsideType ?? null,
+        position: target.position,
       };
 
     case "line":
@@ -305,6 +307,7 @@ function createTypedSelection(
         selectionType,
         selectionContext: getLineSelectionContext(selection, selectionContext),
         insideOutsideType: target.insideOutsideType ?? null,
+        position: target.position,
       };
     case "document":
       const document = selection.editor.document;
@@ -324,6 +327,7 @@ function createTypedSelection(
         selectionType,
         selectionContext,
         insideOutsideType: target.insideOutsideType ?? null,
+        position: target.position,
       };
     case "block":
     case "character":
@@ -366,6 +370,7 @@ function performPositionAdjustment(
     selectionType: selection.selectionType,
     selectionContext: selection.selectionContext,
     insideOutsideType: target.insideOutsideType ?? null,
+    position,
   };
 }
 

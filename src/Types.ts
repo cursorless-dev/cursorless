@@ -203,6 +203,11 @@ export interface TypedSelection {
    * Is a boolean if user specifically requested inside or outside
    */
   insideOutsideType: InsideOutsideType;
+
+  /**
+   * Mirrored from the target from which this selection was constructed
+   */
+  position: Position;
 }
 
 export interface ActionPreferences {
