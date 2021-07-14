@@ -91,12 +91,6 @@ export async function activate(context: vscode.ExtensionContext) {
       recordTestCase = true;
     }
   );
-  const cursorlessSetNavigationMapDisposable = vscode.commands.registerCommand(
-    "cursorless.setNavigationMap",
-    (newNavigationMap: NavigationMap) => {
-      navigationMap = newNavigationMap;
-    }
-  );
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
     "cursorless.command",
     async (
@@ -231,7 +225,6 @@ export async function activate(context: vscode.ExtensionContext) {
     cursorlessRecordTestCaseDisposable,
     toggleDecorationsDisposable,
     recomputeDecorationStylesDisposable,
-    cursorlessSetNavigationMapDisposable,
     vscode.workspace.onDidChangeConfiguration(recomputeDecorationStyles),
     vscode.window.onDidChangeTextEditorVisibleRanges(addDecorationsDebounced),
     vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),

@@ -55,28 +55,9 @@ suite("recorded test cases", async function () {
       // TODO restore visible ranges?
       // Not sure of a straightforward way to do this. Maybe just use to test folding?
 
-      const navigationMap = new NavigationMap();
-      Object.entries(fixture.decorations).forEach(([key, value], index) => {
-        const range = deserializeRange(value);
-        const text = editor.document.getText(range);
-        // TODO not a big fan of this, need a better way to create tokens
-        const token: Token = {
-          text,
-          range,
-          startOffset: editor.document.offsetAt(range.start) + index,
-          endOffset: editor.document.offsetAt(range.end) + index + text.length,
-          displayLine: value.start.line, // TODO depends on visible ranges? See above
-          editor: vscode.window.activeTextEditor!,
-        };
-        const [color, character] = key.split(".");
-        // @ts-ignore TODO should probably add a decoration color type?
-        navigationMap.addToken(color, character, token);
-      });
+      // TODO verify fixture decorations are in nav. map
 
-      await vscode.commands.executeCommand(
-        "cursorless.setNavigationMap",
-        navigationMap
-      );
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       await vscode.commands.executeCommand(
         "cursorless.command",
