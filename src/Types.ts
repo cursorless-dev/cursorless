@@ -224,13 +224,16 @@ export interface Action {
 
 export type ActionType =
   | "clear"
+  | "commentLine"
   | "copy"
   | "cut"
   | "delete"
   | "extractVariable"
   | "fold"
+  | "indent"
   | "insertLineAfter"
   | "insertLineBefore"
+  | "outdent"
   | "paste"
   | "scrollToBottom"
   | "scrollToCenter"

@@ -15,18 +15,23 @@ import Swap from "./swap";
 import Use from "./use";
 import Wrap from "./wrap";
 import { ScrollToTop, ScrollToCenter, ScrollToBottom } from "./Scroll";
+import { Indent, Outdent } from "./Indent";
+import { CommentLine } from "./Comment";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
 
   clear = new Clear(this.graph);
+  commentLine = new CommentLine(this.graph);
   copy = new Copy(this.graph);
   cut = new Cut(this.graph);
   delete = new Delete(this.graph);
   extractVariable = new ExtractVariable(this.graph);
   fold = new Fold(this.graph);
+  indent = new Indent(this.graph);
   insertLineBefore = new InsertLineBefore(this.graph);
   insertLineAfter = new InsertLineAfter(this.graph);
+  outdent = new Outdent(this.graph);
   paste: Action = {
     run: async ([targets]) => {
       throw new Error("Not implemented");

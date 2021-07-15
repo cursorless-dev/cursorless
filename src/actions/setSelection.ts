@@ -8,7 +8,7 @@ import {
 import { ensureSingleEditor } from "../targetUtils";
 import { Selection } from "vscode";
 import update from "immutability-helper";
-import { setSelectionsAndFocusEditor } from "./setSelectionsAndFocusEditor";
+import { setSelectionsAndFocusEditor } from "../setSelectionsAndFocusEditor";
 
 export class SetSelection implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];

@@ -6,7 +6,7 @@ import {
   TypedSelection,
 } from "../Types";
 import { ensureSingleEditor } from "../targetUtils";
-import { setSelectionsAndFocusEditor } from "./setSelectionsAndFocusEditor";
+import { setSelectionsAndFocusEditor } from "../setSelectionsAndFocusEditor";
 
 export default class Clear implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
