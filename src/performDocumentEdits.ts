@@ -1,4 +1,4 @@
-import { Edit } from "./types";
+import { Edit } from "./Types";
 import { TextEditor } from "vscode";
 import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
 
