@@ -2,7 +2,13 @@ import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import { Position, Range, Selection } from "vscode";
 import NavigationMap from "./NavigationMap";
-import { ActionType, PartialTarget, PrimitiveTarget, Target } from "./Types";
+import {
+  ActionType,
+  PartialTarget,
+  PrimitiveTarget,
+  SelectionWithEditor,
+  Target,
+} from "./Types";
 
 export type SerializedPosition = {
   line: number;
@@ -37,13 +43,19 @@ export function serializePosition(position: Position): SerializedPosition {
   return { line: position.line, character: position.character };
 }
 
-type Command = {
+type TestCaseCommand = {
   actionName: ActionType;
   partialTargets: PartialTarget[];
   extraArgs: any[];
 };
 
-type Snapshot = {
+type TestCaseContext = {
+  thatMark: SelectionWithEditor[];
+  targets: Target[];
+  navigationMap: NavigationMap;
+};
+
+type TestCaseSnapshot = {
   document: string;
   clipboard: string;
   visibleRanges: SerializedRange[];
@@ -53,32 +65,32 @@ type Snapshot = {
 type DecorationRanges = { [coloredSymbol: string]: SerializedRange };
 
 export type TestCaseFixture = {
-  command: Command;
+  command: TestCaseCommand;
   targets: Target[];
   languageId: string;
-  decorations: DecorationRanges;
-  initialState: Snapshot;
-  finalState: Snapshot;
+  marks: DecorationRanges;
+  thatMark: SerializedSelection[];
+  initialState: TestCaseSnapshot;
+  finalState: TestCaseSnapshot;
 };
 
 export default class TestCase {
-  command: Command;
+  command: TestCaseCommand;
   languageId: string;
   targets: Target[];
-  decorations: DecorationRanges;
-  initialState: Snapshot | null = null;
-  finalState: Snapshot | null = null;
+  marks: DecorationRanges;
+  thatMark: SerializedSelection[];
+  initialState: TestCaseSnapshot | null = null;
+  finalState: TestCaseSnapshot | null = null;
 
-  constructor(
-    command: Command,
-    targets: Target[],
-    navigationMap: NavigationMap
-  ) {
+  constructor(command: TestCaseCommand, context: TestCaseContext) {
     const activeEditor = vscode.window.activeTextEditor!;
+    const { thatMark, navigationMap, targets } = context;
 
     this.command = command;
     this.languageId = activeEditor.document.languageId;
-    this.decorations = this.extractTargetedDecorations(targets, navigationMap);
+    this.marks = this.extractTargetedDecorations(targets, navigationMap);
+    this.thatMark = thatMark.map((mark) => serializeSelection(mark.selection));
     this.targets = targets;
   }
 
@@ -123,7 +135,7 @@ export default class TestCase {
     return targetedDecorations;
   }
 
-  static async getSnapshot(): Promise<Snapshot> {
+  static async getSnapshot(): Promise<TestCaseSnapshot> {
     const activeEditor = vscode.window.activeTextEditor!;
     return {
       document: activeEditor.document.getText(),
@@ -159,7 +171,8 @@ export default class TestCase {
       command: this.command,
       languageId: this.languageId,
       targets: this.targets,
-      decorations: this.decorations,
+      marks: this.marks,
+      thatMark: this.thatMark,
       initialState: this.initialState,
       finalState: this.finalState,
     };

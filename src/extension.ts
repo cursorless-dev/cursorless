@@ -134,13 +134,6 @@ export async function activate(context: vscode.ExtensionContext) {
         // console.log(`targets:`);
         // console.log(JSON.stringify(targets, null, 3));
 
-        let testCase: TestCase | null = null;
-        if (recordTestCase) {
-          const command = { actionName, partialTargets, extraArgs };
-          testCase = new TestCase(command, targets, graph.navigationMap!);
-          await testCase.saveSnapshot();
-        }
-
         const processedTargetsContext: ProcessedTargetsContext = {
           currentSelections:
             vscode.window.activeTextEditor?.selections.map((selection) => ({
@@ -154,6 +147,18 @@ export async function activate(context: vscode.ExtensionContext) {
         };
 
         const selections = processTargets(processedTargetsContext, targets);
+
+        let testCase: TestCase | null = null;
+        if (recordTestCase) {
+          const command = { actionName, partialTargets, extraArgs };
+          const context = {
+            thatMark,
+            targets,
+            navigationMap: graph.navigationMap!,
+          };
+          testCase = new TestCase(command, context);
+          await testCase.saveSnapshot();
+        }
 
         const { returnValue, thatMark: newThatMark } = await action.run(
           selections,

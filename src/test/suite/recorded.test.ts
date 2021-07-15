@@ -52,6 +52,8 @@ suite("recorded test cases", async function () {
       editor.selections =
         fixture.initialState.selections.map(deserializeSelection);
 
+      // TODO Restore `thatMark` from fixture
+
       // TODO (Many) unsuccessful mocking attempts
       // TypeError: Cannot assign to read only property 'readText' of object '#<Object>'
       // sinon.replace(
