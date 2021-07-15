@@ -15,6 +15,7 @@ import Swap from "./swap";
 import Use from "./use";
 import Wrap from "./wrap";
 import { ScrollToTop, ScrollToCenter, ScrollToBottom } from "./Scroll";
+import Paste from "./Paste";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -27,12 +28,7 @@ class Actions implements ActionRecord {
   fold = new Fold(this.graph);
   insertLineBefore = new InsertLineBefore(this.graph);
   insertLineAfter = new InsertLineAfter(this.graph);
-  paste: Action = {
-    run: async ([targets]) => {
-      throw new Error("Not implemented");
-    },
-    targetPreferences: [{ position: "after", insideOutsideType: "outside" }],
-  };
+  paste = new Paste(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
   scrollToTop = new ScrollToTop(this.graph);
