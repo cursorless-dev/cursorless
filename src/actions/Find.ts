@@ -1,15 +1,23 @@
-import { ActionReturnValue, Graph, TypedSelection } from "../Types";
+import {
+  Action,
+  ActionReturnValue,
+  ActionPreferences,
+  Graph,
+  TypedSelection,
+} from "../Types";
 import { commands } from "vscode";
-import GetText from "./GetText";
 
-class FindBase extends GetText {
-  constructor(graph: Graph, private command: string) {
-    super(graph);
+class FindBase implements Action {
+  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+
+  constructor(private graph: Graph, private command: string) {
     this.run = this.run.bind(this);
   }
 
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    const { returnValue, thatMark } = await super.run([targets]);
+    const { returnValue, thatMark } = await this.graph.actions.getText.run([
+      targets,
+    ]);
 
     await commands.executeCommand(this.command, {
       query: returnValue,

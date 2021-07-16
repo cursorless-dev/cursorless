@@ -17,6 +17,8 @@ import { IndentLines, OutdentLines } from "./Indent";
 import { CommentLines } from "./Comment";
 import Paste from "./Paste";
 import { Bring, Move, Swap } from "./BringMoveSwap";
+import GetText from "./GetText";
+import { FindInFiles } from "./Find";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -31,7 +33,9 @@ class Actions implements ActionRecord {
   cut = new Cut(this.graph);
   delete = new Delete(this.graph);
   extractVariable = new ExtractVariable(this.graph);
+  findInFiles = new FindInFiles(this.graph);
   fold = new Fold(this.graph);
+  getText = new GetText(this.graph);
   indentLines = new IndentLines(this.graph);
   insertLineBefore = new InsertLineBefore(this.graph);
   insertLineAfter = new InsertLineAfter(this.graph);
