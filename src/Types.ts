@@ -174,6 +174,9 @@ export interface SelectionContext {
   isInDelimitedList?: boolean;
   containingListDelimiter?: string;
 
+  // Selection used for outside selection
+  outerSelection?: vscode.Selection | null;
+
   /**
    * The range of the delimiter before the selection, *if* the selection has a
    * preceding sibling, else null
@@ -223,6 +226,7 @@ export interface Action {
 }
 
 export type ActionType =
+  | "bring"
   | "clear"
   | "copy"
   | "cut"
@@ -231,6 +235,7 @@ export type ActionType =
   | "fold"
   | "insertLineAfter"
   | "insertLineBefore"
+  | "move"
   | "paste"
   | "scrollToBottom"
   | "scrollToCenter"
@@ -239,7 +244,6 @@ export type ActionType =
   | "setSelectionAfter"
   | "setSelectionBefore"
   | "swap"
-  | "use"
   | "unfold"
   | "wrap";
 
@@ -272,3 +276,12 @@ export type SelectionExtractor = (
   editor: vscode.TextEditor,
   node: SyntaxNode
 ) => SelectionWithContext | null;
+
+/** Represent a single edit/change in the document */
+export interface Edit {
+  editor: vscode.TextEditor;
+  range: vscode.Selection;
+  newText: string;
+  targetsIndex: number;
+  originalSelection: TypedSelection;
+}
