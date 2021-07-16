@@ -224,7 +224,7 @@ function transformSelection(
         modifier.endIndex == null
           ? pieces.length
           : modifier.endIndex <= 0
-          ? modifier.endIndex + pieces.length
+          ? modifier.endIndex + pieces.length + 1
           : modifier.endIndex;
 
       const startIndex =
