@@ -5,7 +5,6 @@ import {
   Graph,
   TypedSelection,
 } from "../Types";
-import displayPendingEditDecorations from "../editDisplayUtils";
 import { env } from "vscode";
 
 export default class Copy implements Action {
@@ -16,23 +15,12 @@ export default class Copy implements Action {
   }
 
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    await displayPendingEditDecorations(
+    const { returnValue, thatMark } = await this.graph.actions.getText.run([
       targets,
-      this.graph.editStyles.referenced,
-      this.graph.editStyles.referencedLine
-    );
+    ]);
 
-    await env.clipboard.writeText(
-      targets
-        .map((target) =>
-          target.selection.editor.document.getText(target.selection.selection)
-        )
-        .join("\n")
-    );
+    await env.clipboard.writeText(returnValue);
 
-    return {
-      returnValue: null,
-      thatMark: targets.map((target) => target.selection),
-    };
+    return { returnValue: null, thatMark };
   }
 }
