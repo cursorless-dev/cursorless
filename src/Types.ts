@@ -203,6 +203,11 @@ export interface TypedSelection {
    * Is a boolean if user specifically requested inside or outside
    */
   insideOutsideType: InsideOutsideType;
+
+  /**
+   * Mirrored from the target from which this selection was constructed
+   */
+  position: Position;
 }
 
 export interface ActionPreferences {
@@ -280,8 +285,6 @@ export type SelectionExtractor = (
 /** Represent a single edit/change in the document */
 export interface Edit {
   editor: vscode.TextEditor;
-  range: vscode.Selection;
+  range: vscode.Range;
   newText: string;
-  targetsIndex: number;
-  originalSelection: TypedSelection;
 }
