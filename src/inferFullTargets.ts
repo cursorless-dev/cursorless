@@ -389,6 +389,7 @@ export function inferRangeEndTarget(
   const mark =
     target.mark ??
     extractAttributeFromList(prototypeTargetsIncludingStartTarget, "mark") ??
+    (target.selectionType === "line" ? startTarget.mark : null) ??
     CURSOR_MARK;
 
   const selectionType =
@@ -403,8 +404,7 @@ export function inferRangeEndTarget(
   // we don't want to blindly inherit modifier from startTarget.  In
   // particular, we only want to inherit symbolType
   const modifier =
-    target.modifier ??
-    inferRangeEndModifier(startTarget, prototypeTargets);
+    target.modifier ?? inferRangeEndModifier(startTarget, prototypeTargets);
 
   const position: Position =
     target.position ??
