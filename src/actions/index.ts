@@ -14,7 +14,11 @@ import {
 import Wrap from "./wrap";
 import { ScrollToTop, ScrollToCenter, ScrollToBottom } from "./Scroll";
 import { Bring, Move, Swap } from "./BringMoveSwap";
-
+import {
+  InsertLineAboveAndBelow,
+  InsertLineAbove,
+  InsertLineBelow,
+} from "./InsertEmptyLines";
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
 
@@ -28,8 +32,11 @@ class Actions implements ActionRecord {
   delete = new Delete(this.graph);
   extractVariable = new ExtractVariable(this.graph);
   fold = new Fold(this.graph);
-  insertLineBefore = new InsertLineBefore(this.graph);
+  insertLineAboveAndBelow = new InsertLineAboveAndBelow(this.graph);
+  insertLineAbove = new InsertLineAbove(this.graph);
   insertLineAfter = new InsertLineAfter(this.graph);
+  insertLineBelow = new InsertLineBelow(this.graph);
+  insertLineBefore = new InsertLineBefore(this.graph);
   move = new Move(this.graph);
   paste: Action = {
     run: async ([targets]) => {
