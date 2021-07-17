@@ -234,11 +234,15 @@ function transformSelection(
 
       const start = selection.selection.start.translate(
         undefined,
-        pieces[startIndex].start
+        startIndex <= endIndex - 1
+          ? pieces[startIndex].start
+          : pieces[endIndex - 1].start
       );
       const end = selection.selection.start.translate(
         undefined,
-        pieces[endIndex - 1].end
+        startIndex <= endIndex - 1
+          ? pieces[endIndex - 1].end
+          : pieces[startIndex].end
       );
 
       return [
