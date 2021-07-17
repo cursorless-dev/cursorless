@@ -1,0 +1,73 @@
+command:
+  actionName: delete
+  partialTargets:
+    - type: primitive
+      mark:
+        type: that
+  extraArgs: []
+languageId: python
+targets:
+  - type: primitive
+    mark:
+      type: that
+    selectionType: token
+    position: contents
+    modifier:
+      type: identity
+    insideOutsideType: outside
+marks: {}
+initialState:
+  document: |
+    import sys
+
+    def hello_world(name="pokey"):
+        print(f"hello, {name}")
+      
+    if __name__ == "__main__":
+        hello_world(sys.argv[0])
+  selections:
+    - active:
+        line: 5
+        character: 13
+      anchor:
+        line: 5
+        character: 13
+  visibleRanges:
+    - start:
+        line: 0
+        character: 0
+      end:
+        line: 7
+        character: 0
+  clipboard: ""
+  thatMark: null
+finalState:
+  document: |
+    import sys
+
+
+      
+    if __name__ == "__main__":
+        hello_world(sys.argv[0])
+  selections:
+    - active:
+        line: 4
+        character: 13
+      anchor:
+        line: 4
+        character: 13
+  visibleRanges:
+    - start:
+        line: 0
+        character: 0
+      end:
+        line: 6
+        character: 0
+  clipboard: ""
+  thatMark:
+    - active:
+        line: 3
+        character: 27
+      anchor:
+        line: 2
+        character: 0

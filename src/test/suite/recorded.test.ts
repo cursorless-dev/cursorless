@@ -50,15 +50,25 @@ suite("recorded test cases", async function () {
       editor.selections =
         fixture.initialState.selections.map(deserializeSelection);
 
-      sinon.replace(cursorlessApi, "thatMark", fixture.initialState.thatMark);
+      if (fixture.initialState.thatMark) {
+        const thatMarkFixture = fixture.initialState.thatMark.map((mark) => ({
+          selection: deserializeSelection(mark),
+          editor,
+        }));
+        // sinon.replace(cursorlessApi, "thatMark", thatMarkFixture);
+        // TODO Either way fails!
+        // cursorlessApi.thatMark = thatMarkFixture;
+      }
 
-      // TODO (Many) unsuccessful mocking attempts
-      // TypeError: Cannot assign to read only property 'readText' of object '#<Object>'
-      // sinon.replace(
-      //   vscode.env.clipboard,
-      //   "readText",
-      //   async () => fixture.initialState.clipboard
-      // );
+      await vscode.env.clipboard.writeText("");
+      // TODO Literally any way I try to mock this fails
+      // let clipText = fixture.initialState.clipboard;
+      // sinon.replaceGetter(vscode.env, "clipboard", () => ({
+      //   readText: async () => clipText,
+      //   writeText: async (value) => {
+      //     clipText = value;
+      //   },
+      // }));
 
       // Assert that recorded decorations are present
       Object.entries(fixture.marks).forEach(([key, _]) => {
