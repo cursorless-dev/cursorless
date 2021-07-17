@@ -34,18 +34,10 @@ class InsertEmptyLines implements Action {
         const lines = targets.flatMap((target) => {
           const lines = [];
           if (this.insertAbove) {
-            lines.push(
-              target.selection.selection.isReversed
-                ? target.selection.selection.end.line
-                : target.selection.selection.start.line
-            );
+            lines.push(target.selection.selection.start.line);
           }
           if (this.insertBelow) {
-            lines.push(
-              (target.selection.selection.isReversed
-                ? target.selection.selection.start.line
-                : target.selection.selection.end.line) + 1
-            );
+            lines.push(target.selection.selection.end.line + 1);
           }
           return lines;
         });
