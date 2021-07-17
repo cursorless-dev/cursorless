@@ -1,4 +1,5 @@
 import * as yaml from "js-yaml";
+import { isEqual } from "lodash";
 import * as vscode from "vscode";
 import { Position, Range, Selection } from "vscode";
 import NavigationMap from "./NavigationMap";
@@ -60,6 +61,7 @@ type TestCaseSnapshot = {
   clipboard: string;
   visibleRanges: SerializedRange[];
   selections: SerializedSelection[];
+  thatMark: SerializedSelection[] | null;
 };
 
 type DecorationRanges = { [coloredSymbol: string]: SerializedRange };
@@ -69,7 +71,6 @@ export type TestCaseFixture = {
   targets: Target[];
   languageId: string;
   marks: DecorationRanges;
-  thatMark: SerializedSelection[];
   initialState: TestCaseSnapshot;
   finalState: TestCaseSnapshot;
 };
@@ -79,19 +80,19 @@ export default class TestCase {
   languageId: string;
   targets: Target[];
   marks: DecorationRanges;
-  thatMark: SerializedSelection[];
+  context: TestCaseContext;
   initialState: TestCaseSnapshot | null = null;
   finalState: TestCaseSnapshot | null = null;
 
   constructor(command: TestCaseCommand, context: TestCaseContext) {
     const activeEditor = vscode.window.activeTextEditor!;
-    const { thatMark, navigationMap, targets } = context;
+    const { navigationMap, targets } = context;
 
     this.command = command;
     this.languageId = activeEditor.document.languageId;
     this.marks = this.extractTargetedDecorations(targets, navigationMap);
-    this.thatMark = thatMark.map((mark) => serializeSelection(mark.selection));
     this.targets = targets;
+    this.context = context;
   }
 
   extractPrimitiveTargetKeys(...targets: PrimitiveTarget[]) {
@@ -135,21 +136,40 @@ export default class TestCase {
     return targetedDecorations;
   }
 
-  static async getSnapshot(): Promise<TestCaseSnapshot> {
+  isThatMarkTargeted() {
+    return this.context.thatMark.every((thatSelection) => {
+      return Object.values(this.marks).some((targetedSelection) =>
+        isEqual(thatSelection, targetedSelection)
+      );
+    });
+  }
+
+  static async getSnapshot(
+    thatMark: SelectionWithEditor[]
+  ): Promise<TestCaseSnapshot> {
     const activeEditor = vscode.window.activeTextEditor!;
     return {
       document: activeEditor.document.getText(),
       selections: activeEditor.selections.map(serializeSelection),
       visibleRanges: activeEditor.visibleRanges.map(serializeRange),
       clipboard: await vscode.env.clipboard.readText(),
+      thatMark: thatMark.map((mark) => serializeSelection(mark.selection)),
     };
   }
 
+  async getSnapshot(): Promise<TestCaseSnapshot> {
+    return await TestCase.getSnapshot(this.context.thatMark);
+  }
+
   async saveSnapshot() {
-    const snapshot = await TestCase.getSnapshot();
+    const snapshot = await this.getSnapshot();
 
     if (!["copy", "paste"].includes(this.command.actionName)) {
       snapshot.clipboard = "";
+    }
+
+    if (!this.isThatMarkTargeted() && this.initialState == null) {
+      snapshot.thatMark = null;
     }
 
     if (this.initialState == null) {
@@ -172,7 +192,6 @@ export default class TestCase {
       languageId: this.languageId,
       targets: this.targets,
       marks: this.marks,
-      thatMark: this.thatMark,
       initialState: this.initialState,
       finalState: this.finalState,
     };

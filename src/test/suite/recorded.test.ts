@@ -10,19 +10,10 @@ import TestCase, {
   SerializedSelection,
   TestCaseFixture,
 } from "../../TestCase";
-import * as makeGraphModule from "../../makeGraph";
-import graphConstructors from "../../graphConstructors";
 import { SymbolColor } from "../../constants";
 
 function deserializePosition(position: SerializedPosition) {
   return new vscode.Position(position.line, position.character);
-}
-
-function deserializeRange(range: SerializedRange) {
-  return new vscode.Range(
-    deserializePosition(range.start),
-    deserializePosition(range.end)
-  );
 }
 
 function deserializeSelection(
@@ -34,12 +25,19 @@ function deserializeSelection(
 }
 
 suite("recorded test cases", async function () {
+  this.timeout(100000);
   const directory = path.join(__dirname, "../../../testFixtures");
   const files = await fsp.readdir(directory);
 
   files.forEach(async (file) => {
     test(file.split(".")[0], async function () {
-      this.timeout(100000);
+      const cursorless = vscode.extensions.getExtension("pokey.cursorless");
+
+      if (cursorless == null) {
+        throw new Error("Could not get cursorless extension");
+      }
+
+      const cursorlessApi = await cursorless.activate();
       const buffer = await fsp.readFile(path.join(directory, file));
       const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
 
@@ -52,7 +50,7 @@ suite("recorded test cases", async function () {
       editor.selections =
         fixture.initialState.selections.map(deserializeSelection);
 
-      // TODO Restore `thatMark` from fixture
+      sinon.replace(cursorlessApi, "thatMark", fixture.initialState.thatMark);
 
       // TODO (Many) unsuccessful mocking attempts
       // TypeError: Cannot assign to read only property 'readText' of object '#<Object>'
@@ -62,15 +60,12 @@ suite("recorded test cases", async function () {
       //   async () => fixture.initialState.clipboard
       // );
 
-      // TODO This actually needs to happen before extension activation...
       // Assert that recorded decorations are present
-      // const graph = makeGraphModule.makeGraph(graphConstructors);
-      // Object.entries(fixture.decorations).forEach(([key, _]) => {
-      //   const [color, character] = key.split(".") as [SymbolColor, string];
-      //   const token = graph.navigationMap.getToken(color, character);
-      //   assert(token != null);
-      // });
-      // sinon.replace(makeGraphModule, "makeGraph", sinon.fake.returns(graph));
+      Object.entries(fixture.marks).forEach(([key, _]) => {
+        const [color, character] = key.split(".") as [SymbolColor, string];
+        const token = cursorlessApi.navigationMap.getToken(color, character);
+        assert(token != null);
+      });
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -81,8 +76,11 @@ suite("recorded test cases", async function () {
         ...fixture.command.extraArgs
       );
 
-      assert.deepStrictEqual(fixture.finalState, await TestCase.getSnapshot());
       sinon.restore();
+      assert.deepStrictEqual(
+        fixture.finalState,
+        await TestCase.getSnapshot(cursorlessApi.thatMark)
+      );
     });
   });
 });

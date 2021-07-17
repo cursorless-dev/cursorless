@@ -242,6 +242,8 @@ export async function activate(context: vscode.ExtensionContext) {
       },
     }
   );
+
+  return { navigationMap: graph.navigationMap, thatMark };
 }
 
 // this method is called when your extension is deactivated
