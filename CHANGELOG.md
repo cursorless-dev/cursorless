@@ -2,6 +2,10 @@
 
 All notable changes to the "cursorless" extension will be documented in this file.
 
+## 0.19.0 (16 July 2021)
+### Enhancements
+- Support "move", "bring to after" / "move to after", and properly cleaning up spaces / newlines on delete
+
 ## 0.18.0 (12 July 2021)
 ### Enhancements
 - Add support for untrusted workspaces ([#104](https://github.com/pokey/cursorless-vscode/pull/104))
