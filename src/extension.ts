@@ -171,6 +171,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         if (testCase != null) {
           await testCase.saveSnapshot();
+          testCase.returnValue = returnValue;
           testCase.presentFixture();
           recordTestCase = false;
         }

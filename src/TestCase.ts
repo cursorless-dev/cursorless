@@ -75,6 +75,7 @@ export type TestCaseFixture = {
   marks: DecorationRanges;
   initialState: TestCaseSnapshot;
   finalState: TestCaseSnapshot;
+  returnValue: any;
 };
 
 export default class TestCase {
@@ -85,6 +86,7 @@ export default class TestCase {
   context: TestCaseContext;
   initialState: TestCaseSnapshot | null = null;
   finalState: TestCaseSnapshot | null = null;
+  returnValue: any = null;
 
   constructor(command: TestCaseCommand, context: TestCaseContext) {
     const activeEditor = vscode.window.activeTextEditor!;
@@ -201,8 +203,9 @@ export default class TestCase {
       marks: this.marks,
       initialState: this.initialState,
       finalState: this.finalState,
+      returnValue: this.returnValue,
     };
-    return yaml.dump(fixture, { noRefs: true });
+    return yaml.dump(fixture, { noRefs: true, quotingType: '"' });
   }
 
   async presentFixture() {

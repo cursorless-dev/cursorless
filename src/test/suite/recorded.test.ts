@@ -79,7 +79,7 @@ suite("recorded test cases", async function () {
         assert(token != null, `Mark "${color} ${character}" not found`);
       });
 
-      await vscode.commands.executeCommand(
+      const returnValue = await vscode.commands.executeCommand(
         "cursorless.command",
         fixture.command.actionName,
         fixture.command.partialTargets,
@@ -90,6 +90,7 @@ suite("recorded test cases", async function () {
         cursorlessApi.thatMark.get()
       );
       assert.deepStrictEqual(fixture.finalState, resultState);
+      assert.deepStrictEqual(fixture.returnValue, returnValue);
 
       sinon.restore();
     });
