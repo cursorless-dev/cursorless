@@ -16,6 +16,7 @@ import { makeGraph } from "./makeGraph";
 import { logBranchTypes } from "./debug";
 import TestCase from "./TestCase";
 import { ThatMark } from "./ThatMark";
+import { Clipboard } from "./Clipboard";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -115,7 +116,7 @@ export async function activate(context: vscode.ExtensionContext) {
         var clipboardContents: string | undefined;
 
         if (isPaste) {
-          clipboardContents = await vscode.env.clipboard.readText();
+          clipboardContents = await Clipboard.readText();
           // clipboardContents = "hello";
           // clipboardContents = "hello\n";
           // clipboardContents = "\nhello\n";

@@ -10,7 +10,7 @@ command:
       mark:
         type: decoratedSymbol
         symbolColor: default
-        character: k
+        character: p
   extraArgs: []
 languageId: python
 targets:
@@ -28,7 +28,7 @@ targets:
     mark:
       type: decoratedSymbol
       symbolColor: default
-      character: k
+      character: p
     selectionType: token
     position: contents
     modifier:
@@ -42,13 +42,13 @@ marks:
     end:
       line: 3
       character: 17
-  default.k:
+  default.p:
     start:
-      line: 2
-      character: 22
+      line: 3
+      character: 4
     end:
-      line: 2
-      character: 27
+      line: 3
+      character: 9
 initialState:
   document: |
     import sys
@@ -60,10 +60,10 @@ initialState:
         hello_world(sys.argv[0])
   selections:
     - active:
-        line: 7
+        line: 2
         character: 0
       anchor:
-        line: 7
+        line: 2
         character: 0
   visibleRanges:
     - start:
@@ -78,17 +78,17 @@ finalState:
   document: |
     import sys
 
-    def hello_world(name="hello"):
-        print(f"pokey, {name}")
+    def hello_world(name="pokey"):
+        hello(f"print, {name}")
       
     if __name__ == "__main__":
         hello_world(sys.argv[0])
   selections:
     - active:
-        line: 7
+        line: 2
         character: 0
       anchor:
-        line: 7
+        line: 2
         character: 0
   visibleRanges:
     - start:
@@ -98,4 +98,16 @@ finalState:
         line: 7
         character: 0
   clipboard: ""
-  thatMark: []
+  thatMark:
+    - active:
+        line: 3
+        character: 17
+      anchor:
+        line: 3
+        character: 12
+    - active:
+        line: 3
+        character: 9
+      anchor:
+        line: 3
+        character: 4

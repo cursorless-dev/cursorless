@@ -11,6 +11,8 @@ import TestCase, {
 import { SymbolColor } from "../../constants";
 import { ThatMark } from "../../ThatMark";
 import NavigationMap from "../../NavigationMap";
+import * as sinon from "sinon";
+import { Clipboard } from "../../Clipboard";
 
 function deserializePosition(position: SerializedPosition) {
   return new vscode.Position(position.line, position.character);
@@ -26,9 +28,8 @@ function deserializeSelection(
 
 suite("recorded test cases", async function () {
   const directory = path.join(__dirname, "../../../testFixtures");
-
-  // No await here because an async function swallows errors
   const files = await fsp.readdir(directory);
+
   files.forEach(async (file) => {
     test(file.split(".")[0], async function () {
       this.timeout(100000);
@@ -62,16 +63,21 @@ suite("recorded test cases", async function () {
         cursorlessApi.thatMark.set(initialThatMark);
       }
 
-      vscode.env.clipboard.writeText(fixture.initialState.clipboard);
+      let clip = fixture.initialState.clipboard;
+      sinon.replace(Clipboard, "readText", async () => clip);
+      sinon.replace(Clipboard, "writeText", async (value: string) => {
+        clip = value;
+      });
+
+      // Wait for cursorless to set up decorations
+      await new Promise((resolve) => setTimeout(resolve, 300));
 
       // Assert that recorded decorations are present
       Object.entries(fixture.marks).forEach(([key, _]) => {
         const [color, character] = key.split(".") as [SymbolColor, string];
         const token = cursorlessApi.navigationMap.getToken(color, character);
-        assert(token != null);
+        assert(token != null, `Mark "${color} ${character}" not found`);
       });
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       await vscode.commands.executeCommand(
         "cursorless.command",
@@ -84,6 +90,8 @@ suite("recorded test cases", async function () {
         cursorlessApi.thatMark.get()
       );
       assert.deepStrictEqual(fixture.finalState, resultState);
+
+      sinon.restore();
     });
   });
 });

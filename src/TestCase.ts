@@ -2,6 +2,7 @@ import * as yaml from "js-yaml";
 import { isEqual } from "lodash";
 import * as vscode from "vscode";
 import { Position, Range, Selection } from "vscode";
+import { Clipboard } from "./Clipboard";
 import NavigationMap from "./NavigationMap";
 import { ThatMark } from "./ThatMark";
 import {
@@ -158,7 +159,7 @@ export default class TestCase {
       document: activeEditor.document.getText(),
       selections: activeEditor.selections.map(serializeSelection),
       visibleRanges: activeEditor.visibleRanges.map(serializeRange),
-      clipboard: await vscode.env.clipboard.readText(),
+      clipboard: await Clipboard.readText(),
       thatMark: thatMark.map((mark) => serializeSelection(mark.selection)),
     };
   }
