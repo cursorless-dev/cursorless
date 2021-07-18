@@ -15,6 +15,7 @@ import {
 import { makeGraph } from "./makeGraph";
 import { logBranchTypes } from "./debug";
 import TestCase from "./TestCase";
+import { ThatMark } from "./ThatMark";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -79,7 +80,7 @@ export async function activate(context: vscode.ExtensionContext) {
   );
 
   const graph = makeGraph(graphConstructors);
-  var thatMark: SelectionWithEditor[] = [];
+  const thatMark = new ThatMark();
   var recordTestCase = false;
   const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
     "cursorless.recordTestCase",
@@ -142,7 +143,7 @@ export async function activate(context: vscode.ExtensionContext) {
             })) ?? [],
           currentEditor: vscode.window.activeTextEditor,
           navigationMap: graph.navigationMap,
-          thatMark,
+          thatMark: thatMark.get(),
           getNodeAtLocation,
         };
 
@@ -152,7 +153,7 @@ export async function activate(context: vscode.ExtensionContext) {
         if (recordTestCase) {
           const command = { actionName, partialTargets, extraArgs };
           const context = {
-            thatMark,
+            thatMark: thatMark,
             targets,
             navigationMap: graph.navigationMap!,
           };
@@ -165,7 +166,7 @@ export async function activate(context: vscode.ExtensionContext) {
           ...extraArgs
         );
 
-        thatMark = newThatMark;
+        thatMark.set(newThatMark);
 
         if (testCase != null) {
           await testCase.saveSnapshot();
@@ -243,7 +244,10 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  return { navigationMap: graph.navigationMap, thatMark };
+  return {
+    navigationMap: graph.navigationMap,
+    thatMark,
+  };
 }
 
 // this method is called when your extension is deactivated

@@ -27,11 +27,11 @@ initialState:
         hello_world(sys.argv[0])
   selections:
     - active:
-        line: 5
-        character: 13
+        line: 3
+        character: 27
       anchor:
-        line: 5
-        character: 13
+        line: 3
+        character: 27
   visibleRanges:
     - start:
         line: 0
@@ -40,7 +40,13 @@ initialState:
         line: 7
         character: 0
   clipboard: ""
-  thatMark: null
+  thatMark:
+    - active:
+        line: 3
+        character: 27
+      anchor:
+        line: 2
+        character: 0
 finalState:
   document: |
     import sys
@@ -51,11 +57,11 @@ finalState:
         hello_world(sys.argv[0])
   selections:
     - active:
-        line: 4
-        character: 13
+        line: 2
+        character: 0
       anchor:
-        line: 4
-        character: 13
+        line: 2
+        character: 0
   visibleRanges:
     - start:
         line: 0
@@ -66,8 +72,8 @@ finalState:
   clipboard: ""
   thatMark:
     - active:
-        line: 3
-        character: 27
+        line: 2
+        character: 0
       anchor:
         line: 2
         character: 0

@@ -3,6 +3,7 @@ import { isEqual } from "lodash";
 import * as vscode from "vscode";
 import { Position, Range, Selection } from "vscode";
 import NavigationMap from "./NavigationMap";
+import { ThatMark } from "./ThatMark";
 import {
   ActionType,
   PartialTarget,
@@ -51,7 +52,7 @@ type TestCaseCommand = {
 };
 
 type TestCaseContext = {
-  thatMark: SelectionWithEditor[];
+  thatMark: ThatMark;
   targets: Target[];
   navigationMap: NavigationMap;
 };
@@ -137,10 +138,15 @@ export default class TestCase {
   }
 
   isThatMarkTargeted() {
-    return this.context.thatMark.every((thatSelection) => {
-      return Object.values(this.marks).some((targetedSelection) =>
-        isEqual(thatSelection, targetedSelection)
-      );
+    return this.context.thatMark.get().every(({ selection: thatSelection }) => {
+      return Object.values(this.marks).some((targetedSelection) => {
+        return (
+          thatSelection.end.character === targetedSelection.end.character &&
+          thatSelection.end.line === targetedSelection.end.line &&
+          thatSelection.start.character === targetedSelection.start.character &&
+          thatSelection.start.line === targetedSelection.start.line
+        );
+      });
     });
   }
 
@@ -158,7 +164,7 @@ export default class TestCase {
   }
 
   async getSnapshot(): Promise<TestCaseSnapshot> {
-    return await TestCase.getSnapshot(this.context.thatMark);
+    return await TestCase.getSnapshot(this.context.thatMark.get());
   }
 
   async saveSnapshot() {
@@ -168,9 +174,9 @@ export default class TestCase {
       snapshot.clipboard = "";
     }
 
-    if (!this.isThatMarkTargeted() && this.initialState == null) {
-      snapshot.thatMark = null;
-    }
+    // if (this.initialState == null && !this.isThatMarkTargeted()) {
+    //   snapshot.thatMark = [];
+    // }
 
     if (this.initialState == null) {
       this.initialState = snapshot;
