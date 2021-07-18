@@ -141,16 +141,9 @@ export default class TestCase {
   }
 
   isThatMarkTargeted() {
-    return this.context.thatMark.get().every(({ selection: thatSelection }) => {
-      return Object.values(this.marks).some((targetedSelection) => {
-        return (
-          thatSelection.end.character === targetedSelection.end.character &&
-          thatSelection.end.line === targetedSelection.end.line &&
-          thatSelection.start.character === targetedSelection.start.character &&
-          thatSelection.start.line === targetedSelection.start.line
-        );
-      });
-    });
+    return this.targets.some(
+      (target) => target.type === "primitive" && target.mark.type === "that"
+    );
   }
 
   static async getSnapshot(
@@ -177,9 +170,9 @@ export default class TestCase {
       snapshot.clipboard = "";
     }
 
-    // if (this.initialState == null && !this.isThatMarkTargeted()) {
-    //   snapshot.thatMark = [];
-    // }
+    if (this.initialState == null && !this.isThatMarkTargeted()) {
+      snapshot.thatMark = [];
+    }
 
     if (this.initialState == null) {
       this.initialState = snapshot;
