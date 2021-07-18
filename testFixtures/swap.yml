@@ -1,3 +1,4 @@
+talonCommand: swap harp with crunch
 command:
   actionName: swap
   partialTargets:
@@ -10,7 +11,7 @@ command:
       mark:
         type: decoratedSymbol
         symbolColor: default
-        character: p
+        character: k
   extraArgs: []
 languageId: python
 targets:
@@ -28,7 +29,7 @@ targets:
     mark:
       type: decoratedSymbol
       symbolColor: default
-      character: p
+      character: k
     selectionType: token
     position: contents
     modifier:
@@ -42,13 +43,13 @@ marks:
     end:
       line: 3
       character: 17
-  default.p:
+  default.k:
     start:
-      line: 3
-      character: 4
+      line: 2
+      character: 22
     end:
-      line: 3
-      character: 9
+      line: 2
+      character: 27
 initialState:
   document: |
     import sys
@@ -60,10 +61,10 @@ initialState:
         hello_world(sys.argv[0])
   selections:
     - active:
-        line: 2
+        line: 7
         character: 0
       anchor:
-        line: 2
+        line: 7
         character: 0
   visibleRanges:
     - start:
@@ -78,17 +79,17 @@ finalState:
   document: |
     import sys
 
-    def hello_world(name="pokey"):
-        hello(f"print, {name}")
+    def hello_world(name="hello"):
+        print(f"pokey, {name}")
       
     if __name__ == "__main__":
         hello_world(sys.argv[0])
   selections:
     - active:
-        line: 2
+        line: 7
         character: 0
       anchor:
-        line: 2
+        line: 7
         character: 0
   visibleRanges:
     - start:
@@ -106,9 +107,9 @@ finalState:
         line: 3
         character: 12
     - active:
-        line: 3
-        character: 9
+        line: 2
+        character: 27
       anchor:
-        line: 3
-        character: 4
+        line: 2
+        character: 22
 returnValue: null

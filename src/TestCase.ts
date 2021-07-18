@@ -1,5 +1,6 @@
+import * as path from "path";
+import * as fs from "fs";
 import * as yaml from "js-yaml";
-import { isEqual } from "lodash";
 import * as vscode from "vscode";
 import { Position, Range, Selection } from "vscode";
 import { Clipboard } from "./Clipboard";
@@ -53,6 +54,7 @@ type TestCaseCommand = {
 };
 
 type TestCaseContext = {
+  talonCommand: string;
   thatMark: ThatMark;
   targets: Target[];
   navigationMap: NavigationMap;
@@ -69,6 +71,7 @@ type TestCaseSnapshot = {
 type DecorationRanges = { [coloredSymbol: string]: SerializedRange };
 
 export type TestCaseFixture = {
+  talonCommand: string;
   command: TestCaseCommand;
   targets: Target[];
   languageId: string;
@@ -79,6 +82,7 @@ export type TestCaseFixture = {
 };
 
 export default class TestCase {
+  talonCommand: string;
   command: TestCaseCommand;
   languageId: string;
   targets: Target[];
@@ -90,8 +94,9 @@ export default class TestCase {
 
   constructor(command: TestCaseCommand, context: TestCaseContext) {
     const activeEditor = vscode.window.activeTextEditor!;
-    const { navigationMap, targets } = context;
+    const { navigationMap, targets, talonCommand } = context;
 
+    this.talonCommand = talonCommand;
     this.command = command;
     this.languageId = activeEditor.document.languageId;
     this.marks = this.extractTargetedDecorations(targets, navigationMap);
@@ -190,6 +195,7 @@ export default class TestCase {
       throw Error("Two snapshots must be taken before serializing");
     }
     const fixture: TestCaseFixture = {
+      talonCommand: this.talonCommand,
       command: this.command,
       languageId: this.languageId,
       targets: this.targets,
@@ -201,15 +207,30 @@ export default class TestCase {
     return yaml.dump(fixture, { noRefs: true, quotingType: '"' });
   }
 
-  async presentFixture() {
+  async writeFixture(filename: string) {
+    if (filename === "") {
+      throw new Error("Filename required");
+    }
+
     const fixture = this.toYaml();
-    const document = await vscode.workspace.openTextDocument({
-      language: "yaml",
-      content: fixture,
-    });
+    const workspacePath = vscode.workspace.workspaceFolders?.[0].uri.path;
+    let document;
+
+    if (workspacePath) {
+      const fixturePath = path.join(
+        workspacePath,
+        "testFixtures",
+        `${filename}.yml`
+      );
+      fs.writeFileSync(fixturePath, fixture);
+      document = await vscode.workspace.openTextDocument(fixturePath);
+    } else {
+      document = await vscode.workspace.openTextDocument({
+        language: "yaml",
+        content: fixture,
+      });
+    }
     await vscode.window.showTextDocument(document, {
-      preserveFocus: true,
-      preview: true,
       viewColumn: vscode.ViewColumn.Beside,
     });
   }

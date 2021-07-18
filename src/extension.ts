@@ -82,12 +82,30 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const graph = makeGraph(graphConstructors);
   const thatMark = new ThatMark();
-  var recordTestCase = false;
+  let testCaseRecording = { active: false, talonCommand: "", filename: "" };
   const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
     "cursorless.recordTestCase",
-    () => {
+    async () => {
       console.log("Recording test case for next command");
-      recordTestCase = true;
+
+      const talonCommand = await vscode.window.showInputBox({
+        prompt: "Talon Command",
+        validateInput: (input) =>
+          input.trim().length ? "" : "Missing command",
+      });
+      const filename = await vscode.window.showInputBox({
+        prompt: "Test Filename",
+        validateInput: (input) =>
+          input.trim().length ? "" : "Missing filename",
+      });
+
+      if (!filename || !talonCommand) {
+        throw new Error("File name and talon command required");
+      }
+
+      testCaseRecording.active = true;
+      testCaseRecording.filename = filename;
+      testCaseRecording.talonCommand = talonCommand;
     }
   );
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
@@ -151,12 +169,13 @@ export async function activate(context: vscode.ExtensionContext) {
         const selections = processTargets(processedTargetsContext, targets);
 
         let testCase: TestCase | null = null;
-        if (recordTestCase) {
+        if (testCaseRecording.active) {
           const command = { actionName, partialTargets, extraArgs };
           const context = {
             thatMark: thatMark,
             targets,
             navigationMap: graph.navigationMap!,
+            talonCommand: testCaseRecording.talonCommand,
           };
           testCase = new TestCase(command, context);
           await testCase.saveSnapshot();
@@ -172,8 +191,8 @@ export async function activate(context: vscode.ExtensionContext) {
         if (testCase != null) {
           await testCase.saveSnapshot();
           testCase.returnValue = returnValue;
-          testCase.presentFixture();
-          recordTestCase = false;
+          testCase.writeFixture(testCaseRecording.filename);
+          testCaseRecording.active = false;
         }
 
         return returnValue;
