@@ -33,21 +33,7 @@ initialState:
       anchor:
         line: 3
         character: 27
-  visibleRanges:
-    - start:
-        line: 0
-        character: 0
-      end:
-        line: 7
-        character: 0
-  clipboard: ""
-  thatMark:
-    - active:
-        line: 3
-        character: 27
-      anchor:
-        line: 2
-        character: 0
+  visibleRanges: []
 finalState:
   document: |
     import sys
@@ -63,13 +49,7 @@ finalState:
       anchor:
         line: 2
         character: 0
-  visibleRanges:
-    - start:
-        line: 0
-        character: 0
-      end:
-        line: 6
-        character: 0
+  visibleRanges: []
   clipboard: ""
   thatMark:
     - active:

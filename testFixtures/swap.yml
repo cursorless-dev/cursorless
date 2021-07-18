@@ -66,13 +66,7 @@ initialState:
       anchor:
         line: 7
         character: 0
-  visibleRanges:
-    - start:
-        line: 0
-        character: 0
-      end:
-        line: 7
-        character: 0
+  visibleRanges: []
   clipboard: ""
   thatMark: []
 finalState:
@@ -91,13 +85,7 @@ finalState:
       anchor:
         line: 7
         character: 0
-  visibleRanges:
-    - start:
-        line: 0
-        character: 0
-      end:
-        line: 7
-        character: 0
+  visibleRanges: []
   clipboard: ""
   thatMark:
     - active:

@@ -175,6 +175,10 @@ export default class TestCase {
       snapshot.clipboard = "";
     }
 
+    if (!["fold", "unfold"].includes(this.command.actionName)) {
+      snapshot.visibleRanges = [];
+    }
+
     if (this.initialState == null && !this.isThatMarkTargeted()) {
       snapshot.thatMark = [];
     }
