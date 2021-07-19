@@ -50,6 +50,7 @@ export default class CommandAction implements Action {
 
           await commands.executeCommand(this.command);
 
+          // Map of line numbers mapping to the delta in character index for that line.
           const lineDeltas = calculateLineChanges(editor, newSelections);
 
           const updateSelection = (selection: Selection) =>
