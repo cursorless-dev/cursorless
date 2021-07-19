@@ -83,19 +83,19 @@ class InsertEmptyLines implements Action {
   }
 }
 
-export class InsertLineAboveAndBelow extends InsertEmptyLines {
+export class InsertEmptyLinesAround extends InsertEmptyLines {
   constructor(graph: Graph) {
     super(graph, true, true);
   }
 }
 
-export class InsertLineAbove extends InsertEmptyLines {
+export class InsertEmptyLineAbove extends InsertEmptyLines {
   constructor(graph: Graph) {
     super(graph, true, false);
   }
 }
 
-export class InsertLineBelow extends InsertEmptyLines {
+export class InsertEmptyLineBelow extends InsertEmptyLines {
   constructor(graph: Graph) {
     super(graph, false, true);
   }

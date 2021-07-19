@@ -5,7 +5,7 @@ import Cut from "./cut";
 import Delete from "./delete";
 import ExtractVariable from "./extractVariable";
 import { Fold, Unfold } from "./fold";
-import { InsertLineBefore, InsertLineAfter } from "./InsertLine";
+import { EditNewLineAbove, EditNewLineBelow } from "./EditNewLine";
 import {
   SetSelection,
   SetSelectionBefore,
@@ -15,9 +15,9 @@ import Wrap from "./wrap";
 import { ScrollToTop, ScrollToCenter, ScrollToBottom } from "./Scroll";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import {
-  InsertLineAboveAndBelow,
-  InsertLineAbove,
-  InsertLineBelow,
+  InsertEmptyLineAbove,
+  InsertEmptyLineBelow,
+  InsertEmptyLinesAround,
 } from "./InsertEmptyLines";
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -31,12 +31,12 @@ class Actions implements ActionRecord {
   cut = new Cut(this.graph);
   delete = new Delete(this.graph);
   extractVariable = new ExtractVariable(this.graph);
+  editNewLineAbove = new EditNewLineAbove(this.graph);
+  editNewLineBelow = new EditNewLineBelow(this.graph);
   fold = new Fold(this.graph);
-  insertLineAboveAndBelow = new InsertLineAboveAndBelow(this.graph);
-  insertLineAbove = new InsertLineAbove(this.graph);
-  insertLineAfter = new InsertLineAfter(this.graph);
-  insertLineBelow = new InsertLineBelow(this.graph);
-  insertLineBefore = new InsertLineBefore(this.graph);
+  insertEmptyLineAbove = new InsertEmptyLineAbove(this.graph);
+  insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
+  insertEmptyLineBelow = new InsertEmptyLineBelow(this.graph);
   move = new Move(this.graph);
   paste: Action = {
     run: async ([targets]) => {
