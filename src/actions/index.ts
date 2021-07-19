@@ -15,7 +15,7 @@ import Swap from "./swap";
 import Use from "./use";
 import Wrap from "./wrap";
 import { ScrollToTop, ScrollToCenter, ScrollToBottom } from "./Scroll";
-import { Indent, Outdent } from "./Indent";
+import { IndentLines, OutdentLines } from "./Indent";
 import { CommentLine } from "./Comment";
 
 class Actions implements ActionRecord {
@@ -28,10 +28,10 @@ class Actions implements ActionRecord {
   delete = new Delete(this.graph);
   extractVariable = new ExtractVariable(this.graph);
   fold = new Fold(this.graph);
-  indent = new Indent(this.graph);
+  indentLines = new IndentLines(this.graph);
   insertLineBefore = new InsertLineBefore(this.graph);
   insertLineAfter = new InsertLineAfter(this.graph);
-  outdent = new Outdent(this.graph);
+  outdentLines = new OutdentLines(this.graph);
   paste: Action = {
     run: async ([targets]) => {
       throw new Error("Not implemented");
