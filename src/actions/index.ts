@@ -16,13 +16,13 @@ import Use from "./use";
 import Wrap from "./wrap";
 import { ScrollToTop, ScrollToCenter, ScrollToBottom } from "./Scroll";
 import { IndentLines, OutdentLines } from "./Indent";
-import { CommentLine } from "./Comment";
+import { CommentLines } from "./Comment";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
 
   clear = new Clear(this.graph);
-  commentLine = new CommentLine(this.graph);
+  commentLines = new CommentLines(this.graph);
   copy = new Copy(this.graph);
   cut = new Cut(this.graph);
   delete = new Delete(this.graph);
