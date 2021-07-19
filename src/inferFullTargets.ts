@@ -382,14 +382,19 @@ export function inferRangeEndTarget(
   prototypeTargets: Target[],
   actionPreferences: ActionPreferences
 ): PrimitiveTarget {
+  const possiblePrototypeTargetsIncludingStartTarget = (
+    [startTarget] as Target[]
+  ).concat(prototypeTargets);
   const prototypeTargetsIncludingStartTarget = hasContent(target)
     ? []
-    : ([startTarget] as Target[]).concat(prototypeTargets);
+    : possiblePrototypeTargetsIncludingStartTarget;
 
   const mark =
     target.mark ??
-    extractAttributeFromList(prototypeTargetsIncludingStartTarget, "mark") ??
-    (target.selectionType === "line" ? startTarget.mark : null) ??
+    extractAttributeFromList(
+      possiblePrototypeTargetsIncludingStartTarget,
+      "mark"
+    ) ??
     CURSOR_MARK;
 
   const selectionType =
