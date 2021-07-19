@@ -359,7 +359,7 @@ function createTypedSelection(
         position,
         selectionType,
         insideOutsideType,
-        selectionContext: getLineSelectionContext(
+        selectionContext: getParagraphSelectionContext(
           newSelection,
           selectionContext
         ),
@@ -498,7 +498,61 @@ function getLineSelectionContext(
 
   const trailingDelimiterRange =
     end.line + 1 < document.lineCount
-      ? new Range(end.line, 0, end.line + 1, 0)
+      ? new Range(end.line, end.character, end.line + 1, 0)
+      : null;
+
+  // Outer selection contains the entire lines
+  const outerSelection = new Selection(
+    start.line,
+    0,
+    end.line,
+    selection.editor.document.lineAt(end.line).range.end.character
+  );
+
+  const isInDelimitedList =
+    leadingDelimiterRange != null || trailingDelimiterRange != null;
+
+  return {
+    isInDelimitedList,
+    containingListDelimiter: isInDelimitedList ? "\n" : undefined,
+    leadingDelimiterRange,
+    trailingDelimiterRange,
+    outerSelection,
+  };
+}
+
+function getParagraphSelectionContext(
+  selection: SelectionWithEditor,
+  selectionContext: SelectionContext
+): SelectionContext {
+  if (selectionContext.isInDelimitedList) {
+    return selectionContext;
+  }
+  const { document } = selection.editor;
+  const start = selection.selection.start;
+  const end = selection.selection.end;
+
+  const leadingLine =
+    start.line > 1 ? start.line - 2 : start.line > 0 ? start.line - 1 : null;
+  const trailingLine =
+    end.line + 2 < document.lineCount
+      ? end.line + 2
+      : end.line + 1 < document.lineCount
+      ? end.line + 1
+      : null;
+
+  const leadingDelimiterRange =
+    leadingLine != null
+      ? new Range(
+          leadingLine,
+          document.lineAt(leadingLine).range.end.character,
+          start.line,
+          start.character
+        )
+      : null;
+  const trailingDelimiterRange =
+    trailingLine != null
+      ? new Range(end.line, end.character, trailingLine, 0)
       : null;
 
   // Outer selection contains the entire lines
