@@ -224,7 +224,7 @@ export interface Action {
 
 export type ActionType =
   | "clear"
-  | "commentLine"
+  | "commentLines"
   | "copy"
   | "cut"
   | "delete"
