@@ -78,8 +78,8 @@ export interface ContainingScopeModifier {
 export interface SubpieceModifier {
   type: "subpiece";
   pieceType: PieceType;
-  startIndex: number;
-  endIndex: number | null;
+  anchor: number;
+  active: number;
 }
 export interface MatchingPairSymbolModifier {
   type: "matchingPairSymbol";
