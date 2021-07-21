@@ -69,22 +69,36 @@ function processSingleRangeTarget(
       endSelection.start
     );
 
-    const anchor = isStartBeforeEnd ? startSelection.start : startSelection.end;
-    const active = isStartBeforeEnd ? endSelection.end : endSelection.start;
-    const leadingDelimiterRange = isStartBeforeEnd
+    const anchor =
+      isStartBeforeEnd !== target.excludeStart
+        ? startSelection.start
+        : startSelection.end;
+    const active =
+      isStartBeforeEnd !== target.excludeEnd
+        ? endSelection.end
+        : endSelection.start;
+
+    const outerAnchor = target.excludeStart
+      ? anchor
+      : isStartBeforeEnd
+      ? startTarget!.selectionContext.outerSelection?.start ?? anchor
+      : startTarget!.selectionContext.outerSelection?.end ?? anchor;
+    const outerActive = target.excludeEnd
+      ? active
+      : isStartBeforeEnd
+      ? endTarget!.selectionContext.outerSelection?.end ?? active
+      : endTarget!.selectionContext.outerSelection?.start ?? active;
+
+    const leadingDelimiterRange = target.excludeStart
+      ? null
+      : isStartBeforeEnd
       ? startTarget!.selectionContext.leadingDelimiterRange
       : endTarget!.selectionContext.leadingDelimiterRange;
-    const trailingDelimiterRange = isStartBeforeEnd
+    const trailingDelimiterRange = target.excludeEnd
+      ? null
+      : isStartBeforeEnd
       ? endTarget!.selectionContext.trailingDelimiterRange
       : startTarget!.selectionContext.trailingDelimiterRange;
-
-    const startOuterSelection =
-      startTarget!.selectionContext.outerSelection ?? startSelection;
-    const endOuterSelection =
-      endTarget!.selectionContext.outerSelection ?? endSelection;
-    const outerSelection = isStartBeforeEnd
-      ? new Selection(startOuterSelection.start, endOuterSelection.end)
-      : new Selection(endOuterSelection.start, startOuterSelection.end);
 
     return {
       selection: {
@@ -98,7 +112,7 @@ function processSingleRangeTarget(
         isInDelimitedList: startTarget!.selectionContext.isInDelimitedList,
         leadingDelimiterRange,
         trailingDelimiterRange,
-        outerSelection,
+        outerSelection: new Selection(outerAnchor, outerActive),
       },
       insideOutsideType: startTarget!.insideOutsideType,
       position: "contents",
