@@ -6,8 +6,9 @@ import {
   TypedSelection,
 } from "../Types";
 import { commands } from "vscode";
+import { ensureSingleTarget } from "../targetUtils";
 
-class FindBase implements Action {
+export class FindInFiles implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
 
   constructor(private graph: Graph, private command: string) {
@@ -15,20 +16,14 @@ class FindBase implements Action {
   }
 
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    const { returnValue, thatMark } = await this.graph.actions.getText.run([
-      targets,
-    ]);
+    const target = ensureSingleTarget(targets);
 
-    await commands.executeCommand(this.command, {
-      query: returnValue,
-    });
+    const query = target.selection.editor.document.getText(
+      target.selection.selection
+    );
 
-    return { returnValue: null, thatMark };
-  }
-}
+    await commands.executeCommand("workbench.action.findInFiles", { query });
 
-export class FindInFiles extends FindBase {
-  constructor(graph: Graph) {
-    super(graph, "workbench.action.findInFiles");
+    return { returnValue: null, thatMark: [target.selection] };
   }
 }

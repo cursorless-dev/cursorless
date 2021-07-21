@@ -14,12 +14,17 @@ export default class GetText implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    await displayPendingEditDecorations(
-      targets,
-      this.graph.editStyles.referenced,
-      this.graph.editStyles.referencedLine
-    );
+  async run(
+    [targets]: [TypedSelection[]],
+    showDecorations = true
+  ): Promise<ActionReturnValue> {
+    if (showDecorations) {
+      await displayPendingEditDecorations(
+        targets,
+        this.graph.editStyles.referenced,
+        this.graph.editStyles.referencedLine
+      );
+    }
 
     const text = targets
       .map((target) =>
