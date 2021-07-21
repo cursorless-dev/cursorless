@@ -66,7 +66,7 @@ function processSingleRangeTarget(
     const endSelection = endTarget!.selection.selection;
 
     const isStartBeforeEnd = startSelection.start.isBeforeOrEqual(
-      endSelection.end
+      endSelection.start
     );
 
     const anchor = isStartBeforeEnd ? startSelection.start : startSelection.end;
