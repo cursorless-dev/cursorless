@@ -14,11 +14,19 @@ export function performInsideOutsideAdjustment(
       selection.selectionContext.trailingDelimiterRange ??
       selection.selectionContext.leadingDelimiterRange;
 
+    const usedSelection =
+      selection.selectionContext.outerSelection ??
+      selection.selection.selection;
+
     if (delimiterRange == null) {
-      return selection;
+      return update(selection, {
+        selection: {
+          selection: () => usedSelection,
+        },
+      });
     }
 
-    const range = selection.selection.selection.union(delimiterRange);
+    const range = usedSelection.union(delimiterRange);
 
     return update(selection, {
       selection: {

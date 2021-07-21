@@ -2,7 +2,7 @@ import { concat, range, zip } from "lodash";
 import update from "immutability-helper";
 import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
-import { Position, Selection } from "vscode";
+import { Selection, Range } from "vscode";
 import { nodeMatchers } from "./languages";
 import {
   Mark,
@@ -78,6 +78,14 @@ function processSingleRangeTarget(
       ? endTarget!.selectionContext.trailingDelimiterRange
       : startTarget!.selectionContext.trailingDelimiterRange;
 
+    const startOuterSelection =
+      startTarget!.selectionContext.outerSelection ?? startSelection;
+    const endOuterSelection =
+      endTarget!.selectionContext.outerSelection ?? endSelection;
+    const outerSelection = isStartBeforeEnd
+      ? new Selection(startOuterSelection.start, endOuterSelection.end)
+      : new Selection(endOuterSelection.start, startOuterSelection.end);
+
     return {
       selection: {
         selection: new Selection(anchor, active),
@@ -90,8 +98,10 @@ function processSingleRangeTarget(
         isInDelimitedList: startTarget!.selectionContext.isInDelimitedList,
         leadingDelimiterRange,
         trailingDelimiterRange,
+        outerSelection,
       },
       insideOutsideType: startTarget!.insideOutsideType,
+      position: "contents",
     };
   });
 }
@@ -187,7 +197,6 @@ function transformSelection(
             context: matchedSelection.context,
           }));
         }
-        console.log(node.type);
         node = node.parent;
       }
 
@@ -257,57 +266,48 @@ function createTypedSelection(
   selectionContext: SelectionContext
 ): TypedSelection {
   const { selectionType, insideOutsideType } = target;
-  var start: vscode.Position;
-  var end: vscode.Position;
+  let start: vscode.Position;
+  let end: vscode.Position;
 
   switch (selectionType) {
     case "token":
       return {
         selection,
         selectionType,
-        selectionContext,
+        selectionContext: getTokenSelectionContext(selection, selectionContext),
         insideOutsideType: target.insideOutsideType ?? null,
+        position: target.position,
       };
 
     case "line":
       const originalSelectionStart = selection.selection.start;
       const originalSelectionEnd = selection.selection.end;
 
-      if (insideOutsideType) {
-        const startLine = selection.editor.document.lineAt(
-          originalSelectionStart.line
-        );
-        const endLine = selection.editor.document.lineAt(
-          originalSelectionEnd.line
-        );
-        start = new vscode.Position(
-          originalSelectionStart.line,
-          startLine.firstNonWhitespaceCharacterIndex
-        );
-        end = endLine.range.end;
-      } else {
-        start = new vscode.Position(originalSelectionStart.line, 0);
-        end =
-          originalSelectionEnd.line > originalSelectionStart.line &&
-          originalSelectionEnd.character === 0
-            ? originalSelectionEnd
-            : new vscode.Position(originalSelectionEnd.line + 1, 0);
-      }
-
-      const isAnchorBeforeActive = selection.selection.anchor.isBeforeOrEqual(
-        selection.selection.active
+      const startLine = selection.editor.document.lineAt(
+        originalSelectionStart
       );
-      const anchor = isAnchorBeforeActive ? start : end;
-      const active = isAnchorBeforeActive ? end : start;
+      const endLine = selection.editor.document.lineAt(originalSelectionEnd);
+      start = new vscode.Position(
+        originalSelectionStart.line,
+        startLine.firstNonWhitespaceCharacterIndex
+      );
+      end = endLine.range.end;
+
+      const isSelectionReversed = selection.selection.isReversed;
+      const anchor = isSelectionReversed ? start : end;
+      const active = isSelectionReversed ? end : start;
+      const newSelection = new Selection(anchor, active);
+      selection = {
+        selection: newSelection,
+        editor: selection.editor,
+      };
 
       return {
-        selection: {
-          selection: new Selection(anchor, active),
-          editor: selection.editor,
-        },
+        selection,
         selectionType,
-        selectionContext,
+        selectionContext: getLineSelectionContext(selection, selectionContext),
         insideOutsideType: target.insideOutsideType ?? null,
+        position: target.position,
       };
     case "document":
       const document = selection.editor.document;
@@ -327,6 +327,7 @@ function createTypedSelection(
         selectionType,
         selectionContext,
         insideOutsideType: target.insideOutsideType ?? null,
+        position: target.position,
       };
     case "block":
     case "character":
@@ -369,5 +370,115 @@ function performPositionAdjustment(
     selectionType: selection.selectionType,
     selectionContext: selection.selectionContext,
     insideOutsideType: target.insideOutsideType ?? null,
+    position,
+  };
+}
+
+function getTokenSelectionContext(
+  selection: SelectionWithEditor,
+  selectionContext: SelectionContext
+): SelectionContext {
+  if (!isSelectionContextEmpty(selectionContext)) {
+    return selectionContext;
+  }
+
+  const document = selection.editor.document;
+  const { start, end } = selection.selection;
+
+  const startLine = document.lineAt(start);
+  const leadingText = startLine.text.slice(0, start.character);
+  const hasLeadingSibling = leadingText.trim().length > 0;
+  const leadingDelimiters = leadingText.match(/\s+$/);
+  const leadingDelimiterRange =
+    hasLeadingSibling && leadingDelimiters != null
+      ? new Range(
+          start.line,
+          start.character - leadingDelimiters[0].length,
+          start.line,
+          start.character
+        )
+      : null;
+
+  const endLine = document.lineAt(end);
+  const trailingText = endLine.text.slice(end.character);
+  const hasTrailingSibling = trailingText.trim().length > 0;
+  const trailingDelimiters = trailingText.match(/^\s+/);
+  const trailingDelimiterRange =
+    hasTrailingSibling && trailingDelimiters != null
+      ? new Range(
+          end.line,
+          end.character,
+          end.line,
+          end.character + trailingDelimiters[0].length
+        )
+      : null;
+
+  // Didn't find any delimiters
+  if (leadingDelimiterRange == null && trailingDelimiterRange == null) {
+    return selectionContext;
+  }
+
+  return {
+    isInDelimitedList: true,
+    containingListDelimiter: document.getText(
+      (trailingDelimiterRange ?? leadingDelimiterRange)!
+    ),
+    leadingDelimiterRange,
+    trailingDelimiterRange,
+  };
+}
+
+// TODO Clean this up once we have rich targets and better polymorphic
+// selection contexts that indicate their type
+function isSelectionContextEmpty(selectionContext: SelectionContext) {
+  return (
+    selectionContext.isInDelimitedList == null &&
+    selectionContext.containingListDelimiter == null &&
+    selectionContext.leadingDelimiterRange == null &&
+    selectionContext.trailingDelimiterRange == null
+  );
+}
+
+function getLineSelectionContext(
+  selection: SelectionWithEditor,
+  selectionContext: SelectionContext
+): SelectionContext {
+  const document = selection.editor.document;
+  const { start, end } = selection.selection;
+
+  const leadingDelimiterRange =
+    start.line > 0
+      ? new Range(
+          start.line - 1,
+          document.lineAt(start.line - 1).range.end.character,
+          start.line,
+          start.character
+        )
+      : null;
+
+  const trailingDelimiterRange =
+    end.line + 1 < document.lineCount
+      ? new Range(end.line, 0, end.line + 1, 0)
+      : null;
+
+  // Didn't find any delimiters
+  if (leadingDelimiterRange == null && trailingDelimiterRange == null) {
+    return selectionContext;
+  }
+
+  // Outer selection contains the entire lines
+  const outerSelection = new Selection(
+    start.line,
+    0,
+    end.line,
+    selection.editor.document.lineAt(end.line).range.end.character
+  );
+
+  return {
+    isInDelimitedList: true,
+    containingListDelimiter: "\n",
+    leadingDelimiterRange,
+    trailingDelimiterRange,
+    outerSelection,
   };
 }
