@@ -45,7 +45,7 @@ export default class Paste implements Action {
       editor: target.selection.editor,
       range: target.selection.selection,
       originalSelection: target,
-      newText: getText(index),
+      text: getText(index),
     }));
 
     const thatMark = flatten(
@@ -57,7 +57,7 @@ export default class Paste implements Action {
             ([originalEdit, changedEdit]) => ({
               originalRange: originalEdit!.range,
               originalSelection: originalEdit!.originalSelection,
-              newText: originalEdit!.newText,
+              text: originalEdit!.text,
               newStartOffset: changedEdit!.startOffset,
               newEndOffset: changedEdit!.endOffset,
             })
@@ -66,9 +66,9 @@ export default class Paste implements Action {
           await editor.edit((editBuilder) => {
             newEdits.forEach((edit) => {
               if (edit.originalRange.isEmpty) {
-                editBuilder.insert(edit.originalRange.start, edit.newText);
+                editBuilder.insert(edit.originalRange.start, edit.text);
               } else {
-                editBuilder.replace(edit.originalRange, edit.newText);
+                editBuilder.replace(edit.originalRange, edit.text);
               }
             });
           });

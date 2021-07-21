@@ -30,6 +30,7 @@ interface ThatMarkEntry {
 }
 
 interface ExtendedEdit extends Edit {
+  editor: TextEditor;
   targetsIndex: number;
   originalSelection: TypedSelection;
 }
@@ -125,7 +126,7 @@ class BringMoveSwap implements Action {
           {
             editor: destination.selection.editor,
             range: destination.selection.selection as Range,
-            newText,
+            text: newText,
             targetsIndex: 0,
             originalSelection: destination,
           },
@@ -153,7 +154,7 @@ class BringMoveSwap implements Action {
           result.push({
             editor: source.selection.editor,
             range,
-            newText,
+            text: newText,
             targetsIndex: 1,
             originalSelection: source,
           });
@@ -177,7 +178,7 @@ class BringMoveSwap implements Action {
               targetsIndex: originalEdit!.targetsIndex,
               originalSelection: originalEdit!.originalSelection,
               originalRange: originalEdit!.range,
-              newText: originalEdit!.newText,
+              text: originalEdit!.text,
               newStartOffset: changedEdit!.startOffset,
               newEndOffset: changedEdit!.endOffset,
             })

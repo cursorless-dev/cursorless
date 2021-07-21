@@ -2,7 +2,7 @@ import { Range, TextEditor } from "vscode";
 
 interface EditDescription {
   range: Range;
-  newText: string;
+  text: string;
 }
 
 interface OffsetRange {
@@ -17,7 +17,7 @@ export function computeChangedOffsets(
   const labeledEdits = edits.map((edit, index) => ({
     startOffset: editor.document.offsetAt(edit.range.start),
     endOffset: editor.document.offsetAt(edit.range.end),
-    newTextLength: edit.newText.length,
+    newTextLength: edit.text.length,
     index,
   }));
 
