@@ -13,6 +13,7 @@ import {
 } from "./setSelection";
 import Wrap from "./wrap";
 import { ScrollToTop, ScrollToCenter, ScrollToBottom } from "./Scroll";
+import Paste from "./Paste";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 
 class Actions implements ActionRecord {
@@ -31,12 +32,7 @@ class Actions implements ActionRecord {
   insertLineBefore = new InsertLineBefore(this.graph);
   insertLineAfter = new InsertLineAfter(this.graph);
   move = new Move(this.graph);
-  paste: Action = {
-    run: async ([targets]) => {
-      throw new Error("Not implemented");
-    },
-    targetPreferences: [{ position: "after", insideOutsideType: "outside" }],
-  };
+  paste = new Paste(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
   scrollToTop = new ScrollToTop(this.graph);
