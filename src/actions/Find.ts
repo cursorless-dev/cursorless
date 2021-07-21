@@ -11,19 +11,18 @@ import { ensureSingleTarget } from "../targetUtils";
 export class FindInFiles implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
 
-  constructor(private graph: Graph, private command: string) {
+  constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
 
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    const target = ensureSingleTarget(targets);
+    ensureSingleTarget(targets);
 
-    const query = target.selection.editor.document.getText(
-      target.selection.selection
-    );
+    const { returnValue: query, thatMark } =
+      await this.graph.actions.getText.run([targets]);
 
     await commands.executeCommand("workbench.action.findInFiles", { query });
 
-    return { returnValue: null, thatMark: [target.selection] };
+    return { returnValue: null, thatMark };
   }
 }

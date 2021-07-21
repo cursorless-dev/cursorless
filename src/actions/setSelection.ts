@@ -3,7 +3,7 @@ import {
   ActionPreferences,
   ActionReturnValue,
   TypedSelection,
-  Graph
+  Graph,
 } from "../Types";
 import { ensureSingleEditor } from "../targetUtils";
 import { Selection } from "vscode";
@@ -47,5 +47,5 @@ export class SetSelectionAfter extends SetSelection {
       target.selection.selection.end,
       target.selection.selection.end
     );
-1  }
+  }
 }
