@@ -2,12 +2,11 @@ import {
   Action,
   ActionPreferences,
   ActionReturnValue,
-  Graph,
   TypedSelection,
+  Graph
 } from "../Types";
 import { ensureSingleEditor } from "../targetUtils";
 import { Selection } from "vscode";
-import update from "immutability-helper";
 import { setSelectionsAndFocusEditor } from "../setSelectionsAndFocusEditor";
 
 export class SetSelection implements Action {
@@ -17,13 +16,14 @@ export class SetSelection implements Action {
     this.run = this.run.bind(this);
   }
 
+  protected getSelection(target: TypedSelection) {
+    return target.selection.selection;
+  }
+
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
-    await setSelectionsAndFocusEditor(
-      editor,
-      targets.map((target) => target.selection.selection)
-    );
+    await setSelectionsAndFocusEditor(editor, targets.map(this.getSelection));
 
     return {
       returnValue: null,
@@ -32,48 +32,20 @@ export class SetSelection implements Action {
   }
 }
 
-export class SetSelectionBefore implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
-
-  constructor(private graph: Graph) {
-    this.run = this.run.bind(this);
-  }
-
-  async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    return await this.graph.actions.setSelection.run([
-      targets.map((target) =>
-        update(target, {
-          selection: {
-            selection: {
-              $apply: (selection) =>
-                new Selection(selection.start, selection.start),
-            },
-          },
-        })
-      ),
-    ]);
+export class SetSelectionBefore extends SetSelection {
+  protected getSelection(target: TypedSelection) {
+    return new Selection(
+      target.selection.selection.start,
+      target.selection.selection.start
+    );
   }
 }
 
-export class SetSelectionAfter implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
-
-  constructor(private graph: Graph) {
-    this.run = this.run.bind(this);
-  }
-
-  async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    return await this.graph.actions.setSelection.run([
-      targets.map((target) =>
-        update(target, {
-          selection: {
-            selection: {
-              $apply: (selection) =>
-                new Selection(selection.end, selection.end),
-            },
-          },
-        })
-      ),
-    ]);
-  }
+export class SetSelectionAfter extends SetSelection {
+  protected getSelection(target: TypedSelection) {
+    return new Selection(
+      target.selection.selection.end,
+      target.selection.selection.end
+    );
+1  }
 }
