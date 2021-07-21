@@ -13,6 +13,8 @@ import {
 } from "./setSelection";
 import Wrap from "./wrap";
 import { ScrollToTop, ScrollToCenter, ScrollToBottom } from "./Scroll";
+import { IndentLines, OutdentLines } from "./Indent";
+import { CommentLines } from "./Comment";
 import Paste from "./Paste";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 
@@ -24,14 +26,17 @@ class Actions implements ActionRecord {
 
   bring = new Bring(this.graph);
   clear = new Clear(this.graph);
+  commentLines = new CommentLines(this.graph);
   copy = new Copy(this.graph);
   cut = new Cut(this.graph);
   delete = new Delete(this.graph);
   extractVariable = new ExtractVariable(this.graph);
   fold = new Fold(this.graph);
+  indentLines = new IndentLines(this.graph);
   insertLineBefore = new InsertLineBefore(this.graph);
   insertLineAfter = new InsertLineAfter(this.graph);
   move = new Move(this.graph);
+  outdentLines = new OutdentLines(this.graph);
   paste = new Paste(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
