@@ -206,13 +206,10 @@ function transformSelection(
       let pieces: { start: number; end: number }[] = [];
 
       if (modifier.pieceType === "word") {
-        const matches = token.matchAll(SUBWORD_MATCHER);
-        for (const match of matches) {
-          pieces.push({
-            start: match.index!,
-            end: match.index! + match[0].length,
-          });
-        }
+        pieces = [...token.matchAll(SUBWORD_MATCHER)].map((match) => ({
+          start: match.index!,
+          end: match.index! + match[0].length,
+        }));
       } else if (modifier.pieceType === "character") {
         pieces = range(token.length).map((index) => ({
           start: index,
@@ -220,35 +217,26 @@ function transformSelection(
         }));
       }
 
-      // NB: We use the modulo here to handle negative offsets
-      const endIndex =
-        modifier.endIndex == null
-          ? pieces.length
-          : modifier.endIndex <= 0
-          ? modifier.endIndex + pieces.length
-          : modifier.endIndex;
+      const anchorIndex =
+        modifier.anchor < 0 ? modifier.anchor + pieces.length : modifier.anchor;
+      const activeIndex =
+        modifier.active < 0 ? modifier.active + pieces.length : modifier.active;
 
-      const startIndex =
-        modifier.startIndex < 0
-          ? modifier.startIndex + pieces.length
-          : modifier.startIndex;
+      const isReversed = activeIndex < anchorIndex;
 
-      const start = selection.selection.start.translate(
+      const anchor = selection.selection.start.translate(
         undefined,
-        pieces[startIndex].start
+        isReversed ? pieces[anchorIndex].end : pieces[anchorIndex].start
       );
-      const end = selection.selection.start.translate(
+      const active = selection.selection.start.translate(
         undefined,
-        pieces[endIndex - 1].end
+        isReversed ? pieces[activeIndex].start : pieces[activeIndex].end
       );
 
       return [
         {
           selection: update(selection, {
-            selection: (s) =>
-              s.isReversed
-                ? new Selection(end, start)
-                : new Selection(start, end),
+            selection: () => new Selection(anchor, active),
           }),
           context: {},
         },
