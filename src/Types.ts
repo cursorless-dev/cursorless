@@ -247,8 +247,6 @@ export type ActionType =
   | "insertEmptyLinesAround"
   | "insertEmptyLineBelow"
   | "indentLines"
-  | "insertLineAfter"
-  | "insertLineBefore"
   | "move"
   | "outdentLines"
   | "paste"
