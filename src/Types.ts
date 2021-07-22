@@ -144,8 +144,8 @@ export interface RangeTarget {
   type: "range";
   start: PrimitiveTarget;
   end: PrimitiveTarget;
-  excludeStart?: boolean;
-  excludeEnd?: boolean;
+  excludeStart: boolean;
+  excludeEnd: boolean;
 }
 
 export interface ListTarget {

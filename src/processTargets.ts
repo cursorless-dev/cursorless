@@ -69,36 +69,44 @@ function processSingleRangeTarget(
       endSelection.start
     );
 
-    const anchor =
-      isStartBeforeEnd !== target.excludeStart
-        ? startSelection.start
-        : startSelection.end;
-    const active =
-      isStartBeforeEnd !== target.excludeEnd
-        ? endSelection.end
-        : endSelection.start;
+    const anchor = getRangePosition(
+      startTarget!,
+      isStartBeforeEnd,
+      target.excludeStart
+    );
+    const active = getRangePosition(
+      endTarget!,
+      !isStartBeforeEnd,
+      target.excludeEnd
+    );
 
     const outerAnchor = target.excludeStart
-      ? anchor
+      ? null
       : isStartBeforeEnd
-      ? startTarget!.selectionContext.outerSelection?.start ?? anchor
-      : startTarget!.selectionContext.outerSelection?.end ?? anchor;
+      ? startTarget!.selectionContext.outerSelection?.start
+      : startTarget!.selectionContext.outerSelection?.end;
     const outerActive = target.excludeEnd
-      ? active
+      ? null
       : isStartBeforeEnd
-      ? endTarget!.selectionContext.outerSelection?.end ?? active
-      : endTarget!.selectionContext.outerSelection?.start ?? active;
+      ? endTarget!.selectionContext.outerSelection?.end
+      : endTarget!.selectionContext.outerSelection?.start;
+    const outerSelection =
+      outerAnchor != null || outerActive != null
+        ? new Selection(outerAnchor ?? anchor, outerActive ?? active)
+        : null;
 
-    const leadingDelimiterRange = target.excludeStart
+    const startSelectionContext = target.excludeStart
       ? null
-      : isStartBeforeEnd
-      ? startTarget!.selectionContext.leadingDelimiterRange
-      : endTarget!.selectionContext.leadingDelimiterRange;
-    const trailingDelimiterRange = target.excludeEnd
+      : startTarget!.selectionContext;
+    const endSelectionContext = target.excludeEnd
       ? null
-      : isStartBeforeEnd
-      ? endTarget!.selectionContext.trailingDelimiterRange
-      : startTarget!.selectionContext.trailingDelimiterRange;
+      : endTarget!.selectionContext;
+    const leadingDelimiterRange = isStartBeforeEnd
+      ? startSelectionContext?.leadingDelimiterRange
+      : endSelectionContext?.leadingDelimiterRange;
+    const trailingDelimiterRange = isStartBeforeEnd
+      ? endSelectionContext?.trailingDelimiterRange
+      : startSelectionContext?.trailingDelimiterRange;
 
     return {
       selection: {
@@ -112,12 +120,34 @@ function processSingleRangeTarget(
         isInDelimitedList: startTarget!.selectionContext.isInDelimitedList,
         leadingDelimiterRange,
         trailingDelimiterRange,
-        outerSelection: new Selection(outerAnchor, outerActive),
+        outerSelection,
       },
       insideOutsideType: startTarget!.insideOutsideType,
       position: "contents",
     };
   });
+}
+
+function getRangePosition(
+  target: TypedSelection,
+  isStart: boolean,
+  exclude: boolean
+) {
+  const selection = target.selection.selection;
+  if (exclude) {
+    const outerSelection = target!.selectionContext.outerSelection;
+    const delimiterPosition = isStart
+      ? target!.selectionContext.trailingDelimiterRange?.end
+      : target!.selectionContext.leadingDelimiterRange?.start;
+    if (outerSelection != null) {
+      if (delimiterPosition != null) {
+        return delimiterPosition;
+      }
+      return isStart ? outerSelection.end : outerSelection.start;
+    }
+    return isStart ? selection.end : selection.start;
+  }
+  return isStart ? selection.start : selection.end;
 }
 
 function processSinglePrimitiveTarget(
