@@ -5,7 +5,7 @@ import {
   Graph,
   TypedSelection,
 } from "../Types";
-import { Range, Position, TextEditor } from "vscode";
+import { Range, TextEditor } from "vscode";
 import performDocumentEdits from "../performDocumentEdits";
 import displayPendingEditDecorations from "../editDisplayUtils";
 import { runOnTargetsForEachEditor } from "../targetUtils";
@@ -22,8 +22,8 @@ class CopyLines implements Action {
   private getRanges(editor: TextEditor, targets: TypedSelection[]) {
     const ranges = targets.map((target) => {
       const selection = target.selection.selection;
-      const start = new Position(selection.start.line, 0);
-      const end = editor.document.lineAt(selection.end.line).range.end;
+      const start = selection.start.with({ character: 0 });
+      const end = editor.document.lineAt(selection.end).range.end;
       return new Range(start, end);
     });
     return unifyRanges(ranges);
