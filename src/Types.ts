@@ -78,8 +78,8 @@ export interface ContainingScopeModifier {
 export interface SubpieceModifier {
   type: "subpiece";
   pieceType: PieceType;
-  startIndex: number;
-  endIndex: number | null;
+  anchor: number;
+  active: number;
 }
 export interface MatchingPairSymbolModifier {
   type: "matchingPairSymbol";
@@ -203,6 +203,11 @@ export interface TypedSelection {
    * Is a boolean if user specifically requested inside or outside
    */
   insideOutsideType: InsideOutsideType;
+
+  /**
+   * Mirrored from the target from which this selection was constructed
+   */
+  position: Position;
 }
 
 export interface ActionPreferences {
@@ -228,17 +233,24 @@ export interface Action {
 export type ActionType =
   | "bring"
   | "clear"
+  | "commentLines"
   | "copy"
   | "cut"
   | "delete"
   | "extractVariable"
   | "editNewLineAbove"
   | "editNewLineBelow"
+  | "findInFiles"
   | "fold"
+  | "getText"
   | "insertEmptyLineAbove"
   | "insertEmptyLinesAround"
   | "insertEmptyLineBelow"
+  | "indentLines"
+  | "insertLineAfter"
+  | "insertLineBefore"
   | "move"
+  | "outdentLines"
   | "paste"
   | "scrollToBottom"
   | "scrollToCenter"
@@ -283,8 +295,6 @@ export type SelectionExtractor = (
 /** Represent a single edit/change in the document */
 export interface Edit {
   editor: vscode.TextEditor;
-  range: vscode.Selection;
+  range: vscode.Range;
   newText: string;
-  targetsIndex: number;
-  originalSelection: TypedSelection;
 }

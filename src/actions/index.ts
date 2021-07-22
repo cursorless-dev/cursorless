@@ -13,12 +13,18 @@ import {
 } from "./setSelection";
 import Wrap from "./wrap";
 import { ScrollToTop, ScrollToCenter, ScrollToBottom } from "./Scroll";
+import { IndentLines, OutdentLines } from "./Indent";
+import { CommentLines } from "./Comment";
+import Paste from "./Paste";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import {
   InsertEmptyLineAbove,
   InsertEmptyLineBelow,
   InsertEmptyLinesAround,
 } from "./InsertEmptyLines";
+import GetText from "./GetText";
+import { FindInFiles } from "./Find";
+
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
 
@@ -27,23 +33,25 @@ class Actions implements ActionRecord {
 
   bring = new Bring(this.graph);
   clear = new Clear(this.graph);
+  commentLines = new CommentLines(this.graph);
   copy = new Copy(this.graph);
   cut = new Cut(this.graph);
   delete = new Delete(this.graph);
   extractVariable = new ExtractVariable(this.graph);
   editNewLineAbove = new EditNewLineAbove(this.graph);
   editNewLineBelow = new EditNewLineBelow(this.graph);
+  findInFiles = new FindInFiles(this.graph);
   fold = new Fold(this.graph);
+  getText = new GetText(this.graph);
   insertEmptyLineAbove = new InsertEmptyLineAbove(this.graph);
   insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
   insertEmptyLineBelow = new InsertEmptyLineBelow(this.graph);
+  indentLines = new IndentLines(this.graph);
+  insertLineBefore = new InsertLineBefore(this.graph);
+  insertLineAfter = new InsertLineAfter(this.graph);
   move = new Move(this.graph);
-  paste: Action = {
-    run: async ([targets]) => {
-      throw new Error("Not implemented");
-    },
-    targetPreferences: [{ position: "after", insideOutsideType: "outside" }],
-  };
+  outdentLines = new OutdentLines(this.graph);
+  paste = new Paste(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
   scrollToTop = new ScrollToTop(this.graph);

@@ -8,7 +8,7 @@ import {
 import { displayDecorationsWhileRunningFunc } from "../editDisplayUtils";
 import { groupBy } from "../itertools";
 import { commands, window, workspace } from "vscode";
-import { focusEditor } from "./setSelectionsAndFocusEditor";
+import { focusEditor } from "../setSelectionsAndFocusEditor";
 
 class Scroll implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];

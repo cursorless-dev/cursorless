@@ -1,13 +1,14 @@
 import {
   Action,
-  ActionPreferences,
   ActionReturnValue,
+  ActionPreferences,
   Graph,
   TypedSelection,
 } from "../Types";
-import { env } from "vscode";
+import { commands } from "vscode";
+import { ensureSingleTarget } from "../targetUtils";
 
-export default class Copy implements Action {
+export class FindInFiles implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
 
   constructor(private graph: Graph) {
@@ -15,11 +16,12 @@ export default class Copy implements Action {
   }
 
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    const { returnValue, thatMark } = await this.graph.actions.getText.run([
-      targets,
-    ]);
+    ensureSingleTarget(targets);
 
-    await env.clipboard.writeText(returnValue);
+    const { returnValue: query, thatMark } =
+      await this.graph.actions.getText.run([targets]);
+
+    await commands.executeCommand("workbench.action.findInFiles", { query });
 
     return { returnValue: null, thatMark };
   }

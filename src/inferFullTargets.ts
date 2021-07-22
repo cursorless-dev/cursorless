@@ -382,13 +382,19 @@ export function inferRangeEndTarget(
   prototypeTargets: Target[],
   actionPreferences: ActionPreferences
 ): PrimitiveTarget {
+  const possiblePrototypeTargetsIncludingStartTarget = (
+    [startTarget] as Target[]
+  ).concat(prototypeTargets);
   const prototypeTargetsIncludingStartTarget = hasContent(target)
     ? []
-    : ([startTarget] as Target[]).concat(prototypeTargets);
+    : possiblePrototypeTargetsIncludingStartTarget;
 
   const mark =
     target.mark ??
-    extractAttributeFromList(prototypeTargetsIncludingStartTarget, "mark") ??
+    extractAttributeFromList(
+      possiblePrototypeTargetsIncludingStartTarget,
+      "mark"
+    ) ??
     CURSOR_MARK;
 
   const selectionType =
@@ -403,8 +409,7 @@ export function inferRangeEndTarget(
   // we don't want to blindly inherit modifier from startTarget.  In
   // particular, we only want to inherit symbolType
   const modifier =
-    target.modifier ??
-    inferRangeEndModifier(startTarget, prototypeTargets);
+    target.modifier ?? inferRangeEndModifier(startTarget, prototypeTargets);
 
   const position: Position =
     target.position ??

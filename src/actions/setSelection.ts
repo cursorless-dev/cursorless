@@ -3,11 +3,11 @@ import {
   ActionPreferences,
   ActionReturnValue,
   TypedSelection,
-  Graph
+  Graph,
 } from "../Types";
 import { ensureSingleEditor } from "../targetUtils";
 import { Selection } from "vscode";
-import { setSelectionsAndFocusEditor } from "./setSelectionsAndFocusEditor";
+import { setSelectionsAndFocusEditor } from "../setSelectionsAndFocusEditor";
 
 export class SetSelection implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
@@ -47,5 +47,5 @@ export class SetSelectionAfter extends SetSelection {
       target.selection.selection.end,
       target.selection.selection.end
     );
-1  }
+  }
 }
