@@ -236,6 +236,8 @@ export type ActionType =
   | "commentLines"
   | "copy"
   | "cut"
+  | "copyLinesDown"
+  | "copyLinesUp"
   | "delete"
   | "extractVariable"
   | "findInFiles"

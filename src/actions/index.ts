@@ -19,6 +19,7 @@ import Paste from "./Paste";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import GetText from "./GetText";
 import { FindInFiles } from "./Find";
+import { CopyLinesUp, CopyLinesDown } from "./CopyLines";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -30,6 +31,8 @@ class Actions implements ActionRecord {
   clear = new Clear(this.graph);
   commentLines = new CommentLines(this.graph);
   copy = new Copy(this.graph);
+  copyLinesDown = new CopyLinesDown(this.graph);
+  copyLinesUp = new CopyLinesUp(this.graph);
   cut = new Cut(this.graph);
   delete = new Delete(this.graph);
   extractVariable = new ExtractVariable(this.graph);
