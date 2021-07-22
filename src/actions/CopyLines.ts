@@ -5,17 +5,43 @@ import {
   Graph,
   TypedSelection,
 } from "../Types";
+import { Range, Position, TextEditor } from "vscode";
 import performDocumentEdits from "../performDocumentEdits";
 import displayPendingEditDecorations from "../editDisplayUtils";
 import { runOnTargetsForEachEditor } from "../targetUtils";
 import { flatten } from "lodash";
-import { Range, Position } from "vscode";
+import unifyRanges from "../unifyRanges";
 
 class CopyLines implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
 
   constructor(private graph: Graph, private isUp: boolean) {
     this.run = this.run.bind(this);
+  }
+
+  private getRanges(editor: TextEditor, targets: TypedSelection[]) {
+    const ranges = targets.map((target) => {
+      const selection = target.selection.selection;
+      const start = new Position(selection.start.line, 0);
+      const end = editor.document.lineAt(selection.end.line).range.end;
+      return new Range(start, end);
+    });
+    return unifyRanges(ranges);
+  }
+
+  private getEdits(editor: TextEditor, ranges: Range[]) {
+    return ranges.map((range) => {
+      let newText = editor.document.getText(range);
+      newText = this.isUp ? `${newText}\n` : `\n${newText}`;
+      const newRange = this.isUp
+        ? new Range(range.start, range.start)
+        : new Range(range.end, range.end);
+      return {
+        editor,
+        range: newRange,
+        newText,
+      };
+    });
   }
 
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
@@ -26,21 +52,8 @@ class CopyLines implements Action {
     );
 
     runOnTargetsForEachEditor(targets, async (editor, targets) => {
-      const edits = targets.map((target) => {
-        const selection = target.selection.selection;
-        const start = new Position(selection.start.line, 0);
-        const end = editor.document.lineAt(selection.end.line).range.end;
-        let newText = editor.document.getText(new Range(start, end));
-        newText = this.isUp ? `${newText}\n` : `\n${newText}`;
-        const newRange = this.isUp
-          ? new Range(start, start)
-          : new Range(end, end);
-        return {
-          editor,
-          range: newRange,
-          newText,
-        };
-      });
+      const ranges = this.getRanges(editor, targets);
+      const edits = this.getEdits(editor, ranges);
 
       await performDocumentEdits(editor, edits);
     });
@@ -51,12 +64,12 @@ class CopyLines implements Action {
 
 export class CopyLinesUp extends CopyLines {
   constructor(graph: Graph) {
-    super(graph, true);
+    super(graph, false);
   }
 }
 
 export class CopyLinesDown extends CopyLines {
   constructor(graph: Graph) {
-    super(graph, false);
+    super(graph, true);
   }
 }
