@@ -26,14 +26,12 @@ export default class GetText implements Action {
       );
     }
 
-    const text = targets
-      .map((target) =>
-        target.selection.editor.document.getText(target.selection.selection)
-      )
-      .join("\n");
+    const texts = targets.map((target) =>
+      target.selection.editor.document.getText(target.selection.selection)
+    );
 
     return {
-      returnValue: text,
+      returnValue: texts,
       thatMark: targets.map((target) => target.selection),
     };
   }
