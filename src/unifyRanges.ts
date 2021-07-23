@@ -10,22 +10,19 @@ export default function unifyRanges(ranges: Range[]): Range[] {
 }
 
 function onePass(ranges: Range[]): [Range[], boolean] {
-  const wrappers: { range: Range }[] = [];
+  const result: Range[] = [];
   let madeChanges = false;
   ranges.forEach((range) => {
-    const wrapper = wrappers.find(
-      (wrapper) => wrapper.range.intersection(range) != null
-    );
+    const index = result.findIndex((r) => r.intersection(range) != null);
     // Update existing intersecting range
-    if (wrapper != null) {
-      wrapper.range = wrapper.range.union(range);
+    if (index > -1) {
+      result[index] = result[index].union(range);
       madeChanges = true;
     }
     // Add new range
     else {
-      wrappers.push({ range });
+      result.push(range);
     }
   });
-  const results = wrappers.map((wrapper) => wrapper.range);
-  return [results, madeChanges];
+  return [result, madeChanges];
 }
