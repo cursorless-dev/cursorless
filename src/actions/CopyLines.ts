@@ -51,7 +51,7 @@ class CopyLines implements Action {
       this.graph.editStyles.referencedLine
     );
 
-    runOnTargetsForEachEditor(targets, async (editor, targets) => {
+    await runOnTargetsForEachEditor(targets, async (editor, targets) => {
       const ranges = this.getRanges(editor, targets);
       const edits = this.getEdits(editor, ranges);
 
