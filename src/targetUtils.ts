@@ -1,4 +1,3 @@
-import { flatten } from "lodash";
 import { TextEditor } from "vscode";
 import { groupBy } from "./itertools";
 import { TypedSelection } from "./Types";
