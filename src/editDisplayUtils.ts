@@ -22,14 +22,14 @@ export default async function displayPendingEditDecorations(
 ) {
   await runOnTargetsForEachEditor(targets, async (editor, selections) => {
     editor.setDecorations(
-      editStyle.tokenStyle,
+      editStyle.token,
       selections
         .filter((selection) => !isLineSelectionType(selection.selectionType))
         .map((selection) => selection.selection.selection)
     );
 
     editor.setDecorations(
-      editStyle.lineStyle,
+      editStyle.line,
       selections
         .filter((selection) => isLineSelectionType(selection.selectionType))
         .map((selection) => {
@@ -59,8 +59,8 @@ export default async function displayPendingEditDecorations(
   await decorationSleep();
 
   await runOnTargetsForEachEditor(targets, async (editor) => {
-    editor.setDecorations(editStyle.tokenStyle, []);
-    editor.setDecorations(editStyle.lineStyle, []);
+    editor.setDecorations(editStyle.token, []);
+    editor.setDecorations(editStyle.line, []);
   });
 }
 

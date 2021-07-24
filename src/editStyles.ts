@@ -1,16 +1,16 @@
 import * as vscode from "vscode";
 
 export class EditStyle {
-  tokenStyle: vscode.TextEditorDecorationType;
-  lineStyle: vscode.TextEditorDecorationType;
+  token: vscode.TextEditorDecorationType;
+  line: vscode.TextEditorDecorationType;
 
   constructor(colorName: string) {
     const options = {
       backgroundColor: new vscode.ThemeColor(`cursorless.${colorName}`),
       rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
     };
-    this.tokenStyle = vscode.window.createTextEditorDecorationType(options);
-    this.lineStyle = vscode.window.createTextEditorDecorationType({
+    this.token = vscode.window.createTextEditorDecorationType(options);
+    this.line = vscode.window.createTextEditorDecorationType({
       ...options,
       isWholeLine: true,
     });

@@ -69,7 +69,7 @@ export default class Wrap implements Action {
           });
 
           editor.setDecorations(
-            this.graph.editStyles.justAdded.tokenStyle,
+            this.graph.editStyles.justAdded.token,
             newInsertions.map(
               ({ newStartOffset, newEndOffset }) =>
                 new Range(
@@ -81,7 +81,7 @@ export default class Wrap implements Action {
 
           await decorationSleep();
 
-          editor.setDecorations(this.graph.editStyles.justAdded.tokenStyle, []);
+          editor.setDecorations(this.graph.editStyles.justAdded.token, []);
 
           return selections.map((selection, index) => {
             const start = editor.document.positionAt(
