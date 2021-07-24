@@ -198,8 +198,18 @@ const getDictionaryMatchers = {
       (node: SyntaxNode) => node.childForFieldName("initializer")
     ])
   ),
-  listElement: notSupported,
-  string: notSupported,
+  listElement: matcher(
+    nodeFinder(
+      (node) =>
+        node.parent?.type === "initializer_expression" &&
+        EXPRESSION_TYPES.includes(node.type) 
+    ),
+    delimitedSelector(
+      (node) => node.type === "," || node.type === "{" || node.type === "}",
+      ", "
+    )
+  ),
+  string: typeMatcher("string_literal"),
 };
 
 const nodeMatchers: Record<ScopeType, NodeMatcher> = {
