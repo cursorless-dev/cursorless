@@ -78,51 +78,42 @@ function updateSelectionInfoMatrix(
   });
 }
 
-class SelectionUpdater {
-  private document: TextDocument;
-  private selectionInfoMatrix: SelectionInfo[][];
-  private disposable!: Disposable;
+/**
+ * Given a set of selections creates a promise that will resolve with the
+ * updated selections upon the next document change
+ *
+ * @param editor The text editor containing the given selections
+ * @param selections A matrix of selections to update after the given changes
+ * @returns The updated selections
+ */
+function createNextDocumentChangePromise(
+  editor: TextEditor,
+  selections: Selection[][]
+): Promise<Selection[][]> {
+  return new Promise((resolve) => {
+    const matrix = selectionsToSelectionInfos(editor.document, selections);
 
-  constructor(editor: TextEditor, originalSelections: Selection[][]) {
-    this.document = editor.document;
-    this.selectionInfoMatrix = selectionsToSelectionInfos(
-      this.document,
-      originalSelections
-    );
-    this.listenForDocumentChanges();
-  }
-
-  private listenForDocumentChanges() {
-    this.disposable = workspace.onDidChangeTextDocument(
+    console.log("Hello!");
+    const disposable = workspace.onDidChangeTextDocument(
       (event: TextDocumentChangeEvent) => {
         if (
-          event.document !== this.document ||
+          event.document !== editor.document ||
           event.contentChanges.length === 0
         ) {
           return;
         }
 
-        updateSelectionInfoMatrix(
-          event.contentChanges,
-          this.selectionInfoMatrix
-        );
+        // Only listen for the one event
+        disposable.dispose();
+
+        updateSelectionInfoMatrix(event.contentChanges, matrix);
+
+        const returnValue = selectionInfosToSelections(event.document, matrix);
+
+        resolve(returnValue);
       }
     );
-  }
-
-  dispose() {
-    this.disposable.dispose();
-  }
-
-  /**
-   * Call this function after applying the document edits to get the updated
-   * selection ranges.
-   *
-   * @returns Original selections updated to take into account the given changes
-   */
-  get updatedSelections() {
-    return selectionInfosToSelections(this.document, this.selectionInfoMatrix);
-  }
+  });
 }
 
 /**
@@ -138,13 +129,11 @@ export async function callFunctionAndUpdateSelections(
   editor: TextEditor,
   selectionMatrix: Selection[][]
 ): Promise<Selection[][]> {
-  const selectionUpdater = new SelectionUpdater(editor, selectionMatrix);
+  const promise = createNextDocumentChangePromise(editor, selectionMatrix);
 
   await func();
 
-  selectionUpdater.dispose();
-
-  return selectionUpdater.updatedSelections;
+  return await promise;
 }
 
 /**
