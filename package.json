@@ -212,10 +212,5 @@
 		"@types/lodash": "^4.14.168",
 		"immutability-helper": "^3.1.1",
 		"lodash": "^4.17.21"
-	},
-	"__metadata": {
-		"id": "0f1be0e0-afcc-4c7e-9027-df7e8a5c080f",
-		"publisherDisplayName": "Pokey Rule",
-		"publisherId": "23338867-1255-47fc-a9fc-1af10882a056"
 	}
 }

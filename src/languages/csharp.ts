@@ -1,22 +1,17 @@
 import { SyntaxNode } from "web-tree-sitter";
-import { getPojoMatchers } from "./getPojoMatchers";
 import {
   cascadingMatcher,
   composedMatcher,
   matcher,
-  notSupported,
   typeMatcher,
 } from "../nodeMatchers";
-import { NodeMatcher, ScopeType, NodeFinder } from "../Types";
+import { NodeMatcher, ScopeType } from "../Types";
 import {
-  getDeclarationNode,
   getNameNode,
-  getValueNode,
 } from "../treeSitterUtils";
 import {
   nodeFinder,
   typedNodeFinder,
-  findPossiblyWrappedNode,
 } from "../nodeFinders";
 import {
   delimitedSelector,
@@ -159,26 +154,33 @@ const findTypeNode = (node: SyntaxNode) => {
   return node.childForFieldName("type") ?? null;
 };
 
-export const getInitializerNode = (node: SyntaxNode) =>
+// Every array or dictionary initializer contains its contents in a initializer_expression.
+// There appears to be no distinction between dictionaries and arrays as far as the syntax tree goes.
+// that means some of the commands for maps may work on arrays, and some of the commands for arrays may work on maps.
+const getChildInitializerNode = (node: SyntaxNode) =>
   node.children.find((child) => child.type === "initializer_expression") ?? null;
+
+const getInitializerNode = (node: SyntaxNode) => node.childForFieldName("initializer");
+
+const makeDelimitedSelector = (leftType: string, rightType: string) => delimitedSelector(
+  (node) => node.type === "," || node.type === leftType || node.type === rightType,
+  ", "
+);
 
 const getDictionaryMatchers = {
   dictionary: cascadingMatcher(
     composedMatcher([
       typedNodeFinder(...OBJECT_TYPES_WITH_INITIALIZERS_AS_CHILDREN),
-      getInitializerNode
+      getChildInitializerNode
     ]),
     composedMatcher([
       typedNodeFinder("object_creation_expression"),
-      (node: SyntaxNode) => node.childForFieldName("initializer")
+      getInitializerNode
     ])
   ),
   pair: matcher(
     typedNodeFinder("assignment_expression"),
-    delimitedSelector(
-      (node) => node.type === "," || node.type === "}" || node.type === "{",
-      ", "
-    )
+    makeDelimitedSelector("{", "}")
   ),
   pairKey: composedMatcher([
     typedNodeFinder("assignment_expression"),
@@ -191,7 +193,7 @@ const getDictionaryMatchers = {
   list: cascadingMatcher(
     composedMatcher([
       typedNodeFinder(...LIST_TYPES_WITH_INITIALIZERS_AS_CHILDREN),
-      getInitializerNode
+      getChildInitializerNode
     ]),
     composedMatcher([
       typedNodeFinder("object_creation_expression"),
@@ -202,12 +204,9 @@ const getDictionaryMatchers = {
     nodeFinder(
       (node) =>
         node.parent?.type === "initializer_expression" &&
-        EXPRESSION_TYPES.includes(node.type) 
+        isExpression(node) 
     ),
-    delimitedSelector(
-      (node) => node.type === "," || node.type === "{" || node.type === "}",
-      ", "
-    )
+    makeDelimitedSelector("{", "}")
   ),
   string: typeMatcher("string_literal"),
 };
@@ -229,10 +228,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
           (node.parent?.type === "argument_list") ||
           (node.type === "parameter")
       ),
-      delimitedSelector(
-        (node) => node.type === "," || node.type === "(" || node.type === ")",
-        ", "
-      )),
+      makeDelimitedSelector("(", ")")),
     namedFunction: typeMatcher(...NAMED_FUNCTION_TYPES),
     functionName: composedMatcher([
       typedNodeFinder(...NAMED_FUNCTION_TYPES),
