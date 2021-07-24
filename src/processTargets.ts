@@ -128,6 +128,11 @@ function processSingleRangeTarget(
   });
 }
 
+/**
+* @param target The target to get position from
+* @param isStart If true disposition is the start of the range
+* @param exclude If true the content of this position should be excluded
+*/
 function getRangePosition(
   target: TypedSelection,
   isStart: boolean,
@@ -137,8 +142,8 @@ function getRangePosition(
   if (exclude) {
     const outerSelection = target!.selectionContext.outerSelection;
     const delimiterPosition = isStart
-      ? target!.selectionContext.trailingDelimiterRange?.end
-      : target!.selectionContext.leadingDelimiterRange?.start;
+      ? target.selectionContext.trailingDelimiterRange?.end
+      : target.selectionContext.leadingDelimiterRange?.start;
     if (outerSelection != null) {
       if (delimiterPosition != null) {
         return delimiterPosition;
