@@ -9,9 +9,10 @@ import displayPendingEditDecorations from "../editDisplayUtils";
 import performDocumentEdits from "../performDocumentEdits";
 import { runForEachEditor } from "../targetUtils";
 import { flatten, zip } from "lodash";
+import { forTextAdjustPosition } from "../getTextAdjustPosition";
 
 export default class implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+  targetPreferences: ActionPreferences[] = [{ insideOutsideType: null }];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
@@ -23,7 +24,7 @@ export default class implements Action {
   ): Promise<ActionReturnValue> {
     await displayPendingEditDecorations(
       targets,
-      this.graph.editStyles.pendingModification0,
+      this.graph.editStyles.pendingModification0
     );
 
     // Broadcast single text for each target
@@ -36,10 +37,11 @@ export default class implements Action {
     }
 
     const edits = zip(targets, texts).map(([target, text]) => {
+      const newText = forTextAdjustPosition(text!, target!);
       return {
         editor: target!.selection.editor,
         range: target!.selection.selection,
-        newText: text!,
+        newText,
       };
     });
 
@@ -53,7 +55,7 @@ export default class implements Action {
 
     return {
       returnValue: texts,
-      thatMark: [],
+      thatMark: [],// TODO 
     };
   }
 }

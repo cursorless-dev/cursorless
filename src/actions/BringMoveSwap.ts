@@ -9,15 +9,12 @@ import {
 import { runForEachEditor } from "../targetUtils";
 import update from "immutability-helper";
 import displayPendingEditDecorations from "../editDisplayUtils";
-import {
-  performInsideAdjustment,
-  performOutsideAdjustment,
-} from "../performInsideOutsideAdjustment";
+import { performOutsideAdjustment } from "../performInsideOutsideAdjustment";
 import { computeChangedOffsets } from "../computeChangedOffsets";
 import { flatten, zip } from "lodash";
 import { Selection, TextEditor, Range } from "vscode";
 import performDocumentEdits from "../performDocumentEdits";
-import getTextAdjustPosition from "../getTextAdjustPosition";
+import { getTextAdjustPosition } from "../getTextAdjustPosition";
 
 interface ThatMarkEntry {
   editor: TextEditor;
@@ -96,17 +93,13 @@ class BringMoveSwap implements Action {
         }
 
         // Get text adjusting for destination position
-        const newText = getTextAdjustPosition(
-          performInsideAdjustment(source),
-          destination
-        );
+        const newText = getTextAdjustPosition(source, destination);
 
         // Add destination edit
         const result = [
           {
             editor: destination.selection.editor,
-            range: performInsideAdjustment(destination).selection
-              .selection as Range,
+            range: destination.selection.selection as Range,
             newText,
             targetsIndex: 0,
             originalSelection: destination,
@@ -123,7 +116,7 @@ class BringMoveSwap implements Action {
             newText = destination.selection.editor.document.getText(
               destination.selection.selection
             );
-            range = performInsideAdjustment(source).selection.selection;
+            range = source.selection.selection;
           } else {
             // NB: this.type === "move"
             newText = "";
