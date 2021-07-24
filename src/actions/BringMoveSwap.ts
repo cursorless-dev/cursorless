@@ -9,16 +9,14 @@ import {
 import { runForEachEditor } from "../targetUtils";
 import update from "immutability-helper";
 import displayPendingEditDecorations from "../editDisplayUtils";
-import { performInsideOutsideAdjustment } from "../performInsideOutsideAdjustment";
+import {
+  performInsideAdjustment,
+  performOutsideAdjustment,
+} from "../performInsideOutsideAdjustment";
 import { computeChangedOffsets } from "../computeChangedOffsets";
 import { flatten, zip } from "lodash";
-import { Selection, TextEditorDecorationType, TextEditor, Range } from "vscode";
+import { Selection, TextEditor, Range } from "vscode";
 import performDocumentEdits from "../performDocumentEdits";
-
-interface DecorationTypes {
-  sourceStyle: TextEditorDecorationType;
-  destinationStyle: TextEditorDecorationType;
-}
 
 interface ThatMarkEntry {
   editor: TextEditor;
@@ -58,12 +56,12 @@ class BringMoveSwap implements Action {
     let sourceStyle;
     if (this.type === "bring") {
       sourceStyle = this.graph.editStyles.referenced;
-    } else if (this.type === "swap") {
-      sourceStyle = this.graph.editStyles.pendingModification1;
     } else if (this.type === "move") {
       sourceStyle = this.graph.editStyles.pendingDelete;
-    } else {
-      throw Error(`Unknown type "${this.type}"`);
+    }
+    // NB this.type === "swap"
+    else {
+      sourceStyle = this.graph.editStyles.pendingModification1;
     }
     return {
       sourceStyle,
@@ -129,12 +127,11 @@ class BringMoveSwap implements Action {
             newText = destination.selection.editor.document.getText(
               destination.selection.selection
             );
-            range = source.selection.selection;
+            range = performInsideAdjustment(source).selection.selection;
           } else {
             // NB: this.type === "move"
             newText = "";
-            range = performInsideOutsideAdjustment(source, "outside").selection
-              .selection;
+            range = performOutsideAdjustment(source).selection.selection;
           }
 
           usedSources.push(source);

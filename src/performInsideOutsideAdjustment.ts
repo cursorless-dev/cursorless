@@ -40,3 +40,11 @@ export function performInsideOutsideAdjustment(
 
   return selection;
 }
+
+export function performInsideAdjustment(selection: TypedSelection) {
+  return performInsideOutsideAdjustment(selection, "inside");
+}
+
+export function performOutsideAdjustment(selection: TypedSelection) {
+  return performInsideOutsideAdjustment(selection, "outside");
+}
