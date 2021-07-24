@@ -99,7 +99,7 @@ export type SelectionType =
   | "character"
   | "token"
   | "line"
-  | "block"
+  | "paragraph"
   | "document";
 export type Position = "before" | "after" | "contents";
 export type InsideOutsideType = "inside" | "outside" | null;
@@ -255,6 +255,7 @@ export type ActionType =
   | "scrollToBottom"
   | "scrollToCenter"
   | "scrollToTop"
+  | "setBreakpoint"
   | "setSelection"
   | "setSelectionAfter"
   | "setSelectionBefore"
