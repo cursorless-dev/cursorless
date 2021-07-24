@@ -10,8 +10,7 @@ import { env } from "vscode";
 import { runForEachEditor } from "../targetUtils";
 import { flatten } from "lodash";
 import update from "immutability-helper";
-import SelectionUpdater from "../CalculateChanges";
-import performDocumentEdits from "../performDocumentEdits";
+import { performEditsAndUpdateSelections } from "../updateSelections";
 
 export default class Paste implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
@@ -54,15 +53,11 @@ export default class Paste implements Action {
         edits,
         (edit) => edit.editor,
         async (editor, edits) => {
-          const calculateChanges = new SelectionUpdater(
+          const [updatedSelections] = await performEditsAndUpdateSelections(
             editor,
-            [targets.map((target) => target.selection.selection)],
-            edits
+            edits,
+            [targets.map((target) => target.selection.selection)]
           );
-
-          await performDocumentEdits(editor, edits);
-
-          const [updatedSelections] = calculateChanges.calculateUpdatedSelections();
 
           return edits.map((edit, index) => {
             const selection = updatedSelections[index];

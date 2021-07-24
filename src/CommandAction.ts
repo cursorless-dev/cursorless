@@ -11,10 +11,7 @@ import displayPendingEditDecorations from "./editDisplayUtils";
 import { runOnTargetsForEachEditor } from "./targetUtils";
 import { focusEditor } from "./setSelectionsAndFocusEditor";
 import { flatten } from "lodash";
-import {
-  callFunctionAndUpdateSelections,
-  createNextDocumentChangePromise,
-} from "./updateSelections";
+import { callFunctionAndUpdateSelections } from "./updateSelections";
 
 export default class CommandAction implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];

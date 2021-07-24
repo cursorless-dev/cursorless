@@ -158,7 +158,7 @@ export async function callFunctionAndUpdateSelections(
 export async function performEditsAndUpdateSelections(
   editor: TextEditor,
   edits: Edit[],
-  originalSelections: Selection[][] = []
+  originalSelections: Selection[][]
 ) {
   const document = editor.document;
   const selectionInfoMatrix = selectionsToSelectionInfos(
