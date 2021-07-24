@@ -37,11 +37,10 @@ export default class implements Action {
     }
 
     const edits = zip(targets, texts).map(([target, text]) => {
-      const newText = forTextAdjustPosition(text!, target!);
       return {
         editor: target!.selection.editor,
         range: target!.selection.selection,
-        newText,
+        newText: forTextAdjustPosition(text!, target!),
       };
     });
 
@@ -55,7 +54,7 @@ export default class implements Action {
 
     return {
       returnValue: texts,
-      thatMark: [],// TODO 
+      thatMark: [], // TODO
     };
   }
 }

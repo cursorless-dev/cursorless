@@ -17,23 +17,22 @@ export function newSelection(
 
 export function newSelection(
   selectionOrBool: Selection | boolean,
-  rangeOrPosition: Range | Position,
-  ...args: Array<Position>
+  rangeOrStart: Range | Position,
+  end?: Position
 ): Selection {
-  let isReversed, start, end;
+  let isReversed, start;
   if (selectionOrBool instanceof Selection) {
     isReversed = selectionOrBool.isReversed;
   } else {
     isReversed = selectionOrBool;
   }
-  if (rangeOrPosition instanceof Range) {
-    start = rangeOrPosition.start;
-    end = rangeOrPosition.end;
+  if (rangeOrStart instanceof Range) {
+    start = rangeOrStart.start;
+    end = rangeOrStart.end;
   } else {
-    start = rangeOrPosition;
-    end = args[0];
+    start = rangeOrStart;
   }
-  return isReversed ? new Selection(end, start) : new Selection(start, end);
+  return isReversed ? new Selection(end!, start) : new Selection(start, end!);
 }
 
 export function newTypedSelection(
@@ -47,14 +46,14 @@ export function newTypedSelection(
 ): TypedSelection;
 export function newTypedSelection(
   selection: TypedSelection,
-  rangeOrPosition: Range | Position,
-  ...args: Array<Position>
+  rangeOrStart: Range | Position,
+  end?: Position
 ): TypedSelection {
   let sel: Selection;
-  if (rangeOrPosition instanceof Range) {
-    sel = newSelection(selection.selection.selection, rangeOrPosition);
+  if (rangeOrStart instanceof Range) {
+    sel = newSelection(selection.selection.selection, rangeOrStart);
   } else {
-    sel = newSelection(selection.selection.selection, rangeOrPosition, args[0]);
+    sel = newSelection(selection.selection.selection, rangeOrStart, end!);
   }
   return update(selection, {
     selection: {
