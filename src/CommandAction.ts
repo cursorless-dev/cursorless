@@ -42,15 +42,12 @@ export default class CommandAction implements Action {
 
           editor.selections = targetSelections;
 
-          const promise = listenForDocumentChanges(editor, [
-            originalSelections,
-            targetSelections,
-          ]);
-
-          await commands.executeCommand(this.command);
-
           const [updatedOriginalSelections, updatedTargetSelections] =
-            await promise;
+            await callFunctionAndUpdateSelections(
+              editor,
+              () => commands.executeCommand(this.command),
+              [originalSelections, targetSelections]
+            );
 
           // Reset original selections
           editor.selections = updatedOriginalSelections;

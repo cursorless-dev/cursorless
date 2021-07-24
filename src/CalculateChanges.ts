@@ -9,18 +9,18 @@ import {
 } from "vscode";
 import { Edit } from "./Types";
 
-interface MatrixSelection {
+interface SelectionInfo {
   range: Range;
   isReversed: boolean;
   startOffset: number;
   endOffset: number;
 }
 
-function selectionsToMatrix(
+function selectionsToSelectionInfos(
   document: TextDocument,
-  selections: Selection[][]
-): MatrixSelection[][] {
-  return selections.map((selections) =>
+  selectionMatrix: Selection[][]
+): SelectionInfo[][] {
+  return selectionMatrix.map((selections) =>
     selections.map((selection) => ({
       range: selection,
       isReversed: selection.isReversed,
@@ -30,56 +30,72 @@ function selectionsToMatrix(
   );
 }
 
-function matrixToSelections(
+function selectionInfosToSelections(
   document: TextDocument,
-  matrixSelections: MatrixSelection[][]
+  selectionInfoMatrix: SelectionInfo[][]
 ): Selection[][] {
-  return matrixSelections.map((matrixSelections) =>
-    matrixSelections.map(
-      (selection) =>
+  return selectionInfoMatrix.map((selectionInfos) =>
+    selectionInfos.map(
+      (selectionInfo) =>
         new Selection(
           document.positionAt(
-            selection.isReversed ? selection.endOffset : selection.startOffset
+            selectionInfo.isReversed
+              ? selectionInfo.endOffset
+              : selectionInfo.startOffset
           ),
           document.positionAt(
-            selection.isReversed ? selection.startOffset : selection.endOffset
+            selectionInfo.isReversed
+              ? selectionInfo.startOffset
+              : selectionInfo.endOffset
           )
         )
     )
   );
 }
 
-function updateMatrixWithChanges(
+function updateSelectionInfoMatrix(
   contentChanges: readonly TextDocumentContentChangeEvent[],
-  matrixSelections: MatrixSelection[][]
+  selectionInfoMatrix: SelectionInfo[][]
 ) {
   contentChanges.forEach((change) => {
     const offsetDelta = change.text.length - change.rangeLength;
 
-    matrixSelections.forEach((matrixSelections) => {
-      matrixSelections.forEach((selection) => {
+    selectionInfoMatrix.forEach((selectionInfos) => {
+      selectionInfos.forEach((selectionInfo) => {
         // Change is before selection. Move entire selection.
-        if (change.range.start.isBefore(selection.range.start)) {
-          selection.startOffset += offsetDelta;
-          selection.endOffset += offsetDelta;
+        if (change.range.start.isBefore(selectionInfo.range.start)) {
+          selectionInfo.startOffset += offsetDelta;
+          selectionInfo.endOffset += offsetDelta;
         }
         // Change is selection. Move just end to match.
-        else if (change.range.isEqual(selection.range)) {
-          selection.endOffset += offsetDelta;
+        else if (change.range.isEqual(selectionInfo.range)) {
+          selectionInfo.endOffset += offsetDelta;
         }
       });
     });
   });
 }
 
-export default class CalculateChanges {
-  document: TextDocument;
-  matrix: MatrixSelection[][];
-  contentChanges: TextDocumentContentChangeEvent[];
+/**
+ * Takes a list of selections and future edits, and then the client can call
+ * the calculateUpdatedSelections function after applying the edits to get the
+ * original selections adjusted for the effect of the given edits
+ */
+export default class SelectionUpdater {
+  private document: TextDocument;
+  private selectionInfoMatrix: SelectionInfo[][];
+  private contentChanges: TextDocumentContentChangeEvent[];
 
-  constructor(editor: TextEditor, selections: Selection[][], edits: Edit[]) {
+  constructor(
+    editor: TextEditor,
+    originalSelections: Selection[][],
+    edits: Edit[]
+  ) {
     this.document = editor.document;
-    this.matrix = selectionsToMatrix(this.document, selections);
+    this.selectionInfoMatrix = selectionsToSelectionInfos(
+      this.document,
+      originalSelections
+    );
     this.contentChanges = edits.map((edit) => ({
       range: edit.range,
       text: edit.text,
@@ -90,9 +106,16 @@ export default class CalculateChanges {
     }));
   }
 
-  calculateSelections() {
-    updateMatrixWithChanges(this.contentChanges, this.matrix);
-    return matrixToSelections(this.document, this.matrix);
+  /**
+   * Call this function after applying the document edits to get the updated
+   * selection ranges.
+   *
+   * @returns Original selections updated to take into account the given changes
+   */
+  calculateUpdatedSelections() {
+    updateSelectionInfoMatrix(this.contentChanges, this.selectionInfoMatrix);
+
+    return selectionInfosToSelections(this.document, this.selectionInfoMatrix);
   }
 }
 
@@ -101,7 +124,7 @@ export function listenForDocumentChanges(
   selections: Selection[][]
 ): Promise<Selection[][]> {
   return new Promise((resolve) => {
-    const matrix = selectionsToMatrix(editor.document, selections);
+    const matrix = selectionsToSelectionInfos(editor.document, selections);
 
     const disposable = workspace.onDidChangeTextDocument(
       (event: TextDocumentChangeEvent) => {
@@ -115,9 +138,9 @@ export function listenForDocumentChanges(
         // Only listen for the one event
         disposable.dispose();
 
-        updateMatrixWithChanges(event.contentChanges, matrix);
+        updateSelectionInfoMatrix(event.contentChanges, matrix);
 
-        const returnValue = matrixToSelections(event.document, matrix);
+        const returnValue = selectionInfosToSelections(event.document, matrix);
         resolve(returnValue);
       }
     );

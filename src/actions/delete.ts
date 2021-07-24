@@ -8,7 +8,7 @@ import {
 import { runOnTargetsForEachEditor } from "../targetUtils";
 import displayPendingEditDecorations from "../editDisplayUtils";
 import { flatten } from "lodash";
-import CalculateChanges from "../CalculateChanges";
+import SelectionUpdater from "../CalculateChanges";
 import performDocumentEdits from "../performDocumentEdits";
 
 export default class Delete implements Action {
@@ -32,15 +32,9 @@ export default class Delete implements Action {
           text: "",
         }));
 
-        const calculateChanges = new CalculateChanges(
-          editor,
-          [targets.map((target) => target.selection.selection)],
-          edits
-        );
-
-        await performDocumentEdits(editor, edits);
-
-        const [updatedSelections] = calculateChanges.calculateSelections();
+        const [updatedSelections] = await performDocumentEdits(editor, edits, [
+          targets.map((target) => target.selection.selection),
+        ]);
 
         return updatedSelections.map((selection) => ({
           editor,

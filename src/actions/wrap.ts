@@ -10,7 +10,7 @@ import {
 } from "../Types";
 import { runOnTargetsForEachEditor } from "../targetUtils";
 import { decorationSleep } from "../editDisplayUtils";
-import CalculateChanges from "../CalculateChanges";
+import SelectionUpdater from "../CalculateChanges";
 import performDocumentEdits from "../performDocumentEdits";
 
 export default class Wrap implements Action {
@@ -45,7 +45,7 @@ export default class Wrap implements Action {
             text: index % 2 === 0 ? left : right,
           }));
 
-          const calculateChanges = new CalculateChanges(
+          const calculateChanges = new SelectionUpdater(
             editor,
             [selections],
             edits
@@ -53,7 +53,7 @@ export default class Wrap implements Action {
 
           await performDocumentEdits(editor, edits);
 
-          const [updatedSelections] = calculateChanges.calculateSelections();
+          const [updatedSelections] = calculateChanges.calculateUpdatedSelections();
 
           editor.setDecorations(
             this.graph.editStyles.justAdded,
