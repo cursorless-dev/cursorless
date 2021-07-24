@@ -240,12 +240,15 @@ export type ActionType =
   | "copyLinesUp"
   | "delete"
   | "extractVariable"
+  | "editNewLineAbove"
+  | "editNewLineBelow"
   | "findInFiles"
   | "fold"
   | "getText"
+  | "insertEmptyLineAbove"
+  | "insertEmptyLinesAround"
+  | "insertEmptyLineBelow"
   | "indentLines"
-  | "insertLineAfter"
-  | "insertLineBefore"
   | "move"
   | "outdentLines"
   | "paste"
@@ -291,7 +294,6 @@ export type SelectionExtractor = (
 
 /** Represent a single edit/change in the document */
 export interface Edit {
-  editor: vscode.TextEditor;
   range: vscode.Range;
-  newText: string;
+  text: string;
 }

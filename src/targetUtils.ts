@@ -3,10 +3,14 @@ import { groupBy } from "./itertools";
 import { TypedSelection } from "./Types";
 
 export function ensureSingleEditor(targets: TypedSelection[]) {
+  if (targets.length === 0) {
+    throw new Error("Require at least one target with this action");
+  }
+
   const editors = targets.map((target) => target.selection.editor);
 
   if (new Set(editors).size > 1) {
-    throw new Error("Can only select from one document at a time");
+    throw new Error("Can only have one editor with this action");
   }
 
   return editors[0];
