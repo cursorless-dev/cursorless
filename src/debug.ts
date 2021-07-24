@@ -8,8 +8,8 @@ export function logBranchTypes(getNodeAtLocation: any) {
       event.selections[0]
     );
 
-    const ancestors: SyntaxNode[] = [];
     let node: SyntaxNode = getNodeAtLocation(location);
+    const ancestors: SyntaxNode[] = [node];
     while (node.parent != null) {
       ancestors.unshift(node.parent);
       node = node.parent;

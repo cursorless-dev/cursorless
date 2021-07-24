@@ -99,7 +99,7 @@ export type SelectionType =
   | "character"
   | "token"
   | "line"
-  | "block"
+  | "paragraph"
   | "document";
 export type Position = "before" | "after" | "contents";
 export type InsideOutsideType = "inside" | "outside" | null;
@@ -242,18 +242,22 @@ export type ActionType =
   | "cut"
   | "delete"
   | "extractVariable"
+  | "editNewLineAbove"
+  | "editNewLineBelow"
   | "findInFiles"
   | "fold"
   | "getText"
+  | "insertEmptyLineAbove"
+  | "insertEmptyLinesAround"
+  | "insertEmptyLineBelow"
   | "indentLines"
-  | "insertLineAfter"
-  | "insertLineBefore"
   | "move"
   | "outdentLines"
   | "paste"
   | "scrollToBottom"
   | "scrollToCenter"
   | "scrollToTop"
+  | "setBreakpoint"
   | "setSelection"
   | "setSelectionAfter"
   | "setSelectionBefore"
@@ -293,7 +297,6 @@ export type SelectionExtractor = (
 
 /** Represent a single edit/change in the document */
 export interface Edit {
-  editor: vscode.TextEditor;
   range: vscode.Range;
-  newText: string;
+  text: string;
 }
