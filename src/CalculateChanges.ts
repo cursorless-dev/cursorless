@@ -78,7 +78,7 @@ function updateSelectionInfoMatrix(
 
 /**
  * Takes a list of selections and future edits, and then the client can call
- * the computeChangedOffsets function after applying the edits to get the
+ * the calculateUpdatedSelections function after applying the edits to get the
  * original selections adjusted for the effect of the given edits
  */
 export default class SelectionUpdater {
