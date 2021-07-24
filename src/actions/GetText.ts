@@ -25,12 +25,12 @@ export default class GetText implements Action {
       );
     }
 
-    const texts = targets.map((target) =>
+    const returnValue = targets.map((target) =>
       target.selection.editor.document.getText(target.selection.selection)
     );
 
     return {
-      returnValue: texts,
+      returnValue,
       thatMark: targets.map((target) => target.selection),
     };
   }
