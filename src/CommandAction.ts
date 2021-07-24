@@ -16,15 +16,11 @@ import { callFunctionAndUpdateSelections } from "./updateSelections";
 export default class CommandAction implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
 
-  constructor(
-    private graph: Graph,
-    private command: string,
-    private noEdit = false
-  ) {
+  constructor(private graph: Graph, private command: string) {
     this.run = this.run.bind(this);
   }
 
-  private async runWithEdit(targets: TypedSelection[]) {
+  private async runCommandAndUpdateSelections(targets: TypedSelection[]) {
     return flatten(
       await runOnTargetsForEachEditor<SelectionWithEditor[]>(
         targets,
@@ -61,26 +57,6 @@ export default class CommandAction implements Action {
     );
   }
 
-  private async runNoEdit(targets: TypedSelection[]) {
-    await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-      // For command to the work we have to have the correct editor focused
-      if (editor !== window.activeTextEditor) {
-        await focusEditor(editor);
-      }
-
-      const originalSelections = editor.selections;
-
-      editor.selections = targets.map((target) => target.selection.selection);
-
-      await commands.executeCommand(this.command);
-
-      // Reset original selections
-      editor.selections = originalSelections;
-    });
-
-    return targets.map((target) => target.selection);
-  }
-
   async run([targets]: [
     TypedSelection[],
     TypedSelection[]
@@ -93,9 +69,7 @@ export default class CommandAction implements Action {
 
     const originalEditor = window.activeTextEditor;
 
-    const thatMark = this.noEdit
-      ? await this.runNoEdit(targets)
-      : await this.runWithEdit(targets);
+    const thatMark = await this.runCommandAndUpdateSelections(targets);
 
     // If necessary focus back original editor
     if (originalEditor != null && originalEditor !== window.activeTextEditor) {
