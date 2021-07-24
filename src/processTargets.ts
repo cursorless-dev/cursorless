@@ -297,10 +297,7 @@ function createTypedSelection(
         selectionType,
         position,
         insideOutsideType,
-        selectionContext: getLineSelectionContext(
-          newSelection,
-          selectionContext
-        ),
+        selectionContext: getLineSelectionContext(newSelection),
       };
     }
 
@@ -325,7 +322,7 @@ function createTypedSelection(
     }
 
     case "paragraph": {
-      let startLine = document.lineAt(selection.selection.start.line);
+      let startLine = document.lineAt(selection.selection.start);
       while (startLine.lineNumber > 0) {
         const line = document.lineAt(startLine.lineNumber - 1);
         if (line.isEmptyOrWhitespace) {
@@ -334,7 +331,7 @@ function createTypedSelection(
         startLine = line;
       }
       const lineCount = document.lineCount;
-      let endLine = document.lineAt(selection.selection.end.line);
+      let endLine = document.lineAt(selection.selection.end);
       while (endLine.lineNumber + 1 < lineCount) {
         const line = document.lineAt(endLine.lineNumber + 1);
         if (line.isEmptyOrWhitespace) {
@@ -359,10 +356,7 @@ function createTypedSelection(
         position,
         selectionType,
         insideOutsideType,
-        selectionContext: getParagraphSelectionContext(
-          newSelection,
-          selectionContext
-        ),
+        selectionContext: getParagraphSelectionContext(newSelection),
       };
     }
 
@@ -476,12 +470,8 @@ function isSelectionContextEmpty(selectionContext: SelectionContext) {
 }
 
 function getLineSelectionContext(
-  selection: SelectionWithEditor,
-  selectionContext: SelectionContext
+  selection: SelectionWithEditor
 ): SelectionContext {
-  if (selectionContext.isInDelimitedList) {
-    return selectionContext;
-  }
   const { document } = selection.editor;
   const start = selection.selection.start;
   const end = selection.selection.end;
@@ -522,37 +512,36 @@ function getLineSelectionContext(
 }
 
 function getParagraphSelectionContext(
-  selection: SelectionWithEditor,
-  selectionContext: SelectionContext
+  selection: SelectionWithEditor
 ): SelectionContext {
-  if (selectionContext.isInDelimitedList) {
-    return selectionContext;
-  }
   const { document } = selection.editor;
   const start = selection.selection.start;
   const end = selection.selection.end;
 
-  const leadingLine =
-    start.line > 1 ? start.line - 2 : start.line > 0 ? start.line - 1 : null;
-  const trailingLine =
-    end.line + 2 < document.lineCount
-      ? end.line + 2
-      : end.line + 1 < document.lineCount
-      ? end.line + 1
-      : null;
+  let leadingLine = document.lineAt(selection.selection.start);
+  while (leadingLine.lineNumber > 0) {
+    leadingLine = document.lineAt(leadingLine.lineNumber - 1);
+    if (!leadingLine.isEmptyOrWhitespace) {
+      break;
+    }
+  }
+
+  const lineCount = document.lineCount;
+  let trailingLine = document.lineAt(selection.selection.end);
+  while (trailingLine.lineNumber + 1 < lineCount) {
+    trailingLine = document.lineAt(trailingLine.lineNumber + 1);
+    if (!trailingLine.isEmptyOrWhitespace) {
+      break;
+    }
+  }
 
   const leadingDelimiterRange =
-    leadingLine != null
-      ? new Range(
-          leadingLine,
-          document.lineAt(leadingLine).range.end.character,
-          start.line,
-          start.character
-        )
+    leadingLine.lineNumber !== start.line
+      ? new Range(leadingLine.range.end, start)
       : null;
   const trailingDelimiterRange =
-    trailingLine != null
-      ? new Range(end.line, end.character, trailingLine, 0)
+    trailingLine.lineNumber !== end.line
+      ? new Range(end, trailingLine.range.start)
       : null;
 
   // Outer selection contains the entire lines
