@@ -6,7 +6,7 @@ import {
   TypedSelection,
 } from "../Types";
 import { Range, TextEditor } from "vscode";
-import performDocumentEdits from "../performDocumentEdits";
+import { performEditsAndUpdateSelections } from "../updateSelections";
 import displayPendingEditDecorations from "../editDisplayUtils";
 import { runOnTargetsForEachEditor } from "../targetUtils";
 import { flatten } from "lodash";
@@ -31,15 +31,15 @@ class CopyLines implements Action {
 
   private getEdits(editor: TextEditor, ranges: Range[]) {
     return ranges.map((range) => {
-      let newText = editor.document.getText(range);
-      newText = this.isUp ? `${newText}\n` : `\n${newText}`;
+      let text = editor.document.getText(range);
+      text = this.isUp ? `${text}\r\n` : `\r\n${text}`;
       const newRange = this.isUp
         ? new Range(range.start, range.start)
         : new Range(range.end, range.end);
       return {
         editor,
         range: newRange,
-        newText,
+        text,
       };
     });
   }
@@ -51,14 +51,25 @@ class CopyLines implements Action {
       this.graph.editStyles.referencedLine
     );
 
-    await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-      const ranges = this.getRanges(editor, targets);
-      const edits = this.getEdits(editor, ranges);
+    const thatMark = flatten(
+      await runOnTargetsForEachEditor(targets, async (editor, targets) => {
+        const ranges = this.getRanges(editor, targets);
+        const edits = this.getEdits(editor, ranges);
 
-      await performDocumentEdits(editor, edits);
-    });
+        const [updatedSelections] = await performEditsAndUpdateSelections(
+          editor,
+          edits,
+          [targets.map((target) => target.selection.selection)]
+        );
 
-    return { returnValue: null, thatMark: [] };
+        return updatedSelections.map((selection) => ({
+          editor,
+          selection,
+        }));
+      })
+    );
+
+    return { returnValue: null, thatMark };
   }
 }
 
