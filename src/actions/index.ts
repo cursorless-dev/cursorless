@@ -24,6 +24,7 @@ import {
 } from "./InsertEmptyLines";
 import GetText from "./GetText";
 import { FindInFiles } from "./Find";
+import SetBreakpoint from "./SetBreakpoint";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -55,6 +56,7 @@ class Actions implements ActionRecord {
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
   scrollToTop = new ScrollToTop(this.graph);
+  setBreakpoint = new SetBreakpoint(this.graph);
   setSelection = new SetSelection(this.graph);
   setSelectionAfter = new SetSelectionAfter(this.graph);
   setSelectionBefore = new SetSelectionBefore(this.graph);
