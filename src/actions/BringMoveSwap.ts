@@ -13,7 +13,7 @@ import { performInsideOutsideAdjustment } from "../performInsideOutsideAdjustmen
 import { flatten, zip } from "lodash";
 import { Selection, TextEditorDecorationType, TextEditor, Range } from "vscode";
 import performDocumentEdits from "../performDocumentEdits";
-import CalculateChanges from "../CalculateChanges";
+import SelectionUpdater from "../CalculateChanges";
 
 interface DecorationTypes {
   sourceStyle: TextEditorDecorationType;
@@ -171,7 +171,7 @@ class BringMoveSwap implements Action {
         edits,
         (edit) => edit.editor,
         async (editor, edits) => {
-          const calculateChanges = new CalculateChanges(
+          const calculateChanges = new SelectionUpdater(
             editor,
             [edits.map(
                 (edit) => edit.originalSelection.selection.selection
@@ -181,7 +181,7 @@ class BringMoveSwap implements Action {
 
           await performDocumentEdits(editor, edits);
 
-          const [updatedSelections] = calculateChanges.calculateSelections();
+          const [updatedSelections] = calculateChanges.calculateUpdatedSelections();
 
           // Only swap has source as a "that" mark
           if (this.type !== "swap") {
