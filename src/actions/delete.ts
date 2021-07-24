@@ -8,8 +8,7 @@ import {
 import { runOnTargetsForEachEditor } from "../targetUtils";
 import displayPendingEditDecorations from "../editDisplayUtils";
 import { flatten } from "lodash";
-import SelectionUpdater from "../CalculateChanges";
-import performDocumentEdits from "../performDocumentEdits";
+import { performEditsAndUpdateSelections } from "../updateSelections";
 
 export default class Delete implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "outside" }];
@@ -32,9 +31,11 @@ export default class Delete implements Action {
           text: "",
         }));
 
-        const [updatedSelections] = await performDocumentEdits(editor, edits, [
-          targets.map((target) => target.selection.selection),
-        ]);
+        const [updatedSelections] = await performEditsAndUpdateSelections(
+          editor,
+          edits,
+          [targets.map((target) => target.selection.selection)]
+        );
 
         return updatedSelections.map((selection) => ({
           editor,

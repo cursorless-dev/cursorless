@@ -6,7 +6,9 @@ import {
   TextDocument,
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
+  Disposable,
 } from "vscode";
+import { performDocumentEdits } from "./performDocumentEdits";
 import { Edit } from "./Types";
 
 interface SelectionInfo {
@@ -76,34 +78,40 @@ function updateSelectionInfoMatrix(
   });
 }
 
-/**
- * Takes a list of selections and future edits, and then the client can call
- * the calculateUpdatedSelections function after applying the edits to get the
- * original selections adjusted for the effect of the given edits
- */
-export default class SelectionUpdater {
+class SelectionUpdater {
   private document: TextDocument;
   private selectionInfoMatrix: SelectionInfo[][];
-  private contentChanges: TextDocumentContentChangeEvent[];
+  private disposable!: Disposable;
 
-  constructor(
-    editor: TextEditor,
-    originalSelections: Selection[][],
-    edits: Edit[]
-  ) {
+  constructor(editor: TextEditor, originalSelections: Selection[][]) {
     this.document = editor.document;
     this.selectionInfoMatrix = selectionsToSelectionInfos(
       this.document,
       originalSelections
     );
-    this.contentChanges = edits.map((edit) => ({
-      range: edit.range,
-      text: edit.text,
-      rangeOffset: this.document.offsetAt(edit.range.start),
-      rangeLength:
-        this.document.offsetAt(edit.range.end) -
-        this.document.offsetAt(edit.range.start),
-    }));
+    this.listenForDocumentChanges();
+  }
+
+  private listenForDocumentChanges() {
+    this.disposable = workspace.onDidChangeTextDocument(
+      (event: TextDocumentChangeEvent) => {
+        if (
+          event.document !== this.document ||
+          event.contentChanges.length === 0
+        ) {
+          return;
+        }
+
+        updateSelectionInfoMatrix(
+          event.contentChanges,
+          this.selectionInfoMatrix
+        );
+      }
+    );
+  }
+
+  dispose() {
+    this.disposable.dispose();
   }
 
   /**
@@ -112,37 +120,65 @@ export default class SelectionUpdater {
    *
    * @returns Original selections updated to take into account the given changes
    */
-  calculateUpdatedSelections() {
-    updateSelectionInfoMatrix(this.contentChanges, this.selectionInfoMatrix);
-
+  get updatedSelections() {
     return selectionInfosToSelections(this.document, this.selectionInfoMatrix);
   }
 }
 
-export function listenForDocumentChanges(
+/**
+ * Calls the given function and updates the given selections based on the
+ * changes that occurred as a result of calling function.
+ * @param func The function to call
+ * @param editor The editor containing the selections
+ * @param selectionMatrix A matrix of selections to update
+ * @returns The initial selections updated based upon what happened in the function
+ */
+export async function callFunctionAndUpdateSelections(
+  func: () => Thenable<void>,
   editor: TextEditor,
-  selections: Selection[][]
+  selectionMatrix: Selection[][]
 ): Promise<Selection[][]> {
-  return new Promise((resolve) => {
-    const matrix = selectionsToSelectionInfos(editor.document, selections);
+  const selectionUpdater = new SelectionUpdater(editor, selectionMatrix);
 
-    const disposable = workspace.onDidChangeTextDocument(
-      (event: TextDocumentChangeEvent) => {
-        if (
-          event.document !== editor.document ||
-          event.contentChanges.length === 0
-        ) {
-          return;
-        }
+  await func();
 
-        // Only listen for the one event
-        disposable.dispose();
+  selectionUpdater.dispose();
 
-        updateSelectionInfoMatrix(event.contentChanges, matrix);
+  return selectionUpdater.updatedSelections;
+}
 
-        const returnValue = selectionInfosToSelections(event.document, matrix);
-        resolve(returnValue);
-      }
-    );
-  });
+/**
+ * Performs a list of edits and returns the given selections updated based on
+ * the applied edits
+ * @param editor The editor containing the selections
+ * @param edits A list of edits to apply
+ * @param originalSelections The selections to update
+ * @returns The updated selections
+ */
+export async function performEditsAndUpdateSelections(
+  editor: TextEditor,
+  edits: Edit[],
+  originalSelections: Selection[][] = []
+) {
+  const document = editor.document;
+  const selectionInfoMatrix = selectionsToSelectionInfos(
+    document,
+    originalSelections
+  );
+  const contentChanges = edits.map(({ range, text }) => ({
+    range,
+    text,
+    rangeOffset: document.offsetAt(range.start),
+    rangeLength: document.offsetAt(range.end) - document.offsetAt(range.start),
+  }));
+
+  const wereEditsApplied = await performDocumentEdits(editor, edits);
+
+  if (!wereEditsApplied) {
+    throw new Error("Could not apply edits");
+  }
+
+  updateSelectionInfoMatrix(contentChanges, selectionInfoMatrix);
+
+  return selectionInfosToSelections(document, selectionInfoMatrix);
 }

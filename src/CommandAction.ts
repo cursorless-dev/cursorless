@@ -11,7 +11,10 @@ import displayPendingEditDecorations from "./editDisplayUtils";
 import { runOnTargetsForEachEditor } from "./targetUtils";
 import { focusEditor } from "./setSelectionsAndFocusEditor";
 import { flatten } from "lodash";
-import { listenForDocumentChanges } from "./CalculateChanges";
+import {
+  callFunctionAndUpdateSelections,
+  createNextDocumentChangePromise,
+} from "./updateSelections";
 
 export default class CommandAction implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
@@ -44,8 +47,8 @@ export default class CommandAction implements Action {
 
           const [updatedOriginalSelections, updatedTargetSelections] =
             await callFunctionAndUpdateSelections(
-              editor,
               () => commands.executeCommand(this.command),
+              editor,
               [originalSelections, targetSelections]
             );
 
