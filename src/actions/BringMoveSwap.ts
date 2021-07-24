@@ -17,9 +17,7 @@ import performDocumentEdits from "../performDocumentEdits";
 
 interface DecorationTypes {
   sourceStyle: TextEditorDecorationType;
-  sourceLineStyle: TextEditorDecorationType;
   destinationStyle: TextEditorDecorationType;
-  destinationLineStyle: TextEditorDecorationType;
 }
 
 interface ThatMarkEntry {
@@ -56,25 +54,20 @@ class BringMoveSwap implements Action {
     return sources;
   }
 
-  private getDecorationStyles(): DecorationTypes {
-    let sourceStyle, sourceLineStyle;
+  private getDecorationStyles() {
+    let sourceStyle;
     if (this.type === "bring") {
       sourceStyle = this.graph.editStyles.referenced;
-      sourceLineStyle = this.graph.editStyles.referencedLine;
     } else if (this.type === "swap") {
       sourceStyle = this.graph.editStyles.pendingModification1;
-      sourceLineStyle = this.graph.editStyles.pendingLineModification1;
     } else if (this.type === "move") {
       sourceStyle = this.graph.editStyles.pendingDelete;
-      sourceLineStyle = this.graph.editStyles.pendingLineDelete;
     } else {
       throw Error(`Unknown type "${this.type}"`);
     }
     return {
       sourceStyle,
-      sourceLineStyle,
       destinationStyle: this.graph.editStyles.pendingModification0,
-      destinationLineStyle: this.graph.editStyles.pendingLineModification0,
     };
   }
 
@@ -84,15 +77,10 @@ class BringMoveSwap implements Action {
   ) {
     const decorationTypes = this.getDecorationStyles();
     await Promise.all([
-      displayPendingEditDecorations(
-        sources,
-        decorationTypes.sourceStyle,
-        decorationTypes.sourceLineStyle
-      ),
+      displayPendingEditDecorations(sources, decorationTypes.sourceStyle),
       displayPendingEditDecorations(
         destinations,
-        decorationTypes.destinationStyle,
-        decorationTypes.destinationLineStyle
+        decorationTypes.destinationStyle
       ),
     ]);
   }
@@ -223,20 +211,19 @@ class BringMoveSwap implements Action {
   }
 
   private async decorateThatMark(thatMark: ThatMarkEntry[]) {
+    const decorationTypes = this.getDecorationStyles();
     return Promise.all([
       displayPendingEditDecorations(
         thatMark
           .filter(({ targetsIndex }) => targetsIndex === 0)
           .map(({ typedSelection }) => typedSelection),
-        this.graph.editStyles.pendingModification0,
-        this.graph.editStyles.pendingLineModification0
+        decorationTypes.sourceStyle
       ),
       displayPendingEditDecorations(
         thatMark
           .filter(({ targetsIndex }) => targetsIndex === 1)
           .map(({ typedSelection }) => typedSelection),
-        this.graph.editStyles.pendingModification1,
-        this.graph.editStyles.pendingLineModification1
+        decorationTypes.destinationStyle
       ),
     ]);
   }

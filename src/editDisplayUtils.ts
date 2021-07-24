@@ -3,6 +3,7 @@ import { TypedSelection, SelectionWithEditor } from "./Types";
 import { isLineSelectionType } from "./selectionType";
 import { promisify } from "util";
 import { runOnTargetsForEachEditor, runForEachEditor } from "./targetUtils";
+import { EditStyle } from "./editStyles";
 
 const sleep = promisify(setTimeout);
 
@@ -17,19 +18,18 @@ export async function decorationSleep() {
 
 export default async function displayPendingEditDecorations(
   targets: TypedSelection[],
-  tokenStyle: TextEditorDecorationType,
-  lineStyle: TextEditorDecorationType
+  editStyle: EditStyle
 ) {
   await runOnTargetsForEachEditor(targets, async (editor, selections) => {
     editor.setDecorations(
-      tokenStyle,
+      editStyle.tokenStyle,
       selections
         .filter((selection) => !isLineSelectionType(selection.selectionType))
         .map((selection) => selection.selection.selection)
     );
 
     editor.setDecorations(
-      lineStyle,
+      editStyle.lineStyle,
       selections
         .filter((selection) => isLineSelectionType(selection.selectionType))
         .map((selection) => {
@@ -59,8 +59,8 @@ export default async function displayPendingEditDecorations(
   await decorationSleep();
 
   await runOnTargetsForEachEditor(targets, async (editor) => {
-    editor.setDecorations(tokenStyle, []);
-    editor.setDecorations(lineStyle, []);
+    editor.setDecorations(editStyle.tokenStyle, []);
+    editor.setDecorations(editStyle.lineStyle, []);
   });
 }
 

@@ -56,7 +56,7 @@ class Scroll implements Action {
 
     await displayDecorationsWhileRunningFunc(
       targets.map((target) => target.selection),
-      this.graph.editStyles.referencedLine,
+      this.graph.editStyles.referenced.lineStyle,
       scrollCallback,
       showAdditionalHighlightBeforeScroll
     );

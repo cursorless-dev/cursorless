@@ -26,7 +26,6 @@ export default class CommandAction implements Action {
     await displayPendingEditDecorations(
       targets,
       this.graph.editStyles.referenced,
-      this.graph.editStyles.referencedLine
     );
 
     const originalEditor = window.activeTextEditor;

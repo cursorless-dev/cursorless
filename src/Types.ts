@@ -2,7 +2,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
 import { Location } from "vscode";
 import { SymbolColor } from "./constants";
-import EditStyles from "./editStyles";
+import { EditStyles } from "./editStyles";
 import NavigationMap from "./NavigationMap";
 
 /**

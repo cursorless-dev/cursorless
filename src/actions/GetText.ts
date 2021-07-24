@@ -10,19 +10,15 @@ import displayPendingEditDecorations from "../editDisplayUtils";
 export default class GetText implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
 
-  constructor(private graph: Graph) {
+  constructor(private graph: Graph, private showDecorations: boolean = true) {
     this.run = this.run.bind(this);
   }
 
-  async run(
-    [targets]: [TypedSelection[]],
-    showDecorations = true
-  ): Promise<ActionReturnValue> {
-    if (showDecorations) {
+  async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+    if (this.showDecorations) {
       await displayPendingEditDecorations(
         targets,
-        this.graph.editStyles.referenced,
-        this.graph.editStyles.referencedLine
+        this.graph.editStyles.referenced
       );
     }
 

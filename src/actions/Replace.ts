@@ -24,7 +24,6 @@ export default class implements Action {
     await displayPendingEditDecorations(
       targets,
       this.graph.editStyles.pendingModification0,
-      this.graph.editStyles.pendingLineModification0
     );
 
     // Broadcast single text for each target
