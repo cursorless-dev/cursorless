@@ -568,7 +568,7 @@ function getParagraphSelectionContext(
 
   return {
     isInDelimitedList,
-    containingListDelimiter: isInDelimitedList ? "\n" : undefined,
+    containingListDelimiter: isInDelimitedList ? "\n\n" : undefined,
     leadingDelimiterRange,
     trailingDelimiterRange,
     outerSelection,
