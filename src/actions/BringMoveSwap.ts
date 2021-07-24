@@ -17,6 +17,7 @@ import { computeChangedOffsets } from "../computeChangedOffsets";
 import { flatten, zip } from "lodash";
 import { Selection, TextEditor, Range } from "vscode";
 import performDocumentEdits from "../performDocumentEdits";
+import getTextAdjustPosition from "../getTextAdjustPosition";
 
 interface ThatMarkEntry {
   editor: TextEditor;
@@ -33,7 +34,7 @@ interface ExtendedEdit extends Edit {
 class BringMoveSwap implements Action {
   targetPreferences: ActionPreferences[] = [
     { insideOutsideType: null },
-    { insideOutsideType: "inside" },
+    { insideOutsideType: null },
   ];
 
   constructor(private graph: Graph, private type: string) {
@@ -94,23 +95,18 @@ class BringMoveSwap implements Action {
           throw new Error("Targets must have same number of args");
         }
 
-        const sourceText = source.selection.editor.document.getText(
-          source.selection.selection
+        // Get text adjusting for destination position
+        const newText = getTextAdjustPosition(
+          performInsideAdjustment(source),
+          destination
         );
-
-        const { containingListDelimiter } = destination.selectionContext;
-        const newText =
-          containingListDelimiter == null || destination.position === "contents"
-            ? sourceText
-            : destination.position === "after"
-            ? containingListDelimiter + sourceText
-            : sourceText + containingListDelimiter;
 
         // Add destination edit
         const result = [
           {
             editor: destination.selection.editor,
-            range: destination.selection.selection as Range,
+            range: performInsideAdjustment(destination).selection
+              .selection as Range,
             newText,
             targetsIndex: 0,
             originalSelection: destination,
