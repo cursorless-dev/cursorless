@@ -8,10 +8,9 @@ export default function getTextAdjustPosition(
     source.selection.selection
   );
   const { insideOutsideType, position } = destination;
-  const { containingListDelimiter } = destination.selectionContext;
-  return containingListDelimiter == null ||
-    position === "contents" ||
-    insideOutsideType === "inside"
+  const containingListDelimiter =
+    destination.selectionContext.containingListDelimiter ?? " ";
+  return position === "contents" || insideOutsideType === "inside"
     ? sourceText
     : destination.position === "after"
     ? containingListDelimiter + sourceText
