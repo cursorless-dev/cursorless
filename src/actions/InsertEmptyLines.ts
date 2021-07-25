@@ -42,7 +42,7 @@ class InsertEmptyLines implements Action {
   private getEdits(ranges: Range[]) {
     return ranges.map((range) => ({
       range,
-      text: "\r\n",
+      text: "\n",
     }));
   }
 

@@ -171,8 +171,10 @@ export async function performEditsAndUpdateSelections(
     originalSelections
   );
   const contentChanges = edits.map(({ range, text }) => ({
+    // Replace \n with \r\n. Vscode does this internally and it's
+    // important that our calculated changes reflect the actual changes
+    text: text.replace(/(?<!\r)\n/g, "\r\n"),
     range,
-    text,
     rangeOffset: document.offsetAt(range.start),
     rangeLength: document.offsetAt(range.end) - document.offsetAt(range.start),
   }));
