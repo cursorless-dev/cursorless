@@ -285,36 +285,16 @@ export function inferSingleNonListTarget(
 
 function inferRangeStartSelectionType(
   context: InferenceContext,
-  endTarget: PartialPrimitiveTarget,
   prototypeTargets: Target[],
   inferredMark: Mark
 ): SelectionType {
-  if (
-    endTarget.position !== "before" &&
-    endTarget.position !== "after" &&
-    endTarget.selectionType != null
-  ) {
-    return endTarget.selectionType;
-  }
-
   return getPrimitiveSelectionType(context, inferredMark, prototypeTargets);
 }
 
 function inferRangeStartModifier(
   target: PartialPrimitiveTarget,
-  endTarget: PartialPrimitiveTarget,
   prototypeTargets: Target[]
 ): Modifier {
-  if (
-    endTarget.position !== "before" &&
-    endTarget.position !== "after" &&
-    endTarget.modifier != null &&
-    target.mark == null &&
-    endTarget.modifier.type === "containingScope"
-  ) {
-    return endTarget.modifier;
-  }
-
   return (
     extractAttributeFromList(prototypeTargets, "modifier") ?? {
       type: "identity",
@@ -352,13 +332,12 @@ function inferRangeStartTarget(
 
   const selectionType =
     target.selectionType ??
-    inferRangeStartSelectionType(context, endTarget, prototypeTargets, mark);
+    inferRangeStartSelectionType(context, prototypeTargets, mark);
 
   const position: Position = target.position ?? "contents";
 
   const modifier =
-    target.modifier ??
-    inferRangeStartModifier(target, endTarget, prototypeTargets);
+    target.modifier ?? inferRangeStartModifier(target, prototypeTargets);
 
   const insideOutsideType =
     target.insideOutsideType ??
