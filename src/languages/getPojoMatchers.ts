@@ -36,6 +36,6 @@ export function getPojoMatchers(
         ", "
       )
     ),
-    string: typeMatcher("string"),
+    string: typeMatcher("string", "template_string"),
   };
 }
