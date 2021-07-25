@@ -12,12 +12,19 @@ import { runOnTargetsForEachEditor } from "./targetUtils";
 import { focusEditor } from "./setSelectionsAndFocusEditor";
 import { flatten } from "lodash";
 import { callFunctionAndUpdateSelections } from "./updateSelections";
+import { ensureSingleEditor } from "./targetUtils";
 
 export default class CommandAction implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+  private ensureSingleEditor: boolean;
 
-  constructor(private graph: Graph, private command: string) {
+  constructor(
+    private graph: Graph,
+    private command: string,
+    { ensureSingleEditor = false } = {}
+  ) {
     this.run = this.run.bind(this);
+    this.ensureSingleEditor = ensureSingleEditor;
   }
 
   private async runCommandAndUpdateSelections(targets: TypedSelection[]) {
@@ -66,6 +73,10 @@ export default class CommandAction implements Action {
       this.graph.editStyles.referenced,
       this.graph.editStyles.referencedLine
     );
+
+    if (this.ensureSingleEditor) {
+      ensureSingleEditor(targets);
+    }
 
     const originalEditor = window.activeTextEditor;
 

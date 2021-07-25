@@ -33,14 +33,16 @@ export class Cut implements Action {
   }
 }
 
+const OPTIONS = { ensureSingleEditor: true };
+
 export class Copy extends CommandAction {
   constructor(graph: Graph) {
-    super(graph, "editor.action.clipboardCopyAction");
+    super(graph, "editor.action.clipboardCopyAction", OPTIONS);
   }
 }
 
 export class Paste extends CommandAction {
   constructor(graph: Graph) {
-    super(graph, "editor.action.clipboardPasteAction");
+    super(graph, "editor.action.clipboardPasteAction", OPTIONS);
   }
 }
