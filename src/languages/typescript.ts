@@ -147,8 +147,11 @@ export const findTypeNode = (node: SyntaxNode) => {
 const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   ...getPojoMatchers(
     ["object"],
-    ["array"],
-    (node) => isExpression(node) || node.type === "spread_element"
+    ["array", "array_pattern"],
+    (node) =>
+      isExpression(node) ||
+      node.type === "spread_element" ||
+      node.type === "identifier" // Deconstructed array
   ),
   ifStatement: typeMatcher("if_statement"),
   class: matcher(possiblyExportedDeclaration("class_declaration", "class")),

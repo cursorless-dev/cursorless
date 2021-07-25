@@ -24,8 +24,8 @@ export function getPojoMatchers(
           (listTypes.includes(node.parent?.type ?? "") &&
             listElementMatcher(node)) ||
           node.type === "pair" ||
-          node.type === "shorthand_property_identifier" ||
-          node.type === "shorthand_property_identifier_pattern"
+          node.type === "shorthand_property_identifier" || // Property shorthand
+          node.type === "shorthand_property_identifier_pattern" // Deconstructed object
       ),
       delimitedSelector(
         (node) =>
