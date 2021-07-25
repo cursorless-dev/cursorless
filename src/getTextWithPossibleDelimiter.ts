@@ -18,8 +18,10 @@ export function maybeAddDelimiter(
 ) {
   const { insideOutsideType, position } = destination;
   const containingListDelimiter =
-    destination.selectionContext.containingListDelimiter ?? " ";
-  return position === "contents" || insideOutsideType === "inside"
+    destination.selectionContext.containingListDelimiter;
+  return containingListDelimiter == null ||
+    position === "contents" ||
+    insideOutsideType === "inside"
     ? sourceText
     : destination.position === "after"
     ? containingListDelimiter + sourceText
