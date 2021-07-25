@@ -217,6 +217,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
     )
   ),
   comment: matcher(typedNodeFinder("comment")),
+  regex: matcher(typedNodeFinder("regex")),
 };
 
 export default nodeMatchers;

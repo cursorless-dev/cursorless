@@ -175,6 +175,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   ),
   namedFunction: matcher(possiblyDecoratedDefinition("function_definition")),
   comment: typeMatcher("comment"),
+  regex: typeMatcher("regex"),
   type: matcher(getTypeNode, selectWithLeadingDelimiter),
 };
 

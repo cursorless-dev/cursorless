@@ -235,6 +235,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
       getNameNode,
     ]),
     comment: matcher(typedNodeFinder("comment")),
+    regex: matcher(typedNodeFinder("regex")),
     type: matcher(findTypeNode, selectWithLeadingDelimiter),
     name: matcher(getNameNode),
 };
