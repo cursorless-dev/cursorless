@@ -222,8 +222,19 @@ function transformSelection(
         new vscode.Location(selection.editor.document.uri, selection.selection)
       );
 
-      const nodeMatcher =
-        nodeMatchers[selection.editor.document.languageId][modifier.scopeType];
+      const languageMatchers =
+        nodeMatchers[selection.editor.document.languageId];
+      if (languageMatchers == null) {
+        throw new Error(
+          `Couldn't find language ${selection.editor.document.languageId}`
+        );
+      }
+
+      const nodeMatcher = languageMatchers[modifier.scopeType];
+
+      if (nodeMatcher == null) {
+        throw new Error(`Couldn't find matcher ${modifier.scopeType}`);
+      }
 
       while (node != null) {
         const matchedSelection = nodeMatcher(selection.editor, node);
