@@ -11,6 +11,7 @@ import displayPendingEditDecorations from "../editDisplayUtils";
 import { runOnTargetsForEachEditor } from "../targetUtils";
 import { flatten } from "lodash";
 import unifyRanges from "../unifyRanges";
+import expandToContainingLine from "./expandToContainingLine";
 
 class CopyLines implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
@@ -20,19 +21,17 @@ class CopyLines implements Action {
   }
 
   private getRanges(editor: TextEditor, targets: TypedSelection[]) {
-    const ranges = targets.map((target) => {
-      const selection = target.selection.selection;
-      const start = selection.start.with({ character: 0 });
-      const end = editor.document.lineAt(selection.end).range.end;
-      return new Range(start, end);
-    });
+    const ranges = targets.map((target) =>
+      expandToContainingLine(editor, target.selection.selection)
+    );
+
     return unifyRanges(ranges);
   }
 
   private getEdits(editor: TextEditor, ranges: Range[]) {
     return ranges.map((range) => {
       let text = editor.document.getText(range);
-      text = this.isUp ? `${text}\r\n` : `\r\n${text}`;
+      text = this.isUp ? `${text}\n` : `\n${text}`;
       const newRange = this.isUp
         ? new Range(range.start, range.start)
         : new Range(range.end, range.end);
