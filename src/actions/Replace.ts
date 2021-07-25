@@ -8,7 +8,7 @@ import {
 import displayPendingEditDecorations from "../editDisplayUtils";
 import { runForEachEditor } from "../targetUtils";
 import { flatten, zip } from "lodash";
-import { forTextAdjustPosition } from "../getTextAdjustPosition";
+import { maybeAddDelimiter } from "../getTextWithPossibleDelimiter";
 import { performEditsAndUpdateSelections } from "../updateSelections";
 
 export default class implements Action {
@@ -40,7 +40,7 @@ export default class implements Action {
       return {
         editor: target!.selection.editor,
         range: target!.selection.selection,
-        text: forTextAdjustPosition(text!, target!),
+        text: maybeAddDelimiter(text!, target!),
       };
     });
 

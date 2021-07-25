@@ -13,7 +13,7 @@ import { performOutsideAdjustment } from "../performInsideOutsideAdjustment";
 import { flatten, zip } from "lodash";
 import { Selection, TextEditor, Range } from "vscode";
 import { performEditsAndUpdateSelections } from "../updateSelections";
-import { getTextAdjustPosition } from "../getTextAdjustPosition";
+import { getTextWithPossibleDelimiter } from "../getTextWithPossibleDelimiter";
 
 interface ExtendedEdit extends Edit {
   editor: TextEditor;
@@ -86,57 +86,55 @@ class BringMoveSwap implements Action {
     destinations: TypedSelection[]
   ): ExtendedEdit[] {
     const usedSources: TypedSelection[] = [];
-    return flatten(
-      zip(sources, destinations).map(([source, destination]) => {
-        if (source == null || destination == null) {
-          throw new Error("Targets must have same number of args");
+    return zip(sources, destinations).flatMap(([source, destination]) => {
+      if (source == null || destination == null) {
+        throw new Error("Targets must have same number of args");
+      }
+
+      // Get text adjusting for destination position
+      const text = getTextWithPossibleDelimiter(source, destination);
+
+      // Add destination edit
+      const result = [
+        {
+          range: destination.selection.selection as Range,
+          text,
+          editor: destination.selection.editor,
+          originalSelection: destination,
+          isSource: false,
+        },
+      ];
+
+      // Add source edit for move and swap
+      // Prevent multiple instances of the same expanded source.
+      if (this.type !== "bring" && !usedSources.includes(source)) {
+        let text: string;
+        let range: Range;
+
+        if (this.type === "swap") {
+          text = destination.selection.editor.document.getText(
+            destination.selection.selection
+          );
+          range = source.selection.selection;
+        }
+        // NB: this.type === "move"
+        else {
+          text = "";
+          range = performOutsideAdjustment(source).selection.selection;
         }
 
-        // Get text adjusting for destination position
-        const text = getTextAdjustPosition(source, destination);
+        usedSources.push(source);
+        result.push({
+          range,
+          text,
+          editor: source.selection.editor,
+          originalSelection: source,
+          isSource: true,
+        });
+      }
 
-        // Add destination edit
-        const result = [
-          {
-            range: destination.selection.selection as Range,
-            text,
-            editor: destination.selection.editor,
-            originalSelection: destination,
-            isSource: false,
-          },
-        ];
-
-        // Add source edit for move and swap
-        // Prevent multiple instances of the same expanded source.
-        if (this.type !== "bring" && !usedSources.includes(source)) {
-          let text: string;
-          let range: Range;
-
-          if (this.type === "swap") {
-            text = destination.selection.editor.document.getText(
-              destination.selection.selection
-            );
-            range = source.selection.selection;
-          }
-          // NB: this.type === "move"
-          else {
-            text = "";
-            range = performOutsideAdjustment(source).selection.selection;
-          }
-
-          usedSources.push(source);
-          result.push({
-            range,
-            text,
-            editor: source.selection.editor,
-            originalSelection: source,
-            isSource: true,
-          });
-        }
-
-        return result;
-      })
-    );
+      return result;
+    });
   }
 
   private async performEditsAndComputeThatMark(

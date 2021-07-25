@@ -21,9 +21,10 @@ export class FindInFiles implements Action {
     const { returnValue, thatMark } = await this.graph.actions.getText.run([
       targets,
     ]);
-    const query = returnValue.join("\n");
 
-    await commands.executeCommand("workbench.action.findInFiles", { query });
+    await commands.executeCommand("workbench.action.findInFiles", {
+      query: returnValue[0],
+    });
 
     return { returnValue: null, thatMark };
   }

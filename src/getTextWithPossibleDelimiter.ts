@@ -1,16 +1,18 @@
 import { TypedSelection } from "./Types";
 
-export function getTextAdjustPosition(
+/** Get text from selection. Possibly added delimiter for positions before/after */
+export function getTextWithPossibleDelimiter(
   source: TypedSelection,
   destination: TypedSelection
 ) {
   const sourceText = source.selection.editor.document.getText(
     source.selection.selection
   );
-  return forTextAdjustPosition(sourceText, destination);
+  return maybeAddDelimiter(sourceText, destination);
 }
 
-export function forTextAdjustPosition(
+/** Possibly added delimiter for positions before/after */
+export function maybeAddDelimiter(
   sourceText: string,
   destination: TypedSelection
 ) {
