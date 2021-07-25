@@ -226,7 +226,7 @@ function transformSelection(
         nodeMatchers[selection.editor.document.languageId];
       if (languageMatchers == null) {
         throw new Error(
-          `Couldn't find language ${selection.editor.document.languageId}`
+          `Language ${selection.editor.document.languageId} is not yet supported`
         );
       }
 
