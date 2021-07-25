@@ -5,20 +5,26 @@ All notable changes to the "cursorless" extension will be documented in this fil
 ## 0.20.0 (24 July 2021)
 ### Enhancements
 
-- Add "find all" action [\#100](https://github.com/pokey/cursorless-vscode/issues/100)
-- Add "breakpoint" action [\#96](https://github.com/pokey/cursorless-vscode/issues/96)
-- Add "indent" and "dedent" actions [\#94](https://github.com/pokey/cursorless-vscode/issues/94)
-- Add "comment" action [\#93](https://github.com/pokey/cursorless-vscode/issues/93)
-- Properly support "puff", "drop", and "float" [\#68](https://github.com/pokey/cursorless-vscode/issues/68)
-- Support "paste" action [\#36](https://github.com/pokey/cursorless-vscode/issues/36)
-- Support last \<n\> / first \<n\> subwords / characters [\#35](https://github.com/pokey/cursorless-vscode/issues/35)
-- Support "until" [\#5](https://github.com/pokey/cursorless-vscode/issues/5)
+- C\# support [\#137](https://github.com/pokey/cursorless-vscode/pull/137) ([sterlind](https://github.com/sterlind))
+- Added action duplicate [\#134](https://github.com/pokey/cursorless-vscode/pull/134) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Added support to exclude start or end token in ranges [\#131](https://github.com/pokey/cursorless-vscode/pull/131) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Added action set breakpoint [\#130](https://github.com/pokey/cursorless-vscode/pull/130) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Fixed bug with two adjacent tokens [\#129](https://github.com/pokey/cursorless-vscode/pull/129) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Added selection type paragraph [\#125](https://github.com/pokey/cursorless-vscode/pull/125) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- implemented actions puff, float, drop [\#122](https://github.com/pokey/cursorless-vscode/pull/122) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Subtokens support reversed order ordinals [\#121](https://github.com/pokey/cursorless-vscode/pull/121) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- added find all action [\#120](https://github.com/pokey/cursorless-vscode/pull/120) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Infer missing end mark on ranges [\#118](https://github.com/pokey/cursorless-vscode/pull/118) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Added actions: indent, dedent, comment [\#116](https://github.com/pokey/cursorless-vscode/pull/116) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Implemented paste action [\#115](https://github.com/pokey/cursorless-vscode/pull/115) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+
 
 ### Bugs fixed
 
-- Fix bug with two adjacent tokens [\#12](https://github.com/pokey/cursorless-vscode/issues/12)
-- Fix "past end of line" [\#4](https://github.com/pokey/cursorless-vscode/issues/4)
+- Improved error message ensureSingleEditor [\#133](https://github.com/pokey/cursorless-vscode/pull/133) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
 
+### Code quality
+- Added function listenForDocumentChanges [\#126](https://github.com/pokey/cursorless-vscode/pull/126) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
 
 ## 0.19.0 (16 July 2021)
 ### Enhancements
