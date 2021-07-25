@@ -487,23 +487,20 @@ function getTokenSelectionContext(
         )
       : null;
 
-  // Didn't find any delimiters. Default to space if not sub piece
-  if (leadingDelimiterRange == null && trailingDelimiterRange == null) {
-    if (modifier.type !== "subpiece") {
-      return {
-        isInDelimitedList: true,
-        containingListDelimiter: " ",
-      };
-    }
-    return selectionContext;
+  if (
+    leadingDelimiterRange != null ||
+    trailingDelimiterRange != null ||
+    modifier.type !== "subpiece"
+  ) {
+    return {
+      isInDelimitedList: true,
+      containingListDelimiter: " ",
+      leadingDelimiterRange,
+      trailingDelimiterRange,
+    };
   }
 
-  return {
-    isInDelimitedList: true,
-    containingListDelimiter: " ",
-    leadingDelimiterRange,
-    trailingDelimiterRange,
-  };
+  return selectionContext;
 }
 
 // TODO Clean this up once we have rich targets and better polymorphic
