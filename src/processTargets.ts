@@ -500,9 +500,7 @@ function getTokenSelectionContext(
 
   return {
     isInDelimitedList: true,
-    containingListDelimiter: document.getText(
-      (trailingDelimiterRange ?? leadingDelimiterRange)!
-    ),
+    containingListDelimiter: " ",
     leadingDelimiterRange,
     trailingDelimiterRange,
   };
