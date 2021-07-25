@@ -2,6 +2,24 @@
 
 All notable changes to the "cursorless" extension will be documented in this file.
 
+## 0.20.0 (24 July 2021)
+### Enhancements
+
+- Add "find all" action [\#100](https://github.com/pokey/cursorless-vscode/issues/100)
+- Add "breakpoint" action [\#96](https://github.com/pokey/cursorless-vscode/issues/96)
+- Add "indent" and "dedent" actions [\#94](https://github.com/pokey/cursorless-vscode/issues/94)
+- Add "comment" action [\#93](https://github.com/pokey/cursorless-vscode/issues/93)
+- Properly support "puff", "drop", and "float" [\#68](https://github.com/pokey/cursorless-vscode/issues/68)
+- Support "paste" action [\#36](https://github.com/pokey/cursorless-vscode/issues/36)
+- Support last \<n\> / first \<n\> subwords / characters [\#35](https://github.com/pokey/cursorless-vscode/issues/35)
+- Support "until" [\#5](https://github.com/pokey/cursorless-vscode/issues/5)
+
+### Bugs fixed
+
+- Fix bug with two adjacent tokens [\#12](https://github.com/pokey/cursorless-vscode/issues/12)
+- Fix "past end of line" [\#4](https://github.com/pokey/cursorless-vscode/issues/4)
+
+
 ## 0.19.0 (16 July 2021)
 ### Enhancements
 - Support "move", "bring to after" / "move to after", and properly cleaning up spaces / newlines on delete
