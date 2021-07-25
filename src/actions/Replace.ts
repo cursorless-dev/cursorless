@@ -36,13 +36,11 @@ export default class implements Action {
       throw new Error("Targets and texts must have same length");
     }
 
-    const edits = zip(targets, texts).map(([target, text]) => {
-      return {
-        editor: target!.selection.editor,
-        range: target!.selection.selection,
-        text: maybeAddDelimiter(text!, target!),
-      };
-    });
+    const edits = zip(targets, texts).map(([target, text]) => ({
+      editor: target!.selection.editor,
+      range: target!.selection.selection,
+      text: maybeAddDelimiter(text!, target!),
+    }));
 
     const thatMark = flatten(
       await runForEachEditor(

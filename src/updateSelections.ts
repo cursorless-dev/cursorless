@@ -64,13 +64,15 @@ function updateSelectionInfoMatrix(
 
     selectionInfoMatrix.forEach((selectionInfos) => {
       selectionInfos.forEach((selectionInfo) => {
-        // Change is before selection. Move entire selection.
-        if (change.range.start.isBefore(selectionInfo.range.start)) {
-          selectionInfo.startOffset += offsetDelta;
+        // Change is selection. Move just end to match.
+        if (change.range.isEqual(selectionInfo.range)) {
           selectionInfo.endOffset += offsetDelta;
         }
-        // Change is selection. Move just end to match.
-        else if (change.range.isEqual(selectionInfo.range)) {
+        // Change is before selection. Move entire selection.
+        else if (
+          change.range.start.isBeforeOrEqual(selectionInfo.range.start)
+        ) {
+          selectionInfo.startOffset += offsetDelta;
           selectionInfo.endOffset += offsetDelta;
         }
       });

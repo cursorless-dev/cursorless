@@ -25,6 +25,7 @@ import {
 import GetText from "./GetText";
 import { FindInFiles } from "./Find";
 import Replace from "./Replace";
+import { CopyLinesUp, CopyLinesDown } from "./CopyLines";
 import SetBreakpoint from "./SetBreakpoint";
 
 class Actions implements ActionRecord {
@@ -39,6 +40,8 @@ class Actions implements ActionRecord {
   clear = new Clear(this.graph);
   commentLines = new CommentLines(this.graph);
   copy = new Copy(this.graph);
+  copyLinesDown = new CopyLinesDown(this.graph);
+  copyLinesUp = new CopyLinesUp(this.graph);
   cut = new Cut(this.graph);
   delete = new Delete(this.graph);
   extractVariable = new ExtractVariable(this.graph);
