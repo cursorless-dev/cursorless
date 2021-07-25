@@ -61,6 +61,8 @@ class CopyLines implements Action {
           [targets.map((target) => target.selection.selection)]
         );
 
+        editor.revealRange(updatedSelections[0]);
+
         return updatedSelections.map((selection) => ({
           editor,
           selection,

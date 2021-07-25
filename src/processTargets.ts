@@ -69,12 +69,12 @@ function processSingleRangeTarget(
       endSelection.start
     );
 
-    const anchor = getRangePosition(
+    const anchor = targetToRangeLimitPosition(
       startTarget!,
       isStartBeforeEnd,
       target.excludeStart
     );
-    const active = getRangePosition(
+    const active = targetToRangeLimitPosition(
       endTarget!,
       !isStartBeforeEnd,
       target.excludeEnd
@@ -129,11 +129,13 @@ function processSingleRangeTarget(
 }
 
 /**
-* @param target The target to get position from
-* @param isStart If true disposition is the start of the range
-* @param exclude If true the content of this position should be excluded
-*/
-function getRangePosition(
+ * Given a target which forms one end of a range target, do necessary
+ * adjustments to get the proper position for the output range
+ * @param target The target to get position from
+ * @param isStart If true this position is the start of the range
+ * @param exclude If true the content of this position should be excluded
+ */
+function targetToRangeLimitPosition(
   target: TypedSelection,
   isStart: boolean,
   exclude: boolean
