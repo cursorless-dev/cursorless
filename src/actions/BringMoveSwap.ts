@@ -10,22 +10,22 @@ import { runForEachEditor } from "../targetUtils";
 import update from "immutability-helper";
 import displayPendingEditDecorations from "../editDisplayUtils";
 import { performOutsideAdjustment } from "../performInsideOutsideAdjustment";
-import { computeChangedOffsets } from "../computeChangedOffsets";
 import { flatten, zip } from "lodash";
 import { Selection, TextEditor, Range } from "vscode";
-import performDocumentEdits from "../performDocumentEdits";
+import { performEditsAndUpdateSelections } from "../updateSelections";
 import { getTextAdjustPosition } from "../getTextAdjustPosition";
+
+interface ExtendedEdit extends Edit {
+  editor: TextEditor;
+  isSource: boolean;
+  originalSelection: TypedSelection;
+}
 
 interface ThatMarkEntry {
   editor: TextEditor;
-  targetsIndex: number;
-  typedSelection: TypedSelection;
   selection: Selection;
-}
-
-interface ExtendedEdit extends Edit {
-  targetsIndex: number;
-  originalSelection: TypedSelection;
+  isSource: boolean;
+  typedSelection: TypedSelection;
 }
 
 class BringMoveSwap implements Action {
@@ -93,43 +93,44 @@ class BringMoveSwap implements Action {
         }
 
         // Get text adjusting for destination position
-        const newText = getTextAdjustPosition(source, destination);
+        const text = getTextAdjustPosition(source, destination);
 
         // Add destination edit
         const result = [
           {
-            editor: destination.selection.editor,
             range: destination.selection.selection as Range,
-            newText,
-            targetsIndex: 0,
+            text,
+            editor: destination.selection.editor,
             originalSelection: destination,
+            isSource: false,
           },
         ];
 
         // Add source edit for move and swap
         // Prevent multiple instances of the same expanded source.
         if (this.type !== "bring" && !usedSources.includes(source)) {
-          let newText: string;
+          let text: string;
           let range: Range;
 
           if (this.type === "swap") {
-            newText = destination.selection.editor.document.getText(
+            text = destination.selection.editor.document.getText(
               destination.selection.selection
             );
             range = source.selection.selection;
-          } else {
-            // NB: this.type === "move"
-            newText = "";
+          }
+          // NB: this.type === "move"
+          else {
+            text = "";
             range = performOutsideAdjustment(source).selection.selection;
           }
 
           usedSources.push(source);
           result.push({
-            editor: source.selection.editor,
             range,
-            newText,
-            targetsIndex: 1,
+            text,
+            editor: source.selection.editor,
             originalSelection: source,
+            isSource: true,
           });
         }
 
@@ -146,49 +147,28 @@ class BringMoveSwap implements Action {
         edits,
         (edit) => edit.editor,
         async (editor, edits) => {
-          let newEdits = zip(edits, computeChangedOffsets(editor, edits)).map(
-            ([originalEdit, changedEdit]) => ({
-              targetsIndex: originalEdit!.targetsIndex,
-              originalSelection: originalEdit!.originalSelection,
-              originalRange: originalEdit!.range,
-              newText: originalEdit!.newText,
-              newStartOffset: changedEdit!.startOffset,
-              newEndOffset: changedEdit!.endOffset,
-            })
+          const [updatedSelections] = await performEditsAndUpdateSelections(
+            editor,
+            edits,
+            [edits.map((edit) => edit.originalSelection.selection.selection)]
           );
-
-          // We have to update the document in the middle of calculating the
-          // "that" mark for the positions to be correct
-          await performDocumentEdits(editor, edits);
 
           // Only swap has source as a "that" mark
           if (this.type !== "swap") {
-            newEdits = newEdits.filter(
-              ({ targetsIndex }) => targetsIndex === 0
-            );
+            edits = edits.filter((edit) => !edit.isSource);
           }
 
-          return newEdits.map((edit) => {
-            const start = editor.document.positionAt(edit.newStartOffset);
-            const end = editor.document.positionAt(edit.newEndOffset);
-
-            const isReversed =
-              edit.originalSelection.selection.selection.isReversed;
-
-            const selection = new Selection(
-              isReversed ? end : start,
-              isReversed ? start : end
-            );
-
+          return edits.map((edit, index) => {
+            const selection = updatedSelections[index];
             return {
               editor,
-              targetsIndex: edit.targetsIndex,
+              selection,
+              isSource: edit.isSource,
               typedSelection: update(edit.originalSelection, {
                 selection: {
                   selection: { $set: selection },
                 },
               }),
-              selection,
             };
           });
         }
@@ -201,13 +181,13 @@ class BringMoveSwap implements Action {
     return Promise.all([
       displayPendingEditDecorations(
         thatMark
-          .filter(({ targetsIndex }) => targetsIndex === 0)
+          .filter(({ isSource }) => isSource)
           .map(({ typedSelection }) => typedSelection),
         decorationTypes.sourceStyle
       ),
       displayPendingEditDecorations(
         thatMark
-          .filter(({ targetsIndex }) => targetsIndex === 1)
+          .filter(({ isSource }) => !isSource)
           .map(({ typedSelection }) => typedSelection),
         decorationTypes.destinationStyle
       ),

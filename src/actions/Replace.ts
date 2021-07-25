@@ -6,10 +6,10 @@ import {
   TypedSelection,
 } from "../Types";
 import displayPendingEditDecorations from "../editDisplayUtils";
-import performDocumentEdits from "../performDocumentEdits";
 import { runForEachEditor } from "../targetUtils";
 import { flatten, zip } from "lodash";
 import { forTextAdjustPosition } from "../getTextAdjustPosition";
+import { performEditsAndUpdateSelections } from "../updateSelections";
 
 export default class implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: null }];
@@ -40,21 +40,29 @@ export default class implements Action {
       return {
         editor: target!.selection.editor,
         range: target!.selection.selection,
-        newText: forTextAdjustPosition(text!, target!),
+        text: forTextAdjustPosition(text!, target!),
       };
     });
 
-    await runForEachEditor(
-      edits,
-      (edit) => edit.editor,
-      async (editor, edits) => {
-        await performDocumentEdits(editor, edits);
-      }
+    const thatMark = flatten(
+      await runForEachEditor(
+        edits,
+        (edit) => edit.editor,
+        async (editor, edits) => {
+          const [updatedSelections] = await performEditsAndUpdateSelections(
+            editor,
+            edits,
+            [targets.map((target) => target.selection.selection)]
+          );
+
+          return updatedSelections.map((selection) => ({
+            editor,
+            selection,
+          }));
+        }
+      )
     );
 
-    return {
-      returnValue: texts,
-      thatMark: [], // TODO
-    };
+    return { returnValue: null, thatMark };
   }
 }

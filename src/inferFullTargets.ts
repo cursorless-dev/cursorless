@@ -269,6 +269,8 @@ export function inferSingleNonListTarget(
       );
       return {
         type: "range",
+        excludeStart: target.excludeStart ?? false,
+        excludeEnd: target.excludeEnd ?? false,
         start,
         end: inferRangeEndTarget(
           context,
@@ -441,7 +443,7 @@ export function inferRangeEndTarget(
 function getContentSelectionType(contents: string[]): SelectionType {
   if (contents.every((string) => string.endsWith("\n"))) {
     if (contents.every((string) => string.startsWith("\n"))) {
-      return "block";
+      return "paragraph";
     }
     return "line";
   }

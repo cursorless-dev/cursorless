@@ -1,4 +1,4 @@
-import { commands, window, Selection, TextEditor } from "vscode";
+import { commands, window } from "vscode";
 import {
   Action,
   ActionPreferences,
@@ -11,6 +11,7 @@ import displayPendingEditDecorations from "./editDisplayUtils";
 import { runOnTargetsForEachEditor } from "./targetUtils";
 import { focusEditor } from "./setSelectionsAndFocusEditor";
 import { flatten } from "lodash";
+import { callFunctionAndUpdateSelections } from "./updateSelections";
 
 export default class CommandAction implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
@@ -19,21 +20,11 @@ export default class CommandAction implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [
-    TypedSelection[],
-    TypedSelection[]
-  ]): Promise<ActionReturnValue> {
-    await displayPendingEditDecorations(
-      targets,
-      this.graph.editStyles.referenced,
-    );
-
-    const originalEditor = window.activeTextEditor;
-
-    const thatMark = flatten(
+  private async runCommandAndUpdateSelections(targets: TypedSelection[]) {
+    return flatten(
       await runOnTargetsForEachEditor<SelectionWithEditor[]>(
         targets,
-        async (editor, selections) => {
+        async (editor, targets) => {
           // For command to the work we have to have the correct editor focused
           if (editor !== window.activeTextEditor) {
             await focusEditor(editor);
@@ -41,38 +32,43 @@ export default class CommandAction implements Action {
 
           const originalSelections = editor.selections;
 
-          const newSelections = selections.map(
-            (selection) => selection.selection.selection
+          const targetSelections = targets.map(
+            (target) => target.selection.selection
           );
 
-          editor.selections = newSelections;
+          editor.selections = targetSelections;
 
-          await commands.executeCommand(this.command);
-
-          // Map of line numbers mapping to the delta in character index for that line.
-          const lineDeltas = calculateLineChanges(editor, newSelections);
-
-          const updateSelection = (selection: Selection) =>
-            new Selection(
-              selection.start.line,
-              selection.start.character +
-                (lineDeltas[selection.start.line] ?? 0),
-              selection.end.line,
-              selection.end.character + (lineDeltas[selection.end.line] ?? 0)
+          const [updatedOriginalSelections, updatedTargetSelections] =
+            await callFunctionAndUpdateSelections(
+              () => commands.executeCommand(this.command),
+              editor,
+              [originalSelections, targetSelections]
             );
 
-          const thatMark = newSelections.map((selection) => ({
-            editor,
-            selection: updateSelection(selection),
-          }));
-
           // Reset original selections
-          editor.selections = originalSelections.map(updateSelection);
+          editor.selections = updatedOriginalSelections;
 
-          return thatMark;
+          return updatedTargetSelections.map((selection) => ({
+            editor,
+            selection,
+          }));
         }
       )
     );
+  }
+
+  async run([targets]: [
+    TypedSelection[],
+    TypedSelection[]
+  ]): Promise<ActionReturnValue> {
+    await displayPendingEditDecorations(
+      targets,
+      this.graph.editStyles.referenced
+    );
+
+    const originalEditor = window.activeTextEditor;
+
+    const thatMark = await this.runCommandAndUpdateSelections(targets);
 
     // If necessary focus back original editor
     if (originalEditor != null && originalEditor !== window.activeTextEditor) {
@@ -81,28 +77,4 @@ export default class CommandAction implements Action {
 
     return { returnValue: null, thatMark };
   }
-}
-
-function calculateLineChanges(
-  editor: TextEditor,
-  selectionsBefore: Selection[]
-) {
-  const lineDeltas: { [key: number]: number } = {};
-  editor.selections.forEach((selectionAfter, index) => {
-    const selectionBefore = selectionsBefore[index];
-    const deltaStart =
-      selectionAfter.start.character - selectionBefore.start.character;
-    const deltaEnd =
-      selectionAfter.end.character - selectionBefore.end.character;
-    const delta =
-      Math.abs(deltaStart) > Math.abs(deltaEnd) ? deltaStart : deltaEnd;
-    for (
-      let i = selectionBefore.start.line;
-      i <= selectionBefore.end.line;
-      ++i
-    ) {
-      lineDeltas[i] = delta;
-    }
-  });
-  return lineDeltas;
 }

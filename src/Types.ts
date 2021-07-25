@@ -99,7 +99,7 @@ export type SelectionType =
   | "character"
   | "token"
   | "line"
-  | "block"
+  | "paragraph"
   | "document";
 export type Position = "before" | "after" | "contents";
 export type InsideOutsideType = "inside" | "outside" | null;
@@ -117,6 +117,8 @@ export interface PartialRangeTarget {
   type: "range";
   start: PartialPrimitiveTarget;
   end: PartialPrimitiveTarget;
+  excludeStart?: boolean;
+  excludeEnd?: boolean;
 }
 
 export interface PartialListTarget {
@@ -142,6 +144,8 @@ export interface RangeTarget {
   type: "range";
   start: PrimitiveTarget;
   end: PrimitiveTarget;
+  excludeStart: boolean;
+  excludeEnd: boolean;
 }
 
 export interface ListTarget {
@@ -254,6 +258,7 @@ export type ActionType =
   | "scrollToBottom"
   | "scrollToCenter"
   | "scrollToTop"
+  | "setBreakpoint"
   | "setSelection"
   | "setSelectionAfter"
   | "setSelectionBefore"
@@ -293,7 +298,6 @@ export type SelectionExtractor = (
 
 /** Represent a single edit/change in the document */
 export interface Edit {
-  editor: vscode.TextEditor;
   range: vscode.Range;
-  newText: string;
+  text: string;
 }
