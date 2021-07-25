@@ -185,7 +185,8 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   argumentOrParameter: matcher(
     nodeFinder(
       (node) =>
-        (node.parent?.type === "arguments" &&
+        ((node.parent?.type === "arguments" ||
+          node.parent?.type === "formal_parameters") &&
           (isExpression(node) || node.type === "spread_element")) ||
         node.type === "optional_parameter" ||
         node.type === "required_parameter"
