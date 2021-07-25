@@ -6,8 +6,9 @@ import {
   TypedSelection,
 } from "../Types";
 import { performInsideOutsideAdjustment } from "../performInsideOutsideAdjustment";
+import CommandAction from "../CommandAction";
 
-export default class Cut implements Action {
+export class Cut implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: null }];
 
   constructor(private graph: Graph) {
@@ -29,5 +30,17 @@ export default class Cut implements Action {
       returnValue: null,
       thatMark,
     };
+  }
+}
+
+export class Copy extends CommandAction {
+  constructor(graph: Graph) {
+    super(graph, "editor.action.clipboardCopyAction");
+  }
+}
+
+export class Paste extends CommandAction {
+  constructor(graph: Graph) {
+    super(graph, "editor.action.clipboardPasteAction");
   }
 }
