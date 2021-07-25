@@ -15,6 +15,32 @@ export async function decorationSleep() {
   await sleep(getPendingEditDecorationTime());
 }
 
+export async function displayPendingEditDecorationsForSelection(
+  selections: SelectionWithEditor[],
+  style: TextEditorDecorationType
+) {
+  await runForEachEditor(
+    selections,
+    (selection) => selection.editor,
+    async (editor, selections) => {
+      editor.setDecorations(
+        style,
+        selections.map((selection) => selection.selection)
+      );
+    }
+  );
+
+  await decorationSleep();
+
+  await runForEachEditor(
+    selections,
+    (selection) => selection.editor,
+    async (editor) => {
+      editor.setDecorations(style, []);
+    }
+  );
+}
+
 export default async function displayPendingEditDecorations(
   targets: TypedSelection[],
   tokenStyle: TextEditorDecorationType,

@@ -8,6 +8,7 @@ import {
 import { TextEditor, Selection, Position } from "vscode";
 import displayPendingEditDecorations from "../editDisplayUtils";
 import { runForEachEditor } from "../targetUtils";
+import { performEditsAndUpdateSelections } from "../updateSelections";
 
 class InsertEmptyLines implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];

@@ -5,9 +5,11 @@ import {
   Graph,
   TypedSelection,
 } from "../Types";
-import { Range, TextEditor } from "vscode";
+import { Range, Selection, TextEditor } from "vscode";
 import { performEditsAndUpdateSelections } from "../updateSelections";
-import displayPendingEditDecorations from "../editDisplayUtils";
+import displayPendingEditDecorations, {
+  displayPendingEditDecorationsForSelection,
+} from "../editDisplayUtils";
 import { runOnTargetsForEachEditor } from "../targetUtils";
 import { flatten } from "lodash";
 import unifyRanges from "../unifyRanges";
@@ -44,31 +46,38 @@ class CopyLines implements Action {
   }
 
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    await displayPendingEditDecorations(
-      targets,
-      this.graph.editStyles.referenced,
-      this.graph.editStyles.referencedLine
-    );
-
-    const thatMark = flatten(
+    const results = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const ranges = this.getRanges(editor, targets);
         const edits = this.getEdits(editor, ranges);
 
-        const [updatedSelections] = await performEditsAndUpdateSelections(
-          editor,
-          edits,
-          [targets.map((target) => target.selection.selection)]
-        );
+        const [updatedSelections, copySelections] =
+          await performEditsAndUpdateSelections(editor, edits, [
+            targets.map((target) => target.selection.selection),
+            ranges.map((range) => new Selection(range.start, range.end)),
+          ]);
 
         editor.revealRange(updatedSelections[0]);
 
-        return updatedSelections.map((selection) => ({
-          editor,
-          selection,
-        }));
+        return {
+          thatMark: updatedSelections.map((selection) => ({
+            editor,
+            selection,
+          })),
+          copySelections: copySelections.map((selection) => ({
+            editor,
+            selection,
+          })),
+        };
       })
     );
+
+    await displayPendingEditDecorationsForSelection(
+      results.flatMap((result) => result.copySelections),
+      this.graph.editStyles.justAdded
+    );
+
+    const thatMark = results.flatMap((result) => result.thatMark);
 
     return { returnValue: null, thatMark };
   }
