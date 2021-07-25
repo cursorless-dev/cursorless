@@ -10,6 +10,7 @@ export default class EditStyles {
   pendingModification1: vscode.TextEditorDecorationType;
   pendingLineModification1: vscode.TextEditorDecorationType;
   justAdded: vscode.TextEditorDecorationType;
+  justAddedLine: vscode.TextEditorDecorationType;
 
   constructor() {
     this.pendingDelete = vscode.window.createTextEditorDecorationType({
@@ -30,6 +31,12 @@ export default class EditStyles {
     this.justAdded = vscode.window.createTextEditorDecorationType({
       backgroundColor: new vscode.ThemeColor("cursorless.justAddedBackground"),
       rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
+    });
+
+    this.justAddedLine = vscode.window.createTextEditorDecorationType({
+      backgroundColor: new vscode.ThemeColor("cursorless.justAddedBackground"),
+      rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
+      isWholeLine: true,
     });
 
     this.referenced = vscode.window.createTextEditorDecorationType({

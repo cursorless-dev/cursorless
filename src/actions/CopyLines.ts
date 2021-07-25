@@ -7,9 +7,7 @@ import {
 } from "../Types";
 import { Range, Selection, TextEditor } from "vscode";
 import { performEditsAndUpdateSelections } from "../updateSelections";
-import displayPendingEditDecorations, {
-  displayPendingEditDecorationsForSelection,
-} from "../editDisplayUtils";
+import { displayPendingEditDecorationsForSelection } from "../editDisplayUtils";
 import { runOnTargetsForEachEditor } from "../targetUtils";
 import { flatten } from "lodash";
 import unifyRanges from "../unifyRanges";
@@ -33,7 +31,7 @@ class CopyLines implements Action {
   private getEdits(editor: TextEditor, ranges: Range[]) {
     return ranges.map((range) => {
       let text = editor.document.getText(range);
-      text = this.isUp ? `${text}\n` : `\n${text}`;
+      text = this.isUp ? `${text}\r\n` : `\r\n${text}`;
       const newRange = this.isUp
         ? new Range(range.start, range.start)
         : new Range(range.end, range.end);

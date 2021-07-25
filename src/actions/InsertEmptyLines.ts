@@ -5,10 +5,11 @@ import {
   Graph,
   TypedSelection,
 } from "../Types";
-import { TextEditor, Selection, Position } from "vscode";
-import displayPendingEditDecorations from "../editDisplayUtils";
-import { runForEachEditor } from "../targetUtils";
+import { TextEditor, Selection, Position, Range } from "vscode";
+import { displayPendingEditDecorationsForSelection } from "../editDisplayUtils";
+import { runOnTargetsForEachEditor } from "../targetUtils";
 import { performEditsAndUpdateSelections } from "../updateSelections";
+import { flatten } from "lodash";
 
 class InsertEmptyLines implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
@@ -21,66 +22,66 @@ class InsertEmptyLines implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    displayPendingEditDecorations(
-      targets,
-      this.graph.editStyles.referenced,
-      this.graph.editStyles.referencedLine
-    );
-
-    const edits = await runForEachEditor(
-      targets,
-      (target) => target.selection.editor,
-      async (editor: TextEditor, targets: TypedSelection[]) => {
-        const lines = targets.flatMap((target) => {
-          const lines = [];
-          if (this.insertAbove) {
-            lines.push(target.selection.selection.start.line);
-          }
-          if (this.insertBelow) {
-            lines.push(target.selection.selection.end.line + 1);
-          }
-          return lines;
-        });
-        return { editor, lines };
+  private getRanges(targets: TypedSelection[]) {
+    let lines = targets.flatMap((target) => {
+      const lines = [];
+      if (this.insertAbove) {
+        lines.push(target.selection.selection.start.line);
       }
+      if (this.insertBelow) {
+        lines.push(target.selection.selection.end.line + 1);
+      }
+      return lines;
+    });
+    // Remove duplicates
+    lines = [...new Set(lines)];
+
+    return lines.map((line) => new Range(line, 0, line, 0));
+  }
+
+  private getEdits(ranges: Range[]) {
+    return ranges.map((range) => ({
+      range,
+      text: "\r\n",
+    }));
+  }
+
+  async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+    const results = flatten(
+      await runOnTargetsForEachEditor(targets, async (editor, targets) => {
+        const ranges = this.getRanges(targets);
+        const edits = this.getEdits(ranges);
+
+        const [updatedSelections, lineSelections] =
+          await performEditsAndUpdateSelections(editor, edits, [
+            targets.map((target) => target.selection.selection),
+            ranges.map((range) => new Selection(range.start, range.end)),
+          ]);
+
+        return {
+          thatMark: updatedSelections.map((selection) => ({
+            editor,
+            selection,
+          })),
+          lineSelections: lineSelections.map((selection) => ({
+            editor,
+            selection: new Selection(
+              selection.start.translate({ lineDelta: -1 }),
+              selection.end.translate({ lineDelta: -1 })
+            ),
+          })),
+        };
+      })
     );
 
-    for (const edit of edits) {
-      await edit.editor.edit((editBuilder) => {
-        edit.lines.forEach((line) => {
-          editBuilder.insert(new Position(line, 0), "\n");
-        });
-      });
-    }
+    await displayPendingEditDecorationsForSelection(
+      results.flatMap((result) => result.lineSelections),
+      this.graph.editStyles.justAddedLine
+    );
 
-    const thatMark = targets.map((target) => {
-      const lines = edits.find(
-        (edit) => edit.editor === target.selection.editor
-      )!.lines;
-      const selection = target.selection.selection;
-      const offsetAnchor = lines.filter(
-        (line) => line <= selection.anchor.line
-      ).length;
-      const offsetActive = lines.filter(
-        (line) => line <= selection.active.line
-      ).length;
-      const newSelection = new Selection(
-        selection.anchor.line + offsetAnchor,
-        selection.anchor.character,
-        selection.active.line + offsetActive,
-        selection.active.character
-      );
-      return {
-        selection: newSelection,
-        editor: target.selection.editor,
-      };
-    });
+    const thatMark = results.flatMap((result) => result.thatMark);
 
-    return {
-      returnValue: null,
-      thatMark,
-    };
+    return { returnValue: null, thatMark };
   }
 }
 

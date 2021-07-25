@@ -65,7 +65,10 @@ function updateSelectionInfoMatrix(
     selectionInfoMatrix.forEach((selectionInfos) => {
       selectionInfos.forEach((selectionInfo) => {
         // Change is selection. Move just end to match.
-        if (change.range.isEqual(selectionInfo.range)) {
+        if (
+          change.range.isEqual(selectionInfo.range) &&
+          !selectionInfo.range.isEmpty
+        ) {
           selectionInfo.endOffset += offsetDelta;
         }
         // Change is before selection. Move entire selection.
