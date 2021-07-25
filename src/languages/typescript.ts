@@ -196,7 +196,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
     // Simple case, eg
     // function foo() {}
     matcher(
-      possiblyExportedDeclaration("function_declaration", "method_definition")
+      possiblyExportedDeclaration("function_declaration", "method_definition", "function")
     ),
 
     // Class property defined as field definition with arrow
