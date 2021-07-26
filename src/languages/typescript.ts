@@ -1,13 +1,12 @@
 import { SyntaxNode } from "web-tree-sitter";
 import { getPojoMatchers } from "./getPojoMatchers";
+import { cascadingMatcher, composedMatcher, matcher } from "../nodeMatchers";
 import {
-  cascadingMatcher,
-  composedMatcher,
-  matcher,
-  typeMatcher,
-  patternMatcher,
-} from "../nodeMatchers";
-import { NodeMatcher, ScopeType, NodeFinder } from "../Types";
+  NodeMatcher,
+  NodeMatcherAlternative,
+  ScopeType,
+  NodeFinder,
+} from "../Types";
 import {
   getDeclarationNode,
   getNameNode,
@@ -145,21 +144,21 @@ export const findTypeNode = (node: SyntaxNode) => {
   return typeAnnotationNode?.lastChild ?? null;
 };
 
-const nodeMatchers: Record<ScopeType, NodeMatcher> = {
+const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   ...getPojoMatchers(
     ["object"],
     ["array"],
     (node) => isExpression(node) || node.type === "spread_element"
   ),
-  ifStatement: patternMatcher("if_statement"),
-  class: patternMatcher(
+  ifStatement: ["if_statement"],
+  class: [
     "export_statement.class_declaration", // export class
     "export_statement.class", // export default class
-    "class_declaration" // class
-  ),
+    "class_declaration", // class
+  ],
   statement: matcher(possiblyExportedDeclaration(...STATEMENT_TYPES)),
-  arrowFunction: patternMatcher("arrow_function"),
-  functionCall: patternMatcher("call_expression", "new_expression"),
+  arrowFunction: ["arrow_function"],
+  functionCall: ["call_expression", "new_expression"],
   name: matcher(getNameNode),
   functionName: cascadingMatcher(
     composedMatcher([
@@ -197,7 +196,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
       ", "
     )
   ),
-  namedFunction: patternMatcher(
+  namedFunction: [
     "export_statement.function_declaration", // export function
     "export_statement.function", // export default function
     "function_declaration", // function
@@ -206,34 +205,9 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
     // const foo = () => "hello"
     "lexical_declaration.variable_declarator.arrow_function",
     // foo = () => "hello"
-    "expression_statement.assignment_expression.arrow_function"
-  ),
-
-  //   namedFunction: cascadingMatcher(
-  //     // Simple case, eg
-  //     // function foo() {}
-  //     matcher(
-  //       possiblyExportedDeclaration("function_declaration", "method_definition")
-  //     ),
-
-  //     // Class property defined as field definition with arrow
-  //     // eg:1
-  //     // class Foo {
-  //     //   bar = () => "hello";
-  //     // }
-  //     matcher(findClassPropertyArrowFunction),
-
-  //     // eg:
-  //     // const foo = () => "hello"
-  //     matcher(
-  //       findPossiblyWrappedNode(
-  //         typedNodeFinder("export_statement"),
-  //         findNamedArrowFunction,
-  //         (node) => [getDeclarationNode(node)]
-  //       )
-  //     )
-  //   ),
-  comment: patternMatcher("comment"),
+    "expression_statement.assignment_expression.arrow_function",
+  ],
+  comment: ["comment"],
 };
 
 export default nodeMatchers;

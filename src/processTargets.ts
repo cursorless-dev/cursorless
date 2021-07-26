@@ -3,7 +3,7 @@ import update from "immutability-helper";
 import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
 import { Selection, Range, Position } from "vscode";
-import { nodeMatchers } from "./languages";
+import { getNodeMatcher } from "./languages";
 import {
   Mark,
   PrimitiveTarget,
@@ -222,8 +222,10 @@ function transformSelection(
         new vscode.Location(selection.editor.document.uri, selection.selection)
       );
 
-      const nodeMatcher =
-        nodeMatchers[selection.editor.document.languageId][modifier.scopeType];
+      const nodeMatcher = getNodeMatcher(
+        selection.editor.document.languageId,
+        modifier.scopeType
+      );
 
       while (node != null) {
         const matchedSelection = nodeMatcher(selection.editor, node);
