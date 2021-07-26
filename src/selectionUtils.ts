@@ -11,7 +11,7 @@ export function selectionFromRange(
 }
 
 /**
- * Updates a typed selection so that the new selection has the new given range
+ * Returns a copy of the given typed selection so that the new selection has the new given range
  * preserving the direction of the original selection
  *
  * @param selection The original typed selection to Update
