@@ -1,11 +1,7 @@
 import { SyntaxNode } from "web-tree-sitter";
 import { getPojoMatchers } from "./getPojoMatchers";
-import { cascadingMatcher, composedMatcher, matcher } from "../nodeMatchers";
-import {
-  NodeMatcherAlternative,
-  ScopeType,
-  NodeFinder,
-} from "../Types";
+import { cascadingMatcher, matcher } from "../nodeMatchers";
+import { NodeMatcherAlternative, ScopeType, NodeFinder } from "../Types";
 import {
   getDeclarationNode,
   getNameNode,
@@ -117,25 +113,6 @@ function possiblyExportedDeclaration(...typeNames: string[]): NodeFinder {
   );
 }
 
-const findNamedArrowFunction = (node: SyntaxNode) => {
-  if (node.type !== "lexical_declaration" || node.namedChildCount !== 1) {
-    return null;
-  }
-
-  const child = node.firstNamedChild!;
-
-  return child.type === "variable_declarator" &&
-    getValueNode(child)!.type === "arrow_function"
-    ? node
-    : null;
-};
-
-const findClassPropertyArrowFunction = (node: SyntaxNode) =>
-  node.type === "public_field_definition" &&
-  getValueNode(node)!.type === "arrow_function"
-    ? node
-    : null;
-
 export const findTypeNode = (node: SyntaxNode) => {
   const typeAnnotationNode = node.children.find((child) =>
     ["type_annotation", "opting_type_annotation"].includes(child.type)
@@ -163,20 +140,12 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   functionCall: ["call_expression", "new_expression"],
   name: matcher(getNameNode),
   functionName: [
-      "function_declaration[name]"
+    "function_declaration[name]",
+    "method_definition[name]",
+    "public_field_definition[name].arrow_function",
+    "lexical_declaration[name].variable_declarator.arrow_function",
   ],
-//   functionName: cascadingMatcher(
-//     composedMatcher([
-//       typedNodeFinder("function_declaration", "method_definition"),
-//       getNameNode,
-//     ]),
-//     composedMatcher([findClassPropertyArrowFunction, getNameNode]),
-//     composedMatcher([findNamedArrowFunction, getNameNode])
-//   ),
-  className: composedMatcher([
-    typedNodeFinder("class_declaration", "class"),
-    getNameNode,
-  ]),
+  className: ["class_declaration[name]", "class[name]"],
   type: cascadingMatcher(
     // Typed parameters, properties, and functions
     matcher(findTypeNode, selectWithLeadingDelimiter),
