@@ -14,10 +14,10 @@ export function performInsideOutsideAdjustment(
         selection.position === "before"
           ? selection.selectionContext.leadingDelimiterRange
           : selection.selectionContext.trailingDelimiterRange;
-      if (delimiterRange != null) {
-        return updateTypedSelectionRange(selection, delimiterRange);
-      }
-      return selection;
+
+      return delimiterRange == null
+        ? selection
+        : updateTypedSelectionRange(selection, delimiterRange);
     }
 
     const usedSelection =
