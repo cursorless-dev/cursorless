@@ -1,6 +1,6 @@
 import { TypedSelection } from "./Types";
 
-/** Get text from selection. Possibly added delimiter for positions before/after */
+/** Get text from selection. Possibly add delimiter for positions before/after */
 export function getTextWithPossibleDelimiter(
   source: TypedSelection,
   destination: TypedSelection
@@ -11,7 +11,7 @@ export function getTextWithPossibleDelimiter(
   return maybeAddDelimiter(sourceText, destination);
 }
 
-/** Possibly added delimiter for positions before/after */
+/** Possibly add delimiter for positions before/after */
 export function maybeAddDelimiter(
   sourceText: string,
   destination: TypedSelection

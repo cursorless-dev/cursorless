@@ -256,7 +256,7 @@ export type ActionType =
   | "move"
   | "outdentLines"
   | "paste"
-  | "replace"
+  | "replaceWithText"
   | "scrollToBottom"
   | "scrollToCenter"
   | "scrollToTop"
