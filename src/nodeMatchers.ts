@@ -76,34 +76,66 @@ export const patternMatcher = (...patterns: string[]): NodeMatcher => {
 };
 
 function tryPatternMatch(node: SyntaxNode, pattern: string): SyntaxNode | null {
-  const parts = pattern.split(".");
-  if (parts.length === 1) {
-    return node.type === pattern ? node : null;
+  const rawTypes = pattern.split(".");
+  let resultNode;
+  if (rawTypes.length === 1) {
+    resultNode = node.type === getType(pattern) ? node : null;
   }
   // Matched last. Ascending search.
-  if (node.type === parts[parts.length - 1]) {
-    let resNode = node;
-    for (let i = parts.length - 2; i > -1; --i) {
-      if (resNode.parent == null || resNode.parent.type !== parts[i]) {
-        return null;
-      }
-      resNode = resNode.parent;
-    }
-    return resNode;
+  else if (node.type === getType(rawTypes[rawTypes.length - 1])) {
+    resultNode = searchNodeAscending(node, rawTypes);
   }
   // Matched first. Descending search.
-  if (node.type === parts[0]) {
-    let resNode = node;
-    for (let i = 1; i < parts.length; ++i) {
-      const children = resNode.namedChildren.filter(
-        (node) => node.type === parts[i]
-      );
-      if (children.length !== 1) {
-        return null;
-      }
-      resNode = children[0];
+  else if (node.type === getType(rawTypes[0])) {
+    resultNode = searchNodeDescending(node, rawTypes);
+  }
+  if (resultNode != null) {
+    const field = getField(rawTypes[0]);
+    if (field != null) {
+      resultNode = resultNode.childForFieldName(field);
     }
-    return node;
+  }
+  return resultNode ?? null;
+}
+
+function searchNodeAscending(node: SyntaxNode, rawTypes: string[]) {
+  let resNode = node;
+  for (let i = rawTypes.length - 2; i > -1; --i) {
+    const type = getType(rawTypes[i]);
+    if (resNode.parent == null || resNode.parent.type !== type) {
+      return null;
+    }
+    resNode = resNode.parent;
+  }
+  return resNode;
+}
+
+function searchNodeDescending(node: SyntaxNode, rawTypes: string[]) {
+  let tmpNode = node;
+  for (let i = 1; i < rawTypes.length; ++i) {
+    const type = getType(rawTypes[i]);
+    const children = tmpNode.namedChildren.filter((node) => node.type === type);
+    if (children.length !== 1) {
+      return null;
+    }
+    tmpNode = children[0];
+  }
+  // Even if descending search we always return the "top" node.
+  return node;
+}
+
+function getType(pattern: string) {
+  const index = pattern.indexOf("[");
+  if (index > -1) {
+    return pattern.slice(0, index);
+  }
+  return pattern;
+}
+
+function getField(pattern: string) {
+  const index = pattern.indexOf("[");
+  if (index > -1) {
+    return pattern.slice(index + 1, pattern.length - 1);
   }
   return null;
 }

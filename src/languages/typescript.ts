@@ -2,7 +2,6 @@ import { SyntaxNode } from "web-tree-sitter";
 import { getPojoMatchers } from "./getPojoMatchers";
 import { cascadingMatcher, composedMatcher, matcher } from "../nodeMatchers";
 import {
-  NodeMatcher,
   NodeMatcherAlternative,
   ScopeType,
   NodeFinder,
@@ -156,18 +155,24 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
     "export_statement.class", // export default class
     "class_declaration", // class
   ],
-  statement: matcher(possiblyExportedDeclaration(...STATEMENT_TYPES)),
+  statement: STATEMENT_TYPES.flatMap((type) => [
+    `export_statement.${type}`,
+    type,
+  ]),
   arrowFunction: "arrow_function",
   functionCall: ["call_expression", "new_expression"],
   name: matcher(getNameNode),
-  functionName: cascadingMatcher(
-    composedMatcher([
-      typedNodeFinder("function_declaration", "method_definition"),
-      getNameNode,
-    ]),
-    composedMatcher([findClassPropertyArrowFunction, getNameNode]),
-    composedMatcher([findNamedArrowFunction, getNameNode])
-  ),
+  functionName: [
+      "function_declaration[name]"
+  ],
+//   functionName: cascadingMatcher(
+//     composedMatcher([
+//       typedNodeFinder("function_declaration", "method_definition"),
+//       getNameNode,
+//     ]),
+//     composedMatcher([findClassPropertyArrowFunction, getNameNode]),
+//     composedMatcher([findNamedArrowFunction, getNameNode])
+//   ),
   className: composedMatcher([
     typedNodeFinder("class_declaration", "class"),
     getNameNode,
