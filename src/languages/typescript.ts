@@ -2,10 +2,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import { getPojoMatchers } from "./getPojoMatchers";
 import { cascadingMatcher, matcher } from "../nodeMatchers";
 import { NodeMatcherAlternative, ScopeType, NodeFinder } from "../Types";
-import {
-  getDeclarationNode,
-  getValueNode,
-} from "../treeSitterUtils";
+import { getDeclarationNode, getValueNode } from "../treeSitterUtils";
 import {
   nodeFinder,
   typedNodeFinder,
@@ -127,14 +124,10 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   ),
   ifStatement: "if_statement",
   class: [
-    "export_statement.class_declaration", // export class
+    "export_statement?.class_declaration", // export class | class
     "export_statement.class", // export default class
-    "class_declaration", // class
   ],
-  statement: STATEMENT_TYPES.flatMap((type) => [
-    `export_statement.${type}`,
-    type,
-  ]),
+  statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`),
   arrowFunction: "arrow_function",
   functionCall: ["call_expression", "new_expression"],
   name: "*[name]",
@@ -156,6 +149,8 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
       )
     )
   ),
+  //   argumentOrParameter:
+  // EXPRESSION_TYPES
   argumentOrParameter: matcher(
     nodeFinder(
       (node) =>
@@ -170,9 +165,8 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
     )
   ),
   namedFunction: [
-    "export_statement.function_declaration", // export function
+    "export_statement?.function_declaration", // export function | function
     "export_statement.function", // export default function
-    "function_declaration", // function
     "method_definition", // class method
     "public_field_definition.arrow_function", // class arrow method
     // const foo = () => "hello"

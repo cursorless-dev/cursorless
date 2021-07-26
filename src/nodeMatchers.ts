@@ -99,6 +99,9 @@ function tryPatternMatch(node: SyntaxNode, pattern: string): SyntaxNode | null {
       resultNode = resultNode.childForFieldName(field);
     }
   }
+//   if (resultNode) {
+// console.log(!!resultNode, rawTypes);
+//   }
   return resultNode ?? null;
 }
 
@@ -106,7 +109,11 @@ function searchNodeAscending(node: SyntaxNode, rawTypes: string[]) {
   let resNode = node;
   for (let i = rawTypes.length - 2; i > -1; --i) {
     const type = getType(rawTypes[i]);
-    if (resNode.parent == null || typeEquals(resNode.parent, type)) {
+    if (resNode.parent == null || !typeEquals(resNode.parent, type)) {
+      if (isOptional(rawTypes[i])) {
+        continue;
+      }
+    //   console.log("failed", type, resNode.parent?.type);
       return null;
     }
     resNode = resNode.parent;
@@ -122,6 +129,9 @@ function searchNodeDescending(node: SyntaxNode, rawTypes: string[]) {
       typeEquals(node, type)
     );
     if (children.length !== 1) {
+      if (isOptional(rawTypes[i])) {
+        continue;
+      }
       return null;
     }
     tmpNode = children[0];
@@ -135,7 +145,10 @@ function typeEquals(node: SyntaxNode, type: string) {
 }
 
 function getType(pattern: string) {
-  const index = pattern.indexOf("[");
+  let index = pattern.indexOf("[");
+  if (index < 0) {
+    index = pattern.endsWith("?") ? pattern.length - 1 : -1;
+  }
   if (index > -1) {
     return pattern.slice(0, index);
   }
@@ -145,7 +158,11 @@ function getType(pattern: string) {
 function getField(pattern: string) {
   const index = pattern.indexOf("[");
   if (index > -1) {
-    return pattern.slice(index + 1, pattern.length - 1);
+    return pattern.slice(index + 1, pattern.indexOf("]"));
   }
   return null;
+}
+
+function isOptional(pattern: string) {
+  return pattern.endsWith("?");
 }
