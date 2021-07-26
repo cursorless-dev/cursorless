@@ -95,9 +95,9 @@ function tryPatternMatch(node: SyntaxNode, pattern: string): SyntaxNode | null {
   if (node.type === parts[0]) {
     let resNode = node;
     for (let i = 1; i < parts.length; ++i) {
-      const children = resNode
-        .descendantsOfType(parts[i])
-        .filter((node) => node.isNamed());
+      const children = resNode.namedChildren.filter(
+        (node) => node.type === parts[i]
+      );
       if (children.length !== 1) {
         return null;
       }

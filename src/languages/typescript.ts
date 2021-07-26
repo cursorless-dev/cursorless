@@ -153,10 +153,9 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   ),
   ifStatement: patternMatcher("if_statement"),
   class: patternMatcher(
-    "export_statement.class_declaration",
-    "export_statement.class",
-    "class_declaration",
-    "class"
+    "export_statement.class_declaration", // export class
+    "export_statement.class", // export default class
+    "class_declaration" // class
   ),
   statement: matcher(possiblyExportedDeclaration(...STATEMENT_TYPES)),
   arrowFunction: patternMatcher("arrow_function"),
@@ -202,8 +201,14 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
     "export_statement.function_declaration", // export function
     "export_statement.function", // export default function
     "function_declaration", // function
-    "method_definition"
+    "method_definition", // class method
+    "public_field_definition.arrow_function", // class arrow method
+    // const foo = () => "hello"
+    "lexical_declaration.variable_declarator.arrow_function",
+    // foo = () => "hello"
+    "expression_statement.assignment_expression.arrow_function"
   ),
+
   //   namedFunction: cascadingMatcher(
   //     // Simple case, eg
   //     // function foo() {}
@@ -212,7 +217,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   //     ),
 
   //     // Class property defined as field definition with arrow
-  //     // eg:
+  //     // eg:1
   //     // class Foo {
   //     //   bar = () => "hello";
   //     // }
@@ -228,7 +233,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   //       )
   //     )
   //   ),
-  comment: matcher(typedNodeFinder("comment")),
+  comment: patternMatcher("comment"),
 };
 
 export default nodeMatchers;
