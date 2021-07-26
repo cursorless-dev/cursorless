@@ -62,3 +62,48 @@ export const notSupported: NodeMatcher = (
 ) => {
   throw new Error("Node type not supported");
 };
+
+export const patternMatcher = (...patterns: string[]): NodeMatcher => {
+  return (editor: TextEditor, node: SyntaxNode) => {
+    for (const pattern of patterns) {
+      const match = tryPatternMatch(node, pattern);
+      if (match != null) {
+        return simpleSelectionExtractor(editor, match);
+      }
+    }
+    return null;
+  };
+};
+
+function tryPatternMatch(node: SyntaxNode, pattern: string): SyntaxNode | null {
+  const parts = pattern.split(".");
+  if (parts.length === 1) {
+    return node.type === pattern ? node : null;
+  }
+  // Matched last. Ascending search.
+  if (node.type === parts[parts.length - 1]) {
+    let resNode = node;
+    for (let i = parts.length - 2; i > -1; --i) {
+      if (resNode.parent == null || resNode.parent.type !== parts[i]) {
+        return null;
+      }
+      resNode = resNode.parent;
+    }
+    return resNode;
+  }
+  // Matched first. Descending search.
+  if (node.type === parts[0]) {
+    let resNode = node;
+    for (let i = 1; i < parts.length; ++i) {
+      const children = resNode
+        .descendantsOfType(parts[i])
+        .filter((node) => node.isNamed());
+      if (children.length !== 1) {
+        return null;
+      }
+      resNode = children[0];
+    }
+    return node;
+  }
+  return null;
+}

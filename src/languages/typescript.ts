@@ -5,6 +5,7 @@ import {
   composedMatcher,
   matcher,
   typeMatcher,
+  patternMatcher,
 } from "../nodeMatchers";
 import { NodeMatcher, ScopeType, NodeFinder } from "../Types";
 import {
@@ -150,11 +151,16 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
     ["array"],
     (node) => isExpression(node) || node.type === "spread_element"
   ),
-  ifStatement: typeMatcher("if_statement"),
-  class: matcher(possiblyExportedDeclaration("class_declaration", "class")),
+  ifStatement: patternMatcher("if_statement"),
+  class: patternMatcher(
+    "export_statement.class_declaration",
+    "export_statement.class",
+    "class_declaration",
+    "class"
+  ),
   statement: matcher(possiblyExportedDeclaration(...STATEMENT_TYPES)),
-  arrowFunction: typeMatcher("arrow_function"),
-  functionCall: typeMatcher("call_expression", "new_expression"),
+  arrowFunction: patternMatcher("arrow_function"),
+  functionCall: patternMatcher("call_expression", "new_expression"),
   name: matcher(getNameNode),
   functionName: cascadingMatcher(
     composedMatcher([
@@ -192,30 +198,36 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
       ", "
     )
   ),
-  namedFunction: cascadingMatcher(
-    // Simple case, eg
-    // function foo() {}
-    matcher(
-      possiblyExportedDeclaration("function_declaration", "method_definition")
-    ),
-
-    // Class property defined as field definition with arrow
-    // eg:
-    // class Foo {
-    //   bar = () => "hello";
-    // }
-    matcher(findClassPropertyArrowFunction),
-
-    // eg:
-    // const foo = () => "hello"
-    matcher(
-      findPossiblyWrappedNode(
-        typedNodeFinder("export_statement"),
-        findNamedArrowFunction,
-        (node) => [getDeclarationNode(node)]
-      )
-    )
+  namedFunction: patternMatcher(
+    "export_statement.function_declaration", // export function
+    "export_statement.function", // export default function
+    "function_declaration", // function
+    "method_definition"
   ),
+  //   namedFunction: cascadingMatcher(
+  //     // Simple case, eg
+  //     // function foo() {}
+  //     matcher(
+  //       possiblyExportedDeclaration("function_declaration", "method_definition")
+  //     ),
+
+  //     // Class property defined as field definition with arrow
+  //     // eg:
+  //     // class Foo {
+  //     //   bar = () => "hello";
+  //     // }
+  //     matcher(findClassPropertyArrowFunction),
+
+  //     // eg:
+  //     // const foo = () => "hello"
+  //     matcher(
+  //       findPossiblyWrappedNode(
+  //         typedNodeFinder("export_statement"),
+  //         findNamedArrowFunction,
+  //         (node) => [getDeclarationNode(node)]
+  //       )
+  //     )
+  //   ),
   comment: matcher(typedNodeFinder("comment")),
 };
 
