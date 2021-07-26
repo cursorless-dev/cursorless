@@ -150,14 +150,14 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
     ["array"],
     (node) => isExpression(node) || node.type === "spread_element"
   ),
-  ifStatement: ["if_statement"],
+  ifStatement: "if_statement",
   class: [
     "export_statement.class_declaration", // export class
     "export_statement.class", // export default class
     "class_declaration", // class
   ],
   statement: matcher(possiblyExportedDeclaration(...STATEMENT_TYPES)),
-  arrowFunction: ["arrow_function"],
+  arrowFunction: "arrow_function",
   functionCall: ["call_expression", "new_expression"],
   name: matcher(getNameNode),
   functionName: cascadingMatcher(
@@ -207,7 +207,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
     // foo = () => "hello"
     "expression_statement.assignment_expression.arrow_function",
   ],
-  comment: ["comment"],
+  comment: "comment",
 };
 
 export default nodeMatchers;
