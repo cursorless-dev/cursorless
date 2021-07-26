@@ -7,6 +7,9 @@ import {
 } from "../Types";
 import { performInsideOutsideAdjustment } from "../performInsideOutsideAdjustment";
 import CommandAction from "../CommandAction";
+import displayPendingEditDecorations from "../editDisplayUtils";
+import { getOutsideOverflow } from "../targetUtils";
+import { zip } from "lodash";
 
 export class Cut implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: null }];
@@ -16,15 +19,36 @@ export class Cut implements Action {
   }
 
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    await this.graph.actions.copy.run([
-      targets.map((target) => performInsideOutsideAdjustment(target, "inside")),
-    ]);
+    const insideTargets = targets.map((target) =>
+      performInsideOutsideAdjustment(target, "inside")
+    );
+    const outsideTargets = targets.map((target) =>
+      performInsideOutsideAdjustment(target, "outside")
+    );
+    const outsideTargetDecorations = zip(insideTargets, outsideTargets).flatMap(
+      ([inside, outside]) => getOutsideOverflow(inside!, outside!)
+    );
+    const options = { showDecorations: false };
 
-    const { thatMark } = await this.graph.actions.delete.run([
-      targets.map((target) =>
-        performInsideOutsideAdjustment(target, "outside")
+    await Promise.all([
+      displayPendingEditDecorations(
+        insideTargets,
+        this.graph.editStyles.referenced,
+        this.graph.editStyles.referencedLine
+      ),
+      displayPendingEditDecorations(
+        outsideTargetDecorations,
+        this.graph.editStyles.pendingDelete,
+        this.graph.editStyles.pendingLineDelete
       ),
     ]);
+
+    await this.graph.actions.copy.run([insideTargets], options);
+
+    const { thatMark } = await this.graph.actions.delete.run(
+      [outsideTargets],
+      options
+    );
 
     return {
       returnValue: null,

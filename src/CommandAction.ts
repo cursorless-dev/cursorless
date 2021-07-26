@@ -64,15 +64,17 @@ export default class CommandAction implements Action {
     );
   }
 
-  async run([targets]: [
-    TypedSelection[],
-    TypedSelection[]
-  ]): Promise<ActionReturnValue> {
-    await displayPendingEditDecorations(
-      targets,
-      this.graph.editStyles.referenced,
-      this.graph.editStyles.referencedLine
-    );
+  async run(
+    [targets]: [TypedSelection[]],
+    { showDecorations = true } = {}
+  ): Promise<ActionReturnValue> {
+    if (showDecorations) {
+      await displayPendingEditDecorations(
+        targets,
+        this.graph.editStyles.referenced,
+        this.graph.editStyles.referencedLine
+      );
+    }
 
     if (this.ensureSingleEditor) {
       ensureSingleEditor(targets);
