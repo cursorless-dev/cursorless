@@ -77,19 +77,23 @@ export const patternMatcher = (...patterns: string[]): NodeMatcher => {
 
 function tryPatternMatch(node: SyntaxNode, pattern: string): SyntaxNode | null {
   const rawTypes = pattern.split(".");
+  const firstType = getType(rawTypes[0]);
+  const lastType = getType(rawTypes[rawTypes.length - 1]);
   let resultNode;
+  // Only one type try to match current node.
   if (rawTypes.length === 1) {
-    resultNode = node.type === getType(pattern) ? node : null;
+    resultNode = typeEquals(node, firstType) ? node : null;
   }
   // Matched last. Ascending search.
-  else if (node.type === getType(rawTypes[rawTypes.length - 1])) {
+  else if (typeEquals(node, lastType)) {
     resultNode = searchNodeAscending(node, rawTypes);
   }
   // Matched first. Descending search.
-  else if (node.type === getType(rawTypes[0])) {
+  else if (typeEquals(node, firstType)) {
     resultNode = searchNodeDescending(node, rawTypes);
   }
   if (resultNode != null) {
+    // Use field name child if field name is given
     const field = getField(rawTypes[0]);
     if (field != null) {
       resultNode = resultNode.childForFieldName(field);
@@ -102,7 +106,7 @@ function searchNodeAscending(node: SyntaxNode, rawTypes: string[]) {
   let resNode = node;
   for (let i = rawTypes.length - 2; i > -1; --i) {
     const type = getType(rawTypes[i]);
-    if (resNode.parent == null || resNode.parent.type !== type) {
+    if (resNode.parent == null || typeEquals(resNode.parent, type)) {
       return null;
     }
     resNode = resNode.parent;
@@ -114,7 +118,9 @@ function searchNodeDescending(node: SyntaxNode, rawTypes: string[]) {
   let tmpNode = node;
   for (let i = 1; i < rawTypes.length; ++i) {
     const type = getType(rawTypes[i]);
-    const children = tmpNode.namedChildren.filter((node) => node.type === type);
+    const children = tmpNode.namedChildren.filter((node) =>
+      typeEquals(node, type)
+    );
     if (children.length !== 1) {
       return null;
     }
@@ -122,6 +128,10 @@ function searchNodeDescending(node: SyntaxNode, rawTypes: string[]) {
   }
   // Even if descending search we always return the "top" node.
   return node;
+}
+
+function typeEquals(node: SyntaxNode, type: string) {
+  return type === node.type || type === "*";
 }
 
 function getType(pattern: string) {

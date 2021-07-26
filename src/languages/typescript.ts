@@ -4,7 +4,6 @@ import { cascadingMatcher, matcher } from "../nodeMatchers";
 import { NodeMatcherAlternative, ScopeType, NodeFinder } from "../Types";
 import {
   getDeclarationNode,
-  getNameNode,
   getValueNode,
 } from "../treeSitterUtils";
 import {
@@ -138,7 +137,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   ]),
   arrowFunction: "arrow_function",
   functionCall: ["call_expression", "new_expression"],
-  name: matcher(getNameNode),
+  name: "*[name]",
   functionName: [
     "function_declaration[name]",
     "method_definition[name]",
