@@ -1,5 +1,5 @@
 import { InsideOutsideType, TypedSelection } from "./Types";
-import { newTypedSelection } from "./selectionUtils";
+import { updateTypedSelection } from "./selectionUtils";
 
 export function performInsideOutsideAdjustment(
   selection: TypedSelection,
@@ -15,7 +15,7 @@ export function performInsideOutsideAdjustment(
           ? selection.selectionContext.leadingDelimiterRange
           : selection.selectionContext.trailingDelimiterRange;
       if (delimiterRange != null) {
-        return newTypedSelection(selection, delimiterRange);
+        return updateTypedSelection(selection, delimiterRange);
       }
       return selection;
     }
@@ -33,7 +33,7 @@ export function performInsideOutsideAdjustment(
         ? usedSelection.union(delimiterRange)
         : usedSelection;
 
-    return newTypedSelection(selection, range);
+    return updateTypedSelection(selection, range);
   }
 
   return selection;
