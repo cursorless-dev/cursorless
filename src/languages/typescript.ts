@@ -1,6 +1,10 @@
 import { SyntaxNode } from "web-tree-sitter";
 import { getPojoMatchers } from "./getPojoMatchers";
-import { cascadingMatcher, matcher } from "../nodeMatchers";
+import {
+  cascadingMatcher,
+  matcher,
+  createPatternMatchers,
+} from "../nodeMatchers";
 import { NodeMatcherAlternative, ScopeType, NodeFinder } from "../Types";
 import { getDeclarationNode, getValueNode } from "../treeSitterUtils";
 import {
@@ -171,4 +175,4 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   ),
 };
 
-export default nodeMatchers;
+export default createPatternMatchers(nodeMatchers);

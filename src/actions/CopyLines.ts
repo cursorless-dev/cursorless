@@ -46,8 +46,7 @@ class CopyLines implements Action {
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
     await displayPendingEditDecorations(
       targets,
-      this.graph.editStyles.referenced,
-      this.graph.editStyles.referencedLine
+      this.graph.editStyles.referenced
     );
 
     const thatMark = flatten(

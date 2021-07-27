@@ -53,8 +53,9 @@ export function findPossiblyWrappedNode(
 }
 
 export function patternFinder(...patterns: string[]): NodeFinder {
+  const parsedPatterns = parsePatternStrings(patterns);
   return (node: SyntaxNode) => {
-    for (const pattern of patterns) {
+    for (const pattern of parsedPatterns) {
       const match = tryPatternMatch(node, pattern);
       if (match != null) {
         return match;
@@ -64,13 +65,21 @@ export function patternFinder(...patterns: string[]): NodeFinder {
   };
 }
 
-function tryPatternMatch(node: SyntaxNode, pattern: string): SyntaxNode | null {
-  const rawPatterns = pattern.split(".");
-  const firstPattern = new Pattern(rawPatterns[0]);
-  const lastPattern = new Pattern(rawPatterns[rawPatterns.length - 1]);
+function parsePatternStrings(patternStrings: string[]) {
+  return patternStrings.map((patternString) =>
+    patternString.split(".").map((pattern) => new Pattern(pattern))
+  );
+}
+
+function tryPatternMatch(
+  node: SyntaxNode,
+  patterns: Pattern[]
+): SyntaxNode | null {
+  const firstPattern = patterns[0];
+  const lastPattern = patterns[patterns.length - 1];
   let resultNode, resultPattern;
   // Only one type try to match current node.
-  if (rawPatterns.length === 1) {
+  if (patterns.length === 1) {
     if (firstPattern.typeEquals(node)) {
       resultNode = node;
       resultPattern = firstPattern;
@@ -78,14 +87,14 @@ function tryPatternMatch(node: SyntaxNode, pattern: string): SyntaxNode | null {
   }
   // Matched last. Ascending search.
   else if (lastPattern.typeEquals(node)) {
-    const result = searchNodeAscending(node, lastPattern, rawPatterns);
+    const result = searchNodeAscending(node, lastPattern, patterns);
     if (result != null) {
       [resultNode, resultPattern] = result;
     }
   }
   // Matched first. Descending search.
   else if (firstPattern.typeEquals(node)) {
-    const result = searchNodeDescending(node, firstPattern, rawPatterns);
+    const result = searchNodeDescending(node, firstPattern, patterns);
     if (result != null) {
       [resultNode, resultPattern] = result;
     }
@@ -106,14 +115,14 @@ type NodePattern = [SyntaxNode, Pattern] | null;
 function searchNodeAscending(
   node: SyntaxNode,
   lastPattern: Pattern,
-  rawPatterns: string[]
+  patterns: Pattern[]
 ): NodePattern {
   let resNode = node;
   let important: NodePattern = lastPattern.isImportant
     ? [node, lastPattern]
     : null;
-  for (let i = rawPatterns.length - 2; i > -1; --i) {
-    const pattern = new Pattern(rawPatterns[i]);
+  for (let i = patterns.length - 2; i > -1; --i) {
+    const pattern = patterns[i];
     if (resNode.parent == null || !pattern.typeEquals(resNode.parent)) {
       if (pattern.isOptional) {
         continue;
@@ -131,13 +140,13 @@ function searchNodeAscending(
 function searchNodeDescending(
   node: SyntaxNode,
   firstPattern: Pattern,
-  rawPatterns: string[]
+  patterns: Pattern[]
 ): NodePattern {
   let tmpNode = node;
   // Even if descending search we return the "top" node by default.
   let important: NodePattern = [node, firstPattern];
-  for (let i = 1; i < rawPatterns.length; ++i) {
-    const pattern = new Pattern(rawPatterns[i]);
+  for (let i = 1; i < patterns.length; ++i) {
+    const pattern = patterns[i];
     const children = tmpNode.namedChildren.filter((node) =>
       pattern.typeEquals(node)
     );

@@ -1,6 +1,12 @@
 import { SyntaxNode } from "web-tree-sitter";
 import { TextEditor } from "vscode";
-import { NodeMatcher, NodeFinder, SelectionExtractor } from "./Types";
+import {
+  NodeMatcher,
+  NodeFinder,
+  SelectionExtractor,
+  NodeMatcherAlternative,
+  ScopeType,
+} from "./Types";
 import { simpleSelectionExtractor } from "./nodeSelectors";
 import { typedNodeFinder, patternFinder } from "./nodeFinders";
 
@@ -66,3 +72,17 @@ export const notSupported: NodeMatcher = (
 ) => {
   throw new Error("Node type not supported");
 };
+
+export function createPatternMatchers(
+  nodeMatchers: Record<ScopeType, NodeMatcherAlternative>
+): Record<ScopeType, NodeMatcher> {
+  Object.keys(nodeMatchers).forEach((scopeType: ScopeType) => {
+    let matcher = nodeMatchers[scopeType];
+    if (Array.isArray(matcher)) {
+      nodeMatchers[scopeType] = patternMatcher(...matcher);
+    } else if (typeof matcher === "string") {
+      nodeMatchers[scopeType] = patternMatcher(matcher);
+    }
+  });
+  return nodeMatchers as Record<ScopeType, NodeMatcher>;
+}

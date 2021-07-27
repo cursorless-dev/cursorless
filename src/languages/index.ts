@@ -1,11 +1,10 @@
-import { NodeMatcher, NodeMatcherAlternative, ScopeType } from "../Types";
-import { patternMatcher } from "../nodeMatchers";
+import { NodeMatcher, ScopeType } from "../Types";
 import json from "./json";
 import python from "./python";
 import typescript from "./typescript";
 import csharp from "./csharp";
 
-const languages: Record<string, Record<ScopeType, NodeMatcherAlternative>> = {
+const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
   csharp: csharp,
   javascript: typescript,
   javascriptreact: typescript,
@@ -20,19 +19,9 @@ export function getNodeMatcher(
   languageId: string,
   scopeType: ScopeType
 ): NodeMatcher {
-  const language = languages[languageId];
-  if (language == null) {
+  const matchers = languageMatchers[languageId];
+  if (matchers == null) {
     throw Error(`Language '${languageId}' is not implemented yet`);
   }
-  const matcher = language[scopeType];
-  if (matcher == null) {
-    throw Error(`Can't find matcher for scope '${scopeType}'`);
-  }
-  if (Array.isArray(matcher)) {
-    return patternMatcher(...matcher);
-  }
-  if (typeof matcher === "string") {
-    return patternMatcher(matcher);
-  }
-  return matcher;
+  return matchers[scopeType];
 }

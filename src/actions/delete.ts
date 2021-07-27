@@ -21,7 +21,6 @@ export default class Delete implements Action {
     await displayPendingEditDecorations(
       targets,
       this.graph.editStyles.pendingDelete,
-      this.graph.editStyles.pendingLineDelete
     );
 
     const thatMark = flatten(
