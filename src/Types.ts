@@ -57,6 +57,7 @@ export type ScopeType =
   | "listElement"
   | "name"
   | "namedFunction"
+  | "regex"
   | "pair"
   | "pairKey"
   | "statement"

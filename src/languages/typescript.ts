@@ -130,6 +130,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   arrowFunction: "arrow_function",
   name: "*[name]",
   comment: "comment",
+  regex: "regex",
   className: ["class_declaration[name]", "class[name]"],
   functionCall: ["call_expression", "new_expression"],
   statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`),

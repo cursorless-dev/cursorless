@@ -33,6 +33,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   namedFunction: notSupported,
   functionName: notSupported,
   comment: notSupported,
+  regex: notSupported,
   type: notSupported,
   name: notSupported,
 };
