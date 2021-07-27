@@ -120,7 +120,11 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   string: ["string", "template_string"],
   ifStatement: "if_statement",
   arrowFunction: "arrow_function",
-  name: "*[name]",
+  name: [
+    "*[name]",
+    "optional_parameter.identifier!",
+    "required_parameter.identifier!",
+  ],
   comment: "comment",
   regex: "regex",
   className: ["class_declaration[name]", "class[name]"],
