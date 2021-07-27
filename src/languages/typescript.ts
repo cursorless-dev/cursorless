@@ -4,13 +4,11 @@ import { cascadingMatcher, matcher } from "../nodeMatchers";
 import { NodeMatcherAlternative, ScopeType, NodeFinder } from "../Types";
 import { getDeclarationNode, getValueNode } from "../treeSitterUtils";
 import {
-  nodeFinder,
   typedNodeFinder,
   findPossiblyWrappedNode,
   patternFinder,
 } from "../nodeFinders";
 import {
-  delimitedSelector,
   delimitersSelector,
   selectWithLeadingDelimiter,
 } from "../nodeSelectors";
@@ -125,21 +123,32 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
     (node) => isExpression(node) || node.type === "spread_element"
   ),
   ifStatement: "if_statement",
+  arrowFunction: "arrow_function",
+  name: "*[name]",
+  comment: "comment",
+  className: ["class_declaration[name]", "class[name]"],
+  functionCall: ["call_expression", "new_expression"],
+  statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`),
   class: [
     "export_statement?.class_declaration", // export class | class
     "export_statement.class", // export default class
   ],
-  statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`),
-  arrowFunction: "arrow_function",
-  functionCall: ["call_expression", "new_expression"],
-  name: "*[name]",
   functionName: [
     "function_declaration[name]",
     "method_definition[name]",
     "public_field_definition[name].arrow_function",
     "lexical_declaration[name].variable_declarator.arrow_function",
   ],
-  className: ["class_declaration[name]", "class[name]"],
+  namedFunction: [
+    "export_statement?.function_declaration", // export function | function
+    "export_statement.function", // export default function
+    "method_definition", // class method
+    "public_field_definition.arrow_function", // class arrow method
+    // const foo = () => "hello"
+    "lexical_declaration.variable_declarator.arrow_function",
+    // foo = () => "hello"
+    "expression_statement.assignment_expression.arrow_function",
+  ],
   type: cascadingMatcher(
     // Typed parameters, properties, and functions
     matcher(findTypeNode, selectWithLeadingDelimiter),
@@ -151,39 +160,15 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
       )
     )
   ),
-  //   argumentOrParameter:
-  // EXPRESSION_TYPES
   argumentOrParameter: matcher(
-
-    // nodeFinder(
-    //   (node) =>
-    //     (node.parent?.type === "arguments" &&
-    //       (isExpression(node) || node.type === "spread_element")) ||
-    //     node.type === "optional_parameter" ||
-    //     node.type === "required_parameter"
-    // ),
-
     patternFinder(
       ...EXPRESSION_TYPES.map((type) => `arguments.${type}!`),
       "arguments.spread_element",
       "optional_parameter",
       "required_parameter"
     ),
-
     delimitersSelector(",", "(", ")")
   ),
-
-  namedFunction: [
-    "export_statement?.function_declaration", // export function | function
-    "export_statement.function", // export default function
-    "method_definition", // class method
-    "public_field_definition.arrow_function", // class arrow method
-    // const foo = () => "hello"
-    "lexical_declaration.variable_declarator.arrow_function",
-    // foo = () => "hello"
-    "expression_statement.assignment_expression.arrow_function",
-  ],
-  comment: "comment",
 };
 
 export default nodeMatchers;
