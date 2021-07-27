@@ -3,16 +3,15 @@ import { promises as fsp } from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
-import TestCase, {
-  SerializedPosition,
-  SerializedSelection,
-  TestCaseFixture,
-} from "../../TestCase";
+import { isMatch } from "lodash";
+import { TestCaseFixture } from "../../TestCase";
 import { SymbolColor } from "../../constants";
 import { ThatMark } from "../../ThatMark";
 import NavigationMap from "../../NavigationMap";
 import * as sinon from "sinon";
 import { Clipboard } from "../../Clipboard";
+import { takeSnapshot } from "../../takeSnapshot";
+import { SerializedPosition, SerializedSelection } from "../../serializers";
 
 function deserializePosition(position: SerializedPosition) {
   return new vscode.Position(position.line, position.character);
@@ -29,6 +28,10 @@ function deserializeSelection(
 suite("recorded test cases", async function () {
   const directory = path.join(__dirname, "../../../testFixtures");
   const files = await fsp.readdir(directory);
+
+  teardown(() => {
+    sinon.restore();
+  });
 
   files.forEach(async (file) => {
     test(file.split(".")[0], async function () {
@@ -63,11 +66,13 @@ suite("recorded test cases", async function () {
         cursorlessApi.thatMark.set(initialThatMark);
       }
 
-      let clip = fixture.initialState.clipboard;
-      sinon.replace(Clipboard, "readText", async () => clip);
-      sinon.replace(Clipboard, "writeText", async (value: string) => {
-        clip = value;
-      });
+      if (fixture.initialState.clipboard) {
+        let mockClipboard = fixture.initialState.clipboard;
+        sinon.replace(Clipboard, "readText", async () => mockClipboard);
+        sinon.replace(Clipboard, "writeText", async (value: string) => {
+          mockClipboard = value;
+        });
+      }
 
       // Wait for cursorless to set up decorations
       await new Promise((resolve) => setTimeout(resolve, 300));
@@ -86,13 +91,16 @@ suite("recorded test cases", async function () {
         ...fixture.command.extraArgs
       );
 
-      const resultState = await TestCase.getSnapshot(
-        cursorlessApi.thatMark.get()
+      // Do not assert visible ranges; for now they are included as context
+      const { visibleRanges, ...resultState } = await takeSnapshot(
+        cursorlessApi.thatMark
       );
-      assert.deepStrictEqual(fixture.finalState, resultState);
-      assert.deepStrictEqual(fixture.returnValue, returnValue);
 
-      sinon.restore();
+      assert(
+        isMatch(resultState, fixture.finalState),
+        "Unexpected final state"
+      );
+      assert.deepStrictEqual(fixture.returnValue, returnValue);
     });
   });
 });

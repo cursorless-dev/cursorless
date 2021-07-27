@@ -6,15 +6,10 @@ import graphConstructors from "./graphConstructors";
 import { inferFullTargets } from "./inferFullTargets";
 import processTargets from "./processTargets";
 import FontMeasurements from "./FontMeasurements";
-import {
-  ActionType,
-  PartialTarget,
-  ProcessedTargetsContext,
-  SelectionWithEditor,
-} from "./Types";
+import { ActionType, PartialTarget, ProcessedTargetsContext } from "./Types";
 import { makeGraph } from "./makeGraph";
 import { logBranchTypes } from "./debug";
-import TestCase from "./TestCase";
+import { TestCase } from "./TestCase";
 import { ThatMark } from "./ThatMark";
 import { Clipboard } from "./Clipboard";
 
@@ -82,7 +77,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const graph = makeGraph(graphConstructors);
   const thatMark = new ThatMark();
-  let testCaseRecording = { active: false, talonCommand: "", filename: "" };
+  const testCaseRecorder = { active: false, talonCommand: "", filename: "" };
   const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
     "cursorless.recordTestCase",
     async () => {
@@ -90,22 +85,14 @@ export async function activate(context: vscode.ExtensionContext) {
 
       const talonCommand = await vscode.window.showInputBox({
         prompt: "Talon Command",
-        validateInput: (input) =>
-          input.trim().length ? "" : "Missing command",
       });
       const filename = await vscode.window.showInputBox({
         prompt: "Test Filename",
-        validateInput: (input) =>
-          input.trim().length ? "" : "Missing filename",
       });
 
-      if (!filename || !talonCommand) {
-        throw new Error("File name and talon command required");
-      }
-
-      testCaseRecording.active = true;
-      testCaseRecording.filename = filename;
-      testCaseRecording.talonCommand = talonCommand;
+      testCaseRecorder.active = true;
+      testCaseRecorder.filename = filename ?? "";
+      testCaseRecorder.talonCommand = talonCommand ?? "";
     }
   );
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
@@ -169,16 +156,16 @@ export async function activate(context: vscode.ExtensionContext) {
         const selections = processTargets(processedTargetsContext, targets);
 
         let testCase: TestCase | null = null;
-        if (testCaseRecording.active) {
+        if (testCaseRecorder.active) {
           const command = { actionName, partialTargets, extraArgs };
           const context = {
-            thatMark: thatMark,
             targets,
+            thatMark: thatMark,
             navigationMap: graph.navigationMap!,
-            talonCommand: testCaseRecording.talonCommand,
+            talonCommand: testCaseRecorder.talonCommand,
           };
           testCase = new TestCase(command, context);
-          await testCase.saveSnapshot();
+          await testCase.recordInitialState();
         }
 
         const { returnValue, thatMark: newThatMark } = await action.run(
@@ -189,10 +176,9 @@ export async function activate(context: vscode.ExtensionContext) {
         thatMark.set(newThatMark);
 
         if (testCase != null) {
-          await testCase.saveSnapshot();
-          testCase.returnValue = returnValue;
-          testCase.writeFixture(testCaseRecording.filename);
-          testCaseRecording.active = false;
+          testCaseRecorder.active = false;
+          await testCase.recordFinalState(returnValue);
+          await testCase.writeFile(testCaseRecorder.filename);
         }
 
         return returnValue;

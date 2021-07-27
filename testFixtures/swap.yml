@@ -66,9 +66,6 @@ initialState:
       anchor:
         line: 7
         character: 0
-  visibleRanges: []
-  clipboard: ""
-  thatMark: []
 finalState:
   document: |
     import sys
@@ -85,8 +82,6 @@ finalState:
       anchor:
         line: 7
         character: 0
-  visibleRanges: []
-  clipboard: ""
   thatMark:
     - active:
         line: 3
