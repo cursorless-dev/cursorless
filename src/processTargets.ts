@@ -17,6 +17,7 @@ import {
 } from "./Types";
 import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
 import { SUBWORD_MATCHER } from "./constants";
+import { selectionWithEditorFromPositions } from "./selectionUtils";
 
 export default function processTargets(
   context: ProcessedTargetsContext,
@@ -330,10 +331,11 @@ function createTypedSelection(
       );
       const end = endLine.range.end;
 
-      const newSelection = update(selection, {
-        selection: (s) =>
-          s.isReversed ? new Selection(end, start) : new Selection(start, end),
-      });
+      const newSelection = selectionWithEditorFromPositions(
+        selection,
+        start,
+        end
+      );
 
       return {
         selection: newSelection,
@@ -349,14 +351,14 @@ function createTypedSelection(
       const lastLine = document.lineAt(document.lineCount - 1);
       const start = firstLine.range.start;
       const end = lastLine.range.end;
+      const newSelection = selectionWithEditorFromPositions(
+        selection,
+        start,
+        end
+      );
 
       return {
-        selection: update(selection, {
-          selection: (s) =>
-            s.isReversed
-              ? new Selection(end, start)
-              : new Selection(start, end),
-        }),
+        selection: newSelection,
         selectionType,
         position,
         insideOutsideType,
@@ -389,10 +391,11 @@ function createTypedSelection(
       );
       const end = endLine.range.end;
 
-      const newSelection = update(selection, {
-        selection: (s) =>
-          s.isReversed ? new Selection(end, start) : new Selection(start, end),
-      });
+      const newSelection = selectionWithEditorFromPositions(
+        selection,
+        start,
+        end
+      );
 
       return {
         selection: newSelection,

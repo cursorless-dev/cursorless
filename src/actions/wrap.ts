@@ -11,6 +11,7 @@ import {
 import { runOnTargetsForEachEditor } from "../targetUtils";
 import { decorationSleep } from "../editDisplayUtils";
 import { performEditsAndUpdateSelections } from "../updateSelections";
+import { selectionWithEditorFromPositions } from "../selectionUtils";
 
 export default class Wrap implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
@@ -61,14 +62,11 @@ export default class Wrap implements Action {
           return targets.map((target, index) => {
             const start = updatedSelections[index * 2].start;
             const end = updatedSelections[index * 2 + 1].end;
-            const isReversed = target.selection.selection.isReversed;
-            return {
-              editor,
-              selection: new Selection(
-                isReversed ? end : start,
-                isReversed ? start : end
-              ),
-            };
+            return selectionWithEditorFromPositions(
+              target.selection,
+              start,
+              end
+            );
           });
         }
       )
