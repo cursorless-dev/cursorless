@@ -58,9 +58,14 @@ export class TestCase {
   }
 
   private includesThatMark(target: Target) {
-    return this.targets.some(
-      (target) => target.type === "primitive" && target.mark.type === "that"
-    );
+    if (target.type === "primitive" && target.mark.type === "that") {
+      return true;
+    } else if (target.type === "list") {
+      return target.elements.some(this.includesThatMark, this);
+    } else if (target.type === "range") {
+      return [target.start, target.end].some(this.includesThatMark, this);
+    }
+    return false;
   }
 
   private getExcludedFields() {
