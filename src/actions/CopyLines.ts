@@ -11,7 +11,7 @@ import { displayPendingEditDecorationsForSelection } from "../editDisplayUtils";
 import { runOnTargetsForEachEditor } from "../targetUtils";
 import { flatten } from "lodash";
 import unifyRanges from "../unifyRanges";
-import expandToContainingLine from "./expandToContainingLine";
+import expandToContainingLine from "../expandToContainingLine";
 
 class CopyLines implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
