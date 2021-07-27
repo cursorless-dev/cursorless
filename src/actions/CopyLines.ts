@@ -72,7 +72,7 @@ class CopyLines implements Action {
 
     await displayPendingEditDecorationsForSelection(
       results.flatMap((result) => result.copySelections),
-      this.graph.editStyles.justAdded
+      this.graph.editStyles.justAdded.token
     );
 
     const thatMark = results.flatMap((result) => result.thatMark);

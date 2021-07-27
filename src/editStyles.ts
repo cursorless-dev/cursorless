@@ -1,87 +1,39 @@
-import * as vscode from "vscode";
+import {
+  TextEditorDecorationType,
+  ThemeColor,
+  DecorationRangeBehavior,
+  window,
+} from "vscode";
 
-export default class EditStyles {
-  pendingDelete: vscode.TextEditorDecorationType;
-  pendingLineDelete: vscode.TextEditorDecorationType;
-  referenced: vscode.TextEditorDecorationType;
-  referencedLine: vscode.TextEditorDecorationType;
-  pendingModification0: vscode.TextEditorDecorationType;
-  pendingLineModification0: vscode.TextEditorDecorationType;
-  pendingModification1: vscode.TextEditorDecorationType;
-  pendingLineModification1: vscode.TextEditorDecorationType;
-  justAdded: vscode.TextEditorDecorationType;
-  justAddedLine: vscode.TextEditorDecorationType;
+export class EditStyle {
+  token: TextEditorDecorationType;
+  line: TextEditorDecorationType;
+
+  constructor(colorName: string) {
+    const options = {
+      backgroundColor: new ThemeColor(`cursorless.${colorName}`),
+      rangeBehavior: DecorationRangeBehavior.ClosedClosed,
+    };
+    this.token = window.createTextEditorDecorationType(options);
+    this.line = window.createTextEditorDecorationType({
+      ...options,
+      isWholeLine: true,
+    });
+  }
+}
+
+export class EditStyles {
+  pendingDelete: EditStyle;
+  referenced: EditStyle;
+  pendingModification0: EditStyle;
+  pendingModification1: EditStyle;
+  justAdded: EditStyle;
 
   constructor() {
-    this.pendingDelete = vscode.window.createTextEditorDecorationType({
-      backgroundColor: new vscode.ThemeColor(
-        "cursorless.pendingDeleteBackground"
-      ),
-      rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-    });
-
-    this.pendingLineDelete = vscode.window.createTextEditorDecorationType({
-      backgroundColor: new vscode.ThemeColor(
-        "cursorless.pendingDeleteBackground"
-      ),
-      rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-      isWholeLine: true,
-    });
-
-    this.justAdded = vscode.window.createTextEditorDecorationType({
-      backgroundColor: new vscode.ThemeColor("cursorless.justAddedBackground"),
-      rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-    });
-
-    this.justAddedLine = vscode.window.createTextEditorDecorationType({
-      backgroundColor: new vscode.ThemeColor("cursorless.justAddedBackground"),
-      rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-      isWholeLine: true,
-    });
-
-    this.referenced = vscode.window.createTextEditorDecorationType({
-      backgroundColor: new vscode.ThemeColor("cursorless.referencedBackground"),
-      rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-    });
-
-    this.referencedLine = vscode.window.createTextEditorDecorationType({
-      backgroundColor: new vscode.ThemeColor("cursorless.referencedBackground"),
-      rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-      isWholeLine: true,
-    });
-
-    this.pendingModification0 = vscode.window.createTextEditorDecorationType({
-      backgroundColor: new vscode.ThemeColor(
-        "cursorless.pendingModification0Background"
-      ),
-      rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-    });
-
-    this.pendingLineModification0 = vscode.window.createTextEditorDecorationType(
-      {
-        backgroundColor: new vscode.ThemeColor(
-          "cursorless.pendingModification0Background"
-        ),
-        rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-        isWholeLine: true,
-      }
-    );
-
-    this.pendingModification1 = vscode.window.createTextEditorDecorationType({
-      backgroundColor: new vscode.ThemeColor(
-        "cursorless.pendingModification1Background"
-      ),
-      rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-    });
-
-    this.pendingLineModification1 = vscode.window.createTextEditorDecorationType(
-      {
-        backgroundColor: new vscode.ThemeColor(
-          "cursorless.pendingModification1Background"
-        ),
-        rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-        isWholeLine: true,
-      }
-    );
+    this.pendingDelete = new EditStyle("pendingDeleteBackground");
+    this.justAdded = new EditStyle("justAddedBackground");
+    this.referenced = new EditStyle("referencedBackground");
+    this.pendingModification0 = new EditStyle("pendingModification0Background");
+    this.pendingModification1 = new EditStyle("pendingModification1Background");
   }
 }

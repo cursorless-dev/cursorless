@@ -41,8 +41,7 @@ export default class SetBreakpoint implements Action {
   ]): Promise<ActionReturnValue> {
     await displayPendingEditDecorations(
       targets,
-      this.graph.editStyles.referenced,
-      this.graph.editStyles.referencedLine
+      this.graph.editStyles.referenced
     );
 
     const lines = targets.flatMap((target) => {

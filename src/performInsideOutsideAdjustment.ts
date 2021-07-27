@@ -1,6 +1,5 @@
-import update from "immutability-helper";
-import { Selection } from "vscode";
 import { InsideOutsideType, TypedSelection } from "./Types";
+import { updateTypedSelectionRange } from "./selectionUtils";
 
 export function performInsideOutsideAdjustment(
   selection: TypedSelection,
@@ -10,6 +9,17 @@ export function performInsideOutsideAdjustment(
     selection.insideOutsideType ?? preferredInsideOutsideType;
 
   if (insideOutsideType === "outside") {
+    if (selection.position !== "contents") {
+      const delimiterRange =
+        selection.position === "before"
+          ? selection.selectionContext.leadingDelimiterRange
+          : selection.selectionContext.trailingDelimiterRange;
+
+      return delimiterRange == null
+        ? selection
+        : updateTypedSelectionRange(selection, delimiterRange);
+    }
+
     const usedSelection =
       selection.selectionContext.outerSelection ??
       selection.selection.selection;
@@ -23,15 +33,16 @@ export function performInsideOutsideAdjustment(
         ? usedSelection.union(delimiterRange)
         : usedSelection;
 
-    return update(selection, {
-      selection: {
-        selection: (s) =>
-          s.isReversed
-            ? new Selection(range.end, range.start)
-            : new Selection(range.start, range.end),
-      },
-    });
+    return updateTypedSelectionRange(selection, range);
   }
 
   return selection;
+}
+
+export function performInsideAdjustment(selection: TypedSelection) {
+  return performInsideOutsideAdjustment(selection, "inside");
+}
+
+export function performOutsideAdjustment(selection: TypedSelection) {
+  return performInsideOutsideAdjustment(selection, "outside");
 }

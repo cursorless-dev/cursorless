@@ -5,7 +5,7 @@ import {
   Graph,
   TypedSelection,
 } from "../Types";
-import { TextEditor, Selection, Position, Range } from "vscode";
+import { Selection, Range } from "vscode";
 import { displayPendingEditDecorationsForSelection } from "../editDisplayUtils";
 import { runOnTargetsForEachEditor } from "../targetUtils";
 import { performEditsAndUpdateSelections } from "../updateSelections";
@@ -76,7 +76,7 @@ class InsertEmptyLines implements Action {
 
     await displayPendingEditDecorationsForSelection(
       results.flatMap((result) => result.lineSelections),
-      this.graph.editStyles.justAddedLine
+      this.graph.editStyles.justAdded.line
     );
 
     const thatMark = results.flatMap((result) => result.thatMark);
