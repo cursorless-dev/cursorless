@@ -110,7 +110,7 @@ export const findTypeNode = (node: SyntaxNode) => {
 
 const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   ...getPojoMatchers(
-    ["object"],
+    ["object", "object_pattern"],
     ["array", "array_pattern"],
     (node) =>
       isExpression(node) ||
