@@ -1,5 +1,5 @@
 import Actions from "./actions";
-import EditStyles from "./editStyles";
+import { EditStyles } from "./editStyles";
 import { Graph } from "./Types";
 import { ConstructorMap } from "./makeGraph";
 

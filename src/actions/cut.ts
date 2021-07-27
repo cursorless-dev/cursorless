@@ -5,7 +5,10 @@ import {
   Graph,
   TypedSelection,
 } from "../Types";
-import { performInsideOutsideAdjustment } from "../performInsideOutsideAdjustment";
+import {
+  performInsideAdjustment,
+  performOutsideAdjustment,
+} from "../performInsideOutsideAdjustment";
 
 export default class Cut implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: null }];
@@ -15,14 +18,10 @@ export default class Cut implements Action {
   }
 
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    await this.graph.actions.copy.run([
-      targets.map((target) => performInsideOutsideAdjustment(target, "inside")),
-    ]);
+    await this.graph.actions.copy.run([targets.map(performInsideAdjustment)]);
 
     const { thatMark } = await this.graph.actions.delete.run([
-      targets.map((target) =>
-        performInsideOutsideAdjustment(target, "outside")
-      ),
+      targets.map(performOutsideAdjustment),
     ]);
 
     return {
