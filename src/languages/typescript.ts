@@ -1,17 +1,13 @@
 import { SyntaxNode } from "web-tree-sitter";
 import { getPojoMatchers } from "./getPojoMatchers";
 import {
-  cascadingMatcher,
   matcher,
+  cascadingMatcher,
+  patternMatcher,
   createPatternMatchers,
 } from "../nodeMatchers";
-import { NodeMatcherAlternative, ScopeType, NodeFinder } from "../Types";
-import { getDeclarationNode, getValueNode } from "../treeSitterUtils";
-import {
-  typedNodeFinder,
-  findPossiblyWrappedNode,
-  patternFinder,
-} from "../nodeFinders";
+import { NodeMatcherAlternative, ScopeType } from "../Types";
+import { patternFinder } from "../nodeFinders";
 import {
   delimitersSelector,
   selectWithLeadingDelimiter,
@@ -105,14 +101,6 @@ const STATEMENT_TYPES = [
   "with_statement",
 ];
 
-function possiblyExportedDeclaration(...typeNames: string[]): NodeFinder {
-  return findPossiblyWrappedNode(
-    typedNodeFinder("export_statement"),
-    typedNodeFinder(...typeNames),
-    (node) => [getDeclarationNode(node), getValueNode(node)]
-  );
-}
-
 export const findTypeNode = (node: SyntaxNode) => {
   const typeAnnotationNode = node.children.find((child) =>
     ["type_annotation", "opting_type_annotation"].includes(child.type)
@@ -161,11 +149,9 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
     // Typed parameters, properties, and functions
     matcher(findTypeNode, selectWithLeadingDelimiter),
     // Type alias/interface declarations
-    matcher(
-      possiblyExportedDeclaration(
-        "type_alias_declaration",
-        "interface_declaration"
-      )
+    patternMatcher(
+      "export_statement?.type_alias_declaration",
+      "export_statement?.interface_declaration"
     )
   ),
   argumentOrParameter: matcher(
