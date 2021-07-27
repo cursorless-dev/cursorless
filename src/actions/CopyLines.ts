@@ -21,17 +21,30 @@ class CopyLines implements Action {
   }
 
   private getRanges(editor: TextEditor, targets: TypedSelection[]) {
+    const paragraphTargets = targets.filter(
+      (target) => target.selectionType === "paragraph"
+    );
     const ranges = targets.map((target) =>
       expandToContainingLine(editor, target.selection.selection)
     );
-
-    return unifyRanges(ranges);
+    const unifiedRanges = unifyRanges(ranges);
+    return unifiedRanges.map((range) => ({
+      range,
+      isParagraph:
+        paragraphTargets.find((target) =>
+          target.selection.selection.isEqual(range)
+        ) != null,
+    }));
   }
 
-  private getEdits(editor: TextEditor, ranges: Range[]) {
-    return ranges.map((range) => {
+  private getEdits(
+    editor: TextEditor,
+    ranges: { range: Range; isParagraph: boolean }[]
+  ) {
+    return ranges.map(({ range, isParagraph }) => {
+      const delimiter = isParagraph ? "\n\n" : "\n";
       let text = editor.document.getText(range);
-      text = this.isUp ? `${text}\n` : `\n${text}`;
+      text = this.isUp ? `${text}${delimiter}` : `${delimiter}${text}`;
       const newRange = this.isUp
         ? new Range(range.start, range.start)
         : new Range(range.end, range.end);
