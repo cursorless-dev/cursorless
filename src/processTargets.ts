@@ -366,21 +366,25 @@ function createTypedSelection(
 
     case "paragraph": {
       let startLine = document.lineAt(selection.selection.start);
-      while (startLine.lineNumber > 0) {
-        const line = document.lineAt(startLine.lineNumber - 1);
-        if (line.isEmptyOrWhitespace) {
-          break;
+      if (!startLine.isEmptyOrWhitespace) {
+        while (startLine.lineNumber > 0) {
+          const line = document.lineAt(startLine.lineNumber - 1);
+          if (line.isEmptyOrWhitespace) {
+            break;
+          }
+          startLine = line;
         }
-        startLine = line;
       }
       const lineCount = document.lineCount;
       let endLine = document.lineAt(selection.selection.end);
-      while (endLine.lineNumber + 1 < lineCount) {
-        const line = document.lineAt(endLine.lineNumber + 1);
-        if (line.isEmptyOrWhitespace) {
-          break;
+      if (!endLine.isEmptyOrWhitespace) {
+        while (endLine.lineNumber + 1 < lineCount) {
+          const line = document.lineAt(endLine.lineNumber + 1);
+          if (line.isEmptyOrWhitespace) {
+            break;
+          }
+          endLine = line;
         }
-        endLine = line;
       }
 
       const start = new Position(
