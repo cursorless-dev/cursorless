@@ -117,6 +117,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
       node.type === "spread_element" ||
       node.type === "identifier" // Deconstructed array
   ),
+  string: ["string", "template_string"],
   ifStatement: "if_statement",
   arrowFunction: "arrow_function",
   name: "*[name]",

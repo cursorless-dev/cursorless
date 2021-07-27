@@ -1,11 +1,11 @@
 import { SyntaxNode } from "web-tree-sitter";
-import { getKeyNode, getValueNode } from "../treeSitterUtils";
+import { getValueNode } from "../treeSitterUtils";
 import {
-  delimitedSelector,
+  delimitersSelector,
   selectWithLeadingDelimiter,
 } from "../nodeSelectors";
-import { composedMatcher, matcher, typeMatcher } from "../nodeMatchers";
-import { nodeFinder, typedNodeFinder } from "../nodeFinders";
+import { matcher } from "../nodeMatchers";
+import { nodeFinder } from "../nodeFinders";
 
 // Matchers for "plain old javascript objects", like those found in JSON
 export function getPojoMatchers(
@@ -14,10 +14,11 @@ export function getPojoMatchers(
   listElementMatcher: (node: SyntaxNode) => boolean
 ) {
   return {
-    dictionary: typeMatcher(...dictionaryTypes),
-    collectionKey: composedMatcher([typedNodeFinder("pair"), getKeyNode]),
+    dictionary: dictionaryTypes,
+    list: listTypes,
+    string: "string",
+    collectionKey: "pair[key]",
     value: matcher(getValueNode, selectWithLeadingDelimiter),
-    list: typeMatcher(...listTypes),
     collectionItem: matcher(
       nodeFinder(
         (node) =>
@@ -27,16 +28,7 @@ export function getPojoMatchers(
           node.type === "shorthand_property_identifier" || // Property shorthand
           node.type === "shorthand_property_identifier_pattern" // Deconstructed object
       ),
-      delimitedSelector(
-        (node) =>
-          node.type === "," ||
-          node.type === "[" ||
-          node.type === "]" ||
-          node.type === "}" ||
-          node.type === "{",
-        ", "
-      )
+      delimitersSelector(",", "[", "]", "{", "}")
     ),
-    string: typeMatcher("string", "template_string"),
   };
 }

@@ -23,5 +23,9 @@ export function getNodeMatcher(
   if (matchers == null) {
     throw Error(`Language '${languageId}' is not implemented yet`);
   }
-  return matchers[scopeType];
+  const matcher = matchers[scopeType];
+  if (matcher == null) {
+    throw Error(`Scope '${scopeType}' is not implemented yet`);
+  }
+  return matcher;
 }

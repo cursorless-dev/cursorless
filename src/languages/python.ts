@@ -4,10 +4,10 @@ import {
   cascadingMatcher,
   composedMatcher,
   matcher,
-  notSupported,
   typeMatcher,
+  createPatternMatchers,
 } from "../nodeMatchers";
-import { NodeFinder, NodeMatcher, ScopeType } from "../Types";
+import { NodeFinder, NodeMatcherAlternative, ScopeType } from "../Types";
 import {
   getDefinitionNode,
   getLeftNode,
@@ -137,7 +137,7 @@ function possiblyDecoratedDefinition(...typeNames: string[]): NodeFinder {
 export const getTypeNode = (node: SyntaxNode) =>
   node.children.find((child) => child.type === "type") ?? null;
 
-const nodeMatchers: Record<ScopeType, NodeMatcher> = {
+const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   ...getPojoMatchers(
     ["dictionary", "dictionary_comprehension"],
     ["list", "list_comprehension"],
@@ -179,4 +179,4 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   type: matcher(getTypeNode, selectWithLeadingDelimiter),
 };
 
-export default nodeMatchers;
+export default createPatternMatchers(nodeMatchers);
