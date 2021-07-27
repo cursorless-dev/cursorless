@@ -455,16 +455,18 @@ function getTokenSelectionContext(
   if (!isSelectionContextEmpty(selectionContext)) {
     return selectionContext;
   }
+  if (modifier.type === "subpiece") {
+    return selectionContext;
+  }
 
   const document = selection.editor.document;
   const { start, end } = selection.selection;
 
   const startLine = document.lineAt(start);
   const leadingText = startLine.text.slice(0, start.character);
-  const hasLeadingSibling = leadingText.trim().length > 0;
   const leadingDelimiters = leadingText.match(/\s+$/);
   const leadingDelimiterRange =
-    hasLeadingSibling && leadingDelimiters != null
+    leadingDelimiters != null
       ? new Range(
           start.line,
           start.character - leadingDelimiters[0].length,
@@ -475,10 +477,9 @@ function getTokenSelectionContext(
 
   const endLine = document.lineAt(end);
   const trailingText = endLine.text.slice(end.character);
-  const hasTrailingSibling = trailingText.trim().length > 0;
   const trailingDelimiters = trailingText.match(/^\s+/);
   const trailingDelimiterRange =
-    hasTrailingSibling && trailingDelimiters != null
+    trailingDelimiters != null
       ? new Range(
           end.line,
           end.character,
@@ -487,20 +488,17 @@ function getTokenSelectionContext(
         )
       : null;
 
-  if (
-    leadingDelimiterRange != null ||
-    trailingDelimiterRange != null ||
-    modifier.type !== "subpiece"
-  ) {
-    return {
-      isInDelimitedList: true,
-      containingListDelimiter: " ",
-      leadingDelimiterRange,
-      trailingDelimiterRange,
-    };
-  }
+  const isInDelimitedList =
+    (leadingDelimiterRange != null || trailingDelimiterRange != null) &&
+    (leadingDelimiterRange != null || start.character === 0) &&
+    (trailingDelimiterRange != null || end.isEqual(endLine.range.end));
 
-  return selectionContext;
+  return {
+    isInDelimitedList,
+    containingListDelimiter: " ",
+    leadingDelimiterRange: isInDelimitedList ? leadingDelimiterRange : null,
+    trailingDelimiterRange: isInDelimitedList ? trailingDelimiterRange : null,
+  };
 }
 
 // TODO Clean this up once we have rich targets and better polymorphic
