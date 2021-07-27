@@ -15,24 +15,25 @@ export function getPojoMatchers(
 ) {
   return {
     dictionary: typeMatcher(...dictionaryTypes),
-    pair: matcher(
-      nodeFinder((node) => node.type === "pair"),
-      delimitedSelector(
-        (node) => node.type === "," || node.type === "}" || node.type === "{",
-        ", "
-      )
-    ),
-    pairKey: composedMatcher([typedNodeFinder("pair"), getKeyNode]),
+    collectionKey: composedMatcher([typedNodeFinder("pair"), getKeyNode]),
     value: matcher(getValueNode, selectWithLeadingDelimiter),
     list: typeMatcher(...listTypes),
-    listElement: matcher(
+    collectionItem: matcher(
       nodeFinder(
         (node) =>
-          listTypes.includes(node.parent?.type ?? "") &&
-          listElementMatcher(node)
+          (listTypes.includes(node.parent?.type ?? "") &&
+            listElementMatcher(node)) ||
+          node.type === "pair" ||
+          node.type === "shorthand_property_identifier" || // Property shorthand
+          node.type === "shorthand_property_identifier_pattern" // Deconstructed object
       ),
       delimitedSelector(
-        (node) => node.type === "," || node.type === "[" || node.type === "]",
+        (node) =>
+          node.type === "," ||
+          node.type === "[" ||
+          node.type === "]" ||
+          node.type === "}" ||
+          node.type === "{",
         ", "
       )
     ),

@@ -123,8 +123,11 @@ export const findTypeNode = (node: SyntaxNode) => {
 const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   ...getPojoMatchers(
     ["object"],
-    ["array"],
-    (node) => isExpression(node) || node.type === "spread_element"
+    ["array", "array_pattern"],
+    (node) =>
+      isExpression(node) ||
+      node.type === "spread_element" ||
+      node.type === "identifier" // Deconstructed array
   ),
   ifStatement: "if_statement",
   arrowFunction: "arrow_function",
@@ -169,6 +172,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
     patternFinder(
       ...EXPRESSION_TYPES.map((type) => `arguments.${type}!`),
       "arguments.spread_element",
+      "formal_parameters.identifier!", // JavaScript function parameter
       "optional_parameter",
       "required_parameter"
     ),
