@@ -11,6 +11,8 @@ import { flatten, zip } from "lodash";
 import { maybeAddDelimiter } from "../getTextWithPossibleDelimiter";
 import { performEditsAndUpdateSelections } from "../updateSelections";
 
+type RangeGenerator = { start: number };
+
 export default class implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: null }];
 
@@ -18,20 +20,35 @@ export default class implements Action {
     this.run = this.run.bind(this);
   }
 
+  private getTexts(
+    targets: TypedSelection[],
+    replaceWith: string[] | RangeGenerator
+  ): string[] {
+    if (Array.isArray(replaceWith)) {
+      // Broadcast single text to each target
+      if (replaceWith.length === 1) {
+        return Array(targets.length).fill(replaceWith[0]);
+      }
+      return replaceWith;
+    }
+    const numbers = [];
+    for (let i = 0; i < targets.length; ++i) {
+      numbers[i] = (replaceWith.start + i).toString();
+    }
+    return numbers;
+  }
+
   async run(
     [targets]: [TypedSelection[]],
-    texts: string[]
+    replaceWith: string[] | RangeGenerator
   ): Promise<ActionReturnValue> {
     await displayPendingEditDecorations(
       targets,
       this.graph.editStyles.pendingModification0
     );
 
-    // Broadcast single text for each target
-    if (texts.length === 1) {
-      texts = Array(targets.length).fill(texts[0]);
-    }
-
+    const  texts = this.getTexts(targets, replaceWith);
+console.log(texts);
     if (targets.length !== texts.length) {
       throw new Error("Targets and texts must have same length");
     }
