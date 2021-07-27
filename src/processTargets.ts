@@ -228,7 +228,6 @@ function transformSelection(
       );
 
       while (node != null) {
-          console.log(">", node.type);
         const matchedSelection = nodeMatcher(selection.editor, node);
         if (matchedSelection != null) {
           var matchedSelections: SelectionWithContext[];

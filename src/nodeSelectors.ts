@@ -75,6 +75,10 @@ function getPreviousNonDelimiterNode(
   return node;
 }
 
+export function delimitersSelector(...delimiters: string[]) {
+  return delimitedSelector((node) => delimiters.includes(node.type), ", ");
+}
+
 export function delimitedSelector(
   isDelimiterNode: (node: SyntaxNode) => boolean,
   defaultDelimiter: string

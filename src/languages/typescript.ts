@@ -7,9 +7,11 @@ import {
   nodeFinder,
   typedNodeFinder,
   findPossiblyWrappedNode,
+  patternFinder,
 } from "../nodeFinders";
 import {
   delimitedSelector,
+  delimitersSelector,
   selectWithLeadingDelimiter,
 } from "../nodeSelectors";
 
@@ -152,18 +154,25 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   //   argumentOrParameter:
   // EXPRESSION_TYPES
   argumentOrParameter: matcher(
-    nodeFinder(
-      (node) =>
-        (node.parent?.type === "arguments" &&
-          (isExpression(node) || node.type === "spread_element")) ||
-        node.type === "optional_parameter" ||
-        node.type === "required_parameter"
+
+    // nodeFinder(
+    //   (node) =>
+    //     (node.parent?.type === "arguments" &&
+    //       (isExpression(node) || node.type === "spread_element")) ||
+    //     node.type === "optional_parameter" ||
+    //     node.type === "required_parameter"
+    // ),
+
+    patternFinder(
+      ...EXPRESSION_TYPES.map((type) => `arguments.${type}!`),
+      "arguments.spread_element",
+      "optional_parameter",
+      "required_parameter"
     ),
-    delimitedSelector(
-      (node) => node.type === "," || node.type === "(" || node.type === ")",
-      ", "
-    )
+
+    delimitersSelector(",", "(", ")")
   ),
+
   namedFunction: [
     "export_statement?.function_declaration", // export function | function
     "export_statement.function", // export default function
