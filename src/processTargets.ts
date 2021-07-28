@@ -292,6 +292,28 @@ function transformSelection(
           context: {},
         },
       ];
+
+    case "head":
+    case "tail": {
+      let anchor: Position, active: Position;
+      if (modifier.type === "head") {
+        anchor = selection.selection.start;
+        active = new Position(selection.selection.start.line, 0);
+      } else {
+        anchor = selection.selection.end;
+        active = selection.editor.document.lineAt(selection.selection.end).range
+          .end;
+      }
+      return [
+        {
+          selection: update(selection, {
+            selection: () => new Selection(anchor, active),
+          }),
+          context: {},
+        },
+      ];
+    }
+
     case "matchingPairSymbol":
     case "surroundingPair":
       throw new Error("Not implemented");
