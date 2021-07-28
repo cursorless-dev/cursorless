@@ -1,19 +1,19 @@
 import * as vscode from "vscode";
 import { Clipboard } from "./Clipboard";
 import {
-  serializeSelection,
-  serializeRange,
-  SerializedRange,
-  SerializedSelection,
-} from "./serializers";
+  selectionToPlainObject,
+  rangeToPlainObject,
+  RangePlainObject,
+  SelectionPlainObject,
+} from "./toPlainObject";
 import { ThatMark } from "./ThatMark";
 
 export type TestCaseSnapshot = {
   documentContents: string;
-  selections: SerializedSelection[];
+  selections: SelectionPlainObject[];
   clipboard?: string;
-  visibleRanges?: SerializedRange[];
-  thatMark?: SerializedSelection[];
+  visibleRanges?: RangePlainObject[];
+  thatMark?: SelectionPlainObject[];
 };
 
 export async function takeSnapshot(
@@ -24,7 +24,7 @@ export async function takeSnapshot(
 
   const snapshot: TestCaseSnapshot = {
     documentContents: activeEditor.document.getText(),
-    selections: activeEditor.selections.map(serializeSelection),
+    selections: activeEditor.selections.map(selectionToPlainObject),
   };
 
   if (!excludeFields.includes("clipboard")) {
@@ -32,13 +32,13 @@ export async function takeSnapshot(
   }
 
   if (!excludeFields.includes("visibleRanges")) {
-    snapshot.visibleRanges = activeEditor.visibleRanges.map(serializeRange);
+    snapshot.visibleRanges = activeEditor.visibleRanges.map(rangeToPlainObject);
   }
 
   if (thatMark && !excludeFields.includes("thatMark")) {
     snapshot.thatMark = thatMark
       .get()
-      .map((mark) => serializeSelection(mark.selection));
+      .map((mark) => selectionToPlainObject(mark.selection));
   }
 
   return snapshot;

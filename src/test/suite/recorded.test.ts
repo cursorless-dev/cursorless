@@ -11,17 +11,15 @@ import NavigationMap from "../../NavigationMap";
 import * as sinon from "sinon";
 import { Clipboard } from "../../Clipboard";
 import { takeSnapshot } from "../../takeSnapshot";
-import { SerializedPosition, SerializedSelection } from "../../serializers";
+import { PositionPlainObject, SelectionPlainObject } from "../../toPlainObject";
 
-function deserializePosition(position: SerializedPosition) {
+function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
 }
 
-function deserializeSelection(
-  selection: SerializedSelection
-): vscode.Selection {
-  const active = deserializePosition(selection.active);
-  const anchor = deserializePosition(selection.anchor);
+function createSelection(selection: SelectionPlainObject): vscode.Selection {
+  const active = createPosition(selection.active);
+  const anchor = createPosition(selection.anchor);
   return new vscode.Selection(anchor, active);
 }
 
@@ -55,12 +53,11 @@ suite("recorded test cases", async function () {
         content: fixture.initialState.documentContents,
       });
       const editor = await vscode.window.showTextDocument(document);
-      editor.selections =
-        fixture.initialState.selections.map(deserializeSelection);
+      editor.selections = fixture.initialState.selections.map(createSelection);
 
       if (fixture.initialState.thatMark) {
         const initialThatMark = fixture.initialState.thatMark.map((mark) => ({
-          selection: deserializeSelection(mark),
+          selection: createSelection(mark),
           editor,
         }));
         cursorlessApi.thatMark.set(initialThatMark);

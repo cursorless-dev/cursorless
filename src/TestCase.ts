@@ -6,7 +6,7 @@ import NavigationMap from "./NavigationMap";
 import { ThatMark } from "./ThatMark";
 import { ActionType, PartialTarget, Target } from "./Types";
 import { extractTargetedMarks } from "./extractTargetedMarks";
-import { serializeMarks, SerializedMarks } from "./serializers";
+import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
 import { takeSnapshot, TestCaseSnapshot } from "./takeSnapshot";
 
 type TestCaseCommand = {
@@ -52,7 +52,7 @@ export class TestCase {
     this.talonCommand = talonCommand;
     this.command = command;
     this.languageId = activeEditor.document.languageId;
-    this.marks = serializeMarks(targetedMarks);
+    this.marks = marksToPlainObject(targetedMarks);
     this.fullTargets = targets;
     this.context = context;
   }
