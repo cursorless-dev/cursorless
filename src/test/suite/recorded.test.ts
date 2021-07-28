@@ -78,10 +78,17 @@ suite("recorded test cases", async function () {
       await new Promise((resolve) => setTimeout(resolve, 300));
 
       // Assert that recorded decorations are present
-      Object.entries(fixture.marks).forEach(([key, _]) => {
-        const [color, character] = key.split(".") as [SymbolColor, string];
-        const token = cursorlessApi.navigationMap.getToken(color, character);
-        assert(token != null, `Mark "${color} ${character}" not found`);
+      Object.entries(fixture.marks).forEach(([key, token]) => {
+        const { color, character } = NavigationMap.splitKey(key);
+        const currentToken = cursorlessApi.navigationMap.getToken(
+          color,
+          character
+        );
+        assert(currentToken != null, `Mark "${color} ${character}" not found`);
+        const tokensMatch =
+          currentToken.range.start === token.start &&
+          currentToken.range.end === token.end;
+        assert(tokensMatch, `Token for "${color} ${character}" does not match`);
       });
 
       const returnValue = await vscode.commands.executeCommand(

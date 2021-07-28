@@ -47,6 +47,11 @@ export default class NavigationMap {
     return `${color}.${character}`;
   }
 
+  static splitKey(key: string) {
+    const [color, character] = key.split(".");
+    return { color: color as SymbolColor, character };
+  }
+
   public addToken(color: SymbolColor, character: string, token: Token) {
     this.map[NavigationMap.getKey(color, character)] = token;
   }

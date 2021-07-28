@@ -33,14 +33,10 @@ export function extractTargetedMarks(
   targets: Target[],
   navigationMap: NavigationMap
 ) {
-  if (!navigationMap) {
-    return {};
-  }
-
   const targetedMarks: { [coloredSymbol: string]: Token } = {};
   const targetKeys = targets.map(extractTargetKeys).flat();
   targetKeys.forEach((key) => {
-    const [color, character] = key.split(".");
+    const { color, character } = NavigationMap.splitKey(key);
     targetedMarks[key] = navigationMap.getToken(
       color as SymbolColor,
       character
