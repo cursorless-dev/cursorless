@@ -12,6 +12,8 @@ export type TestCaseSnapshot = {
   documentContents: string;
   selections: SelectionPlainObject[];
   clipboard?: string;
+  // TODO Visible ranges are not asserted during testing, see:
+  // https://github.com/pokey/cursorless-vscode/issues/160
   visibleRanges?: RangePlainObject[];
   thatMark?: SelectionPlainObject[];
 };

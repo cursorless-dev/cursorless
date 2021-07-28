@@ -95,7 +95,8 @@ suite("recorded test cases", async function () {
         ...fixture.command.extraArgs
       );
 
-      // Do not assert visible ranges; for now they are included as context
+      // TODO Visible ranges are not asserted, see:
+      // https://github.com/pokey/cursorless-vscode/issues/160
       const { visibleRanges, ...resultState } = await takeSnapshot(
         cursorlessApi.thatMark
       );

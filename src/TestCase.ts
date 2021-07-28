@@ -25,12 +25,13 @@ type TestCaseContext = {
 export type TestCaseFixture = {
   talonCommand: string;
   command: TestCaseCommand;
-  fullTargets: Target[];
   languageId: string;
   marks: SerializedMarks;
   initialState: TestCaseSnapshot;
   finalState: TestCaseSnapshot;
   returnValue: unknown;
+  /** Inferred full targets added for context; not currently used in testing */
+  fullTargets: Target[];
 };
 
 export class TestCase {
