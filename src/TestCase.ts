@@ -68,12 +68,12 @@ export class TestCase {
     return false;
   }
 
-  private getExcludedFields() {
+  private getExcludedFields(context?: { initialSnapshot?: boolean }) {
     const excludableFields = {
       clipboard: !["copy", "paste"].includes(this.command.actionName),
       thatMark:
-        this.initialState == null &&
-        !this.targets.some(this.includesThatMark, this),
+        context?.initialSnapshot &&
+        !this.fullTargets.some(this.includesThatMark, this),
       visibleRanges: ![
         "fold",
         "unfold",
@@ -106,7 +106,7 @@ export class TestCase {
   }
 
   async recordInitialState() {
-    const excludeFields = this.getExcludedFields();
+    const excludeFields = this.getExcludedFields({ initialSnapshot: true });
     this.initialState = await takeSnapshot(
       this.context.thatMark,
       excludeFields
