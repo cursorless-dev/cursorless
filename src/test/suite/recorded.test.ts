@@ -52,7 +52,7 @@ suite("recorded test cases", async function () {
       await vscode.commands.executeCommand("workbench.action.closeAllEditors");
       const document = await vscode.workspace.openTextDocument({
         language: fixture.languageId,
-        content: fixture.initialState.document,
+        content: fixture.initialState.documentContents,
       });
       const editor = await vscode.window.showTextDocument(document);
       editor.selections =

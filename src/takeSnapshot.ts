@@ -9,7 +9,7 @@ import {
 import { ThatMark } from "./ThatMark";
 
 export type TestCaseSnapshot = {
-  document: string;
+  documentContents: string;
   selections: SerializedSelection[];
   clipboard?: string;
   visibleRanges?: SerializedRange[];
@@ -23,7 +23,7 @@ export async function takeSnapshot(
   const activeEditor = vscode.window.activeTextEditor!;
 
   const snapshot: TestCaseSnapshot = {
-    document: activeEditor.document.getText(),
+    documentContents: activeEditor.document.getText(),
     selections: activeEditor.selections.map(serializeSelection),
   };
 

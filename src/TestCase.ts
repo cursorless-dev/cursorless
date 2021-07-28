@@ -25,7 +25,7 @@ type TestCaseContext = {
 export type TestCaseFixture = {
   talonCommand: string;
   command: TestCaseCommand;
-  targets: Target[];
+  fullTargets: Target[];
   languageId: string;
   marks: SerializedMarks;
   initialState: TestCaseSnapshot;
@@ -37,7 +37,7 @@ export class TestCase {
   talonCommand: string;
   command: TestCaseCommand;
   languageId: string;
-  targets: Target[];
+  fullTargets: Target[];
   marks: SerializedMarks;
   context: TestCaseContext;
   initialState: TestCaseSnapshot | null = null;
@@ -53,7 +53,7 @@ export class TestCase {
     this.command = command;
     this.languageId = activeEditor.document.languageId;
     this.marks = serializeMarks(targetedMarks);
-    this.targets = targets;
+    this.fullTargets = targets;
     this.context = context;
   }
 
@@ -96,11 +96,11 @@ export class TestCase {
       talonCommand: this.talonCommand,
       languageId: this.languageId,
       command: this.command,
-      targets: this.targets,
       marks: this.marks,
       initialState: this.initialState,
       finalState: this.finalState,
       returnValue: this.returnValue,
+      fullTargets: this.fullTargets,
     };
     return yaml.dump(fixture, { noRefs: true, quotingType: '"' });
   }
