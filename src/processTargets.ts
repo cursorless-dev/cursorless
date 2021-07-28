@@ -297,10 +297,10 @@ function transformSelection(
     case "tail": {
       let anchor: Position, active: Position;
       if (modifier.type === "head") {
-        anchor = selection.selection.start;
+        anchor = selection.selection.end;
         active = new Position(selection.selection.start.line, 0);
       } else {
-        anchor = selection.selection.end;
+        anchor = selection.selection.start;
         active = selection.editor.document.lineAt(selection.selection.end).range
           .end;
       }
