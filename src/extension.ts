@@ -7,7 +7,7 @@ import { inferFullTargets } from "./inferFullTargets";
 import processTargets from "./processTargets";
 import FontMeasurements from "./FontMeasurements";
 import { ActionType, PartialTarget, ProcessedTargetsContext } from "./Types";
-import { makeGraph } from "./makeGraph";
+import makeGraph from "./makeGraph";
 import { logBranchTypes } from "./debug";
 import { TestCase } from "./TestCase";
 import { ThatMark } from "./ThatMark";
