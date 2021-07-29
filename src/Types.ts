@@ -237,6 +237,7 @@ export interface Action {
 export type ActionType =
   | "bring"
   | "clear"
+  | "call"
   | "commentLines"
   | "copy"
   | "cut"
