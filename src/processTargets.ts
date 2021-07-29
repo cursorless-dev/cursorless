@@ -292,6 +292,22 @@ function transformSelection(
           context: {},
         },
       ];
+
+    case "lineNumber": {
+        console.log(selection.selection);
+      const line = modifier.isRelative
+        ? selection.editor.selection.active.line + modifier.lineNumber
+        : modifier.lineNumber;
+      return [
+        {
+          selection: update(selection, {
+            selection: () => new Selection(line, 0, line, 0),
+          }),
+          context: {},
+        },
+      ];
+    }
+
     case "matchingPairSymbol":
     case "surroundingPair":
       throw new Error("Not implemented");

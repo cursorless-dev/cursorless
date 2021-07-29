@@ -84,6 +84,11 @@ export interface SubpieceModifier {
 export interface MatchingPairSymbolModifier {
   type: "matchingPairSymbol";
 }
+export interface LineNumberModifier {
+  type: "lineNumber";
+  lineNumber: number;
+  isRelative: boolean;
+}
 export interface IdentityModifier {
   type: "identity";
 }
@@ -93,6 +98,7 @@ export type Modifier =
   | ContainingScopeModifier
   | SubpieceModifier
   | MatchingPairSymbolModifier
+  | LineNumberModifier
   | IdentityModifier;
 
 export type SelectionType =
