@@ -18,18 +18,16 @@ export class Sort implements Action {
   }
 
   async run(targets: TypedSelection[][]): Promise<ActionReturnValue> {
-    const { returnValue } = await this.graph.actions.getText.run(targets, {
-      showDecorations: false,
-    });
-
-    const texts = this.sortTexts(returnValue);
-
-    const { thatMark } = await this.graph.actions.replaceWithText.run(
+    const { returnValue: unsortedTexts } = await this.graph.actions.getText.run(
       targets,
-      texts
+      {
+        showDecorations: false,
+      }
     );
 
-    return { returnValue: null, thatMark };
+    const sortedTexts = this.sortTexts(unsortedTexts);
+
+    return this.graph.actions.replaceWithText.run(targets, sortedTexts);
   }
 }
 
