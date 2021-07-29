@@ -81,7 +81,8 @@ export async function activate(context: vscode.ExtensionContext) {
   );
 
   const graph = makeGraph(graphConstructors);
-  var thatMark: SelectionWithEditor[] = [];
+  let thatMark: SelectionWithEditor[] = [];
+  let sourceMark: SelectionWithEditor[] = [];
 
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
     "cursorless.command",
@@ -136,17 +137,21 @@ export async function activate(context: vscode.ExtensionContext) {
           currentEditor: vscode.window.activeTextEditor,
           navigationMap: navigationMap!,
           thatMark,
+          sourceMark,
           getNodeAtLocation,
         };
 
         const selections = processTargets(processedTargetsContext, targets);
 
-        const { returnValue, thatMark: newThatMark } = await action.run(
-          selections,
-          ...extraArgs
-        );
+        const {
+          returnValue,
+          thatMark: newThatMark,
+          sourceMark: newSourceMark,
+        } = await action.run(selections, ...extraArgs);
+
 
         thatMark = newThatMark;
+        sourceMark = newSourceMark ?? [];
 
         return returnValue;
 

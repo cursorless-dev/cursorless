@@ -25,6 +25,10 @@ export interface That {
   type: "that";
 }
 
+export interface Source {
+  type: "source";
+}
+
 export interface LastCursorPosition {
   type: "lastCursorPosition";
 }
@@ -35,7 +39,7 @@ export interface DecoratedSymbol {
   character: string;
 }
 
-export type Mark = CursorMark | That | LastCursorPosition | DecoratedSymbol;
+export type Mark = CursorMark | That | Source | LastCursorPosition | DecoratedSymbol;
 export type Delimiter =
   | "squareBrackets"
   | "curlyBrackets"
@@ -166,6 +170,7 @@ export interface ProcessedTargetsContext {
   currentEditor: vscode.TextEditor | undefined;
   navigationMap: NavigationMap;
   thatMark: SelectionWithEditor[];
+  sourceMark: SelectionWithEditor[];
   getNodeAtLocation: (location: Location) => SyntaxNode;
 }
 
@@ -225,8 +230,9 @@ export interface SelectionWithContext {
 }
 
 export interface ActionReturnValue {
-  returnValue: any;
   thatMark: SelectionWithEditor[];
+  sourceMark?: SelectionWithEditor[];
+  returnValue?: any;
 }
 
 export interface Action {
