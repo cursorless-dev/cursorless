@@ -257,6 +257,7 @@ export type ActionType =
   | "outdentLines"
   | "paste"
   | "replaceWithText"
+  | "reverse"
   | "scrollToBottom"
   | "scrollToCenter"
   | "scrollToTop"
@@ -264,6 +265,7 @@ export type ActionType =
   | "setSelection"
   | "setSelectionAfter"
   | "setSelectionBefore"
+  | "sort"
   | "swap"
   | "unfold"
   | "wrap";
