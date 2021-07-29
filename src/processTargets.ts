@@ -294,7 +294,6 @@ function transformSelection(
       ];
 
     case "lineNumber": {
-        console.log(selection.selection);
       const line = modifier.isRelative
         ? selection.editor.selection.active.line + modifier.lineNumber
         : modifier.lineNumber;

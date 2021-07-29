@@ -181,12 +181,30 @@ export async function activate(context: vscode.ExtensionContext) {
 
   addDecorationsDebounced();
 
+  function checkForEditsOutsideViewport(event: vscode.TextDocumentChangeEvent) {
+    const editor = vscode.window.activeTextEditor;
+    if (editor == null || editor.document !== event.document) {
+      return;
+    }
+    const { start, end } = editor.visibleRanges[0];
+    for (const edit of event.contentChanges) {
+      if (edit.range.end.isBefore(start) || edit.range.start.isAfter(end)) {
+        vscode.window.showWarningMessage(
+          `Modification outside of viewport at lines: [${edit.range.start.line}, ${edit.range.end.line}]`
+        );
+        return;
+      }
+    }
+  }
+
   function handleEdit(edit: vscode.TextDocumentChangeEvent) {
     if (navigationMap != null) {
       navigationMap.updateTokenRanges(edit);
     }
 
     addDecorationsDebounced();
+
+    checkForEditsOutsideViewport(edit);
   }
 
   const recomputeDecorationStyles = async () => {
