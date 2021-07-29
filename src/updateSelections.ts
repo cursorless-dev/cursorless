@@ -11,6 +11,10 @@ import {
 import { performDocumentEdits } from "./performDocumentEdits";
 import { Edit } from "./Types";
 
+interface TextDocumentContentChange extends TextDocumentContentChangeEvent {
+  dontMoveOnEqualStart?: boolean;
+}
+
 interface SelectionInfo {
   range: Range;
   isReversed: boolean;
@@ -56,7 +60,7 @@ function selectionInfosToSelections(
 }
 
 function updateSelectionInfoMatrix(
-  contentChanges: readonly TextDocumentContentChangeEvent[],
+  contentChanges: readonly TextDocumentContentChange[],
   selectionInfoMatrix: SelectionInfo[][]
 ) {
   contentChanges.forEach((change) => {
@@ -65,12 +69,17 @@ function updateSelectionInfoMatrix(
     selectionInfoMatrix.forEach((selectionInfos) => {
       selectionInfos.forEach((selectionInfo) => {
         // Change is selection. Move just end to match.
-        if (change.range.isEqual(selectionInfo.range)) {
+        if (
+          change.range.isEqual(selectionInfo.range) &&
+          !selectionInfo.range.isEmpty
+        ) {
           selectionInfo.endOffset += offsetDelta;
         }
         // Change is before selection. Move entire selection.
         else if (
-          change.range.start.isBeforeOrEqual(selectionInfo.range.start)
+          change.range.start.isBefore(selectionInfo.range.start) ||
+          (change.range.start.isEqual(selectionInfo.range.start) &&
+            !change.dontMoveOnEqualStart)
         ) {
           selectionInfo.startOffset += offsetDelta;
           selectionInfo.endOffset += offsetDelta;
@@ -167,9 +176,10 @@ export async function performEditsAndUpdateSelections(
     document,
     originalSelections
   );
-  const contentChanges = edits.map(({ range, text }) => ({
+  const contentChanges = edits.map(({ range, text, dontMoveOnEqualStart }) => ({
     range,
     text,
+    dontMoveOnEqualStart,
     rangeOffset: document.offsetAt(range.start),
     rangeLength: document.offsetAt(range.end) - document.offsetAt(range.start),
   }));
