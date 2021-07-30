@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import * as path from "path";
 import * as fs from "fs";
+import { TestCase } from "./TestCase";
 
 export class TestCaseRecorder {
   active: boolean = false;
@@ -29,9 +30,40 @@ export class TestCaseRecorder {
     return this.promptTalonCommand();
   }
 
-  finish(): Promise<string | null> {
+  async finish(testCase: TestCase): Promise<string | null> {
     this.active = false;
-    return this.promptSubdirectory();
+    const outPath = await this.promptSubdirectory();
+    const fixture = testCase.toYaml();
+
+    if (outPath) {
+      this.writeToFile(outPath, fixture);
+    } else {
+      this.showFixture(fixture);
+    }
+
+    return outPath;
+  }
+
+  private async writeToFile(outPath: string, fixture: string) {
+    fs.writeFileSync(outPath, fixture);
+    vscode.window
+      .showInformationMessage("Cursorless test case saved.", "View")
+      .then(async (action) => {
+        if (action === "View") {
+          const document = await vscode.workspace.openTextDocument(outPath);
+          await vscode.window.showTextDocument(document);
+        }
+      });
+  }
+
+  private async showFixture(fixture: string) {
+    const document = await vscode.workspace.openTextDocument({
+      language: "yaml",
+      content: fixture,
+    });
+    await vscode.window.showTextDocument(document, {
+      viewColumn: vscode.ViewColumn.Beside,
+    });
   }
 
   private async promptTalonCommand(): Promise<void> {

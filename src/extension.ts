@@ -168,13 +168,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         if (testCase != null) {
           await testCase.recordFinalState(returnValue);
-          const outPath = await testCaseRecorder.finish();
-
-          if (outPath) {
-            await testCase.writeFile(outPath);
-          } else {
-            await testCase.showFixture();
-          }
+          await testCaseRecorder.finish(testCase);
         }
 
         return returnValue;

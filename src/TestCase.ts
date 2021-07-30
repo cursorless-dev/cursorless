@@ -89,7 +89,7 @@ export class TestCase {
     );
   }
 
-  private toYaml() {
+  toYaml() {
     if (this.initialState == null || this.finalState == null) {
       throw Error("Two snapshots must be taken before serializing");
     }
@@ -118,29 +118,5 @@ export class TestCase {
     const excludeFields = this.getExcludedFields();
     this.returnValue = returnValue;
     this.finalState = await takeSnapshot(this.context.thatMark, excludeFields);
-  }
-
-  async writeFile(outPath: string) {
-    const fixture = this.toYaml();
-    fs.writeFileSync(outPath, fixture);
-    vscode.window
-      .showInformationMessage("Cursorless test case saved.", "View")
-      .then(async (action) => {
-        if (action === "View") {
-          const document = await vscode.workspace.openTextDocument(outPath);
-          await vscode.window.showTextDocument(document);
-        }
-      });
-  }
-
-  async showFixture() {
-    const fixture = this.toYaml();
-    const document = await vscode.workspace.openTextDocument({
-      language: "yaml",
-      content: fixture,
-    });
-    await vscode.window.showTextDocument(document, {
-      viewColumn: vscode.ViewColumn.Beside,
-    });
   }
 }
