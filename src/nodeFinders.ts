@@ -128,7 +128,8 @@ function tryPatternMatch(
 ): SyntaxNode | null {
   const firstPattern = patterns[0];
   const lastPattern = patterns[patterns.length - 1];
-  let resultNode, resultPattern;
+  let resultNode: SyntaxNode | null = null;
+  let resultPattern;
   // Only one type try to match current node.
   if (patterns.length === 1) {
     if (firstPattern.typeEquals(node)) {
@@ -155,11 +156,13 @@ function tryPatternMatch(
   if (
     resultNode != null &&
     resultPattern != null &&
-    resultPattern.field != null
+    resultPattern.fields != null
   ) {
-    resultNode = resultNode.childForFieldName(resultPattern.field);
+    resultPattern.fields.forEach((field) => {
+      resultNode = resultNode?.childForFieldName(field) ?? null;
+    });
   }
-  return resultNode ?? null;
+  return resultNode;
 }
 
 type NodePattern = [SyntaxNode, Pattern] | null;
@@ -218,17 +221,18 @@ function searchNodeDescending(
 
 class Pattern {
   type: string;
-  field: string | null = null;
+  fields: string[] | null = null;
   isImportant: boolean = false;
   isOptional: boolean = false;
 
   constructor(pattern: string) {
     const fieldIndex = pattern.indexOf("[");
     if (fieldIndex > -1) {
-      this.field = pattern.slice(
+      const field = pattern.slice(
         fieldIndex + 1,
         pattern.indexOf("]", fieldIndex + 1)
       );
+      this.fields = field.split(",").map((field) => field.trim());
     }
     const importantIndex = pattern.indexOf("!");
     const optionalIndex = pattern.indexOf("?");
