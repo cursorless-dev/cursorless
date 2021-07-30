@@ -8,9 +8,7 @@ import {
   argumentMatcher,
 } from "../nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../Types";
-import { patternFinder } from "../nodeFinders";
 import {
-  delimitersSelector,
   selectWithLeadingDelimiter,
 } from "../nodeSelectors";
 
