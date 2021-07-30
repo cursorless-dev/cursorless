@@ -1,4 +1,5 @@
-import { SyntaxNode } from "web-tree-sitter";
+import { Position, Selection } from "vscode";
+import { Point, SyntaxNode } from "web-tree-sitter";
 import { NodeFinder } from "./Types";
 
 export const nodeFinder = (
@@ -11,6 +12,52 @@ export const nodeFinder = (
 
 export const typedNodeFinder = (...typeNames: string[]): NodeFinder => {
   return nodeFinder((node) => typeNames.includes(node.type));
+};
+
+const toPosition = (point: Point) => new Position(point.row, point.column);
+
+export const argumentNodeFinder = (...parentTypes: string[]): NodeFinder => {
+  const left = ["(", "{", "["];
+  const right = [")", "}", "]", ","];
+  const delimiters = left.concat(right);
+  const isType = (node: SyntaxNode | null, typeNames: string[]) =>
+    node != null && typeNames.includes(node.type);
+  const isOk = (node: SyntaxNode | null) =>
+    node != null && !isType(node, delimiters);
+  return (node: SyntaxNode, selection?: Selection) => {
+    let resultNode: SyntaxNode | null;
+    // Is already child
+    if (isType(node.parent, parentTypes)) {
+      if (isType(node, left)) {
+        resultNode = node.nextNamedSibling;
+      } else if (isType(node, right)) {
+        resultNode = node.previousNamedSibling;
+      } else {
+        resultNode = node;
+      }
+      return isOk(resultNode) ? resultNode : null;
+      // Is parent
+    } else if (isType(node, parentTypes)) {
+      const { start, end } = selection!;
+      const children = [...node.children];
+      const childRight =
+        children.find(({ startPosition }) =>
+          toPosition(startPosition).isAfterOrEqual(end)
+        ) ?? null;
+      if (isOk(childRight)) {
+        return childRight;
+      }
+      children.reverse();
+      const childLeft =
+        children.find(({ endPosition }) =>
+          toPosition(endPosition).isBeforeOrEqual(start)
+        ) ?? null;
+      if (isOk(childLeft)) {
+        return childLeft;
+      }
+    }
+    return null;
+  };
 };
 
 /**
@@ -84,19 +131,20 @@ function tryPatternMatch(
       resultNode = node;
       resultPattern = firstPattern;
     }
-  }
-  // Matched last. Ascending search.
-  else if (lastPattern.typeEquals(node)) {
-    const result = searchNodeAscending(node, lastPattern, patterns);
-    if (result != null) {
-      [resultNode, resultPattern] = result;
+  } else {
+    // Matched last. Ascending search.
+    if (lastPattern.typeEquals(node)) {
+      const result = searchNodeAscending(node, lastPattern, patterns);
+      if (result != null) {
+        [resultNode, resultPattern] = result;
+      }
     }
-  }
-  // Matched first. Descending search.
-  else if (firstPattern.typeEquals(node)) {
-    const result = searchNodeDescending(node, firstPattern, patterns);
-    if (result != null) {
-      [resultNode, resultPattern] = result;
+    // Matched first. Descending search.
+    if (resultNode == null && firstPattern.typeEquals(node)) {
+      const result = searchNodeDescending(node, firstPattern, patterns);
+      if (result != null) {
+        [resultNode, resultPattern] = result;
+      }
     }
   }
   // Use field name child if field name is given

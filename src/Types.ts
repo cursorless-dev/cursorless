@@ -282,7 +282,7 @@ export interface DecorationColorSetting {
 }
 
 export type NodeMatcher = (
-  editor: vscode.TextEditor,
+  selection: SelectionWithEditor,
   node: SyntaxNode
 ) => SelectionWithContext | null;
 
@@ -292,7 +292,10 @@ export type NodeMatcherAlternative = NodeMatcher | string[] | string;
  * Returns the desired relative of the provided node.
  * Returns null if matching node not found.
  **/
-export type NodeFinder = (node: SyntaxNode) => SyntaxNode | null;
+export type NodeFinder = (
+  node: SyntaxNode,
+  selection?: vscode.Selection
+) => SyntaxNode | null;
 
 /** Returns a selection for a given SyntaxNode */
 export type SelectionExtractor = (

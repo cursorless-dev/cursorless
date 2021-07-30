@@ -1,22 +1,26 @@
 import { SyntaxNode } from "web-tree-sitter";
-import { TextEditor } from "vscode";
 import {
   NodeMatcher,
   NodeFinder,
   SelectionExtractor,
   NodeMatcherAlternative,
   ScopeType,
+  SelectionWithEditor,
 } from "./Types";
 import { simpleSelectionExtractor } from "./nodeSelectors";
-import { typedNodeFinder, patternFinder } from "./nodeFinders";
+import {
+  typedNodeFinder,
+  patternFinder,
+  argumentNodeFinder,
+} from "./nodeFinders";
 
 export function matcher(
   finder: NodeFinder,
   selector: SelectionExtractor = simpleSelectionExtractor
 ): NodeMatcher {
-  return function (editor: TextEditor, node: SyntaxNode) {
-    const targetNode = finder(node);
-    return targetNode ? selector(editor, targetNode) : null;
+  return function (selection: SelectionWithEditor, node: SyntaxNode) {
+    const targetNode = finder(node, selection.selection);
+    return targetNode ? selector(selection.editor, targetNode) : null;
   };
 }
 
@@ -24,17 +28,17 @@ export function composedMatcher(
   finders: NodeFinder[],
   selector: SelectionExtractor = simpleSelectionExtractor
 ): NodeMatcher {
-  return function (editor: TextEditor, initialNode: SyntaxNode) {
+  return function (selection: SelectionWithEditor, initialNode: SyntaxNode) {
     let returnNode: SyntaxNode = initialNode;
     for (const finder of finders) {
-      const foundNode = finder(returnNode);
+      const foundNode = finder(returnNode, selection.selection);
       if (foundNode == null) {
         return null;
       }
       returnNode = foundNode;
     }
 
-    return selector(editor, returnNode);
+    return selector(selection.editor, returnNode);
   };
 }
 
@@ -46,6 +50,10 @@ export function patternMatcher(...patterns: string[]): NodeMatcher {
   return matcher(patternFinder(...patterns));
 }
 
+export function argumentMatcher(...parentTypes: string[]): NodeMatcher {
+  return matcher(argumentNodeFinder(...parentTypes));
+}
+
 /**
  * Create a new matcher that will try the given matchers in sequence until one
  * returns non-null
@@ -54,9 +62,9 @@ export function patternMatcher(...patterns: string[]): NodeMatcher {
  * @returns A NodeMatcher that tries the given matchers in sequence
  */
 export function cascadingMatcher(...matchers: NodeMatcher[]): NodeMatcher {
-  return (editor: TextEditor, node: SyntaxNode) => {
+  return (selection: SelectionWithEditor, node: SyntaxNode) => {
     for (const matcher of matchers) {
-      const match = matcher(editor, node);
+      const match = matcher(selection, node);
       if (match != null) {
         return match;
       }
@@ -67,7 +75,7 @@ export function cascadingMatcher(...matchers: NodeMatcher[]): NodeMatcher {
 }
 
 export const notSupported: NodeMatcher = (
-  editor: TextEditor,
+  selection: SelectionWithEditor,
   node: SyntaxNode
 ) => {
   throw new Error("Node type not supported");

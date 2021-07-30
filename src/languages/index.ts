@@ -3,6 +3,7 @@ import json from "./json";
 import python from "./python";
 import typescript from "./typescript";
 import csharp from "./csharp";
+import java from "./java";
 
 const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
   csharp: csharp,
@@ -13,6 +14,7 @@ const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
   python,
   typescript,
   typescriptreact: typescript,
+  java
 };
 
 export function getNodeMatcher(

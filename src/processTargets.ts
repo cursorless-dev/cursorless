@@ -228,13 +228,13 @@ function transformSelection(
       );
 
       while (node != null) {
-        const matchedSelection = nodeMatcher(selection.editor, node);
+        const matchedSelection = nodeMatcher(selection, node);
         if (matchedSelection != null) {
           let matchedSelections: SelectionWithContext[];
           if (modifier.includeSiblings) {
             matchedSelections = node
               .parent!.children.map((sibling) =>
-                nodeMatcher(selection.editor, sibling)
+                nodeMatcher(selection, sibling)
               )
               .filter(
                 (selection) => selection != null
