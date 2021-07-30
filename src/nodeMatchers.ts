@@ -7,7 +7,10 @@ import {
   ScopeType,
   SelectionWithEditor,
 } from "./Types";
-import { simpleSelectionExtractor } from "./nodeSelectors";
+import {
+  simpleSelectionExtractor,
+  argumentSelectionExtractor,
+} from "./nodeSelectors";
 import {
   typedNodeFinder,
   patternFinder,
@@ -51,7 +54,10 @@ export function patternMatcher(...patterns: string[]): NodeMatcher {
 }
 
 export function argumentMatcher(...parentTypes: string[]): NodeMatcher {
-  return matcher(argumentNodeFinder(...parentTypes));
+  return matcher(
+    argumentNodeFinder(...parentTypes),
+    argumentSelectionExtractor()
+  );
 }
 
 /**

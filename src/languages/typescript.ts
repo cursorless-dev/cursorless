@@ -5,6 +5,7 @@ import {
   cascadingMatcher,
   patternMatcher,
   createPatternMatchers,
+  argumentMatcher,
 } from "../nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../Types";
 import { patternFinder } from "../nodeFinders";
@@ -109,14 +110,7 @@ export const findTypeNode = (node: SyntaxNode) => {
 };
 
 const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
-  ...getPojoMatchers(
-    ["object", "object_pattern"],
-    ["array", "array_pattern"],
-    (node) =>
-      isExpression(node) ||
-      node.type === "spread_element" ||
-      node.type === "identifier" // Deconstructed array
-  ),
+  ...getPojoMatchers(["object", "object_pattern"], ["array", "array_pattern"]),
   string: ["string", "template_string"],
   ifStatement: "if_statement",
   arrowFunction: "arrow_function",
@@ -159,16 +153,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
       "export_statement?.interface_declaration"
     )
   ),
-  argumentOrParameter: matcher(
-    patternFinder(
-      ...EXPRESSION_TYPES.map((type) => `arguments.${type}!`),
-      "arguments.spread_element",
-      "formal_parameters.identifier!", // JavaScript function parameter
-      "optional_parameter",
-      "required_parameter"
-    ),
-    delimitersSelector(",", "(", ")")
-  ),
+  argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
 };
 
 export default createPatternMatchers(nodeMatchers);

@@ -110,14 +110,6 @@ const PARAMETER_TYPES = [
 const PARAMETER_LIST_TYPES = ["lambda_parameters", "parameters"];
 
 // TODO: Don't hard code this
-const LIST_ELEMENT_TYPES = [
-  ...EXPRESSION_TYPES,
-  "list_splat",
-  "parenthesized_list_splat",
-  "yield",
-];
-
-// TODO: Don't hard code this
 const ARGUMENT_TYPES = [
   ...EXPRESSION_TYPES,
   "list_splat",
@@ -140,8 +132,7 @@ export const getTypeNode = (node: SyntaxNode) =>
 const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   ...getPojoMatchers(
     ["dictionary", "dictionary_comprehension"],
-    ["list", "list_comprehension"],
-    (node) => LIST_ELEMENT_TYPES.includes(node.type)
+    ["list", "list_comprehension", "set"],
   ),
   ifStatement: typeMatcher("if_statement"),
   class: matcher(possiblyDecoratedDefinition("class_definition")),

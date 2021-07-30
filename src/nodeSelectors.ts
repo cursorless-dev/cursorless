@@ -22,6 +22,20 @@ export function simpleSelectionExtractor(
   };
 }
 
+export function argumentSelectionExtractor(): SelectionExtractor {
+  return delimitedSelector(
+    (node) =>
+      node.type === "," ||
+      node.type === "(" ||
+      node.type === ")" ||
+      node.type === "[" ||
+      node.type === "]" ||
+      node.type === "}" ||
+      node.type === "{",
+    ", "
+  );
+}
+
 export function selectWithLeadingDelimiter(
   editor: TextEditor,
   node: SyntaxNode
