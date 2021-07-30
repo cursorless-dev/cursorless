@@ -24,7 +24,10 @@ function createSelection(selection: SelectionPlainObject): vscode.Selection {
 }
 
 suite("recorded test cases", async function () {
-  const directory = path.join(__dirname, "../../../testFixtures");
+  const directory = path.join(
+    __dirname,
+    "../../../src/test/suite/fixtures/recorded"
+  );
   const files = await fsp.readdir(directory);
 
   teardown(() => {

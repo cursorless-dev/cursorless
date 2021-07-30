@@ -120,25 +120,25 @@ export class TestCase {
     this.finalState = await takeSnapshot(this.context.thatMark, excludeFields);
   }
 
-  async writeFile(filename: string) {
+  async writeFile(outPath: string) {
     const fixture = this.toYaml();
-    const workspacePath = vscode.workspace.workspaceFolders?.[0].uri.path;
-    let document;
-
-    if (workspacePath && filename) {
-      const fixturePath = path.join(
-        workspacePath,
-        "testFixtures",
-        `${filename}.yml`
-      );
-      fs.writeFileSync(fixturePath, fixture);
-      document = await vscode.workspace.openTextDocument(fixturePath);
-    } else {
-      document = await vscode.workspace.openTextDocument({
-        language: "yaml",
-        content: fixture,
+    fs.writeFileSync(outPath, fixture);
+    vscode.window
+      .showInformationMessage("Cursorless test case saved.", "View")
+      .then(async (action) => {
+        if (action === "View") {
+          const document = await vscode.workspace.openTextDocument(outPath);
+          await vscode.window.showTextDocument(document);
+        }
       });
-    }
+  }
+
+  async showFixture() {
+    const fixture = this.toYaml();
+    const document = await vscode.workspace.openTextDocument({
+      language: "yaml",
+      content: fixture,
+    });
     await vscode.window.showTextDocument(document, {
       viewColumn: vscode.ViewColumn.Beside,
     });

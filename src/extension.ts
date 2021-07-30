@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import * as path from "path";
 import { addDecorationsToEditors } from "./addDecorationsToEditor";
 import { DEBOUNCE_DELAY } from "./constants";
 import Decorations from "./Decorations";
@@ -77,21 +78,33 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const graph = makeGraph(graphConstructors);
   const thatMark = new ThatMark();
-  const testCaseRecorder = { active: false, talonCommand: "", filename: "" };
+  const testCaseRecorder = { active: false, talonCommand: "", outPath: "" };
   const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
     "cursorless.recordTestCase",
     async () => {
       console.log("Recording test case for next command");
 
+      const workspacePath = vscode.workspace.workspaceFolders?.[0].uri.path;
+      const workSpaceFolder = path.basename(workspacePath ?? "");
+
+      if (workspacePath && workSpaceFolder === "cursorless-vscode") {
+        const filename = await vscode.window.showInputBox({
+          prompt: "Test Filename",
+        });
+        if (filename) {
+          testCaseRecorder.outPath = path.join(
+            workspacePath,
+            "src/test/suite/fixtures/recorded",
+            `${filename}.yml`
+          );
+        }
+      }
+
       const talonCommand = await vscode.window.showInputBox({
         prompt: "Talon Command",
       });
-      const filename = await vscode.window.showInputBox({
-        prompt: "Test Filename",
-      });
 
       testCaseRecorder.active = true;
-      testCaseRecorder.filename = filename ?? "";
       testCaseRecorder.talonCommand = talonCommand ?? "";
     }
   );
@@ -178,7 +191,12 @@ export async function activate(context: vscode.ExtensionContext) {
         if (testCase != null) {
           testCaseRecorder.active = false;
           await testCase.recordFinalState(returnValue);
-          await testCase.writeFile(testCaseRecorder.filename);
+
+          if (testCaseRecorder.outPath) {
+            await testCase.writeFile(testCaseRecorder.outPath);
+          } else {
+            await testCase.showFixture();
+          }
         }
 
         return returnValue;
