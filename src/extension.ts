@@ -153,7 +153,7 @@ export async function activate(context: vscode.ExtensionContext) {
             targets,
             thatMark: thatMark,
             navigationMap: graph.navigationMap!,
-            talonCommand: testCaseRecorder.talonCommand,
+            talonCommand: testCaseRecorder.talonCommand ?? "",
           };
           testCase = new TestCase(command, context);
           await testCase.recordInitialState();
@@ -167,11 +167,11 @@ export async function activate(context: vscode.ExtensionContext) {
         thatMark.set(newThatMark);
 
         if (testCase != null) {
-          testCaseRecorder.active = false;
           await testCase.recordFinalState(returnValue);
+          const outPath = await testCaseRecorder.finish();
 
-          if (testCaseRecorder.outPath) {
-            await testCase.writeFile(testCaseRecorder.outPath);
+          if (outPath) {
+            await testCase.writeFile(outPath);
           } else {
             await testCase.showFixture();
           }

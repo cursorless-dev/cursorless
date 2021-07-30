@@ -25,7 +25,13 @@ export class TestCaseRecorder {
   }
 
   start(): Promise<void> {
+    this.active = true;
     return this.promptTalonCommand();
+  }
+
+  finish(): Promise<string | null> {
+    this.active = false;
+    return this.promptSubdirectory();
   }
 
   private async promptTalonCommand(): Promise<void> {
@@ -42,16 +48,15 @@ export class TestCaseRecorder {
     }
 
     this.talonCommand = result;
-    return this.promptSubdirectory();
   }
 
-  private async promptSubdirectory(): Promise<void> {
+  private async promptSubdirectory(): Promise<string | null> {
     if (
       this.workspacePath == null ||
       this.fixtureRoot == null ||
       this.workSpaceFolder !== "cursorless-vscode"
     ) {
-      return;
+      return null;
     }
 
     const subdirectories = fs
@@ -66,7 +71,7 @@ export class TestCaseRecorder {
     ]);
 
     if (subdirectorySelection === undefined) {
-      return this.promptTalonCommand(); // go back a prompt
+      return null;
     } else if (subdirectorySelection === createNewSubdirectory) {
       return this.promptNewSubdirectory();
     } else {
@@ -75,7 +80,7 @@ export class TestCaseRecorder {
     }
   }
 
-  private async promptNewSubdirectory(): Promise<void> {
+  private async promptNewSubdirectory(): Promise<string | null> {
     if (this.fixtureRoot == null) {
       throw new Error("Missing fixture root. Not in cursorless workspace?");
     }
@@ -94,7 +99,7 @@ export class TestCaseRecorder {
     return this.promptFileName();
   }
 
-  private async promptFileName(): Promise<void> {
+  private async promptFileName(): Promise<string | null> {
     if (this.fixtureRoot == null) {
       throw new Error("Missing fixture root. Not in cursorless workspace?");
     }
@@ -104,14 +109,12 @@ export class TestCaseRecorder {
     });
 
     if (filename === undefined || this.fixtureSubdirectory == null) {
-      this.promptSubdirectory(); // go back a prompt
-      return;
+      return this.promptSubdirectory(); // go back a prompt
     }
 
     const targetDirectory = path.join(
       this.fixtureRoot,
-      this.fixtureSubdirectory,
-      `${filename}.yml`
+      this.fixtureSubdirectory
     );
 
     if (!fs.existsSync(targetDirectory)) {
@@ -119,5 +122,6 @@ export class TestCaseRecorder {
     }
 
     this.outPath = path.join(targetDirectory, `${filename}.yml`);
+    return this.outPath;
   }
 }
