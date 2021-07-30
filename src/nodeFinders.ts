@@ -18,7 +18,7 @@ const toPosition = (point: Point) => new Position(point.row, point.column);
 
 export const argumentNodeFinder = (...parentTypes: string[]): NodeFinder => {
   const left = ["(", "{", "["];
-  const right = [")", "}", "]", ","];
+  const right = [")", "}", "]"];
   const delimiters = left.concat(right);
   const isType = (node: SyntaxNode | null, typeNames: string[]) =>
     node != null && typeNames.includes(node.type);
@@ -26,19 +26,23 @@ export const argumentNodeFinder = (...parentTypes: string[]): NodeFinder => {
     node != null && !isType(node, delimiters);
   return (node: SyntaxNode, selection?: Selection) => {
     let resultNode: SyntaxNode | null;
+    const { start, end } = selection!;
     // Is already child
     if (isType(node.parent, parentTypes)) {
       if (isType(node, left)) {
         resultNode = node.nextNamedSibling;
       } else if (isType(node, right)) {
         resultNode = node.previousNamedSibling;
+      } else if (node.type === ",") {
+        resultNode = end.isBeforeOrEqual(toPosition(node.startPosition))
+          ? node.previousNamedSibling
+          : node.nextNamedSibling;
       } else {
         resultNode = node;
       }
       return isOk(resultNode) ? resultNode : null;
       // Is parent
     } else if (isType(node, parentTypes)) {
-      const { start, end } = selection!;
       const children = [...node.children];
       const childRight =
         children.find(({ startPosition }) =>
