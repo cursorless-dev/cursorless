@@ -1,6 +1,4 @@
 import * as vscode from "vscode";
-import * as path from "path";
-import * as fs from "fs";
 import { addDecorationsToEditors } from "./addDecorationsToEditor";
 import { DEBOUNCE_DELAY } from "./constants";
 import Decorations from "./Decorations";
@@ -14,6 +12,7 @@ import { logBranchTypes } from "./debug";
 import { TestCase } from "./TestCase";
 import { ThatMark } from "./ThatMark";
 import { Clipboard } from "./Clipboard";
+import { TestCaseRecorder } from "./TestCaseRecorder";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -79,79 +78,12 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const graph = makeGraph(graphConstructors);
   const thatMark = new ThatMark();
-  const testCaseRecorder = { active: false, talonCommand: "", outPath: "" };
+  const testCaseRecorder = new TestCaseRecorder();
   const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
     "cursorless.recordTestCase",
     async () => {
       console.log("Recording test case for next command");
-
-      const talonCommand = await vscode.window.showInputBox({
-        prompt: "Talon Command",
-        ignoreFocusOut: true,
-        validateInput: (input) => (input.trim().length > 0 ? null : "Required"),
-      });
-
-      if (!talonCommand) {
-        return;
-      }
-
-      const workspacePath = vscode.workspace.workspaceFolders?.[0].uri.path;
-      const workSpaceFolder = path.basename(workspacePath ?? "");
-
-      if (workspacePath && workSpaceFolder === "cursorless-vscode") {
-        const fixtureRoot = path.join(
-          workspacePath,
-          "src/test/suite/fixtures/recorded"
-        );
-        const subdirectories = fs
-          .readdirSync(fixtureRoot, { withFileTypes: true })
-          .filter((item) => item.isDirectory())
-          .map((directory) => directory.name);
-
-        const createNewSubdirectory = "Create new folder →";
-        const subdirectorySelection = await vscode.window.showQuickPick([
-          ...subdirectories,
-          createNewSubdirectory,
-        ]);
-        let subdirectory: string | undefined;
-
-        if (subdirectorySelection === createNewSubdirectory) {
-          subdirectory = await vscode.window.showInputBox({
-            prompt: "New Folder Name",
-            ignoreFocusOut: true,
-            validateInput: (input) => {
-              if (input.trim().length === 0) {
-                return "Required";
-              } else if (fs.existsSync(path.join(fixtureRoot, input))) {
-                return "Folder already exists";
-              }
-            },
-          });
-
-          if (!subdirectory) {
-            return;
-          }
-
-          fs.mkdirSync(path.join(fixtureRoot, subdirectory));
-        }
-
-        const filename = await vscode.window.showInputBox({
-          prompt: "Fixture Filename",
-        });
-
-        if (!filename || !subdirectory) {
-          return;
-        }
-
-        testCaseRecorder.outPath = path.join(
-          fixtureRoot,
-          subdirectory,
-          `${filename}.yml`
-        );
-      }
-
-      testCaseRecorder.active = true;
-      testCaseRecorder.talonCommand = talonCommand ?? "";
+      testCaseRecorder.start();
     }
   );
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
