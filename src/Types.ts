@@ -84,10 +84,14 @@ export interface SubpieceModifier {
 export interface MatchingPairSymbolModifier {
   type: "matchingPairSymbol";
 }
-export interface LineNumberModifier {
-  type: "lineNumber";
+export interface LineNumberModifierPosition {
   lineNumber: number;
   isRelative: boolean;
+}
+export interface LineNumberModifier {
+  type: "lineNumber";
+  anchor: LineNumberModifierPosition;
+  active: LineNumberModifierPosition;
 }
 export interface IdentityModifier {
   type: "identity";

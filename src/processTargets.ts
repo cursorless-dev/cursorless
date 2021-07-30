@@ -14,6 +14,7 @@ import {
   Target,
   TypedSelection,
   Modifier,
+  LineNumberModifierPosition
 } from "./Types";
 import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
 import { SUBWORD_MATCHER } from "./constants";
@@ -294,13 +295,20 @@ function transformSelection(
       ];
 
     case "lineNumber": {
-      const line = modifier.isRelative
-        ? selection.editor.selection.active.line + modifier.lineNumber
-        : modifier.lineNumber;
+      const getLine = (linePosition: LineNumberModifierPosition) =>
+        linePosition.isRelative
+          ? selection.editor.selection.active.line + linePosition.lineNumber
+          : linePosition.lineNumber;
       return [
         {
           selection: update(selection, {
-            selection: () => new Selection(line, 0, line, 0),
+            selection: () =>
+              new Selection(
+                getLine(modifier.anchor),
+                0,
+                getLine(modifier.active),
+                0
+              ),
           }),
           context: {},
         },
