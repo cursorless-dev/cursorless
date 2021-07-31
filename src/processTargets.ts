@@ -1,10 +1,22 @@
-import { concat, range, zip } from "lodash";
 import update from "immutability-helper";
+import { concat, range, zip } from "lodash";
+import * as vscode from "vscode";
+import { Location, Position, Range, Selection, TextDocument } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
+import { SUBWORD_MATCHER } from "./constants";
 import { getNodeMatcher } from "./languages";
-import { Selection, Range, Position, Location, TextDocument } from "vscode";
+import { createSurroundingPairMatcher } from "./languages/surroundingPair";
+import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
 import {
+  selectionFromPositions,
+  selectionWithEditorFromPositions,
+  selectionWithEditorFromRange,
+} from "./selectionUtils";
+import {
+  LineNumberPosition,
   Mark,
+  Modifier,
+  NodeMatcher,
   PrimitiveTarget,
   ProcessedTargetsContext,
   RangeTarget,
@@ -12,16 +24,7 @@ import {
   SelectionWithEditor,
   Target,
   TypedSelection,
-  Modifier,
-  LineNumberPosition,
 } from "./Types";
-import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
-import { SUBWORD_MATCHER } from "./constants";
-import {
-  selectionFromPositions,
-  selectionWithEditorFromPositions,
-  selectionWithEditorFromRange,
-} from "./selectionUtils";
 
 export default function processTargets(
   context: ProcessedTargetsContext,
@@ -173,6 +176,7 @@ function processSinglePrimitiveTarget(
       transformSelection(context, target, markSelection)
     )
   );
+
   const typedSelections = transformedSelections.map(
     ({ selection, context: selectionContext }) =>
       createTypedSelection(context, target, selection, selectionContext)
@@ -251,6 +255,31 @@ function getSelectionsFromMark(
   }
 }
 
+function findFirstMatchingNode(
+  startNode: SyntaxNode,
+  nodeMatcher: NodeMatcher,
+  selection: SelectionWithEditor
+) {
+  let node: SyntaxNode | null = startNode;
+  while (node != null) {
+    const matches = nodeMatcher(selection, node);
+    if (matches != null) {
+      return matches
+        .map((match) => match.selection)
+        .map((matchedSelection) => ({
+          selection: selectionWithEditorFromRange(
+            selection,
+            matchedSelection.selection
+          ),
+          context: matchedSelection.context,
+        }));
+    }
+    node = node.parent;
+  }
+
+  return null;
+}
+
 function transformSelection(
   context: ProcessedTargetsContext,
   target: PrimitiveTarget,
@@ -268,25 +297,14 @@ function transformSelection(
         modifier.scopeType,
         modifier.includeSiblings ?? false
       );
-
       let node: SyntaxNode | null = context.getNodeAtLocation(
         new Location(selection.editor.document.uri, selection.selection)
       );
 
-      while (node != null) {
-        const matches = nodeMatcher(selection, node);
-        if (matches != null) {
-          return matches
-            .map((match) => match.selection)
-            .map((matchedSelection) => ({
-              selection: selectionWithEditorFromRange(
-                selection,
-                matchedSelection.selection
-              ),
-              context: matchedSelection.context,
-            }));
-        }
-        node = node.parent;
+      let result = findFirstMatchingNode(node, nodeMatcher, selection);
+
+      if (result != null) {
+        return result;
       }
 
       throw new Error(`Couldn't find containing ${modifier.scopeType}`);
@@ -392,8 +410,28 @@ function transformSelection(
     }
 
     case "matchingPairSymbol":
-    case "surroundingPair":
       throw new Error("Not implemented");
+
+    case "surroundingPair":
+      {
+        let node: SyntaxNode | null = context.getNodeAtLocation(
+          new vscode.Location(
+            selection.editor.document.uri,
+            selection.selection
+          )
+        );
+
+        const nodeMatcher = createSurroundingPairMatcher(
+          modifier.delimeter,
+          modifier.delimetersOnly
+        );
+        let result = findFirstMatchingNode(node, nodeMatcher, selection);
+        if (result != null) {
+          return result;
+        }
+      }
+
+      throw new Error(`Couldn't find containing `);
   }
 }
 
@@ -603,6 +641,7 @@ function getTokenSelectionContext(
     containingListDelimiter: " ",
     leadingDelimiterRange: isInDelimitedList ? leadingDelimiterRange : null,
     trailingDelimiterRange: isInDelimitedList ? trailingDelimiterRange : null,
+    outerSelection: selectionContext.outerSelection,
   };
 }
 

@@ -1,0 +1,25 @@
+spokenForm: chuck pair
+languageId: python
+command:
+  actionName: delete
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimeter: null, delimetersOnly: true}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: "{1: [(1), (2), (3)]}"
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+finalState:
+  documentContents: "1: [(1), (2), (3)]"
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimeter: null, delimetersOnly: true}, insideOutsideType: outside}]

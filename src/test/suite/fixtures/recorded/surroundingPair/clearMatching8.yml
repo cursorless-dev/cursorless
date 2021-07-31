@@ -1,0 +1,27 @@
+spokenForm: clear matching
+languageId: python
+command:
+  actionName: clear
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimeter: null, delimetersOnly: false}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+    def fff(x, y):
+        pass
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+finalState:
+  documentContents: |
+    def fff():
+        pass
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  thatMark:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimeter: null, delimetersOnly: false}, insideOutsideType: inside}]

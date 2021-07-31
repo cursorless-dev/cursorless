@@ -1,0 +1,27 @@
+spokenForm: chuck round
+languageId: python
+command:
+  actionName: delete
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimeter: parentheses, delimetersOnly: false}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+    class a(object):
+        pass
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+finalState:
+  documentContents: |
+    class a:
+        pass
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  thatMark:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimeter: parentheses, delimetersOnly: false}, insideOutsideType: outside}]

@@ -1,0 +1,27 @@
+spokenForm: clear pair curly
+languageId: python
+command:
+  actionName: clear
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimeter: curlyBrackets, delimetersOnly: true}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: "{1: [(1), (2), (3)]}"
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+finalState:
+  documentContents: "1: [(1), (2), (3)]"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimeter: curlyBrackets, delimetersOnly: true}, insideOutsideType: inside}]

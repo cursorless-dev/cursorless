@@ -1,0 +1,27 @@
+spokenForm: chuck matching
+languageId: python
+command:
+  actionName: delete
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimeter: null, delimetersOnly: false}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |-
+    """fds
+
+    dfsd
+    """
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimeter: null, delimetersOnly: false}, insideOutsideType: outside}]
