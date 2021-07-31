@@ -118,10 +118,7 @@ export function patternFinder(...patterns: string[]): NodeFinder {
 
 function parsePatternStrings(patternStrings: string[]) {
   return patternStrings.map((patternString) =>
-    // Split on . not inside []
-    patternString
-      .split(/(?![^\[]*\])\./g)
-      .map((pattern) => new Pattern(pattern))
+    patternString.split(".").map((pattern) => new Pattern(pattern))
   );
 }
 
@@ -229,21 +226,10 @@ class Pattern {
   isOptional: boolean = false;
 
   constructor(pattern: string) {
-    const fieldIndex = pattern.indexOf("[");
-    if (fieldIndex > -1) {
-      this.fields = pattern
-        .slice(fieldIndex + 1, pattern.indexOf("]", fieldIndex + 1))
-        .split(".");
-    }
-    const importantIndex = pattern.indexOf("!");
-    const optionalIndex = pattern.indexOf("?");
-    this.isImportant = importantIndex > -1;
-    this.isOptional = optionalIndex > -1;
-    const indexes = [fieldIndex, importantIndex, optionalIndex].filter(
-      (index) => index > -1
-    );
-    this.type =
-      indexes.length > 0 ? pattern.slice(0, Math.max(...indexes)) : pattern;
+    this.type = pattern.match(/^[\w*]+/)![0];
+    this.fields = [...pattern.matchAll(/(?<=\[).+?(?=\])/g)].map((m) => m[0]);
+    this.isImportant = pattern.indexOf("!") > -1;
+    this.isOptional = pattern.indexOf("?") > -1;
   }
 
   typeEquals(node: SyntaxNode) {

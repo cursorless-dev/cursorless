@@ -51,7 +51,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ],
   ifStatement: "if_statement",
   string: "string_literal",
-  name: ["*[declarator.name]", "*[name]", "formal_parameter.identifier!"],
+  name: ["*[declarator][name]", "*[name]", "formal_parameter.identifier!"],
   type: [
     "type_identifier",
     "local_variable_declaration[type]",
@@ -63,7 +63,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   list: "array_initializer",
   functionCall: "method_invocation",
   value: matcher(
-    patternFinder("*[declarator.value]", "*[value]"),
+    patternFinder("*[declarator][value]", "*[value]"),
     selectWithLeadingDelimiter
   ),
   collectionItem: argumentMatcher("array_initializer"),
