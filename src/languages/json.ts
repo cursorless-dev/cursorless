@@ -12,6 +12,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   collectionItem: argumentMatcher("object", "array"),
   collectionKey: "pair[key]",
   value: valueMatcher("*[value]"),
+  comment: "comment",
 };
 
 export default createPatternMatchers(nodeMatchers);
