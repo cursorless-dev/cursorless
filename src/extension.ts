@@ -4,17 +4,15 @@ import { DEBOUNCE_DELAY } from "./constants";
 import Decorations from "./Decorations";
 import graphConstructors from "./graphConstructors";
 import { inferFullTargets } from "./inferFullTargets";
-import NavigationMap from "./NavigationMap";
 import processTargets from "./processTargets";
 import FontMeasurements from "./FontMeasurements";
-import {
-  ActionType,
-  PartialTarget,
-  ProcessedTargetsContext,
-  SelectionWithEditor,
-} from "./Types";
+import { ActionType, PartialTarget, ProcessedTargetsContext } from "./Types";
 import makeGraph from "./makeGraph";
 import { logBranchTypes } from "./debug";
+import { TestCase } from "./TestCase";
+import { ThatMark } from "./ThatMark";
+import { Clipboard } from "./Clipboard";
+import { TestCaseRecorder } from "./TestCaseRecorder";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -39,14 +37,12 @@ export async function activate(context: vscode.ExtensionContext) {
     });
   }
 
-  var navigationMap: NavigationMap | null = null;
-
   function addDecorations() {
     if (isActive) {
-      navigationMap = addDecorationsToEditors(decorations);
+      addDecorationsToEditors(graph.navigationMap, decorations);
     } else {
       vscode.window.visibleTextEditors.forEach(clearEditorDecorations);
-      navigationMap = new NavigationMap();
+      graph.navigationMap.clear();
     }
   }
 
@@ -81,8 +77,15 @@ export async function activate(context: vscode.ExtensionContext) {
   );
 
   const graph = makeGraph(graphConstructors);
-  var thatMark: SelectionWithEditor[] = [];
-
+  const thatMark = new ThatMark();
+  const testCaseRecorder = new TestCaseRecorder(context);
+  const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
+    "cursorless.recordTestCase",
+    async () => {
+      console.log("Recording test case for next command");
+      testCaseRecorder.start();
+    }
+  );
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
     "cursorless.command",
     async (
@@ -109,7 +112,7 @@ export async function activate(context: vscode.ExtensionContext) {
         var clipboardContents: string | undefined;
 
         if (isPaste) {
-          clipboardContents = await vscode.env.clipboard.readText();
+          clipboardContents = await Clipboard.readText();
           // clipboardContents = "hello";
           // clipboardContents = "hello\n";
           // clipboardContents = "\nhello\n";
@@ -134,19 +137,37 @@ export async function activate(context: vscode.ExtensionContext) {
               editor: vscode.window.activeTextEditor!,
             })) ?? [],
           currentEditor: vscode.window.activeTextEditor,
-          navigationMap: navigationMap!,
-          thatMark,
+          navigationMap: graph.navigationMap,
+          thatMark: thatMark.get(),
           getNodeAtLocation,
         };
 
         const selections = processTargets(processedTargetsContext, targets);
+
+        let testCase: TestCase | null = null;
+        if (testCaseRecorder.active) {
+          const command = { actionName, partialTargets, extraArgs };
+          const context = {
+            targets,
+            thatMark: thatMark,
+            navigationMap: graph.navigationMap!,
+            spokenForm: testCaseRecorder.spokenForm ?? "",
+          };
+          testCase = new TestCase(command, context);
+          await testCase.recordInitialState();
+        }
 
         const { returnValue, thatMark: newThatMark } = await action.run(
           selections,
           ...extraArgs
         );
 
-        thatMark = newThatMark;
+        thatMark.set(newThatMark);
+
+        if (testCase != null) {
+          await testCase.recordFinalState(returnValue);
+          await testCaseRecorder.finish(testCase);
+        }
 
         return returnValue;
 
@@ -174,6 +195,7 @@ export async function activate(context: vscode.ExtensionContext) {
         // const processedTargets = processTargets(navigationMap!, targets);
       } catch (e) {
         vscode.window.showErrorMessage(e.message);
+        console.trace(e.message);
         throw e;
       }
     }
@@ -182,9 +204,7 @@ export async function activate(context: vscode.ExtensionContext) {
   addDecorationsDebounced();
 
   function handleEdit(edit: vscode.TextDocumentChangeEvent) {
-    if (navigationMap != null) {
-      navigationMap.updateTokenRanges(edit);
-    }
+    graph.navigationMap.updateTokenRanges(edit);
 
     addDecorationsDebounced();
   }
@@ -198,6 +218,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     cursorlessCommandDisposable,
+    cursorlessRecordTestCaseDisposable,
     toggleDecorationsDisposable,
     recomputeDecorationStylesDisposable,
     vscode.workspace.onDidChangeConfiguration(recomputeDecorationStyles),
@@ -217,6 +238,12 @@ export async function activate(context: vscode.ExtensionContext) {
       },
     }
   );
+
+  return {
+    navigationMap: graph.navigationMap,
+    thatMark,
+    addDecorations,
+  };
 }
 
 // this method is called when your extension is deactivated
