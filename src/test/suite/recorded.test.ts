@@ -11,7 +11,12 @@ import NavigationMap from "../../NavigationMap";
 import * as sinon from "sinon";
 import { Clipboard } from "../../Clipboard";
 import { takeSnapshot } from "../../takeSnapshot";
-import { PositionPlainObject, SelectionPlainObject } from "../../toPlainObject";
+import {
+  PositionPlainObject,
+  rangeToPlainObject,
+  SelectionPlainObject,
+} from "../../toPlainObject";
+import { walkFilesSync } from "./walkSync";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -28,7 +33,9 @@ suite("recorded test cases", async function () {
     __dirname,
     "../../../src/test/suite/fixtures/recorded"
   );
-  const files = await fsp.readdir(directory);
+  console.log(directory);
+  const files = await walkFilesSync(directory);
+  console.log(files);
 
   teardown(() => {
     sinon.restore();
@@ -46,8 +53,9 @@ suite("recorded test cases", async function () {
       const cursorlessApi: {
         thatMark: ThatMark;
         navigationMap: NavigationMap;
+        addDecorations: () => void;
       } = await cursorless.activate();
-      const buffer = await fsp.readFile(path.join(directory, file));
+      const buffer = await fsp.readFile(file);
       const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
 
       await vscode.commands.executeCommand("workbench.action.closeAllEditors");
@@ -75,7 +83,7 @@ suite("recorded test cases", async function () {
       }
 
       // Wait for cursorless to set up decorations
-      await new Promise((resolve) => setTimeout(resolve, 300));
+      cursorlessApi.addDecorations();
 
       // Assert that recorded decorations are present
       Object.entries(fixture.marks).forEach(([key, token]) => {
@@ -85,10 +93,7 @@ suite("recorded test cases", async function () {
           character
         );
         assert(currentToken != null, `Mark "${color} ${character}" not found`);
-        const tokensMatch =
-          currentToken.range.start === token.start &&
-          currentToken.range.end === token.end;
-        assert(tokensMatch, `Token for "${color} ${character}" does not match`);
+        assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
       });
 
       const returnValue = await vscode.commands.executeCommand(

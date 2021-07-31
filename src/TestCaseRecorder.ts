@@ -2,19 +2,22 @@ import * as vscode from "vscode";
 import * as path from "path";
 import * as fs from "fs";
 import { TestCase } from "./TestCase";
+import { walkDirsSync } from "./test/suite/walkSync";
 
 export class TestCaseRecorder {
   active: boolean = false;
   outPath: string | null = null;
-  talonCommand: string | null = null;
+  spokenForm: string | null = null;
   workspacePath: string | null;
   workSpaceFolder: string | null;
   fixtureRoot: string | null;
   fixtureSubdirectory: string | null = null;
 
-  constructor() {
+  constructor(extensionContext: vscode.ExtensionContext) {
     this.workspacePath =
-      vscode.workspace.workspaceFolders?.[0].uri.path ?? null;
+      extensionContext.extensionMode === vscode.ExtensionMode.Development
+        ? extensionContext.extensionPath
+        : vscode.workspace.workspaceFolders?.[0].uri.path ?? null;
 
     this.workSpaceFolder = this.workspacePath
       ? path.basename(this.workspacePath)
@@ -27,7 +30,7 @@ export class TestCaseRecorder {
 
   start(): Promise<void> {
     this.active = true;
-    return this.promptTalonCommand();
+    return this.promptSpokenForm();
   }
 
   async finish(testCase: TestCase): Promise<string | null> {
@@ -66,7 +69,7 @@ export class TestCaseRecorder {
     });
   }
 
-  private async promptTalonCommand(): Promise<void> {
+  private async promptSpokenForm(): Promise<void> {
     const result = await vscode.window.showInputBox({
       prompt: "Talon Command",
       ignoreFocusOut: true,
@@ -79,7 +82,7 @@ export class TestCaseRecorder {
       return;
     }
 
-    this.talonCommand = result;
+    this.spokenForm = result;
   }
 
   private async promptSubdirectory(): Promise<string | null> {
@@ -91,10 +94,7 @@ export class TestCaseRecorder {
       return null;
     }
 
-    const subdirectories = fs
-      .readdirSync(this.fixtureRoot, { withFileTypes: true })
-      .filter((item) => item.isDirectory())
-      .map((directory) => directory.name);
+    const subdirectories = walkDirsSync(this.fixtureRoot).concat("/");
 
     const createNewSubdirectory = "Create new folder →";
     const subdirectorySelection = await vscode.window.showQuickPick([

@@ -1,6 +1,5 @@
 import * as path from "path";
 import * as fs from "fs";
-import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import NavigationMap from "./NavigationMap";
 import { ThatMark } from "./ThatMark";
@@ -8,6 +7,7 @@ import { ActionType, PartialTarget, Target } from "./Types";
 import { extractTargetedMarks } from "./extractTargetedMarks";
 import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
 import { takeSnapshot, TestCaseSnapshot } from "./takeSnapshot";
+import serialize from "./serialize";
 
 type TestCaseCommand = {
   actionName: ActionType;
@@ -16,14 +16,14 @@ type TestCaseCommand = {
 };
 
 type TestCaseContext = {
-  talonCommand: string;
+  spokenForm: string;
   thatMark: ThatMark;
   targets: Target[];
   navigationMap: NavigationMap;
 };
 
 export type TestCaseFixture = {
-  talonCommand: string;
+  spokenForm: string;
   command: TestCaseCommand;
   languageId: string;
   marks: SerializedMarks;
@@ -35,7 +35,7 @@ export type TestCaseFixture = {
 };
 
 export class TestCase {
-  talonCommand: string;
+  spokenForm: string;
   command: TestCaseCommand;
   languageId: string;
   fullTargets: Target[];
@@ -47,10 +47,10 @@ export class TestCase {
 
   constructor(command: TestCaseCommand, context: TestCaseContext) {
     const activeEditor = vscode.window.activeTextEditor!;
-    const { navigationMap, targets, talonCommand } = context;
+    const { navigationMap, targets, spokenForm } = context;
     const targetedMarks = extractTargetedMarks(targets, navigationMap);
 
-    this.talonCommand = talonCommand;
+    this.spokenForm = spokenForm;
     this.command = command;
     this.languageId = activeEditor.document.languageId;
     this.marks = marksToPlainObject(targetedMarks);
@@ -94,7 +94,7 @@ export class TestCase {
       throw Error("Two snapshots must be taken before serializing");
     }
     const fixture: TestCaseFixture = {
-      talonCommand: this.talonCommand,
+      spokenForm: this.spokenForm,
       languageId: this.languageId,
       command: this.command,
       marks: this.marks,
@@ -103,7 +103,7 @@ export class TestCase {
       returnValue: this.returnValue,
       fullTargets: this.fullTargets,
     };
-    return yaml.dump(fixture, { noRefs: true, quotingType: '"' });
+    return serialize(fixture);
   }
 
   async recordInitialState() {

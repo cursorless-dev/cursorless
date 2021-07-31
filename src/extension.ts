@@ -78,7 +78,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const graph = makeGraph(graphConstructors);
   const thatMark = new ThatMark();
-  const testCaseRecorder = new TestCaseRecorder();
+  const testCaseRecorder = new TestCaseRecorder(context);
   const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
     "cursorless.recordTestCase",
     async () => {
@@ -153,7 +153,7 @@ export async function activate(context: vscode.ExtensionContext) {
             targets,
             thatMark: thatMark,
             navigationMap: graph.navigationMap!,
-            talonCommand: testCaseRecorder.talonCommand ?? "",
+            spokenForm: testCaseRecorder.spokenForm ?? "",
           };
           testCase = new TestCase(command, context);
           await testCase.recordInitialState();
@@ -244,6 +244,7 @@ export async function activate(context: vscode.ExtensionContext) {
   return {
     navigationMap: graph.navigationMap,
     thatMark,
+    addDecorations,
   };
 }
 

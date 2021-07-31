@@ -1,24 +1,14 @@
-talonCommand: chuck that
+spokenForm: chuck that
+languageId: python
 command:
   actionName: delete
   partialTargets:
     - type: primitive
-      mark:
-        type: that
+      mark: {type: that}
   extraArgs: []
-languageId: python
-targets:
-  - type: primitive
-    mark:
-      type: that
-    selectionType: token
-    position: contents
-    modifier:
-      type: identity
-    insideOutsideType: outside
 marks: {}
 initialState:
-  document: |
+  documentContents: |
     import sys
 
     def hello_world(name="pokey"):
@@ -27,21 +17,13 @@ initialState:
     if __name__ == "__main__":
         hello_world(sys.argv[0])
   selections:
-    - active:
-        line: 6
-        character: 27
-      anchor:
-        line: 6
-        character: 27
+    - active: {line: 6, character: 28}
+      anchor: {line: 6, character: 28}
   thatMark:
-    - active:
-        line: 3
-        character: 27
-      anchor:
-        line: 2
-        character: 0
+    - active: {line: 3, character: 27}
+      anchor: {line: 2, character: 0}
 finalState:
-  document: |
+  documentContents: |
     import sys
 
 
@@ -49,17 +31,10 @@ finalState:
     if __name__ == "__main__":
         hello_world(sys.argv[0])
   selections:
-    - active:
-        line: 5
-        character: 27
-      anchor:
-        line: 5
-        character: 27
+    - active: {line: 5, character: 28}
+      anchor: {line: 5, character: 28}
   thatMark:
-    - active:
-        line: 2
-        character: 0
-      anchor:
-        line: 2
-        character: 0
+    - active: {line: 2, character: 0}
+      anchor: {line: 2, character: 0}
 returnValue: null
+fullTargets: [{type: primitive, mark: {type: that}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: outside}]
