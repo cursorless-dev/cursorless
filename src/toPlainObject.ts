@@ -29,8 +29,8 @@ export function selectionToPlainObject(
   selection: Selection
 ): SelectionPlainObject {
   return {
-    active: positionToPlainObject(selection.active),
     anchor: positionToPlainObject(selection.anchor),
+    active: positionToPlainObject(selection.active),
   };
 }
 

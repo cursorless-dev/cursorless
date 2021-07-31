@@ -25,8 +25,8 @@ initialState:
     if __name__ == "__main__":
         hello_world(sys.argv[0])
   selections:
-    - active: {line: 7, character: 0}
-      anchor: {line: 7, character: 0}
+    - anchor: {line: 7, character: 0}
+      active: {line: 7, character: 0}
 finalState:
   documentContents: |
     import sys
@@ -37,12 +37,12 @@ finalState:
     if __name__ == "__main__":
         hello_world(sys.argv[0])
   selections:
-    - active: {line: 7, character: 0}
-      anchor: {line: 7, character: 0}
+    - anchor: {line: 7, character: 0}
+      active: {line: 7, character: 0}
   thatMark:
-    - active: {line: 3, character: 17}
-      anchor: {line: 3, character: 12}
-    - active: {line: 2, character: 27}
-      anchor: {line: 2, character: 22}
+    - anchor: {line: 3, character: 12}
+      active: {line: 3, character: 17}
+    - anchor: {line: 2, character: 22}
+      active: {line: 2, character: 27}
 returnValue: null
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: k}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

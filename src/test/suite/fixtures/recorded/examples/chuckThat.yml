@@ -17,11 +17,11 @@ initialState:
     if __name__ == "__main__":
         hello_world(sys.argv[0])
   selections:
-    - active: {line: 6, character: 28}
-      anchor: {line: 6, character: 28}
+    - anchor: {line: 6, character: 28}
+      active: {line: 6, character: 28}
   thatMark:
-    - active: {line: 3, character: 27}
-      anchor: {line: 2, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 3, character: 27}
 finalState:
   documentContents: |
     import sys
@@ -31,10 +31,10 @@ finalState:
     if __name__ == "__main__":
         hello_world(sys.argv[0])
   selections:
-    - active: {line: 5, character: 28}
-      anchor: {line: 5, character: 28}
+    - anchor: {line: 5, character: 28}
+      active: {line: 5, character: 28}
   thatMark:
-    - active: {line: 2, character: 0}
-      anchor: {line: 2, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
 returnValue: null
 fullTargets: [{type: primitive, mark: {type: that}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: outside}]
