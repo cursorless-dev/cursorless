@@ -12,14 +12,16 @@ export function makeRange(startPosition: Point, endPosition: Point) {
 export function simpleSelectionExtractor(
   editor: TextEditor,
   node: SyntaxNode
-): SelectionWithContext {
-  return {
-    selection: new Selection(
-      new Position(node.startPosition.row, node.startPosition.column),
-      new Position(node.endPosition.row, node.endPosition.column)
-    ),
-    context: {},
-  };
+): SelectionWithContext[] {
+  return [
+    {
+      selection: new Selection(
+        new Position(node.startPosition.row, node.startPosition.column),
+        new Position(node.endPosition.row, node.endPosition.column)
+      ),
+      context: {},
+    },
+  ];
 }
 
 export function argumentSelectionExtractor(): SelectionExtractor {
@@ -39,7 +41,7 @@ export function argumentSelectionExtractor(): SelectionExtractor {
 export function selectWithLeadingDelimiter(
   editor: TextEditor,
   node: SyntaxNode
-): SelectionWithContext {
+): SelectionWithContext[] {
   const leadingDelimiterToken = node.previousSibling!;
 
   const leadingDelimiterRange = makeRange(
@@ -47,19 +49,19 @@ export function selectWithLeadingDelimiter(
     node.startPosition
   );
 
-  return {
-    ...simpleSelectionExtractor(editor, node),
+  return simpleSelectionExtractor(editor, node).map((selection) => ({
+    ...selection,
     context: {
       leadingDelimiterRange,
     },
-  };
+  }));
 }
 
 function getNextNonDelimiterNode(
   startNode: SyntaxNode,
   isDelimiterNode: (node: SyntaxNode) => boolean
 ): SyntaxNode | null {
-  var node = startNode.nextSibling;
+  let node = startNode.nextSibling;
 
   while (node != null) {
     if (!isDelimiterNode(node)) {
@@ -76,7 +78,7 @@ function getPreviousNonDelimiterNode(
   startNode: SyntaxNode,
   isDelimiterNode: (node: SyntaxNode) => boolean
 ): SyntaxNode | null {
-  var node = startNode.previousSibling;
+  let node = startNode.previousSibling;
 
   while (node != null) {
     if (!isDelimiterNode(node)) {

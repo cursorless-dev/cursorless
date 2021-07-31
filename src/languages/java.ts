@@ -41,7 +41,7 @@ const STATEMENT_TYPES = [
   "yield_statement",
 ];
 
-const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
+const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   class: "class_declaration",
   className: "class_declaration[name]",
   namedFunction: ["method_declaration", "constructor_declaration"],
@@ -71,7 +71,6 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   statement: STATEMENT_TYPES,
   dictionary: ["block"],
   collectionKey: notSupported,
-  regex: notSupported,
 };
 
 export default createPatternMatchers(nodeMatchers);

@@ -52,6 +52,7 @@ export type ScopeType =
   | "collectionKey"
   | "comment"
   | "dictionary"
+  | "xmlElement"
   | "functionCall"
   | "functionName"
   | "ifStatement"
@@ -62,7 +63,11 @@ export type ScopeType =
   | "statement"
   | "string"
   | "type"
-  | "value";
+  | "value"
+  | "xmlElement"
+  | "xmlBothTags"
+  | "xmlEndTag"
+  | "xmlStartTag";
 export type PieceType = "word" | "character";
 
 export interface SurroundingPairModifier {
@@ -284,7 +289,7 @@ export interface DecorationColorSetting {
 export type NodeMatcher = (
   selection: SelectionWithEditor,
   node: SyntaxNode
-) => SelectionWithContext | null;
+) => SelectionWithContext[] | null;
 
 export type NodeMatcherAlternative = NodeMatcher | string[] | string;
 
@@ -301,7 +306,7 @@ export type NodeFinder = (
 export type SelectionExtractor = (
   editor: vscode.TextEditor,
   node: SyntaxNode
-) => SelectionWithContext | null;
+) => SelectionWithContext[];
 
 /** Represent a single edit/change in the document */
 export interface Edit {

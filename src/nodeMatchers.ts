@@ -88,7 +88,7 @@ export const notSupported: NodeMatcher = (
 };
 
 export function createPatternMatchers(
-  nodeMatchers: Record<ScopeType, NodeMatcherAlternative>
+  nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>>
 ): Record<ScopeType, NodeMatcher> {
   Object.keys(nodeMatchers).forEach((scopeType: ScopeType) => {
     let matcher = nodeMatchers[scopeType];

@@ -4,6 +4,7 @@ import python from "./python";
 import typescript from "./typescript";
 import csharp from "./csharp";
 import java from "./java";
+import { notSupported } from "../nodeMatchers";
 
 const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
   csharp: csharp,
@@ -14,7 +15,7 @@ const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
   python,
   typescript,
   typescriptreact: typescript,
-  java
+  java,
 };
 
 export function getNodeMatcher(
@@ -27,7 +28,7 @@ export function getNodeMatcher(
   }
   const matcher = matchers[scopeType];
   if (matcher == null) {
-    throw Error(`Scope '${scopeType}' is not implemented yet`);
+    return notSupported;
   }
   return matcher;
 }

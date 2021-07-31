@@ -233,14 +233,14 @@ function transformSelection(
           let matchedSelections: SelectionWithContext[];
           if (modifier.includeSiblings) {
             matchedSelections = node
-              .parent!.children.map((sibling) =>
+              .parent!.children.flatMap((sibling) =>
                 nodeMatcher(selection, sibling)
               )
               .filter(
                 (selection) => selection != null
               ) as SelectionWithContext[];
           } else {
-            matchedSelections = [matchedSelection];
+            matchedSelections = matchedSelection;
           }
           return matchedSelections.map((matchedSelection) => ({
             selection: {

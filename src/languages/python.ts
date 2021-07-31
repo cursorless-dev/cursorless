@@ -129,10 +129,10 @@ function possiblyDecoratedDefinition(...typeNames: string[]): NodeFinder {
 export const getTypeNode = (node: SyntaxNode) =>
   node.children.find((child) => child.type === "type") ?? null;
 
-const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
+const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ...getPojoMatchers(
     ["dictionary", "dictionary_comprehension"],
-    ["list", "list_comprehension", "set"],
+    ["list", "list_comprehension", "set"]
   ),
   ifStatement: typeMatcher("if_statement"),
   class: matcher(possiblyDecoratedDefinition("class_definition")),

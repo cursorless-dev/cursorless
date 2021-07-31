@@ -2,6 +2,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import {
   cascadingMatcher,
   composedMatcher,
+  createPatternMatchers,
   matcher,
   typeMatcher,
 } from "../nodeMatchers";
@@ -212,7 +213,7 @@ const getDictionaryMatchers = {
   string: typeMatcher("string_literal"),
 };
 
-const nodeMatchers: Record<ScopeType, NodeMatcher> = {
+const nodeMatchers: Partial<Record<ScopeType, NodeMatcher>> = {
   ...getDictionaryMatchers,
   ifStatement: typeMatcher("if_statement"),
   class: typeMatcher("class_declaration"),
@@ -241,4 +242,4 @@ const nodeMatchers: Record<ScopeType, NodeMatcher> = {
   name: matcher(getNameNode),
 };
 
-export default nodeMatchers;
+export default createPatternMatchers(nodeMatchers);
