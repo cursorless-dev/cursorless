@@ -64,6 +64,7 @@ export type ScopeType =
   | "string"
   | "type"
   | "value"
+  | "xmlAttribute"
   | "xmlElement"
   | "xmlBothTags"
   | "xmlEndTag"

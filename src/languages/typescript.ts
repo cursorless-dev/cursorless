@@ -121,7 +121,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ),
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
   // XML, JSX
-  xmlElement: ["jsx_element"],
+  xmlAttribute: ["jsx_attribute"],
+  xmlElement: ["jsx_element", "jsx_self_closing_element"],
   xmlBothTags: getTags,
   xmlStartTag: getStartTag,
   xmlEndTag: getEndTag,
