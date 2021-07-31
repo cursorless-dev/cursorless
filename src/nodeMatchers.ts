@@ -10,6 +10,7 @@ import {
 import {
   simpleSelectionExtractor,
   argumentSelectionExtractor,
+  selectWithLeadingDelimiter,
 } from "./nodeSelectors";
 import {
   typedNodeFinder,
@@ -23,7 +24,7 @@ export function matcher(
 ): NodeMatcher {
   return function (selection: SelectionWithEditor, node: SyntaxNode) {
     const targetNode = finder(node, selection.selection);
-    return targetNode != null ? [selector(selection.editor, node)] : null;
+    return targetNode != null ? [selector(selection.editor, targetNode)] : null;
   };
 }
 
@@ -57,6 +58,10 @@ export function argumentMatcher(...parentTypes: string[]): NodeMatcher {
     argumentNodeFinder(...parentTypes),
     argumentSelectionExtractor()
   );
+}
+
+export function valueMatcher(...patterns: string[]): NodeMatcher {
+  return matcher(patternFinder(...patterns), selectWithLeadingDelimiter);
 }
 
 /**
