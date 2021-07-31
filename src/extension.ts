@@ -15,6 +15,7 @@ import {
 } from "./Types";
 import makeGraph from "./makeGraph";
 import { logBranchTypes } from "./debug";
+import { Location } from "vscode";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -27,7 +28,20 @@ export async function activate(context: vscode.ExtensionContext) {
     throw new Error("Depends on pokey.parse-tree extension");
   }
 
-  const { getNodeAtLocation } = await parseTreeExtension.activate();
+  const { getNodeAtLocation: getNodeAtLocationImpl } =
+    await parseTreeExtension.activate();
+
+  const getNodeAtLocation = (location: Location) => {
+    try {
+      return getNodeAtLocationImpl(location);
+    } catch (error) {
+      const document = vscode.window.activeTextEditor?.document;
+      if (document?.uri === location.uri) {
+        throw Error(`Language '${document.languageId}' is not implemented yet`);
+      }
+      throw error;
+    }
+  };
 
   var isActive = vscode.workspace
     .getConfiguration("cursorless")
