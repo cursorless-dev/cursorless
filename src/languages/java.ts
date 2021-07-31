@@ -69,7 +69,7 @@ const nodeMatchers: Record<ScopeType, NodeMatcherAlternative> = {
   collectionItem: argumentMatcher("array_initializer"),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),
   statement: STATEMENT_TYPES,
-  dictionary: notSupported,
+  dictionary: ["block"],
   collectionKey: notSupported,
   regex: notSupported,
 };

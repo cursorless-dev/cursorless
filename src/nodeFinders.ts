@@ -175,24 +175,24 @@ function searchNodeAscending(
   lastPattern: Pattern,
   patterns: Pattern[]
 ): NodePattern {
-  let resNode = node;
+  let resultNode = node;
   let important: NodePattern = lastPattern.isImportant
     ? [node, lastPattern]
     : null;
   for (let i = patterns.length - 2; i > -1; --i) {
     const pattern = patterns[i];
-    if (resNode.parent == null || !pattern.typeEquals(resNode.parent)) {
+    if (resultNode.parent == null || !pattern.typeEquals(resultNode.parent)) {
       if (pattern.isOptional) {
         continue;
       }
       return null;
     }
-    resNode = resNode.parent;
+    resultNode = resultNode.parent;
     if (pattern.isImportant) {
-      important = [resNode, pattern];
+      important = [resultNode, pattern];
     }
   }
-  return important != null ? important : [resNode, lastPattern];
+  return important != null ? important : [resultNode, lastPattern];
 }
 
 function searchNodeDescending(
