@@ -3,6 +3,7 @@ import * as path from "path";
 import { readdirSync } from "fs";
 
 /**
+ * Note: Returns full paths
  * From https://gist.github.com/kethinov/6658166#gistcomment-1941504
  * @param dir
  * @param filelist
@@ -17,6 +18,12 @@ export const walkFilesSync = (dir: string, filelist: string[] = []) => {
   return filelist;
 };
 
+/**
+ * Note: Returns relative paths
+ * @param dir
+ * @param filelist
+ * @returns
+ */
 export const walkDirsSync = (dir: string, filelist: string[] = []) => {
   readdirSync(dir).forEach((name) => {
     const file = path.join(dir, name);
