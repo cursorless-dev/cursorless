@@ -23,7 +23,7 @@ export function matcher(
 ): NodeMatcher {
   return function (selection: SelectionWithEditor, node: SyntaxNode) {
     const targetNode = finder(node, selection.selection);
-    return targetNode ? selector(selection.editor, targetNode) : null;
+    return targetNode != null ? [selector(selection.editor, node)] : null;
   };
 }
 
@@ -40,8 +40,7 @@ export function composedMatcher(
       }
       returnNode = foundNode;
     }
-
-    return selector(selection.editor, returnNode);
+    return [selector(selection.editor, returnNode)];
   };
 }
 

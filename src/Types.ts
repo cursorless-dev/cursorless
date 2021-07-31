@@ -305,8 +305,8 @@ export type NodeFinder = (
 /** Returns one or more selections for a given SyntaxNode */
 export type SelectionExtractor = (
   editor: vscode.TextEditor,
-  node: SyntaxNode
-) => SelectionWithContext[];
+  nodes: SyntaxNode
+) => SelectionWithContext;
 
 /** Represent a single edit/change in the document */
 export interface Edit {

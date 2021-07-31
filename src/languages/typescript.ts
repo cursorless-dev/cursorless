@@ -74,6 +74,7 @@ export const findTypeNode = (node: SyntaxNode) => {
 const dictionaryTypes = ["object", "object_pattern"];
 const listTypes = ["array", "array_pattern"];
 
+
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   dictionary: dictionaryTypes,
   list: listTypes,
