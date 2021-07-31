@@ -71,9 +71,19 @@ export const findTypeNode = (node: SyntaxNode) => {
   return typeAnnotationNode?.lastChild ?? null;
 };
 
+const dictionaryTypes = ["object", "object_pattern"];
+const listTypes = ["array", "array_pattern"];
+
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
-  ...getPojoMatchers(["object", "object_pattern"], ["array", "array_pattern"]),
+  dictionary: dictionaryTypes,
+  list: listTypes,
   string: ["string", "template_string"],
+  collectionKey: ["pair[key]", "jsx_attribute.property_identifier!"],
+  collectionItem: argumentMatcher(...dictionaryTypes, ...listTypes),
+  value: matcher(
+    patternFinder("assignment_expression[right]", "*[value]"),
+    selectWithLeadingDelimiter
+  ),
   ifStatement: "if_statement",
   arrowFunction: "arrow_function",
   name: [
@@ -106,10 +116,6 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     // foo = () => "hello"
     "expression_statement.assignment_expression.arrow_function",
   ],
-  value: matcher(
-    patternFinder("assignment_expression[right]", "*[value]"),
-    selectWithLeadingDelimiter
-  ),
   type: cascadingMatcher(
     // Typed parameters, properties, and functions
     matcher(findTypeNode, selectWithLeadingDelimiter),

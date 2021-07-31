@@ -52,7 +52,6 @@ export type ScopeType =
   | "collectionKey"
   | "comment"
   | "dictionary"
-  | "xmlElement"
   | "functionCall"
   | "functionName"
   | "ifStatement"
@@ -303,7 +302,7 @@ export type NodeFinder = (
   selection?: vscode.Selection
 ) => SyntaxNode | null;
 
-/** Returns a selection for a given SyntaxNode */
+/** Returns one or more selections for a given SyntaxNode */
 export type SelectionExtractor = (
   editor: vscode.TextEditor,
   node: SyntaxNode

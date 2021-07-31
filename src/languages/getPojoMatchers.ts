@@ -12,7 +12,7 @@ export function getPojoMatchers(
     list: listTypes,
     string: "string",
     collectionKey: "pair[key]",
-    value: matcher(getValueNode, selectWithLeadingDelimiter),
     collectionItem: argumentMatcher(...dictionaryTypes, ...listTypes),
+    value: matcher(getValueNode, selectWithLeadingDelimiter),
   };
 }
