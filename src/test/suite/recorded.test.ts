@@ -33,9 +33,7 @@ suite("recorded test cases", async function () {
     __dirname,
     "../../../src/test/suite/fixtures/recorded"
   );
-  console.log(directory);
   const files = await walkFilesSync(directory);
-  console.log(files);
 
   teardown(() => {
     sinon.restore();
