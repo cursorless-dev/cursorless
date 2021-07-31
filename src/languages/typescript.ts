@@ -72,12 +72,11 @@ const findTypeNode = (node: SyntaxNode) => {
 
 function valueMatcher() {
   const pFinder = patternFinder("assignment_expression[right]", "*[value]");
-  return matcher((node: SyntaxNode) => {
-    if (node.type === "jsx_attribute") {
-      return node.lastNamedChild;
-    }
-    return pFinder(node);
-  }, selectWithLeadingDelimiter);
+  return matcher(
+    (node: SyntaxNode) =>
+      node.type === "jsx_attribute" ? node.lastChild : pFinder(node),
+    selectWithLeadingDelimiter
+  );
 }
 
 const dictionaryTypes = ["object", "object_pattern"];
