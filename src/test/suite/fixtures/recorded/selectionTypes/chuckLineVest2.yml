@@ -1,10 +1,10 @@
-spokenForm: take block vest
+spokenForm: chuck line vest
 languageId: typescript
 command:
-  actionName: setSelection
+  actionName: delete
   partialTargets:
     - type: primitive
-      selectionType: paragraph
+      selectionType: line
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs: []
 marks:
@@ -23,11 +23,10 @@ finalState:
   documentContents: |
 
     const value = "Hello world";
-    const value = "Hello world";
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 2, character: 28}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   thatMark:
     - anchor: {line: 1, character: 0}
-      active: {line: 2, character: 28}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: paragraph, position: contents, modifier: {type: identity}, insideOutsideType: inside}]
+      active: {line: 1, character: 0}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: line, position: contents, modifier: {type: identity}, insideOutsideType: outside}]

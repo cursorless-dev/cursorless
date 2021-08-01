@@ -1,10 +1,10 @@
-spokenForm: chuck line vest
+spokenForm: chuck token vest
 languageId: typescript
 command:
   actionName: delete
   partialTargets:
     - type: primitive
-      selectionType: line
+      selectionType: token
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs: []
 marks:
@@ -14,17 +14,18 @@ marks:
 initialState:
   documentContents: |
 
-    const value = "Hello world";
+    const value   = "Hello.world  ";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
 finalState:
-  documentContents: |+
+  documentContents: |
 
+    const = "Hello.world  ";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   thatMark:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: line, position: contents, modifier: {type: identity}, insideOutsideType: outside}]
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: outside}]
