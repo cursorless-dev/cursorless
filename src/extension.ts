@@ -78,6 +78,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const graph = makeGraph(graphConstructors);
   const thatMark = new ThatMark();
+  const sourceMark = new ThatMark();
   const testCaseRecorder = new TestCaseRecorder(context);
 
   const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
@@ -146,6 +147,7 @@ export async function activate(context: vscode.ExtensionContext) {
           currentEditor: vscode.window.activeTextEditor,
           navigationMap: graph.navigationMap,
           thatMark: thatMark.get(),
+          sourceMark: sourceMark.get(),
           getNodeAtLocation,
         };
 
@@ -156,7 +158,8 @@ export async function activate(context: vscode.ExtensionContext) {
           const command = { actionName, partialTargets, extraArgs };
           const context = {
             targets,
-            thatMark: thatMark,
+            thatMark,
+            sourceMark,
             navigationMap: graph.navigationMap!,
             spokenForm,
           };
@@ -164,12 +167,14 @@ export async function activate(context: vscode.ExtensionContext) {
           await testCase.recordInitialState();
         }
 
-        const { returnValue, thatMark: newThatMark } = await action.run(
-          selections,
-          ...extraArgs
-        );
+        const {
+          returnValue,
+          thatMark: newThatMark,
+          sourceMark: newSourceMark,
+        } = await action.run(selections, ...extraArgs);
 
         thatMark.set(newThatMark);
+        sourceMark.set(newSourceMark ?? []);
 
         if (testCase != null) {
           await testCase.recordFinalState(returnValue);
