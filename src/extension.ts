@@ -215,10 +215,38 @@ export async function activate(context: vscode.ExtensionContext) {
 
   addDecorationsDebounced();
 
+  function checkForEditsOutsideViewport(event: vscode.TextDocumentChangeEvent) {
+    const editor = vscode.window.activeTextEditor;
+    if (editor == null || editor.document !== event.document) {
+      return;
+    }
+    const { start, end } = editor.visibleRanges[0];
+    const ranges = [];
+    for (const edit of event.contentChanges) {
+      if (
+        edit.range.end.isBeforeOrEqual(start) ||
+        edit.range.start.isAfterOrEqual(end)
+      ) {
+        ranges.push(edit.range);
+      }
+    }
+    if (ranges.length > 0) {
+      ranges.sort((a, b) => a.start.line - b.start.line);
+      const linesText = ranges
+        .map((range) => `${range.start.line + 1}-${range.end.line + 1}`)
+        .join(", ");
+      vscode.window.showWarningMessage(
+        `Modification outside of viewport at lines: ${linesText}`
+      );
+    }
+  }
+
   function handleEdit(edit: vscode.TextDocumentChangeEvent) {
     graph.navigationMap.updateTokenRanges(edit);
 
     addDecorationsDebounced();
+
+    checkForEditsOutsideViewport(edit);
   }
 
   const recomputeDecorationStyles = async () => {
