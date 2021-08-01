@@ -59,7 +59,7 @@ export class TestCaseRecorder {
       this.fixtureRoot == null ||
       this.workSpaceFolder !== "cursorless-vscode"
     ) {
-      return false;
+      throw new Error("Can't prompt for subdirectory");
     }
 
     const subdirectories = walkDirsSync(this.fixtureRoot).concat("/");
