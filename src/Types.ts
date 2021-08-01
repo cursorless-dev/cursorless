@@ -273,6 +273,7 @@ export type ActionRecord = Record<ActionType, Action>;
 export interface Graph {
   readonly actions: ActionRecord;
   readonly editStyles: EditStyles;
+  readonly navigationMap: NavigationMap;
 }
 
 export interface DecorationColorSetting {
