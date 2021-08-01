@@ -65,7 +65,7 @@ class CopyLines implements Action {
         const [updatedSelections, copySelections] =
           await performEditsAndUpdateSelections(editor, edits, [
             targets.map((target) => target.selection.selection),
-            ranges.map((range) => new Selection(range.start, range.end)),
+            ranges.map(({ range }) => new Selection(range.start, range.end)),
           ]);
 
         editor.revealRange(updatedSelections[0]);
