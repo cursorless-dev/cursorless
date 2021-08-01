@@ -1,0 +1,33 @@
+spokenForm: copy vest
+languageId: typescript
+command:
+  actionName: copy
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  extraArgs: []
+marks:
+  default.v:
+    start: {line: 1, character: 6}
+    end: {line: 1, character: 11}
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  clipboard: value
+finalState:
+  documentContents: |
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  clipboard: value
+  thatMark:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 11}
+returnValue: null
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

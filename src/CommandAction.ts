@@ -71,8 +71,7 @@ export default class CommandAction implements Action {
     if (showDecorations) {
       await displayPendingEditDecorations(
         targets,
-        this.graph.editStyles.referenced,
-        this.graph.editStyles.referencedLine
+        this.graph.editStyles.referenced
       );
     }
 

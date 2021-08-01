@@ -33,13 +33,11 @@ export class Cut implements Action {
     await Promise.all([
       displayPendingEditDecorations(
         insideTargets,
-        this.graph.editStyles.referenced,
-        this.graph.editStyles.referencedLine
+        this.graph.editStyles.referenced
       ),
       displayPendingEditDecorations(
         outsideTargetDecorations,
-        this.graph.editStyles.pendingDelete,
-        this.graph.editStyles.pendingLineDelete
+        this.graph.editStyles.pendingDelete
       ),
     ]);
 

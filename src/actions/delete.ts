@@ -24,8 +24,7 @@ export default class Delete implements Action {
     if (showDecorations) {
       await displayPendingEditDecorations(
         targets,
-        this.graph.editStyles.pendingDelete,
-        this.graph.editStyles.pendingLineDelete
+        this.graph.editStyles.pendingDelete
       );
     }
 
