@@ -202,6 +202,8 @@ function getSelectionsFromMark(
       ];
     case "that":
       return context.thatMark;
+    case "source":
+      return context.sourceMark;
     case "lastCursorPosition":
       throw new Error("Not implemented");
   }

@@ -51,11 +51,13 @@ suite("recorded test cases", async function () {
 
       const cursorlessApi: {
         thatMark: ThatMark;
+        sourceMark: ThatMark;
         navigationMap: NavigationMap;
         addDecorations: () => void;
       } = await cursorless.activate();
       const buffer = await fsp.readFile(file);
       const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
+      const excludeFields: string[] = [];
 
       await vscode.commands.executeCommand("workbench.action.closeAllEditors");
       const document = await vscode.workspace.openTextDocument({
@@ -71,6 +73,17 @@ suite("recorded test cases", async function () {
           editor,
         }));
         cursorlessApi.thatMark.set(initialThatMark);
+      } else {
+        excludeFields.push("clipboard");
+      }
+      if (fixture.initialState.sourceMark) {
+        const initialSourceMark = fixture.initialState.sourceMark.map(
+          (mark) => ({
+            selection: createSelection(mark),
+            editor,
+          })
+        );
+        cursorlessApi.sourceMark.set(initialSourceMark);
       }
 
       if (fixture.initialState.clipboard) {
@@ -107,7 +120,9 @@ suite("recorded test cases", async function () {
       // TODO Visible ranges are not asserted, see:
       // https://github.com/pokey/cursorless-vscode/issues/160
       const { visibleRanges, ...resultState } = await takeSnapshot(
-        cursorlessApi.thatMark
+        cursorlessApi.thatMark,
+        cursorlessApi.sourceMark,
+        excludeFields
       );
 
       assert(
