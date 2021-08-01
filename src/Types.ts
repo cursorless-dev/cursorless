@@ -237,6 +237,7 @@ export interface Action {
 export type ActionType =
   | "bring"
   | "clear"
+  | "call"
   | "commentLines"
   | "copy"
   | "cut"
@@ -303,4 +304,5 @@ export type SelectionExtractor = (
 export interface Edit {
   range: vscode.Range;
   text: string;
+  dontMoveOnEqualStart?: boolean;
 }

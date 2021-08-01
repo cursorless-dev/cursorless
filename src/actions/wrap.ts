@@ -28,6 +28,8 @@ export default class Wrap implements Action {
       await runOnTargetsForEachEditor<SelectionWithEditor[]>(
         targets,
         async (editor, targets) => {
+          const originalSelections = editor.selections;
+
           const selections = targets.flatMap((target) => [
             new Selection(
               target.selection.selection.start,
@@ -42,13 +44,16 @@ export default class Wrap implements Action {
           const edits = selections.map((selection, index) => ({
             range: selection,
             text: index % 2 === 0 ? left : right,
+            dontMoveOnEqualStart: index % 2 === 1,
           }));
 
-          const [updatedSelections] = await performEditsAndUpdateSelections(
-            editor,
-            edits,
-            [selections]
-          );
+          const [updatedOriginalSelections, updatedSelections] =
+            await performEditsAndUpdateSelections(editor, edits, [
+              originalSelections,
+              selections,
+            ]);
+
+          editor.selections = updatedOriginalSelections;
 
           editor.setDecorations(
             this.graph.editStyles.justAdded.token,

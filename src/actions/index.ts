@@ -27,6 +27,7 @@ import { FindInFiles } from "./Find";
 import ReplaceWithText from "./ReplaceWithText";
 import { CopyLinesUp, CopyLinesDown } from "./CopyLines";
 import SetBreakpoint from "./SetBreakpoint";
+import Call from "./Call";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -37,6 +38,7 @@ class Actions implements ActionRecord {
   insertLineAfter = new EditNewLineBelow(this.graph);
 
   bring = new Bring(this.graph);
+  call = new Call(this.graph);
   clear = new Clear(this.graph);
   commentLines = new CommentLines(this.graph);
   copy = new Copy(this.graph);
