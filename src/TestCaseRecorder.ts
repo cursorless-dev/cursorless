@@ -6,8 +6,6 @@ import { walkDirsSync } from "./test/suite/walkSync";
 
 export class TestCaseRecorder {
   active: boolean = false;
-  outPath: string | null = null;
-  spokenForm: string | null = null;
   workspacePath: string | null;
   workSpaceFolder: string | null;
   fixtureRoot: string | null;
@@ -40,12 +38,7 @@ export class TestCaseRecorder {
   async finish(testCase: TestCase): Promise<void> {
     const outPath = this.calculateFilePath(testCase);
     const fixture = testCase.toYaml();
-
-    if (outPath) {
-      this.writeToFile(outPath, fixture);
-    } else {
-      this.showFixture(fixture);
-    }
+    await this.writeToFile(outPath, fixture);
   }
 
   private async writeToFile(outPath: string, fixture: string) {
@@ -58,16 +51,6 @@ export class TestCaseRecorder {
           await vscode.window.showTextDocument(document);
         }
       });
-  }
-
-  private async showFixture(fixture: string) {
-    const document = await vscode.workspace.openTextDocument({
-      language: "yaml",
-      content: fixture,
-    });
-    await vscode.window.showTextDocument(document, {
-      viewColumn: vscode.ViewColumn.Beside,
-    });
   }
 
   private async promptSubdirectory(): Promise<boolean> {
@@ -131,8 +114,7 @@ export class TestCaseRecorder {
     }
 
     const filename = camelize(testCase.spokenForm);
-    this.outPath = path.join(targetDirectory, `${filename}.yml`);
-    return this.outPath;
+    return path.join(targetDirectory, `${filename}.yml`);
   }
 }
 
