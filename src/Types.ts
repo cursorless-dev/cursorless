@@ -279,6 +279,7 @@ export type ActionType =
   | "move"
   | "outdentLines"
   | "paste"
+  | "reverse"
   | "replace"
   | "scrollToBottom"
   | "scrollToCenter"
@@ -287,6 +288,7 @@ export type ActionType =
   | "setSelection"
   | "setSelectionAfter"
   | "setSelectionBefore"
+  | "sort"
   | "swap"
   | "unfold"
   | "wrap";

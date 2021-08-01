@@ -25,6 +25,7 @@ import { FindInFiles } from "./Find";
 import Replace from "./Replace";
 import { CopyLinesUp, CopyLinesDown } from "./CopyLines";
 import SetBreakpoint from "./SetBreakpoint";
+import { Sort, Reverse } from "./Sort";
 import Call from "./Call";
 
 class Actions implements ActionRecord {
@@ -57,6 +58,7 @@ class Actions implements ActionRecord {
   move = new Move(this.graph);
   outdentLines = new OutdentLines(this.graph);
   paste = new Paste(this.graph);
+  reverse = new Reverse(this.graph);
   replace = new Replace(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
@@ -65,6 +67,7 @@ class Actions implements ActionRecord {
   setSelection = new SetSelection(this.graph);
   setSelectionAfter = new SetSelectionAfter(this.graph);
   setSelectionBefore = new SetSelectionBefore(this.graph);
+  sort = new Sort(this.graph);
   swap = new Swap(this.graph);
   unfold = new Unfold(this.graph);
   wrap = new Wrap(this.graph);
