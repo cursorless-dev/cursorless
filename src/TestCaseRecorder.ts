@@ -113,8 +113,16 @@ export class TestCaseRecorder {
       fs.mkdirSync(targetDirectory);
     }
 
-    const filename = camelize(testCase.spokenForm);
-    return path.join(targetDirectory, `${filename}.yml`);
+    let filename = camelize(testCase.spokenForm);
+    let filePath = path.join(targetDirectory, `${filename}.yml`);
+
+    let i = 2;
+    while (fs.existsSync(filePath)) {
+      filename += i++;
+      filePath = path.join(targetDirectory, `${filename}.yml`);
+    }
+
+    return filePath;
   }
 }
 
