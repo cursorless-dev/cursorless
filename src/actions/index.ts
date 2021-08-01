@@ -1,7 +1,6 @@
 import { ActionRecord, Graph } from "../Types";
 import Clear from "./clear";
-import Copy from "./copy";
-import Cut from "./cut";
+import { Cut, Copy, Paste } from "./CutCopyPaste";
 import Delete from "./delete";
 import ExtractVariable from "./extractVariable";
 import { Fold, Unfold } from "./fold";
@@ -15,7 +14,6 @@ import Wrap from "./wrap";
 import { ScrollToTop, ScrollToCenter, ScrollToBottom } from "./Scroll";
 import { IndentLines, OutdentLines } from "./Indent";
 import { CommentLines } from "./Comment";
-import Paste from "./Paste";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import {
   InsertEmptyLineAbove,
