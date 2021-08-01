@@ -33,7 +33,7 @@ suite("recorded test cases", async function () {
     __dirname,
     "../../../src/test/suite/fixtures/recorded"
   );
-  const files = await walkFilesSync(directory);
+  const files = walkFilesSync(directory);
 
   teardown(() => {
     sinon.restore();
@@ -82,6 +82,7 @@ suite("recorded test cases", async function () {
 
       // Wait for cursorless to set up decorations
       cursorlessApi.addDecorations();
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Assert that recorded decorations are present
       Object.entries(fixture.marks).forEach(([key, token]) => {
