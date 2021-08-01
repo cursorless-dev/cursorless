@@ -29,7 +29,8 @@ function selectionsToSelectionInfos(
   return selectionMatrix.map((selections) =>
     selections.map((selection) => ({
       range: selection,
-      isReversed: selection.isReversed,
+      // The built in isReversed is bugged on empty selection. don't use
+      isReversed: selection.active.isBefore(selection.anchor),
       startOffset: document.offsetAt(selection.start),
       endOffset: document.offsetAt(selection.end),
     }))
