@@ -130,9 +130,19 @@ export class TestCaseRecorder {
       fs.mkdirSync(targetDirectory);
     }
 
-    const filename = testCase.spokenForm.replace(" ", "_");
-
+    const filename = camelize(testCase.spokenForm);
     this.outPath = path.join(targetDirectory, `${filename}.yml`);
     return this.outPath;
   }
+}
+
+function camelize(str: string) {
+  return str
+    .split(" ")
+    .map((str, index) => (index === 0 ? str : capitalize(str)))
+    .join("");
+}
+
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
