@@ -191,20 +191,18 @@ export interface SelectionWithEditor {
 
 export interface SelectionContext {
   isInDelimitedList?: boolean;
-  containingListDelimiter?: string;
+  containingListDelimiter?: string | null;
 
   // Selection used for outside selection
   outerSelection?: vscode.Selection | null;
 
   /**
-   * The range of the delimiter before the selection, *if* the selection has a
-   * preceding sibling, else null
+   * The range of the delimiter before the selection
    */
   leadingDelimiterRange?: vscode.Range | null;
 
   /**
-   * The range of the delimiter after the selection, *if* the selection has a
-   * following sibling, else null
+   * The range of the delimiter after the selection
    */
   trailingDelimiterRange?: vscode.Range | null;
 }
