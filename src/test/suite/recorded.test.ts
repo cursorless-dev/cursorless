@@ -73,8 +73,6 @@ suite("recorded test cases", async function () {
           editor,
         }));
         cursorlessApi.thatMark.set(initialThatMark);
-      } else {
-        excludeFields.push("clipboard");
       }
       if (fixture.initialState.sourceMark) {
         const initialSourceMark = fixture.initialState.sourceMark.map(
@@ -92,6 +90,8 @@ suite("recorded test cases", async function () {
         sinon.replace(Clipboard, "writeText", async (value: string) => {
           mockClipboard = value;
         });
+      } else {
+        excludeFields.push("clipboard");
       }
 
       // Wait for cursorless to set up decorations
@@ -124,11 +124,25 @@ suite("recorded test cases", async function () {
         excludeFields
       );
 
-      assert(
-        isMatch(resultState, fixture.finalState),
+      //   assert(
+      //     isMatch(resultState, fixture.finalState),
+      //     "Unexpected final state"
+      //   );
+
+      if (!isMatch(resultState, fixture.finalState)) {
+        const a=2
+      }
+      assert.deepStrictEqual(
+        resultState,
+        fixture.finalState,
         "Unexpected final state"
       );
-      assert.deepStrictEqual(fixture.returnValue, returnValue);
+
+      assert.deepStrictEqual(
+        returnValue,
+        fixture.returnValue,
+        "Unexpected return value"
+      );
     });
   });
 });

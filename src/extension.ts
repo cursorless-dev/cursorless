@@ -146,8 +146,8 @@ export async function activate(context: vscode.ExtensionContext) {
             })) ?? [],
           currentEditor: vscode.window.activeTextEditor,
           navigationMap: graph.navigationMap,
-          thatMark: thatMark.get(),
-          sourceMark: sourceMark.get(),
+          thatMark: thatMark.exists() ? thatMark.get() : [],
+          sourceMark: sourceMark.exists() ? sourceMark.get() : [],
           getNodeAtLocation,
         };
 
@@ -173,8 +173,8 @@ export async function activate(context: vscode.ExtensionContext) {
           sourceMark: newSourceMark,
         } = await action.run(selections, ...extraArgs);
 
-        thatMark.set(newThatMark ?? []);
-        sourceMark.set(newSourceMark ?? []);
+        thatMark.set(newThatMark);
+        sourceMark.set(newSourceMark);
 
         if (testCase != null) {
           await testCase.recordFinalState(returnValue);
@@ -284,6 +284,7 @@ export async function activate(context: vscode.ExtensionContext) {
   return {
     navigationMap: graph.navigationMap,
     thatMark,
+    sourceMark,
     addDecorations,
   };
 }

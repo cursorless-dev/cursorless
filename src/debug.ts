@@ -26,5 +26,4 @@ export function logBranchTypes(getNodeAtLocation: any) {
 const originalDebugLog = console.debug;
 export function enableDebugLog(enable: boolean) {
   console.debug = enable ? originalDebugLog : () => {};
-  console.log(console.debug);
 }

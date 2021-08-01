@@ -20,8 +20,8 @@ export type TestCaseSnapshot = {
 };
 
 export async function takeSnapshot(
-  thatMark?: ThatMark,
-  sourceMark?: ThatMark,
+  thatMark: ThatMark,
+  sourceMark: ThatMark,
   excludeFields: string[] = []
 ) {
   const activeEditor = vscode.window.activeTextEditor!;
@@ -39,13 +39,13 @@ export async function takeSnapshot(
     snapshot.visibleRanges = activeEditor.visibleRanges.map(rangeToPlainObject);
   }
 
-  if (thatMark && !excludeFields.includes("thatMark")) {
+  if (thatMark.exists() && !excludeFields.includes("thatMark")) {
     snapshot.thatMark = thatMark
       .get()
       .map((mark) => selectionToPlainObject(mark.selection));
   }
 
-  if (sourceMark && !excludeFields.includes("sourceMark")) {
+  if (sourceMark.exists() && !excludeFields.includes("sourceMark")) {
     snapshot.sourceMark = sourceMark
       .get()
       .map((mark) => selectionToPlainObject(mark.selection));

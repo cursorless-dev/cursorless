@@ -48,7 +48,7 @@ export default class implements Action {
     );
 
     const texts = this.getTexts(targets, replaceWith);
-    console.log(texts);
+
     if (targets.length !== texts.length) {
       throw new Error("Targets and texts must have same length");
     }
