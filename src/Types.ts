@@ -101,13 +101,21 @@ export interface MatchingPairSymbolModifier {
 export interface IdentityModifier {
   type: "identity";
 }
+export interface HeadModifier {
+  type: "head";
+}
+export interface TailModifier {
+  type: "tail";
+}
 
 export type Modifier =
   | SurroundingPairModifier
   | ContainingScopeModifier
   | SubpieceModifier
   | MatchingPairSymbolModifier
-  | IdentityModifier;
+  | IdentityModifier
+  | HeadModifier
+  | TailModifier;
 
 export type SelectionType =
   | "character"
