@@ -7,6 +7,7 @@ import {
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
   Disposable,
+  EndOfLine,
 } from "vscode";
 import { performDocumentEdits } from "./performDocumentEdits";
 import { Edit } from "./Types";
@@ -177,6 +178,7 @@ export async function performEditsAndUpdateSelections(
     document,
     originalSelections
   );
+
   const contentChanges = edits.map(({ range, text, dontMoveOnEqualStart }) => ({
     range,
     text,
@@ -184,6 +186,14 @@ export async function performEditsAndUpdateSelections(
     rangeOffset: document.offsetAt(range.start),
     rangeLength: document.offsetAt(range.end) - document.offsetAt(range.start),
   }));
+
+  // Replace \n with \r\n. Vscode does this internally and it's
+  // important that our calculated changes reflect the actual changes
+  if (document.eol === EndOfLine.CRLF) {
+    contentChanges.forEach((change) => {
+      change.text = change.text.replace(/(?<!\r)\n/g, "\r\n");
+    });
+  }
 
   const wereEditsApplied = await performDocumentEdits(editor, edits);
 
