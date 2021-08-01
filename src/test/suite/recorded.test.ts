@@ -56,6 +56,7 @@ suite("recorded test cases", async function () {
       } = await cursorless.activate();
       const buffer = await fsp.readFile(file);
       const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
+      const excludeFields: string[] = [];
 
       await vscode.commands.executeCommand("workbench.action.closeAllEditors");
       const document = await vscode.workspace.openTextDocument({
@@ -71,6 +72,8 @@ suite("recorded test cases", async function () {
           editor,
         }));
         cursorlessApi.thatMark.set(initialThatMark);
+      } else {
+        excludeFields.push("clipboard");
       }
       if (fixture.initialState.sourceMark) {
         const initialSourceMark = fixture.initialState.sourceMark.map(
@@ -116,7 +119,8 @@ suite("recorded test cases", async function () {
       // https://github.com/pokey/cursorless-vscode/issues/160
       const { visibleRanges, ...resultState } = await takeSnapshot(
         cursorlessApi.thatMark,
-        cursorlessApi.sourceMark
+        cursorlessApi.sourceMark,
+        excludeFields
       );
 
       assert(
