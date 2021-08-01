@@ -50,6 +50,7 @@ suite("recorded test cases", async function () {
 
       const cursorlessApi: {
         thatMark: ThatMark;
+        sourceMark: ThatMark;
         navigationMap: NavigationMap;
         addDecorations: () => void;
       } = await cursorless.activate();
@@ -70,6 +71,15 @@ suite("recorded test cases", async function () {
           editor,
         }));
         cursorlessApi.thatMark.set(initialThatMark);
+      }
+      if (fixture.initialState.sourceMark) {
+        const initialSourceMark = fixture.initialState.sourceMark.map(
+          (mark) => ({
+            selection: createSelection(mark),
+            editor,
+          })
+        );
+        cursorlessApi.sourceMark.set(initialSourceMark);
       }
 
       if (fixture.initialState.clipboard) {
@@ -105,7 +115,8 @@ suite("recorded test cases", async function () {
       // TODO Visible ranges are not asserted, see:
       // https://github.com/pokey/cursorless-vscode/issues/160
       const { visibleRanges, ...resultState } = await takeSnapshot(
-        cursorlessApi.thatMark
+        cursorlessApi.thatMark,
+        cursorlessApi.sourceMark
       );
 
       assert(
