@@ -1,13 +1,41 @@
 import { Range, Selection, Position } from "vscode";
 import update from "immutability-helper";
-import { TypedSelection } from "./Types";
+import { TypedSelection, SelectionWithEditor } from "./Types";
 
 export function selectionFromRange(
-  range: Range,
-  isReversed: boolean
+  selection: Selection,
+  range: Range
 ): Selection {
-  const { start, end } = range;
-  return isReversed ? new Selection(end, start) : new Selection(start, end);
+  return selectionFromPositions(selection, range.start, range.end);
+}
+
+export function selectionFromPositions(
+  selection: Selection,
+  start: Position,
+  end: Position
+): Selection {
+  // The built in isReversed is bugged on empty selection. don't use
+  return selection.active.isBefore(selection.anchor)
+    ? new Selection(end, start)
+    : new Selection(start, end);
+}
+
+export function selectionWithEditorFromRange(
+  selection: SelectionWithEditor,
+  range: Range
+): SelectionWithEditor {
+  return selectionWithEditorFromPositions(selection, range.start, range.end);
+}
+
+export function selectionWithEditorFromPositions(
+  selection: SelectionWithEditor,
+  start: Position,
+  end: Position
+): SelectionWithEditor {
+  return {
+    editor: selection.editor,
+    selection: selectionFromPositions(selection.selection, start, end),
+  };
 }
 
 /**
@@ -24,8 +52,7 @@ export function updateTypedSelectionRange(
 ): TypedSelection {
   return update(selection, {
     selection: {
-      selection: () =>
-        selectionFromRange(range, selection.selection.selection.isReversed),
+      selection: () => selectionFromRange(selection.selection.selection, range),
     },
   });
 }
