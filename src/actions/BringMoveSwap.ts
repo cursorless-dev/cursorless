@@ -104,16 +104,18 @@ class BringMoveSwap implements Action {
           editor: destination.selection.editor,
           originalSelection: destination,
           isSource: false,
+          extendOnEqualEmptyRange: true,
         },
       ];
 
       // Add source edit
       // Prevent multiple instances of the same expanded source.
       if (!usedSources.includes(source)) {
+        usedSources.push(source);
         let text: string;
         let range: Range;
 
-        if (this.type === "swap") {
+        if (this.type !== "move") {
           text = destination.selection.editor.document.getText(
             destination.selection.selection
           );
@@ -122,16 +124,17 @@ class BringMoveSwap implements Action {
         // NB: this.type === "move"
         else {
           text = "";
-          range = performOutsideAdjustment(source).selection.selection;
+          source = performOutsideAdjustment(source);
+          range = source.selection.selection;
         }
 
-        usedSources.push(source);
         result.push({
           range,
           text,
           editor: source.selection.editor,
           originalSelection: source,
           isSource: true,
+          extendOnEqualEmptyRange: true,
         });
       }
 
