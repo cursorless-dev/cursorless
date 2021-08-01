@@ -246,7 +246,9 @@ export async function activate(context: vscode.ExtensionContext) {
 
     addDecorationsDebounced();
 
-    checkForEditsOutsideViewport(edit);
+    // TODO. Disabled for now because it triggers on undo as well
+    //  wait until next release when there is a cause field
+    // checkForEditsOutsideViewport(edit);
   }
 
   const recomputeDecorationStyles = async () => {
