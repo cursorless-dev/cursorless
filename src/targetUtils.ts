@@ -1,6 +1,7 @@
-import { TextEditor } from "vscode";
+import { TextEditor, Selection, Position } from "vscode";
 import { groupBy } from "./itertools";
 import { TypedSelection } from "./Types";
+import update from "immutability-helper";
 
 export function ensureSingleEditor(targets: TypedSelection[]) {
   if (targets.length === 0) {
@@ -41,4 +42,48 @@ export async function runOnTargetsForEachEditor<T>(
   func: (editor: TextEditor, selections: TypedSelection[]) => Promise<T>
 ): Promise<T[]> {
   return runForEachEditor(targets, (target) => target.selection.editor, func);
+}
+
+/** Get the possible leading and trailing overflow ranges of the outside target compared to the inside target */
+export function getOutsideOverflow(
+  insideTarget: TypedSelection,
+  outsideTarget: TypedSelection
+): TypedSelection[] {
+  const { start: insideStart, end: insideEnd } =
+    insideTarget.selection.selection;
+  const { start: outsideStart, end: outsideEnd } =
+    outsideTarget.selection.selection;
+  const result = [];
+  if (outsideStart.isBefore(insideStart)) {
+    result.push(
+      createTypeSelection(
+        insideTarget.selection.editor,
+        outsideStart,
+        insideStart
+      )
+    );
+  }
+  if (outsideEnd.isAfter(insideEnd)) {
+    result.push(
+      createTypeSelection(insideTarget.selection.editor, insideEnd, outsideEnd)
+    );
+  }
+  return result;
+}
+
+function createTypeSelection(
+  editor: TextEditor,
+  start: Position,
+  end: Position
+): TypedSelection {
+  return {
+    selection: {
+      editor,
+      selection: new Selection(start, end),
+    },
+    selectionType: "token",
+    selectionContext: {},
+    insideOutsideType: "inside",
+    position: "contents",
+  };
 }

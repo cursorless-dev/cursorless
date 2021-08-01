@@ -1,4 +1,4 @@
-import { TextDocumentChangeEvent } from "vscode";
+import { TextDocumentChangeEvent, Range } from "vscode";
 import { SymbolColor } from "./constants";
 import { Token } from "./Types";
 
@@ -43,15 +43,30 @@ export default class NavigationMap {
     [coloredSymbol: string]: Token;
   } = {};
 
-  private getKey(color: SymbolColor, character: string) {
+  static getKey(color: SymbolColor, character: string) {
     return `${color}.${character}`;
   }
 
+  static splitKey(key: string) {
+    const [color, character] = key.split(".");
+    return { color: color as SymbolColor, character };
+  }
+
   public addToken(color: SymbolColor, character: string, token: Token) {
-    this.map[this.getKey(color, character)] = token;
+    this.map[NavigationMap.getKey(color, character)] = token;
   }
 
   public getToken(color: SymbolColor, character: string) {
-    return this.map[this.getKey(color, character)];
+    return this.map[NavigationMap.getKey(color, character)];
+  }
+
+  public clear() {
+    this.map = {};
+  }
+
+  public getTokenForRange(range: Range) {
+    return Object.values(this.map).find(
+      (token) => token.range.intersection(range) != null
+    );
   }
 }

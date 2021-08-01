@@ -21,8 +21,16 @@ export interface CursorMark {
   type: "cursor";
 }
 
+export interface CursorMarkToken {
+  type: "cursorToken";
+}
+
 export interface That {
   type: "that";
+}
+
+export interface Source {
+  type: "source";
 }
 
 export interface LastCursorPosition {
@@ -35,7 +43,13 @@ export interface DecoratedSymbol {
   character: string;
 }
 
-export type Mark = CursorMark | That | LastCursorPosition | DecoratedSymbol;
+export type Mark =
+  | CursorMark
+  | CursorMarkToken
+  | That
+  | Source
+  | LastCursorPosition
+  | DecoratedSymbol;
 export type Delimiter =
   | "squareBrackets"
   | "curlyBrackets"
@@ -87,13 +101,21 @@ export interface MatchingPairSymbolModifier {
 export interface IdentityModifier {
   type: "identity";
 }
+export interface HeadModifier {
+  type: "head";
+}
+export interface TailModifier {
+  type: "tail";
+}
 
 export type Modifier =
   | SurroundingPairModifier
   | ContainingScopeModifier
   | SubpieceModifier
   | MatchingPairSymbolModifier
-  | IdentityModifier;
+  | IdentityModifier
+  | HeadModifier
+  | TailModifier;
 
 export type SelectionType =
   | "character"
@@ -166,6 +188,7 @@ export interface ProcessedTargetsContext {
   currentEditor: vscode.TextEditor | undefined;
   navigationMap: NavigationMap;
   thatMark: SelectionWithEditor[];
+  sourceMark: SelectionWithEditor[];
   getNodeAtLocation: (location: Location) => SyntaxNode;
 }
 
@@ -176,20 +199,18 @@ export interface SelectionWithEditor {
 
 export interface SelectionContext {
   isInDelimitedList?: boolean;
-  containingListDelimiter?: string;
+  containingListDelimiter?: string | null;
 
   // Selection used for outside selection
   outerSelection?: vscode.Selection | null;
 
   /**
-   * The range of the delimiter before the selection, *if* the selection has a
-   * preceding sibling, else null
+   * The range of the delimiter before the selection
    */
   leadingDelimiterRange?: vscode.Range | null;
 
   /**
-   * The range of the delimiter after the selection, *if* the selection has a
-   * following sibling, else null
+   * The range of the delimiter after the selection
    */
   trailingDelimiterRange?: vscode.Range | null;
 }
@@ -225,8 +246,9 @@ export interface SelectionWithContext {
 }
 
 export interface ActionReturnValue {
-  returnValue: any;
   thatMark: SelectionWithEditor[];
+  sourceMark?: SelectionWithEditor[];
+  returnValue?: any;
 }
 
 export interface Action {
@@ -237,6 +259,7 @@ export interface Action {
 export type ActionType =
   | "bring"
   | "clear"
+  | "call"
   | "commentLines"
   | "copy"
   | "cut"
@@ -256,8 +279,8 @@ export type ActionType =
   | "move"
   | "outdentLines"
   | "paste"
-  | "replaceWithText"
   | "reverse"
+  | "replace"
   | "scrollToBottom"
   | "scrollToCenter"
   | "scrollToTop"
@@ -275,6 +298,7 @@ export type ActionRecord = Record<ActionType, Action>;
 export interface Graph {
   readonly actions: ActionRecord;
   readonly editStyles: EditStyles;
+  readonly navigationMap: NavigationMap;
 }
 
 export interface DecorationColorSetting {
@@ -304,4 +328,5 @@ export type SelectionExtractor = (
 export interface Edit {
   range: vscode.Range;
   text: string;
+  dontMoveOnEqualStart?: boolean;
 }

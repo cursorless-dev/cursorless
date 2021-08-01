@@ -1,7 +1,6 @@
-import { Action, ActionRecord, Graph } from "../Types";
+import { ActionRecord, Graph } from "../Types";
 import Clear from "./clear";
-import Copy from "./copy";
-import Cut from "./cut";
+import { Cut, Copy, Paste } from "./CutCopyPaste";
 import Delete from "./delete";
 import ExtractVariable from "./extractVariable";
 import { Fold, Unfold } from "./fold";
@@ -15,7 +14,6 @@ import Wrap from "./wrap";
 import { ScrollToTop, ScrollToCenter, ScrollToBottom } from "./Scroll";
 import { IndentLines, OutdentLines } from "./Indent";
 import { CommentLines } from "./Comment";
-import Paste from "./Paste";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import {
   InsertEmptyLineAbove,
@@ -24,10 +22,11 @@ import {
 } from "./InsertEmptyLines";
 import GetText from "./GetText";
 import { FindInFiles } from "./Find";
-import ReplaceWithText from "./ReplaceWithText";
+import Replace from "./Replace";
 import { CopyLinesUp, CopyLinesDown } from "./CopyLines";
 import SetBreakpoint from "./SetBreakpoint";
 import { Sort, Reverse } from "./Sort";
+import Call from "./Call";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -38,6 +37,7 @@ class Actions implements ActionRecord {
   insertLineAfter = new EditNewLineBelow(this.graph);
 
   bring = new Bring(this.graph);
+  call = new Call(this.graph);
   clear = new Clear(this.graph);
   commentLines = new CommentLines(this.graph);
   copy = new Copy(this.graph);
@@ -58,8 +58,8 @@ class Actions implements ActionRecord {
   move = new Move(this.graph);
   outdentLines = new OutdentLines(this.graph);
   paste = new Paste(this.graph);
-  replaceWithText = new ReplaceWithText(this.graph);
   reverse = new Reverse(this.graph);
+  replace = new Replace(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
   scrollToTop = new ScrollToTop(this.graph);
