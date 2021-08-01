@@ -5,7 +5,6 @@ import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import { isMatch } from "lodash";
 import { TestCaseFixture } from "../../TestCase";
-import { SymbolColor } from "../../constants";
 import { ThatMark } from "../../ThatMark";
 import NavigationMap from "../../NavigationMap";
 import * as sinon from "sinon";
@@ -17,6 +16,7 @@ import {
   SelectionPlainObject,
 } from "../../toPlainObject";
 import { walkFilesSync } from "./walkSync";
+import { enableDebugLog } from "../../debug";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -34,6 +34,7 @@ suite("recorded test cases", async function () {
     "../../../src/test/suite/fixtures/recorded"
   );
   const files = walkFilesSync(directory);
+  enableDebugLog(false);
 
   teardown(() => {
     sinon.restore();
