@@ -184,6 +184,21 @@ function getSelectionsFromMark(
   switch (mark.type) {
     case "cursor":
       return context.currentSelections;
+    case "cursorToken": {
+      const tokens = context.currentSelections.map((selection) => {
+        const token = context.navigationMap.getTokenForRange(
+          selection.selection
+        );
+        if (token == null) {
+          throw new Error("Couldn't find mark under cursor");
+        }
+        return token;
+      });
+      return tokens.map((token) => ({
+        selection: new Selection(token.range.start, token.range.end),
+        editor: token.editor,
+      }));
+    }
     case "decoratedSymbol":
       const token = context.navigationMap.getToken(
         mark.symbolColor,
