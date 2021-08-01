@@ -98,6 +98,15 @@ export interface SubpieceModifier {
 export interface MatchingPairSymbolModifier {
   type: "matchingPairSymbol";
 }
+export interface LineNumberModifierPosition {
+  lineNumber: number;
+  isRelative: boolean;
+}
+export interface LineNumberModifier {
+  type: "lineNumber";
+  anchor: LineNumberModifierPosition;
+  active: LineNumberModifierPosition;
+}
 export interface IdentityModifier {
   type: "identity";
 }
@@ -109,11 +118,12 @@ export interface TailModifier {
 }
 
 export type Modifier =
+  | IdentityModifier
   | SurroundingPairModifier
   | ContainingScopeModifier
   | SubpieceModifier
   | MatchingPairSymbolModifier
-  | IdentityModifier
+  | LineNumberModifier
   | HeadModifier
   | TailModifier;
 
