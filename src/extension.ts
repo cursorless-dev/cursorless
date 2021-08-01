@@ -173,7 +173,7 @@ export async function activate(context: vscode.ExtensionContext) {
           sourceMark: newSourceMark,
         } = await action.run(selections, ...extraArgs);
 
-        thatMark.set(newThatMark);
+        thatMark.set(newThatMark ?? []);
         sourceMark.set(newSourceMark ?? []);
 
         if (testCase != null) {

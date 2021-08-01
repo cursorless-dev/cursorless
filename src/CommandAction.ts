@@ -88,6 +88,6 @@ export default class CommandAction implements Action {
       await focusEditor(originalEditor);
     }
 
-    return { returnValue: null, thatMark };
+    return { thatMark };
   }
 }

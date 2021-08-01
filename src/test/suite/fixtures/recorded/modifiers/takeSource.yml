@@ -30,5 +30,4 @@ finalState:
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 11}
   sourceMark: []
-returnValue: null
 fullTargets: [{type: primitive, mark: {type: source}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

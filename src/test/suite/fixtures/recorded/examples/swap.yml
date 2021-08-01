@@ -44,5 +44,4 @@ finalState:
       active: {line: 3, character: 17}
     - anchor: {line: 2, character: 22}
       active: {line: 2, character: 27}
-returnValue: null
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: k}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

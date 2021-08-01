@@ -45,7 +45,6 @@ class EditNewLine implements Action {
     }
 
     return {
-      returnValue: null,
       thatMark: targets.map((target) => ({
         selection: target.selection.editor.selection,
         editor: target.selection.editor,

@@ -256,9 +256,9 @@ export interface SelectionWithContext {
 }
 
 export interface ActionReturnValue {
-  thatMark: SelectionWithEditor[];
-  sourceMark?: SelectionWithEditor[];
   returnValue?: any;
+  thatMark?: SelectionWithEditor[];
+  sourceMark?: SelectionWithEditor[];
 }
 
 export interface Action {

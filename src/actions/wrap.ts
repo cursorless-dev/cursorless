@@ -77,6 +77,6 @@ export default class Wrap implements Action {
       )
     );
 
-    return { returnValue: null, thatMark };
+    return { thatMark };
   }
 }

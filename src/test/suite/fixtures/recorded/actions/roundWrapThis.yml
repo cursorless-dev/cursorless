@@ -25,5 +25,4 @@ finalState:
   thatMark:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}
-returnValue: null
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]
