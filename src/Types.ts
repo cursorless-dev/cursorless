@@ -2,7 +2,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
 import { Location } from "vscode";
 import { SymbolColor } from "./constants";
-import EditStyles from "./editStyles";
+import { EditStyles } from "./editStyles";
 import NavigationMap from "./NavigationMap";
 
 /**
@@ -256,6 +256,7 @@ export type ActionType =
   | "move"
   | "outdentLines"
   | "paste"
+  | "replaceWithText"
   | "scrollToBottom"
   | "scrollToCenter"
   | "scrollToTop"
@@ -272,6 +273,7 @@ export type ActionRecord = Record<ActionType, Action>;
 export interface Graph {
   readonly actions: ActionRecord;
   readonly editStyles: EditStyles;
+  readonly navigationMap: NavigationMap;
 }
 
 export interface DecorationColorSetting {

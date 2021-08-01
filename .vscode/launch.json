@@ -10,6 +10,8 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
+				"--disable-extension",
+				"asvetliakov.vscode-neovim",
 				"--extensionDevelopmentPath=${workspaceFolder}"
 			],
 			"outFiles": [
@@ -22,6 +24,8 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
+				"--disable-extension",
+				"asvetliakov.vscode-neovim",
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
 			],

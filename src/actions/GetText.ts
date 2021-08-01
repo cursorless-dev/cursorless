@@ -16,24 +16,21 @@ export default class GetText implements Action {
 
   async run(
     [targets]: [TypedSelection[]],
-    showDecorations = true
+    { showDecorations = true } = {}
   ): Promise<ActionReturnValue> {
     if (showDecorations) {
       await displayPendingEditDecorations(
         targets,
-        this.graph.editStyles.referenced,
-        this.graph.editStyles.referencedLine
+        this.graph.editStyles.referenced
       );
     }
 
-    const text = targets
-      .map((target) =>
-        target.selection.editor.document.getText(target.selection.selection)
-      )
-      .join("\n");
+    const returnValue = targets.map((target) =>
+      target.selection.editor.document.getText(target.selection.selection)
+    );
 
     return {
-      returnValue: text,
+      returnValue,
       thatMark: targets.map((target) => target.selection),
     };
   }

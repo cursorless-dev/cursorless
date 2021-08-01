@@ -1,0 +1,30 @@
+spokenForm: swap with made
+languageId: typescript
+command:
+  actionName: swap
+  partialTargets:
+    - {type: primitive}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+  extraArgs: []
+marks:
+  default.m:
+    start: {line: 0, character: 6}
+    end: {line: 0, character: 21}
+initialState:
+  documentContents: "const myVariableValue = \"hello\";\r\n"
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+finalState:
+  documentContents: "const  = \"hello\";\r\nmyVariableValue"
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
+  thatMark:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 0}
+returnValue: null
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: null}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: null}]

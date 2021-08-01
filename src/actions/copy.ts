@@ -18,8 +18,9 @@ export default class Copy implements Action {
     const { returnValue, thatMark } = await this.graph.actions.getText.run([
       targets,
     ]);
+    const text = returnValue.join("\n");
 
-    await env.clipboard.writeText(returnValue);
+    await env.clipboard.writeText(text);
 
     return { returnValue: null, thatMark };
   }

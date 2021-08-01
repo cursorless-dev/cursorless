@@ -24,7 +24,6 @@ class InsertEmptyLines implements Action {
     displayPendingEditDecorations(
       targets,
       this.graph.editStyles.referenced,
-      this.graph.editStyles.referencedLine
     );
 
     const edits = await runForEachEditor(
