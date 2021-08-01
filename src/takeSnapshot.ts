@@ -16,10 +16,12 @@ export type TestCaseSnapshot = {
   // https://github.com/pokey/cursorless-vscode/issues/160
   visibleRanges?: RangePlainObject[];
   thatMark?: SelectionPlainObject[];
+  sourceMark?: SelectionPlainObject[];
 };
 
 export async function takeSnapshot(
   thatMark?: ThatMark,
+  sourceMark?: ThatMark,
   excludeFields: string[] = []
 ) {
   const activeEditor = vscode.window.activeTextEditor!;
@@ -39,6 +41,12 @@ export async function takeSnapshot(
 
   if (thatMark && !excludeFields.includes("thatMark")) {
     snapshot.thatMark = thatMark
+      .get()
+      .map((mark) => selectionToPlainObject(mark.selection));
+  }
+
+  if (sourceMark && !excludeFields.includes("sourceMark")) {
+    snapshot.sourceMark = sourceMark
       .get()
       .map((mark) => selectionToPlainObject(mark.selection));
   }

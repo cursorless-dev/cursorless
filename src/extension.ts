@@ -158,7 +158,8 @@ export async function activate(context: vscode.ExtensionContext) {
           const command = { actionName, partialTargets, extraArgs };
           const context = {
             targets,
-            thatMark: thatMark,
+            thatMark,
+            sourceMark,
             navigationMap: graph.navigationMap!,
             spokenForm,
           };

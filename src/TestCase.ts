@@ -18,6 +18,7 @@ type TestCaseCommand = {
 type TestCaseContext = {
   spokenForm: string;
   thatMark: ThatMark;
+  sourceMark: ThatMark;
   targets: Target[];
   navigationMap: NavigationMap;
 };
@@ -58,13 +59,17 @@ export class TestCase {
     this.context = context;
   }
 
-  private includesThatMark(target: Target) {
-    if (target.type === "primitive" && target.mark.type === "that") {
+  private includesThatMark(target: Target, type: string): boolean {
+    if (target.type === "primitive" && target.mark.type === type) {
       return true;
     } else if (target.type === "list") {
-      return target.elements.some(this.includesThatMark, this);
+      return target.elements.some((target) =>
+        this.includesThatMark(target, type)
+      );
     } else if (target.type === "range") {
-      return [target.start, target.end].some(this.includesThatMark, this);
+      return [target.start, target.end].some((target) =>
+        this.includesThatMark(target, type)
+      );
     }
     return false;
   }
@@ -74,7 +79,14 @@ export class TestCase {
       clipboard: !["copy", "paste"].includes(this.command.actionName),
       thatMark:
         context?.initialSnapshot &&
-        !this.fullTargets.some(this.includesThatMark, this),
+        !this.fullTargets.some((target) =>
+          this.includesThatMark(target, "that")
+        ),
+      sourceMark:
+        context?.initialSnapshot &&
+        !this.fullTargets.some((target) =>
+          this.includesThatMark(target, "source")
+        ),
       visibleRanges: ![
         "fold",
         "unfold",
@@ -110,6 +122,7 @@ export class TestCase {
     const excludeFields = this.getExcludedFields({ initialSnapshot: true });
     this.initialState = await takeSnapshot(
       this.context.thatMark,
+      this.context.sourceMark,
       excludeFields
     );
   }
@@ -117,6 +130,10 @@ export class TestCase {
   async recordFinalState(returnValue: unknown) {
     const excludeFields = this.getExcludedFields();
     this.returnValue = returnValue;
-    this.finalState = await takeSnapshot(this.context.thatMark, excludeFields);
+    this.finalState = await takeSnapshot(
+      this.context.thatMark,
+      this.context.sourceMark,
+      excludeFields
+    );
   }
 }
