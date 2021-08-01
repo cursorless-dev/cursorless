@@ -6,8 +6,6 @@ import { walkDirsSync } from "./test/suite/walkSync";
 
 export class TestCaseRecorder {
   active: boolean = false;
-  outPath: string | null = null;
-  spokenForm: string | null = null;
   workspacePath: string | null;
   workSpaceFolder: string | null;
   fixtureRoot: string | null;
@@ -28,23 +26,19 @@ export class TestCaseRecorder {
       : null;
   }
 
-  start(): Promise<void> {
-    this.active = true;
-    return this.promptSpokenForm();
+  async start(): Promise<boolean> {
+    this.active = await this.promptSubdirectory();
+    return this.active;
   }
 
-  async finish(testCase: TestCase): Promise<string | null> {
+  stop() {
     this.active = false;
-    const outPath = await this.promptSubdirectory();
+  }
+
+  async finish(testCase: TestCase): Promise<void> {
+    const outPath = this.calculateFilePath(testCase);
     const fixture = testCase.toYaml();
-
-    if (outPath) {
-      this.writeToFile(outPath, fixture);
-    } else {
-      this.showFixture(fixture);
-    }
-
-    return outPath;
+    await this.writeToFile(outPath, fixture);
   }
 
   private async writeToFile(outPath: string, fixture: string) {
@@ -59,39 +53,13 @@ export class TestCaseRecorder {
       });
   }
 
-  private async showFixture(fixture: string) {
-    const document = await vscode.workspace.openTextDocument({
-      language: "yaml",
-      content: fixture,
-    });
-    await vscode.window.showTextDocument(document, {
-      viewColumn: vscode.ViewColumn.Beside,
-    });
-  }
-
-  private async promptSpokenForm(): Promise<void> {
-    const result = await vscode.window.showInputBox({
-      prompt: "Talon Command",
-      ignoreFocusOut: true,
-      validateInput: (input) => (input.trim().length > 0 ? null : "Required"),
-    });
-
-    // Inputs return undefined when a user cancels by hitting 'escape'
-    if (result === undefined) {
-      this.active = false;
-      return;
-    }
-
-    this.spokenForm = result;
-  }
-
-  private async promptSubdirectory(): Promise<string | null> {
+  private async promptSubdirectory(): Promise<boolean> {
     if (
       this.workspacePath == null ||
       this.fixtureRoot == null ||
       this.workSpaceFolder !== "cursorless-vscode"
     ) {
-      return null;
+      throw new Error("Can't prompt for subdirectory");
     }
 
     const subdirectories = walkDirsSync(this.fixtureRoot).concat("/");
@@ -103,16 +71,16 @@ export class TestCaseRecorder {
     ]);
 
     if (subdirectorySelection === undefined) {
-      return null;
+      return false;
     } else if (subdirectorySelection === createNewSubdirectory) {
       return this.promptNewSubdirectory();
     } else {
       this.fixtureSubdirectory = subdirectorySelection;
-      return this.promptFileName();
+      return true;
     }
   }
 
-  private async promptNewSubdirectory(): Promise<string | null> {
+  private async promptNewSubdirectory(): Promise<boolean> {
     if (this.fixtureRoot == null) {
       throw new Error("Missing fixture root. Not in cursorless workspace?");
     }
@@ -128,32 +96,43 @@ export class TestCaseRecorder {
     }
 
     this.fixtureSubdirectory = subdirectory;
-    return this.promptFileName();
+    return true;
   }
 
-  private async promptFileName(): Promise<string | null> {
+  private calculateFilePath(testCase: TestCase): string {
     if (this.fixtureRoot == null) {
       throw new Error("Missing fixture root. Not in cursorless workspace?");
     }
 
-    const filename = await vscode.window.showInputBox({
-      prompt: "Fixture Filename",
-    });
-
-    if (filename === undefined || this.fixtureSubdirectory == null) {
-      return this.promptSubdirectory(); // go back a prompt
-    }
-
     const targetDirectory = path.join(
       this.fixtureRoot,
-      this.fixtureSubdirectory
+      this.fixtureSubdirectory!
     );
 
     if (!fs.existsSync(targetDirectory)) {
       fs.mkdirSync(targetDirectory);
     }
 
-    this.outPath = path.join(targetDirectory, `${filename}.yml`);
-    return this.outPath;
+    let filename = camelize(testCase.spokenForm);
+    let filePath = path.join(targetDirectory, `${filename}.yml`);
+
+    let i = 2;
+    while (fs.existsSync(filePath)) {
+      filename += i++;
+      filePath = path.join(targetDirectory, `${filename}.yml`);
+    }
+
+    return filePath;
   }
+}
+
+function camelize(str: string) {
+  return str
+    .split(" ")
+    .map((str, index) => (index === 0 ? str : capitalize(str)))
+    .join("");
+}
+
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

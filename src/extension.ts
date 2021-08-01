@@ -79,21 +79,33 @@ export async function activate(context: vscode.ExtensionContext) {
   const graph = makeGraph(graphConstructors);
   const thatMark = new ThatMark();
   const testCaseRecorder = new TestCaseRecorder(context);
+
   const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
     "cursorless.recordTestCase",
     async () => {
-      console.log("Recording test case for next command");
-      testCaseRecorder.start();
+      if (testCaseRecorder.active) {
+        vscode.window.showInformationMessage("Stopped recording test cases");
+        testCaseRecorder.stop();
+      } else {
+        if (await testCaseRecorder.start()) {
+          vscode.window.showInformationMessage(
+            "Recording test cases for following commands"
+          );
+        }
+      }
     }
   );
+
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
     "cursorless.command",
     async (
+      spokenForm: string,
       actionName: ActionType,
       partialTargets: PartialTarget[],
       ...extraArgs: any[]
     ) => {
       try {
+        console.debug(`spokenForm: ${spokenForm}`);
         console.debug(`action: ${actionName}`);
         console.debug(`partialTargets:`);
         console.debug(JSON.stringify(partialTargets, null, 3));
@@ -109,14 +121,9 @@ export async function activate(context: vscode.ExtensionContext) {
 
         const isPaste = actionName === "paste";
 
-        var clipboardContents: string | undefined;
-
-        if (isPaste) {
-          clipboardContents = await Clipboard.readText();
-          // clipboardContents = "hello";
-          // clipboardContents = "hello\n";
-          // clipboardContents = "\nhello\n";
-        }
+        const clipboardContents = isPaste
+          ? await Clipboard.readText()
+          : undefined;
 
         const inferenceContext = {
           selectionContents,
@@ -151,7 +158,7 @@ export async function activate(context: vscode.ExtensionContext) {
             targets,
             thatMark: thatMark,
             navigationMap: graph.navigationMap!,
-            spokenForm: testCaseRecorder.spokenForm ?? "",
+            spokenForm,
           };
           testCase = new TestCase(command, context);
           await testCase.recordInitialState();

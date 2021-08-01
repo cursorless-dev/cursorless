@@ -96,6 +96,7 @@ suite("recorded test cases", async function () {
 
       const returnValue = await vscode.commands.executeCommand(
         "cursorless.command",
+        fixture.spokenForm,
         fixture.command.actionName,
         fixture.command.partialTargets,
         ...fixture.command.extraArgs
