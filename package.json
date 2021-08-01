@@ -194,7 +194,7 @@
 		"test-compile": "tsc -p ./",
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
-		"pretest": "yarn run compile && yarn run lint",
+		"pretest": "yarn run compile && yarn run lint && yarn run esbuild",
 		"lint": "eslint src --ext ts",
 		"test": "node ./out/test/runTest.js"
 	},
