@@ -28,14 +28,17 @@ export class TestCaseRecorder {
       : null;
   }
 
-  start(): Promise<void> {
-    this.active = true;
-    return this.promptSpokenForm();
+  async start(): Promise<boolean> {
+    this.active = await this.promptSubdirectory();
+    return this.active;
   }
 
-  async finish(testCase: TestCase): Promise<string | null> {
+  stop() {
     this.active = false;
-    const outPath = await this.promptSubdirectory();
+  }
+
+  async finish(testCase: TestCase): Promise<void> {
+    const outPath = this.calculateFilePath(testCase);
     const fixture = testCase.toYaml();
 
     if (outPath) {
@@ -43,8 +46,6 @@ export class TestCaseRecorder {
     } else {
       this.showFixture(fixture);
     }
-
-    return outPath;
   }
 
   private async writeToFile(outPath: string, fixture: string) {
@@ -69,29 +70,13 @@ export class TestCaseRecorder {
     });
   }
 
-  private async promptSpokenForm(): Promise<void> {
-    const result = await vscode.window.showInputBox({
-      prompt: "Talon Command",
-      ignoreFocusOut: true,
-      validateInput: (input) => (input.trim().length > 0 ? null : "Required"),
-    });
-
-    // Inputs return undefined when a user cancels by hitting 'escape'
-    if (result === undefined) {
-      this.active = false;
-      return;
-    }
-
-    this.spokenForm = result;
-  }
-
-  private async promptSubdirectory(): Promise<string | null> {
+  private async promptSubdirectory(): Promise<boolean> {
     if (
       this.workspacePath == null ||
       this.fixtureRoot == null ||
       this.workSpaceFolder !== "cursorless-vscode"
     ) {
-      return null;
+      return false;
     }
 
     const subdirectories = walkDirsSync(this.fixtureRoot).concat("/");
@@ -103,16 +88,16 @@ export class TestCaseRecorder {
     ]);
 
     if (subdirectorySelection === undefined) {
-      return null;
+      return false;
     } else if (subdirectorySelection === createNewSubdirectory) {
       return this.promptNewSubdirectory();
     } else {
       this.fixtureSubdirectory = subdirectorySelection;
-      return this.promptFileName();
+      return true;
     }
   }
 
-  private async promptNewSubdirectory(): Promise<string | null> {
+  private async promptNewSubdirectory(): Promise<boolean> {
     if (this.fixtureRoot == null) {
       throw new Error("Missing fixture root. Not in cursorless workspace?");
     }
@@ -128,30 +113,24 @@ export class TestCaseRecorder {
     }
 
     this.fixtureSubdirectory = subdirectory;
-    return this.promptFileName();
+    return true;
   }
 
-  private async promptFileName(): Promise<string | null> {
+  private calculateFilePath(testCase: TestCase): string {
     if (this.fixtureRoot == null) {
       throw new Error("Missing fixture root. Not in cursorless workspace?");
     }
 
-    const filename = await vscode.window.showInputBox({
-      prompt: "Fixture Filename",
-    });
-
-    if (filename === undefined || this.fixtureSubdirectory == null) {
-      return this.promptSubdirectory(); // go back a prompt
-    }
-
     const targetDirectory = path.join(
       this.fixtureRoot,
-      this.fixtureSubdirectory
+      this.fixtureSubdirectory!
     );
 
     if (!fs.existsSync(targetDirectory)) {
       fs.mkdirSync(targetDirectory);
     }
+
+    const filename = testCase.spokenForm.replace(" ", "_");
 
     this.outPath = path.join(targetDirectory, `${filename}.yml`);
     return this.outPath;
