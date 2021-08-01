@@ -25,9 +25,6 @@ export default class ExtractVariable implements Action {
       preferred: true,
     });
 
-    return {
-      returnValue: null,
-      thatMark: [],
-    };
+    return {};
   }
 }

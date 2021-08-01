@@ -29,32 +29,44 @@ export default class Wrap implements Action {
       await runOnTargetsForEachEditor<SelectionWithEditor[]>(
         targets,
         async (editor, targets) => {
-          const originalSelections = editor.selections;
-
-          const selections = targets.flatMap((target) => [
-            new Selection(
-              target.selection.selection.start,
-              target.selection.selection.start
-            ),
-            new Selection(
-              target.selection.selection.end,
-              target.selection.selection.end
-            ),
+          const edits = targets.flatMap((target) => [
+            {
+              text: left,
+              range: new Selection(
+                target.selection.selection.start,
+                target.selection.selection.start
+              ),
+            },
+            {
+              text: right,
+              dontMoveOnEqualStart: true,
+              range: new Selection(
+                target.selection.selection.end,
+                target.selection.selection.end
+              ),
+            },
           ]);
 
-          const edits = selections.map((selection, index) => ({
-            range: selection,
-            text: index % 2 === 0 ? left : right,
-            dontMoveOnEqualStart: index % 2 === 1,
-          }));
-
-          const [updatedOriginalSelections, updatedSelections] =
+          const [updatedOriginalSelections, updatedTargetsSelections] =
             await performEditsAndUpdateSelections(editor, edits, [
-              originalSelections,
-              selections,
+              editor.selections,
+              targets.map((target) => target.selection.selection),
             ]);
 
           editor.selections = updatedOriginalSelections;
+
+          const updatedSelections = updatedTargetsSelections.flatMap(
+            ({ start, end }) => [
+              new Selection(
+                start.translate({ characterDelta: -left.length }),
+                start
+              ),
+              new Selection(
+                end,
+                end.translate({ characterDelta: right.length })
+              ),
+            ]
+          );
 
           editor.setDecorations(
             this.graph.editStyles.justAdded.token,
@@ -77,6 +89,6 @@ export default class Wrap implements Action {
       )
     );
 
-    return { returnValue: null, thatMark };
+    return { thatMark };
   }
 }

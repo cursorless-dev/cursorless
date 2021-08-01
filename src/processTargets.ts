@@ -1,7 +1,7 @@
 import { concat, range, zip } from "lodash";
 import update from "immutability-helper";
 import { SyntaxNode } from "web-tree-sitter";
-import { Selection, Range, Position, Location } from "vscode";
+import { Selection, Range, Position, Location, TextDocument } from "vscode";
 import { nodeMatchers } from "./languages";
 import {
   Mark,
@@ -624,7 +624,7 @@ function getLineSelectionContext(
   const { document } = selection.editor;
   const start = selection.selection.start;
   const end = selection.selection.end;
-
+  const outerSelection = getOuterSelection(document, start, end);
   const leadingDelimiterRange =
     start.line > 0
       ? new Range(
@@ -634,23 +634,12 @@ function getLineSelectionContext(
           start.character
         )
       : null;
-
   const trailingDelimiterRange =
     end.line + 1 < document.lineCount
       ? new Range(end.line, end.character, end.line + 1, 0)
       : null;
-
-  // Outer selection contains the entire lines
-  const outerSelection = new Selection(
-    start.line,
-    0,
-    end.line,
-    selection.editor.document.lineAt(end.line).range.end.character
-  );
-
   const isInDelimitedList =
     leadingDelimiterRange != null || trailingDelimiterRange != null;
-
   return {
     isInDelimitedList,
     containingListDelimiter: isInDelimitedList ? "\n" : undefined,
@@ -666,41 +655,21 @@ function getParagraphSelectionContext(
   const { document } = selection.editor;
   const start = selection.selection.start;
   const end = selection.selection.end;
-
-  let leadingLine = document.lineAt(selection.selection.start);
-  while (leadingLine.lineNumber > 0) {
-    leadingLine = document.lineAt(leadingLine.lineNumber - 1);
-    if (!leadingLine.isEmptyOrWhitespace) {
-      break;
-    }
-  }
-
-  const lineCount = document.lineCount;
-  let trailingLine = document.lineAt(selection.selection.end);
-  while (trailingLine.lineNumber + 1 < lineCount) {
-    trailingLine = document.lineAt(trailingLine.lineNumber + 1);
-    if (!trailingLine.isEmptyOrWhitespace) {
-      break;
-    }
-  }
-
+  const outerSelection = getOuterSelection(document, start, end);
+  const leadingLine = getPreviousNonEmptyLine(document, start.line);
+  const trailingLine = getNextNonEmptyLine(document, end.line);
   const leadingDelimiterRange =
-    leadingLine.lineNumber !== start.line
+    leadingLine != null
       ? new Range(leadingLine.range.end, start)
+      : start.line > 0
+      ? new Range(new Position(0, 0), start)
       : null;
   const trailingDelimiterRange =
-    trailingLine.lineNumber !== end.line
+    trailingLine != null
       ? new Range(end, trailingLine.range.start)
+      : end.line < document.lineCount - 1
+      ? new Range(end, new Position(document.lineCount, 0))
       : null;
-
-  // Outer selection contains the entire lines
-  const outerSelection = new Selection(
-    start.line,
-    0,
-    end.line,
-    selection.editor.document.lineAt(end.line).range.end.character
-  );
-
   const isInDelimitedList =
     leadingDelimiterRange != null || trailingDelimiterRange != null;
 
@@ -711,4 +680,45 @@ function getParagraphSelectionContext(
     trailingDelimiterRange,
     outerSelection,
   };
+}
+
+function getOuterSelection(
+  document: TextDocument,
+  start: Position,
+  end: Position
+) {
+  // Outer selection contains the entire lines
+  return new Selection(
+    start.line,
+    0,
+    end.line,
+    document.lineAt(end.line).range.end.character
+  );
+}
+
+function getPreviousNonEmptyLine(
+  document: TextDocument,
+  startLineNumber: number
+) {
+  let line = document.lineAt(startLineNumber);
+  while (line.lineNumber > 0) {
+    const previousLine = document.lineAt(line.lineNumber - 1);
+    if (!previousLine.isEmptyOrWhitespace) {
+      return previousLine;
+    }
+    line = previousLine;
+  }
+  return null;
+}
+
+function getNextNonEmptyLine(document: TextDocument, startLineNumber: number) {
+  let line = document.lineAt(startLineNumber);
+  while (line.lineNumber + 1 < document.lineCount) {
+    const nextLine = document.lineAt(line.lineNumber + 1);
+    if (!nextLine.isEmptyOrWhitespace) {
+      return nextLine;
+    }
+    line = nextLine;
+  }
+  return null;
 }

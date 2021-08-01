@@ -256,9 +256,9 @@ export interface SelectionWithContext {
 }
 
 export interface ActionReturnValue {
-  thatMark: SelectionWithEditor[];
-  sourceMark?: SelectionWithEditor[];
   returnValue?: any;
+  thatMark?: SelectionWithEditor[];
+  sourceMark?: SelectionWithEditor[];
 }
 
 export interface Action {
@@ -339,4 +339,5 @@ export interface Edit {
   range: vscode.Range;
   text: string;
   dontMoveOnEqualStart?: boolean;
+  extendOnEqualEmptyRange?: boolean;
 }

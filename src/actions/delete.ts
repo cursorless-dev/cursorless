@@ -48,6 +48,6 @@ export default class Delete implements Action {
       })
     );
 
-    return { returnValue: null, thatMark };
+    return { thatMark };
   }
 }

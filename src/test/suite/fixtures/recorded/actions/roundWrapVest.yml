@@ -9,23 +9,22 @@ command:
 marks:
   default.v:
     start: {line: 1, character: 6}
-    end: {line: 1, character: 21}
+    end: {line: 1, character: 11}
 initialState:
   documentContents: |
 
-    const value_hello_str = "Hello world";
+    const value = "Hello world";
   selections:
-    - anchor: {line: 1, character: 21}
-      active: {line: 1, character: 21}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
 finalState:
   documentContents: |
 
-    const (value_hello_str) = "Hello world";
+    const (value) = "Hello world";
   selections:
-    - anchor: {line: 1, character: 22}
-      active: {line: 1, character: 22}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
   thatMark:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 22}
-returnValue: null
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 13}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

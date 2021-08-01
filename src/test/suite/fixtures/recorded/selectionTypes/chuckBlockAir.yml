@@ -1,0 +1,35 @@
+spokenForm: chuck block air
+languageId: typescript
+command:
+  actionName: delete
+  partialTargets:
+    - type: primitive
+      selectionType: paragraph
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  extraArgs: []
+marks:
+  default.a:
+    start: {line: 3, character: 6}
+    end: {line: 3, character: 11}
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+finalState:
+  documentContents: |+
+
+    const value = "Hello world";
+
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: paragraph, position: contents, modifier: {type: identity}, insideOutsideType: outside}]

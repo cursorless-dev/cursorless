@@ -47,8 +47,8 @@ export default class implements Action {
       this.graph.editStyles.pendingModification0
     );
 
-    const  texts = this.getTexts(targets, replaceWith);
-console.log(texts);
+    const texts = this.getTexts(targets, replaceWith);
+
     if (targets.length !== texts.length) {
       throw new Error("Targets and texts must have same length");
     }
@@ -78,6 +78,6 @@ console.log(texts);
       )
     );
 
-    return { returnValue: null, thatMark };
+    return { thatMark };
   }
 }

@@ -48,10 +48,7 @@ export class Cut implements Action {
       options
     );
 
-    return {
-      returnValue: null,
-      thatMark,
-    };
+    return { thatMark };
   }
 }
 

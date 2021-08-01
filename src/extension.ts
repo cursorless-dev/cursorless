@@ -146,8 +146,8 @@ export async function activate(context: vscode.ExtensionContext) {
             })) ?? [],
           currentEditor: vscode.window.activeTextEditor,
           navigationMap: graph.navigationMap,
-          thatMark: thatMark.get(),
-          sourceMark: sourceMark.get(),
+          thatMark: thatMark.exists() ? thatMark.get() : [],
+          sourceMark: sourceMark.exists() ? sourceMark.get() : [],
           getNodeAtLocation,
         };
 
@@ -174,7 +174,7 @@ export async function activate(context: vscode.ExtensionContext) {
         } = await action.run(selections, ...extraArgs);
 
         thatMark.set(newThatMark);
-        sourceMark.set(newSourceMark ?? []);
+        sourceMark.set(newSourceMark);
 
         if (testCase != null) {
           await testCase.recordFinalState(returnValue);
@@ -246,7 +246,9 @@ export async function activate(context: vscode.ExtensionContext) {
 
     addDecorationsDebounced();
 
-    checkForEditsOutsideViewport(edit);
+    // TODO. Disabled for now because it triggers on undo as well
+    //  wait until next release when there is a cause field
+    // checkForEditsOutsideViewport(edit);
   }
 
   const recomputeDecorationStyles = async () => {
@@ -282,6 +284,7 @@ export async function activate(context: vscode.ExtensionContext) {
   return {
     navigationMap: graph.navigationMap,
     thatMark,
+    sourceMark,
     addDecorations,
   };
 }

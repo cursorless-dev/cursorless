@@ -33,5 +33,6 @@ export const walkDirsSync = (dir: string, filelist: string[] = []) => {
   });
   return filelist
     .filter((file) => statSync(file).isDirectory())
+    .filter((value, index, arr) => arr.indexOf(value) === index)
     .map((file) => path.relative(dir, file));
 };

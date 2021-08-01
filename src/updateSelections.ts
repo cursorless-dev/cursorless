@@ -14,6 +14,7 @@ import { Edit } from "./Types";
 
 interface TextDocumentContentChange extends TextDocumentContentChangeEvent {
   dontMoveOnEqualStart?: boolean;
+  extendOnEqualEmptyRange?: boolean;
 }
 
 interface SelectionInfo {
@@ -73,7 +74,7 @@ function updateSelectionInfoMatrix(
         // Change is selection. Move just end to match.
         if (
           change.range.isEqual(selectionInfo.range) &&
-          !selectionInfo.range.isEmpty
+          (!selectionInfo.range.isEmpty || change.extendOnEqualEmptyRange)
         ) {
           selectionInfo.endOffset += offsetDelta;
         }
@@ -179,13 +180,17 @@ export async function performEditsAndUpdateSelections(
     originalSelections
   );
 
-  const contentChanges = edits.map(({ range, text, dontMoveOnEqualStart }) => ({
-    range,
-    text,
-    dontMoveOnEqualStart,
-    rangeOffset: document.offsetAt(range.start),
-    rangeLength: document.offsetAt(range.end) - document.offsetAt(range.start),
-  }));
+  const contentChanges = edits.map(
+    ({ range, text, dontMoveOnEqualStart, extendOnEqualEmptyRange }) => ({
+      range,
+      text,
+      dontMoveOnEqualStart,
+      extendOnEqualEmptyRange,
+      rangeOffset: document.offsetAt(range.start),
+      rangeLength:
+        document.offsetAt(range.end) - document.offsetAt(range.start),
+    })
+  );
 
   // Replace \n with \r\n. Vscode does this internally and it's
   // important that our calculated changes reflect the actual changes

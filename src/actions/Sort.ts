@@ -27,7 +27,7 @@ export class Sort implements Action {
 
     const sortedTexts = this.sortTexts(unsortedTexts);
 
-    return this.graph.actions.replaceWithText.run(targets, sortedTexts);
+    return this.graph.actions.replace.run(targets, sortedTexts);
   }
 }
 
