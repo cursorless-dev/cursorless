@@ -217,6 +217,8 @@ function getSelectionsFromMark(
       ];
     case "that":
       return context.thatMark;
+    case "source":
+      return context.sourceMark;
     case "lastCursorPosition":
       throw new Error("Not implemented");
   }
@@ -299,12 +301,50 @@ function transformSelection(
         isReversed ? pieces[activeIndex].start : pieces[activeIndex].end
       );
 
+      const startIndex = Math.min(anchorIndex, activeIndex);
+      const endIndex = Math.max(anchorIndex, activeIndex);
+      const leadingDelimiterRange =
+        startIndex > 0 && pieces[startIndex - 1].end < pieces[startIndex].start
+          ? new Range(
+              selection.selection.start.translate({
+                characterDelta: pieces[startIndex - 1].end,
+              }),
+              selection.selection.start.translate({
+                characterDelta: pieces[startIndex].start,
+              })
+            )
+          : null;
+      const trailingDelimiterRange =
+        endIndex + 1 < pieces.length &&
+        pieces[endIndex].end < pieces[endIndex + 1].start
+          ? new Range(
+              selection.selection.start.translate({
+                characterDelta: pieces[endIndex].end,
+              }),
+              selection.selection.start.translate({
+                characterDelta: pieces[endIndex + 1].start,
+              })
+            )
+          : null;
+      const isInDelimitedList =
+        leadingDelimiterRange != null || trailingDelimiterRange != null;
+      const containingListDelimiter = isInDelimitedList
+        ? selection.editor.document.getText(
+            (leadingDelimiterRange ?? trailingDelimiterRange)!
+          )
+        : null;
+
       return [
         {
           selection: update(selection, {
             selection: () => new Selection(anchor, active),
           }),
-          context: {},
+          context: {
+            isInDelimitedList,
+            containingListDelimiter: containingListDelimiter ?? undefined,
+            leadingDelimiterRange,
+            trailingDelimiterRange,
+          },
         },
       ];
     case "matchingPairSymbol":

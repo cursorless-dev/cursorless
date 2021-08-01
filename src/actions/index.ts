@@ -1,4 +1,4 @@
-import { Action, ActionRecord, Graph } from "../Types";
+import { ActionRecord, Graph } from "../Types";
 import Clear from "./clear";
 import Copy from "./copy";
 import Cut from "./cut";
@@ -24,9 +24,10 @@ import {
 } from "./InsertEmptyLines";
 import GetText from "./GetText";
 import { FindInFiles } from "./Find";
-import ReplaceWithText from "./ReplaceWithText";
+import Replace from "./Replace";
 import { CopyLinesUp, CopyLinesDown } from "./CopyLines";
 import SetBreakpoint from "./SetBreakpoint";
+import Call from "./Call";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -37,6 +38,7 @@ class Actions implements ActionRecord {
   insertLineAfter = new EditNewLineBelow(this.graph);
 
   bring = new Bring(this.graph);
+  call = new Call(this.graph);
   clear = new Clear(this.graph);
   commentLines = new CommentLines(this.graph);
   copy = new Copy(this.graph);
@@ -57,7 +59,7 @@ class Actions implements ActionRecord {
   move = new Move(this.graph);
   outdentLines = new OutdentLines(this.graph);
   paste = new Paste(this.graph);
-  replaceWithText = new ReplaceWithText(this.graph);
+  replace = new Replace(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
   scrollToTop = new ScrollToTop(this.graph);
