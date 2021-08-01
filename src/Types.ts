@@ -21,6 +21,10 @@ export interface CursorMark {
   type: "cursor";
 }
 
+export interface CursorMarkToken {
+  type: "cursorToken";
+}
+
 export interface That {
   type: "that";
 }
@@ -39,7 +43,13 @@ export interface DecoratedSymbol {
   character: string;
 }
 
-export type Mark = CursorMark | That | Source | LastCursorPosition | DecoratedSymbol;
+export type Mark =
+  | CursorMark
+  | CursorMarkToken
+  | That
+  | Source
+  | LastCursorPosition
+  | DecoratedSymbol;
 export type Delimiter =
   | "squareBrackets"
   | "curlyBrackets"

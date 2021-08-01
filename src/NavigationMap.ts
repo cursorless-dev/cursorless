@@ -1,4 +1,4 @@
-import { TextDocumentChangeEvent } from "vscode";
+import { TextDocumentChangeEvent, Range } from "vscode";
 import { SymbolColor } from "./constants";
 import { Token } from "./Types";
 
@@ -62,5 +62,11 @@ export default class NavigationMap {
 
   public clear() {
     this.map = {};
+  }
+
+  public getTokenForRange(range: Range) {
+    return Object.values(this.map).find(
+      (token) => token.range.intersection(range) != null
+    );
   }
 }
