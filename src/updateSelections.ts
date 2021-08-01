@@ -7,9 +7,14 @@ import {
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
   Disposable,
+  EndOfLine,
 } from "vscode";
 import { performDocumentEdits } from "./performDocumentEdits";
 import { Edit } from "./Types";
+
+interface TextDocumentContentChange extends TextDocumentContentChangeEvent {
+  dontMoveOnEqualStart?: boolean;
+}
 
 interface SelectionInfo {
   range: Range;
@@ -25,7 +30,8 @@ function selectionsToSelectionInfos(
   return selectionMatrix.map((selections) =>
     selections.map((selection) => ({
       range: selection,
-      isReversed: selection.isReversed,
+      // The built in isReversed is bugged on empty selection. don't use
+      isReversed: selection.active.isBefore(selection.anchor),
       startOffset: document.offsetAt(selection.start),
       endOffset: document.offsetAt(selection.end),
     }))
@@ -56,7 +62,7 @@ function selectionInfosToSelections(
 }
 
 function updateSelectionInfoMatrix(
-  contentChanges: readonly TextDocumentContentChangeEvent[],
+  contentChanges: readonly TextDocumentContentChange[],
   selectionInfoMatrix: SelectionInfo[][]
 ) {
   contentChanges.forEach((change) => {
@@ -73,7 +79,9 @@ function updateSelectionInfoMatrix(
         }
         // Change is before selection. Move entire selection.
         else if (
-          change.range.start.isBeforeOrEqual(selectionInfo.range.start)
+          change.range.start.isBefore(selectionInfo.range.start) ||
+          (change.range.start.isEqual(selectionInfo.range.start) &&
+            !change.dontMoveOnEqualStart)
         ) {
           selectionInfo.startOffset += offsetDelta;
           selectionInfo.endOffset += offsetDelta;
@@ -170,14 +178,22 @@ export async function performEditsAndUpdateSelections(
     document,
     originalSelections
   );
-  const contentChanges = edits.map(({ range, text }) => ({
-    // Replace \n with \r\n. Vscode does this internally and it's
-    // important that our calculated changes reflect the actual changes
-    text: text.replace(/(?<!\r)\n/g, "\r\n"),
+
+  const contentChanges = edits.map(({ range, text, dontMoveOnEqualStart }) => ({
     range,
+    text,
+    dontMoveOnEqualStart,
     rangeOffset: document.offsetAt(range.start),
     rangeLength: document.offsetAt(range.end) - document.offsetAt(range.start),
   }));
+
+  // Replace \n with \r\n. Vscode does this internally and it's
+  // important that our calculated changes reflect the actual changes
+  if (document.eol === EndOfLine.CRLF) {
+    contentChanges.forEach((change) => {
+      change.text = change.text.replace(/(?<!\r)\n/g, "\r\n");
+    });
+  }
 
   const wereEditsApplied = await performDocumentEdits(editor, edits);
 

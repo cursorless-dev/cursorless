@@ -6,6 +6,7 @@ import {
   TypedSelection,
 } from "../Types";
 import displayPendingEditDecorations from "../editDisplayUtils";
+import { ensureSingleTarget } from "../targetUtils";
 
 export default class GetText implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
@@ -16,13 +17,19 @@ export default class GetText implements Action {
 
   async run(
     [targets]: [TypedSelection[]],
-    { showDecorations = true } = {}
+    {
+      showDecorations = true,
+      ensureSingleTarget: doEnsureSingleTarget = false,
+    } = {}
   ): Promise<ActionReturnValue> {
     if (showDecorations) {
       await displayPendingEditDecorations(
         targets,
         this.graph.editStyles.referenced
       );
+    }
+    if (doEnsureSingleTarget) {
+      ensureSingleTarget(targets);
     }
 
     const returnValue = targets.map((target) =>
