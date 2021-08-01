@@ -1,0 +1,32 @@
+spokenForm: chuck second word vest
+languageId: typescript
+command:
+  actionName: delete
+  partialTargets:
+    - type: primitive
+      modifier: {type: subpiece, pieceType: word, anchor: 1, active: 1}
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  extraArgs: []
+marks:
+  default.v:
+    start: {line: 1, character: 6}
+    end: {line: 1, character: 21}
+initialState:
+  documentContents: |
+
+    const value_hello_str = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+finalState:
+  documentContents: |
+
+    const value_str = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
+returnValue: null
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: subpiece, pieceType: word, anchor: 1, active: 1}, insideOutsideType: outside}]
