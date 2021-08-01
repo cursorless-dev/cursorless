@@ -263,7 +263,7 @@ export type ActionType =
   | "move"
   | "outdentLines"
   | "paste"
-  | "replaceWithText"
+  | "replace"
   | "scrollToBottom"
   | "scrollToCenter"
   | "scrollToTop"
