@@ -1,8 +1,7 @@
 import { concat, range, zip } from "lodash";
 import update from "immutability-helper";
 import { SyntaxNode } from "web-tree-sitter";
-import * as vscode from "vscode";
-import { Selection, Range, Position } from "vscode";
+import { Selection, Range, Position, Location } from "vscode";
 import { nodeMatchers } from "./languages";
 import {
   Mark,
@@ -14,6 +13,7 @@ import {
   SelectionWithEditor,
   Target,
   TypedSelection,
+  Modifier,
 } from "./Types";
 import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
 import { SUBWORD_MATCHER } from "./constants";
@@ -234,7 +234,7 @@ function transformSelection(
       return [{ selection, context: {} }];
     case "containingScope":
       var node: SyntaxNode | null = context.getNodeAtLocation(
-        new vscode.Location(selection.editor.document.uri, selection.selection)
+        new Location(selection.editor.document.uri, selection.selection)
       );
 
       const nodeMatcher =
@@ -319,7 +319,7 @@ function createTypedSelection(
   selection: SelectionWithEditor,
   selectionContext: SelectionContext
 ): TypedSelection {
-  const { selectionType, insideOutsideType, position } = target;
+  const { selectionType, insideOutsideType, position, modifier } = target;
   const { document } = selection.editor;
 
   switch (selectionType) {
@@ -329,7 +329,11 @@ function createTypedSelection(
         selectionType,
         position,
         insideOutsideType,
-        selectionContext: getTokenSelectionContext(selection, selectionContext),
+        selectionContext: getTokenSelectionContext(
+          selection,
+          modifier,
+          selectionContext
+        ),
       };
 
     case "line": {
@@ -460,6 +464,7 @@ function performPositionAdjustment(
 
 function getTokenSelectionContext(
   selection: SelectionWithEditor,
+  modifier: Modifier,
   selectionContext: SelectionContext
 ): SelectionContext {
   if (!isSelectionContextEmpty(selectionContext)) {
@@ -497,19 +502,20 @@ function getTokenSelectionContext(
         )
       : null;
 
-  // Didn't find any delimiters
-  if (leadingDelimiterRange == null && trailingDelimiterRange == null) {
-    return selectionContext;
+  if (
+    leadingDelimiterRange != null ||
+    trailingDelimiterRange != null ||
+    modifier.type !== "subpiece"
+  ) {
+    return {
+      isInDelimitedList: true,
+      containingListDelimiter: " ",
+      leadingDelimiterRange,
+      trailingDelimiterRange,
+    };
   }
 
-  return {
-    isInDelimitedList: true,
-    containingListDelimiter: document.getText(
-      (trailingDelimiterRange ?? leadingDelimiterRange)!
-    ),
-    leadingDelimiterRange,
-    trailingDelimiterRange,
-  };
+  return selectionContext;
 }
 
 // TODO Clean this up once we have rich targets and better polymorphic

@@ -24,6 +24,7 @@ import {
 } from "./InsertEmptyLines";
 import GetText from "./GetText";
 import { FindInFiles } from "./Find";
+import ReplaceWithText from "./ReplaceWithText";
 import { CopyLinesUp, CopyLinesDown } from "./CopyLines";
 import SetBreakpoint from "./SetBreakpoint";
 
@@ -56,6 +57,7 @@ class Actions implements ActionRecord {
   move = new Move(this.graph);
   outdentLines = new OutdentLines(this.graph);
   paste = new Paste(this.graph);
+  replaceWithText = new ReplaceWithText(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
   scrollToTop = new ScrollToTop(this.graph);

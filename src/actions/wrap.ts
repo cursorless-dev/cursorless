@@ -51,11 +51,12 @@ export default class Wrap implements Action {
           );
 
           editor.setDecorations(
-            this.graph.editStyles.justAdded,
+            this.graph.editStyles.justAdded.token,
             updatedSelections
           );
           await decorationSleep();
-          editor.setDecorations(this.graph.editStyles.justAdded, []);
+
+          editor.setDecorations(this.graph.editStyles.justAdded.token, []);
 
           return targets.map((target, index) => {
             const start = updatedSelections[index * 2].start;

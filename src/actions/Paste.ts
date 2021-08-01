@@ -23,7 +23,6 @@ export default class Paste implements Action {
     await displayPendingEditDecorations(
       targets,
       this.graph.editStyles.pendingModification0,
-      this.graph.editStyles.pendingLineModification0
     );
 
     const text = await env.clipboard.readText();
@@ -78,7 +77,6 @@ export default class Paste implements Action {
     await displayPendingEditDecorations(
       thatMark.map(({ typedSelection }) => typedSelection),
       this.graph.editStyles.pendingModification0,
-      this.graph.editStyles.pendingLineModification0
     );
 
     return { returnValue: null, thatMark };

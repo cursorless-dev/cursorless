@@ -9,17 +9,11 @@ import {
 import { runForEachEditor } from "../targetUtils";
 import update from "immutability-helper";
 import displayPendingEditDecorations from "../editDisplayUtils";
-import { performInsideOutsideAdjustment } from "../performInsideOutsideAdjustment";
+import { performOutsideAdjustment } from "../performInsideOutsideAdjustment";
 import { flatten, zip } from "lodash";
-import { Selection, TextEditorDecorationType, TextEditor, Range } from "vscode";
+import { Selection, TextEditor, Range } from "vscode";
 import { performEditsAndUpdateSelections } from "../updateSelections";
-
-interface DecorationTypes {
-  sourceStyle: TextEditorDecorationType;
-  sourceLineStyle: TextEditorDecorationType;
-  destinationStyle: TextEditorDecorationType;
-  destinationLineStyle: TextEditorDecorationType;
-}
+import { getTextWithPossibleDelimiter } from "../getTextWithPossibleDelimiter";
 
 interface ExtendedEdit extends Edit {
   editor: TextEditor;
@@ -37,7 +31,7 @@ interface ThatMarkEntry {
 class BringMoveSwap implements Action {
   targetPreferences: ActionPreferences[] = [
     { insideOutsideType: null },
-    { insideOutsideType: "inside" },
+    { insideOutsideType: null },
   ];
 
   constructor(private graph: Graph, private type: string) {
@@ -56,25 +50,20 @@ class BringMoveSwap implements Action {
     return sources;
   }
 
-  private getDecorationStyles(): DecorationTypes {
-    let sourceStyle, sourceLineStyle;
+  private getDecorationStyles() {
+    let sourceStyle;
     if (this.type === "bring") {
       sourceStyle = this.graph.editStyles.referenced;
-      sourceLineStyle = this.graph.editStyles.referencedLine;
-    } else if (this.type === "swap") {
-      sourceStyle = this.graph.editStyles.pendingModification1;
-      sourceLineStyle = this.graph.editStyles.pendingLineModification1;
     } else if (this.type === "move") {
       sourceStyle = this.graph.editStyles.pendingDelete;
-      sourceLineStyle = this.graph.editStyles.pendingLineDelete;
-    } else {
-      throw Error(`Unknown type "${this.type}"`);
+    }
+    // NB this.type === "swap"
+    else {
+      sourceStyle = this.graph.editStyles.pendingModification1;
     }
     return {
       sourceStyle,
-      sourceLineStyle,
       destinationStyle: this.graph.editStyles.pendingModification0,
-      destinationLineStyle: this.graph.editStyles.pendingLineModification0,
     };
   }
 
@@ -84,15 +73,10 @@ class BringMoveSwap implements Action {
   ) {
     const decorationTypes = this.getDecorationStyles();
     await Promise.all([
-      displayPendingEditDecorations(
-        sources,
-        decorationTypes.sourceStyle,
-        decorationTypes.sourceLineStyle
-      ),
+      displayPendingEditDecorations(sources, decorationTypes.sourceStyle),
       displayPendingEditDecorations(
         destinations,
-        decorationTypes.destinationStyle,
-        decorationTypes.destinationLineStyle
+        decorationTypes.destinationStyle
       ),
     ]);
   }
@@ -107,54 +91,45 @@ class BringMoveSwap implements Action {
         throw new Error("Targets must have same number of args");
       }
 
-      const sourceText = source.selection.editor.document.getText(
-        source.selection.selection
-      );
-
-      const { containingListDelimiter } = destination.selectionContext;
-      const newText =
-        containingListDelimiter == null || destination.position === "contents"
-          ? sourceText
-          : destination.position === "after"
-          ? containingListDelimiter + sourceText
-          : sourceText + containingListDelimiter;
+      // Get text adjusting for destination position
+      const text = getTextWithPossibleDelimiter(source, destination);
 
       // Add destination edit
       const result = [
         {
-          isSource: false,
+          range: destination.selection.selection as Range,
+          text,
           editor: destination.selection.editor,
           originalSelection: destination,
-          range: destination.selection.selection as Range,
-          text: newText,
+          isSource: false,
         },
       ];
 
       // Add source edit for move and swap
       // Prevent multiple instances of the same expanded source.
       if (this.type !== "bring" && !usedSources.includes(source)) {
-        let newText: string;
+        let text: string;
         let range: Range;
 
         if (this.type === "swap") {
-          newText = destination.selection.editor.document.getText(
+          text = destination.selection.editor.document.getText(
             destination.selection.selection
           );
           range = source.selection.selection;
-        } else {
-          // NB: this.type === "move"
-          newText = "";
-          range = performInsideOutsideAdjustment(source, "outside").selection
-            .selection;
+        }
+        // NB: this.type === "move"
+        else {
+          text = "";
+          range = performOutsideAdjustment(source).selection.selection;
         }
 
         usedSources.push(source);
         result.push({
-          isSource: true,
+          range,
+          text,
           editor: source.selection.editor,
           originalSelection: source,
-          range,
-          text: newText,
+          isSource: true,
         });
       }
 
@@ -206,15 +181,13 @@ class BringMoveSwap implements Action {
         thatMark
           .filter(({ isSource }) => isSource)
           .map(({ typedSelection }) => typedSelection),
-        decorationTypes.sourceStyle,
-        decorationTypes.sourceLineStyle
+        decorationTypes.sourceStyle
       ),
       displayPendingEditDecorations(
         thatMark
           .filter(({ isSource }) => !isSource)
           .map(({ typedSelection }) => typedSelection),
-        decorationTypes.destinationStyle,
-        decorationTypes.destinationLineStyle
+        decorationTypes.destinationStyle
       ),
     ]);
   }
