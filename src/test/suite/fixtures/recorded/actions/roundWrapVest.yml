@@ -1,0 +1,31 @@
+spokenForm: round wrap vest
+languageId: typescript
+command:
+  actionName: wrap
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  extraArgs: [(, )]
+marks:
+  default.v:
+    start: {line: 1, character: 6}
+    end: {line: 1, character: 21}
+initialState:
+  documentContents: |
+
+    const value_hello_str = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 21}
+finalState:
+  documentContents: |
+
+    const (value_hello_str) = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}
+  thatMark:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 22}
+returnValue: null
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]
