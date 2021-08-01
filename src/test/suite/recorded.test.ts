@@ -129,9 +129,6 @@ suite("recorded test cases", async function () {
       //     "Unexpected final state"
       //   );
 
-      if (!isMatch(resultState, fixture.finalState)) {
-        const a=2
-      }
       assert.deepStrictEqual(
         resultState,
         fixture.finalState,
