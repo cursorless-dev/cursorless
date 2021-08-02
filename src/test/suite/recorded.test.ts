@@ -1,9 +1,9 @@
 import * as assert from "assert";
 import { promises as fsp } from "fs";
+import * as os from "os";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
-import { isMatch } from "lodash";
 import { TestCaseFixture } from "../../TestCase";
 import { ThatMark } from "../../ThatMark";
 import NavigationMap from "../../NavigationMap";
@@ -96,7 +96,11 @@ suite("recorded test cases", async function () {
 
       // Wait for cursorless to set up decorations
       cursorlessApi.addDecorations();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // For now we have to add a sleep for CI on Mac
+      if (os.platform() === "darwin") {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
 
       // Assert that recorded decorations are present
       Object.entries(fixture.marks).forEach(([key, token]) => {
