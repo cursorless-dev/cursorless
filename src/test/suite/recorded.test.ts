@@ -97,8 +97,8 @@ suite("recorded test cases", async function () {
       // Wait for cursorless to set up decorations
       cursorlessApi.addDecorations();
 
-      // For now we have to add a sleep for CI on Mac
-      if (process.platform === "darwin" && process.env["CI"]) {
+      // For now we have to add a sleep for CI 
+      if (["darwin", "linux"].includes(process.platform) && process.env["CI"]) {
         await new Promise((resolve) => setTimeout(resolve, 100));
       }
 
