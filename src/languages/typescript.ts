@@ -108,26 +108,34 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   functionName: [
     // function
     "function_declaration[name]",
+    // export default function
+    "function[name]",
     // class method
     "method_definition[name]",
     // class arrow method
     "public_field_definition[name].arrow_function",
     // const foo = () => { }
     "variable_declarator[name].arrow_function",
+    // foo = function() { }
+    "assignment_expression[left].function",
     // foo = () => { }
     "assignment_expression[left].arrow_function",
   ],
   namedFunction: [
-    // export function | function
+    // [export] function
     "export_statement?.function_declaration",
     // export default function
     "export_statement.function",
+    // export default arrow
+    "export_statement.arrow_function",
     // class method
     "method_definition",
     // class arrow method
     "public_field_definition.arrow_function",
-    // const foo = () => { }
-    "lexical_declaration.variable_declarator.arrow_function",
+    // [export] const foo = () => { }
+    "export_statement?.lexical_declaration.variable_declarator.arrow_function",
+    // foo = function() { }
+    "assignment_expression.function",
     // foo = () => { }
     "assignment_expression.arrow_function",
   ],
