@@ -75,6 +75,6 @@ export default class SetBreakpoint implements Action {
 
     const thatMark = targets.map((target) => target.selection);
 
-    return { returnValue: null, thatMark };
+    return { thatMark };
   }
 }

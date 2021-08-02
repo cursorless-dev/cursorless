@@ -27,6 +27,6 @@ export class FindInFiles implements Action {
       query,
     });
 
-    return { returnValue: null, thatMark };
+    return { thatMark };
   }
 }

@@ -62,7 +62,6 @@ class Scroll implements Action {
     );
 
     return {
-      returnValue: null,
       thatMark: targets.map((target) => target.selection),
     };
   }

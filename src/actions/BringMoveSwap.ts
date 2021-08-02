@@ -15,13 +15,15 @@ import { Selection, TextEditor, Range } from "vscode";
 import { performEditsAndUpdateSelections } from "../updateSelections";
 import { getTextWithPossibleDelimiter } from "../getTextWithPossibleDelimiter";
 
+type ActionType = "bring" | "move" | "swap";
+
 interface ExtendedEdit extends Edit {
   editor: TextEditor;
   isSource: boolean;
   originalSelection: TypedSelection;
 }
 
-interface ThatMarkEntry {
+interface MarkEntry {
   editor: TextEditor;
   selection: Selection;
   isSource: boolean;
@@ -34,7 +36,7 @@ class BringMoveSwap implements Action {
     { insideOutsideType: null },
   ];
 
-  constructor(private graph: Graph, private type: string) {
+  constructor(private graph: Graph, private type: ActionType) {
     this.run = this.run.bind(this);
   }
 
@@ -102,16 +104,18 @@ class BringMoveSwap implements Action {
           editor: destination.selection.editor,
           originalSelection: destination,
           isSource: false,
+          extendOnEqualEmptyRange: true,
         },
       ];
 
-      // Add source edit for move and swap
+      // Add source edit
       // Prevent multiple instances of the same expanded source.
-      if (this.type !== "bring" && !usedSources.includes(source)) {
+      if (!usedSources.includes(source)) {
+        usedSources.push(source);
         let text: string;
         let range: Range;
 
-        if (this.type === "swap") {
+        if (this.type !== "move") {
           text = destination.selection.editor.document.getText(
             destination.selection.selection
           );
@@ -120,16 +124,17 @@ class BringMoveSwap implements Action {
         // NB: this.type === "move"
         else {
           text = "";
-          range = performOutsideAdjustment(source).selection.selection;
+          source = performOutsideAdjustment(source);
+          range = source.selection.selection;
         }
 
-        usedSources.push(source);
         result.push({
           range,
           text,
           editor: source.selection.editor,
           originalSelection: source,
           isSource: true,
+          extendOnEqualEmptyRange: true,
         });
       }
 
@@ -139,32 +144,32 @@ class BringMoveSwap implements Action {
 
   private async performEditsAndComputeThatMark(
     edits: ExtendedEdit[]
-  ): Promise<ThatMarkEntry[]> {
+  ): Promise<MarkEntry[]> {
     return flatten(
       await runForEachEditor(
         edits,
         (edit) => edit.editor,
         async (editor, edits) => {
-          const [updatedSelections] = await performEditsAndUpdateSelections(
-            editor,
-            edits,
-            [edits.map((edit) => edit.originalSelection.selection.selection)]
-          );
+          // For bring we don't want to update the sources
+          const filteredEdits =
+            this.type !== "bring"
+              ? edits
+              : edits.filter(({ isSource }) => !isSource);
 
-          // Only swap has source as a "that" mark
-          if (this.type !== "swap") {
-            edits = edits.filter((edit) => !edit.isSource);
-          }
+          const [updatedSelections]: Selection[][] =
+            await performEditsAndUpdateSelections(editor, filteredEdits, [
+              edits.map((edit) => edit.originalSelection.selection.selection),
+            ]);
 
           return edits.map((edit, index) => {
             const selection = updatedSelections[index];
             return {
               editor,
               selection,
-              isSource: edit.isSource,
-              typedSelection: update(edit.originalSelection, {
+              isSource: edit!.isSource,
+              typedSelection: update(edit!.originalSelection, {
                 selection: {
-                  selection: { $set: selection },
+                  selection: { $set: selection! },
                 },
               }),
             };
@@ -174,7 +179,7 @@ class BringMoveSwap implements Action {
     );
   }
 
-  private async decorateThatMark(thatMark: ThatMarkEntry[]) {
+  private async decorateThatMark(thatMark: MarkEntry[]) {
     const decorationTypes = this.getDecorationStyles();
     return Promise.all([
       displayPendingEditDecorations(
@@ -192,6 +197,22 @@ class BringMoveSwap implements Action {
     ]);
   }
 
+  private calculateMarks(markEntries: MarkEntry[]) {
+    // Only swap has sources as a "that" mark
+    const thatMark =
+      this.type === "swap"
+        ? markEntries
+        : markEntries.filter(({ isSource }) => !isSource);
+
+    // Only swap doesn't have a source mark
+    const sourceMark =
+      this.type === "swap"
+        ? []
+        : markEntries.filter(({ isSource }) => isSource);
+
+    return { thatMark, sourceMark };
+  }
+
   async run([sources, destinations]: [
     TypedSelection[],
     TypedSelection[]
@@ -202,11 +223,13 @@ class BringMoveSwap implements Action {
 
     const edits = this.getEdits(sources, destinations);
 
-    const thatMark = await this.performEditsAndComputeThatMark(edits);
+    const markEntries = await this.performEditsAndComputeThatMark(edits);
+
+    const { thatMark, sourceMark } = this.calculateMarks(markEntries);
 
     await this.decorateThatMark(thatMark);
 
-    return { returnValue: null, thatMark };
+    return { thatMark, sourceMark };
   }
 }
 

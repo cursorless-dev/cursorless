@@ -1,0 +1,26 @@
+spokenForm: drop vest
+languageId: typescript
+command:
+  actionName: insertEmptyLineAbove
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  extraArgs: []
+marks:
+  default.v:
+    start: {line: 1, character: 6}
+    end: {line: 1, character: 11}
+initialState:
+  documentContents: "\r\nconst value = \"Hello world\";\r\n"
+  selections:
+    - anchor: {line: 1, character: 28}
+      active: {line: 1, character: 28}
+finalState:
+  documentContents: "\r\n\r\nconst value = \"Hello world\";\r\n"
+  selections:
+    - anchor: {line: 2, character: 28}
+      active: {line: 2, character: 28}
+  thatMark:
+    - anchor: {line: 2, character: 6}
+      active: {line: 2, character: 11}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]
