@@ -67,16 +67,17 @@ suite("recorded test cases", async function () {
         content: fixture.initialState.documentContents,
       });
       const editor = await vscode.window.showTextDocument(document);
-      editor.selections = fixture.initialState.selections.map(createSelection);
 
       // Sleep on changing language is necessary otherwise the tree sitter
       // will throw an exception on getNodeAtLocation()
       if (lastLanguageId !== document.languageId) {
         if (lastLanguageId != null) {
-          await new Promise((resolve) => setTimeout(resolve, 400));
+          await new Promise((resolve) => setTimeout(resolve, 100));
         }
         lastLanguageId = document.languageId;
       }
+
+      editor.selections = fixture.initialState.selections.map(createSelection);
 
       if (fixture.initialState.thatMark) {
         const initialThatMark = fixture.initialState.thatMark.map((mark) => ({
