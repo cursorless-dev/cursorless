@@ -73,7 +73,7 @@ suite("recorded test cases", async function () {
       // will throw an exception on getNodeAtLocation()
       if (lastLanguageId !== document.languageId) {
         if (lastLanguageId != null) {
-          await new Promise((resolve) => setTimeout(resolve, 300));
+          await new Promise((resolve) => setTimeout(resolve, 400));
         }
         lastLanguageId = document.languageId;
       }
