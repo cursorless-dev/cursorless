@@ -40,6 +40,8 @@ suite("recorded test cases", async function () {
     sinon.restore();
   });
 
+  let lastLanguageId: string;
+
   files.forEach(async (file) => {
     test(file.split(".")[0], async function () {
       this.timeout(100000);
@@ -66,6 +68,15 @@ suite("recorded test cases", async function () {
       });
       const editor = await vscode.window.showTextDocument(document);
       editor.selections = fixture.initialState.selections.map(createSelection);
+
+      // Sleep on changing language is necessary otherwise the tree sitter
+      // will throw an exception on getNodeAtLocation()
+      if (lastLanguageId !== document.languageId) {
+        if (lastLanguageId != null) {
+          await new Promise((resolve) => setTimeout(resolve, 300));
+        }
+        lastLanguageId = document.languageId;
+      }
 
       if (fixture.initialState.thatMark) {
         const initialThatMark = fixture.initialState.thatMark.map((mark) => ({
