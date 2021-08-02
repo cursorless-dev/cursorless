@@ -114,6 +114,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "method_definition[name]",
     // class arrow method
     "public_field_definition[name].arrow_function",
+    // const foo = function() { }
+    "variable_declarator[name].function",
     // const foo = () => { }
     "variable_declarator[name].arrow_function",
     // foo = function() { }
@@ -132,6 +134,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "method_definition",
     // class arrow method
     "public_field_definition.arrow_function",
+    // [export] const foo = function() { }
+    "export_statement?.lexical_declaration.variable_declarator.function",
     // [export] const foo = () => { }
     "export_statement?.lexical_declaration.variable_declarator.arrow_function",
     // foo = function() { }
