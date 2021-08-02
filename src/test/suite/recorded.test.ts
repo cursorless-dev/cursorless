@@ -125,7 +125,7 @@ suite("recorded test cases", async function () {
       };
 
       // Tried three times, sleep 100ms between each
-      await tryAndRetry(assertDecorations, 3, 100);
+      await tryAndRetry(assertDecorations, 4, 50);
 
       const returnValue = await vscode.commands.executeCommand(
         "cursorless.command",
@@ -160,18 +160,20 @@ suite("recorded test cases", async function () {
 
 async function tryAndRetry(
   callback: () => void,
-  numberOfThries: number,
-  sleepTime: number
+  numberOfTries: number,
+  initialSleepTime: number
 ) {
+  var sleepTime = initialSleepTime;
   while (true) {
     try {
       return callback();
     } catch (error) {
-      if (numberOfThries === 0) {
+      if (numberOfTries === 0) {
         throw error;
       }
-      numberOfThries--;
+      numberOfTries--;
       await new Promise((resolve) => setTimeout(resolve, sleepTime));
+      sleepTime *= 2;
     }
   }
 }
