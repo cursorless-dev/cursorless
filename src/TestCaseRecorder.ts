@@ -118,8 +118,7 @@ export class TestCaseRecorder {
 
     let i = 2;
     while (fs.existsSync(filePath)) {
-      filename += i++;
-      filePath = path.join(targetDirectory, `${filename}.yml`);
+      filePath = path.join(targetDirectory, `${filename}${i++}.yml`);
     }
 
     return filePath;

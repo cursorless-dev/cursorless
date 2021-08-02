@@ -1,16 +1,16 @@
-spokenForm: take funk
+spokenForm: take if
 languageId: typescript
 command:
   actionName: setSelection
   partialTargets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction}
+      modifier: {type: containingScope, scopeType: ifStatement}
   extraArgs: []
 marks: {}
 initialState:
   documentContents: |
 
-    function myFunk () {
+    if () {
 
     }
   selections:
@@ -19,7 +19,7 @@ initialState:
 finalState:
   documentContents: |
 
-    function myFunk () {
+    if () {
 
     }
   selections:
@@ -28,4 +28,4 @@ finalState:
   thatMark:
     - anchor: {line: 1, character: 0}
       active: {line: 3, character: 1}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: namedFunction}, insideOutsideType: inside}]
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: ifStatement}, insideOutsideType: inside}]

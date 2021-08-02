@@ -106,20 +106,30 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "export_statement.class", // export default class
   ],
   functionName: [
+    // function
     "function_declaration[name]",
+    // class method
     "method_definition[name]",
+    // class arrow method
     "public_field_definition[name].arrow_function",
-    "lexical_declaration[name].variable_declarator.arrow_function",
+    // const foo = () => { }
+    "variable_declarator[name].arrow_function",
+    // foo = () => { }
+    "assignment_expression[left].arrow_function",
   ],
   namedFunction: [
-    "export_statement?.function_declaration", // export function | function
-    "export_statement.function", // export default function
-    "method_definition", // class method
-    "public_field_definition.arrow_function", // class arrow method
-    // const foo = () => "hello"
+    // export function | function
+    "export_statement?.function_declaration",
+    // export default function
+    "export_statement.function",
+    // class method
+    "method_definition",
+    // class arrow method
+    "public_field_definition.arrow_function",
+    // const foo = () => { }
     "lexical_declaration.variable_declarator.arrow_function",
-    // foo = () => "hello"
-    "expression_statement.assignment_expression.arrow_function",
+    // foo = () => { }
+    "assignment_expression.arrow_function",
   ],
   type: cascadingMatcher(
     // Typed parameters, properties, and functions

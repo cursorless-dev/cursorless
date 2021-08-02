@@ -173,6 +173,7 @@ function searchNodeAscending(
   patterns: Pattern[]
 ): NodePattern {
   let resultNode = node;
+  let resultPattern = lastPattern;
   let important: NodePattern = lastPattern.isImportant
     ? [node, lastPattern]
     : null;
@@ -185,11 +186,12 @@ function searchNodeAscending(
       return null;
     }
     resultNode = resultNode.parent;
+    resultPattern = pattern;
     if (pattern.isImportant) {
       important = [resultNode, pattern];
     }
   }
-  return important != null ? important : [resultNode, lastPattern];
+  return important != null ? important : [resultNode, resultPattern];
 }
 
 function searchNodeDescending(
