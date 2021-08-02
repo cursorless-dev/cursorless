@@ -97,21 +97,24 @@ suite("recorded test cases", async function () {
       // Wait for cursorless to set up decorations
       cursorlessApi.addDecorations();
 
-      // For now we have to add a sleep for CI
-      if (["darwin", "linux"].includes(process.platform) && process.env["CI"]) {
-        await new Promise((resolve) => setTimeout(resolve, 100));
-      }
-
       // Assert that recorded decorations are present
-      Object.entries(fixture.marks).forEach(([key, token]) => {
-        const { color, character } = NavigationMap.splitKey(key);
-        const currentToken = cursorlessApi.navigationMap.getToken(
-          color,
-          character
-        );
-        assert(currentToken != null, `Mark "${color} ${character}" not found`);
-        assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
-      });
+      const assertDecorations = () => {
+        Object.entries(fixture.marks).forEach(([key, token]) => {
+          const { color, character } = NavigationMap.splitKey(key);
+          const currentToken = cursorlessApi.navigationMap.getToken(
+            color,
+            character
+          );
+          assert(
+            currentToken != null,
+            `Mark "${color} ${character}" not found`
+          );
+          assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
+        });
+      };
+
+      // Tried three times, sleep 100ms between each
+      await tryAndRetry(assertDecorations, 3, 100);
 
       const returnValue = await vscode.commands.executeCommand(
         "cursorless.command",
@@ -148,3 +151,21 @@ suite("recorded test cases", async function () {
     });
   });
 });
+
+async function tryAndRetry(
+  callback: () => void,
+  numberOfThries: number,
+  sleepTime: number
+) {
+  while (true) {
+    try {
+      return callback();
+    } catch (error) {
+      if (numberOfThries === 0) {
+        throw error;
+      }
+      numberOfThries--;
+      await new Promise((resolve) => setTimeout(resolve, sleepTime));
+    }
+  }
+}
