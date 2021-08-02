@@ -125,7 +125,7 @@ suite("recorded test cases", async function () {
       };
 
       // Tried three times, sleep 100ms between each
-      await tryAndRetry(assertDecorations, 4, 50);
+      await tryAndRetry(assertDecorations, 6, 50);
 
       const returnValue = await vscode.commands.executeCommand(
         "cursorless.command",
