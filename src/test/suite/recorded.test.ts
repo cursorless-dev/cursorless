@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import { promises as fsp } from "fs";
-import * as os from "os";
+import * as process from "process";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
@@ -98,7 +98,7 @@ suite("recorded test cases", async function () {
       cursorlessApi.addDecorations();
 
       // For now we have to add a sleep for CI on Mac
-      if (os.platform() === "darwin") {
+      if (process.platform === "darwin" && process.env["CI"]) {
         await new Promise((resolve) => setTimeout(resolve, 100));
       }
 
