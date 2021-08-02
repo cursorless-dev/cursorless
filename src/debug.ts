@@ -8,7 +8,12 @@ export function logBranchTypes(getNodeAtLocation: any) {
       event.selections[0]
     );
 
-    let node: SyntaxNode = getNodeAtLocation(location);
+    let node: SyntaxNode;
+    try {
+      node = getNodeAtLocation(location);
+    } catch (error) {
+      return;
+    }
 
     const ancestors: SyntaxNode[] = [node];
     while (node.parent != null) {
