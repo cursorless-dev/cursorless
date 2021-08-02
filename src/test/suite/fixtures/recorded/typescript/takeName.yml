@@ -1,0 +1,27 @@
+spokenForm: take name
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: name}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    const value: string = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 29}
+      active: {line: 1, character: 29}
+finalState:
+  documentContents: |
+
+    const value: string = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 11}
+  thatMark:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 11}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: name}, insideOutsideType: inside}]
