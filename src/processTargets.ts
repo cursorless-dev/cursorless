@@ -1,8 +1,7 @@
 import { concat, range, zip } from "lodash";
 import update from "immutability-helper";
 import { SyntaxNode } from "web-tree-sitter";
-import * as vscode from "vscode";
-import { Selection, Range, Position } from "vscode";
+import { Selection, Range, Position, Location, TextDocument } from "vscode";
 import { nodeMatchers } from "./languages";
 import {
   Mark,
@@ -14,9 +13,12 @@ import {
   SelectionWithEditor,
   Target,
   TypedSelection,
+  Modifier,
+  LineNumberModifierPosition,
 } from "./Types";
 import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
 import { SUBWORD_MATCHER } from "./constants";
+import { selectionWithEditorFromPositions } from "./selectionUtils";
 
 export default function processTargets(
   context: ProcessedTargetsContext,
@@ -184,6 +186,21 @@ function getSelectionsFromMark(
   switch (mark.type) {
     case "cursor":
       return context.currentSelections;
+    case "cursorToken": {
+      const tokens = context.currentSelections.map((selection) => {
+        const token = context.navigationMap.getTokenForRange(
+          selection.selection
+        );
+        if (token == null) {
+          throw new Error("Couldn't find mark under cursor");
+        }
+        return token;
+      });
+      return tokens.map((token) => ({
+        selection: new Selection(token.range.start, token.range.end),
+        editor: token.editor,
+      }));
+    }
     case "decoratedSymbol":
       const token = context.navigationMap.getToken(
         mark.symbolColor,
@@ -202,6 +219,8 @@ function getSelectionsFromMark(
       ];
     case "that":
       return context.thatMark;
+    case "source":
+      return context.sourceMark;
     case "lastCursorPosition":
       throw new Error("Not implemented");
   }
@@ -219,7 +238,7 @@ function transformSelection(
       return [{ selection, context: {} }];
     case "containingScope":
       var node: SyntaxNode | null = context.getNodeAtLocation(
-        new vscode.Location(selection.editor.document.uri, selection.selection)
+        new Location(selection.editor.document.uri, selection.selection)
       );
 
       const nodeMatcher =
@@ -284,6 +303,64 @@ function transformSelection(
         isReversed ? pieces[activeIndex].start : pieces[activeIndex].end
       );
 
+      const startIndex = Math.min(anchorIndex, activeIndex);
+      const endIndex = Math.max(anchorIndex, activeIndex);
+      const leadingDelimiterRange =
+        startIndex > 0 && pieces[startIndex - 1].end < pieces[startIndex].start
+          ? new Range(
+              selection.selection.start.translate({
+                characterDelta: pieces[startIndex - 1].end,
+              }),
+              selection.selection.start.translate({
+                characterDelta: pieces[startIndex].start,
+              })
+            )
+          : null;
+      const trailingDelimiterRange =
+        endIndex + 1 < pieces.length &&
+        pieces[endIndex].end < pieces[endIndex + 1].start
+          ? new Range(
+              selection.selection.start.translate({
+                characterDelta: pieces[endIndex].end,
+              }),
+              selection.selection.start.translate({
+                characterDelta: pieces[endIndex + 1].start,
+              })
+            )
+          : null;
+      const isInDelimitedList =
+        leadingDelimiterRange != null || trailingDelimiterRange != null;
+      const containingListDelimiter = isInDelimitedList
+        ? selection.editor.document.getText(
+            (leadingDelimiterRange ?? trailingDelimiterRange)!
+          )
+        : null;
+
+      return [
+        {
+          selection: update(selection, {
+            selection: () => new Selection(anchor, active),
+          }),
+          context: {
+            isInDelimitedList,
+            containingListDelimiter: containingListDelimiter ?? undefined,
+            leadingDelimiterRange,
+            trailingDelimiterRange,
+          },
+        },
+      ];
+
+    case "head":
+    case "tail": {
+      let anchor: Position, active: Position;
+      if (modifier.type === "head") {
+        anchor = selection.selection.end;
+        active = new Position(selection.selection.start.line, 0);
+      } else {
+        anchor = selection.selection.start;
+        active = selection.editor.document.lineAt(selection.selection.end).range
+          .end;
+      }
       return [
         {
           selection: update(selection, {
@@ -292,6 +369,29 @@ function transformSelection(
           context: {},
         },
       ];
+    }
+
+    case "lineNumber": {
+      const getLine = (linePosition: LineNumberModifierPosition) =>
+        linePosition.isRelative
+          ? selection.editor.selection.active.line + linePosition.lineNumber
+          : linePosition.lineNumber;
+      return [
+        {
+          selection: update(selection, {
+            selection: () =>
+              new Selection(
+                getLine(modifier.anchor),
+                0,
+                getLine(modifier.active),
+                0
+              ),
+          }),
+          context: {},
+        },
+      ];
+    }
+
     case "matchingPairSymbol":
     case "surroundingPair":
       throw new Error("Not implemented");
@@ -304,7 +404,7 @@ function createTypedSelection(
   selection: SelectionWithEditor,
   selectionContext: SelectionContext
 ): TypedSelection {
-  const { selectionType, insideOutsideType, position } = target;
+  const { selectionType, insideOutsideType, position, modifier } = target;
   const { document } = selection.editor;
 
   switch (selectionType) {
@@ -314,7 +414,11 @@ function createTypedSelection(
         selectionType,
         position,
         insideOutsideType,
-        selectionContext: getTokenSelectionContext(selection, selectionContext),
+        selectionContext: getTokenSelectionContext(
+          selection,
+          modifier,
+          selectionContext
+        ),
       };
 
     case "line": {
@@ -326,10 +430,11 @@ function createTypedSelection(
       );
       const end = endLine.range.end;
 
-      const newSelection = update(selection, {
-        selection: (s) =>
-          s.isReversed ? new Selection(end, start) : new Selection(start, end),
-      });
+      const newSelection = selectionWithEditorFromPositions(
+        selection,
+        start,
+        end
+      );
 
       return {
         selection: newSelection,
@@ -345,14 +450,14 @@ function createTypedSelection(
       const lastLine = document.lineAt(document.lineCount - 1);
       const start = firstLine.range.start;
       const end = lastLine.range.end;
+      const newSelection = selectionWithEditorFromPositions(
+        selection,
+        start,
+        end
+      );
 
       return {
-        selection: update(selection, {
-          selection: (s) =>
-            s.isReversed
-              ? new Selection(end, start)
-              : new Selection(start, end),
-        }),
+        selection: newSelection,
         selectionType,
         position,
         insideOutsideType,
@@ -362,21 +467,25 @@ function createTypedSelection(
 
     case "paragraph": {
       let startLine = document.lineAt(selection.selection.start);
-      while (startLine.lineNumber > 0) {
-        const line = document.lineAt(startLine.lineNumber - 1);
-        if (line.isEmptyOrWhitespace) {
-          break;
+      if (!startLine.isEmptyOrWhitespace) {
+        while (startLine.lineNumber > 0) {
+          const line = document.lineAt(startLine.lineNumber - 1);
+          if (line.isEmptyOrWhitespace) {
+            break;
+          }
+          startLine = line;
         }
-        startLine = line;
       }
       const lineCount = document.lineCount;
       let endLine = document.lineAt(selection.selection.end);
-      while (endLine.lineNumber + 1 < lineCount) {
-        const line = document.lineAt(endLine.lineNumber + 1);
-        if (line.isEmptyOrWhitespace) {
-          break;
+      if (!endLine.isEmptyOrWhitespace) {
+        while (endLine.lineNumber + 1 < lineCount) {
+          const line = document.lineAt(endLine.lineNumber + 1);
+          if (line.isEmptyOrWhitespace) {
+            break;
+          }
+          endLine = line;
         }
-        endLine = line;
       }
 
       const start = new Position(
@@ -385,10 +494,11 @@ function createTypedSelection(
       );
       const end = endLine.range.end;
 
-      const newSelection = update(selection, {
-        selection: (s) =>
-          s.isReversed ? new Selection(end, start) : new Selection(start, end),
-      });
+      const newSelection = selectionWithEditorFromPositions(
+        selection,
+        start,
+        end
+      );
 
       return {
         selection: newSelection,
@@ -445,9 +555,13 @@ function performPositionAdjustment(
 
 function getTokenSelectionContext(
   selection: SelectionWithEditor,
+  modifier: Modifier,
   selectionContext: SelectionContext
 ): SelectionContext {
   if (!isSelectionContextEmpty(selectionContext)) {
+    return selectionContext;
+  }
+  if (modifier.type === "subpiece") {
     return selectionContext;
   }
 
@@ -456,10 +570,9 @@ function getTokenSelectionContext(
 
   const startLine = document.lineAt(start);
   const leadingText = startLine.text.slice(0, start.character);
-  const hasLeadingSibling = leadingText.trim().length > 0;
   const leadingDelimiters = leadingText.match(/\s+$/);
   const leadingDelimiterRange =
-    hasLeadingSibling && leadingDelimiters != null
+    leadingDelimiters != null
       ? new Range(
           start.line,
           start.character - leadingDelimiters[0].length,
@@ -470,10 +583,9 @@ function getTokenSelectionContext(
 
   const endLine = document.lineAt(end);
   const trailingText = endLine.text.slice(end.character);
-  const hasTrailingSibling = trailingText.trim().length > 0;
   const trailingDelimiters = trailingText.match(/^\s+/);
   const trailingDelimiterRange =
-    hasTrailingSibling && trailingDelimiters != null
+    trailingDelimiters != null
       ? new Range(
           end.line,
           end.character,
@@ -482,18 +594,16 @@ function getTokenSelectionContext(
         )
       : null;
 
-  // Didn't find any delimiters
-  if (leadingDelimiterRange == null && trailingDelimiterRange == null) {
-    return selectionContext;
-  }
+  const isInDelimitedList =
+    (leadingDelimiterRange != null || trailingDelimiterRange != null) &&
+    (leadingDelimiterRange != null || start.character === 0) &&
+    (trailingDelimiterRange != null || end.isEqual(endLine.range.end));
 
   return {
-    isInDelimitedList: true,
-    containingListDelimiter: document.getText(
-      (trailingDelimiterRange ?? leadingDelimiterRange)!
-    ),
-    leadingDelimiterRange,
-    trailingDelimiterRange,
+    isInDelimitedList,
+    containingListDelimiter: " ",
+    leadingDelimiterRange: isInDelimitedList ? leadingDelimiterRange : null,
+    trailingDelimiterRange: isInDelimitedList ? trailingDelimiterRange : null,
   };
 }
 
@@ -514,7 +624,7 @@ function getLineSelectionContext(
   const { document } = selection.editor;
   const start = selection.selection.start;
   const end = selection.selection.end;
-
+  const outerSelection = getOuterSelection(document, start, end);
   const leadingDelimiterRange =
     start.line > 0
       ? new Range(
@@ -524,23 +634,12 @@ function getLineSelectionContext(
           start.character
         )
       : null;
-
   const trailingDelimiterRange =
     end.line + 1 < document.lineCount
       ? new Range(end.line, end.character, end.line + 1, 0)
       : null;
-
-  // Outer selection contains the entire lines
-  const outerSelection = new Selection(
-    start.line,
-    0,
-    end.line,
-    selection.editor.document.lineAt(end.line).range.end.character
-  );
-
   const isInDelimitedList =
     leadingDelimiterRange != null || trailingDelimiterRange != null;
-
   return {
     isInDelimitedList,
     containingListDelimiter: isInDelimitedList ? "\n" : undefined,
@@ -556,41 +655,21 @@ function getParagraphSelectionContext(
   const { document } = selection.editor;
   const start = selection.selection.start;
   const end = selection.selection.end;
-
-  let leadingLine = document.lineAt(selection.selection.start);
-  while (leadingLine.lineNumber > 0) {
-    leadingLine = document.lineAt(leadingLine.lineNumber - 1);
-    if (!leadingLine.isEmptyOrWhitespace) {
-      break;
-    }
-  }
-
-  const lineCount = document.lineCount;
-  let trailingLine = document.lineAt(selection.selection.end);
-  while (trailingLine.lineNumber + 1 < lineCount) {
-    trailingLine = document.lineAt(trailingLine.lineNumber + 1);
-    if (!trailingLine.isEmptyOrWhitespace) {
-      break;
-    }
-  }
-
+  const outerSelection = getOuterSelection(document, start, end);
+  const leadingLine = getPreviousNonEmptyLine(document, start.line);
+  const trailingLine = getNextNonEmptyLine(document, end.line);
   const leadingDelimiterRange =
-    leadingLine.lineNumber !== start.line
+    leadingLine != null
       ? new Range(leadingLine.range.end, start)
+      : start.line > 0
+      ? new Range(new Position(0, 0), start)
       : null;
   const trailingDelimiterRange =
-    trailingLine.lineNumber !== end.line
+    trailingLine != null
       ? new Range(end, trailingLine.range.start)
+      : end.line < document.lineCount - 1
+      ? new Range(end, new Position(document.lineCount, 0))
       : null;
-
-  // Outer selection contains the entire lines
-  const outerSelection = new Selection(
-    start.line,
-    0,
-    end.line,
-    selection.editor.document.lineAt(end.line).range.end.character
-  );
-
   const isInDelimitedList =
     leadingDelimiterRange != null || trailingDelimiterRange != null;
 
@@ -601,4 +680,45 @@ function getParagraphSelectionContext(
     trailingDelimiterRange,
     outerSelection,
   };
+}
+
+function getOuterSelection(
+  document: TextDocument,
+  start: Position,
+  end: Position
+) {
+  // Outer selection contains the entire lines
+  return new Selection(
+    start.line,
+    0,
+    end.line,
+    document.lineAt(end.line).range.end.character
+  );
+}
+
+function getPreviousNonEmptyLine(
+  document: TextDocument,
+  startLineNumber: number
+) {
+  let line = document.lineAt(startLineNumber);
+  while (line.lineNumber > 0) {
+    const previousLine = document.lineAt(line.lineNumber - 1);
+    if (!previousLine.isEmptyOrWhitespace) {
+      return previousLine;
+    }
+    line = previousLine;
+  }
+  return null;
+}
+
+function getNextNonEmptyLine(document: TextDocument, startLineNumber: number) {
+  let line = document.lineAt(startLineNumber);
+  while (line.lineNumber + 1 < document.lineCount) {
+    const nextLine = document.lineAt(line.lineNumber + 1);
+    if (!nextLine.isEmptyOrWhitespace) {
+      return nextLine;
+    }
+    line = nextLine;
+  }
+  return null;
 }

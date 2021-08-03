@@ -17,12 +17,16 @@ export default class Delete implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    await displayPendingEditDecorations(
-      targets,
-      this.graph.editStyles.pendingDelete,
-      this.graph.editStyles.pendingLineDelete
-    );
+  async run(
+    [targets]: [TypedSelection[]],
+    { showDecorations = true } = {}
+  ): Promise<ActionReturnValue> {
+    if (showDecorations) {
+      await displayPendingEditDecorations(
+        targets,
+        this.graph.editStyles.pendingDelete
+      );
+    }
 
     const thatMark = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
@@ -44,6 +48,6 @@ export default class Delete implements Action {
       })
     );
 
-    return { returnValue: null, thatMark };
+    return { thatMark };
   }
 }

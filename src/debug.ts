@@ -22,3 +22,8 @@ export function logBranchTypes(getNodeAtLocation: any) {
     console.debug(">".repeat(ancestors.length), `"${leafText}"`);
   };
 }
+
+const originalDebugLog = console.debug;
+export function enableDebugLog(enable: boolean) {
+  console.debug = enable ? originalDebugLog : () => {};
+}

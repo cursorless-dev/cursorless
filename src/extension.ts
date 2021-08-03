@@ -4,17 +4,15 @@ import { DEBOUNCE_DELAY } from "./constants";
 import Decorations from "./Decorations";
 import graphConstructors from "./graphConstructors";
 import { inferFullTargets } from "./inferFullTargets";
-import NavigationMap from "./NavigationMap";
 import processTargets from "./processTargets";
 import FontMeasurements from "./FontMeasurements";
-import {
-  ActionType,
-  PartialTarget,
-  ProcessedTargetsContext,
-  SelectionWithEditor,
-} from "./Types";
+import { ActionType, PartialTarget, ProcessedTargetsContext } from "./Types";
 import makeGraph from "./makeGraph";
 import { logBranchTypes } from "./debug";
+import { TestCase } from "./TestCase";
+import { ThatMark } from "./ThatMark";
+import { Clipboard } from "./Clipboard";
+import { TestCaseRecorder } from "./TestCaseRecorder";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -39,14 +37,12 @@ export async function activate(context: vscode.ExtensionContext) {
     });
   }
 
-  var navigationMap: NavigationMap | null = null;
-
   function addDecorations() {
     if (isActive) {
-      navigationMap = addDecorationsToEditors(decorations);
+      addDecorationsToEditors(graph.navigationMap, decorations);
     } else {
       vscode.window.visibleTextEditors.forEach(clearEditorDecorations);
-      navigationMap = new NavigationMap();
+      graph.navigationMap.clear();
     }
   }
 
@@ -81,16 +77,36 @@ export async function activate(context: vscode.ExtensionContext) {
   );
 
   const graph = makeGraph(graphConstructors);
-  var thatMark: SelectionWithEditor[] = [];
+  const thatMark = new ThatMark();
+  const sourceMark = new ThatMark();
+  const testCaseRecorder = new TestCaseRecorder(context);
+
+  const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
+    "cursorless.recordTestCase",
+    async () => {
+      if (testCaseRecorder.active) {
+        vscode.window.showInformationMessage("Stopped recording test cases");
+        testCaseRecorder.stop();
+      } else {
+        if (await testCaseRecorder.start()) {
+          vscode.window.showInformationMessage(
+            "Recording test cases for following commands"
+          );
+        }
+      }
+    }
+  );
 
   const cursorlessCommandDisposable = vscode.commands.registerCommand(
     "cursorless.command",
     async (
+      spokenForm: string,
       actionName: ActionType,
       partialTargets: PartialTarget[],
       ...extraArgs: any[]
     ) => {
       try {
+        console.debug(`spokenForm: ${spokenForm}`);
         console.debug(`action: ${actionName}`);
         console.debug(`partialTargets:`);
         console.debug(JSON.stringify(partialTargets, null, 3));
@@ -106,14 +122,9 @@ export async function activate(context: vscode.ExtensionContext) {
 
         const isPaste = actionName === "paste";
 
-        var clipboardContents: string | undefined;
-
-        if (isPaste) {
-          clipboardContents = await vscode.env.clipboard.readText();
-          // clipboardContents = "hello";
-          // clipboardContents = "hello\n";
-          // clipboardContents = "\nhello\n";
-        }
+        const clipboardContents = isPaste
+          ? await Clipboard.readText()
+          : undefined;
 
         const inferenceContext = {
           selectionContents,
@@ -134,19 +145,41 @@ export async function activate(context: vscode.ExtensionContext) {
               editor: vscode.window.activeTextEditor!,
             })) ?? [],
           currentEditor: vscode.window.activeTextEditor,
-          navigationMap: navigationMap!,
-          thatMark,
+          navigationMap: graph.navigationMap,
+          thatMark: thatMark.exists() ? thatMark.get() : [],
+          sourceMark: sourceMark.exists() ? sourceMark.get() : [],
           getNodeAtLocation,
         };
 
         const selections = processTargets(processedTargetsContext, targets);
 
-        const { returnValue, thatMark: newThatMark } = await action.run(
-          selections,
-          ...extraArgs
-        );
+        let testCase: TestCase | null = null;
+        if (testCaseRecorder.active) {
+          const command = { actionName, partialTargets, extraArgs };
+          const context = {
+            targets,
+            thatMark,
+            sourceMark,
+            navigationMap: graph.navigationMap!,
+            spokenForm,
+          };
+          testCase = new TestCase(command, context);
+          await testCase.recordInitialState();
+        }
 
-        thatMark = newThatMark;
+        const {
+          returnValue,
+          thatMark: newThatMark,
+          sourceMark: newSourceMark,
+        } = await action.run(selections, ...extraArgs);
+
+        thatMark.set(newThatMark);
+        sourceMark.set(newSourceMark);
+
+        if (testCase != null) {
+          await testCase.recordFinalState(returnValue);
+          await testCaseRecorder.finish(testCase);
+        }
 
         return returnValue;
 
@@ -174,6 +207,7 @@ export async function activate(context: vscode.ExtensionContext) {
         // const processedTargets = processTargets(navigationMap!, targets);
       } catch (e) {
         vscode.window.showErrorMessage(e.message);
+        console.trace(e.message);
         throw e;
       }
     }
@@ -181,12 +215,40 @@ export async function activate(context: vscode.ExtensionContext) {
 
   addDecorationsDebounced();
 
-  function handleEdit(edit: vscode.TextDocumentChangeEvent) {
-    if (navigationMap != null) {
-      navigationMap.updateTokenRanges(edit);
+  function checkForEditsOutsideViewport(event: vscode.TextDocumentChangeEvent) {
+    const editor = vscode.window.activeTextEditor;
+    if (editor == null || editor.document !== event.document) {
+      return;
     }
+    const { start, end } = editor.visibleRanges[0];
+    const ranges = [];
+    for (const edit of event.contentChanges) {
+      if (
+        edit.range.end.isBeforeOrEqual(start) ||
+        edit.range.start.isAfterOrEqual(end)
+      ) {
+        ranges.push(edit.range);
+      }
+    }
+    if (ranges.length > 0) {
+      ranges.sort((a, b) => a.start.line - b.start.line);
+      const linesText = ranges
+        .map((range) => `${range.start.line + 1}-${range.end.line + 1}`)
+        .join(", ");
+      vscode.window.showWarningMessage(
+        `Modification outside of viewport at lines: ${linesText}`
+      );
+    }
+  }
+
+  function handleEdit(edit: vscode.TextDocumentChangeEvent) {
+    graph.navigationMap.updateTokenRanges(edit);
 
     addDecorationsDebounced();
+
+    // TODO. Disabled for now because it triggers on undo as well
+    //  wait until next release when there is a cause field
+    // checkForEditsOutsideViewport(edit);
   }
 
   const recomputeDecorationStyles = async () => {
@@ -198,6 +260,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     cursorlessCommandDisposable,
+    cursorlessRecordTestCaseDisposable,
     toggleDecorationsDisposable,
     recomputeDecorationStylesDisposable,
     vscode.workspace.onDidChangeConfiguration(recomputeDecorationStyles),
@@ -217,6 +280,13 @@ export async function activate(context: vscode.ExtensionContext) {
       },
     }
   );
+
+  return {
+    navigationMap: graph.navigationMap,
+    thatMark,
+    sourceMark,
+    addDecorations,
+  };
 }
 
 // this method is called when your extension is deactivated

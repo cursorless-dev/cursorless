@@ -1,8 +1,7 @@
-import { Selection } from "vscode";
-import NavigationMap from "./NavigationMap";
 import {
   ActionPreferences,
   CursorMark,
+  CursorMarkToken,
   InferenceContext,
   InsideOutsideType,
   Mark,
@@ -199,6 +198,10 @@ const CURSOR_MARK: CursorMark = {
   type: "cursor",
 };
 
+const CURSOR_MARK_TOKEN: CursorMarkToken = {
+  type: "cursorToken",
+};
+
 export function inferSinglePrimitiveTarget(
   context: InferenceContext,
   target: PartialPrimitiveTarget,
@@ -207,7 +210,9 @@ export function inferSinglePrimitiveTarget(
 ): PrimitiveTarget {
   prototypeTargets = hasContent(target) ? [] : prototypeTargets;
 
-  const mark = target.mark ?? CURSOR_MARK;
+  const mark =
+    target.mark ??
+    (target.selectionType === "token" ? CURSOR_MARK_TOKEN : CURSOR_MARK);
 
   const selectionType =
     target.selectionType ??

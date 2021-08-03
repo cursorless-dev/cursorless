@@ -26,7 +26,6 @@ export class SetSelection implements Action {
     await setSelectionsAndFocusEditor(editor, targets.map(this.getSelection));
 
     return {
-      returnValue: null,
       thatMark: targets.map((target) => target.selection),
     };
   }

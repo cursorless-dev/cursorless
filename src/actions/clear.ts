@@ -20,11 +20,13 @@ export default class Clear implements Action {
 
     const { thatMark } = await this.graph.actions.delete.run([targets]);
 
-    await setSelectionsAndFocusEditor(
-      editor,
-      thatMark.map(({ selection }) => selection)
-    );
+    if (thatMark != null) {
+      await setSelectionsAndFocusEditor(
+        editor,
+        thatMark.map(({ selection }) => selection)
+      );
+    }
 
-    return { returnValue: null, thatMark };
+    return { thatMark };
   }
 }

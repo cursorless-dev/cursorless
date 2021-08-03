@@ -18,11 +18,15 @@ export class FindInFiles implements Action {
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
     ensureSingleTarget(targets);
 
-    const { returnValue: query, thatMark } =
-      await this.graph.actions.getText.run([targets]);
+    const {
+      returnValue: [query],
+      thatMark,
+    } = await this.graph.actions.getText.run([targets]);
 
-    await commands.executeCommand("workbench.action.findInFiles", { query });
+    await commands.executeCommand("workbench.action.findInFiles", {
+      query,
+    });
 
-    return { returnValue: null, thatMark };
+    return { thatMark };
   }
 }

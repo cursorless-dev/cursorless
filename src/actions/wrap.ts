@@ -11,6 +11,7 @@ import {
 import { runOnTargetsForEachEditor } from "../targetUtils";
 import { decorationSleep } from "../editDisplayUtils";
 import { performEditsAndUpdateSelections } from "../updateSelections";
+import { selectionWithEditorFromPositions } from "../selectionUtils";
 
 export default class Wrap implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
@@ -28,51 +29,66 @@ export default class Wrap implements Action {
       await runOnTargetsForEachEditor<SelectionWithEditor[]>(
         targets,
         async (editor, targets) => {
-          const selections = targets.flatMap((target) => [
-            new Selection(
-              target.selection.selection.start,
-              target.selection.selection.start
-            ),
-            new Selection(
-              target.selection.selection.end,
-              target.selection.selection.end
-            ),
+          const edits = targets.flatMap((target) => [
+            {
+              text: left,
+              range: new Selection(
+                target.selection.selection.start,
+                target.selection.selection.start
+              ),
+            },
+            {
+              text: right,
+              dontMoveOnEqualStart: true,
+              range: new Selection(
+                target.selection.selection.end,
+                target.selection.selection.end
+              ),
+            },
           ]);
 
-          const edits = selections.map((selection, index) => ({
-            range: selection,
-            text: index % 2 === 0 ? left : right,
-          }));
+          const [updatedOriginalSelections, updatedTargetsSelections] =
+            await performEditsAndUpdateSelections(editor, edits, [
+              editor.selections,
+              targets.map((target) => target.selection.selection),
+            ]);
 
-          const [updatedSelections] = await performEditsAndUpdateSelections(
-            editor,
-            edits,
-            [selections]
+          editor.selections = updatedOriginalSelections;
+
+          const updatedSelections = updatedTargetsSelections.flatMap(
+            ({ start, end }) => [
+              new Selection(
+                start.translate({ characterDelta: -left.length }),
+                start
+              ),
+              new Selection(
+                end,
+                end.translate({ characterDelta: right.length })
+              ),
+            ]
           );
 
           editor.setDecorations(
-            this.graph.editStyles.justAdded,
+            this.graph.editStyles.justAdded.token,
             updatedSelections
           );
           await decorationSleep();
-          editor.setDecorations(this.graph.editStyles.justAdded, []);
+
+          editor.setDecorations(this.graph.editStyles.justAdded.token, []);
 
           return targets.map((target, index) => {
             const start = updatedSelections[index * 2].start;
             const end = updatedSelections[index * 2 + 1].end;
-            const isReversed = target.selection.selection.isReversed;
-            return {
-              editor,
-              selection: new Selection(
-                isReversed ? end : start,
-                isReversed ? start : end
-              ),
-            };
+            return selectionWithEditorFromPositions(
+              target.selection,
+              start,
+              end
+            );
           });
         }
       )
     );
 
-    return { returnValue: null, thatMark };
+    return { thatMark };
   }
 }
