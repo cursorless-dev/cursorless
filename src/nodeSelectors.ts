@@ -22,6 +22,20 @@ export function simpleSelectionExtractor(
   };
 }
 
+export function argumentSelectionExtractor(): SelectionExtractor {
+  return delimitedSelector(
+    (node) =>
+      node.type === "," ||
+      node.type === "(" ||
+      node.type === ")" ||
+      node.type === "[" ||
+      node.type === "]" ||
+      node.type === "}" ||
+      node.type === "{",
+    ", "
+  );
+}
+
 export function selectWithLeadingDelimiter(
   editor: TextEditor,
   node: SyntaxNode
@@ -45,7 +59,7 @@ function getNextNonDelimiterNode(
   startNode: SyntaxNode,
   isDelimiterNode: (node: SyntaxNode) => boolean
 ): SyntaxNode | null {
-  var node = startNode.nextSibling;
+  let node = startNode.nextSibling;
 
   while (node != null) {
     if (!isDelimiterNode(node)) {
@@ -62,7 +76,7 @@ function getPreviousNonDelimiterNode(
   startNode: SyntaxNode,
   isDelimiterNode: (node: SyntaxNode) => boolean
 ): SyntaxNode | null {
-  var node = startNode.previousSibling;
+  let node = startNode.previousSibling;
 
   while (node != null) {
     if (!isDelimiterNode(node)) {
@@ -73,6 +87,10 @@ function getPreviousNonDelimiterNode(
   }
 
   return node;
+}
+
+export function delimitersSelector(...delimiters: string[]) {
+  return delimitedSelector((node) => delimiters.includes(node.type), ", ");
 }
 
 export function delimitedSelector(

@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { SyntaxNode } from "web-tree-sitter";
+import { SyntaxNode, TreeCursor } from "web-tree-sitter";
 
 export function logBranchTypes(getNodeAtLocation: any) {
   return (event: vscode.TextEditorSelectionChangeEvent) => {
@@ -8,14 +8,38 @@ export function logBranchTypes(getNodeAtLocation: any) {
       event.selections[0]
     );
 
-    let node: SyntaxNode = getNodeAtLocation(location);
+    let node: SyntaxNode;
+    try {
+      node = getNodeAtLocation(location);
+    } catch (error) {
+      return;
+    }
+
     const ancestors: SyntaxNode[] = [node];
     while (node.parent != null) {
       ancestors.unshift(node.parent);
       node = node.parent;
     }
 
-    ancestors.forEach((node, i) => console.debug(">".repeat(i + 1), node.type));
+    const print = (cursor: TreeCursor, depth: number) => {
+      const field = cursor.currentFieldName();
+      const fieldText = field != null ? `${field}: ` : "";
+      console.debug(">".repeat(depth + 1), `${fieldText}${cursor.nodeType}`);
+    };
+
+    const cursor = node.tree.walk();
+    print(cursor, 0);
+
+    for (let i = 1; i < ancestors.length; ++i) {
+      cursor.gotoFirstChild();
+      while (cursor.currentNode().id !== ancestors[i].id) {
+        if (!cursor.gotoNextSibling()) {
+          return;
+        }
+      }
+      print(cursor, i);
+    }
+
     const leafText = ancestors[ancestors.length - 1].text
       .replace(/\s+/g, " ")
       .substring(0, 100);

@@ -1,0 +1,24 @@
+spokenForm: chuck file
+languageId: typescript
+command:
+  actionName: delete
+  partialTargets:
+    - {type: primitive, selectionType: document}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: document, position: contents, modifier: {type: identity}, insideOutsideType: outside}]

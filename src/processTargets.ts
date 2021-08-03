@@ -1,15 +1,14 @@
 import { concat, range, zip } from "lodash";
 import update from "immutability-helper";
 import { SyntaxNode } from "web-tree-sitter";
+import { getNodeMatcher } from "./languages";
 import { Selection, Range, Position, Location, TextDocument } from "vscode";
-import { nodeMatchers } from "./languages";
 import {
   Mark,
   PrimitiveTarget,
   ProcessedTargetsContext,
   RangeTarget,
   SelectionContext,
-  SelectionWithContext,
   SelectionWithEditor,
   Target,
   TypedSelection,
@@ -18,7 +17,10 @@ import {
 } from "./Types";
 import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
 import { SUBWORD_MATCHER } from "./constants";
-import { selectionWithEditorFromPositions } from "./selectionUtils";
+import {
+  selectionWithEditorFromPositions,
+  selectionWithEditorFromRange,
+} from "./selectionUtils";
 
 export default function processTargets(
   context: ProcessedTargetsContext,
@@ -236,41 +238,36 @@ function transformSelection(
   switch (modifier.type) {
     case "identity":
       return [{ selection, context: {} }];
+
     case "containingScope":
-      var node: SyntaxNode | null = context.getNodeAtLocation(
+      let node: SyntaxNode | null = context.getNodeAtLocation(
         new Location(selection.editor.document.uri, selection.selection)
       );
 
-      const nodeMatcher =
-        nodeMatchers[selection.editor.document.languageId][modifier.scopeType];
+      const nodeMatcher = getNodeMatcher(
+        selection.editor.document.languageId,
+        modifier.scopeType,
+        modifier.includeSiblings ?? false
+      );
 
       while (node != null) {
-        const matchedSelection = nodeMatcher(selection.editor, node);
-        if (matchedSelection != null) {
-          var matchedSelections: SelectionWithContext[];
-          if (modifier.includeSiblings) {
-            matchedSelections = node
-              .parent!.children.map((sibling) =>
-                nodeMatcher(selection.editor, sibling)
-              )
-              .filter(
-                (selection) => selection != null
-              ) as SelectionWithContext[];
-          } else {
-            matchedSelections = [matchedSelection];
-          }
-          return matchedSelections.map((matchedSelection) => ({
-            selection: {
-              editor: selection.editor,
-              selection: matchedSelection.selection,
-            },
-            context: matchedSelection.context,
-          }));
+        const matches = nodeMatcher(selection, node);
+        if (matches != null) {
+          return matches
+            .map((match) => match.selection)
+            .map((matchedSelection) => ({
+              selection: selectionWithEditorFromRange(
+                selection,
+                matchedSelection.selection
+              ),
+              context: matchedSelection.context,
+            }));
         }
         node = node.parent;
       }
 
       throw new Error(`Couldn't find containing ${modifier.scopeType}`);
+
     case "subpiece":
       const token = selection.editor.document.getText(selection.selection);
       let pieces: { start: number; end: number }[] = [];

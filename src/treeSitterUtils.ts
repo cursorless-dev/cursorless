@@ -13,4 +13,4 @@ export const getDefinitionNode = (node: SyntaxNode) =>
   node.childForFieldName("definition");
 
 export const getDeclarationNode = (node: SyntaxNode) =>
-  node.childForFieldName("declaration");
+  node.childForFieldName("declarator");

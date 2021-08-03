@@ -1,6 +1,5 @@
 import * as assert from "assert";
 import { promises as fsp } from "fs";
-import * as process from "process";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
@@ -40,6 +39,8 @@ suite("recorded test cases", async function () {
     sinon.restore();
   });
 
+  let lastLanguageId: string;
+
   files.forEach(async (file) => {
     test(file.split(".")[0], async function () {
       this.timeout(100000);
@@ -65,6 +66,16 @@ suite("recorded test cases", async function () {
         content: fixture.initialState.documentContents,
       });
       const editor = await vscode.window.showTextDocument(document);
+
+      // Sleep on changing language is necessary otherwise the tree sitter
+      // will throw an exception on getNodeAtLocation()
+      if (lastLanguageId !== document.languageId) {
+        if (lastLanguageId != null) {
+          await new Promise((resolve) => setTimeout(resolve, 200));
+        }
+        lastLanguageId = document.languageId;
+      }
+
       editor.selections = fixture.initialState.selections.map(createSelection);
 
       if (fixture.initialState.thatMark) {
@@ -131,11 +142,6 @@ suite("recorded test cases", async function () {
         cursorlessApi.sourceMark,
         excludeFields
       );
-
-      //   assert(
-      //     isMatch(resultState, fixture.finalState),
-      //     "Unexpected final state"
-      //   );
 
       assert.deepStrictEqual(
         resultState,

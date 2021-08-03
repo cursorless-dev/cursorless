@@ -1,0 +1,31 @@
+spokenForm: take arrow
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: arrowFunction}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    const value = () => {
+
+    }
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+finalState:
+  documentContents: |
+
+    const value = () => {
+
+    }
+  selections:
+    - anchor: {line: 1, character: 14}
+      active: {line: 3, character: 1}
+  thatMark:
+    - anchor: {line: 1, character: 14}
+      active: {line: 3, character: 1}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: arrowFunction}, insideOutsideType: inside}]

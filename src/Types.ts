@@ -62,21 +62,26 @@ export type ScopeType =
   | "arrowFunction"
   | "class"
   | "className"
+  | "collectionItem"
+  | "collectionKey"
   | "comment"
   | "dictionary"
   | "functionCall"
   | "functionName"
   | "ifStatement"
   | "list"
-  | "listElement"
   | "name"
   | "namedFunction"
-  | "pair"
-  | "pairKey"
+  | "regex"
   | "statement"
   | "string"
   | "type"
-  | "value";
+  | "value"
+  | "xmlAttribute"
+  | "xmlElement"
+  | "xmlBothTags"
+  | "xmlEndTag"
+  | "xmlStartTag";
 export type PieceType = "word" | "character";
 
 export interface SurroundingPairModifier {
@@ -317,22 +322,32 @@ export interface DecorationColorSetting {
   highContrast: string;
 }
 
+export type NodeMatcherValue = {
+  node: SyntaxNode;
+  selection: SelectionWithContext;
+};
+
+export type NodeMatcherAlternative = NodeMatcher | string[] | string;
+
 export type NodeMatcher = (
-  editor: vscode.TextEditor,
+  selection: SelectionWithEditor,
   node: SyntaxNode
-) => SelectionWithContext | null;
+) => NodeMatcherValue[] | null;
 
 /**
  * Returns the desired relative of the provided node.
  * Returns null if matching node not found.
  **/
-export type NodeFinder = (node: SyntaxNode) => SyntaxNode | null;
+export type NodeFinder = (
+  node: SyntaxNode,
+  selection?: vscode.Selection
+) => SyntaxNode | null;
 
-/** Returns a selection for a given SyntaxNode */
+/** Returns one or more selections for a given SyntaxNode */
 export type SelectionExtractor = (
   editor: vscode.TextEditor,
-  node: SyntaxNode
-) => SelectionWithContext | null;
+  nodes: SyntaxNode
+) => SelectionWithContext;
 
 /** Represent a single edit/change in the document */
 export interface Edit {

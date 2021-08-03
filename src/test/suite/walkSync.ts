@@ -9,11 +9,15 @@ import { readdirSync } from "fs";
  * @param filelist
  * @returns
  */
-export const walkFilesSync = (dir: string, filelist: string[] = []) => {
-  readdirSync(dir).forEach((file) => {
-    filelist = statSync(path.join(dir, file)).isDirectory()
-      ? walkFilesSync(path.join(dir, file), filelist)
-      : filelist.concat(path.join(dir, file));
+export const walkFilesSync = (dir: string): string[] => {
+  let filelist: string[] = [];
+  readdirSync(dir, { withFileTypes: true }).forEach((dirent) => {
+    const filePath = path.join(dir, dirent.name);
+    if (dirent.isDirectory()) {
+      filelist = filelist.concat(walkFilesSync(filePath));
+    } else {
+      filelist.push(filePath);
+    }
   });
   return filelist;
 };
@@ -21,18 +25,22 @@ export const walkFilesSync = (dir: string, filelist: string[] = []) => {
 /**
  * Note: Returns relative paths
  * @param dir
- * @param filelist
+ * @param dirlist
  * @returns
  */
-export const walkDirsSync = (dir: string, filelist: string[] = []) => {
-  readdirSync(dir).forEach((name) => {
-    const file = path.join(dir, name);
-    filelist = statSync(file).isDirectory()
-      ? filelist.concat(file, ...walkFilesSync(file, filelist))
-      : filelist;
-  });
-  return filelist
-    .filter((file) => statSync(file).isDirectory())
-    .filter((value, index, arr) => arr.indexOf(value) === index)
-    .map((file) => path.relative(dir, file));
+export const walkDirsSync = (dir: string): string[] => {
+  // Inner function returns absolute paths
+  const walkDirsSyncInner = (dir: string): string[] => {
+    let dirlist: string[] = [];
+    readdirSync(dir, { withFileTypes: true }).forEach((dirent) => {
+      if (dirent.isDirectory()) {
+        const dirPath = path.join(dir, dirent.name);
+        dirlist.push(dirPath);
+        dirlist = dirlist.concat(walkDirsSyncInner(dirPath));
+      }
+    });
+    return dirlist;
+  };
+  // Convert to relative paths
+  return walkDirsSyncInner(dir).map((absPath) => path.relative(dir, absPath));
 };

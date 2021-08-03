@@ -86,7 +86,7 @@ export class TestCaseRecorder {
     }
 
     const subdirectory = await vscode.window.showInputBox({
-      prompt: "New Folder Name",
+      prompt: "New folder name. Use '/' for subdirectories.",
       ignoreFocusOut: true,
       validateInput: (input) => (input.trim().length > 0 ? null : "Required"),
     });
@@ -118,8 +118,7 @@ export class TestCaseRecorder {
 
     let i = 2;
     while (fs.existsSync(filePath)) {
-      filename += i++;
-      filePath = path.join(targetDirectory, `${filename}.yml`);
+      filePath = path.join(targetDirectory, `${filename}${i++}.yml`);
     }
 
     return filePath;

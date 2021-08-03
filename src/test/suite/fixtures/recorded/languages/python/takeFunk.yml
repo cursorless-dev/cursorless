@@ -1,0 +1,29 @@
+spokenForm: take funk
+languageId: python
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: namedFunction}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    def my_funk(name: str, value) -> str:
+        return
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+finalState:
+  documentContents: |
+
+    def my_funk(name: str, value) -> str:
+        return
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 2, character: 10}
+  thatMark:
+    - anchor: {line: 1, character: 0}
+      active: {line: 2, character: 10}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: namedFunction}, insideOutsideType: inside}]

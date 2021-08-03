@@ -1,0 +1,27 @@
+spokenForm: take name
+languageId: python
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: name}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    value = "hello world"
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
+finalState:
+  documentContents: |
+
+    value = "hello world"
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 5}
+  thatMark:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 5}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: name}, insideOutsideType: inside}]
