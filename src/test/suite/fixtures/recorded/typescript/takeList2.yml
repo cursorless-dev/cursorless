@@ -10,14 +10,14 @@ marks: {}
 initialState:
   documentContents: |
 
-    const [a, b, c] = [1, 2, 3];
+    const [a, b, c] = [];
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
 finalState:
   documentContents: |
 
-    const [a, b, c] = [1, 2, 3];
+    const [a, b, c] = [];
   selections:
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 15}

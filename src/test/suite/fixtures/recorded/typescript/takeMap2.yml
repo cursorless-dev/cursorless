@@ -10,18 +10,18 @@ marks: {}
 initialState:
   documentContents: |
 
-    const value = { a: 1, b: 2, c: 3 };
+    const { a, b, c } = {};
   selections:
-    - anchor: {line: 1, character: 17}
-      active: {line: 1, character: 17}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
 finalState:
   documentContents: |
 
-    const value = { a: 1, b: 2, c: 3 };
+    const { a, b, c } = {};
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 34}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 17}
   thatMark:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 34}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 17}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: dictionary}, insideOutsideType: inside}]
