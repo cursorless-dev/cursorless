@@ -322,12 +322,17 @@ export interface DecorationColorSetting {
   highContrast: string;
 }
 
+export type NodeMatcherValue = {
+  node: SyntaxNode;
+  selection: SelectionWithContext;
+};
+
+export type NodeMatcherAlternative = NodeMatcher | string[] | string;
+
 export type NodeMatcher = (
   selection: SelectionWithEditor,
   node: SyntaxNode
-) => SelectionWithContext[] | null;
-
-export type NodeMatcherAlternative = NodeMatcher | string[] | string;
+) => NodeMatcherValue[] | null;
 
 /**
  * Returns the desired relative of the provided node.

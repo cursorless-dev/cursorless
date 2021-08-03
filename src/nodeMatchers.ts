@@ -24,7 +24,14 @@ export function matcher(
 ): NodeMatcher {
   return function (selection: SelectionWithEditor, node: SyntaxNode) {
     const targetNode = finder(node, selection.selection);
-    return targetNode != null ? [selector(selection.editor, targetNode)] : null;
+    return targetNode != null
+      ? [
+          {
+            node: targetNode,
+            selection: selector(selection.editor, targetNode),
+          },
+        ]
+      : null;
   };
 }
 
@@ -41,7 +48,12 @@ export function composedMatcher(
       }
       returnNode = foundNode;
     }
-    return [selector(selection.editor, returnNode)];
+    return [
+      {
+        node: returnNode,
+        selection: selector(selection.editor, returnNode),
+      },
+    ];
   };
 }
 
