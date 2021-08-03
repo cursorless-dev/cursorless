@@ -9,10 +9,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   dictionary: "object",
   list: "array",
   string: "string",
-  collectionItem: argumentMatcher("object", "array"),
+  comment: "comment",
   collectionKey: "pair[key]",
   value: valueMatcher("*[value]"),
-  comment: "comment",
+  collectionItem: argumentMatcher("object", "array"),
 };
 
 export default createPatternMatchers(nodeMatchers);

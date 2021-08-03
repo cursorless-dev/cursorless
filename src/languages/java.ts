@@ -1,7 +1,6 @@
 import {
   createPatternMatchers,
   argumentMatcher,
-  notSupported,
   valueMatcher,
 } from "../nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../Types";
@@ -40,16 +39,18 @@ const STATEMENT_TYPES = [
 ];
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+  statement: STATEMENT_TYPES,
   class: "class_declaration",
   className: "class_declaration[name]",
-  namedFunction: ["method_declaration", "constructor_declaration"],
-  functionName: [
-    "method_declaration.identifier!",
-    "constructor_declaration.identifier!",
-  ],
   ifStatement: "if_statement",
   string: "string_literal",
+  comment: "comment",
+  arrowFunction: "lambda_expression",
+  list: "array_initializer",
+  functionCall: "method_invocation",
+  dictionary: "block",
   name: ["*[declarator][name]", "*[name]", "formal_parameter.identifier!"],
+  namedFunction: ["method_declaration", "constructor_declaration"],
   type: [
     "type_identifier",
     "local_variable_declaration[type]",
@@ -57,16 +58,13 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "formal_parameter[type]",
     "method_declaration[type]",
   ],
-  comment: "comment",
-  arrowFunction: "lambda_expression",
-  list: "array_initializer",
-  functionCall: "method_invocation",
+  functionName: [
+    "method_declaration.identifier!",
+    "constructor_declaration.identifier!",
+  ],
   value: valueMatcher("*[declarator][value]", "*[value]"),
   collectionItem: argumentMatcher("array_initializer"),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),
-  statement: STATEMENT_TYPES,
-  dictionary: ["block"],
-  collectionKey: notSupported,
 };
 
 export default createPatternMatchers(nodeMatchers);
