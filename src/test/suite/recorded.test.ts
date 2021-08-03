@@ -1,6 +1,5 @@
 import * as assert from "assert";
 import { promises as fsp } from "fs";
-import * as process from "process";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
@@ -143,11 +142,6 @@ suite("recorded test cases", async function () {
         cursorlessApi.sourceMark,
         excludeFields
       );
-
-      //   assert(
-      //     isMatch(resultState, fixture.finalState),
-      //     "Unexpected final state"
-      //   );
 
       assert.deepStrictEqual(
         resultState,

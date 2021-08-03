@@ -86,7 +86,7 @@ export class TestCaseRecorder {
     }
 
     const subdirectory = await vscode.window.showInputBox({
-      prompt: "New Folder Name",
+      prompt: "New folder name. Use '/' for subdirectories.",
       ignoreFocusOut: true,
       validateInput: (input) => (input.trim().length > 0 ? null : "Required"),
     });
