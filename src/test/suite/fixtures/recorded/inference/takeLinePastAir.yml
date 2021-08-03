@@ -1,0 +1,39 @@
+spokenForm: take line past air
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: range
+      start: {type: primitive, selectionType: line}
+      end:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      excludeStart: false
+      excludeEnd: false
+  extraArgs: []
+marks:
+  default.a:
+    start: {line: 3, character: 6}
+    end: {line: 3, character: 11}
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}
+finalState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 3, character: 28}
+  thatMark:
+    - anchor: {line: 1, character: 0}
+      active: {line: 3, character: 28}
+fullTargets: [{type: range, excludeStart: false, excludeEnd: false, start: {type: primitive, mark: {type: cursor}, selectionType: line, position: contents, modifier: {type: identity}, insideOutsideType: inside}, end: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: line, position: contents, modifier: {type: identity}, insideOutsideType: inside}}]
