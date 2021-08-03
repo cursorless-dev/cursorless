@@ -1,0 +1,31 @@
+spokenForm: take class name
+languageId: java
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: className}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    public class MyClass {
+
+    }
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+finalState:
+  documentContents: |
+
+    public class MyClass {
+
+    }
+  selections:
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 20}
+  thatMark:
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 20}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: className}, insideOutsideType: inside}]

@@ -1,0 +1,35 @@
+spokenForm: take every item
+languageId: java
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    int[] values = {1, 2, 3};
+  selections:
+    - anchor: {line: 1, character: 17}
+      active: {line: 1, character: 17}
+finalState:
+  documentContents: |
+
+    int[] values = {1, 2, 3};
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 17}
+    - anchor: {line: 1, character: 19}
+      active: {line: 1, character: 20}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 23}
+  thatMark:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 17}
+    - anchor: {line: 1, character: 19}
+      active: {line: 1, character: 20}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 23}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}, insideOutsideType: inside}]

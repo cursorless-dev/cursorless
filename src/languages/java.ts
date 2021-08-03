@@ -57,6 +57,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "local_variable_declaration[type]",
     "array_creation_expression[type]",
     "formal_parameter[type]",
+    "method_declaration[type]"
   ],
   comment: "comment",
   arrowFunction: "lambda_expression",
