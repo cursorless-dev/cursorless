@@ -43,6 +43,12 @@ This extension contributes the following settings:
 
 - Cursorless calculates the position of the hats based on the characteristics of your font. If you find that the hats are off center you can try running this command: `cursorless.recomputeDecorationStyles`
 
+## Language declarative format
+See [LANGUAGE_FORMAT.md](docs/LANGUAGE_FORMAT.md).
+
+## Test recorder
+See [TEST_RECORDER.md](docs/TEST_RECORDER.md).
+
 ## Change Log
 
 See [CHANGELOG.md](CHANGELOG.md).

@@ -1,4 +1,4 @@
-# Pattern format documentation
+# Language pattern format
 
 ## Format
 
