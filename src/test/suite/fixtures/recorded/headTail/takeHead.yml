@@ -1,0 +1,31 @@
+spokenForm: take head
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: head}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
+finalState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 0}
+  thatMark:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: head}, insideOutsideType: inside}]

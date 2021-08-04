@@ -1,0 +1,35 @@
+spokenForm: take up one past down one
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      selectionType: line
+      modifier:
+        type: lineNumber
+        anchor: {lineNumber: -1, isRelative: true}
+        active: {lineNumber: 1, isRelative: true}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+finalState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 3, character: 28}
+  thatMark:
+    - anchor: {line: 1, character: 0}
+      active: {line: 3, character: 28}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: line, position: contents, modifier: {type: lineNumber, anchor: {lineNumber: -1, isRelative: true}, active: {lineNumber: 1, isRelative: true}}, insideOutsideType: inside}]
