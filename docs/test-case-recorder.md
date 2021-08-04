@@ -1,4 +1,4 @@
-# Test recorder
+# Test case recorder
 
 ## Record new tests
 1. Add voice command

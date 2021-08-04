@@ -63,11 +63,11 @@ yarn run test
 
 ### Adding tests
 
-See [TEST_RECORDER.md](docs/TEST_RECORDER.md).
+See [test-case-recorder.md](docs/test-case-recorder.md).
 
 ### Adding new programming languages / syntactic scopes
 
-See [LANGUAGE_FORMAT.md](docs/LANGUAGE_FORMAT.md).
+See [parse-tree-patterns.md](docs/parse-tree-patterns.md).
 
 ---
 
