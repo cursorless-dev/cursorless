@@ -61,5 +61,14 @@ yarn install
 yarn run test
 ```
 
-***
+### Adding tests
+
+See [TEST_RECORDER.md](docs/TEST_RECORDER.md).
+
+### Adding new programming languages / syntactic scopes
+
+See [LANGUAGE_FORMAT.md](docs/LANGUAGE_FORMAT.md).
+
+---
+
 _This README was partially generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
