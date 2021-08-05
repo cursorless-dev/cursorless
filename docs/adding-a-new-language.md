@@ -11,7 +11,7 @@ See [docs](https://github.com/pokey/vscode-parse-tree/#adding-a-new-language).
 - Check out the [docs](parse-tree-patterns.md) for the syntax tree pattern
   matcher
 - You may also find it helpful to look at an existing language, such as
-  [Java](https://github.com/pokey/cursorless-vscode/blob/master/src/languages/java.ts).
+  [java](../src/languages/java.ts).
 - If you look in the debug console, you'll see debug output every time you move
   your cursor, which might be helpful.
 - You will likely want to look at `node-types.json` for your language, (eg [java](https://github.com/tree-sitter/tree-sitter-java/blob/master/src/node-types.json)). This file is generated from `grammar.js`, which might also be helpful to look at (eg [java](https://github.com/tree-sitter/tree-sitter-java/blob/master/grammar.js)).
