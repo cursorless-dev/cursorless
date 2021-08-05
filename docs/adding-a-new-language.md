@@ -2,11 +2,19 @@
 
 So you want cursorless to support a new language? Great! Here's how to do it:
 
-## 1. Add support to [vscode-parse-tree](https://github.com/pokey/vscode-parse-tree)
+## 1. Add support to the [vscode-parse-tree](https://github.com/pokey/vscode-parse-tree) extension
 
-See [docs](https://github.com/pokey/vscode-parse-tree/#adding-a-new-language).
+Cursorless relied on the vscode-parse-tree extension to access the parse tree
+of a document. See the
+[docs](https://github.com/pokey/vscode-parse-tree/#adding-a-new-language) there
+for how to add support for a new parser
 
 ## 2. Define parse tree patterns in Cursorless
+
+The parse trees exposed by tree-sitter are often pretty close to what we're
+looking for, but we often need to look for specific patterns within the parse
+tree to get the scopes that the user expects. Fortunately, we have a
+domain-specific language that makes these definitions fairly compact.
 
 - Check out the [docs](parse-tree-patterns.md) for the syntax tree pattern
   matcher
