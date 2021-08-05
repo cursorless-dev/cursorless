@@ -4,7 +4,7 @@ So you want cursorless to support a new language? Great! Here's how to do it:
 
 ## 1. Add support to the [vscode-parse-tree](https://github.com/pokey/vscode-parse-tree) extension
 
-Cursorless relied on the vscode-parse-tree extension to access the parse tree
+Cursorless relies on the vscode-parse-tree extension to access the parse tree
 of a document. See the
 [docs](https://github.com/pokey/vscode-parse-tree/#adding-a-new-language) there
 for how to add support for a new parser
