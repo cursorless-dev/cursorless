@@ -43,13 +43,24 @@ export interface DecoratedSymbol {
   character: string;
 }
 
+export interface LineNumberPosition {
+  lineNumber: number;
+  isRelative: boolean;
+}
+export interface LineNumber {
+  type: "lineNumber";
+  anchor: LineNumberPosition;
+  active: LineNumberPosition;
+}
+
 export type Mark =
   | CursorMark
   | CursorMarkToken
   | That
   | Source
   | LastCursorPosition
-  | DecoratedSymbol;
+  | DecoratedSymbol
+  | LineNumber;
 export type Delimiter =
   | "squareBrackets"
   | "curlyBrackets"
@@ -103,15 +114,6 @@ export interface SubpieceModifier {
 export interface MatchingPairSymbolModifier {
   type: "matchingPairSymbol";
 }
-export interface LineNumberModifierPosition {
-  lineNumber: number;
-  isRelative: boolean;
-}
-export interface LineNumberModifier {
-  type: "lineNumber";
-  anchor: LineNumberModifierPosition;
-  active: LineNumberModifierPosition;
-}
 export interface IdentityModifier {
   type: "identity";
 }
@@ -128,7 +130,6 @@ export type Modifier =
   | ContainingScopeModifier
   | SubpieceModifier
   | MatchingPairSymbolModifier
-  | LineNumberModifier
   | HeadModifier
   | TailModifier;
 

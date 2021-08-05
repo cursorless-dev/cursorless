@@ -13,7 +13,7 @@ import {
   Target,
   TypedSelection,
   Modifier,
-  LineNumberModifierPosition,
+  LineNumberPosition,
 } from "./Types";
 import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
 import { SUBWORD_MATCHER } from "./constants";
@@ -188,6 +188,11 @@ function getSelectionsFromMark(
   switch (mark.type) {
     case "cursor":
       return context.currentSelections;
+    case "that":
+      return context.thatMark;
+    case "source":
+      return context.sourceMark;
+
     case "cursorToken": {
       const tokens = context.currentSelections.map((selection) => {
         const token = context.navigationMap.getTokenForRange(
@@ -203,6 +208,7 @@ function getSelectionsFromMark(
         editor: token.editor,
       }));
     }
+
     case "decoratedSymbol":
       const token = context.navigationMap.getToken(
         mark.symbolColor,
@@ -219,10 +225,26 @@ function getSelectionsFromMark(
           editor: token.editor,
         },
       ];
-    case "that":
-      return context.thatMark;
-    case "source":
-      return context.sourceMark;
+
+    case "lineNumber": {
+      const getLine = (linePosition: LineNumberPosition) =>
+        linePosition.isRelative
+          ? context.currentEditor!.selection.active.line +
+            linePosition.lineNumber
+          : linePosition.lineNumber;
+      return [
+        {
+          selection: new Selection(
+            getLine(mark.anchor),
+            0,
+            getLine(mark.active),
+            0
+          ),
+          editor: context.currentEditor!,
+        },
+      ];
+    }
+
     case "lastCursorPosition":
       throw new Error("Not implemented");
   }
@@ -362,27 +384,6 @@ function transformSelection(
         {
           selection: update(selection, {
             selection: () => new Selection(anchor, active),
-          }),
-          context: {},
-        },
-      ];
-    }
-
-    case "lineNumber": {
-      const getLine = (linePosition: LineNumberModifierPosition) =>
-        linePosition.isRelative
-          ? selection.editor.selection.active.line + linePosition.lineNumber
-          : linePosition.lineNumber;
-      return [
-        {
-          selection: update(selection, {
-            selection: () =>
-              new Selection(
-                getLine(modifier.anchor),
-                0,
-                getLine(modifier.active),
-                0
-              ),
           }),
           context: {},
         },
