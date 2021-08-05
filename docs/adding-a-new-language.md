@@ -21,6 +21,6 @@ See [docs](https://github.com/pokey/vscode-parse-tree/#adding-a-new-language).
 Test cases can be automatically recorded, which should speed things up a lot.
 See the [docs](test-case-recorder.md) for the test case recorder. It will also
 likely be helpful to look at the existing recorded test cases (eg
-[java](src/../../src/test/suite/fixtures/recorded/languages/java)) to see how
+[java](../src/test/suite/fixtures/recorded/languages/java)) to see how
 they
 should end up looking when they're recorded.
