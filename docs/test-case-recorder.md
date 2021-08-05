@@ -10,7 +10,7 @@ command run, and the final state, all in the form of a yaml document. See
 
 ## Initial setup
 
-1. Add voice command
+1. Add a voice command for recording to your personal talon files:
    - `cursorless record: user.vscode("cursorless.recordTestCase")`
    - We don't want to commit this so add it to your own repository.
 
@@ -32,7 +32,9 @@ command run, and the final state, all in the form of a yaml document. See
    - `"take air"`
 1. `Cursorless test case saved` is shown
    - File created on disk using spoken words as file name
-1. Repeat as many voice commands as you want recorded
+1. Repeat as many cursorless voice commands as you want recorded. Each command
+   you
+   issue will generate a test case in the form of a yaml file.
 1. Issue `"cursorless record"` command again to stop recording
    - `Stopped recording test cases` is shown
    - You can also just stop the debugger or close the debug window
