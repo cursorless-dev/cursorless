@@ -8,6 +8,7 @@ import json from "./json";
 import python from "./python";
 import typescript from "./typescript";
 import csharp from "./csharp";
+import cpp from "./cpp";
 import java from "./java";
 import { notSupported } from "../nodeMatchers";
 import { SyntaxNode } from "web-tree-sitter";
@@ -15,6 +16,7 @@ import { selectionWithEditorFromRange } from "../selectionUtils";
 
 const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
   csharp: csharp,
+  cpp: cpp,
   javascript: typescript,
   javascriptreact: typescript,
   json,
