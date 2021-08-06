@@ -105,11 +105,11 @@ suite("recorded test cases", async function () {
         excludeFields.push("clipboard");
       }
 
-      // Wait for cursorless to set up decorations
-      cursorlessApi.addDecorations();
-
       // Assert that recorded decorations are present
       const assertDecorations = () => {
+        // Wait for cursorless to set up decorations
+        cursorlessApi.addDecorations();
+
         Object.entries(fixture.marks).forEach(([key, token]) => {
           const { color, character } = NavigationMap.splitKey(key);
           const currentToken = cursorlessApi.navigationMap.getToken(
