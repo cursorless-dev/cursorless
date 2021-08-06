@@ -80,7 +80,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "function_definition[declarator][declarator][name]", // void C::funcName() {}
     "function_definition[declarator][declarator]"        // void funcName() {}
   ],
-  value: valueMatcher("*[declarator][value]", "*[value]"),
+  value: valueMatcher("*[declarator][value]", "*[value]", "assignment_expression[right]"),
   collectionItem: argumentMatcher("initializer_list"),
   argumentOrParameter: argumentMatcher("parameter_list", "argument_list"),
   xmlAttribute: "attribute"
