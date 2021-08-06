@@ -1,0 +1,33 @@
+spokenForm: take every arg
+languageId: cpp
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |-
+    int f(int a, int b) {
+        return f(a, b);
+    }
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}
+finalState:
+  documentContents: |-
+    int f(int a, int b) {
+        return f(a, b);
+    }
+  selections:
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 14}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 17}
+  thatMark:
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 14}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 17}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, insideOutsideType: inside}]

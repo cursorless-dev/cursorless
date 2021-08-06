@@ -71,16 +71,17 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   string: "string_literal",
   comment: "comment",
   arrowFunction: "lambda_expression",
-  list: "array_initializer",
+  list: "initializer_list",
   functionCall: "call_expression",
   name: ["*[declarator][declarator][name]", "*[declarator][name]", "*[declarator][declarator]",  "*[declarator]", "*[name]"],
-  namedFunction: "function_definition",
+  namedFunction: ["function_definition", "declaration.function_declarator"],
   type: TYPE_TYPES.concat([ "*[type]" ]),
   functionName: [
     "function_definition[declarator][declarator][name]", // void C::funcName() {}
-    "function_definition[declarator][declarator]"        // void funcName() {}
+    "function_definition[declarator][declarator]",       // void funcName() {}
+    "declaration.function_declarator![declarator]",      // void funcName();
   ],
-  value: valueMatcher("*[declarator][value]", "*[value]", "assignment_expression[right]"),
+  value: valueMatcher("*[declarator][value]", "*[value]", "assignment_expression[right]", "optional_parameter_declaration[default_value]"),
   collectionItem: argumentMatcher("initializer_list"),
   argumentOrParameter: argumentMatcher("parameter_list", "argument_list"),
   xmlAttribute: "attribute"
