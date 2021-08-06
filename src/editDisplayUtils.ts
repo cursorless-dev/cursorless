@@ -63,14 +63,14 @@ export default async function displayPendingEditDecorations(
           const { start, end } = selection.selection.selection;
           const startLine = document.lineAt(start);
           const hasLeadingLine = start.character === startLine.range.end.character;
-          if (end.character === 0 && (!leadingLine || start.character === 0)) {
+          if (end.character === 0 && (!hasLeadingLine || start.character === 0)) {
             // NB: We move end up one line because it is at beginning of
             // next line
             return selection.selection.selection.with({
               end: end.translate(-1),
             });
           }
-          if (leadingLine) {
+          if (hasLeadingLine) {
             // NB: We move start down one line because it is at end of
             // previous line
             return selection.selection.selection.with({
