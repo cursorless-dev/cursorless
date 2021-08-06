@@ -59,23 +59,23 @@ export default async function displayPendingEditDecorations(
       selections
         .filter((selection) => isLineSelectionType(selection.selectionType))
         .map((selection) => {
-          const start = selection.selection.selection.start;
-          const startLine = selection.selection.editor.document.lineAt(start);
-          if (start.character === startLine.range.end.character) {
-            return selection.selection.selection.with(
-              // NB: We move start down one line because it is at end of
-              // previous line
-              selection.selection.selection.start.translate(1),
-              undefined
-            );
+          const { document } = selection.selection.editor;
+          const { start, end } = selection.selection.selection;
+          const startLine = document.lineAt(start);
+          const leadingLine = start.character === startLine.range.end.character;
+          if (end.character === 0 && (!leadingLine || start.character === 0)) {
+            // NB: We move end up one line because it is at beginning of
+            // next line
+            return selection.selection.selection.with({
+              end: end.translate(-1),
+            });
           }
-          if (selection.selection.selection.end.character === 0) {
-            return selection.selection.selection.with(
-              undefined,
-              // NB: We move end up one line because it is at beginning of
-              // next line
-              selection.selection.selection.end.translate(-1)
-            );
+          if (leadingLine) {
+            // NB: We move start down one line because it is at end of
+            // previous line
+            return selection.selection.selection.with({
+              start: start.translate(1),
+            });
           }
           return selection.selection.selection;
         })
