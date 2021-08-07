@@ -50,20 +50,24 @@ export default async function displayPendingEditDecorations(
     editor.setDecorations(
       editStyle.token,
       selections
-        .filter((selection) => !isLineSelectionType(selection.selectionType))
+        .filter((selection) => !useLineDecorations(selection))
         .map((selection) => selection.selection.selection)
     );
 
     editor.setDecorations(
       editStyle.line,
       selections
-        .filter((selection) => isLineSelectionType(selection.selectionType))
+        .filter((selection) => useLineDecorations(selection))
         .map((selection) => {
           const { document } = selection.selection.editor;
           const { start, end } = selection.selection.selection;
           const startLine = document.lineAt(start);
-          const hasLeadingLine = start.character === startLine.range.end.character;
-          if (end.character === 0 && (!hasLeadingLine || start.character === 0)) {
+          const hasLeadingLine =
+            start.character === startLine.range.end.character;
+          if (
+            end.character === 0 &&
+            (!hasLeadingLine || start.character === 0)
+          ) {
             // NB: We move end up one line because it is at beginning of
             // next line
             return selection.selection.selection.with({
@@ -131,5 +135,12 @@ export async function displayDecorationsWhileRunningFunc(
     async (editor) => {
       editor.setDecorations(decorationType, []);
     }
+  );
+}
+
+function useLineDecorations(selection: TypedSelection) {
+  return (
+    isLineSelectionType(selection.selectionType) &&
+    selection.position === "contents"
   );
 }
