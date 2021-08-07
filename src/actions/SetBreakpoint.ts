@@ -3,25 +3,18 @@ import {
   ActionPreferences,
   ActionReturnValue,
   Graph,
+  SelectionWithEditor,
   TypedSelection,
 } from "../Types";
-import {
-  SourceBreakpoint,
-  Location,
-  debug,
-  Uri,
-  Range,
-  Breakpoint,
-} from "vscode";
+import { SourceBreakpoint, Location, debug, Range, Breakpoint } from "vscode";
 import displayPendingEditDecorations from "../editDisplayUtils";
-import { isEqual, range, uniqWith } from "lodash";
 
-function getBreakpoint(uri: Uri, line: number) {
+function getBreakpoint(location: Location) {
   return debug.breakpoints.find((breakpoint) => {
     if (breakpoint instanceof SourceBreakpoint) {
       return (
-        breakpoint.location.uri.toString() === uri.toString() &&
-        breakpoint.location.range.start.line === line
+        breakpoint.location.uri.toString() === location.uri.toString() &&
+        breakpoint.location.range.isEqual(location.range)
       );
     }
     return false;
@@ -44,32 +37,19 @@ export default class SetBreakpoint implements Action {
       this.graph.editStyles.referenced
     );
 
-    const lines = uniqWith(
-      targets.flatMap((target) => {
-        const { start, end } = target.selection.selection;
-        const uri = target.selection.editor.document.uri;
-        return range(start.line, end.line + 1).map((line) => ({
-          uri,
-          line,
-        }));
-      }),
-      isEqual
-    );
-
     const toAdd: Breakpoint[] = [];
     const toRemove: Breakpoint[] = [];
 
-    lines.forEach(({ uri, line }) => {
-      const existing = getBreakpoint(uri, line);
+    targets.forEach((target) => {
+      const location = new Location(
+        target.selection.editor.document.uri,
+        target.selection.selection
+      );
+      const existing = getBreakpoint(location);
       if (existing) {
         toRemove.push(existing);
       } else {
-        toAdd.push(
-          new SourceBreakpoint(
-            new Location(uri, new Range(line, 0, line, 0)),
-            true
-          )
-        );
+        toAdd.push(new SourceBreakpoint(location, true));
       }
     });
 
