@@ -4,7 +4,7 @@ import { updateTypedSelectionRange } from "./selectionUtils";
 export function performInsideOutsideAdjustment(
   selection: TypedSelection,
   preferredInsideOutsideType: InsideOutsideType = null
-) {
+): TypedSelection {
   const insideOutsideType =
     selection.insideOutsideType ?? preferredInsideOutsideType;
 

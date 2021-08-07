@@ -52,23 +52,29 @@ class InsertEmptyLines implements Action {
         const ranges = this.getRanges(targets);
         const edits = this.getEdits(ranges);
 
-        const [updatedSelections, lineSelections] =
+        const [updatedSelections, lineSelections, updatedOriginalSelections] =
           await performEditsAndUpdateSelections(editor, edits, [
             targets.map((target) => target.selection.selection),
             ranges.map((range) => new Selection(range.start, range.end)),
+            editor.selections,
           ]);
+
+        editor.selections = updatedOriginalSelections;
 
         return {
           thatMark: updatedSelections.map((selection) => ({
             editor,
             selection,
           })),
-          lineSelections: lineSelections.map((selection) => ({
+          lineSelections: lineSelections.map((selection, index) => ({
             editor,
-            selection: new Selection(
-              selection.start.translate({ lineDelta: -1 }),
-              selection.end.translate({ lineDelta: -1 })
-            ),
+            selection:
+              ranges[index].start.line < editor.document.lineCount - 1
+                ? new Selection(
+                    selection.start.translate({ lineDelta: -1 }),
+                    selection.end.translate({ lineDelta: -1 })
+                  )
+                : selection,
           })),
         };
       })

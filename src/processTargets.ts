@@ -18,6 +18,7 @@ import {
 import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
 import { SUBWORD_MATCHER } from "./constants";
 import {
+  selectionFromPositions,
   selectionWithEditorFromPositions,
   selectionWithEditorFromRange,
 } from "./selectionUtils";
@@ -620,27 +621,26 @@ function getLineSelectionContext(
   selection: SelectionWithEditor
 ): SelectionContext {
   const { document } = selection.editor;
-  const start = selection.selection.start;
-  const end = selection.selection.end;
-  const outerSelection = getOuterSelection(document, start, end);
+  const { start, end } = selection.selection;
+  const outerSelection = getOuterSelection(selection, start, end);
+
   const leadingDelimiterRange =
     start.line > 0
       ? new Range(
-          start.line - 1,
-          document.lineAt(start.line - 1).range.end.character,
-          start.line,
-          start.character
+          document.lineAt(start.line - 1).range.end,
+          outerSelection.start
         )
       : null;
   const trailingDelimiterRange =
     end.line + 1 < document.lineCount
-      ? new Range(end.line, end.character, end.line + 1, 0)
+      ? new Range(outerSelection.end, new Position(end.line + 1, 0))
       : null;
   const isInDelimitedList =
     leadingDelimiterRange != null || trailingDelimiterRange != null;
+
   return {
     isInDelimitedList,
-    containingListDelimiter: isInDelimitedList ? "\n" : undefined,
+    containingListDelimiter: "\n",
     leadingDelimiterRange,
     trailingDelimiterRange,
     outerSelection,
@@ -651,29 +651,37 @@ function getParagraphSelectionContext(
   selection: SelectionWithEditor
 ): SelectionContext {
   const { document } = selection.editor;
-  const start = selection.selection.start;
-  const end = selection.selection.end;
-  const outerSelection = getOuterSelection(document, start, end);
+  const { start, end } = selection.selection;
+  const outerSelection = getOuterSelection(selection, start, end);
   const leadingLine = getPreviousNonEmptyLine(document, start.line);
   const trailingLine = getNextNonEmptyLine(document, end.line);
-  const leadingDelimiterRange =
+
+  const leadingDelimiterStart =
     leadingLine != null
-      ? new Range(leadingLine.range.end, start)
+      ? leadingLine.range.end
       : start.line > 0
-      ? new Range(new Position(0, 0), start)
+      ? new Position(0, 0)
+      : null;
+  const trailingDelimiterEnd =
+    trailingLine != null
+      ? trailingLine.range.start
+      : end.line < document.lineCount - 1
+      ? document.lineAt(document.lineCount - 1).range.end
+      : null;
+  const leadingDelimiterRange =
+    leadingDelimiterStart != null
+      ? new Range(leadingDelimiterStart, outerSelection.start)
       : null;
   const trailingDelimiterRange =
-    trailingLine != null
-      ? new Range(end, trailingLine.range.start)
-      : end.line < document.lineCount - 1
-      ? new Range(end, new Position(document.lineCount, 0))
+    trailingDelimiterEnd != null
+      ? new Range(outerSelection.end, trailingDelimiterEnd)
       : null;
   const isInDelimitedList =
     leadingDelimiterRange != null || trailingDelimiterRange != null;
 
   return {
     isInDelimitedList,
-    containingListDelimiter: isInDelimitedList ? "\n\n" : undefined,
+    containingListDelimiter: "\n\n",
     leadingDelimiterRange,
     trailingDelimiterRange,
     outerSelection,
@@ -681,16 +689,15 @@ function getParagraphSelectionContext(
 }
 
 function getOuterSelection(
-  document: TextDocument,
+  selection: SelectionWithEditor,
   start: Position,
   end: Position
 ) {
   // Outer selection contains the entire lines
-  return new Selection(
-    start.line,
-    0,
-    end.line,
-    document.lineAt(end.line).range.end.character
+  return selectionFromPositions(
+    selection.selection,
+    new Position(start.line, 0),
+    selection.editor.document.lineAt(end).range.end
   );
 }
 

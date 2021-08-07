@@ -217,7 +217,9 @@ export interface SelectionContext {
   isInDelimitedList?: boolean;
   containingListDelimiter?: string | null;
 
-  // Selection used for outside selection
+  /**
+   * Selection used for outside selection
+   */
   outerSelection?: vscode.Selection | null;
 
   /**
