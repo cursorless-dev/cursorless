@@ -43,7 +43,7 @@ export default class SetBreakpoint implements Action {
     targets.forEach((target) => {
       const location = new Location(
         target.selection.editor.document.uri,
-        target.selection.selection
+        target.selection.selection.start
       );
       const existing = getBreakpoint(location);
       if (existing) {
