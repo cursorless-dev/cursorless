@@ -14,14 +14,14 @@ import {
   Breakpoint,
 } from "vscode";
 import displayPendingEditDecorations from "../editDisplayUtils";
+import { isEqual, range, uniqWith } from "lodash";
 
 function getBreakpoint(uri: Uri, line: number) {
   return debug.breakpoints.find((breakpoint) => {
     if (breakpoint instanceof SourceBreakpoint) {
       return (
-        (breakpoint as SourceBreakpoint).location.uri.toString() ===
-          uri.toString() &&
-        (breakpoint as SourceBreakpoint).location.range.start.line === line
+        breakpoint.location.uri.toString() === uri.toString() &&
+        breakpoint.location.range.start.line === line
       );
     }
     return false;
@@ -44,17 +44,17 @@ export default class SetBreakpoint implements Action {
       this.graph.editStyles.referenced
     );
 
-    const lines = targets.flatMap((target) => {
-      const { start, end } = target.selection.selection;
-      const lines = [];
-      for (let i = start.line; i <= end.line; ++i) {
-        lines.push({
-          uri: target.selection.editor.document.uri,
-          line: i,
-        });
-      }
-      return lines;
-    });
+    const lines = uniqWith(
+      targets.flatMap((target) => {
+        const { start, end } = target.selection.selection;
+        const uri = target.selection.editor.document.uri;
+        return range(start.line, end.line + 1).map((line) => ({
+          uri,
+          line,
+        }));
+      }),
+      isEqual
+    );
 
     const toAdd: Breakpoint[] = [];
     const toRemove: Breakpoint[] = [];
@@ -65,7 +65,10 @@ export default class SetBreakpoint implements Action {
         toRemove.push(existing);
       } else {
         toAdd.push(
-          new SourceBreakpoint(new Location(uri, new Range(line, 0, line, 0)))
+          new SourceBreakpoint(
+            new Location(uri, new Range(line, 0, line, 0)),
+            true
+          )
         );
       }
     });
