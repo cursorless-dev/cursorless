@@ -31,16 +31,23 @@ export function getNodeMatcher(
   includeSiblings: boolean
 ): NodeMatcher {
   const matchers = languageMatchers[languageId];
+
   if (matchers == null) {
-    throw Error(`Language '${languageId}' is not implemented yet`);
+    throw Error(
+      `Language '${languageId}' is not implemented yet; See https://github.com/pokey/cursorless-vscode/blob/master/docs/adding-a-new-language.md`
+    );
   }
+
   const matcher = matchers[scopeType];
+
   if (matcher == null) {
     return notSupported;
   }
+
   if (includeSiblings) {
     return matcherIncludeSiblings(matcher);
   }
+
   return matcher;
 }
 

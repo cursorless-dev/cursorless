@@ -263,14 +263,14 @@ function transformSelection(
       return [{ selection, context: {} }];
 
     case "containingScope":
-      let node: SyntaxNode | null = context.getNodeAtLocation(
-        new Location(selection.editor.document.uri, selection.selection)
-      );
-
       const nodeMatcher = getNodeMatcher(
         selection.editor.document.languageId,
         modifier.scopeType,
         modifier.includeSiblings ?? false
+      );
+
+      let node: SyntaxNode | null = context.getNodeAtLocation(
+        new Location(selection.editor.document.uri, selection.selection)
       );
 
       while (node != null) {

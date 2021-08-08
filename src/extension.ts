@@ -25,20 +25,7 @@ export async function activate(context: vscode.ExtensionContext) {
     throw new Error("Depends on pokey.parse-tree extension");
   }
 
-  const { getNodeAtLocation: getNodeAtLocationImpl } =
-    await parseTreeExtension.activate();
-
-  const getNodeAtLocation = (location: vscode.Location) => {
-    try {
-      return getNodeAtLocationImpl(location);
-    } catch (error) {
-      const document = vscode.window.activeTextEditor?.document;
-      if (document?.uri === location.uri) {
-        throw Error(`Language '${document.languageId}' is not implemented yet`);
-      }
-      throw error;
-    }
-  };
+  const { getNodeAtLocation } = await parseTreeExtension.activate();
 
   var isActive = vscode.workspace
     .getConfiguration("cursorless")
