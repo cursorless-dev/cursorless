@@ -422,8 +422,8 @@ function transformSelection(
         );
 
         const nodeMatcher = createSurroundingPairMatcher(
-          modifier.delimeter,
-          modifier.delimetersOnly
+          modifier.delimiter,
+          modifier.delimitersOnly
         );
         let result = findFirstMatchingNode(node, nodeMatcher, selection);
         if (result != null) {

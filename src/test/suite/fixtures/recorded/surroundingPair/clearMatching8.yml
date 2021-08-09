@@ -4,7 +4,8 @@ command:
   actionName: clear
   partialTargets:
     - type: primitive
-      modifier: {type: surroundingPair, delimeter: null, delimetersOnly: false}
+      modifier:
+        { type: surroundingPair, delimiter: null, delimitersOnly: false }
   extraArgs: []
 marks: {}
 initialState:
@@ -12,16 +13,27 @@ initialState:
     def fff(x, y):
         pass
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: { line: 0, character: 10 }
+      active: { line: 0, character: 10 }
 finalState:
   documentContents: |
     def fff():
         pass
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
   thatMark:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimeter: null, delimetersOnly: false}, insideOutsideType: inside}]
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier:
+        { type: surroundingPair, delimiter: null, delimitersOnly: false },
+      insideOutsideType: inside,
+    },
+  ]

@@ -4,7 +4,8 @@ command:
   actionName: clear
   partialTargets:
     - type: primitive
-      modifier: {type: surroundingPair, delimeter: null, delimetersOnly: false}
+      modifier:
+        { type: surroundingPair, delimiter: null, delimitersOnly: false }
   extraArgs: []
 marks: {}
 initialState:
@@ -14,14 +15,25 @@ initialState:
     dfsd
     """
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
 finalState:
-  documentContents: "\"\"\"\"\"\""
+  documentContents: '""""""'
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
   thatMark:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimeter: null, delimetersOnly: false}, insideOutsideType: inside}]
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier:
+        { type: surroundingPair, delimiter: null, delimitersOnly: false },
+      insideOutsideType: inside,
+    },
+  ]

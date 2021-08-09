@@ -41,11 +41,11 @@ export function createSurroundingPairMatcher(
     selection: SelectionWithEditor,
     node: SyntaxNode
   ) {
-    let delimetersToCheck: Delimiter[];
+    let delimitersToCheck: Delimiter[];
     if (delimiter != null) {
-      delimetersToCheck = [delimiter];
+      delimitersToCheck = [delimiter];
     } else {
-      delimetersToCheck = [
+      delimitersToCheck = [
         "squareBrackets",
         "curlyBrackets",
         "angleBrackets",
@@ -85,7 +85,7 @@ export function createSurroundingPairMatcher(
       return doOutwardScan(
         nodeLeftOfSelection,
         nodeRightOfSelection,
-        delimetersToCheck,
+        delimitersToCheck,
         delimitersOnly
       );
     }
@@ -98,7 +98,7 @@ export function createSurroundingPairMatcher(
     return doOutwardScan(
       node.previousSibling,
       node,
-      delimetersToCheck,
+      delimitersToCheck,
       delimitersOnly
     );
   };
@@ -107,11 +107,11 @@ export function createSurroundingPairMatcher(
 function doOutwardScan(
   scanLeftStartNode: SyntaxNode | null,
   scanRightStartNode: SyntaxNode | null,
-  delimetersToCheck: Delimiter[],
+  delimitersToCheck: Delimiter[],
   delimitersOnly: boolean
 ): NodeMatcherValue[] | null {
   console.log("delimiters only", delimitersOnly);
-  for (const delimiter of delimetersToCheck) {
+  for (const delimiter of delimitersToCheck) {
     let left = scanLeftStartNode;
     while (left != null) {
       if (isSyntaxNodeLeftPartOfMatching(left, delimiter)) {

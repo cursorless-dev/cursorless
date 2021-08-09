@@ -98,8 +98,8 @@ export type PieceType = "word" | "character";
 
 export interface SurroundingPairModifier {
   type: "surroundingPair";
-  delimeter: Delimiter | null;
-  delimetersOnly: boolean;
+  delimiter: Delimiter | null;
+  delimitersOnly: boolean;
 }
 export interface ContainingScopeModifier {
   type: "containingScope";
