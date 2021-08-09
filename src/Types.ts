@@ -68,6 +68,7 @@ export type Delimiter =
   | "parentheses"
   | "singleQuotes"
   | "doubleQuotes";
+
 export type ScopeType =
   | "argumentOrParameter"
   | "arrowFunction"
@@ -97,7 +98,8 @@ export type PieceType = "word" | "character";
 
 export interface SurroundingPairModifier {
   type: "surroundingPair";
-  delimiter: Delimiter;
+  delimiter: Delimiter | null;
+  delimitersOnly: boolean;
 }
 export interface ContainingScopeModifier {
   type: "containingScope";

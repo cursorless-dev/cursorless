@@ -1,0 +1,43 @@
+spokenForm: clear square
+languageId: python
+command:
+  actionName: clear
+  partialTargets:
+    - type: primitive
+      modifier:
+        {
+          type: surroundingPair,
+          delimiter: squareBrackets,
+          delimitersOnly: false,
+        }
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: "{1: [(1), (2), (3)]}"
+  selections:
+    - anchor: { line: 0, character: 9 }
+      active: { line: 0, character: 9 }
+finalState:
+  documentContents: "{1: []}"
+  selections:
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
+  thatMark:
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier:
+        {
+          type: surroundingPair,
+          delimiter: squareBrackets,
+          delimitersOnly: false,
+        },
+      insideOutsideType: inside,
+    },
+  ]
