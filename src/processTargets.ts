@@ -255,7 +255,7 @@ function getSelectionsFromMark(
   }
 }
 
-function findFirstMatchingNode(
+function findNearestContainingAncestorNode(
   startNode: SyntaxNode,
   nodeMatcher: NodeMatcher,
   selection: SelectionWithEditor
@@ -301,7 +301,11 @@ function transformSelection(
         new Location(selection.editor.document.uri, selection.selection)
       );
 
-      let result = findFirstMatchingNode(node, nodeMatcher, selection);
+      let result = findNearestContainingAncestorNode(
+        node,
+        nodeMatcher,
+        selection
+      );
 
       if (result != null) {
         return result;
@@ -425,7 +429,11 @@ function transformSelection(
           modifier.delimiter,
           modifier.delimitersOnly
         );
-        let result = findFirstMatchingNode(node, nodeMatcher, selection);
+        let result = findNearestContainingAncestorNode(
+          node,
+          nodeMatcher,
+          selection
+        );
         if (result != null) {
           return result;
         }

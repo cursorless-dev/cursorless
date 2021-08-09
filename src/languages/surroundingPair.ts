@@ -1,10 +1,10 @@
-import { Position, TextEditor, Selection } from "vscode";
+import { maxBy, zip } from "lodash";
+import { Position, Selection } from "vscode";
 import { Point, SyntaxNode } from "web-tree-sitter";
 import {
   Delimiter,
   NodeMatcher,
   NodeMatcherValue,
-  SelectionWithContext,
   SelectionWithEditor,
 } from "../Types";
 
@@ -12,7 +12,7 @@ function positionFromPoint(point: Point): Position {
   return new Position(point.row, point.column);
 }
 
-const delimiterToText: Record<Delimiter, String[]> = {
+const delimiterToText: Record<Delimiter, string[]> = {
   squareBrackets: ["[", "]"],
   curlyBrackets: ["{", "}"],
   angleBrackets: ["<", ">"],
@@ -20,18 +20,10 @@ const delimiterToText: Record<Delimiter, String[]> = {
   singleQuotes: ["'", "'"],
   doubleQuotes: ['"', '"'],
 };
-function isSyntaxNodeLeftPartOfMatching(
-  node: SyntaxNode,
-  delimiter: Delimiter
-): boolean {
-  return node.type === delimiterToText[delimiter][0];
-}
-function isSyntaxNodeRightPartOfMatching(
-  node: SyntaxNode,
-  delimiter: Delimiter
-): boolean {
-  return node.type === delimiterToText[delimiter][1];
-}
+
+const leftToRightMap: Record<string, string> = Object.fromEntries(
+  Object.values(delimiterToText)
+);
 
 export function createSurroundingPairMatcher(
   delimiter: Delimiter | null,
@@ -55,122 +47,87 @@ export function createSurroundingPairMatcher(
       ];
     }
 
-    // This is a hack for a strange behavior of treesitter.
-    // The problem is that a node in treesitter representing a string "abc"  will only have two children,
-    // For the left " and the right ".
-    // (I only checked this for python and typescript, I'm not sure what happens in other languages)
-    // Here is the rule for string node in python: https://github.com/tree-sitter/tree-sitter-python/blob/d6210ceab11e8d812d4ab59c07c81458ec6e5184/grammar.js#L868
-    let nodeLeftOfSelection: SyntaxNode | null = null;
-    let nodeRightOfSelection: SyntaxNode | null = null;
-    for (const child of node.children) {
-      // We iterate from the left so we take the **last** node that is good
-      if (
-        positionFromPoint(child.endPosition).isBeforeOrEqual(
+    const leftDelimiterTypes = delimitersToCheck.map(
+      (delimiter) => delimiterToText[delimiter][0]
+    );
+
+    const leftDelimiterNodes = node.children.filter(
+      (child) =>
+        leftDelimiterTypes.includes(child.type) &&
+        positionFromPoint(child.startPosition).isBeforeOrEqual(
           selection.selection.start
         )
-      ) {
-        nodeLeftOfSelection = child;
-      }
-      // We iterate from the left so we take the **first** node that is good
-      if (
-        nodeRightOfSelection == null &&
-        selection.selection.start.isBeforeOrEqual(
-          positionFromPoint(child.startPosition)
-        )
-      ) {
-        nodeRightOfSelection = child;
-      }
-    }
-    if (nodeLeftOfSelection != null && nodeRightOfSelection != null) {
-      return doOutwardScan(
-        nodeLeftOfSelection,
-        nodeRightOfSelection,
-        delimitersToCheck,
-        delimitersOnly
-      );
-    }
+    );
 
-    if (node.parent == null) {
+    if (leftDelimiterNodes.length === 0) {
       return null;
     }
-    // We don't take the next sibling here, because if current node is a
-    // closing element of the pair we want to take it.
-    return doOutwardScan(
-      node.previousSibling,
-      node,
-      delimitersToCheck,
+
+    const leftDelimiterNode = leftDelimiterNodes[leftDelimiterNodes.length - 1];
+    const rightDelimiterType = leftToRightMap[leftDelimiterNode.type];
+
+    const rightDelimiterNode = node.children.find(
+      (child) =>
+        child.type === rightDelimiterType && child !== leftDelimiterNode
+    );
+
+    if (rightDelimiterNode == null) {
+      return null;
+    }
+
+    return extractSelection(
+      leftDelimiterNode,
+      rightDelimiterNode,
       delimitersOnly
     );
   };
 }
 
-function doOutwardScan(
-  scanLeftStartNode: SyntaxNode | null,
-  scanRightStartNode: SyntaxNode | null,
-  delimitersToCheck: Delimiter[],
+function extractSelection(
+  leftDelimiterNode: SyntaxNode,
+  rightDelimiterNode: SyntaxNode,
   delimitersOnly: boolean
-): NodeMatcherValue[] | null {
-  console.log("delimiters only", delimitersOnly);
-  for (const delimiter of delimitersToCheck) {
-    let left = scanLeftStartNode;
-    while (left != null) {
-      if (isSyntaxNodeLeftPartOfMatching(left, delimiter)) {
-        break;
-      }
-      left = left.previousSibling;
-    }
-    let right = scanRightStartNode;
-    while (right != null) {
-      if (isSyntaxNodeRightPartOfMatching(right, delimiter)) {
-        break;
-      }
-      right = right.nextSibling;
-    }
-    if (left != null && right != null) {
-      // We have found the matching pair
-      if (delimitersOnly === false) {
-        return [
-          {
-            node: left,
-            selection: {
-              selection: new Selection(
-                positionFromPoint(left.endPosition),
-                positionFromPoint(right.startPosition)
-              ),
-              context: {
-                outerSelection: new Selection(
-                  positionFromPoint(left.startPosition),
-                  positionFromPoint(right.endPosition)
-                ),
-              },
-            },
+): NodeMatcherValue[] {
+  if (delimitersOnly === false) {
+    return [
+      {
+        node: leftDelimiterNode,
+        selection: {
+          selection: new Selection(
+            positionFromPoint(leftDelimiterNode.endPosition),
+            positionFromPoint(rightDelimiterNode.startPosition)
+          ),
+          context: {
+            outerSelection: new Selection(
+              positionFromPoint(leftDelimiterNode.startPosition),
+              positionFromPoint(rightDelimiterNode.endPosition)
+            ),
           },
-        ];
-      } else {
-        return [
-          {
-            node: left,
-            selection: {
-              selection: new Selection(
-                positionFromPoint(left.startPosition),
-                positionFromPoint(left.endPosition)
-              ),
-              context: {},
-            },
-          },
-          {
-            node: right,
-            selection: {
-              selection: new Selection(
-                positionFromPoint(right.startPosition),
-                positionFromPoint(right.endPosition)
-              ),
-              context: {},
-            },
-          },
-        ];
-      }
-    }
+        },
+      },
+    ];
+  } else {
+    return [
+      {
+        node: leftDelimiterNode,
+        selection: {
+          selection: new Selection(
+            positionFromPoint(leftDelimiterNode.startPosition),
+            positionFromPoint(leftDelimiterNode.endPosition)
+          ),
+          context: {},
+        },
+      },
+      {
+        node: rightDelimiterNode,
+        selection: {
+          selection: new Selection(
+            positionFromPoint(rightDelimiterNode.startPosition),
+            positionFromPoint(rightDelimiterNode.endPosition)
+          ),
+          context: {},
+        },
+      },
+    ];
   }
-  return null;
 }
