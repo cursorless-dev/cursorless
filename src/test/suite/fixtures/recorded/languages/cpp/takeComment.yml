@@ -1,0 +1,23 @@
+spokenForm: take comment
+languageId: cpp
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: comment}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: int a; // the comment
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+finalState:
+  documentContents: int a; // the comment
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 21}
+  thatMark:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 21}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: comment}, insideOutsideType: inside}]

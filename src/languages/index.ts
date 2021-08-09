@@ -7,6 +7,7 @@ import {
   ScopeType,
   SelectionWithEditor,
 } from "../Types";
+import cpp from "./cpp";
 import csharp from "./csharp";
 import java from "./java";
 import json from "./json";
@@ -14,7 +15,10 @@ import python from "./python";
 import typescript from "./typescript";
 
 const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
+  c: cpp,
+  cpp: cpp,
   csharp: csharp,
+  java,
   javascript: typescript,
   javascriptreact: typescript,
   json,
@@ -22,7 +26,6 @@ const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
   python,
   typescript,
   typescriptreact: typescript,
-  java,
 };
 
 export function getNodeMatcher(

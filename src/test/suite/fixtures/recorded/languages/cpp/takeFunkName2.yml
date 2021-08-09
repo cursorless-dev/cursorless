@@ -1,0 +1,23 @@
+spokenForm: take funk name
+languageId: cpp
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: functionName}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: "int C::f(int a, int b) {\r\n    \r\n}"
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+finalState:
+  documentContents: "int C::f(int a, int b) {\r\n    \r\n}"
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 8}
+  thatMark:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 8}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: functionName}, insideOutsideType: inside}]

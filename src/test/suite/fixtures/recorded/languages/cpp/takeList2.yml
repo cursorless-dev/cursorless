@@ -1,0 +1,23 @@
+spokenForm: take list
+languageId: cpp
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: list}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: "void f() {\r\n    int arr[] = {\r\n        1 + 2,\r\n        3\r\n    };\r\n}"
+  selections:
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 12}
+finalState:
+  documentContents: "void f() {\r\n    int arr[] = {\r\n        1 + 2,\r\n        3\r\n    };\r\n}"
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 4, character: 5}
+  thatMark:
+    - anchor: {line: 1, character: 16}
+      active: {line: 4, character: 5}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: list}, insideOutsideType: inside}]

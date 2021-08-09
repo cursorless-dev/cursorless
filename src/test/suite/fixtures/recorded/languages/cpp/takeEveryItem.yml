@@ -1,0 +1,33 @@
+spokenForm: take every item
+languageId: cpp
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |-
+    int f(int a, int b) {
+        std::vector<int> v { a, b };
+    }
+  selections:
+    - anchor: {line: 1, character: 29}
+      active: {line: 1, character: 29}
+finalState:
+  documentContents: |-
+    int f(int a, int b) {
+        std::vector<int> v { a, b };
+    }
+  selections:
+    - anchor: {line: 1, character: 25}
+      active: {line: 1, character: 26}
+    - anchor: {line: 1, character: 28}
+      active: {line: 1, character: 29}
+  thatMark:
+    - anchor: {line: 1, character: 25}
+      active: {line: 1, character: 26}
+    - anchor: {line: 1, character: 28}
+      active: {line: 1, character: 29}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}, insideOutsideType: inside}]
