@@ -33,12 +33,8 @@ export function createSurroundingPairMatcher(
     selection: SelectionWithEditor,
     node: SyntaxNode
   ) {
-    let delimitersToCheck: Delimiter[];
-    if (delimiter != null) {
-      delimitersToCheck = [delimiter];
-    } else {
-      delimitersToCheck = Object.keys(delimiterToText);
-    }
+    const delimitersToCheck =
+      delimiter == null ? Object.keys(delimiterToText) : [delimiter];
 
     const leftDelimiterTypes = delimitersToCheck.map(
       (delimiter) => delimiterToText[delimiter][0]
