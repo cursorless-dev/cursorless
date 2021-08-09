@@ -37,14 +37,7 @@ export function createSurroundingPairMatcher(
     if (delimiter != null) {
       delimitersToCheck = [delimiter];
     } else {
-      delimitersToCheck = [
-        "squareBrackets",
-        "curlyBrackets",
-        "angleBrackets",
-        "parentheses",
-        "singleQuotes",
-        "doubleQuotes",
-      ];
+      delimitersToCheck = Object.keys(delimiterToText);
     }
 
     const leftDelimiterTypes = delimitersToCheck.map(
