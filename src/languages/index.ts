@@ -15,8 +15,10 @@ import { SyntaxNode } from "web-tree-sitter";
 import { selectionWithEditorFromRange } from "../selectionUtils";
 
 const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
-  csharp: csharp,
+  c: cpp,
   cpp: cpp,
+  csharp: csharp,
+  java,
   javascript: typescript,
   javascriptreact: typescript,
   json,
@@ -24,7 +26,6 @@ const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
   python,
   typescript,
   typescriptreact: typescript,
-  java,
 };
 
 export function getNodeMatcher(
