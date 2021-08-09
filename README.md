@@ -65,7 +65,11 @@ yarn run test
 
 See [test-case-recorder.md](docs/test-case-recorder.md).
 
-### Adding new programming languages / syntactic scopes
+### Adding a new programming language
+
+See [docs](docs/adding-a-new-language.md).
+
+### Adding syntactic scope types to an existing language
 
 See [parse-tree-patterns.md](docs/parse-tree-patterns.md).
 

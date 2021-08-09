@@ -43,13 +43,24 @@ export interface DecoratedSymbol {
   character: string;
 }
 
+export interface LineNumberPosition {
+  lineNumber: number;
+  isRelative: boolean;
+}
+export interface LineNumber {
+  type: "lineNumber";
+  anchor: LineNumberPosition;
+  active: LineNumberPosition;
+}
+
 export type Mark =
   | CursorMark
   | CursorMarkToken
   | That
   | Source
   | LastCursorPosition
-  | DecoratedSymbol;
+  | DecoratedSymbol
+  | LineNumber;
 export type Delimiter =
   | "squareBrackets"
   | "curlyBrackets"
@@ -57,6 +68,7 @@ export type Delimiter =
   | "parentheses"
   | "singleQuotes"
   | "doubleQuotes";
+
 export type ScopeType =
   | "argumentOrParameter"
   | "arrowFunction"
@@ -86,7 +98,8 @@ export type PieceType = "word" | "character";
 
 export interface SurroundingPairModifier {
   type: "surroundingPair";
-  delimiter: Delimiter;
+  delimiter: Delimiter | null;
+  delimitersOnly: boolean;
 }
 export interface ContainingScopeModifier {
   type: "containingScope";
@@ -102,15 +115,6 @@ export interface SubpieceModifier {
 }
 export interface MatchingPairSymbolModifier {
   type: "matchingPairSymbol";
-}
-export interface LineNumberModifierPosition {
-  lineNumber: number;
-  isRelative: boolean;
-}
-export interface LineNumberModifier {
-  type: "lineNumber";
-  anchor: LineNumberModifierPosition;
-  active: LineNumberModifierPosition;
 }
 export interface IdentityModifier {
   type: "identity";
@@ -128,7 +132,6 @@ export type Modifier =
   | ContainingScopeModifier
   | SubpieceModifier
   | MatchingPairSymbolModifier
-  | LineNumberModifier
   | HeadModifier
   | TailModifier;
 
@@ -216,7 +219,9 @@ export interface SelectionContext {
   isInDelimitedList?: boolean;
   containingListDelimiter?: string | null;
 
-  // Selection used for outside selection
+  /**
+   * Selection used for outside selection
+   */
   outerSelection?: vscode.Selection | null;
 
   /**

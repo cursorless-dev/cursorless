@@ -1,0 +1,35 @@
+spokenForm: clear matching
+languageId: python
+command:
+  actionName: clear
+  partialTargets:
+    - type: primitive
+      modifier:
+        { type: surroundingPair, delimiter: null, delimitersOnly: false }
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: f"j{fdfhjkd}lkjlkj"
+  selections:
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
+finalState:
+  documentContents: f"j{}lkjlkj"
+  selections:
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
+  thatMark:
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier:
+        { type: surroundingPair, delimiter: null, delimitersOnly: false },
+      insideOutsideType: inside,
+    },
+  ]

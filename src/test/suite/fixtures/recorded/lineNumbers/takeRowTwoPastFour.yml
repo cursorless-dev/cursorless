@@ -5,7 +5,7 @@ command:
   partialTargets:
     - type: primitive
       selectionType: line
-      modifier:
+      mark:
         type: lineNumber
         anchor: {lineNumber: 1, isRelative: false}
         active: {lineNumber: 3, isRelative: false}

@@ -1,18 +1,18 @@
+import { SyntaxNode } from "web-tree-sitter";
+import { notSupported } from "../nodeMatchers";
+import { selectionWithEditorFromRange } from "../selectionUtils";
 import {
   NodeMatcher,
   NodeMatcherValue,
   ScopeType,
   SelectionWithEditor,
 } from "../Types";
+import cpp from "./cpp";
+import csharp from "./csharp";
+import java from "./java";
 import json from "./json";
 import python from "./python";
 import typescript from "./typescript";
-import csharp from "./csharp";
-import cpp from "./cpp";
-import java from "./java";
-import { notSupported } from "../nodeMatchers";
-import { SyntaxNode } from "web-tree-sitter";
-import { selectionWithEditorFromRange } from "../selectionUtils";
 
 const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
   c: cpp,
@@ -34,16 +34,23 @@ export function getNodeMatcher(
   includeSiblings: boolean
 ): NodeMatcher {
   const matchers = languageMatchers[languageId];
+
   if (matchers == null) {
-    throw Error(`Language '${languageId}' is not implemented yet`);
+    throw Error(
+      `Language '${languageId}' is not implemented yet; See https://github.com/pokey/cursorless-vscode/blob/master/docs/adding-a-new-language.md`
+    );
   }
+
   const matcher = matchers[scopeType];
+
   if (matcher == null) {
     return notSupported;
   }
+
   if (includeSiblings) {
     return matcherIncludeSiblings(matcher);
   }
+
   return matcher;
 }
 
