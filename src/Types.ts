@@ -67,7 +67,8 @@ export type Delimiter =
   | "angleBrackets"
   | "parentheses"
   | "singleQuotes"
-  | "doubleQuotes";
+  | "doubleQuotes"
+  | "backtickQuotes";
 
 export type ScopeType =
   | "argumentOrParameter"
