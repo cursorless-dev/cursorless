@@ -19,6 +19,7 @@ const delimiterToText: Record<Delimiter, string[]> = {
   parentheses: ["(", ")"],
   singleQuotes: ["'", "'"],
   doubleQuotes: ['"', '"'],
+  backtickQuotes: ["`", "`"],
 };
 
 const leftToRightMap: Record<string, string> = Object.fromEntries(
