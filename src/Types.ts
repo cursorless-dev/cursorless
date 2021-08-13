@@ -96,11 +96,15 @@ export type ScopeType =
   | "xmlEndTag"
   | "xmlStartTag";
 export type PieceType = "word" | "character";
+export type DelimiterInclusion =
+  | "excludeDelimiters"
+  | "includeDelimiters"
+  | "delimitersOnly";
 
 export interface SurroundingPairModifier {
   type: "surroundingPair";
   delimiter: Delimiter | null;
-  delimitersOnly: boolean;
+  delimiterInclusion: DelimiterInclusion;
 }
 export interface ContainingScopeModifier {
   type: "containingScope";

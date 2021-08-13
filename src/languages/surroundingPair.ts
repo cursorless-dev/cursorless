@@ -3,6 +3,7 @@ import { Position, Selection } from "vscode";
 import { Point, SyntaxNode } from "web-tree-sitter";
 import {
   Delimiter,
+  DelimiterInclusion,
   NodeMatcher,
   NodeMatcherValue,
   SelectionWithEditor,
@@ -28,7 +29,7 @@ const leftToRightMap: Record<string, string> = Object.fromEntries(
 
 export function createSurroundingPairMatcher(
   delimiter: Delimiter | null,
-  delimitersOnly: boolean
+  delimiterInclusion: DelimiterInclusion
 ): NodeMatcher {
   return function nodeMatcher(
     selection: SelectionWithEditor,
@@ -68,7 +69,7 @@ export function createSurroundingPairMatcher(
     return extractSelection(
       leftDelimiterNode,
       rightDelimiterNode,
-      delimitersOnly
+      delimiterInclusion
     );
   };
 }
@@ -76,48 +77,46 @@ export function createSurroundingPairMatcher(
 function extractSelection(
   leftDelimiterNode: SyntaxNode,
   rightDelimiterNode: SyntaxNode,
-  delimitersOnly: boolean
+  delimiterInclusion: DelimiterInclusion
 ): NodeMatcherValue[] {
-  if (delimitersOnly === false) {
-    return [
-      {
-        node: leftDelimiterNode,
-        selection: {
-          selection: new Selection(
-            positionFromPoint(leftDelimiterNode.endPosition),
-            positionFromPoint(rightDelimiterNode.startPosition)
-          ),
-          context: {
-            outerSelection: new Selection(
-              positionFromPoint(leftDelimiterNode.startPosition),
-              positionFromPoint(rightDelimiterNode.endPosition)
-            ),
-          },
-        },
-      },
-    ];
-  } else {
-    return [
-      {
-        node: leftDelimiterNode,
-        selection: {
-          selection: new Selection(
-            positionFromPoint(leftDelimiterNode.startPosition),
-            positionFromPoint(leftDelimiterNode.endPosition)
-          ),
-          context: {},
-        },
-      },
-      {
-        node: rightDelimiterNode,
-        selection: {
-          selection: new Selection(
-            positionFromPoint(rightDelimiterNode.startPosition),
-            positionFromPoint(rightDelimiterNode.endPosition)
-          ),
-          context: {},
-        },
-      },
-    ];
+  var selections: Selection[];
+
+  switch (delimiterInclusion) {
+    case "includeDelimiters":
+      selections = [
+        new Selection(
+          positionFromPoint(leftDelimiterNode.startPosition),
+          positionFromPoint(rightDelimiterNode.endPosition)
+        ),
+      ];
+      break;
+    case "excludeDelimiters":
+      selections = [
+        new Selection(
+          positionFromPoint(leftDelimiterNode.endPosition),
+          positionFromPoint(rightDelimiterNode.startPosition)
+        ),
+      ];
+      break;
+    case "delimitersOnly":
+      selections = [
+        new Selection(
+          positionFromPoint(leftDelimiterNode.startPosition),
+          positionFromPoint(leftDelimiterNode.endPosition)
+        ),
+        new Selection(
+          positionFromPoint(rightDelimiterNode.startPosition),
+          positionFromPoint(rightDelimiterNode.endPosition)
+        ),
+      ];
+      break;
   }
+
+  return selections.map((selection) => ({
+    node: leftDelimiterNode,
+    selection: {
+      selection,
+      context: {},
+    },
+  }));
 }

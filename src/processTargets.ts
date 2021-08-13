@@ -1,5 +1,5 @@
 import update from "immutability-helper";
-import { concat, range, zip } from "lodash";
+import { concat, isEqual, range, zip } from "lodash";
 import * as vscode from "vscode";
 import { Location, Position, Range, Selection, TextDocument } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
@@ -427,7 +427,7 @@ function transformSelection(
 
         const nodeMatcher = createSurroundingPairMatcher(
           modifier.delimiter,
-          modifier.delimitersOnly
+          modifier.delimiterInclusion
         );
         let result = findNearestContainingAncestorNode(
           node,
@@ -656,12 +656,7 @@ function getTokenSelectionContext(
 // TODO Clean this up once we have rich targets and better polymorphic
 // selection contexts that indicate their type
 function isSelectionContextEmpty(selectionContext: SelectionContext) {
-  return (
-    selectionContext.isInDelimitedList == null &&
-    selectionContext.containingListDelimiter == null &&
-    selectionContext.leadingDelimiterRange == null &&
-    selectionContext.trailingDelimiterRange == null
-  );
+  return isEqual(selectionContext, {});
 }
 
 function getLineSelectionContext(
