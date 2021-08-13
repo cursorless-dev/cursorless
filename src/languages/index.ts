@@ -64,7 +64,7 @@ function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
       return null;
     }
     matches = matches.flatMap((match) =>
-      findNearestContainingAncestorNode(
+      iterateNearestIterableAncestor(
         match.node,
         selectionWithEditorFromRange(selection, match.selection.selection),
         matcher
@@ -77,7 +77,7 @@ function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
   };
 }
 
-function findNearestContainingAncestorNode(
+function iterateNearestIterableAncestor(
   node: SyntaxNode,
   selection: SelectionWithEditor,
   nodeMatcher: NodeMatcher
