@@ -42,6 +42,7 @@ suite("recorded test cases", async function () {
   let lastLanguageId: string;
 
   files.forEach(async (file) => {
+    // TODO: Retry the whole test a few times if it fails
     test(file.split(".")[0], async function () {
       this.timeout(100000);
       const cursorless = vscode.extensions.getExtension("pokey.cursorless");

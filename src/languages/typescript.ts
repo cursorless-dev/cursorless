@@ -90,7 +90,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   collectionItem: argumentMatcher(...dictionaryTypes, ...listTypes),
   value: valueMatcher(),
   ifStatement: "if_statement",
-  arrowFunction: "arrow_function",
+  arrowFunction: ["arrow_function", "function"],
   name: [
     "*[name]",
     "optional_parameter.identifier!",
@@ -127,9 +127,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     // [export] function
     "export_statement?.function_declaration",
     // export default function
+    // NB: We require export statement because otherwise it is an anonymous
+    // function
+    // TODO: Add test for these cases
     "export_statement.function",
-    // export default arrow
-    "export_statement.arrow_function",
     // class method
     "method_definition",
     // class arrow method
