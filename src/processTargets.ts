@@ -297,11 +297,11 @@ function transformSelection(
         modifier.scopeType,
         modifier.includeSiblings ?? false
       );
-      let node: SyntaxNode | null = context.getNodeAtLocation(
+      const node: SyntaxNode | null = context.getNodeAtLocation(
         new Location(selection.editor.document.uri, selection.selection)
       );
 
-      let result = findNearestContainingAncestorNode(
+      const result = findNearestContainingAncestorNode(
         node,
         nodeMatcher,
         selection
@@ -418,18 +418,17 @@ function transformSelection(
 
     case "surroundingPair":
       {
-        let node: SyntaxNode | null = context.getNodeAtLocation(
+        const node: SyntaxNode | null = context.getNodeAtLocation(
           new vscode.Location(
             selection.editor.document.uri,
             selection.selection
           )
         );
-
         const nodeMatcher = createSurroundingPairMatcher(
           modifier.delimiter,
           modifier.delimitersOnly
         );
-        let result = findNearestContainingAncestorNode(
+        const result = findNearestContainingAncestorNode(
           node,
           nodeMatcher,
           selection
