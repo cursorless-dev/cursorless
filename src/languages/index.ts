@@ -59,19 +59,38 @@ function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
     selection: SelectionWithEditor,
     node: SyntaxNode
   ): NodeMatcherValue[] | null => {
-    const matches = matcher(selection, node);
+    let matches = matcher(selection, node);
     if (matches == null) {
       return null;
     }
-    return matches
-      .flatMap((match) =>
-        match.node.parent!.namedChildren.flatMap((sibling) =>
-          matcher(
-            selectionWithEditorFromRange(selection, match.selection.selection),
-            sibling
-          )
-        )
+    matches = matches.flatMap((match) =>
+      findNearestContainingAncestorNode(
+        match.node,
+        selectionWithEditorFromRange(selection, match.selection.selection),
+        matcher
       )
-      .filter((match) => match != null) as NodeMatcherValue[];
+    ) as NodeMatcherValue[];
+    if (matches.length > 0) {
+      return matches;
+    }
+    return null;
   };
+}
+
+function findNearestContainingAncestorNode(
+  node: SyntaxNode,
+  selection: SelectionWithEditor,
+  nodeMatcher: NodeMatcher
+) {
+  let parent: SyntaxNode | null = node.parent;
+  while (parent != null) {
+    const matches = parent!.namedChildren
+      .flatMap((sibling) => nodeMatcher(selection, sibling))
+      .filter((match) => match != null) as NodeMatcherValue[];
+    if (matches.length > 0) {
+      return matches;
+    }
+    parent = parent.parent;
+  }
+  return [];
 }

@@ -1,0 +1,35 @@
+spokenForm: take every value
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value, includeSiblings: true}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |-
+    const value = {
+        key1: "hello",
+        key2: "there",
+    };
+  selections:
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
+finalState:
+  documentContents: |-
+    const value = {
+        key1: "hello",
+        key2: "there",
+    };
+  selections:
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 17}
+    - anchor: {line: 2, character: 10}
+      active: {line: 2, character: 17}
+  thatMark:
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 17}
+    - anchor: {line: 2, character: 10}
+      active: {line: 2, character: 17}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: value, includeSiblings: true}, insideOutsideType: inside}]
