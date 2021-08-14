@@ -68,8 +68,33 @@ export default class NavigationMap {
     const matches = Object.values(this.map).filter(
       (token) => token.range.intersection(range) != null
     );
-    // If multiple matches take the longest
-    matches.sort((a, b) => b.text.length - a.text.length);
+
+    // If multiple matches sort and take the first
+    matches.sort((a, b) => {
+      // First sort on alphanumeric
+      const aIsAlphaNum = isAlphaNum(a.text);
+      const bIsAlphaNum = isAlphaNum(b.text);
+      if (aIsAlphaNum && !bIsAlphaNum) {
+        return -1;
+      }
+      if (bIsAlphaNum && !aIsAlphaNum) {
+        return 1;
+      }
+
+      // Second sort on length
+      const lengthDiff = b.text.length - a.text.length;
+      if (lengthDiff !== 0) {
+        return lengthDiff;
+      }
+
+      // Lastly sort on start position. ie leftmost
+      return a.startOffset - b.startOffset;
+    });
+
     return matches[0] ?? null;
   }
+}
+
+function isAlphaNum(text: string) {
+  return /^\w+$/.test(text);
 }
