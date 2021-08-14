@@ -1,0 +1,26 @@
+spokenForm: take past end of token
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: range
+      start: {type: primitive}
+      end: {type: primitive, position: after, insideOutsideType: inside, selectionType: token}
+      excludeStart: false
+      excludeEnd: false
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: hello there
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+finalState:
+  documentContents: hello there
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 11}
+  thatMark:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 11}
+fullTargets: [{type: range, excludeStart: false, excludeEnd: false, start: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}, end: {type: primitive, mark: {type: cursorToken}, selectionType: token, position: after, modifier: {type: identity}, insideOutsideType: inside}}]
