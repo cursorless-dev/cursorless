@@ -24,6 +24,8 @@ import {
   SelectionWithEditor,
   Target,
   TypedSelection,
+  Position as TargetPosition,
+  InsideOutsideType,
 } from "./Types";
 
 export default function processTargets(
@@ -470,6 +472,8 @@ function createTypedSelection(
         selectionContext: getTokenSelectionContext(
           selection,
           modifier,
+          position,
+          insideOutsideType,
           selectionContext
         ),
       };
@@ -609,6 +613,8 @@ function performPositionAdjustment(
 function getTokenSelectionContext(
   selection: SelectionWithEditor,
   modifier: Modifier,
+  position: TargetPosition,
+  insideOutsideType: InsideOutsideType,
   selectionContext: SelectionContext
 ): SelectionContext {
   if (!isSelectionContextEmpty(selectionContext)) {
@@ -620,32 +626,38 @@ function getTokenSelectionContext(
 
   const document = selection.editor.document;
   const { start, end } = selection.selection;
-
-  const startLine = document.lineAt(start);
-  const leadingText = startLine.text.slice(0, start.character);
-  const leadingDelimiters = leadingText.match(/\s+$/);
-  const leadingDelimiterRange =
-    leadingDelimiters != null
-      ? new Range(
-          start.line,
-          start.character - leadingDelimiters[0].length,
-          start.line,
-          start.character
-        )
-      : null;
-
   const endLine = document.lineAt(end);
-  const trailingText = endLine.text.slice(end.character);
-  const trailingDelimiters = trailingText.match(/^\s+/);
-  const trailingDelimiterRange =
-    trailingDelimiters != null
-      ? new Range(
-          end.line,
-          end.character,
-          end.line,
-          end.character + trailingDelimiters[0].length
-        )
-      : null;
+  let leadingDelimiterRange, trailingDelimiterRange;
+
+  // Position start/end of has no delimiter
+  if (position !== "before" || insideOutsideType !== "inside") {
+    const startLine = document.lineAt(start);
+    const leadingText = startLine.text.slice(0, start.character);
+    const leadingDelimiters = leadingText.match(/\s+$/);
+    leadingDelimiterRange =
+      leadingDelimiters != null
+        ? new Range(
+            start.line,
+            start.character - leadingDelimiters[0].length,
+            start.line,
+            start.character
+          )
+        : null;
+  }
+
+  if (position !== "after" || insideOutsideType !== "inside") {
+    const trailingText = endLine.text.slice(end.character);
+    const trailingDelimiters = trailingText.match(/^\s+/);
+    trailingDelimiterRange =
+      trailingDelimiters != null
+        ? new Range(
+            end.line,
+            end.character,
+            end.line,
+            end.character + trailingDelimiters[0].length
+          )
+        : null;
+  }
 
   const isInDelimitedList =
     (leadingDelimiterRange != null || trailingDelimiterRange != null) &&
