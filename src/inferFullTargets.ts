@@ -380,11 +380,12 @@ export function inferRangeEndTarget(
 
   const mark =
     target.mark ??
+    (target.selectionType === "token" ? CURSOR_MARK_TOKEN : null) ??
     extractAttributeFromList(
       possiblePrototypeTargetsIncludingStartTarget,
       "mark"
     ) ??
-    (target.selectionType === "token" ? CURSOR_MARK_TOKEN : CURSOR_MARK);
+    CURSOR_MARK;
 
   const selectionType =
     target.selectionType ??
