@@ -69,9 +69,7 @@ export default class NavigationMap {
       (token) => token.range.intersection(range) != null
     );
     // If multiple matches take the longest
-    matches.sort(
-      (a, b) => b.endOffset - b.startOffset - (a.endOffset - a.startOffset)
-    );
+    matches.sort((a, b) => b.text.length - a.text.length);
     return matches[0] ?? null;
   }
 }
