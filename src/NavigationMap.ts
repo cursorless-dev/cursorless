@@ -68,8 +68,10 @@ export default class NavigationMap {
     const matches = Object.values(this.map).filter(
       (token) => token.range.intersection(range) != null
     );
-    // If multiple matches take the first/to the left
-    matches.sort((a, b) => a.startOffset - b.startOffset);
+    // If multiple matches take the longest
+    matches.sort(
+      (a, b) => b.endOffset - b.startOffset - (a.endOffset - a.startOffset)
+    );
     return matches[0] ?? null;
   }
 }
