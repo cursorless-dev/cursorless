@@ -84,7 +84,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   value: valueMatcher("*[declarator][value]", "*[value]", "assignment_expression[right]", "optional_parameter_declaration[default_value]"),
   collectionItem: argumentMatcher("initializer_list"),
   argumentOrParameter: argumentMatcher("parameter_list", "argument_list"),
-  xmlAttribute: "attribute"
+  attribute: "attribute"
 };
 
 export default createPatternMatchers(nodeMatchers);
