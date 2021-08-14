@@ -65,8 +65,11 @@ export default class NavigationMap {
   }
 
   public getTokenForRange(range: Range) {
-    return Object.values(this.map).find(
+    const matches = Object.values(this.map).filter(
       (token) => token.range.intersection(range) != null
     );
+    // If multiple matches take the first/to the left
+    matches.sort((a, b) => a.startOffset - b.startOffset);
+    return matches[0] ?? null;
   }
 }
