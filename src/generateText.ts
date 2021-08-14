@@ -9,7 +9,7 @@ export default function (generator: TextGenerator, numTargets: number) {
       for (let i = 0; i < numTargets; ++i) {
         result[i] = (generator.start + i).toString();
       }
-      break;
+      return result;
 
     case "pair":
       if (numTargets % 2 !== 0) {
@@ -19,8 +19,6 @@ export default function (generator: TextGenerator, numTargets: number) {
       for (let i = 0; i < numTargets; ++i) {
         result[i] = pairTexts[i % 2];
       }
-      break;
+      return result;
   }
-
-  return result;
 }

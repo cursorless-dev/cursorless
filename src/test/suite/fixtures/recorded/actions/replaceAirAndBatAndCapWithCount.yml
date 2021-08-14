@@ -12,7 +12,7 @@ command:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
   extraArgs:
-    - {start: 0}
+    - {type: "range", start: 0}
 marks:
   default.a:
     start: {line: 1, character: 0}
