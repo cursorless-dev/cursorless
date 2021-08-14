@@ -1,0 +1,31 @@
+spokenForm: take token past trap
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: range
+      start: {type: primitive, selectionType: token}
+      end:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: t}
+      excludeStart: false
+      excludeEnd: false
+  extraArgs: []
+marks:
+  default.t:
+    start: {line: 0, character: 6}
+    end: {line: 0, character: 11}
+initialState:
+  documentContents: hello there
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+finalState:
+  documentContents: hello there
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 11}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 11}
+fullTargets: [{type: range, excludeStart: false, excludeEnd: false, start: {type: primitive, mark: {type: cursorToken}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}, end: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}}]

@@ -332,7 +332,10 @@ function inferRangeStartTarget(
   prototypeTargets: Target[],
   actionPreferences: ActionPreferences
 ): PrimitiveTarget {
-  const mark = target.mark ?? CURSOR_MARK;
+  const mark =
+    target.mark ??
+    (target.selectionType === "token" ? CURSOR_MARK_TOKEN : CURSOR_MARK);
+
   prototypeTargets = hasContent(target) ? [] : prototypeTargets;
 
   const selectionType =
@@ -381,7 +384,7 @@ export function inferRangeEndTarget(
       possiblePrototypeTargetsIncludingStartTarget,
       "mark"
     ) ??
-    CURSOR_MARK;
+    (target.selectionType === "token" ? CURSOR_MARK_TOKEN : CURSOR_MARK);
 
   const selectionType =
     target.selectionType ??
