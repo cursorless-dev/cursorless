@@ -19,7 +19,7 @@ export async function setSelectionsAndFocusEditor(
   selections: Selection[]
 ) {
   editor.selections = selections;
-  editor.revealRange(editor.selections[0]);
+  editor.revealRange(editor.selection);
 
   // NB: We focus the editor after setting the selection because otherwise you see
   // an intermediate state where the old selection persists
