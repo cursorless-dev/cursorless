@@ -1,6 +1,7 @@
 import { TextDocumentChangeEvent, Range } from "vscode";
 import { SymbolColor } from "./constants";
-import { Token } from "./Types";
+import { selectionWithEditorFromPositions } from "./selectionUtils";
+import { SelectionWithEditor, Token } from "./Types";
 
 /**
  * Maps from (color, character) pairs to tokens
@@ -64,13 +65,39 @@ export default class NavigationMap {
     this.map = {};
   }
 
-  public getTokenForRange(range: Range) {
-    const matches = Object.values(this.map).filter(
+  public getTokenSelectionForSelection(
+    selection: SelectionWithEditor
+  ): SelectionWithEditor | null {
+    const range = selection.selection;
+    const tokens = range.isEmpty
+      ? this.getTokensForEmptyRange(range)
+      : this.getTokensForRange(range);
+    if (tokens.length < 1) {
+      return null;
+    }
+    const start = tokens[0].range.start;
+    const end = tokens[tokens.length - 1].range.end;
+    return selectionWithEditorFromPositions(selection, start, end);
+  }
+
+  // Return tokens for overlapping ranges
+  private getTokensForRange(range: Range) {
+    const tokens = Object.values(this.map).filter((token) => {
+      const intersection = token.range.intersection(range);
+      return intersection != null && !intersection.isEmpty;
+    });
+    tokens.sort((a, b) => a.startOffset - b.startOffset);
+    return tokens;
+  }
+
+  // Returned single token for overlapping or adjacent range
+  private getTokensForEmptyRange(range: Range) {
+    const tokens = Object.values(this.map).filter(
       (token) => token.range.intersection(range) != null
     );
 
     // If multiple matches sort and take the first
-    matches.sort((a, b) => {
+    tokens.sort((a, b) => {
       // First sort on alphanumeric
       const aIsAlphaNum = isAlphaNum(a.text);
       const bIsAlphaNum = isAlphaNum(b.text);
@@ -91,7 +118,7 @@ export default class NavigationMap {
       return a.startOffset - b.startOffset;
     });
 
-    return matches[0] ?? null;
+    return tokens.slice(0, 1);
   }
 }
 

@@ -201,19 +201,15 @@ function getSelectionsFromMark(
       return context.sourceMark;
 
     case "cursorToken": {
-      const tokens = context.currentSelections.map((selection) => {
-        const token = context.navigationMap.getTokenForRange(
-          selection.selection
-        );
-        if (token == null) {
-          throw new Error("Couldn't find mark under cursor");
+      const tokenSelections = context.currentSelections.map((selection) => {
+        const tokenSelection =
+          context.navigationMap.getTokenSelectionForSelection(selection);
+        if (tokenSelection == null) {
+          throw new Error("Couldn't find token in selection");
         }
-        return token;
+        return tokenSelection;
       });
-      return tokens.map((token) => ({
-        selection: new Selection(token.range.start, token.range.end),
-        editor: token.editor,
-      }));
+      return tokenSelections;
     }
 
     case "decoratedSymbol":
