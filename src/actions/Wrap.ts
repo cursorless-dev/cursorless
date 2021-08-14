@@ -9,9 +9,9 @@ import {
   TypedSelection,
 } from "../typings/Types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { decorationSleep } from "../util/editDisplayUtils";
 import { performEditsAndUpdateSelections } from "../util/updateSelections";
 import { selectionWithEditorFromPositions } from "../util/selectionUtils";
+import { displayPendingEditDecorationsForSelection } from "../util/editDisplayUtils";
 
 export default class Wrap implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
@@ -68,13 +68,13 @@ export default class Wrap implements Action {
             ]
           );
 
-          editor.setDecorations(
-            this.graph.editStyles.justAdded.token,
-            updatedSelections
+          await displayPendingEditDecorationsForSelection(
+            updatedSelections.map((selection) => ({
+              editor,
+              selection,
+            })),
+            this.graph.editStyles.justAdded.token
           );
-          await decorationSleep();
-
-          editor.setDecorations(this.graph.editStyles.justAdded.token, []);
 
           return targets.map((target, index) => {
             const start = updatedSelections[index * 2].start;

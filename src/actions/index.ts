@@ -27,6 +27,7 @@ import { CopyLinesUp, CopyLinesDown } from "./CopyLines";
 import SetBreakpoint from "./SetBreakpoint";
 import { Sort, Reverse } from "./Sort";
 import Call from "./Call";
+import Insert from "./Insert";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -42,6 +43,7 @@ class Actions implements ActionRecord {
   foldRegion = new Fold(this.graph);
   getText = new GetText(this.graph);
   indentLine = new IndentLines(this.graph);
+  insert = new Insert(this.graph);
   insertCopyAfter = new CopyLinesDown(this.graph);
   insertCopyBefore = new CopyLinesUp(this.graph);
   insertEmptyLineAfter = new InsertEmptyLineBelow(this.graph);

@@ -4,6 +4,7 @@ import { Location } from "vscode";
 import { HatStyleName } from "../core/constants";
 import { EditStyles } from "../core/editStyles";
 import NavigationMap from "../core/NavigationMap";
+import { PairDelimiter } from "../pairDelimiters";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -61,17 +62,6 @@ export type Mark =
   //   | LastCursorPosition Not implemented yet
   | DecoratedSymbol
   | LineNumber;
-export type Delimiter =
-  | "angleBrackets"
-  | "backtickQuotes"
-  | "curlyBrackets"
-  | "doubleQuotes"
-  | "escapedSingleQuotes"
-  | "escapedDoubleQuotes"
-  | "parentheses"
-  | "singleQuotes"
-  | "squareBrackets"
-  | "whitespace";
 
 export type ScopeType =
   | "argumentOrParameter"
@@ -102,7 +92,7 @@ export type SubTokenType = "word" | "character";
 
 export interface SurroundingPairModifier {
   type: "surroundingPair";
-  delimiter: Delimiter | null;
+  delimiter: PairDelimiter | null;
   delimitersOnly: boolean;
 }
 export interface ContainingScopeModifier {
@@ -288,6 +278,7 @@ export type ActionType =
   | "foldRegion"
   | "getText"
   | "indentLine"
+  | "insert"
   | "insertCopyAfter"
   | "insertCopyBefore"
   | "insertEmptyLineAfter"
@@ -361,3 +352,15 @@ export interface Edit {
   dontMoveOnEqualStart?: boolean;
   extendOnEqualEmptyRange?: boolean;
 }
+
+export interface RangeGenerator {
+  type: "range";
+  start: number;
+}
+
+export interface PairGenerator {
+  type: "pair";
+  pair: PairDelimiter;
+}
+
+export type TextGenerator = RangeGenerator | PairGenerator;

@@ -1,8 +1,7 @@
-import { maxBy, zip } from "lodash";
 import { Position, Selection } from "vscode";
 import { Point, SyntaxNode } from "web-tree-sitter";
+import { PairDelimiter, pairDelimiterToText } from "../pairDelimiters";
 import {
-  Delimiter,
   NodeMatcher,
   NodeMatcherValue,
   SelectionWithEditor,
@@ -12,25 +11,12 @@ function positionFromPoint(point: Point): Position {
   return new Position(point.row, point.column);
 }
 
-const delimiterToText: Record<Delimiter, string[]> = {
-  squareBrackets: ["[", "]"],
-  curlyBrackets: ["{", "}"],
-  angleBrackets: ["<", ">"],
-  parentheses: ["(", ")"],
-  singleQuotes: ["'", "'"],
-  doubleQuotes: ['"', '"'],
-  backtickQuotes: ["`", "`"],
-  whitespace: [" ", " "], // TODO: Fix this to handle tabs / newlines
-  escapedSingleQuotes: ["\\'", "\\'"],
-  escapedDoubleQuotes: ['\\"', '\\"'],
-};
-
 const leftToRightMap: Record<string, string> = Object.fromEntries(
-  Object.values(delimiterToText)
+  Object.values(pairDelimiterToText)
 );
 
 export function createSurroundingPairMatcher(
-  delimiter: Delimiter | null,
+  delimiter: PairDelimiter | null,
   delimitersOnly: boolean
 ): NodeMatcher {
   return function nodeMatcher(
@@ -38,10 +24,10 @@ export function createSurroundingPairMatcher(
     node: SyntaxNode
   ) {
     const delimitersToCheck =
-      delimiter == null ? Object.keys(delimiterToText) : [delimiter];
+      delimiter == null ? Object.keys(pairDelimiterToText) : [delimiter];
 
     const leftDelimiterTypes = delimitersToCheck.map(
-      (delimiter) => delimiterToText[delimiter][0]
+      (delimiter) => pairDelimiterToText[delimiter][0]
     );
 
     const leftDelimiterNodes = node.children.filter(
