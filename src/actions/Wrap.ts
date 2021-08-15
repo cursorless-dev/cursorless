@@ -7,11 +7,11 @@ import {
   Graph,
   SelectionWithEditor,
   TypedSelection,
-} from "../Types";
-import { runOnTargetsForEachEditor } from "../targetUtils";
-import { decorationSleep } from "../editDisplayUtils";
-import { performEditsAndUpdateSelections } from "../updateSelections";
-import { selectionWithEditorFromPositions } from "../selectionUtils";
+} from "../typings/Types";
+import { runOnTargetsForEachEditor } from "../util/targetUtils";
+import { decorationSleep } from "../util/editDisplayUtils";
+import { performEditsAndUpdateSelections } from "../util/updateSelections";
+import { selectionWithEditorFromPositions } from "../util/selectionUtils";
 
 export default class Wrap implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];

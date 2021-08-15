@@ -1,13 +1,13 @@
 import { zip } from "lodash";
 import { Selection } from "vscode";
-import { performInsideOutsideAdjustment } from "../performInsideOutsideAdjustment";
+import { performInsideOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 import {
   PrimitiveTarget,
   ProcessedTargetsContext,
   RangeTarget,
   Target,
   TypedSelection,
-} from "../Types";
+} from "../typings/Types";
 import processMark from "./processMark";
 import processModifier from "./processModifier";
 import processPosition from "./processPosition";

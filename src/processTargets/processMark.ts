@@ -7,7 +7,7 @@ import {
   Mark,
   ProcessedTargetsContext,
   SelectionWithEditor,
-} from "../Types";
+} from "../typings/Types";
 
 export default function (
   context: ProcessedTargetsContext,

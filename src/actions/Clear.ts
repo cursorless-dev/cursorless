@@ -4,9 +4,9 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
-import { ensureSingleEditor } from "../targetUtils";
-import { setSelectionsAndFocusEditor } from "../setSelectionsAndFocusEditor";
+} from "../typings/Types";
+import { ensureSingleEditor } from "../util/targetUtils";
+import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 
 export default class Clear implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];

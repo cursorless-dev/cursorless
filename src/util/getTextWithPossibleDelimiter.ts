@@ -1,4 +1,4 @@
-import { TypedSelection } from "./Types";
+import { TypedSelection } from "../typings/Types";
 
 /** Get text from selection. Possibly add delimiter for positions before/after */
 export function getTextWithPossibleDelimiter(

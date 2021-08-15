@@ -2,8 +2,8 @@ import {
   createPatternMatchers,
   argumentMatcher,
   valueMatcher,
-} from "../nodeMatchers";
-import { ScopeType, NodeMatcherAlternative } from "../Types";
+} from "../util/nodeMatchers";
+import { ScopeType, NodeMatcherAlternative } from "../typings/Types";
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   dictionary: "object",

@@ -3,19 +3,19 @@ import { promises as fsp } from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
-import { TestCaseFixture } from "../../TestCase";
-import { ThatMark } from "../../ThatMark";
-import NavigationMap from "../../NavigationMap";
+import { TestCaseFixture } from "../../testUtil/TestCase";
+import { ThatMark } from "../../core/ThatMark";
+import NavigationMap from "../../core/NavigationMap";
 import * as sinon from "sinon";
-import { Clipboard } from "../../Clipboard";
-import { takeSnapshot } from "../../takeSnapshot";
+import { Clipboard } from "../../testUtil/Clipboard";
+import { takeSnapshot } from "../../testUtil/takeSnapshot";
 import {
   PositionPlainObject,
   rangeToPlainObject,
   SelectionPlainObject,
-} from "../../toPlainObject";
+} from "../../util/toPlainObject";
 import { walkFilesSync } from "./walkSync";
-import { enableDebugLog } from "../../debug";
+import { enableDebugLog } from "../../util/debug";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);

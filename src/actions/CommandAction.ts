@@ -6,13 +6,13 @@ import {
   Graph,
   TypedSelection,
   SelectionWithEditor,
-} from "./Types";
-import displayPendingEditDecorations from "./editDisplayUtils";
-import { runOnTargetsForEachEditor } from "./targetUtils";
-import { focusEditor } from "./setSelectionsAndFocusEditor";
+} from "../typings/Types";
+import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { runOnTargetsForEachEditor } from "../util/targetUtils";
+import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { flatten } from "lodash";
-import { callFunctionAndUpdateSelections } from "./updateSelections";
-import { ensureSingleEditor } from "./targetUtils";
+import { callFunctionAndUpdateSelections } from "../util/updateSelections";
+import { ensureSingleEditor } from "../util/targetUtils";
 
 export default class CommandAction implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];

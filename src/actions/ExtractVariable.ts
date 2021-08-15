@@ -4,8 +4,8 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
-import { ensureSingleTarget } from "../targetUtils";
+} from "../typings/Types";
+import { ensureSingleTarget } from "../util/targetUtils";
 import { commands } from "vscode";
 
 export default class ExtractVariable implements Action {

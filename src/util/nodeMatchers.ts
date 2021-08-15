@@ -6,7 +6,7 @@ import {
   NodeMatcherAlternative,
   ScopeType,
   SelectionWithEditor,
-} from "./Types";
+} from "../typings/Types";
 import {
   simpleSelectionExtractor,
   argumentSelectionExtractor,

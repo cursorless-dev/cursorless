@@ -4,11 +4,11 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
+} from "../typings/Types";
 import { Selection, Range } from "vscode";
-import { displayPendingEditDecorationsForSelection } from "../editDisplayUtils";
-import { runOnTargetsForEachEditor } from "../targetUtils";
-import { performEditsAndUpdateSelections } from "../updateSelections";
+import { displayPendingEditDecorationsForSelection } from "../util/editDisplayUtils";
+import { runOnTargetsForEachEditor } from "../util/targetUtils";
+import { performEditsAndUpdateSelections } from "../util/updateSelections";
 import { flatten } from "lodash";
 
 class InsertEmptyLines implements Action {

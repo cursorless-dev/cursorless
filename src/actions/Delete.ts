@@ -4,11 +4,11 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
-import { runOnTargetsForEachEditor } from "../targetUtils";
-import displayPendingEditDecorations from "../editDisplayUtils";
+} from "../typings/Types";
+import { runOnTargetsForEachEditor } from "../util/targetUtils";
+import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { flatten } from "lodash";
-import { performEditsAndUpdateSelections } from "../updateSelections";
+import { performEditsAndUpdateSelections } from "../util/updateSelections";
 
 export default class Delete implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "outside" }];

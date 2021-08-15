@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
-import { tokenize } from "./tokenizer";
-import { Token } from "./Types";
+import { tokenize } from "../core/tokenizer";
+import { Token } from "../typings/Types";
 
 export function getTokensInRange(
   editor: vscode.TextEditor,

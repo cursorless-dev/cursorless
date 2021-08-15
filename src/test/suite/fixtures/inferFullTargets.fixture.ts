@@ -4,7 +4,7 @@ import {
   InferenceContext,
   PartialTarget,
   Target,
-} from "../../../Types";
+} from "../../../typings/Types";
 
 interface FixtureInput {
   context: InferenceContext;

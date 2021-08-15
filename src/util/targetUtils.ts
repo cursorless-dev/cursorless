@@ -1,6 +1,6 @@
 import { TextEditor, Selection, Position } from "vscode";
 import { groupBy } from "./itertools";
-import { TypedSelection } from "./Types";
+import { TypedSelection } from "../typings/Types";
 
 export function ensureSingleEditor(targets: TypedSelection[]) {
   if (targets.length === 0) {

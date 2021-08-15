@@ -4,11 +4,11 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
-import { performInsideOutsideAdjustment } from "../performInsideOutsideAdjustment";
-import CommandAction from "../CommandAction";
-import displayPendingEditDecorations from "../editDisplayUtils";
-import { getOutsideOverflow } from "../targetUtils";
+} from "../typings/Types";
+import { performInsideOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
+import CommandAction from "./CommandAction";
+import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { getOutsideOverflow } from "../util/targetUtils";
 import { zip } from "lodash";
 
 export class Cut implements Action {

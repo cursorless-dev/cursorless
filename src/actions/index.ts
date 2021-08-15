@@ -1,4 +1,4 @@
-import { ActionRecord, Graph } from "../Types";
+import { ActionRecord, Graph } from "../typings/Types";
 import Clear from "./Clear";
 import { Cut, Copy, Paste } from "./CutCopyPaste";
 import Delete from "./Delete";

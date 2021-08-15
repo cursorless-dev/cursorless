@@ -1,6 +1,6 @@
 import { TextDocumentChangeEvent, Range } from "vscode";
 import { SymbolColor } from "./constants";
-import { Token } from "./Types";
+import { Token } from "../typings/Types";
 
 /**
  * Maps from (color, character) pairs to tokens

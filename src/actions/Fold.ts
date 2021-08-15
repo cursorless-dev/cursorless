@@ -5,8 +5,8 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
-import { ensureSingleEditor } from "../targetUtils";
+} from "../typings/Types";
+import { ensureSingleEditor } from "../util/targetUtils";
 
 class FoldAction implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "outside" }];

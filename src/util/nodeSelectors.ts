@@ -1,6 +1,6 @@
 import { SyntaxNode, Point } from "web-tree-sitter";
 import { Position, Range, Selection, TextEditor } from "vscode";
-import { SelectionWithContext, SelectionExtractor } from "./Types";
+import { SelectionWithContext, SelectionExtractor } from "../typings/Types";
 
 export function makeRange(startPosition: Point, endPosition: Point) {
   return new Range(

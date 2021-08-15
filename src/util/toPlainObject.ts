@@ -1,5 +1,5 @@
 import { Selection, Position, Range } from "vscode";
-import { Token } from "./Types";
+import { Token } from "../typings/Types";
 
 export type PositionPlainObject = {
   line: number;

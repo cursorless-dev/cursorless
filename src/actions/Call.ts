@@ -4,8 +4,8 @@ import {
   ActionPreferences,
   Graph,
   TypedSelection,
-} from "../Types";
-import { ensureSingleTarget } from "../targetUtils";
+} from "../typings/Types";
+import { ensureSingleTarget } from "../util/targetUtils";
 
 export default class Call implements Action {
   targetPreferences: ActionPreferences[] = [

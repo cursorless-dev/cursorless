@@ -1,9 +1,9 @@
 import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
 import { Location } from "vscode";
-import { SymbolColor } from "./constants";
-import { EditStyles } from "./editStyles";
-import NavigationMap from "./NavigationMap";
+import { SymbolColor } from "../core/constants";
+import { EditStyles } from "../core/editStyles";
+import NavigationMap from "../core/NavigationMap";
 
 /**
  * A token within a text editor, including the current display line of the token

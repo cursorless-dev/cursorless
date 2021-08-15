@@ -1,4 +1,4 @@
-import { SelectionWithEditor } from "./Types";
+import { SelectionWithEditor } from "../typings/Types";
 
 export class ThatMark {
   private mark?: SelectionWithEditor[];

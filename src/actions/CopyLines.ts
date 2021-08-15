@@ -4,14 +4,14 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
+} from "../typings/Types";
 import { Range, Selection, TextEditor } from "vscode";
-import { performEditsAndUpdateSelections } from "../updateSelections";
-import { displayPendingEditDecorationsForSelection } from "../editDisplayUtils";
-import { runOnTargetsForEachEditor } from "../targetUtils";
+import { performEditsAndUpdateSelections } from "../util/updateSelections";
+import { displayPendingEditDecorationsForSelection } from "../util/editDisplayUtils";
+import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { flatten } from "lodash";
-import unifyRanges from "../unifyRanges";
-import expandToContainingLine from "../expandToContainingLine";
+import unifyRanges from "../util/unifyRanges";
+import expandToContainingLine from "../util/expandToContainingLine";
 
 class CopyLines implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];

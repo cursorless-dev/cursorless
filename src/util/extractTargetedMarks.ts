@@ -1,6 +1,6 @@
-import { SymbolColor } from "./constants";
-import NavigationMap from "./NavigationMap";
-import { PrimitiveTarget, Target, Token } from "./Types";
+import { SymbolColor } from "../core/constants";
+import NavigationMap from "../core/NavigationMap";
+import { PrimitiveTarget, Target, Token } from "../typings/Types";
 
 function extractPrimitiveTargetKeys(...targets: PrimitiveTarget[]) {
   const keys: string[] = [];

@@ -3,7 +3,7 @@ import {
   PrimitiveTarget,
   ProcessedTargetsContext,
   TypedSelection,
-} from "../Types";
+} from "../typings/Types";
 
 export default function (
   context: ProcessedTargetsContext,

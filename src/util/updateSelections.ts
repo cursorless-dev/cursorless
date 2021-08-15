@@ -10,7 +10,7 @@ import {
   EndOfLine,
 } from "vscode";
 import { performDocumentEdits } from "./performDocumentEdits";
-import { Edit } from "./Types";
+import { Edit } from "../typings/Types";
 
 interface TextDocumentContentChange extends TextDocumentContentChangeEvent {
   dontMoveOnEqualStart?: boolean;

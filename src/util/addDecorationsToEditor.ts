@@ -3,10 +3,10 @@ import * as vscode from "vscode";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator as getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
-import { Token } from "./Types";
-import Decorations from "./Decorations";
-import { COLORS, SymbolColor } from "./constants";
-import NavigationMap from "./NavigationMap";
+import { Token } from "../typings/Types";
+import Decorations from "../core/Decorations";
+import { COLORS, SymbolColor } from "../core/constants";
+import NavigationMap from "../core/NavigationMap";
 
 interface CharacterTokenInfo {
   characterIdx: number;

@@ -1,4 +1,4 @@
-import { Edit } from "./Types";
+import { Edit } from "../typings/Types";
 import { TextEditor } from "vscode";
 
 export async function performDocumentEdits(editor: TextEditor, edits: Edit[]) {

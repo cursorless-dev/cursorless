@@ -1,13 +1,13 @@
 import * as path from "path";
 import * as fs from "fs";
 import * as vscode from "vscode";
-import NavigationMap from "./NavigationMap";
-import { ThatMark } from "./ThatMark";
-import { ActionType, PartialTarget, Target } from "./Types";
-import { extractTargetedMarks } from "./extractTargetedMarks";
-import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
+import NavigationMap from "../core/NavigationMap";
+import { ThatMark } from "../core/ThatMark";
+import { ActionType, PartialTarget, Target } from "../typings/Types";
+import { extractTargetedMarks } from "../util/extractTargetedMarks";
+import { marksToPlainObject, SerializedMarks } from "../util/toPlainObject";
 import { takeSnapshot, TestCaseSnapshot } from "./takeSnapshot";
-import serialize from "./serialize";
+import serialize from "../util/serialize";
 
 type TestCaseCommand = {
   actionName: ActionType;

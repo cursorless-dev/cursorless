@@ -1,9 +1,9 @@
 import { TextEditorDecorationType, workspace } from "vscode";
-import { TypedSelection, SelectionWithEditor } from "./Types";
+import { TypedSelection, SelectionWithEditor } from "../typings/Types";
 import { isLineSelectionType } from "./selectionType";
 import { promisify } from "util";
 import { runOnTargetsForEachEditor, runForEachEditor } from "./targetUtils";
-import { EditStyle } from "./editStyles";
+import { EditStyle } from "../core/editStyles";
 
 const sleep = promisify(setTimeout);
 

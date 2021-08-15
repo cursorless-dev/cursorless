@@ -3,7 +3,7 @@ import { join } from "path";
 import { COLORS } from "./constants";
 import { SymbolColor } from "./constants";
 import { readFileSync } from "fs";
-import { DecorationColorSetting } from "./Types";
+import { DecorationColorSetting } from "../typings/Types";
 import FontMeasurements from "./FontMeasurements";
 
 const DEFAULT_HAT_WIDTH_TO_CHARACTER_WITH_RATIO = 0.39;

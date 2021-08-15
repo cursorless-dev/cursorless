@@ -4,7 +4,7 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
+} from "../typings/Types";
 import {
   SourceBreakpoint,
   Location,
@@ -13,7 +13,7 @@ import {
   Range,
   Breakpoint,
 } from "vscode";
-import displayPendingEditDecorations from "../editDisplayUtils";
+import displayPendingEditDecorations from "../util/editDisplayUtils";
 
 function getBreakpoints(uri: Uri, range: Range) {
   return debug.breakpoints.filter(

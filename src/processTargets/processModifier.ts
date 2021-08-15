@@ -2,10 +2,10 @@ import update from "immutability-helper";
 import { range } from "lodash";
 import { Location, Position, Range, Selection } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
-import { SUBWORD_MATCHER } from "../constants";
+import { SUBWORD_MATCHER } from "../core/constants";
 import { getNodeMatcher } from "../languages";
 import { createSurroundingPairMatcher } from "../languages/surroundingPair";
-import { selectionWithEditorFromRange } from "../selectionUtils";
+import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import {
   ContainingScopeModifier,
   HeadModifier,
@@ -17,7 +17,7 @@ import {
   SubTokenModifier,
   SurroundingPairModifier,
   TailModifier,
-} from "../Types";
+} from "../typings/Types";
 
 type SelectionWithContext = {
   selection: SelectionWithEditor;

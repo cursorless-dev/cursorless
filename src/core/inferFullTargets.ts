@@ -7,7 +7,7 @@ import {
   RangeTarget,
   Target,
   PartialListTarget,
-} from "./Types";
+} from "../typings/Types";
 
 export default function (
   targets: PartialTarget[],

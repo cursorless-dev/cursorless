@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { tokenize } from "../../tokenizer";
+import { tokenize } from "../../core/tokenizer";
 import { flatten, range } from "lodash";
 
 type TestCase = [string, string[]];

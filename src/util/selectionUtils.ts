@@ -1,6 +1,6 @@
 import { Range, Selection, Position } from "vscode";
 import update from "immutability-helper";
-import { TypedSelection, SelectionWithEditor } from "./Types";
+import { TypedSelection, SelectionWithEditor } from "../typings/Types";
 
 export function selectionFromRange(
   selection: Selection,

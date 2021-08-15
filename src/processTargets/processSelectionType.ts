@@ -2,7 +2,7 @@ import { Position, Range, TextDocument } from "vscode";
 import {
   selectionFromPositions,
   selectionWithEditorFromPositions,
-} from "../selectionUtils";
+} from "../util/selectionUtils";
 import {
   Modifier,
   PrimitiveTarget,
@@ -10,7 +10,7 @@ import {
   SelectionContext,
   SelectionWithEditor,
   TypedSelection,
-} from "../Types";
+} from "../typings/Types";
 
 export default function (
   context: ProcessedTargetsContext,

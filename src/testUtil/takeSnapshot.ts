@@ -5,8 +5,8 @@ import {
   rangeToPlainObject,
   RangePlainObject,
   SelectionPlainObject,
-} from "./toPlainObject";
-import { ThatMark } from "./ThatMark";
+} from "../util/toPlainObject";
+import { ThatMark } from "../core/ThatMark";
 
 export type TestCaseSnapshot = {
   documentContents: string;
