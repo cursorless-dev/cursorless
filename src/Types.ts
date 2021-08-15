@@ -58,7 +58,7 @@ export type Mark =
   | CursorMarkToken
   | That
   | Source
-  | LastCursorPosition
+//   | LastCursorPosition Not implemented yet
   | DecoratedSymbol
   | LineNumber;
 export type Delimiter =

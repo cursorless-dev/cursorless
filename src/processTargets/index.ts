@@ -11,6 +11,7 @@ import {
   Target,
   TypedSelection,
 } from "../Types";
+import processMark from "./processMark";
 import processModifier from "./processModifier";
 import processSelectionType from "./processSelectionType";
 
@@ -173,7 +174,7 @@ function processPrimitiveTarget(
   context: ProcessedTargetsContext,
   target: PrimitiveTarget
 ): TypedSelection[] {
-  const markSelections = getSelectionsFromMark(context, target.mark);
+  const markSelections = processMark(context, target.mark);
   const modifiedSelections = markSelections.flatMap((markSelection) =>
     processModifier(context, target, markSelection)
   );
@@ -184,75 +185,6 @@ function processPrimitiveTarget(
   return typedSelections.map((selection) =>
     performPositionAdjustment(context, target, selection)
   );
-}
-
-function getSelectionsFromMark(
-  context: ProcessedTargetsContext,
-  mark: Mark
-): SelectionWithEditor[] {
-  switch (mark.type) {
-    case "cursor":
-      return context.currentSelections;
-    case "that":
-      return context.thatMark;
-    case "source":
-      return context.sourceMark;
-
-    case "cursorToken": {
-      const tokens = context.currentSelections.map((selection) => {
-        const token = context.navigationMap.getTokenForRange(
-          selection.selection
-        );
-        if (token == null) {
-          throw new Error("Couldn't find mark under cursor");
-        }
-        return token;
-      });
-      return tokens.map((token) => ({
-        selection: new Selection(token.range.start, token.range.end),
-        editor: token.editor,
-      }));
-    }
-
-    case "decoratedSymbol":
-      const token = context.navigationMap.getToken(
-        mark.symbolColor,
-        mark.character
-      );
-      if (token == null) {
-        throw new Error(
-          `Couldn't find mark ${mark.symbolColor} '${mark.character}'`
-        );
-      }
-      return [
-        {
-          selection: new Selection(token.range.start, token.range.end),
-          editor: token.editor,
-        },
-      ];
-
-    case "lineNumber": {
-      const getLine = (linePosition: LineNumberPosition) =>
-        linePosition.isRelative
-          ? context.currentEditor!.selection.active.line +
-            linePosition.lineNumber
-          : linePosition.lineNumber;
-      return [
-        {
-          selection: new Selection(
-            getLine(mark.anchor),
-            0,
-            getLine(mark.active),
-            0
-          ),
-          editor: context.currentEditor!,
-        },
-      ];
-    }
-
-    case "lastCursorPosition":
-      throw new Error("Not implemented");
-  }
 }
 
 function performPositionAdjustment(
