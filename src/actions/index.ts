@@ -1,16 +1,16 @@
 import { ActionRecord, Graph } from "../Types";
-import Clear from "./clear";
+import Clear from "./Clear";
 import { Cut, Copy, Paste } from "./CutCopyPaste";
-import Delete from "./delete";
-import ExtractVariable from "./extractVariable";
-import { Fold, Unfold } from "./fold";
+import Delete from "./Delete";
+import ExtractVariable from "./ExtractVariable";
+import { Fold, Unfold } from "./Fold";
 import { EditNewLineAbove, EditNewLineBelow } from "./EditNewLine";
 import {
   SetSelection,
   SetSelectionBefore,
   SetSelectionAfter,
-} from "./setSelection";
-import Wrap from "./wrap";
+} from "./SetSelection";
+import Wrap from "./Wrap";
 import { ScrollToTop, ScrollToCenter, ScrollToBottom } from "./Scroll";
 import { IndentLines, OutdentLines } from "./Indent";
 import { CommentLines } from "./Comment";
