@@ -2,17 +2,15 @@ import { zip } from "lodash";
 import { Selection } from "vscode";
 import { performInsideOutsideAdjustment } from "../performInsideOutsideAdjustment";
 import {
-  LineNumberPosition,
-  Mark,
   PrimitiveTarget,
   ProcessedTargetsContext,
   RangeTarget,
-  SelectionWithEditor,
   Target,
   TypedSelection,
 } from "../Types";
 import processMark from "./processMark";
 import processModifier from "./processModifier";
+import processPosition from "./processPosition";
 import processSelectionType from "./processSelectionType";
 
 export default function (
@@ -183,45 +181,6 @@ function processPrimitiveTarget(
       processSelectionType(context, target, selection, selectionContext)
   );
   return typedSelections.map((selection) =>
-    performPositionAdjustment(context, target, selection)
+    processPosition(context, target, selection)
   );
-}
-
-function performPositionAdjustment(
-  context: ProcessedTargetsContext,
-  target: PrimitiveTarget,
-  selection: TypedSelection
-): TypedSelection {
-  var newSelection;
-  const { position } = target;
-  const originalSelection = selection.selection.selection;
-
-  switch (position) {
-    case "contents":
-      newSelection = originalSelection;
-      break;
-    case "before":
-      newSelection = new Selection(
-        originalSelection.start,
-        originalSelection.start
-      );
-      break;
-    case "after":
-      newSelection = new Selection(
-        originalSelection.end,
-        originalSelection.end
-      );
-      break;
-  }
-
-  return {
-    selection: {
-      selection: newSelection,
-      editor: selection.selection.editor,
-    },
-    selectionType: selection.selectionType,
-    selectionContext: selection.selectionContext,
-    insideOutsideType: target.insideOutsideType ?? null,
-    position,
-  };
 }
