@@ -18,12 +18,7 @@ export default function (
   targets: Target[]
 ): TypedSelection[][] {
   return targets.map((target) =>
-    // Removed duplicate selections
-    processTarget(context, target).filter(
-      (selection, index, selections) =>
-        selections.findIndex((s) => isTypedSelectionEqual(s, selection)) ===
-        index
-    )
+    filterDuplicateSelections(processTarget(context, target))
   );
 }
 
@@ -192,13 +187,9 @@ function processPrimitiveTarget(
   );
 }
 
-function isTypedSelectionEqual(a: TypedSelection, b: TypedSelection) {
-  return (
-    a.insideOutsideType === b.insideOutsideType &&
-    a.position === b.position &&
-    a.selectionType === b.selectionType &&
-    a.selection.editor === b.selection.editor &&
-    a.selection.selection.isEqual(b.selection.selection) &&
-    isEqual(a.selectionContext, b.selectionContext)
+function filterDuplicateSelections(selections: TypedSelection[]) {
+  return selections.filter(
+    (selection, index, selections) =>
+      selections.findIndex((s) => isEqual(s, selection)) === index
   );
 }
