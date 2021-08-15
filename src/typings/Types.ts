@@ -71,6 +71,7 @@ export type Delimiter =
   | "backtickQuotes";
 
 export type ScopeType =
+  | "attribute"
   | "argumentOrParameter"
   | "arrowFunction"
   | "class"
@@ -90,7 +91,6 @@ export type ScopeType =
   | "string"
   | "type"
   | "value"
-  | "xmlAttribute"
   | "xmlElement"
   | "xmlBothTags"
   | "xmlEndTag"

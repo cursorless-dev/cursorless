@@ -1,0 +1,24 @@
+spokenForm: take first char
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      selectionType: token
+      modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: ///**
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+finalState:
+  documentContents: ///**
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+fullTargets: [{type: primitive, mark: {type: cursorToken}, selectionType: token, position: contents, modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0}, insideOutsideType: inside}]

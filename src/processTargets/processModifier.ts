@@ -114,6 +114,15 @@ function processSubToken(
   const activeIndex =
     modifier.active < 0 ? modifier.active + pieces.length : modifier.active;
 
+  if (
+    anchorIndex < 0 ||
+    activeIndex < 0 ||
+    anchorIndex >= pieces.length ||
+    activeIndex >= pieces.length
+  ) {
+    throw new Error("Subtoken index out of range");
+  }
+
   const isReversed = activeIndex < anchorIndex;
 
   const anchor = selection.selection.start.translate(

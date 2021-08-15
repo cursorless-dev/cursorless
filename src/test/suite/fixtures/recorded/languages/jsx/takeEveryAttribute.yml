@@ -4,7 +4,7 @@ command:
   actionName: setSelection
   partialTargets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: xmlAttribute, includeSiblings: true}
+      modifier: {type: containingScope, scopeType: attribute, includeSiblings: true}
   extraArgs: []
 marks: {}
 initialState:
@@ -32,4 +32,4 @@ finalState:
       active: {line: 2, character: 15}
     - anchor: {line: 2, character: 16}
       active: {line: 2, character: 26}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: xmlAttribute, includeSiblings: true}, insideOutsideType: inside}]
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: attribute, includeSiblings: true}, insideOutsideType: inside}]
