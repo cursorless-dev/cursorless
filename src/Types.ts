@@ -108,7 +108,7 @@ export interface ContainingScopeModifier {
   valueOnly?: boolean;
   includeSiblings?: boolean;
 }
-export interface SubpieceModifier {
+export interface SubTokenModifier {
   type: "subpiece";
   pieceType: PieceType;
   anchor: number;
@@ -131,8 +131,9 @@ export type Modifier =
   | IdentityModifier
   | SurroundingPairModifier
   | ContainingScopeModifier
-  | SubpieceModifier
-  | MatchingPairSymbolModifier
+  | SubTokenModifier
+  // Not implemented
+  //   | MatchingPairSymbolModifier
   | HeadModifier
   | TailModifier;
 

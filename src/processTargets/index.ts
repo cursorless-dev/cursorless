@@ -1,23 +1,14 @@
-import update from "immutability-helper";
-import { concat, range, zip } from "lodash";
-import * as vscode from "vscode";
-import { Location, Position, Range, Selection, TextDocument } from "vscode";
-import { SyntaxNode } from "web-tree-sitter";
-import { SUBWORD_MATCHER } from "../constants";
-import { getNodeMatcher } from "../languages";
-import { createSurroundingPairMatcher } from "../languages/surroundingPair";
+import { concat, zip } from "lodash";
+import { Position, Range, Selection, TextDocument } from "vscode";
 import { performInsideOutsideAdjustment } from "../performInsideOutsideAdjustment";
 import {
   selectionFromPositions,
   selectionWithEditorFromPositions,
-  selectionWithEditorFromRange,
 } from "../selectionUtils";
 import {
   LineNumberPosition,
-  ListTarget,
   Mark,
   Modifier,
-  NodeMatcher,
   PrimitiveTarget,
   ProcessedTargetsContext,
   RangeTarget,
@@ -26,6 +17,7 @@ import {
   Target,
   TypedSelection,
 } from "../Types";
+import processModifier from "./processModifier";
 
 export default function (
   context: ProcessedTargetsContext,
@@ -190,7 +182,7 @@ function processPrimitiveTarget(
   const transformedSelections = concat(
     [],
     ...markSelections.map((markSelection) =>
-      transformSelection(context, target, markSelection)
+      processModifier(context, target, markSelection)
     )
   );
 
@@ -269,193 +261,6 @@ function getSelectionsFromMark(
 
     case "lastCursorPosition":
       throw new Error("Not implemented");
-  }
-}
-
-function findNearestContainingAncestorNode(
-  startNode: SyntaxNode,
-  nodeMatcher: NodeMatcher,
-  selection: SelectionWithEditor
-) {
-  let node: SyntaxNode | null = startNode;
-  while (node != null) {
-    const matches = nodeMatcher(selection, node);
-    if (matches != null) {
-      return matches
-        .map((match) => match.selection)
-        .map((matchedSelection) => ({
-          selection: selectionWithEditorFromRange(
-            selection,
-            matchedSelection.selection
-          ),
-          context: matchedSelection.context,
-        }));
-    }
-    node = node.parent;
-  }
-
-  return null;
-}
-
-function transformSelection(
-  context: ProcessedTargetsContext,
-  target: PrimitiveTarget,
-  selection: SelectionWithEditor
-): { selection: SelectionWithEditor; context: SelectionContext }[] {
-  const { modifier } = target;
-
-  switch (modifier.type) {
-    case "identity":
-      return [{ selection, context: {} }];
-
-    case "containingScope":
-      const nodeMatcher = getNodeMatcher(
-        selection.editor.document.languageId,
-        modifier.scopeType,
-        modifier.includeSiblings ?? false
-      );
-      const node: SyntaxNode | null = context.getNodeAtLocation(
-        new Location(selection.editor.document.uri, selection.selection)
-      );
-
-      const result = findNearestContainingAncestorNode(
-        node,
-        nodeMatcher,
-        selection
-      );
-
-      if (result != null) {
-        return result;
-      }
-
-      throw new Error(`Couldn't find containing ${modifier.scopeType}`);
-
-    case "subpiece":
-      const token = selection.editor.document.getText(selection.selection);
-      let pieces: { start: number; end: number }[] = [];
-
-      if (modifier.pieceType === "word") {
-        pieces = [...token.matchAll(SUBWORD_MATCHER)].map((match) => ({
-          start: match.index!,
-          end: match.index! + match[0].length,
-        }));
-      } else if (modifier.pieceType === "character") {
-        pieces = range(token.length).map((index) => ({
-          start: index,
-          end: index + 1,
-        }));
-      }
-
-      const anchorIndex =
-        modifier.anchor < 0 ? modifier.anchor + pieces.length : modifier.anchor;
-      const activeIndex =
-        modifier.active < 0 ? modifier.active + pieces.length : modifier.active;
-
-      const isReversed = activeIndex < anchorIndex;
-
-      const anchor = selection.selection.start.translate(
-        undefined,
-        isReversed ? pieces[anchorIndex].end : pieces[anchorIndex].start
-      );
-      const active = selection.selection.start.translate(
-        undefined,
-        isReversed ? pieces[activeIndex].start : pieces[activeIndex].end
-      );
-
-      const startIndex = Math.min(anchorIndex, activeIndex);
-      const endIndex = Math.max(anchorIndex, activeIndex);
-      const leadingDelimiterRange =
-        startIndex > 0 && pieces[startIndex - 1].end < pieces[startIndex].start
-          ? new Range(
-              selection.selection.start.translate({
-                characterDelta: pieces[startIndex - 1].end,
-              }),
-              selection.selection.start.translate({
-                characterDelta: pieces[startIndex].start,
-              })
-            )
-          : null;
-      const trailingDelimiterRange =
-        endIndex + 1 < pieces.length &&
-        pieces[endIndex].end < pieces[endIndex + 1].start
-          ? new Range(
-              selection.selection.start.translate({
-                characterDelta: pieces[endIndex].end,
-              }),
-              selection.selection.start.translate({
-                characterDelta: pieces[endIndex + 1].start,
-              })
-            )
-          : null;
-      const isInDelimitedList =
-        leadingDelimiterRange != null || trailingDelimiterRange != null;
-      const containingListDelimiter = isInDelimitedList
-        ? selection.editor.document.getText(
-            (leadingDelimiterRange ?? trailingDelimiterRange)!
-          )
-        : null;
-
-      return [
-        {
-          selection: update(selection, {
-            selection: () => new Selection(anchor, active),
-          }),
-          context: {
-            isInDelimitedList,
-            containingListDelimiter: containingListDelimiter ?? undefined,
-            leadingDelimiterRange,
-            trailingDelimiterRange,
-          },
-        },
-      ];
-
-    case "head":
-    case "tail": {
-      let anchor: Position, active: Position;
-      if (modifier.type === "head") {
-        anchor = selection.selection.end;
-        active = new Position(selection.selection.start.line, 0);
-      } else {
-        anchor = selection.selection.start;
-        active = selection.editor.document.lineAt(selection.selection.end).range
-          .end;
-      }
-      return [
-        {
-          selection: update(selection, {
-            selection: () => new Selection(anchor, active),
-          }),
-          context: {},
-        },
-      ];
-    }
-
-    case "matchingPairSymbol":
-      throw new Error("Not implemented");
-
-    case "surroundingPair":
-      {
-        const node: SyntaxNode | null = context.getNodeAtLocation(
-          new vscode.Location(
-            selection.editor.document.uri,
-            selection.selection
-          )
-        );
-        const nodeMatcher = createSurroundingPairMatcher(
-          modifier.delimiter,
-          modifier.delimitersOnly
-        );
-        const result = findNearestContainingAncestorNode(
-          node,
-          nodeMatcher,
-          selection
-        );
-        if (result != null) {
-          return result;
-        }
-      }
-
-      throw new Error(`Couldn't find containing `);
   }
 }
 
