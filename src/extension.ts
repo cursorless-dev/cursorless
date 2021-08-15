@@ -11,7 +11,6 @@ import makeGraph from "./makeGraph";
 import { logBranchTypes } from "./debug";
 import { TestCase } from "./TestCase";
 import { ThatMark } from "./ThatMark";
-import { Clipboard } from "./Clipboard";
 import { TestCaseRecorder } from "./TestCaseRecorder";
 
 export async function activate(context: vscode.ExtensionContext) {
@@ -115,25 +114,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         const action = graph.actions[actionName];
 
-        const selectionContents =
-          vscode.window.activeTextEditor?.selections.map((selection) =>
-            vscode.window.activeTextEditor!.document.getText(selection)
-          ) ?? [];
-
-        const isPaste = actionName === "paste";
-
-        const clipboardContents = isPaste
-          ? await Clipboard.readText()
-          : undefined;
-
-        const inferenceContext = {
-          selectionContents,
-          isPaste,
-          clipboardContents,
-        };
-
         const targets = inferFullTargets(
-          inferenceContext,
           partialTargets,
           action.targetPreferences
         );

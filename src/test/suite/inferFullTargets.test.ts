@@ -11,7 +11,6 @@ suite.skip("inferFullTargets", () => {
     test(`inferFullTargets ${index}`, () => {
       assert.deepStrictEqual(
         inferFullTargets(
-          input.context,
           input.partialTargets,
           input.actionPreferences
         ),

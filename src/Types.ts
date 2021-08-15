@@ -196,12 +196,6 @@ export interface ListTarget {
 
 export type Target = PrimitiveTarget | RangeTarget | ListTarget;
 
-export interface InferenceContext {
-  selectionContents: string[];
-  clipboardContents?: string;
-  isPaste: boolean;
-}
-
 export interface ProcessedTargetsContext {
   currentSelections: SelectionWithEditor[];
   currentEditor: vscode.TextEditor | undefined;
