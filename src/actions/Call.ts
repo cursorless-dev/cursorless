@@ -8,7 +8,10 @@ import {
 import { ensureSingleTarget } from "../targetUtils";
 
 export default class Call implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+  targetPreferences: ActionPreferences[] = [
+    { insideOutsideType: "inside" },
+    { insideOutsideType: "inside" },
+  ];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
