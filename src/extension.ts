@@ -3,7 +3,7 @@ import { addDecorationsToEditors } from "./addDecorationsToEditor";
 import { DEBOUNCE_DELAY } from "./constants";
 import Decorations from "./Decorations";
 import graphConstructors from "./graphConstructors";
-import { inferFullTargets } from "./inferFullTargets";
+import inferFullTargets from "./inferFullTargets";
 import processTargets from "./processTargets";
 import FontMeasurements from "./FontMeasurements";
 import { ActionType, PartialTarget, ProcessedTargetsContext } from "./Types";

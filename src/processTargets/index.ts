@@ -3,17 +3,18 @@ import { concat, range, zip } from "lodash";
 import * as vscode from "vscode";
 import { Location, Position, Range, Selection, TextDocument } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
-import { SUBWORD_MATCHER } from "./constants";
-import { getNodeMatcher } from "./languages";
-import { createSurroundingPairMatcher } from "./languages/surroundingPair";
-import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
+import { SUBWORD_MATCHER } from "../constants";
+import { getNodeMatcher } from "../languages";
+import { createSurroundingPairMatcher } from "../languages/surroundingPair";
+import { performInsideOutsideAdjustment } from "../performInsideOutsideAdjustment";
 import {
   selectionFromPositions,
   selectionWithEditorFromPositions,
   selectionWithEditorFromRange,
-} from "./selectionUtils";
+} from "../selectionUtils";
 import {
   LineNumberPosition,
+  ListTarget,
   Mark,
   Modifier,
   NodeMatcher,
@@ -24,42 +25,54 @@ import {
   SelectionWithEditor,
   Target,
   TypedSelection,
-} from "./Types";
+} from "../Types";
 
-export default function processTargets(
+export default function (
   context: ProcessedTargetsContext,
   targets: Target[]
 ): TypedSelection[][] {
-  return targets.map((target) => processSingleTarget(context, target));
+  return targets.map((target) => processTarget(context, target));
 }
 
-function processSingleTarget(
+function processTarget(
   context: ProcessedTargetsContext,
   target: Target
 ): TypedSelection[] {
   switch (target.type) {
     case "list":
-      return concat(
-        [],
-        ...target.elements.map((target) => processSingleTarget(context, target))
+      return target.elements.flatMap((element) =>
+        processNonListTarget(context, element)
       );
     case "range":
-      return processSingleRangeTarget(context, target).map((selection) =>
-        performInsideOutsideAdjustment(selection)
-      );
     case "primitive":
-      return processSinglePrimitiveTarget(context, target).map((selection) =>
-        performInsideOutsideAdjustment(selection)
-      );
+      return processNonListTarget(context, target);
   }
 }
 
-function processSingleRangeTarget(
+function processNonListTarget(
+  context: ProcessedTargetsContext,
+  target: RangeTarget | PrimitiveTarget
+): TypedSelection[] {
+  let selections;
+  switch (target.type) {
+    case "range":
+      selections = processRangeTarget(context, target);
+      break;
+    case "primitive":
+      selections = processPrimitiveTarget(context, target);
+      break;
+  }
+  return selections.map((selection) =>
+    performInsideOutsideAdjustment(selection)
+  );
+}
+
+function processRangeTarget(
   context: ProcessedTargetsContext,
   target: RangeTarget
 ): TypedSelection[] {
-  const startTargets = processSinglePrimitiveTarget(context, target.start);
-  const endTargets = processSinglePrimitiveTarget(context, target.end);
+  const startTargets = processPrimitiveTarget(context, target.start);
+  const endTargets = processPrimitiveTarget(context, target.end);
 
   if (startTargets.length !== endTargets.length) {
     throw new Error("startTargets and endTargets lengths don't match");
@@ -165,7 +178,7 @@ function targetToRangeLimitPosition(
   return isStart ? selection.start : selection.end;
 }
 
-function processSinglePrimitiveTarget(
+function processPrimitiveTarget(
   context: ProcessedTargetsContext,
   target: PrimitiveTarget
 ): TypedSelection[] {

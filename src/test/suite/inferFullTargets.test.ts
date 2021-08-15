@@ -1,6 +1,6 @@
 import * as assert from "assert";
 
-import { inferFullTargets } from "../../inferFullTargets";
+import inferFullTargets from "../../inferFullTargets";
 import fixture from "./fixtures/inferFullTargets.fixture";
 
 /*

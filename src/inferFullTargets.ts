@@ -9,7 +9,7 @@ import {
   PartialListTarget,
 } from "./Types";
 
-export function inferFullTargets(
+export default function (
   targets: PartialTarget[],
   actionPreferences: ActionPreferences[]
 ): Target[] {
@@ -17,11 +17,11 @@ export function inferFullTargets(
     throw new Error("Target length is not equal to action preference length");
   }
   return targets.map((target, index) =>
-    inferSingleTarget(target, targets.slice(0, index), actionPreferences[index])
+    inferTarget(target, targets.slice(0, index), actionPreferences[index])
   );
 }
 
-export function inferSingleTarget(
+function inferTarget(
   target: PartialTarget,
   previousTargets: PartialTarget[],
   actionPreferences: ActionPreferences
@@ -117,7 +117,10 @@ function inferPrimitiveTarget(
 
   const insideOutsideType =
     target.insideOutsideType ??
-    extractAttributeFromPreviousTargets(previousTargetsToUse, "insideOutsideType") ??
+    extractAttributeFromPreviousTargets(
+      previousTargetsToUse,
+      "insideOutsideType"
+    ) ??
     actionPreferences.insideOutsideType;
 
   return {
