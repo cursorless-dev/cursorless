@@ -24,6 +24,8 @@ import {
   SelectionWithEditor,
   Target,
   TypedSelection,
+  Position as TargetPosition,
+  InsideOutsideType,
 } from "./Types";
 
 export default function processTargets(
@@ -199,19 +201,15 @@ function getSelectionsFromMark(
       return context.sourceMark;
 
     case "cursorToken": {
-      const tokens = context.currentSelections.map((selection) => {
-        const token = context.navigationMap.getTokenForRange(
-          selection.selection
-        );
-        if (token == null) {
-          throw new Error("Couldn't find mark under cursor");
+      const tokenSelections = context.currentSelections.map((selection) => {
+        const tokenSelection =
+          context.navigationMap.getTokenSelectionForSelection(selection);
+        if (tokenSelection == null) {
+          throw new Error("Couldn't find token in selection");
         }
-        return token;
+        return tokenSelection;
       });
-      return tokens.map((token) => ({
-        selection: new Selection(token.range.start, token.range.end),
-        editor: token.editor,
-      }));
+      return tokenSelections;
     }
 
     case "decoratedSymbol":
@@ -333,6 +331,15 @@ function transformSelection(
         modifier.anchor < 0 ? modifier.anchor + pieces.length : modifier.anchor;
       const activeIndex =
         modifier.active < 0 ? modifier.active + pieces.length : modifier.active;
+
+      if (
+        anchorIndex < 0 ||
+        activeIndex < 0 ||
+        anchorIndex >= pieces.length ||
+        activeIndex >= pieces.length
+      ) {
+        throw new Error("Subtoken index out of range");
+      }
 
       const isReversed = activeIndex < anchorIndex;
 
@@ -461,6 +468,8 @@ function createTypedSelection(
         selectionContext: getTokenSelectionContext(
           selection,
           modifier,
+          position,
+          insideOutsideType,
           selectionContext
         ),
       };
@@ -600,6 +609,8 @@ function performPositionAdjustment(
 function getTokenSelectionContext(
   selection: SelectionWithEditor,
   modifier: Modifier,
+  position: TargetPosition,
+  insideOutsideType: InsideOutsideType,
   selectionContext: SelectionContext
 ): SelectionContext {
   if (!isSelectionContextEmpty(selectionContext)) {
@@ -611,32 +622,38 @@ function getTokenSelectionContext(
 
   const document = selection.editor.document;
   const { start, end } = selection.selection;
-
-  const startLine = document.lineAt(start);
-  const leadingText = startLine.text.slice(0, start.character);
-  const leadingDelimiters = leadingText.match(/\s+$/);
-  const leadingDelimiterRange =
-    leadingDelimiters != null
-      ? new Range(
-          start.line,
-          start.character - leadingDelimiters[0].length,
-          start.line,
-          start.character
-        )
-      : null;
-
   const endLine = document.lineAt(end);
-  const trailingText = endLine.text.slice(end.character);
-  const trailingDelimiters = trailingText.match(/^\s+/);
-  const trailingDelimiterRange =
-    trailingDelimiters != null
-      ? new Range(
-          end.line,
-          end.character,
-          end.line,
-          end.character + trailingDelimiters[0].length
-        )
-      : null;
+  let leadingDelimiterRange, trailingDelimiterRange;
+
+  // Position start/end of has no delimiter
+  if (position !== "before" || insideOutsideType !== "inside") {
+    const startLine = document.lineAt(start);
+    const leadingText = startLine.text.slice(0, start.character);
+    const leadingDelimiters = leadingText.match(/\s+$/);
+    leadingDelimiterRange =
+      leadingDelimiters != null
+        ? new Range(
+            start.line,
+            start.character - leadingDelimiters[0].length,
+            start.line,
+            start.character
+          )
+        : null;
+  }
+
+  if (position !== "after" || insideOutsideType !== "inside") {
+    const trailingText = endLine.text.slice(end.character);
+    const trailingDelimiters = trailingText.match(/^\s+/);
+    trailingDelimiterRange =
+      trailingDelimiters != null
+        ? new Range(
+            end.line,
+            end.character,
+            end.line,
+            end.character + trailingDelimiters[0].length
+          )
+        : null;
+  }
 
   const isInDelimitedList =
     (leadingDelimiterRange != null || trailingDelimiterRange != null) &&

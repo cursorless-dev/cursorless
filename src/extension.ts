@@ -90,7 +90,7 @@ export async function activate(context: vscode.ExtensionContext) {
       } else {
         if (await testCaseRecorder.start()) {
           vscode.window.showInformationMessage(
-            "Recording test cases for following commands"
+            `Recording test cases for following commands in:\n${testCaseRecorder.fixtureSubdirectory}`
           );
         }
       }
