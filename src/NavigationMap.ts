@@ -65,6 +65,13 @@ export default class NavigationMap {
     this.map = {};
   }
 
+  /**
+   * Given a selection returns a new selection which contains the tokens
+   * intersecting the given selection. Uses heuristics to tie break when the
+   * given selection is empty and abuts 2 adjacent tokens
+   * @param selection Selection to operate on
+   * @returns Modified selection
+   */
   public getTokenSelectionForSelection(
     selection: SelectionWithEditor
   ): SelectionWithEditor | null {
