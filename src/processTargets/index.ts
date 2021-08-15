@@ -71,82 +71,86 @@ function processRangeTarget(
   context: ProcessedTargetsContext,
   target: RangeTarget
 ): TypedSelection[] {
-  const startTargets = processPrimitiveTarget(context, target.start);
-  const endTargets = processPrimitiveTarget(context, target.end);
+  const anchorTargets = processPrimitiveTarget(context, target.start);
+  const activeTargets = processPrimitiveTarget(context, target.end);
 
-  if (startTargets.length !== endTargets.length) {
-    throw new Error("startTargets and endTargets lengths don't match");
+  if (anchorTargets.length !== activeTargets.length) {
+    throw new Error("anchorTargets and activeTargets lengths don't match");
   }
 
-  return zip(startTargets, endTargets).map(([startTarget, endTarget]) => {
-    if (startTarget!.selection.editor !== endTarget!.selection.editor) {
-      throw new Error("startTarget and endTarget must be in same document");
+  return zip(anchorTargets, activeTargets).map(
+    ([anchorTarget, activeTarget]) => {
+      if (anchorTarget!.selection.editor !== activeTarget!.selection.editor) {
+        throw new Error(
+          "anchorTarget and activeTarget must be in same document"
+        );
+      }
+
+      const anchorSelection = anchorTarget!.selection.selection;
+      const activeSelection = activeTarget!.selection.selection;
+
+      const isStartBeforeEnd = anchorSelection.start.isBeforeOrEqual(
+        activeSelection.start
+      );
+
+      const anchor = targetToRangeLimitPosition(
+        anchorTarget!,
+        isStartBeforeEnd,
+        target.excludeStart
+      );
+      const active = targetToRangeLimitPosition(
+        activeTarget!,
+        !isStartBeforeEnd,
+        target.excludeEnd
+      );
+
+      const outerAnchor = target.excludeStart
+        ? null
+        : isStartBeforeEnd
+        ? anchorTarget!.selectionContext.outerSelection?.start
+        : anchorTarget!.selectionContext.outerSelection?.end;
+      const outerActive = target.excludeEnd
+        ? null
+        : isStartBeforeEnd
+        ? activeTarget!.selectionContext.outerSelection?.end
+        : activeTarget!.selectionContext.outerSelection?.start;
+      const outerSelection =
+        outerAnchor != null || outerActive != null
+          ? new Selection(outerAnchor ?? anchor, outerActive ?? active)
+          : null;
+
+      const startSelectionContext = target.excludeStart
+        ? null
+        : anchorTarget!.selectionContext;
+      const endSelectionContext = target.excludeEnd
+        ? null
+        : activeTarget!.selectionContext;
+      const leadingDelimiterRange = isStartBeforeEnd
+        ? startSelectionContext?.leadingDelimiterRange
+        : endSelectionContext?.leadingDelimiterRange;
+      const trailingDelimiterRange = isStartBeforeEnd
+        ? endSelectionContext?.trailingDelimiterRange
+        : startSelectionContext?.trailingDelimiterRange;
+
+      return {
+        selection: {
+          selection: new Selection(anchor, active),
+          editor: anchorTarget!.selection.editor,
+        },
+        selectionType: anchorTarget!.selectionType,
+        selectionContext: {
+          containingListDelimiter:
+            anchorTarget!.selectionContext.containingListDelimiter,
+          isInDelimitedList: anchorTarget!.selectionContext.isInDelimitedList,
+          leadingDelimiterRange,
+          trailingDelimiterRange,
+          outerSelection,
+        },
+        insideOutsideType: anchorTarget!.insideOutsideType,
+        position: "contents",
+      };
     }
-
-    const startSelection = startTarget!.selection.selection;
-    const endSelection = endTarget!.selection.selection;
-
-    const isStartBeforeEnd = startSelection.start.isBeforeOrEqual(
-      endSelection.start
-    );
-
-    const anchor = targetToRangeLimitPosition(
-      startTarget!,
-      isStartBeforeEnd,
-      target.excludeStart
-    );
-    const active = targetToRangeLimitPosition(
-      endTarget!,
-      !isStartBeforeEnd,
-      target.excludeEnd
-    );
-
-    const outerAnchor = target.excludeStart
-      ? null
-      : isStartBeforeEnd
-      ? startTarget!.selectionContext.outerSelection?.start
-      : startTarget!.selectionContext.outerSelection?.end;
-    const outerActive = target.excludeEnd
-      ? null
-      : isStartBeforeEnd
-      ? endTarget!.selectionContext.outerSelection?.end
-      : endTarget!.selectionContext.outerSelection?.start;
-    const outerSelection =
-      outerAnchor != null || outerActive != null
-        ? new Selection(outerAnchor ?? anchor, outerActive ?? active)
-        : null;
-
-    const startSelectionContext = target.excludeStart
-      ? null
-      : startTarget!.selectionContext;
-    const endSelectionContext = target.excludeEnd
-      ? null
-      : endTarget!.selectionContext;
-    const leadingDelimiterRange = isStartBeforeEnd
-      ? startSelectionContext?.leadingDelimiterRange
-      : endSelectionContext?.leadingDelimiterRange;
-    const trailingDelimiterRange = isStartBeforeEnd
-      ? endSelectionContext?.trailingDelimiterRange
-      : startSelectionContext?.trailingDelimiterRange;
-
-    return {
-      selection: {
-        selection: new Selection(anchor, active),
-        editor: startTarget!.selection.editor,
-      },
-      selectionType: startTarget!.selectionType,
-      selectionContext: {
-        containingListDelimiter:
-          startTarget!.selectionContext.containingListDelimiter,
-        isInDelimitedList: startTarget!.selectionContext.isInDelimitedList,
-        leadingDelimiterRange,
-        trailingDelimiterRange,
-        outerSelection,
-      },
-      insideOutsideType: startTarget!.insideOutsideType,
-      position: "contents",
-    };
-  });
+  );
 }
 
 /**
