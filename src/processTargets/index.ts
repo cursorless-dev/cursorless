@@ -57,8 +57,8 @@ function processRangeTarget(
   context: ProcessedTargetsContext,
   target: RangeTarget
 ): TypedSelection[] {
-  const anchorTargets = processPrimitiveTarget(context, target.start);
-  const activeTargets = processPrimitiveTarget(context, target.end);
+  const anchorTargets = processPrimitiveTarget(context, target.anchor);
+  const activeTargets = processPrimitiveTarget(context, target.active);
 
   if (anchorTargets.length !== activeTargets.length) {
     throw new Error("anchorTargets and activeTargets lengths don't match");
@@ -82,20 +82,20 @@ function processRangeTarget(
       const anchor = targetToRangeLimitPosition(
         anchorTarget!,
         isStartBeforeEnd,
-        target.excludeStart
+        target.excludeAnchor
       );
       const active = targetToRangeLimitPosition(
         activeTarget!,
         !isStartBeforeEnd,
-        target.excludeEnd
+        target.excludeActive
       );
 
-      const outerAnchor = target.excludeStart
+      const outerAnchor = target.excludeAnchor
         ? null
         : isStartBeforeEnd
         ? anchorTarget!.selectionContext.outerSelection?.start
         : anchorTarget!.selectionContext.outerSelection?.end;
-      const outerActive = target.excludeEnd
+      const outerActive = target.excludeActive
         ? null
         : isStartBeforeEnd
         ? activeTarget!.selectionContext.outerSelection?.end
@@ -105,10 +105,10 @@ function processRangeTarget(
           ? new Selection(outerAnchor ?? anchor, outerActive ?? active)
           : null;
 
-      const startSelectionContext = target.excludeStart
+      const startSelectionContext = target.excludeAnchor
         ? null
         : anchorTarget!.selectionContext;
-      const endSelectionContext = target.excludeEnd
+      const endSelectionContext = target.excludeActive
         ? null
         : activeTarget!.selectionContext;
       const leadingDelimiterRange = isStartBeforeEnd

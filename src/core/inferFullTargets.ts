@@ -72,14 +72,14 @@ function inferRangeTarget(
 ): RangeTarget {
   return {
     type: "range",
-    excludeStart: target.excludeStart ?? false,
-    excludeEnd: target.excludeEnd ?? false,
-    start: inferPrimitiveTarget(
+    excludeAnchor: target.excludeStart ?? false,
+    excludeActive: target.excludeEnd ?? false,
+    anchor: inferPrimitiveTarget(
       target.start,
       previousTargets,
       actionPreferences
     ),
-    end: inferPrimitiveTarget(
+    active: inferPrimitiveTarget(
       target.end,
       previousTargets.concat(target.start),
       actionPreferences

@@ -1,5 +1,3 @@
-import * as path from "path";
-import * as fs from "fs";
 import * as vscode from "vscode";
 import NavigationMap from "../core/NavigationMap";
 import { ThatMark } from "../core/ThatMark";
@@ -67,7 +65,7 @@ export class TestCase {
         this.includesThatMark(target, type)
       );
     } else if (target.type === "range") {
-      return [target.start, target.end].some((target) =>
+      return [target.anchor, target.active].some((target) =>
         this.includesThatMark(target, type)
       );
     }

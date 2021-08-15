@@ -95,7 +95,7 @@ export type ScopeType =
   | "xmlBothTags"
   | "xmlEndTag"
   | "xmlStartTag";
-export type PieceType = "word" | "character";
+export type SubTokenType = "word" | "character";
 
 export interface SurroundingPairModifier {
   type: "surroundingPair";
@@ -110,7 +110,7 @@ export interface ContainingScopeModifier {
 }
 export interface SubTokenModifier {
   type: "subpiece";
-  pieceType: PieceType;
+  pieceType: SubTokenType;
   anchor: number;
   active: number;
 }
@@ -183,10 +183,10 @@ export interface PrimitiveTarget {
 
 export interface RangeTarget {
   type: "range";
-  start: PrimitiveTarget;
-  end: PrimitiveTarget;
-  excludeStart: boolean;
-  excludeEnd: boolean;
+  anchor: PrimitiveTarget;
+  active: PrimitiveTarget;
+  excludeAnchor: boolean;
+  excludeActive: boolean;
 }
 
 export interface ListTarget {

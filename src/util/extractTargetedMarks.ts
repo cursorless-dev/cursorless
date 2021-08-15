@@ -22,7 +22,7 @@ function extractTargetKeys(target: Target): string[] {
       return target.elements.map(extractTargetKeys).flat();
 
     case "range":
-      return extractPrimitiveTargetKeys(target.start, target.end);
+      return extractPrimitiveTargetKeys(target.anchor, target.active);
 
     default:
       return [];
