@@ -132,13 +132,12 @@ export type Modifier =
   | SurroundingPairModifier
   | ContainingScopeModifier
   | SubTokenModifier
-  // Not implemented
-  //   | MatchingPairSymbolModifier
+  //   | MatchingPairSymbolModifier Not implemented
   | HeadModifier
   | TailModifier;
 
 export type SelectionType =
-  | "character"
+//   | "character" Not implemented
   | "token"
   | "line"
   | "paragraph"
