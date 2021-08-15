@@ -253,6 +253,7 @@ export interface TypedSelection {
 export interface ActionPreferences {
   position?: Position;
   insideOutsideType: InsideOutsideType;
+  selectionType?: SelectionType;
 }
 
 export interface SelectionWithContext {

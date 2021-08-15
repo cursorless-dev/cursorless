@@ -103,17 +103,14 @@ function inferPrimitiveTarget(
       type: maybeSelectionType === "token" ? "cursorToken" : "cursor",
     };
 
-  const selectionType = maybeSelectionType ?? "token";
+  const selectionType =
+    maybeSelectionType ?? actionPreferences.selectionType ?? "token";
 
   const position =
     target.position ??
     extractAttributeFromPreviousTargets(previousTargetsToUse, "position") ??
+    actionPreferences.position ??
     "contents";
-
-  const modifier = target.modifier ??
-    extractAttributeFromPreviousTargets(previousTargetsToUse, "modifier") ?? {
-      type: "identity",
-    };
 
   const insideOutsideType =
     target.insideOutsideType ??
@@ -123,13 +120,18 @@ function inferPrimitiveTarget(
     ) ??
     actionPreferences.insideOutsideType;
 
+  const modifier = target.modifier ??
+    extractAttributeFromPreviousTargets(previousTargetsToUse, "modifier") ?? {
+      type: "identity",
+    };
+
   return {
     type: target.type,
     mark,
     selectionType,
     position,
-    modifier,
     insideOutsideType,
+    modifier,
   };
 }
 
