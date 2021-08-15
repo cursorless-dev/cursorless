@@ -1,4 +1,4 @@
-import { TextDocumentChangeEvent, Range } from "vscode";
+import { TextDocumentChangeEvent, Range, TextDocument } from "vscode";
 import { SymbolColor } from "./constants";
 import { selectionWithEditorFromPositions } from "./selectionUtils";
 import { SelectionWithEditor, Token } from "./Types";
@@ -77,8 +77,8 @@ export default class NavigationMap {
   ): SelectionWithEditor | null {
     const range = selection.selection;
     const tokens = range.isEmpty
-      ? this.getTokensForEmptyRange(range)
-      : this.getTokensForRange(range);
+      ? this.getTokensForEmptyRange(selection.editor.document, range)
+      : this.getTokensForRange(selection.editor.document, range);
     if (tokens.length < 1) {
       return null;
     }
@@ -88,8 +88,11 @@ export default class NavigationMap {
   }
 
   // Return tokens for overlapping ranges
-  private getTokensForRange(range: Range) {
+  private getTokensForRange(document: TextDocument, range: Range) {
     const tokens = Object.values(this.map).filter((token) => {
+      if (token.editor.document !== document) {
+        return false;
+      }
       const intersection = token.range.intersection(range);
       return intersection != null && !intersection.isEmpty;
     });
@@ -98,9 +101,11 @@ export default class NavigationMap {
   }
 
   // Returned single token for overlapping or adjacent range
-  private getTokensForEmptyRange(range: Range) {
+  private getTokensForEmptyRange(document: TextDocument, range: Range) {
     const tokens = Object.values(this.map).filter(
-      (token) => token.range.intersection(range) != null
+      (token) =>
+        token.editor.document === document &&
+        token.range.intersection(range) != null
     );
 
     // If multiple matches sort and take the first
