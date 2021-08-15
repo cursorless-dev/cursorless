@@ -10,9 +10,9 @@ export default function (
   target: PrimitiveTarget,
   selection: TypedSelection
 ): TypedSelection {
-  var newSelection;
   const { position } = target;
   const originalSelection = selection.selection.selection;
+  let newSelection;
 
   switch (position) {
     case "contents":

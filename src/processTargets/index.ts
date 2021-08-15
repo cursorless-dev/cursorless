@@ -1,4 +1,4 @@
-import { zip } from "lodash";
+import { isEqual, zip } from "lodash";
 import { Selection } from "vscode";
 import { performInsideOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 import {
@@ -17,7 +17,14 @@ export default function (
   context: ProcessedTargetsContext,
   targets: Target[]
 ): TypedSelection[][] {
-  return targets.map((target) => processTarget(context, target));
+  return targets.map((target) =>
+    // Removed duplicate selections
+    processTarget(context, target).filter(
+      (selection, index, selections) =>
+        selections.findIndex((s) => isTypedSelectionEqual(s, selection)) ===
+        index
+    )
+  );
 }
 
 function processTarget(
@@ -182,5 +189,16 @@ function processPrimitiveTarget(
   );
   return typedSelections.map((selection) =>
     processPosition(context, target, selection)
+  );
+}
+
+function isTypedSelectionEqual(a: TypedSelection, b: TypedSelection) {
+  return (
+    a.insideOutsideType === b.insideOutsideType &&
+    a.position === b.position &&
+    a.selectionType === b.selectionType &&
+    a.selection.editor === b.selection.editor &&
+    a.selection.selection.isEqual(b.selection.selection) &&
+    isEqual(a.selectionContext, b.selectionContext)
   );
 }
