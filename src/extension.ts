@@ -13,19 +13,14 @@ import { TestCase } from "./TestCase";
 import { ThatMark } from "./ThatMark";
 import { Clipboard } from "./Clipboard";
 import { TestCaseRecorder } from "./TestCaseRecorder";
+import { getParseTreeApi } from "./getExtensionApi";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
   await fontMeasurements.calculate();
   const decorations = new Decorations(fontMeasurements);
 
-  const parseTreeExtension = vscode.extensions.getExtension("pokey.parse-tree");
-
-  if (parseTreeExtension == null) {
-    throw new Error("Depends on pokey.parse-tree extension");
-  }
-
-  const { getNodeAtLocation } = await parseTreeExtension.activate();
+  const { getNodeAtLocation } = await getParseTreeApi();
 
   var isActive = vscode.workspace
     .getConfiguration("cursorless")

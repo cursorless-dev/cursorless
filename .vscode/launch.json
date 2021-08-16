@@ -23,6 +23,9 @@
 			"name": "Extension Tests",
 			"type": "extensionHost",
 			"request": "launch",
+			"env": {
+				"CURSORLESS_TEST": "true"
+			},
 			"args": [
 				"--disable-extension",
 				"asvetliakov.vscode-neovim",
