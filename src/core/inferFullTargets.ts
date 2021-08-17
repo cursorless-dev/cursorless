@@ -92,36 +92,35 @@ function inferPrimitiveTarget(
   previousTargets: PartialTarget[],
   actionPreferences: ActionPreferences
 ): PrimitiveTarget {
-  const previousTargetsToUse = hasContent(target) ? [] : previousTargets;
+  const previousTargetsForAttributes = hasContent(target)
+    ? []
+    : previousTargets;
 
   const maybeSelectionType =
     target.selectionType ??
-    extractAttributeFromPreviousTargets(previousTargetsToUse, "selectionType");
+    getPreviousAttribute(previousTargetsForAttributes, "selectionType");
 
   const mark = target.mark ??
-    extractAttributeFromPreviousTargets(previousTargets, "mark") ?? {
+    getPreviousMark(previousTargets) ?? {
       type: maybeSelectionType === "token" ? "cursorToken" : "cursor",
     };
+
+  const position =
+    target.position ??
+    getPreviousPosition(previousTargets) ??
+    actionPreferences.position ??
+    "contents";
 
   const selectionType =
     maybeSelectionType ?? actionPreferences.selectionType ?? "token";
 
-  const position =
-    target.position ??
-    extractAttributeFromPreviousTargets(previousTargetsToUse, "position") ??
-    actionPreferences.position ??
-    "contents";
-
   const insideOutsideType =
     target.insideOutsideType ??
-    extractAttributeFromPreviousTargets(
-      previousTargetsToUse,
-      "insideOutsideType"
-    ) ??
+    getPreviousAttribute(previousTargetsForAttributes, "insideOutsideType") ??
     actionPreferences.insideOutsideType;
 
   const modifier = target.modifier ??
-    extractAttributeFromPreviousTargets(previousTargetsToUse, "modifier") ?? {
+    getPreviousAttribute(previousTargetsForAttributes, "modifier") ?? {
       type: "identity",
     };
 
@@ -135,40 +134,61 @@ function inferPrimitiveTarget(
   };
 }
 
-function extractAttributeFromPreviousTargets<
-  T extends keyof PartialPrimitiveTarget
->(
+function getPreviousMark(previousTargets: PartialTarget[]) {
+  return getPreviousAttribute(
+    previousTargets,
+    "mark",
+    (target) => target["mark"] != null
+  );
+}
+
+function getPreviousPosition(previousTargets: PartialTarget[]) {
+  return getPreviousAttribute(
+    previousTargets,
+    "position",
+    (target) => target["position"] != null
+  );
+}
+
+function getPreviousAttribute<T extends keyof PartialPrimitiveTarget>(
   previousTargets: PartialTarget[],
-  attributeName: T
-): PartialPrimitiveTarget[T] | null {
+  attributeName: T,
+  useTarget: (target: PartialPrimitiveTarget) => boolean = hasContent
+) {
+  const target = getPreviousTarget(previousTargets, useTarget);
+  return target != null ? target[attributeName] : null;
+}
+
+function getPreviousTarget(
+  previousTargets: PartialTarget[],
+  useTarget: (target: PartialPrimitiveTarget) => boolean
+): PartialPrimitiveTarget | null {
   // Search from back(last) to front(first)
   for (let i = previousTargets.length - 1; i > -1; --i) {
-    const attribute = extractAttribute(previousTargets[i], attributeName);
-    if (attribute != null) {
-      return attribute;
+    const target = previousTargets[i];
+    switch (target.type) {
+      case "primitive":
+        if (useTarget(target)) {
+          return target;
+        }
+        break;
+      case "range":
+        if (useTarget(target.end)) {
+          return target.end;
+        }
+        if (useTarget(target.start)) {
+          return target.start;
+        }
+        break;
+      case "list":
+        const result = getPreviousTarget(target.elements, useTarget);
+        if (result != null) {
+          return result;
+        }
+        break;
     }
   }
   return null;
-}
-
-function extractAttribute<T extends keyof PartialPrimitiveTarget>(
-  target: PartialTarget,
-  attributeName: T
-): PartialPrimitiveTarget[T] | null {
-  switch (target.type) {
-    case "primitive":
-      return target[attributeName];
-    case "range":
-      return (
-        extractAttribute(target.end, attributeName) ??
-        extractAttribute(target.start, attributeName)
-      );
-    case "list":
-      return extractAttributeFromPreviousTargets(
-        target.elements,
-        attributeName
-      );
-  }
 }
 
 /**
