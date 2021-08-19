@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
-import { ThatMark } from "./core/ThatMark";
-import NavigationMap from "./core/NavigationMap";
+import { ThatMark } from "../core/ThatMark";
+import NavigationMap from "../core/NavigationMap";
 import { SyntaxNode } from "web-tree-sitter";
 
 export interface CursorlessApi {

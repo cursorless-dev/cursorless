@@ -12,9 +12,9 @@ import {
   PositionPlainObject,
   rangeToPlainObject,
   SelectionPlainObject,
-} from "../../util/toPlainObject";
+} from "../../testUtil/toPlainObject";
 import { walkFilesSync } from "../../testUtil/walkSync";
-import { getCursorlessApi, getParseTreeApi } from "../../getExtensionApi";
+import { getCursorlessApi, getParseTreeApi } from "../../util/getExtensionApi";
 import { enableDebugLog } from "../../util/debug";
 
 function createPosition(position: PositionPlainObject) {

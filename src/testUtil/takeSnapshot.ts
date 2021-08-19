@@ -5,7 +5,7 @@ import {
   rangeToPlainObject,
   RangePlainObject,
   SelectionPlainObject,
-} from "../util/toPlainObject";
+} from "./toPlainObject";
 import { ThatMark } from "../core/ThatMark";
 
 export type TestCaseSnapshot = {

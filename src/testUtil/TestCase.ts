@@ -2,10 +2,10 @@ import * as vscode from "vscode";
 import NavigationMap from "../core/NavigationMap";
 import { ThatMark } from "../core/ThatMark";
 import { ActionType, PartialTarget, Target } from "../typings/Types";
-import { extractTargetedMarks } from "../util/extractTargetedMarks";
-import { marksToPlainObject, SerializedMarks } from "../util/toPlainObject";
+import { extractTargetedMarks } from "./extractTargetedMarks";
+import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
 import { takeSnapshot, TestCaseSnapshot } from "./takeSnapshot";
-import serialize from "../util/serialize";
+import serialize from "./serialize";
 
 type TestCaseCommand = {
   actionName: ActionType;

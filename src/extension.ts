@@ -16,7 +16,7 @@ import { logBranchTypes } from "./util/debug";
 import { TestCase } from "./testUtil/TestCase";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
-import { getParseTreeApi } from "./getExtensionApi";
+import { getParseTreeApi } from "./util/getExtensionApi";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
