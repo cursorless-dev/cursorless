@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to Cursorless!</h1>
 <p align="center">
-  <img alt="Version" src="https://img.shields.io/badge/version-0.17.2-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/github/package-json/v/pokey/cursorless-vscode?color=green" />
   <img src="https://img.shields.io/badge/vscode-%5E1.53.0-blue.svg" />
   <a href="https://github.com/pokey/cursorless-vscode/actions/workflows/test.yml?query=branch%3Amaster" target="_blank">
     <img alt="Tests" src="https://img.shields.io/github/workflow/status/pokey/cursorless-vscode/Run%20Tests?logo=github&label=tests" />
