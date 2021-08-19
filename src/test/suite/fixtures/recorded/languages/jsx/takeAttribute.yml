@@ -1,0 +1,31 @@
+spokenForm: take attribute
+languageId: javascript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: attribute}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    const Foo = (
+      <div id="bar" name="foo">bar</div>
+    );
+  selections:
+    - anchor: {line: 2, character: 14}
+      active: {line: 2, character: 14}
+finalState:
+  documentContents: |
+
+    const Foo = (
+      <div id="bar" name="foo">bar</div>
+    );
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 15}
+  thatMark:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 15}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: attribute}, insideOutsideType: inside}]

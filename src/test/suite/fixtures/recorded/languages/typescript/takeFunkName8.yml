@@ -1,0 +1,31 @@
+spokenForm: take funk name
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: functionName}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    export let foo = () => {
+
+    }
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+finalState:
+  documentContents: |
+
+    export let foo = () => {
+
+    }
+  selections:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 14}
+  thatMark:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 14}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: functionName}, insideOutsideType: inside}]

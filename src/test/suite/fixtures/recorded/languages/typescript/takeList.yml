@@ -1,0 +1,27 @@
+spokenForm: take list
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: list}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    const value = [1, 2, 3]
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}
+finalState:
+  documentContents: |
+
+    const value = [1, 2, 3]
+  selections:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 23}
+  thatMark:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 23}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: list}, insideOutsideType: inside}]

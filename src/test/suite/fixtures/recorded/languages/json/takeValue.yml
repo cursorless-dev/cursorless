@@ -1,0 +1,23 @@
+spokenForm: take value
+languageId: json
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: "\r\n{\r\n    \"foo\": \"bar\"\r\n}\r\n"
+  selections:
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
+finalState:
+  documentContents: "\r\n{\r\n    \"foo\": \"bar\"\r\n}\r\n"
+  selections:
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 16}
+  thatMark:
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 16}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: value}, insideOutsideType: inside}]

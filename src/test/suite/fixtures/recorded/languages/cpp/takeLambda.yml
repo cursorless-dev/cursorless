@@ -1,0 +1,23 @@
+spokenForm: take lambda
+languageId: cpp
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: arrowFunction}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: "void f() {\r\n    [](){}();\r\n}\r\n"
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
+finalState:
+  documentContents: "void f() {\r\n    [](){}();\r\n}\r\n"
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 10}
+  thatMark:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 10}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: arrowFunction}, insideOutsideType: inside}]

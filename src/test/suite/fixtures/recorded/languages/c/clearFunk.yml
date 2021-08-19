@@ -1,0 +1,26 @@
+spokenForm: clear funk
+languageId: c
+command:
+  actionName: clear
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: namedFunction}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |-
+    int f(int a, int b) {
+        
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: namedFunction}, insideOutsideType: inside}]

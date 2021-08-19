@@ -1,0 +1,27 @@
+spokenForm: take arg
+languageId: cpp
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |-
+    int f(int a, int b) {
+    }
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
+finalState:
+  documentContents: |-
+    int f(int a, int b) {
+    }
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 18}
+  thatMark:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 18}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: argumentOrParameter}, insideOutsideType: inside}]

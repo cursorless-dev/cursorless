@@ -4,11 +4,11 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
-import { displayDecorationsWhileRunningFunc } from "../editDisplayUtils";
-import { groupBy } from "../itertools";
+} from "../typings/Types";
+import { displayDecorationsWhileRunningFunc } from "../util/editDisplayUtils";
+import { groupBy } from "../util/itertools";
 import { commands, window, workspace } from "vscode";
-import { focusEditor } from "./setSelectionsAndFocusEditor";
+import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 
 class Scroll implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
@@ -56,13 +56,12 @@ class Scroll implements Action {
 
     await displayDecorationsWhileRunningFunc(
       targets.map((target) => target.selection),
-      this.graph.editStyles.referencedLine,
+      this.graph.editStyles.referenced.line,
       scrollCallback,
       showAdditionalHighlightBeforeScroll
     );
 
     return {
-      returnValue: null,
       thatMark: targets.map((target) => target.selection),
     };
   }

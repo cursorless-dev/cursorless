@@ -1,0 +1,27 @@
+spokenForm: round wrap this
+languageId: typescript
+command:
+  actionName: wrap
+  partialTargets:
+    - type: primitive
+      mark: {type: cursor}
+  extraArgs: [(, )]
+marks: {}
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+finalState:
+  documentContents: |
+    ()
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 2}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

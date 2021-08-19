@@ -1,0 +1,39 @@
+spokenForm: take this
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      mark: {type: cursor}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 5}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 20}
+finalState:
+  documentContents: |
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 5}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 20}
+  thatMark:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 5}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 20}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

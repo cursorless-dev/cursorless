@@ -1,0 +1,35 @@
+spokenForm: call vest on cap
+languageId: typescript
+command:
+  actionName: call
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  extraArgs: []
+marks:
+  default.v:
+    start: {line: 1, character: 6}
+    end: {line: 1, character: 11}
+  default.c:
+    start: {line: 1, character: 0}
+    end: {line: 1, character: 5}
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+finalState:
+  documentContents: |
+
+    value(const) value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 12}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

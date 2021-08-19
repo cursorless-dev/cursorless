@@ -1,0 +1,31 @@
+spokenForm: take end tag
+languageId: javascript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: xmlEndTag}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+
+    const Foo = (
+      <div id="bar" name="foo">bar</div>
+    );
+  selections:
+    - anchor: {line: 2, character: 15}
+      active: {line: 2, character: 15}
+finalState:
+  documentContents: |
+
+    const Foo = (
+      <div id="bar" name="foo">bar</div>
+    );
+  selections:
+    - anchor: {line: 2, character: 30}
+      active: {line: 2, character: 36}
+  thatMark:
+    - anchor: {line: 2, character: 30}
+      active: {line: 2, character: 36}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: xmlEndTag}, insideOutsideType: inside}]

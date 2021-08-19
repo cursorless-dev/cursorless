@@ -1,0 +1,31 @@
+spokenForm: clear last char vest
+languageId: typescript
+command:
+  actionName: clear
+  partialTargets:
+    - type: primitive
+      modifier: {type: subpiece, pieceType: character, anchor: -1, active: -1}
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  extraArgs: []
+marks:
+  default.v:
+    start: {line: 1, character: 6}
+    end: {line: 1, character: 21}
+initialState:
+  documentContents: |
+
+    const value_hello_str = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+finalState:
+  documentContents: |
+
+    const value_hello_st = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 20}
+      active: {line: 1, character: 20}
+  thatMark:
+    - anchor: {line: 1, character: 20}
+      active: {line: 1, character: 20}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: subpiece, pieceType: character, anchor: -1, active: -1}, insideOutsideType: inside}]
