@@ -1,6 +1,6 @@
 import * as assert from "assert";
 
-import { SUBWORD_MATCHER } from "../../constants";
+import { SUBWORD_MATCHER } from "../../core/constants";
 import { subwordFixture } from "./fixtures/constants.fixture";
 
 suite("subword regex matcher", () => {

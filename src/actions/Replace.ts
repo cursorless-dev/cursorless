@@ -4,12 +4,12 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
-import displayPendingEditDecorations from "../editDisplayUtils";
-import { runForEachEditor } from "../targetUtils";
+} from "../typings/Types";
+import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { runForEachEditor } from "../util/targetUtils";
 import { flatten, zip } from "lodash";
-import { maybeAddDelimiter } from "../getTextWithPossibleDelimiter";
-import { performEditsAndUpdateSelections } from "../updateSelections";
+import { maybeAddDelimiter } from "../util/getTextWithPossibleDelimiter";
+import { performEditsAndUpdateSelections } from "../util/updateSelections";
 
 type RangeGenerator = { start: number };
 

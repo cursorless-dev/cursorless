@@ -4,9 +4,9 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
-import displayPendingEditDecorations from "../editDisplayUtils";
-import { ensureSingleTarget } from "../targetUtils";
+} from "../typings/Types";
+import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { ensureSingleTarget } from "../util/targetUtils";
 
 export default class GetText implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];

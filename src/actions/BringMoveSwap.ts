@@ -5,15 +5,15 @@ import {
   Graph,
   TypedSelection,
   Edit,
-} from "../Types";
-import { runForEachEditor } from "../targetUtils";
+} from "../typings/Types";
+import { runForEachEditor } from "../util/targetUtils";
 import update from "immutability-helper";
-import displayPendingEditDecorations from "../editDisplayUtils";
-import { performOutsideAdjustment } from "../performInsideOutsideAdjustment";
+import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { performOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 import { flatten, zip } from "lodash";
 import { Selection, TextEditor, Range } from "vscode";
-import { performEditsAndUpdateSelections } from "../updateSelections";
-import { getTextWithPossibleDelimiter } from "../getTextWithPossibleDelimiter";
+import { performEditsAndUpdateSelections } from "../util/updateSelections";
+import { getTextWithPossibleDelimiter } from "../util/getTextWithPossibleDelimiter";
 
 type ActionType = "bring" | "move" | "swap";
 

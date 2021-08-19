@@ -4,7 +4,7 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
+} from "../typings/Types";
 import { commands, Selection } from "vscode";
 
 class EditNewLine implements Action {

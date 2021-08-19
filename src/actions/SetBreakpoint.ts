@@ -4,7 +4,7 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
+} from "../typings/Types";
 import {
   SourceBreakpoint,
   Location,
@@ -13,23 +13,21 @@ import {
   Range,
   Breakpoint,
 } from "vscode";
-import displayPendingEditDecorations from "../editDisplayUtils";
+import displayPendingEditDecorations from "../util/editDisplayUtils";
 
-function getBreakpoint(uri: Uri, line: number) {
-  return debug.breakpoints.find((breakpoint) => {
-    if (breakpoint instanceof SourceBreakpoint) {
-      return (
-        (breakpoint as SourceBreakpoint).location.uri.toString() ===
-          uri.toString() &&
-        (breakpoint as SourceBreakpoint).location.range.start.line === line
-      );
-    }
-    return false;
-  });
+function getBreakpoints(uri: Uri, range: Range) {
+  return debug.breakpoints.filter(
+    (breakpoint) =>
+      breakpoint instanceof SourceBreakpoint &&
+      breakpoint.location.uri.toString() === uri.toString() &&
+      breakpoint.location.range.intersection(range) != null
+  );
 }
 
 export default class SetBreakpoint implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+  targetPreferences: ActionPreferences[] = [
+    { insideOutsideType: "inside", selectionType: "line" },
+  ];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
@@ -44,28 +42,19 @@ export default class SetBreakpoint implements Action {
       this.graph.editStyles.referenced
     );
 
-    const lines = targets.flatMap((target) => {
-      const { start, end } = target.selection.selection;
-      const lines = [];
-      for (let i = start.line; i <= end.line; ++i) {
-        lines.push({
-          uri: target.selection.editor.document.uri,
-          line: i,
-        });
-      }
-      return lines;
-    });
-
     const toAdd: Breakpoint[] = [];
     const toRemove: Breakpoint[] = [];
 
-    lines.forEach(({ uri, line }) => {
-      const existing = getBreakpoint(uri, line);
-      if (existing) {
-        toRemove.push(existing);
+    targets.forEach((target) => {
+      const uri = target.selection.editor.document.uri;
+      const existing = getBreakpoints(uri, target.selection.selection);
+      if (existing.length > 0) {
+        toRemove.push(...existing);
       } else {
         toAdd.push(
-          new SourceBreakpoint(new Location(uri, new Range(line, 0, line, 0)))
+          new SourceBreakpoint(
+            new Location(uri, target.selection.selection.start)
+          )
         );
       }
     });

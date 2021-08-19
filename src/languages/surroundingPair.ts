@@ -6,7 +6,7 @@ import {
   NodeMatcher,
   NodeMatcherValue,
   SelectionWithEditor,
-} from "../Types";
+} from "../typings/Types";
 
 function positionFromPoint(point: Point): Position {
   return new Position(point.row, point.column);

@@ -4,7 +4,7 @@ import {
   InferenceContext,
   PartialTarget,
   Target,
-} from "../../../Types";
+} from "../../../typings/Types";
 
 interface FixtureInput {
   context: InferenceContext;
@@ -169,7 +169,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -180,7 +180,7 @@ const fixture: Fixture[] = [
             type: "identity",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -223,7 +223,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -234,7 +234,7 @@ const fixture: Fixture[] = [
             type: "identity",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -285,7 +285,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -299,7 +299,7 @@ const fixture: Fixture[] = [
             scopeType: "namedFunction",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -344,7 +344,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -355,7 +355,7 @@ const fixture: Fixture[] = [
             type: "identity",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -1110,7 +1110,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -1123,7 +1123,7 @@ const fixture: Fixture[] = [
             type: "identity",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -1205,7 +1205,7 @@ const fixture: Fixture[] = [
           },
           {
             type: "range",
-            start: {
+            anchor: {
               type: "primitive",
               mark: {
                 type: "decoratedSymbol",
@@ -1219,7 +1219,7 @@ const fixture: Fixture[] = [
                 scopeType: "namedFunction",
               },
             },
-            end: {
+            active: {
               type: "primitive",
               mark: {
                 type: "decoratedSymbol",
@@ -1616,7 +1616,7 @@ const fixture: Fixture[] = [
           },
           {
             type: "range",
-            start: {
+            anchor: {
               type: "primitive",
               mark: {
                 type: "decoratedSymbol",
@@ -1630,7 +1630,7 @@ const fixture: Fixture[] = [
                 scopeType: "namedFunction",
               },
             },
-            end: {
+            active: {
               type: "primitive",
               mark: {
                 type: "decoratedSymbol",
@@ -1702,7 +1702,7 @@ const fixture: Fixture[] = [
         elements: [
           {
             type: "range",
-            start: {
+            anchor: {
               type: "primitive",
               mark: {
                 type: "decoratedSymbol",
@@ -1716,7 +1716,7 @@ const fixture: Fixture[] = [
                 scopeType: "namedFunction",
               },
             },
-            end: {
+            active: {
               type: "primitive",
               mark: {
                 type: "decoratedSymbol",
@@ -1773,7 +1773,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -1784,7 +1784,7 @@ const fixture: Fixture[] = [
             type: "identity",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -1823,7 +1823,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -1834,7 +1834,7 @@ const fixture: Fixture[] = [
             type: "identity",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -1877,7 +1877,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -1890,7 +1890,7 @@ const fixture: Fixture[] = [
             type: "identity",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -1939,7 +1939,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -1952,7 +1952,7 @@ const fixture: Fixture[] = [
             type: "identity",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -2006,7 +2006,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -2019,7 +2019,7 @@ const fixture: Fixture[] = [
             type: "identity",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -2073,7 +2073,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -2086,7 +2086,7 @@ const fixture: Fixture[] = [
             type: "identity",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -2134,7 +2134,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -2146,7 +2146,7 @@ const fixture: Fixture[] = [
             scopeType: "namedFunction",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -2195,7 +2195,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -2206,7 +2206,7 @@ const fixture: Fixture[] = [
             type: "identity",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -2261,7 +2261,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -2276,7 +2276,7 @@ const fixture: Fixture[] = [
             includePairDelimiter: false,
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -2324,7 +2324,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -2337,7 +2337,7 @@ const fixture: Fixture[] = [
             includePairDelimiter: false,
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -2386,7 +2386,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -2399,7 +2399,7 @@ const fixture: Fixture[] = [
             includePairDelimiter: false,
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",
@@ -2447,7 +2447,7 @@ const fixture: Fixture[] = [
     expectedOutput: [
       {
         type: "range",
-        start: {
+        anchor: {
           type: "primitive",
           mark: {
             type: "cursor",
@@ -2459,7 +2459,7 @@ const fixture: Fixture[] = [
             scopeType: "namedFunction",
           },
         },
-        end: {
+        active: {
           type: "primitive",
           mark: {
             type: "decoratedSymbol",

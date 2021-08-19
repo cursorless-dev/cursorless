@@ -1,12 +1,12 @@
 import { SyntaxNode } from "web-tree-sitter";
-import { notSupported } from "../nodeMatchers";
-import { selectionWithEditorFromRange } from "../selectionUtils";
+import { notSupported } from "../util/nodeMatchers";
+import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import {
   NodeMatcher,
   NodeMatcherValue,
   ScopeType,
   SelectionWithEditor,
-} from "../Types";
+} from "../typings/Types";
 import cpp from "./cpp";
 import csharp from "./csharp";
 import java from "./java";

@@ -4,9 +4,9 @@ import {
   ActionPreferences,
   Graph,
   TypedSelection,
-} from "../Types";
+} from "../typings/Types";
 import { commands } from "vscode";
-import { ensureSingleTarget } from "../targetUtils";
+import { ensureSingleTarget } from "../util/targetUtils";
 
 export class FindInFiles implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];

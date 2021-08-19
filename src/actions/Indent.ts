@@ -1,5 +1,5 @@
-import { Graph } from "../Types";
-import CommandAction from "../CommandAction";
+import { Graph } from "../typings/Types";
+import CommandAction from "./CommandAction";
 
 export class IndentLines extends CommandAction {
   constructor(graph: Graph) {

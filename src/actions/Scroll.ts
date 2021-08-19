@@ -4,11 +4,11 @@ import {
   ActionReturnValue,
   Graph,
   TypedSelection,
-} from "../Types";
-import { displayDecorationsWhileRunningFunc } from "../editDisplayUtils";
-import { groupBy } from "../itertools";
+} from "../typings/Types";
+import { displayDecorationsWhileRunningFunc } from "../util/editDisplayUtils";
+import { groupBy } from "../util/itertools";
 import { commands, window, workspace } from "vscode";
-import { focusEditor } from "../setSelectionsAndFocusEditor";
+import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 
 class Scroll implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];

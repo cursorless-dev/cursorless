@@ -1,19 +1,22 @@
 import * as vscode from "vscode";
-import { addDecorationsToEditors } from "./addDecorationsToEditor";
-import { DEBOUNCE_DELAY } from "./constants";
-import Decorations from "./Decorations";
-import graphConstructors from "./graphConstructors";
-import { inferFullTargets } from "./inferFullTargets";
+import { addDecorationsToEditors } from "./util/addDecorationsToEditor";
+import { DEBOUNCE_DELAY } from "./core/constants";
+import Decorations from "./core/Decorations";
+import graphConstructors from "./util/graphConstructors";
+import inferFullTargets from "./core/inferFullTargets";
 import processTargets from "./processTargets";
-import FontMeasurements from "./FontMeasurements";
-import { ActionType, PartialTarget, ProcessedTargetsContext } from "./Types";
-import makeGraph from "./makeGraph";
-import { logBranchTypes } from "./debug";
-import { TestCase } from "./TestCase";
-import { ThatMark } from "./ThatMark";
-import { Clipboard } from "./Clipboard";
-import { TestCaseRecorder } from "./TestCaseRecorder";
-import { getParseTreeApi } from "./getExtensionApi";
+import FontMeasurements from "./core/FontMeasurements";
+import {
+  ActionType,
+  PartialTarget,
+  ProcessedTargetsContext,
+} from "./typings/Types";
+import makeGraph from "./util/makeGraph";
+import { logBranchTypes } from "./util/debug";
+import { TestCase } from "./testUtil/TestCase";
+import { ThatMark } from "./core/ThatMark";
+import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
+import { getParseTreeApi } from "./util/getExtensionApi";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -110,25 +113,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         const action = graph.actions[actionName];
 
-        const selectionContents =
-          vscode.window.activeTextEditor?.selections.map((selection) =>
-            vscode.window.activeTextEditor!.document.getText(selection)
-          ) ?? [];
-
-        const isPaste = actionName === "paste";
-
-        const clipboardContents = isPaste
-          ? await Clipboard.readText()
-          : undefined;
-
-        const inferenceContext = {
-          selectionContents,
-          isPaste,
-          clipboardContents,
-        };
-
         const targets = inferFullTargets(
-          inferenceContext,
           partialTargets,
           action.targetPreferences
         );

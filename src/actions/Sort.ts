@@ -4,7 +4,7 @@ import {
   ActionPreferences,
   Graph,
   TypedSelection,
-} from "../Types";
+} from "../typings/Types";
 
 export class Sort implements Action {
   targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];

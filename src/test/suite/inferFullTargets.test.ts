@@ -1,6 +1,6 @@
 import * as assert from "assert";
 
-import { inferFullTargets } from "../../inferFullTargets";
+import inferFullTargets from "../../core/inferFullTargets";
 import fixture from "./fixtures/inferFullTargets.fixture";
 
 /*
@@ -11,7 +11,6 @@ suite.skip("inferFullTargets", () => {
     test(`inferFullTargets ${index}`, () => {
       assert.deepStrictEqual(
         inferFullTargets(
-          input.context,
           input.partialTargets,
           input.actionPreferences
         ),

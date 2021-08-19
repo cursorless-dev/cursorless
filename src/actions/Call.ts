@@ -4,11 +4,14 @@ import {
   ActionPreferences,
   Graph,
   TypedSelection,
-} from "../Types";
-import { ensureSingleTarget } from "../targetUtils";
+} from "../typings/Types";
+import { ensureSingleTarget } from "../util/targetUtils";
 
 export default class Call implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+  targetPreferences: ActionPreferences[] = [
+    { insideOutsideType: "inside" },
+    { insideOutsideType: "inside" },
+  ];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
