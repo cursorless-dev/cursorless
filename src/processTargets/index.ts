@@ -62,46 +62,46 @@ function processRangeTarget(
   const anchorTargets = processPrimitiveTarget(context, target.anchor);
   const activeTargets = processPrimitiveTarget(context, target.active);
 
-  if (anchorTargets.length !== activeTargets.length) {
-    throw new Error("anchorTargets and activeTargets lengths don't match");
-  }
-
   return zip(anchorTargets, activeTargets).map(
     ([anchorTarget, activeTarget]) => {
-      if (anchorTarget!.selection.editor !== activeTarget!.selection.editor) {
+      if (anchorTarget == null || activeTarget == null) {
+        throw new Error("anchorTargets and activeTargets lengths don't match");
+      }
+
+      if (anchorTarget.selection.editor !== activeTarget.selection.editor) {
         throw new Error(
           "anchorTarget and activeTarget must be in same document"
         );
       }
 
-      const anchorSelection = anchorTarget!.selection.selection;
-      const activeSelection = activeTarget!.selection.selection;
+      const anchorSelection = anchorTarget.selection.selection;
+      const activeSelection = activeTarget.selection.selection;
 
-      const isStartBeforeEnd = anchorSelection.start.isBeforeOrEqual(
+      const isForward = anchorSelection.start.isBeforeOrEqual(
         activeSelection.start
       );
 
       const anchor = targetToRangeLimitPosition(
-        anchorTarget!,
-        isStartBeforeEnd,
-        target.excludeAnchor
+        anchorTarget,
+        isForward,
+        !target.excludeAnchor
       );
       const active = targetToRangeLimitPosition(
-        activeTarget!,
-        !isStartBeforeEnd,
-        target.excludeActive
+        activeTarget,
+        !isForward,
+        !target.excludeActive
       );
 
       const outerAnchor = target.excludeAnchor
         ? null
-        : isStartBeforeEnd
-        ? anchorTarget!.selectionContext.outerSelection?.start
-        : anchorTarget!.selectionContext.outerSelection?.end;
+        : isForward
+        ? anchorTarget.selectionContext.outerSelection?.start
+        : anchorTarget.selectionContext.outerSelection?.end;
       const outerActive = target.excludeActive
         ? null
-        : isStartBeforeEnd
-        ? activeTarget!.selectionContext.outerSelection?.end
-        : activeTarget!.selectionContext.outerSelection?.start;
+        : isForward
+        ? activeTarget.selectionContext.outerSelection?.end
+        : activeTarget.selectionContext.outerSelection?.start;
       const outerSelection =
         outerAnchor != null || outerActive != null
           ? new Selection(outerAnchor ?? anchor, outerActive ?? active)
@@ -109,32 +109,32 @@ function processRangeTarget(
 
       const startSelectionContext = target.excludeAnchor
         ? null
-        : anchorTarget!.selectionContext;
+        : anchorTarget.selectionContext;
       const endSelectionContext = target.excludeActive
         ? null
-        : activeTarget!.selectionContext;
-      const leadingDelimiterRange = isStartBeforeEnd
+        : activeTarget.selectionContext;
+      const leadingDelimiterRange = isForward
         ? startSelectionContext?.leadingDelimiterRange
         : endSelectionContext?.leadingDelimiterRange;
-      const trailingDelimiterRange = isStartBeforeEnd
+      const trailingDelimiterRange = isForward
         ? endSelectionContext?.trailingDelimiterRange
         : startSelectionContext?.trailingDelimiterRange;
 
       return {
         selection: {
           selection: new Selection(anchor, active),
-          editor: anchorTarget!.selection.editor,
+          editor: anchorTarget.selection.editor,
         },
-        selectionType: anchorTarget!.selectionType,
+        selectionType: anchorTarget.selectionType,
         selectionContext: {
           containingListDelimiter:
-            anchorTarget!.selectionContext.containingListDelimiter,
-          isInDelimitedList: anchorTarget!.selectionContext.isInDelimitedList,
+            anchorTarget.selectionContext.containingListDelimiter,
+          isInDelimitedList: anchorTarget.selectionContext.isInDelimitedList,
           leadingDelimiterRange,
           trailingDelimiterRange,
           outerSelection,
         },
-        insideOutsideType: anchorTarget!.insideOutsideType,
+        insideOutsideType: anchorTarget.insideOutsideType,
         position: "contents",
       };
     }
@@ -145,29 +145,33 @@ function processRangeTarget(
  * Given a target which forms one end of a range target, do necessary
  * adjustments to get the proper position for the output range
  * @param target The target to get position from
- * @param isStart If true this position is the start of the range
+ * @param isStartOfRange If true this position is the start of the range
  * @param exclude If true the content of this position should be excluded
  */
 function targetToRangeLimitPosition(
   target: TypedSelection,
-  isStart: boolean,
-  exclude: boolean
+  isStartOfRange: boolean,
+  includeTarget: boolean
 ) {
   const selection = target.selection.selection;
-  if (exclude) {
-    const outerSelection = target!.selectionContext.outerSelection;
-    const delimiterPosition = isStart
-      ? target.selectionContext.trailingDelimiterRange?.end
-      : target.selectionContext.leadingDelimiterRange?.start;
-    if (outerSelection != null) {
-      if (delimiterPosition != null) {
-        return delimiterPosition;
-      }
-      return isStart ? outerSelection.end : outerSelection.start;
-    }
-    return isStart ? selection.end : selection.start;
+
+  if (includeTarget) {
+    return isStartOfRange ? selection.start : selection.end;
   }
-  return isStart ? selection.start : selection.end;
+
+  const outerSelection = target.selectionContext.outerSelection;
+
+  const delimiterPosition = isStartOfRange
+    ? target.selectionContext.trailingDelimiterRange?.end
+    : target.selectionContext.leadingDelimiterRange?.start;
+
+  if (outerSelection != null) {
+    if (delimiterPosition != null) {
+      return delimiterPosition;
+    }
+    return isStartOfRange ? outerSelection.end : outerSelection.start;
+  }
+  return isStartOfRange ? selection.end : selection.start;
 }
 
 function processPrimitiveTarget(
