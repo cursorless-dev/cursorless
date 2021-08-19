@@ -40,12 +40,12 @@ export function selectWithLeadingDelimiter(
   editor: TextEditor,
   node: SyntaxNode
 ): SelectionWithContext {
-  const leadingDelimiterToken = node.previousSibling!;
+  const leadingDelimiterToken = node.previousSibling;
 
-  const leadingDelimiterRange = makeRange(
-    leadingDelimiterToken.startPosition,
-    node.startPosition
-  );
+  const leadingDelimiterRange =
+    leadingDelimiterToken != null
+      ? makeRange(leadingDelimiterToken.startPosition, node.startPosition)
+      : null;
 
   return {
     ...simpleSelectionExtractor(editor, node),

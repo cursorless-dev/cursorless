@@ -63,7 +63,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "*[name]",
   ],
   collectionItem: argumentMatcher(...dictionaryTypes, ...listTypes),
-  value: valueMatcher("assignment[right]", "*[value]"),
+  value: valueMatcher("assignment[right]", "pair[value].*", "*[value]"),
   argumentOrParameter: argumentMatcher("parameters", "argument_list"),
 };
 

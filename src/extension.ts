@@ -6,25 +6,24 @@ import graphConstructors from "./util/graphConstructors";
 import inferFullTargets from "./core/inferFullTargets";
 import processTargets from "./processTargets";
 import FontMeasurements from "./core/FontMeasurements";
-import { ActionType, PartialTarget, ProcessedTargetsContext } from "./typings/Types";
+import {
+  ActionType,
+  PartialTarget,
+  ProcessedTargetsContext,
+} from "./typings/Types";
 import makeGraph from "./util/makeGraph";
 import { logBranchTypes } from "./util/debug";
 import { TestCase } from "./testUtil/TestCase";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
+import { getParseTreeApi } from "./getExtensionApi";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
   await fontMeasurements.calculate();
   const decorations = new Decorations(fontMeasurements);
 
-  const parseTreeExtension = vscode.extensions.getExtension("pokey.parse-tree");
-
-  if (parseTreeExtension == null) {
-    throw new Error("Depends on pokey.parse-tree extension");
-  }
-
-  const { getNodeAtLocation } = await parseTreeExtension.activate();
+  const { getNodeAtLocation } = await getParseTreeApi();
 
   var isActive = vscode.workspace
     .getConfiguration("cursorless")

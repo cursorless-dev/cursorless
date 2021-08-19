@@ -13,6 +13,10 @@ const getPendingEditDecorationTime = () =>
     .get<number>("pendingEditDecorationTime")!;
 
 export async function decorationSleep() {
+  if (process.env.CURSORLESS_TEST != null) {
+    return;
+  }
+
   await sleep(getPendingEditDecorationTime());
 }
 
