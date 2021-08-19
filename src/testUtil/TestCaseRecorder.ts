@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import * as path from "path";
 import * as fs from "fs";
 import { TestCase } from "./TestCase";
-import { walkDirsSync } from "../test/suite/walkSync";
+import { walkDirsSync } from "./walkSync";
 
 export class TestCaseRecorder {
   active: boolean = false;

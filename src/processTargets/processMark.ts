@@ -1,6 +1,5 @@
 import { Selection } from "vscode";
 import {
-  CursorMarkToken,
   DecoratedSymbol,
   LineNumber,
   LineNumberPosition,

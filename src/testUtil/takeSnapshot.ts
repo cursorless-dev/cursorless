@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { Clipboard } from "./Clipboard";
+import { Clipboard } from "../util/Clipboard";
 import {
   selectionToPlainObject,
   rangeToPlainObject,

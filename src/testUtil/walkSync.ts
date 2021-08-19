@@ -1,4 +1,3 @@
-import { statSync } from "fs";
 import * as path from "path";
 import { readdirSync } from "fs";
 

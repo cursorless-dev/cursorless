@@ -6,14 +6,14 @@ import * as vscode from "vscode";
 import { TestCaseFixture } from "../../testUtil/TestCase";
 import NavigationMap from "../../core/NavigationMap";
 import * as sinon from "sinon";
-import { Clipboard } from "../../testUtil/Clipboard";
+import { Clipboard } from "../../util/Clipboard";
 import { takeSnapshot } from "../../testUtil/takeSnapshot";
 import {
   PositionPlainObject,
   rangeToPlainObject,
   SelectionPlainObject,
 } from "../../util/toPlainObject";
-import { walkFilesSync } from "./walkSync";
+import { walkFilesSync } from "../../testUtil/walkSync";
 import { getCursorlessApi, getParseTreeApi } from "../../getExtensionApi";
 import { enableDebugLog } from "../../util/debug";
 
