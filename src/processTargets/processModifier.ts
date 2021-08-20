@@ -67,6 +67,10 @@ function processScopeType(
   selection: SelectionWithEditor,
   modifier: ContainingScopeModifier
 ): SelectionWithContext[] | null {
+  if (modifier.scopeType === "notebookCell") {
+    return [{ selection, context: { isNotebookCell: true } }];
+  }
+
   const nodeMatcher = getNodeMatcher(
     selection.editor.document.languageId,
     modifier.scopeType,

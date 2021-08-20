@@ -58,7 +58,7 @@ export type Mark =
   | CursorMarkToken
   | That
   | Source
-//   | LastCursorPosition Not implemented yet
+  //   | LastCursorPosition Not implemented yet
   | DecoratedSymbol
   | LineNumber;
 export type Delimiter =
@@ -86,6 +86,7 @@ export type ScopeType =
   | "list"
   | "name"
   | "namedFunction"
+  | "notebookCell"
   | "regex"
   | "statement"
   | "string"
@@ -137,11 +138,8 @@ export type Modifier =
   | TailModifier;
 
 export type SelectionType =
-//   | "character" Not implemented
-  | "token"
-  | "line"
-  | "paragraph"
-  | "document";
+  //   | "character" Not implemented
+  "token" | "line" | "paragraph" | "document";
 export type Position = "before" | "after" | "contents";
 export type InsideOutsideType = "inside" | "outside" | null;
 
@@ -228,6 +226,8 @@ export interface SelectionContext {
    * The range of the delimiter after the selection
    */
   trailingDelimiterRange?: vscode.Range | null;
+
+  isNotebookCell?: boolean;
 }
 
 export interface TypedSelection {

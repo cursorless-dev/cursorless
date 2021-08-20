@@ -17,6 +17,7 @@ import { TestCase } from "./testUtil/TestCase";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getParseTreeApi } from "./util/getExtensionApi";
+import { checkCommandValidity } from "./checkCommandValidity";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -112,6 +113,8 @@ export async function activate(context: vscode.ExtensionContext) {
         console.debug(JSON.stringify(extraArgs, null, 3));
 
         const action = graph.actions[actionName];
+
+        checkCommandValidity(actionName, partialTargets, extraArgs);
 
         const targets = inferFullTargets(
           partialTargets,

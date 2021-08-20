@@ -1,6 +1,10 @@
 import { TextEditor, Selection, Position } from "vscode";
 import { groupBy } from "./itertools";
-import { TypedSelection } from "../typings/Types";
+import {
+  PartialPrimitiveTarget,
+  PartialTarget,
+  TypedSelection,
+} from "../typings/Types";
 
 export function ensureSingleEditor(targets: TypedSelection[]) {
   if (targets.length === 0) {
@@ -85,4 +89,21 @@ function createTypeSelection(
     insideOutsideType: "inside",
     position: "contents",
   };
+}
+
+export function getPrimitiveTargets(partialTargets: PartialTarget[]) {
+  return partialTargets.flatMap(getPrimitiveTargetsHelper);
+}
+
+function getPrimitiveTargetsHelper(
+  partialTarget: PartialTarget
+): PartialPrimitiveTarget[] {
+  switch (partialTarget.type) {
+    case "primitive":
+      return [partialTarget];
+    case "list":
+      return partialTarget.elements.flatMap(getPrimitiveTargetsHelper);
+    case "range":
+      return [partialTarget.start, partialTarget.end];
+  }
 }
