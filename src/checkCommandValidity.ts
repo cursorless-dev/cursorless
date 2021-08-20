@@ -1,4 +1,4 @@
-import { ActionType, PartialTarget, ScopeType } from "./typings/Types";
+import { ActionType, PartialTarget, SelectionType } from "./typings/Types";
 import { getPrimitiveTargets } from "./util/targetUtils";
 
 export function checkCommandValidity(
@@ -7,7 +7,7 @@ export function checkCommandValidity(
   extraArgs: any[]
 ) {
   if (
-    usesScopeType("notebookCell", partialTargets) &&
+    usesSelectionType("notebookCell", partialTargets) &&
     !["editNewLineAbove", "editNewLineBelow"].includes(actionName)
   ) {
     throw new Error(
@@ -16,10 +16,11 @@ export function checkCommandValidity(
   }
 }
 
-function usesScopeType(scopeType: ScopeType, partialTargets: PartialTarget[]) {
+function usesSelectionType(
+  selectionType: SelectionType,
+  partialTargets: PartialTarget[]
+) {
   return getPrimitiveTargets(partialTargets).some(
-    (partialTarget) =>
-      partialTarget.modifier?.type === "containingScope" &&
-      partialTarget.modifier.scopeType === scopeType
+    (partialTarget) => partialTarget.selectionType === selectionType
   );
 }

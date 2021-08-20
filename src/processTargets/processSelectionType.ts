@@ -23,6 +23,8 @@ export default function (
   switch (target.selectionType) {
     case "token":
       return processToken(target, selection, selectionContext);
+    case "notebookCell":
+      return processNotebookCell(target, selection, selectionContext);
     case "document":
       return processDocument(target, selection, selectionContext);
     case "line":
@@ -30,6 +32,21 @@ export default function (
     case "paragraph":
       return processParagraph(target, selection, selectionContext);
   }
+}
+
+function processNotebookCell(
+  target: PrimitiveTarget,
+  selection: SelectionWithEditor,
+  selectionContext: SelectionContext
+): TypedSelection {
+  const { selectionType, insideOutsideType, position } = target;
+  return {
+    selection,
+    selectionType,
+    position,
+    insideOutsideType,
+    selectionContext: { ...selectionContext, isNotebookCell: true },
+  };
 }
 
 function processToken(

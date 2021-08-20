@@ -86,7 +86,6 @@ export type ScopeType =
   | "list"
   | "name"
   | "namedFunction"
-  | "notebookCell"
   | "regex"
   | "statement"
   | "string"
@@ -139,7 +138,7 @@ export type Modifier =
 
 export type SelectionType =
   //   | "character" Not implemented
-  "token" | "line" | "paragraph" | "document";
+  "token" | "line" | "notebookCell" | "paragraph" | "document";
 export type Position = "before" | "after" | "contents";
 export type InsideOutsideType = "inside" | "outside" | null;
 
