@@ -91,19 +91,26 @@ function createTypeSelection(
   };
 }
 
-export function getPrimitiveTargets(partialTargets: PartialTarget[]) {
-  return partialTargets.flatMap(getPrimitiveTargetsHelper);
+/**
+ * Given a list of targets, recursively descends all targets and returns every
+ * contained primitive target.
+ *
+ * @param targets The targets to extract from
+ * @returns A list of primitive targets
+ */
+export function getPrimitiveTargets(targets: PartialTarget[]) {
+  return targets.flatMap(getPrimitiveTargetsHelper);
 }
 
 function getPrimitiveTargetsHelper(
-  partialTarget: PartialTarget
+  target: PartialTarget
 ): PartialPrimitiveTarget[] {
-  switch (partialTarget.type) {
+  switch (target.type) {
     case "primitive":
-      return [partialTarget];
+      return [target];
     case "list":
-      return partialTarget.elements.flatMap(getPrimitiveTargetsHelper);
+      return target.elements.flatMap(getPrimitiveTargetsHelper);
     case "range":
-      return [partialTarget.start, partialTarget.end];
+      return [target.start, target.end];
   }
 }
