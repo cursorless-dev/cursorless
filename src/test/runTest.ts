@@ -7,7 +7,7 @@ import {
   downloadAndUnzipVSCode,
 } from "vscode-test";
 
-const extensionDependencies = ["pokey.parse-tree"];
+const extensionDependencies = ["pokey.parse-tree", "ms-toolsai.jupyter"];
 
 async function main() {
   try {
