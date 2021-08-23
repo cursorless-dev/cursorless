@@ -113,6 +113,8 @@ export interface SubTokenModifier {
   pieceType: SubTokenType;
   anchor: number;
   active: number;
+  includeAnchor?: boolean;
+  includeActive?: boolean;
 }
 export interface MatchingPairSymbolModifier {
   type: "matchingPairSymbol";
