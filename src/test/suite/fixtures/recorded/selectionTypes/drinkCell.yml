@@ -1,3 +1,4 @@
+# Note that this is just checking that no errors are thrown
 spokenForm: drink cell
 languageId: python
 command:
