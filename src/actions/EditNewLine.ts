@@ -38,10 +38,18 @@ class EditNewLine implements Action {
     this.correctForParagraph(targets);
     if (this.isAbove) {
       await this.graph.actions.setSelectionBefore.run([targets]);
-      await commands.executeCommand("editor.action.insertLineBefore");
+      await commands.executeCommand(
+        targets[0].selectionContext.isNotebookCell
+          ? "jupyter.insertCellAbove"
+          : "editor.action.insertLineBefore"
+      );
     } else {
       await this.graph.actions.setSelectionAfter.run([targets]);
-      await commands.executeCommand("editor.action.insertLineAfter");
+      await commands.executeCommand(
+        targets[0].selectionContext.isNotebookCell
+          ? "jupyter.insertCellBelow"
+          : "editor.action.insertLineAfter"
+      );
     }
 
     return {

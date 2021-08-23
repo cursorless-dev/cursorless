@@ -7,6 +7,8 @@ import {
   downloadAndUnzipVSCode,
 } from "vscode-test";
 
+const extensionDependencies = ["pokey.parse-tree", "ms-toolsai.jupyter"];
+
 async function main() {
   try {
     // The folder containing the Extension Manifest package.json
@@ -22,9 +24,11 @@ async function main() {
       resolveCliPathFromVSCodeExecutablePath(vscodeExecutablePath);
 
     // Install extension dependencies
-    cp.spawnSync(cliPath, ["--install-extension", "pokey.parse-tree"], {
-      encoding: "utf-8",
-      stdio: "inherit",
+    extensionDependencies.forEach((dependency) => {
+      cp.spawnSync(cliPath, ["--install-extension", dependency], {
+        encoding: "utf-8",
+        stdio: "inherit",
+      });
     });
 
     // Run the integration test

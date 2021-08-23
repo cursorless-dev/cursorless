@@ -1,0 +1,27 @@
+# Note that this is just checking that no errors are thrown
+spokenForm: drink cell
+languageId: python
+command:
+  actionName: editNewLineAbove
+  partialTargets:
+    - {type: primitive, selectionType: notebookCell}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |-
+    # %%
+    print("hello")
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
+finalState:
+  documentContents: |-
+    # %%
+    print("hello")
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  thatMark:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: notebookCell, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
