@@ -18,6 +18,7 @@ import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getParseTreeApi } from "./util/getExtensionApi";
 import { checkCommandValidity } from "./checkCommandValidity";
+import canonicalizeActionName from "./canonicalizeActionName";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -100,11 +101,13 @@ export async function activate(context: vscode.ExtensionContext) {
     "cursorless.command",
     async (
       spokenForm: string,
-      actionName: ActionType,
+      inputActionName: string,
       partialTargets: PartialTarget[],
       ...extraArgs: any[]
     ) => {
       try {
+        const actionName = canonicalizeActionName(inputActionName);
+
         console.debug(`spokenForm: ${spokenForm}`);
         console.debug(`action: ${actionName}`);
         console.debug(`partialTargets:`);

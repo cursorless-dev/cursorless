@@ -62,13 +62,16 @@ export type Mark =
   | DecoratedSymbol
   | LineNumber;
 export type Delimiter =
-  | "squareBrackets"
-  | "curlyBrackets"
   | "angleBrackets"
+  | "backtickQuotes"
+  | "curlyBrackets"
+  | "doubleQuotes"
+  | "escapedSingleQuotes"
+  | "escapedDoubleQuotes"
   | "parentheses"
   | "singleQuotes"
-  | "doubleQuotes"
-  | "backtickQuotes";
+  | "squareBrackets"
+  | "whitespace";
 
 export type ScopeType =
   | "attribute"
