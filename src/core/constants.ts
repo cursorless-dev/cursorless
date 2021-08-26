@@ -38,5 +38,3 @@ export const hatStyleMap = {
   ),
 } as Record<HatStyleName, HatStyle>;
 export const hatStyleNames = Object.keys(hatStyleMap);
-
-console.log(`hatStyles: ${JSON.stringify(hatStyleMap)}`);

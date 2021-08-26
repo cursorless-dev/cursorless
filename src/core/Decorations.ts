@@ -65,9 +65,6 @@ export default class Decorations {
       const { hatWidthToCharacterWidthRatio, verticalOffsetEm } =
         defaultGlyphMeasurements[glyphName];
 
-      console.log(`color: ${color}`);
-      console.log(`glyphName: ${glyphName}`);
-
       // TODO: Don't reconstruct svg for each glyph every time
       const { svg, svgWidthPx, svgHeightPx } = this.processSvg(
         fontMeasurements,
