@@ -1,4 +1,4 @@
-import { SymbolColor } from "../core/constants";
+import { HatStyleName } from "../core/constants";
 import NavigationMap from "../core/NavigationMap";
 import { PrimitiveTarget, Target, Token } from "../typings/Types";
 
@@ -38,7 +38,7 @@ export function extractTargetedMarks(
   targetKeys.forEach((key) => {
     const { color, character } = NavigationMap.splitKey(key);
     targetedMarks[key] = navigationMap.getToken(
-      color as SymbolColor,
+      color as HatStyleName,
       character
     );
   });

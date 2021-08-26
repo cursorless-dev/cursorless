@@ -1,20 +1,37 @@
 import * as vscode from "vscode";
 import { join } from "path";
-import { COLORS } from "./constants";
-import { SymbolColor } from "./constants";
+import {
+  HatStyleName,
+  HatGlyphName,
+  hatStyleMap,
+  hatStyleNames,
+} from "./constants";
 import { readFileSync } from "fs";
 import { DecorationColorSetting } from "../typings/Types";
 import FontMeasurements from "./FontMeasurements";
 
-const DEFAULT_HAT_WIDTH_TO_CHARACTER_WITH_RATIO = 0.39;
-const DEFAULT_HAT_VERTICAL_OFFSET_EM = -0.05;
+interface GlyphMeasurements {
+  hatWidthToCharacterWidthRatio: number;
+  verticalOffsetEm: number;
+}
+
+const defaultGlyphMeasurements: Record<HatGlyphName, GlyphMeasurements> = {
+  default: {
+    hatWidthToCharacterWidthRatio: 0.507,
+    verticalOffsetEm: -0.05,
+  },
+  ninja: {
+    hatWidthToCharacterWidthRatio: 0.6825,
+    verticalOffsetEm: -0.12,
+  },
+};
 
 export type DecorationMap = {
-  [k in SymbolColor]?: vscode.TextEditorDecorationType;
+  [k in HatStyleName]?: vscode.TextEditorDecorationType;
 };
 
 export interface NamedDecoration {
-  name: SymbolColor;
+  name: HatStyleName;
   decoration: vscode.TextEditorDecorationType;
 }
 
@@ -43,23 +60,32 @@ export default class Decorations {
 
     const hatScaleFactor = 1 + hatSizeAdjustment / 100;
 
-    const { svg, svgWidthPx, svgHeightPx } = this.processSvg(
-      fontMeasurements,
-      hatScaleFactor * DEFAULT_HAT_WIDTH_TO_CHARACTER_WITH_RATIO,
-      (DEFAULT_HAT_VERTICAL_OFFSET_EM + userHatVerticalOffsetAdjustment / 100) *
-        fontMeasurements.fontSize
-    );
+    // TODO: Don't reconstruct svg for each glyph every time
+    this.decorations = hatStyleNames.map((styleName) => {
+      const { color, glyphName } = hatStyleMap[styleName];
+      const { hatWidthToCharacterWidthRatio, verticalOffsetEm } =
+        defaultGlyphMeasurements[glyphName];
 
-    const spanWidthPx =
-      svgWidthPx + (fontMeasurements.characterWidth - svgWidthPx) / 2;
+      console.log(`color: ${color}`);
+      console.log(`glyphName: ${glyphName}`);
 
-    this.decorations = COLORS.map((color) => {
+      const { svg, svgWidthPx, svgHeightPx } = this.processSvg(
+        fontMeasurements,
+        glyphName,
+        hatScaleFactor * hatWidthToCharacterWidthRatio,
+        (verticalOffsetEm + userHatVerticalOffsetAdjustment / 100) *
+          fontMeasurements.fontSize
+      );
+
+      const spanWidthPx =
+        svgWidthPx + (fontMeasurements.characterWidth - svgWidthPx) / 2;
+
       const colorSetting = vscode.workspace
         .getConfiguration("cursorless.colors")
         .get<DecorationColorSetting>(color)!;
 
       return {
-        name: color,
+        name: styleName,
         decoration: vscode.window.createTextEditorDecorationType({
           rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
           light: {
@@ -121,10 +147,11 @@ export default class Decorations {
    */
   private processSvg(
     fontMeasurements: FontMeasurements,
+    glyphName: HatGlyphName,
     hatWidthToCharacterWidthRatio: number,
     hatVerticalOffset: number
   ) {
-    const iconPath = join(__dirname, "..", "images", "ninja-hat.svg");
+    const iconPath = join(__dirname, "..", "images", `${glyphName}-hat.svg`);
     const rawSvg = readFileSync(iconPath, "utf8");
 
     const { originalViewBoxHeight, originalViewBoxWidth } =

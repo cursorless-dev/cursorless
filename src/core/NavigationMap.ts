@@ -1,5 +1,5 @@
 import { TextDocumentChangeEvent, Range } from "vscode";
-import { SymbolColor } from "./constants";
+import { HatStyleName } from "./constants";
 import { SelectionWithEditor, Token } from "../typings/Types";
 
 /**
@@ -43,20 +43,20 @@ export default class NavigationMap {
     [coloredSymbol: string]: Token;
   } = {};
 
-  static getKey(color: SymbolColor, character: string) {
+  static getKey(color: HatStyleName, character: string) {
     return `${color}.${character}`;
   }
 
   static splitKey(key: string) {
     const [color, character] = key.split(".");
-    return { color: color as SymbolColor, character };
+    return { color: color as HatStyleName, character };
   }
 
-  public addToken(color: SymbolColor, character: string, token: Token) {
+  public addToken(color: HatStyleName, character: string, token: Token) {
     this.map[NavigationMap.getKey(color, character)] = token;
   }
 
-  public getToken(color: SymbolColor, character: string) {
+  public getToken(color: HatStyleName, character: string) {
     return this.map[NavigationMap.getKey(color, character)];
   }
 

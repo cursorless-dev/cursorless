@@ -5,7 +5,7 @@ import { getTokenComparator as getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
 import { Token } from "../typings/Types";
 import Decorations from "../core/Decorations";
-import { COLORS, SymbolColor } from "../core/constants";
+import { hatStyleNames, HatStyleName } from "../core/constants";
 import NavigationMap from "../core/NavigationMap";
 
 interface CharacterTokenInfo {
@@ -79,7 +79,7 @@ export function addDecorationsToEditors(
   const decorationRanges: Map<
     vscode.TextEditor,
     {
-      [decorationName in SymbolColor]?: vscode.Range[];
+      [decorationName in HatStyleName]?: vscode.Range[];
     }
   > = new Map(
     editors.map((editor) => [
@@ -150,7 +150,7 @@ export function addDecorationsToEditors(
   });
 
   decorationRanges.forEach((ranges, editor) => {
-    COLORS.forEach((color) => {
+    hatStyleNames.forEach((color) => {
       editor.setDecorations(decorations.decorationMap[color]!, ranges[color]!);
     });
   });

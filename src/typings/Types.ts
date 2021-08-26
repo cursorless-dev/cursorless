@@ -1,7 +1,7 @@
 import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
 import { Location } from "vscode";
-import { SymbolColor } from "../core/constants";
+import { HatStyleName } from "../core/constants";
 import { EditStyles } from "../core/editStyles";
 import NavigationMap from "../core/NavigationMap";
 
@@ -39,7 +39,7 @@ export interface LastCursorPosition {
 
 export interface DecoratedSymbol {
   type: "decoratedSymbol";
-  symbolColor: SymbolColor;
+  symbolColor: HatStyleName;
   character: string;
 }
 
