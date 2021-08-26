@@ -124,7 +124,7 @@ export default class Decorations {
     hatWidthToCharacterWidthRatio: number,
     hatVerticalOffset: number
   ) {
-    const iconPath = join(__dirname, "..", "images", "triangle-hat.svg");
+    const iconPath = join(__dirname, "..", "images", "ninja-hat.svg");
     const rawSvg = readFileSync(iconPath, "utf8");
 
     const { originalViewBoxHeight, originalViewBoxWidth } =
