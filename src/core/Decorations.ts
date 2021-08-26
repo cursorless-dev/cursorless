@@ -60,7 +60,6 @@ export default class Decorations {
 
     const hatScaleFactor = 1 + hatSizeAdjustment / 100;
 
-    // TODO: Don't reconstruct svg for each glyph every time
     this.decorations = hatStyleNames.map((styleName) => {
       const { color, glyphName } = hatStyleMap[styleName];
       const { hatWidthToCharacterWidthRatio, verticalOffsetEm } =
@@ -69,6 +68,7 @@ export default class Decorations {
       console.log(`color: ${color}`);
       console.log(`glyphName: ${glyphName}`);
 
+      // TODO: Don't reconstruct svg for each glyph every time
       const { svg, svgWidthPx, svgHeightPx } = this.processSvg(
         fontMeasurements,
         glyphName,
