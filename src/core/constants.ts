@@ -11,28 +11,28 @@ const HAT_COLORS = [
   "purple",
 ] as const;
 
-const HAT_NON_DEFAULT_GLYPHS = ["ninja"] as const;
-const HAT_GLYPHS = [...HAT_NON_DEFAULT_GLYPHS, "default"] as const;
+const HAT_NON_DEFAULT_SHAPES = ["star"] as const;
+const HAT_SHAPES = [...HAT_NON_DEFAULT_SHAPES, "default"] as const;
 
 export type HatColor = typeof HAT_COLORS[number];
-export type HatGlyphName = typeof HAT_GLYPHS[number];
-type HatNonDefaultGlyph = typeof HAT_NON_DEFAULT_GLYPHS[number];
-export type HatStyleName = HatColor | `${HatColor}-${HatNonDefaultGlyph}`;
+export type HatShapeName = typeof HAT_SHAPES[number];
+type HatNonDefaultShape = typeof HAT_NON_DEFAULT_SHAPES[number];
+export type HatStyleName = HatColor | `${HatColor}-${HatNonDefaultShape}`;
 
 export interface HatStyle {
   color: HatColor;
-  glyphName: HatGlyphName;
+  shapeName: HatShapeName;
 }
 
 export const hatStyleMap = {
   ...Object.fromEntries(
-    HAT_COLORS.map((color) => [color, { color, glyphName: "default" }])
+    HAT_COLORS.map((color) => [color, { color, shapeName: "default" }])
   ),
   ...Object.fromEntries(
     HAT_COLORS.flatMap((color) =>
-      HAT_NON_DEFAULT_GLYPHS.map((glyphName) => [
-        `${color}-${glyphName}`,
-        { color, glyphName },
+      HAT_NON_DEFAULT_SHAPES.map((shapeName) => [
+        `${color}-${shapeName}`,
+        { color, shapeName },
       ])
     )
   ),

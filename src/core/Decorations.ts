@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import { join } from "path";
 import {
   HatStyleName,
-  HatGlyphName,
+  HatShapeName,
   hatStyleMap,
   hatStyleNames,
 } from "./constants";
@@ -10,17 +10,17 @@ import { readFileSync } from "fs";
 import { DecorationColorSetting } from "../typings/Types";
 import FontMeasurements from "./FontMeasurements";
 
-interface GlyphMeasurements {
+interface ShapeMeasurements {
   hatWidthToCharacterWidthRatio: number;
   verticalOffsetEm: number;
 }
 
-const defaultGlyphMeasurements: Record<HatGlyphName, GlyphMeasurements> = {
+const defaultShapeMeasurements: Record<HatShapeName, ShapeMeasurements> = {
   default: {
     hatWidthToCharacterWidthRatio: 0.507,
     verticalOffsetEm: -0.05,
   },
-  ninja: {
+  star: {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.12,
   },
@@ -61,14 +61,14 @@ export default class Decorations {
     const hatScaleFactor = 1 + hatSizeAdjustment / 100;
 
     this.decorations = hatStyleNames.map((styleName) => {
-      const { color, glyphName } = hatStyleMap[styleName];
+      const { color, shapeName } = hatStyleMap[styleName];
       const { hatWidthToCharacterWidthRatio, verticalOffsetEm } =
-        defaultGlyphMeasurements[glyphName];
+        defaultShapeMeasurements[shapeName];
 
-      // TODO: Don't reconstruct svg for each glyph every time
+      // TODO: Don't reconstruct svg for each shape every time
       const { svg, svgWidthPx, svgHeightPx } = this.processSvg(
         fontMeasurements,
-        glyphName,
+        shapeName,
         hatScaleFactor * hatWidthToCharacterWidthRatio,
         (verticalOffsetEm + userHatVerticalOffsetAdjustment / 100) *
           fontMeasurements.fontSize
@@ -144,11 +144,11 @@ export default class Decorations {
    */
   private processSvg(
     fontMeasurements: FontMeasurements,
-    glyphName: HatGlyphName,
+    shapeName: HatShapeName,
     hatWidthToCharacterWidthRatio: number,
     hatVerticalOffset: number
   ) {
-    const iconPath = join(__dirname, "..", "images", `${glyphName}-hat.svg`);
+    const iconPath = join(__dirname, "..", "images", `${shapeName}-hat.svg`);
     const rawSvg = readFileSync(iconPath, "utf8");
 
     const { originalViewBoxHeight, originalViewBoxWidth } =
