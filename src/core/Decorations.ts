@@ -5,6 +5,7 @@ import {
   HatShapeName,
   hatStyleMap,
   hatStyleNames,
+  HAT_SHAPE_NAMES,
 } from "./constants";
 import { readFileSync } from "fs";
 import { DecorationColorSetting } from "../typings/Types";
@@ -21,6 +22,10 @@ const defaultShapeMeasurements: Record<HatShapeName, ShapeMeasurements> = {
     verticalOffsetEm: -0.05,
   },
   star: {
+    hatWidthToCharacterWidthRatio: 0.6825,
+    verticalOffsetEm: -0.105,
+  },
+  valley: {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.12,
   },
@@ -39,7 +44,10 @@ export default class Decorations {
   decorations!: NamedDecoration[];
   decorationMap!: DecorationMap;
 
-  constructor(fontMeasurements: FontMeasurements) {
+  constructor(
+    fontMeasurements: FontMeasurements,
+    private extensionPath: string
+  ) {
     this.constructDecorations(fontMeasurements);
   }
 
@@ -60,19 +68,27 @@ export default class Decorations {
 
     const hatScaleFactor = 1 + hatSizeAdjustment / 100;
 
+    const hatSvgMap = Object.fromEntries(
+      HAT_SHAPE_NAMES.map((shapeName) => {
+        const { hatWidthToCharacterWidthRatio, verticalOffsetEm } =
+          defaultShapeMeasurements[shapeName];
+
+        return [
+          shapeName,
+          this.processSvg(
+            fontMeasurements,
+            shapeName,
+            hatScaleFactor * hatWidthToCharacterWidthRatio,
+            (verticalOffsetEm + userHatVerticalOffsetAdjustment / 100) *
+              fontMeasurements.fontSize
+          ),
+        ];
+      })
+    );
+
     this.decorations = hatStyleNames.map((styleName) => {
       const { color, shapeName } = hatStyleMap[styleName];
-      const { hatWidthToCharacterWidthRatio, verticalOffsetEm } =
-        defaultShapeMeasurements[shapeName];
-
-      // TODO: Don't reconstruct svg for each shape every time
-      const { svg, svgWidthPx, svgHeightPx } = this.processSvg(
-        fontMeasurements,
-        shapeName,
-        hatScaleFactor * hatWidthToCharacterWidthRatio,
-        (verticalOffsetEm + userHatVerticalOffsetAdjustment / 100) *
-          fontMeasurements.fontSize
-      );
+      const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shapeName];
 
       const spanWidthPx =
         svgWidthPx + (fontMeasurements.characterWidth - svgWidthPx) / 2;
@@ -148,7 +164,12 @@ export default class Decorations {
     hatWidthToCharacterWidthRatio: number,
     hatVerticalOffset: number
   ) {
-    const iconPath = join(__dirname, "..", "images", `${shapeName}-hat.svg`);
+    const iconPath = join(
+      this.extensionPath,
+      "images",
+      "hats",
+      `${shapeName}.svg`
+    );
     const rawSvg = readFileSync(iconPath, "utf8");
 
     const { originalViewBoxHeight, originalViewBoxWidth } =
