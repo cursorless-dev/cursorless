@@ -48,7 +48,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   arrowFunction: "lambda_expression",
   list: "array_initializer",
   functionCall: "method_invocation",
-  dictionary: "block",
+  map: "block",
   name: ["*[declarator][name]", "*[name]", "formal_parameter.identifier!"],
   namedFunction: ["method_declaration", "constructor_declaration"],
   type: [

@@ -3,6 +3,7 @@ import { groupBy } from "./itertools";
 import {
   PartialPrimitiveTarget,
   PartialTarget,
+  PrimitiveTarget,
   TypedSelection,
 } from "../typings/Types";
 
@@ -112,5 +113,38 @@ function getPrimitiveTargetsHelper(
       return target.elements.flatMap(getPrimitiveTargetsHelper);
     case "range":
       return [target.start, target.end];
+  }
+}
+
+/**
+ * Given a list of targets, recursively descends all targets and returns every
+ * contained primitive target.
+ *
+ * @param targets The targets to extract from
+ * @returns A list of primitive targets
+ */
+export function transformPrimitiveTargets(
+  targets: PartialTarget[],
+  func: (target: PartialPrimitiveTarget) => PartialPrimitiveTarget
+) {
+  return targets.map((target) => transformPrimitiveTargetsHelper(target, func));
+}
+
+function transformPrimitiveTargetsHelper<T extends PartialTarget>(
+  target: T,
+  func: (target: PartialPrimitiveTarget) => PartialPrimitiveTarget
+): T {
+  switch (target.type) {
+    case "primitive":
+      return func(target) as T;
+    case "list":
+      return {
+        ...target,
+        elements: target.elements.map((element) =>
+          transformPrimitiveTargetsHelper(element, func)
+        ),
+      };
+    case "range":
+      return { ...target, start: func(target.start), end: func(target.end) };
   }
 }

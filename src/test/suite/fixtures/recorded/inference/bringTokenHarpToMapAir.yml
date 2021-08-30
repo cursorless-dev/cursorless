@@ -5,32 +5,52 @@ command:
   partialTargets:
     - type: primitive
       selectionType: token
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      mark: { type: decoratedSymbol, symbolColor: default, character: h }
     - type: primitive
-      modifier: {type: containingScope, scopeType: dictionary, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifier:
+        { type: containingScope, scopeType: map, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: a }
   extraArgs: []
 marks:
   default.h:
-    start: {line: 0, character: 4}
-    end: {line: 0, character: 9}
+    start: { line: 0, character: 4 }
+    end: { line: 0, character: 9 }
   default.a:
-    start: {line: 1, character: 13}
-    end: {line: 1, character: 14}
+    start: { line: 1, character: 13 }
+    end: { line: 1, character: 14 }
 initialState:
   documentContents: "    hello\r\n    value = {a:2}"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
 finalState:
   documentContents: "    hello\r\n    value = hello"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   thatMark:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 17}
+    - anchor: { line: 1, character: 12 }
+      active: { line: 1, character: 17 }
   sourceMark:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 9}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: null}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: dictionary, includeSiblings: false}, insideOutsideType: null}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 9 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: h },
+      selectionType: token,
+      position: contents,
+      modifier: { type: identity },
+      insideOutsideType: null,
+    },
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: a },
+      selectionType: token,
+      position: contents,
+      modifier:
+        { type: containingScope, scopeType: map, includeSiblings: false },
+      insideOutsideType: null,
+    },
+  ]

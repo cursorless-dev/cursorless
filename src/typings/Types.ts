@@ -74,28 +74,28 @@ export type Delimiter =
   | "whitespace";
 
 export type ScopeType =
-  | "attribute"
   | "argumentOrParameter"
   | "arrowFunction"
+  | "attribute"
   | "class"
   | "className"
   | "collectionItem"
   | "collectionKey"
   | "comment"
-  | "dictionary"
   | "functionCall"
   | "functionName"
   | "ifStatement"
   | "list"
+  | "map"
   | "name"
   | "namedFunction"
-  | "regex"
+  | "regularExpression"
   | "statement"
   | "string"
   | "type"
   | "value"
-  | "xmlElement"
   | "xmlBothTags"
+  | "xmlElement"
   | "xmlEndTag"
   | "xmlStartTag";
 export type SubTokenType = "word" | "character";

@@ -42,7 +42,7 @@ const dictionaryTypes = ["dictionary", "dictionary_comprehension"];
 const listTypes = ["list", "list_comprehension", "set"];
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
-  dictionary: dictionaryTypes,
+  map: dictionaryTypes,
   list: listTypes,
   statement: STATEMENT_TYPES,
   string: "string",

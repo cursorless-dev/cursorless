@@ -1,8 +1,10 @@
+import canonicalizeActionName from "./canonicalizeActionName";
+import canonicalizeTargets from "./canonicalizeTargets";
 import { ActionType, PartialTarget, SelectionType } from "./typings/Types";
 import { getPrimitiveTargets } from "./util/targetUtils";
 
-export function checkCommandValidity(
-  actionName: ActionType,
+export function canonicalizeAndValidateCommand(
+  actionName: string,
   partialTargets: PartialTarget[],
   extraArgs: any[]
 ) {
@@ -14,6 +16,12 @@ export function checkCommandValidity(
       "The notebookCell scope type is currently only supported with the actions editNewLineAbove and editNewLineBelow"
     );
   }
+
+  return {
+    actionName: canonicalizeActionName(actionName),
+    partialTargets: canonicalizeTargets(partialTargets),
+    extraArgs,
+  };
 }
 
 function usesSelectionType(

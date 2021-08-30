@@ -17,7 +17,7 @@ import { TestCase } from "./testUtil/TestCase";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getParseTreeApi } from "./util/getExtensionApi";
-import { checkCommandValidity } from "./checkCommandValidity";
+import { canonicalizeAndValidateCommand } from "./canonicalizeAndValidateCommand";
 import canonicalizeActionName from "./canonicalizeActionName";
 
 export async function activate(context: vscode.ExtensionContext) {
@@ -102,11 +102,16 @@ export async function activate(context: vscode.ExtensionContext) {
     async (
       spokenForm: string,
       inputActionName: string,
-      partialTargets: PartialTarget[],
-      ...extraArgs: any[]
+      inputPartialTargets: PartialTarget[],
+      ...inputExtraArgs: unknown[]
     ) => {
       try {
-        const actionName = canonicalizeActionName(inputActionName);
+        const { actionName, partialTargets, extraArgs } =
+          canonicalizeAndValidateCommand(
+            inputActionName,
+            inputPartialTargets,
+            inputExtraArgs
+          );
 
         console.debug(`spokenForm: ${spokenForm}`);
         console.debug(`action: ${actionName}`);
@@ -116,8 +121,6 @@ export async function activate(context: vscode.ExtensionContext) {
         console.debug(JSON.stringify(extraArgs, null, 3));
 
         const action = graph.actions[actionName];
-
-        checkCommandValidity(actionName, partialTargets, extraArgs);
 
         const targets = inferFullTargets(
           partialTargets,

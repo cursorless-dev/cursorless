@@ -4,7 +4,7 @@ command:
   actionName: setSelection
   partialTargets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: regex}
+      modifier: { type: containingScope, scopeType: regularExpression }
   extraArgs: []
 marks: {}
 initialState:
@@ -12,16 +12,16 @@ initialState:
 
     const value = /\w.+$/
   selections:
-    - anchor: {line: 1, character: 17}
-      active: {line: 1, character: 17}
+    - anchor: { line: 1, character: 17 }
+      active: { line: 1, character: 17 }
 finalState:
   documentContents: |
 
     const value = /\w.+$/
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 21}
+    - anchor: { line: 1, character: 14 }
+      active: { line: 1, character: 21 }
   thatMark:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 21}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: regex}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 14 }
+      active: { line: 1, character: 21 }
+fullTargets: [{type: primitive, mark: { type: cursor }, selectionType: token, position: contents, modifier: { type: containingScope, scopeType: regularExpression }, insideOutsideType: inside, }]
