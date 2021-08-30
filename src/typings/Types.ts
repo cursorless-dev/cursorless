@@ -116,8 +116,8 @@ export interface SubTokenModifier {
   pieceType: SubTokenType;
   anchor: number;
   active: number;
-  includeAnchor?: boolean;
-  includeActive?: boolean;
+  excludeAnchor?: boolean;
+  excludeActive?: boolean;
 }
 export interface MatchingPairSymbolModifier {
   type: "matchingPairSymbol";
