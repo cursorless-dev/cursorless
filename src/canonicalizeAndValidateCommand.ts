@@ -13,7 +13,7 @@ export function canonicalizeAndValidateCommand(
 
   if (
     usesSelectionType("notebookCell", partialTargets) &&
-    !["editNewLineBefore", "editNewLineAfter"].includes(actionName)
+    !["editNewLineAbove", "editNewLineBelow"].includes(actionName)
   ) {
     throw new Error(
       "The notebookCell scope type is currently only supported with the actions editNewLineAbove and editNewLineBelow"
