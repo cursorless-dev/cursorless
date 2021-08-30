@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import update from "immutability-helper";
 import { promises as fsp } from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
@@ -6,6 +7,7 @@ import { TestCaseFixture } from "../testUtil/TestCase";
 
 import { walkFilesSync } from "../testUtil/walkSync";
 import serialize from "../testUtil/serialize";
+import canonicalizeActionName from "../canonicalizeActionName";
 
 async function main() {
   const directory = path.join(
@@ -32,7 +34,7 @@ async function transformFile(file: string) {
  * @returns The transformed text fixture
  */
 function fixtureTransformation(fixture: TestCaseFixture) {
-  return fixture;
+  return update(fixture, { command: { actionName: canonicalizeActionName } });
 }
 
 main();

@@ -4,7 +4,6 @@ import {
   PartialPrimitiveTarget,
   PartialRangeTarget,
   PartialTarget,
-  PrimitiveTarget,
   TypedSelection,
 } from "../typings/Types";
 
