@@ -31,6 +31,10 @@ export default class Call implements Action {
       }
     );
 
-    return this.graph.actions.wrap.run([destinations], texts[0] + "(", ")");
+    return this.graph.actions.wrapWithPairedDelimiter.run(
+      [destinations],
+      texts[0] + "(",
+      ")"
+    );
   }
 }

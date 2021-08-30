@@ -18,7 +18,7 @@ export default class Clear implements Action {
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
-    const { thatMark } = await this.graph.actions.delete.run([targets]);
+    const { thatMark } = await this.graph.actions.remove.run([targets]);
 
     if (thatMark != null) {
       await setSelectionsAndFocusEditor(
