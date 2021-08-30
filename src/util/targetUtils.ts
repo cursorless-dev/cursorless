@@ -118,8 +118,8 @@ function getPrimitiveTargetsHelper(
 }
 
 /**
- * Given a list of targets, recursively descends all targets and returns every
- * contained primitive target.
+ * Given a list of targets, recursively descends all targets and applies `func`
+ * to every primitive target.
  *
  * @param targets The targets to extract from
  * @returns A list of primitive targets
