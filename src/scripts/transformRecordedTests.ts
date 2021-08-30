@@ -9,6 +9,10 @@ import { walkFilesSync } from "../testUtil/walkSync";
 import serialize from "../testUtil/serialize";
 import canonicalizeActionName from "../canonicalizeActionName";
 
+/**
+ * The transformation to run on all recorded test fixtures.  Change this
+ * variable to do a custom bulk transformation.
+ */
 const FIXTURE_TRANSFORMATION = identity;
 
 async function main() {

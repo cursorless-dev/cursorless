@@ -28,7 +28,7 @@ export function validateCommand(
 ) {
   if (
     usesSelectionType("notebookCell", partialTargets) &&
-    !["editNewLineAbove", "editNewLineBelow"].includes(actionName)
+    !["editNewLineBefore", "editNewLineAfter"].includes(actionName)
   ) {
     throw new Error(
       "The notebookCell scope type is currently only supported with the actions editNewLineAbove and editNewLineBelow"
