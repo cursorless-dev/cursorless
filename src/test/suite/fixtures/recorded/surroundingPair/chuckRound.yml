@@ -4,8 +4,7 @@ command:
   actionName: remove
   partialTargets:
     - type: primitive
-      modifier:
-        { type: surroundingPair, delimiter: parentheses, delimitersOnly: false }
+      modifier: {type: surroundingPair, delimiter: parentheses, delimitersOnly: false}
   extraArgs: []
 marks: {}
 initialState:
@@ -13,31 +12,16 @@ initialState:
     class a(object):
         pass
   selections:
-    - anchor: { line: 0, character: 12 }
-      active: { line: 0, character: 12 }
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
 finalState:
   documentContents: |
     class a:
         pass
   selections:
-    - anchor: { line: 0, character: 7 }
-      active: { line: 0, character: 7 }
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   thatMark:
-    - anchor: { line: 0, character: 7 }
-      active: { line: 0, character: 7 }
-fullTargets:
-  [
-    {
-      type: primitive,
-      mark: { type: cursor },
-      selectionType: token,
-      position: contents,
-      modifier:
-        {
-          type: surroundingPair,
-          delimiter: parentheses,
-          delimitersOnly: false,
-        },
-      insideOutsideType: outside,
-    },
-  ]
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimiter: parentheses, delimitersOnly: false}, insideOutsideType: outside}]

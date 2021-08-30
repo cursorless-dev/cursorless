@@ -43,3 +43,8 @@ command run, and the final state, all in the form of a yaml document. See
 
 Recorded tests will automatically be picked up and run with the normal tests,
 and can be run in vscode or via yarn in terminal.
+
+## Changing recorded test cases in bulk
+
+1. Change the `fixtureTransformation` function in [`transformRecordedTests.ts`](../src/scripts/transformRecordedTests.ts) to perform the transformation you'd like
+2. Run `yarn run compile && node ./out/scripts/transformRecordedTests.js`

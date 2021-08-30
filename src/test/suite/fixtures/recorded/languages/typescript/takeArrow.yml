@@ -4,7 +4,7 @@ command:
   actionName: setSelection
   partialTargets:
     - type: primitive
-      modifier: { type: containingScope, scopeType: anonymousFunction }
+      modifier: {type: containingScope, scopeType: anonymousFunction}
   extraArgs: []
 marks: {}
 initialState:
@@ -14,8 +14,8 @@ initialState:
 
     }
   selections:
-    - anchor: { line: 2, character: 0 }
-      active: { line: 2, character: 0 }
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
 finalState:
   documentContents: |
 
@@ -23,19 +23,9 @@ finalState:
 
     }
   selections:
-    - anchor: { line: 1, character: 14 }
-      active: { line: 3, character: 1 }
+    - anchor: {line: 1, character: 14}
+      active: {line: 3, character: 1}
   thatMark:
-    - anchor: { line: 1, character: 14 }
-      active: { line: 3, character: 1 }
-fullTargets:
-  [
-    {
-      type: primitive,
-      mark: { type: cursor },
-      selectionType: token,
-      position: contents,
-      modifier: { type: containingScope, scopeType: anonymousFunction },
-      insideOutsideType: inside,
-    },
-  ]
+    - anchor: {line: 1, character: 14}
+      active: {line: 3, character: 1}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: anonymousFunction}, insideOutsideType: inside}]
