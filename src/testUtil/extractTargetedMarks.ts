@@ -33,14 +33,11 @@ export function extractTargetedMarks(
   targets: Target[],
   navigationMap: NavigationMap
 ) {
-  const targetedMarks: { [coloredSymbol: string]: Token } = {};
+  const targetedMarks: { [decoratedCharacter: string]: Token } = {};
   const targetKeys = targets.map(extractTargetKeys).flat();
   targetKeys.forEach((key) => {
-    const { color, character } = NavigationMap.splitKey(key);
-    targetedMarks[key] = navigationMap.getToken(
-      color as HatStyleName,
-      character
-    );
+    const { hatStyle, character } = NavigationMap.splitKey(key);
+    targetedMarks[key] = navigationMap.getToken(hatStyle, character);
   });
   return targetedMarks;
 }

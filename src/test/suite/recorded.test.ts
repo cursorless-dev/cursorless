@@ -93,9 +93,12 @@ async function runTest(file: string) {
 
   // Assert that recorded decorations are present
   Object.entries(fixture.marks).forEach(([key, token]) => {
-    const { color, character } = NavigationMap.splitKey(key);
-    const currentToken = cursorlessApi.navigationMap.getToken(color, character);
-    assert(currentToken != null, `Mark "${color} ${character}" not found`);
+    const { hatStyle, character } = NavigationMap.splitKey(key);
+    const currentToken = cursorlessApi.navigationMap.getToken(
+      hatStyle,
+      character
+    );
+    assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
     assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
   });
 

@@ -132,26 +132,29 @@ export function addDecorationsToEditors(
 
     const currentDecorationIndex = bestCharacter.decorationIndex;
 
-    const colorName = decorations.decorations[currentDecorationIndex].name;
+    const hatStyleName = decorations.decorations[currentDecorationIndex].name;
 
     decorationRanges
       .get(token.editor)!
-      [colorName]!.push(
+      [hatStyleName]!.push(
         new vscode.Range(
           token.range.start.translate(undefined, bestCharacter.characterIdx),
           token.range.start.translate(undefined, bestCharacter.characterIdx + 1)
         )
       );
 
-    navigationMap.addToken(colorName, bestCharacter.character, token);
+    navigationMap.addToken(hatStyleName, bestCharacter.character, token);
 
     characterDecorationIndices[bestCharacter.character] =
       currentDecorationIndex + 1;
   });
 
   decorationRanges.forEach((ranges, editor) => {
-    hatStyleNames.forEach((color) => {
-      editor.setDecorations(decorations.decorationMap[color]!, ranges[color]!);
+    hatStyleNames.forEach((hatStyleName) => {
+      editor.setDecorations(
+        decorations.decorationMap[hatStyleName]!,
+        ranges[hatStyleName]!
+      );
     });
   });
 }

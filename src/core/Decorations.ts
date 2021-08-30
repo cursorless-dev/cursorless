@@ -2,10 +2,10 @@ import * as vscode from "vscode";
 import { join } from "path";
 import {
   HatStyleName,
-  HatShapeName,
+  HatShape,
   hatStyleMap,
   hatStyleNames,
-  HAT_SHAPE_NAMES,
+  HAT_SHAPES,
 } from "./constants";
 import { readFileSync } from "fs";
 import { DecorationColorSetting } from "../typings/Types";
@@ -16,7 +16,7 @@ interface ShapeMeasurements {
   verticalOffsetEm: number;
 }
 
-const defaultShapeMeasurements: Record<HatShapeName, ShapeMeasurements> = {
+const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
   default: {
     hatWidthToCharacterWidthRatio: 0.507,
     verticalOffsetEm: -0.05,
@@ -69,15 +69,15 @@ export default class Decorations {
     const hatScaleFactor = 1 + hatSizeAdjustment / 100;
 
     const hatSvgMap = Object.fromEntries(
-      HAT_SHAPE_NAMES.map((shapeName) => {
+      HAT_SHAPES.map((shape) => {
         const { hatWidthToCharacterWidthRatio, verticalOffsetEm } =
-          defaultShapeMeasurements[shapeName];
+          defaultShapeMeasurements[shape];
 
         return [
-          shapeName,
+          shape,
           this.processSvg(
             fontMeasurements,
-            shapeName,
+            shape,
             hatScaleFactor * hatWidthToCharacterWidthRatio,
             (verticalOffsetEm + userHatVerticalOffsetAdjustment / 100) *
               fontMeasurements.fontSize
@@ -87,8 +87,8 @@ export default class Decorations {
     );
 
     this.decorations = hatStyleNames.map((styleName) => {
-      const { color, shapeName } = hatStyleMap[styleName];
-      const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shapeName];
+      const { color, shape } = hatStyleMap[styleName];
+      const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shape];
 
       const spanWidthPx =
         svgWidthPx + (fontMeasurements.characterWidth - svgWidthPx) / 2;
@@ -160,7 +160,7 @@ export default class Decorations {
    */
   private processSvg(
     fontMeasurements: FontMeasurements,
-    shapeName: HatShapeName,
+    shape: HatShape,
     hatWidthToCharacterWidthRatio: number,
     hatVerticalOffset: number
   ) {
@@ -168,7 +168,7 @@ export default class Decorations {
       this.extensionPath,
       "images",
       "hats",
-      `${shapeName}.svg`
+      `${shape}.svg`
     );
     const rawSvg = readFileSync(iconPath, "utf8");
 
