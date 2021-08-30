@@ -122,6 +122,10 @@ export async function activate(context: vscode.ExtensionContext) {
 
         const action = graph.actions[actionName];
 
+        if (action == null) {
+          throw new Error(`Unknown action ${actionName}`);
+        }
+
         const targets = inferFullTargets(
           partialTargets,
           action.targetPreferences
