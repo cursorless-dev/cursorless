@@ -1,7 +1,7 @@
 spokenForm: clear funk
 languageId: c
 command:
-  actionName: clear
+  actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
       modifier: {type: containingScope, scopeType: namedFunction}

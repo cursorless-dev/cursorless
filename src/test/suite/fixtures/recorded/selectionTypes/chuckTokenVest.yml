@@ -1,7 +1,7 @@
 spokenForm: chuck token vest
 languageId: typescript
 command:
-  actionName: delete
+  actionName: remove
   partialTargets:
     - type: primitive
       selectionType: token

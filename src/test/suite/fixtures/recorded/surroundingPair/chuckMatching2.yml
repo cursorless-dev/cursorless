@@ -1,7 +1,7 @@
 spokenForm: chuck matching
 languageId: python
 command:
-  actionName: delete
+  actionName: remove
   partialTargets:
     - type: primitive
       modifier:

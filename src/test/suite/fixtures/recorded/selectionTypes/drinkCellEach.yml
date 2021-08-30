@@ -2,7 +2,7 @@
 spokenForm: drink cell each
 languageId: python
 command:
-  actionName: editNewLineAbove
+  actionName: editNewLineBefore
   partialTargets:
     - type: primitive
       selectionType: notebookCell

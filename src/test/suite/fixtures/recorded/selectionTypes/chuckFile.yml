@@ -1,7 +1,7 @@
 spokenForm: chuck file
 languageId: typescript
 command:
-  actionName: delete
+  actionName: remove
   partialTargets:
     - {type: primitive, selectionType: document}
   extraArgs: []

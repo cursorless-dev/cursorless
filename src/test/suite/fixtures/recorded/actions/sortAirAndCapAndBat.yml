@@ -1,7 +1,7 @@
 spokenForm: sort air and cap and bat
 languageId: typescript
 command:
-  actionName: sort
+  actionName: sortTargets
   partialTargets:
     - type: list
       elements:

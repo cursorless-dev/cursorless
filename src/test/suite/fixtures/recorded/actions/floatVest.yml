@@ -1,7 +1,7 @@
 spokenForm: float vest
 languageId: typescript
 command:
-  actionName: insertEmptyLineBelow
+  actionName: insertEmptyLineAfter
   partialTargets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

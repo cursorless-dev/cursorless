@@ -1,7 +1,7 @@
 spokenForm: clear round
 languageId: python
 command:
-  actionName: clear
+  actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
       modifier:

@@ -1,7 +1,7 @@
 spokenForm: clear last char vest
 languageId: typescript
 command:
-  actionName: clear
+  actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
       modifier: {type: subpiece, pieceType: character, anchor: -1, active: -1}

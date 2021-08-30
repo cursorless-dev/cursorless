@@ -1,7 +1,7 @@
 spokenForm: comment vest
 languageId: typescript
 command:
-  actionName: commentLines
+  actionName: toggleLineComment
   partialTargets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

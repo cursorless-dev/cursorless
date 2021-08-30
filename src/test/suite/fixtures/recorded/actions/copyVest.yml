@@ -1,7 +1,7 @@
 spokenForm: copy vest
 languageId: typescript
 command:
-  actionName: copy
+  actionName: copyToClipboard
   partialTargets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

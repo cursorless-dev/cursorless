@@ -1,7 +1,7 @@
 spokenForm: chuck vest
 languageId: typescript
 command:
-  actionName: delete
+  actionName: remove
   partialTargets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

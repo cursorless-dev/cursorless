@@ -2,6 +2,7 @@ import { TextEditor, Selection, Position } from "vscode";
 import { groupBy } from "./itertools";
 import {
   PartialPrimitiveTarget,
+  PartialRangeTarget,
   PartialTarget,
   PrimitiveTarget,
   TypedSelection,
@@ -130,18 +131,21 @@ export function transformPrimitiveTargets(
   return targets.map((target) => transformPrimitiveTargetsHelper(target, func));
 }
 
-function transformPrimitiveTargetsHelper<T extends PartialTarget>(
-  target: T,
+function transformPrimitiveTargetsHelper(
+  target: PartialTarget,
   func: (target: PartialPrimitiveTarget) => PartialPrimitiveTarget
-): T {
+): PartialTarget {
   switch (target.type) {
     case "primitive":
-      return func(target) as T;
+      return func(target);
     case "list":
       return {
         ...target,
-        elements: target.elements.map((element) =>
-          transformPrimitiveTargetsHelper(element, func)
+        elements: target.elements.map(
+          (element) =>
+            transformPrimitiveTargetsHelper(element, func) as
+              | PartialPrimitiveTarget
+              | PartialRangeTarget
         ),
       };
     case "range":

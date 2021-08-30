@@ -1,7 +1,7 @@
 spokenForm: bring vest
 languageId: typescript
 command:
-  actionName: bring
+  actionName: replaceWithTarget
   partialTargets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

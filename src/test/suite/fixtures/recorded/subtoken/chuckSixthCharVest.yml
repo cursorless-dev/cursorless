@@ -1,7 +1,7 @@
 spokenForm: chuck sixth char vest
 languageId: typescript
 command:
-  actionName: delete
+  actionName: remove
   partialTargets:
     - type: primitive
       modifier: {type: subpiece, pieceType: character, anchor: 5, active: 5}

@@ -2,7 +2,7 @@
 spokenForm: pour cell
 languageId: python
 command:
-  actionName: editNewLineBelow
+  actionName: editNewLineAfter
   partialTargets:
     - {type: primitive, selectionType: notebookCell}
   extraArgs: []

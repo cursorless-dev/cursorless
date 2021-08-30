@@ -1,7 +1,7 @@
 spokenForm: bring map air to token harp
 languageId: typescript
 command:
-  actionName: bring
+  actionName: replaceWithTarget
   partialTargets:
     - type: primitive
       modifier:

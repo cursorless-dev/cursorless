@@ -1,7 +1,7 @@
 spokenForm: dupe vest
 languageId: typescript
 command:
-  actionName: copyLinesDown
+  actionName: insertCopyAfter
   partialTargets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
