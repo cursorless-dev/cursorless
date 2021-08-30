@@ -48,3 +48,5 @@ and can be run in vscode or via yarn in terminal.
 
 1. Change the `fixtureTransformation` function in [`transformRecordedTests.ts`](../src/scripts/transformRecordedTests.ts) to perform the transformation you'd like
 2. Run `yarn run compile && node ./out/scripts/transformRecordedTests.js`
+
+You might find the `transformPrimitiveTargets` function useful for this purpose.
