@@ -9,6 +9,8 @@ import { walkFilesSync } from "../testUtil/walkSync";
 import serialize from "../testUtil/serialize";
 import canonicalizeActionName from "../canonicalizeActionName";
 
+const FIXTURE_TRANSFORMATION = identity;
+
 async function main() {
   const directory = path.join(
     __dirname,
@@ -22,18 +24,19 @@ async function main() {
 async function transformFile(file: string) {
   const buffer = await fsp.readFile(file);
   const inputFixture = yaml.load(buffer.toString()) as TestCaseFixture;
-  const outputFixture = fixtureTransformation(inputFixture);
+  const outputFixture = FIXTURE_TRANSFORMATION(inputFixture);
   await fsp.writeFile(file, serialize(outputFixture));
 }
 
-/**
- * Performs a particular transformation on a text fixture
- *
- * NOTE: Change this function to perform a transformation
- * @param fixture The test fixture to transform
- * @returns The transformed text fixture
- */
-function fixtureTransformation(fixture: TestCaseFixture) {
+// COMMON TRANSFORMATIONS
+// ======================
+// Below are some common transformations you might want to run.
+
+function identity(fixture: TestCaseFixture) {
+  return fixture;
+}
+
+function canonicalizeActionNames(fixture: TestCaseFixture) {
   return update(fixture, { command: { actionName: canonicalizeActionName } });
 }
 

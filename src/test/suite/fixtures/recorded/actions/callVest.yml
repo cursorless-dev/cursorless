@@ -1,7 +1,7 @@
 spokenForm: call vest
 languageId: typescript
 command:
-  actionName: call
+  actionName: callAsFunction
   partialTargets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
