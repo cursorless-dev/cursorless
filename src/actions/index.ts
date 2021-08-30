@@ -31,11 +31,6 @@ import Call from "./Call";
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
 
-  // TODO NB Remove when user had time to migrate to new talon code
-  use = new Bring(this.graph);
-  insertLineBefore = new EditNewLineAbove(this.graph);
-  insertLineAfter = new EditNewLineBelow(this.graph);
-
   bring = new Bring(this.graph);
   call = new Call(this.graph);
   clear = new Clear(this.graph);

@@ -13,6 +13,8 @@ const actionAliasToCanonicalName: Record<string, ActionType> = {
   insertCopyBefore: "copyLinesUp",
   insertEmptyLineAfter: "insertEmptyLineBelow",
   insertEmptyLineBefore: "insertEmptyLineAbove",
+  insertLineAfter: "editNewLineBelow",
+  insertLineBefore: "editNewLineAbove",
   moveToTarget: "move",
   outdentLine: "outdentLines",
   pasteFromClipboard: "paste",
@@ -24,6 +26,7 @@ const actionAliasToCanonicalName: Record<string, ActionType> = {
   toggleLineBreakpoint: "setBreakpoint",
   toggleLineComment: "commentLines",
   unfoldRegion: "unfold",
+  use: "bring",
   wrapWithPairedDelimiter: "wrap",
 };
 
