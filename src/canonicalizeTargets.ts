@@ -3,7 +3,7 @@ import update from "immutability-helper";
 import { transformPrimitiveTargets } from "./util/targetUtils";
 
 const scopeTypeAliasToCanonicalName: Record<string, ScopeType> = {
-  anonymousFunction: "arrowFunction",
+  arrowFunction: "anonymousFunction",
   dictionary: "map",
   regex: "regularExpression",
 };

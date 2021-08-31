@@ -1,0 +1,29 @@
+spokenForm: clear funk
+languageId: typescript
+command:
+  actionName: clearAndSetSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |
+    function bar() {
+      foo(function () {
+          
+      });
+    }
+  selections:
+    - anchor: {line: 2, character: 6}
+      active: {line: 2, character: 6}
+finalState:
+  documentContents: |+
+
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}}]

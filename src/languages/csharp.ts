@@ -222,7 +222,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcher>> = {
     getNameNode,
   ]),
   statement: typeMatcher(...STATEMENT_TYPES),
-  arrowFunction: typeMatcher("lambda_expression"),
+  anonymousFunction: typeMatcher("lambda_expression"),
   functionCall: typeMatcher("invocation_expression"),
   argumentOrParameter: matcher(
     nodeFinder(

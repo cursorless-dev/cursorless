@@ -41,7 +41,7 @@ const STATEMENT_TYPES = [
   "switch_statement",
   "throw_statement",
   "try_statement",
-  "while_statement"
+  "while_statement",
 ];
 
 // >  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-cpp/master/src/node-types.json | jq '[.[] | select(.type == "_type_specifier") | .subtypes[].type]'
@@ -57,34 +57,53 @@ const TYPE_TYPES = [
   "struct_specifier",
   "template_type",
   "type_identifier",
-  "union_specifier"
+  "union_specifier",
 ];
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   statement: STATEMENT_TYPES,
-  class: ["class_specifier", "struct_specifier", "enum_specifier", "union_specifier"],
+  class: [
+    "class_specifier",
+    "struct_specifier",
+    "enum_specifier",
+    "union_specifier",
+  ],
   className: [
-    "class_specifier[name]", "struct_specifier[name]", "enum_specifier[name]", "union_specifier[name]", 
-    "function_definition[declarator][declarator][namespace]" // void ClassName::method() {}
+    "class_specifier[name]",
+    "struct_specifier[name]",
+    "enum_specifier[name]",
+    "union_specifier[name]",
+    "function_definition[declarator][declarator][namespace]", // void ClassName::method() {}
   ],
   ifStatement: "if_statement",
   string: "string_literal",
   comment: "comment",
-  arrowFunction: "lambda_expression",
+  anonymousFunction: "lambda_expression",
   list: "initializer_list",
   functionCall: "call_expression",
-  name: ["*[declarator][declarator][name]", "*[declarator][name]", "*[declarator][declarator]",  "*[declarator]", "*[name]"],
+  name: [
+    "*[declarator][declarator][name]",
+    "*[declarator][name]",
+    "*[declarator][declarator]",
+    "*[declarator]",
+    "*[name]",
+  ],
   namedFunction: ["function_definition", "declaration.function_declarator"],
-  type: TYPE_TYPES.concat([ "*[type]" ]),
+  type: TYPE_TYPES.concat(["*[type]"]),
   functionName: [
     "function_definition[declarator][declarator][name]", // void C::funcName() {}
-    "function_definition[declarator][declarator]",       // void funcName() {}
-    "declaration.function_declarator![declarator]",      // void funcName();
+    "function_definition[declarator][declarator]", // void funcName() {}
+    "declaration.function_declarator![declarator]", // void funcName();
   ],
-  value: valueMatcher("*[declarator][value]", "*[value]", "assignment_expression[right]", "optional_parameter_declaration[default_value]"),
+  value: valueMatcher(
+    "*[declarator][value]",
+    "*[value]",
+    "assignment_expression[right]",
+    "optional_parameter_declaration[default_value]"
+  ),
   collectionItem: argumentMatcher("initializer_list"),
   argumentOrParameter: argumentMatcher("parameter_list", "argument_list"),
-  attribute: "attribute"
+  attribute: "attribute",
 };
 
 export default createPatternMatchers(nodeMatchers);

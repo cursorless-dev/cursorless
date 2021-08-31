@@ -75,7 +75,7 @@ export type Delimiter =
 
 export type ScopeType =
   | "argumentOrParameter"
-  | "arrowFunction"
+  | "anonymousFunction"
   | "attribute"
   | "class"
   | "className"
