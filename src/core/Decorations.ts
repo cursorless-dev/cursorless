@@ -25,7 +25,7 @@ const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.105,
   },
-  valley: {
+  chevron: {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.12,
   },
@@ -164,12 +164,7 @@ export default class Decorations {
     hatWidthToCharacterWidthRatio: number,
     hatVerticalOffset: number
   ) {
-    const iconPath = join(
-      this.extensionPath,
-      "images",
-      "hats",
-      `${shape}.svg`
-    );
+    const iconPath = join(this.extensionPath, "images", "hats", `${shape}.svg`);
     const rawSvg = readFileSync(iconPath, "utf8");
 
     const { originalViewBoxHeight, originalViewBoxWidth } =
