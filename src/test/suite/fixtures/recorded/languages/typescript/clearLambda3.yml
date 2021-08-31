@@ -1,0 +1,26 @@
+spokenForm: clear lambda
+languageId: typescript
+command:
+  actionName: clearAndSetSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |-
+    foo(async function () {
+
+    })
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+finalState:
+  documentContents: foo()
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}}]

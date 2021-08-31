@@ -48,7 +48,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   string: "string",
   collectionKey: "pair[key]",
   ifStatement: "if_statement",
-  arrowFunction: "lambda",
+  anonymousFunction: "lambda",
   functionCall: "call",
   comment: "comment",
   class: "decorated_definition?.class_definition",
