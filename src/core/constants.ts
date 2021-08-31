@@ -11,7 +11,7 @@ const HAT_COLORS = [
   "purple",
 ] as const;
 
-const HAT_NON_DEFAULT_SHAPES = ["star", "valley"] as const;
+const HAT_NON_DEFAULT_SHAPES = ["star", "chevron"] as const;
 export const HAT_SHAPES = [...HAT_NON_DEFAULT_SHAPES, "default"] as const;
 
 export type HatColor = typeof HAT_COLORS[number];
