@@ -1,7 +1,7 @@
 spokenForm: chuck after vest
 languageId: typescript
 command:
-  actionName: delete
+  actionName: remove
   partialTargets:
     - type: primitive
       position: after

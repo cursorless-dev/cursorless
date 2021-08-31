@@ -17,7 +17,8 @@ import { TestCase } from "./testUtil/TestCase";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getParseTreeApi } from "./util/getExtensionApi";
-import { checkCommandValidity } from "./checkCommandValidity";
+import { canonicalizeAndValidateCommand } from "./canonicalizeAndValidateCommand";
+import canonicalizeActionName from "./canonicalizeActionName";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -100,11 +101,18 @@ export async function activate(context: vscode.ExtensionContext) {
     "cursorless.command",
     async (
       spokenForm: string,
-      actionName: ActionType,
-      partialTargets: PartialTarget[],
-      ...extraArgs: any[]
+      inputActionName: string,
+      inputPartialTargets: PartialTarget[],
+      ...inputExtraArgs: unknown[]
     ) => {
       try {
+        const { actionName, partialTargets, extraArgs } =
+          canonicalizeAndValidateCommand(
+            inputActionName,
+            inputPartialTargets,
+            inputExtraArgs
+          );
+
         console.debug(`spokenForm: ${spokenForm}`);
         console.debug(`action: ${actionName}`);
         console.debug(`partialTargets:`);
@@ -114,7 +122,9 @@ export async function activate(context: vscode.ExtensionContext) {
 
         const action = graph.actions[actionName];
 
-        checkCommandValidity(actionName, partialTargets, extraArgs);
+        if (action == null) {
+          throw new Error(`Unknown action ${actionName}`);
+        }
 
         const targets = inferFullTargets(
           partialTargets,

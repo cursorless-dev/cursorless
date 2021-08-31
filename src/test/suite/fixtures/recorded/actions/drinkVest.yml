@@ -1,7 +1,7 @@
 spokenForm: drink vest
 languageId: typescript
 command:
-  actionName: editNewLineAbove
+  actionName: editNewLineBefore
   partialTargets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

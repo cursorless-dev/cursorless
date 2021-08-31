@@ -150,7 +150,7 @@ const findTypeNode = (node: SyntaxNode) => {
   return node.childForFieldName("type") ?? null;
 };
 
-// Every array or dictionary initializer contains its contents in a initializer_expression.
+// Every array or map initializer contains its contents in a initializer_expression.
 // There appears to be no distinction between dictionaries and arrays as far as the syntax tree goes.
 // that means some of the commands for maps may work on arrays, and some of the commands for arrays may work on maps.
 const getChildInitializerNode = (node: SyntaxNode) =>
@@ -167,8 +167,8 @@ const makeDelimitedSelector = (leftType: string, rightType: string) =>
     ", "
   );
 
-const getDictionaryMatchers = {
-  dictionary: cascadingMatcher(
+const getMapMatchers = {
+  map: cascadingMatcher(
     composedMatcher([
       typedNodeFinder(...OBJECT_TYPES_WITH_INITIALIZERS_AS_CHILDREN),
       getChildInitializerNode,
@@ -214,7 +214,7 @@ const getDictionaryMatchers = {
 };
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcher>> = {
-  ...getDictionaryMatchers,
+  ...getMapMatchers,
   ifStatement: typeMatcher("if_statement"),
   class: typeMatcher("class_declaration"),
   className: composedMatcher([
@@ -237,7 +237,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcher>> = {
     getNameNode,
   ]),
   comment: matcher(typedNodeFinder("comment")),
-  regex: matcher(typedNodeFinder("regex")),
+  regularExpression: matcher(typedNodeFinder("regex")),
   type: matcher(findTypeNode, selectWithLeadingDelimiter),
   name: matcher(getNameNode),
 };

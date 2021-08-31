@@ -1,8 +1,7 @@
-# Note that this is just checking that no errors are thrown
 spokenForm: pour cell each
 languageId: python
 command:
-  actionName: editNewLineBelow
+  actionName: editNewLineAfter
   partialTargets:
     - type: primitive
       selectionType: notebookCell

@@ -1,7 +1,7 @@
 spokenForm: dedent vest
 languageId: typescript
 command:
-  actionName: outdentLines
+  actionName: outdentLine
   partialTargets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

@@ -41,9 +41,9 @@ export class Cut implements Action {
       ),
     ]);
 
-    await this.graph.actions.copy.run([insideTargets], options);
+    await this.graph.actions.copyToClipboard.run([insideTargets], options);
 
-    const { thatMark } = await this.graph.actions.delete.run(
+    const { thatMark } = await this.graph.actions.remove.run(
       [outsideTargets],
       options
     );

@@ -62,37 +62,40 @@ export type Mark =
   | DecoratedSymbol
   | LineNumber;
 export type Delimiter =
-  | "squareBrackets"
-  | "curlyBrackets"
   | "angleBrackets"
+  | "backtickQuotes"
+  | "curlyBrackets"
+  | "doubleQuotes"
+  | "escapedSingleQuotes"
+  | "escapedDoubleQuotes"
   | "parentheses"
   | "singleQuotes"
-  | "doubleQuotes"
-  | "backtickQuotes";
+  | "squareBrackets"
+  | "whitespace";
 
 export type ScopeType =
-  | "attribute"
   | "argumentOrParameter"
   | "arrowFunction"
+  | "attribute"
   | "class"
   | "className"
   | "collectionItem"
   | "collectionKey"
   | "comment"
-  | "dictionary"
   | "functionCall"
   | "functionName"
   | "ifStatement"
   | "list"
+  | "map"
   | "name"
   | "namedFunction"
-  | "regex"
+  | "regularExpression"
   | "statement"
   | "string"
   | "type"
   | "value"
-  | "xmlElement"
   | "xmlBothTags"
+  | "xmlElement"
   | "xmlEndTag"
   | "xmlStartTag";
 export type SubTokenType = "word" | "character";
@@ -113,6 +116,8 @@ export interface SubTokenModifier {
   pieceType: SubTokenType;
   anchor: number;
   active: number;
+  excludeAnchor?: boolean;
+  excludeActive?: boolean;
 }
 export interface MatchingPairSymbolModifier {
   type: "matchingPairSymbol";
@@ -272,41 +277,41 @@ export interface Action {
 }
 
 export type ActionType =
-  | "bring"
-  | "clear"
-  | "call"
-  | "commentLines"
-  | "copy"
-  | "cut"
-  | "copyLinesDown"
-  | "copyLinesUp"
-  | "delete"
+  | "callAsFunction"
+  | "clearAndSetSelection"
+  | "copyToClipboard"
+  | "cutToClipboard"
+  | "editNewLineAfter"
+  | "editNewLineBefore"
   | "extractVariable"
-  | "editNewLineAbove"
-  | "editNewLineBelow"
-  | "findInFiles"
-  | "fold"
+  | "findInWorkspace"
+  | "foldRegion"
   | "getText"
-  | "insertEmptyLineAbove"
+  | "indentLine"
+  | "insertCopyAfter"
+  | "insertCopyBefore"
+  | "insertEmptyLineAfter"
+  | "insertEmptyLineBefore"
   | "insertEmptyLinesAround"
-  | "insertEmptyLineBelow"
-  | "indentLines"
-  | "move"
-  | "outdentLines"
-  | "paste"
-  | "reverse"
+  | "moveToTarget"
+  | "outdentLine"
+  | "pasteFromClipboard"
+  | "remove"
   | "replace"
+  | "replaceWithTarget"
+  | "reverseTargets"
   | "scrollToBottom"
   | "scrollToCenter"
   | "scrollToTop"
-  | "setBreakpoint"
   | "setSelection"
   | "setSelectionAfter"
   | "setSelectionBefore"
-  | "sort"
-  | "swap"
-  | "unfold"
-  | "wrap";
+  | "sortTargets"
+  | "swapTargets"
+  | "toggleLineBreakpoint"
+  | "toggleLineComment"
+  | "unfoldRegion"
+  | "wrapWithPairedDelimiter";
 
 export type ActionRecord = Record<ActionType, Action>;
 

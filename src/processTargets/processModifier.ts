@@ -97,6 +97,10 @@ function processSubToken(
   const token = selection.editor.document.getText(selection.selection);
   let pieces: { start: number; end: number }[] = [];
 
+  if (modifier.excludeActive || modifier.excludeAnchor) {
+    throw new Error("Subtoken exclusions unsupported");
+  }
+
   if (modifier.pieceType === "word") {
     pieces = [...token.matchAll(SUBWORD_MATCHER)].map((match) => ({
       start: match.index!,

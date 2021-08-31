@@ -1,7 +1,7 @@
 spokenForm: round wrap vest
 languageId: typescript
 command:
-  actionName: wrap
+  actionName: wrapWithPairedDelimiter
   partialTargets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

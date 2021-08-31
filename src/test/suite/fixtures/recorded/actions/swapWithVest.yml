@@ -1,7 +1,7 @@
 spokenForm: swap with vest
 languageId: typescript
 command:
-  actionName: swap
+  actionName: swapTargets
   partialTargets:
     - {type: primitive}
     - type: primitive

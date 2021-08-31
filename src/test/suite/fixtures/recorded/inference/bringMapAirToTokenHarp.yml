@@ -1,10 +1,10 @@
 spokenForm: bring map air to token harp
 languageId: typescript
 command:
-  actionName: bring
+  actionName: replaceWithTarget
   partialTargets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: dictionary, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: map, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
     - type: primitive
       selectionType: token
@@ -33,4 +33,4 @@ finalState:
   sourceMark:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 17}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: dictionary, includeSiblings: false}, insideOutsideType: null}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: null}]
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: map, includeSiblings: false}, insideOutsideType: null}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: null}]

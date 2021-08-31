@@ -1,7 +1,7 @@
 spokenForm: chuck past end of line
 languageId: typescript
 command:
-  actionName: delete
+  actionName: remove
   partialTargets:
     - type: range
       start: {type: primitive}

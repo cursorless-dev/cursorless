@@ -1,7 +1,7 @@
 spokenForm: move vest
 languageId: typescript
 command:
-  actionName: move
+  actionName: moveToTarget
   partialTargets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

@@ -79,15 +79,15 @@ function valueMatcher() {
   );
 }
 
-const dictionaryTypes = ["object", "object_pattern"];
+const mapTypes = ["object", "object_pattern"];
 const listTypes = ["array", "array_pattern"];
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
-  dictionary: dictionaryTypes,
+  map: mapTypes,
   list: listTypes,
   string: ["string", "template_string"],
   collectionKey: ["pair[key]", "jsx_attribute.property_identifier!"],
-  collectionItem: argumentMatcher(...dictionaryTypes, ...listTypes),
+  collectionItem: argumentMatcher(...mapTypes, ...listTypes),
   value: valueMatcher(),
   ifStatement: "if_statement",
   arrowFunction: "arrow_function",
@@ -97,7 +97,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "required_parameter.identifier!",
   ],
   comment: "comment",
-  regex: "regex",
+  regularExpression: "regex",
   className: ["class_declaration[name]", "class[name]"],
   functionCall: ["call_expression", "new_expression"],
   statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`),

@@ -20,6 +20,9 @@ const delimiterToText: Record<Delimiter, string[]> = {
   singleQuotes: ["'", "'"],
   doubleQuotes: ['"', '"'],
   backtickQuotes: ["`", "`"],
+  whitespace: [" ", " "], // TODO: Fix this to handle tabs / newlines
+  escapedSingleQuotes: ["\\'", "\\'"],
+  escapedDoubleQuotes: ['\\"', '\\"'],
 };
 
 const leftToRightMap: Record<string, string> = Object.fromEntries(

@@ -31,46 +31,41 @@ import Call from "./Call";
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
 
-  // TODO NB Remove when user had time to migrate to new talon code
-  use = new Bring(this.graph);
-  insertLineBefore = new EditNewLineAbove(this.graph);
-  insertLineAfter = new EditNewLineBelow(this.graph);
-
-  bring = new Bring(this.graph);
-  call = new Call(this.graph);
-  clear = new Clear(this.graph);
-  commentLines = new CommentLines(this.graph);
-  copy = new Copy(this.graph);
-  copyLinesDown = new CopyLinesDown(this.graph);
-  copyLinesUp = new CopyLinesUp(this.graph);
-  cut = new Cut(this.graph);
-  delete = new Delete(this.graph);
+  callAsFunction = new Call(this.graph);
+  clearAndSetSelection = new Clear(this.graph);
+  copyToClipboard = new Copy(this.graph);
+  cutToClipboard = new Cut(this.graph);
+  editNewLineAfter = new EditNewLineBelow(this.graph);
+  editNewLineBefore = new EditNewLineAbove(this.graph);
   extractVariable = new ExtractVariable(this.graph);
-  editNewLineAbove = new EditNewLineAbove(this.graph);
-  editNewLineBelow = new EditNewLineBelow(this.graph);
-  findInFiles = new FindInFiles(this.graph);
-  fold = new Fold(this.graph);
+  findInWorkspace = new FindInFiles(this.graph);
+  foldRegion = new Fold(this.graph);
   getText = new GetText(this.graph);
-  insertEmptyLineAbove = new InsertEmptyLineAbove(this.graph);
+  indentLine = new IndentLines(this.graph);
+  insertCopyAfter = new CopyLinesDown(this.graph);
+  insertCopyBefore = new CopyLinesUp(this.graph);
+  insertEmptyLineAfter = new InsertEmptyLineBelow(this.graph);
+  insertEmptyLineBefore = new InsertEmptyLineAbove(this.graph);
   insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
-  insertEmptyLineBelow = new InsertEmptyLineBelow(this.graph);
-  indentLines = new IndentLines(this.graph);
-  move = new Move(this.graph);
-  outdentLines = new OutdentLines(this.graph);
-  paste = new Paste(this.graph);
-  reverse = new Reverse(this.graph);
+  moveToTarget = new Move(this.graph);
+  outdentLine = new OutdentLines(this.graph);
+  pasteFromClipboard = new Paste(this.graph);
+  remove = new Delete(this.graph);
   replace = new Replace(this.graph);
+  replaceWithTarget = new Bring(this.graph);
+  reverseTargets = new Reverse(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
   scrollToTop = new ScrollToTop(this.graph);
-  setBreakpoint = new SetBreakpoint(this.graph);
   setSelection = new SetSelection(this.graph);
   setSelectionAfter = new SetSelectionAfter(this.graph);
   setSelectionBefore = new SetSelectionBefore(this.graph);
-  sort = new Sort(this.graph);
-  swap = new Swap(this.graph);
-  unfold = new Unfold(this.graph);
-  wrap = new Wrap(this.graph);
+  sortTargets = new Sort(this.graph);
+  swapTargets = new Swap(this.graph);
+  toggleLineBreakpoint = new SetBreakpoint(this.graph);
+  toggleLineComment = new CommentLines(this.graph);
+  unfoldRegion = new Unfold(this.graph);
+  wrapWithPairedDelimiter = new Wrap(this.graph);
 }
 
 export default Actions;

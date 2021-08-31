@@ -1,7 +1,7 @@
 spokenForm: chuck line vest
 languageId: typescript
 command:
-  actionName: delete
+  actionName: remove
   partialTargets:
     - type: primitive
       selectionType: line

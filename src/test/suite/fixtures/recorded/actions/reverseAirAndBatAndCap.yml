@@ -1,7 +1,7 @@
 spokenForm: reverse air and bat and cap
 languageId: typescript
 command:
-  actionName: reverse
+  actionName: reverseTargets
   partialTargets:
     - type: list
       elements:

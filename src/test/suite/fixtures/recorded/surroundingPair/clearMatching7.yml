@@ -1,35 +1,23 @@
 spokenForm: clear matching
 languageId: python
 command:
-  actionName: clear
+  actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
-      modifier:
-        { type: surroundingPair, delimiter: null, delimitersOnly: false }
+      modifier: {type: surroundingPair, delimiter: null, delimitersOnly: false}
   extraArgs: []
 marks: {}
 initialState:
   documentContents: f"j{fdfhjkd}lkjlkj"
   selections:
-    - anchor: { line: 0, character: 15 }
-      active: { line: 0, character: 15 }
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
 finalState:
   documentContents: f""
   selections:
-    - anchor: { line: 0, character: 2 }
-      active: { line: 0, character: 2 }
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
   thatMark:
-    - anchor: { line: 0, character: 2 }
-      active: { line: 0, character: 2 }
-fullTargets:
-  [
-    {
-      type: primitive,
-      mark: { type: cursor },
-      selectionType: token,
-      position: contents,
-      modifier:
-        { type: surroundingPair, delimiter: null, delimitersOnly: false },
-      insideOutsideType: inside,
-    },
-  ]
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimiter: null, delimitersOnly: false}, insideOutsideType: inside}]

@@ -1,7 +1,7 @@
 spokenForm: clear square
 languageId: typescript
 command:
-  actionName: clear
+  actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: squareBrackets, delimitersOnly: false}
