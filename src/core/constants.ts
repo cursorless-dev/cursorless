@@ -29,6 +29,10 @@ export type HatStyleName = HatColor | `${HatColor}-${HatNonDefaultShape}`;
 export interface HatStyle {
   color: HatColor;
   shape: HatShape;
+  border?: {
+    color: HatColor;
+    shape: HatShape;
+  };
 }
 
 export const hatStyleMap = {
@@ -40,6 +44,18 @@ export const hatStyleMap = {
       HAT_NON_DEFAULT_SHAPES.map((shape) => [
         `${color}-${shape}`,
         { color, shape },
+      ])
+    )
+  ),
+  ...Object.fromEntries(
+    HAT_COLORS.flatMap((color) =>
+      HAT_COLORS.map((borderColor) => [
+        `${color}-${color}-innerFrame-frame`,
+        {
+          color,
+          shape: "innerFrame",
+          border: { color: borderColor, borderShape: "frame" },
+        },
       ])
     )
   ),
