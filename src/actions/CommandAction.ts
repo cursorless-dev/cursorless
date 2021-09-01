@@ -9,7 +9,10 @@ import {
 } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { focusEditor } from "../util/setSelectionsAndFocusEditor";
+import {
+  focusEditor,
+  setSelectionsAndFocusEditor,
+} from "../util/setSelectionsAndFocusEditor";
 import { flatten } from "lodash";
 import { callFunctionAndUpdateSelections } from "../util/updateSelections";
 import { ensureSingleEditor } from "../util/targetUtils";
@@ -32,18 +35,14 @@ export default class CommandAction implements Action {
       await runOnTargetsForEachEditor<SelectionWithEditor[]>(
         targets,
         async (editor, targets) => {
-          // For command to the work we have to have the correct editor focused
-          if (editor !== window.activeTextEditor) {
-            await focusEditor(editor);
-          }
-
           const originalSelections = editor.selections;
 
           const targetSelections = targets.map(
             (target) => target.selection.selection
           );
 
-          editor.selections = targetSelections;
+          // For command to the work we have to have the correct editor focused
+          await setSelectionsAndFocusEditor(editor, targetSelections, false);
 
           const [updatedOriginalSelections, updatedTargetSelections] =
             await callFunctionAndUpdateSelections(
