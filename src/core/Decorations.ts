@@ -16,6 +16,13 @@ interface ShapeMeasurements {
   verticalOffsetEm: number;
 }
 
+interface IndividualHatAdjustment {
+  hatVerticalOffset: number;
+  hatSizeAdjustment: number;
+}
+
+type IndividualHatAdjustmentSetting = Record<HatShape, IndividualHatAdjustment>;
+
 const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
   default: {
     hatWidthToCharacterWidthRatio: 0.507,
@@ -25,7 +32,23 @@ const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.105,
   },
+  tieFighter: {
+    hatWidthToCharacterWidthRatio: 0.6825,
+    verticalOffsetEm: -0.105,
+  },
   chevron: {
+    hatWidthToCharacterWidthRatio: 0.6825,
+    verticalOffsetEm: -0.12,
+  },
+  sun: {
+    hatWidthToCharacterWidthRatio: 0.6825,
+    verticalOffsetEm: -0.12,
+  },
+  frame: {
+    hatWidthToCharacterWidthRatio: 0.6825,
+    verticalOffsetEm: -0.12,
+  },
+  curve: {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.12,
   },
@@ -66,12 +89,23 @@ export default class Decorations {
       .getConfiguration("cursorless")
       .get<number>(`hatVerticalOffset`)!;
 
-    const hatScaleFactor = 1 + hatSizeAdjustment / 100;
+    const userIndividualHatAdjustments = vscode.workspace
+      .getConfiguration("cursorless")
+      .get<IndividualHatAdjustmentSetting>("individualHatAdjustments")!;
 
     const hatSvgMap = Object.fromEntries(
       HAT_SHAPES.map((shape) => {
         const { hatWidthToCharacterWidthRatio, verticalOffsetEm } =
           defaultShapeMeasurements[shape];
+
+        const individualHatSizeAdjustment =
+          userIndividualHatAdjustments[shape]?.hatSizeAdjustment ?? 0;
+
+        const hatScaleFactor =
+          1 + (hatSizeAdjustment + individualHatSizeAdjustment) / 100;
+
+        const individualVerticalOffsetAdjustment =
+          userIndividualHatAdjustments[shape]?.hatVerticalOffset ?? 0;
 
         return [
           shape,
@@ -79,7 +113,10 @@ export default class Decorations {
             fontMeasurements,
             shape,
             hatScaleFactor * hatWidthToCharacterWidthRatio,
-            (verticalOffsetEm + userHatVerticalOffsetAdjustment / 100) *
+            (verticalOffsetEm +
+              (userHatVerticalOffsetAdjustment +
+                individualVerticalOffsetAdjustment) /
+                100) *
               fontMeasurements.fontSize
           ),
         ];

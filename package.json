@@ -182,6 +182,11 @@
 						"light": "#19a1d6",
 						"highContrast": "#19a1d6"
 					}
+				},
+				"cursorless.individualHatAdjustments": {
+					"description": "Separate adjustments for each hat shape",
+					"type": "object",
+					"default": {}
 				}
 			}
 		}
