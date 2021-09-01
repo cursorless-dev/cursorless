@@ -33,27 +33,27 @@ const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
     verticalOffsetEm: -0.105,
   },
   threePointStar: {
-    hatWidthToCharacterWidthRatio: 0.6825,
-    verticalOffsetEm: -0.105,
+    hatWidthToCharacterWidthRatio: 0.9555,
+    verticalOffsetEm: -0.055,
   },
   chevron: {
     hatWidthToCharacterWidthRatio: 0.6825,
-    verticalOffsetEm: -0.12,
+    verticalOffsetEm: -0.02,
   },
   hole: {
-    hatWidthToCharacterWidthRatio: 0.6825,
-    verticalOffsetEm: -0.12,
+    hatWidthToCharacterWidthRatio: 0.819,
+    verticalOffsetEm: -0.07,
   },
   frame: {
-    hatWidthToCharacterWidthRatio: 0.6825,
-    verticalOffsetEm: -0.12,
+    hatWidthToCharacterWidthRatio: 0.61425,
+    verticalOffsetEm: -0.02,
   },
   curve: {
     hatWidthToCharacterWidthRatio: 0.6825,
-    verticalOffsetEm: -0.12,
+    verticalOffsetEm: -0.07,
   },
   eye: {
-    hatWidthToCharacterWidthRatio: 0.6825,
+    hatWidthToCharacterWidthRatio: 0.921375,
     verticalOffsetEm: -0.12,
   },
 };
