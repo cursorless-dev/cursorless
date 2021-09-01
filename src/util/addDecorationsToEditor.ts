@@ -5,7 +5,7 @@ import { getTokenComparator as getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
 import { Token } from "../typings/Types";
 import Decorations from "../core/Decorations";
-import { COLORS, SymbolColor } from "../core/constants";
+import { hatStyleNames, HatStyleName } from "../core/constants";
 import NavigationMap from "../core/NavigationMap";
 
 interface CharacterTokenInfo {
@@ -79,7 +79,7 @@ export function addDecorationsToEditors(
   const decorationRanges: Map<
     vscode.TextEditor,
     {
-      [decorationName in SymbolColor]?: vscode.Range[];
+      [decorationName in HatStyleName]?: vscode.Range[];
     }
   > = new Map(
     editors.map((editor) => [
@@ -132,26 +132,29 @@ export function addDecorationsToEditors(
 
     const currentDecorationIndex = bestCharacter.decorationIndex;
 
-    const colorName = decorations.decorations[currentDecorationIndex].name;
+    const hatStyleName = decorations.decorations[currentDecorationIndex].name;
 
     decorationRanges
       .get(token.editor)!
-      [colorName]!.push(
+      [hatStyleName]!.push(
         new vscode.Range(
           token.range.start.translate(undefined, bestCharacter.characterIdx),
           token.range.start.translate(undefined, bestCharacter.characterIdx + 1)
         )
       );
 
-    navigationMap.addToken(colorName, bestCharacter.character, token);
+    navigationMap.addToken(hatStyleName, bestCharacter.character, token);
 
     characterDecorationIndices[bestCharacter.character] =
       currentDecorationIndex + 1;
   });
 
   decorationRanges.forEach((ranges, editor) => {
-    COLORS.forEach((color) => {
-      editor.setDecorations(decorations.decorationMap[color]!, ranges[color]!);
+    hatStyleNames.forEach((hatStyleName) => {
+      editor.setDecorations(
+        decorations.decorationMap[hatStyleName]!,
+        ranges[hatStyleName]!
+      );
     });
   });
 }

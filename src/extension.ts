@@ -23,7 +23,7 @@ import canonicalizeActionName from "./canonicalizeActionName";
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
   await fontMeasurements.calculate();
-  const decorations = new Decorations(fontMeasurements);
+  const decorations = new Decorations(fontMeasurements, context.extensionPath);
 
   const { getNodeAtLocation } = await getParseTreeApi();
 

@@ -1,20 +1,42 @@
 import * as vscode from "vscode";
 import { join } from "path";
-import { COLORS } from "./constants";
-import { SymbolColor } from "./constants";
+import {
+  HatStyleName,
+  HatShape,
+  hatStyleMap,
+  hatStyleNames,
+  HAT_SHAPES,
+} from "./constants";
 import { readFileSync } from "fs";
 import { DecorationColorSetting } from "../typings/Types";
 import FontMeasurements from "./FontMeasurements";
 
-const DEFAULT_HAT_WIDTH_TO_CHARACTER_WITH_RATIO = 0.39;
-const DEFAULT_HAT_VERTICAL_OFFSET_EM = -0.05;
+interface ShapeMeasurements {
+  hatWidthToCharacterWidthRatio: number;
+  verticalOffsetEm: number;
+}
+
+const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
+  default: {
+    hatWidthToCharacterWidthRatio: 0.507,
+    verticalOffsetEm: -0.05,
+  },
+  star: {
+    hatWidthToCharacterWidthRatio: 0.6825,
+    verticalOffsetEm: -0.105,
+  },
+  chevron: {
+    hatWidthToCharacterWidthRatio: 0.6825,
+    verticalOffsetEm: -0.12,
+  },
+};
 
 export type DecorationMap = {
-  [k in SymbolColor]?: vscode.TextEditorDecorationType;
+  [k in HatStyleName]?: vscode.TextEditorDecorationType;
 };
 
 export interface NamedDecoration {
-  name: SymbolColor;
+  name: HatStyleName;
   decoration: vscode.TextEditorDecorationType;
 }
 
@@ -22,7 +44,10 @@ export default class Decorations {
   decorations!: NamedDecoration[];
   decorationMap!: DecorationMap;
 
-  constructor(fontMeasurements: FontMeasurements) {
+  constructor(
+    fontMeasurements: FontMeasurements,
+    private extensionPath: string
+  ) {
     this.constructDecorations(fontMeasurements);
   }
 
@@ -43,23 +68,37 @@ export default class Decorations {
 
     const hatScaleFactor = 1 + hatSizeAdjustment / 100;
 
-    const { svg, svgWidthPx, svgHeightPx } = this.processSvg(
-      fontMeasurements,
-      hatScaleFactor * DEFAULT_HAT_WIDTH_TO_CHARACTER_WITH_RATIO,
-      (DEFAULT_HAT_VERTICAL_OFFSET_EM + userHatVerticalOffsetAdjustment / 100) *
-        fontMeasurements.fontSize
+    const hatSvgMap = Object.fromEntries(
+      HAT_SHAPES.map((shape) => {
+        const { hatWidthToCharacterWidthRatio, verticalOffsetEm } =
+          defaultShapeMeasurements[shape];
+
+        return [
+          shape,
+          this.processSvg(
+            fontMeasurements,
+            shape,
+            hatScaleFactor * hatWidthToCharacterWidthRatio,
+            (verticalOffsetEm + userHatVerticalOffsetAdjustment / 100) *
+              fontMeasurements.fontSize
+          ),
+        ];
+      })
     );
 
-    const spanWidthPx =
-      svgWidthPx + (fontMeasurements.characterWidth - svgWidthPx) / 2;
+    this.decorations = hatStyleNames.map((styleName) => {
+      const { color, shape } = hatStyleMap[styleName];
+      const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shape];
 
-    this.decorations = COLORS.map((color) => {
+      const spanWidthPx =
+        svgWidthPx + (fontMeasurements.characterWidth - svgWidthPx) / 2;
+
       const colorSetting = vscode.workspace
         .getConfiguration("cursorless.colors")
         .get<DecorationColorSetting>(color)!;
 
       return {
-        name: color,
+        name: styleName,
         decoration: vscode.window.createTextEditorDecorationType({
           rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
           light: {
@@ -121,10 +160,11 @@ export default class Decorations {
    */
   private processSvg(
     fontMeasurements: FontMeasurements,
+    shape: HatShape,
     hatWidthToCharacterWidthRatio: number,
     hatVerticalOffset: number
   ) {
-    const iconPath = join(__dirname, "..", "images", "round-hat.svg");
+    const iconPath = join(this.extensionPath, "images", "hats", `${shape}.svg`);
     const rawSvg = readFileSync(iconPath, "utf8");
 
     const { originalViewBoxHeight, originalViewBoxWidth } =
