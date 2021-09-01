@@ -16,10 +16,14 @@ const columnFocusCommands = {
 
 export async function setSelectionsAndFocusEditor(
   editor: TextEditor,
-  selections: Selection[]
+  selections: Selection[],
+  revealRange: boolean = true
 ) {
   editor.selections = selections;
-  editor.revealRange(editor.selection);
+
+  if (revealRange) {
+    editor.revealRange(editor.selection);
+  }
 
   // NB: We focus the editor after setting the selection because otherwise you see
   // an intermediate state where the old selection persists
