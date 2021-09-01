@@ -28,11 +28,11 @@ const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
     hatWidthToCharacterWidthRatio: 0.507,
     verticalOffsetEm: -0.05,
   },
-  star: {
+  fourPointStar: {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.105,
   },
-  tieFighter: {
+  threePointStar: {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.105,
   },
@@ -53,10 +53,6 @@ const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
     verticalOffsetEm: -0.12,
   },
   eye: {
-    hatWidthToCharacterWidthRatio: 0.6825,
-    verticalOffsetEm: -0.12,
-  },
-  target: {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.12,
   },
@@ -132,7 +128,7 @@ export default class Decorations {
     );
 
     this.decorations = hatStyleNames.map((styleName) => {
-      const { color, shape, strokeColor } = hatStyleMap[styleName];
+      const { color, shape } = hatStyleMap[styleName];
       const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shape];
 
       const spanWidthPx =
@@ -142,13 +138,6 @@ export default class Decorations {
         .getConfiguration("cursorless.colors")
         .get<DecorationColorSetting>(color)!;
 
-      const strokeColorSetting =
-        strokeColor == null
-          ? null
-          : vscode.workspace
-              .getConfiguration("cursorless.colors")
-              .get<DecorationColorSetting>(strokeColor)!;
-
       return {
         name: styleName,
         decoration: vscode.window.createTextEditorDecorationType({
@@ -157,8 +146,7 @@ export default class Decorations {
             after: {
               contentIconPath: this.constructColoredSvgDataUri(
                 svg,
-                colorSetting.light,
-                strokeColorSetting?.light
+                colorSetting.light
               ),
             },
           },
@@ -166,8 +154,7 @@ export default class Decorations {
             after: {
               contentIconPath: this.constructColoredSvgDataUri(
                 svg,
-                colorSetting.dark,
-                strokeColorSetting?.dark
+                colorSetting.dark
               ),
             },
           },
@@ -185,11 +172,7 @@ export default class Decorations {
     );
   }
 
-  private constructColoredSvgDataUri(
-    originalSvg: string,
-    color: string,
-    strokeColor?: string
-  ) {
+  private constructColoredSvgDataUri(originalSvg: string, color: string) {
     if (
       originalSvg.match(/fill="[^"]+"/) == null &&
       originalSvg.match(/fill:[^;]+;/) == null
@@ -197,17 +180,9 @@ export default class Decorations {
       throw Error("Raw svg doesn't have fill");
     }
 
-    let svg = originalSvg
+    const svg = originalSvg
       .replace(/fill="[^"]+"/, `fill="${color}"`)
       .replace(/fill:[^;]+;/, `fill:${color};`);
-
-    if (strokeColor != null) {
-      if (originalSvg.match(/fill:#ff0;/) == null) {
-        throw Error("Raw svg doesn't have stroke");
-      }
-
-      svg = svg.replace(/fill:#ff0;/, `fill:${strokeColor};`);
-    }
 
     const encoded = Buffer.from(svg).toString("base64");
 

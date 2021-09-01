@@ -12,8 +12,8 @@ const HAT_COLORS = [
 ] as const;
 
 const HAT_NON_DEFAULT_SHAPES = [
-  "star",
-  "tieFighter",
+  "fourPointStar",
+  "threePointStar",
   "hole",
   "frame",
   "chevron",
@@ -21,12 +21,7 @@ const HAT_NON_DEFAULT_SHAPES = [
   "eye",
 ] as const;
 
-const HAT_MULTICOLOR_SHAPES = ["target"] as const;
-export const HAT_SHAPES = [
-  ...HAT_MULTICOLOR_SHAPES,
-  ...HAT_NON_DEFAULT_SHAPES,
-  "default",
-] as const;
+export const HAT_SHAPES = [...HAT_NON_DEFAULT_SHAPES, "default"] as const;
 
 export type HatColor = typeof HAT_COLORS[number];
 export type HatShape = typeof HAT_SHAPES[number];
@@ -36,7 +31,6 @@ export type HatStyleName = HatColor | `${HatColor}-${HatNonDefaultShape}`;
 export interface HatStyle {
   color: HatColor;
   shape: HatShape;
-  strokeColor?: HatColor;
 }
 
 export const hatStyleMap = {
