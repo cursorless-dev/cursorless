@@ -14,12 +14,11 @@ const HAT_COLORS = [
 const HAT_NON_DEFAULT_SHAPES = [
   "star",
   "tieFighter",
-  "sun",
+  "hole",
   "frame",
   "chevron",
   "curve",
   "eye",
-  "rectangle",
 ] as const;
 
 const HAT_MULTICOLOR_SHAPES = ["target"] as const;
@@ -49,18 +48,6 @@ export const hatStyleMap = {
       HAT_NON_DEFAULT_SHAPES.map((shape) => [
         `${color}-${shape}`,
         { color, shape },
-      ])
-    )
-  ),
-  ...Object.fromEntries(
-    HAT_COLORS.flatMap((color) =>
-      HAT_COLORS.map((strokeColor) => [
-        `${color}-${strokeColor}-target`,
-        {
-          color,
-          shape: "target",
-          strokeColor,
-        },
       ])
     )
   ),

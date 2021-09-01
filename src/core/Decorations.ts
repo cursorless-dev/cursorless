@@ -40,7 +40,7 @@ const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.12,
   },
-  sun: {
+  hole: {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.12,
   },
@@ -57,10 +57,6 @@ const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
     verticalOffsetEm: -0.12,
   },
   target: {
-    hatWidthToCharacterWidthRatio: 0.6825,
-    verticalOffsetEm: -0.12,
-  },
-  rectangle: {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.12,
   },
