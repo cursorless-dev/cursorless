@@ -18,8 +18,16 @@ const HAT_NON_DEFAULT_SHAPES = [
   "frame",
   "chevron",
   "curve",
+  "eye",
+  "rectangle",
 ] as const;
-export const HAT_SHAPES = [...HAT_NON_DEFAULT_SHAPES, "default"] as const;
+
+const HAT_MULTICOLOR_SHAPES = ["target"] as const;
+export const HAT_SHAPES = [
+  ...HAT_MULTICOLOR_SHAPES,
+  ...HAT_NON_DEFAULT_SHAPES,
+  "default",
+] as const;
 
 export type HatColor = typeof HAT_COLORS[number];
 export type HatShape = typeof HAT_SHAPES[number];
@@ -29,10 +37,7 @@ export type HatStyleName = HatColor | `${HatColor}-${HatNonDefaultShape}`;
 export interface HatStyle {
   color: HatColor;
   shape: HatShape;
-  border?: {
-    color: HatColor;
-    shape: HatShape;
-  };
+  strokeColor?: HatColor;
 }
 
 export const hatStyleMap = {
@@ -49,12 +54,12 @@ export const hatStyleMap = {
   ),
   ...Object.fromEntries(
     HAT_COLORS.flatMap((color) =>
-      HAT_COLORS.map((borderColor) => [
-        `${color}-${color}-innerFrame-frame`,
+      HAT_COLORS.map((strokeColor) => [
+        `${color}-${strokeColor}-target`,
         {
           color,
-          shape: "innerFrame",
-          border: { color: borderColor, borderShape: "frame" },
+          shape: "target",
+          strokeColor,
         },
       ])
     )

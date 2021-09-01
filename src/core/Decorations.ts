@@ -52,6 +52,18 @@ const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.12,
   },
+  eye: {
+    hatWidthToCharacterWidthRatio: 0.6825,
+    verticalOffsetEm: -0.12,
+  },
+  target: {
+    hatWidthToCharacterWidthRatio: 0.6825,
+    verticalOffsetEm: -0.12,
+  },
+  rectangle: {
+    hatWidthToCharacterWidthRatio: 0.6825,
+    verticalOffsetEm: -0.12,
+  },
 };
 
 export type DecorationMap = {
@@ -124,7 +136,7 @@ export default class Decorations {
     );
 
     this.decorations = hatStyleNames.map((styleName) => {
-      const { color, shape } = hatStyleMap[styleName];
+      const { color, shape, strokeColor } = hatStyleMap[styleName];
       const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shape];
 
       const spanWidthPx =
@@ -134,6 +146,13 @@ export default class Decorations {
         .getConfiguration("cursorless.colors")
         .get<DecorationColorSetting>(color)!;
 
+      const strokeColorSetting =
+        strokeColor == null
+          ? null
+          : vscode.workspace
+              .getConfiguration("cursorless.colors")
+              .get<DecorationColorSetting>(strokeColor)!;
+
       return {
         name: styleName,
         decoration: vscode.window.createTextEditorDecorationType({
@@ -142,7 +161,8 @@ export default class Decorations {
             after: {
               contentIconPath: this.constructColoredSvgDataUri(
                 svg,
-                colorSetting.light
+                colorSetting.light,
+                strokeColorSetting?.light
               ),
             },
           },
@@ -150,7 +170,8 @@ export default class Decorations {
             after: {
               contentIconPath: this.constructColoredSvgDataUri(
                 svg,
-                colorSetting.dark
+                colorSetting.dark,
+                strokeColorSetting?.dark
               ),
             },
           },
@@ -168,7 +189,11 @@ export default class Decorations {
     );
   }
 
-  private constructColoredSvgDataUri(originalSvg: string, color: string) {
+  private constructColoredSvgDataUri(
+    originalSvg: string,
+    color: string,
+    strokeColor?: string
+  ) {
     if (
       originalSvg.match(/fill="[^"]+"/) == null &&
       originalSvg.match(/fill:[^;]+;/) == null
@@ -176,9 +201,17 @@ export default class Decorations {
       throw Error("Raw svg doesn't have fill");
     }
 
-    const svg = originalSvg
+    let svg = originalSvg
       .replace(/fill="[^"]+"/, `fill="${color}"`)
       .replace(/fill:[^;]+;/, `fill:${color};`);
+
+    if (strokeColor != null) {
+      if (originalSvg.match(/fill:#ff0;/) == null) {
+        throw Error("Raw svg doesn't have stroke");
+      }
+
+      svg = svg.replace(/fill:#ff0;/, `fill:${strokeColor};`);
+    }
 
     const encoded = Buffer.from(svg).toString("base64");
 
