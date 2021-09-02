@@ -184,9 +184,9 @@ export default class Decorations {
       .replace(/fill="[^"]+"/, `fill="${color}"`)
       .replace(/fill:[^;]+;/, `fill:${color};`);
 
-    const encoded = Buffer.from(svg).toString("base64");
+    const encoded = encodeURIComponent(svg);
 
-    return vscode.Uri.parse(`data:image/svg+xml;base64,${encoded}`);
+    return vscode.Uri.parse(`data:image/svg+xml;utf8,${encoded}`);
   }
 
   /**
