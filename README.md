@@ -42,6 +42,8 @@ This extension contributes the following settings:
 - `cursorless.showOnStart`: Whether decorations should appear on workspace start
 - `cursorless.hatSizeAdjustment`: Percentage to increase or decrease hat size; positive increases size
 - `cursorless.hatVerticalOffset`: How much to vertically shift the hats as a percentage of font size; positive is up
+- `cursorless.<hatStyle>.enabled`: Whether to enable `<hatStyle>` shape / color.
+- `cursorless.<hatStyle>.penalty`: How much to penalize the `<hatStyle>` shape / color. You will probably want to set this one to the number of syllables in the given style. Cursorless will then sort every style combination by number of syllables to refer to it.
 
 ## Known Issues
 
