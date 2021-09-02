@@ -251,7 +251,7 @@
 				"cursorless.hatStyles.threePointStar.enabled": {
 					"description": "Whether to enable the threePointStar hat style",
 					"type": "boolean",
-					"default": true
+					"default": false
 				},
 				"cursorless.hatStyles.hole.penalty": {
 					"description": "How much to penalize the hole hat style. Number of syllables is a good default",
@@ -261,7 +261,7 @@
 				"cursorless.hatStyles.hole.enabled": {
 					"description": "Whether to enable the hole hat style",
 					"type": "boolean",
-					"default": true
+					"default": false
 				},
 				"cursorless.hatStyles.frame.penalty": {
 					"description": "How much to penalize the frame hat style. Number of syllables is a good default",
@@ -271,7 +271,7 @@
 				"cursorless.hatStyles.frame.enabled": {
 					"description": "Whether to enable the frame hat style",
 					"type": "boolean",
-					"default": true
+					"default": false
 				},
 				"cursorless.hatStyles.chevron.penalty": {
 					"description": "How much to penalize the chevron hat style. Number of syllables is a good default",
@@ -291,7 +291,7 @@
 				"cursorless.hatStyles.curve.enabled": {
 					"description": "Whether to enable the curve hat style",
 					"type": "boolean",
-					"default": true
+					"default": false
 				},
 				"cursorless.hatStyles.eye.penalty": {
 					"description": "How much to penalize the eye hat style. Number of syllables is a good default",
@@ -301,7 +301,7 @@
 				"cursorless.hatStyles.eye.enabled": {
 					"description": "Whether to enable the eye hat style",
 					"type": "boolean",
-					"default": true
+					"default": false
 				},
 				"cursorless.individualHatAdjustments": {
 					"description": "Separate adjustments for each hat shape",
