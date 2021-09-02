@@ -3,13 +3,27 @@ import { join } from "path";
 import {
   HatStyleName,
   HatShape,
-  hatStyleMap,
-  hatStyleNames,
   HAT_SHAPES,
+  HAT_COLORS,
+  HAT_NON_DEFAULT_SHAPES,
+  HatStyle,
+  HatColor,
+  HatNonDefaultShape,
 } from "./constants";
 import { readFileSync } from "fs";
 import { DecorationColorSetting } from "../typings/Types";
 import FontMeasurements from "./FontMeasurements";
+import { sortBy } from "lodash";
+
+interface HatStyleSetting {
+  penalty: number;
+  enabled: boolean;
+}
+
+type HatStyleSettingMap = Record<
+  HatNonDefaultShape | HatColor,
+  HatStyleSetting
+>;
 
 interface ShapeMeasurements {
   hatWidthToCharacterWidthRatio: number;
@@ -70,6 +84,8 @@ export interface NamedDecoration {
 export default class Decorations {
   decorations!: NamedDecoration[];
   decorationMap!: DecorationMap;
+  hatStyleMap!: Record<HatStyleName, HatStyle>;
+  hatStyleNames!: HatStyleName[];
 
   constructor(
     fontMeasurements: FontMeasurements,
@@ -85,6 +101,8 @@ export default class Decorations {
   }
 
   constructDecorations(fontMeasurements: FontMeasurements) {
+    this.constructHatStyleMap();
+
     const hatSizeAdjustment = vscode.workspace
       .getConfiguration("cursorless")
       .get<number>(`hatSizeAdjustment`)!;
@@ -127,8 +145,8 @@ export default class Decorations {
       })
     );
 
-    this.decorations = hatStyleNames.map((styleName) => {
-      const { color, shape } = hatStyleMap[styleName];
+    this.decorations = this.hatStyleNames.map((styleName) => {
+      const { color, shape } = this.hatStyleMap[styleName];
       const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shape];
 
       const spanWidthPx =
@@ -170,6 +188,42 @@ export default class Decorations {
     this.decorationMap = Object.fromEntries(
       this.decorations.map(({ name, decoration }) => [name, decoration])
     );
+  }
+
+  private constructHatStyleMap() {
+    const hatStyleSettings = vscode.workspace
+      .getConfiguration("cursorless")
+      .get<HatStyleSettingMap>("hatStyles")!;
+
+    hatStyleSettings.default = { penalty: 0, enabled: true };
+
+    const activeHatColors = HAT_COLORS.filter(
+      (color) => hatStyleSettings[color].enabled
+    );
+    const activeNonDefaultHatShapes = HAT_NON_DEFAULT_SHAPES.filter(
+      (shape) => hatStyleSettings[shape].enabled
+    );
+
+    this.hatStyleMap = {
+      ...Object.fromEntries(
+        activeHatColors.map((color) => [color, { color, shape: "default" }])
+      ),
+      ...Object.fromEntries(
+        activeHatColors.flatMap((color) =>
+          activeNonDefaultHatShapes.map((shape) => [
+            `${color}-${shape}`,
+            { color, shape },
+          ])
+        )
+      ),
+    } as Record<HatStyleName, HatStyle>;
+
+    this.hatStyleNames = sortBy(
+      Object.entries(this.hatStyleMap),
+      ([_, hatStyle]) =>
+        hatStyleSettings[hatStyle.color].penalty +
+        hatStyleSettings[hatStyle.shape].penalty
+    ).map(([hatStyleName, _]) => hatStyleName as HatStyleName);
   }
 
   private constructColoredSvgDataUri(originalSvg: string, color: string) {

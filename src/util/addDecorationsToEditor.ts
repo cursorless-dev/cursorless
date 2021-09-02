@@ -5,7 +5,7 @@ import { getTokenComparator as getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
 import { Token } from "../typings/Types";
 import Decorations from "../core/Decorations";
-import { hatStyleNames, HatStyleName } from "../core/constants";
+import { HatStyleName } from "../core/constants";
 import NavigationMap from "../core/NavigationMap";
 
 interface CharacterTokenInfo {
@@ -150,7 +150,7 @@ export function addDecorationsToEditors(
   });
 
   decorationRanges.forEach((ranges, editor) => {
-    hatStyleNames.forEach((hatStyleName) => {
+    decorations.hatStyleNames.forEach((hatStyleName) => {
       editor.setDecorations(
         decorations.decorationMap[hatStyleName]!,
         ranges[hatStyleName]!
