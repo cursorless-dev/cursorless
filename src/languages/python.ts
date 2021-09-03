@@ -55,7 +55,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   className: "class_definition[name]",
   namedFunction: "decorated_definition?.function_definition",
   functionName: "function_definition[name]",
-  type: ["function_definition[return_type]", "*[type]"],
+  type: valueMatcher("function_definition[return_type]", "*[type]"),
   name: [
     "assignment[left]",
     "typed_parameter.identifier!",
