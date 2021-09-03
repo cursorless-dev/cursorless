@@ -3,30 +3,60 @@ import { join } from "path";
 import {
   HatStyleName,
   HatShape,
-  hatStyleMap,
-  hatStyleNames,
   HAT_SHAPES,
+  HAT_COLORS,
+  HAT_NON_DEFAULT_SHAPES,
+  HatStyle,
+  HatColor,
 } from "./constants";
 import { readFileSync } from "fs";
 import { DecorationColorSetting } from "../typings/Types";
 import FontMeasurements from "./FontMeasurements";
+import { sortBy } from "lodash";
 
 interface ShapeMeasurements {
   hatWidthToCharacterWidthRatio: number;
   verticalOffsetEm: number;
 }
 
+interface IndividualHatAdjustment {
+  hatVerticalOffset: number;
+  hatSizeAdjustment: number;
+}
+
+type IndividualHatAdjustmentSetting = Record<HatShape, IndividualHatAdjustment>;
+
 const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
   default: {
     hatWidthToCharacterWidthRatio: 0.507,
     verticalOffsetEm: -0.05,
   },
-  star: {
+  fourPointStar: {
     hatWidthToCharacterWidthRatio: 0.6825,
     verticalOffsetEm: -0.105,
   },
+  threePointStar: {
+    hatWidthToCharacterWidthRatio: 0.9555,
+    verticalOffsetEm: -0.055,
+  },
   chevron: {
     hatWidthToCharacterWidthRatio: 0.6825,
+    verticalOffsetEm: -0.02,
+  },
+  hole: {
+    hatWidthToCharacterWidthRatio: 0.819,
+    verticalOffsetEm: -0.07,
+  },
+  frame: {
+    hatWidthToCharacterWidthRatio: 0.61425,
+    verticalOffsetEm: -0.02,
+  },
+  curve: {
+    hatWidthToCharacterWidthRatio: 0.6825,
+    verticalOffsetEm: -0.07,
+  },
+  eye: {
+    hatWidthToCharacterWidthRatio: 0.921375,
     verticalOffsetEm: -0.12,
   },
 };
@@ -43,6 +73,8 @@ export interface NamedDecoration {
 export default class Decorations {
   decorations!: NamedDecoration[];
   decorationMap!: DecorationMap;
+  hatStyleMap!: Record<HatStyleName, HatStyle>;
+  hatStyleNames!: HatStyleName[];
 
   constructor(
     fontMeasurements: FontMeasurements,
@@ -58,6 +90,8 @@ export default class Decorations {
   }
 
   constructDecorations(fontMeasurements: FontMeasurements) {
+    this.constructHatStyleMap();
+
     const hatSizeAdjustment = vscode.workspace
       .getConfiguration("cursorless")
       .get<number>(`hatSizeAdjustment`)!;
@@ -66,12 +100,23 @@ export default class Decorations {
       .getConfiguration("cursorless")
       .get<number>(`hatVerticalOffset`)!;
 
-    const hatScaleFactor = 1 + hatSizeAdjustment / 100;
+    const userIndividualHatAdjustments = vscode.workspace
+      .getConfiguration("cursorless")
+      .get<IndividualHatAdjustmentSetting>("individualHatAdjustments")!;
 
     const hatSvgMap = Object.fromEntries(
       HAT_SHAPES.map((shape) => {
         const { hatWidthToCharacterWidthRatio, verticalOffsetEm } =
           defaultShapeMeasurements[shape];
+
+        const individualHatSizeAdjustment =
+          userIndividualHatAdjustments[shape]?.hatSizeAdjustment ?? 0;
+
+        const hatScaleFactor =
+          1 + (hatSizeAdjustment + individualHatSizeAdjustment) / 100;
+
+        const individualVerticalOffsetAdjustment =
+          userIndividualHatAdjustments[shape]?.hatVerticalOffset ?? 0;
 
         return [
           shape,
@@ -79,15 +124,18 @@ export default class Decorations {
             fontMeasurements,
             shape,
             hatScaleFactor * hatWidthToCharacterWidthRatio,
-            (verticalOffsetEm + userHatVerticalOffsetAdjustment / 100) *
+            (verticalOffsetEm +
+              (userHatVerticalOffsetAdjustment +
+                individualVerticalOffsetAdjustment) /
+                100) *
               fontMeasurements.fontSize
           ),
         ];
       })
     );
 
-    this.decorations = hatStyleNames.map((styleName) => {
-      const { color, shape } = hatStyleMap[styleName];
+    this.decorations = this.hatStyleNames.map((styleName) => {
+      const { color, shape } = this.hatStyleMap[styleName];
       const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shape];
 
       const spanWidthPx =
@@ -131,6 +179,53 @@ export default class Decorations {
     );
   }
 
+  private constructHatStyleMap() {
+    const shapeEnablement = vscode.workspace
+      .getConfiguration("cursorless.hatEnablement")
+      .get<Record<HatShape, boolean>>("shapes")!;
+    const colorEnablement = vscode.workspace
+      .getConfiguration("cursorless.hatEnablement")
+      .get<Record<HatColor, boolean>>("colors")!;
+    const shapePenalties = vscode.workspace
+      .getConfiguration("cursorless.hatPenalties")
+      .get<Record<HatShape, number>>("shapes")!;
+    const colorPenalties = vscode.workspace
+      .getConfiguration("cursorless.hatPenalties")
+      .get<Record<HatColor, number>>("colors")!;
+
+    shapeEnablement.default = true;
+    colorEnablement.default = true;
+    shapePenalties.default = 0;
+    colorPenalties.default = 0;
+
+    const activeHatColors = HAT_COLORS.filter(
+      (color) => colorEnablement[color]
+    );
+    const activeNonDefaultHatShapes = HAT_NON_DEFAULT_SHAPES.filter(
+      (shape) => shapeEnablement[shape]
+    );
+
+    this.hatStyleMap = {
+      ...Object.fromEntries(
+        activeHatColors.map((color) => [color, { color, shape: "default" }])
+      ),
+      ...Object.fromEntries(
+        activeHatColors.flatMap((color) =>
+          activeNonDefaultHatShapes.map((shape) => [
+            `${color}-${shape}`,
+            { color, shape },
+          ])
+        )
+      ),
+    } as Record<HatStyleName, HatStyle>;
+
+    this.hatStyleNames = sortBy(
+      Object.entries(this.hatStyleMap),
+      ([_, hatStyle]) =>
+        colorPenalties[hatStyle.color] + shapePenalties[hatStyle.shape]
+    ).map(([hatStyleName, _]) => hatStyleName as HatStyleName);
+  }
+
   private constructColoredSvgDataUri(originalSvg: string, color: string) {
     if (
       originalSvg.match(/fill="[^"]+"/) == null &&
@@ -143,9 +238,9 @@ export default class Decorations {
       .replace(/fill="[^"]+"/, `fill="${color}"`)
       .replace(/fill:[^;]+;/, `fill:${color};`);
 
-    const encoded = Buffer.from(svg).toString("base64");
+    const encoded = encodeURIComponent(svg);
 
-    return vscode.Uri.parse(`data:image/svg+xml;base64,${encoded}`);
+    return vscode.Uri.parse(`data:image/svg+xml;utf8,${encoded}`);
   }
 
   /**

@@ -182,6 +182,143 @@
 						"light": "#19a1d6",
 						"highContrast": "#19a1d6"
 					}
+				},
+				"cursorless.hatEnablement.colors": {
+					"description": "Which colors to enable",
+					"type": "object",
+					"properties": {
+						"blue": {
+							"type": "boolean"
+						},
+						"green": {
+							"type": "boolean"
+						},
+						"red": {
+							"type": "boolean"
+						},
+						"yellow": {
+							"type": "boolean"
+						},
+						"purple": {
+							"type": "boolean"
+						}
+					},
+					"default": {
+						"blue": true,
+						"green": true,
+						"red": true,
+						"yellow": true,
+						"purple": true
+					},
+					"additionalProperties": false
+				},
+				"cursorless.hatEnablement.shapes": {
+					"description": "Which shapes to enable",
+					"type": "object",
+					"properties": {
+						"fourPointStar": {
+							"type": "boolean"
+						},
+						"chevron": {
+							"type": "boolean"
+						},
+						"threePointStar": {
+							"type": "boolean"
+						},
+						"hole": {
+							"type": "boolean"
+						},
+						"frame": {
+							"type": "boolean"
+						},
+						"curve": {
+							"type": "boolean"
+						},
+						"eye": {
+							"type": "boolean"
+						}
+					},
+					"default": {
+						"fourPointStar": true,
+						"chevron": true,
+						"threePointStar": false,
+						"hole": false,
+						"frame": false,
+						"curve": false,
+						"eye": false
+					},
+					"additionalProperties": false
+				},
+				"cursorless.hatPenalties.colors": {
+					"description": "How much to penalize each hat color. Number of syllables is a good default",
+					"type": "object",
+					"properties": {
+						"blue": {
+							"type": "number"
+						},
+						"green": {
+							"type": "number"
+						},
+						"red": {
+							"type": "number"
+						},
+						"yellow": {
+							"type": "number"
+						},
+						"purple": {
+							"type": "number"
+						}
+					},
+					"default": {
+						"blue": 1,
+						"green": 1,
+						"red": 1,
+						"yellow": 1,
+						"purple": 1
+					},
+					"additionalProperties": false
+				},
+				"cursorless.hatPenalties.shapes": {
+					"description": "How much to penalize each hat shape. Number of syllables is a good default",
+					"type": "object",
+					"properties": {
+						"fourPointStar": {
+							"type": "number"
+						},
+						"chevron": {
+							"type": "number"
+						},
+						"threePointStar": {
+							"type": "number"
+						},
+						"hole": {
+							"type": "number"
+						},
+						"frame": {
+							"type": "number"
+						},
+						"curve": {
+							"type": "number"
+						},
+						"eye": {
+							"type": "number"
+						}
+					},
+					"default": {
+						"fourPointStar": 1,
+						"chevron": 1,
+						"threePointStar": 1,
+						"hole": 1,
+						"frame": 1,
+						"curve": 1,
+						"eye": 1
+					},
+					"additionalProperties": false
+				},
+				"cursorless.individualHatAdjustments": {
+					"description": "Separate adjustments for each hat shape",
+					"type": "object",
+					"default": {}
 				}
 			}
 		}
