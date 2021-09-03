@@ -8,22 +8,11 @@ import {
   HAT_NON_DEFAULT_SHAPES,
   HatStyle,
   HatColor,
-  HatNonDefaultShape,
 } from "./constants";
 import { readFileSync } from "fs";
 import { DecorationColorSetting } from "../typings/Types";
 import FontMeasurements from "./FontMeasurements";
 import { sortBy } from "lodash";
-
-interface HatStyleSetting {
-  penalty: number;
-  enabled: boolean;
-}
-
-type HatStyleSettingMap = Record<
-  HatNonDefaultShape | HatColor,
-  HatStyleSetting
->;
 
 interface ShapeMeasurements {
   hatWidthToCharacterWidthRatio: number;
@@ -191,17 +180,29 @@ export default class Decorations {
   }
 
   private constructHatStyleMap() {
-    const hatStyleSettings = vscode.workspace
-      .getConfiguration("cursorless")
-      .get<HatStyleSettingMap>("hatStyles")!;
+    const shapeEnablement = vscode.workspace
+      .getConfiguration("cursorless.hatEnablement")
+      .get<Record<HatShape, boolean>>("shapes")!;
+    const colorEnablement = vscode.workspace
+      .getConfiguration("cursorless.hatEnablement")
+      .get<Record<HatColor, boolean>>("colors")!;
+    const shapePenalties = vscode.workspace
+      .getConfiguration("cursorless.hatPenalties")
+      .get<Record<HatShape, number>>("shapes")!;
+    const colorPenalties = vscode.workspace
+      .getConfiguration("cursorless.hatPenalties")
+      .get<Record<HatColor, number>>("colors")!;
 
-    hatStyleSettings.default = { penalty: 0, enabled: true };
+    shapeEnablement.default = true;
+    colorEnablement.default = true;
+    shapePenalties.default = 0;
+    colorPenalties.default = 0;
 
     const activeHatColors = HAT_COLORS.filter(
-      (color) => hatStyleSettings[color].enabled
+      (color) => colorEnablement[color]
     );
     const activeNonDefaultHatShapes = HAT_NON_DEFAULT_SHAPES.filter(
-      (shape) => hatStyleSettings[shape].enabled
+      (shape) => shapeEnablement[shape]
     );
 
     this.hatStyleMap = {
@@ -221,8 +222,7 @@ export default class Decorations {
     this.hatStyleNames = sortBy(
       Object.entries(this.hatStyleMap),
       ([_, hatStyle]) =>
-        hatStyleSettings[hatStyle.color].penalty +
-        hatStyleSettings[hatStyle.shape].penalty
+        colorPenalties[hatStyle.color] + shapePenalties[hatStyle.shape]
     ).map(([hatStyleName, _]) => hatStyleName as HatStyleName);
   }
 

@@ -13,10 +13,10 @@ export const HAT_COLORS = [
 
 export const HAT_NON_DEFAULT_SHAPES = [
   "fourPointStar",
+  "chevron",
   "threePointStar",
   "hole",
   "frame",
-  "chevron",
   "curve",
   "eye",
 ] as const;

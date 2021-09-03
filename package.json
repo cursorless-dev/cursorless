@@ -183,125 +183,137 @@
 						"highContrast": "#19a1d6"
 					}
 				},
-				"cursorless.hatStyles.blue.penalty": {
-					"description": "How much to penalize the blue hat style. Number of syllables is a good default",
-					"type": "number",
-					"default": 1
+				"cursorless.hatEnablement.colors": {
+					"description": "Which colors to enable",
+					"type": "object",
+					"properties": {
+						"blue": {
+							"type": "boolean"
+						},
+						"green": {
+							"type": "boolean"
+						},
+						"red": {
+							"type": "boolean"
+						},
+						"yellow": {
+							"type": "boolean"
+						},
+						"purple": {
+							"type": "boolean"
+						}
+					},
+					"default": {
+						"blue": true,
+						"green": true,
+						"red": true,
+						"yellow": true,
+						"purple": true
+					},
+					"additionalProperties": false
 				},
-				"cursorless.hatStyles.blue.enabled": {
-					"description": "Whether to enable the blue hat style",
-					"type": "boolean",
-					"default": true
+				"cursorless.hatEnablement.shapes": {
+					"description": "Which shapes to enable",
+					"type": "object",
+					"properties": {
+						"fourPointStar": {
+							"type": "boolean"
+						},
+						"chevron": {
+							"type": "boolean"
+						},
+						"threePointStar": {
+							"type": "boolean"
+						},
+						"hole": {
+							"type": "boolean"
+						},
+						"frame": {
+							"type": "boolean"
+						},
+						"curve": {
+							"type": "boolean"
+						},
+						"eye": {
+							"type": "boolean"
+						}
+					},
+					"default": {
+						"fourPointStar": true,
+						"chevron": true,
+						"threePointStar": false,
+						"hole": false,
+						"frame": false,
+						"curve": false,
+						"eye": false
+					},
+					"additionalProperties": false
 				},
-				"cursorless.hatStyles.green.penalty": {
-					"description": "How much to penalize the green hat style. Number of syllables is a good default",
-					"type": "number",
-					"default": 1
+				"cursorless.hatPenalties.colors": {
+					"description": "How much to penalize each hat color. Number of syllables is a good default",
+					"type": "object",
+					"properties": {
+						"blue": {
+							"type": "number"
+						},
+						"green": {
+							"type": "number"
+						},
+						"red": {
+							"type": "number"
+						},
+						"yellow": {
+							"type": "number"
+						},
+						"purple": {
+							"type": "number"
+						}
+					},
+					"default": {
+						"blue": 1,
+						"green": 1,
+						"red": 1,
+						"yellow": 1,
+						"purple": 1
+					},
+					"additionalProperties": false
 				},
-				"cursorless.hatStyles.green.enabled": {
-					"description": "Whether to enable the green hat style",
-					"type": "boolean",
-					"default": true
-				},
-				"cursorless.hatStyles.red.penalty": {
-					"description": "How much to penalize the red hat style. Number of syllables is a good default",
-					"type": "number",
-					"default": 1
-				},
-				"cursorless.hatStyles.red.enabled": {
-					"description": "Whether to enable the red hat style",
-					"type": "boolean",
-					"default": true
-				},
-				"cursorless.hatStyles.yellow.penalty": {
-					"description": "How much to penalize the yellow hat style. Number of syllables is a good default",
-					"type": "number",
-					"default": 1
-				},
-				"cursorless.hatStyles.yellow.enabled": {
-					"description": "Whether to enable the yellow hat style",
-					"type": "boolean",
-					"default": true
-				},
-				"cursorless.hatStyles.purple.penalty": {
-					"description": "How much to penalize the purple hat style. Number of syllables is a good default",
-					"type": "number",
-					"default": 1
-				},
-				"cursorless.hatStyles.purple.enabled": {
-					"description": "Whether to enable the purple hat style",
-					"type": "boolean",
-					"default": true
-				},
-				"cursorless.hatStyles.fourPointStar.penalty": {
-					"description": "How much to penalize the fourPointStar hat style. Number of syllables is a good default",
-					"type": "number",
-					"default": 1
-				},
-				"cursorless.hatStyles.fourPointStar.enabled": {
-					"description": "Whether to enable the fourPointStar hat style",
-					"type": "boolean",
-					"default": true
-				},
-				"cursorless.hatStyles.threePointStar.penalty": {
-					"description": "How much to penalize the threePointStar hat style. Number of syllables is a good default",
-					"type": "number",
-					"default": 1
-				},
-				"cursorless.hatStyles.threePointStar.enabled": {
-					"description": "Whether to enable the threePointStar hat style",
-					"type": "boolean",
-					"default": false
-				},
-				"cursorless.hatStyles.hole.penalty": {
-					"description": "How much to penalize the hole hat style. Number of syllables is a good default",
-					"type": "number",
-					"default": 1
-				},
-				"cursorless.hatStyles.hole.enabled": {
-					"description": "Whether to enable the hole hat style",
-					"type": "boolean",
-					"default": false
-				},
-				"cursorless.hatStyles.frame.penalty": {
-					"description": "How much to penalize the frame hat style. Number of syllables is a good default",
-					"type": "number",
-					"default": 1
-				},
-				"cursorless.hatStyles.frame.enabled": {
-					"description": "Whether to enable the frame hat style",
-					"type": "boolean",
-					"default": false
-				},
-				"cursorless.hatStyles.chevron.penalty": {
-					"description": "How much to penalize the chevron hat style. Number of syllables is a good default",
-					"type": "number",
-					"default": 1
-				},
-				"cursorless.hatStyles.chevron.enabled": {
-					"description": "Whether to enable the chevron hat style",
-					"type": "boolean",
-					"default": true
-				},
-				"cursorless.hatStyles.curve.penalty": {
-					"description": "How much to penalize the curve hat style. Number of syllables is a good default",
-					"type": "number",
-					"default": 1
-				},
-				"cursorless.hatStyles.curve.enabled": {
-					"description": "Whether to enable the curve hat style",
-					"type": "boolean",
-					"default": false
-				},
-				"cursorless.hatStyles.eye.penalty": {
-					"description": "How much to penalize the eye hat style. Number of syllables is a good default",
-					"type": "number",
-					"default": 1
-				},
-				"cursorless.hatStyles.eye.enabled": {
-					"description": "Whether to enable the eye hat style",
-					"type": "boolean",
-					"default": false
+				"cursorless.hatPenalties.shapes": {
+					"description": "How much to penalize each hat shape. Number of syllables is a good default",
+					"type": "object",
+					"properties": {
+						"fourPointStar": {
+							"type": "number"
+						},
+						"chevron": {
+							"type": "number"
+						},
+						"threePointStar": {
+							"type": "number"
+						},
+						"hole": {
+							"type": "number"
+						},
+						"frame": {
+							"type": "number"
+						},
+						"curve": {
+							"type": "number"
+						},
+						"eye": {
+							"type": "number"
+						}
+					},
+					"default": {
+						"fourPointStar": 1,
+						"chevron": 1,
+						"threePointStar": 1,
+						"hole": 1,
+						"frame": 1,
+						"curve": 1,
+						"eye": 1
+					},
+					"additionalProperties": false
 				},
 				"cursorless.individualHatAdjustments": {
 					"description": "Separate adjustments for each hat shape",
