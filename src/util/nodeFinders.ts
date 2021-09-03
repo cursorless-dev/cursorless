@@ -228,13 +228,17 @@ class Pattern {
   isOptional: boolean = false;
 
   constructor(pattern: string) {
-    this.type = pattern.match(/^[\w*]+/)![0];
+    this.type = pattern.match(/^[\w*~]+/)![0];
     this.fields = [...pattern.matchAll(/(?<=\[).+?(?=\])/g)].map((m) => m[0]);
     this.isImportant = pattern.indexOf("!") > -1;
     this.isOptional = pattern.indexOf("?") > -1;
   }
 
   typeEquals(node: SyntaxNode) {
-    return this.type === node.type || this.type === "*";
+    return (
+      this.type === node.type ||
+      this.type === "*" ||
+      (this.type.startsWith("~") && this.type.slice(1) !== node.type)
+    );
   }
 }
