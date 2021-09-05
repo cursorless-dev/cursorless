@@ -1,0 +1,35 @@
+spokenForm: clear every value
+languageId: python
+command:
+  actionName: clearAndSetSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value, includeSiblings: true}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |-
+    {
+        "foo": "bar",
+        "baz": "bongo",
+    }
+  selections:
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}
+finalState:
+  documentContents: |-
+    {
+        "foo": ,
+        "baz": ,
+    }
+  selections:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 11}
+  thatMark:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 11}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: true}}]
