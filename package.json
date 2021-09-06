@@ -165,8 +165,8 @@
 						"highContrast": "#f0b800"
 					}
 				},
-				"cursorless.colors.purple": {
-					"description": "Color to use for purple symbols",
+				"cursorless.colors.pink": {
+					"description": "Color to use for pink symbols",
 					"type": "object",
 					"default": {
 						"dark": "#de25ff",
@@ -199,7 +199,7 @@
 						"yellow": {
 							"type": "boolean"
 						},
-						"purple": {
+						"pink": {
 							"type": "boolean"
 						}
 					},
@@ -208,7 +208,7 @@
 						"green": true,
 						"red": true,
 						"yellow": true,
-						"purple": true
+						"pink": true
 					},
 					"additionalProperties": false
 				},
@@ -265,7 +265,7 @@
 						"yellow": {
 							"type": "number"
 						},
-						"purple": {
+						"pink": {
 							"type": "number"
 						}
 					},
@@ -274,7 +274,7 @@
 						"green": 1,
 						"red": 1,
 						"yellow": 1,
-						"purple": 1
+						"pink": 1
 					},
 					"additionalProperties": false
 				},
