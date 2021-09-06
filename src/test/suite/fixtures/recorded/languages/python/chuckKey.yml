@@ -19,7 +19,7 @@ initialState:
 finalState:
   documentContents: |-
     {
-         "bar",
+        "bar",
         "baz": "bongo",
     }
   selections:

@@ -13,7 +13,7 @@ initialState:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
 finalState:
-  documentContents: "foo: str "
+  documentContents: "foo: str"
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}

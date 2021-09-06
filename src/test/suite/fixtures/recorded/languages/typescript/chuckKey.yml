@@ -18,7 +18,7 @@ initialState:
 finalState:
   documentContents: |-
     {
-         "bar"
+        "bar"
     }
   selections:
     - anchor: {line: 1, character: 4}
