@@ -1,7 +1,7 @@
 import {
   createPatternMatchers,
   argumentMatcher,
-  valueMatcher,
+  prefixedMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
 
@@ -95,7 +95,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "function_definition[declarator][declarator]", // void funcName() {}
     "declaration.function_declarator![declarator]", // void funcName();
   ],
-  value: valueMatcher(
+  value: prefixedMatcher(
     "*[declarator][value]",
     "*[value]",
     "assignment_expression[right]",

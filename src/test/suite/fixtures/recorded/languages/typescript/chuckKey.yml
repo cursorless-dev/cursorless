@@ -1,0 +1,29 @@
+spokenForm: chuck key
+languageId: typescript
+command:
+  actionName: remove
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |-
+    {
+        foo: "bar"
+    }
+  selections:
+    - anchor: {line: 1, character: 5}
+      active: {line: 1, character: 5}
+finalState:
+  documentContents: |-
+    {
+        "bar"
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  thatMark:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}}]

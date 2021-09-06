@@ -40,17 +40,36 @@ export function selectWithLeadingDelimiter(
   editor: TextEditor,
   node: SyntaxNode
 ): SelectionWithContext {
-  const leadingDelimiterToken = node.previousSibling;
+  const leadingNonDelimiterToken = node.previousSibling?.previousSibling;
 
   const leadingDelimiterRange =
-    leadingDelimiterToken != null
-      ? makeRange(leadingDelimiterToken.startPosition, node.startPosition)
+    leadingNonDelimiterToken != null
+      ? makeRange(leadingNonDelimiterToken.endPosition, node.startPosition)
       : null;
 
   return {
     ...simpleSelectionExtractor(editor, node),
     context: {
       leadingDelimiterRange,
+    },
+  };
+}
+
+export function selectWithTrailingDelimiter(
+  editor: TextEditor,
+  node: SyntaxNode
+): SelectionWithContext {
+  const trailingNonDelimiterToken = node.nextSibling?.nextSibling;
+
+  const trailingDelimiterRange =
+    trailingNonDelimiterToken != null
+      ? makeRange(node.endPosition, trailingNonDelimiterToken.startPosition)
+      : null;
+
+  return {
+    ...simpleSelectionExtractor(editor, node),
+    context: {
+      trailingDelimiterRange,
     },
   };
 }
