@@ -8,13 +8,13 @@ import { transformPrimitiveTargets } from "./util/targetUtils";
 import { HatStyleName } from "./core/constants";
 import { flow } from "lodash";
 
-const scopeTypeAliasToCanonicalName: Record<string, ScopeType> = {
+const SCOPE_TYPE_CANONICALIZATION_MAPPING: Record<string, ScopeType> = {
   arrowFunction: "anonymousFunction",
   dictionary: "map",
   regex: "regularExpression",
 };
 
-const colorAliasToCanonicalName: Record<string, HatStyleName> = {
+const COLOR_CANONICALIZATION_MAPPING: Record<string, HatStyleName> = {
   purple: "pink",
 };
 
@@ -25,7 +25,7 @@ const canonicalizeScopeTypes = (
     ? update(target, {
         modifier: {
           scopeType: (scopeType: string) =>
-            scopeTypeAliasToCanonicalName[scopeType] ?? scopeType,
+            SCOPE_TYPE_CANONICALIZATION_MAPPING[scopeType] ?? scopeType,
         },
       })
     : target;
@@ -37,7 +37,7 @@ const canonicalizeColors = (
     ? update(target, {
         mark: {
           symbolColor: (symbolColor: string) =>
-            colorAliasToCanonicalName[symbolColor] ?? symbolColor,
+            COLOR_CANONICALIZATION_MAPPING[symbolColor] ?? symbolColor,
         },
       })
     : target;
