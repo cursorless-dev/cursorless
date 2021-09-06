@@ -37,7 +37,7 @@ export function getNodeMatcher(
 
   if (matchers == null) {
     throw Error(
-      `Language '${languageId}' is not implemented yet; See https://github.com/pokey/cursorless-vscode/blob/master/docs/adding-a-new-language.md`
+      `Language '${languageId}' is not implemented yet; See https://github.com/pokey/cursorless-vscode/blob/main/docs/adding-a-new-language.md`
     );
   }
 
