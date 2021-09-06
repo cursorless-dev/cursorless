@@ -55,6 +55,25 @@ export function selectWithLeadingDelimiter(
   };
 }
 
+export function selectWithTrailingDelimiter(
+  editor: TextEditor,
+  node: SyntaxNode
+): SelectionWithContext {
+  const trailingDelimiterToken = node.nextSibling;
+
+  const trailingDelimiterRange =
+    trailingDelimiterToken != null
+      ? makeRange(node.endPosition, trailingDelimiterToken.endPosition)
+      : null;
+
+  return {
+    ...simpleSelectionExtractor(editor, node),
+    context: {
+      trailingDelimiterRange,
+    },
+  };
+}
+
 function getNextNonDelimiterNode(
   startNode: SyntaxNode,
   isDelimiterNode: (node: SyntaxNode) => boolean

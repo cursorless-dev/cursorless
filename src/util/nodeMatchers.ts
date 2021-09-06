@@ -11,6 +11,7 @@ import {
   simpleSelectionExtractor,
   argumentSelectionExtractor,
   selectWithLeadingDelimiter,
+  selectWithTrailingDelimiter,
 } from "./nodeSelectors";
 import {
   typedNodeFinder,
@@ -72,8 +73,24 @@ export function argumentMatcher(...parentTypes: string[]): NodeMatcher {
   );
 }
 
-export function valueMatcher(...patterns: string[]): NodeMatcher {
+/**
+ * Given `patterns`, creates a node matcher that will add leading delimiter to
+ * removal range.
+ * @param patterns Patterns for pattern finder
+ * @returns A node matcher
+ */
+export function prefixedMatcher(...patterns: string[]): NodeMatcher {
   return matcher(patternFinder(...patterns), selectWithLeadingDelimiter);
+}
+
+/**
+ * Given `patterns`, creates a node matcher that will add trailing delimiter to
+ * removal range.
+ * @param patterns Patterns for pattern finder
+ * @returns A node matcher
+ */
+export function suffixedMatcher(...patterns: string[]): NodeMatcher {
+  return matcher(patternFinder(...patterns), selectWithTrailingDelimiter);
 }
 
 /**

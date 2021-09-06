@@ -1,0 +1,31 @@
+spokenForm: chuck key
+languageId: python
+command:
+  actionName: remove
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |-
+    {
+        "foo": "bar",
+        "baz": "bongo",
+    }
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
+finalState:
+  documentContents: |-
+    {
+         "bar",
+        "baz": "bongo",
+    }
+  selections:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}
+  thatMark:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}}]
