@@ -2,7 +2,8 @@ import { SyntaxNode } from "web-tree-sitter";
 import {
   createPatternMatchers,
   argumentMatcher,
-  valueMatcher,
+  prefixedMatcher,
+  suffixedMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
 
@@ -46,7 +47,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   list: listTypes,
   statement: STATEMENT_TYPES,
   string: "string",
-  collectionKey: "pair[key]",
+  collectionKey: suffixedMatcher("pair[key]"),
   ifStatement: "if_statement",
   anonymousFunction: "lambda",
   functionCall: "call",
@@ -55,7 +56,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   className: "class_definition[name]",
   namedFunction: "decorated_definition?.function_definition",
   functionName: "function_definition[name]",
-  type: valueMatcher("function_definition[return_type]", "*[type]"),
+  type: prefixedMatcher("function_definition[return_type]", "*[type]"),
   name: [
     "assignment[left]",
     "typed_parameter.identifier!",
@@ -63,7 +64,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "*[name]",
   ],
   collectionItem: argumentMatcher(...dictionaryTypes, ...listTypes),
-  value: valueMatcher("assignment[right]", "~subscript[value]"),
+  value: prefixedMatcher("assignment[right]", "~subscript[value]"),
   argumentOrParameter: argumentMatcher("parameters", "argument_list"),
 };
 

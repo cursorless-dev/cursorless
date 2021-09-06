@@ -5,6 +5,7 @@ import {
   patternMatcher,
   createPatternMatchers,
   argumentMatcher,
+  suffixedMatcher,
 } from "../util/nodeMatchers";
 import {
   NodeMatcherAlternative,
@@ -86,7 +87,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   map: mapTypes,
   list: listTypes,
   string: ["string", "template_string"],
-  collectionKey: ["pair[key]", "jsx_attribute.property_identifier!"],
+  collectionKey: suffixedMatcher(
+    "pair[key]",
+    "jsx_attribute.property_identifier!"
+  ),
   collectionItem: argumentMatcher(...mapTypes, ...listTypes),
   value: valueMatcher(),
   ifStatement: "if_statement",
