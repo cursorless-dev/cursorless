@@ -133,16 +133,25 @@
 					"description": "Color to use for default symbols",
 					"type": "object",
 					"default": {
-						"dark": "#cdc7f0",
+						"dark": "#aaa7bb",
 						"light": "#000000",
 						"highContrast": "#000000"
+					}
+				},
+				"cursorless.colors.blue": {
+					"description": "Color to use for blue symbols",
+					"type": "object",
+					"default": {
+						"dark": "#089ad3",
+						"light": "#19a1d6",
+						"highContrast": "#19a1d6"
 					}
 				},
 				"cursorless.colors.green": {
 					"description": "Color to use for green symbols",
 					"type": "object",
 					"default": {
-						"dark": "#22d618",
+						"dark": "#05b623",
 						"light": "#2ec426",
 						"highContrast": "#2ec426"
 					}
@@ -151,36 +160,27 @@
 					"description": "Color to use for red symbols",
 					"type": "object",
 					"default": {
-						"dark": "#e96900",
+						"dark": "#ca2a15",
 						"light": "#ff3300",
 						"highContrast": "#ff3300"
-					}
-				},
-				"cursorless.colors.yellow": {
-					"description": "Color to use for yellow symbols",
-					"type": "object",
-					"default": {
-						"dark": "#f1cd00",
-						"light": "#f0b800",
-						"highContrast": "#f0b800"
 					}
 				},
 				"cursorless.colors.pink": {
 					"description": "Color to use for pink symbols",
 					"type": "object",
 					"default": {
-						"dark": "#de25ff",
+						"dark": "#E17FAB",
 						"light": "#ff00f2",
 						"highContrast": "#ff00f2"
 					}
 				},
-				"cursorless.colors.blue": {
-					"description": "Color to use for blue symbols",
+				"cursorless.colors.yellow": {
+					"description": "Color to use for yellow symbols",
 					"type": "object",
 					"default": {
-						"dark": "#00b7ff",
-						"light": "#19a1d6",
-						"highContrast": "#19a1d6"
+						"dark": "#d8cc2c",
+						"light": "#f0b800",
+						"highContrast": "#f0b800"
 					}
 				},
 				"cursorless.hatEnablement.colors": {
@@ -196,10 +196,10 @@
 						"red": {
 							"type": "boolean"
 						},
-						"yellow": {
+						"pink": {
 							"type": "boolean"
 						},
-						"pink": {
+						"yellow": {
 							"type": "boolean"
 						}
 					},
@@ -207,8 +207,8 @@
 						"blue": true,
 						"green": true,
 						"red": true,
-						"yellow": true,
-						"pink": true
+						"pink": true,
+						"yellow": true
 					},
 					"additionalProperties": false
 				},
@@ -262,10 +262,10 @@
 						"red": {
 							"type": "number"
 						},
-						"yellow": {
+						"pink": {
 							"type": "number"
 						},
-						"pink": {
+						"yellow": {
 							"type": "number"
 						}
 					},
@@ -273,8 +273,8 @@
 						"blue": 1,
 						"green": 1,
 						"red": 1,
-						"yellow": 1,
-						"pink": 1
+						"pink": 1,
+						"yellow": 1
 					},
 					"additionalProperties": false
 				},
