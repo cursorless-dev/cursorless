@@ -11,14 +11,14 @@ export type PairDelimiter =
   | "whitespace";
 
 export const pairDelimiterToText: Record<PairDelimiter, string[]> = {
-  squareBrackets: ["[", "]"],
-  curlyBrackets: ["{", "}"],
   angleBrackets: ["<", ">"],
+  backtickQuotes: ["`", "`"],
+  curlyBrackets: ["{", "}"],
+  doubleQuotes: ['"', '"'],
+  escapedDoubleQuotes: ['\\"', '\\"'],
+  escapedSingleQuotes: ["\\'", "\\'"],
   parentheses: ["(", ")"],
   singleQuotes: ["'", "'"],
-  doubleQuotes: ['"', '"'],
-  backtickQuotes: ["`", "`"],
+  squareBrackets: ["[", "]"],
   whitespace: [" ", " "], // TODO: Fix this to handle tabs / newlines
-  escapedSingleQuotes: ["\\'", "\\'"],
-  escapedDoubleQuotes: ['\\"', '\\"'],
 };
