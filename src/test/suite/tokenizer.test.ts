@@ -40,6 +40,12 @@ const tests: TestCase[] = [
   ["\\r\\n\\t", ["\\r", "\\n", "\\t"]],
   // Comments
   ["// Hello world", ["//", "Hello", "world"]],
+  // Hex colors
+  ["#aaaaaa", ["#", "aaaaaa"]],
+  ["#11aaaa", ["#", "11aaaa"]],
+  ["#aa11aa", ["#", "aa11aa"]],
+  ["#aaaa11", ["#", "aaaa11"]],
+  ["#111111", ["#", "111111"]],
 ];
 
 suite("tokenizer", () => {
