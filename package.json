@@ -134,8 +134,8 @@
 					"type": "object",
 					"default": {
 						"dark": "#aaa7bb",
-						"light": "#000000",
-						"highContrast": "#000000"
+						"light": "#666666",
+						"highContrast": "#ffffff"
 					}
 				},
 				"cursorless.colors.blue": {
@@ -143,8 +143,8 @@
 					"type": "object",
 					"default": {
 						"dark": "#089ad3",
-						"light": "#19a1d6",
-						"highContrast": "#19a1d6"
+						"light": "#089ad3",
+						"highContrast": "#089ad3"
 					}
 				},
 				"cursorless.colors.green": {
@@ -152,8 +152,8 @@
 					"type": "object",
 					"default": {
 						"dark": "#05b623",
-						"light": "#2ec426",
-						"highContrast": "#2ec426"
+						"light": "#05b623",
+						"highContrast": "#05b623"
 					}
 				},
 				"cursorless.colors.red": {
@@ -161,26 +161,26 @@
 					"type": "object",
 					"default": {
 						"dark": "#ca2a15",
-						"light": "#ff3300",
-						"highContrast": "#ff3300"
+						"light": "#ca2a15",
+						"highContrast": "#ca2a15"
 					}
 				},
 				"cursorless.colors.pink": {
 					"description": "Color to use for pink symbols",
 					"type": "object",
 					"default": {
-						"dark": "#E17FAB",
-						"light": "#ff00f2",
-						"highContrast": "#ff00f2"
+						"dark": "#e17fab",
+						"light": "#e17fab",
+						"highContrast": "#e17fab"
 					}
 				},
 				"cursorless.colors.yellow": {
 					"description": "Color to use for yellow symbols",
 					"type": "object",
 					"default": {
-						"dark": "#d8cc2c",
-						"light": "#f0b800",
-						"highContrast": "#f0b800"
+						"dark": "#e5c300",
+						"light": "#e5c300",
+						"highContrast": "#e5c300"
 					}
 				},
 				"cursorless.hatEnablement.colors": {
