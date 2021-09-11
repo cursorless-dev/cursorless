@@ -28,36 +28,36 @@ type IndividualHatAdjustmentSetting = Record<HatShape, IndividualHatAdjustment>;
 
 const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
   default: {
-    hatWidthToCharacterWidthRatio: 0.507,
-    verticalOffsetEm: -0.05,
+    hatWidthToCharacterWidthRatio: 0.6362522386652841,
+    verticalOffsetEm: -0.06274676909914044,
   },
   fourPointStar: {
-    hatWidthToCharacterWidthRatio: 0.6825,
-    verticalOffsetEm: -0.105,
+    hatWidthToCharacterWidthRatio: 0.8564933982032671,
+    verticalOffsetEm: -0.13176821510819492,
   },
   threePointStar: {
-    hatWidthToCharacterWidthRatio: 0.9555,
-    verticalOffsetEm: -0.055,
+    hatWidthToCharacterWidthRatio: 1.199090757484574,
+    verticalOffsetEm: -0.06902144600905448,
   },
   chevron: {
-    hatWidthToCharacterWidthRatio: 0.6825,
-    verticalOffsetEm: -0.02,
+    hatWidthToCharacterWidthRatio: 0.8564933982032671,
+    verticalOffsetEm: -0.025098707639656177,
   },
   hole: {
-    hatWidthToCharacterWidthRatio: 0.819,
-    verticalOffsetEm: -0.07,
+    hatWidthToCharacterWidthRatio: 1.0277920778439205,
+    verticalOffsetEm: -0.08784547673879664,
   },
   frame: {
-    hatWidthToCharacterWidthRatio: 0.61425,
-    verticalOffsetEm: -0.02,
+    hatWidthToCharacterWidthRatio: 0.7708440583829403,
+    verticalOffsetEm: -0.025098707639656177,
   },
   curve: {
-    hatWidthToCharacterWidthRatio: 0.6825,
-    verticalOffsetEm: -0.07,
+    hatWidthToCharacterWidthRatio: 0.8564933982032671,
+    verticalOffsetEm: -0.08784547673879664,
   },
   eye: {
-    hatWidthToCharacterWidthRatio: 0.921375,
-    verticalOffsetEm: -0.12,
+    hatWidthToCharacterWidthRatio: 1.1562660875744104,
+    verticalOffsetEm: -0.15059224583793704,
   },
 };
 
@@ -138,9 +138,6 @@ export default class Decorations {
       const { color, shape } = this.hatStyleMap[styleName];
       const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shape];
 
-      const spanWidthPx =
-        svgWidthPx + (fontMeasurements.characterWidth - svgWidthPx) / 2;
-
       const colorSetting = vscode.workspace
         .getConfiguration("cursorless.colors")
         .get<DecorationColorSetting>(color)!;
@@ -150,7 +147,7 @@ export default class Decorations {
         decoration: vscode.window.createTextEditorDecorationType({
           rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
           light: {
-            after: {
+            before: {
               contentIconPath: this.constructColoredSvgDataUri(
                 svg,
                 colorSetting.light
@@ -158,16 +155,16 @@ export default class Decorations {
             },
           },
           dark: {
-            after: {
+            before: {
               contentIconPath: this.constructColoredSvgDataUri(
                 svg,
                 colorSetting.dark
               ),
             },
           },
-          after: {
-            margin: `-${svgHeightPx}px 0 0 -${spanWidthPx}px`,
-            width: `${spanWidthPx}px`,
+          before: {
+            margin: `-${svgHeightPx}px -${svgWidthPx}px 0 0`,
+            width: `${svgWidthPx}px`,
             height: `${svgHeightPx}px`,
           },
         }),
@@ -261,25 +258,24 @@ export default class Decorations {
   ) {
     const iconPath = join(this.extensionPath, "images", "hats", `${shape}.svg`);
     const rawSvg = readFileSync(iconPath, "utf8");
+    const { characterWidth, characterHeight } = fontMeasurements;
 
     const { originalViewBoxHeight, originalViewBoxWidth } =
       this.getViewBoxDimensions(rawSvg);
 
-    const hatWidthPx =
-      hatWidthToCharacterWidthRatio * fontMeasurements.characterWidth;
+    const hatWidthPx = hatWidthToCharacterWidthRatio * characterWidth;
     const hatHeightPx =
       (originalViewBoxHeight / originalViewBoxWidth) * hatWidthPx;
 
-    const svgWidthPx = Math.ceil(fontMeasurements.characterWidth);
-    const svgHeightPx =
-      fontMeasurements.characterHeight + hatHeightPx + hatVerticalOffset;
+    const svgWidthPx = Math.ceil(characterWidth);
+    const svgHeightPx = characterHeight + hatHeightPx + hatVerticalOffset;
 
     const newViewBoxWidth =
-      ((originalViewBoxWidth / hatWidthToCharacterWidthRatio) *
-        fontMeasurements.characterWidth) /
-      svgWidthPx;
+      ((originalViewBoxWidth / hatWidthToCharacterWidthRatio) * svgWidthPx) /
+      characterWidth;
     const newViewBoxHeight = (newViewBoxWidth * svgHeightPx) / svgWidthPx;
-    const newViewBoxX = -(newViewBoxWidth - originalViewBoxWidth) / 2;
+    const newViewBoxX =
+      (-(characterWidth - hatWidthPx) * (newViewBoxWidth / svgWidthPx)) / 2;
     const newViewBoxY = 0;
 
     const newViewBoxString = `${newViewBoxX} ${newViewBoxY} ${newViewBoxWidth} ${newViewBoxHeight}`;
