@@ -138,9 +138,6 @@ export default class Decorations {
       const { color, shape } = this.hatStyleMap[styleName];
       const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shape];
 
-      const spanWidthPx =
-        svgWidthPx + (fontMeasurements.characterWidth - svgWidthPx) / 2;
-
       const colorSetting = vscode.workspace
         .getConfiguration("cursorless.colors")
         .get<DecorationColorSetting>(color)!;
@@ -150,7 +147,7 @@ export default class Decorations {
         decoration: vscode.window.createTextEditorDecorationType({
           rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
           light: {
-            after: {
+            before: {
               contentIconPath: this.constructColoredSvgDataUri(
                 svg,
                 colorSetting.light
@@ -158,16 +155,16 @@ export default class Decorations {
             },
           },
           dark: {
-            after: {
+            before: {
               contentIconPath: this.constructColoredSvgDataUri(
                 svg,
                 colorSetting.dark
               ),
             },
           },
-          after: {
-            margin: `-${svgHeightPx}px 0 0 -${spanWidthPx}px`,
-            width: `${spanWidthPx}px`,
+          before: {
+            margin: `-${svgHeightPx}px -${svgWidthPx}px 0 0`,
+            width: `${svgWidthPx}px`,
             height: `${svgHeightPx}px`,
           },
         }),
@@ -261,25 +258,24 @@ export default class Decorations {
   ) {
     const iconPath = join(this.extensionPath, "images", "hats", `${shape}.svg`);
     const rawSvg = readFileSync(iconPath, "utf8");
+    const { characterWidth, characterHeight } = fontMeasurements;
 
     const { originalViewBoxHeight, originalViewBoxWidth } =
       this.getViewBoxDimensions(rawSvg);
 
-    const hatWidthPx =
-      hatWidthToCharacterWidthRatio * fontMeasurements.characterWidth;
+    const hatWidthPx = hatWidthToCharacterWidthRatio * characterWidth;
     const hatHeightPx =
       (originalViewBoxHeight / originalViewBoxWidth) * hatWidthPx;
 
-    const svgWidthPx = Math.ceil(fontMeasurements.characterWidth);
-    const svgHeightPx =
-      fontMeasurements.characterHeight + hatHeightPx + hatVerticalOffset;
+    const svgWidthPx = Math.ceil(characterWidth);
+    const svgHeightPx = characterHeight + hatHeightPx + hatVerticalOffset;
 
     const newViewBoxWidth =
-      ((originalViewBoxWidth / hatWidthToCharacterWidthRatio) *
-        fontMeasurements.characterWidth) /
-      svgWidthPx;
+      ((originalViewBoxWidth / hatWidthToCharacterWidthRatio) * svgWidthPx) /
+      characterWidth;
     const newViewBoxHeight = (newViewBoxWidth * svgHeightPx) / svgWidthPx;
-    const newViewBoxX = -(newViewBoxWidth - originalViewBoxWidth) / 2;
+    const newViewBoxX =
+      (-(characterWidth - hatWidthPx) * (newViewBoxWidth / svgWidthPx)) / 2;
     const newViewBoxY = 0;
 
     const newViewBoxString = `${newViewBoxX} ${newViewBoxY} ${newViewBoxWidth} ${newViewBoxHeight}`;
