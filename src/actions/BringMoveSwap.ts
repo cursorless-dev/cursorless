@@ -11,7 +11,7 @@ import update from "immutability-helper";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { performOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 import { flatten, zip } from "lodash";
-import { Selection, TextEditor, Range } from "vscode";
+import { Selection, TextEditor, Range, DecorationRangeBehavior } from "vscode";
 import { performEditsAndUpdateSelections } from "../util/updateSelections";
 import { getTextWithPossibleDelimiter } from "../util/getTextWithPossibleDelimiter";
 
@@ -104,7 +104,6 @@ class BringMoveSwap implements Action {
           editor: destination.selection.editor,
           originalSelection: destination,
           isSource: false,
-          extendOnEqualEmptyRange: true,
         },
       ];
 
@@ -134,7 +133,6 @@ class BringMoveSwap implements Action {
           editor: source.selection.editor,
           originalSelection: source,
           isSource: true,
-          extendOnEqualEmptyRange: true,
         });
       }
 
@@ -157,9 +155,12 @@ class BringMoveSwap implements Action {
               : edits.filter(({ isSource }) => !isSource);
 
           const [updatedSelections]: Selection[][] =
-            await performEditsAndUpdateSelections(editor, filteredEdits, [
-              edits.map((edit) => edit.originalSelection.selection.selection),
-            ]);
+            await performEditsAndUpdateSelections(
+              editor,
+              filteredEdits,
+              [edits.map((edit) => edit.originalSelection.selection.selection)],
+              DecorationRangeBehavior.OpenOpen
+            );
 
           return edits.map((edit, index) => {
             const selection = updatedSelections[index];

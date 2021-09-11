@@ -362,6 +362,4 @@ export type SelectionExtractor = (
 export interface Edit {
   range: vscode.Range;
   text: string;
-  dontMoveOnEqualStart?: boolean;
-  extendOnEqualEmptyRange?: boolean;
 }

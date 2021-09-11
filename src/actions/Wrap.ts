@@ -1,4 +1,4 @@
-import { Selection } from "vscode";
+import { DecorationRangeBehavior, Selection } from "vscode";
 import { flatten } from "lodash";
 import {
   Action,
@@ -41,7 +41,6 @@ export default class Wrap implements Action {
             },
             {
               text: right,
-              dontMoveOnEqualStart: true,
               range: new Selection(
                 target.selection.selection.end,
                 target.selection.selection.end
@@ -50,10 +49,15 @@ export default class Wrap implements Action {
           ]);
 
           const [updatedOriginalSelections, updatedTargetsSelections] =
-            await performEditsAndUpdateSelections(editor, edits, [
-              editor.selections,
-              targets.map((target) => target.selection.selection),
-            ]);
+            await performEditsAndUpdateSelections(
+              editor,
+              edits,
+              [
+                editor.selections,
+                targets.map((target) => target.selection.selection),
+              ],
+              DecorationRangeBehavior.ClosedClosed
+            );
 
           editor.selections = updatedOriginalSelections;
 

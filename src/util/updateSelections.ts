@@ -1,27 +1,23 @@
 import {
   Selection,
-  Range,
   TextEditor,
   workspace,
   TextDocument,
   TextDocumentChangeEvent,
-  TextDocumentContentChangeEvent,
   Disposable,
   EndOfLine,
+  DecorationRangeBehavior,
 } from "vscode";
 import { performDocumentEdits } from "./performDocumentEdits";
 import { Edit } from "../typings/Types";
+import { flatten } from "lodash";
+import {
+  RangeInfo,
+  updateRangeInfos,
+} from "./updateRangeInfos";
 
-interface TextDocumentContentChange extends TextDocumentContentChangeEvent {
-  dontMoveOnEqualStart?: boolean;
-  extendOnEqualEmptyRange?: boolean;
-}
-
-interface SelectionInfo {
-  range: Range;
-  isReversed: boolean;
-  startOffset: number;
-  endOffset: number;
+export interface SelectionInfo extends RangeInfo {
+  range: Selection;
 }
 
 function selectionsToSelectionInfos(
@@ -30,66 +26,24 @@ function selectionsToSelectionInfos(
 ): SelectionInfo[][] {
   return selectionMatrix.map((selections) =>
     selections.map((selection) => ({
+      document,
       range: selection,
-      // The built in isReversed is bugged on empty selection. don't use
-      isReversed: selection.active.isBefore(selection.anchor),
       startOffset: document.offsetAt(selection.start),
       endOffset: document.offsetAt(selection.end),
     }))
   );
 }
 
-function selectionInfosToSelections(
-  document: TextDocument,
-  selectionInfoMatrix: SelectionInfo[][]
-): Selection[][] {
-  return selectionInfoMatrix.map((selectionInfos) =>
-    selectionInfos.map(
-      (selectionInfo) =>
-        new Selection(
-          document.positionAt(
-            selectionInfo.isReversed
-              ? selectionInfo.endOffset
-              : selectionInfo.startOffset
-          ),
-          document.positionAt(
-            selectionInfo.isReversed
-              ? selectionInfo.startOffset
-              : selectionInfo.endOffset
-          )
-        )
-    )
-  );
-}
-
 function updateSelectionInfoMatrix(
-  contentChanges: readonly TextDocumentContentChange[],
-  selectionInfoMatrix: SelectionInfo[][]
+  changeEvent: TextDocumentChangeEvent,
+  selectionInfoMatrix: SelectionInfo[][],
+  rangeBehavior?: DecorationRangeBehavior
 ) {
-  contentChanges.forEach((change) => {
-    const offsetDelta = change.text.length - change.rangeLength;
-
-    selectionInfoMatrix.forEach((selectionInfos) => {
-      selectionInfos.forEach((selectionInfo) => {
-        // Change is selection. Move just end to match.
-        if (
-          change.range.isEqual(selectionInfo.range) &&
-          (!selectionInfo.range.isEmpty || change.extendOnEqualEmptyRange)
-        ) {
-          selectionInfo.endOffset += offsetDelta;
-        }
-        // Change is before selection. Move entire selection.
-        else if (
-          change.range.start.isBefore(selectionInfo.range.start) ||
-          (change.range.start.isEqual(selectionInfo.range.start) &&
-            !change.dontMoveOnEqualStart)
-        ) {
-          selectionInfo.startOffset += offsetDelta;
-          selectionInfo.endOffset += offsetDelta;
-        }
-      });
-    });
-  });
+  updateRangeInfos(
+    changeEvent,
+    flatten(selectionInfoMatrix),
+    rangeBehavior
+  );
 }
 
 class SelectionUpdater {
@@ -97,7 +51,11 @@ class SelectionUpdater {
   private selectionInfoMatrix: SelectionInfo[][];
   private disposable!: Disposable;
 
-  constructor(editor: TextEditor, originalSelections: Selection[][]) {
+  constructor(
+    editor: TextEditor,
+    originalSelections: Selection[][],
+    private rangeBehavior?: DecorationRangeBehavior
+  ) {
     this.document = editor.document;
     this.selectionInfoMatrix = selectionsToSelectionInfos(
       this.document,
@@ -117,8 +75,9 @@ class SelectionUpdater {
         }
 
         updateSelectionInfoMatrix(
-          event.contentChanges,
-          this.selectionInfoMatrix
+          event,
+          this.selectionInfoMatrix,
+          this.rangeBehavior
         );
       }
     );
@@ -135,7 +94,9 @@ class SelectionUpdater {
    * @returns Original selections updated to take into account the given changes
    */
   get updatedSelections() {
-    return selectionInfosToSelections(this.document, this.selectionInfoMatrix);
+    return this.selectionInfoMatrix.map((selectionInfos) =>
+      selectionInfos.map(({ range }) => range)
+    );
   }
 }
 
@@ -150,9 +111,14 @@ class SelectionUpdater {
 export async function callFunctionAndUpdateSelections(
   func: () => Thenable<unknown>,
   editor: TextEditor,
-  selectionMatrix: Selection[][]
+  selectionMatrix: Selection[][],
+  rangeBehavior?: DecorationRangeBehavior
 ): Promise<Selection[][]> {
-  const selectionUpdater = new SelectionUpdater(editor, selectionMatrix);
+  const selectionUpdater = new SelectionUpdater(
+    editor,
+    selectionMatrix,
+    rangeBehavior
+  );
 
   await func();
 
@@ -172,7 +138,8 @@ export async function callFunctionAndUpdateSelections(
 export async function performEditsAndUpdateSelections(
   editor: TextEditor,
   edits: Edit[],
-  originalSelections: Selection[][]
+  originalSelections: Selection[][],
+  rangeBehavior?: DecorationRangeBehavior
 ) {
   const document = editor.document;
   const selectionInfoMatrix = selectionsToSelectionInfos(
@@ -180,17 +147,12 @@ export async function performEditsAndUpdateSelections(
     originalSelections
   );
 
-  const contentChanges = edits.map(
-    ({ range, text, dontMoveOnEqualStart, extendOnEqualEmptyRange }) => ({
-      range,
-      text,
-      dontMoveOnEqualStart,
-      extendOnEqualEmptyRange,
-      rangeOffset: document.offsetAt(range.start),
-      rangeLength:
-        document.offsetAt(range.end) - document.offsetAt(range.start),
-    })
-  );
+  const contentChanges = edits.map(({ range, text }) => ({
+    range,
+    text,
+    rangeOffset: document.offsetAt(range.start),
+    rangeLength: document.offsetAt(range.end) - document.offsetAt(range.start),
+  }));
 
   // Replace \n with \r\n. Vscode does this internally and it's
   // important that our calculated changes reflect the actual changes
@@ -206,7 +168,11 @@ export async function performEditsAndUpdateSelections(
     throw new Error("Could not apply edits");
   }
 
-  updateSelectionInfoMatrix(contentChanges, selectionInfoMatrix);
+  updateSelectionInfoMatrix(
+    { document, contentChanges },
+    selectionInfoMatrix,
+    rangeBehavior
+  );
 
   return selectionInfosToSelections(document, selectionInfoMatrix);
 }
