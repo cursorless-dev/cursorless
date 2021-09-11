@@ -24,12 +24,17 @@ async function main() {
       resolveCliPathFromVSCodeExecutablePath(vscodeExecutablePath);
 
     // Install extension dependencies
-    extensionDependencies.forEach((dependency) => {
-      cp.spawnSync(cliPath, ["--install-extension", dependency], {
+    cp.spawnSync(
+      cliPath,
+      extensionDependencies.flatMap((dependency) => [
+        "--install-extension",
+        dependency,
+      ]),
+      {
         encoding: "utf-8",
         stdio: "inherit",
-      });
-    });
+      }
+    );
 
     // Run the integration test
     await runTests({
