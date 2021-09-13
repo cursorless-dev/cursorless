@@ -54,7 +54,6 @@ export function tokenize<T>(
   text: string,
   mapfn: (v: RegExpMatchArray, k: number) => T
 ) {
-//   text = text.normalize("NFD").replace(/\p{Diacritic}/gu, "");
   return Array.from(text.matchAll(TOKEN_MATCHER), mapfn);
 }
 
