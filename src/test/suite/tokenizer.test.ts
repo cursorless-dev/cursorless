@@ -38,6 +38,8 @@ const tests: TestCase[] = [
   ["->", ["->"]],
   ["??", ["??"]],
   ["\\r\\n\\t", ["\\r", "\\n", "\\t"]],
+  ['"""hello"""', ['"""', "hello", '"""']],
+  ['""""""', ['"""', '"""']],
   // Comments
   ["// Hello world", ["//", "Hello", "world"]],
   // Hex colors
