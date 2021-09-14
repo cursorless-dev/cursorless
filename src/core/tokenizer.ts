@@ -36,7 +36,7 @@ const REPEATABLE_SYMBOLS_REGEX = REPEATABLE_SYMBOLS.map(escapeRegExp)
   .map((s) => `${s}+`)
   .join("|");
 const FIXED_TOKENS_REGEX = FIXED_TOKENS.map(escapeRegExp).join("|");
-const IDENTIFIERS_REGEX = "[a-zA-Z_0-9]+";
+const IDENTIFIERS_REGEX = "[\\p{L}_0-9]+";
 const SINGLE_SYMBOLS_REGEX = "[^\\s\\w]";
 const NUMBERS_REGEX = "(?<=[^.\\d]|^)\\d+\\.\\d+(?=[^.\\d]|$)"; // (not-dot/digit digits dot digits not-dot/digit)
 
@@ -48,7 +48,7 @@ const REGEX = [
   SINGLE_SYMBOLS_REGEX,
 ].join("|");
 
-const TOKEN_MATCHER = new RegExp(REGEX, "g");
+const TOKEN_MATCHER = new RegExp(REGEX, "gu");
 
 export function tokenize<T>(
   text: string,

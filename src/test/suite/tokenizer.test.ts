@@ -50,6 +50,8 @@ const tests: TestCase[] = [
   ["#aa11aa", ["#", "aa11aa"]],
   ["#aaaa11", ["#", "aaaa11"]],
   ["#111111", ["#", "111111"]],
+  // Unicode characters
+  ["aåäöb", ["aåäöb"]]
 ];
 
 suite("tokenizer", () => {
