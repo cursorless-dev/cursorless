@@ -248,16 +248,20 @@
 						},
 						"eye": {
 							"type": "boolean"
+						},
+						"play": {
+							"type": "boolean"
 						}
 					},
 					"default": {
-						"fourPointStar": true,
-						"chevron": true,
+						"fourPointStar": false,
+						"chevron": false,
 						"threePointStar": false,
 						"hole": false,
 						"frame": false,
 						"curve": false,
-						"eye": false
+						"eye": false,
+						"play": false
 					},
 					"additionalProperties": false
 				},
@@ -314,6 +318,9 @@
 						},
 						"eye": {
 							"type": "number"
+						},
+						"play": {
+							"type": "number"
 						}
 					},
 					"default": {
@@ -323,7 +330,8 @@
 						"hole": 1,
 						"frame": 1,
 						"curve": 1,
-						"eye": 1
+						"eye": 1,
+						"play": 1
 					},
 					"additionalProperties": false
 				},

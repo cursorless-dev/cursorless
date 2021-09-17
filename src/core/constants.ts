@@ -19,6 +19,7 @@ export const HAT_NON_DEFAULT_SHAPES = [
   "frame",
   "curve",
   "eye",
+  "play",
 ] as const;
 
 export const HAT_SHAPES = ["default", ...HAT_NON_DEFAULT_SHAPES] as const;

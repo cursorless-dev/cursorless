@@ -1,3 +1,5 @@
+# Contributing
+
 ### Installation
 
 ```sh

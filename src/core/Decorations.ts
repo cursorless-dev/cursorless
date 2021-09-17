@@ -59,6 +59,10 @@ const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
     hatWidthToCharacterWidthRatio: 1.1562660875744104,
     verticalOffsetEm: -0.15059224583793704,
   },
+  play: {
+    hatWidthToCharacterWidthRatio: 1.1562660875744104,
+    verticalOffsetEm: -0.15059224583793704,
+  },
 };
 
 export type DecorationMap = {
