@@ -57,29 +57,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## Contributing
 
-### Installation
-
-```sh
-yarn install
-```
-
-### Running tests
-
-```sh
-yarn run test
-```
-
-### Adding tests
-
-See [test-case-recorder.md](docs/test-case-recorder.md).
-
-### Adding a new programming language
-
-See [docs](docs/adding-a-new-language.md).
-
-### Adding syntactic scope types to an existing language
-
-See [parse-tree-patterns.md](docs/parse-tree-patterns.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
