@@ -22,6 +22,7 @@ const tests: TestCase[] = [
   ["my.variable", ["my", ".", "variable"]],
   ["my/variable", ["my", "/", "variable"]],
   ["my::variable", ["my", "::", "variable"]],
+  ["_a", ["_a"]],
   // Strings
   ['"my variable"', ['"', "my", "variable", '"']],
   ["'my variable'", ["'", "my", "variable", "'"]],

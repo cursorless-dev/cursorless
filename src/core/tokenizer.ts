@@ -42,9 +42,9 @@ const NUMBERS_REGEX = "(?<=[^.\\d]|^)\\d+\\.\\d+(?=[^.\\d]|$)"; // (not-dot/digi
 
 const REGEX = [
   FIXED_TOKENS_REGEX,
-  REPEATABLE_SYMBOLS_REGEX,
   NUMBERS_REGEX,
   IDENTIFIERS_REGEX,
+  REPEATABLE_SYMBOLS_REGEX,
   SINGLE_SYMBOLS_REGEX,
 ].join("|");
 
