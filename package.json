@@ -129,59 +129,104 @@
 					"default": 0,
 					"description": "How much to vertically shift the hats as a percentage of font size; positive is up"
 				},
-				"cursorless.colors.default": {
-					"description": "Color to use for default symbols",
+				"cursorless.colors.dark": {
+					"description": "Colors to use for dark theme",
 					"type": "object",
+					"properties": {
+						"default": {
+							"type": "string"
+						},
+						"blue": {
+							"type": "string"
+						},
+						"green": {
+							"type": "string"
+						},
+						"red": {
+							"type": "string"
+						},
+						"pink": {
+							"type": "string"
+						},
+						"yellow": {
+							"type": "string"
+						}
+					},
 					"default": {
-						"dark": "#aaa7bb",
-						"light": "#666666",
-						"highContrast": "#ffffff"
-					}
+						"default": "#aaa7bb",
+						"blue": "#089ad3",
+						"green": "#05b623",
+						"red": "#ca2a15",
+						"pink": "#e17fab",
+						"yellow": "#e5c300"
+					},
+					"additionalProperties": false
 				},
-				"cursorless.colors.blue": {
-					"description": "Color to use for blue symbols",
+				"cursorless.colors.light": {
+					"description": "Colors to use for light theme",
 					"type": "object",
+					"properties": {
+						"default": {
+							"type": "string"
+						},
+						"blue": {
+							"type": "string"
+						},
+						"green": {
+							"type": "string"
+						},
+						"red": {
+							"type": "string"
+						},
+						"pink": {
+							"type": "string"
+						},
+						"yellow": {
+							"type": "string"
+						}
+					},
 					"default": {
-						"dark": "#089ad3",
-						"light": "#089ad3",
-						"highContrast": "#089ad3"
-					}
+						"default": "#666666",
+						"blue": "#089ad3",
+						"green": "#05b623",
+						"red": "#ca2a15",
+						"pink": "#e17fab",
+						"yellow": "#e5c300"
+					},
+					"additionalProperties": false
 				},
-				"cursorless.colors.green": {
-					"description": "Color to use for green symbols",
+				"cursorless.colors.highContrast": {
+					"description": "Colors to use for high contrast theme",
 					"type": "object",
+					"properties": {
+						"default": {
+							"type": "string"
+						},
+						"blue": {
+							"type": "string"
+						},
+						"green": {
+							"type": "string"
+						},
+						"red": {
+							"type": "string"
+						},
+						"pink": {
+							"type": "string"
+						},
+						"yellow": {
+							"type": "string"
+						}
+					},
 					"default": {
-						"dark": "#05b623",
-						"light": "#05b623",
-						"highContrast": "#05b623"
-					}
-				},
-				"cursorless.colors.red": {
-					"description": "Color to use for red symbols",
-					"type": "object",
-					"default": {
-						"dark": "#ca2a15",
-						"light": "#ca2a15",
-						"highContrast": "#ca2a15"
-					}
-				},
-				"cursorless.colors.pink": {
-					"description": "Color to use for pink symbols",
-					"type": "object",
-					"default": {
-						"dark": "#e17fab",
-						"light": "#e17fab",
-						"highContrast": "#e17fab"
-					}
-				},
-				"cursorless.colors.yellow": {
-					"description": "Color to use for yellow symbols",
-					"type": "object",
-					"default": {
-						"dark": "#e5c300",
-						"light": "#e5c300",
-						"highContrast": "#e5c300"
-					}
+						"default": "#ffffff",
+						"blue": "#089ad3",
+						"green": "#05b623",
+						"red": "#ca2a15",
+						"pink": "#e17fab",
+						"yellow": "#e5c300"
+					},
+					"additionalProperties": false
 				},
 				"cursorless.hatEnablement.colors": {
 					"description": "Which colors to enable",
