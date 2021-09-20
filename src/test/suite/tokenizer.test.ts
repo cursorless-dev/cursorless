@@ -40,9 +40,12 @@ const tests: TestCase[] = [
   ["??", ["??"]],
   ["\\r\\n\\t", ["\\r", "\\n", "\\t"]],
   ['"""hello"""', ['"""', "hello", '"""']],
+  ["```typescript", ["```", "typescript"]],
   ['""""""', ['"""', '"""']],
+  ["``````", ["```", "```"]],
   ['""', ['"', '"']],
   ["''", ["'", "'"]],
+  ["``", ["`", "`"]],
   // Comments
   ["// Hello world", ["//", "Hello", "world"]],
   // Hex colors
@@ -52,7 +55,7 @@ const tests: TestCase[] = [
   ["#aaaa11", ["#", "aaaa11"]],
   ["#111111", ["#", "111111"]],
   // Unicode characters
-  ["aåäöb", ["aåäöb"]]
+  ["aåäöb", ["aåäöb"]],
 ];
 
 suite("tokenizer", () => {
