@@ -14,24 +14,19 @@ import FontMeasurements from "./FontMeasurements";
 import { sortBy } from "lodash";
 import getHatThemeColors from "./getHatThemeColors";
 
-interface ShapeMeasurements {
-  hatSizeAdjustment?: number;
-  hatHeightAdjustment?: number;
-  hatWidthAdjustment?: number;
+interface HatAdjustments {
+  sizeAdjustment?: number;
+  widthAdjustment?: number;
+  heightAdjustment?: number;
   verticalOffset?: number;
 }
 
-interface IndividualHatAdjustment {
-  hatVerticalOffset: number;
-  hatSizeAdjustment: number;
-}
-
-type IndividualHatAdjustmentSetting = Record<HatShape, IndividualHatAdjustment>;
+type IndividualHatAdjustmentSetting = Record<HatShape, HatAdjustments>;
 
 const DEFAULT_HAT_HEIGHT_EM = 0.5;
 const DEFAULT_VERTICAL_OFFSET_EM = -0.06274;
 
-const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
+const defaultShapeMeasurements: Record<HatShape, HatAdjustments> = {
   default: {},
   fourPointStar: {},
   threePointStar: {},
@@ -74,40 +69,47 @@ export default class Decorations {
   constructDecorations(fontMeasurements: FontMeasurements) {
     this.constructHatStyleMap();
 
-    const hatSizeAdjustment = vscode.workspace
+    const userSizeAdjustment = vscode.workspace
       .getConfiguration("cursorless")
       .get<number>(`hatSizeAdjustment`)!;
 
-    const userHatVerticalOffsetAdjustment = vscode.workspace
+    const userVerticalOffset = vscode.workspace
       .getConfiguration("cursorless")
       .get<number>(`hatVerticalOffset`)!;
 
-    const userIndividualHatAdjustments = vscode.workspace
+    const userIndividualAdjustments = vscode.workspace
       .getConfiguration("cursorless")
       .get<IndividualHatAdjustmentSetting>("individualHatAdjustments")!;
 
     const hatSvgMap = Object.fromEntries(
       HAT_SHAPES.map((shape) => {
         const {
-          hatHeightAdjustment = 0,
-          hatSizeAdjustment = 0,
-          hatWidthAdjustment = 0,
+          heightAdjustment = 0,
+          sizeAdjustment = 0,
+          widthAdjustment = 0,
           verticalOffset = 0,
         } = defaultShapeMeasurements[shape];
 
-        const individualHatSizeAdjustment =
-          userIndividualHatAdjustments[shape]?.hatSizeAdjustment ?? 0;
+        const {
+          heightAdjustment: userHeightAdjustment = 0,
+          sizeAdjustment: userIndividualSizeAdjustment = 0,
+          widthAdjustment: userWidthAdjustment = 0,
+          verticalOffset: userIndividualVerticalOffset = 0,
+        } = userIndividualAdjustments[shape] ?? {};
 
-        const hatScaleFactor =
-          1 + (hatSizeAdjustment + individualHatSizeAdjustment) / 100;
+        const scaleFactor =
+          1 +
+          (sizeAdjustment + userSizeAdjustment + userIndividualSizeAdjustment) /
+            100;
 
-        const individualVerticalOffsetAdjustment =
-          userIndividualHatAdjustments[shape]?.hatVerticalOffset ?? 0;
+        const horizontalScaleFactor =
+          1 + (widthAdjustment + userWidthAdjustment) / 100;
+
+        const verticalScaleFactor =
+          1 + (heightAdjustment + userHeightAdjustment) / 100;
 
         const finalHatVerticalOffset =
-          (verticalOffset +
-            userHatVerticalOffsetAdjustment +
-            individualVerticalOffsetAdjustment) /
+          (verticalOffset + userVerticalOffset + userIndividualVerticalOffset) /
           100;
 
         return [
@@ -115,8 +117,8 @@ export default class Decorations {
           this.processSvg(
             fontMeasurements,
             shape,
-            hatScaleFactor * (1 + hatWidthAdjustment / 100),
-            hatScaleFactor * (1 + hatHeightAdjustment / 100),
+            scaleFactor * horizontalScaleFactor,
+            scaleFactor * verticalScaleFactor,
             finalHatVerticalOffset
           ),
         ];
