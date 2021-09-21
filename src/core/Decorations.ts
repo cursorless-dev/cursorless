@@ -23,8 +23,8 @@ interface HatAdjustments {
 
 type IndividualHatAdjustmentSetting = Record<HatShape, HatAdjustments>;
 
-const DEFAULT_HAT_HEIGHT_EM = 0.5;
-const DEFAULT_VERTICAL_OFFSET_EM = -0.06274;
+const DEFAULT_HAT_HEIGHT_EM = 0.29;
+const DEFAULT_VERTICAL_OFFSET_EM = -0.11274;
 
 const defaultShapeMeasurements: Record<HatShape, HatAdjustments> = {
   default: {},
