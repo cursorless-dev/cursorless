@@ -24,7 +24,7 @@ interface HatAdjustments {
 type IndividualHatAdjustmentSetting = Record<HatShape, HatAdjustments>;
 
 const DEFAULT_HAT_HEIGHT_EM = 0.29;
-const DEFAULT_VERTICAL_OFFSET_EM = -0.11274;
+const DEFAULT_VERTICAL_OFFSET_EM = -0.258;
 
 const defaultShapeMeasurements: Record<HatShape, HatAdjustments> = {
   default: {},
@@ -244,9 +244,6 @@ export default class Decorations {
     const rawSvg = readFileSync(iconPath, "utf8");
     const { characterWidth, characterHeight, fontSize } = fontMeasurements;
 
-    const hatVerticalOffsetPx =
-      (hatVerticalOffsetEm + DEFAULT_VERTICAL_OFFSET_EM) * fontSize;
-
     const { originalViewBoxHeight, originalViewBoxWidth } =
       this.getViewBoxDimensions(rawSvg);
 
@@ -256,6 +253,10 @@ export default class Decorations {
 
     const hatHeightPx = defaultHatHeightPx * verticalScaleFactor;
     const hatWidthPx = defaultHatWidthPx * horizontalScaleFactor;
+
+    const hatVerticalOffsetPx =
+      (hatVerticalOffsetEm + DEFAULT_VERTICAL_OFFSET_EM) * fontSize +
+      hatHeightPx / 2;
 
     const svgWidthPx = Math.ceil(characterWidth);
     const svgHeightPx = characterHeight + hatHeightPx + hatVerticalOffsetPx;
