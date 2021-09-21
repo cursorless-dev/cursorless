@@ -321,12 +321,6 @@ export interface Graph {
   readonly navigationMap: NavigationMap;
 }
 
-export interface DecorationColorSetting {
-  dark: string;
-  light: string;
-  highContrast: string;
-}
-
 export type NodeMatcherValue = {
   node: SyntaxNode;
   selection: SelectionWithContext;

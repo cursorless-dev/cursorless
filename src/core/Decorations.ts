@@ -10,9 +10,9 @@ import {
   HatColor,
 } from "./constants";
 import { readFileSync } from "fs";
-import { DecorationColorSetting } from "../typings/Types";
 import FontMeasurements from "./FontMeasurements";
 import { sortBy } from "lodash";
+import getHatThemeColors from "./getHatThemeColors";
 
 interface ShapeMeasurements {
   hatWidthToCharacterWidthRatio: number;
@@ -138,9 +138,7 @@ export default class Decorations {
       const { color, shape } = this.hatStyleMap[styleName];
       const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shape];
 
-      const colorSetting = vscode.workspace
-        .getConfiguration("cursorless.colors")
-        .get<DecorationColorSetting>(color)!;
+      const { light, dark } = getHatThemeColors(color);
 
       return {
         name: styleName,
@@ -148,18 +146,12 @@ export default class Decorations {
           rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
           light: {
             before: {
-              contentIconPath: this.constructColoredSvgDataUri(
-                svg,
-                colorSetting.light
-              ),
+              contentIconPath: this.constructColoredSvgDataUri(svg, light),
             },
           },
           dark: {
             before: {
-              contentIconPath: this.constructColoredSvgDataUri(
-                svg,
-                colorSetting.dark
-              ),
+              contentIconPath: this.constructColoredSvgDataUri(svg, dark),
             },
           },
           before: {
