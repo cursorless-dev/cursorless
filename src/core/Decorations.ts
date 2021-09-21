@@ -27,15 +27,30 @@ const DEFAULT_HAT_HEIGHT_EM = 0.29;
 const DEFAULT_VERTICAL_OFFSET_EM = 0.032;
 
 const defaultShapeMeasurements: Record<HatShape, HatAdjustments> = {
-  default: {},
-  fourPointStar: {},
-  threePointStar: {},
-  chevron: {},
-  hole: {},
+  default: {
+    sizeAdjustment: -7,
+  },
+  fourPointStar: {
+    sizeAdjustment: 20,
+  },
+  chevron: {
+    sizeAdjustment: -10,
+  },
+  threePointStar: {
+    sizeAdjustment: 13,
+    verticalOffset: 2,
+  },
+  hole: {
+    sizeAdjustment: 30,
+  },
   frame: {},
-  curve: {},
+  curve: {
+    sizeAdjustment: -30,
+  },
   eye: {},
-  play: {},
+  play: {
+    sizeAdjustment: 10,
+  },
 };
 
 export type DecorationMap = {
