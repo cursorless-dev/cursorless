@@ -195,39 +195,6 @@
 					},
 					"additionalProperties": false
 				},
-				"cursorless.colors.highContrast": {
-					"description": "Colors to use for high contrast theme",
-					"type": "object",
-					"properties": {
-						"default": {
-							"type": "string"
-						},
-						"blue": {
-							"type": "string"
-						},
-						"green": {
-							"type": "string"
-						},
-						"red": {
-							"type": "string"
-						},
-						"pink": {
-							"type": "string"
-						},
-						"yellow": {
-							"type": "string"
-						}
-					},
-					"default": {
-						"default": "#ffffff",
-						"blue": "#089ad3",
-						"green": "#05b623",
-						"red": "#ca2a15",
-						"pink": "#e17fab",
-						"yellow": "#e5c300"
-					},
-					"additionalProperties": false
-				},
 				"cursorless.hatEnablement.colors": {
 					"description": "Which colors to enable",
 					"type": "object",
