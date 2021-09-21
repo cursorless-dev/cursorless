@@ -13,6 +13,46 @@ export interface RangeInfo {
   endOffset: number;
 }
 
+interface BehaviorDefinition {
+  isReplace?: boolean;
+
+  isLeftOpen?: boolean;
+  isRightOpen?: boolean;
+  captureRegex?: RegExp;
+
+  behavior: (
+    changeEvent: TextDocumentChangeEvent,
+    rangeInfo: RangeInfo
+  ) => void;
+}
+
+interface InsertBehavior extends BehaviorDefinition {
+  isReplace: boolean;
+}
+
+const insertBehaviors: InsertBehavior[] = [
+  {
+    isReplace: false,
+    isLeftOpen: false,
+    behavior: () => {},
+  },
+  {
+    isReplace: false,
+    isLeftOpen: true,
+    behavior: () => {},
+  },
+  {
+    isReplace: true,
+    isRightOpen: false,
+    behavior: () => {},
+  },
+  {
+    isReplace: true,
+    isRightOpen: true,
+    behavior: () => {},
+  },
+];
+
 export function updateRangeInfos(
   changeEvent: TextDocumentChangeEvent,
   rangeInfos: RangeInfo[],
