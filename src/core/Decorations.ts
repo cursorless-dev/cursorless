@@ -15,8 +15,10 @@ import { sortBy } from "lodash";
 import getHatThemeColors from "./getHatThemeColors";
 
 interface ShapeMeasurements {
-  hatWidthToCharacterWidthRatio: number;
-  verticalOffsetEm: number;
+  hatSizeAdjustment?: number;
+  hatHeightAdjustment?: number;
+  hatWidthAdjustment?: number;
+  verticalOffset?: number;
 }
 
 interface IndividualHatAdjustment {
@@ -26,43 +28,19 @@ interface IndividualHatAdjustment {
 
 type IndividualHatAdjustmentSetting = Record<HatShape, IndividualHatAdjustment>;
 
+const DEFAULT_HAT_HEIGHT_EM = 0.5;
+const DEFAULT_VERTICAL_OFFSET_EM = -0.06274;
+
 const defaultShapeMeasurements: Record<HatShape, ShapeMeasurements> = {
-  default: {
-    hatWidthToCharacterWidthRatio: 0.6362522386652841,
-    verticalOffsetEm: -0.06274676909914044,
-  },
-  fourPointStar: {
-    hatWidthToCharacterWidthRatio: 0.6362522386652841,
-    verticalOffsetEm: -0.06274676909914044,
-  },
-  threePointStar: {
-    hatWidthToCharacterWidthRatio: 0.6362522386652841,
-    verticalOffsetEm: -0.06274676909914044,
-  },
-  chevron: {
-    hatWidthToCharacterWidthRatio: 0.6362522386652841,
-    verticalOffsetEm: -0.06274676909914044,
-  },
-  hole: {
-    hatWidthToCharacterWidthRatio: 0.6362522386652841,
-    verticalOffsetEm: -0.06274676909914044,
-  },
-  frame: {
-    hatWidthToCharacterWidthRatio: 0.6362522386652841,
-    verticalOffsetEm: -0.06274676909914044,
-  },
-  curve: {
-    hatWidthToCharacterWidthRatio: 0.6362522386652841,
-    verticalOffsetEm: -0.06274676909914044,
-  },
-  eye: {
-    hatWidthToCharacterWidthRatio: 0.6362522386652841,
-    verticalOffsetEm: -0.06274676909914044,
-  },
-  play: {
-    hatWidthToCharacterWidthRatio: 0.6362522386652841,
-    verticalOffsetEm: -0.06274676909914044,
-  },
+  default: {},
+  fourPointStar: {},
+  threePointStar: {},
+  chevron: {},
+  hole: {},
+  frame: {},
+  curve: {},
+  eye: {},
+  play: {},
 };
 
 export type DecorationMap = {
@@ -110,8 +88,12 @@ export default class Decorations {
 
     const hatSvgMap = Object.fromEntries(
       HAT_SHAPES.map((shape) => {
-        const { hatWidthToCharacterWidthRatio, verticalOffsetEm } =
-          defaultShapeMeasurements[shape];
+        const {
+          hatHeightAdjustment = 0,
+          hatSizeAdjustment = 0,
+          hatWidthAdjustment = 0,
+          verticalOffset = 0,
+        } = defaultShapeMeasurements[shape];
 
         const individualHatSizeAdjustment =
           userIndividualHatAdjustments[shape]?.hatSizeAdjustment ?? 0;
@@ -122,17 +104,20 @@ export default class Decorations {
         const individualVerticalOffsetAdjustment =
           userIndividualHatAdjustments[shape]?.hatVerticalOffset ?? 0;
 
+        const finalHatVerticalOffset =
+          (verticalOffset +
+            userHatVerticalOffsetAdjustment +
+            individualVerticalOffsetAdjustment) /
+          100;
+
         return [
           shape,
           this.processSvg(
             fontMeasurements,
             shape,
-            hatScaleFactor * hatWidthToCharacterWidthRatio,
-            (verticalOffsetEm +
-              (userHatVerticalOffsetAdjustment +
-                individualVerticalOffsetAdjustment) /
-                100) *
-              fontMeasurements.fontSize
+            hatScaleFactor * (1 + hatWidthAdjustment / 100),
+            hatScaleFactor * (1 + hatHeightAdjustment / 100),
+            finalHatVerticalOffset
           ),
         ];
       })
@@ -249,22 +234,31 @@ export default class Decorations {
   private processSvg(
     fontMeasurements: FontMeasurements,
     shape: HatShape,
-    hatWidthToCharacterWidthRatio: number,
-    hatVerticalOffset: number
+    horizontalScaleFactor: number,
+    verticalScaleFactor: number,
+    hatVerticalOffsetEm: number
   ) {
     const iconPath = join(this.extensionPath, "images", "hats", `${shape}.svg`);
     const rawSvg = readFileSync(iconPath, "utf8");
-    const { characterWidth, characterHeight } = fontMeasurements;
+    const { characterWidth, characterHeight, fontSize } = fontMeasurements;
+
+    const hatVerticalOffsetPx =
+      (hatVerticalOffsetEm + DEFAULT_VERTICAL_OFFSET_EM) * fontSize;
 
     const { originalViewBoxHeight, originalViewBoxWidth } =
       this.getViewBoxDimensions(rawSvg);
 
-    const hatWidthPx = hatWidthToCharacterWidthRatio * characterWidth;
-    const hatHeightPx =
-      (originalViewBoxHeight / originalViewBoxWidth) * hatWidthPx;
+    const defaultHatHeightPx = DEFAULT_HAT_HEIGHT_EM * fontSize;
+    const defaultHatWidthPx =
+      (originalViewBoxWidth / originalViewBoxHeight) * defaultHatHeightPx;
+
+    const hatHeightPx = defaultHatHeightPx * verticalScaleFactor;
+    const hatWidthPx = defaultHatWidthPx * horizontalScaleFactor;
 
     const svgWidthPx = Math.ceil(characterWidth);
-    const svgHeightPx = characterHeight + hatHeightPx + hatVerticalOffset;
+    const svgHeightPx = characterHeight + hatHeightPx + hatVerticalOffsetPx;
+
+    const hatWidthToCharacterWidthRatio = hatWidthPx / characterWidth;
 
     const newViewBoxWidth =
       ((originalViewBoxWidth / hatWidthToCharacterWidthRatio) * svgWidthPx) /
