@@ -16,8 +16,6 @@ import getHatThemeColors from "./getHatThemeColors";
 
 interface HatAdjustments {
   sizeAdjustment?: number;
-  widthAdjustment?: number;
-  heightAdjustment?: number;
   verticalOffset?: number;
 }
 
@@ -98,17 +96,11 @@ export default class Decorations {
 
     const hatSvgMap = Object.fromEntries(
       HAT_SHAPES.map((shape) => {
-        const {
-          heightAdjustment = 0,
-          sizeAdjustment = 0,
-          widthAdjustment = 0,
-          verticalOffset = 0,
-        } = defaultShapeMeasurements[shape];
+        const { sizeAdjustment = 0, verticalOffset = 0 } =
+          defaultShapeMeasurements[shape];
 
         const {
-          heightAdjustment: userHeightAdjustment = 0,
           sizeAdjustment: userIndividualSizeAdjustment = 0,
-          widthAdjustment: userWidthAdjustment = 0,
           verticalOffset: userIndividualVerticalOffset = 0,
         } = userIndividualAdjustments[shape] ?? {};
 
@@ -116,12 +108,6 @@ export default class Decorations {
           1 +
           (sizeAdjustment + userSizeAdjustment + userIndividualSizeAdjustment) /
             100;
-
-        const horizontalScaleFactor =
-          1 + (widthAdjustment + userWidthAdjustment) / 100;
-
-        const verticalScaleFactor =
-          1 + (heightAdjustment + userHeightAdjustment) / 100;
 
         const finalHatVerticalOffset =
           (verticalOffset + userVerticalOffset + userIndividualVerticalOffset) /
@@ -132,8 +118,7 @@ export default class Decorations {
           this.processSvg(
             fontMeasurements,
             shape,
-            scaleFactor * horizontalScaleFactor,
-            scaleFactor * verticalScaleFactor,
+            scaleFactor,
             finalHatVerticalOffset
           ),
         ];
@@ -244,15 +229,15 @@ export default class Decorations {
    * [This image](../images/svg-calculations.png) may or may not be helpful.
    *
    * @param fontMeasurements Info about the user's font
-   * @param hatWidthToCharacterWidthRatio How wide should hats be relative to character width
-   * @param hatVerticalOffset How far off top of characters should hats be
+   * @param shape The hat shape to process
+   * @param scaleFactor How much to scale the hat
+   * @param hatVerticalOffsetEm How far off top of characters should hats be
    * @returns An object with the new SVG and its measurements
    */
   private processSvg(
     fontMeasurements: FontMeasurements,
     shape: HatShape,
-    horizontalScaleFactor: number,
-    verticalScaleFactor: number,
+    scaleFactor: number,
     hatVerticalOffsetEm: number
   ) {
     const iconPath = join(this.extensionPath, "images", "hats", `${shape}.svg`);
@@ -266,8 +251,8 @@ export default class Decorations {
     const defaultHatWidthPx =
       (originalViewBoxWidth / originalViewBoxHeight) * defaultHatHeightPx;
 
-    const hatHeightPx = defaultHatHeightPx * verticalScaleFactor;
-    const hatWidthPx = defaultHatWidthPx * horizontalScaleFactor;
+    const hatHeightPx = defaultHatHeightPx * scaleFactor;
+    const hatWidthPx = defaultHatWidthPx * scaleFactor;
 
     const hatVerticalOffsetPx =
       (hatVerticalOffsetEm + DEFAULT_VERTICAL_OFFSET_EM) * fontSize -
