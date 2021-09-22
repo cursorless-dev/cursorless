@@ -255,18 +255,14 @@ export default class Decorations {
     const hatWidthPx = defaultHatWidthPx * scaleFactor;
 
     const hatVerticalOffsetPx =
-      (hatVerticalOffsetEm + DEFAULT_VERTICAL_OFFSET_EM) * fontSize -
+      (DEFAULT_VERTICAL_OFFSET_EM + hatVerticalOffsetEm) * fontSize -
       hatHeightPx / 2;
 
     const svgWidthPx = Math.ceil(characterWidth);
     const svgHeightPx = characterHeight + hatHeightPx + hatVerticalOffsetPx;
 
-    const hatWidthToCharacterWidthRatio = hatWidthPx / characterWidth;
-
-    const newViewBoxWidth =
-      ((originalViewBoxWidth / hatWidthToCharacterWidthRatio) * svgWidthPx) /
-      characterWidth;
-    const newViewBoxHeight = (newViewBoxWidth * svgHeightPx) / svgWidthPx;
+    const newViewBoxWidth = originalViewBoxWidth * (svgWidthPx / hatWidthPx);
+    const newViewBoxHeight = newViewBoxWidth * (svgHeightPx / svgWidthPx);
     const newViewBoxX =
       (-(characterWidth - hatWidthPx) * (newViewBoxWidth / svgWidthPx)) / 2;
     const newViewBoxY = 0;
