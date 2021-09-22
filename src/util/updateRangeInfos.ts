@@ -18,7 +18,7 @@ interface BehaviorDefinition {
 
   isLeftOpen?: boolean;
   isRightOpen?: boolean;
-  captureRegex?: RegExp;
+  hasCaptureRegex?: boolean;
 
   behavior: (
     changeEvent: TextDocumentChangeEvent,
@@ -34,11 +34,18 @@ const insertBehaviors: InsertBehavior[] = [
   {
     isReplace: false,
     isLeftOpen: false,
+    hasCaptureRegex: false,
     behavior: () => {},
   },
   {
     isReplace: false,
     isLeftOpen: true,
+    hasCaptureRegex: false,
+    behavior: () => {},
+  },
+  {
+    isReplace: false,
+    hasCaptureRegex: true,
     behavior: () => {},
   },
   {
