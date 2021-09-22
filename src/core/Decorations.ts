@@ -109,7 +109,7 @@ export default class Decorations {
           (sizeAdjustment + userSizeAdjustment + userIndividualSizeAdjustment) /
             100;
 
-        const finalVerticalOffset =
+        const finalVerticalOffsetEm =
           (verticalOffset + userVerticalOffset + userIndividualVerticalOffset) /
           100;
 
@@ -119,7 +119,7 @@ export default class Decorations {
             fontMeasurements,
             shape,
             scaleFactor,
-            finalVerticalOffset
+            finalVerticalOffsetEm
           ),
         ];
       })
