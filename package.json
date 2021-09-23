@@ -228,13 +228,13 @@
 					"description": "Which shapes to enable",
 					"type": "object",
 					"properties": {
-						"fourPointStar": {
+						"ex": {
 							"type": "boolean"
 						},
-						"chevron": {
+						"fox": {
 							"type": "boolean"
 						},
-						"threePointStar": {
+						"wing": {
 							"type": "boolean"
 						},
 						"hole": {
@@ -251,17 +251,21 @@
 						},
 						"play": {
 							"type": "boolean"
+						},
+						"star": {
+							"type": "boolean"
 						}
 					},
 					"default": {
-						"fourPointStar": false,
-						"chevron": false,
-						"threePointStar": false,
+						"ex": false,
+						"fox": false,
+						"wing": false,
 						"hole": false,
 						"frame": false,
 						"curve": false,
 						"eye": false,
-						"play": false
+						"play": false,
+						"star": false
 					},
 					"additionalProperties": false
 				},
@@ -298,13 +302,13 @@
 					"description": "How much to penalize each hat shape. Number of syllables is a good default",
 					"type": "object",
 					"properties": {
-						"fourPointStar": {
+						"ex": {
 							"type": "number"
 						},
-						"chevron": {
+						"fox": {
 							"type": "number"
 						},
-						"threePointStar": {
+						"wing": {
 							"type": "number"
 						},
 						"hole": {
@@ -321,17 +325,21 @@
 						},
 						"play": {
 							"type": "number"
+						},
+						"star": {
+							"type": "number"
 						}
 					},
 					"default": {
-						"fourPointStar": 1,
-						"chevron": 1,
-						"threePointStar": 1,
+						"ex": 1,
+						"fox": 1,
+						"wing": 1,
 						"hole": 1,
 						"frame": 1,
 						"curve": 1,
 						"eye": 1,
-						"play": 1
+						"play": 1,
+						"star": 1
 					},
 					"additionalProperties": false
 				},

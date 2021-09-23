@@ -28,13 +28,13 @@ const defaultShapeMeasurements: Record<HatShape, HatAdjustments> = {
   default: {
     sizeAdjustment: -7,
   },
-  fourPointStar: {
+  ex: {
     sizeAdjustment: 20,
   },
-  chevron: {
+  fox: {
     sizeAdjustment: -10,
   },
-  threePointStar: {
+  wing: {
     sizeAdjustment: 13,
     verticalOffset: 2,
   },
@@ -49,6 +49,7 @@ const defaultShapeMeasurements: Record<HatShape, HatAdjustments> = {
   play: {
     sizeAdjustment: 10,
   },
+  star: {},
 };
 
 export type DecorationMap = {
