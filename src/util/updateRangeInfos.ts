@@ -13,50 +13,121 @@ export interface RangeInfo {
   endOffset: number;
 }
 
-interface BehaviorDefinition {
+interface ChangeEventInfo {
+  event: TextDocumentContentChangeEvent;
+  originalStartOffset: number;
+  originalEndOffset: number;
+  finalStartOffset: number;
+  finalEndOffset: number;
+  displacement: number;
+}
+
+interface RangeOffsets {
+  startOffset: number;
+  endOffset: number;
+}
+
+interface BehaviorCondition {
   isReplace?: boolean;
 
   isLeftOpen?: boolean;
   isRightOpen?: boolean;
   hasCaptureRegex?: boolean;
+}
+
+interface BehaviorDefinition {
+  condition: BehaviorCondition;
 
   behavior: (
-    changeEvent: TextDocumentChangeEvent,
-    rangeInfo: RangeInfo
-  ) => void;
+    changeEventInfo: ChangeEventInfo,
+    rangeInfo: RangeInfo,
+    options: { captureRegex: RegExp }
+  ) => RangeOffsets;
 }
 
-interface InsertBehavior extends BehaviorDefinition {
+interface InsertBehaviorCondition extends BehaviorCondition {
   isReplace: boolean;
 }
+interface InsertBehaviorDefinition extends BehaviorDefinition {
+  condition: InsertBehaviorCondition;
+}
 
-const insertBehaviors: InsertBehavior[] = [
+const emptyRangeInsertBehaviors: InsertBehaviorDefinition[] = [
   {
-    isReplace: false,
-    isLeftOpen: false,
-    hasCaptureRegex: false,
-    behavior: () => {},
+    condition: { isReplace: false, isLeftOpen: false },
+    behavior: ({ finalEndOffset }) => ({
+      startOffset: finalEndOffset,
+      endOffset: finalEndOffset,
+    }),
   },
   {
-    isReplace: false,
-    isLeftOpen: true,
-    hasCaptureRegex: false,
-    behavior: () => {},
+    condition: { isReplace: false, isLeftOpen: true },
+    behavior: ({ finalStartOffset, finalEndOffset }) => ({
+      startOffset: finalStartOffset,
+      endOffset: finalEndOffset,
+    }),
   },
   {
-    isReplace: false,
-    hasCaptureRegex: true,
-    behavior: () => {},
+    condition: { isReplace: false, hasCaptureRegex: true },
+    behavior: (
+      { finalStartOffset, finalEndOffset, event: { text } },
+      _,
+      { captureRegex }
+    ) => {
+      const { source, flags } = captureRegex;
+      const newRegex = new RegExp(
+        source.endsWith("$") ? source : source + "$",
+        flags.replace("m", "")
+      );
+
+      const index = text.search(newRegex);
+
+      return index === -1
+        ? {
+            startOffset: finalEndOffset,
+            endOffset: finalEndOffset,
+          }
+        : {
+            startOffset: finalStartOffset + index,
+            endOffset: finalEndOffset,
+          };
+    },
   },
   {
-    isReplace: true,
-    isRightOpen: false,
-    behavior: () => {},
+    condition: { isReplace: true, isRightOpen: false },
+    behavior: ({ finalStartOffset }) => ({
+      startOffset: finalStartOffset,
+      endOffset: finalStartOffset,
+    }),
   },
   {
-    isReplace: true,
-    isRightOpen: true,
-    behavior: () => {},
+    condition: { isReplace: true, isRightOpen: true },
+    behavior: ({ finalStartOffset, finalEndOffset }) => ({
+      startOffset: finalStartOffset,
+      endOffset: finalEndOffset,
+    }),
+  },
+  {
+    condition: { isReplace: false, hasCaptureRegex: true },
+    behavior: ({ finalStartOffset, event: { text } }, _, { captureRegex }) => {
+      const { source, flags } = captureRegex;
+      const newRegex = new RegExp(
+        source.startsWith("^") ? source : "^" + source,
+        flags.replace("m", "")
+      );
+
+      const matches = text.match(newRegex);
+
+      return matches == null
+        ? {
+            startOffset: finalStartOffset,
+            endOffset: finalStartOffset,
+          }
+        : {
+            startOffset: finalStartOffset,
+            endOffset: finalStartOffset + matches[0].length,
+          };
+    },
   },
 ];
 
@@ -69,8 +140,11 @@ export function updateRangeInfos(
 
   contentChanges.forEach((change) => {
     const changeDisplacement = change.text.length - change.rangeLength;
-    const changeStartOffset = change.rangeOffset;
-    const changeEndOffset = changeStartOffset + change.rangeLength;
+    const changeOriginalStartOffset = change.rangeOffset;
+    const changeOriginalEndOffset =
+      changeOriginalStartOffset + change.rangeLength;
+    const changeFinalStartOffset = changeOriginalStartOffset;
+    const changeFinalEndOffset = changeOriginalEndOffset + changeDisplacement;
 
     rangeInfos.forEach((selectionInfo) => {
       if (selectionInfo.document !== document) {
