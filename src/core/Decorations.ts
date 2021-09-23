@@ -13,44 +13,12 @@ import { readFileSync } from "fs";
 import FontMeasurements from "./FontMeasurements";
 import { sortBy } from "lodash";
 import getHatThemeColors from "./getHatThemeColors";
-
-interface HatAdjustments {
-  sizeAdjustment?: number;
-  verticalOffset?: number;
-}
-
-type IndividualHatAdjustmentSetting = Record<HatShape, HatAdjustments>;
-
-const DEFAULT_HAT_HEIGHT_EM = 0.29;
-const DEFAULT_VERTICAL_OFFSET_EM = 0.032;
-
-const defaultShapeMeasurements: Record<HatShape, HatAdjustments> = {
-  default: {
-    sizeAdjustment: -7,
-  },
-  ex: {
-    sizeAdjustment: 20,
-  },
-  fox: {
-    sizeAdjustment: -10,
-  },
-  wing: {
-    sizeAdjustment: 13,
-    verticalOffset: 2,
-  },
-  hole: {
-    sizeAdjustment: 30,
-  },
-  frame: {},
-  curve: {
-    sizeAdjustment: -30,
-  },
-  eye: {},
-  play: {
-    sizeAdjustment: 10,
-  },
-  star: {},
-};
+import {
+  IndividualHatAdjustmentMap,
+  defaultShapeMeasurements,
+  DEFAULT_HAT_HEIGHT_EM,
+  DEFAULT_VERTICAL_OFFSET_EM,
+} from "./shapeMeasurements";
 
 export type DecorationMap = {
   [k in HatStyleName]?: vscode.TextEditorDecorationType;
@@ -93,7 +61,7 @@ export default class Decorations {
 
     const userIndividualAdjustments = vscode.workspace
       .getConfiguration("cursorless")
-      .get<IndividualHatAdjustmentSetting>("individualHatAdjustments")!;
+      .get<IndividualHatAdjustmentMap>("individualHatAdjustments")!;
 
     const hatSvgMap = Object.fromEntries(
       HAT_SHAPES.map((shape) => {

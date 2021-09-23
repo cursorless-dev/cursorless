@@ -155,10 +155,10 @@
 					"default": {
 						"default": "#aaa7bb",
 						"blue": "#089ad3",
-						"green": "#05b623",
-						"red": "#ca2a15",
-						"pink": "#e0679f",
-						"yellow": "#e5c300"
+						"green": "#36B33F",
+						"red": "#E02D28",
+						"pink": "#E06CAA",
+						"yellow": "#E5C02C"
 					},
 					"additionalProperties": false
 				},
@@ -186,12 +186,12 @@
 						}
 					},
 					"default": {
-						"default": "#666666",
+						"default": "#757180",
 						"blue": "#089ad3",
-						"green": "#05b623",
-						"red": "#ca2a15",
+						"green": "#36B33F",
+						"red": "#E02D28",
 						"pink": "#e0679f",
-						"yellow": "#e5c300"
+						"yellow": "#edb62b"
 					},
 					"additionalProperties": false
 				},
@@ -346,7 +346,48 @@
 				"cursorless.individualHatAdjustments": {
 					"description": "Separate adjustments for each hat shape",
 					"type": "object",
-					"default": {}
+					"default": {
+						"default": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"ex": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"fox": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"wing": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"hole": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"frame": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"curve": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"eye": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"play": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"star": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						}
+					}
 				}
 			}
 		}
