@@ -5,34 +5,33 @@ import {
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
 } from "vscode";
+import { leftAnchored, rightAnchored } from "./regex";
 
 export interface RangeInfo {
   document: TextDocument;
   range: Range;
-  startOffset: number;
-  endOffset: number;
+  offsets: RangeOffsets;
 }
 
 interface ChangeEventInfo {
   event: TextDocumentContentChangeEvent;
-  originalStartOffset: number;
-  originalEndOffset: number;
-  finalStartOffset: number;
-  finalEndOffset: number;
+  originalOffsets: RangeOffsets;
+  finalOffsets: RangeOffsets;
   displacement: number;
 }
 
 interface RangeOffsets {
-  startOffset: number;
-  endOffset: number;
+  start: number;
+  end: number;
 }
+
+type ExpansionBehavior = "open" | "closed" | "regex";
 
 interface BehaviorCondition {
   isReplace?: boolean;
 
-  isLeftOpen?: boolean;
-  isRightOpen?: boolean;
-  hasCaptureRegex?: boolean;
+  leftExpansionBehavior?: ExpansionBehavior;
+  rightExpansionBehavior?: ExpansionBehavior;
 }
 
 interface BehaviorDefinition {
@@ -54,78 +53,64 @@ interface InsertBehaviorDefinition extends BehaviorDefinition {
 
 const emptyRangeInsertBehaviors: InsertBehaviorDefinition[] = [
   {
-    condition: { isReplace: false, isLeftOpen: false },
-    behavior: ({ finalEndOffset }) => ({
-      startOffset: finalEndOffset,
-      endOffset: finalEndOffset,
+    condition: { isReplace: false, leftExpansionBehavior: "closed" },
+    behavior: ({ finalOffsets: { end } }) => ({
+      start: end,
+      end,
     }),
   },
   {
-    condition: { isReplace: false, isLeftOpen: true },
-    behavior: ({ finalStartOffset, finalEndOffset }) => ({
-      startOffset: finalStartOffset,
-      endOffset: finalEndOffset,
-    }),
+    condition: { isReplace: false, leftExpansionBehavior: "open" },
+    behavior: ({ finalOffsets }) => finalOffsets,
   },
   {
-    condition: { isReplace: false, hasCaptureRegex: true },
+    condition: { isReplace: false, leftExpansionBehavior: "regex" },
     behavior: (
-      { finalStartOffset, finalEndOffset, event: { text } },
+      { finalOffsets: { start, end }, event: { text } },
       _,
       { captureRegex }
     ) => {
-      const { source, flags } = captureRegex;
-      const newRegex = new RegExp(
-        source.endsWith("$") ? source : source + "$",
-        flags.replace("m", "")
-      );
-
-      const index = text.search(newRegex);
+      const index = text.search(rightAnchored(captureRegex));
 
       return index === -1
         ? {
-            startOffset: finalEndOffset,
-            endOffset: finalEndOffset,
+            start: end,
+            end,
           }
         : {
-            startOffset: finalStartOffset + index,
-            endOffset: finalEndOffset,
+            start: start + index,
+            end,
           };
     },
   },
   {
-    condition: { isReplace: true, isRightOpen: false },
-    behavior: ({ finalStartOffset }) => ({
-      startOffset: finalStartOffset,
-      endOffset: finalStartOffset,
+    condition: { isReplace: true, rightExpansionBehavior: "closed" },
+    behavior: ({ finalOffsets: { start } }) => ({
+      start,
+      end: start,
     }),
   },
   {
-    condition: { isReplace: true, isRightOpen: true },
-    behavior: ({ finalStartOffset, finalEndOffset }) => ({
-      startOffset: finalStartOffset,
-      endOffset: finalEndOffset,
-    }),
+    condition: { isReplace: true, rightExpansionBehavior: "open" },
+    behavior: ({ finalOffsets }) => finalOffsets,
   },
   {
-    condition: { isReplace: false, hasCaptureRegex: true },
-    behavior: ({ finalStartOffset, event: { text } }, _, { captureRegex }) => {
-      const { source, flags } = captureRegex;
-      const newRegex = new RegExp(
-        source.startsWith("^") ? source : "^" + source,
-        flags.replace("m", "")
-      );
-
-      const matches = text.match(newRegex);
+    condition: { isReplace: true, rightExpansionBehavior: "regex" },
+    behavior: (
+      { finalOffsets: { start }, event: { text } },
+      _,
+      { captureRegex }
+    ) => {
+      const matches = text.match(leftAnchored(captureRegex));
 
       return matches == null
         ? {
-            startOffset: finalStartOffset,
-            endOffset: finalStartOffset,
+            start,
+            end: start,
           }
         : {
-            startOffset: finalStartOffset,
-            endOffset: finalStartOffset + matches[0].length,
+            start,
+            end: start + matches[0].length,
           };
     },
   },
