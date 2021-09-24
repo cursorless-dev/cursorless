@@ -23,28 +23,31 @@ export const defaultShapeMeasurements: IndividualHatAdjustmentMap = {
   },
   wing: {
     sizeAdjustment: 18,
-    verticalOffset: -0.1,
+    verticalOffset: 2.1,
   },
   hole: {
     sizeAdjustment: 45,
-    verticalOffset: -2.5,
+    verticalOffset: -2,
   },
   frame: {
-    sizeAdjustment: -15,
-    verticalOffset: -0.5,
+    sizeAdjustment: -20,
+    verticalOffset: -4.5,
   },
   curve: {
     sizeAdjustment: -27,
-    verticalOffset: -2,
+    verticalOffset: -4.1,
   },
   eye: {
-    sizeAdjustment: -3,
+    sizeAdjustment: -4,
     verticalOffset: -1,
   },
   play: {
-    sizeAdjustment: -2,
+    sizeAdjustment: -8,
+    verticalOffset: -0.5,
   },
-  bolt: {},
+  bolt: {
+    sizeAdjustment: 30,
+  },
   star: {
     sizeAdjustment: 42,
     verticalOffset: -2,
