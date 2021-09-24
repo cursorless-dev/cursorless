@@ -7,14 +7,46 @@ import {
 } from "vscode";
 import { leftAnchored, rightAnchored } from "./regex";
 
+interface RangeOffsets {
+  start: number;
+  end: number;
+}
+
+type SingleEdgeExpansionBehavior =
+  | SimpleExpansionBehavior
+  | RegexExpansionBehavior;
+
+interface SimpleExpansionBehavior {
+  type: "open" | "closed";
+}
+
+interface RegexExpansionBehavior {
+  type: "regex";
+  regex: RegExp;
+}
+
+interface ExpansionBehavior {
+  start: SingleEdgeExpansionBehavior;
+  end: SingleEdgeExpansionBehavior;
+}
+
 export interface RangeInfo {
   document: TextDocument;
   range: Range;
   offsets: RangeOffsets;
+  expansionBehavior: ExpansionBehavior;
+}
+
+interface ExtendedTextDocumentContentChangeEvent
+  extends TextDocumentContentChangeEvent {
+  /**
+   * If this is true then we should not shift an empty selection to the right
+   */
+  isReplace?: boolean;
 }
 
 interface ChangeEventInfo {
-  event: TextDocumentContentChangeEvent;
+  event: ExtendedTextDocumentContentChangeEvent;
   originalOffsets: RangeOffsets;
   finalOffsets: RangeOffsets;
   displacement: number;
@@ -25,96 +57,144 @@ interface RangeOffsets {
   end: number;
 }
 
-type ExpansionBehavior = "open" | "closed" | "regex";
+function getOffsetsForEmptyRangeInsert(
+  changeEventInfo: ChangeEventInfo,
+  rangeInfo: RangeInfo
+): RangeOffsets {
+  const {
+    event: { text, isReplace },
+    finalOffsets: { start, end },
+  } = changeEventInfo;
 
-interface BehaviorCondition {
-  isReplace?: boolean;
+  if (isReplace) {
+    const expansionBehavior = rangeInfo.expansionBehavior.start;
 
-  leftExpansionBehavior?: ExpansionBehavior;
-  rightExpansionBehavior?: ExpansionBehavior;
+    switch (expansionBehavior.type) {
+      case "closed":
+        return {
+          start: end,
+          end,
+        };
+
+      case "open":
+        return { start, end };
+
+      case "regex":
+        const index = text.search(rightAnchored(expansionBehavior.regex));
+
+        return index === -1
+          ? {
+              start: end,
+              end,
+            }
+          : {
+              start: start + index,
+              end,
+            };
+    }
+  } else {
+    const expansionBehavior = rangeInfo.expansionBehavior.end;
+
+    switch (expansionBehavior.type) {
+      case "closed":
+        return {
+          start,
+          end: start,
+        };
+
+      case "open":
+        return { start, end };
+
+      case "regex":
+        const matches = text.match(leftAnchored(expansionBehavior.regex));
+
+        return matches == null
+          ? {
+              start,
+              end: start,
+            }
+          : {
+              start,
+              end: start + matches[0].length,
+            };
+    }
+  }
 }
 
-interface BehaviorDefinition {
-  condition: BehaviorCondition;
+function getOffsetsForNonEmptyRangeInsert(
+  changeEventInfo: ChangeEventInfo,
+  rangeInfo: RangeInfo
+): RangeOffsets {
+  const {
+    event: { text, isReplace },
+    originalOffsets: { start: insertOffset },
+    displacement,
+  } = changeEventInfo;
+  const {
+    offsets: { start: rangeStart, end: rangeEnd },
+  } = rangeInfo;
 
-  behavior: (
-    changeEventInfo: ChangeEventInfo,
-    rangeInfo: RangeInfo,
-    options: { captureRegex: RegExp }
-  ) => RangeOffsets;
+  if (insertOffset > rangeStart && insertOffset < rangeEnd) {
+    return { start: rangeStart, end: rangeEnd + displacement };
+  }
+
+  if (insertOffset === rangeStart) {
+    const expansionBehavior = rangeInfo.expansionBehavior.start;
+
+    switch (expansionBehavior.type) {
+      case "closed":
+        return {
+          start: rangeStart + displacement,
+          end: rangeEnd + displacement,
+        };
+
+      case "open":
+        return {
+          start: rangeStart,
+          end: rangeEnd + displacement,
+        };
+
+      case "regex":
+        const index = text.search(rightAnchored(expansionBehavior.regex));
+
+        return index === -1
+          ? {
+              start: end,
+              end,
+            }
+          : {
+              start: start + index,
+              end,
+            };
+    }
+  } else {
+    const expansionBehavior = rangeInfo.expansionBehavior.end;
+
+    switch (expansionBehavior.type) {
+      case "closed":
+        return {
+          start,
+          end: start,
+        };
+
+      case "open":
+        return { start, end };
+
+      case "regex":
+        const matches = text.match(leftAnchored(expansionBehavior.regex));
+
+        return matches == null
+          ? {
+              start,
+              end: start,
+            }
+          : {
+              start,
+              end: start + matches[0].length,
+            };
+    }
+  }
 }
-
-interface InsertBehaviorCondition extends BehaviorCondition {
-  isReplace: boolean;
-}
-interface InsertBehaviorDefinition extends BehaviorDefinition {
-  condition: InsertBehaviorCondition;
-}
-
-const emptyRangeInsertBehaviors: InsertBehaviorDefinition[] = [
-  {
-    condition: { isReplace: false, leftExpansionBehavior: "closed" },
-    behavior: ({ finalOffsets: { end } }) => ({
-      start: end,
-      end,
-    }),
-  },
-  {
-    condition: { isReplace: false, leftExpansionBehavior: "open" },
-    behavior: ({ finalOffsets }) => finalOffsets,
-  },
-  {
-    condition: { isReplace: false, leftExpansionBehavior: "regex" },
-    behavior: (
-      { finalOffsets: { start, end }, event: { text } },
-      _,
-      { captureRegex }
-    ) => {
-      const index = text.search(rightAnchored(captureRegex));
-
-      return index === -1
-        ? {
-            start: end,
-            end,
-          }
-        : {
-            start: start + index,
-            end,
-          };
-    },
-  },
-  {
-    condition: { isReplace: true, rightExpansionBehavior: "closed" },
-    behavior: ({ finalOffsets: { start } }) => ({
-      start,
-      end: start,
-    }),
-  },
-  {
-    condition: { isReplace: true, rightExpansionBehavior: "open" },
-    behavior: ({ finalOffsets }) => finalOffsets,
-  },
-  {
-    condition: { isReplace: true, rightExpansionBehavior: "regex" },
-    behavior: (
-      { finalOffsets: { start }, event: { text } },
-      _,
-      { captureRegex }
-    ) => {
-      const matches = text.match(leftAnchored(captureRegex));
-
-      return matches == null
-        ? {
-            start,
-            end: start,
-          }
-        : {
-            start,
-            end: start + matches[0].length,
-          };
-    },
-  },
-];
 
 export function updateRangeInfos(
   changeEvent: TextDocumentChangeEvent,
