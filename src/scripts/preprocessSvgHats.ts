@@ -25,7 +25,12 @@ async function main() {
       svgJson.svg["@_fill"] = "#123456";
     }
 
-    await fsp.writeFile(filePath, dumper.parse(svgJson));
+    const outputSvg = dumper
+      .parse(svgJson)
+      .replace(/fill="[^"]+"/, `fill="black"`)
+      .replace(/fill:[^;]+;/, `fill:black;`);
+
+    await fsp.writeFile(filePath, outputSvg);
   });
 }
 
