@@ -252,6 +252,9 @@
 						"play": {
 							"type": "boolean"
 						},
+						"bolt": {
+							"type": "boolean"
+						},
 						"star": {
 							"type": "boolean"
 						}
@@ -265,6 +268,7 @@
 						"curve": false,
 						"eye": false,
 						"play": false,
+						"bolt": false,
 						"star": false
 					},
 					"additionalProperties": false
@@ -326,6 +330,9 @@
 						"play": {
 							"type": "number"
 						},
+						"bolt": {
+							"type": "number"
+						},
 						"star": {
 							"type": "number"
 						}
@@ -339,6 +346,7 @@
 						"curve": 1,
 						"eye": 1,
 						"play": 1,
+						"bolt": 1,
 						"star": 1
 					},
 					"additionalProperties": false
@@ -380,6 +388,10 @@
 							"verticalOffset": 0
 						},
 						"play": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"bolt": {
 							"sizeAdjustment": 0,
 							"verticalOffset": 0
 						},

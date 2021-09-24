@@ -44,6 +44,7 @@ export const defaultShapeMeasurements: IndividualHatAdjustmentMap = {
   play: {
     sizeAdjustment: -2,
   },
+  bolt: {},
   star: {
     sizeAdjustment: 42,
     verticalOffset: -2,
