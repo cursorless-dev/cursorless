@@ -26,6 +26,8 @@ See [parse-tree-patterns.md](docs/parse-tree-patterns.md).
 
 ### Changing SVGs
 
+#### SVG preprocessing script
+
 You'll probably want to run the following to make sure the SVGs have everything they need:
 
 ```sh
@@ -34,6 +36,8 @@ yarn run compile && node ./out/scripts/preprocessSvgHats.js
 
 This script will add dummy width, height and fill attributes as necessary to appease the regex in `Decorations.ts`
 
+#### Adding hat adjustments at finish
+
 While tweaking, the easiest approach is probably to use the
 `cursorless.individualHatAdjustments` setting in your settings.json to change
 size / alignment so you don't need to refresh every time. Once you're done, you
@@ -41,5 +45,11 @@ can paste the settings into `addHatAdjustments.ts` and run the following to get
 your updates:
 
 ```sh
-yarn run compile && node ./out/scripts/addHatAdjustments.js
+yarn run compile && node ./out/scripts/hatAdjustments/add.js
+```
+
+If instead, you want to average your adjustments with those in main and see the differences to get to yours and main, you can run:
+
+```sh
+yarn run compile && node ./out/scripts/hatAdjustments/average.js
 ```
