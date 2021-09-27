@@ -41,14 +41,14 @@ This script will add dummy width, height and fill attributes as necessary to app
 While tweaking, the easiest approach is probably to use the
 `cursorless.individualHatAdjustments` setting in your settings.json to change
 size / alignment so you don't need to refresh every time. Once you're done, you
-can paste the settings into `addHatAdjustments.ts` and run the following to get
+can paste the settings into `scripts/hatAdjustments/add.ts` and run the following to get
 your updates:
 
 ```sh
 yarn run compile && node ./out/scripts/hatAdjustments/add.js
 ```
 
-If instead, you want to average your adjustments with those in main and see the differences to get to yours and main, you can run:
+If instead, you want to average your adjustments with those in main and see the differences to get to yours and main, you can paste the settings into `scripts/hatAdjustments/average.ts` and run:
 
 ```sh
 yarn run compile && node ./out/scripts/hatAdjustments/average.js
