@@ -17,16 +17,21 @@ import { logBranchTypes } from "./util/debug";
 import { TestCase } from "./testUtil/TestCase";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
-import { getParseTreeApi } from "./util/getExtensionApi";
+import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import { canonicalizeAndValidateCommand } from "./util/canonicalizeAndValidateCommand";
 import canonicalizeActionName from "./util/canonicalizeActionName";
 
 export async function activate(context: vscode.ExtensionContext) {
+  const { getNodeAtLocation } = await getParseTreeApi();
+  const commandServerApi = await getCommandServerApi();
+
   const fontMeasurements = new FontMeasurements(context);
   await fontMeasurements.calculate();
-  const decorations = new Decorations(fontMeasurements, context.extensionPath);
-
-  const { getNodeAtLocation } = await getParseTreeApi();
+  const decorations = new Decorations(
+    fontMeasurements,
+    context.extensionPath,
+    commandServerApi
+  );
 
   var isActive = vscode.workspace
     .getConfiguration("cursorless")

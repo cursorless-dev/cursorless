@@ -19,6 +19,7 @@ import {
   DEFAULT_HAT_HEIGHT_EM,
   DEFAULT_VERTICAL_OFFSET_EM,
 } from "./shapeAdjustments";
+import { CommandServerApi } from "../util/getExtensionApi";
 
 export type DecorationMap = {
   [k in HatStyleName]?: vscode.TextEditorDecorationType;
@@ -37,7 +38,8 @@ export default class Decorations {
 
   constructor(
     fontMeasurements: FontMeasurements,
-    private extensionPath: string
+    private extensionPath: string,
+    private commandServerApi: CommandServerApi | null
   ) {
     this.constructDecorations(fontMeasurements);
   }
@@ -153,6 +155,13 @@ export default class Decorations {
     const activeNonDefaultHatShapes = HAT_NON_DEFAULT_SHAPES.filter(
       (shape) => shapeEnablement[shape]
     );
+
+    if (this.commandServerApi != null) {
+      this.commandServerApi.globalState.update("cursorless.hatEnablement", {
+        colors: activeHatColors.filter((color) => color !== "default"),
+        shapes: activeNonDefaultHatShapes,
+      });
+    }
 
     this.hatStyleMap = {
       ...Object.fromEntries(
