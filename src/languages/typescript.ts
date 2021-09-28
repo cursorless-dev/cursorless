@@ -92,7 +92,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "jsx_attribute.property_identifier!"
   ),
   collectionItem: argumentMatcher(...mapTypes, ...listTypes),
-  value: valueMatcher(),
+  value: cascadingMatcher(
+    valueMatcher(),
+    patternMatcher("return_statement.~return!")
+  ),
   ifStatement: "if_statement",
   anonymousFunction: ["arrow_function", "function"],
   name: [

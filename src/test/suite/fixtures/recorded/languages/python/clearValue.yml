@@ -1,0 +1,27 @@
+spokenForm: clear value
+languageId: python
+command:
+  actionName: clearAndSetSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: |-
+    def foo():
+        return "hello"
+  selections:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
+finalState:
+  documentContents: |-
+    def foo():
+        return 
+  selections:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
+  thatMark:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}}]
