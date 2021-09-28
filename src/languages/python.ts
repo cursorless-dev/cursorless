@@ -4,6 +4,8 @@ import {
   argumentMatcher,
   prefixedMatcher,
   suffixedMatcher,
+  cascadingMatcher,
+  patternMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
 
@@ -64,7 +66,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "*[name]",
   ],
   collectionItem: argumentMatcher(...dictionaryTypes, ...listTypes),
-  value: prefixedMatcher("assignment[right]", "~subscript[value]"),
+  value: cascadingMatcher(
+    prefixedMatcher("assignment[right]", "~subscript[value]"),
+    patternMatcher("return_statement.~return!")
+  ),
   argumentOrParameter: argumentMatcher("parameters", "argument_list"),
 };
 
