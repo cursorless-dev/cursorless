@@ -22,7 +22,6 @@ export default class Call implements Action {
     TypedSelection[]
   ]): Promise<ActionReturnValue> {
     ensureSingleTarget(sources);
-    ensureSingleTarget(destinations);
 
     const { returnValue: texts } = await this.graph.actions.getText.run(
       [sources],
