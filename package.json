@@ -225,7 +225,7 @@
 					"additionalProperties": false
 				},
 				"cursorless.hatEnablement.shapes": {
-					"description": "Which shapes to enable",
+					"markdownDescription": "Which shapes to enable.  See the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs/README.md#shapes) if you're not sure which shape name corresponds to which hat shape.",
 					"type": "object",
 					"properties": {
 						"ex": {

@@ -42,8 +42,8 @@ This extension contributes the following settings:
 - `cursorless.showOnStart`: Whether decorations should appear on workspace start
 - `cursorless.hatSizeAdjustment`: Percentage to increase or decrease hat size; positive increases size
 - `cursorless.hatVerticalOffset`: How much to vertically shift the hats as a percentage of font size; positive is up
-- `cursorless.hatEnablement.colors`: Whether to enable particular hat colors. Note that you'll also want to [enable / disable](https://github.com/pokey/cursorless-talon/blob/main/docs/customization.md) the corresponding spoken form in Talon.
-- `cursorless.hatEnablement.shapes`: Whether to enable particular hat shapes. Note that you'll also want to [enable / disable](https://github.com/pokey/cursorless-talon/blob/main/docs/customization.md) the corresponding spoken form in Talon.
+- `cursorless.hatEnablement.colors`: Whether to enable particular hat colors.
+- `cursorless.hatEnablement.shapes`: Whether to enable particular hat shapes.
 - `cursorless.hatPenalties.colors`: How much to penalize each hat color. You will probably want to set this one to the number of syllables in the given style. Cursorless will then sort every style combination by number of syllables to refer to it.
 - `cursorless.hatPenalties.shapes`: How much to penalize each hat shape. You will probably want to set this one to the number of syllables in the given style. Cursorless will then sort every style combination by number of syllables to refer to it.
 
