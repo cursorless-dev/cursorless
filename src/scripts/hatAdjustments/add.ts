@@ -4,10 +4,10 @@
 import { sum } from "lodash";
 import { HAT_SHAPES } from "../../core/constants";
 import {
-  defaultShapeMeasurements,
+  defaultShapeAdjustments,
   HatAdjustments,
   IndividualHatAdjustmentMap,
-} from "../../core/shapeMeasurements";
+} from "../../core/shapeAdjustments";
 import { postProcessValue } from "./lib";
 
 /**
@@ -17,7 +17,7 @@ const newAdjustments: Partial<IndividualHatAdjustmentMap> = {};
 
 const adjustments: Partial<IndividualHatAdjustmentMap>[] = [
   newAdjustments,
-  defaultShapeMeasurements,
+  defaultShapeAdjustments,
 ];
 
 function processProperty(

@@ -4,10 +4,10 @@
 import { sum } from "lodash";
 import { HAT_SHAPES } from "../../core/constants";
 import {
-  defaultShapeMeasurements,
+  defaultShapeAdjustments,
   HatAdjustments,
   IndividualHatAdjustmentMap,
-} from "../../core/shapeMeasurements";
+} from "../../core/shapeAdjustments";
 import { postProcessValue } from "./lib";
 
 /**
@@ -35,7 +35,7 @@ function processProperty(
 function main() {
   const fullMap = Object.fromEntries(
     HAT_SHAPES.map((shape) => {
-      const originalAdjustment = defaultShapeMeasurements[shape] ?? {};
+      const originalAdjustment = defaultShapeAdjustments[shape] ?? {};
       const newAdjustment = newAdjustments[shape] ?? {};
 
       return [

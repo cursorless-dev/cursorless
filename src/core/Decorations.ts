@@ -15,10 +15,10 @@ import { sortBy } from "lodash";
 import getHatThemeColors from "./getHatThemeColors";
 import {
   IndividualHatAdjustmentMap,
-  defaultShapeMeasurements,
+  defaultShapeAdjustments,
   DEFAULT_HAT_HEIGHT_EM,
   DEFAULT_VERTICAL_OFFSET_EM,
-} from "./shapeMeasurements";
+} from "./shapeAdjustments";
 
 export type DecorationMap = {
   [k in HatStyleName]?: vscode.TextEditorDecorationType;
@@ -66,7 +66,7 @@ export default class Decorations {
     const hatSvgMap = Object.fromEntries(
       HAT_SHAPES.map((shape) => {
         const { sizeAdjustment = 0, verticalOffset = 0 } =
-          defaultShapeMeasurements[shape];
+          defaultShapeAdjustments[shape];
 
         const {
           sizeAdjustment: userIndividualSizeAdjustment = 0,

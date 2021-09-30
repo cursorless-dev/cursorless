@@ -10,7 +10,7 @@ export type IndividualHatAdjustmentMap = Record<HatShape, HatAdjustments>;
 export const DEFAULT_HAT_HEIGHT_EM = 0.29;
 export const DEFAULT_VERTICAL_OFFSET_EM = 0.032;
 
-export const defaultShapeMeasurements: IndividualHatAdjustmentMap = {
+export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
   default: {
     sizeAdjustment: -14,
     verticalOffset: -0.35,
