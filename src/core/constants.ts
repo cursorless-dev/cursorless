@@ -2,15 +2,14 @@ export const SUBWORD_MATCHER = /[A-Z]?[a-z]+|[A-Z]+(?![a-z])|[0-9]+/g;
 
 export const DEBOUNCE_DELAY = 175;
 
-const HAT_NON_DEFAULT_COLORS = [
+export const HAT_COLORS = [
+  "default",
   "blue",
   "green",
   "red",
   "pink",
   "yellow",
 ] as const;
-
-export const HAT_COLORS = ["default", ...HAT_NON_DEFAULT_COLORS] as const;
 
 export const HAT_NON_DEFAULT_SHAPES = [
   "ex",
@@ -29,7 +28,6 @@ export const HAT_SHAPES = ["default", ...HAT_NON_DEFAULT_SHAPES] as const;
 
 export type HatColor = typeof HAT_COLORS[number];
 export type HatShape = typeof HAT_SHAPES[number];
-export type HatNonDefaultColor = typeof HAT_NON_DEFAULT_COLORS[number];
 export type HatNonDefaultShape = typeof HAT_NON_DEFAULT_SHAPES[number];
 export type HatStyleName = HatColor | `${HatColor}-${HatNonDefaultShape}`;
 
