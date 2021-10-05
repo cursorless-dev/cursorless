@@ -8,6 +8,7 @@ import {
   HAT_NON_DEFAULT_SHAPES,
   HatStyle,
   HatColor,
+  HatNonDefaultColor,
 } from "./constants";
 import { readFileSync } from "fs";
 import FontMeasurements from "./FontMeasurements";
@@ -19,6 +20,7 @@ import {
   DEFAULT_HAT_HEIGHT_EM,
   DEFAULT_VERTICAL_OFFSET_EM,
 } from "./shapeAdjustments";
+import exposeEnablements from "./exposeEnablements";
 
 export type DecorationMap = {
   [k in HatStyleName]?: vscode.TextEditorDecorationType;
@@ -153,6 +155,13 @@ export default class Decorations {
     const activeNonDefaultHatShapes = HAT_NON_DEFAULT_SHAPES.filter(
       (shape) => shapeEnablement[shape]
     );
+
+    exposeEnablements({
+      colors: activeHatColors.filter(
+        (color) => color !== "default"
+      ) as HatNonDefaultColor[],
+      shapes: activeNonDefaultHatShapes,
+    });
 
     this.hatStyleMap = {
       ...Object.fromEntries(
