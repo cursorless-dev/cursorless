@@ -414,7 +414,8 @@
 		"watch": "tsc -watch -p ./",
 		"pretest": "yarn run compile && yarn run lint && yarn run esbuild",
 		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
+		"test": "node ./out/test/runTest.js",
+		"install": "node ./out/scripts/exposeDefaultStyleEnablements.js"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.3",
