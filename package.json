@@ -155,10 +155,10 @@
 					"default": {
 						"default": "#aaa7bb",
 						"blue": "#089ad3",
-						"green": "#05b623",
-						"red": "#ca2a15",
-						"pink": "#e17fab",
-						"yellow": "#e5c300"
+						"green": "#36B33F",
+						"red": "#E02D28",
+						"pink": "#E06CAA",
+						"yellow": "#E5C02C"
 					},
 					"additionalProperties": false
 				},
@@ -186,12 +186,12 @@
 						}
 					},
 					"default": {
-						"default": "#666666",
+						"default": "#757180",
 						"blue": "#089ad3",
-						"green": "#05b623",
-						"red": "#ca2a15",
-						"pink": "#e17fab",
-						"yellow": "#e5c300"
+						"green": "#36B33F",
+						"red": "#E02D28",
+						"pink": "#e0679f",
+						"yellow": "#edb62b"
 					},
 					"additionalProperties": false
 				},
@@ -225,16 +225,16 @@
 					"additionalProperties": false
 				},
 				"cursorless.hatEnablement.shapes": {
-					"description": "Which shapes to enable",
+					"markdownDescription": "Which shapes to enable.  See the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs/README.md#shapes) if you're not sure which shape name corresponds to which hat shape.",
 					"type": "object",
 					"properties": {
-						"fourPointStar": {
+						"ex": {
 							"type": "boolean"
 						},
-						"chevron": {
+						"fox": {
 							"type": "boolean"
 						},
-						"threePointStar": {
+						"wing": {
 							"type": "boolean"
 						},
 						"hole": {
@@ -248,16 +248,28 @@
 						},
 						"eye": {
 							"type": "boolean"
+						},
+						"play": {
+							"type": "boolean"
+						},
+						"bolt": {
+							"type": "boolean"
+						},
+						"crosshairs": {
+							"type": "boolean"
 						}
 					},
 					"default": {
-						"fourPointStar": true,
-						"chevron": true,
-						"threePointStar": false,
+						"ex": false,
+						"fox": false,
+						"wing": false,
 						"hole": false,
 						"frame": false,
 						"curve": false,
-						"eye": false
+						"eye": false,
+						"play": false,
+						"bolt": false,
+						"crosshairs": false
 					},
 					"additionalProperties": false
 				},
@@ -294,13 +306,13 @@
 					"description": "How much to penalize each hat shape. Number of syllables is a good default",
 					"type": "object",
 					"properties": {
-						"fourPointStar": {
+						"ex": {
 							"type": "number"
 						},
-						"chevron": {
+						"fox": {
 							"type": "number"
 						},
-						"threePointStar": {
+						"wing": {
 							"type": "number"
 						},
 						"hole": {
@@ -314,23 +326,80 @@
 						},
 						"eye": {
 							"type": "number"
+						},
+						"play": {
+							"type": "number"
+						},
+						"bolt": {
+							"type": "number"
+						},
+						"crosshairs": {
+							"type": "number"
 						}
 					},
 					"default": {
-						"fourPointStar": 1,
-						"chevron": 1,
-						"threePointStar": 1,
+						"ex": 1,
+						"fox": 1,
+						"wing": 1,
 						"hole": 1,
 						"frame": 1,
 						"curve": 1,
-						"eye": 1
+						"eye": 1,
+						"play": 1,
+						"bolt": 1,
+						"crosshairs": 1
 					},
 					"additionalProperties": false
 				},
 				"cursorless.individualHatAdjustments": {
 					"description": "Separate adjustments for each hat shape",
 					"type": "object",
-					"default": {}
+					"default": {
+						"default": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"ex": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"fox": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"wing": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"hole": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"frame": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"curve": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"eye": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"play": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"bolt": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						},
+						"crosshairs": {
+							"sizeAdjustment": 0,
+							"verticalOffset": 0
+						}
+					}
 				}
 			}
 		}
@@ -358,6 +427,7 @@
 		"@typescript-eslint/parser": "^4.9.0",
 		"esbuild": "^0.11.12",
 		"eslint": "^7.15.0",
+		"fast-xml-parser": "^3.20.0",
 		"glob": "^7.1.7",
 		"js-yaml": "^4.1.0",
 		"mocha": "^8.1.3",
