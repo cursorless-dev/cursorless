@@ -15,8 +15,8 @@ async function main() {
     const rawSvg = await fsp.readFile(filePath, { encoding: "utf8" });
     const svgJson = parser.parse(rawSvg, { ignoreAttributes: false });
 
-    svgJson.svg["@_width"] = "2em";
-    svgJson.svg["@_height"] = "2em";
+    svgJson.svg["@_width"] = "1em";
+    svgJson.svg["@_height"] = "1em";
 
     if (
       rawSvg.match(/fill="[^"]+"/) == null &&
