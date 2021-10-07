@@ -27,8 +27,8 @@ async function main() {
 
     const outputSvg = dumper
       .parse(svgJson)
-      .replace(/fill="[^"]+"/, `fill="currentColor"`)
-      .replace(/fill:[^;]+;/, `fill:currentColor;`);
+      .replace(/fill="[^"]+"/, `fill="#666666"`)
+      .replace(/fill:[^;]+;/, `fill:#666666;`);
 
     await fsp.writeFile(filePath, outputSvg);
   });
