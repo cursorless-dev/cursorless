@@ -15,8 +15,8 @@ async function main() {
     const rawSvg = await fsp.readFile(filePath, { encoding: "utf8" });
     const svgJson = parser.parse(rawSvg, { ignoreAttributes: false });
 
-    svgJson.svg["@_width"] = "0.7em";
-    svgJson.svg["@_height"] = "0.7em";
+    svgJson.svg["@_width"] = "2em";
+    svgJson.svg["@_height"] = "2em";
 
     if (
       rawSvg.match(/fill="[^"]+"/) == null &&
@@ -27,8 +27,8 @@ async function main() {
 
     const outputSvg = dumper
       .parse(svgJson)
-      .replace(/fill="[^"]+"/, `fill="black"`)
-      .replace(/fill:[^;]+;/, `fill:black;`);
+      .replace(/fill="[^"]+"/, `fill="#999999"`)
+      .replace(/fill:[^;]+;/, `fill:#999999;`);
 
     await fsp.writeFile(filePath, outputSvg);
   });
