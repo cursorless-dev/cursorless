@@ -162,65 +162,78 @@ function getOffsetsForNonEmptyRangeInsert(
 
   if (insertOffset === rangeStart) {
     const expansionBehavior = rangeInfo.expansionBehavior.start;
+    const newRangeEnd = rangeEnd + displacement;
 
     switch (expansionBehavior.type) {
       case "closed":
         return {
           start: rangeStart + displacement,
-          end: rangeEnd + displacement,
+          end: newRangeEnd,
         };
 
       case "open":
         return {
           start: rangeStart,
-          end: rangeEnd + displacement,
+          end: newRangeEnd,
         };
 
       case "regex":
         let text = insertedText + originalRangeText;
-        let index = text.search(rightAnchored(expansionBehavior.regex));
+        const regex = rightAnchored(expansionBehavior.regex);
+        let index = text.search(regex);
         while (index > insertedText.length) {
           // If the original range contains multiple matching instances of the regex use the leftmost one
-          text = insertedText + originalRangeText.slice(index);
-          index = text.search(rightAnchored(expansionBehavior.regex));
+          text = text.slice(0, index);
+          index = text.search(regex);
         }
 
         return index === -1
           ? {
               start: rangeStart,
-              end: rangeEnd + displacement,
+              end: newRangeEnd,
             }
           : {
               start: rangeStart + index,
-              end,
+              end: newRangeEnd,
             };
     }
   } else {
     const expansionBehavior = rangeInfo.expansionBehavior.end;
+    const newRangeStart = rangeStart;
 
     switch (expansionBehavior.type) {
       case "closed":
         return {
-          start,
-          end: start,
+          start: newRangeStart,
+          end: rangeEnd,
         };
 
       case "open":
-        return { start, end };
+        return {
+          start: newRangeStart,
+          end: rangeEnd + displacement,
+        };
 
       case "regex":
-        const matches = insertedText.match(
-          leftAnchored(expansionBehavior.regex)
-        );
+        let text = originalRangeText + insertedText;
+        const regex = leftAnchored(expansionBehavior.regex);
+        let matches = text.match(regex);
+        let matchLength = matches == null ? 0 : matches[0].length;
+        while (matchLength !== 0 && matchLength < originalRangeText.length) {
+          // If the original range contains multiple matching instances of the regex use the leftmost one
+          text = originalRangeText.slice(matchLength) + insertedText;
+          matches = text.match(regex);
+          matchLength = matches == null ? 0 : matchLength + matches[0].length;
+        }
 
-        return matches == null
+        return matchLength === 0
           ? {
-              start,
-              end: start,
+              start: newRangeStart,
+              end: rangeEnd,
             }
           : {
-              start,
-              end: start + matches[0].length,
+              start: newRangeStart,
+              end: rangeStart + matchLength,
             };
     }
   }
