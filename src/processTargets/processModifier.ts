@@ -220,7 +220,7 @@ function processSurroundingPair(
   );
   const nodeMatcher = createSurroundingPairMatcher(
     modifier.delimiter,
-    modifier.delimitersOnly
+    modifier.delimiterInclusion
   );
   return findNearestContainingAncestorNode(node, nodeMatcher, selection);
 }
