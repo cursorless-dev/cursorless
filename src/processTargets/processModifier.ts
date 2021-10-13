@@ -215,9 +215,11 @@ function processSurroundingPair(
   selection: SelectionWithEditor,
   modifier: SurroundingPairModifier
 ): SelectionWithContext[] | null {
+  // TODO: Check if we have a parser: if not, switch to non parser based impl
   const node: SyntaxNode | null = context.getNodeAtLocation(
     new Location(selection.editor.document.uri, selection.selection)
   );
+  // TODO: If we are in a string or comment, switch to non parser based implementation
   const nodeMatcher = createSurroundingPairMatcher(
     modifier.delimiter,
     modifier.delimiterInclusion

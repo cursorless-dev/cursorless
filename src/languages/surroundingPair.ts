@@ -30,6 +30,13 @@ const leftToRightMap: Record<string, string> = Object.fromEntries(
   Object.values(delimiterToText)
 );
 
+/**
+ * Delimiters to look for when the user does not specify a delimiter
+ */
+const anyDelimiter = Object.keys(delimiterToText).filter(
+  (delimiter) => delimiter !== "whitespace"
+);
+
 export function createSurroundingPairMatcher(
   delimiter: Delimiter | null,
   delimiterInclusion: DelimiterInclusion
@@ -38,8 +45,7 @@ export function createSurroundingPairMatcher(
     selection: SelectionWithEditor,
     node: SyntaxNode
   ) {
-    const delimitersToCheck =
-      delimiter == null ? Object.keys(delimiterToText) : [delimiter];
+    const delimitersToCheck = delimiter == null ? anyDelimiter : [delimiter];
 
     const leftDelimiterTypes = delimitersToCheck.map(
       (delimiter) => delimiterToText[delimiter][0]
