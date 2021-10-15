@@ -1,5 +1,5 @@
 spokenForm: try catch wrap this
-languageId: java
+languageId: cpp
 command:
   actionName: wrapWithSnippet
   partialTargets:

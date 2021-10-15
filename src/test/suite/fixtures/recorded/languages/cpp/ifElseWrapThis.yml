@@ -1,5 +1,5 @@
 spokenForm: if else wrap this
-languageId: java
+languageId: cpp
 command:
   actionName: wrapWithSnippet
   partialTargets:
