@@ -1,0 +1,22 @@
+spokenForm: if state wrap this
+languageId: python
+command:
+  actionName: wrapWithSnippet
+  partialTargets:
+    - type: primitive
+      mark: {type: cursor}
+  extraArgs: [ifStatement]
+marks: {}
+initialState:
+  documentContents: foo = "hello"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+finalState:
+  documentContents: |-
+    if :
+        foo = "hello"
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]

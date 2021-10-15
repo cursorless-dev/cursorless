@@ -1,0 +1,23 @@
+spokenForm: if state wrap this
+languageId: typescript
+command:
+  actionName: wrapWithSnippet
+  partialTargets:
+    - type: primitive
+      mark: {type: cursor}
+  extraArgs: [ifStatement]
+marks: {}
+initialState:
+  documentContents: const foo = "hello";
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+finalState:
+  documentContents: |-
+    if () {
+        const foo = "hello";
+    }
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]

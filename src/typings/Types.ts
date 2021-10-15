@@ -258,6 +258,7 @@ export interface ActionPreferences {
   position?: Position;
   insideOutsideType: InsideOutsideType;
   selectionType?: SelectionType;
+  modifier?: Modifier;
 }
 
 export interface SelectionWithContext {
@@ -311,7 +312,14 @@ export type ActionType =
   | "toggleLineBreakpoint"
   | "toggleLineComment"
   | "unfoldRegion"
-  | "wrapWithPairedDelimiter";
+  | "wrapWithPairedDelimiter"
+  | "wrapWithSnippet";
+
+export type SnippetName =
+  | "ifElseStatementElseBranch"
+  | "ifElseStatementIfBranch"
+  | "ifStatement"
+  | "tryCatchStatement";
 
 export type ActionRecord = Record<ActionType, Action>;
 

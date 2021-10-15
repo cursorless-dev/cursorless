@@ -6,26 +6,43 @@ import {
   NodeMatcherValue,
   ScopeType,
   SelectionWithEditor,
+  SnippetName,
 } from "../typings/Types";
-import cpp from "./cpp";
-import csharp from "./csharp";
-import java from "./java";
+import * as cpp from "./cpp";
+import * as csharp from "./csharp";
+import * as java from "./java";
 import json from "./json";
-import python from "./python";
-import typescript from "./typescript";
+import * as python from "./python";
+import * as typescript from "./typescript";
+import { SnippetString } from "vscode";
 
 const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
-  c: cpp,
-  cpp: cpp,
-  csharp: csharp,
-  java,
-  javascript: typescript,
-  javascriptreact: typescript,
+  c: cpp.patternMatchers,
+  cpp: cpp.patternMatchers,
+  csharp: csharp.patternMatchers,
+  java: java.patternMatchers,
+  javascript: typescript.patternMatchers,
+  javascriptreact: typescript.patternMatchers,
   json,
   jsonc: json,
-  python,
-  typescript,
-  typescriptreact: typescript,
+  python: python.patternMatchers,
+  typescript: typescript.patternMatchers,
+  typescriptreact: typescript.patternMatchers,
+};
+
+export const snippets: Record<
+  string,
+  Partial<Record<SnippetName, SnippetString>>
+> = {
+  c: cpp.snippets,
+  cpp: cpp.snippets,
+  csharp: csharp.snippets,
+  java: java.snippets,
+  javascript: typescript.snippets,
+  javascriptreact: typescript.snippets,
+  python: python.snippets,
+  typescript: typescript.snippets,
+  typescriptreact: typescript.snippets,
 };
 
 export function getNodeMatcher(

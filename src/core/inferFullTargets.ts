@@ -123,7 +123,8 @@ function inferPrimitiveTarget(
     actionPreferences.insideOutsideType;
 
   const modifier = target.modifier ??
-    getPreviousAttribute(previousTargetsForAttributes, "modifier") ?? {
+    getPreviousAttribute(previousTargetsForAttributes, "modifier") ??
+    actionPreferences.modifier ?? {
       type: "identity",
     };
 

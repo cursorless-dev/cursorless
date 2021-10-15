@@ -1,0 +1,25 @@
+spokenForm: try catch wrap this
+languageId: java
+command:
+  actionName: wrapWithSnippet
+  partialTargets:
+    - type: primitive
+      mark: {type: cursor}
+  extraArgs: [tryCatchStatement]
+marks: {}
+initialState:
+  documentContents: int foo = 0;
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+finalState:
+  documentContents: |-
+    try {
+        int foo = 0;
+    } catch () {
+        
+    }
+  selections:
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]
