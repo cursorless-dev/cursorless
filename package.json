@@ -400,6 +400,28 @@
 							"verticalOffset": 0
 						}
 					}
+				},
+				"cursorless.wrapperSnippets": {
+					"description": "Snippets to use with the wrap with snippet action",
+					"type": "object",
+					"scope": "language-overridable",
+					"additionalProperties": {
+						"type": "object",
+						"properties": {
+							"snippet": {
+								"type": "string"
+							},
+							"name": {
+								"type": "string"
+							},
+							"langId": {
+								"type": "string"
+							},
+							"defaultScopeType": {
+								"type": "string"
+							}
+						}
+					}
 				}
 			}
 		}

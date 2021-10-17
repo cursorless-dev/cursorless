@@ -1,4 +1,4 @@
-import { SnippetString } from "vscode";
+import { commands, SnippetString, workspace } from "vscode";
 import { snippets } from "../languages";
 import {
   Action,
@@ -10,6 +10,15 @@ import {
 } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { ensureSingleEditor } from "../util/targetUtils";
+
+interface UserLanguageSnippet {
+  snippet?: string;
+  name?: string;
+  langId?: string;
+  defaultScopeType?: string;
+}
+
+type UserLanguageSnippetMap = Record<string, UserLanguageSnippet>;
 
 export default class WrapWithSnippet implements Action {
   targetPreferences: ActionPreferences[] = [
@@ -33,29 +42,40 @@ export default class WrapWithSnippet implements Action {
   ): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
-    const languageId = editor.document.languageId;
-    const languageSnippets = snippets[languageId];
-    if (languageSnippets == null) {
-      throw new Error(`Snippets not supported for language ${languageId}`);
-    }
+    await this.graph.actions.setSelection.run([targets]);
 
-    const snippetString = languageSnippets[snippetName];
-    if (snippetString == null) {
-      throw new Error(
-        `Snippet ${snippetName} not supported for language ${languageId}`
-      );
-    }
+    const languageId = editor.document.languageId;
+    const snippet = this.getSnippet(languageId, snippetName);
 
     await displayPendingEditDecorations(
       targets,
       this.graph.editStyles.pendingModification0
     );
 
-    await editor.insertSnippet(
-      snippetString,
-      targets.map((target) => target.selection.selection)
-    );
+    if (snippet.snippet != null) {
+      await editor.insertSnippet(snippet.snippet);
+    } else {
+      await commands.executeCommand("editor.action.codeAction", {
+        kind: "refactor.extract.constant",
+        preferred: true,
+      });
+    }
 
     return {};
+  }
+
+  private getSnippet(languageId: string, snippetName: string) {
+    const languageSnippets = snippets[languageId];
+
+    const userLanguageSnippets = workspace
+      .getConfiguration("cursorless")
+      .get<UserLanguageSnippetMap>(`wrapperSnippets`);
+    const snippetString = languageSnippets[snippetName];
+    if (snippetString == null) {
+      throw new Error(
+        `Snippet ${snippetName} not supported for language ${languageId}`
+      );
+    }
+    return snippetString;
   }
 }
