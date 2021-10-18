@@ -32,10 +32,12 @@ interface ExpansionBehavior {
 }
 
 export interface RangeInfo {
-  document: TextDocument;
   range: Range;
-  offsets: RangeOffsets;
   expansionBehavior: ExpansionBehavior;
+}
+
+export interface FullRangeInfo extends RangeInfo {
+  offsets: RangeOffsets;
   text: string;
 }
 
@@ -45,6 +47,11 @@ interface ExtendedTextDocumentContentChangeEvent
    * If this is true then we should not shift an empty selection to the right
    */
   isReplace?: boolean;
+}
+
+export interface ExtendedTextDocumentChangeEvent
+  extends TextDocumentChangeEvent {
+  readonly contentChanges: ReadonlyArray<ExtendedTextDocumentContentChangeEvent>;
 }
 
 interface ChangeEventInfo {
@@ -65,7 +72,7 @@ interface RangeOffsets {
 
 function getOffsetsForEmptyRangeInsert(
   changeEventInfo: ChangeEventInfo,
-  rangeInfo: RangeInfo
+  rangeInfo: FullRangeInfo
 ): RangeOffsets {
   const {
     event: { text, isReplace },
@@ -138,7 +145,7 @@ function getOffsetsForEmptyRangeInsert(
 
 function getOffsetsForNonEmptyRangeInsert(
   changeEventInfo: ChangeEventInfo,
-  rangeInfo: RangeInfo
+  rangeInfo: FullRangeInfo
 ): RangeOffsets {
   const {
     event: { text: insertedText, isReplace },
@@ -245,7 +252,7 @@ function getOffsetsForNonEmptyRangeInsert(
 
 function getOffsetsForDeleteOrReplace(
   changeEventInfo: ChangeEventInfo,
-  rangeInfo: RangeInfo
+  rangeInfo: FullRangeInfo
 ): RangeOffsets {
   const {
     originalOffsets: {
@@ -279,8 +286,8 @@ function getOffsetsForDeleteOrReplace(
 }
 
 export function updateRangeInfos(
-  changeEvent: TextDocumentChangeEvent,
-  rangeInfos: RangeInfo[],
+  changeEvent: ExtendedTextDocumentChangeEvent,
+  rangeInfos: FullRangeInfo[],
   rangeBehavior: DecorationRangeBehavior = DecorationRangeBehavior.ClosedClosed
 ) {
   const { document, contentChanges } = changeEvent;
@@ -298,58 +305,42 @@ export function updateRangeInfos(
         return;
       }
 
-      let newSelectionInfoStartOffset = computeNewOffset(
-        selectionInfo.startOffset,
-        changeStartOffset,
-        changeEndOffset,
-        changeDisplacement,
-        rangeBehavior === DecorationRangeBehavior.OpenClosed ||
-          rangeBehavior === DecorationRangeBehavior.OpenOpen
-      );
+      const originalOffsets = selectionInfo.offsets;
+      let newOffsets: RangeOffsets;
 
-      const newSelectionInfoEndOffset = computeNewOffset(
-        selectionInfo.endOffset,
-        changeStartOffset,
-        changeEndOffset,
-        changeDisplacement,
-        rangeBehavior === DecorationRangeBehavior.OpenClosed ||
-          rangeBehavior === DecorationRangeBehavior.ClosedClosed
-      );
+      if (changeOriginalEndOffset < originalOffsets.start) {
+        return;
+      }
 
-      // Handle the case where we're ClosedClosed and change intersects both
-      // start and end
-      newSelectionInfoStartOffset = Math.min(
-        newSelectionInfoStartOffset,
-        newSelectionInfoEndOffset
-      );
+      if (changeOriginalStartOffset > originalOffsets.end) {
+        newOffsets = {
+          start: originalOffsets.start,
+          end: originalOffsets.end + changeDisplacement,
+        };
+      } else {
+        const changeEventInfo: ChangeEventInfo = {
+          displacement: changeDisplacement,
+          event: "whatever",
+        };
+
+        if (change.rangeLength === 0) {
+          if (selectionInfo.range.isEmpty) {
+            newOffsets = getOffsetsForEmptyRangeInsert(change);
+          } else {
+            newOffsets = getOffsetsForNonEmptyRangeInsert(change);
+          }
+        } else {
+          newOffsets = getOffsetsForDeleteOrReplace(change);
+        }
+
+        // TODO: Update text if necessary
+      }
 
       selectionInfo.range = selectionInfo.range.with(
-        document.positionAt(newSelectionInfoStartOffset),
-        document.positionAt(newSelectionInfoEndOffset)
+        document.positionAt(newOffsets.start),
+        document.positionAt(newOffsets.end)
       );
-      selectionInfo.startOffset = newSelectionInfoStartOffset;
-      selectionInfo.endOffset = newSelectionInfoEndOffset;
+      selectionInfo.offsets = newOffsets;
     });
   });
-}
-
-function computeNewOffset(
-  originalOffset: number,
-  changeStartOffset: number,
-  changeEndOffset: number,
-  changeDisplacement: number,
-  moveLeftOnConflict: boolean
-) {
-  if (changeEndOffset < originalOffset) {
-    return originalOffset + changeDisplacement;
-  }
-
-  if (changeStartOffset > originalOffset) {
-    return originalOffset;
-  }
-
-  // todo handle fancy case with regex
-  return moveLeftOnConflict
-    ? changeStartOffset
-    : changeEndOffset + changeDisplacement;
 }

@@ -12,12 +12,14 @@ import { performDocumentEdits } from "./performDocumentEdits";
 import { Edit } from "../typings/Types";
 import { flatten } from "lodash";
 import {
-  RangeInfo,
+  ExtendedTextDocumentChangeEvent,
+  FullRangeInfo,
   updateRangeInfos,
 } from "./updateRangeInfos";
+import { isForward } from "./selectionUtils";
 
-export interface SelectionInfo extends RangeInfo {
-  range: Selection;
+export interface SelectionInfo extends FullRangeInfo {
+  isForward: boolean;
 }
 
 function selectionsToSelectionInfos(
@@ -26,24 +28,23 @@ function selectionsToSelectionInfos(
 ): SelectionInfo[][] {
   return selectionMatrix.map((selections) =>
     selections.map((selection) => ({
-      document,
       range: selection,
-      startOffset: document.offsetAt(selection.start),
-      endOffset: document.offsetAt(selection.end),
+      isForward: isForward(selection),
+      expansionBehavior: { start: { type: "closed" }, end: { type: "closed" } },
+      offsets: {
+        start: document.offsetAt(selection.start),
+        end: document.offsetAt(selection.end),
+      },
+      text: document.getText(selection),
     }))
   );
 }
 
 function updateSelectionInfoMatrix(
-  changeEvent: TextDocumentChangeEvent,
-  selectionInfoMatrix: SelectionInfo[][],
-  rangeBehavior?: DecorationRangeBehavior
+  changeEvent: ExtendedTextDocumentChangeEvent,
+  selectionInfoMatrix: SelectionInfo[][]
 ) {
-  updateRangeInfos(
-    changeEvent,
-    flatten(selectionInfoMatrix),
-    rangeBehavior
-  );
+  updateRangeInfos(changeEvent, flatten(selectionInfoMatrix));
 }
 
 class SelectionUpdater {
@@ -138,8 +139,7 @@ export async function callFunctionAndUpdateSelections(
 export async function performEditsAndUpdateSelections(
   editor: TextEditor,
   edits: Edit[],
-  originalSelections: Selection[][],
-  rangeBehavior?: DecorationRangeBehavior
+  originalSelections: Selection[][]
 ) {
   const document = editor.document;
   const selectionInfoMatrix = selectionsToSelectionInfos(
@@ -147,11 +147,26 @@ export async function performEditsAndUpdateSelections(
     originalSelections
   );
 
-  const contentChanges = edits.map(({ range, text }) => ({
+  return performEditsAndUpdateSelectionInfos(
+    editor,
+    edits,
+    selectionInfoMatrix
+  );
+}
+
+export async function performEditsAndUpdateSelectionInfos(
+  editor: TextEditor,
+  edits: Edit[],
+  originalSelectionInfos: SelectionInfo[][]
+) {
+  const document = editor.document;
+
+  const contentChanges = edits.map(({ range, text, isReplace }) => ({
     range,
     text,
     rangeOffset: document.offsetAt(range.start),
     rangeLength: document.offsetAt(range.end) - document.offsetAt(range.start),
+    isReplace,
   }));
 
   // Replace \n with \r\n. Vscode does this internally and it's
@@ -170,9 +185,8 @@ export async function performEditsAndUpdateSelections(
 
   updateSelectionInfoMatrix(
     { document, contentChanges },
-    selectionInfoMatrix,
-    rangeBehavior
+    originalSelectionInfos
   );
 
-  return selectionInfosToSelections(document, selectionInfoMatrix);
+  return selectionInfosToSelections(document, originalSelectionInfos);
 }

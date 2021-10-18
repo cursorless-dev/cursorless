@@ -4,13 +4,17 @@ import {
   Action,
   ActionPreferences,
   ActionReturnValue,
+  Edit,
   Graph,
   SelectionWithEditor,
   TypedSelection,
 } from "../typings/Types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { decorationSleep } from "../util/editDisplayUtils";
-import { performEditsAndUpdateSelections } from "../util/updateSelections";
+import {
+  performEditsAndUpdateSelectionInfos,
+  performEditsAndUpdateSelections,
+} from "../util/updateSelections";
 import { selectionWithEditorFromPositions } from "../util/selectionUtils";
 
 export default class Wrap implements Action {
@@ -31,25 +35,31 @@ export default class Wrap implements Action {
       await runOnTargetsForEachEditor<SelectionWithEditor[]>(
         targets,
         async (editor, targets) => {
-          const edits = targets.flatMap((target) => [
+          const boundaries = targets.map((target) => ({
+            start: new Selection(
+              target.selection.selection.start,
+              target.selection.selection.start
+            ),
+            end: new Selection(
+              target.selection.selection.end,
+              target.selection.selection.end
+            ),
+          }));
+
+          const edits: Edit[] = boundaries.flatMap(({ start, end }) => [
             {
               text: left,
-              range: new Selection(
-                target.selection.selection.start,
-                target.selection.selection.start
-              ),
+              range: start,
             },
             {
               text: right,
-              range: new Selection(
-                target.selection.selection.end,
-                target.selection.selection.end
-              ),
+              range: end,
+              isReplace: true,
             },
           ]);
 
           const [updatedOriginalSelections, updatedTargetsSelections] =
-            await performEditsAndUpdateSelections(
+            await performEditsAndUpdateSelectionInfos(
               editor,
               edits,
               [
