@@ -1,0 +1,37 @@
+spokenForm: take each past start of line
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: range
+      start:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      end: {type: primitive, position: before, insideOutsideType: inside, selectionType: line}
+      excludeStart: false
+      excludeEnd: false
+  extraArgs: []
+marks:
+  default.e:
+    start: {line: 0, character: 13}
+    end: {line: 0, character: 18}
+initialState:
+  documentContents: |-
+    const foo = "hello";
+
+    const bar = "hello";
+  selections:
+    - anchor: {line: 2, character: 18}
+      active: {line: 2, character: 18}
+finalState:
+  documentContents: |-
+    const foo = "hello";
+
+    const bar = "hello";
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 0}
+fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, selectionType: line, position: before, insideOutsideType: inside, modifier: {type: identity}}}]

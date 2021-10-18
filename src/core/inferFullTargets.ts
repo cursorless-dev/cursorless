@@ -102,7 +102,9 @@ function inferPrimitiveTarget(
     getPreviousAttribute(previousTargetsForAttributes, "selectionType");
 
   const mark = target.mark ??
-    getPreviousMark(previousTargets) ?? {
+    (target.position === "before" || target.position === "after"
+      ? getPreviousMark(previousTargets)
+      : null) ?? {
       type: maybeSelectionType === "token" ? "cursorToken" : "cursor",
     };
 
