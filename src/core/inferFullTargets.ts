@@ -102,7 +102,9 @@ function inferPrimitiveTarget(
     getPreviousAttribute(previousTargetsForAttributes, "selectionType");
 
   const mark = target.mark ??
-    (isPositionalTarget(target) ? getPreviousMark(previousTargets) : null) ?? {
+    (target.position === "before" || target.position === "after"
+      ? getPreviousMark(previousTargets)
+      : null) ?? {
       type: maybeSelectionType === "token" ? "cursorToken" : "cursor",
     };
 
@@ -135,18 +137,6 @@ function inferPrimitiveTarget(
   };
 }
 
-/**
- * Checks if the target doesn't refer to contents, but instead to a position
- * such as before or after.  We avoid using such targets for inference in
- * certain cases.
- *
- * @param target The target to check
- * @returns Wether it is not a content target
- */
-function isPositionalTarget(target: PartialPrimitiveTarget) {
-  return target.position === "before" || target.position === "after";
-}
-
 function getPreviousMark(previousTargets: PartialTarget[]) {
   return getPreviousAttribute(
     previousTargets,
@@ -163,14 +153,10 @@ function getPreviousPosition(previousTargets: PartialTarget[]) {
   );
 }
 
-function defaultUseTarget(target: PartialPrimitiveTarget) {
-  return hasContent(target) && !isPositionalTarget(target);
-}
-
 function getPreviousAttribute<T extends keyof PartialPrimitiveTarget>(
   previousTargets: PartialTarget[],
   attributeName: T,
-  useTarget: (target: PartialPrimitiveTarget) => boolean = defaultUseTarget
+  useTarget: (target: PartialPrimitiveTarget) => boolean = hasContent
 ) {
   const target = getPreviousTarget(previousTargets, useTarget);
   return target != null ? target[attributeName] : null;
@@ -190,9 +176,6 @@ function getPreviousTarget(
         }
         break;
       case "range":
-        if (useTarget(target.end)) {
-          return target.end;
-        }
         if (useTarget(target.start)) {
           return target.start;
         }
