@@ -176,9 +176,6 @@ function getPreviousTarget(
         }
         break;
       case "range":
-        if (useTarget(target.end)) {
-          return target.end;
-        }
         if (useTarget(target.start)) {
           return target.start;
         }
