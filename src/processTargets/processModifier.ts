@@ -4,7 +4,10 @@ import { Location, Position, Range, Selection } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { SUBWORD_MATCHER } from "../core/constants";
 import { getNodeMatcher } from "../languages";
-import { createSurroundingPairMatcher } from "../languages/surroundingPair";
+import {
+  createSurroundingPairMatcher,
+  findSurroundingPairTextBased,
+} from "../languages/surroundingPair";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import {
   ContainingScopeModifier,
@@ -215,10 +218,27 @@ function processSurroundingPair(
   selection: SelectionWithEditor,
   modifier: SurroundingPairModifier
 ): SelectionWithContext[] | null {
-  // TODO: Check if we have a parser: if not, switch to non parser based impl
-  const node: SyntaxNode | null = context.getNodeAtLocation(
-    new Location(selection.editor.document.uri, selection.selection)
-  );
+  let node: SyntaxNode | null;
+  try {
+    node = context.getNodeAtLocation(
+      new Location(selection.editor.document.uri, selection.selection)
+    );
+  } catch (err) {
+    if ((err as Error).name === "UnsupportedLanguageError") {
+      node = null;
+    } else {
+      throw err;
+    }
+  }
+  if (node == null) {
+    return findSurroundingPairTextBased(
+      selection.editor.document.getText(selection.selection),
+      selection.editor.document.offsetAt(selection.selection.start),
+      selection.editor.document.offsetAt(selection.selection.end),
+      modifier.delimiter,
+      modifier.delimiterInclusion
+    );
+  }
   // TODO: If we are in a string or comment, switch to non parser based implementation
   const nodeMatcher = createSurroundingPairMatcher(
     modifier.delimiter,

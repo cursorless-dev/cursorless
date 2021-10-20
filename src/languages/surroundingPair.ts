@@ -140,3 +140,13 @@ function extractSelection(
       ];
   }
 }
+
+export function findSurroundingPairTextBased(
+  text: string,
+  startIndex: number,
+  endIndex: number,
+  delimiter: string | null,
+  delimiterInclusion: string
+): SelectionWithContext[] | null {
+  throw new Error("Function not implemented.");
+}
