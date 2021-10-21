@@ -1,0 +1,31 @@
+spokenForm: if wrap token fine
+languageId: typescript
+command:
+  actionName: wrapWithSnippet
+  partialTargets:
+    - type: primitive
+      selectionType: token
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  extraArgs: [ifStatement/consequence]
+marks:
+  default.f:
+    start: {line: 0, character: 6}
+    end: {line: 0, character: 9}
+initialState:
+  documentContents: |
+    const foo = "hello";
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+finalState:
+  documentContents: |
+    const if () {
+        foo
+    } = "hello";
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  thatMark:
+    - anchor: {line: 0, character: 6}
+      active: {line: 2, character: 1}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}]

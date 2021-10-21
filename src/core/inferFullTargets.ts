@@ -93,9 +93,8 @@ function inferPrimitiveTarget(
   previousTargets: PartialTarget[],
   actionPreferences: ActionPreferences
 ): PrimitiveTarget {
-  const previousTargetsForAttributes = hasContent(target)
-    ? []
-    : previousTargets;
+  const targetHasContent = hasContent(target);
+  const previousTargetsForAttributes = targetHasContent ? [] : previousTargets;
 
   const maybeSelectionType =
     target.selectionType ??
@@ -111,20 +110,22 @@ function inferPrimitiveTarget(
   const position =
     target.position ??
     getPreviousPosition(previousTargets) ??
-    actionPreferences.position ??
+    (targetHasContent ? null : actionPreferences.position) ??
     "contents";
 
   const selectionType =
-    maybeSelectionType ?? actionPreferences.selectionType ?? "token";
+    maybeSelectionType ??
+    (targetHasContent ? null : actionPreferences.selectionType) ??
+    "token";
 
   const insideOutsideType =
     target.insideOutsideType ??
     getPreviousAttribute(previousTargetsForAttributes, "insideOutsideType") ??
-    actionPreferences.insideOutsideType;
+    (targetHasContent ? null : actionPreferences.insideOutsideType);
 
   const modifier = target.modifier ??
     getPreviousAttribute(previousTargetsForAttributes, "modifier") ??
-    actionPreferences.modifier ?? {
+    (targetHasContent ? null : actionPreferences.modifier) ?? {
       type: "identity",
     };
 
