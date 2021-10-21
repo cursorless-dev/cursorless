@@ -1,4 +1,4 @@
-import { SnippetString, workspace } from "vscode";
+import { commands, SnippetString, workspace } from "vscode";
 import {
   Action,
   ActionPreferences,
@@ -109,15 +109,15 @@ export default class WrapWithSnippet implements Action {
         if (candidate.name === placeholderName) {
           candidate.name = "TM_SELECTED_TEXT";
         } else if (!KnownSnippetVariableNames[candidate.name]) {
-          candidate.parent.replace(candidate, [
-            new Placeholder(placeholderIndex++),
-          ]);
+          const placeholder = new Placeholder(placeholderIndex++);
+          candidate.children.forEach((child) => placeholder.appendChild(child));
+          candidate.parent.replace(candidate, [placeholder]);
         }
       }
       return true;
     });
 
-    const snippetString = new SnippetString(parsedSnippet.toTextmateString());
+    const snippetString = parsedSnippet.toTextmateString();
     console.log(`snippetString: ${parsedSnippet.toTextmateString()}`);
 
     await displayPendingEditDecorations(
@@ -129,8 +129,13 @@ export default class WrapWithSnippet implements Action {
       (target) => target.selection.selection
     );
 
+    await this.graph.actions.setSelection.run([targets]);
+
     const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
-      () => editor.insertSnippet(snippetString, targetSelections),
+      () =>
+        commands.executeCommand("editor.action.insertSnippet", {
+          snippet: snippetString,
+        }),
       editor,
       [targetSelections]
     );

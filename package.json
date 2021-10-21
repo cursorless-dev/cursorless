@@ -563,8 +563,11 @@
 											}
 										},
 										"body": {
-											"type": "string",
-											"description": "Inline snippet text"
+											"type": "array",
+											"items": {
+												"type": "string"
+											},
+											"description": "Inline snippet text; entries joined by newline"
 										}
 									},
 									"required": [
@@ -572,34 +575,37 @@
 									]
 								}
 							},
-							"defaultScopeType": {
-								"type": "string",
-								"enum": [
-									"argumentOrParameter",
-									"anonymousFunction",
-									"attribute",
-									"class",
-									"className",
-									"collectionItem",
-									"collectionKey",
-									"comment",
-									"functionCall",
-									"functionName",
-									"ifStatement",
-									"list",
-									"map",
-									"name",
-									"namedFunction",
-									"regularExpression",
-									"statement",
-									"string",
-									"type",
-									"value",
-									"xmlBothTags",
-									"xmlElement",
-									"xmlEndTag",
-									"xmlStartTag"
-								]
+							"defaultScopeTypes": {
+								"type": "object",
+								"additionalProperties": {
+									"type": "string",
+									"enum": [
+										"argumentOrParameter",
+										"anonymousFunction",
+										"attribute",
+										"class",
+										"className",
+										"collectionItem",
+										"collectionKey",
+										"comment",
+										"functionCall",
+										"functionName",
+										"ifStatement",
+										"list",
+										"map",
+										"name",
+										"namedFunction",
+										"regularExpression",
+										"statement",
+										"string",
+										"type",
+										"value",
+										"xmlBothTags",
+										"xmlElement",
+										"xmlEndTag",
+										"xmlStartTag"
+									]
+								}
 							},
 							"description": {
 								"type": "string",
