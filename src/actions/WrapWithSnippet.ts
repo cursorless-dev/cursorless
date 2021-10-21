@@ -14,6 +14,7 @@ import { callFunctionAndUpdateSelections } from "../util/updateSelections";
 import {
   Placeholder,
   SnippetParser,
+  TextmateSnippet,
   Variable,
 } from "../vendor/snippet/snippetParser";
 import { KnownSnippetVariableNames } from "../vendor/snippet/snippetVariables";
@@ -78,6 +79,7 @@ export default class WrapWithSnippet implements Action {
 
     const editor = ensureSingleEditor(targets);
 
+    // Find snippet definition matching context, preferring user definitions
     const definition = findMatchingSnippetDefinition(targets[0], [
       ...snippet.definitions,
       ...(defaultSnippetDefinitions[snippetName] ?? []),
@@ -89,29 +91,9 @@ export default class WrapWithSnippet implements Action {
 
     const parsedSnippet = this.snippetParser.parse(definition.body.join("\n"));
 
-    var placeholderIndex = 1;
-    parsedSnippet.walk((candidate) => {
-      if (candidate instanceof Placeholder) {
-        placeholderIndex = Math.max(placeholderIndex, candidate.index + 1);
-      }
-      return true;
-    });
-
-    parsedSnippet.walk((candidate) => {
-      if (candidate instanceof Variable) {
-        if (candidate.name === placeholderName) {
-          candidate.name = "TM_SELECTED_TEXT";
-        } else if (!KnownSnippetVariableNames[candidate.name]) {
-          const placeholder = new Placeholder(placeholderIndex++);
-          candidate.children.forEach((child) => placeholder.appendChild(child));
-          candidate.parent.replace(candidate, [placeholder]);
-        }
-      }
-      return true;
-    });
+    transformSnippetVariables(parsedSnippet, placeholderName);
 
     const snippetString = parsedSnippet.toTextmateString();
-    console.log(`snippetString: ${parsedSnippet.toTextmateString()}`);
 
     await displayPendingEditDecorations(
       targets,
@@ -140,6 +122,46 @@ export default class WrapWithSnippet implements Action {
       })),
     };
   }
+}
+
+/**
+ * Replaces the snippet variable with name `placeholderName` with TM_SELECTED_TEXT
+ *
+ * Also replaces any unknown variables with placeholders. We do this so it's
+ * easier to leave one of the placeholders blank. We may make it so that you
+ * can disable this with a setting in the future
+ * @param parsedSnippet The parsed textmate snippet to operate on
+ * @param placeholderName The variable name to replace with TM_SELECTED_TEXT
+ */
+function transformSnippetVariables(
+  parsedSnippet: TextmateSnippet,
+  placeholderName: string
+) {
+  var placeholderIndex = getMaxPlaceholderIndex(parsedSnippet) + 1;
+
+  parsedSnippet.walk((candidate) => {
+    if (candidate instanceof Variable) {
+      if (candidate.name === placeholderName) {
+        candidate.name = "TM_SELECTED_TEXT";
+      } else if (!KnownSnippetVariableNames[candidate.name]) {
+        const placeholder = new Placeholder(placeholderIndex++);
+        candidate.children.forEach((child) => placeholder.appendChild(child));
+        candidate.parent.replace(candidate, [placeholder]);
+      }
+    }
+    return true;
+  });
+}
+
+function getMaxPlaceholderIndex(parsedSnippet: TextmateSnippet) {
+  var placeholderIndex = 1;
+  parsedSnippet.walk((candidate) => {
+    if (candidate instanceof Placeholder) {
+      placeholderIndex = Math.max(placeholderIndex, candidate.index + 1);
+    }
+    return true;
+  });
+  return placeholderIndex;
 }
 
 function parseSnippetLocation(snippetLocation: string): [string, string] {
