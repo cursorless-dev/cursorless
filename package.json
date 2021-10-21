@@ -439,7 +439,7 @@
 									"properties": {
 										"scope": {
 											"type": "object",
-											"desription": "Scopes where this snippet is active",
+											"description": "Scopes where this snippet is active",
 											"properties": {
 												"langIds": {
 													"type": "array",
@@ -449,6 +449,7 @@
 												},
 												"scopeType": {
 													"type": "string",
+													"description": "Cursorless scopes in which this snippet is active.  Allows, for example, to have different snippets to define a function if you're in a class or at global scope.",
 													"enum": [
 														"argumentOrParameter",
 														"anonymousFunction",
@@ -493,6 +494,7 @@
 							},
 							"defaultScopeTypes": {
 								"type": "object",
+								"description": "For each named variable in the snippet, uses the given scope type from this map when wrapping a target without scope type specified",
 								"additionalProperties": {
 									"type": "string",
 									"enum": [
