@@ -456,7 +456,7 @@
 										]
 									},
 									"body": [
-										"try {\n\t$1\n} catch ($2) {\n\t$3\n}"
+										"try {\n\t$body\n} catch ($error) {\n\t$exceptBody\n}"
 									]
 								},
 								{
