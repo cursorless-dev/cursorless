@@ -421,7 +421,7 @@
 										]
 									},
 									"body": [
-										"if ($1) {\n\t$2\n}"
+										"if ($condition) {\n\t$consequence\n}"
 									]
 								},
 								{
@@ -431,12 +431,12 @@
 										]
 									},
 									"body": [
-										"if $1:\n\t$2"
+										"if $condition:\n\t$consequence"
 									]
 								}
 							],
 							"defaultScopeTypes": {
-								"2": "statement"
+								"consequence": "statement"
 							},
 							"description": "If statement"
 						},
@@ -466,13 +466,13 @@
 										]
 									},
 									"body": [
-										"try:\n\t$1\nexcept $2:\n\t$3"
+										"try:\n\t$body\nexcept $error:\n\t$exceptBody"
 									]
 								}
 							],
 							"defaultScopeTypes": {
-								"1": "statement",
-								"3": "statement"
+								"body": "statement",
+								"exceptBody": "statement"
 							},
 							"description": "Try catch statement"
 						},
@@ -492,7 +492,7 @@
 										]
 									},
 									"body": [
-										"if ($1) {\n\t$2\n} else {\n\t$3\n}"
+										"if ($condition) {\n\t$consequence\n} else {\n\t$alternative\n}"
 									]
 								},
 								{
@@ -502,13 +502,13 @@
 										]
 									},
 									"body": [
-										"if $1:\n\t$2\nelse:\n\t$3"
+										"if $condition:\n\t$consequence\nelse:\n\t$alternative"
 									]
 								}
 							],
 							"defaultScopeTypes": {
-								"2": "statement",
-								"3": "statement"
+								"consequence": "statement",
+								"alternative": "statement"
 							},
 							"description": "If else statement"
 						}
@@ -612,45 +612,7 @@
 					}
 				}
 			}
-		},
-		"snippets": [
-			{
-				"language": "c",
-				"path": "./snippets/cpp.json"
-			},
-			{
-				"language": "cpp",
-				"path": "./snippets/cpp.json"
-			},
-			{
-				"language": "csharp",
-				"path": "./snippets/csharp.json"
-			},
-			{
-				"language": "java",
-				"path": "./snippets/java.json"
-			},
-			{
-				"language": "javascript",
-				"path": "./snippets/typescript.json"
-			},
-			{
-				"language": "javascriptreact",
-				"path": "./snippets/typescript.json"
-			},
-			{
-				"language": "python",
-				"path": "./snippets/python.json"
-			},
-			{
-				"language": "typescript",
-				"path": "./snippets/typescript.json"
-			},
-			{
-				"language": "typescriptreact",
-				"path": "./snippets/typescript.json"
-			}
-		]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run -S esbuild-base -- --minify",

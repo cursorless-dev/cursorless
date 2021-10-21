@@ -10,7 +10,12 @@ import {
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { callFunctionAndUpdateSelections } from "../util/updateSelections";
-import { SnippetParser, Variable } from "../vendor/snippetParser";
+import {
+  Placeholder,
+  SnippetParser,
+  Variable,
+} from "../vendor/snippet/snippetParser";
+import { KnownSnippetVariableNames } from "../vendor/snippet/snippetVariables";
 
 interface SnippetScope {
   langIds?: string[];
@@ -91,19 +96,29 @@ export default class WrapWithSnippet implements Action {
 
     const parsedSnippet = this.snippetParser.parse(definition.body.join("\n"));
 
-    const placeholderIndex = parseInt(placeholderName);
+    var placeholderIndex = 1;
+    parsedSnippet.walk((candidate) => {
+      if (candidate instanceof Placeholder) {
+        placeholderIndex = Math.max(placeholderIndex, candidate.index + 1);
+      }
+      return true;
+    });
 
-    const placeholder = parsedSnippet.placeholders.find(
-      (placeholder) => placeholder.index === placeholderIndex
-    );
-
-    if (placeholder == null) {
-      throw new Error(`Couldn't find placeholder ${placeholderName}`);
-    }
-
-    parsedSnippet.replace(placeholder, [new Variable("TM_SELECTED_TEXT")]);
+    parsedSnippet.walk((candidate) => {
+      if (candidate instanceof Variable) {
+        if (candidate.name === placeholderName) {
+          candidate.name = "TM_SELECTED_TEXT";
+        } else if (!KnownSnippetVariableNames[candidate.name]) {
+          candidate.parent.replace(candidate, [
+            new Placeholder(placeholderIndex++),
+          ]);
+        }
+      }
+      return true;
+    });
 
     const snippetString = new SnippetString(parsedSnippet.toTextmateString());
+    console.log(`snippetString: ${parsedSnippet.toTextmateString()}`);
 
     await displayPendingEditDecorations(
       targets,

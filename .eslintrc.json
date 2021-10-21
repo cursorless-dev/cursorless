@@ -23,7 +23,7 @@
         "semi": "off"
     },
     "ignorePatterns": [
-        "**/vendor/*.ts",
-        "**/vendor/*.js"
+        "**/vendor/**/*.ts",
+        "**/vendor/**/*.js"
     ]
 }
