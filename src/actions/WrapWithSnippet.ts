@@ -1,11 +1,10 @@
-import { commands, SnippetString, workspace } from "vscode";
-import { SnippetDefinition } from "../typings/snippet";
+import { commands, workspace } from "vscode";
+import { Snippet, SnippetDefinition } from "../typings/snippet";
 import {
   Action,
   ActionPreferences,
   ActionReturnValue,
   Graph,
-  ScopeType,
   TypedSelection,
 } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
@@ -19,12 +18,6 @@ import {
 } from "../vendor/snippet/snippetParser";
 import { KnownSnippetVariableNames } from "../vendor/snippet/snippetVariables";
 import defaultSnippetDefinitions from "./defaultSnippetDefinitions";
-
-interface Snippet {
-  definitions: SnippetDefinition[];
-  defaultScopeTypes: Record<string, ScopeType>;
-  description?: string;
-}
 
 type UserSnippetMap = Record<string, Snippet>;
 
@@ -106,6 +99,8 @@ export default class WrapWithSnippet implements Action {
 
     await this.graph.actions.setSelection.run([targets]);
 
+    // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
+    // because the latter doesn't support special variables like CLIPBOARD
     const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
       () =>
         commands.executeCommand("editor.action.insertSnippet", {
