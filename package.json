@@ -517,7 +517,7 @@
 						"type": "object",
 						"properties": {
 							"definitions": {
-								"type": "list",
+								"type": "array",
 								"items": {
 									"type": "object",
 									"properties": {
@@ -526,7 +526,7 @@
 											"desription": "Scopes where this snippet is active",
 											"properties": {
 												"langIds": {
-													"type": "list",
+													"type": "array",
 													"items": {
 														"type": "string"
 													}
