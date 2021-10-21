@@ -128,7 +128,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         const targets = inferFullTargets(
           partialTargets,
-          action.targetPreferences
+          action.getTargetPreferences(...extraArgs)
         );
 
         const processedTargetsContext: ProcessedTargetsContext = {

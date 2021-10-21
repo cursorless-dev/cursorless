@@ -5,7 +5,7 @@ command:
   partialTargets:
     - type: primitive
       mark: {type: cursor}
-  extraArgs: [tryCatchStatement]
+  extraArgs: [cursorless.wrappers.tryCatchStatement]
 marks: {}
 initialState:
   documentContents: foo = "hello"
@@ -21,4 +21,7 @@ finalState:
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 3, character: 4}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]

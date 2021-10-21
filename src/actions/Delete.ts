@@ -11,7 +11,7 @@ import { flatten } from "lodash";
 import { performEditsAndUpdateSelections } from "../util/updateSelections";
 
 export default class Delete implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "outside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "outside" }];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);

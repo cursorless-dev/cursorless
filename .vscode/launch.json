@@ -36,6 +36,25 @@
 				"${workspaceFolder}/out/test/**/*.js"
 			],
 			"preLaunchTask": "${defaultBuildTask}"
+		},
+		{
+			"name": "Update fixtures",
+			"type": "extensionHost",
+			"request": "launch",
+			"env": {
+				"CURSORLESS_TEST": "true",
+				"CURSORLESS_TEST_UPDATE_FIXTURES": "true",
+			},
+			"args": [
+				"--disable-extension",
+				"asvetliakov.vscode-neovim",
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+			],
+			"outFiles": [
+				"${workspaceFolder}/out/test/**/*.js"
+			],
+			"preLaunchTask": "${defaultBuildTask}"
 		}
 	]
 }

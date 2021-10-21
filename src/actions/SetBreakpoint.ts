@@ -25,7 +25,7 @@ function getBreakpoints(uri: Uri, range: Range) {
 }
 
 export default class SetBreakpoint implements Action {
-  targetPreferences: ActionPreferences[] = [
+  getTargetPreferences: () => ActionPreferences[] = () => [
     { insideOutsideType: "inside", selectionType: "line" },
   ];
 

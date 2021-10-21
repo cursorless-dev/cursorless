@@ -5,7 +5,7 @@ command:
   partialTargets:
     - type: primitive
       mark: {type: cursor}
-  extraArgs: [ifStatement]
+  extraArgs: [cursorless.wrappers.ifStatement]
 marks: {}
 initialState:
   documentContents: int foo = 0;
@@ -20,4 +20,7 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 2, character: 1}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]

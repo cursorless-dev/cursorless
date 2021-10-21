@@ -148,7 +148,7 @@ class SelectionUpdater {
  * @returns The initial selections updated based upon what happened in the function
  */
 export async function callFunctionAndUpdateSelections(
-  func: () => Thenable<void>,
+  func: () => Thenable<unknown>,
   editor: TextEditor,
   selectionMatrix: Selection[][]
 ): Promise<Selection[][]> {

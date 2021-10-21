@@ -401,30 +401,256 @@
 						}
 					}
 				},
-				"cursorless.wrapperSnippets": {
-					"description": "Snippets to use with the wrap with snippet action",
+				"cursorless.experimental.snippets": {
+					"description": "Snippets for use in cursorless",
 					"type": "object",
-					"scope": "language-overridable",
+					"default": {
+						"ifStatement": {
+							"definitions": [
+								{
+									"scope": {
+										"langIds": [
+											"typescript",
+											"typescriptreact",
+											"javascript",
+											"javascriptreact",
+											"cpp",
+											"c",
+											"java",
+											"csharp"
+										]
+									},
+									"body": [
+										"if ($1) {\n\t$2\n}"
+									]
+								},
+								{
+									"scope": {
+										"langIds": [
+											"python"
+										]
+									},
+									"body": [
+										"if $1:\n\t$2"
+									]
+								}
+							],
+							"defaultScopeTypes": {
+								"2": "statement"
+							},
+							"description": "If statement"
+						},
+						"tryCatchStatement": {
+							"definitions": [
+								{
+									"scope": {
+										"langIds": [
+											"typescript",
+											"typescriptreact",
+											"javascript",
+											"javascriptreact",
+											"cpp",
+											"c",
+											"java",
+											"csharp"
+										]
+									},
+									"body": [
+										"try {\n\t$1\n} catch ($2) {\n\t$3\n}"
+									]
+								},
+								{
+									"scope": {
+										"langIds": [
+											"python"
+										]
+									},
+									"body": [
+										"try:\n\t$1\nexcept $2:\n\t$3"
+									]
+								}
+							],
+							"defaultScopeTypes": {
+								"1": "statement",
+								"3": "statement"
+							},
+							"description": "Try catch statement"
+						},
+						"ifElseStatement": {
+							"definitions": [
+								{
+									"scope": {
+										"langIds": [
+											"typescript",
+											"typescriptreact",
+											"javascript",
+											"javascriptreact",
+											"cpp",
+											"c",
+											"java",
+											"csharp"
+										]
+									},
+									"body": [
+										"if ($1) {\n\t$2\n} else {\n\t$3\n}"
+									]
+								},
+								{
+									"scope": {
+										"langIds": [
+											"python"
+										]
+									},
+									"body": [
+										"if $1:\n\t$2\nelse:\n\t$3"
+									]
+								}
+							],
+							"defaultScopeTypes": {
+								"2": "statement",
+								"3": "statement"
+							},
+							"description": "If else statement"
+						}
+					},
 					"additionalProperties": {
 						"type": "object",
 						"properties": {
-							"snippet": {
-								"type": "string"
-							},
-							"name": {
-								"type": "string"
-							},
-							"langId": {
-								"type": "string"
+							"definitions": {
+								"type": "list",
+								"items": {
+									"type": "object",
+									"properties": {
+										"scope": {
+											"type": "object",
+											"desription": "Scopes where this snippet is active",
+											"properties": {
+												"langIds": {
+													"type": "list",
+													"items": {
+														"type": "string"
+													}
+												},
+												"scopeType": {
+													"type": "string",
+													"enum": [
+														"argumentOrParameter",
+														"anonymousFunction",
+														"attribute",
+														"class",
+														"className",
+														"collectionItem",
+														"collectionKey",
+														"comment",
+														"functionCall",
+														"functionName",
+														"ifStatement",
+														"list",
+														"map",
+														"name",
+														"namedFunction",
+														"regularExpression",
+														"statement",
+														"string",
+														"type",
+														"value",
+														"xmlBothTags",
+														"xmlElement",
+														"xmlEndTag",
+														"xmlStartTag"
+													]
+												}
+											}
+										},
+										"body": {
+											"type": "string",
+											"description": "Inline snippet text"
+										}
+									},
+									"required": [
+										"body"
+									]
+								}
 							},
 							"defaultScopeType": {
-								"type": "string"
+								"type": "string",
+								"enum": [
+									"argumentOrParameter",
+									"anonymousFunction",
+									"attribute",
+									"class",
+									"className",
+									"collectionItem",
+									"collectionKey",
+									"comment",
+									"functionCall",
+									"functionName",
+									"ifStatement",
+									"list",
+									"map",
+									"name",
+									"namedFunction",
+									"regularExpression",
+									"statement",
+									"string",
+									"type",
+									"value",
+									"xmlBothTags",
+									"xmlElement",
+									"xmlEndTag",
+									"xmlStartTag"
+								]
+							},
+							"description": {
+								"type": "string",
+								"description": "Description of the snippet"
 							}
-						}
+						},
+						"required": [
+							"definitions"
+						]
 					}
 				}
 			}
-		}
+		},
+		"snippets": [
+			{
+				"language": "c",
+				"path": "./snippets/cpp.json"
+			},
+			{
+				"language": "cpp",
+				"path": "./snippets/cpp.json"
+			},
+			{
+				"language": "csharp",
+				"path": "./snippets/csharp.json"
+			},
+			{
+				"language": "java",
+				"path": "./snippets/java.json"
+			},
+			{
+				"language": "javascript",
+				"path": "./snippets/typescript.json"
+			},
+			{
+				"language": "javascriptreact",
+				"path": "./snippets/typescript.json"
+			},
+			{
+				"language": "python",
+				"path": "./snippets/python.json"
+			},
+			{
+				"language": "typescript",
+				"path": "./snippets/typescript.json"
+			},
+			{
+				"language": "typescriptreact",
+				"path": "./snippets/typescript.json"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run -S esbuild-base -- --minify",
@@ -454,7 +680,7 @@
 		"js-yaml": "^4.1.0",
 		"mocha": "^8.1.3",
 		"sinon": "^11.1.1",
-		"typescript": "^4.1.2",
+		"typescript": "^4.4.4",
 		"vscode-test": "^1.4.1"
 	},
 	"dependencies": {

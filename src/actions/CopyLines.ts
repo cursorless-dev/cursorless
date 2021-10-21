@@ -14,7 +14,7 @@ import unifyRanges from "../util/unifyRanges";
 import expandToContainingLine from "../util/expandToContainingLine";
 
 class CopyLines implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
 
   constructor(private graph: Graph, private isUp: boolean) {
     this.run = this.run.bind(this);

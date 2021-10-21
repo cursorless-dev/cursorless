@@ -9,7 +9,7 @@ import { ensureSingleEditor } from "../util/targetUtils";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 
 export default class Clear implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);

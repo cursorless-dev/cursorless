@@ -8,7 +8,7 @@ import {
 import { commands, Selection } from "vscode";
 
 class EditNewLine implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
 
   constructor(private graph: Graph, private isAbove: boolean) {
     this.run = this.run.bind(this);

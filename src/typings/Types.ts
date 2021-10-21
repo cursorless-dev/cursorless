@@ -1,6 +1,6 @@
 import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
-import { Location } from "vscode";
+import { Location, Selection } from "vscode";
 import { HatStyleName } from "../core/constants";
 import { EditStyles } from "../core/editStyles";
 import NavigationMap from "../core/NavigationMap";
@@ -274,7 +274,12 @@ export interface ActionReturnValue {
 
 export interface Action {
   run(targets: TypedSelection[][], ...args: any[]): Promise<ActionReturnValue>;
-  targetPreferences: ActionPreferences[];
+
+  /**
+   * Used to define default values for parts of target during inference.
+   * @param args Extra args to command
+   */
+  getTargetPreferences(...args: any[]): ActionPreferences[];
 }
 
 export type ActionType =
@@ -314,12 +319,6 @@ export type ActionType =
   | "unfoldRegion"
   | "wrapWithPairedDelimiter"
   | "wrapWithSnippet";
-
-export type SnippetName =
-  | "ifElseStatementElseBranch"
-  | "ifElseStatementIfBranch"
-  | "ifStatement"
-  | "tryCatchStatement";
 
 export type ActionRecord = Record<ActionType, Action>;
 

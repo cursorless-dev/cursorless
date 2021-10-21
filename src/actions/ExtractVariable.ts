@@ -9,7 +9,7 @@ import { ensureSingleTarget } from "../util/targetUtils";
 import { commands } from "vscode";
 
 export default class ExtractVariable implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
