@@ -17,7 +17,7 @@ finalState:
     try:
         foo = "hello"
     except :
-
+        
   selections:
     - anchor: { line: 2, character: 7 }
       active: { line: 2, character: 7 }

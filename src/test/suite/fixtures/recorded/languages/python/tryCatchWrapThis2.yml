@@ -29,7 +29,7 @@ finalState:
     try:
         bar = "hello"
     except :
-
+        
   selections:
     - anchor: { line: 8, character: 7 }
       active: { line: 8, character: 7 }

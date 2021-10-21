@@ -17,7 +17,7 @@ finalState:
     if :
         foo = "hello"
     else:
-
+        
   selections:
     - anchor: { line: 0, character: 3 }
       active: { line: 0, character: 3 }
