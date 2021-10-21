@@ -4,14 +4,14 @@ command:
   actionName: wrapWithSnippet
   partialTargets:
     - type: primitive
-      mark: { type: cursor }
+      mark: {type: cursor}
   extraArgs: [tryCatchStatement/body]
 marks: {}
 initialState:
   documentContents: foo = "hello"
   selections:
-    - anchor: { line: 0, character: 0 }
-      active: { line: 0, character: 0 }
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
 finalState:
   documentContents: |-
     try:
@@ -19,20 +19,9 @@ finalState:
     except :
         
   selections:
-    - anchor: { line: 2, character: 7 }
-      active: { line: 2, character: 7 }
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
   thatMark:
-    - anchor: { line: 0, character: 0 }
-      active: { line: 3, character: 4 }
-fullTargets:
-  [
-    {
-      type: primitive,
-      mark: { type: cursor },
-      selectionType: token,
-      position: contents,
-      insideOutsideType: inside,
-      modifier:
-        { type: containingScope, scopeType: statement, includeSiblings: false },
-    },
-  ]
+    - anchor: {line: 0, character: 0}
+      active: {line: 3, character: 4}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]

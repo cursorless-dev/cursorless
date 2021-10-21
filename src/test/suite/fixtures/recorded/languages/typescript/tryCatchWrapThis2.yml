@@ -4,7 +4,7 @@ command:
   actionName: wrapWithSnippet
   partialTargets:
     - type: primitive
-      mark: { type: cursor }
+      mark: {type: cursor}
   extraArgs: [tryCatchStatement/body]
 marks: {}
 initialState:
@@ -15,10 +15,10 @@ initialState:
 
     const bar = "hello";
   selections:
-    - anchor: { line: 4, character: 0 }
-      active: { line: 4, character: 0 }
-    - anchor: { line: 0, character: 0 }
-      active: { line: 0, character: 0 }
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
 finalState:
   documentContents: |-
     try {
@@ -35,24 +35,13 @@ finalState:
         
     }
   selections:
-    - anchor: { line: 10, character: 9 }
-      active: { line: 10, character: 9 }
-    - anchor: { line: 4, character: 9 }
-      active: { line: 4, character: 9 }
+    - anchor: {line: 10, character: 9}
+      active: {line: 10, character: 9}
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}
   thatMark:
-    - anchor: { line: 8, character: 0 }
-      active: { line: 12, character: 1 }
-    - anchor: { line: 0, character: 0 }
-      active: { line: 6, character: 1 }
-fullTargets:
-  [
-    {
-      type: primitive,
-      mark: { type: cursor },
-      selectionType: token,
-      position: contents,
-      insideOutsideType: inside,
-      modifier:
-        { type: containingScope, scopeType: statement, includeSiblings: false },
-    },
-  ]
+    - anchor: {line: 8, character: 0}
+      active: {line: 12, character: 1}
+    - anchor: {line: 0, character: 0}
+      active: {line: 6, character: 1}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]
