@@ -1,4 +1,5 @@
 import { commands, SnippetString, workspace } from "vscode";
+import { SnippetDefinition } from "../typings/snippet";
 import {
   Action,
   ActionPreferences,
@@ -16,18 +17,7 @@ import {
   Variable,
 } from "../vendor/snippet/snippetParser";
 import { KnownSnippetVariableNames } from "../vendor/snippet/snippetVariables";
-
-interface SnippetScope {
-  langIds?: string[];
-  scopeType?: ScopeType;
-}
-
-type SnippetBody = string[];
-
-interface SnippetDefinition {
-  body: SnippetBody;
-  scope?: SnippetScope;
-}
+import defaultSnippetDefinitions from "./defaultSnippetDefinitions";
 
 interface Snippet {
   definitions: SnippetDefinition[];
@@ -88,7 +78,10 @@ export default class WrapWithSnippet implements Action {
 
     const editor = ensureSingleEditor(targets);
 
-    const definition = findMatchingSnippetDefinition(targets[0], snippet);
+    const definition = findMatchingSnippetDefinition(targets[0], [
+      ...snippet.definitions,
+      ...(defaultSnippetDefinitions[snippetName] ?? []),
+    ]);
 
     if (definition == null) {
       throw new Error("Couldn't find matching snippet definition");
@@ -156,9 +149,9 @@ function parseSnippetLocation(snippetLocation: string): [string, string] {
 
 function findMatchingSnippetDefinition(
   typedSelection: TypedSelection,
-  snippet: Snippet
+  definitions: SnippetDefinition[]
 ) {
-  return snippet.definitions.find(({ scope }) => {
+  return definitions.find(({ scope }) => {
     if (scope == null) {
       return true;
     }
