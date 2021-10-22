@@ -434,6 +434,7 @@
 						"properties": {
 							"definitions": {
 								"type": "array",
+								"descriptions": "List of possible definitions for this snippet",
 								"items": {
 									"type": "object",
 									"properties": {
