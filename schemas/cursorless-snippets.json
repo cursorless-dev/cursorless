@@ -23,7 +23,7 @@
                                 },
                                 "scopeType": {
                                     "$ref": "#/$defs/scopeType",
-                                    "description": "Cursorless scopes in which this snippet is active.  Allows, for example, to have different snippets to define a function if you're in a class or at global scope.",
+                                    "description": "Cursorless scopes in which this snippet is active.  Allows, for example, to have different snippets to define a function if you're in a class or at global scope."
                                 }
                             }
                         },
@@ -51,10 +51,7 @@
                 "type": "string",
                 "description": "Description of the snippet"
             }
-        },
-        "required": [
-            "definitions"
-        ]
+        }
     },
     "$defs": {
         "scopeType": {
