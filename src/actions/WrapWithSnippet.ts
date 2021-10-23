@@ -155,7 +155,7 @@ function getMaxPlaceholderIndex(parsedSnippet: TextmateSnippet) {
 }
 
 function parseSnippetLocation(snippetLocation: string): [string, string] {
-  const [snippetName, placeholderName] = snippetLocation.split("/");
+  const [snippetName, placeholderName] = snippetLocation.split(".");
   if (snippetName == null || placeholderName == null) {
     throw new Error("Snippet location missing slash");
   }
