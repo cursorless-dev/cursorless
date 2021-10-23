@@ -22,34 +22,8 @@
                                     }
                                 },
                                 "scopeType": {
-                                    "type": "string",
+                                    "$ref": "#/$defs/scopeType",
                                     "description": "Cursorless scopes in which this snippet is active.  Allows, for example, to have different snippets to define a function if you're in a class or at global scope.",
-                                    "enum": [
-                                        "argumentOrParameter",
-                                        "anonymousFunction",
-                                        "attribute",
-                                        "class",
-                                        "className",
-                                        "collectionItem",
-                                        "collectionKey",
-                                        "comment",
-                                        "functionCall",
-                                        "functionName",
-                                        "ifStatement",
-                                        "list",
-                                        "map",
-                                        "name",
-                                        "namedFunction",
-                                        "regularExpression",
-                                        "statement",
-                                        "string",
-                                        "type",
-                                        "value",
-                                        "xmlBothTags",
-                                        "xmlElement",
-                                        "xmlEndTag",
-                                        "xmlStartTag"
-                                    ]
                                 }
                             }
                         },
@@ -70,33 +44,7 @@
                 "type": "object",
                 "description": "For each named variable in the snippet, uses the given scope type from this map when wrapping a target without scope type specified",
                 "additionalProperties": {
-                    "type": "string",
-                    "enum": [
-                        "argumentOrParameter",
-                        "anonymousFunction",
-                        "attribute",
-                        "class",
-                        "className",
-                        "collectionItem",
-                        "collectionKey",
-                        "comment",
-                        "functionCall",
-                        "functionName",
-                        "ifStatement",
-                        "list",
-                        "map",
-                        "name",
-                        "namedFunction",
-                        "regularExpression",
-                        "statement",
-                        "string",
-                        "type",
-                        "value",
-                        "xmlBothTags",
-                        "xmlElement",
-                        "xmlEndTag",
-                        "xmlStartTag"
-                    ]
+                    "$ref": "#/$defs/scopeType"
                 }
             },
             "description": {
@@ -107,5 +55,36 @@
         "required": [
             "definitions"
         ]
+    },
+    "$defs": {
+        "scopeType": {
+            "type": "string",
+            "enum": [
+                "argumentOrParameter",
+                "anonymousFunction",
+                "attribute",
+                "class",
+                "className",
+                "collectionItem",
+                "collectionKey",
+                "comment",
+                "functionCall",
+                "functionName",
+                "ifStatement",
+                "list",
+                "map",
+                "name",
+                "namedFunction",
+                "regularExpression",
+                "statement",
+                "string",
+                "type",
+                "value",
+                "xmlBothTags",
+                "xmlElement",
+                "xmlEndTag",
+                "xmlStartTag"
+            ]
+        }
     }
 }
