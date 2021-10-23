@@ -63,7 +63,11 @@ export default class WrapWithSnippet implements Action {
 
     const editor = ensureSingleEditor(targets);
 
-    // Find snippet definition matching context, preferring user definitions
+    // Find snippet definition matching context.
+    // NB: We only look at the first target to create our context. This means
+    // that if there are two snippets that match two different contexts, and
+    // the two targets match those two different contexts, we will just use the
+    // snippet that matches the first context for both targets
     const definition = findMatchingSnippetDefinition(
       targets[0],
       snippet.definitions

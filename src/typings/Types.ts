@@ -4,7 +4,7 @@ import { ExtensionContext, Location, Selection } from "vscode";
 import { HatStyleName } from "../core/constants";
 import { EditStyles } from "../core/editStyles";
 import NavigationMap from "../core/NavigationMap";
-import { Snippets } from "../snippets";
+import { Snippets } from "../core/Snippets";
 
 /**
  * A token within a text editor, including the current display line of the token

@@ -2,10 +2,10 @@ import { readFile, stat } from "fs/promises";
 import { cloneDeep, max } from "lodash";
 import { join } from "path";
 import { workspace } from "vscode";
-import { walkFiles } from "./testUtil/walkAsync";
-import { Snippet, SnippetMap } from "./typings/snippet";
-import { Graph } from "./typings/Types";
-import { mergeStrict } from "./util/object";
+import { walkFiles } from "../testUtil/walkAsync";
+import { Snippet, SnippetMap } from "../typings/snippet";
+import { Graph } from "../typings/Types";
+import { mergeStrict } from "../util/object";
 
 const SNIPPET_DIR_REFRESH_INTERVAL_MS = 1000;
 
@@ -16,11 +16,23 @@ const SNIPPET_DIR_REFRESH_INTERVAL_MS = 1000;
  */
 export class Snippets {
   private coreSnippets!: SnippetMap;
-  private userSnippets!: SnippetMap;
-  private mergedSnippets!: SnippetMap;
   private thirdPartySnippets: Record<string, SnippetMap> = {};
+  private userSnippets!: SnippetMap;
+
+  private mergedSnippets!: SnippetMap;
+
   private userSnippetsDir?: string;
-  private maxSnippetMtime: number = -1;
+
+  /**
+   * The maximum modification time of any snippet in user snippets dir.
+   *
+   * This variable will be set to -1 if no user snippets have yet been read or
+   * if the user snippets path has changed.
+   *
+   * This variable will be set to 0 if the user has no snippets dir configured and
+   * we've already set userSnippets to {}.
+   */
+  private maxSnippetMtimeMs: number = -1;
 
   constructor(private graph: Graph) {
     this.updateUserSnippetsPath();
@@ -78,7 +90,7 @@ export class Snippets {
     }
 
     // Reset mtime to -1 so that next time we'll update the snippets
-    this.maxSnippetMtime = -1;
+    this.maxSnippetMtimeMs = -1;
 
     this.userSnippetsDir = newUserSnippetsDir;
 
@@ -97,11 +109,11 @@ export class Snippets {
         )
       ) ?? 0;
 
-    if (maxSnippetMtime <= this.maxSnippetMtime) {
+    if (maxSnippetMtime <= this.maxSnippetMtimeMs) {
       return;
     }
 
-    this.maxSnippetMtime = maxSnippetMtime;
+    this.maxSnippetMtimeMs = maxSnippetMtime;
 
     this.userSnippets = mergeStrict(
       ...(await Promise.all(

@@ -7,7 +7,7 @@ import { TestCaseFixture } from "../testUtil/TestCase";
 
 import { walkFilesSync } from "../testUtil/walkSync";
 import serialize from "../testUtil/serialize";
-import canonicalizeActionName from "../canonicalizeActionName";
+import canonicalizeActionName from "../util/canonicalizeActionName";
 
 /**
  * The transformation to run on all recorded test fixtures.  Change this

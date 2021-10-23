@@ -18,8 +18,8 @@ import { TestCase } from "./testUtil/TestCase";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getParseTreeApi } from "./util/getExtensionApi";
-import { canonicalizeAndValidateCommand } from "./canonicalizeAndValidateCommand";
-import canonicalizeActionName from "./canonicalizeActionName";
+import { canonicalizeAndValidateCommand } from "./util/canonicalizeAndValidateCommand";
+import canonicalizeActionName from "./util/canonicalizeActionName";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
