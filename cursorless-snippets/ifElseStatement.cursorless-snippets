@@ -1,0 +1,45 @@
+{
+    "ifElseStatement": {
+        "definitions": [
+            {
+                "scope": {
+                    "langIds": [
+                        "typescript",
+                        "typescriptreact",
+                        "javascript",
+                        "javascriptreact",
+                        "cpp",
+                        "c",
+                        "java",
+                        "csharp"
+                    ]
+                },
+                "body": [
+                    "if ($condition) {",
+                    "\t$consequence",
+                    "} else {",
+                    "\t$alternative",
+                    "}"
+                ]
+            },
+            {
+                "scope": {
+                    "langIds": [
+                        "python"
+                    ]
+                },
+                "body": [
+                    "if $condition:",
+                    "\t$consequence",
+                    "else:",
+                    "\t$alternative"
+                ]
+            }
+        ],
+        "defaultScopeTypes": {
+            "consequence": "statement",
+            "alternative": "statement"
+        },
+        "description": "If else statement"
+    }
+}

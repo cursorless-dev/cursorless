@@ -19,19 +19,14 @@ import {
 import { KnownSnippetVariableNames } from "../vendor/snippet/snippetVariables";
 import defaultSnippetDefinitions from "./defaultSnippetDefinitions";
 
-type UserSnippetMap = Record<string, Snippet>;
-
 export default class WrapWithSnippet implements Action {
-  snippetParser = new SnippetParser();
+  private snippetParser = new SnippetParser();
 
   getTargetPreferences(snippetLocation: string): ActionPreferences[] {
-    const snippetMap = workspace
-      .getConfiguration("cursorless.experimental")
-      .get<UserSnippetMap>("snippets")!;
-
     const [snippetName, placeholderName] =
       parseSnippetLocation(snippetLocation);
-    const snippet = snippetMap[snippetName];
+
+    const snippet = this.graph.snippets.getSnippet(snippetName);
 
     if (snippet == null) {
       throw new Error(`Couldn't find snippet ${snippetName}`);
@@ -62,13 +57,10 @@ export default class WrapWithSnippet implements Action {
     [targets]: [TypedSelection[]],
     snippetLocation: string
   ): Promise<ActionReturnValue> {
-    const snippetMap = workspace
-      .getConfiguration("cursorless.experimental")
-      .get<UserSnippetMap>("snippets")!;
-
     const [snippetName, placeholderName] =
       parseSnippetLocation(snippetLocation);
-    const snippet = snippetMap[snippetName];
+
+    const snippet = this.graph.snippets.getSnippet(snippetName)!;
 
     const editor = ensureSingleEditor(targets);
 
@@ -161,6 +153,9 @@ function getMaxPlaceholderIndex(parsedSnippet: TextmateSnippet) {
 
 function parseSnippetLocation(snippetLocation: string): [string, string] {
   const [snippetName, placeholderName] = snippetLocation.split("/");
+  if (snippetName == null || placeholderName == null) {
+    throw new Error("Snippet location missing slash");
+  }
   return [snippetName, placeholderName];
 }
 

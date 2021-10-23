@@ -17,3 +17,5 @@ export interface Snippet {
   defaultScopeTypes: Record<string, ScopeType>;
   description?: string;
 }
+
+export type SnippetMap = Record<string, Snippet>;

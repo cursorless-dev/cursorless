@@ -1,0 +1,45 @@
+{
+    "tryCatchStatement": {
+        "definitions": [
+            {
+                "scope": {
+                    "langIds": [
+                        "typescript",
+                        "typescriptreact",
+                        "javascript",
+                        "javascriptreact",
+                        "cpp",
+                        "c",
+                        "java",
+                        "csharp"
+                    ]
+                },
+                "body": [
+                    "try {",
+                    "\t$body",
+                    "} catch ($error) {",
+                    "\t$exceptBody",
+                    "}"
+                ]
+            },
+            {
+                "scope": {
+                    "langIds": [
+                        "python"
+                    ]
+                },
+                "body": [
+                    "try:",
+                    "\t$body",
+                    "except $error:",
+                    "\t$exceptBody"
+                ]
+            }
+        ],
+        "defaultScopeTypes": {
+            "body": "statement",
+            "exceptBody": "statement"
+        },
+        "description": "Try catch statement"
+    }
+}

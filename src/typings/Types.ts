@@ -1,9 +1,10 @@
 import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
-import { Location, Selection } from "vscode";
+import { ExtensionContext, Location, Selection } from "vscode";
 import { HatStyleName } from "../core/constants";
 import { EditStyles } from "../core/editStyles";
 import NavigationMap from "../core/NavigationMap";
+import { Snippets } from "../snippets";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -326,6 +327,8 @@ export interface Graph {
   readonly actions: ActionRecord;
   readonly editStyles: EditStyles;
   readonly navigationMap: NavigationMap;
+  readonly extensionContext: ExtensionContext;
+  readonly snippets: Snippets;
 }
 
 export type NodeMatcherValue = {

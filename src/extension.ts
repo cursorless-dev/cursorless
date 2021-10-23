@@ -2,16 +2,17 @@ import * as vscode from "vscode";
 import { addDecorationsToEditors } from "./util/addDecorationsToEditor";
 import { DEBOUNCE_DELAY } from "./core/constants";
 import Decorations from "./core/Decorations";
-import graphConstructors from "./util/graphConstructors";
+import graphFactories from "./util/graphFactories";
 import inferFullTargets from "./core/inferFullTargets";
 import processTargets from "./processTargets";
 import FontMeasurements from "./core/FontMeasurements";
 import {
   ActionType,
+  Graph,
   PartialTarget,
   ProcessedTargetsContext,
 } from "./typings/Types";
-import makeGraph from "./util/makeGraph";
+import makeGraph, { FactoryMap } from "./util/makeGraph";
 import { logBranchTypes } from "./util/debug";
 import { TestCase } from "./testUtil/TestCase";
 import { ThatMark } from "./core/ThatMark";
@@ -76,7 +77,11 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  const graph = makeGraph(graphConstructors);
+  const graph = makeGraph({
+    ...graphFactories,
+    extensionContext: () => context,
+  } as FactoryMap<Graph>);
+  graph.snippets.init();
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
   const testCaseRecorder = new TestCaseRecorder(context);
@@ -280,6 +285,9 @@ export async function activate(context: vscode.ExtensionContext) {
     thatMark,
     sourceMark,
     addDecorations,
+    experimental: {
+      registerThirdPartySnippets: graph.snippets.registerThirdPartySnippets,
+    },
   };
 }
 
