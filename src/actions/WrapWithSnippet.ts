@@ -1,5 +1,5 @@
-import { commands, workspace } from "vscode";
-import { Snippet, SnippetDefinition } from "../typings/snippet";
+import { commands } from "vscode";
+import { SnippetDefinition } from "../typings/snippet";
 import {
   Action,
   ActionPreferences,
