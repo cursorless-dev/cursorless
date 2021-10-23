@@ -17,7 +17,6 @@ import {
   Variable,
 } from "../vendor/snippet/snippetParser";
 import { KnownSnippetVariableNames } from "../vendor/snippet/snippetVariables";
-import defaultSnippetDefinitions from "./defaultSnippetDefinitions";
 
 export default class WrapWithSnippet implements Action {
   private snippetParser = new SnippetParser();
@@ -65,10 +64,10 @@ export default class WrapWithSnippet implements Action {
     const editor = ensureSingleEditor(targets);
 
     // Find snippet definition matching context, preferring user definitions
-    const definition = findMatchingSnippetDefinition(targets[0], [
-      ...snippet.definitions,
-      ...(defaultSnippetDefinitions[snippetName] ?? []),
-    ]);
+    const definition = findMatchingSnippetDefinition(
+      targets[0],
+      snippet.definitions
+    );
 
     if (definition == null) {
       throw new Error("Couldn't find matching snippet definition");
@@ -141,10 +140,10 @@ function transformSnippetVariables(
 }
 
 function getMaxPlaceholderIndex(parsedSnippet: TextmateSnippet) {
-  var placeholderIndex = 1;
+  var placeholderIndex = 0;
   parsedSnippet.walk((candidate) => {
     if (candidate instanceof Placeholder) {
-      placeholderIndex = Math.max(placeholderIndex, candidate.index + 1);
+      placeholderIndex = Math.max(placeholderIndex, candidate.index);
     }
     return true;
   });
@@ -163,6 +162,8 @@ function findMatchingSnippetDefinition(
   typedSelection: TypedSelection,
   definitions: SnippetDefinition[]
 ) {
+  const languageId = typedSelection.selection.editor.document.languageId;
+
   return definitions.find(({ scope }) => {
     if (scope == null) {
       return true;
@@ -170,10 +171,7 @@ function findMatchingSnippetDefinition(
 
     const { langIds, scopeType } = scope;
 
-    if (
-      langIds != null &&
-      !langIds.includes(typedSelection.selection.editor.document.languageId)
-    ) {
+    if (langIds != null && !langIds.includes(languageId)) {
       return false;
     }
 
