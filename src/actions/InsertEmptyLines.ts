@@ -12,7 +12,7 @@ import { performEditsAndUpdateSelections } from "../util/updateSelections";
 import { flatten } from "lodash";
 
 class InsertEmptyLines implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
 
   constructor(
     private graph: Graph,

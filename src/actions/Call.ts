@@ -8,7 +8,7 @@ import {
 import { ensureSingleTarget } from "../util/targetUtils";
 
 export default class Call implements Action {
-  targetPreferences: ActionPreferences[] = [
+  getTargetPreferences: () => ActionPreferences[] = () => [
     { insideOutsideType: "inside" },
     { insideOutsideType: "inside" },
   ];

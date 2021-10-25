@@ -21,5 +21,9 @@
         ],
         "no-throw-literal": "warn",
         "semi": "off"
-    }
+    },
+    "ignorePatterns": [
+        "**/vendor/**/*.ts",
+        "**/vendor/**/*.js"
+    ]
 }

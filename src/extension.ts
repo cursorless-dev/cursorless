@@ -2,23 +2,24 @@ import * as vscode from "vscode";
 import { addDecorationsToEditors } from "./util/addDecorationsToEditor";
 import { DEBOUNCE_DELAY } from "./core/constants";
 import Decorations from "./core/Decorations";
-import graphConstructors from "./util/graphConstructors";
+import graphFactories from "./util/graphFactories";
 import inferFullTargets from "./core/inferFullTargets";
 import processTargets from "./processTargets";
 import FontMeasurements from "./core/FontMeasurements";
 import {
   ActionType,
+  Graph,
   PartialTarget,
   ProcessedTargetsContext,
 } from "./typings/Types";
-import makeGraph from "./util/makeGraph";
+import makeGraph, { FactoryMap } from "./util/makeGraph";
 import { logBranchTypes } from "./util/debug";
 import { TestCase } from "./testUtil/TestCase";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getParseTreeApi } from "./util/getExtensionApi";
-import { canonicalizeAndValidateCommand } from "./canonicalizeAndValidateCommand";
-import canonicalizeActionName from "./canonicalizeActionName";
+import { canonicalizeAndValidateCommand } from "./util/canonicalizeAndValidateCommand";
+import canonicalizeActionName from "./util/canonicalizeActionName";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -76,7 +77,11 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  const graph = makeGraph(graphConstructors);
+  const graph = makeGraph({
+    ...graphFactories,
+    extensionContext: () => context,
+  } as FactoryMap<Graph>);
+  graph.snippets.init();
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
   const testCaseRecorder = new TestCaseRecorder(context);
@@ -128,7 +133,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         const targets = inferFullTargets(
           partialTargets,
-          action.targetPreferences
+          action.getTargetPreferences(...extraArgs)
         );
 
         const processedTargetsContext: ProcessedTargetsContext = {
@@ -280,6 +285,9 @@ export async function activate(context: vscode.ExtensionContext) {
     thatMark,
     sourceMark,
     addDecorations,
+    experimental: {
+      registerThirdPartySnippets: graph.snippets.registerThirdPartySnippets,
+    },
   };
 }
 

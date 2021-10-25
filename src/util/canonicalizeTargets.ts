@@ -2,10 +2,10 @@ import {
   PartialPrimitiveTarget,
   PartialTarget,
   ScopeType,
-} from "./typings/Types";
+} from "../typings/Types";
 import update from "immutability-helper";
-import { transformPrimitiveTargets } from "./util/targetUtils";
-import { HatStyleName } from "./core/constants";
+import { transformPrimitiveTargets } from "./targetUtils";
+import { HatStyleName } from "../core/constants";
 import { flow } from "lodash";
 
 const SCOPE_TYPE_CANONICALIZATION_MAPPING: Record<string, ScopeType> = {

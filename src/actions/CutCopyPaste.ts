@@ -12,7 +12,7 @@ import { getOutsideOverflow } from "../util/targetUtils";
 import { zip } from "lodash";
 
 export class Cut implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: null }];
+  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: null }];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);

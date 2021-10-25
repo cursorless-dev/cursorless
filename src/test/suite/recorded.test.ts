@@ -1,4 +1,5 @@
 import * as assert from "assert";
+import serialize from "../../testUtil/serialize";
 import { promises as fsp } from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
@@ -59,6 +60,12 @@ async function runTest(file: string) {
   });
   const editor = await vscode.window.showTextDocument(document);
 
+  if (!fixture.initialState.documentContents.includes("\n")) {
+    await editor.edit((editBuilder) => {
+      editBuilder.setEndOfLine(vscode.EndOfLine.LF);
+    });
+  }
+
   await parseTreeApi.loadLanguage(document.languageId);
 
   editor.selections = fixture.initialState.selections.map(createSelection);
@@ -118,15 +125,20 @@ async function runTest(file: string) {
     excludeFields
   );
 
-  assert.deepStrictEqual(
-    resultState,
-    fixture.finalState,
-    "Unexpected final state"
-  );
+  if (process.env.CURSORLESS_TEST_UPDATE_FIXTURES === "true") {
+    const outputFixture = { ...fixture, finalState: resultState, returnValue };
+    await fsp.writeFile(file, serialize(outputFixture));
+  } else {
+    assert.deepStrictEqual(
+      resultState,
+      fixture.finalState,
+      "Unexpected final state"
+    );
 
-  assert.deepStrictEqual(
-    returnValue,
-    fixture.returnValue,
-    "Unexpected return value"
-  );
+    assert.deepStrictEqual(
+      returnValue,
+      fixture.returnValue,
+      "Unexpected return value"
+    );
+  }
 }

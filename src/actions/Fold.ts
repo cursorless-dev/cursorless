@@ -9,7 +9,7 @@ import {
 import { ensureSingleEditor } from "../util/targetUtils";
 
 class FoldAction implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "outside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "outside" }];
 
   constructor(private command: string) {
     this.run = this.run.bind(this);

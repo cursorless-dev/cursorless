@@ -11,7 +11,7 @@ import { commands, window, workspace } from "vscode";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 
 class Scroll implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
 
   constructor(private graph: Graph, private at: string) {
     this.run = this.run.bind(this);

@@ -1,0 +1,28 @@
+spokenForm: else state wrap this
+languageId: java
+command:
+  actionName: wrapWithSnippet
+  partialTargets:
+    - type: primitive
+      mark: {type: cursor}
+  extraArgs: [ifElseStatement.alternative]
+marks: {}
+initialState:
+  documentContents: int foo = 0;
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+finalState:
+  documentContents: |-
+    if () {
+        
+    } else {
+        int foo = 0;
+    }
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 4, character: 1}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]

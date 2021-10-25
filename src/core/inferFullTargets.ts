@@ -115,7 +115,9 @@ function inferPrimitiveTarget(
     "contents";
 
   const selectionType =
-    maybeSelectionType ?? actionPreferences.selectionType ?? "token";
+    maybeSelectionType ??
+    (target.modifier == null ? actionPreferences.selectionType : null) ??
+    "token";
 
   const insideOutsideType =
     target.insideOutsideType ??
@@ -123,7 +125,8 @@ function inferPrimitiveTarget(
     actionPreferences.insideOutsideType;
 
   const modifier = target.modifier ??
-    getPreviousAttribute(previousTargetsForAttributes, "modifier") ?? {
+    getPreviousAttribute(previousTargetsForAttributes, "modifier") ??
+    (target.selectionType == null ? actionPreferences.modifier : null) ?? {
       type: "identity",
     };
 

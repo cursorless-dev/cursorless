@@ -1,0 +1,42 @@
+{
+  "ifStatement": {
+    "definitions": [
+      {
+        "scope": {
+          "langIds": [
+            "typescript",
+            "typescriptreact",
+            "javascript",
+            "javascriptreact",
+            "cpp",
+            "c",
+            "java",
+            "csharp"
+          ]
+        },
+        "body": [
+          "if ($condition) {",
+          "\t$consequence",
+          "}"
+        ]
+      },
+      {
+        "scope": {
+          "langIds": [
+            "python"
+          ]
+        },
+        "body": [
+          "if $condition:",
+          "\t$consequence"
+        ]
+      }
+    ],
+    "description": "If statement",
+    "variables": {
+      "consequence": {
+        "wrapperScopeType": "statement"
+      }
+    }
+  }
+}

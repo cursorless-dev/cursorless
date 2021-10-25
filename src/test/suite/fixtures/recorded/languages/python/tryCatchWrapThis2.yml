@@ -1,0 +1,43 @@
+spokenForm: try catch wrap this
+languageId: python
+command:
+  actionName: wrapWithSnippet
+  partialTargets:
+    - type: primitive
+      mark: {type: cursor}
+  extraArgs: [tryCatchStatement.body]
+marks: {}
+initialState:
+  documentContents: |-
+    if True:
+        foo = "hello"
+
+    bar = "hello"
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+finalState:
+  documentContents: |-
+    try:
+        if True:
+            foo = "hello"
+    except :
+        
+
+    try:
+        bar = "hello"
+    except :
+        
+  selections:
+    - anchor: {line: 8, character: 7}
+      active: {line: 8, character: 7}
+    - anchor: {line: 3, character: 7}
+      active: {line: 3, character: 7}
+  thatMark:
+    - anchor: {line: 6, character: 0}
+      active: {line: 9, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 4, character: 4}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]

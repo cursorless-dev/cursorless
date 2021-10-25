@@ -18,7 +18,7 @@ import { callFunctionAndUpdateSelections } from "../util/updateSelections";
 import { ensureSingleEditor } from "../util/targetUtils";
 
 export default class CommandAction implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
   private ensureSingleEditor: boolean;
 
   constructor(

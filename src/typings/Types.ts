@@ -1,9 +1,10 @@
 import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
-import { Location } from "vscode";
+import { ExtensionContext, Location, Selection } from "vscode";
 import { HatStyleName } from "../core/constants";
 import { EditStyles } from "../core/editStyles";
 import NavigationMap from "../core/NavigationMap";
+import { Snippets } from "../core/Snippets";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -258,6 +259,7 @@ export interface ActionPreferences {
   position?: Position;
   insideOutsideType: InsideOutsideType;
   selectionType?: SelectionType;
+  modifier?: Modifier;
 }
 
 export interface SelectionWithContext {
@@ -273,7 +275,12 @@ export interface ActionReturnValue {
 
 export interface Action {
   run(targets: TypedSelection[][], ...args: any[]): Promise<ActionReturnValue>;
-  targetPreferences: ActionPreferences[];
+
+  /**
+   * Used to define default values for parts of target during inference.
+   * @param args Extra args to command
+   */
+  getTargetPreferences(...args: any[]): ActionPreferences[];
 }
 
 export type ActionType =
@@ -311,7 +318,8 @@ export type ActionType =
   | "toggleLineBreakpoint"
   | "toggleLineComment"
   | "unfoldRegion"
-  | "wrapWithPairedDelimiter";
+  | "wrapWithPairedDelimiter"
+  | "wrapWithSnippet";
 
 export type ActionRecord = Record<ActionType, Action>;
 
@@ -319,6 +327,8 @@ export interface Graph {
   readonly actions: ActionRecord;
   readonly editStyles: EditStyles;
   readonly navigationMap: NavigationMap;
+  readonly extensionContext: ExtensionContext;
+  readonly snippets: Snippets;
 }
 
 export type NodeMatcherValue = {

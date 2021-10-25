@@ -31,7 +31,7 @@ interface MarkEntry {
 }
 
 class BringMoveSwap implements Action {
-  targetPreferences: ActionPreferences[] = [
+  getTargetPreferences: () => ActionPreferences[] = () => [
     { insideOutsideType: null },
     { insideOutsideType: null },
   ];

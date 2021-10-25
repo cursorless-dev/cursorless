@@ -14,7 +14,9 @@ import { performEditsAndUpdateSelections } from "../util/updateSelections";
 import { selectionWithEditorFromPositions } from "../util/selectionUtils";
 
 export default class Wrap implements Action {
-  targetPreferences: ActionPreferences[] = [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: "inside" },
+  ];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
