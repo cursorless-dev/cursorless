@@ -22,6 +22,11 @@ export interface SnippetVariable {
    * specified.
    */
   wrapperScopeType?: ScopeType;
+
+  /**
+   * Description of the snippet variable
+   */
+  description?: string;
 }
 
 export interface Snippet {

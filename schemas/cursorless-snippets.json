@@ -49,6 +49,10 @@
                         "wrapperScopeType": {
                             "$ref": "#/$defs/scopeType",
                             "description": "Default to this scope type when wrapping a target without scope type specified"
+                        },
+                        "description": {
+                            "type": "string",
+                            "description": "Description of the snippet variable"
                         }
                     }
                 }
