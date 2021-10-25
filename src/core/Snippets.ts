@@ -1,5 +1,5 @@
 import { readFile, stat } from "fs/promises";
-import { cloneDeep, max } from "lodash";
+import { cloneDeep, max, merge } from "lodash";
 import { join } from "path";
 import { workspace } from "vscode";
 import { walkFiles } from "../testUtil/walkAsync";
@@ -159,7 +159,7 @@ export class Snippets {
 
     entries.forEach(([key, value]) => {
       if (this.mergedSnippets.hasOwnProperty(key)) {
-        const { definitions, defaultScopeTypes, ...rest } = value;
+        const { definitions, ...rest } = value;
         const mergedSnippet = this.mergedSnippets[key];
 
         // NB: We make sure that the new definitions appear before the previous
@@ -168,8 +168,7 @@ export class Snippets {
           ...mergedSnippet.definitions
         );
 
-        Object.assign(mergedSnippet.defaultScopeTypes, defaultScopeTypes);
-        Object.assign(mergedSnippet, rest);
+        merge(mergedSnippet, rest);
       } else {
         this.mergedSnippets[key] = value;
       }

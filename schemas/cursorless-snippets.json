@@ -50,7 +50,7 @@
                             "$ref": "#/$defs/scopeType",
                             "description": "Default to this scope type when wrapping a target without scope type specified"
                         }
-                    },
+                    }
                 }
             },
             "description": {
