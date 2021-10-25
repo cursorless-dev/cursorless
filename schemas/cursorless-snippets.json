@@ -32,7 +32,7 @@
                             "items": {
                                 "type": "string"
                             },
-                            "description": "Inline snippet text; entries joined by newline"
+                            "description": "Inline snippet text using VSCode snippet syntax; entries joined by newline.  Named variables of the form $foo can be used as wrappers"
                         }
                     },
                     "required": [
@@ -40,11 +40,17 @@
                     ]
                 }
             },
-            "defaultScopeTypes": {
+            "variables": {
                 "type": "object",
-                "description": "For each named variable in the snippet, uses the given scope type from this map when wrapping a target without scope type specified",
+                "description": "For each named variable in the snippet, provides extra information about the variable.",
                 "additionalProperties": {
-                    "$ref": "#/$defs/scopeType"
+                    "type": "object",
+                    "properties": {
+                        "wrapperScopeType": {
+                            "$ref": "#/$defs/scopeType",
+                            "description": "Default to this scope type when wrapping a target without scope type specified"
+                        }
+                    },
                 }
             },
             "description": {

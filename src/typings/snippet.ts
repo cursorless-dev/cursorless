@@ -9,12 +9,35 @@ export type SnippetBody = string[];
 
 export interface SnippetDefinition {
   body: SnippetBody;
+
+  /**
+   * Scopes where this snippet is active
+   */
   scope?: SnippetScope;
 }
 
+export interface SnippetVariable {
+  /**
+   * Default to this scope type when wrapping a target without scope type
+   * specified.
+   */
+  wrapperScopeType?: ScopeType;
+}
+
 export interface Snippet {
+  /**
+   * List of possible definitions for this snippet
+   */
   definitions: SnippetDefinition[];
-  defaultScopeTypes: Record<string, ScopeType>;
+
+  /**
+   * For each named variable in the snippet, provides extra information about the variable.
+   */
+  variables?: Record<string, SnippetVariable>;
+
+  /**
+   * Description of the snippet
+   */
   description?: string;
 }
 

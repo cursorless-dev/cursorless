@@ -31,7 +31,8 @@ export default class WrapWithSnippet implements Action {
       throw new Error(`Couldn't find snippet ${snippetName}`);
     }
 
-    const defaultScopeType = snippet.defaultScopeTypes[placeholderName];
+    const variables = snippet.variables ?? {};
+    const defaultScopeType = variables[placeholderName]?.wrapperScopeType;
 
     return [
       {
