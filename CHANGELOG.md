@@ -2,6 +2,36 @@
 
 All notable changes to the "cursorless" extension will be documented in this file.
 
+## [0.23.0](https://github.com/pokey/cursorless-vscode/tree/0.23.0) (2021-10-27)
+
+[Full Changelog](https://github.com/pokey/cursorless-vscode/compare/0.22.0...0.23.0)
+
+### Highlights
+
+#### \[experimental\] Wrap with snippet
+
+There is now experimental support for wrapping a target in a snippet. See the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs/experimental.md#wrapper-snippets) for more info. Expect snippet insertion and automatic snippet creation in the next release.
+
+![Wrapper snippet demo](images/tryWrapFine.gif)
+
+### Issues / PRs
+
+**Implemented enhancements:**
+
+- Support "wrap with snippet" [\#21](https://github.com/pokey/cursorless-vscode/issues/21)
+
+**Closed issues:**
+
+- Change inference rule for “bring \<mark\> to \<scopeType\>” [\#283](https://github.com/pokey/cursorless-vscode/issues/283)
+
+**Merged pull requests:**
+
+- Stop using end of range as inference source [\#301](https://github.com/pokey/cursorless-vscode/pull/301) ([pokey](https://github.com/pokey))
+- Change mark inference [\#300](https://github.com/pokey/cursorless-vscode/pull/300) ([pokey](https://github.com/pokey))
+- Snippet wrap [\#296](https://github.com/pokey/cursorless-vscode/pull/296) ([pokey](https://github.com/pokey))
+- Tweak svg files [\#290](https://github.com/pokey/cursorless-vscode/pull/290) ([pokey](https://github.com/pokey))
+- Snippet wrap [\#94](https://github.com/pokey/cursorless-talon/pull/94) ([pokey](https://github.com/pokey))
+
 ## [0.22.0](https://github.com/pokey/cursorless-vscode/tree/0.22.0) (2021-10-06)
 
 [Full Changelog](https://github.com/pokey/cursorless-vscode/compare/0.21.0...0.22.0)
