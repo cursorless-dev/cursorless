@@ -231,15 +231,45 @@ function processSurroundingPair(
     }
   }
   if (node == null) {
+    // TODO: Only get a certain amount of text centered around the selection
     return findSurroundingPairTextBased(
-      selection.editor.document.getText(selection.selection),
+      selection.editor.document.getText(),
       selection.editor.document.offsetAt(selection.selection.start),
       selection.editor.document.offsetAt(selection.selection.end),
       modifier.delimiter,
       modifier.delimiterInclusion
     );
   }
-  // TODO: If we are in a string or comment, switch to non parser based implementation
+
+  const stringNodeMatcher = getNodeMatcher(
+    selection.editor.document.languageId,
+    "string",
+    false
+  );
+  const commentNodeMatcher = getNodeMatcher(
+    selection.editor.document.languageId,
+    "comment",
+    false
+  );
+
+  if (
+    stringNodeMatcher(selection, node) != null ||
+    commentNodeMatcher(selection, node) != null
+  ) {
+    // TODO: Fix first three args of below function call
+    const surroundingRange = findSurroundingPairTextBased(
+      selection.editor.document.getText(),
+      selection.editor.document.offsetAt(selection.selection.start),
+      selection.editor.document.offsetAt(selection.selection.end),
+      modifier.delimiter,
+      modifier.delimiterInclusion
+    );
+
+    if (surroundingRange != null) {
+      return surroundingRange;
+    }
+  }
+
   const nodeMatcher = createSurroundingPairMatcher(
     modifier.delimiter,
     modifier.delimiterInclusion
