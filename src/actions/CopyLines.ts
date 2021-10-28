@@ -6,12 +6,12 @@ import {
   TypedSelection,
 } from "../typings/Types";
 import { Range, Selection, TextEditor } from "vscode";
-import { performEditsAndUpdateSelections } from "../util/updateSelections";
 import { displayPendingEditDecorationsForSelection } from "../util/editDisplayUtils";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { flatten } from "lodash";
 import unifyRanges from "../util/unifyRanges";
 import expandToContainingLine from "../util/expandToContainingLine";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 
 class CopyLines implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];

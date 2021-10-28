@@ -15,8 +15,7 @@ import {
   FullSelectionInfo,
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
-  performEditsAndUpdateSelectionInfos,
-} from "../util/updateSelections";
+} from "../core/updateSelections/updateSelections";
 
 export default class Wrap implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [

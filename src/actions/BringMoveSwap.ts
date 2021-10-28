@@ -12,12 +12,9 @@ import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { performOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 import { flatten, zip } from "lodash";
 import { Selection, TextEditor, Range, DecorationRangeBehavior } from "vscode";
-import {
-  getSelectionInfo,
-  performEditsAndUpdateFullSelectionInfos,
-  performEditsAndUpdateSelections,
-} from "../util/updateSelections";
+
 import { getTextWithPossibleDelimiter } from "../util/getTextWithPossibleDelimiter";
+import { getSelectionInfo, performEditsAndUpdateFullSelectionInfos } from "../core/updateSelections/updateSelections";
 
 type ActionType = "bring" | "move" | "swap";
 

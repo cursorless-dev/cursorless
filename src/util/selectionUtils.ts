@@ -21,7 +21,7 @@ export function selectionFromPositions(
 }
 
 export function isForward(selection: Selection) {
-  return selection.active.isBefore(selection.anchor);
+  return selection.active.isAfterOrEqual(selection.anchor);
 }
 
 export function selectionWithEditorFromRange(

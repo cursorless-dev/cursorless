@@ -12,6 +12,7 @@ import processMark from "./processMark";
 import processModifier from "./processModifier";
 import processPosition from "./processPosition";
 import processSelectionType from "./processSelectionType";
+import { isForward as getIsForward } from "../util/selectionUtils";
 
 export default function (
   context: ProcessedTargetsContext,
@@ -77,9 +78,7 @@ function processRangeTarget(
       const anchorSelection = anchorTarget.selection.selection;
       const activeSelection = activeTarget.selection.selection;
 
-      const isForward = anchorSelection.start.isBeforeOrEqual(
-        activeSelection.start
-      );
+      const isForward = getIsForward(anchorSelection);
 
       const anchor = targetToRangeLimitPosition(
         anchorTarget,

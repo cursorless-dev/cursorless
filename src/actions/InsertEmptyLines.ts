@@ -8,8 +8,8 @@ import {
 import { Selection, Range } from "vscode";
 import { displayPendingEditDecorationsForSelection } from "../util/editDisplayUtils";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { performEditsAndUpdateSelections } from "../util/updateSelections";
 import { flatten } from "lodash";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 
 class InsertEmptyLines implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];

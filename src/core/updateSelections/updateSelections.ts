@@ -8,16 +8,16 @@ import {
   EndOfLine,
   DecorationRangeBehavior,
 } from "vscode";
-import { performDocumentEdits } from "./performDocumentEdits";
-import { Edit } from "../typings/Types";
 import { flatten } from "lodash";
+import { updateRangeInfos } from "./updateRangeInfos";
 import {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,
   RangeInfo,
-  updateRangeInfos,
-} from "./updateRangeInfos";
-import { isForward } from "./selectionUtils";
+} from "../../typings/updateSelections";
+import { performDocumentEdits } from "../../util/performDocumentEdits";
+import { isForward } from "../../util/selectionUtils";
+import { Edit } from "../../typings/Types";
 
 export interface SelectionInfo extends RangeInfo {
   isForward: boolean;

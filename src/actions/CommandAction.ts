@@ -14,8 +14,9 @@ import {
   setSelectionsAndFocusEditor,
 } from "../util/setSelectionsAndFocusEditor";
 import { flatten } from "lodash";
-import { callFunctionAndUpdateSelections } from "../util/updateSelections";
+
 import { ensureSingleEditor } from "../util/targetUtils";
+import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 
 export default class CommandAction implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];

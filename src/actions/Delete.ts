@@ -8,7 +8,7 @@ import {
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { flatten } from "lodash";
-import { performEditsAndUpdateSelections } from "../util/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 
 export default class Delete implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "outside" }];
