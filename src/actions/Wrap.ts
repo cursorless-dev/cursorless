@@ -12,10 +12,11 @@ import {
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { decorationSleep } from "../util/editDisplayUtils";
 import {
+  FullSelectionInfo,
+  getSelectionInfo,
+  performEditsAndUpdateFullSelectionInfos,
   performEditsAndUpdateSelectionInfos,
-  performEditsAndUpdateSelections,
 } from "../util/updateSelections";
-import { selectionWithEditorFromPositions } from "../util/selectionUtils";
 
 export default class Wrap implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
@@ -35,6 +36,7 @@ export default class Wrap implements Action {
       await runOnTargetsForEachEditor<SelectionWithEditor[]>(
         targets,
         async (editor, targets) => {
+          const { document } = editor;
           const boundaries = targets.map((target) => ({
             start: new Selection(
               target.selection.selection.start,
@@ -58,49 +60,59 @@ export default class Wrap implements Action {
             },
           ]);
 
-          const [updatedOriginalSelections, updatedTargetsSelections] =
-            await performEditsAndUpdateSelectionInfos(
-              editor,
-              edits,
-              [
-                editor.selections,
-                targets.map((target) => target.selection.selection),
-              ],
+          const delimiterSelectionInfos: FullSelectionInfo[] =
+            boundaries.flatMap(({ start, end }) => {
+              return [
+                getSelectionInfo(
+                  document,
+                  start,
+                  DecorationRangeBehavior.OpenClosed
+                ),
+                getSelectionInfo(
+                  document,
+                  end,
+                  DecorationRangeBehavior.ClosedOpen
+                ),
+              ];
+            });
+
+          const cursorSelectionInfos = editor.selections.map((selection) =>
+            getSelectionInfo(
+              document,
+              selection,
               DecorationRangeBehavior.ClosedClosed
-            );
-
-          editor.selections = updatedOriginalSelections;
-
-          const updatedSelections = updatedTargetsSelections.flatMap(
-            ({ start, end }) => [
-              new Selection(
-                start.translate({ characterDelta: -left.length }),
-                start
-              ),
-              new Selection(
-                end,
-                end.translate({ characterDelta: right.length })
-              ),
-            ]
+            )
           );
+
+          const thatMarkSelectionInfos = targets.map(
+            ({ selection: { selection } }) =>
+              getSelectionInfo(
+                document,
+                selection,
+                DecorationRangeBehavior.OpenOpen
+              )
+          );
+
+          const [delimiterSelections, cursorSelections, thatMarkSelections] =
+            await performEditsAndUpdateFullSelectionInfos(editor, edits, [
+              delimiterSelectionInfos,
+              cursorSelectionInfos,
+              thatMarkSelectionInfos,
+            ]);
+
+          editor.selections = cursorSelections;
 
           editor.setDecorations(
             this.graph.editStyles.justAdded.token,
-            updatedSelections
+            delimiterSelections
           );
           await decorationSleep();
-
           editor.setDecorations(this.graph.editStyles.justAdded.token, []);
 
-          return targets.map((target, index) => {
-            const start = updatedSelections[index * 2].start;
-            const end = updatedSelections[index * 2 + 1].end;
-            return selectionWithEditorFromPositions(
-              target.selection,
-              start,
-              end
-            );
-          });
+          return thatMarkSelections.map((selection) => ({
+            editor,
+            selection,
+          }));
         }
       )
     );

@@ -80,7 +80,7 @@ function getOffsetsForEmptyRangeInsert(
   } = changeEventInfo;
 
   invariant(
-    start === end &&
+    start === changeEventInfo.originalOffsets.end &&
       start === rangeInfo.offsets.start &&
       start === rangeInfo.offsets.end,
     () => "Selection range and change range expected to be same empty range"
@@ -287,8 +287,7 @@ function getOffsetsForDeleteOrReplace(
 
 export function updateRangeInfos(
   changeEvent: ExtendedTextDocumentChangeEvent,
-  rangeInfos: FullRangeInfo[],
-  rangeBehavior: DecorationRangeBehavior = DecorationRangeBehavior.ClosedClosed
+  rangeInfos: FullRangeInfo[]
 ) {
   const { document, contentChanges } = changeEvent;
 
@@ -300,12 +299,21 @@ export function updateRangeInfos(
     const changeFinalStartOffset = changeOriginalStartOffset;
     const changeFinalEndOffset = changeOriginalEndOffset + changeDisplacement;
 
-    rangeInfos.forEach((selectionInfo) => {
-      if (selectionInfo.document !== document) {
-        return;
-      }
+    const changeEventInfo: ChangeEventInfo = {
+      displacement: changeDisplacement,
+      event: change,
+      originalOffsets: {
+        start: changeOriginalStartOffset,
+        end: changeOriginalEndOffset,
+      },
+      finalOffsets: {
+        start: changeFinalStartOffset,
+        end: changeFinalEndOffset,
+      },
+    };
 
-      const originalOffsets = selectionInfo.offsets;
+    rangeInfos.forEach((rangeInfo) => {
+      const originalOffsets = rangeInfo.offsets;
       let newOffsets: RangeOffsets;
 
       if (changeOriginalEndOffset < originalOffsets.start) {
@@ -318,29 +326,66 @@ export function updateRangeInfos(
           end: originalOffsets.end + changeDisplacement,
         };
       } else {
-        const changeEventInfo: ChangeEventInfo = {
-          displacement: changeDisplacement,
-          event: "whatever",
-        };
-
         if (change.rangeLength === 0) {
-          if (selectionInfo.range.isEmpty) {
-            newOffsets = getOffsetsForEmptyRangeInsert(change);
+          if (rangeInfo.range.isEmpty) {
+            newOffsets = getOffsetsForEmptyRangeInsert(
+              changeEventInfo,
+              rangeInfo
+            );
           } else {
-            newOffsets = getOffsetsForNonEmptyRangeInsert(change);
+            newOffsets = getOffsetsForNonEmptyRangeInsert(
+              changeEventInfo,
+              rangeInfo
+            );
           }
         } else {
-          newOffsets = getOffsetsForDeleteOrReplace(change);
+          newOffsets = getOffsetsForDeleteOrReplace(changeEventInfo, rangeInfo);
         }
 
-        // TODO: Update text if necessary
+        rangeInfo.text = getUpdatedText(changeEventInfo, rangeInfo, newOffsets);
       }
 
-      selectionInfo.range = selectionInfo.range.with(
+      rangeInfo.range = rangeInfo.range.with(
         document.positionAt(newOffsets.start),
         document.positionAt(newOffsets.end)
       );
-      selectionInfo.offsets = newOffsets;
+      rangeInfo.offsets = newOffsets;
     });
   });
+}
+function getUpdatedText(
+  changeEventInfo: ChangeEventInfo,
+  rangeInfo: FullRangeInfo,
+  newOffsets: RangeOffsets
+): string {
+  const { start: changeOriginalOffsetsStart, end: changeOriginalOffsetsEnd } =
+    changeEventInfo.originalOffsets;
+  const { start: rangeOriginalOffsetsStart, end: rangeOriginalOffsetsEnd } =
+    rangeInfo.offsets;
+  const newTextStartOffset = Math.min(
+    changeOriginalOffsetsStart,
+    rangeOriginalOffsetsStart
+  );
+
+  let result = "";
+
+  if (rangeOriginalOffsetsStart < changeOriginalOffsetsStart) {
+    result += rangeInfo.text.substring(
+      changeOriginalOffsetsStart - rangeOriginalOffsetsStart
+    );
+  }
+
+  result += changeEventInfo.event.text;
+
+  if (changeOriginalOffsetsEnd < rangeOriginalOffsetsEnd) {
+    result += rangeInfo.text.substring(
+      rangeOriginalOffsetsEnd - changeOriginalOffsetsEnd,
+      rangeInfo.text.length
+    );
+  }
+
+  return result.substring(
+    newOffsets.start - newTextStartOffset,
+    newOffsets.end - newTextStartOffset
+  );
 }

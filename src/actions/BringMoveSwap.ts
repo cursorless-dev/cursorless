@@ -12,7 +12,11 @@ import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { performOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 import { flatten, zip } from "lodash";
 import { Selection, TextEditor, Range, DecorationRangeBehavior } from "vscode";
-import { performEditsAndUpdateSelections } from "../util/updateSelections";
+import {
+  getSelectionInfo,
+  performEditsAndUpdateFullSelectionInfos,
+  performEditsAndUpdateSelections,
+} from "../util/updateSelections";
 import { getTextWithPossibleDelimiter } from "../util/getTextWithPossibleDelimiter";
 
 type ActionType = "bring" | "move" | "swap";
@@ -154,12 +158,24 @@ class BringMoveSwap implements Action {
               ? edits
               : edits.filter(({ isSource }) => !isSource);
 
+          const selectionInfos = edits.map(
+            ({
+              originalSelection: {
+                selection: { selection },
+              },
+            }) =>
+              getSelectionInfo(
+                editor.document,
+                selection,
+                DecorationRangeBehavior.OpenOpen
+              )
+          );
+
           const [updatedSelections]: Selection[][] =
-            await performEditsAndUpdateSelections(
+            await performEditsAndUpdateFullSelectionInfos(
               editor,
               filteredEdits,
-              [edits.map((edit) => edit.originalSelection.selection.selection)],
-              DecorationRangeBehavior.OpenOpen
+              [selectionInfos]
             );
 
           return edits.map((edit, index) => {
