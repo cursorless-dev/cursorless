@@ -8,16 +8,20 @@ export interface RangeOffsets {
   start: number;
   end: number;
 }
+
 type SingleEdgeExpansionBehavior =
   | SimpleExpansionBehavior
   | RegexExpansionBehavior;
+
 interface SimpleExpansionBehavior {
   type: "open" | "closed";
 }
+
 interface RegexExpansionBehavior {
   type: "regex";
   regex: RegExp;
 }
+
 interface ExpansionBehavior {
   start: SingleEdgeExpansionBehavior;
   end: SingleEdgeExpansionBehavior;
@@ -32,7 +36,8 @@ export interface FullRangeInfo extends RangeInfo {
   offsets: RangeOffsets;
   text: string;
 }
-interface ExtendedTextDocumentContentChangeEvent
+
+export interface ExtendedTextDocumentContentChangeEvent
   extends TextDocumentContentChangeEvent {
   /**
    * If this is true then we should not shift an empty selection to the right
@@ -60,3 +65,9 @@ export interface RangeOffsets {
   start: number;
   end: number;
 }
+
+export interface SelectionInfo extends RangeInfo {
+  isForward: boolean;
+}
+
+export interface FullSelectionInfo extends FullRangeInfo, SelectionInfo {}

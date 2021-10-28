@@ -1,10 +1,7 @@
 import {
   Selection,
   TextEditor,
-  workspace,
   TextDocument,
-  TextDocumentChangeEvent,
-  Disposable,
   EndOfLine,
   DecorationRangeBehavior,
 } from "vscode";
@@ -13,17 +10,14 @@ import { updateRangeInfos } from "./updateRangeInfos";
 import {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,
+  FullSelectionInfo,
   RangeInfo,
+  SelectionInfo,
 } from "../../typings/updateSelections";
 import { performDocumentEdits } from "../../util/performDocumentEdits";
 import { isForward } from "../../util/selectionUtils";
 import { Edit } from "../../typings/Types";
-
-export interface SelectionInfo extends RangeInfo {
-  isForward: boolean;
-}
-
-export interface FullSelectionInfo extends FullRangeInfo, SelectionInfo {}
+import { SelectionUpdater } from "./SelectionUpdater";
 
 export function getSelectionInfo(
   document: TextDocument,
@@ -57,7 +51,7 @@ export function getSelectionInfo(
   };
 }
 
-function selectionsToSelectionInfos(
+export function selectionsToSelectionInfos(
   document: TextDocument,
   selectionMatrix: Selection[][]
 ): FullSelectionInfo[][] {
@@ -91,7 +85,7 @@ function fillOutSelectionInfos(
   return true;
 }
 
-function selectionInfosToSelections(
+export function selectionInfosToSelections(
   selectionInfoMatrix: SelectionInfo[][]
 ): Selection[][] {
   return selectionInfoMatrix.map((selectionInfos) =>
@@ -101,59 +95,11 @@ function selectionInfosToSelections(
   );
 }
 
-function updateSelectionInfoMatrix(
+export function updateSelectionInfoMatrix(
   changeEvent: ExtendedTextDocumentChangeEvent,
   selectionInfoMatrix: FullSelectionInfo[][]
 ) {
   updateRangeInfos(changeEvent, flatten(selectionInfoMatrix));
-}
-
-class SelectionUpdater {
-  private document: TextDocument;
-  private selectionInfoMatrix: FullSelectionInfo[][];
-  private disposable!: Disposable;
-
-  constructor(
-    editor: TextEditor,
-    originalSelections: Selection[][],
-    private rangeBehavior?: DecorationRangeBehavior
-  ) {
-    this.document = editor.document;
-    this.selectionInfoMatrix = selectionsToSelectionInfos(
-      this.document,
-      originalSelections
-    );
-    this.listenForDocumentChanges();
-  }
-
-  private listenForDocumentChanges() {
-    this.disposable = workspace.onDidChangeTextDocument(
-      (event: TextDocumentChangeEvent) => {
-        if (
-          event.document !== this.document ||
-          event.contentChanges.length === 0
-        ) {
-          return;
-        }
-
-        updateSelectionInfoMatrix(event, this.selectionInfoMatrix);
-      }
-    );
-  }
-
-  dispose() {
-    this.disposable.dispose();
-  }
-
-  /**
-   * Call this function after applying the document edits to get the updated
-   * selection ranges.
-   *
-   * @returns Original selections updated to take into account the given changes
-   */
-  get updatedSelections() {
-    return selectionInfosToSelections(this.selectionInfoMatrix);
-  }
 }
 
 /**
@@ -165,22 +111,26 @@ class SelectionUpdater {
  * @returns The initial selections updated based upon what happened in the function
  */
 export async function callFunctionAndUpdateSelections(
+  selectionUpdater: SelectionUpdater,
   func: () => Thenable<unknown>,
-  editor: TextEditor,
-  selectionMatrix: Selection[][],
-  rangeBehavior?: DecorationRangeBehavior
+  document: TextDocument,
+  selectionMatrix: Selection[][]
 ): Promise<Selection[][]> {
-  const selectionUpdater = new SelectionUpdater(
-    editor,
-    selectionMatrix,
-    rangeBehavior
+  const selectionInfoMatrix = selectionsToSelectionInfos(
+    document,
+    selectionMatrix
+  );
+
+  const unsubscribe = selectionUpdater.registerSelectionInfos(
+    document,
+    selectionInfoMatrix
   );
 
   await func();
 
-  selectionUpdater.dispose();
+  unsubscribe();
 
-  return selectionUpdater.updatedSelections;
+  return selectionInfosToSelections(selectionInfoMatrix);
 }
 
 /**
@@ -230,6 +180,34 @@ export async function performEditsAndUpdateFullSelectionInfos(
   edits: Edit[],
   originalSelectionInfos: FullSelectionInfo[][]
 ) {
+  // TODO: Do everything using VSCode listeners.  We can associate changes with
+  // our changes just by looking at their offets / text in order to recover
+  // isReplace.  We need to do this because VSCode does some fancy stuff, and
+  // returns the changes in a nice order
+  // So this function would prob mostly go away, and everything would basically
+  // just be a version of callFunctionAndUpdateSelections, or just call that
+  // directly
+  // Note that some additional weird edits like whitespace things can be
+  // created by VSCode I believe, and they change order,  so we can't just zip
+  // their changes with ours.
+  // Their ordering basically is reverse document order, unless edits are at
+  // the same location, in which case they're in reverse order of the changes
+  // as you created them.
+  // See
+  // https://github.com/microsoft/vscode/blob/174db5eb992d880adcc42c41d83a0e6cb6b92474/src/vs/editor/common/core/range.ts#L430-L440
+  // and
+  // https://github.com/microsoft/vscode/blob/174db5eb992d880adcc42c41d83a0e6cb6b92474/src/vs/editor/common/model/pieceTreeTextBuffer/pieceTreeTextBuffer.ts#L598-L604
+  // See also
+  // https://github.com/microsoft/vscode/blob/174db5eb992d880adcc42c41d83a0e6cb6b92474/src/vs/editor/common/model/pieceTreeTextBuffer/pieceTreeTextBuffer.ts#L464
+  // - We should have a component on the graph called graph.selectionUpdater
+  // - It will support registering a list of selections to keep up-to-date, and
+  //   it returns a dispose function.
+  // - It also has a function that allows callers to register isReplace edits,
+  //   and it will look those up when it receives edits in order to set that
+  //   field.
+  // - It should probably just store a list of lists of selectionInfos, and
+  //   just remove the corresponding list when it gets deregistered
+  // - Should clients register one list at a time or a list of lists?
   const document = editor.document;
 
   const contentChanges = edits.map(({ range, text, isReplace }) => ({
