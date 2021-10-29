@@ -1,8 +1,18 @@
 import { Edit } from "../typings/Types";
 import { TextEditor } from "vscode";
+import { SelectionUpdater } from "../core/updateSelections/SelectionUpdater";
 
-export async function performDocumentEdits(editor: TextEditor, edits: Edit[]) {
-  return editor.edit((editBuilder) => {
+export async function performDocumentEdits(
+  selectionUpdater: SelectionUpdater,
+  editor: TextEditor,
+  edits: Edit[]
+) {
+  const deregister = selectionUpdater.registerReplaceEdits(
+    editor.document,
+    edits.filter((edit) => edit.isReplace)
+  );
+
+  const wereEditsApplied = await editor.edit((editBuilder) => {
     edits.forEach(({ range, text }) => {
       if (text === "") {
         editBuilder.delete(range);
@@ -13,4 +23,8 @@ export async function performDocumentEdits(editor: TextEditor, edits: Edit[]) {
       }
     });
   });
+
+  deregister();
+
+  return wereEditsApplied;
 }

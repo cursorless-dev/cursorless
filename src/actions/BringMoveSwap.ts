@@ -14,7 +14,10 @@ import { flatten, zip } from "lodash";
 import { Selection, TextEditor, Range, DecorationRangeBehavior } from "vscode";
 
 import { getTextWithPossibleDelimiter } from "../util/getTextWithPossibleDelimiter";
-import { getSelectionInfo, performEditsAndUpdateFullSelectionInfos } from "../core/updateSelections/updateSelections";
+import {
+  getSelectionInfo,
+  performEditsAndUpdateFullSelectionInfos,
+} from "../core/updateSelections/updateSelections";
 
 type ActionType = "bring" | "move" | "swap";
 
@@ -170,6 +173,7 @@ class BringMoveSwap implements Action {
 
           const [updatedSelections]: Selection[][] =
             await performEditsAndUpdateFullSelectionInfos(
+              this.graph.selectionUpdater,
               editor,
               filteredEdits,
               [selectionInfos]

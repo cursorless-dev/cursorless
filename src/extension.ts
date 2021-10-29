@@ -206,7 +206,8 @@ export async function activate(context: vscode.ExtensionContext) {
       } catch (e) {
         const err = e as Error;
         vscode.window.showErrorMessage(err.message);
-        console.trace(err.message);
+        console.debug(err.message);
+        console.debug(err.stack);
         throw err;
       }
     }

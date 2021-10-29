@@ -23,34 +23,7 @@ export function getOffsetsForEmptyRangeInsert(
   );
 
   if (isReplace) {
-    // In this case the cursor stays to the left so we care about the start of the range
-    const expansionBehavior = rangeInfo.expansionBehavior.start;
-
-    switch (expansionBehavior.type) {
-      case "closed":
-        return {
-          start: end,
-          end,
-        };
-
-      case "open":
-        return { start, end };
-
-      case "regex":
-        const index = text.search(rightAnchored(expansionBehavior.regex));
-
-        return index === -1
-          ? {
-              start: end,
-              end,
-            }
-          : {
-              start: start + index,
-              end,
-            };
-    }
-  } else {
-    // In this case the cursor moves to the right so we care about the end of the range
+    // In this case the range stays to the left so we care about the end of the range
     const expansionBehavior = rangeInfo.expansionBehavior.end;
 
     switch (expansionBehavior.type) {
@@ -74,6 +47,33 @@ export function getOffsetsForEmptyRangeInsert(
           : {
               start,
               end: start + matches[0].length,
+            };
+    }
+  } else {
+    // In this case the range moves to the right so we care about the start of the range
+    const expansionBehavior = rangeInfo.expansionBehavior.start;
+
+    switch (expansionBehavior.type) {
+      case "closed":
+        return {
+          start: end,
+          end,
+        };
+
+      case "open":
+        return { start, end };
+
+      case "regex":
+        const index = text.search(rightAnchored(expansionBehavior.regex));
+
+        return index === -1
+          ? {
+              start: end,
+              end,
+            }
+          : {
+              start: start + index,
+              end,
             };
     }
   }

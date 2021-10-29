@@ -2,16 +2,11 @@ import {
   Selection,
   TextEditor,
   TextDocument,
-  EndOfLine,
   DecorationRangeBehavior,
 } from "vscode";
 import { flatten } from "lodash";
-import { updateRangeInfos } from "./updateRangeInfos";
 import {
-  ExtendedTextDocumentChangeEvent,
-  FullRangeInfo,
   FullSelectionInfo,
-  RangeInfo,
   SelectionInfo,
 } from "../../typings/updateSelections";
 import { performDocumentEdits } from "../../util/performDocumentEdits";
@@ -95,13 +90,6 @@ export function selectionInfosToSelections(
   );
 }
 
-export function updateSelectionInfoMatrix(
-  changeEvent: ExtendedTextDocumentChangeEvent,
-  selectionInfoMatrix: FullSelectionInfo[][]
-) {
-  updateRangeInfos(changeEvent, flatten(selectionInfoMatrix));
-}
-
 /**
  * Calls the given function and updates the given selections based on the
  * changes that occurred as a result of calling function.
@@ -121,16 +109,38 @@ export async function callFunctionAndUpdateSelections(
     selectionMatrix
   );
 
-  const unsubscribe = selectionUpdater.registerSelectionInfos(
+  await callFunctionAndUpdateSelectionInfos(
+    selectionUpdater,
+    func,
     document,
     selectionInfoMatrix
+  );
+
+  return selectionInfosToSelections(selectionInfoMatrix);
+}
+
+/**
+ * Calls the given function and updates the given selections based on the
+ * changes that occurred as a result of calling function.
+ * @param func The function to call
+ * @param editor The editor containing the selections
+ * @param selectionMatrix A matrix of selections to update
+ * @returns The initial selections updated based upon what happened in the function
+ */
+export async function callFunctionAndUpdateSelectionInfos(
+  selectionUpdater: SelectionUpdater,
+  func: () => Thenable<unknown>,
+  document: TextDocument,
+  selectionInfoMatrix: FullSelectionInfo[][]
+): Promise<void> {
+  const unsubscribe = selectionUpdater.registerSelectionInfos(
+    document,
+    flatten(selectionInfoMatrix)
   );
 
   await func();
 
   unsubscribe();
-
-  return selectionInfosToSelections(selectionInfoMatrix);
 }
 
 /**
@@ -142,6 +152,7 @@ export async function callFunctionAndUpdateSelections(
  * @returns The updated selections
  */
 export async function performEditsAndUpdateSelections(
+  selectionUpdater: SelectionUpdater,
   editor: TextEditor,
   edits: Edit[],
   originalSelections: Selection[][]
@@ -153,6 +164,7 @@ export async function performEditsAndUpdateSelections(
   );
 
   await performEditsAndUpdateFullSelectionInfos(
+    selectionUpdater,
     editor,
     edits,
     selectionInfoMatrix
@@ -162,6 +174,7 @@ export async function performEditsAndUpdateSelections(
 }
 
 export async function performEditsAndUpdateSelectionInfos(
+  selectionUpdater: SelectionUpdater,
   editor: TextEditor,
   edits: Edit[],
   originalSelectionInfos: SelectionInfo[][]
@@ -169,6 +182,7 @@ export async function performEditsAndUpdateSelectionInfos(
   fillOutSelectionInfos(editor.document, originalSelectionInfos);
 
   return await performEditsAndUpdateFullSelectionInfos(
+    selectionUpdater,
     editor,
     edits,
     originalSelectionInfos as FullSelectionInfo[][]
@@ -176,6 +190,7 @@ export async function performEditsAndUpdateSelectionInfos(
 }
 
 export async function performEditsAndUpdateFullSelectionInfos(
+  selectionUpdater: SelectionUpdater,
   editor: TextEditor,
   edits: Edit[],
   originalSelectionInfos: FullSelectionInfo[][]
@@ -208,32 +223,23 @@ export async function performEditsAndUpdateFullSelectionInfos(
   // - It should probably just store a list of lists of selectionInfos, and
   //   just remove the corresponding list when it gets deregistered
   // - Should clients register one list at a time or a list of lists?
-  const document = editor.document;
 
-  const contentChanges = edits.map(({ range, text, isReplace }) => ({
-    range,
-    text,
-    rangeOffset: document.offsetAt(range.start),
-    rangeLength: document.offsetAt(range.end) - document.offsetAt(range.start),
-    isReplace,
-  }));
+  const func = async () => {
+    const wereEditsApplied = await performDocumentEdits(
+      selectionUpdater,
+      editor,
+      edits
+    );
 
-  // Replace \n with \r\n. Vscode does this internally and it's
-  // important that our calculated changes reflect the actual changes
-  if (document.eol === EndOfLine.CRLF) {
-    contentChanges.forEach((change) => {
-      change.text = change.text.replace(/(?<!\r)\n/g, "\r\n");
-    });
-  }
+    if (!wereEditsApplied) {
+      throw new Error("Could not apply edits");
+    }
+  };
 
-  const wereEditsApplied = await performDocumentEdits(editor, edits);
-
-  if (!wereEditsApplied) {
-    throw new Error("Could not apply edits");
-  }
-
-  updateSelectionInfoMatrix(
-    { document, contentChanges },
+  await callFunctionAndUpdateSelectionInfos(
+    selectionUpdater,
+    func,
+    editor.document,
     originalSelectionInfos
   );
 

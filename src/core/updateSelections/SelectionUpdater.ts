@@ -1,86 +1,90 @@
-import { flatten, pull, pullAll, some } from "lodash";
+import { pullAll, some } from "lodash";
 import {
   workspace,
   TextDocument,
   TextDocumentChangeEvent,
   Disposable,
+  TextDocumentContentChangeEvent,
 } from "vscode";
-import { Edit } from "../../typings/Types";
+import { Edit, Graph } from "../../typings/Types";
 import {
-  ExtendedTextDocumentContentChangeEvent,
+  ExtendedTextDocumentChangeEvent,
   FullSelectionInfo,
 } from "../../typings/updateSelections";
 import { getDefault } from "../../util/map";
 import { updateRangeInfos } from "./updateRangeInfos";
 
 export class SelectionUpdater {
-  private selectionInfos: Map<TextDocument, FullSelectionInfo[][]> = new Map();
-  private replaceEdits: Map<TextDocument, Edit[][]> = new Map();
+  private selectionInfos: Map<string, FullSelectionInfo[]> = new Map();
+  private replaceEdits: Map<string, Edit[]> = new Map();
   private disposable!: Disposable;
 
-  constructor() {
+  constructor(graph: Graph) {
     this.listenForDocumentChanges();
   }
 
-  private getDocumentSelectionInfoMatrix(document: TextDocument) {
-    return getDefault(this.selectionInfos, document, () => []);
+  private getDocumentSelectionInfos(document: TextDocument) {
+    return getDefault(this.selectionInfos, document.uri.toString(), () => []);
   }
 
-  private getDocumentReplaceEditMatrix(document: TextDocument) {
-    return getDefault(this.replaceEdits, document, () => []);
+  private getDocumentReplaceEdits(document: TextDocument) {
+    return getDefault(this.replaceEdits, document.uri.toString(), () => []);
   }
 
   registerSelectionInfos(
     document: TextDocument,
-    selectionInfoMatrix: FullSelectionInfo[][]
+    selectionInfos: FullSelectionInfo[]
   ): () => void {
-    const currentSelectionInfoMatrix =
-      this.getDocumentSelectionInfoMatrix(document);
+    const currentSelectionInfos = this.getDocumentSelectionInfos(document);
 
-    currentSelectionInfoMatrix.push(...selectionInfoMatrix);
+    currentSelectionInfos.push(...selectionInfos);
 
-    return () => pullAll(currentSelectionInfoMatrix, selectionInfoMatrix);
+    return () => pullAll(currentSelectionInfos, selectionInfos);
   }
 
   registerReplaceEdits(
     document: TextDocument,
     replaceEdits: Edit[]
   ): () => void {
-    const currentReplaceEditMatrix =
-      this.getDocumentReplaceEditMatrix(document);
+    const currentReplaceEdits = this.getDocumentReplaceEdits(document);
 
-    currentReplaceEditMatrix.push(replaceEdits);
+    currentReplaceEdits.push(...replaceEdits);
 
-    return () => pull(currentReplaceEditMatrix, replaceEdits);
+    return () => pullAll(currentReplaceEdits, replaceEdits);
   }
 
   private listenForDocumentChanges() {
     this.disposable = workspace.onDidChangeTextDocument(
       (event: TextDocumentChangeEvent) => {
-        const documentReplaceEditMatrix = this.getDocumentReplaceEditMatrix(
+        const documentReplaceEdits = this.getDocumentReplaceEdits(
           event.document
         );
 
-        const documentSelectionInfoMatrix = this.getDocumentSelectionInfoMatrix(
+        const isReplace = (change: TextDocumentContentChangeEvent) =>
+          some(
+            documentReplaceEdits,
+            (replaceEdit) =>
+              replaceEdit.range.isEqual(change.range) &&
+              replaceEdit.text === change.text
+          );
+
+        const documentSelectionInfos = this.getDocumentSelectionInfos(
           event.document
         );
 
-        event.contentChanges.forEach((change) => {
-          if (
-            some(documentReplaceEditMatrix, (replaceEditList) =>
-              some(
-                replaceEditList,
-                (replaceEdit) =>
-                  replaceEdit.range.isEqual(change.range) &&
-                  replaceEdit.text === change.text
-              )
-            )
-          ) {
-            (change as ExtendedTextDocumentContentChangeEvent).isReplace = true;
-          }
-        });
+        const extendedEvent: ExtendedTextDocumentChangeEvent = {
+          ...event,
+          contentChanges: event.contentChanges.map((change) =>
+            isReplace(change)
+              ? {
+                  ...change,
+                  isReplace: true,
+                }
+              : change
+          ),
+        };
 
-        updateRangeInfos(event, flatten(documentSelectionInfoMatrix));
+        updateRangeInfos(extendedEvent, documentSelectionInfos);
       }
     );
   }

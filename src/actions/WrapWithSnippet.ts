@@ -1,4 +1,5 @@
 import { commands } from "vscode";
+import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { SnippetDefinition } from "../typings/snippet";
 import {
   Action,
@@ -9,7 +10,6 @@ import {
 } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { ensureSingleEditor } from "../util/targetUtils";
-import { callFunctionAndUpdateSelections } from "../util/updateSelections";
 import {
   Placeholder,
   SnippetParser,
@@ -98,11 +98,12 @@ export default class WrapWithSnippet implements Action {
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
     // because the latter doesn't support special variables like CLIPBOARD
     const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
+      this.graph.selectionUpdater,
       () =>
         commands.executeCommand("editor.action.insertSnippet", {
           snippet: snippetString,
         }),
-      editor,
+      editor.document,
       [targetSelections]
     );
 

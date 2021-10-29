@@ -12,7 +12,9 @@ import { flatten } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 
 class InsertEmptyLines implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: "inside" },
+  ];
 
   constructor(
     private graph: Graph,
@@ -53,11 +55,16 @@ class InsertEmptyLines implements Action {
         const edits = this.getEdits(ranges);
 
         const [updatedSelections, lineSelections, updatedOriginalSelections] =
-          await performEditsAndUpdateSelections(editor, edits, [
-            targets.map((target) => target.selection.selection),
-            ranges.map((range) => new Selection(range.start, range.end)),
-            editor.selections,
-          ]);
+          await performEditsAndUpdateSelections(
+            this.graph.selectionUpdater,
+            editor,
+            edits,
+            [
+              targets.map((target) => target.selection.selection),
+              ranges.map((range) => new Selection(range.start, range.end)),
+              editor.selections,
+            ]
+          );
 
         editor.selections = updatedOriginalSelections;
 

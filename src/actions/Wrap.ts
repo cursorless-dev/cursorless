@@ -11,8 +11,8 @@ import {
 } from "../typings/Types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { decorationSleep } from "../util/editDisplayUtils";
+import { FullSelectionInfo } from "../typings/updateSelections";
 import {
-  FullSelectionInfo,
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
@@ -93,11 +93,16 @@ export default class Wrap implements Action {
           );
 
           const [delimiterSelections, cursorSelections, thatMarkSelections] =
-            await performEditsAndUpdateFullSelectionInfos(editor, edits, [
-              delimiterSelectionInfos,
-              cursorSelectionInfos,
-              thatMarkSelectionInfos,
-            ]);
+            await performEditsAndUpdateFullSelectionInfos(
+              this.graph.selectionUpdater,
+              editor,
+              edits,
+              [
+                delimiterSelectionInfos,
+                cursorSelectionInfos,
+                thatMarkSelectionInfos,
+              ]
+            );
 
           editor.selections = cursorSelections;
 

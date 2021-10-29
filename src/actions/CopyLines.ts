@@ -14,7 +14,9 @@ import expandToContainingLine from "../util/expandToContainingLine";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 
 class CopyLines implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: "inside" },
+  ];
 
   constructor(private graph: Graph, private isUp: boolean) {
     this.run = this.run.bind(this);
@@ -63,10 +65,15 @@ class CopyLines implements Action {
         const edits = this.getEdits(editor, ranges);
 
         const [updatedSelections, copySelections] =
-          await performEditsAndUpdateSelections(editor, edits, [
-            targets.map((target) => target.selection.selection),
-            ranges.map(({ range }) => new Selection(range.start, range.end)),
-          ]);
+          await performEditsAndUpdateSelections(
+            this.graph.selectionUpdater,
+            editor,
+            edits,
+            [
+              targets.map((target) => target.selection.selection),
+              ranges.map(({ range }) => new Selection(range.start, range.end)),
+            ]
+          );
 
         editor.revealRange(updatedSelections[0]);
 
