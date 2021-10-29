@@ -13,10 +13,10 @@ export async function performDocumentEdits(
   );
 
   const wereEditsApplied = await editor.edit((editBuilder) => {
-    edits.forEach(({ range, text }) => {
+    edits.forEach(({ range, text, isReplace }) => {
       if (text === "") {
         editBuilder.delete(range);
-      } else if (range.isEmpty) {
+      } else if (range.isEmpty && !isReplace) {
         editBuilder.insert(range.start, text);
       } else {
         editBuilder.replace(range, text);

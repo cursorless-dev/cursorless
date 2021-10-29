@@ -78,7 +78,9 @@ function processRangeTarget(
       const anchorSelection = anchorTarget.selection.selection;
       const activeSelection = activeTarget.selection.selection;
 
-      const isForward = getIsForward(anchorSelection);
+      const isForward = anchorSelection.start.isBeforeOrEqual(
+        activeSelection.start
+      );
 
       const anchor = targetToRangeLimitPosition(
         anchorTarget,
