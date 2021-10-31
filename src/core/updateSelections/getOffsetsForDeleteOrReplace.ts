@@ -34,7 +34,7 @@ export function getOffsetsForDeleteOrReplace(
   return {
     start: Math.min(rangeStart, changeFinalEndOffset),
     end:
-      changeOriginalStartOffset < rangeEnd
+      changeOriginalEndOffset < rangeEnd
         ? rangeEnd + displacement
         : Math.min(rangeEnd, changeFinalEndOffset),
   };

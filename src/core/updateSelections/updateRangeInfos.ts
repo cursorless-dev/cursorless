@@ -8,10 +8,11 @@ import {
   ChangeEventInfo,
   RangeOffsets,
 } from "../../typings/updateSelections";
+import { getUpdatedText } from "./getUpdatedText";
 
 export function updateRangeInfos(
   changeEvent: ExtendedTextDocumentChangeEvent,
-  rangeInfos: FullRangeInfo[]
+  rangeInfoGenerator: Generator<FullRangeInfo, void, unknown>
 ) {
   const { document, contentChanges } = changeEvent;
 
@@ -36,7 +37,7 @@ export function updateRangeInfos(
     };
   });
 
-  rangeInfos.forEach((rangeInfo) => {
+  for (const rangeInfo of rangeInfoGenerator) {
     const originalOffsets = rangeInfo.offsets;
 
     const displacements = changeEventInfos.map((changeEventInfo) => {
@@ -72,8 +73,7 @@ export function updateRangeInfos(
         newOffsets = getOffsetsForDeleteOrReplace(changeEventInfo, rangeInfo);
       }
 
-      // NB: We don't update text for now because we're not entirely sure it's necessary
-      // rangeInfo.text = getUpdatedText(changeEventInfo, rangeInfo, newOffsets);
+      rangeInfo.text = getUpdatedText(changeEventInfo, rangeInfo, newOffsets);
 
       return {
         start: newOffsets.start - originalOffsets.start,
@@ -91,5 +91,5 @@ export function updateRangeInfos(
       document.positionAt(newOffsets.end)
     );
     rangeInfo.offsets = newOffsets;
-  });
+  }
 }

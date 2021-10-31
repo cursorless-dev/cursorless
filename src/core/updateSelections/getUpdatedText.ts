@@ -4,7 +4,7 @@ import {
   RangeOffsets,
 } from "../../typings/updateSelections";
 
-function getUpdatedText(
+export function getUpdatedText(
   changeEventInfo: ChangeEventInfo,
   rangeInfo: FullRangeInfo,
   newOffsets: RangeOffsets
@@ -22,6 +22,7 @@ function getUpdatedText(
 
   if (rangeOriginalOffsetsStart < changeOriginalOffsetsStart) {
     result += rangeInfo.text.substring(
+      0,
       changeOriginalOffsetsStart - rangeOriginalOffsetsStart
     );
   }

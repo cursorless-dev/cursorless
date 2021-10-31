@@ -5,16 +5,13 @@ import { HatStyleName } from "../core/constants";
 import { EditStyles } from "../core/editStyles";
 import NavigationMap from "../core/NavigationMap";
 import { Snippets } from "../core/Snippets";
-import { SelectionUpdater } from "../core/updateSelections/SelectionUpdater";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { FullRangeInfo } from "./updateSelections";
 
 /**
  * A token within a text editor, including the current display line of the token
  */
-export interface Token {
-  text: string;
-  range: vscode.Range;
-  startOffset: number;
-  endOffset: number;
+export interface Token extends FullRangeInfo {
   editor: vscode.TextEditor;
   displayLine: number;
 }
@@ -330,7 +327,7 @@ export interface Graph {
   readonly navigationMap: NavigationMap;
   readonly extensionContext: ExtensionContext;
   readonly snippets: Snippets;
-  readonly selectionUpdater: SelectionUpdater;
+  readonly selectionUpdater: RangeUpdater;
 }
 
 export type NodeMatcherValue = {

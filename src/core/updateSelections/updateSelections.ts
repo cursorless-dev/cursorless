@@ -12,7 +12,7 @@ import {
 import { performDocumentEdits } from "../../util/performDocumentEdits";
 import { isForward } from "../../util/selectionUtils";
 import { Edit } from "../../typings/Types";
-import { SelectionUpdater } from "./SelectionUpdater";
+import { RangeUpdater } from "./RangeUpdater";
 
 export function getSelectionInfo(
   document: TextDocument,
@@ -99,7 +99,7 @@ export function selectionInfosToSelections(
  * @returns The initial selections updated based upon what happened in the function
  */
 export async function callFunctionAndUpdateSelections(
-  selectionUpdater: SelectionUpdater,
+  selectionUpdater: RangeUpdater,
   func: () => Thenable<unknown>,
   document: TextDocument,
   selectionMatrix: Selection[][]
@@ -128,12 +128,12 @@ export async function callFunctionAndUpdateSelections(
  * @returns The initial selections updated based upon what happened in the function
  */
 export async function callFunctionAndUpdateSelectionInfos(
-  selectionUpdater: SelectionUpdater,
+  selectionUpdater: RangeUpdater,
   func: () => Thenable<unknown>,
   document: TextDocument,
   selectionInfoMatrix: FullSelectionInfo[][]
 ): Promise<void> {
-  const unsubscribe = selectionUpdater.registerSelectionInfos(
+  const unsubscribe = selectionUpdater.registerRangeInfos(
     document,
     flatten(selectionInfoMatrix)
   );
@@ -152,7 +152,7 @@ export async function callFunctionAndUpdateSelectionInfos(
  * @returns The updated selections
  */
 export async function performEditsAndUpdateSelections(
-  selectionUpdater: SelectionUpdater,
+  selectionUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],
   originalSelections: Selection[][]
@@ -174,7 +174,7 @@ export async function performEditsAndUpdateSelections(
 }
 
 export async function performEditsAndUpdateSelectionInfos(
-  selectionUpdater: SelectionUpdater,
+  selectionUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],
   originalSelectionInfos: SelectionInfo[][]
@@ -190,7 +190,7 @@ export async function performEditsAndUpdateSelectionInfos(
 }
 
 export async function performEditsAndUpdateFullSelectionInfos(
-  selectionUpdater: SelectionUpdater,
+  selectionUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],
   originalSelectionInfos: FullSelectionInfo[][]

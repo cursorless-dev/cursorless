@@ -1,9 +1,9 @@
 import { Edit } from "../typings/Types";
 import { TextEditor } from "vscode";
-import { SelectionUpdater } from "../core/updateSelections/SelectionUpdater";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 
 export async function performDocumentEdits(
-  selectionUpdater: SelectionUpdater,
+  selectionUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[]
 ) {

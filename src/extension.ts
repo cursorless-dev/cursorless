@@ -242,8 +242,6 @@ export async function activate(context: vscode.ExtensionContext) {
   }
 
   function handleEdit(edit: vscode.TextDocumentChangeEvent) {
-    graph.navigationMap.updateTokenRanges(edit);
-
     addDecorationsDebounced();
 
     // TODO. Disabled for now because it triggers on undo as well

@@ -1,12 +1,18 @@
 import * as vscode from "vscode";
-import { tokenize } from "../core/tokenizer";
+import { tokenize, TOKEN_MATCHER } from "../core/tokenizer";
 import { Token } from "../typings/Types";
+import { RangeOffsets } from "../typings/updateSelections";
+
+export interface PartialToken {
+  text: string;
+  range: vscode.Range;
+  offsets: RangeOffsets;
+}
 
 export function getTokensInRange(
   editor: vscode.TextEditor,
-  range: vscode.Range,
-  displayLineMap: Map<number, number>
-): Token[] {
+  range: vscode.Range
+): PartialToken[] {
   const text = editor.document.getText(range).toLowerCase();
   const rangeOffset = editor.document.offsetAt(range.start);
 
@@ -17,13 +23,11 @@ export function getTokensInRange(
       editor.document.positionAt(startOffset),
       editor.document.positionAt(endOffset)
     );
+
     return {
       text: match[0],
       range,
-      startOffset,
-      endOffset,
-      displayLine: displayLineMap.get(range.start.line)!,
-      editor,
+      offsets: { start: startOffset, end: endOffset },
     };
   });
 }
