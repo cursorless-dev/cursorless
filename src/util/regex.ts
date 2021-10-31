@@ -10,7 +10,7 @@ function _leftAnchored(regex: RegExp) {
   return new RegExp(`^(${source})`, flags.replace("m", ""));
 }
 
-function makeMRUCache<T, U>(func: (arg: T) => U) {
+function makeCache<T, U>(func: (arg: T) => U) {
   const cache: Map<T, U> = new Map();
 
   function wrapper(arg: T): U {
@@ -27,5 +27,5 @@ function makeMRUCache<T, U>(func: (arg: T) => U) {
   return wrapper;
 }
 
-export const rightAnchored = makeMRUCache(_rightAnchored);
-export const leftAnchored = makeMRUCache(_leftAnchored);
+export const rightAnchored = makeCache(_rightAnchored);
+export const leftAnchored = makeCache(_leftAnchored);
