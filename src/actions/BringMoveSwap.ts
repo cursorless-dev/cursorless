@@ -158,17 +158,12 @@ class BringMoveSwap implements Action {
               ? edits
               : edits.filter(({ isSource }) => !isSource);
 
-          const selectionInfos = edits.map(
-            ({
-              originalSelection: {
-                selection: { selection },
-              },
-            }) =>
-              getSelectionInfo(
-                editor.document,
-                selection,
-                DecorationRangeBehavior.OpenOpen
-              )
+          const selectionInfos = edits.map(({ originalSelection }) =>
+            getSelectionInfo(
+              editor.document,
+              originalSelection.selection.selection,
+              DecorationRangeBehavior.OpenOpen
+            )
           );
 
           const [updatedSelections]: Selection[][] =

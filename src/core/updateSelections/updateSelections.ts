@@ -109,14 +109,12 @@ export async function callFunctionAndUpdateSelections(
     selectionMatrix
   );
 
-  await callFunctionAndUpdateSelectionInfos(
+  return await callFunctionAndUpdateSelectionInfos(
     selectionUpdater,
     func,
     document,
     selectionInfoMatrix
   );
-
-  return selectionInfosToSelections(selectionInfoMatrix);
 }
 
 /**
@@ -132,7 +130,7 @@ export async function callFunctionAndUpdateSelectionInfos(
   func: () => Thenable<unknown>,
   document: TextDocument,
   selectionInfoMatrix: FullSelectionInfo[][]
-): Promise<void> {
+) {
   const unsubscribe = selectionUpdater.registerRangeInfos(
     document,
     flatten(selectionInfoMatrix)
@@ -141,6 +139,8 @@ export async function callFunctionAndUpdateSelectionInfos(
   await func();
 
   unsubscribe();
+
+  return selectionInfosToSelections(selectionInfoMatrix);
 }
 
 /**
