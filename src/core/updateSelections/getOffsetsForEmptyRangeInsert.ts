@@ -6,7 +6,32 @@ import {
   RangeOffsets,
 } from "../../typings/updateSelections";
 
-export function getOffsetsForEmptyRangeInsert(
+/**
+ * Gets updated offsets for the range `rangeInfo` after the change described by
+ * `changeEventInfo`.  This function will only be called if the following hold:
+ *
+ * - the change is an insert event, ie a change event for which the
+ *   original range is empty, and
+ * - the range to be updated is empty, and
+ * - the insertion position is equal to the position of the empty range to be
+ *   updated.
+ *
+ * The approach taken here is to first look at the `isReplace` field of the
+ * change to determine whether it should shift empty ranges to the right.  If
+ * it shifts them to the right, we then look at its left / start expansion
+ * behaviour.  If does not shift empty ranges, then we look at its right / end
+ * expansion behaviour.
+ *
+ * If the given expansion behaviour is "open", we expand to contain the new
+ * text, if "closed" we do not expand, and if "regex", we expand to contain as
+ * much of the inserted text as matches the given regex, anchored at the
+ * opposite end.
+ *
+ * @param changeEventInfo Information about the change that occurred
+ * @param rangeInfo The range to compute new offsets for
+ * @returns The new offsets for the given range
+ */
+export default function getOffsetsForEmptyRangeInsert(
   changeEventInfo: ChangeEventInfo,
   rangeInfo: FullRangeInfo
 ): RangeOffsets {
