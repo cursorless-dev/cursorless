@@ -54,12 +54,16 @@ export class RangeUpdater {
 
   /**
    * Registers a list of edits to treat as replace edits. These edits are
-   * insertions that will not shift an empty selection to the right.
+   * insertions that will not shift an empty selection to the right. Call this
+   * function before applying your edits to the document
+   *
+   * Note that if you make two edits at the same location with the same text,
+   * it is not possible to mark only one of them as replace edit.
    *
    * It is ok to add to this list after registering it; any items in the list
-   * at the time of a document change will be kept up to date.  Please be sure
-   * to call the returned deregister function when you no longer need the ranges
-   * updated.
+   * at the time of a document change will be treated as replace edits.  Please
+   * be sure to call the returned deregister function after you have waited for
+   * your edits to be applied.
    * @param document The document containing the ranges
    * @param replaceEditList A list of edits to treat as replace edits; it is ok to add to this list after the fact
    * @returns A function that can be used to deregister the list
