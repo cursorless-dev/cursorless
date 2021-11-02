@@ -322,11 +322,37 @@ export type ActionType =
 export type ActionRecord = Record<ActionType, Action>;
 
 export interface Graph {
+  /**
+   * Keeps a map from action names to objects that implement the given action
+   */
   readonly actions: ActionRecord;
+
+  /**
+   * Maintains decorations that can be used to visually indicate to the user
+   * the targets of their actions.
+   */
   readonly editStyles: EditStyles;
+
+  /**
+   * Keeps a map of all decorated marks
+   */
   readonly navigationMap: NavigationMap;
+
+  /**
+   * The extension context passed in during extension activation
+   */
   readonly extensionContext: ExtensionContext;
+
+  /**
+   * Keeps a merged list of all user-contributed, core, and
+   * extension-contributed cursorless snippets
+   */
   readonly snippets: Snippets;
+
+  /**
+   * This component can be used to register a list of ranges to keep up to date
+   * as the document changes
+   */
   readonly rangeUpdater: RangeUpdater;
 }
 
