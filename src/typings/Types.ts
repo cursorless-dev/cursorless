@@ -327,7 +327,7 @@ export interface Graph {
   readonly navigationMap: NavigationMap;
   readonly extensionContext: ExtensionContext;
   readonly snippets: Snippets;
-  readonly selectionUpdater: RangeUpdater;
+  readonly rangeUpdater: RangeUpdater;
 }
 
 export type NodeMatcherValue = {

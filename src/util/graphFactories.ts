@@ -11,7 +11,7 @@ const graphFactories: Partial<FactoryMap<Graph>> = {
   editStyles: () => new EditStyles(),
   navigationMap: (graph: Graph) => new NavigationMap(graph),
   snippets: (graph: Graph) => new Snippets(graph),
-  selectionUpdater: (graph: Graph) => new RangeUpdater(graph),
+  rangeUpdater: (graph: Graph) => new RangeUpdater(graph),
 };
 
 export default graphFactories;

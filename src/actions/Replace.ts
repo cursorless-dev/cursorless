@@ -67,7 +67,7 @@ export default class implements Action {
         (edit) => edit.editor,
         async (editor, edits) => {
           const [updatedSelections] = await performEditsAndUpdateSelections(
-            this.graph.selectionUpdater,
+            this.graph.rangeUpdater,
             editor,
             edits,
             [targets.map((target) => target.selection.selection)]

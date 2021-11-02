@@ -98,7 +98,7 @@ export default class WrapWithSnippet implements Action {
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
     // because the latter doesn't support special variables like CLIPBOARD
     const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
-      this.graph.selectionUpdater,
+      this.graph.rangeUpdater,
       () =>
         commands.executeCommand("editor.action.insertSnippet", {
           snippet: snippetString,

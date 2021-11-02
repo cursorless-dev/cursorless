@@ -66,7 +66,7 @@ class CopyLines implements Action {
 
         const [updatedSelections, copySelections] =
           await performEditsAndUpdateSelections(
-            this.graph.selectionUpdater,
+            this.graph.rangeUpdater,
             editor,
             edits,
             [

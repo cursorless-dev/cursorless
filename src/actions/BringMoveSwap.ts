@@ -168,7 +168,7 @@ class BringMoveSwap implements Action {
 
           const [updatedSelections]: Selection[][] =
             await performEditsAndUpdateFullSelectionInfos(
-              this.graph.selectionUpdater,
+              this.graph.rangeUpdater,
               editor,
               filteredEdits,
               [selectionInfos]

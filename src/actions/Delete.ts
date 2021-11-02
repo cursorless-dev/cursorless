@@ -38,7 +38,7 @@ export default class Delete implements Action {
         }));
 
         const [updatedSelections] = await performEditsAndUpdateSelections(
-          this.graph.selectionUpdater,
+          this.graph.rangeUpdater,
           editor,
           edits,
           [targets.map((target) => target.selection.selection)]

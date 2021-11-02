@@ -49,7 +49,7 @@ export default class CommandAction implements Action {
 
           const [updatedOriginalSelections, updatedTargetSelections] =
             await callFunctionAndUpdateSelections(
-              this.graph.selectionUpdater,
+              this.graph.rangeUpdater,
               () => commands.executeCommand(this.command),
               editor.document,
               [originalSelections, targetSelections]

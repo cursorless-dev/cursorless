@@ -94,7 +94,7 @@ export default class Wrap implements Action {
 
           const [delimiterSelections, cursorSelections, thatMarkSelections] =
             await performEditsAndUpdateFullSelectionInfos(
-              this.graph.selectionUpdater,
+              this.graph.rangeUpdater,
               editor,
               edits,
               [

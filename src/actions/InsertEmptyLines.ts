@@ -56,7 +56,7 @@ class InsertEmptyLines implements Action {
 
         const [updatedSelections, lineSelections, updatedOriginalSelections] =
           await performEditsAndUpdateSelections(
-            this.graph.selectionUpdater,
+            this.graph.rangeUpdater,
             editor,
             edits,
             [
