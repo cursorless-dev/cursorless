@@ -99,7 +99,7 @@ export function selectionInfosToSelections(
  * @returns The initial selections updated based upon what happened in the function
  */
 export async function callFunctionAndUpdateSelections(
-  selectionUpdater: RangeUpdater,
+  rangeUpdater: RangeUpdater,
   func: () => Thenable<unknown>,
   document: TextDocument,
   selectionMatrix: Selection[][]
@@ -110,7 +110,7 @@ export async function callFunctionAndUpdateSelections(
   );
 
   return await callFunctionAndUpdateSelectionInfos(
-    selectionUpdater,
+    rangeUpdater,
     func,
     document,
     selectionInfoMatrix
@@ -126,12 +126,12 @@ export async function callFunctionAndUpdateSelections(
  * @returns The initial selections updated based upon what happened in the function
  */
 export async function callFunctionAndUpdateSelectionInfos(
-  selectionUpdater: RangeUpdater,
+  rangeUpdater: RangeUpdater,
   func: () => Thenable<unknown>,
   document: TextDocument,
   selectionInfoMatrix: FullSelectionInfo[][]
 ) {
-  const unsubscribe = selectionUpdater.registerRangeInfoList(
+  const unsubscribe = rangeUpdater.registerRangeInfoList(
     document,
     flatten(selectionInfoMatrix)
   );
@@ -152,7 +152,7 @@ export async function callFunctionAndUpdateSelectionInfos(
  * @returns The updated selections
  */
 export async function performEditsAndUpdateSelections(
-  selectionUpdater: RangeUpdater,
+  rangeUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],
   originalSelections: Selection[][]
@@ -164,7 +164,7 @@ export async function performEditsAndUpdateSelections(
   );
 
   await performEditsAndUpdateFullSelectionInfos(
-    selectionUpdater,
+    rangeUpdater,
     editor,
     edits,
     selectionInfoMatrix
@@ -174,7 +174,7 @@ export async function performEditsAndUpdateSelections(
 }
 
 export async function performEditsAndUpdateSelectionInfos(
-  selectionUpdater: RangeUpdater,
+  rangeUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],
   originalSelectionInfos: SelectionInfo[][]
@@ -182,7 +182,7 @@ export async function performEditsAndUpdateSelectionInfos(
   fillOutSelectionInfos(editor.document, originalSelectionInfos);
 
   return await performEditsAndUpdateFullSelectionInfos(
-    selectionUpdater,
+    rangeUpdater,
     editor,
     edits,
     originalSelectionInfos as FullSelectionInfo[][]
@@ -190,7 +190,7 @@ export async function performEditsAndUpdateSelectionInfos(
 }
 
 export async function performEditsAndUpdateFullSelectionInfos(
-  selectionUpdater: RangeUpdater,
+  rangeUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],
   originalSelectionInfos: FullSelectionInfo[][]
@@ -214,7 +214,7 @@ export async function performEditsAndUpdateFullSelectionInfos(
   // https://github.com/microsoft/vscode/blob/174db5eb992d880adcc42c41d83a0e6cb6b92474/src/vs/editor/common/model/pieceTreeTextBuffer/pieceTreeTextBuffer.ts#L598-L604
   // See also
   // https://github.com/microsoft/vscode/blob/174db5eb992d880adcc42c41d83a0e6cb6b92474/src/vs/editor/common/model/pieceTreeTextBuffer/pieceTreeTextBuffer.ts#L464
-  // - We should have a component on the graph called graph.selectionUpdater
+  // - We should have a component on the graph called graph.rangeUpdater
   // - It will support registering a list of selections to keep up-to-date, and
   //   it returns a dispose function.
   // - It also has a function that allows callers to register isReplace edits,
@@ -226,7 +226,7 @@ export async function performEditsAndUpdateFullSelectionInfos(
 
   const func = async () => {
     const wereEditsApplied = await performDocumentEdits(
-      selectionUpdater,
+      rangeUpdater,
       editor,
       edits
     );
@@ -237,7 +237,7 @@ export async function performEditsAndUpdateFullSelectionInfos(
   };
 
   await callFunctionAndUpdateSelectionInfos(
-    selectionUpdater,
+    rangeUpdater,
     func,
     editor.document,
     originalSelectionInfos

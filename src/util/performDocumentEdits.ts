@@ -3,11 +3,11 @@ import { TextEditor } from "vscode";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 
 export async function performDocumentEdits(
-  selectionUpdater: RangeUpdater,
+  rangeUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[]
 ) {
-  const deregister = selectionUpdater.registerReplaceEditList(
+  const deregister = rangeUpdater.registerReplaceEditList(
     editor.document,
     edits.filter((edit) => edit.isReplace)
   );
