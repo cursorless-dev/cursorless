@@ -24,7 +24,10 @@ export default class NavigationMap {
       currentValue = [];
       this.documentTokenLists.set(key, currentValue);
       this.deregisterFunctions.push(
-        this.graph.selectionUpdater.registerRangeInfoList(document, currentValue)
+        this.graph.selectionUpdater.registerRangeInfoList(
+          document,
+          currentValue
+        )
       );
     }
 
@@ -51,7 +54,8 @@ export default class NavigationMap {
 
   public clear() {
     this.map = {};
-    this.documentTokenLists.forEach((tokenList) => (tokenList.length = 0));
+    this.documentTokenLists = new Map();
+    this.deregisterFunctions.forEach((func) => func());
   }
 
   public dispose() {
