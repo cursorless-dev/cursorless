@@ -7,7 +7,7 @@ export async function performDocumentEdits(
   editor: TextEditor,
   edits: Edit[]
 ) {
-  const deregister = selectionUpdater.registerReplaceEdits(
+  const deregister = selectionUpdater.registerReplaceEditList(
     editor.document,
     edits.filter((edit) => edit.isReplace)
   );

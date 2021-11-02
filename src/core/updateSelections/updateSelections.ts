@@ -131,7 +131,7 @@ export async function callFunctionAndUpdateSelectionInfos(
   document: TextDocument,
   selectionInfoMatrix: FullSelectionInfo[][]
 ) {
-  const unsubscribe = selectionUpdater.registerRangeInfos(
+  const unsubscribe = selectionUpdater.registerRangeInfoList(
     document,
     flatten(selectionInfoMatrix)
   );

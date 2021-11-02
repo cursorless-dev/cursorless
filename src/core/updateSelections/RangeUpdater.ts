@@ -15,20 +15,20 @@ import { getDefault } from "../../util/map";
 import { updateRangeInfos } from "./updateRangeInfos";
 
 export class RangeUpdater {
-  private rangeInfos: Map<string, FullRangeInfo[][]> = new Map();
-  private replaceEdits: Map<string, Edit[][]> = new Map();
+  private rangeInfoLists: Map<string, FullRangeInfo[][]> = new Map();
+  private replaceEditLists: Map<string, Edit[][]> = new Map();
   private disposable!: Disposable;
 
   constructor(graph: Graph) {
     this.listenForDocumentChanges();
   }
 
-  private getDocumentRangeInfos(document: TextDocument) {
-    return getDefault(this.rangeInfos, document.uri.toString(), () => []);
+  private getDocumentRangeInfoLists(document: TextDocument) {
+    return getDefault(this.rangeInfoLists, document.uri.toString(), () => []);
   }
 
-  private getDocumentReplaceEdits(document: TextDocument) {
-    return getDefault(this.replaceEdits, document.uri.toString(), () => []);
+  private getDocumentReplaceEditLists(document: TextDocument) {
+    return getDefault(this.replaceEditLists, document.uri.toString(), () => []);
   }
 
   /**
@@ -38,68 +38,64 @@ export class RangeUpdater {
    * returned deregister function when you no longer need the ranges
    * updated.
    * @param document The document containing the ranges
-   * @param rangeInfos The ranges to keep up to date; it is ok to add to this list after the fact
+   * @param rangeInfoList The ranges to keep up to date; it is ok to add to this list after the fact
    * @returns A function that can be used to deregister the list
    */
-  registerRangeInfos(
+  registerRangeInfoList(
     document: TextDocument,
-    rangeInfos: FullRangeInfo[]
+    rangeInfoList: FullRangeInfo[]
   ): () => void {
-    const currentRangeInfos = this.getDocumentRangeInfos(document);
+    const documentRangeInfoLists = this.getDocumentRangeInfoLists(document);
 
-    currentRangeInfos.push(rangeInfos);
+    documentRangeInfoLists.push(rangeInfoList);
 
-    return () => pull(currentRangeInfos, rangeInfos);
+    return () => pull(documentRangeInfoLists, rangeInfoList);
   }
 
-  registerReplaceEdits(
+  /**
+   * Registers a list of edits to treat as replace edits. These edits are
+   * insertions that will not shift an empty selection to the right.
+   *
+   * It is ok to add to this list after registering it; any items in the list
+   * at the time of a document change will be kept up to date.  Please be sure
+   * to call the returned deregister function when you no longer need the ranges
+   * updated.
+   * @param document The document containing the ranges
+   * @param replaceEditList A list of edits to treat as replace edits; it is ok to add to this list after the fact
+   * @returns A function that can be used to deregister the list
+   */
+  registerReplaceEditList(
     document: TextDocument,
-    replaceEdits: Edit[]
+    replaceEditList: Edit[]
   ): () => void {
-    const currentReplaceEdits = this.getDocumentReplaceEdits(document);
+    const documentReplaceEditLists = this.getDocumentReplaceEditLists(document);
 
-    currentReplaceEdits.push(replaceEdits);
+    documentReplaceEditLists.push(replaceEditList);
 
-    return () => pull(currentReplaceEdits, replaceEdits);
+    return () => pull(documentReplaceEditLists, replaceEditList);
   }
 
   private *documentRangeInfoGenerator(document: TextDocument) {
-    const documentRangeInfos = this.getDocumentRangeInfos(document);
+    const documentRangeInfoLists = this.getDocumentRangeInfoLists(document);
 
-    for (const rangeInfos of documentRangeInfos) {
-      for (const rangeInfo of rangeInfos) {
+    for (const rangeInfoLists of documentRangeInfoLists) {
+      for (const rangeInfo of rangeInfoLists) {
         yield rangeInfo;
       }
     }
   }
 
-  private isReplace(
-    document: TextDocument,
-    change: TextDocumentContentChangeEvent
-  ) {
-    const documentReplaceEdits = this.getDocumentReplaceEdits(document);
-
-    for (const replaceEdits of documentReplaceEdits) {
-      for (const replaceEdit of replaceEdits) {
-        if (
-          replaceEdit.range.isEqual(change.range) &&
-          replaceEdit.text === change.text
-        ) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
-
   private listenForDocumentChanges() {
     this.disposable = workspace.onDidChangeTextDocument(
       (event: TextDocumentChangeEvent) => {
+        const documentReplaceEditLists = this.getDocumentReplaceEditLists(
+          event.document
+        );
+
         const extendedEvent: ExtendedTextDocumentChangeEvent = {
           ...event,
           contentChanges: event.contentChanges.map((change) =>
-            this.isReplace(event.document, change)
+            isReplace(documentReplaceEditLists, change)
               ? {
                   ...change,
                   isReplace: true,
@@ -119,4 +115,22 @@ export class RangeUpdater {
   dispose() {
     this.disposable.dispose();
   }
+}
+
+function isReplace(
+  documentReplaceEditLists: Edit[][],
+  change: TextDocumentContentChangeEvent
+) {
+  for (const replaceEditLists of documentReplaceEditLists) {
+    for (const replaceEdit of replaceEditLists) {
+      if (
+        replaceEdit.range.isEqual(change.range) &&
+        replaceEdit.text === change.text
+      ) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }

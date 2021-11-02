@@ -24,7 +24,7 @@ export default class NavigationMap {
       currentValue = [];
       this.documentTokenLists.set(key, currentValue);
       this.deregisterFunctions.push(
-        this.graph.selectionUpdater.registerRangeInfos(document, currentValue)
+        this.graph.selectionUpdater.registerRangeInfoList(document, currentValue)
       );
     }
 
