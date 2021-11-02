@@ -56,6 +56,16 @@ export function updateRangeInfos(
 
   for (const rangeInfo of rangeInfoGenerator) {
     const originalOffsets = rangeInfo.offsets;
+    let needsRegexAdjustment = false;
+    const hasRegexEdge =
+      rangeInfo.expansionBehavior.start.type === "regex" ||
+      rangeInfo.expansionBehavior.end.type === "regex";
+
+    /**
+     * The offsets that haven't been eaten into by any replace or delete that
+     * extends past the end of the original range.
+     */
+    let survivingOffsets = originalOffsets;
 
     // NB: We just collect displacements for both ends of the range and then
     // add them up after we've processed all changes.  This way we can treat
@@ -67,8 +77,6 @@ export function updateRangeInfos(
     // created in an editBuilder, so that if we were to apply the edits one
     // after the other, the first edit would appear first in the new document.
     const displacements = changeEventInfos.map((changeEventInfo) => {
-      let newOffsets: RangeOffsets;
-
       // Easy case 1: edit occurred strictly after the range; nothing to do
       if (changeEventInfo.originalOffsets.start > originalOffsets.end) {
         return {
@@ -87,6 +95,11 @@ export function updateRangeInfos(
       }
 
       // Handle the hard cases
+      let newOffsets: RangeOffsets;
+
+      // Indicate that we need to see if regex expansion needs to occur
+      needsRegexAdjustment = true;
+
       if (changeEventInfo.event.rangeLength === 0) {
         if (rangeInfo.range.isEmpty) {
           newOffsets = getOffsetsForEmptyRangeInsert(
@@ -101,6 +114,26 @@ export function updateRangeInfos(
         }
       } else {
         newOffsets = getOffsetsForDeleteOrReplace(changeEventInfo, rangeInfo);
+
+        if (hasRegexEdge) {
+          const {
+            originalOffsets: {
+              start: changeOriginalStartOffset,
+              end: changeOriginalEndOffset,
+            },
+          } = changeEventInfo;
+
+          survivingOffsets = {
+            end:
+              changeOriginalEndOffset >= survivingOffsets.end
+                ? Math.min(survivingOffsets.end, changeOriginalStartOffset)
+                : survivingOffsets.end,
+            start:
+              changeOriginalStartOffset <= survivingOffsets.start
+                ? Math.max(survivingOffsets.start, changeOriginalEndOffset)
+                : survivingOffsets.start,
+          };
+        }
       }
 
       // Update the text field to match what it will actually be after the
@@ -114,11 +147,42 @@ export function updateRangeInfos(
       };
     });
 
-    // Add up all the displacements
-    const newOffsets = {
-      start: originalOffsets.start + sumBy(displacements, ({ start }) => start),
-      end: originalOffsets.end + sumBy(displacements, ({ end }) => end),
+    const totalDisplacements = {
+      start: sumBy(displacements, ({ start }) => start),
+      end: sumBy(displacements, ({ end }) => end),
     };
+
+    // Add up all the displacements
+    let newOffsets = {
+      start: originalOffsets.start + totalDisplacements.start,
+      end: originalOffsets.end + totalDisplacements.end,
+    };
+
+    if (hasRegexEdge && survivingOffsets.end > survivingOffsets.start) {
+      survivingOffsets = {
+        start: survivingOffsets.start + totalDisplacements.start,
+        end: survivingOffsets.end + totalDisplacements.end,
+      };
+
+      newOffsets = {
+        start:
+          rangeInfo.expansionBehavior.start.type === "regex"
+            ? expandStartByRegex(
+                document,
+                survivingOffsets,
+                rangeInfo.expansionBehavior.start.regex
+              )
+            : newOffsets.start,
+        end:
+          rangeInfo.expansionBehavior.end.type === "regex"
+            ? expandEndByRegex(
+                document,
+                survivingOffsets,
+                rangeInfo.expansionBehavior.end.regex
+              )
+            : newOffsets.end,
+      };
+    }
 
     // Do final range and offset update
     rangeInfo.range = rangeInfo.range.with(
