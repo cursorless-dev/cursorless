@@ -1,7 +1,6 @@
-import { TextDocumentChangeEvent, Range, TextDocument } from "vscode";
+import { TextDocument } from "vscode";
 import { HatStyleName } from "./constants";
-import { Graph, SelectionWithEditor, Token } from "../typings/Types";
-import { getDefault } from "../util/map";
+import { Graph, Token } from "../typings/Types";
 
 /**
  * Maps from (hatStyle, character) pairs to tokens
@@ -14,7 +13,9 @@ export default class NavigationMap {
     [decoratedCharacter: string]: Token;
   } = {};
 
-  constructor(private graph: Graph) {}
+  constructor(private graph: Graph) {
+    graph.extensionContext.subscriptions.push(this);
+  }
 
   private getDocumentTokenList(document: TextDocument) {
     const key = document.uri.toString();
@@ -24,10 +25,7 @@ export default class NavigationMap {
       currentValue = [];
       this.documentTokenLists.set(key, currentValue);
       this.deregisterFunctions.push(
-        this.graph.rangeUpdater.registerRangeInfoList(
-          document,
-          currentValue
-        )
+        this.graph.rangeUpdater.registerRangeInfoList(document, currentValue)
       );
     }
 
