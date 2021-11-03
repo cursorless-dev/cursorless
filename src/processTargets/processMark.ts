@@ -32,21 +32,14 @@ export default function (
   }
 }
 
+/**
+ * Returns tokens that intersect with the selection that may be relevant for
+ * expanding the selection to its containing token.
+ * @param selection The selection
+ * @returns All tokens that intersect with the selection and are on the same line as the start or endpoint of the selection
+ */
 function getTokenIntersectionsForSelection(selection: SelectionWithEditor) {
-  const startLine = selection.selection.start.line;
-  const endLine = selection.selection.end.line;
-  let tokens = getTokensInRange(
-    selection.editor,
-    selection.editor.document.lineAt(startLine).range
-  );
-  if (endLine !== startLine) {
-    tokens.push(
-      ...getTokensInRange(
-        selection.editor,
-        selection.editor.document.lineAt(endLine).range
-      )
-    );
-  }
+  let tokens = getRelevantTokens(selection);
 
   const tokenIntersections: { token: PartialToken; intersection: Range }[] = [];
 
@@ -58,6 +51,34 @@ function getTokenIntersectionsForSelection(selection: SelectionWithEditor) {
   });
 
   return tokenIntersections;
+}
+
+/**
+ * Given a selection, finds all tokens that we might use to expand the
+ * selection.  Just looks at tokens on the same line as the start and end of the
+ * selection, because we assume that a token cannot span multiple lines.
+ * @param selection The selection we care about
+ * @returns A list of tokens that we might expand to
+ */
+function getRelevantTokens(selection: SelectionWithEditor) {
+  const startLine = selection.selection.start.line;
+  const endLine = selection.selection.end.line;
+
+  let tokens = getTokensInRange(
+    selection.editor,
+    selection.editor.document.lineAt(startLine).range
+  );
+
+  if (endLine !== startLine) {
+    tokens.push(
+      ...getTokensInRange(
+        selection.editor,
+        selection.editor.document.lineAt(endLine).range
+      )
+    );
+  }
+
+  return tokens;
 }
 
 /**
