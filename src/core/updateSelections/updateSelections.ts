@@ -14,6 +14,15 @@ import { isForward } from "../../util/selectionUtils";
 import { Edit } from "../../typings/Types";
 import { RangeUpdater } from "./RangeUpdater";
 
+/**
+ * Given a selection, this function creates a `SelectionInfo` object that can
+ * be passed in to any of the commands that update selections.
+ *
+ * @param document The document containing the selection
+ * @param selection The selection
+ * @param rangeBehavior How selection should behave with respect to insertions on either end
+ * @returns An object that can be used for selection tracking
+ */
 export function getSelectionInfo(
   document: TextDocument,
   selection: Selection,
@@ -46,17 +55,22 @@ export function getSelectionInfo(
   };
 }
 
+/**
+ * Creates SelectionInfo objects for all selections in a list of lists.
+ *
+ * @param document The document containing the selections
+ * @param selectionMatrix A list of lists of selections
+ * @param rangeBehavior How selections should behave with respect to insertions on either end
+ * @returns A list of lists of selection info objects
+ */
 export function selectionsToSelectionInfos(
   document: TextDocument,
-  selectionMatrix: Selection[][]
+  selectionMatrix: Selection[][],
+  rangeBehavior: DecorationRangeBehavior = DecorationRangeBehavior.ClosedClosed
 ): FullSelectionInfo[][] {
   return selectionMatrix.map((selections) =>
     selections.map((selection) =>
-      getSelectionInfo(
-        document,
-        selection,
-        DecorationRangeBehavior.ClosedClosed
-      )
+      getSelectionInfo(document, selection, rangeBehavior)
     )
   );
 }
@@ -80,7 +94,7 @@ function fillOutSelectionInfos(
   return true;
 }
 
-export function selectionInfosToSelections(
+function selectionInfosToSelections(
   selectionInfoMatrix: SelectionInfo[][]
 ): Selection[][] {
   return selectionInfoMatrix.map((selectionInfos) =>
@@ -93,8 +107,9 @@ export function selectionInfosToSelections(
 /**
  * Calls the given function and updates the given selections based on the
  * changes that occurred as a result of calling function.
+ * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
  * @param func The function to call
- * @param editor The editor containing the selections
+ * @param document The document containing the selections
  * @param selectionMatrix A matrix of selections to update
  * @returns The initial selections updated based upon what happened in the function
  */
@@ -120,9 +135,10 @@ export async function callFunctionAndUpdateSelections(
 /**
  * Calls the given function and updates the given selections based on the
  * changes that occurred as a result of calling function.
+ * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
  * @param func The function to call
- * @param editor The editor containing the selections
- * @param selectionMatrix A matrix of selections to update
+ * @param document The document containing the selections
+ * @param selectionMatrix A matrix of selection info objects to update
  * @returns The initial selections updated based upon what happened in the function
  */
 export async function callFunctionAndUpdateSelectionInfos(
@@ -146,6 +162,7 @@ export async function callFunctionAndUpdateSelectionInfos(
 /**
  * Performs a list of edits and returns the given selections updated based on
  * the applied edits
+ * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
  * @param editor The editor containing the selections
  * @param edits A list of edits to apply
  * @param originalSelections The selections to update
@@ -173,6 +190,7 @@ export async function performEditsAndUpdateSelections(
   return selectionInfosToSelections(selectionInfoMatrix);
 }
 
+// TODO: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
 export async function performEditsAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
   editor: TextEditor,
@@ -189,19 +207,25 @@ export async function performEditsAndUpdateSelectionInfos(
   );
 }
 
+/**
+ * Performs a list of edits and returns the given selections updated based on
+ * the applied edits
+ * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
+ * @param editor The editor containing the selections
+ * @param edits A list of edits to apply
+ * @param originalSelectionInfos The selection info objects to update
+ * @returns The updated selections
+ */
 export async function performEditsAndUpdateFullSelectionInfos(
   rangeUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],
   originalSelectionInfos: FullSelectionInfo[][]
 ) {
-  // TODO: Do everything using VSCode listeners.  We can associate changes with
-  // our changes just by looking at their offets / text in order to recover
-  // isReplace.  We need to do this because VSCode does some fancy stuff, and
-  // returns the changes in a nice order
-  // So this function would prob mostly go away, and everything would basically
-  // just be a version of callFunctionAndUpdateSelections, or just call that
-  // directly
+  // NB: We do everything using VSCode listeners.  We can associate changes
+  // with our changes just by looking at their offets / text in order to
+  // recover isReplace.  We need to do this because VSCode does some fancy
+  // stuff, and returns the changes in a nice order
   // Note that some additional weird edits like whitespace things can be
   // created by VSCode I believe, and they change order,  so we can't just zip
   // their changes with ours.
@@ -214,15 +238,12 @@ export async function performEditsAndUpdateFullSelectionInfos(
   // https://github.com/microsoft/vscode/blob/174db5eb992d880adcc42c41d83a0e6cb6b92474/src/vs/editor/common/model/pieceTreeTextBuffer/pieceTreeTextBuffer.ts#L598-L604
   // See also
   // https://github.com/microsoft/vscode/blob/174db5eb992d880adcc42c41d83a0e6cb6b92474/src/vs/editor/common/model/pieceTreeTextBuffer/pieceTreeTextBuffer.ts#L464
-  // - We should have a component on the graph called graph.rangeUpdater
-  // - It will support registering a list of selections to keep up-to-date, and
+  // - We have a component on the graph called graph.rangeUpdater
+  // - It supports registering a list of selections to keep up-to-date, and
   //   it returns a dispose function.
   // - It also has a function that allows callers to register isReplace edits,
   //   and it will look those up when it receives edits in order to set that
   //   field.
-  // - It should probably just store a list of lists of selectionInfos, and
-  //   just remove the corresponding list when it gets deregistered
-  // - Should clients register one list at a time or a list of lists?
 
   const func = async () => {
     const wereEditsApplied = await performDocumentEdits(
