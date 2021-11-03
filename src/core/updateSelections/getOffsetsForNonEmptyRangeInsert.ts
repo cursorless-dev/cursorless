@@ -119,7 +119,7 @@ export default function getOffsetsForNonEmptyRangeInsert(
         let matches = text.match(regex);
         let matchLength = matches == null ? 0 : matches[0].length;
         while (matchLength !== 0 && matchLength < originalRangeText.length) {
-          // If the original range contains multiple matching instances of the regex use the leftmost one
+          // If the original range contains multiple matching instances of the regex use the rightmost one
           text = originalRangeText.slice(matchLength) + insertedText;
           matches = text.match(regex);
           matchLength = matches == null ? 0 : matchLength + matches[0].length;
