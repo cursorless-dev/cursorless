@@ -26,6 +26,13 @@ import { getUpdatedText } from "./getUpdatedText";
  * @param changeEvent Information about the change that occurred
  * @param rangeInfoGenerator A generator yielding `FullRangeInfo`s to update
  */
+interface ExpansionInfo {
+  edgeOfSurvivingRange: number;
+  interiorEdgeOfCandidateRange: number;
+  exteriorEdgeOfCandidateRange: number;
+  totalDisplacement: number;
+}
+
 export function updateRangeInfos(
   changeEvent: ExtendedTextDocumentChangeEvent,
   rangeInfoGenerator: Generator<FullRangeInfo, void, unknown>
@@ -55,65 +62,95 @@ export function updateRangeInfos(
   });
 
   for (const rangeInfo of rangeInfoGenerator) {
-    const originalOffsets = rangeInfo.offsets;
-    let needsRegexAdjustment = false;
-    const hasRegexEdge =
-      rangeInfo.expansionBehavior.start.type === "regex" ||
-      rangeInfo.expansionBehavior.end.type === "regex";
+    let endExpansionInfo: ExpansionInfo | null = null;
+    let startExpansionInfo: ExpansionInfo | null = null;
 
-    /**
-     * The offsets that haven't been eaten into by any replace or delete that
-     * extends past the end of the original range.
-     */
-    let survivingOffsets = originalOffsets;
-
-    // NB: We just collect displacements for both ends of the range and then
-    // add them up after we've processed all changes.  This way we can treat
-    // the changes completely independently.
-    //
     // Note that VSCode gives us the list of changes in an order that is in
     // reverse document order.  If two edits occur at the same location, it
     // will give us the edits in the reverse order in which the edits were
     // created in an editBuilder, so that if we were to apply the edits one
     // after the other, the first edit would appear first in the new document.
-    const displacements = changeEventInfos.map((changeEventInfo) => {
+    changeEventInfos.forEach((changeEventInfo, index) => {
+      const {
+        displacement,
+        event: change,
+        originalOffsets: {
+          start: changeOriginalStartOffset,
+          end: changeOriginalEndOffset,
+        },
+        finalOffsets: {
+          start: changeFinalStartOffset,
+          end: changeFinalEndOffset,
+        },
+      } = changeEventInfo;
+
+      if (endExpansionInfo != null) {
+        endExpansionInfo.totalDisplacement += displacement;
+      }
+
+      if (startExpansionInfo != null) {
+        startExpansionInfo.totalDisplacement += displacement;
+      }
+
       // Easy case 1: edit occurred strictly after the range; nothing to do
-      if (changeEventInfo.originalOffsets.start > originalOffsets.end) {
-        return {
-          start: 0,
-          end: 0,
-        };
+      if (changeOriginalStartOffset > rangeInfo.offsets.end) {
+        return;
       }
 
       // Easy case 2: edit occurred strictly before the range; just shift start
       // and end of range as necessary to accommodate displacement from edit.
-      if (changeEventInfo.originalOffsets.end < originalOffsets.start) {
-        return {
-          start: changeEventInfo.displacement,
-          end: changeEventInfo.displacement,
-        };
+      if (changeOriginalEndOffset < rangeInfo.offsets.start) {
+        rangeInfo.offsets.start += displacement;
+        rangeInfo.offsets.end += displacement;
+
+        return;
       }
 
       // Handle the hard cases
-      let newOffsets: RangeOffsets;
+      if (
+        rangeInfo.expansionBehavior.end.type === "regex" &&
+        changeOriginalStartOffset <= rangeInfo.offsets.end &&
+        changeOriginalEndOffset >= rangeInfo.offsets.end
+      ) {
+        let startChange = changeEventInfo;
+        let nextIndex = index - 1;
+        let nextChange: ChangeEventInfo;
 
-      // Indicate that we need to see if regex expansion needs to occur
-      needsRegexAdjustment = true;
+        while (true) {
+          nextChange = changeEventInfos[nextIndex];
+          if (
+            nextChange == null ||
+            nextChange.originalOffsets.end < startChange.originalOffsets.start
+          ) {
+            break;
+          }
+          startChange = nextChange;
+          nextIndex--;
+        }
 
-      if (changeEventInfo.event.rangeLength === 0) {
+        endExpansionInfo = {
+          edgeOfSurvivingRange: Math.max(
+            rangeInfo.offsets.start,
+            nextChange == null ? 0 : nextChange.originalOffsets.end
+          ),
+        };
+      } else if (changeEventInfo.event.rangeLength === 0) {
         if (rangeInfo.range.isEmpty) {
-          newOffsets = getOffsetsForEmptyRangeInsert(
+          rangeInfo.offsets = getOffsetsForEmptyRangeInsert(
             changeEventInfo,
             rangeInfo
           );
         } else {
-          newOffsets = getOffsetsForNonEmptyRangeInsert(
+          rangeInfo.offsets = getOffsetsForNonEmptyRangeInsert(
             changeEventInfo,
             rangeInfo
           );
         }
       } else {
-        newOffsets = getOffsetsForDeleteOrReplace(changeEventInfo, rangeInfo);
+        rangeInfo.offsets = getOffsetsForDeleteOrReplace(
+          changeEventInfo,
+          rangeInfo
+        );
 
         if (hasRegexEdge) {
           const {
@@ -147,17 +184,6 @@ export function updateRangeInfos(
       };
     });
 
-    const totalDisplacements = {
-      start: sumBy(displacements, ({ start }) => start),
-      end: sumBy(displacements, ({ end }) => end),
-    };
-
-    // Add up all the displacements
-    let newOffsets = {
-      start: originalOffsets.start + totalDisplacements.start,
-      end: originalOffsets.end + totalDisplacements.end,
-    };
-
     if (hasRegexEdge && survivingOffsets.end > survivingOffsets.start) {
       survivingOffsets = {
         start: survivingOffsets.start + totalDisplacements.start,
@@ -189,6 +215,5 @@ export function updateRangeInfos(
       document.positionAt(newOffsets.start),
       document.positionAt(newOffsets.end)
     );
-    rangeInfo.offsets = newOffsets;
   }
 }
