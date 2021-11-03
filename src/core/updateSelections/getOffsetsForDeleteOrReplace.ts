@@ -53,7 +53,10 @@ export default function getOffsetsForDeleteOrReplace(
   );
 
   return {
-    start: Math.min(rangeStart, changeFinalEndOffset),
+    start:
+      changeOriginalEndOffset <= rangeStart
+        ? rangeStart + displacement
+        : Math.min(rangeStart, changeFinalEndOffset),
     end:
       changeOriginalEndOffset <= rangeEnd
         ? rangeEnd + displacement

@@ -3,6 +3,7 @@ import {
   TextEditor,
   TextDocument,
   DecorationRangeBehavior,
+  Range,
 } from "vscode";
 import { flatten } from "lodash";
 import {
@@ -29,7 +30,7 @@ export function getSelectionInfo(
   rangeBehavior: DecorationRangeBehavior
 ): FullSelectionInfo {
   return {
-    range: selection,
+    range: new Range(selection.start, selection.end),
     isForward: isForward(selection),
     expansionBehavior: {
       start: {

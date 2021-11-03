@@ -1,0 +1,36 @@
+spokenForm: bring whale to end of fine
+languageId: plaintext
+command:
+  actionName: replaceWithTarget
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+    - type: primitive
+      position: after
+      insideOutsideType: inside
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  extraArgs: []
+marks:
+  default.w:
+    start: {line: 0, character: 4}
+    end: {line: 0, character: 9}
+  default.f:
+    start: {line: 0, character: 0}
+    end: {line: 0, character: 3}
+initialState:
+  documentContents: foo world
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+finalState:
+  documentContents: fooworld world
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  thatMark:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 8}
+  sourceMark:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 14}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: after, insideOutsideType: inside, modifier: {type: identity}}]

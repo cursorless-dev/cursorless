@@ -1,0 +1,36 @@
+spokenForm: bring fine to third car whale
+languageId: plaintext
+command:
+  actionName: replaceWithTarget
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+    - type: primitive
+      selectionType: token
+      modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  extraArgs: []
+marks:
+  default.f:
+    start: {line: 0, character: 0}
+    end: {line: 0, character: 3}
+  default.w:
+    start: {line: 0, character: 4}
+    end: {line: 0, character: 9}
+initialState:
+  documentContents: foo world whatever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
+finalState:
+  documentContents: foo wofoold whatever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 11}
+  thatMark:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 9}
+  sourceMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 3}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}}]

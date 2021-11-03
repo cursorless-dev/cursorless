@@ -1,0 +1,40 @@
+spokenForm: chuck third car whale past second car harp
+languageId: plaintext
+command:
+  actionName: remove
+  partialTargets:
+    - type: range
+      start:
+        type: primitive
+        selectionType: token
+        modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      end:
+        type: primitive
+        selectionType: token
+        modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      excludeStart: false
+      excludeEnd: false
+  extraArgs: []
+marks:
+  default.w:
+    start: {line: 0, character: 4}
+    end: {line: 0, character: 9}
+  default.h:
+    start: {line: 0, character: 10}
+    end: {line: 0, character: 18}
+initialState:
+  documentContents: foo world whatever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
+finalState:
+  documentContents: foo woatever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 6}
+  thatMark:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}}}]

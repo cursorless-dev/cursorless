@@ -1,0 +1,31 @@
+spokenForm: bring tail to fine
+languageId: plaintext
+command:
+  actionName: replaceWithTarget
+  partialTargets:
+    - type: primitive
+      modifier: {type: tail}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  extraArgs: []
+marks:
+  default.f:
+    start: {line: 0, character: 0}
+    end: {line: 0, character: 3}
+initialState:
+  documentContents: foo world
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+finalState:
+  documentContents: " world"
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 6}
+  sourceMark:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 6}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: tail}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: tail}}]

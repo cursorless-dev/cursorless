@@ -108,6 +108,7 @@ class BringMoveSwap implements Action {
           editor: destination.selection.editor,
           originalSelection: destination,
           isSource: false,
+          isReplace: destination.position === "after",
         },
       ];
 
@@ -137,6 +138,7 @@ class BringMoveSwap implements Action {
           editor: source.selection.editor,
           originalSelection: source,
           isSource: true,
+          isReplace: false,
         });
       }
 
@@ -158,7 +160,7 @@ class BringMoveSwap implements Action {
               ? edits
               : edits.filter(({ isSource }) => !isSource);
 
-          const selectionInfos = edits.map(({ originalSelection }) =>
+          const editSelectionInfos = edits.map(({ originalSelection }) =>
             getSelectionInfo(
               editor.document,
               originalSelection.selection.selection,
@@ -166,16 +168,26 @@ class BringMoveSwap implements Action {
             )
           );
 
-          const [updatedSelections]: Selection[][] =
+          const cursorSelectionInfos = editor.selections.map((selection) =>
+            getSelectionInfo(
+              editor.document,
+              selection,
+              DecorationRangeBehavior.ClosedClosed
+            )
+          );
+
+          const [updatedEditSelections, cursorSelections]: Selection[][] =
             await performEditsAndUpdateFullSelectionInfos(
               this.graph.rangeUpdater,
               editor,
               filteredEdits,
-              [selectionInfos]
+              [editSelectionInfos, cursorSelectionInfos]
             );
 
+          editor.selections = cursorSelections;
+
           return edits.map((edit, index) => {
-            const selection = updatedSelections[index];
+            const selection = updatedEditSelections[index];
             return {
               editor,
               selection,

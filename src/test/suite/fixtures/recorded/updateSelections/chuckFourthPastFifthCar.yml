@@ -1,0 +1,24 @@
+spokenForm: chuck fourth past fifth car
+languageId: plaintext
+command:
+  actionName: remove
+  partialTargets:
+    - type: primitive
+      selectionType: token
+      modifier: {type: subpiece, pieceType: character, anchor: 3, active: 4, excludeAnchor: false, excludeActive: false}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: foo world whatever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
+finalState:
+  documentContents: foo wor whatever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 7}
+  thatMark:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+fullTargets: [{type: primitive, mark: {type: cursorToken}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 3, active: 4, excludeAnchor: false, excludeActive: false}}]
