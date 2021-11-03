@@ -1,4 +1,4 @@
-import { maxBy, zip } from "lodash";
+()import { maxBy, zip } from "lodash";
 import { Position, Selection } from "vscode";
 import { Point, SyntaxNode } from "web-tree-sitter";
 import {
@@ -58,6 +58,8 @@ export function createSurroundingPairMatcher(
           selection.selection.start
         )
     );
+
+    // TODO: Incorporate selection end like we're planning todo with the textual version
 
     if (leftDelimiterNodes.length === 0) {
       return null;
@@ -145,8 +147,12 @@ export function findSurroundingPairTextBased(
   text: string,
   startIndex: number,
   endIndex: number,
-  delimiter: string | null,
-  delimiterInclusion: string
+  delimiter: Delimiter | null,
+  delimiterInclusion: DelimiterInclusion
 ): SelectionWithContext[] | null {
-  throw new Error("Function not implemented.");
+  const openDelimiterCount = 1;
+  // TODO: Walk left and right from start of selection,
+  // then walk left and right from end of selection;
+  // If one selection contains the other, return the bigger one
+  // If one does not contain the other, take their union and repeat
 }

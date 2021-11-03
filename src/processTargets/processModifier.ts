@@ -21,6 +21,7 @@ import {
   SurroundingPairModifier,
   TailModifier,
 } from "../typings/Types";
+import { getNodeRange } from "../util/nodeSelectors";
 
 type SelectionWithContext = {
   selection: SelectionWithEditor;
@@ -219,9 +220,12 @@ function processSurroundingPair(
   modifier: SurroundingPairModifier
 ): SelectionWithContext[] | null {
   let node: SyntaxNode | null;
+
+  const document = selection.editor.document;
+
   try {
     node = context.getNodeAtLocation(
-      new Location(selection.editor.document.uri, selection.selection)
+      new Location(document.uri, selection.selection)
     );
   } catch (err) {
     if ((err as Error).name === "UnsupportedLanguageError") {
@@ -230,24 +234,25 @@ function processSurroundingPair(
       throw err;
     }
   }
+
   if (node == null) {
     // TODO: Only get a certain amount of text centered around the selection
     return findSurroundingPairTextBased(
-      selection.editor.document.getText(),
-      selection.editor.document.offsetAt(selection.selection.start),
-      selection.editor.document.offsetAt(selection.selection.end),
+      document.getText(),
+      document.offsetAt(selection.selection.start),
+      document.offsetAt(selection.selection.end),
       modifier.delimiter,
       modifier.delimiterInclusion
     );
   }
 
   const stringNodeMatcher = getNodeMatcher(
-    selection.editor.document.languageId,
+    document.languageId,
     "string",
     false
   );
   const commentNodeMatcher = getNodeMatcher(
-    selection.editor.document.languageId,
+    document.languageId,
     "comment",
     false
   );
@@ -256,11 +261,13 @@ function processSurroundingPair(
     stringNodeMatcher(selection, node) != null ||
     commentNodeMatcher(selection, node) != null
   ) {
-    // TODO: Fix first three args of below function call
+    const nodeRange = getNodeRange(node);
+    const nodeStartOffset = document.offsetAt(nodeRange.start);
+
     const surroundingRange = findSurroundingPairTextBased(
-      selection.editor.document.getText(),
-      selection.editor.document.offsetAt(selection.selection.start),
-      selection.editor.document.offsetAt(selection.selection.end),
+      document.getText(nodeRange),
+      document.offsetAt(selection.selection.start) - nodeStartOffset,
+      document.offsetAt(selection.selection.end) - nodeStartOffset,
       modifier.delimiter,
       modifier.delimiterInclusion
     );
