@@ -1,0 +1,45 @@
+spokenForm: bring harp take whale
+languageId: plaintext
+command:
+  actionName: replaceWithTarget
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+    - type: primitive
+      mark: {type: cursor}
+      selectionType: token
+      position: contents
+      modifier: {type: identity}
+      insideOutsideType: inside
+  extraArgs: []
+initialState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+  marks:
+    default.h:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: hello worldhello
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
+  marks:
+    default.h:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 16}
+  thatMark:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 16}
+  sourceMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 5}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

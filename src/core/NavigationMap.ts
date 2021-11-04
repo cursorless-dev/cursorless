@@ -41,6 +41,10 @@ export default class NavigationMap {
     return { hatStyle: hatStyle as HatStyleName, character };
   }
 
+  public getEntries() {
+    return Object.entries(this.map);
+  }
+
   public addToken(hatStyle: HatStyleName, character: string, token: Token) {
     this.map[NavigationMap.getKey(hatStyle, character)] = token;
     this.getDocumentTokenList(token.editor.document).push(token);

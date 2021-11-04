@@ -13,7 +13,7 @@ function extractPrimitiveTargetKeys(...targets: PrimitiveTarget[]) {
   return keys;
 }
 
-function extractTargetKeys(target: Target): string[] {
+export function extractTargetKeys(target: Target): string[] {
   switch (target.type) {
     case "primitive":
       return extractPrimitiveTargetKeys(target);
@@ -30,14 +30,15 @@ function extractTargetKeys(target: Target): string[] {
 }
 
 export function extractTargetedMarks(
-  targets: Target[],
+  targetKeys: string[],
   navigationMap: NavigationMap
 ) {
   const targetedMarks: { [decoratedCharacter: string]: Token } = {};
-  const targetKeys = targets.map(extractTargetKeys).flat();
+
   targetKeys.forEach((key) => {
     const { hatStyle, character } = NavigationMap.splitKey(key);
     targetedMarks[key] = navigationMap.getToken(hatStyle, character);
   });
+
   return targetedMarks;
 }

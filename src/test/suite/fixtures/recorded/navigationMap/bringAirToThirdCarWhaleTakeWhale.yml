@@ -1,0 +1,43 @@
+spokenForm: bring air to third car whale take whale
+languageId: plaintext
+command:
+  actionName: replaceWithTarget
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    - type: primitive
+      selectionType: token
+      modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  extraArgs: []
+initialState:
+  documentContents: hello. world whatever
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks:
+    default.a:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 21}
+    default.w:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 12}
+finalState:
+  documentContents: hello. wowhateverld whatever
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  marks:
+    default.a:
+      start: {line: 0, character: 20}
+      end: {line: 0, character: 28}
+    default.w:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 19}
+  thatMark:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 17}
+  sourceMark:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 28}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}}]

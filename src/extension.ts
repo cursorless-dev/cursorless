@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { addDecorationsToEditors } from "./util/addDecorationsToEditor";
-import { DEBOUNCE_DELAY } from "./core/constants";
+import { DECORATION_DEBOUNCE_DELAY } from "./core/constants";
 import Decorations from "./core/Decorations";
 import graphFactories from "./util/graphFactories";
 import inferFullTargets from "./core/inferFullTargets";
@@ -58,7 +58,7 @@ export async function activate(context: vscode.ExtensionContext) {
       addDecorations();
 
       timeoutHandle = null;
-    }, DEBOUNCE_DELAY);
+    }, DECORATION_DEBOUNCE_DELAY);
   }
 
   const toggleDecorationsDisposable = vscode.commands.registerCommand(
@@ -88,12 +88,12 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
     "cursorless.recordTestCase",
-    async () => {
+    async (isNavigationMapTest: boolean = false) => {
       if (testCaseRecorder.active) {
         vscode.window.showInformationMessage("Stopped recording test cases");
         testCaseRecorder.stop();
       } else {
-        if (await testCaseRecorder.start()) {
+        if (await testCaseRecorder.start(isNavigationMapTest)) {
           vscode.window.showInformationMessage(
             `Recording test cases for following commands in:\n${testCaseRecorder.fixtureSubdirectory}`
           );
@@ -151,7 +151,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
         const selections = processTargets(processedTargetsContext, targets);
 
-        let testCase: TestCase | null = null;
         if (testCaseRecorder.active) {
           const command = { actionName, partialTargets, extraArgs };
           const context = {
@@ -161,8 +160,7 @@ export async function activate(context: vscode.ExtensionContext) {
             navigationMap: graph.navigationMap!,
             spokenForm,
           };
-          testCase = new TestCase(command, context);
-          await testCase.recordInitialState();
+          await testCaseRecorder.preCommandHook(command, context);
         }
 
         const {
@@ -174,9 +172,8 @@ export async function activate(context: vscode.ExtensionContext) {
         thatMark.set(newThatMark);
         sourceMark.set(newSourceMark);
 
-        if (testCase != null) {
-          await testCase.recordFinalState(returnValue);
-          await testCaseRecorder.finish(testCase);
+        if (testCaseRecorder.active) {
+          await testCaseRecorder.postCommandHook(returnValue);
         }
 
         return returnValue;

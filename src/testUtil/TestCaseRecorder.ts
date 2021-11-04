@@ -1,8 +1,9 @@
 import * as vscode from "vscode";
 import * as path from "path";
 import * as fs from "fs";
-import { TestCase } from "./TestCase";
+import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
 import { walkDirsSync } from "./walkSync";
+import { invariant } from "immutability-helper";
 
 export class TestCaseRecorder {
   active: boolean = false;
@@ -10,6 +11,8 @@ export class TestCaseRecorder {
   workSpaceFolder: string | null;
   fixtureRoot: string | null;
   fixtureSubdirectory: string | null = null;
+  testCase: TestCase | null = null;
+  isNavigationMapTest: boolean = false;
 
   constructor(extensionContext: vscode.ExtensionContext) {
     this.workspacePath =
@@ -26,8 +29,11 @@ export class TestCaseRecorder {
       : null;
   }
 
-  async start(): Promise<boolean> {
+  async start(isNavigationMapTest: boolean = false): Promise<boolean> {
     this.active = await this.promptSubdirectory();
+    if (this.active) {
+      this.isNavigationMapTest = isNavigationMapTest;
+    }
     return this.active;
   }
 
@@ -35,10 +41,37 @@ export class TestCaseRecorder {
     this.active = false;
   }
 
-  async finish(testCase: TestCase): Promise<void> {
-    const outPath = this.calculateFilePath(testCase);
-    const fixture = testCase.toYaml();
+  async preCommandHook(command: TestCaseCommand, context: TestCaseContext) {
+    if (this.testCase != null) {
+      invariant(
+        this.testCase.awaitingFinalMarkInfo,
+        () => "expected to be awaiting final mark info"
+      );
+      this.testCase.filterMarks(command, context);
+      await this.finishTestCase();
+    } else {
+      this.testCase = new TestCase(command, context, this.isNavigationMapTest);
+      await this.testCase.recordInitialState();
+    }
+  }
+
+  async postCommandHook(returnValue: any) {
+    if (this.testCase == null) {
+      return;
+    }
+
+    await this.testCase.recordFinalState(returnValue);
+
+    if (!this.testCase.awaitingFinalMarkInfo) {
+      await this.finishTestCase();
+    }
+  }
+
+  async finishTestCase(): Promise<void> {
+    const outPath = this.calculateFilePath(this.testCase!);
+    const fixture = this.testCase!.toYaml();
     await this.writeToFile(outPath, fixture);
+    this.testCase = null;
   }
 
   private async writeToFile(outPath: string, fixture: string) {

@@ -5,6 +5,7 @@ import {
   rangeToPlainObject,
   RangePlainObject,
   SelectionPlainObject,
+  SerializedMarks,
 } from "./toPlainObject";
 import { ThatMark } from "../core/ThatMark";
 
@@ -15,6 +16,7 @@ export type TestCaseSnapshot = {
   // TODO Visible ranges are not asserted during testing, see:
   // https://github.com/pokey/cursorless-vscode/issues/160
   visibleRanges?: RangePlainObject[];
+  marks?: SerializedMarks;
   thatMark?: SelectionPlainObject[];
   sourceMark?: SelectionPlainObject[];
 };
@@ -22,13 +24,15 @@ export type TestCaseSnapshot = {
 export async function takeSnapshot(
   thatMark: ThatMark,
   sourceMark: ThatMark,
-  excludeFields: string[] = []
+  excludeFields: string[] = [],
+  marks?: SerializedMarks
 ) {
   const activeEditor = vscode.window.activeTextEditor!;
 
   const snapshot: TestCaseSnapshot = {
     documentContents: activeEditor.document.getText(),
     selections: activeEditor.selections.map(selectionToPlainObject),
+    marks,
   };
 
   if (!excludeFields.includes("clipboard")) {

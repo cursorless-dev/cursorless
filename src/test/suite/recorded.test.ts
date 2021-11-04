@@ -99,7 +99,7 @@ async function runTest(file: string) {
   cursorlessApi.addDecorations();
 
   // Assert that recorded decorations are present
-  Object.entries(fixture.marks).forEach(([key, token]) => {
+  Object.entries(fixture.initialState.marks!).forEach(([key, token]) => {
     const { hatStyle, character } = NavigationMap.splitKey(key);
     const currentToken = cursorlessApi.navigationMap.getToken(
       hatStyle,

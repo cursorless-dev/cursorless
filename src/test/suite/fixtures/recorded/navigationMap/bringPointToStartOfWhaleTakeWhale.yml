@@ -1,0 +1,43 @@
+spokenForm: bring point to start of whale take whale
+languageId: plaintext
+command:
+  actionName: replaceWithTarget
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: .}
+    - type: primitive
+      position: before
+      insideOutsideType: inside
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  extraArgs: []
+initialState:
+  documentContents: hello. world whatever
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks:
+    default..:
+      start: {line: 0, character: 5}
+      end: {line: 0, character: 6}
+    default.w:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 12}
+finalState:
+  documentContents: hello. .world whatever
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+  marks:
+    default..:
+      start: {line: 0, character: 5}
+      end: {line: 0, character: 6}
+    default.w:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 13}
+  thatMark:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 8}
+  sourceMark:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 6}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: before, insideOutsideType: inside, modifier: {type: identity}}]
