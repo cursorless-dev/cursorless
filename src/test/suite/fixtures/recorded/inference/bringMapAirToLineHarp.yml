@@ -10,18 +10,18 @@ command:
       selectionType: line
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
   extraArgs: []
-marks:
-  default.a:
-    start: {line: 1, character: 13}
-    end: {line: 1, character: 14}
-  default.h:
-    start: {line: 0, character: 4}
-    end: {line: 0, character: 9}
 initialState:
   documentContents: "    hello world\r\n    value = {a:2}"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 1, character: 13}
+      end: {line: 1, character: 14}
+    default.h:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
 finalState:
   documentContents: "    {a:2}\r\n    value = {a:2}"
   selections:

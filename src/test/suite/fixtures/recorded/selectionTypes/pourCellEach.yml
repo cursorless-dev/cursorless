@@ -7,10 +7,6 @@ command:
       selectionType: notebookCell
       mark: {type: decoratedSymbol, symbolColor: default, character: e}
   extraArgs: []
-marks:
-  default.e:
-    start: {line: 1, character: 7}
-    end: {line: 1, character: 12}
 initialState:
   documentContents: |-
     # %%
@@ -21,6 +17,10 @@ initialState:
   selections:
     - anchor: {line: 4, character: 12}
       active: {line: 4, character: 12}
+  marks:
+    default.e:
+      start: {line: 1, character: 7}
+      end: {line: 1, character: 12}
 finalState:
   documentContents: |-
     # %%

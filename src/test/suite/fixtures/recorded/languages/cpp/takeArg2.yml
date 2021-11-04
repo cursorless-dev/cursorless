@@ -6,7 +6,6 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: |-
     int f(int a, int b) {
@@ -14,6 +13,7 @@ initialState:
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
+  marks: {}
 finalState:
   documentContents: |-
     int f(int a, int b) {

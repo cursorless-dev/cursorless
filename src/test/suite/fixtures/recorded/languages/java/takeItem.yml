@@ -6,12 +6,12 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: collectionItem}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: "\r\nint[] values = {1, 2, 3};\r\n"
   selections:
     - anchor: {line: 1, character: 16}
       active: {line: 1, character: 16}
+  marks: {}
 finalState:
   documentContents: "\r\nint[] values = {1, 2, 3};\r\n"
   selections:

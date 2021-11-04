@@ -6,7 +6,6 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: |-
     foo(async function () {
@@ -15,6 +14,7 @@ initialState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
+  marks: {}
 finalState:
   documentContents: foo()
   selections:

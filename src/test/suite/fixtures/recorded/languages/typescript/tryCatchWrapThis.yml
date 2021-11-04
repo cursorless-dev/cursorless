@@ -6,12 +6,12 @@ command:
     - type: primitive
       mark: {type: cursor}
   extraArgs: [tryCatchStatement.body]
-marks: {}
 initialState:
   documentContents: const foo = "hello";
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
+  marks: {}
 finalState:
   documentContents: |-
     try {

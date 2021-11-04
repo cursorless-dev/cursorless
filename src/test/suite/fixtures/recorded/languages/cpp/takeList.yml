@@ -6,12 +6,12 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: list}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: "void f() {\r\n    std::vector<int> v {\r\n        1 + 2,\r\n        3\r\n    };\r\n}"
   selections:
     - anchor: {line: 2, character: 11}
       active: {line: 2, character: 11}
+  marks: {}
 finalState:
   documentContents: "void f() {\r\n    std::vector<int> v {\r\n        1 + 2,\r\n        3\r\n    };\r\n}"
   selections:

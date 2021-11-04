@@ -7,12 +7,12 @@ command:
       selectionType: token
       modifier: {type: subpiece, pieceType: character, anchor: 1, active: 2, excludeAnchor: false, excludeActive: false}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: foo world whatever
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 9}
+  marks: {}
 finalState:
   documentContents: foo wld whatever
   selections:

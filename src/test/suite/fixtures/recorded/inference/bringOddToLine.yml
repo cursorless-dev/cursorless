@@ -7,10 +7,6 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: o}
     - {type: primitive, selectionType: line}
   extraArgs: []
-marks:
-  default.o:
-    start: {line: 0, character: 0}
-    end: {line: 0, character: 5}
 initialState:
   documentContents: |-
     const foo = "hello";
@@ -19,6 +15,10 @@ initialState:
   selections:
     - anchor: {line: 2, character: 18}
       active: {line: 2, character: 18}
+  marks:
+    default.o:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
 finalState:
   documentContents: |-
     const foo = "hello";

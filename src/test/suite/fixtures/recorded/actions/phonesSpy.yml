@@ -7,10 +7,6 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: s}
   extraArgs:
     - [sum]
-marks:
-  default.s:
-    start: {line: 1, character: 15}
-    end: {line: 1, character: 19}
 initialState:
   documentContents: |
 
@@ -18,6 +14,10 @@ initialState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks:
+    default.s:
+      start: {line: 1, character: 15}
+      end: {line: 1, character: 19}
 finalState:
   documentContents: |
 

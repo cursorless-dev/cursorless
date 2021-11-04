@@ -6,7 +6,6 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: anonymousFunction}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: |
 
@@ -14,6 +13,7 @@ initialState:
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}
+  marks: {}
 finalState:
   documentContents: |
 

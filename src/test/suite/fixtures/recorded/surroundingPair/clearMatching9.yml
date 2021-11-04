@@ -6,7 +6,6 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: null, delimitersOnly: false}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: |-
     """fds
@@ -16,6 +15,7 @@ initialState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
+  marks: {}
 finalState:
   documentContents: "\"\"\"\"\"\""
   selections:

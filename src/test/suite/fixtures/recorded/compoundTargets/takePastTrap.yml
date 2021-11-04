@@ -11,15 +11,15 @@ command:
       excludeStart: false
       excludeEnd: false
   extraArgs: []
-marks:
-  default.t:
-    start: {line: 0, character: 6}
-    end: {line: 0, character: 11}
 initialState:
   documentContents: hello there
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
+  marks:
+    default.t:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
 finalState:
   documentContents: hello there
   selections:

@@ -17,18 +17,18 @@ command:
       excludeStart: false
       excludeEnd: false
   extraArgs: []
-marks:
-  default.w:
-    start: {line: 0, character: 4}
-    end: {line: 0, character: 9}
-  default.h:
-    start: {line: 0, character: 10}
-    end: {line: 0, character: 18}
 initialState:
   documentContents: foo world whatever
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 9}
+  marks:
+    default.w:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+    default.h:
+      start: {line: 0, character: 10}
+      end: {line: 0, character: 18}
 finalState:
   documentContents: foo woatever
   selections:

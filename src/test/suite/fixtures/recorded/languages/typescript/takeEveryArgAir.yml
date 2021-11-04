@@ -7,15 +7,15 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
   extraArgs: []
-marks:
-  default.a:
-    start: {line: 0, character: 8}
-    end: {line: 0, character: 11}
 initialState:
   documentContents: foo(bar(baz, bongo), bazman)
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 11}
 finalState:
   documentContents: foo(bar(baz, bongo), bazman)
   selections:

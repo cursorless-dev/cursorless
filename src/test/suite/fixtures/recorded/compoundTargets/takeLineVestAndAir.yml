@@ -11,18 +11,18 @@ command:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: a}
   extraArgs: []
-marks:
-  default.v:
-    start: {line: 0, character: 4}
-    end: {line: 0, character: 9}
-  default.a:
-    start: {line: 0, character: 13}
-    end: {line: 0, character: 14}
 initialState:
   documentContents: "    value = {a:2}"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks:
+    default.v:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+    default.a:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 14}
 finalState:
   documentContents: "    value = {a:2}"
   selections:

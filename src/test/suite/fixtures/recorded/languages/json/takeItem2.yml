@@ -6,12 +6,12 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: collectionItem}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: "\r\n{\r\n    \"foo\": [1, 2, 3]\r\n}\r\n"
   selections:
     - anchor: {line: 2, character: 13}
       active: {line: 2, character: 13}
+  marks: {}
 finalState:
   documentContents: "\r\n{\r\n    \"foo\": [1, 2, 3]\r\n}\r\n"
   selections:

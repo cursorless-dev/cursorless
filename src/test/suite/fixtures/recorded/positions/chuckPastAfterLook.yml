@@ -12,15 +12,15 @@ command:
       excludeStart: false
       excludeEnd: false
   extraArgs: []
-marks:
-  default.l:
-    start: {line: 0, character: 0}
-    end: {line: 0, character: 5}
 initialState:
   documentContents: hello there
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
+  marks:
+    default.l:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
 finalState:
   documentContents: hethere
   selections:

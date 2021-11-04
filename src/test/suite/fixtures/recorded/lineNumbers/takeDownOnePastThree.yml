@@ -10,7 +10,6 @@ command:
         anchor: {lineNumber: 1, isRelative: true}
         active: {lineNumber: 3, isRelative: true}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: |
 
@@ -20,6 +19,7 @@ initialState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks: {}
 finalState:
   documentContents: |
 

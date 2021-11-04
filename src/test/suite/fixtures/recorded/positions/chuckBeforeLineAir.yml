@@ -8,10 +8,6 @@ command:
       selectionType: line
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
   extraArgs: []
-marks:
-  default.a:
-    start: {line: 3, character: 10}
-    end: {line: 3, character: 15}
 initialState:
   documentContents: |-
 
@@ -21,6 +17,10 @@ initialState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 3, character: 10}
+      end: {line: 3, character: 15}
 finalState:
   documentContents: |-
 

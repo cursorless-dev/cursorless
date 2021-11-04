@@ -11,10 +11,6 @@ command:
       excludeStart: false
       excludeEnd: false
   extraArgs: []
-marks:
-  default.a:
-    start: {line: 3, character: 6}
-    end: {line: 3, character: 11}
 initialState:
   documentContents: |
 
@@ -24,6 +20,10 @@ initialState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 3, character: 6}
+      end: {line: 3, character: 11}
 finalState:
   documentContents: |
 

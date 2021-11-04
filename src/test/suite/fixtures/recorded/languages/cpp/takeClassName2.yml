@@ -6,12 +6,12 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: className}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: enum class A { B };
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
+  marks: {}
 finalState:
   documentContents: enum class A { B };
   selections:

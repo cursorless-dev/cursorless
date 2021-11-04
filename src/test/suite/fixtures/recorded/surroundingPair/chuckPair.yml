@@ -6,12 +6,12 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: null, delimitersOnly: true}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: "{1: [(1), (2), (3)]}"
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
+  marks: {}
 finalState:
   documentContents: "1: [(1), (2), (3)]"
   selections:

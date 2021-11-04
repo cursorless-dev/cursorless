@@ -6,12 +6,12 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: "foo: str = 'hello'"
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
+  marks: {}
 finalState:
   documentContents: foo = 'hello'
   selections:

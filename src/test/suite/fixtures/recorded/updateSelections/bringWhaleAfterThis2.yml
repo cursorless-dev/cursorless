@@ -9,15 +9,15 @@ command:
       mark: {type: cursor}
       position: after
   extraArgs: []
-marks:
-  default.w:
-    start: {line: 0, character: 4}
-    end: {line: 0, character: 9}
 initialState:
   documentContents: foo world
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
+  marks:
+    default.w:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
 finalState:
   documentContents: foo world world
   selections:
