@@ -43,6 +43,9 @@ export class TestCaseRecorder {
 
   async preCommandHook(command: TestCaseCommand, context: TestCaseContext) {
     if (this.testCase != null) {
+      // If testCase is not null and we are just before a command, this means
+      // that this command is the follow up command indicating which marks we
+      // cared about from the last command
       invariant(
         this.testCase.awaitingFinalMarkInfo,
         () => "expected to be awaiting final mark info"
@@ -50,6 +53,7 @@ export class TestCaseRecorder {
       this.testCase.filterMarks(command, context);
       await this.finishTestCase();
     } else {
+      // Otherwise, we are starting a new test case
       this.testCase = new TestCase(command, context, this.isNavigationMapTest);
       await this.testCase.recordInitialState();
     }
@@ -57,14 +61,21 @@ export class TestCaseRecorder {
 
   async postCommandHook(returnValue: any) {
     if (this.testCase == null) {
+      // If test case is null then this means that this was just a follow up
+      // command for a navigation map test
       return;
     }
 
     await this.testCase.recordFinalState(returnValue);
 
-    if (!this.testCase.awaitingFinalMarkInfo) {
-      await this.finishTestCase();
+    if (this.testCase.awaitingFinalMarkInfo) {
+      // We don't finish the test case here in the case of a navigation map
+      // test because we'll do it after we get the follow up command indicating
+      // which marks we wanted to track
+      return;
     }
+
+    await this.finishTestCase();
   }
 
   async finishTestCase(): Promise<void> {

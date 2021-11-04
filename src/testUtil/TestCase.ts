@@ -69,6 +69,9 @@ export class TestCase {
     const { navigationMap } = this.context;
 
     if (this.isNavigationMapTest) {
+      // If we're doing a navigation map test, then we grab the entire
+      // navigation map because we'll filter it later based on the marks
+      // referenced in the expected follow up command
       marks = Object.fromEntries(navigationMap.getEntries());
     } else {
       marks = extractTargetedMarks(this.targetKeys, navigationMap);
