@@ -1,0 +1,43 @@
+spokenForm: bring comma to end of point take point
+languageId: typescript
+command:
+  actionName: replaceWithTarget
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: ','}
+    - type: primitive
+      position: after
+      insideOutsideType: inside
+      mark: {type: decoratedSymbol, symbolColor: default, character: .}
+  extraArgs: []
+initialState:
+  documentContents: " . , hello"
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks:
+    default.,:
+      start: {line: 0, character: 3}
+      end: {line: 0, character: 4}
+    default..:
+      start: {line: 0, character: 1}
+      end: {line: 0, character: 2}
+finalState:
+  documentContents: " ., , hello"
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+  marks:
+    default.,:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 5}
+    default..:
+      start: {line: 0, character: 1}
+      end: {line: 0, character: 2}
+  thatMark:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 3}
+  sourceMark:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 5}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: ','}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, selectionType: token, position: after, insideOutsideType: inside, modifier: {type: identity}}]
