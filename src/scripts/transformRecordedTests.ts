@@ -13,7 +13,7 @@ import canonicalizeActionName from "../util/canonicalizeActionName";
  * The transformation to run on all recorded test fixtures.  Change this
  * variable to do a custom bulk transformation.
  */
-const FIXTURE_TRANSFORMATION = identity;
+const FIXTURE_TRANSFORMATION = moveMarksToInitialState;
 
 async function main() {
   const directory = path.join(
@@ -42,6 +42,14 @@ function identity(fixture: TestCaseFixture) {
 
 function canonicalizeActionNames(fixture: TestCaseFixture) {
   return update(fixture, { command: { actionName: canonicalizeActionName } });
+}
+
+function moveMarksToInitialState(fixture: TestCaseFixture) {
+  if ((fixture as any).marks != null) {
+    fixture.initialState.marks = (fixture as any).marks;
+    (fixture as any).marks = undefined;
+  }
+  return fixture;
 }
 
 main();

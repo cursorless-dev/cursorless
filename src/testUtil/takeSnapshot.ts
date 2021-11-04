@@ -32,8 +32,11 @@ export async function takeSnapshot(
   const snapshot: TestCaseSnapshot = {
     documentContents: activeEditor.document.getText(),
     selections: activeEditor.selections.map(selectionToPlainObject),
-    marks,
   };
+
+  if (marks != null) {
+    snapshot.marks = marks;
+  }
 
   if (!excludeFields.includes("clipboard")) {
     snapshot.clipboard = await Clipboard.readText();

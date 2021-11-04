@@ -37,7 +37,12 @@ export default class NavigationMap {
   }
 
   static splitKey(key: string) {
-    const [hatStyle, character] = key.split(".");
+    let [hatStyle, character] = key.split(".");
+    if (character.length === 0) {
+      // If the character is `.` then it will appear as a zero length string
+      // due to the way the split on `.` works
+      character = ".";
+    }
     return { hatStyle: hatStyle as HatStyleName, character };
   }
 
