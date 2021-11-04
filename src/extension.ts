@@ -201,6 +201,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         // const processedTargets = processTargets(navigationMap!, targets);
       } catch (e) {
+        testCaseRecorder.commandErrorHook();
         const err = e as Error;
         vscode.window.showErrorMessage(err.message);
         console.debug(err.message);

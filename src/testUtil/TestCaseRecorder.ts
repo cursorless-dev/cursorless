@@ -167,6 +167,10 @@ export class TestCaseRecorder {
 
     return filePath;
   }
+
+  commandErrorHook() {
+    this.testCase = null;
+  }
 }
 
 function camelize(str: string) {
