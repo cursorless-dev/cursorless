@@ -41,3 +41,4 @@ finalState:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 15}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, selectionType: token, position: before, insideOutsideType: inside, modifier: {type: identity}}]
+marksToCheck: [default..]

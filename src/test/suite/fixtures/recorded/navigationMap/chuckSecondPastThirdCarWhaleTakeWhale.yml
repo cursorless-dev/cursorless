@@ -30,3 +30,4 @@ finalState:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 1, active: 2, excludeAnchor: false, excludeActive: false}}]
+marksToCheck: [default.w]
