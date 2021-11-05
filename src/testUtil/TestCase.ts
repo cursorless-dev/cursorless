@@ -34,6 +34,11 @@ export type TestCaseFixture = {
   returnValue: unknown;
   /** Inferred full targets added for context; not currently used in testing */
   fullTargets: Target[];
+
+  /**
+   * A list of marks to check in the case of navigation map test otherwise undefined
+   */
+  marksToCheck?: string[];
 };
 
 export class TestCase {
@@ -45,6 +50,7 @@ export class TestCase {
   returnValue: unknown = null;
   targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
+  marksToCheck?: string[];
 
   constructor(
     private command: TestCaseCommand,
@@ -134,6 +140,7 @@ export class TestCase {
       finalState: this.finalState,
       returnValue: this.returnValue,
       fullTargets: this.fullTargets,
+      marksToCheck: this.marksToCheck,
     };
     return serialize(fixture);
   }
@@ -160,9 +167,8 @@ export class TestCase {
   }
 
   filterMarks(command: TestCaseCommand, context: TestCaseContext) {
-    const keys = this.targetKeys.concat(
-      context.targets.map(extractTargetKeys).flat()
-    );
+    const marksToCheck = context.targets.map(extractTargetKeys).flat();
+    const keys = this.targetKeys.concat(marksToCheck);
 
     this.initialState!.marks = pick(
       this.initialState!.marks,
@@ -173,6 +179,8 @@ export class TestCase {
       this.finalState!.marks,
       keys
     ) as SerializedMarks;
+
+    this.marksToCheck = marksToCheck;
 
     this._awaitingFinalMarkInfo = false;
   }
