@@ -1,4 +1,4 @@
-()import { maxBy, zip } from "lodash";
+import { maxBy, zip } from "lodash";
 import { Position, Selection } from "vscode";
 import { Point, SyntaxNode } from "web-tree-sitter";
 import {
@@ -143,6 +143,19 @@ function extractSelection(
   }
 }
 
+// (  (  )  )
+
+// " " ""
+// [[] []]
+// "(<user.foo>   <user.bar>)"
+
+interface IndividualDelimiter {
+  text: string;
+  oppositeText: string;
+  direction: "bidirectional" | "left" | "right";
+  delimiter: Delimiter;
+}
+
 export function findSurroundingPairTextBased(
   text: string,
   startIndex: number,
@@ -155,4 +168,65 @@ export function findSurroundingPairTextBased(
   // then walk left and right from end of selection;
   // If one selection contains the other, return the bigger one
   // If one does not contain the other, take their union and repeat
+  const delimitersToCheck = delimiter == null ? anyDelimiter : [delimiter];
+
+  const individualDelimiters: IndividualDelimiter[] = delimitersToCheck
+    .map((delimiter) => {
+      const [leftDelimiter, rightDelimiter] = delimiterToText[delimiter];
+
+      if (leftDelimiter === rightDelimiter) {
+        return [
+          {
+            text: leftDelimiter,
+            oppositeText: leftDelimiter,
+            direction: "bidirectional",
+            delimiter,
+          } as const,
+        ];
+      } else {
+        return [
+          {
+            text: leftDelimiter,
+            oppositeText: rightDelimiter,
+            direction: "right",
+            delimiter,
+          } as const,
+          {
+            text: rightDelimiter,
+            oppositeText: leftDelimiter,
+            direction: "left",
+            delimiter,
+          } as const,
+        ];
+      }
+    })
+    .flat();
+
+  const startSurroundingPair = findSurroundingPairFromPosition(
+    individualDelimiters,
+    text,
+    startIndex
+  );
+}
+
+function* generateDelimitersAtPosition(
+  individualDelimiter: IndividualDelimiter,
+  text: string,
+  index: number
+) {
+  for (let i = 0; i <= delimiter.length; i++) {
+    if (text.substring(index - i, index - i + delimiter.length) === delimiter) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function findSurroundingPairFromPosition(
+  individualDelimiters: IndividualDelimiter[],
+  text: string,
+  startIndex: number
+) {
+  throw new Error("Function not implemented.");
 }
