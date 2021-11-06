@@ -8,6 +8,7 @@ command:
       modifier: {type: subpiece, pieceType: character, anchor: 0, active: 1}
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
   extraArgs: []
+marksToCheck: [default.w]
 initialState:
   documentContents: hello world
   selections:
@@ -30,4 +31,3 @@ finalState:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 0, active: 1}}]
-marksToCheck: [default.w]

@@ -29,16 +29,17 @@ export type TestCaseFixture = {
   spokenForm: string;
   command: TestCaseCommand;
   languageId: string;
-  initialState: TestCaseSnapshot;
-  finalState: TestCaseSnapshot;
-  returnValue: unknown;
-  /** Inferred full targets added for context; not currently used in testing */
-  fullTargets: Target[];
 
   /**
    * A list of marks to check in the case of navigation map test otherwise undefined
    */
   marksToCheck?: string[];
+
+  initialState: TestCaseSnapshot;
+  finalState: TestCaseSnapshot;
+  returnValue: unknown;
+  /** Inferred full targets added for context; not currently used in testing */
+  fullTargets: Target[];
 };
 
 export class TestCase {
@@ -136,11 +137,11 @@ export class TestCase {
       spokenForm: this.spokenForm,
       languageId: this.languageId,
       command: this.command,
+      marksToCheck: this.marksToCheck,
       initialState: this.initialState,
       finalState: this.finalState,
       returnValue: this.returnValue,
       fullTargets: this.fullTargets,
-      marksToCheck: this.marksToCheck,
     };
     return serialize(fixture);
   }

@@ -12,6 +12,7 @@ command:
       modifier: {type: identity}
       insideOutsideType: inside
   extraArgs: []
+marksToCheck: [default.w]
 initialState:
   documentContents: hello world
   selections:
@@ -43,4 +44,3 @@ finalState:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 5}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
-marksToCheck: [default.w]

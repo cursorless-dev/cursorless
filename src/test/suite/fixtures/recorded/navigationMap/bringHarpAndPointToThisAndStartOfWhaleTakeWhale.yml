@@ -18,6 +18,7 @@ command:
           insideOutsideType: inside
           mark: {type: decoratedSymbol, symbolColor: default, character: w}
   extraArgs: []
+marksToCheck: [default.w]
 initialState:
   documentContents: hello. world
   selections:
@@ -59,4 +60,3 @@ finalState:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 6}
 fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}]}, {type: list, elements: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: before, insideOutsideType: inside, modifier: {type: identity}}]}]
-marksToCheck: [default.w]

@@ -13,7 +13,9 @@ import canonicalizeActionName from "../util/canonicalizeActionName";
  * The transformation to run on all recorded test fixtures.  Change this
  * variable to do a custom bulk transformation.
  */
-const FIXTURE_TRANSFORMATION = identity;
+const FIXTURE_TRANSFORMATION: (
+  originalFixture: TestCaseFixture
+) => TestCaseFixture = identity;
 
 async function main() {
   const directory = path.join(
@@ -42,6 +44,19 @@ function identity(fixture: TestCaseFixture) {
 
 function canonicalizeActionNames(fixture: TestCaseFixture) {
   return update(fixture, { command: { actionName: canonicalizeActionName } });
+}
+
+function reorderFields(fixture: TestCaseFixture) {
+  return {
+    spokenForm: fixture.spokenForm,
+    languageId: fixture.languageId,
+    command: fixture.command,
+    marksToCheck: fixture.marksToCheck,
+    initialState: fixture.initialState,
+    finalState: fixture.finalState,
+    returnValue: fixture.returnValue,
+    fullTargets: fixture.fullTargets,
+  };
 }
 
 main();
