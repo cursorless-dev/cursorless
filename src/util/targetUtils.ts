@@ -4,6 +4,8 @@ import {
   PartialPrimitiveTarget,
   PartialRangeTarget,
   PartialTarget,
+  PrimitiveTarget,
+  Target,
   TypedSelection,
 } from "../typings/Types";
 
@@ -99,20 +101,41 @@ function createTypeSelection(
  * @param targets The targets to extract from
  * @returns A list of primitive targets
  */
-export function getPrimitiveTargets(targets: PartialTarget[]) {
-  return targets.flatMap(getPrimitiveTargetsHelper);
+export function getPartialPrimitiveTargets(targets: PartialTarget[]) {
+  return targets.flatMap(getPartialPrimitiveTargetsHelper);
 }
 
-function getPrimitiveTargetsHelper(
+function getPartialPrimitiveTargetsHelper(
   target: PartialTarget
 ): PartialPrimitiveTarget[] {
   switch (target.type) {
     case "primitive":
       return [target];
     case "list":
-      return target.elements.flatMap(getPrimitiveTargetsHelper);
+      return target.elements.flatMap(getPartialPrimitiveTargetsHelper);
     case "range":
       return [target.start, target.end];
+  }
+}
+/**
+ * Given a list of targets, recursively descends all targets and returns every
+ * contained primitive target.
+ *
+ * @param targets The targets to extract from
+ * @returns A list of primitive targets
+ */
+export function getPrimitiveTargets(targets: Target[]) {
+  return targets.flatMap(getPrimitiveTargetsHelper);
+}
+
+function getPrimitiveTargetsHelper(target: Target): PrimitiveTarget[] {
+  switch (target.type) {
+    case "primitive":
+      return [target];
+    case "list":
+      return target.elements.flatMap(getPrimitiveTargetsHelper);
+    case "range":
+      return [target.anchor, target.active];
   }
 }
 
@@ -123,14 +146,16 @@ function getPrimitiveTargetsHelper(
  * @param targets The targets to extract from
  * @returns A list of primitive targets
  */
-export function transformPrimitiveTargets(
+export function transformPartialPrimitiveTargets(
   targets: PartialTarget[],
   func: (target: PartialPrimitiveTarget) => PartialPrimitiveTarget
 ) {
-  return targets.map((target) => transformPrimitiveTargetsHelper(target, func));
+  return targets.map((target) =>
+    transformPartialPrimitiveTargetsHelper(target, func)
+  );
 }
 
-function transformPrimitiveTargetsHelper(
+function transformPartialPrimitiveTargetsHelper(
   target: PartialTarget,
   func: (target: PartialPrimitiveTarget) => PartialPrimitiveTarget
 ): PartialTarget {
@@ -142,7 +167,7 @@ function transformPrimitiveTargetsHelper(
         ...target,
         elements: target.elements.map(
           (element) =>
-            transformPrimitiveTargetsHelper(element, func) as
+            transformPartialPrimitiveTargetsHelper(element, func) as
               | PartialPrimitiveTarget
               | PartialRangeTarget
         ),

@@ -24,6 +24,7 @@ import {
 } from "../../util/getExtensionApi";
 import { enableDebugLog } from "../../util/debug";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
+import { getNavigationMapSnapshotId } from "../../util/getNavigationMapSnapshotId";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -108,6 +109,14 @@ async function runTest(file: string) {
   // Assert that recorded decorations are present
   checkMarks(fixture.initialState.marks, cursorlessApi.navigationMap);
 
+  const snapshotId = getNavigationMapSnapshotId(fixture.command.partialTargets);
+  if (snapshotId != null) {
+    await vscode.commands.executeCommand(
+      "cursorless.takeHatMapSnapshot",
+      snapshotId
+    );
+  }
+
   const returnValue = await vscode.commands.executeCommand(
     "cursorless.command",
     fixture.spokenForm,
@@ -122,7 +131,8 @@ async function runTest(file: string) {
       : marksToPlainObject(
           extractTargetedMarks(
             Object.keys(fixture.finalState.marks) as string[],
-            cursorlessApi.navigationMap
+            cursorlessApi.navigationMap,
+            snapshotId
           )
         );
 

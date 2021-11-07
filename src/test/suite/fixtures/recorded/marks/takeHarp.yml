@@ -1,0 +1,26 @@
+spokenForm: take harp
+languageId: plaintext
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: h, snapshotId: 3ab2e0f6e7f3411584e88a35c4ccea04}
+  extraArgs: []
+initialState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+  marks:
+    default.h:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 5}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 5}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h, snapshotId: 3ab2e0f6e7f3411584e88a35c4ccea04}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

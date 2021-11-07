@@ -52,7 +52,11 @@ export default class NavigationMap {
       individualMap = this.activeMap;
     } else {
       if (snapshotId !== this.mapSnapshot?.snapshotId) {
-        throw Error(`Unknown snapshot id ${snapshotId}`);
+        console.warn(`Unknown snapshot id ${snapshotId}`);
+      }
+
+      if (this.mapSnapshot == null) {
+        throw new Error("No snapshot has been taken");
       }
 
       individualMap = this.mapSnapshot.navigationMap;
@@ -81,10 +85,8 @@ export default class NavigationMap {
 
     this.mapSnapshot = {
       snapshotId,
-      navigationMap: this.activeMap,
+      navigationMap: this.activeMap.clone(),
     };
-
-    this.activeMap = new IndividualNavigationMap(this.graph);
   }
 }
 
@@ -113,13 +115,25 @@ class IndividualNavigationMap {
     return currentValue;
   }
 
+  public clone() {
+    const ret = new IndividualNavigationMap(this.graph);
+    this.getEntries().forEach(([key, token]) => {
+      ret.addTokenByKey(key, token);
+    });
+    return ret;
+  }
+
   public getEntries() {
     return Object.entries(this.map);
   }
 
-  public addToken(hatStyle: HatStyleName, character: string, token: Token) {
-    this.map[NavigationMap.getKey(hatStyle, character)] = token;
+  private addTokenByKey(key: string, token: Token) {
+    this.map[key] = token;
     this.getDocumentTokenList(token.editor.document).push(token);
+  }
+
+  public addToken(hatStyle: HatStyleName, character: string, token: Token) {
+    this.addTokenByKey(NavigationMap.getKey(hatStyle, character), token);
   }
 
   public getToken(hatStyle: HatStyleName, character: string) {

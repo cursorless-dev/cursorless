@@ -20,6 +20,7 @@ import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getParseTreeApi } from "./util/getExtensionApi";
 import { canonicalizeAndValidateCommand } from "./util/canonicalizeAndValidateCommand";
 import canonicalizeActionName from "./util/canonicalizeActionName";
+import { getNavigationMapSnapshotId } from "./util/getNavigationMapSnapshotId";
 
 export async function activate(context: vscode.ExtensionContext) {
   const fontMeasurements = new FontMeasurements(context);
@@ -166,6 +167,7 @@ export async function activate(context: vscode.ExtensionContext) {
             sourceMark,
             navigationMap: graph.navigationMap!,
             spokenForm,
+            snapshotId: getNavigationMapSnapshotId(partialTargets),
           };
           await testCaseRecorder.preCommandHook(command, context);
         }

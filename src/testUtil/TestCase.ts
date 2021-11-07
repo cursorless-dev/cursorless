@@ -10,6 +10,8 @@ import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
 import { takeSnapshot, TestCaseSnapshot } from "./takeSnapshot";
 import serialize from "./serialize";
 import { pick } from "lodash";
+import { getPartialPrimitiveTargets } from "../util/targetUtils";
+import { getNavigationMapSnapshotId } from "../util/getNavigationMapSnapshotId";
 
 export type TestCaseCommand = {
   actionName: ActionType;
@@ -23,23 +25,23 @@ export type TestCaseContext = {
   sourceMark: ThatMark;
   targets: Target[];
   navigationMap: NavigationMap;
+  snapshotId: string | null;
 };
 
 export type TestCaseFixture = {
   spokenForm: string;
   command: TestCaseCommand;
   languageId: string;
-
-  /**
-   * A list of marks to check in the case of navigation map test otherwise undefined
-   */
-  marksToCheck?: string[];
-
   initialState: TestCaseSnapshot;
   finalState: TestCaseSnapshot;
   returnValue: unknown;
   /** Inferred full targets added for context; not currently used in testing */
   fullTargets: Target[];
+
+  /**
+   * A list of marks to check in the case of navigation map test otherwise undefined
+   */
+  marksToCheck?: string[];
 };
 
 export class TestCase {
@@ -73,7 +75,7 @@ export class TestCase {
   private getMarks() {
     let marks: Record<string, Token>;
 
-    const { navigationMap } = this.context;
+    const { navigationMap, snapshotId } = this.context;
 
     if (this.isNavigationMapTest) {
       // If we're doing a navigation map test, then we grab the entire
@@ -81,7 +83,7 @@ export class TestCase {
       // referenced in the expected follow up command
       marks = Object.fromEntries(navigationMap.getEntries());
     } else {
-      marks = extractTargetedMarks(this.targetKeys, navigationMap);
+      marks = extractTargetedMarks(this.targetKeys, navigationMap, snapshotId);
     }
 
     return marksToPlainObject(marks);
@@ -137,11 +139,11 @@ export class TestCase {
       spokenForm: this.spokenForm,
       languageId: this.languageId,
       command: this.command,
-      marksToCheck: this.marksToCheck,
       initialState: this.initialState,
       finalState: this.finalState,
       returnValue: this.returnValue,
       fullTargets: this.fullTargets,
+      marksToCheck: this.marksToCheck,
     };
     return serialize(fixture);
   }

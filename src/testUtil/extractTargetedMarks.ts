@@ -31,13 +31,18 @@ export function extractTargetKeys(target: Target): string[] {
 
 export function extractTargetedMarks(
   targetKeys: string[],
-  navigationMap: NavigationMap
+  navigationMap: NavigationMap,
+  snapshotId: string | null
 ) {
   const targetedMarks: { [decoratedCharacter: string]: Token } = {};
 
   targetKeys.forEach((key) => {
     const { hatStyle, character } = NavigationMap.splitKey(key);
-    targetedMarks[key] = navigationMap.getToken(hatStyle, character);
+    targetedMarks[key] = navigationMap.getToken(
+      hatStyle,
+      character,
+      snapshotId ?? undefined
+    );
   });
 
   return targetedMarks;
