@@ -10,11 +10,23 @@ import { logBranchTypes } from "./util/debug";
 import { TestCase } from "./testUtil/TestCase";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
-import { getParseTreeApi } from "./util/getExtensionApi";
+import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import { canonicalizeAndValidateCommand } from "./util/canonicalizeAndValidateCommand";
+import { mkdir, stat } from "fs/promises";
+import { join } from "path";
 
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
+  const commandServerApi = await getCommandServerApi();
+
+  let hatMapSnapshotSignalPath: string | null = null;
+  let lastHatMapSnapshotSignalMtime: number = -1;
+
+  if (commandServerApi != null) {
+    const cursorlessSubdir = commandServerApi.getNamedSubdir("cursorless");
+    await mkdir(cursorlessSubdir, { recursive: true });
+    hatMapSnapshotSignalPath = join(cursorlessSubdir, "hatMapSnapshotSignal");
+  }
 
   var isActive = vscode.workspace
     .getConfiguration("cursorless")
@@ -26,8 +38,21 @@ export async function activate(context: vscode.ExtensionContext) {
     });
   }
 
-  function addDecorations() {
+  async function addDecorations() {
     if (isActive) {
+      if (hatMapSnapshotSignalPath != null) {
+        try {
+          const newMtime = (await stat(hatMapSnapshotSignalPath)).mtimeMs;
+
+          if (newMtime > lastHatMapSnapshotSignalMtime) {
+            graph.navigationMap.takeSnapshot();
+          }
+        } catch (err) {
+          if ((err as NodeJS.ErrnoException).code === "ENOENT") {
+            console.log("File not found!");
+          }
+        }
+      }
       addDecorationsToEditors(graph.navigationMap, graph.decorations);
     } else {
       vscode.window.visibleTextEditors.forEach(clearEditorDecorations);
@@ -62,13 +87,6 @@ export async function activate(context: vscode.ExtensionContext) {
     () => {
       graph.fontMeasurements.clearCache();
       recomputeDecorationStyles();
-    }
-  );
-
-  const takeHatMapSnapshotDisposable = vscode.commands.registerCommand(
-    "cursorless.takeHatMapSnapshot",
-    (snapshotId: string) => {
-      graph.navigationMap.takeSnapshot(snapshotId);
     }
   );
 
@@ -257,7 +275,6 @@ export async function activate(context: vscode.ExtensionContext) {
     cursorlessRecordTestCaseDisposable,
     toggleDecorationsDisposable,
     recomputeDecorationStylesDisposable,
-    takeHatMapSnapshotDisposable,
     vscode.workspace.onDidChangeConfiguration(recomputeDecorationStyles),
     vscode.window.onDidChangeTextEditorVisibleRanges(addDecorationsDebounced),
     vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),
