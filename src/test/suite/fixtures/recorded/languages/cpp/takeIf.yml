@@ -6,12 +6,12 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: ifStatement}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: "void f() {\r\n    if (true) {\r\n        \r\n    }\r\n}"
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
+  marks: {}
 finalState:
   documentContents: "void f() {\r\n    if (true) {\r\n        \r\n    }\r\n}"
   selections:

@@ -8,10 +8,12 @@ import {
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { flatten } from "lodash";
-import { performEditsAndUpdateSelections } from "../util/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 
 export default class Delete implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "outside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: "outside" },
+  ];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
@@ -36,6 +38,7 @@ export default class Delete implements Action {
         }));
 
         const [updatedSelections] = await performEditsAndUpdateSelections(
+          this.graph.rangeUpdater,
           editor,
           edits,
           [targets.map((target) => target.selection.selection)]

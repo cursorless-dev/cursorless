@@ -1,8 +1,9 @@
 import * as vscode from "vscode";
 import * as path from "path";
 import * as fs from "fs";
-import { TestCase } from "./TestCase";
+import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
 import { walkDirsSync } from "./walkSync";
+import { invariant } from "immutability-helper";
 
 export class TestCaseRecorder {
   active: boolean = false;
@@ -10,6 +11,8 @@ export class TestCaseRecorder {
   workSpaceFolder: string | null;
   fixtureRoot: string | null;
   fixtureSubdirectory: string | null = null;
+  testCase: TestCase | null = null;
+  isNavigationMapTest: boolean = false;
 
   constructor(extensionContext: vscode.ExtensionContext) {
     this.workspacePath =
@@ -26,8 +29,11 @@ export class TestCaseRecorder {
       : null;
   }
 
-  async start(): Promise<boolean> {
+  async start(isNavigationMapTest: boolean = false): Promise<boolean> {
     this.active = await this.promptSubdirectory();
+    if (this.active) {
+      this.isNavigationMapTest = isNavigationMapTest;
+    }
     return this.active;
   }
 
@@ -35,10 +41,48 @@ export class TestCaseRecorder {
     this.active = false;
   }
 
-  async finish(testCase: TestCase): Promise<void> {
-    const outPath = this.calculateFilePath(testCase);
-    const fixture = testCase.toYaml();
+  async preCommandHook(command: TestCaseCommand, context: TestCaseContext) {
+    if (this.testCase != null) {
+      // If testCase is not null and we are just before a command, this means
+      // that this command is the follow up command indicating which marks we
+      // cared about from the last command
+      invariant(
+        this.testCase.awaitingFinalMarkInfo,
+        () => "expected to be awaiting final mark info"
+      );
+      this.testCase.filterMarks(command, context);
+      await this.finishTestCase();
+    } else {
+      // Otherwise, we are starting a new test case
+      this.testCase = new TestCase(command, context, this.isNavigationMapTest);
+      await this.testCase.recordInitialState();
+    }
+  }
+
+  async postCommandHook(returnValue: any) {
+    if (this.testCase == null) {
+      // If test case is null then this means that this was just a follow up
+      // command for a navigation map test
+      return;
+    }
+
+    await this.testCase.recordFinalState(returnValue);
+
+    if (this.testCase.awaitingFinalMarkInfo) {
+      // We don't finish the test case here in the case of a navigation map
+      // test because we'll do it after we get the follow up command indicating
+      // which marks we wanted to track
+      return;
+    }
+
+    await this.finishTestCase();
+  }
+
+  async finishTestCase(): Promise<void> {
+    const outPath = this.calculateFilePath(this.testCase!);
+    const fixture = this.testCase!.toYaml();
     await this.writeToFile(outPath, fixture);
+    this.testCase = null;
   }
 
   private async writeToFile(outPath: string, fixture: string) {
@@ -122,6 +166,10 @@ export class TestCaseRecorder {
     }
 
     return filePath;
+  }
+
+  commandErrorHook() {
+    this.testCase = null;
   }
 }
 

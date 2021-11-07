@@ -12,10 +12,6 @@ command:
       modifier: {type: identity}
       insideOutsideType: inside
   extraArgs: []
-marks:
-  default.f:
-    start: {line: 0, character: 0}
-    end: {line: 0, character: 3}
 initialState:
   documentContents: |-
     foo;
@@ -26,6 +22,10 @@ initialState:
       active: {line: 1, character: 3}
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 3}
+  marks:
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
 finalState:
   documentContents: |-
     foo;

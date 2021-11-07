@@ -14,11 +14,14 @@ import {
   setSelectionsAndFocusEditor,
 } from "../util/setSelectionsAndFocusEditor";
 import { flatten } from "lodash";
-import { callFunctionAndUpdateSelections } from "../util/updateSelections";
+
 import { ensureSingleEditor } from "../util/targetUtils";
+import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 
 export default class CommandAction implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: "inside" },
+  ];
   private ensureSingleEditor: boolean;
 
   constructor(
@@ -46,8 +49,9 @@ export default class CommandAction implements Action {
 
           const [updatedOriginalSelections, updatedTargetSelections] =
             await callFunctionAndUpdateSelections(
+              this.graph.rangeUpdater,
               () => commands.executeCommand(this.command),
-              editor,
+              editor.document,
               [originalSelections, targetSelections]
             );
 

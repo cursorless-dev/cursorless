@@ -10,9 +10,15 @@ command run, and the final state, all in the form of a yaml document. See
 
 ## Initial setup
 
-1. Add a voice command for recording to your personal talon files:
-   - `cursorless record: user.vscode("cursorless.recordTestCase")`
-   - We don't want to commit this so add it to your own repository.
+1.  Add a voice command for recording to your personal talon files:
+    - `cursorless record: user.vscode("cursorless.recordTestCase")`
+    - We don't want to commit this so add it to your own repository.
+1.  If you'd like to be able to do tests which check the navigation map, you should also add the following to your personal talon files:
+
+         cursorless record navigation:
+             user.vscode_with_plugin("cursorless.recordTestCase", 1)
+
+    It is quite unlikely you'll need this second step. Most tests don't check the navigation map.
 
 ## Recording new tests
 
@@ -38,6 +44,10 @@ command run, and the final state, all in the form of a yaml document. See
 1. Issue `"cursorless record"` command again to stop recording
    - `Stopped recording test cases` is shown
    - You can also just stop the debugger or close the debug window
+
+### Navigation map tests
+
+If you want to check how the navigation map gets updated in response to changes, you can instead say "cursorless record navigation", and then you need to issue two commands in one phrase each time. The second command should be of the form "take air" (or another decorated mark), and will tell the test case recorder which decorated mark we're checking.
 
 ## Run recorded tests
 

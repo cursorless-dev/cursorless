@@ -6,12 +6,12 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: null, delimitersOnly: false}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: import { Point, SyntaxNode } from "web-tree-sitter";
   selections:
     - anchor: {line: 0, character: 40}
       active: {line: 0, character: 40}
+  marks: {}
 finalState:
   documentContents: import { Point, SyntaxNode } from "";
   selections:

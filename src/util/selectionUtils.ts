@@ -15,9 +15,13 @@ export function selectionFromPositions(
   end: Position
 ): Selection {
   // The built in isReversed is bugged on empty selection. don't use
-  return selection.active.isBefore(selection.anchor)
-    ? new Selection(end, start)
-    : new Selection(start, end);
+  return isForward(selection)
+    ? new Selection(start, end)
+    : new Selection(end, start);
+}
+
+export function isForward(selection: Selection) {
+  return selection.active.isAfterOrEqual(selection.anchor);
 }
 
 export function selectionWithEditorFromRange(

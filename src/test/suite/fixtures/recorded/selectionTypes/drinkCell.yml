@@ -5,7 +5,6 @@ command:
   partialTargets:
     - {type: primitive, selectionType: notebookCell}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: |-
     # %%
@@ -13,6 +12,7 @@ initialState:
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 12}
+  marks: {}
 finalState:
   documentContents: |-
     # %%

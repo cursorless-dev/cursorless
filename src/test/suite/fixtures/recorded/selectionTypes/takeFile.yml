@@ -5,7 +5,6 @@ command:
   partialTargets:
     - {type: primitive, selectionType: document}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: |
 
@@ -13,6 +12,7 @@ initialState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks: {}
 finalState:
   documentContents: |
 

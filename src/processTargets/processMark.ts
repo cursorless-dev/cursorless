@@ -1,4 +1,4 @@
-import { Selection } from "vscode";
+import { Range, Selection } from "vscode";
 import {
   DecoratedSymbol,
   LineNumber,
@@ -7,6 +7,7 @@ import {
   ProcessedTargetsContext,
   SelectionWithEditor,
 } from "../typings/Types";
+import { getTokensInRange, PartialToken } from "../util/getTokensInRange";
 import { selectionWithEditorFromPositions } from "../util/selectionUtils";
 
 export default function (
@@ -32,6 +33,55 @@ export default function (
 }
 
 /**
+ * Returns tokens that intersect with the selection that may be relevant for
+ * expanding the selection to its containing token.
+ * @param selection The selection
+ * @returns All tokens that intersect with the selection and are on the same line as the start or endpoint of the selection
+ */
+function getTokenIntersectionsForSelection(selection: SelectionWithEditor) {
+  let tokens = getRelevantTokens(selection);
+
+  const tokenIntersections: { token: PartialToken; intersection: Range }[] = [];
+
+  tokens.forEach((token) => {
+    const intersection = token.range.intersection(selection.selection);
+    if (intersection != null) {
+      tokenIntersections.push({ token, intersection });
+    }
+  });
+
+  return tokenIntersections;
+}
+
+/**
+ * Given a selection, finds all tokens that we might use to expand the
+ * selection.  Just looks at tokens on the same line as the start and end of the
+ * selection, because we assume that a token cannot span multiple lines.
+ * @param selection The selection we care about
+ * @returns A list of tokens that we might expand to
+ */
+function getRelevantTokens(selection: SelectionWithEditor) {
+  const startLine = selection.selection.start.line;
+  const endLine = selection.selection.end.line;
+
+  let tokens = getTokensInRange(
+    selection.editor,
+    selection.editor.document.lineAt(startLine).range
+  );
+
+  if (endLine !== startLine) {
+    tokens.push(
+      ...getTokensInRange(
+        selection.editor,
+        selection.editor.document.lineAt(endLine).range
+      )
+    );
+  }
+
+  return tokens;
+}
+
+/**
  * Given a selection returns a new selection which contains the tokens
  * intersecting the given selection. Uses heuristics to tie break when the
  * given selection is empty and abuts 2 adjacent tokens
@@ -42,8 +92,7 @@ function getTokenSelectionForSelection(
   context: ProcessedTargetsContext,
   selection: SelectionWithEditor
 ): SelectionWithEditor {
-  let tokens =
-    context.navigationMap.getTokenIntersectionsForSelection(selection);
+  let tokens = getTokenIntersectionsForSelection(selection);
   // Use single token for overlapping or adjacent range
   if (selection.selection.isEmpty) {
     // If multiple matches sort and take the first
@@ -63,14 +112,14 @@ function getTokenSelectionForSelection(
         return lengthDiff;
       }
       // Lastly sort on start position. ie leftmost
-      return a.startOffset - b.startOffset;
+      return a.offsets.start - b.offsets.start;
     });
     tokens = tokens.slice(0, 1);
   }
   // Use tokens for overlapping ranges
   else {
     tokens = tokens.filter((token) => !token.intersection.isEmpty);
-    tokens.sort((a, b) => a.token.startOffset - b.token.startOffset);
+    tokens.sort((a, b) => a.token.offsets.start - b.token.offsets.start);
   }
   if (tokens.length < 1) {
     throw new Error("Couldn't find token in selection");

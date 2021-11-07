@@ -6,7 +6,6 @@ command:
     - type: primitive
       mark: {type: cursor}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: |
 
@@ -18,6 +17,7 @@ initialState:
       active: {line: 1, character: 11}
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 20}
+  marks: {}
 finalState:
   documentContents: |
 

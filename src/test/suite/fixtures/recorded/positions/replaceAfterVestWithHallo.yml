@@ -8,10 +8,6 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs:
     - [hallo]
-marks:
-  default.v:
-    start: {line: 1, character: 6}
-    end: {line: 1, character: 11}
 initialState:
   documentContents: |
 
@@ -19,6 +15,10 @@ initialState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks:
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
 finalState:
   documentContents: |
 

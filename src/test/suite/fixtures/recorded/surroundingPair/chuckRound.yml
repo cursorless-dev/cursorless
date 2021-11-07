@@ -6,7 +6,6 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: parentheses, delimitersOnly: false}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: |
     class a(object):
@@ -14,6 +13,7 @@ initialState:
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
+  marks: {}
 finalState:
   documentContents: |
     class a:

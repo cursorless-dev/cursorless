@@ -12,16 +12,6 @@ command:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
   extraArgs: []
-marks:
-  default.a:
-    start: {line: 1, character: 16}
-    end: {line: 1, character: 17}
-  default.b:
-    start: {line: 1, character: 21}
-    end: {line: 1, character: 22}
-  default.c:
-    start: {line: 1, character: 26}
-    end: {line: 1, character: 27}
 initialState:
   documentContents: |
 
@@ -29,6 +19,16 @@ initialState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 1, character: 16}
+      end: {line: 1, character: 17}
+    default.b:
+      start: {line: 1, character: 21}
+      end: {line: 1, character: 22}
+    default.c:
+      start: {line: 1, character: 26}
+      end: {line: 1, character: 27}
 finalState:
   documentContents: |
 

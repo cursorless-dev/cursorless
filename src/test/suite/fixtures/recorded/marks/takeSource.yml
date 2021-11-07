@@ -6,7 +6,6 @@ command:
     - type: primitive
       mark: {type: source}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: |
     value
@@ -17,6 +16,7 @@ initialState:
   sourceMark:
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 11}
+  marks: {}
 finalState:
   documentContents: |
     value

@@ -11,9 +11,13 @@ import update from "immutability-helper";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { performOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 import { flatten, zip } from "lodash";
-import { Selection, TextEditor, Range } from "vscode";
-import { performEditsAndUpdateSelections } from "../util/updateSelections";
+import { Selection, TextEditor, Range, DecorationRangeBehavior } from "vscode";
+
 import { getTextWithPossibleDelimiter } from "../util/getTextWithPossibleDelimiter";
+import {
+  getSelectionInfo,
+  performEditsAndUpdateFullSelectionInfos,
+} from "../core/updateSelections/updateSelections";
 
 type ActionType = "bring" | "move" | "swap";
 
@@ -104,7 +108,7 @@ class BringMoveSwap implements Action {
           editor: destination.selection.editor,
           originalSelection: destination,
           isSource: false,
-          extendOnEqualEmptyRange: true,
+          isReplace: destination.position === "after",
         },
       ];
 
@@ -134,7 +138,7 @@ class BringMoveSwap implements Action {
           editor: source.selection.editor,
           originalSelection: source,
           isSource: true,
-          extendOnEqualEmptyRange: true,
+          isReplace: false,
         });
       }
 
@@ -156,13 +160,34 @@ class BringMoveSwap implements Action {
               ? edits
               : edits.filter(({ isSource }) => !isSource);
 
-          const [updatedSelections]: Selection[][] =
-            await performEditsAndUpdateSelections(editor, filteredEdits, [
-              edits.map((edit) => edit.originalSelection.selection.selection),
-            ]);
+          const editSelectionInfos = edits.map(({ originalSelection }) =>
+            getSelectionInfo(
+              editor.document,
+              originalSelection.selection.selection,
+              DecorationRangeBehavior.OpenOpen
+            )
+          );
+
+          const cursorSelectionInfos = editor.selections.map((selection) =>
+            getSelectionInfo(
+              editor.document,
+              selection,
+              DecorationRangeBehavior.ClosedClosed
+            )
+          );
+
+          const [updatedEditSelections, cursorSelections]: Selection[][] =
+            await performEditsAndUpdateFullSelectionInfos(
+              this.graph.rangeUpdater,
+              editor,
+              filteredEdits,
+              [editSelectionInfos, cursorSelectionInfos]
+            );
+
+          editor.selections = cursorSelections;
 
           return edits.map((edit, index) => {
-            const selection = updatedSelections[index];
+            const selection = updatedEditSelections[index];
             return {
               editor,
               selection,

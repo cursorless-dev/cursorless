@@ -7,6 +7,7 @@ import { Token } from "../typings/Types";
 import Decorations from "../core/Decorations";
 import { HatStyleName } from "../core/constants";
 import NavigationMap from "../core/NavigationMap";
+import { TOKEN_MATCHER } from "../core/tokenizer";
 
 interface CharacterTokenInfo {
   characterIdx: number;
@@ -35,9 +36,17 @@ export function addDecorationsToEditors(
     ...editors.map((editor) => {
       const displayLineMap = getDisplayLineMap(editor);
 
-      const tokens = flatten(
+      const tokens: Token[] = flatten(
         editor.visibleRanges.map((range) =>
-          getTokensInRange(editor, range, displayLineMap)
+          getTokensInRange(editor, range).map((partialToken) => ({
+            ...partialToken,
+            displayLine: displayLineMap.get(partialToken.range.start.line)!,
+            editor,
+            expansionBehavior: {
+              start: { type: "regex", regex: TOKEN_MATCHER },
+              end: { type: "regex", regex: TOKEN_MATCHER },
+            },
+          }))
         )
       );
 

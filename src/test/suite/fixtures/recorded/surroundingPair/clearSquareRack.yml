@@ -7,15 +7,15 @@ command:
       modifier: {type: surroundingPair, delimiter: squareBrackets, delimitersOnly: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: ']'}
   extraArgs: []
-marks:
-  default.]:
-    start: {line: 0, character: 30}
-    end: {line: 0, character: 31}
 initialState:
   documentContents: const [bongo, baz] = [foo, bar]
   selections:
     - anchor: {line: 0, character: 26}
       active: {line: 0, character: 26}
+  marks:
+    default.]:
+      start: {line: 0, character: 30}
+      end: {line: 0, character: 31}
 finalState:
   documentContents: const [bongo, baz] = []
   selections:

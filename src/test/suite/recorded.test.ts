@@ -10,13 +10,20 @@ import * as sinon from "sinon";
 import { Clipboard } from "../../util/Clipboard";
 import { takeSnapshot } from "../../testUtil/takeSnapshot";
 import {
+  marksToPlainObject,
   PositionPlainObject,
   rangeToPlainObject,
   SelectionPlainObject,
+  SerializedMarks,
 } from "../../testUtil/toPlainObject";
 import { walkFilesSync } from "../../testUtil/walkSync";
-import { getCursorlessApi, getParseTreeApi } from "../../util/getExtensionApi";
+import {
+  CursorlessApi,
+  getCursorlessApi,
+  getParseTreeApi,
+} from "../../util/getExtensionApi";
 import { enableDebugLog } from "../../util/debug";
+import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -99,15 +106,7 @@ async function runTest(file: string) {
   cursorlessApi.addDecorations();
 
   // Assert that recorded decorations are present
-  Object.entries(fixture.marks).forEach(([key, token]) => {
-    const { hatStyle, character } = NavigationMap.splitKey(key);
-    const currentToken = cursorlessApi.navigationMap.getToken(
-      hatStyle,
-      character
-    );
-    assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
-    assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
-  });
+  checkMarks(fixture.initialState.marks, cursorlessApi.navigationMap);
 
   const returnValue = await vscode.commands.executeCommand(
     "cursorless.command",
@@ -117,12 +116,23 @@ async function runTest(file: string) {
     ...fixture.command.extraArgs
   );
 
+  const marks =
+    fixture.finalState.marks == null
+      ? undefined
+      : marksToPlainObject(
+          extractTargetedMarks(
+            Object.keys(fixture.finalState.marks) as string[],
+            cursorlessApi.navigationMap
+          )
+        );
+
   // TODO Visible ranges are not asserted, see:
   // https://github.com/pokey/cursorless-vscode/issues/160
   const { visibleRanges, ...resultState } = await takeSnapshot(
     cursorlessApi.thatMark,
     cursorlessApi.sourceMark,
-    excludeFields
+    excludeFields,
+    marks
   );
 
   if (process.env.CURSORLESS_TEST_UPDATE_FIXTURES === "true") {
@@ -141,4 +151,20 @@ async function runTest(file: string) {
       "Unexpected return value"
     );
   }
+}
+
+function checkMarks(
+  marks: SerializedMarks | undefined,
+  navigationMap: NavigationMap
+) {
+  if (marks == null) {
+    return;
+  }
+
+  Object.entries(marks).forEach(([key, token]) => {
+    const { hatStyle, character } = NavigationMap.splitKey(key);
+    const currentToken = navigationMap.getToken(hatStyle, character);
+    assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
+    assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
+  });
 }

@@ -5,15 +5,13 @@ import { HatStyleName } from "../core/constants";
 import { EditStyles } from "../core/editStyles";
 import NavigationMap from "../core/NavigationMap";
 import { Snippets } from "../core/Snippets";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { FullRangeInfo } from "./updateSelections";
 
 /**
  * A token within a text editor, including the current display line of the token
  */
-export interface Token {
-  text: string;
-  range: vscode.Range;
-  startOffset: number;
-  endOffset: number;
+export interface Token extends FullRangeInfo {
   editor: vscode.TextEditor;
   displayLine: number;
 }
@@ -324,11 +322,38 @@ export type ActionType =
 export type ActionRecord = Record<ActionType, Action>;
 
 export interface Graph {
+  /**
+   * Keeps a map from action names to objects that implement the given action
+   */
   readonly actions: ActionRecord;
+
+  /**
+   * Maintains decorations that can be used to visually indicate to the user
+   * the targets of their actions.
+   */
   readonly editStyles: EditStyles;
+
+  /**
+   * Keeps a map of all decorated marks
+   */
   readonly navigationMap: NavigationMap;
+
+  /**
+   * The extension context passed in during extension activation
+   */
   readonly extensionContext: ExtensionContext;
+
+  /**
+   * Keeps a merged list of all user-contributed, core, and
+   * extension-contributed cursorless snippets
+   */
   readonly snippets: Snippets;
+
+  /**
+   * This component can be used to register a list of ranges to keep up to date
+   * as the document changes
+   */
+  readonly rangeUpdater: RangeUpdater;
 }
 
 export type NodeMatcherValue = {
@@ -362,6 +387,15 @@ export type SelectionExtractor = (
 export interface Edit {
   range: vscode.Range;
   text: string;
-  dontMoveOnEqualStart?: boolean;
-  extendOnEqualEmptyRange?: boolean;
+
+  /**
+   * If this edit is an insertion, ie the range has zero length, then this
+   * field can be set to `true` to indicate that any adjacent empty selection
+   * should *not* be shifted to the right, as would normally happen with an
+   * insertion. This is equivalent to the
+   * [distinction](https://code.visualstudio.com/api/references/vscode-api#TextEditorEdit)
+   * in a vscode edit builder between doing a replace with an empty range
+   * versus doing an insert.
+   */
+  isReplace?: boolean;
 }

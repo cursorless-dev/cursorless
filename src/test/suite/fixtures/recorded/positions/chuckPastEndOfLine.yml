@@ -9,12 +9,12 @@ command:
       excludeStart: false
       excludeEnd: false
   extraArgs: []
-marks: {}
 initialState:
   documentContents: hello there
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
+  marks: {}
 finalState:
   documentContents: he
   selections:

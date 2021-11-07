@@ -6,12 +6,12 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: statement}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: "void f() {\r\n    a = 1;\r\n}"
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
+  marks: {}
 finalState:
   documentContents: "void f() {\r\n    a = 1;\r\n}"
   selections:

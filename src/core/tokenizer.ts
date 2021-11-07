@@ -49,7 +49,7 @@ const REGEX = [
   SINGLE_SYMBOLS_REGEX,
 ].join("|");
 
-const TOKEN_MATCHER = new RegExp(REGEX, "gu");
+export const TOKEN_MATCHER = new RegExp(REGEX, "gu");
 
 export function tokenize<T>(
   text: string,

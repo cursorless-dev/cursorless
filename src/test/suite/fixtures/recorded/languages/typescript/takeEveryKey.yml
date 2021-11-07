@@ -6,7 +6,6 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: |-
     const value = {
@@ -16,6 +15,7 @@ initialState:
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 10}
+  marks: {}
 finalState:
   documentContents: |-
     const value = {

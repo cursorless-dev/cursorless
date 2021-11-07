@@ -12,6 +12,7 @@ import processMark from "./processMark";
 import processModifier from "./processModifier";
 import processPosition from "./processPosition";
 import processSelectionType from "./processSelectionType";
+import { isForward as getIsForward } from "../util/selectionUtils";
 
 export default function (
   context: ProcessedTargetsContext,

@@ -10,18 +10,18 @@ command:
       modifier: {type: containingScope, scopeType: map, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
   extraArgs: []
-marks:
-  default.h:
-    start: {line: 0, character: 4}
-    end: {line: 0, character: 9}
-  default.a:
-    start: {line: 1, character: 13}
-    end: {line: 1, character: 14}
 initialState:
   documentContents: "    hello\r\n    value = {a:2}"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks:
+    default.h:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+    default.a:
+      start: {line: 1, character: 13}
+      end: {line: 1, character: 14}
 finalState:
   documentContents: "    hello\r\n    value = hello"
   selections:

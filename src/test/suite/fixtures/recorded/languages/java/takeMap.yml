@@ -6,7 +6,6 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: map}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: |
 
@@ -20,6 +19,7 @@ initialState:
   selections:
     - anchor: {line: 3, character: 8}
       active: {line: 3, character: 8}
+  marks: {}
 finalState:
   documentContents: |
 

@@ -6,7 +6,6 @@ command:
     - type: primitive
       mark: {type: cursor}
   extraArgs: [tryCatchStatement.body]
-marks: {}
 initialState:
   documentContents: |-
     if (true) {
@@ -19,6 +18,7 @@ initialState:
       active: {line: 4, character: 0}
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks: {}
 finalState:
   documentContents: |-
     try {

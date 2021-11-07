@@ -1,59 +1,58 @@
-import { TextDocumentChangeEvent, Range } from "vscode";
+import { TextDocument } from "vscode";
 import { HatStyleName } from "./constants";
-import { SelectionWithEditor, Token } from "../typings/Types";
+import { Graph, Token } from "../typings/Types";
 
 /**
  * Maps from (hatStyle, character) pairs to tokens
  */
 export default class NavigationMap {
-  updateTokenRanges(edit: TextDocumentChangeEvent) {
-    edit.contentChanges.forEach((editComponent) => {
-      // Amount by which to shift ranges
-      const shift = editComponent.text.length - editComponent.rangeLength;
-
-      Object.entries(this.map).forEach(([decoratedCharacter, token]) => {
-        if (token.editor.document !== edit.document) {
-          return;
-        }
-
-        if (editComponent.range.start.isAfterOrEqual(token.range.end)) {
-          return;
-        }
-
-        if (editComponent.range.end.isAfter(token.range.start)) {
-          // If there is overlap, we just delete the token
-          delete this.map[decoratedCharacter];
-          return;
-        }
-
-        const startOffset = token.startOffset + shift;
-        const endOffset = token.endOffset + shift;
-
-        token.range = token.range.with(
-          edit.document.positionAt(startOffset),
-          edit.document.positionAt(endOffset)
-        );
-        token.startOffset = startOffset;
-        token.endOffset = endOffset;
-      });
-    });
-  }
+  private documentTokenLists: Map<string, Token[]> = new Map();
+  private deregisterFunctions: (() => void)[] = [];
 
   private map: {
     [decoratedCharacter: string]: Token;
   } = {};
+
+  constructor(private graph: Graph) {
+    graph.extensionContext.subscriptions.push(this);
+  }
+
+  private getDocumentTokenList(document: TextDocument) {
+    const key = document.uri.toString();
+    let currentValue = this.documentTokenLists.get(key);
+
+    if (currentValue == null) {
+      currentValue = [];
+      this.documentTokenLists.set(key, currentValue);
+      this.deregisterFunctions.push(
+        this.graph.rangeUpdater.registerRangeInfoList(document, currentValue)
+      );
+    }
+
+    return currentValue;
+  }
 
   static getKey(hatStyle: HatStyleName, character: string) {
     return `${hatStyle}.${character}`;
   }
 
   static splitKey(key: string) {
-    const [hatStyle, character] = key.split(".");
+    let [hatStyle, character] = key.split(".");
+    if (character.length === 0) {
+      // If the character is `.` then it will appear as a zero length string
+      // due to the way the split on `.` works
+      character = ".";
+    }
     return { hatStyle: hatStyle as HatStyleName, character };
+  }
+
+  public getEntries() {
+    return Object.entries(this.map);
   }
 
   public addToken(hatStyle: HatStyleName, character: string, token: Token) {
     this.map[NavigationMap.getKey(hatStyle, character)] = token;
+    this.getDocumentTokenList(token.editor.document).push(token);
   }
 
   public getToken(hatStyle: HatStyleName, character: string) {
@@ -62,18 +61,11 @@ export default class NavigationMap {
 
   public clear() {
     this.map = {};
+    this.documentTokenLists = new Map();
+    this.deregisterFunctions.forEach((func) => func());
   }
 
-  public getTokenIntersectionsForSelection(selection: SelectionWithEditor) {
-    const tokenIntersections: { token: Token; intersection: Range }[] = [];
-    Object.values(this.map).forEach((token) => {
-      if (token.editor.document === selection.editor.document) {
-        const intersection = token.range.intersection(selection.selection);
-        if (intersection != null) {
-          tokenIntersections.push({ token, intersection });
-        }
-      }
-    });
-    return tokenIntersections;
+  public dispose() {
+    this.deregisterFunctions.forEach((func) => func());
   }
 }

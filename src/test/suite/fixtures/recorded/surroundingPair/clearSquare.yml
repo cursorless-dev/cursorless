@@ -6,13 +6,13 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: squareBrackets, delimitersOnly: false}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: |
     a[222]
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
+  marks: {}
 finalState:
   documentContents: |
     a[]

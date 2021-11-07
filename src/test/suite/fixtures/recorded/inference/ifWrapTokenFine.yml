@@ -7,16 +7,16 @@ command:
       selectionType: token
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
   extraArgs: [ifStatement.consequence]
-marks:
-  default.f:
-    start: {line: 0, character: 6}
-    end: {line: 0, character: 9}
 initialState:
   documentContents: |
     const foo = "hello";
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
+  marks:
+    default.f:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 9}
 finalState:
   documentContents: |
     const if () {
