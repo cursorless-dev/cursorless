@@ -44,18 +44,20 @@ export default class NavigationMap {
   public getToken(
     hatStyle: HatStyleName,
     character: string,
-    snapshotId?: string
+    useSnapshot?: boolean
   ) {
     let individualMap: IndividualNavigationMap;
 
-    if (snapshotId == null) {
-      individualMap = this.activeMap;
-    } else {
-      if (snapshotId !== this.mapSnapshot?.snapshotId) {
-        throw Error(`Unknown snapshot id ${snapshotId}`);
+    if (useSnapshot) {
+      if (this.mapSnapshot == null) {
+        throw new Error(
+          "Navigation map snapshot requested, but no snapshot has been taken"
+        );
       }
 
       individualMap = this.mapSnapshot.navigationMap;
+    } else {
+      individualMap = this.activeMap;
     }
 
     return individualMap.getToken(hatStyle, character);

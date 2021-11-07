@@ -42,7 +42,7 @@ export interface DecoratedSymbol {
   type: "decoratedSymbol";
   symbolColor: HatStyleName;
   character: string;
-  snapshotId?: string;
+  useSnapshot?: boolean;
 }
 
 export type LineNumberType = "absolute" | "relative" | "modulo100";
