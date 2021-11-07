@@ -13,6 +13,7 @@ import FontMeasurements from "../core/FontMeasurements";
 /**
  * A token within a text editor, including the current display line of the token
  */
+
 export interface Token extends FullRangeInfo {
   editor: vscode.TextEditor;
   displayLine: number;
@@ -48,6 +49,7 @@ export interface LineNumberPosition {
   lineNumber: number;
   isRelative: boolean;
 }
+
 export interface LineNumber {
   type: "lineNumber";
   anchor: LineNumberPosition;
@@ -62,6 +64,7 @@ export type Mark =
   //   | LastCursorPosition Not implemented yet
   | DecoratedSymbol
   | LineNumber;
+
 export type Delimiter =
   | "angleBrackets"
   | "backtickQuotes"
@@ -99,6 +102,7 @@ export type ScopeType =
   | "xmlElement"
   | "xmlEndTag"
   | "xmlStartTag";
+
 export type SubTokenType = "word" | "character";
 
 export interface SurroundingPairModifier {
@@ -106,12 +110,14 @@ export interface SurroundingPairModifier {
   delimiter: Delimiter | null;
   delimitersOnly: boolean;
 }
+
 export interface ContainingScopeModifier {
   type: "containingScope";
   scopeType: ScopeType;
   valueOnly?: boolean;
   includeSiblings?: boolean;
 }
+
 export interface SubTokenModifier {
   type: "subpiece";
   pieceType: SubTokenType;
@@ -120,15 +126,19 @@ export interface SubTokenModifier {
   excludeAnchor?: boolean;
   excludeActive?: boolean;
 }
+
 export interface MatchingPairSymbolModifier {
   type: "matchingPairSymbol";
 }
+
 export interface IdentityModifier {
   type: "identity";
 }
+
 export interface HeadModifier {
   type: "head";
 }
+
 export interface TailModifier {
   type: "tail";
 }
@@ -145,7 +155,9 @@ export type Modifier =
 export type SelectionType =
   //   | "character" Not implemented
   "token" | "line" | "notebookCell" | "paragraph" | "document";
+
 export type Position = "before" | "after" | "contents";
+
 export type InsideOutsideType = "inside" | "outside" | null;
 
 export interface PartialPrimitiveTarget {
@@ -356,7 +368,15 @@ export interface Graph {
    * as the document changes
    */
   readonly rangeUpdater: RangeUpdater;
+
+  /**
+   * Responsible for all the hat styles
+   */
   readonly decorations: Decorations;
+
+  /**
+   * Takes measurements of the user's font
+   */
   readonly fontMeasurements: FontMeasurements;
 }
 
@@ -376,18 +396,21 @@ export type NodeMatcher = (
  * Returns the desired relative of the provided node.
  * Returns null if matching node not found.
  **/
+
 export type NodeFinder = (
   node: SyntaxNode,
   selection?: vscode.Selection
 ) => SyntaxNode | null;
 
 /** Returns one or more selections for a given SyntaxNode */
+
 export type SelectionExtractor = (
   editor: vscode.TextEditor,
   nodes: SyntaxNode
 ) => SelectionWithContext;
 
 /** Represent a single edit/change in the document */
+
 export interface Edit {
   range: vscode.Range;
   text: string;
