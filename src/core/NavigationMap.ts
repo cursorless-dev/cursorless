@@ -74,6 +74,7 @@ export default class NavigationMap {
   }
 
   takeSnapshot(snapshotId: string) {
+    console.log(`taking snapshot ${snapshotId}`);
     if (this.mapSnapshot != null) {
       this.mapSnapshot.navigationMap.dispose();
     }
