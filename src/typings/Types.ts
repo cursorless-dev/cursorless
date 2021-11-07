@@ -7,6 +7,8 @@ import NavigationMap from "../core/NavigationMap";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { FullRangeInfo } from "./updateSelections";
+import Decorations from "../core/Decorations";
+import FontMeasurements from "../core/FontMeasurements";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -354,6 +356,8 @@ export interface Graph {
    * as the document changes
    */
   readonly rangeUpdater: RangeUpdater;
+  readonly decorations: Decorations;
+  readonly fontMeasurements: FontMeasurements;
 }
 
 export type NodeMatcherValue = {

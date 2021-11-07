@@ -1,17 +1,10 @@
 import * as vscode from "vscode";
 import { addDecorationsToEditors } from "./util/addDecorationsToEditor";
 import { DECORATION_DEBOUNCE_DELAY } from "./core/constants";
-import Decorations from "./core/Decorations";
 import graphFactories from "./util/graphFactories";
 import inferFullTargets from "./core/inferFullTargets";
 import processTargets from "./processTargets";
-import FontMeasurements from "./core/FontMeasurements";
-import {
-  ActionType,
-  Graph,
-  PartialTarget,
-  ProcessedTargetsContext,
-} from "./typings/Types";
+import { Graph, PartialTarget, ProcessedTargetsContext } from "./typings/Types";
 import makeGraph, { FactoryMap } from "./util/makeGraph";
 import { logBranchTypes } from "./util/debug";
 import { TestCase } from "./testUtil/TestCase";
@@ -19,13 +12,8 @@ import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getParseTreeApi } from "./util/getExtensionApi";
 import { canonicalizeAndValidateCommand } from "./util/canonicalizeAndValidateCommand";
-import canonicalizeActionName from "./util/canonicalizeActionName";
 
 export async function activate(context: vscode.ExtensionContext) {
-  const fontMeasurements = new FontMeasurements(context);
-  await fontMeasurements.calculate();
-  const decorations = new Decorations(fontMeasurements, context.extensionPath);
-
   const { getNodeAtLocation } = await getParseTreeApi();
 
   var isActive = vscode.workspace
@@ -33,14 +21,14 @@ export async function activate(context: vscode.ExtensionContext) {
     .get<boolean>("showOnStart")!;
 
   function clearEditorDecorations(editor: vscode.TextEditor) {
-    decorations.decorations.forEach(({ decoration }) => {
+    graph.decorations.decorations.forEach(({ decoration }) => {
       editor.setDecorations(decoration, []);
     });
   }
 
   function addDecorations() {
     if (isActive) {
-      addDecorationsToEditors(graph.navigationMap, decorations);
+      addDecorationsToEditors(graph.navigationMap, graph.decorations);
     } else {
       vscode.window.visibleTextEditors.forEach(clearEditorDecorations);
       graph.navigationMap.clear();
@@ -72,7 +60,7 @@ export async function activate(context: vscode.ExtensionContext) {
   const recomputeDecorationStylesDisposable = vscode.commands.registerCommand(
     "cursorless.recomputeDecorationStyles",
     () => {
-      fontMeasurements.clearCache();
+      graph.fontMeasurements.clearCache();
       recomputeDecorationStyles();
     }
   );
@@ -82,6 +70,8 @@ export async function activate(context: vscode.ExtensionContext) {
     extensionContext: () => context,
   } as FactoryMap<Graph>);
   graph.snippets.init();
+  await graph.fontMeasurements.calculate();
+
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
   const testCaseRecorder = new TestCaseRecorder(context);
@@ -248,9 +238,9 @@ export async function activate(context: vscode.ExtensionContext) {
   }
 
   const recomputeDecorationStyles = async () => {
-    decorations.destroyDecorations();
-    await fontMeasurements.calculate();
-    decorations.constructDecorations(fontMeasurements);
+    graph.decorations.destroyDecorations();
+    await graph.fontMeasurements.calculate();
+    graph.decorations.constructDecorations(graph.fontMeasurements);
     addDecorations();
   };
 
