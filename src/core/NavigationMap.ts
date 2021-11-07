@@ -1,22 +1,34 @@
 import { TextDocument } from "vscode";
 import { HatStyleName } from "./constants";
 import { Graph, Token } from "../typings/Types";
-
-interface NavigationMapSnapshot {
-  snapshotId: string;
-  navigationMap: IndividualNavigationMap;
-}
+import { mkdir, stat } from "fs/promises";
+import { join } from "path";
 
 /**
  * Maps from (hatStyle, character) pairs to tokens
  */
 export default class NavigationMap {
   activeMap: IndividualNavigationMap;
-  mapSnapshot?: NavigationMapSnapshot;
+  mapSnapshot?: IndividualNavigationMap;
+
+  hatMapSnapshotSignalPath: string | null = null;
+  lastHatMapSnapshotSignalMtime: number = -1;
 
   constructor(private graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
     this.activeMap = new IndividualNavigationMap(graph);
+  }
+
+  async init() {
+    if (this.graph.commandServerApi != null) {
+      const cursorlessSubdir =
+        this.graph.commandServerApi.getNamedSubdir("cursorless");
+      await mkdir(cursorlessSubdir, { recursive: true });
+      this.hatMapSnapshotSignalPath = join(
+        cursorlessSubdir,
+        "hatMapSnapshotSignal"
+      );
+    }
   }
 
   static getKey(hatStyle: HatStyleName, character: string) {
@@ -55,7 +67,7 @@ export default class NavigationMap {
         );
       }
 
-      individualMap = this.mapSnapshot.navigationMap;
+      individualMap = this.mapSnapshot;
     } else {
       individualMap = this.activeMap;
     }
@@ -71,19 +83,35 @@ export default class NavigationMap {
     this.activeMap.dispose();
 
     if (this.mapSnapshot != null) {
-      this.mapSnapshot.navigationMap.dispose();
+      this.mapSnapshot.dispose();
     }
   }
 
-  takeSnapshot(snapshotId: string) {
+  async maybeTakeSnapshot() {
+    if (this.hatMapSnapshotSignalPath != null) {
+      try {
+        console.log(this.hatMapSnapshotSignalPath);
+        const newMtime = (await stat(this.hatMapSnapshotSignalPath)).mtimeMs;
+
+        if (newMtime > this.lastHatMapSnapshotSignalMtime) {
+          console.log("taking snapshot");
+          this.takeSnapshot();
+          this.lastHatMapSnapshotSignalMtime = newMtime;
+        }
+      } catch (err) {
+        if ((err as NodeJS.ErrnoException).code !== "ENOENT") {
+          throw err;
+        }
+      }
+    }
+  }
+
+  private takeSnapshot() {
     if (this.mapSnapshot != null) {
-      this.mapSnapshot.navigationMap.dispose();
+      this.mapSnapshot.dispose();
     }
 
-    this.mapSnapshot = {
-      snapshotId,
-      navigationMap: this.activeMap,
-    };
+    this.mapSnapshot = this.activeMap;
 
     this.activeMap = new IndividualNavigationMap(this.graph);
   }

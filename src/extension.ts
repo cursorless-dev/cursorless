@@ -14,19 +14,11 @@ import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import { canonicalizeAndValidateCommand } from "./util/canonicalizeAndValidateCommand";
 import { mkdir, stat } from "fs/promises";
 import { join } from "path";
+import { getPrimitiveTargets } from "./util/targetUtils";
 
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
-
-  let hatMapSnapshotSignalPath: string | null = null;
-  let lastHatMapSnapshotSignalMtime: number = -1;
-
-  if (commandServerApi != null) {
-    const cursorlessSubdir = commandServerApi.getNamedSubdir("cursorless");
-    await mkdir(cursorlessSubdir, { recursive: true });
-    hatMapSnapshotSignalPath = join(cursorlessSubdir, "hatMapSnapshotSignal");
-  }
 
   var isActive = vscode.workspace
     .getConfiguration("cursorless")
@@ -40,19 +32,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   async function addDecorations() {
     if (isActive) {
-      if (hatMapSnapshotSignalPath != null) {
-        try {
-          const newMtime = (await stat(hatMapSnapshotSignalPath)).mtimeMs;
-
-          if (newMtime > lastHatMapSnapshotSignalMtime) {
-            graph.navigationMap.takeSnapshot();
-          }
-        } catch (err) {
-          if ((err as NodeJS.ErrnoException).code === "ENOENT") {
-            console.log("File not found!");
-          }
-        }
-      }
+      await graph.navigationMap.maybeTakeSnapshot();
       addDecorationsToEditors(graph.navigationMap, graph.decorations);
     } else {
       vscode.window.visibleTextEditors.forEach(clearEditorDecorations);
@@ -93,10 +73,12 @@ export async function activate(context: vscode.ExtensionContext) {
   const graph = makeGraph({
     ...graphFactories,
     extensionContext: () => context,
+    commandServerApi: () => commandServerApi,
   } as FactoryMap<Graph>);
   graph.snippets.init();
   await graph.fontMeasurements.calculate();
 
+  await graph.navigationMap.init();
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
   const testCaseRecorder = new TestCaseRecorder(context);
@@ -132,6 +114,16 @@ export async function activate(context: vscode.ExtensionContext) {
             inputPartialTargets,
             inputExtraArgs
           );
+
+        if (
+          getPrimitiveTargets(partialTargets).some(
+            (partialTarget) =>
+              partialTarget.mark?.type === "decoratedSymbol" &&
+              partialTarget.mark.useSnapshot
+          )
+        ) {
+          await graph.navigationMap.maybeTakeSnapshot();
+        }
 
         console.debug(`spokenForm: ${spokenForm}`);
         console.debug(`action: ${actionName}`);

@@ -15,7 +15,17 @@ export interface ParseTreeApi {
   loadLanguage: (languageId: string) => Promise<boolean>;
 }
 
+export interface CommandServerApi {
+  getNamedSubdir(name: string): string;
+}
+
 export async function getExtensionApi<T>(extensionId: string) {
+  const extension = vscode.extensions.getExtension(extensionId);
+
+  return extension == null ? null : ((await extension.activate()) as T);
+}
+
+export async function getExtensionApiStrict<T>(extensionId: string) {
   const extension = vscode.extensions.getExtension(extensionId);
 
   if (extension == null) {
@@ -26,7 +36,14 @@ export async function getExtensionApi<T>(extensionId: string) {
 }
 
 export const getCursorlessApi = () =>
-  getExtensionApi<CursorlessApi>("pokey.cursorless");
+  getExtensionApiStrict<CursorlessApi>("pokey.cursorless");
 
 export const getParseTreeApi = () =>
-  getExtensionApi<ParseTreeApi>("pokey.parse-tree");
+  getExtensionApiStrict<ParseTreeApi>("pokey.parse-tree");
+
+/**
+ *
+ * @returns Command server API or null if not installed
+ */
+export const getCommandServerApi = () =>
+  getExtensionApi<CommandServerApi>("pokey.command-server");

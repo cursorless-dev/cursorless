@@ -9,6 +9,7 @@ import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { FullRangeInfo } from "./updateSelections";
 import Decorations from "../core/Decorations";
 import FontMeasurements from "../core/FontMeasurements";
+import { CommandServerApi } from "../util/getExtensionApi";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -398,6 +399,11 @@ export interface Graph {
    * Takes measurements of the user's font
    */
   readonly fontMeasurements: FontMeasurements;
+
+  /**
+   * API object for interacting with the command server, if it exists
+   */
+  readonly commandServerApi: CommandServerApi | null;
 }
 
 export type NodeMatcherValue = {
