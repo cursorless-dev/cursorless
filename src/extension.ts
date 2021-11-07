@@ -65,6 +65,13 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  const takeHatMapSnapshotDisposable = vscode.commands.registerCommand(
+    "cursorless.takeHatMapSnapshot",
+    (snapshotId: string) => {
+      graph.navigationMap.takeSnapshot(snapshotId);
+    }
+  );
+
   const graph = makeGraph({
     ...graphFactories,
     extensionContext: () => context,
@@ -250,6 +257,7 @@ export async function activate(context: vscode.ExtensionContext) {
     cursorlessRecordTestCaseDisposable,
     toggleDecorationsDisposable,
     recomputeDecorationStylesDisposable,
+    takeHatMapSnapshotDisposable,
     vscode.workspace.onDidChangeConfiguration(recomputeDecorationStyles),
     vscode.window.onDidChangeTextEditorVisibleRanges(addDecorationsDebounced),
     vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),
