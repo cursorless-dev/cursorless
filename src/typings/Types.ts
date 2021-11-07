@@ -40,6 +40,7 @@ export interface DecoratedSymbol {
   type: "decoratedSymbol";
   symbolColor: HatStyleName;
   character: string;
+  snapshotId?: string;
 }
 
 export interface LineNumberPosition {

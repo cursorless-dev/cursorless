@@ -2,34 +2,21 @@ import { TextDocument } from "vscode";
 import { HatStyleName } from "./constants";
 import { Graph, Token } from "../typings/Types";
 
+interface NavigationMapSnapshot {
+  snapshotId: string;
+  navigationMap: IndividualNavigationMap;
+}
+
 /**
  * Maps from (hatStyle, character) pairs to tokens
  */
 export default class NavigationMap {
-  private documentTokenLists: Map<string, Token[]> = new Map();
-  private deregisterFunctions: (() => void)[] = [];
-
-  private map: {
-    [decoratedCharacter: string]: Token;
-  } = {};
+  activeMap: IndividualNavigationMap;
+  mapSnapshot?: NavigationMapSnapshot;
 
   constructor(private graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
-  }
-
-  private getDocumentTokenList(document: TextDocument) {
-    const key = document.uri.toString();
-    let currentValue = this.documentTokenLists.get(key);
-
-    if (currentValue == null) {
-      currentValue = [];
-      this.documentTokenLists.set(key, currentValue);
-      this.deregisterFunctions.push(
-        this.graph.rangeUpdater.registerRangeInfoList(document, currentValue)
-      );
-    }
-
-    return currentValue;
+    this.activeMap = new IndividualNavigationMap(graph);
   }
 
   static getKey(hatStyle: HatStyleName, character: string) {
@@ -44,6 +31,85 @@ export default class NavigationMap {
       character = ".";
     }
     return { hatStyle: hatStyle as HatStyleName, character };
+  }
+
+  public getEntries() {
+    return this.activeMap.getEntries();
+  }
+
+  public addToken(hatStyle: HatStyleName, character: string, token: Token) {
+    this.activeMap.addToken(hatStyle, character, token);
+  }
+
+  public getToken(
+    hatStyle: HatStyleName,
+    character: string,
+    snapshotId?: string
+  ) {
+    let individualMap: IndividualNavigationMap;
+
+    if (snapshotId == null) {
+      individualMap = this.activeMap;
+    } else {
+      if (snapshotId !== this.mapSnapshot?.snapshotId) {
+        throw Error(`Unknown snapshot id ${snapshotId}`);
+      }
+
+      individualMap = this.mapSnapshot.navigationMap;
+    }
+
+    return individualMap.getToken(hatStyle, character);
+  }
+
+  public clear() {
+    this.activeMap.clear();
+  }
+
+  public dispose() {
+    this.activeMap.dispose();
+
+    if (this.mapSnapshot != null) {
+      this.mapSnapshot.navigationMap.dispose();
+    }
+  }
+
+  takeSnapshot(snapshotId: string) {
+    if (this.mapSnapshot != null) {
+      this.mapSnapshot.navigationMap.dispose();
+    }
+
+    this.mapSnapshot = {
+      snapshotId,
+      navigationMap: this.activeMap,
+    };
+
+    this.activeMap = new IndividualNavigationMap(this.graph);
+  }
+}
+
+class IndividualNavigationMap {
+  private documentTokenLists: Map<string, Token[]> = new Map();
+  private deregisterFunctions: (() => void)[] = [];
+
+  private map: {
+    [decoratedCharacter: string]: Token;
+  } = {};
+
+  constructor(private graph: Graph) {}
+
+  private getDocumentTokenList(document: TextDocument) {
+    const key = document.uri.toString();
+    let currentValue = this.documentTokenLists.get(key);
+
+    if (currentValue == null) {
+      currentValue = [];
+      this.documentTokenLists.set(key, currentValue);
+      this.deregisterFunctions.push(
+        this.graph.rangeUpdater.registerRangeInfoList(document, currentValue)
+      );
+    }
+
+    return currentValue;
   }
 
   public getEntries() {
