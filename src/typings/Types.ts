@@ -13,7 +13,6 @@ import FontMeasurements from "../core/FontMeasurements";
 /**
  * A token within a text editor, including the current display line of the token
  */
-
 export interface Token extends FullRangeInfo {
   editor: vscode.TextEditor;
   displayLine: number;
@@ -396,21 +395,18 @@ export type NodeMatcher = (
  * Returns the desired relative of the provided node.
  * Returns null if matching node not found.
  **/
-
 export type NodeFinder = (
   node: SyntaxNode,
   selection?: vscode.Selection
 ) => SyntaxNode | null;
 
 /** Returns one or more selections for a given SyntaxNode */
-
 export type SelectionExtractor = (
   editor: vscode.TextEditor,
   nodes: SyntaxNode
 ) => SelectionWithContext;
 
 /** Represent a single edit/change in the document */
-
 export interface Edit {
   range: vscode.Range;
   text: string;
