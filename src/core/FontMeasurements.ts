@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { Graph } from "../typings/Types";
 
 /**
  * Contains measurements for the user's font
@@ -17,16 +18,16 @@ export default class FontMeasurements {
    */
   characterHeight!: number;
 
-  constructor(private context: vscode.ExtensionContext) {}
+  constructor(private graph: Graph) {}
 
   clearCache() {
-    this.context.globalState.update("fontRatios", undefined);
+    this.graph.extensionContext.globalState.update("fontRatios", undefined);
   }
 
   async calculate() {
     const fontFamily = getFontFamily();
     let widthRatio, heightRatio;
-    let fontRatiosCache = this.context.globalState.get<{
+    let fontRatiosCache = this.graph.extensionContext.globalState.get<{
       widthRatio: number;
       heightRatio: number;
       fontFamily: string;
@@ -34,7 +35,7 @@ export default class FontMeasurements {
 
     if (fontRatiosCache == null || fontRatiosCache.fontFamily !== fontFamily) {
       const fontRatios = await getFontRatios();
-      this.context.globalState.update("fontRatios", {
+      this.graph.extensionContext.globalState.update("fontRatios", {
         ...fontRatios,
         fontFamily,
       });

@@ -7,6 +7,8 @@ import NavigationMap from "../core/NavigationMap";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { FullRangeInfo } from "./updateSelections";
+import Decorations from "../core/Decorations";
+import FontMeasurements from "../core/FontMeasurements";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -46,6 +48,7 @@ export interface LineNumberPosition {
   lineNumber: number;
   isRelative: boolean;
 }
+
 export interface LineNumber {
   type: "lineNumber";
   anchor: LineNumberPosition;
@@ -60,6 +63,7 @@ export type Mark =
   //   | LastCursorPosition Not implemented yet
   | DecoratedSymbol
   | LineNumber;
+
 export type Delimiter =
   | "angleBrackets"
   | "backtickQuotes"
@@ -97,6 +101,7 @@ export type ScopeType =
   | "xmlElement"
   | "xmlEndTag"
   | "xmlStartTag";
+
 export type SubTokenType = "word" | "character";
 
 export interface SurroundingPairModifier {
@@ -104,12 +109,14 @@ export interface SurroundingPairModifier {
   delimiter: Delimiter | null;
   delimitersOnly: boolean;
 }
+
 export interface ContainingScopeModifier {
   type: "containingScope";
   scopeType: ScopeType;
   valueOnly?: boolean;
   includeSiblings?: boolean;
 }
+
 export interface SubTokenModifier {
   type: "subpiece";
   pieceType: SubTokenType;
@@ -118,15 +125,19 @@ export interface SubTokenModifier {
   excludeAnchor?: boolean;
   excludeActive?: boolean;
 }
+
 export interface MatchingPairSymbolModifier {
   type: "matchingPairSymbol";
 }
+
 export interface IdentityModifier {
   type: "identity";
 }
+
 export interface HeadModifier {
   type: "head";
 }
+
 export interface TailModifier {
   type: "tail";
 }
@@ -143,7 +154,9 @@ export type Modifier =
 export type SelectionType =
   //   | "character" Not implemented
   "token" | "line" | "notebookCell" | "paragraph" | "document";
+
 export type Position = "before" | "after" | "contents";
+
 export type InsideOutsideType = "inside" | "outside" | null;
 
 export interface PartialPrimitiveTarget {
@@ -354,6 +367,16 @@ export interface Graph {
    * as the document changes
    */
   readonly rangeUpdater: RangeUpdater;
+
+  /**
+   * Responsible for all the hat styles
+   */
+  readonly decorations: Decorations;
+
+  /**
+   * Takes measurements of the user's font
+   */
+  readonly fontMeasurements: FontMeasurements;
 }
 
 export type NodeMatcherValue = {

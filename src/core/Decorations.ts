@@ -19,6 +19,7 @@ import {
   DEFAULT_HAT_HEIGHT_EM,
   DEFAULT_VERTICAL_OFFSET_EM,
 } from "./shapeAdjustments";
+import { Graph } from "../typings/Types";
 
 export type DecorationMap = {
   [k in HatStyleName]?: vscode.TextEditorDecorationType;
@@ -35,11 +36,9 @@ export default class Decorations {
   hatStyleMap!: Record<HatStyleName, HatStyle>;
   hatStyleNames!: HatStyleName[];
 
-  constructor(
-    fontMeasurements: FontMeasurements,
-    private extensionPath: string
-  ) {
-    this.constructDecorations(fontMeasurements);
+  constructor(private graph: Graph) {
+    this.constructDecorations(graph.fontMeasurements);
+    graph.extensionContext.subscriptions.push(this);
   }
 
   destroyDecorations() {
@@ -209,7 +208,12 @@ export default class Decorations {
     scaleFactor: number,
     hatVerticalOffsetEm: number
   ) {
-    const iconPath = join(this.extensionPath, "images", "hats", `${shape}.svg`);
+    const iconPath = join(
+      this.graph.extensionContext.extensionPath,
+      "images",
+      "hats",
+      `${shape}.svg`
+    );
     const rawSvg = readFileSync(iconPath, "utf8");
     const { characterWidth, characterHeight, fontSize } = fontMeasurements;
 
@@ -271,5 +275,9 @@ export default class Decorations {
     const originalViewBoxHeight = Number(originalViewBoxHeightStr);
 
     return { originalViewBoxHeight, originalViewBoxWidth };
+  }
+
+  dispose() {
+    this.destroyDecorations();
   }
 }

@@ -5,13 +5,28 @@ import { FactoryMap } from "./makeGraph";
 import NavigationMap from "../core/NavigationMap";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import Decorations from "../core/Decorations";
+import FontMeasurements from "../core/FontMeasurements";
 
-const graphFactories: Partial<FactoryMap<Graph>> = {
-  actions: (graph: Graph) => new Actions(graph),
-  editStyles: () => new EditStyles(),
-  navigationMap: (graph: Graph) => new NavigationMap(graph),
-  snippets: (graph: Graph) => new Snippets(graph),
-  rangeUpdater: (graph: Graph) => new RangeUpdater(graph),
+type ConstructorMap<T> = {
+  [P in keyof T]: new (t: T) => T[P];
 };
+
+const graphConstructors: Partial<ConstructorMap<Graph>> = {
+  actions: Actions,
+  editStyles: EditStyles,
+  navigationMap: NavigationMap,
+  decorations: Decorations,
+  fontMeasurements: FontMeasurements,
+  snippets: Snippets,
+  rangeUpdater: RangeUpdater,
+};
+
+const graphFactories: Partial<FactoryMap<Graph>> = Object.fromEntries(
+  Object.entries(graphConstructors).map(([key, constructor]) => [
+    key,
+    (graph: Graph) => new constructor(graph),
+  ])
+);
 
 export default graphFactories;
