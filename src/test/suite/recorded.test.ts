@@ -25,6 +25,7 @@ import {
 import { enableDebugLog } from "../../util/debug";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 import asyncSafety from "./asyncSafety";
+import { doTargetsUseSnapshot } from "../../util/doTargetsRequireSnapshot";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -114,6 +115,9 @@ async function runTest(file: string) {
   // Assert that recorded decorations are present
   checkMarks(fixture.initialState.marks, cursorlessApi.navigationMap);
 
+  const useSnapshot = doTargetsUseSnapshot(fixture.command.partialTargets);
+  // TODO: Issue the barrier if we need to
+
   const returnValue = await vscode.commands.executeCommand(
     "cursorless.command",
     fixture.spokenForm,
@@ -128,7 +132,8 @@ async function runTest(file: string) {
       : marksToPlainObject(
           extractTargetedMarks(
             Object.keys(fixture.finalState.marks) as string[],
-            cursorlessApi.navigationMap
+            cursorlessApi.navigationMap,
+            useSnapshot
           )
         );
 

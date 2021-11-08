@@ -15,6 +15,7 @@ import { canonicalizeAndValidateCommand } from "./util/canonicalizeAndValidateCo
 import { mkdir, stat } from "fs/promises";
 import { join } from "path";
 import { getPrimitiveTargets } from "./util/targetUtils";
+import { doTargetsUseSnapshot } from "./util/doTargetsRequireSnapshot";
 
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
@@ -114,13 +115,8 @@ export async function activate(context: vscode.ExtensionContext) {
             inputExtraArgs
           );
 
-        if (
-          getPrimitiveTargets(partialTargets).some(
-            (partialTarget) =>
-              partialTarget.mark?.type === "decoratedSymbol" &&
-              partialTarget.mark.useSnapshot
-          )
-        ) {
+        const useSnapshot = doTargetsUseSnapshot(partialTargets);
+        if (useSnapshot) {
           await graph.navigationMap.maybeTakeSnapshot();
         }
 
@@ -165,6 +161,7 @@ export async function activate(context: vscode.ExtensionContext) {
             sourceMark,
             navigationMap: graph.navigationMap!,
             spokenForm,
+            useSnapshot,
           };
           await testCaseRecorder.preCommandHook(command, context);
         }

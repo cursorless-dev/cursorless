@@ -1,7 +1,7 @@
 import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
 import { ActionType, PartialTarget, SelectionType } from "../typings/Types";
-import { getPrimitiveTargets } from "./getPrimitiveTargets";
+import { getPartialPrimitiveTargets } from "./getPartialPrimitiveTargets";
 
 export function canonicalizeAndValidateCommand(
   inputActionName: string,
@@ -40,7 +40,7 @@ function usesSelectionType(
   selectionType: SelectionType,
   partialTargets: PartialTarget[]
 ) {
-  return getPrimitiveTargets(partialTargets).some(
+  return getPartialPrimitiveTargets(partialTargets).some(
     (partialTarget) => partialTarget.selectionType === selectionType
   );
 }
