@@ -7,15 +7,15 @@ import { Signal } from "../util/getExtensionApi";
  * Maps from (hatStyle, character) pairs to tokens
  */
 export default class NavigationMap {
-  activeMap: IndividualNavigationMap;
-  mapSnapshot?: IndividualNavigationMap;
+  activeMap: IndividualHatMap;
+  mapSnapshot?: IndividualHatMap;
 
   phraseStartSignal: Signal | null = null;
   lastSignalVersion: string | null = null;
 
   constructor(private graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
-    this.activeMap = new IndividualNavigationMap(graph);
+    this.activeMap = new IndividualHatMap(graph);
     this.phraseStartSignal = graph.commandServerApi?.signals.prePhrase ?? null;
   }
 
@@ -33,23 +33,17 @@ export default class NavigationMap {
     return { hatStyle: hatStyle as HatStyleName, character };
   }
 
-  public getEntries() {
-    return this.activeMap.getEntries();
+  getWritableMap() {
+    return this.getIndividualMap(false) as Promise<WritableHatMap>;
   }
 
-  public addToken(hatStyle: HatStyleName, character: string, token: Token) {
-    this.activeMap.addToken(hatStyle, character, token);
+  getReadableMap(useSnapshot: boolean) {
+    return this.getIndividualMap(useSnapshot) as Promise<ReadableHatMap>;
   }
 
-  public getToken(
-    hatStyle: HatStyleName,
-    character: string,
-    useSnapshot?: boolean
-  ) {
-    return this.getIndividualMap(useSnapshot).getToken(hatStyle, character);
-  }
+  async getIndividualMap(useSnapshot: boolean) {
+    await this.maybeTakeSnapshot();
 
-  private getIndividualMap(useSnapshot: boolean | undefined) {
     if (useSnapshot) {
       if (this.lastSignalVersion == null) {
         console.error(
@@ -69,10 +63,6 @@ export default class NavigationMap {
     }
 
     return this.activeMap;
-  }
-
-  public clear() {
-    this.activeMap.clear();
   }
 
   public dispose() {
@@ -107,7 +97,17 @@ export default class NavigationMap {
   }
 }
 
-class IndividualNavigationMap {
+interface ReadableHatMap {
+  getEntries(): [string, Token][];
+  getToken(hatStyle: HatStyleName, character: string): Token;
+}
+
+interface WritableHatMap {
+  clear(): void;
+  addToken(hatStyle: HatStyleName, character: string, token: Token): void;
+}
+
+class IndividualHatMap implements ReadableHatMap, WritableHatMap {
   private documentTokenLists: Map<string, Token[]> = new Map();
   private deregisterFunctions: (() => void)[] = [];
 
@@ -133,7 +133,7 @@ class IndividualNavigationMap {
   }
 
   public clone() {
-    const ret = new IndividualNavigationMap(this.graph);
+    const ret = new IndividualHatMap(this.graph);
 
     this.getEntries().forEach(([key, token]) => {
       ret.addTokenByKey(key, { ...token });

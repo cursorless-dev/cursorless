@@ -33,7 +33,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
   async function addDecorations() {
     if (isActive) {
-      await graph.navigationMap.maybeTakeSnapshot();
       addDecorationsToEditors(graph.navigationMap, graph.decorations);
     } else {
       vscode.window.visibleTextEditors.forEach(clearEditorDecorations);
