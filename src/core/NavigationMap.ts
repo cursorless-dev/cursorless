@@ -1,8 +1,6 @@
 import { TextDocument } from "vscode";
 import { HatStyleName } from "./constants";
 import { Graph, Token } from "../typings/Types";
-import { mkdir, stat } from "fs/promises";
-import { join } from "path";
 import { Signal } from "../util/getExtensionApi";
 
 /**
@@ -13,7 +11,7 @@ export default class NavigationMap {
   mapSnapshot?: IndividualNavigationMap;
 
   phraseStartSignal: Signal | null = null;
-  lastSignalVersion?: string;
+  lastSignalVersion: string | null = null;
 
   constructor(private graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
@@ -48,21 +46,29 @@ export default class NavigationMap {
     character: string,
     useSnapshot?: boolean
   ) {
-    let individualMap: IndividualNavigationMap;
+    return this.getIndividualMap(useSnapshot).getToken(hatStyle, character);
+  }
 
+  private getIndividualMap(useSnapshot: boolean | undefined) {
     if (useSnapshot) {
-      if (this.mapSnapshot == null) {
-        throw new Error(
-          "Navigation map snapshot requested, but no snapshot has been taken"
+      if (this.lastSignalVersion == null) {
+        console.error(
+          "Snapshot requested but no signal was present; please upgrade command client"
         );
+        return this.activeMap;
       }
 
-      individualMap = this.mapSnapshot;
-    } else {
-      individualMap = this.activeMap;
+      if (this.mapSnapshot == null) {
+        console.error(
+          "Navigation map snapshot requested, but no snapshot has been taken"
+        );
+        return this.activeMap;
+      }
+
+      return this.mapSnapshot;
     }
 
-    return individualMap.getToken(hatStyle, character);
+    return this.activeMap;
   }
 
   public clear() {
@@ -83,8 +89,11 @@ export default class NavigationMap {
 
       if (newSignalVersion !== this.lastSignalVersion) {
         console.debug("taking snapshot");
-        this.takeSnapshot();
         this.lastSignalVersion = newSignalVersion;
+
+        if (newSignalVersion != null) {
+          this.takeSnapshot();
+        }
       }
     }
   }

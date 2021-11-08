@@ -16,7 +16,7 @@ export interface ParseTreeApi {
 }
 
 export interface Signal {
-  getVersion(): Promise<string>;
+  getVersion(): Promise<string | null>;
 }
 
 export interface CommandServerApi {
