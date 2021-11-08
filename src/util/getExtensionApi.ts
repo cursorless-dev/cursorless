@@ -15,8 +15,15 @@ export interface ParseTreeApi {
   loadLanguage: (languageId: string) => Promise<boolean>;
 }
 
+export interface Signal {
+  getVersion(): Promise<string>;
+}
+
 export interface CommandServerApi {
-  getNamedSubdir(name: string): string;
+  signals: {
+    getNamedSignal: (name: string) => Signal;
+    prePhrase: Signal;
+  };
 }
 
 export async function getExtensionApi<T>(extensionId: string) {

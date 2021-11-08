@@ -3,6 +3,7 @@ import { HatStyleName } from "./constants";
 import { Graph, Token } from "../typings/Types";
 import { mkdir, stat } from "fs/promises";
 import { join } from "path";
+import { Signal } from "../util/getExtensionApi";
 
 /**
  * Maps from (hatStyle, character) pairs to tokens
@@ -11,24 +12,13 @@ export default class NavigationMap {
   activeMap: IndividualNavigationMap;
   mapSnapshot?: IndividualNavigationMap;
 
-  hatMapSnapshotSignalPath: string | null = null;
-  lastHatMapSnapshotSignalMtime: number = -1;
+  phraseStartSignal: Signal | null = null;
+  lastSignalVersion?: string;
 
   constructor(private graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
     this.activeMap = new IndividualNavigationMap(graph);
-  }
-
-  async init() {
-    if (this.graph.commandServerApi != null) {
-      const cursorlessSubdir =
-        this.graph.commandServerApi.getNamedSubdir("cursorless");
-      await mkdir(cursorlessSubdir, { recursive: true });
-      this.hatMapSnapshotSignalPath = join(
-        cursorlessSubdir,
-        "hatMapSnapshotSignal"
-      );
-    }
+    this.phraseStartSignal = graph.commandServerApi?.signals.prePhrase ?? null;
   }
 
   static getKey(hatStyle: HatStyleName, character: string) {
@@ -88,20 +78,13 @@ export default class NavigationMap {
   }
 
   async maybeTakeSnapshot() {
-    if (this.hatMapSnapshotSignalPath != null) {
-      try {
-        console.log(this.hatMapSnapshotSignalPath);
-        const newMtime = (await stat(this.hatMapSnapshotSignalPath)).mtimeMs;
+    if (this.phraseStartSignal != null) {
+      const newSignalVersion = await this.phraseStartSignal.getVersion();
 
-        if (newMtime > this.lastHatMapSnapshotSignalMtime) {
-          console.log("taking snapshot");
-          this.takeSnapshot();
-          this.lastHatMapSnapshotSignalMtime = newMtime;
-        }
-      } catch (err) {
-        if ((err as NodeJS.ErrnoException).code !== "ENOENT") {
-          throw err;
-        }
+      if (newSignalVersion !== this.lastSignalVersion) {
+        console.debug("taking snapshot");
+        this.takeSnapshot();
+        this.lastSignalVersion = newSignalVersion;
       }
     }
   }
@@ -111,9 +94,7 @@ export default class NavigationMap {
       this.mapSnapshot.dispose();
     }
 
-    this.mapSnapshot = this.activeMap;
-
-    this.activeMap = new IndividualNavigationMap(this.graph);
+    this.mapSnapshot = this.activeMap.clone();
   }
 }
 
@@ -142,13 +123,27 @@ class IndividualNavigationMap {
     return currentValue;
   }
 
+  public clone() {
+    const ret = new IndividualNavigationMap(this.graph);
+
+    this.getEntries().forEach(([key, token]) => {
+      ret.addTokenByKey(key, { ...token });
+    });
+
+    return ret;
+  }
+
   public getEntries() {
     return Object.entries(this.map);
   }
 
-  public addToken(hatStyle: HatStyleName, character: string, token: Token) {
-    this.map[NavigationMap.getKey(hatStyle, character)] = token;
+  private addTokenByKey(key: string, token: Token) {
+    this.map[key] = token;
     this.getDocumentTokenList(token.editor.document).push(token);
+  }
+
+  public addToken(hatStyle: HatStyleName, character: string, token: Token) {
+    this.addTokenByKey(NavigationMap.getKey(hatStyle, character), token);
   }
 
   public getToken(hatStyle: HatStyleName, character: string) {

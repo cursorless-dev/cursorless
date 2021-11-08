@@ -78,7 +78,6 @@ export async function activate(context: vscode.ExtensionContext) {
   graph.snippets.init();
   await graph.fontMeasurements.calculate();
 
-  await graph.navigationMap.init();
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
   const testCaseRecorder = new TestCaseRecorder(context);
