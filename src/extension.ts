@@ -28,8 +28,8 @@ export async function activate(context: vscode.ExtensionContext) {
     commandServerApi: () => commandServerApi,
   } as FactoryMap<Graph>);
   graph.snippets.init();
+  await graph.decorations.init();
   graph.navigationMap.init();
-  await graph.fontMeasurements.calculate();
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();

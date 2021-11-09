@@ -9,7 +9,7 @@ export interface ReadOnlyHatMap {
 }
 
 export class IndividualHatMap implements ReadOnlyHatMap {
-  private isExpired: boolean = true;
+  private isExpired: boolean = false;
   private documentTokenLists: Map<string, Token[]> = new Map();
   private deregisterFunctions: (() => void)[] = [];
 

@@ -41,7 +41,6 @@ export default class Decorations {
   private disposables: vscode.Disposable[] = [];
 
   constructor(private graph: Graph) {
-    this.constructDecorations(graph.fontMeasurements);
     graph.extensionContext.subscriptions.push(this);
 
     this.recomputeDecorationStyles = this.recomputeDecorationStyles.bind(this);
@@ -57,6 +56,11 @@ export default class Decorations {
 
       vscode.workspace.onDidChangeConfiguration(this.recomputeDecorationStyles)
     );
+  }
+
+  async init() {
+    await this.graph.fontMeasurements.calculate();
+    this.constructDecorations(this.graph.fontMeasurements);
   }
 
   registerDecorationChangeListener(listener: DecorationChangeListener) {
