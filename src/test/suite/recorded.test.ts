@@ -26,6 +26,7 @@ import { enableDebugLog } from "../../util/debug";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 import asyncSafety from "./asyncSafety";
 import { doTargetsUseSnapshot } from "../../util/doTargetsRequireSnapshot";
+import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -66,6 +67,7 @@ async function runTest(file: string) {
 
   const cursorlessApi = await getCursorlessApi();
   const parseTreeApi = await getParseTreeApi();
+  const graph = cursorlessApi.graph!;
 
   await vscode.commands.executeCommand("workbench.action.closeAllEditors");
   const document = await vscode.workspace.openTextDocument({
@@ -109,14 +111,13 @@ async function runTest(file: string) {
     excludeFields.push("clipboard");
   }
 
-  // Wait for cursorless to set up decorations
-  cursorlessApi.addDecorations();
-
-  // Assert that recorded decorations are present
-  checkMarks(fixture.initialState.marks, cursorlessApi.navigationMap);
-
   const useSnapshot = doTargetsUseSnapshot(fixture.command.partialTargets);
   // TODO: Issue the barrier if we need to
+
+  const readableHatMap = await graph.navigationMap.getReadableMap(useSnapshot);
+
+  // Assert that recorded decorations are present
+  checkMarks(fixture.initialState.marks, readableHatMap);
 
   const returnValue = await vscode.commands.executeCommand(
     "cursorless.command",
@@ -132,8 +133,7 @@ async function runTest(file: string) {
       : marksToPlainObject(
           extractTargetedMarks(
             Object.keys(fixture.finalState.marks) as string[],
-            cursorlessApi.navigationMap,
-            useSnapshot
+            readableHatMap
           )
         );
 
@@ -166,7 +166,7 @@ async function runTest(file: string) {
 
 function checkMarks(
   marks: SerializedMarks | undefined,
-  navigationMap: NavigationMap
+  navigationMap: ReadOnlyHatMap
 ) {
   if (marks == null) {
     return;

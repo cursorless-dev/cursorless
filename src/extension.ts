@@ -1,74 +1,26 @@
 import * as vscode from "vscode";
-import { addDecorationsToEditors } from "./util/addDecorationsToEditor";
-import { DECORATION_DEBOUNCE_DELAY } from "./core/constants";
 import graphFactories from "./util/graphFactories";
 import inferFullTargets from "./core/inferFullTargets";
 import processTargets from "./processTargets";
 import { Graph, PartialTarget, ProcessedTargetsContext } from "./typings/Types";
 import makeGraph, { FactoryMap } from "./util/makeGraph";
 import { logBranchTypes } from "./util/debug";
-import { TestCase } from "./testUtil/TestCase";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import { canonicalizeAndValidateCommand } from "./util/canonicalizeAndValidateCommand";
-import { mkdir, stat } from "fs/promises";
-import { join } from "path";
-import { getPrimitiveTargets } from "./util/targetUtils";
 import { doTargetsUseSnapshot } from "./util/doTargetsRequireSnapshot";
 
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
 
-  var isActive = vscode.workspace
-    .getConfiguration("cursorless")
-    .get<boolean>("showOnStart")!;
-
-  function clearEditorDecorations(editor: vscode.TextEditor) {
-    graph.decorations.decorations.forEach(({ decoration }) => {
-      editor.setDecorations(decoration, []);
-    });
+  function handleEdit(edit: vscode.TextDocumentChangeEvent) {
+    // TODO. Disabled for now because it triggers on undo as well
+    //  wait until next release when there is a cause field
+    // checkForEditsOutsideViewport(edit);
   }
-
-  async function addDecorations() {
-    if (isActive) {
-      addDecorationsToEditors(graph.navigationMap, graph.decorations);
-    } else {
-      vscode.window.visibleTextEditors.forEach(clearEditorDecorations);
-      graph.navigationMap.clear();
-    }
-  }
-
-  var timeoutHandle: NodeJS.Timeout | null = null;
-
-  function addDecorationsDebounced() {
-    if (timeoutHandle != null) {
-      clearTimeout(timeoutHandle);
-    }
-
-    timeoutHandle = setTimeout(() => {
-      addDecorations();
-
-      timeoutHandle = null;
-    }, DECORATION_DEBOUNCE_DELAY);
-  }
-
-  const toggleDecorationsDisposable = vscode.commands.registerCommand(
-    "cursorless.toggleDecorations",
-    () => {
-      isActive = !isActive;
-      addDecorationsDebounced();
-    }
-  );
-
-  const recomputeDecorationStylesDisposable = vscode.commands.registerCommand(
-    "cursorless.recomputeDecorationStyles",
-    () => {
-      graph.fontMeasurements.clearCache();
-      recomputeDecorationStyles();
-    }
-  );
+  // vscode.workspace.onDidChangeTextDocument(handleEdit)
 
   const graph = makeGraph({
     ...graphFactories,
@@ -76,6 +28,7 @@ export async function activate(context: vscode.ExtensionContext) {
     commandServerApi: () => commandServerApi,
   } as FactoryMap<Graph>);
   graph.snippets.init();
+  graph.navigationMap.init();
   await graph.fontMeasurements.calculate();
 
   const thatMark = new ThatMark();
@@ -115,9 +68,9 @@ export async function activate(context: vscode.ExtensionContext) {
           );
 
         const useSnapshot = doTargetsUseSnapshot(partialTargets);
-        if (useSnapshot) {
-          await graph.navigationMap.maybeTakeSnapshot();
-        }
+        const readableHatMap = await graph.navigationMap.getReadableMap(
+          useSnapshot
+        );
 
         console.debug(`spokenForm: ${spokenForm}`);
         console.debug(`action: ${actionName}`);
@@ -144,7 +97,7 @@ export async function activate(context: vscode.ExtensionContext) {
               editor: vscode.window.activeTextEditor!,
             })) ?? [],
           currentEditor: vscode.window.activeTextEditor,
-          navigationMap: graph.navigationMap,
+          navigationMap: readableHatMap,
           thatMark: thatMark.exists() ? thatMark.get() : [],
           sourceMark: sourceMark.exists() ? sourceMark.get() : [],
           getNodeAtLocation,
@@ -158,7 +111,7 @@ export async function activate(context: vscode.ExtensionContext) {
             targets,
             thatMark,
             sourceMark,
-            navigationMap: graph.navigationMap!,
+            navigationMap: readableHatMap,
             spokenForm,
             useSnapshot,
           };
@@ -213,8 +166,6 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  addDecorationsDebounced();
-
   function checkForEditsOutsideViewport(event: vscode.TextDocumentChangeEvent) {
     const editor = vscode.window.activeTextEditor;
     if (editor == null || editor.document !== event.document) {
@@ -242,49 +193,18 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   }
 
-  function handleEdit(edit: vscode.TextDocumentChangeEvent) {
-    addDecorationsDebounced();
-
-    // TODO. Disabled for now because it triggers on undo as well
-    //  wait until next release when there is a cause field
-    // checkForEditsOutsideViewport(edit);
-  }
-
-  const recomputeDecorationStyles = async () => {
-    graph.decorations.destroyDecorations();
-    await graph.fontMeasurements.calculate();
-    graph.decorations.constructDecorations(graph.fontMeasurements);
-    addDecorations();
-  };
-
   context.subscriptions.push(
     cursorlessCommandDisposable,
     cursorlessRecordTestCaseDisposable,
-    toggleDecorationsDisposable,
-    recomputeDecorationStylesDisposable,
-    vscode.workspace.onDidChangeConfiguration(recomputeDecorationStyles),
-    vscode.window.onDidChangeTextEditorVisibleRanges(addDecorationsDebounced),
-    vscode.window.onDidChangeActiveTextEditor(addDecorationsDebounced),
-    vscode.window.onDidChangeVisibleTextEditors(addDecorationsDebounced),
-    vscode.window.onDidChangeTextEditorSelection(addDecorationsDebounced),
     vscode.window.onDidChangeTextEditorSelection(
       logBranchTypes(getNodeAtLocation)
-    ),
-    vscode.workspace.onDidChangeTextDocument(handleEdit),
-    {
-      dispose() {
-        if (timeoutHandle != null) {
-          clearTimeout(timeoutHandle);
-        }
-      },
-    }
+    )
   );
 
   return {
-    navigationMap: graph.navigationMap,
     thatMark,
     sourceMark,
-    addDecorations,
+    graph: process.env.CURSORLESS_TEST == null ? undefined : graph,
     experimental: {
       registerThirdPartySnippets: graph.snippets.registerThirdPartySnippets,
     },

@@ -136,8 +136,7 @@ function processDecoratedSymbol(
 ) {
   const token = context.navigationMap.getToken(
     mark.symbolColor,
-    mark.character,
-    mark.useSnapshot
+    mark.character
   );
   if (token == null) {
     throw new Error(

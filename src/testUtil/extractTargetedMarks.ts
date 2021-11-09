@@ -1,4 +1,5 @@
 import { HatStyleName } from "../core/constants";
+import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import NavigationMap from "../core/NavigationMap";
 import { PrimitiveTarget, Target, Token } from "../typings/Types";
 
@@ -31,18 +32,13 @@ export function extractTargetKeys(target: Target): string[] {
 
 export function extractTargetedMarks(
   targetKeys: string[],
-  navigationMap: NavigationMap,
-  useSnapshot: boolean
+  navigationMap: ReadOnlyHatMap
 ) {
   const targetedMarks: { [decoratedCharacter: string]: Token } = {};
 
   targetKeys.forEach((key) => {
     const { hatStyle, character } = NavigationMap.splitKey(key);
-    targetedMarks[key] = navigationMap.getToken(
-      hatStyle,
-      character,
-      useSnapshot
-    );
+    targetedMarks[key] = navigationMap.getToken(hatStyle, character);
   });
 
   return targetedMarks;

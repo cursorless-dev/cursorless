@@ -10,6 +10,7 @@ import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
 import { takeSnapshot, TestCaseSnapshot } from "./takeSnapshot";
 import serialize from "./serialize";
 import { pick } from "lodash";
+import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 
 export type TestCaseCommand = {
   actionName: ActionType;
@@ -22,7 +23,7 @@ export type TestCaseContext = {
   thatMark: ThatMark;
   sourceMark: ThatMark;
   targets: Target[];
-  navigationMap: NavigationMap;
+  navigationMap: ReadOnlyHatMap;
   useSnapshot: boolean;
 };
 
@@ -82,7 +83,7 @@ export class TestCase {
       // referenced in the expected follow up command
       marks = Object.fromEntries(navigationMap.getEntries());
     } else {
-      marks = extractTargetedMarks(this.targetKeys, navigationMap, useSnapshot);
+      marks = extractTargetedMarks(this.targetKeys, navigationMap);
     }
 
     return marksToPlainObject(marks);

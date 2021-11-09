@@ -10,6 +10,7 @@ import { FullRangeInfo } from "./updateSelections";
 import Decorations from "../core/Decorations";
 import FontMeasurements from "../core/FontMeasurements";
 import { CommandServerApi } from "../util/getExtensionApi";
+import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -234,7 +235,7 @@ export type Target = PrimitiveTarget | RangeTarget | ListTarget;
 export interface ProcessedTargetsContext {
   currentSelections: SelectionWithEditor[];
   currentEditor: vscode.TextEditor | undefined;
-  navigationMap: NavigationMap;
+  navigationMap: ReadOnlyHatMap;
   thatMark: SelectionWithEditor[];
   sourceMark: SelectionWithEditor[];
   getNodeAtLocation: (location: Location) => SyntaxNode;

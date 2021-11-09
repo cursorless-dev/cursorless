@@ -6,8 +6,8 @@ import { getTokensInRange } from "./getTokensInRange";
 import { Token } from "../typings/Types";
 import Decorations from "../core/Decorations";
 import { HatStyleName } from "../core/constants";
-import NavigationMap from "../core/NavigationMap";
 import { TOKEN_MATCHER } from "../core/tokenizer";
+import { IndividualHatMap } from "../core/IndividualHatMap";
 
 interface CharacterTokenInfo {
   characterIdx: number;
@@ -15,7 +15,7 @@ interface CharacterTokenInfo {
 }
 
 export function addDecorationsToEditors(
-  navigationMap: NavigationMap,
+  navigationMap: IndividualHatMap,
   decorations: Decorations
 ) {
   navigationMap.clear();

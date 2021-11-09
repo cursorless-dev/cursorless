@@ -1,13 +1,16 @@
 import * as vscode from "vscode";
 import { ThatMark } from "../core/ThatMark";
-import NavigationMap from "../core/NavigationMap";
 import { SyntaxNode } from "web-tree-sitter";
+import { Graph } from "../typings/Types";
 
 export interface CursorlessApi {
   thatMark: ThatMark;
   sourceMark: ThatMark;
-  navigationMap: NavigationMap;
-  addDecorations: () => void;
+
+  /**
+   * The dependency injection graph object used by cursorless. Only exposed during testing
+   */
+  graph?: Graph;
 }
 
 export interface ParseTreeApi {

@@ -1,22 +1,34 @@
-import { TextDocument } from "vscode";
 import { HatStyleName } from "./constants";
-import { Graph, Token } from "../typings/Types";
+import { Graph } from "../typings/Types";
 import { Signal } from "../util/getExtensionApi";
+import { IndividualHatMap, ReadOnlyHatMap } from "./IndividualHatMap";
+import { HatAllocator } from "./HatAllocator";
 
 /**
  * Maps from (hatStyle, character) pairs to tokens
  */
 export default class NavigationMap {
-  activeMap: IndividualHatMap;
-  mapSnapshot?: IndividualHatMap;
+  private activeMap: IndividualHatMap;
+  private mapSnapshot?: IndividualHatMap;
 
-  phraseStartSignal: Signal | null = null;
-  lastSignalVersion: string | null = null;
+  private phraseStartSignal: Signal | null = null;
+  private lastSignalVersion: string | null = null;
+  private hatAllocator: HatAllocator;
 
   constructor(private graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
     this.activeMap = new IndividualHatMap(graph);
     this.phraseStartSignal = graph.commandServerApi?.signals.prePhrase ?? null;
+
+    this.getActiveMap = this.getActiveMap.bind(this);
+
+    this.hatAllocator = new HatAllocator(graph, {
+      getActiveMap: this.getActiveMap,
+    });
+  }
+
+  init() {
+    this.hatAllocator.addDecorations();
   }
 
   static getKey(hatStyle: HatStyleName, character: string) {
@@ -33,15 +45,12 @@ export default class NavigationMap {
     return { hatStyle: hatStyle as HatStyleName, character };
   }
 
-  getWritableMap() {
-    return this.getIndividualMap(false) as Promise<WritableHatMap>;
+  private async getActiveMap() {
+    await this.maybeTakeSnapshot();
+    return this.activeMap;
   }
 
-  getReadableMap(useSnapshot: boolean) {
-    return this.getIndividualMap(useSnapshot) as Promise<ReadableHatMap>;
-  }
-
-  async getIndividualMap(useSnapshot: boolean) {
+  async getReadableMap(useSnapshot: boolean): Promise<ReadOnlyHatMap> {
     await this.maybeTakeSnapshot();
 
     if (useSnapshot) {
@@ -73,7 +82,7 @@ export default class NavigationMap {
     }
   }
 
-  async maybeTakeSnapshot() {
+  private async maybeTakeSnapshot() {
     if (this.phraseStartSignal != null) {
       const newSignalVersion = await this.phraseStartSignal.getVersion();
 
@@ -94,78 +103,5 @@ export default class NavigationMap {
     }
 
     this.mapSnapshot = this.activeMap.clone();
-  }
-}
-
-interface ReadableHatMap {
-  getEntries(): [string, Token][];
-  getToken(hatStyle: HatStyleName, character: string): Token;
-}
-
-interface WritableHatMap {
-  clear(): void;
-  addToken(hatStyle: HatStyleName, character: string, token: Token): void;
-}
-
-class IndividualHatMap implements ReadableHatMap, WritableHatMap {
-  private documentTokenLists: Map<string, Token[]> = new Map();
-  private deregisterFunctions: (() => void)[] = [];
-
-  private map: {
-    [decoratedCharacter: string]: Token;
-  } = {};
-
-  constructor(private graph: Graph) {}
-
-  private getDocumentTokenList(document: TextDocument) {
-    const key = document.uri.toString();
-    let currentValue = this.documentTokenLists.get(key);
-
-    if (currentValue == null) {
-      currentValue = [];
-      this.documentTokenLists.set(key, currentValue);
-      this.deregisterFunctions.push(
-        this.graph.rangeUpdater.registerRangeInfoList(document, currentValue)
-      );
-    }
-
-    return currentValue;
-  }
-
-  public clone() {
-    const ret = new IndividualHatMap(this.graph);
-
-    this.getEntries().forEach(([key, token]) => {
-      ret.addTokenByKey(key, { ...token });
-    });
-
-    return ret;
-  }
-
-  public getEntries() {
-    return Object.entries(this.map);
-  }
-
-  private addTokenByKey(key: string, token: Token) {
-    this.map[key] = token;
-    this.getDocumentTokenList(token.editor.document).push(token);
-  }
-
-  public addToken(hatStyle: HatStyleName, character: string, token: Token) {
-    this.addTokenByKey(NavigationMap.getKey(hatStyle, character), token);
-  }
-
-  public getToken(hatStyle: HatStyleName, character: string) {
-    return this.map[NavigationMap.getKey(hatStyle, character)];
-  }
-
-  public clear() {
-    this.map = {};
-    this.documentTokenLists = new Map();
-    this.deregisterFunctions.forEach((func) => func());
-  }
-
-  public dispose() {
-    this.deregisterFunctions.forEach((func) => func());
   }
 }
