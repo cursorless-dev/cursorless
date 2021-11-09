@@ -427,7 +427,7 @@
 		"watch": "tsc -watch -p ./",
 		"pretest": "yarn run compile && yarn run lint && yarn run esbuild",
 		"lint": "eslint src --ext ts",
-		"test": "CURSORLESS_TEST=true node ./out/test/runTest.js"
+		"test": "env CURSORLESS_TEST=true node ./out/test/runTest.js"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.3",
