@@ -24,7 +24,6 @@ export type TestCaseContext = {
   sourceMark: ThatMark;
   targets: Target[];
   navigationMap: ReadOnlyHatMap;
-  useSnapshot: boolean;
 };
 
 export type TestCaseFixture = {
@@ -75,7 +74,7 @@ export class TestCase {
   private getMarks() {
     let marks: Record<string, Token>;
 
-    const { navigationMap, useSnapshot } = this.context;
+    const { navigationMap } = this.context;
 
     if (this.isNavigationMapTest) {
       // If we're doing a navigation map test, then we grab the entire

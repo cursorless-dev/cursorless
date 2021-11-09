@@ -113,7 +113,6 @@ export async function activate(context: vscode.ExtensionContext) {
             sourceMark,
             navigationMap: readableHatMap,
             spokenForm,
-            useSnapshot,
           };
           await testCaseRecorder.preCommandHook(command, context);
         }
