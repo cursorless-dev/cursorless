@@ -4,7 +4,7 @@ import { isLineSelectionType } from "./selectionType";
 import { promisify } from "util";
 import { runOnTargetsForEachEditor, runForEachEditor } from "./targetUtils";
 import { EditStyle } from "../core/editStyles";
-import { IS_TESTING } from "../core/constants";
+import isTesting from "../testUtil/isTesting";
 
 const sleep = promisify(setTimeout);
 
@@ -14,7 +14,7 @@ const getPendingEditDecorationTime = () =>
     .get<number>("pendingEditDecorationTime")!;
 
 export async function decorationSleep() {
-  if (IS_TESTING) {
+  if (isTesting()) {
     return;
   }
 
