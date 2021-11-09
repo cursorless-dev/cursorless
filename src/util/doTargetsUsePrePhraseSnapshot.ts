@@ -2,10 +2,12 @@ import { DecoratedSymbol, PartialTarget } from "../typings/Types";
 import { uniq } from "lodash";
 import { getPartialPrimitiveTargets } from "./targetUtils";
 
-export function doTargetsUseSnapshot(targets: PartialTarget[]): boolean {
+export function doTargetsUsePrePhraseSnapshot(
+  targets: PartialTarget[]
+): boolean {
   const snapshotIds = getPartialPrimitiveTargets(targets)
     .filter((target) => target.mark?.type === "decoratedSymbol")
-    .map((target) => (target.mark as DecoratedSymbol).useSnapshot);
+    .map((target) => (target.mark as DecoratedSymbol).usePrePhraseSnapshot);
 
   if (snapshotIds.length === 0) {
     return false;

@@ -9,7 +9,7 @@ import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import { canonicalizeAndValidateCommand } from "./util/canonicalizeAndValidateCommand";
-import { doTargetsUseSnapshot } from "./util/doTargetsUseSnapshot";
+import { doTargetsUsePrePhraseSnapshot } from "./util/doTargetsUsePrePhraseSnapshot";
 
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
@@ -67,9 +67,10 @@ export async function activate(context: vscode.ExtensionContext) {
             inputExtraArgs
           );
 
-        const useSnapshot = doTargetsUseSnapshot(partialTargets);
+        const usePrePhraseSnapshot =
+          doTargetsUsePrePhraseSnapshot(partialTargets);
         const readableHatMap = await graph.navigationMap.getReadableMap(
-          useSnapshot
+          usePrePhraseSnapshot
         );
 
         console.debug(`spokenForm: ${spokenForm}`);

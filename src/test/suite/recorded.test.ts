@@ -25,8 +25,8 @@ import {
 import { enableDebugLog } from "../../util/debug";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 import asyncSafety from "./asyncSafety";
-import { doTargetsUseSnapshot } from "../../util/doTargetsUseSnapshot";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
+import { doTargetsUsePrePhraseSnapshot } from "../../util/doTargetsUsePrePhraseSnapshot";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -111,10 +111,14 @@ async function runTest(file: string) {
     excludeFields.push("clipboard");
   }
 
-  const useSnapshot = doTargetsUseSnapshot(fixture.command.partialTargets);
+  const usePrePhraseSnapshot = doTargetsUsePrePhraseSnapshot(
+    fixture.command.partialTargets
+  );
   // TODO: Issue the barrier if we need to
 
-  const readableHatMap = await graph.navigationMap.getReadableMap(useSnapshot);
+  const readableHatMap = await graph.navigationMap.getReadableMap(
+    usePrePhraseSnapshot
+  );
 
   // Assert that recorded decorations are present
   checkMarks(fixture.initialState.marks, readableHatMap);

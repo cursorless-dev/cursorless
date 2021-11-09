@@ -44,7 +44,7 @@ export interface DecoratedSymbol {
   type: "decoratedSymbol";
   symbolColor: HatStyleName;
   character: string;
-  useSnapshot?: boolean;
+  usePrePhraseSnapshot?: boolean;
 }
 
 export type LineNumberType = "absolute" | "relative" | "modulo100";

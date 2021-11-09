@@ -9,7 +9,7 @@ import { HatAllocator } from "./HatAllocator";
  */
 export default class NavigationMap {
   private activeMap: IndividualHatMap;
-  private mapSnapshot?: IndividualHatMap;
+  private prePhraseMapSnapshot?: IndividualHatMap;
 
   private phraseStartSignal: Signal | null = null;
   private lastSignalVersion: string | null = null;
@@ -46,7 +46,7 @@ export default class NavigationMap {
   }
 
   private async getActiveMap() {
-    await this.maybeTakeSnapshot();
+    await this.maybeTakePrePhraseSnapshot();
     return this.activeMap;
   }
 
@@ -56,28 +56,28 @@ export default class NavigationMap {
    *
    * Please do not hold onto this copy beyond the lifetime of a single command,
    * because it will get stale.
-   * @param useSnapshot Whether to use pre-phrase snapshot
+   * @param usePrePhraseSnapshot Whether to use pre-phrase snapshot
    * @returns A readable snapshot of the map
    */
-  async getReadableMap(useSnapshot: boolean): Promise<ReadOnlyHatMap> {
-    await this.maybeTakeSnapshot();
+  async getReadableMap(usePrePhraseSnapshot: boolean): Promise<ReadOnlyHatMap> {
+    await this.maybeTakePrePhraseSnapshot();
 
-    if (useSnapshot) {
+    if (usePrePhraseSnapshot) {
       if (this.lastSignalVersion == null) {
         console.error(
-          "Snapshot requested but no signal was present; please upgrade command client"
+          "Pre phrase snapshot requested but no signal was present; please upgrade command client"
         );
         return this.activeMap;
       }
 
-      if (this.mapSnapshot == null) {
+      if (this.prePhraseMapSnapshot == null) {
         console.error(
-          "Navigation map snapshot requested, but no snapshot has been taken"
+          "Navigation map pre-phrase snapshot requested, but no snapshot has been taken"
         );
         return this.activeMap;
       }
 
-      return this.mapSnapshot;
+      return this.prePhraseMapSnapshot;
     }
 
     return this.activeMap;
@@ -86,12 +86,12 @@ export default class NavigationMap {
   public dispose() {
     this.activeMap.dispose();
 
-    if (this.mapSnapshot != null) {
-      this.mapSnapshot.dispose();
+    if (this.prePhraseMapSnapshot != null) {
+      this.prePhraseMapSnapshot.dispose();
     }
   }
 
-  private async maybeTakeSnapshot() {
+  private async maybeTakePrePhraseSnapshot() {
     if (this.phraseStartSignal != null) {
       const newSignalVersion = await this.phraseStartSignal.getVersion();
 
@@ -100,17 +100,17 @@ export default class NavigationMap {
         this.lastSignalVersion = newSignalVersion;
 
         if (newSignalVersion != null) {
-          this.takeSnapshot();
+          this.takePrePhraseSnapshot();
         }
       }
     }
   }
 
-  private takeSnapshot() {
-    if (this.mapSnapshot != null) {
-      this.mapSnapshot.dispose();
+  private takePrePhraseSnapshot() {
+    if (this.prePhraseMapSnapshot != null) {
+      this.prePhraseMapSnapshot.dispose();
     }
 
-    this.mapSnapshot = this.activeMap.clone();
+    this.prePhraseMapSnapshot = this.activeMap.clone();
   }
 }
