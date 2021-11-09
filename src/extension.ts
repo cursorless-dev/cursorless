@@ -9,7 +9,7 @@ import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import { canonicalizeAndValidateCommand } from "./util/canonicalizeAndValidateCommand";
-import { doTargetsUseSnapshot } from "./util/doTargetsRequireSnapshot";
+import { doTargetsUseSnapshot } from "./util/doTargetsUseSnapshot";
 
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();

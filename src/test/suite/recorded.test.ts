@@ -25,7 +25,7 @@ import {
 import { enableDebugLog } from "../../util/debug";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 import asyncSafety from "./asyncSafety";
-import { doTargetsUseSnapshot } from "../../util/doTargetsRequireSnapshot";
+import { doTargetsUseSnapshot } from "../../util/doTargetsUseSnapshot";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 
 function createPosition(position: PositionPlainObject) {
