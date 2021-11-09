@@ -1,3 +1,5 @@
+export const IS_TESTING = process.env.CURSORLESS_TEST != null;
+
 export const SUBWORD_MATCHER = /[A-Z]?[a-z]+|[A-Z]+(?![a-z])|[0-9]+/g;
 
 export const DECORATION_DEBOUNCE_DELAY = 175;

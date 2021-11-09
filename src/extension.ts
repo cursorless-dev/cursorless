@@ -10,6 +10,7 @@ import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import { canonicalizeAndValidateCommand } from "./util/canonicalizeAndValidateCommand";
 import { doTargetsUsePrePhraseSnapshot } from "./util/doTargetsUsePrePhraseSnapshot";
+import { IS_TESTING } from "./core/constants";
 
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
@@ -204,7 +205,7 @@ export async function activate(context: vscode.ExtensionContext) {
   return {
     thatMark,
     sourceMark,
-    graph: process.env.CURSORLESS_TEST == null ? undefined : graph,
+    graph: IS_TESTING ? graph : undefined,
     experimental: {
       registerThirdPartySnippets: graph.snippets.registerThirdPartySnippets,
     },

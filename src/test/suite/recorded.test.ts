@@ -18,9 +18,9 @@ import {
 } from "../../testUtil/toPlainObject";
 import { walkFilesSync } from "../../testUtil/walkSync";
 import {
-  CursorlessApi,
   getCursorlessApi,
   getParseTreeApi,
+  Signal,
 } from "../../util/getExtensionApi";
 import { enableDebugLog } from "../../util/debug";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
@@ -111,10 +111,24 @@ async function runTest(file: string) {
     excludeFields.push("clipboard");
   }
 
+  await graph.hatTokenMap.addDecorations();
+
   const usePrePhraseSnapshot = doTargetsUsePrePhraseSnapshot(
     fixture.command.partialTargets
   );
-  // TODO: Issue the barrier if we need to
+
+  if (usePrePhraseSnapshot) {
+    sinon.replaceGetter(graph, "commandServerApi", () => ({
+      signals: {
+        getNamedSignal(name: string) {
+          return {} as Signal;
+        },
+        prePhrase: {
+          getVersion: async () => "version",
+        } as Signal,
+      },
+    }));
+  }
 
   const readableHatMap = await graph.hatTokenMap.getReadableMap(
     usePrePhraseSnapshot

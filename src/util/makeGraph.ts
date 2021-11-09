@@ -1,3 +1,5 @@
+import { IS_TESTING } from "../core/constants";
+
 export type FactoryMap<T> = {
   [P in keyof T]: (t: T) => T[P];
 };
@@ -37,6 +39,7 @@ export default function makeGraph<GraphType extends object>(
         factoryMap,
         key as keyof GraphType
       ),
+      configurable: IS_TESTING,
     });
   });
 

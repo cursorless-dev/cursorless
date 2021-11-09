@@ -11,14 +11,12 @@ export default class HatTokenMap {
   private activeMap: IndividualHatMap;
   private prePhraseMapSnapshot?: IndividualHatMap;
 
-  private phraseStartSignal: Signal | null = null;
   private lastSignalVersion: string | null = null;
   private hatAllocator: HatAllocator;
 
   constructor(private graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
     this.activeMap = new IndividualHatMap(graph);
-    this.phraseStartSignal = graph.commandServerApi?.signals.prePhrase ?? null;
 
     this.getActiveMap = this.getActiveMap.bind(this);
 
@@ -28,7 +26,11 @@ export default class HatTokenMap {
   }
 
   init() {
-    this.hatAllocator.addDecorations();
+    return this.hatAllocator.addDecorations();
+  }
+
+  addDecorations() {
+    return this.hatAllocator.addDecorations();
   }
 
   static getKey(hatStyle: HatStyleName, character: string) {
@@ -92,8 +94,10 @@ export default class HatTokenMap {
   }
 
   private async maybeTakePrePhraseSnapshot() {
-    if (this.phraseStartSignal != null) {
-      const newSignalVersion = await this.phraseStartSignal.getVersion();
+    const phraseStartSignal = this.graph.commandServerApi?.signals.prePhrase;
+
+    if (phraseStartSignal != null) {
+      const newSignalVersion = await phraseStartSignal.getVersion();
 
       if (newSignalVersion !== this.lastSignalVersion) {
         console.debug("taking snapshot");
