@@ -50,6 +50,15 @@ export default class NavigationMap {
     return this.activeMap;
   }
 
+  /**
+   * Returns a transient, read-only hat map for use during the course of a
+   * single command.
+   *
+   * Please do not hold onto this copy beyond the lifetime of a single command,
+   * because it will get stale.
+   * @param useSnapshot Whether to use pre-phrase snapshot
+   * @returns A readable snapshot of the map
+   */
   async getReadableMap(useSnapshot: boolean): Promise<ReadOnlyHatMap> {
     await this.maybeTakeSnapshot();
 
