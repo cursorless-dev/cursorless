@@ -5,7 +5,7 @@ import * as path from "path";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import { TestCaseFixture } from "../../testUtil/TestCase";
-import NavigationMap from "../../core/NavigationMap";
+import HatTokenMap from "../../core/HatTokenMap";
 import * as sinon from "sinon";
 import { Clipboard } from "../../util/Clipboard";
 import { takeSnapshot } from "../../testUtil/takeSnapshot";
@@ -116,7 +116,7 @@ async function runTest(file: string) {
   );
   // TODO: Issue the barrier if we need to
 
-  const readableHatMap = await graph.navigationMap.getReadableMap(
+  const readableHatMap = await graph.hatTokenMap.getReadableMap(
     usePrePhraseSnapshot
   );
 
@@ -170,15 +170,15 @@ async function runTest(file: string) {
 
 function checkMarks(
   marks: SerializedMarks | undefined,
-  navigationMap: ReadOnlyHatMap
+  hatTokenMap: ReadOnlyHatMap
 ) {
   if (marks == null) {
     return;
   }
 
   Object.entries(marks).forEach(([key, token]) => {
-    const { hatStyle, character } = NavigationMap.splitKey(key);
-    const currentToken = navigationMap.getToken(hatStyle, character);
+    const { hatStyle, character } = HatTokenMap.splitKey(key);
+    const currentToken = hatTokenMap.getToken(hatStyle, character);
     assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
     assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
   });

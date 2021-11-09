@@ -134,7 +134,7 @@ function processDecoratedSymbol(
   context: ProcessedTargetsContext,
   mark: DecoratedSymbol
 ) {
-  const token = context.navigationMap.getToken(
+  const token = context.hatTokenMap.getToken(
     mark.symbolColor,
     mark.character
   );

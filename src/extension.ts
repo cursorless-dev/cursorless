@@ -29,7 +29,7 @@ export async function activate(context: vscode.ExtensionContext) {
   } as FactoryMap<Graph>);
   graph.snippets.init();
   await graph.decorations.init();
-  graph.navigationMap.init();
+  graph.hatTokenMap.init();
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
@@ -37,12 +37,12 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
     "cursorless.recordTestCase",
-    async (isNavigationMapTest: boolean = false) => {
+    async (isHatTokenMapTest: boolean = false) => {
       if (testCaseRecorder.active) {
         vscode.window.showInformationMessage("Stopped recording test cases");
         testCaseRecorder.stop();
       } else {
-        if (await testCaseRecorder.start(isNavigationMapTest)) {
+        if (await testCaseRecorder.start(isHatTokenMapTest)) {
           vscode.window.showInformationMessage(
             `Recording test cases for following commands in:\n${testCaseRecorder.fixtureSubdirectory}`
           );
@@ -69,7 +69,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         const usePrePhraseSnapshot =
           doTargetsUsePrePhraseSnapshot(partialTargets);
-        const readableHatMap = await graph.navigationMap.getReadableMap(
+        const readableHatMap = await graph.hatTokenMap.getReadableMap(
           usePrePhraseSnapshot
         );
 
@@ -98,7 +98,7 @@ export async function activate(context: vscode.ExtensionContext) {
               editor: vscode.window.activeTextEditor!,
             })) ?? [],
           currentEditor: vscode.window.activeTextEditor,
-          navigationMap: readableHatMap,
+          hatTokenMap: readableHatMap,
           thatMark: thatMark.exists() ? thatMark.get() : [],
           sourceMark: sourceMark.exists() ? sourceMark.get() : [],
           getNodeAtLocation,
@@ -112,7 +112,7 @@ export async function activate(context: vscode.ExtensionContext) {
             targets,
             thatMark,
             sourceMark,
-            navigationMap: readableHatMap,
+            hatTokenMap: readableHatMap,
             spokenForm,
           };
           await testCaseRecorder.preCommandHook(command, context);
@@ -154,7 +154,7 @@ export async function activate(context: vscode.ExtensionContext) {
         //   { flag: "a" }
         // );
 
-        // const processedTargets = processTargets(navigationMap!, targets);
+        // const processedTargets = processTargets(hatTokenMap!, targets);
       } catch (e) {
         testCaseRecorder.commandErrorHook();
         const err = e as Error;

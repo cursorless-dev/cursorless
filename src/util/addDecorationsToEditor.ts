@@ -15,10 +15,10 @@ interface CharacterTokenInfo {
 }
 
 export function addDecorationsToEditors(
-  navigationMap: IndividualHatMap,
+  hatTokenMap: IndividualHatMap,
   decorations: Decorations
 ) {
-  navigationMap.clear();
+  hatTokenMap.clear();
 
   var editors: vscode.TextEditor[];
 
@@ -152,7 +152,7 @@ export function addDecorationsToEditors(
         )
       );
 
-    navigationMap.addToken(hatStyleName, bestCharacter.character, token);
+    hatTokenMap.addToken(hatStyleName, bestCharacter.character, token);
 
     characterDecorationIndices[bestCharacter.character] =
       currentDecorationIndex + 1;

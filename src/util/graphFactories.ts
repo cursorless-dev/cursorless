@@ -2,7 +2,7 @@ import Actions from "../actions";
 import { EditStyles } from "../core/editStyles";
 import { Graph } from "../typings/Types";
 import { FactoryMap } from "./makeGraph";
-import NavigationMap from "../core/NavigationMap";
+import HatTokenMap from "../core/HatTokenMap";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import Decorations from "../core/Decorations";
@@ -15,7 +15,7 @@ type ConstructorMap<T> = {
 const graphConstructors: Partial<ConstructorMap<Graph>> = {
   actions: Actions,
   editStyles: EditStyles,
-  navigationMap: NavigationMap,
+  hatTokenMap: HatTokenMap,
   decorations: Decorations,
   fontMeasurements: FontMeasurements,
   snippets: Snippets,

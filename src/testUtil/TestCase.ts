@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import NavigationMap from "../core/NavigationMap";
+import HatTokenMap from "../core/HatTokenMap";
 import { ThatMark } from "../core/ThatMark";
 import { ActionType, PartialTarget, Target, Token } from "../typings/Types";
 import {
@@ -23,7 +23,7 @@ export type TestCaseContext = {
   thatMark: ThatMark;
   sourceMark: ThatMark;
   targets: Target[];
-  navigationMap: ReadOnlyHatMap;
+  hatTokenMap: ReadOnlyHatMap;
 };
 
 export type TestCaseFixture = {
@@ -57,7 +57,7 @@ export class TestCase {
   constructor(
     private command: TestCaseCommand,
     private context: TestCaseContext,
-    private isNavigationMapTest: boolean = false
+    private isHatTokenMapTest: boolean = false
   ) {
     const activeEditor = vscode.window.activeTextEditor!;
 
@@ -68,21 +68,21 @@ export class TestCase {
     this.spokenForm = spokenForm;
     this.languageId = activeEditor.document.languageId;
     this.fullTargets = targets;
-    this._awaitingFinalMarkInfo = isNavigationMapTest;
+    this._awaitingFinalMarkInfo = isHatTokenMapTest;
   }
 
   private getMarks() {
     let marks: Record<string, Token>;
 
-    const { navigationMap } = this.context;
+    const { hatTokenMap } = this.context;
 
-    if (this.isNavigationMapTest) {
+    if (this.isHatTokenMapTest) {
       // If we're doing a navigation map test, then we grab the entire
       // navigation map because we'll filter it later based on the marks
       // referenced in the expected follow up command
-      marks = Object.fromEntries(navigationMap.getEntries());
+      marks = Object.fromEntries(hatTokenMap.getEntries());
     } else {
-      marks = extractTargetedMarks(this.targetKeys, navigationMap);
+      marks = extractTargetedMarks(this.targetKeys, hatTokenMap);
     }
 
     return marksToPlainObject(marks);
@@ -164,7 +164,7 @@ export class TestCase {
       this.context.thatMark,
       this.context.sourceMark,
       excludeFields,
-      this.isNavigationMapTest ? this.getMarks() : undefined
+      this.isHatTokenMapTest ? this.getMarks() : undefined
     );
   }
 

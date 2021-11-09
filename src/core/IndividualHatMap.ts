@@ -1,7 +1,7 @@
 import { TextDocument } from "vscode";
 import { HatStyleName } from "./constants";
 import { Graph, Token } from "../typings/Types";
-import NavigationMap from "./NavigationMap";
+import HatTokenMap from "./HatTokenMap";
 
 export interface ReadOnlyHatMap {
   getEntries(): [string, Token][];
@@ -55,12 +55,12 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   }
 
   addToken(hatStyle: HatStyleName, character: string, token: Token) {
-    this.addTokenByKey(NavigationMap.getKey(hatStyle, character), token);
+    this.addTokenByKey(HatTokenMap.getKey(hatStyle, character), token);
   }
 
   getToken(hatStyle: HatStyleName, character: string) {
     this.checkExpired();
-    return this.map[NavigationMap.getKey(hatStyle, character)];
+    return this.map[HatTokenMap.getKey(hatStyle, character)];
   }
 
   clear() {

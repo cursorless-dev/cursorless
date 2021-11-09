@@ -12,7 +12,7 @@ export class TestCaseRecorder {
   fixtureRoot: string | null;
   fixtureSubdirectory: string | null = null;
   testCase: TestCase | null = null;
-  isNavigationMapTest: boolean = false;
+  isHatTokenMapTest: boolean = false;
 
   constructor(extensionContext: vscode.ExtensionContext) {
     this.workspacePath =
@@ -29,10 +29,10 @@ export class TestCaseRecorder {
       : null;
   }
 
-  async start(isNavigationMapTest: boolean = false): Promise<boolean> {
+  async start(isHatTokenMapTest: boolean = false): Promise<boolean> {
     this.active = await this.promptSubdirectory();
     if (this.active) {
-      this.isNavigationMapTest = isNavigationMapTest;
+      this.isHatTokenMapTest = isHatTokenMapTest;
     }
     return this.active;
   }
@@ -54,7 +54,7 @@ export class TestCaseRecorder {
       await this.finishTestCase();
     } else {
       // Otherwise, we are starting a new test case
-      this.testCase = new TestCase(command, context, this.isNavigationMapTest);
+      this.testCase = new TestCase(command, context, this.isHatTokenMapTest);
       await this.testCase.recordInitialState();
     }
   }

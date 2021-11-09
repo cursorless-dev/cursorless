@@ -7,7 +7,7 @@ import { HatAllocator } from "./HatAllocator";
 /**
  * Maps from (hatStyle, character) pairs to tokens
  */
-export default class NavigationMap {
+export default class HatTokenMap {
   private activeMap: IndividualHatMap;
   private prePhraseMapSnapshot?: IndividualHatMap;
 

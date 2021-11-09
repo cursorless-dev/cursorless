@@ -1,6 +1,6 @@
 import { HatStyleName } from "../core/constants";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
-import NavigationMap from "../core/NavigationMap";
+import HatTokenMap from "../core/HatTokenMap";
 import { PrimitiveTarget, Target, Token } from "../typings/Types";
 
 function extractPrimitiveTargetKeys(...targets: PrimitiveTarget[]) {
@@ -8,7 +8,7 @@ function extractPrimitiveTargetKeys(...targets: PrimitiveTarget[]) {
   targets.forEach((target) => {
     if (target.mark.type === "decoratedSymbol") {
       const { character, symbolColor } = target.mark;
-      keys.push(NavigationMap.getKey(symbolColor, character));
+      keys.push(HatTokenMap.getKey(symbolColor, character));
     }
   });
   return keys;
@@ -32,13 +32,13 @@ export function extractTargetKeys(target: Target): string[] {
 
 export function extractTargetedMarks(
   targetKeys: string[],
-  navigationMap: ReadOnlyHatMap
+  hatTokenMap: ReadOnlyHatMap
 ) {
   const targetedMarks: { [decoratedCharacter: string]: Token } = {};
 
   targetKeys.forEach((key) => {
-    const { hatStyle, character } = NavigationMap.splitKey(key);
-    targetedMarks[key] = navigationMap.getToken(hatStyle, character);
+    const { hatStyle, character } = HatTokenMap.splitKey(key);
+    targetedMarks[key] = hatTokenMap.getToken(hatStyle, character);
   });
 
   return targetedMarks;

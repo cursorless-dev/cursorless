@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 import { ExtensionContext, Location, Selection } from "vscode";
 import { HatStyleName } from "../core/constants";
 import { EditStyles } from "../core/editStyles";
-import NavigationMap from "../core/NavigationMap";
+import HatTokenMap from "../core/HatTokenMap";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { FullRangeInfo } from "./updateSelections";
@@ -235,7 +235,7 @@ export type Target = PrimitiveTarget | RangeTarget | ListTarget;
 export interface ProcessedTargetsContext {
   currentSelections: SelectionWithEditor[];
   currentEditor: vscode.TextEditor | undefined;
-  navigationMap: ReadOnlyHatMap;
+  hatTokenMap: ReadOnlyHatMap;
   thatMark: SelectionWithEditor[];
   sourceMark: SelectionWithEditor[];
   getNodeAtLocation: (location: Location) => SyntaxNode;
@@ -372,7 +372,7 @@ export interface Graph {
   /**
    * Keeps a map of all decorated marks
    */
-  readonly navigationMap: NavigationMap;
+  readonly hatTokenMap: HatTokenMap;
 
   /**
    * The extension context passed in during extension activation
