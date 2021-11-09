@@ -13,9 +13,11 @@ export class HatAllocator {
   private timeoutHandle: NodeJS.Timeout | null = null;
   private isActive: boolean;
   private disposables: Disposable[] = [];
-  private disposableFunctions: (() => void)[] = [];
+  private disposalFunctions: (() => void)[] = [];
 
   constructor(private graph: Graph, private context: Context) {
+    graph.extensionContext.subscriptions.push(this);
+
     this.isActive = vscode.workspace
       .getConfiguration("cursorless")
       .get<boolean>("showOnStart")!;
@@ -23,7 +25,7 @@ export class HatAllocator {
     this.addDecorationsDebounced = this.addDecorationsDebounced.bind(this);
     this.toggleDecorations = this.toggleDecorations.bind(this);
 
-    this.disposableFunctions.push(
+    this.disposalFunctions.push(
       graph.decorations.registerDecorationChangeListener(
         this.addDecorationsDebounced
       )
@@ -83,7 +85,7 @@ export class HatAllocator {
 
   dispose() {
     this.disposables.forEach(({ dispose }) => dispose());
-    this.disposableFunctions.forEach((dispose) => dispose());
+    this.disposalFunctions.forEach((dispose) => dispose());
 
     if (this.timeoutHandle != null) {
       clearTimeout(this.timeoutHandle);
