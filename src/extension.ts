@@ -16,13 +16,6 @@ export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
 
-  function handleEdit(edit: vscode.TextDocumentChangeEvent) {
-    // TODO. Disabled for now because it triggers on undo as well
-    //  wait until next release when there is a cause field
-    // checkForEditsOutsideViewport(edit);
-  }
-  // vscode.workspace.onDidChangeTextDocument(handleEdit)
-
   const graph = makeGraph({
     ...graphFactories,
     extensionContext: () => context,
@@ -167,22 +160,45 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  function handleEdit(edit: vscode.TextDocumentChangeEvent) {
+    // TODO. Disabled for now because it triggers on undo as well
+    //  wait until next release when there is a cause field
+    // checkForEditsOutsideViewport(edit);
+  }
+
+  // vscode.workspace.onDidChangeTextDocument(handleEdit)
+
   function checkForEditsOutsideViewport(event: vscode.TextDocumentChangeEvent) {
+    // TODO: Only activate this code during the course of a cursorless action
+    // Can register pre/post command hooks the way we do with test case recorder
+    // TODO: Move this thing to a graph component
+    // TODO: Need to move command executor and test case recorder to graph
+    // component while we're doing this stuff so it's easier to register the
+    // hooks
+    // TODO: Should run this code even if document is not in a visible editor
+    // as long as we are during the course of a cursorless command.
+    // See https://github.com/pokey/cursorless-vscode/issues/320
     const editor = vscode.window.activeTextEditor;
-    if (editor == null || editor.document !== event.document) {
+
+    if (
+      editor == null ||
+      editor.document !== event.document ||
+      event.reason === vscode.TextDocumentChangeReason.Undo ||
+      event.reason === vscode.TextDocumentChangeReason.Redo
+    ) {
       return;
     }
-    const { start } = editor.visibleRanges[0];
-    const { end } = editor.visibleRanges[editor.visibleRanges.length - 1];
-    const ranges = [];
-    for (const edit of event.contentChanges) {
-      if (
-        edit.range.end.isBeforeOrEqual(start) ||
-        edit.range.start.isAfterOrEqual(end)
-      ) {
-        ranges.push(edit.range);
-      }
-    }
+
+    const ranges = event.contentChanges
+      .filter(
+        (contentChange) =>
+          !editor.visibleRanges.some(
+            (visibleRange) =>
+              contentChange.range.intersection(visibleRange) != null
+          )
+      )
+      .map(({ range }) => range);
+
     if (ranges.length > 0) {
       ranges.sort((a, b) => a.start.line - b.start.line);
       const linesText = ranges

@@ -435,7 +435,7 @@
 		"@types/mocha": "^8.0.4",
 		"@types/node": "^16.11.3",
 		"@types/sinon": "^10.0.2",
-		"@types/vscode": "^1.53.0",
+		"@types/vscode": "^1.61.0",
 		"@typescript-eslint/eslint-plugin": "^4.9.0",
 		"@typescript-eslint/parser": "^4.9.0",
 		"esbuild": "^0.11.12",
