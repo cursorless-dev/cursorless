@@ -160,14 +160,9 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  function handleEdit(edit: vscode.TextDocumentChangeEvent) {
-    // TODO. Disabled for now because it triggers on undo as well
-    //  wait until next release when there is a cause field
-    // checkForEditsOutsideViewport(edit);
-  }
-
-  // vscode.workspace.onDidChangeTextDocument(handleEdit)
-
+  // Disabled for now.
+  // See https://github.com/pokey/cursorless-vscode/issues/320
+  // vscode.workspace.onDidChangeTextDocument(checkForEditsOutsideViewport)
   function checkForEditsOutsideViewport(event: vscode.TextDocumentChangeEvent) {
     // TODO: Only activate this code during the course of a cursorless action
     // Can register pre/post command hooks the way we do with test case recorder
@@ -177,7 +172,6 @@ export async function activate(context: vscode.ExtensionContext) {
     // hooks
     // TODO: Should run this code even if document is not in a visible editor
     // as long as we are during the course of a cursorless command.
-    // See https://github.com/pokey/cursorless-vscode/issues/320
     const editor = vscode.window.activeTextEditor;
 
     if (
