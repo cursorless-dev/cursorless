@@ -27,6 +27,7 @@ import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 import asyncSafety from "./asyncSafety";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { doTargetsUsePrePhraseSnapshot } from "../../util/doTargetsUsePrePhraseSnapshot";
+import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -118,16 +119,7 @@ async function runTest(file: string) {
   );
 
   if (usePrePhraseSnapshot) {
-    sinon.replaceGetter(graph, "commandServerApi", () => ({
-      signals: {
-        getNamedSignal(name: string) {
-          return {} as Signal;
-        },
-        prePhrase: {
-          getVersion: async () => "version",
-        } as Signal,
-      },
-    }));
+    mockPrePhraseGetVersion(graph, async () => "version");
   }
 
   const readableHatMap = await graph.hatTokenMap.getReadableMap(

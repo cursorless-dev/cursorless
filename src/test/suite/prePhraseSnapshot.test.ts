@@ -1,8 +1,9 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
 import * as sinon from "sinon";
-import { getCursorlessApi, Signal } from "../../util/getExtensionApi";
+import { getCursorlessApi } from "../../util/getExtensionApi";
 import { selectionToPlainObject } from "../../testUtil/toPlainObject";
+import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
 
 /**
  * The selections we expect when the pre-phrase snapshot is used
@@ -55,16 +56,7 @@ async function runTest(
 
   let prePhraseVersion = "version";
 
-  sinon.replaceGetter(graph, "commandServerApi", () => ({
-    signals: {
-      getNamedSignal(name: string) {
-        return {} as Signal;
-      },
-      prePhrase: {
-        getVersion: async () => prePhraseVersion,
-      } as Signal,
-    },
-  }));
+  mockPrePhraseGetVersion(graph, async () => prePhraseVersion);
 
   await vscode.commands.executeCommand(
     "cursorless.command",
