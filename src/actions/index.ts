@@ -28,6 +28,7 @@ import SetBreakpoint from "./SetBreakpoint";
 import { Sort, Reverse } from "./Sort";
 import Call from "./Call";
 import WrapWithSnippet from "./WrapWithSnippet";
+import ExecuteCodeAction from "./ExecuteCodeAction";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -38,6 +39,7 @@ class Actions implements ActionRecord {
   cutToClipboard = new Cut(this.graph);
   editNewLineAfter = new EditNewLineBelow(this.graph);
   editNewLineBefore = new EditNewLineAbove(this.graph);
+  executeCodeAction = new ExecuteCodeAction(this.graph);
   extractVariable = new ExtractVariable(this.graph);
   findInWorkspace = new FindInFiles(this.graph);
   foldRegion = new Fold(this.graph);

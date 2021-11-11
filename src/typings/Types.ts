@@ -301,6 +301,7 @@ export type ActionType =
   | "cutToClipboard"
   | "editNewLineAfter"
   | "editNewLineBefore"
+  | "executeCodeAction"
   | "extractVariable"
   | "findInWorkspace"
   | "foldRegion"
