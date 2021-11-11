@@ -13,7 +13,7 @@ import { performEditsAndUpdateSelections } from "../core/updateSelections/update
 
 type RangeGenerator = { start: number };
 
-export default class implements Action {
+export default class Replace implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
     { insideOutsideType: null },
   ];

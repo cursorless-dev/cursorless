@@ -1,0 +1,29 @@
+spokenForm: snip spaghetti grace hopper
+languageId: plaintext
+command:
+  actionName: insertSnippet
+  partialTargets:
+    - type: primitive
+      mark: {type: cursor}
+      selectionType: token
+      position: contents
+      modifier: {type: identity}
+      insideOutsideType: inside
+  extraArgs:
+    - spaghetti
+    - {foo: grace hopper}
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: My friend grace_hopper likes to eat spaghetti!
+  selections:
+    - anchor: {line: 0, character: 46}
+      active: {line: 0, character: 46}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 46}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

@@ -45,6 +45,7 @@
       "alternative": {
         "wrapperScopeType": "statement"
       }
-    }
+    },
+    "insertionScopeType": "statement"
   }
 }
