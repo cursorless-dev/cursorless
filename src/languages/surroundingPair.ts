@@ -1,4 +1,4 @@
-import { maxBy, zip } from "lodash";
+import { max, maxBy, zip } from "lodash";
 import { Position, Selection } from "vscode";
 import { Point, SyntaxNode } from "web-tree-sitter";
 import {
@@ -209,18 +209,52 @@ export function findSurroundingPairTextBased(
   );
 }
 
-function* generateDelimitersAtPosition(
-  individualDelimiter: IndividualDelimiter,
+interface DelimiterPosition {
+  delimiter: IndividualDelimiter;
+  index: number;
+}
+
+// \(\)
+// """
+// ()
+// ()()
+function generateDelimitersAtPosition(
+  individualDelimiters: IndividualDelimiter[],
   text: string,
   index: number
 ) {
-  for (let i = 0; i <= delimiter.length; i++) {
-    if (text.substring(index - i, index - i + delimiter.length) === delimiter) {
-      return true;
+  const maxDelimiterLength = max(
+    individualDelimiters.map(({ text }) => text.length)
+  )!;
+  const matchingDelimiters: DelimiterPosition[] = [];
+  for (let i = index; i >= index - maxDelimiterLength; i--) {
+    for (const delimiter of individualDelimiters) {
+      if (
+        text.substring(i, i + maxDelimiterLength).startsWith(delimiter.text) &&
+        i + delimiter.text.length >= index
+      ) {
+        matchingDelimiters.push({
+          delimiter,
+          index,
+        });
+      }
     }
   }
 
-  return false;
+  matchingDelimiters.sort((delimiter1, delimiter2) => {
+    const delimiter1Length = delimiter1.delimiter.text.length;
+    const delimiter2Length = delimiter2.delimiter.text.length;
+    const delimiter1RightIndex = delimiter1.index + delimiter1Length;
+    const delimiter2RightIndex = delimiter2.index + delimiter2Length;
+
+    if (delimiter1RightIndex === delimiter2RightIndex) {
+      return delimiter2Length - delimiter1Length;
+    }
+
+    return delimiter2RightIndex - delimiter1RightIndex;
+  });
+
+  return matchingDelimiters;
 }
 
 function findSurroundingPairFromPosition(
