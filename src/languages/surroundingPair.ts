@@ -223,6 +223,10 @@ function generateDelimitersAtPosition(
   text: string,
   index: number
 ) {
+  // TODO: Let https://github.com/pokey/cursorless-vscode/issues/311 handle
+  // this case, and instead just always assume that we will have the delimiter
+  // selected as our entire range in the case that we would have been sitting
+  // on a delimiter
   const maxDelimiterLength = max(
     individualDelimiters.map(({ text }) => text.length)
   )!;
