@@ -18,14 +18,13 @@ export interface ParseTreeApi {
   loadLanguage: (languageId: string) => Promise<boolean>;
 }
 
-export interface Signal {
+export interface InboundSignal {
   getVersion(): Promise<string | null>;
 }
 
 export interface CommandServerApi {
   signals: {
-    getNamedSignal: (name: string) => Signal;
-    prePhrase: Signal;
+    prePhrase: InboundSignal;
   };
 }
 

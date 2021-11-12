@@ -24,6 +24,7 @@ export class HatAllocator {
 
     this.addDecorationsDebounced = this.addDecorationsDebounced.bind(this);
     this.toggleDecorations = this.toggleDecorations.bind(this);
+    this.clearEditorDecorations = this.clearEditorDecorations.bind(this);
 
     this.disposalFunctions.push(
       graph.decorations.registerDecorationChangeListener(

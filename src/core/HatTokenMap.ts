@@ -1,6 +1,5 @@
 import { HatStyleName } from "./constants";
 import { Graph } from "../typings/Types";
-import { Signal } from "../util/getExtensionApi";
 import { IndividualHatMap, ReadOnlyHatMap } from "./IndividualHatMap";
 import { HatAllocator } from "./HatAllocator";
 

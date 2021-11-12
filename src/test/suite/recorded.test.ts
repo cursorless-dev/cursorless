@@ -17,17 +17,14 @@ import {
   SerializedMarks,
 } from "../../testUtil/toPlainObject";
 import { walkFilesSync } from "../../testUtil/walkSync";
-import {
-  getCursorlessApi,
-  getParseTreeApi,
-  Signal,
-} from "../../util/getExtensionApi";
+import { getCursorlessApi } from "../../util/getExtensionApi";
 import { enableDebugLog } from "../../util/debug";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 import asyncSafety from "./asyncSafety";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { doTargetsUsePrePhraseSnapshot } from "../../util/doTargetsUsePrePhraseSnapshot";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
+import { openNewEditor } from "../openNewEditor";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -67,23 +64,18 @@ async function runTest(file: string) {
   const excludeFields: string[] = [];
 
   const cursorlessApi = await getCursorlessApi();
-  const parseTreeApi = await getParseTreeApi();
   const graph = cursorlessApi.graph!;
 
-  await vscode.commands.executeCommand("workbench.action.closeAllEditors");
-  const document = await vscode.workspace.openTextDocument({
-    language: fixture.languageId,
-    content: fixture.initialState.documentContents,
-  });
-  const editor = await vscode.window.showTextDocument(document);
+  const editor = await openNewEditor(
+    fixture.initialState.documentContents,
+    fixture.languageId
+  );
 
   if (!fixture.initialState.documentContents.includes("\n")) {
     await editor.edit((editBuilder) => {
       editBuilder.setEndOfLine(vscode.EndOfLine.LF);
     });
   }
-
-  await parseTreeApi.loadLanguage(document.languageId);
 
   editor.selections = fixture.initialState.selections.map(createSelection);
 

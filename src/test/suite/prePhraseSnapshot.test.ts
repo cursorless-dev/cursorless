@@ -4,6 +4,7 @@ import * as sinon from "sinon";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { selectionToPlainObject } from "../../testUtil/toPlainObject";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
+import { openNewEditor } from "../openNewEditor";
 
 /**
  * The selections we expect when the pre-phrase snapshot is used
@@ -39,16 +40,9 @@ async function runTest(
   multiplePhrases: boolean,
   expectedSelections: vscode.Selection[]
 ) {
-  const initialContent = "Hello world testing whatever";
-
   const graph = (await getCursorlessApi()).graph!;
 
-  await vscode.commands.executeCommand("workbench.action.closeAllEditors");
-  const document = await vscode.workspace.openTextDocument({
-    language: "plaintext",
-    content: initialContent,
-  });
-  const editor = await vscode.window.showTextDocument(document);
+  const editor = await openNewEditor("Hello world testing whatever");
 
   editor.selections = [new vscode.Selection(0, 0, 0, 0)];
 
