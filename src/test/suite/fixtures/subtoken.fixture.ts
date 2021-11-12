@@ -3,7 +3,7 @@ interface Fixture {
   expectedOutput: string[];
 }
 
-export const subwordFixture: Fixture[] = [
+export const subtokenFixture: Fixture[] = [
   {
     input: "QuickBrownFox",
     expectedOutput: ["Quick", "Brown", "Fox"],
@@ -67,5 +67,5 @@ export const subwordFixture: Fixture[] = [
   {
     input: "mockAPIClient123Factory",
     expectedOutput: ["mock", "API", "Client", "123", "Factory"],
-  }
+  },
 ];
