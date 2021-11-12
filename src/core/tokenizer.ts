@@ -1,3 +1,5 @@
+import { matchAll } from "../util/regex";
+
 const REPEATABLE_SYMBOLS = [
   "+",
   "-",
@@ -55,7 +57,7 @@ export function tokenize<T>(
   text: string,
   mapfn: (v: RegExpMatchArray, k: number) => T
 ) {
-  return Array.from(text.matchAll(TOKEN_MATCHER), mapfn);
+  return matchAll(text, TOKEN_MATCHER, mapfn);
 }
 
 //https://stackoverflow.com/a/6969486

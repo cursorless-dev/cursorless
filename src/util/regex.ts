@@ -29,3 +29,11 @@ function makeCache<T, U>(func: (arg: T) => U) {
 
 export const rightAnchored = makeCache(_rightAnchored);
 export const leftAnchored = makeCache(_leftAnchored);
+
+export function matchAll<T>(
+  text: string,
+  regex: RegExp,
+  mapfn: (v: RegExpMatchArray, k: number) => T
+) {
+  return Array.from(text.matchAll(regex), mapfn);
+}

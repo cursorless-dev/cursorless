@@ -1,4 +1,4 @@
-import { max, maxBy, zip } from "lodash";
+import { escapeRegExp, max, maxBy, sortedIndexBy, uniq, zip } from "lodash";
 import { Position, Selection } from "vscode";
 import { Point, SyntaxNode } from "web-tree-sitter";
 import {
@@ -8,6 +8,7 @@ import {
   NodeMatcherValue,
   SelectionWithEditor,
 } from "../typings/Types";
+import { matchAll } from "../util/regex";
 
 function positionFromPoint(point: Point): Position {
   return new Position(point.row, point.column);
@@ -143,12 +144,6 @@ function extractSelection(
   }
 }
 
-// (  (  )  )
-
-// " " ""
-// [[] []]
-// "(<user.foo>   <user.bar>)"
-
 interface IndividualDelimiter {
   text: string;
   oppositeText: string;
@@ -156,6 +151,16 @@ interface IndividualDelimiter {
   delimiter: Delimiter;
 }
 
+// (  (  )  )
+// " " ""
+// [[] []]
+// "(<user.foo>   <user.bar>)"
+// """"""
+// ([)]
+// \(\)
+// """
+// ()
+// ()()
 export function findSurroundingPairTextBased(
   text: string,
   startIndex: number,
@@ -202,69 +207,55 @@ export function findSurroundingPairTextBased(
     })
     .flat();
 
-  const startSurroundingPair = findSurroundingPairFromPosition(
-    individualDelimiters,
-    text,
-    startIndex
+  const delimiterTaxToDelimiterInfoMap = Object.fromEntries(
+    individualDelimiters.map((individualDelimiter) => [
+      individualDelimiter.text,
+      individualDelimiter,
+    ])
   );
-}
 
-interface DelimiterPosition {
-  delimiter: IndividualDelimiter;
-  index: number;
-}
+  const delimiterRegex = new RegExp(
+    uniq(individualDelimiters.flatMap(({ text }) => [`\\${text}`, text]))
+      .map(escapeRegExp)
+      .join("|"),
+    "gu"
+  );
 
-// \(\)
-// """
-// ()
-// ()()
-function generateDelimitersAtPosition(
-  individualDelimiters: IndividualDelimiter[],
-  text: string,
-  index: number
-) {
-  // TODO: Let https://github.com/pokey/cursorless-vscode/issues/311 handle
-  // this case, and instead just always assume that we will have the delimiter
-  // selected as our entire range in the case that we would have been sitting
-  // on a delimiter
-  const maxDelimiterLength = max(
-    individualDelimiters.map(({ text }) => text.length)
-  )!;
-  const matchingDelimiters: DelimiterPosition[] = [];
-  for (let i = index; i >= index - maxDelimiterLength; i--) {
-    for (const delimiter of individualDelimiters) {
-      if (
-        text.substring(i, i + maxDelimiterLength).startsWith(delimiter.text) &&
-        i + delimiter.text.length >= index
-      ) {
-        matchingDelimiters.push({
-          delimiter,
-          index,
-        });
+  const delimiterMatches = matchAll(text, delimiterRegex, (match) => ({
+    text: match[0],
+    index: match.index!,
+  }));
+
+  if (startIndex === endIndex) {
+    const selectionIndexMatchIndex = sortedIndexBy<{ index: number }>(
+      delimiterMatches,
+      { index: startIndex },
+      "index"
+    );
+    const nextDelimiter = delimiterMatches[selectionIndexMatchIndex];
+    if (nextDelimiter != null && nextDelimiter.index === startIndex) {
+      const delimiterInfo = delimiterTaxToDelimiterInfoMap[nextDelimiter.text];
+      const possibleMatch = findOppositeDelimiter(
+        delimiterMatches,
+        nextDelimiter.index,
+        delimiterInfo
+      );
+      if (possibleMatch != null) {
+        return possibleMatch;
       }
     }
+    // TODO: Handle the case where it's the previous delimiter that we are
+    // adjacent to
+    // TODO: Handle the case where we have a non empty selection. In this case
+    // we look for the smallest delimiter pair that weakly contains our
+    // selection
   }
-
-  matchingDelimiters.sort((delimiter1, delimiter2) => {
-    const delimiter1Length = delimiter1.delimiter.text.length;
-    const delimiter2Length = delimiter2.delimiter.text.length;
-    const delimiter1RightIndex = delimiter1.index + delimiter1Length;
-    const delimiter2RightIndex = delimiter2.index + delimiter2Length;
-
-    if (delimiter1RightIndex === delimiter2RightIndex) {
-      return delimiter2Length - delimiter1Length;
-    }
-
-    return delimiter2RightIndex - delimiter1RightIndex;
-  });
-
-  return matchingDelimiters;
 }
 
-function findSurroundingPairFromPosition(
-  individualDelimiters: IndividualDelimiter[],
-  text: string,
-  startIndex: number
+function findOppositeDelimiter(
+  delimiterMatches: { text: string; index: number }[],
+  index: number,
+  delimiterInfo: IndividualDelimiter
 ) {
   throw new Error("Function not implemented.");
 }
