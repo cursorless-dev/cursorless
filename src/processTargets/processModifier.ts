@@ -23,7 +23,7 @@ import {
 } from "../typings/Types";
 import { getNodeRange } from "../util/nodeSelectors";
 
-type SelectionWithContext = {
+type SelectionWithEditorWithContext = {
   selection: SelectionWithEditor;
   context: SelectionContext;
 };
@@ -32,7 +32,7 @@ export default function (
   context: ProcessedTargetsContext,
   target: PrimitiveTarget,
   selection: SelectionWithEditor
-): SelectionWithContext[] {
+): SelectionWithEditorWithContext[] {
   const { modifier } = target;
   let result;
 
@@ -70,7 +70,7 @@ function processScopeType(
   context: ProcessedTargetsContext,
   selection: SelectionWithEditor,
   modifier: ContainingScopeModifier
-): SelectionWithContext[] | null {
+): SelectionWithEditorWithContext[] | null {
   const nodeMatcher = getNodeMatcher(
     selection.editor.document.languageId,
     modifier.scopeType,
@@ -97,7 +97,7 @@ function processSubToken(
   context: ProcessedTargetsContext,
   selection: SelectionWithEditor,
   modifier: SubTokenModifier
-): SelectionWithContext[] | null {
+): SelectionWithEditorWithContext[] | null {
   const token = selection.editor.document.getText(selection.selection);
   let pieces: { start: number; end: number }[] = [];
 
@@ -194,7 +194,7 @@ function processHeadTail(
   context: ProcessedTargetsContext,
   selection: SelectionWithEditor,
   modifier: HeadModifier | TailModifier
-): SelectionWithContext[] | null {
+): SelectionWithEditorWithContext[] | null {
   let anchor: Position, active: Position;
   if (modifier.type === "head") {
     anchor = selection.selection.end;
@@ -218,7 +218,7 @@ function processSurroundingPair(
   context: ProcessedTargetsContext,
   selection: SelectionWithEditor,
   modifier: SurroundingPairModifier
-): SelectionWithContext[] | null {
+): SelectionWithEditorWithContext[] | null {
   let node: SyntaxNode | null;
 
   const document = selection.editor.document;
@@ -238,9 +238,9 @@ function processSurroundingPair(
   if (node == null) {
     // TODO: Only get a certain amount of text centered around the selection
     return findSurroundingPairTextBased(
-      document.getText(),
-      document.offsetAt(selection.selection.start),
-      document.offsetAt(selection.selection.end),
+      selection.editor,
+      selection.selection,
+      null,
       modifier.delimiter,
       modifier.delimiterInclusion
     );
@@ -261,13 +261,10 @@ function processSurroundingPair(
     stringNodeMatcher(selection, node) != null ||
     commentNodeMatcher(selection, node) != null
   ) {
-    const nodeRange = getNodeRange(node);
-    const nodeStartOffset = document.offsetAt(nodeRange.start);
-
     const surroundingRange = findSurroundingPairTextBased(
-      document.getText(nodeRange),
-      document.offsetAt(selection.selection.start) - nodeStartOffset,
-      document.offsetAt(selection.selection.end) - nodeStartOffset,
+      selection.editor,
+      selection.selection,
+      getNodeRange(node),
       modifier.delimiter,
       modifier.delimiterInclusion
     );

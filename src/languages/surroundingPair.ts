@@ -1,11 +1,12 @@
-import { escapeRegExp, max, maxBy, sortedIndexBy, uniq, zip } from "lodash";
-import { Position, Selection } from "vscode";
+import { escapeRegExp, range, sortedIndexBy, uniq } from "lodash";
+import { Position, Range, Selection, TextDocument, TextEditor } from "vscode";
 import { Point, SyntaxNode } from "web-tree-sitter";
 import {
   Delimiter,
   DelimiterInclusion,
   NodeMatcher,
   NodeMatcherValue,
+  SelectionWithContext,
   SelectionWithEditor,
 } from "../typings/Types";
 import { matchAll } from "../util/regex";
@@ -78,7 +79,7 @@ export function createSurroundingPairMatcher(
       return null;
     }
 
-    return extractSelection(
+    return extractSelectionFromNode(
       leftDelimiterNode,
       rightDelimiterNode,
       delimiterInclusion
@@ -86,7 +87,7 @@ export function createSurroundingPairMatcher(
   };
 }
 
-function extractSelection(
+function extractSelectionFromNode(
   leftDelimiterNode: SyntaxNode,
   rightDelimiterNode: SyntaxNode,
   delimiterInclusion: DelimiterInclusion
@@ -151,6 +152,113 @@ interface IndividualDelimiter {
   delimiter: Delimiter;
 }
 
+export function findSurroundingPairTextBased(
+  editor: TextEditor,
+  selection: Selection,
+  allowableRange: Range | null,
+  delimiter: Delimiter | null,
+  delimiterInclusion: DelimiterInclusion
+) {
+  const document: TextDocument = editor.document;
+
+  const allowableRangeStartOffset =
+    allowableRange == null ? 0 : document.offsetAt(allowableRange.start);
+
+  const pairIndices = findSurroundingPairInText(
+    document.getText(allowableRange ?? undefined),
+    document.offsetAt(selection.start) - allowableRangeStartOffset,
+
+    document.offsetAt(selection.end) - allowableRangeStartOffset,
+    delimiter
+  );
+  if (pairIndices == null) {
+    return null;
+  }
+
+  return extractSelectionFromDelimiterIndices(
+    document,
+    allowableRangeStartOffset,
+    pairIndices,
+    delimiterInclusion
+  ).map(({ selection, context }) => ({
+    selection: { selection, editor },
+    context,
+  }));
+}
+
+function extractSelectionFromDelimiterIndices(
+  document: TextDocument,
+  allowableRangeStartOffset: number,
+  delimiterIndices: PairIndices,
+  delimiterInclusion: DelimiterInclusion
+): SelectionWithContext[] {
+  switch (delimiterInclusion) {
+    case "includeDelimiters":
+      return [
+        {
+          selection: new Selection(
+            document.positionAt(
+              allowableRangeStartOffset + delimiterIndices.leftDelimiter.start
+            ),
+            document.positionAt(
+              allowableRangeStartOffset + delimiterIndices.rightDelimiter.end
+            )
+          ),
+          context: {},
+        },
+      ];
+    case "excludeDelimiters":
+      return [
+        {
+          selection: new Selection(
+            document.positionAt(
+              allowableRangeStartOffset + delimiterIndices.leftDelimiter.end
+            ),
+            document.positionAt(
+              allowableRangeStartOffset + delimiterIndices.rightDelimiter.start
+            )
+          ),
+          context: {},
+        },
+      ];
+    case "delimitersOnly":
+      return [
+        {
+          selection: new Selection(
+            document.positionAt(
+              allowableRangeStartOffset + delimiterIndices.leftDelimiter.start
+            ),
+            document.positionAt(
+              allowableRangeStartOffset + delimiterIndices.leftDelimiter.end
+            )
+          ),
+          context: {},
+        },
+        {
+          selection: new Selection(
+            document.positionAt(
+              allowableRangeStartOffset + delimiterIndices.rightDelimiter.start
+            ),
+            document.positionAt(
+              allowableRangeStartOffset + delimiterIndices.rightDelimiter.end
+            )
+          ),
+          context: {},
+        },
+      ];
+  }
+}
+
+interface DelimiterIndices {
+  start: number;
+  end: number;
+}
+
+interface PairIndices {
+  leftDelimiter: DelimiterIndices;
+  rightDelimiter: DelimiterIndices;
+}
+
 // (  (  )  )
 // " " ""
 // [[] []]
@@ -161,13 +269,16 @@ interface IndividualDelimiter {
 // """
 // ()
 // ()()
-export function findSurroundingPairTextBased(
+interface DelimiterMatch {
+  text: string;
+  index: number;
+}
+function findSurroundingPairInText(
   text: string,
-  startIndex: number,
-  endIndex: number,
-  delimiter: Delimiter | null,
-  delimiterInclusion: DelimiterInclusion
-): SelectionWithContext[] | null {
+  selectionStartIndex: number,
+  selectionEndIndex: number,
+  delimiter: Delimiter | null
+): PairIndices | null {
   const openDelimiterCount = 1;
   // TODO: Walk left and right from start of selection,
   // then walk left and right from end of selection;
@@ -221,41 +332,147 @@ export function findSurroundingPairTextBased(
     "gu"
   );
 
-  const delimiterMatches = matchAll(text, delimiterRegex, (match) => ({
-    text: match[0],
-    index: match.index!,
-  }));
+  const delimiterMatches: DelimiterMatch[] = matchAll(
+    text,
+    delimiterRegex,
+    (match) => ({
+      text: match[0],
+      index: match.index!,
+    })
+  );
 
-  if (startIndex === endIndex) {
+  if (selectionStartIndex === selectionEndIndex) {
+    const selectionIndex = selectionStartIndex;
+
     const selectionIndexMatchIndex = sortedIndexBy<{ index: number }>(
       delimiterMatches,
-      { index: startIndex },
+      { index: selectionIndex },
       "index"
     );
     const nextDelimiter = delimiterMatches[selectionIndexMatchIndex];
-    if (nextDelimiter != null && nextDelimiter.index === startIndex) {
+    const previousDelimiter = delimiterMatches[selectionIndexMatchIndex - 1];
+    if (nextDelimiter != null && nextDelimiter.index === selectionIndex) {
       const delimiterInfo = delimiterTaxToDelimiterInfoMap[nextDelimiter.text];
       const possibleMatch = findOppositeDelimiter(
         delimiterMatches,
-        nextDelimiter.index,
+        selectionIndexMatchIndex,
         delimiterInfo
       );
       if (possibleMatch != null) {
-        return possibleMatch;
+        return getDelimiterPair(nextDelimiter, possibleMatch);
       }
     }
-    // TODO: Handle the case where it's the previous delimiter that we are
-    // adjacent to
-    // TODO: Handle the case where we have a non empty selection. In this case
-    // we look for the smallest delimiter pair that weakly contains our
-    // selection
+
+    if (
+      previousDelimiter != null &&
+      selectionIndex <= previousDelimiter.index + previousDelimiter.text.length
+    ) {
+      const delimiterInfo =
+        delimiterTaxToDelimiterInfoMap[previousDelimiter.text];
+      const possibleMatch = findOppositeDelimiter(
+        delimiterMatches,
+        selectionIndexMatchIndex - 1,
+        delimiterInfo
+      );
+      if (possibleMatch != null) {
+        return getDelimiterPair(previousDelimiter, possibleMatch);
+      }
+    }
   }
+
+  // TODO: Handle the case where we have a non empty selection. In this case
+  // we look for the smallest delimiter pair that weakly contains our
+  // selection
+  return null;
+}
+
+function getDelimiterPair(
+  delimiter1: DelimiterMatch,
+  delimiter2: DelimiterMatch
+) {
+  const isDelimiter1First = delimiter1.index < delimiter2.index;
+  const leftDelimiter = isDelimiter1First ? delimiter1 : delimiter2;
+  const rightDelimiter = isDelimiter1First ? delimiter2 : delimiter1;
+
+  return {
+    leftDelimiter: {
+      start: leftDelimiter.index,
+      end: leftDelimiter.index + leftDelimiter.text.length,
+    },
+    rightDelimiter: {
+      start: rightDelimiter.index,
+      end: rightDelimiter.index + rightDelimiter.text.length,
+    },
+  };
 }
 
 function findOppositeDelimiter(
-  delimiterMatches: { text: string; index: number }[],
+  delimiterMatches: DelimiterMatch[],
   index: number,
   delimiterInfo: IndividualDelimiter
 ) {
-  throw new Error("Function not implemented.");
+  const { direction, oppositeText, text: delimiterText } = delimiterInfo;
+
+  switch (direction) {
+    case "left":
+      return findOppositeDelimiterOneWay(
+        delimiterMatches,
+        index,
+        delimiterText,
+        oppositeText,
+        false
+      );
+    case "right":
+      return findOppositeDelimiterOneWay(
+        delimiterMatches,
+        index,
+        delimiterText,
+        oppositeText,
+        true
+      );
+    case "bidirectional":
+      return (
+        findOppositeDelimiterOneWay(
+          delimiterMatches,
+          index,
+          delimiterText,
+          oppositeText,
+          true
+        ) ??
+        findOppositeDelimiterOneWay(
+          delimiterMatches,
+          index,
+          delimiterText,
+          oppositeText,
+          false
+        )
+      );
+  }
+}
+
+function findOppositeDelimiterOneWay(
+  delimiterMatches: DelimiterMatch[],
+  index: number,
+  delimiterText: string,
+  oppositeText: string,
+  lookForward: boolean
+) {
+  const indices = lookForward
+    ? range(index + 1, delimiterMatches.length, 1)
+    : range(index - 1, -1, -1);
+
+  let delimiterBalance = 1;
+  for (const index of indices) {
+    const match = delimiterMatches[index];
+    if (match.text === delimiterText) {
+      delimiterBalance++;
+    } else if (match.text === oppositeText) {
+      delimiterBalance--;
+      if (delimiterBalance === 0) {
+        return match;
+      }
+    }
+  }
+
+  return null;
 }

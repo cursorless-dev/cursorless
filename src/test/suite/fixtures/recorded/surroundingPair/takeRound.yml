@@ -1,0 +1,23 @@
+spokenForm: take round
+languageId: plaintext
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: includeDelimiters}
+  extraArgs: []
+marks: {}
+initialState:
+  documentContents: ()
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+finalState:
+  documentContents: ()
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 2}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 2}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: includeDelimiters}}]
