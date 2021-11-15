@@ -464,13 +464,16 @@ function findOppositeDelimiterOneWay(
   let delimiterBalance = 1;
   for (const index of indices) {
     const match = delimiterMatches[index];
-    if (match.text === delimiterText) {
-      delimiterBalance++;
-    } else if (match.text === oppositeText) {
+    // NB: We check for opposite text first because in the case of a match
+    // where left and right or equal we want to make sure we end rather than
+    // treating it as nested
+    if (match.text === oppositeText) {
       delimiterBalance--;
       if (delimiterBalance === 0) {
         return match;
       }
+    } else if (match.text === delimiterText) {
+      delimiterBalance++;
     }
   }
 
