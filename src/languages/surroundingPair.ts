@@ -26,6 +26,7 @@ const delimiterToText: Record<Delimiter, string[]> = {
   whitespace: [" ", " "], // TODO: Fix this to handle tabs / newlines
   escapedSingleQuotes: ["\\'", "\\'"],
   escapedDoubleQuotes: ['\\"', '\\"'],
+  escapedParentheses: ["\\(", "\\)"],
 };
 
 const leftToRightMap: Record<string, string> = Object.fromEntries(
@@ -147,7 +148,7 @@ function extractSelectionFromNode(
 
 interface IndividualDelimiter {
   text: string;
-  oppositeText: string;
+  opposite: IndividualDelimiter;
   direction: "bidirectional" | "left" | "right";
   delimiter: Delimiter;
 }
@@ -259,6 +260,12 @@ interface PairIndices {
   rightDelimiter: DelimiterIndices;
 }
 
+interface DelimiterMatch {
+  text: string;
+  startIndex: number;
+  endIndex: number;
+}
+
 // (  (  )  )
 // " " ""
 // [[] []]
@@ -269,56 +276,17 @@ interface PairIndices {
 // """
 // ()
 // ()()
-interface DelimiterMatch {
-  text: string;
-  index: number;
-}
 function findSurroundingPairInText(
   text: string,
   selectionStartIndex: number,
   selectionEndIndex: number,
   delimiter: Delimiter | null
 ): PairIndices | null {
-  const openDelimiterCount = 1;
-  // TODO: Walk left and right from start of selection,
-  // then walk left and right from end of selection;
-  // If one selection contains the other, return the bigger one
-  // If one does not contain the other, take their union and repeat
   const delimitersToCheck = delimiter == null ? anyDelimiter : [delimiter];
 
-  const individualDelimiters: IndividualDelimiter[] = delimitersToCheck
-    .map((delimiter) => {
-      const [leftDelimiter, rightDelimiter] = delimiterToText[delimiter];
+  const individualDelimiters = getIndividualDelimiters(delimitersToCheck);
 
-      if (leftDelimiter === rightDelimiter) {
-        return [
-          {
-            text: leftDelimiter,
-            oppositeText: leftDelimiter,
-            direction: "bidirectional",
-            delimiter,
-          } as const,
-        ];
-      } else {
-        return [
-          {
-            text: leftDelimiter,
-            oppositeText: rightDelimiter,
-            direction: "right",
-            delimiter,
-          } as const,
-          {
-            text: rightDelimiter,
-            oppositeText: leftDelimiter,
-            direction: "left",
-            delimiter,
-          } as const,
-        ];
-      }
-    })
-    .flat();
-
-  const delimiterTaxToDelimiterInfoMap = Object.fromEntries(
+  const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
       individualDelimiter.text,
       individualDelimiter,
@@ -335,73 +303,160 @@ function findSurroundingPairInText(
   const delimiterMatches: DelimiterMatch[] = matchAll(
     text,
     delimiterRegex,
-    (match) => ({
-      text: match[0],
-      index: match.index!,
-    })
+    (match) => {
+      const startIndex = match.index!;
+      const text = match[0];
+      return {
+        text,
+        startIndex,
+        endIndex: startIndex + text.length,
+      };
+    }
   );
 
   if (selectionStartIndex === selectionEndIndex) {
     const selectionIndex = selectionStartIndex;
 
-    const selectionIndexMatchIndex = sortedIndexBy<{ index: number }>(
+    const selectionIndexMatchIndex = sortedIndexBy<{ startIndex: number }>(
       delimiterMatches,
-      { index: selectionIndex },
-      "index"
+      { startIndex: selectionIndex },
+      "startIndex"
     );
     const nextDelimiter = delimiterMatches[selectionIndexMatchIndex];
     const previousDelimiter = delimiterMatches[selectionIndexMatchIndex - 1];
-    if (nextDelimiter != null && nextDelimiter.index === selectionIndex) {
-      const delimiterInfo = delimiterTaxToDelimiterInfoMap[nextDelimiter.text];
-      const possibleMatch = findOppositeDelimiter(
-        delimiterMatches,
-        selectionIndexMatchIndex,
-        delimiterInfo
-      );
-      if (possibleMatch != null) {
-        return getDelimiterPair(nextDelimiter, possibleMatch);
+    if (nextDelimiter != null && nextDelimiter.startIndex === selectionIndex) {
+      const delimiterInfo = delimiterTextToDelimiterInfoMap[nextDelimiter.text];
+      if (delimiterInfo != null) {
+        const possibleMatch = findOppositeDelimiter(
+          delimiterMatches,
+          selectionIndexMatchIndex,
+          delimiterInfo
+        );
+        if (possibleMatch != null) {
+          return getDelimiterPair(nextDelimiter, possibleMatch);
+        }
       }
     }
 
     if (
       previousDelimiter != null &&
-      selectionIndex <= previousDelimiter.index + previousDelimiter.text.length
+      selectionIndex <= previousDelimiter.endIndex
     ) {
       const delimiterInfo =
-        delimiterTaxToDelimiterInfoMap[previousDelimiter.text];
-      const possibleMatch = findOppositeDelimiter(
-        delimiterMatches,
-        selectionIndexMatchIndex - 1,
-        delimiterInfo
-      );
-      if (possibleMatch != null) {
-        return getDelimiterPair(previousDelimiter, possibleMatch);
+        delimiterTextToDelimiterInfoMap[previousDelimiter.text];
+      if (delimiterInfo != null) {
+        const possibleMatch = findOppositeDelimiter(
+          delimiterMatches,
+          selectionIndexMatchIndex - 1,
+          delimiterInfo
+        );
+        if (possibleMatch != null) {
+          return getDelimiterPair(previousDelimiter, possibleMatch);
+        }
       }
     }
   }
 
-  // TODO: Handle the case where we have a non empty selection. In this case
-  // we look for the smallest delimiter pair that weakly contains our
-  // selection
-  return null;
+  const initialIndex = sortedIndexBy<{ endIndex: number }>(
+    delimiterMatches,
+    { endIndex: selectionEndIndex },
+    "endIndex"
+  );
+  const rightDelimiterGenerator = generateRightDelimiters(
+    delimiterMatches,
+    initialIndex,
+    individualDelimiters.filter(
+      ({ direction }) => direction === "bidirectional" || direction === "left"
+    )
+  );
+  const leftDelimiterGenerator = generateLeftDelimiters(
+    delimiterMatches,
+    initialIndex
+  );
+
+  while (true) {
+    let rightNext = rightDelimiterGenerator.next();
+    if (rightNext.done) {
+      return null;
+    }
+    let { match: rightMatch, opposite: leftIndividualDelimiter } =
+      rightNext.value as RightDelimiterResult;
+
+    let leftNext = leftDelimiterGenerator.next(leftIndividualDelimiter);
+    if (leftNext.done) {
+      return null;
+    }
+    let leftMatch = leftNext.value!;
+
+    if (leftMatch.startIndex === rightMatch.startIndex) {
+      leftNext = leftDelimiterGenerator.next(leftIndividualDelimiter);
+      if (leftNext.done) {
+        return null;
+      }
+      leftMatch = leftNext.value!;
+    }
+
+    if (leftMatch.startIndex <= selectionStartIndex) {
+      return getDelimiterPair(leftMatch, rightMatch);
+    }
+  }
+}
+
+function getIndividualDelimiters(
+  delimitersToCheck: Delimiter[]
+): IndividualDelimiter[] {
+  return delimitersToCheck
+    .map((delimiter) => {
+      const [leftDelimiter, rightDelimiter] = delimiterToText[delimiter];
+
+      if (leftDelimiter === rightDelimiter) {
+        const delimiterResult: Partial<IndividualDelimiter> = {
+          text: leftDelimiter,
+          direction: "bidirectional",
+          delimiter,
+        };
+        delimiterResult.opposite = delimiterResult as IndividualDelimiter;
+        return [delimiterResult as IndividualDelimiter];
+      } else {
+        const leftDelimiterResult: Partial<IndividualDelimiter> = {
+          text: leftDelimiter,
+          direction: "right",
+          delimiter,
+        };
+        const rightDelimiterResult: Partial<IndividualDelimiter> = {
+          text: rightDelimiter,
+          direction: "left",
+          delimiter,
+        };
+        rightDelimiterResult.opposite =
+          leftDelimiterResult as IndividualDelimiter;
+        leftDelimiterResult.opposite =
+          rightDelimiterResult as IndividualDelimiter;
+        return [
+          leftDelimiterResult as IndividualDelimiter,
+          rightDelimiterResult as IndividualDelimiter,
+        ];
+      }
+    })
+    .flat();
 }
 
 function getDelimiterPair(
   delimiter1: DelimiterMatch,
   delimiter2: DelimiterMatch
 ) {
-  const isDelimiter1First = delimiter1.index < delimiter2.index;
+  const isDelimiter1First = delimiter1.startIndex < delimiter2.startIndex;
   const leftDelimiter = isDelimiter1First ? delimiter1 : delimiter2;
   const rightDelimiter = isDelimiter1First ? delimiter2 : delimiter1;
 
   return {
     leftDelimiter: {
-      start: leftDelimiter.index,
-      end: leftDelimiter.index + leftDelimiter.text.length,
+      start: leftDelimiter.startIndex,
+      end: leftDelimiter.endIndex,
     },
     rightDelimiter: {
-      start: rightDelimiter.index,
-      end: rightDelimiter.index + rightDelimiter.text.length,
+      start: rightDelimiter.startIndex,
+      end: rightDelimiter.endIndex,
     },
   };
 }
@@ -411,7 +466,11 @@ function findOppositeDelimiter(
   index: number,
   delimiterInfo: IndividualDelimiter
 ) {
-  const { direction, oppositeText, text: delimiterText } = delimiterInfo;
+  const {
+    direction,
+    opposite: { text: oppositeText },
+    text: delimiterText,
+  } = delimiterInfo;
 
   switch (direction) {
     case "left":
@@ -478,4 +537,45 @@ function findOppositeDelimiterOneWay(
   }
 
   return null;
+}
+
+interface RightDelimiterResult {
+  match: DelimiterMatch;
+  opposite: IndividualDelimiter;
+}
+
+function* generateRightDelimiters(
+  delimiterMatches: DelimiterMatch[],
+  initialIndex: number,
+  individualDelimiters: IndividualDelimiter[]
+): Generator<RightDelimiterResult, void, never> {
+  for (let i = initialIndex; i < delimiterMatches.length; i++) {
+    const match = delimiterMatches[i];
+
+    const individualDelimiter = individualDelimiters.find(
+      ({ text }) => text === match.text
+    );
+
+    if (individualDelimiter != null) {
+      yield {
+        match,
+        opposite: individualDelimiter.opposite,
+      };
+    }
+  }
+}
+
+function* generateLeftDelimiters(
+  delimiterMatches: DelimiterMatch[],
+  initialIndex: number
+): Generator<DelimiterMatch | null, void, IndividualDelimiter> {
+  let searchDelimiter = yield null;
+
+  for (let i = initialIndex; i >= 0; i--) {
+    const match = delimiterMatches[i];
+
+    if (match.text === searchDelimiter.text) {
+      searchDelimiter = yield match;
+    }
+  }
 }

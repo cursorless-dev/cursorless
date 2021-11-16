@@ -71,6 +71,7 @@ export type Delimiter =
   | "doubleQuotes"
   | "escapedSingleQuotes"
   | "escapedDoubleQuotes"
+  | "escapedParentheses"
   | "parentheses"
   | "singleQuotes"
   | "squareBrackets"
