@@ -1,0 +1,29 @@
+spokenForm: take outside leper
+languageId: plaintext
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}
+      mark: {type: decoratedSymbol, symbolColor: default, character: (}
+  extraArgs: []
+marks:
+  default.(:
+    start: {line: 0, character: 1}
+    end: {line: 0, character: 2}
+initialState:
+  documentContents: |
+    [(hello)  (whatever)]
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+finalState:
+  documentContents: |
+    [(hello)  (whatever)]
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 8}
+  thatMark:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 8}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: (}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}}]

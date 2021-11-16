@@ -1,3 +1,4 @@
+import { LargeNumberLike } from "crypto";
 import { escapeRegExp, range, sortedIndexBy, uniq } from "lodash";
 import { Position, Range, Selection, TextDocument, TextEditor } from "vscode";
 import { Point, SyntaxNode } from "web-tree-sitter";
@@ -357,47 +358,100 @@ function findSurroundingPairInText(
     }
   }
 
-  const initialIndex = sortedIndexBy<{ endIndex: number }>(
+  const delimiterGenerator = new DelimiterGenerator(
     delimiterMatches,
-    { endIndex: selectionEndIndex },
-    "endIndex"
+    individualDelimiters,
+    selectionStartIndex,
+    selectionEndIndex
   );
-  const rightDelimiterGenerator = generateRightDelimiters(
-    delimiterMatches,
-    initialIndex,
-    individualDelimiters.filter(
-      ({ direction }) => direction === "bidirectional" || direction === "left"
-    )
-  );
-  const leftDelimiterGenerator = generateLeftDelimiters(
-    delimiterMatches,
-    initialIndex
-  );
+  return delimiterGenerator.getMatch();
+}
+class DelimiterGenerator {
+  leftSearchDelimiter!: IndividualDelimiter;
 
-  while (true) {
-    let rightNext = rightDelimiterGenerator.next();
-    if (rightNext.done) {
-      return null;
-    }
-    let { match: rightMatch, opposite: leftIndividualDelimiter } =
-      rightNext.value as RightDelimiterResult;
+  constructor(
+    private delimiterMatches: DelimiterMatch[],
+    private individualDelimiters: IndividualDelimiter[],
+    private selectionStartIndex: number,
+    private selectionEndIndex: number
+  ) {}
 
-    let leftNext = leftDelimiterGenerator.next(leftIndividualDelimiter);
-    if (leftNext.done) {
-      return null;
-    }
-    let leftMatch = leftNext.value!;
+  getMatch() {
+    const initialIndex = sortedIndexBy<{ endIndex: number }>(
+      this.delimiterMatches,
+      { endIndex: this.selectionEndIndex },
+      "endIndex"
+    );
 
-    if (leftMatch.startIndex === rightMatch.startIndex) {
-      leftNext = leftDelimiterGenerator.next(leftIndividualDelimiter);
+    const rightDelimiterGenerator = this.generateRightDelimiters(
+      this.delimiterMatches,
+      initialIndex,
+      this.individualDelimiters.filter(
+        ({ direction }) => direction === "bidirectional" || direction === "left"
+      )
+    );
+
+    const leftDelimiterGenerator = this.generateLeftDelimiters(
+      this.delimiterMatches,
+      initialIndex
+    );
+
+    while (true) {
+      let rightNext = rightDelimiterGenerator.next();
+      if (rightNext.done) {
+        return null;
+      }
+      let rightMatch = rightNext.value!;
+
+      let leftNext = leftDelimiterGenerator.next();
       if (leftNext.done) {
         return null;
       }
-      leftMatch = leftNext.value!;
-    }
+      let leftMatch = leftNext.value!;
 
-    if (leftMatch.startIndex <= selectionStartIndex) {
-      return getDelimiterPair(leftMatch, rightMatch);
+      if (leftMatch.startIndex === rightMatch.startIndex) {
+        leftNext = leftDelimiterGenerator.next();
+        if (leftNext.done) {
+          return null;
+        }
+        leftMatch = leftNext.value!;
+      }
+
+      if (leftMatch.startIndex <= this.selectionStartIndex) {
+        return getDelimiterPair(leftMatch, rightMatch);
+      }
+    }
+  }
+
+  *generateRightDelimiters(
+    delimiterMatches: DelimiterMatch[],
+    initialIndex: number,
+    individualDelimiters: IndividualDelimiter[]
+  ): Generator<DelimiterMatch, void, never> {
+    for (let i = initialIndex; i < delimiterMatches.length; i++) {
+      const match = delimiterMatches[i];
+
+      const individualDelimiter = individualDelimiters.find(
+        ({ text }) => text === match.text
+      );
+
+      if (individualDelimiter != null) {
+        this.leftSearchDelimiter = individualDelimiter.opposite;
+        yield match;
+      }
+    }
+  }
+
+  *generateLeftDelimiters(
+    delimiterMatches: DelimiterMatch[],
+    initialIndex: number
+  ): Generator<DelimiterMatch, void, IndividualDelimiter> {
+    for (let i = initialIndex; i >= 0; i--) {
+      const match = delimiterMatches[i];
+
+      if (match.text === this.leftSearchDelimiter.text) {
+        yield match;
+      }
     }
   }
 }
@@ -537,45 +591,4 @@ function findOppositeDelimiterOneWay(
   }
 
   return null;
-}
-
-interface RightDelimiterResult {
-  match: DelimiterMatch;
-  opposite: IndividualDelimiter;
-}
-
-function* generateRightDelimiters(
-  delimiterMatches: DelimiterMatch[],
-  initialIndex: number,
-  individualDelimiters: IndividualDelimiter[]
-): Generator<RightDelimiterResult, void, never> {
-  for (let i = initialIndex; i < delimiterMatches.length; i++) {
-    const match = delimiterMatches[i];
-
-    const individualDelimiter = individualDelimiters.find(
-      ({ text }) => text === match.text
-    );
-
-    if (individualDelimiter != null) {
-      yield {
-        match,
-        opposite: individualDelimiter.opposite,
-      };
-    }
-  }
-}
-
-function* generateLeftDelimiters(
-  delimiterMatches: DelimiterMatch[],
-  initialIndex: number
-): Generator<DelimiterMatch | null, void, IndividualDelimiter> {
-  let searchDelimiter = yield null;
-
-  for (let i = initialIndex; i >= 0; i--) {
-    const match = delimiterMatches[i];
-
-    if (match.text === searchDelimiter.text) {
-      searchDelimiter = yield match;
-    }
-  }
 }
