@@ -267,16 +267,6 @@ interface DelimiterMatch {
   endIndex: number;
 }
 
-// (  (  )  )
-// " " ""
-// [[] []]
-// "(<user.foo>   <user.bar>)"
-// """"""
-// ([)]
-// \(\)
-// """
-// ()
-// ()()
 function findSurroundingPairInText(
   text: string,
   selectionStartIndex: number,
@@ -511,9 +501,7 @@ function findOppositeDelimiter(
       );
   }
 }
-// (  [  )  ]
-// [  (    )
-// {   (  ] } )
+
 function findUnmatchedDelimiter(
   delimiterMatches: DelimiterMatch[],
   initialIndex: number,

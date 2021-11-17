@@ -1,0 +1,23 @@
+spokenForm: take outside
+languageId: plaintext
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}
+  extraArgs: []
+initialState:
+  documentContents: ([)]
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  marks: {}
+finalState:
+  documentContents: ([)]
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 3}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 3}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}}]
