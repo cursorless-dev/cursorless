@@ -1,10 +1,10 @@
-spokenForm: take inside round
+spokenForm: clear inside round
 languageId: plaintext
 command:
-  actionName: setSelection
+  actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: excludeDelimiters}
+      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: delimitersOnly}
   extraArgs: []
 marks: {}
 initialState:

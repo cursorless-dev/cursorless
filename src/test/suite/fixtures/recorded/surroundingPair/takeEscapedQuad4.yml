@@ -1,10 +1,10 @@
-spokenForm: take escaped quad
+spokenForm: clear escaped quad
 languageId: plaintext
 command:
-  actionName: setSelection
+  actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: escapedDoubleQuotes, delimiterInclusion: includeDelimiters}
+      modifier: {type: surroundingPair, delimiter: escapedDoubleQuotes, delimiterInclusion: delimitersOnly}
   extraArgs: []
 marks: {}
 initialState:

@@ -1,10 +1,10 @@
-spokenForm: take outside fine
+spokenForm: clear outside fine
 languageId: plaintext
 command:
-  actionName: setSelection
+  actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}
+      modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: delimitersOnly}
       mark: {type: decoratedSymbol, symbolColor: default, character: f, usePrePhraseSnapshot: true}
   extraArgs: []
 initialState:
