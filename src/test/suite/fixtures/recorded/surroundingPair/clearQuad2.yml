@@ -1,0 +1,28 @@
+spokenForm: clear quad
+languageId: python
+command:
+  actionName: clearAndSetSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: doubleQuotes, delimiterInclusion: includeDelimiters}
+  extraArgs: []
+initialState:
+  documentContents: |-
+    """
+    {
+        hello
+    }
+    """
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
+  marks: {}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: doubleQuotes, delimiterInclusion: includeDelimiters}}]
