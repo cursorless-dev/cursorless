@@ -69,11 +69,11 @@ function updateSurroundingPairTest(fixture: TestCaseFixture) {
       if (target.modifier?.type === "surroundingPair") {
         target.modifier.delimiterInclusion =
           target.modifier.delimiterInclusion ??
-          (target.modifier as any).delimitersOnly
+          ((target.modifier as any).delimitersOnly
             ? "delimitersOnly"
             : fixture.command.actionName === "clearAndSetSelection"
             ? "excludeDelimiters"
-            : "includeDelimiters";
+            : "includeDelimiters");
         (target.modifier as any).delimitersOnly = undefined;
         foundSurroundingPair = true;
       }
