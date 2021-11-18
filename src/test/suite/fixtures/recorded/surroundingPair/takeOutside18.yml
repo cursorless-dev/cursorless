@@ -1,10 +1,10 @@
-spokenForm: clear outside
+spokenForm: take outside
 languageId: plaintext
 command:
-  actionName: clearAndSetSelection
+  actionName: setSelection
   partialTargets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: delimitersOnly}
+      modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}
   extraArgs: []
 initialState:
   documentContents: "{   (  ]  )"

@@ -1,10 +1,10 @@
-spokenForm: clear round
+spokenForm: chuck round
 languageId: python
 command:
-  actionName: clearAndSetSelection
+  actionName: remove
   partialTargets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: includeDelimiters}
+      modifier: {type: surroundingPair, delimiter: parentheses, delimitersOnly: false}
   extraArgs: []
 initialState:
   documentContents: |

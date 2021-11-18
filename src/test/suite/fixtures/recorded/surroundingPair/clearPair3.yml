@@ -4,7 +4,7 @@ command:
   actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: delimitersOnly}
+      modifier: {type: surroundingPair, delimiter: null, delimitersOnly: true}
   extraArgs: []
 initialState:
   documentContents: f"j{fdfhjkd}lkjlkj"

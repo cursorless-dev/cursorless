@@ -1,7 +1,7 @@
-spokenForm: clear pair double
+spokenForm: take pair double
 languageId: plaintext
 command:
-  actionName: clearAndSetSelection
+  actionName: setSelection
   partialTargets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: delimitersOnly}

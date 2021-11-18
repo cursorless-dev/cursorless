@@ -1,10 +1,10 @@
-spokenForm: clear matching
+spokenForm: chuck matching
 languageId: python
 command:
-  actionName: clearAndSetSelection
+  actionName: remove
   partialTargets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}
+      modifier: {type: surroundingPair, delimiter: null, delimitersOnly: false}
   extraArgs: []
 initialState:
   documentContents: |
