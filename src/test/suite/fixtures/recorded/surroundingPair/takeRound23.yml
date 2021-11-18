@@ -1,7 +1,7 @@
-spokenForm: take round
+spokenForm: clear round
 languageId: plaintext
 command:
-  actionName: setSelection
+  actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: includeDelimiters}

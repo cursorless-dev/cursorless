@@ -4,7 +4,7 @@ command:
   actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: null, delimitersOnly: false}
+      modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: excludeDelimiters}
   extraArgs: []
 initialState:
   documentContents: import { Point, SyntaxNode } from "web-tree-sitter";

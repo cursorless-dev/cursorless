@@ -1,7 +1,7 @@
-spokenForm: tail take escaped quad
+spokenForm: clear take escaped quad
 languageId: plaintext
 command:
-  actionName: setSelection
+  actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: escapedDoubleQuotes, delimiterInclusion: includeDelimiters}

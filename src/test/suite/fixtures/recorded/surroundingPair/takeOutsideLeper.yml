@@ -1,7 +1,7 @@
-spokenForm: take outside leper
+spokenForm: clear outside leper
 languageId: plaintext
 command:
-  actionName: setSelection
+  actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}
