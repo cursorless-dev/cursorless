@@ -1,0 +1,23 @@
+spokenForm: clear outside
+languageId: typescript
+command:
+  actionName: clearAndSetSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}
+  extraArgs: []
+initialState:
+  documentContents: "{ [  ( { } ]  )"
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks: {}
+finalState:
+  documentContents: "{   )"
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  thatMark:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}}]

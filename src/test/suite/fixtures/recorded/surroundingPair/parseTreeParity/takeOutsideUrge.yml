@@ -1,0 +1,27 @@
+spokenForm: clear outside urge
+languageId: typescript
+command:
+  actionName: clearAndSetSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}
+      mark: {type: decoratedSymbol, symbolColor: default, character: u, usePrePhraseSnapshot: true}
+  extraArgs: []
+initialState:
+  documentContents: (<user.foo>  <user.bar>)
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks:
+    default.u:
+      start: {line: 0, character: 14}
+      end: {line: 0, character: 18}
+finalState:
+  documentContents: (<user.foo>  )
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  thatMark:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: u, usePrePhraseSnapshot: true}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}}]

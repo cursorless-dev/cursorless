@@ -1,0 +1,25 @@
+spokenForm: chuck pair round
+languageId: typescript
+command:
+  actionName: remove
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: delimitersOnly}
+  extraArgs: []
+initialState:
+  documentContents: (hello)
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  marks: {}
+finalState:
+  documentContents: hello
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: delimitersOnly}}]

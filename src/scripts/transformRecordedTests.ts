@@ -17,7 +17,7 @@ import { PartialPrimitiveTarget } from "../typings/Types";
  */
 const FIXTURE_TRANSFORMATION: (
   originalFixture: TestCaseFixture
-) => TestCaseFixture = updateSurroundingPairTest;
+) => TestCaseFixture | null = duplicateTestForParity;
 
 async function main() {
   const directory = path.join(
@@ -33,7 +33,14 @@ async function transformFile(file: string) {
   const buffer = await fsp.readFile(file);
   const inputFixture = yaml.load(buffer.toString()) as TestCaseFixture;
   const outputFixture = FIXTURE_TRANSFORMATION(inputFixture);
-  await fsp.writeFile(file, serialize(outputFixture));
+  if (outputFixture != null) {
+    const outputPath = path.join(
+      path.dirname(file),
+      "parseTreeParity",
+      path.basename(file)
+    );
+    await fsp.writeFile(outputPath, serialize(outputFixture));
+  }
 }
 
 // COMMON TRANSFORMATIONS
@@ -59,6 +66,25 @@ function reorderFields(fixture: TestCaseFixture) {
     returnValue: fixture.returnValue,
     fullTargets: fixture.fullTargets,
   };
+}
+function duplicateTestForParity(fixture: TestCaseFixture) {
+  let foundSurroundingPair = false;
+  fixture.command.partialTargets = transformPrimitiveTargets(
+    fixture.command.partialTargets,
+    (target: PartialPrimitiveTarget) => {
+      if (target.modifier?.type === "surroundingPair") {
+        foundSurroundingPair = true;
+      }
+      return target;
+    }
+  );
+
+  if (foundSurroundingPair && fixture.languageId === "plaintext") {
+    fixture.languageId = "typescript";
+    return fixture;
+  }
+
+  return null;
 }
 
 function updateSurroundingPairTest(fixture: TestCaseFixture) {
