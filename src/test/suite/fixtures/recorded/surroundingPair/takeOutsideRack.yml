@@ -18,12 +18,12 @@ initialState:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
 finalState:
-  documentContents: |
-    [(hello)  (whatever)]
+  documentContents: |+
+
   selections:
     - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 21}
+      active: {line: 0, character: 0}
   thatMark:
     - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 21}
+      active: {line: 0, character: 0}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: ']'}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}}]

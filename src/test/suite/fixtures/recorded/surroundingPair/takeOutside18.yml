@@ -13,11 +13,11 @@ initialState:
       active: {line: 0, character: 9}
   marks: {}
 finalState:
-  documentContents: "{   (  ]  )"
+  documentContents: "{   "
   selections:
     - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 11}
+      active: {line: 0, character: 4}
   thatMark:
     - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 11}
+      active: {line: 0, character: 4}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}}]
