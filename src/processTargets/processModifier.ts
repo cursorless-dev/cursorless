@@ -21,7 +21,7 @@ import {
   SurroundingPairModifier,
   TailModifier,
 } from "../typings/Types";
-import { getNodeRange } from "../util/nodeSelectors";
+import { getNodeRange, makeRangeFromPositions } from "../util/nodeSelectors";
 
 type SelectionWithEditorWithContext = {
   selection: SelectionWithEditor;
@@ -257,14 +257,17 @@ function processSurroundingPair(
     false
   );
 
-  if (
-    stringNodeMatcher(selection, node) != null ||
-    commentNodeMatcher(selection, node) != null
-  ) {
+  const isStringNode = stringNodeMatcher(selection, node) != null;
+  if (isStringNode || commentNodeMatcher(selection, node) != null) {
     const surroundingRange = findSurroundingPairTextBased(
       selection.editor,
       selection.selection,
-      getNodeRange(node),
+      isStringNode
+        ? makeRangeFromPositions(
+            node.children[0].endPosition,
+            node.children[node.children.length - 1].startPosition
+          )
+        : getNodeRange(node),
       modifier.delimiter,
       modifier.delimiterInclusion
     );
