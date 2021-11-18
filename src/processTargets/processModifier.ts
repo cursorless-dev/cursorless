@@ -3,7 +3,7 @@ import { range } from "lodash";
 import { Location, Position, Range, Selection } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { SUBWORD_MATCHER } from "../core/constants";
-import { getNodeMatcher } from "../languages";
+import { getNodeMatcher, stringContentRangeGetters } from "../languages";
 import {
   createSurroundingPairMatcher,
   findSurroundingPairTextBased,
@@ -263,10 +263,7 @@ function processSurroundingPair(
       selection.editor,
       selection.selection,
       isStringNode
-        ? makeRangeFromPositions(
-            node.children[0].endPosition,
-            node.children[node.children.length - 1].startPosition
-          )
+        ? stringContentRangeGetters[document.languageId](node)
         : getNodeRange(node),
       modifier.delimiter,
       modifier.delimiterInclusion
