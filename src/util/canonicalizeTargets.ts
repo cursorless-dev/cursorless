@@ -4,7 +4,7 @@ import {
   ScopeType,
 } from "../typings/Types";
 import update from "immutability-helper";
-import { transformPrimitiveTargets } from "./targetUtils";
+import { transformPrimitiveTargets } from "./getPrimitiveTargets";
 import { HatStyleName } from "../core/constants";
 import { flow } from "lodash";
 

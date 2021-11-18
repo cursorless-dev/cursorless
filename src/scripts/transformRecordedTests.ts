@@ -8,6 +8,8 @@ import { TestCaseFixture } from "../testUtil/TestCase";
 import { walkFilesSync } from "../testUtil/walkSync";
 import serialize from "../testUtil/serialize";
 import canonicalizeActionName from "../util/canonicalizeActionName";
+import { transformPrimitiveTargets } from "../util/getPrimitiveTargets";
+import { PartialPrimitiveTarget } from "../typings/Types";
 
 /**
  * The transformation to run on all recorded test fixtures.  Change this
@@ -15,7 +17,7 @@ import canonicalizeActionName from "../util/canonicalizeActionName";
  */
 const FIXTURE_TRANSFORMATION: (
   originalFixture: TestCaseFixture
-) => TestCaseFixture = identity;
+) => TestCaseFixture = updateSurroundingPairTest;
 
 async function main() {
   const directory = path.join(
@@ -57,6 +59,37 @@ function reorderFields(fixture: TestCaseFixture) {
     returnValue: fixture.returnValue,
     fullTargets: fixture.fullTargets,
   };
+}
+
+function updateSurroundingPairTest(fixture: TestCaseFixture) {
+  let foundSurroundingPair = false;
+  fixture.command.partialTargets = transformPrimitiveTargets(
+    fixture.command.partialTargets,
+    (target: PartialPrimitiveTarget) => {
+      if (target.modifier?.type === "surroundingPair") {
+        target.modifier.delimiterInclusion =
+          target.modifier.delimiterInclusion ??
+          (target.modifier as any).delimitersOnly
+            ? "delimitersOnly"
+            : fixture.command.actionName === "clearAndSetSelection"
+            ? "excludeDelimiters"
+            : "includeDelimiters";
+        (target.modifier as any).delimitersOnly = undefined;
+        foundSurroundingPair = true;
+      }
+      return target;
+    }
+  );
+
+  if (foundSurroundingPair) {
+    fixture.command.actionName = "clearAndSetSelection";
+
+    const spokenWords = fixture.spokenForm.split(" ");
+    spokenWords[0] = "clear";
+    fixture.spokenForm = spokenWords.join(" ");
+  }
+
+  return fixture;
 }
 
 main();
