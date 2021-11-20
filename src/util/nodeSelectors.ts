@@ -14,6 +14,10 @@ export function makeRangeFromPositions(
   );
 }
 
+export function positionFromPoint(point: Point): Position {
+  return new Position(point.row, point.column);
+}
+
 export function getNodeRange(node: SyntaxNode) {
   return new Range(
     node.startPosition.row,

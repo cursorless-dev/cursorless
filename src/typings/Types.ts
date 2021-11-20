@@ -74,8 +74,7 @@ export type Delimiter =
   | "escapedParentheses"
   | "parentheses"
   | "singleQuotes"
-  | "squareBrackets"
-  | "whitespace";
+  | "squareBrackets";
 
 export type ScopeType =
   | "argumentOrParameter"
