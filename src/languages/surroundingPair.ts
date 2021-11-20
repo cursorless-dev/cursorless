@@ -542,7 +542,7 @@ function* generateUnmatchedDelimiters(
     );
 
     // NB: We check for opposite text first because in the case of a match
-    // where left and right or equal we want to make sure we end rather than
+    // where left and right are equal we want to make sure we end rather than
     // treating it as nested
     if (matchingDelimiter != null) {
       const matchingDelimiterName = matchingDelimiter.delimiter;
