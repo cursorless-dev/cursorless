@@ -70,12 +70,3 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
 };
 
 export default createPatternMatchers(nodeMatchers);
-
-export function getStringContentRange(node: SyntaxNode): Range {
-  return new Range(
-    node.startPosition.row,
-    node.startPosition.column + 1,
-    node.endPosition.row,
-    node.endPosition.column - 1
-  );
-}

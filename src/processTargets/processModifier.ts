@@ -3,7 +3,7 @@ import { range } from "lodash";
 import { Location, Position, Range, Selection } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { SUBWORD_MATCHER } from "../core/constants";
-import { getNodeMatcher, stringContentRangeGetters } from "../languages";
+import { getNodeMatcher } from "../languages";
 import {
   createSurroundingPairMatcher,
   findSurroundingPairTextBased,
@@ -259,12 +259,30 @@ function processSurroundingPair(
 
   const isStringNode = stringNodeMatcher(selection, node) != null;
   if (isStringNode || commentNodeMatcher(selection, node) != null) {
+    let nodeRange: Range;
+    if (isStringNode) {
+      const children = node.children;
+      if (children.length !== 0) {
+        nodeRange = makeRangeFromPositions(
+          children[0].endPosition,
+          node.children[node.children.length - 1].startPosition
+        );
+      } else {
+        // This is a hack to deal with the fact that java doesn't have
+        // quotation mark tokens as children of the string. Rather than letting
+        // the parse tree handle the quotation marks in java, we instead just
+        // let the textual surround handle them by letting it see the quotation
+        // marks. In other languages we prefer to let the parser handle the
+        // quotation marks in case they are more than one character long.
+        nodeRange = getNodeRange(node);
+      }
+    } else {
+      nodeRange = getNodeRange(node);
+    }
     const surroundingRange = findSurroundingPairTextBased(
       selection.editor,
       selection.selection,
-      isStringNode
-        ? stringContentRangeGetters[document.languageId](node)
-        : getNodeRange(node),
+      nodeRange,
       modifier.delimiter,
       modifier.delimiterInclusion
     );

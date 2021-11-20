@@ -9,14 +9,10 @@ import {
 } from "../typings/Types";
 import cpp from "./cpp";
 import csharp from "./csharp";
-import java, {
-  getStringContentRange as javaGetStringContentRange,
-} from "./java";
+import java from "./java";
 import json from "./json";
 import python from "./python";
 import typescript from "./typescript";
-import { makeRangeFromPositions } from "../util/nodeSelectors";
-import { Range } from "vscode";
 
 const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
   c: cpp,
@@ -30,32 +26,6 @@ const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
   python,
   typescript,
   typescriptreact: typescript,
-};
-
-type StringContentRangeGetter = (node: SyntaxNode) => Range;
-
-function getDefaultStringContentRange(node: SyntaxNode): Range {
-  return makeRangeFromPositions(
-    node.children[0].endPosition,
-    node.children[node.children.length - 1].startPosition
-  );
-}
-
-export const stringContentRangeGetters: Record<
-  string,
-  StringContentRangeGetter
-> = {
-  c: getDefaultStringContentRange,
-  cpp: getDefaultStringContentRange,
-  csharp: getDefaultStringContentRange,
-  java: javaGetStringContentRange,
-  javascript: getDefaultStringContentRange,
-  javascriptreact: getDefaultStringContentRange,
-  json: getDefaultStringContentRange,
-  jsonc: getDefaultStringContentRange,
-  python: getDefaultStringContentRange,
-  typescript: getDefaultStringContentRange,
-  typescriptreact: getDefaultStringContentRange,
 };
 
 export function getNodeMatcher(
