@@ -1,9 +1,7 @@
 import { Location, Range } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { getNodeMatcher } from "../../../languages";
-import {
-  createSurroundingPairMatcher,
-} from "./surroundingPair";
+import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
 import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
 import {
   ProcessedTargetsContext,
@@ -83,7 +81,6 @@ export function processSurroundingPair(
         // quotation marks in case they are more than one character long.
         nodeRange = getNodeRange(node);
       }
-
     } else {
       nodeRange = getNodeRange(node);
     }
@@ -101,9 +98,11 @@ export function processSurroundingPair(
     }
   }
 
-  const nodeMatcher = createSurroundingPairMatcher(
+  return findSurroundingPairParseTreeBased(
+    selection.editor,
+    selection.selection,
+    node,
     modifier.delimiter,
     modifier.delimiterInclusion
   );
-  return findNearestContainingAncestorNode(node, nodeMatcher, selection);
 }
