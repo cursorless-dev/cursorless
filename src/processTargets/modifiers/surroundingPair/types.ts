@@ -3,27 +3,27 @@ import { Delimiter } from "../../../typings/Types";
 export interface IndividualDelimiter {
   text: string;
   opposite: IndividualDelimiter;
-  direction: "bidirectional" | "left" | "right";
+  side: "unknown" | "left" | "right";
   delimiter: Delimiter;
 }
 
-interface DelimiterIndices {
+export interface DelimiterOffsets {
   start: number;
   end: number;
 }
 
 export interface PairIndices {
-  leftDelimiter: DelimiterIndices;
-  rightDelimiter: DelimiterIndices;
+  leftDelimiter: DelimiterOffsets;
+  rightDelimiter: DelimiterOffsets;
 }
 
-export interface DelimiterMatch {
-  text: string;
-  startIndex: number;
-  endIndex: number;
-}
-
-export interface GeneratorResult {
-  match: DelimiterMatch;
+export interface DelimiterOccurrence {
   delimiterInfo: IndividualDelimiter;
+  offsets: DelimiterOffsets;
 }
+
+export type DelimiterOccurrenceGenerator = Generator<
+  DelimiterOccurrence,
+  void,
+  unknown
+>;

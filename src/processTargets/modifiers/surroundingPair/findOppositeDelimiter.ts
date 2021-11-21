@@ -1,12 +1,12 @@
 import { findUnmatchedDelimiter } from "./generateUnmatchedDelimiters";
-import { DelimiterMatch, IndividualDelimiter } from "./types";
+import { DelimiterOccurrence, IndividualDelimiter } from "./types";
 
 
 export function findOppositeDelimiter(
-  delimiterMatches: DelimiterMatch[],
+  delimiterMatches: DelimiterOccurrence[],
   index: number,
   delimiterInfo: IndividualDelimiter
-): DelimiterMatch | null {
+): DelimiterOccurrence | null {
   const { direction, opposite } = delimiterInfo;
 
   switch (direction) {

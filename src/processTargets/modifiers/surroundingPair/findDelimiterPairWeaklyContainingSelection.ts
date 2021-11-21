@@ -1,14 +1,14 @@
 import { getDelimiterPair } from "./getDelimiterPair";
 import {
   PairIndices,
-  DelimiterMatch,
+  DelimiterOccurrence,
   IndividualDelimiter
 } from "./types";
 import { generateUnmatchedDelimiters } from "./generateUnmatchedDelimiters";
 
 export function findDelimiterPairWeaklyContainingSelection(
   initialIndex: number,
-  delimiterMatches: DelimiterMatch[],
+  delimiterMatches: DelimiterOccurrence[],
   individualDelimiters: IndividualDelimiter[],
   selectionStartIndex: number): PairIndices | null {
   const rightDelimiters = individualDelimiters.filter(

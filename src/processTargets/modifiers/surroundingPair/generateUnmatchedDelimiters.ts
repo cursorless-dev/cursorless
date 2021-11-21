@@ -1,13 +1,13 @@
 import { range } from "lodash";
 import { Delimiter } from "../../../typings/Types";
-import { DelimiterMatch, IndividualDelimiter, GeneratorResult } from "./types";
+import { DelimiterOccurrence, IndividualDelimiter, GeneratorResult } from "./types";
 
 export function findUnmatchedDelimiter(
-  delimiterMatches: DelimiterMatch[],
+  delimiterMatches: DelimiterOccurrence[],
   initialIndex: number,
   delimitersToCheck: IndividualDelimiter[],
   lookForward: boolean
-): DelimiterMatch | null {
+): DelimiterOccurrence | null {
   const generatorResult = generateUnmatchedDelimiters(
     delimiterMatches,
     initialIndex,
@@ -19,7 +19,7 @@ export function findUnmatchedDelimiter(
 }
 
 export function* generateUnmatchedDelimiters(
-  delimiterMatches: DelimiterMatch[],
+  delimiterMatches: DelimiterOccurrence[],
   initialIndex: number,
   delimitersToCheck: () => IndividualDelimiter[],
   lookForward: boolean
