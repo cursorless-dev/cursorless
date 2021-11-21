@@ -1,12 +1,18 @@
 import { sortedIndexBy } from "lodash";
 import { findDelimiterPairAdjacentToSelection } from "./findDelimiterPairAdjacentToSelection";
 import { findDelimiterPairWeaklyContainingSelection } from "./findDelimiterPairWeaklyContainingSelection";
-import { PairIndices, Offsets, PossibleDelimiterOccurrence, IndividualDelimiter } from "./types";
+import {
+  PairIndices,
+  Offsets,
+  PossibleDelimiterOccurrence,
+  IndividualDelimiter,
+} from "./types";
 
 export function findSurroundingPairCore(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   individualDelimiters: IndividualDelimiter[],
-  selectionOffsets: Offsets
+  selectionOffsets: Offsets,
+  bailOnUnmatchedAdjacent: boolean = false
 ): PairIndices | null {
   const initialIndex = sortedIndexBy<{
     offsets: Offsets;
@@ -22,7 +28,8 @@ export function findSurroundingPairCore(
     findDelimiterPairAdjacentToSelection(
       initialIndex,
       delimiterOccurrences,
-      selectionOffsets
+      selectionOffsets,
+      bailOnUnmatchedAdjacent
     );
 
   if (delimiterPairAdjacentToSelection != null) {

@@ -10,7 +10,8 @@ import { findOppositeDelimiter } from "./findOppositeDelimiter";
 export function findDelimiterPairAdjacentToSelection(
   initialIndex: number,
   delimiterOccurrences: PossibleDelimiterOccurrence[],
-  selectionOffsets: Offsets
+  selectionOffsets: Offsets,
+  bailOnUnmatchedAdjacent: boolean = false
 ): PairIndices | null {
   const indicesToTry = [initialIndex + 1, initialIndex];
 
@@ -36,6 +37,8 @@ export function findDelimiterPairAdjacentToSelection(
             delimiterOccurrence as DelimiterOccurrence,
             possibleMatch
           );
+        } else if (bailOnUnmatchedAdjacent) {
+          return null;
         }
       }
     }

@@ -93,9 +93,11 @@ function findPairIndicesInNode(
             side:
               delimiterInfo.side !== "unknown"
                 ? delimiterInfo.side
+                : delimiterNode.parent?.firstChild === delimiterNode
+                ? "left"
                 : delimiterNode.parent?.lastChild === delimiterNode
                 ? "right"
-                : "left",
+                : ("unknown" as const),
           };
         },
       };
@@ -104,6 +106,7 @@ function findPairIndicesInNode(
   return findSurroundingPairCore(
     delimiterOccurrences,
     individualDelimiters,
-    selectionOffsets
+    selectionOffsets,
+    node.parent != null
   );
 }
