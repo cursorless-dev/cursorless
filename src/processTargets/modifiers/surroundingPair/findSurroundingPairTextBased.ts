@@ -1,7 +1,11 @@
+import { escapeRegExp, uniq } from "lodash";
 import { Range, Selection, TextDocument, TextEditor } from "vscode";
 import { Delimiter, DelimiterInclusion } from "../../../typings/Types";
+import { matchAll } from "../../../util/regex";
 import { extractSelectionFromDelimiterIndices } from "./extractSelectionFromDelimiterIndices";
-import { findSurroundingPairInText } from "./findSurroundingPairInText";
+import { findSurroundingPairCore } from "./findSurroundingPairCore";
+import { getIndividualDelimiters } from "./getIndividualDelimiters";
+import { Offsets, PairIndices, PossibleDelimiterOccurrence } from "./types";
 
 export function findSurroundingPairTextBased(
   editor: TextEditor,
@@ -20,7 +24,7 @@ export function findSurroundingPairTextBased(
     end: document.offsetAt(selection.end) - allowableRangeStartOffset,
   };
 
-  const pairIndices = findSurroundingPairInText(
+  const pairIndices = getDelimiterPairIndices(
     document.getText(allowableRange ?? undefined),
     selectionOffsets,
     delimiter
@@ -37,4 +41,50 @@ export function findSurroundingPairTextBased(
         selection: { selection, editor },
         context,
       }));
+}
+
+export function getDelimiterPairIndices(
+  text: string,
+  selectionOffsets: Offsets,
+  delimiter: Delimiter | null
+): PairIndices | null {
+  const individualDelimiters = getIndividualDelimiters(delimiter);
+
+  const delimiterTextToDelimiterInfoMap = Object.fromEntries(
+    individualDelimiters.map((individualDelimiter) => [
+      individualDelimiter.text,
+      individualDelimiter,
+    ])
+  );
+
+  const delimiterRegex = new RegExp(
+    uniq(individualDelimiters.flatMap(({ text }) => [`\\${text}`, text]))
+      .map(escapeRegExp)
+      .join("|"),
+    "gu"
+  );
+
+  const delimiterOccurrences: PossibleDelimiterOccurrence[] = matchAll(
+    text,
+    delimiterRegex,
+    (match) => {
+      const startOffset = match.index!;
+      const text = match[0];
+      return {
+        offsets: {
+          start: startOffset,
+          end: startOffset + text.length,
+        },
+        get delimiterInfo() {
+          return delimiterTextToDelimiterInfoMap[text];
+        },
+      };
+    }
+  );
+
+  return findSurroundingPairCore(
+    delimiterOccurrences,
+    individualDelimiters,
+    selectionOffsets
+  );
 }

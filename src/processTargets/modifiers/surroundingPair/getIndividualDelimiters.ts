@@ -1,10 +1,12 @@
 import { Delimiter } from "../../../typings/Types";
 import { IndividualDelimiter } from "./types";
-import { delimiterToText } from "./delimiterMaps";
+import { anyDelimiter, delimiterToText } from "./delimiterMaps";
 
 export function getIndividualDelimiters(
-  delimitersToCheck: Delimiter[]
+  delimiter: Delimiter | null
 ): IndividualDelimiter[] {
+  const delimitersToCheck = delimiter == null ? anyDelimiter : [delimiter];
+
   return delimitersToCheck
     .map((delimiter) => {
       const [leftDelimiter, rightDelimiter] = delimiterToText[delimiter];
