@@ -1,30 +1,42 @@
 import { getDelimiterPair } from "./getDelimiterPair";
 import {
   PairIndices,
+  Offsets,
+  PossibleDelimiterOccurrence,
   DelimiterOccurrence,
-  IndividualDelimiter,
-  DelimiterOccurrenceGenerator,
 } from "./types";
 import { findOppositeDelimiter } from "./findOppositeDelimiter";
 
 export function findDelimiterPairAdjacentToSelection(
-  potentiallyAdjacentDelimiters: DelimiterOccurrenceGenerator,
-  selectionStartIndex: number,
-  selectionEndIndex: number
+  initialIndex: number,
+  delimiterOccurrences: PossibleDelimiterOccurrence[],
+  selectionOffsets: Offsets
 ): PairIndices | null {
-  for (const delimiterOccurrence of potentiallyAdjacentDelimiters) {
-    if (
-      delimiterOccurrence.offsets.start <= selectionStartIndex &&
-      delimiterOccurrence.offsets.end >= selectionEndIndex
-    ) {
-      const possibleMatch = findOppositeDelimiter(
-        delimiterMatches,
-        index,
-        delimiterInfo
-      );
+  const indicesToTry = [initialIndex + 1, initialIndex];
 
-      if (possibleMatch != null) {
-        return getDelimiterPair(match, possibleMatch);
+  for (const index of indicesToTry) {
+    const delimiterOccurrence = delimiterOccurrences[index];
+
+    if (
+      delimiterOccurrence != null &&
+      delimiterOccurrence.offsets.start <= selectionOffsets.start &&
+      delimiterOccurrence.offsets.end >= selectionOffsets.end
+    ) {
+      const { delimiterInfo } = delimiterOccurrence;
+
+      if (delimiterInfo != null) {
+        const possibleMatch = findOppositeDelimiter(
+          delimiterOccurrences,
+          index,
+          delimiterInfo
+        );
+
+        if (possibleMatch != null) {
+          return getDelimiterPair(
+            delimiterOccurrence as DelimiterOccurrence,
+            possibleMatch
+          );
+        }
       }
     }
   }

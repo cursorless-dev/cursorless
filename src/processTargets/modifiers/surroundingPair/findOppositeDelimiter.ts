@@ -1,33 +1,46 @@
 import { findUnmatchedDelimiter } from "./generateUnmatchedDelimiters";
-import { DelimiterOccurrence, IndividualDelimiter } from "./types";
-
+import {
+  DelimiterOccurrence,
+  IndividualDelimiter,
+  PossibleDelimiterOccurrence,
+} from "./types";
 
 export function findOppositeDelimiter(
-  delimiterMatches: DelimiterOccurrence[],
+  delimiterOccurrences: PossibleDelimiterOccurrence[],
   index: number,
   delimiterInfo: IndividualDelimiter
 ): DelimiterOccurrence | null {
-  const { direction, opposite } = delimiterInfo;
+  const { side, opposite } = delimiterInfo;
 
-  switch (direction) {
-    case "left":
+  switch (side) {
+    case "right":
       return findUnmatchedDelimiter(
-        delimiterMatches,
+        delimiterOccurrences,
         index - 1,
         [opposite],
         false
       );
-    case "right":
+    case "left":
       return findUnmatchedDelimiter(
-        delimiterMatches,
+        delimiterOccurrences,
         index + 1,
         [opposite],
         true
       );
-    case "bidirectional":
+    case "unknown":
       return (
-        findUnmatchedDelimiter(delimiterMatches, index + 1, [opposite], true) ??
-        findUnmatchedDelimiter(delimiterMatches, index - 1, [opposite], false)
+        findUnmatchedDelimiter(
+          delimiterOccurrences,
+          index + 1,
+          [opposite],
+          true
+        ) ??
+        findUnmatchedDelimiter(
+          delimiterOccurrences,
+          index - 1,
+          [opposite],
+          false
+        )
       );
   }
 }

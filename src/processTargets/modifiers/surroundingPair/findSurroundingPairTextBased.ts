@@ -1,11 +1,7 @@
 import { Range, Selection, TextDocument, TextEditor } from "vscode";
-import {
-  Delimiter,
-  DelimiterInclusion
-} from "../../../typings/Types";
+import { Delimiter, DelimiterInclusion } from "../../../typings/Types";
 import { extractSelectionFromDelimiterIndices } from "./extractSelectionFromDelimiterIndices";
 import { findSurroundingPairInText } from "./findSurroundingPairInText";
-
 
 export function findSurroundingPairTextBased(
   editor: TextEditor,
@@ -16,26 +12,29 @@ export function findSurroundingPairTextBased(
 ) {
   const document: TextDocument = editor.document;
 
-  const allowableRangeStartOffset = allowableRange == null ? 0 : document.offsetAt(allowableRange.start);
+  const allowableRangeStartOffset =
+    allowableRange == null ? 0 : document.offsetAt(allowableRange.start);
+
+  const selectionOffsets = {
+    start: document.offsetAt(selection.start) - allowableRangeStartOffset,
+    end: document.offsetAt(selection.end) - allowableRangeStartOffset,
+  };
 
   const pairIndices = findSurroundingPairInText(
     document.getText(allowableRange ?? undefined),
-    document.offsetAt(selection.start) - allowableRangeStartOffset,
-
-    document.offsetAt(selection.end) - allowableRangeStartOffset,
+    selectionOffsets,
     delimiter
   );
-  if (pairIndices == null) {
-    return null;
-  }
 
-  return extractSelectionFromDelimiterIndices(
-    document,
-    allowableRangeStartOffset,
-    pairIndices,
-    delimiterInclusion
-  ).map(({ selection, context }) => ({
-    selection: { selection, editor },
-    context,
-  }));
+  return pairIndices == null
+    ? null
+    : extractSelectionFromDelimiterIndices(
+        document,
+        allowableRangeStartOffset,
+        pairIndices,
+        delimiterInclusion
+      ).map(({ selection, context }) => ({
+        selection: { selection, editor },
+        context,
+      }));
 }

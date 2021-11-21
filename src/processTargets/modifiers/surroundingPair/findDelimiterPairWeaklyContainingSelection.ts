@@ -1,32 +1,34 @@
 import { getDelimiterPair } from "./getDelimiterPair";
 import {
   PairIndices,
-  DelimiterOccurrence,
-  IndividualDelimiter
+  IndividualDelimiter,
+  PossibleDelimiterOccurrence,
+  Offsets,
 } from "./types";
 import { generateUnmatchedDelimiters } from "./generateUnmatchedDelimiters";
 
 export function findDelimiterPairWeaklyContainingSelection(
   initialIndex: number,
-  delimiterMatches: DelimiterOccurrence[],
-  individualDelimiters: IndividualDelimiter[],
-  selectionStartIndex: number): PairIndices | null {
-  const rightDelimiters = individualDelimiters.filter(
-    ({ direction }) => direction === "bidirectional" || direction === "left"
+  delimiterOccurrences: PossibleDelimiterOccurrence[],
+  acceptableIndividualDelimiters: IndividualDelimiter[],
+  selectionOffsets: Offsets
+): PairIndices | null {
+  const acceptableRightDelimiters = acceptableIndividualDelimiters.filter(
+    ({ side }) => side === "unknown" || side === "right"
   );
-  let leftDelimiters: IndividualDelimiter[] = [];
+  let acceptableLeftDelimiters: IndividualDelimiter[] = [];
 
   const rightDelimiterGenerator = generateUnmatchedDelimiters(
-    delimiterMatches,
+    delimiterOccurrences,
     initialIndex,
-    () => rightDelimiters,
+    () => acceptableRightDelimiters,
     true
   );
 
   const leftDelimiterGenerator = generateUnmatchedDelimiters(
-    delimiterMatches,
+    delimiterOccurrences,
     initialIndex - 1,
-    () => leftDelimiters,
+    () => acceptableLeftDelimiters,
     false
   );
 
@@ -35,17 +37,22 @@ export function findDelimiterPairWeaklyContainingSelection(
     if (rightNext.done) {
       return null;
     }
-    let rightMatch = rightNext.value!;
+    let rightDelimiterOccurrence = rightNext.value!;
 
-    leftDelimiters = [rightMatch.delimiterInfo.opposite];
+    acceptableLeftDelimiters = [
+      rightDelimiterOccurrence.delimiterInfo.opposite,
+    ];
     let leftNext = leftDelimiterGenerator.next();
     if (leftNext.done) {
       return null;
     }
-    let leftMatch = leftNext.value!.match;
+    let leftDelimiterOccurrence = leftNext.value!;
 
-    if (leftMatch.startIndex <= selectionStartIndex) {
-      return getDelimiterPair(leftMatch, rightMatch.match);
+    if (leftDelimiterOccurrence.offsets.start <= selectionOffsets.start) {
+      return getDelimiterPair(
+        leftDelimiterOccurrence,
+        rightDelimiterOccurrence
+      );
     }
   }
 }

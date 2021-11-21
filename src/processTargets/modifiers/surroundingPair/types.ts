@@ -7,19 +7,23 @@ export interface IndividualDelimiter {
   delimiter: Delimiter;
 }
 
-export interface DelimiterOffsets {
+export interface Offsets {
   start: number;
   end: number;
 }
 
 export interface PairIndices {
-  leftDelimiter: DelimiterOffsets;
-  rightDelimiter: DelimiterOffsets;
+  leftDelimiter: Offsets;
+  rightDelimiter: Offsets;
 }
 
-export interface DelimiterOccurrence {
+export interface PossibleDelimiterOccurrence {
+  delimiterInfo?: IndividualDelimiter;
+  offsets: Offsets;
+}
+
+export interface DelimiterOccurrence extends PossibleDelimiterOccurrence {
   delimiterInfo: IndividualDelimiter;
-  offsets: DelimiterOffsets;
 }
 
 export type DelimiterOccurrenceGenerator = Generator<

@@ -4,19 +4,12 @@ import { matchAll } from "../../../util/regex";
 import { findDelimiterPairAdjacentToSelection } from "./findDelimiterPairAdjacentToSelection";
 import { findDelimiterPairWeaklyContainingSelection } from "./findDelimiterPairWeaklyContainingSelection";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
-import {
-  PairIndices,
-  DelimiterOccurrence,
-  DelimiterOffsets,
-  IndividualDelimiter,
-  DelimiterOccurrenceGenerator,
-} from "./types";
+import { PairIndices, Offsets, PossibleDelimiterOccurrence } from "./types";
 import { anyDelimiter } from "./delimiterMaps";
 
 export function findSurroundingPairInText(
   text: string,
-  selectionStartIndex: number,
-  selectionEndIndex: number,
+  selectionOffsets: Offsets,
   delimiter: Delimiter | null
 ): PairIndices | null {
   const delimitersToCheck = delimiter == null ? anyDelimiter : [delimiter];
@@ -37,44 +30,39 @@ export function findSurroundingPairInText(
     "gu"
   );
 
-  const delimiterMatches: DelimiterRegexMatch[] = matchAll(
+  const delimiterOccurrences: PossibleDelimiterOccurrence[] = matchAll(
     text,
     delimiterRegex,
     (match) => {
       const startOffset = match.index!;
       const text = match[0];
       return {
-        text,
         offsets: {
           start: startOffset,
           end: startOffset + text.length,
+        },
+        get delimiterInfo() {
+          return delimiterTextToDelimiterInfoMap[text];
         },
       };
     }
   );
 
   const initialIndex = sortedIndexBy<{
-    offsets: {
-      end: number;
-    };
+    offsets: Offsets;
   }>(
-    delimiterMatches,
+    delimiterOccurrences,
     {
-      offsets: {
-        end: selectionEndIndex,
-      },
+      offsets: selectionOffsets,
     },
     "offsets.end"
   );
 
-  const indicesToTry = [initialIndex + 1, initialIndex];
   const delimiterPairAdjacentToSelection: PairIndices | null =
     findDelimiterPairAdjacentToSelection(
       initialIndex,
-      delimiterMatches,
-      selectionStartIndex,
-      selectionEndIndex,
-      delimiterTextToDelimiterInfoMap
+      delimiterOccurrences,
+      selectionOffsets
     );
 
   if (delimiterPairAdjacentToSelection != null) {
@@ -83,35 +71,8 @@ export function findSurroundingPairInText(
 
   return findDelimiterPairWeaklyContainingSelection(
     initialIndex,
-    delimiterMatches,
+    delimiterOccurrences,
     individualDelimiters,
-    selectionStartIndex
+    selectionOffsets
   );
-}
-
-interface DelimiterRegexMatch {
-  text: string;
-  offsets: DelimiterOffsets;
-}
-
-function* generatePotentiallyAdjacentDelimiters(
-  initialIndex: number,
-  delimiterMatches: DelimiterRegexMatch[],
-  delimiterTextToDelimiterInfoMap: { [k: string]: IndividualDelimiter }
-): DelimiterOccurrenceGenerator {
-  const indicesToTry = [initialIndex + 1, initialIndex];
-
-  for (const index of indicesToTry) {
-    const match = delimiterMatches[index];
-
-    if (match != null) {
-      const delimiterInfo = delimiterTextToDelimiterInfoMap[match.text];
-      if (delimiterInfo != null) {
-        yield {
-          delimiterInfo,
-          offsets: match.offsets,
-        };
-      }
-    }
-  }
 }
