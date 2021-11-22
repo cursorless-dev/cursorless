@@ -1,8 +1,13 @@
 import { SurroundingPairName } from "../../../typings/Types";
 
-export const delimiterToText: Record<SurroundingPairName, [string, string]> = {
+type IndividualDelimiterText = string | string[];
+
+export const delimiterToText: Record<
+  SurroundingPairName,
+  [IndividualDelimiterText, IndividualDelimiterText]
+> = {
   squareBrackets: ["[", "]"],
-  curlyBrackets: ["{", "}"],
+  curlyBrackets: [["{", "${"], "}"],
   angleBrackets: ["<", ">"],
   parentheses: ["(", ")"],
   singleQuotes: ["'", "'"],

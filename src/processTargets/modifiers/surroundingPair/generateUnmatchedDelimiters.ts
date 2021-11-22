@@ -38,10 +38,6 @@ export function* generateUnmatchedDelimiters(
     const delimiterOccurrence = delimiterOccurrences[index];
     const { delimiterInfo } = delimiterOccurrence;
 
-    if (delimiterInfo == null) {
-      continue;
-    }
-
     const delimiterAcceptability = checkDelimiterAcceptability(
       acceptableDelimiters(),
       delimiterInfo,
@@ -90,17 +86,11 @@ type DelimiterAcceptability =
 
 function checkDelimiterAcceptability(
   acceptableDelimiters: SurroundingPairName[],
-  delimiterInfo: IndividualDelimiter,
+  possibleDelimiterInfos: IndividualDelimiter[],
   expectedSide: "left" | "right"
 ): DelimiterAcceptability {
-  if (delimiterInfo == null) {
-    return {
-      isAcceptable: false,
-    };
-  }
-
-  const matchingDelimiter = acceptableDelimiters.find(
-    (delimiter) => delimiter === delimiterInfo.delimiter
+  const acceptableDelimiterInfos = possibleDelimiterInfos.filter(
+    ({ delimiter }) => acceptableDelimiters.includes(delimiter)
   );
 
   if (matchingDelimiter == null) {

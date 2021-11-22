@@ -2,7 +2,7 @@ import { SurroundingPairName } from "../../../typings/Types";
 
 export interface IndividualDelimiter {
   text: string;
-  side: "unknown" | "left" | "right";
+  side: "left" | "right";
   delimiter: SurroundingPairName;
 }
 
@@ -17,12 +17,13 @@ export interface SurroundingPairOffsets {
 }
 
 export interface PossibleDelimiterOccurrence {
-  delimiterInfo?: IndividualDelimiter;
+  possibleDelimiterInfos: IndividualDelimiter[];
   offsets: Offsets;
 }
 
-export interface DelimiterOccurrence extends PossibleDelimiterOccurrence {
+export interface DelimiterOccurrence {
   delimiterInfo: IndividualDelimiter;
+  offsets: Offsets;
 }
 
 export type DelimiterOccurrenceGenerator = Generator<
