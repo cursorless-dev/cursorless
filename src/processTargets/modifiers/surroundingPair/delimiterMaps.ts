@@ -1,6 +1,6 @@
-import { Delimiter } from "../../../typings/Types";
+import { SurroundingPairName } from "../../../typings/Types";
 
-export const delimiterToText: Record<Delimiter, string[]> = {
+export const delimiterToText: Record<SurroundingPairName, [string, string]> = {
   squareBrackets: ["[", "]"],
   curlyBrackets: ["{", "}"],
   angleBrackets: ["<", ">"],

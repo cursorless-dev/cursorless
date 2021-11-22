@@ -1,49 +1,34 @@
-import { Delimiter } from "../../../typings/Types";
+import { SurroundingPairName } from "../../../typings/Types";
 import { IndividualDelimiter } from "./types";
-import { anyDelimiter, delimiterToText } from "./delimiterMaps";
+import { delimiterToText } from "./delimiterMaps";
 
 export function getIndividualDelimiters(
-  delimiter: Delimiter | null
+  delimiters: SurroundingPairName[]
 ): IndividualDelimiter[] {
-  const delimitersToCheck = delimiter == null ? anyDelimiter : [delimiter];
-
-  return delimitersToCheck
+  return delimiters
     .map((delimiter) => {
       const [leftDelimiter, rightDelimiter] = delimiterToText[delimiter];
 
-      if (leftDelimiter === rightDelimiter) {
-        const delimiterResult: Partial<IndividualDelimiter> = {
-          text: leftDelimiter,
-          side: "unknown",
-          delimiter,
-        };
-
-        delimiterResult.opposite = delimiterResult as IndividualDelimiter;
-
-        return [delimiterResult as IndividualDelimiter];
-      } else {
-        const leftDelimiterResult: Partial<IndividualDelimiter> = {
-          text: leftDelimiter,
-          side: "left",
-          delimiter,
-        };
-
-        const rightDelimiterResult: Partial<IndividualDelimiter> = {
-          text: rightDelimiter,
-          side: "right",
-          delimiter,
-        };
-
-        rightDelimiterResult.opposite =
-          leftDelimiterResult as IndividualDelimiter;
-        leftDelimiterResult.opposite =
-          rightDelimiterResult as IndividualDelimiter;
-
-        return [
-          leftDelimiterResult as IndividualDelimiter,
-          rightDelimiterResult as IndividualDelimiter,
-        ];
-      }
+      return leftDelimiter === rightDelimiter
+        ? [
+            {
+              text: leftDelimiter,
+              side: "unknown" as const,
+              delimiter,
+            },
+          ]
+        : [
+            {
+              text: leftDelimiter,
+              side: "left" as const,
+              delimiter,
+            },
+            {
+              text: rightDelimiter,
+              side: "right" as const,
+              delimiter,
+            },
+          ];
     })
     .flat();
 }

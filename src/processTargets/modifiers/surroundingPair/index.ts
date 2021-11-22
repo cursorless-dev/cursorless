@@ -12,10 +12,8 @@ import {
   getNodeRange,
   makeRangeFromPositions,
 } from "../../../util/nodeSelectors";
-import {
-  SelectionWithEditorWithContext,
-  findNearestContainingAncestorNode,
-} from "../processModifier";
+import { SelectionWithEditorWithContext } from "../processModifier";
+import { anyDelimiter } from "./delimiterMaps";
 
 export function processSurroundingPair(
   context: ProcessedTargetsContext,
@@ -25,6 +23,8 @@ export function processSurroundingPair(
   let node: SyntaxNode | null;
 
   const document = selection.editor.document;
+  const delimiters =
+    modifier.delimiter == null ? anyDelimiter : [modifier.delimiter];
 
   try {
     node = context.getNodeAtLocation(
@@ -44,7 +44,7 @@ export function processSurroundingPair(
       selection.editor,
       selection.selection,
       null,
-      modifier.delimiter,
+      delimiters,
       modifier.delimiterInclusion
     );
   }
@@ -89,7 +89,7 @@ export function processSurroundingPair(
       selection.editor,
       selection.selection,
       nodeRange,
-      modifier.delimiter,
+      delimiters,
       modifier.delimiterInclusion
     );
 
@@ -102,7 +102,7 @@ export function processSurroundingPair(
     selection.editor,
     selection.selection,
     node,
-    modifier.delimiter,
+    delimiters,
     modifier.delimiterInclusion
   );
 }

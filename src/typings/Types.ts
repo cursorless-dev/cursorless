@@ -64,7 +64,7 @@ export type Mark =
   | DecoratedSymbol
   | LineNumber;
 
-export type Delimiter =
+export type SurroundingPairName =
   | "angleBrackets"
   | "backtickQuotes"
   | "curlyBrackets"
@@ -111,7 +111,7 @@ export type DelimiterInclusion =
 
 export interface SurroundingPairModifier {
   type: "surroundingPair";
-  delimiter: Delimiter | null;
+  delimiter: SurroundingPairName | null;
   delimiterInclusion: DelimiterInclusion;
 }
 

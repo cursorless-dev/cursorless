@@ -1,22 +1,20 @@
 import { getDelimiterPair } from "./getDelimiterPair";
 import {
-  PairIndices,
-  IndividualDelimiter,
+  SurroundingPairOffsets,
   PossibleDelimiterOccurrence,
   Offsets,
 } from "./types";
 import { generateUnmatchedDelimiters } from "./generateUnmatchedDelimiters";
+import { SurroundingPairName } from "../../../typings/Types";
 
-export function findDelimiterPairWeaklyContainingSelection(
+export function findDelimiterPairContainingSelection(
   initialIndex: number,
   delimiterOccurrences: PossibleDelimiterOccurrence[],
-  acceptableIndividualDelimiters: IndividualDelimiter[],
+  acceptableDelimiters: SurroundingPairName[],
   selectionOffsets: Offsets
-): PairIndices | null {
-  const acceptableRightDelimiters = acceptableIndividualDelimiters.filter(
-    ({ side }) => side === "unknown" || side === "right"
-  );
-  let acceptableLeftDelimiters: IndividualDelimiter[] = [];
+): SurroundingPairOffsets | null {
+  const acceptableRightDelimiters = acceptableDelimiters;
+  let acceptableLeftDelimiters: SurroundingPairName[] = [];
 
   const rightDelimiterGenerator = generateUnmatchedDelimiters(
     delimiterOccurrences,
@@ -40,7 +38,7 @@ export function findDelimiterPairWeaklyContainingSelection(
     let rightDelimiterOccurrence = rightNext.value!;
 
     acceptableLeftDelimiters = [
-      rightDelimiterOccurrence.delimiterInfo.opposite,
+      rightDelimiterOccurrence.delimiterInfo.delimiter,
     ];
     let leftNext = leftDelimiterGenerator.next();
     if (leftNext.done) {

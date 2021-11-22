@@ -1,8 +1,11 @@
 import { Selection, TextDocument, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
-import { Delimiter, DelimiterInclusion } from "../../../typings/Types";
+import {
+  SurroundingPairName,
+  DelimiterInclusion,
+} from "../../../typings/Types";
 import { getNodeRange } from "../../../util/nodeSelectors";
-import { extractSelectionFromDelimiterIndices } from "./extractSelectionFromDelimiterIndices";
+import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import {
@@ -15,12 +18,12 @@ export function findSurroundingPairParseTreeBased(
   editor: TextEditor,
   selection: Selection,
   node: SyntaxNode,
-  delimiter: Delimiter | null,
+  delimiters: SurroundingPairName[],
   delimiterInclusion: DelimiterInclusion
 ) {
   const document: TextDocument = editor.document;
 
-  const individualDelimiters = getIndividualDelimiters(delimiter);
+  const individualDelimiters = getIndividualDelimiters(delimiters);
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
@@ -43,15 +46,16 @@ export function findSurroundingPairParseTreeBased(
       continue;
     }
 
-    const pairIndices = findPairIndicesInNode(
+    const pairIndices = findSurroundingPairContainedInNode(
       currentNode,
       delimiterTextToDelimiterInfoMap,
       individualDelimiters,
+      delimiters,
       selectionOffsets
     );
 
     if (pairIndices != null) {
-      return extractSelectionFromDelimiterIndices(
+      return extractSelectionFromSurroundingPairOffsets(
         document,
         0,
         pairIndices,
@@ -66,12 +70,13 @@ export function findSurroundingPairParseTreeBased(
   return null;
 }
 
-function findPairIndicesInNode(
+function findSurroundingPairContainedInNode(
   node: SyntaxNode,
   delimiterTextToDelimiterInfoMap: {
     [k: string]: IndividualDelimiter;
   },
   individualDelimiters: IndividualDelimiter[],
+  delimiters: SurroundingPairName[],
   selectionOffsets: Offsets
 ) {
   const possibleDelimiterNodes = node.descendantsOfType(
@@ -93,9 +98,9 @@ function findPairIndicesInNode(
             side:
               delimiterInfo.side !== "unknown"
                 ? delimiterInfo.side
-                : delimiterNode.parent?.firstChild === delimiterNode
+                : delimiterNode.parent?.firstChild?.equals(delimiterNode)
                 ? "left"
-                : delimiterNode.parent?.lastChild === delimiterNode
+                : delimiterNode.parent?.lastChild?.equals(delimiterNode)
                 ? "right"
                 : ("unknown" as const),
           };
@@ -105,7 +110,7 @@ function findPairIndicesInNode(
 
   return findSurroundingPairCore(
     delimiterOccurrences,
-    individualDelimiters,
+    delimiters,
     selectionOffsets,
     node.parent != null
   );

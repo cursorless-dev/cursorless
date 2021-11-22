@@ -1,19 +1,15 @@
 import { sortedIndexBy } from "lodash";
+import { SurroundingPairName } from "../../../typings/Types";
 import { findDelimiterPairAdjacentToSelection } from "./findDelimiterPairAdjacentToSelection";
-import { findDelimiterPairWeaklyContainingSelection } from "./findDelimiterPairWeaklyContainingSelection";
-import {
-  PairIndices,
-  Offsets,
-  PossibleDelimiterOccurrence,
-  IndividualDelimiter,
-} from "./types";
+import { findDelimiterPairContainingSelection } from "./findDelimiterPairContainingSelection";
+import { SurroundingPairOffsets, Offsets, PossibleDelimiterOccurrence } from "./types";
 
 export function findSurroundingPairCore(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
-  individualDelimiters: IndividualDelimiter[],
+  acceptableDelimiters: SurroundingPairName[],
   selectionOffsets: Offsets,
   bailOnUnmatchedAdjacent: boolean = false
-): PairIndices | null {
+): SurroundingPairOffsets | null {
   const initialIndex = sortedIndexBy<{
     offsets: Offsets;
   }>(
@@ -24,7 +20,7 @@ export function findSurroundingPairCore(
     "offsets.end"
   );
 
-  const delimiterPairAdjacentToSelection: PairIndices | null =
+  const delimiterPairAdjacentToSelection: SurroundingPairOffsets | null =
     findDelimiterPairAdjacentToSelection(
       initialIndex,
       delimiterOccurrences,
@@ -36,10 +32,10 @@ export function findSurroundingPairCore(
     return delimiterPairAdjacentToSelection;
   }
 
-  return findDelimiterPairWeaklyContainingSelection(
+  return findDelimiterPairContainingSelection(
     initialIndex,
     delimiterOccurrences,
-    individualDelimiters,
+    acceptableDelimiters,
     selectionOffsets
   );
 }

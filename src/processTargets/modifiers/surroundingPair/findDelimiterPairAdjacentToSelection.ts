@@ -1,6 +1,6 @@
 import { getDelimiterPair } from "./getDelimiterPair";
 import {
-  PairIndices,
+  SurroundingPairOffsets,
   Offsets,
   PossibleDelimiterOccurrence,
   DelimiterOccurrence,
@@ -12,7 +12,7 @@ export function findDelimiterPairAdjacentToSelection(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   selectionOffsets: Offsets,
   bailOnUnmatchedAdjacent: boolean = false
-): PairIndices | null {
+): SurroundingPairOffsets | null {
   const indicesToTry = [initialIndex + 1, initialIndex];
 
   for (const index of indicesToTry) {

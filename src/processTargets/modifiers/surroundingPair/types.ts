@@ -1,10 +1,9 @@
-import { Delimiter } from "../../../typings/Types";
+import { SurroundingPairName } from "../../../typings/Types";
 
 export interface IndividualDelimiter {
   text: string;
-  opposite: IndividualDelimiter;
   side: "unknown" | "left" | "right";
-  delimiter: Delimiter;
+  delimiter: SurroundingPairName;
 }
 
 export interface Offsets {
@@ -12,7 +11,7 @@ export interface Offsets {
   end: number;
 }
 
-export interface PairIndices {
+export interface SurroundingPairOffsets {
   leftDelimiter: Offsets;
   rightDelimiter: Offsets;
 }

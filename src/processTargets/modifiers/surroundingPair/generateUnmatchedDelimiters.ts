@@ -1,5 +1,5 @@
 import { range } from "lodash";
-import { Delimiter } from "../../../typings/Types";
+import { SurroundingPairName } from "../../../typings/Types";
 import {
   DelimiterOccurrence,
   IndividualDelimiter,
@@ -9,7 +9,7 @@ import {
 export function findUnmatchedDelimiter(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   initialIndex: number,
-  acceptableDelimiters: IndividualDelimiter[],
+  acceptableDelimiters: SurroundingPairName[],
   lookForward: boolean
 ): DelimiterOccurrence | null {
   const generatorResult = generateUnmatchedDelimiters(
@@ -25,27 +25,34 @@ export function findUnmatchedDelimiter(
 export function* generateUnmatchedDelimiters(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   initialIndex: number,
-  acceptableDelimiters: () => IndividualDelimiter[],
+  acceptableDelimiters: () => SurroundingPairName[],
   lookForward: boolean
 ): Generator<DelimiterOccurrence, void, never> {
   const indices = lookForward
     ? range(initialIndex, delimiterOccurrences.length, 1)
     : range(initialIndex, -1, -1);
+  const side = lookForward ? "right" : "left";
 
-  let delimiterBalances: Partial<Record<Delimiter, number>> = {};
+  let delimiterBalances: Partial<Record<SurroundingPairName, number>> = {};
   for (const index of indices) {
     const delimiterOccurrence = delimiterOccurrences[index];
+    const { delimiterInfo } = delimiterOccurrence;
+
+    if (delimiterInfo == null) {
+      continue;
+    }
 
     const delimiterAcceptability = checkDelimiterAcceptability(
       acceptableDelimiters(),
-      delimiterOccurrence.delimiterInfo
+      delimiterInfo,
+      side
     );
 
     if (!delimiterAcceptability.isAcceptable) {
       continue;
     }
 
-    const matchingDelimiterName = delimiterOccurrence.delimiterInfo!.delimiter;
+    const matchingDelimiterName = delimiterInfo.delimiter;
 
     switch (delimiterAcceptability.direction) {
       case "matching":
@@ -82,8 +89,9 @@ type DelimiterAcceptability =
     };
 
 function checkDelimiterAcceptability(
-  acceptableDelimiters: IndividualDelimiter[],
-  delimiterInfo: IndividualDelimiter | undefined
+  acceptableDelimiters: SurroundingPairName[],
+  delimiterInfo: IndividualDelimiter,
+  expectedSide: "left" | "right"
 ): DelimiterAcceptability {
   if (delimiterInfo == null) {
     return {
@@ -92,7 +100,7 @@ function checkDelimiterAcceptability(
   }
 
   const matchingDelimiter = acceptableDelimiters.find(
-    ({ delimiter }) => delimiter === delimiterInfo.delimiter
+    (delimiter) => delimiter === delimiterInfo.delimiter
   );
 
   if (matchingDelimiter == null) {
@@ -101,13 +109,12 @@ function checkDelimiterAcceptability(
     };
   }
 
-  const { side: expectedSide } = matchingDelimiter;
   const { side: actualSide } = delimiterInfo;
 
   return {
     isAcceptable: true,
     direction:
-      expectedSide === "unknown" || actualSide === "unknown"
+      actualSide === "unknown"
         ? "unknown"
         : actualSide === expectedSide
         ? "matching"

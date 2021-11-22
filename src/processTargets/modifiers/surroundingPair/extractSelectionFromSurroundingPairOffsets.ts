@@ -1,22 +1,26 @@
 import { Selection, TextDocument } from "vscode";
-import { DelimiterInclusion, SelectionWithContext } from "../../../typings/Types";
-import { PairIndices } from "./types";
+import {
+  DelimiterInclusion,
+  SelectionWithContext,
+} from "../../../typings/Types";
+import { SurroundingPairOffsets } from "./types";
 
-export function extractSelectionFromDelimiterIndices(
+export function extractSelectionFromSurroundingPairOffsets(
   document: TextDocument,
-  allowableRangeStartOffset: number,
-  delimiterIndices: PairIndices,
-  delimiterInclusion: DelimiterInclusion): SelectionWithContext[] {
+  baseOffset: number,
+  surroundingPairOffsets: SurroundingPairOffsets,
+  delimiterInclusion: DelimiterInclusion
+): SelectionWithContext[] {
   switch (delimiterInclusion) {
     case "includeDelimiters":
       return [
         {
           selection: new Selection(
             document.positionAt(
-              allowableRangeStartOffset + delimiterIndices.leftDelimiter.start
+              baseOffset + surroundingPairOffsets.leftDelimiter.start
             ),
             document.positionAt(
-              allowableRangeStartOffset + delimiterIndices.rightDelimiter.end
+              baseOffset + surroundingPairOffsets.rightDelimiter.end
             )
           ),
           context: {},
@@ -27,10 +31,10 @@ export function extractSelectionFromDelimiterIndices(
         {
           selection: new Selection(
             document.positionAt(
-              allowableRangeStartOffset + delimiterIndices.leftDelimiter.end
+              baseOffset + surroundingPairOffsets.leftDelimiter.end
             ),
             document.positionAt(
-              allowableRangeStartOffset + delimiterIndices.rightDelimiter.start
+              baseOffset + surroundingPairOffsets.rightDelimiter.start
             )
           ),
           context: {},
@@ -41,10 +45,10 @@ export function extractSelectionFromDelimiterIndices(
         {
           selection: new Selection(
             document.positionAt(
-              allowableRangeStartOffset + delimiterIndices.leftDelimiter.start
+              baseOffset + surroundingPairOffsets.leftDelimiter.start
             ),
             document.positionAt(
-              allowableRangeStartOffset + delimiterIndices.leftDelimiter.end
+              baseOffset + surroundingPairOffsets.leftDelimiter.end
             )
           ),
           context: {},
@@ -52,10 +56,10 @@ export function extractSelectionFromDelimiterIndices(
         {
           selection: new Selection(
             document.positionAt(
-              allowableRangeStartOffset + delimiterIndices.rightDelimiter.start
+              baseOffset + surroundingPairOffsets.rightDelimiter.start
             ),
             document.positionAt(
-              allowableRangeStartOffset + delimiterIndices.rightDelimiter.end
+              baseOffset + surroundingPairOffsets.rightDelimiter.end
             )
           ),
           context: {},

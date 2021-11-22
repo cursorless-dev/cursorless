@@ -1,17 +1,24 @@
 import { escapeRegExp, uniq } from "lodash";
 import { Range, Selection, TextDocument, TextEditor } from "vscode";
-import { Delimiter, DelimiterInclusion } from "../../../typings/Types";
+import {
+  SurroundingPairName,
+  DelimiterInclusion,
+} from "../../../typings/Types";
 import { matchAll } from "../../../util/regex";
-import { extractSelectionFromDelimiterIndices } from "./extractSelectionFromDelimiterIndices";
+import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
-import { Offsets, PairIndices, PossibleDelimiterOccurrence } from "./types";
+import {
+  Offsets,
+  SurroundingPairOffsets,
+  PossibleDelimiterOccurrence,
+} from "./types";
 
 export function findSurroundingPairTextBased(
   editor: TextEditor,
   selection: Selection,
   allowableRange: Range | null,
-  delimiter: Delimiter | null,
+  delimiters: SurroundingPairName[],
   delimiterInclusion: DelimiterInclusion
 ) {
   const document: TextDocument = editor.document;
@@ -27,12 +34,12 @@ export function findSurroundingPairTextBased(
   const pairIndices = getDelimiterPairIndices(
     document.getText(allowableRange ?? undefined),
     selectionOffsets,
-    delimiter
+    delimiters
   );
 
   return pairIndices == null
     ? null
-    : extractSelectionFromDelimiterIndices(
+    : extractSelectionFromSurroundingPairOffsets(
         document,
         allowableRangeStartOffset,
         pairIndices,
@@ -46,9 +53,9 @@ export function findSurroundingPairTextBased(
 export function getDelimiterPairIndices(
   text: string,
   selectionOffsets: Offsets,
-  delimiter: Delimiter | null
-): PairIndices | null {
-  const individualDelimiters = getIndividualDelimiters(delimiter);
+  delimiters: SurroundingPairName[]
+): SurroundingPairOffsets | null {
+  const individualDelimiters = getIndividualDelimiters(delimiters);
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
@@ -84,7 +91,7 @@ export function getDelimiterPairIndices(
 
   return findSurroundingPairCore(
     delimiterOccurrences,
-    individualDelimiters,
+    delimiters,
     selectionOffsets
   );
 }

@@ -10,21 +10,21 @@ export function findOppositeDelimiter(
   index: number,
   delimiterInfo: IndividualDelimiter
 ): DelimiterOccurrence | null {
-  const { side, opposite } = delimiterInfo;
+  const { side, delimiter } = delimiterInfo;
 
   switch (side) {
     case "right":
       return findUnmatchedDelimiter(
         delimiterOccurrences,
         index - 1,
-        [opposite],
+        [delimiter],
         false
       );
     case "left":
       return findUnmatchedDelimiter(
         delimiterOccurrences,
         index + 1,
-        [opposite],
+        [delimiter],
         true
       );
     case "unknown":
@@ -32,13 +32,13 @@ export function findOppositeDelimiter(
         findUnmatchedDelimiter(
           delimiterOccurrences,
           index + 1,
-          [opposite],
+          [delimiter],
           true
         ) ??
         findUnmatchedDelimiter(
           delimiterOccurrences,
           index - 1,
-          [opposite],
+          [delimiter],
           false
         )
       );
