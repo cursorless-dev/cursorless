@@ -7,10 +7,7 @@ import {
 import { getNodeRange } from "../../../util/nodeSelectors";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
-import {
-  DelimiterLookupMap,
-  getDelimiterLookupMap,
-} from "./getIndividualDelimiters";
+import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import {
   IndividualDelimiter,
   Offsets,
@@ -26,7 +23,14 @@ export function findSurroundingPairParseTreeBased(
 ) {
   const document: TextDocument = editor.document;
 
-  const delimiterLookupMap = getDelimiterLookupMap(delimiters);
+  const individualDelimiters = getIndividualDelimiters(delimiters);
+
+  const delimiterTextToDelimiterInfoMap = Object.fromEntries(
+    individualDelimiters.map((individualDelimiter) => [
+      individualDelimiter.text,
+      individualDelimiter,
+    ])
+  );
 
   const selectionOffsets = {
     start: document.offsetAt(selection.start),
@@ -44,7 +48,8 @@ export function findSurroundingPairParseTreeBased(
 
     const pairIndices = findSurroundingPairContainedInNode(
       currentNode,
-      delimiterLookupMap,
+      delimiterTextToDelimiterInfoMap,
+      individualDelimiters,
       delimiters,
       selectionOffsets
     );
@@ -67,13 +72,16 @@ export function findSurroundingPairParseTreeBased(
 
 function findSurroundingPairContainedInNode(
   node: SyntaxNode,
-  delimiterLookupMap: DelimiterLookupMap,
+  delimiterTextToDelimiterInfoMap: {
+    [k: string]: IndividualDelimiter;
+  },
+  individualDelimiters: IndividualDelimiter[],
   delimiters: SurroundingPairName[],
   selectionOffsets: Offsets
 ) {
-  const possibleDelimiterNodes = node.descendantsOfType([
-    ...delimiterLookupMap.keys(),
-  ]);
+  const possibleDelimiterNodes = node.descendantsOfType(
+    individualDelimiters.map(({ text }) => text)
+  );
 
   const delimiterOccurrences: PossibleDelimiterOccurrence[] =
     possibleDelimiterNodes.map((delimiterNode) => {
@@ -82,31 +90,20 @@ function findSurroundingPairContainedInNode(
           start: delimiterNode.startIndex,
           end: delimiterNode.endIndex,
         },
-
-        get possibleDelimiterInfos() {
-          let possibleDelimiterInfos =
-            delimiterLookupMap.get(delimiterNode.type) ?? [];
-
-          if (possibleDelimiterInfos.length > 1) {
-            // If the text of the delimiter doesn't tell us whether it is left
-            // or right (eg for a `"`), then we see whether it is the first or
-            // last child of its parent to decide whether it's left or right.
-            const knownSide = delimiterNode.parent?.firstChild?.equals(
-              delimiterNode
-            )
-              ? "left"
-              : delimiterNode.parent?.lastChild?.equals(delimiterNode)
-              ? "right"
-              : null;
-
-            if (knownSide != null) {
-              possibleDelimiterInfos = possibleDelimiterInfos.filter(
-                ({ side }) => side === knownSide
-              );
-            }
-          }
-
-          return possibleDelimiterInfos;
+        get delimiterInfo() {
+          const delimiterInfo =
+            delimiterTextToDelimiterInfoMap[delimiterNode.type];
+          return {
+            ...delimiterInfo,
+            side:
+              delimiterInfo.side !== "unknown"
+                ? delimiterInfo.side
+                : delimiterNode.parent?.firstChild?.equals(delimiterNode)
+                ? "left"
+                : delimiterNode.parent?.lastChild?.equals(delimiterNode)
+                ? "right"
+                : ("unknown" as const),
+          };
         },
       };
     });

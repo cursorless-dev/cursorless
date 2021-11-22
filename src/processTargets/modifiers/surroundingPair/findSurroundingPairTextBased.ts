@@ -7,7 +7,7 @@ import {
 import { matchAll } from "../../../util/regex";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
-import { getDelimiterLookupMap } from "./getIndividualDelimiters";
+import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import {
   Offsets,
   SurroundingPairOffsets,
@@ -55,11 +55,17 @@ export function getDelimiterPairIndices(
   selectionOffsets: Offsets,
   delimiters: SurroundingPairName[]
 ): SurroundingPairOffsets | null {
-  const delimiterLookupMap = getDelimiterLookupMap(delimiters);
-  const delimiterTexts = [...delimiterLookupMap.keys()];
+  const individualDelimiters = getIndividualDelimiters(delimiters);
+
+  const delimiterTextToDelimiterInfoMap = Object.fromEntries(
+    individualDelimiters.map((individualDelimiter) => [
+      individualDelimiter.text,
+      individualDelimiter,
+    ])
+  );
 
   const delimiterRegex = new RegExp(
-    uniq(delimiterTexts.flatMap((text) => [`\\${text}`, text]))
+    uniq(individualDelimiters.flatMap(({ text }) => [`\\${text}`, text]))
       .map(escapeRegExp)
       .join("|"),
     "gu"
@@ -76,8 +82,8 @@ export function getDelimiterPairIndices(
           start: startOffset,
           end: startOffset + text.length,
         },
-        get possibleDelimiterInfos() {
-          return delimiterLookupMap.get(text) ?? [];
+        get delimiterInfo() {
+          return delimiterTextToDelimiterInfoMap[text];
         },
       };
     }

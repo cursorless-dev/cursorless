@@ -13,6 +13,13 @@ export function findOppositeDelimiter(
   const { side, delimiter } = delimiterInfo;
 
   switch (side) {
+    case "right":
+      return findUnmatchedDelimiter(
+        delimiterOccurrences,
+        index - 1,
+        [delimiter],
+        false
+      );
     case "left":
       return findUnmatchedDelimiter(
         delimiterOccurrences,
@@ -20,12 +27,20 @@ export function findOppositeDelimiter(
         [delimiter],
         true
       );
-    case "right":
-      return findUnmatchedDelimiter(
-        delimiterOccurrences,
-        index - 1,
-        [delimiter],
-        false
+    case "unknown":
+      return (
+        findUnmatchedDelimiter(
+          delimiterOccurrences,
+          index + 1,
+          [delimiter],
+          true
+        ) ??
+        findUnmatchedDelimiter(
+          delimiterOccurrences,
+          index - 1,
+          [delimiter],
+          false
+        )
       );
   }
 }
