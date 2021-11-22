@@ -64,10 +64,13 @@ export function getDelimiterPairIndices(
     ])
   );
 
+  const individualDelimiterDisjunct = uniq(
+    individualDelimiters.map(({ text }) => text)
+  )
+    .map(escapeRegExp)
+    .join("|");
   const delimiterRegex = new RegExp(
-    uniq(individualDelimiters.flatMap(({ text }) => [`\\${text}`, text]))
-      .map(escapeRegExp)
-      .join("|"),
+    `(?<!\\\\)(${individualDelimiterDisjunct})`,
     "gu"
   );
 

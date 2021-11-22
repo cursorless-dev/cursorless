@@ -1,9 +1,9 @@
 import { SurroundingPairName } from "../../../typings/Types";
 import { IndividualDelimiter } from "./types";
 import { delimiterToText } from "./delimiterMaps";
-import { getDefault } from "../../../util/map";
+import { concat, uniq } from "lodash";
 
-function getIndividualDelimiters(
+export function getIndividualDelimiters(
   delimiters: SurroundingPairName[]
 ): IndividualDelimiter[] {
   return delimiters.flatMap((delimiter) => {
@@ -16,38 +16,24 @@ function getIndividualDelimiters(
       ? [rightDelimiter]
       : rightDelimiter;
 
-    return [
-      // NB: It's important that the left delimiters come first because if left
-      // is equal to right we want to make sure that we first assume it's a left
-      // delimiter so that we look to the right first
-      ...leftDelimiters.map((leftDelimiter) => ({
-        text: leftDelimiter,
-        side: "left" as const,
+    const allDelimiterTexts = uniq(concat(leftDelimiters, rightDelimiters));
+
+    return allDelimiterTexts.map((text) => {
+      const isLeft = leftDelimiters.includes(text);
+      const isRight = rightDelimiters.includes(text);
+
+      return {
+        text,
+        side:
+          isLeft && !isRight
+            ? "left"
+            : isRight && !isLeft
+            ? "right"
+            : "unknown",
         delimiter,
-      })),
-      ...rightDelimiters.map((rightDelimiter) => ({
-        text: rightDelimiter,
-        side: "right" as const,
-        delimiter,
-      })),
-    ];
+      };
+    });
   });
-}
-
-export type DelimiterLookupMap = Map<string, IndividualDelimiter[]>;
-
-export function getDelimiterLookupMap(
-  delimiters: SurroundingPairName[]
-): DelimiterLookupMap {
-  let delimiterLookupMap: Map<string, IndividualDelimiter[]> = new Map();
-
-  getIndividualDelimiters(delimiters).forEach((individualDelimiter) => {
-    getDefault(delimiterLookupMap, individualDelimiter.text, () => []).push(
-      individualDelimiter
-    );
-  });
-
-  return delimiterLookupMap;
 }
 
 function isString(arg: unknown): arg is string {
