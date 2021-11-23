@@ -112,9 +112,7 @@ export function* generateUnmatchedDelimiters(
 
     if (
       delimiterName == null ||
-      !currentAcceptableDelimiters.some(
-        (delimiter) => delimiter === delimiterName
-      )
+      !currentAcceptableDelimiters.includes(delimiterName)
     ) {
       continue;
     }
