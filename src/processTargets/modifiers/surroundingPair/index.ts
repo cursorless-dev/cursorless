@@ -5,6 +5,7 @@ import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTre
 import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
 import {
   ComplexSurroundingPairName,
+  NodeMatcher,
   ProcessedTargetsContext,
   SelectionWithEditor,
   SurroundingPairModifier,
@@ -28,39 +29,27 @@ export function processSurroundingPair(
     modifier.delimiter as ComplexSurroundingPairName
   ] ?? [modifier.delimiter];
 
+  let stringNodeMatcher: NodeMatcher;
+  let commentNodeMatcher: NodeMatcher;
   try {
     node = context.getNodeAtLocation(
       new Location(document.uri, selection.selection)
     );
+    stringNodeMatcher = getNodeMatcher(document.languageId, "string", false);
+    commentNodeMatcher = getNodeMatcher(document.languageId, "comment", false);
   } catch (err) {
     if ((err as Error).name === "UnsupportedLanguageError") {
-      node = null;
+      return findSurroundingPairTextBased(
+        selection.editor,
+        selection.selection,
+        null,
+        delimiters,
+        modifier.delimiterInclusion
+      );
     } else {
       throw err;
     }
   }
-
-  if (node == null) {
-    // TODO: Only get a certain amount of text centered around the selection
-    return findSurroundingPairTextBased(
-      selection.editor,
-      selection.selection,
-      null,
-      delimiters,
-      modifier.delimiterInclusion
-    );
-  }
-
-  const stringNodeMatcher = getNodeMatcher(
-    document.languageId,
-    "string",
-    false
-  );
-  const commentNodeMatcher = getNodeMatcher(
-    document.languageId,
-    "comment",
-    false
-  );
 
   const isStringNode = stringNodeMatcher(selection, node) != null;
   if (isStringNode || commentNodeMatcher(selection, node) != null) {
