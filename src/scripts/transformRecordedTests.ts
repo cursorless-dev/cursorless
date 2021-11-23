@@ -17,7 +17,7 @@ import { PartialPrimitiveTarget } from "../typings/Types";
  */
 const FIXTURE_TRANSFORMATION: (
   originalFixture: TestCaseFixture
-) => TestCaseFixture | null = duplicateTestForParity;
+) => TestCaseFixture = updateSurroundingPairTest;
 
 async function main() {
   const directory = path.join(
@@ -33,14 +33,7 @@ async function transformFile(file: string) {
   const buffer = await fsp.readFile(file);
   const inputFixture = yaml.load(buffer.toString()) as TestCaseFixture;
   const outputFixture = FIXTURE_TRANSFORMATION(inputFixture);
-  if (outputFixture != null) {
-    const outputPath = path.join(
-      path.dirname(file),
-      "parseTreeParity",
-      path.basename(file)
-    );
-    await fsp.writeFile(outputPath, serialize(outputFixture));
-  }
+  await fsp.writeFile(file, serialize(outputFixture));
 }
 
 // COMMON TRANSFORMATIONS
@@ -67,53 +60,17 @@ function reorderFields(fixture: TestCaseFixture) {
     fullTargets: fixture.fullTargets,
   };
 }
-function duplicateTestForParity(fixture: TestCaseFixture) {
-  let foundSurroundingPair = false;
-  fixture.command.partialTargets = transformPrimitiveTargets(
-    fixture.command.partialTargets,
-    (target: PartialPrimitiveTarget) => {
-      if (target.modifier?.type === "surroundingPair") {
-        foundSurroundingPair = true;
-      }
-      return target;
-    }
-  );
-
-  if (foundSurroundingPair && fixture.languageId === "plaintext") {
-    fixture.languageId = "typescript";
-    return fixture;
-  }
-
-  return null;
-}
 
 function updateSurroundingPairTest(fixture: TestCaseFixture) {
-  let foundSurroundingPair = false;
   fixture.command.partialTargets = transformPrimitiveTargets(
     fixture.command.partialTargets,
     (target: PartialPrimitiveTarget) => {
       if (target.modifier?.type === "surroundingPair") {
-        target.modifier.delimiterInclusion =
-          target.modifier.delimiterInclusion ??
-          ((target.modifier as any).delimitersOnly
-            ? "delimitersOnly"
-            : fixture.command.actionName === "clearAndSetSelection"
-            ? "excludeDelimiters"
-            : "includeDelimiters");
-        (target.modifier as any).delimitersOnly = undefined;
-        foundSurroundingPair = true;
+        target.modifier.delimiter = target.modifier.delimiter ?? "any";
       }
       return target;
     }
   );
-
-  if (foundSurroundingPair) {
-    fixture.command.actionName = "clearAndSetSelection";
-
-    const spokenWords = fixture.spokenForm.split(" ");
-    spokenWords[0] = "clear";
-    fixture.spokenForm = spokenWords.join(" ");
-  }
 
   return fixture;
 }
