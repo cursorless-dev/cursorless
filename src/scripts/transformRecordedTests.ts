@@ -10,6 +10,7 @@ import serialize from "../testUtil/serialize";
 import canonicalizeActionName from "../util/canonicalizeActionName";
 import { transformPrimitiveTargets } from "../util/getPrimitiveTargets";
 import { PartialPrimitiveTarget } from "../typings/Types";
+import { mkdir, rename, unlink } from "fs/promises";
 
 /**
  * The transformation to run on all recorded test fixtures.  Change this
@@ -34,6 +35,28 @@ async function transformFile(file: string) {
   const inputFixture = yaml.load(buffer.toString()) as TestCaseFixture;
   const outputFixture = FIXTURE_TRANSFORMATION(inputFixture);
   await fsp.writeFile(file, serialize(outputFixture));
+}
+
+/**
+ * Can be used to organize files into directories based on eg language id
+ * @param file The file to move
+ */
+async function moveFile(file: string) {
+  const buffer = await fsp.readFile(file);
+  const inputFixture = yaml.load(buffer.toString()) as TestCaseFixture;
+  const parent = path.dirname(file);
+  if (path.basename(parent) !== "surroundingPair") {
+    return;
+  }
+  const childDirName =
+    inputFixture.languageId === "plaintext"
+      ? "textual"
+      : `parseTree/${inputFixture.languageId}`;
+  const childDir = path.join(parent, childDirName);
+  await mkdir(childDir, { recursive: true });
+  const outputPath = path.join(childDir, path.basename(file));
+  // console.log(`${file} => ${outputPath}`);
+  await rename(file, outputPath);
 }
 
 // COMMON TRANSFORMATIONS
