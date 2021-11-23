@@ -74,6 +74,9 @@ export function getDelimiterPairIndices(
     "gu"
   );
 
+  // XXX: The below is a bit wasteful when there are multiple targets, because
+  // this whole function gets run once per target, so we're re-running this
+  // regex tokenization for every one, but could probably just run it once.
   const delimiterOccurrences: PossibleDelimiterOccurrence[] = matchAll(
     text,
     delimiterRegex,
