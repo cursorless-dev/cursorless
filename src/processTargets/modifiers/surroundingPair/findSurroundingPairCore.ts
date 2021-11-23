@@ -1,12 +1,16 @@
 import { sortedIndexBy } from "lodash";
-import { SurroundingPairName } from "../../../typings/Types";
+import { SimpleSurroundingPairName } from "../../../typings/Types";
 import { findDelimiterPairAdjacentToSelection } from "./findDelimiterPairAdjacentToSelection";
 import { findDelimiterPairContainingSelection } from "./findDelimiterPairContainingSelection";
-import { SurroundingPairOffsets, Offsets, PossibleDelimiterOccurrence } from "./types";
+import {
+  SurroundingPairOffsets,
+  Offsets,
+  PossibleDelimiterOccurrence,
+} from "./types";
 
 export function findSurroundingPairCore(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
-  acceptableDelimiters: SurroundingPairName[],
+  acceptableDelimiters: SimpleSurroundingPairName[],
   selectionOffsets: Offsets,
   bailOnUnmatchedAdjacent: boolean = false
 ): SurroundingPairOffsets | null {

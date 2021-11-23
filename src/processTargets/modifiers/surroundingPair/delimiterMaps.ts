@@ -1,21 +1,24 @@
-import { SurroundingPairName } from "../../../typings/Types";
+import {
+  ComplexSurroundingPairName,
+  SimpleSurroundingPairName,
+} from "../../../typings/Types";
 
 type IndividualDelimiterText = string | string[];
 
 export const delimiterToText: Record<
-  SurroundingPairName,
+  SimpleSurroundingPairName,
   [IndividualDelimiterText, IndividualDelimiterText]
 > = {
-  squareBrackets: ["[", "]"],
-  curlyBrackets: [["{", "${"], "}"],
   angleBrackets: ["<", ">"],
-  parentheses: ["(", ")"],
-  singleQuotes: ["'", "'"],
-  doubleQuotes: ['"', '"'],
   backtickQuotes: ["`", "`"],
-  escapedSingleQuotes: ["\\'", "\\'"],
+  curlyBrackets: [["{", "${"], "}"],
+  doubleQuotes: ['"', '"'],
   escapedDoubleQuotes: ['\\"', '\\"'],
   escapedParentheses: ["\\(", "\\)"],
+  escapedSingleQuotes: ["\\'", "\\'"],
+  parentheses: ["(", ")"],
+  singleQuotes: ["'", "'"],
+  squareBrackets: ["[", "]"],
 };
 
 export const leftToRightMap: Record<string, string> = Object.fromEntries(
@@ -25,4 +28,10 @@ export const leftToRightMap: Record<string, string> = Object.fromEntries(
 /**
  * Delimiters to look for when the user does not specify a delimiter
  */
-export const anyDelimiter = Object.keys(delimiterToText);
+export const complexDelimiterMap: Record<
+  ComplexSurroundingPairName,
+  SimpleSurroundingPairName[]
+> = {
+  any: Object.keys(delimiterToText),
+  string: ["singleQuotes", "doubleQuotes", "backtickQuotes"],
+};

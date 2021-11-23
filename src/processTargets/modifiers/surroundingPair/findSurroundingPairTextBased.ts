@@ -1,7 +1,7 @@
 import { escapeRegExp, uniq } from "lodash";
 import { Range, Selection, TextDocument, TextEditor } from "vscode";
 import {
-  SurroundingPairName,
+  SimpleSurroundingPairName,
   DelimiterInclusion,
 } from "../../../typings/Types";
 import { matchAll } from "../../../util/regex";
@@ -18,7 +18,7 @@ export function findSurroundingPairTextBased(
   editor: TextEditor,
   selection: Selection,
   allowableRange: Range | null,
-  delimiters: SurroundingPairName[],
+  delimiters: SimpleSurroundingPairName[],
   delimiterInclusion: DelimiterInclusion
 ) {
   const document: TextDocument = editor.document;
@@ -53,7 +53,7 @@ export function findSurroundingPairTextBased(
 export function getDelimiterPairIndices(
   text: string,
   selectionOffsets: Offsets,
-  delimiters: SurroundingPairName[]
+  delimiters: SimpleSurroundingPairName[]
 ): SurroundingPairOffsets | null {
   const individualDelimiters = getIndividualDelimiters(delimiters);
 

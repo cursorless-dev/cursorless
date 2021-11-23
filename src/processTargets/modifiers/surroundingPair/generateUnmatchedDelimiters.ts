@@ -1,5 +1,5 @@
 import { range } from "lodash";
-import { SurroundingPairName } from "../../../typings/Types";
+import { SimpleSurroundingPairName } from "../../../typings/Types";
 import {
   DelimiterOccurrence,
   IndividualDelimiter,
@@ -9,7 +9,7 @@ import {
 export function findUnmatchedDelimiter(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   initialIndex: number,
-  acceptableDelimiters: SurroundingPairName[],
+  acceptableDelimiters: SimpleSurroundingPairName[],
   lookForward: boolean
 ): DelimiterOccurrence | null {
   const generatorResult = generateUnmatchedDelimiters(
@@ -25,7 +25,7 @@ export function findUnmatchedDelimiter(
 export function* generateUnmatchedDelimiters(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   initialIndex: number,
-  acceptableDelimiters: () => SurroundingPairName[],
+  acceptableDelimiters: () => SimpleSurroundingPairName[],
   lookForward: boolean
 ): Generator<DelimiterOccurrence, void, never> {
   const indices = lookForward
@@ -33,7 +33,8 @@ export function* generateUnmatchedDelimiters(
     : range(initialIndex, -1, -1);
   const side = lookForward ? "right" : "left";
 
-  let delimiterBalances: Partial<Record<SurroundingPairName, number>> = {};
+  let delimiterBalances: Partial<Record<SimpleSurroundingPairName, number>> =
+    {};
   for (const index of indices) {
     const delimiterOccurrence = delimiterOccurrences[index];
     const { delimiterInfo } = delimiterOccurrence;
@@ -89,7 +90,7 @@ type DelimiterAcceptability =
     };
 
 function checkDelimiterAcceptability(
-  acceptableDelimiters: SurroundingPairName[],
+  acceptableDelimiters: SimpleSurroundingPairName[],
   delimiterInfo: IndividualDelimiter,
   expectedSide: "left" | "right"
 ): DelimiterAcceptability {

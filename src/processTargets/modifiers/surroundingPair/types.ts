@@ -1,9 +1,9 @@
-import { SurroundingPairName } from "../../../typings/Types";
+import { SimpleSurroundingPairName } from "../../../typings/Types";
 
 export interface IndividualDelimiter {
   text: string;
   side: "unknown" | "left" | "right";
-  delimiter: SurroundingPairName;
+  delimiter: SimpleSurroundingPairName;
 }
 
 export interface Offsets {

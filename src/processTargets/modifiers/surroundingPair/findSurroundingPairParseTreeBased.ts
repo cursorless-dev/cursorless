@@ -1,7 +1,7 @@
 import { Selection, TextDocument, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import {
-  SurroundingPairName,
+  SimpleSurroundingPairName,
   DelimiterInclusion,
 } from "../../../typings/Types";
 import { getNodeRange } from "../../../util/nodeSelectors";
@@ -18,7 +18,7 @@ export function findSurroundingPairParseTreeBased(
   editor: TextEditor,
   selection: Selection,
   node: SyntaxNode,
-  delimiters: SurroundingPairName[],
+  delimiters: SimpleSurroundingPairName[],
   delimiterInclusion: DelimiterInclusion
 ) {
   const document: TextDocument = editor.document;
@@ -76,7 +76,7 @@ function findSurroundingPairContainedInNode(
     [k: string]: IndividualDelimiter;
   },
   individualDelimiters: IndividualDelimiter[],
-  delimiters: SurroundingPairName[],
+  delimiters: SimpleSurroundingPairName[],
   selectionOffsets: Offsets
 ) {
   const possibleDelimiterNodes = node.descendantsOfType(

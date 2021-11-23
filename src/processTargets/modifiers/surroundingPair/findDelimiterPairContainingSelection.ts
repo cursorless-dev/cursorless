@@ -5,16 +5,16 @@ import {
   Offsets,
 } from "./types";
 import { generateUnmatchedDelimiters } from "./generateUnmatchedDelimiters";
-import { SurroundingPairName } from "../../../typings/Types";
+import { SimpleSurroundingPairName } from "../../../typings/Types";
 
 export function findDelimiterPairContainingSelection(
   initialIndex: number,
   delimiterOccurrences: PossibleDelimiterOccurrence[],
-  acceptableDelimiters: SurroundingPairName[],
+  acceptableDelimiters: SimpleSurroundingPairName[],
   selectionOffsets: Offsets
 ): SurroundingPairOffsets | null {
   const acceptableRightDelimiters = acceptableDelimiters;
-  let acceptableLeftDelimiters: SurroundingPairName[] = [];
+  let acceptableLeftDelimiters: SimpleSurroundingPairName[] = [];
 
   const rightDelimiterGenerator = generateUnmatchedDelimiters(
     delimiterOccurrences,

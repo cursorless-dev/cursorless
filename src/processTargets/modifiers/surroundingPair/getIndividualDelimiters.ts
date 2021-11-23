@@ -1,10 +1,10 @@
-import { SurroundingPairName } from "../../../typings/Types";
+import { SimpleSurroundingPairName } from "../../../typings/Types";
 import { IndividualDelimiter } from "./types";
 import { delimiterToText } from "./delimiterMaps";
 import { concat, uniq } from "lodash";
 
 export function getIndividualDelimiters(
-  delimiters: SurroundingPairName[]
+  delimiters: SimpleSurroundingPairName[]
 ): IndividualDelimiter[] {
   return delimiters.flatMap((delimiter) => {
     const [leftDelimiter, rightDelimiter] = delimiterToText[delimiter];

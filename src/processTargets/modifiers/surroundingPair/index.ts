@@ -4,6 +4,7 @@ import { getNodeMatcher } from "../../../languages";
 import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
 import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
 import {
+  ComplexSurroundingPairName,
   ProcessedTargetsContext,
   SelectionWithEditor,
   SurroundingPairModifier,
@@ -13,7 +14,7 @@ import {
   makeRangeFromPositions,
 } from "../../../util/nodeSelectors";
 import { SelectionWithEditorWithContext } from "../processModifier";
-import { anyDelimiter } from "./delimiterMaps";
+import { complexDelimiterMap } from "./delimiterMaps";
 
 export function processSurroundingPair(
   context: ProcessedTargetsContext,
@@ -23,8 +24,9 @@ export function processSurroundingPair(
   let node: SyntaxNode | null;
 
   const document = selection.editor.document;
-  const delimiters =
-    modifier.delimiter == null ? anyDelimiter : [modifier.delimiter];
+  const delimiters = complexDelimiterMap[
+    modifier.delimiter as ComplexSurroundingPairName
+  ] ?? [modifier.delimiter];
 
   try {
     node = context.getNodeAtLocation(

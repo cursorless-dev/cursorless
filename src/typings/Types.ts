@@ -64,17 +64,21 @@ export type Mark =
   | DecoratedSymbol
   | LineNumber;
 
-export type SurroundingPairName =
+export type SimpleSurroundingPairName =
   | "angleBrackets"
   | "backtickQuotes"
   | "curlyBrackets"
   | "doubleQuotes"
-  | "escapedSingleQuotes"
   | "escapedDoubleQuotes"
   | "escapedParentheses"
+  | "escapedSingleQuotes"
   | "parentheses"
   | "singleQuotes"
   | "squareBrackets";
+export type ComplexSurroundingPairName = "string" | "any";
+export type SurroundingPairName =
+  | SimpleSurroundingPairName
+  | ComplexSurroundingPairName;
 
 export type ScopeType =
   | "argumentOrParameter"
@@ -111,7 +115,7 @@ export type DelimiterInclusion =
 
 export interface SurroundingPairModifier {
   type: "surroundingPair";
-  delimiter: SurroundingPairName | null;
+  delimiter: SurroundingPairName;
   delimiterInclusion: DelimiterInclusion;
 }
 
