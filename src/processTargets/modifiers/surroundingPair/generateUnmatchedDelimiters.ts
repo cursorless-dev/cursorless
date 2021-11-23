@@ -94,16 +94,16 @@ export function* generateUnmatchedDelimiters(
   let delimiterBalances: Partial<Record<SimpleSurroundingPairName, number>> =
     {};
 
-  const indices = lookForward
-    ? range(initialIndex, delimiterOccurrences.length, 1)
-    : range(initialIndex, -1, -1);
-
   /**
    * The current list of acceptable delimiters in the ongoing scan segment. Each
    * time we yield, this list might change depending on what the other direction
    * found.
    */
   let currentAcceptableDelimiters = getCurrentAcceptableDelimiters();
+
+  const indices = lookForward
+    ? range(initialIndex, delimiterOccurrences.length, 1)
+    : range(initialIndex, -1, -1);
 
   for (const index of indices) {
     const delimiterOccurrence = delimiterOccurrences[index];
