@@ -26,7 +26,8 @@ export const leftToRightMap: Record<string, string> = Object.fromEntries(
 );
 
 /**
- * Delimiters to look for when the user does not specify a delimiter
+ * Some surrounding pair scope types are really just shorthand for multiple
+ * acceptable delimiters.  This map defines these surrounding pairs.
  */
 export const complexDelimiterMap: Record<
   ComplexSurroundingPairName,

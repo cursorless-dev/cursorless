@@ -1,8 +1,10 @@
 import { SimpleSurroundingPairName } from "../../../typings/Types";
 
+export type DelimiterSide = "unknown" | "left" | "right";
+
 export interface IndividualDelimiter {
   text: string;
-  side: "unknown" | "left" | "right";
+  side: DelimiterSide;
   delimiter: SimpleSurroundingPairName;
 }
 

@@ -1,6 +1,6 @@
 import { SurroundingPairOffsets, DelimiterOccurrence } from "./types";
 
-export function getDelimiterPair(
+export function getSurroundingPairOffsets(
   delimiter1: DelimiterOccurrence,
   delimiter2: DelimiterOccurrence
 ): SurroundingPairOffsets {
