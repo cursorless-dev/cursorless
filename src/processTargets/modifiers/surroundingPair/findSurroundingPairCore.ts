@@ -13,10 +13,10 @@ import {
  * shared by both the parse tree and textual implementations.
  *
  * We first look for any delimiter pair where one of the delimiters itself
- * contains our selection, for example if the user uses a mark which is a
+ * contains our selection, for example if the user refers to a mark which is a
  * delimiter token, or if the user's cursor is right next to a delimiter.
  *
- * If we don't find a delimiter pair above, we instead look for the smallest
+ * If we don't find a delimiter pair that way, we instead look for the smallest
  * delimiter pair that contains the selection.
  *
  * @param delimiterOccurrences A list of delimiter occurrences.  Expected to be sorted by offsets
