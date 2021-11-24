@@ -3,12 +3,22 @@ import { IndividualDelimiter } from "./types";
 import { delimiterToText } from "./delimiterMaps";
 import { concat, uniq } from "lodash";
 
+/**
+ * Given a list of delimiters, returns a list where each element corresponds to
+ * a single right or left delimiter.  Each item contains information such as a
+ * reference to delimiter name, the text to expect, etc.
+ *
+ * @param delimiters The delimiter names
+ * @returns A list of information about all possible left / right delimiter instances
+ */
 export function getIndividualDelimiters(
   delimiters: SimpleSurroundingPairName[]
 ): IndividualDelimiter[] {
   return delimiters.flatMap((delimiter) => {
     const [leftDelimiter, rightDelimiter] = delimiterToText[delimiter];
 
+    // Allow for the fact that a delimiter might have multiple ways to indicate
+    // its opening / closing
     const leftDelimiters = isString(leftDelimiter)
       ? [leftDelimiter]
       : leftDelimiter;
@@ -24,6 +34,8 @@ export function getIndividualDelimiters(
 
       return {
         text,
+        // If delimiter text is the same for left and right, we say it's side
+        // is "unknown", so must be determined from context.
         side:
           isLeft && !isRight
             ? "left"

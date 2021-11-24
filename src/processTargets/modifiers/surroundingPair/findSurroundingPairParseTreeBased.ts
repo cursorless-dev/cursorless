@@ -14,6 +14,49 @@ import {
   PossibleDelimiterOccurrence,
 } from "./types";
 
+/**
+ * Implements the version of the surrounding pair finding algorithm that
+ * leverages the parse tree.  We use this algorithm when we are in a language
+ * for which we have parser support, unless we are in a string or comment, where
+ * we revert to text-based.
+ *
+ * The approach is actually roughly the same as the approach we use when we do
+ * not have access to a parse tree.  In both cases we create a list of
+ * candidate delimiters in the region of the selection, and then pass them to
+ * the core algorithm, implemented by findSurroundingPairCore.
+ *
+ * To generate a list of delimiters to pass to findSurroundingPairCore, we repeatedly walk up the parse tree starting at the given node.  Each time, we ask for all descendant tokens whose type is that of one of the delimiters that we're looking for.
+ * repeatedly walk up the parse tree starting at the given node.  Each time, we
+ * ask for all descendant tokens whose type is that of one of the delimiters
+ * that we're looking for, and pass this list of tokens to
+ * findSurroundingPairCore.
+ *
+ * Note that walking up the hierarchy one parent at a time is just an
+ * optimization to avoid handling the entire file if we don't need to.  The
+ * result would be the same if we just operated on the root node of the parse
+ * tree, just slower if our delimiter pair is actually contained in a small
+ * piece of a large file.
+ *
+ * The main benefits of the parse tree-based approach over the text-based
+ * approach are the following:
+ *
+ * - We can leverage the lexer to ensure that we only consider proper language tokens
+ * - We can let the language normalize surface forms of delimiter types, so eg
+ * in Python the leading `f"` on an f-string just has type `"` like any other
+ * string.
+ * - We can more easily narrow the scope of our search by walking up the parse tree
+ * - The actual lexing is done in fast wasm code rather than using a regex
+ * - We can disambiguate delimiters whose opening and closing symbol is the
+ * same (eg `"`).  Without a parse tree we have to guess whether it is an
+ * opening or closing quote.
+ *
+ * @param editor The text editor containing the selection
+ * @param selection The selection to find surrounding pair around
+ * @param node A parse tree node overlapping with the selection
+ * @param delimiters The acceptable surrounding pair names
+ * @param delimiterInclusion Whether to include / exclude the delimiters themselves
+ * @returns The newly expanded selection, including editor info
+ */
 export function findSurroundingPairParseTreeBased(
   editor: TextEditor,
   selection: Selection,
@@ -37,16 +80,21 @@ export function findSurroundingPairParseTreeBased(
     end: document.offsetAt(selection.end),
   };
 
+  // Walk up the parse tree from parent to parent until we find a node whose
+  // descendants contain an appropriate matching pair.
   for (
     let currentNode: SyntaxNode | null = node;
     currentNode != null;
     currentNode = currentNode.parent
   ) {
+    // Just bail early if the node doesn't completely contain our selection as
+    // it is a lost cause.
     if (!getNodeRange(currentNode).contains(selection)) {
       continue;
     }
 
-    const pairIndices = findSurroundingPairContainedInNode(
+    // Here we apply the core algorithm
+    const pairOffsets = findSurroundingPairContainedInNode(
       currentNode,
       delimiterTextToDelimiterInfoMap,
       individualDelimiters,
@@ -54,11 +102,12 @@ export function findSurroundingPairParseTreeBased(
       selectionOffsets
     );
 
-    if (pairIndices != null) {
+    // And then perform postprocessing
+    if (pairOffsets != null) {
       return extractSelectionFromSurroundingPairOffsets(
         document,
         0,
-        pairIndices,
+        pairOffsets,
         delimiterInclusion
       ).map(({ selection, context }) => ({
         selection: { selection, editor },
@@ -70,6 +119,18 @@ export function findSurroundingPairParseTreeBased(
   return null;
 }
 
+/**
+ * This function is called at each node as we walk up the ancestor hierarchy
+ * from our start node.  It finds all possible delimiters descending from the
+ * node and passes them to the findSurroundingPairCore algorithm.
+ *
+ * @param node The current node to consider
+ * @param delimiterTextToDelimiterInfoMap Map from raw text to info about the delimiter at that point
+ * @param individualDelimiters A list of all opening / closing delimiters that we are considering
+ * @param delimiters The names of the delimiters that we're considering
+ * @param selectionOffsets The offsets of the selection
+ * @returns The offsets of the matching surrounding pair, or `null` if none is found
+ */
 function findSurroundingPairContainedInNode(
   node: SyntaxNode,
   delimiterTextToDelimiterInfoMap: {
@@ -79,10 +140,17 @@ function findSurroundingPairContainedInNode(
   delimiters: SimpleSurroundingPairName[],
   selectionOffsets: Offsets
 ) {
+  /**
+   * A list of all delimiter nodes descending from `node`, as determined by
+   * their type
+   */
   const possibleDelimiterNodes = node.descendantsOfType(
     individualDelimiters.map(({ text }) => text)
   );
 
+  /**
+   * A list of all delimiter occurrences, generated from the delimiter nodes.
+   */
   const delimiterOccurrences: PossibleDelimiterOccurrence[] =
     possibleDelimiterNodes.map((delimiterNode) => {
       return {
@@ -93,6 +161,13 @@ function findSurroundingPairContainedInNode(
         get delimiterInfo() {
           const delimiterInfo =
             delimiterTextToDelimiterInfoMap[delimiterNode.type];
+
+          // NB: If side is `"unknown"`, ie we cannot determine whether
+          // something is a left or right delimiter based on its text / type
+          // alone (eg `"`), we assume it is a left delimiter if it is the
+          // first child of its parent, and right delimiter otherwise.  This
+          // approach might not always work, but seems to work in the
+          // languages we've tried.
           return {
             ...delimiterInfo,
             side:
@@ -108,10 +183,18 @@ function findSurroundingPairContainedInNode(
       };
     });
 
+  // Just run core algorithm once we have our list of delimiters.
   return findSurroundingPairCore(
     delimiterOccurrences,
     delimiters,
     selectionOffsets,
+
+    // If we're not the root node of the parse tree (ie `node.parent !=
+    // null`), we tell `findSurroundingPairCore` to bail if it finds a
+    // delimiter adjacent to our selection, but doesn't find its opposite
+    // delimiter within our list. We do so because it's possible that the
+    // adjacent delimiter's opposite might be found when we run again on a
+    // parent node later.
     node.parent != null
   );
 }
