@@ -4,6 +4,7 @@ import {
   SimpleSurroundingPairName,
   DelimiterInclusion,
 } from "../../../typings/Types";
+import { getDocumentRange } from "../../../util/range";
 import { matchAll } from "../../../util/regex";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
@@ -13,6 +14,21 @@ import {
   SurroundingPairOffsets,
   PossibleDelimiterOccurrence,
 } from "./types";
+
+/**
+ * The initial range length that we start by scanning
+ */
+const INITIAL_SCAN_LENGTH = 200;
+
+/**
+ * The maximum range were willing to scan
+ */
+const MAX_SCAN_LENGTH = 10000;
+
+/**
+ * The factor by which to expand the search range at each iteration
+ */
+const SCAN_EXPANSION_FACTOR = 2;
 
 /**
  * Implements the version of the surrounding pair finding algorithm that
@@ -56,38 +72,89 @@ export function findSurroundingPairTextBased(
   delimiterInclusion: DelimiterInclusion
 ) {
   const document: TextDocument = editor.document;
+  const fullRange = allowableRange ?? getDocumentRange(document);
 
   /**
    * The offset of the allowable range within the document.  All offsets are
    * taken relative to this range.
    */
-  const allowableRangeStartOffset =
-    allowableRange == null ? 0 : document.offsetAt(allowableRange.start);
-
+  const fullRangeOffsets = {
+    start: document.offsetAt(fullRange.start),
+    end: document.offsetAt(fullRange.end),
+  };
   const selectionOffsets = {
-    start: document.offsetAt(selection.start) - allowableRangeStartOffset,
-    end: document.offsetAt(selection.end) - allowableRangeStartOffset,
+    start: document.offsetAt(selection.start),
+    end: document.offsetAt(selection.end),
   };
 
-  // Here we apply the core algorithm
-  const pairOffsets = getDelimiterPairOffsets(
-    document.getText(allowableRange ?? undefined),
-    selectionOffsets,
-    delimiters
-  );
+  for (
+    let scanLength = INITIAL_SCAN_LENGTH;
+    scanLength < MAX_SCAN_LENGTH;
+    scanLength *= SCAN_EXPANSION_FACTOR
+  ) {
+    /**
+     * The current range in which to look. Here we take the full range and
+     * restrict it based on the current scan length
+     */
+    const currentRangeOffsets = {
+      start: Math.max(
+        fullRangeOffsets.start,
+        selectionOffsets.end - scanLength / 2
+      ),
+      end: Math.min(
+        fullRangeOffsets.end,
+        selectionOffsets.end + scanLength / 2
+      ),
+    };
 
-  // And then perform postprocessing
-  return pairOffsets == null
-    ? null
-    : extractSelectionFromSurroundingPairOffsets(
+    const currentRange = new Range(
+      document.positionAt(currentRangeOffsets.start),
+      document.positionAt(currentRangeOffsets.end)
+    );
+
+    // Just bail early if the range doesn't completely contain our selection as
+    // it is a lost cause.
+    if (!currentRange.contains(selection)) {
+      continue;
+    }
+
+    // Here we apply the core algorithm. This algorithm operates relative to the
+    // string that it receives so we need to adjust the selection range before
+    // we pass it in and then later we will adjust to the offsets that it
+    // returns
+    const adjustedSelectionOffsets = {
+      start: selectionOffsets.start - currentRangeOffsets.start,
+      end: selectionOffsets.end - currentRangeOffsets.start,
+    };
+    const pairOffsets = getDelimiterPairOffsets(
+      document.getText(currentRange),
+      adjustedSelectionOffsets,
+      delimiters,
+      currentRangeOffsets.start === fullRangeOffsets.start,
+      currentRangeOffsets.end === fullRangeOffsets.end
+    );
+
+    if (pairOffsets != null) {
+      // And then perform postprocessing
+      return extractSelectionFromSurroundingPairOffsets(
         document,
-        allowableRangeStartOffset,
+        currentRangeOffsets.start,
         pairOffsets,
         delimiterInclusion
       ).map(({ selection, context }) => ({
         selection: { selection, editor },
         context,
       }));
+    }
+
+    // If the current range is greater than are equal to the full range then we
+    // should stop expanding
+    if (currentRange.contains(fullRange)) {
+      break;
+    }
+  }
+
+  return null;
 }
 
 /**
@@ -102,7 +169,9 @@ export function findSurroundingPairTextBased(
 export function getDelimiterPairOffsets(
   text: string,
   selectionOffsets: Offsets,
-  delimiters: SimpleSurroundingPairName[]
+  delimiters: SimpleSurroundingPairName[],
+  isAtStartOfFullRange: boolean,
+  isAtEndOfFullRange: boolean
 ): SurroundingPairOffsets | null {
   const individualDelimiters = getIndividualDelimiters(delimiters);
 
@@ -152,9 +221,26 @@ export function getDelimiterPairOffsets(
   );
 
   // Then just run core algorithm
-  return findSurroundingPairCore(
+  const surroundingPair = findSurroundingPairCore(
     delimiterOccurrences,
     delimiters,
-    selectionOffsets
+    selectionOffsets,
+    !isAtStartOfFullRange || !isAtEndOfFullRange
   );
+
+  // If we're not at the start of the full range, or we're not at the end of the
+  // full range then we get nervous if the delimiter we found is at the end of
+  // the range which is not complete, because we might have cut a token in half.
+  // In this case we return null and let the next iteration handle it using a
+  // larger range.
+  if (
+    surroundingPair == null ||
+    (!isAtStartOfFullRange && surroundingPair.leftDelimiter.start === 0) ||
+    (!isAtEndOfFullRange &&
+      surroundingPair.rightDelimiter.end === text.length - 1)
+  ) {
+    return null;
+  }
+
+  return surroundingPair;
 }

@@ -61,7 +61,7 @@ export function processSurroundingPair(
       if (children.length !== 0) {
         nodeRange = makeRangeFromPositions(
           children[0].endPosition,
-          node.children[node.children.length - 1].startPosition
+          children[children.length - 1].startPosition
         );
       } else {
         // This is a hack to deal with the fact that java doesn't have
