@@ -18,7 +18,7 @@ import { mkdir, rename, unlink } from "fs/promises";
  */
 const FIXTURE_TRANSFORMATION: (
   originalFixture: TestCaseFixture
-) => TestCaseFixture = updateSurroundingPairTest;
+) => TestCaseFixture = identity;
 
 async function main() {
   const directory = path.join(
@@ -84,6 +84,7 @@ function reorderFields(fixture: TestCaseFixture) {
   };
 }
 
+// Leaving an example here in case it's helpful
 function updateSurroundingPairTest(fixture: TestCaseFixture) {
   fixture.command.partialTargets = transformPrimitiveTargets(
     fixture.command.partialTargets,

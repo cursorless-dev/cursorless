@@ -20,6 +20,8 @@ export function extractSelectionFromSurroundingPairOffsets(
   surroundingPairOffsets: SurroundingPairOffsets,
   delimiterInclusion: DelimiterInclusion
 ): SelectionWithContext[] {
+  // If delimiter inclusion is null, do default behavior and include the
+  // delimiters
   if (delimiterInclusion == null) {
     return [
       {

@@ -108,6 +108,14 @@ export type ScopeType =
 
 export type SubTokenType = "word" | "character";
 
+/**
+ * Indicates whether to include or exclude delimiters in a surrounding pair
+ * modifier. In the future, these will become proper modifiers that can be
+ * applied in many places, such as to restrict to the body of an if statement.
+ * By default, a surrounding pair modifier refers to the entire surrounding
+ * range, so if delimiter inclusion is undefined, it's equivalent to not having
+ * one of these modifiers; ie include the delimiters.
+ */
 export type DelimiterInclusion = "excludeInterior" | "interiorOnly" | undefined;
 
 export interface SurroundingPairModifier {
