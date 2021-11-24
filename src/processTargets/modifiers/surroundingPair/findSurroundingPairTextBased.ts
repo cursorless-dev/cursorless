@@ -163,6 +163,10 @@ export function findSurroundingPairTextBased(
  * @param text The text in which to look for delimiters
  * @param selectionOffsets The offsets of the selection
  * @param delimiters The allowabe delimiter names
+ * @param isAtStartOfFullRange Indicates whether the current range is at the
+ * start of the full range that we are willing to consider
+ * @param isAtEndOfFullRange Indicates whether the current range is at the
+ * end of the full range that we are willing to consider
  * @returns The offsets of the matching surrounding pair, or `null` if none is
  * found
  */
