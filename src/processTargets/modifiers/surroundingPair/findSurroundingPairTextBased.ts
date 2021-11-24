@@ -200,7 +200,7 @@ function getDelimiterRegex(individualDelimiters: IndividualDelimiter[]) {
  * @returns The offsets of the matching surrounding pair, or `null` if none is
  * found
  */
-export function getDelimiterPairOffsets(
+function getDelimiterPairOffsets(
   text: string,
   selectionOffsets: Offsets,
   delimiterTextToDelimiterInfoMap: {
