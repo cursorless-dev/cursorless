@@ -13,6 +13,7 @@ import {
   Offsets,
   SurroundingPairOffsets,
   PossibleDelimiterOccurrence,
+  IndividualDelimiter,
 } from "./types";
 
 /**
@@ -21,14 +22,14 @@ import {
 const INITIAL_SCAN_LENGTH = 200;
 
 /**
- * The maximum range were willing to scan
+ * The maximum range we're willing to scan
  */
-const MAX_SCAN_LENGTH = 10000;
+const MAX_SCAN_LENGTH = 50000;
 
 /**
  * The factor by which to expand the search range at each iteration
  */
-const SCAN_EXPANSION_FACTOR = 2;
+const SCAN_EXPANSION_FACTOR = 3;
 
 /**
  * Implements the version of the surrounding pair finding algorithm that
@@ -73,6 +74,20 @@ export function findSurroundingPairTextBased(
 ) {
   const document: TextDocument = editor.document;
   const fullRange = allowableRange ?? getDocumentRange(document);
+
+  const individualDelimiters = getIndividualDelimiters(delimiters);
+
+  const delimiterTextToDelimiterInfoMap = Object.fromEntries(
+    individualDelimiters.map((individualDelimiter) => [
+      individualDelimiter.text,
+      individualDelimiter,
+    ])
+  );
+
+  /**
+   * Regex to use to find delimiters
+   */
+  const delimiterRegex = getDelimiterRegex(individualDelimiters);
 
   /**
    * The offset of the allowable range within the document.  All offsets are
@@ -129,6 +144,8 @@ export function findSurroundingPairTextBased(
     const pairOffsets = getDelimiterPairOffsets(
       document.getText(currentRange),
       adjustedSelectionOffsets,
+      delimiterTextToDelimiterInfoMap,
+      delimiterRegex,
       delimiters,
       currentRangeOffsets.start === fullRangeOffsets.start,
       currentRangeOffsets.end === fullRangeOffsets.end
@@ -157,12 +174,25 @@ export function findSurroundingPairTextBased(
   return null;
 }
 
+function getDelimiterRegex(individualDelimiters: IndividualDelimiter[]) {
+  // Create a regex which is a disjunction of all possible left / right
+  // delimiter texts
+  const individualDelimiterDisjunct = uniq(
+    individualDelimiters.map(({ text }) => text)
+  )
+    .map(escapeRegExp)
+    .join("|");
+
+  // Then make sure that we don't allow preceding `\`
+  return new RegExp(`(?<!\\\\)(${individualDelimiterDisjunct})`, "gu");
+}
+
 /**
  * Generate a list of possible delimiters and pass to the core algorithm.
  *
  * @param text The text in which to look for delimiters
  * @param selectionOffsets The offsets of the selection
- * @param delimiters The allowabe delimiter names
+ * @param delimiters The allowable delimiter names
  * @param isAtStartOfFullRange Indicates whether the current range is at the
  * start of the full range that we are willing to consider
  * @param isAtEndOfFullRange Indicates whether the current range is at the
@@ -173,33 +203,14 @@ export function findSurroundingPairTextBased(
 export function getDelimiterPairOffsets(
   text: string,
   selectionOffsets: Offsets,
+  delimiterTextToDelimiterInfoMap: {
+    [k: string]: IndividualDelimiter;
+  },
+  delimiterRegex: RegExp,
   delimiters: SimpleSurroundingPairName[],
   isAtStartOfFullRange: boolean,
   isAtEndOfFullRange: boolean
 ): SurroundingPairOffsets | null {
-  const individualDelimiters = getIndividualDelimiters(delimiters);
-
-  const delimiterTextToDelimiterInfoMap = Object.fromEntries(
-    individualDelimiters.map((individualDelimiter) => [
-      individualDelimiter.text,
-      individualDelimiter,
-    ])
-  );
-
-  // Create a regex which is a disjunction of all possible left / right
-  // delimiter texts
-  const individualDelimiterDisjunct = uniq(
-    individualDelimiters.map(({ text }) => text)
-  )
-    .map(escapeRegExp)
-    .join("|");
-
-  // Then make sure that we don't allow preceding `\`
-  const delimiterRegex = new RegExp(
-    `(?<!\\\\)(${individualDelimiterDisjunct})`,
-    "gu"
-  );
-
   // XXX: The below is a bit wasteful when there are multiple targets, because
   // this whole function gets run once per target, so we're re-running this
   // regex tokenization for every one, but could probably just run it once.
