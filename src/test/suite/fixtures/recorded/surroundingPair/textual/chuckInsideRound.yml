@@ -4,7 +4,7 @@ command:
   actionName: remove
   partialTargets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: excludeDelimiters}
+      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: interiorOnly}
   extraArgs: []
 initialState:
   documentContents: (hello)

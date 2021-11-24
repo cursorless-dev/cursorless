@@ -108,10 +108,7 @@ export type ScopeType =
 
 export type SubTokenType = "word" | "character";
 
-export type DelimiterInclusion =
-  | "excludeDelimiters"
-  | "includeDelimiters"
-  | "delimitersOnly";
+export type DelimiterInclusion = "excludeInterior" | "interiorOnly" | undefined;
 
 export interface SurroundingPairModifier {
   type: "surroundingPair";

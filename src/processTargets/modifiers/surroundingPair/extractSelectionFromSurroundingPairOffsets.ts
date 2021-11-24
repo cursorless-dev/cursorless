@@ -20,22 +20,24 @@ export function extractSelectionFromSurroundingPairOffsets(
   surroundingPairOffsets: SurroundingPairOffsets,
   delimiterInclusion: DelimiterInclusion
 ): SelectionWithContext[] {
-  switch (delimiterInclusion) {
-    case "includeDelimiters":
-      return [
-        {
-          selection: new Selection(
-            document.positionAt(
-              baseOffset + surroundingPairOffsets.leftDelimiter.start
-            ),
-            document.positionAt(
-              baseOffset + surroundingPairOffsets.rightDelimiter.end
-            )
+  if (delimiterInclusion == null) {
+    return [
+      {
+        selection: new Selection(
+          document.positionAt(
+            baseOffset + surroundingPairOffsets.leftDelimiter.start
           ),
-          context: {},
-        },
-      ];
-    case "excludeDelimiters":
+          document.positionAt(
+            baseOffset + surroundingPairOffsets.rightDelimiter.end
+          )
+        ),
+        context: {},
+      },
+    ];
+  }
+
+  switch (delimiterInclusion) {
+    case "interiorOnly":
       return [
         {
           selection: new Selection(
@@ -49,7 +51,7 @@ export function extractSelectionFromSurroundingPairOffsets(
           context: {},
         },
       ];
-    case "delimitersOnly":
+    case "excludeInterior":
       return [
         {
           selection: new Selection(

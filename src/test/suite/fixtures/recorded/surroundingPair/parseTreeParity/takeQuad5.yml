@@ -4,7 +4,7 @@ command:
   actionName: clearAndSetSelection
   partialTargets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: doubleQuotes, delimiterInclusion: includeDelimiters}
+      modifier: {type: surroundingPair, delimiter: doubleQuotes}
   extraArgs: []
 marks: {}
 initialState:

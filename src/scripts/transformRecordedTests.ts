@@ -9,7 +9,7 @@ import { walkFilesSync } from "../testUtil/walkSync";
 import serialize from "../testUtil/serialize";
 import canonicalizeActionName from "../util/canonicalizeActionName";
 import { transformPrimitiveTargets } from "../util/getPrimitiveTargets";
-import { PartialPrimitiveTarget } from "../typings/Types";
+import { DelimiterInclusion, PartialPrimitiveTarget } from "../typings/Types";
 import { mkdir, rename, unlink } from "fs/promises";
 
 /**
@@ -89,7 +89,21 @@ function updateSurroundingPairTest(fixture: TestCaseFixture) {
     fixture.command.partialTargets,
     (target: PartialPrimitiveTarget) => {
       if (target.modifier?.type === "surroundingPair") {
-        target.modifier.delimiter = target.modifier.delimiter ?? "any";
+        let delimiterInclusion: DelimiterInclusion;
+
+        switch (target.modifier.delimiterInclusion as any) {
+          case "includeDelimiters":
+            delimiterInclusion = undefined;
+            break;
+          case "excludeDelimiters":
+            delimiterInclusion = "interiorOnly";
+            break;
+          case "delimitersOnly":
+            delimiterInclusion = "excludeInterior";
+            break;
+        }
+
+        target.modifier.delimiterInclusion = delimiterInclusion;
       }
       return target;
     }
