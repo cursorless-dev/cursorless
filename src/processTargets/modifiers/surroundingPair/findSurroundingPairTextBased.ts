@@ -1,8 +1,9 @@
-import { escapeRegExp, uniq } from "lodash";
+import { escapeRegExp, findLast, uniq } from "lodash";
 import { Range, Selection, TextDocument, TextEditor } from "vscode";
 import {
   SimpleSurroundingPairName,
   DelimiterInclusion,
+  SurroundingPairName,
 } from "../../../typings/Types";
 import { getDocumentRange } from "../../../util/range";
 import { matchAll } from "../../../util/regex";
@@ -228,39 +229,20 @@ function getDelimiterPairOffsets(
           start: startOffset,
           end: startOffset + matchText.length,
         },
+
         get delimiterInfo() {
           const delimiterInfo = delimiterTextToDelimiterInfoMap[matchText];
-          let side = delimiterInfo.side;
 
-          if (side === "unknown") {
-            let nextDelimiterStartOffset = startOffset;
-            let delimiterCount = 0;
-            for (let i = index - 1; i >= 0; i--) {
-              const delimiterOccurrence = delimiterOccurrences[i];
-
-              if (
-                text
-                  .substring(
-                    delimiterOccurrence.offsets.end,
-                    nextDelimiterStartOffset
-                  )
-                  .includes("\n")
-              ) {
-                break;
-              }
-
-              if (
-                delimiterOccurrence.delimiterInfo?.delimiter ===
-                delimiterInfo?.delimiter
-              ) {
-                delimiterCount++;
-              }
-
-              nextDelimiterStartOffset = delimiterOccurrence.offsets.start;
-            }
-
-            side = delimiterCount % 2 === 0 ? "left" : "right";
-          }
+          let side =
+            delimiterInfo.side === "unknown"
+              ? inferDelimiterSide(
+                  text,
+                  delimiterOccurrences,
+                  index,
+                  delimiterInfo?.delimiter,
+                  startOffset
+                )
+              : delimiterInfo.side;
 
           return { ...delimiterInfo, side };
         },
@@ -291,4 +273,59 @@ function getDelimiterPairOffsets(
   }
 
   return surroundingPair;
+}
+
+/**
+ * Attempts to infer the side of a given delimiter of unknown side by using a
+ * simple heuristic.
+ *
+ * If there is a delimiter of the same type preceding the given delimiter on the
+ * same line then this delimiter will be of opposite side. If there is no
+ * delimiter proceeding this one on the same line then this delimiter will be
+ * considered a left delimiter.
+ *
+ * Note that this effectively ends up becoming a recursive algorithm because
+ * when we ask the proceeding delimiter what side it is it will use this same
+ * algorithm, which will then look to its left.
+ *
+ * NB: We must be careful in this algorithm not to access the delimiter info of
+ * the current delimiter by using the `delimiterOccurrences` list because that
+ * will result in infinite recursion because this function is called when we
+ * lazily construct the delimiter info.
+ *
+ * @param fullText The full text containing the delimiters
+ * @param delimiterOccurrences A list of all delimiter occurrences
+ * @param index The index of the current delimiter in the delimiter list
+ * @param delimiter The current delimiter type
+ * @param occurrenceStartOffset The start offset of the current delimiter within
+ * the full text
+ * @returns The inferred side of the delimiter
+ */
+function inferDelimiterSide(
+  fullText: string,
+  delimiterOccurrences: PossibleDelimiterOccurrence[],
+  index: number,
+  delimiter: SurroundingPairName,
+  occurrenceStartOffset: number
+) {
+  const previousOccurrence =
+    index === 0
+      ? null
+      : findLast(
+          delimiterOccurrences,
+          (delimiterOccurrence) =>
+            delimiterOccurrence.delimiterInfo?.delimiter === delimiter,
+          index - 1
+        );
+
+  if (
+    previousOccurrence == null ||
+    fullText
+      .substring(previousOccurrence.offsets.end, occurrenceStartOffset)
+      .includes("\n")
+  ) {
+    return "left";
+  }
+
+  return previousOccurrence.delimiterInfo!.side === "left" ? "right" : "left";
 }
