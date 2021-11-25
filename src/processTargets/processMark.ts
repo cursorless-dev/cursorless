@@ -151,22 +151,23 @@ function processDecoratedSymbol(
 }
 
 function processLineNumber(context: ProcessedTargetsContext, mark: LineNumber) {
+  const editor = context.currentEditor!;
   const getLine = (linePosition: LineNumberPosition) => {
-    const editor = context.currentEditor!;
     switch (linePosition.type) {
         case "absolute":
             return linePosition.lineNumber;
         case "relative":
             return editor.selection.active.line + linePosition.lineNumber;
-        case "modulo":
+        case "modulo100":
+            const stepSize = 100;
             const { start, end } = editor.visibleRanges[0];
-            const base = Math.floor(start.line / 100) * 100;
+            const base = Math.floor(start.line / stepSize) * stepSize;
             let lineNumber = base + linePosition.lineNumber;
             while (lineNumber <= end.line) {
                 if (lineNumber >= start.line) {
                     return lineNumber;
                 }
-                lineNumber += 100;
+                lineNumber += stepSize;
             }
             throw new Error("Line is not visible");
     }
