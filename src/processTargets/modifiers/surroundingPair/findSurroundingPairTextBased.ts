@@ -220,16 +220,49 @@ function getDelimiterPairOffsets(
   const delimiterOccurrences: PossibleDelimiterOccurrence[] = matchAll(
     text,
     delimiterRegex,
-    (match) => {
+    (match, index) => {
       const startOffset = match.index!;
-      const text = match[0];
+      const matchText = match[0];
       return {
         offsets: {
           start: startOffset,
-          end: startOffset + text.length,
+          end: startOffset + matchText.length,
         },
         get delimiterInfo() {
-          return delimiterTextToDelimiterInfoMap[text];
+          const delimiterInfo = delimiterTextToDelimiterInfoMap[matchText];
+          let side = delimiterInfo.side;
+
+          if (side === "unknown") {
+            let nextDelimiterStartOffset = startOffset;
+            let delimiterCount = 0;
+            for (let i = index - 1; i >= 0; i--) {
+              const delimiterOccurrence = delimiterOccurrences[i];
+
+              if (
+                text
+                  .substring(
+                    delimiterOccurrence.offsets.end,
+                    nextDelimiterStartOffset
+                  )
+                  .includes("\n")
+              ) {
+                break;
+              }
+
+              if (
+                delimiterOccurrence.delimiterInfo?.delimiter ===
+                delimiterInfo?.delimiter
+              ) {
+                delimiterCount++;
+              }
+
+              nextDelimiterStartOffset = delimiterOccurrence.offsets.start;
+            }
+
+            side = delimiterCount % 2 === 0 ? "left" : "right";
+          }
+
+          return { ...delimiterInfo, side };
         },
       };
     }
