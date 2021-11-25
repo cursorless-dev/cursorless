@@ -11,7 +11,7 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
   extraArgs: []
 initialState:
-  documentContents: "    hello\r\n    value = {a:2}"
+  documentContents: "    hello\n    value = {a:2}"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -23,7 +23,7 @@ initialState:
       start: {line: 0, character: 4}
       end: {line: 0, character: 9}
 finalState:
-  documentContents: "    {a:2}\r\n    value = {a:2}"
+  documentContents: "    {a:2}\n    value = {a:2}"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

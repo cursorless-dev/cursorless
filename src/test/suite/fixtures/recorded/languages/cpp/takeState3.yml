@@ -7,13 +7,13 @@ command:
       modifier: {type: containingScope, scopeType: statement}
   extraArgs: []
 initialState:
-  documentContents: "void f() {\r\n    int a = 1;\r\n}"
+  documentContents: "void f() {\n    int a = 1;\n}"
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 10}
   marks: {}
 finalState:
-  documentContents: "void f() {\r\n    int a = 1;\r\n}"
+  documentContents: "void f() {\n    int a = 1;\n}"
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 14}

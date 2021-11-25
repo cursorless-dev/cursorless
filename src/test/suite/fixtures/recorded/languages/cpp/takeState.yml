@@ -7,13 +7,13 @@ command:
       modifier: {type: containingScope, scopeType: statement}
   extraArgs: []
 initialState:
-  documentContents: "void f() {\r\n    while (true) {\r\n        ;\r\n    }\r\n}"
+  documentContents: "void f() {\n    while (true) {\n        ;\n    }\n}"
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
   marks: {}
 finalState:
-  documentContents: "void f() {\r\n    while (true) {\r\n        ;\r\n    }\r\n}"
+  documentContents: "void f() {\n    while (true) {\n        ;\n    }\n}"
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 3, character: 5}

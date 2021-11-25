@@ -7,13 +7,13 @@ command:
       modifier: {type: containingScope, scopeType: type}
   extraArgs: []
 initialState:
-  documentContents: "int f(int a) {\r\n    int j = a;\r\n}\r\n"
+  documentContents: "int f(int a) {\n    int j = a;\n}\n"
   selections:
     - anchor: {line: 1, character: 13}
       active: {line: 1, character: 13}
   marks: {}
 finalState:
-  documentContents: "int f(int a) {\r\n    int j = a;\r\n}\r\n"
+  documentContents: "int f(int a) {\n    int j = a;\n}\n"
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 7}

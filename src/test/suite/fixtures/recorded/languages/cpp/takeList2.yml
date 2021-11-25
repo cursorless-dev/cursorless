@@ -7,13 +7,13 @@ command:
       modifier: {type: containingScope, scopeType: list}
   extraArgs: []
 initialState:
-  documentContents: "void f() {\r\n    int arr[] = {\r\n        1 + 2,\r\n        3\r\n    };\r\n}"
+  documentContents: "void f() {\n    int arr[] = {\n        1 + 2,\n        3\n    };\n}"
   selections:
     - anchor: {line: 2, character: 12}
       active: {line: 2, character: 12}
   marks: {}
 finalState:
-  documentContents: "void f() {\r\n    int arr[] = {\r\n        1 + 2,\r\n        3\r\n    };\r\n}"
+  documentContents: "void f() {\n    int arr[] = {\n        1 + 2,\n        3\n    };\n}"
   selections:
     - anchor: {line: 1, character: 16}
       active: {line: 4, character: 5}
