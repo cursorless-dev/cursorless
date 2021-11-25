@@ -1,3 +1,4 @@
+import { result } from "lodash";
 import { Range, Selection } from "vscode";
 import {
   DecoratedSymbol,
@@ -154,22 +155,30 @@ function processLineNumber(context: ProcessedTargetsContext, mark: LineNumber) {
   const editor = context.currentEditor!;
   const getLine = (linePosition: LineNumberPosition) => {
     switch (linePosition.type) {
-        case "absolute":
-            return linePosition.lineNumber;
-        case "relative":
-            return editor.selection.active.line + linePosition.lineNumber;
-        case "modulo100":
-            const stepSize = 100;
-            const { start, end } = editor.visibleRanges[0];
-            const base = Math.floor(start.line / stepSize) * stepSize;
-            let lineNumber = base + linePosition.lineNumber;
-            while (lineNumber <= end.line) {
-                if (lineNumber >= start.line) {
-                    return lineNumber;
-                }
-                lineNumber += stepSize;
-            }
-            throw new Error("Line is not visible");
+      case "absolute":
+        return linePosition.lineNumber;
+      case "relative":
+        return editor.selection.active.line + linePosition.lineNumber;
+      case "modulo100":
+        const stepSize = 100;
+        const { start } = editor.visibleRanges[0];
+        const { end } = editor.visibleRanges[editor.visibleRanges.length - 1];
+        const base = Math.floor(start.line / stepSize) * stepSize;
+        const results = [];
+        let lineNumber = base + linePosition.lineNumber;
+        while (lineNumber <= end.line) {
+          if (lineNumber >= start.line) {
+            results.push(lineNumber);
+          }
+          lineNumber += stepSize;
+        }
+        if (results.length === 1) {
+            return results[0];
+        }
+        if (result.length > 1) {
+            throw new Error("Multiple lines visible");
+        }
+        throw new Error("Line is not visible");
     }
   };
   return [
