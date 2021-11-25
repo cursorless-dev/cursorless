@@ -5,6 +5,7 @@ import {
   DelimiterInclusion,
 } from "../../../typings/Types";
 import { getNodeRange } from "../../../util/nodeSelectors";
+import { ALLOWABLE_ANGLE_BRACKET_PARENTS } from "./constants";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
@@ -161,6 +162,17 @@ function findSurroundingPairContainedInNode(
         get delimiterInfo() {
           const delimiterInfo =
             delimiterTextToDelimiterInfoMap[delimiterNode.type];
+
+          // Distinguish between a greater-than sign and an angle bracket by
+          // looking at its parent type
+          if (
+            delimiterInfo.delimiter === "angleBrackets" &&
+            !ALLOWABLE_ANGLE_BRACKET_PARENTS.includes(
+              delimiterNode.parent?.type!
+            )
+          ) {
+            return undefined;
+          }
 
           // NB: If side is `"unknown"`, ie we cannot determine whether
           // something is a left or right delimiter based on its text / type

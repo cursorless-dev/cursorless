@@ -16,7 +16,7 @@ export const delimiterToText: Record<
   escapedDoubleQuotes: ['\\"', '\\"'],
   escapedParentheses: ["\\(", "\\)"],
   escapedSingleQuotes: ["\\'", "\\'"],
-  parentheses: ["(", ")"],
+  parentheses: [["(", "$("], ")"],
   singleQuotes: ["'", "'"],
   squareBrackets: ["[", "]"],
 };
