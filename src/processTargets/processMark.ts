@@ -151,10 +151,26 @@ function processDecoratedSymbol(
 }
 
 function processLineNumber(context: ProcessedTargetsContext, mark: LineNumber) {
-  const getLine = (linePosition: LineNumberPosition) =>
-    linePosition.isRelative
-      ? context.currentEditor!.selection.active.line + linePosition.lineNumber
-      : linePosition.lineNumber;
+  const getLine = (linePosition: LineNumberPosition) => {
+    const editor = context.currentEditor!;
+    switch (linePosition.type) {
+        case "absolute":
+            return linePosition.lineNumber;
+        case "relative":
+            return editor.selection.active.line + linePosition.lineNumber;
+        case "modulo":
+            const { start, end } = editor.visibleRanges[0];
+            const base = Math.floor(start.line / 100) * 100;
+            let lineNumber = base + linePosition.lineNumber;
+            while (lineNumber <= end.line) {
+                if (lineNumber >= start.line) {
+                    return lineNumber;
+                }
+                lineNumber += 100;
+            }
+            throw new Error("Line is not visible");
+    }
+  };
   return [
     {
       selection: new Selection(
