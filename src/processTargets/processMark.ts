@@ -161,24 +161,36 @@ function processLineNumber(context: ProcessedTargetsContext, mark: LineNumber) {
         return editor.selection.active.line + linePosition.lineNumber;
       case "modulo100":
         const stepSize = 100;
-        const { start } = editor.visibleRanges[0];
-        const { end } = editor.visibleRanges[editor.visibleRanges.length - 1];
-        const base = Math.floor(start.line / stepSize) * stepSize;
-        const results = [];
+        const startLine = editor.visibleRanges[0].start.line;
+        const endLine =
+          editor.visibleRanges[editor.visibleRanges.length - 1].end.line;
+        const base = Math.floor(startLine / stepSize) * stepSize;
+        const visibleLines = [];
+        const invisibleLines = [];
         let lineNumber = base + linePosition.lineNumber;
-        while (lineNumber <= end.line) {
-          if (lineNumber >= start.line) {
-            results.push(lineNumber);
+        while (lineNumber <= endLine) {
+          if (lineNumber >= startLine) {
+            const visible = editor.visibleRanges.find(
+              (r) => lineNumber >= r.start.line && lineNumber <= r.end.line
+            );
+            if (visible) {
+              visibleLines.push(lineNumber);
+            } else {
+              invisibleLines.push(lineNumber);
+            }
           }
           lineNumber += stepSize;
         }
-        if (results.length === 1) {
-            return results[0];
+        if (visibleLines.length === 1) {
+          return visibleLines[0];
         }
-        if (result.length > 1) {
-            throw new Error("Multiple lines visible");
+        if (visibleLines.length + invisibleLines.length > 1) {
+          throw new Error("Multiple lines matching");
         }
-        throw new Error("Line is not visible");
+        if (invisibleLines.length === 1) {
+          return invisibleLines[0];
+        }
+        throw new Error("Line is not in viewport");
     }
   };
   return [
