@@ -30,6 +30,7 @@ import {
  * @returns
  */
 export function findSurroundingPairCore(
+  forceDirection: "left" | "right" | undefined,
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   acceptableDelimiters: SimpleSurroundingPairName[],
   selectionOffsets: Offsets,
@@ -56,6 +57,7 @@ export function findSurroundingPairCore(
       initialIndex,
       delimiterOccurrences,
       selectionOffsets,
+      forceDirection,
       bailOnUnmatchedAdjacent
     );
 

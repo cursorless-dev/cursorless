@@ -58,7 +58,8 @@ export function processSurroundingPair(
         selection.selection,
         null,
         delimiters,
-        modifier.delimiterInclusion
+        modifier.delimiterInclusion,
+        modifier.forceDirection
       );
     } else {
       throw err;
@@ -97,7 +98,8 @@ export function processSurroundingPair(
       selection.selection,
       nodeRange,
       delimiters,
-      modifier.delimiterInclusion
+      modifier.delimiterInclusion,
+      modifier.forceDirection
     );
 
     if (surroundingRange != null) {
@@ -113,6 +115,7 @@ export function processSurroundingPair(
     selection.selection,
     node,
     delimiters,
-    modifier.delimiterInclusion
+    modifier.delimiterInclusion,
+    modifier.forceDirection
   );
 }

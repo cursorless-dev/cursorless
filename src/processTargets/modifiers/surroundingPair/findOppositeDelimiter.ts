@@ -1,6 +1,8 @@
+import { SurroundingPairDirection } from "../../../typings/Types";
 import { findUnmatchedDelimiter } from "./generateUnmatchedDelimiters";
 import {
   DelimiterOccurrence,
+  DelimiterSide,
   IndividualDelimiter,
   PossibleDelimiterOccurrence,
 } from "./types";
@@ -24,39 +26,41 @@ import {
 export function findOppositeDelimiter(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   index: number,
-  delimiterInfo: IndividualDelimiter
+  delimiterInfo: IndividualDelimiter,
+  forceDirection: "left" | "right" | undefined
 ): DelimiterOccurrence | null {
   const { side, delimiter } = delimiterInfo;
 
+  for (const direction of getDirections(side, forceDirection)) {
+    const unmatchedDelimiter = findUnmatchedDelimiter(
+      delimiterOccurrences,
+      direction === "right" ? index + 1 : index - 1,
+      [delimiter],
+      direction === "right"
+    );
+
+    if (unmatchedDelimiter != null) {
+      return unmatchedDelimiter;
+    }
+  }
+
+  return null;
+}
+
+function getDirections(
+  side: DelimiterSide,
+  forceDirection: SurroundingPairDirection | undefined
+): SurroundingPairDirection[] {
+  if (forceDirection != null) {
+    return [forceDirection];
+  }
+
   switch (side) {
     case "left":
-      return findUnmatchedDelimiter(
-        delimiterOccurrences,
-        index + 1,
-        [delimiter],
-        true
-      );
+      return ["right"];
     case "right":
-      return findUnmatchedDelimiter(
-        delimiterOccurrences,
-        index - 1,
-        [delimiter],
-        false
-      );
+      return ["left"];
     case "unknown":
-      return (
-        findUnmatchedDelimiter(
-          delimiterOccurrences,
-          index + 1,
-          [delimiter],
-          true
-        ) ??
-        findUnmatchedDelimiter(
-          delimiterOccurrences,
-          index - 1,
-          [delimiter],
-          false
-        )
-      );
+      return ["right", "left"];
   }
 }

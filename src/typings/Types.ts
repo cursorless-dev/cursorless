@@ -118,10 +118,12 @@ export type SubTokenType = "word" | "character";
  */
 export type DelimiterInclusion = "excludeInterior" | "interiorOnly" | undefined;
 
+export type SurroundingPairDirection = "left" | "right";
 export interface SurroundingPairModifier {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
   delimiterInclusion: DelimiterInclusion;
+  forceDirection?: SurroundingPairDirection;
 }
 
 export interface ContainingScopeModifier {

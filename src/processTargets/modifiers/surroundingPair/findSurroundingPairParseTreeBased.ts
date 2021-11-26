@@ -3,6 +3,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import {
   SimpleSurroundingPairName,
   DelimiterInclusion,
+  SurroundingPairDirection,
 } from "../../../typings/Types";
 import { getNodeRange } from "../../../util/nodeSelectors";
 import { ALLOWABLE_ANGLE_BRACKET_PARENTS } from "./constants";
@@ -10,6 +11,7 @@ import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFr
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import {
+  DelimiterSide,
   IndividualDelimiter,
   Offsets,
   PossibleDelimiterOccurrence,
@@ -63,7 +65,8 @@ export function findSurroundingPairParseTreeBased(
   selection: Selection,
   node: SyntaxNode,
   delimiters: SimpleSurroundingPairName[],
-  delimiterInclusion: DelimiterInclusion
+  delimiterInclusion: DelimiterInclusion,
+  forceDirection: "left" | "right" | undefined
 ) {
   const document: TextDocument = editor.document;
 
@@ -81,6 +84,17 @@ export function findSurroundingPairParseTreeBased(
     end: document.offsetAt(selection.end),
   };
 
+  /**
+   * Context to pass to nested call
+   */
+  const context: Context = {
+    delimiterTextToDelimiterInfoMap,
+    individualDelimiters,
+    delimiters,
+    selectionOffsets,
+    forceDirection,
+  };
+
   // Walk up the parse tree from parent to parent until we find a node whose
   // descendants contain an appropriate matching pair.
   for (
@@ -96,11 +110,8 @@ export function findSurroundingPairParseTreeBased(
 
     // Here we apply the core algorithm
     const pairOffsets = findSurroundingPairContainedInNode(
-      currentNode,
-      delimiterTextToDelimiterInfoMap,
-      individualDelimiters,
-      delimiters,
-      selectionOffsets
+      context,
+      currentNode
     );
 
     // And then perform postprocessing
@@ -121,26 +132,55 @@ export function findSurroundingPairParseTreeBased(
 }
 
 /**
+ * Context to pass to nested call
+ */
+interface Context {
+  /**
+   * Map from raw text to info about the delimiter at that point
+   */
+  delimiterTextToDelimiterInfoMap: {
+    [k: string]: IndividualDelimiter;
+  };
+
+  /**
+   * A list of all opening / closing delimiters that we are considering
+   */
+  individualDelimiters: IndividualDelimiter[];
+
+  /**
+   * The names of the delimiters that we're considering
+   */
+  delimiters: SimpleSurroundingPairName[];
+
+  /**
+   * The offsets of the selection
+   */
+  selectionOffsets: Offsets;
+
+  forceDirection: SurroundingPairDirection | undefined;
+}
+
+/**
  * This function is called at each node as we walk up the ancestor hierarchy
  * from our start node.  It finds all possible delimiters descending from the
  * node and passes them to the findSurroundingPairCore algorithm.
  *
+ * @param context Extra context to be used by this function
  * @param node The current node to consider
- * @param delimiterTextToDelimiterInfoMap Map from raw text to info about the delimiter at that point
- * @param individualDelimiters A list of all opening / closing delimiters that we are considering
- * @param delimiters The names of the delimiters that we're considering
- * @param selectionOffsets The offsets of the selection
  * @returns The offsets of the matching surrounding pair, or `null` if none is found
  */
 function findSurroundingPairContainedInNode(
-  node: SyntaxNode,
-  delimiterTextToDelimiterInfoMap: {
-    [k: string]: IndividualDelimiter;
-  },
-  individualDelimiters: IndividualDelimiter[],
-  delimiters: SimpleSurroundingPairName[],
-  selectionOffsets: Offsets
+  context: Context,
+  node: SyntaxNode
 ) {
+  const {
+    delimiterTextToDelimiterInfoMap,
+    individualDelimiters,
+    delimiters,
+    selectionOffsets,
+    forceDirection,
+  } = context;
+
   /**
    * A list of all delimiter nodes descending from `node`, as determined by
    * their type
@@ -180,16 +220,14 @@ function findSurroundingPairContainedInNode(
           // first child of its parent, and right delimiter otherwise.  This
           // approach might not always work, but seems to work in the
           // languages we've tried.
+          let side =
+            delimiterInfo.side === "unknown" && forceDirection == null
+              ? inferDelimiterSide(delimiterNode)
+              : delimiterInfo.side;
+
           return {
             ...delimiterInfo,
-            side:
-              delimiterInfo.side !== "unknown"
-                ? delimiterInfo.side
-                : delimiterNode.parent?.firstChild?.equals(delimiterNode)
-                ? "left"
-                : delimiterNode.parent?.lastChild?.equals(delimiterNode)
-                ? "right"
-                : ("unknown" as const),
+            side,
           };
         },
       };
@@ -197,6 +235,7 @@ function findSurroundingPairContainedInNode(
 
   // Just run core algorithm once we have our list of delimiters.
   return findSurroundingPairCore(
+    forceDirection,
     delimiterOccurrences,
     delimiters,
     selectionOffsets,
@@ -209,4 +248,12 @@ function findSurroundingPairContainedInNode(
     // parent node later.
     node.parent != null
   );
+}
+
+function inferDelimiterSide(delimiterNode: SyntaxNode) {
+  return delimiterNode.parent?.firstChild?.equals(delimiterNode)
+    ? "left"
+    : delimiterNode.parent?.lastChild?.equals(delimiterNode)
+    ? "right"
+    : ("unknown" as const);
 }

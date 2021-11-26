@@ -4,6 +4,7 @@ import {
   SimpleSurroundingPairName,
   DelimiterInclusion,
   SurroundingPairName,
+  SurroundingPairDirection,
 } from "../../../typings/Types";
 import { getDocumentRange } from "../../../util/range";
 import { matchAll } from "../../../util/regex";
@@ -15,6 +16,7 @@ import {
   SurroundingPairOffsets,
   PossibleDelimiterOccurrence,
   IndividualDelimiter,
+  DelimiterSide,
 } from "./types";
 
 /**
@@ -71,7 +73,8 @@ export function findSurroundingPairTextBased(
   selection: Selection,
   allowableRange: Range | null,
   delimiters: SimpleSurroundingPairName[],
-  delimiterInclusion: DelimiterInclusion
+  delimiterInclusion: DelimiterInclusion,
+  forceDirection: "left" | "right" | undefined
 ) {
   const document: TextDocument = editor.document;
   const fullRange = allowableRange ?? getDocumentRange(document);
@@ -101,6 +104,16 @@ export function findSurroundingPairTextBased(
   const selectionOffsets = {
     start: document.offsetAt(selection.start),
     end: document.offsetAt(selection.end),
+  };
+
+  /**
+   * Context to pass to nested call
+   */
+  const context: Context = {
+    forceDirection,
+    delimiterRegex,
+    delimiters,
+    delimiterTextToDelimiterInfoMap,
   };
 
   for (
@@ -142,12 +155,11 @@ export function findSurroundingPairTextBased(
       start: selectionOffsets.start - currentRangeOffsets.start,
       end: selectionOffsets.end - currentRangeOffsets.start,
     };
+
     const pairOffsets = getDelimiterPairOffsets(
+      context,
       document.getText(currentRange),
       adjustedSelectionOffsets,
-      delimiterTextToDelimiterInfoMap,
-      delimiterRegex,
-      delimiters,
       currentRangeOffsets.start === fullRangeOffsets.start,
       currentRangeOffsets.end === fullRangeOffsets.end
     );
@@ -189,11 +201,27 @@ function getDelimiterRegex(individualDelimiters: IndividualDelimiter[]) {
 }
 
 /**
+ * Context to pass to nested call
+ */
+interface Context {
+  forceDirection: SurroundingPairDirection | undefined;
+  delimiterTextToDelimiterInfoMap: {
+    [k: string]: IndividualDelimiter;
+  };
+  delimiterRegex: RegExp;
+
+  /**
+   * The allowable delimiter names
+   */
+  delimiters: SimpleSurroundingPairName[];
+}
+
+/**
  * Generate a list of possible delimiters and pass to the core algorithm.
  *
+ * @param context Extra context to be used by this function
  * @param text The text in which to look for delimiters
  * @param selectionOffsets The offsets of the selection
- * @param delimiters The allowable delimiter names
  * @param isAtStartOfFullRange Indicates whether the current range is at the
  * start of the full range that we are willing to consider
  * @param isAtEndOfFullRange Indicates whether the current range is at the
@@ -202,16 +230,19 @@ function getDelimiterRegex(individualDelimiters: IndividualDelimiter[]) {
  * found
  */
 function getDelimiterPairOffsets(
+  context: Context,
   text: string,
   selectionOffsets: Offsets,
-  delimiterTextToDelimiterInfoMap: {
-    [k: string]: IndividualDelimiter;
-  },
-  delimiterRegex: RegExp,
-  delimiters: SimpleSurroundingPairName[],
   isAtStartOfFullRange: boolean,
   isAtEndOfFullRange: boolean
 ): SurroundingPairOffsets | null {
+  const {
+    forceDirection,
+    delimiterTextToDelimiterInfoMap,
+    delimiterRegex,
+    delimiters,
+  } = context;
+
   // XXX: The below is a bit wasteful when there are multiple targets, because
   // this whole function gets run once per target, so we're re-running this
   // regex tokenization for every one, but could probably just run it once.
@@ -234,7 +265,7 @@ function getDelimiterPairOffsets(
           const delimiterInfo = delimiterTextToDelimiterInfoMap[matchText];
 
           let side =
-            delimiterInfo.side === "unknown"
+            delimiterInfo.side === "unknown" && forceDirection == null
               ? inferDelimiterSide(
                   text,
                   delimiterOccurrences,
@@ -252,6 +283,7 @@ function getDelimiterPairOffsets(
 
   // Then just run core algorithm
   const surroundingPair = findSurroundingPairCore(
+    forceDirection,
     delimiterOccurrences,
     delimiters,
     selectionOffsets,

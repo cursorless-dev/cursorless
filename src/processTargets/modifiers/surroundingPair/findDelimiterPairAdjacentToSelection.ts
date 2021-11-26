@@ -28,6 +28,7 @@ export function findDelimiterPairAdjacentToSelection(
   initialIndex: number,
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   selectionOffsets: Offsets,
+  forceDirection: "left" | "right" | undefined,
   bailOnUnmatchedAdjacent: boolean = false
 ): SurroundingPairOffsets | null {
   const indicesToTry = [initialIndex + 1, initialIndex];
@@ -46,7 +47,8 @@ export function findDelimiterPairAdjacentToSelection(
         const possibleMatch = findOppositeDelimiter(
           delimiterOccurrences,
           index,
-          delimiterInfo
+          delimiterInfo,
+          forceDirection
         );
 
         if (possibleMatch != null) {
