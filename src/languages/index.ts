@@ -13,6 +13,7 @@ import java from "./java";
 import json from "./json";
 import python from "./python";
 import typescript from "./typescript";
+import { UnsupportedLanguageError } from "../errors";
 
 const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
   c: cpp,
@@ -36,9 +37,7 @@ export function getNodeMatcher(
   const matchers = languageMatchers[languageId];
 
   if (matchers == null) {
-    throw Error(
-      `Language '${languageId}' is not implemented yet; See https://github.com/pokey/cursorless-vscode/blob/main/docs/adding-a-new-language.md`
-    );
+    throw new UnsupportedLanguageError(languageId);
   }
 
   const matcher = matchers[scopeType];

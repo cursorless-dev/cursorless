@@ -9,7 +9,7 @@ import {
   TypedSelection,
 } from "../typings/Types";
 import processMark from "./processMark";
-import processModifier from "./processModifier";
+import processModifier from "./modifiers/processModifier";
 import processPosition from "./processPosition";
 import processSelectionType from "./processSelectionType";
 import { isForward as getIsForward } from "../util/selectionUtils";

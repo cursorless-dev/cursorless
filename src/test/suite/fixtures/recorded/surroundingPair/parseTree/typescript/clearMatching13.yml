@@ -1,0 +1,23 @@
+spokenForm: clear matching
+languageId: typescript
+command:
+  actionName: clearAndSetSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
+  extraArgs: []
+initialState:
+  documentContents: import { Point, SyntaxNode } from "web-tree-sitter";
+  selections:
+    - anchor: {line: 0, character: 40}
+      active: {line: 0, character: 40}
+  marks: {}
+finalState:
+  documentContents: import { Point, SyntaxNode } from "";
+  selections:
+    - anchor: {line: 0, character: 35}
+      active: {line: 0, character: 35}
+  thatMark:
+    - anchor: {line: 0, character: 35}
+      active: {line: 0, character: 35}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimiter: null, delimitersOnly: false}, insideOutsideType: inside}]

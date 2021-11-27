@@ -2,10 +2,28 @@ import { SyntaxNode, Point } from "web-tree-sitter";
 import { Position, Range, Selection, TextEditor } from "vscode";
 import { SelectionWithContext, SelectionExtractor } from "../typings/Types";
 
-export function makeRange(startPosition: Point, endPosition: Point) {
+export function makeRangeFromPositions(
+  startPosition: Point,
+  endPosition: Point
+) {
   return new Range(
-    new Position(startPosition.row, startPosition.column),
-    new Position(endPosition.row, endPosition.column)
+    startPosition.row,
+    startPosition.column,
+    endPosition.row,
+    endPosition.column
+  );
+}
+
+export function positionFromPoint(point: Point): Position {
+  return new Position(point.row, point.column);
+}
+
+export function getNodeRange(node: SyntaxNode) {
+  return new Range(
+    node.startPosition.row,
+    node.startPosition.column,
+    node.endPosition.row,
+    node.endPosition.column
   );
 }
 
@@ -44,7 +62,10 @@ export function selectWithLeadingDelimiter(
 
   const leadingDelimiterRange =
     leadingNonDelimiterToken != null
-      ? makeRange(leadingNonDelimiterToken.endPosition, node.startPosition)
+      ? makeRangeFromPositions(
+          leadingNonDelimiterToken.endPosition,
+          node.startPosition
+        )
       : null;
 
   return {
@@ -63,7 +84,10 @@ export function selectWithTrailingDelimiter(
 
   const trailingDelimiterRange =
     trailingNonDelimiterToken != null
-      ? makeRange(node.endPosition, trailingNonDelimiterToken.startPosition)
+      ? makeRangeFromPositions(
+          node.endPosition,
+          trailingNonDelimiterToken.startPosition
+        )
       : null;
 
   return {
@@ -128,7 +152,7 @@ export function delimitedSelector(
     );
 
     if (nextNonDelimiterNode != null) {
-      trailingDelimiterRange = makeRange(
+      trailingDelimiterRange = makeRangeFromPositions(
         node.endPosition,
         nextNonDelimiterNode.startPosition
       );
@@ -137,7 +161,7 @@ export function delimitedSelector(
     }
 
     if (previousNonDelimiterNode != null) {
-      leadingDelimiterRange = makeRange(
+      leadingDelimiterRange = makeRangeFromPositions(
         previousNonDelimiterNode.endPosition,
         node.startPosition
       );

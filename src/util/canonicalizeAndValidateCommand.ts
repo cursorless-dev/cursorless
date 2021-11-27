@@ -1,7 +1,7 @@
 import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
 import { ActionType, PartialTarget, SelectionType } from "../typings/Types";
-import { getPrimitiveTargets } from "./targetUtils";
+import { getPrimitiveTargets } from "./getPrimitiveTargets";
 
 export function canonicalizeAndValidateCommand(
   inputActionName: string,

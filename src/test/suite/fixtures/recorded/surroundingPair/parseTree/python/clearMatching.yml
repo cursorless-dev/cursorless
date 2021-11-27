@@ -1,0 +1,27 @@
+spokenForm: clear matching
+languageId: python
+command:
+  actionName: clearAndSetSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
+  extraArgs: []
+initialState:
+  documentContents: |
+    class a(object):
+        pass
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+  marks: {}
+finalState:
+  documentContents: |
+    class a():
+        pass
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  thatMark:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimiter: null, delimitersOnly: false}, insideOutsideType: inside}]

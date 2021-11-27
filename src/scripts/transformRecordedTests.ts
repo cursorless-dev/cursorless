@@ -8,6 +8,9 @@ import { TestCaseFixture } from "../testUtil/TestCase";
 import { walkFilesSync } from "../testUtil/walkSync";
 import serialize from "../testUtil/serialize";
 import canonicalizeActionName from "../util/canonicalizeActionName";
+import { transformPrimitiveTargets } from "../util/getPrimitiveTargets";
+import { DelimiterInclusion, PartialPrimitiveTarget } from "../typings/Types";
+import { mkdir, rename, unlink } from "fs/promises";
 
 /**
  * The transformation to run on all recorded test fixtures.  Change this
@@ -34,6 +37,28 @@ async function transformFile(file: string) {
   await fsp.writeFile(file, serialize(outputFixture));
 }
 
+/**
+ * Can be used to organize files into directories based on eg language id
+ * @param file The file to move
+ */
+async function moveFile(file: string) {
+  const buffer = await fsp.readFile(file);
+  const inputFixture = yaml.load(buffer.toString()) as TestCaseFixture;
+  const parent = path.dirname(file);
+  if (path.basename(parent) !== "surroundingPair") {
+    return;
+  }
+  const childDirName =
+    inputFixture.languageId === "plaintext"
+      ? "textual"
+      : `parseTree/${inputFixture.languageId}`;
+  const childDir = path.join(parent, childDirName);
+  await mkdir(childDir, { recursive: true });
+  const outputPath = path.join(childDir, path.basename(file));
+  // console.log(`${file} => ${outputPath}`);
+  await rename(file, outputPath);
+}
+
 // COMMON TRANSFORMATIONS
 // ======================
 // Below are some common transformations you might want to run.
@@ -57,6 +82,35 @@ function reorderFields(fixture: TestCaseFixture) {
     returnValue: fixture.returnValue,
     fullTargets: fixture.fullTargets,
   };
+}
+
+// Leaving an example here in case it's helpful
+function updateSurroundingPairTest(fixture: TestCaseFixture) {
+  fixture.command.partialTargets = transformPrimitiveTargets(
+    fixture.command.partialTargets,
+    (target: PartialPrimitiveTarget) => {
+      if (target.modifier?.type === "surroundingPair") {
+        let delimiterInclusion: DelimiterInclusion;
+
+        switch (target.modifier.delimiterInclusion as any) {
+          case "includeDelimiters":
+            delimiterInclusion = undefined;
+            break;
+          case "excludeDelimiters":
+            delimiterInclusion = "interiorOnly";
+            break;
+          case "delimitersOnly":
+            delimiterInclusion = "excludeInterior";
+            break;
+        }
+
+        target.modifier.delimiterInclusion = delimiterInclusion;
+      }
+      return target;
+    }
+  );
+
+  return fixture;
 }
 
 main();

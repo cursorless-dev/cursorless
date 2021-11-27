@@ -2,6 +2,7 @@ import { Position, Range, TextDocument } from "vscode";
 import {
   selectionFromPositions,
   selectionWithEditorFromPositions,
+  selectionWithEditorFromRange,
 } from "../util/selectionUtils";
 import {
   InsideOutsideType,
@@ -13,6 +14,7 @@ import {
   TypedSelection,
   Position as TargetPosition,
 } from "../typings/Types";
+import { getDocumentRange } from "../util/range";
 
 export default function (
   context: ProcessedTargetsContext,
@@ -76,12 +78,10 @@ function processDocument(
   selectionContext: SelectionContext
 ) {
   const { selectionType, insideOutsideType, position } = target;
-  const { document } = selection.editor;
-  const firstLine = document.lineAt(0);
-  const lastLine = document.lineAt(document.lineCount - 1);
-  const start = firstLine.range.start;
-  const end = lastLine.range.end;
-  const newSelection = selectionWithEditorFromPositions(selection, start, end);
+  const newSelection = selectionWithEditorFromRange(
+    selection,
+    getDocumentRange(selection.editor.document)
+  );
 
   return {
     selection: newSelection,

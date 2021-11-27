@@ -1,0 +1,26 @@
+spokenForm: clear pair
+languageId: plaintext
+command:
+  actionName: clearAndSetSelection
+  partialTargets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: any}
+  extraArgs: []
+initialState:
+  documentContents: |-
+    "
+    ("hello",  "world")
+  selections:
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
+  marks: {}
+finalState:
+  documentContents: |
+    "
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  thatMark:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any}}]
