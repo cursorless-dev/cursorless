@@ -1,4 +1,4 @@
-spokenForm: take down one
+spokenForm: take row two past four
 languageId: typescript
 command:
   actionName: setSelection
@@ -7,8 +7,8 @@ command:
       selectionType: line
       mark:
         type: lineNumber
-        anchor: {lineNumber: 1, isRelative: true}
-        active: {lineNumber: 1, isRelative: true}
+        anchor: {lineNumber: 1, type: absolute}
+        active: {lineNumber: 3, type: absolute}
   extraArgs: []
 initialState:
   documentContents: |
@@ -28,8 +28,8 @@ finalState:
     const value = "Hello world";
   selections:
     - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 28}
+      active: {line: 3, character: 28}
   thatMark:
     - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 28}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: line, position: contents, modifier: {type: lineNumber, anchor: {lineNumber: 1, isRelative: true}, active: {lineNumber: 1, isRelative: true}}, insideOutsideType: inside}]
+      active: {line: 3, character: 28}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: line, position: contents, modifier: {type: lineNumber, anchor: {lineNumber: 1, type: absolute}, active: {lineNumber: 3, type: absolute}}, insideOutsideType: inside}]

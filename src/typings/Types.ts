@@ -44,9 +44,11 @@ export interface DecoratedSymbol {
   character: string;
 }
 
+export type LineNumberType = "absolute" | "relative" | "modulo100";
+
 export interface LineNumberPosition {
+  type: LineNumberType;
   lineNumber: number;
-  isRelative: boolean;
 }
 
 export interface LineNumber {

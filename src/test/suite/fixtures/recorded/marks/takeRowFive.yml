@@ -1,0 +1,35 @@
+spokenForm: take row five
+languageId: typescript
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: primitive
+      selectionType: line
+      mark:
+        type: lineNumber
+        anchor: {lineNumber: 4, type: modulo100}
+        active: {lineNumber: 4, type: modulo100}
+  extraArgs: []
+initialState:
+  documentContents: |+
+
+
+
+
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |+
+
+
+
+
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  thatMark:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+fullTargets: [{type: primitive, mark: {type: lineNumber, anchor: {lineNumber: 4, type: modulo100}, active: {lineNumber: 4, type: modulo100}}, selectionType: line, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
