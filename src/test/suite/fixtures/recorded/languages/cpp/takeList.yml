@@ -7,13 +7,25 @@ command:
       modifier: {type: containingScope, scopeType: list}
   extraArgs: []
 initialState:
-  documentContents: "void f() {\n    std::vector<int> v {\n        1 + 2,\n        3\n    };\n}"
+  documentContents: |-
+    void f() {
+        std::vector<int> v {
+            1 + 2,
+            3
+        };
+    }
   selections:
     - anchor: {line: 2, character: 11}
       active: {line: 2, character: 11}
   marks: {}
 finalState:
-  documentContents: "void f() {\n    std::vector<int> v {\n        1 + 2,\n        3\n    };\n}"
+  documentContents: |-
+    void f() {
+        std::vector<int> v {
+            1 + 2,
+            3
+        };
+    }
   selections:
     - anchor: {line: 1, character: 23}
       active: {line: 4, character: 5}

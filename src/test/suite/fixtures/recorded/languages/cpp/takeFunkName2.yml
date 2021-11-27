@@ -7,13 +7,19 @@ command:
       modifier: {type: containingScope, scopeType: functionName}
   extraArgs: []
 initialState:
-  documentContents: "int C::f(int a, int b) {\n    \n}"
+  documentContents: |-
+    int C::f(int a, int b) {
+        
+    }
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
   marks: {}
 finalState:
-  documentContents: "int C::f(int a, int b) {\n    \n}"
+  documentContents: |-
+    int C::f(int a, int b) {
+        
+    }
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 8}

@@ -7,13 +7,17 @@ command:
       modifier: {type: containingScope, scopeType: collectionItem}
   extraArgs: []
 initialState:
-  documentContents: "\nint[] values = {1, 2, 3};\n"
+  documentContents: |
+
+    int[] values = {1, 2, 3};
   selections:
     - anchor: {line: 1, character: 16}
       active: {line: 1, character: 16}
   marks: {}
 finalState:
-  documentContents: "\nint[] values = {1, 2, 3};\n"
+  documentContents: |
+
+    int[] values = {1, 2, 3};
   selections:
     - anchor: {line: 1, character: 16}
       active: {line: 1, character: 17}

@@ -7,13 +7,21 @@ command:
       modifier: {type: containingScope, scopeType: list}
   extraArgs: []
 initialState:
-  documentContents: "\n{\n    \"foo\": [1, 2, 3]\n}\n"
+  documentContents: |
+
+    {
+        "foo": [1, 2, 3]
+    }
   selections:
     - anchor: {line: 2, character: 19}
       active: {line: 2, character: 19}
   marks: {}
 finalState:
-  documentContents: "\n{\n    \"foo\": [1, 2, 3]\n}\n"
+  documentContents: |
+
+    {
+        "foo": [1, 2, 3]
+    }
   selections:
     - anchor: {line: 2, character: 11}
       active: {line: 2, character: 20}
