@@ -204,6 +204,10 @@ export async function activate(context: vscode.ExtensionContext) {
   addDecorationsDebounced();
 
   function checkForEditsOutsideViewport(event: vscode.TextDocumentChangeEvent) {
+    // Bail if reason is undo or redo. undefined = normal edit
+    if (event.reason) {
+      return;
+    }
     const editor = vscode.window.activeTextEditor;
     if (editor == null || editor.document !== event.document) {
       return;
@@ -233,9 +237,7 @@ export async function activate(context: vscode.ExtensionContext) {
   function handleEdit(edit: vscode.TextDocumentChangeEvent) {
     addDecorationsDebounced();
 
-    // TODO. Disabled for now because it triggers on undo as well
-    //  wait until next release when there is a cause field
-    // checkForEditsOutsideViewport(edit);
+    checkForEditsOutsideViewport(edit);
   }
 
   const recomputeDecorationStyles = async () => {
