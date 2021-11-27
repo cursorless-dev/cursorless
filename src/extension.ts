@@ -208,7 +208,8 @@ export async function activate(context: vscode.ExtensionContext) {
     if (editor == null || editor.document !== event.document) {
       return;
     }
-    const { start, end } = editor.visibleRanges[0];
+    const { start } = editor.visibleRanges[0];
+    const { end } = editor.visibleRanges[editor.visibleRanges.length - 1];
     const ranges = [];
     for (const edit of event.contentChanges) {
       if (
