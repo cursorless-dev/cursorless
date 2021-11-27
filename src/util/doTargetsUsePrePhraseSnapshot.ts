@@ -1,6 +1,6 @@
 import { DecoratedSymbol, PartialTarget } from "../typings/Types";
 import { uniq } from "lodash";
-import { getPartialPrimitiveTargets } from "./targetUtils";
+import { getPartialPrimitiveTargets } from "./getPrimitiveTargets";
 
 export function doTargetsUsePrePhraseSnapshot(
   targets: PartialTarget[]

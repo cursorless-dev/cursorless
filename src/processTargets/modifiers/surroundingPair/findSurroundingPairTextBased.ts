@@ -226,7 +226,7 @@ interface Context {
  * start of the full range that we are willing to consider
  * @param isAtEndOfFullRange Indicates whether the current range is at the
  * end of the full range that we are willing to consider
- * @returns The offsets of the matching surrounding pair, or `null` if none is
+ * @returns The offsets of the matching surrounding pair, or transformPartialPrimitiveTargetsnulltransformPartialPrimitiveTargets if none is
  * found
  */
 function getDelimiterPairOffsets(

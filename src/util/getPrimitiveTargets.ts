@@ -2,6 +2,8 @@ import {
   PartialPrimitiveTarget,
   PartialRangeTarget,
   PartialTarget,
+  PrimitiveTarget,
+  Target,
 } from "../typings/Types";
 
 /**

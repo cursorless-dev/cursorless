@@ -8,7 +8,7 @@ import { TestCaseFixture } from "../testUtil/TestCase";
 import { walkFilesSync } from "../testUtil/walkSync";
 import serialize from "../testUtil/serialize";
 import canonicalizeActionName from "../util/canonicalizeActionName";
-import { transformPrimitiveTargets } from "../util/getPrimitiveTargets";
+import { transformPartialPrimitiveTargets } from "../util/getPrimitiveTargets";
 import { DelimiterInclusion, PartialPrimitiveTarget } from "../typings/Types";
 import { mkdir, rename, unlink } from "fs/promises";
 
@@ -86,7 +86,7 @@ function reorderFields(fixture: TestCaseFixture) {
 
 // Leaving an example here in case it's helpful
 function updateSurroundingPairTest(fixture: TestCaseFixture) {
-  fixture.command.partialTargets = transformPrimitiveTargets(
+  fixture.command.partialTargets = transformPartialPrimitiveTargets(
     fixture.command.partialTargets,
     (target: PartialPrimitiveTarget) => {
       if (target.modifier?.type === "surroundingPair") {
