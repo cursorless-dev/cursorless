@@ -10,10 +10,13 @@ import { runForEachEditor } from "../util/targetUtils";
 import update from "immutability-helper";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { performOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
-import { flatten, zip } from "lodash";
+import { flatten } from "lodash";
 import { Selection, TextEditor, Range, DecorationRangeBehavior } from "vscode";
 
-import { getTextWithPossibleDelimiter } from "../util/getTextWithPossibleDelimiter";
+import {
+  getTextWithPossibleDelimiter,
+  maybeAddDelimiter,
+} from "../util/getTextWithPossibleDelimiter";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
@@ -92,25 +95,48 @@ class BringMoveSwap implements Action {
     destinations: TypedSelection[]
   ): ExtendedEdit[] {
     const usedSources: TypedSelection[] = [];
-    return zip(sources, destinations).flatMap(([source, destination]) => {
-      if (source == null || destination == null) {
+    const results: ExtendedEdit[] = [];
+    const zipSources =
+      sources.length !== destinations.length &&
+      destinations.length === 1 &&
+      this.type !== "swap";
+
+    sources.forEach((source, i) => {
+      let destination = destinations[i];
+      if ((source == null || destination == null) && !zipSources) {
         throw new Error("Targets must have same number of args");
       }
 
-      // Get text adjusting for destination position
-      const text = getTextWithPossibleDelimiter(source, destination);
-
-      // Add destination edit
-      const result = [
-        {
+      if (destination != null) {
+        let text: string;
+        if (zipSources) {
+          text = sources
+            .map((source, i) => {
+              let text = source.selection.editor.document.getText(
+                source.selection.selection
+              );
+              return i > 0 && source.selectionContext.containingListDelimiter
+                ? source.selectionContext.containingListDelimiter + text
+                : text;
+            })
+            .join("");
+          text = maybeAddDelimiter(text, destination);
+        } else {
+          // Get text adjusting for destination position
+          text = getTextWithPossibleDelimiter(source, destination);
+        }
+        // Add destination edit
+        results.push({
           range: destination.selection.selection as Range,
           text,
           editor: destination.selection.editor,
           originalSelection: destination,
           isSource: false,
           isReplace: destination.position === "after",
-        },
-      ];
+        });
+      } else {
+        destination = destinations[0];
+      }
 
       // Add source edit
       // Prevent multiple instances of the same expanded source.
@@ -132,7 +158,7 @@ class BringMoveSwap implements Action {
           range = source.selection.selection;
         }
 
-        result.push({
+        results.push({
           range,
           text,
           editor: source.selection.editor,
@@ -141,9 +167,9 @@ class BringMoveSwap implements Action {
           isReplace: false,
         });
       }
-
-      return result;
     });
+
+    return results;
   }
 
   private async performEditsAndComputeThatMark(
