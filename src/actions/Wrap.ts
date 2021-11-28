@@ -38,101 +38,107 @@ export default class Wrap implements Action {
       (target) => !target.selectionContext.excludeInterior
     );
 
+    const thatMark = [];
+
     // Only bounds are selected. Rewrapping existing bounds makes no sense. Replace them instead.
     if (excludeInteriorTargets.length) {
-      this.graph.actions.replace.run(
-        [excludeInteriorTargets],
-        excludeInteriorTargets.map((t, i) => (i % 2 === 0 ? left : right))
-      );
+      const { thatMark: replaceThatMark } =
+        await this.graph.actions.replace.run(
+          [excludeInteriorTargets],
+          excludeInteriorTargets.map((t, i) => (i % 2 === 0 ? left : right))
+        );
+      thatMark.push(...replaceThatMark!);
     }
 
-    const thatMark = flatten(
-      await runOnTargetsForEachEditor<SelectionWithEditor[]>(
-        targets,
-        async (editor, targets) => {
-          const { document } = editor;
-          const boundaries = targets.map((target) => ({
-            start: new Selection(
-              target.selection.selection.start,
-              target.selection.selection.start
-            ),
-            end: new Selection(
-              target.selection.selection.end,
-              target.selection.selection.end
-            ),
-          }));
+    thatMark.push(
+      ...flatten(
+        await runOnTargetsForEachEditor<SelectionWithEditor[]>(
+          targets,
+          async (editor, targets) => {
+            const { document } = editor;
+            const boundaries = targets.map((target) => ({
+              start: new Selection(
+                target.selection.selection.start,
+                target.selection.selection.start
+              ),
+              end: new Selection(
+                target.selection.selection.end,
+                target.selection.selection.end
+              ),
+            }));
 
-          const edits: Edit[] = boundaries.flatMap(({ start, end }) => [
-            {
-              text: left,
-              range: start,
-            },
-            {
-              text: right,
-              range: end,
-              isReplace: true,
-            },
-          ]);
+            const edits: Edit[] = boundaries.flatMap(({ start, end }) => [
+              {
+                text: left,
+                range: start,
+              },
+              {
+                text: right,
+                range: end,
+                isReplace: true,
+              },
+            ]);
 
-          const delimiterSelectionInfos: FullSelectionInfo[] =
-            boundaries.flatMap(({ start, end }) => {
-              return [
-                getSelectionInfo(
-                  document,
-                  start,
-                  DecorationRangeBehavior.OpenClosed
-                ),
-                getSelectionInfo(
-                  document,
-                  end,
-                  DecorationRangeBehavior.ClosedOpen
-                ),
-              ];
-            });
+            const delimiterSelectionInfos: FullSelectionInfo[] =
+              boundaries.flatMap(({ start, end }) => {
+                return [
+                  getSelectionInfo(
+                    document,
+                    start,
+                    DecorationRangeBehavior.OpenClosed
+                  ),
+                  getSelectionInfo(
+                    document,
+                    end,
+                    DecorationRangeBehavior.ClosedOpen
+                  ),
+                ];
+              });
 
-          const cursorSelectionInfos = editor.selections.map((selection) =>
-            getSelectionInfo(
-              document,
-              selection,
-              DecorationRangeBehavior.ClosedClosed
-            )
-          );
-
-          const thatMarkSelectionInfos = targets.map(
-            ({ selection: { selection } }) =>
+            const cursorSelectionInfos = editor.selections.map((selection) =>
               getSelectionInfo(
                 document,
                 selection,
-                DecorationRangeBehavior.OpenOpen
+                DecorationRangeBehavior.ClosedClosed
               )
-          );
-
-          const [delimiterSelections, cursorSelections, thatMarkSelections] =
-            await performEditsAndUpdateFullSelectionInfos(
-              this.graph.rangeUpdater,
-              editor,
-              edits,
-              [
-                delimiterSelectionInfos,
-                cursorSelectionInfos,
-                thatMarkSelectionInfos,
-              ]
             );
 
-          editor.selections = cursorSelections;
+            const thatMarkSelectionInfos = targets.map(
+              ({ selection: { selection } }) =>
+                getSelectionInfo(
+                  document,
+                  selection,
+                  DecorationRangeBehavior.OpenOpen
+                )
+            );
 
-          editor.setDecorations(
-            this.graph.editStyles.justAdded.token,
-            delimiterSelections
-          );
-          await decorationSleep();
-          editor.setDecorations(this.graph.editStyles.justAdded.token, []);
+            const [delimiterSelections, cursorSelections, thatMarkSelections] =
+              await performEditsAndUpdateFullSelectionInfos(
+                this.graph.rangeUpdater,
+                editor,
+                edits,
+                [
+                  delimiterSelectionInfos,
+                  cursorSelectionInfos,
+                  thatMarkSelectionInfos,
+                ]
+              );
 
-          return thatMarkSelections.map((selection) => ({
-            editor,
-            selection,
-          }));
-        }
+            editor.selections = cursorSelections;
+
+            editor.setDecorations(
+              this.graph.editStyles.justAdded.token,
+              delimiterSelections
+            );
+            await decorationSleep();
+            editor.setDecorations(this.graph.editStyles.justAdded.token, []);
+
+            return thatMarkSelections.map((selection) => ({
+              editor,
+              selection,
+            }));
+          }
+        )
       )
     );
 
