@@ -1,0 +1,42 @@
+spokenForm: round wrap air and bounds bat
+languageId: typescript
+command:
+  actionName: wrapWithPairedDelimiter
+  partialTargets:
+    - type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: a}
+        - type: primitive
+          modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
+          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  extraArgs: [(, )]
+initialState:
+  documentContents: |
+    a
+    {b}
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 1}
+    default.b:
+      start: {line: 1, character: 1}
+      end: {line: 1, character: 2}
+finalState:
+  documentContents: |
+    (a)
+    (b)
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  thatMark:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 1}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 3}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 3}
+fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}}]}]
