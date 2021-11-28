@@ -22,18 +22,26 @@ export default function (
   selection: SelectionWithEditor,
   selectionContext: SelectionContext
 ): TypedSelection {
+  let results: TypedSelection;
   switch (target.selectionType) {
     case "token":
-      return processToken(target, selection, selectionContext);
+      results = processToken(target, selection, selectionContext);
+      break;
     case "notebookCell":
-      return processNotebookCell(target, selection, selectionContext);
+      results = processNotebookCell(target, selection, selectionContext);
+      break;
     case "document":
-      return processDocument(target, selection, selectionContext);
+      results = processDocument(target, selection, selectionContext);
+      break;
     case "line":
-      return processLine(target, selection, selectionContext);
+      results = processLine(target, selection, selectionContext);
+      break;
     case "paragraph":
-      return processParagraph(target, selection, selectionContext);
+      results = processParagraph(target, selection, selectionContext);
+      break;
   }
+  results.selectionContext.excludeInterior = selectionContext.excludeInterior;
+  return results;
 }
 
 function processNotebookCell(

@@ -51,6 +51,11 @@ export default function (
 
     case "surroundingPair":
       result = processSurroundingPair(context, selection, modifier);
+      if (result && modifier.delimiterInclusion === "excludeInterior") {
+        result.forEach((selection) => {
+          selection.context.excludeInterior = true;
+        });
+      }
       break;
   }
 

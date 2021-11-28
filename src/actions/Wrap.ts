@@ -31,6 +31,21 @@ export default class Wrap implements Action {
     left: string,
     right: string
   ): Promise<ActionReturnValue> {
+    const excludeInteriorTargets = targets.filter(
+      (target) => target.selectionContext.excludeInterior
+    );
+    targets = targets.filter(
+      (target) => !target.selectionContext.excludeInterior
+    );
+
+    // Only bounds are selected. Rewrapping existing bounds makes no sense. Replaced them instead.
+    if (excludeInteriorTargets.length) {
+      this.graph.actions.replace.run(
+        [excludeInteriorTargets],
+        excludeInteriorTargets.map((t, i) => (i % 2 === 0 ? left : right))
+      );
+    }
+
     const thatMark = flatten(
       await runOnTargetsForEachEditor<SelectionWithEditor[]>(
         targets,

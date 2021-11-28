@@ -262,6 +262,7 @@ export interface SelectionContext {
   trailingDelimiterRange?: vscode.Range | null;
 
   isNotebookCell?: boolean;
+  excludeInterior?: boolean;
 }
 
 export interface TypedSelection {
