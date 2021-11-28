@@ -38,7 +38,7 @@ export default class Wrap implements Action {
       (target) => !target.selectionContext.excludeInterior
     );
 
-    // Only bounds are selected. Rewrapping existing bounds makes no sense. Replaced them instead.
+    // Only bounds are selected. Rewrapping existing bounds makes no sense. Replace them instead.
     if (excludeInteriorTargets.length) {
       this.graph.actions.replace.run(
         [excludeInteriorTargets],
