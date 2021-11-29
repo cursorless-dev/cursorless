@@ -7,7 +7,7 @@ import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import isTesting from "./testUtil/isTesting";
-import { registerCursorlessCommand } from "./registerCursorlessCommand";
+import CommandRunner from "./CommandRunner";
 
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
@@ -43,7 +43,7 @@ export async function activate(context: vscode.ExtensionContext) {
   );
 
   // TODO: Do this using the graph once we migrate its dependencies onto the graph
-  const cursorlessCommandDisposable = registerCursorlessCommand(
+  const commandRunner = new CommandRunner(
     graph,
     thatMark,
     sourceMark,
@@ -96,7 +96,6 @@ export async function activate(context: vscode.ExtensionContext) {
   }
 
   context.subscriptions.push(
-    cursorlessCommandDisposable,
     cursorlessRecordTestCaseDisposable,
     vscode.window.onDidChangeTextEditorSelection(
       logBranchTypes(getNodeAtLocation)
