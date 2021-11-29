@@ -6,6 +6,7 @@ import {
   createPatternMatchers,
   argumentMatcher,
   suffixedMatcher,
+  conditionMatcher,
 } from "../util/nodeMatchers";
 import {
   NodeMatcherAlternative,
@@ -108,6 +109,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   className: ["class_declaration[name]", "class[name]"],
   functionCall: ["call_expression", "new_expression"],
   statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`),
+  condition: conditionMatcher("*[condition]"),
   class: [
     "export_statement?.class_declaration", // export class | class
     "export_statement.class", // export default class

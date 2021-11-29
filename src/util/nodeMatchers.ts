@@ -12,6 +12,7 @@ import {
   argumentSelectionExtractor,
   selectWithLeadingDelimiter,
   selectWithTrailingDelimiter,
+  unwrapSelectionExtractor as conditionSelectionExtractor,
 } from "./nodeSelectors";
 import {
   typedNodeFinder,
@@ -71,6 +72,10 @@ export function argumentMatcher(...parentTypes: string[]): NodeMatcher {
     argumentNodeFinder(...parentTypes),
     argumentSelectionExtractor()
   );
+}
+
+export function conditionMatcher(...patterns: string[]): NodeMatcher {
+  return matcher(patternFinder(...patterns), conditionSelectionExtractor);
 }
 
 /**
