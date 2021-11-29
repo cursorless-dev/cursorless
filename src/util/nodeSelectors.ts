@@ -54,6 +54,27 @@ export function argumentSelectionExtractor(): SelectionExtractor {
   );
 }
 
+export function unwrapSelectionExtractor(
+  editor: TextEditor,
+  node: SyntaxNode
+): SelectionWithContext {
+  let startIndex = node.startIndex;
+  let endIndex = node.endIndex;
+  if (node.text.startsWith("(") && node.text.endsWith(")")) {
+    startIndex += 1;
+    endIndex -= 1;
+  } else if (node.text.endsWith(";")) {
+    endIndex -= 1;
+  }
+  return {
+    selection: new Selection(
+      editor.document.positionAt(startIndex),
+      editor.document.positionAt(endIndex)
+    ),
+    context: {},
+  };
+}
+
 export function selectWithLeadingDelimiter(
   editor: TextEditor,
   node: SyntaxNode
@@ -141,9 +162,9 @@ export function delimitedSelector(
   defaultDelimiter: string
 ): SelectionExtractor {
   return (editor: TextEditor, node: SyntaxNode) => {
-    var containingListDelimiter: string | null = null;
-    var leadingDelimiterRange: Range | null = null;
-    var trailingDelimiterRange: Range | null = null;
+    let containingListDelimiter: string | null = null;
+    let leadingDelimiterRange: Range | null = null;
+    let trailingDelimiterRange: Range | null = null;
 
     const nextNonDelimiterNode = getNextNonDelimiterNode(node, isDelimiterNode);
     const previousNonDelimiterNode = getPreviousNonDelimiterNode(
