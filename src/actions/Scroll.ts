@@ -5,13 +5,17 @@ import {
   Graph,
   TypedSelection,
 } from "../typings/Types";
-import { displayDecorationsWhileRunningFunc } from "../util/editDisplayUtils";
 import { groupBy } from "../util/itertools";
-import { commands, window, workspace } from "vscode";
+import { commands, window } from "vscode";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
+import {
+  displayPendingEditDecorationsForSelection,
+} from "../util/editDisplayUtils";
 
 class Scroll implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: "inside" },
+  ];
 
   constructor(private graph: Graph, private at: string) {
     this.run = this.run.bind(this);
@@ -27,38 +31,27 @@ class Scroll implements Action {
       return { lineNumber: getLineNumber(targets, this.at), editor };
     });
 
-    const scrollCallback = async () => {
-      const originalEditor = window.activeTextEditor;
+    const originalEditor = window.activeTextEditor;
 
-      for (const lineWithEditor of lines) {
-        // For reveal line to the work we have to have the correct editor focused
-        if (lineWithEditor.editor !== window.activeTextEditor) {
-          await focusEditor(lineWithEditor.editor);
-        }
-        await commands.executeCommand("revealLine", {
-          lineNumber: lineWithEditor.lineNumber,
-          at: this.at,
-        });
+    for (const lineWithEditor of lines) {
+      // For reveal line to the work we have to have the correct editor focused
+      if (lineWithEditor.editor !== window.activeTextEditor) {
+        await focusEditor(lineWithEditor.editor);
       }
+      await commands.executeCommand("revealLine", {
+        lineNumber: lineWithEditor.lineNumber,
+        at: this.at,
+      });
+    }
 
-      // If necessary focus back original editor
-      if (
-        originalEditor != null &&
-        originalEditor !== window.activeTextEditor
-      ) {
-        await focusEditor(originalEditor);
-      }
-    };
+    // If necessary focus back original editor
+    if (originalEditor != null && originalEditor !== window.activeTextEditor) {
+      await focusEditor(originalEditor);
+    }
 
-    const showAdditionalHighlightBeforeScroll = workspace
-      .getConfiguration("cursorless")
-      .get<boolean>("showAdditionalHighlightBeforeScroll")!;
-
-    await displayDecorationsWhileRunningFunc(
+    await displayPendingEditDecorationsForSelection(
       targets.map((target) => target.selection),
-      this.graph.editStyles.referenced.line,
-      scrollCallback,
-      showAdditionalHighlightBeforeScroll
+      this.graph.editStyles.referenced.line
     );
 
     return {
