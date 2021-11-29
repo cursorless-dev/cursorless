@@ -1,0 +1,35 @@
+spokenForm: chuck after harp
+languageId: typescript
+command:
+  actionName: remove
+  partialTargets:
+    - type: primitive
+      position: after
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  extraArgs: []
+initialState:
+  documentContents: |
+    "hello "
+    " hello"
+    " hello "
+    return a.b
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.h:
+      start: {line: 2, character: 2}
+      end: {line: 2, character: 7}
+finalState:
+  documentContents: |
+    "hello "
+    " hello"
+    " hello"
+    return a.b
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  thatMark:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: after, insideOutsideType: outside, modifier: {type: identity}}]

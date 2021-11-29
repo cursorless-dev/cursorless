@@ -6,6 +6,7 @@ import {
   suffixedMatcher,
   cascadingMatcher,
   patternMatcher,
+  conditionMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
 
@@ -58,6 +59,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   className: "class_definition[name]",
   namedFunction: "decorated_definition?.function_definition",
   functionName: "function_definition[name]",
+  condition: conditionMatcher("*[condition]"),
   type: prefixedMatcher("function_definition[return_type]", "*[type]"),
   name: [
     "assignment[left]",
