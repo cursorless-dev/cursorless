@@ -213,10 +213,16 @@ function getTokenSelectionContext(
         : null;
   }
 
-  const isInDelimitedList =
-    (leadingDelimiterRange != null || trailingDelimiterRange != null) &&
-    (leadingDelimiterRange != null || start.character === 0) &&
-    (trailingDelimiterRange != null || end.isEqual(endLine.range.end));
+  let isInDelimitedList;
+  if (position === "contents") {
+    isInDelimitedList =
+      (leadingDelimiterRange != null || trailingDelimiterRange != null) &&
+      (leadingDelimiterRange != null || start.character === 0) &&
+      (trailingDelimiterRange != null || end.isEqual(endLine.range.end));
+  } else {
+    isInDelimitedList =
+      leadingDelimiterRange != null || trailingDelimiterRange != null;
+  }
 
   return {
     isInDelimitedList,
