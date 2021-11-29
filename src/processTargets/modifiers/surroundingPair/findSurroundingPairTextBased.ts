@@ -255,6 +255,12 @@ function getDelimiterPairOffsets(
     (match, index) => {
       const startOffset = match.index!;
       const matchText = match[0];
+
+      // NB: It is important to cache here because otherwise the algorithm that
+      // disambiguates delimiters of unknown side goes badly super linear
+      let hasCachedDelimiterInfo = false;
+      let cachedDelimiterInfo: IndividualDelimiter | undefined = undefined;
+
       return {
         offsets: {
           start: startOffset,
@@ -262,20 +268,29 @@ function getDelimiterPairOffsets(
         },
 
         get delimiterInfo() {
-          const delimiterInfo = delimiterTextToDelimiterInfoMap[matchText];
+          if (hasCachedDelimiterInfo) {
+            return cachedDelimiterInfo;
+          }
+
+          const rawDelimiterInfo = delimiterTextToDelimiterInfoMap[matchText];
 
           let side =
-            delimiterInfo.side === "unknown" && forceDirection == null
+            rawDelimiterInfo.side === "unknown" && forceDirection == null
               ? inferDelimiterSide(
                   text,
                   delimiterOccurrences,
                   index,
-                  delimiterInfo?.delimiter,
+                  rawDelimiterInfo?.delimiter,
                   startOffset
                 )
-              : delimiterInfo.side;
+              : rawDelimiterInfo.side;
 
-          return { ...delimiterInfo, side };
+          const delimiterInfo = { ...rawDelimiterInfo, side };
+
+          hasCachedDelimiterInfo = true;
+          cachedDelimiterInfo = delimiterInfo;
+
+          return delimiterInfo;
         },
       };
     }
