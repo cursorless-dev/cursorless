@@ -1,12 +1,18 @@
 import * as vscode from "vscode";
-import inferFullTargets from "./core/inferFullTargets";
-import processTargets from "./processTargets";
-import { Graph, PartialTarget, ProcessedTargetsContext } from "./typings/Types";
-import { ThatMark } from "./core/ThatMark";
-import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
-import { canonicalizeAndValidateCommand } from "./util/canonicalizeAndValidateCommand";
-import { doTargetsUsePrePhraseSnapshot } from "./util/doTargetsUsePrePhraseSnapshot";
+import inferFullTargets from "../inferFullTargets";
+import processTargets from "../../processTargets";
+import {
+  Graph,
+  PartialTarget,
+  ProcessedTargetsContext,
+} from "../../typings/Types";
+import { ThatMark } from "../ThatMark";
+import { TestCaseRecorder } from "../../testUtil/TestCaseRecorder";
+import { canonicalizeAndValidateCommand } from "../../util/canonicalizeAndValidateCommand";
+import { doTargetsUsePrePhraseSnapshot } from "../../util/doTargetsUsePrePhraseSnapshot";
 import { SyntaxNode } from "web-tree-sitter";
+import { CommandArgument } from "./types";
+import { isString } from "../../util/type";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -21,19 +27,26 @@ export default class CommandRunner {
   ) {
     graph.extensionContext.subscriptions.push(this);
 
-    this.runCommand = this.runCommand.bind(this);
+    this.runCommandBackwardCompatible =
+      this.runCommandBackwardCompatible.bind(this);
 
     this.disposables.push(
-      vscode.commands.registerCommand("cursorless.command", this.runCommand)
+      vscode.commands.registerCommand(
+        "cursorless.command",
+        this.runCommandBackwardCompatible
+      )
     );
   }
 
-  async runCommand(
-    spokenForm: string,
-    inputActionName: string,
-    inputPartialTargets: PartialTarget[],
-    ...inputExtraArgs: unknown[]
-  ) {
+  async runCommand(commandArgument: CommandArgument) {
+    const {
+      spokenForm,
+      action: inputActionName,
+      targets: inputPartialTargets,
+      extraArgs: inputExtraArgs,
+      usePrePhraseSnapshot,
+    } = commandArgument;
+
     try {
       const { actionName, partialTargets, extraArgs } =
         canonicalizeAndValidateCommand(
@@ -42,8 +55,6 @@ export default class CommandRunner {
           inputExtraArgs
         );
 
-      const usePrePhraseSnapshot =
-        doTargetsUsePrePhraseSnapshot(partialTargets);
       const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
         usePrePhraseSnapshot
       );
@@ -136,6 +147,34 @@ export default class CommandRunner {
       console.debug(err.stack);
       throw err;
     }
+  }
+
+  private runCommandBackwardCompatible(
+    spokenFormOrCommandArgument: string | CommandArgument,
+    ...rest: unknown[]
+  ) {
+    let commandArgument: CommandArgument;
+
+    if (isString(spokenFormOrCommandArgument)) {
+      const spokenForm = spokenFormOrCommandArgument;
+      const [action, targets, ...extraArgs] = rest as [
+        string,
+        PartialTarget[],
+        ...unknown[]
+      ];
+
+      commandArgument = {
+        spokenForm,
+        action,
+        targets,
+        extraArgs,
+        usePrePhraseSnapshot: false,
+      };
+    } else {
+      commandArgument = spokenFormOrCommandArgument;
+    }
+
+    return this.runCommand(commandArgument);
   }
 
   dispose() {

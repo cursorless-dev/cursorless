@@ -2,6 +2,7 @@ import { SimpleSurroundingPairName } from "../../../typings/Types";
 import { IndividualDelimiter } from "./types";
 import { delimiterToText } from "./delimiterMaps";
 import { concat, uniq } from "lodash";
+import { isString } from "../../../util/type";
 
 /**
  * Given a list of delimiters, returns a list where each element corresponds to
@@ -46,8 +47,4 @@ export function getIndividualDelimiters(
       };
     });
   });
-}
-
-function isString(arg: unknown): arg is string {
-  return typeof arg === "string" || arg instanceof String;
 }
