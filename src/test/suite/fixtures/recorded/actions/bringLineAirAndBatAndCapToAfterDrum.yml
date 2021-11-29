@@ -1,4 +1,4 @@
-spokenForm: bring line air and bat to after drum
+spokenForm: bring line air and bat and cap to after drum
 languageId: typescript
 command:
   actionName: replaceWithTarget
@@ -10,6 +10,8 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: a}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: b}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: c}
     - type: primitive
       position: after
       mark: {type: decoratedSymbol, symbolColor: default, character: d}
@@ -31,6 +33,9 @@ initialState:
     default.b:
       start: {line: 1, character: 0}
       end: {line: 1, character: 1}
+    default.c:
+      start: {line: 2, character: 0}
+      end: {line: 2, character: 1}
     default.d:
       start: {line: 4, character: 0}
       end: {line: 4, character: 1}
@@ -43,15 +48,18 @@ finalState:
     d
     a
     b
+    c
   selections:
-    - anchor: {line: 7, character: 0}
-      active: {line: 7, character: 0}
+    - anchor: {line: 8, character: 0}
+      active: {line: 8, character: 0}
   thatMark:
     - anchor: {line: 4, character: 1}
-      active: {line: 6, character: 1}
+      active: {line: 7, character: 1}
   sourceMark:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 1}
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 1}
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: line, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: line, position: contents, insideOutsideType: null, modifier: {type: identity}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, selectionType: line, position: after, insideOutsideType: null, modifier: {type: identity}}]
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 1}
+fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: line, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: line, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, selectionType: line, position: contents, insideOutsideType: null, modifier: {type: identity}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, selectionType: line, position: after, insideOutsideType: null, modifier: {type: identity}}]

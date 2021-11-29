@@ -115,8 +115,8 @@ class BringMoveSwap implements Action {
               let text = source.selection.editor.document.getText(
                 source.selection.selection
               );
-              return i > 0 && source.selectionContext.containingListDelimiter
-                ? source.selectionContext.containingListDelimiter + text
+              return i > 0 && destination.selectionContext.containingListDelimiter
+                ? destination.selectionContext.containingListDelimiter + text
                 : text;
             })
             .join("");
