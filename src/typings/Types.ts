@@ -103,6 +103,7 @@ export type ScopeType =
   | "string"
   | "type"
   | "value"
+  | "condition"
   | "xmlBothTags"
   | "xmlElement"
   | "xmlEndTag"
