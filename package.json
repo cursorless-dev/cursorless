@@ -114,11 +114,6 @@
 					"default": 100,
 					"description": "How long in milliseconds to show a pending edit decoration"
 				},
-				"cursorless.showAdditionalHighlightBeforeScroll": {
-					"type": "boolean",
-					"default": false,
-					"description": "Whether to show a highlight before scrolling in addition to after"
-				},
 				"cursorless.hatSizeAdjustment": {
 					"type": "number",
 					"default": 0,
