@@ -1,0 +1,27 @@
+spokenForm: chuck type ram
+languageId: typescript
+command:
+  actionName: remove
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: r}
+  extraArgs: []
+initialState:
+  documentContents: "const hello: string = \"hello\";"
+  selections:
+    - anchor: {line: 0, character: 30}
+      active: {line: 0, character: 30}
+  marks:
+    default.r:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 19}
+finalState:
+  documentContents: const hello = "hello";
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
+  thatMark:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}}]
