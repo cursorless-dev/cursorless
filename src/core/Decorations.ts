@@ -63,6 +63,12 @@ export default class Decorations {
     this.constructDecorations(this.graph.fontMeasurements);
   }
 
+  /**
+   * Register to be notified when decoration styles are updated, for example if
+   * the user enables a new hat style
+   * @param listener A function to be called when decoration styles are updated
+   * @returns A function that can be called to unsubscribe from notifications
+   */
   registerDecorationChangeListener(listener: DecorationChangeListener) {
     this.decorationChangeListeners.push(listener);
 

@@ -2,13 +2,31 @@ import { HatStyleName } from "./constants";
 import { Graph } from "../typings/Types";
 import { IndividualHatMap, ReadOnlyHatMap } from "./IndividualHatMap";
 import { HatAllocator } from "./HatAllocator";
+import { hrtime } from "process";
+import { abs } from "../util/bigint";
+
+/**
+ * Maximum age for the pre-phrase snapshot before we consider it to be stale
+ */
+const PRE_PHRASE_SNAPSHOT_MAX_AGE_NS = BigInt(6e10); // 60 seconds
 
 /**
  * Maps from (hatStyle, character) pairs to tokens
  */
 export default class HatTokenMap {
+  /**
+   * This is the active map the changes every time we reallocate hats. It is
+   * liable to change in the middle of a phrase.
+   */
   private activeMap: IndividualHatMap;
+
+  /**
+   * This is a snapshot of the hat map that remains stable over the course of a
+   * phrase. Ranges will be updated to account for changes to the document, but a
+   * hat with the same color and shape will refer to the same logical range.
+   */
   private prePhraseMapSnapshot?: IndividualHatMap;
+  private prePhraseMapsSnapshotTimestamp: bigint | null = null;
 
   private lastSignalVersion: string | null = null;
   private hatAllocator: HatAllocator;
@@ -47,7 +65,10 @@ export default class HatTokenMap {
   }
 
   private async getActiveMap() {
+    // NB: We need to take a snapshot of the hat map before we make any
+    // modifications if it is the beginning of the phrase
     await this.maybeTakePrePhraseSnapshot();
+
     return this.activeMap;
   }
 
@@ -61,6 +82,9 @@ export default class HatTokenMap {
    * @returns A readable snapshot of the map
    */
   async getReadableMap(usePrePhraseSnapshot: boolean): Promise<ReadOnlyHatMap> {
+    // NB: Take a snapshot before we return the map if it is the beginning of
+    // the phrase so all commands will get the same map over the course of the
+    // phrase
     await this.maybeTakePrePhraseSnapshot();
 
     if (usePrePhraseSnapshot) {
@@ -74,6 +98,16 @@ export default class HatTokenMap {
       if (this.prePhraseMapSnapshot == null) {
         console.error(
           "Navigation map pre-phrase snapshot requested, but no snapshot has been taken"
+        );
+        return this.activeMap;
+      }
+
+      if (
+        abs(hrtime.bigint() - this.prePhraseMapsSnapshotTimestamp!) >
+        PRE_PHRASE_SNAPSHOT_MAX_AGE_NS
+      ) {
+        console.error(
+          "Navigation map pre-phrase snapshot requested, but snapshot is more than a minute old"
         );
         return this.activeMap;
       }
@@ -115,5 +149,6 @@ export default class HatTokenMap {
     }
 
     this.prePhraseMapSnapshot = this.activeMap.clone();
+    this.prePhraseMapsSnapshotTimestamp = hrtime.bigint();
   }
 }
