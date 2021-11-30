@@ -75,47 +75,63 @@ export function unwrapSelectionExtractor(
   };
 }
 
-export function selectWithLeadingDelimiter(
-  editor: TextEditor,
-  node: SyntaxNode
-): SelectionWithContext {
-  const leadingNonDelimiterToken = node.previousSibling?.previousSibling;
-
-  const leadingDelimiterRange =
-    leadingNonDelimiterToken != null
-      ? makeRangeFromPositions(
+export function selectWithLeadingDelimiter(...delimiters: string[]) {
+  return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
+    const leadingDelimiterToken = node.previousSibling;
+    const leadingNonDelimiterToken = leadingDelimiterToken?.previousSibling;
+    let leadingDelimiterRange;
+    if (
+      leadingDelimiterToken &&
+      delimiters.includes(leadingDelimiterToken.type)
+    ) {
+      if (leadingNonDelimiterToken) {
+        leadingDelimiterRange = makeRangeFromPositions(
           leadingNonDelimiterToken.endPosition,
           node.startPosition
-        )
-      : null;
-
-  return {
-    ...simpleSelectionExtractor(editor, node),
-    context: {
-      leadingDelimiterRange,
-    },
+        );
+      } else {
+        leadingDelimiterRange = makeRangeFromPositions(
+          leadingDelimiterToken.startPosition,
+          node.startPosition
+        );
+      }
+    }
+    return {
+      ...simpleSelectionExtractor(editor, node),
+      context: {
+        leadingDelimiterRange,
+      },
+    };
   };
 }
 
-export function selectWithTrailingDelimiter(
-  editor: TextEditor,
-  node: SyntaxNode
-): SelectionWithContext {
-  const trailingNonDelimiterToken = node.nextSibling?.nextSibling;
-
-  const trailingDelimiterRange =
-    trailingNonDelimiterToken != null
-      ? makeRangeFromPositions(
+export function selectWithTrailingDelimiter(...delimiters: string[]) {
+  return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
+    const trailingDelimiterToken = node.nextSibling;
+    const trailingNonDelimiterToken = trailingDelimiterToken?.nextSibling;
+    let trailingDelimiterRange;
+    if (
+      trailingDelimiterToken &&
+      delimiters.includes(trailingDelimiterToken.type)
+    ) {
+      if (trailingNonDelimiterToken) {
+        trailingDelimiterRange = makeRangeFromPositions(
           node.endPosition,
           trailingNonDelimiterToken.startPosition
-        )
-      : null;
-
-  return {
-    ...simpleSelectionExtractor(editor, node),
-    context: {
-      trailingDelimiterRange,
-    },
+        );
+      } else {
+        trailingDelimiterRange = makeRangeFromPositions(
+          node.endPosition,
+          trailingDelimiterToken.endPosition
+        );
+      }
+    }
+    return {
+      ...simpleSelectionExtractor(editor, node),
+      context: {
+        trailingDelimiterRange,
+      },
+    };
   };
 }
 

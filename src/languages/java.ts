@@ -1,7 +1,7 @@
 import {
   createPatternMatchers,
   argumentMatcher,
-  prefixedMatcher,
+  leadingMatcher,
   conditionMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
@@ -63,7 +63,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "method_declaration.identifier!",
     "constructor_declaration.identifier!",
   ],
-  value: prefixedMatcher("*[declarator][value]", "*[value]"),
+  value: leadingMatcher(["*[declarator][value]", "*[value]"], ["="]),
   condition: conditionMatcher("*[condition]"),
   collectionItem: argumentMatcher("array_initializer"),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),

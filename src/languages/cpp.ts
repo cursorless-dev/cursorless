@@ -1,7 +1,7 @@
 import {
   createPatternMatchers,
   argumentMatcher,
-  prefixedMatcher,
+  leadingMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
 
@@ -95,11 +95,14 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "function_definition[declarator][declarator]", // void funcName() {}
     "declaration.function_declarator![declarator]", // void funcName();
   ],
-  value: prefixedMatcher(
-    "*[declarator][value]",
-    "*[value]",
-    "assignment_expression[right]",
-    "optional_parameter_declaration[default_value]"
+  value: leadingMatcher(
+    [
+      "*[declarator][value]",
+      "*[value]",
+      "assignment_expression[right]",
+      "optional_parameter_declaration[default_value]",
+    ],
+    ["=", ":"]
   ),
   collectionItem: argumentMatcher("initializer_list"),
   argumentOrParameter: argumentMatcher("parameter_list", "argument_list"),
