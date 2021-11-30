@@ -9,7 +9,6 @@ import {
 import { ThatMark } from "../ThatMark";
 import { TestCaseRecorder } from "../../testUtil/TestCaseRecorder";
 import { canonicalizeAndValidateCommand } from "../../util/canonicalizeAndValidateCommand";
-import { doTargetsUsePrePhraseSnapshot } from "../../util/doTargetsUsePrePhraseSnapshot";
 import { SyntaxNode } from "web-tree-sitter";
 import { CommandArgument } from "./types";
 import { isString } from "../../util/type";
@@ -59,12 +58,8 @@ export default class CommandRunner {
         usePrePhraseSnapshot
       );
 
-      console.debug(`spokenForm: ${spokenForm}`);
-      console.debug(`action: ${actionName}`);
-      console.debug(`partialTargets:`);
-      console.debug(JSON.stringify(partialTargets, null, 3));
-      console.debug(`extraArgs:`);
-      console.debug(JSON.stringify(extraArgs, null, 3));
+      console.debug(`commandArgument:`);
+      console.debug(JSON.stringify(commandArgument, null, 3));
 
       const action = this.graph.actions[actionName];
 
@@ -118,27 +113,6 @@ export default class CommandRunner {
       }
 
       return returnValue;
-
-      // writeFileSync(
-      //   "/Users/pokey/src/cursorless-vscode/inferFullTargetsTests.jsonl",
-      //   JSON.stringify({
-      //     input: { context, partialTargets, preferredPositions },
-      //     expectedOutput: targets,
-      //   }) + "\n",
-      //   { flag: "a" }
-      // );
-      // writeFileSync(
-      //   "/Users/pokey/src/cursorless-vscode/processTargetsTests.jsonl",
-      //   JSON.stringify({
-      //     input: {
-      //       context: processedTargetsContext,
-      //       targets,
-      //     },
-      //     expectedOutput: selections,
-      //   }) + "\n",
-      //   { flag: "a" }
-      // );
-      // const processedTargets = processTargets(hatTokenMap!, targets);
     } catch (e) {
       this.testCaseRecorder.commandErrorHook();
       const err = e as Error;
@@ -164,6 +138,7 @@ export default class CommandRunner {
       ];
 
       commandArgument = {
+        version: 0,
         spokenForm,
         action,
         targets,
