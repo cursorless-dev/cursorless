@@ -11,15 +11,11 @@ import { takeSnapshot, TestCaseSnapshot } from "./takeSnapshot";
 import serialize from "./serialize";
 import { pick } from "lodash";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
+import { CommandArgument } from "../core/commandRunner/types";
 
-export type TestCaseCommand = {
-  actionName: ActionType;
-  partialTargets: PartialTarget[];
-  extraArgs: any[];
-};
+export type TestCaseCommand = CommandArgument;
 
 export type TestCaseContext = {
-  spokenForm: string;
   thatMark: ThatMark;
   sourceMark: ThatMark;
   targets: Target[];
@@ -27,7 +23,6 @@ export type TestCaseContext = {
 };
 
 export type TestCaseFixture = {
-  spokenForm: string;
   command: TestCaseCommand;
   languageId: string;
 
@@ -44,7 +39,6 @@ export type TestCaseFixture = {
 };
 
 export class TestCase {
-  spokenForm: string;
   languageId: string;
   fullTargets: Target[];
   initialState: TestCaseSnapshot | null = null;
@@ -55,17 +49,16 @@ export class TestCase {
   marksToCheck?: string[];
 
   constructor(
-    private command: TestCaseCommand,
+    public command: TestCaseCommand,
     private context: TestCaseContext,
     private isHatTokenMapTest: boolean = false
   ) {
     const activeEditor = vscode.window.activeTextEditor!;
 
-    const { targets, spokenForm } = context;
+    const { targets } = context;
 
     this.targetKeys = targets.map(extractTargetKeys).flat();
 
-    this.spokenForm = spokenForm;
     this.languageId = activeEditor.document.languageId;
     this.fullTargets = targets;
     this._awaitingFinalMarkInfo = isHatTokenMapTest;
@@ -105,7 +98,7 @@ export class TestCase {
 
   private getExcludedFields(context?: { initialSnapshot?: boolean }) {
     const excludableFields = {
-      clipboard: !["copy", "paste"].includes(this.command.actionName),
+      clipboard: !["copy", "paste"].includes(this.command.action),
       thatMark:
         context?.initialSnapshot &&
         !this.fullTargets.some((target) =>
@@ -122,7 +115,7 @@ export class TestCase {
         "scrollToBottom",
         "scrollToCenter",
         "scrollToTop",
-      ].includes(this.command.actionName),
+      ].includes(this.command.action),
     };
 
     return Object.keys(excludableFields).filter(
@@ -135,7 +128,6 @@ export class TestCase {
       throw Error("Two snapshots must be taken before serializing");
     }
     const fixture: TestCaseFixture = {
-      spokenForm: this.spokenForm,
       languageId: this.languageId,
       command: this.command,
       marksToCheck: this.marksToCheck,

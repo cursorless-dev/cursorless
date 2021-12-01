@@ -18,7 +18,7 @@ import { mkdir, rename, unlink } from "fs/promises";
  */
 const FIXTURE_TRANSFORMATION: (
   originalFixture: TestCaseFixture
-) => TestCaseFixture = identity;
+) => TestCaseFixture = upgradeVersion;
 
 async function main() {
   const directory = path.join(
@@ -68,12 +68,11 @@ function identity(fixture: TestCaseFixture) {
 }
 
 function canonicalizeActionNames(fixture: TestCaseFixture) {
-  return update(fixture, { command: { actionName: canonicalizeActionName } });
+  return update(fixture, { command: { action: canonicalizeActionName } });
 }
 
 function reorderFields(fixture: TestCaseFixture) {
   return {
-    spokenForm: fixture.spokenForm,
     languageId: fixture.languageId,
     command: fixture.command,
     marksToCheck: fixture.marksToCheck,
@@ -84,10 +83,36 @@ function reorderFields(fixture: TestCaseFixture) {
   };
 }
 
+function upgradeVersion(fixture: TestCaseFixture) {
+  const { command, spokenForm, ...rest } = fixture as any;
+  command.version = 1;
+  command.spokenForm = spokenForm;
+  // TODO: Change names of action targets etcetera
+  let usePrePhraseSnapshot: boolean = false;
+  command.targets = transformPartialPrimitiveTargets(
+    command.targets,
+    (target: PartialPrimitiveTarget) => {
+      if (target.mark?.type === "decoratedSymbol") {
+        usePrePhraseSnapshot =
+          usePrePhraseSnapshot || (target.mark as any).usePrePhraseSnapshot;
+        (target.mark as any).usePrePhraseSnapshot = undefined;
+      }
+      return target;
+    }
+  );
+
+  command.usePrePhraseSnapshot = usePrePhraseSnapshot;
+
+  return {
+    command,
+    ...rest,
+  };
+}
+
 // Leaving an example here in case it's helpful
 function updateSurroundingPairTest(fixture: TestCaseFixture) {
-  fixture.command.partialTargets = transformPartialPrimitiveTargets(
-    fixture.command.partialTargets,
+  fixture.command.targets = transformPartialPrimitiveTargets(
+    fixture.command.targets,
     (target: PartialPrimitiveTarget) => {
       if (target.modifier?.type === "surroundingPair") {
         let delimiterInclusion: DelimiterInclusion;

@@ -22,7 +22,6 @@ import { enableDebugLog } from "../../util/debug";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 import asyncSafety from "./asyncSafety";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
-import { doTargetsUsePrePhraseSnapshot } from "../../util/doTargetsUsePrePhraseSnapshot";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
 import { openNewEditor } from "../openNewEditor";
 
@@ -106,9 +105,7 @@ async function runTest(file: string) {
 
   await graph.hatTokenMap.addDecorations();
 
-  const usePrePhraseSnapshot = doTargetsUsePrePhraseSnapshot(
-    fixture.command.partialTargets
-  );
+  const usePrePhraseSnapshot = fixture.command.usePrePhraseSnapshot ?? false;
 
   if (usePrePhraseSnapshot) {
     mockPrePhraseGetVersion(graph, async () => "version");
@@ -123,10 +120,7 @@ async function runTest(file: string) {
 
   const returnValue = await vscode.commands.executeCommand(
     "cursorless.command",
-    fixture.spokenForm,
-    fixture.command.actionName,
-    fixture.command.partialTargets,
-    ...fixture.command.extraArgs
+    fixture.command
   );
 
   const marks =

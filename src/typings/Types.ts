@@ -369,7 +369,7 @@ export interface Graph {
   readonly editStyles: EditStyles;
 
   /**
-   * Keeps a map of all decorated marks
+   * Maps from (hatStyle, character) pairs to tokens
    */
   readonly hatTokenMap: HatTokenMap;
 

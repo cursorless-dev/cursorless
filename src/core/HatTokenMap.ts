@@ -127,7 +127,7 @@ export default class HatTokenMap {
   }
 
   private async maybeTakePrePhraseSnapshot() {
-    const phraseStartSignal = this.graph.commandServerApi?.signals.prePhrase;
+    const phraseStartSignal = this.graph.commandServerApi?.signals?.prePhrase;
 
     if (phraseStartSignal != null) {
       const newSignalVersion = await phraseStartSignal.getVersion();

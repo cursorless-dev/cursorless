@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import inferFullTargets from "../inferFullTargets";
 import processTargets from "../../processTargets";
 import {
+  ActionType,
   Graph,
   PartialTarget,
   ProcessedTargetsContext,
@@ -43,7 +44,7 @@ export default class CommandRunner {
       action: inputActionName,
       targets: inputPartialTargets,
       extraArgs: inputExtraArgs,
-      usePrePhraseSnapshot,
+      usePrePhraseSnapshot = false,
     } = commandArgument;
 
     try {
@@ -88,7 +89,6 @@ export default class CommandRunner {
       const selections = processTargets(processedTargetsContext, targets);
 
       if (this.testCaseRecorder.active) {
-        const command = { actionName, partialTargets, extraArgs };
         const context = {
           targets,
           thatMark: this.thatMark,
@@ -96,7 +96,7 @@ export default class CommandRunner {
           hatTokenMap: readableHatMap,
           spokenForm,
         };
-        await this.testCaseRecorder.preCommandHook(command, context);
+        await this.testCaseRecorder.preCommandHook(commandArgument, context);
       }
 
       const {
@@ -132,7 +132,7 @@ export default class CommandRunner {
     if (isString(spokenFormOrCommandArgument)) {
       const spokenForm = spokenFormOrCommandArgument;
       const [action, targets, ...extraArgs] = rest as [
-        string,
+        ActionType,
         PartialTarget[],
         ...unknown[]
       ];
