@@ -84,8 +84,14 @@ export function conditionMatcher(...patterns: string[]): NodeMatcher {
  * @param patterns Patterns for pattern finder
  * @returns A node matcher
  */
-export function prefixedMatcher(...patterns: string[]): NodeMatcher {
-  return matcher(patternFinder(...patterns), selectWithLeadingDelimiter);
+export function leadingMatcher(
+  patterns: string[],
+  delimiters: string[] = []
+): NodeMatcher {
+  return matcher(
+    patternFinder(...patterns),
+    selectWithLeadingDelimiter(...delimiters)
+  );
 }
 
 /**
@@ -94,8 +100,14 @@ export function prefixedMatcher(...patterns: string[]): NodeMatcher {
  * @param patterns Patterns for pattern finder
  * @returns A node matcher
  */
-export function suffixedMatcher(...patterns: string[]): NodeMatcher {
-  return matcher(patternFinder(...patterns), selectWithTrailingDelimiter);
+export function trailingMatcher(
+  patterns: string[],
+  delimiters: string[] = []
+): NodeMatcher {
+  return matcher(
+    patternFinder(...patterns),
+    selectWithTrailingDelimiter(...delimiters)
+  );
 }
 
 /**

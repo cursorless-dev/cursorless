@@ -1,0 +1,31 @@
+spokenForm: chuck type soon
+languageId: python
+command:
+  actionName: remove
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+  extraArgs: []
+initialState:
+  documentContents: |-
+    def my_funk(value: str) -> str:
+        pass
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
+  marks:
+    default.s:
+      start: {line: 0, character: 19}
+      end: {line: 0, character: 22}
+finalState:
+  documentContents: |-
+    def my_funk(value) -> str:
+        pass
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
+  thatMark:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}}]

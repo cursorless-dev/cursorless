@@ -1,0 +1,27 @@
+spokenForm: chuck type air
+languageId: cpp
+command:
+  actionName: remove
+  partialTargets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  extraArgs: []
+initialState:
+  documentContents: string name = "hello";
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
+  marks:
+    default.a:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: name = "hello";
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}}]

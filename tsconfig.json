@@ -17,6 +17,7 @@
 	"exclude": [
 		"node_modules",
 		"src/vendor",
-		".vscode-test"
+		".vscode-test",
+        "data"
 	]
 }
