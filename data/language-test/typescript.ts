@@ -1,1 +1,1 @@
-const name = "value";
+const value = "value";
