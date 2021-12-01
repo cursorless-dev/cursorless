@@ -24,6 +24,7 @@ import {
 } from "../../util/getExtensionApi";
 import { enableDebugLog } from "../../util/debug";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
+import asyncSafety from "./asyncSafety";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -37,7 +38,7 @@ function createSelection(selection: SelectionPlainObject): vscode.Selection {
 
 suite("recorded test cases", async function () {
   this.timeout("100s");
-  this.retries(3);
+  this.retries(5);
   const directory = path.join(
     __dirname,
     "../../../src/test/suite/fixtures/recorded"
@@ -49,7 +50,12 @@ suite("recorded test cases", async function () {
     sinon.restore();
   });
 
-  files.forEach((file) => test(file.split(".")[0], () => runTest(file)));
+  files.forEach((file) =>
+    test(
+      file.split(".")[0],
+      asyncSafety(() => runTest(file))
+    )
+  );
 });
 
 async function runTest(file: string) {

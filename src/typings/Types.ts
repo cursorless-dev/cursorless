@@ -318,6 +318,7 @@ export type ActionType =
   | "clearAndSetSelection"
   | "copyToClipboard"
   | "cutToClipboard"
+  | "deselect"
   | "editNewLineAfter"
   | "editNewLineBefore"
   | "extractVariable"

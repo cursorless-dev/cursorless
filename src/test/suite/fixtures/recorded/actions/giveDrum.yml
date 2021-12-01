@@ -1,0 +1,28 @@
+spokenForm: give drum
+languageId: typescript
+command:
+  actionName: deselect
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+  extraArgs: []
+initialState:
+  documentContents: a b c d
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 7}
+  marks:
+    default.d:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: a b c d
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+  thatMark:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 7}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
