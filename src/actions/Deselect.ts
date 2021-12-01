@@ -22,7 +22,7 @@ export default class Deselect implements Action {
       // Remove selections with a non-empty intersection
       const newSelections = editor.selections.filter(
         (selection) =>
-          !targets.find((target) => {
+          !targets.some((target) => {
             const intersection =
               target.selection.selection.intersection(selection);
             return intersection && (!intersection.isEmpty || selection.isEmpty);
