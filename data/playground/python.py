@@ -1,7 +1,7 @@
 hello = 5
 
 
-def my_funk(value: str):
+def my_funk(value: str) -> str:
     print(value)
 
 
