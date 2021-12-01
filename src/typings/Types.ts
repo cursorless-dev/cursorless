@@ -335,6 +335,7 @@ export type ActionType =
   | "pasteFromClipboard"
   | "remove"
   | "replace"
+  | "removeSelection"
   | "replaceWithTarget"
   | "reverseTargets"
   | "scrollToBottom"

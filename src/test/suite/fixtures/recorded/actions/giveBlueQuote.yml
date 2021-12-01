@@ -1,0 +1,34 @@
+spokenForm: give blue quote
+languageId: typescript
+command:
+  actionName: removeSelection
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: blue, character: '"'}
+  extraArgs: []
+initialState:
+  documentContents: |
+    "hello"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 7}
+  marks:
+    blue.":
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: |
+    "hello"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 6}
+  thatMark:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 7}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: '"'}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
