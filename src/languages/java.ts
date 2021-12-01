@@ -3,6 +3,7 @@ import {
   argumentMatcher,
   leadingMatcher,
   conditionMatcher,
+  trailingMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
 
@@ -52,13 +53,13 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   map: "block",
   name: ["*[declarator][name]", "*[name]", "formal_parameter.identifier!"],
   namedFunction: ["method_declaration", "constructor_declaration"],
-  type: [
+  type: trailingMatcher([
     "type_identifier",
     "local_variable_declaration[type]",
     "array_creation_expression[type]",
     "formal_parameter[type]",
     "method_declaration[type]",
-  ],
+  ]),
   functionName: [
     "method_declaration.identifier!",
     "constructor_declaration.identifier!",

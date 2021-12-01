@@ -24,7 +24,7 @@ initialState:
 finalState:
   documentContents: |-
     public class Java {
-        private Java( name) {
+        private Java(name) {
             String value = "hello";
         }
     }

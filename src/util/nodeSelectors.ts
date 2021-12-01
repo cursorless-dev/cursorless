@@ -77,21 +77,30 @@ export function unwrapSelectionExtractor(
 
 export function selectWithLeadingDelimiter(...delimiters: string[]) {
   return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
-    const leadingDelimiterToken = node.previousSibling;
-    const leadingNonDelimiterToken = leadingDelimiterToken?.previousSibling;
+    const firstSibling = node.previousSibling;
+    const secondSibling = firstSibling?.previousSibling;
     let leadingDelimiterRange;
-    if (
-      leadingDelimiterToken &&
-      delimiters.includes(leadingDelimiterToken.type)
-    ) {
-      if (leadingNonDelimiterToken) {
+    if (firstSibling) {
+      if (delimiters.includes(firstSibling.type)) {
+        // Second sibling exists. Terminate before it.
+        if (secondSibling) {
+          leadingDelimiterRange = makeRangeFromPositions(
+            secondSibling.endPosition,
+            node.startPosition
+          );
+        }
+        // First delimiter sibling exists. Terminate after it.
+        else {
+          leadingDelimiterRange = makeRangeFromPositions(
+            firstSibling.startPosition,
+            node.startPosition
+          );
+        }
+      }
+      // First sibling exists but is not the delimiter we are looking for. Terminate before it.
+      else {
         leadingDelimiterRange = makeRangeFromPositions(
-          leadingNonDelimiterToken.endPosition,
-          node.startPosition
-        );
-      } else {
-        leadingDelimiterRange = makeRangeFromPositions(
-          leadingDelimiterToken.startPosition,
+          firstSibling.endPosition,
           node.startPosition
         );
       }
@@ -107,22 +116,26 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
 
 export function selectWithTrailingDelimiter(...delimiters: string[]) {
   return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
-    const trailingDelimiterToken = node.nextSibling;
-    const trailingNonDelimiterToken = trailingDelimiterToken?.nextSibling;
+    const firstSibling = node.nextSibling;
+    const secondSibling = firstSibling?.nextSibling;
     let trailingDelimiterRange;
-    if (
-      trailingDelimiterToken &&
-      delimiters.includes(trailingDelimiterToken.type)
-    ) {
-      if (trailingNonDelimiterToken) {
-        trailingDelimiterRange = makeRangeFromPositions(
-          node.endPosition,
-          trailingNonDelimiterToken.startPosition
-        );
+    if (firstSibling) {
+      if (delimiters.includes(firstSibling.type)) {
+        if (secondSibling) {
+          trailingDelimiterRange = makeRangeFromPositions(
+            node.endPosition,
+            secondSibling.startPosition
+          );
+        } else {
+          trailingDelimiterRange = makeRangeFromPositions(
+            node.endPosition,
+            firstSibling.endPosition
+          );
+        }
       } else {
         trailingDelimiterRange = makeRangeFromPositions(
           node.endPosition,
-          trailingDelimiterToken.endPosition
+          firstSibling.startPosition
         );
       }
     }

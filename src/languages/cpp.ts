@@ -2,6 +2,7 @@ import {
   createPatternMatchers,
   argumentMatcher,
   leadingMatcher,
+  trailingMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
 
@@ -89,7 +90,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "*[name]",
   ],
   namedFunction: ["function_definition", "declaration.function_declarator"],
-  type: TYPE_TYPES.concat(["*[type]"]),
+  type: trailingMatcher(TYPE_TYPES.concat(["*[type]"])),
   functionName: [
     "function_definition[declarator][declarator][name]", // void C::funcName() {}
     "function_definition[declarator][declarator]", // void funcName() {}

@@ -4,6 +4,7 @@ import {
   composedMatcher,
   createPatternMatchers,
   matcher,
+  trailingMatcher,
   typeMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
@@ -224,7 +225,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   functionName: NAMED_FUNCTION_TYPES.map((t) => t + "[name]"),
   comment: "comment",
   regularExpression: "regex",
-  type: "*[type]",
+  type: trailingMatcher(["*[type]"]),
   name: ["*[name]", "identifier"],
 };
 

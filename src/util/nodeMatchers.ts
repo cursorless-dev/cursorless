@@ -86,7 +86,7 @@ export function conditionMatcher(...patterns: string[]): NodeMatcher {
  */
 export function leadingMatcher(
   patterns: string[],
-  delimiters: string[]
+  delimiters: string[] = []
 ): NodeMatcher {
   return matcher(
     patternFinder(...patterns),
@@ -102,7 +102,7 @@ export function leadingMatcher(
  */
 export function trailingMatcher(
   patterns: string[],
-  delimiters: string[]
+  delimiters: string[] = []
 ): NodeMatcher {
   return matcher(
     patternFinder(...patterns),
