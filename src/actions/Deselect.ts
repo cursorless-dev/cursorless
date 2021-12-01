@@ -25,7 +25,7 @@ export default class Deselect implements Action {
           !targets.find((target) => {
             const intersection =
               target.selection.selection.intersection(selection);
-            return intersection && !intersection.isEmpty;
+            return intersection && (!intersection.isEmpty || selection.isEmpty);
           })
       );
       // The editor requires at least one selection. Keep "primary" selection active

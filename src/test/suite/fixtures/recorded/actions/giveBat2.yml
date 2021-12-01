@@ -1,0 +1,28 @@
+spokenForm: give bat
+languageId: markdown
+command:
+  actionName: deselect
+  partialTargets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  extraArgs: []
+initialState:
+  documentContents: a b.
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks:
+    default.b:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: a b.
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  thatMark:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 3}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
