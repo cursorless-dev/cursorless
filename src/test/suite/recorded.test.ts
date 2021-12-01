@@ -37,7 +37,7 @@ function createSelection(selection: SelectionPlainObject): vscode.Selection {
 
 suite("recorded test cases", async function () {
   this.timeout("100s");
-  this.retries(3);
+  this.retries(5);
   const directory = path.join(
     __dirname,
     "../../../src/test/suite/fixtures/recorded"
