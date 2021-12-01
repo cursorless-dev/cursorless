@@ -1,7 +1,7 @@
 spokenForm: give harp
 languageId: typescript
 command:
-  actionName: removeSelection
+  actionName: deselect
   partialTargets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}

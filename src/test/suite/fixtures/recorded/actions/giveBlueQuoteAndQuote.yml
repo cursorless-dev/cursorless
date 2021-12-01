@@ -1,7 +1,7 @@
 spokenForm: give blue quote and quote
 languageId: typescript
 command:
-  actionName: removeSelection
+  actionName: deselect
   partialTargets:
     - type: list
       elements:

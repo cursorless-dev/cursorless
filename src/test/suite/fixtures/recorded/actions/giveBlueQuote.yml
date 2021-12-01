@@ -1,7 +1,7 @@
 spokenForm: give blue quote
 languageId: typescript
 command:
-  actionName: removeSelection
+  actionName: deselect
   partialTargets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: blue, character: '"'}

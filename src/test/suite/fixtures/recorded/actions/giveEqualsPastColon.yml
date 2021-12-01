@@ -1,7 +1,7 @@
 spokenForm: give equals past colon
 languageId: typescript
 command:
-  actionName: removeSelection
+  actionName: deselect
   partialTargets:
     - type: range
       start:

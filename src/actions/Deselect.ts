@@ -1,3 +1,4 @@
+import { Selection } from "vscode";
 import {
   Action,
   ActionPreferences,
@@ -18,15 +19,19 @@ export default class Deselect implements Action {
 
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
     await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-      editor.selections = editor.selections.filter(
+      // Remove selections with a non-empty intersection
+      const newSelections = editor.selections.filter(
         (selection) =>
-          !targets.find(
-            (target) =>
-              target.selection.selection.intersection(selection) &&
-              !target.selection.selection.start.isEqual(selection.end) &&
-              !target.selection.selection.end.isEqual(selection.start)
-          )
+          !targets.find((target) => {
+            const intersection =
+              target.selection.selection.intersection(selection);
+            return intersection && !intersection.isEmpty;
+          })
       );
+      // The editor requires at least one selection. Keep "primary" selection active
+      editor.selections = newSelections.length
+        ? newSelections
+        : [new Selection(editor.selection.active, editor.selection.active)];
     });
 
     return {
