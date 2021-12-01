@@ -28,7 +28,7 @@ import SetBreakpoint from "./SetBreakpoint";
 import { Sort, Reverse } from "./Sort";
 import Call from "./Call";
 import WrapWithSnippet from "./WrapWithSnippet";
-import RemoveSelection from "./RemoveSelection";
+import Deselect from "./Deselect";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -53,7 +53,7 @@ class Actions implements ActionRecord {
   outdentLine = new OutdentLines(this.graph);
   pasteFromClipboard = new Paste(this.graph);
   remove = new Delete(this.graph);
-  removeSelection = new RemoveSelection(this.graph);
+  deselect = new Deselect(this.graph);
   replace = new Replace(this.graph);
   replaceWithTarget = new Bring(this.graph);
   reverseTargets = new Reverse(this.graph);

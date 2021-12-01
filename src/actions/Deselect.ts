@@ -7,17 +7,13 @@ import {
 } from "../typings/Types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 
-export default class RemoveSelection implements Action {
+export default class Deselect implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
     { insideOutsideType: "inside" },
   ];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
-  }
-
-  protected getSelection(target: TypedSelection) {
-    return target.selection.selection;
   }
 
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
