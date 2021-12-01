@@ -63,7 +63,7 @@ function processRangeTarget(
   const anchorTargets = processPrimitiveTarget(context, target.anchor);
   const activeTargets = processPrimitiveTarget(context, target.active);
 
-  return zip(anchorTargets, activeTargets).map(
+  return zip(anchorTargets, activeTargets).flatMap(
     ([anchorTarget, activeTarget]) => {
       if (anchorTarget == null || activeTarget == null) {
         throw new Error("anchorTargets and activeTargets lengths don't match");
@@ -92,6 +92,38 @@ function processRangeTarget(
         !isForward,
         !target.excludeActive
       );
+
+      if (
+        anchorTarget.selectionType === "column" ||
+        activeTarget.selectionType === "column"
+      ) {
+        const start = isForward ? anchor : active;
+        const end = isForward ? active : anchor;
+        const tokens = context.navigationMap
+          .getTokens()
+          .filter(
+            (token) =>
+              token.displayLine >= start.line && token.displayLine <= end.line
+          );
+        tokens.sort((a, b) => a.offsets.start - b.offsets.start);
+        console.log(tokens);
+        const index = tokens.findIndex((token) =>
+          token.range.start.isEqual(start)
+        );
+        console.log("index", index);
+        let line = start.line;
+        let column = 0;
+        tokens.forEach((token) => {
+          if (token.displayLine !== line) {
+            line++;
+            column = 0;
+          }
+          if (column === index) {
+            console.log(token.text);
+          }
+          column++;
+        });
+      }
 
       const outerAnchor = target.excludeAnchor
         ? null

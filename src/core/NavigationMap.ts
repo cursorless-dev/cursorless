@@ -50,6 +50,10 @@ export default class NavigationMap {
     return Object.entries(this.map);
   }
 
+  public getTokens() {
+    return Object.values(this.map);
+  }
+
   public addToken(hatStyle: HatStyleName, character: string, token: Token) {
     this.map[NavigationMap.getKey(hatStyle, character)] = token;
     this.getDocumentTokenList(token.editor.document).push(token);
