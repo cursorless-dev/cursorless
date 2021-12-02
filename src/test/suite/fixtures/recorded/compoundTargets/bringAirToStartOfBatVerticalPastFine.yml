@@ -1,0 +1,97 @@
+spokenForm: bring air to start of bat vertical past fine
+languageId: typescript
+command:
+  version: 1
+  spokenForm: bring air to start of column bat past fine
+  action: replaceWithTarget
+  targets:
+    - type: primitive
+      mark: { type: decoratedSymbol, symbolColor: default, character: a }
+    - type: range
+      start:
+        type: primitive
+        position: before
+        insideOutsideType: inside
+        mark: { type: decoratedSymbol, symbolColor: default, character: b }
+      end:
+        type: primitive
+        mark: { type: decoratedSymbol, symbolColor: default, character: f }
+      excludeStart: false
+      excludeEnd: false
+      isColumn: true
+  extraArgs: []
+initialState:
+  documentContents: |
+    a
+
+    b   c
+    d   e
+    f   g
+  selections:
+    - anchor: { line: 5, character: 0 }
+      active: { line: 5, character: 0 }
+  marks:
+    default.a:
+      start: { line: 0, character: 0 }
+      end: { line: 0, character: 1 }
+    default.b:
+      start: { line: 2, character: 0 }
+      end: { line: 2, character: 1 }
+    default.f:
+      start: { line: 4, character: 0 }
+      end: { line: 4, character: 1 }
+finalState:
+  documentContents: |
+    a
+
+    ab   c
+    ad   e
+    af   g
+  selections:
+    - anchor: { line: 5, character: 0 }
+      active: { line: 5, character: 0 }
+  thatMark:
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 1 }
+    - anchor: { line: 3, character: 0 }
+      active: { line: 3, character: 1 }
+    - anchor: { line: 4, character: 0 }
+      active: { line: 4, character: 1 }
+  sourceMark:
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 1 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: a },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: null,
+      modifier: { type: identity },
+    },
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      isColumn: true,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: b },
+          selectionType: token,
+          position: before,
+          insideOutsideType: inside,
+          modifier: { type: identity },
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: f },
+          selectionType: token,
+          position: before,
+          insideOutsideType: inside,
+          modifier: { type: identity },
+        },
+    },
+  ]
