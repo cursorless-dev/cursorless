@@ -1,8 +1,9 @@
-spokenForm: take element
 languageId: javascript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take element
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: xmlElement}
   extraArgs: []

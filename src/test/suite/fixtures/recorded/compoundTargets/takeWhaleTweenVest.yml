@@ -1,8 +1,9 @@
-spokenForm: take whale tween vest
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take whale tween vest
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive

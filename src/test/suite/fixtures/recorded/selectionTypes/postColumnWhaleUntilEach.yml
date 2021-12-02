@@ -1,8 +1,9 @@
-spokenForm: post column whale until each
 languageId: markdown
 command:
-  actionName: setSelectionAfter
-  partialTargets:
+  version: 1
+  spokenForm: post column whale until each
+  action: setSelectionAfter
+  targets:
     - type: range
       start:
         type: primitive

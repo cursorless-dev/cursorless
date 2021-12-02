@@ -1,8 +1,9 @@
-spokenForm: if state wrap this
 languageId: csharp
 command:
-  actionName: wrapWithSnippet
-  partialTargets:
+  version: 1
+  spokenForm: if state wrap this
+  action: wrapWithSnippet
+  targets:
     - type: primitive
       mark: {type: cursor}
   extraArgs: [ifStatement.consequence]

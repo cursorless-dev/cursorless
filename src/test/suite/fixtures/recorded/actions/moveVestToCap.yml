@@ -1,8 +1,9 @@
-spokenForm: move vest to cap
 languageId: typescript
 command:
-  actionName: moveToTarget
-  partialTargets:
+  version: 1
+  spokenForm: move vest to cap
+  action: moveToTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
     - type: primitive

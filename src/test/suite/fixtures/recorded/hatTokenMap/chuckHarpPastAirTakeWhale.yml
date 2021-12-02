@@ -1,8 +1,9 @@
-spokenForm: chuck harp past air take whale
 languageId: plaintext
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck harp past air take whale
+  action: remove
+  targets:
     - type: range
       start:
         type: primitive

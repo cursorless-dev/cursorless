@@ -1,8 +1,9 @@
-spokenForm: dedent vest
 languageId: typescript
 command:
-  actionName: outdentLine
-  partialTargets:
+  version: 1
+  spokenForm: dedent vest
+  action: outdentLine
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs: []

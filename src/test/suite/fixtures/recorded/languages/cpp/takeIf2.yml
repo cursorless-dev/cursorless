@@ -1,8 +1,9 @@
-spokenForm: take if
 languageId: cpp
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take if
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: ifStatement}
   extraArgs: []

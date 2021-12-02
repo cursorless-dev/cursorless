@@ -1,12 +1,12 @@
-spokenForm: clear quad
 languageId: plaintext
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear quad
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: doubleQuotes}
   extraArgs: []
-marks: {}
 initialState:
   documentContents: "\"\""
   selections:

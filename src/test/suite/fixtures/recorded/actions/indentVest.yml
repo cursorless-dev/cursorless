@@ -1,8 +1,9 @@
-spokenForm: indent vest
 languageId: typescript
 command:
-  actionName: indentLine
-  partialTargets:
+  version: 1
+  spokenForm: indent vest
+  action: indentLine
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs: []

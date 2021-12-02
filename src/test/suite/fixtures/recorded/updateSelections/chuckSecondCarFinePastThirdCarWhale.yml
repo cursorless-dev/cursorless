@@ -1,8 +1,9 @@
-spokenForm: chuck second car fine past third car whale
 languageId: plaintext
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck second car fine past third car whale
+  action: remove
+  targets:
     - type: range
       start:
         type: primitive

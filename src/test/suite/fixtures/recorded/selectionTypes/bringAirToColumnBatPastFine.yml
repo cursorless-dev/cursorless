@@ -1,8 +1,9 @@
-spokenForm: bring air to column bat past fine
 languageId: markdown
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring air to column bat past fine
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
     - type: range

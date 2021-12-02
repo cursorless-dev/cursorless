@@ -1,8 +1,9 @@
-spokenForm: if wrap token fine
 languageId: typescript
 command:
-  actionName: wrapWithSnippet
-  partialTargets:
+  version: 1
+  spokenForm: if wrap token fine
+  action: wrapWithSnippet
+  targets:
     - type: primitive
       selectionType: token
       mark: {type: decoratedSymbol, symbolColor: default, character: f}

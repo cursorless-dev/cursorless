@@ -1,8 +1,9 @@
-spokenForm: give quote and air
 languageId: typescript
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give quote and air
+  action: deselect
+  targets:
     - type: list
       elements:
         - type: primitive

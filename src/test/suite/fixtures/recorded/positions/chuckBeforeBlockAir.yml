@@ -1,8 +1,9 @@
-spokenForm: chuck before block air
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck before block air
+  action: remove
+  targets:
     - type: primitive
       position: before
       selectionType: paragraph

@@ -1,8 +1,9 @@
-spokenForm: chuck fourth car whale past third car air take whale
 languageId: plaintext
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck fourth car whale past third car air take whale
+  action: remove
+  targets:
     - type: range
       start:
         type: primitive

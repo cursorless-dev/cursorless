@@ -1,8 +1,9 @@
-spokenForm: take second char look past second char trap
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take second char look past second char trap
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive

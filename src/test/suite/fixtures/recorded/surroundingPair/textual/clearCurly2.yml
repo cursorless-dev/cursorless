@@ -1,8 +1,9 @@
-spokenForm: clear curly
 languageId: plaintext
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear curly
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: curlyBrackets}
   extraArgs: []

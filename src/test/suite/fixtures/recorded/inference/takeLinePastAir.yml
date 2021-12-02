@@ -1,8 +1,9 @@
-spokenForm: take line past air
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take line past air
+  action: setSelection
+  targets:
     - type: range
       start: {type: primitive, selectionType: line}
       end:

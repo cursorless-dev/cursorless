@@ -1,8 +1,9 @@
-spokenForm: take odd past token
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take odd past token
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive

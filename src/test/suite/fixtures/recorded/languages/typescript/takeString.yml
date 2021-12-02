@@ -1,8 +1,9 @@
-spokenForm: take string
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take string
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: string}
   extraArgs: []

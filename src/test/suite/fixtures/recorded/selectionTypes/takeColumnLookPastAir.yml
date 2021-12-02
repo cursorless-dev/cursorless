@@ -1,8 +1,9 @@
-spokenForm: take column look past air
 languageId: markdown
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take column look past air
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive

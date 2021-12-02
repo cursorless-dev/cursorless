@@ -1,8 +1,9 @@
-spokenForm: pour vest
 languageId: typescript
 command:
-  actionName: editNewLineAfter
-  partialTargets:
+  version: 1
+  spokenForm: pour vest
+  action: editNewLineAfter
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs: []

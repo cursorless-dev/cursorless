@@ -1,8 +1,9 @@
-spokenForm: chuck after vest
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck after vest
+  action: remove
+  targets:
     - type: primitive
       position: after
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

@@ -1,8 +1,9 @@
-spokenForm: take column until each
 languageId: markdown
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take column until each
+  action: setSelection
+  targets:
     - type: range
       start: {type: primitive, selectionType: column}
       end:

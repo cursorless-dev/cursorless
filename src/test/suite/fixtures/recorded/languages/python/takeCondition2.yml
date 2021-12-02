@@ -1,8 +1,9 @@
-spokenForm: take condition
 languageId: python
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take condition
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
   extraArgs: []

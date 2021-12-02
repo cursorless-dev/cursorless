@@ -1,8 +1,9 @@
-spokenForm: take line vest
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take line vest
+  action: setSelection
+  targets:
     - type: primitive
       selectionType: line
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

@@ -1,8 +1,9 @@
-spokenForm: move fourth car harp past second car whale to end of whale take whale
 languageId: plaintext
 command:
-  actionName: moveToTarget
-  partialTargets:
+  version: 1
+  spokenForm: move fourth car harp past second car whale to end of whale take whale
+  action: moveToTarget
+  targets:
     - type: range
       start:
         type: primitive

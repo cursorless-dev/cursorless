@@ -1,8 +1,9 @@
-spokenForm: carve vest
 languageId: typescript
 command:
-  actionName: cutToClipboard
-  partialTargets:
+  version: 1
+  spokenForm: carve vest
+  action: cutToClipboard
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs: []

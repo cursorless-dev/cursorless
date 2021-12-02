@@ -1,8 +1,9 @@
-spokenForm: take second char look past end of token
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take second char look past end of token
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive

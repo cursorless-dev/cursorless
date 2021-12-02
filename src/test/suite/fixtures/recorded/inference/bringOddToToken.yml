@@ -1,8 +1,9 @@
-spokenForm: bring odd to token
 languageId: typescript
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring odd to token
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: o}
     - {type: primitive, selectionType: token}

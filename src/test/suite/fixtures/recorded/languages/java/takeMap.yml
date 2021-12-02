@@ -1,8 +1,9 @@
-spokenForm: take map
 languageId: java
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take map
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: map}
   extraArgs: []

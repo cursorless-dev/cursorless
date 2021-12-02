@@ -1,8 +1,9 @@
-spokenForm: chuck token vest
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck token vest
+  action: remove
+  targets:
     - type: primitive
       selectionType: token
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

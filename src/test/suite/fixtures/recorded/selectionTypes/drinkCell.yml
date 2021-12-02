@@ -1,8 +1,9 @@
-spokenForm: drink cell
 languageId: python
 command:
-  actionName: editNewLineBefore
-  partialTargets:
+  version: 1
+  spokenForm: drink cell
+  action: editNewLineBefore
+  targets:
     - {type: primitive, selectionType: notebookCell}
   extraArgs: []
 initialState:

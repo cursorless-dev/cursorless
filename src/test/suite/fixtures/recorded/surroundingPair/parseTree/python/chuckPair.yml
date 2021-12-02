@@ -1,8 +1,9 @@
-spokenForm: clear pair
 languageId: python
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear pair
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
   extraArgs: []

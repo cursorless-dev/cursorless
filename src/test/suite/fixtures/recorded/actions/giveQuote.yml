@@ -1,8 +1,9 @@
-spokenForm: give quote
 languageId: typescript
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give quote
+  action: deselect
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: '"'}
   extraArgs: []

@@ -1,8 +1,9 @@
-spokenForm: bring vest to cap
 languageId: typescript
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring vest to cap
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
     - type: primitive

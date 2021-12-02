@@ -1,8 +1,9 @@
-spokenForm: clear string
 languageId: shellscript
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear string
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: string}
   extraArgs: []

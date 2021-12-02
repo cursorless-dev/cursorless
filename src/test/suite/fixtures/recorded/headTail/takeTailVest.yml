@@ -1,8 +1,9 @@
-spokenForm: take tail vest
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take tail vest
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: tail}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

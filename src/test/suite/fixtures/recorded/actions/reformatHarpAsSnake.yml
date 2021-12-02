@@ -1,8 +1,9 @@
-spokenForm: reformat harp as snake
 languageId: typescript
 command:
-  actionName: getText
-  partialTargets:
+  version: 1
+  spokenForm: reformat harp as snake
+  action: getText
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
   extraArgs:

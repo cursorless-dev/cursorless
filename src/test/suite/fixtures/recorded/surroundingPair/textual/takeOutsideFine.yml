@@ -1,12 +1,14 @@
-spokenForm: clear outside fine
 languageId: plaintext
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear outside fine
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
-      mark: {type: decoratedSymbol, symbolColor: default, character: f, usePrePhraseSnapshot: true}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
   extraArgs: []
+  usePrePhraseSnapshot: true
 initialState:
   documentContents: (<user.foo>  <user.bar>)
   selections:

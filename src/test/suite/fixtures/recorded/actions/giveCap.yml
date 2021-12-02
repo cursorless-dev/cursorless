@@ -1,8 +1,9 @@
-spokenForm: give cap
 languageId: typescript
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give cap
+  action: deselect
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: c}
   extraArgs: []

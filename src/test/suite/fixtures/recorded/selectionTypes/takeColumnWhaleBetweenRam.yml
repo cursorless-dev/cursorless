@@ -1,8 +1,9 @@
-spokenForm: take column whale between ram
 languageId: markdown
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take column whale between ram
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive

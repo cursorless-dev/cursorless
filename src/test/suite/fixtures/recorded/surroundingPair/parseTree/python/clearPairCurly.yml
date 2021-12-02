@@ -1,8 +1,9 @@
-spokenForm: clear pair curly
 languageId: python
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear pair curly
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: curlyBrackets, delimiterInclusion: excludeInterior}
   extraArgs: []

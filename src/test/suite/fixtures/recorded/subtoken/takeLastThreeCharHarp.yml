@@ -1,8 +1,9 @@
-spokenForm: take last three char harp
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take last three char harp
+  action: setSelection
+  targets:
     - type: primitive
       selectionType: token
       modifier: {type: subpiece, pieceType: character, anchor: -3, active: -1}

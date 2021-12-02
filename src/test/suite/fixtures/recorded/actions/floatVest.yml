@@ -1,8 +1,9 @@
-spokenForm: float vest
 languageId: typescript
 command:
-  actionName: insertEmptyLineAfter
-  partialTargets:
+  version: 1
+  spokenForm: float vest
+  action: insertEmptyLineAfter
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs: []

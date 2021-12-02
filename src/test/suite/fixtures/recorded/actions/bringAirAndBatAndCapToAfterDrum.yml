@@ -1,8 +1,9 @@
-spokenForm: bring air and bat and cap to after drum
 languageId: typescript
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring air and bat and cap to after drum
+  action: replaceWithTarget
+  targets:
     - type: list
       elements:
         - type: primitive

@@ -1,8 +1,9 @@
-spokenForm: take row two past down three
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take row two past down three
+  action: setSelection
+  targets:
     - type: primitive
       selectionType: line
       mark:

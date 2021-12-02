@@ -1,8 +1,9 @@
-spokenForm: copy vest
 languageId: typescript
 command:
-  actionName: copyToClipboard
-  partialTargets:
+  version: 1
+  spokenForm: copy vest
+  action: copyToClipboard
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs: []

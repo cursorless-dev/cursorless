@@ -1,8 +1,9 @@
-spokenForm: take state
 languageId: java
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take state
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: statement}
   extraArgs: []

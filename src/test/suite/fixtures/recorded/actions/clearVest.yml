@@ -1,8 +1,9 @@
-spokenForm: clear vest
 languageId: typescript
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear vest
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs: []

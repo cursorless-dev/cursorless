@@ -1,8 +1,9 @@
-spokenForm: chuck sixth char vest
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck sixth char vest
+  action: remove
+  targets:
     - type: primitive
       modifier: {type: subpiece, pieceType: character, anchor: 5, active: 5}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

@@ -1,8 +1,9 @@
-spokenForm: bring line bat past end of funk to this
 languageId: typescript
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring line bat past end of funk to this
+  action: replaceWithTarget
+  targets:
     - type: range
       start:
         type: primitive

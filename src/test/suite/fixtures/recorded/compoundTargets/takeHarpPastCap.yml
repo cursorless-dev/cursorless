@@ -1,8 +1,9 @@
-spokenForm: take harp past cap
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take harp past cap
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive

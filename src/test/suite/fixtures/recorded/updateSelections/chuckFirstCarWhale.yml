@@ -1,8 +1,9 @@
-spokenForm: chuck first car whale
 languageId: plaintext
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck first car whale
+  action: remove
+  targets:
     - type: primitive
       selectionType: token
       modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0, excludeAnchor: false, excludeActive: false}

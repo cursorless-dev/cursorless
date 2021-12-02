@@ -1,8 +1,9 @@
-spokenForm: take harp past string each
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take harp past string each
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive

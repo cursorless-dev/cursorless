@@ -1,8 +1,9 @@
-spokenForm: dupe up vest
 languageId: typescript
 command:
-  actionName: insertCopyBefore
-  partialTargets:
+  version: 1
+  spokenForm: dupe up vest
+  action: insertCopyBefore
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs: []

@@ -1,8 +1,9 @@
-spokenForm: bring fine to first car whale
 languageId: plaintext
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring fine to first car whale
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
     - type: primitive

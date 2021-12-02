@@ -1,8 +1,9 @@
-spokenForm: take past start of token
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take past start of token
+  action: setSelection
+  targets:
     - type: range
       start: {type: primitive}
       end: {type: primitive, position: before, insideOutsideType: inside, selectionType: token}

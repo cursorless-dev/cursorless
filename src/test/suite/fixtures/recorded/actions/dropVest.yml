@@ -1,8 +1,9 @@
-spokenForm: drop vest
 languageId: typescript
 command:
-  actionName: insertEmptyLineBefore
-  partialTargets:
+  version: 1
+  spokenForm: drop vest
+  action: insertEmptyLineBefore
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs: []

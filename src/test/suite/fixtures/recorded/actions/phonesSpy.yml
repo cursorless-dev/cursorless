@@ -1,8 +1,9 @@
-spokenForm: phones spy
 languageId: typescript
 command:
-  actionName: replace
-  partialTargets:
+  version: 1
+  spokenForm: phones spy
+  action: replace
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: s}
   extraArgs:

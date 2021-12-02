@@ -1,8 +1,9 @@
-spokenForm: chuck inside round
 languageId: plaintext
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck inside round
+  action: remove
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: interiorOnly}
   extraArgs: []

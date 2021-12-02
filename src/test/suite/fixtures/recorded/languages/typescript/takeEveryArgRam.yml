@@ -1,8 +1,9 @@
-spokenForm: take every arg ram
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take every arg ram
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
       mark: {type: decoratedSymbol, symbolColor: default, character: r}

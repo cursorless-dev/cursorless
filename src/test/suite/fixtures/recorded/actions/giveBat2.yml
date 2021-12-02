@@ -1,8 +1,9 @@
-spokenForm: give bat
 languageId: markdown
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give bat
+  action: deselect
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
   extraArgs: []

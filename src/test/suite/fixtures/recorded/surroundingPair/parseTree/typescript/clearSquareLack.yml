@@ -1,8 +1,9 @@
-spokenForm: clear square lack
 languageId: typescript
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear square lack
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: squareBrackets, delimiterInclusion: interiorOnly}
       mark: {type: decoratedSymbol, symbolColor: default, character: '['}

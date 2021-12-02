@@ -1,8 +1,9 @@
-spokenForm: take regex
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take regex
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: regularExpression}
   extraArgs: []

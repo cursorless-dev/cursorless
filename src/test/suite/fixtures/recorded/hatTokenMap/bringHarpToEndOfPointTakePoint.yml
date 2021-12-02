@@ -1,8 +1,9 @@
-spokenForm: bring harp to end of point take point
 languageId: typescript
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring harp to end of point take point
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
     - type: primitive

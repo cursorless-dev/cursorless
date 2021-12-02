@@ -7,6 +7,13 @@ import {
   CommandArgumentLatest,
 } from "../core/commandRunner/types";
 
+/**
+ * Given a command argument which comes from the client, normalize it so that it
+ * conforms to the latest version of the expected cursorless command argument.
+ *
+ * @param commandArgument The command argument to normalize
+ * @returns The normalized command argument
+ */
 export function canonicalizeAndValidateCommand(
   commandArgument: CommandArgument
 ): CommandArgumentLatest {

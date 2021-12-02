@@ -1,8 +1,9 @@
-spokenForm: take this
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take this
+  action: setSelection
+  targets:
     - type: primitive
       mark: {type: cursor}
   extraArgs: []

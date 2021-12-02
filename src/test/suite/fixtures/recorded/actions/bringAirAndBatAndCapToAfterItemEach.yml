@@ -1,8 +1,9 @@
-spokenForm: bring air and bat and cap to after item each
 languageId: typescript
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring air and bat and cap to after item each
+  action: replaceWithTarget
+  targets:
     - type: list
       elements:
         - type: primitive

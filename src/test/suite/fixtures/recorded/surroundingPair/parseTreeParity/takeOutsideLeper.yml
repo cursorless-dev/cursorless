@@ -1,16 +1,13 @@
-spokenForm: clear outside leper
 languageId: typescript
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear outside leper
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
       mark: {type: decoratedSymbol, symbolColor: default, character: (}
   extraArgs: []
-marks:
-  default.(:
-    start: {line: 0, character: 1}
-    end: {line: 0, character: 2}
 initialState:
   documentContents: |
     [(hello)  (whatever)]

@@ -1,8 +1,9 @@
-spokenForm: take file
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take file
+  action: setSelection
+  targets:
     - {type: primitive, selectionType: document}
   extraArgs: []
 initialState:

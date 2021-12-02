@@ -1,8 +1,9 @@
-spokenForm: give vest and harp
 languageId: typescript
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give vest and harp
+  action: deselect
+  targets:
     - type: list
       elements:
         - type: primitive

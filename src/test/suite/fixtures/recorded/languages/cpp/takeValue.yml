@@ -1,8 +1,9 @@
-spokenForm: take value
 languageId: cpp
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take value
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: value}
   extraArgs: []

@@ -1,8 +1,9 @@
-spokenForm: chuck type
 languageId: python
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck type
+  action: remove
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
   extraArgs: []

@@ -1,8 +1,9 @@
-spokenForm: bring token harp to map air
 languageId: typescript
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring token harp to map air
+  action: replaceWithTarget
+  targets:
     - type: primitive
       selectionType: token
       mark: {type: decoratedSymbol, symbolColor: default, character: h}

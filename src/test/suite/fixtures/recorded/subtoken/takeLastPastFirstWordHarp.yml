@@ -1,8 +1,9 @@
-spokenForm: take last past first word harp
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take last past first word harp
+  action: setSelection
+  targets:
     - type: primitive
       selectionType: token
       modifier: {type: subpiece, pieceType: word, anchor: -1, active: 0}

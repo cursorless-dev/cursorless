@@ -1,8 +1,9 @@
-spokenForm: chuck past end of line
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck past end of line
+  action: remove
+  targets:
     - type: range
       start: {type: primitive}
       end: {type: primitive, position: after, insideOutsideType: inside, selectionType: line}

@@ -1,8 +1,9 @@
-spokenForm: swap with vest
 languageId: typescript
 command:
-  actionName: swapTargets
-  partialTargets:
+  version: 1
+  spokenForm: swap with vest
+  action: swapTargets
+  targets:
     - {type: primitive}
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

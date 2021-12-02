@@ -1,8 +1,9 @@
-spokenForm: take vest and line air
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take vest and line air
+  action: setSelection
+  targets:
     - type: list
       elements:
         - type: primitive

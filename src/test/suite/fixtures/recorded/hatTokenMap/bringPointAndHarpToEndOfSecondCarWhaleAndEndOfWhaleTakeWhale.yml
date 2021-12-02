@@ -1,8 +1,9 @@
-spokenForm: bring point and harp to end of second car whale and end of whale take whale
 languageId: plaintext
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring point and harp to end of second car whale and end of whale take whale
+  action: replaceWithTarget
+  targets:
     - type: list
       elements:
         - type: primitive

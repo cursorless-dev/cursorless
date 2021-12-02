@@ -1,8 +1,9 @@
-spokenForm: bring whale after fine
 languageId: plaintext
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring whale after fine
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
     - type: primitive

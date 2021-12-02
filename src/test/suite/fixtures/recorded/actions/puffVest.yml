@@ -1,8 +1,9 @@
-spokenForm: puff vest
 languageId: typescript
 command:
-  actionName: insertEmptyLinesAround
-  partialTargets:
+  version: 1
+  spokenForm: puff vest
+  action: insertEmptyLinesAround
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs: []

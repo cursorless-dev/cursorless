@@ -1,8 +1,9 @@
-spokenForm: take class
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take class
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: class}
   extraArgs: []

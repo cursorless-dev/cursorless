@@ -1,16 +1,13 @@
-spokenForm: clear round repper
 languageId: plaintext
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear round repper
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: parentheses}
       mark: {type: decoratedSymbol, symbolColor: default, character: )}
   extraArgs: []
-marks:
-  default.):
-    start: {line: 0, character: 6}
-    end: {line: 0, character: 7}
 initialState:
   documentContents: (hello)
   selections:

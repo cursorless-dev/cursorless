@@ -1,8 +1,9 @@
-spokenForm: take every attribute
 languageId: javascript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take every attribute
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: attribute, includeSiblings: true}
   extraArgs: []

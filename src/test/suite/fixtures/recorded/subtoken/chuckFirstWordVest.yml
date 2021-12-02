@@ -1,8 +1,9 @@
-spokenForm: chuck first word vest
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck first word vest
+  action: remove
+  targets:
     - type: primitive
       modifier: {type: subpiece, pieceType: word, anchor: 0, active: 0}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

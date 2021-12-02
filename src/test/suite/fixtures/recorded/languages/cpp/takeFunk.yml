@@ -1,8 +1,9 @@
-spokenForm: take funk
 languageId: cpp
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take funk
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: namedFunction}
   extraArgs: []

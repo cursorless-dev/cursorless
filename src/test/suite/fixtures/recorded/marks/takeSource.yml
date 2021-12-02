@@ -1,8 +1,9 @@
-spokenForm: take source
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take source
+  action: setSelection
+  targets:
     - type: primitive
       mark: {type: source}
   extraArgs: []

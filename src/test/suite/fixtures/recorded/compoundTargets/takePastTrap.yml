@@ -1,8 +1,9 @@
-spokenForm: take past trap
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take past trap
+  action: setSelection
+  targets:
     - type: range
       start: {type: primitive}
       end:

@@ -1,8 +1,9 @@
-spokenForm: bring harp to fourth car whale past second car harp
 languageId: plaintext
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring harp to fourth car whale past second car harp
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
     - type: range

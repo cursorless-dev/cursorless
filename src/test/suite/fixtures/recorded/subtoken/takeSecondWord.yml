@@ -1,8 +1,9 @@
-spokenForm: take second word
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take second word
+  action: setSelection
+  targets:
     - type: primitive
       selectionType: token
       modifier: {type: subpiece, pieceType: word, anchor: 1, active: 1}

@@ -1,8 +1,9 @@
-spokenForm: clear funk
 languageId: c
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear funk
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: namedFunction}
   extraArgs: []

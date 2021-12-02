@@ -1,8 +1,9 @@
-spokenForm: clear last word vest
 languageId: typescript
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear last word vest
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: subpiece, pieceType: word, anchor: -1, active: -1}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

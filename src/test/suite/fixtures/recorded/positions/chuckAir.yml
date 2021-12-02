@@ -1,8 +1,9 @@
-spokenForm: chuck air
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck air
+  action: remove
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
   extraArgs: []

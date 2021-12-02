@@ -1,8 +1,9 @@
-spokenForm: take harp and string each
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take harp and string each
+  action: setSelection
+  targets:
     - type: list
       elements:
         - type: primitive

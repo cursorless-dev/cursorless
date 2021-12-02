@@ -1,8 +1,9 @@
-spokenForm: chuck file
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck file
+  action: remove
+  targets:
     - {type: primitive, selectionType: document}
   extraArgs: []
 initialState:

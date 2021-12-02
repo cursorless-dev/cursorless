@@ -1,8 +1,9 @@
-spokenForm: give equals past colon
 languageId: typescript
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give equals past colon
+  action: deselect
+  targets:
     - type: range
       start:
         type: primitive

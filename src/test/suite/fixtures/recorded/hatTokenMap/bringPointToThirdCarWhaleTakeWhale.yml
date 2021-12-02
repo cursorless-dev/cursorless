@@ -1,8 +1,9 @@
-spokenForm: bring point to third car whale take whale
 languageId: plaintext
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring point to third car whale take whale
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: .}
     - type: primitive

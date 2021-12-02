@@ -1,8 +1,9 @@
-spokenForm: take air past end of line
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take air past end of line
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive
