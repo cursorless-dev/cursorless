@@ -52,7 +52,7 @@ export default class CommandRunner {
         canonicalizeAndValidateCommand(
           inputActionName,
           inputPartialTargets,
-          inputExtraArgs
+          inputExtraArgs ?? []
         );
 
       const readableHatMap = await this.graph.hatTokenMap.getReadableMap(

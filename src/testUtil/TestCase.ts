@@ -23,8 +23,8 @@ export type TestCaseContext = {
 };
 
 export type TestCaseFixture = {
-  command: TestCaseCommand;
   languageId: string;
+  command: TestCaseCommand;
 
   /**
    * A list of marks to check in the case of navigation map test otherwise undefined

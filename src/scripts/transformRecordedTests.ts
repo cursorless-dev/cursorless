@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import update from "immutability-helper";
 import { promises as fsp } from "fs";
 import * as path from "path";
@@ -10,7 +9,7 @@ import serialize from "../testUtil/serialize";
 import canonicalizeActionName from "../util/canonicalizeActionName";
 import { transformPartialPrimitiveTargets } from "../util/getPrimitiveTargets";
 import { DelimiterInclusion, PartialPrimitiveTarget } from "../typings/Types";
-import { mkdir, rename, unlink } from "fs/promises";
+import { mkdir, rename } from "fs/promises";
 
 /**
  * The transformation to run on all recorded test fixtures.  Change this
@@ -18,7 +17,7 @@ import { mkdir, rename, unlink } from "fs/promises";
  */
 const FIXTURE_TRANSFORMATION: (
   originalFixture: TestCaseFixture
-) => TestCaseFixture = upgradeVersion;
+) => TestCaseFixture = identity;
 
 async function main() {
   const directory = path.join(
@@ -85,28 +84,37 @@ function reorderFields(fixture: TestCaseFixture) {
 
 function upgradeVersion(fixture: TestCaseFixture) {
   const { command, spokenForm, ...rest } = fixture as any;
-  command.version = 1;
-  command.spokenForm = spokenForm;
-  // TODO: Change names of action targets etcetera
-  let usePrePhraseSnapshot: boolean = false;
-  command.targets = transformPartialPrimitiveTargets(
-    command.targets,
+  const {
+    actionName: action,
+    partialTargets: originalTargets,
+    extraArgs,
+  } = command;
+  let usePrePhraseSnapshot: boolean | undefined = undefined;
+  const targets = transformPartialPrimitiveTargets(
+    originalTargets,
     (target: PartialPrimitiveTarget) => {
       if (target.mark?.type === "decoratedSymbol") {
-        usePrePhraseSnapshot =
-          usePrePhraseSnapshot || (target.mark as any).usePrePhraseSnapshot;
+        if ((target.mark as any).usePrePhraseSnapshot) {
+          usePrePhraseSnapshot = true;
+        }
+
         (target.mark as any).usePrePhraseSnapshot = undefined;
       }
       return target;
     }
   );
 
-  command.usePrePhraseSnapshot = usePrePhraseSnapshot;
-
-  return {
-    command,
+  return reorderFields({
+    command: {
+      version: 1,
+      spokenForm,
+      action,
+      targets,
+      extraArgs,
+      usePrePhraseSnapshot,
+    },
     ...rest,
-  };
+  });
 }
 
 // Leaving an example here in case it's helpful

@@ -52,19 +52,19 @@ async function runTest(
 
   mockPrePhraseGetVersion(graph, async () => prePhraseVersion);
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "whatever",
-    "replaceWithTarget",
-    [
+  await vscode.commands.executeCommand("cursorless.command", {
+    version: 1,
+    spokenForm: "whatever",
+    action: "replaceWithTarget",
+    targets: [
       { type: "primitive", selectionType: "line", mark: { type: "cursor" } },
       {
         type: "primitive",
         mark: { type: "cursor" },
         position: "after",
       },
-    ]
-  );
+    ],
+  });
 
   await graph.hatTokenMap.addDecorations();
 
@@ -73,22 +73,22 @@ async function runTest(
     prePhraseVersion = "version2";
   }
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "whatever",
-    "setSelection",
-    [
+  await vscode.commands.executeCommand("cursorless.command", {
+    version: 1,
+    spokenForm: "whatever",
+    action: "setSelection",
+    targets: [
       {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
           character: "o",
-          usePrePhraseSnapshot,
         },
       },
-    ]
-  );
+    ],
+    usePrePhraseSnapshot,
+  });
 
   assert.deepStrictEqual(
     editor.selections.map(selectionToPlainObject),

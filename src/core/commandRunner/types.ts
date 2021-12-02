@@ -45,5 +45,5 @@ interface CommandArgumentV0V1 {
   /**
    * A list of extra arguments expected by the given action.
    */
-  extraArgs: unknown[];
+  extraArgs?: unknown[];
 }
