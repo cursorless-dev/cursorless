@@ -24,7 +24,6 @@ export default function (
 ): TypedSelection {
   switch (target.selectionType) {
     case "token":
-    case "column":
       return processToken(target, selection, selectionContext);
     case "notebookCell":
       return processNotebookCell(target, selection, selectionContext);

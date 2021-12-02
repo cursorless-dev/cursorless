@@ -174,7 +174,7 @@ export type Modifier =
 
 export type SelectionType =
   //   | "character" Not implemented
-  "token" | "line" | "notebookCell" | "paragraph" | "document" | "column";
+  "token" | "line" | "notebookCell" | "paragraph" | "document";
 
 export type Position = "before" | "after" | "contents";
 
@@ -195,6 +195,7 @@ export interface PartialRangeTarget {
   end: PartialPrimitiveTarget;
   excludeStart?: boolean;
   excludeEnd?: boolean;
+  isColumn?: boolean;
 }
 
 export interface PartialListTarget {
@@ -222,6 +223,7 @@ export interface RangeTarget {
   active: PrimitiveTarget;
   excludeAnchor: boolean;
   excludeActive: boolean;
+  isColumn: boolean;
 }
 
 export interface ListTarget {

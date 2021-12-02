@@ -82,11 +82,7 @@ function processRangeTarget(
         activeSelection.start
       );
 
-      // Selection type column is actually a special form of ranged target
-      if (
-        anchorTarget.selectionType === "column" ||
-        activeTarget.selectionType === "column"
-      ) {
+      if (target.isColumn) {
         return processColumnTarget(
           target,
           anchorTarget,
@@ -186,7 +182,7 @@ function processColumnTarget(
         ),
         editor: anchorTarget.selection.editor,
       },
-      selectionType: "column",
+      selectionType: anchorTarget.selectionType,
       selectionContext: {
         containingListDelimiter:
           anchorTarget.selectionContext.containingListDelimiter,
