@@ -2,12 +2,21 @@ import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
 import { ActionType, PartialTarget, SelectionType } from "../typings/Types";
 import { getPartialPrimitiveTargets } from "./getPrimitiveTargets";
+import {
+  CommandArgument,
+  CommandArgumentLatest,
+} from "../core/commandRunner/types";
 
 export function canonicalizeAndValidateCommand(
-  inputActionName: string,
-  inputPartialTargets: PartialTarget[],
-  inputExtraArgs: any[]
-) {
+  commandArgument: CommandArgument
+): CommandArgumentLatest {
+  const {
+    action: inputActionName,
+    targets: inputPartialTargets,
+    extraArgs: inputExtraArgs = [],
+    ...rest
+  } = commandArgument;
+
   const actionName = canonicalizeActionName(inputActionName);
   const partialTargets = canonicalizeTargets(inputPartialTargets);
   const extraArgs = inputExtraArgs;
@@ -15,9 +24,11 @@ export function canonicalizeAndValidateCommand(
   validateCommand(actionName, partialTargets, extraArgs);
 
   return {
-    actionName,
-    partialTargets,
-    extraArgs,
+    ...rest,
+    version: 1,
+    action: actionName,
+    targets: partialTargets,
+    extraArgs: extraArgs,
   };
 }
 

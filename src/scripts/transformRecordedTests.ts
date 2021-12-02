@@ -10,6 +10,7 @@ import canonicalizeActionName from "../util/canonicalizeActionName";
 import { transformPartialPrimitiveTargets } from "../util/getPrimitiveTargets";
 import { DelimiterInclusion, PartialPrimitiveTarget } from "../typings/Types";
 import { mkdir, rename } from "fs/promises";
+import { canonicalizeAndValidateCommand } from "../util/canonicalizeAndValidateCommand";
 
 /**
  * The transformation to run on all recorded test fixtures.  Change this
@@ -66,8 +67,8 @@ function identity(fixture: TestCaseFixture) {
   return fixture;
 }
 
-function canonicalizeActionNames(fixture: TestCaseFixture) {
-  return update(fixture, { command: { action: canonicalizeActionName } });
+function canonicalizeCommand(fixture: TestCaseFixture) {
+  return update(fixture, { command: canonicalizeAndValidateCommand });
 }
 
 function reorderFields(fixture: TestCaseFixture) {
@@ -80,41 +81,6 @@ function reorderFields(fixture: TestCaseFixture) {
     returnValue: fixture.returnValue,
     fullTargets: fixture.fullTargets,
   };
-}
-
-function upgradeVersion(fixture: TestCaseFixture) {
-  const { command, spokenForm, ...rest } = fixture as any;
-  const {
-    actionName: action,
-    partialTargets: originalTargets,
-    extraArgs,
-  } = command;
-  let usePrePhraseSnapshot: boolean | undefined = undefined;
-  const targets = transformPartialPrimitiveTargets(
-    originalTargets,
-    (target: PartialPrimitiveTarget) => {
-      if (target.mark?.type === "decoratedSymbol") {
-        if ((target.mark as any).usePrePhraseSnapshot) {
-          usePrePhraseSnapshot = true;
-        }
-
-        (target.mark as any).usePrePhraseSnapshot = undefined;
-      }
-      return target;
-    }
-  );
-
-  return reorderFields({
-    command: {
-      version: 1,
-      spokenForm,
-      action,
-      targets,
-      extraArgs,
-      usePrePhraseSnapshot,
-    },
-    ...rest,
-  });
 }
 
 // Leaving an example here in case it's helpful

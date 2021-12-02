@@ -39,28 +39,21 @@ export default class CommandRunner {
   }
 
   async runCommand(commandArgument: CommandArgument) {
-    const {
-      spokenForm,
-      action: inputActionName,
-      targets: inputPartialTargets,
-      extraArgs: inputExtraArgs,
-      usePrePhraseSnapshot = false,
-    } = commandArgument;
-
     try {
-      const { actionName, partialTargets, extraArgs } =
-        canonicalizeAndValidateCommand(
-          inputActionName,
-          inputPartialTargets,
-          inputExtraArgs ?? []
-        );
+      console.debug(`commandArgument:`);
+      console.debug(JSON.stringify(commandArgument, null, 3));
+
+      const {
+        spokenForm,
+        action: actionName,
+        targets: partialTargets,
+        extraArgs,
+        usePrePhraseSnapshot = false,
+      } = canonicalizeAndValidateCommand(commandArgument);
 
       const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
         usePrePhraseSnapshot
       );
-
-      console.debug(`commandArgument:`);
-      console.debug(JSON.stringify(commandArgument, null, 3));
 
       const action = this.graph.actions[actionName];
 
