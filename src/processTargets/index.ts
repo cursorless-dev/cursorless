@@ -186,7 +186,7 @@ function processColumnTarget(
       },
       selectionType: "column",
       selectionContext: {},
-      insideOutsideType: "inside",
+      insideOutsideType: anchorTarget.insideOutsideType,
       position: "contents",
     });
   }
