@@ -1,5 +1,10 @@
 import { ActionType, PartialTarget } from "../../typings/Types";
 
+export type CommandArgumentComplete = Required<
+  Omit<CommandArgumentLatest, "spokenForm">
+> &
+  Pick<CommandArgumentLatest, "spokenForm">;
+
 export type CommandArgumentLatest = CommandArgumentV1;
 export type CommandArgument = CommandArgumentV0 | CommandArgumentV1;
 

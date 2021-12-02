@@ -48,7 +48,7 @@ export default class CommandRunner {
         action: actionName,
         targets: partialTargets,
         extraArgs,
-        usePrePhraseSnapshot = false,
+        usePrePhraseSnapshot,
       } = canonicalizeAndValidateCommand(commandArgument);
 
       const readableHatMap = await this.graph.hatTokenMap.getReadableMap(

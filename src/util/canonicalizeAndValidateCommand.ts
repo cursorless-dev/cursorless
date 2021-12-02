@@ -4,7 +4,7 @@ import { ActionType, PartialTarget, SelectionType } from "../typings/Types";
 import { getPartialPrimitiveTargets } from "./getPrimitiveTargets";
 import {
   CommandArgument,
-  CommandArgumentLatest,
+  CommandArgumentComplete,
 } from "../core/commandRunner/types";
 
 /**
@@ -16,11 +16,12 @@ import {
  */
 export function canonicalizeAndValidateCommand(
   commandArgument: CommandArgument
-): CommandArgumentLatest {
+): CommandArgumentComplete {
   const {
     action: inputActionName,
     targets: inputPartialTargets,
     extraArgs: inputExtraArgs = [],
+    usePrePhraseSnapshot = false,
     ...rest
   } = commandArgument;
 
@@ -36,6 +37,7 @@ export function canonicalizeAndValidateCommand(
     action: actionName,
     targets: partialTargets,
     extraArgs: extraArgs,
+    usePrePhraseSnapshot,
   };
 }
 
