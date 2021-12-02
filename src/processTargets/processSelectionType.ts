@@ -33,6 +33,8 @@ export default function (
       return processLine(target, selection, selectionContext);
     case "paragraph":
       return processParagraph(target, selection, selectionContext);
+    case "strictHere":
+      return processStrictHere(target, selection, selectionContext);
   }
 }
 
@@ -48,6 +50,21 @@ function processNotebookCell(
     position,
     insideOutsideType,
     selectionContext: { ...selectionContext, isNotebookCell: true },
+  };
+}
+
+function processStrictHere(
+  target: PrimitiveTarget,
+  selection: SelectionWithEditor,
+  selectionContext: SelectionContext
+): TypedSelection {
+  const { selectionType, insideOutsideType, position } = target;
+  return {
+    selection,
+    selectionType,
+    position,
+    insideOutsideType,
+    selectionContext,
   };
 }
 
