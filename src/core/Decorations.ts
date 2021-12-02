@@ -20,7 +20,6 @@ import {
   DEFAULT_VERTICAL_OFFSET_EM,
 } from "./shapeAdjustments";
 import { Graph } from "../typings/Types";
-import isTesting from "../testUtil/isTesting";
 
 export type DecorationMap = {
   [k in HatStyleName]?: vscode.TextEditorDecorationType;
@@ -191,9 +190,9 @@ export default class Decorations {
     shapePenalties.default = 0;
     colorPenalties.default = 0;
 
-    const activeHatColors = isTesting()
-      ? HAT_COLORS
-      : HAT_COLORS.filter((color) => colorEnablement[color]);
+    const activeHatColors = HAT_COLORS.filter(
+      (color) => colorEnablement[color]
+    );
     const activeNonDefaultHatShapes = HAT_NON_DEFAULT_SHAPES.filter(
       (shape) => shapeEnablement[shape]
     );
