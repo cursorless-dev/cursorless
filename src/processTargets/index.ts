@@ -171,17 +171,19 @@ function processColumnTarget(
     !isForward,
     !target.excludeActive
   );
-  const startLine = isForward ? anchorLine : activeLine;
-  const endLine = isForward ? activeLine : anchorLine;
   const anchorSelection = anchorTarget.selection.selection;
-  const startCharacter = anchorSelection.start.character;
-  const endCharacter = anchorSelection.end.character;
+  const delta = isForward ? 1 : -1;
   const results: TypedSelection[] = [];
 
-  for (let i = startLine; i <= endLine; ++i) {
+  for (let i = anchorLine; true; i += delta) {
     results.push({
       selection: {
-        selection: new Selection(i, startCharacter, i, endCharacter),
+        selection: new Selection(
+          i,
+          anchorSelection.anchor.character,
+          i,
+          anchorSelection.active.character
+        ),
         editor: anchorTarget.selection.editor,
       },
       selectionType: "column",
@@ -189,9 +191,10 @@ function processColumnTarget(
       insideOutsideType: anchorTarget.insideOutsideType,
       position: "contents",
     });
+    if (i === activeLine) {
+      return results;
+    }
   }
-
-  return results;
 }
 
 /**

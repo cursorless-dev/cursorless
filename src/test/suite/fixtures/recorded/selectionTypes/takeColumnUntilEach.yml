@@ -1,0 +1,47 @@
+spokenForm: take column until each
+languageId: markdown
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: range
+      start: {type: primitive, selectionType: column}
+      end:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      excludeStart: false
+      excludeEnd: true
+  extraArgs: []
+initialState:
+  documentContents: |
+    hello world !
+    hi there
+    Second things to say
+    and I'm here
+  selections:
+    - anchor: {line: 3, character: 2}
+      active: {line: 3, character: 1}
+  marks:
+    default.e:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: |
+    hello world !
+    hi there
+    Second things to say
+    and I'm here
+  selections:
+    - anchor: {line: 3, character: 2}
+      active: {line: 3, character: 1}
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 1}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 1}
+  thatMark:
+    - anchor: {line: 3, character: 2}
+      active: {line: 3, character: 1}
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 1}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 1}
+fullTargets: [{type: range, excludeAnchor: false, excludeActive: true, anchor: {type: primitive, mark: {type: cursor}, selectionType: column, position: contents, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, selectionType: column, position: contents, insideOutsideType: inside, modifier: {type: identity}}}]
