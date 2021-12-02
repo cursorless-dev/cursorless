@@ -1,0 +1,49 @@
+spokenForm: take column whale between ram
+languageId: markdown
+command:
+  actionName: setSelection
+  partialTargets:
+    - type: range
+      start:
+        type: primitive
+        selectionType: column
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      end:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: r}
+      excludeStart: true
+      excludeEnd: true
+  extraArgs: []
+initialState:
+  documentContents: |
+    hello world !
+    hi there
+    Second things to say
+    and I'm here
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+    default.r:
+      start: {line: 3, character: 8}
+      end: {line: 3, character: 12}
+finalState:
+  documentContents: |
+    hello world !
+    hi there
+    Second things to say
+    and I'm here
+  selections:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 8}
+    - anchor: {line: 2, character: 6}
+      active: {line: 2, character: 11}
+  thatMark:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 11}
+    - anchor: {line: 2, character: 6}
+      active: {line: 2, character: 11}
+fullTargets: [{type: range, excludeAnchor: true, excludeActive: true, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: column, position: contents, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, selectionType: column, position: contents, insideOutsideType: inside, modifier: {type: identity}}}]

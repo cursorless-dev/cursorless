@@ -63,7 +63,7 @@ function processRangeTarget(
   const anchorTargets = processPrimitiveTarget(context, target.anchor);
   const activeTargets = processPrimitiveTarget(context, target.active);
 
-  return zip(anchorTargets, activeTargets).map(
+  return zip(anchorTargets, activeTargets).flatMap(
     ([anchorTarget, activeTarget]) => {
       if (anchorTarget == null || activeTarget == null) {
         throw new Error("anchorTargets and activeTargets lengths don't match");
@@ -81,6 +81,19 @@ function processRangeTarget(
       const isForward = anchorSelection.start.isBeforeOrEqual(
         activeSelection.start
       );
+
+      // Selection type column is actually a special form of ranged target
+      if (
+        anchorTarget.selectionType === "column" ||
+        activeTarget.selectionType === "column"
+      ) {
+        return processColumnTarget(
+          target,
+          anchorTarget,
+          activeTarget,
+          isForward
+        );
+      }
 
       const anchor = targetToRangeLimitPosition(
         anchorTarget,
@@ -142,6 +155,51 @@ function processRangeTarget(
   );
 }
 
+function processColumnTarget(
+  target: RangeTarget,
+  anchorTarget: TypedSelection,
+  activeTarget: TypedSelection,
+  isForward: boolean
+) {
+  const anchorLine = targetToLineLimitPosition(
+    anchorTarget,
+    isForward,
+    !target.excludeAnchor
+  );
+  const activeLine = targetToLineLimitPosition(
+    activeTarget,
+    !isForward,
+    !target.excludeActive
+  );
+  const anchorSelection = anchorTarget.selection.selection;
+  const delta = isForward ? 1 : -1;
+  const results: TypedSelection[] = [];
+
+  for (let i = anchorLine; true; i += delta) {
+    results.push({
+      selection: {
+        selection: new Selection(
+          i,
+          anchorSelection.anchor.character,
+          i,
+          anchorSelection.active.character
+        ),
+        editor: anchorTarget.selection.editor,
+      },
+      selectionType: "column",
+      selectionContext: {
+        containingListDelimiter:
+          anchorTarget.selectionContext.containingListDelimiter,
+      },
+      insideOutsideType: anchorTarget.insideOutsideType,
+      position: anchorTarget.position,
+    });
+    if (i === activeLine) {
+      return results;
+    }
+  }
+}
+
 /**
  * Given a target which forms one end of a range target, do necessary
  * adjustments to get the proper position for the output range
@@ -162,17 +220,34 @@ function targetToRangeLimitPosition(
 
   const outerSelection = target.selectionContext.outerSelection;
 
-  const delimiterPosition = isStartOfRange
-    ? target.selectionContext.trailingDelimiterRange?.end
-    : target.selectionContext.leadingDelimiterRange?.start;
-
   if (outerSelection != null) {
+    const delimiterPosition = isStartOfRange
+      ? target.selectionContext.trailingDelimiterRange?.end
+      : target.selectionContext.leadingDelimiterRange?.start;
     if (delimiterPosition != null) {
       return delimiterPosition;
     }
     return isStartOfRange ? outerSelection.end : outerSelection.start;
   }
+
   return isStartOfRange ? selection.end : selection.start;
+}
+
+// Same as targetToRangeLimitPosition but only operates on and returns line number
+function targetToLineLimitPosition(
+  target: TypedSelection,
+  isStartOfRange: boolean,
+  includeTarget: boolean
+) {
+  const position = targetToRangeLimitPosition(
+    target,
+    isStartOfRange,
+    includeTarget
+  );
+  if (includeTarget) {
+    return position.line;
+  }
+  return position.line + (isStartOfRange ? 1 : -1);
 }
 
 function processPrimitiveTarget(
