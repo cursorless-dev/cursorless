@@ -187,9 +187,12 @@ function processColumnTarget(
         editor: anchorTarget.selection.editor,
       },
       selectionType: "column",
-      selectionContext: {},
+      selectionContext: {
+        containingListDelimiter:
+          anchorTarget.selectionContext.containingListDelimiter,
+      },
       insideOutsideType: anchorTarget.insideOutsideType,
-      position: "contents",
+      position: anchorTarget.position,
     });
     if (i === activeLine) {
       return results;
