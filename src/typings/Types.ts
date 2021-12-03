@@ -195,7 +195,7 @@ export interface PartialRangeTarget {
   end: PartialPrimitiveTarget;
   excludeStart?: boolean;
   excludeEnd?: boolean;
-  isColumn?: boolean;
+  rangeType?: RangeType;
 }
 
 export interface PartialListTarget {
@@ -223,8 +223,10 @@ export interface RangeTarget {
   active: PrimitiveTarget;
   excludeAnchor: boolean;
   excludeActive: boolean;
-  isColumn: boolean;
+  rangeType?: RangeType;
 }
+
+export type RangeType = "vertical";
 
 export interface ListTarget {
   type: "list";

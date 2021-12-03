@@ -82,8 +82,8 @@ function processRangeTarget(
         activeSelection.start
       );
 
-      if (target.isColumn) {
-        return processColumnTarget(
+      if (target.rangeType === "vertical") {
+        return processVerticalRangeTarget(
           target,
           anchorTarget,
           activeTarget,
@@ -151,7 +151,7 @@ function processRangeTarget(
   );
 }
 
-function processColumnTarget(
+function processVerticalRangeTarget(
   target: RangeTarget,
   anchorTarget: TypedSelection,
   activeTarget: TypedSelection,

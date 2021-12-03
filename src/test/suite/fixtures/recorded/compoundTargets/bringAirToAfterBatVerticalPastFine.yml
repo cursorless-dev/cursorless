@@ -17,7 +17,7 @@ command:
         mark: { type: decoratedSymbol, symbolColor: default, character: f }
       excludeStart: false
       excludeEnd: false
-      isColumn: true
+      rangeType: "vertical"
   extraArgs: []
 initialState:
   documentContents: |
@@ -73,7 +73,7 @@ fullTargets:
       type: range,
       excludeAnchor: false,
       excludeActive: false,
-      isColumn: true,
+      rangeType: "vertical",
       anchor:
         {
           type: primitive,

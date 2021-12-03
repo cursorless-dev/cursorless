@@ -75,7 +75,7 @@ function inferRangeTarget(
     type: "range",
     excludeAnchor: target.excludeStart ?? false,
     excludeActive: target.excludeEnd ?? false,
-    isColumn: target.isColumn ?? false,
+    rangeType: target.rangeType,
     anchor: inferPrimitiveTarget(
       target.start,
       previousTargets,
