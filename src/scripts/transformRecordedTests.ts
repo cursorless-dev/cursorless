@@ -68,7 +68,18 @@ function identity(fixture: TestCaseFixture) {
 }
 
 function canonicalizeCommand(fixture: TestCaseFixture) {
-  return update(fixture, { command: canonicalizeAndValidateCommand });
+  fixture.command = canonicalizeAndValidateCommand(fixture.command);
+  fixture.command.usePrePhraseSnapshot = undefined;
+
+  const extraArgs = fixture.command.extraArgs;
+  fixture.command.extraArgs =
+    extraArgs == null
+      ? undefined
+      : extraArgs.length === 0
+      ? undefined
+      : extraArgs;
+
+  return fixture;
 }
 
 function reorderFields(fixture: TestCaseFixture) {

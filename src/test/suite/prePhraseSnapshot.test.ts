@@ -46,11 +46,11 @@ async function runTest(
 
   editor.selections = [new vscode.Selection(0, 0, 0, 0)];
 
-  await graph.hatTokenMap.addDecorations();
-
-  let prePhraseVersion = "version";
-
+  let prePhraseVersion = "version1";
   mockPrePhraseGetVersion(graph, async () => prePhraseVersion);
+
+  await graph.hatTokenMap.addDecorations();
+  prePhraseVersion = "version2";
 
   await vscode.commands.executeCommand("cursorless.command", {
     version: 1,
@@ -70,7 +70,7 @@ async function runTest(
 
   if (multiplePhrases) {
     // If test is simulating separate phrases, we simulate pre-phrase signal being sent
-    prePhraseVersion = "version2";
+    prePhraseVersion = "version3";
   }
 
   await vscode.commands.executeCommand("cursorless.command", {
