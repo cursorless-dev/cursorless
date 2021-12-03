@@ -1,5 +1,5 @@
 spokenForm: post bat vertical until fine
-languageId: typescript
+languageId: plaintext
 command:
   actionName: setSelectionAfter
   partialTargets:

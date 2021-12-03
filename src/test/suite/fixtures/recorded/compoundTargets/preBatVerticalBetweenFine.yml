@@ -1,5 +1,5 @@
 spokenForm: pre bat vertical between fine
-languageId: typescript
+languageId: plaintext
 command:
   actionName: setSelectionBefore
   partialTargets:
