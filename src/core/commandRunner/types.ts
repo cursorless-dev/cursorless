@@ -14,7 +14,7 @@ interface CommandArgumentV1 extends CommandArgumentV0V1 {
 
 interface CommandArgumentV0 extends CommandArgumentV0V1 {
   version: 0;
-  usePrePhraseSnapshot: false;
+  usePrePhraseSnapshot?: false;
 }
 
 interface CommandArgumentV0V1 {

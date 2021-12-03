@@ -11,6 +11,8 @@ import { transformPartialPrimitiveTargets } from "../util/getPrimitiveTargets";
 import { DelimiterInclusion, PartialPrimitiveTarget } from "../typings/Types";
 import { mkdir, rename } from "fs/promises";
 import { canonicalizeAndValidateCommand } from "../util/canonicalizeAndValidateCommand";
+import { flowRight } from "lodash";
+import { cleanUpTestCaseCommand } from "../testUtil/cleanUpTestCaseCommand";
 
 /**
  * The transformation to run on all recorded test fixtures.  Change this
@@ -68,16 +70,10 @@ function identity(fixture: TestCaseFixture) {
 }
 
 function canonicalizeCommand(fixture: TestCaseFixture) {
-  fixture.command = canonicalizeAndValidateCommand(fixture.command);
-  fixture.command.usePrePhraseSnapshot = undefined;
-
-  const extraArgs = fixture.command.extraArgs;
-  fixture.command.extraArgs =
-    extraArgs == null
-      ? undefined
-      : extraArgs.length === 0
-      ? undefined
-      : extraArgs;
+  fixture.command = flowRight(
+    canonicalizeAndValidateCommand,
+    cleanUpTestCaseCommand
+  )(fixture.command);
 
   return fixture;
 }

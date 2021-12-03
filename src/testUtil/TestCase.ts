@@ -12,6 +12,7 @@ import serialize from "./serialize";
 import { pick } from "lodash";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { CommandArgument } from "../core/commandRunner/types";
+import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 
 export type TestCaseCommand = CommandArgument;
 
@@ -47,13 +48,15 @@ export class TestCase {
   targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
   marksToCheck?: string[];
+  public command: TestCaseCommand;
 
   constructor(
-    public command: TestCaseCommand,
+    command: TestCaseCommand,
     private context: TestCaseContext,
     private isHatTokenMapTest: boolean = false
   ) {
     const activeEditor = vscode.window.activeTextEditor!;
+    this.command = cleanUpTestCaseCommand(command);
 
     const { targets } = context;
 
