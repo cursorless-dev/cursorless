@@ -7,7 +7,6 @@ command:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: o}
     - {type: primitive, selectionType: token}
-  extraArgs: []
 initialState:
   documentContents: |-
     const foo = "hello";

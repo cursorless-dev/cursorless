@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
-  extraArgs: []
 initialState:
   documentContents: |-
     if True:

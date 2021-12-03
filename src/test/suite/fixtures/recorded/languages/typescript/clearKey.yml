@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
-  extraArgs: []
 initialState:
   documentContents: |-
     {

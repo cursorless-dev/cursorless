@@ -12,7 +12,6 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: t}
       excludeStart: false
       excludeEnd: false
-  extraArgs: []
 initialState:
   documentContents: hello there
   selections:

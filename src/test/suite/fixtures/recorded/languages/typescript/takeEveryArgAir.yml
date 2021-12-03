@@ -7,7 +7,6 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
-  extraArgs: []
 initialState:
   documentContents: foo(bar(baz, bongo), bazman)
   selections:

@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
-  extraArgs: []
 initialState:
   documentContents: "foo: str = \"hello\""
   selections:

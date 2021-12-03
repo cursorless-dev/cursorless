@@ -18,7 +18,6 @@ command:
       position: contents
       modifier: {type: identity}
       insideOutsideType: inside
-  extraArgs: []
 initialState:
   documentContents: |+
     a

@@ -10,7 +10,6 @@ command:
         type: lineNumber
         anchor: {lineNumber: 4, type: modulo100}
         active: {lineNumber: 4, type: modulo100}
-  extraArgs: []
 initialState:
   documentContents: |+
 

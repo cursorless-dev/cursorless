@@ -18,7 +18,6 @@ command:
       excludeEnd: false
     - type: primitive
       mark: {type: cursor}
-  extraArgs: []
 initialState:
   documentContents: |
     function foo() {

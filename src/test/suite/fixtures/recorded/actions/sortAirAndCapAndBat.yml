@@ -12,7 +12,6 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: b}
-  extraArgs: []
 initialState:
   documentContents: |
 

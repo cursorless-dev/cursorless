@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: map}
-  extraArgs: []
 initialState:
   documentContents: |
 

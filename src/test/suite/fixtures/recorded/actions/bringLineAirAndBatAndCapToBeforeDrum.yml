@@ -16,7 +16,6 @@ command:
     - type: primitive
       position: before
       mark: {type: decoratedSymbol, symbolColor: default, character: d}
-  extraArgs: []
 initialState:
   documentContents: |
     a

@@ -8,7 +8,6 @@ command:
       position: before
       selectionType: line
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
-  extraArgs: []
 initialState:
   documentContents: |-
 

@@ -6,8 +6,6 @@ command:
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-  extraArgs: []
-  usePrePhraseSnapshot: true
 initialState:
   documentContents: hello world
   selections:

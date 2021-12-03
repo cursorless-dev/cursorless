@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: blue, character: '"'}
-  extraArgs: []
 initialState:
   documentContents: |
     "hello"

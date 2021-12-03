@@ -8,7 +8,6 @@ command:
       selectionType: token
       modifier: {type: subpiece, pieceType: character, anchor: 0, active: 2}
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-  extraArgs: []
 initialState:
   documentContents: |+
 

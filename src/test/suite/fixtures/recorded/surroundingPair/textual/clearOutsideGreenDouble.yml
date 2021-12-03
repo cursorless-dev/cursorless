@@ -7,8 +7,6 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
       mark: {type: decoratedSymbol, symbolColor: blue, character: '"'}
-  extraArgs: []
-  usePrePhraseSnapshot: true
 initialState:
   documentContents: "\"\""
   selections:

@@ -11,7 +11,6 @@ command:
       modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0, excludeAnchor: false, excludeActive: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
       position: after
-  extraArgs: []
 marksToCheck: [default.w]
 initialState:
   documentContents: hello. world whatever

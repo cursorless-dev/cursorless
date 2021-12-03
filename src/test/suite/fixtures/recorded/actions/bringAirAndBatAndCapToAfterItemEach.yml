@@ -16,7 +16,6 @@ command:
       position: after
       modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: e}
-  extraArgs: []
 initialState:
   documentContents: |
     a

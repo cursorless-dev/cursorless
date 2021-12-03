@@ -7,7 +7,6 @@ command:
     - type: primitive
       selectionType: token
       modifier: {type: subpiece, pieceType: character, anchor: 3, active: 4, excludeAnchor: false, excludeActive: false}
-  extraArgs: []
 initialState:
   documentContents: foo world whatever
   selections:

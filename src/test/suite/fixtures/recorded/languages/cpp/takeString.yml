@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: string}
-  extraArgs: []
 initialState:
   documentContents: |
     char* a = "hello world";

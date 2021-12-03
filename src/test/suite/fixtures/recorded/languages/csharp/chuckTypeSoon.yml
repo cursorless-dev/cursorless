@@ -7,7 +7,6 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: s}
-  extraArgs: []
 initialState:
   documentContents: String name = "hello";
   selections:

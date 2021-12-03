@@ -10,7 +10,6 @@ command:
       position: after
       insideOutsideType: inside
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-  extraArgs: []
 initialState:
   documentContents: foo world
   selections:

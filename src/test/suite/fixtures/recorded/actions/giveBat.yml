@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
-  extraArgs: []
 initialState:
   documentContents: a b c d
   selections:

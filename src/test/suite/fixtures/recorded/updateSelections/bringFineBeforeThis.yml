@@ -9,7 +9,6 @@ command:
     - type: primitive
       mark: {type: cursor}
       position: before
-  extraArgs: []
 initialState:
   documentContents: foo world
   selections:

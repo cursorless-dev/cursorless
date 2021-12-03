@@ -13,7 +13,6 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: ':'}
       excludeStart: false
       excludeEnd: false
-  extraArgs: []
 initialState:
   documentContents: |
     const values: string = "hello"

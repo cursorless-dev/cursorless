@@ -8,7 +8,6 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
-  extraArgs: []
 initialState:
   documentContents: foo world whatever
   selections:

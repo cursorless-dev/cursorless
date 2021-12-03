@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: squareBrackets, delimiterInclusion: interiorOnly}
-  extraArgs: []
 initialState:
   documentContents: const [bongo, baz] = [foo, bar]
   selections:

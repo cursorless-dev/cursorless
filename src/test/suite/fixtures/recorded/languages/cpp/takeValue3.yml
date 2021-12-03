@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: value}
-  extraArgs: []
 initialState:
   documentContents: |
     int f(int a = 1) {

@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: escapedDoubleQuotes}
-  extraArgs: []
 initialState:
   documentContents: \"\"
   selections:

@@ -12,7 +12,6 @@ command:
       position: contents
       modifier: {type: identity}
       insideOutsideType: inside
-  extraArgs: []
 marksToCheck: [default.w]
 initialState:
   documentContents: hello world

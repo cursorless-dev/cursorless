@@ -8,7 +8,6 @@ command:
       position: after
       selectionType: paragraph
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: |-
 

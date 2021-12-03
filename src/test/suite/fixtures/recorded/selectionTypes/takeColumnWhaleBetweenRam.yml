@@ -14,7 +14,6 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: r}
       excludeStart: true
       excludeEnd: true
-  extraArgs: []
 initialState:
   documentContents: |
     hello world !

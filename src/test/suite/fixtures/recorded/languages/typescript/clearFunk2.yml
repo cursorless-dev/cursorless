@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
-  extraArgs: []
 initialState:
   documentContents: |
     function bar() {

@@ -9,7 +9,6 @@ command:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
       position: after
-  extraArgs: []
 initialState:
   documentContents: foo world
   selections:

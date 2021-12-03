@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: parentheses}
-  extraArgs: []
 initialState:
   documentContents: |
     class a(object):

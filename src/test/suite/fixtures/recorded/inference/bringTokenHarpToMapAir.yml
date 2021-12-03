@@ -10,7 +10,6 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: map, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
-  extraArgs: []
 initialState:
   documentContents: |2-
         hello

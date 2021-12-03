@@ -13,7 +13,6 @@ command:
         modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
       excludeStart: false
       excludeEnd: false
-  extraArgs: []
 initialState:
   documentContents: |-
     const foo = "hello";

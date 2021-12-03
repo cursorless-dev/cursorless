@@ -7,7 +7,6 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: parentheses}
       mark: {type: decoratedSymbol, symbolColor: default, character: )}
-  extraArgs: []
 initialState:
   documentContents: (hello)
   selections:

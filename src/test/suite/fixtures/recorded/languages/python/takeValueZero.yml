@@ -7,7 +7,6 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: '0'}
-  extraArgs: []
 initialState:
   documentContents: |-
     {

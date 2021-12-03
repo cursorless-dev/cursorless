@@ -10,7 +10,6 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: a}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: '!'}
-  extraArgs: []
 initialState:
   documentContents: |
     "a!

@@ -9,7 +9,6 @@ command:
       end: {type: primitive, position: before, insideOutsideType: inside, selectionType: token}
       excludeStart: false
       excludeEnd: false
-  extraArgs: []
 initialState:
   documentContents: hello there
   selections:

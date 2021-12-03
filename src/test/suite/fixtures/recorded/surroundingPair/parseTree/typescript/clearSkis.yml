@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: backtickQuotes}
-  extraArgs: []
 initialState:
   documentContents: "`Hello, ${name}!`"
   selections:

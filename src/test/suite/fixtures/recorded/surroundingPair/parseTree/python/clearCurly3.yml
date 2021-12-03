@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: curlyBrackets}
-  extraArgs: []
 initialState:
   documentContents: |-
     """

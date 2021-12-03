@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       mark: {type: cursor}
-  extraArgs: []
 initialState:
   documentContents: |
 

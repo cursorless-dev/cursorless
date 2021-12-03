@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
-  extraArgs: []
 initialState:
   documentContents: ()
   selections:

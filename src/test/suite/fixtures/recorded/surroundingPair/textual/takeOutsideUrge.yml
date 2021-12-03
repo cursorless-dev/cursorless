@@ -7,8 +7,6 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
       mark: {type: decoratedSymbol, symbolColor: default, character: u}
-  extraArgs: []
-  usePrePhraseSnapshot: true
 initialState:
   documentContents: (<user.foo>  <user.bar>)
   selections:

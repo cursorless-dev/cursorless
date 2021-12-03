@@ -7,7 +7,6 @@ command:
     - type: primitive
       modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: |
 

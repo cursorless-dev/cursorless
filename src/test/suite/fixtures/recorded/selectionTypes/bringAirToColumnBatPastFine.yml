@@ -16,7 +16,6 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: f}
       excludeStart: false
       excludeEnd: false
-  extraArgs: []
 initialState:
   documentContents: |
     a

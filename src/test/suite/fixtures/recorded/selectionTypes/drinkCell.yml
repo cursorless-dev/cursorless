@@ -5,7 +5,6 @@ command:
   action: editNewLineBefore
   targets:
     - {type: primitive, selectionType: notebookCell}
-  extraArgs: []
 initialState:
   documentContents: |-
     # %%

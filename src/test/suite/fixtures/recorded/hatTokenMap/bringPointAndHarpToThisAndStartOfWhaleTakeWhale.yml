@@ -18,7 +18,6 @@ command:
           position: before
           insideOutsideType: inside
           mark: {type: decoratedSymbol, symbolColor: default, character: w}
-  extraArgs: []
 marksToCheck: [default.w]
 initialState:
   documentContents: hello. world

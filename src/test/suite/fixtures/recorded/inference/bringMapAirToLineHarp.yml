@@ -10,7 +10,6 @@ command:
     - type: primitive
       selectionType: line
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-  extraArgs: []
 initialState:
   documentContents: |2-
         hello world

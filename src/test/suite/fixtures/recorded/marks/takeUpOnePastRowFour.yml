@@ -10,7 +10,6 @@ command:
         type: lineNumber
         anchor: {lineNumber: -1, type: relative}
         active: {lineNumber: 3, type: absolute}
-  extraArgs: []
 initialState:
   documentContents: |
 

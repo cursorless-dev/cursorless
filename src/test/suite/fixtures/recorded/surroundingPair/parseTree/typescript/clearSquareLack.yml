@@ -7,7 +7,6 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: squareBrackets, delimiterInclusion: interiorOnly}
       mark: {type: decoratedSymbol, symbolColor: default, character: '['}
-  extraArgs: []
 initialState:
   documentContents: const [bongo, baz] = [foo, bar]
   selections:

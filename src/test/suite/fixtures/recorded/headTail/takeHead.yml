@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: head}
-  extraArgs: []
 initialState:
   documentContents: |
 

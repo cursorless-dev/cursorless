@@ -7,7 +7,6 @@ command:
     - type: primitive
       position: after
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-  extraArgs: []
 initialState:
   documentContents: |
     "hello "

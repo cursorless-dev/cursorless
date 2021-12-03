@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: doubleQuotes, forceDirection: left}
-  extraArgs: []
 initialState:
   documentContents: |-
     hello world whatever "testing testing testing

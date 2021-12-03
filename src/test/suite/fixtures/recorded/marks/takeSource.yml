@@ -6,7 +6,6 @@ command:
   targets:
     - type: primitive
       mark: {type: source}
-  extraArgs: []
 initialState:
   documentContents: |
     value
