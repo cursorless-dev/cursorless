@@ -103,13 +103,15 @@ async function runTest(file: string) {
     excludeFields.push("clipboard");
   }
 
-  await graph.hatTokenMap.addDecorations();
-
   const usePrePhraseSnapshot = fixture.command.usePrePhraseSnapshot ?? false;
 
   if (usePrePhraseSnapshot) {
     mockPrePhraseGetVersion(graph, async () => "version");
   }
+
+  // NB: We mock the pre phrase version before adding the decorations because
+  // snapshot will get taken at the point that we add the decorations
+  await graph.hatTokenMap.addDecorations();
 
   const readableHatMap = await graph.hatTokenMap.getReadableMap(
     usePrePhraseSnapshot
