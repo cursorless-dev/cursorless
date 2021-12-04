@@ -223,10 +223,10 @@ export interface RangeTarget {
   active: PrimitiveTarget;
   excludeAnchor: boolean;
   excludeActive: boolean;
-  rangeType?: RangeType;
+  rangeType: RangeType;
 }
 
-export type RangeType = "vertical";
+export type RangeType = "vertical" | "continuous";
 
 export interface ListTarget {
   type: "list";
