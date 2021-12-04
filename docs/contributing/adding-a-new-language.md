@@ -11,7 +11,7 @@ for how to add support for a new parser
 
 ## 2. Define parse tree patterns in Cursorless
 
-The parse trees exposed by tree-sitter are often pretty close to what we're
+The parse trees exposed by tree-sitter are often pretty close to what we``'re
 looking for, but we often need to look for specific patterns within the parse
 tree to get the scopes that the user expects. Fortunately, we have a
 domain-specific language that makes these definitions fairly compact.

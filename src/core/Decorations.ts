@@ -191,6 +191,7 @@ export default class Decorations {
     shapePenalties.default = 0;
     colorPenalties.default = 0;
 
+    // So that unit tests don't fail locally if you have some colors disabled
     const activeHatColors = isTesting()
       ? HAT_COLORS
       : HAT_COLORS.filter((color) => colorEnablement[color]);
