@@ -46,7 +46,7 @@ const STATEMENT_TYPES = [
   "lexical_declaration",
   "module",
   "return_statement",
-  "statement_block",
+//   "statement_block", This is disabled since we want the whole statement and not just the block
   "switch_statement",
   "throw_statement",
   "try_statement",
