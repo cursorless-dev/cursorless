@@ -154,7 +154,7 @@ export class TestCaseRecorder {
     );
 
     if (!fs.existsSync(targetDirectory)) {
-      fs.mkdirSync(targetDirectory);
+      fs.mkdirSync(targetDirectory, { recursive: true });
     }
 
     let filename = camelize(testCase.command.spokenForm!);
