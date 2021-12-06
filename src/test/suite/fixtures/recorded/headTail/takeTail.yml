@@ -1,11 +1,11 @@
-spokenForm: take tail
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take tail
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: tail}
-  extraArgs: []
 initialState:
   documentContents: |
 

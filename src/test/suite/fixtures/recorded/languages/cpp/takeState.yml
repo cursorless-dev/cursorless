@@ -1,11 +1,11 @@
-spokenForm: take state
 languageId: cpp
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take state
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: statement}
-  extraArgs: []
 initialState:
   documentContents: |-
     void f() {

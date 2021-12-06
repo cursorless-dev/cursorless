@@ -1,12 +1,12 @@
-spokenForm: take token vest
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take token vest
+  action: setSelection
+  targets:
     - type: primitive
       selectionType: token
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: |
 

@@ -1,8 +1,9 @@
-spokenForm: replace after vest with hallo
 languageId: typescript
 command:
-  actionName: replace
-  partialTargets:
+  version: 1
+  spokenForm: replace after vest with hallo
+  action: replace
+  targets:
     - type: primitive
       position: after
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

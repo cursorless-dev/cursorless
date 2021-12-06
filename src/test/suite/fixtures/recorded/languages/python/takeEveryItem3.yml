@@ -1,11 +1,11 @@
-spokenForm: take every item
 languageId: python
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take every item
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
-  extraArgs: []
 initialState:
   documentContents: |
 

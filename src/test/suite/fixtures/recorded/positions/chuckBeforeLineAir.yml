@@ -1,13 +1,13 @@
-spokenForm: chuck before line air
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck before line air
+  action: remove
+  targets:
     - type: primitive
       position: before
       selectionType: line
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
-  extraArgs: []
 initialState:
   documentContents: |-
 

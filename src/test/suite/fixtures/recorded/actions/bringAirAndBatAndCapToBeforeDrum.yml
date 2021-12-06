@@ -1,8 +1,9 @@
-spokenForm: bring air and bat and cap to before drum
 languageId: typescript
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring air and bat and cap to before drum
+  action: replaceWithTarget
+  targets:
     - type: list
       elements:
         - type: primitive
@@ -14,7 +15,6 @@ command:
     - type: primitive
       position: before
       mark: {type: decoratedSymbol, symbolColor: default, character: d}
-  extraArgs: []
 initialState:
   documentContents: |
     a

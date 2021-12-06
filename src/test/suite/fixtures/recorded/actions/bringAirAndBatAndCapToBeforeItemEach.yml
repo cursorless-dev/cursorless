@@ -1,8 +1,9 @@
-spokenForm: bring air and bat and cap to before item each
 languageId: typescript
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring air and bat and cap to before item each
+  action: replaceWithTarget
+  targets:
     - type: list
       elements:
         - type: primitive
@@ -15,7 +16,6 @@ command:
       position: before
       modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: e}
-  extraArgs: []
 initialState:
   documentContents: |
     a

@@ -1,11 +1,11 @@
-spokenForm: take list
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take list
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: list}
-  extraArgs: []
 initialState:
   documentContents: |
 

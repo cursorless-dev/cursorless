@@ -1,14 +1,14 @@
-spokenForm: bring whale after this
 languageId: plaintext
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring whale after this
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
     - type: primitive
       mark: {type: cursor}
       position: after
-  extraArgs: []
 initialState:
   documentContents: foo world
   selections:

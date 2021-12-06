@@ -1,13 +1,13 @@
-spokenForm: chuck after line vest
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck after line vest
+  action: remove
+  targets:
     - type: primitive
       position: after
       selectionType: line
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: |-
 

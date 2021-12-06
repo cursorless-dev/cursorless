@@ -1,13 +1,13 @@
-spokenForm: bring odd to state
 languageId: typescript
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring odd to state
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: o}
     - type: primitive
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
-  extraArgs: []
 initialState:
   documentContents: |-
     const foo = "hello";

@@ -1,3 +1,5 @@
+import isTesting from "../testUtil/isTesting";
+
 export type FactoryMap<T> = {
   [P in keyof T]: (t: T) => T[P];
 };
@@ -37,6 +39,9 @@ export default function makeGraph<GraphType extends object>(
         factoryMap,
         key as keyof GraphType
       ),
+
+      // NB: If we're testing, we make property mutable to allow mocking
+      configurable: isTesting(),
     });
   });
 

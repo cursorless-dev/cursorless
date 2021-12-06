@@ -1,14 +1,14 @@
-spokenForm: bring fine to last two car
 languageId: plaintext
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring fine to last two car
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
     - type: primitive
       selectionType: token
       modifier: {type: subpiece, pieceType: character, anchor: -2, active: -1}
-  extraArgs: []
 initialState:
   documentContents: foo world whatever
   selections:

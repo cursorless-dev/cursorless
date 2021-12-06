@@ -1,11 +1,11 @@
-spokenForm: take every arg
 languageId: python
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take every arg
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
-  extraArgs: []
 initialState:
   documentContents: |
 

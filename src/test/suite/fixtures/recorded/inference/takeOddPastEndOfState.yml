@@ -1,8 +1,9 @@
-spokenForm: take odd past end of state
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take odd past end of state
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive
@@ -14,7 +15,6 @@ command:
         modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
       excludeStart: false
       excludeEnd: false
-  extraArgs: []
 initialState:
   documentContents: |-
     const foo = "hello";

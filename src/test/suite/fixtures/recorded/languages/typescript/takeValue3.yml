@@ -1,11 +1,11 @@
-spokenForm: take value
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take value
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
-  extraArgs: []
 initialState:
   documentContents: |-
     function foo() {

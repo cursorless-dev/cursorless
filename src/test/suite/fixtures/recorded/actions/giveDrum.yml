@@ -1,11 +1,11 @@
-spokenForm: give drum
 languageId: typescript
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give drum
+  action: deselect
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: d}
-  extraArgs: []
 initialState:
   documentContents: a b c d
   selections:

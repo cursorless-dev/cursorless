@@ -1,11 +1,11 @@
-spokenForm: take vest
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take vest
+  action: setSelection
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: |
 

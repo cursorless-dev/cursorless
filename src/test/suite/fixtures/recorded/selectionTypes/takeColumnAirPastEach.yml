@@ -1,8 +1,9 @@
-spokenForm: take column air past each
 languageId: markdown
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take column air past each
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive
@@ -13,7 +14,6 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: e}
       excludeStart: false
       excludeEnd: false
-  extraArgs: []
 initialState:
   documentContents: |
     hello world !

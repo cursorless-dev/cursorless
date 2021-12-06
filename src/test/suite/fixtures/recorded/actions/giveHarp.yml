@@ -1,11 +1,11 @@
-spokenForm: give harp
 languageId: typescript
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give harp
+  action: deselect
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-  extraArgs: []
 initialState:
   documentContents: |
     "hello"

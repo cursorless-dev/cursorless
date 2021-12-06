@@ -1,11 +1,11 @@
-spokenForm: give bat
 languageId: typescript
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give bat
+  action: deselect
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
-  extraArgs: []
 initialState:
   documentContents: a b c d
   selections:

@@ -1,12 +1,12 @@
-spokenForm: chuck first char vest
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck first char vest
+  action: remove
+  targets:
     - type: primitive
       modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: |
 

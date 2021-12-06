@@ -1,14 +1,14 @@
-spokenForm: bring fine before this
 languageId: plaintext
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring fine before this
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
     - type: primitive
       mark: {type: cursor}
       position: before
-  extraArgs: []
 initialState:
   documentContents: foo world
   selections:

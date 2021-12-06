@@ -1,12 +1,12 @@
-spokenForm: chuck before vest
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck before vest
+  action: remove
+  targets:
     - type: primitive
       position: before
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: |
 

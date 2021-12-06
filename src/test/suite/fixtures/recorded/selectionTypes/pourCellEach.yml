@@ -1,12 +1,12 @@
-spokenForm: pour cell each
 languageId: python
 command:
-  actionName: editNewLineAfter
-  partialTargets:
+  version: 1
+  spokenForm: pour cell each
+  action: editNewLineAfter
+  targets:
     - type: primitive
       selectionType: notebookCell
       mark: {type: decoratedSymbol, symbolColor: default, character: e}
-  extraArgs: []
 initialState:
   documentContents: |-
     # %%

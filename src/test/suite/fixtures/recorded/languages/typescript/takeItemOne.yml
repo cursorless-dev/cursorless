@@ -1,12 +1,12 @@
-spokenForm: take item one
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take item one
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: collectionItem}
       mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
-  extraArgs: []
 initialState:
   documentContents: |
 

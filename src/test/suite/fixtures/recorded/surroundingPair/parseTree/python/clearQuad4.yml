@@ -1,11 +1,11 @@
-spokenForm: clear quad
 languageId: python
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear quad
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: doubleQuotes}
-  extraArgs: []
 initialState:
   documentContents: f"Hello, {name}!"
   selections:

@@ -1,8 +1,9 @@
-spokenForm: take after vest past before air
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take after vest past before air
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive
@@ -14,7 +15,6 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: a}
       excludeStart: false
       excludeEnd: false
-  extraArgs: []
 initialState:
   documentContents: |
 

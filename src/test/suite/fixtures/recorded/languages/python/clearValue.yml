@@ -1,11 +1,11 @@
-spokenForm: clear value
 languageId: python
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear value
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
-  extraArgs: []
 initialState:
   documentContents: |-
     def foo():

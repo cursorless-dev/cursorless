@@ -1,8 +1,9 @@
-spokenForm: find vest
 languageId: typescript
 command:
-  actionName: getText
-  partialTargets:
+  version: 1
+  spokenForm: find vest
+  action: getText
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs:

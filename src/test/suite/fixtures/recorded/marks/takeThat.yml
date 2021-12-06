@@ -1,11 +1,11 @@
-spokenForm: take that
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take that
+  action: setSelection
+  targets:
     - type: primitive
       mark: {type: that}
-  extraArgs: []
 initialState:
   documentContents: |
     value

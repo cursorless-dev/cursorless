@@ -1,15 +1,15 @@
-spokenForm: give vest and harp
 languageId: typescript
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give vest and harp
+  action: deselect
+  targets:
     - type: list
       elements:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: v}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: h}
-  extraArgs: []
 initialState:
   documentContents: |
     const values: string = "hello"

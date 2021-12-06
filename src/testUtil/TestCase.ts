@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import NavigationMap from "../core/NavigationMap";
+import HatTokenMap from "../core/HatTokenMap";
 import { ThatMark } from "../core/ThatMark";
 import { ActionType, PartialTarget, Target, Token } from "../typings/Types";
 import {
@@ -10,25 +10,22 @@ import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
 import { takeSnapshot, TestCaseSnapshot } from "./takeSnapshot";
 import serialize from "./serialize";
 import { pick } from "lodash";
+import { ReadOnlyHatMap } from "../core/IndividualHatMap";
+import { CommandArgument } from "../core/commandRunner/types";
+import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 
-export type TestCaseCommand = {
-  actionName: ActionType;
-  partialTargets: PartialTarget[];
-  extraArgs: any[];
-};
+export type TestCaseCommand = CommandArgument;
 
 export type TestCaseContext = {
-  spokenForm: string;
   thatMark: ThatMark;
   sourceMark: ThatMark;
   targets: Target[];
-  navigationMap: NavigationMap;
+  hatTokenMap: ReadOnlyHatMap;
 };
 
 export type TestCaseFixture = {
-  spokenForm: string;
-  command: TestCaseCommand;
   languageId: string;
+  command: TestCaseCommand;
 
   /**
    * A list of marks to check in the case of navigation map test otherwise undefined
@@ -43,7 +40,6 @@ export type TestCaseFixture = {
 };
 
 export class TestCase {
-  spokenForm: string;
   languageId: string;
   fullTargets: Target[];
   initialState: TestCaseSnapshot | null = null;
@@ -52,36 +48,37 @@ export class TestCase {
   targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
   marksToCheck?: string[];
+  public command: TestCaseCommand;
 
   constructor(
-    private command: TestCaseCommand,
+    command: TestCaseCommand,
     private context: TestCaseContext,
-    private isNavigationMapTest: boolean = false
+    private isHatTokenMapTest: boolean = false
   ) {
     const activeEditor = vscode.window.activeTextEditor!;
+    this.command = cleanUpTestCaseCommand(command);
 
-    const { targets, spokenForm } = context;
+    const { targets } = context;
 
     this.targetKeys = targets.map(extractTargetKeys).flat();
 
-    this.spokenForm = spokenForm;
     this.languageId = activeEditor.document.languageId;
     this.fullTargets = targets;
-    this._awaitingFinalMarkInfo = isNavigationMapTest;
+    this._awaitingFinalMarkInfo = isHatTokenMapTest;
   }
 
   private getMarks() {
     let marks: Record<string, Token>;
 
-    const { navigationMap } = this.context;
+    const { hatTokenMap } = this.context;
 
-    if (this.isNavigationMapTest) {
+    if (this.isHatTokenMapTest) {
       // If we're doing a navigation map test, then we grab the entire
       // navigation map because we'll filter it later based on the marks
       // referenced in the expected follow up command
-      marks = Object.fromEntries(navigationMap.getEntries());
+      marks = Object.fromEntries(hatTokenMap.getEntries());
     } else {
-      marks = extractTargetedMarks(this.targetKeys, navigationMap);
+      marks = extractTargetedMarks(this.targetKeys, hatTokenMap);
     }
 
     return marksToPlainObject(marks);
@@ -104,7 +101,7 @@ export class TestCase {
 
   private getExcludedFields(context?: { initialSnapshot?: boolean }) {
     const excludableFields = {
-      clipboard: !["copy", "paste"].includes(this.command.actionName),
+      clipboard: !["copy", "paste"].includes(this.command.action),
       thatMark:
         context?.initialSnapshot &&
         !this.fullTargets.some((target) =>
@@ -121,7 +118,7 @@ export class TestCase {
         "scrollToBottom",
         "scrollToCenter",
         "scrollToTop",
-      ].includes(this.command.actionName),
+      ].includes(this.command.action),
     };
 
     return Object.keys(excludableFields).filter(
@@ -134,7 +131,6 @@ export class TestCase {
       throw Error("Two snapshots must be taken before serializing");
     }
     const fixture: TestCaseFixture = {
-      spokenForm: this.spokenForm,
       languageId: this.languageId,
       command: this.command,
       marksToCheck: this.marksToCheck,
@@ -163,7 +159,7 @@ export class TestCase {
       this.context.thatMark,
       this.context.sourceMark,
       excludeFields,
-      this.isNavigationMapTest ? this.getMarks() : undefined
+      this.isHatTokenMapTest ? this.getMarks() : undefined
     );
   }
 

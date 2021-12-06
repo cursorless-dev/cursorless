@@ -1,8 +1,9 @@
-spokenForm: take vest tween whale
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take vest tween whale
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive
@@ -12,7 +13,6 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: w}
       excludeStart: true
       excludeEnd: true
-  extraArgs: []
 initialState:
   documentContents: |
 

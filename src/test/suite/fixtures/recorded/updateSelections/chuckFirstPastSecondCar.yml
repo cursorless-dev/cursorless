@@ -1,12 +1,12 @@
-spokenForm: chuck first past second car
 languageId: plaintext
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck first past second car
+  action: remove
+  targets:
     - type: primitive
       selectionType: token
       modifier: {type: subpiece, pieceType: character, anchor: 0, active: 1, excludeAnchor: false, excludeActive: false}
-  extraArgs: []
 initialState:
   documentContents: foo world whatever
   selections:

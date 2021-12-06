@@ -1,15 +1,15 @@
-spokenForm: give blue quote and quote
 languageId: typescript
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give blue quote and quote
+  action: deselect
+  targets:
     - type: list
       elements:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: blue, character: '"'}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: '"'}
-  extraArgs: []
 initialState:
   documentContents: |
     "hello"

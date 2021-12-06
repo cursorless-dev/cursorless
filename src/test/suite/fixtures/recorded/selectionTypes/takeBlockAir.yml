@@ -1,12 +1,12 @@
-spokenForm: take block air
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take block air
+  action: setSelection
+  targets:
     - type: primitive
       selectionType: paragraph
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
-  extraArgs: []
 initialState:
   documentContents: |
 

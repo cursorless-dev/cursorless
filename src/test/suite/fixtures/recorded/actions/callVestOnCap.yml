@@ -1,13 +1,13 @@
-spokenForm: call vest on cap
 languageId: typescript
 command:
-  actionName: callAsFunction
-  partialTargets:
+  version: 1
+  spokenForm: call vest on cap
+  action: callAsFunction
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: c}
-  extraArgs: []
 initialState:
   documentContents: |
 

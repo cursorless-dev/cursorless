@@ -1,11 +1,11 @@
-spokenForm: chuck key
 languageId: python
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck key
+  action: remove
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
-  extraArgs: []
 initialState:
   documentContents: |-
     {

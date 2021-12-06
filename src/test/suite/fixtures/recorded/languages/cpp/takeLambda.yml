@@ -1,11 +1,11 @@
-spokenForm: take lambda
 languageId: cpp
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take lambda
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: anonymousFunction}
-  extraArgs: []
 initialState:
   documentContents: |
     void f() {

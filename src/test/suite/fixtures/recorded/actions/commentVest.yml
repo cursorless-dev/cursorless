@@ -1,11 +1,11 @@
-spokenForm: comment vest
 languageId: typescript
 command:
-  actionName: toggleLineComment
-  partialTargets:
+  version: 1
+  spokenForm: comment vest
+  action: toggleLineComment
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: |
 

@@ -1,8 +1,9 @@
-spokenForm: bring whale
 languageId: plaintext
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring whale
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
     - type: primitive
@@ -11,7 +12,6 @@ command:
       position: contents
       modifier: {type: identity}
       insideOutsideType: inside
-  extraArgs: []
 initialState:
   documentContents: foo world
   selections:

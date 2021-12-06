@@ -1,8 +1,9 @@
-spokenForm: replace before vest with hello
 languageId: typescript
 command:
-  actionName: replace
-  partialTargets:
+  version: 1
+  spokenForm: replace before vest with hello
+  action: replace
+  targets:
     - type: primitive
       position: before
       mark: {type: decoratedSymbol, symbolColor: default, character: v}

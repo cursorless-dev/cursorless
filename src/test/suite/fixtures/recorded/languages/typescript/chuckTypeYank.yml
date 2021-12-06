@@ -1,12 +1,12 @@
-spokenForm: chuck type yank
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck type yank
+  action: remove
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: 'y'}
-  extraArgs: []
 initialState:
   documentContents: |-
     interface MyType {

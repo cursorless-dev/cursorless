@@ -1,11 +1,11 @@
-spokenForm: take head
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take head
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: head}
-  extraArgs: []
 initialState:
   documentContents: |
 

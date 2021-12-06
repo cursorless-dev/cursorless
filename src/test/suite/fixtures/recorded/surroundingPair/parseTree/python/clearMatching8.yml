@@ -1,11 +1,11 @@
-spokenForm: clear matching
 languageId: python
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear matching
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
-  extraArgs: []
 initialState:
   documentContents: |
     def fff(x, y):

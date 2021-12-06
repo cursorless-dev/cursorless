@@ -1,15 +1,15 @@
-spokenForm: take down one past three
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take down one past three
+  action: setSelection
+  targets:
     - type: primitive
       selectionType: line
       mark:
         type: lineNumber
         anchor: {lineNumber: 1, type: relative}
         active: {lineNumber: 3, type: relative}
-  extraArgs: []
 initialState:
   documentContents: |
 

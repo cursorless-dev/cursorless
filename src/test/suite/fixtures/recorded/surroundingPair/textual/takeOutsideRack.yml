@@ -1,16 +1,12 @@
-spokenForm: clear outside rack
 languageId: plaintext
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear outside rack
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
       mark: {type: decoratedSymbol, symbolColor: default, character: ']'}
-  extraArgs: []
-marks:
-  default.]:
-    start: {line: 0, character: 20}
-    end: {line: 0, character: 21}
 initialState:
   documentContents: |
     [(hello)  (whatever)]

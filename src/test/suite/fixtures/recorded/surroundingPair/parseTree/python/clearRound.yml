@@ -1,11 +1,11 @@
-spokenForm: clear round
 languageId: python
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear round
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: interiorOnly}
-  extraArgs: []
 initialState:
   documentContents: |
     class a(object):

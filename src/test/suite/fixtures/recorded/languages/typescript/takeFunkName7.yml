@@ -1,11 +1,11 @@
-spokenForm: take funk name
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take funk name
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: functionName}
-  extraArgs: []
 initialState:
   documentContents: |
 

@@ -1,11 +1,11 @@
-spokenForm: take every key
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take every key
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}
-  extraArgs: []
 initialState:
   documentContents: |-
     const value = {

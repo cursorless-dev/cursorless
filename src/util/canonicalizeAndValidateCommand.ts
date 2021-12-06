@@ -1,13 +1,30 @@
 import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
 import { ActionType, PartialTarget, SelectionType } from "../typings/Types";
-import { getPrimitiveTargets } from "./getPrimitiveTargets";
+import { getPartialPrimitiveTargets } from "./getPrimitiveTargets";
+import {
+  CommandArgument,
+  CommandArgumentComplete,
+} from "../core/commandRunner/types";
 
+/**
+ * Given a command argument which comes from the client, normalize it so that it
+ * conforms to the latest version of the expected cursorless command argument.
+ *
+ * @param commandArgument The command argument to normalize
+ * @returns The normalized command argument
+ */
 export function canonicalizeAndValidateCommand(
-  inputActionName: string,
-  inputPartialTargets: PartialTarget[],
-  inputExtraArgs: any[]
-) {
+  commandArgument: CommandArgument
+): CommandArgumentComplete {
+  const {
+    action: inputActionName,
+    targets: inputPartialTargets,
+    extraArgs: inputExtraArgs = [],
+    usePrePhraseSnapshot = false,
+    ...rest
+  } = commandArgument;
+
   const actionName = canonicalizeActionName(inputActionName);
   const partialTargets = canonicalizeTargets(inputPartialTargets);
   const extraArgs = inputExtraArgs;
@@ -15,9 +32,12 @@ export function canonicalizeAndValidateCommand(
   validateCommand(actionName, partialTargets, extraArgs);
 
   return {
-    actionName,
-    partialTargets,
-    extraArgs,
+    ...rest,
+    version: 1,
+    action: actionName,
+    targets: partialTargets,
+    extraArgs: extraArgs,
+    usePrePhraseSnapshot,
   };
 }
 
@@ -40,7 +60,7 @@ function usesSelectionType(
   selectionType: SelectionType,
   partialTargets: PartialTarget[]
 ) {
-  return getPrimitiveTargets(partialTargets).some(
+  return getPartialPrimitiveTargets(partialTargets).some(
     (partialTarget) => partialTarget.selectionType === selectionType
   );
 }

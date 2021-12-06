@@ -1,8 +1,9 @@
-spokenForm: replace air and bat and cap with count
 languageId: typescript
 command:
-  actionName: replace
-  partialTargets:
+  version: 1
+  spokenForm: replace air and bat and cap with count
+  action: replace
+  targets:
     - type: list
       elements:
         - type: primitive

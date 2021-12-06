@@ -1,8 +1,9 @@
-spokenForm: chuck past start of trap
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck past start of trap
+  action: remove
+  targets:
     - type: range
       start: {type: primitive}
       end:
@@ -12,7 +13,6 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: t}
       excludeStart: false
       excludeEnd: false
-  extraArgs: []
 initialState:
   documentContents: hello there
   selections:

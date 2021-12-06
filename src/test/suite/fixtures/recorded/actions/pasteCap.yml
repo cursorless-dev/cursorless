@@ -1,11 +1,11 @@
-spokenForm: paste cap
 languageId: typescript
 command:
-  actionName: pasteFromClipboard
-  partialTargets:
+  version: 1
+  spokenForm: paste cap
+  action: pasteFromClipboard
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: c}
-  extraArgs: []
 initialState:
   documentContents: |
 

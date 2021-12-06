@@ -1,11 +1,11 @@
-spokenForm: post vest
 languageId: typescript
 command:
-  actionName: setSelectionAfter
-  partialTargets:
+  version: 1
+  spokenForm: post vest
+  action: setSelectionAfter
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: |
 

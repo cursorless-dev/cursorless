@@ -1,16 +1,12 @@
-spokenForm: clear pair double
 languageId: typescript
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear pair double
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
       mark: {type: decoratedSymbol, symbolColor: default, character: '"'}
-  extraArgs: []
-marks:
-  default.":
-    start: {line: 0, character: 1}
-    end: {line: 0, character: 2}
 initialState:
   documentContents: "\"\""
   selections:

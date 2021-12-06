@@ -1,12 +1,12 @@
-spokenForm: give before dot
 languageId: typescript
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give before dot
+  action: deselect
+  targets:
     - type: primitive
       position: before
       mark: {type: decoratedSymbol, symbolColor: default, character: .}
-  extraArgs: []
 initialState:
   documentContents: a b.c
   selections:

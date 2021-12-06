@@ -1,11 +1,11 @@
-spokenForm: clear curly
 languageId: shellscript
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear curly
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: curlyBrackets}
-  extraArgs: []
 initialState:
   documentContents: "\"${hello}\""
   selections:

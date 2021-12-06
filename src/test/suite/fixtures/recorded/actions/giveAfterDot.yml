@@ -1,12 +1,12 @@
-spokenForm: give after dot
 languageId: typescript
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give after dot
+  action: deselect
+  targets:
     - type: primitive
       position: after
       mark: {type: decoratedSymbol, symbolColor: default, character: .}
-  extraArgs: []
 initialState:
   documentContents: a b.c
   selections:

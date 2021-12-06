@@ -1,11 +1,11 @@
-spokenForm: take attribute
 languageId: javascript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take attribute
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: attribute}
-  extraArgs: []
 initialState:
   documentContents: |
 

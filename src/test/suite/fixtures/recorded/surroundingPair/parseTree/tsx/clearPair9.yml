@@ -1,11 +1,11 @@
-spokenForm: clear pair
 languageId: typescriptreact
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear pair
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
-  extraArgs: []
 initialState:
   documentContents: (<hello/> )
   selections:

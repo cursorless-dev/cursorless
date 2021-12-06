@@ -1,13 +1,13 @@
-spokenForm: chuck after block vest
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck after block vest
+  action: remove
+  targets:
     - type: primitive
       position: after
       selectionType: paragraph
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: |-
 

@@ -1,12 +1,12 @@
-spokenForm: take head vest
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take head vest
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: head}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: |
 

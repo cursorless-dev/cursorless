@@ -1,11 +1,11 @@
-spokenForm: chuck round
 languageId: plaintext
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck round
+  action: remove
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: parentheses}
-  extraArgs: []
 initialState:
   documentContents: (hello)
   selections:

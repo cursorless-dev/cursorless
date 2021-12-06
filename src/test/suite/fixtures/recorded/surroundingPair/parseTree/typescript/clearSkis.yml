@@ -1,11 +1,11 @@
-spokenForm: clear skis
 languageId: typescript
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear skis
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: backtickQuotes}
-  extraArgs: []
 initialState:
   documentContents: "`Hello, ${name}!`"
   selections:

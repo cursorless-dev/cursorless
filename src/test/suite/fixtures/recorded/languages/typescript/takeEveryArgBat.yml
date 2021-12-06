@@ -1,12 +1,12 @@
-spokenForm: take every arg bat
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take every arg bat
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
-  extraArgs: []
 initialState:
   documentContents: foo(bar(baz, bongo), bazman)
   selections:

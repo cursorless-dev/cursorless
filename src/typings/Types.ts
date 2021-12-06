@@ -3,12 +3,14 @@ import * as vscode from "vscode";
 import { ExtensionContext, Location, Selection } from "vscode";
 import { HatStyleName } from "../core/constants";
 import { EditStyles } from "../core/editStyles";
-import NavigationMap from "../core/NavigationMap";
+import HatTokenMap from "../core/HatTokenMap";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { FullRangeInfo } from "./updateSelections";
 import Decorations from "../core/Decorations";
 import FontMeasurements from "../core/FontMeasurements";
+import { CommandServerApi } from "../util/getExtensionApi";
+import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -232,7 +234,7 @@ export type Target = PrimitiveTarget | RangeTarget | ListTarget;
 export interface ProcessedTargetsContext {
   currentSelections: SelectionWithEditor[];
   currentEditor: vscode.TextEditor | undefined;
-  navigationMap: NavigationMap;
+  hatTokenMap: ReadOnlyHatMap;
   thatMark: SelectionWithEditor[];
   sourceMark: SelectionWithEditor[];
   getNodeAtLocation: (location: Location) => SyntaxNode;
@@ -367,9 +369,9 @@ export interface Graph {
   readonly editStyles: EditStyles;
 
   /**
-   * Keeps a map of all decorated marks
+   * Maps from (hatStyle, character) pairs to tokens
    */
-  readonly navigationMap: NavigationMap;
+  readonly hatTokenMap: HatTokenMap;
 
   /**
    * The extension context passed in during extension activation
@@ -397,6 +399,11 @@ export interface Graph {
    * Takes measurements of the user's font
    */
   readonly fontMeasurements: FontMeasurements;
+
+  /**
+   * API object for interacting with the command server, if it exists
+   */
+  readonly commandServerApi: CommandServerApi | null;
 }
 
 export type NodeMatcherValue = {

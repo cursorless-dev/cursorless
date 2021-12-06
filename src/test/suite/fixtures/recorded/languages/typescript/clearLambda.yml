@@ -1,11 +1,11 @@
-spokenForm: clear lambda
 languageId: typescript
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear lambda
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
-  extraArgs: []
 initialState:
   documentContents: |-
     foo(() => {

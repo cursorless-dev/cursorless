@@ -1,11 +1,11 @@
-spokenForm: take start tag
 languageId: javascript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take start tag
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: xmlStartTag}
-  extraArgs: []
 initialState:
   documentContents: |
 

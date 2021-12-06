@@ -1,8 +1,9 @@
-spokenForm: round wrap vest
 languageId: typescript
 command:
-  actionName: wrapWithPairedDelimiter
-  partialTargets:
+  version: 1
+  spokenForm: round wrap vest
+  action: wrapWithPairedDelimiter
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs: [(, )]

@@ -1,15 +1,15 @@
-spokenForm: give air and bang
 languageId: typescript
 command:
-  actionName: deselect
-  partialTargets:
+  version: 1
+  spokenForm: give air and bang
+  action: deselect
+  targets:
     - type: list
       elements:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: a}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: '!'}
-  extraArgs: []
 initialState:
   documentContents: |
     "a!

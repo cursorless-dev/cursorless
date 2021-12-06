@@ -1,8 +1,9 @@
-spokenForm: try catch wrap this
 languageId: python
 command:
-  actionName: wrapWithSnippet
-  partialTargets:
+  version: 1
+  spokenForm: try catch wrap this
+  action: wrapWithSnippet
+  targets:
     - type: primitive
       mark: {type: cursor}
   extraArgs: [tryCatchStatement.body]

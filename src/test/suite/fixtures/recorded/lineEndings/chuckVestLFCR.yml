@@ -1,11 +1,11 @@
-spokenForm: chuck vest
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck vest
+  action: remove
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: "\r\nconst value = \"Hello world\";\r\n"
   selections:

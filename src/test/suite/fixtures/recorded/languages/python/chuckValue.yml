@@ -1,11 +1,11 @@
-spokenForm: chuck value
 languageId: python
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck value
+  action: remove
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
-  extraArgs: []
 initialState:
   documentContents: "foo: str = \"hello\""
   selections:

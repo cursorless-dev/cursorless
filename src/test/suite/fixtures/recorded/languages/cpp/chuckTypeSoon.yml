@@ -1,12 +1,12 @@
-spokenForm: chuck type soon
 languageId: cpp
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck type soon
+  action: remove
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: s}
-  extraArgs: []
 initialState:
   documentContents: |-
     void myFunk(string value) {

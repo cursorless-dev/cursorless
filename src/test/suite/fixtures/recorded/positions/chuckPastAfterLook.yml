@@ -1,8 +1,9 @@
-spokenForm: chuck past after look
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck past after look
+  action: remove
+  targets:
     - type: range
       start: {type: primitive}
       end:
@@ -11,7 +12,6 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: l}
       excludeStart: false
       excludeEnd: false
-  extraArgs: []
 initialState:
   documentContents: hello there
   selections:

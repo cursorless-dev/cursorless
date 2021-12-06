@@ -1,8 +1,9 @@
-spokenForm: round wrap this
 languageId: typescript
 command:
-  actionName: wrapWithPairedDelimiter
-  partialTargets:
+  version: 1
+  spokenForm: round wrap this
+  action: wrapWithPairedDelimiter
+  targets:
     - type: primitive
       mark: {type: cursor}
   extraArgs: [(, )]

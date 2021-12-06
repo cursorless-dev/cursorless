@@ -1,12 +1,12 @@
-spokenForm: take value zero
 languageId: python
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take value zero
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: '0'}
-  extraArgs: []
 initialState:
   documentContents: |-
     {

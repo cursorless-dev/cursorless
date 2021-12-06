@@ -1,8 +1,9 @@
-spokenForm: bring harp to second car fine past third car whale
 languageId: plaintext
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring harp to second car fine past third car whale
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
     - type: range
@@ -18,7 +19,6 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: w}
       excludeStart: false
       excludeEnd: false
-  extraArgs: []
 initialState:
   documentContents: foo world whatever
   selections:

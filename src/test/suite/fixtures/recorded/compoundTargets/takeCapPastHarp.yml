@@ -1,8 +1,9 @@
-spokenForm: take cap past harp
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take cap past harp
+  action: setSelection
+  targets:
     - type: range
       start:
         type: primitive
@@ -12,7 +13,6 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: h}
       excludeStart: false
       excludeEnd: false
-  extraArgs: []
 initialState:
   documentContents: |
 

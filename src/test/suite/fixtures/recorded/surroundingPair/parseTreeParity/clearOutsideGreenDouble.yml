@@ -1,12 +1,12 @@
-spokenForm: clear outside blue double
 languageId: typescript
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear outside blue double
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
-      mark: {type: decoratedSymbol, symbolColor: blue, character: '"', usePrePhraseSnapshot: true}
-  extraArgs: []
+      mark: {type: decoratedSymbol, symbolColor: blue, character: '"'}
 initialState:
   documentContents: "\"\""
   selections:

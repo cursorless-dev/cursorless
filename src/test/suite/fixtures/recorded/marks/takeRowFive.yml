@@ -1,15 +1,15 @@
-spokenForm: take row five
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take row five
+  action: setSelection
+  targets:
     - type: primitive
       selectionType: line
       mark:
         type: lineNumber
         anchor: {lineNumber: 4, type: modulo100}
         active: {lineNumber: 4, type: modulo100}
-  extraArgs: []
 initialState:
   documentContents: |+
 

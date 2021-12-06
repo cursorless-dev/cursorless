@@ -1,12 +1,12 @@
-spokenForm: clear outside urge
 languageId: plaintext
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear outside urge
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
-      mark: {type: decoratedSymbol, symbolColor: default, character: u, usePrePhraseSnapshot: true}
-  extraArgs: []
+      mark: {type: decoratedSymbol, symbolColor: default, character: u}
 initialState:
   documentContents: (<user.foo>  <user.bar>)
   selections:

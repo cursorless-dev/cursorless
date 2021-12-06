@@ -1,11 +1,11 @@
-spokenForm: take right quad
 languageId: plaintext
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take right quad
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: doubleQuotes, forceDirection: right}
-  extraArgs: []
 initialState:
   documentContents: |-
     hello world whatever "testing testing testing

@@ -1,11 +1,11 @@
-spokenForm: pree vest
 languageId: typescript
 command:
-  actionName: setSelectionBefore
-  partialTargets:
+  version: 1
+  spokenForm: pree vest
+  action: setSelectionBefore
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: |
 

@@ -1,11 +1,11 @@
-spokenForm: take map
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take map
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: map}
-  extraArgs: []
 initialState:
   documentContents: |
 

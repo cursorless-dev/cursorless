@@ -1,12 +1,12 @@
-spokenForm: chuck type trap
 languageId: python
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck type trap
+  action: remove
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: t}
-  extraArgs: []
 initialState:
   documentContents: |-
     def my_funk(value: str) -> str:

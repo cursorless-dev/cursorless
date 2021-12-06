@@ -1,13 +1,13 @@
-spokenForm: bring whale to fine
 languageId: plaintext
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring whale to fine
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-  extraArgs: []
 initialState:
   documentContents: foo world
   selections:

@@ -1,11 +1,11 @@
-spokenForm: clear string
 languageId: typescript
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear string
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: string}
-  extraArgs: []
 initialState:
   documentContents: "\"(hello)\""
   selections:

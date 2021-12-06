@@ -1,8 +1,9 @@
-spokenForm: call fine
 languageId: typescript
 command:
-  actionName: callAsFunction
-  partialTargets:
+  version: 1
+  spokenForm: call fine
+  action: callAsFunction
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
     - type: primitive
@@ -11,7 +12,6 @@ command:
       position: contents
       modifier: {type: identity}
       insideOutsideType: inside
-  extraArgs: []
 initialState:
   documentContents: |-
     foo;

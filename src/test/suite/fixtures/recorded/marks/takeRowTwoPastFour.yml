@@ -1,15 +1,15 @@
-spokenForm: take row two past four
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take row two past four
+  action: setSelection
+  targets:
     - type: primitive
       selectionType: line
       mark:
         type: lineNumber
         anchor: {lineNumber: 1, type: absolute}
         active: {lineNumber: 3, type: absolute}
-  extraArgs: []
 initialState:
   documentContents: |
 

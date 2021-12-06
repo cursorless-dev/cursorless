@@ -1,12 +1,11 @@
-spokenForm: clear round
 languageId: plaintext
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear round
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: parentheses}
-  extraArgs: []
-marks: {}
 initialState:
   documentContents: (hello  (whatever))
   selections:

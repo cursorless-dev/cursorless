@@ -1,12 +1,12 @@
-spokenForm: take first char
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take first char
+  action: setSelection
+  targets:
     - type: primitive
       selectionType: token
       modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0}
-  extraArgs: []
 initialState:
   documentContents: //**
   selections:

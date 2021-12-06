@@ -11,7 +11,7 @@ import {
 } from "./constants";
 import { readFileSync } from "fs";
 import FontMeasurements from "./FontMeasurements";
-import { sortBy } from "lodash";
+import { pull, sortBy } from "lodash";
 import getHatThemeColors from "./getHatThemeColors";
 import {
   IndividualHatAdjustmentMap,
@@ -20,6 +20,7 @@ import {
   DEFAULT_VERTICAL_OFFSET_EM,
 } from "./shapeAdjustments";
 import { Graph } from "../typings/Types";
+import isTesting from "../testUtil/isTesting";
 
 export type DecorationMap = {
   [k in HatStyleName]?: vscode.TextEditorDecorationType;
@@ -30,24 +31,66 @@ export interface NamedDecoration {
   decoration: vscode.TextEditorDecorationType;
 }
 
+type DecorationChangeListener = () => void;
+
 export default class Decorations {
   decorations!: NamedDecoration[];
   decorationMap!: DecorationMap;
-  hatStyleMap!: Record<HatStyleName, HatStyle>;
+  private hatStyleMap!: Record<HatStyleName, HatStyle>;
   hatStyleNames!: HatStyleName[];
+  private decorationChangeListeners: DecorationChangeListener[] = [];
+  private disposables: vscode.Disposable[] = [];
 
   constructor(private graph: Graph) {
-    this.constructDecorations(graph.fontMeasurements);
     graph.extensionContext.subscriptions.push(this);
+
+    this.recomputeDecorationStyles = this.recomputeDecorationStyles.bind(this);
+
+    this.disposables.push(
+      vscode.commands.registerCommand(
+        "cursorless.recomputeDecorationStyles",
+        () => {
+          graph.fontMeasurements.clearCache();
+          this.recomputeDecorationStyles();
+        }
+      ),
+
+      vscode.workspace.onDidChangeConfiguration(this.recomputeDecorationStyles)
+    );
   }
 
-  destroyDecorations() {
+  async init() {
+    await this.graph.fontMeasurements.calculate();
+    this.constructDecorations(this.graph.fontMeasurements);
+  }
+
+  /**
+   * Register to be notified when decoration styles are updated, for example if
+   * the user enables a new hat style
+   * @param listener A function to be called when decoration styles are updated
+   * @returns A function that can be called to unsubscribe from notifications
+   */
+  registerDecorationChangeListener(listener: DecorationChangeListener) {
+    this.decorationChangeListeners.push(listener);
+
+    return () => {
+      pull(this.decorationChangeListeners, listener);
+    };
+  }
+
+  private destroyDecorations() {
     this.decorations.forEach(({ decoration }) => {
       decoration.dispose();
     });
   }
 
-  constructDecorations(fontMeasurements: FontMeasurements) {
+  private async recomputeDecorationStyles() {
+    this.destroyDecorations();
+    await this.graph.fontMeasurements.calculate();
+    this.constructDecorations(this.graph.fontMeasurements);
+  }
+
+  private constructDecorations(fontMeasurements: FontMeasurements) {
     this.constructHatStyleMap();
 
     const userSizeAdjustment = vscode.workspace
@@ -125,6 +168,8 @@ export default class Decorations {
     this.decorationMap = Object.fromEntries(
       this.decorations.map(({ name, decoration }) => [name, decoration])
     );
+
+    this.decorationChangeListeners.forEach((listener) => listener());
   }
 
   private constructHatStyleMap() {
@@ -146,9 +191,10 @@ export default class Decorations {
     shapePenalties.default = 0;
     colorPenalties.default = 0;
 
-    const activeHatColors = HAT_COLORS.filter(
-      (color) => colorEnablement[color]
-    );
+    // So that unit tests don't fail locally if you have some colors disabled
+    const activeHatColors = isTesting()
+      ? HAT_COLORS
+      : HAT_COLORS.filter((color) => colorEnablement[color]);
     const activeNonDefaultHatShapes = HAT_NON_DEFAULT_SHAPES.filter(
       (shape) => shapeEnablement[shape]
     );
@@ -279,5 +325,6 @@ export default class Decorations {
 
   dispose() {
     this.destroyDecorations();
+    this.disposables.forEach(({ dispose }) => dispose());
   }
 }

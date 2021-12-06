@@ -1,11 +1,11 @@
-spokenForm: clear square
 languageId: python
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear square
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: squareBrackets, delimiterInclusion: interiorOnly}
-  extraArgs: []
 initialState:
   documentContents: |
     a[222]

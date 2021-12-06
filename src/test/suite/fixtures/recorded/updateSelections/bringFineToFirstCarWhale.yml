@@ -1,15 +1,15 @@
-spokenForm: bring fine to first car whale
 languageId: plaintext
 command:
-  actionName: replaceWithTarget
-  partialTargets:
+  version: 1
+  spokenForm: bring fine to first car whale
+  action: replaceWithTarget
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
     - type: primitive
       selectionType: token
       modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0, excludeAnchor: false, excludeActive: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
-  extraArgs: []
 initialState:
   documentContents: foo world whatever
   selections:

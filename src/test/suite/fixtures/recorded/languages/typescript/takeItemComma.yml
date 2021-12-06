@@ -1,12 +1,12 @@
-spokenForm: take item comma
 languageId: typescript
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take item comma
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: collectionItem}
       mark: {type: decoratedSymbol, symbolColor: default, character: ','}
-  extraArgs: []
 initialState:
   documentContents: |
 

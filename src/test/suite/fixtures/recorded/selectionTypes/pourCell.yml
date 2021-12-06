@@ -1,10 +1,10 @@
-spokenForm: pour cell
 languageId: python
 command:
-  actionName: editNewLineAfter
-  partialTargets:
+  version: 1
+  spokenForm: pour cell
+  action: editNewLineAfter
+  targets:
     - {type: primitive, selectionType: notebookCell}
-  extraArgs: []
 initialState:
   documentContents: |-
     # %%

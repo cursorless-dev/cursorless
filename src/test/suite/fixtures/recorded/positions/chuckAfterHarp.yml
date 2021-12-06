@@ -1,12 +1,12 @@
-spokenForm: chuck after harp
 languageId: typescript
 command:
-  actionName: remove
-  partialTargets:
+  version: 1
+  spokenForm: chuck after harp
+  action: remove
+  targets:
     - type: primitive
       position: after
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-  extraArgs: []
 initialState:
   documentContents: |
     "hello "

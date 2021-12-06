@@ -1,12 +1,12 @@
-spokenForm: take lambda made
 languageId: python
 command:
-  actionName: setSelection
-  partialTargets:
+  version: 1
+  spokenForm: take lambda made
+  action: setSelection
+  targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: m}
-  extraArgs: []
 initialState:
   documentContents: |-
 

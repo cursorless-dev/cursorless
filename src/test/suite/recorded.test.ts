@@ -5,7 +5,7 @@ import * as path from "path";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import { TestCaseFixture } from "../../testUtil/TestCase";
-import NavigationMap from "../../core/NavigationMap";
+import HatTokenMap from "../../core/HatTokenMap";
 import * as sinon from "sinon";
 import { Clipboard } from "../../util/Clipboard";
 import { takeSnapshot } from "../../testUtil/takeSnapshot";
@@ -17,14 +17,13 @@ import {
   SerializedMarks,
 } from "../../testUtil/toPlainObject";
 import { walkFilesSync } from "../../testUtil/walkSync";
-import {
-  CursorlessApi,
-  getCursorlessApi,
-  getParseTreeApi,
-} from "../../util/getExtensionApi";
+import { getCursorlessApi } from "../../util/getExtensionApi";
 import { enableDebugLog } from "../../util/debug";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 import asyncSafety from "./asyncSafety";
+import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
+import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
+import { openNewEditor } from "../openNewEditor";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -64,22 +63,18 @@ async function runTest(file: string) {
   const excludeFields: string[] = [];
 
   const cursorlessApi = await getCursorlessApi();
-  const parseTreeApi = await getParseTreeApi();
+  const graph = cursorlessApi.graph!;
 
-  await vscode.commands.executeCommand("workbench.action.closeAllEditors");
-  const document = await vscode.workspace.openTextDocument({
-    language: fixture.languageId,
-    content: fixture.initialState.documentContents,
-  });
-  const editor = await vscode.window.showTextDocument(document);
+  const editor = await openNewEditor(
+    fixture.initialState.documentContents,
+    fixture.languageId
+  );
 
   if (!fixture.initialState.documentContents.includes("\n")) {
     await editor.edit((editBuilder) => {
       editBuilder.setEndOfLine(vscode.EndOfLine.LF);
     });
   }
-
-  await parseTreeApi.loadLanguage(document.languageId);
 
   editor.selections = fixture.initialState.selections.map(createSelection);
 
@@ -108,18 +103,16 @@ async function runTest(file: string) {
     excludeFields.push("clipboard");
   }
 
-  // Wait for cursorless to set up decorations
-  cursorlessApi.addDecorations();
+  await graph.hatTokenMap.addDecorations();
+
+  const readableHatMap = await graph.hatTokenMap.getReadableMap(false);
 
   // Assert that recorded decorations are present
-  checkMarks(fixture.initialState.marks, cursorlessApi.navigationMap);
+  checkMarks(fixture.initialState.marks, readableHatMap);
 
   const returnValue = await vscode.commands.executeCommand(
     "cursorless.command",
-    fixture.spokenForm,
-    fixture.command.actionName,
-    fixture.command.partialTargets,
-    ...fixture.command.extraArgs
+    fixture.command
   );
 
   const marks =
@@ -128,7 +121,7 @@ async function runTest(file: string) {
       : marksToPlainObject(
           extractTargetedMarks(
             Object.keys(fixture.finalState.marks) as string[],
-            cursorlessApi.navigationMap
+            readableHatMap
           )
         );
 
@@ -161,15 +154,15 @@ async function runTest(file: string) {
 
 function checkMarks(
   marks: SerializedMarks | undefined,
-  navigationMap: NavigationMap
+  hatTokenMap: ReadOnlyHatMap
 ) {
   if (marks == null) {
     return;
   }
 
   Object.entries(marks).forEach(([key, token]) => {
-    const { hatStyle, character } = NavigationMap.splitKey(key);
-    const currentToken = navigationMap.getToken(hatStyle, character);
+    const { hatStyle, character } = HatTokenMap.splitKey(key);
+    const currentToken = hatTokenMap.getToken(hatStyle, character);
     assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
     assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
   });

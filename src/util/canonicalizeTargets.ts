@@ -4,7 +4,7 @@ import {
   ScopeType,
 } from "../typings/Types";
 import update from "immutability-helper";
-import { transformPrimitiveTargets } from "./getPrimitiveTargets";
+import { transformPartialPrimitiveTargets } from "./getPrimitiveTargets";
 import { HatStyleName } from "../core/constants";
 import { flow } from "lodash";
 
@@ -43,7 +43,7 @@ const canonicalizeColors = (
     : target;
 
 export default function canonicalizeTargets(partialTargets: PartialTarget[]) {
-  return transformPrimitiveTargets(
+  return transformPartialPrimitiveTargets(
     partialTargets,
     flow(canonicalizeScopeTypes, canonicalizeColors)
   );

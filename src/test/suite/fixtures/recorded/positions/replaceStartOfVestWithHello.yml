@@ -1,8 +1,9 @@
-spokenForm: replace start of vest with hello
 languageId: typescript
 command:
-  actionName: replace
-  partialTargets:
+  version: 1
+  spokenForm: replace start of vest with hello
+  action: replace
+  targets:
     - type: primitive
       position: before
       insideOutsideType: inside

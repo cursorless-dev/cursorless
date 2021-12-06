@@ -1,8 +1,9 @@
-spokenForm: replace vest with whatever
 languageId: typescript
 command:
-  actionName: replace
-  partialTargets:
+  version: 1
+  spokenForm: replace vest with whatever
+  action: replace
+  targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs:

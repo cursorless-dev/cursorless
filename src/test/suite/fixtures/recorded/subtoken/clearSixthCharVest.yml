@@ -1,12 +1,12 @@
-spokenForm: clear sixth char vest
 languageId: typescript
 command:
-  actionName: clearAndSetSelection
-  partialTargets:
+  version: 1
+  spokenForm: clear sixth char vest
+  action: clearAndSetSelection
+  targets:
     - type: primitive
       modifier: {type: subpiece, pieceType: character, anchor: 5, active: 5}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs: []
 initialState:
   documentContents: |
 
