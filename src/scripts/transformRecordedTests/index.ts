@@ -3,12 +3,12 @@ import * as path from "path";
 import { walkFilesSync } from "../../testUtil/walkSync";
 import { updateSurroundingPairTest } from "./transformations/updateSurroundingPairTest";
 import { FixtureTransformation } from "./types";
-import { canonicalizeFixture } from "./transformations/canonicalizeFixture";
+import { upgrade } from "./transformations/upgrade";
 import { identity } from "./transformations/identity";
 import { transformFile } from "./transformFile";
 
 const AVAILABLE_TRANSFORMATIONS: Record<string, FixtureTransformation> = {
-  canonicalize: canonicalizeFixture,
+  upgrade,
   autoFormat: identity,
   custom: updateSurroundingPairTest,
 };

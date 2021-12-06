@@ -60,9 +60,9 @@ and can be run in vscode or via yarn in terminal.
 
 To clean up the formatting of all of the yaml test cases, run `yarn run compile && node ./out/scripts/transformRecordedTests/index.js`
 
-### Canonicalizing fixtures
+### Upgrading fixtures
 
-To normalize all the test fixtures by upgrading action names and reordering fields, run the command `yarn run compile && node ./out/scripts/transformRecordedTests/index.js canonicalize`
+To upgrade all the test fixtures to the latest command version, run the command `yarn run compile && node ./out/scripts/transformRecordedTests/index.js upgrade`. This command should be idempotent.
 
 ### Custom transformation
 

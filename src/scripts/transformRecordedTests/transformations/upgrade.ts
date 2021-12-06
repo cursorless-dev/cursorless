@@ -5,13 +5,9 @@ import { cleanUpTestCaseCommand } from "../../../testUtil/cleanUpTestCaseCommand
 import { upgradeFromVersion0 } from "./upgradeFromVersion0";
 import { reorderFields } from "./reorderFields";
 
-export const canonicalizeFixture = flow(
-  upgradeFromVersion0,
-  canonicalizeCommand,
-  reorderFields
-);
+export const upgrade = flow(upgradeFromVersion0, upgradeCommand, reorderFields);
 
-function canonicalizeCommand(fixture: TestCaseFixture) {
+function upgradeCommand(fixture: TestCaseFixture) {
   fixture.command = flow(
     canonicalizeAndValidateCommand,
     cleanUpTestCaseCommand
