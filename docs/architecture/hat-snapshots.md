@@ -8,4 +8,4 @@ In the diagram below, we document the flow of a couple different cases. Dotted l
 
 ![flow diagram](images/hat-token-map-snapshots.png)
 
-([(diagram source)](https://swimlanes.io/d/1KkgFFCtj))
+([diagram source](https://swimlanes.io/d/1KkgFFCtj))
