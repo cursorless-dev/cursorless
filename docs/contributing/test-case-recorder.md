@@ -56,9 +56,18 @@ and can be run in vscode or via yarn in terminal.
 
 ## Changing recorded test cases in bulk
 
-1. Change the `FIXTURE_TRANSFORMATION` function at the top of
-   [`transformRecordedTests.ts`](../src/scripts/transformRecordedTests.ts) to
-   perform the transformation you'd like
-2. Run `yarn run compile && node ./out/scripts/transformRecordedTests.js`
+### Autoformatting
 
-You might find the `transformPrimitiveTargets` function useful for this purpose.
+To clean up the formatting of all of the yaml test cases, run `yarn run compile && node ./out/scripts/transformRecordedTests/index.js`
+
+### Canonicalizing fixtures
+
+To normalize all the test fixtures by upgrading action names and reordering fields, run the command `yarn run compile && node ./out/scripts/transformRecordedTests/index.js canonicalize`
+
+### Custom transformation
+
+1. Add a new transformation to the `src/scripts/transformRecordedTests/transformations` directory. Look at the existing transformations in that directory for inspiration.
+1. Change the value at the `custom` key in `AVAILABLE_TRANSFORMATIONS` at the top of
+   [`transformRecordedTests/index.ts`](../src/scripts/transformRecordedTests/index.ts) to
+   point to your new transformation
+1. Run `yarn run compile && node ./out/scripts/transformRecordedTests/index.js custom`
