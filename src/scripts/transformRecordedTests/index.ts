@@ -20,16 +20,16 @@ async function main(transformationName: string | undefined) {
       : AVAILABLE_TRANSFORMATIONS[transformationName];
 
   if (transformation == null) {
-    throw Error(`Unknown transformation ${transformationName}`);
+    throw new Error(`Unknown transformation ${transformationName}`);
   }
 
   const directory = path.join(
     __dirname,
-    "../../src/test/suite/fixtures/recorded"
+    "../../../src/test/suite/fixtures/recorded"
   );
   const files = walkFilesSync(directory);
 
   files.forEach((file) => transformFile(transformation, file));
 }
 
-main(process.argv[0]);
+main(process.argv[2]);

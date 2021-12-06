@@ -3,10 +3,15 @@ import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTarg
 import { PartialPrimitiveTarget } from "../../../typings/Types";
 
 export function upgradeFromVersion0(fixture: TestCaseFixture) {
-  const { command, spokenForm, ...rest } = fixture as any;
+  const { command, spokenForm: oldSpokenForm, ...rest } = fixture as any;
 
   const {
-    actionName: oldAction, action: newAction, partialTargets: oldTargets, targets: newTargets, extraArgs,
+    spokenForm: newSpokenForm,
+    actionName: oldAction,
+    action: newAction,
+    partialTargets: oldTargets,
+    targets: newTargets,
+    extraArgs,
   } = command;
 
   const targets = transformPartialPrimitiveTargets(
@@ -22,7 +27,7 @@ export function upgradeFromVersion0(fixture: TestCaseFixture) {
   return {
     command: {
       version: 1,
-      spokenForm,
+      spokenForm: newSpokenForm ?? oldSpokenForm,
       action: newAction ?? oldAction,
       targets,
       extraArgs,
