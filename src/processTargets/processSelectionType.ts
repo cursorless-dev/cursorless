@@ -226,11 +226,11 @@ function getTokenSelectionContext(
   }
 
   return {
+    ...selectionContext,
     isInDelimitedList,
     containingListDelimiter: " ",
     leadingDelimiterRange: isInDelimitedList ? leadingDelimiterRange : null,
     trailingDelimiterRange: isInDelimitedList ? trailingDelimiterRange : null,
-    outerSelection: selectionContext.outerSelection,
   };
 }
 

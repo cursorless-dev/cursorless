@@ -265,6 +265,20 @@ export interface SelectionContext {
   trailingDelimiterRange?: vscode.Range | null;
 
   isNotebookCell?: boolean;
+
+  /**
+   * Represents the boundary ranges of this selection. For example, for a
+   * surrounding pair this would be the opening and closing delimiter. For an if
+   * statement this would be the line of the guard as well as the closing brace.
+   */
+  boundary?: SelectionWithContext[];
+
+  /**
+   * Represents the interior ranges of this selection. For example, for a
+   * surrounding pair this would exclude the opening and closing delimiter. For an if
+   * statement this would be the statements in the body.
+   */
+  interior?: SelectionWithContext[];
 }
 
 export interface TypedSelection {
@@ -340,6 +354,7 @@ export type ActionType =
   | "replace"
   | "replaceWithTarget"
   | "reverseTargets"
+  | "rewrapWithPairedDelimiter"
   | "scrollToBottom"
   | "scrollToCenter"
   | "scrollToTop"
