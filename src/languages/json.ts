@@ -4,7 +4,13 @@ import {
   leadingMatcher,
   trailingMatcher,
 } from "../util/nodeMatchers";
-import { ScopeType, NodeMatcherAlternative } from "../typings/Types";
+import {
+  ScopeType,
+  NodeMatcherAlternative,
+  SelectionWithEditor,
+} from "../typings/Types";
+import { SyntaxNode } from "web-tree-sitter";
+import { getNodeRange } from "../util/nodeSelectors";
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   map: "object",
@@ -16,4 +22,15 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   collectionItem: argumentMatcher("object", "array"),
 };
 
-export default createPatternMatchers(nodeMatchers);
+export const patternMatchers = createPatternMatchers(nodeMatchers);
+
+export function textFragmentExtractor(
+  node: SyntaxNode,
+  selection: SelectionWithEditor
+) {
+  if (node.type === "string_content") {
+    return getNodeRange(node);
+  }
+
+  return null;
+}

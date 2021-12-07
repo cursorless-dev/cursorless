@@ -10,12 +10,16 @@ import {
 import cpp from "./cpp";
 import csharp from "./csharp";
 import java from "./java";
-import json from "./json";
+import { patternMatchers as json } from "./json";
 import python from "./python";
 import typescript from "./typescript";
 import { UnsupportedLanguageError } from "../errors";
+import { SupportedLanguageId, supportedLanguageIds } from "./constants";
 
-const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
+const languageMatchers: Record<
+  SupportedLanguageId,
+  Record<ScopeType, NodeMatcher>
+> = {
   c: cpp,
   cpp: cpp,
   csharp: csharp,
@@ -29,12 +33,18 @@ const languageMatchers: Record<string, Record<ScopeType, NodeMatcher>> = {
   typescriptreact: typescript,
 };
 
+export function isLanguageSupported(
+  languageId: string
+): languageId is SupportedLanguageId {
+  return languageId in supportedLanguageIds;
+}
+
 export function getNodeMatcher(
   languageId: string,
   scopeType: ScopeType,
   includeSiblings: boolean
 ): NodeMatcher {
-  const matchers = languageMatchers[languageId];
+  const matchers = languageMatchers[languageId as SupportedLanguageId];
 
   if (matchers == null) {
     throw new UnsupportedLanguageError(languageId);
