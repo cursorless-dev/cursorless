@@ -354,6 +354,7 @@ export type ActionType =
   | "replace"
   | "replaceWithTarget"
   | "reverseTargets"
+  | "rewrapWithPairedDelimiter"
   | "scrollToBottom"
   | "scrollToCenter"
   | "scrollToTop"

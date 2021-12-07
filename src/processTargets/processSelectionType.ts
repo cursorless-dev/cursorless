@@ -241,6 +241,8 @@ function isSelectionContextEmpty(selectionContext: SelectionContext) {
     selectionContext.isInDelimitedList == null &&
     selectionContext.containingListDelimiter == null &&
     selectionContext.leadingDelimiterRange == null &&
+    selectionContext.interior == null &&
+    selectionContext.boundary == null &&
     selectionContext.trailingDelimiterRange == null
   );
 }
