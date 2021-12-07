@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import { addDecorationsToEditors } from "../util/addDecorationsToEditor";
-import { DECORATION_DEBOUNCE_DELAY } from "../core/constants";
 import { Graph } from "../typings/Types";
 import { Disposable } from "vscode";
 import { IndividualHatMap } from "./IndividualHatMap";
@@ -72,11 +71,15 @@ export class HatAllocator {
       clearTimeout(this.timeoutHandle);
     }
 
+    const decorationDebounceDelay = vscode.workspace
+      .getConfiguration("cursorless")
+      .get<number>("decorationDebounceDelay")!;
+
     this.timeoutHandle = setTimeout(() => {
       this.addDecorations();
 
       this.timeoutHandle = null;
-    }, DECORATION_DEBOUNCE_DELAY);
+    }, decorationDebounceDelay);
   }
 
   private toggleDecorations() {
