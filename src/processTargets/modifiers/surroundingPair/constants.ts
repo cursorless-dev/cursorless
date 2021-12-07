@@ -11,4 +11,5 @@ export const ALLOWABLE_ANGLE_BRACKET_PARENTS = [
   "jsx_self_closing_element",
   "self_closing_tag",
   "start_tag",
+  "type_parameters",
 ];
