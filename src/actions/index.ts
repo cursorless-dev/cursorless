@@ -29,6 +29,7 @@ import { Sort, Reverse } from "./Sort";
 import Call from "./Call";
 import WrapWithSnippet from "./WrapWithSnippet";
 import Deselect from "./Deselect";
+import Rewrap from "./Rewrap";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -57,6 +58,7 @@ class Actions implements ActionRecord {
   replace = new Replace(this.graph);
   replaceWithTarget = new Bring(this.graph);
   reverseTargets = new Reverse(this.graph);
+  rewrapWithPairedDelimiter = new Rewrap(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
   scrollToTop = new ScrollToTop(this.graph);
