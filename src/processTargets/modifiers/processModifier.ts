@@ -3,7 +3,6 @@ import { range } from "lodash";
 import { Location, Position, Range, Selection } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { SUBWORD_MATCHER } from "../../core/constants";
-import { getNodeMatcher } from "../../languages";
 import { selectionWithEditorFromRange } from "../../util/selectionUtils";
 import {
   ContainingScopeModifier,
@@ -17,6 +16,7 @@ import {
   TailModifier,
 } from "../../typings/Types";
 import { processSurroundingPair } from "./surroundingPair";
+import { getNodeMatcher } from "../../languages/getNodeMatcher";
 
 export type SelectionWithEditorWithContext = {
   selection: SelectionWithEditor;
