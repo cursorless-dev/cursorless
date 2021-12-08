@@ -204,12 +204,10 @@ function findSurroundingPairContainedInNode(
             delimiterTextToDelimiterInfoMap[delimiterNode.type];
 
           // Distinguish between a greater-than sign and an angle bracket by
-          // looking at its parent type
+          // looking at its position within its parent node.
           if (
             delimiterInfo.delimiter === "angleBrackets" &&
-            !ALLOWABLE_ANGLE_BRACKET_PARENTS.includes(
-              delimiterNode.parent?.type!
-            )
+            inferDelimiterSide(delimiterNode) !== delimiterInfo.side
           ) {
             return undefined;
           }
