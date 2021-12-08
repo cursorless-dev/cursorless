@@ -174,7 +174,7 @@ export type Modifier =
 
 export type SelectionType =
   //   | "character" Not implemented
-  "token" | "line" | "notebookCell" | "paragraph" | "document" | "column";
+  "token" | "line" | "notebookCell" | "paragraph" | "document";
 
 export type Position = "before" | "after" | "contents";
 
@@ -195,6 +195,7 @@ export interface PartialRangeTarget {
   end: PartialPrimitiveTarget;
   excludeStart?: boolean;
   excludeEnd?: boolean;
+  rangeType?: RangeType;
 }
 
 export interface PartialListTarget {
@@ -222,7 +223,12 @@ export interface RangeTarget {
   active: PrimitiveTarget;
   excludeAnchor: boolean;
   excludeActive: boolean;
+  rangeType: RangeType;
 }
+
+// continuous is one single continuous selection between the two targets
+// vertical puts a selection on each line vertically between the two targets
+export type RangeType = "continuous" | "vertical";
 
 export interface ListTarget {
   type: "list";

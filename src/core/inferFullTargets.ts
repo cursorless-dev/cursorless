@@ -75,6 +75,7 @@ function inferRangeTarget(
     type: "range",
     excludeAnchor: target.excludeStart ?? false,
     excludeActive: target.excludeEnd ?? false,
+    rangeType: target.rangeType ?? "continuous",
     anchor: inferPrimitiveTarget(
       target.start,
       previousTargets,

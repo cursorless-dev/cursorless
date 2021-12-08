@@ -82,85 +82,98 @@ function processRangeTarget(
         activeSelection.start
       );
 
-      // Selection type column is actually a special form of ranged target
-      if (
-        anchorTarget.selectionType === "column" ||
-        activeTarget.selectionType === "column"
-      ) {
-        return processColumnTarget(
-          target,
-          anchorTarget,
-          activeTarget,
-          isForward
-        );
+      switch (target.rangeType) {
+        case "continuous":
+          return processContinuousRangeTarget(
+            target,
+            anchorTarget,
+            activeTarget,
+            isForward
+          );
+        case "vertical":
+          return processVerticalRangeTarget(
+            target,
+            anchorTarget,
+            activeTarget,
+            isForward
+          );
       }
-
-      const anchor = targetToRangeLimitPosition(
-        anchorTarget,
-        isForward,
-        !target.excludeAnchor
-      );
-      const active = targetToRangeLimitPosition(
-        activeTarget,
-        !isForward,
-        !target.excludeActive
-      );
-
-      const outerAnchor = target.excludeAnchor
-        ? null
-        : isForward
-        ? anchorTarget.selectionContext.outerSelection?.start
-        : anchorTarget.selectionContext.outerSelection?.end;
-      const outerActive = target.excludeActive
-        ? null
-        : isForward
-        ? activeTarget.selectionContext.outerSelection?.end
-        : activeTarget.selectionContext.outerSelection?.start;
-      const outerSelection =
-        outerAnchor != null || outerActive != null
-          ? new Selection(outerAnchor ?? anchor, outerActive ?? active)
-          : null;
-
-      const startSelectionContext = target.excludeAnchor
-        ? null
-        : anchorTarget.selectionContext;
-      const endSelectionContext = target.excludeActive
-        ? null
-        : activeTarget.selectionContext;
-      const leadingDelimiterRange = isForward
-        ? startSelectionContext?.leadingDelimiterRange
-        : endSelectionContext?.leadingDelimiterRange;
-      const trailingDelimiterRange = isForward
-        ? endSelectionContext?.trailingDelimiterRange
-        : startSelectionContext?.trailingDelimiterRange;
-
-      return {
-        selection: {
-          selection: new Selection(anchor, active),
-          editor: anchorTarget.selection.editor,
-        },
-        selectionType: anchorTarget.selectionType,
-        selectionContext: {
-          containingListDelimiter:
-            anchorTarget.selectionContext.containingListDelimiter,
-          isInDelimitedList: anchorTarget.selectionContext.isInDelimitedList,
-          leadingDelimiterRange,
-          trailingDelimiterRange,
-          outerSelection,
-        },
-        insideOutsideType: anchorTarget.insideOutsideType,
-        position: "contents",
-      };
     }
   );
 }
 
-function processColumnTarget(
+function processContinuousRangeTarget(
   target: RangeTarget,
   anchorTarget: TypedSelection,
   activeTarget: TypedSelection,
   isForward: boolean
-) {
+): TypedSelection[] {
+  const anchor = targetToRangeLimitPosition(
+    anchorTarget,
+    isForward,
+    !target.excludeAnchor
+  );
+  const active = targetToRangeLimitPosition(
+    activeTarget,
+    !isForward,
+    !target.excludeActive
+  );
+
+  const outerAnchor = target.excludeAnchor
+    ? null
+    : isForward
+    ? anchorTarget.selectionContext.outerSelection?.start
+    : anchorTarget.selectionContext.outerSelection?.end;
+  const outerActive = target.excludeActive
+    ? null
+    : isForward
+    ? activeTarget.selectionContext.outerSelection?.end
+    : activeTarget.selectionContext.outerSelection?.start;
+  const outerSelection =
+    outerAnchor != null || outerActive != null
+      ? new Selection(outerAnchor ?? anchor, outerActive ?? active)
+      : null;
+
+  const startSelectionContext = target.excludeAnchor
+    ? null
+    : anchorTarget.selectionContext;
+  const endSelectionContext = target.excludeActive
+    ? null
+    : activeTarget.selectionContext;
+  const leadingDelimiterRange = isForward
+    ? startSelectionContext?.leadingDelimiterRange
+    : endSelectionContext?.leadingDelimiterRange;
+  const trailingDelimiterRange = isForward
+    ? endSelectionContext?.trailingDelimiterRange
+    : startSelectionContext?.trailingDelimiterRange;
+
+  return [
+    {
+      selection: {
+        selection: new Selection(anchor, active),
+        editor: anchorTarget.selection.editor,
+      },
+      selectionType: anchorTarget.selectionType,
+      selectionContext: {
+        containingListDelimiter:
+          anchorTarget.selectionContext.containingListDelimiter,
+        isInDelimitedList: anchorTarget.selectionContext.isInDelimitedList,
+        leadingDelimiterRange,
+        trailingDelimiterRange,
+        outerSelection,
+      },
+      insideOutsideType: anchorTarget.insideOutsideType,
+      position: "contents",
+    },
+  ];
+}
+
+function processVerticalRangeTarget(
+  target: RangeTarget,
+  anchorTarget: TypedSelection,
+  activeTarget: TypedSelection,
+  isForward: boolean
+): TypedSelection[] {
   const anchorLine = targetToLineLimitPosition(
     anchorTarget,
     isForward,
@@ -186,7 +199,7 @@ function processColumnTarget(
         ),
         editor: anchorTarget.selection.editor,
       },
-      selectionType: "column",
+      selectionType: anchorTarget.selectionType,
       selectionContext: {
         containingListDelimiter:
           anchorTarget.selectionContext.containingListDelimiter,
