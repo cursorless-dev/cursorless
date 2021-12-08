@@ -2,6 +2,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import { SelectionWithEditor } from "../typings/Types";
 import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";
 import { stringTextFragmentExtractor as javaStringTextFragmentExtractor } from "./java";
+import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } from "./typescript";
 import { UnsupportedLanguageError } from "../errors";
 import { Range } from "vscode";
 import { SupportedLanguageId } from "./constants";
@@ -34,6 +35,10 @@ function constructDefaultTextFragmentExtractor(
       commentNodeMatcher !== notSupported &&
       commentNodeMatcher(selection, node) != null
     ) {
+      return getNodeRange(node);
+    }
+
+    if (node.type === "ERROR") {
       return getNodeRange(node);
     }
 
@@ -83,8 +88,14 @@ const textFragmentExtractors: Record<
     "java",
     javaStringTextFragmentExtractor
   ),
-  javascript: constructDefaultTextFragmentExtractor("javascript"),
-  javascriptreact: constructDefaultTextFragmentExtractor("javascriptreact"),
+  javascript: constructDefaultTextFragmentExtractor(
+    "javascript",
+    typescriptStringTextFragmentExtractor
+  ),
+  javascriptreact: constructDefaultTextFragmentExtractor(
+    "javascriptreact",
+    typescriptStringTextFragmentExtractor
+  ),
   jsonc: constructDefaultTextFragmentExtractor(
     "jsonc",
     jsonStringTextFragmentExtractor
@@ -94,6 +105,12 @@ const textFragmentExtractors: Record<
     jsonStringTextFragmentExtractor
   ),
   python: constructDefaultTextFragmentExtractor("python"),
-  typescript: constructDefaultTextFragmentExtractor("typescript"),
-  typescriptreact: constructDefaultTextFragmentExtractor("typescriptreact"),
+  typescript: constructDefaultTextFragmentExtractor(
+    "typescript",
+    typescriptStringTextFragmentExtractor
+  ),
+  typescriptreact: constructDefaultTextFragmentExtractor(
+    "typescriptreact",
+    typescriptStringTextFragmentExtractor
+  ),
 };

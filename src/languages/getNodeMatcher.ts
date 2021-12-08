@@ -10,7 +10,7 @@ import {
 import cpp from "./cpp";
 import csharp from "./csharp";
 import { patternMatchers as json } from "./json";
-import typescript from "./typescript";
+import { patternMatchers as typescript } from "./typescript";
 import { patternMatchers as java } from "./java";
 import python from "./python";
 import { UnsupportedLanguageError } from "../errors";
