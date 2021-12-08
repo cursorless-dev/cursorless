@@ -14,6 +14,7 @@ import {
   SelectionWithEditor,
 } from "../typings/Types";
 import {
+  getNodeInternalRange,
   getNodeRange,
   selectWithLeadingDelimiter,
 } from "../util/nodeSelectors";
@@ -177,14 +178,17 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);
 
-const STRING_FRAGMENT_TYPES = ["string_fragment", "template_string"];
-
 export function stringTextFragmentExtractor(
   node: SyntaxNode,
   selection: SelectionWithEditor
 ) {
-  if (STRING_FRAGMENT_TYPES.includes(node.type)) {
+  if (node.type === "string_fragment") {
     return getNodeRange(node);
+  }
+
+  if (node.type === "template_string") {
+    // Exclude starting and ending quotation marks
+    return getNodeInternalRange(node);
   }
 
   return null;

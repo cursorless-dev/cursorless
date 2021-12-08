@@ -6,7 +6,11 @@ import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } 
 import { UnsupportedLanguageError } from "../errors";
 import { Range } from "vscode";
 import { SupportedLanguageId } from "./constants";
-import { getNodeRange, makeRangeFromPositions } from "../util/nodeSelectors";
+import {
+  getNodeInternalRange,
+  getNodeRange,
+  makeRangeFromPositions,
+} from "../util/nodeSelectors";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { notSupported } from "../util/nodeMatchers";
 
@@ -55,12 +59,8 @@ function constructDefaultStringTextFragmentExtractor(
 
   return (node: SyntaxNode, selection: SelectionWithEditor) => {
     if (stringNodeMatcher(selection, node) != null) {
-      const children = node.children;
-
-      return makeRangeFromPositions(
-        children[0].endPosition,
-        children[children.length - 1].startPosition
-      );
+      // Exclude starting and ending quotation marks
+      return getNodeInternalRange(node);
     }
 
     return null;

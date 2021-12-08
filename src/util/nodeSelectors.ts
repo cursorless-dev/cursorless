@@ -27,6 +27,20 @@ export function getNodeRange(node: SyntaxNode) {
   );
 }
 
+/**
+ * Returns node range excluding the first and last child
+ * @param node The note for which to get the internal range
+ * @returns The internal range of the given node
+ */
+export function getNodeInternalRange(node: SyntaxNode) {
+  const children = node.children;
+
+  return makeRangeFromPositions(
+    children[0].endPosition,
+    children[children.length - 1].startPosition
+  );
+}
+
 export function simpleSelectionExtractor(
   editor: TextEditor,
   node: SyntaxNode
