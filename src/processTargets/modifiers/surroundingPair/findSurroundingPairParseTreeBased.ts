@@ -6,7 +6,6 @@ import {
   SurroundingPairDirection,
 } from "../../../typings/Types";
 import { getNodeRange } from "../../../util/nodeSelectors";
-import { ALLOWABLE_ANGLE_BRACKET_PARENTS } from "./constants";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
