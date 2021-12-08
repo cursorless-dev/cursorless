@@ -38,6 +38,8 @@ function constructDefaultTextFragmentExtractor(
       return getNodeRange(node);
     }
 
+    // Treat error nodes as raw text so that the surrounding pair matcher can
+    // still be useful when we have a bad parse tree
     if (node.type === "ERROR") {
       return getNodeRange(node);
     }
@@ -65,6 +67,16 @@ function constructDefaultStringTextFragmentExtractor(
   };
 }
 
+/**
+ * Returns a function which can be used to extract the range of a text fragment
+ * from within a parsed language. This function should only return a nominal
+ * range for fragments within the document that should be treated like raw text,
+ * such as comments strings or error nodes. In these cases we want our
+ * surrounding pair algorithm to fall back to a pure raw text-based approach.
+ * @param languageId The language for which to get the text fragment extractor
+ * for
+ * @returns The text fragment extractor for the given language
+ */
 export default function getTextFragmentExtractor(
   languageId: string
 ): TextFragmentExtractor {
