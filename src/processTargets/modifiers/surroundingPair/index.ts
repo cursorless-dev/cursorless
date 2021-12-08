@@ -1,19 +1,13 @@
-import { Location, Range } from "vscode";
+import { Location } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
-import { getNodeMatcher } from "../../../languages";
 import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
 import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
 import {
   ComplexSurroundingPairName,
-  NodeMatcher,
   ProcessedTargetsContext,
   SelectionWithEditor,
   SurroundingPairModifier,
 } from "../../../typings/Types";
-import {
-  getNodeRange,
-  makeRangeFromPositions,
-} from "../../../util/nodeSelectors";
 import { SelectionWithEditorWithContext } from "../processModifier";
 import { complexDelimiterMap } from "./delimiterMaps";
 import getTextFragmentExtractor, {

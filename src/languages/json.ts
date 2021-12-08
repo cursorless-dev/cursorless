@@ -16,7 +16,6 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   map: "object",
   list: "array",
   string: "string",
-  comment: "comment",
   collectionKey: trailingMatcher(["pair[key]"], [":"]),
   value: leadingMatcher(["*[value]"], [":"]),
   collectionItem: argumentMatcher("object", "array"),
@@ -24,7 +23,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);
 
-export function textFragmentExtractor(
+export function stringTextFragmentExtractor(
   node: SyntaxNode,
   selection: SelectionWithEditor
 ) {
