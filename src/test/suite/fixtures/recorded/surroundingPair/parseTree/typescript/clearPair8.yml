@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  version: 0
+  version: 1
   spokenForm: clear pair
   action: clearAndSetSelection
   targets:
