@@ -6,12 +6,10 @@ import {
   SurroundingPairDirection,
 } from "../../../typings/Types";
 import { getNodeRange } from "../../../util/nodeSelectors";
-import { ALLOWABLE_ANGLE_BRACKET_PARENTS } from "./constants";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import {
-  DelimiterSide,
   IndividualDelimiter,
   Offsets,
   PossibleDelimiterOccurrence,
@@ -204,12 +202,10 @@ function findSurroundingPairContainedInNode(
             delimiterTextToDelimiterInfoMap[delimiterNode.type];
 
           // Distinguish between a greater-than sign and an angle bracket by
-          // looking at its parent type
+          // looking at its position within its parent node.
           if (
             delimiterInfo.delimiter === "angleBrackets" &&
-            !ALLOWABLE_ANGLE_BRACKET_PARENTS.includes(
-              delimiterNode.parent?.type!
-            )
+            inferDelimiterSide(delimiterNode) !== delimiterInfo.side
           ) {
             return undefined;
           }
