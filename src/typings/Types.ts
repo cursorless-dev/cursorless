@@ -226,7 +226,9 @@ export interface RangeTarget {
   rangeType: RangeType;
 }
 
-export type RangeType = "vertical" | "continuous";
+// continuous is one single continuous selection between the two targets
+// vertical puts a selection on each line vertically between the two targets
+export type RangeType = "continuous" | "vertical";
 
 export interface ListTarget {
   type: "list";
