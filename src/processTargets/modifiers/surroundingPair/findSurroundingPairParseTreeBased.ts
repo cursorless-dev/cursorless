@@ -10,7 +10,6 @@ import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFr
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import {
-  DelimiterSide,
   IndividualDelimiter,
   Offsets,
   PossibleDelimiterOccurrence,
