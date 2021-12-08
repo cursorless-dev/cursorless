@@ -6,7 +6,7 @@ like `hello world`), positioning your cursor where you want, tell cursorless to
 start recording, and then issue one or more cursorless commands. It works by
 recording the initial state of the file including cursor position(s), the
 command run, and the final state, all in the form of a yaml document. See
-[existing test cases](../src/test/suite/fixtures/recorded) for example outputs.
+[existing test cases](../../src/test/suite/fixtures/recorded) for example outputs.
 
 ## Initial setup
 
@@ -25,7 +25,7 @@ command run, and the final state, all in the form of a yaml document. See
 1. Start debugging (F5)
 1. Create a minimal file to use for recording tests. And position your cursor
    where you'd like. Check out the `initialState.documentContents` field of
-   [existing test cases](../src/test/suite/fixtures/recorded) for examples.
+   [existing test cases](../../src/test/suite/fixtures/recorded) for examples.
 1. Issue the `"cursorless record"` command
    - List of target directories is shown. All test cases will be put into the
      given subdirectory of `src/test/suite/fixtures/recorded`
@@ -68,6 +68,6 @@ To upgrade all the test fixtures to the latest command version, run the command 
 
 1. Add a new transformation to the `src/scripts/transformRecordedTests/transformations` directory. Look at the existing transformations in that directory for inspiration.
 1. Change the value at the `custom` key in `AVAILABLE_TRANSFORMATIONS` at the top of
-   [`transformRecordedTests/index.ts`](../src/scripts/transformRecordedTests/index.ts) to
+   [`transformRecordedTests/index.ts`](../../src/scripts/transformRecordedTests/index.ts) to
    point to your new transformation
 1. Run `yarn run compile && node ./out/scripts/transformRecordedTests/index.js custom`
