@@ -76,7 +76,11 @@ const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
 function typeMatcher(): NodeMatcher {
   const delimiterSelector = selectWithLeadingDelimiter(":");
   return function (selection: SelectionWithEditor, node: SyntaxNode) {
-    if (node.parent?.type === "new_expression" && node.type !== "new") {
+    if (
+      node.parent?.type === "new_expression" &&
+      node.type !== "new" &&
+      node.type !== "arguments"
+    ) {
       const identifierNode = node.parent.children.find(
         (n) => n.type === "identifier"
       );
