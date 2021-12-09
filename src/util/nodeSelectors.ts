@@ -1,6 +1,7 @@
 import { SyntaxNode, Point } from "web-tree-sitter";
 import { Position, Range, Selection, TextEditor } from "vscode";
 import { SelectionWithContext, SelectionExtractor } from "../typings/Types";
+import { identity } from "lodash";
 
 export function makeRangeFromPositions(
   startPosition: Point,
@@ -202,22 +203,29 @@ export function delimitersSelector(...delimiters: string[]) {
 
 export function delimitedSelector(
   isDelimiterNode: (node: SyntaxNode) => boolean,
-  defaultDelimiter: string
+  defaultDelimiter: string,
+  getStartNode: (node: SyntaxNode) => SyntaxNode = identity,
+  getEndNode: (node: SyntaxNode) => SyntaxNode = identity
 ): SelectionExtractor {
   return (editor: TextEditor, node: SyntaxNode) => {
     let containingListDelimiter: string | null = null;
     let leadingDelimiterRange: Range | null = null;
     let trailingDelimiterRange: Range | null = null;
+    const startNode = getStartNode(node);
+    const endNode = getEndNode(node);
 
-    const nextNonDelimiterNode = getNextNonDelimiterNode(node, isDelimiterNode);
+    const nextNonDelimiterNode = getNextNonDelimiterNode(
+      endNode,
+      isDelimiterNode
+    );
     const previousNonDelimiterNode = getPreviousNonDelimiterNode(
-      node,
+      startNode,
       isDelimiterNode
     );
 
     if (nextNonDelimiterNode != null) {
       trailingDelimiterRange = makeRangeFromPositions(
-        node.endPosition,
+        endNode.endPosition,
         nextNonDelimiterNode.startPosition
       );
 
@@ -227,7 +235,7 @@ export function delimitedSelector(
     if (previousNonDelimiterNode != null) {
       leadingDelimiterRange = makeRangeFromPositions(
         previousNonDelimiterNode.endPosition,
-        node.startPosition
+        startNode.startPosition
       );
 
       if (containingListDelimiter == null) {
@@ -242,7 +250,13 @@ export function delimitedSelector(
     }
 
     return {
-      ...simpleSelectionExtractor(editor, node),
+      selection: new Selection(
+        new Position(
+          startNode.startPosition.row,
+          startNode.startPosition.column
+        ),
+        new Position(endNode.endPosition.row, endNode.endPosition.column)
+      ),
       context: {
         isInDelimitedList: true,
         containingListDelimiter,
