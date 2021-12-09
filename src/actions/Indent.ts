@@ -3,12 +3,12 @@ import CommandAction from "./CommandAction";
 
 export class IndentLines extends CommandAction {
   constructor(graph: Graph) {
-    super(graph, "editor.action.indentLines");
+    super(graph, { command: "editor.action.indentLines" });
   }
 }
 
 export class OutdentLines extends CommandAction {
   constructor(graph: Graph) {
-    super(graph, "editor.action.outdentLines");
+    super(graph, { command: "editor.action.outdentLines" });
   }
 }

@@ -22,18 +22,22 @@ export default class CommandAction implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
     { insideOutsideType: "inside" },
   ];
+  private command: string;
   private ensureSingleEditor: boolean;
 
   constructor(
     private graph: Graph,
-    private command: string,
-    { ensureSingleEditor = false } = {}
+    { command = "", ensureSingleEditor = false } = {}
   ) {
     this.run = this.run.bind(this);
+    this.command = command;
     this.ensureSingleEditor = ensureSingleEditor;
   }
 
-  private async runCommandAndUpdateSelections(targets: TypedSelection[]) {
+  private async runCommandAndUpdateSelections(
+    targets: TypedSelection[],
+    command: string
+  ) {
     return flatten(
       await runOnTargetsForEachEditor<SelectionWithEditor[]>(
         targets,
@@ -50,7 +54,7 @@ export default class CommandAction implements Action {
           const [updatedOriginalSelections, updatedTargetSelections] =
             await callFunctionAndUpdateSelections(
               this.graph.rangeUpdater,
-              () => commands.executeCommand(this.command),
+              () => commands.executeCommand(command),
               editor.document,
               [originalSelections, targetSelections]
             );
@@ -69,7 +73,7 @@ export default class CommandAction implements Action {
 
   async run(
     [targets]: [TypedSelection[]],
-    { showDecorations = true } = {}
+    { command = "", showDecorations = true } = {}
   ): Promise<ActionReturnValue> {
     if (showDecorations) {
       await displayPendingEditDecorations(
@@ -84,7 +88,10 @@ export default class CommandAction implements Action {
 
     const originalEditor = window.activeTextEditor;
 
-    const thatMark = await this.runCommandAndUpdateSelections(targets);
+    const thatMark = await this.runCommandAndUpdateSelections(
+      targets,
+      command || this.command
+    );
 
     // If necessary focus back original editor
     if (originalEditor != null && originalEditor !== window.activeTextEditor) {
