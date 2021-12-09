@@ -54,6 +54,10 @@ export function simpleSelectionExtractor(
   };
 }
 
+/**
+ * Extracts a selection from the first node to the second node.
+ * Both nodes are included in the selected nodes
+*/
 export function pairSelectionExtractor(
   editor: TextEditor,
   node1: SyntaxNode,
