@@ -1,12 +1,12 @@
 languageId: typescript
 command:
-  version: 0
+  version: 1
   spokenForm: clear type langle
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: <, usePrePhraseSnapshot: true}
+      mark: {type: decoratedSymbol, symbolColor: default, character: <}
 initialState:
   documentContents: "const foo: string = new Bar<number>(foo);"
   selections:

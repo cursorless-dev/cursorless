@@ -1,12 +1,12 @@
 languageId: typescript
 command:
-  version: 0
+  version: 1
   spokenForm: clear type whale
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: w, usePrePhraseSnapshot: true}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
 initialState:
   documentContents: "const foo: string = new Bar<number>(foo);"
   selections:
