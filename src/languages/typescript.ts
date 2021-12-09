@@ -9,14 +9,18 @@ import {
   conditionMatcher,
 } from "../util/nodeMatchers";
 import {
+  NodeMatcher,
   NodeMatcherAlternative,
+  NodeMatcherValue,
   ScopeType,
   SelectionWithEditor,
 } from "../typings/Types";
 import {
   getNodeInternalRange,
   getNodeRange,
+  pairSelectionExtractor,
   selectWithLeadingDelimiter,
+  simpleSelectionExtractor,
 } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";
 
@@ -69,12 +73,46 @@ const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
   return startTag != null && endTag != null ? startTag.concat(endTag) : null;
 };
 
-const findTypeNode = (node: SyntaxNode) => {
-  const typeAnnotationNode = node.children.find((child) =>
-    ["type_annotation", "opting_type_annotation"].includes(child.type)
-  );
-  return typeAnnotationNode?.lastChild ?? null;
-};
+function typeMatcher(): NodeMatcher {
+  const delimiterSelector = selectWithLeadingDelimiter(":");
+  return function (selection: SelectionWithEditor, node: SyntaxNode) {
+    if (node.parent?.type === "new_expression" && node.type !== "new") {
+      const identifierNode = node.parent.children.find(
+        (n) => n.type === "identifier"
+      );
+      const argsNode = node.parent.children.find(
+        (n) => n.type === "type_arguments"
+      );
+      if (identifierNode && argsNode) {
+        return [
+          {
+            node,
+            selection: pairSelectionExtractor(
+              selection.editor,
+              identifierNode,
+              argsNode
+            ),
+          },
+        ];
+      }
+    }
+
+    const typeAnnotationNode = node.children.find((child) =>
+      ["type_annotation", "opting_type_annotation"].includes(child.type)
+    );
+    const targetNode = typeAnnotationNode?.lastChild;
+
+    if (targetNode) {
+      return [
+        {
+          node: targetNode,
+          selection: delimiterSelector(selection.editor, targetNode),
+        },
+      ];
+    }
+    return null;
+  };
+}
 
 function valueMatcher() {
   const pFinder = patternFinder("assignment_expression[right]", "*[value]");
@@ -160,7 +198,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ],
   type: cascadingMatcher(
     // Typed parameters, properties, and functions
-    matcher(findTypeNode, selectWithLeadingDelimiter(":")),
+    typeMatcher(),
+    // matcher(findTypeNode, selectWithLeadingDelimiter(":")),
     // Type alias/interface declarations
     patternMatcher(
       "export_statement?.type_alias_declaration",
