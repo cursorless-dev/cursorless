@@ -98,6 +98,16 @@ function typeMatcher(): NodeMatcher {
             ),
           },
         ];
+      } else if (identifierNode) {
+        return [
+          {
+            node: identifierNode,
+            selection: simpleSelectionExtractor(
+              selection.editor,
+              identifierNode
+            ),
+          },
+        ];
       }
     }
 
