@@ -14,29 +14,39 @@ import {
   setSelectionsAndFocusEditor,
 } from "../util/setSelectionsAndFocusEditor";
 import { flatten } from "lodash";
-
 import { ensureSingleEditor } from "../util/targetUtils";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import sleep from "../util/sleep";
+
+export interface CommandArguments {
+  command?: string;
+  restoreSelection?: boolean;
+  ensureSingleEditor?: boolean;
+  showDecorations?: boolean;
+  preCommandSleep?: number;
+  postCommandSleep?: number;
+}
+
+const defaultArguments: CommandArguments = {
+  restoreSelection: true,
+  ensureSingleEditor: false,
+  showDecorations: false,
+  preCommandSleep: 0,
+  postCommandSleep: 0,
+};
 
 export default class CommandAction implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
     { insideOutsideType: "inside" },
   ];
-  private command: string;
-  private ensureSingleEditor: boolean;
 
-  constructor(
-    private graph: Graph,
-    { command = "", ensureSingleEditor = false } = {}
-  ) {
+  constructor(private graph: Graph, private args: CommandArguments = {}) {
     this.run = this.run.bind(this);
-    this.command = command;
-    this.ensureSingleEditor = ensureSingleEditor;
   }
 
   private async runCommandAndUpdateSelections(
     targets: TypedSelection[],
-    command: string
+    args: CommandArguments
   ) {
     return flatten(
       await runOnTargetsForEachEditor<SelectionWithEditor[]>(
@@ -51,16 +61,26 @@ export default class CommandAction implements Action {
           // For command to the work we have to have the correct editor focused
           await setSelectionsAndFocusEditor(editor, targetSelections, false);
 
+          if (args.preCommandSleep) {
+            await sleep(args.preCommandSleep);
+          }
+
           const [updatedOriginalSelections, updatedTargetSelections] =
             await callFunctionAndUpdateSelections(
               this.graph.rangeUpdater,
-              () => commands.executeCommand(command),
+              () => commands.executeCommand(args.command!),
               editor.document,
               [originalSelections, targetSelections]
             );
 
+          if (args.postCommandSleep) {
+            await sleep(args.postCommandSleep);
+          }
+
           // Reset original selections
-          editor.selections = updatedOriginalSelections;
+          if (args.restoreSelection) {
+            editor.selections = updatedOriginalSelections;
+          }
 
           return updatedTargetSelections.map((selection) => ({
             editor,
@@ -73,16 +93,18 @@ export default class CommandAction implements Action {
 
   async run(
     [targets]: [TypedSelection[]],
-    { command = "", showDecorations = true } = {}
+    args: CommandArguments = {}
   ): Promise<ActionReturnValue> {
-    if (showDecorations) {
+    const actualArgs = Object.assign({}, defaultArguments, this.args, args);
+
+    if (actualArgs.showDecorations) {
       await displayPendingEditDecorations(
         targets,
         this.graph.editStyles.referenced
       );
     }
 
-    if (this.ensureSingleEditor) {
+    if (actualArgs.ensureSingleEditor) {
       ensureSingleEditor(targets);
     }
 
@@ -90,11 +112,15 @@ export default class CommandAction implements Action {
 
     const thatMark = await this.runCommandAndUpdateSelections(
       targets,
-      command || this.command
+      actualArgs
     );
 
     // If necessary focus back original editor
-    if (originalEditor != null && originalEditor !== window.activeTextEditor) {
+    if (
+      actualArgs.restoreSelection &&
+      originalEditor != null &&
+      originalEditor !== window.activeTextEditor
+    ) {
       await focusEditor(originalEditor);
     }
 

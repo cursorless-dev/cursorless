@@ -1,12 +1,10 @@
 import { TextEditorDecorationType, workspace } from "vscode";
 import { TypedSelection, SelectionWithEditor } from "../typings/Types";
 import { isLineSelectionType } from "./selectionType";
-import { promisify } from "util";
 import { runOnTargetsForEachEditor, runForEachEditor } from "./targetUtils";
 import { EditStyle } from "../core/editStyles";
 import isTesting from "../testUtil/isTesting";
-
-const sleep = promisify(setTimeout);
+import sleep from "./sleep";
 
 const getPendingEditDecorationTime = () =>
   workspace

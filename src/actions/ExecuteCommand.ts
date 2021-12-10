@@ -5,7 +5,7 @@ import {
   Graph,
   TypedSelection,
 } from "../typings/Types";
-import CommandAction from "./CommandAction";
+import CommandAction, { CommandArguments } from "./CommandAction";
 
 export default class ExecuteCommand implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
@@ -20,8 +20,9 @@ export default class ExecuteCommand implements Action {
 
   async run(
     targets: [TypedSelection[]],
-    command: string
+    command: string,
+    args: CommandArguments = {}
   ): Promise<ActionReturnValue> {
-    return this.commandAction.run(targets, { command });
+    return this.commandAction.run(targets, { ...args, command });
   }
 }
