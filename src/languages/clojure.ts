@@ -30,6 +30,12 @@ function parityNodeFinder(parity: 0 | 1) {
 
     const nodeIndex = valueNodes.findIndex(({ id }) => id === node.id);
 
+    if (nodeIndex === -1) {
+      // TODO: In the future we might conceivably try to handle saying "take
+      // item" when the selection is inside a comment between the key and value
+      return null;
+    }
+
     return valueNodes[Math.floor(nodeIndex / 2) * 2 + parity];
   };
 }
