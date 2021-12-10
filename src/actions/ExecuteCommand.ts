@@ -7,7 +7,7 @@ import {
 } from "../typings/Types";
 import CommandAction from "./CommandAction";
 
-export default class RunCommandOnSelection implements Action {
+export default class ExecuteCommand implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
     { insideOutsideType: "inside" },
   ];
