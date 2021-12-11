@@ -1,25 +1,31 @@
-import { createPatternMatchers, matcher } from "../util/nodeMatchers";
 import {
-  ScopeType,
-  NodeMatcherAlternative,
-  SelectionWithContext,
-} from "../typings/Types";
+  cascadingMatcher,
+  createPatternMatchers,
+  matcher,
+} from "../util/nodeMatchers";
+import { ScopeType, NodeMatcherAlternative } from "../typings/Types";
 import { SyntaxNode } from "web-tree-sitter";
-import { Position, Selection, TextEditor } from "vscode";
-import {
-  delimitedSelector,
-  makeRangeFromPositions,
-} from "../util/nodeSelectors";
+import { delimitedSelector } from "../util/nodeSelectors";
 import { identity } from "lodash";
 import { getChildNodesForFieldName } from "../util/treeSitterUtils";
 
 function parityNodeFinder(parity: 0 | 1) {
+  return indexNodeFinder(
+    (nodeIndex: number) => Math.floor(nodeIndex / 2) * 2 + parity,
+    "map_lit"
+  );
+}
+
+function indexNodeFinder(
+  indexMatcher: (index: number) => number,
+  parentType?: string
+) {
   return (node: SyntaxNode) => {
     const parent = node.parent;
 
     if (
       parent == null ||
-      parent.type !== "map_lit" ||
+      (parentType != null && parent.type !== parentType) ||
       node.type === "{" ||
       node.type === "}"
     ) {
@@ -36,8 +42,18 @@ function parityNodeFinder(parity: 0 | 1) {
       return null;
     }
 
-    return valueNodes[Math.floor(nodeIndex / 2) * 2 + parity];
+    const desiredIndex = indexMatcher(nodeIndex);
+
+    if (desiredIndex === -1) {
+      return null;
+    }
+
+    return valueNodes[desiredIndex];
   };
+}
+
+function itemFinder() {
+  return indexNodeFinder((nodeIndex: number) => nodeIndex);
 }
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
@@ -45,16 +61,25 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   map: "map_lit",
 
   collectionKey: matcher(parityNodeFinder(0)),
-  collectionItem: matcher(
-    parityNodeFinder(0),
-    delimitedSelector(
-      (node) => node.type === "{" || node.type === "}",
-      ", ",
-      identity,
-      parityNodeFinder(1) as (node: SyntaxNode) => SyntaxNode
-    )
+  collectionItem: cascadingMatcher(
+    matcher(
+      parityNodeFinder(0),
+      delimitedSelector(
+        (node) => node.type === "{" || node.type === "}",
+        ", ",
+        identity,
+        parityNodeFinder(1) as (node: SyntaxNode) => SyntaxNode
+      )
+    ),
+    // TODO: Require parent not to be a function call
+    matcher(itemFinder())
   ),
   value: matcher(parityNodeFinder(1)),
+
+  // TODO: Require parent to actually be a function call
+  argumentOrParameter: matcher(
+    indexNodeFinder((nodeIndex: number) => (nodeIndex !== 0 ? nodeIndex : -1))
+  ),
 
   // A list is either a vector literal or a quoted list literal
   list: ["vec_lit", "quoting_lit.list_lit"],
