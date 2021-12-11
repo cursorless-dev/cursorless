@@ -8,10 +8,13 @@ import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import isTesting from "./testUtil/isTesting";
 import CommandRunner from "./core/commandRunner/CommandRunner";
+import updateMissingSetting from "./util/updateMissingSetting";
 
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
+
+  updateMissingSetting("editor.padding.top", 5);
 
   const graph = makeGraph({
     ...graphFactories,
