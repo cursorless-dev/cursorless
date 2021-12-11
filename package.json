@@ -402,7 +402,7 @@
 				}
 			}
 		},
-        "languages": [
+		"languages": [
 			{
 				"id": "json",
 				"extensions": [
