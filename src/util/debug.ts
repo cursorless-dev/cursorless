@@ -21,12 +21,6 @@ export function logBranchTypes(getNodeAtLocation: any) {
       node = node.parent;
     }
 
-    const print = (cursor: TreeCursor, depth: number) => {
-      const field = cursor.currentFieldName();
-      const fieldText = field != null ? `${field}: ` : "";
-      console.debug(">".repeat(depth + 1), `${fieldText}${cursor.nodeType}`);
-    };
-
     const cursor = node.tree.walk();
     print(cursor, 0);
 
@@ -51,3 +45,9 @@ const originalDebugLog = console.debug;
 export function enableDebugLog(enable: boolean) {
   console.debug = enable ? originalDebugLog : () => {};
 }
+
+const print = (cursor: TreeCursor, depth: number) => {
+  const field = cursor.currentFieldName();
+  const fieldText = field != null ? `${field}: ` : "";
+  console.debug(">".repeat(depth + 1), `${fieldText}${cursor.nodeType}`);
+};

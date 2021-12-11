@@ -2,16 +2,19 @@ import * as vscode from "vscode";
 import graphFactories from "./util/graphFactories";
 import { Graph } from "./typings/Types";
 import makeGraph, { FactoryMap } from "./util/makeGraph";
-import { logBranchTypes } from "./util/debug";
+import { enableDebugLog, logBranchTypes } from "./util/debug";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import isTesting from "./testUtil/isTesting";
 import CommandRunner from "./core/commandRunner/CommandRunner";
+import { ExtensionMode } from "vscode";
 
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
+  const isModeDevelop = context.extensionMode === ExtensionMode.Development;
+  enableDebugLog(isModeDevelop);
 
   const graph = makeGraph({
     ...graphFactories,
@@ -95,12 +98,14 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   }
 
-  context.subscriptions.push(
-    cursorlessRecordTestCaseDisposable,
-    vscode.window.onDidChangeTextEditorSelection(
-      logBranchTypes(getNodeAtLocation)
-    )
-  );
+  if (isModeDevelop) {
+    context.subscriptions.push(
+      cursorlessRecordTestCaseDisposable,
+      vscode.window.onDidChangeTextEditorSelection(
+        logBranchTypes(getNodeAtLocation)
+      )
+    );
+  }
 
   return {
     thatMark,

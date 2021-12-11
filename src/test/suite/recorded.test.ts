@@ -18,11 +18,9 @@ import {
 } from "../../testUtil/toPlainObject";
 import { walkFilesSync } from "../../testUtil/walkSync";
 import { getCursorlessApi } from "../../util/getExtensionApi";
-import { enableDebugLog } from "../../util/debug";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 import asyncSafety from "./asyncSafety";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
-import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
 import { openNewEditor } from "../openNewEditor";
 
 function createPosition(position: PositionPlainObject) {
@@ -43,7 +41,6 @@ suite("recorded test cases", async function () {
     "../../../src/test/suite/fixtures/recorded"
   );
   const files = walkFilesSync(directory);
-  enableDebugLog(false);
 
   teardown(() => {
     sinon.restore();
