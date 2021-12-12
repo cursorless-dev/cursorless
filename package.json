@@ -150,6 +150,33 @@
 						},
 						"yellow": {
 							"type": "string"
+						},
+						"userColor1": {
+							"type": "string"
+						},
+						"userColor2": {
+							"type": "string"
+						},
+						"userColor3": {
+							"type": "string"
+						},
+						"userColor4": {
+							"type": "string"
+						},
+						"userColor5": {
+							"type": "string"
+						},
+						"userColor6": {
+							"type": "string"
+						},
+						"userColor7": {
+							"type": "string"
+						},
+						"userColor8": {
+							"type": "string"
+						},
+						"userColor9": {
+							"type": "string"
 						}
 					},
 					"default": {
@@ -183,6 +210,33 @@
 						},
 						"yellow": {
 							"type": "string"
+						},
+						"userColor1": {
+							"type": "string"
+						},
+						"userColor2": {
+							"type": "string"
+						},
+						"userColor3": {
+							"type": "string"
+						},
+						"userColor4": {
+							"type": "string"
+						},
+						"userColor5": {
+							"type": "string"
+						},
+						"userColor6": {
+							"type": "string"
+						},
+						"userColor7": {
+							"type": "string"
+						},
+						"userColor8": {
+							"type": "string"
+						},
+						"userColor9": {
+							"type": "string"
 						}
 					},
 					"default": {
@@ -213,6 +267,33 @@
 						},
 						"yellow": {
 							"type": "boolean"
+						},
+						"userColor1": {
+							"type": "boolean"
+						},
+						"userColor2": {
+							"type": "boolean"
+						},
+						"userColor3": {
+							"type": "boolean"
+						},
+						"userColor4": {
+							"type": "boolean"
+						},
+						"userColor5": {
+							"type": "boolean"
+						},
+						"userColor6": {
+							"type": "boolean"
+						},
+						"userColor7": {
+							"type": "boolean"
+						},
+						"userColor8": {
+							"type": "boolean"
+						},
+						"userColor9": {
+							"type": "boolean"
 						}
 					},
 					"default": {
@@ -220,7 +301,16 @@
 						"green": true,
 						"red": true,
 						"pink": true,
-						"yellow": true
+						"yellow": true,
+						"userColor1": false,
+						"userColor2": false,
+						"userColor3": false,
+						"userColor4": false,
+						"userColor5": false,
+						"userColor6": false,
+						"userColor7": false,
+						"userColor8": false,
+						"userColor9": false
 					},
 					"additionalProperties": false
 				},
@@ -291,6 +381,33 @@
 						},
 						"yellow": {
 							"type": "number"
+						},
+						"userColor1": {
+							"type": "number"
+						},
+						"userColor2": {
+							"type": "number"
+						},
+						"userColor3": {
+							"type": "number"
+						},
+						"userColor4": {
+							"type": "number"
+						},
+						"userColor5": {
+							"type": "number"
+						},
+						"userColor6": {
+							"type": "number"
+						},
+						"userColor7": {
+							"type": "number"
+						},
+						"userColor8": {
+							"type": "number"
+						},
+						"userColor9": {
+							"type": "number"
 						}
 					},
 					"default": {
@@ -298,7 +415,17 @@
 						"green": 1,
 						"red": 1,
 						"pink": 1,
-						"yellow": 1
+						"yellow": 1,
+						"crosshairs": 1,
+						"userColor1": 1,
+						"userColor2": 1,
+						"userColor3": 1,
+						"userColor4": 1,
+						"userColor5": 1,
+						"userColor6": 1,
+						"userColor7": 1,
+						"userColor8": 1,
+						"userColor9": 1
 					},
 					"additionalProperties": false
 				},
