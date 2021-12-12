@@ -46,15 +46,20 @@ class CopyLines implements Action {
     return ranges.map(({ range, isParagraph }) => {
       const delimiter = isParagraph ? "\n\n" : "\n";
       let text = editor.document.getText(range);
+      const length = text.length;
       text = this.isUp ? `${delimiter}${text}` : `${text}${delimiter}`;
       const newRange = this.isUp
         ? new Range(range.end, range.end)
         : new Range(range.start, range.start);
       return {
-        editor,
-        range: newRange,
-        text,
-        isReplace: true,
+        edit: {
+          editor,
+          range: newRange,
+          text,
+          isReplace: true,
+        },
+        offset: delimiter.length,
+        length,
       };
     });
   }
@@ -63,23 +68,43 @@ class CopyLines implements Action {
     const results = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const ranges = this.getRanges(editor, targets);
-        const edits = this.getEdits(editor, ranges);
+        const editWrappers = this.getEdits(editor, ranges);
+        const rangeSelections = ranges.map(
+          ({ range }) => new Selection(range.start, range.end)
+        );
 
         const [editorSelections, copySelections] =
           await performEditsAndUpdateSelections(
             this.graph.rangeUpdater,
             editor,
-            edits,
-            [
-              editor.selections,
-              ranges.map(({ range }) => new Selection(range.start, range.end)),
-            ]
+            editWrappers.map((wrapper) => wrapper.edit),
+            [editor.selections, rangeSelections]
           );
 
         editor.selections = editorSelections;
         editor.revealRange(copySelections[0]);
 
+        let sourceSelections;
+        if (this.isUp) {
+          sourceSelections = editWrappers.map((wrapper) => {
+            const startIndex =
+              editor.document.offsetAt(wrapper.edit.range.start) +
+              wrapper.offset;
+            const endIndex = startIndex + wrapper.length;
+            return new Selection(
+              editor.document.positionAt(startIndex),
+              editor.document.positionAt(endIndex)
+            );
+          });
+        } else {
+          sourceSelections = rangeSelections;
+        }
+
         return {
+          sourceMark: sourceSelections.map((selection) => ({
+            editor,
+            selection,
+          })),
           thatMark: copySelections.map((selection) => ({
             editor,
             selection,
@@ -93,9 +118,10 @@ class CopyLines implements Action {
       this.graph.editStyles.justAdded.token
     );
 
+    const sourceMark = results.flatMap((result) => result.sourceMark);
     const thatMark = results.flatMap((result) => result.thatMark);
 
-    return { thatMark };
+    return { sourceMark, thatMark };
   }
 }
 
