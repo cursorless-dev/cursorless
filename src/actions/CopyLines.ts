@@ -56,7 +56,7 @@ class CopyLines implements Action {
           editor,
           range: newRange,
           text,
-          isReplace: true,
+          isReplace: this.isUp,
         },
         offset: delimiter.length,
         length,
