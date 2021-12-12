@@ -1,0 +1,30 @@
+languageId: plaintext
+command:
+  version: 1
+  spokenForm: clear source
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      mark: {type: source}
+initialState:
+  documentContents: |2-
+        const value = "Hello world";
+        const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
+  marks: {}
+  sourceMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 32}
+finalState:
+  documentContents: |2-
+
+        const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+fullTargets: [{type: primitive, mark: {type: source}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
