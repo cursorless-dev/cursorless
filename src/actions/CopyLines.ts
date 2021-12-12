@@ -46,14 +46,15 @@ class CopyLines implements Action {
     return ranges.map(({ range, isParagraph }) => {
       const delimiter = isParagraph ? "\n\n" : "\n";
       let text = editor.document.getText(range);
-      text = this.isUp ? `${text}${delimiter}` : `${delimiter}${text}`;
+      text = this.isUp ? `${delimiter}${text}` : `${text}${delimiter}`;
       const newRange = this.isUp
-        ? new Range(range.start, range.start)
-        : new Range(range.end, range.end);
+        ? new Range(range.end, range.end)
+        : new Range(range.start, range.start);
       return {
         editor,
         range: newRange,
         text,
+        isReplace: true,
       };
     });
   }
@@ -64,25 +65,22 @@ class CopyLines implements Action {
         const ranges = this.getRanges(editor, targets);
         const edits = this.getEdits(editor, ranges);
 
-        const [updatedSelections, copySelections] =
+        const [editorSelections, copySelections] =
           await performEditsAndUpdateSelections(
             this.graph.rangeUpdater,
             editor,
             edits,
             [
-              targets.map((target) => target.selection.selection),
+              editor.selections,
               ranges.map(({ range }) => new Selection(range.start, range.end)),
             ]
           );
 
-        editor.revealRange(updatedSelections[0]);
+        editor.selections = editorSelections;
+        editor.revealRange(copySelections[0]);
 
         return {
-          thatMark: updatedSelections.map((selection) => ({
-            editor,
-            selection,
-          })),
-          copySelections: copySelections.map((selection) => ({
+          thatMark: copySelections.map((selection) => ({
             editor,
             selection,
           })),
@@ -91,7 +89,7 @@ class CopyLines implements Action {
     );
 
     await displayPendingEditDecorationsForSelection(
-      results.flatMap((result) => result.copySelections),
+      results.flatMap((result) => result.thatMark),
       this.graph.editStyles.justAdded.token
     );
 
@@ -103,12 +101,12 @@ class CopyLines implements Action {
 
 export class CopyLinesUp extends CopyLines {
   constructor(graph: Graph) {
-    super(graph, false);
+    super(graph, true);
   }
 }
 
 export class CopyLinesDown extends CopyLines {
   constructor(graph: Graph) {
-    super(graph, true);
+    super(graph, false);
   }
 }
