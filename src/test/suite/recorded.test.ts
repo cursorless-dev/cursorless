@@ -16,7 +16,6 @@ import {
   SelectionPlainObject,
   SerializedMarks,
 } from "../../testUtil/toPlainObject";
-import { walkFilesSync } from "../../testUtil/walkSync";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { enableDebugLog } from "../../util/debug";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
@@ -24,6 +23,7 @@ import asyncSafety from "./asyncSafety";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
 import { openNewEditor } from "../openNewEditor";
+import getRecordedTestPaths from "./getRecordedTestPaths";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -38,21 +38,17 @@ function createSelection(selection: SelectionPlainObject): vscode.Selection {
 suite("recorded test cases", async function () {
   this.timeout("100s");
   this.retries(5);
-  const directory = path.join(
-    __dirname,
-    "../../../src/test/suite/fixtures/recorded"
-  );
-  const files = walkFilesSync(directory);
+
   enableDebugLog(false);
 
   teardown(() => {
     sinon.restore();
   });
 
-  files.forEach((file) =>
+  getRecordedTestPaths().forEach((path) =>
     test(
-      file.split(".")[0],
-      asyncSafety(() => runTest(file))
+      path.split(".")[0],
+      asyncSafety(() => runTest(path))
     )
   );
 });
