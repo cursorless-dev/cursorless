@@ -2,6 +2,7 @@ export const supportedLanguageIds = [
   "c",
   "cpp",
   "csharp",
+  "html",
   "java",
   "javascript",
   "javascriptreact",

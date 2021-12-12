@@ -12,6 +12,7 @@ import csharp from "./csharp";
 import { patternMatchers as json } from "./json";
 import { patternMatchers as typescript } from "./typescript";
 import { patternMatchers as java } from "./java";
+import { patternMatchers as html } from "./html";
 import python from "./python";
 import { UnsupportedLanguageError } from "../errors";
 import { SupportedLanguageId } from "./constants";
@@ -45,8 +46,9 @@ const languageMatchers: Record<
   Record<ScopeType, NodeMatcher>
 > = {
   c: cpp,
-  cpp: cpp,
-  csharp: csharp,
+  cpp,
+  csharp,
+  html,
   java,
   javascript: typescript,
   javascriptreact: typescript,

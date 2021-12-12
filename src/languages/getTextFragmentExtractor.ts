@@ -9,7 +9,6 @@ import { SupportedLanguageId } from "./constants";
 import {
   getNodeInternalRange,
   getNodeRange,
-  makeRangeFromPositions,
 } from "../util/nodeSelectors";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { notSupported } from "../util/nodeMatchers";
@@ -96,6 +95,7 @@ const textFragmentExtractors: Record<
   c: constructDefaultTextFragmentExtractor("c"),
   cpp: constructDefaultTextFragmentExtractor("cpp"),
   csharp: constructDefaultTextFragmentExtractor("csharp"),
+  html: constructDefaultTextFragmentExtractor("html"),
   java: constructDefaultTextFragmentExtractor(
     "java",
     javaStringTextFragmentExtractor

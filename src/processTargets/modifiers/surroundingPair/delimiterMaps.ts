@@ -9,7 +9,7 @@ export const delimiterToText: Record<
   SimpleSurroundingPairName,
   [IndividualDelimiterText, IndividualDelimiterText]
 > = {
-  angleBrackets: ["<", ">"],
+  angleBrackets: ["<", [">", "/>"]],
   backtickQuotes: ["`", "`"],
   curlyBrackets: [["{", "${"], "}"],
   doubleQuotes: ['"', '"'],
