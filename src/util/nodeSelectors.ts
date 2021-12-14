@@ -55,6 +55,22 @@ export function simpleSelectionExtractor(
   };
 }
 
+export function selectNamedChild(childIdx: number) {
+  return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
+    var child = node.namedChild(childIdx);
+    if (child == null) {
+      child = node;
+    }
+    return {
+      selection: new Selection(
+        new Position(child.startPosition.row, child.startPosition.column),
+        new Position(child.endPosition.row, child.endPosition.column)
+      ),
+      context: {},
+    };
+  };
+};
+
 /**
  * Extracts a selection from the first node to the second node.
  * Both nodes are included in the selected nodes
@@ -300,3 +316,4 @@ export function delimitedSelector(
     };
   };
 }
+

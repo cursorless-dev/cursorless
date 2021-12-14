@@ -13,6 +13,7 @@ import {
   selectWithLeadingDelimiter,
   selectWithTrailingDelimiter,
   unwrapSelectionExtractor as conditionSelectionExtractor,
+  selectNamedChild,
 } from "./nodeSelectors";
 import {
   typedNodeFinder,
@@ -85,6 +86,13 @@ export function argumentMatcher(...parentTypes: string[]): NodeMatcher {
 
 export function conditionMatcher(...patterns: string[]): NodeMatcher {
   return matcher(patternFinder(...patterns), conditionSelectionExtractor);
+}
+
+export function childMatcher(patterns: string[], child: number): NodeMatcher {
+  return matcher(
+      patternFinder(...patterns),
+      selectNamedChild(child)
+    );
 }
 
 /**
