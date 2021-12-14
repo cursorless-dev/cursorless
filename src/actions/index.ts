@@ -30,6 +30,7 @@ import Call from "./Call";
 import WrapWithSnippet from "./WrapWithSnippet";
 import Deselect from "./Deselect";
 import Rewrap from "./Rewrap";
+import ExecuteCommand from "./ExecuteCommand";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -40,6 +41,7 @@ class Actions implements ActionRecord {
   cutToClipboard = new Cut(this.graph);
   editNewLineAfter = new EditNewLineBelow(this.graph);
   editNewLineBefore = new EditNewLineAbove(this.graph);
+  executeCommand = new ExecuteCommand(this.graph);
   extractVariable = new ExtractVariable(this.graph);
   findInWorkspace = new FindInFiles(this.graph);
   foldRegion = new Fold(this.graph);
