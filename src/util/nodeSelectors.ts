@@ -55,7 +55,7 @@ export function simpleSelectionExtractor(
   };
 }
 
-export function selectNamedChild(childIdx: number) {
+export function namedChildAtIndexSelector(childIdx: number) {
   return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
     var child = node.namedChild(childIdx);
     if (child == null) {

@@ -4,7 +4,7 @@ import {
   leadingMatcher,
   conditionMatcher,
   trailingMatcher,
-  childMatcher,
+  childAtIndexMatcher,
   cascadingMatcher,
   patternMatcher,
 } from "../util/nodeMatchers";
@@ -26,7 +26,6 @@ const STATEMENT_TYPES = [
   "send_statement",
   "short_var_declaration",
   "_simple_statement",
-  "block",
   "break_statement",
   "const_declaration",
   "continue_statement",
@@ -55,20 +54,20 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   functionCall: "call_expression",
   comment: "comment",
   namedFunction: ["function_declaration", "method_declaration"],
-  type: cascadingMatcher(
-    patternMatcher("pointer_type"),
-    patternMatcher("qualified_type"),
-    patternMatcher("type_identifier"),
-    patternMatcher("function_declaration[result]"),
-    patternMatcher("method_declaration[result]"),
-  ),
+  type: [
+    "pointer_type",
+    "qualified_type",
+    "type_identifier",
+    "function_declaration[result]",
+    "method_declaration[result]",
+  ],
   functionName: ["function_declaration[name]", "method_declaration[name]"],
   anonymousFunction: "func_literal",
   condition: conditionMatcher("*[condition]"),
   argumentOrParameter: argumentMatcher("argument_list", "parameter_list"),
-  collectionItem: ["keyed_element.*", "element.*"],
-  collectionKey: childMatcher(["keyed_element"], 0),
-  value: childMatcher(["keyed_element"], 1),
+  collectionItem: ["keyed_element", "element"],
+  collectionKey: childAtIndexMatcher(["keyed_element"], 0),
+  value: childAtIndexMatcher(["keyed_element"], 1),
 };
 
 export default createPatternMatchers(nodeMatchers);
