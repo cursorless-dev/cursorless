@@ -343,6 +343,7 @@ export type ActionType =
   | "deselect"
   | "editNewLineAfter"
   | "editNewLineBefore"
+  | "executeCommand"
   | "extractVariable"
   | "findInWorkspace"
   | "foldRegion"
