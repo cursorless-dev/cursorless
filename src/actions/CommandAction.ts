@@ -20,6 +20,7 @@ import sleep from "../util/sleep";
 
 export interface CommandArguments {
   command?: string;
+  commandArgs?: any[];
   restoreSelection?: boolean;
   ensureSingleEditor?: boolean;
   showDecorations?: boolean;
@@ -29,6 +30,7 @@ export interface CommandArguments {
 
 const defaultArguments: CommandArguments = {
   restoreSelection: true,
+  commandArgs: [],
   ensureSingleEditor: false,
   showDecorations: false,
   preCommandSleep: 0,
@@ -68,7 +70,7 @@ export default class CommandAction implements Action {
           const [updatedOriginalSelections, updatedTargetSelections] =
             await callFunctionAndUpdateSelections(
               this.graph.rangeUpdater,
-              () => commands.executeCommand(args.command!),
+              () => commands.executeCommand(args.command!, args.commandArgs),
               editor.document,
               [originalSelections, targetSelections]
             );
