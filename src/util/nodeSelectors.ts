@@ -201,6 +201,19 @@ export function delimitersSelector(...delimiters: string[]) {
   return delimitedSelector((node) => delimiters.includes(node.type), ", ");
 }
 
+/**
+ * Creates a selector which can be used to automatically clean up after elements
+ * in a list by removing leading or trailing delimiters
+ * @param isDelimiterNode A function used to determine whether a given node is a
+ * delimiter node
+ * @param defaultDelimiter The default list separator to use if we can't
+ * determine it by looking before or after the given node
+ * @param getStartNode A function to be applied to the node to determine which
+ * node is the start node if we really want to expand to a sequence of nodes
+ * @param getEndNode A function to be applied to the node to determine which
+ * node is the end node if we really want to expand to a sequence of nodes
+ * @returns A selection extractor
+ */
 export function delimitedSelector(
   isDelimiterNode: (node: SyntaxNode) => boolean,
   defaultDelimiter: string,
