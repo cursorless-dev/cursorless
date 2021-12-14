@@ -60,6 +60,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   name: ["*[declarator][name]", "*[name]", "formal_parameter.identifier!"],
   namedFunction: ["method_declaration", "constructor_declaration"],
   type: trailingMatcher([
+    "generic_type.type_arguments.type_identifier",
+    "generic_type.type_identifier",
     "type_identifier",
     "local_variable_declaration[type]",
     "array_creation_expression[type]",

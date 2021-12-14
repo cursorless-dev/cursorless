@@ -54,6 +54,27 @@ export function simpleSelectionExtractor(
   };
 }
 
+/**
+ * Extracts a selection from the first node to the second node.
+ * Both nodes are included in the selected nodes
+*/
+export function pairSelectionExtractor(
+  editor: TextEditor,
+  node1: SyntaxNode,
+  node2: SyntaxNode
+): SelectionWithContext {
+  const isForward = node1.startIndex < node2.startIndex;
+  const start = isForward ? node1 : node2;
+  const end = isForward ? node2 : node1;
+  return {
+    selection: new Selection(
+      new Position(start.startPosition.row, start.startPosition.column),
+      new Position(end.endPosition.row, end.endPosition.column)
+    ),
+    context: {},
+  };
+}
+
 export function argumentSelectionExtractor(): SelectionExtractor {
   return delimitedSelector(
     (node) =>
