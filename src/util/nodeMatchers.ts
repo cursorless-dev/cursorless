@@ -13,7 +13,6 @@ import {
   selectWithLeadingDelimiter,
   selectWithTrailingDelimiter,
   unwrapSelectionExtractor as conditionSelectionExtractor,
-  namedChildAtIndexSelector,
 } from "./nodeSelectors";
 import {
   typedNodeFinder,
@@ -88,11 +87,19 @@ export function conditionMatcher(...patterns: string[]): NodeMatcher {
   return matcher(patternFinder(...patterns), conditionSelectionExtractor);
 }
 
-export function childAtIndexMatcher(patterns: string[], child: number): NodeMatcher {
-  return matcher(
-      patternFinder(...patterns),
-      namedChildAtIndexSelector(child)
-    );
+export function childAtIndexMatcher(patterns: string[], childIdx: number): NodeMatcher {
+  return (selection: SelectionWithEditor, node: SyntaxNode) => {
+    var child = node.namedChild(childIdx);
+    if (child == null) {
+      return null;
+    }
+    return [
+      {
+        node: child,
+        selection: simpleSelectionExtractor(selection.editor, child),
+      },
+    ];
+  };
 }
 
 /**
