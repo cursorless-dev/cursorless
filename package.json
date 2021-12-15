@@ -102,7 +102,7 @@
 			}
 		],
 		"configurationDefaults": {
-			"editor.padding.top": 5
+			"editor.padding.top": 2
 		},
 		"configuration": {
 			"title": "Cursorless",
