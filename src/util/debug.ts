@@ -1,10 +1,17 @@
-import * as vscode from "vscode";
+import {
+  ExtensionContext,
+  ExtensionMode,
+  Location,
+  TextEditorSelectionChangeEvent,
+  window,
+  workspace,
+} from "vscode";
 import { SyntaxNode, TreeCursor } from "web-tree-sitter";
 
 export function logBranchTypes(getNodeAtLocation: any) {
-  return (event: vscode.TextEditorSelectionChangeEvent) => {
-    const location = new vscode.Location(
-      vscode.window.activeTextEditor!.document.uri,
+  return (event: TextEditorSelectionChangeEvent) => {
+    const location = new Location(
+      window.activeTextEditor!.document.uri,
       event.selections[0]
     );
 
@@ -39,6 +46,14 @@ export function logBranchTypes(getNodeAtLocation: any) {
       .substring(0, 100);
     console.debug(">".repeat(ancestors.length), `"${leafText}"`);
   };
+}
+
+export function isModeDevelop(context: ExtensionContext) {
+  return (
+    context.extensionMode === ExtensionMode.Development ||
+    (context.extensionMode === ExtensionMode.Production &&
+      workspace.getConfiguration("cursorless").get<boolean>("debug")!)
+  );
 }
 
 const originalDebugLog = console.debug;
