@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import graphFactories from "./util/graphFactories";
 import { Graph } from "./typings/Types";
 import makeGraph, { FactoryMap } from "./util/makeGraph";
-import { enableDebugLog, logBranchTypes, isModeDevelop } from "./util/debug";
+import { initDebug, debugSetNodeAtLocation } from "./util/debug";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
@@ -10,10 +10,10 @@ import isTesting from "./testUtil/isTesting";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 
 export async function activate(context: vscode.ExtensionContext) {
+  initDebug(context);
   const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
-  const useDebugLog = isModeDevelop(context);
-  enableDebugLog(useDebugLog);
+  debugSetNodeAtLocation(getNodeAtLocation);
 
   const graph = makeGraph({
     ...graphFactories,
@@ -97,14 +97,7 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   }
 
-  if (useDebugLog) {
-    context.subscriptions.push(
-      cursorlessRecordTestCaseDisposable,
-      vscode.window.onDidChangeTextEditorSelection(
-        logBranchTypes(getNodeAtLocation)
-      )
-    );
-  }
+  context.subscriptions.push(cursorlessRecordTestCaseDisposable);
 
   return {
     thatMark,

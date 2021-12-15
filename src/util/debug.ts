@@ -1,4 +1,5 @@
 import {
+  Disposable,
   ExtensionContext,
   ExtensionMode,
   Location,
@@ -8,7 +9,56 @@ import {
 } from "vscode";
 import { SyntaxNode, TreeCursor } from "web-tree-sitter";
 
-export function logBranchTypes(getNodeAtLocation: any) {
+const originalDebugLog = console.debug;
+let _getNodeAtLocation: any;
+let disposable: Disposable;
+
+export function initDebug(context: ExtensionContext) {
+  switch (context.extensionMode) {
+    // Development mode. Always enable.
+    case ExtensionMode.Development:
+      enableDebugLog();
+      break;
+    // Test mode. Always disable.
+    case ExtensionMode.Test:
+      disableDebugLog();
+      break;
+    // Production mode. Enable based on user setting.
+    case ExtensionMode.Production:
+      evaluateSetting();
+      workspace.onDidChangeConfiguration(evaluateSetting);
+      break;
+  }
+}
+
+export function debugSetNodeAtLocation(getNodeAtLocation: any) {
+  _getNodeAtLocation = getNodeAtLocation;
+}
+
+function enableDebugLog() {
+  console.debug = originalDebugLog;
+  disposable = window.onDidChangeTextEditorSelection(logBranchTypes());
+}
+
+function disableDebugLog() {
+  console.debug = () => {};
+  if (disposable) {
+    disposable.dispose();
+  }
+}
+
+function evaluateSetting() {
+  const debugEnabled = workspace
+    .getConfiguration("cursorless")
+    .get<boolean>("debug")!;
+  if (debugEnabled) {
+    enableDebugLog();
+  } else {
+    disableDebugLog();
+  }
+}
+
+function logBranchTypes() {
   return (event: TextEditorSelectionChangeEvent) => {
     const location = new Location(
       window.activeTextEditor!.document.uri,
@@ -17,7 +67,7 @@ export function logBranchTypes(getNodeAtLocation: any) {
 
     let node: SyntaxNode;
     try {
-      node = getNodeAtLocation(location);
+      node = _getNodeAtLocation(location);
     } catch (error) {
       return;
     }
@@ -46,19 +96,6 @@ export function logBranchTypes(getNodeAtLocation: any) {
       .substring(0, 100);
     console.debug(">".repeat(ancestors.length), `"${leafText}"`);
   };
-}
-
-export function isModeDevelop(context: ExtensionContext) {
-  return (
-    context.extensionMode === ExtensionMode.Development ||
-    (context.extensionMode === ExtensionMode.Production &&
-      workspace.getConfiguration("cursorless").get<boolean>("debug")!)
-  );
-}
-
-const originalDebugLog = console.debug;
-export function enableDebugLog(enable: boolean) {
-  console.debug = enable ? originalDebugLog : () => {};
 }
 
 const print = (cursor: TreeCursor, depth: number) => {
