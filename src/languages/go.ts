@@ -64,7 +64,11 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   functionName: ["function_declaration[name]", "method_declaration[name]"],
   anonymousFunction: "func_literal",
   condition: conditionMatcher("*[condition]"),
-  argumentOrParameter: argumentMatcher("argument_list", "parameter_list"),
+  argumentOrParameter: cascadingMatcher(
+    argumentMatcher("argument_list", "parameter_list"),
+    patternMatcher("parameter_declaration"),
+    patternMatcher("argument_declaration")
+  ),
   collectionItem: ["keyed_element", "element"],
   collectionKey: childAtIndexMatcher(["keyed_element"], 0),
   value: childAtIndexMatcher(["keyed_element"], 1),

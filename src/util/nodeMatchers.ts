@@ -88,18 +88,10 @@ export function conditionMatcher(...patterns: string[]): NodeMatcher {
 }
 
 export function childAtIndexMatcher(patterns: string[], childIdx: number): NodeMatcher {
-  return (selection: SelectionWithEditor, node: SyntaxNode) => {
-    var child = node.namedChild(childIdx);
-    if (child == null) {
-      return null;
-    }
-    return [
-      {
-        node: child,
-        selection: simpleSelectionExtractor(selection.editor, child),
-      },
-    ];
-  };
+   const finder = patternFinder(...patterns);
+  return matcher(
+    (node: SyntaxNode) => finder(node)?.namedChild(childIdx) ?? null
+  );
 }
 
 /**
