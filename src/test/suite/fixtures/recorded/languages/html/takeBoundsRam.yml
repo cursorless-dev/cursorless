@@ -1,0 +1,31 @@
+languageId: html
+command:
+  version: 1
+  spokenForm: take bounds ram
+  action: setSelection
+  targets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
+      mark: {type: decoratedSymbol, symbolColor: default, character: r}
+initialState:
+  documentContents: "<html>\r\n    <body>\r\n        <hr/>\r\n    </body>\r\n</html>"
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 13}
+  marks:
+    default.r:
+      start: {line: 2, character: 9}
+      end: {line: 2, character: 11}
+finalState:
+  documentContents: "<html>\r\n    <body>\r\n        <hr/>\r\n    </body>\r\n</html>"
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 9}
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 13}
+  thatMark:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 9}
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 13}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}}]
