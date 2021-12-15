@@ -46,14 +46,20 @@ class CopyLines implements Action {
     return ranges.map(({ range, isParagraph }) => {
       const delimiter = isParagraph ? "\n\n" : "\n";
       let text = editor.document.getText(range);
-      text = this.isUp ? `${text}${delimiter}` : `${delimiter}${text}`;
+      const length = text.length;
+      text = this.isUp ? `${delimiter}${text}` : `${text}${delimiter}`;
       const newRange = this.isUp
-        ? new Range(range.start, range.start)
-        : new Range(range.end, range.end);
+        ? new Range(range.end, range.end)
+        : new Range(range.start, range.start);
       return {
-        editor,
-        range: newRange,
-        text,
+        edit: {
+          editor,
+          range: newRange,
+          text,
+          isReplace: this.isUp,
+        },
+        offset: delimiter.length,
+        length,
       };
     });
   }
@@ -62,27 +68,44 @@ class CopyLines implements Action {
     const results = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const ranges = this.getRanges(editor, targets);
-        const edits = this.getEdits(editor, ranges);
+        const editWrappers = this.getEdits(editor, ranges);
+        const rangeSelections = ranges.map(
+          ({ range }) => new Selection(range.start, range.end)
+        );
 
-        const [updatedSelections, copySelections] =
+        const [editorSelections, copySelections] =
           await performEditsAndUpdateSelections(
             this.graph.rangeUpdater,
             editor,
-            edits,
-            [
-              targets.map((target) => target.selection.selection),
-              ranges.map(({ range }) => new Selection(range.start, range.end)),
-            ]
+            editWrappers.map((wrapper) => wrapper.edit),
+            [editor.selections, rangeSelections]
           );
 
-        editor.revealRange(updatedSelections[0]);
+        editor.selections = editorSelections;
+        editor.revealRange(copySelections[0]);
+
+        let sourceSelections;
+        if (this.isUp) {
+          sourceSelections = editWrappers.map((wrapper) => {
+            const startIndex =
+              editor.document.offsetAt(wrapper.edit.range.start) +
+              wrapper.offset;
+            const endIndex = startIndex + wrapper.length;
+            return new Selection(
+              editor.document.positionAt(startIndex),
+              editor.document.positionAt(endIndex)
+            );
+          });
+        } else {
+          sourceSelections = rangeSelections;
+        }
 
         return {
-          thatMark: updatedSelections.map((selection) => ({
+          sourceMark: sourceSelections.map((selection) => ({
             editor,
             selection,
           })),
-          copySelections: copySelections.map((selection) => ({
+          thatMark: copySelections.map((selection) => ({
             editor,
             selection,
           })),
@@ -91,24 +114,25 @@ class CopyLines implements Action {
     );
 
     await displayPendingEditDecorationsForSelection(
-      results.flatMap((result) => result.copySelections),
+      results.flatMap((result) => result.thatMark),
       this.graph.editStyles.justAdded.token
     );
 
+    const sourceMark = results.flatMap((result) => result.sourceMark);
     const thatMark = results.flatMap((result) => result.thatMark);
 
-    return { thatMark };
+    return { sourceMark, thatMark };
   }
 }
 
 export class CopyLinesUp extends CopyLines {
   constructor(graph: Graph) {
-    super(graph, false);
+    super(graph, true);
   }
 }
 
 export class CopyLinesDown extends CopyLines {
   constructor(graph: Graph) {
-    super(graph, true);
+    super(graph, false);
   }
 }

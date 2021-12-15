@@ -6,6 +6,7 @@ import { FixtureTransformation } from "./types";
 import { upgrade } from "./transformations/upgrade";
 import { identity } from "./transformations/identity";
 import { transformFile } from "./transformFile";
+import getRecordedTestPaths from "../../test/suite/getRecordedTestPaths";
 
 const AVAILABLE_TRANSFORMATIONS: Record<string, FixtureTransformation> = {
   upgrade,
@@ -23,13 +24,7 @@ async function main(transformationName: string | undefined) {
     throw new Error(`Unknown transformation ${transformationName}`);
   }
 
-  const directory = path.join(
-    __dirname,
-    "../../../src/test/suite/fixtures/recorded"
-  );
-  const files = walkFilesSync(directory);
-
-  files.forEach((file) => transformFile(transformation, file));
+  getRecordedTestPaths().forEach((path) => transformFile(transformation, path));
 }
 
 main(process.argv[2]);
