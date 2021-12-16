@@ -8,10 +8,11 @@ import {
   SelectionWithEditor,
 } from "../typings/Types";
 import cpp from "./cpp";
+import clojure from "./clojure";
 import csharp from "./csharp";
 import { patternMatchers as json } from "./json";
 import { patternMatchers as typescript } from "./typescript";
-import { patternMatchers as java } from "./java";
+import java from "./java";
 import { patternMatchers as html } from "./html";
 import python from "./python";
 import { UnsupportedLanguageError } from "../errors";
@@ -48,6 +49,7 @@ const languageMatchers: Record<
   c: cpp,
   cpp,
   csharp,
+  clojure,
   html,
   java,
   javascript: typescript,
