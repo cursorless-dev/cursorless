@@ -12,8 +12,6 @@ import { Graph } from "../typings/Types";
 const originalDebugLog = console.debug;
 const disabledDebugLog = () => {};
 
-console.debug = disabledDebugLog;
-
 export default class Debug {
   private disposableConfiguration?: Disposable;
   private disposableSelection?: Disposable;
