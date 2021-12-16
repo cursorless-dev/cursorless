@@ -124,6 +124,15 @@ const functionNameMatcher = chainedMatcher([
   (functionNode) => getValueNodes(functionNode)[1],
 ]);
 
+const ifStatementFinder = functionNameBasedFinder(
+  "if",
+  "if-let",
+  "when",
+  "when-let"
+);
+
+const ifStatementMatcher = matcher(ifStatementFinder);
+
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   comment: "comment",
   map: "map_lit",
@@ -172,7 +181,12 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     patternMatcher("anon_fn_lit")
   ),
 
-  ifStatement: functionNameBasedMatcher("fn"),
+  ifStatement: ifStatementMatcher,
+
+  condition: chainedMatcher([
+    ifStatementFinder,
+    (node) => getValueNodes(node)[1],
+  ]),
 };
 
 export default createPatternMatchers(nodeMatchers);
