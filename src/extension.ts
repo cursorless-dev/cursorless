@@ -2,7 +2,6 @@ import * as vscode from "vscode";
 import graphFactories from "./util/graphFactories";
 import { Graph } from "./typings/Types";
 import makeGraph, { FactoryMap } from "./util/makeGraph";
-import { initDebug, debugSetNodeAtLocation } from "./util/debug";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
@@ -10,16 +9,15 @@ import isTesting from "./testUtil/isTesting";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 
 export async function activate(context: vscode.ExtensionContext) {
-  initDebug(context);
   const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
-  debugSetNodeAtLocation(getNodeAtLocation);
 
   const graph = makeGraph({
     ...graphFactories,
     extensionContext: () => context,
     commandServerApi: () => commandServerApi,
   } as FactoryMap<Graph>);
+  graph.debug.init(getNodeAtLocation);
   graph.snippets.init();
   await graph.decorations.init();
   graph.hatTokenMap.init();

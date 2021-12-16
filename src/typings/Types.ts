@@ -11,6 +11,7 @@ import Decorations from "../core/Decorations";
 import FontMeasurements from "../core/FontMeasurements";
 import { CommandServerApi } from "../util/getExtensionApi";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
+import Debug from "../core/Debug";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -426,6 +427,11 @@ export interface Graph {
    * API object for interacting with the command server, if it exists
    */
   readonly commandServerApi: CommandServerApi | null;
+
+  /**
+   * Debug logger
+   */
+  readonly debug: Debug;
 }
 
 export type NodeMatcherValue = {
