@@ -51,21 +51,6 @@ function processNotebookCell(
   };
 }
 
-function processStrictHere(
-  target: PrimitiveTarget,
-  selection: SelectionWithEditor,
-  selectionContext: SelectionContext
-): TypedSelection {
-  const { selectionType, insideOutsideType, position } = target;
-  return {
-    selection,
-    selectionType,
-    position,
-    insideOutsideType,
-    selectionContext,
-  };
-}
-
 function processToken(
   target: PrimitiveTarget,
   selection: SelectionWithEditor,
