@@ -274,6 +274,13 @@ function processPrimitiveTarget(
     ({ selection, context: selectionContext }) =>
       processSelectionType(context, target, selection, selectionContext)
   );
+
+  if (target.isImplicit) {
+    typedSelections.forEach((typedSelection) => {
+      typedSelection.selectionContext.isRawSelection = true;
+    });
+  }
+
   return typedSelections.map((selection) =>
     processPosition(context, target, selection)
   );

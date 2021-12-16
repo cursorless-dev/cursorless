@@ -33,8 +33,6 @@ export default function (
       return processLine(target, selection, selectionContext);
     case "paragraph":
       return processParagraph(target, selection, selectionContext);
-    case "strictHere":
-      return processStrictHere(target, selection, selectionContext);
   }
 }
 

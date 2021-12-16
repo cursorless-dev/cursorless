@@ -115,10 +115,10 @@ class BringMoveSwap implements Action {
               let text = source.selection.editor.document.getText(
                 source.selection.selection
               );
-              const selectionContext =
-                destination.selectionType === "strictHere"
-                  ? source.selectionContext
-                  : destination.selectionContext;
+              const selectionContext = destination.selectionContext
+                .isRawSelection
+                ? source.selectionContext
+                : destination.selectionContext;
               return i > 0 && selectionContext.containingListDelimiter
                 ? selectionContext.containingListDelimiter + text
                 : text;

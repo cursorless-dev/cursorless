@@ -184,13 +184,7 @@ export type Modifier =
 
 export type SelectionType =
   //   | "character" Not implemented
-  | "token"
-  | "line"
-  | "notebookCell"
-  | "paragraph"
-  | "document"
-  | "column"
-  | "strictHere";
+  "token" | "line" | "notebookCell" | "paragraph" | "document";
 
 export type Position = "before" | "after" | "contents";
 

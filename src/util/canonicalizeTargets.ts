@@ -52,14 +52,15 @@ const STRICT_HERE = {
   insideOutsideType: "inside",
 };
 
+const IMPLICIT_TARGET: PartialPrimitiveTarget = {
+  type: "primitive",
+  isImplicit: true,
+};
+
 const upgradeStrictHere = (
   target: PartialPrimitiveTarget
 ): PartialPrimitiveTarget =>
-  isDeepStrictEqual(target, STRICT_HERE)
-    ? update(target, {
-        selectionType: () => "strictHere",
-      })
-    : target;
+  isDeepStrictEqual(target, STRICT_HERE) ? IMPLICIT_TARGET : target;
 
 export default function canonicalizeTargets(partialTargets: PartialTarget[]) {
   return transformPartialPrimitiveTargets(
