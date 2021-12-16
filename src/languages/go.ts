@@ -71,7 +71,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ),
   collectionItem: ["keyed_element", "element"],
   collectionKey: childAtIndexMatcher(["keyed_element"], 0),
-  value: childAtIndexMatcher(["keyed_element"], 1),
+  value: cascadingMatcher(
+    childAtIndexMatcher(["keyed_element"], 1),
+    patternMatcher("return_statement.expression_list!")
+  )
 };
 
 export default createPatternMatchers(nodeMatchers);
