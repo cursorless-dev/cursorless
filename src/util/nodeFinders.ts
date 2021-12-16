@@ -10,6 +10,27 @@ export const nodeFinder = (
   };
 };
 
+/**
+ * Given a list of node finders returns a new node finder which applies them in
+ * sequence returning null if any of the sequence returns null otherwise
+ * returning the output of the final node finder
+ * @param nodeFinders A list of node finders to apply in sequence
+ * @returns A node finder which is a chain of the input node finders
+ */
+export function chainedNodeFinder(...nodeFinders: NodeFinder[]) {
+  return (node: SyntaxNode) => {
+    let currentNode: SyntaxNode | null = node;
+    for (const nodeFinder of nodeFinders) {
+      currentNode = nodeFinder(currentNode);
+      if (currentNode == null) {
+        return null;
+      }
+    }
+
+    return currentNode;
+  };
+}
+
 export const typedNodeFinder = (...typeNames: string[]): NodeFinder => {
   return nodeFinder((node) => typeNames.includes(node.type));
 };
