@@ -15,8 +15,8 @@ const disabledDebugLog = () => {};
 console.debug = disabledDebugLog;
 
 export default class Debug {
-  getNodeAtLocation?: any;
-  disposable?: Disposable;
+  private getNodeAtLocation?: any;
+  private disposable?: Disposable;
 
   constructor(private graph: Graph) {
     this.graph.extensionContext.subscriptions.push(this);
