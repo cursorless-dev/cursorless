@@ -110,8 +110,8 @@ export default class CommandRunner {
       this.testCaseRecorder.commandErrorHook();
       const err = e as Error;
       vscode.window.showErrorMessage(err.message);
-      this.graph.debug.log(err.message);
-      this.graph.debug.log(err.stack);
+      console.error(err.message);
+      console.error(err.stack);
       throw err;
     }
   }

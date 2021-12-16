@@ -68,6 +68,7 @@ export default class Debug {
     this.active = false;
     if (this.disposableSelection) {
       this.disposableSelection.dispose();
+      this.disposableSelection = undefined;
     }
   }
 
