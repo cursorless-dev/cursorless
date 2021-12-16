@@ -7,6 +7,7 @@ import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import Decorations from "../core/Decorations";
 import FontMeasurements from "../core/FontMeasurements";
+import Debug from "../core/Debug";
 
 type ConstructorMap<T> = {
   [P in keyof T]: new (t: T) => T[P];
@@ -20,6 +21,7 @@ const graphConstructors: Partial<ConstructorMap<Graph>> = {
   fontMeasurements: FontMeasurements,
   snippets: Snippets,
   rangeUpdater: RangeUpdater,
+  debug: Debug,
 };
 
 const graphFactories: Partial<FactoryMap<Graph>> = Object.fromEntries(

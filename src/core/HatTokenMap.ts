@@ -133,7 +133,7 @@ export default class HatTokenMap {
       const newSignalVersion = await phraseStartSignal.getVersion();
 
       if (newSignalVersion !== this.lastSignalVersion) {
-        console.debug("taking snapshot");
+        this.graph.debug.log("taking snapshot");
         this.lastSignalVersion = newSignalVersion;
 
         if (newSignalVersion != null) {

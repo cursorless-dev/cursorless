@@ -2,7 +2,6 @@ import * as vscode from "vscode";
 import graphFactories from "./util/graphFactories";
 import { Graph } from "./typings/Types";
 import makeGraph, { FactoryMap } from "./util/makeGraph";
-import { logBranchTypes } from "./util/debug";
 import { ThatMark } from "./core/ThatMark";
 import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
@@ -17,7 +16,9 @@ export async function activate(context: vscode.ExtensionContext) {
     ...graphFactories,
     extensionContext: () => context,
     commandServerApi: () => commandServerApi,
+    getNodeAtLocation: () => getNodeAtLocation,
   } as FactoryMap<Graph>);
+  graph.debug.init();
   graph.snippets.init();
   await graph.decorations.init();
   graph.hatTokenMap.init();
@@ -47,7 +48,6 @@ export async function activate(context: vscode.ExtensionContext) {
     graph,
     thatMark,
     sourceMark,
-    getNodeAtLocation,
     testCaseRecorder
   );
 
@@ -95,12 +95,7 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   }
 
-  context.subscriptions.push(
-    cursorlessRecordTestCaseDisposable,
-    vscode.window.onDidChangeTextEditorSelection(
-      logBranchTypes(getNodeAtLocation)
-    )
-  );
+  context.subscriptions.push(cursorlessRecordTestCaseDisposable);
 
   return {
     thatMark,
