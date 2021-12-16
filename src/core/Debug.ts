@@ -21,6 +21,8 @@ export default class Debug {
   constructor(private graph: Graph) {
     this.graph.extensionContext.subscriptions.push(this);
 
+    this.evaluateSetting = this.evaluateSetting.bind(this);
+
     switch (this.graph.extensionContext.extensionMode) {
       // Development mode. Always enable.
       case ExtensionMode.Development:
