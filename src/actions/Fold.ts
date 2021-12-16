@@ -11,7 +11,7 @@ import { ensureSingleEditor } from "../util/targetUtils";
 
 class FoldAction implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
-    { insideOutsideType: "outside" },
+    { insideOutsideType: "inside" },
   ];
 
   constructor(private command: string) {
