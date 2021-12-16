@@ -14,3 +14,25 @@ export const getDefinitionNode = (node: SyntaxNode) =>
 
 export const getDeclarationNode = (node: SyntaxNode) =>
   node.childForFieldName("declarator");
+
+export function getChildNodesForFieldName(
+  node: SyntaxNode,
+  fieldName: string
+): SyntaxNode[] {
+  const treeCursor = node.walk();
+  treeCursor.gotoFirstChild();
+
+  const ret = [];
+
+  let hasNext = true;
+
+  while (hasNext) {
+    if (treeCursor.currentFieldName() === fieldName) {
+      ret.push(treeCursor.currentNode());
+    }
+
+    hasNext = treeCursor.gotoNextSibling();
+  }
+
+  return ret;
+}

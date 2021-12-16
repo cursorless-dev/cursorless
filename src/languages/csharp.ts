@@ -1,7 +1,7 @@
 import { SyntaxNode } from "web-tree-sitter";
 import {
   cascadingMatcher,
-  composedMatcher,
+  chainedMatcher,
   createPatternMatchers,
   matcher,
   trailingMatcher,
@@ -162,26 +162,26 @@ const makeDelimitedSelector = (leftType: string, rightType: string) =>
 
 const getMapMatchers = {
   map: cascadingMatcher(
-    composedMatcher([
+    chainedMatcher([
       typedNodeFinder(...OBJECT_TYPES_WITH_INITIALIZERS_AS_CHILDREN),
       getChildInitializerNode,
     ]),
-    composedMatcher([
+    chainedMatcher([
       typedNodeFinder("object_creation_expression"),
       getInitializerNode,
     ])
   ),
-  collectionKey: composedMatcher([
+  collectionKey: chainedMatcher([
     typedNodeFinder("assignment_expression"),
     (node: SyntaxNode) => node.childForFieldName("left"),
   ]),
   value: matcher((node: SyntaxNode) => node.childForFieldName("right")),
   list: cascadingMatcher(
-    composedMatcher([
+    chainedMatcher([
       typedNodeFinder(...LIST_TYPES_WITH_INITIALIZERS_AS_CHILDREN),
       getChildInitializerNode,
     ]),
-    composedMatcher([
+    chainedMatcher([
       typedNodeFinder("object_creation_expression"),
       (node: SyntaxNode) => node.childForFieldName("initializer"),
     ])
