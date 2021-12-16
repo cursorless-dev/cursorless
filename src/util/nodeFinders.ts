@@ -180,7 +180,10 @@ function tryPatternMatch(
     resultPattern.fields != null
   ) {
     resultPattern.fields.forEach((field) => {
-      resultNode = resultNode?.childForFieldName(field) ?? null;
+      resultNode =
+        (field.isIndex
+          ? resultNode?.namedChild(field.value)
+          : resultNode?.childForFieldName(field.value)) ?? null;
     });
   }
   return resultNode;
@@ -242,17 +245,42 @@ function searchNodeDescending(
   return important;
 }
 
+interface PatternFieldIndex {
+  isIndex: true;
+  value: number;
+}
+
+interface PatternFieldName {
+  isIndex: false;
+  value: string;
+}
+
+type PatternField = PatternFieldName | PatternFieldIndex;
+
 class Pattern {
   type: string;
-  fields: string[] | null = null;
-  isImportant: boolean = false;
-  isOptional: boolean = false;
+  fields: PatternField[];
+  isImportant: boolean;
+  isOptional: boolean;
 
   constructor(pattern: string) {
     this.type = pattern.match(/^[\w*~]+/)![0];
-    this.fields = [...pattern.matchAll(/(?<=\[).+?(?=\])/g)].map((m) => m[0]);
     this.isImportant = pattern.indexOf("!") > -1;
     this.isOptional = pattern.indexOf("?") > -1;
+    this.fields = [...pattern.matchAll(/(?<=\[).+?(?=\])/g)]
+      .map((m) => m[0])
+      .map((field) => {
+        if (/\d+/.test(field)) {
+          return {
+            isIndex: true,
+            value: Number(field),
+          };
+        }
+        return {
+          isIndex: false,
+          value: field,
+        };
+      });
   }
 
   typeEquals(node: SyntaxNode) {
