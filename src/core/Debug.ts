@@ -13,6 +13,7 @@ const originalDebugLog = console.debug;
 const disabledDebugLog = () => {};
 
 export const log = {
+  active: true,
   debug: originalDebugLog,
 };
 
@@ -57,6 +58,7 @@ export default class Debug {
   }
 
   private enableDebugLog() {
+    log.active = true;
     log.debug = originalDebugLog;
     this.disposableSelection = window.onDidChangeTextEditorSelection(
       this.logBranchTypes
@@ -64,6 +66,7 @@ export default class Debug {
   }
 
   private disableDebugLog() {
+    log.active = false;
     log.debug = disabledDebugLog;
     if (this.disposableSelection) {
       this.disposableSelection.dispose();

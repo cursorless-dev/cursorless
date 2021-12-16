@@ -39,8 +39,10 @@ export default class CommandRunner {
 
   async runCommand(commandArgument: CommandArgument) {
     try {
-      log.debug(`commandArgument:`);
-      log.debug(JSON.stringify(commandArgument, null, 3));
+      if (log.active) {
+        log.debug(`commandArgument:`);
+        log.debug(JSON.stringify(commandArgument, null, 3));
+      }
 
       const {
         spokenForm,
@@ -75,7 +77,7 @@ export default class CommandRunner {
         hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],
-        getNodeAtLocation: this.graph.getNodeAtLocation
+        getNodeAtLocation: this.graph.getNodeAtLocation,
       };
 
       const selections = processTargets(processedTargetsContext, targets);
