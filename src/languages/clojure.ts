@@ -1,5 +1,6 @@
 import {
   cascadingMatcher,
+  chainedMatcher,
   createPatternMatchers,
   matcher,
   patternMatcher,
@@ -118,11 +119,10 @@ function functionNameBasedMatcher(...names: string[]) {
 
 const functionFinder = functionNameBasedFinder("defn", "defmacro");
 
-const functionNameMatcher = matcher(
-  flow(functionFinder, (functionNode) =>
-    functionNode == null ? null : getValueNodes(functionNode)[1]
-  )
-);
+const functionNameMatcher = chainedMatcher([
+  functionFinder,
+  (functionNode) => getValueNodes(functionNode)[1],
+]);
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   comment: "comment",
@@ -171,6 +171,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     functionNameBasedMatcher("fn"),
     patternMatcher("anon_fn_lit")
   ),
+
+  ifStatement: functionNameBasedMatcher("fn"),
 };
 
 export default createPatternMatchers(nodeMatchers);
