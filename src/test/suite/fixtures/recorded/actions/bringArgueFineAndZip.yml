@@ -1,0 +1,54 @@
+languageId: typescript
+command:
+  version: 1
+  spokenForm: bring argue fine and zip
+  action: replaceWithTarget
+  targets:
+    - type: list
+      elements:
+        - type: primitive
+          modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+          mark: {type: decoratedSymbol, symbolColor: default, character: f}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: z}
+    - {type: primitive, isImplicit: true}
+initialState:
+  documentContents: |-
+    function helloWorld(foo: string, bar: number, baz: string) {
+
+    }
+
+    function bongo() {
+        
+    }
+  selections:
+    - anchor: {line: 4, character: 15}
+      active: {line: 4, character: 15}
+  marks:
+    default.f:
+      start: {line: 0, character: 20}
+      end: {line: 0, character: 23}
+    default.z:
+      start: {line: 0, character: 46}
+      end: {line: 0, character: 49}
+finalState:
+  documentContents: |-
+    function helloWorld(foo: string, bar: number, baz: string) {
+
+    }
+
+    function bongo(foo: string, baz: string) {
+        
+    }
+  selections:
+    - anchor: {line: 4, character: 39}
+      active: {line: 4, character: 39}
+  thatMark:
+    - anchor: {line: 4, character: 15}
+      active: {line: 4, character: 39}
+  sourceMark:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 31}
+    - anchor: {line: 0, character: 46}
+      active: {line: 0, character: 57}
+fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: z}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]}, {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}, isImplicit: true}]

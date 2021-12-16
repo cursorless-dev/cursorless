@@ -6,12 +6,7 @@ command:
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-    - type: primitive
-      mark: {type: cursor}
-      selectionType: token
-      position: contents
-      modifier: {type: identity}
-      insideOutsideType: inside
+    - {type: primitive, isImplicit: true}
 initialState:
   documentContents: |
 
