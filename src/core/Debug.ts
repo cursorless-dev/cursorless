@@ -12,6 +12,10 @@ import { Graph } from "../typings/Types";
 const originalDebugLog = console.debug;
 const disabledDebugLog = () => {};
 
+export const log = {
+  debug: originalDebugLog,
+};
+
 export default class Debug {
   private disposableConfiguration?: Disposable;
   private disposableSelection?: Disposable;
@@ -53,14 +57,14 @@ export default class Debug {
   }
 
   private enableDebugLog() {
-    console.debug = originalDebugLog;
+    log.debug = originalDebugLog;
     this.disposableSelection = window.onDidChangeTextEditorSelection(
       this.logBranchTypes
     );
   }
 
   private disableDebugLog() {
-    console.debug = disabledDebugLog;
+    log.debug = disabledDebugLog;
     if (this.disposableSelection) {
       this.disposableSelection.dispose();
     }
@@ -112,12 +116,12 @@ export default class Debug {
     const leafText = ancestors[ancestors.length - 1].text
       .replace(/\s+/g, " ")
       .substring(0, 100);
-    console.debug(">".repeat(ancestors.length), `"${leafText}"`);
+    log.debug(">".repeat(ancestors.length), `"${leafText}"`);
   }
 
   private printCursorLocationInfo(cursor: TreeCursor, depth: number) {
     const field = cursor.currentFieldName();
     const fieldText = field != null ? `${field}: ` : "";
-    console.debug(">".repeat(depth + 1), `${fieldText}${cursor.nodeType}`);
+    log.debug(">".repeat(depth + 1), `${fieldText}${cursor.nodeType}`);
   }
 }

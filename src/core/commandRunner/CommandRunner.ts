@@ -12,6 +12,7 @@ import { TestCaseRecorder } from "../../testUtil/TestCaseRecorder";
 import { canonicalizeAndValidateCommand } from "../../util/canonicalizeAndValidateCommand";
 import { CommandArgument } from "./types";
 import { isString } from "../../util/type";
+import { log } from "../Debug";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -38,8 +39,8 @@ export default class CommandRunner {
 
   async runCommand(commandArgument: CommandArgument) {
     try {
-      console.debug(`commandArgument:`);
-      console.debug(JSON.stringify(commandArgument, null, 3));
+      log.debug(`commandArgument:`);
+      log.debug(JSON.stringify(commandArgument, null, 3));
 
       const {
         spokenForm,
@@ -108,8 +109,8 @@ export default class CommandRunner {
       this.testCaseRecorder.commandErrorHook();
       const err = e as Error;
       vscode.window.showErrorMessage(err.message);
-      console.debug(err.message);
-      console.debug(err.stack);
+      log.debug(err.message);
+      log.debug(err.stack);
       throw err;
     }
   }
