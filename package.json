@@ -167,7 +167,9 @@
 						"green": "#36B33F",
 						"red": "#E02D28",
 						"pink": "#E06CAA",
-						"yellow": "#E5C02C"
+						"yellow": "#E5C02C",
+						"userColor1": "#6a00ff",
+						"userColor2": "#ffd8b1"
 					},
 					"additionalProperties": false
 				},
@@ -206,7 +208,9 @@
 						"green": "#36B33F",
 						"red": "#E02D28",
 						"pink": "#e0679f",
-						"yellow": "#edb62b"
+						"yellow": "#edb62b",
+						"userColor1": "#6a00ff",
+						"userColor2": "#ffd8b1"
 					},
 					"additionalProperties": false
 				},
