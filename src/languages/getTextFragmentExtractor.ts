@@ -3,6 +3,7 @@ import { SelectionWithEditor } from "../typings/Types";
 import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";
 import { stringTextFragmentExtractor as javaStringTextFragmentExtractor } from "./java";
 import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } from "./typescript";
+import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
 import { UnsupportedLanguageError } from "../errors";
 import { Range } from "vscode";
 import { SupportedLanguageId } from "./constants";
@@ -95,7 +96,10 @@ const textFragmentExtractors: Record<
   c: constructDefaultTextFragmentExtractor("c"),
   cpp: constructDefaultTextFragmentExtractor("cpp"),
   csharp: constructDefaultTextFragmentExtractor("csharp"),
-  html: constructDefaultTextFragmentExtractor("html"),
+  html: constructDefaultTextFragmentExtractor(
+    "html",
+    htmlStringTextFragmentExtractor
+  ),
   java: constructDefaultTextFragmentExtractor(
     "java",
     javaStringTextFragmentExtractor

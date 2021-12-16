@@ -9,6 +9,7 @@ import {
   SelectionWithEditor,
 } from "../typings/Types";
 import { SyntaxNode } from "web-tree-sitter";
+import { getNodeRange } from "../util/nodeSelectors";
 
 const attribute = "*?.attribute!";
 
@@ -38,3 +39,14 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
 };
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);
+
+export function stringTextFragmentExtractor(
+  node: SyntaxNode,
+  selection: SelectionWithEditor
+) {
+  if (node.type === "attribute_value") {
+    return getNodeRange(node);
+  }
+
+  return null;
+}
