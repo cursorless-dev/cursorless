@@ -18,6 +18,7 @@ import {
   typedNodeFinder,
   patternFinder,
   argumentNodeFinder,
+  chainedNodeFinder,
 } from "./nodeFinders";
 
 export function matcher(
@@ -37,19 +38,27 @@ export function matcher(
   };
 }
 
-export function composedMatcher(
+/**
+ * Given a list of node finders returns a matcher which applies them in
+ * sequence returning null if any of the sequence returns null otherwise
+ * returning the output of the final node finder
+ * @param nodeFinders A list of node finders to apply in sequence
+ * @param selector The selector to apply to the final node
+ * @returns A matcher which is a chain of the input node finders
+ */
+export function chainedMatcher(
   finders: NodeFinder[],
   selector: SelectionExtractor = simpleSelectionExtractor
 ): NodeMatcher {
+  const nodeFinder = chainedNodeFinder(...finders);
+
   return function (selection: SelectionWithEditor, initialNode: SyntaxNode) {
-    let returnNode: SyntaxNode = initialNode;
-    for (const finder of finders) {
-      const foundNode = finder(returnNode, selection.selection);
-      if (foundNode == null) {
-        return null;
-      }
-      returnNode = foundNode;
+    const returnNode = nodeFinder(initialNode);
+
+    if (returnNode == null) {
+      return null;
     }
+
     return [
       {
         node: returnNode,
