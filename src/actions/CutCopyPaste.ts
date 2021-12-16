@@ -12,7 +12,9 @@ import { getOutsideOverflow } from "../util/targetUtils";
 import { zip } from "lodash";
 
 export class Cut implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: null }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: null },
+  ];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
@@ -52,16 +54,20 @@ export class Cut implements Action {
   }
 }
 
-const OPTIONS = { ensureSingleEditor: true };
-
 export class Copy extends CommandAction {
   constructor(graph: Graph) {
-    super(graph, "editor.action.clipboardCopyAction", OPTIONS);
+    super(graph, {
+      command: "editor.action.clipboardCopyAction",
+      ensureSingleEditor: true,
+    });
   }
 }
 
 export class Paste extends CommandAction {
   constructor(graph: Graph) {
-    super(graph, "editor.action.clipboardPasteAction", OPTIONS);
+    super(graph, {
+      command: "editor.action.clipboardPasteAction",
+      ensureSingleEditor: true,
+    });
   }
 }
