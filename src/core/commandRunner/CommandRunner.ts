@@ -12,7 +12,6 @@ import { TestCaseRecorder } from "../../testUtil/TestCaseRecorder";
 import { canonicalizeAndValidateCommand } from "../../util/canonicalizeAndValidateCommand";
 import { CommandArgument } from "./types";
 import { isString } from "../../util/type";
-import { log } from "../Debug";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -39,9 +38,9 @@ export default class CommandRunner {
 
   async runCommand(commandArgument: CommandArgument) {
     try {
-      if (log.active) {
-        log.debug(`commandArgument:`);
-        log.debug(JSON.stringify(commandArgument, null, 3));
+      if (this.graph.debug.active) {
+        this.graph.debug.log(`commandArgument:`);
+        this.graph.debug.log(JSON.stringify(commandArgument, null, 3));
       }
 
       const {
@@ -111,8 +110,8 @@ export default class CommandRunner {
       this.testCaseRecorder.commandErrorHook();
       const err = e as Error;
       vscode.window.showErrorMessage(err.message);
-      log.debug(err.message);
-      log.debug(err.stack);
+      this.graph.debug.log(err.message);
+      this.graph.debug.log(err.stack);
       throw err;
     }
   }

@@ -4,7 +4,6 @@ import { IndividualHatMap, ReadOnlyHatMap } from "./IndividualHatMap";
 import { HatAllocator } from "./HatAllocator";
 import { hrtime } from "process";
 import { abs } from "../util/bigint";
-import { log } from "./Debug";
 
 /**
  * Maximum age for the pre-phrase snapshot before we consider it to be stale
@@ -134,7 +133,7 @@ export default class HatTokenMap {
       const newSignalVersion = await phraseStartSignal.getVersion();
 
       if (newSignalVersion !== this.lastSignalVersion) {
-        log.debug("taking snapshot");
+        this.graph.debug.log("taking snapshot");
         this.lastSignalVersion = newSignalVersion;
 
         if (newSignalVersion != null) {

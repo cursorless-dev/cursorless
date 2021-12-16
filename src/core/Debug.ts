@@ -9,23 +9,17 @@ import {
 import { SyntaxNode, TreeCursor } from "web-tree-sitter";
 import { Graph } from "../typings/Types";
 
-const originalDebugLog = console.debug;
-const disabledDebugLog = () => {};
-
-export const log = {
-  active: true,
-  debug: originalDebugLog,
-};
-
 export default class Debug {
   private disposableConfiguration?: Disposable;
   private disposableSelection?: Disposable;
+  active: boolean;
 
   constructor(private graph: Graph) {
     this.graph.extensionContext.subscriptions.push(this);
 
     this.evaluateSetting = this.evaluateSetting.bind(this);
     this.logBranchTypes = this.logBranchTypes.bind(this);
+    this.active = true;
 
     switch (this.graph.extensionContext.extensionMode) {
       // Development mode. Always enable.
@@ -48,6 +42,12 @@ export default class Debug {
 
   init() {}
 
+  log(...args: any[]) {
+    if (this.active) {
+      console.debug(...args);
+    }
+  }
+
   dispose() {
     if (this.disposableConfiguration) {
       this.disposableConfiguration.dispose();
@@ -58,16 +58,14 @@ export default class Debug {
   }
 
   private enableDebugLog() {
-    log.active = true;
-    log.debug = originalDebugLog;
+    this.active = true;
     this.disposableSelection = window.onDidChangeTextEditorSelection(
       this.logBranchTypes
     );
   }
 
   private disableDebugLog() {
-    log.active = false;
-    log.debug = disabledDebugLog;
+    this.active = false;
     if (this.disposableSelection) {
       this.disposableSelection.dispose();
     }
@@ -119,12 +117,12 @@ export default class Debug {
     const leafText = ancestors[ancestors.length - 1].text
       .replace(/\s+/g, " ")
       .substring(0, 100);
-    log.debug(">".repeat(ancestors.length), `"${leafText}"`);
+    console.debug(">".repeat(ancestors.length), `"${leafText}"`);
   }
 
   private printCursorLocationInfo(cursor: TreeCursor, depth: number) {
     const field = cursor.currentFieldName();
     const fieldText = field != null ? `${field}: ` : "";
-    log.debug(">".repeat(depth + 1), `${fieldText}${cursor.nodeType}`);
+    console.debug(">".repeat(depth + 1), `${fieldText}${cursor.nodeType}`);
   }
 }
