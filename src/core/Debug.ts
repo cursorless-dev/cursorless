@@ -113,7 +113,7 @@ export default class Debug {
     };
   }
 
-  private print(cursor: TreeCursor, depth: number) {
+  private printCursorLocationInfo(cursor: TreeCursor, depth: number) {
     const field = cursor.currentFieldName();
     const fieldText = field != null ? `${field}: ` : "";
     console.debug(">".repeat(depth + 1), `${fieldText}${cursor.nodeType}`);
