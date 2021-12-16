@@ -2,13 +2,13 @@ import { SyntaxNode } from "web-tree-sitter";
 import { SelectionWithEditor } from "../typings/Types";
 import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";
 import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } from "./typescript";
+import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
 import { UnsupportedLanguageError } from "../errors";
 import { Range } from "vscode";
 import { SupportedLanguageId } from "./constants";
 import {
   getNodeInternalRange,
   getNodeRange,
-  makeRangeFromPositions,
 } from "../util/nodeSelectors";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { notSupported } from "../util/nodeMatchers";
@@ -126,6 +126,10 @@ const textFragmentExtractors: Record<
   ),
   cpp: constructDefaultTextFragmentExtractor("cpp"),
   csharp: constructDefaultTextFragmentExtractor("csharp"),
+  html: constructDefaultTextFragmentExtractor(
+    "html",
+    htmlStringTextFragmentExtractor
+  ),
   java: constructDefaultTextFragmentExtractor(
     "java",
     constructHackedStringTextFragmentExtractor("java")
