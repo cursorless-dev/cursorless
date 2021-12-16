@@ -155,6 +155,10 @@ export interface IdentityModifier {
   type: "identity";
 }
 
+export interface ToRawSelectionModifier {
+  type: "toRawSelection";
+}
+
 export interface HeadModifier {
   type: "head";
 }
@@ -193,6 +197,7 @@ export interface PartialPrimitiveTarget {
   selectionType?: SelectionType;
   position?: Position;
   insideOutsideType?: InsideOutsideType;
+  isImplicit?: boolean;
 }
 
 export interface PartialRangeTarget {
@@ -221,6 +226,7 @@ export interface PrimitiveTarget {
   selectionType: SelectionType;
   position: Position;
   insideOutsideType: InsideOutsideType;
+  isImplicit: boolean;
 }
 
 export interface RangeTarget {
