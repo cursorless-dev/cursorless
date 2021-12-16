@@ -101,6 +101,9 @@
 				}
 			}
 		],
+		"configurationDefaults": {
+			"editor.padding.top": 2
+		},
 		"configuration": {
 			"title": "Cursorless",
 			"properties": {
@@ -113,11 +116,6 @@
 					"type": "integer",
 					"default": 100,
 					"description": "How long in milliseconds to show a pending edit decoration"
-				},
-				"cursorless.decorationDebounceDelay": {
-					"type": "integer",
-					"default": 175,
-					"description": "How long in milliseconds to wait to redraw the hats after an action"
 				},
 				"cursorless.hatSizeAdjustment": {
 					"type": "number",
