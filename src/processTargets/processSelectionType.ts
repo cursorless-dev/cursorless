@@ -77,13 +77,22 @@ function processToken(
     selectionType,
     position,
     insideOutsideType,
-    selectionContext: getTokenSelectionContext(
-      selection,
-      modifier,
-      position,
-      insideOutsideType,
-      selectionContext
-    ),
+    // NB: This is a hack to work around the fact that it's not currently
+    // possible to apply a modifier after processing the selection type. We
+    // would really prefer that the user be able to say "just" and have that be
+    // processed after we've processed the selection type, which would strip
+    // away the type information and turn it into a raw target. Until that's
+    // possible using the new pipelines, we instead just check for it here when
+    // we're doing the selection type and bail out if it is a raw target.
+    selectionContext: selectionContext.isRawSelection
+      ? selectionContext
+      : getTokenSelectionContext(
+          selection,
+          modifier,
+          position,
+          insideOutsideType,
+          selectionContext
+        ),
   };
 }
 
