@@ -9,7 +9,9 @@ import {
 import { ensureSingleEditor } from "../util/targetUtils";
 
 class FoldAction implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "outside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: "outside" },
+  ];
 
   constructor(private command: string) {
     this.run = this.run.bind(this);
@@ -24,9 +26,9 @@ class FoldAction implements Action {
     await commands.executeCommand(this.command, {
       levels: 1,
       direction: "down",
-      selectionLines: targets
-        .filter((target) => !target.selection.selection.isSingleLine)
-        .map((target) => target.selection.selection.start.line),
+      selectionLines: targets.map(
+        (target) => target.selection.selection.start.line
+      ),
     });
 
     return {
