@@ -10,7 +10,6 @@ import {
 import { ThatMark } from "../ThatMark";
 import { TestCaseRecorder } from "../../testUtil/TestCaseRecorder";
 import { canonicalizeAndValidateCommand } from "../../util/canonicalizeAndValidateCommand";
-import { SyntaxNode } from "web-tree-sitter";
 import { CommandArgument } from "./types";
 import { isString } from "../../util/type";
 
@@ -22,7 +21,6 @@ export default class CommandRunner {
     private graph: Graph,
     private thatMark: ThatMark,
     private sourceMark: ThatMark,
-    private getNodeAtLocation: (location: vscode.Location) => SyntaxNode,
     private testCaseRecorder: TestCaseRecorder
   ) {
     graph.extensionContext.subscriptions.push(this);
@@ -76,7 +74,7 @@ export default class CommandRunner {
         hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],
-        getNodeAtLocation: this.getNodeAtLocation,
+        getNodeAtLocation: this.graph.getNodeAtLocation
       };
 
       const selections = processTargets(processedTargetsContext, targets);

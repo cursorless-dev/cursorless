@@ -16,8 +16,9 @@ export async function activate(context: vscode.ExtensionContext) {
     ...graphFactories,
     extensionContext: () => context,
     commandServerApi: () => commandServerApi,
+    getNodeAtLocation: () => getNodeAtLocation,
   } as FactoryMap<Graph>);
-  graph.debug.init(getNodeAtLocation);
+  graph.debug.init();
   graph.snippets.init();
   await graph.decorations.init();
   graph.hatTokenMap.init();
@@ -47,7 +48,6 @@ export async function activate(context: vscode.ExtensionContext) {
     graph,
     thatMark,
     sourceMark,
-    getNodeAtLocation,
     testCaseRecorder
   );
 

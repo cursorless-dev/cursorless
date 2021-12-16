@@ -15,13 +15,14 @@ const disabledDebugLog = () => {};
 console.debug = disabledDebugLog;
 
 export default class Debug {
-  private getNodeAtLocation?: any;
-  private disposable?: Disposable;
+  private disposableConfiguration?: Disposable;
+  private disposableSelection?: Disposable;
 
   constructor(private graph: Graph) {
     this.graph.extensionContext.subscriptions.push(this);
 
     this.evaluateSetting = this.evaluateSetting.bind(this);
+    this.logBranchTypes = this.logBranchTypes.bind(this);
 
     switch (this.graph.extensionContext.extensionMode) {
       // Development mode. Always enable.
@@ -35,31 +36,36 @@ export default class Debug {
       // Production mode. Enable based on user setting.
       case ExtensionMode.Production:
         this.evaluateSetting();
-        workspace.onDidChangeConfiguration(this.evaluateSetting);
+        this.disposableConfiguration = workspace.onDidChangeConfiguration(
+          this.evaluateSetting
+        );
         break;
     }
   }
 
-  init(getNodeAtLocation: any) {
-    this.getNodeAtLocation = getNodeAtLocation;
-  }
+  init() {}
 
   dispose() {
-    if (this.disposable) {
-      this.disposable.dispose();
+    if (this.disposableConfiguration) {
+      this.disposableConfiguration.dispose();
+    }
+    if (this.disposableSelection) {
+      this.disposableSelection.dispose();
     }
   }
 
   private enableDebugLog() {
     console.debug = originalDebugLog;
-    this.disposable = window.onDidChangeTextEditorSelection(
-      this.logBranchTypes()
+    this.disposableSelection = window.onDidChangeTextEditorSelection(
+      this.logBranchTypes
     );
   }
 
   private disableDebugLog() {
     console.debug = disabledDebugLog;
-    this.dispose();
+    if (this.disposableSelection) {
+      this.disposableSelection.dispose();
+    }
   }
 
   private evaluateSetting() {
@@ -73,44 +79,42 @@ export default class Debug {
     }
   }
 
-  private logBranchTypes() {
-    return (event: TextEditorSelectionChangeEvent) => {
-      const location = new Location(
-        window.activeTextEditor!.document.uri,
-        event.selections[0]
-      );
+  private logBranchTypes(event: TextEditorSelectionChangeEvent) {
+    const location = new Location(
+      window.activeTextEditor!.document.uri,
+      event.selections[0]
+    );
 
-      let node: SyntaxNode;
-      try {
-        node = this.getNodeAtLocation(location);
-      } catch (error) {
-        return;
-      }
+    let node: SyntaxNode;
+    try {
+      node = this.graph.getNodeAtLocation(location);
+    } catch (error) {
+      return;
+    }
 
-      const ancestors: SyntaxNode[] = [node];
-      while (node.parent != null) {
-        ancestors.unshift(node.parent);
-        node = node.parent;
-      }
+    const ancestors: SyntaxNode[] = [node];
+    while (node.parent != null) {
+      ancestors.unshift(node.parent);
+      node = node.parent;
+    }
 
-      const cursor = node.tree.walk();
-      this.print(cursor, 0);
+    const cursor = node.tree.walk();
+    this.printCursorLocationInfo(cursor, 0);
 
-      for (let i = 1; i < ancestors.length; ++i) {
-        cursor.gotoFirstChild();
-        while (cursor.currentNode().id !== ancestors[i].id) {
-          if (!cursor.gotoNextSibling()) {
-            return;
-          }
+    for (let i = 1; i < ancestors.length; ++i) {
+      cursor.gotoFirstChild();
+      while (cursor.currentNode().id !== ancestors[i].id) {
+        if (!cursor.gotoNextSibling()) {
+          return;
         }
-        this.print(cursor, i);
       }
+      this.printCursorLocationInfo(cursor, i);
+    }
 
-      const leafText = ancestors[ancestors.length - 1].text
-        .replace(/\s+/g, " ")
-        .substring(0, 100);
-      console.debug(">".repeat(ancestors.length), `"${leafText}"`);
-    };
+    const leafText = ancestors[ancestors.length - 1].text
+      .replace(/\s+/g, " ")
+      .substring(0, 100);
+    console.debug(">".repeat(ancestors.length), `"${leafText}"`);
   }
 
   private printCursorLocationInfo(cursor: TreeCursor, depth: number) {

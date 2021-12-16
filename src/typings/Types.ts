@@ -448,6 +448,11 @@ export interface Graph {
   readonly commandServerApi: CommandServerApi | null;
 
   /**
+   * Function to access nodes in the tree sitter.
+   */
+  readonly getNodeAtLocation: (location: vscode.Location) => SyntaxNode;
+
+  /**
    * Debug logger
    */
   readonly debug: Debug;
