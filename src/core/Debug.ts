@@ -26,7 +26,7 @@ export default class Debug {
       case ExtensionMode.Development:
         this.enableDebugLog();
         break;
-      // r mode. Always disable.
+      // Test mode. Always disable.
       case ExtensionMode.Test:
         this.disableDebugLog();
         break;
