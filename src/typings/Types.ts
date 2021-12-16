@@ -155,6 +155,15 @@ export interface IdentityModifier {
   type: "identity";
 }
 
+/**
+ * Converts its input to a raw selection with no type information so for
+ * example if it is the destination of a bring or move it should inherit the
+ * type information such as delimiters from its source.
+ */
+export interface RawSelectionModifier {
+  type: "toRawSelection";
+}
+
 export interface HeadModifier {
   type: "head";
 }
@@ -170,7 +179,8 @@ export type Modifier =
   | SubTokenModifier
   //   | MatchingPairSymbolModifier Not implemented
   | HeadModifier
-  | TailModifier;
+  | TailModifier
+  | RawSelectionModifier;
 
 export type SelectionType =
   //   | "character" Not implemented
@@ -187,6 +197,7 @@ export interface PartialPrimitiveTarget {
   selectionType?: SelectionType;
   position?: Position;
   insideOutsideType?: InsideOutsideType;
+  isImplicit?: boolean;
 }
 
 export interface PartialRangeTarget {
@@ -215,6 +226,7 @@ export interface PrimitiveTarget {
   selectionType: SelectionType;
   position: Position;
   insideOutsideType: InsideOutsideType;
+  isImplicit: boolean;
 }
 
 export interface RangeTarget {
@@ -285,6 +297,13 @@ export interface SelectionContext {
    * statement this would be the statements in the body.
    */
   interior?: SelectionWithContext[];
+
+  /**
+   * Indicates that this is a raw selection with no type information so for
+   * example if it is the destination of a bring or move it should inherit the
+   * type information such as delimiters from its source
+   */
+  isRawSelection?: boolean;
 }
 
 export interface TypedSelection {
@@ -343,6 +362,7 @@ export type ActionType =
   | "deselect"
   | "editNewLineAfter"
   | "editNewLineBefore"
+  | "executeCommand"
   | "extractVariable"
   | "findInWorkspace"
   | "foldRegion"

@@ -12,7 +12,6 @@ import processMark from "./processMark";
 import processModifier from "./modifiers/processModifier";
 import processPosition from "./processPosition";
 import processSelectionType from "./processSelectionType";
-import { isForward as getIsForward } from "../util/selectionUtils";
 
 export default function (
   context: ProcessedTargetsContext,
@@ -275,6 +274,13 @@ function processPrimitiveTarget(
     ({ selection, context: selectionContext }) =>
       processSelectionType(context, target, selection, selectionContext)
   );
+
+  if (target.isImplicit) {
+    typedSelections.forEach((typedSelection) => {
+      typedSelection.selectionContext.isRawSelection = true;
+    });
+  }
+
   return typedSelections.map((selection) =>
     processPosition(context, target, selection)
   );

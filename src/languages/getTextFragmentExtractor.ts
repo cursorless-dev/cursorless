@@ -1,15 +1,14 @@
 import { SyntaxNode } from "web-tree-sitter";
 import { SelectionWithEditor } from "../typings/Types";
 import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";
-import { stringTextFragmentExtractor as javaStringTextFragmentExtractor } from "./java";
 import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } from "./typescript";
+import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
 import { UnsupportedLanguageError } from "../errors";
 import { Range } from "vscode";
 import { SupportedLanguageId } from "./constants";
 import {
   getNodeInternalRange,
   getNodeRange,
-  makeRangeFromPositions,
 } from "../util/nodeSelectors";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { notSupported } from "../util/nodeMatchers";
@@ -68,6 +67,33 @@ function constructDefaultStringTextFragmentExtractor(
 }
 
 /**
+ * Extracts string text fragments in languages that don't have quotation mark
+ * tokens as children of string tokens, but instead include them in the text of
+ * the string.
+ *
+ * This is a hack. Rather than letting the parse tree handle the quotation marks
+ * in java, we instead just let the textual surround handle them by letting it
+ * see the quotation marks. In other languages we prefer to let the parser
+ * handle the quotation marks in case they are more than one character long.
+ * @param node The node which might be a string node
+ * @param selection The selection from which to expand
+ * @returns The range of the string text or null if the node is not a string
+ */
+function constructHackedStringTextFragmentExtractor(
+  languageId: SupportedLanguageId
+) {
+  const stringNodeMatcher = getNodeMatcher(languageId, "string", false);
+
+  return (node: SyntaxNode, selection: SelectionWithEditor) => {
+    if (stringNodeMatcher(selection, node) != null) {
+      return getNodeRange(node);
+    }
+
+    return null;
+  };
+}
+
+/**
  * Returns a function which can be used to extract the range of a text fragment
  * from within a parsed language. This function should only return a nominal
  * range for fragments within the document that should be treated like raw text,
@@ -94,11 +120,19 @@ const textFragmentExtractors: Record<
   TextFragmentExtractor
 > = {
   c: constructDefaultTextFragmentExtractor("c"),
+  clojure: constructDefaultTextFragmentExtractor(
+    "clojure",
+    constructHackedStringTextFragmentExtractor("clojure")
+  ),
   cpp: constructDefaultTextFragmentExtractor("cpp"),
   csharp: constructDefaultTextFragmentExtractor("csharp"),
+  html: constructDefaultTextFragmentExtractor(
+    "html",
+    htmlStringTextFragmentExtractor
+  ),
   java: constructDefaultTextFragmentExtractor(
     "java",
-    javaStringTextFragmentExtractor
+    constructHackedStringTextFragmentExtractor("java")
   ),
   javascript: constructDefaultTextFragmentExtractor(
     "javascript",
