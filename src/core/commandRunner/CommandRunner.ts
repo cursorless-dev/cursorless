@@ -66,8 +66,10 @@ export default class CommandRunner {
         action.getTargetPreferences(...extraArgs)
       );
 
-      this.graph.debug.log("Full targets:");
-      this.graph.debug.log(JSON.stringify(targets, null, 3));
+      if (this.graph.debug.active) {
+        this.graph.debug.log("Full targets:");
+        this.graph.debug.log(JSON.stringify(targets, null, 3));
+      }
 
       const processedTargetsContext: ProcessedTargetsContext = {
         currentSelections:
