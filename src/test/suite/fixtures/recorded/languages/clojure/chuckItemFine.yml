@@ -1,12 +1,12 @@
 languageId: clojure
 command:
-  version: 0
+  version: 1
   spokenForm: chuck item fine
   action: remove
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: f, usePrePhraseSnapshot: true}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
 initialState:
   documentContents: |-
     {
