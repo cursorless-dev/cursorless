@@ -57,7 +57,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   // TODO: objects defined as classes?
   class: 'class_definition',
   // XXX ^ ABOVE HERE WORKS
-  className: 'class_definition[identifier]',
+  className: 'class_definition[name]',
   ifStatement: 'if_expression',
   string: 'string_literal',
   comment: 'comment',
