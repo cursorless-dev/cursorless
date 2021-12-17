@@ -125,7 +125,8 @@ function inferPrimitiveTarget(
   const insideOutsideType =
     target.insideOutsideType ??
     getPreviousAttribute(previousTargetsForAttributes, "insideOutsideType") ??
-    actionPreferences.insideOutsideType;
+    (doAttributeInference ? actionPreferences.insideOutsideType : null) ??
+    "inside";
 
   const modifier = target.modifier ??
     getPreviousAttribute(previousTargetsForAttributes, "modifier") ??
