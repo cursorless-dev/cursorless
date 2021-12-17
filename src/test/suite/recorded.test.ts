@@ -17,11 +17,9 @@ import {
   SerializedMarks,
 } from "../../testUtil/toPlainObject";
 import { getCursorlessApi } from "../../util/getExtensionApi";
-import { enableDebugLog } from "../../util/debug";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 import asyncSafety from "./asyncSafety";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
-import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
 import { openNewEditor } from "../openNewEditor";
 import getRecordedTestPaths from "./getRecordedTestPaths";
 
@@ -38,8 +36,6 @@ function createSelection(selection: SelectionPlainObject): vscode.Selection {
 suite("recorded test cases", async function () {
   this.timeout("100s");
   this.retries(5);
-
-  enableDebugLog(false);
 
   teardown(() => {
     sinon.restore();
