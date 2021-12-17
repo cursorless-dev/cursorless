@@ -1,4 +1,4 @@
-import { commands, window } from "vscode";
+import { commands, TextEditor, window } from "vscode";
 import {
   Action,
   ActionPreferences,
@@ -26,6 +26,7 @@ export interface CommandArguments {
   showDecorations?: boolean;
   preCommandSleep?: number;
   postCommandSleep?: number;
+  awaitCommand?: boolean;
 }
 
 const defaultArguments: CommandArguments = {
@@ -35,6 +36,7 @@ const defaultArguments: CommandArguments = {
   showDecorations: false,
   preCommandSleep: 0,
   postCommandSleep: 0,
+  awaitCommand: true,
 };
 
 export default class CommandAction implements Action {
@@ -67,24 +69,45 @@ export default class CommandAction implements Action {
             await sleep(args.preCommandSleep);
           }
 
-          const [updatedOriginalSelections, updatedTargetSelections] =
-            await callFunctionAndUpdateSelections(
-              this.graph.rangeUpdater,
-              () => commands.executeCommand(args.command!, args.commandArgs),
-              editor.document,
-              [originalSelections, targetSelections]
-            );
+          const commandPromise = commands.executeCommand(
+            args.command!,
+            args.commandArgs
+          );
+
+          if (args.awaitCommand) {
+            const [updatedOriginalSelections, updatedTargetSelections] =
+              await callFunctionAndUpdateSelections(
+                this.graph.rangeUpdater,
+                () => commandPromise,
+                editor.document,
+                [originalSelections, targetSelections]
+              );
+
+            if (args.postCommandSleep) {
+              await sleep(args.postCommandSleep);
+            }
+
+            if (args.restoreSelection) {
+              editor.selections = updatedOriginalSelections;
+            }
+
+            return updatedTargetSelections.map((selection) => ({
+              editor,
+              selection,
+            }));
+          }
 
           if (args.postCommandSleep) {
             await sleep(args.postCommandSleep);
           }
 
-          // Reset original selections
           if (args.restoreSelection) {
-            editor.selections = updatedOriginalSelections;
+            commandPromise.then(() => {
+              editor.selections = originalSelections;
+            });
           }
 
-          return updatedTargetSelections.map((selection) => ({
+          return targetSelections.map((selection) => ({
             editor,
             selection,
           }));
