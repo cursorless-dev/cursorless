@@ -69,16 +69,11 @@ export default class CommandAction implements Action {
             await sleep(args.preCommandSleep);
           }
 
-          const commandPromise = commands.executeCommand(
-            args.command!,
-            args.commandArgs
-          );
-
           if (args.awaitCommand) {
             const [updatedOriginalSelections, updatedTargetSelections] =
               await callFunctionAndUpdateSelections(
                 this.graph.rangeUpdater,
-                () => commandPromise,
+                () => commands.executeCommand(args.command!, args.commandArgs),
                 editor.document,
                 [originalSelections, targetSelections]
               );
@@ -96,6 +91,11 @@ export default class CommandAction implements Action {
               selection,
             }));
           }
+
+          const commandPromise = commands.executeCommand(
+            args.command!,
+            args.commandArgs
+          );
 
           if (args.postCommandSleep) {
             await sleep(args.postCommandSleep);
