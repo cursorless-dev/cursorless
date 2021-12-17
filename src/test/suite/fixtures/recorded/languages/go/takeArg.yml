@@ -1,6 +1,6 @@
 languageId: go
 command:
-  version: 0
+  version: 1
   spokenForm: take arg
   action: setSelection
   targets:

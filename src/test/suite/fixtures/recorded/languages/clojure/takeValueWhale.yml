@@ -1,12 +1,12 @@
 languageId: clojure
 command:
-  version: 0
+  version: 1
   spokenForm: take value whale
   action: setSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: w, usePrePhraseSnapshot: true}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
 initialState:
   documentContents: "{:foo \"bar\", :baz \"whatever\"}"
   selections:
