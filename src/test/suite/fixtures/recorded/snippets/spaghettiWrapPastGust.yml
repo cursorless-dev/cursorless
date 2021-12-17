@@ -1,8 +1,9 @@
-spokenForm: spaghetti wrap past gust
 languageId: plaintext
 command:
-  actionName: wrapWithSnippet
-  partialTargets:
+  version: 1
+  spokenForm: spaghetti wrap past gust
+  action: wrapWithSnippet
+  targets:
     - type: range
       start: {type: primitive}
       end:

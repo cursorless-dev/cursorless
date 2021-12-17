@@ -1,18 +1,13 @@
-spokenForm: snip funk hello world
 languageId: typescript
 command:
-  actionName: insertSnippet
-  partialTargets:
-    - type: primitive
-      mark: {type: cursor}
-      selectionType: token
-      position: contents
-      modifier: {type: identity}
-      insideOutsideType: inside
+  version: 1
+  spokenForm: snip funk hello world
+  action: insertSnippet
+  targets:
+    - {type: primitive, isImplicit: true}
   extraArgs:
     - functionDeclaration
     - {name: hello world}
-marks: {}
 initialState:
   documentContents: ""
   selections:
