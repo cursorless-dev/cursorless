@@ -1,4 +1,4 @@
-import { commands, TextEditor, window } from "vscode";
+import { commands, window } from "vscode";
 import {
   Action,
   ActionPreferences,
