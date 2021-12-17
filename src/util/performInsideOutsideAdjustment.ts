@@ -5,12 +5,6 @@ export function performInsideOutsideAdjustment(
   selection: TypedSelection,
   preferredInsideOutsideType: InsideOutsideType = null
 ): TypedSelection {
-  // This is a hack until we have proper pipelines so that converting to a raw
-  // selection can happen last
-  if (selection.selectionContext.isRawSelection) {
-    return selection;
-  }
-
   const insideOutsideType =
     selection.insideOutsideType ?? preferredInsideOutsideType;
 
