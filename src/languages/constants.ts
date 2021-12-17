@@ -3,6 +3,7 @@ export const supportedLanguageIds = [
   "clojure",
   "cpp",
   "csharp",
+  "go",
   "html",
   "java",
   "javascript",
