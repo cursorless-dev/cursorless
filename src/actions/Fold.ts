@@ -32,9 +32,9 @@ class FoldAction implements Action {
     await commands.executeCommand(this.command, {
       levels: 1,
       direction: "down",
-      selectionLines: targets.map(
-        (target) => target.selection.selection.start.line
-      ),
+      selectionLines: targets
+        .filter((target) => !target.selection.selection.isSingleLine)
+        .map((target) => target.selection.selection.start.line),
     });
 
     // If necessary focus back original editor
