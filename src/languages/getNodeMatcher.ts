@@ -16,6 +16,7 @@ import java from "./java";
 import { patternMatchers as html } from "./html";
 import python from "./python";
 import scala from "./scala";
+import go from "./go";
 import { UnsupportedLanguageError } from "../errors";
 import { SupportedLanguageId } from "./constants";
 
@@ -51,6 +52,7 @@ const languageMatchers: Record<
   cpp,
   csharp,
   clojure,
+  go,
   html,
   java,
   javascript: typescript,

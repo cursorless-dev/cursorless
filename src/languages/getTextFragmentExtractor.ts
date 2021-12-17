@@ -6,10 +6,7 @@ import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "
 import { UnsupportedLanguageError } from "../errors";
 import { Range } from "vscode";
 import { SupportedLanguageId } from "./constants";
-import {
-  getNodeInternalRange,
-  getNodeRange,
-} from "../util/nodeSelectors";
+import { getNodeInternalRange, getNodeRange } from "../util/nodeSelectors";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { notSupported } from "../util/nodeMatchers";
 
@@ -126,6 +123,7 @@ const textFragmentExtractors: Record<
   ),
   cpp: constructDefaultTextFragmentExtractor("cpp"),
   csharp: constructDefaultTextFragmentExtractor("csharp"),
+  go: constructDefaultTextFragmentExtractor("go"),
   html: constructDefaultTextFragmentExtractor(
     "html",
     htmlStringTextFragmentExtractor
