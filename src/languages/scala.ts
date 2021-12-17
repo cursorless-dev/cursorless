@@ -54,13 +54,13 @@ const STATEMENT_TYPES = [
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   statement: STATEMENT_TYPES,
   // XXX: v BELOW HERE WORKS
-  // TODO: objects defined as classes?
-  class: 'class_definition',
-  // XXX ^ ABOVE HERE WORKS
-  className: 'class_definition[name]',
+  // I'm going to map objects as classes, whose going to stop me?!
+  class: ['class_definition', 'object_definition'],
+  className: ['class_definition[name]', 'object_definition[name]'],
   ifStatement: 'if_expression',
-  string: 'string_literal',
+  string: 'string',
   comment: 'comment',
+  // XXX ^ ABOVE HERE WORKS
   anonymousFunction: 'lambda_expression',
   list: 'array_initializer',
   functionCall: 'method_invocation',
@@ -77,7 +77,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     'method_declaration[type]',
   ]),
   functionName: [
-    'method_declaration.identifier!',
+    'function_definition.name!',
     'constructor_declaration.identifier!',
   ],
   value: leadingMatcher(['*[declarator][value]', '*[value]'], ['=']),
