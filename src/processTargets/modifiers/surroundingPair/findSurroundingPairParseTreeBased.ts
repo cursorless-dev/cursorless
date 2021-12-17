@@ -6,6 +6,7 @@ import {
   SurroundingPairDirection,
 } from "../../../typings/Types";
 import { getNodeRange } from "../../../util/nodeSelectors";
+import { isContainedInErrorNode } from "../../../util/treeSitterUtils";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
@@ -205,6 +206,7 @@ function findSurroundingPairContainedInNode(
           // looking at its position within its parent node.
           if (
             delimiterInfo.delimiter === "angleBrackets" &&
+            !isContainedInErrorNode(delimiterNode) &&
             inferDelimiterSide(delimiterNode) !== delimiterInfo.side
           ) {
             return undefined;

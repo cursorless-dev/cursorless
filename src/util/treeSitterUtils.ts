@@ -36,3 +36,30 @@ export function getChildNodesForFieldName(
 
   return ret;
 }
+
+/**
+ * Returns a list of the node's ancestors, including the node itself if
+ * `includeNode` is `true`
+ * @param node The node to iterate ancestors from
+ * @param includeNode Whether to include the node itself in the returned list
+ * @returns A list of ancestors possibly including the node itself
+ */
+export function getAncestors(node: SyntaxNode, includeNode: boolean) {
+  const ancestors = includeNode ? [node] : [];
+  const treeCursor = node.walk();
+
+  let hasNext = treeCursor.gotoParent();
+
+  while (hasNext) {
+    ancestors.push(treeCursor.currentNode());
+    hasNext = treeCursor.gotoParent();
+  }
+
+  return ancestors;
+}
+
+export function isContainedInErrorNode(node: SyntaxNode) {
+  const ancestors = getAncestors(node, true);
+
+  return ancestors.some((ancestor) => ancestor.type === "ERROR");
+}
