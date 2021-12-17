@@ -64,7 +64,5 @@ export function getAncestors(node: SyntaxNode, includeNode: boolean = true) {
  * @returns True if the given node is contained in an error node
  */
 export function isContainedInErrorNode(node: SyntaxNode) {
-  const ancestors = getAncestors(node, true);
-
-  return ancestors.some((ancestor) => ancestor.type === "ERROR");
+  return getAncestors(node).some((ancestor) => ancestor.type === "ERROR");
 }
