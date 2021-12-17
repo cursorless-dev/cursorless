@@ -1,4 +1,4 @@
-import { commands, window } from "vscode";
+import { commands } from "vscode";
 import {
   Action,
   ActionPreferences,
@@ -6,13 +6,10 @@ import {
   Graph,
   TypedSelection,
 } from "../typings/Types";
-import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
 
 class FoldAction implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [
-    { insideOutsideType: "inside" },
-  ];
+  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "outside" }];
 
   constructor(private command: string) {
     this.run = this.run.bind(this);
@@ -22,25 +19,15 @@ class FoldAction implements Action {
     TypedSelection[],
     TypedSelection[]
   ]): Promise<ActionReturnValue> {
-    const originalEditor = window.activeTextEditor;
-    const editor = ensureSingleEditor(targets);
-
-    if (originalEditor !== editor) {
-      await focusEditor(editor);
-    }
+    ensureSingleEditor(targets);
 
     await commands.executeCommand(this.command, {
       levels: 1,
       direction: "down",
-      selectionLines: targets.map(
-        (target) => target.selection.selection.start.line
-      ),
+      selectionLines: targets
+        .filter((target) => !target.selection.selection.isSingleLine)
+        .map((target) => target.selection.selection.start.line),
     });
-
-    // If necessary focus back original editor
-    if (originalEditor != null && originalEditor !== window.activeTextEditor) {
-      await focusEditor(originalEditor);
-    }
 
     return {
       thatMark: targets.map((target) => target.selection),
