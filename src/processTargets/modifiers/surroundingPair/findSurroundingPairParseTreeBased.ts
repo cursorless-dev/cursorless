@@ -206,8 +206,8 @@ function findSurroundingPairContainedInNode(
           // looking at its position within its parent node.
           if (
             delimiterInfo.delimiter === "angleBrackets" &&
-            !isContainedInErrorNode(delimiterNode) &&
-            inferDelimiterSide(delimiterNode) !== delimiterInfo.side
+            inferDelimiterSide(delimiterNode) !== delimiterInfo.side &&
+            !isContainedInErrorNode(delimiterNode)
           ) {
             return undefined;
           }
