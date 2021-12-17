@@ -112,6 +112,11 @@
 					"default": true,
 					"description": "Whether to show decorations on vscode start."
 				},
+				"cursorless.debug": {
+					"type": "boolean",
+					"default": false,
+					"description": "Whether to show debug logs."
+				},
 				"cursorless.pendingEditDecorationTime": {
 					"type": "integer",
 					"default": 100,

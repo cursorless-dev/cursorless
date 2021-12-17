@@ -11,6 +11,7 @@ import Decorations from "../core/Decorations";
 import FontMeasurements from "../core/FontMeasurements";
 import { CommandServerApi } from "../util/getExtensionApi";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
+import Debug from "../core/Debug";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -155,6 +156,15 @@ export interface IdentityModifier {
   type: "identity";
 }
 
+/**
+ * Converts its input to a raw selection with no type information so for
+ * example if it is the destination of a bring or move it should inherit the
+ * type information such as delimiters from its source.
+ */
+export interface RawSelectionModifier {
+  type: "toRawSelection";
+}
+
 export interface HeadModifier {
   type: "head";
 }
@@ -170,7 +180,8 @@ export type Modifier =
   | SubTokenModifier
   //   | MatchingPairSymbolModifier Not implemented
   | HeadModifier
-  | TailModifier;
+  | TailModifier
+  | RawSelectionModifier;
 
 export type SelectionType =
   //   | "character" Not implemented
@@ -187,6 +198,7 @@ export interface PartialPrimitiveTarget {
   selectionType?: SelectionType;
   position?: Position;
   insideOutsideType?: InsideOutsideType;
+  isImplicit?: boolean;
 }
 
 export interface PartialRangeTarget {
@@ -215,6 +227,7 @@ export interface PrimitiveTarget {
   selectionType: SelectionType;
   position: Position;
   insideOutsideType: InsideOutsideType;
+  isImplicit: boolean;
 }
 
 export interface RangeTarget {
@@ -285,6 +298,13 @@ export interface SelectionContext {
    * statement this would be the statements in the body.
    */
   interior?: SelectionWithContext[];
+
+  /**
+   * Indicates that this is a raw selection with no type information so for
+   * example if it is the destination of a bring or move it should inherit the
+   * type information such as delimiters from its source
+   */
+  isRawSelection?: boolean;
 }
 
 export interface TypedSelection {
@@ -426,6 +446,16 @@ export interface Graph {
    * API object for interacting with the command server, if it exists
    */
   readonly commandServerApi: CommandServerApi | null;
+
+  /**
+   * Function to access nodes in the tree sitter.
+   */
+  readonly getNodeAtLocation: (location: vscode.Location) => SyntaxNode;
+
+  /**
+   * Debug logger
+   */
+  readonly debug: Debug;
 }
 
 export type NodeMatcherValue = {
