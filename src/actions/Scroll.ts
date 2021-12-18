@@ -55,8 +55,8 @@ class Scroll implements Action {
         const end = visibleRanges[visibleRanges.length - 1].end;
         // Don't show decorations for selections that are larger than the visible range
         return (
-          selection.selection.start.isAfter(start) ||
-          selection.selection.end.isBefore(end)
+          selection.selection.start.isAfterOrEqual(start) ||
+          selection.selection.end.isBeforeOrEqual(end)
         );
       });
 
