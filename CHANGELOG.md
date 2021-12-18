@@ -2,6 +2,125 @@
 
 All notable changes to the "cursorless" extension will be documented in this file.
 
+## [0.24.0](https://github.com/pokey/cursorless-vscode/tree/0.24.0) (2021-12-18)
+
+[Full Changelog](https://github.com/pokey/cursorless-vscode/compare/0.23.0...0.24.0)
+
+### Highlights
+
+#### \[experimental\] Foo
+
+Bar baz. See the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs/experimental.md#wrapper-snippets) for more info. Expect foo in the next release.
+
+![Wrapper snippet demo](images/tryWrapFine.gif)
+
+### Issues / PRs
+
+**Implemented enhancements:**
+
+- Basic clojure support [\#373](https://github.com/pokey/cursorless-vscode/issues/373)
+- Modifier that allows you to put cursor on column in every row between two targets [\#345](https://github.com/pokey/cursorless-vscode/issues/345)
+- Support "round rewrap" action [\#270](https://github.com/pokey/cursorless-vscode/issues/270)
+- Auto-join multiple targets with new lines [\#237](https://github.com/pokey/cursorless-vscode/issues/237)
+- Add text-based surrounding pair implementation [\#218](https://github.com/pokey/cursorless-vscode/issues/218)
+- Support auto-joining multiple arguments [\#184](https://github.com/pokey/cursorless-vscode/issues/184)
+- Add "remove cursor" action [\#95](https://github.com/pokey/cursorless-vscode/issues/95)
+- Support "enclosing \<symbol\>" transformation [\#14](https://github.com/pokey/cursorless-vscode/issues/14)
+- Don't write `hat_styles.csv` if there was error reading VSCode settings [\#134](https://github.com/pokey/cursorless-talon/issues/134)
+- Be more robust to not finding settings file [\#119](https://github.com/pokey/cursorless-talon/issues/119)
+- Pop up notification when there is a problem finding / loading vscode settings [\#91](https://github.com/pokey/cursorless-talon/issues/91)
+- Change some default terms [\#66](https://github.com/pokey/cursorless-talon/issues/66)
+
+**Fixed bugs:**
+
+- Text-based surrounding pair doesn't work in json strings [\#364](https://github.com/pokey/cursorless-vscode/issues/364)
+- Angle bracket surrounding pair for type parameters in typescript [\#363](https://github.com/pokey/cursorless-vscode/issues/363)
+- Fix Typescript text-based surrounding pairs [\#355](https://github.com/pokey/cursorless-vscode/issues/355)
+- Hats don't show up when the line contains a `£` [\#315](https://github.com/pokey/cursorless-vscode/issues/315)
+- Automatic token expansion doesn't work if token is offscreen [\#298](https://github.com/pokey/cursorless-vscode/issues/298)
+- "chuck type" leaves trailing colon [\#281](https://github.com/pokey/cursorless-vscode/issues/281)
+- Use time stamps for decorated marks [\#249](https://github.com/pokey/cursorless-vscode/issues/249)
+- Improve and unify selection updating behaviour to handle overlapping ranges [\#138](https://github.com/pokey/cursorless-vscode/issues/138)
+- Duplicate symbols after VS Code update [\#111](https://github.com/pokey/cursorless-vscode/issues/111)
+- Fold action not working properly with multiple list elements [\#39](https://github.com/pokey/cursorless-vscode/issues/39)
+- The `clear` command clashes with Knausj commands [\#68](https://github.com/pokey/cursorless-talon/issues/68)
+
+**Closed issues:**
+
+- Fix Windows CI regression [\#388](https://github.com/pokey/cursorless-vscode/issues/388)
+- Add code links to hat snapshots doc [\#358](https://github.com/pokey/cursorless-vscode/issues/358)
+- Add scope type for condition/guard [\#336](https://github.com/pokey/cursorless-vscode/issues/336)
+- Get unit tests working again [\#16](https://github.com/pokey/cursorless-vscode/issues/16)
+- Update scope type documentation [\#124](https://github.com/pokey/cursorless-talon/issues/124)
+- Replace try/except with hasattr [\#117](https://github.com/pokey/cursorless-talon/issues/117)
+- Not recognising colour/shape modifiers [\#100](https://github.com/pokey/cursorless-talon/issues/100)
+- Cheatsheet surrounding pair delimiters; other improvements [\#67](https://github.com/pokey/cursorless-talon/issues/67)
+
+**Merged pull requests:**
+
+- Filter out single-line targets for `fold` action [\#400](https://github.com/pokey/cursorless-vscode/pull/400) ([pokey](https://github.com/pokey))
+- Fix inside-outside for implicit targets [\#398](https://github.com/pokey/cursorless-vscode/pull/398) ([pokey](https://github.com/pokey))
+- Upgrade tests [\#397](https://github.com/pokey/cursorless-vscode/pull/397) ([pokey](https://github.com/pokey))
+- Handle angle brackets within an error node [\#396](https://github.com/pokey/cursorless-vscode/pull/396) ([pokey](https://github.com/pokey))
+- Allow to fold single line [\#394](https://github.com/pokey/cursorless-vscode/pull/394) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Adding Language Support for Go [\#391](https://github.com/pokey/cursorless-vscode/pull/391) ([trace-andreason](https://github.com/trace-andreason))
+- Added default configuration for padding top [\#390](https://github.com/pokey/cursorless-vscode/pull/390) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Allow non-yaml files in recorded tests dir [\#387](https://github.com/pokey/cursorless-vscode/pull/387) ([pokey](https://github.com/pokey))
+- Added html language implementation [\#385](https://github.com/pokey/cursorless-vscode/pull/385) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Fixed selection bug and added source mark to copy lines [\#384](https://github.com/pokey/cursorless-vscode/pull/384) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Only show debug log in development mode [\#380](https://github.com/pokey/cursorless-vscode/pull/380) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Reworked decorations debounce delay with special exception for scrolling [\#377](https://github.com/pokey/cursorless-vscode/pull/377) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Added support for user define custom actions [\#376](https://github.com/pokey/cursorless-vscode/pull/376) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Preliminary clojure support [\#375](https://github.com/pokey/cursorless-vscode/pull/375) ([pokey](https://github.com/pokey))
+- Include generic in java type definition [\#372](https://github.com/pokey/cursorless-vscode/pull/372) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Fix doc links [\#371](https://github.com/pokey/cursorless-vscode/pull/371) ([pokey](https://github.com/pokey))
+- Fix JSON surrounding pairs [\#370](https://github.com/pokey/cursorless-vscode/pull/370) ([pokey](https://github.com/pokey))
+- Added a rebounce delay setting [\#368](https://github.com/pokey/cursorless-vscode/pull/368) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Fix typescript angle bracket pair [\#367](https://github.com/pokey/cursorless-vscode/pull/367) ([pokey](https://github.com/pokey))
+- Add rewrap action [\#365](https://github.com/pokey/cursorless-vscode/pull/365) ([pokey](https://github.com/pokey))
+- Add hat snapshot documentation code links [\#362](https://github.com/pokey/cursorless-vscode/pull/362) ([pokey](https://github.com/pokey))
+- Disabled statement block on typescript [\#359](https://github.com/pokey/cursorless-vscode/pull/359) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Change column modified to range vertical connector [\#353](https://github.com/pokey/cursorless-vscode/pull/353) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Implemented strict here selection type [\#352](https://github.com/pokey/cursorless-vscode/pull/352) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Column selection type [\#351](https://github.com/pokey/cursorless-vscode/pull/351) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Add wrapper to avoid multiple done calls [\#350](https://github.com/pokey/cursorless-vscode/pull/350) ([pokey](https://github.com/pokey))
+- Increase number of test retries [\#349](https://github.com/pokey/cursorless-vscode/pull/349) ([pokey](https://github.com/pokey))
+- Added action remove selection [\#348](https://github.com/pokey/cursorless-vscode/pull/348) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Delimiter selector updated [\#347](https://github.com/pokey/cursorless-vscode/pull/347) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Fix spinning unmatched delimiter [\#343](https://github.com/pokey/cursorless-vscode/pull/343) ([pokey](https://github.com/pokey))
+- Added specific typescript type selector [\#342](https://github.com/pokey/cursorless-vscode/pull/342) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Added conditions scope type [\#341](https://github.com/pokey/cursorless-vscode/pull/341) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Updated leading and trailing delimiters for before and after positions [\#340](https://github.com/pokey/cursorless-vscode/pull/340) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Join sources on single destination [\#339](https://github.com/pokey/cursorless-vscode/pull/339) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Removed additional highlight before scroll [\#337](https://github.com/pokey/cursorless-vscode/pull/337) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Implementation of modulo line numbers [\#333](https://github.com/pokey/cursorless-vscode/pull/333) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Regex updates [\#326](https://github.com/pokey/cursorless-vscode/pull/326) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Textual paired delimiters [\#324](https://github.com/pokey/cursorless-vscode/pull/324) ([pokey](https://github.com/pokey))
+- Hat snapshots [\#318](https://github.com/pokey/cursorless-vscode/pull/318) ([pokey](https://github.com/pokey))
+- Dispose of decorations [\#307](https://github.com/pokey/cursorless-vscode/pull/307) ([pokey](https://github.com/pokey))
+- Improved update selections [\#306](https://github.com/pokey/cursorless-vscode/pull/306) ([pokey](https://github.com/pokey))
+  Avoid updating CSV on error reading VSCode settings [\#137](https://github.com/pokey/cursorless-talon/pull/137) ([pokey](https://github.com/pokey))
+- Fix rewrap in cheatsheet [\#133](https://github.com/pokey/cursorless-talon/pull/133) ([pokey](https://github.com/pokey))
+- Some cheatsheet improvements [\#129](https://github.com/pokey/cursorless-talon/pull/129) ([pokey](https://github.com/pokey))
+- Settings file robustness [\#128](https://github.com/pokey/cursorless-talon/pull/128) ([pokey](https://github.com/pokey))
+- Update scope type documentation [\#127](https://github.com/pokey/cursorless-talon/pull/127) ([pokey](https://github.com/pokey))
+- Added support for user define custom actions [\#125](https://github.com/pokey/cursorless-talon/pull/125) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Change default terms [\#123](https://github.com/pokey/cursorless-talon/pull/123) ([pokey](https://github.com/pokey))
+- Black CI [\#122](https://github.com/pokey/cursorless-talon/pull/122) ([pokey](https://github.com/pokey))
+- Csv pipe [\#121](https://github.com/pokey/cursorless-talon/pull/121) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Add rewrap action [\#120](https://github.com/pokey/cursorless-talon/pull/120) ([pokey](https://github.com/pokey))
+- Ignore settings [\#118](https://github.com/pokey/cursorless-talon/pull/118) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Changed column modified to range vertical connector [\#116](https://github.com/pokey/cursorless-talon/pull/116) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Added identity modifier. Added head tail modifier to csv [\#115](https://github.com/pokey/cursorless-talon/pull/115) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Added strict here selection type [\#114](https://github.com/pokey/cursorless-talon/pull/114) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Column selection type [\#113](https://github.com/pokey/cursorless-talon/pull/113) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Added action remove selection [\#110](https://github.com/pokey/cursorless-talon/pull/110) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Added conditions scope type [\#108](https://github.com/pokey/cursorless-talon/pull/108) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Moved wrap action to talon file [\#106](https://github.com/pokey/cursorless-talon/pull/106) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Implementation of modulo line numbers [\#105](https://github.com/pokey/cursorless-talon/pull/105) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Improve surrounding pairs [\#104](https://github.com/pokey/cursorless-talon/pull/104) ([pokey](https://github.com/pokey))
+- Take snapshots of hat map [\#101](https://github.com/pokey/cursorless-talon/pull/101) ([pokey](https://github.com/pokey))
+
 ## [0.23.0](https://github.com/pokey/cursorless-vscode/tree/0.23.0) (2021-10-27)
 
 [Full Changelog](https://github.com/pokey/cursorless-vscode/compare/0.22.0...0.23.0)
