@@ -1,4 +1,6 @@
+import { flatten, zip } from "lodash";
 import { TextEditor } from "vscode";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import {
   Action,
   ActionPreferences,
@@ -8,6 +10,8 @@ import {
   TypedSelection,
 } from "../typings/Types";
 import { repeat } from "../util/array";
+import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { runForEachEditor } from "../util/targetUtils";
 
 export default class Rewrap implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
@@ -25,26 +29,62 @@ export default class Rewrap implements Action {
     this.run = this.run.bind(this);
   }
 
-  run(
+  async run(
     [targets]: [TypedSelection[]],
     left: string,
     right: string
   ): Promise<ActionReturnValue> {
-    const boundaries: TypedSelection[] = targets.flatMap((target) => {
+    const targetInfos = targets.flatMap((target) => {
       const boundary = target.selectionContext.boundary;
 
       if (boundary == null || boundary.length !== 2) {
         throw Error("Target must have an opening and closing delimiter");
       }
 
-      return boundary.map((edge) =>
-        constructSimpleTypedSelection(target.selection.editor, edge)
-      );
+      return {
+        editor: target.selection.editor,
+        boundary: boundary.map((edge) =>
+          constructSimpleTypedSelection(target.selection.editor, edge)
+        ),
+        targetSelection: target.selection.selection,
+      };
     });
 
-    const replacementTexts = repeat([left, right], targets.length);
+    await displayPendingEditDecorations(
+      targetInfos.flatMap(({ boundary }) => boundary),
+      this.graph.editStyles.pendingModification0
+    );
 
-    return this.graph.actions.replace.run([boundaries], replacementTexts);
+    const thatMark = flatten(
+      await runForEachEditor(
+        targetInfos,
+        (targetInfo) => targetInfo.editor,
+        async (editor, targetInfos) => {
+          const edits = targetInfos.flatMap((targetInfo) =>
+            zip(targetInfo.boundary, [left, right]).map(([target, text]) => ({
+              editor,
+              range: target!.selection.selection,
+              text: text!,
+            }))
+          );
+
+          const [updatedTargetSelections] =
+            await performEditsAndUpdateSelections(
+              this.graph.rangeUpdater,
+              editor,
+              edits,
+              [targetInfos.map((targetInfo) => targetInfo.targetSelection)]
+            );
+
+          return updatedTargetSelections.map((selection) => ({
+            editor,
+            selection,
+          }));
+        }
+      )
+    );
+
+    return { thatMark };
   }
 }
 
