@@ -14,15 +14,27 @@ All notable changes to the "cursorless" extension will be documented in this fil
 - HTML [\#385](https://github.com/pokey/cursorless-vscode/pull/385) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
 - Preliminary Clojure support [\#375](https://github.com/pokey/cursorless-vscode/pull/375) ([pokey](https://github.com/pokey))
 
+#### "Take round"
+
+We now support targets which consist of matching pairs of parentheses, square brackets, curly brackets, etc. These targets make cursorless a lot more useful in places where we don't have a parse tree, for example in markdown, plaintext or within a string or comment. See the [docs](https://github.com/pokey/cursorless-talon/blob/develop/docs/README.md#surrounding-pair) for more info, but in case you're one for GIFs:
+
+!["Swap pair ox with pit"](images/swapPairOxWithPit.gif)
+
+And another one:
+
+!["Clear square"](images/clearSquare.gif)
+
 #### "Slice" ranges
 
 We now support vertical ranges which put a selection on every line between the start and end of the range:
 
-![Wrapper snippet demo](images/tryWrapFine.gif)
+Here's a simple(-ish 😊) example:
 
-####
+!["Pre cap slice past green risk"](images/preCapSlicePastGreenRisk.gif)
 
-Bar baz. See the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs/experimental.md#wrapper-snippets) for more info. Expect foo in the next release.
+And a more advanced one:
+
+!["Chuck tail red pipe slice past end of file"](images/chuckTailRedPipeSlicePastEndOfFile.gif)
 
 ### Issues / PRs
 
