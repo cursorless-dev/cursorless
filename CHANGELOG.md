@@ -18,11 +18,11 @@ All notable changes to the "cursorless" extension will be documented in this fil
 
 We now support targets which consist of matching pairs of parentheses, square brackets, curly brackets, etc. These targets make cursorless a lot more useful in places where we don't have a parse tree, for example in markdown, plaintext or within a string or comment. See the [docs](https://github.com/pokey/cursorless-talon/blob/develop/docs/README.md#surrounding-pair) for more info, but in case you're one for GIFs:
 
-!["Swap pair ox with pit"](images/swapPairOxWithPit.gif)
+!["Clear square"](images/clearSquare.gif)
 
 And another one:
 
-!["Clear square"](images/clearSquare.gif)
+!["Swap pair ox with pit"](images/swapPairOxWithPit.gif)
 
 #### "Slice" ranges
 
