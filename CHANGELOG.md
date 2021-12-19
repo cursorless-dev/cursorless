@@ -8,11 +8,21 @@ All notable changes to the "cursorless" extension will be documented in this fil
 
 ### Highlights
 
-#### \[experimental\] Foo
+#### New languages
 
-Bar baz. See the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs/experimental.md#wrapper-snippets) for more info. Expect foo in the next release.
+- Go [\#391](https://github.com/pokey/cursorless-vscode/pull/391) ([trace-andreason](https://github.com/trace-andreason))
+- HTML [\#385](https://github.com/pokey/cursorless-vscode/pull/385) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Preliminary Clojure support [\#375](https://github.com/pokey/cursorless-vscode/pull/375) ([pokey](https://github.com/pokey))
+
+#### "Slice" ranges
+
+We now support vertical ranges which put a selection on every line between the start and end of the range:
 
 ![Wrapper snippet demo](images/tryWrapFine.gif)
+
+####
+
+Bar baz. See the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs/experimental.md#wrapper-snippets) for more info. Expect foo in the next release.
 
 ### Issues / PRs
 
