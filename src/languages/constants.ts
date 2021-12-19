@@ -11,6 +11,7 @@ export const supportedLanguageIds = [
   "json",
   "jsonc",
   "python",
+  "rust",
   "typescript",
   "typescriptreact",
 ] as const;

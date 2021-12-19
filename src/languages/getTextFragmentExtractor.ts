@@ -149,6 +149,7 @@ const textFragmentExtractors: Record<
     jsonStringTextFragmentExtractor
   ),
   python: constructDefaultTextFragmentExtractor("python"),
+  rust: constructDefaultTextFragmentExtractor("rust"),
   typescript: constructDefaultTextFragmentExtractor(
     "typescript",
     typescriptStringTextFragmentExtractor

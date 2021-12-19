@@ -16,6 +16,7 @@ import java from "./java";
 import { patternMatchers as html } from "./html";
 import python from "./python";
 import go from "./go";
+import rust from "./rust";
 import { UnsupportedLanguageError } from "../errors";
 import { SupportedLanguageId } from "./constants";
 
@@ -59,6 +60,7 @@ const languageMatchers: Record<
   json,
   jsonc: json,
   python,
+  rust,
   typescript,
   typescriptreact: typescript,
 };
