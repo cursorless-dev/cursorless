@@ -21,6 +21,7 @@ import scala from "./scala";
 import { patternMatchers as scss } from "./scss";
 import go from "./go";
 import { patternMatchers as ruby } from "./ruby";
+import rust from "./rust";
 import { UnsupportedLanguageError } from "../errors";
 import { SupportedLanguageId } from "./constants";
 
