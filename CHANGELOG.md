@@ -44,7 +44,15 @@ See the [demo video](https://youtu.be/TjdNoxn7FVc) for more.
 
 #### Auto-joining targets
 
-It is now possible to bring multiple sources to a single destination using the `"bring"` and `"move"` actions. The type of the destination will be used to determine how the sources are joined, unless the destination is implicit or a raw target.
+It is now possible to bring multiple sources to a single destination using the `"bring"` and `"move"` actions. The type of the destination will be used to determine how the sources are joined, unless the destination is implicit, or a raw target.
+
+Here's one with an implicit destination:
+
+!["Bring line harp and sun and made"](images/bringLineHarpAndSunAndMade.gif)
+
+And here's one with an explicit destination:
+
+!["Bring argue air and each after drum"](images/bringArgueAirAndEachAfterDrum.gif)
 
 ### Issues / PRs
 
