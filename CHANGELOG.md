@@ -2,7 +2,7 @@
 
 All notable changes to the "cursorless" extension will be documented in this file.
 
-## [0.24.0](https://github.com/pokey/cursorless-vscode/tree/0.24.0) (2021-12-18)
+## [0.24.0](https://github.com/pokey/cursorless-vscode/tree/0.24.0) (2021-12-20)
 
 [Full Changelog](https://github.com/pokey/cursorless-vscode/compare/0.23.0...0.24.0)
 
@@ -14,7 +14,7 @@ All notable changes to the "cursorless" extension will be documented in this fil
 - HTML [\#385](https://github.com/pokey/cursorless-vscode/pull/385) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
 - Preliminary Clojure support [\#375](https://github.com/pokey/cursorless-vscode/pull/375) ([pokey](https://github.com/pokey))
 
-#### "Take round"
+#### `"Take round"`
 
 We now support targets which consist of matching pairs of parentheses, square brackets, curly brackets, etc. These targets make cursorless a lot more useful in places where we don't have a parse tree, for example in markdown, plaintext or within a string or comment. See the [docs](https://github.com/pokey/cursorless-talon/blob/develop/docs/README.md#surrounding-pair) for more info, but in case you're one for GIFs:
 
@@ -23,6 +23,10 @@ We now support targets which consist of matching pairs of parentheses, square br
 And another one:
 
 !["Swap pair ox with pit"](images/swapPairOxWithPit.gif)
+
+This scope type pairs great with the new `"repack"` action:
+
+!["Curly repack ox"](images/curlyRepackOx.gif)
 
 #### "Slice" ranges
 
