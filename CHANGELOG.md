@@ -40,7 +40,7 @@ And a more advanced one:
 
 !["Chuck tail red pipe slice past end of file"](images/chuckTailRedPipeSlicePastEndOfFile.gif)
 
-See the [demo video](https://youtu.be/faHqu9Z8xuY) for more.
+See the [demo video](https://youtu.be/TjdNoxn7FVc) for more.
 
 ### Issues / PRs
 
