@@ -44,15 +44,19 @@ See the [demo video](https://youtu.be/TjdNoxn7FVc) for more.
 
 #### Auto-joining targets
 
-It is now possible to bring multiple sources to a single destination using the `"bring"` and `"move"` actions. The type of the destination will be used to determine how the sources are joined, unless the destination is implicit, or a raw target.
+It is now possible to bring multiple sources to a single destination using the `"bring"` and `"move"` actions. The type of the source / destination will be used to determine how the sources are joined.
 
-Here's one with an implicit destination:
+Here's an example where we bring multiple lines to the current cursor position:
 
 !["Bring line harp and sun and made"](images/bringLineHarpAndSunAndMade.gif)
 
-And here's one with an explicit destination:
+And here's an example with an explicit destination:
 
 !["Bring argue air and each after drum"](images/bringArgueAirAndEachAfterDrum.gif)
+
+#### And much more!
+
+There's too much new stuff in this release to fit in a highlights reel, so we'll be releasing more videos, GIFs, and blurbs over the next couple weeks. In the meantime, below is a comprehensive list of PRs and issues included in this release.
 
 ### Issues / PRs
 
