@@ -24,7 +24,6 @@ export class HatAllocator {
       .get<boolean>("showOnStart")!;
 
     this.addDecorationsDebounced = this.addDecorationsDebounced.bind(this);
-    this.addDecorationsDebounced = this.addDecorationsDebounced.bind(this);
     this.toggleDecorations = this.toggleDecorations.bind(this);
     this.clearEditorDecorations = this.clearEditorDecorations.bind(this);
 
