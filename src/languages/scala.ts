@@ -4,6 +4,7 @@ import {
   leadingMatcher,
   conditionMatcher,
   trailingMatcher,
+  chainedMatcher,
 } from '../util/nodeMatchers';
 import { NodeMatcherAlternative, ScopeType } from '../typings/Types';
 
@@ -60,10 +61,20 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ifStatement: 'if_expression',
   string: 'string',
   comment: 'comment',
+  list: 'call_expression',  // lists basic definition is just a function call to a constructor, eg List(1,2,3,4)
+                            // TODO: support fancy style: val foo = 1 :: (2 :: (3 :: Nil)) // List(1,2,3)
+  functionCall: 'call_expression', // foo.bar()
+                                   // TODO: consider no parens with no args, e.g. foo.size
+                                   /* TODO: consider the following map calls:
+                                      foo.map(_ + 1) // works
+                                      foo.map {_ + 1}
+                                      foo map(_ + 1)
+                                      foo map {_ + 1}
+                                    */
   // XXX ^ ABOVE HERE WORKS
-  anonymousFunction: 'lambda_expression',
-  list: 'array_initializer',
-  functionCall: 'method_invocation',
+  // anonymousFunction: '???', // This one is commmmmmmmplicated
+
+
   map: 'block',
   name: ['*[declarator][name]', '*[name]', 'formal_parameter.identifier!'],
   namedFunction: ['method_declaration', 'constructor_declaration'],
