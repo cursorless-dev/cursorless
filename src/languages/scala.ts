@@ -4,7 +4,6 @@ import {
   leadingMatcher,
   conditionMatcher,
   trailingMatcher,
-  chainedMatcher,
 } from '../util/nodeMatchers';
 import { NodeMatcherAlternative, ScopeType } from '../typings/Types';
 
@@ -54,10 +53,9 @@ const STATEMENT_TYPES = [
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   statement: STATEMENT_TYPES,
-  // XXX: v BELOW HERE WORKS
-  // I'm going to map objects as classes, whose going to stop me?!
-  class: ['class_definition', 'object_definition'],
-  className: ['class_definition[name]', 'object_definition[name]'],
+  // treating classes = classlike
+  class: ['class_definition', 'object_definition', 'trait_definition'],
+  className: ['class_definition[name]', 'object_definition[name]', 'trait_definition[name]'],
   ifStatement: 'if_expression',
   string: 'string',
   comment: 'comment',
@@ -71,11 +69,21 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
                                       foo map(_ + 1)
                                       foo map {_ + 1}
                                     */
-  // XXX ^ ABOVE HERE WORKS
-  // anonymousFunction: '???', // This one is commmmmmmmplicated
+  /*
+    take expression on left and right and including =>
+      foo => foo + bar
+    TODO: do we want to consider partial functions as lambdas? eg
+      {_ + bar}
+      {case x => x + bar}
+  */
+  // anonymousFunction: '???',
+  /*
+    map item is left and right and including ->
+      "red" -> "#FF0000"
+  */
+  // map: '???',
 
-
-  map: 'block',
+  // Ripped off from Java below
   name: ['*[declarator][name]', '*[name]', 'formal_parameter.identifier!'],
   namedFunction: ['method_declaration', 'constructor_declaration'],
   type: trailingMatcher([
