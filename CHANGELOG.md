@@ -24,7 +24,7 @@ And another one:
 
 !["Swap pair ox with pit"](images/swapPairOxWithPit.gif)
 
-This scope type pairs great with the new `"repack"` action:
+This scope type pairs nicely with the new `"repack"` action:
 
 !["Curly repack ox"](images/curlyRepackOx.gif)
 
@@ -41,6 +41,10 @@ And a more advanced one:
 !["Chuck tail red pipe slice past end of file"](images/chuckTailRedPipeSlicePastEndOfFile.gif)
 
 See the [demo video](https://youtu.be/TjdNoxn7FVc) for more.
+
+#### Auto-joining targets
+
+It is now possible to bring multiple sources to a single destination using the `"bring"` and `"move"` actions. The type of the destination will be used to determine how the sources are joined, unless the destination is implicit or a raw target.
 
 ### Issues / PRs
 
