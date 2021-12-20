@@ -4,7 +4,7 @@ import { Graph } from "../typings/Types";
 import { Disposable } from "vscode";
 import { IndividualHatMap } from "./IndividualHatMap";
 
-const DECORATION_DEBOUNCE_DELAY = 40;
+const DECORATION_DEBOUNCE_DELAY_MS = 40;
 
 interface Context {
   getActiveMap(): Promise<IndividualHatMap>;
@@ -82,7 +82,7 @@ export class HatAllocator {
     this.timeoutHandle = setTimeout(() => {
       this.addDecorations();
       this.timeoutHandle = null;
-    }, DECORATION_DEBOUNCE_DELAY);
+    }, DECORATION_DEBOUNCE_DELAY_MS);
   }
 
   private toggleDecorations() {
