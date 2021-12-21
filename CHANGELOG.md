@@ -52,7 +52,7 @@ Here's an example where we bring multiple lines to the current cursor position:
 
 And here's an example with an explicit destination:
 
-!["Bring argue air and each after drum"](images/bringArgueAirAndEachAfterDrum.gif)
+!["Move arg air and each to after drum"](images/moveArgAirAndEachToAfterDrum.gif)
 
 #### And much more!
 
