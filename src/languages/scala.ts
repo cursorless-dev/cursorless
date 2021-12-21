@@ -76,6 +76,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   // are not under `lambda_expression`
   anonymousFunction: 'lambda_expression',
 
+  argumentOrParameter: argumentMatcher('arguments', 'parameters', 'class_parameters', 'bindings'),
 
   // Ripped off from Java below
   name: ['*[declarator][name]', '*[name]', 'formal_parameter.identifier!'],
@@ -96,7 +97,15 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   value: leadingMatcher(['*[declarator][value]', '*[value]'], ['=']),
   condition: conditionMatcher('*[condition]'),
   collectionItem: argumentMatcher('array_initializer'),
-  argumentOrParameter: argumentMatcher('formal_parameters', 'argument_list'),
+
+  // Pulled from the complete list that isn't implemented above
+  // attribute: "???",
+  // collectionKey: "???",
+  // regularExpression: "???",
+  // xmlBothTags: "???",
+  // xmlElement: "???",
+  // xmlEndTag: "???",
+  // xmlStartTag: "???",
 };
 
 export default createPatternMatchers(nodeMatchers);
