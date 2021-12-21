@@ -82,17 +82,14 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   name: ['*[name]', '*[pattern]'],
   functionName: 'function_definition[name]',
 
-  // Ripped off from Java below
-  type: trailingMatcher([
-    'generic_type.type_arguments.type_identifier',
+  // MISSING: function/class/trait generics
+  type: leadingMatcher([
     'generic_type.type_identifier',
     'type_identifier',
-    'local_variable_declaration[type]',
-    'array_creation_expression[type]',
-    'formal_parameter[type]',
-    'method_declaration[type]',
-  ]),
+    'type_parameters',
+  ], [':']),
 
+  // Ripped off from Java below
   value: leadingMatcher(['*[declarator][value]', '*[value]'], ['=']),
   condition: conditionMatcher('*[condition]'),
   collectionItem: argumentMatcher('array_initializer'),
