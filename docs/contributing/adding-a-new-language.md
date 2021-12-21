@@ -13,10 +13,10 @@ for how to add support for a new parser
 
 Minimum changes that each language needs:
 
-- new file in `/src/languages/<yourlanguage>.ts`. Take a look at [existing languages](../../src/languages) as a base. At its core you're implementing your language's version of the `nodeMatchers` const, mapping `ScopeType`s found in [`Types.ts`](../../src/typings/Types.ts) with matching expressions that align with the parse tree output.
-- new entry in [`getNodeMatcher.ts`](../../src/languages/getNodeMatcher.ts), importing your new file above
+- new file in `/src/languages/<yourlanguage>.ts`. Take a look at [existing languages](../../src/languages) as a base. At its core you're implementing your language's version of the `nodeMatchers` const, mapping scope types found in [`Types.ts:ScopeType`](../../src/typings/Types.ts) with matching expressions that align with the parse tree output.
+- new entry in [`getNodeMatcher.ts:languageMatchers`](../../src/languages/getNodeMatcher.ts), importing your new file above
 - new entry in [`constants.ts`](../../src/languages/constants.ts)
-- new text fragment extractor (default is likely fine) in [`getTextFragmentExtractor.ts`](../../src/languages/getTextFragmentExtractor.ts)
+- new text fragment extractor (default is likely fine) in [`getTextFragmentExtractor.ts:textFragmentExtractors`](../../src/languages/getTextFragmentExtractor.ts)
 
 The parse trees exposed by tree-sitter are often pretty close to what we're
 looking for, but we often need to look for specific patterns within the parse
