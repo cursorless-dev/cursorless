@@ -88,9 +88,9 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     'type_identifier',
     'type_parameters',
   ], [':']),
+  value: leadingMatcher(['*[value]', '*[default_value]'], ['=']),
 
   // Ripped off from Java below
-  value: leadingMatcher(['*[declarator][value]', '*[value]'], ['=']),
   condition: conditionMatcher('*[condition]'),
   collectionItem: argumentMatcher('array_initializer'),
 
