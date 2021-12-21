@@ -63,12 +63,13 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   string: ['interpolated_string_expression', 'string'],
   comment: 'comment',
   // lists basic definition is just a function call to a constructor, eg List(1,2,3,4)
-  // MISSING: fancy style: val foo = 1 :: (2 :: (3 :: Nil)) // List(1,2,3)
+  // MISSING: fancy list style: val foo = 1 :: (2 :: (3 :: Nil)) // List(1,2,3)
   list: 'call_expression',
   map: 'call_expression',
 
   // list.size(), does not count foo.size (field_expression), or foo size (postfix_expression)
   functionCall: 'call_expression',
+  namedFunction: 'function_definition',
   // Do we want to consider partial functions as lambdas? eg
   //   foo.map(_ + 1)
   //   foo.map {_ + 1}
@@ -78,9 +79,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
 
   argumentOrParameter: argumentMatcher('arguments', 'parameters', 'class_parameters', 'bindings'),
 
+  name: ['*[name]', '*[pattern]'],
+  functionName: 'function_definition[name]',
+
   // Ripped off from Java below
-  name: ['*[declarator][name]', '*[name]', 'formal_parameter.identifier!'],
-  namedFunction: ['method_declaration', 'constructor_declaration'],
   type: trailingMatcher([
     'generic_type.type_arguments.type_identifier',
     'generic_type.type_identifier',
@@ -90,10 +92,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     'formal_parameter[type]',
     'method_declaration[type]',
   ]),
-  functionName: [
-    'function_definition.name!',
-    'constructor_declaration.identifier!',
-  ],
+
   value: leadingMatcher(['*[declarator][value]', '*[value]'], ['=']),
   condition: conditionMatcher('*[condition]'),
   collectionItem: argumentMatcher('array_initializer'),
