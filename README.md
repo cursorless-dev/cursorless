@@ -10,7 +10,7 @@
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
   <a href="https://github.com/pokey/cursorless-vscode/graphs/commit-activity" target="_blank">
-    <img alt="Maintenance" src="https://img.shields.io/maintenance/yes/2021.svg" />
+    <img alt="Maintenance" src="https://img.shields.io/maintenance/yes/2022.svg" />
   </a>
   <a href="https://github.com/pokey/cursorless-vscode/blob/main/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/github/license/pokey/cursorless-vscode" />
