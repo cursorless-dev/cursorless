@@ -21,8 +21,8 @@ Cursorless is a spoken language for structural code editing, enabling developers
 
 Checkout the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs) and [videos](https://www.youtube.com/channel/UCML02pamUSxtbwAcrUdVmXg) to get started. I also heard you like GIFs?
 
-![Move arg air and each to after drum](images/moveArgAirAndEachToAfterDrum.gif)
 ![Curly repack ox](images/curlyRepackOx.gif)
+![Move arg air and each to after drum](images/moveArgAirAndEachToAfterDrum.gif)
 ![Chuck tail red pipe slice past end of file](images/chuckTailRedPipeSlicePastEndOfFile.gif)
 
 ## Installation
