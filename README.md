@@ -17,16 +17,13 @@
   </a>
 </p>
 
-> Allows cursorless editing and rapid navigation by decorating a single letter from each token.
+Cursorless is a spoken language for structural code editing, enabling developers to code at speeds not possible with a keyboard. Cursorless decorates every token on the screen and defines a spoken language for rapid, high-level semantic manipulation of structured text.
 
-## Features
+Checkout the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs) and [videos](https://www.youtube.com/channel/UCML02pamUSxtbwAcrUdVmXg) to get started. I also heard you like GIFs?
 
-![swap](images/swap.gif)
-![main-demo](images/main-demo.gif)
-![demo-2](images/demo-2.gif)
-![demo-3](images/demo-3.gif)
-
-Checkout the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs), [tutorial video](https://www.youtube.com/watch?v=JxcNW0hnfTk) and [!!con talk](https://www.youtube.com/watch?v=Py9xjeIhxOg) to get started.
+![Move arg air and each to after drum](images/moveArgAirAndEachToAfterDrum.gif)
+![Curly repack ox](images/curlyRepackOx.gif)
+![Chuck tail red pipe slice past end of file](images/chuckTailRedPipeSlicePastEndOfFile.gif)
 
 ## Installation
 
