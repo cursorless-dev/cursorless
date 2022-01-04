@@ -34,7 +34,7 @@ export async function runForEachEditor<T, U>(
   const editorMap = groupBy(targets, getDocument);
   return await Promise.all(
     Array.from(editorMap.values(), async (editorTargets) => {
-      # Just pick any editor with the given document open; doesn't matter which
+      // Just pick any editor with the given document open; doesn't matter which
       const editor = getEditor(editorTargets[0]);
       return func(editor, editorTargets);
     })
