@@ -40,11 +40,13 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);
 
+const textFragmentTypes = ["attribute_value", "raw_text", "text"];
+
 export function stringTextFragmentExtractor(
   node: SyntaxNode,
   selection: SelectionWithEditor
 ) {
-  if (node.type === "attribute_value") {
+  if (textFragmentTypes.includes(node.type)) {
     return getNodeRange(node);
   }
 
