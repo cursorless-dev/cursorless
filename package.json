@@ -1,13 +1,13 @@
 {
 	"name": "cursorless",
 	"displayName": "Cursorless",
-	"description": "Don't let the cursor slow you down",
+	"description": "Structural voice coding at the speed of thought",
 	"icon": "images/icon.png",
 	"galleryBanner": {
 		"color": "#00001A",
 		"theme": "dark"
 	},
-	"version": "0.24.1",
+	"version": "0.24.2",
 	"publisher": "pokey",
 	"license": "MIT",
 	"repository": {
@@ -22,6 +22,9 @@
 	],
 	"categories": [
 		"Other"
+	],
+	"keywords": [
+		"Voice coding"
 	],
 	"extensionDependencies": [
 		"pokey.parse-tree"

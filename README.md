@@ -10,23 +10,22 @@
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
   <a href="https://github.com/pokey/cursorless-vscode/graphs/commit-activity" target="_blank">
-    <img alt="Maintenance" src="https://img.shields.io/maintenance/yes/2021.svg" />
+    <img alt="Maintenance" src="https://img.shields.io/maintenance/yes/2022.svg" />
   </a>
   <a href="https://github.com/pokey/cursorless-vscode/blob/main/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/github/license/pokey/cursorless-vscode" />
   </a>
 </p>
 
-> Allows cursorless editing and rapid navigation by decorating a single letter from each token.
+Cursorless is a spoken language for structural code editing, enabling developers to code by voice at speeds not possible with a keyboard. Cursorless decorates every token on the screen and defines a spoken language for rapid, high-level semantic manipulation of structured text.
 
-## Features
+Checkout the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs) and [videos](https://www.youtube.com/channel/UCML02pamUSxtbwAcrUdVmXg) to learn more. See [cursorless-talon](https://github.com/pokey/cursorless-talon) for installation instructions.
 
-![swap](images/swap.gif)
-![main-demo](images/main-demo.gif)
-![demo-2](images/demo-2.gif)
-![demo-3](images/demo-3.gif)
+And I heard you like GIFs?
 
-Checkout the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs), [tutorial video](https://www.youtube.com/watch?v=JxcNW0hnfTk) and [!!con talk](https://www.youtube.com/watch?v=Py9xjeIhxOg) to get started.
+![Curly repack ox](images/curlyRepackOx.gif)
+![Move arg air and each to after drum](images/moveArgAirAndEachToAfterDrum.gif)
+![Chuck tail red pipe slice past end of file](images/chuckTailRedPipeSlicePastEndOfFile.gif)
 
 ## Installation
 
