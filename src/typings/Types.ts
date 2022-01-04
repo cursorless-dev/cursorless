@@ -76,6 +76,7 @@ export type SimpleSurroundingPairName =
   | "doubleQuotes"
   | "escapedDoubleQuotes"
   | "escapedParentheses"
+  | "escapedSquareBrackets"
   | "escapedSingleQuotes"
   | "parentheses"
   | "singleQuotes"
