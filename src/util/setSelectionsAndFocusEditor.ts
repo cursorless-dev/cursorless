@@ -1,4 +1,4 @@
-import { commands, Selection, TextEditor, ViewColumn } from "vscode";
+import { commands, Selection, TextEditor, ViewColumn, window } from "vscode";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",
@@ -33,5 +33,11 @@ export async function setSelectionsAndFocusEditor(
 export async function focusEditor(editor: TextEditor) {
   if (editor.viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
+  } else {
+    const activeTextEditor = window.activeTextEditor;
+
+    if (activeTextEditor !== editor) {
+      const editorNotebook = (editor.document as any).notebook;
+    }
   }
 }
