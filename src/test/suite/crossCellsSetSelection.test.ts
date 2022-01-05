@@ -22,9 +22,9 @@ async function runTest() {
 
   await openNewNotebookEditor(['"hello"', '"world"']);
 
-  await graph.hatTokenMap.addDecorations();
-
   await sleep(500);
+
+  await graph.hatTokenMap.addDecorations();
 
   await vscode.commands.executeCommand(
     "cursorless.command",
