@@ -1,8 +1,8 @@
 import { NotebookDocument, TextDocument } from "vscode";
 
 /**
- * Given a document which corresponds to the contents a of a given cell,
- * retrieve the notebook document of the entire notebook
+ * Given a document corresponding to a single cell, retrieve the notebook
+ * document for the entire notebook
  * @param document The document corresponding to the given cell
  * @returns The notebook document corresponding to the notebook containing the
  * given cell
