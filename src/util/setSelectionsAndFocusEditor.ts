@@ -1,9 +1,7 @@
 import { range } from "lodash";
 import {
   commands,
-  NotebookDocument,
   Selection,
-  TextDocument,
   TextEditor,
   ViewColumn,
   window,
