@@ -22,6 +22,8 @@ async function runTest() {
 
   await openNewNotebookEditor(['"hello"', '"world"']);
 
+  // FIXME: There seems to be some timing issue when you create a notebook
+  // editor
   await sleep(500);
 
   await graph.hatTokenMap.addDecorations();
