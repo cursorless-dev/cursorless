@@ -21,7 +21,10 @@ async function runTest() {
   const graph = (await getCursorlessApi()).graph!;
 
   await openNewNotebookEditor(['"hello"', '"world"']);
-  await vscode.commands.executeCommand("notebook.cell.edit");
+
+  // FIXME: There seems to be some timing issue when you create a notebook
+  // editor
+  await sleep(1000);
 
   await graph.hatTokenMap.addDecorations();
 
