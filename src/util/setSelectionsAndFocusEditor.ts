@@ -1,5 +1,14 @@
-import { commands, Selection, TextEditor, ViewColumn, window } from "vscode";
-import { getNotebookFromCellDocument } from "./vscode";
+import { range } from "lodash";
+import {
+  commands,
+  NotebookDocument,
+  Selection,
+  TextDocument,
+  TextEditor,
+  ViewColumn,
+  window,
+} from "vscode";
+import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",
@@ -37,11 +46,44 @@ export async function focusEditor(editor: TextEditor) {
   } else {
     const activeTextEditor = window.activeTextEditor;
 
-    if (activeTextEditor !== editor) {
-      const editorNotebook = getNotebookFromCellDocument(editor.document);
-      const activeEditorNotebook = getNotebookFromCellDocument(
-        activeTextEditor.document
+    if (activeTextEditor == null) {
+      return;
+    }
+
+    const editorNotebook = getNotebookFromCellDocument(editor.document);
+    const activeEditorNotebook = getNotebookFromCellDocument(
+      activeTextEditor.document
+    );
+
+    if (
+      editorNotebook == null ||
+      activeEditorNotebook == null ||
+      editorNotebook !== activeEditorNotebook
+    ) {
+      return;
+    }
+
+    const editorIndex = getCellIndex(editorNotebook, editor.document);
+    const activeEditorIndex = getCellIndex(
+      editorNotebook,
+      activeTextEditor.document
+    );
+
+    if (editorIndex === -1 || activeEditorIndex === -1) {
+      throw new Error(
+        "Couldn't find editor corresponding to given cell in the expected notebook"
       );
+    }
+
+    const cellOffset = editorIndex - activeEditorIndex;
+
+    const command =
+      cellOffset < 0
+        ? "notebook.focusPreviousEditor"
+        : "notebook.focusNextEditor";
+
+    for (const index of range(Math.abs(cellOffset))) {
+      await commands.executeCommand(command);
     }
   }
 }
