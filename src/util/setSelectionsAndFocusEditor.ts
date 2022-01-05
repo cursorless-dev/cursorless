@@ -44,6 +44,8 @@ export async function focusEditor(editor: TextEditor) {
   if (editor.viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
   } else {
+    // If the view column is null we see if it's a notebook and try to see if we
+    // can just move around in the notebook to focus the correct editor
     const activeTextEditor = window.activeTextEditor;
 
     if (activeTextEditor == null) {
