@@ -129,7 +129,7 @@ function typeMatcher(): NodeMatcher {
 }
 
 function valueMatcher() {
-  const pFinder = patternFinder("assignment_expression[right]", "*[value]");
+  const pFinder = patternFinder("assignment_expression[right]", "*[value]", "shorthand_property_identifier");
   return matcher(
     (node: SyntaxNode) =>
       node.type === "jsx_attribute" ? node.lastChild : pFinder(node),
@@ -145,7 +145,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   list: listTypes,
   string: ["string", "template_string"],
   collectionKey: trailingMatcher(
-    ["pair[key]", "jsx_attribute.property_identifier!"],
+    ["pair[key]", "jsx_attribute.property_identifier!", "shorthand_property_identifier"],
     [":"]
   ),
   collectionItem: argumentMatcher(...mapTypes, ...listTypes),
