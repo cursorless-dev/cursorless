@@ -51,14 +51,14 @@ class Scroll implements Action {
       .map((target) => target.selection)
       .filter((selection) => {
         const visibleRanges = selection.editor.visibleRanges;
-        const start = visibleRanges[0].start;
-        const end = visibleRanges[visibleRanges.length - 1].end;
+        const startLine = visibleRanges[0].start.line;
+        const endLine = visibleRanges[visibleRanges.length - 1].end.line;
         // Don't show decorations for selections that are larger than the visible range
         return (
-          selection.selection.start.isAfter(start) ||
-          selection.selection.end.isBefore(end) ||
-          (selection.selection.start.isEqual(start) &&
-            selection.selection.end.isEqual(end))
+          selection.selection.start.line > startLine ||
+          selection.selection.end.line < endLine ||
+          (selection.selection.start.line === startLine &&
+            selection.selection.end.line === endLine)
         );
       });
 
