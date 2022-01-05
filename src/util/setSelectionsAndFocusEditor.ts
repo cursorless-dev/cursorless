@@ -84,6 +84,8 @@ export async function focusEditor(editor: TextEditor) {
         ? "notebook.focusPreviousEditor"
         : "notebook.focusNextEditor";
 
+    // This is a hack. We just repeatedly issued the command to move upwards or
+    // downwards a cell to get to the right cell
     for (const index of range(Math.abs(cellOffset))) {
       await commands.executeCommand(command);
     }
