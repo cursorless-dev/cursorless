@@ -5,6 +5,7 @@ import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewEditor, openNewNotebookEditor } from "../openNewEditor";
 import sleep from "../../util/sleep";
 
+// Check that setSelection is able to focus the correct cell
 suite("Cross-cell set selection", async function () {
   this.timeout("100s");
   this.retries(3);
