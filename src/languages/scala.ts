@@ -21,11 +21,6 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   // list.size(), does not count foo.size (field_expression), or foo size (postfix_expression)
   functionCall: 'call_expression',
   namedFunction: 'function_definition',
-  // Do we want to consider partial functions as lambdas? eg
-  //   foo.map(_ + 1)
-  //   foo.map {_ + 1}
-  //   foo.map {case x => x + 1}
-  // are not under `lambda_expression`
   anonymousFunction: 'lambda_expression',
 
   argumentOrParameter: argumentMatcher('arguments', 'parameters', 'class_parameters', 'bindings'),
