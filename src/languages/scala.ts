@@ -18,11 +18,6 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   string: ['interpolated_string_expression', 'string'],
   comment: 'comment',
 
-  // lists basic definition is just a function call to a constructor, eg List(1,2,3,4)
-  // MISSING: fancy list style: val foo = 1 :: (2 :: (3 :: Nil)) // List(1,2,3)
-  list: 'call_expression',
-  map: 'call_expression',
-
   // list.size(), does not count foo.size (field_expression), or foo size (postfix_expression)
   functionCall: 'call_expression',
   namedFunction: 'function_definition',
@@ -40,6 +35,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
 
   // MISSING: function/class/trait generics
   type: leadingMatcher([
+    '*[type]',
+    '*[return_type]',
     'generic_type.type_identifier',
     'type_identifier',
     'type_parameters',
@@ -47,7 +44,12 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   value: leadingMatcher(['*[value]', '*[default_value]'], ['=']),
   condition: conditionMatcher('*[condition]'),
 
-  // Pulled from the complete list that isn't implemented above
+  // UNIMPLEMENTED
+
+  // lists basic definition is just a function call to a constructor, eg List(1,2,3,4)
+  // There is also fancy list style: val foo = 1 :: (2 :: (3 :: Nil)) // List(1,2,3)
+  // list: 'call_expression',
+  // map: 'call_expression',
 
   // collectionItem: "???"
   // collectionKey: "???",
