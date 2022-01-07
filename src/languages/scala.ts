@@ -30,11 +30,9 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
 
   // MISSING: function/class/trait generics
   type: leadingMatcher([
-    '*[type]',
-    '*[return_type]',
-    'generic_type.type_identifier',
-    'type_identifier',
-    'type_parameters',
+    '~generic_type[type]',
+    '~generic_type[return_type]',
+    '~generic_type[generic_type]',
   ], [':']),
   value: leadingMatcher(['*[value]', '*[default_value]'], ['=']),
   condition: conditionMatcher('*[condition]'),

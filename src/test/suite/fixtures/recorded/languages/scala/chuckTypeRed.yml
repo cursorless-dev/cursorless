@@ -22,7 +22,7 @@ initialState:
 finalState:
   documentContents: |
     class TypesAhoy() {
-      def example(foo: List[]): List[String] = foo
+      def example(foo): List[String] = foo
     }
   selections:
     - anchor: {line: 0, character: 0}

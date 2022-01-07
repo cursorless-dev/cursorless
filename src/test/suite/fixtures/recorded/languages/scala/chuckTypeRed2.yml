@@ -22,7 +22,7 @@ initialState:
 finalState:
   documentContents: |
     class TypesAhoy() {
-      val foo: List[] = List("foo")
+      val foo = List("foo")
     }
   selections:
     - anchor: {line: 0, character: 0}
