@@ -115,6 +115,11 @@
 					"default": true,
 					"description": "Whether to show decorations on vscode start."
 				},
+				"cursorless.decorationDebounceDelayMs": {
+					"type": "number",
+					"default": 50,
+					"description": "How quickly to redraw hats in response to scrolling or cursor movement"
+				},
 				"cursorless.debug": {
 					"type": "boolean",
 					"default": false,
