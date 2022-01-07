@@ -46,7 +46,7 @@ export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
     verticalOffset: -0.5,
   },
   bolt: {
-    sizeAdjustment: 22.5,
+    sizeAdjustment: 2.5,
   },
   crosshairs: {
     sizeAdjustment: 29.5,
