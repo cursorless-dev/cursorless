@@ -22,12 +22,12 @@ initialState:
 finalState:
   documentContents: |
     class TypesAhoy() {
-      def example(foo: List[]): List[String] = foo
+      def example(foo: ): List[String] = foo
     }
   selections:
-    - anchor: {line: 1, character: 24}
-      active: {line: 1, character: 24}
+    - anchor: {line: 1, character: 19}
+      active: {line: 1, character: 19}
   thatMark:
-    - anchor: {line: 1, character: 24}
-      active: {line: 1, character: 24}
+    - anchor: {line: 1, character: 19}
+      active: {line: 1, character: 19}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]

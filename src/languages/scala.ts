@@ -28,13 +28,25 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   name: ['*[name]', '*[pattern]'],
   functionName: 'function_definition[name]',
 
-  // MISSING: function/class/trait generics
   type: leadingMatcher([
-    '~generic_type[type]',
-    '~generic_type[return_type]',
-    '~generic_type[generic_type]',
+    'upper_bound[type]',
+    'lower_bound[type]',
+    'view_bound[type]',
+    'context_bound[type]',
+    'val_definition[type]',
+    'val_declaration[type]',
+    'var_definition[type]',
+    'var_declaration[type]',
+    'type_definition',
+    'extends_clause[type]',
+    'class_parameter[type]',
+    'parameter[type]',
+    'function_definition[return_type]',
+    'typed_pattern[type]',
+    'binding[type]',
+
   ], [':']),
-  value: leadingMatcher(['*[value]', '*[default_value]'], ['=']),
+  value: leadingMatcher(['*[value]', '*[default_value]', 'type_definition[type]'], ['=']),
   condition: conditionMatcher('*[condition]'),
 
   // UNIMPLEMENTED

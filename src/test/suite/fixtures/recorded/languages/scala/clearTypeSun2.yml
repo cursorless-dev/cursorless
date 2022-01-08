@@ -19,11 +19,11 @@ initialState:
       end: {line: 0, character: 32}
 finalState:
   documentContents: |
-    class TypesAhoy(foo: List[]) {}
+    class TypesAhoy(foo: ) {}
   selections:
-    - anchor: {line: 0, character: 26}
-      active: {line: 0, character: 26}
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}
   thatMark:
-    - anchor: {line: 0, character: 26}
-      active: {line: 0, character: 26}
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]

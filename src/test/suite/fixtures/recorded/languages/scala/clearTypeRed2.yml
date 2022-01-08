@@ -22,12 +22,12 @@ initialState:
 finalState:
   documentContents: |
     class TypesAhoy() {
-      val foo: List[] = List("foo")
+      val foo:  = List("foo")
     }
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 16}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
   thatMark:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 16}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]
