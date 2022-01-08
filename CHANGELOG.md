@@ -2,6 +2,14 @@
 
 All notable changes to the "cursorless" extension will be documented in this file.
 
+## [0.24.1](https://github.com/pokey/cursorless-vscode/tree/0.24.1) (2021-12-23)
+
+[Full Changelog](https://github.com/pokey/cursorless-vscode/compare/0.24.0...0.24.1)
+
+**Merged pull requests:**
+
+- Fix html text fragment types [\#411](https://github.com/pokey/cursorless-vscode/pull/411) ([pokey](https://github.com/pokey))
+
 ## [0.24.0](https://github.com/pokey/cursorless-vscode/tree/0.24.0) (2021-12-21)
 
 [Full Changelog](https://github.com/pokey/cursorless-vscode/compare/0.23.0...0.24.0)
