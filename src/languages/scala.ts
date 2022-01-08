@@ -49,18 +49,29 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   value: leadingMatcher(['*[value]', '*[default_value]', 'type_definition[type]'], ['=']),
   condition: conditionMatcher('*[condition]'),
 
-  // UNIMPLEMENTED
+  // Scala features unsupported in Cursorless terminology
+  //  - Pattern matching
 
-  // lists basic definition is just a function call to a constructor, eg List(1,2,3,4)
-  // There is also fancy list style: val foo = 1 :: (2 :: (3 :: Nil)) // List(1,2,3)
+  // Cursorless terminology not yet supported in this Scala implementation
+  /*
+    lists and maps basic definition are just function calls to constructors, eg List(1,2,3,4)
+    These types are also basically arbitrary, so we can't really hard-code them
+    There is also fancy list style: val foo = 1 :: (2 :: (3 :: Nil)) // List(1,2,3)
+  */
   // list: 'call_expression',
   // map: 'call_expression',
 
+  /* infix_expression, key on left, item on right, operator = "->"
   // collectionItem: "???"
   // collectionKey: "???",
 
+  /* "foo".r <-, value of type field_expression, value of type string, field of type identifier = "r",
   // regularExpression: "???",
 
+  /*
+    none of this stuff is defined well in the tree sitter (it's all just infix expressions etc),
+    and native XML/HTML is deprecated in Scala 3
+  */
   // attribute: "???",
   // xmlElement: "???",
   // xmlStartTag: "???",
