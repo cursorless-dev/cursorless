@@ -156,6 +156,12 @@
 						},
 						"yellow": {
 							"type": "string"
+						},
+						"userColor1": {
+							"type": "string"
+						},
+						"userColor2": {
+							"type": "string"
 						}
 					},
 					"default": {
@@ -164,7 +170,9 @@
 						"green": "#36B33F",
 						"red": "#E02D28",
 						"pink": "#E06CAA",
-						"yellow": "#E5C02C"
+						"yellow": "#E5C02C",
+						"userColor1": "#6a00ff",
+						"userColor2": "#ffd8b1"
 					},
 					"additionalProperties": false
 				},
@@ -189,6 +197,12 @@
 						},
 						"yellow": {
 							"type": "string"
+						},
+						"userColor1": {
+							"type": "string"
+						},
+						"userColor2": {
+							"type": "string"
 						}
 					},
 					"default": {
@@ -197,7 +211,9 @@
 						"green": "#36B33F",
 						"red": "#E02D28",
 						"pink": "#e0679f",
-						"yellow": "#edb62b"
+						"yellow": "#edb62b",
+						"userColor1": "#6a00ff",
+						"userColor2": "#ffd8b1"
 					},
 					"additionalProperties": false
 				},
@@ -219,6 +235,12 @@
 						},
 						"yellow": {
 							"type": "boolean"
+						},
+						"userColor1": {
+							"type": "boolean"
+						},
+						"userColor2": {
+							"type": "boolean"
 						}
 					},
 					"default": {
@@ -226,7 +248,9 @@
 						"green": true,
 						"red": true,
 						"pink": true,
-						"yellow": true
+						"yellow": true,
+						"userColor1": false,
+						"userColor2": false
 					},
 					"additionalProperties": false
 				},
@@ -297,6 +321,12 @@
 						},
 						"yellow": {
 							"type": "number"
+						},
+						"userColor1": {
+							"type": "number"
+						},
+						"userColor2": {
+							"type": "number"
 						}
 					},
 					"default": {
@@ -304,7 +334,9 @@
 						"green": 1,
 						"red": 1,
 						"pink": 1,
-						"yellow": 1
+						"yellow": 1,
+						"userColor1": 1,
+						"userColor2": 1
 					},
 					"additionalProperties": false
 				},

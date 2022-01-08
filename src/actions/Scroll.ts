@@ -8,9 +8,7 @@ import {
 import { groupBy } from "../util/itertools";
 import { commands, window } from "vscode";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
-import {
-  displayPendingEditDecorationsForSelection,
-} from "../util/editDisplayUtils";
+import { displayPendingEditDecorationsForSelection } from "../util/editDisplayUtils";
 
 class Scroll implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
@@ -49,8 +47,23 @@ class Scroll implements Action {
       await focusEditor(originalEditor);
     }
 
+    const decorationSelections = targets
+      .map((target) => target.selection)
+      .filter((selection) => {
+        const visibleRanges = selection.editor.visibleRanges;
+        const startLine = visibleRanges[0].start.line;
+        const endLine = visibleRanges[visibleRanges.length - 1].end.line;
+        // Don't show decorations for selections that are larger than the visible range
+        return (
+          selection.selection.start.line > startLine ||
+          selection.selection.end.line < endLine ||
+          (selection.selection.start.line === startLine &&
+            selection.selection.end.line === endLine)
+        );
+      });
+
     await displayPendingEditDecorationsForSelection(
-      targets.map((target) => target.selection),
+      decorationSelections,
       this.graph.editStyles.referenced.line
     );
 
