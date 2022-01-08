@@ -28,6 +28,9 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   name: ['*[name]', '*[pattern]'],
   functionName: 'function_definition[name]',
 
+  // *[type] does not work here because while we want most of these we don't want "compound" types,
+  // eg `generic_type[type]`, because that will grab just the inner generic (the String of List[String])
+  // and as a rule we want to grab entire type definitions.
   type: leadingMatcher([
     'upper_bound[type]',
     'lower_bound[type]',
@@ -44,7 +47,6 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     'function_definition[return_type]',
     'typed_pattern[type]',
     'binding[type]',
-
   ], [':']),
   value: leadingMatcher(['*[value]', '*[default_value]', 'type_definition[type]'], ['=']),
   condition: conditionMatcher('*[condition]'),
