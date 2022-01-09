@@ -6,11 +6,30 @@ All notable changes to the "cursorless" extension will be documented in this fil
 
 [Full Changelog](https://github.com/pokey/cursorless-vscode/compare/0.24.2...0.25.0)
 
+### Highlights
+
+#### New languages
+
+- Preliminary Scala support [\#399](https://github.com/pokey/cursorless-vscode/pull/399) ([SCdF](https://github.com/SCdF))
+
+#### Improved Jupyter notebook support
+
+We're beefing up our support for Jupyter notebooks. This release adds support for cross-cell cursor movement:
+
+!["Take harp"](images/takeHarp.gif)
+
+Expect [more](https://github.com/pokey/cursorless-vscode/issues/422) cool [stuff](https://github.com/pokey/cursorless-vscode/issues/421) in future releases.
+
+#### Miscellaneous
+
+- You can now abbreviate `"slice past"` to just `"slice"`, eg `"pre air slice bat"` instead of `"pre air slice past bat"`
+
+### Issues / PRs
+
 **Fixed bugs:**
 
 - Support moving cursor between cells in a notebook [\#420](https://github.com/pokey/cursorless-vscode/issues/420)
 - Support "key" and "value" with javascript object property shorthand [\#369](https://github.com/pokey/cursorless-vscode/issues/369)
-- “indent that” doesn’t work with knausj [\#204](https://github.com/pokey/cursorless-vscode/issues/204)
 - fold/unfold requires funk modifier [\#72](https://github.com/pokey/cursorless-vscode/issues/72)
 - Fix bug with "every funk" in private class function [\#22](https://github.com/pokey/cursorless-vscode/issues/22)
 
