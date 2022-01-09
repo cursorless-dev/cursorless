@@ -16,7 +16,7 @@ All notable changes to the "cursorless" extension will be documented in this fil
 
 We're beefing up our support for Jupyter notebooks. This release adds support for cross-cell cursor movement:
 
-!["Take harp"](images/takeHarp.gif)
+!["Clear harp"](images/clearHarp.gif)
 
 Expect [more](https://github.com/pokey/cursorless-vscode/issues/422) cool [stuff](https://github.com/pokey/cursorless-vscode/issues/421) in future releases.
 
