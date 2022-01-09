@@ -2,6 +2,48 @@
 
 All notable changes to the "cursorless" extension will be documented in this file.
 
+## [0.25.0](https://github.com/pokey/cursorless-vscode/tree/0.25.0) (2022-01-09)
+
+[Full Changelog](https://github.com/pokey/cursorless-vscode/compare/0.24.2...0.25.0)
+
+### Highlights
+
+#### New languages
+
+- Preliminary Scala support [\#399](https://github.com/pokey/cursorless-vscode/pull/399) ([SCdF](https://github.com/SCdF))
+
+#### Improved Jupyter notebook support
+
+We're beefing up our support for Jupyter notebooks. This release adds support for cross-cell cursor movement:
+
+!["Clear harp"](images/clearHarp.gif)
+
+Expect [more](https://github.com/pokey/cursorless-vscode/issues/422) cool [stuff](https://github.com/pokey/cursorless-vscode/issues/421) in future releases.
+
+#### Miscellaneous
+
+- You can now abbreviate `"slice past"` to just `"slice"`, eg `"pre air slice bat"` instead of `"pre air slice past bat"`
+
+### Issues / PRs
+
+**Fixed bugs:**
+
+- Support moving cursor between cells in a notebook [\#420](https://github.com/pokey/cursorless-vscode/issues/420)
+- Support "key" and "value" with javascript object property shorthand [\#369](https://github.com/pokey/cursorless-vscode/issues/369)
+- fold/unfold requires funk modifier [\#72](https://github.com/pokey/cursorless-vscode/issues/72)
+- Fix bug with "every funk" in private class function [\#22](https://github.com/pokey/cursorless-vscode/issues/22)
+
+**Merged pull requests:**
+
+- Configurable debounce delay [\#433](https://github.com/pokey/cursorless-vscode/pull/433) ([pokey](https://github.com/pokey))
+- Cross-cell set selection [\#430](https://github.com/pokey/cursorless-vscode/pull/430) ([pokey](https://github.com/pokey))
+- Hide decorations for selections that are larger than the viewport [\#403](https://github.com/pokey/cursorless-vscode/pull/403) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Re enable fold single line [\#401](https://github.com/pokey/cursorless-vscode/pull/401) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Scala support [\#399](https://github.com/pokey/cursorless-vscode/pull/399) ([SCdF](https://github.com/SCdF))
+- Added support for user colors [\#386](https://github.com/pokey/cursorless-vscode/pull/386) and [\#132](https://github.com/pokey/cursorless-talon/pull/132) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- In typescript short hand property can be treated as key item or value [\#381](https://github.com/pokey/cursorless-vscode/pull/381) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+- Made range connective implicit if range type is given [\#136](https://github.com/pokey/cursorless-talon/pull/136) ([AndreasArvidsson](https://github.com/AndreasArvidsson))
+
 ## [0.24.1](https://github.com/pokey/cursorless-vscode/tree/0.24.1) (2021-12-23)
 
 [Full Changelog](https://github.com/pokey/cursorless-vscode/compare/0.24.0...0.24.1)
