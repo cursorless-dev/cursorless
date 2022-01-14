@@ -186,7 +186,12 @@ export type Modifier =
 
 export type SelectionType =
   //   | "character" Not implemented
-  "token" | "line" | "notebookCell" | "paragraph" | "document";
+  | "token"
+  | "line"
+  | "notebookCell"
+  | "paragraph"
+  | "document"
+  | "nonWhitespaceSequence";
 
 export type Position = "before" | "after" | "contents";
 
