@@ -181,10 +181,9 @@ function processNonWhitespaceSequence(
   selectionContext: SelectionContext
 ) {
   const { selectionType, insideOutsideType, position, modifier } = target;
-  const { document } = selection.editor;
 
   const getMatch = (position: Position) => {
-    const line = document.lineAt(position);
+    const line = selection.editor.document.lineAt(position);
     const result = [...line.text.matchAll(/\S+/g)]
       .map(
         (match) =>
@@ -204,7 +203,6 @@ function processNonWhitespaceSequence(
 
   const start = getMatch(selection.selection.start).start;
   const end = getMatch(selection.selection.end).end;
-
   const newSelection = selectionWithEditorFromPositions(selection, start, end);
 
   return {
