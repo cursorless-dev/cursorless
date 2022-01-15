@@ -182,55 +182,30 @@ function processNonWhitespaceSequence(
 ) {
   const { selectionType, insideOutsideType, position, modifier } = target;
   const { document } = selection.editor;
-  const { start, end } = selection.selection;
-  let newSelection;
 
-  let startLine;
-  let i = start.line;
-  do {
-    startLine = document.lineAt(i++);
-  } while (startLine.isEmptyOrWhitespace && i <= end.line);
-
-  // Can't find any non whitespace characters in the selection
-  if (startLine.isEmptyOrWhitespace) {
-    newSelection = selectionWithEditorFromPositions(
-      selection,
-      selection.selection.active,
-      selection.selection.active
-    );
-  } else {
-    let endLine;
-    let i = end.line;
-    do {
-      endLine = document.lineAt(i--);
-    } while (endLine.isEmptyOrWhitespace && i >= start.line);
-
-    const regex = /\S+/g;
-    const leadingMatches = [...startLine.text.matchAll(regex)];
-    const trailingMatches = [...endLine.text.matchAll(regex)];
-
-    const leadingMatch =
-      start.line !== startLine.lineNumber
-        ? leadingMatches[0]
-        : leadingMatches.reduceRight((acc, match) =>
-            match.index! + match[0].length > start.character ? match : acc
-          );
-    const trailingMatch =
-      end.line !== endLine.lineNumber
-        ? trailingMatches[trailingMatches.length - 1]
-        : trailingMatches.reduce((acc, match) =>
-            match.index! < end.character ? match : acc
-          );
-
-    newSelection = selectionWithEditorFromPositions(
-      selection,
-      new Position(startLine.lineNumber, leadingMatch.index!),
-      new Position(
-        endLine.lineNumber,
-        trailingMatch.index! + trailingMatch[0].length
+  const getMatch = (position: Position) => {
+    const line = document.lineAt(position);
+    const result = [...line.text.matchAll(/\S+/g)]
+      .map(
+        (match) =>
+          new Range(
+            position.line,
+            match.index!,
+            position.line,
+            match.index! + match[0].length
+          )
       )
-    );
-  }
+      .find((range) => range.contains(position));
+    if (result == null) {
+      throw new Error("Couldn't find containing non whitespace sequence");
+    }
+    return result;
+  };
+
+  const start = getMatch(selection.selection.start).start;
+  const end = getMatch(selection.selection.end).end;
+
+  const newSelection = selectionWithEditorFromPositions(selection, start, end);
 
   return {
     selection: newSelection,
