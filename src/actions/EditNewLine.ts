@@ -8,7 +8,9 @@ import {
 import { commands, Selection } from "vscode";
 
 class EditNewLine implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: "inside" },
+  ];
 
   constructor(private graph: Graph, private isAbove: boolean) {
     this.run = this.run.bind(this);
@@ -40,14 +42,14 @@ class EditNewLine implements Action {
       await this.graph.actions.setSelectionBefore.run([targets]);
       await commands.executeCommand(
         targets[0].selectionContext.isNotebookCell
-          ? "jupyter.insertCellAbove"
+          ? "notebook.cell.insertCodeCellAboveAndFocusContainer"
           : "editor.action.insertLineBefore"
       );
     } else {
       await this.graph.actions.setSelectionAfter.run([targets]);
       await commands.executeCommand(
         targets[0].selectionContext.isNotebookCell
-          ? "jupyter.insertCellBelow"
+          ? "notebook.cell.insertCodeCellBelowAndFocusContainer"
           : "editor.action.insertLineAfter"
       );
     }
