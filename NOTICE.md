@@ -10,7 +10,7 @@ The [README](README.md) was partially generated with ❤️ by [readme-md-genera
 
 ### Badge icons
 
-The following badge icons came from FontAwesome ([licence](https://fontawesome.com/license)):
+The following badge icons came from FontAwesome ([license](https://fontawesome.com/license)):
 
 - https://fontawesome.com/v5.15/icons/wrench?style=solid
 - https://fontawesome.com/v5.15/icons/book?style=solid
