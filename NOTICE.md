@@ -2,6 +2,10 @@
 
 This file contains attributions for the various open source software used here.
 
+## NPM modules
+
+Cursorless is grateful for the contributions of all the open source contributors who have created the libraries on which we depend. See [the csv](third-party-licenses.csv) for more info.
+
 ## README
 
 ### Initial template
