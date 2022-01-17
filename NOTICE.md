@@ -6,7 +6,7 @@ This file contains attributions for the various open source software used here.
 
 ### Initial template
 
-The [README](README.md) was partially generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)
+The [README](README.md) was originally geneorated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)
 
 ### Badge icons
 
