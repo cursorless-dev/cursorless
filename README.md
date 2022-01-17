@@ -3,6 +3,9 @@
   <a href="https://github.com/pokey/cursorless-vscode/blob/main/CHANGELOG.md" target="_blank">
     <img alt="Version" src="https://img.shields.io/github/package-json/v/pokey/cursorless-vscode?color=blue" />
   </a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=pokey.cursorless&ssr=false#review-details" target="_blank">
+    <img alt="Rating" src="https://img.shields.io/visual-studio-marketplace/stars/pokey.cursorless?logo=visualstudiocode" />
+  </a>
   <a href="https://github.com/pokey/cursorless-vscode/actions/workflows/test.yml?query=branch%3Amain" target="_blank">
     <img alt="Tests" src="https://img.shields.io/github/workflow/status/pokey/cursorless-vscode/Run%20Tests?logo=github&label=tests" />
   </a>
