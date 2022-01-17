@@ -9,8 +9,7 @@
   <a href="https://github.com/pokey/cursorless-vscode/actions/workflows/test.yml?query=branch%3Amain" target="_blank">
     <img alt="Tests" src="https://img.shields.io/github/workflow/status/pokey/cursorless-vscode/Run%20Tests?logo=github&label=tests" />
   </a>
-</p>
-<p align="center">
+  <br/>
   <a href="https://github.com/pokey/cursorless-talon/tree/main/docs" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
