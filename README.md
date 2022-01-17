@@ -62,6 +62,6 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
----
+## Attributions
 
-_This README was partially generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+See [NOTICE.md](NOTICE.md).
