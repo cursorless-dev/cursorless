@@ -2,13 +2,13 @@
 
 This file contains attributions for the various open source software used here.
 
-# README
+## README
 
-## Initial template
+### Initial template
 
 The [README](README.md) was partially generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)
 
-## Badge icons
+### Badge icons
 
 The following badge icons came from FontAwesome ([licence](https://fontawesome.com/license)):
 
