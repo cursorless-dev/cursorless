@@ -257,9 +257,17 @@ class Pattern {
   fields: PatternField[];
   isImportant: boolean;
   isOptional: boolean;
+  anyType: boolean = false;
+  notType: boolean = false;
 
   constructor(pattern: string) {
     this.type = pattern.match(/^[\w*~]+/)![0];
+    if (this.type === "*") {
+      this.anyType = true;
+    } else if (this.type.startsWith("~")) {
+      this.type = this.type.slice(1);
+      this.notType = true;
+    }
     this.isImportant = pattern.indexOf("!") > -1;
     this.isOptional = pattern.indexOf("?") > -1;
     this.fields = [...pattern.matchAll(/(?<=\[).+?(?=\])/g)]
@@ -279,10 +287,12 @@ class Pattern {
   }
 
   typeEquals(node: SyntaxNode) {
-    return (
-      this.type === node.type ||
-      this.type === "*" ||
-      (this.type.startsWith("~") && this.type.slice(1) !== node.type)
-    );
+    if (this.anyType) {
+      return true;
+    }
+    if (this.notType) {
+      return this.type !== node.type;
+    }
+    return this.type === node.type;
   }
 }
