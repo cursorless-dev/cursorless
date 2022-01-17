@@ -17,7 +17,7 @@
     <img alt="Maintenance" src="https://img.shields.io/maintenance/yes/2022.svg" />
   </a>
   <a href="https://github.com/pokey/cursorless-vscode/blob/main/LICENSE" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/github/license/pokey/cursorless-vscode" />
+    <img alt="License: MIT" src="https://img.shields.io/github/license/pokey/cursorless-vscode?color=success" />
   </a>
 </p>
 
