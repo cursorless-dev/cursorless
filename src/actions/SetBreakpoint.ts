@@ -46,16 +46,20 @@ export default class SetBreakpoint implements Action {
     const toRemove: Breakpoint[] = [];
 
     targets.forEach((target) => {
+      let range: Range = target.selection.selection;
+      // The action preference give us line content but line breakpoints are registered on character 0
+      if (
+        target.selectionType === "line" ||
+        target.selectionType === "paragraph"
+      ) {
+        range = range.with(range.start.with(undefined, 0), undefined);
+      }
       const uri = target.selection.editor.document.uri;
-      const existing = getBreakpoints(uri, target.selection.selection);
+      const existing = getBreakpoints(uri, range);
       if (existing.length > 0) {
         toRemove.push(...existing);
       } else {
-        toAdd.push(
-          new SourceBreakpoint(
-            new Location(uri, target.selection.selection.start)
-          )
-        );
+        toAdd.push(new SourceBreakpoint(new Location(uri, range)));
       }
     });
 
