@@ -147,32 +147,19 @@ function tryPatternMatch(
   node: SyntaxNode,
   patterns: Pattern[]
 ): SyntaxNode | null {
-  const firstPattern = patterns[0];
-  const lastPattern = patterns[patterns.length - 1];
+  let result = searchNodeAscending(node, patterns);
+
+  if (!result && patterns.length > 1) {
+    result = searchNodeDescending(node, patterns);
+  }
+
   let resultNode: SyntaxNode | null = null;
   let resultPattern;
-  // Only one type try to match current node.
-  if (patterns.length === 1) {
-    if (firstPattern.typeEquals(node)) {
-      resultNode = node;
-      resultPattern = firstPattern;
-    }
-  } else {
-    // Matched last. Ascending search.
-    if (lastPattern.typeEquals(node)) {
-      const result = searchNodeAscending(node, lastPattern, patterns);
-      if (result != null) {
-        [resultNode, resultPattern] = result;
-      }
-    }
-    // Matched first. Descending search.
-    if (resultNode == null && firstPattern.typeEquals(node)) {
-      const result = searchNodeDescending(node, firstPattern, patterns);
-      if (result != null) {
-        [resultNode, resultPattern] = result;
-      }
-    }
+
+  if (result != null) {
+    [resultNode, resultPattern] = result;
   }
+
   // Use field name child if field name is given
   if (
     resultNode != null &&
@@ -180,9 +167,13 @@ function tryPatternMatch(
     resultPattern.fields != null
   ) {
     resultPattern.fields.forEach((field) => {
-      resultNode = resultNode?.childForFieldName(field) ?? null;
+      resultNode =
+        (field.isIndex
+          ? resultNode?.namedChild(field.value)
+          : resultNode?.childForFieldName(field.value)) ?? null;
     });
   }
+
   return resultNode;
 }
 
@@ -190,76 +181,118 @@ type NodePattern = [SyntaxNode, Pattern] | null;
 
 function searchNodeAscending(
   node: SyntaxNode,
-  lastPattern: Pattern,
   patterns: Pattern[]
 ): NodePattern {
-  let resultNode = node;
-  let resultPattern = lastPattern;
-  let important: NodePattern = lastPattern.isImportant
-    ? [node, lastPattern]
-    : null;
-  for (let i = patterns.length - 2; i > -1; --i) {
+  let result: NodePattern = null;
+  let currentNode: SyntaxNode | null = node;
+
+  for (let i = patterns.length - 1; i > -1; --i) {
     const pattern = patterns[i];
-    if (resultNode.parent == null || !pattern.typeEquals(resultNode.parent)) {
+
+    if (currentNode == null || !pattern.typeEquals(currentNode)) {
       if (pattern.isOptional) {
         continue;
       }
       return null;
     }
-    resultNode = resultNode.parent;
-    resultPattern = pattern;
-    if (pattern.isImportant) {
-      important = [resultNode, pattern];
+
+    // Return top node if not important found
+    if (!result || !result[1].isImportant) {
+      result = [currentNode, pattern];
     }
+
+    currentNode = currentNode.parent;
   }
-  return important != null ? important : [resultNode, resultPattern];
+
+  return result;
 }
 
 function searchNodeDescending(
   node: SyntaxNode,
-  firstPattern: Pattern,
   patterns: Pattern[]
 ): NodePattern {
-  let tmpNode = node;
-  // Even if descending search we return the "top" node by default.
-  let important: NodePattern = [node, firstPattern];
-  for (let i = 1; i < patterns.length; ++i) {
+  let result: NodePattern = null;
+  let currentNode: SyntaxNode | null = node;
+
+  for (let i = 0; i < patterns.length; ++i) {
     const pattern = patterns[i];
-    const children = tmpNode.namedChildren.filter((node) =>
-      pattern.typeEquals(node)
-    );
-    if (children.length !== 1) {
+
+    if (currentNode == null || !pattern.typeEquals(currentNode)) {
       if (pattern.isOptional) {
         continue;
       }
       return null;
     }
-    tmpNode = children[0];
-    if (pattern.isImportant) {
-      important = [tmpNode, pattern];
+
+    // Return top node if not important found
+    if (!result || pattern.isImportant) {
+      result = [currentNode, pattern];
+    }
+
+    if (i + 1 < patterns.length) {
+      const children: SyntaxNode[] = currentNode.namedChildren.filter((node) =>
+        patterns[i + 1].typeEquals(node)
+      );
+      currentNode = children.length === 1 ? children[0] : null;
     }
   }
-  return important;
+
+  return result;
 }
+
+interface PatternFieldIndex {
+  isIndex: true;
+  value: number;
+}
+
+interface PatternFieldName {
+  isIndex: false;
+  value: string;
+}
+
+type PatternField = PatternFieldName | PatternFieldIndex;
 
 class Pattern {
   type: string;
-  fields: string[] | null = null;
-  isImportant: boolean = false;
-  isOptional: boolean = false;
+  fields: PatternField[];
+  isImportant: boolean;
+  isOptional: boolean;
+  anyType: boolean = false;
+  notType: boolean = false;
 
   constructor(pattern: string) {
     this.type = pattern.match(/^[\w*~]+/)![0];
-    this.fields = [...pattern.matchAll(/(?<=\[).+?(?=\])/g)].map((m) => m[0]);
+    if (this.type === "*") {
+      this.anyType = true;
+    } else if (this.type.startsWith("~")) {
+      this.type = this.type.slice(1);
+      this.notType = true;
+    }
     this.isImportant = pattern.indexOf("!") > -1;
     this.isOptional = pattern.indexOf("?") > -1;
+    this.fields = [...pattern.matchAll(/(?<=\[).+?(?=\])/g)]
+      .map((m) => m[0])
+      .map((field) => {
+        if (/\d+/.test(field)) {
+          return {
+            isIndex: true,
+            value: Number(field),
+          };
+        }
+        return {
+          isIndex: false,
+          value: field,
+        };
+      });
   }
 
   typeEquals(node: SyntaxNode) {
-    return (
-      this.type === node.type ||
-      this.type === "*" ||
-      (this.type.startsWith("~") && this.type.slice(1) !== node.type)
-    );
+    if (this.anyType) {
+      return true;
+    }
+    if (this.notType) {
+      return this.type !== node.type;
+    }
+    return this.type === node.type;
   }
 }
