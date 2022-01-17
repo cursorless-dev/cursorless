@@ -33,6 +33,8 @@ export default function (
       return processLine(target, selection, selectionContext);
     case "paragraph":
       return processParagraph(target, selection, selectionContext);
+    case "nonWhitespaceSequence":
+      return processNonWhitespaceSequence(target, selection, selectionContext);
   }
 }
 
@@ -170,6 +172,51 @@ function processParagraph(
     selectionType,
     insideOutsideType,
     selectionContext: getParagraphSelectionContext(newSelection),
+  };
+}
+
+function processNonWhitespaceSequence(
+  target: PrimitiveTarget,
+  selection: SelectionWithEditor,
+  selectionContext: SelectionContext
+) {
+  const { selectionType, insideOutsideType, position, modifier } = target;
+
+  const getMatch = (position: Position) => {
+    const line = selection.editor.document.lineAt(position);
+    const result = [...line.text.matchAll(/\S+/g)]
+      .map(
+        (match) =>
+          new Range(
+            position.line,
+            match.index!,
+            position.line,
+            match.index! + match[0].length
+          )
+      )
+      .find((range) => range.contains(position));
+    if (result == null) {
+      throw new Error("Couldn't find containing non whitespace sequence");
+    }
+    return result;
+  };
+
+  const start = getMatch(selection.selection.start).start;
+  const end = getMatch(selection.selection.end).end;
+  const newSelection = selectionWithEditorFromPositions(selection, start, end);
+
+  return {
+    selection: newSelection,
+    position,
+    selectionType,
+    insideOutsideType,
+    selectionContext: getTokenSelectionContext(
+      newSelection,
+      modifier,
+      position,
+      insideOutsideType,
+      selectionContext
+    ),
   };
 }
 

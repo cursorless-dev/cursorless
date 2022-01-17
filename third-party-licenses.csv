@@ -1,0 +1,4 @@
+"module name","licenses","repository","licenseUrl","parents"
+"@types/lodash@4.14.168","MIT","https://github.com/DefinitelyTyped/DefinitelyTyped","https://github.com/DefinitelyTyped/DefinitelyTyped/raw/master/LICENSE","cursorless"
+"immutability-helper@3.1.1","MIT","https://github.com/kolodny/immutability-helper","https://github.com/kolodny/immutability-helper/raw/master/LICENSE","cursorless"
+"lodash@4.17.21","MIT","https://github.com/lodash/lodash","https://github.com/lodash/lodash/raw/master/LICENSE","cursorless"
