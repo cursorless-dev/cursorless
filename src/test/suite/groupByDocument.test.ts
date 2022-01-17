@@ -2,6 +2,7 @@ import * as assert from "assert";
 import * as vscode from "vscode";
 import * as sinon from "sinon";
 import { getCursorlessApi } from "../../util/getExtensionApi";
+import HatTokenMap from "../../core/HatTokenMap";
 
 suite("Group by document", async function () {
   this.timeout("100s");
@@ -40,8 +41,12 @@ async function runTest() {
     .getEntries()
     .find(([, token]) => token.editor === editor2 && token.text === "world");
 
-  const [color1, char1] = hat1![0].split(".");
-  const [color2, char2] = hat2![0].split(".");
+  const { hatStyle: hatStyle1, character: char1 } = HatTokenMap.splitKey(
+    hat1![0]
+  );
+  const { hatStyle: hatStyle2, character: char2 } = HatTokenMap.splitKey(
+    hat2![0]
+  );
 
   await vscode.commands.executeCommand(
     "cursorless.command",
@@ -52,7 +57,7 @@ async function runTest() {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
-          symbolColor: color1,
+          symbolColor: hatStyle1,
           character: char1,
         },
       },
@@ -60,13 +65,11 @@ async function runTest() {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
-          symbolColor: color2,
+          symbolColor: hatStyle2,
           character: char2,
         },
       },
-    ],
-    "(",
-    ")"
+    ]
   );
 
   assert.deepStrictEqual(document.getText(), "world hello");
