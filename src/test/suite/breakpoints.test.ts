@@ -12,6 +12,10 @@ suite("breakpoints", async function () {
     sinon.restore();
   });
 
+  suiteTeardown(() => {
+    removeBreakpoints();
+  });
+
   test("breakpoint harp", breakpointHarp);
   test("breakpoint token harp", breakpointTokenHarp);
 });
