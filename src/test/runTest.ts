@@ -19,7 +19,8 @@ async function main() {
     // Passed to --extensionTestsPath
     const extensionTestsPath = path.resolve(__dirname, "./suite/index");
 
-    const vscodeExecutablePath = await downloadAndUnzipVSCode();
+    // This version should match package.json engines.vscode
+    const vscodeExecutablePath = await downloadAndUnzipVSCode('1.58.1');
     const cliPath =
       resolveCliPathFromVSCodeExecutablePath(vscodeExecutablePath);
 
