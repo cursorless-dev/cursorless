@@ -129,7 +129,7 @@ async function breakpointTokenHarpRemove() {
     ),
   ]);
 
-  assert.deepStrictEqual(vscode.debug.breakpoints.length, 1);
+  assert.deepStrictEqual(vscode.debug.breakpoints.length, 2);
 
   await vscode.commands.executeCommand(
     "cursorless.command",
