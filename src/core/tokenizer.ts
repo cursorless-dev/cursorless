@@ -34,6 +34,10 @@ const FIXED_TOKENS = [
   "\\r",
   "\\n",
   "\\t",
+  "/*",
+  "*/",
+  "<!--",
+  "-->",
 ];
 const REPEATABLE_SYMBOLS_REGEX = REPEATABLE_SYMBOLS.map(escapeRegExp)
   .map((s) => `${s}+`)

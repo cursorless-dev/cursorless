@@ -4,8 +4,6 @@ import { Graph } from "../typings/Types";
 import { Disposable } from "vscode";
 import { IndividualHatMap } from "./IndividualHatMap";
 
-const DECORATION_DEBOUNCE_DELAY_MS = 40;
-
 interface Context {
   getActiveMap(): Promise<IndividualHatMap>;
 }
@@ -78,10 +76,14 @@ export class HatAllocator {
       clearTimeout(this.timeoutHandle);
     }
 
+    const decorationDebounceDelayMs = vscode.workspace
+      .getConfiguration("cursorless")
+      .get<number>("decorationDebounceDelayMs")!;
+
     this.timeoutHandle = setTimeout(() => {
       this.addDecorations();
       this.timeoutHandle = null;
-    }, DECORATION_DEBOUNCE_DELAY_MS);
+    }, decorationDebounceDelayMs);
   }
 
   private toggleDecorations() {

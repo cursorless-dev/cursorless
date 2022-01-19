@@ -7,7 +7,11 @@ import {
   downloadAndUnzipVSCode,
 } from "vscode-test";
 
-const extensionDependencies = ["pokey.parse-tree", "ms-toolsai.jupyter"];
+const extensionDependencies = [
+  "pokey.parse-tree",
+  "ms-toolsai.jupyter",
+  "scalameta.metals",
+];
 
 async function main() {
   try {
