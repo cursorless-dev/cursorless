@@ -23,7 +23,7 @@ suite("breakpoints", async function () {
   test("breakpoint harp add", breakpointHarpAdd);
   test("breakpoint token harp add", breakpointTokenHarpAdd);
   test("breakpoint harp remove", breakpointHarpRemove);
-  test("breakpoint Token harp remove", breakpointTokenHarpRemove);
+  test("breakpoint token harp remove", breakpointTokenHarpRemove);
 });
 
 async function breakpointHarpAdd() {
