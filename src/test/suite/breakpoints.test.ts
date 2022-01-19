@@ -122,6 +122,9 @@ async function breakpointTokenHarpRemove() {
 
   vscode.debug.addBreakpoints([
     new vscode.SourceBreakpoint(
+      new vscode.Location(editor.document.uri, new vscode.Range(0, 0, 0, 0))
+    ),
+    new vscode.SourceBreakpoint(
       new vscode.Location(editor.document.uri, new vscode.Range(0, 2, 0, 7))
     ),
   ]);
@@ -145,7 +148,11 @@ async function breakpointTokenHarpRemove() {
     ]
   );
 
-  assert.deepStrictEqual(vscode.debug.breakpoints.length, 0);
+  const breakpoints = vscode.debug.breakpoints;
+  assert.deepStrictEqual(breakpoints.length, 1);
+  assert.ok(breakpoints[0] instanceof vscode.SourceBreakpoint);
+  const breakpoint = <vscode.SourceBreakpoint>breakpoints[0];
+  assert.ok(breakpoint.location.range.isEqual(new vscode.Range(0, 0, 0, 0)));
 }
 
 function removeBreakpoints() {
