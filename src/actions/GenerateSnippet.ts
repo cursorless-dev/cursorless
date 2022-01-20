@@ -8,11 +8,11 @@ import {
 import { ensureSingleTarget } from "../util/targetUtils";
 import { range, repeat, zip } from "lodash";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
-import { performEditsAndUpdateSelections } from "../util/updateSelections";
 import { performDocumentEdits } from "../util/performDocumentEdits";
 import { commands, SnippetString, window, workspace } from "vscode";
 import { join } from "path";
 import { open } from "fs/promises";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 
 export default class GenerateSnippet implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
@@ -65,6 +65,7 @@ export default class GenerateSnippet implements Action {
 
     const [placeholderRanges, [targetSelection]] =
       await performEditsAndUpdateSelections(
+        this.graph.rangeUpdater,
         editor,
         originalSelections.map((selection, index) => ({
           editor,
@@ -117,6 +118,7 @@ export default class GenerateSnippet implements Action {
     });
 
     await performDocumentEdits(
+      this.graph.rangeUpdater,
       editor,
       zip(placeholderRanges, originalSelectionTexts).map(([range, text]) => ({
         editor,
