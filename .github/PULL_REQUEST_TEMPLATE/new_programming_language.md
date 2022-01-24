@@ -1,8 +1,8 @@
-### What
+## What
 
 Adds support for the `<language>` programming language
 
-### Checklist
+## Checklist
 
 - [ ] Recorded tests for the new language
 - [ ] Used `"clear"` instead of` "take"` for selection tests to make recorded tests easier to read
