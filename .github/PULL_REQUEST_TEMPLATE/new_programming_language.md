@@ -1,6 +1,8 @@
+### What
+
 Adds support for the `<language>` programming language
 
-I have done the following:
+### Checklist
 
 - [ ] Recorded tests for the new language
 - [ ] Used `"clear"` instead of` "take"` for selection tests to make recorded tests easier to read
