@@ -21,6 +21,8 @@ async function main() {
 
   await runCommand(`npm --no-git-tag-version version ${newVersion}`);
 
+  // These are automatically set for Github actions
+  // See https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
   const repository = process.env["GITHUB_REPOSITORY"];
   const runId = process.env["GITHUB_RUN_ID"];
 
