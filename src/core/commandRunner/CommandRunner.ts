@@ -12,6 +12,7 @@ import { TestCaseRecorder } from "../../testUtil/TestCaseRecorder";
 import { canonicalizeAndValidateCommand } from "../../util/canonicalizeAndValidateCommand";
 import { CommandArgument } from "./types";
 import { isString } from "../../util/type";
+import { ActionableError } from "../../errors";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -114,7 +115,11 @@ export default class CommandRunner {
     } catch (e) {
       this.testCaseRecorder.commandErrorHook();
       const err = e as Error;
-      vscode.window.showErrorMessage(err.message);
+      if ((err as Error).name === "ActionableError") {
+        (err as ActionableError).showErrorMessage();
+      } else {
+        vscode.window.showErrorMessage(err.message);
+      }
       console.error(err.message);
       console.error(err.stack);
       throw err;
