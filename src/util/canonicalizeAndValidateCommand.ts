@@ -31,7 +31,7 @@ export function canonicalizeAndValidateCommand(
 
   if (version > LATEST_VERSION) {
     throw new ActionableError(
-      "Cursorless Talon version is ahead of Cursorless extension version. Please update cursorless extension.",
+      "Cursorless Talon version is ahead of Cursorless VSCode extension version. Please update Cursorless VSCode.",
       [
         {
           name: "Check for updates",
