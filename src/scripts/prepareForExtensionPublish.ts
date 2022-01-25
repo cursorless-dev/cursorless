@@ -15,7 +15,7 @@ const execAsync = promisify(exec);
 async function main() {
   const { major, minor } = semver.parse(process.env.npm_package_version)!;
 
-  const commitCount = await runCommand("git rev-list --count head");
+  const commitCount = await runCommand("git rev-list --count HEAD");
 
   const newVersion = `${major}.${minor}.${commitCount}`;
 
@@ -26,24 +26,21 @@ async function main() {
   const repository = process.env["GITHUB_REPOSITORY"];
   const runId = process.env["GITHUB_RUN_ID"];
 
+  if (repository == null) {
+    throw new Error("Missing environment variable GITHUB_REPOSITORY");
+  }
+
+  if (runId == null) {
+    throw new Error("Missing environment variable GITHUB_RUN_ID");
+  }
+
   await writeFile(
     "build-info.json",
     JSON.stringify({
-      gitSha: strip(await runCommand("git rev-parse HEAD")),
+      gitSha: (await runCommand("git rev-parse HEAD")).trim(),
       buildUrl: `https://github.com/${repository}/actions/runs/${runId}`,
     })
   );
-}
-
-/**
- * Strips leading and trailing whitespace from string
- *
- * From https://stackoverflow.com/a/1418059
- * @param str The string to process
- * @returns The stripped string
- */
-function strip(str: string): string {
-  return str.replace(/^\s+|\s+$/g, "");
 }
 
 async function runCommand(command: string) {
