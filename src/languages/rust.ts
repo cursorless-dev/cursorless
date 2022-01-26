@@ -87,7 +87,7 @@ import {
     statement: STATEMENT_TYPES,
 //     string: ["interpreted_string_literal", "raw_string_literal"],
 //     ifStatement: "if_statement",
-//     functionCall: "call_expression",
+    functionCall: ["call_expression", "macro_invocation"],
 //     comment: "comment",1
 //     namedFunction: ["function_declaration", "method_declaration"],
 //     type: [
