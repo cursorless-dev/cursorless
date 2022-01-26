@@ -44,20 +44,13 @@ jobs:
         with:
           fetch-depth: 0
           path: main
-      - name: Checkout cursorless-talon
-        uses: actions/checkout@v2
-        with:
-          repository: cursorless-dev/cursorless-talon
           token: ${{ secrets.CURSORLESS_BOT_TOKEN }}
-          path: cursorless-talon
-      - name: Checkout git-subrepo
+      - name: Clone git-subrepo tool
         uses: actions/checkout@v2
         with:
           repository: ingydotnet/git-subrepo
           path: git-subrepo
       - run: |
           source ../git-subrepo/.rc
-          git subrepo push cursorless-talon --remote="file://$(realpath ../cursorless-talon)"
+          git subrepo push cursorless-talon
         working-directory: main
-      - run: git push
-        working-directory: cursorless-talon
