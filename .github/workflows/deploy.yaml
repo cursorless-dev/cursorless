@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  deploy:
+  publish-extension:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment: production
@@ -33,3 +33,31 @@ jobs:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
           extensionFile: ${{ steps.publishToOpenVSX.outputs.vsixPath }}
+
+  push-cursorless-talon:
+    name: Push cursorless-talon subrepo
+    runs-on: ubuntu-latest
+    needs: publish-extension
+    environment: production
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          path: main
+      - name: Checkout cursorless-talon
+        uses: actions/checkout@v2
+        with:
+          repository: cursorless-dev/cursorless-talon
+          token: ${{ secrets.CURSORLESS_BOT_TOKEN }}
+          path: cursorless-talon
+      - name: Checkout git-subrepo
+        uses: actions/checkout@v2
+        with:
+          repository: ingydotnet/git-subrepo
+          path: git-subrepo
+      - run: |
+          source ../git-subrepo/.rc
+          git subrepo push cursorless-talon --remote="file://$(realpath ../cursorless-talon)"
+        working-directory: main
+      - run: git push
+        working-directory: cursorless-talon
