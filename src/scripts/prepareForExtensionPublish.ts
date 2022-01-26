@@ -25,6 +25,7 @@ async function main() {
   // See https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
   const repository = process.env["GITHUB_REPOSITORY"];
   const runId = process.env["GITHUB_RUN_ID"];
+  const githubBaseUrl = process.env["GITHUB_SERVER_URL"];
 
   if (repository == null) {
     throw new Error("Missing environment variable GITHUB_REPOSITORY");
@@ -34,11 +35,15 @@ async function main() {
     throw new Error("Missing environment variable GITHUB_RUN_ID");
   }
 
+  if (githubBaseUrl == null) {
+    throw new Error("Missing environment variable GITHUB_SERVER_URL");
+  }
+
   await writeFile(
     "build-info.json",
     JSON.stringify({
       gitSha: (await runCommand("git rev-parse HEAD")).trim(),
-      buildUrl: `https://github.com/${repository}/actions/runs/${runId}`,
+      buildUrl: `${githubBaseUrl}/${repository}/actions/runs/${runId}`,
     })
   );
 }
