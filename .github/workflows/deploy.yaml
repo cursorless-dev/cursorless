@@ -50,9 +50,21 @@ jobs:
         with:
           repository: ingydotnet/git-subrepo
           path: git-subrepo
-      - run: |
+      - name: git subrepo push cursorless-talon
+        run: |
+          # Install git-subrepo onto command-line
           source ../git-subrepo/.rc
+
+          # Set up git config stuff to make git-subrepo happy
           git config user.name github-actions
           git config user.email github-actions@github.com
+
+          # Do a git subrepo pull so that git-subrepo can reconcile things
+          git subrepo pull cursorless-talon
+
+          # Sanity check that nothing actually changed on cursorless-talon since our last push
+          [[ "$(git diff --name-only origin/main main)" == "cursorless-talon/.gitrepo" ]]
+
+          # Do the push!
           git subrepo push cursorless-talon
         working-directory: main
