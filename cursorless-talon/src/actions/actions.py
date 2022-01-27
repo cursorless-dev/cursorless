@@ -48,6 +48,10 @@ class Actions:
                 actions.sleep(f"{talon_options.post_command_sleep_ms}ms")
 
             return return_value
+        elif action_id in no_wait_actions:
+            return actions.user.cursorless_single_target_command_no_wait(
+                action_id, target
+            )
         else:
             return actions.user.cursorless_single_target_command(action_id, target)
 
