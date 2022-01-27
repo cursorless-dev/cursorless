@@ -25,7 +25,7 @@ import { FindInFiles } from "./Find";
 import Replace from "./Replace";
 import { CopyLinesUp, CopyLinesDown } from "./CopyLines";
 import SetBreakpoint from "./SetBreakpoint";
-import { Sort, Reverse } from "./Sort";
+import { Sort, Reverse, Random } from "./Sort";
 import Call from "./Call";
 import WrapWithSnippet from "./WrapWithSnippet";
 import Deselect from "./Deselect";
@@ -59,6 +59,7 @@ class Actions implements ActionRecord {
   deselect = new Deselect(this.graph);
   replace = new Replace(this.graph);
   replaceWithTarget = new Bring(this.graph);
+  randomizeTargets = new Random(this.graph);
   reverseTargets = new Reverse(this.graph);
   rewrapWithPairedDelimiter = new Rewrap(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);

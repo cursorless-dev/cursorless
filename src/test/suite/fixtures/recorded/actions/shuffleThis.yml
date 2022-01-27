@@ -1,0 +1,23 @@
+languageId: plaintext
+command:
+  version: 1
+  spokenForm: shuffle this
+  action: randomizeTargets
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+initialState:
+  documentContents: hello
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 5}
+  marks: {}
+finalState:
+  documentContents: hello
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 5}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 5}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}, isImplicit: false}]

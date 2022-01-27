@@ -1,3 +1,4 @@
+import { shuffle } from "lodash";
 import {
   Action,
   ActionReturnValue,
@@ -34,5 +35,11 @@ export class Sort implements Action {
 export class Reverse extends Sort {
   protected sortTexts(texts: string[]) {
     return texts.reverse();
+  }
+}
+
+export class Random extends Sort {
+  protected sortTexts(texts: string[]) {
+    return shuffle(texts);
   }
 }
