@@ -54,5 +54,7 @@ jobs:
           source ../git-subrepo/.rc
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git subrepo pull cursorless-talon
+          [[ "$(git diff --name-only origin/main main)" == "cursorless-talon/.gitrepo" ]]
           git subrepo push cursorless-talon
         working-directory: main
