@@ -62,7 +62,7 @@ jobs:
           # Do a git subrepo pull so that git-subrepo can reconcile things
           git subrepo pull cursorless-talon
 
-          # Sanity check that nothing actually chaned on cursorless-talon since our last push
+          # Sanity check that nothing actually changed on cursorless-talon since our last push
           [[ "$(git diff --name-only origin/main main)" == "cursorless-talon/.gitrepo" ]]
 
           # Do the push!
