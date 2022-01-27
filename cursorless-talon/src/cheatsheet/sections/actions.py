@@ -44,7 +44,7 @@ def get_actions():
         f"{complex_actions['moveToTarget']} <T1> {source_destination_connective} <T2>": "Move T1 to T2",
         f"{complex_actions['moveToTarget']} <T>": "Move T to S",
         f"{complex_actions['swapTargets']} <T1> {swap_connective} <T2>": "Swap T1 with T2",
-        f"{complex_actions['swapTargets']} <T>": "Swap S with T",
+        f"{complex_actions['swapTargets']} {swap_connective} <T>": "Swap S with T",
         f"{complex_actions['applyFormatter']} <F> at <T>": "Reformat T as F",
         f"<P> {complex_actions['wrapWithPairedDelimiter']} <T>": "Wrap T with P",
         f"<P> {complex_actions['rewrap']} <T>": "Rewrap T with P",
