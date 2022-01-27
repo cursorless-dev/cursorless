@@ -52,5 +52,7 @@ jobs:
           path: git-subrepo
       - run: |
           source ../git-subrepo/.rc
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git subrepo push cursorless-talon
         working-directory: main
