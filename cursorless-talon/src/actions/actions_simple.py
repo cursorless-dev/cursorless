@@ -27,6 +27,7 @@ simple_action_defaults = {
     "pour": "editNewLineAfter",
     "pre": "setSelectionBefore",
     "puff": "insertEmptyLinesAround",
+    "shuffle": "randomizeTargets",
     "reverse": "reverseTargets",
     "scout all": "findInWorkspace",
     "sort": "sortTargets",
