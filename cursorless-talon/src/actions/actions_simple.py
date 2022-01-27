@@ -31,6 +31,7 @@ simple_action_defaults = {
     "shuffle": "randomizeTargets",
     "reverse": "reverseTargets",
     "scout all": "findInWorkspace",
+    "snip make": "generateSnippet",
     "sort": "sortTargets",
     "take": "setSelection",
     "unfold": "unfoldRegion",
@@ -41,6 +42,11 @@ simple_action_defaults = {
 positional_action_defaults = {
     "paste": "pasteFromClipboard",
 }
+
+# Don't wait for these actions to finish, usually because they hang on some kind of user interaction
+no_wait_actions = [
+    "generateSnippet",
+]
 
 mod = Module()
 mod.list(
