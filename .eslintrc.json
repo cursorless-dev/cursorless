@@ -11,6 +11,7 @@
     "rules": {
         "@typescript-eslint/naming-convention": "warn",
         "@typescript-eslint/semi": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
         "curly": "warn",
         "eqeqeq": [
             "warn",
