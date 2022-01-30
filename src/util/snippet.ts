@@ -22,7 +22,8 @@ export function transformSnippetVariables(
   placeholderName?: string | null,
   substitutions?: Record<string, string>
 ) {
-  var placeholderIndex = getMaxPlaceholderIndex(parsedSnippet) + 1;
+  let nextPlaceholderIndex = getMaxPlaceholderIndex(parsedSnippet) + 1;
+  const placeholderIndexMap: Record<string, number> = {};
 
   parsedSnippet.walk((candidate) => {
     if (candidate instanceof Variable) {
@@ -36,7 +37,13 @@ export function transformSnippetVariables(
           new Text(substitutions[candidate.name]),
         ]);
       } else if (!KnownSnippetVariableNames[candidate.name]) {
-        const placeholder = new Placeholder(placeholderIndex++);
+        let placeholderIndex: number;
+        if (candidate.name in placeholderIndexMap) {
+          placeholderIndex = placeholderIndexMap[candidate.name];
+        } else {
+          placeholderIndex = nextPlaceholderIndex++;
+        }
+        const placeholder = new Placeholder(placeholderIndex);
         candidate.children.forEach((child) => placeholder.appendChild(child));
         candidate.parent.replace(candidate, [placeholder]);
       }
