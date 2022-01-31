@@ -161,7 +161,7 @@ class CheatSheet:
         self.draw_items(canvas, items)
 
     def draw_multicolumn_section(
-        self, canvas, items, column_names: str, scopes_limit=24
+        self, canvas, items, column_names: str, scopes_limit=25
     ):
         items_0 = slice_dict(items, 0, scopes_limit)
         items_1 = slice_dict(items, scopes_limit)
