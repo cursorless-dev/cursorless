@@ -29,15 +29,10 @@ export async function runForEachEditor<T, U>(
   getEditor: (target: T) => TextEditor,
   func: (editor: TextEditor, editorTargets: T[]) => Promise<U>
 ): Promise<U[]> {
-  // Actually group by document and not editor. If the same document is open in multiple editors we want to perform all actions in one editor or an concurrency error will occur.
-  const getDocument = (target: T) => getEditor(target).document;
-  const editorMap = groupBy(targets, getDocument);
-  return await Promise.all(
-    Array.from(editorMap.values(), async (editorTargets) => {
-      // Just pick any editor with the given document open; doesn't matter which
-      const editor = getEditor(editorTargets[0]);
-      return func(editor, editorTargets);
-    })
+  return Promise.all(
+    groupForEachEditor(targets, getEditor).map(([editor, editorTargets]) =>
+      func(editor, editorTargets)
+    )
   );
 }
 
@@ -46,6 +41,24 @@ export async function runOnTargetsForEachEditor<T>(
   func: (editor: TextEditor, selections: TypedSelection[]) => Promise<T>
 ): Promise<T[]> {
   return runForEachEditor(targets, (target) => target.selection.editor, func);
+}
+
+export function groupTargetsForEachEditor(targets: TypedSelection[]) {
+  return groupForEachEditor(targets, (target) => target.selection.editor);
+}
+
+export function groupForEachEditor<T>(
+  targets: T[],
+  getEditor: (target: T) => TextEditor
+): [TextEditor, T[]][] {
+  // Actually group by document and not editor. If the same document is open in multiple editors we want to perform all actions in one editor or an concurrency error will occur.
+  const getDocument = (target: T) => getEditor(target).document;
+  const editorMap = groupBy(targets, getDocument);
+  return Array.from(editorMap.values(), (editorTargets) => {
+    // Just pick any editor with the given document open; doesn't matter which
+    const editor = getEditor(editorTargets[0]);
+    return [editor, editorTargets];
+  });
 }
 
 /** Get the possible leading and trailing overflow ranges of the outside target compared to the inside target */

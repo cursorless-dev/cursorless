@@ -2,6 +2,9 @@ import { Range } from "vscode";
 
 /** Unifies overlapping/intersecting ranges */
 export default function unifyRanges(ranges: Range[]): Range[] {
+  if (ranges.length < 2) {
+    return ranges;
+  }
   let run = true;
   while (run) {
     [ranges, run] = onePass(ranges);
@@ -10,6 +13,9 @@ export default function unifyRanges(ranges: Range[]): Range[] {
 }
 
 function onePass(ranges: Range[]): [Range[], boolean] {
+  if (ranges.length < 2) {
+    return [ranges, false];
+  }
   const result: Range[] = [];
   let madeChanges = false;
   ranges.forEach((range) => {
