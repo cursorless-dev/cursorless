@@ -40,6 +40,13 @@ export default function (
         selection,
         selectionContext
       );
+    case "url":
+      return processRegexDefinedScope(
+        /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g, // taken from https://regexr.com/3e6m0
+        target,
+        selection,
+        selectionContext
+      );
   }
 }
 
