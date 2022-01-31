@@ -31,6 +31,4 @@ finalState:
   thatMark:
     - anchor: {line: 0, character: 29}
       active: {line: 0, character: 29}
-    - anchor: {line: 0, character: 29}
-      active: {line: 0, character: 29}
 fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]}]

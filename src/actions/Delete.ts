@@ -13,7 +13,7 @@ import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { flatten } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { Selection, TextEditor } from "vscode";
-import { performOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
+import { performInsideOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 
 export default class Delete implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
@@ -32,15 +32,15 @@ export default class Delete implements Action {
 
     if (showDecorations) {
       await displayPendingEditDecorations(
-        groupedTargets.flatMap((group) => group[2]),
+        groupedTargets.flatMap((group) => group[1]),
         this.graph.editStyles.pendingDelete
       );
     }
 
     const thatMark = flatten(
       await Promise.all(
-        groupedTargets.map(async ([editor, targets, unifiedTargets]) => {
-          const edits = unifiedTargets.map((target) => ({
+        groupedTargets.map(async ([editor, targets]) => {
+          const edits = targets.map((target) => ({
             range: target.selection.selection,
             text: "",
           }));
@@ -66,10 +66,9 @@ export default class Delete implements Action {
 
 function groupAndUnifyTargets(
   targets: TypedSelection[]
-): [TextEditor, TypedSelection[], TypedSelection[]][] {
+): [TextEditor, TypedSelection[]][] {
   return groupTargetsForEachEditor(targets).map(([editor, targets]) => [
     editor,
-    targets,
     unifyOverlappingTargets(targets),
   ]);
 }
@@ -128,13 +127,13 @@ function mergedTargets(targets: TypedSelection[]): TypedSelection {
     },
     selectionType: first.selectionType,
     position: "contents",
-    insideOutsideType: null,
+    insideOutsideType: first.insideOutsideType,
     selectionContext: {
       leadingDelimiterRange: first.selectionContext.leadingDelimiterRange,
       trailingDelimiterRange: last.selectionContext.trailingDelimiterRange,
     },
   };
-  return performOutsideAdjustment(typeSelection);
+  return performInsideOutsideAdjustment(typeSelection);
 }
 
 function intersects(targetA: TypedSelection, targetB: TypedSelection) {
