@@ -131,6 +131,7 @@ function typeMatcher(): NodeMatcher {
 function valueMatcher() {
   const pFinder = patternFinder(
     "assignment_expression[right]",
+    "augmented_assignment_expression[right]",
     "*[value]",
     "shorthand_property_identifier"
   );
@@ -167,6 +168,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "*[name]",
     "optional_parameter.identifier!",
     "required_parameter.identifier!",
+    "augmented_assignment_expression[left]",
   ],
   comment: "comment",
   regularExpression: "regex",
