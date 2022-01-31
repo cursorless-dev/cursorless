@@ -100,17 +100,17 @@ function onePass(targets: TypedSelection[]): [TypedSelection[], boolean] {
       currentGroup.length &&
       !intersects(currentGroup[currentGroup.length - 1], target)
     ) {
-      results.push(mergedTargets(currentGroup));
+      results.push(mergeTargets(currentGroup));
       currentGroup = [target];
     } else {
       currentGroup.push(target);
     }
   });
-  results.push(mergedTargets(currentGroup));
+  results.push(mergeTargets(currentGroup));
   return [results, results.length !== targets.length];
 }
 
-function mergedTargets(targets: TypedSelection[]): TypedSelection {
+function mergeTargets(targets: TypedSelection[]): TypedSelection {
   if (targets.length === 1) {
     return targets[0];
   }
