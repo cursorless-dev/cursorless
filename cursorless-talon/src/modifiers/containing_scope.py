@@ -58,6 +58,7 @@ selection_types = {
     "file": "document",
     "line": "line",
     "paint": "nonWhitespaceSequence",
+    "link": "url",
     "token": "token",
 }
 
