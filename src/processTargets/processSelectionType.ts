@@ -16,6 +16,10 @@ import {
 } from "../typings/Types";
 import { getDocumentRange } from "../util/range";
 
+// taken from https://regexr.com/3e6m0
+const URL_REGEX =
+  /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+
 export default function (
   context: ProcessedTargetsContext,
   target: PrimitiveTarget,
@@ -42,7 +46,7 @@ export default function (
       );
     case "url":
       return processRegexDefinedScope(
-        /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g, // taken from https://regexr.com/3e6m0
+        URL_REGEX,
         target,
         selection,
         selectionContext
