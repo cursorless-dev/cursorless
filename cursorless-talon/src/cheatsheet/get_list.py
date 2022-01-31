@@ -39,6 +39,7 @@ def make_dict_readable(dict, descriptions=None):
 
 
 def make_readable(text):
+    text = text.replace(".", " ")
     return de_camel(text).lower().capitalize()
 
 
