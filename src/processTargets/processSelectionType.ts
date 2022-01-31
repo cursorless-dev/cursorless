@@ -34,7 +34,12 @@ export default function (
     case "paragraph":
       return processParagraph(target, selection, selectionContext);
     case "nonWhitespaceSequence":
-      return processNonWhitespaceSequence(target, selection, selectionContext);
+      return processRegexDefinedScope(
+        /\S+/g,
+        target,
+        selection,
+        selectionContext
+      );
   }
 }
 
@@ -175,7 +180,8 @@ function processParagraph(
   };
 }
 
-function processNonWhitespaceSequence(
+function processRegexDefinedScope(
+  regex: RegExp,
   target: PrimitiveTarget,
   selection: SelectionWithEditor,
   selectionContext: SelectionContext
@@ -184,7 +190,7 @@ function processNonWhitespaceSequence(
 
   const getMatch = (position: Position) => {
     const line = selection.editor.document.lineAt(position);
-    const result = [...line.text.matchAll(/\S+/g)]
+    const result = [...line.text.matchAll(regex)]
       .map(
         (match) =>
           new Range(
@@ -196,7 +202,7 @@ function processNonWhitespaceSequence(
       )
       .find((range) => range.contains(position));
     if (result == null) {
-      throw new Error("Couldn't find containing non whitespace sequence");
+      throw new Error(`Cannot find sequence defined by regex: ${regex}`);
     }
     return result;
   };
