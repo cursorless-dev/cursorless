@@ -191,7 +191,8 @@ export type SelectionType =
   | "notebookCell"
   | "paragraph"
   | "document"
-  | "nonWhitespaceSequence";
+  | "nonWhitespaceSequence"
+  | "url";
 
 export type Position = "before" | "after" | "contents";
 

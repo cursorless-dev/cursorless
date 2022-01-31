@@ -105,7 +105,7 @@ def dispose(json_str):
             result_str[i] = ""
 
     # Show respect to original input if we are in python2
-    return ("" if isinstance(json_str, str) else u"").join(result_str)
+    return ("" if isinstance(json_str, str) else "").join(result_str)
 
 
 # There may be performance suffer backtracking the last comma
