@@ -1,3 +1,5 @@
+set -euo pipefail
+
 # Check out staging branch
 git switch -c cursorless-talon-staging origin/cursorless-talon-staging
 
