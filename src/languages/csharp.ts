@@ -175,7 +175,10 @@ const getMapMatchers = {
     typedNodeFinder("assignment_expression"),
     (node: SyntaxNode) => node.childForFieldName("left"),
   ]),
-  value: matcher((node: SyntaxNode) => node.childForFieldName("right")),
+  value: [
+    "variable_declaration?.variable_declarator[1][0]!",
+    "assignment_expression[right]",
+  ],
   list: cascadingMatcher(
     chainedMatcher([
       typedNodeFinder(...LIST_TYPES_WITH_INITIALIZERS_AS_CHILDREN),
@@ -226,7 +229,11 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   comment: "comment",
   regularExpression: "regex",
   type: trailingMatcher(["*[type]"]),
-  name: ["*[name]", "identifier"],
+  name: [
+    "variable_declaration?.variable_declarator.identifier!",
+    "assignment_expression[left]",
+    "*[name]",
+  ],
 };
 
 export default createPatternMatchers(nodeMatchers);

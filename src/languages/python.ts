@@ -60,16 +60,23 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   namedFunction: "decorated_definition?.function_definition",
   functionName: "function_definition[name]",
   condition: conditionMatcher("*[condition]"),
-  type: leadingMatcher(["function_definition[return_type]", "*[type]"], [":", "->"]),
+  type: leadingMatcher(
+    ["function_definition[return_type]", "*[type]"],
+    [":", "->"]
+  ),
   name: [
     "assignment[left]",
+    "augmented_assignment[left]",
     "typed_parameter.identifier!",
     "parameters.identifier!",
     "*[name]",
   ],
   collectionItem: argumentMatcher(...dictionaryTypes, ...listTypes),
   value: cascadingMatcher(
-    leadingMatcher(["assignment[right]", "~subscript[value]"], ["=", ":"]),
+    leadingMatcher(
+      ["assignment[right]", "augmented_assignment[right]", "~subscript[value]"],
+      ["=", ":"]
+    ),
     patternMatcher("return_statement.~return!")
   ),
   argumentOrParameter: argumentMatcher("parameters", "argument_list"),
