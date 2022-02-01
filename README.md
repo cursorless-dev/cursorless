@@ -29,6 +29,7 @@ And I heard you like GIFs?
 ![Curly repack ox](images/curlyRepackOx.gif)
 ![Move arg air and each to after drum](images/moveArgAirAndEachToAfterDrum.gif)
 ![Chuck tail red pipe slice past end of file](images/chuckTailRedPipeSlicePastEndOfFile.gif)
+![Link wrap](images/linkWrap.gif)
 
 ## Installation
 
