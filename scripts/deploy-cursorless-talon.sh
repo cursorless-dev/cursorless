@@ -14,6 +14,7 @@ git fetch cursorless-talon
 git tag cursorless-talon-staging-previous cursorless-talon-staging
 
 # Update the staging branch
+git switch -c github-sha $GITHUB_SHA
 git subtree split --prefix=cursorless-talon --branch=cursorless-talon-staging
 
 # Exit if there were no changes to the cursorless-talon directory
