@@ -16,6 +16,9 @@ git tag cursorless-talon-staging-previous cursorless-talon-staging
 # Update the staging branch
 git subtree split --prefix=cursorless-talon --branch=cursorless-talon-staging
 
+# Exit if there were no changes to the cursorless-talon directory
+[[ "$(git rev-parse cursorless-talon-staging-previous)" == "$(git rev-parse cursorless-talon-staging)" ]] && exit 0
+
 # Checkout and cherry-pick commits onto cursorless-talon/main
 git switch -c cursorless-talon-main cursorless-talon/main
 git cherry-pick cursorless-talon-staging-previous..cursorless-talon-staging
