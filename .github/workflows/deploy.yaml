@@ -49,4 +49,4 @@ jobs:
         run: |
           git config user.name cursorless-bot
           git config user.email 98099035+cursorless-bot@users.noreply.github.com
-      - run: bash -x deploy-cursorless-talon.sh
+      - run: bash -x scripts/deploy-cursorless-talon.sh
