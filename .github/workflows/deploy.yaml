@@ -43,7 +43,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          path: main
           token: ${{ secrets.CURSORLESS_BOT_TOKEN }}
       - name: Configure GPG Key
         run: |
