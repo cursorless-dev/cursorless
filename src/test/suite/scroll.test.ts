@@ -4,7 +4,7 @@ import * as sinon from "sinon";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewEditor } from "../openNewEditor";
 
-suite("breakpoints", async function () {
+suite("scroll", async function () {
   this.timeout("100s");
   this.retries(3);
 
