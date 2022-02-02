@@ -45,8 +45,14 @@ jobs:
           fetch-depth: 0
           path: main
           token: ${{ secrets.CURSORLESS_BOT_TOKEN }}
+      - name: Configure GPG Key
+        run: |
+          echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
+        env:
+          GPG_SIGNING_KEY: ${{ secrets.CURSORLESS_BOT_GPG_SIGNING_KEY }}
       - name: git config
         run: |
           git config user.name cursorless-bot
           git config user.email 98099035+cursorless-bot@users.noreply.github.com
+          git config commit.gpgsign true
       - run: bash -x scripts/deploy-cursorless-talon.sh

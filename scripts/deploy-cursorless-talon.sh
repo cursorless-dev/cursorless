@@ -23,6 +23,9 @@ git tag cursorless-talon-staging-previous cursorless-talon-staging
 git switch -c github-sha $GITHUB_SHA
 git subtree split --prefix=cursorless-talon --branch=cursorless-talon-staging
 
+# Sanity check that the previous staging commit is an ancestor of the new one
+git merge-base --is-ancestor cursorless-talon-staging-previous cursorless-talon-staging
+
 # Checkout and cherry-pick commits onto cursorless-talon/main
 git switch -c cursorless-talon-main cursorless-talon/main
 git cherry-pick cursorless-talon-staging-previous..cursorless-talon-staging
