@@ -19,7 +19,6 @@ suite("fold", async function () {
 async function foldMade() {
   const graph = (await getCursorlessApi()).graph!;
   const editor = await openNewEditor("function myFunk() {\n\n}", "typescript");
-  await graph.hatTokenMap.addDecorations();
 
   await vscode.commands.executeCommand(
     "cursorless.command",
@@ -29,9 +28,7 @@ async function foldMade() {
       {
         type: "primitive",
         mark: {
-          type: "decoratedSymbol",
-          symbolColor: "default",
-          character: "m",
+          type: "cursor",
         },
       },
     ]
@@ -50,7 +47,6 @@ async function unfoldMade() {
   await vscode.commands.executeCommand("editor.fold", {
     selectionLines: [0],
   });
-  await graph.hatTokenMap.addDecorations();
 
   assert.equal(editor.visibleRanges.length, 2);
 
@@ -62,9 +58,7 @@ async function unfoldMade() {
       {
         type: "primitive",
         mark: {
-          type: "decoratedSymbol",
-          symbolColor: "default",
-          character: "m",
+          type: "cursor",
         },
       },
     ]

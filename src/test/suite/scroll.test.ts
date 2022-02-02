@@ -19,7 +19,7 @@ suite("scroll", async function () {
 async function topWhale() {
   const graph = (await getCursorlessApi()).graph!;
   const editor = await openNewEditor("hello\nworld");
-  await graph.hatTokenMap.addDecorations();
+  editor.selections = [new vscode.Selection(1, 0, 1, 0)];
 
   await vscode.commands.executeCommand(
     "cursorless.command",
@@ -29,9 +29,7 @@ async function topWhale() {
       {
         type: "primitive",
         mark: {
-          type: "decoratedSymbol",
-          symbolColor: "default",
-          character: "w",
+          type: "cursor",
         },
       },
     ]
@@ -48,7 +46,7 @@ async function bottomWhale() {
     lineNumber: 1,
     at: "top",
   });
-  await graph.hatTokenMap.addDecorations();
+  editor.selections = [new vscode.Selection(1, 0, 1, 0)];
 
   assert.equal(editor.visibleRanges[0].start.line, 1);
 
@@ -60,9 +58,7 @@ async function bottomWhale() {
       {
         type: "primitive",
         mark: {
-          type: "decoratedSymbol",
-          symbolColor: "default",
-          character: "w",
+          type: "cursor",
         },
       },
     ]
