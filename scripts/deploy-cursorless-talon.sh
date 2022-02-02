@@ -30,6 +30,10 @@ git cherry-pick cursorless-talon-staging-previous..cursorless-talon-staging
 # Sanity check that cursorless-talon-main is identical to cursorless-talon-staging
 [[ "$(git rev-parse cursorless-talon-main^{tree})" == "$(git rev-parse cursorless-talon-staging^{tree})" ]]
 
+# Sanity check that cursorless-talon-main is identical to cursorless-talon
+# subdirectory of cursorless-vscode
+[[ "$(git rev-parse cursorless-talon-main^{tree})" == "$(git rev-parse $GITHUB_SHA:cursorless-talon)" ]]
+
 # Push to cursorless-talon
 git push
 
