@@ -206,7 +206,7 @@ def update_file(
                 print(f"{key}: {missing[key]}")
             print(
                 "See release notes for more info: "
-                "https://github.com/pokey/cursorless-vscode/blob/main/CHANGELOG.md"
+                "https://github.com/cursorless-dev/cursorless-vscode/blob/main/CHANGELOG.md"
             )
             app.notify(f"🎉🎉 New cursorless features; see log")
 
