@@ -1,14 +1,10 @@
 # Installation
 
-First, install the dependencies:
-
-## Dependencies
-
 1. Install [Talon](https://talonvoice.com/)
 2. Install [knausj_talon](https://github.com/knausj85/knausj_talon). Note that
    even a heavily modified version of knausj should be fine, but make sure you
    have merged since commit
-   [knausj85/knausj_talon@`ff89cc1`](https://github.com/knausj85/knausj_talon/commit/ff89cc18f73669fd175ab91b9f3e53665c6044df).
+   [knausj85/knausj_talon@`e373780`](https://github.com/knausj85/knausj_talon/commit/e373780af16256ab8fd5638af32d97fa23c4c0fc).
    If rebasing is too painful, or if you are not a user of knausj, you can just
    clone [the command
    client](https://github.com/pokey/talon-vscode-command-client) into your
