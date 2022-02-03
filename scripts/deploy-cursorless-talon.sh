@@ -38,7 +38,7 @@ git cherry-pick cursorless-talon-staging-previous..cursorless-talon-staging
 [[ "$(git rev-parse cursorless-talon-main^{tree})" == "$(git rev-parse $GITHUB_SHA:cursorless-talon)" ]]
 
 # Push to cursorless-talon
-git push
+git push cursorless-talon HEAD:main
 
 # Checkout and push staging branch
 git switch cursorless-talon-staging
