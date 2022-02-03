@@ -423,7 +423,7 @@ See [paired delimiters](#paired-delimiters) for a list of possible wrappers.
 
 #### \[experimental\] Wrap with snippet
 
-See [experimental documentation](experimental.md#wrapper-snippets).
+See [experimental documentation](experimental/wrapper-snippets.md).
 
 ### Show definition/reference/quick fix
 
@@ -437,8 +437,6 @@ eg:
 Shows definition for the token containing letter 'a' with a blue hat.
 
 ### Fold/unfold
-
-Note that these actions will only work if referring to the entire target, not just the first line (see [#72](https://github.com/cursorless-dev/cursorless-vscode/issues/72)).
 
 - `"fold"`
 - `"unfold"`
