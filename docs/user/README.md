@@ -294,7 +294,7 @@ Note that if the first target is omitted, the start of the range will be the cur
 - `"take after [blue] air past before [blue] bat"`
 - `"take past end of line"`
 - `"take past start of line"`
-- `"take [blue] air past end of line"` (but see [pokey/cursorless-vscode#4](https://github.com/cursorless-dev/cursorless-vscode/issues/4))
+- `"take [blue] air past end of line"`
 
 eg:  
 `take blue air past green bat`  
