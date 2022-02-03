@@ -1,6 +1,6 @@
-# Cursorless - Instructions
+# Cursorless documentation
 
-You may find it helpful to start with the [tutorial video](https://www.youtube.com/watch?v=JxcNW0hnfTk).
+Welcome to Cursorless! You may find it helpful to start with the [tutorial video](https://www.youtube.com/watch?v=JxcNW0hnfTk).
 
 Once you understand the concepts, you can pull up a cheatsheet for reference using the command `"cursorless help"`.
 
