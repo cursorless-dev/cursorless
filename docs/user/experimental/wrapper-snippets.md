@@ -42,7 +42,7 @@ Each snippet wrapper has a default scope type. When you refer to a target, by de
 
 ## Customizing spoken forms
 
-As usual, the spoken forms for these wrapper snippets can be [customized by csv](customization.md). The csvs are in the file `cursorless-settings/experimental/wrapper_snippets.csv`.
+As usual, the spoken forms for these wrapper snippets can be [customized by csv](../customization.md). The csvs are in the file `cursorless-settings/experimental/wrapper_snippets.csv`.
 
 ## Adding your own snippets
 
