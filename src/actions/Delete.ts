@@ -52,10 +52,7 @@ export default class Delete implements Action {
             [targets.map((target) => target.selection.selection)]
           );
 
-          return updatedSelections.map((selection) => ({
-            editor,
-            selection,
-          }));
+          return updatedSelections.map((selection) => ({ editor, selection }));
         })
       )
     );
@@ -82,6 +79,7 @@ function unifyOverlappingTargets(targets: TypedSelection[]) {
     a.selection.selection.start.compareTo(b.selection.selection.start)
   );
   let run = true;
+  // Merge targets untill there are no overlaps/intersections
   while (run) {
     [results, run] = onePass(results);
   }
@@ -116,17 +114,16 @@ function mergeTargets(targets: TypedSelection[]): TypedSelection {
   }
   const first = targets[0];
   const last = targets[targets.length - 1];
-  const selection = new Selection(
-    first.selection.selection.start,
-    last.selection.selection.end
-  );
   const typeSelection: TypedSelection = {
     selection: {
-      selection,
       editor: first.selection.editor,
+      selection: new Selection(
+        first.selection.selection.start,
+        last.selection.selection.end
+      ),
     },
-    selectionType: first.selectionType,
     position: "contents",
+    selectionType: first.selectionType,
     insideOutsideType: first.insideOutsideType,
     selectionContext: {
       leadingDelimiterRange: first.selectionContext.leadingDelimiterRange,
