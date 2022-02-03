@@ -8,7 +8,7 @@
    If rebasing is too painful, or if you are not a user of knausj, you can just
    clone [the command
    client](https://github.com/pokey/talon-vscode-command-client) into your
-   talon user directory. You may need a couple other things from knausj but nothing major. Please file an issue if you have trouble getting this repo to work without knausj.
+   talon user directory. You will need [a couple other things](https://github.com/cursorless-dev/cursorless-vscode/wiki/Talon-home-requirements) from knausj but nothing major. Please file an issue if you have trouble getting this repo to work without knausj.
 3. Install [VSCode](https://code.visualstudio.com/)
 4. Install the [VSCode talon extension pack](https://marketplace.visualstudio.com/items?itemName=pokey.talon)
 5. Install the [Cursorless VSCode extension](https://marketplace.visualstudio.com/items?itemName=pokey.cursorless)
