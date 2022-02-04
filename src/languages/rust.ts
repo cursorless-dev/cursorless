@@ -46,7 +46,6 @@ import {
     "async_block",
     "await_expression",
     "binary_expression",
-    "block",
     "break_expression",
     "call_expression",
     "closure_expression",
@@ -82,34 +81,19 @@ import {
   ];
   
   const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
-    // map: "composite_literal",
-    // list: ["composite_literal", "slice_type", "array_type"],
     statement: STATEMENT_TYPES,
-//     string: ["interpreted_string_literal", "raw_string_literal"],
-//     ifStatement: "if_statement",
+    string: "raw_string_literal",
+    ifStatement: "if_expression",
     functionCall: ["call_expression", "macro_invocation"],
-//     comment: "comment",1
-//     namedFunction: ["function_declaration", "method_declaration"],
-//     type: [
-//       "pointer_type",
-//       "qualified_type",
-//       "type_identifier",
-//       "function_declaration[result]",
-//       "method_declaration[result]",
-//     ],
-//     functionName: ["function_declaration[name]", "method_declaration[name]"],
-//     anonymousFunction: "func_literal",
-//     condition: conditionMatcher("*[condition]"),
+    comment: ["line_comment", "block_comment"],
+    namedFunction: ["function_item"],
+    type: ["let_declaration[type]","parameter[type]"],
+    functionName: ["function_item[name]"],
+    anonymousFunction: "closure_expression",
     argumentOrParameter: cascadingMatcher(
         argumentMatcher("arguments"),
         trailingMatcher(["parameter"], [","]),
     ),
-//     collectionItem: ["keyed_element", "element"],
-//     collectionKey: childAtIndexMatcher(["keyed_element"], 0),
-//     value: cascadingMatcher(
-//       childAtIndexMatcher(["keyed_element"], 1),
-//       patternMatcher("return_statement.expression_list!")
-//     )
    };
   
   export default createPatternMatchers(nodeMatchers);
