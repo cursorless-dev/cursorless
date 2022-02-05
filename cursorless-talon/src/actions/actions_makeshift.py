@@ -22,7 +22,6 @@ makeshift_actions = [
     ),
     MakeshiftAction("hover", "showHover", "editor.action.showHover"),
     MakeshiftAction("inspect", "showDebugHover", "editor.debug.action.showDebugHover"),
-    MakeshiftAction("open link", "openLink", "editor.action.openLink"),
     MakeshiftAction(
         "quick fix",
         "showQuickFix",
