@@ -13,7 +13,7 @@ mod.list("cursorless_hat_color", desc="Supported hat colors for cursorless")
 mod.list("cursorless_hat_shape", desc="Supported hat shapes for cursorless")
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/pokey/cursorless-talon/blob/main/docs/customization.md
+# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
 hat_colors = {
     "blue": "blue",
     "green": "green",
@@ -65,7 +65,7 @@ class CustomizableTerm:
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/pokey/cursorless-talon/blob/main/docs/customization.md
+# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
 special_marks = [
     CustomizableTerm("this", "currentSelection", {"mark": {"type": "cursor"}}),
     CustomizableTerm("that", "previousTarget", {"mark": {"type": "that"}}),

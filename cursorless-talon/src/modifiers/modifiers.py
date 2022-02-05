@@ -4,7 +4,7 @@ from .range_type import range_types
 from .head_tail import head_tail
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/pokey/cursorless-talon/blob/main/docs/customization.md
+# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
 
 delimiter_inclusions = {
     "inside": "interiorOnly",
