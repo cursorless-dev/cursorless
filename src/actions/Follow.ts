@@ -1,4 +1,4 @@
-import { commands, DocumentLink, env, Uri, window, workspace } from "vscode";
+import { commands, DocumentLink, env, Uri, window } from "vscode";
 import {
   Action,
   ActionPreferences,
