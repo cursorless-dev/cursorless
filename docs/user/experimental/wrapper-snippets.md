@@ -1,6 +1,7 @@
 # Wrapper snippets
 
 ![Wrapper snippet demo](images/tryWrapFine.gif)
+![Link wrap](images/linkWrap.gif)
 
 In addition to wrapping with paired delimiters (eg `"square wrap"`, `"round wrap"`, etc), we experimentally support wrapping with snippets. Cursorless ships with a few built-in snippets, but users can also use their own snippets.
 
@@ -39,6 +40,7 @@ Each snippet wrapper has a default scope type. When you refer to a target, by de
 | `"else wrap"`       | If-else statement; target goes in else branch | Statement                 |
 | `"if else wrap"`    | If-else statement; target goes in if branch   | Statement                 |
 | `"try wrap"`        | Try-catch statement                           | Statement                 |
+| `"link wrap"`       | Markdown link                                 |                           |
 
 ## Customizing spoken forms
 

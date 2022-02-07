@@ -27,6 +27,7 @@ wrapper_snippets = {
     "if else": "ifElseStatement.consequence",
     "if": "ifStatement.consequence",
     "try": "tryCatchStatement.body",
+    "link": "link.text",
 }
 
 
