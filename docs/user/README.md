@@ -470,6 +470,6 @@ Extracts the function call containing the decorated 'a' into its own variable.
 | `"quad"`            | double quotes         | `"`                           | `"`                          | ✅          | ✅             |
 | `"round"`           | parentheses           | `(`                           | `)`                          | ✅          | ✅             |
 | `"skis"`            | backtick quotes       | `` ` ``                       | `` ` ``                      | ✅          | ✅             |
-| `"square"`          | square brackets       | `[`                           | `]`                          | ✅          | ✅             |
+| `"box"`             | square brackets       | `[`                           | `]`                          | ✅          | ✅             |
 | `"twin"`            | single quotes         | `'`                           | `'`                          | ✅          | ✅             |
 | `"void"`            | space                 | ` `                           | ` `                          | ✅          | ❌             |
