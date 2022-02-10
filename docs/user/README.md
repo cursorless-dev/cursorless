@@ -345,7 +345,7 @@ Deletes the token containing letter 'a' with a blue hat.
 
 This command will delete a target and leave the cursor where the target used to be, making it easy to change a target
 
-- `"clear"`
+- `"change"`
 
 ### Cut / copy
 
