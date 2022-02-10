@@ -6,6 +6,10 @@ import { walkDirsSync } from "./walkSync";
 import { invariant } from "immutability-helper";
 import { Graph } from "../typings/Types";
 
+interface RecordTestCaseCommandArg {
+  isHatTokenMapTest?: boolean;
+}
+
 export class TestCaseRecorder {
   private active: boolean = false;
   private workspacePath: string | null;
@@ -37,14 +41,14 @@ export class TestCaseRecorder {
     this.disposables.push(
       vscode.commands.registerCommand(
         "cursorless.recordTestCase",
-        async (isHatTokenMapTest: boolean = false) => {
+        async (arg: RecordTestCaseCommandArg) => {
           if (this.active) {
             vscode.window.showInformationMessage(
               "Stopped recording test cases"
             );
             this.stop();
           } else {
-            if (await this.start(isHatTokenMapTest)) {
+            if (await this.start(arg)) {
               vscode.window.showInformationMessage(
                 `Recording test cases for following commands in:\n${this.fixtureSubdirectory}`
               );
@@ -59,7 +63,9 @@ export class TestCaseRecorder {
     return this.active;
   }
 
-  async start(isHatTokenMapTest: boolean = false): Promise<boolean> {
+  async start(arg: RecordTestCaseCommandArg): Promise<boolean> {
+    const { isHatTokenMapTest = false } = arg;
+
     this.active = await this.promptSubdirectory();
     if (this.active) {
       this.isHatTokenMapTest = isHatTokenMapTest;
