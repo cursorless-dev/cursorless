@@ -8,7 +8,9 @@ import {
 import { commands, Selection } from "vscode";
 
 class EditNewLine implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: "inside" },
+  ];
 
   constructor(private graph: Graph, private isAbove: boolean) {
     this.run = this.run.bind(this);
@@ -62,10 +64,17 @@ class EditNewLine implements Action {
 }
 
 export class EditNewLineAbove extends EditNewLine {
+  static id: string = "editNewLineAbove";
+  static alternateIds: string[] = [];
+  static defaultSpokenForm: string = "drink";
+  static scope = { langIds: ["typescript"] };
+
   constructor(graph: Graph) {
     super(graph, true);
   }
 }
+
+registerAction(EditNewLineAbove);
 
 export class EditNewLineBelow extends EditNewLine {
   constructor(graph: Graph) {
