@@ -3,7 +3,6 @@ import graphFactories from "./util/graphFactories";
 import { Graph } from "./typings/Types";
 import makeGraph, { FactoryMap } from "./util/makeGraph";
 import { ThatMark } from "./core/ThatMark";
-import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import isTesting from "./testUtil/isTesting";
 import CommandRunner from "./core/commandRunner/CommandRunner";
@@ -25,31 +24,9 @@ export async function activate(context: vscode.ExtensionContext) {
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
-  const testCaseRecorder = new TestCaseRecorder(context);
-
-  const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
-    "cursorless.recordTestCase",
-    async (isHatTokenMapTest: boolean = false) => {
-      if (testCaseRecorder.active) {
-        vscode.window.showInformationMessage("Stopped recording test cases");
-        testCaseRecorder.stop();
-      } else {
-        if (await testCaseRecorder.start(isHatTokenMapTest)) {
-          vscode.window.showInformationMessage(
-            `Recording test cases for following commands in:\n${testCaseRecorder.fixtureSubdirectory}`
-          );
-        }
-      }
-    }
-  );
 
   // TODO: Do this using the graph once we migrate its dependencies onto the graph
-  const commandRunner = new CommandRunner(
-    graph,
-    thatMark,
-    sourceMark,
-    testCaseRecorder
-  );
+  const commandRunner = new CommandRunner(graph, thatMark, sourceMark);
 
   // Disabled for now.
   // See https://github.com/cursorless-dev/cursorless-vscode/issues/320
@@ -94,8 +71,6 @@ export async function activate(context: vscode.ExtensionContext) {
       );
     }
   }
-
-  context.subscriptions.push(cursorlessRecordTestCaseDisposable);
 
   return {
     thatMark,

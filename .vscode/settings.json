@@ -13,6 +13,9 @@
     "typescript.tsc.autoDetect": "off",
     "cSpell.words": [
         "Autoformatting",
+        "camelize",
+        "canonicalize",
+        "crosshairs",
         "eqeqeq",
         "nonlocal",
         "pojo",

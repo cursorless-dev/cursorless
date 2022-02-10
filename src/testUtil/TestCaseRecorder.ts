@@ -4,20 +4,24 @@ import * as fs from "fs";
 import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
 import { walkDirsSync } from "./walkSync";
 import { invariant } from "immutability-helper";
+import { Graph } from "../typings/Types";
 
 export class TestCaseRecorder {
-  active: boolean = false;
-  workspacePath: string | null;
-  workSpaceFolder: string | null;
-  fixtureRoot: string | null;
-  fixtureSubdirectory: string | null = null;
-  testCase: TestCase | null = null;
-  isHatTokenMapTest: boolean = false;
+  private active: boolean = false;
+  private workspacePath: string | null;
+  private workSpaceFolder: string | null;
+  private fixtureRoot: string | null;
+  private fixtureSubdirectory: string | null = null;
+  private testCase: TestCase | null = null;
+  private isHatTokenMapTest: boolean = false;
+  private disposables: vscode.Disposable[] = [];
 
-  constructor(extensionContext: vscode.ExtensionContext) {
+  constructor(private graph: Graph) {
+    graph.extensionContext.subscriptions.push(this);
+
     this.workspacePath =
-      extensionContext.extensionMode === vscode.ExtensionMode.Development
-        ? extensionContext.extensionPath
+      graph.extensionContext.extensionMode === vscode.ExtensionMode.Development
+        ? graph.extensionContext.extensionPath
         : vscode.workspace.workspaceFolders?.[0].uri.path ?? null;
 
     this.workSpaceFolder = this.workspacePath
@@ -27,6 +31,30 @@ export class TestCaseRecorder {
     this.fixtureRoot = this.workspacePath
       ? path.join(this.workspacePath, "src/test/suite/fixtures/recorded")
       : null;
+
+    this.disposables.push(
+      vscode.commands.registerCommand(
+        "cursorless.recordTestCase",
+        async (isHatTokenMapTest: boolean = false) => {
+          if (this.active) {
+            vscode.window.showInformationMessage(
+              "Stopped recording test cases"
+            );
+            this.stop();
+          } else {
+            if (await this.start(isHatTokenMapTest)) {
+              vscode.window.showInformationMessage(
+                `Recording test cases for following commands in:\n${this.fixtureSubdirectory}`
+              );
+            }
+          }
+        }
+      )
+    );
+  }
+
+  isActive() {
+    return this.active;
   }
 
   async start(isHatTokenMapTest: boolean = false): Promise<boolean> {
@@ -170,6 +198,10 @@ export class TestCaseRecorder {
 
   commandErrorHook() {
     this.testCase = null;
+  }
+
+  dispose() {
+    this.disposables.forEach(({ dispose }) => dispose());
   }
 }
 
