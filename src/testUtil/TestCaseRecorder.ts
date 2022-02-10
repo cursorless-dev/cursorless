@@ -7,6 +7,15 @@ import { invariant } from "immutability-helper";
 import { Graph } from "../typings/Types";
 
 interface RecordTestCaseCommandArg {
+  /**
+   * If this is set to `true`, then for each test case that we record, we expect
+   * that the user will issue a second command in each phrase, which refers to a
+   * decorated mark whose range we'd like to check that it got updated properly
+   * during the previous command. We use this functionality in order to check
+   * that the token range update works properly. For example, you might say
+   * `"chuck second car ox air take air"` to check that removing a character
+   * from a token properly updates the token.
+   */
   isHatTokenMapTest?: boolean;
 }
 
