@@ -21,6 +21,7 @@ export async function activate(context: vscode.ExtensionContext) {
   graph.snippets.init();
   await graph.decorations.init();
   graph.hatTokenMap.init();
+  graph.testCaseRecorder.init();
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();

@@ -16,7 +16,7 @@ export class TestCaseRecorder {
   private isHatTokenMapTest: boolean = false;
   private disposables: vscode.Disposable[] = [];
 
-  constructor(private graph: Graph) {
+  constructor(graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
 
     this.workspacePath =
@@ -31,7 +31,9 @@ export class TestCaseRecorder {
     this.fixtureRoot = this.workspacePath
       ? path.join(this.workspacePath, "src/test/suite/fixtures/recorded")
       : null;
+  }
 
+  init() {
     this.disposables.push(
       vscode.commands.registerCommand(
         "cursorless.recordTestCase",
