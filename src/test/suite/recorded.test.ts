@@ -117,7 +117,7 @@ async function runTest(file: string) {
         );
 
   // TODO Visible ranges are not asserted, see:
-  // https://github.com/pokey/cursorless-vscode/issues/160
+  // https://github.com/cursorless-dev/cursorless-vscode/issues/160
   const { visibleRanges, ...resultState } = await takeSnapshot(
     cursorlessApi.thatMark,
     cursorlessApi.sourceMark,

@@ -21,12 +21,13 @@ tag: user.cursorless_experimental_snippets
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/pokey/cursorless-talon/blob/main/docs/customization.md
+# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
 wrapper_snippets = {
     "else": "ifElseStatement.alternative",
     "if else": "ifElseStatement.consequence",
     "if": "ifStatement.consequence",
     "try": "tryCatchStatement.body",
+    "link": "link.text",
 }
 
 

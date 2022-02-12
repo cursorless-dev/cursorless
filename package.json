@@ -12,7 +12,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/pokey/cursorless-vscode.git"
+        "url": "https://github.com/cursorless-dev/cursorless-vscode.git"
     },
     "engines": {
         "vscode": "^1.61.0"
@@ -260,7 +260,7 @@
                     "additionalProperties": false
                 },
                 "cursorless.hatEnablement.shapes": {
-                    "markdownDescription": "Which shapes to enable.  See the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs/README.md#shapes) if you're not sure which shape name corresponds to which hat shape.",
+                    "markdownDescription": "Which shapes to enable.  See the [docs](https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/README.md#shapes) if you're not sure which shape name corresponds to which hat shape.",
                     "type": "object",
                     "properties": {
                         "ex": {
