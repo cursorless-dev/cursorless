@@ -18,10 +18,10 @@ import {
 } from "../../testUtil/toPlainObject";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
-import asyncSafety from "./asyncSafety";
+import asyncSafety from "../util/asyncSafety";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { openNewEditor } from "../openNewEditor";
-import getRecordedTestPaths from "./getRecordedTestPaths";
+import getRecordedTestPaths from "../util/getRecordedTestPaths";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
