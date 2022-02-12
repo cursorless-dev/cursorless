@@ -1,7 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
 import * as sinon from "sinon";
-import * as path from "path";
 import { openNewEditor } from "../openNewEditor";
 import { getFixturePath } from "./getFixturePaths";
 
