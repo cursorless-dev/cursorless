@@ -63,5 +63,8 @@ async function runTest(
 
   assert.equal(activeCelIndex, expectedActiveCellIndex);
 
-  assert.equal(getPlainNotebookContents(notebook), expectedNotebookContents);
+  assert.deepStrictEqual(
+    getPlainNotebookContents(notebook),
+    expectedNotebookContents
+  );
 }
