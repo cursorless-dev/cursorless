@@ -5,6 +5,7 @@ import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
 import { walkDirsSync } from "./walkSync";
 import { invariant } from "immutability-helper";
 import { Graph } from "../typings/Types";
+import { ExtraSnapshotField } from "./takeSnapshot";
 
 interface RecordTestCaseCommandArg {
   /**
@@ -30,6 +31,8 @@ interface RecordTestCaseCommandArg {
    * test case
    */
   isSilent?: boolean;
+
+  extraSnapshotFields?: ExtraSnapshotField[];
 }
 
 export class TestCaseRecorder {
@@ -42,6 +45,8 @@ export class TestCaseRecorder {
   private isHatTokenMapTest: boolean = false;
   private disposables: vscode.Disposable[] = [];
   private isSilent?: boolean;
+  private startTimestamp?: bigint;
+  private extraSnapshotFields?: ExtraSnapshotField[];
 
   constructor(graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
@@ -91,6 +96,7 @@ export class TestCaseRecorder {
       isHatTokenMapTest = false,
       directory,
       isSilent = false,
+      extraSnapshotFields = [],
     } = arg ?? {};
 
     if (directory != null) {
@@ -104,6 +110,8 @@ export class TestCaseRecorder {
     if (this.active) {
       this.isHatTokenMapTest = isHatTokenMapTest;
       this.isSilent = isSilent;
+      this.extraSnapshotFields = extraSnapshotFields;
+      this.startTimestamp = process.hrtime.bigint();
     }
 
     return this.active;
@@ -126,7 +134,13 @@ export class TestCaseRecorder {
       await this.finishTestCase();
     } else {
       // Otherwise, we are starting a new test case
-      this.testCase = new TestCase(command, context, this.isHatTokenMapTest);
+      this.testCase = new TestCase(
+        command,
+        context,
+        this.isHatTokenMapTest,
+        this.startTimestamp!,
+        this.extraSnapshotFields
+      );
       await this.testCase.recordInitialState();
     }
   }
