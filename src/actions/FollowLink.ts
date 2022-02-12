@@ -1,4 +1,4 @@
-import { commands, DocumentLink, env, Uri, window } from "vscode";
+import { env, Uri, window } from "vscode";
 import {
   Action,
   ActionPreferences,
@@ -7,6 +7,7 @@ import {
   TypedSelection,
 } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { getLinkForTarget } from "../util/getLinks";
 import { ensureSingleTarget } from "../util/targetUtils";
 
 export default class FollowLink implements Action {
@@ -26,7 +27,7 @@ export default class FollowLink implements Action {
       this.graph.editStyles.referenced
     );
 
-    const link = await this.findLink(target);
+    const link = await getLinkForTarget(target);
     if (link) {
       await this.openUri(link.target!);
     } else {
@@ -40,18 +41,6 @@ export default class FollowLink implements Action {
     return {
       thatMark: targets.map((target) => target.selection),
     };
-  }
-
-  private async findLink(target: TypedSelection) {
-    const links = <DocumentLink[]>(
-      await commands.executeCommand(
-        "vscode.executeLinkProvider",
-        target.selection.editor.document.uri
-      )
-    );
-    return links.find((link) =>
-      link.range.contains(target.selection.selection)
-    );
   }
 
   private async openUri(uri: Uri) {
