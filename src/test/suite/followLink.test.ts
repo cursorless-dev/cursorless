@@ -1,7 +1,9 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
 import * as sinon from "sinon";
+import * as path from "path";
 import { openNewEditor } from "../openNewEditor";
+import { getFixturePath } from "./getFixturePaths";
 
 suite("followLink", async function () {
   this.timeout("100s");
@@ -46,7 +48,8 @@ async function followDefinition() {
 }
 
 async function followLink() {
-  await openNewEditor(`file:///${__filename}`);
+  const filename = getFixturePath("helloWorld.txt");
+  await openNewEditor(`file:///${filename}`);
 
   await vscode.commands.executeCommand(
     "cursorless.command",
@@ -62,5 +65,7 @@ async function followLink() {
     ]
   );
 
-  assert.equal(vscode.window.activeTextEditor?.document?.uri?.scheme, "file");
+  const editor = vscode.window.activeTextEditor;
+  assert.equal(editor?.document?.uri?.scheme, "file");
+  assert.equal(editor?.document.getText(), "hello world");
 }
