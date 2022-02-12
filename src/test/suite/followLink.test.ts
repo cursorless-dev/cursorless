@@ -62,5 +62,5 @@ async function followLink() {
     ]
   );
 
-  assert.equal(vscode.window.activeTextEditor?.document.uri.scheme, "file");
+  assert.equal(vscode.window.activeTextEditor?.document?.uri?.scheme, "file");
 }
