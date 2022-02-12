@@ -56,6 +56,10 @@ export default function (
     case "toRawSelection":
       result = processRawSelectionModifier(context, selection);
       break;
+
+    default:
+      // Make sure we haven't missed any cases
+      const _neverCheck: never = modifier;
   }
 
   if (result == null) {
