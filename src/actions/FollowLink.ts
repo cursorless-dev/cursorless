@@ -9,7 +9,7 @@ import {
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { ensureSingleTarget } from "../util/targetUtils";
 
-export default class Follow implements Action {
+export default class FollowLink implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
     { insideOutsideType: "inside" },
   ];

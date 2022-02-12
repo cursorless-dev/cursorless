@@ -20,7 +20,7 @@ simple_action_defaults = {
     "extract": "extractVariable",
     "float": "insertEmptyLineAfter",
     "fold": "foldRegion",
-    "follow": "follow",
+    "follow": "followLink",
     "give": "deselect",
     "indent": "indentLine",
     "paste to": "pasteFromClipboard",
