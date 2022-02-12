@@ -29,10 +29,15 @@ export async function runForEachEditor<T, U>(
   getEditor: (target: T) => TextEditor,
   func: (editor: TextEditor, editorTargets: T[]) => Promise<U>
 ): Promise<U[]> {
+  // Actually group by document and not editor. If the same document is open in multiple editors we want to perform all actions in one editor or an concurrency error will occur.
+  const getDocument = (target: T) => getEditor(target).document;
+  const editorMap = groupBy(targets, getDocument);
   return await Promise.all(
-    Array.from(groupBy(targets, getEditor), async ([editor, editorTargets]) =>
-      func(editor, editorTargets)
-    )
+    Array.from(editorMap.values(), async (editorTargets) => {
+      // Just pick any editor with the given document open; doesn't matter which
+      const editor = getEditor(editorTargets[0]);
+      return func(editor, editorTargets);
+    })
   );
 }
 

@@ -52,7 +52,7 @@ export async function activate(context: vscode.ExtensionContext) {
   );
 
   // Disabled for now.
-  // See https://github.com/pokey/cursorless-vscode/issues/320
+  // See https://github.com/cursorless-dev/cursorless-vscode/issues/320
   // vscode.workspace.onDidChangeTextDocument(checkForEditsOutsideViewport)
   function checkForEditsOutsideViewport(event: vscode.TextDocumentChangeEvent) {
     // TODO: Only activate this code during the course of a cursorless action

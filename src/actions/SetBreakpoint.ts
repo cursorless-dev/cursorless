@@ -14,6 +14,7 @@ import {
   Breakpoint,
 } from "vscode";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { isLineSelectionType } from "../util/selectionType";
 
 function getBreakpoints(uri: Uri, range: Range) {
   return debug.breakpoints.filter(
@@ -46,16 +47,20 @@ export default class SetBreakpoint implements Action {
     const toRemove: Breakpoint[] = [];
 
     targets.forEach((target) => {
+      let range: Range = target.selection.selection;
+      // The action preference give us line content but line breakpoints are registered on character 0
+      if (isLineSelectionType(target.selectionType)) {
+        range = range.with(range.start.with(undefined, 0), undefined);
+      }
       const uri = target.selection.editor.document.uri;
-      const existing = getBreakpoints(uri, target.selection.selection);
+      const existing = getBreakpoints(uri, range);
       if (existing.length > 0) {
         toRemove.push(...existing);
       } else {
-        toAdd.push(
-          new SourceBreakpoint(
-            new Location(uri, target.selection.selection.start)
-          )
-        );
+        if (isLineSelectionType(target.selectionType)) {
+          range = range.with(undefined, range.end.with(undefined, 0));
+        }
+        toAdd.push(new SourceBreakpoint(new Location(uri, range)));
       }
     });
 

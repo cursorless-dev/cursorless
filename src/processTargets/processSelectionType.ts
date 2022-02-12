@@ -16,6 +16,10 @@ import {
 } from "../typings/Types";
 import { getDocumentRange } from "../util/range";
 
+// taken from https://regexr.com/3e6m0
+const URL_REGEX =
+  /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+
 export default function (
   context: ProcessedTargetsContext,
   target: PrimitiveTarget,
@@ -33,6 +37,20 @@ export default function (
       return processLine(target, selection, selectionContext);
     case "paragraph":
       return processParagraph(target, selection, selectionContext);
+    case "nonWhitespaceSequence":
+      return processRegexDefinedScope(
+        /\S+/g,
+        target,
+        selection,
+        selectionContext
+      );
+    case "url":
+      return processRegexDefinedScope(
+        URL_REGEX,
+        target,
+        selection,
+        selectionContext
+      );
   }
 }
 
@@ -170,6 +188,52 @@ function processParagraph(
     selectionType,
     insideOutsideType,
     selectionContext: getParagraphSelectionContext(newSelection),
+  };
+}
+
+function processRegexDefinedScope(
+  regex: RegExp,
+  target: PrimitiveTarget,
+  selection: SelectionWithEditor,
+  selectionContext: SelectionContext
+) {
+  const { selectionType, insideOutsideType, position, modifier } = target;
+
+  const getMatch = (position: Position) => {
+    const line = selection.editor.document.lineAt(position);
+    const result = [...line.text.matchAll(regex)]
+      .map(
+        (match) =>
+          new Range(
+            position.line,
+            match.index!,
+            position.line,
+            match.index! + match[0].length
+          )
+      )
+      .find((range) => range.contains(position));
+    if (result == null) {
+      throw new Error(`Cannot find sequence defined by regex: ${regex}`);
+    }
+    return result;
+  };
+
+  const start = getMatch(selection.selection.start).start;
+  const end = getMatch(selection.selection.end).end;
+  const newSelection = selectionWithEditorFromPositions(selection, start, end);
+
+  return {
+    selection: newSelection,
+    position,
+    selectionType,
+    insideOutsideType,
+    selectionContext: getTokenSelectionContext(
+      newSelection,
+      modifier,
+      position,
+      insideOutsideType,
+      selectionContext
+    ),
   };
 }
 

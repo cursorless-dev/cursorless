@@ -5,7 +5,10 @@ import { getPartialPrimitiveTargets } from "./getPrimitiveTargets";
 import {
   CommandArgument,
   CommandArgumentComplete,
+  LATEST_VERSION,
 } from "../core/commandRunner/types";
+import { ActionableError } from "../errors";
+import { commands } from "vscode";
 
 /**
  * Given a command argument which comes from the client, normalize it so that it
@@ -22,8 +25,24 @@ export function canonicalizeAndValidateCommand(
     targets: inputPartialTargets,
     extraArgs: inputExtraArgs = [],
     usePrePhraseSnapshot = false,
+    version,
     ...rest
   } = commandArgument;
+
+  if (version > LATEST_VERSION) {
+    throw new ActionableError(
+      "Cursorless Talon version is ahead of Cursorless VSCode extension version. Please update Cursorless VSCode.",
+      [
+        {
+          name: "Check for updates",
+          action: () =>
+            commands.executeCommand(
+              "workbench.extensions.action.checkForUpdates"
+            ),
+        },
+      ]
+    );
+  }
 
   const actionName = canonicalizeActionName(inputActionName);
   const partialTargets = canonicalizeTargets(inputPartialTargets);
@@ -33,7 +52,7 @@ export function canonicalizeAndValidateCommand(
 
   return {
     ...rest,
-    version: 1,
+    version: LATEST_VERSION,
     action: actionName,
     targets: partialTargets,
     extraArgs: extraArgs,
