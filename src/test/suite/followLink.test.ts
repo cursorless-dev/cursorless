@@ -3,6 +3,7 @@ import * as vscode from "vscode";
 import * as sinon from "sinon";
 import { openNewEditor } from "../openNewEditor";
 import { getFixturePath } from "./getFixturePaths";
+import sleep from "../../util/sleep";
 
 suite("followLink", async function () {
   this.timeout("100s");
@@ -63,6 +64,8 @@ async function followLink() {
       },
     ]
   );
+
+  await sleep(100);
 
   const editor = vscode.window.activeTextEditor;
   assert.equal(editor?.document?.uri?.scheme, "file");
