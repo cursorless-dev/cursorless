@@ -1,7 +1,6 @@
 import * as assert from "assert";
 import serialize from "../../testUtil/serialize";
 import { promises as fsp } from "fs";
-import * as path from "path";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import { TestCaseFixture } from "../../testUtil/TestCase";

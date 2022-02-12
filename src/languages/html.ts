@@ -44,7 +44,7 @@ const textFragmentTypes = ["attribute_value", "raw_text", "text"];
 
 export function stringTextFragmentExtractor(
   node: SyntaxNode,
-  selection: SelectionWithEditor
+  _selection: SelectionWithEditor
 ) {
   if (textFragmentTypes.includes(node.type)) {
     return getNodeRange(node);

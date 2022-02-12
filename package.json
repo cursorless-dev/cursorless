@@ -1,509 +1,509 @@
 {
-	"name": "cursorless",
-	"displayName": "Cursorless",
-	"description": "Structural voice coding at the speed of thought",
-	"icon": "images/icon.png",
-	"galleryBanner": {
-		"color": "#00001A",
-		"theme": "dark"
-	},
-	"version": "0.25.0",
-	"publisher": "pokey",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/pokey/cursorless-vscode.git"
-	},
-	"engines": {
-		"vscode": "^1.61.0"
-	},
-	"extensionKind": [
-		"workspace"
-	],
-	"categories": [
-		"Other"
-	],
-	"keywords": [
-		"Voice coding"
-	],
-	"extensionDependencies": [
-		"pokey.parse-tree"
-	],
-	"activationEvents": [
-		"*"
-	],
-	"main": "./dist/extension.js",
-	"capabilities": {
-		"untrustedWorkspaces": {
-			"supported": true
-		}
-	},
-	"contributes": {
-		"commands": [
-			{
-				"command": "cursorless.command",
-				"title": "Cursorless: Perform command"
-			},
-			{
-				"command": "cursorless.toggleDecorations",
-				"title": "Cursorless: Toggle decorations"
-			},
-			{
-				"command": "cursorless.recomputeDecorationStyles",
-				"title": "Cursorless: Recompute decoration styles"
-			},
-			{
-				"command": "cursorless.recordTestCase",
-				"title": "Cursorless: Record test case"
-			}
-		],
-		"colors": [
-			{
-				"id": "cursorless.pendingDeleteBackground",
-				"description": "Background color to use for ranges about to be deleted",
-				"defaults": {
-					"dark": "#ff00008a",
-					"light": "#ff00008a",
-					"highContrast": "#ff00008a"
-				}
-			},
-			{
-				"id": "cursorless.referencedBackground",
-				"description": "Background color to use for ranges that are being referenced",
-				"defaults": {
-					"dark": "#00a2ff4d",
-					"light": "#00a2ff4d",
-					"highContrast": "#00a2ff4d"
-				}
-			},
-			{
-				"id": "cursorless.justAddedBackground",
-				"description": "Background color to use for ranges that have just been added",
-				"defaults": {
-					"dark": "#09ff005b",
-					"light": "#09ff005b",
-					"highContrast": "#09ff005b"
-				}
-			},
-			{
-				"id": "cursorless.pendingModification0Background",
-				"description": "Background color to use for ranges that are being changed",
-				"defaults": {
-					"dark": "#8c00ff86",
-					"light": "#8c00ff86",
-					"highContrast": "#8c00ff86"
-				}
-			},
-			{
-				"id": "cursorless.pendingModification1Background",
-				"description": "Background color to use for ranges that are being changed",
-				"defaults": {
-					"dark": "#ff009d7e",
-					"light": "#ff009d7e",
-					"highContrast": "#ff009d7e"
-				}
-			}
-		],
-		"configurationDefaults": {
-			"editor.padding.top": 2
-		},
-		"configuration": {
-			"title": "Cursorless",
-			"properties": {
-				"cursorless.showOnStart": {
-					"type": "boolean",
-					"default": true,
-					"description": "Whether to show decorations on vscode start."
-				},
-				"cursorless.decorationDebounceDelayMs": {
-					"type": "number",
-					"default": 50,
-					"description": "How quickly to redraw hats in response to scrolling or cursor movement"
-				},
-				"cursorless.debug": {
-					"type": "boolean",
-					"default": false,
-					"description": "Whether to show debug logs."
-				},
-				"cursorless.pendingEditDecorationTime": {
-					"type": "integer",
-					"default": 100,
-					"description": "How long in milliseconds to show a pending edit decoration"
-				},
-				"cursorless.hatSizeAdjustment": {
-					"type": "number",
-					"default": 0,
-					"description": "Percentage to increase or decrease hat size; positive increases size"
-				},
-				"cursorless.hatVerticalOffset": {
-					"type": "number",
-					"default": 0,
-					"description": "How much to vertically shift the hats as a percentage of font size; positive is up"
-				},
-				"cursorless.colors.dark": {
-					"description": "Colors to use for dark theme",
-					"type": "object",
-					"properties": {
-						"default": {
-							"type": "string"
-						},
-						"blue": {
-							"type": "string"
-						},
-						"green": {
-							"type": "string"
-						},
-						"red": {
-							"type": "string"
-						},
-						"pink": {
-							"type": "string"
-						},
-						"yellow": {
-							"type": "string"
-						},
-						"userColor1": {
-							"type": "string"
-						},
-						"userColor2": {
-							"type": "string"
-						}
-					},
-					"default": {
-						"default": "#aaa7bb",
-						"blue": "#089ad3",
-						"green": "#36B33F",
-						"red": "#E02D28",
-						"pink": "#E06CAA",
-						"yellow": "#E5C02C",
-						"userColor1": "#6a00ff",
-						"userColor2": "#ffd8b1"
-					},
-					"additionalProperties": false
-				},
-				"cursorless.colors.light": {
-					"description": "Colors to use for light theme",
-					"type": "object",
-					"properties": {
-						"default": {
-							"type": "string"
-						},
-						"blue": {
-							"type": "string"
-						},
-						"green": {
-							"type": "string"
-						},
-						"red": {
-							"type": "string"
-						},
-						"pink": {
-							"type": "string"
-						},
-						"yellow": {
-							"type": "string"
-						},
-						"userColor1": {
-							"type": "string"
-						},
-						"userColor2": {
-							"type": "string"
-						}
-					},
-					"default": {
-						"default": "#757180",
-						"blue": "#089ad3",
-						"green": "#36B33F",
-						"red": "#E02D28",
-						"pink": "#e0679f",
-						"yellow": "#edb62b",
-						"userColor1": "#6a00ff",
-						"userColor2": "#ffd8b1"
-					},
-					"additionalProperties": false
-				},
-				"cursorless.hatEnablement.colors": {
-					"description": "Which colors to enable",
-					"type": "object",
-					"properties": {
-						"blue": {
-							"type": "boolean"
-						},
-						"green": {
-							"type": "boolean"
-						},
-						"red": {
-							"type": "boolean"
-						},
-						"pink": {
-							"type": "boolean"
-						},
-						"yellow": {
-							"type": "boolean"
-						},
-						"userColor1": {
-							"type": "boolean"
-						},
-						"userColor2": {
-							"type": "boolean"
-						}
-					},
-					"default": {
-						"blue": true,
-						"green": true,
-						"red": true,
-						"pink": true,
-						"yellow": true,
-						"userColor1": false,
-						"userColor2": false
-					},
-					"additionalProperties": false
-				},
-				"cursorless.hatEnablement.shapes": {
-					"markdownDescription": "Which shapes to enable.  See the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs/README.md#shapes) if you're not sure which shape name corresponds to which hat shape.",
-					"type": "object",
-					"properties": {
-						"ex": {
-							"type": "boolean"
-						},
-						"fox": {
-							"type": "boolean"
-						},
-						"wing": {
-							"type": "boolean"
-						},
-						"hole": {
-							"type": "boolean"
-						},
-						"frame": {
-							"type": "boolean"
-						},
-						"curve": {
-							"type": "boolean"
-						},
-						"eye": {
-							"type": "boolean"
-						},
-						"play": {
-							"type": "boolean"
-						},
-						"bolt": {
-							"type": "boolean"
-						},
-						"crosshairs": {
-							"type": "boolean"
-						}
-					},
-					"default": {
-						"ex": false,
-						"fox": false,
-						"wing": false,
-						"hole": false,
-						"frame": false,
-						"curve": false,
-						"eye": false,
-						"play": false,
-						"bolt": false,
-						"crosshairs": false
-					},
-					"additionalProperties": false
-				},
-				"cursorless.hatPenalties.colors": {
-					"description": "How much to penalize each hat color. Number of syllables is a good default",
-					"type": "object",
-					"properties": {
-						"blue": {
-							"type": "number"
-						},
-						"green": {
-							"type": "number"
-						},
-						"red": {
-							"type": "number"
-						},
-						"pink": {
-							"type": "number"
-						},
-						"yellow": {
-							"type": "number"
-						},
-						"userColor1": {
-							"type": "number"
-						},
-						"userColor2": {
-							"type": "number"
-						}
-					},
-					"default": {
-						"blue": 1,
-						"green": 1,
-						"red": 1,
-						"pink": 1,
-						"yellow": 1,
-						"userColor1": 1,
-						"userColor2": 1
-					},
-					"additionalProperties": false
-				},
-				"cursorless.hatPenalties.shapes": {
-					"description": "How much to penalize each hat shape. Number of syllables is a good default",
-					"type": "object",
-					"properties": {
-						"ex": {
-							"type": "number"
-						},
-						"fox": {
-							"type": "number"
-						},
-						"wing": {
-							"type": "number"
-						},
-						"hole": {
-							"type": "number"
-						},
-						"frame": {
-							"type": "number"
-						},
-						"curve": {
-							"type": "number"
-						},
-						"eye": {
-							"type": "number"
-						},
-						"play": {
-							"type": "number"
-						},
-						"bolt": {
-							"type": "number"
-						},
-						"crosshairs": {
-							"type": "number"
-						}
-					},
-					"default": {
-						"ex": 1,
-						"fox": 1,
-						"wing": 1,
-						"hole": 1,
-						"frame": 1,
-						"curve": 1,
-						"eye": 1,
-						"play": 1,
-						"bolt": 1,
-						"crosshairs": 1
-					},
-					"additionalProperties": false
-				},
-				"cursorless.individualHatAdjustments": {
-					"description": "Separate adjustments for each hat shape",
-					"type": "object",
-					"default": {
-						"default": {
-							"sizeAdjustment": 0,
-							"verticalOffset": 0
-						},
-						"ex": {
-							"sizeAdjustment": 0,
-							"verticalOffset": 0
-						},
-						"fox": {
-							"sizeAdjustment": 0,
-							"verticalOffset": 0
-						},
-						"wing": {
-							"sizeAdjustment": 0,
-							"verticalOffset": 0
-						},
-						"hole": {
-							"sizeAdjustment": 0,
-							"verticalOffset": 0
-						},
-						"frame": {
-							"sizeAdjustment": 0,
-							"verticalOffset": 0
-						},
-						"curve": {
-							"sizeAdjustment": 0,
-							"verticalOffset": 0
-						},
-						"eye": {
-							"sizeAdjustment": 0,
-							"verticalOffset": 0
-						},
-						"play": {
-							"sizeAdjustment": 0,
-							"verticalOffset": 0
-						},
-						"bolt": {
-							"sizeAdjustment": 0,
-							"verticalOffset": 0
-						},
-						"crosshairs": {
-							"sizeAdjustment": 0,
-							"verticalOffset": 0
-						}
-					}
-				},
-				"cursorless.experimental.snippetsDir": {
-					"description": "Directory containing snippets for use in cursorless",
-					"type": "string"
-				}
-			}
-		},
-		"languages": [
-			{
-				"id": "json",
-				"extensions": [
-					".cursorless-snippets"
-				]
-			}
-		],
-		"jsonValidation": [
-			{
-				"fileMatch": "*.cursorless-snippets",
-				"url": "./schemas/cursorless-snippets.json"
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run -S esbuild-base -- --minify",
-		"postinstall": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv",
-		"esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
-		"esbuild": "npm run -S esbuild-base -- --sourcemap",
-		"esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch",
-		"test-compile": "tsc -p ./",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "yarn run compile && yarn run lint && yarn run esbuild",
-		"lint": "eslint src --ext ts",
-		"test": "env CURSORLESS_TEST=true node ./out/test/runTest.js",
-		"prepare-for-extension-publish": "node ./out/scripts/prepareForExtensionPublish.js"
-	},
-	"devDependencies": {
-		"@types/glob": "^7.1.3",
-		"@types/js-yaml": "^4.0.2",
-		"@types/mocha": "^8.0.4",
-		"@types/node": "^16.11.3",
-		"@types/semver": "^7.3.9",
-		"@types/sinon": "^10.0.2",
-		"@types/vscode": "^1.61.0",
-		"@typescript-eslint/eslint-plugin": "^4.9.0",
-		"@typescript-eslint/parser": "^4.9.0",
-		"esbuild": "^0.11.12",
-		"eslint": "^7.15.0",
-		"fast-xml-parser": "^3.20.0",
-		"glob": "^7.1.7",
-		"js-yaml": "^4.1.0",
-		"mocha": "^8.1.3",
-		"npm-license-crawler": "^0.2.1",
-		"semver": "^7.3.5",
-		"sinon": "^11.1.1",
-		"typescript": "^4.4.4",
-		"vscode-test": "^1.4.1"
-	},
-	"dependencies": {
-		"@types/lodash": "^4.14.168",
-		"immutability-helper": "^3.1.1",
-		"lodash": "^4.17.21"
-	}
+    "name": "cursorless",
+    "displayName": "Cursorless",
+    "description": "Structural voice coding at the speed of thought",
+    "icon": "images/icon.png",
+    "galleryBanner": {
+        "color": "#00001A",
+        "theme": "dark"
+    },
+    "version": "0.25.0",
+    "publisher": "pokey",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/pokey/cursorless-vscode.git"
+    },
+    "engines": {
+        "vscode": "^1.61.0"
+    },
+    "extensionKind": [
+        "workspace"
+    ],
+    "categories": [
+        "Other"
+    ],
+    "keywords": [
+        "Voice coding"
+    ],
+    "extensionDependencies": [
+        "pokey.parse-tree"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./dist/extension.js",
+    "capabilities": {
+        "untrustedWorkspaces": {
+            "supported": true
+        }
+    },
+    "contributes": {
+        "commands": [
+            {
+                "command": "cursorless.command",
+                "title": "Cursorless: Perform command"
+            },
+            {
+                "command": "cursorless.toggleDecorations",
+                "title": "Cursorless: Toggle decorations"
+            },
+            {
+                "command": "cursorless.recomputeDecorationStyles",
+                "title": "Cursorless: Recompute decoration styles"
+            },
+            {
+                "command": "cursorless.recordTestCase",
+                "title": "Cursorless: Record test case"
+            }
+        ],
+        "colors": [
+            {
+                "id": "cursorless.pendingDeleteBackground",
+                "description": "Background color to use for ranges about to be deleted",
+                "defaults": {
+                    "dark": "#ff00008a",
+                    "light": "#ff00008a",
+                    "highContrast": "#ff00008a"
+                }
+            },
+            {
+                "id": "cursorless.referencedBackground",
+                "description": "Background color to use for ranges that are being referenced",
+                "defaults": {
+                    "dark": "#00a2ff4d",
+                    "light": "#00a2ff4d",
+                    "highContrast": "#00a2ff4d"
+                }
+            },
+            {
+                "id": "cursorless.justAddedBackground",
+                "description": "Background color to use for ranges that have just been added",
+                "defaults": {
+                    "dark": "#09ff005b",
+                    "light": "#09ff005b",
+                    "highContrast": "#09ff005b"
+                }
+            },
+            {
+                "id": "cursorless.pendingModification0Background",
+                "description": "Background color to use for ranges that are being changed",
+                "defaults": {
+                    "dark": "#8c00ff86",
+                    "light": "#8c00ff86",
+                    "highContrast": "#8c00ff86"
+                }
+            },
+            {
+                "id": "cursorless.pendingModification1Background",
+                "description": "Background color to use for ranges that are being changed",
+                "defaults": {
+                    "dark": "#ff009d7e",
+                    "light": "#ff009d7e",
+                    "highContrast": "#ff009d7e"
+                }
+            }
+        ],
+        "configurationDefaults": {
+            "editor.padding.top": 2
+        },
+        "configuration": {
+            "title": "Cursorless",
+            "properties": {
+                "cursorless.showOnStart": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to show decorations on vscode start."
+                },
+                "cursorless.decorationDebounceDelayMs": {
+                    "type": "number",
+                    "default": 50,
+                    "description": "How quickly to redraw hats in response to scrolling or cursor movement"
+                },
+                "cursorless.debug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether to show debug logs."
+                },
+                "cursorless.pendingEditDecorationTime": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "How long in milliseconds to show a pending edit decoration"
+                },
+                "cursorless.hatSizeAdjustment": {
+                    "type": "number",
+                    "default": 0,
+                    "description": "Percentage to increase or decrease hat size; positive increases size"
+                },
+                "cursorless.hatVerticalOffset": {
+                    "type": "number",
+                    "default": 0,
+                    "description": "How much to vertically shift the hats as a percentage of font size; positive is up"
+                },
+                "cursorless.colors.dark": {
+                    "description": "Colors to use for dark theme",
+                    "type": "object",
+                    "properties": {
+                        "default": {
+                            "type": "string"
+                        },
+                        "blue": {
+                            "type": "string"
+                        },
+                        "green": {
+                            "type": "string"
+                        },
+                        "red": {
+                            "type": "string"
+                        },
+                        "pink": {
+                            "type": "string"
+                        },
+                        "yellow": {
+                            "type": "string"
+                        },
+                        "userColor1": {
+                            "type": "string"
+                        },
+                        "userColor2": {
+                            "type": "string"
+                        }
+                    },
+                    "default": {
+                        "default": "#aaa7bb",
+                        "blue": "#089ad3",
+                        "green": "#36B33F",
+                        "red": "#E02D28",
+                        "pink": "#E06CAA",
+                        "yellow": "#E5C02C",
+                        "userColor1": "#6a00ff",
+                        "userColor2": "#ffd8b1"
+                    },
+                    "additionalProperties": false
+                },
+                "cursorless.colors.light": {
+                    "description": "Colors to use for light theme",
+                    "type": "object",
+                    "properties": {
+                        "default": {
+                            "type": "string"
+                        },
+                        "blue": {
+                            "type": "string"
+                        },
+                        "green": {
+                            "type": "string"
+                        },
+                        "red": {
+                            "type": "string"
+                        },
+                        "pink": {
+                            "type": "string"
+                        },
+                        "yellow": {
+                            "type": "string"
+                        },
+                        "userColor1": {
+                            "type": "string"
+                        },
+                        "userColor2": {
+                            "type": "string"
+                        }
+                    },
+                    "default": {
+                        "default": "#757180",
+                        "blue": "#089ad3",
+                        "green": "#36B33F",
+                        "red": "#E02D28",
+                        "pink": "#e0679f",
+                        "yellow": "#edb62b",
+                        "userColor1": "#6a00ff",
+                        "userColor2": "#ffd8b1"
+                    },
+                    "additionalProperties": false
+                },
+                "cursorless.hatEnablement.colors": {
+                    "description": "Which colors to enable",
+                    "type": "object",
+                    "properties": {
+                        "blue": {
+                            "type": "boolean"
+                        },
+                        "green": {
+                            "type": "boolean"
+                        },
+                        "red": {
+                            "type": "boolean"
+                        },
+                        "pink": {
+                            "type": "boolean"
+                        },
+                        "yellow": {
+                            "type": "boolean"
+                        },
+                        "userColor1": {
+                            "type": "boolean"
+                        },
+                        "userColor2": {
+                            "type": "boolean"
+                        }
+                    },
+                    "default": {
+                        "blue": true,
+                        "green": true,
+                        "red": true,
+                        "pink": true,
+                        "yellow": true,
+                        "userColor1": false,
+                        "userColor2": false
+                    },
+                    "additionalProperties": false
+                },
+                "cursorless.hatEnablement.shapes": {
+                    "markdownDescription": "Which shapes to enable.  See the [docs](https://github.com/pokey/cursorless-talon/blob/main/docs/README.md#shapes) if you're not sure which shape name corresponds to which hat shape.",
+                    "type": "object",
+                    "properties": {
+                        "ex": {
+                            "type": "boolean"
+                        },
+                        "fox": {
+                            "type": "boolean"
+                        },
+                        "wing": {
+                            "type": "boolean"
+                        },
+                        "hole": {
+                            "type": "boolean"
+                        },
+                        "frame": {
+                            "type": "boolean"
+                        },
+                        "curve": {
+                            "type": "boolean"
+                        },
+                        "eye": {
+                            "type": "boolean"
+                        },
+                        "play": {
+                            "type": "boolean"
+                        },
+                        "bolt": {
+                            "type": "boolean"
+                        },
+                        "crosshairs": {
+                            "type": "boolean"
+                        }
+                    },
+                    "default": {
+                        "ex": false,
+                        "fox": false,
+                        "wing": false,
+                        "hole": false,
+                        "frame": false,
+                        "curve": false,
+                        "eye": false,
+                        "play": false,
+                        "bolt": false,
+                        "crosshairs": false
+                    },
+                    "additionalProperties": false
+                },
+                "cursorless.hatPenalties.colors": {
+                    "description": "How much to penalize each hat color. Number of syllables is a good default",
+                    "type": "object",
+                    "properties": {
+                        "blue": {
+                            "type": "number"
+                        },
+                        "green": {
+                            "type": "number"
+                        },
+                        "red": {
+                            "type": "number"
+                        },
+                        "pink": {
+                            "type": "number"
+                        },
+                        "yellow": {
+                            "type": "number"
+                        },
+                        "userColor1": {
+                            "type": "number"
+                        },
+                        "userColor2": {
+                            "type": "number"
+                        }
+                    },
+                    "default": {
+                        "blue": 1,
+                        "green": 1,
+                        "red": 1,
+                        "pink": 1,
+                        "yellow": 1,
+                        "userColor1": 1,
+                        "userColor2": 1
+                    },
+                    "additionalProperties": false
+                },
+                "cursorless.hatPenalties.shapes": {
+                    "description": "How much to penalize each hat shape. Number of syllables is a good default",
+                    "type": "object",
+                    "properties": {
+                        "ex": {
+                            "type": "number"
+                        },
+                        "fox": {
+                            "type": "number"
+                        },
+                        "wing": {
+                            "type": "number"
+                        },
+                        "hole": {
+                            "type": "number"
+                        },
+                        "frame": {
+                            "type": "number"
+                        },
+                        "curve": {
+                            "type": "number"
+                        },
+                        "eye": {
+                            "type": "number"
+                        },
+                        "play": {
+                            "type": "number"
+                        },
+                        "bolt": {
+                            "type": "number"
+                        },
+                        "crosshairs": {
+                            "type": "number"
+                        }
+                    },
+                    "default": {
+                        "ex": 1,
+                        "fox": 1,
+                        "wing": 1,
+                        "hole": 1,
+                        "frame": 1,
+                        "curve": 1,
+                        "eye": 1,
+                        "play": 1,
+                        "bolt": 1,
+                        "crosshairs": 1
+                    },
+                    "additionalProperties": false
+                },
+                "cursorless.individualHatAdjustments": {
+                    "description": "Separate adjustments for each hat shape",
+                    "type": "object",
+                    "default": {
+                        "default": {
+                            "sizeAdjustment": 0,
+                            "verticalOffset": 0
+                        },
+                        "ex": {
+                            "sizeAdjustment": 0,
+                            "verticalOffset": 0
+                        },
+                        "fox": {
+                            "sizeAdjustment": 0,
+                            "verticalOffset": 0
+                        },
+                        "wing": {
+                            "sizeAdjustment": 0,
+                            "verticalOffset": 0
+                        },
+                        "hole": {
+                            "sizeAdjustment": 0,
+                            "verticalOffset": 0
+                        },
+                        "frame": {
+                            "sizeAdjustment": 0,
+                            "verticalOffset": 0
+                        },
+                        "curve": {
+                            "sizeAdjustment": 0,
+                            "verticalOffset": 0
+                        },
+                        "eye": {
+                            "sizeAdjustment": 0,
+                            "verticalOffset": 0
+                        },
+                        "play": {
+                            "sizeAdjustment": 0,
+                            "verticalOffset": 0
+                        },
+                        "bolt": {
+                            "sizeAdjustment": 0,
+                            "verticalOffset": 0
+                        },
+                        "crosshairs": {
+                            "sizeAdjustment": 0,
+                            "verticalOffset": 0
+                        }
+                    }
+                },
+                "cursorless.experimental.snippetsDir": {
+                    "description": "Directory containing snippets for use in cursorless",
+                    "type": "string"
+                }
+            }
+        },
+        "languages": [
+            {
+                "id": "json",
+                "extensions": [
+                    ".cursorless-snippets"
+                ]
+            }
+        ],
+        "jsonValidation": [
+            {
+                "fileMatch": "*.cursorless-snippets",
+                "url": "./schemas/cursorless-snippets.json"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run -S esbuild-base -- --minify",
+        "postinstall": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv",
+        "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+        "esbuild": "npm run -S esbuild-base -- --sourcemap",
+        "esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch",
+        "test-compile": "tsc -p ./",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "yarn run compile && yarn run lint && yarn run esbuild",
+        "lint": "eslint src --ext ts",
+        "test": "env CURSORLESS_TEST=true node ./out/test/runTest.js",
+        "prepare-for-extension-publish": "node ./out/scripts/prepareForExtensionPublish.js"
+    },
+    "devDependencies": {
+        "@types/glob": "^7.1.3",
+        "@types/js-yaml": "^4.0.2",
+        "@types/mocha": "^8.0.4",
+        "@types/node": "^16.11.3",
+        "@types/semver": "^7.3.9",
+        "@types/sinon": "^10.0.2",
+        "@types/vscode": "^1.61.0",
+        "@typescript-eslint/eslint-plugin": "^5.11.0",
+        "@typescript-eslint/parser": "^5.11.0",
+        "esbuild": "^0.11.12",
+        "eslint": "^7.15.0",
+        "fast-xml-parser": "^3.20.0",
+        "glob": "^7.1.7",
+        "js-yaml": "^4.1.0",
+        "mocha": "^8.1.3",
+        "npm-license-crawler": "^0.2.1",
+        "semver": "^7.3.5",
+        "sinon": "^11.1.1",
+        "typescript": "^4.4.4",
+        "vscode-test": "^1.4.1"
+    },
+    "dependencies": {
+        "@types/lodash": "^4.14.168",
+        "immutability-helper": "^3.1.1",
+        "lodash": "^4.17.21"
+    }
 }

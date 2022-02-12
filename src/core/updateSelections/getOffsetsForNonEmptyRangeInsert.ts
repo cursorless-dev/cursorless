@@ -36,7 +36,7 @@ export default function getOffsetsForNonEmptyRangeInsert(
   rangeInfo: FullRangeInfo
 ): RangeOffsets {
   const {
-    event: { text: insertedText, isReplace },
+    event: { text: insertedText },
     originalOffsets: { start: insertOffset },
     displacement,
   } = changeEventInfo;
