@@ -5,7 +5,8 @@ import {
   Graph,
   TypedSelection,
 } from "../typings/Types";
-import { commands, Selection } from "vscode";
+import { commands, Selection, TextEditor } from "vscode";
+import { getNotebookFromCellDocument } from "../util/notebook";
 
 class EditNewLine implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
@@ -36,23 +37,37 @@ class EditNewLine implements Action {
     });
   }
 
+  private isNotebookEditor(editor: TextEditor) {
+    return getNotebookFromCellDocument(editor.document) != null;
+  }
+
+  private getCommand(target: TypedSelection) {
+    if (target.selectionContext.isNotebookCell) {
+      if (this.isNotebookEditor(target.selection.editor)) {
+        return this.isAbove
+          ? "notebook.cell.insertCodeCellAbove"
+          : "notebook.cell.insertCodeCellBelow";
+      }
+      return this.isAbove
+        ? "jupyter.insertCellAbove"
+        : "jupyter.insertCellBelow";
+    }
+    return this.isAbove
+      ? "editor.action.insertLineBefore"
+      : "editor.action.insertLineAfter";
+  }
+
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
     this.correctForParagraph(targets);
+
     if (this.isAbove) {
       await this.graph.actions.setSelectionBefore.run([targets]);
-      await commands.executeCommand(
-        targets[0].selectionContext.isNotebookCell
-          ? "notebook.cell.insertCodeCellAboveAndFocusContainer"
-          : "editor.action.insertLineBefore"
-      );
     } else {
       await this.graph.actions.setSelectionAfter.run([targets]);
-      await commands.executeCommand(
-        targets[0].selectionContext.isNotebookCell
-          ? "notebook.cell.insertCodeCellBelowAndFocusContainer"
-          : "editor.action.insertLineAfter"
-      );
     }
+
+    const command = this.getCommand(targets[0]);
+    await commands.executeCommand(command);
 
     return {
       thatMark: targets.map((target) => ({
