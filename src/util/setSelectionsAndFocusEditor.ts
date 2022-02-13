@@ -1,11 +1,5 @@
 import { range } from "lodash";
-import {
-  commands,
-  Selection,
-  TextEditor,
-  ViewColumn,
-  window,
-} from "vscode";
+import { commands, Selection, TextEditor, ViewColumn, window } from "vscode";
 import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
 
 const columnFocusCommands = {
@@ -84,7 +78,7 @@ export async function focusEditor(editor: TextEditor) {
 
     // This is a hack. We just repeatedly issued the command to move upwards or
     // downwards a cell to get to the right cell
-    for (const index of range(Math.abs(cellOffset))) {
+    for (const _ of range(Math.abs(cellOffset))) {
       await commands.executeCommand(command);
     }
   }

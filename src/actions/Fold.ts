@@ -62,13 +62,13 @@ class FoldAction implements Action {
 }
 
 export class Fold extends FoldAction {
-  constructor(graph: Graph) {
+  constructor(_graph: Graph) {
     super("editor.fold");
   }
 }
 
 export class Unfold extends FoldAction {
-  constructor(graph: Graph) {
+  constructor(_graph: Graph) {
     super("editor.unfold");
   }
 }

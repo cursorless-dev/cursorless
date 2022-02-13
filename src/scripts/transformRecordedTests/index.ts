@@ -1,6 +1,3 @@
-import * as path from "path";
-
-import { walkFilesSync } from "../../testUtil/walkSync";
 import { updateSurroundingPairTest } from "./transformations/updateSurroundingPairTest";
 import { FixtureTransformation } from "./types";
 import { upgrade } from "./transformations/upgrade";

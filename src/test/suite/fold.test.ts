@@ -1,7 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
 import * as sinon from "sinon";
-import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewEditor } from "../openNewEditor";
 
 suite("fold", async function () {
@@ -17,7 +16,6 @@ suite("fold", async function () {
 });
 
 async function foldMade() {
-  const graph = (await getCursorlessApi()).graph!;
   const editor = await openNewEditor("function myFunk() {\n\n}", "typescript");
 
   await vscode.commands.executeCommand(
@@ -42,7 +40,6 @@ async function foldMade() {
 }
 
 async function unfoldMade() {
-  const graph = (await getCursorlessApi()).graph!;
   const editor = await openNewEditor("function myFunk() {\n\n}", "typescript");
   await vscode.commands.executeCommand("editor.fold", {
     selectionLines: [0],

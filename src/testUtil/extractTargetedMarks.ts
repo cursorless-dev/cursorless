@@ -1,4 +1,3 @@
-import { HatStyleName } from "../core/constants";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import HatTokenMap from "../core/HatTokenMap";
 import { PrimitiveTarget, Target, Token } from "../typings/Types";

@@ -1,5 +1,5 @@
 import * as parser from "fast-xml-parser";
-import { promises as fsp, read, readdirSync } from "fs";
+import { promises as fsp, readdirSync } from "fs";
 import * as path from "path";
 
 async function main() {

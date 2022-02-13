@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
-import { tokenize, TOKEN_MATCHER } from "../core/tokenizer";
-import { Token } from "../typings/Types";
+import { tokenize } from "../core/tokenizer";
 import { RangeOffsets } from "../typings/updateSelections";
 
 export interface PartialToken {

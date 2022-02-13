@@ -122,7 +122,7 @@ function processDocument(
 function processLine(
   target: PrimitiveTarget,
   selection: SelectionWithEditor,
-  selectionContext: SelectionContext
+  _selectionContext: SelectionContext
 ) {
   const { selectionType, insideOutsideType, position } = target;
   const { document } = selection.editor;
@@ -148,7 +148,7 @@ function processLine(
 function processParagraph(
   target: PrimitiveTarget,
   selection: SelectionWithEditor,
-  selectionContext: SelectionContext
+  _selectionContext: SelectionContext
 ) {
   const { selectionType, insideOutsideType, position } = target;
   const { document } = selection.editor;

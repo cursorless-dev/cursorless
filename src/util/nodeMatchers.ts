@@ -140,8 +140,8 @@ export function cascadingMatcher(...matchers: NodeMatcher[]): NodeMatcher {
 }
 
 export const notSupported: NodeMatcher = (
-  selection: SelectionWithEditor,
-  node: SyntaxNode
+  _selection: SelectionWithEditor,
+  _node: SyntaxNode
 ) => {
   throw new Error("Node type not supported");
 };
