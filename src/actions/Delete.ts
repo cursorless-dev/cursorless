@@ -9,6 +9,7 @@ import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { flatten } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { unifyTargets } from "../util/unifyRanges";
 
 export default class Delete implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
@@ -23,6 +24,9 @@ export default class Delete implements Action {
     [targets]: [TypedSelection[]],
     { showDecorations = true } = {}
   ): Promise<ActionReturnValue> {
+    // Unify overlapping targets.
+    targets = unifyTargets(targets);
+
     if (showDecorations) {
       await displayPendingEditDecorations(
         targets,
@@ -44,10 +48,7 @@ export default class Delete implements Action {
           [targets.map((target) => target.selection.selection)]
         );
 
-        return updatedSelections.map((selection) => ({
-          editor,
-          selection,
-        }));
+        return updatedSelections.map((selection) => ({ editor, selection }));
       })
     );
 
