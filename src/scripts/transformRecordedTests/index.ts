@@ -6,7 +6,7 @@ import { FixtureTransformation } from "./types";
 import { upgrade } from "./transformations/upgrade";
 import { identity } from "./transformations/identity";
 import { transformFile } from "./transformFile";
-import getRecordedTestPaths from "../../test/suite/getRecordedTestPaths";
+import getRecordedTestPaths from "../../test/util/getRecordedTestPaths";
 
 const AVAILABLE_TRANSFORMATIONS: Record<string, FixtureTransformation> = {
   upgrade,
