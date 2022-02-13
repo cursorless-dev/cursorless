@@ -34,7 +34,7 @@ wrapper_snippets = {
 @mod.capture(
     rule="<user.cursorless_wrapper_paired_delimiter> | {user.cursorless_wrapper_snippet}"
 )
-def cursorless_wrapper(m) -> Union[list[str], str]:
+def cursorless_wrapper(m):
     try:
         paired_delimiter_info = paired_delimiters_map[
             m.cursorless_wrapper_paired_delimiter
