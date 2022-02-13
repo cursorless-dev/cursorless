@@ -248,7 +248,7 @@ Cursorless has support for expanding the selection to the nearest containing pai
 - `"take pair"` expands to include the nearest containing pair of any kind
 - `"take bound"` selects the nearest containing paired delimiters themselves of any kind
 - `"take inside"` selects until the nearest containing paired delimiters of any kind, but doesn't include the delimiters themselves
-- `"take square air"` selects the square brackets containing the token with a hat over the `a`.
+- `"take box air"` selects the square brackets containing the token with a hat over the `a`.
 
 See [paired delimiters](#paired-delimiters) for a list of possible surrounding pairs.
 
@@ -349,8 +349,8 @@ This command will delete a target and leave the cursor where the target used to 
 
 ### Cut / copy
 
-- `"cut"`
-- `"copy"`
+- `"carve"`: cut
+- `"copy"`: copy
 
 eg:  
 `copy blue air`  
@@ -391,11 +391,11 @@ Rename the token containing letter 'a' with a blue hat.
 
 Scrolls a given target to the top, center or bottom of the screen.
 
-- `"top"`
-- `"center"`
-- `"bottom"`
+- `"crown"`: top
+- `"center"`: center
+- `"bottom"`: bottom
 
-eg `top blue air` scrolls the line containing the letter 'a' with a blue hat to the top of the screen.
+eg `crown blue air` scrolls the line containing the letter 'a' with a blue hat to the top of the screen.
 
 ### Insert/Use/Repeat
 
@@ -413,10 +413,10 @@ Replaces the token containing letter 'b' with a green hat using the token contai
 The wrap commands can be used to wrap a given target with a pair of symbols
 
 - `"round wrap <TARGET>"`: wraps the target with parentheses
-- `"square wrap <TARGET>"`: wraps the target with square brackets
+- `"box wrap <TARGET>"`: wraps the target with square brackets
 
 eg:  
-`square wrap blue air`  
+`box wrap blue air`  
 Wraps the token containing letter 'a' with a blue hat in square brackets.
 
 See [paired delimiters](#paired-delimiters) for a list of possible wrappers.
@@ -427,13 +427,13 @@ See [experimental documentation](experimental/wrapper-snippets.md).
 
 ### Show definition/reference/quick fix
 
-- `"def show"`
-- `"ref show"`
-- `"hover show"`
+- `"define"`
+- `"reference"`
+- `"hover"`
 - `"quick fix"`
 
 eg:  
-`def show blue air`  
+`define blue air`  
 Shows definition for the token containing letter 'a' with a blue hat.
 
 ### Fold/unfold

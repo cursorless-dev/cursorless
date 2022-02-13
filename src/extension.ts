@@ -27,12 +27,14 @@ export async function activate(context: vscode.ExtensionContext) {
   const sourceMark = new ThatMark();
 
   // TODO: Do this using the graph once we migrate its dependencies onto the graph
-  const commandRunner = new CommandRunner(graph, thatMark, sourceMark);
+  new CommandRunner(graph, thatMark, sourceMark);
 
   // Disabled for now.
   // See https://github.com/cursorless-dev/cursorless-vscode/issues/320
   // vscode.workspace.onDidChangeTextDocument(checkForEditsOutsideViewport)
-  function checkForEditsOutsideViewport(event: vscode.TextDocumentChangeEvent) {
+  function _checkForEditsOutsideViewport(
+    event: vscode.TextDocumentChangeEvent
+  ) {
     // TODO: Only activate this code during the course of a cursorless action
     // Can register pre/post command hooks the way we do with test case recorder
     // TODO: Move this thing to a graph component

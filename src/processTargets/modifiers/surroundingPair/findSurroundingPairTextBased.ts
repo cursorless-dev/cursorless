@@ -16,7 +16,6 @@ import {
   SurroundingPairOffsets,
   PossibleDelimiterOccurrence,
   IndividualDelimiter,
-  DelimiterSide,
 } from "./types";
 
 /**

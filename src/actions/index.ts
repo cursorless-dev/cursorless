@@ -31,6 +31,7 @@ import WrapWithSnippet from "./WrapWithSnippet";
 import Deselect from "./Deselect";
 import Rewrap from "./Rewrap";
 import ExecuteCommand from "./ExecuteCommand";
+import FollowLink from "./FollowLink";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -45,6 +46,7 @@ class Actions implements ActionRecord {
   extractVariable = new ExtractVariable(this.graph);
   findInWorkspace = new FindInFiles(this.graph);
   foldRegion = new Fold(this.graph);
+  followLink = new FollowLink(this.graph);
   getText = new GetText(this.graph);
   indentLine = new IndentLines(this.graph);
   insertCopyAfter = new CopyLinesDown(this.graph);

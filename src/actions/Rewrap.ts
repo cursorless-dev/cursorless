@@ -9,7 +9,6 @@ import {
   SelectionWithContext,
   TypedSelection,
 } from "../typings/Types";
-import { repeat } from "../util/array";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { runForEachEditor } from "../util/targetUtils";
 
