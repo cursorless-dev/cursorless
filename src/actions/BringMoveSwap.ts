@@ -11,7 +11,7 @@ import update from "immutability-helper";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { performOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 import { flatten } from "lodash";
-import { Selection, TextEditor, Range, DecorationRangeBehavior } from "vscode";
+import { Selection, TextEditor, DecorationRangeBehavior } from "vscode";
 
 import {
   getTextWithPossibleDelimiter,

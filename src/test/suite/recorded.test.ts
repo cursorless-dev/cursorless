@@ -85,11 +85,13 @@ async function runTest(file: string) {
   }
 
   if (fixture.initialState.clipboard) {
-    let mockClipboard = fixture.initialState.clipboard;
-    sinon.replace(Clipboard, "readText", async () => mockClipboard);
-    sinon.replace(Clipboard, "writeText", async (value: string) => {
-      mockClipboard = value;
-    });
+    Clipboard.writeText(fixture.initialState.clipboard);
+    // FIXME https://github.com/cursorless-dev/cursorless-vscode/issues/559
+    // let mockClipboard = fixture.initialState.clipboard;
+    // sinon.replace(Clipboard, "readText", async () => mockClipboard);
+    // sinon.replace(Clipboard, "writeText", async (value: string) => {
+    //   mockClipboard = value;
+    // });
   } else {
     excludeFields.push("clipboard");
   }
