@@ -5,15 +5,11 @@ import {
   Graph,
   TypedSelection,
 } from "../typings/Types";
-import {
-  groupTargetsForEachEditor,
-  runOnTargetsForEachEditor,
-} from "../util/targetUtils";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { flatten } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { Selection, TextEditor } from "vscode";
-import { performInsideOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
+import { unifyTargets } from "../util/unifyRanges";
+import { runOnTargetsForEachEditor } from "../util/targetUtils";
 
 export default class Delete implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
@@ -28,113 +24,33 @@ export default class Delete implements Action {
     [targets]: [TypedSelection[]],
     { showDecorations = true } = {}
   ): Promise<ActionReturnValue> {
-    const groupedTargets = groupAndUnifyTargets(targets);
+    targets = unifyTargets(targets);
 
     if (showDecorations) {
       await displayPendingEditDecorations(
-        groupedTargets.flatMap((group) => group[1]),
+        targets,
         this.graph.editStyles.pendingDelete
       );
     }
 
     const thatMark = flatten(
-      await Promise.all(
-        groupedTargets.map(async ([editor, targets]) => {
-          const edits = targets.map((target) => ({
-            range: target.selection.selection,
-            text: "",
-          }));
+      await runOnTargetsForEachEditor(targets, async (editor, targets) => {
+        const edits = targets.map((target) => ({
+          range: target.selection.selection,
+          text: "",
+        }));
 
-          const [updatedSelections] = await performEditsAndUpdateSelections(
-            this.graph.rangeUpdater,
-            editor,
-            edits,
-            [targets.map((target) => target.selection.selection)]
-          );
+        const [updatedSelections] = await performEditsAndUpdateSelections(
+          this.graph.rangeUpdater,
+          editor,
+          edits,
+          [targets.map((target) => target.selection.selection)]
+        );
 
-          return updatedSelections.map((selection) => ({ editor, selection }));
-        })
-      )
+        return updatedSelections.map((selection) => ({ editor, selection }));
+      })
     );
 
     return { thatMark };
   }
-}
-
-function groupAndUnifyTargets(
-  targets: TypedSelection[]
-): [TextEditor, TypedSelection[]][] {
-  return groupTargetsForEachEditor(targets).map(([editor, targets]) => [
-    editor,
-    unifyOverlappingTargets(targets),
-  ]);
-}
-
-function unifyOverlappingTargets(targets: TypedSelection[]) {
-  if (targets.length < 2) {
-    return targets;
-  }
-  let results = [...targets];
-  results.sort((a, b) =>
-    a.selection.selection.start.compareTo(b.selection.selection.start)
-  );
-  let run = true;
-  // Merge targets untill there are no overlaps/intersections
-  while (run) {
-    [results, run] = onePass(results);
-  }
-  return results;
-}
-
-function onePass(targets: TypedSelection[]): [TypedSelection[], boolean] {
-  if (targets.length < 2) {
-    return [targets, false];
-  }
-  const results: TypedSelection[] = [];
-  let currentGroup: TypedSelection[] = [];
-  targets.forEach((target) => {
-    // No intersection. Mark start of new group
-    if (
-      currentGroup.length &&
-      !intersects(currentGroup[currentGroup.length - 1], target)
-    ) {
-      results.push(mergeTargets(currentGroup));
-      currentGroup = [target];
-    } else {
-      currentGroup.push(target);
-    }
-  });
-  results.push(mergeTargets(currentGroup));
-  return [results, results.length !== targets.length];
-}
-
-function mergeTargets(targets: TypedSelection[]): TypedSelection {
-  if (targets.length === 1) {
-    return targets[0];
-  }
-  const first = targets[0];
-  const last = targets[targets.length - 1];
-  const typeSelection: TypedSelection = {
-    selection: {
-      editor: first.selection.editor,
-      selection: new Selection(
-        first.selection.selection.start,
-        last.selection.selection.end
-      ),
-    },
-    position: "contents",
-    selectionType: first.selectionType,
-    insideOutsideType: first.insideOutsideType,
-    selectionContext: {
-      leadingDelimiterRange: first.selectionContext.leadingDelimiterRange,
-      trailingDelimiterRange: last.selectionContext.trailingDelimiterRange,
-    },
-  };
-  return performInsideOutsideAdjustment(typeSelection);
-}
-
-function intersects(targetA: TypedSelection, targetB: TypedSelection) {
-  return !!targetA.selection.selection.intersection(
-    targetB.selection.selection
-  );
 }
