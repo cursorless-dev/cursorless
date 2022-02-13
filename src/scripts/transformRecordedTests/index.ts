@@ -1,12 +1,9 @@
-import * as path from "path";
-
-import { walkFilesSync } from "../../testUtil/walkSync";
 import { updateSurroundingPairTest } from "./transformations/updateSurroundingPairTest";
 import { FixtureTransformation } from "./types";
 import { upgrade } from "./transformations/upgrade";
 import { identity } from "./transformations/identity";
 import { transformFile } from "./transformFile";
-import getRecordedTestPaths from "../../test/suite/getRecordedTestPaths";
+import getRecordedTestPaths from "../../test/util/getRecordedTestPaths";
 
 const AVAILABLE_TRANSFORMATIONS: Record<string, FixtureTransformation> = {
   upgrade,

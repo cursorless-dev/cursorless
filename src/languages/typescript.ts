@@ -11,7 +11,6 @@ import {
 import {
   NodeMatcher,
   NodeMatcherAlternative,
-  NodeMatcherValue,
   ScopeType,
   SelectionWithEditor,
 } from "../typings/Types";
@@ -243,7 +242,7 @@ export const patternMatchers = createPatternMatchers(nodeMatchers);
 
 export function stringTextFragmentExtractor(
   node: SyntaxNode,
-  selection: SelectionWithEditor
+  _selection: SelectionWithEditor
 ) {
   if (node.type === "string_fragment" || node.type === "regex_pattern") {
     return getNodeRange(node);

@@ -1,4 +1,4 @@
-import { pull, some } from "lodash";
+import { pull } from "lodash";
 import {
   workspace,
   TextDocument,
@@ -6,7 +6,7 @@ import {
   Disposable,
   TextDocumentContentChangeEvent,
 } from "vscode";
-import { Edit, Graph } from "../../typings/Types";
+import { Edit } from "../../typings/Types";
 import {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,
@@ -19,7 +19,7 @@ export class RangeUpdater {
   private replaceEditLists: Map<string, Edit[][]> = new Map();
   private disposable!: Disposable;
 
-  constructor(graph: Graph) {
+  constructor() {
     this.listenForDocumentChanges();
   }
 

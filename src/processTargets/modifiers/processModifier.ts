@@ -10,7 +10,6 @@ import {
   NodeMatcher,
   PrimitiveTarget,
   ProcessedTargetsContext,
-  RawSelectionModifier,
   SelectionContext,
   SelectionWithEditor,
   SubTokenModifier,
@@ -55,12 +54,12 @@ export default function (
       break;
 
     case "toRawSelection":
-      result = processRawSelectionModifier(context, selection, modifier);
+      result = processRawSelectionModifier(context, selection);
       break;
 
     default:
       // Make sure we haven't missed any cases
-      const neverCheck: never = modifier;
+      const _neverCheck: never = modifier;
   }
 
   if (result == null) {
@@ -245,8 +244,7 @@ export function findNearestContainingAncestorNode(
 
 function processRawSelectionModifier(
   context: ProcessedTargetsContext,
-  selection: SelectionWithEditor,
-  modifier: RawSelectionModifier
+  selection: SelectionWithEditor
 ): SelectionWithEditorWithContext[] | null {
   return [
     {

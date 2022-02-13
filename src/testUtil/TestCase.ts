@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
-import HatTokenMap from "../core/HatTokenMap";
 import { ThatMark } from "../core/ThatMark";
-import { ActionType, PartialTarget, Target, Token } from "../typings/Types";
+import { Target, Token } from "../typings/Types";
 import {
   extractTargetedMarks,
   extractTargetKeys,

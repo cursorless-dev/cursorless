@@ -48,7 +48,7 @@ export function canonicalizeAndValidateCommand(
   const partialTargets = canonicalizeTargets(inputPartialTargets);
   const extraArgs = inputExtraArgs;
 
-  validateCommand(actionName, partialTargets, extraArgs);
+  validateCommand(actionName, partialTargets);
 
   return {
     ...rest,
@@ -62,8 +62,7 @@ export function canonicalizeAndValidateCommand(
 
 export function validateCommand(
   actionName: ActionType,
-  partialTargets: PartialTarget[],
-  extraArgs: any[]
+  partialTargets: PartialTarget[]
 ) {
   if (
     usesSelectionType("notebookCell", partialTargets) &&
