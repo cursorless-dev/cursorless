@@ -3,53 +3,66 @@ import {
   argumentMatcher,
   leadingMatcher,
   conditionMatcher,
-  trailingMatcher,
-  cascadingMatcher,
-} from '../util/nodeMatchers';
-import { NodeMatcherAlternative, ScopeType } from '../typings/Types';
+} from "../util/nodeMatchers";
+import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   // treating classes = classlike
-  class: ['class_definition', 'object_definition', 'trait_definition'],
-  className: ['class_definition[name]', 'object_definition[name]', 'trait_definition[name]'],
+  class: ["class_definition", "object_definition", "trait_definition"],
+  className: [
+    "class_definition[name]",
+    "object_definition[name]",
+    "trait_definition[name]",
+  ],
 
-  ifStatement: 'if_expression',
+  ifStatement: "if_expression",
 
-  string: ['interpolated_string_expression', 'string'],
-  comment: 'comment',
+  string: ["interpolated_string_expression", "string"],
+  comment: "comment",
 
   // list.size(), does not count foo.size (field_expression), or foo size (postfix_expression)
-  functionCall: 'call_expression',
-  namedFunction: 'function_definition',
-  anonymousFunction: 'lambda_expression',
+  functionCall: "call_expression",
+  namedFunction: "function_definition",
+  anonymousFunction: "lambda_expression",
 
-  argumentOrParameter: argumentMatcher('arguments', 'parameters', 'class_parameters', 'bindings'),
+  argumentOrParameter: argumentMatcher(
+    "arguments",
+    "parameters",
+    "class_parameters",
+    "bindings"
+  ),
 
-  name: ['*[name]', '*[pattern]'],
-  functionName: 'function_definition[name]',
+  name: ["*[name]", "*[pattern]"],
+  functionName: "function_definition[name]",
 
   // *[type] does not work here because while we want most of these we don't want "compound" types,
   // eg `generic_type[type]`, because that will grab just the inner generic (the String of List[String])
   // and as a rule we want to grab entire type definitions.
-  type: leadingMatcher([
-    'upper_bound[type]',
-    'lower_bound[type]',
-    'view_bound[type]',
-    'context_bound[type]',
-    'val_definition[type]',
-    'val_declaration[type]',
-    'var_definition[type]',
-    'var_declaration[type]',
-    'type_definition',
-    'extends_clause[type]',
-    'class_parameter[type]',
-    'parameter[type]',
-    'function_definition[return_type]',
-    'typed_pattern[type]',
-    'binding[type]',
-  ], [':']),
-  value: leadingMatcher(['*[value]', '*[default_value]', 'type_definition[type]'], ['=']),
-  condition: conditionMatcher('*[condition]'),
+  type: leadingMatcher(
+    [
+      "upper_bound[type]",
+      "lower_bound[type]",
+      "view_bound[type]",
+      "context_bound[type]",
+      "val_definition[type]",
+      "val_declaration[type]",
+      "var_definition[type]",
+      "var_declaration[type]",
+      "type_definition",
+      "extends_clause[type]",
+      "class_parameter[type]",
+      "parameter[type]",
+      "function_definition[return_type]",
+      "typed_pattern[type]",
+      "binding[type]",
+    ],
+    [":"]
+  ),
+  value: leadingMatcher(
+    ["*[value]", "*[default_value]", "type_definition[type]"],
+    ["="]
+  ),
+  condition: conditionMatcher("*[condition]"),
 
   // Scala features unsupported in Cursorless terminology
   //  - Pattern matching

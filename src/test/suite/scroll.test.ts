@@ -1,7 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
 import * as sinon from "sinon";
-import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewEditor } from "../openNewEditor";
 
 suite("scroll", async function () {
@@ -17,7 +16,6 @@ suite("scroll", async function () {
 });
 
 async function topWhale() {
-  const graph = (await getCursorlessApi()).graph!;
   const editor = await openNewEditor("hello\nworld");
   editor.selections = [new vscode.Selection(1, 0, 1, 0)];
 
@@ -40,7 +38,6 @@ async function topWhale() {
 }
 
 async function bottomWhale() {
-  const graph = (await getCursorlessApi()).graph!;
   const editor = await openNewEditor("hello\nworld");
   await vscode.commands.executeCommand("revealLine", {
     lineNumber: 1,

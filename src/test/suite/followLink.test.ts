@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 import * as sinon from "sinon";
 import * as os from "os";
 import { openNewEditor } from "../openNewEditor";
-import { getFixturePath } from "./getFixturePaths";
+import { getFixturePath } from "../util/getFixturePaths";
 
 suite("followLink", async function () {
   this.timeout("100s");
