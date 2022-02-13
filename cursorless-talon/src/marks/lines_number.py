@@ -16,7 +16,7 @@ class CustomizableTerm:
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/pokey/cursorless-talon/blob/main/docs/customization.md
+# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
 directions = [
     CustomizableTerm(
         "row", "lineNumberModulo100", "modulo100", lambda number: number - 1
