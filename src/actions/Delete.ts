@@ -5,11 +5,11 @@ import {
   Graph,
   TypedSelection,
 } from "../typings/Types";
+import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { flatten } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { unifyTargets } from "../util/unifyRanges";
-import { runOnTargetsForEachEditor } from "../util/targetUtils";
 
 export default class Delete implements Action {
   getTargetPreferences: () => ActionPreferences[] = () => [
@@ -24,6 +24,7 @@ export default class Delete implements Action {
     [targets]: [TypedSelection[]],
     { showDecorations = true } = {}
   ): Promise<ActionReturnValue> {
+    // Unify overlapping targets.
     targets = unifyTargets(targets);
 
     if (showDecorations) {
