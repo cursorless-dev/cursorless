@@ -49,9 +49,9 @@ async function followDefinition() {
 
 async function followLink() {
   const filename = getFixturePath("helloWorld.txt");
-  const link =
+  const linkTextContent =
     os.platform() === "win32" ? `file:///${filename}` : `file://${filename}`;
-  await openNewEditor(link);
+  await openNewEditor(linkTextContent);
 
   await vscode.commands.executeCommand(
     "cursorless.command",
