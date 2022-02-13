@@ -20,7 +20,7 @@ import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 import asyncSafety from "../util/asyncSafety";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { openNewEditor } from "../openNewEditor";
-import getRecordedTestPaths from "../util/getRecordedTestPaths";
+import { getRecordedTestPaths } from "../util/getFixturePaths";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);

@@ -374,6 +374,7 @@ export type ActionType =
   | "extractVariable"
   | "findInWorkspace"
   | "foldRegion"
+  | "followLink"
   | "getText"
   | "indentLine"
   | "insertCopyAfter"
