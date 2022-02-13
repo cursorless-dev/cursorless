@@ -11,7 +11,7 @@ import update from "immutability-helper";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { performOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 import { flatten } from "lodash";
-import { Selection, TextEditor, Range, DecorationRangeBehavior } from "vscode";
+import { Selection, TextEditor, DecorationRangeBehavior } from "vscode";
 
 import {
   getTextWithPossibleDelimiter,
@@ -21,6 +21,7 @@ import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
+import { unifyTargets } from "../util/unifyRanges";
 
 type ActionType = "bring" | "move" | "swap";
 
@@ -131,7 +132,7 @@ class BringMoveSwap implements Action {
         }
         // Add destination edit
         results.push({
-          range: destination.selection.selection as Range,
+          range: destination.selection.selection,
           text,
           editor: destination.selection.editor,
           originalSelection: destination,
@@ -146,32 +147,36 @@ class BringMoveSwap implements Action {
       // Prevent multiple instances of the same expanded source.
       if (!usedSources.includes(source)) {
         usedSources.push(source);
-        let text: string;
-        let range: Range;
-
         if (this.type !== "move") {
-          text = destination.selection.editor.document.getText(
-            destination.selection.selection
-          );
-          range = source.selection.selection;
+          results.push({
+            range: source.selection.selection,
+            text: destination.selection.editor.document.getText(
+              destination.selection.selection
+            ),
+            editor: source.selection.editor,
+            originalSelection: source,
+            isSource: true,
+            isReplace: false,
+          });
         }
-        // NB: this.type === "move"
-        else {
-          text = "";
-          source = performOutsideAdjustment(source);
-          range = source.selection.selection;
-        }
+      }
+    });
 
+    if (this.type === "move") {
+      let outsideSources = usedSources.map(performOutsideAdjustment);
+      // Unify overlapping targets.
+      outsideSources = unifyTargets(outsideSources);
+      outsideSources.forEach((source) => {
         results.push({
-          range,
-          text,
+          range: source.selection.selection,
+          text: "",
           editor: source.selection.editor,
           originalSelection: source,
           isSource: true,
           isReplace: false,
         });
-      }
-    });
+      });
+    }
 
     return results;
   }

@@ -16,11 +16,7 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
   thatMark:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: delimitersOnly}}]
