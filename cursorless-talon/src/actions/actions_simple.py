@@ -22,6 +22,7 @@ simple_action_defaults = {
     "fold": "foldRegion",
     "follow": "followLink",
     "give": "deselect",
+    "highlight": "highlight",
     "indent": "indentLine",
     "paste to": "pasteFromClipboard",
     "post": "setSelectionAfter",

@@ -32,6 +32,7 @@ import Deselect from "./Deselect";
 import Rewrap from "./Rewrap";
 import ExecuteCommand from "./ExecuteCommand";
 import FollowLink from "./FollowLink";
+import Highlight from "./Highlight";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -48,6 +49,7 @@ class Actions implements ActionRecord {
   foldRegion = new Fold(this.graph);
   followLink = new FollowLink(this.graph);
   getText = new GetText(this.graph);
+  highlight = new Highlight(this.graph);
   indentLine = new IndentLines(this.graph);
   insertCopyAfter = new CopyLinesDown(this.graph);
   insertCopyBefore = new CopyLinesUp(this.graph);
