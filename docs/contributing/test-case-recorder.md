@@ -15,8 +15,8 @@ command run, and the final state, all in the form of a yaml document. See
     - We don't want to commit this so add it to your own repository.
 1.  If you'd like to be able to do tests which check the navigation map, you should also add the following to your personal talon files:
 
-         cursorless record navigation:
-             user.vscode_with_plugin("cursorless.recordTestCase", 1)
+    - https://github.com/pokey/pokey_talon/blob/9298c25dd6d28fd9fcf5ed39f305bc6b93e5f229/apps/vscode/vscode.talon#L468
+    - https://github.com/pokey/pokey_talon/blob/49643bfa8f62cbec18b5ddad1658f5a28785eb01/apps/vscode/vscode.py#L203-L205
 
     It is quite unlikely you'll need this second step. Most tests don't check the navigation map.
 

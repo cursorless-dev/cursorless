@@ -4,20 +4,56 @@ import * as fs from "fs";
 import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
 import { walkDirsSync } from "./walkSync";
 import { invariant } from "immutability-helper";
+import { Graph } from "../typings/Types";
+import { ExtraSnapshotField } from "./takeSnapshot";
+
+interface RecordTestCaseCommandArg {
+  /**
+   * If this is set to `true`, then for each test case that we record, we expect
+   * that the user will issue a second command in each phrase, which refers to a
+   * decorated mark whose range we'd like to check that it got updated properly
+   * during the previous command. We use this functionality in order to check
+   * that the token range update works properly. For example, you might say
+   * `"chuck second car ox air take air"` to check that removing a character
+   * from a token properly updates the token.
+   */
+  isHatTokenMapTest?: boolean;
+
+  /**
+   * The directory in which to store the test cases that we record. If left out
+   * the user will be prompted to select a directory within the default recorded
+   * test case directory.
+   */
+  directory?: string;
+
+  /**
+   * If `true`, don't show a little pop up each time to indicate we've recorded a
+   * test case
+   */
+  isSilent?: boolean;
+
+  extraSnapshotFields?: ExtraSnapshotField[];
+}
 
 export class TestCaseRecorder {
-  active: boolean = false;
-  workspacePath: string | null;
-  workSpaceFolder: string | null;
-  fixtureRoot: string | null;
-  fixtureSubdirectory: string | null = null;
-  testCase: TestCase | null = null;
-  isHatTokenMapTest: boolean = false;
+  private active: boolean = false;
+  private workspacePath: string | null;
+  private workSpaceFolder: string | null;
+  private fixtureRoot: string | null;
+  private targetDirectory: string | null = null;
+  private testCase: TestCase | null = null;
+  private isHatTokenMapTest: boolean = false;
+  private disposables: vscode.Disposable[] = [];
+  private isSilent?: boolean;
+  private startTimestamp?: bigint;
+  private extraSnapshotFields?: ExtraSnapshotField[];
 
-  constructor(extensionContext: vscode.ExtensionContext) {
+  constructor(graph: Graph) {
+    graph.extensionContext.subscriptions.push(this);
+
     this.workspacePath =
-      extensionContext.extensionMode === vscode.ExtensionMode.Development
-        ? extensionContext.extensionPath
+      graph.extensionContext.extensionMode === vscode.ExtensionMode.Development
+        ? graph.extensionContext.extensionPath
         : vscode.workspace.workspaceFolders?.[0].uri.path ?? null;
 
     this.workSpaceFolder = this.workspacePath
@@ -29,11 +65,55 @@ export class TestCaseRecorder {
       : null;
   }
 
-  async start(isHatTokenMapTest: boolean = false): Promise<boolean> {
-    this.active = await this.promptSubdirectory();
+  init() {
+    this.disposables.push(
+      vscode.commands.registerCommand(
+        "cursorless.recordTestCase",
+        async (arg?: RecordTestCaseCommandArg) => {
+          if (this.active) {
+            vscode.window.showInformationMessage(
+              "Stopped recording test cases"
+            );
+            this.stop();
+          } else {
+            if (await this.start(arg)) {
+              vscode.window.showInformationMessage(
+                `Recording test cases for following commands in:\n${this.targetDirectory}`
+              );
+            }
+          }
+        }
+      )
+    );
+  }
+
+  isActive() {
+    return this.active;
+  }
+
+  async start(arg?: RecordTestCaseCommandArg): Promise<boolean> {
+    const {
+      isHatTokenMapTest = false,
+      directory,
+      isSilent = false,
+      extraSnapshotFields = [],
+    } = arg ?? {};
+
+    if (directory != null) {
+      this.targetDirectory = directory;
+    } else {
+      this.targetDirectory = (await this.promptSubdirectory()) ?? null;
+    }
+
+    this.active = this.targetDirectory != null;
+
     if (this.active) {
       this.isHatTokenMapTest = isHatTokenMapTest;
+      this.isSilent = isSilent;
+      this.extraSnapshotFields = extraSnapshotFields;
+      this.startTimestamp = process.hrtime.bigint();
     }
+
     return this.active;
   }
 
@@ -54,7 +134,13 @@ export class TestCaseRecorder {
       await this.finishTestCase();
     } else {
       // Otherwise, we are starting a new test case
-      this.testCase = new TestCase(command, context, this.isHatTokenMapTest);
+      this.testCase = new TestCase(
+        command,
+        context,
+        this.isHatTokenMapTest,
+        this.startTimestamp!,
+        this.extraSnapshotFields
+      );
       await this.testCase.recordInitialState();
     }
   }
@@ -87,17 +173,19 @@ export class TestCaseRecorder {
 
   private async writeToFile(outPath: string, fixture: string) {
     fs.writeFileSync(outPath, fixture);
-    vscode.window
-      .showInformationMessage("Cursorless test case saved.", "View")
-      .then(async (action) => {
-        if (action === "View") {
-          const document = await vscode.workspace.openTextDocument(outPath);
-          await vscode.window.showTextDocument(document);
-        }
-      });
+    if (!this.isSilent) {
+      vscode.window
+        .showInformationMessage("Cursorless test case saved.", "View")
+        .then(async (action) => {
+          if (action === "View") {
+            const document = await vscode.workspace.openTextDocument(outPath);
+            await vscode.window.showTextDocument(document);
+          }
+        });
+    }
   }
 
-  private async promptSubdirectory(): Promise<boolean> {
+  private async promptSubdirectory(): Promise<string | undefined> {
     if (
       this.workspacePath == null ||
       this.fixtureRoot == null ||
@@ -109,22 +197,24 @@ export class TestCaseRecorder {
     const subdirectories = walkDirsSync(this.fixtureRoot).concat("/");
 
     const createNewSubdirectory = "Create new folder →";
-    const subdirectorySelection = await vscode.window.showQuickPick([
-      ...subdirectories,
-      createNewSubdirectory,
-    ]);
+    let subdirectorySelection: string | undefined =
+      await vscode.window.showQuickPick([
+        ...subdirectories,
+        createNewSubdirectory,
+      ]);
 
-    if (subdirectorySelection === undefined) {
-      return false;
-    } else if (subdirectorySelection === createNewSubdirectory) {
-      return this.promptNewSubdirectory();
-    } else {
-      this.fixtureSubdirectory = subdirectorySelection;
-      return true;
+    if (subdirectorySelection === createNewSubdirectory) {
+      subdirectorySelection = await this.promptNewSubdirectory();
     }
+
+    if (subdirectorySelection == null) {
+      return undefined;
+    }
+
+    return path.join(this.fixtureRoot, subdirectorySelection);
   }
 
-  private async promptNewSubdirectory(): Promise<boolean> {
+  private async promptNewSubdirectory(): Promise<string | undefined> {
     if (this.fixtureRoot == null) {
       throw new Error("Missing fixture root. Not in cursorless workspace?");
     }
@@ -139,30 +229,24 @@ export class TestCaseRecorder {
       return this.promptSubdirectory(); // go back a prompt
     }
 
-    this.fixtureSubdirectory = subdirectory;
-    return true;
+    return subdirectory;
   }
 
   private calculateFilePath(testCase: TestCase): string {
-    if (this.fixtureRoot == null) {
-      throw new Error("Missing fixture root. Not in cursorless workspace?");
+    if (this.targetDirectory == null) {
+      throw new Error("Target directory isn't defined");
     }
 
-    const targetDirectory = path.join(
-      this.fixtureRoot,
-      this.fixtureSubdirectory!
-    );
-
-    if (!fs.existsSync(targetDirectory)) {
-      fs.mkdirSync(targetDirectory, { recursive: true });
+    if (!fs.existsSync(this.targetDirectory)) {
+      fs.mkdirSync(this.targetDirectory, { recursive: true });
     }
 
     let filename = camelize(testCase.command.spokenForm!);
-    let filePath = path.join(targetDirectory, `${filename}.yml`);
+    let filePath = path.join(this.targetDirectory, `${filename}.yml`);
 
     let i = 2;
     while (fs.existsSync(filePath)) {
-      filePath = path.join(targetDirectory, `${filename}${i++}.yml`);
+      filePath = path.join(this.targetDirectory, `${filename}${i++}.yml`);
     }
 
     return filePath;
@@ -170,6 +254,10 @@ export class TestCaseRecorder {
 
   commandErrorHook() {
     this.testCase = null;
+  }
+
+  dispose() {
+    this.disposables.forEach(({ dispose }) => dispose());
   }
 }
 

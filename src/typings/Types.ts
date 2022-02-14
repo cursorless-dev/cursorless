@@ -12,6 +12,7 @@ import FontMeasurements from "../core/FontMeasurements";
 import { CommandServerApi } from "../util/getExtensionApi";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import Debug from "../core/Debug";
+import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -470,6 +471,11 @@ export interface Graph {
    * Debug logger
    */
   readonly debug: Debug;
+
+  /**
+   * Used for recording test cases
+   */
+  readonly testCaseRecorder: TestCaseRecorder;
 }
 
 export type NodeMatcherValue = {

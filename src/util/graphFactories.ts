@@ -8,6 +8,7 @@ import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import Decorations from "../core/Decorations";
 import FontMeasurements from "../core/FontMeasurements";
 import Debug from "../core/Debug";
+import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 
 type ConstructorMap<T> = {
   [P in keyof T]: new (t: T) => T[P];
@@ -22,6 +23,7 @@ const graphConstructors: Partial<ConstructorMap<Graph>> = {
   snippets: Snippets,
   rangeUpdater: RangeUpdater,
   debug: Debug,
+  testCaseRecorder: TestCaseRecorder,
 };
 
 const graphFactories: Partial<FactoryMap<Graph>> = Object.fromEntries(

@@ -12,6 +12,8 @@
 			"args": [
 				"--disable-extension",
 				"asvetliakov.vscode-neovim",
+				"--disable-extension",
+				"pokey.cursorless-local",
 				"--extensionDevelopmentPath=${workspaceFolder}"
 			],
 			"outFiles": [

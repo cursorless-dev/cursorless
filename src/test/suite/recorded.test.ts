@@ -7,7 +7,10 @@ import { TestCaseFixture } from "../../testUtil/TestCase";
 import HatTokenMap from "../../core/HatTokenMap";
 import * as sinon from "sinon";
 import { Clipboard } from "../../util/Clipboard";
-import { takeSnapshot } from "../../testUtil/takeSnapshot";
+import {
+  ExcludableSnapshotField,
+  takeSnapshot,
+} from "../../testUtil/takeSnapshot";
 import {
   marksToPlainObject,
   PositionPlainObject,
@@ -51,7 +54,7 @@ suite("recorded test cases", async function () {
 async function runTest(file: string) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
-  const excludeFields: string[] = [];
+  const excludeFields: ExcludableSnapshotField[] = [];
 
   const cursorlessApi = await getCursorlessApi();
   const graph = cursorlessApi.graph!;
@@ -124,6 +127,7 @@ async function runTest(file: string) {
     cursorlessApi.thatMark,
     cursorlessApi.sourceMark,
     excludeFields,
+    [],
     marks
   );
 
