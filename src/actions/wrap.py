@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Any, Union
 from ..paired_delimiter import paired_delimiters_map
 from talon import Module, actions, app, Context
 from ..csv_overrides import init_csv_and_watch_changes
@@ -34,7 +34,7 @@ wrapper_snippets = {
 @mod.capture(
     rule="<user.cursorless_wrapper_paired_delimiter> | {user.cursorless_wrapper_snippet}"
 )
-def cursorless_wrapper(m):
+def cursorless_wrapper(m) -> dict[str, Any]:
     try:
         paired_delimiter_info = paired_delimiters_map[
             m.cursorless_wrapper_paired_delimiter
