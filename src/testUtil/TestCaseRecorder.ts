@@ -47,6 +47,7 @@ export class TestCaseRecorder {
   private isSilent?: boolean;
   private startTimestamp?: bigint;
   private extraSnapshotFields?: ExtraSnapshotField[];
+  private paused: boolean = false;
 
   constructor(graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
@@ -83,12 +84,31 @@ export class TestCaseRecorder {
             }
           }
         }
+      ),
+
+      vscode.commands.registerCommand("cursorless.pauseRecording", async () => {
+        if (!this.active) {
+          throw Error("Asked to pause recording, but no recording active");
+        }
+
+        this.paused = true;
+      }),
+
+      vscode.commands.registerCommand(
+        "cursorless.resumeRecording",
+        async () => {
+          if (!this.active) {
+            throw Error("Asked to resume recording, but no recording active");
+          }
+
+          this.paused = false;
+        }
       )
     );
   }
 
   isActive() {
-    return this.active;
+    return this.active && !this.paused;
   }
 
   async start(arg?: RecordTestCaseCommandArg): Promise<boolean> {
@@ -112,6 +132,7 @@ export class TestCaseRecorder {
       this.isSilent = isSilent;
       this.extraSnapshotFields = extraSnapshotFields;
       this.startTimestamp = process.hrtime.bigint();
+      this.paused = false;
     }
 
     return this.active;
@@ -119,6 +140,7 @@ export class TestCaseRecorder {
 
   stop() {
     this.active = false;
+    this.paused = false;
   }
 
   async preCommandHook(command: TestCaseCommand, context: TestCaseContext) {
