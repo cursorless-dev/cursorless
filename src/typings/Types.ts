@@ -37,6 +37,10 @@ export interface Source {
   type: "source";
 }
 
+export interface Nothing {
+  type: "nothing";
+}
+
 export interface LastCursorPosition {
   type: "lastCursorPosition";
 }
@@ -67,6 +71,7 @@ export type Mark =
   | Source
   //   | LastCursorPosition Not implemented yet
   | DecoratedSymbol
+  | Nothing
   | LineNumber;
 
 export type SimpleSurroundingPairName =
@@ -376,6 +381,7 @@ export type ActionType =
   | "foldRegion"
   | "followLink"
   | "getText"
+  | "highlight"
   | "indentLine"
   | "insertCopyAfter"
   | "insertCopyBefore"
