@@ -102,6 +102,24 @@
 					"light": "#ff009d7e",
 					"highContrast": "#ff009d7e"
 				}
+			},
+			{
+				"id": "cursorless.highlight0Background",
+				"description": "Background color to use for explicitly requested highlights",
+				"defaults": {
+					"dark": "#d449ff42",
+					"light": "#d449ff42",
+					"highContrast": "#d449ff42"
+				}
+			},
+			{
+				"id": "cursorless.highlight1Background",
+				"description": "Background color to use for explicitly requested highlights",
+				"defaults": {
+					"dark": "#60daff7a",
+					"light": "#60daff7a",
+					"highContrast": "#60daff7a"
+				}
 			}
 		],
 		"configurationDefaults": {

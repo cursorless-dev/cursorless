@@ -29,6 +29,8 @@ export default function (
       return processDecoratedSymbol(context, mark);
     case "lineNumber":
       return processLineNumber(context, mark);
+    case "nothing":
+      return [];
   }
 }
 
