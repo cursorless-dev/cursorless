@@ -55,6 +55,14 @@
 			{
 				"command": "cursorless.recordTestCase",
 				"title": "Cursorless: Record test case"
+			},
+			{
+				"command": "cursorless.pauseRecording",
+				"title": "Cursorless: Pause test case recording"
+			},
+			{
+				"command": "cursorless.resumeRecording",
+				"title": "Cursorless: Resume test case recording"
 			}
 		],
 		"colors": [
