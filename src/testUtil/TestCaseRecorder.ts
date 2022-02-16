@@ -9,6 +9,9 @@ import { ExtraSnapshotField } from "./takeSnapshot";
 import sleep from "../util/sleep";
 import { getDocumentRange } from "../util/range";
 
+const CALIBRATION_DISPLAY_BACKGROUND_COLOR = "#230026";
+const CALIBRATION_DISPLAY_DURATION_MS = 30;
+
 interface RecordTestCaseCommandArg {
   /**
    * If this is set to `true`, then for each test case that we record, we expect
@@ -158,14 +161,14 @@ export class TestCaseRecorder {
 
   async showCalibrationDisplay() {
     const style = vscode.window.createTextEditorDecorationType({
-      backgroundColor: "#230026",
+      backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
     });
 
     vscode.window.visibleTextEditors.map((editor) => {
       editor.setDecorations(style, [getDocumentRange(editor.document)]);
     });
 
-    await sleep(30);
+    await sleep(CALIBRATION_DISPLAY_DURATION_MS);
 
     vscode.window.visibleTextEditors.map((editor) => {
       editor.setDecorations(style, []);
