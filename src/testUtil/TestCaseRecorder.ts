@@ -6,6 +6,8 @@ import { walkDirsSync } from "./walkSync";
 import { invariant } from "immutability-helper";
 import { Graph } from "../typings/Types";
 import { ExtraSnapshotField } from "./takeSnapshot";
+import sleep from "../util/sleep";
+import { getDocumentRange } from "../util/range";
 
 interface RecordTestCaseCommandArg {
   /**
@@ -33,6 +35,11 @@ interface RecordTestCaseCommandArg {
   isSilent?: boolean;
 
   extraSnapshotFields?: ExtraSnapshotField[];
+
+  /**
+   * Whether to flash a background for calibrating a video recording
+   */
+  showCalibrationDisplay?: boolean;
 }
 
 export class TestCaseRecorder {
@@ -117,6 +124,7 @@ export class TestCaseRecorder {
       directory,
       isSilent = false,
       extraSnapshotFields = [],
+      showCalibrationDisplay = false,
     } = arg ?? {};
 
     if (directory != null) {
@@ -128,14 +136,33 @@ export class TestCaseRecorder {
     this.active = this.targetDirectory != null;
 
     if (this.active) {
+      if (showCalibrationDisplay) {
+        this.showCalibrationDisplay();
+      }
+      this.startTimestamp = process.hrtime.bigint();
       this.isHatTokenMapTest = isHatTokenMapTest;
       this.isSilent = isSilent;
       this.extraSnapshotFields = extraSnapshotFields;
-      this.startTimestamp = process.hrtime.bigint();
       this.paused = false;
     }
 
     return this.active;
+  }
+
+  async showCalibrationDisplay() {
+    const style = vscode.window.createTextEditorDecorationType({
+      backgroundColor: "#230026",
+    });
+
+    vscode.window.visibleTextEditors.map((editor) => {
+      editor.setDecorations(style, [getDocumentRange(editor.document)]);
+    });
+
+    await sleep(30);
+
+    vscode.window.visibleTextEditors.map((editor) => {
+      editor.setDecorations(style, []);
+    });
   }
 
   stop() {
