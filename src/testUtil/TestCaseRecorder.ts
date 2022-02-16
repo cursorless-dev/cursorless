@@ -84,11 +84,16 @@ export class TestCaseRecorder {
             );
             this.stop();
           } else {
-            if (await this.start(arg)) {
+            const result = await this.start(arg);
+
+            if (result != null) {
               vscode.window.showInformationMessage(
                 `Recording test cases for following commands in:\n${this.targetDirectory}`
               );
+              return result;
             }
+
+            return null;
           }
         }
       ),
@@ -118,7 +123,7 @@ export class TestCaseRecorder {
     return this.active && !this.paused;
   }
 
-  async start(arg?: RecordTestCaseCommandArg): Promise<boolean> {
+  async start(arg?: RecordTestCaseCommandArg) {
     const {
       isHatTokenMapTest = false,
       directory,
@@ -140,13 +145,15 @@ export class TestCaseRecorder {
         this.showCalibrationDisplay();
       }
       this.startTimestamp = process.hrtime.bigint();
+      const timestampISO = new Date().toISOString();
       this.isHatTokenMapTest = isHatTokenMapTest;
       this.isSilent = isSilent;
       this.extraSnapshotFields = extraSnapshotFields;
       this.paused = false;
+      return { startTimestampISO: timestampISO };
     }
 
-    return this.active;
+    return null;
   }
 
   async showCalibrationDisplay() {
