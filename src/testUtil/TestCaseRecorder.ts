@@ -58,6 +58,9 @@ export class TestCaseRecorder {
   private startTimestamp?: bigint;
   private extraSnapshotFields?: ExtraSnapshotField[];
   private paused: boolean = false;
+  private calibrationStyle = vscode.window.createTextEditorDecorationType({
+    backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
+  });
 
   constructor(graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
@@ -87,16 +90,7 @@ export class TestCaseRecorder {
             );
             this.stop();
           } else {
-            const result = await this.start(arg);
-
-            if (result != null) {
-              vscode.window.showInformationMessage(
-                `Recording test cases for following commands in:\n${this.targetDirectory}`
-              );
-              return result;
-            }
-
-            return null;
+            return await this.start(arg);
           }
         }
       ),
@@ -153,6 +147,11 @@ export class TestCaseRecorder {
       this.isSilent = isSilent;
       this.extraSnapshotFields = extraSnapshotFields;
       this.paused = false;
+
+      vscode.window.showInformationMessage(
+        `Recording test cases for following commands in:\n${this.targetDirectory}`
+      );
+
       return { startTimestampISO: timestampISO };
     }
 
@@ -160,18 +159,16 @@ export class TestCaseRecorder {
   }
 
   async showCalibrationDisplay() {
-    const style = vscode.window.createTextEditorDecorationType({
-      backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
-    });
-
     vscode.window.visibleTextEditors.map((editor) => {
-      editor.setDecorations(style, [getDocumentRange(editor.document)]);
+      editor.setDecorations(this.calibrationStyle, [
+        getDocumentRange(editor.document),
+      ]);
     });
 
     await sleep(CALIBRATION_DISPLAY_DURATION_MS);
 
     vscode.window.visibleTextEditors.map((editor) => {
-      editor.setDecorations(style, []);
+      editor.setDecorations(this.calibrationStyle, []);
     });
   }
 
@@ -317,6 +314,7 @@ export class TestCaseRecorder {
 
   dispose() {
     this.disposables.forEach(({ dispose }) => dispose());
+    this.calibrationStyle.dispose();
   }
 }
 
