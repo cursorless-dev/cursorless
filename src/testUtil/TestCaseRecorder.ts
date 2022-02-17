@@ -6,6 +6,11 @@ import { walkDirsSync } from "./walkSync";
 import { invariant } from "immutability-helper";
 import { Graph } from "../typings/Types";
 import { ExtraSnapshotField } from "./takeSnapshot";
+import sleep from "../util/sleep";
+import { getDocumentRange } from "../util/range";
+
+const CALIBRATION_DISPLAY_BACKGROUND_COLOR = "#230026";
+const CALIBRATION_DISPLAY_DURATION_MS = 30;
 
 interface RecordTestCaseCommandArg {
   /**
@@ -33,6 +38,11 @@ interface RecordTestCaseCommandArg {
   isSilent?: boolean;
 
   extraSnapshotFields?: ExtraSnapshotField[];
+
+  /**
+   * Whether to flash a background for calibrating a video recording
+   */
+  showCalibrationDisplay?: boolean;
 }
 
 export class TestCaseRecorder {
@@ -48,6 +58,9 @@ export class TestCaseRecorder {
   private startTimestamp?: bigint;
   private extraSnapshotFields?: ExtraSnapshotField[];
   private paused: boolean = false;
+  private calibrationStyle = vscode.window.createTextEditorDecorationType({
+    backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
+  });
 
   constructor(graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
@@ -77,11 +90,7 @@ export class TestCaseRecorder {
             );
             this.stop();
           } else {
-            if (await this.start(arg)) {
-              vscode.window.showInformationMessage(
-                `Recording test cases for following commands in:\n${this.targetDirectory}`
-              );
-            }
+            return await this.start(arg);
           }
         }
       ),
@@ -111,12 +120,13 @@ export class TestCaseRecorder {
     return this.active && !this.paused;
   }
 
-  async start(arg?: RecordTestCaseCommandArg): Promise<boolean> {
+  async start(arg?: RecordTestCaseCommandArg) {
     const {
       isHatTokenMapTest = false,
       directory,
       isSilent = false,
       extraSnapshotFields = [],
+      showCalibrationDisplay = false,
     } = arg ?? {};
 
     if (directory != null) {
@@ -128,14 +138,38 @@ export class TestCaseRecorder {
     this.active = this.targetDirectory != null;
 
     if (this.active) {
+      if (showCalibrationDisplay) {
+        this.showCalibrationDisplay();
+      }
+      this.startTimestamp = process.hrtime.bigint();
+      const timestampISO = new Date().toISOString();
       this.isHatTokenMapTest = isHatTokenMapTest;
       this.isSilent = isSilent;
       this.extraSnapshotFields = extraSnapshotFields;
-      this.startTimestamp = process.hrtime.bigint();
       this.paused = false;
+
+      vscode.window.showInformationMessage(
+        `Recording test cases for following commands in:\n${this.targetDirectory}`
+      );
+
+      return { startTimestampISO: timestampISO };
     }
 
-    return this.active;
+    return null;
+  }
+
+  async showCalibrationDisplay() {
+    vscode.window.visibleTextEditors.map((editor) => {
+      editor.setDecorations(this.calibrationStyle, [
+        getDocumentRange(editor.document),
+      ]);
+    });
+
+    await sleep(CALIBRATION_DISPLAY_DURATION_MS);
+
+    vscode.window.visibleTextEditors.map((editor) => {
+      editor.setDecorations(this.calibrationStyle, []);
+    });
   }
 
   stop() {
@@ -280,6 +314,7 @@ export class TestCaseRecorder {
 
   dispose() {
     this.disposables.forEach(({ dispose }) => dispose());
+    this.calibrationStyle.dispose();
   }
 }
 
