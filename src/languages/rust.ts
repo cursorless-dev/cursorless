@@ -82,18 +82,28 @@ import {
   
   const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     statement: STATEMENT_TYPES,
-    string: "raw_string_literal",
+    string: ["raw_string_literal", "string_literal"],
     ifStatement: "if_expression",
     functionCall: ["call_expression", "macro_invocation"],
     comment: ["line_comment", "block_comment"],
-    namedFunction: ["function_item"],
-    type: ["let_declaration[type]","parameter[type]"],
+    list: "array_expression",
+    namedFunction: "function_item",
+    type: leadingMatcher([
+      "let_declaration[type]",
+      "parameter[type]",
+      "type_identifier",
+      "generic_type.type_identifier"
+    ], [":"]),
     functionName: ["function_item[name]"],
     anonymousFunction: "closure_expression",
     argumentOrParameter: cascadingMatcher(
         argumentMatcher("arguments"),
         trailingMatcher(["parameter"], [","]),
     ),
+    name: [
+      "let_declaration.identifier!",
+      "parameter.identifier!",
+    ],
    };
   
   export default createPatternMatchers(nodeMatchers);
