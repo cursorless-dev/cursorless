@@ -22,14 +22,12 @@ export class HatAllocator {
       .get<boolean>("showOnStart")!;
 
     this.addDecorationsDebounced = this.addDecorationsDebounced.bind(this);
-    this.addDecorationsDebouncedDefault =
-      this.addDecorationsDebouncedDefault.bind(this);
     this.toggleDecorations = this.toggleDecorations.bind(this);
     this.clearEditorDecorations = this.clearEditorDecorations.bind(this);
 
     this.disposalFunctions.push(
       graph.decorations.registerDecorationChangeListener(
-        this.addDecorationsDebouncedDefault
+        this.addDecorationsDebounced
       )
     );
 
@@ -40,25 +38,18 @@ export class HatAllocator {
       ),
 
       // An Event which fires when the active editor has changed. Note that the event also fires when the active editor changes to undefined.
-      vscode.window.onDidChangeActiveTextEditor(
-        this.addDecorationsDebouncedDefault
-      ),
+      vscode.window.onDidChangeActiveTextEditor(this.addDecorationsDebounced),
       // An Event which fires when the array of visible editors has changed.
-      vscode.window.onDidChangeVisibleTextEditors(
-        this.addDecorationsDebouncedDefault
-      ),
+      vscode.window.onDidChangeVisibleTextEditors(this.addDecorationsDebounced),
       // An event that is emitted when a text document is changed. This usually happens when the contents changes but also when other things like the dirty-state changes.
-      vscode.workspace.onDidChangeTextDocument(
-        this.addDecorationsDebouncedDefault
-      ),
+      vscode.workspace.onDidChangeTextDocument(this.addDecorationsDebounced),
       // An Event which fires when the selection in an editor has changed.
       vscode.window.onDidChangeTextEditorSelection(
-        this.addDecorationsDebouncedDefault
+        this.addDecorationsDebounced
       ),
       // An Event which fires when the visible ranges of an editor has changed.
-      vscode.window.onDidChangeTextEditorVisibleRanges(() =>
-        // Increase debounced delay to stop the decorations moving when scrolling. 25Hz
-        this.addDecorationsDebounced(40)
+      vscode.window.onDidChangeTextEditorVisibleRanges(
+        this.addDecorationsDebounced
       )
     );
   }
@@ -80,25 +71,24 @@ export class HatAllocator {
     }
   }
 
-  // Use default debounced delay. 60Hz
-  addDecorationsDebouncedDefault() {
-    this.addDecorationsDebounced(16);
-  }
-
-  addDecorationsDebounced(decorationDebounceDelay: number) {
+  addDecorationsDebounced() {
     if (this.timeoutHandle != null) {
       clearTimeout(this.timeoutHandle);
     }
 
+    const decorationDebounceDelayMs = vscode.workspace
+      .getConfiguration("cursorless")
+      .get<number>("decorationDebounceDelayMs")!;
+
     this.timeoutHandle = setTimeout(() => {
       this.addDecorations();
       this.timeoutHandle = null;
-    }, decorationDebounceDelay);
+    }, decorationDebounceDelayMs);
   }
 
   private toggleDecorations() {
     this.isActive = !this.isActive;
-    this.addDecorationsDebouncedDefault();
+    this.addDecorationsDebounced();
   }
 
   dispose() {

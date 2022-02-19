@@ -12,6 +12,7 @@ import FontMeasurements from "../core/FontMeasurements";
 import { CommandServerApi } from "../util/getExtensionApi";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import Debug from "../core/Debug";
+import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -35,6 +36,10 @@ export interface That {
 
 export interface Source {
   type: "source";
+}
+
+export interface Nothing {
+  type: "nothing";
 }
 
 export interface LastCursorPosition {
@@ -67,6 +72,7 @@ export type Mark =
   | Source
   //   | LastCursorPosition Not implemented yet
   | DecoratedSymbol
+  | Nothing
   | LineNumber;
 
 export type SimpleSurroundingPairName =
@@ -186,7 +192,13 @@ export type Modifier =
 
 export type SelectionType =
   //   | "character" Not implemented
-  "token" | "line" | "notebookCell" | "paragraph" | "document";
+  | "token"
+  | "line"
+  | "notebookCell"
+  | "paragraph"
+  | "document"
+  | "nonWhitespaceSequence"
+  | "url";
 
 export type Position = "before" | "after" | "contents";
 
@@ -368,7 +380,9 @@ export type ActionType =
   | "extractVariable"
   | "findInWorkspace"
   | "foldRegion"
+  | "followLink"
   | "getText"
+  | "highlight"
   | "indentLine"
   | "insertCopyAfter"
   | "insertCopyBefore"
@@ -457,6 +471,11 @@ export interface Graph {
    * Debug logger
    */
   readonly debug: Debug;
+
+  /**
+   * Used for recording test cases
+   */
+  readonly testCaseRecorder: TestCaseRecorder;
 }
 
 export type NodeMatcherValue = {

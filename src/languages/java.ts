@@ -51,7 +51,12 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   list: "array_initializer",
   functionCall: "method_invocation",
   map: "block",
-  name: ["*[declarator][name]", "*[name]", "formal_parameter.identifier!"],
+  name: [
+    "*[declarator][name]",
+    "assignment_expression[left]",
+    "*[name]",
+    "formal_parameter.identifier!",
+  ],
   namedFunction: ["method_declaration", "constructor_declaration"],
   type: trailingMatcher([
     "generic_type.type_arguments.type_identifier",
@@ -66,7 +71,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "method_declaration.identifier!",
     "constructor_declaration.identifier!",
   ],
-  value: leadingMatcher(["*[declarator][value]", "*[value]"], ["="]),
+  value: leadingMatcher(
+    ["*[declarator][value]", "assignment_expression[right]", "*[value]"],
+    ["="]
+  ),
   condition: conditionMatcher("*[condition]"),
   collectionItem: argumentMatcher("array_initializer"),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),

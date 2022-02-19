@@ -1,4 +1,4 @@
-import { TextEditorDecorationType, workspace } from "vscode";
+import { TextEditorDecorationType, window, workspace } from "vscode";
 import { TypedSelection, SelectionWithEditor } from "../typings/Types";
 import { isLineSelectionType } from "./selectionType";
 import { runOnTargetsForEachEditor, runForEachEditor } from "./targetUtils";
@@ -49,6 +49,24 @@ export default async function displayPendingEditDecorations(
   targets: TypedSelection[],
   editStyle: EditStyle
 ) {
+  await setDecorations(targets, editStyle);
+
+  await decorationSleep();
+
+  clearDecorations(editStyle);
+}
+
+export function clearDecorations(editStyle: EditStyle) {
+  window.visibleTextEditors.map((editor) => {
+    editor.setDecorations(editStyle.token, []);
+    editor.setDecorations(editStyle.line, []);
+  });
+}
+
+export async function setDecorations(
+  targets: TypedSelection[],
+  editStyle: EditStyle
+) {
   await runOnTargetsForEachEditor(targets, async (editor, selections) => {
     editor.setDecorations(
       editStyle.token,
@@ -87,13 +105,6 @@ export default async function displayPendingEditDecorations(
           return selection.selection.selection;
         })
     );
-  });
-
-  await decorationSleep();
-
-  await runOnTargetsForEachEditor(targets, async (editor) => {
-    editor.setDecorations(editStyle.token, []);
-    editor.setDecorations(editStyle.line, []);
   });
 }
 

@@ -25,12 +25,14 @@ import { FindInFiles } from "./Find";
 import Replace from "./Replace";
 import { CopyLinesUp, CopyLinesDown } from "./CopyLines";
 import SetBreakpoint from "./SetBreakpoint";
-import { Sort, Reverse } from "./Sort";
+import { Sort, Reverse, Random } from "./Sort";
 import Call from "./Call";
 import WrapWithSnippet from "./WrapWithSnippet";
 import Deselect from "./Deselect";
 import Rewrap from "./Rewrap";
 import ExecuteCommand from "./ExecuteCommand";
+import FollowLink from "./FollowLink";
+import Highlight from "./Highlight";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -45,7 +47,9 @@ class Actions implements ActionRecord {
   extractVariable = new ExtractVariable(this.graph);
   findInWorkspace = new FindInFiles(this.graph);
   foldRegion = new Fold(this.graph);
+  followLink = new FollowLink(this.graph);
   getText = new GetText(this.graph);
+  highlight = new Highlight(this.graph);
   indentLine = new IndentLines(this.graph);
   insertCopyAfter = new CopyLinesDown(this.graph);
   insertCopyBefore = new CopyLinesUp(this.graph);
@@ -59,6 +63,7 @@ class Actions implements ActionRecord {
   deselect = new Deselect(this.graph);
   replace = new Replace(this.graph);
   replaceWithTarget = new Bring(this.graph);
+  randomizeTargets = new Random(this.graph);
   reverseTargets = new Reverse(this.graph);
   rewrapWithPairedDelimiter = new Rewrap(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);

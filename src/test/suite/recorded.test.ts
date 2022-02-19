@@ -1,14 +1,16 @@
 import * as assert from "assert";
 import serialize from "../../testUtil/serialize";
 import { promises as fsp } from "fs";
-import * as path from "path";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import { TestCaseFixture } from "../../testUtil/TestCase";
 import HatTokenMap from "../../core/HatTokenMap";
 import * as sinon from "sinon";
 import { Clipboard } from "../../util/Clipboard";
-import { takeSnapshot } from "../../testUtil/takeSnapshot";
+import {
+  ExcludableSnapshotField,
+  takeSnapshot,
+} from "../../testUtil/takeSnapshot";
 import {
   marksToPlainObject,
   PositionPlainObject,
@@ -18,10 +20,10 @@ import {
 } from "../../testUtil/toPlainObject";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
-import asyncSafety from "./asyncSafety";
+import asyncSafety from "../util/asyncSafety";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { openNewEditor } from "../openNewEditor";
-import getRecordedTestPaths from "./getRecordedTestPaths";
+import { getRecordedTestPaths } from "../util/getFixturePaths";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -52,7 +54,7 @@ suite("recorded test cases", async function () {
 async function runTest(file: string) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
-  const excludeFields: string[] = [];
+  const excludeFields: ExcludableSnapshotField[] = [];
 
   const cursorlessApi = await getCursorlessApi();
   const graph = cursorlessApi.graph!;
@@ -86,11 +88,13 @@ async function runTest(file: string) {
   }
 
   if (fixture.initialState.clipboard) {
-    let mockClipboard = fixture.initialState.clipboard;
-    sinon.replace(Clipboard, "readText", async () => mockClipboard);
-    sinon.replace(Clipboard, "writeText", async (value: string) => {
-      mockClipboard = value;
-    });
+    Clipboard.writeText(fixture.initialState.clipboard);
+    // FIXME https://github.com/cursorless-dev/cursorless-vscode/issues/559
+    // let mockClipboard = fixture.initialState.clipboard;
+    // sinon.replace(Clipboard, "readText", async () => mockClipboard);
+    // sinon.replace(Clipboard, "writeText", async (value: string) => {
+    //   mockClipboard = value;
+    // });
   } else {
     excludeFields.push("clipboard");
   }
@@ -118,11 +122,12 @@ async function runTest(file: string) {
         );
 
   // TODO Visible ranges are not asserted, see:
-  // https://github.com/pokey/cursorless-vscode/issues/160
+  // https://github.com/cursorless-dev/cursorless-vscode/issues/160
   const { visibleRanges, ...resultState } = await takeSnapshot(
     cursorlessApi.thatMark,
     cursorlessApi.sourceMark,
     excludeFields,
+    [],
     marks
   );
 

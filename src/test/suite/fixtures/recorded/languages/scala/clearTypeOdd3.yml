@@ -1,0 +1,37 @@
+languageId: scala
+command:
+  version: 1
+  spokenForm: clear type odd
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+initialState:
+  documentContents: |
+    class TypesAhoy() {
+      f match {
+        case foo: Foo => 12
+      }
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.o:
+      start: {line: 2, character: 9}
+      end: {line: 2, character: 12}
+finalState:
+  documentContents: |
+    class TypesAhoy() {
+      f match {
+        case foo:  => 12
+      }
+    }
+  selections:
+    - anchor: {line: 2, character: 14}
+      active: {line: 2, character: 14}
+  thatMark:
+    - anchor: {line: 2, character: 14}
+      active: {line: 2, character: 14}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]

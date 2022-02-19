@@ -1,0 +1,58 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: [Run Tests]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  publish-extension:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    environment: production
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn run compile
+      - run: yarn run prepare-for-extension-publish
+      - name: Publish to Open VSX Registry
+        uses: HaaLeo/publish-vscode-extension@v1
+        id: publishToOpenVSX
+        with:
+          pat: ${{ secrets.OPEN_VSX_TOKEN }}
+      - name: Publish to Visual Studio Marketplace
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+          registryUrl: https://marketplace.visualstudio.com
+          extensionFile: ${{ steps.publishToOpenVSX.outputs.vsixPath }}
+
+  push-cursorless-talon:
+    name: Push cursorless-talon subrepo
+    runs-on: ubuntu-latest
+    needs: publish-extension
+    environment: production
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.CURSORLESS_BOT_TOKEN }}
+      - name: Configure GPG Key
+        run: |
+          echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
+        env:
+          GPG_SIGNING_KEY: ${{ secrets.CURSORLESS_BOT_GPG_SIGNING_KEY }}
+      - name: git config
+        run: |
+          git config user.name cursorless-bot
+          git config user.email 98099035+cursorless-bot@users.noreply.github.com
+          git config user.signingkey A9387720AFC62221
+          git config commit.gpgsign true
+      - run: bash -x scripts/deploy-cursorless-talon.sh

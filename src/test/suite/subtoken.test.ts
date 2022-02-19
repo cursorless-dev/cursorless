@@ -4,7 +4,7 @@ import { SUBWORD_MATCHER } from "../../core/constants";
 import { subtokenFixture } from "./fixtures/subtoken.fixture";
 
 suite("subtoken regex matcher", () => {
-  subtokenFixture.forEach(({ input, expectedOutput }, index) => {
+  subtokenFixture.forEach(({ input, expectedOutput }) => {
     test(input, () => {
       assert.deepStrictEqual(input.match(SUBWORD_MATCHER), expectedOutput);
     });

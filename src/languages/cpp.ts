@@ -87,6 +87,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "*[declarator][name]",
     "*[declarator][declarator]",
     "*[declarator]",
+    "assignment_expression[left]",
     "*[name]",
   ],
   namedFunction: ["function_definition", "declaration.function_declarator"],

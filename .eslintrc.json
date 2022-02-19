@@ -11,6 +11,14 @@
     "rules": {
         "@typescript-eslint/naming-convention": "warn",
         "@typescript-eslint/semi": "warn",
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            {
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_",
+                "ignoreRestSiblings": true
+            }
+        ],
         "curly": "warn",
         "eqeqeq": [
             "warn",

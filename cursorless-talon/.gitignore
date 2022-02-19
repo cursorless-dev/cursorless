@@ -1,0 +1,3 @@
+*.flac
+data/
+.vscode/settings.json

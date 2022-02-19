@@ -8,10 +8,10 @@ import {
   ProcessedTargetsContext,
 } from "../../typings/Types";
 import { ThatMark } from "../ThatMark";
-import { TestCaseRecorder } from "../../testUtil/TestCaseRecorder";
 import { canonicalizeAndValidateCommand } from "../../util/canonicalizeAndValidateCommand";
 import { CommandArgument } from "./types";
 import { isString } from "../../util/type";
+import { ActionableError } from "../../errors";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -20,8 +20,7 @@ export default class CommandRunner {
   constructor(
     private graph: Graph,
     private thatMark: ThatMark,
-    private sourceMark: ThatMark,
-    private testCaseRecorder: TestCaseRecorder
+    private sourceMark: ThatMark
   ) {
     graph.extensionContext.subscriptions.push(this);
 
@@ -86,7 +85,7 @@ export default class CommandRunner {
 
       const selections = processTargets(processedTargetsContext, targets);
 
-      if (this.testCaseRecorder.active) {
+      if (this.graph.testCaseRecorder.isActive()) {
         const context = {
           targets,
           thatMark: this.thatMark,
@@ -94,7 +93,10 @@ export default class CommandRunner {
           hatTokenMap: readableHatMap,
           spokenForm,
         };
-        await this.testCaseRecorder.preCommandHook(commandArgument, context);
+        await this.graph.testCaseRecorder.preCommandHook(
+          commandArgument,
+          context
+        );
       }
 
       const {
@@ -106,15 +108,19 @@ export default class CommandRunner {
       this.thatMark.set(newThatMark);
       this.sourceMark.set(newSourceMark);
 
-      if (this.testCaseRecorder.active) {
-        await this.testCaseRecorder.postCommandHook(returnValue);
+      if (this.graph.testCaseRecorder.isActive()) {
+        await this.graph.testCaseRecorder.postCommandHook(returnValue);
       }
 
       return returnValue;
     } catch (e) {
-      this.testCaseRecorder.commandErrorHook();
+      this.graph.testCaseRecorder.commandErrorHook();
       const err = e as Error;
-      vscode.window.showErrorMessage(err.message);
+      if ((err as Error).name === "ActionableError") {
+        (err as ActionableError).showErrorMessage();
+      } else {
+        vscode.window.showErrorMessage(err.message);
+      }
       console.error(err.message);
       console.error(err.stack);
       throw err;

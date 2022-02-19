@@ -150,6 +150,10 @@ const textFragmentExtractors: Record<
   ),
   python: constructDefaultTextFragmentExtractor("python"),
   rust: constructDefaultTextFragmentExtractor("rust"),
+  scala: constructDefaultTextFragmentExtractor(
+    "scala",
+    constructHackedStringTextFragmentExtractor("scala")
+  ),
   typescript: constructDefaultTextFragmentExtractor(
     "typescript",
     typescriptStringTextFragmentExtractor

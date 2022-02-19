@@ -11,7 +11,6 @@ import {
 import {
   NodeMatcher,
   NodeMatcherAlternative,
-  NodeMatcherValue,
   ScopeType,
   SelectionWithEditor,
 } from "../typings/Types";
@@ -129,7 +128,12 @@ function typeMatcher(): NodeMatcher {
 }
 
 function valueMatcher() {
-  const pFinder = patternFinder("assignment_expression[right]", "*[value]");
+  const pFinder = patternFinder(
+    "assignment_expression[right]",
+    "augmented_assignment_expression[right]",
+    "*[value]",
+    "shorthand_property_identifier"
+  );
   return matcher(
     (node: SyntaxNode) =>
       node.type === "jsx_attribute" ? node.lastChild : pFinder(node),
@@ -145,7 +149,11 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   list: listTypes,
   string: ["string", "template_string"],
   collectionKey: trailingMatcher(
-    ["pair[key]", "jsx_attribute.property_identifier!"],
+    [
+      "pair[key]",
+      "jsx_attribute.property_identifier!",
+      "shorthand_property_identifier",
+    ],
     [":"]
   ),
   collectionItem: argumentMatcher(...mapTypes, ...listTypes),
@@ -159,6 +167,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "*[name]",
     "optional_parameter.identifier!",
     "required_parameter.identifier!",
+    "augmented_assignment_expression[left]",
   ],
   comment: "comment",
   regularExpression: "regex",
@@ -233,9 +242,9 @@ export const patternMatchers = createPatternMatchers(nodeMatchers);
 
 export function stringTextFragmentExtractor(
   node: SyntaxNode,
-  selection: SelectionWithEditor
+  _selection: SelectionWithEditor
 ) {
-  if (node.type === "string_fragment") {
+  if (node.type === "string_fragment" || node.type === "regex_pattern") {
     return getNodeRange(node);
   }
 

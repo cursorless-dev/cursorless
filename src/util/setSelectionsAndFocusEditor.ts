@@ -1,4 +1,6 @@
-import { commands, Selection, TextEditor, ViewColumn } from "vscode";
+import { range } from "lodash";
+import { commands, Selection, TextEditor, ViewColumn, window } from "vscode";
+import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",
@@ -33,5 +35,51 @@ export async function setSelectionsAndFocusEditor(
 export async function focusEditor(editor: TextEditor) {
   if (editor.viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
+  } else {
+    // If the view column is null we see if it's a notebook and try to see if we
+    // can just move around in the notebook to focus the correct editor
+    const activeTextEditor = window.activeTextEditor;
+
+    if (activeTextEditor == null) {
+      return;
+    }
+
+    const editorNotebook = getNotebookFromCellDocument(editor.document);
+    const activeEditorNotebook = getNotebookFromCellDocument(
+      activeTextEditor.document
+    );
+
+    if (
+      editorNotebook == null ||
+      activeEditorNotebook == null ||
+      editorNotebook !== activeEditorNotebook
+    ) {
+      return;
+    }
+
+    const editorIndex = getCellIndex(editorNotebook, editor.document);
+    const activeEditorIndex = getCellIndex(
+      editorNotebook,
+      activeTextEditor.document
+    );
+
+    if (editorIndex === -1 || activeEditorIndex === -1) {
+      throw new Error(
+        "Couldn't find editor corresponding to given cell in the expected notebook"
+      );
+    }
+
+    const cellOffset = editorIndex - activeEditorIndex;
+
+    const command =
+      cellOffset < 0
+        ? "notebook.focusPreviousEditor"
+        : "notebook.focusNextEditor";
+
+    // This is a hack. We just repeatedly issued the command to move upwards or
+    // downwards a cell to get to the right cell
+    for (const _ of range(Math.abs(cellOffset))) {
+      await commands.executeCommand(command);
+    }
   }
 }

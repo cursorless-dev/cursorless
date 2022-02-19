@@ -5,7 +5,12 @@ export type CommandArgumentComplete = Required<
 > &
   Pick<CommandArgumentLatest, "spokenForm">;
 
-export type CommandArgumentLatest = CommandArgumentV1;
+export const LATEST_VERSION = 1 as const;
+
+export type CommandArgumentLatest = CommandArgument & {
+  version: typeof LATEST_VERSION;
+};
+
 export type CommandArgument = CommandArgumentV0 | CommandArgumentV1;
 
 interface CommandArgumentV1 extends CommandArgumentV0V1 {

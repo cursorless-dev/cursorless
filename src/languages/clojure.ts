@@ -12,7 +12,7 @@ import {
 } from "../typings/Types";
 import { SyntaxNode } from "web-tree-sitter";
 import { delimitedSelector } from "../util/nodeSelectors";
-import { flow, identity } from "lodash";
+import { identity } from "lodash";
 import { getChildNodesForFieldName } from "../util/treeSitterUtils";
 import { patternFinder } from "../util/nodeFinders";
 

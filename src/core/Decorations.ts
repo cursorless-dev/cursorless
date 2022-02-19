@@ -193,7 +193,7 @@ export default class Decorations {
 
     // So that unit tests don't fail locally if you have some colors disabled
     const activeHatColors = isTesting()
-      ? HAT_COLORS
+      ? HAT_COLORS.filter((color) => !color.startsWith("user"))
       : HAT_COLORS.filter((color) => colorEnablement[color]);
     const activeNonDefaultHatShapes = HAT_NON_DEFAULT_SHAPES.filter(
       (shape) => shapeEnablement[shape]

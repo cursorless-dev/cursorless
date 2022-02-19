@@ -8,24 +8,35 @@ import {
   SerializedMarks,
 } from "./toPlainObject";
 import { ThatMark } from "../core/ThatMark";
+import { hrtimeBigintToSeconds } from "../util/timeUtils";
+
+export type ExtraSnapshotField = keyof TestCaseSnapshot;
+export type ExcludableSnapshotField = keyof TestCaseSnapshot;
 
 export type TestCaseSnapshot = {
   documentContents: string;
   selections: SelectionPlainObject[];
   clipboard?: string;
   // TODO Visible ranges are not asserted during testing, see:
-  // https://github.com/pokey/cursorless-vscode/issues/160
+  // https://github.com/cursorless-dev/cursorless-vscode/issues/160
   visibleRanges?: RangePlainObject[];
   marks?: SerializedMarks;
   thatMark?: SelectionPlainObject[];
   sourceMark?: SelectionPlainObject[];
+  timeOffsetSeconds?: number;
 };
+
+interface ExtraContext {
+  startTimestamp?: bigint;
+}
 
 export async function takeSnapshot(
   thatMark: ThatMark,
   sourceMark: ThatMark,
-  excludeFields: string[] = [],
-  marks?: SerializedMarks
+  excludeFields: ExcludableSnapshotField[] = [],
+  extraFields: ExtraSnapshotField[] = [],
+  marks?: SerializedMarks,
+  extraContext?: ExtraContext
 ) {
   const activeEditor = vscode.window.activeTextEditor!;
 
@@ -56,6 +67,19 @@ export async function takeSnapshot(
     snapshot.sourceMark = sourceMark
       .get()
       .map((mark) => selectionToPlainObject(mark.selection));
+  }
+
+  if (extraFields.includes("timeOffsetSeconds")) {
+    const startTimestamp = extraContext?.startTimestamp;
+
+    if (startTimestamp == null) {
+      throw new Error(
+        "No start timestamp provided but time offset was requested"
+      );
+    }
+
+    const offsetNanoseconds = process.hrtime.bigint() - startTimestamp;
+    snapshot.timeOffsetSeconds = hrtimeBigintToSeconds(offsetNanoseconds);
   }
 
   return snapshot;

@@ -86,20 +86,6 @@ export function argumentMatcher(...parentTypes: string[]): NodeMatcher {
 export function conditionMatcher(...patterns: string[]): NodeMatcher {
   return matcher(patternFinder(...patterns), conditionSelectionExtractor);
 }
-/**
- * Given `patterns`, creates a node matcher that selects the named child
- * at the specified index of the pattern matched node.
- *
- * @param patterns Patterns for pattern finder
- * @param childIdx Index of child
- * @returns A node matcher
- */
-export function childAtIndexMatcher(patterns: string[], childIdx: number): NodeMatcher {
-   const finder = patternFinder(...patterns);
-  return matcher(
-    (node: SyntaxNode) => finder(node)?.namedChild(childIdx) ?? null
-  );
-}
 
 /**
  * Given `patterns`, creates a node matcher that will add leading delimiter to
@@ -154,8 +140,8 @@ export function cascadingMatcher(...matchers: NodeMatcher[]): NodeMatcher {
 }
 
 export const notSupported: NodeMatcher = (
-  selection: SelectionWithEditor,
-  node: SyntaxNode
+  _selection: SelectionWithEditor,
+  _node: SyntaxNode
 ) => {
   throw new Error("Node type not supported");
 };

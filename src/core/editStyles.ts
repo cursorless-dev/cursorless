@@ -3,6 +3,7 @@ import {
   ThemeColor,
   DecorationRangeBehavior,
   window,
+  DecorationRenderOptions,
 } from "vscode";
 import { Graph } from "../typings/Types";
 
@@ -11,7 +12,7 @@ export class EditStyle {
   line: TextEditorDecorationType;
 
   constructor(colorName: EditStyleThemeColorName) {
-    const options = {
+    const options: DecorationRenderOptions = {
       backgroundColor: new ThemeColor(`cursorless.${colorName}`),
       rangeBehavior: DecorationRangeBehavior.ClosedClosed,
     };
@@ -34,9 +35,11 @@ const EDIT_STYLE_NAMES = [
   "pendingModification0",
   "pendingModification1",
   "justAdded",
+  "highlight0",
+  "highlight1",
 ] as const;
 
-type EditStyleName = typeof EDIT_STYLE_NAMES[number];
+export type EditStyleName = typeof EDIT_STYLE_NAMES[number];
 type EditStyleThemeColorName = `${EditStyleName}Background`;
 
 export class EditStyles implements Record<EditStyleName, EditStyle> {
@@ -45,6 +48,8 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
   pendingModification0!: EditStyle;
   pendingModification1!: EditStyle;
   justAdded!: EditStyle;
+  highlight0!: EditStyle;
+  highlight1!: EditStyle;
 
   constructor(graph: Graph) {
     EDIT_STYLE_NAMES.forEach((editStyleName) => {

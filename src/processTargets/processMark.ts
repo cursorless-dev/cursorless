@@ -1,4 +1,3 @@
-import { result } from "lodash";
 import { Range, Selection } from "vscode";
 import {
   DecoratedSymbol,
@@ -30,6 +29,8 @@ export default function (
       return processDecoratedSymbol(context, mark);
     case "lineNumber":
       return processLineNumber(context, mark);
+    case "nothing":
+      return [];
   }
 }
 
@@ -134,10 +135,7 @@ function processDecoratedSymbol(
   context: ProcessedTargetsContext,
   mark: DecoratedSymbol
 ) {
-  const token = context.hatTokenMap.getToken(
-    mark.symbolColor,
-    mark.character
-  );
+  const token = context.hatTokenMap.getToken(mark.symbolColor, mark.character);
   if (token == null) {
     throw new Error(
       `Couldn't find mark ${mark.symbolColor} '${mark.character}'`

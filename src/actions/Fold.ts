@@ -29,16 +29,29 @@ class FoldAction implements Action {
       await focusEditor(editor);
     }
 
+    const singleLineTargets = targets.filter(
+      (target) => target.selection.selection.isSingleLine
+    );
+    const multiLineTargets = targets.filter(
+      (target) => !target.selection.selection.isSingleLine
+    );
+    // Don't mix multi and single line targets.
+    // This is probably the result of an "every" command
+    // and folding the single line targets will fold the parent as well
+    const selectedTargets = multiLineTargets.length
+      ? multiLineTargets
+      : singleLineTargets;
+
     await commands.executeCommand(this.command, {
       levels: 1,
       direction: "down",
-      selectionLines: targets
-        .filter((target) => !target.selection.selection.isSingleLine)
-        .map((target) => target.selection.selection.start.line),
+      selectionLines: selectedTargets.map(
+        (target) => target.selection.selection.start.line
+      ),
     });
 
     // If necessary focus back original editor
-    if (originalEditor != null && originalEditor !== window.activeTextEditor) {
+    if (originalEditor != null && originalEditor !== editor) {
       await focusEditor(originalEditor);
     }
 
@@ -49,13 +62,13 @@ class FoldAction implements Action {
 }
 
 export class Fold extends FoldAction {
-  constructor(graph: Graph) {
+  constructor(_graph: Graph) {
     super("editor.fold");
   }
 }
 
 export class Unfold extends FoldAction {
-  constructor(graph: Graph) {
+  constructor(_graph: Graph) {
     super("editor.unfold");
   }
 }

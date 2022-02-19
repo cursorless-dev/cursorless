@@ -1,13 +1,16 @@
 import * as vscode from "vscode";
-import HatTokenMap from "../core/HatTokenMap";
 import { ThatMark } from "../core/ThatMark";
-import { ActionType, PartialTarget, Target, Token } from "../typings/Types";
+import { Target, Token } from "../typings/Types";
 import {
   extractTargetedMarks,
   extractTargetKeys,
 } from "./extractTargetedMarks";
 import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
-import { takeSnapshot, TestCaseSnapshot } from "./takeSnapshot";
+import {
+  ExtraSnapshotField,
+  takeSnapshot,
+  TestCaseSnapshot,
+} from "./takeSnapshot";
 import serialize from "./serialize";
 import { pick } from "lodash";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
@@ -53,7 +56,9 @@ export class TestCase {
   constructor(
     command: TestCaseCommand,
     private context: TestCaseContext,
-    private isHatTokenMapTest: boolean = false
+    private isHatTokenMapTest: boolean = false,
+    private startTimestamp: bigint,
+    private extraSnapshotFields?: ExtraSnapshotField[]
   ) {
     const activeEditor = vscode.window.activeTextEditor!;
     this.command = cleanUpTestCaseCommand(command);
@@ -148,7 +153,9 @@ export class TestCase {
       this.context.thatMark,
       this.context.sourceMark,
       excludeFields,
-      this.getMarks()
+      this.extraSnapshotFields,
+      this.getMarks(),
+      { startTimestamp: this.startTimestamp }
     );
   }
 
@@ -159,7 +166,9 @@ export class TestCase {
       this.context.thatMark,
       this.context.sourceMark,
       excludeFields,
-      this.isHatTokenMapTest ? this.getMarks() : undefined
+      this.extraSnapshotFields,
+      this.isHatTokenMapTest ? this.getMarks() : undefined,
+      { startTimestamp: this.startTimestamp }
     );
   }
 
