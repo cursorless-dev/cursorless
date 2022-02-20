@@ -17,6 +17,7 @@ import { patternMatchers as html } from "./html";
 import python from "./python";
 import scala from "./scala";
 import go from "./go";
+import latex from "./latex";
 import { UnsupportedLanguageError } from "../errors";
 import { SupportedLanguageId } from "./constants";
 
@@ -59,6 +60,7 @@ const languageMatchers: Record<
   javascriptreact: typescript,
   json,
   jsonc: json,
+  latex,
   python,
   scala,
   typescript,

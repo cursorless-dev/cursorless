@@ -148,6 +148,7 @@ const textFragmentExtractors: Record<
     "json",
     jsonStringTextFragmentExtractor
   ),
+  latex: constructDefaultTextFragmentExtractor("latex"),
   python: constructDefaultTextFragmentExtractor("python"),
   scala: constructDefaultTextFragmentExtractor(
     "scala",
