@@ -224,8 +224,8 @@ You can also refer to individual characters within a token:
 
 The word `"line"` can be used to expand a target to refer to entire lines rather than individual tokens:
 
-eg:  
-`take line [blue] air`  
+eg:
+`take line [blue] air`
 Selects the line including the token containing letter 'a' with a blue hat.
 
 ##### `"file"`
@@ -296,8 +296,8 @@ Note that if the first target is omitted, the start of the range will be the cur
 - `"take past start of line"`
 - `"take [blue] air past end of line"`
 
-eg:  
-`take blue air past green bat`  
+eg:
+`take blue air past green bat`
 Selects the range from the token containing letter 'a' with a blue hat past the token containing letter 'b' with a green hat.
 
 #### List targets
@@ -309,8 +309,8 @@ In addition to range targets, cursorless supports list targets, which allow you 
 - `"take funk [blue] air and token [green] bat"` [blue] air and [green] bat
 - `"take air and bat past cap"`
 
-eg:  
-`take blue air and green bat`  
+eg:
+`take blue air and green bat`
 Selects both the token containing letter 'a' with a blue hat AND the token containing 'b' with a green hat.
 
 ## Actions
@@ -327,8 +327,8 @@ Note that when combined with list targets, these commands will result in multipl
 - `"pre"`: Places the cursor before the given target
 - `"post"`: Places the cursor after the given target
 
-eg:  
-`pre blue air`  
+eg:
+`pre blue air`
 Moves the cursor to before the token containing letter 'a' with a blue hat.
 
 ### Delete
@@ -337,8 +337,8 @@ This command can be used to delete a target without moving the cursor
 
 - `"chuck"`
 
-eg:  
-`chuck blue air`  
+eg:
+`chuck blue air`
 Deletes the token containing letter 'a' with a blue hat.
 
 ### Changing a target
@@ -352,8 +352,8 @@ This command will delete a target and leave the cursor where the target used to 
 - `"carve"`: cut
 - `"copy"`: copy
 
-eg:  
-`copy blue air`  
+eg:
+`copy blue air`
 Copies the token containing letter 'a' with a blue hat.
 
 ### Swap
@@ -363,7 +363,7 @@ Swaps two targets. If the first target is omitted, it will refer to the current 
 - `"swap <TARGET 1> with <TARGET 2>"`
 - `"swap with <TARGET>"`
 
-eg:  
+eg:
 `swap blue air with green bat`
 
 Swaps the given tokens.
@@ -373,8 +373,8 @@ Swaps the given tokens.
 - `"drink"`: Inserts a new line above the current line, and moves the cursor to the newly created line
 - `"pour"`: Inserts a new line below the current line, and moves the cursor to the newly created line
 
-eg:  
-`pour blue air`  
+eg:
+`pour blue air`
 Insert empty line below the token containing letter 'a' with a blue hat.
 
 ### Rename
@@ -383,8 +383,8 @@ Executes vscode rename action on the given target
 
 - `"rename"`
 
-eg:  
-`rename blue air`  
+eg:
+`rename blue air`
 Rename the token containing letter 'a' with a blue hat.
 
 ### Scroll
@@ -404,9 +404,20 @@ The `"bring"` command can be used to replace one target with another, or to use 
 - `"bring <TARGET>"`: Inserts the given target at the cursor position
 - `"bring <TARGET 1> to <TARGET 2>"`
 
-eg:  
-`bring blue air to green bat`  
+eg:
+`bring blue air to green bat`
 Replaces the token containing letter 'b' with a green hat using the token containing letter 'a' with a blue hat.
+
+### Move/Replace
+
+The `"move"` command can be used to move a target.
+
+- `"move <TARGET>"`: Moves the given target to the cursor position
+- `"move <TARGET 1> to <TARGET 2>"`: Replaces `TARGET 2` with `TARGET 1` and deletes `TARGET 1`
+
+eg:
+`move blue air to green bat`
+Replaces the token containing letter 'b' with a green hat using the token containing letter 'a' with a blue hat, and the delete the latter token.
 
 ### Wrap
 
@@ -415,8 +426,8 @@ The wrap commands can be used to wrap a given target with a pair of symbols
 - `"round wrap <TARGET>"`: wraps the target with parentheses
 - `"box wrap <TARGET>"`: wraps the target with square brackets
 
-eg:  
-`box wrap blue air`  
+eg:
+`box wrap blue air`
 Wraps the token containing letter 'a' with a blue hat in square brackets.
 
 See [paired delimiters](#paired-delimiters) for a list of possible wrappers.
@@ -432,8 +443,8 @@ See [experimental documentation](experimental/wrapper-snippets.md).
 - `"hover"`
 - `"quick fix"`
 
-eg:  
-`define blue air`  
+eg:
+`define blue air`
 Shows definition for the token containing letter 'a' with a blue hat.
 
 ### Fold/unfold
@@ -441,8 +452,8 @@ Shows definition for the token containing letter 'a' with a blue hat.
 - `"fold"`
 - `"unfold"`
 
-eg:  
-`fold funk blue air`  
+eg:
+`fold funk blue air`
 Fold the function with the token containing letter 'a' with a blue hat.
 
 ### Extract
@@ -452,7 +463,7 @@ Extracts a target as a variable using the VSCode refactor action
 - `"extract"`
 - `"extract {TARGET} as hello world"`
 
-eg:  
+eg:
 `extract call air`
 
 Extracts the function call containing the decorated 'a' into its own variable.
