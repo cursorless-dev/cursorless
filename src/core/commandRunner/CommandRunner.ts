@@ -42,7 +42,7 @@ export default class CommandRunner {
    * * Infers targets based on previous targets and action preferences, see {@link inferFullTargets}.
    * * Captures special targets (current selection, source, that) in {@link ProcessedTargetsContext}.
    * * Maps abstract {@link Target}, example `arg air`
-   *   to concrete {@link TypedSelection[]} example `line 3, charachter 5 to 10`, 
+   *   to concrete {@link TypedSelection}[] example `line 3, charachter 5 to 10`, 
    *   see {@link processTargets}.
    * * Runs action given the selections. Sample actions `take` {@link SetSelection}
    *   and `chuck` {@link Delete}. See {@link Actions} for all actions. 
