@@ -37,8 +37,9 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
 const config = {
   title: 'Cursorless',
   tagline: 'Never use the cursor again',
-  url: 'https://github.com/',
-  baseUrl: '/cursorless-dev/cursorless-vscode/',
+  // GitHub pages url
+  url: 'https://cursorless-dev.github.io/',
+  baseUrl: '/cursorless-vscode/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
