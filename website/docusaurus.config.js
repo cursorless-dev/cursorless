@@ -5,7 +5,7 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const path = require('path');
 
-function remarkPluginFixLinks() {
+function remarkPluginFixLinksToRepositoryArtifacts() {
   /** @type {import('unified').Transformer} */
   const transformer = async (ast, file) => {
     // Package does not support require es modules
@@ -19,10 +19,9 @@ function remarkPluginFixLinks() {
       if (link.indexOf('http') !== -1) {
         return;
       }
-      let srcDirPath = path.resolve(__dirname, '..');
       let absolutePath = path.resolve(__dirname, '..', file.dirname, link);
-      let pathRelativeToSrc = path.relative(srcDirPath, absolutePath);
-      if (pathRelativeToSrc.startsWith('src')
+      let pathRelativeToSrc = path.relative(__dirname, absolutePath);
+      if (pathRelativeToSrc.indexOf('src') !== -1
         || pathRelativeToSrc.startsWith('cursorless-snippets')
         || pathRelativeToSrc.startsWith('.github')) {
         const repositoryPath = 'https://github.com/cursorless-dev/cursorless-vscode/tree/main/';
@@ -48,38 +47,28 @@ const config = {
 
   staticDirectories: [
     'static',
-    path.join(__dirname, '/images'),
   ],
 
   plugins: [
-    // [
-    //   'docusaurus-plugin-typedoc',
+    [
+      'docusaurus-plugin-typedoc',
 
-    //   // Plugin / TypeDoc options
-    //   {
-    //     entryPoints: ['../src/'],
-    //     entryPointStrategy: 'expand',
-    //     readme: 'none',
-    //     tsconfig: '../tsconfig.json',
-    //     out: 'api',
-    //     plugin: [
-    //       'typedoc-plugin-rename-defaults', 
-    //       'typedoc-plugin-mdn-links',
-    //       // typedoc generates using <internal> tag that is not closed. 
-    //       // MDX in docusaurus does not like that and reports unclosed jsx tag.
-    //       // 'typedoc-plugin-missing-exports'
-    //     ]
-    //   }
-    // ],
-    // [
-    //   '@docusaurus/plugin-content-docs',
-    //   {
-    //     id: 'api',
-    //     path: 'api',
-    //     routeBasePath: 'api',
-    //     sidebarPath: require.resolve('./sidebars.js'),
-    //   }
-    // ]
+      // Plugin / TypeDoc options
+      {
+        entryPoints: ['../src/'],
+        entryPointStrategy: 'expand',
+        readme: 'none',
+        tsconfig: '../tsconfig.json',
+        out: 'contributing/api',
+        plugin: [
+          'typedoc-plugin-rename-defaults', 
+          'typedoc-plugin-mdn-links',
+          // typedoc generates using <internal> tag that is not closed. 
+          // MDX in docusaurus does not like that and reports unclosed jsx tag.
+          // 'typedoc-plugin-missing-exports'
+        ]
+      }
+    ],
   ],
 
   presets: [
@@ -88,10 +77,10 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          path: '../docs',
+          path: 'docs',
           routeBasePath: '/',
-          sidebarPath: require.resolve('./contributorSidebar.js'),
-          beforeDefaultRemarkPlugins: [remarkPluginFixLinks],
+          sidebarPath: require.resolve('./sidebar.js'),
+          beforeDefaultRemarkPlugins: [remarkPluginFixLinksToRepositoryArtifacts],
         },
       })
     ],

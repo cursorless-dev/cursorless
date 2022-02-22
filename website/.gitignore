@@ -7,7 +7,10 @@
 # Generated files
 .docusaurus
 .cache-loader
-docs/api/
+
+# Copied from root of the repository
+docs/
+images/
 
 # Misc
 .DS_Store
