@@ -51,35 +51,34 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
 const config = {
   title: 'Cursorless',
   tagline: 'Never use the cursor again',
-  // GitHub pages url
-  url: 'https://cursorless-dev.github.io/',
-  baseUrl: '/cursorless-vscode/',
+  url: 'https://cursorless.org/',
+  baseUrl: '/docs/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
-  organizationName: 'pokey',
-  projectName: 'cursorless',
 
-  staticDirectories: [
-    'static',
-  ],
+  // The links that show up in warnings are actually fixed
+  // by our remark plugin. It probably happens after
+  // broken link detection. 
+  onBrokenMarkdownLinks: 'warn',
 
   plugins: [
     [
       'docusaurus-plugin-typedoc',
 
-      // Plugin / TypeDoc options
+      // TypeDoc options
       {
         entryPoints: ['../src/'],
         entryPointStrategy: 'expand',
         readme: 'none',
         tsconfig: '../tsconfig.json',
+        // Out path is relative to website/docs
         out: 'contributing/api',
         plugin: [
           'typedoc-plugin-rename-defaults', 
           'typedoc-plugin-mdn-links',
-          // typedoc generates using <internal> tag that is not closed. 
-          // MDX in docusaurus does not like that and reports unclosed jsx tag.
+
+          // When using missing-exports plugin "<internal>" text is emitted.
+          // Docusaurus relies on MDX which treats <internal> as a unclosed tag. 
+          // MDX throws an error and build fails.
           // 'typedoc-plugin-missing-exports'
         ]
       }
@@ -93,6 +92,8 @@ const config = {
       ({
         docs: {
           path: 'docs',
+          // Followed https://ricard.dev/how-to-set-docs-as-homepage-for-docusaurus/
+          // to serve a markdown document on homepage
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebar.js'),
           beforeDefaultRemarkPlugins: [remarkPluginFixLinksToRepositoryArtifacts],
@@ -115,7 +116,7 @@ const config = {
             position: 'left',
             type: 'doc',
             docId: 'user/README',
-            to: '/',
+            to: 'user/',
             sidebarId: 'user',
             label: 'For users',
           },

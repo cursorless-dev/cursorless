@@ -1,0 +1,18 @@
+name: Test docs
+
+on:
+  pull_request:
+    branches: main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+      - run: ./docs-build.sh
+      
