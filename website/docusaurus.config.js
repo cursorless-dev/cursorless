@@ -5,27 +5,43 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const path = require('path');
 
+/**
+ * Markdown documentation in docs/ references repository directories
+ * and files. Relative paths are used so manually written documentation 
+ * can be read on GitHub entirely. 
+ * For our own documentation website we want to transform these
+ * relative links to matching GitHub link. 
+ * This will ensure consistent experience no matter where you
+ * start browsing the documentation.
+ * 
+ * Keep in mind docs/ is copied to website/docs/.
+ * Needed to work around an issue with TypeDoc x Docusaurus plugin.
+ * 
+ * The algorithm roughly is:
+ * - Visit all relative links within markdown documents.
+ * - Try resolving it relative to repo root. Some magic involved here. 
+ * - If it matches one of the hardcoded prefixes make it a GitHub link.
+ */
 function remarkPluginFixLinksToRepositoryArtifacts() {
   /** @type {import('unified').Transformer} */
   const transformer = async (ast, file) => {
-    // Package does not support require es modules
+    // Package does not support require es modules.
+    // Easiest workaround I found.
     let { visit } = await import('unist-util-visit');
-    visit(ast, (node) => {
-      if (node.type !== 'link') {
-        return;
-      }
+    visit(ast, 'link', (node) => {
       /** @type string */
       let link = node.url;
-      if (link.indexOf('http') !== -1) {
+      if (link.startsWith('http://') || link.startsWith('https://')) {
         return;
       }
-      let absolutePath = path.resolve(__dirname, '..', file.dirname, link);
-      let pathRelativeToSrc = path.relative(__dirname, absolutePath);
-      if (pathRelativeToSrc.indexOf('src') !== -1
-        || pathRelativeToSrc.startsWith('cursorless-snippets')
-        || pathRelativeToSrc.startsWith('.github')) {
-        const repositoryPath = 'https://github.com/cursorless-dev/cursorless-vscode/tree/main/';
-        const linkToRepositoryArtifact = repositoryPath.concat(pathRelativeToSrc);
+      let repoRoot = path.resolve(__dirname, '..');
+      let absolute = path.resolve(repoRoot, file.dirname, link);
+      let relative = path.relative(__dirname, absolute);
+      if (relative.startsWith('src')
+        || relative.startsWith('cursorless-snippets')
+        || relative.startsWith('.github')) {
+        const repoLink = 'https://github.com/cursorless-dev/cursorless-vscode/tree/main/';
+        const linkToRepositoryArtifact = repoLink.concat(relative);
         node.url = linkToRepositoryArtifact;
       }
     });

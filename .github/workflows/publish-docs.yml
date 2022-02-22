@@ -3,7 +3,7 @@ name: Publish docs
 on:
   push:
     branches:
-      - '*'
+      - 'main'
 
 jobs:
   publish:
@@ -13,7 +13,6 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
-          # cache: yarn
       - run: ./docs-build.sh
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
