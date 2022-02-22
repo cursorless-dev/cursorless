@@ -22,7 +22,7 @@ Clone repo into `~/.talon/user`
 
 ```insert code:
 cd ~/.talon/user
-git clone https://github.com/cursorless-dev/cursorless-talon cursorless-talon
+git clone https://github.com/cursorless-dev/cursorless-talon.git cursorless-talon
 ```
 
 Alternatively, access the directory by right clicking the Talon icon in taskbar, clicking Scripting>Open ~/talon, and navigating to user.
@@ -45,7 +45,7 @@ Clone repo into `%AppData%\Talon\user`
 
 ```insert code:
 cd %AppData%\Talon\user
-git clone https://github.com/cursorless-dev/cursorless-talon cursorless-talon
+git clone https://github.com/cursorless-dev/cursorless-talon.git cursorless-talon
 ```
 
 Alternatively, access the directory by right clicking the Talon icon in taskbar, clicking Scripting>Open ~/talon, and navigating to user.
