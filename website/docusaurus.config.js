@@ -37,9 +37,7 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
       let repoRoot = path.resolve(__dirname, '..');
       let absolute = path.resolve(repoRoot, file.dirname, link);
       let relative = path.relative(__dirname, absolute);
-      if (relative.startsWith('src')
-        || relative.startsWith('cursorless-snippets')
-        || relative.startsWith('.github')) {
+      if (!relative.startsWith('docs')) {
         const repoLink = 'https://github.com/cursorless-dev/cursorless-vscode/tree/main/';
         const linkToRepositoryArtifact = repoLink.concat(relative);
         node.url = linkToRepositoryArtifact;
