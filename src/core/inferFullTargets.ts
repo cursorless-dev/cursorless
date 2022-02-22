@@ -9,7 +9,13 @@ import {
   PartialListTarget,
 } from "../typings/Types";
 
-export default function (
+/**
+ * For each partial target resolves how it will be expanded
+ * Based on explicit modifier, modifiers from previous targets
+ * and action preferences.
+ * @returns Final targets to be acted on
+ */
+export default function inferFullTargets(
   targets: PartialTarget[],
   actionPreferences: ActionPreferences[]
 ): Target[] {
@@ -24,7 +30,7 @@ export default function (
 
 function inferTarget(
   target: PartialTarget,
-  previousTargets: PartialTarget[],
+  previousTargets: PartialTarget[],  
   actionPreferences: ActionPreferences
 ): Target {
   switch (target.type) {

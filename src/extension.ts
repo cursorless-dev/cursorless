@@ -7,6 +7,12 @@ import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import isTesting from "./testUtil/isTesting";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 
+/**
+ * Extension entrypoint. 
+ * Creates a dependency container {@link Graph} with main utilities.
+ * Creates test recorder {@link TestCaseRecorder}. 
+ * Creates entrypoint for running commands {@link CommandRunner}.
+ */
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();

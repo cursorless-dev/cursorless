@@ -35,6 +35,20 @@ export default class CommandRunner {
     );
   }
 
+  /**
+   * Entry point for each command.
+   * 
+   * * Makes action name and targets canonical, see {@link canonicalizeAndValidateCommand}. 
+   * * Infers targets based on previous targets and action preferences, see {@link inferFullTargets}.
+   * * Captures special targets (current selection, source, that) in {@link ProcessedTargetsContext}.
+   * * Maps abstract {@link Target}, example `arg air`
+   *   to concrete {@link TypedSelection[]} example `line 3, charachter 5 to 10`, 
+   *   see {@link processTargets}.
+   * * Runs action given the selections. Sample actions `take` {@link SetSelection}
+   *   and `chuck` {@link Delete}. See {@link Actions} for all actions. 
+   * * Updates source and that marks if returned from running the action (it often will change them)
+   *   and returns a return value if any.
+   */
   async runCommand(commandArgument: CommandArgument) {
     try {
       if (this.graph.debug.active) {

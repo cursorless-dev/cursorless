@@ -23,6 +23,12 @@ export type SelectionWithEditorWithContext = {
   context: SelectionContext;
 };
 
+/**
+ * @param context Context created in {@link CommandRunner#run} 
+ * @param target Target with modifier
+ * @param selection Selection to apply the modifier to
+ * @returns Modified selection
+ */
 export default function (
   context: ProcessedTargetsContext,
   target: PrimitiveTarget,
