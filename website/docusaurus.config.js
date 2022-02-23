@@ -70,16 +70,17 @@ const config = {
         entryPointStrategy: 'expand',
         readme: 'none',
         tsconfig: '../tsconfig.json',
+        
         // Out path is relative to website/docs
         out: 'contributing/api',
+
+        // typedoc-plugin-missing-exports option
+        internalNamespace: 'internal',
+        
         plugin: [
           'typedoc-plugin-rename-defaults', 
           'typedoc-plugin-mdn-links',
-
-          // When using missing-exports plugin "<internal>" text is emitted.
-          // Docusaurus relies on MDX which treats <internal> as a unclosed tag. 
-          // MDX throws an error and build fails.
-          // 'typedoc-plugin-missing-exports'
+          'typedoc-plugin-missing-exports'
         ]
       }
     ],
