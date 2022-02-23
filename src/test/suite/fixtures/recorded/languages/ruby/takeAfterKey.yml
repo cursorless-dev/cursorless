@@ -1,0 +1,24 @@
+languageId: ruby
+command:
+  version: 1
+  spokenForm: take after key
+  action: setSelection
+  targets:
+    - type: primitive
+      position: after
+      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
+initialState:
+  documentContents: "h = { one: 1, two: 2 }"
+  selections:
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
+  marks: {}
+finalState:
+  documentContents: "h = { one: 1, two: 2 }"
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  thatMark:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: after, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}, isImplicit: false}]

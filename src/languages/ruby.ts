@@ -86,6 +86,9 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
 export default createPatternMatchers(nodeMatchers);
 
 // TODO: Look into pairs within strings, eg. `take pair` "(hello)"
-// TODO: currently hashes with "new syntax" eg {1: 2} don't function correctly, I think this is because
-// the trailing matcher. 
 // TODO %w(word1 word2) leaves trailing spaces when deleted/changed
+// block comments are edited in an odd way, if there is an =end within the string e.g.
+
+// =begin
+// words comment =end
+// =end
