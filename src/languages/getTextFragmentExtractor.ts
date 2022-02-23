@@ -149,6 +149,7 @@ const textFragmentExtractors: Record<
     jsonStringTextFragmentExtractor
   ),
   python: constructDefaultTextFragmentExtractor("python"),
+  ruby: constructDefaultStringTextFragmentExtractor("ruby"),
   scala: constructDefaultTextFragmentExtractor(
     "scala",
     constructHackedStringTextFragmentExtractor("scala")
