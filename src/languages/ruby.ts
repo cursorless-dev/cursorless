@@ -64,12 +64,11 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     namedFunction: "method",
     functionName: "method[name]",
     anonymousFunction: "lambda",
+    regularExpression: "regex",
     condition: conditionMatcher("*[condition]"), 
     argumentOrParameter: argumentMatcher("lambda_parameters", "method_parameters", "block_parameters"),
     class: "class",
     className: "class[name]",
-    // TODO: currently hashes with "new syntax" eg {1: 2} don't function correctly
-    // TODO %w(word1 word2) leaves trailing spaces when deleted/changed
     collectionKey: trailingMatcher(
     [
       "pair[key]",
@@ -86,4 +85,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
 };
 export default createPatternMatchers(nodeMatchers);
 
-// TODO: Look into round
+// TODO: Look into pairs within strings, eg. `take pair` "(hello)"
+// TODO: currently hashes with "new syntax" eg {1: 2} don't function correctly, I think this is because
+// the trailing matcher. 
+// TODO %w(word1 word2) leaves trailing spaces when deleted/changed
