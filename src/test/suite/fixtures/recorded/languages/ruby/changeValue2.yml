@@ -1,0 +1,23 @@
+languageId: ruby
+command:
+  version: 1
+  spokenForm: change value
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+initialState:
+  documentContents: "h = {\"1\": \"one\", \"2\":   \"two\"}"
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+  marks: {}
+finalState:
+  documentContents: "h = {\"1\": , \"2\":   \"two\"}"
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  thatMark:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]
