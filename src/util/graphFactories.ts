@@ -1,4 +1,4 @@
-import Actions from "../actions";
+import { Actions } from "../actions";
 import { EditStyles } from "../core/editStyles";
 import { Graph } from "../typings/Types";
 import { FactoryMap } from "./makeGraph";

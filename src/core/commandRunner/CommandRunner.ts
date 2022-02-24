@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import inferFullTargets from "../inferFullTargets";
+import { inferFullTargets } from "../inferFullTargets";
 import processTargets from "../../processTargets";
 import {
   ActionType,
@@ -14,7 +14,7 @@ import { isString } from "../../util/type";
 import { ActionableError } from "../../errors";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
-export default class CommandRunner {
+export class CommandRunner {
   private disposables: vscode.Disposable[] = [];
 
   constructor(

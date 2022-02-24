@@ -34,7 +34,7 @@ import ExecuteCommand from "./ExecuteCommand";
 import FollowLink from "./FollowLink";
 import Highlight from "./Highlight";
 
-class Actions implements ActionRecord {
+export class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
 
   callAsFunction = new Call(this.graph);
@@ -80,5 +80,3 @@ class Actions implements ActionRecord {
   wrapWithPairedDelimiter = new Wrap(this.graph);
   wrapWithSnippet = new WrapWithSnippet(this.graph);
 }
-
-export default Actions;

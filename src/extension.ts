@@ -5,7 +5,7 @@ import makeGraph, { FactoryMap } from "./util/makeGraph";
 import { ThatMark } from "./core/ThatMark";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import isTesting from "./testUtil/isTesting";
-import CommandRunner from "./core/commandRunner/CommandRunner";
+import { CommandRunner } from "./core/commandRunner/CommandRunner";
 
 /**
  * Extension entrypoint. 
