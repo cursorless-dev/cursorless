@@ -1,8 +1,8 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: chuck if state
-  action: remove
+  spokenForm: change if state
+  action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: ifStatement, includeSiblings: false}
@@ -12,8 +12,8 @@ initialState:
 
     end
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}
   marks: {}
 finalState:
   documentContents: ""
@@ -23,4 +23,4 @@ finalState:
   thatMark:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: ifStatement, includeSiblings: false}, isImplicit: false}]
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: ifStatement, includeSiblings: false}, isImplicit: false}]

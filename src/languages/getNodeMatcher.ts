@@ -17,7 +17,7 @@ import { patternMatchers as html } from "./html";
 import python from "./python";
 import scala from "./scala";
 import go from "./go";
-import ruby from "./ruby"
+import { patternMatchers as ruby } from "./ruby"
 import { UnsupportedLanguageError } from "../errors";
 import { SupportedLanguageId } from "./constants";
 
