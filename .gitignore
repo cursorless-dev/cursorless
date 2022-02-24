@@ -5,3 +5,6 @@ node_modules
 *.vsix
 package-lock.json
 *.DS_Store
+
+# TypeDoc output
+docs/contributing/api/

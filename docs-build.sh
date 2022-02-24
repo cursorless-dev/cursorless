@@ -6,5 +6,4 @@ yarn install --frozen-lockfile
 
 cd website
 yarn install --frozen-lockfile
-yarn run copy-docs && yarn build
-cd ..
+yarn build

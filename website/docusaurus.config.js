@@ -69,9 +69,10 @@ const config = {
         tsconfig: '../tsconfig.json',
         entryPoints: ['../src/'],
         entryPointStrategy: 'expand',
-        readme: 'docs/contributing/core-code-pointers.md',
+        docsRoot: '../docs',
+        readme: '../docs/contributing/core-code-pointers.md',
         
-        // Out path is relative to website/docs
+        // Out path is relative to docsRoot
         out: 'contributing/api',
 
         // typedoc-plugin-missing-exports option
@@ -92,7 +93,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          path: 'docs',
+          path: '../docs',
           // Followed https://ricard.dev/how-to-set-docs-as-homepage-for-docusaurus/
           // to serve a markdown document on homepage
           routeBasePath: '/',
