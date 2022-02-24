@@ -52,7 +52,7 @@ const config = {
   title: 'Cursorless',
   tagline: 'Never use the cursor again',
   url: 'https://cursorless.org/',
-  baseUrl: '/docs/',
+  baseUrl: '/cursorless-vscode/',
   onBrokenLinks: 'throw',
 
   // The links that show up in warnings are actually fixed
