@@ -1,0 +1,6 @@
+{
+    "entryPoints": ["src/"],
+    "entryPointStrategy": "expand",
+    "readme": "docs/contributing/architecture-overview.md",
+    "out": "docs/contributing/api"
+} 

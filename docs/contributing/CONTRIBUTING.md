@@ -24,6 +24,10 @@ See [docs](./adding-a-new-language.md).
 
 See [parse-tree-patterns.md](./parse-tree-patterns.md).
 
+### Architecture overview
+
+See [architecture-overview.md](docs/contributing/architecture-overview.md).
+
 ### Changing SVGs
 
 #### SVG preprocessing script
