@@ -66,10 +66,10 @@ const config = {
 
       // TypeDoc options
       {
+        tsconfig: '../tsconfig.json',
         entryPoints: ['../src/'],
         entryPointStrategy: 'expand',
-        readme: 'none',
-        tsconfig: '../tsconfig.json',
+        readme: 'docs/contributing/core-code-pointers.md',
         
         // Out path is relative to website/docs
         out: 'contributing/api',
@@ -124,7 +124,7 @@ const config = {
           {
             type: 'doc',
             position: 'left',
-            docId: 'contributing/adding-a-new-language',
+            docId: 'contributing/CONTRIBUTING',
             to: 'contributing/',
             sidebarId: 'contributing',
             label: 'For contributors',

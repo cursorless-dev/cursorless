@@ -14,15 +14,15 @@ yarn run test
 
 ### Adding tests
 
-See [test-case-recorder.md](docs/contributing/test-case-recorder.md).
+See [test-case-recorder.md](./test-case-recorder.md).
 
 ### Adding a new programming language
 
-See [docs](docs/contributing/adding-a-new-language.md).
+See [docs](./adding-a-new-language.md).
 
 ### Adding syntactic scope types to an existing language
 
-See [parse-tree-patterns.md](docs/contributing/parse-tree-patterns.md).
+See [parse-tree-patterns.md](./parse-tree-patterns.md).
 
 ### Changing SVGs
 
