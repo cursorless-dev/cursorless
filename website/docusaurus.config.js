@@ -35,11 +35,11 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
         return;
       }
       let repoRoot = path.resolve(__dirname, '..');
-      let absolute = path.resolve(repoRoot, file.dirname, link);
-      let relative = path.relative(__dirname, absolute);
-      if (!relative.startsWith('docs')) {
+      let artifact = path.resolve(file.dirname, link);
+      let artifactRelative = path.relative(repoRoot, artifact);
+      if (!artifactRelative.startsWith('docs')) {
         const repoLink = 'https://github.com/cursorless-dev/cursorless-vscode/tree/main/';
-        const linkToRepositoryArtifact = repoLink.concat(relative);
+        const linkToRepositoryArtifact = repoLink.concat(artifactRelative);
         node.url = linkToRepositoryArtifact;
       }
     });
