@@ -49,9 +49,12 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     ],
     [":"]
     ),
+    name: ["assignment[left]", "operator_assignment[left]"],
     value: trailingMatcher(
     [
       "pair[value]",
+      "assignment[right]",
+      "operator_assignment[right]"
     ],
     [":"]
     ),
