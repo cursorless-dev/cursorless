@@ -19,6 +19,7 @@ import {
   patternFinder,
   argumentNodeFinder,
   chainedNodeFinder,
+  ancestorChainNodeFinder,
 } from "./nodeFinders";
 
 export function matcher(
@@ -66,6 +67,34 @@ export function chainedMatcher(
       },
     ];
   };
+}
+
+/**
+ * Given a sequence of node finders, returns a new node matcher which applies
+ * them in reverse, walking up the ancestor chain from `node`.
+ * Returns `null` if any finder in the chain returns null.  For example:
+ *
+ * ancestorChainNodeFinder(0, patternFinder("foo", "bar"), patternFinder("bongo"))
+ *
+ * is equivalent to:
+ *
+ * patternFinder("foo.bongo", "bar.bongo")
+ *
+ * @param nodeFinders A list of node finders to apply in sequence
+ * @param nodeToReturn The index of the node from the sequence to return.  For
+ * example, `0` returns the top ancestor in the chain
+ * @param selector The selector to apply to the final node
+ * @returns A node finder which is a chain of the input node finders
+ */
+export function ancestorChainNodeMatcher(
+  nodeFinders: NodeFinder[],
+  nodeToReturn: number = 0,
+  selector: SelectionExtractor = simpleSelectionExtractor
+) {
+  return matcher(
+    ancestorChainNodeFinder(nodeToReturn, ...nodeFinders),
+    selector
+  );
 }
 
 export function typeMatcher(...typeNames: string[]) {
