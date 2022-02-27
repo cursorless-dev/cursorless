@@ -430,8 +430,8 @@ eg:
 `box wrap blue air`
 Wraps the token containing letter 'a' with a blue hat in square brackets.
 
-The rewrap command can be used to swap a given pair of symbols with another
-- `"curly rewrap <TARGET>"`: wraps the target with curly brackets, replacing the previous paired delimiter
+The rewrap command, mapped to `"repack"` by default, can be used to swap a given pair of symbols with another
+- `"curly repack <TARGET>"`: wraps the target with curly brackets, replacing the previous paired delimiter
 
 See [paired delimiters](#paired-delimiters) for a list of possible wrappers.
 
