@@ -1,0 +1,23 @@
+languageId: ruby
+command:
+  version: 1
+  spokenForm: change lambda
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
+initialState:
+  documentContents: lambda { puts "Hi!" }
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
+  marks: {}
+finalState:
+  documentContents: "lambda "
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  thatMark:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}, isImplicit: false}]

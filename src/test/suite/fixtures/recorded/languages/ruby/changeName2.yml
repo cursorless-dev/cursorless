@@ -1,14 +1,14 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: change class name
+  spokenForm: change name
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: className, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
 initialState:
   documentContents: |-
-    class Hi
+    class Hello
 
     end
   selections:
@@ -26,4 +26,4 @@ finalState:
   thatMark:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: className, includeSiblings: false}, isImplicit: false}]
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: name, includeSiblings: false}, isImplicit: false}]

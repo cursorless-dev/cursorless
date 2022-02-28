@@ -1,20 +1,19 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: chuck value this
+  spokenForm: chuck value
   action: remove
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
-      mark: {type: cursor}
 initialState:
-  documentContents: a += 1
+  documentContents: "{ hi => \"world\" }"
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
   marks: {}
 finalState:
-  documentContents: a +=
+  documentContents: "{ hi }"
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
