@@ -1,3 +1,4 @@
+from typing import Any
 from talon import Module, app
 from ..csv_overrides import init_csv_and_watch_changes
 
@@ -25,6 +26,13 @@ scope_types = {
     "map": "map",
     "name": "name",
     "regex": "regularExpression",
+    "section": "section",
+    "-one section": "sectionLevelOne",
+    "-two section": "sectionLevelTwo",
+    "-three section": "sectionLevelThree",
+    "-four section": "sectionLevelFour",
+    "-five section": "sectionLevelFive",
+    "-six section": "sectionLevelSix",
     "state": "statement",
     "string": "string",
     "type": "type",
@@ -39,7 +47,7 @@ scope_types = {
 
 
 @mod.capture(rule="[every] {user.cursorless_scope_type}")
-def cursorless_containing_scope(m) -> str:
+def cursorless_containing_scope(m) -> dict[str, dict[str, Any]]:
     """Expand to containing scope"""
     return {
         "modifier": {
