@@ -94,7 +94,6 @@ const EXPRESSION_TYPES = [
   "yield",
 ];
 
-// TODO: Add more allowable parent types
 const EXPRESSION_STATEMENT_PARENT_TYPES = [
   "begin",
   "block",
@@ -150,7 +149,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   collectionKey: trailingMatcher(["pair[key]"], [":"]),
   name: ["assignment[left]", "operator_assignment[left]", "class[name]", "method[name]"],
   value: leadingMatcher(
-    ["pair[value]", "assignment[right]", "operator_assignment[right]"],
+    ["pair[value]", "assignment[right]", "operator_assignment[right]", "return.argument_list!"],
     assignmentOperators.concat(mapKeyValueSeparators)
   ),
   collectionItem: argumentMatcher(...mapTypes, ...listTypes),
@@ -161,7 +160,7 @@ export function stringTextFragmentExtractor(
   node: SyntaxNode,
   _selection: SelectionWithEditor
 ) {
-  if (node.type === "string_content") {
+  if (node.type === "string_content" || node.type === "heredoc_content") {
     return getNodeRange(node);
   }
 
