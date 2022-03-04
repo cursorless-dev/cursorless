@@ -10,6 +10,7 @@ export const supportedLanguageIds = [
   "javascriptreact",
   "json",
   "jsonc",
+  "markdown",
   "python",
   "ruby",
   "scala",

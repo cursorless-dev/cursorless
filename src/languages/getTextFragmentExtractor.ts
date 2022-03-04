@@ -113,9 +113,15 @@ export default function getTextFragmentExtractor(
   return extractor;
 }
 
+// NB: For now when we want use the entire file as a text fragment we just
+// return null so that the extractor uses it. In the future we should probably
+// make a fragment extractor which just pulls out the whole document itself
+type FullDocumentTextFragmentExtractor = null;
+const fullDocumentTextFragmentExtractor = null;
+
 const textFragmentExtractors: Record<
   SupportedLanguageId,
-  TextFragmentExtractor
+  TextFragmentExtractor | FullDocumentTextFragmentExtractor
 > = {
   c: constructDefaultTextFragmentExtractor("c"),
   clojure: constructDefaultTextFragmentExtractor(
@@ -149,6 +155,7 @@ const textFragmentExtractors: Record<
     "json",
     jsonStringTextFragmentExtractor
   ),
+  markdown: fullDocumentTextFragmentExtractor,
   python: constructDefaultTextFragmentExtractor("python"),
   ruby: constructDefaultTextFragmentExtractor(
     "ruby",
