@@ -31,7 +31,10 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
     visit(ast, 'link', (node) => {
       /** @type string */
       let link = node.url;
-      if (link.startsWith('http://') || link.startsWith('https://')) {
+      if (link.startsWith('http://') 
+      || link.startsWith('https://')
+      // These are relative links to to website index
+      || link.startsWith('/docs/contributing/api/')) {
         return;
       }
       let repoRoot = path.resolve(__dirname, '..');
