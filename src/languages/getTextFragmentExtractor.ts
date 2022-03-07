@@ -3,6 +3,7 @@ import { SelectionWithEditor } from "../typings/Types";
 import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";
 import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } from "./typescript";
 import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
+import { stringTextFragmentExtractor as rubyStringTextFragmentExtractor } from "./ruby";
 import { UnsupportedLanguageError } from "../errors";
 import { Range } from "vscode";
 import { SupportedLanguageId } from "./constants";
@@ -156,6 +157,10 @@ const textFragmentExtractors: Record<
   ),
   markdown: fullDocumentTextFragmentExtractor,
   python: constructDefaultTextFragmentExtractor("python"),
+  ruby: constructDefaultTextFragmentExtractor(
+    "ruby",
+    rubyStringTextFragmentExtractor
+  ),
   scala: constructDefaultTextFragmentExtractor(
     "scala",
     constructHackedStringTextFragmentExtractor("scala")

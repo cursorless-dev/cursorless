@@ -56,6 +56,51 @@ export function chainedNodeFinder(...nodeFinders: NodeFinder[]) {
   };
 }
 
+/**
+ * Given a sequence of node finders, returns a new node finder which applies
+ * them in reverse, walking up the ancestor chain from `node`.
+ * Returns `null` if any finder in the chain returns null.  For example:
+ *
+ * ancestorChainNodeFinder(0, patternFinder("foo", "bar"), patternFinder("bongo"))
+ *
+ * is equivalent to:
+ *
+ * patternFinder("foo.bongo", "bar.bongo")
+ *
+ * @param nodeToReturn The index of the node from the sequence to return.  For
+ * example, `0` returns the top ancestor in the chain
+ * @param nodeFinders A list of node finders to apply in sequence
+ * @returns A node finder which is a chain of the input node finders
+ */
+export function ancestorChainNodeFinder(
+  nodeToReturn: number,
+  ...nodeFinders: NodeFinder[]
+) {
+  return (node: SyntaxNode) => {
+    let currentNode: SyntaxNode | null = node;
+    const nodeList: SyntaxNode[] = [];
+    const nodeFindersReversed = [...nodeFinders].reverse();
+
+    for (const nodeFinder of nodeFindersReversed) {
+      if (currentNode == null) {
+        return null;
+      }
+
+      currentNode = nodeFinder(currentNode);
+
+      if (currentNode == null) {
+        return null;
+      }
+
+      nodeList.push(currentNode);
+
+      currentNode = currentNode.parent ?? null;
+    }
+
+    return nodeList.reverse()[nodeToReturn];
+  };
+}
+
 export const typedNodeFinder = (...typeNames: string[]): NodeFinder => {
   return nodeFinder((node) => typeNames.includes(node.type));
 };
