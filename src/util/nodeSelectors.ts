@@ -1,6 +1,10 @@
 import { SyntaxNode, Point } from "web-tree-sitter";
 import { Position, Range, Selection, TextEditor } from "vscode";
-import { SelectionWithContext, SelectionExtractor } from "../typings/Types";
+import {
+  SelectionWithContext,
+  SelectionExtractor,
+  NodeFinder,
+} from "../typings/Types";
 import { identity } from "lodash";
 
 export function makeRangeFromPositions(
@@ -56,9 +60,45 @@ export function simpleSelectionExtractor(
 }
 
 /**
+ * Given a node and a node finder extends the selection from the given node
+ * until just before the next matching sibling node or the final node if no
+ * sibling matches
+ * @param editor The text editor containing the given node
+ * @param node The node from which to extend
+ * @param nodeFinder The finder to use to determine whether a given node matches
+ * @returns A range from the start node until just before the next matching
+ * sibling or the final sibling if non matches
+ */
+export function extendUntilNextMatchingSiblingOrLast(
+  editor: TextEditor,
+  node: SyntaxNode,
+  nodeFinder: NodeFinder
+) {
+  const endNode = getNextMatchingSiblingNodeOrLast(node, nodeFinder);
+  return pairSelectionExtractor(editor, node, endNode);
+}
+
+function getNextMatchingSiblingNodeOrLast(
+  node: SyntaxNode,
+  nodeFinder: NodeFinder
+): SyntaxNode {
+  let currentNode: SyntaxNode = node;
+  let nextNode: SyntaxNode | null = node.nextSibling;
+
+  while (true) {
+    if (nextNode == null || nodeFinder(nextNode) != null) {
+      return currentNode;
+    }
+
+    currentNode = nextNode;
+    nextNode = nextNode.nextSibling;
+  }
+}
+
+/**
  * Extracts a selection from the first node to the second node.
  * Both nodes are included in the selected nodes
-*/
+ */
 export function pairSelectionExtractor(
   editor: TextEditor,
   node1: SyntaxNode,

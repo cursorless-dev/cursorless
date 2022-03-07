@@ -11,6 +11,31 @@ export const nodeFinder = (
 };
 
 /**
+ * Returns a new node finder which applies `nodeFinder` to the given node and
+ * then to each of its previous siblings in turn, returning the first one that
+ * is non null.
+ * @param nodeFinder The node finder to use
+ * @returns A node finder
+ */
+export function leadingSiblingNodeFinder(nodeFinder: NodeFinder) {
+  return (node: SyntaxNode) => {
+    let currentNode: SyntaxNode | null = node;
+
+    while (currentNode != null) {
+      const returnNode = nodeFinder(currentNode);
+
+      if (returnNode != null) {
+        return returnNode;
+      }
+
+      currentNode = currentNode.previousSibling;
+    }
+
+    return null;
+  };
+}
+
+/**
  * Given a list of node finders returns a new node finder which applies them in
  * sequence returning null if any of the sequence returns null otherwise
  * returning the output of the final node finder
