@@ -173,4 +173,8 @@ const textFragmentExtractors: Record<
     "typescriptreact",
     typescriptStringTextFragmentExtractor
   ),
+  xml: constructDefaultTextFragmentExtractor(
+    "xml",
+    htmlStringTextFragmentExtractor
+  ),
 };
