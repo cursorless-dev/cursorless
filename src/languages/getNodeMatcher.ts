@@ -14,6 +14,7 @@ import { patternMatchers as json } from "./json";
 import { patternMatchers as typescript } from "./typescript";
 import java from "./java";
 import { patternMatchers as html } from "./html";
+import php from "./php";
 import python from "./python";
 import markdown from "./markdown";
 import scala from "./scala";
@@ -62,6 +63,7 @@ const languageMatchers: Record<
   json,
   jsonc: json,
   markdown,
+  php,
   python,
   ruby, 
   scala,

@@ -156,6 +156,7 @@ const textFragmentExtractors: Record<
     jsonStringTextFragmentExtractor
   ),
   markdown: fullDocumentTextFragmentExtractor,
+  php: constructDefaultTextFragmentExtractor("php"),
   python: constructDefaultTextFragmentExtractor("python"),
   ruby: constructDefaultTextFragmentExtractor(
     "ruby",
