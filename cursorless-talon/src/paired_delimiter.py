@@ -43,7 +43,7 @@ paired_delimiters = [
     PairedDelimiter("escaped quad", "escapedDoubleQuotes", '\\"', '\\"'),
     PairedDelimiter("escaped twin", "escapedSingleQuotes", "\\'", "\\'"),
     PairedDelimiter("escaped round", "escapedParentheses", "\\(", "\\)"),
-    PairedDelimiter("escaped square", "escapedSquareBrackets", "\\[", "\\]"),
+    PairedDelimiter("escaped box", "escapedSquareBrackets", "\\[", "\\]"),
     PairedDelimiter("quad", "doubleQuotes", '"', '"'),
     PairedDelimiter("round", "parentheses", "(", ")"),
     PairedDelimiter("skis", "backtickQuotes", "`", "`"),
