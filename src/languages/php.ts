@@ -42,8 +42,9 @@ export const getTypeNode = (node: SyntaxNode) =>
   node.children.find((child) => child.type === "type") ?? null;
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
-  // statement: STATEMENT_TYPES,
-  // ifStatement: "if_statement",
+  statement: STATEMENT_TYPES,
+  class: "class_declaration",
+  className: "class_declaration[name]",
   comment: "comment",
 };
 
