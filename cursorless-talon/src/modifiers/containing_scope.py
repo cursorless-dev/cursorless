@@ -46,7 +46,7 @@ scope_types = {
 }
 
 
-@mod.capture(rule="[every] {user.cursorless_scope_type}")
+@mod.capture(rule="[(every|all)] {user.cursorless_scope_type}")
 def cursorless_containing_scope(m) -> dict[str, dict[str, Any]]:
     """Expand to containing scope"""
     return {
@@ -54,6 +54,7 @@ def cursorless_containing_scope(m) -> dict[str, dict[str, Any]]:
             "type": "containingScope",
             "scopeType": m.cursorless_scope_type,
             "includeSiblings": m[0] == "every",
+            "includeAll": m[0] == "all",
         }
     }
 

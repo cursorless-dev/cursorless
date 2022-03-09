@@ -151,6 +151,7 @@ export interface ContainingScopeModifier {
   scopeType: ScopeType;
   valueOnly?: boolean;
   includeSiblings?: boolean;
+  includeAll?: boolean;
 }
 
 export interface SubTokenModifier {

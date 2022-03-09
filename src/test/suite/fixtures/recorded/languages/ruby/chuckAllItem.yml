@@ -1,0 +1,31 @@
+languageId: ruby
+command:
+  version: 1
+  spokenForm: chuck all item
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true, includeAll: true}
+initialState:
+  documentContents: |-
+    [
+      1,
+      2,
+      3
+    ]
+  selections:
+    - anchor: {line: 3, character: 3}
+      active: {line: 3, character: 3}
+  marks: {}
+finalState:
+  documentContents: |-
+    [
+      
+    ]
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+  thatMark:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true, includeAll: true}, isImplicit: false}]

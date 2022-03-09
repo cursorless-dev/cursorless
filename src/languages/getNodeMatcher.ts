@@ -21,11 +21,14 @@ import go from "./go";
 import { patternMatchers as ruby } from "./ruby"
 import { UnsupportedLanguageError } from "../errors";
 import { SupportedLanguageId } from "./constants";
+import { Selection } from "vscode";
+
 
 export function getNodeMatcher(
   languageId: string,
   scopeType: ScopeType,
-  includeSiblings: boolean
+  includeSiblings: boolean, 
+  includeAll: boolean, 
 ): NodeMatcher {
   const matchers = languageMatchers[languageId as SupportedLanguageId];
 
@@ -39,8 +42,8 @@ export function getNodeMatcher(
     return notSupported;
   }
 
-  if (includeSiblings) {
-    return matcherIncludeSiblings(matcher);
+  if (includeSiblings || includeAll) {
+    return matcherIncludeSiblings(matcher, includeAll);
   }
 
   return matcher;
@@ -70,7 +73,9 @@ const languageMatchers: Record<
   xml: html,
 };
 
-function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
+function matcherIncludeSiblings(
+  matcher: NodeMatcher, 
+  includeAll: boolean): NodeMatcher {
   return (
     selection: SelectionWithEditor,
     node: SyntaxNode
@@ -87,7 +92,16 @@ function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
       )
     ) as NodeMatcherValue[];
     if (matches.length > 0) {
-      return matches;
+      if (matches.length >= 2 && includeAll){
+        const start = matches[0].selection.selection;
+        const end = matches[matches.length - 1].selection.selection;
+        
+        matches[0].selection.selection = start.union(end) as Selection;
+
+        return [matches[0]] as NodeMatcherValue[];
+      } else {
+        return matches;
+      }
     }
     return null;
   };
@@ -110,3 +124,4 @@ function iterateNearestIterableAncestor(
   }
   return [];
 }
+

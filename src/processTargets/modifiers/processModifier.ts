@@ -77,7 +77,8 @@ function processScopeType(
   const nodeMatcher = getNodeMatcher(
     selection.editor.document.languageId,
     modifier.scopeType,
-    modifier.includeSiblings ?? false
+    modifier.includeSiblings ?? false, 
+    modifier.includeAll ?? false,
   );
   const node: SyntaxNode | null = context.getNodeAtLocation(
     new Location(selection.editor.document.uri, selection.selection)
