@@ -46,6 +46,15 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   class: "class_declaration",
   className: "class_declaration[name]",
   comment: "comment",
+
+  // Causes a "Cannot read property 'endPosition' of undefined" error
+  // string: "string",
+
+  functionCall: "function_call_expression",
+  functionName: [
+    "function_definition[name]",
+    "method_declaration[name]",
+  ]
 };
 
 export default createPatternMatchers(nodeMatchers);

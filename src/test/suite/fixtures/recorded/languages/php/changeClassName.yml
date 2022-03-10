@@ -1,13 +1,13 @@
 languageId: php
 command:
   version: 1
-  spokenForm: take class name
-  action: setSelection
+  spokenForm: change class name
+  action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: className, includeSiblings: false}
 initialState:
-  documentContents: |
+  documentContents: |-
     <?php
 
     class MyClass
@@ -19,17 +19,17 @@ initialState:
       active: {line: 4, character: 0}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |-
     <?php
 
-    class MyClass
+    class 
     {
 
     }
   selections:
     - anchor: {line: 2, character: 6}
-      active: {line: 2, character: 13}
+      active: {line: 2, character: 6}
   thatMark:
     - anchor: {line: 2, character: 6}
-      active: {line: 2, character: 13}
+      active: {line: 2, character: 6}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: className, includeSiblings: false}, isImplicit: false}]
