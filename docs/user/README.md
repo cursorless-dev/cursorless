@@ -23,6 +23,7 @@ Note: If you'd like to customize any of the spoken forms, please see the [docume
     - [Modifiers](#modifiers)
       - [Syntactic scopes](#syntactic-scopes)
       - [`"every"`](#every)
+      - [`"all"`](#all)
       - [Sub-token modifiers](#sub-token-modifiers)
         - [`"word"`](#word)
         - [`"char"`](#char)
@@ -195,6 +196,13 @@ The command `"every"` can be used to select a syntactic element and all of its m
 - `"take every key"` (if cursor is currently within a key)
 
 For example, the command `take every key [blue] air` will select every key in the map/object/dict including the token with a blue hat over the letter 'a'.
+
+##### `"all"`
+
+The command `"all"` can be used to select items within a collection and return a single selection. This differs `"every"` in that is can only be used on collection items, not keys or values, as it returns a single selection.
+
+- `"take all item air"`
+- `"take all item"` (if cursor is currently within a key)
 
 ##### Sub-token modifiers
 
