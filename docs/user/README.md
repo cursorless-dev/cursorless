@@ -2,9 +2,9 @@
 
 Welcome to Cursorless! You may find it helpful to start with the [tutorial video](https://www.youtube.com/watch?v=JxcNW0hnfTk).
 
-Once you understand the concepts, you can pull up a cheatsheet for reference using the command `"cursorless help"`.
+Once you understand the concepts, you can pull up a cheatsheet for reference using the command `"cursorless reference"` or `"reference cursorless"`.
 
-You can get back to these docs by saying `"cursorless instructions"`.
+You can get back to these docs by saying `"cursorless docs"` or `"cursorless help"`.
 
 Note: If you'd like to customize any of the spoken forms, please see the [documentation](customization.md).
 
