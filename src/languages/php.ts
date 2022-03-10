@@ -1,6 +1,8 @@
 import { SyntaxNode } from "web-tree-sitter";
 import {
   createPatternMatchers,
+  argumentMatcher,
+  trailingMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
 
@@ -56,9 +58,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "method_declaration[name]",
   ],
 
+  collectionKey: trailingMatcher(["array_element_initializer[0]"], ["=>"]),
+  collectionItem: argumentMatcher("array_creation_expression"),
   // "argument" should also be in this list so that you can select args
   // in a function call, but it doesn't help find the containing argumentOrParameter
   argumentOrParameter: ["simple_parameter", "variadic_parameter"],
 };
-
 export default createPatternMatchers(nodeMatchers);
