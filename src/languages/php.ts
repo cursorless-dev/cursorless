@@ -1,7 +1,8 @@
 import { SyntaxNode } from "web-tree-sitter";
 import {
-  createPatternMatchers,
   argumentMatcher,
+  createPatternMatchers,
+  leadingMatcher,
   trailingMatcher,
 } from "../util/nodeMatchers";
 import {
@@ -62,8 +63,19 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "method_declaration[name]",
   ],
 
+  value: leadingMatcher(
+    [
+      "array_element_initializer[1]",
+      "assignment_expression[right]",
+      "augmented_assignment_expression[right]",
+      "return_statement[0]",
+    ],
+    ["=>"]
+  ),
+
   collectionKey: trailingMatcher(["array_element_initializer[0]"], ["=>"]),
   collectionItem: argumentMatcher("array_creation_expression"),
+
   // "argument" should also be in this list so that you can select args
   // in a function call, but it doesn't help find the containing argumentOrParameter
   argumentOrParameter: ["simple_parameter", "variadic_parameter"],
