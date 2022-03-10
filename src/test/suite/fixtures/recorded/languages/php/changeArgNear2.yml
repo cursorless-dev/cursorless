@@ -1,0 +1,39 @@
+languageId: php
+command:
+  version: 1
+  spokenForm: change arg near
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
+initialState:
+  documentContents: |-
+    <?php
+
+    function myFunc(...$nums)
+    {
+
+    }
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.n:
+      start: {line: 2, character: 20}
+      end: {line: 2, character: 24}
+finalState:
+  documentContents: |-
+    <?php
+
+    function myFunc()
+    {
+
+    }
+  selections:
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}
+  thatMark:
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

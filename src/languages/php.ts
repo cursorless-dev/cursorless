@@ -47,14 +47,18 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   className: "class_declaration[name]",
   comment: "comment",
 
-  // Causes a "Cannot read property 'endPosition' of undefined" error
+  // Causes a "Cannot read property 'endPosition' of undefined" error when used
   // string: "string",
 
   functionCall: "function_call_expression",
   functionName: [
     "function_definition[name]",
     "method_declaration[name]",
-  ]
+  ],
+
+  // "argument" should also be in this list so that you can select args
+  // in a function call, but it doesn't help find the containing argumentOrParameter
+  argumentOrParameter: ["simple_parameter", "variadic_parameter"],
 };
 
 export default createPatternMatchers(nodeMatchers);
