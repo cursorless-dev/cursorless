@@ -69,6 +69,7 @@ const assignmentOperators = [
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   statement: STATEMENT_TYPES,
+  ifStatement: "if_statement",
   class: "class_declaration",
   className: "class_declaration[name]",
   comment: "comment",
