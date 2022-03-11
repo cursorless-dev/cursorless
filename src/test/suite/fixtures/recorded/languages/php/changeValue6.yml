@@ -12,8 +12,8 @@ initialState:
 
     $value = 'Hello world';
   selections:
-    - anchor: {line: 2, character: 15}
-      active: {line: 2, character: 15}
+    - anchor: {line: 2, character: 3}
+      active: {line: 2, character: 3}
   marks: {}
 finalState:
   documentContents: |-

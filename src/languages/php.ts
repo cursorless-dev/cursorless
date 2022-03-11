@@ -72,6 +72,12 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ifStatement: "if_statement",
   class: "class_declaration",
   className: "class_declaration[name]",
+  name: [
+    "assignment_expression[left]",
+    "class_declaration[name]",
+    "function_definition[name]",
+    "method_declaration[name]",
+  ],
   comment: "comment",
   string: "string",
 
