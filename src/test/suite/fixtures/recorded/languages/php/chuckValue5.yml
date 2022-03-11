@@ -7,13 +7,19 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
-  documentContents: "<?php\r\n\r\n$value = 'Hello world';"
+  documentContents: |-
+    <?php
+
+    $value = 'Hello world';
   selections:
     - anchor: {line: 2, character: 16}
       active: {line: 2, character: 16}
   marks: {}
 finalState:
-  documentContents: "<?php\r\n\r\n$value;"
+  documentContents: |-
+    <?php
+
+    $value;
   selections:
     - anchor: {line: 2, character: 6}
       active: {line: 2, character: 6}

@@ -7,13 +7,25 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
-  documentContents: "<?php\r\n\r\nfunction myFunc($value, $num, $param)\r\n{\r\n\r\n}"
+  documentContents: |-
+    <?php
+
+    function myFunc($value, $num, $param)
+    {
+
+    }
   selections:
     - anchor: {line: 2, character: 26}
       active: {line: 2, character: 26}
   marks: {}
 finalState:
-  documentContents: "<?php\r\n\r\nfunction myFunc($value, $param)\r\n{\r\n\r\n}"
+  documentContents: |-
+    <?php
+
+    function myFunc($value, $param)
+    {
+
+    }
   selections:
     - anchor: {line: 2, character: 24}
       active: {line: 2, character: 24}
