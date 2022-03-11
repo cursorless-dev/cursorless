@@ -19,7 +19,7 @@ import python from "./python";
 import markdown from "./markdown";
 import scala from "./scala";
 import go from "./go";
-import { patternMatchers as ruby } from "./ruby"
+import { patternMatchers as ruby } from "./ruby";
 import { UnsupportedLanguageError } from "../errors";
 import { SupportedLanguageId } from "./constants";
 
