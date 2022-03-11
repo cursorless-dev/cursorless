@@ -12,18 +12,18 @@ initialState:
 
     $value = 'Hello world';
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 2, character: 3}
+      active: {line: 2, character: 3}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    $value =;
+    $value;
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 2, character: 3}
+      active: {line: 2, character: 3}
   thatMark:
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
+    - anchor: {line: 2, character: 6}
+      active: {line: 2, character: 6}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]
