@@ -7,17 +7,17 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
-  documentContents: "<?php\r\n\r\nfunction myFunc($value, ...$nums)\r\n{\r\n\r\n}"
+  documentContents: "<?php\r\n\r\nmyFunc($value, $num, $param);"
   selections:
-    - anchor: {line: 2, character: 20}
-      active: {line: 2, character: 20}
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}
   marks: {}
 finalState:
-  documentContents: "<?php\r\n\r\nfunction myFunc(, ...$nums)\r\n{\r\n\r\n}"
+  documentContents: "<?php\r\n\r\nmyFunc($value, , $param);"
   selections:
-    - anchor: {line: 2, character: 16}
-      active: {line: 2, character: 16}
+    - anchor: {line: 2, character: 15}
+      active: {line: 2, character: 15}
   thatMark:
-    - anchor: {line: 2, character: 16}
-      active: {line: 2, character: 16}
+    - anchor: {line: 2, character: 15}
+      active: {line: 2, character: 15}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

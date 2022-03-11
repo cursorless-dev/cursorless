@@ -73,7 +73,6 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   class: "class_declaration",
   className: "class_declaration[name]",
   comment: "comment",
-
   string: "string",
 
   functionCall: "function_call_expression",
@@ -89,15 +88,13 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
       "augmented_assignment_expression[right]",
       "return_statement[0]",
     ],
-    assignmentOperators.concat(["=>"])
+    assignmentOperators.concat(["=>"]),
   ),
 
   collectionKey: trailingMatcher(["array_element_initializer[0]"], ["=>"]),
   collectionItem: argumentMatcher("array_creation_expression"),
 
-  // "argument" should also be in this list so that you can select args
-  // in a function call, but it doesn't help find the containing argumentOrParameter
-  argumentOrParameter: ["simple_parameter", "variadic_parameter"],
+  argumentOrParameter: argumentMatcher("arguments", "formal_parameters"),
 };
 export default createPatternMatchers(nodeMatchers);
 

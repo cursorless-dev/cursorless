@@ -9,15 +9,15 @@ command:
 initialState:
   documentContents: "<?php\r\n\r\nfunction myFunc($value, ...$nums)\r\n{\r\n\r\n}"
   selections:
-    - anchor: {line: 2, character: 20}
-      active: {line: 2, character: 20}
+    - anchor: {line: 2, character: 28}
+      active: {line: 2, character: 28}
   marks: {}
 finalState:
-  documentContents: "<?php\r\n\r\nfunction myFunc(...$nums)\r\n{\r\n\r\n}"
+  documentContents: "<?php\r\n\r\nfunction myFunc($value)\r\n{\r\n\r\n}"
   selections:
-    - anchor: {line: 2, character: 16}
-      active: {line: 2, character: 16}
+    - anchor: {line: 2, character: 22}
+      active: {line: 2, character: 22}
   thatMark:
-    - anchor: {line: 2, character: 16}
-      active: {line: 2, character: 16}
+    - anchor: {line: 2, character: 22}
+      active: {line: 2, character: 22}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]
