@@ -73,11 +73,7 @@ const config = {
   url: "https://cursorless.org/",
   baseUrl: "/docs/",
   onBrokenLinks: "throw",
-
-  // The links that show up in warnings are actually fixed
-  // by our remark plugin. It probably happens after
-  // broken link detection.
-  onBrokenMarkdownLinks: "warn",
+  onBrokenMarkdownLinks: "throw",
 
   plugins: [
     [
