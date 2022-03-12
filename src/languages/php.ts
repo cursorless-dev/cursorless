@@ -80,6 +80,12 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ],
   comment: "comment",
   string: "string",
+  type: trailingMatcher(
+    [
+      "simple_parameter[type]",
+      "variadic_parameter[type]",
+    ]
+  ),
 
   namedFunction: [
     "function_definition",
