@@ -1,8 +1,8 @@
 languageId: php
 command:
   version: 1
-  spokenForm: take if state
-  action: setSelection
+  spokenForm: change if state
+  action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: ifStatement, includeSiblings: false}
@@ -18,16 +18,11 @@ initialState:
       active: {line: 3, character: 4}
   marks: {}
 finalState:
-  documentContents: |-
-    <?php
-
-    if (true) {
-        return;
-    }
+  documentContents: "<?php\n\n"
   selections:
     - anchor: {line: 2, character: 0}
-      active: {line: 4, character: 1}
+      active: {line: 2, character: 0}
   thatMark:
     - anchor: {line: 2, character: 0}
-      active: {line: 4, character: 1}
+      active: {line: 2, character: 0}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: ifStatement, includeSiblings: false}, isImplicit: false}]
