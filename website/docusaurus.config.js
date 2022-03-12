@@ -60,7 +60,7 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
         "https://github.com/cursorless-dev/cursorless-vscode/tree/main/";
       const linkToRepositoryArtifact = repoLink.concat(artifactRelative);
 
-      node.link = linkToRepositoryArtifact;
+      node.url = linkToRepositoryArtifact;
     });
   };
   return transformer;
