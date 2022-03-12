@@ -31,23 +31,36 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
     visit(ast, "link", (node) => {
       /** @type string */
       let link = node.url;
+
       if (
         link.startsWith("http://") ||
-        link.startsWith("https://") ||
-        // These are relative links to to website index
-        link.startsWith("/docs/contributing/api/")
+        link.startsWith("https://")
       ) {
         return;
       }
+
+      // Docusaurus runs this plugin on its intermediate 
+      // markdown representaiton as well as on our original files.
+      // These are relative links that docusaurus already figured out
+      // based on realative links to .md files
+      if (link.startsWith("/docs")) {
+        return;
+      }
+
       let repoRoot = path.resolve(__dirname, "..");
       let artifact = path.resolve(file.dirname, link);
       let artifactRelative = path.relative(repoRoot, artifact);
-      if (!artifactRelative.startsWith("docs")) {
-        const repoLink =
-          "https://github.com/cursorless-dev/cursorless-vscode/tree/main/";
-        const linkToRepositoryArtifact = repoLink.concat(artifactRelative);
-        node.url = linkToRepositoryArtifact;
+
+      // // We host all files under docs, will resolve as a relative link
+      if (artifactRelative.startsWith("docs")) {
+        return;
       }
+
+      const repoLink =
+        "https://github.com/cursorless-dev/cursorless-vscode/tree/main/";
+      const linkToRepositoryArtifact = repoLink.concat(artifactRelative);
+
+      node.link = linkToRepositoryArtifact;
     });
   };
   return transformer;
@@ -86,8 +99,8 @@ const config = {
           routeBasePath: "/",
           sidebarPath: require.resolve("./sidebar.js"),
           beforeDefaultRemarkPlugins: [
-            remarkPluginFixLinksToRepositoryArtifacts,
-          ],
+            remarkPluginFixLinksToRepositoryArtifacts
+          ]
         },
       }),
     ],
