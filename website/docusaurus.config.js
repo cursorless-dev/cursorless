@@ -6,21 +6,16 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const path = require("path");
 
 /**
- * Markdown documentation in docs/ references repository directories
- * and files. Relative paths are used so manually written documentation
- * can be read on GitHub entirely.
- * For our own documentation website we want to transform these
- * relative links to matching GitHub link.
- * This will ensure consistent experience no matter where you
- * start browsing the documentation.
- *
- * Keep in mind docs/ is copied to website/docs/.
- * Needed to work around an issue with TypeDoc x Docusaurus plugin.
- *
+ * Files within /docs reference repository directories
+ * and files outside of that folder. They are not served 
+ * in documentation hub.
+ * 
+ * This plugin rewrites these links to point to GitHub.
  * The algorithm roughly is:
- * - Visit all relative links within markdown documents.
- * - Try resolving it relative to repo root. Some magic involved here.
- * - If it matches one of the hardcoded prefixes make it a GitHub link.
+ * - For each link:
+ * - If absolute or already relative to index - do nothing.
+ * - Try resolving it relative to repo root.
+ * - If anywhere but /docs - link to GitHub.
  */
 function remarkPluginFixLinksToRepositoryArtifacts() {
   /** @type {import('unified').Transformer} */
@@ -31,7 +26,6 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
     visit(ast, "link", (node) => {
       /** @type string */
       let link = node.url;
-
       if (
         link.startsWith("http://") ||
         link.startsWith("https://")
@@ -51,7 +45,7 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
       let artifact = path.resolve(file.dirname, link);
       let artifactRelative = path.relative(repoRoot, artifact);
 
-      // // We host all files under docs, will resolve as a relative link
+      // We host all files under docs, will resolve as a relative link
       if (artifactRelative.startsWith("docs")) {
         return;
       }
@@ -78,7 +72,7 @@ const config = {
   plugins: [
     [
       "docusaurus-plugin-typedoc",
-      // TypeDoc options
+      // TypeDoc options merged with docusaurus specific docsRoot option
       { ...require('./typedoc.js'),  docsRoot:'../docs' },
     ],
   ],
