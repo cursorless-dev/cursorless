@@ -81,6 +81,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   comment: "comment",
   string: "string",
 
+  namedFunction: [
+    "function_definition",
+    "anonymous_function_creation_expression",
+  ],
   functionCall: "function_call_expression",
   functionName: [
     "function_definition[name]",
