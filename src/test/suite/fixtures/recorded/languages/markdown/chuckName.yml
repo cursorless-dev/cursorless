@@ -1,0 +1,29 @@
+languageId: markdown
+command:
+  version: 1
+  spokenForm: chuck name
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+initialState:
+  documentContents: |-
+    # Hello world
+
+    Testing testing
+  selections:
+    - anchor: {line: 2, character: 14}
+      active: {line: 2, character: 14}
+  marks: {}
+finalState:
+  documentContents: |-
+
+
+    Testing testing
+  selections:
+    - anchor: {line: 2, character: 14}
+      active: {line: 2, character: 14}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: name, includeSiblings: false}, isImplicit: false}]

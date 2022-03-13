@@ -15,9 +15,11 @@ import { patternMatchers as typescript } from "./typescript";
 import java from "./java";
 import { patternMatchers as html } from "./html";
 import python from "./python";
+import markdown from "./markdown";
 import scala from "./scala";
 import go from "./go";
 import latex from "./latex";
+import { patternMatchers as ruby } from "./ruby"
 import { UnsupportedLanguageError } from "../errors";
 import { SupportedLanguageId } from "./constants";
 
@@ -61,10 +63,13 @@ const languageMatchers: Record<
   json,
   jsonc: json,
   latex,
+  markdown,
   python,
+  ruby, 
   scala,
   typescript,
   typescriptreact: typescript,
+  xml: html,
 };
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {

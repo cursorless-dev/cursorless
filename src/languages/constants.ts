@@ -11,10 +11,13 @@ export const supportedLanguageIds = [
   "json",
   "jsonc",
   "latex",
+  "markdown",
   "python",
+  "ruby",
   "scala",
   "typescript",
   "typescriptreact",
+  "xml",
 ] as const;
 
 export type SupportedLanguageId = typeof supportedLanguageIds[number];
