@@ -8,3 +8,6 @@ package-lock.json
 
 # TypeDoc output
 docs/contributing/api/
+
+# Generated docs hub
+gh-pages-root/docs/

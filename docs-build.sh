@@ -7,3 +7,10 @@ yarn install --frozen-lockfile
 cd website
 yarn install --frozen-lockfile
 yarn build
+cd ..
+
+# Since baseUrl in Docusaurus is /docs, for links within our website
+# to work correctly we need to serve /gh-pages-root with /docs subfolder
+# containting the build
+mkdir -p gh-pages-root/docs
+cp -r website/build/* gh-pages-root/docs
