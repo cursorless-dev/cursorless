@@ -36,18 +36,27 @@ export default class CommandRunner {
   }
 
   /**
-   * Entry point for each command.
-   * 
-   * * Makes action name and targets canonical, see {@link canonicalizeAndValidateCommand}. 
-   * * Infers targets based on previous targets and action preferences, see {@link inferFullTargets}.
-   * * Captures special targets (current selection, source, that) in {@link ProcessedTargetsContext}.
-   * * Maps abstract {@link Target}, example `arg air`
-   *   to concrete {@link TypedSelection}[] example `line 3, charachter 5 to 10`, 
-   *   see {@link processTargets}.
-   * * Runs action given the selections. Sample actions `take` {@link SetSelection}
-   *   and `chuck` {@link Delete}. See {@link Actions} for all actions. 
-   * * Updates source and that marks if returned from running the action (it often will change them)
-   *   and returns a return value if any.
+   * Entry point for Cursorless commands. We proceed as follows:
+   *
+   * 1. Canonicalize the action name and target representation using
+   *    {@link canonicalizeAndValidateCommand}, primarily for the purpose of
+   *    backwards compatibility
+   * 1. Perform inference on targets to fill in details left out using things
+   *    like previous targets and action preferences. For example we would
+   *    automatically infer that `"take funk air and bat"` is equivalent to
+   *    `"take funk air and funk bat"`. See {@link inferFullTargets} for details
+   *    of how this is done.
+   * 1. Construct a {@link ProcessedTargetsContext} object to capture the
+   *    environment needed by {@link processTargets}.
+   * 1. Call {@link processTargets} to map each abstract {@link Target} object
+   *    to a concrete list of {@link TypedSelection} objects.
+   * 1. Run the requested action on the given selections. The mapping from
+   *    action id (eg `remove`) to implementation is defined in
+   *    `{@link Actions}.  To understand how actions work, see some examples,
+   *    such as `"take"` {@link SetSelection} and `"chuck"` {@link Delete}. See
+   * 1. Update `source` and `that` marks, if they have been returned from the
+   *    action, and returns the desired return value indicated by the action, if
+   *    it has one.
    */
   async runCommand(commandArgument: CommandArgument) {
     try {
