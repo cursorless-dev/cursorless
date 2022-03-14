@@ -82,8 +82,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   string: "string",
   type: trailingMatcher(
     [
-      "simple_parameter[type]",
-      "variadic_parameter[type]",
+      "*[type]",
     ]
   ),
 
