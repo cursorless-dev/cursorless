@@ -119,9 +119,17 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     ),
   ),
 
-  namedFunction: [
-    "function_definition",
+  namedFunction: trailingMatcher(
+    [
+      "function_definition",
+      "assignment_expression.anonymous_function_creation_expression",
+      "assignment_expression.arrow_function",
+    ],
+    [";"],
+  ),
+  anonymousFunction: [
     "anonymous_function_creation_expression",
+    "arrow_function",
   ],
   functionCall: "function_call_expression",
   functionName: [

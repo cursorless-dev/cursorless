@@ -1,11 +1,11 @@
 languageId: php
 command:
   version: 1
-  spokenForm: change funk
+  spokenForm: change lambda
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
 initialState:
   documentContents: |-
     <?php
@@ -28,4 +28,4 @@ finalState:
   thatMark:
     - anchor: {line: 2, character: 10}
       active: {line: 2, character: 10}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}, isImplicit: false}]
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}, isImplicit: false}]
