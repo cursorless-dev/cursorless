@@ -14,8 +14,8 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-beta.15",
-    "@docusaurus/preset-classic": "^2.0.0-beta.15",
+    "@docusaurus/preset-classic": "^2.0.0-beta.17",
+    "@docusaurus/core": "^2.0.0-beta.17",
     "@mdx-js/react": "^1.6.21",
     "clsx": "^1.1.1",
     "mdast-util-find-and-replace": "^2.1.0",
@@ -37,7 +37,7 @@
     ]
   },
   "devDependencies": {
-    "docusaurus-plugin-typedoc": "^0.16.6",
+    "docusaurus-plugin-typedoc": "^0.17.2",
     "typedoc": "^0.22.10",
     "typedoc-plugin-markdown": "^3.11.9",
     "typedoc-plugin-mdn-links": "^1.0.4",
