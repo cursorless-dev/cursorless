@@ -2,10 +2,8 @@ module.exports = {
     tsconfig: "../tsconfig.json",
     entryPoints: ["../src/"],
     entryPointStrategy: "expand",
-    readme: "../docs/contributing/core-code-pointers.md",
-
-    // Out path is relative to docsRoot
-    out: "contributing/api",
+    
+    readme: "../docs/contributing/_api-index.md",
 
     // typedoc-plugin-missing-exports option
     internalNamespace: "internal",
