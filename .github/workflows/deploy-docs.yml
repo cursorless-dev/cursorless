@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: 16
           cache: yarn
-      - run: ./docs-build.sh
+      - run: ./scripts/docs-build.sh
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
