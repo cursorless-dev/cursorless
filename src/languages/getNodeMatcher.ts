@@ -71,6 +71,7 @@ const languageMatchers: Record<
   ruby,
   scala,
   scss,
+  rust,
   typescript,
   typescriptreact: typescript,
   xml: html,
