@@ -131,7 +131,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "anonymous_function_creation_expression",
     "arrow_function",
   ],
-  functionCall: "function_call_expression",
+  functionCall: [
+    "function_call_expression",
+    "object_creation_expression",
+  ],
   functionName: [
     "function_definition[name]",
     "method_declaration[name]",
