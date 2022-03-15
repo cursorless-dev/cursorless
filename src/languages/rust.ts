@@ -4,7 +4,6 @@ import {
     leadingMatcher,
     conditionMatcher,
     trailingMatcher,
-    childAtIndexMatcher,
     cascadingMatcher,
     patternMatcher,
   } from "../util/nodeMatchers";
@@ -92,7 +91,8 @@ import {
       "let_declaration[type]",
       "parameter[type]",
       "type_identifier",
-      "generic_type.type_identifier"
+      "generic_type.type_identifier!",
+      "struct_item.type_identifier!"
     ], [":"]),
     functionName: ["function_item[name]"],
     anonymousFunction: "closure_expression",
@@ -104,6 +104,7 @@ import {
       "let_declaration.identifier!",
       "parameter.identifier!",
     ],
+    class: ["struct_item", "struct_expression"],
    };
   
   export default createPatternMatchers(nodeMatchers);
