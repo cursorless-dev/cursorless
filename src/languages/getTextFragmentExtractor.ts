@@ -131,6 +131,7 @@ const textFragmentExtractors: Record<
   ),
   cpp: constructDefaultTextFragmentExtractor("cpp"),
   csharp: constructDefaultTextFragmentExtractor("csharp"),
+  css: constructDefaultTextFragmentExtractor("css"),
   go: constructDefaultTextFragmentExtractor("go"),
   html: constructDefaultTextFragmentExtractor(
     "html",
@@ -170,6 +171,7 @@ const textFragmentExtractors: Record<
     "scala",
     constructHackedStringTextFragmentExtractor("scala")
   ),
+  scss: constructDefaultTextFragmentExtractor("scss"),
   typescript: constructDefaultTextFragmentExtractor(
     "typescript",
     typescriptStringTextFragmentExtractor

@@ -9,6 +9,7 @@ import {
 } from "../typings/Types";
 import cpp from "./cpp";
 import clojure from "./clojure";
+import css from "./css";
 import csharp from "./csharp";
 import { patternMatchers as json } from "./json";
 import { patternMatchers as typescript } from "./typescript";
@@ -18,6 +19,7 @@ import php from "./php";
 import python from "./python";
 import markdown from "./markdown";
 import scala from "./scala";
+import scss from "./scss";
 import go from "./go";
 import { patternMatchers as ruby } from "./ruby";
 import { UnsupportedLanguageError } from "../errors";
@@ -53,6 +55,7 @@ const languageMatchers: Record<
 > = {
   c: cpp,
   cpp,
+  css,
   csharp,
   clojure,
   go,
@@ -65,8 +68,9 @@ const languageMatchers: Record<
   markdown,
   php,
   python,
-  ruby, 
+  ruby,
   scala,
+  scss,
   typescript,
   typescriptreact: typescript,
   xml: html,
