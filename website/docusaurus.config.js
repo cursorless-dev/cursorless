@@ -7,9 +7,9 @@ const path = require("path");
 
 /**
  * Files within /docs reference repository directories
- * and files outside of that folder. They are not served 
+ * and files outside of that folder. They are not served
  * in documentation hub.
- * 
+ *
  * This plugin rewrites these links to point to GitHub.
  * The algorithm roughly is:
  * - For each link:
@@ -26,14 +26,11 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
     visit(ast, "link", (node) => {
       /** @type string */
       let link = node.url;
-      if (
-        link.startsWith("http://") ||
-        link.startsWith("https://")
-      ) {
+      if (link.startsWith("http://") || link.startsWith("https://")) {
         return;
       }
 
-      // Docusaurus runs this plugin on its intermediate 
+      // Docusaurus runs this plugin on its intermediate
       // markdown representaiton as well as on our original files.
       // These are relative links that docusaurus already figured out
       // based on realative links to .md files
@@ -64,7 +61,7 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
 const config = {
   title: "Cursorless",
   tagline: "Structural voice coding at the speed of thought",
-  url: "https://cursorless.org/",
+  url: "https://www.cursorless.org/",
   baseUrl: "/docs/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
@@ -73,9 +70,9 @@ const config = {
     [
       "docusaurus-plugin-typedoc",
       // TypeDoc options merged with docusaurus specific options
-      { 
-        ...require('./typedoc.js'),
-        docsRoot:'../docs',
+      {
+        ...require("./typedoc.js"),
+        docsRoot: "../docs",
         // Out path is relative to docsRoot
         out: "contributing/api",
       },
@@ -94,8 +91,8 @@ const config = {
           routeBasePath: "/",
           sidebarPath: require.resolve("./sidebar.js"),
           beforeDefaultRemarkPlugins: [
-            remarkPluginFixLinksToRepositoryArtifacts
-          ]
+            remarkPluginFixLinksToRepositoryArtifacts,
+          ],
         },
       }),
     ],

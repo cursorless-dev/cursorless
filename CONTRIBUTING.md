@@ -1,4 +1,4 @@
 # Contributing
 
-Please see the [contributing section](https://cursorless.org/docs/contributing)
+Please see the [contributing section](https://www.cursorless.org/docs/contributing)
 of the documentation hub.
