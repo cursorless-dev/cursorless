@@ -159,7 +159,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   collectionItem: argumentMatcher(...mapTypes, ...listTypes),
   value: cascadingMatcher(
     valueMatcher(),
-    patternMatcher("return_statement.~return!")
+    patternMatcher("return_statement.~return!"),
+    patternMatcher("yield_expression.~yield!")
   ),
   ifStatement: "if_statement",
   anonymousFunction: [
