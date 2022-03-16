@@ -1,0 +1,22 @@
+name: Test docs
+
+on:
+  pull_request:
+    branches: main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test-docs-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+      - run: ./scripts/docs-build.sh
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: gaurav-nelson/github-action-markdown-link-check@v1

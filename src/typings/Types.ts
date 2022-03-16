@@ -327,6 +327,10 @@ export interface SelectionContext {
   isRawSelection?: boolean;
 }
 
+/**
+ * Represents a selection in a particular document along with potential rich
+ * context information such as how to remove the given selection
+ */
 export interface TypedSelection {
   /**
    * The selection.  If insideOutsideType is non-null, it will be adjusted to

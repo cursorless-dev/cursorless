@@ -1,3 +1,7 @@
+---
+slug: /
+---
+
 # Cursorless documentation
 
 Welcome to Cursorless! You may find it helpful to start with the [tutorial video](https://www.youtube.com/watch?v=JxcNW0hnfTk).
