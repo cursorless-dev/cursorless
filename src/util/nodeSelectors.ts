@@ -190,6 +190,26 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
   };
 }
 
+export function selectChildrenWithExceptions(excludedItems: string[] = []) {
+  return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
+    const exclusions = new Set(excludedItems);
+    const nodes = node.namedChildren.filter((child) => {
+      return !exclusions.has(child.type);
+    });
+
+    return {
+      selection: new Selection(
+        new Position(
+          nodes[0].startPosition.row,
+          nodes[0].startPosition.column
+        ),
+        new Position(nodes[nodes.length - 1].endPosition.row, nodes[nodes.length - 1].endPosition.column)
+      ),
+      context: {}
+    }
+  };
+}
+
 export function selectWithTrailingDelimiter(...delimiters: string[]) {
   return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
     const firstSibling = node.nextSibling;

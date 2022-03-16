@@ -1,14 +1,19 @@
 import {
   argumentMatcher,
+  cascadingMatcher,
   conditionMatcher,
   createPatternMatchers,
   leadingMatcher,
+  matcher,
+  patternMatcher,
   trailingMatcher,
 } from "../util/nodeMatchers";
 import {
   NodeMatcherAlternative,
   ScopeType,
 } from "../typings/Types";
+import { patternFinder } from "../util/nodeFinders";
+import { selectChildrenWithExceptions } from "../util/nodeSelectors";
 
 const STATEMENT_TYPES = [
   "apply_statement",
@@ -49,11 +54,24 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   namedFunction: ["mixin_statement", "function_statement"],
   functionName: ["mixin_statement.name", "function_statement.name"],
   comment: ["comment", "single_line_comment"],
-  argumentOrParameter: argumentMatcher("arguments"),
-  collectionKey: trailingMatcher(["property_name", "variable_name"], [":"]),
-  // Get values working. Currently everything including an attribute name is at the same level
-  // all children of declaration.
-  value: leadingMatcher(["declaration.~property_name"], [":"]),
+  argumentOrParameter: argumentMatcher("arguments", "parameters"),
+  name: cascadingMatcher(
+    matcher(
+      patternFinder(
+        "function_statement.name!",
+        "declaration.property_name!",
+        "declaration.variable_name!"
+      )
+    )
+  ),
+  value: cascadingMatcher(
+    matcher(
+      patternFinder("declaration"),
+      selectChildrenWithExceptions(["property_name", "variable_name"])
+    ),
+    matcher(patternFinder("include_statement"), selectChildrenWithExceptions()),
+    patternMatcher("return_statement.*!", "import_statement.*!")
+  ),
 };
 
 export default createPatternMatchers(nodeMatchers);
