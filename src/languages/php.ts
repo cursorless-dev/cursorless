@@ -146,6 +146,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
       "assignment_expression[right]",
       "augmented_assignment_expression[right]",
       "return_statement[0]",
+      "yield_expression[0]",
     ],
     assignmentOperators.concat(["=>"]),
   ),
