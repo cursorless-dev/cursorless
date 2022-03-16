@@ -8,7 +8,7 @@ Welcome to Cursorless! You may find it helpful to start with the [tutorial video
 
 Once you understand the concepts, you can pull up a cheatsheet for reference using the command `"cursorless help"`.
 
-You can get back to these docs by saying `"cursorless docs"`.
+You can get back to these docs by saying `"cursorless instructions"`.
 
 Note: If you'd like to customize any of the spoken forms, please see the [documentation](customization.md).
 
@@ -47,7 +47,7 @@ Note: If you'd like to customize any of the spoken forms, please see the [docume
   - [Rename](#rename)
   - [Scroll](#scroll)
   - [Insert/Use/Repeat](#insertuserepeat)
-  - [Wrap](#wrap)
+  - [Wrap/Rewrap](#wraprewrap)
     - [\[experimental\] Wrap with snippet](#experimental-wrap-with-snippet)
   - [Show definition/reference/quick fix](#show-definitionreferencequick-fix)
   - [Fold/unfold](#foldunfold)
@@ -423,9 +423,9 @@ eg:
 `move blue air to green bat`
 Replaces the token containing letter 'b' with a green hat using the token containing letter 'a' with a blue hat, and the delete the latter token.
 
-### Wrap
+### Wrap/Rewrap
 
-The wrap commands can be used to wrap a given target with a pair of symbols
+The wrap command can be used to wrap a given target with a pair of symbols
 
 - `"round wrap <TARGET>"`: wraps the target with parentheses
 - `"box wrap <TARGET>"`: wraps the target with square brackets
@@ -433,6 +433,9 @@ The wrap commands can be used to wrap a given target with a pair of symbols
 eg:
 `box wrap blue air`
 Wraps the token containing letter 'a' with a blue hat in square brackets.
+
+The rewrap command, mapped to `"repack"` by default, can be used to swap a given pair of symbols with another
+- `"curly repack <TARGET>"`: wraps the target with curly brackets, replacing the previous paired delimiter
 
 See [paired delimiters](#paired-delimiters) for a list of possible wrappers.
 

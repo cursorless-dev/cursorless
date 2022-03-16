@@ -159,10 +159,14 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   collectionItem: argumentMatcher(...mapTypes, ...listTypes),
   value: cascadingMatcher(
     valueMatcher(),
-    patternMatcher("return_statement.~return!")
+    patternMatcher("return_statement.~return!"),
+    patternMatcher("yield_expression.~yield!")
   ),
   ifStatement: "if_statement",
-  anonymousFunction: ["arrow_function", "function"],
+  anonymousFunction: [
+    "arrow_function",
+    "function",
+  ],
   name: [
     "*[name]",
     "optional_parameter.identifier!",
@@ -182,6 +186,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   functionName: [
     // function
     "function_declaration[name]",
+    // generator function
+    "generator_function_declaration[name]",
     // export default function
     "function[name]",
     // class method
@@ -218,6 +224,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "assignment_expression.function",
     // foo = () => { }
     "assignment_expression.arrow_function",
+    // foo = function*() { }
+    "generator_function_declaration",
   ],
   type: cascadingMatcher(
     // Typed parameters, properties, and functions

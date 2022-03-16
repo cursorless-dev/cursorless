@@ -1,0 +1,33 @@
+languageId: php
+command:
+  version: 1
+  spokenForm: chuck type
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+initialState:
+  documentContents: |-
+    <?php
+
+    function myFunc(array ...$nums) {
+
+    }
+  selections:
+    - anchor: {line: 2, character: 25}
+      active: {line: 2, character: 25}
+  marks: {}
+finalState:
+  documentContents: |-
+    <?php
+
+    function myFunc(...$nums) {
+
+    }
+  selections:
+    - anchor: {line: 2, character: 19}
+      active: {line: 2, character: 19}
+  thatMark:
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]
