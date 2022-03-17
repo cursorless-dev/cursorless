@@ -2,8 +2,6 @@
 
 Welcome! So glad you've decided to help make Cursorless better. Once you've Learned how to [install](#installation) and [run / test a local copy of the extension](#running--testing-extension-locally), you may want to check out the [API docs](api) to learn more about how Cursorless works.
 
-Less test a broken link [foo](spaghetti)
-
 ### Installation
 
 ```sh
