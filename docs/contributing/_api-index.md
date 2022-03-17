@@ -1,5 +1,10 @@
 # Cursorless internals
 
-This document is intended to present a high-level overview of the Cursorless architecture, as well as key pointers to locations in the code base to help contributors get up to speed.
+This document is intended to present a high-level overview of the Cursorless
+architecture, as well as key pointers to locations in the code base to help
+contributors get up to speed.
 
-For the time being, we recommend watching the [internals walk-through videos](https://youtube.com/playlist?list=PLkafpFOBVedScHi0dy_80DsHwnZIOSOTy) and having a look through the API docs, starting from the [`runCommand` function](https://www.cursorless.org/docs/contributing/api/classes/core_commandRunner_CommandRunner.CommandRunner#runcommand).
+For the time being, we recommend watching the [internals walk-through
+videos](https://youtube.com/playlist?list=PLkafpFOBVedScHi0dy_80DsHwnZIOSOTy)
+and having a look through the API docs, starting from the [`runCommand`
+function](api/classes/core_commandRunner_CommandRunner.CommandRunner#runcommand).

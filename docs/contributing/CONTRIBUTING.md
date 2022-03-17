@@ -12,6 +12,10 @@ yarn
 
 In order to test out your local version of the extension or to run unit tests locally you need to run the extension in debug mode. To do so you need to run the `workbench.action.debug.selectandstart` command and then select either "Run Extension" or "Extension Tests".
 
+### Running docs site locally
+
+Run the `workbench.action.debug.selectandstart` command and then select "Docusaurus Start (Debug)".
+
 ### Adding tests
 
 See [test-case-recorder.md](./test-case-recorder.md).

@@ -94,6 +94,9 @@ const config = {
             remarkPluginFixLinksToRepositoryArtifacts,
           ],
         },
+        theme: {
+          customCss: [require.resolve("./src/css/custom.css")],
+        },
       }),
     ],
   ],
@@ -123,6 +126,12 @@ const config = {
             to: "contributing/",
             sidebarId: "contributing",
             label: "For contributors",
+          },
+          {
+            href: "https://github.com/cursorless-dev/cursorless-vscode",
+            position: "right",
+            className: "header-github-link",
+            "aria-label": "GitHub repository",
           },
         ],
       },
