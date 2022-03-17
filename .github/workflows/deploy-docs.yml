@@ -11,19 +11,6 @@ jobs:
     environment: production
     steps:
       - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.CURSORLESS_BOT_TOKEN }}
-      - name: Configure GPG Key
-        run: |
-          echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
-        env:
-          GPG_SIGNING_KEY: ${{ secrets.CURSORLESS_BOT_GPG_SIGNING_KEY }}
-      - name: git config
-        run: |
-          git config user.name cursorless-bot
-          git config user.email 98099035+cursorless-bot@users.noreply.github.com
-          git config user.signingkey A9387720AFC62221
-          git config commit.gpgsign true
       - uses: actions/setup-node@v2
         with:
           node-version: 16
@@ -34,3 +21,5 @@ jobs:
         with:
           personal_token: ${{ secrets.CURSORLESS_BOT_TOKEN }}
           publish_dir: ./gh-pages-root/
+          user_name: "cursorless-bot"
+          user_email: "98099035+cursorless-bot@users.noreply.github.com"
