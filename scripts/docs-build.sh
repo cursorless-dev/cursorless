@@ -1,4 +1,4 @@
-#!/bin/sh
+set -euo pipefail
 
 # We still need the main project to have all depedencies
 # it will be compiled as part of API docs generation
