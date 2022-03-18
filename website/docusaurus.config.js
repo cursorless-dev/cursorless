@@ -65,6 +65,7 @@ const config = {
   baseUrl: "/docs/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
+  trailingSlash: true,
 
   plugins: [
     [
