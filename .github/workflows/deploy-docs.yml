@@ -1,0 +1,25 @@
+name: Deploy docs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+      - run: bash -x scripts/docs-build.sh
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.CURSORLESS_BOT_TOKEN }}
+          publish_dir: ./gh-pages-root/
+          user_name: "cursorless-bot"
+          user_email: "98099035+cursorless-bot@users.noreply.github.com"

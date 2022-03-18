@@ -23,6 +23,15 @@ export type SelectionWithEditorWithContext = {
   context: SelectionContext;
 };
 
+/**
+ * Processes a single modifier in the {@link processTargets} pipeline.
+ * @param context Context created in {@link CommandRunner#run}
+ * @param target Target description, including information about the modifier
+ * to apply
+ * @param selection Selection to apply the modifier to, as output by previous
+ * stages of pipeline, such as the mark.
+ * @returns Modified selection including additional rich context information
+ */
 export default function (
   context: ProcessedTargetsContext,
   target: PrimitiveTarget,

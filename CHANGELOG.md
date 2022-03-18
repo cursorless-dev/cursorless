@@ -1,3 +1,5 @@
+<!-- markdown-link-check-disable -->
+
 # Change Log
 
 All notable changes to the "cursorless" extension will be documented in this file.

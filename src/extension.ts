@@ -7,6 +7,14 @@ import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import isTesting from "./testUtil/isTesting";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 
+/**
+ * Extension entrypoint called by VSCode on Cursorless startup.
+ * - Creates a dependency container {@link Graph} with the components that
+ * implement Cursorless.
+ * - Creates test case recorder {@link TestCaseRecorder} for contributors to
+ * use to record test cases.
+ * - Creates an entrypoint for running commands {@link CommandRunner}.
+ */
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();

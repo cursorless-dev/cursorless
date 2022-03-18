@@ -9,7 +9,17 @@ import {
   PartialListTarget,
 } from "../typings/Types";
 
-export default function (
+/**
+ * Performs inference on the partial targets provided by the user, using
+ * previous targets, global defaults, and action-specific defaults to fill out
+ * any details that may have been omitted in the spoken form.
+ * For example, we would automatically infer that `"take funk air and bat"` is
+ * equivalent to `"take funk air and funk bat"`.
+ * @param targets The partial targets which need to be completed by inference.
+ * @param actionPreferences The preferences provided by the action, so that different actions can provide their own defaults
+ * @returns Target objects fully filled out and ready to be processed by {@link processTargets}.
+ */
+export default function inferFullTargets(
   targets: PartialTarget[],
   actionPreferences: ActionPreferences[]
 ): Target[] {
