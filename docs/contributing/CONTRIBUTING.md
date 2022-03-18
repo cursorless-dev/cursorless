@@ -1,16 +1,27 @@
 # Contributing
 
+Welcome! So glad you've decided to help make Cursorless better. Once you've
+learned how to [install](#installation) and [run / test a local copy of the
+extension](#running--testing-extension-locally), you may want to check out the
+[API docs](api) to learn more about how Cursorless works.
+
 ### Installation
 
 ```sh
-yarn install
+yarn
 ```
 
-### Running tests
+### Running / testing extension locally
 
-```sh
-yarn run test
-```
+In order to test out your local version of the extension or to run unit tests
+locally you need to run the extension in debug mode. To do so you need to run
+the `workbench.action.debug.selectandstart` command and then select either "Run
+Extension" or "Extension Tests".
+
+### Running docs site locally
+
+Run the `workbench.action.debug.selectandstart` command and then select
+"Docusaurus Start (Debug)".
 
 ### Adding tests
 
