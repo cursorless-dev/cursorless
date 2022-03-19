@@ -1,17 +1,17 @@
-import * as vscode from "vscode";
-import * as path from "path";
 import * as fs from "fs";
-import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
-import { walkDirsSync } from "./walkSync";
 import { invariant } from "immutability-helper";
-import { DecoratedSymbol, Graph } from "../typings/Types";
-import { ExtraSnapshotField, takeSnapshot } from "./takeSnapshot";
-import sleep from "../util/sleep";
-import { getDocumentRange } from "../util/range";
-import serialize from "./serialize";
+import * as path from "path";
+import * as vscode from "vscode";
 import HatTokenMap from "../core/HatTokenMap";
-import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
+import { DecoratedSymbol, Graph } from "../typings/Types";
+import { getDocumentRange } from "../util/range";
+import sleep from "../util/sleep";
 import { extractTargetedMarks } from "./extractTargetedMarks";
+import serialize from "./serialize";
+import { ExtraSnapshotField, takeSnapshot } from "./takeSnapshot";
+import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
+import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
+import { walkDirsSync } from "./walkSync";
 
 const CALIBRATION_DISPLAY_BACKGROUND_COLOR = "#230026";
 const CALIBRATION_DISPLAY_DURATION_MS = 30;
