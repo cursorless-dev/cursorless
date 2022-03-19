@@ -4,10 +4,14 @@ import * as fs from "fs";
 import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
 import { walkDirsSync } from "./walkSync";
 import { invariant } from "immutability-helper";
-import { Graph } from "../typings/Types";
-import { ExtraSnapshotField } from "./takeSnapshot";
+import { DecoratedSymbol, Graph } from "../typings/Types";
+import { ExtraSnapshotField, takeSnapshot } from "./takeSnapshot";
 import sleep from "../util/sleep";
 import { getDocumentRange } from "../util/range";
+import serialize from "./serialize";
+import HatTokenMap from "../core/HatTokenMap";
+import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
+import { extractTargetedMarks } from "./extractTargetedMarks";
 
 const CALIBRATION_DISPLAY_BACKGROUND_COLOR = "#230026";
 const CALIBRATION_DISPLAY_DURATION_MS = 30;
@@ -62,7 +66,7 @@ export class TestCaseRecorder {
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
 
-  constructor(graph: Graph) {
+  constructor(private graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
 
     this.workspacePath =
@@ -111,6 +115,43 @@ export class TestCaseRecorder {
           }
 
           this.paused = false;
+        }
+      ),
+
+      vscode.commands.registerCommand(
+        "cursorless.takeSnapshot",
+        async (
+          outPath: string,
+          metadata: unknown,
+          targetedMarks: DecoratedSymbol[],
+          usePrePhraseSnapshot: boolean
+        ) => {
+          let marks: SerializedMarks | undefined;
+          if (targetedMarks.length !== 0) {
+            const keys = targetedMarks.map(({ character, symbolColor }) =>
+              HatTokenMap.getKey(symbolColor, character)
+            );
+            const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
+              usePrePhraseSnapshot
+            );
+            marks = marksToPlainObject(
+              extractTargetedMarks(keys, readableHatMap)
+            );
+          } else {
+            marks = undefined;
+          }
+
+          const snapshot = await takeSnapshot(
+            undefined,
+            undefined,
+            ["clipboard"],
+            this.active ? this.extraSnapshotFields : undefined,
+            marks,
+            this.active ? { startTimestamp: this.startTimestamp } : undefined,
+            metadata
+          );
+
+          await this.writeToFile(outPath, serialize(snapshot));
         }
       )
     );
@@ -224,11 +265,7 @@ export class TestCaseRecorder {
     const outPath = this.calculateFilePath(this.testCase!);
     const fixture = this.testCase!.toYaml();
     await this.writeToFile(outPath, fixture);
-    this.testCase = null;
-  }
 
-  private async writeToFile(outPath: string, fixture: string) {
-    fs.writeFileSync(outPath, fixture);
     if (!this.isSilent) {
       vscode.window
         .showInformationMessage("Cursorless test case saved.", "View")
@@ -239,6 +276,12 @@ export class TestCaseRecorder {
           }
         });
     }
+
+    this.testCase = null;
+  }
+
+  private async writeToFile(outPath: string, fixture: string) {
+    fs.writeFileSync(outPath, fixture);
   }
 
   private async promptSubdirectory(): Promise<string | undefined> {
