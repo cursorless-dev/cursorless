@@ -1,35 +1,35 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: take every item
-  action: setSelection
+  spokenForm: change every item
+  action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
 initialState:
-  documentContents: |
+  documentContents: |-
     \begin{itemize}
         \item one \LaTeX
         \item two \LaTeX
     \end{itemize}
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |-
     \begin{itemize}
-        \item one \LaTeX
-        \item two \LaTeX
+        
+        
     \end{itemize}
   selections:
     - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 20}
+      active: {line: 1, character: 4}
     - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 20}
+      active: {line: 2, character: 4}
   thatMark:
     - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 20}
+      active: {line: 1, character: 4}
     - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 20}
+      active: {line: 2, character: 4}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}, isImplicit: false}]

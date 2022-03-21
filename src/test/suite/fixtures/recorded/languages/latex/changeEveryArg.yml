@@ -1,8 +1,8 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: take every arg
-  action: setSelection
+  spokenForm: change every arg
+  action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
@@ -10,20 +10,20 @@ initialState:
   documentContents: |
     \href{https://some.url}{some text}
   selections:
-    - anchor: {line: 0, character: 14}
-      active: {line: 0, character: 14}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 finalState:
   documentContents: |
-    \href{https://some.url}{some text}
+    \href{}{}
   selections:
     - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 22}
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 33}
+      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
   thatMark:
     - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 22}
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 33}
+      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}]
