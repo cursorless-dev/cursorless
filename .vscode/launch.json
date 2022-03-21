@@ -61,6 +61,14 @@
 				"${workspaceFolder}/out/test/**/*.js"
 			],
 			"preLaunchTask": "${defaultBuildTask}"
-		}
+		},
+		{
+            "name": "Docusaurus Start (Debug)",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/website",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": ["run", "start"],
+        }
 	]
 }
