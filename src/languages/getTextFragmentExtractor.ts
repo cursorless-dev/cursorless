@@ -155,7 +155,7 @@ const textFragmentExtractors: Record<
     "json",
     jsonStringTextFragmentExtractor
   ),
-  latex: constructDefaultTextFragmentExtractor("latex"),
+  latex: fullDocumentTextFragmentExtractor,
   markdown: fullDocumentTextFragmentExtractor,
   python: constructDefaultTextFragmentExtractor("python"),
   ruby: constructDefaultTextFragmentExtractor(

@@ -43,6 +43,15 @@ scope_types = {
     "tags": "xmlBothTags",
     "start tag": "xmlStartTag",
     "end tag": "xmlEndTag",
+    # LaTeX
+    "command": "latexCommand",
+    "environment": "latexEnvironment",
+    "part": "latexPart",
+    "chapter": "latexChapter",
+    "subsection": "latexSubsection",
+    "subsubsection": "latexSubSubSection",
+    "paragraph": "latexParagraph",
+    "subparagraph": "latexSubParagraph",
 }
 
 

@@ -2,6 +2,7 @@ import {
   createPatternMatchers,
   cascadingMatcher,
   matcher,
+  ancestorChainNodeMatcher,
 } from "../util/nodeMatchers";
 import {
   NodeMatcherAlternative,
@@ -87,9 +88,6 @@ const ENVIRONMENTS = [
 
 const sectioningText = SECTIONING.map((s) => `${s}[text]`);
 const sectioningCommand = SECTIONING.map((s) => `${s}[command]`);
-const commandXGroup = GROUPS.map((group) =>
-  COMMANDS.map((cmd) => `${cmd}.${group}!`)
-).flat();
 
 function unwrapParenExtractor(
   editor: TextEditor,
@@ -140,16 +138,19 @@ function extendToNamedSiblingIfExists(
 }
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
-  argumentOrParameter: matcher(
-    patternFinder(
-      ...commandXGroup
-        .concat(["begin[name]", "end[name]"])
-        .concat(sectioningText)
+  argumentOrParameter: cascadingMatcher(
+    ancestorChainNodeMatcher(
+      [patternFinder(...COMMANDS), patternFinder(...GROUPS)],
+      1,
+      unwrapParenExtractor
     ),
-    unwrapParenExtractor
+    matcher(
+      patternFinder(...["begin[name]", "end[name]"].concat(sectioningText)),
+      unwrapParenExtractor
+    )
   ),
 
-  functionCall: cascadingMatcher(
+  latexCommand: cascadingMatcher(
     matcher(patternFinder(...COMMANDS.concat(["begin", "end"]))),
     matcher(patternFinder(...sectioningCommand), extendToNamedSiblingIfExists)
   ),
@@ -161,11 +162,15 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
 
   comment: ["block_comment", "line_comment"],
 
-  // TODO: use other scope(s)? adding individual scopes is probably too much? (part, chapter, section, subsection, subsubsection, paragraph, subparagraph)
-  xmlStartTag: SECTIONING,
+  latexPart: "part",
+  latexChapter: "chapter",
+  section: "section",
+  latexSubsection: "subsection",
+  latexSubSubSection: "subsubsection",
+  latexParagraph: "paragraph",
+  latexSubParagraph: "subparagraph",
 
-  // TODO: eventually add scope instead of reusing xmlElement
-  xmlElement: ENVIRONMENTS,
+  latexEnvironment: ENVIRONMENTS,
 };
 
 export default createPatternMatchers(nodeMatchers);
