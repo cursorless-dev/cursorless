@@ -54,8 +54,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   // What does `functionName` do?
   functionName: ["mixin_statement.name!", "function_statement.name!"],
   comment: ["comment", "single_line_comment"],
-  // removing last element keeps comma, need to match
-  argumentOrParameter: argumentMatcher("argument", "parameter"),
+  argumentOrParameter: argumentMatcher("arguments", "parameters"),
   name: cascadingMatcher(
     matcher(
       patternFinder(

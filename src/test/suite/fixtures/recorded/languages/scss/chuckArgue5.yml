@@ -7,23 +7,23 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
-  documentContents: |
-    @function invert($amount: 100%, $color) {
-      $inverse: change-color($color, $hue: hue($color) + 180);
+  documentContents: |-
+    .micro {
+      width: sum(50px, 30px, 100px);
     }
   selections:
-    - anchor: {line: 0, character: 36}
-      active: {line: 0, character: 36}
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
   marks: {}
 finalState:
-  documentContents: |
-    @function invert($amount: 100%) {
-      $inverse: change-color($color, $hue: hue($color) + 180);
+  documentContents: |-
+    .micro {
+      width: sum(30px, 100px);
     }
   selections:
-    - anchor: {line: 0, character: 30}
-      active: {line: 0, character: 30}
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}
   thatMark:
-    - anchor: {line: 0, character: 30}
-      active: {line: 0, character: 30}
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

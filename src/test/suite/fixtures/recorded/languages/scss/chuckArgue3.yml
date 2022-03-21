@@ -12,18 +12,18 @@ initialState:
       $inverse: change-color($color, $hue: hue($color) + 180);
     }
   selections:
-    - anchor: {line: 0, character: 36}
-      active: {line: 0, character: 36}
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
   marks: {}
 finalState:
   documentContents: |
-    @function invert($amount: 100%) {
+    @function invert($color) {
       $inverse: change-color($color, $hue: hue($color) + 180);
     }
   selections:
-    - anchor: {line: 0, character: 30}
-      active: {line: 0, character: 30}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
   thatMark:
-    - anchor: {line: 0, character: 30}
-      active: {line: 0, character: 30}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

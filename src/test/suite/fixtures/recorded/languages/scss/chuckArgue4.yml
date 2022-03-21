@@ -8,12 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
   documentContents: |
-    @function invert($amount: 100%, $color) {
+    @function invert($color, $amount: 100%) {
       $inverse: change-color($color, $hue: hue($color) + 180);
     }
   selections:
-    - anchor: {line: 0, character: 36}
-      active: {line: 0, character: 36}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
   marks: {}
 finalState:
   documentContents: |
@@ -21,9 +21,9 @@ finalState:
       $inverse: change-color($color, $hue: hue($color) + 180);
     }
   selections:
-    - anchor: {line: 0, character: 30}
-      active: {line: 0, character: 30}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
   thatMark:
-    - anchor: {line: 0, character: 30}
-      active: {line: 0, character: 30}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]
