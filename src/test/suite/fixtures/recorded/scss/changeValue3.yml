@@ -1,0 +1,37 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: change value
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+initialState:
+  documentContents: |-
+    @function pow($base, $exponent) {
+      $result: 1;
+      @for $_ from 1 through $exponent {
+        $result: $result * $base;
+      }
+      @return $result;
+    }
+  selections:
+    - anchor: {line: 5, character: 11}
+      active: {line: 5, character: 11}
+  marks: {}
+finalState:
+  documentContents: |-
+    @function pow($base, $exponent) {
+      $result: 1;
+      @for $_ from 1 through $exponent {
+        $result: $result * $base;
+      }
+      @return ;
+    }
+  selections:
+    - anchor: {line: 5, character: 10}
+      active: {line: 5, character: 10}
+  thatMark:
+    - anchor: {line: 5, character: 10}
+      active: {line: 5, character: 10}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]

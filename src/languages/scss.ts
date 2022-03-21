@@ -52,9 +52,11 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   string: "string_value",
   functionCall: "call_expression",
   namedFunction: ["mixin_statement", "function_statement"],
+  // mixin name doesn't work
   functionName: ["mixin_statement.name", "function_statement.name"],
   comment: ["comment", "single_line_comment"],
-  argumentOrParameter: argumentMatcher("arguments", "parameters"),
+  // removing last element keeps comma, need to match 
+  argumentOrParameter: argumentMatcher("argument", "parameter"),
   name: cascadingMatcher(
     matcher(
       patternFinder(

@@ -1,0 +1,31 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: chuck argue
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+initialState:
+  documentContents: |-
+
+    .double {
+      transform: translate(-50%);
+    }
+  selections:
+    - anchor: {line: 2, character: 26}
+      active: {line: 2, character: 26}
+  marks: {}
+finalState:
+  documentContents: |-
+
+    .double {
+      transform: translate();
+    }
+  selections:
+    - anchor: {line: 2, character: 23}
+      active: {line: 2, character: 23}
+  thatMark:
+    - anchor: {line: 2, character: 23}
+      active: {line: 2, character: 23}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]
