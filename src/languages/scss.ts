@@ -11,9 +11,11 @@ import {
 import {
   NodeMatcherAlternative,
   ScopeType,
+  SelectionWithEditor,
 } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
-import { selectChildrenWithExceptions } from "../util/nodeSelectors";
+import { getNodeRange, selectChildrenWithExceptions } from "../util/nodeSelectors";
+import { SyntaxNode } from "web-tree-sitter";
 
 const STATEMENT_TYPES = [
   "apply_statement",
@@ -41,9 +43,6 @@ const STATEMENT_TYPES = [
   "while_statement",
 ];
 
-const EXPRESSION_TYPES = [
-];
-
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   // map, list not supported in tree-sitter version
   ifStatement: "if_statement",
@@ -52,17 +51,18 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   string: "string_value",
   functionCall: "call_expression",
   namedFunction: ["mixin_statement", "function_statement"],
-  // mixin name doesn't work
-  functionName: ["mixin_statement.name", "function_statement.name"],
+  // What does `functionName` do?
+  functionName: ["mixin_statement.name!", "function_statement.name!"],
   comment: ["comment", "single_line_comment"],
-  // removing last element keeps comma, need to match 
+  // removing last element keeps comma, need to match
   argumentOrParameter: argumentMatcher("argument", "parameter"),
   name: cascadingMatcher(
     matcher(
       patternFinder(
         "function_statement.name!",
         "declaration.property_name!",
-        "declaration.variable_name!"
+        "declaration.variable_name!",
+        "mixin_statement.name!"
       )
     )
   ),
@@ -76,4 +76,15 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ),
 };
 
-export default createPatternMatchers(nodeMatchers);
+export const patternMatchers = createPatternMatchers(nodeMatchers);
+
+export function stringTextFragmentExtractor(
+  node: SyntaxNode,
+  _selection: SelectionWithEditor
+) {
+  if (node.type === "string_value") {
+    return getNodeRange(node);
+  }
+
+  return null;
+}

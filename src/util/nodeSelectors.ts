@@ -196,14 +196,15 @@ export function selectChildrenWithExceptions(excludedItems: string[] = []) {
     const nodes = node.namedChildren.filter((child) => {
       return !exclusions.has(child.type);
     });
-
+  
     return {
       selection: new Selection(
         new Position(
           nodes[0].startPosition.row,
           nodes[0].startPosition.column
         ),
-        new Position(nodes[nodes.length - 1].endPosition.row, nodes[nodes.length - 1].endPosition.column)
+        new Position(nodes[nodes.length - 1].endPosition.row, 
+          nodes[nodes.length - 1].endPosition.column)
       ),
       context: {}
     }
