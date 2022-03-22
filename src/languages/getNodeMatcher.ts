@@ -9,7 +9,6 @@ import {
 } from "../typings/Types";
 import cpp from "./cpp";
 import clojure from "./clojure";
-import css from "./css";
 import csharp from "./csharp";
 import { patternMatchers as json } from "./json";
 import { patternMatchers as typescript } from "./typescript";
@@ -55,7 +54,7 @@ const languageMatchers: Record<
 > = {
   c: cpp,
   cpp,
-  css,
+  css: scss,
   csharp,
   clojure,
   go,

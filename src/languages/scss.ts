@@ -3,10 +3,8 @@ import {
   cascadingMatcher,
   conditionMatcher,
   createPatternMatchers,
-  leadingMatcher,
   matcher,
   patternMatcher,
-  trailingMatcher,
 } from "../util/nodeMatchers";
 import {
   NodeMatcherAlternative,
@@ -47,6 +45,11 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   // map, list not supported in tree-sitter version
   ifStatement: "if_statement",
   condition: conditionMatcher("condition"),
+  // Currently data-lang=^"tel" not treated as a statement
+  // a[data-lang^="tel"] {
+  //    color: rgba(0, 255, 0, 0.5);
+  // }
+
   statement: STATEMENT_TYPES,
   string: "string_value",
   functionCall: "call_expression",
@@ -61,7 +64,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
         "function_statement.name!",
         "declaration.property_name!",
         "declaration.variable_name!",
-        "mixin_statement.name!"
+        "mixin_statement.name!",
+        "attribute_selector.attribute_name!"
       )
     )
   ),
@@ -70,8 +74,16 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
       patternFinder("declaration"),
       selectChildrenWithExceptions(["property_name", "variable_name"])
     ),
-    matcher(patternFinder("include_statement"), selectChildrenWithExceptions()),
-    patternMatcher("return_statement.*!", "import_statement.*!")
+    matcher(
+      patternFinder("include_statement", "namespace_statement"),
+      selectChildrenWithExceptions()
+    ),
+    patternMatcher(
+      "return_statement.*!",
+      "import_statement.*!",
+      "attribute_selector.plain_value!",
+      "attribute_selector.string_value!"
+    )
   ),
 };
 

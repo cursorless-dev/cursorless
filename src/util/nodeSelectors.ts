@@ -207,7 +207,7 @@ export function selectChildrenWithExceptions(excludedItems: string[] = []) {
           nodes[nodes.length - 1].endPosition.column)
       ),
       context: {}
-    }
+    };
   };
 }
 

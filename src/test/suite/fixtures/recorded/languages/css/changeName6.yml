@@ -1,0 +1,29 @@
+languageId: css
+command:
+  version: 1
+  spokenForm: change name
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+initialState:
+  documentContents: |-
+    a[data-lang^="tel"] {
+      color: rgba(0, 255, 0, 0.5);
+    }
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
+  marks: {}
+finalState:
+  documentContents: |-
+    a[^="tel"] {
+      color: rgba(0, 255, 0, 0.5);
+    }
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  thatMark:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: name, includeSiblings: false}, isImplicit: false}]
