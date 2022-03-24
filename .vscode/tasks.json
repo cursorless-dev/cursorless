@@ -41,6 +41,12 @@
 				"reveal": "never"
 			},
 			"group": "build"
+		},
+		{
+			"label": "Parse quarry",
+			"type": "shell",
+			"command": "npx tree-sitter query scopeTypes.scm ts-test.ts",
+			"presentation": {}
 		}
 	]
 }
