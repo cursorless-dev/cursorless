@@ -39,9 +39,10 @@
         (pair
             key: (_) @key
             .
-            ":" @key.delimiter.trailing)
-        @key.searchScope)
-    @key.iterationScope)
+            ":" @key.delimiter.trailing
+        ) @key.searchScope
+    ) @key.iterationScope
+)
 
 ; We could also try setting an attribute.  This approach is likely how we'd
 ; handle comma-separated lists, because they'd be a bit painful to define as
@@ -51,6 +52,6 @@
         (pair
             key: (_) @key
             (#set! "delimiter" ":")
-        )
-        @key.searchScope)
-    @key.iterationScope)
+        ) @key.searchScope
+    ) @key.iterationScope
+)
