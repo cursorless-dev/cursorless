@@ -188,7 +188,6 @@ export default class Decorations {
       const maxPenalty = vscode.workspace
     .getConfiguration("cursorless").get<number>("maxPenalty")!;
 
-
     shapeEnablement.default = true;
     colorEnablement.default = true;
     shapePenalties.default = 0;
