@@ -121,6 +121,7 @@ export type ScopeType =
   | "sectionLevelFour"
   | "sectionLevelFive"
   | "sectionLevelSix"
+  | "selector"
   | "xmlBothTags"
   | "xmlElement"
   | "xmlEndTag"
@@ -269,6 +270,8 @@ export interface ListTarget {
 }
 
 export type Target = PrimitiveTarget | RangeTarget | ListTarget;
+
+export type ChildNodeIncludePredicate = "inclusion" | "exclusion";
 
 export interface ProcessedTargetsContext {
   currentSelections: SelectionWithEditor[];

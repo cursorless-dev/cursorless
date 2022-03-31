@@ -4,6 +4,7 @@ import {
   SelectionWithContext,
   SelectionExtractor,
   NodeFinder,
+  ChildNodeIncludePredicate,
 } from "../typings/Types";
 import { identity } from "lodash";
 
@@ -190,24 +191,27 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
   };
 }
 
-export function selectChildrenWithExceptions(excludedItems: string[] = []) {
+/**
+ * Creates a selector for multiple children of a node, useful for contiguous ranges. 
+ * When no arguments are pased, match on every child. 
+ * When items are passed with the inclusion predicate, only match on those items. 
+ * When items are passed with the exclusion predicate, only match on those items. 
+ * @param items A set of types to match against, either for inclusion or exclusion.
+ * @param predicateType Determines wither nodes within the items argument will be included or excluded.
+ * @returns A selection extractor
+ */
+export function childRangeSelector(predicateType: ChildNodeIncludePredicate = "inclusion", items: string[] = []) {
   return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
-    const exclusions = new Set(excludedItems);
-    const nodes = node.namedChildren.filter((child) => {
-      return !exclusions.has(child.type);
-    });
-  
-    return {
-      selection: new Selection(
-        new Position(
-          nodes[0].startPosition.row,
-          nodes[0].startPosition.column
-        ),
-        new Position(nodes[nodes.length - 1].endPosition.row, 
-          nodes[nodes.length - 1].endPosition.column)
-      ),
-      context: {}
-    };
+    let nodes = node.namedChildren;
+    if (items.length > 0 || predicateType === "exclusion") {
+      const comparisonSet = new Set(items);
+      nodes = nodes.filter((child) => {
+        const isPresent = comparisonSet.has(child.type);
+        return predicateType === "inclusion" ? isPresent : !isPresent;
+      });
+    }
+
+    return pairSelectionExtractor(editor, nodes[0], nodes[nodes.length - 1]);
   };
 }
 

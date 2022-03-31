@@ -1,10 +1,10 @@
 import {
-  argumentMatcher,
   cascadingMatcher,
   conditionMatcher,
   createPatternMatchers,
   matcher,
   patternMatcher,
+  trailingMatcher,
 } from "../util/nodeMatchers";
 import {
   NodeMatcherAlternative,
@@ -12,15 +12,18 @@ import {
   SelectionWithEditor,
 } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
-import { getNodeRange, selectChildrenWithExceptions } from "../util/nodeSelectors";
+import { getNodeRange, childRangeSelector, delimitedSelector } from "../util/nodeSelectors";
 import { SyntaxNode } from "web-tree-sitter";
+import _ = require("lodash");
+
+// curl https://raw.githubusercontent.com/serenadeai/tree-sitter-scss/c478c6868648eff49eb04a4df90d703dc45b312a/src/node-types.json \
+//  | jq '[.[] | select(.type =="stylesheet") | .children.types[] | select(.type !="declaration") | .type ]'
 
 const STATEMENT_TYPES = [
   "apply_statement",
   "at_rule",
   "charset_statement",
   "debug_statement",
-  "declaration",
   "each_statement",
   "error_statement",
   "for_statement",
@@ -41,42 +44,71 @@ const STATEMENT_TYPES = [
   "while_statement",
 ];
 
+
+
+// Match up until delimiters and including multiple values within delimiters,
+// e.g. repeating-linear-gradient(red, orange 50px)
+function findAdjacentArgValues(siblingFunc: Function):
+  | ((node: SyntaxNode) => SyntaxNode)
+  | undefined {
+  return (node) => {
+    // Handle the case where we are at "|at" and we erroneously expand in both directions.
+    if (node.text === "at" || node.text === ",") {
+      node = node.previousSibling!;
+    }
+
+    let nextPossibleRange = siblingFunc(node);
+    while (!_.includes(["at", ",", "(", ")"], nextPossibleRange?.text)) {
+      node = nextPossibleRange;
+      nextPossibleRange = siblingFunc(nextPossibleRange);
+    }
+    return node;
+  };
+}
+
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
-  // map, list not supported in tree-sitter version
   ifStatement: "if_statement",
   condition: conditionMatcher("condition"),
-  // Currently data-lang=^"tel" not treated as a statement
-  // a[data-lang^="tel"] {
-  //    color: rgba(0, 255, 0, 0.5);
-  // }
-
-  statement: STATEMENT_TYPES,
+  statement: cascadingMatcher(
+    patternMatcher(...STATEMENT_TYPES),
+    matcher(
+      patternFinder("attribute_selector"),
+      childRangeSelector("inclusion", ["attribute_name", "string_value"])
+    )
+  ),
   string: "string_value",
   functionCall: "call_expression",
   namedFunction: ["mixin_statement", "function_statement"],
-  // What does `functionName` do?
   functionName: ["mixin_statement.name!", "function_statement.name!"],
   comment: ["comment", "single_line_comment"],
-  argumentOrParameter: argumentMatcher("arguments", "parameters"),
-  name: cascadingMatcher(
+  argumentOrParameter: cascadingMatcher(
     matcher(
-      patternFinder(
-        "function_statement.name!",
-        "declaration.property_name!",
-        "declaration.variable_name!",
-        "mixin_statement.name!",
-        "attribute_selector.attribute_name!"
+      patternFinder("arguments.*!"),
+      delimitedSelector(
+        (node) => _.includes(["at", ",", "(", ")"], node.text),
+        ", ",
+        findAdjacentArgValues((node: SyntaxNode) => node.previousSibling),
+        findAdjacentArgValues((node: SyntaxNode) => node.nextSibling)
       )
     )
   ),
+  name: [
+    "function_statement.name!",
+    "declaration.property_name!",
+    "declaration.variable_name!",
+    "mixin_statement.name!",
+    "attribute_selector.attribute_name!",
+  ],
+  selector: ["rule_set.selectors!"],
+  collectionKey: trailingMatcher(["declaration.property_name!"], [":"]),
   value: cascadingMatcher(
     matcher(
       patternFinder("declaration"),
-      selectChildrenWithExceptions(["property_name", "variable_name"])
+      childRangeSelector("exclusion", ["property_name", "variable_name"])
     ),
     matcher(
       patternFinder("include_statement", "namespace_statement"),
-      selectChildrenWithExceptions()
+      childRangeSelector()
     ),
     patternMatcher(
       "return_statement.*!",
@@ -85,6 +117,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
       "attribute_selector.string_value!"
     )
   ),
+  collectionItem: "declaration"
 };
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);
