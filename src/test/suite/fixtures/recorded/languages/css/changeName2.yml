@@ -7,25 +7,23 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: name, includeSiblings: false}
 initialState:
-  documentContents: |2-
-        a {
-          height: 10px;
-          color: red;
-        }
+  documentContents: |-
+    a {
+      height: 10px;
+    }
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 10}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
-  documentContents: |2-
-        a {
-          : 10px;
-          color: red;
-        }
+  documentContents: |-
+    a {
+      : 10px;
+    }
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
   thatMark:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: name, includeSiblings: false}, isImplicit: false}]
