@@ -8,22 +8,22 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
   documentContents: |-
-    div {
-      background: repeating-linear-gradient(red, orange 50px);
+    a {
+      clip-path: ellipse(115px 55px at 50% 40%);
     }
   selections:
-    - anchor: {line: 1, character: 47}
-      active: {line: 1, character: 47}
+    - anchor: {line: 1, character: 39}
+      active: {line: 1, character: 39}
   marks: {}
 finalState:
   documentContents: |-
-    div {
-      background: repeating-linear-gradient(red, );
+    a {
+      clip-path: ellipse(115px 55px at );
     }
   selections:
-    - anchor: {line: 1, character: 45}
-      active: {line: 1, character: 45}
+    - anchor: {line: 1, character: 35}
+      active: {line: 1, character: 35}
   thatMark:
-    - anchor: {line: 1, character: 45}
-      active: {line: 1, character: 45}
+    - anchor: {line: 1, character: 35}
+      active: {line: 1, character: 35}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

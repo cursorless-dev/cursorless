@@ -10,7 +10,6 @@ initialState:
   documentContents: |-
     div {
       background: repeating-linear-gradient(red, orange 50px);
-      clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
     }
   selections:
     - anchor: {line: 1, character: 48}
@@ -20,7 +19,6 @@ finalState:
   documentContents: |-
     div {
       background: repeating-linear-gradient(red);
-      clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
     }
   selections:
     - anchor: {line: 1, character: 43}

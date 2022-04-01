@@ -9,25 +9,23 @@ command:
 initialState:
   documentContents: |-
     a {
-      width: calc(100% - 80px);
       clip-path: ellipse(115px 55px at 50% 40%);
     }
      
   selections:
-    - anchor: {line: 2, character: 24}
-      active: {line: 2, character: 24}
+    - anchor: {line: 1, character: 24}
+      active: {line: 1, character: 24}
   marks: {}
 finalState:
   documentContents: |-
     a {
-      width: calc(100% - 80px);
       clip-path: ellipse();
     }
      
   selections:
-    - anchor: {line: 2, character: 21}
-      active: {line: 2, character: 21}
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 21}
   thatMark:
-    - anchor: {line: 2, character: 21}
-      active: {line: 2, character: 21}
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 21}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}]

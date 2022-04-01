@@ -9,23 +9,21 @@ command:
 initialState:
   documentContents: |-
     div {
-      background: repeating-linear-gradient(red, orange 50px);
       clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
     }
   selections:
-    - anchor: {line: 1, character: 48}
-      active: {line: 1, character: 48}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}
   marks: {}
 finalState:
   documentContents: |-
     div {
-      background: repeating-linear-gradient(red);
-      clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+      clip-path: polygon(60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
     }
   selections:
-    - anchor: {line: 1, character: 43}
-      active: {line: 1, character: 43}
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 21}
   thatMark:
-    - anchor: {line: 1, character: 43}
-      active: {line: 1, character: 43}
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 21}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

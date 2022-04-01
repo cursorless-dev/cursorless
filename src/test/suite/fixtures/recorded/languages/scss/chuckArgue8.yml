@@ -10,7 +10,6 @@ initialState:
   documentContents: |-
     a {
       width: calc(100% - 80px);
-      clip-path: ellipse(115px 55px at 50% 40%);
     }
      
   selections:
@@ -21,7 +20,6 @@ finalState:
   documentContents: |-
     a {
       width: calc();
-      clip-path: ellipse(115px 55px at 50% 40%);
     }
      
   selections:
