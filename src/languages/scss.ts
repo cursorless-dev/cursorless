@@ -83,14 +83,14 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   comment: ["comment", "single_line_comment"],
   argumentOrParameter: cascadingMatcher(
     matcher(
-      patternFinder("arguments.*!"),
+      patternFinder("arguments.*!", "parameters.*!"),
       delimitedSelector(
         (node) => _.includes(["at", ",", "(", ")"], node.text),
         ", ",
         findAdjacentArgValues((node: SyntaxNode) => node.previousSibling),
         findAdjacentArgValues((node: SyntaxNode) => node.nextSibling)
       )
-    )
+    ),
   ),
   name: [
     "function_statement.name!",
