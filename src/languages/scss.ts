@@ -14,7 +14,6 @@ import {
 import { patternFinder } from "../util/nodeFinders";
 import { getNodeRange, childRangeSelector, delimitedSelector } from "../util/nodeSelectors";
 import { SyntaxNode } from "web-tree-sitter";
-import _ = require("lodash");
 
 // curl https://raw.githubusercontent.com/serenadeai/tree-sitter-scss/c478c6868648eff49eb04a4df90d703dc45b312a/src/node-types.json \
 //  | jq '[.[] | select(.type =="stylesheet") | .children.types[] | select(.type !="declaration") | .type ]'
@@ -44,21 +43,26 @@ const STATEMENT_TYPES = [
   "while_statement",
 ];
 
+function isArgumentListDelimiter(node: SyntaxNode) {
+  return [",", "(", ")"].includes(node.type) || checkAtPlainValueDelimiter(node);
+};
 
+function checkAtPlainValueDelimiter(node: SyntaxNode) {
+  return (node.type === "plain_value" && node.text === "at");
+}
 
 // Match up until delimiters and including multiple values within delimiters,
 // e.g. repeating-linear-gradient(red, orange 50px)
 function findAdjacentArgValues(siblingFunc: Function):
-  | ((node: SyntaxNode) => SyntaxNode)
-  | undefined {
+  | ((node: SyntaxNode) => SyntaxNode) {
   return (node) => {
     // Handle the case where we are at "|at" and we erroneously expand in both directions.
-    if (node.text === "at" || node.text === ",") {
+    if (checkAtPlainValueDelimiter(node) || node.type === ",") {
       node = node.previousSibling!;
     }
 
     let nextPossibleRange = siblingFunc(node);
-    while (!_.includes(["at", ",", "(", ")"], nextPossibleRange?.text)) {
+    while (!isArgumentListDelimiter(nextPossibleRange)) {
       node = nextPossibleRange;
       nextPossibleRange = siblingFunc(nextPossibleRange);
     }
@@ -85,12 +89,12 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     matcher(
       patternFinder("arguments.*!", "parameters.*!"),
       delimitedSelector(
-        (node) => _.includes(["at", ",", "(", ")"], node.text),
+        (node) => isArgumentListDelimiter(node),
         ", ",
         findAdjacentArgValues((node: SyntaxNode) => node.previousSibling),
         findAdjacentArgValues((node: SyntaxNode) => node.nextSibling)
       )
-    ),
+    )
   ),
   name: [
     "function_statement.name!",
@@ -98,6 +102,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "declaration.variable_name!",
     "mixin_statement.name!",
     "attribute_selector.attribute_name!",
+    "parameter.variable_name!",
   ],
   selector: ["rule_set.selectors!"],
   collectionKey: trailingMatcher(["declaration.property_name!"], [":"]),
@@ -114,10 +119,11 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
       "return_statement.*!",
       "import_statement.*!",
       "attribute_selector.plain_value!",
-      "attribute_selector.string_value!"
+      "attribute_selector.string_value!", 
+      "parameter.default_value!"
     )
   ),
-  collectionItem: "declaration"
+  collectionItem: "declaration",
 };
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);
