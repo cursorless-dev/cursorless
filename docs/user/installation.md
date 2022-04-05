@@ -12,9 +12,10 @@
 3. Install [VSCode](https://code.visualstudio.com/)
 4. Install the [VSCode talon extension pack](https://marketplace.visualstudio.com/items?itemName=pokey.talon)
 5. Install the [Cursorless VSCode extension](https://marketplace.visualstudio.com/items?itemName=pokey.cursorless)
-6. Follow the instructions below to install the talon side of cursorless.
+6. Follow the instructions below to install the Talon side of Cursorless.
+7. Finally, restart Talon. 
 
-## Installing the talon side
+## Installing the Talon side
 
 ### Linux & Mac
 
