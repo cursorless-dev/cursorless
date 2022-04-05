@@ -78,8 +78,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     patternMatcher(...STATEMENT_TYPES),
     matcher(
       patternFinder("attribute_selector"),
-      childRangeSelector()
-    )
+      childRangeSelector([], ["attribute_name", "string_value"]))
   ),
   string: "string_value",
   functionCall: "call_expression",
@@ -114,13 +113,13 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     ),
     matcher(
       patternFinder("include_statement", "namespace_statement"),
-      childRangeSelector()
+      childRangeSelector([], ["property_name", "variable_name"])
     ),
     patternMatcher(
       "return_statement.*!",
       "import_statement.*!",
       "attribute_selector.plain_value!",
-      "attribute_selector.string_value!", 
+      "attribute_selector.string_value!",
       "parameter.default_value!"
     )
   ),

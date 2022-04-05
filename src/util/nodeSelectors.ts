@@ -4,7 +4,6 @@ import {
   SelectionWithContext,
   SelectionExtractor,
   NodeFinder,
-  ChildNodeIncludePredicate,
 } from "../typings/Types";
 import { identity } from "lodash";
 
@@ -193,19 +192,30 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
 
 /**
  * Creates an extractor that returns a contiguous range between children of a node. 
- * When no arguments are pased, match on every child. 
- * When items are passed with the inclusion predicate, only match on those items. 
- * When items are passed with the exclusion predicate, only match on those items. 
- * @param items A set of types to match against, either for inclusion or exclusion.
- * @param predicateType Determines wither nodes within the items argument will be included or excluded.
+ * When no arguments are pased, the function will match on every child node. Pass in either inclusions
+ * or exclusions.
+ * @param typesToExclude Ensure these child types are excluded in the contiguous range returned.
+ * @param typesToInclude Ensure these child types are included in the contiguous range returned.
  * @returns A selection extractor
  */
-export function childRangeSelector(typesToExclude: string[] = []) {
+export function childRangeSelector(typesToExclude: string[] = [], typesToInclude: string[] = []) {
   return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
+    if (typesToExclude.length > 0 && typesToInclude.length > 0) {
+      throw new Error("Cannot have both exclusions and inclusions.");
+    }
     let nodes = node.namedChildren;
-    const comparisonSet = new Set(typesToExclude);
+    const exclusionSet = new Set(typesToExclude);
+    const inclusionSet = new Set(typesToInclude);
     nodes = nodes.filter((child) => {
-      !comparisonSet.has(child.type);
+      if (exclusionSet.size > 0) {
+        return !exclusionSet.has(child.type); 
+      }
+
+      if (inclusionSet.size > 0) {
+        return inclusionSet.has(child.type);
+      }
+
+      return true;
     });
 
     return pairSelectionExtractor(editor, nodes[0], nodes[nodes.length - 1]);
