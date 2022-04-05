@@ -186,7 +186,7 @@ export default class Decorations {
       .getConfiguration("cursorless.hatPenalties")
       .get<Record<HatColor, number>>("colors")!;
       const maxPenalty = vscode.workspace
-    .getConfiguration("cursorless").get<number>("maxPenalty")!;
+    .getConfiguration("cursorless").get<number>("maximumHatStylePenalty")!;
 
     shapeEnablement.default = true;
     colorEnablement.default = true;
