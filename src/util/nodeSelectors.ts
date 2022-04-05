@@ -192,7 +192,7 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
 }
 
 /**
- * Creates a selector for multiple children of a node, useful for contiguous ranges. 
+ * Creates an extractor that returns a contiguous range between children of a node. 
  * When no arguments are pased, match on every child. 
  * When items are passed with the inclusion predicate, only match on those items. 
  * When items are passed with the exclusion predicate, only match on those items. 
@@ -200,16 +200,13 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
  * @param predicateType Determines wither nodes within the items argument will be included or excluded.
  * @returns A selection extractor
  */
-export function childRangeSelector(predicateType: ChildNodeIncludePredicate = "inclusion", items: string[] = []) {
+export function childRangeSelector(typesToExclude: string[] = []) {
   return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
     let nodes = node.namedChildren;
-    if (items.length > 0 || predicateType === "exclusion") {
-      const comparisonSet = new Set(items);
-      nodes = nodes.filter((child) => {
-        const isPresent = comparisonSet.has(child.type);
-        return predicateType === "inclusion" ? isPresent : !isPresent;
-      });
-    }
+    const comparisonSet = new Set(typesToExclude);
+    nodes = nodes.filter((child) => {
+      !comparisonSet.has(child.type);
+    });
 
     return pairSelectionExtractor(editor, nodes[0], nodes[nodes.length - 1]);
   };

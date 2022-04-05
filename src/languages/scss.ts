@@ -53,16 +53,17 @@ function checkAtPlainValueDelimiter(node: SyntaxNode) {
 
 // Match up until delimiters and including multiple values within delimiters,
 // e.g. repeating-linear-gradient(red, orange 50px)
-function findAdjacentArgValues(siblingFunc: Function):
-  | ((node: SyntaxNode) => SyntaxNode) {
-  return (node) => {
-    // Handle the case where we are at "|at" and we erroneously expand in both directions.
+function findAdjacentArgValues(siblingFunc: (node: SyntaxNode) => SyntaxNode | null) {
+  return (node: SyntaxNode) => {
+    // Handle the case where we are the cursor is placed before a delimiter, e.g. "|at" 
+    // and we erroneously expand in both directions.
     if (checkAtPlainValueDelimiter(node) || node.type === ",") {
       node = node.previousSibling!;
     }
 
     let nextPossibleRange = siblingFunc(node);
-    while (!isArgumentListDelimiter(nextPossibleRange)) {
+
+    while (nextPossibleRange && !isArgumentListDelimiter(nextPossibleRange)) {
       node = nextPossibleRange;
       nextPossibleRange = siblingFunc(nextPossibleRange);
     }
@@ -77,7 +78,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     patternMatcher(...STATEMENT_TYPES),
     matcher(
       patternFinder("attribute_selector"),
-      childRangeSelector("inclusion", ["attribute_name", "string_value"])
+      childRangeSelector()
     )
   ),
   string: "string_value",
@@ -91,8 +92,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
       delimitedSelector(
         (node) => isArgumentListDelimiter(node),
         ", ",
-        findAdjacentArgValues((node: SyntaxNode) => node.previousSibling),
-        findAdjacentArgValues((node: SyntaxNode) => node.nextSibling)
+        findAdjacentArgValues((node) => node.previousSibling),
+        findAdjacentArgValues((node) => node.nextSibling)
       )
     )
   ),
@@ -109,7 +110,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   value: cascadingMatcher(
     matcher(
       patternFinder("declaration"),
-      childRangeSelector("exclusion", ["property_name", "variable_name"])
+      childRangeSelector(["property_name", "variable_name"])
     ),
     matcher(
       patternFinder("include_statement", "namespace_statement"),

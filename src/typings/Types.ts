@@ -271,8 +271,6 @@ export interface ListTarget {
 
 export type Target = PrimitiveTarget | RangeTarget | ListTarget;
 
-export type ChildNodeIncludePredicate = "inclusion" | "exclusion";
-
 export interface ProcessedTargetsContext {
   currentSelections: SelectionWithEditor[];
   currentEditor: vscode.TextEditor | undefined;
