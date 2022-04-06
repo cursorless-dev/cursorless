@@ -185,8 +185,9 @@ export default class Decorations {
     const colorPenalties = vscode.workspace
       .getConfiguration("cursorless.hatPenalties")
       .get<Record<HatColor, number>>("colors")!;
-      const maxPenalty = vscode.workspace
-    .getConfiguration("cursorless").get<number>("maximumHatStylePenalty")!;
+    const maxPenalty = vscode.workspace
+      .getConfiguration("cursorless")
+      .get<number>("maximumHatStylePenalty")!;
 
     shapeEnablement.default = true;
     colorEnablement.default = true;
@@ -221,11 +222,12 @@ export default class Decorations {
           filter(
             Object.entries(this.hatStyleMap),
             ([_, hatStyle]) =>
-              colorPenalties[hatStyle.color] + shapePenalties[hatStyle.shape] <= maxPenalty
+              colorPenalties[hatStyle.color] + shapePenalties[hatStyle.shape] <=
+              maxPenalty
           )
-        )
+        ),
       } as Record<HatStyleName, HatStyle>;
-  }
+    }
 
     this.hatStyleNames = sortBy(
       Object.entries(this.hatStyleMap),
