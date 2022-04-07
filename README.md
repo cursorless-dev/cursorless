@@ -48,6 +48,7 @@ This extension contributes the following settings:
 - `cursorless.hatEnablement.shapes`: Whether to enable particular hat shapes.
 - `cursorless.hatPenalties.colors`: How much to penalize each hat color. You will probably want to set this one to the number of syllables in the given style. Cursorless will then sort every style combination by number of syllables to refer to it.
 - `cursorless.hatPenalties.shapes`: How much to penalize each hat shape. You will probably want to set this one to the number of syllables in the given style. Cursorless will then sort every style combination by number of syllables to refer to it.
+- `cursorless.maximumHatStylePenalty`: The maximum allowed penalty for a hat style. Any hat style whose penalty is greater than this amount will not be used. A hat style penalty is defined to be the shape penalty plus the colour penalty. Setting this value less than or equal to zero is treated as no maximum.
 
 ## Known Issues
 
