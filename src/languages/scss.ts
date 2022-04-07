@@ -113,7 +113,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     ),
     matcher(
       patternFinder("include_statement", "namespace_statement"),
-      childRangeSelector([], ["property_name", "variable_name"])
+      childRangeSelector()
     ),
     patternMatcher(
       "return_statement.*!",
