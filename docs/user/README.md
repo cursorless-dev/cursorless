@@ -327,9 +327,9 @@ Despite the name cursorless, some of the most basic commands in cursorless are f
 
 Note that when combined with list targets, these commands will result in multiple cursors
 
-- `"take"`: Selects the given target
-- `"pre"`: Places the cursor before the given target
-- `"post"`: Places the cursor after the given target
+- `"take <TARGET>"`: Selects the given target
+- `"pre <TARGET>"`: Places the cursor before the given target
+- `"post <TARGET>"`: Places the cursor after the given target
 
 eg:
 `pre blue air`
@@ -339,7 +339,7 @@ Moves the cursor to before the token containing letter 'a' with a blue hat.
 
 This command can be used to delete a target without moving the cursor
 
-- `"chuck"`
+- `"chuck <TARGET>"`
 
 eg:
 `chuck blue air`
@@ -349,12 +349,15 @@ Deletes the token containing letter 'a' with a blue hat.
 
 This command will delete a target and leave the cursor where the target used to be, making it easy to change a target
 
-- `"change"`
+- `"change <TARGET>"`
+eg:
+`change blue air`
+Deletes the token containing letter 'a' with a blue hat then places your cursor where the token had been.
 
 ### Cut / copy
 
-- `"carve"`: cut
-- `"copy"`: copy
+- `"carve <TARGET>"`: cut
+- `"copy <TARGET>"`: copy
 
 eg:
 `copy blue air`
@@ -374,8 +377,8 @@ Swaps the given tokens.
 
 ### Insert empty lines
 
-- `"drink"`: Inserts a new line above the current line, and moves the cursor to the newly created line
-- `"pour"`: Inserts a new line below the current line, and moves the cursor to the newly created line
+- `"drink <TARGET>"`: Inserts a new line above the target line, and moves the cursor to the newly created line
+- `"pour <TARGET>"`: Inserts a new line below the target line, and moves the cursor to the newly created line
 
 eg:
 `pour blue air`
@@ -383,9 +386,9 @@ Insert empty line below the token containing letter 'a' with a blue hat.
 
 ### Rename
 
-Executes vscode rename action on the given target
+Executes vscode rename action on the specified target
 
-- `"rename"`
+- `"rename <TARGET>"`
 
 eg:
 `rename blue air`
@@ -395,9 +398,9 @@ Rename the token containing letter 'a' with a blue hat.
 
 Scrolls a given target to the top, center or bottom of the screen.
 
-- `"crown"`: top
-- `"center"`: center
-- `"bottom"`: bottom
+- `"crown <TARGET>"`: top
+- `"center <TARGET>"`: center
+- `"bottom <TARGET>"`: bottom
 
 eg `crown blue air` scrolls the line containing the letter 'a' with a blue hat to the top of the screen.
 
@@ -445,10 +448,10 @@ See [experimental documentation](experimental/wrapper-snippets.md).
 
 ### Show definition/reference/quick fix
 
-- `"define"`
-- `"reference"`
-- `"hover"`
-- `"quick fix"`
+- `"define <TARGET>"`
+- `"reference <TARGET>"`
+- `"hover <TARGET>"`
+- `"quick fix <TARGET>"`
 
 eg:
 `define blue air`
@@ -456,8 +459,8 @@ Shows definition for the token containing letter 'a' with a blue hat.
 
 ### Fold/unfold
 
-- `"fold"`
-- `"unfold"`
+- `"fold <TARGET>"`
+- `"unfold <TARGET>"`
 
 eg:
 `fold funk blue air`
@@ -467,8 +470,8 @@ Fold the function with the token containing letter 'a' with a blue hat.
 
 Extracts a target as a variable using the VSCode refactor action
 
-- `"extract"`
-- `"extract {TARGET} as hello world"`
+- `"extract <TARGET>"`
+- `"extract  <TARGET> as hello world"`
 
 eg:
 `extract call air`
