@@ -56,7 +56,7 @@ Note: If you'd like to customize any of the spoken forms, please see the [docume
 
 ## Overview
 
-Every cursorless command consists of an action performed on a target. For example, the command `"chuck blue air"` deletes the token with a blue hat over the `"a"`. In this command, the action is `"chuck"` (delete), and the target is `"blue air"`.
+Every cursorless command consists of an action performed on a target. For example, the command `"chuck blue air"` deletes the token with a blue hat over the `"a"`. In this command, the action is `"chuck"` (delete), and the target is `"blue air"`. There are no actions without at least one target.
 
 ## Targets
 
@@ -138,7 +138,7 @@ minimize syllables.
 
 ##### `"this"`
 
-The word `"this"` can be used as a mark to refer to the current cursor(s) or selection(s). Note that when combined with a modifier, the `"this"` mark can be omitted, and it will be implied.
+The word `"this"` can be used as a mark to refer to the current cursor(s) or selection(s) as a target. Note that when combined with a modifier, the `"this"` mark can be omitted, and it will be implied.
 
 - `chuck this`
 - `take this funk`
@@ -319,7 +319,7 @@ Selects both the token containing letter 'a' with a blue hat AND the token conta
 
 ## Actions
 
-In any cursorless command the action defines what happens to the given target, for example deleting the target (`"chuck"`) or moving the cursor to select the target (`"take"`).
+In any cursorless command the action defines what happens to the specified target, therefore every action must have a target. For example deleting the target (`"chuck"` used like `"chuck made"`) or moving the cursor to select the target (`"take"`used like `"take made"`).
 
 ### Cursor movement
 
@@ -362,7 +362,7 @@ Copies the token containing letter 'a' with a blue hat.
 
 ### Swap
 
-Swaps two targets. If the first target is omitted, it will refer to the current selection. If the targets are list targets they will be zipped together.
+Swaps two targets. If the first target is omitted, it will target the current selection. If the targets are list targets they will be zipped together.
 
 - `"swap <TARGET 1> with <TARGET 2>"`
 - `"swap with <TARGET>"`
