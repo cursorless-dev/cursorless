@@ -319,7 +319,7 @@ Selects both the token containing letter 'a' with a blue hat AND the token conta
 
 ## Actions
 
-In any cursorless command the action defines what happens to the specified target, therefore every action must have a target. For example deleting the target (`"chuck"` used like `"chuck made"`) or moving the cursor to select the target (`"take"`used like `"take made"`).
+In any cursorless command, the action defines what happens to the specified target. Every command must have a target. For example, deleting the target (`"chuck"`, as in `"chuck air"`) or moving the cursor to select the target (`"take"`, as in `"take air"`).
 
 ### Cursor movement
 
