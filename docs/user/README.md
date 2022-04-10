@@ -471,7 +471,6 @@ Fold the function with the token containing letter 'a' with a blue hat.
 Extracts a target as a variable using the VSCode refactor action
 
 - `"extract <TARGET>"`
-- `"extract  <TARGET> as hello world"`
 
 eg:
 `extract call air`
