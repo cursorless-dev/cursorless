@@ -445,6 +445,8 @@ See [experimental documentation](experimental/wrapper-snippets.md).
 
 ### Show definition/reference/quick fix
 
+Each of these commands perform a vscode action of the same or a similar name on the target.
+
 - `"define"`
 - `"reference"`
 - `"hover"`
