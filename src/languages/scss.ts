@@ -44,20 +44,25 @@ const STATEMENT_TYPES = [
 ];
 
 function isArgumentListDelimiter(node: SyntaxNode) {
-  return [",", "(", ")"].includes(node.type) || checkAtPlainValueDelimiter(node);
+  return [",", "(", ")"].includes(node.type) || isAtDelimiter(node);
 };
 
 function isAtDelimiter(node: SyntaxNode) {
   return (node.type === "plain_value" && node.text === "at");
 }
 
-// Match up until delimiters and including multiple values within delimiters,
-// e.g. repeating-linear-gradient(red, orange 50px)
+/**
+ * Matches adjacent nodes returned from @param siblingFunc it reaches a delimiter node.
+ * This is intended to handle the case of multiple values within two delimiters.
+ * e.g. repeating-linear-gradient(red, orange 50px)
+ * @param siblingFunc returns the previous or next sibling of the current node if present.
+ * @returns A non-delimiter node
+ */
 function findAdjacentArgValues(siblingFunc: (node: SyntaxNode) => SyntaxNode | null) {
   return (node: SyntaxNode) => {
     // Handle the case where we are the cursor is placed before a delimiter, e.g. "|at" 
     // and we erroneously expand in both directions.
-    if (checkAtPlainValueDelimiter(node) || node.type === ",") {
+    if (isAtDelimiter(node) || node.type === ",") {
       node = node.previousSibling!;
     }
 
