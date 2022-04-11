@@ -47,7 +47,7 @@ function isArgumentListDelimiter(node: SyntaxNode) {
   return [",", "(", ")"].includes(node.type) || checkAtPlainValueDelimiter(node);
 };
 
-function checkAtPlainValueDelimiter(node: SyntaxNode) {
+function isAtDelimiter(node: SyntaxNode) {
   return (node.type === "plain_value" && node.text === "at");
 }
 
