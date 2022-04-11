@@ -192,8 +192,8 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
 
 /**
  * Creates an extractor that returns a contiguous range between children of a node. 
- * When no arguments are pased, the function will match on every child node. Pass in either inclusions
- * or exclusions.
+ * When no arguments are passed, the function will return a range from the first to the last child node. Pass in either inclusions
+ * If an inclusion or exclusion list is passed, we return the first range of children such that every child in the range matches the inclusion / exclusion criteria.
  * @param typesToExclude Ensure these child types are excluded in the contiguous range returned.
  * @param typesToInclude Ensure these child types are included in the contiguous range returned.
  * @returns A selection extractor
