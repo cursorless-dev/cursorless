@@ -189,7 +189,7 @@ class CheatSheet:
         canvas.paint.style = canvas.paint.Style.FILL
         canvas.paint.textsize = text_size
         canvas.paint.color = text_color
-        self.y = canvas.y + canvas.height - line_height
+        self.y = canvas.y
         self.draw_value(
             canvas,
             "S = Current selection,     T = Target,     P = Paired delimiter,     F = Formatter",
