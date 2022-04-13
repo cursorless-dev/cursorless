@@ -122,9 +122,9 @@ class CheatSheet:
             ),
         )
 
-        self.draw_section(canvas, "Special marks", get_list("special_mark"))
-
         self.next_column(canvas)
+
+        self.draw_section(canvas, "Special marks", get_list("special_mark"))
 
         self.draw_section(canvas, "Positions", get_list("position"))
 
