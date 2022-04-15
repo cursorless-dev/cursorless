@@ -5,7 +5,7 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: xmlBothTags, includeSiblings: true}
+      modifier: {type: everyScope, scopeType: xmlBothTags, contiguousRange: false}
 initialState:
   documentContents: |-
     <note>
@@ -60,4 +60,4 @@ finalState:
       active: {line: 4, character: 4}
     - anchor: {line: 4, character: 33}
       active: {line: 4, character: 33}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: xmlBothTags, includeSiblings: true}, isImplicit: false}]
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: everyScope, scopeType: xmlBothTags, contiguousRange: false}, isImplicit: false}]

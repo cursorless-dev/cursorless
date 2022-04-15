@@ -5,7 +5,7 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
+      modifier: {type: everyScope, scopeType: collectionItem, contiguousRange: false}
 initialState:
   documentContents: |-
     <?php
@@ -34,4 +34,4 @@ finalState:
       active: {line: 2, character: 3}
     - anchor: {line: 2, character: 5}
       active: {line: 2, character: 5}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}, isImplicit: false}]
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: everyScope, scopeType: collectionItem, contiguousRange: false}, isImplicit: false}]

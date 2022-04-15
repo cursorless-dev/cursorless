@@ -5,7 +5,7 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+      modifier: {type: everyScope, scopeType: argumentOrParameter, contiguousRange: false}
 initialState:
   documentContents: yield(hello, world)
   selections:
@@ -24,4 +24,4 @@ finalState:
       active: {line: 0, character: 6}
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}]
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: everyScope, scopeType: argumentOrParameter, contiguousRange: false}, isImplicit: false}]

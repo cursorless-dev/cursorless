@@ -5,7 +5,7 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true, includeAll: true}
+      modifier: {type: everyScope, scopeType: collectionItem, contiguousRange: true}
 initialState:
   documentContents: |-
     [
@@ -26,4 +26,4 @@ finalState:
   thatMark:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true, includeAll: true}, isImplicit: false}]
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: everyScope, scopeType: collectionItem, contiguousRange: false, includeAll: true}, isImplicit: false}]

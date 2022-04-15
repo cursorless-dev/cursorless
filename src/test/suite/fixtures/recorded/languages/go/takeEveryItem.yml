@@ -5,7 +5,7 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
+      modifier: {type: everyScope, scopeType: collectionItem, contiguousRange: false}
 initialState:
   documentContents: "map[string]string{\"air\": \"bat\", \"cap\": \"drum\"}"
   selections:
@@ -24,4 +24,4 @@ finalState:
       active: {line: 0, character: 30}
     - anchor: {line: 0, character: 32}
       active: {line: 0, character: 45}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}}]
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: everyScope, scopeType: collectionItem, contiguousRange: false}}]

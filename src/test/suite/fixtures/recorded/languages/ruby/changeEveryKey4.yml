@@ -5,7 +5,7 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}
+      modifier: {type: everyScope, scopeType: collectionKey, contiguousRange: false}
 initialState:
   documentContents: "h = { one: \"one\", two: \"two\" }"
   selections:
@@ -24,4 +24,4 @@ finalState:
       active: {line: 0, character: 6}
     - anchor: {line: 0, character: 15}
       active: {line: 0, character: 15}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}, isImplicit: false}]
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: everyScope, scopeType: collectionKey, contiguousRange: false}, isImplicit: false}]
