@@ -1,14 +1,14 @@
 import * as vscode from "vscode";
+import { ThatMark } from "../core/ThatMark";
 import { Clipboard } from "../util/Clipboard";
+import { hrtimeBigintToSeconds } from "../util/timeUtils";
 import {
-  selectionToPlainObject,
-  rangeToPlainObject,
   RangePlainObject,
+  rangeToPlainObject,
   SelectionPlainObject,
+  selectionToPlainObject,
   SerializedMarks,
 } from "./toPlainObject";
-import { ThatMark } from "../core/ThatMark";
-import { hrtimeBigintToSeconds } from "../util/timeUtils";
 
 export type ExtraSnapshotField = keyof TestCaseSnapshot;
 export type ExcludableSnapshotField = keyof TestCaseSnapshot;
@@ -24,6 +24,11 @@ export type TestCaseSnapshot = {
   thatMark?: SelectionPlainObject[];
   sourceMark?: SelectionPlainObject[];
   timeOffsetSeconds?: number;
+
+  /**
+   * Extra information about the snapshot. Must be json serializable
+   */
+  metadata?: unknown;
 };
 
 interface ExtraContext {
@@ -31,12 +36,13 @@ interface ExtraContext {
 }
 
 export async function takeSnapshot(
-  thatMark: ThatMark,
-  sourceMark: ThatMark,
+  thatMark: ThatMark | undefined,
+  sourceMark: ThatMark | undefined,
   excludeFields: ExcludableSnapshotField[] = [],
   extraFields: ExtraSnapshotField[] = [],
   marks?: SerializedMarks,
-  extraContext?: ExtraContext
+  extraContext?: ExtraContext,
+  metadata?: unknown
 ) {
   const activeEditor = vscode.window.activeTextEditor!;
 
@@ -49,6 +55,10 @@ export async function takeSnapshot(
     snapshot.marks = marks;
   }
 
+  if (metadata != null) {
+    snapshot.metadata = metadata;
+  }
+
   if (!excludeFields.includes("clipboard")) {
     snapshot.clipboard = await Clipboard.readText();
   }
@@ -57,13 +67,21 @@ export async function takeSnapshot(
     snapshot.visibleRanges = activeEditor.visibleRanges.map(rangeToPlainObject);
   }
 
-  if (thatMark.exists() && !excludeFields.includes("thatMark")) {
+  if (
+    thatMark != null &&
+    thatMark.exists() &&
+    !excludeFields.includes("thatMark")
+  ) {
     snapshot.thatMark = thatMark
       .get()
       .map((mark) => selectionToPlainObject(mark.selection));
   }
 
-  if (sourceMark.exists() && !excludeFields.includes("sourceMark")) {
+  if (
+    sourceMark != null &&
+    sourceMark.exists() &&
+    !excludeFields.includes("sourceMark")
+  ) {
     snapshot.sourceMark = sourceMark
       .get()
       .map((mark) => selectionToPlainObject(mark.selection));

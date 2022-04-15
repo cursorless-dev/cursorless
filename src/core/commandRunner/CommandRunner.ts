@@ -35,6 +35,29 @@ export default class CommandRunner {
     );
   }
 
+  /**
+   * Entry point for Cursorless commands. We proceed as follows:
+   *
+   * 1. Canonicalize the action name and target representation using
+   *    {@link canonicalizeAndValidateCommand}, primarily for the purpose of
+   *    backwards compatibility
+   * 2. Perform inference on targets to fill in details left out using things
+   *    like previous targets and action preferences. For example we would
+   *    automatically infer that `"take funk air and bat"` is equivalent to
+   *    `"take funk air and funk bat"`. See {@link inferFullTargets} for details
+   *    of how this is done.
+   * 3. Construct a {@link ProcessedTargetsContext} object to capture the
+   *    environment needed by {@link processTargets}.
+   * 4. Call {@link processTargets} to map each abstract {@link Target} object
+   *    to a concrete list of {@link TypedSelection} objects.
+   * 5. Run the requested action on the given selections. The mapping from
+   *    action id (eg `remove`) to implementation is defined in
+   *    {@link Actions}.  To understand how actions work, see some examples,
+   *    such as `"take"` {@link SetSelection} and `"chuck"` {@link Delete}. See
+   * 6. Update `source` and `that` marks, if they have been returned from the
+   *    action, and returns the desired return value indicated by the action, if
+   *    it has one.
+   */
   async runCommand(commandArgument: CommandArgument) {
     try {
       if (this.graph.debug.active) {

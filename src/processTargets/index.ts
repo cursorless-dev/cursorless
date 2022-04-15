@@ -13,6 +13,20 @@ import processModifier from "./modifiers/processModifier";
 import processPosition from "./processPosition";
 import processSelectionType from "./processSelectionType";
 
+/**
+ * Converts the abstract target descriptions provided by the user to a concrete
+ * representation usable by actions. Conceptually, the input will be something
+ * like "the function call argument containing the cursor" and the output will be something
+ * like "line 3, characters 5 through 10".
+ * @param context Captures the environment needed to convert the abstract target
+ *    description given by the user to a concrete representation usable by
+ *    actions
+ * @param targets The abstract target representations provided by the user
+ * @returns A list of lists of typed selections, one list per input target. Each
+ * typed selection includes the selection, as well the uri of the document
+ * containing it, and potentially rich context information such as how to remove
+ * the target
+ */
 export default function (
   context: ProcessedTargetsContext,
   targets: Target[]

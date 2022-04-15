@@ -1,3 +1,7 @@
+---
+slug: /
+---
+
 # Cursorless documentation
 
 Welcome to Cursorless! You may find it helpful to start with the [tutorial video](https://www.youtube.com/watch?v=JxcNW0hnfTk).
@@ -53,7 +57,7 @@ Note: If you'd like to customize any of the spoken forms, please see the [docume
 
 ## Overview
 
-Every cursorless command consists of an action performed on a target. For example, the command `"chuck blue air"` deletes the token with a blue hat over the `"a"`. In this command, the action is `"chuck"` (delete), and the target is `"blue air"`.
+Every cursorless command consists of an action performed on a target. For example, the command `"chuck blue air"` deletes the token with a blue hat over the `"a"`. In this command, the action is `"chuck"` (delete), and the target is `"blue air"`. There are no actions without at least one target.
 
 ## Targets
 
@@ -135,7 +139,7 @@ minimize syllables.
 
 ##### `"this"`
 
-The word `"this"` can be used as a mark to refer to the current cursor(s) or selection(s). Note that when combined with a modifier, the `"this"` mark can be omitted, and it will be implied.
+The word `"this"` can be used as a mark to refer to the current cursor(s) or selection(s) as a target. Note that when combined with a modifier, the `"this"` mark can be omitted, and it will be implied.
 
 - `chuck this`
 - `take this funk`
@@ -323,7 +327,7 @@ Selects both the token containing letter 'a' with a blue hat AND the token conta
 
 ## Actions
 
-In any cursorless command the action defines what happens to the given target, for example deleting the target (`"chuck"`) or moving the cursor to select the target (`"take"`).
+In any cursorless command, the action defines what happens to the specified target. Every command must have a target. For example, deleting the target (`"chuck"`, as in `"chuck air"`) or moving the cursor to select the target (`"take"`, as in `"take air"`).
 
 ### Cursor movement
 
@@ -331,9 +335,9 @@ Despite the name cursorless, some of the most basic commands in cursorless are f
 
 Note that when combined with list targets, these commands will result in multiple cursors
 
-- `"take"`: Selects the given target
-- `"pre"`: Places the cursor before the given target
-- `"post"`: Places the cursor after the given target
+- `"take <TARGET>"`: Selects the given target
+- `"pre <TARGET>"`: Places the cursor before the given target
+- `"post <TARGET>"`: Places the cursor after the given target
 
 eg:
 `pre blue air`
@@ -343,7 +347,7 @@ Moves the cursor to before the token containing letter 'a' with a blue hat.
 
 This command can be used to delete a target without moving the cursor
 
-- `"chuck"`
+- `"chuck <TARGET>"`
 
 eg:
 `chuck blue air`
@@ -353,12 +357,15 @@ Deletes the token containing letter 'a' with a blue hat.
 
 This command will delete a target and leave the cursor where the target used to be, making it easy to change a target
 
-- `"change"`
+- `"change <TARGET>"`
+eg:
+`change blue air`
+Deletes the token containing letter 'a' with a blue hat then places your cursor where the token had been.
 
 ### Cut / copy
 
-- `"carve"`: cut
-- `"copy"`: copy
+- `"carve <TARGET>"`: cut
+- `"copy <TARGET>"`: copy
 
 eg:
 `copy blue air`
@@ -366,7 +373,7 @@ Copies the token containing letter 'a' with a blue hat.
 
 ### Swap
 
-Swaps two targets. If the first target is omitted, it will refer to the current selection. If the targets are list targets they will be zipped together.
+Swaps two targets. If the first target is omitted, it will target the current selection. If the targets are list targets they will be zipped together.
 
 - `"swap <TARGET 1> with <TARGET 2>"`
 - `"swap with <TARGET>"`
@@ -378,8 +385,8 @@ Swaps the given tokens.
 
 ### Insert empty lines
 
-- `"drink"`: Inserts a new line above the current line, and moves the cursor to the newly created line
-- `"pour"`: Inserts a new line below the current line, and moves the cursor to the newly created line
+- `"drink <TARGET>"`: Inserts a new line above the target line, and moves the cursor to the newly created line
+- `"pour <TARGET>"`: Inserts a new line below the target line, and moves the cursor to the newly created line
 
 eg:
 `pour blue air`
@@ -387,9 +394,9 @@ Insert empty line below the token containing letter 'a' with a blue hat.
 
 ### Rename
 
-Executes vscode rename action on the given target
+Executes vscode rename action on the specified target
 
-- `"rename"`
+- `"rename <TARGET>"`
 
 eg:
 `rename blue air`
@@ -399,9 +406,9 @@ Rename the token containing letter 'a' with a blue hat.
 
 Scrolls a given target to the top, center or bottom of the screen.
 
-- `"crown"`: top
-- `"center"`: center
-- `"bottom"`: bottom
+- `"crown <TARGET>"`: top
+- `"center <TARGET>"`: center
+- `"bottom <TARGET>"`: bottom
 
 eg `crown blue air` scrolls the line containing the letter 'a' with a blue hat to the top of the screen.
 
@@ -449,10 +456,10 @@ See [experimental documentation](experimental/wrapper-snippets.md).
 
 ### Show definition/reference/quick fix
 
-- `"define"`
-- `"reference"`
-- `"hover"`
-- `"quick fix"`
+- `"define <TARGET>"`
+- `"reference <TARGET>"`
+- `"hover <TARGET>"`
+- `"quick fix <TARGET>"`
 
 eg:
 `define blue air`
@@ -460,8 +467,8 @@ Shows definition for the token containing letter 'a' with a blue hat.
 
 ### Fold/unfold
 
-- `"fold"`
-- `"unfold"`
+- `"fold <TARGET>"`
+- `"unfold <TARGET>"`
 
 eg:
 `fold funk blue air`
@@ -471,8 +478,7 @@ Fold the function with the token containing letter 'a' with a blue hat.
 
 Extracts a target as a variable using the VSCode refactor action
 
-- `"extract"`
-- `"extract {TARGET} as hello world"`
+- `"extract <TARGET>"`
 
 eg:
 `extract call air`
