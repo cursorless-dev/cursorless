@@ -18,7 +18,7 @@ import php from "./php";
 import python from "./python";
 import markdown from "./markdown";
 import scala from "./scala";
-import { patternMatchers as scss} from "./scss";
+import { patternMatchers as scss } from "./scss";
 import go from "./go";
 import { patternMatchers as ruby } from "./ruby";
 import { UnsupportedLanguageError } from "../errors";

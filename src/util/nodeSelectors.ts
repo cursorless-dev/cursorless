@@ -191,14 +191,17 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
 }
 
 /**
- * Creates an extractor that returns a contiguous range between children of a node. 
+ * Creates an extractor that returns a contiguous range between children of a node.
  * When no arguments are passed, the function will return a range from the first to the last child node. Pass in either inclusions
  * If an inclusion or exclusion list is passed, we return the first range of children such that every child in the range matches the inclusion / exclusion criteria.
  * @param typesToExclude Ensure these child types are excluded in the contiguous range returned.
  * @param typesToInclude Ensure these child types are included in the contiguous range returned.
  * @returns A selection extractor
  */
-export function childRangeSelector(typesToExclude: string[] = [], typesToInclude: string[] = []) {
+export function childRangeSelector(
+  typesToExclude: string[] = [],
+  typesToInclude: string[] = []
+) {
   return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
     if (typesToExclude.length > 0 && typesToInclude.length > 0) {
       throw new Error("Cannot have both exclusions and inclusions.");
@@ -208,7 +211,7 @@ export function childRangeSelector(typesToExclude: string[] = [], typesToInclude
     const inclusionSet = new Set(typesToInclude);
     nodes = nodes.filter((child) => {
       if (exclusionSet.size > 0) {
-        return !exclusionSet.has(child.type); 
+        return !exclusionSet.has(child.type);
       }
 
       if (inclusionSet.size > 0) {
