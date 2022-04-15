@@ -9,14 +9,16 @@ command:
 initialState:
   documentContents: |-
     \section{some section}
+    \subsection
     Some Text
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
   marks: {}
 finalState:
   documentContents: |-
     \section{}
+    \subsection
     Some Text
   selections:
     - anchor: {line: 0, character: 9}

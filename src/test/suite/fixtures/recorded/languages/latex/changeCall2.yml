@@ -5,7 +5,7 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: latexCommand, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
 initialState:
   documentContents: |
     \begin{itemize}
@@ -24,4 +24,4 @@ finalState:
   thatMark:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: latexCommand, includeSiblings: false}, isImplicit: false}]
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}, isImplicit: false}]

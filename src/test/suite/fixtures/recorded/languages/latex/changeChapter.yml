@@ -5,7 +5,7 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: latexChapter, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: chapter, includeSiblings: false}
 initialState:
   documentContents: |
     \chapter{1}
@@ -26,4 +26,4 @@ finalState:
   thatMark:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: latexChapter, includeSiblings: false}, isImplicit: false}]
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: chapter, includeSiblings: false}, isImplicit: false}]

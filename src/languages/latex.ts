@@ -9,7 +9,7 @@ import {
   ScopeType,
   SelectionWithContext,
 } from "../typings/Types";
-import { Selection, TextEditor } from "vscode";
+import { Range, Selection, TextEditor } from "vscode";
 import { patternFinder } from "../util/nodeFinders";
 import { SyntaxNode } from "web-tree-sitter";
 
@@ -68,13 +68,13 @@ const GROUPS = [
 ];
 
 const SECTIONING = [
-  "part",
-  "chapter",
-  "section",
-  "subsection",
-  "subsubsection",
-  "paragraph",
   "subparagraph",
+  "paragraph",
+  "subsubsection",
+  "subsection",
+  "section",
+  "chapter",
+  "part",
 ];
 
 const ENVIRONMENTS = [
@@ -89,30 +89,21 @@ const ENVIRONMENTS = [
 const sectioningText = SECTIONING.map((s) => `${s}[text]`);
 const sectioningCommand = SECTIONING.map((s) => `${s}[command]`);
 
-function unwrapParenExtractor(
+function unwrapGroupParens(
   editor: TextEditor,
   node: SyntaxNode
 ): SelectionWithContext {
-  let startIndex = node.startIndex;
-  let endIndex = node.endIndex;
-  const parens = [
-    ["{", "}"],
-    ["[", "]"],
-  ];
-  if (
-    parens.some(
-      ([left, right]) => node.text.startsWith(left) && node.text.endsWith(right)
-    )
-  ) {
-    startIndex += 1;
-    endIndex -= 1;
-  }
   return {
     selection: new Selection(
-      editor.document.positionAt(startIndex),
-      editor.document.positionAt(endIndex)
+      editor.document.positionAt(node.startIndex + 1),
+      editor.document.positionAt(node.endIndex - 1)
     ),
-    context: {},
+    context: {
+      outerSelection: new Selection(
+        editor.document.positionAt(node.startIndex),
+        editor.document.positionAt(node.endIndex)
+      ),
+    },
   };
 }
 
@@ -137,40 +128,83 @@ function extendToNamedSiblingIfExists(
   };
 }
 
+function extractItemContent(
+  editor: TextEditor,
+  node: SyntaxNode
+): SelectionWithContext {
+  let contentStartIndex = node.startIndex;
+
+  const label = node.childForFieldName("label");
+  if (label == null) {
+    const command = node.childForFieldName("command");
+    if (command != null) {
+      contentStartIndex = command.endIndex + 1;
+    }
+  } else {
+    contentStartIndex = label.endIndex + 1;
+  }
+
+  return {
+    selection: new Selection(
+      editor.document.positionAt(contentStartIndex),
+      editor.document.positionAt(node.endIndex)
+    ),
+    context: {
+      leadingDelimiterRange: new Range(
+        editor.document.positionAt(node.startIndex),
+        editor.document.positionAt(contentStartIndex - 1)
+      ),
+    },
+  };
+}
+
+function sectionNameFinder(node: SyntaxNode) {
+  for (let s of SECTIONING) {
+    let sectionNode = patternFinder(s)(node);
+    if (sectionNode != null) {
+      const titleNode = sectionNode.childForFieldName("text");
+      if (titleNode != null) {
+        return titleNode;
+      }
+    }
+  }
+  return null;
+}
+
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   argumentOrParameter: cascadingMatcher(
     ancestorChainNodeMatcher(
       [patternFinder(...COMMANDS), patternFinder(...GROUPS)],
       1,
-      unwrapParenExtractor
+      unwrapGroupParens
     ),
     matcher(
       patternFinder(...["begin[name]", "end[name]"].concat(sectioningText)),
-      unwrapParenExtractor
+      unwrapGroupParens
     )
   ),
 
-  latexCommand: cascadingMatcher(
+  functionCall: cascadingMatcher(
     matcher(patternFinder(...COMMANDS.concat(["begin", "end"]))),
     matcher(patternFinder(...sectioningCommand), extendToNamedSiblingIfExists)
   ),
 
-  name: matcher(patternFinder(...sectioningText), unwrapParenExtractor),
-  type: "command_name",
+  name: matcher(sectionNameFinder, unwrapGroupParens),
+  functionCallee: "command_name",
 
-  collectionItem: "enum_item",
+  collectionItem: matcher(patternFinder("enum_item"), extractItemContent),
 
   comment: ["block_comment", "line_comment"],
 
-  latexPart: "part",
-  latexChapter: "chapter",
+  part: "part",
+  chapter: "chapter",
   section: "section",
-  latexSubsection: "subsection",
-  latexSubSubSection: "subsubsection",
-  latexParagraph: "paragraph",
-  latexSubParagraph: "subparagraph",
+  subsection: "subsection",
+  subSubSection: "subsubsection",
+  paragraph: "paragraph",
+  subParagraph: "subparagraph",
 
-  latexEnvironment: ENVIRONMENTS,
+  environment: ENVIRONMENTS,
 };
 
 export default createPatternMatchers(nodeMatchers);

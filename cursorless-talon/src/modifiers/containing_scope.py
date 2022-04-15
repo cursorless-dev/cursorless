@@ -13,6 +13,7 @@ scope_types = {
     "arg": "argumentOrParameter",
     "attribute": "attribute",
     "call": "functionCall",
+    "callee": "functionCallee",
     "class name": "className",
     "class": "class",
     "comment": "comment",
@@ -44,14 +45,13 @@ scope_types = {
     "start tag": "xmlStartTag",
     "end tag": "xmlEndTag",
     # LaTeX
-    "command": "latexCommand",
-    "environment": "latexEnvironment",
-    "part": "latexPart",
-    "chapter": "latexChapter",
-    "subsection": "latexSubsection",
-    "subsubsection": "latexSubSubSection",
-    "paragraph": "latexParagraph",
-    "subparagraph": "latexSubParagraph",
+    "part": "part",
+    "chapter": "chapter",
+    "subsection": "subsection",
+    "subsubsection": "subSubSection",
+    "paragraph": "paragraph",
+    "subparagraph": "subParagraph",
+    "environment": "environment",
 }
 
 
