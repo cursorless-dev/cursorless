@@ -45,10 +45,7 @@ scope_types = {
     "end tag": "xmlEndTag",
 }
 
-select_multiple_modifiers = {
-    "every", 
-    "all"
-}
+select_multiple_modifiers = {"every", "all"}
 
 
 @mod.capture(rule="[(every|all)] {user.cursorless_scope_type}")
