@@ -16,7 +16,7 @@ def get_actions():
         "rewrap",
     ]
     simple_actions = {
-        key: value
+        f"{key} <T>": value
         for key, value in all_actions.items()
         if value not in multiple_target_action_names
     }
