@@ -21,7 +21,7 @@ function constructDefaultTextFragmentExtractor(
   languageId: SupportedLanguageId,
   stringTextFragmentExtractor?: TextFragmentExtractor
 ): TextFragmentExtractor {
-  const commentNodeMatcher = getNodeMatcher(languageId, "comment", false, false);
+  const commentNodeMatcher = getNodeMatcher(languageId, "comment");
   stringTextFragmentExtractor =
     stringTextFragmentExtractor ??
     constructDefaultStringTextFragmentExtractor(languageId);
@@ -53,7 +53,7 @@ function constructDefaultTextFragmentExtractor(
 function constructDefaultStringTextFragmentExtractor(
   languageId: SupportedLanguageId
 ): TextFragmentExtractor {
-  const stringNodeMatcher = getNodeMatcher(languageId, "string", false, false);
+  const stringNodeMatcher = getNodeMatcher(languageId, "string");
 
   return (node: SyntaxNode, selection: SelectionWithEditor) => {
     if (stringNodeMatcher(selection, node) != null) {
@@ -81,7 +81,7 @@ function constructDefaultStringTextFragmentExtractor(
 function constructHackedStringTextFragmentExtractor(
   languageId: SupportedLanguageId
 ) {
-  const stringNodeMatcher = getNodeMatcher(languageId, "string", false, false);
+  const stringNodeMatcher = getNodeMatcher(languageId, "string");
 
   return (node: SyntaxNode, selection: SelectionWithEditor) => {
     if (stringNodeMatcher(selection, node) != null) {

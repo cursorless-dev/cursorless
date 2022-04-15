@@ -42,8 +42,7 @@ export default class WrapWithSnippet implements Action {
             ? undefined
             : {
                 type: "containingScope",
-                scopeType: defaultScopeType,
-                includeSiblings: false,
+                scopeType: defaultScopeType
               },
       },
     ];
