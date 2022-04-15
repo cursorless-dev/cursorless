@@ -64,9 +64,9 @@ function isAtDelimiter(node: SyntaxNode) {
 }
 
 /**
- * Matches adjacent nodes returned from @param siblingFunc it reaches a delimiter node.
- * This is intended to handle the case of multiple values within two delimiters.
- * e.g. repeating-linear-gradient(red, orange 50px)
+ * Matches adjacent nodes returned from {@link siblingFunc} until it reaches a
+ * delimiter node.  This is intended to handle the case of multiple values
+ * within two delimiters.  e.g. `repeating-linear-gradient(red, orange 50px)`
  * @param siblingFunc returns the previous or next sibling of the current node if present.
  * @returns A non-delimiter node
  */
