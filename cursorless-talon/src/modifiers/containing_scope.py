@@ -56,14 +56,14 @@ def cursorless_containing_scope(m) -> dict[str, dict[str, Any]]:
             "modifier": {
                 "type": "everyScope",
                 "scopeType": m.cursorless_scope_type,
-                "contiguousRange": m[0] == "all"
+                "contiguousRange": m[0] == "all",
             }
         }
     else:
         return {
             "modifier": {
                 "type": "containingScope",
-                "scopeType": m.cursorless_scope_type
+                "scopeType": m.cursorless_scope_type,
             }
         }
 
