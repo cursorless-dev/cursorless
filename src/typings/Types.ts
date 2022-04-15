@@ -150,8 +150,13 @@ export interface ContainingScopeModifier {
   type: "containingScope";
   scopeType: ScopeType;
   valueOnly?: boolean;
-  includeSiblings?: boolean;
-  includeAll?: boolean;
+}
+
+export interface EveryScopeModifier {
+  type: "everyScope";
+  scopeType: ScopeType;
+  valueOnly?: boolean;
+  contiguousRange: boolean;
 }
 
 export interface SubTokenModifier {
@@ -192,6 +197,7 @@ export type Modifier =
   | IdentityModifier
   | SurroundingPairModifier
   | ContainingScopeModifier
+  | EveryScopeModifier
   | SubTokenModifier
   //   | MatchingPairSymbolModifier Not implemented
   | HeadModifier

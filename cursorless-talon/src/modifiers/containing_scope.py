@@ -45,20 +45,30 @@ scope_types = {
     "end tag": "xmlEndTag",
 }
 
+select_multiple_modifiers = {
+    "every", 
+    "all"
+}
+
 
 @mod.capture(rule="[(every|all)] {user.cursorless_scope_type}")
 def cursorless_containing_scope(m) -> dict[str, dict[str, Any]]:
-    """Expand to containing scope"""
-    print(f'testing testing" {m.cursorless_scope_type == "collectionItem"}')
-    return {
-        "modifier": {
-            "type": "containingScope",
-            "scopeType": m.cursorless_scope_type,
-            "includeSiblings": m[0] == "every",
-            "includeAll": m[0] == "all" and m.cursorless_scope_type == "collectionItem",
+    """Expand to every scope"""
+    if m[0] in select_multiple_modifiers:
+        return {
+            "modifier": {
+                "type": "everyScope",
+                "scopeType": m.cursorless_scope_type,
+                "contiguousRange": m[0] == "all"
+            }
         }
-    }
-
+    else:
+        return {
+            "modifier": {
+                "type": "containingScope",
+                "scopeType": m.cursorless_scope_type
+            }
+        }
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md

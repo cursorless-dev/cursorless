@@ -6,6 +6,7 @@ import { SUBWORD_MATCHER } from "../../core/constants";
 import { selectionWithEditorFromRange } from "../../util/selectionUtils";
 import {
   ContainingScopeModifier,
+  EveryScopeModifier,
   HeadModifier,
   NodeMatcher,
   PrimitiveTarget,
@@ -16,7 +17,7 @@ import {
   TailModifier,
 } from "../../typings/Types";
 import { processSurroundingPair } from "./surroundingPair";
-import { getNodeMatcher } from "../../languages/getNodeMatcher";
+import { getNodeMatcher, getNodeMatcherWithSiblings } from "../../languages/getNodeMatcher";
 
 export type SelectionWithEditorWithContext = {
   selection: SelectionWithEditor;
@@ -36,6 +37,7 @@ export default function (
       result = [{ selection, context: {} }];
       break;
 
+    case "everyScope":
     case "containingScope":
       result = processScopeType(context, selection, modifier);
       break;
@@ -72,14 +74,22 @@ export default function (
 function processScopeType(
   context: ProcessedTargetsContext,
   selection: SelectionWithEditor,
-  modifier: ContainingScopeModifier
+  modifier: ContainingScopeModifier | EveryScopeModifier,
 ): SelectionWithEditorWithContext[] | null {
-  const nodeMatcher = getNodeMatcher(
-    selection.editor.document.languageId,
-    modifier.scopeType,
-    modifier.includeSiblings ?? false, 
-    modifier.includeAll ?? false,
-  );
+  let nodeMatcher; 
+  if ("contiguousRange" in modifier) {
+    nodeMatcher = getNodeMatcherWithSiblings(
+      selection.editor.document.languageId,
+      modifier.scopeType,
+      modifier.contiguousRange
+    );
+  } else {
+    nodeMatcher = getNodeMatcher(
+      selection.editor.document.languageId,
+      modifier.scopeType
+    );
+  }
+
   const node: SyntaxNode | null = context.getNodeAtLocation(
     new Location(selection.editor.document.uri, selection.selection)
   );

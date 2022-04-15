@@ -27,8 +27,6 @@ import { Selection } from "vscode";
 export function getNodeMatcher(
   languageId: string,
   scopeType: ScopeType,
-  includeSiblings: boolean, 
-  includeAll: boolean, 
 ): NodeMatcher {
   const matchers = languageMatchers[languageId as SupportedLanguageId];
 
@@ -42,11 +40,45 @@ export function getNodeMatcher(
     return notSupported;
   }
 
-  if (includeSiblings || includeAll) {
-    return matcherIncludeSiblings(matcher, includeAll);
-  }
-
   return matcher;
+}
+
+export function getNodeMatcherWithSiblings(
+  languageId: string,
+  scopeType: ScopeType,
+  contiguousRange: boolean
+): NodeMatcher {
+  return (
+    selection: SelectionWithEditor,
+    node: SyntaxNode
+  ): NodeMatcherValue[] | null => {
+
+    const matcher = getNodeMatcher(languageId, scopeType);
+    let matches = matcher(selection, node);
+    if (matches == null) {
+      return null;
+    }
+    matches = matches.flatMap((match) =>
+      iterateNearestIterableAncestor(
+        match.node,
+        selectionWithEditorFromRange(selection, match.selection.selection),
+        matcher
+      )
+    ) as NodeMatcherValue[];
+    if (matches.length > 0) {
+      if (matches.length >= 2 && contiguousRange) {
+        const start = matches[0].selection.selection;
+        const end = matches[matches.length - 1].selection.selection;
+
+        matches[0].selection.selection = start.union(end) as Selection;
+
+        return [matches[0]] as NodeMatcherValue[];
+      } else {
+        return matches;
+      }
+    }
+    return null;
+  };
 }
 
 const languageMatchers: Record<
@@ -72,40 +104,6 @@ const languageMatchers: Record<
   typescriptreact: typescript,
   xml: html,
 };
-
-function matcherIncludeSiblings(
-  matcher: NodeMatcher, 
-  includeAll: boolean): NodeMatcher {
-  return (
-    selection: SelectionWithEditor,
-    node: SyntaxNode
-  ): NodeMatcherValue[] | null => {
-    let matches = matcher(selection, node);
-    if (matches == null) {
-      return null;
-    }
-    matches = matches.flatMap((match) =>
-      iterateNearestIterableAncestor(
-        match.node,
-        selectionWithEditorFromRange(selection, match.selection.selection),
-        matcher
-      )
-    ) as NodeMatcherValue[];
-    if (matches.length > 0) {
-      if (matches.length >= 2 && includeAll){
-        const start = matches[0].selection.selection;
-        const end = matches[matches.length - 1].selection.selection;
-        
-        matches[0].selection.selection = start.union(end) as Selection;
-
-        return [matches[0]] as NodeMatcherValue[];
-      } else {
-        return matches;
-      }
-    }
-    return null;
-  };
-}
 
 function iterateNearestIterableAncestor(
   node: SyntaxNode,
