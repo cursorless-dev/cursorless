@@ -9,7 +9,7 @@ import {
   conditionMatcher,
   matcher,
 } from "../util/nodeMatchers";
-import { patternFinder } from "../util/nodeFinders";
+import { ancestorChainNodeFinder, patternFinder } from "../util/nodeFinders";
 import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
 import { childRangeSelector } from "../util/nodeSelectors";
 
@@ -84,7 +84,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ),
   argumentOrParameter: cascadingMatcher(
     argumentMatcher("parameters", "argument_list"),
-    matcher(patternFinder("generator_expression"), childRangeSelector())
+    matcher(ancestorChainNodeFinder(1, patternFinder("call"), patternFinder("generator_expression")), childRangeSelector())
   ),
 };
 
