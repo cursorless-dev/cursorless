@@ -67,6 +67,7 @@ def cursorless_containing_scope(m) -> dict[str, dict[str, Any]]:
             }
         }
 
+
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
 selection_types = {
