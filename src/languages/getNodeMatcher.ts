@@ -18,6 +18,7 @@ import php from "./php";
 import python from "./python";
 import markdown from "./markdown";
 import scala from "./scala";
+import { patternMatchers as scss } from "./scss";
 import go from "./go";
 import { patternMatchers as ruby } from "./ruby";
 import { UnsupportedLanguageError } from "../errors";
@@ -88,6 +89,7 @@ const languageMatchers: Record<
 > = {
   c: cpp,
   cpp,
+  css: scss,
   csharp,
   clojure,
   go,
@@ -102,6 +104,7 @@ const languageMatchers: Record<
   python,
   ruby,
   scala,
+  scss,
   typescript,
   typescriptreact: typescript,
   xml: html,

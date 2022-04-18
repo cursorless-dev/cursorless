@@ -1,0 +1,29 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: change value
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+initialState:
+  documentContents: |-
+    @mixin foo($foo: 123) {
+
+    }
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks: {}
+finalState:
+  documentContents: |-
+    @mixin foo($foo: ) {
+
+    }
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  thatMark:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]

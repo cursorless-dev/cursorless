@@ -33,6 +33,7 @@ scope_types = {
     "-four section": "sectionLevelFour",
     "-five section": "sectionLevelFive",
     "-six section": "sectionLevelSix",
+    "selector": "selector",
     "state": "statement",
     "string": "string",
     "type": "type",

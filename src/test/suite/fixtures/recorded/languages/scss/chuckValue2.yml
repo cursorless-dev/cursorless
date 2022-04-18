@@ -1,0 +1,23 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: chuck value
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+initialState:
+  documentContents: "@namespace url(http://www.w3.org/1999/xhtml);"
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks: {}
+finalState:
+  documentContents: "@namespace ;"
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  thatMark:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]

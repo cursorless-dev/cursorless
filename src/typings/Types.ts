@@ -121,6 +121,7 @@ export type ScopeType =
   | "sectionLevelFour"
   | "sectionLevelFive"
   | "sectionLevelSix"
+  | "selector"
   | "xmlBothTags"
   | "xmlElement"
   | "xmlEndTag"

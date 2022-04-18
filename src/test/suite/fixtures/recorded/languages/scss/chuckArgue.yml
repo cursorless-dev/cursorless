@@ -1,0 +1,29 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: chuck argue
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+initialState:
+  documentContents: |
+    @function invert($color, $amount: 100%) {
+      $inverse: change-color($color, $hue: hue($color) + 180);
+    }
+  selections:
+    - anchor: {line: 0, character: 30}
+      active: {line: 0, character: 30}
+  marks: {}
+finalState:
+  documentContents: |
+    @function invert($color) {
+      $inverse: change-color($color, $hue: hue($color) + 180);
+    }
+  selections:
+    - anchor: {line: 0, character: 23}
+      active: {line: 0, character: 23}
+  thatMark:
+    - anchor: {line: 0, character: 23}
+      active: {line: 0, character: 23}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]
