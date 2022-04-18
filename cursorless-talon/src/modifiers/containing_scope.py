@@ -1,9 +1,9 @@
 from typing import Any
-from talon import Module, app
+from talon import Module, Context, app
 from ..csv_overrides import init_csv_and_watch_changes
 
 mod = Module()
-
+ctx = Context()
 
 mod.list("cursorless_scope_type", desc="Supported scope types")
 
@@ -45,18 +45,20 @@ scope_types = {
     "end tag": "xmlEndTag",
 }
 
-select_multiple_modifiers = {"every", "all"}
+mod.list("select_multiple_modifiers", desc="modifiers for multiple selections")
+multiple_modifiers = {"every", "all"}
+ctx.lists["user.select_multiple_modifiers"] = multiple_modifiers
 
 
-@mod.capture(rule="[(every|all)] {user.cursorless_scope_type}")
+@mod.capture(rule="[{user.select_multiple_modifiers}] {user.cursorless_scope_type}")
 def cursorless_containing_scope(m) -> dict[str, dict[str, Any]]:
     """Expand to every scope"""
-    if m[0] in select_multiple_modifiers:
+    if m[0] in multiple_modifiers:
         return {
             "modifier": {
                 "type": "everyScope",
                 "scopeType": m.cursorless_scope_type,
-                "contiguousRange": m[0] == "all",
+                "contiguousRange": m[0] == "all" and m[1] == "collectionItem",
             }
         }
     else:
