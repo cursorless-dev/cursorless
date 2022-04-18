@@ -32,19 +32,60 @@ directions_map = {d.cursorlessIdentifier: d for d in directions}
 DEFAULT_DIRECTIONS = {d.defaultSpokenForm: d.cursorlessIdentifier for d in directions}
 
 
-@mod.capture(rule="{user.cursorless_line_direction} <number_small>")
+@mod.capture(
+    rule=(
+        "{user.cursorless_line_direction} <number_small> "
+        "[<user.cursorless_range_connective_with_type> <number_small>]"
+    )
+)
 def cursorless_line_number(m) -> str:
     direction = directions_map[m.cursorless_line_direction]
-    line_number = m.number_small
-    line = {
-        "lineNumber": direction.formatter(line_number),
+    start_line = {
+        "lineNumber": direction.formatter(m.number_small_1),
         "type": direction.type,
     }
-    return {
-        "selectionType": "line",
-        "mark": {
-            "type": "lineNumber",
-            "anchor": line,
-            "active": line,
-        },
-    }
+    if len(m.number_small_list) == 2:
+        range_connective_with_type = m.cursorless_range_connective_with_type
+        range_connective = range_connective_with_type["connective"]
+        range_type = range_connective_with_type["type"]
+        end_line = {
+            "lineNumber": direction.formatter(m.number_small_2),
+            "type": direction.type,
+        }
+        range = {
+            "type": "range",
+            "start": {
+                "type": "primitive",
+                "selectionType": "line",
+                "mark": {
+                    "type": "lineNumber",
+                    "anchor": start_line,
+                    "active": start_line,
+                },
+            },
+            "end": {
+                "type": "primitive",
+                "selectionType": "line",
+                "mark": {
+                    "type": "lineNumber",
+                    "anchor": end_line,
+                    "active": end_line,
+                },
+            },
+            "excludeStart": (
+                range_connective in ["rangeExclusive", "rangeExcludingStart"]
+            ),
+            "excludeEnd": range_connective in ["rangeExclusive", "rangeExcludingEnd"],
+        }
+        if range_type:
+            range["rangeType"] = range_type
+        return range
+    else:
+        return {
+            "selectionType": "line",
+            "mark": {
+                "type": "lineNumber",
+                "anchor": start_line,
+                "active": start_line,
+            },
+        }
