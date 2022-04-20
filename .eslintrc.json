@@ -2,7 +2,7 @@
     "root": true,
     "parser": "@typescript-eslint/parser",
     "extends": [
-        "plugin:prettier/recommended"
+        "prettier"
     ],
     "parserOptions": {
         "ecmaVersion": 6,
@@ -13,7 +13,6 @@
     ],
     "rules": {
         "@typescript-eslint/naming-convention": "warn",
-        "@typescript-eslint/semi": "warn",
         "@typescript-eslint/no-unused-vars": [
             "warn",
             {
