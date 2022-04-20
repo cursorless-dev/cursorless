@@ -24,8 +24,6 @@ repos:
     rev: "v2.6.2"
     hooks:
       - id: prettier
-        # We use our own format for our recorded yaml tests to keep them compact
-        exclude: ^src/test/suite/fixtures/recorded/.*/\.yml$
   - repo: https://github.com/ikamensh/flynt/
     rev: "0.76"
     hooks:
