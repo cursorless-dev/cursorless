@@ -516,7 +516,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.11.0",
 		"@typescript-eslint/parser": "^5.11.0",
 		"esbuild": "^0.11.12",
-		"eslint": "^7.15.0",
+		"eslint": "^7.32.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-prettier": "^4.0.0",
 		"fast-xml-parser": "^3.20.0",
