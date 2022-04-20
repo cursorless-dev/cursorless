@@ -12,6 +12,7 @@ repos:
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
+        # Trailing whitespace breaks yaml files if you use a multiline string
         exclude_types: [yaml]
       - id: mixed-line-ending
       - id: check-merge-conflict
