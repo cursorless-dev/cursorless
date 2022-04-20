@@ -1,0 +1,25 @@
+languageId: css
+command:
+  version: 1
+  spokenForm: change value
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+initialState:
+  documentContents: |
+    @import "subs.css";
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks: {}
+finalState:
+  documentContents: |
+    @import ;
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  thatMark:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]
