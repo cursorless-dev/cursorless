@@ -14,9 +14,6 @@ trim_trailing_whitespace = true
 [*.json]
 indent_style = tab
 
-[*.md]
-max_line_length = 0
-
 [*.py]
 indent_style = space
 indent_size = 4
