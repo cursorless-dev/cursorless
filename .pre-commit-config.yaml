@@ -1,6 +1,7 @@
 minimum_pre_commit_version: "2.9.0"
 ci:
   autofix_prs: false
+exclude: ^src/vendor/
 repos:
   - repo: https://github.com/Zac-HD/shed
     rev: 0.9.5
