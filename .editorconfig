@@ -1,27 +1,31 @@
-# EditorConfig is awesome: https://EditorConfig.org
-
-# top-most EditorConfig file
+# See https://EditorConfig.org
 root = true
 
-# Unix-style newlines with a newline ending every file
 [*]
+charset = utf-8
 end_of_line = lf
 insert_final_newline = true
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 80
+trim_trailing_whitespace = true
 
-# Matches multiple files with brace expansion notation
-# Set default charset
-[*.{js,py}]
-charset = utf-8
+[*.json]
+indent_style = tab
 
-# 4 space indentation
+[*.md]
+max_line_length = 0
+
 [*.py]
 indent_style = space
 indent_size = 4
 
-# Tab indentation (no size specified)
-[Makefile]
-indent_style = tab
+[*.{yml,yaml}]
+trim_trailing_whitespace = false
 
-# Tab indentation (no size specified)
-[*.json]
+[COMMIT_EDITMSG]
+max_line_length = 0
+
+[Makefile]
 indent_style = tab
