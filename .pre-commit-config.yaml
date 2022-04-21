@@ -26,14 +26,14 @@ repos:
     rev: "v8.13.0"
     hooks:
       - id: eslint
-        args: ['--fix']
-        files: \.[jt]sx?$  # *.js, *.jsx, *.ts and *.tsx
+        args: ["--fix"]
+        files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
         types: [file]
         additional_dependencies:
           - eslint-config-prettier@8.5.0
-          - @typescript-eslint/parser@0.2.1
-          - @typescript-eslint/eslint-plugin@5.11.0
-          - @typescript-eslint/parser@5.11.0
+          - "@typescript-eslint/parser@0.2.1"
+          - "@typescript-eslint/eslint-plugin@5.11.0"
+          - "@typescript-eslint/parser@5.11.0"
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: "v2.6.2"
     hooks:
