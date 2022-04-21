@@ -29,8 +29,5 @@ indent_size = 4
 # src/test/suite/fixtures/recorded/languages/ruby/changeCondition.yml
 trim_trailing_whitespace = false
 
-[COMMIT_EDITMSG]
-max_line_length = 0
-
 [Makefile]
 indent_style = tab
