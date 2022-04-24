@@ -85,11 +85,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   argumentOrParameter: cascadingMatcher(
     argumentMatcher("parameters", "argument_list"),
     matcher(
-      ancestorChainNodeFinder(
-        1,
-        patternFinder("call"),
-        patternFinder("generator_expression")
-      ),
+      patternFinder("call.generator_expression!"),
       childRangeSelector()
     )
   ),
