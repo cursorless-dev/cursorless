@@ -10,7 +10,9 @@ import { Selection } from "vscode";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 
 export class SetSelection implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: "inside" },
+  ];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);

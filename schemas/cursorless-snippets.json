@@ -1,97 +1,95 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Snippets for use in cursorless",
-    "type": "object",
-    "additionalProperties": {
-        "type": "object",
-        "properties": {
-            "definitions": {
-                "type": "array",
-                "descriptions": "List of possible definitions for this snippet",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "scope": {
-                            "type": "object",
-                            "description": "Scopes where this snippet is active",
-                            "properties": {
-                                "langIds": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "scopeType": {
-                                    "$ref": "#/$defs/scopeType",
-                                    "description": "Cursorless scopes in which this snippet is active.  Allows, for example, to have different snippets to define a function if you're in a class or at global scope."
-                                }
-                            }
-                        },
-                        "body": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "description": "Inline snippet text using VSCode snippet syntax; entries joined by newline.  Named variables of the form $foo can be used as wrappers"
-                        }
-                    },
-                    "required": [
-                        "body"
-                    ]
-                }
-            },
-            "variables": {
-                "type": "object",
-                "description": "For each named variable in the snippet, provides extra information about the variable.",
-                "additionalProperties": {
-                    "type": "object",
-                    "properties": {
-                        "wrapperScopeType": {
-                            "$ref": "#/$defs/scopeType",
-                            "description": "Default to this scope type when wrapping a target without scope type specified"
-                        },
-                        "description": {
-                            "type": "string",
-                            "description": "Description of the snippet variable"
-                        }
-                    }
-                }
-            },
-            "description": {
-                "type": "string",
-                "description": "Description of the snippet"
-            }
-        }
-    },
-    "$defs": {
-        "scopeType": {
-            "type": "string",
-            "enum": [
-                "argumentOrParameter",
-                "anonymousFunction",
-                "attribute",
-                "class",
-                "className",
-                "collectionItem",
-                "collectionKey",
-                "comment",
-                "functionCall",
-                "functionName",
-                "ifStatement",
-                "list",
-                "map",
-                "name",
-                "namedFunction",
-                "regularExpression",
-                "statement",
-                "string",
-                "type",
-                "value",
-                "xmlBothTags",
-                "xmlElement",
-                "xmlEndTag",
-                "xmlStartTag"
-            ]
-        }
-    }
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Snippets for use in cursorless",
+	"type": "object",
+	"additionalProperties": {
+		"type": "object",
+		"properties": {
+			"definitions": {
+				"type": "array",
+				"descriptions": "List of possible definitions for this snippet",
+				"items": {
+					"type": "object",
+					"properties": {
+						"scope": {
+							"type": "object",
+							"description": "Scopes where this snippet is active",
+							"properties": {
+								"langIds": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								},
+								"scopeType": {
+									"$ref": "#/$defs/scopeType",
+									"description": "Cursorless scopes in which this snippet is active.  Allows, for example, to have different snippets to define a function if you're in a class or at global scope."
+								}
+							}
+						},
+						"body": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							},
+							"description": "Inline snippet text using VSCode snippet syntax; entries joined by newline.  Named variables of the form $foo can be used as wrappers"
+						}
+					},
+					"required": ["body"]
+				}
+			},
+			"variables": {
+				"type": "object",
+				"description": "For each named variable in the snippet, provides extra information about the variable.",
+				"additionalProperties": {
+					"type": "object",
+					"properties": {
+						"wrapperScopeType": {
+							"$ref": "#/$defs/scopeType",
+							"description": "Default to this scope type when wrapping a target without scope type specified"
+						},
+						"description": {
+							"type": "string",
+							"description": "Description of the snippet variable"
+						}
+					}
+				}
+			},
+			"description": {
+				"type": "string",
+				"description": "Description of the snippet"
+			}
+		}
+	},
+	"$defs": {
+		"scopeType": {
+			"type": "string",
+			"enum": [
+				"argumentOrParameter",
+				"anonymousFunction",
+				"attribute",
+				"class",
+				"className",
+				"collectionItem",
+				"collectionKey",
+				"comment",
+				"functionCall",
+				"functionName",
+				"ifStatement",
+				"list",
+				"map",
+				"name",
+				"namedFunction",
+				"regularExpression",
+				"statement",
+				"string",
+				"type",
+				"value",
+				"xmlBothTags",
+				"xmlElement",
+				"xmlEndTag",
+				"xmlStartTag"
+			]
+		}
+	}
 }
