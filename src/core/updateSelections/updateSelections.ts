@@ -66,7 +66,7 @@ export function getSelectionInfo(
  */
 export function selectionsToSelectionInfos(
   document: TextDocument,
-  selectionMatrix: Selection[][],
+  selectionMatrix: (readonly Selection[])[],
   rangeBehavior: DecorationRangeBehavior = DecorationRangeBehavior.ClosedClosed
 ): FullSelectionInfo[][] {
   return selectionMatrix.map((selections) =>
@@ -118,7 +118,7 @@ export async function callFunctionAndUpdateSelections(
   rangeUpdater: RangeUpdater,
   func: () => Thenable<unknown>,
   document: TextDocument,
-  selectionMatrix: Selection[][]
+  selectionMatrix: (readonly Selection[])[]
 ): Promise<Selection[][]> {
   const selectionInfoMatrix = selectionsToSelectionInfos(
     document,
@@ -173,7 +173,7 @@ export async function performEditsAndUpdateSelections(
   rangeUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],
-  originalSelections: Selection[][]
+  originalSelections: (readonly Selection[])[]
 ) {
   const document = editor.document;
   const selectionInfoMatrix = selectionsToSelectionInfos(
