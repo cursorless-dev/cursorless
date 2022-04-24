@@ -1,8 +1,9 @@
-from typing import Any, Union
-from ..paired_delimiter import paired_delimiters_map
-from talon import Module, actions, app, Context
-from ..csv_overrides import init_csv_and_watch_changes
+from typing import Any
 
+from talon import Context, Module, actions, app
+
+from ..csv_overrides import init_csv_and_watch_changes
+from ..paired_delimiter import paired_delimiters_map
 
 mod = Module()
 

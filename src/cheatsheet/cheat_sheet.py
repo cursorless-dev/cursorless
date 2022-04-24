@@ -1,13 +1,13 @@
-from talon import Module, ui, skia, actions, cron
-from talon.canvas import Canvas
-import webbrowser
 import math
+import webbrowser
 
-from .sections.actions import get_actions
-from .sections.scopes import get_scopes
-from .sections.compound_targets import get_compound_targets
+from talon import Module, actions, cron, skia, ui
+from talon.canvas import Canvas
 
 from .get_list import get_list, get_lists
+from .sections.actions import get_actions
+from .sections.compound_targets import get_compound_targets
+from .sections.scopes import get_scopes
 
 mod = Module()
 mod.mode("cursorless_cheat_sheet", "Mode for showing cursorless cheat sheet gui")
