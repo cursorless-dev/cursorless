@@ -9,7 +9,7 @@ import {
   conditionMatcher,
   matcher,
 } from "../util/nodeMatchers";
-import { ancestorChainNodeFinder, patternFinder } from "../util/nodeFinders";
+import { patternFinder } from "../util/nodeFinders";
 import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
 import { childRangeSelector } from "../util/nodeSelectors";
 
