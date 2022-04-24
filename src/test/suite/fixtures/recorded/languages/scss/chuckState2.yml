@@ -1,0 +1,29 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: chuck state
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+initialState:
+  documentContents: |
+    @keyframes important1 {
+      from { margin-top: 50px; }
+      50%  { margin-top: 150px !important; } /* ignored */
+      to   { margin-top: 100px; }
+    }
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks: {}
+finalState:
+  documentContents: |+
+
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}, isImplicit: false}]

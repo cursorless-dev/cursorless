@@ -1,0 +1,32 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: change funk
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+initialState:
+  documentContents: |-
+    @mixin theme-colors($light-theme: true) {
+      @if $light-theme {
+        background-color: $light-background;
+        color: $light-text;
+      } @else {
+        background-color: $dark-background;
+        color: $dark-text;
+      }
+    }
+  selections:
+    - anchor: {line: 7, character: 3}
+      active: {line: 7, character: 3}
+  marks: {}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}, isImplicit: false}]
