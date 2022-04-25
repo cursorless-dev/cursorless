@@ -1,4 +1,5 @@
-from talon import Module, actions, app, Context
+from talon import Context, Module, actions, app
+
 from .csv_overrides import init_csv_and_watch_changes
 
 mod = Module()
