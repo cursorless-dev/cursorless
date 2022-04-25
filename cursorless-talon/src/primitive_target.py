@@ -1,6 +1,5 @@
 from talon import Module
 
-
 mod = Module()
 
 BASE_TARGET = {"type": "primitive"}

@@ -1,0 +1,41 @@
+# See https://EditorConfig.org
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_size = 2
+indent_style = space
+max_line_length = 80
+trim_trailing_whitespace = true
+
+[*.json]
+indent_style = tab
+
+[*.py]
+indent_style = space
+indent_size = 4
+
+[*.svg]
+insert_final_newline = false
+
+[*.{yml,yaml}]
+# Trailing whitespace breaks yaml files if you use a multiline string
+# with a line that has trailing white space. Many of our recorded
+# tests use strings with trailing white space to represent the final
+# document contents. For example
+# src/test/suite/fixtures/recorded/languages/ruby/changeCondition.yml
+trim_trailing_whitespace = false
+
+[Makefile]
+indent_style = tab
+
+[src/vendor/**]
+charset = unset
+end_of_line = unset
+indent_size = unset
+indent_style = unset
+trim_trailing_whitespace = unset
+insert_final_newline = unset
+max_line_length = unset

@@ -8,7 +8,9 @@ import {
 } from "../typings/Types";
 
 export class Sort implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: "inside" },
+  ];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);

@@ -16,7 +16,9 @@ export type SelectionPlainObject = {
   active: PositionPlainObject;
 };
 
-export type SerializedMarks = { [decoratedCharacter: string]: RangePlainObject };
+export type SerializedMarks = {
+  [decoratedCharacter: string]: RangePlainObject;
+};
 
 export function rangeToPlainObject(range: Range): RangePlainObject {
   return {
@@ -38,7 +40,9 @@ export function positionToPlainObject(position: Position): PositionPlainObject {
   return { line: position.line, character: position.character };
 }
 
-export function marksToPlainObject(marks: { [decoratedCharacter: string]: Token }) {
+export function marksToPlainObject(marks: {
+  [decoratedCharacter: string]: Token;
+}) {
   const serializedMarks: SerializedMarks = {};
   Object.entries(marks).forEach(
     ([key, value]: [string, Token]) =>

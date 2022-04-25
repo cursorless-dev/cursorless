@@ -9,7 +9,9 @@ import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { ensureSingleTarget } from "../util/targetUtils";
 
 export default class GetText implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: "inside" },
+  ];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);

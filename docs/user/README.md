@@ -350,9 +350,9 @@ Deletes the token containing letter 'a' with a blue hat.
 This command will delete a target and leave the cursor where the target used to be, making it easy to change a target
 
 - `"change <TARGET>"`
-eg:
-`change blue air`
-Deletes the token containing letter 'a' with a blue hat then places your cursor where the token had been.
+  eg:
+  `change blue air`
+  Deletes the token containing letter 'a' with a blue hat then places your cursor where the token had been.
 
 ### Cut / copy
 
@@ -438,6 +438,7 @@ eg:
 Wraps the token containing letter 'a' with a blue hat in square brackets.
 
 The rewrap command, mapped to `"repack"` by default, can be used to swap a given pair of symbols with another
+
 - `"curly repack <TARGET>"`: wraps the target with curly brackets, replacing the previous paired delimiter
 
 See [paired delimiters](#paired-delimiters) for a list of possible wrappers.

@@ -1,31 +1,29 @@
 {
-    "measurementName": "Primärvård",
-    "periods": [
-        "2020"
-    ],
-    "columns": [
-        "measurementName",
-        "measurementYear",
-        "measurementMonth",
-        "questionnaireName",
-        "questionnaireLanguage",
-        "orgHsaId"
-    ],
-    "questions": [
-        "Hur upplevde du besöket som helhet?",
-        "Upplever du att distanskontakt är lika bra som att träffa personalen på riktigt?",
-        "Diskuterade behandlaren eller någon annan ur personalen någon av följande levnadsvanor med dig? Motionsvanor"
-    ],
-    "dimensions": [
-        "Helhetsintryck",
-        "Emotionellt stöd",
-        "Delaktighet och involvering",
-        "Respekt och bemötande",
-        "Kontinuitet och koordinering",
-        "Information och kunskap",
-        "Tillgänglighet"
-    ],
-    "excludeNonInvited": true,
-    "excludeNonAnswered": false,
-    "limit": 10
+	"measurementName": "Primärvård",
+	"periods": ["2020"],
+	"columns": [
+		"measurementName",
+		"measurementYear",
+		"measurementMonth",
+		"questionnaireName",
+		"questionnaireLanguage",
+		"orgHsaId"
+	],
+	"questions": [
+		"Hur upplevde du besöket som helhet?",
+		"Upplever du att distanskontakt är lika bra som att träffa personalen på riktigt?",
+		"Diskuterade behandlaren eller någon annan ur personalen någon av följande levnadsvanor med dig? Motionsvanor"
+	],
+	"dimensions": [
+		"Helhetsintryck",
+		"Emotionellt stöd",
+		"Delaktighet och involvering",
+		"Respekt och bemötande",
+		"Kontinuitet och koordinering",
+		"Information och kunskap",
+		"Tillgänglighet"
+	],
+	"excludeNonInvited": true,
+	"excludeNonAnswered": false,
+	"limit": 10
 }

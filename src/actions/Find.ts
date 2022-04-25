@@ -9,7 +9,9 @@ import { commands } from "vscode";
 import { ensureSingleTarget } from "../util/targetUtils";
 
 export class FindInFiles implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { insideOutsideType: "inside" },
+  ];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
