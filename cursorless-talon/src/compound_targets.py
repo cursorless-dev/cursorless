@@ -1,6 +1,7 @@
-from .primitive_target import BASE_TARGET
-from .connective import default_range_connective
 from talon import Module
+
+from .connective import default_range_connective
+from .primitive_target import BASE_TARGET
 
 mod = Module()
 

@@ -1,5 +1,6 @@
 from talon import Module, app
-from ..csv_overrides import init_csv_and_watch_changes, SPOKEN_FORM_HEADER
+
+from ..csv_overrides import SPOKEN_FORM_HEADER, init_csv_and_watch_changes
 
 custom_action_defaults = {}
 

@@ -1,5 +1,6 @@
-from talon import Module
 from dataclasses import dataclass
+
+from talon import Module
 
 mod = Module()
 mod.list("cursorless_head_tail", desc="Cursorless modifier for head or tail of line")

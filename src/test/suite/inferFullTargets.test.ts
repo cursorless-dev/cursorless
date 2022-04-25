@@ -10,10 +10,7 @@ suite.skip("inferFullTargets", () => {
   fixture.forEach(({ input, expectedOutput }, index) => {
     test(`inferFullTargets ${index}`, () => {
       assert.deepStrictEqual(
-        inferFullTargets(
-          input.partialTargets,
-          input.actionPreferences
-        ),
+        inferFullTargets(input.partialTargets, input.actionPreferences),
         expectedOutput
       );
     });

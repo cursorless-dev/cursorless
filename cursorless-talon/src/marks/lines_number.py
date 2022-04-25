@@ -1,5 +1,6 @@
-from talon import Context, Module
 from dataclasses import dataclass
+
+from talon import Context, Module
 
 mod = Module()
 ctx = Context()

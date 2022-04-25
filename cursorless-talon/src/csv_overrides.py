@@ -1,7 +1,9 @@
-from talon import Context, Module, actions, fs, app
-from typing import Optional
 from datetime import datetime
 from pathlib import Path
+from typing import Optional
+
+from talon import Context, Module, actions, app, fs
+
 from .conventions import get_cursorless_list_name
 
 SPOKEN_FORM_HEADER = "Spoken form"

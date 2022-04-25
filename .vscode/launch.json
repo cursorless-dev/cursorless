@@ -16,9 +16,7 @@
 				"pokey.cursorless-local",
 				"--extensionDevelopmentPath=${workspaceFolder}"
 			],
-			"outFiles": [
-				"${workspaceFolder}/out/**/*.js"
-			],
+			"outFiles": ["${workspaceFolder}/out/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}"
 		},
 		{
@@ -36,9 +34,7 @@
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
 			],
-			"outFiles": [
-				"${workspaceFolder}/out/test/**/*.js"
-			],
+			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}"
 		},
 		{
@@ -47,7 +43,7 @@
 			"request": "launch",
 			"env": {
 				"CURSORLESS_TEST": "true",
-				"CURSORLESS_TEST_UPDATE_FIXTURES": "true",
+				"CURSORLESS_TEST_UPDATE_FIXTURES": "true"
 			},
 			"args": [
 				"--disable-extension",
@@ -57,18 +53,16 @@
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
 			],
-			"outFiles": [
-				"${workspaceFolder}/out/test/**/*.js"
-			],
+			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}"
 		},
 		{
-            "name": "Docusaurus Start (Debug)",
-            "type": "node",
-            "request": "launch",
-            "cwd": "${workspaceFolder}/website",
-            "runtimeExecutable": "npm",
-            "runtimeArgs": ["run", "start"],
-        }
+			"name": "Docusaurus Start (Debug)",
+			"type": "node",
+			"request": "launch",
+			"cwd": "${workspaceFolder}/website",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": ["run", "start"]
+		}
 	]
 }

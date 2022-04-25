@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
-from talon import Module, actions, app, Context, fs, cron
+
+from talon import Context, Module, actions, app, cron, fs
+
 from ..csv_overrides import init_csv_and_watch_changes
 from .lines_number import DEFAULT_DIRECTIONS
 
