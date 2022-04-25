@@ -1,0 +1,55 @@
+languageId: python
+command:
+  version: 1
+  spokenForm: dedent this
+  action: outdentLine
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+initialState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+            
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 8}
+      active: {line: 12, character: 8}
+  marks: {}
+finalState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+        
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 4}
+      active: {line: 12, character: 4}
+  thatMark:
+    - anchor: {line: 12, character: 4}
+      active: {line: 12, character: 4}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}, isImplicit: false}]

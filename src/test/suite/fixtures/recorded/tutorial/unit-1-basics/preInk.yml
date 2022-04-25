@@ -1,0 +1,48 @@
+languageId: plaintext
+command:
+  version: 1
+  spokenForm: pre ink
+  action: setSelectionBefore
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+initialState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========                              ==========
+    ==========  so we can navigate ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 50}
+    - anchor: {line: 5, character: 0}
+      active: {line: 5, character: 41}
+  marks:
+    default.i:
+      start: {line: 7, character: 12}
+      end: {line: 7, character: 19}
+finalState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========                              ==========
+    ==========  so we can navigate ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 7, character: 12}
+      active: {line: 7, character: 12}
+  thatMark:
+    - anchor: {line: 7, character: 12}
+      active: {line: 7, character: 19}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: i}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

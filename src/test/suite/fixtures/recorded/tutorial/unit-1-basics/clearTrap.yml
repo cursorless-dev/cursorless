@@ -1,0 +1,46 @@
+languageId: plaintext
+command:
+  version: 1
+  spokenForm: clear trap
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+initialState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========                              ==========
+    ==========  so we can navigate ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 7, character: 27}
+      active: {line: 7, character: 27}
+  marks:
+    default.t:
+      start: {line: 2, character: 22}
+      end: {line: 2, character: 24}
+finalState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome  Cursorless!    ==========
+    ==========                              ==========
+    ==========                              ==========
+    ==========  so we can navigate ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 2, character: 22}
+      active: {line: 2, character: 22}
+  thatMark:
+    - anchor: {line: 2, character: 22}
+      active: {line: 2, character: 22}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

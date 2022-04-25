@@ -1,0 +1,59 @@
+languageId: python
+command:
+  version: 1
+  spokenForm: chuck argue blue vest
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: blue, character: v}
+initialState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+        return color
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 16}
+      active: {line: 12, character: 16}
+  marks:
+    blue.v:
+      start: {line: 0, character: 23}
+      end: {line: 0, character: 29}
+finalState:
+  documentContents: |
+    def print_color(color):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+        return color
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 16}
+      active: {line: 12, character: 16}
+  thatMark:
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: v}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

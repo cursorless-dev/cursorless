@@ -1,0 +1,55 @@
+languageId: python
+command:
+  version: 1
+  spokenForm: bring block made
+  action: replaceWithTarget
+  targets:
+    - type: primitive
+      selectionType: paragraph
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+    - {type: primitive, isImplicit: true}
+initialState:
+  documentContents: |+
+    from talon import Context, Module
+
+    mod = Module()
+    ctx = Context()
+
+    mod.list("cursorless_walkthrough_list", desc="My tutorial list")
+    ctx.list['user.cursorless_walkthrough_list'] = {
+        "spoken form": "whatever",
+    }
+
+  selections:
+    - anchor: {line: 10, character: 0}
+      active: {line: 10, character: 0}
+  marks:
+    default.m:
+      start: {line: 5, character: 0}
+      end: {line: 5, character: 3}
+finalState:
+  documentContents: |-
+    from talon import Context, Module
+
+    mod = Module()
+    ctx = Context()
+
+    mod.list("cursorless_walkthrough_list", desc="My tutorial list")
+    ctx.list['user.cursorless_walkthrough_list'] = {
+        "spoken form": "whatever",
+    }
+
+    mod.list("cursorless_walkthrough_list", desc="My tutorial list")
+    ctx.list['user.cursorless_walkthrough_list'] = {
+        "spoken form": "whatever",
+    }
+  selections:
+    - anchor: {line: 13, character: 1}
+      active: {line: 13, character: 1}
+  thatMark:
+    - anchor: {line: 10, character: 0}
+      active: {line: 13, character: 1}
+  sourceMark:
+    - anchor: {line: 5, character: 0}
+      active: {line: 8, character: 1}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, selectionType: paragraph, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: cursor}, selectionType: paragraph, position: contents, insideOutsideType: null, modifier: {type: identity}}]

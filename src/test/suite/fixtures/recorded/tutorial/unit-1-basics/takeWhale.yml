@@ -1,0 +1,48 @@
+languageId: plaintext
+command:
+  version: 1
+  spokenForm: take whale
+  action: setSelection
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+initialState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========   Let's start using marks    ==========
+    ==========                              ==========
+    ==========  so we can navigate around   ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.w:
+      start: {line: 2, character: 14}
+      end: {line: 2, character: 21}
+finalState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========   Let's start using marks    ==========
+    ==========                              ==========
+    ==========  so we can navigate around   ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 2, character: 14}
+      active: {line: 2, character: 21}
+  thatMark:
+    - anchor: {line: 2, character: 14}
+      active: {line: 2, character: 21}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

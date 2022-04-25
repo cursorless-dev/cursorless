@@ -1,0 +1,63 @@
+languageId: python
+command:
+  version: 1
+  spokenForm: bring state urge
+  action: replaceWithTarget
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: u}
+    - {type: primitive, isImplicit: true}
+initialState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+        
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 4}
+      active: {line: 12, character: 4}
+  marks:
+    default.u:
+      start: {line: 11, character: 8}
+      end: {line: 11, character: 14}
+finalState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+        return "black"
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 18}
+      active: {line: 12, character: 18}
+  thatMark:
+    - anchor: {line: 12, character: 4}
+      active: {line: 12, character: 18}
+  sourceMark:
+    - anchor: {line: 11, character: 8}
+      active: {line: 11, character: 22}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: u}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}, isImplicit: false}, {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}, isImplicit: true}]

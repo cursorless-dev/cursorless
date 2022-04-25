@@ -1,0 +1,54 @@
+languageId: python
+command:
+  version: 1
+  spokenForm: take look clone line word frown
+  action: insertCopyAfter
+  targets:
+    - {type: primitive, selectionType: line}
+initialState:
+  documentContents: |-
+    from talon import Context, Module
+
+    mod = Module()
+    ctx = Context()
+
+    mod.list("cursorless_walkthrough_list", desc="My tutorial list")
+    ctx.list['user.cursorless_walkthrough_list'] = {
+        "spoken form": "whatever",
+    }
+
+    mod.list("emoji", desc="Emojis")
+    ctx.list['user.emoji'] = {
+        "smile": ":-)",
+    }
+  selections:
+    - anchor: {line: 12, character: 5}
+      active: {line: 12, character: 10}
+  marks: {}
+finalState:
+  documentContents: |-
+    from talon import Context, Module
+
+    mod = Module()
+    ctx = Context()
+
+    mod.list("cursorless_walkthrough_list", desc="My tutorial list")
+    ctx.list['user.cursorless_walkthrough_list'] = {
+        "spoken form": "whatever",
+    }
+
+    mod.list("emoji", desc="Emojis")
+    ctx.list['user.emoji'] = {
+        "smile": ":-)",
+        "smile": ":-)",
+    }
+  selections:
+    - anchor: {line: 13, character: 5}
+      active: {line: 13, character: 10}
+  thatMark:
+    - anchor: {line: 13, character: 0}
+      active: {line: 13, character: 19}
+  sourceMark:
+    - anchor: {line: 12, character: 0}
+      active: {line: 12, character: 19}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: line, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

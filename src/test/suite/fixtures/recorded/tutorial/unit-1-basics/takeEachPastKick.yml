@@ -1,0 +1,58 @@
+languageId: plaintext
+command:
+  version: 1
+  spokenForm: take each past kick
+  action: setSelection
+  targets:
+    - type: range
+      start:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      end:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: k}
+      excludeStart: false
+      excludeEnd: false
+initialState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========   Let's start using marks    ==========
+    ==========                              ==========
+    ==========  so we can navigate around   ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 6, character: 12}
+      active: {line: 6, character: 14}
+  marks:
+    default.e:
+      start: {line: 4, character: 13}
+      end: {line: 4, character: 16}
+    default.k:
+      start: {line: 4, character: 31}
+      end: {line: 4, character: 36}
+finalState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========   Let's start using marks    ==========
+    ==========                              ==========
+    ==========  so we can navigate around   ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 4, character: 13}
+      active: {line: 4, character: 36}
+  thatMark:
+    - anchor: {line: 4, character: 13}
+      active: {line: 4, character: 36}
+fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: k}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}}]

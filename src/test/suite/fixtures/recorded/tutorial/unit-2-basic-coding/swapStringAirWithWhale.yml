@@ -1,0 +1,65 @@
+languageId: python
+command:
+  version: 1
+  spokenForm: swap string air with whale
+  action: swapTargets
+  targets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: string}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+initialState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "black":
+            return "white"
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 15, character: 0}
+      active: {line: 15, character: 0}
+  marks:
+    default.a:
+      start: {line: 10, character: 17}
+      end: {line: 10, character: 22}
+    default.w:
+      start: {line: 11, character: 16}
+      end: {line: 11, character: 21}
+finalState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 15, character: 0}
+      active: {line: 15, character: 0}
+  thatMark:
+    - anchor: {line: 11, character: 15}
+      active: {line: 11, character: 22}
+    - anchor: {line: 10, character: 16}
+      active: {line: 10, character: 23}
+  sourceMark: []
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: surroundingPair, delimiter: string}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: surroundingPair, delimiter: string}}]

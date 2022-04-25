@@ -1,0 +1,57 @@
+languageId: python
+command:
+  version: 1
+  spokenForm: clear core yank
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
+      mark: {type: decoratedSymbol, symbolColor: default, character: 'y'}
+initialState:
+  documentContents: |-
+    from talon import Context, Module
+
+    mod = Module()
+    ctx = Context()
+
+    mod.list("cursorless_walkthrough_list", desc="My tutorial list")
+    ctx.list['user.cursorless_walkthrough_list'] = {
+        "spoken form": "whatever",
+    }
+
+    mod.list("emoji", desc="My tutorial list")
+    ctx.list['user.emoji'] = {
+        "spoken form": "whatever",
+    }
+  selections:
+    - anchor: {line: 10, character: 15}
+      active: {line: 10, character: 15}
+    - anchor: {line: 11, character: 20}
+      active: {line: 11, character: 20}
+  marks:
+    default.y:
+      start: {line: 10, character: 24}
+      end: {line: 10, character: 26}
+finalState:
+  documentContents: |-
+    from talon import Context, Module
+
+    mod = Module()
+    ctx = Context()
+
+    mod.list("cursorless_walkthrough_list", desc="My tutorial list")
+    ctx.list['user.cursorless_walkthrough_list'] = {
+        "spoken form": "whatever",
+    }
+
+    mod.list("emoji", desc="")
+    ctx.list['user.emoji'] = {
+        "spoken form": "whatever",
+    }
+  selections:
+    - anchor: {line: 10, character: 24}
+      active: {line: 10, character: 24}
+  thatMark:
+    - anchor: {line: 10, character: 24}
+      active: {line: 10, character: 24}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: 'y'}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}}]

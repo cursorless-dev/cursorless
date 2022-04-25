@@ -1,0 +1,67 @@
+languageId: python
+command:
+  version: 1
+  spokenForm: bring blue cap to value risk
+  action: replaceWithTarget
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: blue, character: c}
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: r}
+initialState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+        return "black"
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 18}
+      active: {line: 12, character: 18}
+  marks:
+    blue.c:
+      start: {line: 7, character: 17}
+      end: {line: 7, character: 22}
+    default.r:
+      start: {line: 12, character: 4}
+      end: {line: 12, character: 10}
+finalState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+        return color
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 16}
+      active: {line: 12, character: 16}
+  thatMark:
+    - anchor: {line: 12, character: 11}
+      active: {line: 12, character: 16}
+  sourceMark:
+    - anchor: {line: 7, character: 17}
+      active: {line: 7, character: 22}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: c}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}, isImplicit: false}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]

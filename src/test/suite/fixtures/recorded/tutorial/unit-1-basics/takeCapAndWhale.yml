@@ -1,0 +1,59 @@
+languageId: plaintext
+command:
+  version: 1
+  spokenForm: take cap and whale
+  action: setSelection
+  targets:
+    - type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: c}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: w}
+initialState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========   Let's start using marks    ==========
+    ==========                              ==========
+    ==========  so we can navigate around   ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 4, character: 13}
+      active: {line: 4, character: 36}
+  marks:
+    default.c:
+      start: {line: 2, character: 14}
+      end: {line: 2, character: 21}
+    default.w:
+      start: {line: 6, character: 15}
+      end: {line: 6, character: 17}
+finalState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========   Let's start using marks    ==========
+    ==========                              ==========
+    ==========  so we can navigate around   ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 2, character: 14}
+      active: {line: 2, character: 21}
+    - anchor: {line: 6, character: 15}
+      active: {line: 6, character: 17}
+  thatMark:
+    - anchor: {line: 2, character: 14}
+      active: {line: 2, character: 21}
+    - anchor: {line: 6, character: 15}
+      active: {line: 6, character: 17}
+fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]}]

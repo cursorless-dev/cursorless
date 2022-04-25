@@ -1,0 +1,58 @@
+languageId: python
+command:
+  version: 1
+  spokenForm: clone state ink
+  action: insertCopyAfter
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+initialState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 13, character: 0}
+      active: {line: 13, character: 0}
+  marks:
+    default.i:
+      start: {line: 8, character: 4}
+      end: {line: 8, character: 6}
+finalState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "black":
+            return "white"
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 15, character: 0}
+      active: {line: 15, character: 0}
+  thatMark:
+    - anchor: {line: 10, character: 0}
+      active: {line: 11, character: 22}
+  sourceMark:
+    - anchor: {line: 8, character: 0}
+      active: {line: 9, character: 22}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: i}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]

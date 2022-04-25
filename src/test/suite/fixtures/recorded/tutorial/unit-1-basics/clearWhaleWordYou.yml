@@ -1,0 +1,46 @@
+languageId: plaintext
+command:
+  version: 1
+  spokenForm: clear whale word you
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+initialState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome  Cursorless!    ==========
+    ==========                              ==========
+    ==========                              ==========
+    ==========  so we can navigate ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 2, character: 22}
+      active: {line: 2, character: 22}
+  marks:
+    default.w:
+      start: {line: 5, character: 15}
+      end: {line: 5, character: 17}
+finalState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome  Cursorless!    ==========
+    ==========                              ==========
+    ==========                              ==========
+    ==========  so  can navigate ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 5, character: 15}
+      active: {line: 5, character: 15}
+  thatMark:
+    - anchor: {line: 5, character: 15}
+      active: {line: 5, character: 15}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

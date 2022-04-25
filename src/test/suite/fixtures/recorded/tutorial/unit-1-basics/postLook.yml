@@ -1,0 +1,46 @@
+languageId: plaintext
+command:
+  version: 1
+  spokenForm: post look
+  action: setSelectionAfter
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+initialState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========                              ==========
+    ==========  so we can navigate ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 7, character: 12}
+      active: {line: 7, character: 12}
+  marks:
+    default.l:
+      start: {line: 7, character: 20}
+      end: {line: 7, character: 27}
+finalState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========                              ==========
+    ==========  so we can navigate ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 7, character: 27}
+      active: {line: 7, character: 27}
+  thatMark:
+    - anchor: {line: 7, character: 20}
+      active: {line: 7, character: 27}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

@@ -1,0 +1,48 @@
+languageId: plaintext
+command:
+  version: 1
+  spokenForm: take blue sun
+  action: setSelection
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: blue, character: s}
+initialState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========   Let's start using marks    ==========
+    ==========                              ==========
+    ==========  so we can navigate around   ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 2, character: 14}
+      active: {line: 2, character: 21}
+  marks:
+    blue.s:
+      start: {line: 6, character: 12}
+      end: {line: 6, character: 14}
+finalState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========   Let's start using marks    ==========
+    ==========                              ==========
+    ==========  so we can navigate around   ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 6, character: 12}
+      active: {line: 6, character: 14}
+  thatMark:
+    - anchor: {line: 6, character: 12}
+      active: {line: 6, character: 14}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: s}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

@@ -1,0 +1,54 @@
+languageId: python
+command:
+  version: 1
+  spokenForm: clear whale
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+initialState:
+  documentContents: |-
+    from talon import Context, Module
+
+    mod = Module()
+    ctx = Context()
+
+    mod.list("cursorless_walkthrough_list", desc="My tutorial list")
+    ctx.list['user.cursorless_walkthrough_list'] = {
+        "spoken form": "whatever",
+    }
+
+    mod.list("emoji", desc="Emojis")
+    ctx.list['user.emoji'] = {
+        "smile": "whatever",
+    }
+  selections:
+    - anchor: {line: 12, character: 10}
+      active: {line: 12, character: 10}
+  marks:
+    default.w:
+      start: {line: 12, character: 14}
+      end: {line: 12, character: 22}
+finalState:
+  documentContents: |-
+    from talon import Context, Module
+
+    mod = Module()
+    ctx = Context()
+
+    mod.list("cursorless_walkthrough_list", desc="My tutorial list")
+    ctx.list['user.cursorless_walkthrough_list'] = {
+        "spoken form": "whatever",
+    }
+
+    mod.list("emoji", desc="Emojis")
+    ctx.list['user.emoji'] = {
+        "smile": "",
+    }
+  selections:
+    - anchor: {line: 12, character: 14}
+      active: {line: 12, character: 14}
+  thatMark:
+    - anchor: {line: 12, character: 14}
+      active: {line: 12, character: 14}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
