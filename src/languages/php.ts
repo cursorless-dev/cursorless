@@ -48,7 +48,7 @@ const STATEMENT_TYPES = [
   "trait_declaration",
   "try_statement",
   "unset_statement",
-  "while_statement"
+  "while_statement",
 ];
 
 // Taken from https://www.php.net/manual/en/language.operators.assignment.php
@@ -80,7 +80,7 @@ const assignmentOperators = [
  * @param node The node to extract from; will be the content of the type cast without the surrounding parens
  * @returns The selection with context
  */
- function castTypeExtractor(
+function castTypeExtractor(
   editor: TextEditor,
   node: SyntaxNode
 ): SelectionWithContext {
@@ -113,10 +113,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   string: "string",
   type: cascadingMatcher(
     trailingMatcher(["~cast_expression[type]"]),
-    matcher(
-      patternFinder("cast_expression[type]"),
-      castTypeExtractor,
-    ),
+    matcher(patternFinder("cast_expression[type]"), castTypeExtractor)
   ),
 
   namedFunction: trailingMatcher(
@@ -125,20 +122,14 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
       "assignment_expression.anonymous_function_creation_expression",
       "assignment_expression.arrow_function",
     ],
-    [";"],
+    [";"]
   ),
   anonymousFunction: [
     "anonymous_function_creation_expression",
     "arrow_function",
   ],
-  functionCall: [
-    "function_call_expression",
-    "object_creation_expression",
-  ],
-  functionName: [
-    "function_definition[name]",
-    "method_declaration[name]",
-  ],
+  functionCall: ["function_call_expression", "object_creation_expression"],
+  functionName: ["function_definition[name]", "method_declaration[name]"],
 
   value: leadingMatcher(
     [
@@ -148,7 +139,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
       "return_statement[0]",
       "yield_expression[0]",
     ],
-    assignmentOperators.concat(["=>"]),
+    assignmentOperators.concat(["=>"])
   ),
 
   collectionKey: trailingMatcher(["array_element_initializer[0]"], ["=>"]),

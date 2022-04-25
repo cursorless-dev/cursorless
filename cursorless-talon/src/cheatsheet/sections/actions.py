@@ -1,5 +1,5 @@
-from ..get_list import get_raw_list, make_dict_readable
 from ...actions.actions import ACTION_LIST_NAMES
+from ..get_list import get_raw_list, make_dict_readable
 
 
 def get_actions():

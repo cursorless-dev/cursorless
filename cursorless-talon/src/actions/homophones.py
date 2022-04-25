@@ -1,4 +1,5 @@
 from talon import actions, app
+
 from .get_text import get_text
 
 

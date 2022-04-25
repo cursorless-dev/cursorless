@@ -69,5 +69,5 @@ async function followLink() {
 
   const editor = vscode.window.activeTextEditor;
   assert.equal(editor?.document?.uri?.scheme, "file");
-  assert.equal(editor?.document.getText(), "hello world");
+  assert.equal(editor?.document.getText().trimEnd(), "hello world");
 }
