@@ -91,6 +91,8 @@ default_values = {
     "surrounding_pair_scope_type": surrounding_pair_scope_types,
 }
 
+SCOPE_LIST_NAMES = list(default_values.keys())
+
 
 def on_ready():
     init_csv_and_watch_changes("modifier_scope_types", default_values)

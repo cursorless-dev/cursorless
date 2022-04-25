@@ -99,7 +99,7 @@ default_values = {
 }
 
 
-ACTION_LIST_NAMES = default_values.keys()
+ACTION_LIST_NAMES = list(default_values.keys())
 
 
 def on_ready():
