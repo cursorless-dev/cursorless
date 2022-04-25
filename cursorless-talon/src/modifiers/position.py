@@ -5,8 +5,6 @@ ctx = Context()
 
 
 positions = {
-    "after": {"position": "after"},
-    "before": {"position": "before"},
     "start of": {"position": "before", "insideOutsideType": "inside"},
     "end of": {"position": "after", "insideOutsideType": "inside"},
     # Disabled for now because "below" can misrecognize with "blue" and we may move away from allowing positional modifiers in arbitrary places anyway

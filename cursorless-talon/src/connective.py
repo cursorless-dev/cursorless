@@ -11,6 +11,14 @@ range_connectives = {
     "until": "rangeExcludingEnd",
 }
 
+# NOTE: Please do not change these dicts.  Use the CSVs for customization.
+# See https://github.com/pokey/cursorless-talon/blob/main/docs/customization.md
+positional_connectives = {
+    "after": "afterConnective",
+    "before": "beforeConnective",
+    "to": "contentConnective",
+}
+
 default_range_connective = "rangeInclusive"
 
 
@@ -21,7 +29,7 @@ def on_ready():
             "range_connective": range_connectives,
             "list_connective": {"and": "listConnective"},
             "swap_connective": {"with": "swapConnective"},
-            "source_destination_connective": {"to": "sourceDestinationConnective"},
+            "positional_connective": positional_connectives,
         },
     )
 
