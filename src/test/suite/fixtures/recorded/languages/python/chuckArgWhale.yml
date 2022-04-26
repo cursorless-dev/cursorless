@@ -1,0 +1,27 @@
+languageId: python
+command:
+  version: 1
+  spokenForm: chuck arg whale
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+initialState:
+  documentContents: "\" \".join(word for word in word_list)"
+  selections:
+    - anchor: {line: 0, character: 36}
+      active: {line: 0, character: 36}
+  marks:
+    default.w:
+      start: {line: 0, character: 18}
+      end: {line: 0, character: 22}
+finalState:
+  documentContents: "\" \".join()"
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  thatMark:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]
