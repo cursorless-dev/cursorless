@@ -1,0 +1,27 @@
+languageId: python
+command:
+  version: 1
+  spokenForm: chuck every arg air
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+initialState:
+  documentContents: "\" \".join((word for word in word_list), (name for name in name_list))"
+  selections:
+    - anchor: {line: 0, character: 68}
+      active: {line: 0, character: 68}
+  marks:
+    default.a:
+      start: {line: 0, character: 40}
+      end: {line: 0, character: 44}
+finalState:
+  documentContents: "\" \".join()"
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  thatMark:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}]
