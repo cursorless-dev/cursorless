@@ -13,7 +13,7 @@ for how to add support for a new parser
 
 First a few notes / tips:
 
-- We suggest opening a draft PR as soon as possible to get early feedback. Please use the new language PR template either by adding `?template=new_programming_language` to the end of the URL you used to open the PR, or just by copying and pasting from the [template](https://github.com/cursorless-dev/cursorless-vscode/tree/main/.github/PULL_REQUEST_TEMPLATE/new_programming_language.md) to your PR body, if that's easier.
+- We suggest opening a draft PR as soon as possible to get early feedback. Please use the new language PR template either by adding `?template=new_programming_language` to the end of the URL you used to open the PR, or just by copying and pasting from the [template](https://github.com/cursorless-dev/cursorless/blob/main/.github/PULL_REQUEST_TEMPLATE/new_programming_language.md?plain=1) to your PR body, if that's easier.
 - We suggest adding tests as early as possible, after each language feature you add. Recording tests is quick and painless using the test case recorder described below. We promise 😇
 
 Minimum changes that each language needs:
