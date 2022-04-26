@@ -1,8 +1,10 @@
-from talon import Module
 from dataclasses import dataclass
-from .homophones import run_homophones_action
-from .find import run_find_action
+
+from talon import Module
+
 from .call import run_call_action
+from .find import run_find_action
+from .homophones import run_homophones_action
 
 
 @dataclass

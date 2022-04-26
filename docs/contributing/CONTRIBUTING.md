@@ -18,6 +18,13 @@ locally you need to run the extension in debug mode. To do so you need to run
 the `workbench.action.debug.selectandstart` command and then select either "Run
 Extension" or "Extension Tests".
 
+### Code formatting
+
+We use [`pre-commit`](https://pre-commit.com/) to automate autoformatting.
+Autoformatters will automatically run on PRs in CI, but you can also run them
+locally or install pre-commit hooks as described in the `pre-commit`
+documentation.
+
 ### Running docs site locally
 
 Run the `workbench.action.debug.selectandstart` command and then select

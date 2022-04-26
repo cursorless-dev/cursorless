@@ -33,7 +33,7 @@ reload, as cursorless uses these lines to track disabled spoken forms.
 Simply modify the spoken form in the first column of any of the csvs in the
 directory above to change the spoken you'd like to use. The new spoken form will be usable immediately.
 
-Multiple spoken forms can be used for the same action using the pipe operator  
+Multiple spoken forms can be used for the same action using the pipe operator
 `remove|delete`
 
 ### New features
@@ -66,17 +66,17 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
 
 ### Public Talon captures
 
-- `<user.cursorless_target>`  
-   Represents a cursorless target, such as `"air"`, `"this"`, `"air past bat"`, `"air and bat"`, `"funk air past token bat and class cap"`, etc
+- `<user.cursorless_target>`
+  Represents a cursorless target, such as `"air"`, `"this"`, `"air past bat"`, `"air and bat"`, `"funk air past token bat and class cap"`, etc
 
 ### Public Talon actions
 
-- `user.cursorless_command(action_id: str, target: cursorless_target)`  
-   Perform a Cursorless command on the given target  
-   eg: `user.cursorless_command("setSelection", cursorless_target)`
-- `user.cursorless_vscode_command(command_id: str, target: cursorless_target)`  
-   Performs a VSCode command on the given target  
-   eg: `user.cursorless_vscode_command("editor.action.addCommentLine", cursorless_target)`
+- `user.cursorless_command(action_id: str, target: cursorless_target)`
+  Perform a Cursorless command on the given target
+  eg: `user.cursorless_command("setSelection", cursorless_target)`
+- `user.cursorless_vscode_command(command_id: str, target: cursorless_target)`
+  Performs a VSCode command on the given target
+  eg: `user.cursorless_vscode_command("editor.action.addCommentLine", cursorless_target)`
 
 ### Example of combining capture and action
 

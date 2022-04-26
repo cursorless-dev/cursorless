@@ -163,10 +163,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     patternMatcher("yield_expression.~yield!")
   ),
   ifStatement: "if_statement",
-  anonymousFunction: [
-    "arrow_function",
-    "function",
-  ],
+  anonymousFunction: ["arrow_function", "function"],
   name: [
     "*[name]",
     "optional_parameter.identifier!",

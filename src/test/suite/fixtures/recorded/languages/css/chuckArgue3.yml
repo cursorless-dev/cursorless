@@ -1,0 +1,29 @@
+languageId: css
+command:
+  version: 1
+  spokenForm: chuck argue
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+initialState:
+  documentContents: |-
+    a {
+      width: calc(100% - 80px);
+    }
+  selections:
+    - anchor: {line: 1, character: 23}
+      active: {line: 1, character: 23}
+  marks: {}
+finalState:
+  documentContents: |-
+    a {
+      width: calc();
+    }
+  selections:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
+  thatMark:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

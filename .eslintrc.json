@@ -1,37 +1,32 @@
 {
-    "root": true,
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "@typescript-eslint"
-    ],
-    "rules": {
-        "@typescript-eslint/naming-convention": "warn",
-        "@typescript-eslint/semi": "warn",
-        "@typescript-eslint/no-unused-vars": [
-            "warn",
-            {
-                "argsIgnorePattern": "^_",
-                "varsIgnorePattern": "^_",
-                "ignoreRestSiblings": true
-            }
-        ],
-        "curly": "warn",
-        "eqeqeq": [
-            "warn",
-            "always",
-            {
-                "null": "never"
-            }
-        ],
-        "no-throw-literal": "warn",
-        "semi": "off"
-    },
-    "ignorePatterns": [
-        "**/vendor/**/*.ts",
-        "**/vendor/**/*.js"
-    ]
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"extends": ["prettier"],
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module"
+	},
+	"plugins": ["@typescript-eslint"],
+	"rules": {
+		"@typescript-eslint/naming-convention": "warn",
+		"@typescript-eslint/no-unused-vars": [
+			"warn",
+			{
+				"argsIgnorePattern": "^_",
+				"varsIgnorePattern": "^_",
+				"ignoreRestSiblings": true
+			}
+		],
+		"curly": "warn",
+		"eqeqeq": [
+			"warn",
+			"always",
+			{
+				"null": "never"
+			}
+		],
+		"no-throw-literal": "warn",
+		"semi": "off"
+	},
+	"ignorePatterns": ["**/vendor/**/*.ts", "**/vendor/**/*.js"]
 }

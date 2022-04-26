@@ -1,0 +1,30 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: change funk
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+initialState:
+  documentContents: |-
+    @function pow($base, $exponent) {
+      $result: 1;
+      @for $_ from 1 through $exponent {
+        $result: $result * $base;
+      }
+      @return $result;
+    }
+  selections:
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}
+  marks: {}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}, isImplicit: false}]

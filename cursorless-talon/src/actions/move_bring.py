@@ -1,4 +1,5 @@
 from talon import Module
+
 from ..primitive_target import IMPLICIT_TARGET
 
 mod = Module()

@@ -1,0 +1,29 @@
+languageId: css
+command:
+  version: 1
+  spokenForm: chuck argue
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+initialState:
+  documentContents: |-
+    div {
+      clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    }
+  selections:
+    - anchor: {line: 1, character: 85}
+      active: {line: 1, character: 85}
+  marks: {}
+finalState:
+  documentContents: |-
+    div {
+      clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%);
+    }
+  selections:
+    - anchor: {line: 1, character: 82}
+      active: {line: 1, character: 82}
+  thatMark:
+    - anchor: {line: 1, character: 82}
+      active: {line: 1, character: 82}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

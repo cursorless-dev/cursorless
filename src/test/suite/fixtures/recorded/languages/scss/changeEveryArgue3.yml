@@ -1,0 +1,35 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: change every argue
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+initialState:
+  documentContents: |-
+    a {
+      clip-path: ellipse(115px 55px at 50% 40%);
+    }
+     
+  selections:
+    - anchor: {line: 1, character: 25}
+      active: {line: 1, character: 25}
+  marks: {}
+finalState:
+  documentContents: |-
+    a {
+      clip-path: ellipse( at );
+    }
+     
+  selections:
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 21}
+    - anchor: {line: 1, character: 25}
+      active: {line: 1, character: 25}
+  thatMark:
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 21}
+    - anchor: {line: 1, character: 25}
+      active: {line: 1, character: 25}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}]

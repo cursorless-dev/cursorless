@@ -1,5 +1,7 @@
 from typing import Any
+
 from talon import Module, app
+
 from ..csv_overrides import init_csv_and_watch_changes
 
 mod = Module()
@@ -33,6 +35,7 @@ scope_types = {
     "-four section": "sectionLevelFour",
     "-five section": "sectionLevelFive",
     "-six section": "sectionLevelSix",
+    "selector": "selector",
     "state": "statement",
     "string": "string",
     "type": "type",
