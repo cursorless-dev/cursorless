@@ -1,21 +1,21 @@
-languageId: javascript
+languageId: python
 command:
   version: 1
-  spokenForm: chuck every arg whale
+  spokenForm: chuck every arg sit
   action: remove
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      mark: {type: decoratedSymbol, symbolColor: default, character: i}
 initialState:
   documentContents: "\" \".join((word for word in word_list), another_argument)"
   selections:
     - anchor: {line: 0, character: 56}
       active: {line: 0, character: 56}
   marks:
-    default.w:
-      start: {line: 0, character: 19}
-      end: {line: 0, character: 23}
+    default.i:
+      start: {line: 0, character: 24}
+      end: {line: 0, character: 26}
 finalState:
   documentContents: "\" \".join()"
   selections:
@@ -24,4 +24,4 @@ finalState:
   thatMark:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}]
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: i}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}]
