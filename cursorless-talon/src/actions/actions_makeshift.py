@@ -15,7 +15,7 @@ class MakeshiftAction:
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
+# See https://www.cursorless.org/docs/user/customization/
 makeshift_actions = [
     MakeshiftAction("define", "revealDefinition", "editor.action.revealDefinition"),
     MakeshiftAction(

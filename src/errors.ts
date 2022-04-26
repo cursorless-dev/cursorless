@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 export class UnsupportedLanguageError extends Error {
   constructor(languageId: string) {
     super(
-      `Language '${languageId}' is not implemented yet; See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/contributing/adding-a-new-language.md`
+      `Language '${languageId}' is not implemented yet; See https://www.cursorless.org/docs/contributing/adding-a-new-language/`
     );
     this.name = "UnsupportedLanguageError";
   }
