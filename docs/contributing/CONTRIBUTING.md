@@ -7,9 +7,11 @@ extension](#running--testing-extension-locally), you may want to check out the
 
 ### Installation
 
-```sh
-yarn
-```
+1. Clone [`cursorless`](https://github.com/cursorless-dev/cursorless)
+2. From the newly created [`cursorless`](https://github.com/cursorless-dev/cursorless) directory, run
+   ```sh
+   yarn
+   ```
 
 ### Running / testing extension locally
 
