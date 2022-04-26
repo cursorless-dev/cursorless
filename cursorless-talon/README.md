@@ -22,7 +22,13 @@
 
 Cursorless is a spoken language for structural code editing, enabling developers to code by voice at speeds not possible with a keyboard. Cursorless decorates every token on the screen and defines a spoken language for rapid, high-level semantic manipulation of structured text.
 
-We're really glad to have you here! A bit of housekeeping, first, though. If you're here in a browser, and your address bar points to https://github.com/cursorless-dev/cursorless-talon, then you're probably in the wrong place. Cursorless is now maintained as a monorepo, so you'll want to head on over to [cursorless-vscode](https://github.com/cursorless-dev/cursorless-vscode), where all the action happens 😊. The source of truth for these talon files is in the [cursorless-talon](https://github.com/cursorless-dev/cursorless-vscode/blob/main/cursorless-talon) subdirectory of cursorless-vscode.
+This repository holds the Talon side of Cursorless. If you've arrived here as part of the [Cursorless installation process](https://www.cursorless.org/docs/user/installation/), then you're in the right place!
+
+# Contributing
+
+If you're looking to improve Cursorless, note that Cursorless is now maintained as a monorepo, so if you're here in a browser, and your address bar points to https://github.com/cursorless-dev/cursorless-talon, then you're probably in the wrong place. The monorepo is hosted at [`cursorless`](https://github.com/cursorless-dev/cursorless), and the source of truth for these talon files is in the [`cursorless-talon`](https://github.com/cursorless-dev/cursorless/tree/main/cursorless-talon) subdirectory.
+
+See [the contributor docs](https://www.cursorless.org/docs/contributing/) to get started.
 
 # Cursorless talon
 

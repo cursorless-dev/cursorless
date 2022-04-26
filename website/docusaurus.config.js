@@ -90,6 +90,8 @@ const config = {
           // Followed https://ricard.dev/how-to-set-docs-as-homepage-for-docusaurus/
           // to serve a markdown document on homepage
           routeBasePath: "/",
+          editUrl:
+            "https://github.com/cursorless-dev/cursorless/edit/main/docs/",
           sidebarPath: require.resolve("./sidebar.js"),
           beforeDefaultRemarkPlugins: [
             remarkPluginFixLinksToRepositoryArtifacts,
