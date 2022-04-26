@@ -15,7 +15,7 @@ class CallbackAction:
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
+# See https://www.cursorless.org/docs/user/customization/
 callbacks = [
     CallbackAction("call", "callAsFunction", run_call_action),
     CallbackAction("scout", "findInDocument", run_find_action),

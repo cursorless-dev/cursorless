@@ -225,7 +225,7 @@ There's too much new stuff in this release to fit in a highlights reel, so we'll
 
 #### \[experimental\] Wrap with snippet
 
-There is now experimental support for wrapping a target in a snippet. See the [docs](https://github.com/cursorless-dev/cursorless-vscode/tree/main/docs/user/experimental/wrapper-snippets.md) for more info. Expect snippet insertion and automatic snippet creation in the next release.
+There is now experimental support for wrapping a target in a snippet. See the [docs](https://www.cursorless.org/docs/user/experimental/wrapper-snippets/) for more info. Expect snippet insertion and automatic snippet creation in the next release.
 
 ![Wrapper snippet demo](images/tryWrapFine.gif)
 
@@ -256,7 +256,7 @@ There is now experimental support for wrapping a target in a snippet. See the [d
 #### Customizing spoken forms by csv
 
 One of the biggest changes in this release is support for
-[customizing](https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md)
+[customizing](https://www.cursorless.org/docs/user/customization/)
 nearly every spoken form via csv. So if you find the color name "plum" hard to
 remember, you can just change it to "pink". Or if "format" as an action name is
 just too long for you, change it to "form". The spoken forms in your csv's
@@ -276,12 +276,12 @@ we can move to a talon plugin model in the future.
 Another major usability issue addressed in this release is the fact that you
 will run out of dots on a text-heavy screen, or when trying to target other
 splits. We now support 10 new
-[shapes](https://github.com/cursorless-dev/cursorless-vscode/tree/main/docs/user/README.md#shapes).
+[shapes](https://www.cursorless.org/docs/#shapes).
 You can turn them on with one click in your extension settings, as described in
 the
-[docs](https://github.com/cursorless-dev/cursorless-vscode/tree/main/docs/user/README.md#shapes).
+[docs](https://www.cursorless.org/docs/#shapes).
 And of course, you can [change the spoken
-form](https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md)
+form](https://www.cursorless.org/docs/user/customization/)
 for any shape as described above.
 
 #### Turning off colors
