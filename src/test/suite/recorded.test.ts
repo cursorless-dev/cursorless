@@ -89,7 +89,7 @@ async function runTest(file: string) {
 
   if (fixture.initialState.clipboard) {
     Clipboard.writeText(fixture.initialState.clipboard);
-    // FIXME https://github.com/cursorless-dev/cursorless-vscode/issues/559
+    // FIXME https://github.com/cursorless-dev/cursorless/issues/559
     // let mockClipboard = fixture.initialState.clipboard;
     // sinon.replace(Clipboard, "readText", async () => mockClipboard);
     // sinon.replace(Clipboard, "writeText", async (value: string) => {
@@ -122,7 +122,7 @@ async function runTest(file: string) {
         );
 
   // TODO Visible ranges are not asserted, see:
-  // https://github.com/cursorless-dev/cursorless-vscode/issues/160
+  // https://github.com/cursorless-dev/cursorless/issues/160
   const { visibleRanges, ...resultState } = await takeSnapshot(
     cursorlessApi.thatMark,
     cursorlessApi.sourceMark,

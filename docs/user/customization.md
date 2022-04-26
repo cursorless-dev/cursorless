@@ -4,7 +4,7 @@ Many of the spoken forms used in cursorless can be easily customized without
 needing to fork cursorless or modify the talon / python files contained
 therein. If you find that your customization needs cannot be met without making
 changes to cursorless files, please [file an
-issue](https://github.com/cursorless-dev/cursorless-vscode/issues/new) so we can
+issue](https://github.com/cursorless-dev/cursorless/issues/new) so we can
 improve customization.
 
 ## Cursorless settings csvs
