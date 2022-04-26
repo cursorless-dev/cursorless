@@ -14,7 +14,9 @@ Note: If you'd like to customize any of the spoken forms, please see the [docume
 
 ## Overview
 
-Every cursorless command consists of an action performed on a target. For example, the command `"chuck blue air"` deletes the token with a blue hat over the `"a"`. In this command, the action is `"chuck"` (delete), and the target is `"blue air"`. There are no actions without at least one target.
+Every cursorless command consists of an action performed on a target. For example, the command `"chuck bat"` deletes the token with a hat over the `b`. In this command, the action is `"chuck"` (delete), and the target is `"bat"`. There are no actions without at least one target.
+
+![`"chuck bat"`](images/chuckBat.gif)
 
 ## Targets
 
@@ -49,13 +51,16 @@ Combining this with an action, we might say `"take blue air"` to select the toke
 
 The following colors are supported:
 
-| Spoken form | Visible color | Internal ID |
-| ----------- | ------------- | ----------- |
-| `"blue"`    | Blue          | `blue`      |
-| `"green"`   | Green         | `green`     |
-| `"rose"`    | Red           | `rose`      |
-| `"squash"`  | Yellow        | `yellow`    |
-| `"plum"`    | Pink          | `pink`      |
+| Spoken form | Internal ID  | Enabled by default? |
+| ----------- | ------------ | ------------------- |
+|             | `default`    | ✅                  |
+| `"blue"`    | `blue`       | ✅                  |
+| `"green"`   | `green`      | ✅                  |
+| `"red"`     | `red`        | ✅                  |
+| `"pink"`    | `pink`       | ✅                  |
+| `"yellow"`  | `yellow`     | ✅                  |
+| `"navy"`    | `userColor1` | ❌                  |
+| `"apricot"` | `userColor2` | ❌                  |
 
 You can enable or disable colors in your VSCode settings, by searching for `cursorless.hatEnablement.colors` and checking the box next to the internal ID for the given shape as listed above.
 
@@ -74,6 +79,7 @@ The following shapes are supported:
 
 | Spoken form | Internal ID  | Shape                                           | Enabled by default? |
 | ----------- | ------------ | ----------------------------------------------- | ------------------- |
+|             | `default`    | ![Default](../../images/hats/default.svg)       | ✅                  |
 | `"ex"`      | `ex`         | ![Ex](../../images/hats/ex.svg)                 | ❌                  |
 | `"fox"`     | `fox`        | ![Fox](../../images/hats/fox.svg)               | ❌                  |
 | `"wing"`    | `wing`       | ![Wing](../../images/hats/wing.svg)             | ❌                  |
