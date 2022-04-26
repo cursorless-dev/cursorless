@@ -449,10 +449,12 @@ See [experimental documentation](experimental/wrapper-snippets.md).
 
 ### Show definition/reference/quick fix
 
-- `"define <TARGET>"`
-- `"reference <TARGET>"`
-- `"hover <TARGET>"`
-- `"quick fix <TARGET>"`
+Each of these commands performs a vscode action of the same or a similar name on the target.
+
+- `"define <TARGET>"` navigate to the definition of the target
+- `"reference <TARGET>"` search the workspace for all references to the target
+- `"hover <TARGET>"` displays the tooltip that would appear if you hovered the mouse over the target
+- `"quick fix <TARGET>"` displays quick fixes and refactors suggested by the vscode
 
 eg:
 `define blue air`
