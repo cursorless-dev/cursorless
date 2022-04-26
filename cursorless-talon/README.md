@@ -26,7 +26,7 @@ This repository holds the Talon side of Cursorless. If you've arrived here as pa
 
 # Contributing
 
-Cursorless is now maintained as a monorepo, so if you're here in a browser, and your address bar points to https://github.com/cursorless-dev/cursorless-talon, then you're probably in the wrong place. The monorepo is hosted at [`cursorless`](https://github.com/cursorless-dev/cursorless), and the source of truth for these talon files is in the [`cursorless-talon`](https://github.com/cursorless-dev/cursorless/tree/main/cursorless-talon) subdirectory.
+If you're looking to improve Cursorless, note that Cursorless is now maintained as a monorepo, so if you're here in a browser, and your address bar points to https://github.com/cursorless-dev/cursorless-talon, then you're probably in the wrong place. The monorepo is hosted at [`cursorless`](https://github.com/cursorless-dev/cursorless), and the source of truth for these talon files is in the [`cursorless-talon`](https://github.com/cursorless-dev/cursorless/tree/main/cursorless-talon) subdirectory.
 
 See [the contributor docs](https://www.cursorless.org/docs/contributing/) to get started.
 
