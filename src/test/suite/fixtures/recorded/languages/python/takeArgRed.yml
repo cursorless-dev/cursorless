@@ -1,0 +1,27 @@
+languageId: python
+command:
+  version: 1
+  spokenForm: take arg red
+  action: setSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: r}
+initialState:
+  documentContents: "\" \".join(word for word in word_list)"
+  selections:
+    - anchor: {line: 0, character: 36}
+      active: {line: 0, character: 36}
+  marks:
+    default.r:
+      start: {line: 0, character: 9}
+      end: {line: 0, character: 13}
+finalState:
+  documentContents: "\" \".join(word for word in word_list)"
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 35}
+  thatMark:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 35}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]
