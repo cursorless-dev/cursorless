@@ -12,48 +12,6 @@ You can get back to these docs by saying `"cursorless instructions"`.
 
 Note: If you'd like to customize any of the spoken forms, please see the [documentation](customization.md).
 
-## Table of contents
-
-- [Table of contents](#table-of-contents)
-- [Overview](#overview)
-- [Targets](#targets)
-  - [Primitive targets](#primitive-targets)
-    - [Marks](#marks)
-      - [Decorated symbol](#decorated-symbol)
-        - [Colors](#colors)
-        - [Shapes](#shapes)
-      - [`"this"`](#this)
-      - [`"that"`](#that)
-    - [Modifiers](#modifiers)
-      - [Syntactic scopes](#syntactic-scopes)
-      - [`"every"`](#every)
-      - [Sub-token modifiers](#sub-token-modifiers)
-        - [`"word"`](#word)
-        - [`"char"`](#char)
-      - [`"line"`](#line)
-      - [`"file"`](#file)
-      - [Surrounding pair](#surrounding-pair)
-        - [Ambiguous delimiters (`"`, `'`, `` ` ``, etc)](#ambiguous-delimiters----etc)
-  - [Compound targets](#compound-targets)
-    - [Range targets](#range-targets)
-    - [List targets](#list-targets)
-- [Actions](#actions)
-  - [Cursor movement](#cursor-movement)
-  - [Delete](#delete)
-  - [Changing a target](#changing-a-target)
-  - [Cut / copy](#cut--copy)
-  - [Swap](#swap)
-  - [Insert empty lines](#insert-empty-lines)
-  - [Rename](#rename)
-  - [Scroll](#scroll)
-  - [Insert/Use/Repeat](#insertuserepeat)
-  - [Wrap/Rewrap](#wraprewrap)
-    - [\[experimental\] Wrap with snippet](#experimental-wrap-with-snippet)
-  - [Show definition/reference/quick fix](#show-definitionreferencequick-fix)
-  - [Fold/unfold](#foldunfold)
-  - [Extract](#extract)
-- [Paired delimiters](#paired-delimiters)
-
 ## Overview
 
 Every cursorless command consists of an action performed on a target. For example, the command `"chuck blue air"` deletes the token with a blue hat over the `"a"`. In this command, the action is `"chuck"` (delete), and the target is `"blue air"`. There are no actions without at least one target.
