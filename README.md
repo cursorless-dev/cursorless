@@ -22,7 +22,7 @@
 
 Cursorless is a spoken language for structural code editing, enabling developers to code by voice at speeds not possible with a keyboard. Cursorless decorates every token on the screen and defines a spoken language for rapid, high-level semantic manipulation of structured text.
 
-Checkout the [docs](docs/user) and [videos](https://www.youtube.com/channel/UCML02pamUSxtbwAcrUdVmXg) to learn more. See [installation.md](docs/user/installation.md) for installation instructions.
+Checkout the [docs](https://www.cursorless.org/docs/) and [videos](https://www.youtube.com/channel/UCML02pamUSxtbwAcrUdVmXg) to learn more. See [installation](https://www.cursorless.org/docs/user/installation/) for installation instructions.
 
 And I heard you like GIFs?
 
@@ -35,7 +35,7 @@ And I heard you like GIFs?
 Currently depends on [Talon](https://talonvoice.com/), though a keyboard
 version is planned.
 
-See [installation.md](docs/user/installation.md) for installation instructions.
+See [installation](https://www.cursorless.org/docs/user/installation/) for installation instructions.
 
 ## Extension Settings
 
@@ -60,7 +60,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+See [contributing](https://www.cursorless.org/docs/contributing/).
 
 ## Attributions
 
