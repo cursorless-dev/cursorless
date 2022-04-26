@@ -1,0 +1,37 @@
+languageId: java
+command:
+  version: 1
+  spokenForm: clear state
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+initialState:
+  documentContents: |
+    public class MyClass {
+        public static void main(String[] args) {
+            switch("foo") {
+                case "bar":
+                    
+                    break;
+            }
+        }
+    }
+  selections:
+    - anchor: {line: 4, character: 16}
+      active: {line: 4, character: 16}
+  marks: {}
+finalState:
+  documentContents: |
+    public class MyClass {
+        public static void main(String[] args) {
+            
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  thatMark:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}, isImplicit: false}]
