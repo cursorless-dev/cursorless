@@ -17,9 +17,7 @@ const STATEMENT_TYPES = [
   "interface_declaration",
   "module_declaration",
   "package_declaration",
-  //   ";",
   "assert_statement",
-  "block",
   "break_statement",
   "continue_statement",
   "declaration",
@@ -38,6 +36,11 @@ const STATEMENT_TYPES = [
   "try_with_resources_statement",
   "while_statement",
   "yield_statement",
+
+  // exceptions
+  // ";",
+  // "block",
+  "switch_statement",
 ];
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
