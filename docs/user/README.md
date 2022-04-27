@@ -14,7 +14,9 @@ Note: If you'd like to customize any of the spoken forms, please see the [docume
 
 ## Overview
 
-Every cursorless command consists of an action performed on a target. For example, the command `"chuck blue air"` deletes the token with a blue hat over the `"a"`. In this command, the action is `"chuck"` (delete), and the target is `"blue air"`. There are no actions without at least one target.
+Every cursorless command consists of an action performed on a target. For example, the command `"chuck bat"` deletes the token with a hat over the `b`. In this command, the action is `"chuck"` (delete), and the target is `"bat"`. There are no actions without at least one target.
+
+![`"chuck bat"`](images/chuckBat.gif)
 
 ## Targets
 
@@ -47,15 +49,18 @@ Combining this with an action, we might say `"take blue air"` to select the toke
 
 ###### Colors
 
-The following colors are supported:
+The following colors are supported. Note that to target the default (gray) hat you don't need to specify a color.
 
-| Spoken form | Visible color | Internal ID |
-| ----------- | ------------- | ----------- |
-| `"blue"`    | Blue          | `blue`      |
-| `"green"`   | Green         | `green`     |
-| `"rose"`    | Red           | `rose`      |
-| `"squash"`  | Yellow        | `yellow`    |
-| `"plum"`    | Pink          | `pink`      |
+| Spoken form | Color   | Internal ID  | Enabled by default? |
+| ----------- | ------- | ------------ | ------------------- |
+| N/A         | grey    | `default`    | ✅                  |
+| `"blue"`    | blue    | `blue`       | ✅                  |
+| `"green"`   | green   | `green`      | ✅                  |
+| `"red"`     | red     | `red`        | ✅                  |
+| `"pink"`    | pink    | `pink`       | ✅                  |
+| `"yellow"`  | yellow  | `yellow`     | ✅                  |
+| `"navy"`    | navy    | `userColor1` | ❌                  |
+| `"apricot"` | apricot | `userColor2` | ❌                  |
 
 You can enable or disable colors in your VSCode settings, by searching for `cursorless.hatEnablement.colors` and checking the box next to the internal ID for the given shape as listed above.
 
@@ -63,27 +68,28 @@ You can also tweak the visible colors for any of these colors in your VSCode set
 
 If you find these color names unintuitive / tough to remember, their
 spoken forms can be [customized](customization.md) like any other spoken form
-in cursorless. If you change a spoken form to be more than one syllable, you
+in Cursorless. If you change a spoken form to be more than one syllable, you
 can change the penalty in the `cursorless.hatPenalties.colors` setting to the
-number of syllables you use, so that cursorless can optimize hat allocation to
+number of syllables you use, so that Cursorless can optimize hat allocation to
 minimize syllables.
 
 ###### Shapes
 
-The following shapes are supported:
+The following shapes are supported. Note that to target the default (dot) shape you don't need to specify a shape.
 
-| Spoken form | Internal ID  | Shape                                           | Enabled by default? |
-| ----------- | ------------ | ----------------------------------------------- | ------------------- |
-| `"ex"`      | `ex`         | ![Ex](../../images/hats/ex.svg)                 | ❌                  |
-| `"fox"`     | `fox`        | ![Fox](../../images/hats/fox.svg)               | ❌                  |
-| `"wing"`    | `wing`       | ![Wing](../../images/hats/wing.svg)             | ❌                  |
-| `"hole"`    | `hole`       | ![Hole](../../images/hats/hole.svg)             | ❌                  |
-| `"frame"`   | `frame`      | ![Frame](../../images/hats/frame.svg)           | ❌                  |
-| `"curve"`   | `curve`      | ![Curve](../../images/hats/curve.svg)           | ❌                  |
-| `"eye"`     | `eye`        | ![Eye](../../images/hats/eye.svg)               | ❌                  |
-| `"play"`    | `play`       | ![Play](../../images/hats/play.svg)             | ❌                  |
-| `"cross"`   | `crosshairs` | ![Crosshairs](../../images/hats/crosshairs.svg) | ❌                  |
-| `"bolt"`    | `bolt`       | ![Bolt](../../images/hats/bolt.svg)             | ❌                  |
+| Spoken form | Shape                                           | Internal ID  | Enabled by default? |
+| ----------- | ----------------------------------------------- | ------------ | ------------------- |
+| N/A         | ![Default](../../images/hats/default.svg)       | `default`    | ✅                  |
+| `"ex"`      | ![Ex](../../images/hats/ex.svg)                 | `ex`         | ❌                  |
+| `"fox"`     | ![Fox](../../images/hats/fox.svg)               | `fox`        | ❌                  |
+| `"wing"`    | ![Wing](../../images/hats/wing.svg)             | `wing`       | ❌                  |
+| `"hole"`    | ![Hole](../../images/hats/hole.svg)             | `hole`       | ❌                  |
+| `"frame"`   | ![Frame](../../images/hats/frame.svg)           | `frame`      | ❌                  |
+| `"curve"`   | ![Curve](../../images/hats/curve.svg)           | `curve`      | ❌                  |
+| `"eye"`     | ![Eye](../../images/hats/eye.svg)               | `eye`        | ❌                  |
+| `"play"`    | ![Play](../../images/hats/play.svg)             | `play`       | ❌                  |
+| `"cross"`   | ![Crosshairs](../../images/hats/crosshairs.svg) | `crosshairs` | ❌                  |
+| `"bolt"`    | ![Bolt](../../images/hats/bolt.svg)             | `bolt`       | ❌                  |
 
 You can enable or disable shapes in your VSCode settings, by searching for `cursorless.hatEnablement.shapes` and checking the box next to the internal ID for the given shape as listed above.
 
