@@ -8,4 +8,4 @@
 "{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{"}
 
 class W {}
-W W W W W W W W W W W W W W W W W W W W W W W W W W W 
+W W W W W W W W W W W W W W W W W W W W W W W W W W W
