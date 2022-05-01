@@ -75,7 +75,22 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   value: cascadingMatcher(
     leadingMatcher(
       ["assignment[right]", "augmented_assignment[right]", "~subscript[value]"],
-      [":", "=", "+=", "-=", "*=", "/=", "%=", "//=", "**=","&=", "|=", "^=", "<<=", ">>="]
+      [
+        ":",
+        "=",
+        "+=",
+        "-=",
+        "*=",
+        "/=",
+        "%=",
+        "//=",
+        "**=",
+        "&=",
+        "|=",
+        "^=",
+        "<<=",
+        ">>=",
+      ]
     ),
     patternMatcher("return_statement.~return!")
   ),

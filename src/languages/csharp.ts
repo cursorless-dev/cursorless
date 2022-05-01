@@ -179,7 +179,7 @@ const getMapMatchers = {
   value: leadingMatcher(
     [
       "variable_declaration?.variable_declarator[1][0]!",
-      "assignment_expression[right]"
+      "assignment_expression[right]",
     ],
     ["assignment_operator"]
   ),

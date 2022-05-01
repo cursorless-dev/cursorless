@@ -137,7 +137,21 @@ function valueMatcher() {
   return matcher(
     (node: SyntaxNode) =>
       node.type === "jsx_attribute" ? node.lastChild : pFinder(node),
-    selectWithLeadingDelimiter(":", "=", "+=", "-=", "*=", "/=","%=", "**=","&=", "|=", "^=", "<<=", ">>=")
+    selectWithLeadingDelimiter(
+      ":",
+      "=",
+      "+=",
+      "-=",
+      "*=",
+      "/=",
+      "%=",
+      "**=",
+      "&=",
+      "|=",
+      "^=",
+      "<<=",
+      ">>="
+    )
   );
 }
 
