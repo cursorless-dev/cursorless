@@ -76,7 +76,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ],
   value: leadingMatcher(
     ["*[declarator][value]", "assignment_expression[right]", "*[value]"],
-    ["="]
+    ["=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="]
   ),
   condition: conditionMatcher("*[condition]"),
   collectionItem: argumentMatcher("array_initializer"),

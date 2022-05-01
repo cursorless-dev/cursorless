@@ -104,7 +104,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
       "assignment_expression[right]",
       "optional_parameter_declaration[default_value]",
     ],
-    ["=", ":"]
+    [":", "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="]
   ),
   collectionItem: argumentMatcher("initializer_list"),
   argumentOrParameter: argumentMatcher("parameter_list", "argument_list"),
