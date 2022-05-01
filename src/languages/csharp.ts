@@ -3,6 +3,7 @@ import {
   cascadingMatcher,
   chainedMatcher,
   createPatternMatchers,
+  leadingMatcher,
   matcher,
   trailingMatcher,
   typeMatcher,
@@ -175,10 +176,13 @@ const getMapMatchers = {
     typedNodeFinder("assignment_expression"),
     (node: SyntaxNode) => node.childForFieldName("left"),
   ]),
-  value: [
-    "variable_declaration?.variable_declarator[1][0]!",
-    "assignment_expression[right]",
-  ],
+  value: leadingMatcher(
+    [
+      "variable_declaration?.variable_declarator[1][0]!",
+      "assignment_expression[right]",
+    ],
+    ["assignment_operator"]
+  ),
   list: cascadingMatcher(
     chainedMatcher([
       typedNodeFinder(...LIST_TYPES_WITH_INITIALIZERS_AS_CHILDREN),
