@@ -39,7 +39,7 @@ function unifyRangesOnePass(ranges: Range[]): [Range[], boolean] {
 /**
  * Unifies overlapping/intersecting targets
  * FIXME This code probably needs to update once we have objected oriented targets
- * https://github.com/cursorless-dev/cursorless-vscode/issues/210
+ * https://github.com/cursorless-dev/cursorless/issues/210
  */
 export function unifyTargets(targets: TypedSelection[]): TypedSelection[] {
   if (targets.length < 2) {

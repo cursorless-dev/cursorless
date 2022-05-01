@@ -2,7 +2,7 @@
 
 1. Install [Talon](https://talonvoice.com/)
 2. Install [knausj_talon](https://github.com/knausj85/knausj_talon).
-   _(Or see [here](https://github.com/cursorless-dev/cursorless-vscode/wiki/Talon-home-requirements) if you prefer not to use knausj.)_
+   _(Or see [here](https://github.com/cursorless-dev/cursorless/wiki/Talon-home-requirements) if you prefer not to use knausj.)_
 3. Install [VSCode](https://code.visualstudio.com/)
 4. Install the [VSCode talon extension pack](https://marketplace.visualstudio.com/items?itemName=pokey.talon)
 5. Install the [Cursorless VSCode extension](https://marketplace.visualstudio.com/items?itemName=pokey.cursorless)

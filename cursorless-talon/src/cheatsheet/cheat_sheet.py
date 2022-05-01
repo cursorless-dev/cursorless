@@ -13,9 +13,7 @@ mod = Module()
 mod.mode("cursorless_cheat_sheet", "Mode for showing cursorless cheat sheet gui")
 cheat_sheet = None
 
-instructions_url = (
-    "https://github.com/cursorless-dev/cursorless-vscode/tree/main/docs/user"
-)
+instructions_url = "https://www.cursorless.org/docs/"
 instructions_text = "Full docs"
 line_height = 34
 outer_padding = 27

@@ -12,7 +12,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/cursorless-dev/cursorless-vscode.git"
+		"url": "https://github.com/cursorless-dev/cursorless.git"
 	},
 	"engines": {
 		"vscode": "^1.61.0"
@@ -286,7 +286,7 @@
 					"additionalProperties": false
 				},
 				"cursorless.hatEnablement.shapes": {
-					"markdownDescription": "Which shapes to enable.  See the [docs](https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/README.md#shapes) if you're not sure which shape name corresponds to which hat shape.",
+					"markdownDescription": "Which shapes to enable.  See the [docs](https://www.cursorless.org/docs/#shapes) if you're not sure which shape name corresponds to which hat shape.",
 					"type": "object",
 					"properties": {
 						"ex": {
@@ -333,6 +333,11 @@
 						"crosshairs": false
 					},
 					"additionalProperties": false
+				},
+				"cursorless.maximumHatStylePenalty": {
+					"description": "The maximum allowed penalty for a hat style. Any hat style whose penalty is greater than this amount will not be used. A hat style penalty is defined to be the shape penalty plus the colour penalty. Setting this value less than or equal to zero is treated as no maximum.",
+					"type": "number",
+					"default": 0
 				},
 				"cursorless.hatPenalties.colors": {
 					"description": "How much to penalize each hat color. Number of syllables is a good default",

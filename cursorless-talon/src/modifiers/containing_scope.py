@@ -10,7 +10,7 @@ mod = Module()
 mod.list("cursorless_scope_type", desc="Supported scope types")
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
+# See https://www.cursorless.org/docs/user/customization/
 scope_types = {
     "arg": "argumentOrParameter",
     "attribute": "attribute",
@@ -62,7 +62,7 @@ def cursorless_containing_scope(m) -> dict[str, dict[str, Any]]:
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
+# See https://www.cursorless.org/docs/user/customization/
 selection_types = {
     "block": "paragraph",
     "cell": "notebookCell",
@@ -74,14 +74,14 @@ selection_types = {
 }
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
+# See https://www.cursorless.org/docs/user/customization/
 subtoken_scope_types = {
     "word": "word",
     "char": "character",
 }
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
+# See https://www.cursorless.org/docs/user/customization/
 # NB: This is a hack until we support having inside and outside on arbitrary
 # scope types
 surrounding_pair_scope_types = {

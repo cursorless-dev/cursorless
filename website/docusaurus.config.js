@@ -48,7 +48,7 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
       }
 
       const repoLink =
-        "https://github.com/cursorless-dev/cursorless-vscode/tree/main/";
+        "https://github.com/cursorless-dev/cursorless/tree/main/";
       const linkToRepositoryArtifact = repoLink.concat(artifactRelative);
 
       node.url = linkToRepositoryArtifact;
@@ -90,6 +90,8 @@ const config = {
           // Followed https://ricard.dev/how-to-set-docs-as-homepage-for-docusaurus/
           // to serve a markdown document on homepage
           routeBasePath: "/",
+          editUrl:
+            "https://github.com/cursorless-dev/cursorless/edit/main/docs/",
           sidebarPath: require.resolve("./sidebar.js"),
           beforeDefaultRemarkPlugins: [
             remarkPluginFixLinksToRepositoryArtifacts,
@@ -129,7 +131,7 @@ const config = {
             label: "For contributors",
           },
           {
-            href: "https://github.com/cursorless-dev/cursorless-vscode",
+            href: "https://github.com/cursorless-dev/cursorless",
             position: "right",
             className: "header-github-link",
             "aria-label": "GitHub repository",
