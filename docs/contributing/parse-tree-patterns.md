@@ -14,7 +14,8 @@ We have a small domain-specific language that we use to define patterns to look 
 | Negation op(`~`)    | Match any type other than what is specified after `~`                                        |
 | Important op(`!`)   | Use this node as result instead of parent.<br/>By default the leftmost/top node is used      |
 | Optional op(`?`)    | Node is optional. Will match if available.                                                   |
-| Field op(`[field]`) | Return child node at field name or index after matching.<br/>`node.childForFieldName(field)` |
+| Field op(`[field]`) | Return child node at given field.<br/>`node.childForFieldName(field)` |
+| Index op(`[n]`) | Return nth named child node. |
 
 ## Multiple patterns
 
