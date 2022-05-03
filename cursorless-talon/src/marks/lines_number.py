@@ -64,7 +64,6 @@ def create_line_number_target(
     }
     if range.range_connective_with_type:
         range_connective_with_type = range.range_connective_with_type
-        range_connective = range_connective_with_type["connective"]
         range_type = range_connective_with_type["type"]
         end_line = {
             "lineNumber": direction.formatter(range.end_number),
@@ -90,10 +89,8 @@ def create_line_number_target(
                     "active": end_line,
                 },
             },
-            "excludeStart": (
-                range_connective in ["rangeExclusive", "rangeExcludingStart"]
-            ),
-            "excludeEnd": range_connective in ["rangeExclusive", "rangeExcludingEnd"],
+            "excludeStart": range_connective_with_type["excludeStart"],
+            "excludeEnd": range_connective_with_type["excludeEnd"],
         }
         if range_type:
             target["rangeType"] = range_type

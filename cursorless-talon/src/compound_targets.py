@@ -18,12 +18,15 @@ mod.list(
 @mod.capture(
     rule="[<user.cursorless_range_type>] {user.cursorless_range_connective} | <user.cursorless_range_type>"
 )
-def cursorless_range_connective_with_type(m) -> str:
+def cursorless_range_connective_with_type(m) -> dict:
+    range_connective = getattr(
+        m, "cursorless_range_connective", default_range_connective
+    )
+
     return {
-        "connective": getattr(
-            m, "cursorless_range_connective", default_range_connective
-        ),
         "type": getattr(m, "cursorless_range_type", None),
+        "excludeStart": not is_anchor_included(range_connective),
+        "excludeEnd": not is_active_included(range_connective),
     }
 
 
@@ -48,15 +51,14 @@ def cursorless_range(m) -> str:
     else:
         start = primitive_targets[0]
 
-    range_connective = range_connective_with_type["connective"]
     range_type = range_connective_with_type["type"]
 
     range = {
         "type": "range",
         "start": start,
         "end": primitive_targets[-1],
-        "excludeStart": not is_anchor_included(range_connective),
-        "excludeEnd": not is_active_included(range_connective),
+        "excludeStart": range_connective_with_type["excludeStart"],
+        "excludeEnd": range_connective_with_type["excludeEnd"],
     }
 
     if range_type:
