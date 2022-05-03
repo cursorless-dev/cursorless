@@ -57,6 +57,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ifStatement: "if_statement",
   anonymousFunction: "lambda?.lambda",
   functionCall: "call",
+  functionCallee: ["call.identifier!", "call.call!"],
   comment: "comment",
   class: "decorated_definition?.class_definition",
   className: "class_definition[name]",
