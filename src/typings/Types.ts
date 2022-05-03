@@ -102,6 +102,7 @@ export type ScopeType =
   | "collectionKey"
   | "comment"
   | "functionCall"
+  | "functionCallee"
   | "functionName"
   | "ifStatement"
   | "list"
