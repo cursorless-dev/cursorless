@@ -167,6 +167,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   string: "string",
   ifStatement: "if",
   functionCall: "call",
+  functionCallee: "call.identifier!",
   comment: "comment",
   namedFunction: "method",
   functionName: "method[name]",
