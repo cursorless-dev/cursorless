@@ -43,7 +43,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   string: ["interpreted_string_literal", "raw_string_literal"],
   ifStatement: "if_statement",
   functionCall: "call_expression",
-  functionCallee: ["call_expression.identifier!", "call_expression.call_expression!"],
+  functionCallee: [
+    "call_expression.identifier!",
+    "call_expression.call_expression!",
+  ],
   comment: "comment",
   namedFunction: ["function_declaration", "method_declaration"],
   type: [
