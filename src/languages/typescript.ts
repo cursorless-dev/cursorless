@@ -189,9 +189,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   className: ["class_declaration[name]", "class[name]"],
   functionCall: ["call_expression", "new_expression"],
   functionCallee: [
-    "call_expression.identifier!",
-    "call_expression.call_expression!",
-    "new_expression.identifier!",
+    "call_expression[function]",
+    "new_expression[constructor]",
   ],
   statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`),
   condition: conditionMatcher("*[condition]"),

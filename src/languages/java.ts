@@ -56,7 +56,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   functionCallee: [
     "method_invocation.identifier!",
     "method_invocation[name]",
-    "object_creation_expression.type_identifier!",
+    "object_creation_expression[type]",
   ],
   map: "block",
   name: [
