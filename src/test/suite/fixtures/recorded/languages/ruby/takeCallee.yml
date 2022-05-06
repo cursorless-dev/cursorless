@@ -1,0 +1,23 @@
+languageId: ruby
+command:
+  version: 1
+  spokenForm: take callee
+  action: setSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
+initialState:
+  documentContents: f = comp.(foo, bar)
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+  marks: {}
+finalState:
+  documentContents: f = comp.(foo, bar)
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 8}
+  thatMark:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 8}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}, isImplicit: false}]
