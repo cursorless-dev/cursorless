@@ -53,7 +53,11 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   anonymousFunction: "lambda_expression",
   list: "array_initializer",
   functionCall: "method_invocation",
-  functionCallee: ["method_invocation.identifier!", "method_invocation[name]", "object_creation_expression.type_identifier!"],
+  functionCallee: [
+    "method_invocation.identifier!",
+    "method_invocation[name]",
+    "object_creation_expression.type_identifier!",
+  ],
   map: "block",
   name: [
     "*[declarator][name]",
