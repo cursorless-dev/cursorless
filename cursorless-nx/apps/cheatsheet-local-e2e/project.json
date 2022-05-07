@@ -1,0 +1,27 @@
+{
+  "sourceRoot": "apps/cheatsheet-local-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/cheatsheet-local-e2e/cypress.json",
+        "devServerTarget": "cheatsheet-local:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "cheatsheet-local:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/cheatsheet-local-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["cheatsheet-local"]
+}
