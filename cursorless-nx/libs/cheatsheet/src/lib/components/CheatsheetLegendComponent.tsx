@@ -1,7 +1,7 @@
-import * as React from "react";
-import { CheatsheetLegend } from "../cheatsheetLegend";
-import useIsHighlighted from "../hooks/useIsHighlighted";
-import SmartLink from "./SmartLink";
+import * as React from 'react';
+import { CheatsheetLegend } from '../cheatsheetLegend';
+import useIsHighlighted from '../hooks/useIsHighlighted';
+import SmartLink from './SmartLink';
 
 type Props = {
   data: CheatsheetLegend;
@@ -10,11 +10,11 @@ type Props = {
 export default function CheatsheetLegendComponent({
   data,
 }: Props): JSX.Element {
-  const isHighlighted = useIsHighlighted("legend");
+  const isHighlighted = useIsHighlighted('legend');
 
   const borderClassName = isHighlighted
-    ? "border-violet-500 dark:border-violet-300"
-    : "border-violet-300 dark:border-violet-500";
+    ? 'border-violet-500 dark:border-violet-300'
+    : 'border-violet-300 dark:border-violet-500';
 
   return (
     <div

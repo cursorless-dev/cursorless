@@ -1,6 +1,6 @@
-import * as React from "react";
-import useIsHighlighted from "../hooks/useIsHighlighted";
-import { CheatsheetSection } from "../Section";
+import * as React from 'react';
+import useIsHighlighted from '../hooks/useIsHighlighted';
+import { CheatsheetSection } from '../Section';
 
 type Props = {
   section: CheatsheetSection;
@@ -23,8 +23,8 @@ export default function CheatsheetListComponent({
   );
 
   const borderClassName = isHighlighted
-    ? "border-violet-500 dark:border-violet-400"
-    : "border-stone-300 dark:border-stone-500";
+    ? 'border-violet-500 dark:border-violet-400'
+    : 'border-stone-300 dark:border-stone-500';
 
   return (
     <div
