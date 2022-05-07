@@ -1,25 +1,25 @@
-import * as React from "react";
-import cheatsheetInfo from "../data/cheatsheet/defaults.json";
-import CheatsheetListComponent from "./components/CheatsheetListComponent";
-import CheatsheetLegendComponent from "./components/CheatsheetLegendComponent";
-import cheatsheetLegend from "./cheatsheetLegend";
-import Helmet from "react-helmet";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
-import CheatsheetNotesComponent from "./components/CheatsheetNotesComponent";
-import SmartLink from "./components/SmartLink";
+import * as React from 'react';
+import cheatsheetInfo from './data/cheatsheet/defaults.json';
+import CheatsheetListComponent from './components/CheatsheetListComponent';
+import CheatsheetLegendComponent from './components/CheatsheetLegendComponent';
+import cheatsheetLegend from './cheatsheetLegend';
+import Helmet from 'react-helmet';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import CheatsheetNotesComponent from './components/CheatsheetNotesComponent';
+import SmartLink from './components/SmartLink';
 
 // markup
-const CheatsheetPage = () => {
+export const CheatsheetPage = () => {
   return (
     <main className="dark:text-stone-100">
       <Helmet
         bodyAttributes={{
-          class: "bg-stone-50 dark:bg-stone-800",
+          class: 'bg-stone-50 dark:bg-stone-800',
         }}
       />
       <h1 className="text-2xl md:text-3xl text-center mt-2 mb-1 xl:mt-4">
-        Cursorless Cheatsheet{" "}
+        Cursorless Cheatsheet{' '}
         <span className="text-sm inline-block align-middle">
           <SmartLink to="#legend">
             <FontAwesomeIcon icon={faCircleQuestion} />
@@ -49,8 +49,10 @@ const Cheatsheet = () => (
   </div>
 );
 
-const CheatsheetSection: React.FC<{}> = ({ children }) => (
+type CheatsheetSectionProps = {
+  children?: React.ReactNode;
+};
+
+const CheatsheetSection: React.FC<CheatsheetSectionProps> = ({ children }) => (
   <section className=" break-inside-avoid mb-2 xl:mb-4 ">{children}</section>
 );
-
-export default CheatsheetPage;
