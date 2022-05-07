@@ -1,0 +1,22 @@
+{
+  "sourceRoot": "libs/cheatsheet/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/cheatsheet/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/cheatsheet"],
+      "options": {
+        "jestConfig": "libs/cheatsheet/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
