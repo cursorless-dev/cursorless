@@ -1,0 +1,1148 @@
+{
+	"sections": [
+		{
+			"name": "Actions",
+			"id": "actions",
+			"items": [
+				{
+					"identifier": "scrollToBottom",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "bottom",
+							"description": "Scroll to bottom"
+						}
+					]
+				},
+				{
+					"identifier": "toggleLineBreakpoint",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "breakpoint",
+							"description": "Toggle line breakpoint"
+						}
+					]
+				},
+				{
+					"identifier": "cutToClipboard",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "carve",
+							"description": "Cut to clipboard"
+						}
+					]
+				},
+				{
+					"identifier": "scrollToCenter",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "center",
+							"description": "Scroll to center"
+						}
+					]
+				},
+				{
+					"identifier": "remove",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "chuck",
+							"description": "Remove"
+						}
+					]
+				},
+				{
+					"identifier": "clearAndSetSelection",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "change",
+							"description": "Clear and set selection"
+						}
+					]
+				},
+				{
+					"identifier": "insertCopyBefore",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "clone up",
+							"description": "Insert copy before"
+						}
+					]
+				},
+				{
+					"identifier": "insertCopyAfter",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "clone",
+							"description": "Insert copy after"
+						}
+					]
+				},
+				{
+					"identifier": "toggleLineComment",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "comment",
+							"description": "Toggle line comment"
+						}
+					]
+				},
+				{
+					"identifier": "copyToClipboard",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "copy",
+							"description": "Copy to clipboard"
+						}
+					]
+				},
+				{
+					"identifier": "scrollToTop",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "crown",
+							"description": "Scroll to top"
+						}
+					]
+				},
+				{
+					"identifier": "outdentLine",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "dedent",
+							"description": "Outdent line"
+						}
+					]
+				},
+				{
+					"identifier": "editNewLineBefore",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "drink",
+							"description": "Edit new line before"
+						}
+					]
+				},
+				{
+					"identifier": "insertEmptyLineBefore",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "drop",
+							"description": "Insert empty line before"
+						}
+					]
+				},
+				{
+					"identifier": "extractVariable",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "extract",
+							"description": "Extract variable"
+						}
+					]
+				},
+				{
+					"identifier": "insertEmptyLineAfter",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "float",
+							"description": "Insert empty line after"
+						}
+					]
+				},
+				{
+					"identifier": "foldRegion",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "fold",
+							"description": "Fold region"
+						}
+					]
+				},
+				{
+					"identifier": "followLink",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "follow",
+							"description": "Follow link"
+						}
+					]
+				},
+				{
+					"identifier": "deselect",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "give",
+							"description": "Deselect"
+						}
+					]
+				},
+				{
+					"identifier": "highlight",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "highlight",
+							"description": "Highlight"
+						}
+					]
+				},
+				{
+					"identifier": "indentLine",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "indent",
+							"description": "Indent line"
+						}
+					]
+				},
+				{
+					"identifier": "pasteFromClipboard",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "paste to",
+							"description": "Paste from clipboard"
+						}
+					]
+				},
+				{
+					"identifier": "setSelectionAfter",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "post",
+							"description": "Set selection after"
+						}
+					]
+				},
+				{
+					"identifier": "editNewLineAfter",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "pour",
+							"description": "Edit new line after"
+						}
+					]
+				},
+				{
+					"identifier": "setSelectionBefore",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "pre",
+							"description": "Set selection before"
+						}
+					]
+				},
+				{
+					"identifier": "insertEmptyLinesAround",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "puff",
+							"description": "Insert empty lines around"
+						}
+					]
+				},
+				{
+					"identifier": "randomizeTargets",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "shuffle",
+							"description": "Randomize targets"
+						}
+					]
+				},
+				{
+					"identifier": "reverseTargets",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "reverse",
+							"description": "Reverse targets"
+						}
+					]
+				},
+				{
+					"identifier": "findInWorkspace",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "scout all",
+							"description": "Find in workspace"
+						}
+					]
+				},
+				{
+					"identifier": "sortTargets",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "sort",
+							"description": "Sort targets"
+						}
+					]
+				},
+				{
+					"identifier": "setSelection",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "take",
+							"description": "Set selection"
+						}
+					]
+				},
+				{
+					"identifier": "unfoldRegion",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "unfold",
+							"description": "Unfold region"
+						}
+					]
+				},
+				{
+					"identifier": "callAsFunction",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "call",
+							"description": "Call T on S"
+						}
+					]
+				},
+				{
+					"identifier": "findInDocument",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "scout",
+							"description": "Find in document"
+						}
+					]
+				},
+				{
+					"identifier": "nextHomophone",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "phones",
+							"description": "Next homophone"
+						}
+					]
+				},
+				{
+					"identifier": "revealDefinition",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "define",
+							"description": "Reveal definition"
+						}
+					]
+				},
+				{
+					"identifier": "revealTypeDefinition",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "type deaf",
+							"description": "Reveal type definition"
+						}
+					]
+				},
+				{
+					"identifier": "showHover",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "hover",
+							"description": "Show hover"
+						}
+					]
+				},
+				{
+					"identifier": "showDebugHover",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "inspect",
+							"description": "Show debug hover"
+						}
+					]
+				},
+				{
+					"identifier": "showQuickFix",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "quick fix",
+							"description": "Show quick fix"
+						}
+					]
+				},
+				{
+					"identifier": "showReferences",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "reference",
+							"description": "Show references"
+						}
+					]
+				},
+				{
+					"identifier": "rename",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "rename",
+							"description": "Rename"
+						}
+					]
+				},
+				{
+					"identifier": "replaceWithTarget",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "bring <T1> to <T2>",
+							"description": "Replace T2 with T1"
+						},
+						{
+							"spokenForm": "bring <T>",
+							"description": "Replace S with T"
+						}
+					]
+				},
+				{
+					"identifier": "moveToTarget",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "move <T1> to <T2>",
+							"description": "Move T1 to T2"
+						},
+						{
+							"spokenForm": "move <T>",
+							"description": "Move T to S"
+						}
+					]
+				},
+				{
+					"identifier": "swapTargets",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "swap <T1> with <T2>",
+							"description": "Swap T1 with T2"
+						},
+						{
+							"spokenForm": "swap with <T>",
+							"description": "Swap S with T"
+						}
+					]
+				},
+				{
+					"identifier": "applyFormatter",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "format <F> at <T>",
+							"description": "Reformat T as F"
+						}
+					]
+				},
+				{
+					"identifier": "wrapWithPairedDelimiter",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "<P> wrap <T>",
+							"description": "Wrap T with P"
+						}
+					]
+				},
+				{
+					"identifier": "rewrap",
+					"type": "action",
+					"spokenForms": [
+						{
+							"spokenForm": "<P> repack <T>",
+							"description": "Rewrap T with P"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Scopes",
+			"id": "scopes",
+			"items": [
+				{
+					"identifier": "argumentOrParameter",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "arg",
+							"description": "Argument"
+						}
+					]
+				},
+				{
+					"identifier": "attribute",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "attribute",
+							"description": "Attribute"
+						}
+					]
+				},
+				{
+					"identifier": "functionCall",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "call",
+							"description": "Function call"
+						}
+					]
+				},
+				{
+					"identifier": "className",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "class name",
+							"description": "Class name"
+						}
+					]
+				},
+				{
+					"identifier": "class",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "class",
+							"description": "Class"
+						}
+					]
+				},
+				{
+					"identifier": "comment",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "comment",
+							"description": "Comment"
+						}
+					]
+				},
+				{
+					"identifier": "functionName",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "funk name",
+							"description": "Function name"
+						}
+					]
+				},
+				{
+					"identifier": "namedFunction",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "funk",
+							"description": "Named function"
+						}
+					]
+				},
+				{
+					"identifier": "ifStatement",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "if state",
+							"description": "If statement"
+						}
+					]
+				},
+				{
+					"identifier": "collectionItem",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "item",
+							"description": "Collection item"
+						}
+					]
+				},
+				{
+					"identifier": "collectionKey",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "key",
+							"description": "Collection key"
+						}
+					]
+				},
+				{
+					"identifier": "anonymousFunction",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "lambda",
+							"description": "Anonymous function"
+						}
+					]
+				},
+				{
+					"identifier": "list",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "list",
+							"description": "List"
+						}
+					]
+				},
+				{
+					"identifier": "map",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "map",
+							"description": "Map"
+						}
+					]
+				},
+				{
+					"identifier": "name",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "name",
+							"description": "Name"
+						}
+					]
+				},
+				{
+					"identifier": "regularExpression",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "regex",
+							"description": "Regular expression"
+						}
+					]
+				},
+				{
+					"identifier": "section",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "section",
+							"description": "Section"
+						}
+					]
+				},
+				{
+					"identifier": "statement",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "state",
+							"description": "Statement"
+						}
+					]
+				},
+				{
+					"identifier": "type",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "type",
+							"description": "Type"
+						}
+					]
+				},
+				{
+					"identifier": "value",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "value",
+							"description": "Value"
+						}
+					]
+				},
+				{
+					"identifier": "condition",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "condition",
+							"description": "Condition"
+						}
+					]
+				},
+				{
+					"identifier": "xmlElement",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "element",
+							"description": "Xml element"
+						}
+					]
+				},
+				{
+					"identifier": "xmlBothTags",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "tags",
+							"description": "Xml both tags"
+						}
+					]
+				},
+				{
+					"identifier": "xmlStartTag",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "start tag",
+							"description": "Xml start tag"
+						}
+					]
+				},
+				{
+					"identifier": "xmlEndTag",
+					"type": "scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "end tag",
+							"description": "Xml end tag"
+						}
+					]
+				},
+				{
+					"identifier": "paragraph",
+					"type": "selection_type",
+					"spokenForms": [
+						{
+							"spokenForm": "block",
+							"description": "Paragraph"
+						}
+					]
+				},
+				{
+					"identifier": "notebookCell",
+					"type": "selection_type",
+					"spokenForms": [
+						{
+							"spokenForm": "cell",
+							"description": "Notebook cell"
+						}
+					]
+				},
+				{
+					"identifier": "document",
+					"type": "selection_type",
+					"spokenForms": [
+						{
+							"spokenForm": "file",
+							"description": "Document"
+						}
+					]
+				},
+				{
+					"identifier": "line",
+					"type": "selection_type",
+					"spokenForms": [
+						{
+							"spokenForm": "line",
+							"description": "Line"
+						}
+					]
+				},
+				{
+					"identifier": "nonWhitespaceSequence",
+					"type": "selection_type",
+					"spokenForms": [
+						{
+							"spokenForm": "paint",
+							"description": "Non whitespace sequence"
+						}
+					]
+				},
+				{
+					"identifier": "url",
+					"type": "selection_type",
+					"spokenForms": [
+						{
+							"spokenForm": "link",
+							"description": "Url"
+						}
+					]
+				},
+				{
+					"identifier": "token",
+					"type": "selection_type",
+					"spokenForms": [
+						{
+							"spokenForm": "token",
+							"description": "Token"
+						}
+					]
+				},
+				{
+					"identifier": "word",
+					"type": "subtoken_scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "word",
+							"description": "Word"
+						}
+					]
+				},
+				{
+					"identifier": "character",
+					"type": "subtoken_scope_type",
+					"spokenForms": [
+						{
+							"spokenForm": "char",
+							"description": "Character"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Paired delimiters",
+			"id": "paired-delimiters",
+			"items": [
+				{
+					"identifier": "whitespace",
+					"type": "wrapper_only_paired_delimiter",
+					"spokenForms": [
+						{
+							"spokenForm": "void",
+							"description": "Whitespace"
+						}
+					]
+				},
+				{
+					"identifier": "curlyBrackets",
+					"type": "wrapper_selectable_paired_delimiter",
+					"spokenForms": [
+						{
+							"spokenForm": "curly",
+							"description": "Curly brackets"
+						}
+					]
+				},
+				{
+					"identifier": "angleBrackets",
+					"type": "wrapper_selectable_paired_delimiter",
+					"spokenForms": [
+						{
+							"spokenForm": "diamond",
+							"description": "Angle brackets"
+						}
+					]
+				},
+				{
+					"identifier": "escapedDoubleQuotes",
+					"type": "wrapper_selectable_paired_delimiter",
+					"spokenForms": [
+						{
+							"spokenForm": "escaped quad",
+							"description": "Escaped double quotes"
+						}
+					]
+				},
+				{
+					"identifier": "escapedSingleQuotes",
+					"type": "wrapper_selectable_paired_delimiter",
+					"spokenForms": [
+						{
+							"spokenForm": "escaped twin",
+							"description": "Escaped single quotes"
+						}
+					]
+				},
+				{
+					"identifier": "escapedParentheses",
+					"type": "wrapper_selectable_paired_delimiter",
+					"spokenForms": [
+						{
+							"spokenForm": "escaped round",
+							"description": "Escaped parentheses"
+						}
+					]
+				},
+				{
+					"identifier": "escapedSquareBrackets",
+					"type": "wrapper_selectable_paired_delimiter",
+					"spokenForms": [
+						{
+							"spokenForm": "escaped box",
+							"description": "Escaped square brackets"
+						}
+					]
+				},
+				{
+					"identifier": "doubleQuotes",
+					"type": "wrapper_selectable_paired_delimiter",
+					"spokenForms": [
+						{
+							"spokenForm": "quad",
+							"description": "Double quotes"
+						}
+					]
+				},
+				{
+					"identifier": "parentheses",
+					"type": "wrapper_selectable_paired_delimiter",
+					"spokenForms": [
+						{
+							"spokenForm": "round",
+							"description": "Parentheses"
+						}
+					]
+				},
+				{
+					"identifier": "backtickQuotes",
+					"type": "wrapper_selectable_paired_delimiter",
+					"spokenForms": [
+						{
+							"spokenForm": "skis",
+							"description": "Backtick quotes"
+						}
+					]
+				},
+				{
+					"identifier": "squareBrackets",
+					"type": "wrapper_selectable_paired_delimiter",
+					"spokenForms": [
+						{
+							"spokenForm": "box",
+							"description": "Square brackets"
+						}
+					]
+				},
+				{
+					"identifier": "singleQuotes",
+					"type": "wrapper_selectable_paired_delimiter",
+					"spokenForms": [
+						{
+							"spokenForm": "twin",
+							"description": "Single quotes"
+						}
+					]
+				},
+				{
+					"identifier": "any",
+					"type": "selectable_only_paired_delimiter",
+					"spokenForms": [
+						{
+							"spokenForm": "pair",
+							"description": "Any"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Special marks",
+			"id": "special-marks",
+			"items": [
+				{
+					"identifier": "currentSelection",
+					"type": "special_mark",
+					"spokenForms": [
+						{
+							"spokenForm": "this",
+							"description": "Current selection"
+						}
+					]
+				},
+				{
+					"identifier": "previousTarget",
+					"type": "special_mark",
+					"spokenForms": [
+						{
+							"spokenForm": "that",
+							"description": "Previous target"
+						}
+					]
+				},
+				{
+					"identifier": "previousSource",
+					"type": "special_mark",
+					"spokenForms": [
+						{
+							"spokenForm": "source",
+							"description": "Previous source"
+						}
+					]
+				},
+				{
+					"identifier": "nothing",
+					"type": "special_mark",
+					"spokenForms": [
+						{
+							"spokenForm": "nothing",
+							"description": "Nothing"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Positions",
+			"id": "positions",
+			"items": [
+				{
+					"identifier": "after",
+					"type": "position",
+					"spokenForms": [
+						{
+							"spokenForm": "after",
+							"description": "After"
+						}
+					]
+				},
+				{
+					"identifier": "before",
+					"type": "position",
+					"spokenForms": [
+						{
+							"spokenForm": "before",
+							"description": "Before"
+						}
+					]
+				},
+				{
+					"identifier": "start of",
+					"type": "position",
+					"spokenForms": [
+						{
+							"spokenForm": "start of",
+							"description": "Start of"
+						}
+					]
+				},
+				{
+					"identifier": "end of",
+					"type": "position",
+					"spokenForms": [
+						{
+							"spokenForm": "end of",
+							"description": "End of"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Colors",
+			"id": "colors",
+			"items": [
+				{
+					"identifier": "blue",
+					"type": "hat_color",
+					"spokenForms": [
+						{
+							"spokenForm": "blue",
+							"description": "Blue"
+						}
+					]
+				},
+				{
+					"identifier": "green",
+					"type": "hat_color",
+					"spokenForms": [
+						{
+							"spokenForm": "green",
+							"description": "Green"
+						}
+					]
+				},
+				{
+					"identifier": "red",
+					"type": "hat_color",
+					"spokenForms": [
+						{
+							"spokenForm": "red",
+							"description": "Red"
+						}
+					]
+				},
+				{
+					"identifier": "pink",
+					"type": "hat_color",
+					"spokenForms": [
+						{
+							"spokenForm": "pink",
+							"description": "Pink"
+						}
+					]
+				},
+				{
+					"identifier": "yellow",
+					"type": "hat_color",
+					"spokenForms": [
+						{
+							"spokenForm": "yellow",
+							"description": "Yellow"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Shapes",
+			"id": "shapes",
+			"items": [
+				{
+					"identifier": "curve",
+					"type": "hat_shape",
+					"spokenForms": [
+						{
+							"spokenForm": "curve",
+							"description": "Curve"
+						}
+					]
+				}
+			]
+		}
+	]
+}
