@@ -35,7 +35,7 @@ export default function CheatsheetListComponent({
       <table className="w-full">
         <thead>
           <tr className="text bg-stone-300 dark:bg-stone-500">
-            <th className="px-1 font-normal">Spoken form</th>
+            <th className="px-1 font-normal w-1/2">Spoken form</th>
             <th className="px-1 border-l border-stone-400 font-normal">
               Meaning
             </th>

@@ -25,6 +25,13 @@ export const CheatsheetPage = () => {
             <FontAwesomeIcon icon={faCircleQuestion} />
           </SmartLink>
         </span>
+        <small className="text-sm block">
+          See the{' '}
+          <SmartLink to={'https://www.cursorless.org/docs/'}>
+            full documentation
+          </SmartLink>{' '}
+          to learn more.
+        </small>
       </h1>
       <Cheatsheet />
     </main>
@@ -32,7 +39,7 @@ export const CheatsheetPage = () => {
 };
 
 const Cheatsheet = () => (
-  <div className="p-2 gap-2 xl:p-4 xl:gap-4 columns-1 md:columns-2 xl:columns-3 xl:max-w-[1600px] xl:mx-auto">
+  <div className="p-2 gap-2 md:p-3 md:gap-3 xl:p-4 xl:gap-4 columns-1 md:columns-2 xl:columns-3 xl:max-w-[1600px] xl:mx-auto">
     {cheatsheetInfo.sections
       .filter((section) => section.items.length > 0)
       .map((section) => (
@@ -54,5 +61,7 @@ type CheatsheetSectionProps = {
 };
 
 const CheatsheetSection: React.FC<CheatsheetSectionProps> = ({ children }) => (
-  <section className=" break-inside-avoid mb-2 xl:mb-4 ">{children}</section>
+  <section className=" break-inside-avoid mb-5 md:mb-3 xl:mb-4 last:mb-0">
+    {children}
+  </section>
 );

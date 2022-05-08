@@ -27,7 +27,7 @@ export default function CheatsheetLegendComponent({
       <table className="w-full">
         <thead>
           <tr className="text bg-violet-300 dark:bg-violet-500">
-            <th className="px-1 font-normal">Term</th>
+            <th className="px-1 font-normal w-1/2">Term</th>
             <th className="px-1 border-l border-violet-400 font-normal">
               Definition
             </th>
