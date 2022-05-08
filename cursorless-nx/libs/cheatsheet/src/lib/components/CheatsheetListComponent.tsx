@@ -48,9 +48,9 @@ export default function CheatsheetListComponent({
               className="odd:bg-stone-200 dark:odd:bg-stone-600"
             >
               <td className="px-1">
-                <span className="text-stone-400">"</span>
+                <span className="text-stone-400">&#8220;</span>
                 {spokenForm.spokenForm}
-                <span className="text-stone-400">"</span>
+                <span className="text-stone-400">&#8221;</span>
               </td>
               <td className="border-l border-stone-400 px-1">
                 {spokenForm.description}
