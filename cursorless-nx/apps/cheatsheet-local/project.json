@@ -20,7 +20,8 @@
         ],
         "styles": ["apps/cheatsheet-local/src/styles.scss"],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "generateIndexHtml": false,
+        "webpackConfig": "apps/cheatsheet-local/custom-webpack.config.js"
       },
       "configurations": {
         "development": {
