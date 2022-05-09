@@ -4,7 +4,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/web:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
@@ -18,16 +20,17 @@
           "apps/cheatsheet-local/src/favicon.ico",
           "apps/cheatsheet-local/src/assets"
         ],
-        "styles": ["apps/cheatsheet-local/src/styles.scss"],
-        "scripts": [],
-        "generateIndexHtml": false,
-        "webpackConfig": "apps/cheatsheet-local/custom-webpack.config.js"
+        "styles": [
+          "apps/cheatsheet-local/src/styles.scss"
+        ],
+        "scripts": []
       },
       "configurations": {
         "development": {
           "extractLicenses": false,
           "optimization": false,
           "sourceMap": true,
+          "webpackConfig": "@nrwl/react/plugins/webpack",
           "vendorChunk": true
         },
         "production": {
@@ -42,7 +45,9 @@
           "sourceMap": false,
           "namedChunks": false,
           "extractLicenses": true,
-          "vendorChunk": false
+          "vendorChunk": false,
+          "generateIndexHtml": false,
+          "webpackConfig": "apps/cheatsheet-local/custom-webpack.config.js"
         }
       }
     },
@@ -65,14 +70,20 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/cheatsheet-local/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "apps/cheatsheet-local/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/cheatsheet-local"],
+      "outputs": [
+        "coverage/apps/cheatsheet-local"
+      ],
       "options": {
         "jestConfig": "apps/cheatsheet-local/jest.config.ts",
         "passWithNoTests": true
