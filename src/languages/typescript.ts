@@ -190,7 +190,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   className: ["class_declaration[name]", "class[name]"],
   functionCall: ["call_expression", "new_expression"],
   functionCallee: cascadingMatcher(
-    patternMatcher("call_expression"),
+    patternMatcher("call_expression[function]"),
     matcher(
       patternFinder("new_expression"),
       childRangeSelector(["arguments"], [], true)
