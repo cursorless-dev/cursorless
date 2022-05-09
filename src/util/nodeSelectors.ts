@@ -200,13 +200,21 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
  */
 export function childRangeSelector(
   typesToExclude: string[] = [],
-  typesToInclude: string[] = []
+  typesToInclude: string[] = [],
+  useUnnamedStartAndEnd: boolean = false
 ) {
   return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
     if (typesToExclude.length > 0 && typesToInclude.length > 0) {
       throw new Error("Cannot have both exclusions and inclusions.");
     }
-    let nodes = node.namedChildren;
+
+    let nodes;
+    if (useUnnamedStartAndEnd) {
+      nodes = node.children;
+    } else {
+      nodes = node.namedChildren;
+    }
+
     const exclusionSet = new Set(typesToExclude);
     const inclusionSet = new Set(typesToInclude);
     nodes = nodes.filter((child) => {
