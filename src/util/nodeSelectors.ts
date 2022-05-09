@@ -208,12 +208,7 @@ export function childRangeSelector(
       throw new Error("Cannot have both exclusions and inclusions.");
     }
 
-    let nodes;
-    if (useUnnamedStartAndEnd) {
-      nodes = node.children;
-    } else {
-      nodes = node.namedChildren;
-    }
+    let nodes = useUnnamedStartAndEnd ? node.children : node.namedChildren;
 
     const exclusionSet = new Set(typesToExclude);
     const inclusionSet = new Set(typesToInclude);
