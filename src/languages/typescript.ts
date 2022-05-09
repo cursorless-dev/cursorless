@@ -20,7 +20,7 @@ import {
   pairSelectionExtractor,
   selectWithLeadingDelimiter,
   simpleSelectionExtractor,
-  childRangeSelector
+  childRangeSelector,
 } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";
 
@@ -191,7 +191,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   functionCall: ["call_expression", "new_expression"],
   functionCallee: cascadingMatcher(
     patternMatcher("call_expression"),
-    matcher(patternFinder("new_expression"), childRangeSelector(['arguments'], [], true))
+    matcher(
+      patternFinder("new_expression"),
+      childRangeSelector(["arguments"], [], true)
+    )
   ),
   statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`),
   condition: conditionMatcher("*[condition]"),
