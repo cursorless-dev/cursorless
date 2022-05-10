@@ -246,7 +246,10 @@ function targetToRangeLimitPosition(
     return isStartOfRange ? selection.start : selection.end;
   }
 
-  const outerSelection = target.selectionContext.outerSelection;
+  const outerSelection =
+    target.insideOutsideType !== "inside"
+      ? target.selectionContext.outerSelection
+      : null;
 
   if (outerSelection != null) {
     const delimiterPosition = isStartOfRange
