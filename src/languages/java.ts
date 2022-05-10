@@ -6,7 +6,6 @@ import {
   trailingMatcher,
   matcher,
   cascadingMatcher,
-  patternMatcher,
 } from "../util/nodeMatchers";
 import { childRangeSelector } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";
