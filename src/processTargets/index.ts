@@ -131,8 +131,6 @@ function processContinuousRangeTarget(
     !isForward,
     target.excludeActive
   );
-  console.log(anchor);
-  console.log(active);
 
   const outerAnchor = target.excludeAnchor
     ? null
