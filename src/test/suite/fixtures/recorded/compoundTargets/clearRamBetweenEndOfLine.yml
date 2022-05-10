@@ -1,0 +1,33 @@
+languageId: plaintext
+command:
+  version: 1
+  spokenForm: clear ram between end of line
+  action: clearAndSetSelection
+  targets:
+    - type: range
+      start:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: r}
+      end: {type: primitive, position: after, insideOutsideType: inside, selectionType: line}
+      excludeStart: true
+      excludeEnd: true
+initialState:
+  documentContents: |
+    foo bar baz
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.r:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: |
+    foo bar
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  thatMark:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+fullTargets: [{type: range, excludeAnchor: true, excludeActive: true, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}, isImplicit: false}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, selectionType: line, position: after, insideOutsideType: inside, modifier: {type: identity}, isImplicit: false}}]
