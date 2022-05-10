@@ -124,13 +124,15 @@ function processContinuousRangeTarget(
   const anchor = targetToRangeLimitPosition(
     anchorTarget,
     isForward,
-    !target.excludeAnchor
+    target.excludeAnchor
   );
   const active = targetToRangeLimitPosition(
     activeTarget,
     !isForward,
-    !target.excludeActive
+    target.excludeActive
   );
+  console.log(anchor);
+  console.log(active);
 
   const outerAnchor = target.excludeAnchor
     ? null
@@ -190,12 +192,12 @@ function processVerticalRangeTarget(
   const anchorLine = targetToLineLimitPosition(
     anchorTarget,
     isForward,
-    !target.excludeAnchor
+    target.excludeAnchor
   );
   const activeLine = targetToLineLimitPosition(
     activeTarget,
     !isForward,
-    !target.excludeActive
+    target.excludeActive
   );
   const anchorSelection = anchorTarget.selection.selection;
   const delta = isForward ? 1 : -1;
@@ -236,11 +238,11 @@ function processVerticalRangeTarget(
 function targetToRangeLimitPosition(
   target: TypedSelection,
   isStartOfRange: boolean,
-  includeTarget: boolean
+  exclude: boolean
 ) {
   const selection = target.selection.selection;
 
-  if (includeTarget) {
+  if (!exclude) {
     return isStartOfRange ? selection.start : selection.end;
   }
 
@@ -263,14 +265,10 @@ function targetToRangeLimitPosition(
 function targetToLineLimitPosition(
   target: TypedSelection,
   isStartOfRange: boolean,
-  includeTarget: boolean
+  exclude: boolean
 ) {
-  const position = targetToRangeLimitPosition(
-    target,
-    isStartOfRange,
-    includeTarget
-  );
-  if (includeTarget) {
+  const position = targetToRangeLimitPosition(target, isStartOfRange, exclude);
+  if (!exclude) {
     return position.line;
   }
   return position.line + (isStartOfRange ? 1 : -1);
