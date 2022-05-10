@@ -10,7 +10,7 @@
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
-        "outputPath": "dist/apps/cheatsheet-local",
+        "outputPath": "../dist/assets/cheatsheet-local",
         "index": "apps/cheatsheet-local/src/index.html",
         "baseHref": "/",
         "main": "apps/cheatsheet-local/src/main.tsx",

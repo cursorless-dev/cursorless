@@ -12,4 +12,5 @@ node_modules/**
 out/**
 dist/**
 !dist/extension.js
+!dist/assets/cheatsheet-local/index.html
 website/**
