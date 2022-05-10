@@ -1,0 +1,23 @@
+languageId: java
+command:
+  version: 1
+  spokenForm: change callee
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
+initialState:
+  documentContents: "public class Test {\r\n    public Test()  {\r\n        this();\r\n    }\r\n}"
+  selections:
+    - anchor: {line: 2, character: 13}
+      active: {line: 2, character: 13}
+  marks: {}
+finalState:
+  documentContents: "public class Test {\r\n    public Test()  {\r\n        ();\r\n    }\r\n}"
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  thatMark:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}, isImplicit: false}]
