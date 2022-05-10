@@ -12,3 +12,7 @@ export interface CheatsheetSection {
     spokenForms: SpokenForm[];
   }[];
 }
+
+export interface CheatsheetInfo {
+  sections: CheatsheetSection[];
+}

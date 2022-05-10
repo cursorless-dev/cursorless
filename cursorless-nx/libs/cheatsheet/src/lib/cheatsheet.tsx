@@ -1,5 +1,4 @@
 import * as React from 'react';
-import cheatsheetInfo from './data/cheatsheet/defaults.json';
 import CheatsheetListComponent from './components/CheatsheetListComponent';
 import CheatsheetLegendComponent from './components/CheatsheetLegendComponent';
 import cheatsheetLegend from './cheatsheetLegend';
@@ -8,9 +7,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import CheatsheetNotesComponent from './components/CheatsheetNotesComponent';
 import SmartLink from './components/SmartLink';
+import { CheatsheetInfo } from './CheatsheetInfo';
+
+type CheatsheetPageProps = {
+  cheatsheetInfo: CheatsheetInfo;
+};
 
 // markup
-export const CheatsheetPage = () => {
+export const CheatsheetPage: React.FC<CheatsheetPageProps> = ({
+  cheatsheetInfo,
+}) => {
   return (
     <main className="dark:text-stone-100">
       <Helmet
@@ -33,12 +39,16 @@ export const CheatsheetPage = () => {
           to learn more.
         </small>
       </h1>
-      <Cheatsheet />
+      <Cheatsheet cheatsheetInfo={cheatsheetInfo} />
     </main>
   );
 };
 
-const Cheatsheet = () => (
+type CheatsheetProps = {
+  cheatsheetInfo: CheatsheetInfo;
+};
+
+const Cheatsheet: React.FC<CheatsheetProps> = ({ cheatsheetInfo }) => (
   <div className="p-2 gap-2 md:p-3 md:gap-3 xl:p-4 xl:gap-4 columns-1 md:columns-2 xl:columns-3 xl:max-w-[1600px] xl:mx-auto">
     {cheatsheetInfo.sections
       .filter((section) => section.items.length > 0)

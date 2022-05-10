@@ -1,6 +1,6 @@
 import * as React from 'react';
 import useIsHighlighted from '../hooks/useIsHighlighted';
-import { CheatsheetSection } from '../Section';
+import { CheatsheetSection } from '../CheatsheetInfo';
 
 type Props = {
   section: CheatsheetSection;
