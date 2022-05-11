@@ -168,6 +168,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   string: "str_lit",
 
   functionCall: functionCallPattern,
+  functionCallee: chainedMatcher([
+    functionCallFinder,
+    (functionNode) => getValueNodes(functionNode)[0],
+  ]),
 
   namedFunction: matcher(functionFinder),
 
