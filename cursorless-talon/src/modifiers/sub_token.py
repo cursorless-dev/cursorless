@@ -47,7 +47,7 @@ def cursorless_first_last_range(m) -> str:
 
 @mod.capture(
     rule=(
-        "(<user.cursorless_ordinal_range> | <user.cursorless_first_last_range>)"
+        "(<user.cursorless_ordinal_range> | <user.cursorless_first_last_range>) "
         "{user.cursorless_subtoken_scope_type}"
     )
 )
