@@ -57,7 +57,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   comment: "comment",
   anonymousFunction: "lambda_expression",
   list: "array_initializer",
-  functionCall: "method_invocation",
+  functionCall: ["method_invocation", "object_creation_expression", "explicit_constructor_invocation"],
   functionCallee: cascadingMatcher(
     matcher(
       patternFinder("method_invocation"),
