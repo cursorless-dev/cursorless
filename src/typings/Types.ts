@@ -214,6 +214,7 @@ export type InsideOutsideType = "inside" | "outside" | null;
 
 export interface PartialPrimitiveTarget {
   type: "primitive";
+  stages: PipelineDescriptor[];
   mark?: Mark;
   modifier?: Modifier;
   selectionType?: SelectionType;
@@ -221,6 +222,13 @@ export interface PartialPrimitiveTarget {
   insideOutsideType?: InsideOutsideType;
   isImplicit?: boolean;
 }
+
+type PipelineDescriptor =
+  | Mark
+  | Modifier
+  | SelectionType
+  | Position
+  | InsideOutsideType;
 
 export interface PartialRangeTarget {
   type: "range";

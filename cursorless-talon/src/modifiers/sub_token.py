@@ -1,3 +1,5 @@
+from typing import Any
+
 from talon import Module
 
 from ..compound_targets import is_active_included, is_anchor_included
@@ -51,17 +53,14 @@ def cursorless_first_last_range(m) -> str:
         "{user.cursorless_subtoken_scope_type}"
     )
 )
-def cursorless_subtoken_scope(m) -> str:
+def cursorless_subtoken_scope(m) -> dict[str, Any]:
     """Subtoken ranges such as subwords or characters"""
     try:
         range = m.cursorless_ordinal_range
     except AttributeError:
         range = m.cursorless_first_last_range
     return {
-        "selectionType": "token",
-        "modifier": {
-            "type": "subpiece",
-            "pieceType": m.cursorless_subtoken_scope_type,
-            **range,
-        },
+        "type": "subpiece",
+        "pieceType": m.cursorless_subtoken_scope_type,
+        **range,
     }

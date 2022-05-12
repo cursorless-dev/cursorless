@@ -1,3 +1,5 @@
+from typing import Any
+
 from talon import Context, Module
 
 mod = Module()
@@ -19,5 +21,5 @@ ctx.lists["self.cursorless_position"] = positions.keys()
 
 
 @mod.capture(rule="{user.cursorless_position}")
-def cursorless_position(m) -> str:
-    return positions[m.cursorless_position]
+def cursorless_position(m) -> dict[str, Any]:
+    return {"type": "position", **positions[m.cursorless_position]}

@@ -1,3 +1,5 @@
+from typing import Any
+
 from talon import Context, Module
 
 from ..paired_delimiter import paired_delimiters_map
@@ -30,11 +32,27 @@ mod.list(
 
 @mod.capture(
     rule=(
+        "<user.cursorless_selectable_paired_delimiter> |"
+        "{user.cursorless_surrounding_pair_scope_type}"
+    )
+)
+def cursorless_surrounding_pair_scope_type(m) -> str:
+    """Surrounding pair scope type"""
+    try:
+        return m.cursorless_surrounding_pair_scope_type
+    except AttributeError:
+        return paired_delimiters_map[
+            m.cursorless_selectable_paired_delimiter
+        ].cursorlessIdentifier
+
+
+@mod.capture(
+    rule=(
         "[{user.cursorless_delimiter_inclusion}] [{user.cursorless_delimiter_force_direction}] <user.cursorless_surrounding_pair_scope_type> | "
         "{user.cursorless_delimiter_inclusion} [{user.cursorless_delimiter_force_direction}]"
     )
 )
-def cursorless_surrounding_pair(m) -> str:
+def cursorless_surrounding_pair(m) -> dict[str, Any]:
     """Surrounding pair modifier"""
     try:
         surrounding_pair_scope_type = m.cursorless_surrounding_pair_scope_type
@@ -56,22 +74,4 @@ def cursorless_surrounding_pair(m) -> str:
     except AttributeError:
         pass
 
-    return {
-        "modifier": modifier,
-    }
-
-
-@mod.capture(
-    rule=(
-        "<user.cursorless_selectable_paired_delimiter> |"
-        "{user.cursorless_surrounding_pair_scope_type}"
-    )
-)
-def cursorless_surrounding_pair_scope_type(m) -> str:
-    """Surrounding pair scope type"""
-    try:
-        return m.cursorless_surrounding_pair_scope_type
-    except AttributeError:
-        return paired_delimiters_map[
-            m.cursorless_selectable_paired_delimiter
-        ].cursorlessIdentifier
+    return modifier

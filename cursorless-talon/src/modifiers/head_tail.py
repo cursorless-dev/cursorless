@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Any
 
 from talon import Module
 
@@ -22,9 +23,7 @@ head_tail = {i.defaultSpokenForm: i.cursorlessIdentifier for i in head_tail_list
 
 
 @mod.capture(rule="{user.cursorless_head_tail}")
-def cursorless_head_tail(m) -> dict:
+def cursorless_head_tail(m) -> dict[str, Any]:
     return {
-        "modifier": {
-            "type": head_tail_map[m.cursorless_head_tail],
-        }
+        "type": head_tail_map[m.cursorless_head_tail],
     }
