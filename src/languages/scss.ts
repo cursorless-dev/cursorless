@@ -102,6 +102,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ),
   string: "string_value",
   functionCall: "call_expression",
+  functionCallee: "call_expression.function_name!",
   namedFunction: ["mixin_statement", "function_statement"],
   functionName: ["mixin_statement.name!", "function_statement.name!"],
   comment: ["comment", "single_line_comment"],
