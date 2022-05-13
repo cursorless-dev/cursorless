@@ -1,5 +1,5 @@
+import { PartialTarget } from "../../typings/target.types";
 import { ActionType } from "../../typings/Types";
-import { PartialPrimitiveTarget } from "../../typings/target.types";
 import {
   CommandV0,
   CommandV1,
@@ -8,7 +8,7 @@ import {
 export type CommandComplete = Required<Omit<CommandLatest, "spokenForm">> &
   Pick<CommandLatest, "spokenForm">;
 
-export const LATEST_VERSION = 1 as const;
+export const LATEST_VERSION = 2 as const;
 
 export type CommandLatest = Command & {
   version: typeof LATEST_VERSION;
@@ -44,7 +44,7 @@ interface CommandV2 {
    * A list of targets expected by the action. Inference will be run on the
    * targets
    */
-  targets: PartialPrimitiveTarget[];
+  targets: PartialTarget[];
 
   /**
    * A list of extra arguments expected by the given action.

@@ -1,17 +1,17 @@
 import * as vscode from "vscode";
-import inferFullTargets from "../inferFullTargets";
+import { ActionableError } from "../../errors";
 import processTargets from "../../processTargets";
 import {
   ActionType,
   Graph,
   ProcessedTargetsContext,
 } from "../../typings/Types";
-import { PartialTarget } from "../../typings/target.types";
+import { isString } from "../../util/type";
+import { canonicalizeAndValidateCommand } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
+import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
+import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
 import { Command } from "./command.types";
-import { isString } from "../../util/type";
-import { ActionableError } from "../../errors";
-import { canonicalizeAndValidateCommand } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -157,7 +157,7 @@ export default class CommandRunner {
       const spokenForm = spokenFormOrCommand;
       const [action, targets, ...extraArgs] = rest as [
         ActionType,
-        PartialTarget[],
+        PartialTargetV0V1[],
         ...unknown[]
       ];
 

@@ -1,14 +1,16 @@
-import canonicalizeActionName from "./canonicalizeActionName";
-import canonicalizeTargets from "./canonicalizeTargets";
-import { ActionType, PartialTarget, SelectionType } from "../typings/Types";
-import { getPartialPrimitiveTargets } from "./getPrimitiveTargets";
+import { commands } from "vscode";
+import { ActionableError } from "../../errors";
+import { PartialTarget, SelectionType } from "../../typings/target.types";
+import { ActionType } from "../../typings/Types";
+import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import {
   Command,
   CommandComplete,
+  CommandLatest,
   LATEST_VERSION,
-} from "../core/commandRunner/types";
-import { ActionableError } from "../errors";
-import { commands } from "vscode";
+} from "../commandRunner/command.types";
+import canonicalizeActionName from "./canonicalizeActionName";
+import canonicalizeTargets from "./canonicalizeTargets";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";
 import { upgradeV1ToV2 } from "./upgradeV1ToV2";
 
@@ -34,7 +36,6 @@ export function canonicalizeAndValidateCommand(
 
   const actionName = canonicalizeActionName(inputActionName);
   const partialTargets = canonicalizeTargets(inputPartialTargets);
-  const extraArgs = inputExtraArgs;
 
   validateCommand(actionName, partialTargets);
 
@@ -43,12 +44,12 @@ export function canonicalizeAndValidateCommand(
     version: LATEST_VERSION,
     action: actionName,
     targets: partialTargets,
-    extraArgs: extraArgs,
+    extraArgs: inputExtraArgs,
     usePrePhraseSnapshot,
   };
 }
 
-function upgradeCommand(command: Command) {
+function upgradeCommand(command: Command): CommandLatest {
   if (command.version > LATEST_VERSION) {
     throw new ActionableError(
       "Cursorless Talon version is ahead of Cursorless VSCode extension version. Please update Cursorless VSCode.",
@@ -74,6 +75,8 @@ function upgradeCommand(command: Command) {
         break;
     }
   }
+
+  return command as CommandLatest; // TODO Better implementation ?
 }
 
 export function validateCommand(

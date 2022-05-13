@@ -35,7 +35,7 @@ interface CommandV0V1 {
    * A list of targets expected by the action. Inference will be run on the
    * targets
    */
-  targets: PartialPrimitiveTarget[];
+  targets: PartialTargetV0V1[];
 
   /**
    * A list of extra arguments expected by the given action.
@@ -52,6 +52,27 @@ interface PartialPrimitiveTarget {
   insideOutsideType?: InsideOutsideType;
   isImplicit?: boolean;
 }
+
+interface PartialRangeTarget {
+  type: "range";
+  start: PartialPrimitiveTarget;
+  end: PartialPrimitiveTarget;
+  excludeStart?: boolean;
+  excludeEnd?: boolean;
+  rangeType?: RangeType;
+}
+
+type RangeType = "continuous" | "vertical";
+
+interface PartialListTarget {
+  type: "list";
+  elements: (PartialPrimitiveTarget | PartialRangeTarget)[];
+}
+
+export type PartialTargetV0V1 =
+  | PartialPrimitiveTarget
+  | PartialRangeTarget
+  | PartialListTarget;
 
 type SelectionType =
   | "token"
@@ -202,7 +223,6 @@ type Modifier =
   | SurroundingPairModifier
   | ContainingScopeModifier
   | SubTokenModifier
-  //   | MatchingPairSymbolModifier Not implemented
   | HeadModifier
   | TailModifier
   | RawSelectionModifier;
