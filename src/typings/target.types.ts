@@ -190,8 +190,8 @@ type PipelineStageDescriptor =
 
 export interface PartialRangeTarget {
   type: "range";
-  start: PartialPrimitiveTarget;
-  end: PartialPrimitiveTarget;
+  anchor: PartialPrimitiveTarget;
+  active: PartialPrimitiveTarget;
   excludeStart?: boolean;
   excludeEnd?: boolean;
   rangeType?: RangeType;

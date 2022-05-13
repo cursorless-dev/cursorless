@@ -26,7 +26,7 @@ function getPartialPrimitiveTargetsHelper(
     case "list":
       return target.elements.flatMap(getPartialPrimitiveTargetsHelper);
     case "range":
-      return [target.start, target.end];
+      return [target.anchor, target.active];
   }
 }
 /**
@@ -85,6 +85,10 @@ function transformPartialPrimitiveTargetsHelper(
         ),
       };
     case "range":
-      return { ...target, start: func(target.start), end: func(target.end) };
+      return {
+        ...target,
+        anchor: func(target.anchor),
+        active: func(target.active),
+      };
   }
 }

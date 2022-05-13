@@ -44,17 +44,17 @@ def cursorless_range(m) -> str:
         return primitive_targets[0]
 
     if len(primitive_targets) == 1:
-        start = BASE_TARGET.copy()
+        anchor = BASE_TARGET.copy()
     else:
-        start = primitive_targets[0]
+        anchor = primitive_targets[0]
 
     range_connective = range_connective_with_type["connective"]
     range_type = range_connective_with_type["type"]
 
     range = {
         "type": "range",
-        "start": start,
-        "end": primitive_targets[-1],
+        "anchor": anchor,
+        "active": primitive_targets[-1],
         "excludeStart": not is_anchor_included(range_connective),
         "excludeEnd": not is_active_included(range_connective),
     }

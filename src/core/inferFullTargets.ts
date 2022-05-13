@@ -87,13 +87,13 @@ function inferRangeTarget(
     excludeActive: target.excludeEnd ?? false,
     rangeType: target.rangeType ?? "continuous",
     anchor: inferPrimitiveTarget(
-      target.start,
+      target.anchor,
       previousTargets,
       actionPreferences
     ),
     active: inferPrimitiveTarget(
-      target.end,
-      previousTargets.concat(target.start),
+      target.active,
+      previousTargets.concat(target.anchor),
       actionPreferences
     ),
   };
@@ -193,8 +193,8 @@ function getPreviousTarget(
         }
         break;
       case "range":
-        if (useTarget(target.start)) {
-          return target.start;
+        if (useTarget(target.anchor)) {
+          return target.anchor;
         }
         break;
       case "list":

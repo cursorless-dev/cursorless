@@ -147,10 +147,10 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
           },
-          end: {
+          active: {
             type: "primitive",
             position: "end",
             modifier: {
@@ -200,11 +200,11 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
             selectionType: "line",
           },
-          end: {
+          active: {
             type: "primitive",
             position: "end",
             modifier: {
@@ -254,7 +254,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
             modifier: {
               type: "containingScope",
@@ -266,7 +266,7 @@ const fixture: Fixture[] = [
               character: "g",
             },
           },
-          end: {
+          active: {
             type: "primitive",
             mark: {
               type: "decoratedSymbol",
@@ -321,10 +321,10 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
           },
-          end: {
+          active: {
             type: "primitive",
             selectionType: "paragraph",
             mark: {
@@ -1082,7 +1082,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
             selectionType: "line",
             mark: {
@@ -1091,7 +1091,7 @@ const fixture: Fixture[] = [
               character: "f",
             },
           },
-          end: {
+          active: {
             type: "primitive",
             mark: {
               type: "decoratedSymbol",
@@ -1159,7 +1159,7 @@ const fixture: Fixture[] = [
             },
             {
               type: "range",
-              start: {
+              anchor: {
                 type: "primitive",
                 mark: {
                   type: "decoratedSymbol",
@@ -1167,7 +1167,7 @@ const fixture: Fixture[] = [
                   character: "h",
                 },
               },
-              end: {
+              active: {
                 type: "primitive",
                 mark: {
                   type: "decoratedSymbol",
@@ -1570,7 +1570,7 @@ const fixture: Fixture[] = [
             },
             {
               type: "range",
-              start: {
+              anchor: {
                 type: "primitive",
                 mark: {
                   type: "decoratedSymbol",
@@ -1578,7 +1578,7 @@ const fixture: Fixture[] = [
                   character: "g",
                 },
               },
-              end: {
+              active: {
                 type: "primitive",
                 mark: {
                   type: "decoratedSymbol",
@@ -1657,7 +1657,7 @@ const fixture: Fixture[] = [
           elements: [
             {
               type: "range",
-              start: {
+              anchor: {
                 type: "primitive",
                 selectionType: "line",
                 modifier: {
@@ -1670,7 +1670,7 @@ const fixture: Fixture[] = [
                   character: "g",
                 },
               },
-              end: {
+              active: {
                 type: "primitive",
                 mark: {
                   type: "decoratedSymbol",
@@ -1754,10 +1754,10 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
           },
-          end: {
+          active: {
             type: "primitive",
             position: "end",
             selectionType: "line",
@@ -1803,11 +1803,11 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
             selectionType: "line",
           },
-          end: {
+          active: {
             type: "primitive",
             position: "end",
             selectionType: "paragraph",
@@ -1853,7 +1853,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
             mark: {
               type: "decoratedSymbol",
@@ -1861,7 +1861,7 @@ const fixture: Fixture[] = [
               character: "f",
             },
           },
-          end: {
+          active: {
             type: "primitive",
             position: "end",
             selectionType: "line",
@@ -1911,7 +1911,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
             selectionType: "line",
             mark: {
@@ -1920,7 +1920,7 @@ const fixture: Fixture[] = [
               character: "g",
             },
           },
-          end: {
+          active: {
             type: "primitive",
             position: "end",
             modifier: {
@@ -1974,7 +1974,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
             mark: {
               type: "decoratedSymbol",
@@ -1982,7 +1982,7 @@ const fixture: Fixture[] = [
               character: "g",
             },
           },
-          end: {
+          active: {
             type: "primitive",
             modifier: {
               type: "surroundingPair",
@@ -2042,7 +2042,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
             mark: {
               type: "decoratedSymbol",
@@ -2050,7 +2050,7 @@ const fixture: Fixture[] = [
               character: "g",
             },
           },
-          end: {
+          active: {
             type: "primitive",
             modifier: {
               type: "containingScope",
@@ -2108,10 +2108,10 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
           },
-          end: {
+          active: {
             type: "primitive",
             modifier: {
               type: "containingScope",
@@ -2168,10 +2168,10 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
           },
-          end: {
+          active: {
             type: "primitive",
             modifier: {
               type: "surroundingPair",
@@ -2229,7 +2229,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
             modifier: {
               type: "surroundingPair",
@@ -2242,7 +2242,7 @@ const fixture: Fixture[] = [
               character: "f",
             },
           },
-          end: {
+          active: {
             type: "primitive",
             mark: {
               type: "decoratedSymbol",
@@ -2297,7 +2297,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
             modifier: {
               type: "surroundingPair",
@@ -2305,7 +2305,7 @@ const fixture: Fixture[] = [
               includePairDelimiter: false,
             },
           },
-          end: {
+          active: {
             type: "primitive",
             mark: {
               type: "decoratedSymbol",
@@ -2358,7 +2358,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
             selectionType: "line",
             modifier: {
@@ -2367,7 +2367,7 @@ const fixture: Fixture[] = [
               includePairDelimiter: false,
             },
           },
-          end: {
+          active: {
             type: "primitive",
             mark: {
               type: "decoratedSymbol",
@@ -2420,7 +2420,7 @@ const fixture: Fixture[] = [
       partialTargets: [
         {
           type: "range",
-          start: {
+          anchor: {
             type: "primitive",
             selectionType: "line",
             modifier: {
@@ -2428,7 +2428,7 @@ const fixture: Fixture[] = [
               scopeType: "namedFunction",
             },
           },
-          end: {
+          active: {
             type: "primitive",
             mark: {
               type: "decoratedSymbol",
