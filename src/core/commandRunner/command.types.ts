@@ -1,32 +1,26 @@
-import { ActionType, PartialTarget } from "../../typings/Types";
+import { ActionType } from "../../typings/Types";
+import { PartialPrimitiveTarget } from "../../typings/target.types";
+import {
+  CommandV0,
+  CommandV1,
+} from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
 
-export type CommandArgumentComplete = Required<
-  Omit<CommandArgumentLatest, "spokenForm">
-> &
-  Pick<CommandArgumentLatest, "spokenForm">;
+export type CommandComplete = Required<Omit<CommandLatest, "spokenForm">> &
+  Pick<CommandLatest, "spokenForm">;
 
 export const LATEST_VERSION = 1 as const;
 
-export type CommandArgumentLatest = CommandArgument & {
+export type CommandLatest = Command & {
   version: typeof LATEST_VERSION;
 };
 
-export type CommandArgument = CommandArgumentV0 | CommandArgumentV1;
+export type Command = CommandV0 | CommandV1 | CommandV2;
 
-interface CommandArgumentV1 extends CommandArgumentV0V1 {
-  version: 1;
-}
-
-interface CommandArgumentV0 extends CommandArgumentV0V1 {
-  version: 0;
-  usePrePhraseSnapshot?: false;
-}
-
-interface CommandArgumentV0V1 {
+interface CommandV2 {
   /**
    * The version number of the command API
    */
-  version: 0 | 1;
+  version: 2;
 
   /**
    * The spoken form of the command if issued from a voice command system
@@ -39,7 +33,7 @@ interface CommandArgumentV0V1 {
    * voice command system issues a pre phrase signal at the start of every
    * phrase.
    */
-  usePrePhraseSnapshot?: boolean;
+  usePrePhraseSnapshot: boolean;
 
   /**
    * The action to run
@@ -50,7 +44,7 @@ interface CommandArgumentV0V1 {
    * A list of targets expected by the action. Inference will be run on the
    * targets
    */
-  targets: PartialTarget[];
+  targets: PartialPrimitiveTarget[];
 
   /**
    * A list of extra arguments expected by the given action.

@@ -3,8 +3,8 @@ import { SyntaxNode } from "web-tree-sitter";
 import {
   SimpleSurroundingPairName,
   DelimiterInclusion,
-  SurroundingPairDirection,
-} from "../../../typings/Types";
+  SurroundingPairDirection
+} from "../../../typings/target.types";
 import { getNodeRange } from "../../../util/nodeSelectors";
 import { isContainedInErrorNode } from "../../../util/treeSitterUtils";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";

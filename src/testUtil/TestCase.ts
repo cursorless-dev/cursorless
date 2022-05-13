@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { ThatMark } from "../core/ThatMark";
-import { Target, Token } from "../typings/Types";
+import { Token } from "../typings/Types";
+import { Target } from "../typings/target.types";
 import {
   extractTargetedMarks,
   extractTargetKeys,
@@ -14,10 +15,10 @@ import {
 import serialize from "./serialize";
 import { pick } from "lodash";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
-import { CommandArgument } from "../core/commandRunner/types";
+import { Command } from "../core/commandRunner/command.types";
 import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 
-export type TestCaseCommand = CommandArgument;
+export type TestCaseCommand = Command;
 
 export type TestCaseContext = {
   thatMark: ThatMark;

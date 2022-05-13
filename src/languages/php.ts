@@ -2,10 +2,10 @@ import { Selection, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import {
   NodeMatcherAlternative,
-  ScopeType,
   SelectionWithContext,
   SelectionWithEditor,
 } from "../typings/Types";
+import { ScopeType } from "../typings/target.types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,

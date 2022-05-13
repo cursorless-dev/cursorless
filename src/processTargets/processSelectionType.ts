@@ -5,15 +5,16 @@ import {
   selectionWithEditorFromRange,
 } from "../util/selectionUtils";
 import {
-  InsideOutsideType,
-  Modifier,
-  PrimitiveTarget,
   ProcessedTargetsContext,
   SelectionContext,
   SelectionWithEditor,
   TypedSelection,
-  Position as TargetPosition,
 } from "../typings/Types";
+import {
+  InsideOutsideType,
+  Modifier,
+  PrimitiveTarget, Position as TargetPosition
+} from "../typings/target.types";
 import { getDocumentRange } from "../util/range";
 
 // taken from https://regexr.com/3e6m0

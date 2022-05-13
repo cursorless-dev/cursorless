@@ -4,7 +4,8 @@ import {
   leadingMatcher,
   conditionMatcher,
 } from "../util/nodeMatchers";
-import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
+import { NodeMatcherAlternative } from "../typings/Types";
+import { ScopeType } from "../typings/target.types";
 
 const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   // treating classes = classlike

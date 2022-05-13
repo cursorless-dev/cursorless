@@ -5,7 +5,7 @@ import {
   Offsets,
 } from "./types";
 import { generateUnmatchedDelimiters } from "./generateUnmatchedDelimiters";
-import { SimpleSurroundingPairName } from "../../../typings/Types";
+import { SimpleSurroundingPairName } from "../../../typings/target.types";
 
 /**
  * Looks for a surrounding pair that contains the selection, returning null if none is found.

@@ -5,16 +5,16 @@ import { SyntaxNode } from "web-tree-sitter";
 import { SUBWORD_MATCHER } from "../../core/constants";
 import { selectionWithEditorFromRange } from "../../util/selectionUtils";
 import {
-  ContainingScopeModifier,
-  HeadModifier,
   NodeMatcher,
-  PrimitiveTarget,
   ProcessedTargetsContext,
   SelectionContext,
   SelectionWithEditor,
-  SubTokenModifier,
-  TailModifier,
 } from "../../typings/Types";
+import {
+  ContainingScopeModifier,
+  HeadModifier, PrimitiveTarget, SubTokenModifier,
+  TailModifier
+} from "../../typings/target.types";
 import { processSurroundingPair } from "./surroundingPair";
 import { getNodeMatcher } from "../../languages/getNodeMatcher";
 

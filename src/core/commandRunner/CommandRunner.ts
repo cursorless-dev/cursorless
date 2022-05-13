@@ -4,14 +4,14 @@ import processTargets from "../../processTargets";
 import {
   ActionType,
   Graph,
-  PartialTarget,
   ProcessedTargetsContext,
 } from "../../typings/Types";
+import { PartialTarget } from "../../typings/target.types";
 import { ThatMark } from "../ThatMark";
-import { canonicalizeAndValidateCommand } from "../../util/canonicalizeAndValidateCommand";
-import { CommandArgument } from "./types";
+import { Command } from "./command.types";
 import { isString } from "../../util/type";
 import { ActionableError } from "../../errors";
+import { canonicalizeAndValidateCommand } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -58,11 +58,11 @@ export default class CommandRunner {
    *    action, and returns the desired return value indicated by the action, if
    *    it has one.
    */
-  async runCommand(commandArgument: CommandArgument) {
+  async runCommand(command: Command) {
     try {
       if (this.graph.debug.active) {
-        this.graph.debug.log(`commandArgument:`);
-        this.graph.debug.log(JSON.stringify(commandArgument, null, 3));
+        this.graph.debug.log(`command:`);
+        this.graph.debug.log(JSON.stringify(command, null, 3));
       }
 
       const {
@@ -71,7 +71,7 @@ export default class CommandRunner {
         targets: partialTargets,
         extraArgs,
         usePrePhraseSnapshot,
-      } = canonicalizeAndValidateCommand(commandArgument);
+      } = canonicalizeAndValidateCommand(command);
 
       const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
         usePrePhraseSnapshot
@@ -116,10 +116,7 @@ export default class CommandRunner {
           hatTokenMap: readableHatMap,
           spokenForm,
         };
-        await this.graph.testCaseRecorder.preCommandHook(
-          commandArgument,
-          context
-        );
+        await this.graph.testCaseRecorder.preCommandHook(command, context);
       }
 
       const {
@@ -151,20 +148,20 @@ export default class CommandRunner {
   }
 
   private runCommandBackwardCompatible(
-    spokenFormOrCommandArgument: string | CommandArgument,
+    spokenFormOrCommand: string | Command,
     ...rest: unknown[]
   ) {
-    let commandArgument: CommandArgument;
+    let command: Command;
 
-    if (isString(spokenFormOrCommandArgument)) {
-      const spokenForm = spokenFormOrCommandArgument;
+    if (isString(spokenFormOrCommand)) {
+      const spokenForm = spokenFormOrCommand;
       const [action, targets, ...extraArgs] = rest as [
         ActionType,
         PartialTarget[],
         ...unknown[]
       ];
 
-      commandArgument = {
+      command = {
         version: 0,
         spokenForm,
         action,
@@ -173,10 +170,10 @@ export default class CommandRunner {
         usePrePhraseSnapshot: false,
       };
     } else {
-      commandArgument = spokenFormOrCommandArgument;
+      command = spokenFormOrCommand;
     }
 
-    return this.runCommand(commandArgument);
+    return this.runCommand(command);
   }
 
   dispose() {

@@ -3,9 +3,9 @@ import { SyntaxNode } from "web-tree-sitter";
 import {
   NodeFinder,
   NodeMatcherAlternative,
-  ScopeType,
   SelectionWithContext,
 } from "../typings/Types";
+import { ScopeType } from "../typings/target.types";
 import { leadingSiblingNodeFinder, patternFinder } from "../util/nodeFinders";
 import {
   createPatternMatchers,

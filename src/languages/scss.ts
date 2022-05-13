@@ -1,9 +1,9 @@
 import { SyntaxNode } from "web-tree-sitter";
 import {
   NodeMatcherAlternative,
-  ScopeType,
   SelectionWithEditor,
 } from "../typings/Types";
+import { ScopeType } from "../typings/target.types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   cascadingMatcher,

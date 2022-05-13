@@ -4,10 +4,10 @@ import {
   patternMatcher,
 } from "../util/nodeMatchers";
 import {
-  ScopeType,
   NodeMatcherAlternative,
   SelectionWithEditor,
 } from "../typings/Types";
+import { ScopeType } from "../typings/target.types";
 import { SyntaxNode } from "web-tree-sitter";
 import { getNodeRange } from "../util/nodeSelectors";
 

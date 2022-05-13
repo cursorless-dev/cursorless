@@ -1,4 +1,4 @@
-import { SimpleSurroundingPairName } from "../../../typings/Types";
+import { SimpleSurroundingPairName } from "../../../typings/target.types";
 import { IndividualDelimiter } from "./types";
 import { delimiterToText } from "./delimiterMaps";
 import { concat, uniq } from "lodash";

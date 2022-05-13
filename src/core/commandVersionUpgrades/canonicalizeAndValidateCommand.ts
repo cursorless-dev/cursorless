@@ -3,23 +3,26 @@ import canonicalizeTargets from "./canonicalizeTargets";
 import { ActionType, PartialTarget, SelectionType } from "../typings/Types";
 import { getPartialPrimitiveTargets } from "./getPrimitiveTargets";
 import {
-  CommandArgument,
-  CommandArgumentComplete,
+  Command,
+  CommandComplete,
   LATEST_VERSION,
 } from "../core/commandRunner/types";
 import { ActionableError } from "../errors";
 import { commands } from "vscode";
+import { upgradeV0ToV1 } from "./upgradeV0ToV1";
+import { upgradeV1ToV2 } from "./upgradeV1ToV2";
 
 /**
  * Given a command argument which comes from the client, normalize it so that it
  * conforms to the latest version of the expected cursorless command argument.
  *
- * @param commandArgument The command argument to normalize
+ * @param command The command argument to normalize
  * @returns The normalized command argument
  */
 export function canonicalizeAndValidateCommand(
-  commandArgument: CommandArgument
-): CommandArgumentComplete {
+  command: Command
+): CommandComplete {
+  const commandUpgraded = upgradeCommand(command);
   const {
     action: inputActionName,
     targets: inputPartialTargets,
@@ -27,22 +30,7 @@ export function canonicalizeAndValidateCommand(
     usePrePhraseSnapshot = false,
     version,
     ...rest
-  } = commandArgument;
-
-  if (version > LATEST_VERSION) {
-    throw new ActionableError(
-      "Cursorless Talon version is ahead of Cursorless VSCode extension version. Please update Cursorless VSCode.",
-      [
-        {
-          name: "Check for updates",
-          action: () =>
-            commands.executeCommand(
-              "workbench.extensions.action.checkForUpdates"
-            ),
-        },
-      ]
-    );
-  }
+  } = commandUpgraded;
 
   const actionName = canonicalizeActionName(inputActionName);
   const partialTargets = canonicalizeTargets(inputPartialTargets);
@@ -58,6 +46,34 @@ export function canonicalizeAndValidateCommand(
     extraArgs: extraArgs,
     usePrePhraseSnapshot,
   };
+}
+
+function upgradeCommand(command: Command) {
+  if (command.version > LATEST_VERSION) {
+    throw new ActionableError(
+      "Cursorless Talon version is ahead of Cursorless VSCode extension version. Please update Cursorless VSCode.",
+      [
+        {
+          name: "Check for updates",
+          action: () =>
+            commands.executeCommand(
+              "workbench.extensions.action.checkForUpdates"
+            ),
+        },
+      ]
+    );
+  }
+
+  while (command.version < LATEST_VERSION) {
+    switch (command.version) {
+      case 0:
+        command = upgradeV0ToV1(command);
+        break;
+      case 1:
+        command = upgradeV1ToV2(command);
+        break;
+    }
+  }
 }
 
 export function validateCommand(

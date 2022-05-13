@@ -1,4 +1,4 @@
-import { ScopeType } from "./Types";
+import { ScopeType } from "./target.types";
 
 export interface SnippetScope {
   langIds?: string[];

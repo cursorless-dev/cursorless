@@ -11,9 +11,9 @@ import {
 } from "../util/nodeMatchers";
 import {
   NodeMatcherAlternative,
-  ScopeType,
   SelectionWithEditor,
 } from "../typings/Types";
+import { ScopeType } from "../typings/target.types";
 import { SyntaxNode } from "web-tree-sitter";
 import { getNodeRange } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";

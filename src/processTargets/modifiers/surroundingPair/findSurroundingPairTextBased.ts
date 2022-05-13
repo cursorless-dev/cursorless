@@ -4,8 +4,8 @@ import {
   SimpleSurroundingPairName,
   DelimiterInclusion,
   SurroundingPairName,
-  SurroundingPairDirection,
-} from "../../../typings/Types";
+  SurroundingPairDirection
+} from "../../../typings/target.types";
 import { getDocumentRange } from "../../../util/range";
 import { matchAll } from "../../../util/regex";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";

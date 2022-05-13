@@ -1,6 +1,7 @@
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import HatTokenMap from "../core/HatTokenMap";
-import { PrimitiveTarget, Target, Token } from "../typings/Types";
+import { Token } from "../typings/Types";
+import { PrimitiveTarget, Target } from "../typings/target.types";
 
 function extractPrimitiveTargetKeys(...targets: PrimitiveTarget[]) {
   const keys: string[] = [];

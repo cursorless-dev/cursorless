@@ -4,9 +4,9 @@ import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import {
   NodeMatcher,
   NodeMatcherValue,
-  ScopeType,
   SelectionWithEditor,
 } from "../typings/Types";
+import { ScopeType } from "../typings/target.types";
 import cpp from "./cpp";
 import clojure from "./clojure";
 import csharp from "./csharp";

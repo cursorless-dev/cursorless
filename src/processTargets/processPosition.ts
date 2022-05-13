@@ -1,9 +1,9 @@
 import { Selection } from "vscode";
 import {
-  PrimitiveTarget,
   ProcessedTargetsContext,
   TypedSelection,
 } from "../typings/Types";
+import { PrimitiveTarget } from "../typings/target.types";
 
 export default function (
   context: ProcessedTargetsContext,

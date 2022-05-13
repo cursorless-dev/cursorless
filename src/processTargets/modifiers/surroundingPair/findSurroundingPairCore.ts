@@ -1,5 +1,5 @@
 import { sortedIndexBy } from "lodash";
-import { SimpleSurroundingPairName } from "../../../typings/Types";
+import { SimpleSurroundingPairName } from "../../../typings/target.types";
 import { findDelimiterPairAdjacentToSelection } from "./findDelimiterPairAdjacentToSelection";
 import { findDelimiterPairContainingSelection } from "./findDelimiterPairContainingSelection";
 import {

@@ -10,7 +10,6 @@ IMPLICIT_TARGET = {"type": "primitive", "isImplicit": True}
 
 modifiers = [
     "<user.cursorless_position>",  # before, end of
-    "<user.cursorless_selection_type>",  # token, line, file
     "<user.cursorless_head_tail>",  # head, tail
     "<user.cursorless_containing_scope>",  # funk, state, class
     "<user.cursorless_subtoken_scope>",  # first past second word

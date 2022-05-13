@@ -2,9 +2,11 @@
 import {
   ActionPreferences,
   InferenceContext,
-  PartialTarget,
-  Target,
 } from "../../../typings/Types";
+import {
+  PartialTarget,
+  Target
+} from "../../../typings/target.types";
 
 interface FixtureInput {
   context: InferenceContext;

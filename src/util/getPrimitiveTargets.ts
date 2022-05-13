@@ -3,8 +3,8 @@ import {
   PartialRangeTarget,
   PartialTarget,
   PrimitiveTarget,
-  Target,
-} from "../typings/Types";
+  Target
+} from "../typings/target.types";
 
 /**
  * Given a list of targets, recursively descends all targets and returns every

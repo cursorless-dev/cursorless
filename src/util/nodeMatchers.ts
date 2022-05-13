@@ -4,9 +4,9 @@ import {
   NodeFinder,
   SelectionExtractor,
   NodeMatcherAlternative,
-  ScopeType,
   SelectionWithEditor,
 } from "../typings/Types";
+import { ScopeType } from "../typings/target.types";
 import {
   simpleSelectionExtractor,
   argumentSelectionExtractor,

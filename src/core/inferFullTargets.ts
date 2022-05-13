@@ -1,13 +1,15 @@
 import {
   ActionPreferences,
+} from "../typings/Types";
+import {
   PartialPrimitiveTarget,
   PartialRangeTarget,
   PartialTarget,
   PrimitiveTarget,
   RangeTarget,
   Target,
-  PartialListTarget,
-} from "../typings/Types";
+  PartialListTarget
+} from "../typings/target.types";
 
 /**
  * Performs inference on the partial targets provided by the user, using

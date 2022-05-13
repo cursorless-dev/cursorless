@@ -3,11 +3,10 @@ import { SyntaxNode } from "web-tree-sitter";
 import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
 import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
 import {
-  ComplexSurroundingPairName,
   ProcessedTargetsContext,
   SelectionWithEditor,
-  SurroundingPairModifier,
 } from "../../../typings/Types";
+import { ComplexSurroundingPairName, SurroundingPairModifier } from "../../../typings/target.types";
 import { SelectionWithEditorWithContext } from "../processModifier";
 import { complexDelimiterMap } from "./delimiterMaps";
 import getTextFragmentExtractor, {

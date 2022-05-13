@@ -1,4 +1,5 @@
-import { InsideOutsideType, TypedSelection } from "../typings/Types";
+import { TypedSelection } from "../typings/Types";
+import { InsideOutsideType } from "../typings/target.types";
 import { updateTypedSelectionRange } from "./selectionUtils";
 
 export function performInsideOutsideAdjustment(

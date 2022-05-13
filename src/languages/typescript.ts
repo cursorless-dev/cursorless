@@ -11,9 +11,9 @@ import {
 import {
   NodeMatcher,
   NodeMatcherAlternative,
-  ScopeType,
   SelectionWithEditor,
 } from "../typings/Types";
+import { ScopeType } from "../typings/target.types";
 import {
   getNodeInternalRange,
   getNodeRange,

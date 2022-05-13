@@ -8,7 +8,8 @@ import {
   trailingMatcher,
   typeMatcher,
 } from "../util/nodeMatchers";
-import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
+import { NodeMatcherAlternative } from "../typings/Types";
+import { ScopeType } from "../typings/target.types";
 import { nodeFinder, typedNodeFinder } from "../util/nodeFinders";
 import { delimitedSelector } from "../util/nodeSelectors";
 
