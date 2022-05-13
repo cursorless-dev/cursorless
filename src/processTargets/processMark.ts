@@ -1,13 +1,10 @@
 import { Range, Selection } from "vscode";
-import {
-  ProcessedTargetsContext,
-  SelectionWithEditor,
-} from "../typings/Types";
+import { ProcessedTargetsContext, SelectionWithEditor } from "../typings/Types";
 import {
   DecoratedSymbol,
   LineNumber,
   LineNumberPosition,
-  Mark
+  Mark,
 } from "../typings/target.types";
 import { getTokensInRange, PartialToken } from "../util/getTokensInRange";
 import { selectionWithEditorFromPositions } from "../util/selectionUtils";

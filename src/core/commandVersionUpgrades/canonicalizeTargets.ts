@@ -1,6 +1,10 @@
 import update from "immutability-helper";
 import { flow } from "lodash";
-import { ScopeType, PartialPrimitiveTarget, PartialTarget } from "../../typings/target.types";
+import {
+  ScopeType,
+  PartialPrimitiveTarget,
+  PartialTarget,
+} from "../../typings/target.types";
 import { transformPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import { HatStyleName } from "../constants";
 

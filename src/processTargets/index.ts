@@ -1,14 +1,8 @@
 import { isEqual, zip } from "lodash";
 import { Selection } from "vscode";
 import { performInsideOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
-import {
-  ProcessedTargetsContext,
-  TypedSelection,
-} from "../typings/Types";
-import {
-  PrimitiveTarget, RangeTarget,
-  Target
-} from "../typings/target.types";
+import { ProcessedTargetsContext, TypedSelection } from "../typings/Types";
+import { PrimitiveTarget, RangeTarget, Target } from "../typings/target.types";
 import processMark from "./processMark";
 import processModifier from "./modifiers/processModifier";
 import processPosition from "./processPosition";

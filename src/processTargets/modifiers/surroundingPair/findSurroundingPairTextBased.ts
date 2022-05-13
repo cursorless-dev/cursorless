@@ -4,7 +4,7 @@ import {
   SimpleSurroundingPairName,
   DelimiterInclusion,
   SurroundingPairName,
-  SurroundingPairDirection
+  SurroundingPairDirection,
 } from "../../../typings/target.types";
 import { getDocumentRange } from "../../../util/range";
 import { matchAll } from "../../../util/regex";

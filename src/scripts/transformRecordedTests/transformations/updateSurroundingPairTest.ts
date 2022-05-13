@@ -2,7 +2,7 @@ import { TestCaseFixture } from "../../../testUtil/TestCase";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
 import {
   DelimiterInclusion,
-  PartialPrimitiveTarget
+  PartialPrimitiveTarget,
 } from "../../../typings/target.types";
 
 // Leaving an example here in case it's helpful

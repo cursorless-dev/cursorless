@@ -6,7 +6,10 @@ import {
   ProcessedTargetsContext,
   SelectionWithEditor,
 } from "../../../typings/Types";
-import { ComplexSurroundingPairName, SurroundingPairModifier } from "../../../typings/target.types";
+import {
+  ComplexSurroundingPairName,
+  SurroundingPairModifier,
+} from "../../../typings/target.types";
 import { SelectionWithEditorWithContext } from "../processModifier";
 import { complexDelimiterMap } from "./delimiterMaps";
 import getTextFragmentExtractor, {

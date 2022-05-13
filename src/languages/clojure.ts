@@ -5,10 +5,7 @@ import {
   matcher,
   patternMatcher,
 } from "../util/nodeMatchers";
-import {
-  NodeMatcherAlternative,
-  NodeFinder,
-} from "../typings/Types";
+import { NodeMatcherAlternative, NodeFinder } from "../typings/Types";
 import { ScopeType } from "../typings/target.types";
 import { SyntaxNode } from "web-tree-sitter";
 import { delimitedSelector } from "../util/nodeSelectors";

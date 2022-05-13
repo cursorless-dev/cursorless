@@ -1,6 +1,4 @@
-import {
-  ActionPreferences,
-} from "../typings/Types";
+import { ActionPreferences } from "../typings/Types";
 import {
   PartialPrimitiveTarget,
   PartialRangeTarget,
@@ -8,7 +6,7 @@ import {
   PrimitiveTarget,
   RangeTarget,
   Target,
-  PartialListTarget
+  PartialListTarget,
 } from "../typings/target.types";
 
 /**

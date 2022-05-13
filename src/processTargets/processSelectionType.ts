@@ -13,7 +13,8 @@ import {
 import {
   InsideOutsideType,
   Modifier,
-  PrimitiveTarget, Position as TargetPosition
+  PrimitiveTarget,
+  Position as TargetPosition,
 } from "../typings/target.types";
 import { getDocumentRange } from "../util/range";
 

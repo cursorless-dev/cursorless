@@ -12,8 +12,10 @@ import {
 } from "../../typings/Types";
 import {
   ContainingScopeModifier,
-  HeadModifier, PrimitiveTarget, SubTokenModifier,
-  TailModifier
+  HeadModifier,
+  PrimitiveTarget,
+  SubTokenModifier,
+  TailModifier,
 } from "../../typings/target.types";
 import { processSurroundingPair } from "./surroundingPair";
 import { getNodeMatcher } from "../../languages/getNodeMatcher";

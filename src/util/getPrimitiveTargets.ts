@@ -3,7 +3,7 @@ import {
   PartialRangeTarget,
   PartialTarget,
   PrimitiveTarget,
-  Target
+  Target,
 } from "../typings/target.types";
 
 /**

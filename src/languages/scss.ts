@@ -1,8 +1,5 @@
 import { SyntaxNode } from "web-tree-sitter";
-import {
-  NodeMatcherAlternative,
-  SelectionWithEditor,
-} from "../typings/Types";
+import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
 import { ScopeType } from "../typings/target.types";
 import { patternFinder } from "../util/nodeFinders";
 import {

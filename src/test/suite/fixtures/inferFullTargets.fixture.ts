@@ -1,12 +1,6 @@
 // @ts-nocheck
-import {
-  ActionPreferences,
-  InferenceContext,
-} from "../../../typings/Types";
-import {
-  PartialTarget,
-  Target
-} from "../../../typings/target.types";
+import { ActionPreferences, InferenceContext } from "../../../typings/Types";
+import { PartialTarget, Target } from "../../../typings/target.types";
 
 interface FixtureInput {
   context: InferenceContext;
