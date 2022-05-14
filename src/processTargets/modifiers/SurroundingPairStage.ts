@@ -33,73 +33,99 @@ export default class implements ModifierStage {
     modifier: SurroundingPairModifier,
     selection: TypedSelection
   ): TypedSelection | TypedSelection[] {
-    const document = selection.editor.document;
-    const delimiters = complexDelimiterMap[
-      modifier.delimiter as ComplexSurroundingPairName
-    ] ?? [modifier.delimiter];
-
-    let node: SyntaxNode | null;
-    let textFragmentExtractor: TextFragmentExtractor;
-
-    try {
-      node = context.getNodeAtLocation(
-        new vscode.Location(document.uri, selection.contentRange)
-      );
-
-      textFragmentExtractor = getTextFragmentExtractor(document.languageId);
-    } catch (err) {
-      if ((err as Error).name === "UnsupportedLanguageError") {
-        // If we're in a language where we don't have a parse tree we use the text
-        // based algorithm
-        return findSurroundingPairTextBased(
-          selection.editor,
-          selection.contentRange,
-          null,
-          delimiters,
-          modifier.delimiterInclusion,
-          modifier.forceDirection
-        );
-      } else {
-        throw err;
-      }
+    const pairs = processSurroundingPair(context, modifier, selection);
+    if (pairs == null) {
+      throw new Error("Couldn't find containing pair");
     }
+    return pairs.map((pair) => ({
+      ...selection,
+      editor: pair.selection.editor,
+      contentRange: pair.selection.selection,
+      removalRange: pair.context.outerSelection ?? undefined,
+      isRawSelection: pair.context.isRawSelection,
+      isNotebookCell: pair.context.isNotebookCell,
+      delimiter: pair.context.containingListDelimiter ?? undefined,
+      interiorRange: pair.context.interior
+        ? pair.context.interior[0].selection
+        : undefined,
+      boundary: pair.context.boundary?.map((bound) => bound.selection),
+      leadingDelimiterRange: pair.context.leadingDelimiterRange ?? undefined,
+      trailingDelimiterRange: pair.context.trailingDelimiterRange ?? undefined,
+    }));
+  }
+}
 
-    const selectionWithEditor = {
-      editor: selection.editor,
-      selection: new Selection(
-        selection.contentRange.start,
-        selection.contentRange.end
-      ),
-    };
+function processSurroundingPair(
+  context: ProcessedTargetsContext,
+  modifier: SurroundingPairModifier,
+  selection: TypedSelection
+) {
+  const document = selection.editor.document;
+  const delimiters = complexDelimiterMap[
+    modifier.delimiter as ComplexSurroundingPairName
+  ] ?? [modifier.delimiter];
 
-    // If we have a parse tree but we are in a string node or in a comment node,
-    // then we use the text-based algorithm
-    const textFragmentRange = textFragmentExtractor(node, selectionWithEditor);
-    if (textFragmentRange != null) {
-      const surroundingRange = findSurroundingPairTextBased(
+  let node: SyntaxNode | null;
+  let textFragmentExtractor: TextFragmentExtractor;
+
+  try {
+    node = context.getNodeAtLocation(
+      new vscode.Location(document.uri, selection.contentRange)
+    );
+
+    textFragmentExtractor = getTextFragmentExtractor(document.languageId);
+  } catch (err) {
+    if ((err as Error).name === "UnsupportedLanguageError") {
+      // If we're in a language where we don't have a parse tree we use the text
+      // based algorithm
+      return findSurroundingPairTextBased(
         selection.editor,
-        selection.selection,
-        textFragmentRange,
+        selection.contentRange,
+        null,
         delimiters,
         modifier.delimiterInclusion,
         modifier.forceDirection
       );
-
-      if (surroundingRange != null) {
-        return surroundingRange;
-      }
+    } else {
+      throw err;
     }
+  }
 
-    // If we have a parse tree and either we are not in a string or comment or we
-    // couldn't find a surrounding pair within a string or comment, we use the
-    // parse tree-based algorithm
-    return findSurroundingPairParseTreeBased(
+  const selectionWithEditor = {
+    editor: selection.editor,
+    selection: new Selection(
+      selection.contentRange.start,
+      selection.contentRange.end
+    ),
+  };
+
+  // If we have a parse tree but we are in a string node or in a comment node,
+  // then we use the text-based algorithm
+  const textFragmentRange = textFragmentExtractor(node, selectionWithEditor);
+  if (textFragmentRange != null) {
+    const surroundingRange = findSurroundingPairTextBased(
       selection.editor,
-      selection.selection,
-      node,
+      selection.contentRange,
+      textFragmentRange,
       delimiters,
       modifier.delimiterInclusion,
       modifier.forceDirection
     );
+
+    if (surroundingRange != null) {
+      return surroundingRange;
+    }
   }
+
+  // If we have a parse tree and either we are not in a string or comment or we
+  // couldn't find a surrounding pair within a string or comment, we use the
+  // parse tree-based algorithm
+  return findSurroundingPairParseTreeBased(
+    selection.editor,
+    selection.contentRange,
+    node,
+    delimiters,
+    modifier.delimiterInclusion,
+    modifier.forceDirection
+  );
 }

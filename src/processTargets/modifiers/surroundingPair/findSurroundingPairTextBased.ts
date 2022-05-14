@@ -1,10 +1,10 @@
 import { escapeRegExp, findLast, uniq } from "lodash";
-import { Range, Selection, TextDocument, TextEditor } from "vscode";
+import { Range, TextDocument, TextEditor } from "vscode";
 import {
-  SimpleSurroundingPairName,
   DelimiterInclusion,
-  SurroundingPairName,
+  SimpleSurroundingPairName,
   SurroundingPairDirection,
+  SurroundingPairName,
 } from "../../../typings/target.types";
 import { getDocumentRange } from "../../../util/range";
 import { matchAll } from "../../../util/regex";
@@ -12,10 +12,10 @@ import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFr
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import {
-  Offsets,
-  SurroundingPairOffsets,
-  PossibleDelimiterOccurrence,
   IndividualDelimiter,
+  Offsets,
+  PossibleDelimiterOccurrence,
+  SurroundingPairOffsets,
 } from "./types";
 
 /**
@@ -69,7 +69,7 @@ const SCAN_EXPANSION_FACTOR = 3;
  */
 export function findSurroundingPairTextBased(
   editor: TextEditor,
-  selection: Selection,
+  selection: Range,
   allowableRange: Range | null,
   delimiters: SimpleSurroundingPairName[],
   delimiterInclusion: DelimiterInclusion,

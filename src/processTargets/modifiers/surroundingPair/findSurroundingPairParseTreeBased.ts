@@ -1,8 +1,8 @@
-import { Selection, TextDocument, TextEditor } from "vscode";
+import { Range, TextDocument, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import {
-  SimpleSurroundingPairName,
   DelimiterInclusion,
+  SimpleSurroundingPairName,
   SurroundingPairDirection,
 } from "../../../typings/target.types";
 import { getNodeRange } from "../../../util/nodeSelectors";
@@ -61,7 +61,7 @@ import {
  */
 export function findSurroundingPairParseTreeBased(
   editor: TextEditor,
-  selection: Selection,
+  selection: Range,
   node: SyntaxNode,
   delimiters: SimpleSurroundingPairName[],
   delimiterInclusion: DelimiterInclusion,
