@@ -1,5 +1,6 @@
 import { PipelineStageDescriptor } from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
+import ContainingScopeStage from "./ContainingScopeStage";
 import CursorStage from "./CursorStage";
 import CursorTokenStage from "./CursorTokenStage";
 import DecoratedSymbolStage from "./DecoratedSymbolStage";
@@ -60,9 +61,9 @@ const getStage = (stageDescriptor: PipelineStageDescriptor): PipelineStage => {
       return new SubPieceStage();
     case "surroundingPair":
       return SurroundingPairStage();
-
     case "containingScope":
-    case "everyScope":
+      return new ContainingScopeStage();
+    // case "everyScope":
 
     default:
       // Make sure we haven't missed any cases

@@ -15,6 +15,7 @@ import {
   findNearestContainingAncestorNode,
 } from "../modifiers/processModifier";
 import PipelineStage from "./PipelineStage";
+import TokenStage from "./TokenStage";
 
 export default class implements PipelineStage {
   run(
@@ -24,6 +25,8 @@ export default class implements PipelineStage {
   ): TypedSelection {
     switch (stage.scopeType) {
       case "token":
+        // TODO better solution?
+        return new TokenStage().run(context, stage, selection);
       //   return processToken(target, selection, selectionContext);
       case "notebookCell":
       //   return processNotebookCell(target, selection, selectionContext);
