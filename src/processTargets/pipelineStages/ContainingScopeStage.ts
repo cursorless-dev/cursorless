@@ -1,85 +1,46 @@
-import { Location } from "vscode";
+import { Location, Selection } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { getNodeMatcher } from "../../languages/getNodeMatcher";
-import {
-  ContainingScopeModifier,
-  SurroundingPairModifier,
-} from "../../typings/target.types";
-import {
-  ProcessedTargetsContext,
-  SelectionWithEditor,
-  TypedSelection,
-} from "../../typings/Types";
-import {
-  SelectionWithEditorWithContext,
-  findNearestContainingAncestorNode,
-} from "../modifiers/processModifier";
+import { ContainingScopeModifier } from "../../typings/target.types";
+import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
+import { findNearestContainingAncestorNode } from "../modifiers/processModifier";
 import PipelineStage from "./PipelineStage";
-import TokenStage from "./TokenStage";
 
 export default class implements PipelineStage {
   run(
     context: ProcessedTargetsContext,
     stage: ContainingScopeModifier,
     selection: TypedSelection
-  ): TypedSelection {
-    switch (stage.scopeType) {
-      case "token":
-        // TODO better solution?
-        return new TokenStage().run(context, stage, selection);
-      //   return processToken(target, selection, selectionContext);
-      case "notebookCell":
-      //   return processNotebookCell(target, selection, selectionContext);
-      case "document":
-      //   return processDocument(target, selection, selectionContext);
-      case "line":
-      //   return processLine(target, selection, selectionContext);
-      case "paragraph":
-      //   return processParagraph(target, selection, selectionContext);
-      case "nonWhitespaceSequence":
-      //   return processRegexDefinedScope(
-      //     /\S+/g,
-      //     target,
-      //     selection,
-      //     selectionContext
-      //   );
-      case "url":
-      //   return processRegexDefinedScope(
-      //     URL_REGEX,
-      //     target,
-      //     selection,
-      //     selectionContext
-      //   );
+  ): TypedSelection[] {
+    const nodeMatcher = getNodeMatcher(
+      selection.editor.document.languageId,
+      stage.scopeType,
+      stage.includeSiblings ?? false
+    );
+    const node: SyntaxNode | null = context.getNodeAtLocation(
+      new Location(selection.editor.document.uri, selection.contentRange.start)
+    );
 
-      default:
-        syntaxBased(context);
+    const result = findNearestContainingAncestorNode(node, nodeMatcher, {
+      editor: selection.editor,
+      selection: new Selection(
+        selection.contentRange.start,
+        selection.contentRange.end
+      ),
+    });
+
+    if (result == null) {
+      throw new Error(`Couldn't find containing ${stage.scopeType}`);
     }
+
+    return result.map((selection) => ({
+      editor: selection.selection.editor,
+      contentRange: selection.selection.selection,
+      delimiter: selection.context.containingListDelimiter ?? undefined,
+      leadingDelimiterRange:
+        selection.context.leadingDelimiterRange ?? undefined,
+      trailingDelimiterRange:
+        selection.context.trailingDelimiterRange ?? undefined,
+    }));
   }
-}
-
-function syntaxBased(
-  context: ProcessedTargetsContext,
-  selection: SelectionWithEditor,
-  modifier: ContainingScopeModifier
-): SelectionWithEditorWithContext[] | null {
-  const nodeMatcher = getNodeMatcher(
-    selection.editor.document.languageId,
-    modifier.scopeType,
-    modifier.includeSiblings ?? false
-  );
-  const node: SyntaxNode | null = context.getNodeAtLocation(
-    new Location(selection.editor.document.uri, selection.selection)
-  );
-
-  const result = findNearestContainingAncestorNode(
-    node,
-    nodeMatcher,
-    selection
-  );
-
-  if (result == null) {
-    throw new Error(`Couldn't find containing ${modifier.scopeType}`);
-  }
-
-  return result;
 }

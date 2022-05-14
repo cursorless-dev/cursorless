@@ -1,5 +1,5 @@
 import { Range } from "vscode";
-import { ContainingScopeModifier, Position } from "../../typings/target.types";
+import { ContainingScopeModifier } from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
 import PipelineStage from "./PipelineStage";
 

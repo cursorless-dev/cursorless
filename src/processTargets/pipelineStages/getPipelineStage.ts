@@ -1,9 +1,13 @@
-import { PipelineStageDescriptor } from "../../typings/target.types";
+import {
+  ContainingScopeModifier,
+  PipelineStageDescriptor,
+} from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
 import ContainingScopeStage from "./ContainingScopeStage";
 import CursorStage from "./CursorStage";
 import CursorTokenStage from "./CursorTokenStage";
 import DecoratedSymbolStage from "./DecoratedSymbolStage";
+import DocumentStage from "./DocumentStage";
 import { HeadStage, TailStage } from "./HeadTailStage";
 import LineNumberStage from "./LineNumberStage";
 import NothingStage from "./NothingStage";
@@ -14,6 +18,7 @@ import SourceStage from "./SourceStage";
 import SubPieceStage from "./SubPieceStage";
 import SurroundingPairStage from "./SurroundingPairStage";
 import ThatStage from "./ThatStage";
+import TokenStage from "./TokenStage";
 
 export default (stageDescriptor: PipelineStageDescriptor) => {
   const stage = getStage(stageDescriptor);
@@ -60,13 +65,47 @@ const getStage = (stageDescriptor: PipelineStageDescriptor): PipelineStage => {
     case "subpiece":
       return new SubPieceStage();
     case "surroundingPair":
-      return SurroundingPairStage();
+      return new SurroundingPairStage();
     case "containingScope":
-      return new ContainingScopeStage();
+      return getContainingScopeStage(stageDescriptor);
     // case "everyScope":
 
     default:
       // Make sure we haven't missed any cases
       const _neverCheck: never = stageDescriptor.type;
+  }
+};
+
+const getContainingScopeStage = (
+  stage: ContainingScopeModifier
+): PipelineStage => {
+  switch (stage.scopeType) {
+    case "token":
+      return new TokenStage();
+    case "notebookCell":
+    //   return processNotebookCell(target, selection, selectionContext);
+    case "document":
+      return new DocumentStage();
+    case "line":
+    //   return processLine(target, selection, selectionContext);
+    case "paragraph":
+    //   return processParagraph(target, selection, selectionContext);
+    case "nonWhitespaceSequence":
+    //   return processRegexDefinedScope(
+    //     /\S+/g,
+    //     target,
+    //     selection,
+    //     selectionContext
+    //   );
+    case "url":
+    //   return processRegexDefinedScope(
+    //     URL_REGEX,
+    //     target,
+    //     selection,
+    //     selectionContext
+    //   );
+
+    default:
+      syntaxBased(context);
   }
 };
