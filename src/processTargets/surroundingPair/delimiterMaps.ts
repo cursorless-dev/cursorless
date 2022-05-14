@@ -1,7 +1,7 @@
 import {
   ComplexSurroundingPairName,
   SimpleSurroundingPairName,
-} from "../../../typings/target.types";
+} from "../../typings/target.types";
 
 type IndividualDelimiterText = string | string[];
 

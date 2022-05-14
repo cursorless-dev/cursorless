@@ -4,9 +4,9 @@ import {
   SimpleSurroundingPairName,
   DelimiterInclusion,
   SurroundingPairDirection,
-} from "../../../typings/target.types";
-import { getNodeRange } from "../../../util/nodeSelectors";
-import { isContainedInErrorNode } from "../../../util/treeSitterUtils";
+} from "../../typings/target.types";
+import { getNodeRange } from "../../util/nodeSelectors";
+import { isContainedInErrorNode } from "../../util/treeSitterUtils";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";

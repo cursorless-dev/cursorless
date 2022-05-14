@@ -5,9 +5,9 @@ import {
   DelimiterInclusion,
   SurroundingPairName,
   SurroundingPairDirection,
-} from "../../../typings/target.types";
-import { getDocumentRange } from "../../../util/range";
-import { matchAll } from "../../../util/regex";
+} from "../../typings/target.types";
+import { getDocumentRange } from "../../util/range";
+import { matchAll } from "../../util/regex";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";

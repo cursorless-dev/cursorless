@@ -1,20 +1,20 @@
 import { Location } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
-import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
-import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
-import {
-  ProcessedTargetsContext,
-  SelectionWithEditor,
-} from "../../../typings/Types";
+import getTextFragmentExtractor, {
+  TextFragmentExtractor,
+} from "../../languages/getTextFragmentExtractor";
 import {
   ComplexSurroundingPairName,
   SurroundingPairModifier,
-} from "../../../typings/target.types";
-import { SelectionWithEditorWithContext } from "../processModifier";
+} from "../../typings/target.types";
+import {
+  ProcessedTargetsContext,
+  SelectionWithEditor,
+  SelectionWithEditorWithContext,
+} from "../../typings/Types";
 import { complexDelimiterMap } from "./delimiterMaps";
-import getTextFragmentExtractor, {
-  TextFragmentExtractor,
-} from "../../../languages/getTextFragmentExtractor";
+import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
+import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
 
 /**
  * Applies the surrounding pair modifier to the given selection. First looks to

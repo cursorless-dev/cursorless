@@ -1,8 +1,10 @@
 import {
   ContainingScopeModifier,
+  EveryScopeModifier,
   PipelineStageDescriptor,
 } from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
+import ContainingScopeStage from "./ContainingScopeStage";
 import CursorStage from "./CursorStage";
 import CursorTokenStage from "./CursorTokenStage";
 import DecoratedSymbolStage from "./DecoratedSymbolStage";
@@ -10,6 +12,7 @@ import DocumentStage from "./DocumentStage";
 import { HeadStage, TailStage } from "./HeadTailStage";
 import LineNumberStage from "./LineNumberStage";
 import LineStage from "./LineStage";
+import NotebookCellStage from "./NotebookCellStage";
 import NothingStage from "./NothingStage";
 import ParagraphStage from "./ParagraphStage";
 import PipelineStage from "./PipelineStage";
@@ -69,23 +72,19 @@ const getStage = (stageDescriptor: PipelineStageDescriptor): PipelineStage => {
     case "surroundingPair":
       return new SurroundingPairStage();
     case "containingScope":
+    case "everyScope":
       return getContainingScopeStage(stageDescriptor);
-    // case "everyScope":
-
-    default:
-      // Make sure we haven't missed any cases
-      const _neverCheck: never = stageDescriptor.type;
   }
 };
 
 const getContainingScopeStage = (
-  stage: ContainingScopeModifier
+  stage: ContainingScopeModifier | EveryScopeModifier
 ): PipelineStage => {
   switch (stage.scopeType) {
     case "token":
       return new TokenStage();
     case "notebookCell":
-    //   return processNotebookCell(target, selection, selectionContext);
+      return new NotebookCellStage();
     case "document":
       return new DocumentStage();
     case "line":
@@ -96,8 +95,7 @@ const getContainingScopeStage = (
       return new NonWhitespaceSequenceStage();
     case "url":
       return new UrlStage();
-
     default:
-      syntaxBased(context);
+      return new ContainingScopeStage();
   }
 };

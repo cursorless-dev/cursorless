@@ -1,21 +1,29 @@
 import { Location, Selection } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { getNodeMatcher } from "../../languages/getNodeMatcher";
-import { ContainingScopeModifier } from "../../typings/target.types";
-import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
-import { findNearestContainingAncestorNode } from "../modifiers/processModifier";
+import {
+  ContainingScopeModifier,
+  EveryScopeModifier,
+} from "../../typings/target.types";
+import {
+  NodeMatcher,
+  ProcessedTargetsContext,
+  SelectionWithEditor,
+  TypedSelection,
+} from "../../typings/Types";
+import { selectionWithEditorFromRange } from "../../util/selectionUtils";
 import PipelineStage from "./PipelineStage";
 
 export default class implements PipelineStage {
   run(
     context: ProcessedTargetsContext,
-    stage: ContainingScopeModifier,
+    stage: ContainingScopeModifier | EveryScopeModifier,
     selection: TypedSelection
   ): TypedSelection[] {
     const nodeMatcher = getNodeMatcher(
       selection.editor.document.languageId,
       stage.scopeType,
-      stage.includeSiblings ?? false
+      stage.type === "everyScope"
     );
     const node: SyntaxNode | null = context.getNodeAtLocation(
       new Location(selection.editor.document.uri, selection.contentRange.start)
@@ -44,4 +52,29 @@ export default class implements PipelineStage {
         selection.context.trailingDelimiterRange ?? undefined,
     }));
   }
+}
+
+export function findNearestContainingAncestorNode(
+  startNode: SyntaxNode,
+  nodeMatcher: NodeMatcher,
+  selection: SelectionWithEditor
+) {
+  let node: SyntaxNode | null = startNode;
+  while (node != null) {
+    const matches = nodeMatcher(selection, node);
+    if (matches != null) {
+      return matches
+        .map((match) => match.selection)
+        .map((matchedSelection) => ({
+          selection: selectionWithEditorFromRange(
+            selection,
+            matchedSelection.selection
+          ),
+          context: matchedSelection.context,
+        }));
+    }
+    node = node.parent;
+  }
+
+  return null;
 }

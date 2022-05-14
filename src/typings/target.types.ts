@@ -137,13 +137,11 @@ export interface SurroundingPairModifier {
 export interface ContainingScopeModifier {
   type: "containingScope";
   scopeType: ScopeType;
-  includeSiblings?: boolean;
 }
 
 export interface EveryScopeModifier {
   type: "everyScope";
   scopeType: ScopeType;
-  includeSiblings?: boolean;
 }
 
 export interface SubTokenModifier {

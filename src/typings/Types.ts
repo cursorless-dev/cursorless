@@ -1,18 +1,18 @@
-import { SyntaxNode } from "web-tree-sitter";
 import * as vscode from "vscode";
-import { ExtensionContext, Location, Selection } from "vscode";
+import { ExtensionContext, Location } from "vscode";
+import { SyntaxNode } from "web-tree-sitter";
+import Debug from "../core/Debug";
+import Decorations from "../core/Decorations";
 import { EditStyles } from "../core/editStyles";
+import FontMeasurements from "../core/FontMeasurements";
 import HatTokenMap from "../core/HatTokenMap";
+import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { FullRangeInfo } from "./updateSelections";
-import Decorations from "../core/Decorations";
-import FontMeasurements from "../core/FontMeasurements";
-import { CommandServerApi } from "../util/getExtensionApi";
-import { ReadOnlyHatMap } from "../core/IndividualHatMap";
-import Debug from "../core/Debug";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
-import { SelectionType, Position } from "./target.types";
+import { CommandServerApi } from "../util/getExtensionApi";
+import { Position } from "./target.types";
+import { FullRangeInfo } from "./updateSelections";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -114,6 +114,11 @@ export interface TypedSelection {
   isRawSelection?: boolean;
 
   /**
+   * If true this selection is part of a notebook cell
+   */
+  isNotebookCell?: boolean;
+
+  /**
    * If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument
    */
   delimiter?: string;
@@ -159,6 +164,11 @@ export interface ActionPreferences {
   selectionType?: SelectionType;
   modifier?: Modifier;
 }
+
+export type SelectionWithEditorWithContext = {
+  selection: SelectionWithEditor;
+  context: SelectionContext;
+};
 
 export interface SelectionWithContext {
   selection: vscode.Selection;

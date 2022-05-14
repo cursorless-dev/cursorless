@@ -9,9 +9,9 @@ import {
   SurroundingPairModifier,
 } from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
-import { complexDelimiterMap } from "../modifiers/surroundingPair/delimiterMaps";
-import { findSurroundingPairParseTreeBased } from "../modifiers/surroundingPair/findSurroundingPairParseTreeBased";
-import { findSurroundingPairTextBased } from "../modifiers/surroundingPair/findSurroundingPairTextBased";
+import { complexDelimiterMap } from "../surroundingPair/delimiterMaps";
+import { findSurroundingPairParseTreeBased } from "../surroundingPair/findSurroundingPairParseTreeBased";
+import { findSurroundingPairTextBased } from "../surroundingPair/findSurroundingPairTextBased";
 import PipelineStage from "./PipelineStage";
 
 /**

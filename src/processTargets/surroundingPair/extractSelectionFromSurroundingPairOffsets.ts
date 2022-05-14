@@ -1,6 +1,6 @@
 import { Selection, TextDocument } from "vscode";
-import { SelectionWithContext } from "../../../typings/Types";
-import { DelimiterInclusion } from "../../../typings/target.types";
+import { SelectionWithContext } from "../../typings/Types";
+import { DelimiterInclusion } from "../../typings/target.types";
 import { SurroundingPairOffsets } from "./types";
 
 /**
