@@ -1,12 +1,16 @@
 import { Position, Range, TextEditor } from "vscode";
-import { ContainingScopeModifier } from "../../typings/target.types";
+import {
+  ContainingScopeModifier,
+  EveryScopeModifier,
+} from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 
 export default class implements ModifierStage {
+  constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
+
   run(
     context: ProcessedTargetsContext,
-    stage: ContainingScopeModifier,
     selection: TypedSelection
   ): TypedSelection {
     const { document } = selection.editor;

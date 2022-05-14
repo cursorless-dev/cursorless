@@ -1,19 +1,21 @@
 import { Range, TextEditor, window } from "vscode";
-import { LineNumber, LineNumberPosition } from "../../typings/target.types";
-import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
+import { LineNumberMark, LineNumberPosition } from "../../typings/target.types";
+import { TypedSelection } from "../../typings/Types";
 import { getLineContext } from "../modifiers/LineStage";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {
-  run(context: ProcessedTargetsContext, stage: LineNumber): TypedSelection[] {
+  constructor(private modifier: LineNumberMark) {}
+
+  run(): TypedSelection[] {
     if (window.activeTextEditor == null) {
       return [];
     }
     const editor = window.activeTextEditor;
     const contentRange = new Range(
-      getLine(editor, stage.anchor),
+      getLine(editor, this.modifier.anchor),
       0,
-      getLine(editor, stage.active),
+      getLine(editor, this.modifier.active),
       0
     );
     return [

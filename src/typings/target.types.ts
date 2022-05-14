@@ -4,27 +4,27 @@ export interface CursorMark {
   type: "cursor";
 }
 
-export interface CursorMarkToken {
+export interface CursorTokenMark {
   type: "cursorToken";
 }
 
-export interface That {
+export interface ThatMark {
   type: "that";
 }
 
-export interface Source {
+export interface SourceMark {
   type: "source";
 }
 
-export interface Nothing {
+export interface NothingMark {
   type: "nothing";
 }
 
-export interface LastCursorPosition {
+export interface LastCursorPositionMark {
   type: "lastCursorPosition";
 }
 
-export interface DecoratedSymbol {
+export interface DecoratedSymbolMark {
   type: "decoratedSymbol";
   symbolColor: HatStyleName;
   character: string;
@@ -37,7 +37,7 @@ export interface LineNumberPosition {
   lineNumber: number;
 }
 
-export interface LineNumber {
+export interface LineNumberMark {
   type: "lineNumber";
   anchor: LineNumberPosition;
   active: LineNumberPosition;
@@ -45,13 +45,13 @@ export interface LineNumber {
 
 export type Mark =
   | CursorMark
-  | CursorMarkToken
-  | That
-  | Source
-  //   | LastCursorPosition Not implemented yet
-  | DecoratedSymbol
-  | Nothing
-  | LineNumber;
+  | CursorTokenMark
+  | ThatMark
+  | SourceMark
+  //   | LastCursorPositionMark Not implemented yet
+  | DecoratedSymbolMark
+  | NothingMark
+  | LineNumberMark;
 
 export type SimpleSurroundingPairName =
   | "angleBrackets"

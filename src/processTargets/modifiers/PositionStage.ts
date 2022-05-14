@@ -4,9 +4,10 @@ import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 
 export default class implements ModifierStage {
+  constructor(private modifier: PositionModifier) {}
+
   run(
     context: ProcessedTargetsContext,
-    stage: PositionModifier,
     selection: TypedSelection
   ): TypedSelection {
     const res: TypedSelection = {
@@ -14,7 +15,7 @@ export default class implements ModifierStage {
       leadingDelimiterRange: undefined,
       trailingDelimiterRange: undefined,
     };
-    switch (stage.position) {
+    switch (this.modifier.position) {
       case "before":
       case "start":
         res.contentRange = range(res.contentRange.start)!;

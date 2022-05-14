@@ -1,5 +1,8 @@
 import { Position, Range } from "vscode";
-import { ContainingScopeModifier } from "../../typings/target.types";
+import {
+  ContainingScopeModifier,
+  EveryScopeModifier,
+} from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import { getTokenContext } from "./TokenStage";
@@ -9,7 +12,6 @@ class RegexStage implements ModifierStage {
 
   run(
     context: ProcessedTargetsContext,
-    stage: ContainingScopeModifier,
     selection: TypedSelection
   ): TypedSelection {
     const getMatch = (position: Position) => {
@@ -50,7 +52,7 @@ class RegexStage implements ModifierStage {
 }
 
 export class NonWhitespaceSequenceStage extends RegexStage {
-  constructor() {
+  constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {
     super(/\S+/g, "Non whitespace sequence");
   }
 }
@@ -60,7 +62,7 @@ const URL_REGEX =
   /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
 
 export class UrlStage extends RegexStage {
-  constructor() {
+  constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {
     super(URL_REGEX, "URL");
   }
 }

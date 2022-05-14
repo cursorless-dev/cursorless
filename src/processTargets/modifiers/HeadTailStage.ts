@@ -10,7 +10,6 @@ abstract class HeadTailStage implements ModifierStage {
 
   run(
     context: ProcessedTargetsContext,
-    stage: HeadModifier | TailModifier,
     selection: TypedSelection
   ): TypedSelection {
     return {
@@ -25,18 +24,20 @@ abstract class HeadTailStage implements ModifierStage {
 }
 
 export class HeadStage extends HeadTailStage {
-  constructor() {
+  constructor(private modifier: HeadModifier) {
     super(true);
   }
+
   update(editor: TextEditor, range: Range) {
     return new Range(new Position(range.start.line, 0), range.end);
   }
 }
 
 export class TailStage extends HeadTailStage {
-  constructor() {
+  constructor(private modifier: TailModifier) {
     super(false);
   }
+
   update(editor: TextEditor, range: Range) {
     return new Range(range.start, editor.document.lineAt(range.end).range.end);
   }

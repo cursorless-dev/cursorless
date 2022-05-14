@@ -6,24 +6,25 @@ import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 
 export default class implements ModifierStage {
+  constructor(private modifier: SubTokenModifier) {}
+
   run(
     context: ProcessedTargetsContext,
-    stage: SubTokenModifier,
     selection: TypedSelection
   ): TypedSelection {
     const token = selection.editor.document.getText(selection.contentRange);
     let pieces: { start: number; end: number }[] = [];
 
-    if (stage.excludeActive || stage.excludeAnchor) {
+    if (this.modifier.excludeActive || this.modifier.excludeAnchor) {
       throw new Error("Subtoken exclusions unsupported");
     }
 
-    if (stage.pieceType === "word") {
+    if (this.modifier.pieceType === "word") {
       pieces = [...token.matchAll(SUBWORD_MATCHER)].map((match) => ({
         start: match.index!,
         end: match.index! + match[0].length,
       }));
-    } else if (stage.pieceType === "character") {
+    } else if (this.modifier.pieceType === "character") {
       pieces = range(token.length).map((index) => ({
         start: index,
         end: index + 1,
@@ -31,9 +32,13 @@ export default class implements ModifierStage {
     }
 
     const anchorIndex =
-      stage.anchor < 0 ? stage.anchor + pieces.length : stage.anchor;
+      this.modifier.anchor < 0
+        ? this.modifier.anchor + pieces.length
+        : this.modifier.anchor;
     const activeIndex =
-      stage.active < 0 ? stage.active + pieces.length : stage.active;
+      this.modifier.active < 0
+        ? this.modifier.active + pieces.length
+        : this.modifier.active;
 
     if (
       anchorIndex < 0 ||

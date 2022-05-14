@@ -1,20 +1,19 @@
-import { DecoratedSymbol } from "../../typings/target.types";
+import { DecoratedSymbolMark } from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
 import { getTokenContext } from "../modifiers/TokenStage";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {
-  run(
-    context: ProcessedTargetsContext,
-    stage: DecoratedSymbol
-  ): TypedSelection[] {
+  constructor(private modifier: DecoratedSymbolMark) {}
+
+  run(context: ProcessedTargetsContext): TypedSelection[] {
     const token = context.hatTokenMap.getToken(
-      stage.symbolColor,
-      stage.character
+      this.modifier.symbolColor,
+      this.modifier.character
     );
     if (token == null) {
       throw new Error(
-        `Couldn't find mark ${stage.symbolColor} '${stage.character}'`
+        `Couldn't find mark ${this.modifier.symbolColor} '${this.modifier.character}'`
       );
     }
     return [

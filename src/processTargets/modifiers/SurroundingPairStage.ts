@@ -28,12 +28,13 @@ import { findSurroundingPairTextBased } from "./surroundingPair/findSurroundingP
  * `null` if none was found
  */
 export default class implements ModifierStage {
+  constructor(private modifier: SurroundingPairModifier) {}
+
   run(
     context: ProcessedTargetsContext,
-    modifier: SurroundingPairModifier,
     selection: TypedSelection
   ): TypedSelection | TypedSelection[] {
-    const pairs = processSurroundingPair(context, modifier, selection);
+    const pairs = processSurroundingPair(context, this.modifier, selection);
     if (pairs == null) {
       throw new Error("Couldn't find containing pair");
     }

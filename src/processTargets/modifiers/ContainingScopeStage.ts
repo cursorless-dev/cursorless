@@ -15,15 +15,16 @@ import { selectionWithEditorFromRange } from "../../util/selectionUtils";
 import { ModifierStage } from "../PipelineStages.types";
 
 export default class implements ModifierStage {
+  constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
+
   run(
     context: ProcessedTargetsContext,
-    stage: ContainingScopeModifier | EveryScopeModifier,
     selection: TypedSelection
   ): TypedSelection[] {
     const nodeMatcher = getNodeMatcher(
       selection.editor.document.languageId,
-      stage.scopeType,
-      stage.type === "everyScope"
+      this.modifier.scopeType,
+      this.modifier.type === "everyScope"
     );
     const node: SyntaxNode | null = context.getNodeAtLocation(
       new Location(selection.editor.document.uri, selection.contentRange.start)
@@ -38,7 +39,7 @@ export default class implements ModifierStage {
     });
 
     if (scopeNodes == null) {
-      throw new Error(`Couldn't find containing ${stage.scopeType}`);
+      throw new Error(`Couldn't find containing ${this.modifier.scopeType}`);
     }
 
     return scopeNodes.map((scope) => ({

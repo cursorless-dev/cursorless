@@ -216,21 +216,21 @@ function processPrimitiveTarget(
   target: PrimitiveTarget
 ): TypedSelection[] {
   const markStage = getMarkStage(target.mark);
-  let selections: TypedSelection[] = markStage.run(context, target.mark);
+  let selections: TypedSelection[] = markStage.run(context);
 
   for (let i = target.modifiers.length - 1; i > -1; --i) {
-    const stageDescriptor = target.modifiers[i];
-    const stage = getModifierStage(stageDescriptor);
+    const modifier = target.modifiers[i];
+    const stage = getModifierStage(modifier);
     const stageSelections: TypedSelection[] = [];
     for (const selection of selections) {
-      const stageResult = stage.run(context, stageDescriptor, selection);
+      const stageResult = stage.run(context, selection);
       if (Array.isArray(stageResult)) {
         stageSelections.push(...stageResult);
       } else {
         stageSelections.push(stageResult);
       }
-      selections = stageSelections;
     }
+    selections = stageSelections;
   }
 
   return selections;

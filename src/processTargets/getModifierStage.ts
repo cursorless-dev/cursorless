@@ -20,17 +20,17 @@ import { ModifierStage } from "./PipelineStages.types";
 export default (modifier: Modifier): ModifierStage => {
   switch (modifier.type) {
     case "position":
-      return new PositionStage();
+      return new PositionStage(modifier);
     case "head":
-      return new HeadStage();
+      return new HeadStage(modifier);
     case "tail":
-      return new TailStage();
+      return new TailStage(modifier);
     case "toRawSelection":
-      return new RawSelectionStage();
+      return new RawSelectionStage(modifier);
     case "subpiece":
-      return new SubPieceStage();
+      return new SubPieceStage(modifier);
     case "surroundingPair":
-      return new SurroundingPairStage();
+      return new SurroundingPairStage(modifier);
     case "containingScope":
     case "everyScope":
       return getContainingScopeStage(modifier);
@@ -38,24 +38,24 @@ export default (modifier: Modifier): ModifierStage => {
 };
 
 const getContainingScopeStage = (
-  stage: ContainingScopeModifier | EveryScopeModifier
+  modifier: ContainingScopeModifier | EveryScopeModifier
 ): ModifierStage => {
-  switch (stage.scopeType) {
+  switch (modifier.scopeType) {
     case "token":
-      return new TokenStage();
+      return new TokenStage(modifier);
     case "notebookCell":
-      return new NotebookCellStage();
+      return new NotebookCellStage(modifier);
     case "document":
-      return new DocumentStage();
+      return new DocumentStage(modifier);
     case "line":
-      return new LineStage();
+      return new LineStage(modifier);
     case "paragraph":
-      return new ParagraphStage();
+      return new ParagraphStage(modifier);
     case "nonWhitespaceSequence":
-      return new NonWhitespaceSequenceStage();
+      return new NonWhitespaceSequenceStage(modifier);
     case "url":
-      return new UrlStage();
+      return new UrlStage(modifier);
     default:
-      return new ContainingScopeStage();
+      return new ContainingScopeStage(modifier);
   }
 };

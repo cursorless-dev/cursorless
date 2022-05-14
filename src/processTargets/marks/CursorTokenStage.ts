@@ -1,4 +1,5 @@
 import { Range, window } from "vscode";
+import { CursorTokenMark } from "../../typings/target.types";
 import { SelectionWithEditor, TypedSelection } from "../../typings/Types";
 import { getTokensInRange, PartialToken } from "../../util/getTokensInRange";
 import { isReversed } from "../../util/selectionUtils";
@@ -6,6 +7,8 @@ import { getTokenContext } from "../modifiers/TokenStage";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {
+  constructor(private modifier: CursorTokenMark) {}
+
   run(): TypedSelection[] {
     const editor = window.activeTextEditor;
     if (editor == null) {
