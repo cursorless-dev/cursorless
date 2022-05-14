@@ -12,21 +12,15 @@ abstract class HeadTailStage implements PipelineStage {
     context: ProcessedTargetsContext,
     stage: HeadModifier | TailModifier,
     selection: TypedSelection
-  ): TypedSelection[] {
-    const editor = window.activeTextEditor;
-    if (editor == null) {
-      return [];
-    }
-    return [
-      {
-        ...selection,
-        isReversed: this.isReversed,
-        contentRange: this.update(editor, selection.contentRange),
-        interiorRange: selection.interiorRange
-          ? this.update(editor, selection.interiorRange)
-          : undefined,
-      },
-    ];
+  ): TypedSelection | TypedSelection[] {
+    return {
+      ...selection,
+      isReversed: this.isReversed,
+      contentRange: this.update(selection.editor, selection.contentRange),
+      interiorRange: selection.interiorRange
+        ? this.update(selection.editor, selection.interiorRange)
+        : undefined,
+    };
   }
 }
 

@@ -107,6 +107,13 @@ export interface TypedSelection {
   isReversed?: boolean;
 
   /**
+   * Indicates that this is a raw selection with no type information so for
+   * example if it is the destination of a bring or move it should inherit the
+   * type information such as delimiters from its source
+   */
+  isRawSelection?: boolean;
+
+  /**
    * If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument
    */
   delimiter?: string;

@@ -8,7 +8,7 @@ export default class implements PipelineStage {
     context: ProcessedTargetsContext,
     stage: Position,
     selection: TypedSelection
-  ): TypedSelection[] {
+  ): TypedSelection {
     const res: TypedSelection = {
       ...selection,
     };
@@ -24,7 +24,7 @@ export default class implements PipelineStage {
         res.interiorRange = range(res.interiorRange?.end);
         break;
     }
-    return [res];
+    return res;
   }
 }
 

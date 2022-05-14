@@ -4,22 +4,23 @@ import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
 import PipelineStage from "./PipelineStage";
 
 export default class implements PipelineStage {
-  run(context: ProcessedTargetsContext, stage: LineNumber): TypedSelection[] {
+  run(
+    context: ProcessedTargetsContext,
+    stage: LineNumber
+  ): TypedSelection | TypedSelection[] {
     if (window.activeTextEditor == null) {
       return [];
     }
     const editor = window.activeTextEditor;
-    return [
-      {
-        editor,
-        contentRange: new Range(
-          getLine(editor, stage.anchor),
-          0,
-          getLine(editor, stage.active),
-          0
-        ),
-      },
-    ];
+    return {
+      editor,
+      contentRange: new Range(
+        getLine(editor, stage.anchor),
+        0,
+        getLine(editor, stage.active),
+        0
+      ),
+    };
   }
 }
 

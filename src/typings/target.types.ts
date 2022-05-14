@@ -103,7 +103,16 @@ export type ScopeType =
   | "xmlBothTags"
   | "xmlElement"
   | "xmlEndTag"
-  | "xmlStartTag";
+  | "xmlStartTag"
+  // Text based scopes
+  //   | "character" Not implemented
+  | "token"
+  | "line"
+  | "notebookCell"
+  | "paragraph"
+  | "document"
+  | "nonWhitespaceSequence"
+  | "url";
 
 export type SubTokenType = "word" | "character";
 
@@ -127,7 +136,13 @@ export interface SurroundingPairModifier {
 
 export interface ContainingScopeModifier {
   type: "containingScope";
-  scopeType: ScopeType | SelectionType;
+  scopeType: ScopeType;
+  includeSiblings?: boolean;
+}
+
+export interface EveryScopeModifier {
+  type: "everyScope";
+  scopeType: ScopeType;
   includeSiblings?: boolean;
 }
 
@@ -157,16 +172,6 @@ export interface TailModifier {
   type: "tail";
 }
 
-export type SelectionType =
-  //   | "character" Not implemented
-  | "token"
-  | "line"
-  | "notebookCell"
-  | "paragraph"
-  | "document"
-  | "nonWhitespaceSequence"
-  | "url";
-
 export interface Position {
   type: "position";
   position: "before" | "after" | "start" | "end";
@@ -183,6 +188,7 @@ export type PipelineStageDescriptor =
   | Position
   | SurroundingPairModifier
   | ContainingScopeModifier
+  | EveryScopeModifier
   | SubTokenModifier
   | HeadModifier
   | TailModifier
