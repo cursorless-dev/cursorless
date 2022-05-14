@@ -84,8 +84,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   functionCall: ["call_expression", "declaration.init_declarator!"],
   functionCallee: [
     "call_expression[function]",
-    "preproc_call[directive]",
-    "declaration[declarator][declarator]",
+    "declaration.init_declarator[declarator]!",
   ],
   name: [
     "*[declarator][declarator][name]",
