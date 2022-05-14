@@ -1,12 +1,12 @@
 import * as vscode from "vscode";
-import { Position } from "../../typings/target.types";
+import { PositionModifier } from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
 import PipelineStage from "./PipelineStage";
 
 export default class implements PipelineStage {
   run(
     context: ProcessedTargetsContext,
-    stage: Position,
+    stage: PositionModifier,
     selection: TypedSelection
   ): TypedSelection {
     const res: TypedSelection = {

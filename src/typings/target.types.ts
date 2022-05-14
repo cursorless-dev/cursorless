@@ -172,7 +172,9 @@ export interface TailModifier {
   type: "tail";
 }
 
-export interface Position {
+export type Position = "before" | "after" | "start" | "end";
+
+export interface PositionModifier {
   type: "position";
   position: "before" | "after" | "start" | "end";
 }
@@ -185,7 +187,7 @@ export interface PartialPrimitiveTarget {
 
 export type PipelineStageDescriptor =
   | Mark
-  | Position
+  | PositionModifier
   | SurroundingPairModifier
   | ContainingScopeModifier
   | EveryScopeModifier
