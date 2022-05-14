@@ -36,6 +36,7 @@ export default class implements PipelineStage {
     return result.map((selection) => ({
       editor: selection.selection.editor,
       contentRange: selection.selection.selection,
+      removalRange: selection.context.outerSelection ?? undefined,
       delimiter: selection.context.containingListDelimiter ?? undefined,
       leadingDelimiterRange:
         selection.context.leadingDelimiterRange ?? undefined,

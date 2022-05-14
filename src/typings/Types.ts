@@ -131,6 +131,11 @@ export interface TypedSelection {
   interiorRange?: vscode.Range;
 
   /**
+   * The range that needs to be removed
+   */
+  removalRange?: vscode.Range;
+
+  /**
    * The range of the delimiter before the content selection
    */
   leadingDelimiterRange?: vscode.Range;

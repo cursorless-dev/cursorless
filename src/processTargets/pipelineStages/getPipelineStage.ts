@@ -10,6 +10,7 @@ import DecoratedSymbolStage from "./DecoratedSymbolStage";
 import DocumentStage from "./DocumentStage";
 import { HeadStage, TailStage } from "./HeadTailStage";
 import LineNumberStage from "./LineNumberStage";
+import LineStage from "./LineStage";
 import NothingStage from "./NothingStage";
 import PipelineStage from "./PipelineStage";
 import PositionStage from "./PositionStage";
@@ -87,7 +88,7 @@ const getContainingScopeStage = (
     case "document":
       return new DocumentStage();
     case "line":
-    //   return processLine(target, selection, selectionContext);
+      return new LineStage();
     case "paragraph":
     //   return processParagraph(target, selection, selectionContext);
     case "nonWhitespaceSequence":
