@@ -1,12 +1,11 @@
 import { Position, Range } from "vscode";
 import { ContainingScopeModifier } from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
-import TokenStage from "./TokenStage";
+import { ModifierStage } from "../PipelineStages.types";
+import { getTokenContext } from "./TokenStage";
 
-class RegexStage extends TokenStage {
-  constructor(private regex: RegExp, private name?: string) {
-    super();
-  }
+class RegexStage implements ModifierStage {
+  constructor(private regex: RegExp, private name?: string) {}
 
   run(
     context: ProcessedTargetsContext,
@@ -45,7 +44,7 @@ class RegexStage extends TokenStage {
     return {
       ...selection,
       contentRange,
-      ...this.getDelimiterRanges(selection.editor, contentRange),
+      ...getTokenContext(selection.editor, contentRange),
     };
   }
 }

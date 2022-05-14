@@ -1,7 +1,7 @@
 import { TypedSelection } from "../../typings/Types";
-import PipelineStage from "../PipelineStages.types";
+import { MarkStage } from "../PipelineStages.types";
 
-export default class implements PipelineStage {
+export default class implements MarkStage {
   run(): TypedSelection[] {
     return [];
   }

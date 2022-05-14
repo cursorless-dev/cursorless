@@ -1,6 +1,6 @@
-import { Range } from "vscode";
 import { DecoratedSymbol } from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
+import { getTokenContext } from "../modifiers/TokenStage";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {
@@ -20,7 +20,8 @@ export default class implements MarkStage {
     return [
       {
         editor: token.editor,
-        contentRange: new Range(token.range.start, token.range.end),
+        contentRange: token.range,
+        ...getTokenContext(token.editor, token.range),
       },
     ];
   }

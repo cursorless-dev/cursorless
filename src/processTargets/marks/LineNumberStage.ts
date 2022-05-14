@@ -1,6 +1,7 @@
 import { Range, TextEditor, window } from "vscode";
 import { LineNumber, LineNumberPosition } from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
+import { getLineContext } from "../modifiers/LineStage";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {
@@ -9,15 +10,17 @@ export default class implements MarkStage {
       return [];
     }
     const editor = window.activeTextEditor;
+    const contentRange = new Range(
+      getLine(editor, stage.anchor),
+      0,
+      getLine(editor, stage.active),
+      0
+    );
     return [
       {
         editor,
-        contentRange: new Range(
-          getLine(editor, stage.anchor),
-          0,
-          getLine(editor, stage.active),
-          0
-        ),
+        contentRange,
+        ...getLineContext(editor, contentRange),
       },
     ];
   }

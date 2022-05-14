@@ -2,6 +2,7 @@ import { Range, window } from "vscode";
 import { SelectionWithEditor, TypedSelection } from "../../typings/Types";
 import { getTokensInRange, PartialToken } from "../../util/getTokensInRange";
 import { isReversed } from "../../util/selectionUtils";
+import { getTokenContext } from "../modifiers/TokenStage";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {
@@ -10,14 +11,18 @@ export default class implements MarkStage {
     if (editor == null) {
       return [];
     }
-    return editor.selections.map((selection) => ({
-      editor,
-      isReversed: isReversed(selection),
-      contentRange: getTokenRangeForSelection({
+    return editor.selections.map((selection) => {
+      const contentRange = getTokenRangeForSelection({
         editor,
         selection,
-      }),
-    }));
+      });
+      return {
+        editor,
+        isReversed: isReversed(selection),
+        contentRange,
+        ...getTokenContext(editor, contentRange),
+      };
+    });
   }
 }
 

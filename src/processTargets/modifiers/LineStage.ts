@@ -1,4 +1,4 @@
-import { Position, Range } from "vscode";
+import { Position, Range, TextEditor } from "vscode";
 import { ContainingScopeModifier } from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
@@ -10,7 +10,6 @@ export default class implements ModifierStage {
     selection: TypedSelection
   ): TypedSelection {
     const { document } = selection.editor;
-
     const startLine = document.lineAt(selection.contentRange.start);
     const endLine = document.lineAt(selection.contentRange.end);
     const start = new Position(
@@ -18,32 +17,43 @@ export default class implements ModifierStage {
       startLine.firstNonWhitespaceCharacterIndex
     );
     const end = endLine.range.end;
-
-    const removalRange = new Range(
-      new Position(start.line, 0),
-      selection.editor.document.lineAt(end).range.end
-    );
-
-    const leadingDelimiterRange =
-      start.line > 0
-        ? new Range(
-            document.lineAt(start.line - 1).range.end,
-            removalRange.start
-          )
-        : undefined;
-    const trailingDelimiterRange =
-      end.line + 1 < document.lineCount
-        ? new Range(removalRange.end, new Position(end.line + 1, 0))
-        : undefined;
+    const contentRange = new Range(start, end);
 
     return {
-      editor: selection.editor,
-      isReversed: selection.isReversed,
-      delimiter: "\n",
-      contentRange: new Range(start, end),
-      removalRange,
-      leadingDelimiterRange,
-      trailingDelimiterRange,
+      ...selection,
+      ...getLineContext(selection.editor, contentRange),
     };
   }
+}
+
+export function getLineContext(
+  editor: TextEditor,
+  range: Range
+): Partial<TypedSelection> {
+  const { document } = editor;
+  const { start, end } = range;
+
+  const removalRange = new Range(
+    new Position(start.line, 0),
+    editor.document.lineAt(end).range.end
+  );
+
+  const leadingDelimiterRange =
+    start.line > 0
+      ? new Range(document.lineAt(start.line - 1).range.end, removalRange.start)
+      : undefined;
+  const trailingDelimiterRange =
+    end.line + 1 < document.lineCount
+      ? new Range(removalRange.end, new Position(end.line + 1, 0))
+      : undefined;
+
+  return {
+    delimiter: "\n",
+    interiorRange: undefined,
+    boundary: undefined,
+    isRawSelection: undefined,
+    removalRange,
+    leadingDelimiterRange,
+    trailingDelimiterRange,
+  };
 }
