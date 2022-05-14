@@ -32,6 +32,14 @@ def cursorless_primitive_target(m) -> dict[str, Any]:
     """Supported extents for cursorless navigation"""
     result = BASE_TARGET.copy()
 
-    result["stages"] = list(m)
+    try:
+        result["mark"] = m.cursorless_mark
+    except AttributeError:
+        pass
+
+    try:
+        result["modifiers"] = m.cursorless_modifier_list
+    except AttributeError:
+        pass
 
     return result

@@ -3,7 +3,8 @@ import { Range } from "vscode";
 import { PrimitiveTarget, RangeTarget, Target } from "../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../typings/Types";
 import { performInsideOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
-import getPipelineStage from "./pipelineStages/getPipelineStage";
+import getMarkStage from "./getMarkStage";
+import getModifierStage from "./getModifierStage";
 
 /**
  * Converts the abstract target descriptions provided by the user to a concrete
@@ -214,17 +215,19 @@ function processPrimitiveTarget(
   context: ProcessedTargetsContext,
   target: PrimitiveTarget
 ): TypedSelection[] {
-  let selections: TypedSelection[] = [];
+  const markStage = getMarkStage(target.mark);
+  let selections: TypedSelection[] = markStage.run(context, target.mark);
 
-  for (let i = target.stages.length - 1; i > -1; --i) {
-    const stageDescriptor = target.stages[i];
-    const stage = getPipelineStage(stageDescriptor);
-    if (selections.length === 0) {
-      selections = stage(context, stageDescriptor);
-    } else {
-      const stageSelections: TypedSelection[] = [];
-      for (const selection of selections) {
-        stageSelections.push(...stage(context, stageDescriptor, selection));
+  for (let i = target.modifiers.length - 1; i > -1; --i) {
+    const stageDescriptor = target.modifiers[i];
+    const stage = getModifierStage(stageDescriptor);
+    const stageSelections: TypedSelection[] = [];
+    for (const selection of selections) {
+      const stageResult = stage.run(context, stageDescriptor, selection);
+      if (Array.isArray(stageResult)) {
+        stageSelections.push(...stageResult);
+      } else {
+        stageSelections.push(stageResult);
       }
       selections = stageSelections;
     }

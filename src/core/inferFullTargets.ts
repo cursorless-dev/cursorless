@@ -104,78 +104,31 @@ function inferPrimitiveTarget(
   previousTargets: PartialTarget[],
   actionPreferences: ActionPreferences
 ): PrimitiveTarget {
-  const doAttributeInference = !hasContent(target) && !target.isImplicit;
-
-  const previousTargetsForAttributes = doAttributeInference
-    ? previousTargets
-    : [];
-
-  const maybeSelectionType =
-    target.selectionType ??
-    getPreviousAttribute(previousTargetsForAttributes, "selectionType");
-
   const mark = target.mark ??
-    (target.position === "before" || target.position === "after"
-      ? getPreviousMark(previousTargets)
-      : null) ?? {
-      type: maybeSelectionType === "token" ? "cursorToken" : "cursor",
-    };
+    getPreviousAttribute(previousTargets, "mark") ?? { type: "cursor" };
+  const modifiers =
+    target.modifiers ??
+    getPreviousAttribute(previousTargets, "modifiers") ??
+    [];
 
-  const position =
-    target.position ??
-    getPreviousPosition(previousTargets) ??
-    actionPreferences.position ??
-    "contents";
-
-  const selectionType =
-    maybeSelectionType ??
-    (doAttributeInference ? actionPreferences.selectionType : null) ??
-    "token";
-
-  const insideOutsideType =
-    target.insideOutsideType ??
-    getPreviousAttribute(previousTargetsForAttributes, "insideOutsideType") ??
-    actionPreferences.insideOutsideType;
-
-  const modifier = target.modifier ??
-    getPreviousAttribute(previousTargetsForAttributes, "modifier") ??
-    (doAttributeInference ? actionPreferences.modifier : null) ?? {
-      type: "identity",
-    };
+  // TODO ActionPreferences
 
   return {
     type: target.type,
     mark,
-    selectionType,
-    position,
-    insideOutsideType,
-    modifier,
+    modifiers,
     isImplicit: target.isImplicit ?? false,
   };
 }
 
-function getPreviousMark(previousTargets: PartialTarget[]) {
-  return getPreviousAttribute(
-    previousTargets,
-    "mark",
-    (target) => target["mark"] != null
-  );
-}
-
-function getPreviousPosition(previousTargets: PartialTarget[]) {
-  return getPreviousAttribute(
-    previousTargets,
-    "position",
-    (target) => target["position"] != null
-  );
-}
-
 function getPreviousAttribute<T extends keyof PartialPrimitiveTarget>(
   previousTargets: PartialTarget[],
-  attributeName: T,
-  useTarget: (target: PartialPrimitiveTarget) => boolean = hasContent
+  attributeName: T
 ) {
-  const target = getPreviousTarget(previousTargets, useTarget);
+  const target = getPreviousTarget(
+    previousTargets,
+    (target: PartialPrimitiveTarget) => !!target[attributeName]
+  );
   return target != null ? target[attributeName] : null;
 }
 
@@ -206,26 +159,4 @@ function getPreviousTarget(
     }
   }
   return null;
-}
-
-/**
- * Determine whether the target has content, so that we shouldn't do inference
- * @param target The target to inspect
- * @returns A boolean indicating whether the target has content
- */
-function hasContent(target: PartialPrimitiveTarget) {
-  return !!target.stages.find((stage) => {
-    switch (stage.type) {
-      case "head":
-      case "tail":
-      case "toRawSelection":
-      case "subpiece":
-      case "surroundingPair":
-      case "containingScope":
-      case "everyScope":
-        return true;
-      default:
-        return false;
-    }
-  });
 }

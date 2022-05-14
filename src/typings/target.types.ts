@@ -174,16 +174,17 @@ export type Position = "before" | "after" | "start" | "end";
 
 export interface PositionModifier {
   type: "position";
-  position: "before" | "after" | "start" | "end";
+  position: Position;
 }
 
 export interface PartialPrimitiveTarget {
   type: "primitive";
-  stages: PipelineStageDescriptor[];
+  mark?: Mark;
+  modifiers?: Modifier[];
   isImplicit?: boolean;
 }
 
-export type PipelineStageModifiers =
+export type Modifier =
   | PositionModifier
   | SurroundingPairModifier
   | ContainingScopeModifier
@@ -192,8 +193,6 @@ export type PipelineStageModifiers =
   | HeadModifier
   | TailModifier
   | RawSelectionModifier;
-
-export type PipelineStageDescriptor = Mark | PipelineStageModifiers;
 
 export interface PartialRangeTarget {
   type: "range";
@@ -216,6 +215,8 @@ export type PartialTarget =
 
 export interface PrimitiveTarget extends PartialPrimitiveTarget {
   isImplicit: boolean;
+  mark: Mark;
+  modifiers: Modifier[];
 }
 
 export interface RangeTarget {
