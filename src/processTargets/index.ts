@@ -1,11 +1,8 @@
 import { isEqual, zip } from "lodash";
-import { Selection } from "vscode";
-import { performInsideOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
-import { ProcessedTargetsContext, TypedSelection } from "../typings/Types";
+import { Range } from "vscode";
 import { PrimitiveTarget, RangeTarget, Target } from "../typings/target.types";
-import processModifier from "./modifiers/processModifier";
-import processPosition from "./processPosition";
-import processSelectionType from "./processSelectionType";
+import { ProcessedTargetsContext, TypedSelection } from "../typings/Types";
+import { performInsideOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 import getPipelineStage from "./pipelineStages/getPipelineStage";
 
 /**
@@ -83,12 +80,9 @@ function processRangeTarget(
         );
       }
 
-      const anchorSelection = anchorTarget.selection.selection;
-      const activeSelection = activeTarget.selection.selection;
-
-      const isForward = anchorSelection.start.isBeforeOrEqual(
-        activeSelection.start
-      );
+      const anchorRange = anchorTarget.contentRange;
+      const activeRange = activeTarget.contentRange;
+      const isForward = anchorRange.start.isBeforeOrEqual(activeRange.start);
 
       switch (target.rangeType) {
         case "continuous":
@@ -116,64 +110,67 @@ function processContinuousRangeTarget(
   activeTarget: TypedSelection,
   isForward: boolean
 ): TypedSelection[] {
-  const anchor = targetToRangeLimitPosition(
-    anchorTarget,
+  const { excludeAnchor, excludeActive } = target;
+
+  const contentRange = unionRanges(
     isForward,
-    !target.excludeAnchor
-  );
-  const active = targetToRangeLimitPosition(
-    activeTarget,
-    !isForward,
-    !target.excludeActive
+    excludeAnchor,
+    excludeActive,
+    anchorTarget.contentRange,
+    activeTarget.contentRange
+  )!;
+
+  const interiorRange = unionRanges(
+    isForward,
+    excludeAnchor,
+    excludeActive,
+    anchorTarget.interiorRange,
+    activeTarget.interiorRange
   );
 
-  const outerAnchor = target.excludeAnchor
-    ? null
-    : isForward
-    ? anchorTarget.selectionContext.outerSelection?.start
-    : anchorTarget.selectionContext.outerSelection?.end;
-  const outerActive = target.excludeActive
-    ? null
-    : isForward
-    ? activeTarget.selectionContext.outerSelection?.end
-    : activeTarget.selectionContext.outerSelection?.start;
-  const outerSelection =
-    outerAnchor != null || outerActive != null
-      ? new Selection(outerAnchor ?? anchor, outerActive ?? active)
-      : null;
-
-  const startSelectionContext = target.excludeAnchor
-    ? null
-    : anchorTarget.selectionContext;
-  const endSelectionContext = target.excludeActive
-    ? null
-    : activeTarget.selectionContext;
+  const anchorContext = excludeAnchor ? undefined : anchorTarget;
+  const activeContext = excludeActive ? undefined : activeTarget;
   const leadingDelimiterRange = isForward
-    ? startSelectionContext?.leadingDelimiterRange
-    : endSelectionContext?.leadingDelimiterRange;
+    ? anchorContext?.leadingDelimiterRange
+    : activeContext?.leadingDelimiterRange;
   const trailingDelimiterRange = isForward
-    ? endSelectionContext?.trailingDelimiterRange
-    : startSelectionContext?.trailingDelimiterRange;
+    ? activeContext?.trailingDelimiterRange
+    : anchorContext?.trailingDelimiterRange;
 
   return [
     {
-      selection: {
-        selection: new Selection(anchor, active),
-        editor: anchorTarget.selection.editor,
-      },
-      selectionType: anchorTarget.selectionType,
-      selectionContext: {
-        containingListDelimiter:
-          anchorTarget.selectionContext.containingListDelimiter,
-        isInDelimitedList: anchorTarget.selectionContext.isInDelimitedList,
-        leadingDelimiterRange,
-        trailingDelimiterRange,
-        outerSelection,
-      },
-      insideOutsideType: anchorTarget.insideOutsideType,
-      position: "contents",
+      editor: activeTarget.editor,
+      isReversed: !isForward,
+      delimiter: anchorTarget.delimiter,
+      contentRange,
+      interiorRange,
+      leadingDelimiterRange,
+      trailingDelimiterRange,
     },
   ];
+}
+
+function unionRanges(
+  isForward: boolean,
+  excludeAnchor: boolean,
+  excludeActive: boolean,
+  anchor?: Range,
+  active?: Range
+) {
+  if (anchor == null || active == null) {
+    return anchor == null ? active : anchor;
+  }
+  return new Range(
+    getPosition(anchor, isForward, excludeAnchor),
+    getPosition(active, !isForward, excludeActive)
+  );
+}
+
+function getPosition(range: Range, isStartOfRange: boolean, exclude: boolean) {
+  if (exclude) {
+    return isStartOfRange ? range.end : range.start;
+  }
+  return isStartOfRange ? range.start : range.end;
 }
 
 function processVerticalRangeTarget(
@@ -182,93 +179,35 @@ function processVerticalRangeTarget(
   activeTarget: TypedSelection,
   isForward: boolean
 ): TypedSelection[] {
-  const anchorLine = targetToLineLimitPosition(
-    anchorTarget,
-    isForward,
-    !target.excludeAnchor
-  );
-  const activeLine = targetToLineLimitPosition(
-    activeTarget,
-    !isForward,
-    !target.excludeActive
-  );
-  const anchorSelection = anchorTarget.selection.selection;
+  const { excludeAnchor, excludeActive } = target;
   const delta = isForward ? 1 : -1;
-  const results: TypedSelection[] = [];
 
+  const anchorPosition = isForward
+    ? anchorTarget.contentRange.end
+    : anchorTarget.contentRange.start;
+  const anchorLine = anchorPosition.line + (excludeAnchor ? delta : 0);
+  const activePosition = isForward
+    ? activeTarget.contentRange.end
+    : activeTarget.contentRange.start;
+  const activeLine = activePosition.line - (excludeActive ? delta : 0);
+
+  const results: TypedSelection[] = [];
   for (let i = anchorLine; true; i += delta) {
     results.push({
-      selection: {
-        selection: new Selection(
-          i,
-          anchorSelection.anchor.character,
-          i,
-          anchorSelection.active.character
-        ),
-        editor: anchorTarget.selection.editor,
-      },
-      selectionType: anchorTarget.selectionType,
-      selectionContext: {
-        containingListDelimiter:
-          anchorTarget.selectionContext.containingListDelimiter,
-      },
-      insideOutsideType: anchorTarget.insideOutsideType,
-      position: anchorTarget.position,
+      editor: anchorTarget.editor,
+      isReversed: !isForward,
+      delimiter: anchorTarget.delimiter,
+      contentRange: new Range(
+        i,
+        anchorTarget.contentRange.start.character,
+        i,
+        anchorTarget.contentRange.end.character
+      ),
     });
     if (i === activeLine) {
       return results;
     }
   }
-}
-
-/**
- * Given a target which forms one end of a range target, do necessary
- * adjustments to get the proper position for the output range
- * @param target The target to get position from
- * @param isStartOfRange If true this position is the start of the range
- * @param exclude If true the content of this position should be excluded
- */
-function targetToRangeLimitPosition(
-  target: TypedSelection,
-  isStartOfRange: boolean,
-  includeTarget: boolean
-) {
-  const selection = target.selection.selection;
-
-  if (includeTarget) {
-    return isStartOfRange ? selection.start : selection.end;
-  }
-
-  const outerSelection = target.selectionContext.outerSelection;
-
-  if (outerSelection != null) {
-    const delimiterPosition = isStartOfRange
-      ? target.selectionContext.trailingDelimiterRange?.end
-      : target.selectionContext.leadingDelimiterRange?.start;
-    if (delimiterPosition != null) {
-      return delimiterPosition;
-    }
-    return isStartOfRange ? outerSelection.end : outerSelection.start;
-  }
-
-  return isStartOfRange ? selection.end : selection.start;
-}
-
-// Same as targetToRangeLimitPosition but only operates on and returns line number
-function targetToLineLimitPosition(
-  target: TypedSelection,
-  isStartOfRange: boolean,
-  includeTarget: boolean
-) {
-  const position = targetToRangeLimitPosition(
-    target,
-    isStartOfRange,
-    includeTarget
-  );
-  if (includeTarget) {
-    return position.line;
-  }
-  return position.line + (isStartOfRange ? 1 : -1);
 }
 
 function processPrimitiveTarget(
@@ -292,24 +231,6 @@ function processPrimitiveTarget(
   }
 
   return selections;
-
-  // TODO
-  // const markSelections = processMark(context, target.mark);
-  // const modifiedSelections = markSelections.flatMap((markSelection) =>
-  //   processModifier(context, target, markSelection)
-  // );
-  // if (target.isImplicit) {
-  //   modifiedSelections.forEach((typedSelection) => {
-  //     typedSelection.context. = true;
-  //   });
-  // }
-  // const typedSelections = modifiedSelections.map(
-  //   ({ selection, context: selectionContext }) =>
-  //     processSelectionType(context, target, selection, selectionContext)
-  // );
-  // return typedSelections.map((selection) =>
-  //   processPosition(context, target, selection)
-  // );
 }
 
 function filterDuplicateSelections(selections: TypedSelection[]) {
