@@ -183,8 +183,7 @@ export interface PartialPrimitiveTarget {
   isImplicit?: boolean;
 }
 
-export type PipelineStageDescriptor =
-  | Mark
+export type PipelineStageModifiers =
   | PositionModifier
   | SurroundingPairModifier
   | ContainingScopeModifier
@@ -193,6 +192,8 @@ export type PipelineStageDescriptor =
   | HeadModifier
   | TailModifier
   | RawSelectionModifier;
+
+export type PipelineStageDescriptor = Mark | PipelineStageModifiers;
 
 export interface PartialRangeTarget {
   type: "range";

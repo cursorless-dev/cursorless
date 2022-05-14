@@ -1,13 +1,13 @@
-import { ActionPreferences } from "../typings/Types";
 import {
+  PartialListTarget,
   PartialPrimitiveTarget,
   PartialRangeTarget,
   PartialTarget,
   PrimitiveTarget,
   RangeTarget,
   Target,
-  PartialListTarget,
 } from "../typings/target.types";
+import { ActionPreferences } from "../typings/Types";
 
 /**
  * Performs inference on the partial targets provided by the user, using
@@ -214,9 +214,18 @@ function getPreviousTarget(
  * @returns A boolean indicating whether the target has content
  */
 function hasContent(target: PartialPrimitiveTarget) {
-  return (
-    target.selectionType != null ||
-    target.modifier != null ||
-    target.insideOutsideType != null
-  );
+  return !!target.stages.find((stage) => {
+    switch (stage.type) {
+      case "head":
+      case "tail":
+      case "toRawSelection":
+      case "subpiece":
+      case "surroundingPair":
+      case "containingScope":
+      case "everyScope":
+        return true;
+      default:
+        return false;
+    }
+  });
 }
