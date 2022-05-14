@@ -81,7 +81,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   comment: "comment",
   anonymousFunction: "lambda_expression",
   list: "initializer_list",
-  functionCall: "call_expression",
+  functionCall: ["call_expression", "declaration.init_declarator!"],
   functionCallee: [
     "call_expression[function]",
     "preproc_call[directive]",
