@@ -16,7 +16,7 @@ export type CommandLatest = Command & {
 
 export type Command = CommandV0 | CommandV1 | CommandV2;
 
-interface CommandV2 {
+export interface CommandV2 {
   /**
    * The version number of the command API
    */

@@ -1,5 +1,5 @@
-import { PartialPrimitiveTarget } from "../typings/Types";
 import { isDeepStrictEqual } from "util";
+import { PartialPrimitiveTarget } from "../../../typings/target.types";
 
 const STRICT_HERE = {
   type: "primitive",
