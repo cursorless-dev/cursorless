@@ -91,10 +91,12 @@ export default class implements ModifierStage {
     return {
       ...selection,
       isReversed,
+      contentRange: new Range(anchor, active),
+      interiorRange: undefined,
+      removalRange: undefined,
       delimiter: containingListDelimiter ?? undefined,
       leadingDelimiterRange,
       trailingDelimiterRange,
-      contentRange: new Range(anchor, active),
     };
   }
 }

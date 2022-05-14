@@ -69,13 +69,14 @@ export default class implements ModifierStage {
         : undefined;
 
     return {
-      editor: selection.editor,
-      isReversed: selection.isReversed,
+      ...selection,
       delimiter: "\n\n",
       contentRange: new Range(start, end),
       removalRange,
       leadingDelimiterRange,
       trailingDelimiterRange,
+      interiorRange: undefined,
+      boundary: undefined,
     };
   }
 }

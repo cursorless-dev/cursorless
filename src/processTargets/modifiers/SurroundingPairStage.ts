@@ -41,13 +41,11 @@ export default class implements ModifierStage {
       ...selection,
       editor: pair.selection.editor,
       contentRange: pair.selection.selection,
+      interiorRange: pair.context.interior?.at(0)?.selection,
       removalRange: pair.context.outerSelection ?? undefined,
       isRawSelection: pair.context.isRawSelection,
       isNotebookCell: pair.context.isNotebookCell,
       delimiter: pair.context.containingListDelimiter ?? undefined,
-      interiorRange: pair.context.interior
-        ? pair.context.interior[0].selection
-        : undefined,
       boundary: pair.context.boundary?.map((bound) => bound.selection),
       leadingDelimiterRange: pair.context.leadingDelimiterRange ?? undefined,
       trailingDelimiterRange: pair.context.trailingDelimiterRange ?? undefined,

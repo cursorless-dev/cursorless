@@ -11,17 +11,21 @@ export default class implements ModifierStage {
   ): TypedSelection {
     const res: TypedSelection = {
       ...selection,
+      leadingDelimiterRange: undefined,
+      trailingDelimiterRange: undefined,
     };
     switch (stage.position) {
       case "before":
       case "start":
         res.contentRange = range(res.contentRange.start)!;
         res.interiorRange = range(res.interiorRange?.start);
+        res.removalRange = range(res.removalRange?.start);
         break;
       case "after":
       case "end":
         res.contentRange = range(res.contentRange.end)!;
         res.interiorRange = range(res.interiorRange?.end);
+        res.removalRange = range(res.removalRange?.end);
         break;
     }
     return res;

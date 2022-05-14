@@ -29,7 +29,7 @@ export default class implements ModifierStage {
       new Location(selection.editor.document.uri, selection.contentRange.start)
     );
 
-    const result = findNearestContainingAncestorNode(node, nodeMatcher, {
+    const scopeNodes = findNearestContainingAncestorNode(node, nodeMatcher, {
       editor: selection.editor,
       selection: new Selection(
         selection.contentRange.start,
@@ -37,19 +37,22 @@ export default class implements ModifierStage {
       ),
     });
 
-    if (result == null) {
+    if (scopeNodes == null) {
       throw new Error(`Couldn't find containing ${stage.scopeType}`);
     }
 
-    return result.map((selection) => ({
-      editor: selection.selection.editor,
-      contentRange: selection.selection.selection,
-      removalRange: selection.context.outerSelection ?? undefined,
-      delimiter: selection.context.containingListDelimiter ?? undefined,
-      leadingDelimiterRange:
-        selection.context.leadingDelimiterRange ?? undefined,
-      trailingDelimiterRange:
-        selection.context.trailingDelimiterRange ?? undefined,
+    return scopeNodes.map((scope) => ({
+      ...selection,
+      editor: scope.selection.editor,
+      contentRange: scope.selection.selection,
+      interiorRange: scope.context.interior?.at(0)?.selection,
+      removalRange: scope.context.outerSelection ?? undefined,
+      isRawSelection: scope.context.isRawSelection,
+      isNotebookCell: scope.context.isNotebookCell,
+      delimiter: scope.context.containingListDelimiter ?? undefined,
+      boundary: scope.context.boundary?.map((bound) => bound.selection),
+      leadingDelimiterRange: scope.context.leadingDelimiterRange ?? undefined,
+      trailingDelimiterRange: scope.context.trailingDelimiterRange ?? undefined,
     }));
   }
 }
