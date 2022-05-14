@@ -3,7 +3,6 @@ import {
   PipelineStageDescriptor,
 } from "../../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
-import ContainingScopeStage from "./ContainingScopeStage";
 import CursorStage from "./CursorStage";
 import CursorTokenStage from "./CursorTokenStage";
 import DecoratedSymbolStage from "./DecoratedSymbolStage";
@@ -16,6 +15,7 @@ import ParagraphStage from "./ParagraphStage";
 import PipelineStage from "./PipelineStage";
 import PositionStage from "./PositionStage";
 import RawSelectionStage from "./RawSelectionStage";
+import { NonWhitespaceSequenceStage, UrlStage } from "./RegexStage";
 import SourceStage from "./SourceStage";
 import SubPieceStage from "./SubPieceStage";
 import SurroundingPairStage from "./SurroundingPairStage";
@@ -92,21 +92,10 @@ const getContainingScopeStage = (
       return new LineStage();
     case "paragraph":
       return new ParagraphStage();
-    //   return processParagraph(target, selection, selectionContext);
     case "nonWhitespaceSequence":
-    //   return processRegexDefinedScope(
-    //     /\S+/g,
-    //     target,
-    //     selection,
-    //     selectionContext
-    //   );
+      return new NonWhitespaceSequenceStage();
     case "url":
-    //   return processRegexDefinedScope(
-    //     URL_REGEX,
-    //     target,
-    //     selection,
-    //     selectionContext
-    //   );
+      return new UrlStage();
 
     default:
       syntaxBased(context);
