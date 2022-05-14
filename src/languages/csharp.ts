@@ -222,7 +222,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   className: "class_declaration[name]",
   statement: STATEMENT_TYPES,
   anonymousFunction: "lambda_expression",
-  functionCall: "invocation_expression",
+  functionCall: ["invocation_expression", "object_creation_expression"],
   functionCallee: cascadingMatcher(
     patternMatcher("invocation_expression[function]"),
     matcher(
