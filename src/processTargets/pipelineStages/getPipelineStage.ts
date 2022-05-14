@@ -12,6 +12,7 @@ import { HeadStage, TailStage } from "./HeadTailStage";
 import LineNumberStage from "./LineNumberStage";
 import LineStage from "./LineStage";
 import NothingStage from "./NothingStage";
+import ParagraphStage from "./ParagraphStage";
 import PipelineStage from "./PipelineStage";
 import PositionStage from "./PositionStage";
 import RawSelectionStage from "./RawSelectionStage";
@@ -90,6 +91,7 @@ const getContainingScopeStage = (
     case "line":
       return new LineStage();
     case "paragraph":
+      return new ParagraphStage();
     //   return processParagraph(target, selection, selectionContext);
     case "nonWhitespaceSequence":
     //   return processRegexDefinedScope(
