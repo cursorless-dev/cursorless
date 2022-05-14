@@ -3,6 +3,7 @@ import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
 import CursorStage from "./CursorStage";
 import CursorTokenStage from "./CursorTokenStage";
 import DecoratedSymbolStage from "./DecoratedSymbolStage";
+import { HeadStage, TailStage } from "./HeadTailStage";
 import LineNumberStage from "./LineNumberStage";
 import NothingStage from "./NothingStage";
 import PipelineStage from "./PipelineStage";
@@ -45,8 +46,14 @@ const getStage = (stageDescriptor: PipelineStageDescriptor): PipelineStage => {
     // Modifiers
     case "position":
       return new PositionStage();
+    case "head":
+      return new HeadStage();
+    case "tail":
+      return new TailStage();
 
-    default:
-      throw Error("Unknown pipeline stage " + stageDescriptor.type);
+    // case "containingScope":
+
+    // default:
+    // throw Error("Unknown pipeline stage " + stageDescriptor.type);
   }
 };
