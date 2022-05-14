@@ -1,5 +1,4 @@
 import { HatStyleName } from "../core/constants";
-import { ProcessedTargetsContext, TypedSelection } from "./Types";
 
 export interface CursorMark {
   type: "cursor";
@@ -146,7 +145,6 @@ export interface SubTokenModifier {
  * example if it is the destination of a bring or move it should inherit the
  * type information such as delimiters from its source.
  */
-
 export interface RawSelectionModifier {
   type: "toRawSelection";
 }
@@ -221,9 +219,9 @@ export interface RangeTarget {
   excludeActive: boolean;
   rangeType: RangeType;
 }
+
 // continuous is one single continuous selection between the two targets
 // vertical puts a selection on each line vertically between the two targets
-
 export type RangeType = "continuous" | "vertical";
 
 export interface ListTarget {

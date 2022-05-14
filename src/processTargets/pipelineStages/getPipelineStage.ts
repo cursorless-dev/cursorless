@@ -6,6 +6,7 @@ import DecoratedSymbolStage from "./DecoratedSymbolStage";
 import LineNumberStage from "./LineNumberStage";
 import NothingStage from "./NothingStage";
 import PipelineStage from "./PipelineStage";
+import PositionStage from "./PositionStage";
 import SourceStage from "./SourceStage";
 import ThatStage from "./ThatStage";
 
@@ -41,6 +42,10 @@ const getStage = (stageDescriptor: PipelineStageDescriptor): PipelineStage => {
       return new LineNumberStage();
     case "nothing":
       return new NothingStage();
+    // Modifiers
+    case "position":
+      return new PositionStage();
+
     default:
       throw Error("Unknown pipeline stage " + stageDescriptor.type);
   }
