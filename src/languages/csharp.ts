@@ -7,6 +7,8 @@ import {
   matcher,
   trailingMatcher,
   typeMatcher,
+  conditionMatcher,
+  patternMatcher
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
 import { nodeFinder, typedNodeFinder } from "../util/nodeFinders";
@@ -218,6 +220,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ifStatement: "if_statement",
   class: "class_declaration",
   className: "class_declaration[name]",
+  condition: cascadingMatcher(conditionMatcher("*[condition]"), patternMatcher("~binary_expression.binary_expression!")),
   statement: STATEMENT_TYPES,
   anonymousFunction: "lambda_expression",
   functionCall: "invocation_expression",
