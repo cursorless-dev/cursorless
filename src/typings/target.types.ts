@@ -1,4 +1,5 @@
 import { HatStyleName } from "../core/constants";
+import { ProcessedTargetsContext, TypedSelection } from "./Types";
 
 export interface CursorMark {
   type: "cursor";
@@ -106,6 +107,7 @@ export type ScopeType =
   | "xmlStartTag";
 
 export type SubTokenType = "word" | "character";
+
 /**
  * Indicates whether to include or exclude delimiters in a surrounding pair
  * modifier. In the future, these will become proper modifiers that can be
@@ -114,7 +116,6 @@ export type SubTokenType = "word" | "character";
  * range, so if delimiter inclusion is undefined, it's equivalent to not having
  * one of these modifiers; ie include the delimiters.
  */
-
 export type DelimiterInclusion = "excludeInterior" | "interiorOnly" | undefined;
 
 export type SurroundingPairDirection = "left" | "right";
@@ -178,7 +179,8 @@ export interface PartialPrimitiveTarget {
   stages: PipelineStageDescriptor[];
   isImplicit?: boolean;
 }
-type PipelineStageDescriptor =
+
+export type PipelineStageDescriptor =
   | Mark
   | Position
   | SurroundingPairModifier

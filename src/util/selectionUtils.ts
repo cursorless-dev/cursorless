@@ -24,6 +24,10 @@ export function isForward(selection: Selection) {
   return selection.active.isAfterOrEqual(selection.anchor);
 }
 
+export function isReversed(selection: Selection) {
+  return selection.active.isBefore(selection.anchor);
+}
+
 export function selectionWithEditorFromRange(
   selection: SelectionWithEditor,
   range: Range

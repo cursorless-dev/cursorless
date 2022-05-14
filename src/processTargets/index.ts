@@ -3,10 +3,10 @@ import { Selection } from "vscode";
 import { performInsideOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 import { ProcessedTargetsContext, TypedSelection } from "../typings/Types";
 import { PrimitiveTarget, RangeTarget, Target } from "../typings/target.types";
-import processMark from "./processMark";
 import processModifier from "./modifiers/processModifier";
 import processPosition from "./processPosition";
 import processSelectionType from "./processSelectionType";
+import getPipelineStage from "./pipelineStages/getPipelineStage";
 
 /**
  * Converts the abstract target descriptions provided by the user to a concrete
@@ -77,7 +77,7 @@ function processRangeTarget(
         throw new Error("anchorTargets and activeTargets lengths don't match");
       }
 
-      if (anchorTarget.selection.editor !== activeTarget.selection.editor) {
+      if (anchorTarget.editor !== activeTarget.editor) {
         throw new Error(
           "anchorTarget and activeTarget must be in same document"
         );
@@ -275,24 +275,41 @@ function processPrimitiveTarget(
   context: ProcessedTargetsContext,
   target: PrimitiveTarget
 ): TypedSelection[] {
-  const markSelections = processMark(context, target.mark);
-  const modifiedSelections = markSelections.flatMap((markSelection) =>
-    processModifier(context, target, markSelection)
-  );
-  if (target.isImplicit) {
-    modifiedSelections.forEach((typedSelection) => {
-      typedSelection.context.isRawSelection = true;
-    });
+  let selections: TypedSelection[] = [];
+
+  for (let i = target.stages.length - 1; i > -1; --i) {
+    const stageDescriptor = target.stages[i];
+    const stage = getPipelineStage(stageDescriptor);
+    if (selections.length === 0) {
+      selections = stage(context, stageDescriptor);
+    } else {
+      const stageSelections: TypedSelection[] = [];
+      for (const selection of selections) {
+        stageSelections.push(...stage(context, stageDescriptor, selection));
+      }
+      selections = stageSelections;
+    }
   }
 
-  const typedSelections = modifiedSelections.map(
-    ({ selection, context: selectionContext }) =>
-      processSelectionType(context, target, selection, selectionContext)
-  );
+  return selections;
 
-  return typedSelections.map((selection) =>
-    processPosition(context, target, selection)
-  );
+  // TODO
+  // const markSelections = processMark(context, target.mark);
+  // const modifiedSelections = markSelections.flatMap((markSelection) =>
+  //   processModifier(context, target, markSelection)
+  // );
+  // if (target.isImplicit) {
+  //   modifiedSelections.forEach((typedSelection) => {
+  //     typedSelection.context. = true;
+  //   });
+  // }
+  // const typedSelections = modifiedSelections.map(
+  //   ({ selection, context: selectionContext }) =>
+  //     processSelectionType(context, target, selection, selectionContext)
+  // );
+  // return typedSelections.map((selection) =>
+  //   processPosition(context, target, selection)
+  // );
 }
 
 function filterDuplicateSelections(selections: TypedSelection[]) {

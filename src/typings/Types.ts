@@ -12,12 +12,7 @@ import { CommandServerApi } from "../util/getExtensionApi";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import Debug from "../core/Debug";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
-import {
-  SelectionType,
-  InsideOutsideType,
-  Position,
-  Modifier,
-} from "./target.types";
+import { SelectionType, Position } from "./target.types";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -28,8 +23,6 @@ export interface Token extends FullRangeInfo {
 }
 
 export interface ProcessedTargetsContext {
-  currentSelections: SelectionWithEditor[];
-  currentEditor: vscode.TextEditor | undefined;
   hatTokenMap: ReadOnlyHatMap;
   thatMark: SelectionWithEditor[];
   sourceMark: SelectionWithEditor[];
@@ -88,24 +81,64 @@ export interface SelectionContext {
  * Represents a selection in a particular document along with potential rich
  * context information such as how to remove the given selection
  */
+// export interface TypedSelection {
+//   /**
+//    * The selection.  If insideOutsideType is non-null, it will be adjusted to
+//    * include delimiter if outside
+//    */
+//   selection: SelectionWithEditor;
+//   selectionContext: SelectionContext;
+
+//   /**
+//    * Mirrored from the target from which this selection was constructed
+//    */
+//   position: Position;
+// }
+
 export interface TypedSelection {
   /**
-   * The selection.  If insideOutsideType is non-null, it will be adjusted to
-   * include delimiter if outside
+   * The text editor used for all ranges
    */
-  selection: SelectionWithEditor;
-  selectionType: SelectionType;
-  selectionContext: SelectionContext;
+  editor: vscode.TextEditor;
 
   /**
-   * Is a boolean if user specifically requested inside or outside
+   * If true active is before anchor
    */
-  insideOutsideType: InsideOutsideType;
+  isReversed?: boolean;
 
   /**
-   * Mirrored from the target from which this selection was constructed
+   * If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument
    */
-  position: Position;
+  delimiter?: string;
+
+  /**
+   * The range of the content
+   */
+  contentRange: vscode.Range;
+
+  /**
+   * Represents the interior range of this selection. For example, for a
+   * surrounding pair this would exclude the opening and closing delimiter. For an if
+   * statement this would be the statements in the body.
+   */
+  interiorRange?: vscode.Range;
+
+  /**
+   * The range of the delimiter before the content selection
+   */
+  leadingDelimiterRange?: vscode.Range;
+
+  /**
+   * The range of the delimiter after the content selection
+   */
+  trailingDelimiterRange?: vscode.Range;
+
+  /**
+   * Represents the boundary ranges of this selection. For example, for a
+   * surrounding pair this would be the opening and closing delimiter. For an if
+   * statement this would be the line of the guard as well as the closing brace.
+   */
+  boundary?: vscode.Range[];
 }
 
 export interface ActionPreferences {
