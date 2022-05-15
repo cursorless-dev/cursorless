@@ -48,36 +48,42 @@ export async function displayPendingEditDecorationsForSelection(
 export default async function displayPendingEditDecorations(
   targets: Target[],
   editStyle: EditStyle,
-  getRange: (target: Target) => Range
+  getRange: (target: Target) => Range,
+  contentOnly?: boolean
 ) {
-  await setDecorations(targets, editStyle, getRange);
+  await setDecorations(targets, editStyle, getRange, contentOnly);
 
   await decorationSleep();
 
   clearDecorations(editStyle);
 }
 
-export function clearDecorations(editStyle: EditStyle) {
+function clearDecorations(editStyle: EditStyle) {
   window.visibleTextEditors.map((editor) => {
     editor.setDecorations(editStyle.token, []);
     editor.setDecorations(editStyle.line, []);
   });
 }
 
-export async function setDecorations(
+async function setDecorations(
   targets: Target[],
   editStyle: EditStyle,
-  getRange: (target: Target) => Range
+  getRange: (target: Target) => Range,
+  contentOnly?: boolean
 ) {
   await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-    editor.setDecorations(
-      editStyle.token,
-      targets.filter((target) => !useLineDecorations(target)).map(getRange)
-    );
-    editor.setDecorations(
-      editStyle.line,
-      targets.filter((target) => useLineDecorations(target)).map(getRange)
-    );
+    if (contentOnly) {
+      editor.setDecorations(editStyle.token, targets.map(getRange));
+    } else {
+      editor.setDecorations(
+        editStyle.token,
+        targets.filter((target) => !useLineDecorations(target)).map(getRange)
+      );
+      editor.setDecorations(
+        editStyle.line,
+        targets.filter((target) => useLineDecorations(target)).map(getRange)
+      );
+    }
   });
 }
 

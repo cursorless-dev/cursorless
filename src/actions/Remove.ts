@@ -14,7 +14,7 @@ export default class Delete implements Action {
 
   async run(
     [targets]: [Target[]],
-    { showDecorations = true } = {}
+    { showDecorations = true, contentOnly = false } = {}
   ): Promise<ActionReturnValue> {
     // Unify overlapping targets.
     // TODO
@@ -24,13 +24,16 @@ export default class Delete implements Action {
       await displayPendingEditDecorations(
         targets,
         this.graph.editStyles.pendingDelete,
-        getRemovalHighlightRange
+        contentOnly ? getContentRange : getRemovalHighlightRange,
+        contentOnly
       );
     }
 
     const thatMark = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-        const ranges = targets.map(getRemovalRange);
+        const ranges = targets.map(
+          contentOnly ? getContentRange : getRemovalRange
+        );
         const edits = ranges.map((range) => ({
           range,
           text: "",
@@ -49,6 +52,10 @@ export default class Delete implements Action {
 
     return { thatMark };
   }
+}
+
+function getContentRange(target: Target) {
+  return target.contentRange;
 }
 
 function getRemovalRange(target: Target) {

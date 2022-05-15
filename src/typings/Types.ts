@@ -113,7 +113,7 @@ export interface Action {
 
 export type ActionType =
   // | "callAsFunction"
-  // | "clearAndSetSelection"
+  | "clearAndSetSelection"
   // | "copyToClipboard"
   // | "cutToClipboard"
   // | "deselect"
@@ -135,7 +135,7 @@ export type ActionType =
   // | "moveToTarget"
   // | "outdentLine"
   // | "pasteFromClipboard"
-  // | "remove"
+  | "remove"
   // | "replace"
   // | "replaceWithTarget"
   // | "reverseTargets"
@@ -143,7 +143,9 @@ export type ActionType =
   // | "scrollToBottom"
   // | "scrollToCenter"
   // | "scrollToTop"
-  "setSelection" | "setSelectionAfter" | "setSelectionBefore";
+  | "setSelection"
+  | "setSelectionAfter"
+  | "setSelectionBefore";
 // | "sortTargets"
 // | "swapTargets"
 // | "toggleLineBreakpoint"

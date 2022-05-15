@@ -1,5 +1,6 @@
 import { ActionRecord, Graph } from "../typings/Types";
-import Delete from "./Delete";
+import Clear from "./Clear";
+import Remove from "./Remove";
 import {
   SetSelection,
   SetSelectionAfter,
@@ -10,7 +11,7 @@ class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
 
   // callAsFunction = new Call(this.graph);
-  // clearAndSetSelection = new Clear(this.graph);
+  clearAndSetSelection = new Clear(this.graph);
   // copyToClipboard = new Copy(this.graph);
   // cutToClipboard = new Cut(this.graph);
   // editNewLineAfter = new EditNewLineBelow(this.graph);
@@ -31,7 +32,7 @@ class Actions implements ActionRecord {
   // moveToTarget = new Move(this.graph);
   // outdentLine = new OutdentLines(this.graph);
   // pasteFromClipboard = new Paste(this.graph);
-  remove = new Delete(this.graph);
+  remove = new Remove(this.graph);
   // deselect = new Deselect(this.graph);
   // replace = new Replace(this.graph);
   // replaceWithTarget = new Bring(this.graph);
