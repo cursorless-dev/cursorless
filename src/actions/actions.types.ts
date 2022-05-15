@@ -10,7 +10,7 @@ export type ActionType =
   // | "extractVariable"
   // | "findInWorkspace"
   // | "foldRegion"
-  // | "followLink"
+  | "followLink"
   | "getText"
   | "highlight"
   | "indentLine"

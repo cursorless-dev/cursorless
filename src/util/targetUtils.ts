@@ -110,13 +110,6 @@ export function getContentSelection(target: Target) {
     : new Selection(target.contentRange.start, target.contentRange.end);
 }
 
-// export function createSelections(
-//   targets: Target[],
-//   ranges: Range[]
-// ) {
-
-// }
-
 export function createThatMark(
   targets: Target[],
   ranges?: Range[]
