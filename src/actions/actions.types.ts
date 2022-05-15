@@ -3,7 +3,7 @@ export type ActionType =
   | "clearAndSetSelection"
   // | "copyToClipboard"
   // | "cutToClipboard"
-  // | "deselect"
+  | "deselect"
   // | "editNewLineAfter"
   // | "editNewLineBefore"
   // | "executeCommand"

@@ -1,5 +1,6 @@
 import { ActionRecord, Graph } from "../typings/Types";
 import Clear from "./Clear";
+import Deselect from "./Deselect";
 import GetText from "./GetText";
 import Highlight from "./Highlight";
 import Remove from "./Remove";
@@ -35,7 +36,7 @@ class Actions implements ActionRecord {
   // outdentLine = new OutdentLines(this.graph);
   // pasteFromClipboard = new Paste(this.graph);
   remove = new Remove(this.graph);
-  // deselect = new Deselect(this.graph);
+  deselect = new Deselect(this.graph);
   // replace = new Replace(this.graph);
   // replaceWithTarget = new Bring(this.graph);
   // randomizeTargets = new Random(this.graph);
