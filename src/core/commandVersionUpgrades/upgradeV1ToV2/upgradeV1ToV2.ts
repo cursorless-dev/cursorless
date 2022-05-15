@@ -73,6 +73,11 @@ function upgradePrimitiveTarget(
     ...rest
   } = target;
   const modifiers: Modifier[] = [];
+
+  if (isImplicit) {
+    modifiers.push({ type: "toRawSelection" });
+  }
+
   if (modifier) {
     const mod = upgradeModifier(modifier);
     if (mod) {
@@ -83,17 +88,18 @@ function upgradePrimitiveTarget(
       }
     }
   }
-  if (isImplicit) {
-    modifiers.push({ type: "toRawSelection" });
-  }
+
   if (selectionType) {
     modifiers.push({ type: "containingScope", scopeType: selectionType });
   }
+
   if (position && position !== "contents") {
     modifiers.push({ type: "position", position: position });
   }
+
   // Modifiers are processed backwards
   modifiers.reverse();
+
   return {
     ...rest,
     modifiers,
