@@ -3,7 +3,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import displayPendingEditDecorations from "../util/editDisplayUtils";
 // import { ensureSingleTarget } from "../util/targetUtils";
@@ -18,7 +18,7 @@
 //   }
 
 //   async run(
-//     [targets]: [TypedSelection[]],
+//     [targets]: [Target[]],
 //     {
 //       showDecorations = true,
 //       ensureSingleTarget: doEnsureSingleTarget = false,

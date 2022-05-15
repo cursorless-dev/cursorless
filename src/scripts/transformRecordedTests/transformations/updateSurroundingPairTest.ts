@@ -2,14 +2,14 @@ import { TestCaseFixture } from "../../../testUtil/TestCase";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
 import {
   DelimiterInclusion,
-  PartialPrimitiveTarget,
+  PartialPrimitiveTargetDesc,
 } from "../../../typings/target.types";
 
 // Leaving an example here in case it's helpful
 export function updateSurroundingPairTest(fixture: TestCaseFixture) {
   fixture.command.targets = transformPartialPrimitiveTargets(
     fixture.command.targets,
-    (target: PartialPrimitiveTarget) => {
+    (target: PartialPrimitiveTargetDesc) => {
       target.modifiers?.forEach((modifier) => {
         if (modifier?.type === "surroundingPair") {
           let delimiterInclusion: DelimiterInclusion;

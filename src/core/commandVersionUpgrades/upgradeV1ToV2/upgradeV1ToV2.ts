@@ -1,9 +1,9 @@
 import { flow } from "lodash";
 import {
   Modifier,
-  PartialPrimitiveTarget,
-  PartialRangeTarget,
-  PartialTarget,
+  PartialPrimitiveTargetDesc,
+  PartialRangeTargetDesc,
+  PartialTargetDesc,
   ScopeType,
 } from "../../../typings/target.types";
 import { ActionType } from "../../../typings/Types";
@@ -51,7 +51,7 @@ function upgradeModifier(modifier: ModifierV0V1): Modifier | null {
 
 function upgradePrimitiveTarget(
   target: PartialPrimitiveTargetV0V1
-): PartialPrimitiveTarget {
+): PartialPrimitiveTargetDesc {
   const {
     insideOutsideType,
     modifier,
@@ -84,14 +84,16 @@ function upgradePrimitiveTarget(
   };
 }
 
-function upgradeTarget(target: PartialTargetV0V1): PartialTarget {
+function upgradeTarget(target: PartialTargetV0V1): PartialTargetDesc {
   switch (target.type) {
     case "list":
       return {
         ...target,
         elements: target.elements.map(
           (target) =>
-            upgradeTarget(target) as PartialPrimitiveTarget | PartialRangeTarget
+            upgradeTarget(target) as
+              | PartialPrimitiveTargetDesc
+              | PartialRangeTargetDesc
         ),
       };
     case "range":
@@ -106,7 +108,8 @@ function upgradeTarget(target: PartialTargetV0V1): PartialTarget {
 }
 
 function upgradeTargets(partialTargets: PartialTargetV0V1[]) {
-  const partialTargetsV2: PartialTarget[] = partialTargets.map(upgradeTarget);
+  const partialTargetsV2: PartialTargetDesc[] =
+    partialTargets.map(upgradeTarget);
   return transformPartialPrimitiveTargets(
     partialTargetsV2,
     flow(upgradeStrictHere)

@@ -4,7 +4,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import displayPendingEditDecorations from "../util/editDisplayUtils";
 // import { getLinkForTarget } from "../util/getLinks";
@@ -19,7 +19,7 @@
 //     this.run = this.run.bind(this);
 //   }
 
-//   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+//   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
 //     const target = ensureSingleTarget(targets);
 
 //     await displayPendingEditDecorations(

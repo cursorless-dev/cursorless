@@ -3,7 +3,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import { ensureSingleTarget } from "../util/targetUtils";
 // import { commands } from "vscode";
@@ -17,7 +17,7 @@
 //     this.run = this.run.bind(this);
 //   }
 
-//   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+//   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
 //     ensureSingleTarget(targets);
 
 //     await this.graph.actions.setSelection.run([targets]);

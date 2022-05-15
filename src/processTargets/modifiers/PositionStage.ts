@@ -1,16 +1,13 @@
 import * as vscode from "vscode";
-import { PositionModifier } from "../../typings/target.types";
-import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
+import { PositionModifier, Target } from "../../typings/target.types";
+import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 
 export default class implements ModifierStage {
   constructor(private modifier: PositionModifier) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    selection: TypedSelection
-  ): TypedSelection {
-    const res: TypedSelection = {
+  run(context: ProcessedTargetsContext, selection: Target): Target {
+    const res: Target = {
       ...selection,
       leadingDelimiterRange: undefined,
       trailingDelimiterRange: undefined,

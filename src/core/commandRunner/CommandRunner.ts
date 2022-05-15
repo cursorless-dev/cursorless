@@ -49,7 +49,7 @@ export default class CommandRunner {
    * 3. Construct a {@link ProcessedTargetsContext} object to capture the
    *    environment needed by {@link processTargets}.
    * 4. Call {@link processTargets} to map each abstract {@link Target} object
-   *    to a concrete list of {@link TypedSelection} objects.
+   *    to a concrete list of {@link Target} objects.
    * 5. Run the requested action on the given selections. The mapping from
    *    action id (eg `remove`) to implementation is defined in
    *    {@link Actions}.  To understand how actions work, see some examples,

@@ -1,7 +1,8 @@
 import { TextEditorDecorationType, window, workspace } from "vscode";
 import { EditStyle } from "../core/editStyles";
 import isTesting from "../testUtil/isTesting";
-import { SelectionWithEditor, TypedSelection } from "../typings/Types";
+import { Target } from "../typings/target.types";
+import { SelectionWithEditor } from "../typings/Types";
 import sleep from "./sleep";
 import { runForEachEditor, runOnTargetsForEachEditor } from "./targetUtils";
 
@@ -45,7 +46,7 @@ export async function displayPendingEditDecorationsForSelection(
 }
 
 export default async function displayPendingEditDecorations(
-  targets: TypedSelection[],
+  targets: Target[],
   editStyle: EditStyle
 ) {
   await setDecorations(targets, editStyle);
@@ -62,10 +63,7 @@ export function clearDecorations(editStyle: EditStyle) {
   });
 }
 
-export async function setDecorations(
-  targets: TypedSelection[],
-  editStyle: EditStyle
-) {
+export async function setDecorations(targets: Target[], editStyle: EditStyle) {
   await runOnTargetsForEachEditor(targets, async (editor, selections) => {
     editor.setDecorations(
       editStyle.token,
@@ -107,7 +105,7 @@ export async function setDecorations(
   });
 }
 
-function useLineDecorations(selection: TypedSelection) {
+function useLineDecorations(selection: Target) {
   return false; // TODO
   // return (
   //   isLineSelectionType(selection.selectionType) &&

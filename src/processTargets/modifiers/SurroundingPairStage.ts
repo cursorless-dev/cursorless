@@ -7,8 +7,9 @@ import getTextFragmentExtractor, {
 import {
   ComplexSurroundingPairName,
   SurroundingPairModifier,
+  Target,
 } from "../../typings/target.types";
-import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
+import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import { complexDelimiterMap } from "./surroundingPair/delimiterMaps";
 import { findSurroundingPairParseTreeBased } from "./surroundingPair/findSurroundingPairParseTreeBased";
@@ -30,10 +31,7 @@ import { findSurroundingPairTextBased } from "./surroundingPair/findSurroundingP
 export default class implements ModifierStage {
   constructor(private modifier: SurroundingPairModifier) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    selection: TypedSelection
-  ): TypedSelection | TypedSelection[] {
+  run(context: ProcessedTargetsContext, selection: Target): Target | Target[] {
     const pairs = processSurroundingPair(context, this.modifier, selection);
     if (pairs == null) {
       throw new Error("Couldn't find containing pair");
@@ -57,7 +55,7 @@ export default class implements ModifierStage {
 function processSurroundingPair(
   context: ProcessedTargetsContext,
   modifier: SurroundingPairModifier,
-  selection: TypedSelection
+  selection: Target
 ) {
   const document = selection.editor.document;
   const delimiters = complexDelimiterMap[

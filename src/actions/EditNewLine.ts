@@ -3,7 +3,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import { commands, Selection, TextEditor } from "vscode";
 // import { getNotebookFromCellDocument } from "../util/notebook";
@@ -17,7 +17,7 @@
 //     this.run = this.run.bind(this);
 //   }
 
-//   private correctForParagraph(targets: TypedSelection[]) {
+//   private correctForParagraph(targets: Target[]) {
 //     targets.forEach((target) => {
 //       let { start, end } = target.selection.selection;
 //       if (target.selectionType === "paragraph") {
@@ -41,7 +41,7 @@
 //     return getNotebookFromCellDocument(editor.document) != null;
 //   }
 
-//   private getCommand(target: TypedSelection) {
+//   private getCommand(target: Target) {
 //     if (target.selectionContext.isNotebookCell) {
 //       if (this.isNotebookEditor(target.selection.editor)) {
 //         return this.isAbove
@@ -57,7 +57,7 @@
 //       : "editor.action.insertLineAfter";
 //   }
 
-//   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+//   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
 //     this.correctForParagraph(targets);
 
 //     if (this.isAbove) {

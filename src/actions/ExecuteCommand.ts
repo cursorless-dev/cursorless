@@ -3,7 +3,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import CommandAction, { CommandOptions } from "./CommandAction";
 
@@ -19,7 +19,7 @@
 //   }
 
 //   async run(
-//     targets: [TypedSelection[]],
+//     targets: [Target[]],
 //     command: string,
 //     args: CommandOptions = {}
 //   ): Promise<ActionReturnValue> {

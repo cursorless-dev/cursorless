@@ -3,7 +3,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import {
 //   SourceBreakpoint,
@@ -35,8 +35,8 @@
 //   }
 
 //   async run([targets]: [
-//     TypedSelection[],
-//     TypedSelection[]
+//     Target[],
+//     Target[]
 //   ]): Promise<ActionReturnValue> {
 //     await displayPendingEditDecorations(
 //       targets,

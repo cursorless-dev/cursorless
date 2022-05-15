@@ -3,7 +3,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import { ensureSingleEditor } from "../util/targetUtils";
 // import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
@@ -17,7 +17,7 @@
 //     this.run = this.run.bind(this);
 //   }
 
-//   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+//   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
 //     const editor = ensureSingleEditor(targets);
 
 //     const { thatMark } = await this.graph.actions.remove.run([targets]);

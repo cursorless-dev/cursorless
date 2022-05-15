@@ -1,11 +1,11 @@
 import {
-  PartialListTarget,
-  PartialPrimitiveTarget,
-  PartialRangeTarget,
-  PartialTarget,
-  PrimitiveTarget,
-  RangeTarget,
-  Target,
+  PartialListTargetDesc,
+  PartialPrimitiveTargetDesc,
+  PartialRangeTargetDesc,
+  PartialTargetDesc,
+  PrimitiveTargetDesc,
+  RangeTargetDesc,
+  TargetDesc,
 } from "../typings/target.types";
 import { ActionPreferences } from "../typings/Types";
 
@@ -20,9 +20,9 @@ import { ActionPreferences } from "../typings/Types";
  * @returns Target objects fully filled out and ready to be processed by {@link processTargets}.
  */
 export default function inferFullTargets(
-  targets: PartialTarget[],
+  targets: PartialTargetDesc[],
   actionPreferences: ActionPreferences[]
-): Target[] {
+): TargetDesc[] {
   if (targets.length !== actionPreferences.length) {
     throw new Error("Target length is not equal to action preference length");
   }
@@ -33,10 +33,10 @@ export default function inferFullTargets(
 }
 
 function inferTarget(
-  target: PartialTarget,
-  previousTargets: PartialTarget[],
+  target: PartialTargetDesc,
+  previousTargets: PartialTargetDesc[],
   actionPreferences: ActionPreferences
-): Target {
+): TargetDesc {
   switch (target.type) {
     case "list":
       return inferListTarget(target, previousTargets, actionPreferences);
@@ -47,10 +47,10 @@ function inferTarget(
 }
 
 function inferListTarget(
-  target: PartialListTarget,
-  previousTargets: PartialTarget[],
+  target: PartialListTargetDesc,
+  previousTargets: PartialTargetDesc[],
   actionPreferences: ActionPreferences
-): Target {
+): TargetDesc {
   return {
     ...target,
     elements: target.elements.map((element, index) =>
@@ -64,10 +64,10 @@ function inferListTarget(
 }
 
 function inferNonListTarget(
-  target: PartialPrimitiveTarget | PartialRangeTarget,
-  previousTargets: PartialTarget[],
+  target: PartialPrimitiveTargetDesc | PartialRangeTargetDesc,
+  previousTargets: PartialTargetDesc[],
   actionPreferences: ActionPreferences
-): PrimitiveTarget | RangeTarget {
+): PrimitiveTargetDesc | RangeTargetDesc {
   switch (target.type) {
     case "primitive":
       return inferPrimitiveTarget(target, previousTargets, actionPreferences);
@@ -77,10 +77,10 @@ function inferNonListTarget(
 }
 
 function inferRangeTarget(
-  target: PartialRangeTarget,
-  previousTargets: PartialTarget[],
+  target: PartialRangeTargetDesc,
+  previousTargets: PartialTargetDesc[],
   actionPreferences: ActionPreferences
-): RangeTarget {
+): RangeTargetDesc {
   return {
     type: "range",
     excludeAnchor: target.excludeStart ?? false,
@@ -100,10 +100,10 @@ function inferRangeTarget(
 }
 
 function inferPrimitiveTarget(
-  target: PartialPrimitiveTarget,
-  previousTargets: PartialTarget[],
+  target: PartialPrimitiveTargetDesc,
+  previousTargets: PartialTargetDesc[],
   actionPreferences: ActionPreferences
-): PrimitiveTarget {
+): PrimitiveTargetDesc {
   const mark = target.mark ??
     getPreviousAttribute(previousTargets, "mark") ?? { type: "cursor" };
   const modifiers =
@@ -120,21 +120,21 @@ function inferPrimitiveTarget(
   };
 }
 
-function getPreviousAttribute<T extends keyof PartialPrimitiveTarget>(
-  previousTargets: PartialTarget[],
+function getPreviousAttribute<T extends keyof PartialPrimitiveTargetDesc>(
+  previousTargets: PartialTargetDesc[],
   attributeName: T
 ) {
   const target = getPreviousTarget(
     previousTargets,
-    (target: PartialPrimitiveTarget) => !!target[attributeName]
+    (target: PartialPrimitiveTargetDesc) => !!target[attributeName]
   );
   return target != null ? target[attributeName] : null;
 }
 
 function getPreviousTarget(
-  previousTargets: PartialTarget[],
-  useTarget: (target: PartialPrimitiveTarget) => boolean
-): PartialPrimitiveTarget | null {
+  previousTargets: PartialTargetDesc[],
+  useTarget: (target: PartialPrimitiveTargetDesc) => boolean
+): PartialPrimitiveTargetDesc | null {
   // Search from back(last) to front(first)
   for (let i = previousTargets.length - 1; i > -1; --i) {
     const target = previousTargets[i];

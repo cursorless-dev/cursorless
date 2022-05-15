@@ -1,6 +1,6 @@
 import { Position, Range, TextEditor } from "vscode";
-import { HeadModifier, TailModifier } from "../../typings/target.types";
-import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
+import { HeadModifier, TailModifier, Target } from "../../typings/target.types";
+import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 
 abstract class HeadTailStage implements ModifierStage {
@@ -8,10 +8,7 @@ abstract class HeadTailStage implements ModifierStage {
 
   constructor(private isReversed: boolean) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    selection: TypedSelection
-  ): TypedSelection {
+  run(context: ProcessedTargetsContext, selection: Target): Target {
     return {
       ...selection,
       isReversed: this.isReversed,

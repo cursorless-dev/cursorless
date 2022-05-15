@@ -11,6 +11,7 @@ import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { CommandServerApi } from "../util/getExtensionApi";
+import { Target } from "./target.types";
 import { FullRangeInfo } from "./updateSelections";
 
 /**
@@ -76,87 +77,6 @@ export interface SelectionContext {
   isRawSelection?: boolean;
 }
 
-/**
- * Represents a selection in a particular document along with potential rich
- * context information such as how to remove the given selection
- */
-// export interface TypedSelection {
-//   /**
-//    * The selection.  If insideOutsideType is non-null, it will be adjusted to
-//    * include delimiter if outside
-//    */
-//   selection: SelectionWithEditor;
-//   selectionContext: SelectionContext;
-
-//   /**
-//    * Mirrored from the target from which this selection was constructed
-//    */
-//   position: Position;
-// }
-
-export interface TypedSelection {
-  /**
-   * The text editor used for all ranges
-   */
-  editor: vscode.TextEditor;
-
-  /**
-   * If true active is before anchor
-   */
-  isReversed?: boolean;
-
-  /**
-   * Indicates that this is a raw selection with no type information so for
-   * example if it is the destination of a bring or move it should inherit the
-   * type information such as delimiters from its source
-   */
-  isRawSelection?: boolean;
-
-  /**
-   * If true this selection is part of a notebook cell
-   */
-  isNotebookCell?: boolean;
-
-  /**
-   * If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument
-   */
-  delimiter?: string;
-
-  /**
-   * The range of the content
-   */
-  contentRange: vscode.Range;
-
-  /**
-   * Represents the interior range of this selection. For example, for a
-   * surrounding pair this would exclude the opening and closing delimiter. For an if
-   * statement this would be the statements in the body.
-   */
-  interiorRange?: vscode.Range;
-
-  /**
-   * The range that needs to be removed
-   */
-  removalRange?: vscode.Range;
-
-  /**
-   * The range of the delimiter before the content selection
-   */
-  leadingDelimiterRange?: vscode.Range;
-
-  /**
-   * The range of the delimiter after the content selection
-   */
-  trailingDelimiterRange?: vscode.Range;
-
-  /**
-   * Represents the boundary ranges of this selection. For example, for a
-   * surrounding pair this would be the opening and closing delimiter. For an if
-   * statement this would be the line of the guard as well as the closing brace.
-   */
-  boundary?: vscode.Range[];
-}
-
 export interface ActionPreferences {
   // TODO
   // position?: Position;
@@ -182,7 +102,7 @@ export interface ActionReturnValue {
 }
 
 export interface Action {
-  run(targets: TypedSelection[][], ...args: any[]): Promise<ActionReturnValue>;
+  run(targets: Target[][], ...args: any[]): Promise<ActionReturnValue>;
 
   /**
    * Used to define default values for parts of target during inference.

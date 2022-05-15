@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 import { CommandLatest } from "../core/commandRunner/command.types";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ThatMark } from "../core/ThatMark";
-import { Target } from "../typings/target.types";
+import { TargetDesc } from "../typings/target.types";
 import { Token } from "../typings/Types";
 import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 import {
@@ -23,7 +23,7 @@ export type TestCaseCommand = CommandLatest;
 export type TestCaseContext = {
   thatMark: ThatMark;
   sourceMark: ThatMark;
-  targets: Target[];
+  targets: TargetDesc[];
   hatTokenMap: ReadOnlyHatMap;
 };
 
@@ -40,12 +40,12 @@ export type TestCaseFixture = {
   finalState: TestCaseSnapshot;
   returnValue: unknown;
   /** Inferred full targets added for context; not currently used in testing */
-  fullTargets: Target[];
+  fullTargets: TargetDesc[];
 };
 
 export class TestCase {
   languageId: string;
-  fullTargets: Target[];
+  fullTargets: TargetDesc[];
   initialState: TestCaseSnapshot | null = null;
   finalState: TestCaseSnapshot | null = null;
   returnValue: unknown = null;
@@ -90,7 +90,7 @@ export class TestCase {
     return marksToPlainObject(marks);
   }
 
-  private includesThatMark(target: Target, type: string): boolean {
+  private includesThatMark(target: TargetDesc, type: string): boolean {
     if (target.type === "primitive" && target.mark.type === type) {
       return true;
     } else if (target.type === "list") {

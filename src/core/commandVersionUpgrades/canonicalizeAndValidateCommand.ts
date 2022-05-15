@@ -1,6 +1,6 @@
 import { commands } from "vscode";
 import { ActionableError } from "../../errors";
-import { PartialTarget, ScopeType } from "../../typings/target.types";
+import { PartialTargetDesc, ScopeType } from "../../typings/target.types";
 import { ActionType } from "../../typings/Types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import {
@@ -81,7 +81,7 @@ function upgradeCommand(command: Command): CommandLatest {
 
 export function validateCommand(
   actionName: ActionType,
-  partialTargets: PartialTarget[]
+  partialTargets: PartialTargetDesc[]
 ) {
   if (
     usesScopeType("notebookCell", partialTargets) &&
@@ -93,7 +93,10 @@ export function validateCommand(
   }
 }
 
-function usesScopeType(scopeType: ScopeType, partialTargets: PartialTarget[]) {
+function usesScopeType(
+  scopeType: ScopeType,
+  partialTargets: PartialTargetDesc[]
+) {
   return getPartialPrimitiveTargets(partialTargets).some((partialTarget) =>
     partialTarget.modifiers?.find(
       (mod) =>

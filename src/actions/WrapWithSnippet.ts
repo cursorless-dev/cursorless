@@ -6,7 +6,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import displayPendingEditDecorations from "../util/editDisplayUtils";
 // import { ensureSingleEditor } from "../util/targetUtils";
@@ -54,7 +54,7 @@
 //   }
 
 //   async run(
-//     [targets]: [TypedSelection[]],
+//     [targets]: [Target[]],
 //     snippetLocation: string
 //   ): Promise<ActionReturnValue> {
 //     const [snippetName, placeholderName] =
@@ -165,7 +165,7 @@
 // }
 
 // function findMatchingSnippetDefinition(
-//   typedSelection: TypedSelection,
+//   typedSelection: Target,
 //   definitions: SnippetDefinition[]
 // ) {
 //   const languageId = typedSelection.selection.editor.document.languageId;

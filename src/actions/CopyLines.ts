@@ -3,7 +3,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import { Range, Selection, TextEditor } from "vscode";
 // import { displayPendingEditDecorationsForSelection } from "../util/editDisplayUtils";
@@ -22,7 +22,7 @@
 //     this.run = this.run.bind(this);
 //   }
 
-//   private getRanges(editor: TextEditor, targets: TypedSelection[]) {
+//   private getRanges(editor: TextEditor, targets: Target[]) {
 //     const paragraphTargets = targets.filter(
 //       (target) => target.selectionType === "paragraph"
 //     );
@@ -64,7 +64,7 @@
 //     });
 //   }
 
-//   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+//   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
 //     const results = flatten(
 //       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
 //         const ranges = this.getRanges(editor, targets);

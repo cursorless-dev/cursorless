@@ -1,8 +1,8 @@
 import { Position, Range, TextEditor } from "vscode";
-import { TypedSelection } from "../typings/Types";
+import { Target } from "../typings/target.types";
 import { groupBy } from "./itertools";
 
-export function ensureSingleEditor(targets: TypedSelection[]) {
+export function ensureSingleEditor(targets: Target[]) {
   if (targets.length === 0) {
     throw new Error("Require at least one target with this action");
   }
@@ -16,7 +16,7 @@ export function ensureSingleEditor(targets: TypedSelection[]) {
   return editors[0];
 }
 
-export function ensureSingleTarget(targets: TypedSelection[]) {
+export function ensureSingleTarget(targets: Target[]) {
   if (targets.length !== 1) {
     throw new Error("Can only have one target with this action");
   }
@@ -37,13 +37,13 @@ export async function runForEachEditor<T, U>(
 }
 
 export async function runOnTargetsForEachEditor<T>(
-  targets: TypedSelection[],
-  func: (editor: TextEditor, selections: TypedSelection[]) => Promise<T>
+  targets: Target[],
+  func: (editor: TextEditor, selections: Target[]) => Promise<T>
 ): Promise<T[]> {
   return runForEachEditor(targets, (target) => target.editor, func);
 }
 
-export function groupTargetsForEachEditor(targets: TypedSelection[]) {
+export function groupTargetsForEachEditor(targets: Target[]) {
   return groupForEachEditor(targets, (target) => target.editor);
 }
 
@@ -63,9 +63,9 @@ export function groupForEachEditor<T>(
 
 /** Get the possible leading and trailing overflow ranges of the outside target compared to the inside target */
 export function getOutsideOverflow(
-  insideTarget: TypedSelection,
-  outsideTarget: TypedSelection
-): TypedSelection[] {
+  insideTarget: Target,
+  outsideTarget: Target
+): Target[] {
   const { start: insideStart, end: insideEnd } = insideTarget.contentRange;
   const { start: outsideStart, end: outsideEnd } = outsideTarget.contentRange;
   const result = [];
@@ -86,7 +86,7 @@ function createTypeSelection(
   editor: TextEditor,
   start: Position,
   end: Position
-): TypedSelection {
+): Target {
   return {
     editor,
     contentRange: new Range(start, end),

@@ -3,7 +3,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import { Selection, Range } from "vscode";
 // import { displayPendingEditDecorationsForSelection } from "../util/editDisplayUtils";
@@ -24,7 +24,7 @@
 //     this.run = this.run.bind(this);
 //   }
 
-//   private getRanges(targets: TypedSelection[]) {
+//   private getRanges(targets: Target[]) {
 //     let lines = targets.flatMap((target) => {
 //       const lines = [];
 //       if (this.insertAbove) {
@@ -48,7 +48,7 @@
 //     }));
 //   }
 
-//   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+//   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
 //     const results = flatten(
 //       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
 //         const ranges = this.getRanges(targets);

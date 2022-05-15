@@ -1,13 +1,12 @@
 import { Range, TextEditor, window } from "vscode";
-import { LineNumberMark, LineNumberPosition } from "../../typings/target.types";
-import { TypedSelection } from "../../typings/Types";
+import { LineNumberMark, LineNumberPosition, Target } from "../../typings/target.types";
 import { getLineContext } from "../modifiers/LineStage";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {
   constructor(private modifier: LineNumberMark) {}
 
-  run(): TypedSelection[] {
+  run(): Target[] {
     if (window.activeTextEditor == null) {
       return [];
     }

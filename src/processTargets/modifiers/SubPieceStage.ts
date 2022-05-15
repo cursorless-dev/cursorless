@@ -1,17 +1,14 @@
 import { range } from "lodash";
 import { Range } from "vscode";
 import { SUBWORD_MATCHER } from "../../core/constants";
-import { SubTokenModifier } from "../../typings/target.types";
-import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
+import { SubTokenModifier, Target } from "../../typings/target.types";
+import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 
 export default class implements ModifierStage {
   constructor(private modifier: SubTokenModifier) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    selection: TypedSelection
-  ): TypedSelection {
+  run(context: ProcessedTargetsContext, selection: Target): Target {
     const token = selection.editor.document.getText(selection.contentRange);
     let pieces: { start: number; end: number }[] = [];
 

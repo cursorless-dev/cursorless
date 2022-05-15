@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { TypedSelection } from "../typings/Types";
+import { Target } from "../typings/target.types";
 
 export async function getLinksForSelections(
   editor: vscode.TextEditor,
@@ -11,7 +11,7 @@ export async function getLinksForSelections(
   );
 }
 
-export async function getLinkForTarget(target: TypedSelection) {
+export async function getLinkForTarget(target: Target) {
   const links = await getLinksForEditor(target.editor);
   return links.find((link) => link.range.contains(target.contentRange));
 }

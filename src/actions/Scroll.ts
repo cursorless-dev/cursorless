@@ -3,7 +3,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import { groupBy } from "../util/itertools";
 // import { commands, window } from "vscode";
@@ -19,10 +19,10 @@
 //     this.run = this.run.bind(this);
 //   }
 
-//   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+//   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
 //     const selectionGroups = groupBy(
 //       targets,
-//       (t: TypedSelection) => t.selection.editor
+//       (t: Target) => t.selection.editor
 //     );
 
 //     const lines = Array.from(selectionGroups, ([editor, targets]) => {
@@ -91,10 +91,10 @@
 //   }
 // }
 
-// function getLineNumber(targets: TypedSelection[], at: string) {
+// function getLineNumber(targets: Target[], at: string) {
 //   let startLine = Number.MAX_SAFE_INTEGER;
 //   let endLine = 0;
-//   targets.forEach((t: TypedSelection) => {
+//   targets.forEach((t: Target) => {
 //     startLine = Math.min(startLine, t.selection.selection.start.line);
 //     endLine = Math.max(endLine, t.selection.selection.end.line);
 //   });

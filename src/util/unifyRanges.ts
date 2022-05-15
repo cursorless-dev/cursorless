@@ -1,6 +1,6 @@
 // TODO
 // import { Range } from "vscode";
-// import { TypedSelection } from "../typings/Types";
+// import { Target } from "../typings/Types";
 // import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
 // import { groupTargetsForEachEditor } from "./targetUtils";
 
@@ -42,7 +42,7 @@
 //  * FIXME This code probably needs to update once we have objected oriented targets
 //  * https://github.com/cursorless-dev/cursorless/issues/210
 //  */
-// export function unifyTargets(targets: TypedSelection[]): TypedSelection[] {
+// export function unifyTargets(targets: Target[]): Target[] {
 //   if (targets.length < 2) {
 //     return targets;
 //   }
@@ -64,13 +64,13 @@
 // }
 
 // function unifyTargetsOnePass(
-//   targets: TypedSelection[]
-// ): [TypedSelection[], boolean] {
+//   targets: Target[]
+// ): [Target[], boolean] {
 //   if (targets.length < 2) {
 //     return [targets, false];
 //   }
-//   const results: TypedSelection[] = [];
-//   let currentGroup: TypedSelection[] = [];
+//   const results: Target[] = [];
+//   let currentGroup: Target[] = [];
 //   targets.forEach((target) => {
 //     // No intersection. Mark start of new group
 //     if (
@@ -87,13 +87,13 @@
 //   return [results, results.length !== targets.length];
 // }
 
-// function mergeTargets(targets: TypedSelection[]): TypedSelection {
+// function mergeTargets(targets: Target[]): Target {
 //   if (targets.length === 1) {
 //     return targets[0];
 //   }
 //   const first = targets[0];
 //   const last = targets[targets.length - 1];
-//   const typeSelection: TypedSelection = {
+//   const typeSelection: Target = {
 //     editor: first.editor,
 //     contentRange: new Range(first.contentRange.start, last.contentRange.end),
 //     leadingDelimiterRange: first.leadingDelimiterRange,
@@ -102,6 +102,6 @@
 //   return performInsideOutsideAdjustment(typeSelection);
 // }
 
-// function intersects(targetA: TypedSelection, targetB: TypedSelection) {
+// function intersects(targetA: Target, targetB: Target) {
 //   return !!targetA.contentRange.intersection(targetB.contentRange);
 // }

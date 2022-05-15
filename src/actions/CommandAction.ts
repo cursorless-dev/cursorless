@@ -4,7 +4,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 //   SelectionWithEditor,
 // } from "../typings/Types";
 // import displayPendingEditDecorations from "../util/editDisplayUtils";
@@ -42,7 +42,7 @@
 //   }
 
 //   private async runCommandAndUpdateSelections(
-//     targets: TypedSelection[],
+//     targets: Target[],
 //     options: Required<CommandOptions>
 //   ) {
 //     return flatten(
@@ -85,7 +85,7 @@
 //   }
 
 //   async run(
-//     [targets]: [TypedSelection[]],
+//     [targets]: [Target[]],
 //     options: CommandOptions = {}
 //   ): Promise<ActionReturnValue> {
 //     const partialOptions = Object.assign(

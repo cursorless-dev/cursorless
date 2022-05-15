@@ -7,7 +7,7 @@
 //   Edit,
 //   Graph,
 //   SelectionWithEditor,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import { runOnTargetsForEachEditor } from "../util/targetUtils";
 // import { decorationSleep } from "../util/editDisplayUtils";
@@ -27,7 +27,7 @@
 //   }
 
 //   async run(
-//     [targets]: [TypedSelection[]],
+//     [targets]: [Target[]],
 //     left: string,
 //     right: string
 //   ): Promise<ActionReturnValue> {

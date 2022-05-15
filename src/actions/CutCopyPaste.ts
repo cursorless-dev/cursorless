@@ -3,7 +3,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import { performInsideOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 // import CommandAction from "./CommandAction";
@@ -20,7 +20,7 @@
 //     this.run = this.run.bind(this);
 //   }
 
-//   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+//   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
 //     const insideTargets = targets.map((target) =>
 //       performInsideOutsideAdjustment(target, "inside")
 //     );

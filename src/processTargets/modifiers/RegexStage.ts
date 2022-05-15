@@ -2,18 +2,16 @@ import { Position, Range } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  Target,
 } from "../../typings/target.types";
-import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
+import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import { getTokenContext } from "./TokenStage";
 
 class RegexStage implements ModifierStage {
   constructor(private regex: RegExp, private name?: string) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    selection: TypedSelection
-  ): TypedSelection {
+  run(context: ProcessedTargetsContext, selection: Target): Target {
     const getMatch = (position: Position) => {
       const line = selection.editor.document.lineAt(position);
       const result = [...line.text.matchAll(this.regex)]

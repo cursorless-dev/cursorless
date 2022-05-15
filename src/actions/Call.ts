@@ -3,7 +3,7 @@
 //   ActionReturnValue,
 //   ActionPreferences,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import { ensureSingleTarget } from "../util/targetUtils";
 
@@ -18,8 +18,8 @@
 //   }
 
 //   async run([sources, destinations]: [
-//     TypedSelection[],
-//     TypedSelection[]
+//     Target[],
+//     Target[]
 //   ]): Promise<ActionReturnValue> {
 //     ensureSingleTarget(sources);
 

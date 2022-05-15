@@ -1,6 +1,5 @@
 import { window } from "vscode";
-import { CursorMark } from "../../typings/target.types";
-import { TypedSelection } from "../../typings/Types";
+import { CursorMark, Target } from "../../typings/target.types";
 import { isReversed } from "../../util/selectionUtils";
 import { getTokenContext } from "../modifiers/TokenStage";
 import { MarkStage } from "../PipelineStages.types";
@@ -8,7 +7,7 @@ import { MarkStage } from "../PipelineStages.types";
 export default class implements MarkStage {
   constructor(private modifier: CursorMark) {}
 
-  run(): TypedSelection[] {
+  run(): Target[] {
     if (window.activeTextEditor == null) {
       return [];
     }

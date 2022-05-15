@@ -3,7 +3,7 @@
 //   Action,
 //   ActionPreferences,
 //   ActionReturnValue,
-//   TypedSelection,
+//   Target,
 //   Graph,
 // } from "../typings/Types";
 // import { clearDecorations, setDecorations } from "../util/editDisplayUtils";
@@ -18,7 +18,7 @@
 //   }
 
 //   async run(
-//     [targets]: [TypedSelection[]],
+//     [targets]: [Target[]],
 //     styleName: EditStyleName = "highlight0"
 //   ): Promise<ActionReturnValue> {
 //     const style = this.graph.editStyles[styleName];

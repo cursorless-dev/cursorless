@@ -1,12 +1,10 @@
-import { ProcessedTargetsContext, TypedSelection } from "../typings/Types";
+import { Target } from "../typings/target.types";
+import { ProcessedTargetsContext } from "../typings/Types";
 
 export interface MarkStage {
-  run(context: ProcessedTargetsContext): TypedSelection[];
+  run(context: ProcessedTargetsContext): Target[];
 }
 
 export interface ModifierStage {
-  run(
-    context: ProcessedTargetsContext,
-    target?: TypedSelection
-  ): TypedSelection | TypedSelection[];
+  run(context: ProcessedTargetsContext, target?: Target): Target | Target[];
 }

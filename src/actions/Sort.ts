@@ -4,7 +4,7 @@
 //   ActionReturnValue,
 //   ActionPreferences,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 
 // export class Sort implements Action {
@@ -20,7 +20,7 @@
 //     return texts.sort();
 //   }
 
-//   async run(targets: TypedSelection[][]): Promise<ActionReturnValue> {
+//   async run(targets: Target[][]): Promise<ActionReturnValue> {
 //     const { returnValue: unsortedTexts } = await this.graph.actions.getText.run(
 //       targets,
 //       {

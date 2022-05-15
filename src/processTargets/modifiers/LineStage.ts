@@ -2,17 +2,15 @@ import { Position, Range, TextEditor } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  Target,
 } from "../../typings/target.types";
-import { ProcessedTargetsContext, TypedSelection } from "../../typings/Types";
+import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    selection: TypedSelection
-  ): TypedSelection {
+  run(context: ProcessedTargetsContext, selection: Target): Target {
     const { document } = selection.editor;
     const startLine = document.lineAt(selection.contentRange.start);
     const endLine = document.lineAt(selection.contentRange.end);
@@ -33,7 +31,7 @@ export default class implements ModifierStage {
 export function getLineContext(
   editor: TextEditor,
   range: Range
-): Partial<TypedSelection> {
+): Partial<Target> {
   const { document } = editor;
   const { start, end } = range;
 

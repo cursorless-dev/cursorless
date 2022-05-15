@@ -3,7 +3,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 //   Edit,
 // } from "../typings/Types";
 // import { runForEachEditor } from "../util/targetUtils";
@@ -28,14 +28,14 @@
 // interface ExtendedEdit extends Edit {
 //   editor: TextEditor;
 //   isSource: boolean;
-//   originalSelection: TypedSelection;
+//   originalSelection: Target;
 // }
 
 // interface MarkEntry {
 //   editor: TextEditor;
 //   selection: Selection;
 //   isSource: boolean;
-//   typedSelection: TypedSelection;
+//   typedSelection: Target;
 // }
 
 // class BringMoveSwap implements Action {
@@ -49,8 +49,8 @@
 //   }
 
 //   private broadcastSource(
-//     sources: TypedSelection[],
-//     destinations: TypedSelection[]
+//     sources: Target[],
+//     destinations: Target[]
 //   ) {
 //     if (sources.length === 1 && this.type !== "swap") {
 //       // If there is only one source target, expand it to same length as
@@ -78,8 +78,8 @@
 //   }
 
 //   private async decorateTargets(
-//     sources: TypedSelection[],
-//     destinations: TypedSelection[]
+//     sources: Target[],
+//     destinations: Target[]
 //   ) {
 //     const decorationTypes = this.getDecorationStyles();
 //     await Promise.all([
@@ -92,10 +92,10 @@
 //   }
 
 //   private getEdits(
-//     sources: TypedSelection[],
-//     destinations: TypedSelection[]
+//     sources: Target[],
+//     destinations: Target[]
 //   ): ExtendedEdit[] {
-//     const usedSources: TypedSelection[] = [];
+//     const usedSources: Target[] = [];
 //     const results: ExtendedEdit[] = [];
 //     const zipSources =
 //       sources.length !== destinations.length &&
@@ -274,8 +274,8 @@
 //   }
 
 //   async run([sources, destinations]: [
-//     TypedSelection[],
-//     TypedSelection[]
+//     Target[],
+//     Target[]
 //   ]): Promise<ActionReturnValue> {
 //     sources = this.broadcastSource(sources, destinations);
 

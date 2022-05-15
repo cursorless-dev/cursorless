@@ -1,4 +1,4 @@
-import { PartialTarget } from "../../typings/target.types";
+import { PartialTargetDesc } from "../../typings/target.types";
 import { ActionType } from "../../typings/Types";
 import {
   CommandV0,
@@ -44,7 +44,7 @@ export interface CommandV2 {
    * A list of targets expected by the action. Inference will be run on the
    * targets
    */
-  targets: PartialTarget[];
+  targets: PartialTargetDesc[];
 
   /**
    * A list of extra arguments expected by the given action.

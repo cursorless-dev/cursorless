@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from "util";
-import { PartialPrimitiveTarget } from "../../../typings/target.types";
+import { PartialPrimitiveTargetDesc } from "../../../typings/target.types";
 
 const STRICT_HERE = {
   type: "primitive",
@@ -9,10 +9,10 @@ const STRICT_HERE = {
   modifier: { type: "identity" },
   insideOutsideType: "inside",
 };
-const IMPLICIT_TARGET: PartialPrimitiveTarget = {
+const IMPLICIT_TARGET: PartialPrimitiveTargetDesc = {
   type: "primitive",
 };
 export const upgradeStrictHere = (
-  target: PartialPrimitiveTarget
-): PartialPrimitiveTarget =>
+  target: PartialPrimitiveTargetDesc
+): PartialPrimitiveTargetDesc =>
   isDeepStrictEqual(target, STRICT_HERE) ? IMPLICIT_TARGET : target;

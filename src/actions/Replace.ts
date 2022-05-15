@@ -3,7 +3,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import displayPendingEditDecorations from "../util/editDisplayUtils";
 // import { runForEachEditor } from "../util/targetUtils";
@@ -23,7 +23,7 @@
 //   }
 
 //   private getTexts(
-//     targets: TypedSelection[],
+//     targets: Target[],
 //     replaceWith: string[] | RangeGenerator
 //   ): string[] {
 //     if (Array.isArray(replaceWith)) {
@@ -41,7 +41,7 @@
 //   }
 
 //   async run(
-//     [targets]: [TypedSelection[]],
+//     [targets]: [Target[]],
 //     replaceWith: string[] | RangeGenerator
 //   ): Promise<ActionReturnValue> {
 //     await displayPendingEditDecorations(

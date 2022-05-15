@@ -4,7 +4,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 // import { ensureSingleEditor } from "../util/targetUtils";
@@ -19,8 +19,8 @@
 //   }
 
 //   async run([targets]: [
-//     TypedSelection[],
-//     TypedSelection[]
+//     Target[],
+//     Target[]
 //   ]): Promise<ActionReturnValue> {
 //     const originalEditor = window.activeTextEditor;
 //     const editor = ensureSingleEditor(targets);

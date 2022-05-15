@@ -3,7 +3,7 @@
 //   ActionPreferences,
 //   ActionReturnValue,
 //   Graph,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import { runOnTargetsForEachEditor } from "../util/targetUtils";
 // import displayPendingEditDecorations from "../util/editDisplayUtils";
@@ -21,7 +21,7 @@
 //   }
 
 //   async run(
-//     [targets]: [TypedSelection[]],
+//     [targets]: [Target[]],
 //     { showDecorations = true } = {}
 //   ): Promise<ActionReturnValue> {
 //     // Unify overlapping targets.

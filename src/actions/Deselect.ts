@@ -3,7 +3,7 @@
 //   Action,
 //   ActionPreferences,
 //   ActionReturnValue,
-//   TypedSelection,
+//   Target,
 //   Graph,
 // } from "../typings/Types";
 // import { runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -17,7 +17,7 @@
 //     this.run = this.run.bind(this);
 //   }
 
-//   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+//   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
 //     await runOnTargetsForEachEditor(targets, async (editor, targets) => {
 //       // Remove selections with a non-empty intersection
 //       const newSelections = editor.selections.filter(

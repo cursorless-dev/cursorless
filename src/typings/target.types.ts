@@ -1,3 +1,4 @@
+import { Range, TextEditor } from "vscode";
 import { HatStyleName } from "../core/constants";
 
 export interface CursorMark {
@@ -177,7 +178,7 @@ export interface PositionModifier {
   position: Position;
 }
 
-export interface PartialPrimitiveTarget {
+export interface PartialPrimitiveTargetDesc {
   type: "primitive";
   mark?: Mark;
   modifiers?: Modifier[];
@@ -193,34 +194,34 @@ export type Modifier =
   | TailModifier
   | RawSelectionModifier;
 
-export interface PartialRangeTarget {
+export interface PartialRangeTargetDesc {
   type: "range";
-  anchor: PartialPrimitiveTarget;
-  active: PartialPrimitiveTarget;
+  anchor: PartialPrimitiveTargetDesc;
+  active: PartialPrimitiveTargetDesc;
   excludeStart?: boolean;
   excludeEnd?: boolean;
   rangeType?: RangeType;
 }
 
-export interface PartialListTarget {
+export interface PartialListTargetDesc {
   type: "list";
-  elements: (PartialPrimitiveTarget | PartialRangeTarget)[];
+  elements: (PartialPrimitiveTargetDesc | PartialRangeTargetDesc)[];
 }
 
-export type PartialTarget =
-  | PartialPrimitiveTarget
-  | PartialRangeTarget
-  | PartialListTarget;
+export type PartialTargetDesc =
+  | PartialPrimitiveTargetDesc
+  | PartialRangeTargetDesc
+  | PartialListTargetDesc;
 
-export interface PrimitiveTarget extends PartialPrimitiveTarget {
+export interface PrimitiveTargetDesc extends PartialPrimitiveTargetDesc {
   mark: Mark;
   modifiers: Modifier[];
 }
 
-export interface RangeTarget {
+export interface RangeTargetDesc {
   type: "range";
-  anchor: PrimitiveTarget;
-  active: PrimitiveTarget;
+  anchor: PrimitiveTargetDesc;
+  active: PrimitiveTargetDesc;
   excludeAnchor: boolean;
   excludeActive: boolean;
   rangeType: RangeType;
@@ -230,9 +231,72 @@ export interface RangeTarget {
 // vertical puts a selection on each line vertically between the two targets
 export type RangeType = "continuous" | "vertical";
 
-export interface ListTarget {
+export interface ListTargetDesc {
   type: "list";
-  elements: (PrimitiveTarget | RangeTarget)[];
+  elements: (PrimitiveTargetDesc | RangeTargetDesc)[];
 }
 
-export type Target = PrimitiveTarget | RangeTarget | ListTarget;
+export type TargetDesc = PrimitiveTargetDesc | RangeTargetDesc | ListTargetDesc;
+
+export interface Target {
+  /**
+   * The text editor used for all ranges
+   */
+  editor: TextEditor;
+
+  /**
+   * If true active is before anchor
+   */
+  isReversed?: boolean;
+
+  /**
+   * Indicates that this is a raw selection with no type information so for
+   * example if it is the destination of a bring or move it should inherit the
+   * type information such as delimiters from its source
+   */
+  isRawSelection?: boolean;
+
+  /**
+   * If true this selection is part of a notebook cell
+   */
+  isNotebookCell?: boolean;
+
+  /**
+   * If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument
+   */
+  delimiter?: string;
+
+  /**
+   * The range of the content
+   */
+  contentRange: Range;
+
+  /**
+   * Represents the interior range of this selection. For example, for a
+   * surrounding pair this would exclude the opening and closing delimiter. For an if
+   * statement this would be the statements in the body.
+   */
+  interiorRange?: Range;
+
+  /**
+   * The range that needs to be removed
+   */
+  removalRange?: Range;
+
+  /**
+   * The range of the delimiter before the content selection
+   */
+  leadingDelimiterRange?: Range;
+
+  /**
+   * The range of the delimiter after the content selection
+   */
+  trailingDelimiterRange?: Range;
+
+  /**
+   * Represents the boundary ranges of this selection. For example, for a
+   * surrounding pair this would be the opening and closing delimiter. For an if
+   * statement this would be the line of the guard as well as the closing brace.
+   */
+  boundary?: Range[];
+}

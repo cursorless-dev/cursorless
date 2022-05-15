@@ -7,7 +7,7 @@
 //   ActionReturnValue,
 //   Graph,
 //   SelectionWithContext,
-//   TypedSelection,
+//   Target,
 // } from "../typings/Types";
 // import displayPendingEditDecorations from "../util/editDisplayUtils";
 // import { runForEachEditor } from "../util/targetUtils";
@@ -29,7 +29,7 @@
 //   }
 
 //   async run(
-//     [targets]: [TypedSelection[]],
+//     [targets]: [Target[]],
 //     left: string,
 //     right: string
 //   ): Promise<ActionReturnValue> {
@@ -90,7 +90,7 @@
 // function constructSimpleTypedSelection(
 //   editor: TextEditor,
 //   selection: SelectionWithContext
-// ): TypedSelection {
+// ): Target {
 //   return {
 //     selection: {
 //       selection: selection.selection,

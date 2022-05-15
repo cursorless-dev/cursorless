@@ -4,12 +4,12 @@ import { getNodeMatcher } from "../../languages/getNodeMatcher";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  Target,
 } from "../../typings/target.types";
 import {
   NodeMatcher,
   ProcessedTargetsContext,
   SelectionWithEditor,
-  TypedSelection,
 } from "../../typings/Types";
 import { selectionWithEditorFromRange } from "../../util/selectionUtils";
 import { ModifierStage } from "../PipelineStages.types";
@@ -17,10 +17,7 @@ import { ModifierStage } from "../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    selection: TypedSelection
-  ): TypedSelection[] {
+  run(context: ProcessedTargetsContext, selection: Target): Target[] {
     const nodeMatcher = getNodeMatcher(
       selection.editor.document.languageId,
       this.modifier.scopeType,
