@@ -1,5 +1,6 @@
 import { ActionRecord, Graph } from "../typings/Types";
 import Clear from "./Clear";
+import GetText from "./GetText";
 import Highlight from "./Highlight";
 import Remove from "./Remove";
 import {
@@ -22,7 +23,7 @@ class Actions implements ActionRecord {
   // findInWorkspace = new FindInFiles(this.graph);
   // foldRegion = new Fold(this.graph);
   // followLink = new FollowLink(this.graph);
-  // getText = new GetText(this.graph);
+  getText = new GetText(this.graph);
   highlight = new Highlight(this.graph);
   // indentLine = new IndentLines(this.graph);
   // insertCopyAfter = new CopyLinesDown(this.graph);

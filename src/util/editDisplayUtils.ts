@@ -52,7 +52,7 @@ export async function displayPendingEditDecorationsForSelection(
 export default async function displayPendingEditDecorations(
   targets: Target[],
   editStyle: EditStyle,
-  getRange: (target: Target) => Range,
+  getRange: (target: Target) => Range = getContentRange,
   contentOnly?: boolean
 ) {
   await setDecorations(targets, editStyle, getRange, contentOnly);
