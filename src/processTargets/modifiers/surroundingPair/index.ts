@@ -57,7 +57,6 @@ export function processSurroundingPair(
         selection.selection,
         null,
         delimiters,
-        modifier.delimiterInclusion,
         modifier.forceDirection
       );
     } else {
@@ -74,7 +73,6 @@ export function processSurroundingPair(
       selection.selection,
       textFragmentRange,
       delimiters,
-      modifier.delimiterInclusion,
       modifier.forceDirection
     );
 
@@ -91,7 +89,6 @@ export function processSurroundingPair(
     selection.selection,
     node,
     delimiters,
-    modifier.delimiterInclusion,
     modifier.forceDirection
   );
 }

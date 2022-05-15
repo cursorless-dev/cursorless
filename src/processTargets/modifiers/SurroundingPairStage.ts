@@ -1,19 +1,8 @@
-import * as vscode from "vscode";
 import { Selection } from "vscode";
-import { SyntaxNode } from "web-tree-sitter";
-import getTextFragmentExtractor, {
-  TextFragmentExtractor,
-} from "../../languages/getTextFragmentExtractor";
-import {
-  ComplexSurroundingPairName,
-  SurroundingPairModifier,
-  Target,
-} from "../../typings/target.types";
+import { SurroundingPairModifier, Target } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
-import { complexDelimiterMap } from "./surroundingPair/delimiterMaps";
-import { findSurroundingPairParseTreeBased } from "./surroundingPair/findSurroundingPairParseTreeBased";
-import { findSurroundingPairTextBased } from "./surroundingPair/findSurroundingPairTextBased";
+import { processSurroundingPair } from "./surroundingPair";
 
 /**
  * Applies the surrounding pair modifier to the given selection. First looks to
@@ -32,7 +21,18 @@ export default class implements ModifierStage {
   constructor(private modifier: SurroundingPairModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const pairs = processSurroundingPair(context, this.modifier, target);
+    const selectionWithEditor = {
+      editor: target.editor,
+      selection: new Selection(
+        target.contentRange.start,
+        target.contentRange.end
+      ),
+    };
+    const pairs = processSurroundingPair(
+      context,
+      selectionWithEditor,
+      this.modifier
+    );
     if (pairs == null) {
       throw new Error("Couldn't find containing pair");
     }
@@ -42,87 +42,10 @@ export default class implements ModifierStage {
       contentRange: pair.selection.selection,
       interiorRange: pair.context.interior?.at(0)?.selection,
       removalRange: pair.context.outerSelection ?? undefined,
-      isRawSelection: pair.context.isRawSelection,
-      isNotebookCell: pair.context.isNotebookCell,
       delimiter: pair.context.containingListDelimiter ?? undefined,
       boundary: pair.context.boundary?.map((bound) => bound.selection),
       leadingDelimiterRange: pair.context.leadingDelimiterRange ?? undefined,
       trailingDelimiterRange: pair.context.trailingDelimiterRange ?? undefined,
     }));
   }
-}
-
-function processSurroundingPair(
-  context: ProcessedTargetsContext,
-  modifier: SurroundingPairModifier,
-  selection: Target
-) {
-  const document = selection.editor.document;
-  const delimiters = complexDelimiterMap[
-    modifier.delimiter as ComplexSurroundingPairName
-  ] ?? [modifier.delimiter];
-
-  let node: SyntaxNode | null;
-  let textFragmentExtractor: TextFragmentExtractor;
-
-  try {
-    node = context.getNodeAtLocation(
-      new vscode.Location(document.uri, selection.contentRange)
-    );
-
-    textFragmentExtractor = getTextFragmentExtractor(document.languageId);
-  } catch (err) {
-    if ((err as Error).name === "UnsupportedLanguageError") {
-      // If we're in a language where we don't have a parse tree we use the text
-      // based algorithm
-      return findSurroundingPairTextBased(
-        selection.editor,
-        selection.contentRange,
-        null,
-        delimiters,
-        modifier.delimiterInclusion,
-        modifier.forceDirection
-      );
-    } else {
-      throw err;
-    }
-  }
-
-  const selectionWithEditor = {
-    editor: selection.editor,
-    selection: new Selection(
-      selection.contentRange.start,
-      selection.contentRange.end
-    ),
-  };
-
-  // If we have a parse tree but we are in a string node or in a comment node,
-  // then we use the text-based algorithm
-  const textFragmentRange = textFragmentExtractor(node, selectionWithEditor);
-  if (textFragmentRange != null) {
-    const surroundingRange = findSurroundingPairTextBased(
-      selection.editor,
-      selection.contentRange,
-      textFragmentRange,
-      delimiters,
-      modifier.delimiterInclusion,
-      modifier.forceDirection
-    );
-
-    if (surroundingRange != null) {
-      return surroundingRange;
-    }
-  }
-
-  // If we have a parse tree and either we are not in a string or comment or we
-  // couldn't find a surrounding pair within a string or comment, we use the
-  // parse tree-based algorithm
-  return findSurroundingPairParseTreeBased(
-    selection.editor,
-    selection.contentRange,
-    node,
-    delimiters,
-    modifier.delimiterInclusion,
-    modifier.forceDirection
-  );
 }

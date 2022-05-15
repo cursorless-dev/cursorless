@@ -64,6 +64,7 @@ def cursorless_surrounding_pair(m) -> dict[str, Any]:
         "delimiter": surrounding_pair_scope_type,
     }
 
+    # TODO make as own modifier stage
     try:
         modifier["delimiterInclusion"] = m.cursorless_delimiter_inclusion
     except AttributeError:

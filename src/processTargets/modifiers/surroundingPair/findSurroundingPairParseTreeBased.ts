@@ -1,7 +1,6 @@
 import { Range, TextDocument, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import {
-  DelimiterInclusion,
   SimpleSurroundingPairName,
   SurroundingPairDirection,
 } from "../../../typings/target.types";
@@ -56,7 +55,6 @@ import {
  * @param selection The selection to find surrounding pair around
  * @param node A parse tree node overlapping with the selection
  * @param delimiters The acceptable surrounding pair names
- * @param delimiterInclusion Whether to include / exclude the delimiters themselves
  * @returns The newly expanded selection, including editor info
  */
 export function findSurroundingPairParseTreeBased(
@@ -64,7 +62,6 @@ export function findSurroundingPairParseTreeBased(
   selection: Range,
   node: SyntaxNode,
   delimiters: SimpleSurroundingPairName[],
-  delimiterInclusion: DelimiterInclusion,
   forceDirection: "left" | "right" | undefined
 ) {
   const document: TextDocument = editor.document;
@@ -118,8 +115,7 @@ export function findSurroundingPairParseTreeBased(
       return extractSelectionFromSurroundingPairOffsets(
         document,
         0,
-        pairOffsets,
-        delimiterInclusion
+        pairOffsets
       ).map(({ selection, context }) => ({
         selection: { selection, editor },
         context,

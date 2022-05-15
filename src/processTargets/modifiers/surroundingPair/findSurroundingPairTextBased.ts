@@ -1,7 +1,6 @@
 import { escapeRegExp, findLast, uniq } from "lodash";
 import { Range, TextDocument, TextEditor } from "vscode";
 import {
-  DelimiterInclusion,
   SimpleSurroundingPairName,
   SurroundingPairDirection,
   SurroundingPairName,
@@ -64,7 +63,6 @@ const SCAN_EXPANSION_FACTOR = 3;
  * @param allowableRange The range in which to look for delimiters, or the
  * entire document if `null`
  * @param delimiters The acceptable surrounding pair names
- * @param delimiterInclusion Whether to include / exclude the delimiters themselves
  * @returns The newly expanded selection, including editor info
  */
 export function findSurroundingPairTextBased(
@@ -72,7 +70,6 @@ export function findSurroundingPairTextBased(
   selection: Range,
   allowableRange: Range | null,
   delimiters: SimpleSurroundingPairName[],
-  delimiterInclusion: DelimiterInclusion,
   forceDirection: "left" | "right" | undefined
 ) {
   const document: TextDocument = editor.document;
@@ -168,8 +165,7 @@ export function findSurroundingPairTextBased(
       return extractSelectionFromSurroundingPairOffsets(
         document,
         currentRangeOffsets.start,
-        pairOffsets,
-        delimiterInclusion
+        pairOffsets
       ).map(({ selection, context }) => ({
         selection: { selection, editor },
         context,

@@ -1,7 +1,6 @@
 import { TestCaseFixture } from "../../../testUtil/TestCase";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
 import {
-  DelimiterInclusion,
   PartialPrimitiveTargetDesc,
 } from "../../../typings/target.types";
 
@@ -12,21 +11,23 @@ export function updateSurroundingPairTest(fixture: TestCaseFixture) {
     (target: PartialPrimitiveTargetDesc) => {
       target.modifiers?.forEach((modifier) => {
         if (modifier?.type === "surroundingPair") {
-          let delimiterInclusion: DelimiterInclusion;
+          
+          // TODO
+          // let delimiterInclusion: DelimiterInclusion;
 
-          switch (modifier.delimiterInclusion as any) {
-            case "includeDelimiters":
-              delimiterInclusion = undefined;
-              break;
-            case "excludeDelimiters":
-              delimiterInclusion = "interiorOnly";
-              break;
-            case "delimitersOnly":
-              delimiterInclusion = "excludeInterior";
-              break;
-          }
+          // switch (modifier.delimiterInclusion as any) {
+          //   case "includeDelimiters":
+          //     delimiterInclusion = undefined;
+          //     break;
+          //   case "excludeDelimiters":
+          //     delimiterInclusion = "interiorOnly";
+          //     break;
+          //   case "delimitersOnly":
+          //     delimiterInclusion = "excludeInterior";
+          //     break;
+          // }
 
-          modifier.delimiterInclusion = delimiterInclusion;
+          // modifier.delimiterInclusion = delimiterInclusion;
         }
       });
 

@@ -1,6 +1,5 @@
 import { Selection, TextDocument } from "vscode";
 import { SelectionWithContext } from "../../../typings/Types";
-import { DelimiterInclusion } from "../../../typings/target.types";
 import { SurroundingPairOffsets } from "./types";
 
 /**
@@ -15,8 +14,7 @@ import { SurroundingPairOffsets } from "./types";
 export function extractSelectionFromSurroundingPairOffsets(
   document: TextDocument,
   baseOffset: number,
-  surroundingPairOffsets: SurroundingPairOffsets,
-  delimiterInclusion: DelimiterInclusion
+  surroundingPairOffsets: SurroundingPairOffsets
 ): SelectionWithContext[] {
   const interior = [
     {
@@ -57,31 +55,20 @@ export function extractSelectionFromSurroundingPairOffsets(
     },
   ];
 
-  // If delimiter inclusion is null, do default behavior and include the
-  // delimiters
-  if (delimiterInclusion == null) {
-    return [
-      {
-        selection: new Selection(
-          document.positionAt(
-            baseOffset + surroundingPairOffsets.leftDelimiter.start
-          ),
-          document.positionAt(
-            baseOffset + surroundingPairOffsets.rightDelimiter.end
-          )
+  return [
+    {
+      selection: new Selection(
+        document.positionAt(
+          baseOffset + surroundingPairOffsets.leftDelimiter.start
         ),
-        context: {
-          boundary,
-          interior,
-        },
+        document.positionAt(
+          baseOffset + surroundingPairOffsets.rightDelimiter.end
+        )
+      ),
+      context: {
+        boundary,
+        interior,
       },
-    ];
-  }
-
-  switch (delimiterInclusion) {
-    case "interiorOnly":
-      return interior;
-    case "excludeInterior":
-      return boundary;
-  }
+    },
+  ];
 }

@@ -28,10 +28,11 @@ export function upgradeV1ToV2(command: CommandV1): CommandV2 {
   };
 }
 
-function upgradeModifier(modifier: ModifierV0V1): Modifier | null {
+function upgradeModifier(modifier: ModifierV0V1): Modifier | Modifier[] | null {
   switch (modifier.type) {
     case "identity":
       return null;
+
     case "containingScope":
       const mod = {
         ...modifier,
@@ -44,6 +45,17 @@ function upgradeModifier(modifier: ModifierV0V1): Modifier | null {
         };
       }
       return mod;
+
+    case "surroundingPair":
+      const { delimiterInclusion, ...rest } = modifier;
+      if (delimiterInclusion === "interiorOnly") {
+        return [rest, { type: "interior" }];
+      }
+      if (delimiterInclusion === "excludeInterior") {
+        return [rest, { type: "boundary" }];
+      }
+      return rest;
+
     default:
       return modifier;
   }
@@ -64,7 +76,11 @@ function upgradePrimitiveTarget(
   if (modifier) {
     const mod = upgradeModifier(modifier);
     if (mod) {
-      modifiers.push(mod);
+      if (Array.isArray(mod)) {
+        modifiers.push(...mod);
+      } else {
+        modifiers.push(mod);
+      }
     }
   }
   if (isImplicit) {

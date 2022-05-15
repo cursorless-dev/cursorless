@@ -3,9 +3,11 @@ import {
   EveryScopeModifier,
   Modifier,
 } from "../typings/target.types";
+import BoundaryStage from "./modifiers/BoundaryStage";
 import ContainingScopeStage from "./modifiers/ContainingScopeStage";
 import DocumentStage from "./modifiers/DocumentStage";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
+import InteriorStage from "./modifiers/InteriorStage";
 import LineStage from "./modifiers/LineStage";
 import NotebookCellStage from "./modifiers/NotebookCellStage";
 import ParagraphStage from "./modifiers/ParagraphStage";
@@ -31,6 +33,10 @@ export default (modifier: Modifier): ModifierStage => {
       return new SubPieceStage(modifier);
     case "surroundingPair":
       return new SurroundingPairStage(modifier);
+    case "interior":
+      return new InteriorStage(modifier);
+    case "boundary":
+      return new BoundaryStage(modifier);
     case "containingScope":
     case "everyScope":
       return getContainingScopeStage(modifier);
