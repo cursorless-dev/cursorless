@@ -117,7 +117,6 @@ function inferPrimitiveTarget(
     type: target.type,
     mark,
     modifiers,
-    isImplicit: target.isImplicit ?? false,
   };
 }
 

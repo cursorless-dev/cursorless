@@ -43,10 +43,10 @@ interface CommandV0V1 {
   extraArgs?: unknown[];
 }
 
-interface PartialPrimitiveTarget {
+export interface PartialPrimitiveTargetV0V1 {
   type: "primitive";
   mark?: Mark;
-  modifier?: Modifier;
+  modifier?: ModifierV0V1;
   selectionType?: SelectionType;
   position?: Position;
   insideOutsideType?: InsideOutsideType;
@@ -55,8 +55,8 @@ interface PartialPrimitiveTarget {
 
 interface PartialRangeTarget {
   type: "range";
-  start: PartialPrimitiveTarget;
-  end: PartialPrimitiveTarget;
+  start: PartialPrimitiveTargetV0V1;
+  end: PartialPrimitiveTargetV0V1;
   excludeStart?: boolean;
   excludeEnd?: boolean;
   rangeType?: RangeType;
@@ -66,11 +66,11 @@ type RangeType = "continuous" | "vertical";
 
 interface PartialListTarget {
   type: "list";
-  elements: (PartialPrimitiveTarget | PartialRangeTarget)[];
+  elements: (PartialPrimitiveTargetV0V1 | PartialRangeTarget)[];
 }
 
 export type PartialTargetV0V1 =
-  | PartialPrimitiveTarget
+  | PartialPrimitiveTargetV0V1
   | PartialRangeTarget
   | PartialListTarget;
 
@@ -105,11 +105,37 @@ interface Nothing {
 
 interface DecoratedSymbol {
   type: "decoratedSymbol";
-  // NB: We use the type string instead of the more specific hat style type
-  // because this will go through a canonicalization mapping anyway
-  symbolColor: string;
+  symbolColor: HatStyleName;
   character: string;
 }
+
+const HAT_COLORS = [
+  "default",
+  "blue",
+  "green",
+  "red",
+  "pink",
+  "yellow",
+  "userColor1",
+  "userColor2",
+] as const;
+
+const HAT_NON_DEFAULT_SHAPES = [
+  "ex",
+  "fox",
+  "wing",
+  "hole",
+  "frame",
+  "curve",
+  "eye",
+  "play",
+  "bolt",
+  "crosshairs",
+] as const;
+
+type HatColor = typeof HAT_COLORS[number];
+type HatNonDefaultShape = typeof HAT_NON_DEFAULT_SHAPES[number];
+type HatStyleName = HatColor | `${HatColor}-${HatNonDefaultShape}`;
 
 type LineNumberType = "absolute" | "relative" | "modulo100";
 
@@ -218,7 +244,7 @@ interface TailModifier {
   type: "tail";
 }
 
-type Modifier =
+export type ModifierV0V1 =
   | IdentityModifier
   | SurroundingPairModifier
   | ContainingScopeModifier

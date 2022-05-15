@@ -181,7 +181,6 @@ export interface PartialPrimitiveTarget {
   type: "primitive";
   mark?: Mark;
   modifiers?: Modifier[];
-  isImplicit?: boolean;
 }
 
 export type Modifier =
@@ -214,7 +213,6 @@ export type PartialTarget =
   | PartialListTarget;
 
 export interface PrimitiveTarget extends PartialPrimitiveTarget {
-  isImplicit: boolean;
   mark: Mark;
   modifiers: Modifier[];
 }
