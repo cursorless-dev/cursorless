@@ -1,10 +1,8 @@
 import { flatten } from "lodash";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateRanges";
-// import { unifyTargets } from "../util/unifyRanges";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
-
 import {
   createThatMark,
   getContentRange,
@@ -12,6 +10,7 @@ import {
   getRemovalRange,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
+import { unifyTargets } from "../util/unifyRanges";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Delete implements Action {
@@ -24,8 +23,7 @@ export default class Delete implements Action {
     { showDecorations = true, contentOnly = false } = {}
   ): Promise<ActionReturnValue> {
     // Unify overlapping targets.
-    // TODO
-    // targets = unifyTargets(targets);
+    targets = unifyTargets(targets);
 
     if (showDecorations) {
       await displayPendingEditDecorations(

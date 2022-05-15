@@ -2,6 +2,7 @@ import { Graph } from "../typings/Types";
 import { ActionRecord } from "./actions.types";
 import Clear from "./Clear";
 import { CommentLines } from "./Comment";
+import { CopyLinesDown, CopyLinesUp } from "./CopyLines";
 import { Copy, Cut, Paste } from "./CutCopyPaste";
 import Deselect from "./Deselect";
 import ExecuteCommand from "./ExecuteCommand";
@@ -44,8 +45,8 @@ class Actions implements ActionRecord {
   getText = new GetText(this.graph);
   highlight = new Highlight(this.graph);
   indentLine = new IndentLines(this.graph);
-  // insertCopyAfter = new CopyLinesDown(this.graph);
-  // insertCopyBefore = new CopyLinesUp(this.graph);
+  insertCopyAfter = new CopyLinesDown(this.graph);
+  insertCopyBefore = new CopyLinesUp(this.graph);
   insertEmptyLineAfter = new InsertEmptyLineBelow(this.graph);
   insertEmptyLineBefore = new InsertEmptyLineAbove(this.graph);
   insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);

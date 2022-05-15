@@ -112,7 +112,7 @@ function upgradePrimitiveTarget(
   return {
     ...rest,
     // Modifiers are processed backwards
-    modifiers: modifiers.reverse(),
+    modifiers: modifiers.length ? modifiers.reverse() : undefined,
   };
 }
 
