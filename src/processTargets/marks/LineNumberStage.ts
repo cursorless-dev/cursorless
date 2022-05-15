@@ -1,5 +1,9 @@
 import { Range, TextEditor, window } from "vscode";
-import { LineNumberMark, LineNumberPosition, Target } from "../../typings/target.types";
+import {
+  LineNumberMark,
+  LineNumberPosition,
+  Target,
+} from "../../typings/target.types";
 import { getLineContext } from "../modifiers/LineStage";
 import { MarkStage } from "../PipelineStages.types";
 
