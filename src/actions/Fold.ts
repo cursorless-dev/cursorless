@@ -1,74 +1,66 @@
-// import { commands, window } from "vscode";
-// import {
-//   Action,
-//   ActionPreferences,
-//   ActionReturnValue,
-//   Graph,
-//   Target,
-// } from "../typings/Types";
-// import { focusEditor } from "../util/setSelectionsAndFocusEditor";
-// import { ensureSingleEditor } from "../util/targetUtils";
+import { commands, window } from "vscode";
+import { Target } from "../typings/target.types";
+import { Action, ActionReturnValue, Graph } from "../typings/Types";
+import { focusEditor } from "../util/setSelectionsAndFocusEditor";
+import {
+  createThatMark,
+  ensureSingleEditor,
+  getContentRange,
+} from "../util/targetUtils";
 
-// class FoldAction implements Action {
-//   getTargetPreferences: () => ActionPreferences[] = () => [
-//     { insideOutsideType: "inside" },
-//   ];
+class FoldAction implements Action {
+  constructor(private command: string) {
+    this.run = this.run.bind(this);
+  }
 
-//   constructor(private command: string) {
-//     this.run = this.run.bind(this);
-//   }
+  async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
+    const originalEditor = window.activeTextEditor;
+    const editor = ensureSingleEditor(targets);
 
-//   async run([targets]: [
-//     Target[],
-//     Target[]
-//   ]): Promise<ActionReturnValue> {
-//     const originalEditor = window.activeTextEditor;
-//     const editor = ensureSingleEditor(targets);
+    if (originalEditor !== editor) {
+      await focusEditor(editor);
+    }
 
-//     if (originalEditor !== editor) {
-//       await focusEditor(editor);
-//     }
+    const singleLineTargets = targets.filter(
+      (target) => getContentRange(target).isSingleLine
+    );
+    const multiLineTargets = targets.filter(
+      (target) => !getContentRange(target).isSingleLine
+    );
+    // Don't mix multi and single line targets.
+    // This is probably the result of an "every" command
+    // and folding the single line targets will fold the parent as well
+    const selectedTargets = multiLineTargets.length
+      ? multiLineTargets
+      : singleLineTargets;
 
-//     const singleLineTargets = targets.filter(
-//       (target) => target.selection.selection.isSingleLine
-//     );
-//     const multiLineTargets = targets.filter(
-//       (target) => !target.selection.selection.isSingleLine
-//     );
-//     // Don't mix multi and single line targets.
-//     // This is probably the result of an "every" command
-//     // and folding the single line targets will fold the parent as well
-//     const selectedTargets = multiLineTargets.length
-//       ? multiLineTargets
-//       : singleLineTargets;
+    await commands.executeCommand(this.command, {
+      levels: 1,
+      direction: "down",
+      selectionLines: selectedTargets.map(
+        (target) => getContentRange(target).start.line
+      ),
+    });
 
-//     await commands.executeCommand(this.command, {
-//       levels: 1,
-//       direction: "down",
-//       selectionLines: selectedTargets.map(
-//         (target) => target.selection.selection.start.line
-//       ),
-//     });
+    // If necessary focus back original editor
+    if (originalEditor != null && originalEditor !== editor) {
+      await focusEditor(originalEditor);
+    }
 
-//     // If necessary focus back original editor
-//     if (originalEditor != null && originalEditor !== editor) {
-//       await focusEditor(originalEditor);
-//     }
+    return {
+      thatMark: createThatMark(targets),
+    };
+  }
+}
 
-//     return {
-//       thatMark: targets.map((target) => target.selection),
-//     };
-//   }
-// }
+export class Fold extends FoldAction {
+  constructor(_graph: Graph) {
+    super("editor.fold");
+  }
+}
 
-// export class Fold extends FoldAction {
-//   constructor(_graph: Graph) {
-//     super("editor.fold");
-//   }
-// }
-
-// export class Unfold extends FoldAction {
-//   constructor(_graph: Graph) {
-//     super("editor.unfold");
-//   }
-// }
+export class Unfold extends FoldAction {
+  constructor(_graph: Graph) {
+    super("editor.unfold");
+  }
+}

@@ -3,6 +3,7 @@ import Clear from "./Clear";
 import Deselect from "./Deselect";
 import ExecuteCommand from "./ExecuteCommand";
 import { FindInFiles } from "./Find";
+import { Fold, Unfold } from "./Fold";
 import FollowLink from "./FollowLink";
 import GetText from "./GetText";
 import Highlight from "./Highlight";
@@ -26,7 +27,7 @@ class Actions implements ActionRecord {
   executeCommand = new ExecuteCommand(this.graph);
   // extractVariable = new ExtractVariable(this.graph);
   findInWorkspace = new FindInFiles(this.graph);
-  // foldRegion = new Fold(this.graph);
+  foldRegion = new Fold(this.graph);
   followLink = new FollowLink(this.graph);
   getText = new GetText(this.graph);
   highlight = new Highlight(this.graph);
@@ -56,7 +57,7 @@ class Actions implements ActionRecord {
   // swapTargets = new Swap(this.graph);
   // toggleLineBreakpoint = new SetBreakpoint(this.graph);
   // toggleLineComment = new CommentLines(this.graph);
-  // unfoldRegion = new Unfold(this.graph);
+  unfoldRegion = new Unfold(this.graph);
   // wrapWithPairedDelimiter = new Wrap(this.graph);
   // wrapWithSnippet = new WrapWithSnippet(this.graph);
   //
