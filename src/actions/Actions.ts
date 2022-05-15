@@ -5,6 +5,7 @@ import { CommentLines } from "./Comment";
 import { Copy, Cut, Paste } from "./CutCopyPaste";
 import Deselect from "./Deselect";
 import ExecuteCommand from "./ExecuteCommand";
+import ExtractVariable from "./ExtractVariable";
 import { FindInFiles } from "./Find";
 import { Fold, Unfold } from "./Fold";
 import FollowLink from "./FollowLink";
@@ -34,7 +35,7 @@ class Actions implements ActionRecord {
   // editNewLineAfter = new EditNewLineBelow(this.graph);
   // editNewLineBefore = new EditNewLineAbove(this.graph);
   executeCommand = new ExecuteCommand(this.graph);
-  // extractVariable = new ExtractVariable(this.graph);
+  extractVariable = new ExtractVariable(this.graph);
   findInWorkspace = new FindInFiles(this.graph);
   foldRegion = new Fold(this.graph);
   followLink = new FollowLink(this.graph);

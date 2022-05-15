@@ -10,7 +10,7 @@ export type ActionType =
   // | "editNewLineAfter"
   // | "editNewLineBefore"
   | "executeCommand"
-  // | "extractVariable"
+  | "extractVariable"
   | "findInWorkspace"
   | "foldRegion"
   | "followLink"
