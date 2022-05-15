@@ -259,6 +259,11 @@ export interface Target {
   scopeType?: ScopeType;
 
   /**
+   * The current position
+   */
+  position?: Position;
+
+  /**
    * If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument
    */
   delimiter?: string;

@@ -9,10 +9,20 @@ export default class implements ModifierStage {
   run(context: ProcessedTargetsContext, target: Target): Target {
     const res = {
       editor: target.editor,
+      position: this.modifier.position,
       isReversed: false,
     };
     switch (this.modifier.position) {
       case "before":
+        return {
+          ...res,
+          contentRange: new Range(
+            target.contentRange.start,
+            target.contentRange.start
+          ),
+          leadingDelimiterRange: target.leadingDelimiterRange,
+        };
+
       case "start":
         return {
           ...res,
@@ -21,7 +31,17 @@ export default class implements ModifierStage {
             target.contentRange.start
           ),
         };
+
       case "after":
+        return {
+          ...res,
+          contentRange: new Range(
+            target.contentRange.end,
+            target.contentRange.end
+          ),
+          trailingDelimiterRange: target.trailingDelimiterRange,
+        };
+
       case "end":
         return {
           ...res,
