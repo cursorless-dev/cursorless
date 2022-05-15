@@ -2,11 +2,7 @@ import { commands, window } from "vscode";
 import { Target } from "../typings/target.types";
 import { Action, ActionReturnValue, Graph } from "../typings/Types";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
-import {
-  createThatMark,
-  ensureSingleEditor,
-  getContentRange,
-} from "../util/targetUtils";
+import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 
 class FoldAction implements Action {
   constructor(private command: string) {
@@ -22,10 +18,10 @@ class FoldAction implements Action {
     }
 
     const singleLineTargets = targets.filter(
-      (target) => getContentRange(target).isSingleLine
+      (target) => target.contentRange.isSingleLine
     );
     const multiLineTargets = targets.filter(
-      (target) => !getContentRange(target).isSingleLine
+      (target) => !target.contentRange.isSingleLine
     );
     // Don't mix multi and single line targets.
     // This is probably the result of an "every" command
@@ -38,7 +34,7 @@ class FoldAction implements Action {
       levels: 1,
       direction: "down",
       selectionLines: selectedTargets.map(
-        (target) => getContentRange(target).start.line
+        (target) => target.contentRange.start.line
       ),
     });
 

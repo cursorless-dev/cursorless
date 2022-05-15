@@ -23,17 +23,17 @@ export async function decorationSleep() {
   await sleep(getPendingEditDecorationTime());
 }
 
-export async function displayPendingEditDecorationsForSelection(
-  selections: SelectionWithEditor[],
+export async function displayPendingEditDecorationsForTargets(
+  targets: Target[],
   style: TextEditorDecorationType
 ) {
   await runForEachEditor(
-    selections,
+    targets,
     (selection) => selection.editor,
     async (editor, selections) => {
       editor.setDecorations(
         style,
-        selections.map((selection) => selection.selection)
+        selections.map((target) => target.contentRange)
       );
     }
   );
@@ -41,8 +41,8 @@ export async function displayPendingEditDecorationsForSelection(
   await decorationSleep();
 
   await runForEachEditor(
-    selections,
-    (selection) => selection.editor,
+    targets,
+    (target) => target.editor,
     async (editor) => {
       editor.setDecorations(style, []);
     }

@@ -28,9 +28,9 @@ export type ActionType =
   // | "replaceWithTarget"
   // | "reverseTargets"
   // | "rewrapWithPairedDelimiter"
-  // | "scrollToBottom"
-  // | "scrollToCenter"
-  // | "scrollToTop"
+  | "scrollToBottom"
+  | "scrollToCenter"
+  | "scrollToTop"
   | "setSelection"
   | "setSelectionAfter"
   | "setSelectionBefore";

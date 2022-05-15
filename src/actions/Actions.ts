@@ -9,6 +9,7 @@ import GetText from "./GetText";
 import Highlight from "./Highlight";
 import { IndentLines, OutdentLines } from "./Indent";
 import Remove from "./Remove";
+import { ScrollToBottom, ScrollToCenter, ScrollToTop } from "./Scroll";
 import {
   SetSelection,
   SetSelectionAfter,
@@ -47,9 +48,9 @@ class Actions implements ActionRecord {
   // randomizeTargets = new Random(this.graph);
   // reverseTargets = new Reverse(this.graph);
   // rewrapWithPairedDelimiter = new Rewrap(this.graph);
-  // scrollToBottom = new ScrollToBottom(this.graph);
-  // scrollToCenter = new ScrollToCenter(this.graph);
-  // scrollToTop = new ScrollToTop(this.graph);
+  scrollToBottom = new ScrollToBottom(this.graph);
+  scrollToCenter = new ScrollToCenter(this.graph);
+  scrollToTop = new ScrollToTop(this.graph);
   setSelection = new SetSelection(this.graph);
   setSelectionAfter = new SetSelectionAfter(this.graph);
   setSelectionBefore = new SetSelectionBefore(this.graph);
