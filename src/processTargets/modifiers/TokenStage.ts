@@ -61,9 +61,6 @@ export function getTokenContext(
 
   return {
     delimiter: " ",
-    removalRange: undefined,
-    interiorRange: undefined,
-    boundary: undefined,
     leadingDelimiterRange: isInDelimitedList
       ? leadingDelimiterRange
       : undefined,

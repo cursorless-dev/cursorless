@@ -6,6 +6,7 @@ import {
 } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
+import { fitRangeToLineContent } from "./LineStage";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
@@ -41,7 +42,10 @@ export default class implements ModifierStage {
     );
     const end = endLine.range.end;
 
-    const contentRange = new Range(start, end);
+    const contentRange = fitRangeToLineContent(
+      target.editor,
+      new Range(start, end)
+    );
 
     const removalRange = new Range(
       new Position(start.line, 0),

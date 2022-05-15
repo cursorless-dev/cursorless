@@ -1,4 +1,4 @@
-import { Range, TextDocument } from "vscode";
+import { Range, TextEditor } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
@@ -7,6 +7,7 @@ import {
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { getDocumentRange } from "../../util/range";
 import { ModifierStage } from "../PipelineStages.types";
+import { fitRangeToLineContent } from "./LineStage";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
@@ -17,13 +18,14 @@ export default class implements ModifierStage {
       isReversed: target.isReversed,
       scopeType: "document",
       delimiter: "\n",
-      contentRange: getDocumentContentRange(target.editor.document),
+      contentRange: getDocumentContentRange(target.editor),
       removalRange: getDocumentRange(target.editor.document),
     };
   }
 }
 
-function getDocumentContentRange(document: TextDocument) {
+function getDocumentContentRange(editor: TextEditor) {
+  const { document } = editor;
   let firstLineNum = 0;
   let lastLineNum = document.lineCount - 1;
 
@@ -44,5 +46,8 @@ function getDocumentContentRange(document: TextDocument) {
   const firstLine = document.lineAt(firstLineNum);
   const lastLine = document.lineAt(lastLineNum);
 
-  return new Range(firstLine.range.start, lastLine.range.end);
+  return fitRangeToLineContent(
+    editor,
+    new Range(firstLine.range.start, lastLine.range.end)
+  );
 }

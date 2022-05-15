@@ -65,7 +65,7 @@ export function getLineContext(
   };
 }
 
-function fitRangeToLineContent(editor: TextEditor, range: Range) {
+export function fitRangeToLineContent(editor: TextEditor, range: Range) {
   const startLine = editor.document.lineAt(range.start);
   const endLine = editor.document.lineAt(range.end);
   const endCharacterIndex =
