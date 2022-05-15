@@ -94,7 +94,19 @@ function upgradePrimitiveTarget(
   }
 
   if (position && position !== "contents") {
-    modifiers.push({ type: "position", position: position });
+    if (position === "before") {
+      if (insideOutsideType === "inside") {
+        modifiers.push({ type: "position", position: "start" });
+      } else {
+        modifiers.push({ type: "position", position: "before" });
+      }
+    } else {
+      if (insideOutsideType === "inside") {
+        modifiers.push({ type: "position", position: "end" });
+      } else {
+        modifiers.push({ type: "position", position: "after" });
+      }
+    }
   }
 
   return {
