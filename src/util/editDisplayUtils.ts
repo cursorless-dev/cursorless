@@ -4,7 +4,11 @@ import isTesting from "../testUtil/isTesting";
 import { Target } from "../typings/target.types";
 import { SelectionWithEditor } from "../typings/Types";
 import sleep from "./sleep";
-import { runForEachEditor, runOnTargetsForEachEditor } from "./targetUtils";
+import {
+  getContentRange,
+  runForEachEditor,
+  runOnTargetsForEachEditor,
+} from "./targetUtils";
 
 const getPendingEditDecorationTime = () =>
   workspace
@@ -58,17 +62,17 @@ export default async function displayPendingEditDecorations(
   clearDecorations(editStyle);
 }
 
-function clearDecorations(editStyle: EditStyle) {
+export function clearDecorations(editStyle: EditStyle) {
   window.visibleTextEditors.map((editor) => {
     editor.setDecorations(editStyle.token, []);
     editor.setDecorations(editStyle.line, []);
   });
 }
 
-async function setDecorations(
+export async function setDecorations(
   targets: Target[],
   editStyle: EditStyle,
-  getRange: (target: Target) => Range,
+  getRange: (target: Target) => Range = getContentRange,
   contentOnly?: boolean
 ) {
   await runOnTargetsForEachEditor(targets, async (editor, targets) => {

@@ -12,7 +12,7 @@ export type ActionType =
   // | "foldRegion"
   // | "followLink"
   // | "getText"
-  // | "highlight"
+  | "highlight"
   // | "indentLine"
   // | "insertCopyAfter"
   // | "insertCopyBefore"

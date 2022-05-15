@@ -1,5 +1,7 @@
-import { Position, Range, TextEditor } from "vscode";
+import { zip } from "lodash";
+import { Position, Range, Selection, TextEditor } from "vscode";
 import { Target } from "../typings/target.types";
+import { SelectionWithEditor } from "../typings/Types";
 import { groupBy } from "./itertools";
 
 export function ensureSingleEditor(targets: Target[]) {
@@ -92,4 +94,28 @@ function createTypeSelection(
     contentRange: new Range(start, end),
     isReversed: false,
   };
+}
+
+export function getContentRange(target: Target) {
+  return target.contentRange;
+}
+
+export function createThatMark(
+  targets: Target[],
+  ranges?: Range[]
+): SelectionWithEditor[] {
+  if (ranges) {
+    return zip(targets, ranges).map(([target, range]) => ({
+      editor: target!.editor,
+      selection: target?.isReversed
+        ? new Selection(range!.end, range!.start)
+        : new Selection(range!.start, range!.end),
+    }));
+  }
+  return targets.map((target) => ({
+    editor: target!.editor,
+    selection: target?.isReversed
+      ? new Selection(target.contentRange.end, target.contentRange.start)
+      : new Selection(target.contentRange.start, target.contentRange.end),
+  }));
 }

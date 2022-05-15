@@ -1,6 +1,4 @@
-import { zip } from "lodash";
 import { Position, Range, Selection } from "vscode";
-import { Target } from "../typings/target.types";
 import { SelectionWithEditor } from "../typings/Types";
 
 export function isForward(selection: Selection) {
@@ -38,16 +36,4 @@ function selectionFromPositions(
   return isForward(selection)
     ? new Selection(start, end)
     : new Selection(end, start);
-}
-
-export function createThatMark(
-  targets: Target[],
-  ranges: Range[]
-): SelectionWithEditor[] {
-  return zip(targets, ranges).map(([target, range]) => ({
-    editor: target!.editor,
-    selection: target?.isReversed
-      ? new Selection(range!.end, range!.start)
-      : new Selection(range!.start, range!.end),
-  }));
 }

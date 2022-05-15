@@ -4,8 +4,12 @@ import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSele
 import { Target } from "../typings/target.types";
 import { Action, ActionReturnValue, Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
-import { createThatMark } from "../util/selectionUtils";
-import { runOnTargetsForEachEditor } from "../util/targetUtils";
+
+import {
+  createThatMark,
+  getContentRange,
+  runOnTargetsForEachEditor,
+} from "../util/targetUtils";
 
 export default class Delete implements Action {
   constructor(private graph: Graph) {
@@ -52,10 +56,6 @@ export default class Delete implements Action {
 
     return { thatMark };
   }
-}
-
-function getContentRange(target: Target) {
-  return target.contentRange;
 }
 
 function getRemovalRange(target: Target) {
