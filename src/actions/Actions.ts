@@ -25,6 +25,7 @@ import {
   SetSelectionAfter,
   SetSelectionBefore,
 } from "./SetSelection";
+import { Random, Reverse, Sort } from "./Sort";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -55,8 +56,8 @@ class Actions implements ActionRecord {
   deselect = new Deselect(this.graph);
   replace = new Replace(this.graph);
   // replaceWithTarget = new Bring(this.graph);
-  // randomizeTargets = new Random(this.graph);
-  // reverseTargets = new Reverse(this.graph);
+  randomizeTargets = new Random(this.graph);
+  reverseTargets = new Reverse(this.graph);
   // rewrapWithPairedDelimiter = new Rewrap(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
@@ -64,7 +65,7 @@ class Actions implements ActionRecord {
   setSelection = new SetSelection(this.graph);
   setSelectionAfter = new SetSelectionAfter(this.graph);
   setSelectionBefore = new SetSelectionBefore(this.graph);
-  // sortTargets = new Sort(this.graph);
+  sortTargets = new Sort(this.graph);
   // swapTargets = new Swap(this.graph);
   // toggleLineBreakpoint = new ToggleBreakpoint(this.graph);
   toggleLineComment = new CommentLines(this.graph);

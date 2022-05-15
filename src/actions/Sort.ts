@@ -1,47 +1,39 @@
-// import { shuffle } from "lodash";
-// import {
-//   Action,
-//   ActionReturnValue,
-//   ActionPreferences,
-//   Graph,
-//   Target,
-// } from "../typings/Types";
+import { shuffle } from "lodash";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
+import { Action, ActionReturnValue } from "./actions.types";
 
-// export class Sort implements Action {
-//   getTargetPreferences: () => ActionPreferences[] = () => [
-//     { insideOutsideType: "inside" },
-//   ];
+export class Sort implements Action {
+  constructor(private graph: Graph) {
+    this.run = this.run.bind(this);
+  }
 
-//   constructor(private graph: Graph) {
-//     this.run = this.run.bind(this);
-//   }
+  protected sortTexts(texts: string[]) {
+    return texts.sort();
+  }
 
-//   protected sortTexts(texts: string[]) {
-//     return texts.sort();
-//   }
+  async run(targets: Target[][]): Promise<ActionReturnValue> {
+    const { returnValue: unsortedTexts } = await this.graph.actions.getText.run(
+      targets,
+      {
+        showDecorations: false,
+      }
+    );
 
-//   async run(targets: Target[][]): Promise<ActionReturnValue> {
-//     const { returnValue: unsortedTexts } = await this.graph.actions.getText.run(
-//       targets,
-//       {
-//         showDecorations: false,
-//       }
-//     );
+    const sortedTexts = this.sortTexts(unsortedTexts);
 
-//     const sortedTexts = this.sortTexts(unsortedTexts);
+    return this.graph.actions.replace.run(targets, sortedTexts);
+  }
+}
 
-//     return this.graph.actions.replace.run(targets, sortedTexts);
-//   }
-// }
+export class Reverse extends Sort {
+  protected sortTexts(texts: string[]) {
+    return texts.reverse();
+  }
+}
 
-// export class Reverse extends Sort {
-//   protected sortTexts(texts: string[]) {
-//     return texts.reverse();
-//   }
-// }
-
-// export class Random extends Sort {
-//   protected sortTexts(texts: string[]) {
-//     return shuffle(texts);
-//   }
-// }
+export class Random extends Sort {
+  protected sortTexts(texts: string[]) {
+    return shuffle(texts);
+  }
+}
