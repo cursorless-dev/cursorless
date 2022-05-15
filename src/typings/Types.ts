@@ -223,16 +223,14 @@ export type ActionType =
   // | "scrollToBottom"
   // | "scrollToCenter"
   // | "scrollToTop"
-  "setSelection"
-  | "setSelectionAfter"
-  | "setSelectionBefore"
-  // | "sortTargets"
-  // | "swapTargets"
-  // | "toggleLineBreakpoint"
-  // | "toggleLineComment"
-  // | "unfoldRegion"
-  // | "wrapWithPairedDelimiter"
-  // | "wrapWithSnippet"
+  "setSelection" | "setSelectionAfter" | "setSelectionBefore";
+// | "sortTargets"
+// | "swapTargets"
+// | "toggleLineBreakpoint"
+// | "toggleLineComment"
+// | "unfoldRegion"
+// | "wrapWithPairedDelimiter"
+// | "wrapWithSnippet"
 
 export type ActionRecord = Record<ActionType, Action>;
 
