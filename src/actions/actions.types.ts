@@ -29,7 +29,7 @@ export type ActionType =
   | "remove"
   // |"toggleLineBreakpoint"
   | "toggleLineComment"
-  // | "replace"
+  | "replace"
   // | "replaceWithTarget"
   // | "reverseTargets"
   // | "rewrapWithPairedDelimiter"

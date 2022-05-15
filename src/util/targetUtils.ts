@@ -135,3 +135,15 @@ export function getRemovalHighlightRange(target: Target) {
     ? removalRange.union(delimiterRange)
     : removalRange;
 }
+
+export function maybeAddDelimiter(text: string, target: Target) {
+  if (target.delimiter != null) {
+    if (target.position === "before") {
+      return text + target.delimiter;
+    }
+    if (target.position === "after") {
+      return target.delimiter + text;
+    }
+  }
+  return text;
+}

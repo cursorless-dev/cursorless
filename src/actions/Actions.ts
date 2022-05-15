@@ -18,6 +18,7 @@ import {
   InsertEmptyLinesAround,
 } from "./InsertEmptyLines";
 import Remove from "./Remove";
+import Replace from "./Replace";
 import { ScrollToBottom, ScrollToCenter, ScrollToTop } from "./Scroll";
 import {
   SetSelection,
@@ -52,7 +53,7 @@ class Actions implements ActionRecord {
   pasteFromClipboard = new Paste(this.graph);
   remove = new Remove(this.graph);
   deselect = new Deselect(this.graph);
-  // replace = new Replace(this.graph);
+  replace = new Replace(this.graph);
   // replaceWithTarget = new Bring(this.graph);
   // randomizeTargets = new Random(this.graph);
   // reverseTargets = new Reverse(this.graph);
