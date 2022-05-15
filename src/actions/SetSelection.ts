@@ -19,34 +19,34 @@ export class SetSelection implements Action {
   }
 
   protected getSelection(target: TypedSelection) {
-    return target.selection.selection;
+    return target.isReversed
+      ? new Selection(target.contentRange.end, target.contentRange.start)
+      : new Selection(target.contentRange.start, target.contentRange.end);
   }
 
   async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
-    await setSelectionsAndFocusEditor(editor, targets.map(this.getSelection));
+    const selections = targets.map(this.getSelection);
+    await setSelectionsAndFocusEditor(editor, selections);
 
     return {
-      thatMark: targets.map((target) => target.selection),
+      thatMark: selections.map((selection) => ({
+        editor,
+        selection,
+      })),
     };
   }
 }
 
 export class SetSelectionBefore extends SetSelection {
   protected getSelection(target: TypedSelection) {
-    return new Selection(
-      target.selection.selection.start,
-      target.selection.selection.start
-    );
+    return new Selection(target.contentRange.start, target.contentRange.start);
   }
 }
 
 export class SetSelectionAfter extends SetSelection {
   protected getSelection(target: TypedSelection) {
-    return new Selection(
-      target.selection.selection.end,
-      target.selection.selection.end
-    );
+    return new Selection(target.contentRange.end, target.contentRange.end);
   }
 }
