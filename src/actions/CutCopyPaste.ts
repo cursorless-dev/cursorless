@@ -1,73 +1,67 @@
-// import {
-//   Action,
-//   ActionPreferences,
-//   ActionReturnValue,
-//   Graph,
-//   Target,
-// } from "../typings/Types";
-// import { performInsideOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
-// import CommandAction from "./CommandAction";
-// import displayPendingEditDecorations from "../util/editDisplayUtils";
-// import { getOutsideOverflow } from "../util/targetUtils";
-// import { zip } from "lodash";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
+import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { getOutsideOverflow, getRemovalRange } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
+import CommandAction from "./CommandAction";
 
-// export class Cut implements Action {
-//   getTargetPreferences: () => ActionPreferences[] = () => [
-//     { insideOutsideType: null },
-//   ];
+export class Cut implements Action {
+  constructor(private graph: Graph) {
+    this.run = this.run.bind(this);
+  }
 
-//   constructor(private graph: Graph) {
-//     this.run = this.run.bind(this);
-//   }
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+    const overflowTargets = targets.flatMap((target) =>
+      getOutsideOverflow(
+        target.editor,
+        target.contentRange,
+        getRemovalRange(target)
+      ).map(
+        (overflow): Target => ({
+          editor: target.editor,
+          contentRange: overflow,
+          isReversed: false,
+        })
+      )
+    );
 
-//   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
-//     const insideTargets = targets.map((target) =>
-//       performInsideOutsideAdjustment(target, "inside")
-//     );
-//     const outsideTargets = targets.map((target) =>
-//       performInsideOutsideAdjustment(target, "outside")
-//     );
-//     const outsideTargetDecorations = zip(insideTargets, outsideTargets).flatMap(
-//       ([inside, outside]) => getOutsideOverflow(inside!, outside!)
-//     );
-//     const options = { showDecorations: false };
+    await Promise.all([
+      displayPendingEditDecorations(targets, this.graph.editStyles.referenced),
+      displayPendingEditDecorations(
+        overflowTargets,
+        this.graph.editStyles.pendingDelete
+      ),
+    ]);
 
-//     await Promise.all([
-//       displayPendingEditDecorations(
-//         insideTargets,
-//         this.graph.editStyles.referenced
-//       ),
-//       displayPendingEditDecorations(
-//         outsideTargetDecorations,
-//         this.graph.editStyles.pendingDelete
-//       ),
-//     ]);
+    const options = { showDecorations: false };
 
-//     await this.graph.actions.copyToClipboard.run([insideTargets], options);
+    await this.graph.actions.copyToClipboard.run([targets], options);
 
-//     const { thatMark } = await this.graph.actions.remove.run(
-//       [outsideTargets],
-//       options
-//     );
+    const { thatMark } = await this.graph.actions.remove.run(
+      [overflowTargets],
+      options
+    );
 
-//     return { thatMark };
-//   }
-// }
+    return { thatMark };
+  }
+}
 
-// export class Copy extends CommandAction {
-//   constructor(graph: Graph) {
-//     super(graph, {
-//       command: "editor.action.clipboardCopyAction",
-//       ensureSingleEditor: true,
-//     });
-//   }
-// }
+export class Copy extends CommandAction {
+  constructor(graph: Graph) {
+    super(graph, {
+      command: "editor.action.clipboardCopyAction",
+      ensureSingleEditor: true,
+      showDecorations: true,
+    });
+  }
+}
 
-// export class Paste extends CommandAction {
-//   constructor(graph: Graph) {
-//     super(graph, {
-//       command: "editor.action.clipboardPasteAction",
-//       ensureSingleEditor: true,
-//     });
-//   }
-// }
+export class Paste extends CommandAction {
+  constructor(graph: Graph) {
+    super(graph, {
+      command: "editor.action.clipboardPasteAction",
+      ensureSingleEditor: true,
+      showDecorations: true,
+    });
+  }
+}

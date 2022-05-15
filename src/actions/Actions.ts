@@ -2,6 +2,7 @@ import { Graph } from "../typings/Types";
 import { ActionRecord } from "./actions.types";
 import Clear from "./Clear";
 import { CommentLines } from "./Comment";
+import { Copy, Cut, Paste } from "./CutCopyPaste";
 import Deselect from "./Deselect";
 import ExecuteCommand from "./ExecuteCommand";
 import { FindInFiles } from "./Find";
@@ -28,8 +29,8 @@ class Actions implements ActionRecord {
 
   // callAsFunction = new Call(this.graph);
   clearAndSetSelection = new Clear(this.graph);
-  // copyToClipboard = new Copy(this.graph);
-  // cutToClipboard = new Cut(this.graph);
+  copyToClipboard = new Copy(this.graph);
+  cutToClipboard = new Cut(this.graph);
   // editNewLineAfter = new EditNewLineBelow(this.graph);
   // editNewLineBefore = new EditNewLineAbove(this.graph);
   executeCommand = new ExecuteCommand(this.graph);
@@ -47,7 +48,7 @@ class Actions implements ActionRecord {
   insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
   // moveToTarget = new Move(this.graph);
   outdentLine = new OutdentLines(this.graph);
-  // pasteFromClipboard = new Paste(this.graph);
+  pasteFromClipboard = new Paste(this.graph);
   remove = new Remove(this.graph);
   deselect = new Deselect(this.graph);
   // replace = new Replace(this.graph);

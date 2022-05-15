@@ -35,6 +35,11 @@ export interface SelectionWithEditor {
   editor: vscode.TextEditor;
 }
 
+export interface RangeWithEditor {
+  range: vscode.Range;
+  editor: vscode.TextEditor;
+}
+
 export interface SelectionContext {
   isInDelimitedList?: boolean;
   containingListDelimiter?: string | null;

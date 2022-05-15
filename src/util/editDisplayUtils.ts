@@ -2,7 +2,7 @@ import { Range, TextEditorDecorationType, window, workspace } from "vscode";
 import { EditStyle } from "../core/editStyles";
 import isTesting from "../testUtil/isTesting";
 import { Target } from "../typings/target.types";
-import { SelectionWithEditor } from "../typings/Types";
+import { RangeWithEditor } from "../typings/Types";
 import sleep from "./sleep";
 import {
   getContentRange,
@@ -49,17 +49,17 @@ export async function displayPendingEditDecorationsForTargets(
   );
 }
 
-export async function displayPendingEditDecorationsForSelection(
-  selections: SelectionWithEditor[],
+export async function displayPendingEditDecorationsForRanges(
+  ranges: RangeWithEditor[],
   style: TextEditorDecorationType
 ) {
   await runForEachEditor(
-    selections,
+    ranges,
     (selection) => selection.editor,
-    async (editor, selections) => {
+    async (editor, ranges) => {
       editor.setDecorations(
         style,
-        selections.map((selection) => selection.selection)
+        ranges.map((range) => range.range)
       );
     }
   );
@@ -67,7 +67,7 @@ export async function displayPendingEditDecorationsForSelection(
   await decorationSleep();
 
   await runForEachEditor(
-    selections,
+    ranges,
     (selection) => selection.editor,
     async (editor) => {
       editor.setDecorations(style, []);

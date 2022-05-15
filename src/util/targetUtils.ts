@@ -1,5 +1,5 @@
 import { zip } from "lodash";
-import { Position, Range, Selection, TextEditor } from "vscode";
+import { Range, Selection, TextEditor } from "vscode";
 import { Target } from "../typings/target.types";
 import { SelectionWithEditor } from "../typings/Types";
 import { groupBy } from "./itertools";
@@ -63,37 +63,22 @@ export function groupForEachEditor<T>(
   });
 }
 
-/** Get the possible leading and trailing overflow ranges of the outside target compared to the inside target */
+/** Get the possible leading and trailing overflow ranges of the outside range compared to the inside range */
 export function getOutsideOverflow(
-  insideTarget: Target,
-  outsideTarget: Target
-): Target[] {
-  const { start: insideStart, end: insideEnd } = insideTarget.contentRange;
-  const { start: outsideStart, end: outsideEnd } = outsideTarget.contentRange;
+  editor: TextEditor,
+  insideRange: Range,
+  outsideRange: Range
+): Range[] {
+  const { start: insideStart, end: insideEnd } = insideRange;
+  const { start: outsideStart, end: outsideEnd } = outsideRange;
   const result = [];
   if (outsideStart.isBefore(insideStart)) {
-    result.push(
-      createTypeSelection(insideTarget.editor, outsideStart, insideStart)
-    );
+    result.push(new Range(outsideStart, insideStart));
   }
   if (outsideEnd.isAfter(insideEnd)) {
-    result.push(
-      createTypeSelection(insideTarget.editor, insideEnd, outsideEnd)
-    );
+    result.push(new Range(insideEnd, outsideEnd));
   }
   return result;
-}
-
-function createTypeSelection(
-  editor: TextEditor,
-  start: Position,
-  end: Position
-): Target {
-  return {
-    editor,
-    contentRange: new Range(start, end),
-    isReversed: false,
-  };
 }
 
 export function getContentRange(target: Target) {
@@ -128,4 +113,25 @@ export function createThatMark(
       ? new Selection(target.contentRange.end, target.contentRange.start)
       : new Selection(target.contentRange.start, target.contentRange.end),
   }));
+}
+
+export function getRemovalRange(target: Target) {
+  const removalRange = target.removalRange ?? target.contentRange;
+  const delimiterRange =
+    target.trailingDelimiterRange ?? target.leadingDelimiterRange;
+  return delimiterRange != null
+    ? removalRange.union(delimiterRange)
+    : removalRange;
+}
+
+export function getRemovalHighlightRange(target: Target) {
+  const removalRange = target.removalRange ?? target.contentRange;
+  const delimiterRange =
+    target.trailingDelimiterHighlightRange ??
+    target.trailingDelimiterRange ??
+    target.leadingDelimiterHighlightRange ??
+    target.leadingDelimiterRange;
+  return delimiterRange != null
+    ? removalRange.union(delimiterRange)
+    : removalRange;
 }

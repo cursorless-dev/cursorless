@@ -8,6 +8,8 @@ import displayPendingEditDecorations from "../util/editDisplayUtils";
 import {
   createThatMark,
   getContentRange,
+  getRemovalHighlightRange,
+  getRemovalRange,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -57,25 +59,4 @@ export default class Delete implements Action {
 
     return { thatMark };
   }
-}
-
-function getRemovalRange(target: Target) {
-  const removalRange = target.removalRange ?? target.contentRange;
-  const delimiterRange =
-    target.trailingDelimiterRange ?? target.leadingDelimiterRange;
-  return delimiterRange != null
-    ? removalRange.union(delimiterRange)
-    : removalRange;
-}
-
-function getRemovalHighlightRange(target: Target) {
-  const removalRange = target.removalRange ?? target.contentRange;
-  const delimiterRange =
-    target.trailingDelimiterHighlightRange ??
-    target.trailingDelimiterRange ??
-    target.leadingDelimiterHighlightRange ??
-    target.leadingDelimiterRange;
-  return delimiterRange != null
-    ? removalRange.union(delimiterRange)
-    : removalRange;
 }

@@ -3,7 +3,7 @@ import { Range, Selection } from "vscode";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { displayPendingEditDecorationsForSelection } from "../util/editDisplayUtils";
+import { displayPendingEditDecorationsForRanges } from "../util/editDisplayUtils";
 import {
   getContentSelection,
   runOnTargetsForEachEditor,
@@ -70,9 +70,9 @@ class InsertEmptyLines implements Action {
           })),
           lineSelections: lineSelections.map((selection, index) => ({
             editor,
-            selection:
+            range:
               ranges[index].start.line < editor.document.lineCount - 1
-                ? new Selection(
+                ? new Range(
                     selection.start.translate({ lineDelta: -1 }),
                     selection.end.translate({ lineDelta: -1 })
                   )
@@ -82,7 +82,7 @@ class InsertEmptyLines implements Action {
       })
     );
 
-    await displayPendingEditDecorationsForSelection(
+    await displayPendingEditDecorationsForRanges(
       results.flatMap((result) => result.lineSelections),
       this.graph.editStyles.justAdded.line
     );
