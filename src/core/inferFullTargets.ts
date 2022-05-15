@@ -23,9 +23,10 @@ export default function inferFullTargets(
   targets: PartialTargetDesc[],
   actionPreferences: ActionPreferences[]
 ): TargetDesc[] {
-  if (targets.length !== actionPreferences.length) {
-    throw new Error("Target length is not equal to action preference length");
-  }
+  // TODO
+  // if (targets.length !== actionPreferences.length) {
+  //   throw new Error("Target length is not equal to action preference length");
+  // }
 
   return targets.map((target, index) =>
     inferTarget(target, targets.slice(0, index), actionPreferences[index])

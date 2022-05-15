@@ -1,19 +1,10 @@
-import {
-  Action,
-  ActionPreferences,
-  ActionReturnValue,
-  Graph,
-} from "../typings/Types";
+import { Action, ActionReturnValue, Graph } from "../typings/Types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Selection } from "vscode";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { Target } from "../typings/target.types";
 
 export class SetSelection implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [
-    { insideOutsideType: "inside" },
-  ];
-
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }

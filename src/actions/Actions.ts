@@ -1,4 +1,5 @@
 import { ActionRecord, Graph } from "../typings/Types";
+import Delete from "./Delete";
 import {
   SetSelection,
   SetSelectionAfter,
@@ -30,7 +31,7 @@ class Actions implements ActionRecord {
   // moveToTarget = new Move(this.graph);
   // outdentLine = new OutdentLines(this.graph);
   // pasteFromClipboard = new Paste(this.graph);
-  // remove = new Delete(this.graph);
+  remove = new Delete(this.graph);
   // deselect = new Deselect(this.graph);
   // replace = new Replace(this.graph);
   // replaceWithTarget = new Bring(this.graph);

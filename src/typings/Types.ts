@@ -108,7 +108,7 @@ export interface Action {
    * Used to define default values for parts of target during inference.
    * @param args Extra args to command
    */
-  getTargetPreferences(...args: any[]): ActionPreferences[];
+  // getTargetPreferences(...args: any[]): ActionPreferences[];
 }
 
 export type ActionType =

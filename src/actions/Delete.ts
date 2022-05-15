@@ -1,57 +1,60 @@
-// import {
-//   Action,
-//   ActionPreferences,
-//   ActionReturnValue,
-//   Graph,
-//   Target,
-// } from "../typings/Types";
-// import { runOnTargetsForEachEditor } from "../util/targetUtils";
-// import displayPendingEditDecorations from "../util/editDisplayUtils";
-// import { flatten } from "lodash";
-// import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { flatten } from "lodash";
+import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
 // import { unifyTargets } from "../util/unifyRanges";
+import { Target } from "../typings/target.types";
+import { Action, ActionReturnValue, Graph } from "../typings/Types";
+import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { createThatMark } from "../util/selectionUtils";
+import { runOnTargetsForEachEditor } from "../util/targetUtils";
 
-// export default class Delete implements Action {
-//   getTargetPreferences: () => ActionPreferences[] = () => [
-//     { insideOutsideType: "outside" },
-//   ];
+export default class Delete implements Action {
+  constructor(private graph: Graph) {
+    this.run = this.run.bind(this);
+  }
 
-//   constructor(private graph: Graph) {
-//     this.run = this.run.bind(this);
-//   }
+  async run(
+    [targets]: [Target[]],
+    { showDecorations = true } = {}
+  ): Promise<ActionReturnValue> {
+    // Unify overlapping targets.
+    // TODO
+    // targets = unifyTargets(targets);
 
-//   async run(
-//     [targets]: [Target[]],
-//     { showDecorations = true } = {}
-//   ): Promise<ActionReturnValue> {
-//     // Unify overlapping targets.
-//     targets = unifyTargets(targets);
+    if (showDecorations) {
+      await displayPendingEditDecorations(
+        targets,
+        this.graph.editStyles.pendingDelete
+      );
+    }
 
-//     if (showDecorations) {
-//       await displayPendingEditDecorations(
-//         targets,
-//         this.graph.editStyles.pendingDelete
-//       );
-//     }
+    const thatMark = flatten(
+      await runOnTargetsForEachEditor(targets, async (editor, targets) => {
+        const ranges = targets.map(getRemovalRange);
+        const edits = ranges.map((range) => ({
+          range,
+          text: "",
+        }));
 
-//     const thatMark = flatten(
-//       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-//         const edits = targets.map((target) => ({
-//           range: target.selection.selection,
-//           text: "",
-//         }));
+        const [updatedRanges] = await performEditsAndUpdateRanges(
+          this.graph.rangeUpdater,
+          editor,
+          edits,
+          [ranges]
+        );
 
-//         const [updatedSelections] = await performEditsAndUpdateSelections(
-//           this.graph.rangeUpdater,
-//           editor,
-//           edits,
-//           [targets.map((target) => target.selection.selection)]
-//         );
+        return createThatMark(targets, updatedRanges);
+      })
+    );
 
-//         return updatedSelections.map((selection) => ({ editor, selection }));
-//       })
-//     );
+    return { thatMark };
+  }
+}
 
-//     return { thatMark };
-//   }
-// }
+function getRemovalRange(target: Target) {
+  const removalRange = target.removalRange ?? target.contentRange;
+  const delimiterRange =
+    target.trailingDelimiterRange ?? target.leadingDelimiterRange;
+  return delimiterRange != null
+    ? removalRange.union(delimiterRange)
+    : removalRange;
+}
