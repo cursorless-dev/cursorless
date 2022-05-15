@@ -1,18 +1,13 @@
-import {
-  Selection,
-  TextEditor,
-  TextDocument,
-  DecorationRangeBehavior,
-  Range,
-} from "vscode";
 import { flatten } from "lodash";
 import {
-  FullSelectionInfo,
-  SelectionInfo,
-} from "../../typings/updateSelections";
-import { performDocumentEdits } from "../../util/performDocumentEdits";
-import { isForward } from "../../util/selectionUtils";
+  DecorationRangeBehavior,
+  Range,
+  TextDocument,
+  TextEditor,
+} from "vscode";
 import { Edit } from "../../typings/Types";
+import { FullRangeInfo, RangeInfo } from "../../typings/updateSelections";
+import { performDocumentEdits } from "../../util/performDocumentEdits";
 import { RangeUpdater } from "./RangeUpdater";
 
 /**
@@ -20,18 +15,17 @@ import { RangeUpdater } from "./RangeUpdater";
  * be passed in to any of the commands that update selections.
  *
  * @param document The document containing the selection
- * @param selection The selection
+ * @param range The range
  * @param rangeBehavior How selection should behave with respect to insertions on either end
  * @returns An object that can be used for selection tracking
  */
-export function getSelectionInfo(
+function getRangeInfo(
   document: TextDocument,
-  selection: Selection,
+  range: Range,
   rangeBehavior: DecorationRangeBehavior
-): FullSelectionInfo {
+): FullRangeInfo {
   return {
-    range: new Range(selection.start, selection.end),
-    isForward: isForward(selection),
+    range: new Range(range.start, range.end),
     expansionBehavior: {
       start: {
         type:
@@ -49,10 +43,10 @@ export function getSelectionInfo(
       },
     },
     offsets: {
-      start: document.offsetAt(selection.start),
-      end: document.offsetAt(selection.end),
+      start: document.offsetAt(range.start),
+      end: document.offsetAt(range.end),
     },
-    text: document.getText(selection),
+    text: document.getText(range),
   };
 }
 
@@ -60,48 +54,23 @@ export function getSelectionInfo(
  * Creates SelectionInfo objects for all selections in a list of lists.
  *
  * @param document The document containing the selections
- * @param selectionMatrix A list of lists of selections
+ * @param rangeMatrix A list of lists of selections
  * @param rangeBehavior How selections should behave with respect to insertions on either end
  * @returns A list of lists of selection info objects
  */
-export function selectionsToSelectionInfos(
+function rangesToRangeInfos(
   document: TextDocument,
-  selectionMatrix: (readonly Selection[])[],
+  rangeMatrix: (readonly Range[])[],
   rangeBehavior: DecorationRangeBehavior = DecorationRangeBehavior.ClosedClosed
-): FullSelectionInfo[][] {
-  return selectionMatrix.map((selections) =>
-    selections.map((selection) =>
-      getSelectionInfo(document, selection, rangeBehavior)
-    )
+): FullRangeInfo[][] {
+  return rangeMatrix.map((ranges) =>
+    ranges.map((range) => getRangeInfo(document, range, rangeBehavior))
   );
 }
 
-function fillOutSelectionInfos(
-  document: TextDocument,
-  selectionInfoMatrix: SelectionInfo[][]
-): selectionInfoMatrix is FullSelectionInfo[][] {
-  selectionInfoMatrix.forEach((selectionInfos) =>
-    selectionInfos.map((selectionInfo) => {
-      const { range } = selectionInfo;
-      Object.assign(selectionInfo, {
-        offsets: {
-          start: document.offsetAt(range.start),
-          end: document.offsetAt(range.end),
-        },
-        text: document.getText(range),
-      });
-    })
-  );
-  return true;
-}
-
-function selectionInfosToSelections(
-  selectionInfoMatrix: SelectionInfo[][]
-): Selection[][] {
-  return selectionInfoMatrix.map((selectionInfos) =>
-    selectionInfos.map(({ range: { start, end }, isForward }) =>
-      isForward ? new Selection(start, end) : new Selection(end, start)
-    )
+function rangeInfosToRanges(rangeInfoMatrix: RangeInfo[][]): Range[][] {
+  return rangeInfoMatrix.map((rangeInfos) =>
+    rangeInfos.map(({ range }) => range)
   );
 }
 
@@ -111,25 +80,22 @@ function selectionInfosToSelections(
  * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
  * @param func The function to call
  * @param document The document containing the selections
- * @param selectionMatrix A matrix of selections to update
+ * @param rangeMatrix A matrix of selections to update
  * @returns The initial selections updated based upon what happened in the function
  */
-export async function callFunctionAndUpdateSelections(
+export async function callFunctionAndUpdateRanges(
   rangeUpdater: RangeUpdater,
   func: () => Thenable<unknown>,
   document: TextDocument,
-  selectionMatrix: (readonly Selection[])[]
-): Promise<Selection[][]> {
-  const selectionInfoMatrix = selectionsToSelectionInfos(
-    document,
-    selectionMatrix
-  );
+  rangeMatrix: (readonly Range[])[]
+): Promise<Range[][]> {
+  const rangeInfoMatrix = rangesToRangeInfos(document, rangeMatrix);
 
   return await callFunctionAndUpdateSelectionInfos(
     rangeUpdater,
     func,
     document,
-    selectionInfoMatrix
+    rangeInfoMatrix
   );
 }
 
@@ -146,18 +112,18 @@ export async function callFunctionAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
   func: () => Thenable<unknown>,
   document: TextDocument,
-  selectionInfoMatrix: FullSelectionInfo[][]
+  rangeInfoMatrix: FullRangeInfo[][]
 ) {
   const unsubscribe = rangeUpdater.registerRangeInfoList(
     document,
-    flatten(selectionInfoMatrix)
+    flatten(rangeInfoMatrix)
   );
 
   await func();
 
   unsubscribe();
 
-  return selectionInfosToSelections(selectionInfoMatrix);
+  return rangeInfosToRanges(rangeInfoMatrix);
 }
 
 /**
@@ -166,20 +132,17 @@ export async function callFunctionAndUpdateSelectionInfos(
  * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
  * @param editor The editor containing the selections
  * @param edits A list of edits to apply
- * @param originalSelections The selections to update
+ * @param originalRanges The selections to update
  * @returns The updated selections
  */
-export async function performEditsAndUpdateSelections(
+export async function performEditsAndUpdateRanges(
   rangeUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],
-  originalSelections: (readonly Selection[])[]
+  originalRanges: (readonly Range[])[]
 ) {
   const document = editor.document;
-  const selectionInfoMatrix = selectionsToSelectionInfos(
-    document,
-    originalSelections
-  );
+  const selectionInfoMatrix = rangesToRangeInfos(document, originalRanges);
 
   await performEditsAndUpdateFullSelectionInfos(
     rangeUpdater,
@@ -188,24 +151,7 @@ export async function performEditsAndUpdateSelections(
     selectionInfoMatrix
   );
 
-  return selectionInfosToSelections(selectionInfoMatrix);
-}
-
-// TODO: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
-export async function performEditsAndUpdateSelectionInfos(
-  rangeUpdater: RangeUpdater,
-  editor: TextEditor,
-  edits: Edit[],
-  originalSelectionInfos: SelectionInfo[][]
-) {
-  fillOutSelectionInfos(editor.document, originalSelectionInfos);
-
-  return await performEditsAndUpdateFullSelectionInfos(
-    rangeUpdater,
-    editor,
-    edits,
-    originalSelectionInfos as FullSelectionInfo[][]
-  );
+  return rangeInfosToRanges(selectionInfoMatrix);
 }
 
 /**
@@ -214,14 +160,14 @@ export async function performEditsAndUpdateSelectionInfos(
  * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
  * @param editor The editor containing the selections
  * @param edits A list of edits to apply
- * @param originalSelectionInfos The selection info objects to update
+ * @param originalRangeInfos The selection info objects to update
  * @returns The updated selections
  */
 export async function performEditsAndUpdateFullSelectionInfos(
   rangeUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],
-  originalSelectionInfos: FullSelectionInfo[][]
+  originalRangeInfos: FullRangeInfo[][]
 ) {
   // NB: We do everything using VSCode listeners.  We can associate changes
   // with our changes just by looking at their offets / text in order to
@@ -262,8 +208,8 @@ export async function performEditsAndUpdateFullSelectionInfos(
     rangeUpdater,
     func,
     editor.document,
-    originalSelectionInfos
+    originalRangeInfos
   );
 
-  return selectionInfosToSelections(originalSelectionInfos);
+  return rangeInfosToRanges(originalRangeInfos);
 }

@@ -1,8 +1,10 @@
 import { ActionRecord, Graph } from "../typings/Types";
 import Clear from "./Clear";
 import Deselect from "./Deselect";
+import ExecuteCommand from "./ExecuteCommand";
 import GetText from "./GetText";
 import Highlight from "./Highlight";
+import { IndentLines, OutdentLines } from "./Indent";
 import Remove from "./Remove";
 import {
   SetSelection,
@@ -19,21 +21,21 @@ class Actions implements ActionRecord {
   // cutToClipboard = new Cut(this.graph);
   // editNewLineAfter = new EditNewLineBelow(this.graph);
   // editNewLineBefore = new EditNewLineAbove(this.graph);
-  // executeCommand = new ExecuteCommand(this.graph);
+  executeCommand = new ExecuteCommand(this.graph);
   // extractVariable = new ExtractVariable(this.graph);
   // findInWorkspace = new FindInFiles(this.graph);
   // foldRegion = new Fold(this.graph);
   // followLink = new FollowLink(this.graph);
   getText = new GetText(this.graph);
   highlight = new Highlight(this.graph);
-  // indentLine = new IndentLines(this.graph);
+  indentLine = new IndentLines(this.graph);
   // insertCopyAfter = new CopyLinesDown(this.graph);
   // insertCopyBefore = new CopyLinesUp(this.graph);
   // insertEmptyLineAfter = new InsertEmptyLineBelow(this.graph);
   // insertEmptyLineBefore = new InsertEmptyLineAbove(this.graph);
   // insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
   // moveToTarget = new Move(this.graph);
-  // outdentLine = new OutdentLines(this.graph);
+  outdentLine = new OutdentLines(this.graph);
   // pasteFromClipboard = new Paste(this.graph);
   remove = new Remove(this.graph);
   deselect = new Deselect(this.graph);

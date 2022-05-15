@@ -66,7 +66,7 @@ export default class CommandRunner {
       const {
         spokenForm,
         action: actionName,
-        targets: partialTargets,
+        targets: partialTargetDescs,
         extraArgs,
         usePrePhraseSnapshot,
       } = commandComplete;
@@ -81,8 +81,8 @@ export default class CommandRunner {
         throw new Error(`Unknown action ${actionName}`);
       }
 
-      const targets = inferFullTargets(
-        partialTargets,
+      const targetDescs = inferFullTargets(
+        partialTargetDescs,
         // TODO
         []
         // action.getTargetPreferences(...extraArgs)
@@ -90,7 +90,7 @@ export default class CommandRunner {
 
       if (this.graph.debug.active) {
         this.graph.debug.log("Full targets:");
-        this.graph.debug.log(JSON.stringify(targets, null, 3));
+        this.graph.debug.log(JSON.stringify(targetDescs, null, 3));
       }
 
       const processedTargetsContext: ProcessedTargetsContext = {
@@ -100,11 +100,11 @@ export default class CommandRunner {
         getNodeAtLocation: this.graph.getNodeAtLocation,
       };
 
-      const selections = processTargets(processedTargetsContext, targets);
+      const targets = processTargets(processedTargetsContext, targetDescs);
 
       if (this.graph.testCaseRecorder.isActive()) {
         const context = {
-          targets,
+          targets: targetDescs,
           thatMark: this.thatMark,
           sourceMark: this.sourceMark,
           hatTokenMap: readableHatMap,
@@ -120,7 +120,7 @@ export default class CommandRunner {
         returnValue,
         thatMark: newThatMark,
         sourceMark: newSourceMark,
-      } = await action.run(selections, ...extraArgs);
+      } = await action.run(targets, ...extraArgs);
 
       this.thatMark.set(newThatMark);
       this.sourceMark.set(newSourceMark);

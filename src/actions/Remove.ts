@@ -1,5 +1,5 @@
 import { flatten } from "lodash";
-import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateRanges } from "../core/updateSelections/updateRanges";
 // import { unifyTargets } from "../util/unifyRanges";
 import { Target } from "../typings/target.types";
 import { Action, ActionReturnValue, Graph } from "../typings/Types";

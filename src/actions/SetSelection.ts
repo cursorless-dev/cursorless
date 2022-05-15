@@ -1,5 +1,5 @@
 import { Action, ActionReturnValue, Graph } from "../typings/Types";
-import { ensureSingleEditor } from "../util/targetUtils";
+import { ensureSingleEditor, getContentSelection } from "../util/targetUtils";
 import { Selection } from "vscode";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { Target } from "../typings/target.types";
@@ -10,9 +10,7 @@ export class SetSelection implements Action {
   }
 
   protected getSelection(target: Target) {
-    return target.isReversed
-      ? new Selection(target.contentRange.end, target.contentRange.start)
-      : new Selection(target.contentRange.start, target.contentRange.end);
+    return getContentSelection(target);
   }
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {

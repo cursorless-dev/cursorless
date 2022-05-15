@@ -100,6 +100,23 @@ export function getContentRange(target: Target) {
   return target.contentRange;
 }
 
+export function getContentText(target: Target) {
+  return target.editor.document.getText(target.contentRange);
+}
+
+export function getContentSelection(target: Target) {
+  return target.isReversed
+    ? new Selection(target.contentRange.end, target.contentRange.start)
+    : new Selection(target.contentRange.start, target.contentRange.end);
+}
+
+// export function createSelections(
+//   targets: Target[],
+//   ranges: Range[]
+// ) {
+
+// }
+
 export function createThatMark(
   targets: Target[],
   ranges?: Range[]

@@ -1,7 +1,11 @@
 import { Target } from "../typings/target.types";
 import { Action, ActionReturnValue, Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
-import { createThatMark, ensureSingleTarget } from "../util/targetUtils";
+import {
+  createThatMark,
+  ensureSingleTarget,
+  getContentText,
+} from "../util/targetUtils";
 
 export default class GetText implements Action {
   constructor(private graph: Graph) {
@@ -21,16 +25,13 @@ export default class GetText implements Action {
         this.graph.editStyles.referenced
       );
     }
+
     if (doEnsureSingleTarget) {
       ensureSingleTarget(targets);
     }
 
-    const returnValue = targets.map((target) =>
-      target.editor.document.getText(target.contentRange)
-    );
-
     return {
-      returnValue,
+      returnValue: targets.map(getContentText),
       thatMark: createThatMark(targets),
     };
   }
