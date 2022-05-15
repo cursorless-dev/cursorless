@@ -10,6 +10,11 @@ import FollowLink from "./FollowLink";
 import GetText from "./GetText";
 import Highlight from "./Highlight";
 import { IndentLines, OutdentLines } from "./Indent";
+import {
+  InsertEmptyLineAbove,
+  InsertEmptyLineBelow,
+  InsertEmptyLinesAround,
+} from "./InsertEmptyLines";
 import Remove from "./Remove";
 import { ScrollToBottom, ScrollToCenter, ScrollToTop } from "./Scroll";
 import {
@@ -37,9 +42,9 @@ class Actions implements ActionRecord {
   indentLine = new IndentLines(this.graph);
   // insertCopyAfter = new CopyLinesDown(this.graph);
   // insertCopyBefore = new CopyLinesUp(this.graph);
-  // insertEmptyLineAfter = new InsertEmptyLineBelow(this.graph);
-  // insertEmptyLineBefore = new InsertEmptyLineAbove(this.graph);
-  // insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
+  insertEmptyLineAfter = new InsertEmptyLineBelow(this.graph);
+  insertEmptyLineBefore = new InsertEmptyLineAbove(this.graph);
+  insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
   // moveToTarget = new Move(this.graph);
   outdentLine = new OutdentLines(this.graph);
   // pasteFromClipboard = new Paste(this.graph);
