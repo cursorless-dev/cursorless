@@ -1,7 +1,10 @@
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
-import { getOutsideOverflow, getRemovalRange } from "../util/targetUtils";
+import {
+  getOutsideOverflow,
+  getRemovalHighlightRange,
+} from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 import CommandAction from "./CommandAction";
 
@@ -15,10 +18,11 @@ export class Cut implements Action {
       getOutsideOverflow(
         target.editor,
         target.contentRange,
-        getRemovalRange(target)
+        getRemovalHighlightRange(target)
       ).map(
         (overflow): Target => ({
           editor: target.editor,
+          scopeType: target.scopeType,
           contentRange: overflow,
           isReversed: false,
         })
@@ -38,7 +42,7 @@ export class Cut implements Action {
     await this.graph.actions.copyToClipboard.run([targets], options);
 
     const { thatMark } = await this.graph.actions.remove.run(
-      [overflowTargets],
+      [targets],
       options
     );
 
