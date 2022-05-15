@@ -51,37 +51,71 @@ export default class implements ModifierStage {
     const leadingLine = getPreviousNonEmptyLine(document, start.line);
     const trailingLine = getNextNonEmptyLine(document, end.line);
 
-    const leadingDelimiterStart =
-      leadingLine != null
-        ? leadingLine.range.end
-        : start.line > 0
-        ? new Position(0, 0)
-        : undefined;
-    const trailingDelimiterEnd =
-      trailingLine != null
-        ? trailingLine.range.start
-        : end.line < document.lineCount - 1
-        ? document.lineAt(document.lineCount - 1).range.end
-        : undefined;
-    const leadingDelimiterRange =
-      leadingDelimiterStart != null
-        ? new Range(leadingDelimiterStart, removalRange.start)
-        : undefined;
-    const trailingDelimiterRange =
-      trailingDelimiterEnd != null
-        ? new Range(removalRange.end, trailingDelimiterEnd)
-        : undefined;
+    const leadingDelimiterRange = getLeadingDelimiterRange(
+      document,
+      removalRange,
+      leadingLine?.range.end
+    );
+    const trailingDelimiterRange = getTrailingDelimiterRange(
+      document,
+      removalRange,
+      trailingLine?.range.start
+    );
+
+    const leadingDelimiterHighlightRange = getLeadingDelimiterRange(
+      document,
+      removalRange,
+      leadingLine ? new Position(leadingLine.range.end.line + 1, 0) : undefined
+    );
+    const trailingDelimiterHighlightRange = getTrailingDelimiterRange(
+      document,
+      removalRange,
+      trailingLine
+        ? document.lineAt(trailingLine.range.start.line - 1).range.end
+        : undefined
+    );
 
     return {
       editor: target.editor,
       isReversed: target.isReversed,
+      scopeType: "paragraph",
       delimiter: "\n\n",
       contentRange,
       removalRange,
       leadingDelimiterRange,
       trailingDelimiterRange,
+      leadingDelimiterHighlightRange,
+      trailingDelimiterHighlightRange,
     };
   }
+}
+
+function getLeadingDelimiterRange(
+  document: TextDocument,
+  removalRange: Range,
+  position?: Position
+) {
+  const start =
+    position != null
+      ? position
+      : removalRange.start.line > 0
+      ? new Position(0, 0)
+      : undefined;
+  return start != null ? new Range(start, removalRange.start) : undefined;
+}
+
+function getTrailingDelimiterRange(
+  document: TextDocument,
+  removalRange: Range,
+  position?: Position
+) {
+  const end =
+    position != null
+      ? position
+      : removalRange.end.line < document.lineCount - 1
+      ? document.lineAt(document.lineCount - 1).range.end
+      : undefined;
+  return end != null ? new Range(removalRange.end, end) : undefined;
 }
 
 function getPreviousNonEmptyLine(

@@ -45,9 +45,21 @@ export function getLineContext(
       ? new Range(removalRange.end, new Position(end.line + 1, 0))
       : undefined;
 
+  const leadingDelimiterHighlightRange = new Range(
+    removalRange.start,
+    removalRange.start
+  );
+  const trailingDelimiterHighlightRange = new Range(
+    removalRange.end,
+    removalRange.end
+  );
+
   return {
+    scopeType: "line",
     delimiter: "\n",
     removalRange,
+    leadingDelimiterHighlightRange,
+    trailingDelimiterHighlightRange,
     leadingDelimiterRange,
     trailingDelimiterRange,
   };

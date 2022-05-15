@@ -254,6 +254,11 @@ export interface Target {
   isNotebookCell?: boolean;
 
   /**
+   * Is this a scope type other raw selection?
+   */
+  scopeType?: ScopeType;
+
+  /**
    * If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument
    */
   delimiter?: string;
@@ -284,6 +289,16 @@ export interface Target {
    * The range of the delimiter after the content selection
    */
   trailingDelimiterRange?: Range;
+
+  /**
+   * The range of the highlight for the leading delimiter
+   */
+  leadingDelimiterHighlightRange?: Range;
+
+  /**
+   * The range of the highlight for the trailing delimiter
+   */
+  trailingDelimiterHighlightRange?: Range;
 
   /**
    * Represents the boundary ranges of this selection. For example, for a

@@ -38,7 +38,7 @@ export async function runForEachEditor<T, U>(
 
 export async function runOnTargetsForEachEditor<T>(
   targets: Target[],
-  func: (editor: TextEditor, selections: Target[]) => Promise<T>
+  func: (editor: TextEditor, targets: Target[]) => Promise<T>
 ): Promise<T[]> {
   return runForEachEditor(targets, (target) => target.editor, func);
 }

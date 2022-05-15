@@ -1,4 +1,4 @@
-import { TextEditorDecorationType, window, workspace } from "vscode";
+import { Range, TextEditorDecorationType, window, workspace } from "vscode";
 import { EditStyle } from "../core/editStyles";
 import isTesting from "../testUtil/isTesting";
 import { Target } from "../typings/target.types";
@@ -47,9 +47,10 @@ export async function displayPendingEditDecorationsForSelection(
 
 export default async function displayPendingEditDecorations(
   targets: Target[],
-  editStyle: EditStyle
+  editStyle: EditStyle,
+  getRange: (target: Target) => Range
 ) {
-  await setDecorations(targets, editStyle);
+  await setDecorations(targets, editStyle, getRange);
 
   await decorationSleep();
 
@@ -63,52 +64,30 @@ export function clearDecorations(editStyle: EditStyle) {
   });
 }
 
-export async function setDecorations(targets: Target[], editStyle: EditStyle) {
-  await runOnTargetsForEachEditor(targets, async (editor, selections) => {
+export async function setDecorations(
+  targets: Target[],
+  editStyle: EditStyle,
+  getRange: (target: Target) => Range
+) {
+  await runOnTargetsForEachEditor(targets, async (editor, targets) => {
     editor.setDecorations(
       editStyle.token,
-      selections
-        .filter((selection) => !useLineDecorations(selection))
-        .map((selection) => selection.contentRange)
+      targets.filter((target) => !useLineDecorations(target)).map(getRange)
     );
-
     editor.setDecorations(
       editStyle.line,
-      selections
-        .filter((selection) => useLineDecorations(selection))
-        .map((selection) => {
-          const { document } = selection.editor;
-          const { start, end } = selection.contentRange;
-          const startLine = document.lineAt(start);
-          const hasLeadingLine =
-            start.character === startLine.range.end.character;
-          if (
-            end.character === 0 &&
-            (!hasLeadingLine || start.character === 0)
-          ) {
-            // NB: We move end up one line because it is at beginning of
-            // next line
-            return selection.contentRange.with({
-              end: end.translate(-1),
-            });
-          }
-          if (hasLeadingLine) {
-            // NB: We move start down one line because it is at end of
-            // previous line
-            return selection.contentRange.with({
-              start: start.translate(1),
-            });
-          }
-          return selection.contentRange;
-        })
+      targets.filter((target) => useLineDecorations(target)).map(getRange)
     );
   });
 }
 
-function useLineDecorations(selection: Target) {
-  return false; // TODO
-  // return (
-  //   isLineSelectionType(selection.selectionType) &&
-  //   selection.position === "contents"
-  // );
+function useLineDecorations(target: Target) {
+  switch (target.scopeType) {
+    case "line":
+    case "paragraph":
+    case "document":
+      return true;
+    default:
+      return false;
+  }
 }

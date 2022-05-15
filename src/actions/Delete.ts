@@ -23,7 +23,8 @@ export default class Delete implements Action {
     if (showDecorations) {
       await displayPendingEditDecorations(
         targets,
-        this.graph.editStyles.pendingDelete
+        this.graph.editStyles.pendingDelete,
+        getRemovalHighlightRange
       );
     }
 
@@ -54,6 +55,18 @@ function getRemovalRange(target: Target) {
   const removalRange = target.removalRange ?? target.contentRange;
   const delimiterRange =
     target.trailingDelimiterRange ?? target.leadingDelimiterRange;
+  return delimiterRange != null
+    ? removalRange.union(delimiterRange)
+    : removalRange;
+}
+
+function getRemovalHighlightRange(target: Target) {
+  const removalRange = target.removalRange ?? target.contentRange;
+  const delimiterRange =
+    target.trailingDelimiterHighlightRange ??
+    target.trailingDelimiterRange ??
+    target.leadingDelimiterHighlightRange ??
+    target.leadingDelimiterRange;
   return delimiterRange != null
     ? removalRange.union(delimiterRange)
     : removalRange;

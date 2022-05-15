@@ -15,6 +15,7 @@ export default class implements ModifierStage {
     return {
       editor: target.editor,
       isReversed: target.isReversed,
+      scopeType: "document",
       delimiter: "\n",
       contentRange: getDocumentContentRange(target.editor.document),
       removalRange: getDocumentRange(target.editor.document),
