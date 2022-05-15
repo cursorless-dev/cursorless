@@ -6,7 +6,7 @@ import {
   PartialTargetDesc,
   ScopeType,
 } from "../../../typings/target.types";
-import { ActionType } from "../../../typings/Types";
+import { ActionType } from "../../../actions/actions.types";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
 import { CommandV2 } from "../../commandRunner/command.types";
 import {

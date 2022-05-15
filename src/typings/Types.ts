@@ -11,6 +11,7 @@ import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { CommandServerApi } from "../util/getExtensionApi";
+import { ActionType } from "../actions/actions.types";
 import { Target } from "./target.types";
 import { FullRangeInfo } from "./updateSelections";
 
@@ -108,51 +109,9 @@ export interface Action {
    * Used to define default values for parts of target during inference.
    * @param args Extra args to command
    */
+  // TODO
   // getTargetPreferences(...args: any[]): ActionPreferences[];
 }
-
-export type ActionType =
-  // | "callAsFunction"
-  | "clearAndSetSelection"
-  // | "copyToClipboard"
-  // | "cutToClipboard"
-  // | "deselect"
-  // | "editNewLineAfter"
-  // | "editNewLineBefore"
-  // | "executeCommand"
-  // | "extractVariable"
-  // | "findInWorkspace"
-  // | "foldRegion"
-  // | "followLink"
-  // | "getText"
-  // | "highlight"
-  // | "indentLine"
-  // | "insertCopyAfter"
-  // | "insertCopyBefore"
-  // | "insertEmptyLineAfter"
-  // | "insertEmptyLineBefore"
-  // | "insertEmptyLinesAround"
-  // | "moveToTarget"
-  // | "outdentLine"
-  // | "pasteFromClipboard"
-  | "remove"
-  // | "replace"
-  // | "replaceWithTarget"
-  // | "reverseTargets"
-  // | "rewrapWithPairedDelimiter"
-  // | "scrollToBottom"
-  // | "scrollToCenter"
-  // | "scrollToTop"
-  | "setSelection"
-  | "setSelectionAfter"
-  | "setSelectionBefore";
-// | "sortTargets"
-// | "swapTargets"
-// | "toggleLineBreakpoint"
-// | "toggleLineComment"
-// | "unfoldRegion"
-// | "wrapWithPairedDelimiter"
-// | "wrapWithSnippet"
 
 export type ActionRecord = Record<ActionType, Action>;
 

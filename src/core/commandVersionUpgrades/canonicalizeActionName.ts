@@ -1,4 +1,4 @@
-import { ActionType } from "../../typings/Types";
+import { ActionType } from "../../actions/actions.types";
 
 const actionAliasToCanonicalName: Record<string, ActionType> = {
   // TODO

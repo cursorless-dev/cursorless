@@ -1,7 +1,7 @@
 import { commands } from "vscode";
 import { ActionableError } from "../../errors";
 import { PartialTargetDesc, ScopeType } from "../../typings/target.types";
-import { ActionType } from "../../typings/Types";
+import { ActionType } from "../../actions/actions.types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import {
   Command,

@@ -1,11 +1,8 @@
 import * as vscode from "vscode";
+import { ActionType } from "../../actions/actions.types";
 import { ActionableError } from "../../errors";
 import processTargets from "../../processTargets";
-import {
-  ActionType,
-  Graph,
-  ProcessedTargetsContext,
-} from "../../typings/Types";
+import { Graph, ProcessedTargetsContext } from "../../typings/Types";
 import { isString } from "../../util/type";
 import { canonicalizeAndValidateCommand } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
