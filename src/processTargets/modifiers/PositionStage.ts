@@ -7,48 +7,47 @@ export default class implements ModifierStage {
   constructor(private modifier: PositionModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target {
-    const res = {
+    const {
+      contentRange,
+      leadingDelimiterRange,
+      leadingDelimiterHighlightRange,
+      trailingDelimiterRange,
+      trailingDelimiterHighlightRange,
+    } = target;
+
+    const common = {
       editor: target.editor,
       position: this.modifier.position,
       isReversed: false,
     };
+
     switch (this.modifier.position) {
       case "before":
         return {
-          ...res,
-          contentRange: new Range(
-            target.contentRange.start,
-            target.contentRange.start
-          ),
-          leadingDelimiterRange: target.leadingDelimiterRange,
-        };
-
-      case "start":
-        return {
-          ...res,
-          contentRange: new Range(
-            target.contentRange.start,
-            target.contentRange.start
-          ),
+          ...common,
+          contentRange: new Range(contentRange.start, contentRange.start),
+          leadingDelimiterRange,
+          leadingDelimiterHighlightRange,
         };
 
       case "after":
         return {
-          ...res,
-          contentRange: new Range(
-            target.contentRange.end,
-            target.contentRange.end
-          ),
-          trailingDelimiterRange: target.trailingDelimiterRange,
+          ...common,
+          contentRange: new Range(contentRange.end, contentRange.end),
+          trailingDelimiterRange,
+          trailingDelimiterHighlightRange,
+        };
+
+      case "start":
+        return {
+          ...common,
+          contentRange: new Range(contentRange.start, contentRange.start),
         };
 
       case "end":
         return {
-          ...res,
-          contentRange: new Range(
-            target.contentRange.end,
-            target.contentRange.end
-          ),
+          ...common,
+          contentRange: new Range(contentRange.end, contentRange.end),
         };
     }
   }
