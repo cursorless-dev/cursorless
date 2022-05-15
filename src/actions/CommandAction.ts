@@ -2,7 +2,7 @@ import { flatten } from "lodash";
 import { commands, window } from "vscode";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
-import { Action, ActionReturnValue, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import {
   focusEditor,
@@ -13,6 +13,7 @@ import {
   getContentSelection,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export interface CommandOptions {
   command?: string;

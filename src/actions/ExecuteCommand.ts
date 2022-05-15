@@ -1,5 +1,6 @@
 import { Target } from "../typings/target.types";
-import { Action, ActionReturnValue, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
+import { Action, ActionReturnValue } from "./actions.types";
 import CommandAction, { CommandOptions } from "./CommandAction";
 
 export default class ExecuteCommand implements Action {

@@ -1,8 +1,9 @@
 import { commands, window } from "vscode";
 import { Target } from "../typings/target.types";
-import { Action, ActionReturnValue, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 class FoldAction implements Action {
   constructor(private command: string) {

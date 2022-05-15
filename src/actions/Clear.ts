@@ -1,7 +1,8 @@
 import { Target } from "../typings/target.types";
-import { Action, ActionReturnValue, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Clear implements Action {
   constructor(private graph: Graph) {

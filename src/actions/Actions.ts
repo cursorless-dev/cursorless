@@ -1,5 +1,7 @@
-import { ActionRecord, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
+import { ActionRecord } from "./actions.types";
 import Clear from "./Clear";
+import { CommentLines } from "./Comment";
 import Deselect from "./Deselect";
 import ExecuteCommand from "./ExecuteCommand";
 import { FindInFiles } from "./Find";
@@ -56,8 +58,8 @@ class Actions implements ActionRecord {
   setSelectionBefore = new SetSelectionBefore(this.graph);
   // sortTargets = new Sort(this.graph);
   // swapTargets = new Swap(this.graph);
-  // toggleLineBreakpoint = new SetBreakpoint(this.graph);
-  // toggleLineComment = new CommentLines(this.graph);
+  // toggleLineBreakpoint = new ToggleBreakpoint(this.graph);
+  toggleLineComment = new CommentLines(this.graph);
   unfoldRegion = new Unfold(this.graph);
   // wrapWithPairedDelimiter = new Wrap(this.graph);
   // wrapWithSnippet = new WrapWithSnippet(this.graph);

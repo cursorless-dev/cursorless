@@ -1,8 +1,9 @@
-import { Action, ActionReturnValue, Graph } from "../typings/Types";
 import { ensureSingleEditor, getContentSelection } from "../util/targetUtils";
 import { Selection } from "vscode";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export class SetSelection implements Action {
   constructor(private graph: Graph) {

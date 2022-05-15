@@ -25,7 +25,7 @@
 //   );
 // }
 
-// export default class SetBreakpoint implements Action {
+// export default class ToggleBreakpoint implements Action {
 //   getTargetPreferences: () => ActionPreferences[] = () => [
 //     { insideOutsideType: "inside", selectionType: "line" },
 //   ];
@@ -34,10 +34,7 @@
 //     this.run = this.run.bind(this);
 //   }
 
-//   async run([targets]: [
-//     Target[],
-//     Target[]
-//   ]): Promise<ActionReturnValue> {
+//   async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
 //     await displayPendingEditDecorations(
 //       targets,
 //       this.graph.editStyles.referenced

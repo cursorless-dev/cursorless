@@ -1,7 +1,8 @@
 import { commands } from "vscode";
 import { Target } from "../typings/target.types";
-import { Action, ActionReturnValue, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
 import { ensureSingleTarget } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export class FindInFiles implements Action {
   constructor(private graph: Graph) {

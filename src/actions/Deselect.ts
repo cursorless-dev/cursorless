@@ -1,7 +1,8 @@
 import { Selection } from "vscode";
 import { Target } from "../typings/target.types";
-import { Action, ActionReturnValue, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Deselect implements Action {
   constructor(private graph: Graph) {

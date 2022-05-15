@@ -1,11 +1,12 @@
 import { Target } from "../typings/target.types";
-import { Action, ActionReturnValue, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import {
   createThatMark,
   ensureSingleTarget,
   getContentText,
 } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export default class GetText implements Action {
   constructor(private graph: Graph) {

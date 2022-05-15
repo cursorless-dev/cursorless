@@ -11,7 +11,7 @@ import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { CommandServerApi } from "../util/getExtensionApi";
-import { ActionType } from "../actions/actions.types";
+import { ActionRecord, ActionType } from "../actions/actions.types";
 import { Target } from "./target.types";
 import { FullRangeInfo } from "./updateSelections";
 
@@ -95,25 +95,6 @@ export interface SelectionWithContext {
   selection: vscode.Selection;
   context: SelectionContext;
 }
-
-export interface ActionReturnValue {
-  returnValue?: any;
-  thatMark?: SelectionWithEditor[];
-  sourceMark?: SelectionWithEditor[];
-}
-
-export interface Action {
-  run(targets: Target[][], ...args: any[]): Promise<ActionReturnValue>;
-
-  /**
-   * Used to define default values for parts of target during inference.
-   * @param args Extra args to command
-   */
-  // TODO
-  // getTargetPreferences(...args: any[]): ActionPreferences[];
-}
-
-export type ActionRecord = Record<ActionType, Action>;
 
 export interface Graph {
   /**

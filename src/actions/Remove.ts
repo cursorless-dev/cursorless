@@ -2,7 +2,7 @@ import { flatten } from "lodash";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateRanges";
 // import { unifyTargets } from "../util/unifyRanges";
 import { Target } from "../typings/target.types";
-import { Action, ActionReturnValue, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 
 import {
@@ -10,6 +10,7 @@ import {
   getContentRange,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Delete implements Action {
   constructor(private graph: Graph) {

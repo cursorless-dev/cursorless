@@ -1,10 +1,11 @@
 import { commands, window } from "vscode";
 import { Target } from "../typings/target.types";
-import { Action, ActionReturnValue, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
 import { displayPendingEditDecorationsForTargets } from "../util/editDisplayUtils";
 import { groupBy } from "../util/itertools";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 class Scroll implements Action {
   constructor(private graph: Graph, private at: string) {
