@@ -3,7 +3,7 @@ import { TestCaseCommand } from "./TestCase";
 export function cleanUpTestCaseCommand(
   command: TestCaseCommand
 ): TestCaseCommand {
-  const { extraArgs, usePrePhraseSnapshot, ...rest } = command;
+  const { extraArgs, ...rest } = command;
 
   return {
     ...rest,

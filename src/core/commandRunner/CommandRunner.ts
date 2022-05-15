@@ -65,13 +65,14 @@ export default class CommandRunner {
         this.graph.debug.log(JSON.stringify(command, null, 3));
       }
 
+      const commandComplete = canonicalizeAndValidateCommand(command);
       const {
         spokenForm,
         action: actionName,
         targets: partialTargets,
         extraArgs,
         usePrePhraseSnapshot,
-      } = canonicalizeAndValidateCommand(command);
+      } = commandComplete;
 
       const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
         usePrePhraseSnapshot
@@ -110,7 +111,10 @@ export default class CommandRunner {
           hatTokenMap: readableHatMap,
           spokenForm,
         };
-        await this.graph.testCaseRecorder.preCommandHook(command, context);
+        await this.graph.testCaseRecorder.preCommandHook(
+          commandComplete,
+          context
+        );
       }
 
       const {

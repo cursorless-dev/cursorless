@@ -20,15 +20,15 @@ const COLOR_CANONICALIZATION_MAPPING: Record<string, HatStyleName> = {
 
 const canonicalizeScopeTypes = (
   target: PartialPrimitiveTarget
-): PartialPrimitiveTarget =>
-  target.modifier?.type === "containingScope"
-    ? update(target, {
-        modifier: {
-          scopeType: (scopeType: string) =>
-            SCOPE_TYPE_CANONICALIZATION_MAPPING[scopeType] ?? scopeType,
-        },
-      })
-    : target;
+): PartialPrimitiveTarget => {
+  target.modifiers?.forEach((mod) => {
+    if (mod.type === "containingScope" || mod.type === "everyScope") {
+      mod.scopeType =
+        SCOPE_TYPE_CANONICALIZATION_MAPPING[mod.scopeType] ?? mod.scopeType;
+    }
+  });
+  return target;
+};
 
 const canonicalizeColors = (
   target: PartialPrimitiveTarget

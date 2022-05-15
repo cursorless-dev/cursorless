@@ -2,7 +2,6 @@ import { isEqual, zip } from "lodash";
 import { Range } from "vscode";
 import { PrimitiveTarget, RangeTarget, Target } from "../typings/target.types";
 import { ProcessedTargetsContext, TypedSelection } from "../typings/Types";
-import { performInsideOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
 
@@ -36,30 +35,13 @@ function processTarget(
   switch (target.type) {
     case "list":
       return target.elements.flatMap((element) =>
-        processNonListTarget(context, element)
+        processTarget(context, element)
       );
     case "range":
+      return processRangeTarget(context, target);
     case "primitive":
-      return processNonListTarget(context, target);
+      return processPrimitiveTarget(context, target);
   }
-}
-
-function processNonListTarget(
-  context: ProcessedTargetsContext,
-  target: RangeTarget | PrimitiveTarget
-): TypedSelection[] {
-  let selections;
-  switch (target.type) {
-    case "range":
-      selections = processRangeTarget(context, target);
-      break;
-    case "primitive":
-      selections = processPrimitiveTarget(context, target);
-      break;
-  }
-  return selections.map((selection) =>
-    performInsideOutsideAdjustment(selection)
-  );
 }
 
 function processRangeTarget(
@@ -216,7 +198,7 @@ function processPrimitiveTarget(
   target: PrimitiveTarget
 ): TypedSelection[] {
   const markStage = getMarkStage(target.mark);
-  let selections: TypedSelection[] = markStage.run(context);
+  let selections = markStage.run(context);
 
   for (let i = target.modifiers.length - 1; i > -1; --i) {
     const modifier = target.modifiers[i];

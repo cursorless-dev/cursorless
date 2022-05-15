@@ -11,7 +11,6 @@ import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { CommandServerApi } from "../util/getExtensionApi";
-import { Position } from "./target.types";
 import { FullRangeInfo } from "./updateSelections";
 
 /**
@@ -159,10 +158,11 @@ export interface TypedSelection {
 }
 
 export interface ActionPreferences {
-  position?: Position;
-  insideOutsideType: InsideOutsideType;
-  selectionType?: SelectionType;
-  modifier?: Modifier;
+  // TODO
+  // position?: Position;
+  // insideOutsideType: InsideOutsideType;
+  // selectionType?: SelectionType;
+  // modifier?: Modifier;
 }
 
 export type SelectionWithEditorWithContext = {

@@ -1,6 +1,6 @@
 import { commands } from "vscode";
 import { ActionableError } from "../../errors";
-import { PartialTarget, SelectionType } from "../../typings/target.types";
+import { PartialTarget, ScopeType } from "../../typings/target.types";
 import { ActionType } from "../../typings/Types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import {
@@ -84,7 +84,7 @@ export function validateCommand(
   partialTargets: PartialTarget[]
 ) {
   if (
-    usesSelectionType("notebookCell", partialTargets) &&
+    usesScopeType("notebookCell", partialTargets) &&
     !["editNewLineBefore", "editNewLineAfter"].includes(actionName)
   ) {
     throw new Error(
@@ -93,11 +93,12 @@ export function validateCommand(
   }
 }
 
-function usesSelectionType(
-  selectionType: SelectionType,
-  partialTargets: PartialTarget[]
-) {
-  return getPartialPrimitiveTargets(partialTargets).some(
-    (partialTarget) => partialTarget.selectionType === selectionType
+function usesScopeType(scopeType: ScopeType, partialTargets: PartialTarget[]) {
+  return getPartialPrimitiveTargets(partialTargets).some((partialTarget) =>
+    partialTarget.modifiers?.find(
+      (mod) =>
+        (mod.type === "containingScope" || mod.type === "everyScope") &&
+        mod.scopeType === scopeType
+    )
   );
 }

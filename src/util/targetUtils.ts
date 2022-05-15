@@ -1,13 +1,13 @@
-import { TextEditor, Selection, Position } from "vscode";
-import { groupBy } from "./itertools";
+import { Position, Range, TextEditor } from "vscode";
 import { TypedSelection } from "../typings/Types";
+import { groupBy } from "./itertools";
 
 export function ensureSingleEditor(targets: TypedSelection[]) {
   if (targets.length === 0) {
     throw new Error("Require at least one target with this action");
   }
 
-  const editors = targets.map((target) => target.selection.editor);
+  const editors = targets.map((target) => target.editor);
 
   if (new Set(editors).size > 1) {
     throw new Error("Can only have one editor with this action");
@@ -40,11 +40,11 @@ export async function runOnTargetsForEachEditor<T>(
   targets: TypedSelection[],
   func: (editor: TextEditor, selections: TypedSelection[]) => Promise<T>
 ): Promise<T[]> {
-  return runForEachEditor(targets, (target) => target.selection.editor, func);
+  return runForEachEditor(targets, (target) => target.editor, func);
 }
 
 export function groupTargetsForEachEditor(targets: TypedSelection[]) {
-  return groupForEachEditor(targets, (target) => target.selection.editor);
+  return groupForEachEditor(targets, (target) => target.editor);
 }
 
 export function groupForEachEditor<T>(
@@ -66,23 +66,17 @@ export function getOutsideOverflow(
   insideTarget: TypedSelection,
   outsideTarget: TypedSelection
 ): TypedSelection[] {
-  const { start: insideStart, end: insideEnd } =
-    insideTarget.selection.selection;
-  const { start: outsideStart, end: outsideEnd } =
-    outsideTarget.selection.selection;
+  const { start: insideStart, end: insideEnd } = insideTarget.contentRange;
+  const { start: outsideStart, end: outsideEnd } = outsideTarget.contentRange;
   const result = [];
   if (outsideStart.isBefore(insideStart)) {
     result.push(
-      createTypeSelection(
-        insideTarget.selection.editor,
-        outsideStart,
-        insideStart
-      )
+      createTypeSelection(insideTarget.editor, outsideStart, insideStart)
     );
   }
   if (outsideEnd.isAfter(insideEnd)) {
     result.push(
-      createTypeSelection(insideTarget.selection.editor, insideEnd, outsideEnd)
+      createTypeSelection(insideTarget.editor, insideEnd, outsideEnd)
     );
   }
   return result;
@@ -94,13 +88,7 @@ function createTypeSelection(
   end: Position
 ): TypedSelection {
   return {
-    selection: {
-      editor,
-      selection: new Selection(start, end),
-    },
-    selectionType: "token",
-    selectionContext: {},
-    insideOutsideType: "inside",
-    position: "contents",
+    editor,
+    contentRange: new Range(start, end),
   };
 }

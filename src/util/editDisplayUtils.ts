@@ -1,10 +1,9 @@
 import { TextEditorDecorationType, window, workspace } from "vscode";
-import { TypedSelection, SelectionWithEditor } from "../typings/Types";
-import { isLineSelectionType } from "./selectionType";
-import { runOnTargetsForEachEditor, runForEachEditor } from "./targetUtils";
 import { EditStyle } from "../core/editStyles";
 import isTesting from "../testUtil/isTesting";
+import { SelectionWithEditor, TypedSelection } from "../typings/Types";
 import sleep from "./sleep";
+import { runForEachEditor, runOnTargetsForEachEditor } from "./targetUtils";
 
 const getPendingEditDecorationTime = () =>
   workspace
@@ -72,7 +71,7 @@ export async function setDecorations(
       editStyle.token,
       selections
         .filter((selection) => !useLineDecorations(selection))
-        .map((selection) => selection.selection.selection)
+        .map((selection) => selection.contentRange)
     );
 
     editor.setDecorations(
@@ -80,8 +79,8 @@ export async function setDecorations(
       selections
         .filter((selection) => useLineDecorations(selection))
         .map((selection) => {
-          const { document } = selection.selection.editor;
-          const { start, end } = selection.selection.selection;
+          const { document } = selection.editor;
+          const { start, end } = selection.contentRange;
           const startLine = document.lineAt(start);
           const hasLeadingLine =
             start.character === startLine.range.end.character;
@@ -91,26 +90,27 @@ export async function setDecorations(
           ) {
             // NB: We move end up one line because it is at beginning of
             // next line
-            return selection.selection.selection.with({
+            return selection.contentRange.with({
               end: end.translate(-1),
             });
           }
           if (hasLeadingLine) {
             // NB: We move start down one line because it is at end of
             // previous line
-            return selection.selection.selection.with({
+            return selection.contentRange.with({
               start: start.translate(1),
             });
           }
-          return selection.selection.selection;
+          return selection.contentRange;
         })
     );
   });
 }
 
 function useLineDecorations(selection: TypedSelection) {
-  return (
-    isLineSelectionType(selection.selectionType) &&
-    selection.position === "contents"
-  );
+  return false; // TODO
+  // return (
+  //   isLineSelectionType(selection.selectionType) &&
+  //   selection.position === "contents"
+  // );
 }

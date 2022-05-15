@@ -12,8 +12,8 @@ export async function getLinksForSelections(
 }
 
 export async function getLinkForTarget(target: TypedSelection) {
-  const links = await getLinksForEditor(target.selection.editor);
-  return links.find((link) => link.range.contains(target.selection.selection));
+  const links = await getLinksForEditor(target.editor);
+  return links.find((link) => link.range.contains(target.contentRange));
 }
 
 function getLinksForEditor(editor: vscode.TextEditor) {

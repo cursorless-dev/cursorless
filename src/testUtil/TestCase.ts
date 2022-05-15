@@ -1,24 +1,24 @@
+import { pick } from "lodash";
 import * as vscode from "vscode";
+import { CommandLatest } from "../core/commandRunner/command.types";
+import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ThatMark } from "../core/ThatMark";
-import { Token } from "../typings/Types";
 import { Target } from "../typings/target.types";
+import { Token } from "../typings/Types";
+import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 import {
   extractTargetedMarks,
   extractTargetKeys,
 } from "./extractTargetedMarks";
-import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
+import serialize from "./serialize";
 import {
   ExtraSnapshotField,
   takeSnapshot,
   TestCaseSnapshot,
 } from "./takeSnapshot";
-import serialize from "./serialize";
-import { pick } from "lodash";
-import { ReadOnlyHatMap } from "../core/IndividualHatMap";
-import { Command } from "../core/commandRunner/command.types";
-import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
+import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
 
-export type TestCaseCommand = Command;
+export type TestCaseCommand = CommandLatest;
 
 export type TestCaseContext = {
   thatMark: ThatMark;
