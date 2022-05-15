@@ -2,6 +2,7 @@ import { ActionRecord, Graph } from "../typings/Types";
 import Clear from "./Clear";
 import Deselect from "./Deselect";
 import ExecuteCommand from "./ExecuteCommand";
+import { FindInFiles } from "./Find";
 import FollowLink from "./FollowLink";
 import GetText from "./GetText";
 import Highlight from "./Highlight";
@@ -24,7 +25,7 @@ class Actions implements ActionRecord {
   // editNewLineBefore = new EditNewLineAbove(this.graph);
   executeCommand = new ExecuteCommand(this.graph);
   // extractVariable = new ExtractVariable(this.graph);
-  // findInWorkspace = new FindInFiles(this.graph);
+  findInWorkspace = new FindInFiles(this.graph);
   // foldRegion = new Fold(this.graph);
   followLink = new FollowLink(this.graph);
   getText = new GetText(this.graph);

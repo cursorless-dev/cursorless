@@ -8,7 +8,7 @@ export type ActionType =
   // | "editNewLineBefore"
   | "executeCommand"
   // | "extractVariable"
-  // | "findInWorkspace"
+  | "findInWorkspace"
   // | "foldRegion"
   | "followLink"
   | "getText"
