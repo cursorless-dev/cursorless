@@ -17,21 +17,21 @@ import { ModifierStage } from "../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, selection: Target): Target[] {
+  run(context: ProcessedTargetsContext, target: Target): Target[] {
     const nodeMatcher = getNodeMatcher(
-      selection.editor.document.languageId,
+      target.editor.document.languageId,
       this.modifier.scopeType,
       this.modifier.type === "everyScope"
     );
     const node: SyntaxNode | null = context.getNodeAtLocation(
-      new Location(selection.editor.document.uri, selection.contentRange.start)
+      new Location(target.editor.document.uri, target.contentRange.start)
     );
 
     const scopeNodes = findNearestContainingAncestorNode(node, nodeMatcher, {
-      editor: selection.editor,
+      editor: target.editor,
       selection: new Selection(
-        selection.contentRange.start,
-        selection.contentRange.end
+        target.contentRange.start,
+        target.contentRange.end
       ),
     });
 
@@ -40,12 +40,11 @@ export default class implements ModifierStage {
     }
 
     return scopeNodes.map((scope) => ({
-      ...selection,
+      isReversed: target.isReversed,
       editor: scope.selection.editor,
       contentRange: scope.selection.selection,
       interiorRange: scope.context.interior?.at(0)?.selection,
       removalRange: scope.context.outerSelection ?? undefined,
-      isRawSelection: scope.context.isRawSelection,
       isNotebookCell: scope.context.isNotebookCell,
       delimiter: scope.context.containingListDelimiter ?? undefined,
       boundary: scope.context.boundary?.map((bound) => bound.selection),

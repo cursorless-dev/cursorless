@@ -90,5 +90,6 @@ function createTypeSelection(
   return {
     editor,
     contentRange: new Range(start, end),
+    isReversed: false,
   };
 }

@@ -11,18 +11,13 @@ import { ModifierStage } from "../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, selection: Target): Target {
+  run(context: ProcessedTargetsContext, target: Target): Target {
     return {
-      ...selection,
-      editor: selection.editor,
-      isReversed: selection.isReversed,
-      contentRange: getDocumentContentRange(selection.editor.document),
-      removalRange: getDocumentRange(selection.editor.document),
+      editor: target.editor,
+      isReversed: target.isReversed,
       delimiter: "\n",
-      interiorRange: undefined,
-      boundary: undefined,
-      leadingDelimiterRange: undefined,
-      trailingDelimiterRange: undefined,
+      contentRange: getDocumentContentRange(target.editor.document),
+      removalRange: getDocumentRange(target.editor.document),
     };
   }
 }
@@ -33,16 +28,16 @@ function getDocumentContentRange(document: TextDocument) {
 
   for (let i = firstLineNum; i < document.lineCount; ++i) {
     if (!document.lineAt(i).isEmptyOrWhitespace) {
+      firstLineNum = i;
       break;
     }
-    firstLineNum = i;
   }
 
   for (let i = lastLineNum; i > -1; --i) {
     if (!document.lineAt(i).isEmptyOrWhitespace) {
+      lastLineNum = i;
       break;
     }
-    lastLineNum = i;
   }
 
   const firstLine = document.lineAt(firstLineNum);

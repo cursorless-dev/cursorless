@@ -31,13 +31,13 @@ import { findSurroundingPairTextBased } from "./surroundingPair/findSurroundingP
 export default class implements ModifierStage {
   constructor(private modifier: SurroundingPairModifier) {}
 
-  run(context: ProcessedTargetsContext, selection: Target): Target | Target[] {
-    const pairs = processSurroundingPair(context, this.modifier, selection);
+  run(context: ProcessedTargetsContext, target: Target): Target[] {
+    const pairs = processSurroundingPair(context, this.modifier, target);
     if (pairs == null) {
       throw new Error("Couldn't find containing pair");
     }
     return pairs.map((pair) => ({
-      ...selection,
+      isReversed: target.isReversed,
       editor: pair.selection.editor,
       contentRange: pair.selection.selection,
       interiorRange: pair.context.interior?.at(0)?.selection,

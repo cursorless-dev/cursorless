@@ -247,14 +247,7 @@ export interface Target {
   /**
    * If true active is before anchor
    */
-  isReversed?: boolean;
-
-  /**
-   * Indicates that this is a raw selection with no type information so for
-   * example if it is the destination of a bring or move it should inherit the
-   * type information such as delimiters from its source
-   */
-  isRawSelection?: boolean;
+  isReversed: boolean;
 
   /**
    * If true this selection is part of a notebook cell

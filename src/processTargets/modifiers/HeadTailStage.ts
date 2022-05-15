@@ -8,14 +8,11 @@ abstract class HeadTailStage implements ModifierStage {
 
   constructor(private isReversed: boolean) {}
 
-  run(context: ProcessedTargetsContext, selection: Target): Target {
+  run(context: ProcessedTargetsContext, target: Target): Target {
     return {
-      ...selection,
+      editor: target.editor,
       isReversed: this.isReversed,
-      contentRange: this.update(selection.editor, selection.contentRange),
-      interiorRange: selection.interiorRange
-        ? this.update(selection.editor, selection.interiorRange)
-        : undefined,
+      contentRange: this.update(target.editor, target.contentRange),
     };
   }
 }

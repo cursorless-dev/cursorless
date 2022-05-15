@@ -1,4 +1,4 @@
-import { Position, Range } from "vscode";
+import { Position, Range, TextEditor } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
@@ -11,41 +11,40 @@ import { getTokenContext } from "./TokenStage";
 class RegexStage implements ModifierStage {
   constructor(private regex: RegExp, private name?: string) {}
 
-  run(context: ProcessedTargetsContext, selection: Target): Target {
-    const getMatch = (position: Position) => {
-      const line = selection.editor.document.lineAt(position);
-      const result = [...line.text.matchAll(this.regex)]
-        .map(
-          (match) =>
-            new Range(
-              position.line,
-              match.index!,
-              position.line,
-              match.index! + match[0].length
-            )
-        )
-        .find((range) => range.contains(position));
-      if (result == null) {
-        if (this.name) {
-          throw new Error(`Couldn't find containing ${this.name}`);
-        } else {
-          throw new Error(
-            `Cannot find sequence defined by regex: ${this.regex}`
-          );
-        }
-      }
-      return result;
-    };
-
-    const start = getMatch(selection.contentRange.start).start;
-    const end = getMatch(selection.contentRange.end).end;
+  run(context: ProcessedTargetsContext, target: Target): Target {
+    const { editor } = target;
+    const start = this.getMatch(editor, target.contentRange.start).start;
+    const end = this.getMatch(editor, target.contentRange.end).end;
     const contentRange = new Range(start, end);
-
     return {
-      ...selection,
+      editor,
+      isReversed: target.isReversed,
       contentRange,
-      ...getTokenContext(selection.editor, contentRange),
+      ...getTokenContext(target.editor, contentRange),
     };
+  }
+
+  getMatch(editor: TextEditor, position: Position) {
+    const line = editor.document.lineAt(position);
+    const result = [...line.text.matchAll(this.regex)]
+      .map(
+        (match) =>
+          new Range(
+            position.line,
+            match.index!,
+            position.line,
+            match.index! + match[0].length
+          )
+      )
+      .find((range) => range.contains(position));
+    if (result == null) {
+      if (this.name) {
+        throw new Error(`Couldn't find containing ${this.name}`);
+      } else {
+        throw new Error(`Cannot find sequence defined by regex: ${this.regex}`);
+      }
+    }
+    return result;
   }
 }
 

@@ -5,7 +5,11 @@ import { ModifierStage } from "../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: RawSelectionModifier) {}
 
-  run(context: ProcessedTargetsContext, selection: Target): Target {
-    return { ...selection, isRawSelection: true };
+  run(context: ProcessedTargetsContext, target: Target): Target {
+    return {
+      editor: target.editor,
+      contentRange: target.contentRange,
+      isReversed: target.isReversed,
+    };
   }
 }

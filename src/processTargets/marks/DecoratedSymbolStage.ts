@@ -20,6 +20,7 @@ export default class implements MarkStage {
       {
         editor: token.editor,
         contentRange: token.range,
+        isReversed: false,
         ...getTokenContext(token.editor, token.range),
       },
     ];

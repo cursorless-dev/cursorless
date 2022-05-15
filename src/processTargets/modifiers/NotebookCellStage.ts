@@ -9,9 +9,11 @@ import { ModifierStage } from "../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, selection: Target): Target {
+  run(context: ProcessedTargetsContext, target: Target): Target {
     return {
-      ...selection,
+      editor: target.editor,
+      isReversed: target.isReversed,
+      contentRange: target.contentRange,
       isNotebookCell: true,
     };
   }

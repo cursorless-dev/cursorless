@@ -10,10 +10,10 @@ import { ModifierStage } from "../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, selection: Target): Target {
-    const { document } = selection.editor;
+  run(context: ProcessedTargetsContext, target: Target): Target {
+    const { document } = target.editor;
 
-    let startLine = document.lineAt(selection.contentRange.start);
+    let startLine = document.lineAt(target.contentRange.start);
     if (!startLine.isEmptyOrWhitespace) {
       while (startLine.lineNumber > 0) {
         const line = document.lineAt(startLine.lineNumber - 1);
@@ -24,7 +24,7 @@ export default class implements ModifierStage {
       }
     }
     const lineCount = document.lineCount;
-    let endLine = document.lineAt(selection.contentRange.end);
+    let endLine = document.lineAt(target.contentRange.end);
     if (!endLine.isEmptyOrWhitespace) {
       while (endLine.lineNumber + 1 < lineCount) {
         const line = document.lineAt(endLine.lineNumber + 1);
@@ -41,9 +41,11 @@ export default class implements ModifierStage {
     );
     const end = endLine.range.end;
 
+    const contentRange = new Range(start, end);
+
     const removalRange = new Range(
       new Position(start.line, 0),
-      selection.editor.document.lineAt(end).range.end
+      target.editor.document.lineAt(end).range.end
     );
 
     const leadingLine = getPreviousNonEmptyLine(document, start.line);
@@ -71,14 +73,13 @@ export default class implements ModifierStage {
         : undefined;
 
     return {
-      ...selection,
+      editor: target.editor,
+      isReversed: target.isReversed,
       delimiter: "\n\n",
-      contentRange: new Range(start, end),
+      contentRange,
       removalRange,
       leadingDelimiterRange,
       trailingDelimiterRange,
-      interiorRange: undefined,
-      boundary: undefined,
     };
   }
 }

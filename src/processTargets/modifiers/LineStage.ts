@@ -10,20 +10,16 @@ import { ModifierStage } from "../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, selection: Target): Target {
-    const { document } = selection.editor;
-    const startLine = document.lineAt(selection.contentRange.start);
-    const endLine = document.lineAt(selection.contentRange.end);
-    const start = new Position(
-      startLine.lineNumber,
-      startLine.firstNonWhitespaceCharacterIndex
+  run(context: ProcessedTargetsContext, target: Target): Target {
+    const contentRange = fitRangeToLineContent(
+      target.editor,
+      target.contentRange
     );
-    const end = endLine.range.end;
-    const contentRange = new Range(start, end);
-
     return {
-      ...selection,
-      ...getLineContext(selection.editor, contentRange),
+      editor: target.editor,
+      isReversed: target.isReversed,
+      contentRange,
+      ...getLineContext(target.editor, contentRange),
     };
   }
 }
@@ -51,11 +47,22 @@ export function getLineContext(
 
   return {
     delimiter: "\n",
-    interiorRange: undefined,
-    boundary: undefined,
-    isRawSelection: undefined,
     removalRange,
     leadingDelimiterRange,
     trailingDelimiterRange,
   };
+}
+
+function fitRangeToLineContent(editor: TextEditor, range: Range) {
+  const startLine = editor.document.lineAt(range.start);
+  const endLine = editor.document.lineAt(range.end);
+  const endCharacterIndex =
+    endLine.range.end.character -
+    (endLine.text.length - endLine.text.trimEnd().length);
+  return new Range(
+    startLine.lineNumber,
+    startLine.firstNonWhitespaceCharacterIndex,
+    endLine.lineNumber,
+    endCharacterIndex
+  );
 }

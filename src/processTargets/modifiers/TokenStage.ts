@@ -10,10 +10,12 @@ import { ModifierStage } from "../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, selection: Target): Target {
+  run(context: ProcessedTargetsContext, target: Target): Target {
     return {
-      ...selection,
-      ...getTokenContext(selection.editor, selection.contentRange),
+      editor: target.editor,
+      isReversed: target.isReversed,
+      contentRange: target.contentRange,
+      ...getTokenContext(target.editor, target.contentRange),
     };
   }
 }
@@ -62,7 +64,6 @@ export function getTokenContext(
     removalRange: undefined,
     interiorRange: undefined,
     boundary: undefined,
-    isRawSelection: undefined,
     leadingDelimiterRange: isInDelimitedList
       ? leadingDelimiterRange
       : undefined,
