@@ -12,7 +12,6 @@ import {
   getContentSelection,
   getContentText,
   getRemovalRange,
-  getTextWithPossibleDelimiter,
   maybeAddDelimiter,
   runForEachEditor,
 } from "../util/targetUtils";
@@ -292,4 +291,10 @@ export class Swap extends BringMoveSwap {
   constructor(graph: Graph) {
     super(graph, "swap");
   }
+}
+
+/** Get text from selection. Possibly add delimiter for positions before/after */
+function getTextWithPossibleDelimiter(source: Target, destination: Target) {
+  const sourceText = getContentText(source);
+  return maybeAddDelimiter(sourceText, destination);
 }

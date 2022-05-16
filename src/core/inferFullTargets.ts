@@ -117,11 +117,25 @@ function inferPrimitiveTarget(
       type: "cursor",
     };
 
+  const previousModifiers = getPreviousAttribute(previousTargets, "modifiers");
+
   const modifiers =
-    target.modifiers ??
-    getPreviousAttribute(previousTargets, "modifiers") ??
-    actionPreferences?.modifiers ??
-    [];
+    target.modifiers ?? previousModifiers ?? actionPreferences?.modifiers ?? [];
+
+  // TODO Is this really a good solution?
+  // "bring line to after this" needs to inter line on second target
+  if (
+    previousModifiers != null &&
+    modifiers.length === 1 &&
+    modifiers[0].type === "position"
+  ) {
+    const containingScopeModifier = previousModifiers.find(
+      (modifier) => modifier.type === "containingScope"
+    );
+    if (containingScopeModifier != null) {
+      modifiers.push(containingScopeModifier);
+    }
+  }
 
   return {
     type: target.type,
