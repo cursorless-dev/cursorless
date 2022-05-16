@@ -5,6 +5,7 @@ import { CommentLines } from "./Comment";
 import { CopyLinesDown, CopyLinesUp } from "./CopyLines";
 import { Copy, Cut, Paste } from "./CutCopyPaste";
 import Deselect from "./Deselect";
+import { EditNewLineAbove, EditNewLineBelow } from "./EditNewLine";
 import ExecuteCommand from "./ExecuteCommand";
 import ExtractVariable from "./ExtractVariable";
 import { FindInFiles } from "./Find";
@@ -36,8 +37,8 @@ class Actions implements ActionRecord {
   clearAndSetSelection = new Clear(this.graph);
   copyToClipboard = new Copy(this.graph);
   cutToClipboard = new Cut(this.graph);
-  // editNewLineAfter = new EditNewLineBelow(this.graph);
-  // editNewLineBefore = new EditNewLineAbove(this.graph);
+  editNewLineAfter = new EditNewLineBelow(this.graph);
+  editNewLineBefore = new EditNewLineAbove(this.graph);
   executeCommand = new ExecuteCommand(this.graph);
   extractVariable = new ExtractVariable(this.graph);
   findInWorkspace = new FindInFiles(this.graph);

@@ -1,91 +1,113 @@
-// import {
-//   Action,
-//   ActionPreferences,
-//   ActionReturnValue,
-//   Graph,
-//   Target,
-// } from "../typings/Types";
-// import { commands, Selection, TextEditor } from "vscode";
-// import { getNotebookFromCellDocument } from "../util/notebook";
+import { commands, Position, Range, Selection, TextEditor } from "vscode";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
+import { getNotebookFromCellDocument } from "../util/notebook";
+import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
-// class EditNewLine implements Action {
-//   getTargetPreferences: () => ActionPreferences[] = () => [
-//     { insideOutsideType: "inside" },
-//   ];
+class EditNewLine implements Action {
+  constructor(private graph: Graph, private isAbove: boolean) {
+    this.run = this.run.bind(this);
+  }
 
-//   constructor(private graph: Graph, private isAbove: boolean) {
-//     this.run = this.run.bind(this);
-//   }
+  private isNotebookEditor(editor: TextEditor) {
+    return getNotebookFromCellDocument(editor.document) != null;
+  }
 
-//   private correctForParagraph(targets: Target[]) {
-//     targets.forEach((target) => {
-//       let { start, end } = target.selection.selection;
-//       if (target.selectionType === "paragraph") {
-//         if (
-//           this.isAbove &&
-//           target.selectionContext.leadingDelimiterRange != null
-//         ) {
-//           start = start.translate({ lineDelta: -1 });
-//         } else if (
-//           !this.isAbove &&
-//           target.selectionContext.trailingDelimiterRange != null
-//         ) {
-//           end = end.translate({ lineDelta: 1 });
-//         }
-//         target.selection.selection = new Selection(start, end);
-//       }
-//     });
-//   }
+  private getCommand(target: Target) {
+    if (target.isNotebookCell) {
+      if (this.isNotebookEditor(target.editor)) {
+        return this.isAbove
+          ? "notebook.cell.insertCodeCellAbove"
+          : "notebook.cell.insertCodeCellBelow";
+      }
+      return this.isAbove
+        ? "jupyter.insertCellAbove"
+        : "jupyter.insertCellBelow";
+    }
+    return null;
+  }
 
-//   private isNotebookEditor(editor: TextEditor) {
-//     return getNotebookFromCellDocument(editor.document) != null;
-//   }
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+    const command = this.getCommand(targets[0]);
+    if (command) {
+      if (this.isAbove) {
+        await this.graph.actions.setSelectionBefore.run([targets]);
+      } else {
+        await this.graph.actions.setSelectionAfter.run([targets]);
+      }
+      await commands.executeCommand(command);
+      return { thatMark: createThatMark(targets) };
+    }
 
-//   private getCommand(target: Target) {
-//     if (target.selectionContext.isNotebookCell) {
-//       if (this.isNotebookEditor(target.selection.editor)) {
-//         return this.isAbove
-//           ? "notebook.cell.insertCodeCellAbove"
-//           : "notebook.cell.insertCodeCellBelow";
-//       }
-//       return this.isAbove
-//         ? "jupyter.insertCellAbove"
-//         : "jupyter.insertCellBelow";
-//     }
-//     return this.isAbove
-//       ? "editor.action.insertLineBefore"
-//       : "editor.action.insertLineAfter";
-//   }
+    const thatMark = await runOnTargetsForEachEditor(
+      targets,
+      async (editor, targets) => {
+        const edits = targets.map((target) => {
+          const delimiter = target.scopeType === "paragraph" ? "\n\n" : "\n";
+          const lineNumber = this.isAbove
+            ? target.contentRange.start.line
+            : target.contentRange.end.line;
+          const line = editor.document.lineAt(lineNumber);
+          const { firstNonWhitespaceCharacterIndex } = line;
+          const padding = line.text.slice(0, firstNonWhitespaceCharacterIndex);
+          const text = this.isAbove ? padding + delimiter : delimiter + padding;
+          const position = this.isAbove ? line.range.start : line.range.end;
+          const lineDelta = delimiter.length;
+          return {
+            contentRange: target.contentRange,
+            lineDelta,
+            firstNonWhitespaceCharacterIndex,
+            position,
+            text,
+          };
+        });
 
-//   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
-//     this.correctForParagraph(targets);
+        await editor.edit((editBuilder) => {
+          edits.forEach((edit) => {
+            editBuilder.insert(edit.position, edit.text);
+          });
+        });
 
-//     if (this.isAbove) {
-//       await this.graph.actions.setSelectionBefore.run([targets]);
-//     } else {
-//       await this.graph.actions.setSelectionAfter.run([targets]);
-//     }
+        editor.selections = edits.map((edit) => {
+          const selectionLineNum = this.isAbove
+            ? edit.position.line
+            : edit.position.line + edit.lineDelta;
+          const positionSelection = new Position(
+            selectionLineNum,
+            edit.firstNonWhitespaceCharacterIndex
+          );
+          return new Selection(positionSelection, positionSelection);
+        });
 
-//     const command = this.getCommand(targets[0]);
-//     await commands.executeCommand(command);
+        const thatMarkRanges = edits.map((edit) => {
+          const { contentRange, lineDelta } = edit;
+          return this.isAbove
+            ? new Range(
+                contentRange.start.translate({ lineDelta }),
+                contentRange.end.translate({ lineDelta })
+              )
+            : contentRange;
+        });
 
-//     return {
-//       thatMark: targets.map((target) => ({
-//         selection: target.selection.editor.selection,
-//         editor: target.selection.editor,
-//       })),
-//     };
-//   }
-// }
+        return createThatMark(targets, thatMarkRanges);
+      }
+    );
 
-// export class EditNewLineAbove extends EditNewLine {
-//   constructor(graph: Graph) {
-//     super(graph, true);
-//   }
-// }
+    return {
+      thatMark: thatMark.flat(),
+    };
+  }
+}
 
-// export class EditNewLineBelow extends EditNewLine {
-//   constructor(graph: Graph) {
-//     super(graph, false);
-//   }
-// }
+export class EditNewLineAbove extends EditNewLine {
+  constructor(graph: Graph) {
+    super(graph, true);
+  }
+}
+
+export class EditNewLineBelow extends EditNewLine {
+  constructor(graph: Graph) {
+    super(graph, false);
+  }
+}

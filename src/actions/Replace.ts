@@ -65,7 +65,7 @@ export default class implements Action {
             this.graph.rangeUpdater,
             editor,
             edits,
-            [targets.map((target) => getContentSelection(target))]
+            [targets.map(getContentSelection)]
           );
 
           return updatedSelections.map((selection) => ({
