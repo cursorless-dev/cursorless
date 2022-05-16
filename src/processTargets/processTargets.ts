@@ -108,6 +108,14 @@ function processContinuousRangeTarget(
     activeTarget.contentRange
   )!;
 
+  const removalRange = unionRanges(
+    isForward,
+    excludeAnchor,
+    excludeActive,
+    anchorTarget.removalRange,
+    activeTarget.removalRange
+  );
+
   const interiorRange = unionRanges(
     isForward,
     excludeAnchor,
@@ -131,6 +139,7 @@ function processContinuousRangeTarget(
       isReversed: !isForward,
       delimiter: anchorTarget.delimiter,
       contentRange,
+      removalRange,
       interiorRange,
       leadingDelimiterRange,
       trailingDelimiterRange,
