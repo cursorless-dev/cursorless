@@ -99,6 +99,8 @@ function processContinuousRangeTarget(
   isForward: boolean
 ): Target[] {
   const { excludeAnchor, excludeActive } = target;
+  const anchorContext = excludeAnchor ? undefined : anchorTarget;
+  const activeContext = excludeActive ? undefined : activeTarget;
 
   const contentRange = unionRanges(
     isForward,
@@ -117,12 +119,12 @@ function processContinuousRangeTarget(
   );
 
   const hasRemovalRange =
-    anchorTarget.removalRange != null || activeTarget.removalRange != null;
+    anchorContext?.removalRange != null || activeContext?.removalRange != null;
   const anchorRemovalRange = hasRemovalRange
-    ? anchorTarget.removalRange ?? anchorTarget.contentRange
+    ? anchorContext?.removalRange ?? anchorContext?.contentRange
     : undefined;
   const activeRemovalRange = hasRemovalRange
-    ? activeTarget.removalRange ?? activeTarget.contentRange
+    ? activeContext?.removalRange ?? activeContext?.contentRange
     : undefined;
   const removalRange = unionRanges(
     isForward,
@@ -132,14 +134,18 @@ function processContinuousRangeTarget(
     activeRemovalRange
   );
 
-  const anchorContext = excludeAnchor ? undefined : anchorTarget;
-  const activeContext = excludeActive ? undefined : activeTarget;
   const leadingDelimiterRange = isForward
     ? anchorContext?.leadingDelimiterRange
     : activeContext?.leadingDelimiterRange;
+  const leadingDelimiterHighlightRange = isForward
+    ? anchorContext?.leadingDelimiterHighlightRange
+    : activeContext?.leadingDelimiterHighlightRange;
   const trailingDelimiterRange = isForward
     ? activeContext?.trailingDelimiterRange
     : anchorContext?.trailingDelimiterRange;
+  const trailingDelimiterHighlightRange = isForward
+    ? activeContext?.trailingDelimiterHighlightRange
+    : anchorContext?.trailingDelimiterHighlightRange;
 
   return [
     {
@@ -150,7 +156,9 @@ function processContinuousRangeTarget(
       removalRange,
       interiorRange,
       leadingDelimiterRange,
+      leadingDelimiterHighlightRange,
       trailingDelimiterRange,
+      trailingDelimiterHighlightRange,
     },
   ];
 }
