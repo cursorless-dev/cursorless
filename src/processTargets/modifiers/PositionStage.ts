@@ -28,7 +28,7 @@ export default class implements ModifierStage {
           ...common,
           contentRange: new Range(contentRange.start, contentRange.start),
           delimiter,
-          leadingDelimiterRange,
+          removalRange: leadingDelimiterRange,
           leadingDelimiterHighlightRange,
         };
 
@@ -37,7 +37,7 @@ export default class implements ModifierStage {
           ...common,
           contentRange: new Range(contentRange.end, contentRange.end),
           delimiter,
-          trailingDelimiterRange,
+          removalRange: trailingDelimiterRange,
           trailingDelimiterHighlightRange,
         };
 
