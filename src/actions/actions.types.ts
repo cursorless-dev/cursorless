@@ -2,7 +2,7 @@ import { Target } from "../typings/target.types";
 import { SelectionWithEditor } from "../typings/Types";
 
 export type ActionType =
-  // | "callAsFunction"
+  | "callAsFunction"
   | "clearAndSetSelection"
   | "copyToClipboard"
   | "cutToClipboard"

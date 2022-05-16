@@ -103,16 +103,23 @@ function inferRangeTarget(
 function inferPrimitiveTarget(
   target: PartialPrimitiveTargetDesc,
   previousTargets: PartialTargetDesc[],
+  // TODO ActionPreferences
   actionPreferences: ActionPreferences
 ): PrimitiveTargetDesc {
+  const hasPosition = !!target.modifiers?.find(
+    (modifier) => modifier.type === "position"
+  );
+
+  // Position without a mark can be something like "take air past end of line"
   const mark = target.mark ??
-    getPreviousAttribute(previousTargets, "mark") ?? { type: "cursor" };
+    (hasPosition ? getPreviousAttribute(previousTargets, "mark") : null) ?? {
+      type: "cursor",
+    };
+
   const modifiers =
     target.modifiers ??
     getPreviousAttribute(previousTargets, "modifiers") ??
     [];
-
-  // TODO ActionPreferences
 
   return {
     type: target.type,

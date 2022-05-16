@@ -5,10 +5,6 @@ export interface CursorMark {
   type: "cursor";
 }
 
-export interface CursorTokenMark {
-  type: "cursorToken";
-}
-
 export interface ThatMark {
   type: "that";
 }
@@ -46,7 +42,6 @@ export interface LineNumberMark {
 
 export type Mark =
   | CursorMark
-  | CursorTokenMark
   | ThatMark
   | SourceMark
   //   | LastCursorPositionMark Not implemented yet

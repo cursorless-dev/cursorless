@@ -1,6 +1,5 @@
 import { Mark } from "../typings/target.types";
 import CursorStage from "./marks/CursorStage";
-import CursorTokenStage from "./marks/CursorTokenStage";
 import DecoratedSymbolStage from "./marks/DecoratedSymbolStage";
 import LineNumberStage from "./marks/LineNumberStage";
 import NothingStage from "./marks/NothingStage";
@@ -12,8 +11,6 @@ export default (mark: Mark): MarkStage => {
   switch (mark.type) {
     case "cursor":
       return new CursorStage(mark);
-    case "cursorToken":
-      return new CursorTokenStage(mark);
     case "that":
       return new ThatStage(mark);
     case "source":

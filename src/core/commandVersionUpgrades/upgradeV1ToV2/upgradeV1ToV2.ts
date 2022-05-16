@@ -65,6 +65,7 @@ function upgradePrimitiveTarget(
   target: PartialPrimitiveTargetV0V1
 ): PartialPrimitiveTargetDesc {
   const {
+    mark,
     insideOutsideType,
     modifier,
     isImplicit,
@@ -73,6 +74,10 @@ function upgradePrimitiveTarget(
     ...rest
   } = target;
   const modifiers: Modifier[] = [];
+
+  if (selectionType) {
+    modifiers.push({ type: "containingScope", scopeType: selectionType });
+  }
 
   if (modifier) {
     const mod = upgradeModifier(modifier);
@@ -83,10 +88,6 @@ function upgradePrimitiveTarget(
         modifiers.push(mod);
       }
     }
-  }
-
-  if (selectionType) {
-    modifiers.push({ type: "containingScope", scopeType: selectionType });
   }
 
   if (isImplicit) {
@@ -109,8 +110,11 @@ function upgradePrimitiveTarget(
     }
   }
 
+  const newMark = mark?.type === "cursorToken" ? undefined : mark;
+
   return {
     ...rest,
+    mark: newMark,
     // Modifiers are processed backwards
     modifiers: modifiers.length ? modifiers.reverse() : undefined,
   };

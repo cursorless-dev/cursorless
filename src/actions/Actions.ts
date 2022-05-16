@@ -1,5 +1,6 @@
 import { Graph } from "../typings/Types";
 import { ActionRecord } from "./actions.types";
+import Call from "./Call";
 import Clear from "./Clear";
 import { CommentLines } from "./Comment";
 import { CopyLinesDown, CopyLinesUp } from "./CopyLines";
@@ -34,7 +35,7 @@ import Wrap from "./Wrap";
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
 
-  // callAsFunction = new Call(this.graph);
+  callAsFunction = new Call(this.graph);
   clearAndSetSelection = new Clear(this.graph);
   copyToClipboard = new Copy(this.graph);
   cutToClipboard = new Cut(this.graph);
