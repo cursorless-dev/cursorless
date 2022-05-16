@@ -1,5 +1,6 @@
 import { Graph } from "../typings/Types";
 import { ActionRecord } from "./actions.types";
+import { Move, Bring, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
 import { CommentLines } from "./Comment";
@@ -55,13 +56,13 @@ class Actions implements ActionRecord {
   insertEmptyLineAfter = new InsertEmptyLineBelow(this.graph);
   insertEmptyLineBefore = new InsertEmptyLineAbove(this.graph);
   insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
-  // moveToTarget = new Move(this.graph);
+  moveToTarget = new Move(this.graph);
   outdentLine = new OutdentLines(this.graph);
   pasteFromClipboard = new Paste(this.graph);
   randomizeTargets = new Random(this.graph);
   remove = new Remove(this.graph);
   replace = new Replace(this.graph);
-  // replaceWithTarget = new Bring(this.graph);
+  replaceWithTarget = new Bring(this.graph);
   reverseTargets = new Reverse(this.graph);
   // rewrapWithPairedDelimiter = new Rewrap(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
@@ -71,7 +72,7 @@ class Actions implements ActionRecord {
   setSelectionAfter = new SetSelectionAfter(this.graph);
   setSelectionBefore = new SetSelectionBefore(this.graph);
   sortTargets = new Sort(this.graph);
-  // swapTargets = new Swap(this.graph);
+  swapTargets = new Swap(this.graph);
   toggleLineBreakpoint = new ToggleBreakpoint(this.graph);
   toggleLineComment = new CommentLines(this.graph);
   unfoldRegion = new Unfold(this.graph);

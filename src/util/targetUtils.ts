@@ -136,6 +136,16 @@ export function getRemovalHighlightRange(target: Target) {
     : removalRange;
 }
 
+/** Get text from selection. Possibly add delimiter for positions before/after */
+export function getTextWithPossibleDelimiter(
+  source: Target,
+  destination: Target
+) {
+  const sourceText = getContentText(source);
+  return maybeAddDelimiter(sourceText, destination);
+}
+
+/** Possibly add delimiter for positions before/after */
 export function maybeAddDelimiter(text: string, target: Target) {
   if (target.delimiter != null) {
     if (target.position === "before") {
