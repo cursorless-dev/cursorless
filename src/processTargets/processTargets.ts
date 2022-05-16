@@ -108,20 +108,28 @@ function processContinuousRangeTarget(
     activeTarget.contentRange
   )!;
 
-  const removalRange = unionRanges(
-    isForward,
-    excludeAnchor,
-    excludeActive,
-    anchorTarget.removalRange,
-    activeTarget.removalRange
-  );
-
   const interiorRange = unionRanges(
     isForward,
     excludeAnchor,
     excludeActive,
     anchorTarget.interiorRange,
     activeTarget.interiorRange
+  );
+
+  const hasRemovalRange =
+    anchorTarget.removalRange != null || activeTarget.removalRange != null;
+  const anchorRemovalRange = hasRemovalRange
+    ? anchorTarget.removalRange ?? anchorTarget.contentRange
+    : undefined;
+  const activeRemovalRange = hasRemovalRange
+    ? activeTarget.removalRange ?? activeTarget.contentRange
+    : undefined;
+  const removalRange = unionRanges(
+    isForward,
+    excludeAnchor,
+    excludeActive,
+    anchorRemovalRange,
+    activeRemovalRange
   );
 
   const anchorContext = excludeAnchor ? undefined : anchorTarget;
