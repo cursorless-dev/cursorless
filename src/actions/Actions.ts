@@ -1,6 +1,6 @@
 import { Graph } from "../typings/Types";
 import { ActionRecord } from "./actions.types";
-import { Move, Bring, Swap } from "./BringMoveSwap";
+import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
 import { CommentLines } from "./Comment";
@@ -23,6 +23,7 @@ import {
 } from "./InsertEmptyLines";
 import Remove from "./Remove";
 import Replace from "./Replace";
+import Rewrap from "./Rewrap";
 import { ScrollToBottom, ScrollToCenter, ScrollToTop } from "./Scroll";
 import {
   SetSelection,
@@ -65,7 +66,7 @@ class Actions implements ActionRecord {
   replace = new Replace(this.graph);
   replaceWithTarget = new Bring(this.graph);
   reverseTargets = new Reverse(this.graph);
-  // rewrapWithPairedDelimiter = new Rewrap(this.graph);
+  rewrapWithPairedDelimiter = new Rewrap(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
   scrollToTop = new ScrollToTop(this.graph);

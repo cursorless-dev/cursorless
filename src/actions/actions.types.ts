@@ -30,7 +30,7 @@ export type ActionType =
   | "replace"
   | "replaceWithTarget"
   | "reverseTargets"
-  // | "rewrapWithPairedDelimiter"
+  | "rewrapWithPairedDelimiter"
   | "scrollToBottom"
   | "scrollToCenter"
   | "scrollToTop"
