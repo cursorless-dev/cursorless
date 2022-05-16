@@ -249,7 +249,7 @@ async function performEditsAndUpdateInternal(
 }
 
 // TODO: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
-async function performEditsAndUpdateSelectionInfos(
+export async function performEditsAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],

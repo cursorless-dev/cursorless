@@ -43,10 +43,6 @@ export default class Delete implements Action {
           range: getRangeCallback(target),
           text: "",
         }));
-        // const ranges = targets.map((target) => ({
-        //   range: getRangeCallback(target),
-        //   isReversed: target.isReversed,
-        // }));
         const ranges = edits.map((edit) => edit.range);
 
         const [updatedRanges] = await performEditsAndUpdateRanges(
