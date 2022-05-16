@@ -2,21 +2,27 @@ import { Position, Range, TextEditor } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  ScopeTypeTarget,
   Target,
-} from "../../typings/target.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
-import { ModifierStage } from "../PipelineStages.types";
+} from "../../../typings/target.types";
+import { ProcessedTargetsContext } from "../../../typings/Types";
+import { ModifierStage } from "../../PipelineStages.types";
 import { getTokenContext } from "./TokenStage";
 
 class RegexStage implements ModifierStage {
-  constructor(private regex: RegExp, private name?: string) {}
+  constructor(
+    private modifier: ContainingScopeModifier | EveryScopeModifier,
+    private regex: RegExp,
+    private name?: string
+  ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target {
+  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget {
     const { editor } = target;
     const start = this.getMatch(editor, target.contentRange.start).start;
     const end = this.getMatch(editor, target.contentRange.end).end;
     const contentRange = new Range(start, end);
     return {
+      scopeType: this.modifier.scopeType,
       editor,
       isReversed: target.isReversed,
       contentRange,
@@ -49,8 +55,8 @@ class RegexStage implements ModifierStage {
 }
 
 export class NonWhitespaceSequenceStage extends RegexStage {
-  constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {
-    super(/\S+/g, "Non whitespace sequence");
+  constructor(modifier: ContainingScopeModifier | EveryScopeModifier) {
+    super(modifier, /\S+/g, "Non whitespace sequence");
   }
 }
 
@@ -59,7 +65,7 @@ const URL_REGEX =
   /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
 
 export class UrlStage extends RegexStage {
-  constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {
-    super(URL_REGEX, "URL");
+  constructor(modifier: ContainingScopeModifier | EveryScopeModifier) {
+    super(modifier, URL_REGEX, "URL");
   }
 }

@@ -4,7 +4,7 @@ import {
   LineNumberPosition,
   Target,
 } from "../../typings/target.types";
-import { getLineContext } from "../modifiers/LineStage";
+import { getLineContext } from "../modifiers/scopeTypeStages/LineStage";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {

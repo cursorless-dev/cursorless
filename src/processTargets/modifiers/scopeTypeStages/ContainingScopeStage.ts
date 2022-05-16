@@ -1,26 +1,27 @@
 import { Location, Selection } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
-import { getNodeMatcher } from "../../languages/getNodeMatcher";
+import { getNodeMatcher } from "../../../languages/getNodeMatcher";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  ScopeTypeTarget,
   Target,
-} from "../../typings/target.types";
+} from "../../../typings/target.types";
 import {
   NodeMatcher,
   ProcessedTargetsContext,
   SelectionWithEditor,
-} from "../../typings/Types";
+} from "../../../typings/Types";
 import {
   isReversed,
   selectionWithEditorFromRange,
-} from "../../util/selectionUtils";
-import { ModifierStage } from "../PipelineStages.types";
+} from "../../../util/selectionUtils";
+import { ModifierStage } from "../../PipelineStages.types";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
     const nodeMatcher = getNodeMatcher(
       target.editor.document.languageId,
       this.modifier.scopeType,
@@ -43,6 +44,7 @@ export default class implements ModifierStage {
     }
 
     return scopeNodes.map((scope) => ({
+      scopeType: this.modifier.scopeType,
       editor: scope.selection.editor,
       isReversed: isReversed(scope.selection.selection),
       contentRange: scope.selection.selection,

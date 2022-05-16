@@ -1,6 +1,6 @@
 import { DecoratedSymbolMark, Target } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
-import { getTokenContext } from "../modifiers/TokenStage";
+import { getTokenContext } from "../modifiers/scopeTypeStages/TokenStage";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {

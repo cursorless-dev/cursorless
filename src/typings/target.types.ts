@@ -307,3 +307,7 @@ export interface Target {
    */
   boundary?: Range[];
 }
+
+export interface ScopeTypeTarget extends Target {
+  scopeType: ScopeType;
+}

@@ -2,6 +2,7 @@ import { Selection } from "vscode";
 import { SurroundingPairModifier, Target } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
+import { getTokenContext } from "./scopeTypeStages/TokenStage";
 import { processSurroundingPair } from "./surroundingPair";
 
 /**
@@ -30,16 +31,21 @@ export default class implements ModifierStage {
     if (pairs == null) {
       throw new Error("Couldn't find containing pair");
     }
-    return pairs.map((pair) => ({
-      editor: target.editor,
-      isReversed: target.isReversed,
-      contentRange: pair.selection.selection,
-      interiorRange: pair.context.interior,
-      removalRange: pair.context.removalRange,
-      delimiter: pair.context.containingListDelimiter,
-      boundary: pair.context.boundary,
-      leadingDelimiterRange: pair.context.leadingDelimiterRange,
-      trailingDelimiterRange: pair.context.trailingDelimiterRange,
-    }));
+    return pairs.map((pair) => {
+      const context = getTokenContext(target.editor, pair.selection.selection);
+      return {
+        editor: target.editor,
+        isReversed: target.isReversed,
+        contentRange: pair.selection.selection,
+        interiorRange: pair.context.interior,
+        removalRange: pair.context.removalRange,
+        boundary: pair.context.boundary,
+        delimiter: pair.context.containingListDelimiter ?? context.delimiter,
+        leadingDelimiterRange:
+          pair.context.leadingDelimiterRange ?? context.leadingDelimiterRange,
+        trailingDelimiterRange:
+          pair.context.trailingDelimiterRange ?? context.trailingDelimiterRange,
+      };
+    });
   }
 }

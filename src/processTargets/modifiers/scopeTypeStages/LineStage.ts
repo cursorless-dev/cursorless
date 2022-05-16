@@ -2,20 +2,22 @@ import { Position, Range, TextEditor } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  ScopeTypeTarget,
   Target,
-} from "../../typings/target.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
-import { ModifierStage } from "../PipelineStages.types";
+} from "../../../typings/target.types";
+import { ProcessedTargetsContext } from "../../../typings/Types";
+import { ModifierStage } from "../../PipelineStages.types";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target {
+  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget {
     const contentRange = fitRangeToLineContent(
       target.editor,
       target.contentRange
     );
     return {
+      scopeType: this.modifier.scopeType,
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange,
@@ -55,7 +57,6 @@ export function getLineContext(
   );
 
   return {
-    scopeType: "line",
     delimiter: "\n",
     removalRange,
     leadingDelimiterHighlightRange,

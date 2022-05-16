@@ -1,7 +1,7 @@
 import { window } from "vscode";
 import { CursorMark, Target } from "../../typings/target.types";
 import { isReversed } from "../../util/selectionUtils";
-import { getTokenContext } from "../modifiers/TokenStage";
+import { getTokenContext } from "../modifiers/scopeTypeStages/TokenStage";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {

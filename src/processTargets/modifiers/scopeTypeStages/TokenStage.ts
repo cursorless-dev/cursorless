@@ -2,21 +2,23 @@ import { Range, TextEditor } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  ScopeTypeTarget,
   Target,
-} from "../../typings/target.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
-import { getTokensInRange, PartialToken } from "../../util/getTokensInRange";
-import { ModifierStage } from "../PipelineStages.types";
+} from "../../../typings/target.types";
+import { ProcessedTargetsContext } from "../../../typings/Types";
+import { getTokensInRange, PartialToken } from "../../../util/getTokensInRange";
+import { ModifierStage } from "../../PipelineStages.types";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target {
+  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget {
     const contentRange = getTokenRangeForSelection(
       target.editor,
       target.contentRange
     );
     return {
+      scopeType: this.modifier.scopeType,
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange,

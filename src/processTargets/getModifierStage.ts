@@ -4,19 +4,22 @@ import {
   Modifier,
 } from "../typings/target.types";
 import BoundaryStage from "./modifiers/BoundaryStage";
-import ContainingScopeStage from "./modifiers/ContainingScopeStage";
-import DocumentStage from "./modifiers/DocumentStage";
+import ContainingScopeStage from "./modifiers/scopeTypeStages/ContainingScopeStage";
+import DocumentStage from "./modifiers/scopeTypeStages/DocumentStage";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import InteriorStage from "./modifiers/InteriorStage";
-import LineStage from "./modifiers/LineStage";
-import NotebookCellStage from "./modifiers/NotebookCellStage";
-import ParagraphStage from "./modifiers/ParagraphStage";
+import LineStage from "./modifiers/scopeTypeStages/LineStage";
+import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
+import ParagraphStage from "./modifiers/scopeTypeStages/ParagraphStage";
 import PositionStage from "./modifiers/PositionStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
-import { NonWhitespaceSequenceStage, UrlStage } from "./modifiers/RegexStage";
+import {
+  NonWhitespaceSequenceStage,
+  UrlStage,
+} from "./modifiers/scopeTypeStages/RegexStage";
 import SubPieceStage from "./modifiers/SubPieceStage";
 import SurroundingPairStage from "./modifiers/SurroundingPairStage";
-import TokenStage from "./modifiers/TokenStage";
+import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
 import { ModifierStage } from "./PipelineStages.types";
 
 export default (modifier: Modifier): ModifierStage => {

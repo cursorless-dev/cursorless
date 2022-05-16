@@ -2,16 +2,17 @@ import { Position, Range, TextDocument } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  ScopeTypeTarget,
   Target,
-} from "../../typings/target.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
-import { ModifierStage } from "../PipelineStages.types";
+} from "../../../typings/target.types";
+import { ProcessedTargetsContext } from "../../../typings/Types";
+import { ModifierStage } from "../../PipelineStages.types";
 import { fitRangeToLineContent } from "./LineStage";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target {
+  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget {
     const { document } = target.editor;
 
     let startLine = document.lineAt(target.contentRange.start);
@@ -80,9 +81,9 @@ export default class implements ModifierStage {
     );
 
     return {
+      scopeType: this.modifier.scopeType,
       editor: target.editor,
       isReversed: target.isReversed,
-      scopeType: "paragraph",
       delimiter: "\n\n",
       contentRange,
       removalRange,
