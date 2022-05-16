@@ -1,4 +1,4 @@
-import { Selection, TextDocument } from "vscode";
+import { Range, Selection, TextDocument } from "vscode";
 import { SelectionWithContext } from "../../../typings/Types";
 import { SurroundingPairOffsets } from "./types";
 
@@ -16,43 +16,27 @@ export function extractSelectionFromSurroundingPairOffsets(
   baseOffset: number,
   surroundingPairOffsets: SurroundingPairOffsets
 ): SelectionWithContext[] {
-  const interior = [
-    {
-      selection: new Selection(
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.leftDelimiter.end
-        ),
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.rightDelimiter.start
-        )
-      ),
-      context: {},
-    },
-  ];
-
+  const interior = new Range(
+    document.positionAt(baseOffset + surroundingPairOffsets.leftDelimiter.end),
+    document.positionAt(
+      baseOffset + surroundingPairOffsets.rightDelimiter.start
+    )
+  );
   const boundary = [
-    {
-      selection: new Selection(
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.leftDelimiter.start
-        ),
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.leftDelimiter.end
-        )
+    new Range(
+      document.positionAt(
+        baseOffset + surroundingPairOffsets.leftDelimiter.start
       ),
-      context: {},
-    },
-    {
-      selection: new Selection(
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.rightDelimiter.start
-        ),
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.rightDelimiter.end
-        )
+      document.positionAt(baseOffset + surroundingPairOffsets.leftDelimiter.end)
+    ),
+    new Range(
+      document.positionAt(
+        baseOffset + surroundingPairOffsets.rightDelimiter.start
       ),
-      context: {},
-    },
+      document.positionAt(
+        baseOffset + surroundingPairOffsets.rightDelimiter.end
+      )
+    ),
   ];
 
   return [

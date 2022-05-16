@@ -40,46 +40,36 @@ export interface RangeWithEditor {
 }
 
 export interface SelectionContext {
-  isInDelimitedList?: boolean;
-  containingListDelimiter?: string | null;
+  containingListDelimiter?: string;
 
   /**
    * Selection used for outside selection
    */
-  outerSelection?: vscode.Selection | null;
+  removalRange?: vscode.Range;
 
   /**
    * The range of the delimiter before the selection
    */
-  leadingDelimiterRange?: vscode.Range | null;
+  leadingDelimiterRange?: vscode.Range;
 
   /**
    * The range of the delimiter after the selection
    */
-  trailingDelimiterRange?: vscode.Range | null;
-
-  isNotebookCell?: boolean;
+  trailingDelimiterRange?: vscode.Range;
 
   /**
    * Represents the boundary ranges of this selection. For example, for a
    * surrounding pair this would be the opening and closing delimiter. For an if
    * statement this would be the line of the guard as well as the closing brace.
    */
-  boundary?: SelectionWithContext[];
+  boundary?: vscode.Range[];
 
   /**
    * Represents the interior ranges of this selection. For example, for a
    * surrounding pair this would exclude the opening and closing delimiter. For an if
    * statement this would be the statements in the body.
    */
-  interior?: SelectionWithContext[];
-
-  /**
-   * Indicates that this is a raw selection with no type information so for
-   * example if it is the destination of a bring or move it should inherit the
-   * type information such as delimiters from its source
-   */
-  isRawSelection?: boolean;
+  interior?: vscode.Range;
 }
 
 export interface ActionPreferences {

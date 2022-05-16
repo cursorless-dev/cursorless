@@ -34,12 +34,12 @@ function nameExtractor(
   const contentRange = range.isEmpty
     ? range
     : range.with(range.start.translate(0, 1));
-  const outerRange = getNodeRange(node.parent!);
+  const removalRange = getNodeRange(node.parent!);
 
   return {
     selection: new Selection(contentRange.start, contentRange.end),
     context: {
-      outerSelection: new Selection(outerRange.start, outerRange.end),
+      removalRange,
     },
   };
 }

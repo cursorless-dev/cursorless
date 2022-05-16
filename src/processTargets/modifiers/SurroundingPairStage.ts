@@ -1,6 +1,7 @@
 import { Selection } from "vscode";
 import { SurroundingPairModifier, Target } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
+import { isReversed } from "../../util/selectionUtils";
 import { ModifierStage } from "../PipelineStages.types";
 import { processSurroundingPair } from "./surroundingPair";
 
@@ -37,15 +38,15 @@ export default class implements ModifierStage {
       throw new Error("Couldn't find containing pair");
     }
     return pairs.map((pair) => ({
-      isReversed: target.isReversed,
       editor: pair.selection.editor,
+      isReversed: isReversed(pair.selection.selection),
       contentRange: pair.selection.selection,
-      interiorRange: pair.context.interior?.at(0)?.selection,
-      removalRange: pair.context.outerSelection ?? undefined,
-      delimiter: pair.context.containingListDelimiter ?? undefined,
-      boundary: pair.context.boundary?.map((bound) => bound.selection),
-      leadingDelimiterRange: pair.context.leadingDelimiterRange ?? undefined,
-      trailingDelimiterRange: pair.context.trailingDelimiterRange ?? undefined,
+      interiorRange: pair.context.interior,
+      removalRange: pair.context.removalRange,
+      delimiter: pair.context.containingListDelimiter,
+      boundary: pair.context.boundary,
+      leadingDelimiterRange: pair.context.leadingDelimiterRange,
+      trailingDelimiterRange: pair.context.trailingDelimiterRange,
     }));
   }
 }

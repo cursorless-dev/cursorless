@@ -11,7 +11,10 @@ import {
   ProcessedTargetsContext,
   SelectionWithEditor,
 } from "../../typings/Types";
-import { selectionWithEditorFromRange } from "../../util/selectionUtils";
+import {
+  isReversed,
+  selectionWithEditorFromRange,
+} from "../../util/selectionUtils";
 import { ModifierStage } from "../PipelineStages.types";
 
 export default class implements ModifierStage {
@@ -40,16 +43,15 @@ export default class implements ModifierStage {
     }
 
     return scopeNodes.map((scope) => ({
-      isReversed: target.isReversed,
       editor: scope.selection.editor,
+      isReversed: isReversed(scope.selection.selection),
       contentRange: scope.selection.selection,
-      interiorRange: scope.context.interior?.at(0)?.selection,
-      removalRange: scope.context.outerSelection ?? undefined,
-      isNotebookCell: scope.context.isNotebookCell,
-      delimiter: scope.context.containingListDelimiter ?? undefined,
-      boundary: scope.context.boundary?.map((bound) => bound.selection),
-      leadingDelimiterRange: scope.context.leadingDelimiterRange ?? undefined,
-      trailingDelimiterRange: scope.context.trailingDelimiterRange ?? undefined,
+      interiorRange: scope.context.interior,
+      removalRange: scope.context.removalRange,
+      delimiter: scope.context.containingListDelimiter,
+      boundary: scope.context.boundary,
+      leadingDelimiterRange: scope.context.leadingDelimiterRange,
+      trailingDelimiterRange: scope.context.trailingDelimiterRange,
     }));
   }
 }

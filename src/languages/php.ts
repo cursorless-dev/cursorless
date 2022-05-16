@@ -88,12 +88,12 @@ function castTypeExtractor(
   const contentRange = range;
   const leftParenRange = getNodeRange(node.previousSibling!);
   const rightParenRange = getNodeRange(node.nextSibling!.nextSibling!);
-  const outerRange = range.with(leftParenRange.start, rightParenRange.start);
+  const removalRange = range.with(leftParenRange.start, rightParenRange.start);
 
   return {
     selection: new Selection(contentRange.start, contentRange.end),
     context: {
-      outerSelection: new Selection(outerRange.start, outerRange.end),
+      removalRange,
     },
   };
 }
