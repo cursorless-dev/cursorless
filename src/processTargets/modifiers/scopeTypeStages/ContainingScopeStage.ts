@@ -12,10 +12,7 @@ import {
   ProcessedTargetsContext,
   SelectionWithEditor,
 } from "../../../typings/Types";
-import {
-  isReversed,
-  selectionWithEditorFromRange,
-} from "../../../util/selectionUtils";
+import { selectionWithEditorFromRange } from "../../../util/selectionUtils";
 import { ModifierStage } from "../../PipelineStages.types";
 
 export default class implements ModifierStage {
@@ -45,8 +42,8 @@ export default class implements ModifierStage {
 
     return scopeNodes.map((scope) => ({
       scopeType: this.modifier.scopeType,
-      editor: scope.selection.editor,
-      isReversed: isReversed(scope.selection.selection),
+      editor: target.editor,
+      isReversed: target.isReversed,
       contentRange: scope.selection.selection,
       interiorRange: scope.context.interior,
       removalRange: scope.context.removalRange,

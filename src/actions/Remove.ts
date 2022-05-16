@@ -22,8 +22,10 @@ export default class Delete implements Action {
     [targets]: [Target[]],
     { showDecorations = true, contentOnly = false } = {}
   ): Promise<ActionReturnValue> {
-    // Unify overlapping targets.
-    targets = unifyTargets(targets);
+    // Unify overlapping targets because of overlapping leading and trailing delimiters.
+    if (!contentOnly) {
+      targets = unifyTargets(targets);
+    }
 
     if (showDecorations) {
       await displayPendingEditDecorations(
