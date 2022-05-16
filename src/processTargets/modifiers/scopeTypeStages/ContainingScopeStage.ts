@@ -14,6 +14,7 @@ import {
 } from "../../../typings/Types";
 import { selectionWithEditorFromRange } from "../../../util/selectionUtils";
 import { ModifierStage } from "../../PipelineStages.types";
+import { getTokenContext } from "./TokenStage";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
@@ -40,22 +41,60 @@ export default class implements ModifierStage {
       throw new Error(`Couldn't find containing ${this.modifier.scopeType}`);
     }
 
-    return scopeNodes.map((scope) => ({
-      scopeType: this.modifier.scopeType,
-      editor: target.editor,
-      isReversed: target.isReversed,
-      contentRange: scope.selection.selection,
-      interiorRange: scope.context.interior,
-      removalRange: scope.context.removalRange,
-      delimiter: scope.context.containingListDelimiter ?? "\n",
-      boundary: scope.context.boundary,
-      leadingDelimiterRange: scope.context.leadingDelimiterRange,
-      trailingDelimiterRange: scope.context.trailingDelimiterRange,
-    }));
+    // TODO Re enable when all the containing scopes have proper delimiters
+    // return scopeNodes.map((scope) => ({
+    //   scopeType: this.modifier.scopeType,
+    //   editor: target.editor,
+    //   isReversed: target.isReversed,
+    //   contentRange: scope.selection.selection,
+    //   interiorRange: scope.context.interior,
+    //   removalRange: scope.context.removalRange,
+    //   delimiter: scope.context.containingListDelimiter ?? "\n",
+    //   boundary: scope.context.boundary,
+    //   leadingDelimiterRange: scope.context.leadingDelimiterRange,
+    //   trailingDelimiterRange: scope.context.trailingDelimiterRange,
+    // }));
+
+    // For now fall back on token
+    return scopeNodes.map((scope) => {
+      const newTarget = {
+        scopeType: this.modifier.scopeType,
+        editor: target.editor,
+        isReversed: target.isReversed,
+        contentRange: scope.selection.selection,
+        interiorRange: scope.context.interior,
+        removalRange: scope.context.removalRange,
+        delimiter: scope.context.containingListDelimiter,
+        boundary: scope.context.boundary,
+        leadingDelimiterRange: scope.context.leadingDelimiterRange,
+        trailingDelimiterRange: scope.context.trailingDelimiterRange,
+      };
+      const tokenContext = useTokenContext(newTarget)
+        ? getTokenContext(newTarget)
+        : undefined;
+      return {
+        ...newTarget,
+        delimiter: newTarget.delimiter ?? tokenContext?.delimiter ?? "\n",
+        leadingDelimiterRange:
+          newTarget.leadingDelimiterRange ??
+          tokenContext?.leadingDelimiterRange,
+        trailingDelimiterRange:
+          newTarget.trailingDelimiterRange ??
+          tokenContext?.trailingDelimiterRange,
+      };
+    });
   }
 }
 
-export function findNearestContainingAncestorNode(
+function useTokenContext(target: Target) {
+  return (
+    target.delimiter == null &&
+    target.leadingDelimiterRange == null &&
+    target.trailingDelimiterRange == null
+  );
+}
+
+function findNearestContainingAncestorNode(
   startNode: SyntaxNode,
   nodeMatcher: NodeMatcher,
   selection: SelectionWithEditor
