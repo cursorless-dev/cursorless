@@ -74,11 +74,6 @@ export interface SelectionContext {
 }
 
 export interface ActionPreferences {
-  // TODO
-  // position?: Position;
-  // insideOutsideType: InsideOutsideType;
-  // selectionType?: SelectionType;
-  // modifier?: Modifier;
   modifiers: Modifier[];
 }
 

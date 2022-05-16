@@ -1,191 +1,186 @@
-// import { commands } from "vscode";
-// import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
-// import { SnippetDefinition } from "../typings/snippet";
-// import {
-//   Action,
-//   ActionPreferences,
-//   ActionReturnValue,
-//   Graph,
-//   Target,
-// } from "../typings/Types";
-// import displayPendingEditDecorations from "../util/editDisplayUtils";
-// import { ensureSingleEditor } from "../util/targetUtils";
-// import {
-//   Placeholder,
-//   SnippetParser,
-//   TextmateSnippet,
-//   Variable,
-// } from "../vendor/snippet/snippetParser";
-// import { KnownSnippetVariableNames } from "../vendor/snippet/snippetVariables";
+import { commands } from "vscode";
+import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { SnippetDefinition } from "../typings/snippet";
+import { Target } from "../typings/target.types";
+import { ActionPreferences, Graph } from "../typings/Types";
+import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { ensureSingleEditor, getContentSelection } from "../util/targetUtils";
+import {
+  Placeholder,
+  SnippetParser,
+  TextmateSnippet,
+  Variable,
+} from "../vendor/snippet/snippetParser";
+import { KnownSnippetVariableNames } from "../vendor/snippet/snippetVariables";
+import { Action, ActionReturnValue } from "./actions.types";
 
-// export default class WrapWithSnippet implements Action {
-//   private snippetParser = new SnippetParser();
+export default class WrapWithSnippet implements Action {
+  private snippetParser = new SnippetParser();
 
-//   getTargetPreferences(snippetLocation: string): ActionPreferences[] {
-//     const [snippetName, placeholderName] =
-//       parseSnippetLocation(snippetLocation);
+  getTargetPreferences(snippetLocation: string): ActionPreferences[] {
+    const [snippetName, placeholderName] =
+      parseSnippetLocation(snippetLocation);
 
-//     const snippet = this.graph.snippets.getSnippet(snippetName);
+    const snippet = this.graph.snippets.getSnippet(snippetName);
 
-//     if (snippet == null) {
-//       throw new Error(`Couldn't find snippet ${snippetName}`);
-//     }
+    if (snippet == null) {
+      throw new Error(`Couldn't find snippet ${snippetName}`);
+    }
 
-//     const variables = snippet.variables ?? {};
-//     const defaultScopeType = variables[placeholderName]?.wrapperScopeType;
+    const variables = snippet.variables ?? {};
+    const defaultScopeType = variables[placeholderName]?.wrapperScopeType;
 
-//     return [
-//       {
-//         insideOutsideType: "inside",
-//         modifier:
-//           defaultScopeType == null
-//             ? undefined
-//             : {
-//                 type: "containingScope",
-//                 scopeType: defaultScopeType,
-//                 includeSiblings: false,
-//               },
-//       },
-//     ];
-//   }
+    if (defaultScopeType == null) {
+      return [];
+    }
 
-//   constructor(private graph: Graph) {
-//     this.run = this.run.bind(this);
-//   }
+    return [
+      {
+        modifiers: [
+          {
+            type: "containingScope",
+            scopeType: defaultScopeType,
+          },
+        ],
+      },
+    ];
+  }
 
-//   async run(
-//     [targets]: [Target[]],
-//     snippetLocation: string
-//   ): Promise<ActionReturnValue> {
-//     const [snippetName, placeholderName] =
-//       parseSnippetLocation(snippetLocation);
+  constructor(private graph: Graph) {
+    this.run = this.run.bind(this);
+  }
 
-//     const snippet = this.graph.snippets.getSnippet(snippetName)!;
+  async run(
+    [targets]: [Target[]],
+    snippetLocation: string
+  ): Promise<ActionReturnValue> {
+    const [snippetName, placeholderName] =
+      parseSnippetLocation(snippetLocation);
 
-//     const editor = ensureSingleEditor(targets);
+    const snippet = this.graph.snippets.getSnippet(snippetName)!;
 
-//     // Find snippet definition matching context.
-//     // NB: We only look at the first target to create our context. This means
-//     // that if there are two snippets that match two different contexts, and
-//     // the two targets match those two different contexts, we will just use the
-//     // snippet that matches the first context for both targets
-//     const definition = findMatchingSnippetDefinition(
-//       targets[0],
-//       snippet.definitions
-//     );
+    const editor = ensureSingleEditor(targets);
 
-//     if (definition == null) {
-//       throw new Error("Couldn't find matching snippet definition");
-//     }
+    // Find snippet definition matching context.
+    // NB: We only look at the first target to create our context. This means
+    // that if there are two snippets that match two different contexts, and
+    // the two targets match those two different contexts, we will just use the
+    // snippet that matches the first context for both targets
+    const definition = findMatchingSnippetDefinition(
+      targets[0],
+      snippet.definitions
+    );
 
-//     const parsedSnippet = this.snippetParser.parse(definition.body.join("\n"));
+    if (definition == null) {
+      throw new Error("Couldn't find matching snippet definition");
+    }
 
-//     transformSnippetVariables(parsedSnippet, placeholderName);
+    const parsedSnippet = this.snippetParser.parse(definition.body.join("\n"));
 
-//     const snippetString = parsedSnippet.toTextmateString();
+    transformSnippetVariables(parsedSnippet, placeholderName);
 
-//     await displayPendingEditDecorations(
-//       targets,
-//       this.graph.editStyles.pendingModification0
-//     );
+    const snippetString = parsedSnippet.toTextmateString();
 
-//     const targetSelections = targets.map(
-//       (target) => target.selection.selection
-//     );
+    await displayPendingEditDecorations(
+      targets,
+      this.graph.editStyles.pendingModification0
+    );
 
-//     await this.graph.actions.setSelection.run([targets]);
+    const targetSelections = targets.map(getContentSelection);
 
-//     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
-//     // because the latter doesn't support special variables like CLIPBOARD
-//     const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
-//       this.graph.rangeUpdater,
-//       () =>
-//         commands.executeCommand("editor.action.insertSnippet", {
-//           snippet: snippetString,
-//         }),
-//       editor.document,
-//       [targetSelections]
-//     );
+    await this.graph.actions.setSelection.run([targets]);
 
-//     return {
-//       thatMark: updatedTargetSelections.map((selection) => ({
-//         editor,
-//         selection,
-//       })),
-//     };
-//   }
-// }
+    // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
+    // because the latter doesn't support special variables like CLIPBOARD
+    const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
+      this.graph.rangeUpdater,
+      () =>
+        commands.executeCommand("editor.action.insertSnippet", {
+          snippet: snippetString,
+        }),
+      editor.document,
+      [targetSelections]
+    );
 
-// /**
-//  * Replaces the snippet variable with name `placeholderName` with TM_SELECTED_TEXT
-//  *
-//  * Also replaces any unknown variables with placeholders. We do this so it's
-//  * easier to leave one of the placeholders blank. We may make it so that you
-//  * can disable this with a setting in the future
-//  * @param parsedSnippet The parsed textmate snippet to operate on
-//  * @param placeholderName The variable name to replace with TM_SELECTED_TEXT
-//  */
-// function transformSnippetVariables(
-//   parsedSnippet: TextmateSnippet,
-//   placeholderName: string
-// ) {
-//   var placeholderIndex = getMaxPlaceholderIndex(parsedSnippet) + 1;
+    return {
+      thatMark: updatedTargetSelections.map((selection) => ({
+        editor,
+        selection,
+      })),
+    };
+  }
+}
 
-//   parsedSnippet.walk((candidate) => {
-//     if (candidate instanceof Variable) {
-//       if (candidate.name === placeholderName) {
-//         candidate.name = "TM_SELECTED_TEXT";
-//       } else if (!KnownSnippetVariableNames[candidate.name]) {
-//         const placeholder = new Placeholder(placeholderIndex++);
-//         candidate.children.forEach((child) => placeholder.appendChild(child));
-//         candidate.parent.replace(candidate, [placeholder]);
-//       }
-//     }
-//     return true;
-//   });
-// }
+/**
+ * Replaces the snippet variable with name `placeholderName` with TM_SELECTED_TEXT
+ *
+ * Also replaces any unknown variables with placeholders. We do this so it's
+ * easier to leave one of the placeholders blank. We may make it so that you
+ * can disable this with a setting in the future
+ * @param parsedSnippet The parsed textmate snippet to operate on
+ * @param placeholderName The variable name to replace with TM_SELECTED_TEXT
+ */
+function transformSnippetVariables(
+  parsedSnippet: TextmateSnippet,
+  placeholderName: string
+) {
+  var placeholderIndex = getMaxPlaceholderIndex(parsedSnippet) + 1;
 
-// function getMaxPlaceholderIndex(parsedSnippet: TextmateSnippet) {
-//   var placeholderIndex = 0;
-//   parsedSnippet.walk((candidate) => {
-//     if (candidate instanceof Placeholder) {
-//       placeholderIndex = Math.max(placeholderIndex, candidate.index);
-//     }
-//     return true;
-//   });
-//   return placeholderIndex;
-// }
+  parsedSnippet.walk((candidate) => {
+    if (candidate instanceof Variable) {
+      if (candidate.name === placeholderName) {
+        candidate.name = "TM_SELECTED_TEXT";
+      } else if (!KnownSnippetVariableNames[candidate.name]) {
+        const placeholder = new Placeholder(placeholderIndex++);
+        candidate.children.forEach((child) => placeholder.appendChild(child));
+        candidate.parent.replace(candidate, [placeholder]);
+      }
+    }
+    return true;
+  });
+}
 
-// function parseSnippetLocation(snippetLocation: string): [string, string] {
-//   const [snippetName, placeholderName] = snippetLocation.split(".");
-//   if (snippetName == null || placeholderName == null) {
-//     throw new Error("Snippet location missing '.'");
-//   }
-//   return [snippetName, placeholderName];
-// }
+function getMaxPlaceholderIndex(parsedSnippet: TextmateSnippet) {
+  var placeholderIndex = 0;
+  parsedSnippet.walk((candidate) => {
+    if (candidate instanceof Placeholder) {
+      placeholderIndex = Math.max(placeholderIndex, candidate.index);
+    }
+    return true;
+  });
+  return placeholderIndex;
+}
 
-// function findMatchingSnippetDefinition(
-//   typedSelection: Target,
-//   definitions: SnippetDefinition[]
-// ) {
-//   const languageId = typedSelection.selection.editor.document.languageId;
+function parseSnippetLocation(snippetLocation: string): [string, string] {
+  const [snippetName, placeholderName] = snippetLocation.split(".");
+  if (snippetName == null || placeholderName == null) {
+    throw new Error("Snippet location missing '.'");
+  }
+  return [snippetName, placeholderName];
+}
 
-//   return definitions.find(({ scope }) => {
-//     if (scope == null) {
-//       return true;
-//     }
+function findMatchingSnippetDefinition(
+  target: Target,
+  definitions: SnippetDefinition[]
+) {
+  const languageId = target.editor.document.languageId;
 
-//     const { langIds, scopeType } = scope;
+  return definitions.find(({ scope }) => {
+    if (scope == null) {
+      return true;
+    }
 
-//     if (langIds != null && !langIds.includes(languageId)) {
-//       return false;
-//     }
+    const { langIds, scopeType } = scope;
 
-//     if (scopeType != null) {
-//       // TODO: Implement scope types by refactoring code out of processScopeType
-//       throw new Error("Scope types not yet implemented");
-//     }
+    if (langIds != null && !langIds.includes(languageId)) {
+      return false;
+    }
 
-//     return true;
-//   });
-// }
+    if (scopeType != null) {
+      // TODO: Implement scope types by refactoring code out of processScopeType
+      throw new Error("Scope types not yet implemented");
+    }
+
+    return true;
+  });
+}

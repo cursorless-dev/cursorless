@@ -42,8 +42,8 @@ export type ActionType =
   | "toggleLineBreakpoint"
   | "toggleLineComment"
   | "unfoldRegion"
-  | "wrapWithPairedDelimiter";
-// | "wrapWithSnippet";
+  | "wrapWithPairedDelimiter"
+  | "wrapWithSnippet";
 
 export interface ActionReturnValue {
   returnValue?: any;
