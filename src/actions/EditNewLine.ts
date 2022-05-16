@@ -28,7 +28,7 @@ class EditNewLine implements Action {
   }
 
   private getCommand(target: Target) {
-    if (target.isNotebookCell) {
+    if (target.scopeType === "notebookCell") {
       if (this.isNotebookEditor(target.editor)) {
         return this.isAbove
           ? "notebook.cell.insertCodeCellAbove"

@@ -16,7 +16,7 @@ export default class implements ModifierStage {
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange: target.contentRange,
-      isNotebookCell: true,
+      delimiter: "\n",
     };
   }
 }

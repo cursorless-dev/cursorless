@@ -289,7 +289,7 @@ export class TestCaseRecorder {
     if (
       this.workspacePath == null ||
       this.fixtureRoot == null ||
-      this.workSpaceFolder !== "cursorless-vscode"
+      this.workSpaceFolder !== "cursorless"
     ) {
       throw new Error("Can't prompt for subdirectory");
     }

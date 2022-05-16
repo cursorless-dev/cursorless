@@ -27,10 +27,7 @@ export default class implements ModifierStage {
   }
 }
 
-export function getTokenContext(
-  editor: TextEditor,
-  range: Range
-): Partial<Target> {
+export function getTokenContext(editor: TextEditor, range: Range) {
   const document = editor.document;
   const { start, end } = range;
   const endLine = document.lineAt(end);

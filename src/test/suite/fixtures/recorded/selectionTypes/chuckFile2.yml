@@ -1,8 +1,8 @@
 languageId: plaintext
 command:
-  spokenForm: take file
+  spokenForm: chuck file
   version: 2
-  action: setSelection
+  action: remove
   targets:
     - type: primitive
       modifiers:
@@ -21,17 +21,11 @@ initialState:
       active: {line: 6, character: 0}
   marks: {}
 finalState:
-  documentContents: |2+
-
-
-        foo 
-
-        bar 
-
+  documentContents: ""
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 4, character: 7}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   thatMark:
-    - anchor: {line: 2, character: 4}
-      active: {line: 4, character: 7}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: document}]}]

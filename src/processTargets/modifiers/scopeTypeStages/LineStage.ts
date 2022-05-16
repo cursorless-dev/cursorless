@@ -26,10 +26,7 @@ export default class implements ModifierStage {
   }
 }
 
-export function getLineContext(
-  editor: TextEditor,
-  range: Range
-): Partial<Target> {
+export function getLineContext(editor: TextEditor, range: Range) {
   const { document } = editor;
   const { start, end } = range;
 

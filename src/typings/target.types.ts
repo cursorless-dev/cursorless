@@ -244,11 +244,6 @@ export interface Target {
   isReversed: boolean;
 
   /**
-   * If true this selection is part of a notebook cell
-   */
-  isNotebookCell?: boolean;
-
-  /**
    * Is this a scope type other raw selection?
    */
   scopeType?: ScopeType;
@@ -310,4 +305,5 @@ export interface Target {
 
 export interface ScopeTypeTarget extends Target {
   scopeType: ScopeType;
+  delimiter: string;
 }

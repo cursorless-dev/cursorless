@@ -50,7 +50,7 @@ export default class implements ModifierStage {
       contentRange: scope.selection.selection,
       interiorRange: scope.context.interior,
       removalRange: scope.context.removalRange,
-      delimiter: scope.context.containingListDelimiter,
+      delimiter: scope.context.containingListDelimiter ?? "\n",
       boundary: scope.context.boundary,
       leadingDelimiterRange: scope.context.leadingDelimiterRange,
       trailingDelimiterRange: scope.context.trailingDelimiterRange,
