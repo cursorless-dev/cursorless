@@ -22,14 +22,14 @@ export default class implements ModifierStage {
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange,
-      ...getTokenContext(target.editor, target.contentRange),
+      ...getTokenContext(target),
     };
   }
 }
 
-export function getTokenContext(editor: TextEditor, range: Range) {
-  const document = editor.document;
-  const { start, end } = range;
+export function getTokenContext(target: Target) {
+  const { document } = target.editor;
+  const { start, end } = target.contentRange;
   const endLine = document.lineAt(end);
   let leadingDelimiterRange, trailingDelimiterRange;
 
@@ -58,10 +58,16 @@ export function getTokenContext(editor: TextEditor, range: Range) {
         )
       : undefined;
 
-  const isInDelimitedList =
-    (leadingDelimiterRange != null || trailingDelimiterRange != null) &&
-    (leadingDelimiterRange != null || start.character === 0) &&
-    (trailingDelimiterRange != null || end.isEqual(endLine.range.end));
+  let isInDelimitedList;
+  if (target.position == null) {
+    isInDelimitedList =
+      (leadingDelimiterRange != null || trailingDelimiterRange != null) &&
+      (leadingDelimiterRange != null || start.character === 0) &&
+      (trailingDelimiterRange != null || end.isEqual(endLine.range.end));
+  } else {
+    isInDelimitedList =
+      leadingDelimiterRange != null || trailingDelimiterRange != null;
+  }
 
   return {
     delimiter: " ",

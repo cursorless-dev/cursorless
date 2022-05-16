@@ -2,27 +2,43 @@ import { Range } from "vscode";
 import { PositionModifier, Target } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
+import { getTokenContext } from "./scopeTypeStages/TokenStage";
 
 export default class implements ModifierStage {
   constructor(private modifier: PositionModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target {
-    const {
-      contentRange,
-      delimiter,
-      leadingDelimiterRange,
-      leadingDelimiterHighlightRange,
-      trailingDelimiterRange,
-      trailingDelimiterHighlightRange,
-    } = target;
+    const { position } = this.modifier;
+    const { contentRange } = target;
 
-    const common = {
+    let common = {
+      position: this.modifier.position,
       editor: target.editor,
       isReversed: target.isReversed,
-      position: this.modifier.position,
     };
 
-    switch (this.modifier.position) {
+    // TODO necessary for "chuck before [token] air" to get the correct token context
+    const tokenContext =
+      target.scopeType === "token" &&
+      (position === "before" || position === "after")
+        ? getTokenContext({ ...common, contentRange })
+        : undefined;
+
+    const delimiter = tokenContext?.delimiter ?? target.delimiter;
+    const leadingDelimiterRange =
+      tokenContext?.leadingDelimiterRange ?? target.leadingDelimiterRange;
+    const trailingDelimiterRange =
+      tokenContext?.trailingDelimiterRange ?? target.trailingDelimiterRange;
+    const leadingDelimiterHighlightRange =
+      tokenContext?.leadingDelimiterRange == null
+        ? target.leadingDelimiterHighlightRange
+        : undefined;
+    const trailingDelimiterHighlightRange =
+      tokenContext?.trailingDelimiterRange == null
+        ? target.trailingDelimiterHighlightRange
+        : undefined;
+
+    switch (position) {
       case "before":
         return {
           ...common,

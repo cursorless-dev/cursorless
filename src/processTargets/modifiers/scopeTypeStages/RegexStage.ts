@@ -26,7 +26,7 @@ class RegexStage implements ModifierStage {
       editor,
       isReversed: target.isReversed,
       contentRange,
-      ...getTokenContext(target.editor, contentRange),
+      ...getTokenContext(target),
     };
   }
 

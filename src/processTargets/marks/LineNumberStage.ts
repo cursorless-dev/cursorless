@@ -2,7 +2,7 @@ import { Range, TextEditor, window } from "vscode";
 import {
   LineNumberMark,
   LineNumberPosition,
-  Target,
+  ScopeTypeTarget,
 } from "../../typings/target.types";
 import { getLineContext } from "../modifiers/scopeTypeStages/LineStage";
 import { MarkStage } from "../PipelineStages.types";
@@ -10,7 +10,7 @@ import { MarkStage } from "../PipelineStages.types";
 export default class implements MarkStage {
   constructor(private modifier: LineNumberMark) {}
 
-  run(): Target[] {
+  run(): ScopeTypeTarget[] {
     if (window.activeTextEditor == null) {
       return [];
     }
@@ -27,6 +27,7 @@ export default class implements MarkStage {
         contentRange,
         isReversed: false,
         ...getLineContext(editor, contentRange),
+        scopeType: "line",
       },
     ];
   }

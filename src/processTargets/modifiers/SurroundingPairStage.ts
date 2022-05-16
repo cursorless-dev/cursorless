@@ -31,14 +31,17 @@ export default class implements ModifierStage {
       throw new Error("Couldn't find containing pair");
     }
     return pairs.map((pair) => {
-      const context = getTokenContext(target.editor, pair.selection.selection);
-      return {
+      const newTarget = {
         editor: target.editor,
         isReversed: target.isReversed,
         contentRange: pair.selection.selection,
         interiorRange: pair.context.interior,
         removalRange: pair.context.removalRange,
         boundary: pair.context.boundary,
+      };
+      const context = getTokenContext(newTarget);
+      return {
+        ...newTarget,
         delimiter: pair.context.containingListDelimiter ?? context.delimiter,
         leadingDelimiterRange:
           pair.context.leadingDelimiterRange ?? context.leadingDelimiterRange,

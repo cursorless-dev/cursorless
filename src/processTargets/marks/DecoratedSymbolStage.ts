@@ -16,12 +16,16 @@ export default class implements MarkStage {
         `Couldn't find mark ${this.modifier.symbolColor} '${this.modifier.character}'`
       );
     }
+    const target = {
+      editor: token.editor,
+      contentRange: token.range,
+      isReversed: false,
+    };
     return [
       {
-        editor: token.editor,
-        contentRange: token.range,
-        isReversed: false,
-        ...getTokenContext(token.editor, token.range),
+        ...target,
+        ...getTokenContext(target),
+        scopeType: "token",
       },
     ];
   }
