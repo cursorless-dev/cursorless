@@ -5,7 +5,7 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: excludeInterior}
+      modifier: {type: surroundingPair, delimiter: parentheses}
 initialState:
   documentContents: ()
   selections:
