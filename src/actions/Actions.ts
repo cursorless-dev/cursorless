@@ -29,6 +29,7 @@ import {
 } from "./SetSelection";
 import { Random, Reverse, Sort } from "./Sort";
 import ToggleBreakpoint from "./ToggleBreakpoint";
+import Wrap from "./Wrap";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -73,7 +74,7 @@ class Actions implements ActionRecord {
   toggleLineBreakpoint = new ToggleBreakpoint(this.graph);
   toggleLineComment = new CommentLines(this.graph);
   unfoldRegion = new Unfold(this.graph);
-  // wrapWithPairedDelimiter = new Wrap(this.graph);
+  wrapWithPairedDelimiter = new Wrap(this.graph);
   // wrapWithSnippet = new WrapWithSnippet(this.graph);
   //
 }

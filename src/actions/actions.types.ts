@@ -35,6 +35,7 @@ export type ActionType =
   | "randomizeTargets"
   | "sortTargets"
   // | "rewrapWithPairedDelimiter"
+  | "wrapWithPairedDelimiter"
   | "scrollToBottom"
   | "scrollToCenter"
   | "scrollToTop"
