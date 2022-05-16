@@ -222,7 +222,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   className: "class_declaration[name]",
   condition: cascadingMatcher(
     conditionMatcher("*[condition]"),
-    patternMatcher("~binary_expression.binary_expression!")
+    patternMatcher("while_statement.binary_expression!")
   ),
   statement: STATEMENT_TYPES,
   anonymousFunction: "lambda_expression",
