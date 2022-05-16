@@ -1,4 +1,4 @@
-import { Location } from "vscode";
+import { Location, Range, Selection, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import getTextFragmentExtractor, {
   TextFragmentExtractor,
@@ -9,7 +9,6 @@ import {
 } from "../../../typings/target.types";
 import {
   ProcessedTargetsContext,
-  SelectionWithEditor,
   SelectionWithEditorWithContext,
 } from "../../../typings/Types";
 import { complexDelimiterMap } from "./delimiterMaps";
@@ -31,10 +30,11 @@ import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
  */
 export function processSurroundingPair(
   context: ProcessedTargetsContext,
-  selection: SelectionWithEditor,
+  editor: TextEditor,
+  range: Range,
   modifier: SurroundingPairModifier
 ): SelectionWithEditorWithContext[] | null {
-  const document = selection.editor.document;
+  const document = editor.document;
   const delimiters = complexDelimiterMap[
     modifier.delimiter as ComplexSurroundingPairName
   ] ?? [modifier.delimiter];
@@ -43,9 +43,7 @@ export function processSurroundingPair(
   let textFragmentExtractor: TextFragmentExtractor;
 
   try {
-    node = context.getNodeAtLocation(
-      new Location(document.uri, selection.selection)
-    );
+    node = context.getNodeAtLocation(new Location(document.uri, range));
 
     textFragmentExtractor = getTextFragmentExtractor(document.languageId);
   } catch (err) {
@@ -53,8 +51,8 @@ export function processSurroundingPair(
       // If we're in a language where we don't have a parse tree we use the text
       // based algorithm
       return findSurroundingPairTextBased(
-        selection.editor,
-        selection.selection,
+        editor,
+        range,
         null,
         delimiters,
         modifier.forceDirection
@@ -66,11 +64,15 @@ export function processSurroundingPair(
 
   // If we have a parse tree but we are in a string node or in a comment node,
   // then we use the text-based algorithm
-  const textFragmentRange = textFragmentExtractor(node, selection);
+  const selectionWithEditor = {
+    editor,
+    selection: new Selection(range.start, range.end),
+  };
+  const textFragmentRange = textFragmentExtractor(node, selectionWithEditor);
   if (textFragmentRange != null) {
     const surroundingRange = findSurroundingPairTextBased(
-      selection.editor,
-      selection.selection,
+      editor,
+      range,
       textFragmentRange,
       delimiters,
       modifier.forceDirection
@@ -85,8 +87,8 @@ export function processSurroundingPair(
   // couldn't find a surrounding pair within a string or comment, we use the
   // parse tree-based algorithm
   return findSurroundingPairParseTreeBased(
-    selection.editor,
-    selection.selection,
+    editor,
+    range,
     node,
     delimiters,
     modifier.forceDirection

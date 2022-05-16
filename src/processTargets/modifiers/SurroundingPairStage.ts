@@ -1,7 +1,6 @@
 import { Selection } from "vscode";
 import { SurroundingPairModifier, Target } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
-import { isReversed } from "../../util/selectionUtils";
 import { ModifierStage } from "../PipelineStages.types";
 import { processSurroundingPair } from "./surroundingPair";
 
@@ -22,24 +21,18 @@ export default class implements ModifierStage {
   constructor(private modifier: SurroundingPairModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const selectionWithEditor = {
-      editor: target.editor,
-      selection: new Selection(
-        target.contentRange.start,
-        target.contentRange.end
-      ),
-    };
     const pairs = processSurroundingPair(
       context,
-      selectionWithEditor,
+      target.editor,
+      target.contentRange,
       this.modifier
     );
     if (pairs == null) {
       throw new Error("Couldn't find containing pair");
     }
     return pairs.map((pair) => ({
-      editor: pair.selection.editor,
-      isReversed: isReversed(pair.selection.selection),
+      editor: target.editor,
+      isReversed: target.isReversed,
       contentRange: pair.selection.selection,
       interiorRange: pair.context.interior,
       removalRange: pair.context.removalRange,

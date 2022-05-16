@@ -59,7 +59,7 @@ const SCAN_EXPANSION_FACTOR = 3;
  * form of opening quote in Python.
  *
  * @param editor The text editor containing the selection
- * @param selection The selection to find surrounding pair around
+ * @param range The selection to find surrounding pair around
  * @param allowableRange The range in which to look for delimiters, or the
  * entire document if `null`
  * @param delimiters The acceptable surrounding pair names
@@ -67,7 +67,7 @@ const SCAN_EXPANSION_FACTOR = 3;
  */
 export function findSurroundingPairTextBased(
   editor: TextEditor,
-  selection: Range,
+  range: Range,
   allowableRange: Range | null,
   delimiters: SimpleSurroundingPairName[],
   forceDirection: "left" | "right" | undefined
@@ -98,8 +98,8 @@ export function findSurroundingPairTextBased(
     end: document.offsetAt(fullRange.end),
   };
   const selectionOffsets = {
-    start: document.offsetAt(selection.start),
-    end: document.offsetAt(selection.end),
+    start: document.offsetAt(range.start),
+    end: document.offsetAt(range.end),
   };
 
   /**
@@ -139,7 +139,7 @@ export function findSurroundingPairTextBased(
 
     // Just bail early if the range doesn't completely contain our selection as
     // it is a lost cause.
-    if (!currentRange.contains(selection)) {
+    if (!currentRange.contains(range)) {
       continue;
     }
 
