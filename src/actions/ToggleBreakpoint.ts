@@ -7,7 +7,7 @@ import {
   Location,
 } from "vscode";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import { ActionPreferences, Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { createThatMark, isLineScopeType } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -21,8 +21,11 @@ function getBreakpoints(uri: Uri, range: Range) {
   );
 }
 
-// TODO preference for scope type line
 export default class ToggleBreakpoint implements Action {
+  getTargetPreferences: () => ActionPreferences[] = () => [
+    { modifiers: [{ type: "containingScope", scopeType: "line" }] },
+  ];
+
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }

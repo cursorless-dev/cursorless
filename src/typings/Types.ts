@@ -12,6 +12,7 @@ import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { CommandServerApi } from "../util/getExtensionApi";
+import { Modifier } from "./target.types";
 import { FullRangeInfo } from "./updateSelections";
 
 /**
@@ -78,6 +79,7 @@ export interface ActionPreferences {
   // insideOutsideType: InsideOutsideType;
   // selectionType?: SelectionType;
   // modifier?: Modifier;
+  modifiers: Modifier[];
 }
 
 export type SelectionWithEditorWithContext = {

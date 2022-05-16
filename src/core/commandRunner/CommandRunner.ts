@@ -84,9 +84,9 @@ export default class CommandRunner {
 
       const targetDescs = inferFullTargets(
         partialTargetDescs,
-        // TODO
-        []
-        // action.getTargetPreferences(...extraArgs)
+        action.getTargetPreferences
+          ? action.getTargetPreferences(...extraArgs)
+          : undefined
       );
 
       if (this.graph.debug.active) {

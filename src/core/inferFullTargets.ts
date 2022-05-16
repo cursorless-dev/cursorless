@@ -21,22 +21,24 @@ import { ActionPreferences } from "../typings/Types";
  */
 export default function inferFullTargets(
   targets: PartialTargetDesc[],
-  actionPreferences: ActionPreferences[]
+  actionPreferences?: ActionPreferences[]
 ): TargetDesc[] {
-  // TODO
-  // if (targets.length !== actionPreferences.length) {
-  //   throw new Error("Target length is not equal to action preference length");
-  // }
+  if (
+    actionPreferences != null &&
+    targets.length !== actionPreferences.length
+  ) {
+    throw new Error("Target length is not equal to action preference length");
+  }
 
   return targets.map((target, index) =>
-    inferTarget(target, targets.slice(0, index), actionPreferences[index])
+    inferTarget(target, targets.slice(0, index), actionPreferences?.at(index))
   );
 }
 
 function inferTarget(
   target: PartialTargetDesc,
   previousTargets: PartialTargetDesc[],
-  actionPreferences: ActionPreferences
+  actionPreferences?: ActionPreferences
 ): TargetDesc {
   switch (target.type) {
     case "list":
@@ -50,7 +52,7 @@ function inferTarget(
 function inferListTarget(
   target: PartialListTargetDesc,
   previousTargets: PartialTargetDesc[],
-  actionPreferences: ActionPreferences
+  actionPreferences?: ActionPreferences
 ): TargetDesc {
   return {
     ...target,
@@ -67,7 +69,7 @@ function inferListTarget(
 function inferNonListTarget(
   target: PartialPrimitiveTargetDesc | PartialRangeTargetDesc,
   previousTargets: PartialTargetDesc[],
-  actionPreferences: ActionPreferences
+  actionPreferences?: ActionPreferences
 ): PrimitiveTargetDesc | RangeTargetDesc {
   switch (target.type) {
     case "primitive":
@@ -80,7 +82,7 @@ function inferNonListTarget(
 function inferRangeTarget(
   target: PartialRangeTargetDesc,
   previousTargets: PartialTargetDesc[],
-  actionPreferences: ActionPreferences
+  actionPreferences?: ActionPreferences
 ): RangeTargetDesc {
   return {
     type: "range",
@@ -103,8 +105,7 @@ function inferRangeTarget(
 function inferPrimitiveTarget(
   target: PartialPrimitiveTargetDesc,
   previousTargets: PartialTargetDesc[],
-  // TODO ActionPreferences
-  actionPreferences: ActionPreferences
+  actionPreferences?: ActionPreferences
 ): PrimitiveTargetDesc {
   const hasPosition = !!target.modifiers?.find(
     (modifier) => modifier.type === "position"
@@ -119,6 +120,7 @@ function inferPrimitiveTarget(
   const modifiers =
     target.modifiers ??
     getPreviousAttribute(previousTargets, "modifiers") ??
+    actionPreferences?.modifiers ??
     [];
 
   return {
