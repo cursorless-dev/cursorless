@@ -18,8 +18,8 @@ export default class implements ModifierStage {
 
     const common = {
       editor: target.editor,
+      isReversed: target.isReversed,
       position: this.modifier.position,
-      isReversed: false,
     };
 
     switch (this.modifier.position) {

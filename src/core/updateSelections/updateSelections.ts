@@ -1,18 +1,18 @@
+import { flatten } from "lodash";
 import {
-  Selection,
-  TextEditor,
-  TextDocument,
   DecorationRangeBehavior,
   Range,
+  Selection,
+  TextDocument,
+  TextEditor,
 } from "vscode";
-import { flatten } from "lodash";
+import { Edit } from "../../typings/Types";
 import {
   FullSelectionInfo,
   SelectionInfo,
 } from "../../typings/updateSelections";
 import { performDocumentEdits } from "../../util/performDocumentEdits";
 import { isForward } from "../../util/selectionUtils";
-import { Edit } from "../../typings/Types";
 import { RangeUpdater } from "./RangeUpdater";
 
 /**
@@ -29,9 +29,23 @@ export function getSelectionInfo(
   selection: Selection,
   rangeBehavior: DecorationRangeBehavior
 ): FullSelectionInfo {
+  return getSelectionInfoInternal(
+    document,
+    selection,
+    isForward(selection),
+    rangeBehavior
+  );
+}
+
+function getSelectionInfoInternal(
+  document: TextDocument,
+  range: Range,
+  isForward: boolean,
+  rangeBehavior: DecorationRangeBehavior
+): FullSelectionInfo {
   return {
-    range: new Range(selection.start, selection.end),
-    isForward: isForward(selection),
+    range,
+    isForward,
     expansionBehavior: {
       start: {
         type:
@@ -49,10 +63,10 @@ export function getSelectionInfo(
       },
     },
     offsets: {
-      start: document.offsetAt(selection.start),
-      end: document.offsetAt(selection.end),
+      start: document.offsetAt(range.start),
+      end: document.offsetAt(range.end),
     },
-    text: document.getText(selection),
+    text: document.getText(range),
   };
 }
 
@@ -64,7 +78,7 @@ export function getSelectionInfo(
  * @param rangeBehavior How selections should behave with respect to insertions on either end
  * @returns A list of lists of selection info objects
  */
-export function selectionsToSelectionInfos(
+function selectionsToSelectionInfos(
   document: TextDocument,
   selectionMatrix: (readonly Selection[])[],
   rangeBehavior: DecorationRangeBehavior = DecorationRangeBehavior.ClosedClosed
@@ -72,6 +86,18 @@ export function selectionsToSelectionInfos(
   return selectionMatrix.map((selections) =>
     selections.map((selection) =>
       getSelectionInfo(document, selection, rangeBehavior)
+    )
+  );
+}
+
+function rangesToSelectionInfos(
+  document: TextDocument,
+  rangeMatrix: (readonly Range[])[],
+  rangeBehavior: DecorationRangeBehavior = DecorationRangeBehavior.ClosedClosed
+): FullSelectionInfo[][] {
+  return rangeMatrix.map((ranges) =>
+    ranges.map((range) =>
+      getSelectionInfoInternal(document, range, false, rangeBehavior)
     )
   );
 }
@@ -142,7 +168,7 @@ export async function callFunctionAndUpdateSelections(
  * @param selectionMatrix A matrix of selection info objects to update
  * @returns The initial selections updated based upon what happened in the function
  */
-export async function callFunctionAndUpdateSelectionInfos(
+async function callFunctionAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
   func: () => Thenable<unknown>,
   document: TextDocument,
@@ -180,19 +206,50 @@ export async function performEditsAndUpdateSelections(
     document,
     originalSelections
   );
+  return performEditsAndUpdateInternal(
+    rangeUpdater,
+    editor,
+    edits,
+    selectionInfoMatrix
+  );
+}
 
+export async function performEditsAndUpdateRanges(
+  rangeUpdater: RangeUpdater,
+  editor: TextEditor,
+  edits: Edit[],
+  originalSelections: (readonly Range[])[]
+) {
+  const document = editor.document;
+  const selectionInfoMatrix = rangesToSelectionInfos(
+    document,
+    originalSelections
+  );
+  return performEditsAndUpdateInternal(
+    rangeUpdater,
+    editor,
+    edits,
+    selectionInfoMatrix
+  );
+}
+
+async function performEditsAndUpdateInternal(
+  rangeUpdater: RangeUpdater,
+  editor: TextEditor,
+  edits: Edit[],
+  selectionInfoMatrix: FullSelectionInfo[][]
+) {
   await performEditsAndUpdateFullSelectionInfos(
     rangeUpdater,
     editor,
     edits,
     selectionInfoMatrix
   );
-
   return selectionInfosToSelections(selectionInfoMatrix);
 }
 
 // TODO: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
-export async function performEditsAndUpdateSelectionInfos(
+async function performEditsAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],

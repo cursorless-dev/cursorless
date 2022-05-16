@@ -56,7 +56,7 @@ export async function displayPendingEditDecorationsForRanges(
 ) {
   await runForEachEditor(
     ranges,
-    (selection) => selection.editor,
+    (range) => range.editor,
     async (editor, ranges) => {
       editor.setDecorations(
         style,
@@ -69,7 +69,7 @@ export async function displayPendingEditDecorationsForRanges(
 
   await runForEachEditor(
     ranges,
-    (selection) => selection.editor,
+    (range) => range.editor,
     async (editor) => {
       editor.setDecorations(style, []);
     }

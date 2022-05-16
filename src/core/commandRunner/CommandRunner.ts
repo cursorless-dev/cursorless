@@ -78,6 +78,7 @@ export default class CommandRunner {
       const action = this.graph.actions[actionName];
 
       if (action == null) {
+        return; // TODO
         throw new Error(`Unknown action ${actionName}`);
       }
 

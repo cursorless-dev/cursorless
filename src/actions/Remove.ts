@@ -1,5 +1,5 @@
 import { flatten } from "lodash";
-import { performEditsAndUpdateRanges } from "../core/updateSelections/updateRanges";
+import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
@@ -36,13 +36,18 @@ export default class Delete implements Action {
 
     const thatMark = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-        const ranges = targets.map(
-          contentOnly ? getContentRange : getRemovalRange
-        );
-        const edits = ranges.map((range) => ({
-          range,
+        const getRangeCallback = contentOnly
+          ? getContentRange
+          : getRemovalRange;
+        const edits = targets.map((target) => ({
+          range: getRangeCallback(target),
           text: "",
         }));
+        // const ranges = targets.map((target) => ({
+        //   range: getRangeCallback(target),
+        //   isReversed: target.isReversed,
+        // }));
+        const ranges = edits.map((edit) => edit.range);
 
         const [updatedRanges] = await performEditsAndUpdateRanges(
           this.graph.rangeUpdater,

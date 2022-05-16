@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { ExtensionContext, Location } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
+import { ActionRecord } from "../actions/actions.types";
 import Debug from "../core/Debug";
 import Decorations from "../core/Decorations";
 import { EditStyles } from "../core/editStyles";
@@ -11,8 +12,6 @@ import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { CommandServerApi } from "../util/getExtensionApi";
-import { ActionRecord, ActionType } from "../actions/actions.types";
-import { Target } from "./target.types";
 import { FullRangeInfo } from "./updateSelections";
 
 /**
