@@ -1,5 +1,9 @@
 import * as path from "path";
 import { walkFilesSync } from "../../testUtil/walkSync";
+import {
+  getSingleTestFilename,
+  runSingleTest,
+} from "../suite/runSingleRecorded";
 
 export function getFixturesPath() {
   return path.join(__dirname, "../../../src/test/suite/fixtures");
@@ -11,6 +15,13 @@ export function getFixturePath(fixturePath: string) {
 
 export function getRecordedTestPaths() {
   const directory = path.join(getFixturesPath(), "recorded");
+
+  if (runSingleTest()) {
+    const test = walkFilesSync(directory).find((path) =>
+      path.endsWith(getSingleTestFilename())
+    );
+    return test ? [test] : [];
+  }
 
   return walkFilesSync(directory).filter(
     (path) => path.endsWith(".yml") || path.endsWith(".yaml")

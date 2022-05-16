@@ -24,6 +24,7 @@ import asyncSafety from "../util/asyncSafety";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { openNewEditor } from "../openNewEditor";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
+import { runSingleTest } from "./runSingleRecorded";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -37,7 +38,7 @@ function createSelection(selection: SelectionPlainObject): vscode.Selection {
 
 suite("recorded test cases", async function () {
   this.timeout("100s");
-  this.retries(5);
+  this.retries(runSingleTest() ? 0 : 5);
 
   teardown(() => {
     sinon.restore();
