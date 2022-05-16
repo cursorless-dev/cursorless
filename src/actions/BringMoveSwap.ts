@@ -124,7 +124,8 @@ class BringMoveSwap implements Action {
           editor: destination.editor,
           originalSelection: destination,
           isSource: false,
-          isReplace: destination.position === "after",
+          isReplace:
+            destination.position === "after" || destination.position === "end",
         });
       } else {
         destination = destinations[0];

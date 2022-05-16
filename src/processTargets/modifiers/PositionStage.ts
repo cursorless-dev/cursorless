@@ -9,6 +9,7 @@ export default class implements ModifierStage {
   run(context: ProcessedTargetsContext, target: Target): Target {
     const {
       contentRange,
+      delimiter,
       leadingDelimiterRange,
       leadingDelimiterHighlightRange,
       trailingDelimiterRange,
@@ -26,6 +27,7 @@ export default class implements ModifierStage {
         return {
           ...common,
           contentRange: new Range(contentRange.start, contentRange.start),
+          delimiter,
           leadingDelimiterRange,
           leadingDelimiterHighlightRange,
         };
@@ -34,6 +36,7 @@ export default class implements ModifierStage {
         return {
           ...common,
           contentRange: new Range(contentRange.end, contentRange.end),
+          delimiter,
           trailingDelimiterRange,
           trailingDelimiterHighlightRange,
         };
