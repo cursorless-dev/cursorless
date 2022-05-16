@@ -28,7 +28,7 @@ export default class implements ModifierStage {
       this.modifier.type === "everyScope"
     );
     const node: SyntaxNode | null = context.getNodeAtLocation(
-      new Location(target.editor.document.uri, target.contentRange.start)
+      new Location(target.editor.document.uri, target.contentRange)
     );
 
     const scopeNodes = findNearestContainingAncestorNode(node, nodeMatcher, {

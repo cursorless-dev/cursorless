@@ -21,12 +21,15 @@ class RegexStage implements ModifierStage {
     const start = this.getMatch(editor, target.contentRange.start).start;
     const end = this.getMatch(editor, target.contentRange.end).end;
     const contentRange = new Range(start, end);
-    return {
+    const newTarget = {
       scopeType: this.modifier.scopeType,
       editor,
       isReversed: target.isReversed,
       contentRange,
-      ...getTokenContext(target),
+    };
+    return {
+      ...newTarget,
+      ...getTokenContext(newTarget),
     };
   }
 
