@@ -27,7 +27,7 @@ export type ActionType =
   | "unfoldRegion"
   | "pasteFromClipboard"
   | "remove"
-  // |"toggleLineBreakpoint"
+  | "toggleLineBreakpoint"
   | "toggleLineComment"
   | "replace"
   // | "replaceWithTarget"

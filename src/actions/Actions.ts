@@ -27,6 +27,7 @@ import {
   SetSelectionBefore,
 } from "./SetSelection";
 import { Random, Reverse, Sort } from "./Sort";
+import ToggleBreakpoint from "./ToggleBreakpoint";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -68,7 +69,7 @@ class Actions implements ActionRecord {
   setSelectionBefore = new SetSelectionBefore(this.graph);
   sortTargets = new Sort(this.graph);
   // swapTargets = new Swap(this.graph);
-  // toggleLineBreakpoint = new ToggleBreakpoint(this.graph);
+  toggleLineBreakpoint = new ToggleBreakpoint(this.graph);
   toggleLineComment = new CommentLines(this.graph);
   unfoldRegion = new Unfold(this.graph);
   // wrapWithPairedDelimiter = new Wrap(this.graph);

@@ -147,3 +147,14 @@ export function maybeAddDelimiter(text: string, target: Target) {
   }
   return text;
 }
+
+export function isLineScopeType(target: Target) {
+  switch (target.scopeType) {
+    case "line":
+    case "paragraph":
+    case "document":
+      return true;
+    default:
+      return false;
+  }
+}

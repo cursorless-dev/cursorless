@@ -6,6 +6,7 @@ import { RangeWithEditor } from "../typings/Types";
 import sleep from "./sleep";
 import {
   getContentRange,
+  isLineScopeType,
   runForEachEditor,
   runOnTargetsForEachEditor,
 } from "./targetUtils";
@@ -107,23 +108,12 @@ export async function setDecorations(
     } else {
       editor.setDecorations(
         editStyle.token,
-        targets.filter((target) => !useLineDecorations(target)).map(getRange)
+        targets.filter((target) => !isLineScopeType(target)).map(getRange)
       );
       editor.setDecorations(
         editStyle.line,
-        targets.filter((target) => useLineDecorations(target)).map(getRange)
+        targets.filter((target) => isLineScopeType(target)).map(getRange)
       );
     }
   });
-}
-
-function useLineDecorations(target: Target) {
-  switch (target.scopeType) {
-    case "line":
-    case "paragraph":
-    case "document":
-      return true;
-    default:
-      return false;
-  }
 }
