@@ -124,10 +124,13 @@ function inferPrimitiveTarget(
 
   // TODO Is this really a good solution?
   // "bring line to after this" needs to inter line on second target
+  const modifierTypes = [
+    ...new Set(modifiers.map((modifier) => modifier.type)),
+  ];
   if (
     previousModifiers != null &&
-    modifiers.length === 1 &&
-    modifiers[0].type === "position"
+    modifierTypes.length === 1 &&
+    modifierTypes[0] === "position"
   ) {
     const containingScopeModifier = previousModifiers.find(
       (modifier) => modifier.type === "containingScope"

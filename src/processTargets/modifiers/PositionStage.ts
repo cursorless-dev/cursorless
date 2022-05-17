@@ -2,7 +2,7 @@ import { Range } from "vscode";
 import { PositionModifier, Target } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
-import { getTokenContext } from "./scopeTypeStages/TokenStage";
+import { getTokenContextUnsafe } from "./scopeTypeStages/TokenStage";
 
 export default class implements ModifierStage {
   constructor(private modifier: PositionModifier) {}
@@ -11,18 +11,18 @@ export default class implements ModifierStage {
     const { position } = this.modifier;
     const { contentRange } = target;
 
-    let common = {
-      position: this.modifier.position,
-      editor: target.editor,
-      isReversed: target.isReversed,
-    };
-
     // TODO necessary for "chuck before [token] air" to get the correct token context
     const tokenContext =
       target.scopeType === "token" &&
       (position === "before" || position === "after")
-        ? getTokenContext({ ...common, contentRange })
+        ? getTokenContextUnsafe(target)
         : undefined;
+
+    const common = {
+      position: this.modifier.position,
+      editor: target.editor,
+      isReversed: target.isReversed,
+    };
 
     const delimiter = tokenContext?.delimiter ?? target.delimiter;
     const leadingDelimiterRange =

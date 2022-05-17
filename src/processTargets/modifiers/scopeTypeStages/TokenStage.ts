@@ -27,7 +27,35 @@ export default class implements ModifierStage {
   }
 }
 
+/**
+ * Get delimiter and any SAFE leading or trailing delimiter ranges
+ */
 export function getTokenContext(target: Target) {
+  const { delimiter, leadingDelimiterRange, trailingDelimiterRange } =
+    getTokenContextUnsafe(target);
+
+  const { start, end } = target.contentRange;
+  const endLine = target.editor.document.lineAt(end);
+  const isInDelimitedList =
+    (leadingDelimiterRange != null || trailingDelimiterRange != null) &&
+    (leadingDelimiterRange != null || start.character === 0) &&
+    (trailingDelimiterRange != null || end.isEqual(endLine.range.end));
+
+  return {
+    delimiter,
+    leadingDelimiterRange: isInDelimitedList
+      ? leadingDelimiterRange
+      : undefined,
+    trailingDelimiterRange: isInDelimitedList
+      ? trailingDelimiterRange
+      : undefined,
+  };
+}
+
+/**
+ * Get delimiter and ANY leading or trailing delimiter ranges
+ */
+export function getTokenContextUnsafe(target: Target) {
   const { document } = target.editor;
   const { start, end } = target.contentRange;
   const endLine = document.lineAt(end);
@@ -58,25 +86,10 @@ export function getTokenContext(target: Target) {
         )
       : undefined;
 
-  let isInDelimitedList;
-  if (target.position == null) {
-    isInDelimitedList =
-      (leadingDelimiterRange != null || trailingDelimiterRange != null) &&
-      (leadingDelimiterRange != null || start.character === 0) &&
-      (trailingDelimiterRange != null || end.isEqual(endLine.range.end));
-  } else {
-    isInDelimitedList =
-      leadingDelimiterRange != null || trailingDelimiterRange != null;
-  }
-
   return {
     delimiter: " ",
-    leadingDelimiterRange: isInDelimitedList
-      ? leadingDelimiterRange
-      : undefined,
-    trailingDelimiterRange: isInDelimitedList
-      ? trailingDelimiterRange
-      : undefined,
+    leadingDelimiterRange,
+    trailingDelimiterRange,
   };
 }
 
