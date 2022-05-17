@@ -21,9 +21,9 @@ export class SetSelection implements Action {
     await setSelectionsAndFocusEditor(editor, selections);
 
     return {
-      thatMark: selections.map((selection) => ({
+      thatMark: targets.map((target) => ({
         editor,
-        selection,
+        selection: getContentSelection(target),
       })),
     };
   }
