@@ -203,7 +203,7 @@ function processVerticalRangeTarget(
   for (let i = anchorLine; true; i += delta) {
     results.push({
       editor: anchorTarget.editor,
-      isReversed: activeTarget.isReversed,
+      isReversed: anchorTarget.isReversed,
       delimiter: anchorTarget.delimiter,
       contentRange: new Range(
         i,
