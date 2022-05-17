@@ -3,7 +3,6 @@ import { Range } from "vscode";
 import { SUBWORD_MATCHER } from "../../core/constants";
 import { SubTokenModifier, Target } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
-import { createRemovalRange } from "../../util/targetUtils";
 import { ModifierStage } from "../PipelineStages.types";
 
 export default class implements ModifierStage {
@@ -92,19 +91,12 @@ export default class implements ModifierStage {
         )
       : undefined;
 
-    const removalRange = createRemovalRange(
-      contentRange,
-      leadingDelimiterRange,
-      trailingDelimiterRange
-    );
-
     return {
       editor: target.editor,
       isReversed,
       contentRange,
       delimiter: containingListDelimiter,
       removal: {
-        range: removalRange,
         leadingDelimiterRange,
         trailingDelimiterRange,
       },

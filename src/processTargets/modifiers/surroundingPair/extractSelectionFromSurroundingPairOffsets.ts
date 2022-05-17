@@ -22,7 +22,7 @@ export function extractSelectionFromSurroundingPairOffsets(
       baseOffset + surroundingPairOffsets.rightDelimiter.start
     )
   );
-  const boundary = [
+  const boundary: [Range, Range] = [
     new Range(
       document.positionAt(
         baseOffset + surroundingPairOffsets.leftDelimiter.start

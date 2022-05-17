@@ -142,6 +142,13 @@ function processContinuousRangeTarget(
     ? activeContext?.removal?.trailingDelimiterRange
     : anchorContext?.removal?.trailingDelimiterRange;
 
+  const leadingDelimiterHighlightRange = isForward
+    ? anchorContext?.removal?.leadingDelimiterHighlightRange
+    : activeContext?.removal?.leadingDelimiterHighlightRange;
+  const trailingDelimiterHighlightRange = isForward
+    ? activeContext?.removal?.trailingDelimiterHighlightRange
+    : anchorContext?.removal?.trailingDelimiterHighlightRange;
+
   return [
     {
       editor: activeTarget.editor,
@@ -153,6 +160,8 @@ function processContinuousRangeTarget(
         range: removalRange,
         leadingDelimiterRange,
         trailingDelimiterRange,
+        leadingDelimiterHighlightRange,
+        trailingDelimiterHighlightRange,
       },
     },
   ];

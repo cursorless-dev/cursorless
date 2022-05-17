@@ -6,7 +6,6 @@ import {
   Target,
 } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
-import { createRemovalRange } from "../../../util/targetUtils";
 import { ModifierStage } from "../../PipelineStages.types";
 import { fitRangeToLineContent } from "./LineStage";
 
@@ -49,7 +48,7 @@ export default class implements ModifierStage {
       new Range(start, end)
     );
 
-    const fullParagraphRange = new Range(
+    const removalRange = new Range(
       new Position(start.line, 0),
       target.editor.document.lineAt(end).range.end
     );
@@ -59,38 +58,26 @@ export default class implements ModifierStage {
 
     const leadingDelimiterRange = getLeadingDelimiterRange(
       document,
-      fullParagraphRange,
+      removalRange,
       leadingLine?.range.end
     );
     const trailingDelimiterRange = getTrailingDelimiterRange(
       document,
-      fullParagraphRange,
+      removalRange,
       trailingLine?.range.start
     );
 
     const leadingDelimiterHighlightRange = getLeadingDelimiterRange(
       document,
-      fullParagraphRange,
+      removalRange,
       leadingLine ? new Position(leadingLine.range.end.line + 1, 0) : undefined
     );
     const trailingDelimiterHighlightRange = getTrailingDelimiterRange(
       document,
-      fullParagraphRange,
+      removalRange,
       trailingLine
         ? document.lineAt(trailingLine.range.start.line - 1).range.end
         : undefined
-    );
-
-    const removalRange = createRemovalRange(
-      fullParagraphRange,
-      leadingDelimiterRange,
-      trailingDelimiterRange
-    );
-
-    const removalHighlightRange = createRemovalRange(
-      fullParagraphRange,
-      leadingDelimiterHighlightRange,
-      trailingDelimiterHighlightRange
     );
 
     return {
@@ -101,9 +88,10 @@ export default class implements ModifierStage {
       contentRange,
       removal: {
         range: removalRange,
-        highlightRange: removalHighlightRange,
         leadingDelimiterRange,
         trailingDelimiterRange,
+        leadingDelimiterHighlightRange,
+        trailingDelimiterHighlightRange,
       },
     };
   }

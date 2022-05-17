@@ -7,7 +7,6 @@ import {
 } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getTokensInRange, PartialToken } from "../../../util/getTokensInRange";
-import { createRemovalRange } from "../../../util/targetUtils";
 import { ModifierStage } from "../../PipelineStages.types";
 
 export default class implements ModifierStage {
@@ -61,23 +60,17 @@ export function getTokenContext(target: Target) {
         )
       : undefined;
 
-  const isInDelimitedList =
+  const includeDelimitersInRemoval =
     (leadingDelimiterRange != null || trailingDelimiterRange != null) &&
     (leadingDelimiterRange != null || start.character === 0) &&
     (trailingDelimiterRange != null || end.isEqual(endLine.range.end));
 
-  const removalRange = createRemovalRange(
-    target.contentRange,
-    isInDelimitedList ? leadingDelimiterRange : undefined,
-    isInDelimitedList ? trailingDelimiterRange : undefined
-  );
-
   return {
     delimiter: " ",
     removal: {
-      range: removalRange,
       leadingDelimiterRange,
       trailingDelimiterRange,
+      excludeDelimiters: !includeDelimitersInRemoval,
     },
   };
 }

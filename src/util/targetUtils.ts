@@ -120,20 +120,23 @@ export function createThatMark(
 }
 
 export function getRemovalRange(target: Target) {
-  return target.removal?.range ?? target.contentRange;
+  const contentRange = target.removal?.range ?? target.contentRange;
+  const delimiterRange =
+    target.removal?.trailingDelimiterRange ??
+    target.removal?.leadingDelimiterRange;
+  return delimiterRange != null && !target.removal?.excludeDelimiters
+    ? contentRange.union(delimiterRange)
+    : contentRange;
 }
 
 export function getRemovalHighlightRange(target: Target) {
-  return target.removal?.highlightRange ?? getRemovalRange(target);
-}
-
-export function createRemovalRange(
-  contentRange: Range,
-  leadingDelimiterRange?: Range,
-  trailingDelimiterRange?: Range
-) {
-  const delimiterRange = trailingDelimiterRange ?? leadingDelimiterRange;
-  return delimiterRange != null
+  const contentRange = target.removal?.range ?? target.contentRange;
+  const delimiterRange =
+    target.removal?.trailingDelimiterHighlightRange ??
+    target.removal?.trailingDelimiterRange ??
+    target.removal?.leadingDelimiterHighlightRange ??
+    target.removal?.leadingDelimiterRange;
+  return delimiterRange != null && !target.removal?.excludeDelimiters
     ? contentRange.union(delimiterRange)
     : contentRange;
 }
@@ -168,7 +171,8 @@ export function selectionWithEditorWithContextToTarget(
   // TODO Only use giving context in the future when all the containing scopes have proper delimiters.
   // For now fall back on token context
   const { context } = selection;
-  const { containingListDelimiter, interiorRange, boundary } = context;
+  const { containingListDelimiter, interiorRange, boundary, removalRange } =
+    context;
   const contentRange = selection.selection.selection;
   const newTarget = {
     editor: selection.selection.editor,
@@ -187,14 +191,6 @@ export function selectionWithEditorWithContextToTarget(
   const trailingDelimiterRange =
     context.trailingDelimiterRange ??
     tokenContext?.removal.trailingDelimiterRange;
-  const removalRange =
-    context.removalRange ??
-    tokenContext?.removal?.range ??
-    createRemovalRange(
-      contentRange,
-      leadingDelimiterRange,
-      trailingDelimiterRange
-    );
   const delimiter = tokenContext?.delimiter ?? containingListDelimiter ?? "\n";
 
   return {
@@ -204,6 +200,7 @@ export function selectionWithEditorWithContextToTarget(
       range: removalRange,
       leadingDelimiterRange,
       trailingDelimiterRange,
+      excludeDelimiters: tokenContext?.removal.excludeDelimiters,
     },
   };
 }

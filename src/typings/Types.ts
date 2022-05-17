@@ -63,7 +63,7 @@ export interface SelectionContext {
    * surrounding pair this would be the opening and closing delimiter. For an if
    * statement this would be the line of the guard as well as the closing brace.
    */
-  boundary?: vscode.Range[];
+  boundary?: [vscode.Range, vscode.Range];
 
   /**
    * Represents the interior ranges of this selection. For example, for a

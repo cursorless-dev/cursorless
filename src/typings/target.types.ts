@@ -275,7 +275,7 @@ export interface Target {
    * surrounding pair this would be the opening and closing delimiter. For an if
    * statement this would be the line of the guard as well as the closing brace.
    */
-  boundary?: Range[];
+  boundary?: [Range, Range];
 
   /**
    * Related to removal
@@ -287,11 +287,6 @@ export interface Target {
     range?: Range;
 
     /**
-     * The range that needs to be highlighted on removal
-     */
-    highlightRange?: Range;
-
-    /**
      * The range of the delimiter before the content selection
      */
     leadingDelimiterRange?: Range;
@@ -300,6 +295,21 @@ export interface Target {
      * The range of the delimiter after the content selection
      */
     trailingDelimiterRange?: Range;
+
+    /**
+     * The range that needs to be highlighted on leading delimiter removal
+     */
+    leadingDelimiterHighlightRange?: Range;
+
+    /**
+     * The range that needs to be highlighted on trailing delimiteraremoval
+     */
+    trailingDelimiterHighlightRange?: Range;
+
+    /**
+     * If true the delimiter ranges are only head to be used with positions before/after
+     */
+    excludeDelimiters?: boolean;
   };
 }
 

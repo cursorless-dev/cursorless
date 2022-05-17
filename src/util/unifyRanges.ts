@@ -1,10 +1,6 @@
 import { Range } from "vscode";
 import { Target } from "../typings/target.types";
-import {
-  createRemovalRange,
-  getRemovalRange,
-  groupTargetsForEachEditor,
-} from "./targetUtils";
+import { getRemovalRange, groupTargetsForEachEditor } from "./targetUtils";
 
 /** Unifies overlapping/intersecting ranges */
 export default function unifyRanges(ranges: Range[]): Range[] {
@@ -95,21 +91,30 @@ function mergeTargets(targets: Target[]): Target {
   const last = targets[targets.length - 1];
   const leadingDelimiterRange = first.removal?.leadingDelimiterRange;
   const trailingDelimiterRange = last.removal?.trailingDelimiterRange;
+  const leadingDelimiterHighlightRange =
+    first.removal?.leadingDelimiterHighlightRange;
+  const trailingDelimiterHighlightRange =
+    last.removal?.trailingDelimiterHighlightRange;
   return {
     editor: first.editor,
     isReversed: first.isReversed,
-    contentRange: createRemovalRange(
-      new Range(getRemovalRange(first).start, getRemovalRange(last).end),
-      leadingDelimiterRange,
-      trailingDelimiterRange
+    contentRange: new Range(
+      getContentRange(first).start,
+      getContentRange(last).end
     ),
     removal: {
       leadingDelimiterRange,
       trailingDelimiterRange,
+      leadingDelimiterHighlightRange,
+      trailingDelimiterHighlightRange,
     },
   };
 }
 
 function intersects(targetA: Target, targetB: Target) {
   return !!getRemovalRange(targetA).intersection(getRemovalRange(targetB));
+}
+
+function getContentRange(target: Target) {
+  return target.removal?.range ?? target.contentRange;
 }
