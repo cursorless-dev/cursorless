@@ -1,12 +1,13 @@
-import { isEqual, zip } from "lodash";
+import { zip } from "lodash";
 import { Range } from "vscode";
 import {
   PrimitiveTargetDesc,
   RangeTargetDesc,
-  TargetDesc,
   Target,
+  TargetDesc,
 } from "../typings/target.types";
 import { ProcessedTargetsContext } from "../typings/Types";
+import { filterDuplicates } from "../util/filterDuplicates";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
 
@@ -29,7 +30,7 @@ export default function (
   targets: TargetDesc[]
 ): Target[][] {
   return targets.map((target) =>
-    filterDuplicateSelections(processTarget(context, target))
+    filterDuplicates(processTarget(context, target))
   );
 }
 
@@ -51,10 +52,10 @@ function processTarget(
 
 function processRangeTarget(
   context: ProcessedTargetsContext,
-  target: RangeTargetDesc
+  targetDesc: RangeTargetDesc
 ): Target[] {
-  const anchorTargets = processPrimitiveTarget(context, target.anchor);
-  const activeTargets = processPrimitiveTarget(context, target.active);
+  const anchorTargets = processPrimitiveTarget(context, targetDesc.anchor);
+  const activeTargets = processPrimitiveTarget(context, targetDesc.active);
 
   return zip(anchorTargets, activeTargets).flatMap(
     ([anchorTarget, activeTarget]) => {
@@ -68,24 +69,20 @@ function processRangeTarget(
         );
       }
 
-      const anchorRange = anchorTarget.contentRange;
-      const activeRange = activeTarget.contentRange;
-      const isForward = anchorRange.start.isBeforeOrEqual(activeRange.start);
-
-      switch (target.rangeType) {
+      switch (targetDesc.rangeType) {
         case "continuous":
           return processContinuousRangeTarget(
-            target,
             anchorTarget,
             activeTarget,
-            isForward
+            targetDesc.excludeAnchor,
+            targetDesc.excludeActive
           );
         case "vertical":
           return processVerticalRangeTarget(
-            target,
             anchorTarget,
             activeTarget,
-            isForward
+            targetDesc.excludeAnchor,
+            targetDesc.excludeActive
           );
       }
     }
@@ -93,12 +90,12 @@ function processRangeTarget(
 }
 
 function processContinuousRangeTarget(
-  target: RangeTargetDesc,
   anchorTarget: Target,
   activeTarget: Target,
-  isForward: boolean
+  excludeAnchor: boolean,
+  excludeActive: boolean
 ): Target[] {
-  const { excludeAnchor, excludeActive } = target;
+  const isForward = calcIsForward(anchorTarget, activeTarget);
   const anchorContext = excludeAnchor ? undefined : anchorTarget;
   const activeContext = excludeActive ? undefined : activeTarget;
 
@@ -167,6 +164,18 @@ function processContinuousRangeTarget(
   ];
 }
 
+export function targetsToContinuousTarget(
+  anchorTarget: Target,
+  activeTarget: Target
+): Target {
+  return processContinuousRangeTarget(
+    anchorTarget,
+    activeTarget,
+    false,
+    false
+  )[0];
+}
+
 function unionRanges(
   isForward: boolean,
   excludeAnchor: boolean,
@@ -191,12 +200,12 @@ function getPosition(range: Range, isStartOfRange: boolean, exclude: boolean) {
 }
 
 function processVerticalRangeTarget(
-  target: RangeTargetDesc,
   anchorTarget: Target,
   activeTarget: Target,
-  isForward: boolean
+  excludeAnchor: boolean,
+  excludeActive: boolean
 ): Target[] {
-  const { excludeAnchor, excludeActive } = target;
+  const isForward = calcIsForward(anchorTarget, activeTarget);
   const delta = isForward ? 1 : -1;
 
   const anchorPosition = isForward
@@ -253,9 +262,6 @@ function processPrimitiveTarget(
   return selections;
 }
 
-function filterDuplicateSelections(selections: Target[]) {
-  return selections.filter(
-    (selection, index, selections) =>
-      selections.findIndex((s) => isEqual(s, selection)) === index
-  );
+function calcIsForward(anchor: Target, active: Target) {
+  return anchor.contentRange.start.isBeforeOrEqual(active.contentRange.start);
 }

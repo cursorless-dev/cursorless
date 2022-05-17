@@ -4,7 +4,7 @@ import {
   Modifier,
 } from "../typings/target.types";
 import BoundaryStage from "./modifiers/BoundaryStage";
-import ContainingScopeStage from "./modifiers/scopeTypeStages/ContainingScopeStage";
+import ContainingSyntaxScopeStage from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
 import DocumentStage from "./modifiers/scopeTypeStages/DocumentStage";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import InteriorStage from "./modifiers/InteriorStage";
@@ -65,6 +65,7 @@ const getContainingScopeStage = (
     case "url":
       return new UrlStage(modifier);
     default:
-      return new ContainingScopeStage(modifier);
+      // Default to containing syntax scope using tree sitter
+      return new ContainingSyntaxScopeStage(modifier);
   }
 };
