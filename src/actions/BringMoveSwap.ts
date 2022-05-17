@@ -15,7 +15,7 @@ import {
   maybeAddDelimiter,
   runForEachEditor,
 } from "../util/targetUtils";
-import { unifyTargets } from "../util/unifyRanges";
+import { unifyRemovalTargets } from "../util/unifyRanges";
 import { Action, ActionReturnValue } from "./actions.types";
 
 type ActionType = "bring" | "move" | "swap";
@@ -149,7 +149,7 @@ class BringMoveSwap implements Action {
 
     if (this.type === "move") {
       // Unify overlapping targets.
-      unifyTargets(usedSources).forEach((source) => {
+      unifyRemovalTargets(usedSources).forEach((source) => {
         results.push({
           range: getRemovalRange(source),
           text: "",

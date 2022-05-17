@@ -10,7 +10,7 @@ import {
   getRemovalRange,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
-import { unifyTargets } from "../util/unifyRanges";
+import { unifyRemovalTargets } from "../util/unifyRanges";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Delete implements Action {
@@ -24,7 +24,7 @@ export default class Delete implements Action {
   ): Promise<ActionReturnValue> {
     // Unify overlapping targets because of overlapping leading and trailing delimiters.
     if (!contentOnly) {
-      targets = unifyTargets(targets);
+      targets = unifyRemovalTargets(targets);
     }
 
     if (showDecorations) {

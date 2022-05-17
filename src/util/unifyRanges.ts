@@ -1,6 +1,10 @@
 import { Range } from "vscode";
 import { Target } from "../typings/target.types";
-import { getRemovalRange, groupTargetsForEachEditor } from "./targetUtils";
+import {
+  createRemovalRange,
+  getRemovalRange,
+  groupTargetsForEachEditor,
+} from "./targetUtils";
 
 /** Unifies overlapping/intersecting ranges */
 export default function unifyRanges(ranges: Range[]): Range[] {
@@ -40,7 +44,7 @@ function unifyRangesOnePass(ranges: Range[]): [Range[], boolean] {
  * FIXME This code probably needs to update once we have objected oriented targets
  * https://github.com/cursorless-dev/cursorless/issues/210
  */
-export function unifyTargets(targets: Target[]): Target[] {
+export function unifyRemovalTargets(targets: Target[]): Target[] {
   if (targets.length < 2) {
     return targets;
   }
@@ -89,24 +93,23 @@ function mergeTargets(targets: Target[]): Target {
   }
   const first = targets[0];
   const last = targets[targets.length - 1];
+  const leadingDelimiterRange = first.removal?.leadingDelimiterRange;
+  const trailingDelimiterRange = last.removal?.trailingDelimiterRange;
   return {
     editor: first.editor,
     isReversed: first.isReversed,
-    contentRange: new Range(
-      getContentRange(first).start,
-      getContentRange(last).end
+    contentRange: createRemovalRange(
+      new Range(getRemovalRange(first).start, getRemovalRange(last).end),
+      leadingDelimiterRange,
+      trailingDelimiterRange
     ),
     removal: {
-      leadingDelimiterRange: first.removal?.leadingDelimiterRange,
-      trailingDelimiterRange: last.removal?.trailingDelimiterRange,
+      leadingDelimiterRange,
+      trailingDelimiterRange,
     },
   };
 }
 
 function intersects(targetA: Target, targetB: Target) {
   return !!getRemovalRange(targetA).intersection(getRemovalRange(targetB));
-}
-
-function getContentRange(target: Target) {
-  return target.removal?.range ?? target.contentRange;
 }

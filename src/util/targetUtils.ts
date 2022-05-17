@@ -125,6 +125,10 @@ export function getRemovalRange(target: Target) {
   return target.removal?.range ?? target.contentRange;
 }
 
+export function getRemovalHighlightRange(target: Target) {
+  return target.removal?.highlightRange ?? getRemovalRange(target);
+}
+
 export function createRemovalRange(
   contentRange: Range,
   leadingDelimiterRange?: Range,
@@ -134,14 +138,6 @@ export function createRemovalRange(
   return delimiterRange != null
     ? contentRange.union(delimiterRange)
     : contentRange;
-}
-
-export function getRemovalHighlightRange(target: Target) {
-  return (
-    target.removal?.highlightRange ??
-    target.removal?.range ??
-    target.contentRange
-  );
 }
 
 /** Possibly add delimiter for positions before/after */
