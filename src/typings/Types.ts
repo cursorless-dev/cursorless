@@ -70,7 +70,7 @@ export interface SelectionContext {
    * surrounding pair this would exclude the opening and closing delimiter. For an if
    * statement this would be the statements in the body.
    */
-  interior?: vscode.Range;
+  interiorRange?: vscode.Range;
 }
 
 export interface ActionPreferences {

@@ -271,36 +271,36 @@ export interface Target {
   interiorRange?: Range;
 
   /**
-   * The range that needs to be removed
-   */
-  removalRange?: Range;
-
-  /**
-   * The range of the delimiter before the content selection
-   */
-  leadingDelimiterRange?: Range;
-
-  /**
-   * The range of the delimiter after the content selection
-   */
-  trailingDelimiterRange?: Range;
-
-  /**
-   * The range of the highlight for the leading delimiter
-   */
-  leadingDelimiterHighlightRange?: Range;
-
-  /**
-   * The range of the highlight for the trailing delimiter
-   */
-  trailingDelimiterHighlightRange?: Range;
-
-  /**
    * Represents the boundary ranges of this selection. For example, for a
    * surrounding pair this would be the opening and closing delimiter. For an if
    * statement this would be the line of the guard as well as the closing brace.
    */
   boundary?: Range[];
+
+  /**
+   * Related to removal
+   */
+  removal?: {
+    /**
+     * The range that needs to be removed
+     */
+    range?: Range;
+
+    /**
+     * The range that needs to be highlighted on removal
+     */
+    highlightRange?: Range;
+
+    /**
+     * The range of the delimiter before the content selection
+     */
+    leadingDelimiterRange?: Range;
+
+    /**
+     * The range of the delimiter after the content selection
+     */
+    trailingDelimiterRange?: Range;
+  };
 }
 
 export interface ScopeTypeTarget extends Target {

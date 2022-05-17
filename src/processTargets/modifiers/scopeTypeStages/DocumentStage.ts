@@ -20,7 +20,9 @@ export default class implements ModifierStage {
       isReversed: target.isReversed,
       delimiter: "\n",
       contentRange: getDocumentContentRange(target.editor),
-      removalRange: getDocumentRange(target.editor.document),
+      removal: {
+        range: getDocumentRange(target.editor.document),
+      },
     };
   }
 }

@@ -1,7 +1,7 @@
 import { SurroundingPairModifier, Target } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
+import { selectionWithEditorWithContextToTarget } from "../../util/targetUtils";
 import { ModifierStage } from "../PipelineStages.types";
-import { getTokenContext } from "./scopeTypeStages/TokenStage";
 import { processSurroundingPair } from "./surroundingPair";
 
 /**
@@ -27,27 +27,14 @@ export default class implements ModifierStage {
       target.contentRange,
       this.modifier
     );
+
     if (pairs == null) {
       throw new Error("Couldn't find containing pair");
     }
-    return pairs.map((pair) => {
-      const newTarget = {
-        editor: target.editor,
-        isReversed: target.isReversed,
-        contentRange: pair.selection.selection,
-        interiorRange: pair.context.interior,
-        removalRange: pair.context.removalRange,
-        boundary: pair.context.boundary,
-      };
-      const context = getTokenContext(newTarget);
-      return {
-        ...newTarget,
-        delimiter: pair.context.containingListDelimiter ?? context.delimiter,
-        leadingDelimiterRange:
-          pair.context.leadingDelimiterRange ?? context.leadingDelimiterRange,
-        trailingDelimiterRange:
-          pair.context.trailingDelimiterRange ?? context.trailingDelimiterRange,
-      };
-    });
+
+    return pairs.map((pair) => ({
+      ...selectionWithEditorWithContextToTarget(pair),
+      isReversed: target.isReversed,
+    }));
   }
 }

@@ -96,10 +96,10 @@ function mergeTargets(targets: Target[]): Target {
       getContentRange(first).start,
       getContentRange(last).end
     ),
-    leadingDelimiterRange: first.leadingDelimiterRange,
-    leadingDelimiterHighlightRange: first.leadingDelimiterHighlightRange,
-    trailingDelimiterRange: last.trailingDelimiterRange,
-    trailingDelimiterHighlightRange: last.trailingDelimiterHighlightRange,
+    removal: {
+      leadingDelimiterRange: first.removal?.leadingDelimiterRange,
+      trailingDelimiterRange: last.removal?.trailingDelimiterRange,
+    },
   };
 }
 
@@ -108,5 +108,5 @@ function intersects(targetA: Target, targetB: Target) {
 }
 
 function getContentRange(target: Target) {
-  return target.removalRange ?? target.contentRange;
+  return target.removal?.range ?? target.contentRange;
 }

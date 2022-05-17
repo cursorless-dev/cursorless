@@ -119,12 +119,13 @@ function processContinuousRangeTarget(
   );
 
   const hasRemovalRange =
-    anchorContext?.removalRange != null || activeContext?.removalRange != null;
+    anchorContext?.removal?.range != null ||
+    activeContext?.removal?.range != null;
   const anchorRemovalRange = hasRemovalRange
-    ? anchorContext?.removalRange ?? anchorContext?.contentRange
+    ? anchorContext?.removal?.range ?? anchorContext?.contentRange
     : undefined;
   const activeRemovalRange = hasRemovalRange
-    ? activeContext?.removalRange ?? activeContext?.contentRange
+    ? activeContext?.removal?.range ?? activeContext?.contentRange
     : undefined;
   const removalRange = unionRanges(
     isForward,
@@ -135,17 +136,11 @@ function processContinuousRangeTarget(
   );
 
   const leadingDelimiterRange = isForward
-    ? anchorContext?.leadingDelimiterRange
-    : activeContext?.leadingDelimiterRange;
-  const leadingDelimiterHighlightRange = isForward
-    ? anchorContext?.leadingDelimiterHighlightRange
-    : activeContext?.leadingDelimiterHighlightRange;
+    ? anchorContext?.removal?.leadingDelimiterRange
+    : activeContext?.removal?.leadingDelimiterRange;
   const trailingDelimiterRange = isForward
-    ? activeContext?.trailingDelimiterRange
-    : anchorContext?.trailingDelimiterRange;
-  const trailingDelimiterHighlightRange = isForward
-    ? activeContext?.trailingDelimiterHighlightRange
-    : anchorContext?.trailingDelimiterHighlightRange;
+    ? activeContext?.removal?.trailingDelimiterRange
+    : anchorContext?.removal?.trailingDelimiterRange;
 
   return [
     {
@@ -153,12 +148,12 @@ function processContinuousRangeTarget(
       isReversed: !isForward,
       delimiter: anchorTarget.delimiter,
       contentRange,
-      removalRange,
       interiorRange,
-      leadingDelimiterRange,
-      leadingDelimiterHighlightRange,
-      trailingDelimiterRange,
-      trailingDelimiterHighlightRange,
+      removal: {
+        range: removalRange,
+        leadingDelimiterRange,
+        trailingDelimiterRange,
+      },
     },
   ];
 }

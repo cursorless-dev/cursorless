@@ -23,10 +23,10 @@ export default class implements MarkStage {
     );
     return [
       {
+        ...getLineContext(editor, contentRange),
         editor,
         contentRange,
         isReversed: false,
-        ...getLineContext(editor, contentRange),
         scopeType: "line",
       },
     ];

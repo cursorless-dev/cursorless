@@ -13,9 +13,12 @@ class EditNewLine implements Action {
     targets.forEach((target) => {
       let { start, end } = target.contentRange;
       if (target.scopeType === "paragraph") {
-        if (this.isAbove && target.leadingDelimiterRange != null) {
+        if (this.isAbove && target.removal?.leadingDelimiterRange != null) {
           start = start.translate({ lineDelta: -1 });
-        } else if (!this.isAbove && target.trailingDelimiterRange != null) {
+        } else if (
+          !this.isAbove &&
+          target.removal?.trailingDelimiterRange != null
+        ) {
           end = end.translate({ lineDelta: 1 });
         }
         target.contentRange = new Range(start, end);

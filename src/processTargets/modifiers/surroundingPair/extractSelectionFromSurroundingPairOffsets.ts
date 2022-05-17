@@ -51,7 +51,7 @@ export function extractSelectionFromSurroundingPairOffsets(
       ),
       context: {
         boundary,
-        interior,
+        interiorRange: interior,
       },
     },
   ];

@@ -7,6 +7,7 @@ import {
 } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getTokensInRange, PartialToken } from "../../../util/getTokensInRange";
+import { createRemovalRange } from "../../../util/targetUtils";
 import { ModifierStage } from "../../PipelineStages.types";
 
 export default class implements ModifierStage {
@@ -17,54 +18,28 @@ export default class implements ModifierStage {
       target.editor,
       target.contentRange
     );
-    return {
+    const newTarget = {
       scopeType: this.modifier.scopeType,
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange,
-      ...getTokenContext(target),
+    };
+    return {
+      ...newTarget,
+      ...getTokenContext(newTarget),
     };
   }
 }
 
-/**
- * Get delimiter and any SAFE leading or trailing delimiter ranges
- */
 export function getTokenContext(target: Target) {
-  const { delimiter, leadingDelimiterRange, trailingDelimiterRange } =
-    getTokenContextUnsafe(target);
-
-  const { start, end } = target.contentRange;
-  const endLine = target.editor.document.lineAt(end);
-  const isInDelimitedList =
-    (leadingDelimiterRange != null || trailingDelimiterRange != null) &&
-    (leadingDelimiterRange != null || start.character === 0) &&
-    (trailingDelimiterRange != null || end.isEqual(endLine.range.end));
-
-  return {
-    delimiter,
-    leadingDelimiterRange: isInDelimitedList
-      ? leadingDelimiterRange
-      : undefined,
-    trailingDelimiterRange: isInDelimitedList
-      ? trailingDelimiterRange
-      : undefined,
-  };
-}
-
-/**
- * Get delimiter and ANY leading or trailing delimiter ranges
- */
-export function getTokenContextUnsafe(target: Target) {
   const { document } = target.editor;
   const { start, end } = target.contentRange;
   const endLine = document.lineAt(end);
-  let leadingDelimiterRange, trailingDelimiterRange;
 
   const startLine = document.lineAt(start);
   const leadingText = startLine.text.slice(0, start.character);
   const leadingDelimiters = leadingText.match(/\s+$/);
-  leadingDelimiterRange =
+  const leadingDelimiterRange =
     leadingDelimiters != null
       ? new Range(
           start.line,
@@ -76,7 +51,7 @@ export function getTokenContextUnsafe(target: Target) {
 
   const trailingText = endLine.text.slice(end.character);
   const trailingDelimiters = trailingText.match(/^\s+/);
-  trailingDelimiterRange =
+  const trailingDelimiterRange =
     trailingDelimiters != null
       ? new Range(
           end.line,
@@ -86,10 +61,24 @@ export function getTokenContextUnsafe(target: Target) {
         )
       : undefined;
 
+  const isInDelimitedList =
+    (leadingDelimiterRange != null || trailingDelimiterRange != null) &&
+    (leadingDelimiterRange != null || start.character === 0) &&
+    (trailingDelimiterRange != null || end.isEqual(endLine.range.end));
+
+  const removalRange = createRemovalRange(
+    target.contentRange,
+    isInDelimitedList ? leadingDelimiterRange : undefined,
+    isInDelimitedList ? trailingDelimiterRange : undefined
+  );
+
   return {
     delimiter: " ",
-    leadingDelimiterRange,
-    trailingDelimiterRange,
+    removal: {
+      range: removalRange,
+      leadingDelimiterRange,
+      trailingDelimiterRange,
+    },
   };
 }
 

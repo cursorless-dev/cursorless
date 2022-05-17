@@ -6,6 +6,7 @@ import {
   Target,
 } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
+import { createRemovalRange } from "../../../util/targetUtils";
 import { ModifierStage } from "../../PipelineStages.types";
 
 export default class implements ModifierStage {
@@ -30,36 +31,37 @@ export function getLineContext(editor: TextEditor, range: Range) {
   const { document } = editor;
   const { start, end } = range;
 
-  const removalRange = new Range(
+  const fullLineRange = new Range(
     new Position(start.line, 0),
     editor.document.lineAt(end).range.end
   );
 
   const leadingDelimiterRange =
     start.line > 0
-      ? new Range(document.lineAt(start.line - 1).range.end, removalRange.start)
+      ? new Range(
+          document.lineAt(start.line - 1).range.end,
+          fullLineRange.start
+        )
       : undefined;
   const trailingDelimiterRange =
     end.line + 1 < document.lineCount
-      ? new Range(removalRange.end, new Position(end.line + 1, 0))
+      ? new Range(fullLineRange.end, new Position(end.line + 1, 0))
       : undefined;
 
-  const leadingDelimiterHighlightRange = new Range(
-    removalRange.start,
-    removalRange.start
-  );
-  const trailingDelimiterHighlightRange = new Range(
-    removalRange.end,
-    removalRange.end
+  const removalRange = createRemovalRange(
+    fullLineRange,
+    leadingDelimiterRange,
+    trailingDelimiterRange
   );
 
   return {
     delimiter: "\n",
-    removalRange,
-    leadingDelimiterHighlightRange,
-    trailingDelimiterHighlightRange,
-    leadingDelimiterRange,
-    trailingDelimiterRange,
+    removal: {
+      range: removalRange,
+      highlightRange: fullLineRange,
+      leadingDelimiterRange,
+      trailingDelimiterRange,
+    },
   };
 }
 
