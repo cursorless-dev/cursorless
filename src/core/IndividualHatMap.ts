@@ -5,6 +5,7 @@ import HatTokenMap from "./HatTokenMap";
 
 export interface ReadOnlyHatMap {
   getEntries(): [string, Token][];
+  getTokens(): Token[];
   getToken(hatStyle: HatStyleName, character: string): Token;
 }
 
@@ -47,6 +48,11 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   getEntries() {
     this.checkExpired();
     return Object.entries(this.map);
+  }
+
+  getTokens() {
+    this.checkExpired();
+    return Object.values(this.map);
   }
 
   private addTokenByKey(key: string, token: Token) {

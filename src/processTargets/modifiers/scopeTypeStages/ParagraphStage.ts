@@ -28,35 +28,42 @@ export default class implements ModifierStage {
     const { lineCount } = editor.document;
     const startLine = isEmpty ? 0 : contentRange.start.line;
     const endLine = isEmpty ? lineCount - 1 : contentRange.end.line;
-    const paragraphs: { start: number; end: number }[] = [];
     const targets: ScopeTypeTarget[] = [];
-    let paragraphStartLine = -1;
+    let paragraphStart = -1;
 
-    for (let i = 0; i < lineCount; ++i) {
-      const line = editor.document.lineAt(i);
-      if (line.isEmptyOrWhitespace || i === lineCount - 1) {
-        // End of paragraph
-        if (paragraphStartLine > -1) {
-          paragraphs.push({ start: paragraphStartLine, end: i - 1 });
-          paragraphStartLine = -1;
-        }
-      }
-      // Start of paragraph
-      else if (paragraphStartLine < 0) {
-        paragraphStartLine = i;
-      }
-    }
-
-    paragraphs.forEach((paragraph) => {
-      if (paragraph.end >= startLine && paragraph.start <= endLine) {
+    const possiblyAddParagraph = (
+      paragraphStart: number,
+      paragraphEnd: number
+    ) => {
+      // Paragraph and selection intersects
+      if (paragraphEnd >= startLine && paragraphStart <= endLine) {
         targets.push(
           this.getTargetFromRange(
             target,
-            new Range(paragraph.start, 0, paragraph.end, 0)
+            new Range(paragraphStart, 0, paragraphEnd, 0)
           )
         );
       }
-    });
+    };
+
+    for (let i = 0; i < lineCount; ++i) {
+      const line = editor.document.lineAt(i);
+      if (line.isEmptyOrWhitespace) {
+        // End of paragraph
+        if (paragraphStart > -1) {
+          possiblyAddParagraph(paragraphStart, i - 1);
+          paragraphStart = -1;
+        }
+      }
+      // Start of paragraph
+      else if (paragraphStart < 0) {
+        paragraphStart = i;
+      }
+      // Last line is non empty. End of paragraph
+      if (i === lineCount - 1 && !line.isEmptyOrWhitespace) {
+        possiblyAddParagraph(paragraphStart, i);
+      }
+    }
 
     if (targets.length === 0) {
       throw new Error(`Couldn't find containing ${this.modifier.scopeType}`);

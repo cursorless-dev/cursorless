@@ -12,11 +12,45 @@ import { ModifierStage } from "../../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget {
-    const contentRange = getTokenRangeForSelection(
-      target.editor,
-      target.contentRange
-    );
+  run(
+    context: ProcessedTargetsContext,
+    target: Target
+  ): ScopeTypeTarget | ScopeTypeTarget[] {
+    if (this.modifier.type === "everyScope") {
+      return this.getEveryTarget(context, target);
+    }
+    return this.getSingleTarget(target);
+  }
+
+  getEveryTarget(
+    context: ProcessedTargetsContext,
+    target: Target
+  ): ScopeTypeTarget[] {
+    const { contentRange, editor } = target;
+    const { isEmpty } = contentRange;
+    const start = isEmpty
+      ? editor.document.lineAt(contentRange.start).range.start
+      : contentRange.start;
+    const end = isEmpty
+      ? editor.document.lineAt(contentRange.end).range.end
+      : contentRange.end;
+
+    return context.hatTokenMap
+      .getTokens()
+      .filter(
+        ({ range }) =>
+          // Token and selection intersects
+          range.end.isAfterOrEqual(start) && range.end.isBeforeOrEqual(end)
+      )
+      .map(({ range }) => this.getTargetFromRange(target, range));
+  }
+
+  getSingleTarget(target: Target): ScopeTypeTarget {
+    return this.getTargetFromRange(target, target.contentRange);
+  }
+
+  getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
+    const contentRange = getTokenRangeForSelection(target.editor, range);
     const newTarget = {
       scopeType: this.modifier.scopeType,
       editor: target.editor,
