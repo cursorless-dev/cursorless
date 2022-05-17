@@ -47,7 +47,7 @@ export default class implements ModifierStage {
         return {
           ...common,
           contentRange: new Range(contentRange.start, contentRange.start),
-          delimiter: "",
+          delimiter: "", // This it NOT a raw target. Joining with this should be done on empty delimiter.
         };
 
       case "end":

@@ -1,5 +1,5 @@
-const filenameEnd = "";
 // const filenameEnd = "textual\\takePairRound.yml";
+const filenameEnd = "";
 
 export function runSingleTest() {
   return !!filenameEnd;
