@@ -12,10 +12,67 @@ import { fitRangeToLineContent } from "./LineStage";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget {
+  run(
+    context: ProcessedTargetsContext,
+    target: Target
+  ): ScopeTypeTarget | ScopeTypeTarget[] {
+    if (this.modifier.type === "everyScope") {
+      return this.getEveryTarget(target);
+    }
+    return this.getSingleTarget(target);
+  }
+
+  getEveryTarget(target: Target): ScopeTypeTarget | ScopeTypeTarget[] {
+    const { contentRange, editor } = target;
+    const { isEmpty } = contentRange;
+    const { lineCount } = editor.document;
+    const startLine = isEmpty ? 0 : contentRange.start.line;
+    const endLine = isEmpty ? lineCount - 1 : contentRange.end.line;
+    const paragraphs: { start: number; end: number }[] = [];
+    const targets: ScopeTypeTarget[] = [];
+    let paragraphStartLine = -1;
+
+    for (let i = 0; i < lineCount; ++i) {
+      const line = editor.document.lineAt(i);
+      if (line.isEmptyOrWhitespace || i === lineCount - 1) {
+        // End of paragraph
+        if (paragraphStartLine > -1) {
+          paragraphs.push({ start: paragraphStartLine, end: i - 1 });
+          paragraphStartLine = -1;
+        }
+      }
+      // Start of paragraph
+      else if (paragraphStartLine < 0) {
+        paragraphStartLine = i;
+      }
+    }
+
+    paragraphs.forEach((paragraph) => {
+      if (paragraph.end >= startLine && paragraph.start <= endLine) {
+        targets.push(
+          this.getTargetFromRange(
+            target,
+            new Range(paragraph.start, 0, paragraph.end, 0)
+          )
+        );
+      }
+    });
+
+    if (targets.length === 0) {
+      throw new Error(`Couldn't find containing ${this.modifier.scopeType}`);
+    }
+
+    return targets;
+  }
+
+  getSingleTarget(target: Target): ScopeTypeTarget {
+    return this.getTargetFromRange(target, target.contentRange);
+  }
+
+  getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
     const { document } = target.editor;
 
-    let startLine = document.lineAt(target.contentRange.start);
+    let startLine = document.lineAt(range.start);
     if (!startLine.isEmptyOrWhitespace) {
       while (startLine.lineNumber > 0) {
         const line = document.lineAt(startLine.lineNumber - 1);
@@ -26,7 +83,7 @@ export default class implements ModifierStage {
       }
     }
     const lineCount = document.lineCount;
-    let endLine = document.lineAt(target.contentRange.end);
+    let endLine = document.lineAt(range.end);
     if (!endLine.isEmptyOrWhitespace) {
       while (endLine.lineNumber + 1 < lineCount) {
         const line = document.lineAt(endLine.lineNumber + 1);
@@ -50,7 +107,7 @@ export default class implements ModifierStage {
 
     const removalRange = new Range(
       new Position(start.line, 0),
-      target.editor.document.lineAt(end).range.end
+      document.lineAt(end).range.end
     );
 
     const leadingLine = getPreviousNonEmptyLine(document, start.line);
