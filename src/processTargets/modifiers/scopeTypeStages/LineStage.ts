@@ -11,11 +11,38 @@ import { ModifierStage } from "../../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget {
-    const contentRange = fitRangeToLineContent(
-      target.editor,
-      target.contentRange
-    );
+  run(
+    context: ProcessedTargetsContext,
+    target: Target
+  ): ScopeTypeTarget | ScopeTypeTarget[] {
+    if (this.modifier.type === "everyScope") {
+      return this.getEveryTarget(target);
+    }
+    return this.getSingleTarget(target);
+  }
+
+  getEveryTarget(target: Target): ScopeTypeTarget[] {
+    const { contentRange, editor } = target;
+    const { isEmpty } = contentRange;
+    const startLine = isEmpty ? 0 : contentRange.start.line;
+    const endLine = isEmpty
+      ? editor.document.lineCount - 1
+      : contentRange.end.line;
+    const targets: ScopeTypeTarget[] = [];
+
+    for (let i = startLine; i <= endLine; ++i) {
+      targets.push(this.getTargetFromRange(target, new Range(i, 0, i, 0)));
+    }
+
+    return targets;
+  }
+
+  getSingleTarget(target: Target): ScopeTypeTarget {
+    return this.getTargetFromRange(target, target.contentRange);
+  }
+
+  getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
+    const contentRange = fitRangeToLineContent(target.editor, range);
     return {
       scopeType: this.modifier.scopeType,
       editor: target.editor,
