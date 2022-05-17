@@ -115,9 +115,7 @@ export function createThatMark(
   }
   return targets.map((target) => ({
     editor: target!.editor,
-    selection: target?.isReversed
-      ? new Selection(target.contentRange.end, target.contentRange.start)
-      : new Selection(target.contentRange.start, target.contentRange.end),
+    selection: getContentSelection(target),
   }));
 }
 

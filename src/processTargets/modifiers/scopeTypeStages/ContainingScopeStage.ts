@@ -44,9 +44,9 @@ export default class implements ModifierStage {
     }
 
     return scopeNodes.map((scope) => ({
+      scopeType: this.modifier.scopeType,
       delimiter: "\n",
       ...selectionWithEditorWithContextToTarget(scope),
-      scopeType: this.modifier.scopeType,
       isReversed: target.isReversed,
     }));
   }

@@ -1,8 +1,12 @@
-import { ensureSingleEditor, getContentSelection } from "../util/targetUtils";
 import { Selection } from "vscode";
-import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
+import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
+import {
+  createThatMark,
+  ensureSingleEditor,
+  getContentSelection,
+} from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export class SetSelection implements Action {
@@ -21,10 +25,7 @@ export class SetSelection implements Action {
     await setSelectionsAndFocusEditor(editor, selections);
 
     return {
-      thatMark: targets.map((target) => ({
-        editor,
-        selection: getContentSelection(target),
-      })),
+      thatMark: createThatMark(targets),
     };
   }
 }

@@ -47,12 +47,14 @@ export default class implements ModifierStage {
         return {
           ...common,
           contentRange: new Range(contentRange.start, contentRange.start),
+          delimiter: "",
         };
 
       case "end":
         return {
           ...common,
           contentRange: new Range(contentRange.end, contentRange.end),
+          delimiter: "",
         };
     }
   }
