@@ -16,16 +16,62 @@ class RegexStage implements ModifierStage {
     private name?: string
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget {
+  run(
+    context: ProcessedTargetsContext,
+    target: Target
+  ): ScopeTypeTarget | ScopeTypeTarget[] {
+    if (this.modifier.type === "everyScope") {
+      return this.getEveryTarget(target);
+    }
+    return this.getSingleTarget(target);
+  }
+
+  getEveryTarget(target: Target): ScopeTypeTarget[] {
+    const { contentRange, editor } = target;
+    const { isEmpty } = contentRange;
+    const start = isEmpty
+      ? editor.document.lineAt(contentRange.start).range.start
+      : contentRange.start;
+    const end = isEmpty
+      ? editor.document.lineAt(contentRange.end).range.end
+      : contentRange.end;
+    const targets: ScopeTypeTarget[] = [];
+
+    for (let i = start.line; i <= end.line; ++i) {
+      this.getMatchesForLine(editor, i)
+        .filter(
+          (range) =>
+            // Regex match and selection intersects
+            range.end.isAfterOrEqual(start) && range.end.isBeforeOrEqual(end)
+        )
+        .forEach((range) => {
+          targets.push(this.getTargetFromRange(target, range));
+        });
+    }
+
+    if (targets.length === 0) {
+      if (targets.length === 0) {
+        throw new Error(`Couldn't find containing ${this.modifier.scopeType}`);
+      }
+    }
+
+    return targets;
+  }
+
+  getSingleTarget(target: Target): ScopeTypeTarget {
     const { editor } = target;
-    const start = this.getMatch(editor, target.contentRange.start).start;
-    const end = this.getMatch(editor, target.contentRange.end).end;
+    const start = this.getMatchForPos(editor, target.contentRange.start).start;
+    const end = this.getMatchForPos(editor, target.contentRange.end).end;
     const contentRange = new Range(start, end);
+    return this.getTargetFromRange(target, contentRange);
+  }
+
+  getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
     const newTarget = {
       scopeType: this.modifier.scopeType,
-      editor,
+      editor: target.editor,
       isReversed: target.isReversed,
-      contentRange,
+      contentRange: range,
     };
     return {
       ...newTarget,
@@ -33,19 +79,31 @@ class RegexStage implements ModifierStage {
     };
   }
 
-  getMatch(editor: TextEditor, position: Position) {
-    const line = editor.document.lineAt(position);
-    const result = [...line.text.matchAll(this.regex)]
-      .map(
-        (match) =>
-          new Range(
-            position.line,
-            match.index!,
-            position.line,
-            match.index! + match[0].length
-          )
-      )
-      .find((range) => range.contains(position));
+  getMatchForPos(editor: TextEditor, position: Position) {
+    const match = this.getMatchesForLine(editor, position.line).find((range) =>
+      range.contains(position)
+    );
+    if (match == null) {
+      if (this.name) {
+        throw new Error(`Couldn't find containing ${this.name}`);
+      } else {
+        throw new Error(`Cannot find sequence defined by regex: ${this.regex}`);
+      }
+    }
+    return match;
+  }
+
+  getMatchesForLine(editor: TextEditor, lineNum: number) {
+    const line = editor.document.lineAt(lineNum);
+    const result = [...line.text.matchAll(this.regex)].map(
+      (match) =>
+        new Range(
+          lineNum,
+          match.index!,
+          lineNum,
+          match.index! + match[0].length
+        )
+    );
     if (result == null) {
       if (this.name) {
         throw new Error(`Couldn't find containing ${this.name}`);

@@ -11,6 +11,10 @@ export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget {
+    if (this.modifier.type === "everyScope") {
+      throw new Error(`Every ${this.modifier.type} not yet implemented`);
+    }
+
     return {
       scopeType: this.modifier.scopeType,
       editor: target.editor,

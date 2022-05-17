@@ -35,7 +35,7 @@ export default class implements ModifierStage {
       ? editor.document.lineAt(contentRange.end).range.end
       : contentRange.end;
 
-    return context.hatTokenMap
+    const targets = context.hatTokenMap
       .getTokens()
       .filter(
         ({ range }) =>
@@ -43,6 +43,12 @@ export default class implements ModifierStage {
           range.end.isAfterOrEqual(start) && range.end.isBeforeOrEqual(end)
       )
       .map(({ range }) => this.getTargetFromRange(target, range));
+
+    if (targets.length === 0) {
+      throw new Error(`Couldn't find containing ${this.modifier.scopeType}`);
+    }
+
+    return targets;
   }
 
   getSingleTarget(target: Target): ScopeTypeTarget {
