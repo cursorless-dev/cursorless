@@ -21,20 +21,28 @@ export default class implements ModifierStage {
   constructor(private modifier: SurroundingPairModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const pairs = processSurroundingPair(
-      context,
-      target.editor,
-      target.contentRange,
-      this.modifier
-    );
-
-    if (pairs == null) {
-      throw new Error("Couldn't find containing pair");
-    }
-
-    return pairs.map((pair) => ({
-      ...selectionWithEditorWithContextToTarget(pair),
-      isReversed: target.isReversed,
-    }));
+    return processedSurroundingPairTarget(this.modifier, context, target);
   }
+}
+
+export function processedSurroundingPairTarget(
+  modifier: SurroundingPairModifier,
+  context: ProcessedTargetsContext,
+  target: Target
+) {
+  const pairs = processSurroundingPair(
+    context,
+    target.editor,
+    target.contentRange,
+    modifier
+  );
+
+  if (pairs == null) {
+    throw new Error("Couldn't find containing pair");
+  }
+
+  return pairs.map((pair) => ({
+    ...selectionWithEditorWithContextToTarget(pair),
+    isReversed: target.isReversed,
+  }));
 }

@@ -119,12 +119,12 @@ export interface SurroundingPairModifier {
   forceDirection?: SurroundingPairDirection;
 }
 
-export interface InteriorModifier {
-  type: "interior";
+export interface InteriorOnlyModifier {
+  type: "interiorOnly";
 }
 
-export interface BoundaryModifier {
-  type: "boundary";
+export interface ExcludeInteriorModifier {
+  type: "excludeInterior";
 }
 
 export interface ContainingScopeModifier {
@@ -179,8 +179,8 @@ export interface PartialPrimitiveTargetDesc {
 export type Modifier =
   | PositionModifier
   | SurroundingPairModifier
-  | InteriorModifier
-  | BoundaryModifier
+  | InteriorOnlyModifier
+  | ExcludeInteriorModifier
   | ContainingScopeModifier
   | EveryScopeModifier
   | SubTokenModifier

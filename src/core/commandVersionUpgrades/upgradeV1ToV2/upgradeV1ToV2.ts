@@ -49,10 +49,10 @@ function upgradeModifier(modifier: ModifierV0V1): Modifier | Modifier[] | null {
     case "surroundingPair":
       const { delimiterInclusion, ...rest } = modifier;
       if (delimiterInclusion === "interiorOnly") {
-        return [rest, { type: "interior" }];
+        return [rest, { type: "interiorOnly" }];
       }
       if (delimiterInclusion === "excludeInterior") {
-        return [rest, { type: "boundary" }];
+        return [rest, { type: "excludeInterior" }];
       }
       return rest;
 

@@ -15,6 +15,7 @@ modifiers = [
     "<user.cursorless_subtoken_scope>",  # first past second word
     "<user.cursorless_surrounding_pair>",  # matching/pair [curly, round]
     "<user.cursorless_to_raw_selection>",  # just
+    "<user.cursorless_delimiter_inclusion>",  # inside, bounds
     # "<user.cursorless_matching_paired_delimiter>",  # matching
 ]
 
