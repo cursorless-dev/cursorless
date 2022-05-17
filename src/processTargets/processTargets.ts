@@ -205,6 +205,7 @@ function processVerticalRangeTarget(
       editor: anchorTarget.editor,
       isReversed: anchorTarget.isReversed,
       delimiter: anchorTarget.delimiter,
+      position: anchorTarget.position,
       contentRange: new Range(
         i,
         anchorTarget.contentRange.start.character,
