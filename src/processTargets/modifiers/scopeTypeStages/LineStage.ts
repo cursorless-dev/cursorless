@@ -31,7 +31,14 @@ export default class implements ModifierStage {
     const targets: ScopeTypeTarget[] = [];
 
     for (let i = startLine; i <= endLine; ++i) {
-      targets.push(this.getTargetFromRange(target, new Range(i, 0, i, 0)));
+      const line = editor.document.lineAt(i);
+      if (!line.isEmptyOrWhitespace) {
+        targets.push(this.getTargetFromRange(target, line.range));
+      }
+    }
+
+    if (targets.length === 0) {
+      throw new Error(`Couldn't find containing ${this.modifier.scopeType}`);
     }
 
     return targets;
