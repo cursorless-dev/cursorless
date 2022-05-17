@@ -1,7 +1,7 @@
 import * as path from "path";
 import * as Mocha from "mocha";
 import * as glob from "glob";
-import { runSingleTest } from "./runSingleRecorded";
+import { runSingleTest } from "./runSingleRecordedTest";
 
 export function run(): Promise<void> {
   // Create the mocha test

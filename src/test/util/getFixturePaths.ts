@@ -3,7 +3,7 @@ import { walkFilesSync } from "../../testUtil/walkSync";
 import {
   getSingleTestFilename,
   runSingleTest,
-} from "../suite/runSingleRecorded";
+} from "../suite/runSingleRecordedTest";
 
 export function getFixturesPath() {
   return path.join(__dirname, "../../../src/test/suite/fixtures");

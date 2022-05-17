@@ -24,7 +24,7 @@ import asyncSafety from "../util/asyncSafety";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { openNewEditor } from "../openNewEditor";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
-import { runSingleTest } from "./runSingleRecorded";
+import { runSingleTest } from "./runSingleRecordedTest";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
