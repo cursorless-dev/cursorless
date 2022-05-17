@@ -38,15 +38,12 @@ class RegexStage implements ModifierStage {
     const targets: ScopeTypeTarget[] = [];
 
     for (let i = start.line; i <= end.line; ++i) {
-      this.getMatchesForLine(editor, i)
-        .filter(
-          (range) =>
-            // Regex match and selection intersects
-            range.end.isAfterOrEqual(start) && range.end.isBeforeOrEqual(end)
-        )
-        .forEach((range) => {
+      this.getMatchesForLine(editor, i).forEach((range) => {
+        // Regex match and selection intersects
+        if (range.end.isAfterOrEqual(start) && range.end.isBeforeOrEqual(end)) {
           targets.push(this.getTargetFromRange(target, range));
-        });
+        }
+      });
     }
 
     if (targets.length === 0) {
