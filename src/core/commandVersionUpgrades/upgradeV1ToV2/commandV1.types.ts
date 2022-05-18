@@ -1,3 +1,6 @@
+// This file contains a snapshot of all the types used by the deprecated v0 / v1 target representation,
+// to be used by on-the-fly target upgrading for background compatibility
+
 export interface CommandV1 extends CommandV0V1 {
   version: 1;
 }
