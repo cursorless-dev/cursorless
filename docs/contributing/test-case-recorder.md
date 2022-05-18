@@ -73,6 +73,7 @@ To upgrade all the test fixtures to the latest command version, run the command 
 1. Run `yarn run compile && node ./out/scripts/transformRecordedTests/index.js custom`
 
 Example of a custom transformation
+
 ```
 export function updateSurroundingPairTest(fixture: TestCaseFixture) {
   fixture.command.targets = transformPartialPrimitiveTargets(
