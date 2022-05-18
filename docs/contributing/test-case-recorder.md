@@ -74,7 +74,7 @@ To upgrade all the test fixtures to the latest command version, run the command 
 
 Example of a custom transformation
 
-```
+```typescript
 export function updateSurroundingPairTest(fixture: TestCaseFixture) {
   fixture.command.targets = transformPartialPrimitiveTargets(
     fixture.command.targets,
