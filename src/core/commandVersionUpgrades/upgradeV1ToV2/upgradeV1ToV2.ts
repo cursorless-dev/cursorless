@@ -34,8 +34,12 @@ function upgradeModifier(modifier: ModifierV0V1): Modifier | Modifier[] | null {
       return null;
 
     case "containingScope":
-      const {includeSiblings, scopeType, ...rest} = modifier;
-      return {type: includeSiblings ? "everyScope" : "containingScope", scopeType: scopeType as ScopeType, ...rest};
+      const { includeSiblings, scopeType, ...rest } = modifier;
+      return {
+        type: includeSiblings ? "everyScope" : "containingScope",
+        scopeType: scopeType as ScopeType,
+        ...rest,
+      };
 
     case "surroundingPair":
       const { delimiterInclusion, ...rest } = modifier;
