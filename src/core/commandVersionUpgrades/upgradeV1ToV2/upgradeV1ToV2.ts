@@ -28,33 +28,35 @@ export function upgradeV1ToV2(command: CommandV1): CommandV2 {
   };
 }
 
-function upgradeModifier(modifier: ModifierV0V1): Modifier | Modifier[] {
+function upgradeModifier(modifier: ModifierV0V1): Modifier[] {
   switch (modifier.type) {
     case "identity":
       return [];
 
     case "containingScope": {
       const { includeSiblings, scopeType, type, ...rest } = modifier;
-      return {
-        type: includeSiblings ? "everyScope" : "containingScope",
-        scopeType: scopeType as ScopeType,
-        ...rest,
-      };
+      return [
+        {
+          type: includeSiblings ? "everyScope" : "containingScope",
+          scopeType: scopeType as ScopeType,
+          ...rest,
+        },
+      ];
     }
 
     case "surroundingPair": {
       const { delimiterInclusion, ...rest } = modifier;
       if (delimiterInclusion === "interiorOnly") {
-        return [rest, { type: "interiorOnly" }];
+        return [{ type: "interiorOnly" }, rest];
       }
       if (delimiterInclusion === "excludeInterior") {
-        return [rest, { type: "excludeInterior" }];
+        return [{ type: "excludeInterior" }, rest];
       }
-      return rest;
+      return [rest];
     }
 
     default:
-      return modifier;
+      return [modifier];
   }
 }
 
@@ -72,23 +74,6 @@ function upgradePrimitiveTarget(
   } = target;
   const modifiers: Modifier[] = [];
 
-  if (selectionType) {
-    modifiers.push({ type: "containingScope", scopeType: selectionType });
-  }
-
-  if (modifier) {
-    const mod = upgradeModifier(modifier);
-    if (Array.isArray(mod)) {
-      modifiers.push(...mod);
-    } else {
-      modifiers.push(mod);
-    }
-  }
-
-  if (isImplicit) {
-    modifiers.push({ type: "toRawSelection" });
-  }
-
   if (position && position !== "contents") {
     if (position === "before") {
       if (insideOutsideType === "inside") {
@@ -105,14 +90,24 @@ function upgradePrimitiveTarget(
     }
   }
 
-  // Cursor token is just cursor position but treated as a token. This is done in the pipeline for normal cursor now
-  const newMark = mark?.type === "cursorToken" ? undefined : mark;
+  if (isImplicit) {
+    modifiers.push({ type: "toRawSelection" });
+  }
+
+  if (modifier) {
+    modifiers.push(...upgradeModifier(modifier));
+  }
+
+  if (selectionType) {
+    modifiers.push({ type: "containingScope", scopeType: selectionType });
+  }
 
   return {
     ...rest,
-    mark: newMark,
+    // Cursor token is just cursor position but treated as a token. This is done in the pipeline for normal cursor now
+    mark: mark?.type === "cursorToken" ? undefined : mark,
     // Modifiers are processed backwards
-    modifiers: modifiers.length ? modifiers.reverse() : undefined,
+    modifiers: modifiers.length ? modifiers : undefined,
   };
 }
 
