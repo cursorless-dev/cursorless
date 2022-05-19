@@ -6,6 +6,7 @@ import {
   Position,
   RemovalRange,
   TargetParameters,
+  EditNewLineContext,
 } from "../../typings/target.types";
 
 export default class BaseTarget implements Target {
@@ -121,5 +122,11 @@ export default class BaseTarget implements Target {
       return this.getRemovalAfterHighlightRange();
     }
     return this.getRemovalContentHighlightRange();
+  }
+
+  getEditNewLineContext(_isAbove: boolean): EditNewLineContext {
+    return {
+      delimiter: "\n",
+    };
   }
 }

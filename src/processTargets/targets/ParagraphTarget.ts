@@ -1,5 +1,9 @@
 import { Range, TextEditor } from "vscode";
-import { RemovalRange } from "../../typings/target.types";
+import {
+  EditNewLineContext,
+  RemovalRange,
+  ScopeType,
+} from "../../typings/target.types";
 import { parseRemovalRange } from "../../util/targetUtils";
 import BaseTarget from "./BaseTarget";
 
@@ -12,6 +16,10 @@ interface ParagraphTargetParameters {
 }
 
 export default class ParagraphTarget extends BaseTarget {
+  scopeType: ScopeType;
+  delimiter: string;
+  isLine: boolean;
+
   constructor(parameters: ParagraphTargetParameters) {
     super(parameters);
     this.scopeType = "paragraph";
@@ -66,5 +74,11 @@ export default class ParagraphTarget extends BaseTarget {
     return delimiterRange != null
       ? removalRange.union(delimiterRange)
       : removalRange;
+  }
+
+  getEditNewLineContext(_isAbove: boolean): EditNewLineContext {
+    return {
+      delimiter: this.delimiter,
+    };
   }
 }
