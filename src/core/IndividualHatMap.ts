@@ -49,11 +49,6 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     return Object.entries(this.map);
   }
 
-  getTokens() {
-    this.checkExpired();
-    return Object.values(this.map);
-  }
-
   private addTokenByKey(key: string, token: Token) {
     this.map[key] = token;
     this.getDocumentTokenList(token.editor.document).push(token);
