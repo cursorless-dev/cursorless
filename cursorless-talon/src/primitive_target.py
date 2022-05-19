@@ -5,7 +5,7 @@ from talon import Module
 mod = Module()
 
 BASE_TARGET: dict[str, Any] = {"type": "primitive"}
-IMPLICIT_TARGET = {"type": "primitive", "isImplicit": True}
+IMPLICIT_TARGET = {"type": "primitive"}
 
 
 modifiers = [
@@ -41,6 +41,6 @@ def cursorless_primitive_target(m) -> dict[str, Any]:
     try:
         result["modifiers"] = m.cursorless_modifier_list
     except AttributeError:
-        result["modifiers"] = []
+        pass
 
     return result
