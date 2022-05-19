@@ -13,6 +13,7 @@ import { filterDuplicates } from "../util/filterDuplicates";
 import { parseRemovalRange } from "../util/targetUtils";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
+import { removeDelimiterRanges } from "../util/selectionUtils";
 
 /**
  * Converts the abstract target descriptions provided by the user to a concrete
@@ -104,13 +105,24 @@ function processContinuousRangeTarget(
   const excludeStart = isForward ? excludeAnchor : excludeActive;
   const excludeEnd = isForward ? excludeActive : excludeAnchor;
 
+  const leadingDelimiterRange = excludeStart
+    ? startTarget.trailingDelimiter
+    : startTarget.leadingDelimiter;
+  const trailingDelimiterRange = excludeEnd
+    ? endTarget.leadingDelimiter
+    : endTarget.trailingDelimiter;
+
   const contentStart = excludeStart
     ? startTarget.contentRange.end
     : startTarget.contentRange.start;
   const contentEnd = excludeEnd
     ? endTarget.contentRange.start
     : endTarget.contentRange.end;
-  const contentRange = new Range(contentStart, contentEnd);
+  const contentRange = removeDelimiterRanges(
+    new Range(contentStart, contentEnd),
+    leadingDelimiterRange,
+    trailingDelimiterRange
+  );
 
   const removalRange = ((): RemovalRange | undefined => {
     const startRange = parseRemovalRange(startTarget.removal);
@@ -119,19 +131,23 @@ function processContinuousRangeTarget(
       return undefined;
     }
     const startRemovalRange =
-      startTarget.removal?.range ?? startTarget.contentRange;
-    const endRemovalRange = endTarget.removal?.range ?? endTarget.contentRange;
+      (!excludeStart ? startRange?.range.start : null) ??
+      startTarget.contentRange.end;
+    const endRemovalRange =
+      (!excludeEnd ? endRange?.range.end : null) ??
+      endTarget.contentRange.start;
+    const removalRange = removeDelimiterRanges(
+      new Range(startRemovalRange, endRemovalRange),
+      leadingDelimiterRange,
+      trailingDelimiterRange
+    );
+    if (removalRange.isEqual(contentRange)) {
+      return undefined;
+    }
     return {
-      range: new Range(startRemovalRange.start, endRemovalRange.end),
+      range: removalRange,
     };
   })();
-
-  const leadingDelimiterRange = excludeStart
-    ? startTarget.trailingDelimiter
-    : startTarget.leadingDelimiter;
-  const trailingDelimiterRange = excludeEnd
-    ? endTarget.leadingDelimiter
-    : endTarget.trailingDelimiter;
 
   const scopeType =
     startTarget.scopeType === endTarget.scopeType
@@ -141,11 +157,11 @@ function processContinuousRangeTarget(
   // If both objects are of the same type create a new object of the same
   const startConstructor = Object.getPrototypeOf(startTarget).constructor;
   const endConstructor = Object.getPrototypeOf(endTarget).constructor;
-  const constructorFunk =
+  const constructor =
     startConstructor === endConstructor ? startConstructor : BaseTarget;
 
   return [
-    new constructorFunk({
+    new constructor({
       editor: activeTarget.editor,
       isReversed: !isForward,
       delimiter: anchorTarget.delimiter,

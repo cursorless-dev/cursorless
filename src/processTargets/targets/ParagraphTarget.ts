@@ -1,4 +1,3 @@
-import { Range } from "vscode";
 import { TargetParameters } from "../../typings/target.types";
 import BaseTarget from "./BaseTarget";
 

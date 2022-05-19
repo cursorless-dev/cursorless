@@ -1,4 +1,5 @@
 import { Position, Range, Selection } from "vscode";
+import { RemovalRange } from "../typings/target.types";
 import { SelectionWithEditor } from "../typings/Types";
 
 export function isForward(selection: Selection) {
@@ -36,4 +37,29 @@ function selectionFromPositions(
   return isForward(selection)
     ? new Selection(start, end)
     : new Selection(end, start);
+}
+
+function removeSubRange(range: Range, rangeToRemove: Range) {
+  const intersection = range.intersection(rangeToRemove);
+  if (intersection == null) {
+    return range;
+  }
+  if (intersection.contains(range.start)) {
+    return new Range(intersection.end, range.end);
+  }
+  return new Range(range.start, intersection.start);
+}
+
+export function removeDelimiterRanges(
+  range: Range,
+  leading?: RemovalRange,
+  trailing?: RemovalRange
+) {
+  if (leading != null) {
+    range = removeSubRange(range, leading.range);
+  }
+  if (trailing != null) {
+    range = removeSubRange(range, trailing.range);
+  }
+  return range;
 }
