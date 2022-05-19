@@ -120,7 +120,7 @@ function inferPrimitiveTarget(
   const previousModifiers = getPreviousModifiers(previousTargets);
 
   const modifiers =
-    target.modifiers != null && target.modifiers.length > 0
+    target.modifiers.length > 0
       ? target.modifiers
       : previousModifiers ?? actionPreferences?.modifiers ?? [];
 
@@ -159,8 +159,7 @@ function getPreviousMark(previousTargets: PartialTargetDesc[]) {
 function getPreviousModifiers(previousTargets: PartialTargetDesc[]) {
   return getPreviousTarget(
     previousTargets,
-    (target: PartialPrimitiveTargetDesc) =>
-      target.modifiers != null && target.modifiers.length > 0
+    (target: PartialPrimitiveTargetDesc) => target.modifiers.length > 0
   )?.modifiers;
 }
 

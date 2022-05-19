@@ -173,7 +173,7 @@ export interface PositionModifier {
 export interface PartialPrimitiveTargetDesc {
   type: "primitive";
   mark?: Mark;
-  modifiers?: Modifier[];
+  modifiers: Modifier[];
 }
 
 export type Modifier =

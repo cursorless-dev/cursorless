@@ -41,6 +41,6 @@ def cursorless_primitive_target(m) -> dict[str, Any]:
     try:
         result["modifiers"] = m.cursorless_modifier_list
     except AttributeError:
-        pass
+        result["modifiers"] = []
 
     return result
