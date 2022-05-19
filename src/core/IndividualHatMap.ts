@@ -5,7 +5,6 @@ import HatTokenMap from "./HatTokenMap";
 
 export interface ReadOnlyHatMap {
   getEntries(): [string, Token][];
-  getTokens(): Token[];
   getToken(hatStyle: HatStyleName, character: string): Token;
 }
 

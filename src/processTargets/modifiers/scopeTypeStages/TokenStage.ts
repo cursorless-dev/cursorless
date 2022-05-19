@@ -31,15 +31,11 @@ export default class implements ModifierStage {
     const end = isEmpty
       ? editor.document.lineAt(contentRange.end).range.end
       : contentRange.end;
+    const range = new Range(start, end);
 
-    const targets = context.hatTokenMap
-      .getTokens()
-      .filter(
-        ({ range }) =>
-          // Token and selection intersects
-          range.end.isAfterOrEqual(start) && range.end.isBeforeOrEqual(end)
-      )
-      .map(({ range }) => this.getTargetFromRange(target, range));
+    const targets = getTokensInRange(editor, range).map(({ range }) =>
+      this.getTargetFromRange(target, range)
+    );
 
     if (targets.length === 0) {
       throw new Error(`Couldn't find containing ${this.modifier.scopeType}`);
@@ -172,7 +168,10 @@ export function getTokenRangeForSelection(
  * @param selection The selection
  * @returns All tokens that intersect with the selection and are on the same line as the start or endpoint of the selection
  */
-function getTokenIntersectionsForSelection(editor: TextEditor, range: Range) {
+export function getTokenIntersectionsForSelection(
+  editor: TextEditor,
+  range: Range
+) {
   const tokens = getRelevantTokens(editor, range);
 
   const tokenIntersections: { token: PartialToken; intersection: Range }[] = [];
