@@ -221,16 +221,11 @@ function processPrimitiveTarget(
   for (let i = target.modifiers.length - 1; i > -1; --i) {
     const modifier = target.modifiers[i];
     const stage = getModifierStage(modifier);
-    const stageSelections: Target[] = [];
+    const stageTargets: Target[] = [];
     for (const target of targets) {
-      const stageResult = stage.run(context, target);
-      if (Array.isArray(stageResult)) {
-        stageSelections.push(...stageResult);
-      } else {
-        stageSelections.push(stageResult);
-      }
+      stageTargets.push(...stage.run(context, target));
     }
-    targets = stageSelections;
+    targets = stageTargets;
   }
 
   return targets;

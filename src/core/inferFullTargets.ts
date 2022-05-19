@@ -113,17 +113,17 @@ function inferPrimitiveTarget(
 
   // Position without a mark can be something like "take air past end of line"
   const mark = target.mark ??
-    (hasPosition ? getPreviousAttribute(previousTargets, "mark") : null) ?? {
+    (hasPosition ? getPreviousMark(previousTargets) : null) ?? {
       type: "cursor",
     };
 
-  const previousModifiers = getPreviousAttribute(previousTargets, "modifiers");
+  const previousModifiers = getPreviousModifiers(previousTargets);
 
   const modifiers =
     target.modifiers ?? previousModifiers ?? actionPreferences?.modifiers ?? [];
 
   // TODO Is this really a good solution?
-  // "bring line to after this" needs to inter line on second target
+  // "bring line to after this" needs to infer line on second target
   const modifierTypes = [
     ...new Set(modifiers.map((modifier) => modifier.type)),
   ];
@@ -147,15 +147,19 @@ function inferPrimitiveTarget(
   };
 }
 
-function getPreviousAttribute<T extends keyof PartialPrimitiveTargetDesc>(
-  previousTargets: PartialTargetDesc[],
-  attributeName: T
-) {
-  const target = getPreviousTarget(
+function getPreviousMark(previousTargets: PartialTargetDesc[]) {
+  return getPreviousTarget(
     previousTargets,
-    (target: PartialPrimitiveTargetDesc) => !!target[attributeName]
-  );
-  return target != null ? target[attributeName] : null;
+    (target: PartialPrimitiveTargetDesc) => target.mark != null
+  )?.mark;
+}
+
+function getPreviousModifiers(previousTargets: PartialTargetDesc[]) {
+  return getPreviousTarget(
+    previousTargets,
+    (target: PartialPrimitiveTargetDesc) =>
+      target.modifiers != null && target.modifiers.length > 0
+  )?.modifiers;
 }
 
 function getPreviousTarget(
