@@ -6,5 +6,5 @@ export interface MarkStage {
 }
 
 export interface ModifierStage {
-  run(context: ProcessedTargetsContext, target?: Target): Target | Target[];
+  run(context: ProcessedTargetsContext, target?: Target): Target[];
 }

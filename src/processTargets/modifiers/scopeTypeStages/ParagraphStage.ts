@@ -12,17 +12,14 @@ import { fitRangeToLineContent } from "./LineStage";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    target: Target
-  ): ScopeTypeTarget | ScopeTypeTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(target);
     }
-    return this.getSingleTarget(target);
+    return [this.getSingleTarget(target)];
   }
 
-  getEveryTarget(target: Target): ScopeTypeTarget | ScopeTypeTarget[] {
+  getEveryTarget(target: Target): ScopeTypeTarget[] {
     const { contentRange, editor } = target;
     const { isEmpty } = contentRange;
     const { lineCount } = editor.document;

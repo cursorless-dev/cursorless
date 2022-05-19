@@ -1,7 +1,7 @@
 import { DecoratedSymbolMark, Target } from "../../typings/target.types";
 import BaseTarget from "../targets/BaseTarget";
 import { ProcessedTargetsContext } from "../../typings/Types";
-import { getTokenContext } from "../modifiers/scopeTypeStages/TokenStage";
+import { getTokenDelimiters } from "../modifiers/scopeTypeStages/TokenStage";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {
@@ -19,7 +19,7 @@ export default class implements MarkStage {
     }
     return [
       new BaseTarget({
-        ...getTokenContext(token.editor, token.range),
+        ...getTokenDelimiters(token.editor, token.range),
         scopeType: "token",
         editor: token.editor,
         contentRange: token.range,

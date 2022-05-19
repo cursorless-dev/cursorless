@@ -7,7 +7,7 @@ import {
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
-import { getTokenContext } from "./TokenStage";
+import { getTokenDelimiters } from "./TokenStage";
 
 class RegexStage implements ModifierStage {
   constructor(
@@ -16,14 +16,11 @@ class RegexStage implements ModifierStage {
     private name?: string
   ) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    target: Target
-  ): ScopeTypeTarget | ScopeTypeTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(target);
     }
-    return this.getSingleTarget(target);
+    return [this.getSingleTarget(target)];
   }
 
   getEveryTarget(target: Target): ScopeTypeTarget[] {
@@ -65,7 +62,7 @@ class RegexStage implements ModifierStage {
 
   getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
     return new ScopeTypeTarget({
-      ...getTokenContext(target.editor, range),
+      ...getTokenDelimiters(target.editor, range),
       scopeType: this.modifier.scopeType,
       editor: target.editor,
       isReversed: target.isReversed,

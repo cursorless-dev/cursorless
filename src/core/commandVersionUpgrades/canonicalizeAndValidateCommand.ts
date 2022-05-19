@@ -1,6 +1,10 @@
 import { commands } from "vscode";
 import { ActionableError } from "../../errors";
-import { PartialTargetDesc, ScopeType } from "../../typings/target.types";
+import {
+  Modifier,
+  PartialTargetDesc,
+  ScopeType,
+} from "../../typings/target.types";
 import { ActionType } from "../../actions/actions.types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import {
@@ -103,7 +107,7 @@ function usesScopeType(
 ) {
   return getPartialPrimitiveTargets(partialTargets).some((partialTarget) =>
     partialTarget.modifiers?.find(
-      (mod) =>
+      (mod: Modifier) =>
         (mod.type === "containingScope" || mod.type === "everyScope") &&
         mod.scopeType === scopeType
     )

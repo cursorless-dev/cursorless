@@ -94,20 +94,30 @@ function upgradePrimitiveTarget(
     modifiers.push({ type: "toRawSelection" });
   }
 
-  if (modifier) {
-    modifiers.push(...upgradeModifier(modifier));
+  if (selectionType) {
+    switch (selectionType) {
+      case "token":
+        if (modifier?.type === "subpiece") {
+          break;
+        }
+      case "line":
+        if (mark?.type === "lineNumber") {
+          break;
+        }
+      default:
+        modifiers.push({ type: "containingScope", scopeType: selectionType });
+    }
   }
 
-  if (selectionType) {
-    modifiers.push({ type: "containingScope", scopeType: selectionType });
+  if (modifier) {
+    modifiers.push(...upgradeModifier(modifier));
   }
 
   return {
     ...rest,
     // Cursor token is just cursor position but treated as a token. This is done in the pipeline for normal cursor now
     mark: mark?.type === "cursorToken" ? undefined : mark,
-    // Modifiers are processed backwards
-    modifiers: modifiers.length ? modifiers : undefined,
+    modifiers,
   };
 }
 

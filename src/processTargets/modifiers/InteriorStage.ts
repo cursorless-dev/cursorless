@@ -9,10 +9,10 @@ import { ModifierStage } from "../PipelineStages.types";
 import { processedSurroundingPairTarget } from "./SurroundingPairStage";
 
 abstract class InteriorStage implements ModifierStage {
-  abstract getTargets(target: Target): Target | Target[];
+  abstract getTargets(target: Target): Target[];
   abstract hasData(target: Target): boolean;
 
-  run(context: ProcessedTargetsContext, target: Target): Target | Target[] {
+  run(context: ProcessedTargetsContext, target: Target): Target[] {
     if (this.hasData(target)) {
       return this.getTargets(target);
     }
@@ -38,16 +38,18 @@ export class InteriorOnlyStage extends InteriorStage {
     super();
   }
 
-  getTargets(target: Target): Target | Target[] {
+  getTargets(target: Target): Target[] {
     if (target.interiorRange == null) {
       throw Error("No available interior");
     }
     const contentRange = target.interiorRange;
-    return new BaseTarget({
-      editor: target.editor,
-      isReversed: target.isReversed,
-      contentRange,
-    });
+    return [
+      new BaseTarget({
+        editor: target.editor,
+        isReversed: target.isReversed,
+        contentRange,
+      }),
+    ];
   }
 
   hasData(target: Target): boolean {
@@ -60,7 +62,7 @@ export class ExcludeInteriorStage extends InteriorStage {
     super();
   }
 
-  getTargets(target: Target): Target | Target[] {
+  getTargets(target: Target): Target[] {
     if (target.boundary == null) {
       throw Error("No available boundaries");
     }

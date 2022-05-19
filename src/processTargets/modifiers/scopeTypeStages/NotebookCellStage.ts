@@ -10,15 +10,17 @@ import { ModifierStage } from "../../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget {
+  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
     if (this.modifier.type === "everyScope") {
       throw new Error(`Every ${this.modifier.type} not yet implemented`);
     }
 
-    return new ScopeTypeTarget({
-      ...target,
-      scopeType: this.modifier.scopeType,
-      delimiter: "\n",
-    });
+    return [
+      new ScopeTypeTarget({
+        delimiter: "\n",
+        ...target,
+        scopeType: this.modifier.scopeType,
+      }),
+    ];
   }
 }

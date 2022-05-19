@@ -24,6 +24,8 @@ export interface Token extends FullRangeInfo {
 }
 
 export interface ProcessedTargetsContext {
+  currentSelections: SelectionWithEditor[];
+  currentEditor: vscode.TextEditor | undefined;
   hatTokenMap: ReadOnlyHatMap;
   thatMark: SelectionWithEditor[];
   sourceMark: SelectionWithEditor[];

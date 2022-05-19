@@ -12,14 +12,11 @@ import { ModifierStage } from "../../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    target: Target
-  ): ScopeTypeTarget | ScopeTypeTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(context, target);
     }
-    return this.getSingleTarget(target);
+    return [this.getSingleTarget(target)];
   }
 
   getEveryTarget(
@@ -58,7 +55,7 @@ export default class implements ModifierStage {
   getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
     const contentRange = getTokenRangeForSelection(target.editor, range);
     return new ScopeTypeTarget({
-      ...getTokenContext(target.editor, contentRange),
+      ...getTokenDelimiters(target.editor, contentRange),
       scopeType: this.modifier.scopeType,
       editor: target.editor,
       isReversed: target.isReversed,
@@ -67,7 +64,7 @@ export default class implements ModifierStage {
   }
 }
 
-export function getTokenContext(editor: TextEditor, contentRange: Range) {
+export function getTokenDelimiters(editor: TextEditor, contentRange: Range) {
   const { document } = editor;
   const { start, end } = contentRange;
   const endLine = document.lineAt(end);
@@ -128,7 +125,10 @@ export function getTokenContext(editor: TextEditor, contentRange: Range) {
  * @param selection Selection to operate on
  * @returns Modified range
  */
-function getTokenRangeForSelection(editor: TextEditor, range: Range): Range {
+export function getTokenRangeForSelection(
+  editor: TextEditor,
+  range: Range
+): Range {
   let tokens = getTokenIntersectionsForSelection(editor, range);
   // Use single token for overlapping or adjacent range
   if (range.isEmpty) {

@@ -2,6 +2,7 @@ import { Position, Range, TextEditor } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  ScopeType,
   Target,
 } from "../../../typings/target.types";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
@@ -11,14 +12,11 @@ import { ModifierStage } from "../../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    target: Target
-  ): ScopeTypeTarget | ScopeTypeTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(target);
     }
-    return this.getSingleTarget(target);
+    return [this.getSingleTarget(target)];
   }
 
   getEveryTarget(target: Target): ScopeTypeTarget[] {
@@ -51,11 +49,11 @@ export default class implements ModifierStage {
   getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
     const contentRange = fitRangeToLineContent(target.editor, range);
     return new ScopeTypeTarget({
+      ...getLineContext(target.editor, contentRange),
       scopeType: this.modifier.scopeType,
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange,
-      ...getLineContext(target.editor, contentRange),
     });
   }
 }
@@ -79,6 +77,7 @@ export function getLineContext(editor: TextEditor, range: Range) {
       : undefined;
 
   return {
+    scopeType: "line" as ScopeType,
     delimiter: "\n",
     removal: {
       range: removalRange,

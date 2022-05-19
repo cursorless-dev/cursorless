@@ -6,7 +6,7 @@ import { ModifierStage } from "../PipelineStages.types";
 export default class implements ModifierStage {
   constructor(private modifier: PositionModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target {
+  run(context: ProcessedTargetsContext, target: Target): Target[] {
     const { position } = this.modifier;
     const { start, end } = target.contentRange;
     const {
@@ -28,37 +28,45 @@ export default class implements ModifierStage {
 
     switch (position) {
       case "before":
-        return new constructor({
-          ...common,
-          contentRange: new Range(start, start),
-          delimiter,
-          scopeType,
-          leadingDelimiter,
-        });
+        return [
+          new constructor({
+            ...common,
+            contentRange: new Range(start, start),
+            delimiter,
+            scopeType,
+            leadingDelimiter,
+          }),
+        ];
 
       case "after":
-        return new constructor({
-          ...common,
-          contentRange: new Range(end, end),
-          delimiter,
-          scopeType,
-          trailingDelimiter,
-        });
+        return [
+          new constructor({
+            ...common,
+            contentRange: new Range(end, end),
+            delimiter,
+            scopeType,
+            trailingDelimiter,
+          }),
+        ];
 
       case "start":
-        return new constructor({
-          ...common,
-          contentRange: new Range(start, start),
-          // This it NOT a raw target. Joining with this should be done on empty delimiter.
-          delimiter: "",
-        });
+        return [
+          new constructor({
+            ...common,
+            contentRange: new Range(start, start),
+            // This it NOT a raw target. Joining with this should be done on empty delimiter.
+            delimiter: "",
+          }),
+        ];
 
       case "end":
-        return new constructor({
-          ...common,
-          contentRange: new Range(end, end),
-          delimiter: "",
-        });
+        return [
+          new constructor({
+            ...common,
+            contentRange: new Range(end, end),
+            delimiter: "",
+          }),
+        ];
     }
   }
 }

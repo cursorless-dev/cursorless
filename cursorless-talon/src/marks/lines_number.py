@@ -41,7 +41,6 @@ def cursorless_line_number(m) -> dict[str, Any]:
         "lineNumber": direction.formatter(line_number),
         "type": direction.type,
     }
-    # TODO: Make sure to spit out a line in the case of a line number mark
     return {
         "type": "lineNumber",
         "anchor": line,

@@ -5,12 +5,20 @@ import { SubTokenModifier, Target } from "../../typings/target.types";
 import BaseTarget from "../targets/BaseTarget";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
+import { getTokenRangeForSelection } from "./scopeTypeStages/TokenStage";
 
 export default class implements ModifierStage {
   constructor(private modifier: SubTokenModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target {
-    const token = target.editor.document.getText(target.contentRange);
+  run(context: ProcessedTargetsContext, target: Target): Target[] {
+    if (target.contentRange.isEmpty) {
+      target.contentRange = getTokenRangeForSelection(
+        target.editor,
+        target.contentRange
+      );
+    }
+
+    const token = target.getContentText();
     let pieces: { start: number; end: number }[] = [];
 
     if (this.modifier.excludeActive || this.modifier.excludeAnchor) {
@@ -92,19 +100,21 @@ export default class implements ModifierStage {
         )
       : undefined;
 
-    return new BaseTarget({
-      editor: target.editor,
-      isReversed,
-      contentRange,
-      delimiter: containingListDelimiter,
-      leadingDelimiter:
-        leadingDelimiterRange != null
-          ? { range: leadingDelimiterRange }
-          : undefined,
-      trailingDelimiter:
-        trailingDelimiterRange != null
-          ? { range: trailingDelimiterRange }
-          : undefined,
-    });
+    return [
+      new BaseTarget({
+        editor: target.editor,
+        isReversed,
+        contentRange,
+        delimiter: containingListDelimiter,
+        leadingDelimiter:
+          leadingDelimiterRange != null
+            ? { range: leadingDelimiterRange }
+            : undefined,
+        trailingDelimiter:
+          trailingDelimiterRange != null
+            ? { range: trailingDelimiterRange }
+            : undefined,
+      }),
+    ];
   }
 }

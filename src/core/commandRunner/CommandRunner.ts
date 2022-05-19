@@ -94,6 +94,12 @@ export default class CommandRunner {
       }
 
       const processedTargetsContext: ProcessedTargetsContext = {
+        currentSelections:
+          vscode.window.activeTextEditor?.selections.map((selection) => ({
+            selection,
+            editor: vscode.window.activeTextEditor!,
+          })) ?? [],
+        currentEditor: vscode.window.activeTextEditor,
         hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],

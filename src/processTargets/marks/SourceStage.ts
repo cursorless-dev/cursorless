@@ -2,7 +2,7 @@ import { SourceMark, Target } from "../../typings/target.types";
 import BaseTarget from "../targets/BaseTarget";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { isReversed } from "../../util/selectionUtils";
-import { getTokenContext } from "../modifiers/scopeTypeStages/TokenStage";
+import { getTokenDelimiters } from "../modifiers/scopeTypeStages/TokenStage";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {
@@ -11,7 +11,7 @@ export default class implements MarkStage {
   run(context: ProcessedTargetsContext): Target[] {
     return context.sourceMark.map((selection) => {
       return new BaseTarget({
-        ...getTokenContext(selection.editor, selection.selection),
+        ...getTokenDelimiters(selection.editor, selection.selection),
         editor: selection.editor,
         isReversed: isReversed(selection.selection),
         contentRange: selection.selection,

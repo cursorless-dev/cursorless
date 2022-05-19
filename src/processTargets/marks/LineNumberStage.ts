@@ -1,30 +1,29 @@
-import { Range, TextEditor, window } from "vscode";
+import { TextEditor } from "vscode";
 import { LineNumberMark, LineNumberPosition } from "../../typings/target.types";
-import ScopeTypeTarget from "../targets/ScopeTypeTarget";
+import { ProcessedTargetsContext } from "../../typings/Types";
 import { getLineContext } from "../modifiers/scopeTypeStages/LineStage";
 import { MarkStage } from "../PipelineStages.types";
+import ScopeTypeTarget from "../targets/ScopeTypeTarget";
 
 export default class implements MarkStage {
   constructor(private modifier: LineNumberMark) {}
 
-  run(): ScopeTypeTarget[] {
-    if (window.activeTextEditor == null) {
+  run(context: ProcessedTargetsContext): ScopeTypeTarget[] {
+    if (context.currentEditor == null) {
       return [];
     }
-    const editor = window.activeTextEditor;
-    const contentRange = new Range(
-      getLine(editor, this.modifier.anchor),
-      0,
-      getLine(editor, this.modifier.active),
-      0
-    );
+    const editor = context.currentEditor;
+    const anchorLine = getLine(editor, this.modifier.anchor);
+    const activeLine = getLine(editor, this.modifier.active);
+    const anchorRange = editor.document.lineAt(anchorLine).range;
+    const activeRange = editor.document.lineAt(activeLine).range;
+    const contentRange = anchorRange.union(activeRange);
     return [
       new ScopeTypeTarget({
         ...getLineContext(editor, contentRange),
         editor,
         contentRange,
-        isReversed: false,
-        scopeType: "line",
+        isReversed: this.modifier.anchor < this.modifier.active,
       }),
     ];
   }

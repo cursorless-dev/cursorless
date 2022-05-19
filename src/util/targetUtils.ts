@@ -1,6 +1,6 @@
 import { zip } from "lodash";
 import { Range, Selection, TextEditor } from "vscode";
-import { getTokenContext } from "../processTargets/modifiers/scopeTypeStages/TokenStage";
+import { getTokenDelimiters } from "../processTargets/modifiers/scopeTypeStages/TokenStage";
 import {
   RemovalRange,
   ScopeType,
@@ -162,7 +162,7 @@ export function selectionWithEditorWithContextToTarget(
   const { editor, selection: contentRange } = selection.selection;
 
   const tokenContext = useTokenContext(selection.context)
-    ? getTokenContext(editor, contentRange)
+    ? getTokenDelimiters(editor, contentRange)
     : undefined;
 
   const leadingDelimiter =

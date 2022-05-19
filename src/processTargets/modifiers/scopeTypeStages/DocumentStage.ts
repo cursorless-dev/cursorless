@@ -13,17 +13,19 @@ import { fitRangeToLineContent } from "./LineStage";
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget {
-    return new ScopeTypeTarget({
-      scopeType: this.modifier.scopeType,
-      editor: target.editor,
-      isReversed: target.isReversed,
-      delimiter: "\n",
-      contentRange: getDocumentContentRange(target.editor),
-      removal: {
-        range: getDocumentRange(target.editor.document),
-      },
-    });
+  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+    return [
+      new ScopeTypeTarget({
+        scopeType: this.modifier.scopeType,
+        editor: target.editor,
+        isReversed: target.isReversed,
+        delimiter: "\n",
+        contentRange: getDocumentContentRange(target.editor),
+        removal: {
+          range: getDocumentRange(target.editor.document),
+        },
+      }),
+    ];
   }
 }
 
