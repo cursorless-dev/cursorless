@@ -6,7 +6,6 @@ import { RangeWithEditor } from "../typings/Types";
 import sleep from "./sleep";
 import {
   getContentRange,
-  isLineScopeType,
   runForEachEditor,
   runOnTargetsForEachEditor,
 } from "./targetUtils";
@@ -112,14 +111,14 @@ export async function setDecorations(
       editor.setDecorations(
         editStyle.token,
         targets
-          .filter((target) => !isLineScopeType(target.scopeType))
+          .filter((target) => !target.isLine)
           .map(getRange)
           .filter((range): range is Range => !!range)
       );
       editor.setDecorations(
         editStyle.line,
         targets
-          .filter((target) => isLineScopeType(target.scopeType))
+          .filter((target) => target.isLine)
           .map(getRange)
           .filter((range): range is Range => !!range)
       );

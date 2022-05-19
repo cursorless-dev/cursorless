@@ -4,26 +4,20 @@ import {
   EveryScopeModifier,
   Target,
 } from "../../../typings/target.types";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { ProcessedTargetsContext } from "../../../typings/Types";
-import { getDocumentRange } from "../../../util/range";
 import { ModifierStage } from "../../PipelineStages.types";
+import DocumentTarget from "../../targets/DocumentTarget";
 import { fitRangeToLineContent } from "./LineStage";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): DocumentTarget[] {
     return [
-      new ScopeTypeTarget({
-        scopeType: this.modifier.scopeType,
+      new DocumentTarget({
         editor: target.editor,
         isReversed: target.isReversed,
-        delimiter: "\n",
         contentRange: getDocumentContentRange(target.editor),
-        removal: {
-          range: getDocumentRange(target.editor.document),
-        },
       }),
     ];
   }

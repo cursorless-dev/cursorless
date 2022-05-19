@@ -1,19 +1,17 @@
 import { zip } from "lodash";
-import { Range } from "vscode";
+import { Position, Range } from "vscode";
 import {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
-  RemovalRange,
   Target,
   TargetDescriptor,
 } from "../typings/target.types";
-import BaseTarget from "./targets/BaseTarget";
 import { ProcessedTargetsContext } from "../typings/Types";
 import { filterDuplicates } from "../util/filterDuplicates";
-import { parseRemovalRange } from "../util/targetUtils";
+import { ensureSingleEditor } from "../util/targetUtils";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
-import { removeDelimiterRanges } from "../util/selectionUtils";
+import BaseTarget from "./targets/BaseTarget";
 
 /**
  * Converts the abstract target descriptions provided by the user to a concrete
@@ -99,54 +97,66 @@ function processContinuousRangeTarget(
   excludeAnchor: boolean,
   excludeActive: boolean
 ): Target[] {
+  const { document } = ensureSingleEditor([anchorTarget, activeTarget]);
   const isForward = calcIsForward(anchorTarget, activeTarget);
   const startTarget = isForward ? anchorTarget : activeTarget;
   const endTarget = isForward ? activeTarget : anchorTarget;
   const excludeStart = isForward ? excludeAnchor : excludeActive;
   const excludeEnd = isForward ? excludeActive : excludeAnchor;
 
-  const leadingDelimiterRange = excludeStart
-    ? startTarget.trailingDelimiter
-    : startTarget.leadingDelimiter;
-  const trailingDelimiterRange = excludeEnd
-    ? endTarget.leadingDelimiter
-    : endTarget.trailingDelimiter;
+  const contentStart = (() => {
+    if (excludeStart) {
+      if (startTarget.isLine) {
+        return new Position(startTarget.contentRange.end.line + 1, 0);
+      }
+      return startTarget.contentRange.end;
+    }
+    return startTarget.contentRange.start;
+  })();
+  const contentEnd = (() => {
+    if (excludeEnd) {
+      if (endTarget.isLine) {
+        return document.lineAt(endTarget.contentRange.start.line - 1).range.end;
+      }
+      return endTarget.contentRange.start;
+    }
+    return endTarget.contentRange.end;
+  })();
+  const contentRange = new Range(contentStart, contentEnd);
 
-  const contentStart = excludeStart
-    ? startTarget.contentRange.end
-    : startTarget.contentRange.start;
-  const contentEnd = excludeEnd
-    ? endTarget.contentRange.start
-    : endTarget.contentRange.end;
-  const contentRange = removeDelimiterRanges(
-    new Range(contentStart, contentEnd),
-    leadingDelimiterRange,
-    trailingDelimiterRange
-  );
-
-  const removalRange = ((): RemovalRange | undefined => {
-    const startRange = parseRemovalRange(startTarget.removal);
-    const endRange = parseRemovalRange(endTarget.removal);
-    if (startRange == null && endRange == null) {
+  const removalRange = (() => {
+    if (startTarget.removalRange == null && endTarget.removalRange == null) {
       return undefined;
     }
-    const startRemovalRange =
-      (!excludeStart ? startRange?.range.start : null) ??
-      startTarget.contentRange.end;
-    const endRemovalRange =
-      (!excludeEnd ? endRange?.range.end : null) ??
-      endTarget.contentRange.start;
-    const removalRange = removeDelimiterRanges(
-      new Range(startRemovalRange, endRemovalRange),
-      leadingDelimiterRange,
-      trailingDelimiterRange
+    const startRange = startTarget.removalRange ?? startTarget.contentRange;
+    const endRange = endTarget.removalRange ?? endTarget.contentRange;
+    return new Range(
+      excludeStart ? startRange.end : startRange.start,
+      excludeEnd ? endRange.start : endRange.end
     );
-    if (removalRange.isEqual(contentRange)) {
-      return undefined;
+  })();
+
+  const leadingDelimiter = (() => {
+    if (excludeStart) {
+      if (startTarget.isLine) {
+        return {
+          range: new Range(contentRange.start, startTarget.contentRange.end),
+        };
+      }
+      return startTarget.trailingDelimiter;
     }
-    return {
-      range: removalRange,
-    };
+    return startTarget.leadingDelimiter;
+  })();
+  const trailingDelimiter = (() => {
+    if (excludeEnd) {
+      if (endTarget.isLine) {
+        return {
+          range: new Range(contentRange.end, endTarget.contentRange.start),
+        };
+      }
+      return endTarget.leadingDelimiter;
+    }
+    return endTarget.trailingDelimiter;
   })();
 
   const scopeType =
@@ -166,10 +176,10 @@ function processContinuousRangeTarget(
       isReversed: !isForward,
       delimiter: anchorTarget.delimiter,
       contentRange,
+      removalRange,
       scopeType,
-      removal: removalRange,
-      leadingDelimiter: leadingDelimiterRange,
-      trailingDelimiter: trailingDelimiterRange,
+      leadingDelimiter,
+      trailingDelimiter,
     }),
   ];
 }

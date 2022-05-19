@@ -6,7 +6,6 @@ import displayPendingEditDecorations from "../util/editDisplayUtils";
 import {
   createThatMark,
   getContentRange,
-  getRemovalHighlightRange,
   getRemovalRange,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
@@ -60,4 +59,8 @@ export default class Delete implements Action {
 
     return { thatMark };
   }
+}
+
+function getRemovalHighlightRange(target: Target) {
+  return target.getRemovalHighlightRange();
 }

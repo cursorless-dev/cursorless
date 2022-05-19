@@ -3,7 +3,6 @@ import { Range, Selection, TextEditor } from "vscode";
 import { getTokenDelimiters } from "../processTargets/modifiers/scopeTypeStages/TokenStage";
 import {
   RemovalRange,
-  ScopeType,
   Target,
   TargetParameters,
 } from "../typings/target.types";
@@ -118,10 +117,6 @@ export function getRemovalRange(target: Target) {
   return target.getRemovalRange();
 }
 
-export function getRemovalHighlightRange(target: Target) {
-  return target.getRemovalHighlightRange();
-}
-
 export function parseRemovalRange(
   range?: RemovalRange
 ): Required<RemovalRange> | undefined {
@@ -134,17 +129,6 @@ export function parseRemovalRange(
     : undefined;
 }
 
-export function isLineScopeType(scopeType?: ScopeType) {
-  switch (scopeType) {
-    case "line":
-    case "paragraph":
-    case "document":
-      return true;
-    default:
-      return false;
-  }
-}
-
 export function selectionWithEditorWithContextToTarget(
   selection: SelectionWithEditorWithContext
 ): TargetParameters {
@@ -155,9 +139,9 @@ export function selectionWithEditorWithContextToTarget(
     containingListDelimiter,
     interiorRange,
     boundary,
-    removalRange,
     leadingDelimiterRange,
     trailingDelimiterRange,
+    removalRange,
   } = context;
   const { editor, selection: contentRange } = selection.selection;
 
@@ -184,9 +168,9 @@ export function selectionWithEditorWithContextToTarget(
     isReversed: isReversed(contentRange),
     contentRange,
     interiorRange,
+    removalRange,
     boundary,
     delimiter: tokenContext?.delimiter ?? containingListDelimiter ?? "\n",
-    removal: removalRange != null ? { range: removalRange } : undefined,
     leadingDelimiter,
     trailingDelimiter,
   };

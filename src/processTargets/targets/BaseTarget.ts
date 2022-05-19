@@ -15,11 +15,12 @@ export default class BaseTarget implements Target {
   position?: Position;
   delimiter?: string;
   contentRange: Range;
+  removalRange?: Range;
   interiorRange?: Range;
   boundary?: [Range, Range];
-  removal?: RemovalRange;
   leadingDelimiter?: RemovalRange;
   trailingDelimiter?: RemovalRange;
+  isLine?: boolean;
 
   constructor(parameters: TargetParameters) {
     this.editor = parameters.editor;
@@ -28,9 +29,9 @@ export default class BaseTarget implements Target {
     this.position = parameters.position;
     this.delimiter = parameters.delimiter;
     this.contentRange = parameters.contentRange;
+    this.removalRange = parameters.removalRange;
     this.interiorRange = parameters.interiorRange;
     this.boundary = parameters.boundary;
-    this.removal = parameters.removal;
     this.leadingDelimiter = parameters.leadingDelimiter;
     this.trailingDelimiter = parameters.trailingDelimiter;
   }
@@ -56,6 +57,26 @@ export default class BaseTarget implements Target {
       }
     }
     return text;
+  }
+
+  protected getRemovalContentRange(): Range {
+    const removalRange = this.removalRange ?? this.contentRange;
+    const delimiter =
+      parseRemovalRange(this.trailingDelimiter) ??
+      parseRemovalRange(this.leadingDelimiter);
+    return delimiter != null
+      ? removalRange.union(delimiter.range)
+      : removalRange;
+  }
+
+  protected getRemovalContentHighlightRange() {
+    const removalRange = this.removalRange ?? this.contentRange;
+    const delimiter =
+      parseRemovalRange(this.trailingDelimiter) ??
+      parseRemovalRange(this.leadingDelimiter);
+    return delimiter != null
+      ? removalRange.union(delimiter.highlight)
+      : removalRange;
   }
 
   protected getRemovalBeforeRange(): Range {
@@ -89,28 +110,7 @@ export default class BaseTarget implements Target {
     if (this.position === "after") {
       return this.getRemovalAfterRange();
     }
-
-    const removalRange = (() => {
-      const range = parseRemovalRange(this.removal);
-      if (range != null) {
-        return range.range;
-      }
-      return this.contentRange;
-    })();
-    const delimiterRange = (() => {
-      const leadingDelimiter = parseRemovalRange(this.leadingDelimiter);
-      const trailingDelimiter = parseRemovalRange(this.trailingDelimiter);
-      if (trailingDelimiter != null) {
-        return trailingDelimiter.range;
-      }
-      if (leadingDelimiter != null) {
-        return leadingDelimiter.range;
-      }
-      return undefined;
-    })();
-    return delimiterRange != null
-      ? removalRange.union(delimiterRange)
-      : removalRange;
+    return this.getRemovalContentRange();
   }
 
   getRemovalHighlightRange(): Range | undefined {
@@ -120,26 +120,6 @@ export default class BaseTarget implements Target {
     if (this.position === "after") {
       return this.getRemovalAfterHighlightRange();
     }
-
-    const removalRange = (() => {
-      const range = parseRemovalRange(this.removal);
-      return range != null ? range.range : this.contentRange;
-    })();
-
-    const delimiterRange = (() => {
-      const leadingDelimiter = parseRemovalRange(this.leadingDelimiter);
-      const trailingDelimiter = parseRemovalRange(this.trailingDelimiter);
-      if (trailingDelimiter != null) {
-        return trailingDelimiter.highlight;
-      }
-      if (leadingDelimiter) {
-        return leadingDelimiter.highlight;
-      }
-      return undefined;
-    })();
-
-    return delimiterRange != null
-      ? removalRange.union(delimiterRange)
-      : removalRange;
+    return this.getRemovalContentHighlightRange();
   }
 }

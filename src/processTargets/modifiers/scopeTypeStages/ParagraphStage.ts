@@ -87,7 +87,6 @@ export default class implements ModifierStage {
       target.editor,
       new Range(startLine.range.start, endLine.range.end)
     );
-    const removalRange = new Range(startLine.range.start, endLine.range.end);
     const leadingLine = getPreviousNonEmptyLine(document, startLine);
     const trailingLine = getNextNonEmptyLine(document, endLine);
 
@@ -124,22 +123,25 @@ export default class implements ModifierStage {
           ),
         };
       }
-      if (contentRange.end.line < document.lineCount - 1) {
-        const { end } = lineAt(document.lineCount - 1).range;
+      if (endLine.lineNumber < document.lineCount - 1) {
+        const lastLine = lineAt(document.lineCount - 1);
+        // If true there is an empty line after this one that isn't the last/final one
+        const highlightStart =
+          endLine.lineNumber !== document.lineCount - 1
+            ? lineAt(endLine.lineNumber + 1).range.end
+            : lastLine.range.start;
         return {
-          range: new Range(endLine.range.end, end),
-          highlight: new Range(lineAt(endLine.lineNumber - 1).range.end, end),
+          range: new Range(endLine.range.end, lastLine.range.end),
+          highlight: new Range(highlightStart, lastLine.range.end),
         };
       }
       return undefined;
     })();
 
     return new ParagraphTarget({
-      scopeType: this.modifier.scopeType,
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange,
-      removal: { range: removalRange },
       leadingDelimiter,
       trailingDelimiter,
     });

@@ -1,15 +1,15 @@
 import {
-  Uri,
-  Range,
-  debug,
-  SourceBreakpoint,
   Breakpoint,
+  debug,
   Location,
+  Range,
+  SourceBreakpoint,
+  Uri,
 } from "vscode";
 import { Target } from "../typings/target.types";
 import { ActionPreferences, Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
-import { createThatMark, isLineScopeType } from "../util/targetUtils";
+import { createThatMark } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 function getBreakpoints(uri: Uri, range: Range) {
@@ -42,7 +42,7 @@ export default class ToggleBreakpoint implements Action {
     targets.forEach((target) => {
       let range = target.contentRange;
       // The action preference give us line content but line breakpoints are registered on character 0
-      if (isLineScopeType(target.scopeType)) {
+      if (target.isLine) {
         range = range.with(range.start.with(undefined, 0), undefined);
       }
       const uri = target.editor.document.uri;
@@ -50,7 +50,7 @@ export default class ToggleBreakpoint implements Action {
       if (existing.length > 0) {
         toRemove.push(...existing);
       } else {
-        if (isLineScopeType(target.scopeType)) {
+        if (target.isLine) {
           range = range.with(undefined, range.end.with(undefined, 0));
         }
         toAdd.push(new SourceBreakpoint(new Location(uri, range)));

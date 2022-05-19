@@ -79,11 +79,8 @@ export function createLineTarget(
 
   return new LineTarget({
     editor,
-    contentRange,
     isReversed,
-    removal: {
-      range: removalRange,
-    },
+    contentRange,
     leadingDelimiter:
       leadingDelimiterRange != null
         ? { range: leadingDelimiterRange }
