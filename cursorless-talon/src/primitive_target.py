@@ -5,7 +5,7 @@ from talon import Module
 mod = Module()
 
 BASE_TARGET: dict[str, Any] = {"type": "primitive"}
-IMPLICIT_TARGET = {"type": "primitive"}
+IMPLICIT_TARGET = {"type": "primitive", "isImplicit": True}
 
 
 modifiers = [

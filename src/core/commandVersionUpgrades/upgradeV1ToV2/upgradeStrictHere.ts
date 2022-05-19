@@ -11,6 +11,7 @@ const STRICT_HERE = {
 };
 const IMPLICIT_TARGET: PartialPrimitiveTargetDesc = {
   type: "primitive",
+  isImplicit: true,
 };
 export const upgradeStrictHere = (
   target: PartialPrimitiveTargetDesc

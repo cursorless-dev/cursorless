@@ -1,4 +1,5 @@
 import {
+  Modifier,
   PartialListTargetDesc,
   PartialPrimitiveTargetDesc,
   PartialRangeTargetDesc,
@@ -118,11 +119,17 @@ function inferPrimitiveTarget(
     };
 
   const previousModifiers = getPreviousModifiers(previousTargets);
+  const implicitModifiers = target.isImplicit
+    ? [{ type: "toRawSelection" } as Modifier]
+    : undefined;
 
   const modifiers =
     target.modifiers != null
       ? target.modifiers
-      : previousModifiers ?? actionPreferences?.modifiers ?? [];
+      : implicitModifiers ??
+        previousModifiers ??
+        actionPreferences?.modifiers ??
+        [];
 
   // TODO Is this really a good solution?
   // "bring line to after this" needs to infer line on second target

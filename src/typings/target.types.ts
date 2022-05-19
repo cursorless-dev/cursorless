@@ -174,6 +174,7 @@ export interface PartialPrimitiveTargetDesc {
   type: "primitive";
   mark?: Mark;
   modifiers?: Modifier[];
+  isImplicit?: boolean;
 }
 
 export type Modifier =
