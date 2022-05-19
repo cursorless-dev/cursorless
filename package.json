@@ -509,7 +509,7 @@
 		"lint": "eslint src --ext ts",
 		"test": "env CURSORLESS_TEST=true node ./out/test/runTest.js",
 		"prepare-for-extension-publish": "node ./out/scripts/prepareForExtensionPublish.js",
-		"unused-exports": "ts-unused-exports tsconfig.json"
+		"unused-exports": "ts-unused-exports tsconfig.json --showLineNumber"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.3",
