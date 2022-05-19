@@ -67,7 +67,6 @@ function upgradePrimitiveTarget(
     mark,
     insideOutsideType,
     modifier,
-    isImplicit,
     selectionType,
     position,
     ...rest
@@ -88,10 +87,6 @@ function upgradePrimitiveTarget(
         modifiers.push({ type: "position", position: "after" });
       }
     }
-  }
-
-  if (isImplicit) {
-    modifiers.push({ type: "toRawSelection" });
   }
 
   if (selectionType) {

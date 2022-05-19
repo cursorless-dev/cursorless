@@ -77,6 +77,10 @@ function upgradeCommand(command: Command): CommandLatest {
       case 1:
         command = upgradeV1ToV2(command);
         break;
+      default:
+        throw new Error(
+          `Can't upgrade from unknown version ${command.version}`
+        );
     }
   }
 

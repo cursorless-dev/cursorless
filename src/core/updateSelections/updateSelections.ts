@@ -218,13 +218,10 @@ export async function performEditsAndUpdateRanges(
   rangeUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],
-  originalSelections: (readonly Range[])[]
-) {
+  originalRanges: (readonly Range[])[]
+): Promise<Range[][]> {
   const document = editor.document;
-  const selectionInfoMatrix = rangesToSelectionInfos(
-    document,
-    originalSelections
-  );
+  const selectionInfoMatrix = rangesToSelectionInfos(document, originalRanges);
   return performEditsAndUpdateInternal(
     rangeUpdater,
     editor,

@@ -81,7 +81,7 @@ export default class CommandRunner {
         throw new Error(`Unknown action ${actionName}`);
       }
 
-      const targetDescs = inferFullTargets(
+      const targetDescriptors = inferFullTargets(
         partialTargetDescriptors,
         action.getTargetPreferences
           ? action.getTargetPreferences(...extraArgs)
@@ -90,7 +90,7 @@ export default class CommandRunner {
 
       if (this.graph.debug.active) {
         this.graph.debug.log("Full targets:");
-        this.graph.debug.log(JSON.stringify(targetDescs, null, 3));
+        this.graph.debug.log(JSON.stringify(targetDescriptors, null, 3));
       }
 
       const processedTargetsContext: ProcessedTargetsContext = {
@@ -106,11 +106,14 @@ export default class CommandRunner {
         getNodeAtLocation: this.graph.getNodeAtLocation,
       };
 
-      const targets = processTargets(processedTargetsContext, targetDescs);
+      const targets = processTargets(
+        processedTargetsContext,
+        targetDescriptors
+      );
 
       if (this.graph.testCaseRecorder.isActive()) {
         const context = {
-          targets: targetDescs,
+          targets: targetDescriptors,
           thatMark: this.thatMark,
           sourceMark: this.sourceMark,
           hatTokenMap: readableHatMap,

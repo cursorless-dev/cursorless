@@ -125,12 +125,11 @@ function inferPrimitiveTarget(
 
   const modifiers =
     target.modifiers ??
-      implicitModifiers ??
-        previousModifiers ??
-        actionPreferences?.modifiers ??
-        [];
+    implicitModifiers ??
+    previousModifiers ??
+    actionPreferences?.modifiers ??
+    [];
 
-  // TODO Is this really a good solution?
   // "bring line to after this" needs to infer line on second target
   const modifierTypes = [
     ...new Set(modifiers.map((modifier) => modifier.type)),
