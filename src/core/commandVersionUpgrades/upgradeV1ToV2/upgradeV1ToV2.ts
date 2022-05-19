@@ -33,15 +33,16 @@ function upgradeModifier(modifier: ModifierV0V1): Modifier | Modifier[] {
     case "identity":
       return [];
 
-    case "containingScope":
-      const { includeSiblings, scopeType, ...rest } = modifier;
+    case "containingScope": {
+      const { includeSiblings, scopeType, type, ...rest } = modifier;
       return {
         type: includeSiblings ? "everyScope" : "containingScope",
         scopeType: scopeType as ScopeType,
         ...rest,
       };
+    }
 
-    case "surroundingPair":
+    case "surroundingPair": {
       const { delimiterInclusion, ...rest } = modifier;
       if (delimiterInclusion === "interiorOnly") {
         return [rest, { type: "interiorOnly" }];
@@ -50,6 +51,7 @@ function upgradeModifier(modifier: ModifierV0V1): Modifier | Modifier[] {
         return [rest, { type: "excludeInterior" }];
       }
       return rest;
+    }
 
     default:
       return modifier;
