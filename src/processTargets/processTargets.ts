@@ -152,6 +152,10 @@ function processContinuousRangeTarget(
       if (endTarget.isLine) {
         return {
           range: new Range(contentRange.end, endTarget.contentRange.start),
+          highlight: new Range(
+            contentRange.end,
+            endTarget.contentRange.start.translate({ lineDelta: -1 })
+          ),
         };
       }
       return endTarget.leadingDelimiter;
