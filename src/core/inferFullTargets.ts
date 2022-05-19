@@ -124,9 +124,8 @@ function inferPrimitiveTarget(
     : undefined;
 
   const modifiers =
-    target.modifiers != null
-      ? target.modifiers
-      : implicitModifiers ??
+    target.modifiers ??
+      implicitModifiers ??
         previousModifiers ??
         actionPreferences?.modifiers ??
         [];
