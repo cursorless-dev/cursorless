@@ -1,4 +1,5 @@
 import { DecoratedSymbolMark, Target } from "../../typings/target.types";
+import BaseTarget from "../targets/BaseTarget";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { getTokenContext } from "../modifiers/scopeTypeStages/TokenStage";
 import { MarkStage } from "../PipelineStages.types";
@@ -16,17 +17,14 @@ export default class implements MarkStage {
         `Couldn't find mark ${this.modifier.symbolColor} '${this.modifier.character}'`
       );
     }
-    const target = {
-      editor: token.editor,
-      contentRange: token.range,
-      isReversed: false,
-    };
     return [
-      {
-        ...target,
-        ...getTokenContext(target),
+      new BaseTarget({
+        ...getTokenContext(token.editor, token.range),
         scopeType: "token",
-      },
+        editor: token.editor,
+        contentRange: token.range,
+        isReversed: false,
+      }),
     ];
   }
 }

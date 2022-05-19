@@ -4,9 +4,9 @@ import { getNodeMatcher } from "../../../languages/getNodeMatcher";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
-  ScopeTypeTarget,
   Target,
 } from "../../../typings/target.types";
+import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import {
   NodeMatcher,
   ProcessedTargetsContext,
@@ -43,12 +43,15 @@ export default class implements ModifierStage {
       throw new Error(`Couldn't find containing ${this.modifier.scopeType}`);
     }
 
-    return scopeNodes.map((scope) => ({
-      scopeType: this.modifier.scopeType,
-      delimiter: "\n",
-      ...selectionWithEditorWithContextToTarget(scope),
-      isReversed: target.isReversed,
-    }));
+    return scopeNodes.map(
+      (scope) =>
+        new ScopeTypeTarget({
+          delimiter: "\n",
+          ...selectionWithEditorWithContextToTarget(scope),
+          scopeType: this.modifier.scopeType,
+          isReversed: target.isReversed,
+        })
+    );
   }
 }
 

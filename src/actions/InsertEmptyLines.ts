@@ -4,10 +4,7 @@ import { performEditsAndUpdateSelections } from "../core/updateSelections/update
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { displayPendingEditDecorationsForRanges } from "../util/editDisplayUtils";
-import {
-  getContentSelection,
-  runOnTargetsForEachEditor,
-} from "../util/targetUtils";
+import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class InsertEmptyLines implements Action {
@@ -55,7 +52,7 @@ class InsertEmptyLines implements Action {
             editor,
             edits,
             [
-              targets.map((target) => getContentSelection(target)),
+              targets.map((target) => target.getContentSelection()),
               ranges.map((range) => new Selection(range.start, range.end)),
               editor.selections,
             ]

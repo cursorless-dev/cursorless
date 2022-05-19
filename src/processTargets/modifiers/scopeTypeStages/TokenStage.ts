@@ -2,9 +2,9 @@ import { Range, TextEditor } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
-  ScopeTypeTarget,
   Target,
 } from "../../../typings/target.types";
+import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getTokensInRange, PartialToken } from "../../../util/getTokensInRange";
 import { ModifierStage } from "../../PipelineStages.types";
@@ -57,22 +57,19 @@ export default class implements ModifierStage {
 
   getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
     const contentRange = getTokenRangeForSelection(target.editor, range);
-    const newTarget = {
+    return new ScopeTypeTarget({
+      ...getTokenContext(target.editor, contentRange),
       scopeType: this.modifier.scopeType,
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange,
-    };
-    return {
-      ...newTarget,
-      ...getTokenContext(newTarget),
-    };
+    });
   }
 }
 
-export function getTokenContext(target: Target) {
-  const { document } = target.editor;
-  const { start, end } = target.contentRange;
+export function getTokenContext(editor: TextEditor, contentRange: Range) {
+  const { document } = editor;
+  const { start, end } = contentRange;
   const endLine = document.lineAt(end);
 
   const startLine = document.lineAt(start);
@@ -107,11 +104,20 @@ export function getTokenContext(target: Target) {
 
   return {
     delimiter: " ",
-    removal: {
-      leadingDelimiterRange,
-      trailingDelimiterRange,
-      excludeDelimiters: !includeDelimitersInRemoval,
-    },
+    leadingDelimiter:
+      leadingDelimiterRange != null
+        ? {
+            range: leadingDelimiterRange,
+            exclude: !includeDelimitersInRemoval,
+          }
+        : undefined,
+    trailingDelimiter:
+      trailingDelimiterRange != null
+        ? {
+            range: trailingDelimiterRange,
+            exclude: !includeDelimitersInRemoval,
+          }
+        : undefined,
   };
 }
 

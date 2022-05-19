@@ -1,10 +1,10 @@
-import { Position, Range, TextDocument } from "vscode";
+import { Range, TextDocument, TextLine } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
-  ScopeTypeTarget,
   Target,
 } from "../../../typings/target.types";
+import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import { fitRangeToLineContent } from "./LineStage";
@@ -73,127 +73,109 @@ export default class implements ModifierStage {
   }
 
   getSingleTarget(target: Target): ScopeTypeTarget {
-    return this.getTargetFromRange(target, target.contentRange);
+    return this.getTargetFromRange(target);
   }
 
-  getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
+  getTargetFromRange(target: Target, range?: Range): ScopeTypeTarget {
     const { document } = target.editor;
+    const { lineAt } = document;
 
-    let startLine = document.lineAt(range.start);
-    if (!startLine.isEmptyOrWhitespace) {
-      while (startLine.lineNumber > 0) {
-        const line = document.lineAt(startLine.lineNumber - 1);
-        if (line.isEmptyOrWhitespace) {
-          break;
-        }
-        startLine = line;
-      }
-    }
-    const lineCount = document.lineCount;
-    let endLine = document.lineAt(range.end);
-    if (!endLine.isEmptyOrWhitespace) {
-      while (endLine.lineNumber + 1 < lineCount) {
-        const line = document.lineAt(endLine.lineNumber + 1);
-        if (line.isEmptyOrWhitespace) {
-          break;
-        }
-        endLine = line;
-      }
+    if (range == null) {
+      range = calculateRange(target);
     }
 
-    const start = new Position(
-      startLine.lineNumber,
-      startLine.firstNonWhitespaceCharacterIndex
-    );
-    const end = endLine.range.end;
-
+    const startLine = lineAt(range.start);
+    const endLine = lineAt(range.end);
     const contentRange = fitRangeToLineContent(
       target.editor,
-      new Range(start, end)
+      new Range(startLine.range.start, endLine.range.end)
     );
+    const removalRange = new Range(startLine.range.start, endLine.range.end);
+    const leadingLine = getPreviousNonEmptyLine(document, startLine);
+    const trailingLine = getNextNonEmptyLine(document, endLine);
 
-    const removalRange = new Range(
-      new Position(start.line, 0),
-      document.lineAt(end).range.end
-    );
+    const leadingDelimiter = (() => {
+      if (leadingLine != null) {
+        return {
+          range: new Range(leadingLine.range.end, startLine.range.start),
+          highlight: new Range(
+            lineAt(leadingLine.lineNumber + 1).range.start,
+            lineAt(startLine.lineNumber - 1).range.end
+          ),
+        };
+      }
+      if (startLine.lineNumber > 0) {
+        const { start } = lineAt(0).range;
+        return {
+          range: new Range(start, startLine.range.start),
+          highlight: new Range(
+            start,
+            lineAt(startLine.lineNumber - 1).range.end
+          ),
+        };
+      }
+      return undefined;
+    })();
 
-    const leadingLine = getPreviousNonEmptyLine(document, start.line);
-    const trailingLine = getNextNonEmptyLine(document, end.line);
+    const trailingDelimiter = (() => {
+      if (trailingLine != null) {
+        return {
+          range: new Range(endLine.range.end, trailingLine.range.start),
+          highlight: new Range(
+            lineAt(endLine.lineNumber + 1).range.start,
+            lineAt(trailingLine.lineNumber - 1).range.end
+          ),
+        };
+      }
+      if (contentRange.end.line < document.lineCount - 1) {
+        const { end } = lineAt(document.lineCount - 1).range;
+        return {
+          range: new Range(endLine.range.end, end),
+          highlight: new Range(lineAt(endLine.lineNumber - 1).range.end, end),
+        };
+      }
+      return undefined;
+    })();
 
-    const leadingDelimiterRange = getLeadingDelimiterRange(
-      document,
-      removalRange,
-      leadingLine?.range.end
-    );
-    const trailingDelimiterRange = getTrailingDelimiterRange(
-      document,
-      removalRange,
-      trailingLine?.range.start
-    );
-
-    const leadingDelimiterHighlightRange = getLeadingDelimiterRange(
-      document,
-      removalRange,
-      leadingLine ? new Position(leadingLine.range.end.line + 1, 0) : undefined
-    );
-    const trailingDelimiterHighlightRange = getTrailingDelimiterRange(
-      document,
-      removalRange,
-      trailingLine
-        ? document.lineAt(trailingLine.range.start.line - 1).range.end
-        : undefined
-    );
-
-    return {
+    return new ScopeTypeTarget({
       scopeType: this.modifier.scopeType,
       editor: target.editor,
       isReversed: target.isReversed,
       delimiter: "\n\n",
       contentRange,
-      removal: {
-        range: removalRange,
-        leadingDelimiterRange,
-        trailingDelimiterRange,
-        leadingDelimiterHighlightRange,
-        trailingDelimiterHighlightRange,
-      },
-    };
+      removal: { range: removalRange },
+      leadingDelimiter,
+      trailingDelimiter,
+    });
   }
 }
 
-function getLeadingDelimiterRange(
-  document: TextDocument,
-  removalRange: Range,
-  position?: Position
-) {
-  const start =
-    position != null
-      ? position
-      : removalRange.start.line > 0
-      ? new Position(0, 0)
-      : undefined;
-  return start != null ? new Range(start, removalRange.start) : undefined;
+function calculateRange(target: Target) {
+  const { document } = target.editor;
+  let startLine = document.lineAt(target.contentRange.start);
+  if (!startLine.isEmptyOrWhitespace) {
+    while (startLine.lineNumber > 0) {
+      const line = document.lineAt(startLine.lineNumber - 1);
+      if (line.isEmptyOrWhitespace) {
+        break;
+      }
+      startLine = line;
+    }
+  }
+  let endLine = document.lineAt(target.contentRange.end);
+  if (!endLine.isEmptyOrWhitespace) {
+    while (endLine.lineNumber + 1 < document.lineCount) {
+      const line = document.lineAt(endLine.lineNumber + 1);
+      if (line.isEmptyOrWhitespace) {
+        break;
+      }
+      endLine = line;
+    }
+  }
+  return new Range(startLine.range.start, endLine.range.end);
 }
 
-function getTrailingDelimiterRange(
-  document: TextDocument,
-  removalRange: Range,
-  position?: Position
-) {
-  const end =
-    position != null
-      ? position
-      : removalRange.end.line < document.lineCount - 1
-      ? document.lineAt(document.lineCount - 1).range.end
-      : undefined;
-  return end != null ? new Range(removalRange.end, end) : undefined;
-}
-
-function getPreviousNonEmptyLine(
-  document: TextDocument,
-  startLineNumber: number
-) {
-  let line = document.lineAt(startLineNumber);
+function getPreviousNonEmptyLine(document: TextDocument, line: TextLine) {
   while (line.lineNumber > 0) {
     const previousLine = document.lineAt(line.lineNumber - 1);
     if (!previousLine.isEmptyOrWhitespace) {
@@ -204,8 +186,7 @@ function getPreviousNonEmptyLine(
   return null;
 }
 
-function getNextNonEmptyLine(document: TextDocument, startLineNumber: number) {
-  let line = document.lineAt(startLineNumber);
+function getNextNonEmptyLine(document: TextDocument, line: TextLine) {
   while (line.lineNumber + 1 < document.lineCount) {
     const nextLine = document.lineAt(line.lineNumber + 1);
     if (!nextLine.isEmptyOrWhitespace) {

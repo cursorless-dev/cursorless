@@ -66,7 +66,7 @@ export default class CommandRunner {
       const {
         spokenForm,
         action: actionName,
-        targets: partialTargetDescs,
+        targets: partialTargetDescriptors,
         extraArgs,
         usePrePhraseSnapshot,
       } = commandComplete;
@@ -82,7 +82,7 @@ export default class CommandRunner {
       }
 
       const targetDescs = inferFullTargets(
-        partialTargetDescs,
+        partialTargetDescriptors,
         action.getTargetPreferences
           ? action.getTargetPreferences(...extraArgs)
           : undefined

@@ -1,11 +1,7 @@
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
-import {
-  createThatMark,
-  ensureSingleTarget,
-  getContentText,
-} from "../util/targetUtils";
+import { createThatMark, ensureSingleTarget } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class GetText implements Action {
@@ -32,7 +28,7 @@ export default class GetText implements Action {
     }
 
     return {
-      returnValue: targets.map(getContentText),
+      returnValue: targets.map((target) => target.getContentText()),
       thatMark: createThatMark(targets),
     };
   }

@@ -9,10 +9,7 @@ import { Edit, Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import {
   getContentRange,
-  getContentSelection,
-  getContentText,
   getRemovalRange,
-  maybeAddDelimiter,
   runForEachEditor,
 } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
@@ -23,14 +20,14 @@ type ActionType = "bring" | "move" | "swap";
 interface ExtendedEdit extends Edit {
   editor: TextEditor;
   isSource: boolean;
-  originalSelection: Target;
+  originalTarget: Target;
 }
 
 interface MarkEntry {
   editor: TextEditor;
   selection: Selection;
   isSource: boolean;
-  typedSelection: Target;
+  target: Target;
 }
 
 class BringMoveSwap implements Action {
@@ -47,7 +44,7 @@ class BringMoveSwap implements Action {
     return sources;
   }
 
-  private getDecorationStyles() {
+  private getDecorationContext() {
     let sourceStyle;
     let getSourceRangeCallback;
     if (this.type === "bring") {
@@ -70,16 +67,16 @@ class BringMoveSwap implements Action {
   }
 
   private async decorateTargets(sources: Target[], destinations: Target[]) {
-    const decorationTypes = this.getDecorationStyles();
+    const decorationContext = this.getDecorationContext();
     await Promise.all([
       displayPendingEditDecorations(
         sources,
-        decorationTypes.sourceStyle,
-        decorationTypes.getSourceRangeCallback
+        decorationContext.sourceStyle,
+        decorationContext.getSourceRangeCallback
       ),
       displayPendingEditDecorations(
         destinations,
-        decorationTypes.destinationStyle
+        decorationContext.destinationStyle
       ),
     ]);
   }
@@ -103,7 +100,7 @@ class BringMoveSwap implements Action {
         if (zipSources) {
           text = sources
             .map((source, i) => {
-              const text = getContentText(source);
+              const text = source.getContentText();
               const containingListDelimiter =
                 destination.delimiter ?? source.delimiter;
               return i > 0 && containingListDelimiter
@@ -111,7 +108,7 @@ class BringMoveSwap implements Action {
                 : text;
             })
             .join("");
-          text = maybeAddDelimiter(text, destination);
+          text = destination.maybeAddDelimiter(text);
         } else {
           // Get text adjusting for destination position
           text = getTextWithPossibleDelimiter(source, destination);
@@ -121,7 +118,7 @@ class BringMoveSwap implements Action {
           range: destination.contentRange,
           text,
           editor: destination.editor,
-          originalSelection: destination,
+          originalTarget: destination,
           isSource: false,
           isReplace:
             destination.position === "after" || destination.position === "end",
@@ -137,9 +134,9 @@ class BringMoveSwap implements Action {
         if (this.type !== "move") {
           results.push({
             range: source.contentRange,
-            text: getContentText(destination),
+            text: destination.getContentText(),
             editor: source.editor,
-            originalSelection: source,
+            originalTarget: source,
             isSource: true,
             isReplace: false,
           });
@@ -151,10 +148,10 @@ class BringMoveSwap implements Action {
       // Unify overlapping targets.
       unifyRemovalTargets(usedSources).forEach((source) => {
         results.push({
-          range: getRemovalRange(source),
+          range: source.getRemovalRange(),
           text: "",
           editor: source.editor,
-          originalSelection: source,
+          originalTarget: source,
           isSource: true,
           isReplace: false,
         });
@@ -178,10 +175,10 @@ class BringMoveSwap implements Action {
               ? edits
               : edits.filter(({ isSource }) => !isSource);
 
-          const editSelectionInfos = edits.map(({ originalSelection }) =>
+          const editSelectionInfos = edits.map(({ originalTarget }) =>
             getSelectionInfo(
               editor.document,
-              getContentSelection(originalSelection),
+              originalTarget.getContentSelection(),
               DecorationRangeBehavior.OpenOpen
             )
           );
@@ -204,14 +201,14 @@ class BringMoveSwap implements Action {
 
           editor.selections = cursorSelections;
 
-          return edits.map((edit, index) => {
+          return edits.map((edit, index): MarkEntry => {
             const selection = updatedEditSelections[index];
             return {
               editor,
               selection,
               isSource: edit!.isSource,
-              typedSelection: {
-                ...edit!.originalSelection,
+              target: {
+                ...edit!.originalTarget,
                 contentRange: selection,
               },
             };
@@ -222,19 +219,17 @@ class BringMoveSwap implements Action {
   }
 
   private async decorateThatMark(thatMark: MarkEntry[]) {
-    const decorationTypes = this.getDecorationStyles();
+    const decorationContext = this.getDecorationContext();
     return Promise.all([
       displayPendingEditDecorations(
-        thatMark
-          .filter(({ isSource }) => isSource)
-          .map(({ typedSelection }) => typedSelection),
-        decorationTypes.sourceStyle
+        thatMark.filter(({ isSource }) => isSource).map(({ target }) => target),
+        decorationContext.sourceStyle
       ),
       displayPendingEditDecorations(
         thatMark
           .filter(({ isSource }) => !isSource)
-          .map(({ typedSelection }) => typedSelection),
-        decorationTypes.destinationStyle
+          .map(({ target }) => target),
+        decorationContext.destinationStyle
       ),
     ]);
   }
@@ -295,6 +290,6 @@ export class Swap extends BringMoveSwap {
 
 /** Get text from selection. Possibly add delimiter for positions before/after */
 function getTextWithPossibleDelimiter(source: Target, destination: Target) {
-  const sourceText = getContentText(source);
-  return maybeAddDelimiter(sourceText, destination);
+  const sourceText = source.getContentText();
+  return destination.maybeAddDelimiter(sourceText);
 }

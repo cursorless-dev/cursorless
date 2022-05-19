@@ -2,11 +2,7 @@ import { Selection } from "vscode";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
-import {
-  createThatMark,
-  ensureSingleEditor,
-  getContentSelection,
-} from "../util/targetUtils";
+import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export class SetSelection implements Action {
@@ -15,7 +11,7 @@ export class SetSelection implements Action {
   }
 
   protected getSelection(target: Target) {
-    return getContentSelection(target);
+    return target.getContentSelection();
   }
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {

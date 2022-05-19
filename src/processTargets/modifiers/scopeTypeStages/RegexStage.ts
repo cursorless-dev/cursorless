@@ -2,9 +2,9 @@ import { Position, Range, TextEditor } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
-  ScopeTypeTarget,
   Target,
 } from "../../../typings/target.types";
+import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import { getTokenContext } from "./TokenStage";
@@ -64,16 +64,13 @@ class RegexStage implements ModifierStage {
   }
 
   getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
-    const newTarget = {
+    return new ScopeTypeTarget({
+      ...getTokenContext(target.editor, range),
       scopeType: this.modifier.scopeType,
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange: range,
-    };
-    return {
-      ...newTarget,
-      ...getTokenContext(newTarget),
-    };
+    });
   }
 
   getMatchForPos(editor: TextEditor, position: Position) {

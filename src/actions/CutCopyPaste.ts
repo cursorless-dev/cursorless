@@ -1,4 +1,5 @@
 import { Target } from "../typings/target.types";
+import BaseTarget from "../processTargets/targets/BaseTarget";
 import { Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import {
@@ -14,20 +15,21 @@ export class Cut implements Action {
   }
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
-    const overflowTargets = targets.flatMap((target) =>
-      getOutsideOverflow(
-        target.editor,
-        target.contentRange,
-        getRemovalHighlightRange(target)
-      ).map(
-        (overflow): Target => ({
-          editor: target.editor,
-          scopeType: target.scopeType,
-          contentRange: overflow,
-          isReversed: false,
-        })
-      )
-    );
+    const overflowTargets = targets.flatMap((target) => {
+      const range = getRemovalHighlightRange(target);
+      if (range == null) {
+        return [];
+      }
+      return getOutsideOverflow(target.editor, target.contentRange, range).map(
+        (overflow): Target =>
+          new BaseTarget({
+            editor: target.editor,
+            scopeType: target.scopeType,
+            contentRange: overflow,
+            isReversed: false,
+          })
+      );
+    });
 
     await Promise.all([
       displayPendingEditDecorations(targets, this.graph.editStyles.referenced),

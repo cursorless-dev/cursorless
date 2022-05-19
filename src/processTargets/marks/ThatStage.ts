@@ -1,4 +1,5 @@
 import { Target, ThatMark } from "../../typings/target.types";
+import BaseTarget from "../targets/BaseTarget";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { isReversed } from "../../util/selectionUtils";
 import { getTokenContext } from "../modifiers/scopeTypeStages/TokenStage";
@@ -9,15 +10,12 @@ export default class implements MarkStage {
 
   run(context: ProcessedTargetsContext): Target[] {
     return context.thatMark.map((selection) => {
-      const target = {
+      return new BaseTarget({
+        ...getTokenContext(selection.editor, selection.selection),
         editor: selection.editor,
         isReversed: isReversed(selection.selection),
         contentRange: selection.selection,
-      };
-      return {
-        ...target,
-        ...getTokenContext(target),
-      };
+      });
     });
   }
 }

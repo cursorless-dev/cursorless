@@ -2,9 +2,9 @@ import { Position, Range, TextEditor } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
-  ScopeTypeTarget,
   Target,
 } from "../../../typings/target.types";
+import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 
@@ -50,13 +50,13 @@ export default class implements ModifierStage {
 
   getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
     const contentRange = fitRangeToLineContent(target.editor, range);
-    return {
+    return new ScopeTypeTarget({
       scopeType: this.modifier.scopeType,
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange,
       ...getLineContext(target.editor, contentRange),
-    };
+    });
   }
 }
 
@@ -82,9 +82,15 @@ export function getLineContext(editor: TextEditor, range: Range) {
     delimiter: "\n",
     removal: {
       range: removalRange,
-      leadingDelimiterRange,
-      trailingDelimiterRange,
     },
+    leadingDelimiter:
+      leadingDelimiterRange != null
+        ? { range: leadingDelimiterRange }
+        : undefined,
+    trailingDelimiter:
+      trailingDelimiterRange != null
+        ? { range: trailingDelimiterRange }
+        : undefined,
   };
 }
 

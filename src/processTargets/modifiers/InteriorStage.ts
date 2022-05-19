@@ -3,6 +3,7 @@ import {
   InteriorOnlyModifier,
   Target,
 } from "../../typings/target.types";
+import BaseTarget from "../targets/BaseTarget";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import { processedSurroundingPairTarget } from "./SurroundingPairStage";
@@ -41,11 +42,12 @@ export class InteriorOnlyStage extends InteriorStage {
     if (target.interiorRange == null) {
       throw Error("No available interior");
     }
-    return {
+    const contentRange = target.interiorRange;
+    return new BaseTarget({
       editor: target.editor,
       isReversed: target.isReversed,
-      contentRange: target.interiorRange,
-    };
+      contentRange,
+    });
   }
 
   hasData(target: Target): boolean {
@@ -62,11 +64,14 @@ export class ExcludeInteriorStage extends InteriorStage {
     if (target.boundary == null) {
       throw Error("No available boundaries");
     }
-    return target.boundary.map((contentRange) => ({
-      editor: target.editor,
-      isReversed: target.isReversed,
-      contentRange,
-    }));
+    return target.boundary.map(
+      (contentRange) =>
+        new BaseTarget({
+          editor: target.editor,
+          isReversed: target.isReversed,
+          contentRange,
+        })
+    );
   }
 
   hasData(target: Target): boolean {

@@ -1,9 +1,6 @@
 import { Range, TextEditor, window } from "vscode";
-import {
-  LineNumberMark,
-  LineNumberPosition,
-  ScopeTypeTarget,
-} from "../../typings/target.types";
+import { LineNumberMark, LineNumberPosition } from "../../typings/target.types";
+import ScopeTypeTarget from "../targets/ScopeTypeTarget";
 import { getLineContext } from "../modifiers/scopeTypeStages/LineStage";
 import { MarkStage } from "../PipelineStages.types";
 
@@ -22,13 +19,13 @@ export default class implements MarkStage {
       0
     );
     return [
-      {
+      new ScopeTypeTarget({
         ...getLineContext(editor, contentRange),
         editor,
         contentRange,
         isReversed: false,
         scopeType: "line",
-      },
+      }),
     ];
   }
 }

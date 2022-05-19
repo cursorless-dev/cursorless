@@ -1,13 +1,9 @@
-import { zip, flatten } from "lodash";
+import { flatten, zip } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
-import {
-  getContentSelection,
-  maybeAddDelimiter,
-  runForEachEditor,
-} from "../util/targetUtils";
+import { runForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 type RangeGenerator = { start: number };
@@ -53,7 +49,7 @@ export default class implements Action {
     const edits = zip(targets, texts).map(([target, text]) => ({
       editor: target!.editor,
       range: target!.contentRange,
-      text: maybeAddDelimiter(text!, target!),
+      text: target!.maybeAddDelimiter(text!),
     }));
 
     const thatMark = flatten(
@@ -65,7 +61,7 @@ export default class implements Action {
             this.graph.rangeUpdater,
             editor,
             edits,
-            [targets.map(getContentSelection)]
+            [targets.map((target) => target.getContentSelection())]
           );
 
           return updatedSelections.map((selection) => ({

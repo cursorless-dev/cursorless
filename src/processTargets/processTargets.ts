@@ -1,13 +1,16 @@
 import { zip } from "lodash";
 import { Range } from "vscode";
 import {
-  PrimitiveTargetDesc,
-  RangeTargetDesc,
+  PrimitiveTargetDescriptor,
+  RangeTargetDescriptor,
+  RemovalRange,
   Target,
-  TargetDesc,
+  TargetDescriptor,
 } from "../typings/target.types";
+import BaseTarget from "./targets/BaseTarget";
 import { ProcessedTargetsContext } from "../typings/Types";
 import { filterDuplicates } from "../util/filterDuplicates";
+import { parseRemovalRange } from "../util/targetUtils";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
 
@@ -27,7 +30,7 @@ import getModifierStage from "./getModifierStage";
  */
 export default function (
   context: ProcessedTargetsContext,
-  targets: TargetDesc[]
+  targets: TargetDescriptor[]
 ): Target[][] {
   return targets.map((target) =>
     filterDuplicates(processTarget(context, target))
@@ -36,7 +39,7 @@ export default function (
 
 function processTarget(
   context: ProcessedTargetsContext,
-  target: TargetDesc
+  target: TargetDescriptor
 ): Target[] {
   switch (target.type) {
     case "list":
@@ -52,7 +55,7 @@ function processTarget(
 
 function processRangeTarget(
   context: ProcessedTargetsContext,
-  targetDesc: RangeTargetDesc
+  targetDesc: RangeTargetDescriptor
 ): Target[] {
   const anchorTargets = processPrimitiveTarget(context, targetDesc.anchor);
   const activeTargets = processPrimitiveTarget(context, targetDesc.active);
@@ -96,71 +99,62 @@ function processContinuousRangeTarget(
   excludeActive: boolean
 ): Target[] {
   const isForward = calcIsForward(anchorTarget, activeTarget);
-  const anchorContext = excludeAnchor ? undefined : anchorTarget;
-  const activeContext = excludeActive ? undefined : activeTarget;
+  const startTarget = isForward ? anchorTarget : activeTarget;
+  const endTarget = isForward ? activeTarget : anchorTarget;
+  const excludeStart = isForward ? excludeAnchor : excludeActive;
+  const excludeEnd = isForward ? excludeActive : excludeAnchor;
 
-  const contentRange = unionRanges(
-    isForward,
-    excludeAnchor,
-    excludeActive,
-    anchorTarget.contentRange,
-    activeTarget.contentRange
-  )!;
+  const contentStart = excludeStart
+    ? startTarget.contentRange.end
+    : startTarget.contentRange.start;
+  const contentEnd = excludeEnd
+    ? endTarget.contentRange.start
+    : endTarget.contentRange.end;
+  const contentRange = new Range(contentStart, contentEnd);
 
-  const interiorRange = unionRanges(
-    isForward,
-    excludeAnchor,
-    excludeActive,
-    anchorTarget.interiorRange,
-    activeTarget.interiorRange
-  );
+  const removalRange = ((): RemovalRange | undefined => {
+    const startRange = parseRemovalRange(startTarget.removal);
+    const endRange = parseRemovalRange(endTarget.removal);
+    if (startRange == null && endRange == null) {
+      return undefined;
+    }
+    const startRemovalRange =
+      startTarget.removal?.range ?? startTarget.contentRange;
+    const endRemovalRange = endTarget.removal?.range ?? endTarget.contentRange;
+    return {
+      range: new Range(startRemovalRange.start, endRemovalRange.end),
+    };
+  })();
 
-  const hasRemovalRange =
-    anchorContext?.removal?.range != null ||
-    activeContext?.removal?.range != null;
-  const anchorRemovalRange = hasRemovalRange
-    ? anchorContext?.removal?.range ?? anchorContext?.contentRange
-    : undefined;
-  const activeRemovalRange = hasRemovalRange
-    ? activeContext?.removal?.range ?? activeContext?.contentRange
-    : undefined;
-  const removalRange = unionRanges(
-    isForward,
-    excludeAnchor,
-    excludeActive,
-    anchorRemovalRange,
-    activeRemovalRange
-  );
+  const leadingDelimiterRange = excludeStart
+    ? startTarget.trailingDelimiter
+    : startTarget.leadingDelimiter;
+  const trailingDelimiterRange = excludeEnd
+    ? endTarget.leadingDelimiter
+    : endTarget.trailingDelimiter;
 
-  const leadingDelimiterRange = isForward
-    ? anchorContext?.removal?.leadingDelimiterRange
-    : activeContext?.removal?.leadingDelimiterRange;
-  const trailingDelimiterRange = isForward
-    ? activeContext?.removal?.trailingDelimiterRange
-    : anchorContext?.removal?.trailingDelimiterRange;
+  const scopeType =
+    startTarget.scopeType === endTarget.scopeType
+      ? startTarget.scopeType
+      : undefined;
 
-  const leadingDelimiterHighlightRange = isForward
-    ? anchorContext?.removal?.leadingDelimiterHighlightRange
-    : activeContext?.removal?.leadingDelimiterHighlightRange;
-  const trailingDelimiterHighlightRange = isForward
-    ? activeContext?.removal?.trailingDelimiterHighlightRange
-    : anchorContext?.removal?.trailingDelimiterHighlightRange;
+  // If both objects are of the same type create a new object of the same
+  const startConstructor = Object.getPrototypeOf(startTarget).constructor;
+  const endConstructor = Object.getPrototypeOf(endTarget).constructor;
+  const constructorFunk =
+    startConstructor === endConstructor ? startConstructor : BaseTarget;
 
   return [
-    {
+    new constructorFunk({
       editor: activeTarget.editor,
       isReversed: !isForward,
       delimiter: anchorTarget.delimiter,
       contentRange,
-      interiorRange,
-      removal: {
-        range: removalRange,
-        leadingDelimiterRange,
-        trailingDelimiterRange,
-        leadingDelimiterHighlightRange,
-        trailingDelimiterHighlightRange,
-      },
-    },
+      scopeType,
+      removal: removalRange,
+      leadingDelimiter: leadingDelimiterRange,
+      trailingDelimiter: trailingDelimiterRange,
+    }),
   ];
 }
 
@@ -174,29 +168,6 @@ export function targetsToContinuousTarget(
     false,
     false
   )[0];
-}
-
-function unionRanges(
-  isForward: boolean,
-  excludeAnchor: boolean,
-  excludeActive: boolean,
-  anchor?: Range,
-  active?: Range
-) {
-  if (anchor == null || active == null) {
-    return anchor == null ? active : anchor;
-  }
-  return new Range(
-    getPosition(anchor, isForward, excludeAnchor),
-    getPosition(active, !isForward, excludeActive)
-  );
-}
-
-function getPosition(range: Range, isStartOfRange: boolean, exclude: boolean) {
-  if (exclude) {
-    return isStartOfRange ? range.end : range.start;
-  }
-  return isStartOfRange ? range.start : range.end;
 }
 
 function processVerticalRangeTarget(
@@ -219,18 +190,21 @@ function processVerticalRangeTarget(
 
   const results: Target[] = [];
   for (let i = anchorLine; true; i += delta) {
-    results.push({
-      editor: anchorTarget.editor,
-      isReversed: anchorTarget.isReversed,
-      delimiter: anchorTarget.delimiter,
-      position: anchorTarget.position,
-      contentRange: new Range(
-        i,
-        anchorTarget.contentRange.start.character,
-        i,
-        anchorTarget.contentRange.end.character
-      ),
-    });
+    const contentRange = new Range(
+      i,
+      anchorTarget.contentRange.start.character,
+      i,
+      anchorTarget.contentRange.end.character
+    );
+    results.push(
+      new BaseTarget({
+        editor: anchorTarget.editor,
+        isReversed: anchorTarget.isReversed,
+        delimiter: anchorTarget.delimiter,
+        position: anchorTarget.position,
+        contentRange,
+      })
+    );
     if (i === activeLine) {
       return results;
     }
@@ -239,27 +213,27 @@ function processVerticalRangeTarget(
 
 function processPrimitiveTarget(
   context: ProcessedTargetsContext,
-  target: PrimitiveTargetDesc
+  target: PrimitiveTargetDescriptor
 ): Target[] {
   const markStage = getMarkStage(target.mark);
-  let selections = markStage.run(context);
+  let targets = markStage.run(context);
 
   for (let i = target.modifiers.length - 1; i > -1; --i) {
     const modifier = target.modifiers[i];
     const stage = getModifierStage(modifier);
     const stageSelections: Target[] = [];
-    for (const selection of selections) {
-      const stageResult = stage.run(context, selection);
+    for (const target of targets) {
+      const stageResult = stage.run(context, target);
       if (Array.isArray(stageResult)) {
         stageSelections.push(...stageResult);
       } else {
         stageSelections.push(stageResult);
       }
     }
-    selections = stageSelections;
+    targets = stageSelections;
   }
 
-  return selections;
+  return targets;
 }
 
 function calcIsForward(anchor: Target, active: Target) {

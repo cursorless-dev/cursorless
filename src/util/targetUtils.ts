@@ -1,7 +1,12 @@
 import { zip } from "lodash";
 import { Range, Selection, TextEditor } from "vscode";
 import { getTokenContext } from "../processTargets/modifiers/scopeTypeStages/TokenStage";
-import { Target } from "../typings/target.types";
+import {
+  RemovalRange,
+  ScopeType,
+  Target,
+  TargetParameters,
+} from "../typings/target.types";
 import {
   SelectionContext,
   SelectionWithEditor,
@@ -91,16 +96,6 @@ export function getContentRange(target: Target) {
   return target.contentRange;
 }
 
-export function getContentText(target: Target) {
-  return target.editor.document.getText(target.contentRange);
-}
-
-export function getContentSelection(target: Target) {
-  return target.isReversed
-    ? new Selection(target.contentRange.end, target.contentRange.start)
-    : new Selection(target.contentRange.start, target.contentRange.end);
-}
-
 export function createThatMark(
   targets: Target[],
   ranges?: Range[]
@@ -115,47 +110,32 @@ export function createThatMark(
   }
   return targets.map((target) => ({
     editor: target!.editor,
-    selection: getContentSelection(target),
+    selection: target.getContentSelection(),
   }));
 }
 
 export function getRemovalRange(target: Target) {
-  const contentRange = target.removal?.range ?? target.contentRange;
-  const delimiterRange =
-    target.removal?.trailingDelimiterRange ??
-    target.removal?.leadingDelimiterRange;
-  return delimiterRange != null && !target.removal?.excludeDelimiters
-    ? contentRange.union(delimiterRange)
-    : contentRange;
+  return target.getRemovalRange();
 }
 
 export function getRemovalHighlightRange(target: Target) {
-  const contentRange = target.removal?.range ?? target.contentRange;
-  const delimiterRange =
-    target.removal?.trailingDelimiterHighlightRange ??
-    target.removal?.trailingDelimiterRange ??
-    target.removal?.leadingDelimiterHighlightRange ??
-    target.removal?.leadingDelimiterRange;
-  return delimiterRange != null && !target.removal?.excludeDelimiters
-    ? contentRange.union(delimiterRange)
-    : contentRange;
+  return target.getRemovalHighlightRange();
 }
 
-/** Possibly add delimiter for positions before/after */
-export function maybeAddDelimiter(text: string, target: Target) {
-  if (target.delimiter != null) {
-    if (target.position === "before") {
-      return text + target.delimiter;
-    }
-    if (target.position === "after") {
-      return target.delimiter + text;
-    }
-  }
-  return text;
+export function parseRemovalRange(
+  range?: RemovalRange
+): Required<RemovalRange> | undefined {
+  return range != null && !range.exclude
+    ? {
+        range: range.range,
+        highlight: range.highlight ?? range.range,
+        exclude: false,
+      }
+    : undefined;
 }
 
-export function isLineScopeType(target: Target) {
-  switch (target.scopeType) {
+export function isLineScopeType(scopeType?: ScopeType) {
+  switch (scopeType) {
     case "line":
     case "paragraph":
     case "document":
@@ -167,41 +147,48 @@ export function isLineScopeType(target: Target) {
 
 export function selectionWithEditorWithContextToTarget(
   selection: SelectionWithEditorWithContext
-): Target {
+): TargetParameters {
   // TODO Only use giving context in the future when all the containing scopes have proper delimiters.
   // For now fall back on token context
   const { context } = selection;
-  const { containingListDelimiter, interiorRange, boundary, removalRange } =
-    context;
-  const contentRange = selection.selection.selection;
-  const newTarget = {
-    editor: selection.selection.editor,
+  const {
+    containingListDelimiter,
+    interiorRange,
+    boundary,
+    removalRange,
+    leadingDelimiterRange,
+    trailingDelimiterRange,
+  } = context;
+  const { editor, selection: contentRange } = selection.selection;
+
+  const tokenContext = useTokenContext(selection.context)
+    ? getTokenContext(editor, contentRange)
+    : undefined;
+
+  const leadingDelimiter =
+    tokenContext?.leadingDelimiter != null
+      ? tokenContext.leadingDelimiter
+      : leadingDelimiterRange != null
+      ? { range: leadingDelimiterRange }
+      : undefined;
+
+  const trailingDelimiter =
+    tokenContext?.trailingDelimiter != null
+      ? tokenContext.trailingDelimiter
+      : trailingDelimiterRange != null
+      ? { range: trailingDelimiterRange }
+      : undefined;
+
+  return {
+    editor,
     isReversed: isReversed(contentRange),
     contentRange,
     interiorRange,
     boundary,
-  };
-
-  const tokenContext = useTokenContext(selection.context)
-    ? getTokenContext(newTarget)
-    : undefined;
-  const leadingDelimiterRange =
-    context.leadingDelimiterRange ??
-    tokenContext?.removal.leadingDelimiterRange;
-  const trailingDelimiterRange =
-    context.trailingDelimiterRange ??
-    tokenContext?.removal.trailingDelimiterRange;
-  const delimiter = tokenContext?.delimiter ?? containingListDelimiter ?? "\n";
-
-  return {
-    ...newTarget,
-    delimiter,
-    removal: {
-      range: removalRange,
-      leadingDelimiterRange,
-      trailingDelimiterRange,
-      excludeDelimiters: tokenContext?.removal.excludeDelimiters,
-    },
+    delimiter: tokenContext?.delimiter ?? containingListDelimiter ?? "\n",
+    removal: removalRange != null ? { range: removalRange } : undefined,
+    leadingDelimiter,
+    trailingDelimiter,
   };
 }
 

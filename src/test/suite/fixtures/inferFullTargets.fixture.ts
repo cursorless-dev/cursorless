@@ -1,6 +1,9 @@
 // @ts-nocheck
 import { ActionPreferences, InferenceContext } from "../../../typings/Types";
-import { PartialTargetDesc, TargetDesc } from "../../../typings/target.types";
+import {
+  PartialTargetDesc,
+  TargetDescriptor,
+} from "../../../typings/target.types";
 
 interface FixtureInput {
   context: InferenceContext;
@@ -10,7 +13,7 @@ interface FixtureInput {
 
 interface Fixture {
   input: FixtureInput;
-  expectedOutput: TargetDesc[];
+  expectedOutput: TargetDescriptor[];
 }
 
 const fixture: Fixture[] = [

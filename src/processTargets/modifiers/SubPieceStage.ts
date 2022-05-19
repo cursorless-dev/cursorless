@@ -2,6 +2,7 @@ import { range } from "lodash";
 import { Range } from "vscode";
 import { SUBWORD_MATCHER } from "../../core/constants";
 import { SubTokenModifier, Target } from "../../typings/target.types";
+import BaseTarget from "../targets/BaseTarget";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 
@@ -91,15 +92,19 @@ export default class implements ModifierStage {
         )
       : undefined;
 
-    return {
+    return new BaseTarget({
       editor: target.editor,
       isReversed,
       contentRange,
       delimiter: containingListDelimiter,
-      removal: {
-        leadingDelimiterRange,
-        trailingDelimiterRange,
-      },
-    };
+      leadingDelimiter:
+        leadingDelimiterRange != null
+          ? { range: leadingDelimiterRange }
+          : undefined,
+      trailingDelimiter:
+        trailingDelimiterRange != null
+          ? { range: trailingDelimiterRange }
+          : undefined,
+    });
   }
 }

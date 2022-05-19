@@ -1,4 +1,4 @@
-import { Range, TextEditor } from "vscode";
+import { Range, Selection, TextEditor } from "vscode";
 import { HatStyleName } from "../core/constants";
 
 export interface CursorMark {
@@ -207,15 +207,15 @@ export type PartialTargetDesc =
   | PartialRangeTargetDesc
   | PartialListTargetDesc;
 
-export interface PrimitiveTargetDesc extends PartialPrimitiveTargetDesc {
+export interface PrimitiveTargetDescriptor extends PartialPrimitiveTargetDesc {
   mark: Mark;
   modifiers: Modifier[];
 }
 
-export interface RangeTargetDesc {
+export interface RangeTargetDescriptor {
   type: "range";
-  anchor: PrimitiveTargetDesc;
-  active: PrimitiveTargetDesc;
+  anchor: PrimitiveTargetDescriptor;
+  active: PrimitiveTargetDescriptor;
   excludeAnchor: boolean;
   excludeActive: boolean;
   rangeType: RangeType;
@@ -225,14 +225,23 @@ export interface RangeTargetDesc {
 // vertical puts a selection on each line vertically between the two targets
 export type RangeType = "continuous" | "vertical";
 
-export interface ListTargetDesc {
+export interface ListTargetDescriptor {
   type: "list";
-  elements: (PrimitiveTargetDesc | RangeTargetDesc)[];
+  elements: (PrimitiveTargetDescriptor | RangeTargetDescriptor)[];
 }
 
-export type TargetDesc = PrimitiveTargetDesc | RangeTargetDesc | ListTargetDesc;
+export type TargetDescriptor =
+  | PrimitiveTargetDescriptor
+  | RangeTargetDescriptor
+  | ListTargetDescriptor;
 
-export interface Target {
+export interface RemovalRange {
+  range: Range;
+  highlight?: Range;
+  exclude?: boolean;
+}
+
+export interface TargetParameters {
   /**
    * The text editor used for all ranges
    */
@@ -278,42 +287,25 @@ export interface Target {
   boundary?: [Range, Range];
 
   /**
-   * Related to removal
+   * The range that needs to be removed
    */
-  removal?: {
-    /**
-     * The range that needs to be removed
-     */
-    range?: Range;
+  removal?: RemovalRange;
 
-    /**
-     * The range of the delimiter before the content selection
-     */
-    leadingDelimiterRange?: Range;
+  /**
+   * The range of the delimiter before the content selection
+   */
+  leadingDelimiter?: RemovalRange;
 
-    /**
-     * The range of the delimiter after the content selection
-     */
-    trailingDelimiterRange?: Range;
-
-    /**
-     * The range that needs to be highlighted on leading delimiter removal
-     */
-    leadingDelimiterHighlightRange?: Range;
-
-    /**
-     * The range that needs to be highlighted on trailing delimiteraremoval
-     */
-    trailingDelimiterHighlightRange?: Range;
-
-    /**
-     * If true the delimiter ranges are only head to be used with positions before/after
-     */
-    excludeDelimiters?: boolean;
-  };
+  /**
+   * The range of the delimiter after the content selection
+   */
+  trailingDelimiter?: RemovalRange;
 }
 
-export interface ScopeTypeTarget extends Target {
-  scopeType: ScopeType;
-  delimiter: string;
+export interface Target extends TargetParameters {
+  getContentSelection(): Selection;
+  getContentText(): string;
+  maybeAddDelimiter(text: string): string;
+  getRemovalRange(): Range;
+  getRemovalHighlightRange(): Range | undefined;
 }

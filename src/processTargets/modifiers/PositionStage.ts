@@ -8,12 +8,14 @@ export default class implements ModifierStage {
 
   run(context: ProcessedTargetsContext, target: Target): Target {
     const { position } = this.modifier;
+    const { start, end } = target.contentRange;
     const {
       editor,
       isReversed,
-      contentRange,
       delimiter,
-      removal: { leadingDelimiterRange, trailingDelimiterRange } = {},
+      scopeType,
+      leadingDelimiter,
+      trailingDelimiter,
     } = target;
 
     const common = {
@@ -22,40 +24,41 @@ export default class implements ModifierStage {
       isReversed,
     };
 
+    const constructor = Object.getPrototypeOf(target).constructor;
+
     switch (position) {
       case "before":
-        return {
+        return new constructor({
           ...common,
-          contentRange: new Range(contentRange.start, contentRange.start),
+          contentRange: new Range(start, start),
           delimiter,
-          removal: {
-            range: leadingDelimiterRange,
-          },
-        };
+          scopeType,
+          leadingDelimiter,
+        });
 
       case "after":
-        return {
+        return new constructor({
           ...common,
-          contentRange: new Range(contentRange.end, contentRange.end),
+          contentRange: new Range(end, end),
           delimiter,
-          removal: {
-            range: trailingDelimiterRange,
-          },
-        };
+          scopeType,
+          trailingDelimiter,
+        });
 
       case "start":
-        return {
+        return new constructor({
           ...common,
-          contentRange: new Range(contentRange.start, contentRange.start),
-          delimiter: "", // This it NOT a raw target. Joining with this should be done on empty delimiter.
-        };
+          contentRange: new Range(start, start),
+          // This it NOT a raw target. Joining with this should be done on empty delimiter.
+          delimiter: "",
+        });
 
       case "end":
-        return {
+        return new constructor({
           ...common,
-          contentRange: new Range(contentRange.end, contentRange.end),
+          contentRange: new Range(end, end),
           delimiter: "",
-        };
+        });
     }
   }
 }

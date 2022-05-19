@@ -1,5 +1,6 @@
 import { Position, Range, TextEditor } from "vscode";
 import { HeadModifier, TailModifier, Target } from "../../typings/target.types";
+import BaseTarget from "../targets/BaseTarget";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 
@@ -9,11 +10,12 @@ abstract class HeadTailStage implements ModifierStage {
   constructor(private isReversed: boolean) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target {
-    return {
+    const contentRange = this.update(target.editor, target.contentRange);
+    return new BaseTarget({
       editor: target.editor,
       isReversed: this.isReversed,
-      contentRange: this.update(target.editor, target.contentRange),
-    };
+      contentRange,
+    });
   }
 }
 

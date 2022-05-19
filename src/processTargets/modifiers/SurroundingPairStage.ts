@@ -2,6 +2,7 @@ import { SurroundingPairModifier, Target } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { selectionWithEditorWithContextToTarget } from "../../util/targetUtils";
 import { ModifierStage } from "../PipelineStages.types";
+import BaseTarget from "../targets/BaseTarget";
 import { processSurroundingPair } from "./surroundingPair";
 
 /**
@@ -41,8 +42,11 @@ export function processedSurroundingPairTarget(
     throw new Error("Couldn't find containing pair");
   }
 
-  return pairs.map((pair) => ({
-    ...selectionWithEditorWithContextToTarget(pair),
-    isReversed: target.isReversed,
-  }));
+  return pairs.map(
+    (pair) =>
+      new BaseTarget({
+        ...selectionWithEditorWithContextToTarget(pair),
+        isReversed: target.isReversed,
+      })
+  );
 }

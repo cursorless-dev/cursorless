@@ -76,7 +76,11 @@ function upgradeCommand(command: Command): CommandLatest {
     }
   }
 
-  return command as CommandLatest; // TODO Better implementation ?
+  if (command.version !== LATEST_VERSION) {
+    throw new Error("Command is not latest version");
+  }
+
+  return command;
 }
 
 export function validateCommand(

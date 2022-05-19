@@ -1,9 +1,10 @@
 import { flatten, zip } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
+import BaseTarget from "../processTargets/targets/BaseTarget";
 import { ActionPreferences, Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
-import { getContentSelection, runForEachEditor } from "../util/targetUtils";
+import { runForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Rewrap implements Action {
@@ -36,12 +37,15 @@ export default class Rewrap implements Action {
 
       return {
         editor: target.editor,
-        boundary: boundary.map((edge) => ({
-          editor: target.editor,
-          contentRange: edge,
-          isReversed: target.isReversed,
-        })),
-        targetSelection: getContentSelection(target),
+        boundary: boundary.map(
+          (edge) =>
+            new BaseTarget({
+              editor: target.editor,
+              contentRange: edge,
+              isReversed: target.isReversed,
+            })
+        ),
+        targetSelection: target.getContentSelection(),
       };
     });
 

@@ -2,8 +2,8 @@ import {
   PartialPrimitiveTargetDesc,
   PartialRangeTargetDesc,
   PartialTargetDesc,
-  PrimitiveTargetDesc,
-  TargetDesc,
+  PrimitiveTargetDescriptor,
+  TargetDescriptor,
 } from "../typings/target.types";
 
 /**
@@ -36,11 +36,13 @@ function getPartialPrimitiveTargetsHelper(
  * @param targets The targets to extract from
  * @returns A list of primitive targets
  */
-export function getPrimitiveTargets(targets: TargetDesc[]) {
+export function getPrimitiveTargets(targets: TargetDescriptor[]) {
   return targets.flatMap(getPrimitiveTargetsHelper);
 }
 
-function getPrimitiveTargetsHelper(target: TargetDesc): PrimitiveTargetDesc[] {
+function getPrimitiveTargetsHelper(
+  target: TargetDescriptor
+): PrimitiveTargetDescriptor[] {
   switch (target.type) {
     case "primitive":
       return [target];

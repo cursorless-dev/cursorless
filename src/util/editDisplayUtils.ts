@@ -79,7 +79,7 @@ export async function displayPendingEditDecorationsForRanges(
 export default async function displayPendingEditDecorations(
   targets: Target[],
   editStyle: EditStyle,
-  getRange: (target: Target) => Range = getContentRange,
+  getRange: (target: Target) => Range | undefined = getContentRange,
   contentOnly?: boolean
 ) {
   await setDecorations(targets, editStyle, getRange, contentOnly);
@@ -99,20 +99,29 @@ export function clearDecorations(editStyle: EditStyle) {
 export async function setDecorations(
   targets: Target[],
   editStyle: EditStyle,
-  getRange: (target: Target) => Range = getContentRange,
+  getRange: (target: Target) => Range | undefined = getContentRange,
   contentOnly?: boolean
 ) {
   await runOnTargetsForEachEditor(targets, async (editor, targets) => {
     if (contentOnly) {
-      editor.setDecorations(editStyle.token, targets.map(getRange));
+      editor.setDecorations(
+        editStyle.token,
+        targets.map(getRange).filter((range): range is Range => !!range)
+      );
     } else {
       editor.setDecorations(
         editStyle.token,
-        targets.filter((target) => !isLineScopeType(target)).map(getRange)
+        targets
+          .filter((target) => !isLineScopeType(target.scopeType))
+          .map(getRange)
+          .filter((range): range is Range => !!range)
       );
       editor.setDecorations(
         editStyle.line,
-        targets.filter((target) => isLineScopeType(target)).map(getRange)
+        targets
+          .filter((target) => isLineScopeType(target.scopeType))
+          .map(getRange)
+          .filter((range): range is Range => !!range)
       );
     }
   });

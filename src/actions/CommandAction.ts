@@ -10,7 +10,6 @@ import {
 } from "../util/setSelectionsAndFocusEditor";
 import {
   ensureSingleEditor,
-  getContentSelection,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -43,7 +42,9 @@ export default class CommandAction implements Action {
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const originalSelections = editor.selections;
 
-        const targetSelections = targets.map(getContentSelection);
+        const targetSelections = targets.map((target) =>
+          target.getContentSelection()
+        );
 
         // For command to the work we have to have the correct editor focused
         await setSelectionsAndFocusEditor(editor, targetSelections, false);

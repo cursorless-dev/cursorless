@@ -1,9 +1,9 @@
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
-  ScopeTypeTarget,
   Target,
 } from "../../../typings/target.types";
+import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 
@@ -15,12 +15,10 @@ export default class implements ModifierStage {
       throw new Error(`Every ${this.modifier.type} not yet implemented`);
     }
 
-    return {
+    return new ScopeTypeTarget({
+      ...target,
       scopeType: this.modifier.scopeType,
-      editor: target.editor,
-      isReversed: target.isReversed,
-      contentRange: target.contentRange,
       delimiter: "\n",
-    };
+    });
   }
 }

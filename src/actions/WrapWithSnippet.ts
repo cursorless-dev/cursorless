@@ -4,7 +4,7 @@ import { SnippetDefinition } from "../typings/snippet";
 import { Target } from "../typings/target.types";
 import { ActionPreferences, Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
-import { ensureSingleEditor, getContentSelection } from "../util/targetUtils";
+import { ensureSingleEditor } from "../util/targetUtils";
 import {
   Placeholder,
   SnippetParser,
@@ -86,7 +86,9 @@ export default class WrapWithSnippet implements Action {
       this.graph.editStyles.pendingModification0
     );
 
-    const targetSelections = targets.map(getContentSelection);
+    const targetSelections = targets.map((target) =>
+      target.getContentSelection()
+    );
 
     await this.graph.actions.setSelection.run([targets]);
 

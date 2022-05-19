@@ -1,5 +1,6 @@
 import { window } from "vscode";
 import { CursorMark, Target } from "../../typings/target.types";
+import BaseTarget from "../targets/BaseTarget";
 import { isReversed } from "../../util/selectionUtils";
 import { getTokenContext } from "../modifiers/scopeTypeStages/TokenStage";
 import { MarkStage } from "../PipelineStages.types";
@@ -12,15 +13,13 @@ export default class implements MarkStage {
       return [];
     }
     return window.activeTextEditor.selections.map((selection) => {
-      const target = {
-        editor: window.activeTextEditor!,
+      const editor = window.activeTextEditor!;
+      return new BaseTarget({
+        ...getTokenContext(editor, selection),
+        editor,
         isReversed: isReversed(selection),
         contentRange: selection,
-      };
-      return {
-        ...target,
-        ...getTokenContext(target),
-      };
+      });
     });
   }
 }
