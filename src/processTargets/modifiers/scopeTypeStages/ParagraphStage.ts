@@ -4,28 +4,28 @@ import {
   EveryScopeModifier,
   Target,
 } from "../../../typings/target.types";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
+import ParagraphTarget from "../../targets/ParagraphTarget";
 import { fitRangeToLineContent } from "./LineStage";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): ParagraphTarget[] {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(target);
     }
     return [this.getSingleTarget(target)];
   }
 
-  getEveryTarget(target: Target): ScopeTypeTarget[] {
+  getEveryTarget(target: Target): ParagraphTarget[] {
     const { contentRange, editor } = target;
     const { isEmpty } = contentRange;
     const { lineCount } = editor.document;
     const startLine = isEmpty ? 0 : contentRange.start.line;
     const endLine = isEmpty ? lineCount - 1 : contentRange.end.line;
-    const targets: ScopeTypeTarget[] = [];
+    const targets: ParagraphTarget[] = [];
     let paragraphStart = -1;
 
     const possiblyAddParagraph = (
@@ -69,11 +69,11 @@ export default class implements ModifierStage {
     return targets;
   }
 
-  getSingleTarget(target: Target): ScopeTypeTarget {
+  getSingleTarget(target: Target): ParagraphTarget {
     return this.getTargetFromRange(target);
   }
 
-  getTargetFromRange(target: Target, range?: Range): ScopeTypeTarget {
+  getTargetFromRange(target: Target, range?: Range): ParagraphTarget {
     const { document } = target.editor;
     const { lineAt } = document;
 
@@ -134,11 +134,10 @@ export default class implements ModifierStage {
       return undefined;
     })();
 
-    return new ScopeTypeTarget({
+    return new ParagraphTarget({
       scopeType: this.modifier.scopeType,
       editor: target.editor,
       isReversed: target.isReversed,
-      delimiter: "\n\n",
       contentRange,
       removal: { range: removalRange },
       leadingDelimiter,

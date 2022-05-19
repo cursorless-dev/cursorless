@@ -125,6 +125,7 @@ export default class BaseTarget implements Target {
       const range = parseRemovalRange(this.removal);
       return range != null ? range.range : this.contentRange;
     })();
+
     const delimiterRange = (() => {
       const leadingDelimiter = parseRemovalRange(this.leadingDelimiter);
       const trailingDelimiter = parseRemovalRange(this.trailingDelimiter);
@@ -136,15 +137,9 @@ export default class BaseTarget implements Target {
       }
       return undefined;
     })();
-    if (removalRange != null && delimiterRange != null) {
-      return removalRange.union(delimiterRange);
-    }
-    if (removalRange != null) {
-      return removalRange;
-    }
-    if (delimiterRange != null) {
-      return delimiterRange;
-    }
-    return undefined;
+
+    return delimiterRange != null
+      ? removalRange.union(delimiterRange)
+      : removalRange;
   }
 }

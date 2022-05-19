@@ -2,31 +2,30 @@ import { Position, Range, TextEditor } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
-  ScopeType,
   Target,
 } from "../../../typings/target.types";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
+import LineTarget from "../../targets/LineTarget";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): LineTarget[] {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(target);
     }
     return [this.getSingleTarget(target)];
   }
 
-  getEveryTarget(target: Target): ScopeTypeTarget[] {
+  getEveryTarget(target: Target): LineTarget[] {
     const { contentRange, editor } = target;
     const { isEmpty } = contentRange;
     const startLine = isEmpty ? 0 : contentRange.start.line;
     const endLine = isEmpty
       ? editor.document.lineCount - 1
       : contentRange.end.line;
-    const targets: ScopeTypeTarget[] = [];
+    const targets: LineTarget[] = [];
 
     for (let i = startLine; i <= endLine; ++i) {
       const line = editor.document.lineAt(i);
@@ -42,25 +41,27 @@ export default class implements ModifierStage {
     return targets;
   }
 
-  getSingleTarget(target: Target): ScopeTypeTarget {
-    return this.getTargetFromRange(target, target.contentRange);
+  getSingleTarget(target: Target): LineTarget {
+    return createLineTarget(
+      target.editor,
+      target.contentRange,
+      target.isReversed
+    );
   }
 
-  getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
-    const contentRange = fitRangeToLineContent(target.editor, range);
-    return new ScopeTypeTarget({
-      ...getLineContext(target.editor, contentRange),
-      scopeType: this.modifier.scopeType,
-      editor: target.editor,
-      isReversed: target.isReversed,
-      contentRange,
-    });
+  getTargetFromRange(target: Target, range: Range): LineTarget {
+    return createLineTarget(target.editor, range, target.isReversed);
   }
 }
 
-export function getLineContext(editor: TextEditor, range: Range) {
+export function createLineTarget(
+  editor: TextEditor,
+  range: Range,
+  isReversed: boolean
+) {
   const { document } = editor;
-  const { start, end } = range;
+  const contentRange = fitRangeToLineContent(editor, range);
+  const { start, end } = contentRange;
 
   const removalRange = new Range(
     new Position(start.line, 0),
@@ -76,9 +77,10 @@ export function getLineContext(editor: TextEditor, range: Range) {
       ? new Range(removalRange.end, new Position(end.line + 1, 0))
       : undefined;
 
-  return {
-    scopeType: "line" as ScopeType,
-    delimiter: "\n",
+  return new LineTarget({
+    editor,
+    contentRange,
+    isReversed,
     removal: {
       range: removalRange,
     },
@@ -90,7 +92,7 @@ export function getLineContext(editor: TextEditor, range: Range) {
       trailingDelimiterRange != null
         ? { range: trailingDelimiterRange }
         : undefined,
-  };
+  });
 }
 
 export function fitRangeToLineContent(editor: TextEditor, range: Range) {
