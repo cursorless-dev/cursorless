@@ -124,7 +124,7 @@ export default class BaseTarget implements Target {
     return this.getRemovalContentHighlightRange();
   }
 
-  getEditNewLineContext(_isAbove: boolean): EditNewLineContext {
+  getEditNewLineContext(_isBefore: boolean): EditNewLineContext {
     return {
       delimiter: "\n",
     };

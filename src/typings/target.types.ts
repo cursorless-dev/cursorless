@@ -301,5 +301,5 @@ export interface Target extends TargetParameters {
   maybeAddDelimiter(text: string): string;
   getRemovalRange(): Range;
   getRemovalHighlightRange(): Range | undefined;
-  getEditNewLineContext(isAbove: boolean): EditNewLineContext;
+  getEditNewLineContext(isBefore: boolean): EditNewLineContext;
 }

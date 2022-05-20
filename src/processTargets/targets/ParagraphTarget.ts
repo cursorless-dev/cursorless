@@ -76,7 +76,7 @@ export default class ParagraphTarget extends BaseTarget {
       : removalRange;
   }
 
-  getEditNewLineContext(_isAbove: boolean): EditNewLineContext {
+  getEditNewLineContext(_isBefore: boolean): EditNewLineContext {
     return {
       delimiter: this.delimiter,
     };

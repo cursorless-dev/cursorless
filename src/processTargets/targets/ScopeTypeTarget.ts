@@ -20,7 +20,7 @@ export default class ScopeTypeTarget extends BaseTarget {
     this.delimiter = parameters.delimiter;
   }
 
-  getEditNewLineContext(_isAbove: boolean): EditNewLineContext {
+  getEditNewLineContext(_isBefore: boolean): EditNewLineContext {
     return {
       delimiter: this.delimiter,
     };

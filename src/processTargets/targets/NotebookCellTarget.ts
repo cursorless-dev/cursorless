@@ -16,16 +16,16 @@ export default class NotebookCellTarget extends BaseTarget {
     this.delimiter = "\n";
   }
 
-  getEditNewLineContext(isAbove: boolean): EditNewLineContext {
+  getEditNewLineContext(isBefore: boolean): EditNewLineContext {
     if (this.isNotebookEditor(this.editor)) {
       return {
-        command: isAbove
+        command: isBefore
           ? "notebook.cell.insertCodeCellAbove"
           : "notebook.cell.insertCodeCellBelow",
       };
     }
     return {
-      command: isAbove ? "jupyter.insertCellAbove" : "jupyter.insertCellBelow",
+      command: isBefore ? "jupyter.insertCellAbove" : "jupyter.insertCellBelow",
     };
   }
 
