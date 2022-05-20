@@ -1,11 +1,7 @@
 import { zip } from "lodash";
 import { Range, Selection, TextEditor } from "vscode";
 import { getTokenDelimiters } from "../processTargets/modifiers/scopeTypeStages/TokenStage";
-import {
-  RemovalRange,
-  Target,
-  TargetParameters,
-} from "../typings/target.types";
+import { RemovalRange, Target } from "../typings/target.types";
 import {
   SelectionContext,
   SelectionWithEditor,
@@ -131,7 +127,7 @@ export function parseRemovalRange(
 
 export function selectionWithEditorWithContextToTarget(
   selection: SelectionWithEditorWithContext
-): TargetParameters {
+) {
   // TODO Only use giving context in the future when all the containing scopes have proper delimiters.
   // For now fall back on token context
   const { context } = selection;
@@ -170,7 +166,7 @@ export function selectionWithEditorWithContextToTarget(
     interiorRange,
     removalRange,
     boundary,
-    delimiter: tokenContext?.delimiter ?? containingListDelimiter ?? "\n",
+    delimiter: containingListDelimiter,
     leadingDelimiter,
     trailingDelimiter,
   };

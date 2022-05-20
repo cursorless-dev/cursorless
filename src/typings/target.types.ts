@@ -245,6 +245,8 @@ export interface RemovalRange {
   exclude?: boolean;
 }
 
+export type EditNewLineContext = { command: string } | { delimiter: string };
+
 export interface TargetParameters {
   /** The text editor used for all ranges */
   editor: TextEditor;
@@ -299,4 +301,5 @@ export interface Target extends TargetParameters {
   maybeAddDelimiter(text: string): string;
   getRemovalRange(): Range;
   getRemovalHighlightRange(): Range | undefined;
+  getEditNewLineContext(isBefore: boolean): EditNewLineContext;
 }

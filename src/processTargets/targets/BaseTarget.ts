@@ -6,15 +6,16 @@ import {
   Position,
   RemovalRange,
   TargetParameters,
+  EditNewLineContext,
 } from "../../typings/target.types";
 
 export default class BaseTarget implements Target {
   editor: TextEditor;
   isReversed: boolean;
+  contentRange: Range;
+  delimiter: string;
   scopeType?: ScopeType;
   position?: Position;
-  delimiter?: string;
-  contentRange: Range;
   removalRange?: Range;
   interiorRange?: Range;
   boundary?: [Range, Range];
@@ -25,10 +26,10 @@ export default class BaseTarget implements Target {
   constructor(parameters: TargetParameters) {
     this.editor = parameters.editor;
     this.isReversed = parameters.isReversed;
+    this.contentRange = parameters.contentRange;
+    this.delimiter = parameters.delimiter ?? " ";
     this.scopeType = parameters.scopeType;
     this.position = parameters.position;
-    this.delimiter = parameters.delimiter;
-    this.contentRange = parameters.contentRange;
     this.removalRange = parameters.removalRange;
     this.interiorRange = parameters.interiorRange;
     this.boundary = parameters.boundary;
@@ -48,13 +49,11 @@ export default class BaseTarget implements Target {
 
   /** Possibly add delimiter for positions before/after */
   maybeAddDelimiter(text: string): string {
-    if (this.delimiter != null) {
-      if (this.position === "before") {
-        return text + this.delimiter;
-      }
-      if (this.position === "after") {
-        return this.delimiter + text;
-      }
+    if (this.position === "before") {
+      return text + this.delimiter;
+    }
+    if (this.position === "after") {
+      return this.delimiter + text;
     }
     return text;
   }
@@ -121,5 +120,11 @@ export default class BaseTarget implements Target {
       return this.getRemovalAfterHighlightRange();
     }
     return this.getRemovalContentHighlightRange();
+  }
+
+  getEditNewLineContext(_isBefore: boolean): EditNewLineContext {
+    return {
+      delimiter: "\n",
+    };
   }
 }
