@@ -1,4 +1,8 @@
-import { ScopeType, TargetParameters } from "../../typings/target.types";
+import {
+  EditNewLineContext,
+  ScopeType,
+  TargetParameters,
+} from "../../typings/target.types";
 import BaseTarget from "./BaseTarget";
 
 export interface ScopeTypeTargetParameters extends TargetParameters {
@@ -14,5 +18,11 @@ export default class ScopeTypeTarget extends BaseTarget {
     super(parameters);
     this.scopeType = parameters.scopeType;
     this.delimiter = parameters.delimiter;
+  }
+
+  getEditNewLineContext(_isAbove: boolean): EditNewLineContext {
+    return {
+      delimiter: this.delimiter,
+    };
   }
 }

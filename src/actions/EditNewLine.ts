@@ -11,7 +11,7 @@ import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class EditNewLine implements Action {
-  constructor(private graph: Graph, private isAbove: boolean) {
+  constructor(private graph: Graph, private isBefore: boolean) {
     this.run = this.run.bind(this);
   }
 
@@ -20,7 +20,7 @@ class EditNewLine implements Action {
 
     const targetsWithContext = targets.map((target) => ({
       target,
-      context: target.getEditNewLineContext(this.isAbove),
+      context: target.getEditNewLineContext(this.isBefore),
     }));
     const commandTargets = targetsWithContext.filter(
       ({ context }) => !!(<any>context).command
@@ -49,52 +49,74 @@ class EditNewLine implements Action {
 
   async runDelimiter(targets: Target[], editor: TextEditor) {
     const edits = targets.map((target) => {
-      const context = target.getEditNewLineContext(this.isAbove);
+      const { contentRange } = target;
+      const context = target.getEditNewLineContext(this.isBefore);
       const delimiter = (<any>context).delimiter as string;
-      const lineNumber = this.isAbove
-        ? target.contentRange.start.line
-        : target.contentRange.end.line;
-      const line = editor.document.lineAt(lineNumber);
-      const { firstNonWhitespaceCharacterIndex } = line;
-      const padding = line.text.slice(0, firstNonWhitespaceCharacterIndex);
-      const text = this.isAbove ? padding + delimiter : delimiter + padding;
-      const position = this.isAbove ? line.range.start : line.range.end;
-      const lineDelta = delimiter.length;
-      return {
-        contentRange: target.contentRange,
-        lineDelta,
-        firstNonWhitespaceCharacterIndex,
-        position,
-        text,
-      };
+
+      // Delimiter is one or more new lines. Handle as lines.
+      if (delimiter.includes("\n")) {
+        const lineNumber = this.isBefore
+          ? contentRange.start.line
+          : contentRange.end.line;
+        const line = editor.document.lineAt(lineNumber);
+        const { firstNonWhitespaceCharacterIndex } = line;
+        const padding = line.text.slice(0, firstNonWhitespaceCharacterIndex);
+        const positionSelection = new Position(
+          this.isBefore ? lineNumber : lineNumber + delimiter.length,
+          firstNonWhitespaceCharacterIndex
+        );
+        return {
+          contentRange,
+          text: this.isBefore ? padding + delimiter : delimiter + padding,
+          insertPosition: this.isBefore ? line.range.start : line.range.end,
+          selection: new Selection(positionSelection, positionSelection),
+          thatMarkRange: this.isBefore
+            ? new Range(
+                contentRange.start.translate({
+                  lineDelta: delimiter.length,
+                }),
+                contentRange.end.translate({
+                  lineDelta: delimiter.length,
+                })
+              )
+            : contentRange,
+        };
+      }
+      // Delimiter is something else. Handle as inline.
+      else {
+        const positionSelection = this.isBefore
+          ? contentRange.start
+          : contentRange.end.translate({
+              characterDelta: delimiter.length,
+            });
+        return {
+          contentRange,
+          text: delimiter,
+          insertPosition: this.isBefore ? contentRange.start : contentRange.end,
+          selection: new Selection(positionSelection, positionSelection),
+          thatMarkRange: this.isBefore
+            ? new Range(
+                contentRange.start.translate({
+                  characterDelta: delimiter.length,
+                }),
+                contentRange.end.translate({
+                  characterDelta: delimiter.length,
+                })
+              )
+            : contentRange,
+        };
+      }
     });
 
     await editor.edit((editBuilder) => {
       edits.forEach((edit) => {
-        editBuilder.replace(edit.position, edit.text);
+        editBuilder.replace(edit.insertPosition, edit.text);
       });
     });
 
-    editor.selections = edits.map((edit) => {
-      const selectionLineNum = this.isAbove
-        ? edit.position.line
-        : edit.position.line + edit.lineDelta;
-      const positionSelection = new Position(
-        selectionLineNum,
-        edit.firstNonWhitespaceCharacterIndex
-      );
-      return new Selection(positionSelection, positionSelection);
-    });
+    editor.selections = edits.map((edit) => edit.selection);
 
-    const thatMarkRanges = edits.map((edit) => {
-      const { contentRange, lineDelta } = edit;
-      return this.isAbove
-        ? new Range(
-            contentRange.start.translate({ lineDelta }),
-            contentRange.end.translate({ lineDelta })
-          )
-        : contentRange;
-    });
+    const thatMarkRanges = edits.map((edit) => edit.thatMarkRange);
 
     return createThatMark(targets, thatMarkRanges);
   }
@@ -103,7 +125,7 @@ class EditNewLine implements Action {
     if (new Set(commands).size > 1) {
       throw new Error("Can't run multiple different commands at once");
     }
-    if (this.isAbove) {
+    if (this.isBefore) {
       await this.graph.actions.setSelectionBefore.run([targets]);
     } else {
       await this.graph.actions.setSelectionAfter.run([targets]);
