@@ -166,7 +166,7 @@ export function selectionWithEditorWithContextToTarget(
     interiorRange,
     removalRange,
     boundary,
-    delimiter: tokenContext?.delimiter ?? containingListDelimiter ?? "\n",
+    delimiter: containingListDelimiter,
     leadingDelimiter,
     trailingDelimiter,
   };
