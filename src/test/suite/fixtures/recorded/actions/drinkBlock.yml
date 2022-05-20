@@ -1,0 +1,29 @@
+languageId: typescript
+command:
+  spokenForm: drink block
+  version: 2
+  action: editNewLineBefore
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: containingScope, scopeType: paragraph}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    function helloWorld(foo: string, bar: number, baz: string) {}
+  selections:
+    - anchor: {line: 0, character: 40}
+      active: {line: 0, character: 40}
+  marks: {}
+finalState:
+  documentContents: |
+
+
+    function helloWorld(foo: string, bar: number, baz: string) {}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 61}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: paragraph}]}]
