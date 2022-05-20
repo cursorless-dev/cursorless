@@ -59,11 +59,13 @@ class EditNewLine implements Action {
           ? contentRange.start.line
           : contentRange.end.line;
         const line = editor.document.lineAt(lineNumber);
-        const { firstNonWhitespaceCharacterIndex } = line;
-        const padding = line.text.slice(0, firstNonWhitespaceCharacterIndex);
+        const characterIndex = line.isEmptyOrWhitespace
+          ? contentRange.start.character
+          : line.firstNonWhitespaceCharacterIndex;
+        const padding = line.text.slice(0, characterIndex);
         const positionSelection = new Position(
           this.isBefore ? lineNumber : lineNumber + delimiter.length,
-          firstNonWhitespaceCharacterIndex
+          characterIndex
         );
         return {
           contentRange,
