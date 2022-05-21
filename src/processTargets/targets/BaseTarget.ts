@@ -49,13 +49,13 @@ export default class BaseTarget implements Target {
 
   /** Possibly add delimiter for positions before/after */
   maybeAddDelimiter(text: string): string {
-    return this.delimiter == null
-      ? text
-      : this.position === "before"
-      ? text + this.delimiter
-      : this.position === "after"
-      ? this.delimiter + text
-      : text;
+    if (this.position === "before") {
+      return text + this.delimiter;
+    }
+    if (this.position === "after") {
+      return this.delimiter + text;
+    }
+    return text;
   }
 
   protected getRemovalContentRange(): Range {
