@@ -13,7 +13,7 @@ export default class BaseTarget implements Target {
   editor: TextEditor;
   isReversed: boolean;
   contentRange: Range;
-  delimiter?: string;
+  delimiter: string;
   scopeType?: ScopeType;
   position?: Position;
   removalRange?: Range;
@@ -27,7 +27,7 @@ export default class BaseTarget implements Target {
     this.editor = parameters.editor;
     this.isReversed = parameters.isReversed;
     this.contentRange = parameters.contentRange;
-    this.delimiter = parameters.delimiter;
+    this.delimiter = parameters.delimiter ?? " ";
     this.scopeType = parameters.scopeType;
     this.position = parameters.position;
     this.removalRange = parameters.removalRange;
