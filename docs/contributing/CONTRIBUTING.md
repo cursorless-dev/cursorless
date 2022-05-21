@@ -13,7 +13,7 @@ extension](#running--testing-extension-locally), you may want to check out the
 - [Node.js](https://nodejs.org/en/)
 - [yarn](https://yarnpkg.com/)
 - In order to run unit tests locally, you'll need to install the following extensions
-  - [Scala (Metals)](https://marketplace.visualstudio.com/items?itemName=scalameta.metals#overview)
+  - [Scala (Metals)](https://marketplace.visualstudio.com/items?itemName=scalameta.metals)
 
 ### Steps
 
