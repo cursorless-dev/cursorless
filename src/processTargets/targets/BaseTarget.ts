@@ -1,13 +1,13 @@
 import { Range, Selection, TextEditor } from "vscode";
-import { parseRemovalRange } from "../../util/targetUtils";
 import {
-  Target,
-  ScopeType,
+  EditNewLineContext,
   Position,
   RemovalRange,
+  ScopeType,
+  Target,
   TargetParameters,
-  EditNewLineContext,
 } from "../../typings/target.types";
+import { parseRemovalRange } from "../../util/targetUtils";
 
 export default abstract class BaseTarget implements Target {
   editor: TextEditor;

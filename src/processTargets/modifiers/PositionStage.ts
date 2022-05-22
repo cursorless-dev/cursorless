@@ -7,66 +7,36 @@ export default class implements ModifierStage {
   constructor(private modifier: PositionModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const { position } = this.modifier;
     const { start, end } = target.contentRange;
-    const {
-      editor,
-      isReversed,
-      delimiter,
-      scopeType,
-      leadingDelimiter,
-      trailingDelimiter,
-    } = target;
+    const { leadingDelimiter, trailingDelimiter } = target;
 
-    const common = {
-      position: this.modifier.position,
-      editor,
-      isReversed,
-    };
+    target.position = this.modifier.position;
+    target.leadingDelimiter = undefined;
+    target.trailingDelimiter = undefined;
 
-    const constructor = Object.getPrototypeOf(target).constructor;
-
-    switch (position) {
+    switch (this.modifier.position) {
       case "before":
-        return [
-          new constructor({
-            ...common,
-            contentRange: new Range(start, start),
-            delimiter,
-            scopeType,
-            leadingDelimiter,
-          }),
-        ];
+        target.contentRange = new Range(start, start);
+        target.leadingDelimiter = leadingDelimiter;
+        break;
 
       case "after":
-        return [
-          new constructor({
-            ...common,
-            contentRange: new Range(end, end),
-            delimiter,
-            scopeType,
-            trailingDelimiter,
-          }),
-        ];
+        target.contentRange = new Range(end, end);
+        target.trailingDelimiter = trailingDelimiter;
+        break;
 
       case "start":
-        return [
-          new constructor({
-            ...common,
-            contentRange: new Range(start, start),
-            // This it NOT a raw target. Joining with this should be done on empty delimiter.
-            delimiter: "",
-          }),
-        ];
+        target.contentRange = new Range(start, start);
+        // This it NOT a raw target. Joining with this should be done on empty delimiter.
+        target.delimiter = "";
+        break;
 
       case "end":
-        return [
-          new constructor({
-            ...common,
-            contentRange: new Range(end, end),
-            delimiter: "",
-          }),
-        ];
+        target.contentRange = new Range(end, end);
+        target.delimiter = "";
+        break;
     }
+
+    return [target];
   }
 }
