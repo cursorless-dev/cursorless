@@ -1,5 +1,5 @@
 import { Range, TextEditor } from "vscode";
-import { EditNewLineContext, ScopeType } from "../../typings/target.types";
+import { ScopeType } from "../../typings/target.types";
 import BaseTarget from "./BaseTarget";
 
 interface DocumentTargetParameters {
@@ -11,7 +11,6 @@ interface DocumentTargetParameters {
 export default class DocumentTarget extends BaseTarget {
   scopeType: ScopeType;
   delimiter: string;
-  isLine: boolean;
 
   constructor(parameters: DocumentTargetParameters) {
     super(parameters);

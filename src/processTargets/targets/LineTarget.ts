@@ -14,7 +14,6 @@ interface LineTargetParameters {
 export default class LineTarget extends BaseTarget {
   scopeType: ScopeType;
   delimiter: string;
-  isLine: boolean;
 
   constructor(parameters: LineTargetParameters) {
     super(parameters);

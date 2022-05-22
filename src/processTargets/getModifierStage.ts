@@ -38,7 +38,7 @@ export default (modifier: Modifier): ModifierStage => {
       return new SubPieceStage(modifier);
     case "surroundingPair":
       return new SurroundingPairStage(modifier);
-    case "interiorOnly":
+    case "ContainingScopeModifier(interiorOnly)":
       return new InteriorOnlyStage(modifier);
     case "excludeInterior":
       return new ExcludeInteriorStage(modifier);
@@ -66,6 +66,9 @@ const getContainingScopeStage = (
       return new NonWhitespaceSequenceStage(modifier);
     case "url":
       return new UrlStage(modifier);
+    case "word":
+    case "character":
+      throw new Error(`Unsupported scope type ${modifier.scopeType}`);
     default:
       // Default to containing syntax scope using tree sitter
       return new ContainingSyntaxScopeStage(modifier);

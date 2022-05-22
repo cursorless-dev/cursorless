@@ -1,4 +1,4 @@
-import BaseTarget from "../processTargets/targets/BaseTarget";
+import RawSelectionTarget from "../processTargets/targets/RawSelectionTarget";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
@@ -19,9 +19,9 @@ export class Cut implements Action {
       }
       return getOutsideOverflow(target.editor, target.contentRange, range).map(
         (overflow): Target =>
-          new BaseTarget({
+          // TODO Instead of creating a new target display decorations by range
+          new RawSelectionTarget({
             editor: target.editor,
-            scopeType: target.scopeType,
             contentRange: overflow,
             isReversed: false,
           })

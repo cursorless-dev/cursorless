@@ -18,7 +18,6 @@ interface ParagraphTargetParameters {
 export default class ParagraphTarget extends BaseTarget {
   scopeType: ScopeType;
   delimiter: string;
-  isLine: boolean;
 
   constructor(parameters: ParagraphTargetParameters) {
     super(parameters);

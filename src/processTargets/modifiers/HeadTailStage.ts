@@ -1,8 +1,8 @@
 import { Position, Range, TextEditor } from "vscode";
 import { HeadModifier, TailModifier, Target } from "../../typings/target.types";
-import BaseTarget from "../targets/BaseTarget";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
+import TokenTarget from "../targets/TokenTarget";
 
 abstract class HeadTailStage implements ModifierStage {
   abstract update(editor: TextEditor, range: Range): Range;
@@ -12,7 +12,7 @@ abstract class HeadTailStage implements ModifierStage {
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const contentRange = this.update(target.editor, target.contentRange);
     return [
-      new BaseTarget({
+      new TokenTarget({
         editor: target.editor,
         isReversed: this.isReversed,
         contentRange,

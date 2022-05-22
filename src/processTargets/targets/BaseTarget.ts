@@ -9,11 +9,11 @@ import {
   EditNewLineContext,
 } from "../../typings/target.types";
 
-export default class BaseTarget implements Target {
+export default abstract class BaseTarget implements Target {
   editor: TextEditor;
   isReversed: boolean;
   contentRange: Range;
-  delimiter: string;
+  delimiter?: string;
   scopeType?: ScopeType;
   position?: Position;
   removalRange?: Range;
@@ -21,13 +21,13 @@ export default class BaseTarget implements Target {
   boundary?: [Range, Range];
   leadingDelimiter?: RemovalRange;
   trailingDelimiter?: RemovalRange;
-  isLine?: boolean;
+  isLine: boolean = false;
 
   constructor(parameters: TargetParameters) {
     this.editor = parameters.editor;
     this.isReversed = parameters.isReversed;
     this.contentRange = parameters.contentRange;
-    this.delimiter = parameters.delimiter ?? " ";
+    this.delimiter = parameters.delimiter;
     this.scopeType = parameters.scopeType;
     this.position = parameters.position;
     this.removalRange = parameters.removalRange;
@@ -49,11 +49,13 @@ export default class BaseTarget implements Target {
 
   /** Possibly add delimiter for positions before/after */
   maybeAddDelimiter(text: string): string {
-    if (this.position === "before") {
-      return text + this.delimiter;
-    }
-    if (this.position === "after") {
-      return this.delimiter + text;
+    if (this.delimiter != null) {
+      if (this.position === "before") {
+        return text + this.delimiter;
+      }
+      if (this.position === "after") {
+        return this.delimiter + text;
+      }
     }
     return text;
   }

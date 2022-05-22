@@ -101,12 +101,13 @@ export type ScopeType =
   | "xmlEndTag"
   | "xmlStartTag"
   // Text based scopes
-  //   | "character" Not implemented
   | "token"
   | "line"
   | "notebookCell"
   | "paragraph"
   | "document"
+  | "character"
+  | "word"
   | "nonWhitespaceSequence"
   | "url";
 

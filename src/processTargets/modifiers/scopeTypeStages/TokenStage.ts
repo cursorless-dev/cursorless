@@ -4,15 +4,15 @@ import {
   EveryScopeModifier,
   Target,
 } from "../../../typings/target.types";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getTokensInRange, PartialToken } from "../../../util/getTokensInRange";
 import { ModifierStage } from "../../PipelineStages.types";
+import TokenTarget from "../../targets/TokenTarget";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): TokenTarget[] {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(context, target);
     }
@@ -22,7 +22,7 @@ export default class implements ModifierStage {
   getEveryTarget(
     context: ProcessedTargetsContext,
     target: Target
-  ): ScopeTypeTarget[] {
+  ): TokenTarget[] {
     const { contentRange, editor } = target;
     const { isEmpty } = contentRange;
     const start = isEmpty
@@ -44,15 +44,13 @@ export default class implements ModifierStage {
     return targets;
   }
 
-  getSingleTarget(target: Target): ScopeTypeTarget {
+  getSingleTarget(target: Target): TokenTarget {
     return this.getTargetFromRange(target, target.contentRange);
   }
 
-  getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
+  getTargetFromRange(target: Target, range: Range): TokenTarget {
     const contentRange = getTokenRangeForSelection(target.editor, range);
-    return new ScopeTypeTarget({
-      ...getTokenDelimiters(target.editor, contentRange),
-      scopeType: this.modifier.scopeType,
+    return new TokenTarget({
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange,

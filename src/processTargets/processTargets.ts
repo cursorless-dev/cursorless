@@ -11,6 +11,7 @@ import { ensureSingleEditor } from "../util/targetUtils";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
 import BaseTarget from "./targets/BaseTarget";
+import WeakTarget from "./targets/WeakTarget";
 
 /**
  * Converts the abstract target descriptions provided by the user to a concrete
@@ -72,12 +73,14 @@ function processRangeTarget(
 
       switch (targetDesc.rangeType) {
         case "continuous":
-          return processContinuousRangeTarget(
-            anchorTarget,
-            activeTarget,
-            targetDesc.excludeAnchor,
-            targetDesc.excludeActive
-          );
+          return [
+            processContinuousRangeTarget(
+              anchorTarget,
+              activeTarget,
+              targetDesc.excludeAnchor,
+              targetDesc.excludeActive
+            ),
+          ];
         case "vertical":
           return processVerticalRangeTarget(
             anchorTarget,
@@ -95,7 +98,7 @@ function processContinuousRangeTarget(
   activeTarget: Target,
   excludeAnchor: boolean,
   excludeActive: boolean
-): Target[] {
+): Target {
   const { document } = ensureSingleEditor([anchorTarget, activeTarget]);
   const isForward = calcIsForward(anchorTarget, activeTarget);
   const startTarget = isForward ? anchorTarget : activeTarget;
@@ -173,30 +176,23 @@ function processContinuousRangeTarget(
   const constructor =
     startConstructor === endConstructor ? startConstructor : BaseTarget;
 
-  return [
-    new constructor({
-      editor: activeTarget.editor,
-      isReversed: !isForward,
-      delimiter: anchorTarget.delimiter,
-      contentRange,
-      removalRange,
-      scopeType,
-      leadingDelimiter,
-      trailingDelimiter,
-    }),
-  ];
+  return new constructor({
+    editor: activeTarget.editor,
+    isReversed: !isForward,
+    delimiter: anchorTarget.delimiter,
+    contentRange,
+    removalRange,
+    scopeType,
+    leadingDelimiter,
+    trailingDelimiter,
+  });
 }
 
 export function targetsToContinuousTarget(
   anchorTarget: Target,
   activeTarget: Target
 ): Target {
-  return processContinuousRangeTarget(
-    anchorTarget,
-    activeTarget,
-    false,
-    false
-  )[0];
+  return processContinuousRangeTarget(anchorTarget, activeTarget, false, false);
 }
 
 function processVerticalRangeTarget(
@@ -226,10 +222,9 @@ function processVerticalRangeTarget(
       anchorTarget.contentRange.end.character
     );
     results.push(
-      new BaseTarget({
+      new WeakTarget({
         editor: anchorTarget.editor,
         isReversed: anchorTarget.isReversed,
-        delimiter: anchorTarget.delimiter,
         position: anchorTarget.position,
         contentRange,
       })

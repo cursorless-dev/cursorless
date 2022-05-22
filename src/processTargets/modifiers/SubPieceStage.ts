@@ -2,9 +2,9 @@ import { range } from "lodash";
 import { Range } from "vscode";
 import { SUBWORD_MATCHER } from "../../core/constants";
 import { SubTokenModifier, Target } from "../../typings/target.types";
-import BaseTarget from "../targets/BaseTarget";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
+import ScopeTypeTarget from "../targets/ScopeTypeTarget";
 import { getTokenRangeForSelection } from "./scopeTypeStages/TokenStage";
 
 export default class implements ModifierStage {
@@ -101,10 +101,11 @@ export default class implements ModifierStage {
       : undefined;
 
     return [
-      new BaseTarget({
+      new ScopeTypeTarget({
         editor: target.editor,
         isReversed,
         contentRange,
+        scopeType: this.modifier.pieceType,
         delimiter: containingListDelimiter,
         leadingDelimiter:
           leadingDelimiterRange != null

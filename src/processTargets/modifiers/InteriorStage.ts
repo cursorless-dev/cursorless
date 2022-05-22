@@ -3,9 +3,9 @@ import {
   InteriorOnlyModifier,
   Target,
 } from "../../typings/target.types";
-import BaseTarget from "../targets/BaseTarget";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
+import WeakTarget from "../targets/WeakTarget";
 import { processedSurroundingPairTarget } from "./SurroundingPairStage";
 
 abstract class InteriorStage implements ModifierStage {
@@ -44,7 +44,7 @@ export class InteriorOnlyStage extends InteriorStage {
     }
     const contentRange = target.interiorRange;
     return [
-      new BaseTarget({
+      new WeakTarget({
         editor: target.editor,
         isReversed: target.isReversed,
         contentRange,
@@ -68,7 +68,7 @@ export class ExcludeInteriorStage extends InteriorStage {
     }
     return target.boundary.map(
       (contentRange) =>
-        new BaseTarget({
+        new WeakTarget({
           editor: target.editor,
           isReversed: target.isReversed,
           contentRange,
