@@ -106,7 +106,7 @@ export default class implements ModifierStage {
         isReversed,
         contentRange,
         scopeType: this.modifier.pieceType,
-        delimiter: containingListDelimiter,
+        delimiter: containingListDelimiter ?? "",
         leadingDelimiter:
           leadingDelimiterRange != null
             ? { range: leadingDelimiterRange }
