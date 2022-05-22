@@ -1,4 +1,5 @@
 import { Range, TextEditor } from "vscode";
+import { EditNewLineContext } from "../../typings/target.types";
 import { getTokenDelimiters } from "../modifiers/scopeTypeStages/TokenStage";
 import BaseTarget from "./BaseTarget";
 
@@ -15,5 +16,11 @@ export default class TokenTarget extends BaseTarget {
       ...getTokenDelimiters(parameters.editor, parameters.contentRange),
       scopeType: "token",
     });
+  }
+
+  getEditNewLineContext(_isBefore: boolean): EditNewLineContext {
+    return {
+      delimiter: " ",
+    };
   }
 }
