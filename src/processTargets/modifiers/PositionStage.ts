@@ -17,12 +17,18 @@ export default class implements ModifierStage {
     switch (this.modifier.position) {
       case "before":
         target.contentRange = new Range(start, start);
-        target.leadingDelimiter = leadingDelimiter;
+        target.leadingDelimiter =
+          leadingDelimiter != null
+            ? { ...leadingDelimiter, exclude: false }
+            : undefined;
         break;
 
       case "after":
         target.contentRange = new Range(end, end);
-        target.trailingDelimiter = trailingDelimiter;
+        target.trailingDelimiter =
+          trailingDelimiter != null
+            ? { ...trailingDelimiter, exclude: false }
+            : undefined;
         break;
 
       case "start":

@@ -9,6 +9,7 @@ import {
 } from "../typings/Types";
 import { groupBy } from "./itertools";
 import { isReversed } from "./selectionUtils";
+import uniqDeep from "./uniqDeep";
 
 export function ensureSingleEditor(targets: Target[]) {
   if (targets.length === 0) {
@@ -95,18 +96,19 @@ export function createThatMark(
   targets: Target[],
   ranges?: Range[]
 ): SelectionWithEditor[] {
-  if (ranges) {
-    return zip(targets, ranges).map(([target, range]) => ({
-      editor: target!.editor,
-      selection: target?.isReversed
-        ? new Selection(range!.end, range!.start)
-        : new Selection(range!.start, range!.end),
-    }));
-  }
-  return targets.map((target) => ({
-    editor: target!.editor,
-    selection: target.getContentSelection(),
-  }));
+  const thatMark =
+    ranges != null
+      ? zip(targets, ranges).map(([target, range]) => ({
+          editor: target!.editor,
+          selection: target?.isReversed
+            ? new Selection(range!.end, range!.start)
+            : new Selection(range!.start, range!.end),
+        }))
+      : targets.map((target) => ({
+          editor: target!.editor,
+          selection: target.getContentSelection(),
+        }));
+  return uniqDeep(thatMark);
 }
 
 export function getRemovalRange(target: Target) {

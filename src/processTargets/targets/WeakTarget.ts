@@ -18,8 +18,8 @@ interface WeakTargetParameters {
 export default class WeakTarget extends BaseTarget {
   constructor(parameters: WeakTargetParameters) {
     super({
-      ...parameters,
       ...getTokenDelimiters(parameters.editor, parameters.contentRange),
+      ...parameters,
     });
   }
 }

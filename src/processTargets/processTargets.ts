@@ -1,4 +1,4 @@
-import { isEqual, uniqWith, zip } from "lodash";
+import { zip } from "lodash";
 import { Position, Range } from "vscode";
 import {
   PrimitiveTargetDescriptor,
@@ -8,6 +8,7 @@ import {
 } from "../typings/target.types";
 import { ProcessedTargetsContext } from "../typings/Types";
 import { ensureSingleEditor } from "../util/targetUtils";
+import uniqDeep from "../util/uniqDeep";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
 import BaseTarget from "./targets/BaseTarget";
@@ -31,9 +32,7 @@ export default function (
   context: ProcessedTargetsContext,
   targets: TargetDescriptor[]
 ): Target[][] {
-  return targets.map((target) =>
-    uniqWith(processTarget(context, target), isEqual)
-  );
+  return targets.map((target) => uniqDeep(processTarget(context, target)));
 }
 
 function processTarget(
