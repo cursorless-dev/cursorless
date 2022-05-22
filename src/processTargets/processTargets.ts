@@ -1,4 +1,4 @@
-import { zip } from "lodash";
+import { isEqual, uniqWith, zip } from "lodash";
 import { Position, Range } from "vscode";
 import {
   PrimitiveTargetDescriptor,
@@ -7,7 +7,6 @@ import {
   TargetDescriptor,
 } from "../typings/target.types";
 import { ProcessedTargetsContext } from "../typings/Types";
-import { filterDuplicates } from "../util/filterDuplicates";
 import { ensureSingleEditor } from "../util/targetUtils";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
@@ -32,7 +31,7 @@ export default function (
   targets: TargetDescriptor[]
 ): Target[][] {
   return targets.map((target) =>
-    filterDuplicates(processTarget(context, target))
+    uniqWith(processTarget(context, target), isEqual)
   );
 }
 
