@@ -1,11 +1,11 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear pair double
+  spokenForm: clear bounds double
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
+      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
       mark: {type: decoratedSymbol, symbolColor: default, character: '"'}
 initialState:
   documentContents: "\"\""

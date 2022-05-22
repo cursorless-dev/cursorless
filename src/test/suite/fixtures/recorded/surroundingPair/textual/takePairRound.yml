@@ -1,11 +1,11 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: clear pair round
+  spokenForm: clear bounds round
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
+      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: excludeInterior}
 initialState:
   documentContents: ()
   selections:
