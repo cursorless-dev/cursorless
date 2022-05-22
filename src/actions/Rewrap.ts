@@ -1,7 +1,7 @@
 import { flatten, zip } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import RawSelectionTarget from "../processTargets/targets/RawSelectionTarget";
 import { Target } from "../typings/target.types";
-import BaseTarget from "../processTargets/targets/BaseTarget";
 import { ActionPreferences, Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { runForEachEditor } from "../util/targetUtils";
@@ -39,7 +39,7 @@ export default class Rewrap implements Action {
         editor: target.editor,
         boundary: boundary.map(
           (edge) =>
-            new BaseTarget({
+            new RawSelectionTarget({
               editor: target.editor,
               contentRange: edge,
               isReversed: target.isReversed,

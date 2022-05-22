@@ -38,7 +38,7 @@ export default (modifier: Modifier): ModifierStage => {
       return new SubPieceStage(modifier);
     case "surroundingPair":
       return new SurroundingPairStage(modifier);
-    case "ContainingScopeModifier(interiorOnly)":
+    case "interiorOnly":
       return new InteriorOnlyStage(modifier);
     case "excludeInterior":
       return new ExcludeInteriorStage(modifier);
