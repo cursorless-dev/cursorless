@@ -3,6 +3,7 @@ import { ProcessedTargetsContext } from "../../typings/Types";
 import { selectionWithEditorWithContextToTarget } from "../../util/targetUtils";
 import { ModifierStage } from "../PipelineStages.types";
 import BaseTarget from "../targets/BaseTarget";
+import SurroundingPairTarget from "../targets/SurroundingPairTarget";
 import { processSurroundingPair } from "./surroundingPair";
 
 /**
@@ -29,7 +30,7 @@ export default class implements ModifierStage {
 export function processedSurroundingPairTarget(
   modifier: SurroundingPairModifier,
   context: ProcessedTargetsContext,
-  target: Target
+  target: SurroundingPairTarget
 ) {
   const pairs = processSurroundingPair(
     context,
@@ -44,7 +45,7 @@ export function processedSurroundingPairTarget(
 
   return pairs.map(
     (pair) =>
-      new BaseTarget({
+      new SurroundingPairTarget({
         ...selectionWithEditorWithContextToTarget(pair),
         isReversed: target.isReversed,
       })
