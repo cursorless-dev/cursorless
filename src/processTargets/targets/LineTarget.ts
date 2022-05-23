@@ -1,5 +1,5 @@
 import { Range, TextEditor } from "vscode";
-import { RemovalRange, ScopeType } from "../../typings/target.types";
+import { RemovalRange } from "../../typings/target.types";
 import { parseRemovalRange } from "../../util/targetUtils";
 import BaseTarget from "./BaseTarget";
 
@@ -12,14 +12,13 @@ interface LineTargetParameters {
 }
 
 export default class LineTarget extends BaseTarget {
-  scopeType: ScopeType;
-  delimiter: string;
-
   constructor(parameters: LineTargetParameters) {
-    super(parameters);
-    this.scopeType = "line";
-    this.delimiter = "\n";
-    this.isLine = true;
+    super({
+      ...parameters,
+      isLine: true,
+      scopeType: "line",
+      delimiter: "\n",
+    });
   }
 
   protected getRemovalContentRange(): Range {

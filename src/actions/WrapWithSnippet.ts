@@ -86,9 +86,7 @@ export default class WrapWithSnippet implements Action {
       this.graph.editStyles.pendingModification0
     );
 
-    const targetSelections = targets.map((target) =>
-      target.getContentSelection()
-    );
+    const targetSelections = targets.map((target) => target.contentSelection);
 
     await this.graph.actions.setSelection.run([targets]);
 

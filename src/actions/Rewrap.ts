@@ -45,7 +45,7 @@ export default class Rewrap implements Action {
               isReversed: target.isReversed,
             })
         ),
-        targetSelection: target.getContentSelection(),
+        targetSelection: target.contentSelection,
       };
     });
 

@@ -1,5 +1,6 @@
-import { Range, Selection, TextEditor } from "vscode";
+import { Range } from "vscode";
 import { HatStyleName } from "../core/constants";
+import BaseTarget from "../processTargets/targets/BaseTarget";
 
 export interface CursorMark {
   type: "cursor";
@@ -248,59 +249,4 @@ export interface RemovalRange {
 
 export type EditNewLineContext = { command: string } | { delimiter: string };
 
-export interface TargetParameters {
-  /** The text editor used for all ranges */
-  editor: TextEditor;
-
-  /** If true active is before anchor */
-  isReversed: boolean;
-
-  /** Is this a scope type other raw selection? */
-  scopeType?: ScopeType;
-
-  /** The current position */
-  position?: Position;
-
-  /**
-   * If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument
-   */
-  delimiter?: string;
-
-  /** The range of the content */
-  contentRange: Range;
-
-  /** The range to remove the content */
-  removalRange?: Range;
-
-  /**
-   * Represents the interior range of this selection. For example, for a
-   * surrounding pair this would exclude the opening and closing delimiter. For an if
-   * statement this would be the statements in the body.
-   */
-  interiorRange?: Range;
-
-  /**
-   * Represents the boundary ranges of this selection. For example, for a
-   * surrounding pair this would be the opening and closing delimiter. For an if
-   * statement this would be the line of the guard as well as the closing brace.
-   */
-  boundary?: [Range, Range];
-
-  /** The range of the delimiter before the content selection */
-  leadingDelimiter?: RemovalRange;
-
-  /** The range of the delimiter after the content selection */
-  trailingDelimiter?: RemovalRange;
-}
-
-export interface Target extends TargetParameters {
-  /** If true this target should be treated as a line in regards to continuous range */
-  isLine?: boolean;
-
-  getContentSelection(): Selection;
-  getContentText(): string;
-  maybeAddDelimiter(text: string): string;
-  getRemovalRange(): Range;
-  getRemovalHighlightRange(): Range | undefined;
-  getEditNewLineContext(isBefore: boolean): EditNewLineContext;
-}
+export type Target = BaseTarget;

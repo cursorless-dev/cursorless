@@ -28,7 +28,7 @@ export default class GetText implements Action {
     }
 
     return {
-      returnValue: targets.map((target) => target.getContentText()),
+      returnValue: targets.map((target) => target.contentText),
       thatMark: createThatMark(targets),
     };
   }

@@ -52,7 +52,7 @@ class InsertEmptyLines implements Action {
             editor,
             edits,
             [
-              targets.map((target) => target.getContentSelection()),
+              targets.map((target) => target.contentSelection),
               ranges.map((range) => new Selection(range.start, range.end)),
               editor.selections,
             ]

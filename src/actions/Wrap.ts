@@ -76,7 +76,7 @@ export default class Wrap implements Action {
           const thatMarkSelectionInfos = targets.map((target) =>
             getSelectionInfo(
               document,
-              target.getContentSelection(),
+              target.contentSelection,
               DecorationRangeBehavior.OpenOpen
             )
           );

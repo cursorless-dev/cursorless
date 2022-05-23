@@ -15,6 +15,9 @@ interface SurroundingPairTargetParameters {
 
 export default class SurroundingPairTarget extends BaseTarget {
   constructor(parameters: SurroundingPairTargetParameters) {
-    super(parameters);
+    super({
+      ...parameters,
+      delimiter: parameters.delimiter ?? " ",
+    });
   }
 }

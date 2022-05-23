@@ -11,14 +11,12 @@ export default class implements ModifierStage {
   constructor(private modifier: SubTokenModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    if (target.contentRange.isEmpty) {
-      target.contentRange = getTokenRangeForSelection(
-        target.editor,
-        target.contentRange
-      );
-    }
+    const { editor } = target;
+    const contentRange = target.contentRange.isEmpty
+      ? getTokenRangeForSelection(target.editor, target.contentRange)
+      : target.contentRange;
 
-    const token = target.getContentText();
+    const token = editor.document.getText(contentRange);
     let pieces: { start: number; end: number }[] = [];
 
     if (this.modifier.excludeActive || this.modifier.excludeAnchor) {
@@ -57,25 +55,24 @@ export default class implements ModifierStage {
 
     const isReversed = activeIndex < anchorIndex;
 
-    const anchor = target.contentRange.start.translate(
+    const anchor = contentRange.start.translate(
       undefined,
       isReversed ? pieces[anchorIndex].end : pieces[anchorIndex].start
     );
-    const active = target.contentRange.start.translate(
+    const active = contentRange.start.translate(
       undefined,
       isReversed ? pieces[activeIndex].start : pieces[activeIndex].end
     );
-    const contentRange = new Range(anchor, active);
 
     const startIndex = Math.min(anchorIndex, activeIndex);
     const endIndex = Math.max(anchorIndex, activeIndex);
     const leadingDelimiterRange =
       startIndex > 0 && pieces[startIndex - 1].end < pieces[startIndex].start
         ? new Range(
-            target.contentRange.start.translate({
+            contentRange.start.translate({
               characterDelta: pieces[startIndex - 1].end,
             }),
-            target.contentRange.start.translate({
+            contentRange.start.translate({
               characterDelta: pieces[startIndex].start,
             })
           )
@@ -84,10 +81,10 @@ export default class implements ModifierStage {
       endIndex + 1 < pieces.length &&
       pieces[endIndex].end < pieces[endIndex + 1].start
         ? new Range(
-            target.contentRange.start.translate({
+            contentRange.start.translate({
               characterDelta: pieces[endIndex].end,
             }),
-            target.contentRange.start.translate({
+            contentRange.start.translate({
               characterDelta: pieces[endIndex + 1].start,
             })
           )
@@ -95,16 +92,16 @@ export default class implements ModifierStage {
     const isInDelimitedList =
       leadingDelimiterRange != null || trailingDelimiterRange != null;
     const containingListDelimiter = isInDelimitedList
-      ? target.editor.document.getText(
+      ? editor.document.getText(
           (leadingDelimiterRange ?? trailingDelimiterRange)!
         )
       : undefined;
 
     return [
       new ScopeTypeTarget({
-        editor: target.editor,
+        editor,
         isReversed,
-        contentRange,
+        contentRange: new Range(anchor, active),
         scopeType: this.modifier.pieceType,
         delimiter: containingListDelimiter ?? "",
         leadingDelimiter:

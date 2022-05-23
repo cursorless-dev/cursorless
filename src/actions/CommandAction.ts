@@ -42,8 +42,8 @@ export default class CommandAction implements Action {
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const originalSelections = editor.selections;
 
-        const targetSelections = targets.map((target) =>
-          target.getContentSelection()
+        const targetSelections = targets.map(
+          (target) => target.contentSelection
         );
 
         // For command to the work we have to have the correct editor focused

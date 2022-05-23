@@ -10,8 +10,11 @@ interface RawSelectionTargetParameters {
 
 export default class RawSelectionTarget extends BaseTarget {
   constructor(parameters: RawSelectionTargetParameters) {
-    super(parameters);
-    this.delimiter = undefined;
+    super({ ...parameters, delimiter: "" });
+  }
+
+  get delimiter() {
+    return undefined;
   }
 
   getEditNewLineContext(_isBefore: boolean): EditNewLineContext {

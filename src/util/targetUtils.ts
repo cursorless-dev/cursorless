@@ -106,7 +106,7 @@ export function createThatMark(
         }))
       : targets.map((target) => ({
           editor: target!.editor,
-          selection: target.getContentSelection(),
+          selection: target.contentSelection,
         }));
   return uniqDeep(thatMark);
 }

@@ -1,5 +1,4 @@
 import { Range, TextEditor } from "vscode";
-import { ScopeType } from "../../typings/target.types";
 import BaseTarget from "./BaseTarget";
 
 interface DocumentTargetParameters {
@@ -9,14 +8,13 @@ interface DocumentTargetParameters {
 }
 
 export default class DocumentTarget extends BaseTarget {
-  scopeType: ScopeType;
-  delimiter: string;
-
   constructor(parameters: DocumentTargetParameters) {
-    super(parameters);
-    this.scopeType = "document";
-    this.delimiter = "\n";
-    this.isLine = true;
+    super({
+      ...parameters,
+      isLine: true,
+      scopeType: "document",
+      delimiter: "\n",
+    });
   }
 
   protected getRemovalContentRange(): Range {

@@ -11,7 +11,7 @@ export class SetSelection implements Action {
   }
 
   protected getSelection(target: Target) {
-    return target.getContentSelection();
+    return target.contentSelection;
   }
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {

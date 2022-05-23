@@ -11,9 +11,11 @@ interface NotebookCellTargetParameters {
 
 export default class NotebookCellTarget extends BaseTarget {
   constructor(parameters: NotebookCellTargetParameters) {
-    super(parameters);
-    this.scopeType = "notebookCell";
-    this.delimiter = "\n";
+    super({
+      ...parameters,
+      scopeType: "notebookCell",
+      delimiter: "\n",
+    });
   }
 
   getEditNewLineContext(isBefore: boolean): EditNewLineContext {

@@ -100,7 +100,7 @@ class BringMoveSwap implements Action {
         if (zipSources) {
           text = sources
             .map((source, i) => {
-              const text = source.getContentText();
+              const text = source.contentText;
               const containingListDelimiter =
                 destination.delimiter ?? source.delimiter;
               return i > 0 && containingListDelimiter
@@ -134,7 +134,7 @@ class BringMoveSwap implements Action {
         if (this.type !== "move") {
           results.push({
             range: source.contentRange,
-            text: destination.getContentText(),
+            text: destination.contentText,
             editor: source.editor,
             originalTarget: source,
             isSource: true,
@@ -178,7 +178,7 @@ class BringMoveSwap implements Action {
           const editSelectionInfos = edits.map(({ originalTarget }) =>
             getSelectionInfo(
               editor.document,
-              originalTarget.getContentSelection(),
+              originalTarget.contentSelection,
               DecorationRangeBehavior.OpenOpen
             )
           );
@@ -207,10 +207,7 @@ class BringMoveSwap implements Action {
               editor,
               selection,
               isSource: edit!.isSource,
-              target: {
-                ...edit!.originalTarget,
-                contentRange: selection,
-              },
+              target: edit!.originalTarget,
             };
           });
         }
@@ -220,16 +217,20 @@ class BringMoveSwap implements Action {
 
   private async decorateThatMark(thatMark: MarkEntry[]) {
     const decorationContext = this.getDecorationContext();
+    const getRange = (target: Target) =>
+      thatMark.find((t) => t.target === target)!.selection;
     return Promise.all([
       displayPendingEditDecorations(
         thatMark.filter(({ isSource }) => isSource).map(({ target }) => target),
-        decorationContext.sourceStyle
+        decorationContext.sourceStyle,
+        getRange
       ),
       displayPendingEditDecorations(
         thatMark
           .filter(({ isSource }) => !isSource)
           .map(({ target }) => target),
-        decorationContext.destinationStyle
+        decorationContext.destinationStyle,
+        getRange
       ),
     ]);
   }
@@ -290,6 +291,6 @@ export class Swap extends BringMoveSwap {
 
 /** Get text from selection. Possibly add delimiter for positions before/after */
 function getTextWithPossibleDelimiter(source: Target, destination: Target) {
-  const sourceText = source.getContentText();
+  const sourceText = source.contentText;
   return destination.maybeAddDelimiter(sourceText);
 }

@@ -1,37 +1,28 @@
+import { Range, TextEditor } from "vscode";
 import {
   EditNewLineContext,
+  RemovalRange,
   ScopeType,
-  TargetParameters,
 } from "../../typings/target.types";
 import BaseTarget from "./BaseTarget";
 
-export interface ScopeTypeTargetParameters extends TargetParameters {
+export interface ScopeTypeTargetParameters {
+  editor: TextEditor;
+  isReversed: boolean;
   scopeType: ScopeType;
+  delimiter?: string;
+  contentRange: Range;
+  removalRange?: Range;
+  leadingDelimiter?: RemovalRange;
+  trailingDelimiter?: RemovalRange;
 }
 
 export default class ScopeTypeTarget extends BaseTarget {
-  scopeType: ScopeType;
-  delimiter: string;
-
   constructor(parameters: ScopeTypeTargetParameters) {
-    super(parameters);
-    this.scopeType = parameters.scopeType;
-    this.delimiter =
-      parameters.delimiter ?? this.getDelimiter(parameters.scopeType);
-  }
-
-  private getDelimiter(scopeType: ScopeType): string {
-    switch (scopeType) {
-      case "namedFunction":
-      case "anonymousFunction":
-      case "statement":
-      case "ifStatement":
-        return "\n";
-      case "class":
-        return "\n\n";
-      default:
-        return " ";
-    }
+    super({
+      ...parameters,
+      delimiter: parameters.delimiter ?? getDelimiter(parameters.scopeType),
+    });
   }
 
   getEditNewLineContext(isBefore: boolean): EditNewLineContext {
@@ -40,7 +31,21 @@ export default class ScopeTypeTarget extends BaseTarget {
       return super.getEditNewLineContext(isBefore);
     }
     return {
-      delimiter: this.delimiter,
+      delimiter: this.delimiter!,
     };
+  }
+}
+
+function getDelimiter(scopeType: ScopeType): string {
+  switch (scopeType) {
+    case "namedFunction":
+    case "anonymousFunction":
+    case "statement":
+    case "ifStatement":
+      return "\n";
+    case "class":
+      return "\n\n";
+    default:
+      return " ";
   }
 }
