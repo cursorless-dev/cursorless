@@ -241,15 +241,18 @@ function processPrimitiveTarget(
   const markStage = getMarkStage(target.mark);
   let targets = markStage.run(context);
 
-  for (let i = target.modifiers.length - 1; i > -1; --i) {
-    const modifier = target.modifiers[i];
-    const stage = getModifierStage(modifier);
+  const modifierStages = [
+    ...target.modifiers.reverse().map(getModifierStage),
+    ...context.finalStages,
+  ];
+
+  modifierStages.forEach((stage) => {
     const stageTargets: Target[] = [];
     for (const target of targets) {
       stageTargets.push(...stage.run(context, target));
     }
     targets = stageTargets;
-  }
+  });
 
   return targets;
 }

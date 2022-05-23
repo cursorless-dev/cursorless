@@ -10,6 +10,7 @@ import HatTokenMap from "../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { CommandServerApi } from "../util/getExtensionApi";
 import { FullRangeInfo } from "./updateSelections";
@@ -23,6 +24,7 @@ export interface Token extends FullRangeInfo {
 }
 
 export interface ProcessedTargetsContext {
+  finalStages: ModifierStage[];
   currentSelections: SelectionWithEditor[];
   currentEditor: vscode.TextEditor | undefined;
   hatTokenMap: ReadOnlyHatMap;

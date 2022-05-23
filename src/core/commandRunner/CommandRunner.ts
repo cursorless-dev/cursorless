@@ -88,7 +88,13 @@ export default class CommandRunner {
         this.graph.debug.log(JSON.stringify(targetDescriptors, null, 3));
       }
 
+      const finalStages =
+        action.getFinalStages != null
+          ? action.getFinalStages(...extraArgs)
+          : [];
+
       const processedTargetsContext: ProcessedTargetsContext = {
+        finalStages,
         currentSelections:
           vscode.window.activeTextEditor?.selections.map((selection) => ({
             selection,
@@ -105,11 +111,6 @@ export default class CommandRunner {
         processedTargetsContext,
         targetDescriptors
       );
-
-      const finalStages =
-        action.getFinalStages != null
-          ? action.getFinalStages(...extraArgs)
-          : [];
 
       if (this.graph.testCaseRecorder.isActive()) {
         const context = {
