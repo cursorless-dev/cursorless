@@ -22,6 +22,10 @@ export default class WeakTarget extends BaseTarget {
     });
   }
 
+  get isWeak() {
+    return true;
+  }
+
   getInterior(context: ProcessedTargetsContext): Target[] {
     return this.processSurroundingPair(context).flatMap(
       (surroundingPairTarget) => surroundingPairTarget.getInterior(context)!

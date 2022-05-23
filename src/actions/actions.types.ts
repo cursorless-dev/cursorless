@@ -1,5 +1,6 @@
+import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { Target } from "../typings/target.types";
-import { ActionPreferences, SelectionWithEditor } from "../typings/Types";
+import { SelectionWithEditor } from "../typings/Types";
 
 export type ActionType =
   | "callAsFunction"
@@ -55,10 +56,10 @@ export interface Action {
   run(targets: Target[][], ...args: any[]): Promise<ActionReturnValue>;
 
   /**
-   * Used to define default values for parts of target during inference.
+   * Used to define final stages that should be run at the end of the pipeline before the action
    * @param args Extra args to command
    */
-  getTargetPreferences?(...args: any[]): ActionPreferences[];
+  getFinalStages?(...args: any[]): ModifierStage[];
 }
 
 export type ActionRecord = Record<ActionType, Action>;

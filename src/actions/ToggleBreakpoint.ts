@@ -6,8 +6,9 @@ import {
   SourceBreakpoint,
   Uri,
 } from "vscode";
+import WeakContainingScopeStage from "../processTargets/modifiers/WeakContainingScopeStage";
 import { Target } from "../typings/target.types";
-import { ActionPreferences, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { createThatMark } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -22,8 +23,11 @@ function getBreakpoints(uri: Uri, range: Range) {
 }
 
 export default class ToggleBreakpoint implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [
-    { modifiers: [{ type: "containingScope", scopeType: "line" }] },
+  getFinalStages = () => [
+    new WeakContainingScopeStage({
+      type: "containingScope",
+      scopeType: "line",
+    }),
   ];
 
   constructor(private graph: Graph) {

@@ -1,8 +1,9 @@
 import { commands } from "vscode";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import WeakContainingScopeStage from "../processTargets/modifiers/WeakContainingScopeStage";
 import { SnippetDefinition } from "../typings/snippet";
 import { Target } from "../typings/target.types";
-import { ActionPreferences, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { ensureSingleEditor } from "../util/targetUtils";
 import {
@@ -17,7 +18,7 @@ import { Action, ActionReturnValue } from "./actions.types";
 export default class WrapWithSnippet implements Action {
   private snippetParser = new SnippetParser();
 
-  getTargetPreferences(snippetLocation: string): ActionPreferences[] {
+  getFinalStages(snippetLocation: string) {
     const [snippetName, placeholderName] =
       parseSnippetLocation(snippetLocation);
 
@@ -35,14 +36,10 @@ export default class WrapWithSnippet implements Action {
     }
 
     return [
-      {
-        modifiers: [
-          {
-            type: "containingScope",
-            scopeType: defaultScopeType,
-          },
-        ],
-      },
+      new WeakContainingScopeStage({
+        type: "containingScope",
+        scopeType: defaultScopeType,
+      }),
     ];
   }
 

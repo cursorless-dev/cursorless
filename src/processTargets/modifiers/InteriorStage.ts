@@ -10,11 +10,7 @@ export class InteriorOnlyStage implements ModifierStage {
   constructor(private modifier: InteriorOnlyModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const interiorTargets = target.getInterior(context);
-    if (interiorTargets == null) {
-      throw Error("No available interior");
-    }
-    return interiorTargets;
+    return target.getInterior(context);
   }
 }
 
@@ -22,10 +18,6 @@ export class ExcludeInteriorStage implements ModifierStage {
   constructor(private modifier: ExcludeInteriorModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const boundaryTargets = target.getBoundary(context);
-    if (boundaryTargets == null) {
-      throw Error("No available boundaries");
-    }
-    return boundaryTargets;
+    return target.getBoundary(context);
   }
 }

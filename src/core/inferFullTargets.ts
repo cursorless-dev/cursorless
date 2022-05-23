@@ -7,7 +7,6 @@ import {
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/target.types";
-import { ActionPreferences } from "../typings/Types";
 
 /**
  * Performs inference on the partial targets provided by the user, using
@@ -16,51 +15,39 @@ import { ActionPreferences } from "../typings/Types";
  * For example, we would automatically infer that `"take funk air and bat"` is
  * equivalent to `"take funk air and funk bat"`.
  * @param targets The partial targets which need to be completed by inference.
- * @param actionPreferences The preferences provided by the action, so that different actions can provide their own defaults
  * @returns Target objects fully filled out and ready to be processed by {@link processTargets}.
  */
 export default function inferFullTargets(
-  targets: PartialTargetDesc[],
-  actionPreferences?: ActionPreferences[]
+  targets: PartialTargetDesc[]
 ): TargetDescriptor[] {
-  if (
-    actionPreferences != null &&
-    targets.length !== actionPreferences.length
-  ) {
-    throw new Error("Target length is not equal to action preference length");
-  }
-
   return targets.map((target, index) =>
-    inferTarget(target, targets.slice(0, index), actionPreferences?.at(index))
+    inferTarget(target, targets.slice(0, index))
   );
 }
 
 function inferTarget(
   target: PartialTargetDesc,
-  previousTargets: PartialTargetDesc[],
-  actionPreferences?: ActionPreferences
+  previousTargets: PartialTargetDesc[]
 ): TargetDescriptor {
   switch (target.type) {
     case "list":
-      return inferListTarget(target, previousTargets, actionPreferences);
+      return inferListTarget(target, previousTargets);
     case "range":
     case "primitive":
-      return inferNonListTarget(target, previousTargets, actionPreferences);
+      return inferNonListTarget(target, previousTargets);
   }
 }
 
 function inferListTarget(
   target: PartialListTargetDesc,
-  previousTargets: PartialTargetDesc[],
-  actionPreferences?: ActionPreferences
+  previousTargets: PartialTargetDesc[]
 ): TargetDescriptor {
   return {
     ...target,
     elements: target.elements.map((element, index) =>
       inferNonListTarget(
         element,
-        previousTargets.concat(target.elements.slice(0, index)),
-        actionPreferences
+        previousTargets.concat(target.elements.slice(0, index))
       )
     ),
   };
@@ -68,44 +55,36 @@ function inferListTarget(
 
 function inferNonListTarget(
   target: PartialPrimitiveTargetDesc | PartialRangeTargetDesc,
-  previousTargets: PartialTargetDesc[],
-  actionPreferences?: ActionPreferences
+  previousTargets: PartialTargetDesc[]
 ): PrimitiveTargetDescriptor | RangeTargetDescriptor {
   switch (target.type) {
     case "primitive":
-      return inferPrimitiveTarget(target, previousTargets, actionPreferences);
+      return inferPrimitiveTarget(target, previousTargets);
     case "range":
-      return inferRangeTarget(target, previousTargets, actionPreferences);
+      return inferRangeTarget(target, previousTargets);
   }
 }
 
 function inferRangeTarget(
   target: PartialRangeTargetDesc,
-  previousTargets: PartialTargetDesc[],
-  actionPreferences?: ActionPreferences
+  previousTargets: PartialTargetDesc[]
 ): RangeTargetDescriptor {
   return {
     type: "range",
     excludeAnchor: target.excludeStart ?? false,
     excludeActive: target.excludeEnd ?? false,
     rangeType: target.rangeType ?? "continuous",
-    anchor: inferPrimitiveTarget(
-      target.anchor,
-      previousTargets,
-      actionPreferences
-    ),
+    anchor: inferPrimitiveTarget(target.anchor, previousTargets),
     active: inferPrimitiveTarget(
       target.active,
-      previousTargets.concat(target.anchor),
-      actionPreferences
+      previousTargets.concat(target.anchor)
     ),
   };
 }
 
 function inferPrimitiveTarget(
   target: PartialPrimitiveTargetDesc,
-  previousTargets: PartialTargetDesc[],
-  actionPreferences?: ActionPreferences
+  previousTargets: PartialTargetDesc[]
 ): PrimitiveTargetDescriptor {
   if (target.isImplicit) {
     return {
@@ -127,8 +106,7 @@ function inferPrimitiveTarget(
 
   const previousModifiers = getPreviousModifiers(previousTargets);
 
-  const modifiers =
-    target.modifiers ?? previousModifiers ?? actionPreferences?.modifiers ?? [];
+  const modifiers = target.modifiers ?? previousModifiers ?? [];
 
   // "bring line to after this" needs to infer line on second target
   const modifierTypes = [

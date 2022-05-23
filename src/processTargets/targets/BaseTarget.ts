@@ -125,35 +125,36 @@ export default abstract class BaseTarget implements Target {
     return false;
   }
 
-  getInterior(_context: ProcessedTargetsContext): Target[] | undefined {
-    if (this.position != null) {
-      return undefined;
-    }
-    return this.state.interiorRange != null
-      ? [
-          new WeakTarget({
-            editor: this.editor,
-            isReversed: this.isReversed,
-            contentRange: this.state.interiorRange,
-          }),
-        ]
-      : undefined;
+  /** If true this target is of weak type and should use inference/upgrade when needed. See {@link WeakTarget} for more info  */
+  get isWeak() {
+    return false;
   }
 
-  getBoundary(_context: ProcessedTargetsContext): Target[] | undefined {
-    if (this.position != null) {
-      return undefined;
+  getInterior(_context: ProcessedTargetsContext): Target[] {
+    if (this.state.interiorRange == null || this.position != null) {
+      throw Error("No available interior");
     }
-    return this.state.boundary != null
-      ? this.state.boundary.map(
-          (contentRange) =>
-            new WeakTarget({
-              editor: this.editor,
-              isReversed: this.isReversed,
-              contentRange,
-            })
-        )
-      : undefined;
+    return [
+      new WeakTarget({
+        editor: this.editor,
+        isReversed: this.isReversed,
+        contentRange: this.state.interiorRange,
+      }),
+    ];
+  }
+
+  getBoundary(_context: ProcessedTargetsContext): Target[] {
+    if (this.state.boundary == null || this.position != null) {
+      throw Error("No available boundaries");
+    }
+    return this.state.boundary.map(
+      (contentRange) =>
+        new WeakTarget({
+          editor: this.editor,
+          isReversed: this.isReversed,
+          contentRange,
+        })
+    );
   }
 
   get contentRange(): Range {

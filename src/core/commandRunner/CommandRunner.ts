@@ -39,7 +39,7 @@ export default class CommandRunner {
    *    {@link canonicalizeAndValidateCommand}, primarily for the purpose of
    *    backwards compatibility
    * 2. Perform inference on targets to fill in details left out using things
-   *    like previous targets and action preferences. For example we would
+   *    like previous targets. For example we would
    *    automatically infer that `"take funk air and bat"` is equivalent to
    *    `"take funk air and funk bat"`. See {@link inferFullTargets} for details
    *    of how this is done.
@@ -81,12 +81,7 @@ export default class CommandRunner {
         throw new Error(`Unknown action ${actionName}`);
       }
 
-      const targetDescriptors = inferFullTargets(
-        partialTargetDescriptors,
-        action.getTargetPreferences
-          ? action.getTargetPreferences(...extraArgs)
-          : undefined
-      );
+      const targetDescriptors = inferFullTargets(partialTargetDescriptors);
 
       if (this.graph.debug.active) {
         this.graph.debug.log("Full targets:");
@@ -110,6 +105,11 @@ export default class CommandRunner {
         processedTargetsContext,
         targetDescriptors
       );
+
+      const finalStages =
+        action.getFinalStages != null
+          ? action.getFinalStages(...extraArgs)
+          : [];
 
       if (this.graph.testCaseRecorder.isActive()) {
         const context = {

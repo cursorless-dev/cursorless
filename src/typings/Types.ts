@@ -12,7 +12,6 @@ import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { CommandServerApi } from "../util/getExtensionApi";
-import { Modifier } from "./target.types";
 import { FullRangeInfo } from "./updateSelections";
 
 /**
@@ -73,10 +72,6 @@ export interface SelectionContext {
    * statement this would be the statements in the body.
    */
   interiorRange?: vscode.Range;
-}
-
-export interface ActionPreferences {
-  modifiers: Modifier[];
 }
 
 export type SelectionWithEditorWithContext = {
