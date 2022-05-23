@@ -116,10 +116,7 @@ export function findSurroundingPairParseTreeBased(
         document,
         0,
         pairOffsets
-      ).map(({ selection, context }) => ({
-        selection: { selection, editor },
-        context,
-      }));
+      );
     }
   }
 

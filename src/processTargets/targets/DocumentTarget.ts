@@ -8,7 +8,6 @@ export default class DocumentTarget extends BaseTarget {
   constructor(parameters: CommonTargetParameters) {
     super({
       ...extractCommonParameters(parameters),
-      scopeTypeType: "document",
       delimiter: "\n",
     });
   }

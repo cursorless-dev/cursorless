@@ -20,7 +20,7 @@ export default class Rewrap implements Action {
     right: string
   ): Promise<ActionReturnValue> {
     const boundaryTargets = targets.flatMap((target) => {
-      const boundary = target.boundary;
+      const boundary = target.getBoundaryStrict();
 
       if (boundary.length !== 2) {
         throw Error("Target must have an opening and closing delimiter");

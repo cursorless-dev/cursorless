@@ -1,6 +1,11 @@
 import { Range, Selection, TextDocument } from "vscode";
-import { SelectionWithContext } from "../../../typings/Types";
 import { SurroundingPairOffsets } from "./types";
+
+export interface SurroundingPairInfo {
+  contentRange: Selection;
+  boundary: [Range, Range];
+  interiorRange: Range;
+}
 
 /**
  * Given offsets describing a surrounding pair, returns a selection
@@ -15,7 +20,7 @@ export function extractSelectionFromSurroundingPairOffsets(
   document: TextDocument,
   baseOffset: number,
   surroundingPairOffsets: SurroundingPairOffsets
-): SelectionWithContext[] {
+): SurroundingPairInfo {
   const interior = new Range(
     document.positionAt(baseOffset + surroundingPairOffsets.leftDelimiter.end),
     document.positionAt(
@@ -39,20 +44,16 @@ export function extractSelectionFromSurroundingPairOffsets(
     ),
   ];
 
-  return [
-    {
-      selection: new Selection(
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.leftDelimiter.start
-        ),
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.rightDelimiter.end
-        )
+  return {
+    contentRange: new Selection(
+      document.positionAt(
+        baseOffset + surroundingPairOffsets.leftDelimiter.start
       ),
-      context: {
-        boundary,
-        interiorRange: interior,
-      },
-    },
-  ];
+      document.positionAt(
+        baseOffset + surroundingPairOffsets.rightDelimiter.end
+      )
+    ),
+    boundary,
+    interiorRange: interior,
+  };
 }

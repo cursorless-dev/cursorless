@@ -15,12 +15,15 @@ export default class ParagraphTarget extends BaseTarget {
   constructor(parameters: ParagraphTargetParameters) {
     super({
       ...extractCommonParameters(parameters),
-      scopeTypeType: "paragraph",
       delimiter: "\n\n",
     });
   }
 
   get isLine() {
+    return true;
+  }
+
+  get isParagraph() {
     return true;
   }
 

@@ -3,11 +3,9 @@ import {
   EditNewLineContext,
   Position,
   RemovalRange,
-  SimpleScopeTypeType,
   Target,
 } from "../../typings/target.types";
 import { parseRemovalRange } from "../../util/targetUtils";
-import WeakTarget from "./WeakTarget";
 
 export function extractCommonParameters(parameters: CommonTargetParameters) {
   return {
@@ -27,11 +25,8 @@ export interface CommonTargetParameters {
 }
 
 export interface BaseTargetParameters extends CommonTargetParameters {
-  scopeTypeType?: SimpleScopeTypeType;
   delimiter: string;
   removalRange?: Range;
-  interiorRange?: Range;
-  boundary?: [Range, Range];
   leadingDelimiter?: RemovalRange;
   trailingDelimiter?: RemovalRange;
   isLine?: boolean;
@@ -50,25 +45,8 @@ interface BaseTargetState {
   /** If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument */
   readonly delimiter: string;
 
-  /** Is this a scope type other raw selection? */
-  readonly scopeTypeType?: SimpleScopeTypeType;
-
   /** The range to remove the content */
   readonly removalRange?: Range;
-
-  /**
-   * Represents the interior range of this selection. For example, for a
-   * surrounding pair this would exclude the opening and closing delimiter. For an if
-   * statement this would be the statements in the body.
-   */
-  readonly interiorRange?: Range;
-
-  /**
-   * Represents the boundary ranges of this selection. For example, for a
-   * surrounding pair this would be the opening and closing delimiter. For an if
-   * statement this would be the line of the guard as well as the closing brace.
-   */
-  readonly boundary?: [Range, Range];
 
   /** The range of the delimiter before the content selection */
   readonly leadingDelimiter?: RemovalRange;
@@ -80,7 +58,7 @@ interface BaseTargetState {
   position?: Position;
 }
 
-export default abstract class BaseTarget implements Target {
+export default abstract class BaseTarget {
   protected readonly state: BaseTargetState;
 
   constructor(parameters: BaseTargetParameters) {
@@ -89,10 +67,7 @@ export default abstract class BaseTarget implements Target {
       isReversed: parameters.isReversed,
       contentRange: parameters.contentRange,
       delimiter: parameters.delimiter,
-      scopeTypeType: parameters.scopeTypeType,
       removalRange: parameters.removalRange,
-      interiorRange: parameters.interiorRange,
-      boundary: parameters.boundary,
       leadingDelimiter: parameters.leadingDelimiter,
       trailingDelimiter: parameters.trailingDelimiter,
       position: parameters.position,
@@ -115,12 +90,13 @@ export default abstract class BaseTarget implements Target {
     return this.state.removalRange;
   }
 
-  get scopeTypeType() {
-    return this.state.scopeTypeType;
+  /** If true this target should be treated as a line */
+  get isLine() {
+    return false;
   }
 
-  /** If true this target should be treated as a line in regards to continuous range */
-  get isLine() {
+  /** If true this target should be treated as a paragraph */
+  get isParagraph() {
     return false;
   }
 
@@ -129,31 +105,12 @@ export default abstract class BaseTarget implements Target {
     return false;
   }
 
-  get interior(): Target[] {
-    if (this.state.interiorRange == null || this.position != null) {
-      throw Error("No available interior");
-    }
-    return [
-      new WeakTarget({
-        editor: this.editor,
-        isReversed: this.isReversed,
-        contentRange: this.state.interiorRange,
-      }),
-    ];
+  getInteriorStrict(): Target[] {
+    throw Error("No available interior");
   }
 
-  get boundary(): Target[] {
-    if (this.state.boundary == null || this.position != null) {
-      throw Error("No available boundaries");
-    }
-    return this.state.boundary.map(
-      (contentRange) =>
-        new WeakTarget({
-          editor: this.editor,
-          isReversed: this.isReversed,
-          contentRange,
-        })
-    );
+  getBoundaryStrict(): Target[] {
+    throw Error("No available boundaries");
   }
 
   get contentRange(): Range {

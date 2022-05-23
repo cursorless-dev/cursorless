@@ -166,10 +166,7 @@ export function findSurroundingPairTextBased(
         document,
         currentRangeOffsets.start,
         pairOffsets
-      ).map(({ selection, context }) => ({
-        selection: { selection, editor },
-        context,
-      }));
+      );
     }
 
     // If the current range is greater than are equal to the full range then we

@@ -7,7 +7,6 @@ export default class NotebookCellTarget extends BaseTarget {
   constructor(parameters: CommonTargetParameters) {
     super({
       ...parameters,
-      scopeTypeType: "notebookCell",
       delimiter: "\n",
     });
   }

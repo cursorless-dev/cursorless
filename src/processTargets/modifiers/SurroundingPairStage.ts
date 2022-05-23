@@ -3,7 +3,6 @@ import {
   Target,
 } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
-import { selectionWithEditorWithContextToTarget } from "../../util/targetUtils";
 import { ModifierStage } from "../PipelineStages.types";
 import SurroundingPairTarget from "../targets/SurroundingPairTarget";
 import { processSurroundingPair } from "./surroundingPair";
@@ -37,22 +36,22 @@ function processedSurroundingPairTarget(
   context: ProcessedTargetsContext,
   target: Target
 ): SurroundingPairTarget[] {
-  const pairs = processSurroundingPair(
+  const pairInfo = processSurroundingPair(
     context,
     target.editor,
     target.contentRange,
     modifier.scopeType
   );
 
-  if (pairs == null) {
+  if (pairInfo == null) {
     throw new Error("Couldn't find containing pair");
   }
 
-  return pairs.map(
-    (pair) =>
-      new SurroundingPairTarget({
-        ...selectionWithEditorWithContextToTarget(pair),
-        isReversed: target.isReversed,
-      })
-  );
+  return [
+    new SurroundingPairTarget({
+      ...pairInfo,
+      editor: target.editor,
+      isReversed: target.isReversed,
+    }),
+  ];
 }

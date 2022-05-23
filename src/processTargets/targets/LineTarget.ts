@@ -15,7 +15,6 @@ export default class LineTarget extends BaseTarget {
   constructor(parameters: LineTargetParameters) {
     super({
       ...extractCommonParameters(parameters),
-      scopeTypeType: "line",
       delimiter: "\n",
     });
   }

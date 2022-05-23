@@ -164,11 +164,6 @@ function processContinuousRangeTarget(
     return endTarget.trailingDelimiter;
   })();
 
-  const scopeType =
-    startTarget.scopeTypeType === endTarget.scopeTypeType
-      ? startTarget.scopeTypeType
-      : undefined;
-
   // If both objects are of the same type create a new object of the same
   const startConstructor = Object.getPrototypeOf(startTarget).constructor;
   const endConstructor = Object.getPrototypeOf(endTarget).constructor;
@@ -181,7 +176,6 @@ function processContinuousRangeTarget(
     delimiter: anchorTarget.delimiter,
     contentRange,
     removalRange,
-    scopeType,
     leadingDelimiter,
     trailingDelimiter,
   });

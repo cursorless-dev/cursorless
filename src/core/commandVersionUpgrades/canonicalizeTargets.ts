@@ -26,7 +26,7 @@ const canonicalizeScopeTypes = (
     if (mod.type === "containingScope" || mod.type === "everyScope") {
       mod.scopeType.type =
         SCOPE_TYPE_CANONICALIZATION_MAPPING[mod.scopeType.type] ??
-        mod.scopeType;
+        mod.scopeType.type;
     }
   });
   return target;

@@ -1,17 +1,17 @@
 import { Location, Range, Selection, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import getTextFragmentExtractor, {
-  TextFragmentExtractor,
+  TextFragmentExtractor
 } from "../../../languages/getTextFragmentExtractor";
 import {
   ComplexSurroundingPairName,
-  SurroundingPairScopeType,
+  SurroundingPairScopeType
 } from "../../../typings/target.types";
 import {
-  ProcessedTargetsContext,
-  SelectionWithEditorWithContext,
+  ProcessedTargetsContext
 } from "../../../typings/Types";
 import { complexDelimiterMap } from "./delimiterMaps";
+import { SurroundingPairInfo } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
 import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
 
@@ -33,7 +33,7 @@ export function processSurroundingPair(
   editor: TextEditor,
   range: Range,
   modifier: SurroundingPairScopeType
-): SelectionWithEditorWithContext[] | null {
+): SurroundingPairInfo | null {
   const document = editor.document;
   const delimiters = complexDelimiterMap[
     modifier.delimiter as ComplexSurroundingPairName

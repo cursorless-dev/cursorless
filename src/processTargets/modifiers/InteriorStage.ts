@@ -13,7 +13,7 @@ export class InteriorOnlyStage implements ModifierStage {
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     return weakContainingSurroundingPairStage
       .run(context, target)
-      .flatMap((target) => target.interior);
+      .flatMap((target) => target.getInteriorStrict());
   }
 }
 
@@ -23,6 +23,6 @@ export class ExcludeInteriorStage implements ModifierStage {
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     return weakContainingSurroundingPairStage
       .run(context, target)
-      .flatMap((target) => target.boundary);
+      .flatMap((target) => target.getBoundaryStrict());
   }
 }
