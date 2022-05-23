@@ -1,5 +1,4 @@
 import {
-  Modifier,
   PartialListTargetDesc,
   PartialPrimitiveTargetDesc,
   PartialRangeTargetDesc,
@@ -108,6 +107,14 @@ function inferPrimitiveTarget(
   previousTargets: PartialTargetDesc[],
   actionPreferences?: ActionPreferences
 ): PrimitiveTargetDescriptor {
+  if (target.isImplicit) {
+    return {
+      type: "primitive",
+      mark: { type: "cursor" },
+      modifiers: [{ type: "toRawSelection" }],
+    };
+  }
+
   const hasPosition = !!target.modifiers?.find(
     (modifier) => modifier.type === "position"
   );
@@ -119,16 +126,9 @@ function inferPrimitiveTarget(
     };
 
   const previousModifiers = getPreviousModifiers(previousTargets);
-  const implicitModifiers = target.isImplicit
-    ? [{ type: "toRawSelection" } as Modifier]
-    : undefined;
 
   const modifiers =
-    target.modifiers ??
-    implicitModifiers ??
-    previousModifiers ??
-    actionPreferences?.modifiers ??
-    [];
+    target.modifiers ?? previousModifiers ?? actionPreferences?.modifiers ?? [];
 
   // "bring line to after this" needs to infer line on second target
   const modifierTypes = [
