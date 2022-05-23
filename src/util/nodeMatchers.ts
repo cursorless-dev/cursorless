@@ -6,7 +6,7 @@ import {
   NodeMatcherAlternative,
   SelectionWithEditor,
 } from "../typings/Types";
-import { ScopeType } from "../typings/target.types";
+import { SimpleScopeTypeType } from "../typings/target.types";
 import {
   simpleSelectionExtractor,
   argumentSelectionExtractor,
@@ -176,9 +176,9 @@ export const notSupported: NodeMatcher = (
 };
 
 export function createPatternMatchers(
-  nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>>
-): Record<ScopeType, NodeMatcher> {
-  Object.keys(nodeMatchers).forEach((scopeType: ScopeType) => {
+  nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>>
+): Record<SimpleScopeTypeType, NodeMatcher> {
+  Object.keys(nodeMatchers).forEach((scopeType: SimpleScopeTypeType) => {
     let matcher = nodeMatchers[scopeType];
     if (Array.isArray(matcher)) {
       nodeMatchers[scopeType] = patternMatcher(...matcher);
@@ -186,5 +186,5 @@ export function createPatternMatchers(
       nodeMatchers[scopeType] = patternMatcher(matcher);
     }
   });
-  return nodeMatchers as Record<ScopeType, NodeMatcher>;
+  return nodeMatchers as Record<SimpleScopeTypeType, NodeMatcher>;
 }

@@ -15,7 +15,7 @@ export default class ParagraphTarget extends BaseTarget {
   constructor(parameters: ParagraphTargetParameters) {
     super({
       ...extractCommonParameters(parameters),
-      scopeType: "paragraph",
+      scopeTypeType: "paragraph",
       delimiter: "\n\n",
     });
   }

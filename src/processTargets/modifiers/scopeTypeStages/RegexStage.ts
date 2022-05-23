@@ -9,9 +9,11 @@ import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import { getTokenDelimiters } from "./TokenStage";
 
+type RegexModifier = NonWhitespaceSequenceModifier | UrlModifier;
+
 class RegexStage implements ModifierStage {
   constructor(
-    private modifier: ContainingScopeModifier | EveryScopeModifier,
+    private modifier: RegexModifier,
     private regex: RegExp,
     private name?: string
   ) {}
@@ -63,7 +65,7 @@ class RegexStage implements ModifierStage {
   getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
     return new ScopeTypeTarget({
       ...getTokenDelimiters(target.editor, range),
-      scopeType: this.modifier.scopeType,
+      scopeTypeType: this.modifier.scopeType.type,
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange: range,
@@ -106,8 +108,15 @@ class RegexStage implements ModifierStage {
   }
 }
 
+export type NonWhitespaceSequenceModifier = (
+  | ContainingScopeModifier
+  | EveryScopeModifier
+) & {
+  scopeType: { type: "nonWhitespaceSequence" };
+};
+
 export class NonWhitespaceSequenceStage extends RegexStage {
-  constructor(modifier: ContainingScopeModifier | EveryScopeModifier) {
+  constructor(modifier: NonWhitespaceSequenceModifier) {
     super(modifier, /\S+/g, "Non whitespace sequence");
   }
 }
@@ -116,8 +125,12 @@ export class NonWhitespaceSequenceStage extends RegexStage {
 const URL_REGEX =
   /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
 
+export type UrlModifier = (ContainingScopeModifier | EveryScopeModifier) & {
+  scopeType: { type: "url" };
+};
+
 export class UrlStage extends RegexStage {
-  constructor(modifier: ContainingScopeModifier | EveryScopeModifier) {
+  constructor(modifier: UrlModifier) {
     super(modifier, URL_REGEX, "URL");
   }
 }

@@ -165,8 +165,8 @@ function processContinuousRangeTarget(
   })();
 
   const scopeType =
-    startTarget.scopeType === endTarget.scopeType
-      ? startTarget.scopeType
+    startTarget.scopeTypeType === endTarget.scopeTypeType
+      ? startTarget.scopeTypeType
       : undefined;
 
   // If both objects are of the same type create a new object of the same

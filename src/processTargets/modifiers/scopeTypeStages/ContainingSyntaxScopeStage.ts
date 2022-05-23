@@ -4,6 +4,7 @@ import { getNodeMatcher } from "../../../languages/getNodeMatcher";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  SimpleScopeType,
   Target,
 } from "../../../typings/target.types";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
@@ -17,13 +18,23 @@ import { selectionWithEditorFromRange } from "../../../util/selectionUtils";
 import { selectionWithEditorWithContextToTarget } from "../../../util/targetUtils";
 import { ModifierStage } from "../../PipelineStages.types";
 
+export interface SimpleContainingScopeModifier extends ContainingScopeModifier {
+  scopeType: SimpleScopeType;
+}
+
+export interface SimpleEveryScopeModifier extends EveryScopeModifier {
+  scopeType: SimpleScopeType;
+}
+
 export default class implements ModifierStage {
-  constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
+  constructor(
+    private modifier: SimpleContainingScopeModifier | SimpleEveryScopeModifier
+  ) {}
 
   run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
     const nodeMatcher = getNodeMatcher(
       target.editor.document.languageId,
-      this.modifier.scopeType,
+      this.modifier.scopeType.type,
       this.modifier.type === "everyScope"
     );
 
@@ -47,7 +58,7 @@ export default class implements ModifierStage {
       (scope) =>
         new ScopeTypeTarget({
           ...selectionWithEditorWithContextToTarget(scope),
-          scopeType: this.modifier.scopeType,
+          scopeTypeType: this.modifier.scopeType.type,
           isReversed: target.isReversed,
         })
     );

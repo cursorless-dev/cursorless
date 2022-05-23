@@ -3,12 +3,12 @@ import { flow } from "lodash";
 import {
   PartialPrimitiveTargetDesc,
   PartialTargetDesc,
-  ScopeType,
+  SimpleScopeTypeType,
 } from "../../typings/target.types";
 import { transformPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import { HatStyleName } from "../constants";
 
-const SCOPE_TYPE_CANONICALIZATION_MAPPING: Record<string, ScopeType> = {
+const SCOPE_TYPE_CANONICALIZATION_MAPPING: Record<string, SimpleScopeTypeType> = {
   arrowFunction: "anonymousFunction",
   dictionary: "map",
   regex: "regularExpression",
@@ -23,8 +23,9 @@ const canonicalizeScopeTypes = (
 ): PartialPrimitiveTargetDesc => {
   target.modifiers?.forEach((mod) => {
     if (mod.type === "containingScope" || mod.type === "everyScope") {
-      mod.scopeType =
-        SCOPE_TYPE_CANONICALIZATION_MAPPING[mod.scopeType] ?? mod.scopeType;
+      mod.scopeType.type =
+        SCOPE_TYPE_CANONICALIZATION_MAPPING[mod.scopeType.type] ??
+        mod.scopeType;
     }
   });
   return target;

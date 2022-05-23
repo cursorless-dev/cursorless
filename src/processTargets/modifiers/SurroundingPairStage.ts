@@ -1,4 +1,7 @@
-import { SurroundingPairModifier, Target } from "../../typings/target.types";
+import {
+  ContainingSurroundingPairModifier,
+  Target,
+} from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { selectionWithEditorWithContextToTarget } from "../../util/targetUtils";
 import { ModifierStage } from "../PipelineStages.types";
@@ -19,7 +22,7 @@ import { processSurroundingPair } from "./surroundingPair";
  * `null` if none was found
  */
 export default class implements ModifierStage {
-  constructor(private modifier: SurroundingPairModifier) {}
+  constructor(private modifier: ContainingSurroundingPairModifier) {}
 
   run(
     context: ProcessedTargetsContext,
@@ -30,7 +33,7 @@ export default class implements ModifierStage {
 }
 
 function processedSurroundingPairTarget(
-  modifier: SurroundingPairModifier,
+  modifier: ContainingSurroundingPairModifier,
   context: ProcessedTargetsContext,
   target: Target
 ): SurroundingPairTarget[] {
@@ -38,7 +41,7 @@ function processedSurroundingPairTarget(
     context,
     target.editor,
     target.contentRange,
-    modifier
+    modifier.scopeType
   );
 
   if (pairs == null) {

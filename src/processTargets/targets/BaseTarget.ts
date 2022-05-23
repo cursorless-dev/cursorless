@@ -3,10 +3,9 @@ import {
   EditNewLineContext,
   Position,
   RemovalRange,
-  ScopeType,
+  SimpleScopeTypeType,
   Target,
 } from "../../typings/target.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
 import { parseRemovalRange } from "../../util/targetUtils";
 import WeakTarget from "./WeakTarget";
 
@@ -28,7 +27,7 @@ export interface CommonTargetParameters {
 }
 
 export interface BaseTargetParameters extends CommonTargetParameters {
-  scopeType?: ScopeType;
+  scopeTypeType?: SimpleScopeTypeType;
   delimiter: string;
   removalRange?: Range;
   interiorRange?: Range;
@@ -52,7 +51,7 @@ interface BaseTargetState {
   readonly delimiter: string;
 
   /** Is this a scope type other raw selection? */
-  readonly scopeType?: ScopeType;
+  readonly scopeTypeType?: SimpleScopeTypeType;
 
   /** The range to remove the content */
   readonly removalRange?: Range;
@@ -90,7 +89,7 @@ export default abstract class BaseTarget implements Target {
       isReversed: parameters.isReversed,
       contentRange: parameters.contentRange,
       delimiter: parameters.delimiter,
-      scopeType: parameters.scopeType,
+      scopeTypeType: parameters.scopeTypeType,
       removalRange: parameters.removalRange,
       interiorRange: parameters.interiorRange,
       boundary: parameters.boundary,
@@ -116,8 +115,8 @@ export default abstract class BaseTarget implements Target {
     return this.state.removalRange;
   }
 
-  get scopeType() {
-    return this.state.scopeType;
+  get scopeTypeType() {
+    return this.state.scopeTypeType;
   }
 
   /** If true this target should be treated as a line in regards to continuous range */
@@ -130,7 +129,7 @@ export default abstract class BaseTarget implements Target {
     return false;
   }
 
-  getInterior(_context: ProcessedTargetsContext): Target[] {
+  get interior(): Target[] {
     if (this.state.interiorRange == null || this.position != null) {
       throw Error("No available interior");
     }
@@ -143,7 +142,7 @@ export default abstract class BaseTarget implements Target {
     ];
   }
 
-  getBoundary(_context: ProcessedTargetsContext): Target[] {
+  get boundary(): Target[] {
     if (this.state.boundary == null || this.position != null) {
       throw Error("No available boundaries");
     }

@@ -67,7 +67,7 @@ export type SurroundingPairName =
   | SimpleSurroundingPairName
   | ComplexSurroundingPairName;
 
-export type ScopeType =
+export type SimpleScopeTypeType =
   | "argumentOrParameter"
   | "anonymousFunction"
   | "attribute"
@@ -112,13 +112,22 @@ export type ScopeType =
   | "nonWhitespaceSequence"
   | "url";
 
-export type SubTokenType = "word" | "character";
+export interface SimpleScopeType {
+  type: SimpleScopeTypeType;
+}
 
 export type SurroundingPairDirection = "left" | "right";
-export interface SurroundingPairModifier {
+export interface SurroundingPairScopeType {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
   forceDirection?: SurroundingPairDirection;
+}
+
+export type ScopeType = SimpleScopeType | SurroundingPairScopeType;
+
+export interface ContainingSurroundingPairModifier
+  extends ContainingScopeModifier {
+  scopeType: SurroundingPairScopeType;
 }
 
 export interface InteriorOnlyModifier {
@@ -139,9 +148,9 @@ export interface EveryScopeModifier {
   scopeType: ScopeType;
 }
 
-export interface SubTokenModifier {
-  type: "subpiece";
-  pieceType: SubTokenType;
+export interface OrdinalRangeModifier {
+  type: "ordinalRange";
+  scopeType: ScopeType;
   anchor: number;
   active: number;
   excludeAnchor?: boolean;
@@ -181,12 +190,11 @@ export interface PartialPrimitiveTargetDesc {
 
 export type Modifier =
   | PositionModifier
-  | SurroundingPairModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
   | ContainingScopeModifier
   | EveryScopeModifier
-  | SubTokenModifier
+  | OrdinalRangeModifier
   | HeadModifier
   | TailModifier
   | RawSelectionModifier;

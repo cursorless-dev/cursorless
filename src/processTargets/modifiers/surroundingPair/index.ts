@@ -5,7 +5,7 @@ import getTextFragmentExtractor, {
 } from "../../../languages/getTextFragmentExtractor";
 import {
   ComplexSurroundingPairName,
-  SurroundingPairModifier,
+  SurroundingPairScopeType,
 } from "../../../typings/target.types";
 import {
   ProcessedTargetsContext,
@@ -32,7 +32,7 @@ export function processSurroundingPair(
   context: ProcessedTargetsContext,
   editor: TextEditor,
   range: Range,
-  modifier: SurroundingPairModifier
+  modifier: SurroundingPairScopeType
 ): SelectionWithEditorWithContext[] | null {
   const document = editor.document;
   const delimiters = complexDelimiterMap[

@@ -5,11 +5,11 @@ import {
   trailingMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
-import { ScopeType } from "../typings/target.types";
+import { SimpleScopeTypeType } from "../typings/target.types";
 import { SyntaxNode } from "web-tree-sitter";
 import { getNodeRange } from "../util/nodeSelectors";
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   map: "object",
   list: "array",
   string: "string",

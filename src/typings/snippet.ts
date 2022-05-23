@@ -1,4 +1,4 @@
-import { ScopeType } from "./target.types";
+import { ScopeType, SimpleScopeTypeType } from "./target.types";
 
 export interface SnippetScope {
   langIds?: string[];
@@ -21,7 +21,7 @@ export interface SnippetVariable {
    * Default to this scope type when wrapping a target without scope type
    * specified.
    */
-  wrapperScopeType?: ScopeType;
+  wrapperScopeType?: SimpleScopeTypeType;
 
   /**
    * Description of the snippet variable

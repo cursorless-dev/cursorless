@@ -60,7 +60,9 @@ def cursorless_subtoken_scope(m) -> dict[str, Any]:
     except AttributeError:
         range = m.cursorless_first_last_range
     return {
-        "type": "subpiece",
-        "pieceType": m.cursorless_subtoken_scope_type,
+        "type": "ordinalRange",
+        "scopeType": {
+            "type": m.cursorless_subtoken_scope_type,
+        },
         **range,
     }

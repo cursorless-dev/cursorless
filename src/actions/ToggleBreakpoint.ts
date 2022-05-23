@@ -6,7 +6,7 @@ import {
   SourceBreakpoint,
   Uri,
 } from "vscode";
-import WeakContainingScopeStage from "../processTargets/modifiers/WeakContainingScopeStage";
+import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
@@ -23,12 +23,7 @@ function getBreakpoints(uri: Uri, range: Range) {
 }
 
 export default class ToggleBreakpoint implements Action {
-  getFinalStages = () => [
-    new WeakContainingScopeStage({
-      type: "containingScope",
-      scopeType: "line",
-    }),
-  ];
+  getFinalStages = () => [weakContainingLineStage];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);

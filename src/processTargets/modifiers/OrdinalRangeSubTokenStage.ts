@@ -1,14 +1,26 @@
 import { range } from "lodash";
 import { Range } from "vscode";
 import { SUBWORD_MATCHER } from "../../core/constants";
-import { SubTokenModifier, Target } from "../../typings/target.types";
+import {
+  OrdinalRangeModifier,
+  SimpleScopeType,
+  Target,
+} from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import ScopeTypeTarget from "../targets/ScopeTypeTarget";
 import { getTokenRangeForSelection } from "./scopeTypeStages/TokenStage";
 
+interface OrdinalScopeType extends SimpleScopeType {
+  type: "character" | "word";
+}
+
+export interface OrdinalRangeSubTokenModifier extends OrdinalRangeModifier {
+  scopeType: OrdinalScopeType;
+}
+
 export default class implements ModifierStage {
-  constructor(private modifier: SubTokenModifier) {}
+  constructor(private modifier: OrdinalRangeSubTokenModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const { editor } = target;
@@ -23,12 +35,12 @@ export default class implements ModifierStage {
       throw new Error("Subtoken exclusions unsupported");
     }
 
-    if (this.modifier.pieceType === "word") {
+    if (this.modifier.scopeType.type === "word") {
       pieces = [...token.matchAll(SUBWORD_MATCHER)].map((match) => ({
         start: match.index!,
         end: match.index! + match[0].length,
       }));
-    } else if (this.modifier.pieceType === "character") {
+    } else if (this.modifier.scopeType.type === "character") {
       pieces = range(token.length).map((index) => ({
         start: index,
         end: index + 1,
@@ -102,7 +114,7 @@ export default class implements ModifierStage {
         editor,
         isReversed,
         contentRange: new Range(anchor, active),
-        scopeType: this.modifier.pieceType,
+        scopeTypeType: this.modifier.scopeType.type,
         delimiter: containingListDelimiter ?? "",
         leadingDelimiter:
           leadingDelimiterRange != null

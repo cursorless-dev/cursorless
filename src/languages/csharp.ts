@@ -9,7 +9,7 @@ import {
   typeMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative } from "../typings/Types";
-import { ScopeType } from "../typings/target.types";
+import { SimpleScopeTypeType } from "../typings/target.types";
 import { nodeFinder, typedNodeFinder } from "../util/nodeFinders";
 import { delimitedSelector } from "../util/nodeSelectors";
 
@@ -214,7 +214,7 @@ const getMapMatchers = {
   string: typeMatcher("string_literal"),
 };
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   ...getMapMatchers,
   ifStatement: "if_statement",
   class: "class_declaration",

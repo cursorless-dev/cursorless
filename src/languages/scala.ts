@@ -5,9 +5,9 @@ import {
   conditionMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative } from "../typings/Types";
-import { ScopeType } from "../typings/target.types";
+import { SimpleScopeTypeType } from "../typings/target.types";
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   // treating classes = classlike
   class: ["class_definition", "object_definition", "trait_definition"],
   className: [

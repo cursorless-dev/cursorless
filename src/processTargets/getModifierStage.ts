@@ -1,26 +1,33 @@
 import {
   ContainingScopeModifier,
+  ContainingSurroundingPairModifier,
   EveryScopeModifier,
   Modifier,
 } from "../typings/target.types";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import {
-  InteriorOnlyStage,
   ExcludeInteriorStage,
+  InteriorOnlyStage,
 } from "./modifiers/InteriorStage";
+import OrdinalRangeSubTokenStage, {
+  OrdinalRangeSubTokenModifier,
+} from "./modifiers/OrdinalRangeSubTokenStage";
 import PositionStage from "./modifiers/PositionStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
-import ContainingSyntaxScopeStage from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
+import ContainingSyntaxScopeStage, {
+  SimpleContainingScopeModifier,
+} from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
 import DocumentStage from "./modifiers/scopeTypeStages/DocumentStage";
 import LineStage from "./modifiers/scopeTypeStages/LineStage";
 import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
 import ParagraphStage from "./modifiers/scopeTypeStages/ParagraphStage";
 import {
+  NonWhitespaceSequenceModifier,
   NonWhitespaceSequenceStage,
+  UrlModifier,
   UrlStage,
 } from "./modifiers/scopeTypeStages/RegexStage";
 import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
-import SubPieceStage from "./modifiers/SubPieceStage";
 import SurroundingPairStage from "./modifiers/SurroundingPairStage";
 import { ModifierStage } from "./PipelineStages.types";
 
@@ -34,10 +41,16 @@ export default (modifier: Modifier): ModifierStage => {
       return new TailStage(modifier);
     case "toRawSelection":
       return new RawSelectionStage(modifier);
-    case "subpiece":
-      return new SubPieceStage(modifier);
-    case "surroundingPair":
-      return new SurroundingPairStage(modifier);
+    case "ordinalRange":
+      if (!["word", "character"].includes(modifier.scopeType.type)) {
+        throw Error(
+          `Unsupported ordinal scope type ${modifier.scopeType.type}`
+        );
+      }
+
+      return new OrdinalRangeSubTokenStage(
+        modifier as OrdinalRangeSubTokenModifier
+      );
     case "interiorOnly":
       return new InteriorOnlyStage(modifier);
     case "excludeInterior":
@@ -51,7 +64,7 @@ export default (modifier: Modifier): ModifierStage => {
 const getContainingScopeStage = (
   modifier: ContainingScopeModifier | EveryScopeModifier
 ): ModifierStage => {
-  switch (modifier.scopeType) {
+  switch (modifier.scopeType.type) {
     case "token":
       return new TokenStage(modifier);
     case "notebookCell":
@@ -63,14 +76,22 @@ const getContainingScopeStage = (
     case "paragraph":
       return new ParagraphStage(modifier);
     case "nonWhitespaceSequence":
-      return new NonWhitespaceSequenceStage(modifier);
+      return new NonWhitespaceSequenceStage(
+        modifier as NonWhitespaceSequenceModifier
+      );
     case "url":
-      return new UrlStage(modifier);
+      return new UrlStage(modifier as UrlModifier);
+    case "surroundingPair":
+      return new SurroundingPairStage(
+        modifier as ContainingSurroundingPairModifier
+      );
     case "word":
     case "character":
-      throw new Error(`Unsupported scope type ${modifier.scopeType}`);
+      throw new Error(`Unsupported scope type ${modifier.scopeType.type}`);
     default:
       // Default to containing syntax scope using tree sitter
-      return new ContainingSyntaxScopeStage(modifier);
+      return new ContainingSyntaxScopeStage(
+        modifier as SimpleContainingScopeModifier
+      );
   }
 };

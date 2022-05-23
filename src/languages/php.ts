@@ -5,7 +5,7 @@ import {
   SelectionWithContext,
   SelectionWithEditor,
 } from "../typings/Types";
-import { ScopeType } from "../typings/target.types";
+import { SimpleScopeTypeType } from "../typings/target.types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,
@@ -98,7 +98,7 @@ function castTypeExtractor(
   };
 }
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   statement: STATEMENT_TYPES,
   ifStatement: "if_statement",
   class: "class_declaration",

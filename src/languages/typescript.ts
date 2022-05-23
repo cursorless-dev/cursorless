@@ -13,7 +13,7 @@ import {
   NodeMatcherAlternative,
   SelectionWithEditor,
 } from "../typings/Types";
-import { ScopeType } from "../typings/target.types";
+import { SimpleScopeTypeType } from "../typings/target.types";
 import {
   getNodeInternalRange,
   getNodeRange,
@@ -158,7 +158,7 @@ function valueMatcher() {
 const mapTypes = ["object", "object_pattern"];
 const listTypes = ["array", "array_pattern"];
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   map: mapTypes,
   list: listTypes,
   string: ["string", "template_string"],

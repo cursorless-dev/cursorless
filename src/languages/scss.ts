@@ -1,6 +1,6 @@
 import { SyntaxNode } from "web-tree-sitter";
 import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
-import { ScopeType } from "../typings/target.types";
+import { SimpleScopeTypeType } from "../typings/target.types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   cascadingMatcher,
@@ -87,7 +87,7 @@ function findAdjacentArgValues(
   };
 }
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   ifStatement: "if_statement",
   condition: conditionMatcher("condition"),
   statement: cascadingMatcher(

@@ -15,7 +15,7 @@ class CopyLines implements Action {
 
   private getRanges(editor: TextEditor, targets: Target[]) {
     const paragraphTargets = targets.filter(
-      (target) => target.scopeType === "paragraph"
+      (target) => target.scopeTypeType === "paragraph"
     );
     const ranges = targets.map((target) =>
       expandToContainingLine(editor, target.contentRange)

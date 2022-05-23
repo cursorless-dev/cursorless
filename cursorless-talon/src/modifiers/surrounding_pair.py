@@ -23,6 +23,9 @@ mod.list(
 )
 
 
+import contextlib
+
+
 @mod.capture(
     rule=(
         "<user.cursorless_selectable_paired_delimiter> |"
@@ -43,20 +46,21 @@ def cursorless_surrounding_pair_scope_type(m) -> str:
     rule="[{user.cursorless_delimiter_force_direction}] <user.cursorless_surrounding_pair_scope_type>"
 )
 def cursorless_surrounding_pair(m) -> dict[str, Any]:
-    """Surrounding pair modifier"""
+    """Expand to containing surrounding pair"""
     try:
         surrounding_pair_scope_type = m.cursorless_surrounding_pair_scope_type
     except AttributeError:
         surrounding_pair_scope_type = "any"
 
-    modifier = {
+    scope_type = {
         "type": "surroundingPair",
         "delimiter": surrounding_pair_scope_type,
     }
 
-    try:
-        modifier["forceDirection"] = m.cursorless_delimiter_force_direction
-    except AttributeError:
-        pass
+    with contextlib.suppress(AttributeError):
+        scope_type["forceDirection"] = m.cursorless_delimiter_force_direction
 
-    return modifier
+    return {
+        "type": "containingScope",
+        "scopeType": scope_type,
+    }

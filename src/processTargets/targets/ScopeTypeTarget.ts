@@ -2,7 +2,7 @@ import { Range } from "vscode";
 import {
   EditNewLineContext,
   RemovalRange,
-  ScopeType,
+  SimpleScopeTypeType,
 } from "../../typings/target.types";
 import BaseTarget, {
   CommonTargetParameters,
@@ -10,7 +10,7 @@ import BaseTarget, {
 } from "./BaseTarget";
 
 export interface ScopeTypeTargetParameters extends CommonTargetParameters {
-  scopeType: ScopeType;
+  scopeTypeType: SimpleScopeTypeType;
   delimiter?: string;
   removalRange?: Range;
   leadingDelimiter?: RemovalRange;
@@ -21,7 +21,7 @@ export default class ScopeTypeTarget extends BaseTarget {
   constructor(parameters: ScopeTypeTargetParameters) {
     super({
       ...extractCommonParameters(parameters),
-      delimiter: parameters.delimiter ?? getDelimiter(parameters.scopeType),
+      delimiter: parameters.delimiter ?? getDelimiter(parameters.scopeTypeType),
     });
   }
 
@@ -40,7 +40,7 @@ export default class ScopeTypeTarget extends BaseTarget {
   }
 }
 
-function getDelimiter(scopeType: ScopeType): string {
+function getDelimiter(scopeType: SimpleScopeTypeType): string {
   switch (scopeType) {
     case "namedFunction":
     case "anonymousFunction":

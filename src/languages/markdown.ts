@@ -5,7 +5,7 @@ import {
   NodeMatcherAlternative,
   SelectionWithContext,
 } from "../typings/Types";
-import { ScopeType } from "../typings/target.types";
+import { SimpleScopeTypeType } from "../typings/target.types";
 import { leadingSiblingNodeFinder, patternFinder } from "../util/nodeFinders";
 import {
   createPatternMatchers,
@@ -89,7 +89,7 @@ function sectionMatcher(...patterns: string[]) {
   return matcher(leadingSiblingNodeFinder(finder), sectionExtractor);
 }
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   list: ["loose_list", "tight_list"],
   comment: "html_block",
   name: matcher(

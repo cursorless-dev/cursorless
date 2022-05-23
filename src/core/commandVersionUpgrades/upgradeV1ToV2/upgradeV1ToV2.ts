@@ -4,7 +4,7 @@ import {
   PartialPrimitiveTargetDesc,
   PartialRangeTargetDesc,
   PartialTargetDesc,
-  ScopeType,
+  SimpleScopeTypeType,
 } from "../../../typings/target.types";
 import { ActionType } from "../../../actions/actions.types";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
@@ -37,10 +37,13 @@ function upgradeModifier(modifier: ModifierV0V1): Modifier[] {
 
     case "containingScope": {
       const { includeSiblings, scopeType, type, ...rest } = modifier;
+
       return [
         {
           type: includeSiblings ? "everyScope" : "containingScope",
-          scopeType: scopeType as ScopeType,
+          scopeType: {
+            type: scopeType as SimpleScopeTypeType,
+          },
           ...rest,
         },
       ];
@@ -48,13 +51,32 @@ function upgradeModifier(modifier: ModifierV0V1): Modifier[] {
 
     case "surroundingPair": {
       const { delimiterInclusion, ...rest } = modifier;
+      const surroundingPairModifier = {
+        type: "containingScope",
+        scopeType: rest,
+      } as const;
+
       if (delimiterInclusion === "interiorOnly") {
-        return [{ type: "interiorOnly" }, rest];
+        return [{ type: "interiorOnly" }, surroundingPairModifier];
       }
+
       if (delimiterInclusion === "excludeInterior") {
-        return [{ type: "excludeInterior" }, rest];
+        return [{ type: "excludeInterior" }, surroundingPairModifier];
       }
-      return [rest];
+
+      return [surroundingPairModifier];
+    }
+
+    case "subpiece": {
+      const { type, pieceType, ...rest } = modifier;
+
+      return [
+        {
+          type: "containingScope",
+          scopeType: { type: pieceType },
+          ...rest,
+        },
+      ];
     }
 
     default:
@@ -102,7 +124,10 @@ function upgradePrimitiveTarget(
           break;
         }
       default:
-        modifiers.push({ type: "containingScope", scopeType: selectionType });
+        modifiers.push({
+          type: "containingScope",
+          scopeType: { type: selectionType },
+        });
     }
   }
 

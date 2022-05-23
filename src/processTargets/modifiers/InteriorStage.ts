@@ -5,12 +5,15 @@ import {
 } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
+import { weakContainingSurroundingPairStage } from "./commonWeakContainingScopeStages";
 
 export class InteriorOnlyStage implements ModifierStage {
   constructor(private modifier: InteriorOnlyModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    return target.getInterior(context);
+    return weakContainingSurroundingPairStage
+      .run(context, target)
+      .flatMap((target) => target.interior);
   }
 }
 
@@ -18,6 +21,8 @@ export class ExcludeInteriorStage implements ModifierStage {
   constructor(private modifier: ExcludeInteriorModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    return target.getBoundary(context);
+    return weakContainingSurroundingPairStage
+      .run(context, target)
+      .flatMap((target) => target.boundary);
   }
 }

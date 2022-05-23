@@ -10,7 +10,7 @@ export default class TokenTarget extends BaseTarget {
     super({
       ...extractCommonParameters(parameters),
       ...getTokenDelimiters(parameters.editor, parameters.contentRange),
-      scopeType: "token",
+      scopeTypeType: "token",
     });
   }
 

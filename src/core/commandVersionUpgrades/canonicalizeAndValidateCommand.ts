@@ -3,7 +3,7 @@ import { ActionableError } from "../../errors";
 import {
   Modifier,
   PartialTargetDesc,
-  ScopeType,
+  SimpleScopeTypeType,
 } from "../../typings/target.types";
 import { ActionType } from "../../actions/actions.types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
@@ -107,14 +107,14 @@ export function validateCommand(
 }
 
 function usesScopeType(
-  scopeType: ScopeType,
+  scopeTypeType: SimpleScopeTypeType,
   partialTargets: PartialTargetDesc[]
 ) {
   return getPartialPrimitiveTargets(partialTargets).some((partialTarget) =>
     partialTarget.modifiers?.find(
       (mod: Modifier) =>
         (mod.type === "containingScope" || mod.type === "everyScope") &&
-        mod.scopeType === scopeType
+        mod.scopeType.type === scopeTypeType
     )
   );
 }
