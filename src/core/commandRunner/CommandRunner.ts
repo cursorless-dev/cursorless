@@ -65,9 +65,8 @@ export default class CommandRunner {
       const commandComplete = canonicalizeAndValidateCommand(command);
       const {
         spokenForm,
-        action: actionName,
+        action: { name: actionName, args: actionArgs },
         targets: partialTargetDescriptors,
-        extraArgs,
         usePrePhraseSnapshot,
       } = commandComplete;
 
@@ -90,7 +89,7 @@ export default class CommandRunner {
 
       const finalStages =
         action.getFinalStages != null
-          ? action.getFinalStages(...extraArgs)
+          ? action.getFinalStages(...actionArgs)
           : [];
 
       const processedTargetsContext: ProcessedTargetsContext = {
@@ -130,7 +129,7 @@ export default class CommandRunner {
         returnValue,
         thatMark: newThatMark,
         sourceMark: newSourceMark,
-      } = await action.run(targets, ...extraArgs);
+      } = await action.run(targets, ...actionArgs);
 
       this.thatMark.set(newThatMark);
       this.sourceMark.set(newSourceMark);

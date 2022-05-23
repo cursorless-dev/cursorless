@@ -107,7 +107,7 @@ export class TestCase {
 
   private getExcludedFields(context?: { initialSnapshot?: boolean }) {
     const excludableFields = {
-      clipboard: !["copy", "paste"].includes(this.command.action),
+      clipboard: !["copy", "paste"].includes(this.command.action.name),
       thatMark:
         context?.initialSnapshot &&
         !this.fullTargets.some((target) =>
@@ -124,7 +124,7 @@ export class TestCase {
         "scrollToBottom",
         "scrollToCenter",
         "scrollToTop",
-      ].includes(this.command.action),
+      ].includes(this.command.action.name),
     };
 
     return Object.keys(excludableFields).filter(

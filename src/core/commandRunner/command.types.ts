@@ -6,7 +6,7 @@ import {
 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
 
 export type CommandComplete = Required<Omit<CommandLatest, "spokenForm">> &
-  Pick<CommandLatest, "spokenForm">;
+  Pick<CommandLatest, "spokenForm"> & { action: Required<ActionCommand> };
 
 export const LATEST_VERSION = 2 as const;
 
@@ -15,6 +15,18 @@ export type CommandLatest = Command & {
 };
 
 export type Command = CommandV0 | CommandV1 | CommandV2;
+
+interface ActionCommand {
+  /**
+   * The action to run
+   */
+  name: ActionType;
+
+  /**
+   * A list of arguments expected by the given action.
+   */
+  args?: unknown[];
+}
 
 export interface CommandV2 {
   /**
@@ -35,19 +47,11 @@ export interface CommandV2 {
    */
   usePrePhraseSnapshot: boolean;
 
-  /**
-   * The action to run
-   */
-  action: ActionType;
+  action: ActionCommand;
 
   /**
    * A list of targets expected by the action. Inference will be run on the
    * targets
    */
   targets: PartialTargetDesc[];
-
-  /**
-   * A list of extra arguments expected by the given action.
-   */
-  extraArgs?: unknown[];
 }

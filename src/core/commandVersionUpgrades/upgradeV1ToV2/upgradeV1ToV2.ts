@@ -20,9 +20,11 @@ import { upgradeStrictHere } from "./upgradeStrictHere";
 export function upgradeV1ToV2(command: CommandV1): CommandV2 {
   return {
     spokenForm: command.spokenForm,
-    action: command.action as ActionType,
+    action: {
+      name: command.action as ActionType,
+      args: command.extraArgs,
+    },
     targets: upgradeTargets(command.targets),
-    extraArgs: command.extraArgs,
     usePrePhraseSnapshot: command.usePrePhraseSnapshot ?? false,
     version: 2,
   };

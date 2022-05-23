@@ -3,15 +3,14 @@ import { TestCaseCommand } from "./TestCase";
 export function cleanUpTestCaseCommand(
   command: TestCaseCommand
 ): TestCaseCommand {
-  const { extraArgs, ...rest } = command;
+  const { action, ...rest } = command;
+  const { args } = action;
 
   return {
     ...rest,
-    extraArgs:
-      extraArgs == null
-        ? undefined
-        : extraArgs.length === 0
-        ? undefined
-        : extraArgs,
+    action: {
+      ...action,
+      args: args == null ? undefined : args.length === 0 ? undefined : args,
+    },
   };
 }

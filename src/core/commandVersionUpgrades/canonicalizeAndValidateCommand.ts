@@ -30,15 +30,14 @@ export function canonicalizeAndValidateCommand(
 ): CommandComplete {
   const commandUpgraded = upgradeCommand(command);
   const {
-    action: inputActionName,
+    action,
     targets: inputPartialTargets,
-    extraArgs: inputExtraArgs = [],
     usePrePhraseSnapshot = false,
     version,
     ...rest
   } = commandUpgraded;
 
-  const actionName = canonicalizeActionName(inputActionName);
+  const actionName = canonicalizeActionName(action.name);
   const partialTargets = canonicalizeTargets(inputPartialTargets);
 
   validateCommand(actionName, partialTargets);
@@ -46,9 +45,11 @@ export function canonicalizeAndValidateCommand(
   return {
     ...rest,
     version: LATEST_VERSION,
-    action: actionName,
+    action: {
+      name: actionName,
+      args: action.args ?? [],
+    },
     targets: partialTargets,
-    extraArgs: inputExtraArgs,
     usePrePhraseSnapshot,
   };
 }
