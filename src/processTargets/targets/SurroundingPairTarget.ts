@@ -1,11 +1,11 @@
-import { Range, TextEditor } from "vscode";
+import { Range } from "vscode";
 import { RemovalRange } from "../../typings/target.types";
-import BaseTarget from "./BaseTarget";
+import BaseTarget, {
+  CommonTargetParameters,
+  extractCommonParameters,
+} from "./BaseTarget";
 
-interface SurroundingPairTargetParameters {
-  editor: TextEditor;
-  isReversed: boolean;
-  contentRange: Range;
+interface SurroundingPairTargetParameters extends CommonTargetParameters {
   delimiter?: string;
   interiorRange?: Range;
   boundary?: [Range, Range];
@@ -16,8 +16,12 @@ interface SurroundingPairTargetParameters {
 export default class SurroundingPairTarget extends BaseTarget {
   constructor(parameters: SurroundingPairTargetParameters) {
     super({
-      ...parameters,
+      ...extractCommonParameters(parameters),
       delimiter: parameters.delimiter ?? " ",
     });
+  }
+
+  clone(): SurroundingPairTarget {
+    return new SurroundingPairTarget(this.state);
   }
 }

@@ -1,18 +1,14 @@
-import { Range, TextEditor } from "vscode";
 import { EditNewLineContext } from "../../typings/target.types";
 import { getTokenDelimiters } from "../modifiers/scopeTypeStages/TokenStage";
-import BaseTarget from "./BaseTarget";
-
-interface TokenTargetParameters {
-  editor: TextEditor;
-  isReversed: boolean;
-  contentRange: Range;
-}
+import BaseTarget, {
+  CommonTargetParameters,
+  extractCommonParameters,
+} from "./BaseTarget";
 
 export default class TokenTarget extends BaseTarget {
-  constructor(parameters: TokenTargetParameters) {
+  constructor(parameters: CommonTargetParameters) {
     super({
-      ...parameters,
+      ...extractCommonParameters(parameters),
       ...getTokenDelimiters(parameters.editor, parameters.contentRange),
       scopeType: "token",
     });
@@ -22,5 +18,9 @@ export default class TokenTarget extends BaseTarget {
     return {
       delimiter: " ",
     };
+  }
+
+  clone(): TokenTarget {
+    return new TokenTarget(this.state);
   }
 }

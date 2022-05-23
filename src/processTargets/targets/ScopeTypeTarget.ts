@@ -4,14 +4,14 @@ import {
   RemovalRange,
   ScopeType,
 } from "../../typings/target.types";
-import BaseTarget from "./BaseTarget";
+import BaseTarget, {
+  CommonTargetParameters,
+  extractCommonParameters,
+} from "./BaseTarget";
 
-export interface ScopeTypeTargetParameters {
-  editor: TextEditor;
-  isReversed: boolean;
+export interface ScopeTypeTargetParameters extends CommonTargetParameters {
   scopeType: ScopeType;
   delimiter?: string;
-  contentRange: Range;
   removalRange?: Range;
   leadingDelimiter?: RemovalRange;
   trailingDelimiter?: RemovalRange;
@@ -20,7 +20,7 @@ export interface ScopeTypeTargetParameters {
 export default class ScopeTypeTarget extends BaseTarget {
   constructor(parameters: ScopeTypeTargetParameters) {
     super({
-      ...parameters,
+      ...extractCommonParameters(parameters),
       delimiter: parameters.delimiter ?? getDelimiter(parameters.scopeType),
     });
   }
@@ -33,6 +33,10 @@ export default class ScopeTypeTarget extends BaseTarget {
     return {
       delimiter: this.delimiter!,
     };
+  }
+
+  clone(): ScopeTypeTarget {
+    return new ScopeTypeTarget(<ScopeTypeTargetParameters>this.state);
   }
 }
 

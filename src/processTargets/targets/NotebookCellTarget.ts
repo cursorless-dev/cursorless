@@ -1,16 +1,10 @@
-import { Range, TextEditor } from "vscode";
+import { TextEditor } from "vscode";
 import { EditNewLineContext } from "../../typings/target.types";
 import { getNotebookFromCellDocument } from "../../util/notebook";
-import BaseTarget from "./BaseTarget";
-
-interface NotebookCellTargetParameters {
-  editor: TextEditor;
-  isReversed: boolean;
-  contentRange: Range;
-}
+import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
 export default class NotebookCellTarget extends BaseTarget {
-  constructor(parameters: NotebookCellTargetParameters) {
+  constructor(parameters: CommonTargetParameters) {
     super({
       ...parameters,
       scopeType: "notebookCell",
@@ -33,5 +27,9 @@ export default class NotebookCellTarget extends BaseTarget {
 
   private isNotebookEditor(editor: TextEditor) {
     return getNotebookFromCellDocument(editor.document) != null;
+  }
+
+  clone(): NotebookCellTarget {
+    return new NotebookCellTarget(this.state);
   }
 }

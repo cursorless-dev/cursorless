@@ -29,7 +29,7 @@ export default class implements ModifierStage {
   }
 }
 
-export function processedSurroundingPairTarget(
+function processedSurroundingPairTarget(
   modifier: SurroundingPairModifier,
   context: ProcessedTargetsContext,
   target: Target

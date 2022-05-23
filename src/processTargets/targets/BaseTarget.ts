@@ -6,14 +6,30 @@ import {
   ScopeType,
   Target,
 } from "../../typings/target.types";
+import { ProcessedTargetsContext } from "../../typings/Types";
 import { parseRemovalRange } from "../../util/targetUtils";
+import WeakTarget from "./WeakTarget";
 
-export interface BaseTargetParameters {
+export function extractCommonParameters(parameters: CommonTargetParameters) {
+  return {
+    editor: parameters.editor,
+    isReversed: parameters.isReversed,
+    contentRange: parameters.contentRange,
+    position: parameters.position,
+  };
+}
+
+/** Parameters supported by all target classes */
+export interface CommonTargetParameters {
   editor: TextEditor;
   isReversed: boolean;
+  contentRange: Range;
+  position?: Position;
+}
+
+export interface BaseTargetParameters extends CommonTargetParameters {
   scopeType?: ScopeType;
   delimiter: string;
-  contentRange: Range;
   removalRange?: Range;
   interiorRange?: Range;
   boundary?: [Range, Range];
@@ -22,7 +38,7 @@ export interface BaseTargetParameters {
   isLine?: boolean;
 }
 
-export default abstract class BaseTarget implements Target {
+interface BaseTargetState {
   /** The text editor used for all ranges */
   readonly editor: TextEditor;
 
@@ -30,10 +46,10 @@ export default abstract class BaseTarget implements Target {
   readonly isReversed: boolean;
 
   /** The range of the content */
-  private readonly _contentRange: Range;
+  readonly contentRange: Range;
 
   /** If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument */
-  private readonly _delimiter: string;
+  readonly delimiter: string;
 
   /** Is this a scope type other raw selection? */
   readonly scopeType?: ScopeType;
@@ -56,41 +72,106 @@ export default abstract class BaseTarget implements Target {
   readonly boundary?: [Range, Range];
 
   /** The range of the delimiter before the content selection */
-  readonly _leadingDelimiter?: RemovalRange;
+  readonly leadingDelimiter?: RemovalRange;
 
   /** The range of the delimiter after the content selection */
-  readonly _trailingDelimiter?: RemovalRange;
-
-  /** If true this target should be treated as a line in regards to continuous range */
-  readonly isLine: boolean;
+  readonly trailingDelimiter?: RemovalRange;
 
   /** The current position */
   position?: Position;
+}
+
+export default abstract class BaseTarget implements Target {
+  protected readonly state: BaseTargetState;
 
   constructor(parameters: BaseTargetParameters) {
-    this.editor = parameters.editor;
-    this.isReversed = parameters.isReversed;
-    this._contentRange = parameters.contentRange;
-    this._delimiter = parameters.delimiter;
-    this.scopeType = parameters.scopeType;
-    this.removalRange = parameters.removalRange;
-    this.interiorRange = parameters.interiorRange;
-    this.boundary = parameters.boundary;
-    this._leadingDelimiter = parameters.leadingDelimiter;
-    this._trailingDelimiter = parameters.trailingDelimiter;
-    this.isLine = parameters.isLine ?? false;
+    this.state = {
+      editor: parameters.editor,
+      isReversed: parameters.isReversed,
+      contentRange: parameters.contentRange,
+      delimiter: parameters.delimiter,
+      scopeType: parameters.scopeType,
+      removalRange: parameters.removalRange,
+      interiorRange: parameters.interiorRange,
+      boundary: parameters.boundary,
+      leadingDelimiter: parameters.leadingDelimiter,
+      trailingDelimiter: parameters.trailingDelimiter,
+      position: parameters.position,
+    };
+  }
+
+  get position() {
+    return this.state.position;
+  }
+
+  get editor() {
+    return this.state.editor;
+  }
+
+  get isReversed() {
+    return this.state.isReversed;
+  }
+
+  get removalRange() {
+    return this.state.removalRange;
+  }
+
+  get scopeType() {
+    return this.state.scopeType;
+  }
+
+  /** If true this target should be treated as a line in regards to continuous range */
+  get isLine() {
+    return false;
+  }
+
+  getInterior(_context: ProcessedTargetsContext): Target[] | undefined {
+    if (this.position != null) {
+      return undefined;
+    }
+    return this.state.interiorRange != null
+      ? [
+          new WeakTarget({
+            editor: this.editor,
+            isReversed: this.isReversed,
+            contentRange: this.state.interiorRange,
+          }),
+        ]
+      : undefined;
+  }
+
+  getBoundary(_context: ProcessedTargetsContext): Target[] | undefined {
+    if (this.position != null) {
+      return undefined;
+    }
+    return this.state.boundary != null
+      ? this.state.boundary.map(
+          (contentRange) =>
+            new WeakTarget({
+              editor: this.editor,
+              isReversed: this.isReversed,
+              contentRange,
+            })
+        )
+      : undefined;
   }
 
   get contentRange(): Range {
     switch (this.position) {
       case undefined:
-        return this._contentRange;
+        return this.state.contentRange;
       case "start":
       case "before":
-        return new Range(this._contentRange.start, this._contentRange.start);
+        return new Range(
+          this.state.contentRange.start,
+          this.state.contentRange.start
+        );
       case "end":
       case "after":
-        return new Range(this._contentRange.end, this._contentRange.end);
+        return new Range(
+          this.state.contentRange.end,
+          this.state.contentRange.end
+        );
     }
   }
 
@@ -112,7 +193,7 @@ export default abstract class BaseTarget implements Target {
       case "end":
         return "";
       default:
-        return this._delimiter;
+        return this.state.delimiter;
     }
   }
 
@@ -120,7 +201,7 @@ export default abstract class BaseTarget implements Target {
     switch (this.position) {
       case undefined:
       case "before":
-        return this._leadingDelimiter;
+        return this.state.leadingDelimiter;
       default:
         return undefined;
     }
@@ -130,7 +211,7 @@ export default abstract class BaseTarget implements Target {
     switch (this.position) {
       case undefined:
       case "after":
-        return this._trailingDelimiter;
+        return this.state.trailingDelimiter;
       default:
         return undefined;
     }
@@ -221,7 +302,11 @@ export default abstract class BaseTarget implements Target {
     };
   }
 
-  setPosition(position: Position): void {
-    this.position = position;
+  abstract clone(): Target;
+
+  withPosition(position: Position): Target {
+    const target = this.clone();
+    target.state.position = position;
+    return target;
   }
 }

@@ -5,78 +5,27 @@ import {
 } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
-import WeakTarget from "../targets/WeakTarget";
-import { processedSurroundingPairTarget } from "./SurroundingPairStage";
 
-abstract class InteriorStage implements ModifierStage {
-  abstract getTargets(target: Target): Target[];
-  abstract hasData(target: Target): boolean;
+export class InteriorOnlyStage implements ModifierStage {
+  constructor(private modifier: InteriorOnlyModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    if (this.hasData(target)) {
-      return this.getTargets(target);
-    }
-    return this.processSurroundingPair(context, target).flatMap((target) =>
-      this.getTargets(target)
-    );
-  }
-
-  processSurroundingPair(
-    context: ProcessedTargetsContext,
-    target: Target
-  ): Target[] {
-    return processedSurroundingPairTarget(
-      { type: "surroundingPair", delimiter: "any" },
-      context,
-      target
-    );
-  }
-}
-
-export class InteriorOnlyStage extends InteriorStage {
-  constructor(private modifier: InteriorOnlyModifier) {
-    super();
-  }
-
-  getTargets(target: Target): Target[] {
-    if (target.interiorRange == null) {
+    const interiorTargets = target.getInterior(context);
+    if (interiorTargets == null) {
       throw Error("No available interior");
     }
-    const contentRange = target.interiorRange;
-    return [
-      new WeakTarget({
-        editor: target.editor,
-        isReversed: target.isReversed,
-        contentRange,
-      }),
-    ];
-  }
-
-  hasData(target: Target): boolean {
-    return target.interiorRange != null;
+    return interiorTargets;
   }
 }
 
-export class ExcludeInteriorStage extends InteriorStage {
-  constructor(private modifier: ExcludeInteriorModifier) {
-    super();
-  }
+export class ExcludeInteriorStage implements ModifierStage {
+  constructor(private modifier: ExcludeInteriorModifier) {}
 
-  getTargets(target: Target): Target[] {
-    if (target.boundary == null) {
+  run(context: ProcessedTargetsContext, target: Target): Target[] {
+    const boundaryTargets = target.getBoundary(context);
+    if (boundaryTargets == null) {
       throw Error("No available boundaries");
     }
-    return target.boundary.map(
-      (contentRange) =>
-        new WeakTarget({
-          editor: target.editor,
-          isReversed: target.isReversed,
-          contentRange,
-        })
-    );
-  }
-
-  hasData(target: Target): boolean {
-    return target.boundary != null;
+    return boundaryTargets;
   }
 }

@@ -1,16 +1,12 @@
-import { Range, TextEditor } from "vscode";
 import { EditNewLineContext } from "../../typings/target.types";
-import BaseTarget from "./BaseTarget";
-
-interface RawSelectionTargetParameters {
-  editor: TextEditor;
-  isReversed: boolean;
-  contentRange: Range;
-}
+import BaseTarget, {
+  CommonTargetParameters,
+  extractCommonParameters,
+} from "./BaseTarget";
 
 export default class RawSelectionTarget extends BaseTarget {
-  constructor(parameters: RawSelectionTargetParameters) {
-    super({ ...parameters, delimiter: "" });
+  constructor(parameters: CommonTargetParameters) {
+    super({ ...extractCommonParameters(parameters), delimiter: "" });
   }
 
   get delimiter() {
@@ -21,5 +17,9 @@ export default class RawSelectionTarget extends BaseTarget {
     return {
       delimiter: "",
     };
+  }
+
+  clone(): RawSelectionTarget {
+    return new RawSelectionTarget(this.state);
   }
 }

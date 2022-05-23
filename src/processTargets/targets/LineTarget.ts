@@ -1,12 +1,12 @@
-import { Range, TextEditor } from "vscode";
+import { Range } from "vscode";
 import { RemovalRange } from "../../typings/target.types";
 import { parseRemovalRange } from "../../util/targetUtils";
-import BaseTarget from "./BaseTarget";
+import BaseTarget, {
+  CommonTargetParameters,
+  extractCommonParameters,
+} from "./BaseTarget";
 
-interface LineTargetParameters {
-  editor: TextEditor;
-  isReversed: boolean;
-  contentRange: Range;
+interface LineTargetParameters extends CommonTargetParameters {
   leadingDelimiter?: RemovalRange;
   trailingDelimiter?: RemovalRange;
 }
@@ -14,11 +14,14 @@ interface LineTargetParameters {
 export default class LineTarget extends BaseTarget {
   constructor(parameters: LineTargetParameters) {
     super({
-      ...parameters,
-      isLine: true,
+      ...extractCommonParameters(parameters),
       scopeType: "line",
       delimiter: "\n",
     });
+  }
+
+  get isLine() {
+    return true;
   }
 
   protected getRemovalContentRange(): Range {
@@ -42,5 +45,9 @@ export default class LineTarget extends BaseTarget {
       return undefined;
     }
     return this.contentRange;
+  }
+
+  clone(): LineTarget {
+    return new LineTarget(this.state);
   }
 }

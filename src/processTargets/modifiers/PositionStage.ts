@@ -6,8 +6,6 @@ export default class implements ModifierStage {
   constructor(private modifier: PositionModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    target.setPosition(this.modifier.position);
-
-    return [target];
+    return [target.withPosition(this.modifier.position)];
   }
 }

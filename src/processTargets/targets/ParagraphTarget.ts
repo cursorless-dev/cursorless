@@ -1,12 +1,12 @@
-import { Range, TextEditor } from "vscode";
+import { Range } from "vscode";
 import { EditNewLineContext, RemovalRange } from "../../typings/target.types";
 import { parseRemovalRange } from "../../util/targetUtils";
-import BaseTarget from "./BaseTarget";
+import BaseTarget, {
+  CommonTargetParameters,
+  extractCommonParameters,
+} from "./BaseTarget";
 
-interface ParagraphTargetParameters {
-  editor: TextEditor;
-  isReversed: boolean;
-  contentRange: Range;
+interface ParagraphTargetParameters extends CommonTargetParameters {
   leadingDelimiter?: RemovalRange;
   trailingDelimiter?: RemovalRange;
 }
@@ -14,11 +14,14 @@ interface ParagraphTargetParameters {
 export default class ParagraphTarget extends BaseTarget {
   constructor(parameters: ParagraphTargetParameters) {
     super({
-      ...parameters,
-      isLine: true,
+      ...extractCommonParameters(parameters),
       scopeType: "paragraph",
       delimiter: "\n\n",
     });
+  }
+
+  get isLine() {
+    return true;
   }
 
   protected getRemovalBeforeRange(): Range {
@@ -68,5 +71,9 @@ export default class ParagraphTarget extends BaseTarget {
     return {
       delimiter: this.delimiter!,
     };
+  }
+
+  clone(): ParagraphTarget {
+    return new ParagraphTarget(this.state);
   }
 }

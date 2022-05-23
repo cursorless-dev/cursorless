@@ -1,17 +1,13 @@
-import { Range, TextEditor } from "vscode";
-import BaseTarget from "./BaseTarget";
-
-interface DocumentTargetParameters {
-  editor: TextEditor;
-  isReversed: boolean;
-  contentRange: Range;
-}
+import { Range } from "vscode";
+import BaseTarget, {
+  CommonTargetParameters,
+  extractCommonParameters,
+} from "./BaseTarget";
 
 export default class DocumentTarget extends BaseTarget {
-  constructor(parameters: DocumentTargetParameters) {
+  constructor(parameters: CommonTargetParameters) {
     super({
-      ...parameters,
-      isLine: true,
+      ...extractCommonParameters(parameters),
       scopeType: "document",
       delimiter: "\n",
     });
@@ -27,10 +23,18 @@ export default class DocumentTarget extends BaseTarget {
     );
   }
 
+  get isLine() {
+    return true;
+  }
+
   getRemovalHighlightRange(): Range | undefined {
     if (this.position != null) {
       return undefined;
     }
     return this.contentRange;
+  }
+
+  clone(): DocumentTarget {
+    return new DocumentTarget(this.state);
   }
 }
