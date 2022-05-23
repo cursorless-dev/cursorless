@@ -214,7 +214,9 @@ const getMapMatchers = {
   string: typeMatcher("string_literal"),
 };
 
-const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   ...getMapMatchers,
   ifStatement: "if_statement",
   class: "class_declaration",

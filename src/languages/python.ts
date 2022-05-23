@@ -49,7 +49,9 @@ export const getTypeNode = (node: SyntaxNode) =>
 const dictionaryTypes = ["dictionary", "dictionary_comprehension"];
 const listTypes = ["list", "list_comprehension", "set"];
 
-const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   map: dictionaryTypes,
   list: listTypes,
   statement: STATEMENT_TYPES,

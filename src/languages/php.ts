@@ -98,7 +98,9 @@ function castTypeExtractor(
   };
 }
 
-const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   statement: STATEMENT_TYPES,
   ifStatement: "if_statement",
   class: "class_declaration",

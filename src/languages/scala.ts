@@ -7,7 +7,9 @@ import {
 import { NodeMatcherAlternative } from "../typings/Types";
 import { SimpleScopeTypeType } from "../typings/target.types";
 
-const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   // treating classes = classlike
   class: ["class_definition", "object_definition", "trait_definition"],
   className: [

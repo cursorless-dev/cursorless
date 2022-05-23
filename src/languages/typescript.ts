@@ -158,7 +158,9 @@ function valueMatcher() {
 const mapTypes = ["object", "object_pattern"];
 const listTypes = ["array", "array_pattern"];
 
-const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   map: mapTypes,
   list: listTypes,
   string: ["string", "template_string"],

@@ -130,7 +130,9 @@ const ifStatementFinder = functionNameBasedFinder(
 
 const ifStatementMatcher = matcher(ifStatementFinder);
 
-const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   comment: "comment",
   map: "map_lit",
 

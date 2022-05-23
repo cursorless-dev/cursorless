@@ -62,7 +62,9 @@ const TYPE_TYPES = [
   "union_specifier",
 ];
 
-const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   statement: STATEMENT_TYPES,
   class: [
     "class_specifier",

@@ -89,7 +89,9 @@ function sectionMatcher(...patterns: string[]) {
   return matcher(leadingSiblingNodeFinder(finder), sectionExtractor);
 }
 
-const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   list: ["loose_list", "tight_list"],
   comment: "html_block",
   name: matcher(

@@ -9,7 +9,9 @@ import { SimpleScopeTypeType } from "../typings/target.types";
 import { SyntaxNode } from "web-tree-sitter";
 import { getNodeRange } from "../util/nodeSelectors";
 
-const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   map: "object",
   list: "array",
   string: "string",

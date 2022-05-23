@@ -8,11 +8,12 @@ import {
 import { transformPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import { HatStyleName } from "../constants";
 
-const SCOPE_TYPE_CANONICALIZATION_MAPPING: Record<string, SimpleScopeTypeType> = {
-  arrowFunction: "anonymousFunction",
-  dictionary: "map",
-  regex: "regularExpression",
-};
+const SCOPE_TYPE_CANONICALIZATION_MAPPING: Record<string, SimpleScopeTypeType> =
+  {
+    arrowFunction: "anonymousFunction",
+    dictionary: "map",
+    regex: "regularExpression",
+  };
 
 const COLOR_CANONICALIZATION_MAPPING: Record<string, HatStyleName> = {
   purple: "pink",

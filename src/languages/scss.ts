@@ -87,7 +87,9 @@ function findAdjacentArgValues(
   };
 }
 
-const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   ifStatement: "if_statement",
   condition: conditionMatcher("condition"),
   statement: cascadingMatcher(

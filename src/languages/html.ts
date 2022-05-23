@@ -18,7 +18,9 @@ const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
   const endTag = getEndTag(selection, node);
   return startTag != null && endTag != null ? startTag.concat(endTag) : null;
 };
-const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   xmlElement: ["element", "script_element", "style_element"],
   xmlBothTags: getTags,
   xmlStartTag: getStartTag,

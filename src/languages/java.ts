@@ -44,7 +44,9 @@ const STATEMENT_TYPES = [
   "switch_statement",
 ];
 
-const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   statement: STATEMENT_TYPES,
   class: "class_declaration",
   className: "class_declaration[name]",
