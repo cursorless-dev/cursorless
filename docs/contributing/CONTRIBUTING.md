@@ -25,7 +25,7 @@ extension](#running--testing-extension-locally), you may want to check out the
    yarn init-launch-sandbox
    ```
 
-   The `yarn init-launch-sandbox` command creates a local sandbox and only the extensions specified that will be run alongside Cursorless. Please file an issue if you'd like to use additional extensions when debugging locally.
+   The `yarn init-launch-sandbox` command creates a local sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. Please file an issue if you'd like to use additional extensions when debugging locally.
 
 ## Running / testing extension locally
 
