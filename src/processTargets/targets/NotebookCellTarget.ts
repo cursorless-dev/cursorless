@@ -14,12 +14,14 @@ export default class NotebookCellTarget extends BaseTarget {
   getEditNewContext(isBefore: boolean): EditNewContext {
     if (this.isNotebookEditor(this.editor)) {
       return {
+        type: "command",
         command: isBefore
           ? "notebook.cell.insertCodeCellAbove"
           : "notebook.cell.insertCodeCellBelow",
       };
     }
     return {
+      type: "command",
       command: isBefore ? "jupyter.insertCellAbove" : "jupyter.insertCellBelow",
     };
   }

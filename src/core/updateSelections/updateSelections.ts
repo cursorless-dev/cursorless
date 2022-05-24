@@ -142,7 +142,7 @@ function selectionInfosToSelections(
  */
 export async function callFunctionAndUpdateSelections(
   rangeUpdater: RangeUpdater,
-  func: () => Thenable<unknown>,
+  func: () => Thenable<void>,
   document: TextDocument,
   selectionMatrix: (readonly Selection[])[]
 ): Promise<Selection[][]> {
@@ -170,7 +170,7 @@ export async function callFunctionAndUpdateSelections(
  */
 async function callFunctionAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
-  func: () => Thenable<unknown>,
+  func: () => Thenable<void>,
   document: TextDocument,
   selectionInfoMatrix: FullSelectionInfo[][]
 ) {

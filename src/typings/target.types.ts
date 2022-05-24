@@ -255,6 +255,15 @@ export interface RemovalRange {
   exclude?: boolean;
 }
 
-export type EditNewContext = { command: string } | { delimiter: string };
+export interface EditNewCommandContext {
+  type: "command";
+  command: string;
+}
+export interface EditNewDelimiterContext {
+  type: "delimiter";
+  delimiter: string;
+}
+
+export type EditNewContext = EditNewCommandContext | EditNewDelimiterContext;
 
 export type Target = BaseTarget;
