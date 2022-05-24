@@ -5,12 +5,15 @@ import {
   Selection,
   TextEditor,
 } from "vscode";
+import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class EditNew implements Action {
+  getFinalStages = () => [weakContainingLineStage];
+
   constructor(private graph: Graph, private isBefore: boolean) {
     this.run = this.run.bind(this);
   }
