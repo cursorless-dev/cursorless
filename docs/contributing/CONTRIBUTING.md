@@ -21,7 +21,7 @@ extension](#running--testing-extension-locally), you may want to check out the
 
    ```bash
    yarn
-   yarn build
+   yarn esbuild
    yarn init-launch-sandbox
    ```
 
