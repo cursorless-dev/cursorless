@@ -31,12 +31,24 @@ class EditNew implements Action {
     const { targetsWithSelection, commandSelections } =
       await this.runCommandTargets(editor, targets, commandTargets);
 
-    const { updatedTargetSelections } = await this.runDelimiterTargets(
+    const {
+      updatedTargetSelections,
+      updatedCommandSelections,
+      updatedDelimiterSelections,
+    } = await this.runDelimiterTargets(
       editor,
       targetsWithSelection,
       commandSelections,
       delimiterTargets
     );
+
+    editor.selections = zip([
+      ...updatedCommandSelections,
+      ...updatedDelimiterSelections,
+    ], [
+      ...commandTargets,
+      ...delimiterTargets,
+    ]).map(([updatedSelection, target]) => ());
 
     return {
       thatMark: createThatMark(targets, updatedTargetSelections),
@@ -55,54 +67,88 @@ class EditNew implements Action {
 
     if (delimiterTargets.length < 1) {
       return {
+        updatedCommandSelections: commandSelections,
+        updatedDelimiterSelections: [],
         updatedTargetSelections: originalTargetSelections,
       };
     }
 
-    const edits = delimiterTargets.map((target) => {
-      const selection = targetsWithSelection.find(
-        (selection) => selection.target === target.target
-      )!.selection;
-      const position = this.isBefore ? selection.start : selection.end;
-      return {
-        text: target!.context.delimiter,
-        range: new Range(position, position),
-        isReplace: !this.isBefore,
-      };
-    });
+    const delimiterTargetInfos = delimiterTargets.map(
+      ({ target, context: { delimiter }, index }) => {
+        const targetSelection = targetsWithSelection[index].selection;
 
-    const [updatedCommandSelections, updatedTargetSelections] =
-      await performEditsAndUpdateSelections(
-        this.graph.rangeUpdater,
-        editor,
-        edits,
-        [commandSelections, originalTargetSelections]
-      );
+        const position = this.isBefore
+          ? targetSelection.start
+          : targetSelection.end;
 
-    targetsWithSelection.forEach((target, i) => {
-      target.selection = updatedTargetSelections[i];
-    });
+        return {
+          targetSelection,
+          insertionSelection: new Selection(position, position),
+          target,
+          delimiter,
+        };
+      }
+    );
 
-    const newSelections = [
-      ...updatedCommandSelections,
-      ...delimiterTargets.map((target) => {
-        const selection = targetsWithSelection.find(
-          (selection) => selection.target === target.target
-        )!.selection;
-        const delimiter = target.context.delimiter;
-        const isLine = delimiter.includes("\n");
-        const delta = delimiter.length;
-        const position = this.isBefore ? selection.start : selection.end;
-        const updatedPosition = isLine
-          ? position.translate({ lineDelta: -delta })
-          : position.translate({ characterDelta: -delta });
-        return new Selection(updatedPosition, updatedPosition);
-      }),
-    ];
+    const edits = delimiterTargetInfos.flatMap(
+      ({ delimiter, targetSelection, insertionSelection }) => {
+        const [before, after] = delimiter.includes("\n")
+          ? this.getLineEditTexts(editor, targetSelection, delimiter)
+          : this.isBefore
+          ? ["", delimiter]
+          : [delimiter, ""];
 
-    editor.selections = newSelections;
+        return [
+          {
+            text: before,
+            range: insertionSelection,
+            isReplace: false,
+          },
+          {
+            text: after,
+            range: insertionSelection,
+            isReplace: true,
+          },
+        ].filter(({ text }) => !!text);
+      }
+    );
 
-    return { updatedTargetSelections };
+    const originalDelimiterSelections = delimiterTargetInfos.map(
+      ({ insertionSelection }) => insertionSelection
+    );
+
+    const [
+      updatedCommandSelections,
+      updatedDelimiterSelections,
+      updatedTargetSelections,
+    ] = await performEditsAndUpdateSelections(
+      this.graph.rangeUpdater,
+      editor,
+      edits,
+      [commandSelections, originalDelimiterSelections, originalTargetSelections]
+    );
+
+    return {
+      updatedTargetSelections,
+      updatedCommandSelections,
+      updatedDelimiterSelections,
+    };
+  }
+
+  private getLineEditTexts(
+    editor: TextEditor,
+    selection: Selection,
+    delimiter: string
+  ) {
+    const lineNumber = this.isBefore
+      ? selection.start.line
+      : selection.end.line;
+    const line = editor.document.lineAt(lineNumber);
+    const characterIndex = line.isEmptyOrWhitespace
+      ? selection.start.character
+      : line.firstNonWhitespaceCharacterIndex;
+    const padding = line.text.slice(0, characterIndex);
+    return this.isBefore ? [padding, delimiter] : [delimiter, padding];
   }
 
   async runCommandTargets(
@@ -161,10 +207,12 @@ export class EditNewAfter extends EditNew {
 
 interface CommandTarget {
   target: Target;
+  index: number;
   context: EditNewCommandContext;
 }
 interface DelimiterTarget {
   target: Target;
+  index: number;
   context: EditNewDelimiterContext;
 }
 interface TargetWithSelection {
@@ -175,14 +223,14 @@ interface TargetWithSelection {
 function groupTargets(targets: Target[], isBefore: boolean) {
   const commandTargets: CommandTarget[] = [];
   const delimiterTargets: DelimiterTarget[] = [];
-  targets.forEach((target) => {
+  targets.forEach((target, index) => {
     const context = target.getEditNewContext(isBefore);
     switch (context.type) {
       case "command":
-        commandTargets.push({ target, context });
+        commandTargets.push({ target, index, context });
         break;
       case "delimiter":
-        delimiterTargets.push({ target, context });
+        delimiterTargets.push({ target, index, context });
         break;
     }
   });
