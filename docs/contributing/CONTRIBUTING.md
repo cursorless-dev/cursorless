@@ -25,7 +25,7 @@ extension](#running--testing-extension-locally), you may want to check out the
    yarn init-launch-sandbox
    ```
 
-   The last command creates a local sandbox with only the extensions that will be run alongside Cursorless when debugging locally. Please file an issue if you'd like to use other extension alongside Cursorless when running it locally for debugging
+   The `yarn init-launch-sandbox` command creates a local sandbox and only the extensions specified that will be run alongside Cursorless. Please file an issue if you'd like to use additional extensions when debugging locally.
 
 ## Running / testing extension locally
 
