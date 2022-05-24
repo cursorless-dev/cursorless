@@ -1,3 +1,7 @@
+/**
+ * This script creates a local sandbox directory containing extensions that
+ * will run alongside Cursorless during local development.
+ */
 import * as path from "path";
 import * as cp from "child_process";
 
