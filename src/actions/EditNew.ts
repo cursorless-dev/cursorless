@@ -1,12 +1,5 @@
 import { zip } from "lodash";
-import {
-  commands,
-  commands as vscommands,
-  Position,
-  Range,
-  Selection,
-  TextEditor,
-} from "vscode";
+import { commands, Range, Selection, TextEditor } from "vscode";
 import {
   callFunctionAndUpdateSelections,
   performEditsAndUpdateSelections,
@@ -35,91 +28,94 @@ class EditNew implements Action {
       this.isBefore
     );
 
-    const {
-      updatedCommandTargetSelections,
-      updatedDelimiterTargetSelections,
-      commandSelections,
-    } = await this.runCommandTargets(editor, commandTargets, delimiterTargets);
+    const { targetsWithSelection, commandSelections } =
+      await this.runCommandTargets(editor, targets, commandTargets);
 
-    if (updatedDelimiterTargetSelections.length < 1) {
+    const { updatedCommandSelections, updatedTargetSelections } =
+      await this.runDelimiterTargets(
+        editor,
+        targetsWithSelection,
+        commandSelections,
+        delimiterTargets
+      );
+
+    return {
+      thatMark: createThatMark(targets, updatedTargetSelections),
+    };
+  }
+
+  async runDelimiterTargets(
+    editor: TextEditor,
+    targetsWithSelection: TargetWithSelection[],
+    commandSelections: readonly Selection[],
+    delimiterTargets: DelimiterTarget[]
+  ) {
+    const originalTargetSelections = targetsWithSelection.map(
+      (selection) => selection.selection
+    );
+
+    if (delimiterTargets.length < 1) {
       return {
-        thatMark: updatedCommandTargetSelections.map((selection) => ({
-          editor,
-          selection,
-        })),
+        updatedTargetSelections: originalTargetSelections,
       };
     }
 
-    const edits = zip(delimiterTargets, updatedDelimiterTargetSelections).map(
-      ([target, selection]) => {
-        const position = this.isBefore ? selection!.start : selection!.end;
-        return {
-          text: target!.context.delimiter,
-          range: new Range(position, position),
-          isReplace: !this.isBefore,
-        };
-      }
-    );
+    const edits = delimiterTargets.map((target) => {
+      const selection = targetsWithSelection.find(
+        (selection) => selection.target === target.target
+      )!.selection;
+      const position = this.isBefore ? selection.start : selection.end;
+      return {
+        text: target!.context.delimiter,
+        range: new Range(position, position),
+        isReplace: !this.isBefore,
+      };
+    });
 
-    const originalThatSelections = [
-      ...updatedCommandTargetSelections,
-      ...updatedDelimiterTargetSelections,
-    ];
-
-    const [updatedCommandSelections] = await performEditsAndUpdateSelections(
-      this.graph.rangeUpdater,
-      editor,
-      edits,
-      [originalThatSelections]
-    );
-
-    return {
-      thatMark: updatedCommandSelections.map((selection) => ({
+    const [updatedCommandSelections, updatedTargetSelections] =
+      await performEditsAndUpdateSelections(
+        this.graph.rangeUpdater,
         editor,
-        selection,
-      })),
-    };
+        edits,
+        [commandSelections, originalTargetSelections]
+      );
+
+    return { updatedCommandSelections, updatedTargetSelections };
   }
 
   async runCommandTargets(
     editor: TextEditor,
-    commandTargets: CommandTarget[],
-    delimiterTargets: DelimiterTarget[]
+    targets: Target[],
+    commandTargets: CommandTarget[]
   ) {
-    const originalDelimiterTargetSelections = delimiterTargets.map(
-      (target) => target.target.contentSelection
-    );
     if (commandTargets.length === 0) {
       return {
-        updatedCommandTargetSelections: [],
-        updatedDelimiterTargetSelections: originalDelimiterTargetSelections,
+        targetsWithSelection: targets.map((target) => ({
+          target: target,
+          selection: target.contentSelection,
+        })),
         commandSelections: [],
       };
     }
 
-    const originalCommandTargetSelections = commandTargets.map(
-      (target) => target.target.contentSelection
-    );
-
     const command = ensureSingleCommand(commandTargets);
-    const targets = commandTargets.map((target) => target.target);
     if (this.isBefore) {
       await this.graph.actions.setSelectionBefore.run([targets]);
     } else {
       await this.graph.actions.setSelectionAfter.run([targets]);
     }
 
-    const [updatedCommandTargetSelections, updatedDelimiterTargetSelections] =
-      await callFunctionAndUpdateSelections(
-        this.graph.rangeUpdater,
-        () => vscommands.executeCommand(command),
-        editor.document,
-        [originalCommandTargetSelections, originalDelimiterTargetSelections]
-      );
+    const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
+      this.graph.rangeUpdater,
+      () => commands.executeCommand(command),
+      editor.document,
+      [targets.map((target) => target.contentSelection)]
+    );
 
     return {
-      updatedCommandTargetSelections,
-      updatedDelimiterTargetSelections,
+      targetsWithSelection: zip(targets, updatedTargetSelections).map(
+        ([target, selection]) => ({ target: target!, selection: selection! })
+      ),
       commandSelections: editor.selections,
     };
   }
@@ -233,6 +229,10 @@ interface CommandTarget {
 interface DelimiterTarget {
   target: Target;
   context: EditNewDelimiterContext;
+}
+interface TargetWithSelection {
+  target: Target;
+  selection: Selection;
 }
 
 function groupTargets(targets: Target[], isBefore: boolean) {
