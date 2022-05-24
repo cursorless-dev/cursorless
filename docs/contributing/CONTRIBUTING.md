@@ -12,14 +12,20 @@ extension](#running--testing-extension-locally), you may want to check out the
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en/)
 - [yarn](https://yarnpkg.com/)
-- In order to run unit tests locally, you'll need to install the following extensions
-  - [Scala (Metals)](https://marketplace.visualstudio.com/items?itemName=scalameta.metals)
 
 ### Steps
 
 1. Clone [`cursorless`](https://github.com/cursorless-dev/cursorless)
 2. Open the newly created `cursorless` directory in VSCode
-3. Run `yarn` in the terminal
+3. Run the following in the terminal:
+
+   ```bash
+   yarn
+   yarn build
+   yarn init-launch-sandbox
+   ```
+
+   The last command creates a local sandbox with only the extensions that will be run alongside Cursorless when debugging locally. Please file an issue if you'd like to use other extension alongside Cursorless when running it locally for debugging
 
 ## Running / testing extension locally
 
