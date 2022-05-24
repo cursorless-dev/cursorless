@@ -4,7 +4,7 @@
  */
 import * as path from "path";
 import * as cp from "child_process";
-
+import { promisify } from "util";
 import { extensionDependencies } from "./extensionDependencies";
 import { mkdir } from "fs/promises";
 
@@ -21,21 +21,21 @@ async function main() {
     );
     await mkdir(extensionSandboxDir, { recursive: true });
 
-    // Install extension dependencies
-    cp.spawnSync(
+    const command = [
       "code",
-      [
-        "--extensions-dir",
-        extensionSandboxDir,
-        ...[...extensionDependencies, ...extraExtensions].flatMap(
-          (dependency) => ["--install-extension", dependency]
-        ),
-      ],
-      {
-        encoding: "utf-8",
-        stdio: "inherit",
-      }
-    );
+      "--extensions-dir",
+      extensionSandboxDir,
+      ...[...extensionDependencies, ...extraExtensions].flatMap(
+        (dependency) => ["--install-extension", dependency]
+      ),
+    ].join(" ");
+
+    // Install extension dependencies
+    const results = await promisify(cp.exec)(command);
+    if (results.stderr) {
+      throw Error(results.stderr);
+    }
+    console.log(results.stdout);
   } catch (err) {
     console.error("Failed to init launch sandbox");
     process.exit(1);
