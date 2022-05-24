@@ -31,13 +31,12 @@ class EditNew implements Action {
     const { targetsWithSelection, commandSelections } =
       await this.runCommandTargets(editor, targets, commandTargets);
 
-    const { updatedCommandSelections, updatedTargetSelections } =
-      await this.runDelimiterTargets(
-        editor,
-        targetsWithSelection,
-        commandSelections,
-        delimiterTargets
-      );
+    const { updatedTargetSelections } = await this.runDelimiterTargets(
+      editor,
+      targetsWithSelection,
+      commandSelections,
+      delimiterTargets
+    );
 
     return {
       thatMark: createThatMark(targets, updatedTargetSelections),
@@ -80,7 +79,30 @@ class EditNew implements Action {
         [commandSelections, originalTargetSelections]
       );
 
-    return { updatedCommandSelections, updatedTargetSelections };
+    targetsWithSelection.forEach((target, i) => {
+      target.selection = updatedTargetSelections[i];
+    });
+
+    const newSelections = [
+      ...updatedCommandSelections,
+      ...delimiterTargets.map((target) => {
+        const selection = targetsWithSelection.find(
+          (selection) => selection.target === target.target
+        )!.selection;
+        const delimiter = target.context.delimiter;
+        const isLine = delimiter.includes("\n");
+        const delta = delimiter.length;
+        const position = this.isBefore ? selection.start : selection.end;
+        const updatedPosition = isLine
+          ? position.translate({ lineDelta: -delta })
+          : position.translate({ characterDelta: -delta });
+        return new Selection(updatedPosition, updatedPosition);
+      }),
+    ];
+
+    editor.selections = newSelections;
+
+    return { updatedTargetSelections };
   }
 
   async runCommandTargets(
@@ -100,9 +122,13 @@ class EditNew implements Action {
 
     const command = ensureSingleCommand(commandTargets);
     if (this.isBefore) {
-      await this.graph.actions.setSelectionBefore.run([targets]);
+      await this.graph.actions.setSelectionBefore.run([
+        commandTargets.map((target) => target.target),
+      ]);
     } else {
-      await this.graph.actions.setSelectionAfter.run([targets]);
+      await this.graph.actions.setSelectionAfter.run([
+        commandTargets.map((target) => target.target),
+      ]);
     }
 
     const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
