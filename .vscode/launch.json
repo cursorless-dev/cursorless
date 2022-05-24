@@ -11,7 +11,7 @@
 			"request": "launch",
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensions-dir=${workspaceFolder}/.sandbox/extensions",
+				"--extensions-dir=${workspaceFolder}/.sandbox/extensions"
 			],
 			"outFiles": ["${workspaceFolder}/out/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}",
