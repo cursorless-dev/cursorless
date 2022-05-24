@@ -1,9 +1,5 @@
 import { Range } from "vscode";
-import {
-  EditNewLineContext,
-  RemovalRange,
-  SimpleScopeTypeType,
-} from "../../typings/target.types";
+import { RemovalRange, SimpleScopeTypeType } from "../../typings/target.types";
 import BaseTarget, {
   CommonTargetParameters,
   extractCommonParameters,
@@ -23,16 +19,6 @@ export default class ScopeTypeTarget extends BaseTarget {
       ...extractCommonParameters(parameters),
       delimiter: parameters.delimiter ?? getDelimiter(parameters.scopeTypeType),
     });
-  }
-
-  getEditNewLineContext(isBefore: boolean): EditNewLineContext {
-    // This is the default and should implement the default version whatever that is.
-    if (this.delimiter === "\n") {
-      return super.getEditNewLineContext(isBefore);
-    }
-    return {
-      delimiter: this.delimiter!,
-    };
   }
 
   clone(): ScopeTypeTarget {

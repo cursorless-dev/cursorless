@@ -10,7 +10,7 @@ import { Graph } from "../typings/Types";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
-class EditNewLine implements Action {
+class EditNew implements Action {
   constructor(private graph: Graph, private isBefore: boolean) {
     this.run = this.run.bind(this);
   }
@@ -20,7 +20,7 @@ class EditNewLine implements Action {
 
     const targetsWithContext = targets.map((target) => ({
       target,
-      context: target.getEditNewLineContext(this.isBefore),
+      context: target.getEditNewContext(this.isBefore),
     }));
     const commandTargets = targetsWithContext.filter(
       ({ context }) => !!(<any>context).command
@@ -50,7 +50,7 @@ class EditNewLine implements Action {
   async runDelimiter(targets: Target[], editor: TextEditor) {
     const edits = targets.map((target) => {
       const { contentRange } = target;
-      const context = target.getEditNewLineContext(this.isBefore);
+      const context = target.getEditNewContext(this.isBefore);
       const delimiter = (<any>context).delimiter as string;
 
       // Delimiter is one or more new lines. Handle as lines.
@@ -137,13 +137,13 @@ class EditNewLine implements Action {
   }
 }
 
-export class EditNewLineAbove extends EditNewLine {
+export class EditNewBefore extends EditNew {
   constructor(graph: Graph) {
     super(graph, true);
   }
 }
 
-export class EditNewLineBelow extends EditNewLine {
+export class EditNewAfter extends EditNew {
   constructor(graph: Graph) {
     super(graph, false);
   }

@@ -255,6 +255,6 @@ export interface RemovalRange {
   exclude?: boolean;
 }
 
-export type EditNewLineContext = { command: string } | { delimiter: string };
+export type EditNewContext = { command: string } | { delimiter: string };
 
 export type Target = BaseTarget;

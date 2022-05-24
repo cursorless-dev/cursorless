@@ -1,6 +1,6 @@
 import { Range, Selection, TextEditor } from "vscode";
 import {
-  EditNewLineContext,
+  EditNewContext as EditNewContext,
   Position,
   RemovalRange,
   Target,
@@ -253,9 +253,9 @@ export default abstract class BaseTarget {
     }
   }
 
-  getEditNewLineContext(_isBefore: boolean): EditNewLineContext {
+  getEditNewContext(_isBefore: boolean): EditNewContext {
     return {
-      delimiter: "\n",
+      delimiter: this.delimiter ?? "",
     };
   }
 

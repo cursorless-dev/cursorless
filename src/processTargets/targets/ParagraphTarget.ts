@@ -1,5 +1,5 @@
 import { Range } from "vscode";
-import { EditNewLineContext, RemovalRange } from "../../typings/target.types";
+import { RemovalRange } from "../../typings/target.types";
 import { parseRemovalRange } from "../../util/targetUtils";
 import BaseTarget, {
   CommonTargetParameters,
@@ -68,12 +68,6 @@ export default class ParagraphTarget extends BaseTarget {
     return delimiterRange != null
       ? removalRange.union(delimiterRange)
       : removalRange;
-  }
-
-  getEditNewLineContext(_isBefore: boolean): EditNewLineContext {
-    return {
-      delimiter: this.delimiter!,
-    };
   }
 
   clone(): ParagraphTarget {

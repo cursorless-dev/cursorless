@@ -1,3 +1,4 @@
+import { EditNewContext } from "../../typings/target.types";
 import { getTokenDelimiters } from "../modifiers/scopeTypeStages/TokenStage";
 import BaseTarget, {
   CommonTargetParameters,
@@ -19,6 +20,12 @@ export default class WeakTarget extends BaseTarget {
 
   get isWeak() {
     return true;
+  }
+
+  getEditNewContext(_isBefore: boolean): EditNewContext {
+    return {
+      delimiter: "\n",
+    };
   }
 
   clone(): WeakTarget {

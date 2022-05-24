@@ -1,4 +1,3 @@
-import { EditNewLineContext } from "../../typings/target.types";
 import BaseTarget, {
   CommonTargetParameters,
   extractCommonParameters,
@@ -11,12 +10,6 @@ export default class RawSelectionTarget extends BaseTarget {
 
   get delimiter() {
     return undefined;
-  }
-
-  getEditNewLineContext(_isBefore: boolean): EditNewLineContext {
-    return {
-      delimiter: "",
-    };
   }
 
   clone(): RawSelectionTarget {

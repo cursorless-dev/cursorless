@@ -1,4 +1,3 @@
-import { EditNewLineContext } from "../../typings/target.types";
 import { getTokenDelimiters } from "../modifiers/scopeTypeStages/TokenStage";
 import BaseTarget, {
   CommonTargetParameters,
@@ -11,12 +10,6 @@ export default class TokenTarget extends BaseTarget {
       ...extractCommonParameters(parameters),
       ...getTokenDelimiters(parameters.editor, parameters.contentRange),
     });
-  }
-
-  getEditNewLineContext(_isBefore: boolean): EditNewLineContext {
-    return {
-      delimiter: " ",
-    };
   }
 
   clone(): TokenTarget {

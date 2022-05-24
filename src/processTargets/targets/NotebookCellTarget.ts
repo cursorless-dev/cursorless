@@ -1,5 +1,5 @@
 import { TextEditor } from "vscode";
-import { EditNewLineContext } from "../../typings/target.types";
+import { EditNewContext } from "../../typings/target.types";
 import { getNotebookFromCellDocument } from "../../util/notebook";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
@@ -11,7 +11,7 @@ export default class NotebookCellTarget extends BaseTarget {
     });
   }
 
-  getEditNewLineContext(isBefore: boolean): EditNewLineContext {
+  getEditNewContext(isBefore: boolean): EditNewContext {
     if (this.isNotebookEditor(this.editor)) {
       return {
         command: isBefore
