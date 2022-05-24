@@ -253,7 +253,10 @@ export default abstract class BaseTarget {
     }
   }
 
-  getEditNewContext(_isBefore: boolean): EditNewContext {
+  getEditNewContext(isBefore: boolean): EditNewContext {
+    if (this.delimiter === "\n" && !isBefore) {
+      return { command: "editor.action.insertLineAfter" };
+    }
     return {
       delimiter: this.delimiter ?? "",
     };

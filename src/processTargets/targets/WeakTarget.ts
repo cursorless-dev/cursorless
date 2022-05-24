@@ -22,10 +22,10 @@ export default class WeakTarget extends BaseTarget {
     return true;
   }
 
-  getEditNewContext(_isBefore: boolean): EditNewContext {
-    return {
-      delimiter: "\n",
-    };
+  getEditNewContext(isBefore: boolean): EditNewContext {
+    return isBefore
+      ? { delimiter: "\n" }
+      : { command: "editor.action.insertLineAfter" };
   }
 
   clone(): WeakTarget {
