@@ -16,6 +16,8 @@ export default class ParagraphTarget extends BaseTarget {
   constructor(parameters: ParagraphTargetParameters) {
     super({
       ...extractCommonParameters(parameters),
+      leadingDelimiter: parameters.leadingDelimiter,
+      trailingDelimiter: parameters.trailingDelimiter,
       delimiter: "\n\n",
     });
   }

@@ -16,6 +16,8 @@ export default class LineTarget extends BaseTarget {
   constructor(parameters: LineTargetParameters) {
     super({
       ...extractCommonParameters(parameters),
+      leadingDelimiter: parameters.leadingDelimiter,
+      trailingDelimiter: parameters.trailingDelimiter,
       delimiter: "\n",
     });
   }
