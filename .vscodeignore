@@ -9,6 +9,7 @@ vsc-extension-quickstart.md
 **/*.map
 **/*.ts
 node_modules/**
+.vscode-sandbox/**
 out/**
 dist/**
 !dist/extension.js

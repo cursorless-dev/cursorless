@@ -508,8 +508,9 @@
 		"pretest": "yarn run compile && yarn run lint && yarn run esbuild",
 		"lint": "eslint src --ext ts",
 		"test": "env CURSORLESS_TEST=true node ./out/test/runTest.js",
-		"prepare-for-extension-publish": "node ./out/scripts/prepareForExtensionPublish.js",
 		"unused-exports": "ts-unused-exports tsconfig.json --showLineNumber"
+		"init-launch-sandbox": "node ./out/test/initLaunchSandbox.js",
+		"prepare-for-extension-publish": "node ./out/scripts/prepareForExtensionPublish.js"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.3",
