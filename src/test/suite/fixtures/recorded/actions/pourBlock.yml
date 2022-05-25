@@ -2,7 +2,7 @@ languageId: typescript
 command:
   spokenForm: pour block
   version: 2
-  action: editNewLineAfter
+  action: {name: editNewLineAfter}
   targets:
     - type: primitive
       modifiers:

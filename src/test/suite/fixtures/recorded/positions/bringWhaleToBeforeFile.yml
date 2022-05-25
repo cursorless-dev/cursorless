@@ -2,7 +2,7 @@ languageId: plaintext
 command:
   spokenForm: bring whale to before file
   version: 2
-  action: replaceWithTarget
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}

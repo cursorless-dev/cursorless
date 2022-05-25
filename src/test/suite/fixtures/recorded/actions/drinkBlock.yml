@@ -2,7 +2,7 @@ languageId: typescript
 command:
   spokenForm: drink block
   version: 2
-  action: editNewLineBefore
+  action: {name: editNewLineBefore}
   targets:
     - type: primitive
       modifiers:

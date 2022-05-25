@@ -2,7 +2,7 @@ languageId: plaintext
 command:
   spokenForm: clear line pair
   version: 2
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:

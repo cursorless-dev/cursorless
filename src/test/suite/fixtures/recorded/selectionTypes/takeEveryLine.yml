@@ -2,7 +2,7 @@ languageId: plaintext
 command:
   spokenForm: take every line
   version: 2
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
       modifiers:

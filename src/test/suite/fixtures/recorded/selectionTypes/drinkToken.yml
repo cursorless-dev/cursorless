@@ -2,7 +2,7 @@ languageId: python
 command:
   spokenForm: drink token
   version: 2
-  action: editNewLineBefore
+  action: {name: editNewLineBefore}
   targets:
     - type: primitive
       modifiers:

@@ -2,7 +2,7 @@ languageId: plaintext
 command:
   spokenForm: drink just fine
   version: 2
-  action: editNewLineBefore
+  action: {name: editNewLineBefore}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}

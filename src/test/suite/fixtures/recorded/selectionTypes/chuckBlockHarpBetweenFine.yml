@@ -2,7 +2,7 @@ languageId: plaintext
 command:
   spokenForm: chuck block harp between fine
   version: 2
-  action: remove
+  action: {name: remove}
   targets:
     - type: range
       start:
