@@ -5,7 +5,7 @@
 // example:
 // const filenameEnd = "textual/takePairRound.yml";
 
-const filenameEnd = "chuckBlockHarpBetweenFine.yml";
+const filenameEnd = "";
 
 export function runSingleTest() {
   return !!filenameEnd;
