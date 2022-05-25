@@ -37,3 +37,8 @@ function selectionFromPositions(
     ? new Selection(start, end)
     : new Selection(end, start);
 }
+
+export function selectionFromRange(isReversed: boolean, range: Range) {
+  const { start, end } = range;
+  return isReversed ? new Selection(end, start) : new Selection(start, end);
+}

@@ -159,6 +159,22 @@ export async function callFunctionAndUpdateSelections(
   );
 }
 
+export async function callFunctionAndUpdateRanges(
+  rangeUpdater: RangeUpdater,
+  func: () => Thenable<void>,
+  document: TextDocument,
+  rangeMatrix: (readonly Range[])[]
+): Promise<Range[][]> {
+  const selectionInfoMatrix = rangesToSelectionInfos(document, rangeMatrix);
+
+  return await callFunctionAndUpdateSelectionInfos(
+    rangeUpdater,
+    func,
+    document,
+    selectionInfoMatrix
+  );
+}
+
 /**
  * Calls the given function and updates the given selections based on the
  * changes that occurred as a result of calling function.

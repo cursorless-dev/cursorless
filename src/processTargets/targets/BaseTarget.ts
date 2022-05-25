@@ -1,10 +1,11 @@
 import { Range, Selection, TextEditor } from "vscode";
 import {
-  EditNewContext as EditNewContext,
+  EditNewContext,
   Position,
   RemovalRange,
   Target,
 } from "../../typings/target.types";
+import { selectionFromRange } from "../../util/selectionUtils";
 import { parseRemovalRange } from "../../util/targetUtils";
 
 export function extractCommonParameters(parameters: CommonTargetParameters) {
@@ -137,10 +138,7 @@ export default abstract class BaseTarget {
   }
 
   get contentSelection(): Selection {
-    const { start, end } = this.contentRange;
-    return this.isReversed
-      ? new Selection(end, start)
-      : new Selection(start, end);
+    return selectionFromRange(this.isReversed, this.contentRange);
   }
 
   get delimiter(): string | undefined {
