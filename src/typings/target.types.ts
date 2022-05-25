@@ -202,8 +202,8 @@ export interface PartialRangeTargetDesc {
   type: "range";
   anchor: PartialPrimitiveTargetDesc;
   active: PartialPrimitiveTargetDesc;
-  excludeStart?: boolean;
-  excludeEnd?: boolean;
+  excludeAnchor?: boolean;
+  excludeActive?: boolean;
   rangeType?: RangeType;
 }
 

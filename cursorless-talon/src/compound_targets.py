@@ -55,8 +55,8 @@ def cursorless_range(m) -> str:
         "type": "range",
         "anchor": anchor,
         "active": primitive_targets[-1],
-        "excludeStart": not is_anchor_included(range_connective),
-        "excludeEnd": not is_active_included(range_connective),
+        "excludeAnchor": not is_anchor_included(range_connective),
+        "excludeActive": not is_active_included(range_connective),
     }
 
     if range_type:

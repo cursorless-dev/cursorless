@@ -5,21 +5,14 @@ command:
   action: {name: remove}
   targets:
     - type: range
-      start:
-        type: primitive
-        selectionType: paragraph
-        mark: {type: decoratedSymbol, symbolColor: default, character: h}
-      end:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      excludeStart: true
-      excludeEnd: true
+      excludeAnchor: true
+      excludeActive: true
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: h}
         modifiers:
           - type: containingScope
-          scopeType: {type: paragraph}
+            scopeType: {type: paragraph}
       active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: f}

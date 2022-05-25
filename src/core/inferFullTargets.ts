@@ -71,8 +71,8 @@ function inferRangeTarget(
 ): RangeTargetDescriptor {
   return {
     type: "range",
-    excludeAnchor: target.excludeStart ?? false,
-    excludeActive: target.excludeEnd ?? false,
+    excludeAnchor: target.excludeAnchor ?? false,
+    excludeActive: target.excludeActive ?? false,
     rangeType: target.rangeType ?? "continuous",
     anchor: inferPrimitiveTarget(target.anchor, previousTargets),
     active: inferPrimitiveTarget(
