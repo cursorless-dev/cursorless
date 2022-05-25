@@ -27,7 +27,7 @@ class EditNew implements Action {
       const common = {
         target,
         index,
-        targetRange: target.contentRange,
+        targetRange: target.getThatTarget().contentRange,
         cursorRange: getEditRange(
           editor,
           target.contentRange,

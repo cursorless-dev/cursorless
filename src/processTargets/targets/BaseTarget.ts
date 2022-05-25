@@ -88,6 +88,10 @@ export default abstract class BaseTarget implements Target {
     return false;
   }
 
+  getThatTarget() {
+    return this;
+  }
+
   getInteriorStrict(): Target[] {
     throw Error("No available interior");
   }

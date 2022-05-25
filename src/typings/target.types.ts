@@ -309,4 +309,5 @@ export interface Target {
   getRemovalHighlightRange(): Range | undefined;
   getEditNewContext(isBefore: boolean): EditNewContext;
   withPosition(position: Position): Target;
+  getThatTarget(): Target;
 }

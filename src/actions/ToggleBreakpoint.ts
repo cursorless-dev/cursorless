@@ -30,8 +30,10 @@ export default class ToggleBreakpoint implements Action {
   }
 
   async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
+    const thatTargets = targets.map((target) => target.getThatTarget());
+
     await displayPendingEditDecorations(
-      targets,
+      thatTargets,
       this.graph.editStyles.referenced
     );
 
@@ -60,7 +62,7 @@ export default class ToggleBreakpoint implements Action {
     debug.removeBreakpoints(toRemove);
 
     return {
-      thatMark: createThatMark(targets),
+      thatMark: createThatMark(thatTargets),
     };
   }
 }
