@@ -189,7 +189,6 @@ function getLineEditText(
   delimiter: string,
   isBefore: boolean
 ) {
-  // In case of trialing whitespaces we need to go to the end of the line(not content)
   const line = editor.document.lineAt(isBefore ? range.start : range.end);
   const characterIndex = line.isEmptyOrWhitespace
     ? range.start.character
@@ -204,6 +203,7 @@ function getEditRange(
   isLine: boolean,
   isBefore: boolean
 ) {
+  // In case of trialing whitespaces we need to go to the end of the line(not content)
   const editRange =
     isLine && !isBefore ? editor.document.lineAt(range.end).range : range;
   const position = isBefore ? editRange.start : editRange.end;
