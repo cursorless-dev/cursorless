@@ -49,7 +49,7 @@ interface BaseTargetState {
   readonly removalRange?: Range;
   readonly leadingDelimiter?: RemovalRange;
   readonly trailingDelimiter?: RemovalRange;
-  position?: Position;
+  readonly position?: Position;
 }
 
 export default abstract class BaseTarget implements Target {
