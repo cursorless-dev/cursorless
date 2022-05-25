@@ -175,11 +175,12 @@ function findSurroundingPairContainedInNode(
 
   /**
    * A list of all delimiter nodes descending from `node`, as determined by
-   * their type
+   * their type.
+   * Handles the case of error nodes with no text. https://github.com/cursorless-dev/cursorless/issues/688
    */
-  const possibleDelimiterNodes = node.descendantsOfType(
-    individualDelimiters.map(({ text }) => text)
-  );
+  const possibleDelimiterNodes = node
+    .descendantsOfType(individualDelimiters.map(({ text }) => text))
+    .filter((node) => !(node.text === "" && node.hasError()));
 
   /**
    * A list of all delimiter occurrences, generated from the delimiter nodes.
