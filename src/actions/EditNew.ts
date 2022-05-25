@@ -23,14 +23,10 @@ class EditNew implements Action {
 
     const richTargets: RichTarget[] = targets.map((target, index) => {
       const context = target.getEditNewContext(this.isBefore);
-      const position = this.isBefore
-        ? target.contentRange.start
-        : target.contentRange.end;
       const common = {
         target,
         index,
         targetRange: target.contentRange,
-        cursorRange: new Range(position, position),
       };
       switch (context.type) {
         case "command":
@@ -38,12 +34,26 @@ class EditNew implements Action {
             ...common,
             type: "command",
             command: context.command,
+            cursorRange: getEditRange(
+              editor,
+              target.contentRange,
+              false,
+              this.isBefore
+            ),
           };
         case "delimiter":
+          const isLine = context.delimiter.includes("\n");
           return {
             ...common,
             type: "delimiter",
             delimiter: context.delimiter,
+            isLine,
+            cursorRange: getEditRange(
+              editor,
+              target.contentRange,
+              isLine,
+              this.isBefore
+            ),
           };
       }
     });
@@ -70,26 +80,27 @@ class EditNew implements Action {
       return;
     }
 
-    const edits = delimiterTargets.flatMap(({ delimiter, cursorRange }) => {
-      const [before, after] = delimiter.includes("\n")
-        ? getLineEditTexts(editor, cursorRange, delimiter, this.isBefore)
-        : this.isBefore
-        ? ["", delimiter]
-        : [delimiter, ""];
-
-      return [
-        {
-          text: before,
-          range: cursorRange,
-          isReplace: false,
-        },
-        {
-          text: after,
-          range: cursorRange,
-          isReplace: true,
-        },
-      ].filter(({ text }) => !!text);
-    });
+    const edits = delimiterTargets.flatMap(
+      ({ delimiter, isLine, cursorRange }) => {
+        const [before, after] = isLine
+          ? getLineEditTexts(editor, cursorRange, delimiter, this.isBefore)
+          : this.isBefore
+          ? ["", delimiter]
+          : [delimiter, ""];
+        return [
+          {
+            text: before,
+            range: cursorRange,
+            isReplace: false,
+          },
+          {
+            text: after,
+            range: cursorRange,
+            isReplace: true,
+          },
+        ].filter(({ text }) => !!text);
+      }
+    );
 
     const [updatedTargetRanges, updatedCursorRanges] =
       await performEditsAndUpdateRanges(
@@ -171,6 +182,7 @@ interface CommandTarget extends CommonTarget {
 interface DelimiterTarget extends CommonTarget {
   type: "delimiter";
   delimiter: string;
+  isLine: boolean;
 }
 type RichTarget = CommandTarget | DelimiterTarget;
 
@@ -188,13 +200,25 @@ function getLineEditTexts(
   delimiter: string,
   isBefore: boolean
 ) {
-  const lineNumber = isBefore ? range.start.line : range.end.line;
-  const line = editor.document.lineAt(lineNumber);
+  const line = editor.document.lineAt(isBefore ? range.start : range.end);
   const characterIndex = line.isEmptyOrWhitespace
     ? range.start.character
     : line.firstNonWhitespaceCharacterIndex;
   const padding = line.text.slice(0, characterIndex);
-  return isBefore ? [padding, delimiter] : [delimiter, padding];
+  return isBefore ? [padding, delimiter] : [delimiter + padding, ""];
+}
+
+function getEditRange(
+  editor: TextEditor,
+  range: Range,
+  isLine: boolean,
+  isBefore: boolean
+) {
+  const editRange = isLine
+    ? editor.document.lineAt(isBefore ? range.start : range.end).range
+    : range;
+  const position = isBefore ? editRange.start : editRange.end;
+  return new Range(position, position);
 }
 
 function updateTargets(
