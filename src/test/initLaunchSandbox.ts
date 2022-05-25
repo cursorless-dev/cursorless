@@ -16,7 +16,7 @@ async function main() {
     const extensionDevelopmentPath = path.resolve(__dirname, "../../");
     const extensionSandboxDir = path.join(
       extensionDevelopmentPath,
-      ".sandbox",
+      ".vscode-sandbox",
       "extensions"
     );
     await mkdir(extensionSandboxDir, { recursive: true });
@@ -32,12 +32,12 @@ async function main() {
 
     // Install extension dependencies
     const results = await promisify(cp.exec)(command);
-    if (results.stderr) {
-      throw Error(results.stderr);
-    }
+
     console.log(results.stdout);
+    console.log(results.stderr);
   } catch (err) {
     console.error("Failed to init launch sandbox");
+    console.error(err);
     process.exit(1);
   }
 }

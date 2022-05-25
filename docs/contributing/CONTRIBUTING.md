@@ -50,13 +50,31 @@ Run the `workbench.action.debug.selectandstart` command and then select
 
 See [test-case-recorder.md](./test-case-recorder.md).
 
-## Adding a new programming language
+## Parse tree support
+
+### Adding a new programming language
 
 See [docs](./adding-a-new-language.md).
 
-## Adding syntactic scope types to an existing language
+### Adding syntactic scope types to an existing language
 
 See [parse-tree-patterns.md](./parse-tree-patterns.md).
+
+### Testing Cursorless with a local version of the VSCode parse tree extension
+
+First bundle the parse tree extension into a `.vsix`, using something like the following:
+
+```
+cd ../vscode-parse-tree
+vsce package -o bundle.vsix
+```
+
+Once you have your package then you can install it into the sandbox using the following command:
+
+```
+cd ../cursorless
+code --extensions-dir .vscode-sandbox/extensions --install-extension ../vscode-parse-tree/bundle.vsix
+```
 
 ## Changing SVGs
 

@@ -11,13 +11,15 @@
 			"request": "launch",
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensions-dir=${workspaceFolder}/.sandbox/extensions"
+				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions"
 			],
-			"outFiles": ["${workspaceFolder}/out/**/*.js"],
+			"outFiles": [
+				"${workspaceFolder}/out/**/*.js"
+			],
 			"preLaunchTask": "${defaultBuildTask}",
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
-				"!${workspaceFolder}/.sandbox/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
 				"!**/node_modules/**"
 			]
 		},
@@ -29,15 +31,17 @@
 				"CURSORLESS_TEST": "true"
 			},
 			"args": [
-				"--extensions-dir=${workspaceFolder}/.sandbox/extensions",
+				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
 			],
-			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+			"outFiles": [
+				"${workspaceFolder}/out/test/**/*.js"
+			],
 			"preLaunchTask": "${defaultBuildTask}",
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
-				"!${workspaceFolder}/.sandbox/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
 				"!**/node_modules/**"
 			]
 		},
@@ -50,15 +54,17 @@
 				"CURSORLESS_TEST_UPDATE_FIXTURES": "true"
 			},
 			"args": [
-				"--extensions-dir=${workspaceFolder}/.sandbox/extensions",
+				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
 			],
-			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+			"outFiles": [
+				"${workspaceFolder}/out/test/**/*.js"
+			],
 			"preLaunchTask": "${defaultBuildTask}",
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
-				"!${workspaceFolder}/.sandbox/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
 				"!**/node_modules/**"
 			]
 		},
@@ -68,10 +74,13 @@
 			"request": "launch",
 			"cwd": "${workspaceFolder}/website",
 			"runtimeExecutable": "npm",
-			"runtimeArgs": ["run", "start"],
+			"runtimeArgs": [
+				"run",
+				"start"
+			],
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
-				"!${workspaceFolder}/.sandbox/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
 				"!**/node_modules/**"
 			]
 		}

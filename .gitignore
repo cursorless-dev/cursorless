@@ -13,4 +13,4 @@ docs/contributing/api/
 gh-pages-root/docs/
 
 # Local extension / data sandbox for debug launch task
-/.sandbox
+/.vscode-sandbox
