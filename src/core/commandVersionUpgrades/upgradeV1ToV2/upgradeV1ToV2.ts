@@ -72,7 +72,7 @@ function upgradeModifier(modifier: ModifierV0V1): Modifier[] {
 
       return [
         {
-          type: "containingScope",
+          type: "ordinalRange",
           scopeType: { type: pieceType },
           ...rest,
         },
