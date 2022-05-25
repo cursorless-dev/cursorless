@@ -23,10 +23,17 @@ class EditNew implements Action {
 
     const richTargets: RichTarget[] = targets.map((target, index) => {
       const context = target.getEditNewContext(this.isBefore);
+
       const common = {
         target,
         index,
         targetRange: target.contentRange,
+        cursorRange: getEditRange(
+          editor,
+          target.contentRange,
+          false,
+          this.isBefore
+        ),
       };
       switch (context.type) {
         case "command":
@@ -34,12 +41,6 @@ class EditNew implements Action {
             ...common,
             type: "command",
             command: context.command,
-            cursorRange: getEditRange(
-              editor,
-              target.contentRange,
-              false,
-              this.isBefore
-            ),
           };
         case "delimiter":
           const isLine = context.delimiter.includes("\n");
@@ -80,27 +81,15 @@ class EditNew implements Action {
       return;
     }
 
-    const edits = delimiterTargets.flatMap(
-      ({ delimiter, isLine, cursorRange }) => {
-        const [before, after] = isLine
-          ? getLineEditTexts(editor, cursorRange, delimiter, this.isBefore)
-          : this.isBefore
-          ? ["", delimiter]
-          : [delimiter, ""];
-        return [
-          {
-            text: before,
-            range: cursorRange,
-            isReplace: false,
-          },
-          {
-            text: after,
-            range: cursorRange,
-            isReplace: true,
-          },
-        ].filter(({ text }) => !!text);
-      }
-    );
+    const edits = delimiterTargets.map(({ delimiter, isLine, cursorRange }) => {
+      return {
+        text: isLine
+          ? getLineEditText(editor, cursorRange, delimiter, this.isBefore)
+          : delimiter,
+        range: cursorRange,
+        isReplace: this.isBefore,
+      };
+    });
 
     const [updatedTargetRanges, updatedCursorRanges] =
       await performEditsAndUpdateRanges(
@@ -194,7 +183,7 @@ function ensureSingleCommand(targets: CommandTarget[]) {
   return commands[0];
 }
 
-function getLineEditTexts(
+function getLineEditText(
   editor: TextEditor,
   range: Range,
   delimiter: string,
@@ -205,7 +194,7 @@ function getLineEditTexts(
     ? range.start.character
     : line.firstNonWhitespaceCharacterIndex;
   const padding = line.text.slice(0, characterIndex);
-  return isBefore ? [padding, delimiter] : [delimiter + padding, ""];
+  return delimiter + padding;
 }
 
 function getEditRange(
@@ -214,9 +203,8 @@ function getEditRange(
   isLine: boolean,
   isBefore: boolean
 ) {
-  const editRange = isLine
-    ? editor.document.lineAt(isBefore ? range.start : range.end).range
-    : range;
+  const editRange =
+    isLine && !isBefore ? editor.document.lineAt(range.end).range : range;
   const position = isBefore ? editRange.start : editRange.end;
   return new Range(position, position);
 }
