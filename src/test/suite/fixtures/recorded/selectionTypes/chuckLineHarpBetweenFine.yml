@@ -19,7 +19,7 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: h}
         modifiers:
           - type: containingScope
-          scopeType: {type: line}
+            scopeType: {type: line}
       active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: f}

@@ -10,6 +10,7 @@ import { Graph } from "../typings/Types";
 import { selectionFromRange } from "../util/selectionUtils";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
+import { getEditRange, getLinePadding } from "./CopyLines";
 
 class EditNew implements Action {
   getFinalStages = () => [weakContainingLineStage];
@@ -84,7 +85,7 @@ class EditNew implements Action {
     const edits = delimiterTargets.map(({ delimiter, isLine, cursorRange }) => {
       return {
         text: isLine
-          ? getLineEditText(editor, cursorRange, delimiter, this.isBefore)
+          ? delimiter + getLinePadding(editor, cursorRange, this.isBefore)
           : delimiter,
         range: cursorRange,
         isReplace: this.isBefore,
@@ -181,33 +182,6 @@ function ensureSingleCommand(targets: CommandTarget[]) {
     throw new Error("Can't run multiple different commands at once");
   }
   return commands[0];
-}
-
-function getLineEditText(
-  editor: TextEditor,
-  range: Range,
-  delimiter: string,
-  isBefore: boolean
-) {
-  const line = editor.document.lineAt(isBefore ? range.start : range.end);
-  const characterIndex = line.isEmptyOrWhitespace
-    ? range.start.character
-    : line.firstNonWhitespaceCharacterIndex;
-  const padding = line.text.slice(0, characterIndex);
-  return delimiter + padding;
-}
-
-function getEditRange(
-  editor: TextEditor,
-  range: Range,
-  isLine: boolean,
-  isBefore: boolean
-) {
-  // In case of trialing whitespaces we need to go to the end of the line(not content)
-  const editRange =
-    isLine && !isBefore ? editor.document.lineAt(range.end).range : range;
-  const position = isBefore ? editRange.start : editRange.end;
-  return new Range(position, position);
 }
 
 function updateTargets(

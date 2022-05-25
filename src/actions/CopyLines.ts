@@ -1,104 +1,88 @@
-import { flatten } from "lodash";
+import { flatten, zip } from "lodash";
 import { Range, Selection, TextEditor } from "vscode";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { displayPendingEditDecorationsForRanges } from "../util/editDisplayUtils";
-import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import unifyRanges from "../util/unifyRanges";
+import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class CopyLines implements Action {
-  constructor(private graph: Graph, private isUp: boolean) {
+  getFinalStages = () => [weakContainingLineStage];
+
+  constructor(private graph: Graph, private isBefore: boolean) {
     this.run = this.run.bind(this);
+    this.runForEditor = this.runForEditor.bind(this);
   }
 
-  private getRanges(editor: TextEditor, targets: Target[]) {
-    const paragraphTargets = targets.filter((target) => target.isParagraph);
-    const ranges = targets.map((target) =>
-      expandToContainingLine(editor, target.contentRange)
-    );
-    const unifiedRanges = unifyRanges(ranges);
-    return unifiedRanges.map((range) => ({
-      range,
-      isParagraph:
-        paragraphTargets.find((target) => target.contentRange.isEqual(range)) !=
-        null,
-    }));
-  }
+  async runForEditor(editor: TextEditor, targets: Target[]) {
+    const edits = targets.map((target) => {
+      const delimiter = target.delimiter ?? "";
+      const isLine = delimiter.includes("\n");
 
-  private getEdits(
-    editor: TextEditor,
-    ranges: { range: Range; isParagraph: boolean }[]
-  ) {
-    return ranges.map(({ range, isParagraph }) => {
-      const delimiter = isParagraph ? "\n\n" : "\n";
-      let text = editor.document.getText(range);
-      const length = text.length;
-      text = this.isUp ? `${delimiter}${text}` : `${text}${delimiter}`;
-      const newRange = this.isUp
-        ? new Range(range.end, range.end)
-        : new Range(range.start, range.start);
+      const range = getEditRange(
+        editor,
+        target.contentRange,
+        isLine,
+        !this.isBefore
+      );
+      const padding = isLine
+        ? getLinePadding(editor, range, !this.isBefore)
+        : "";
+
+      const contentText = target.contentText;
+      const text = this.isBefore
+        ? delimiter + padding + contentText
+        : contentText + delimiter + padding;
+
       return {
-        edit: {
-          editor,
-          range: newRange,
-          text,
-          isReplace: this.isUp,
-        },
-        offset: delimiter.length,
-        length,
+        range,
+        isReplace: this.isBefore,
+        text,
+        offset: delimiter.length + padding.length,
+        length: contentText.length,
       };
     });
+
+    const [updatedEditorSelections, updatedEditSelections, thatSelections] =
+      await performEditsAndUpdateSelections(
+        this.graph.rangeUpdater,
+        editor,
+        edits,
+        [
+          editor.selections,
+          edits.map(({ range }) => new Selection(range.start, range.end)),
+          targets.map(({ contentSelection }) => contentSelection),
+        ]
+      );
+
+    editor.selections = updatedEditorSelections;
+    editor.revealRange(thatSelections[0]);
+
+    const sourceSelections = zip(edits, updatedEditSelections).map(
+      ([edit, selection]) => {
+        const startOffset = editor.document.offsetAt(selection!.start);
+        const startIndex = this.isBefore
+          ? startOffset + edit!.offset
+          : startOffset - edit!.offset - edit!.length;
+        const endIndex = startIndex + edit!.length;
+        return new Selection(
+          editor.document.positionAt(startIndex),
+          editor.document.positionAt(endIndex)
+        );
+      }
+    );
+
+    return {
+      sourceMark: createThatMark(targets, sourceSelections),
+      thatMark: createThatMark(targets, thatSelections),
+    };
   }
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const results = flatten(
-      await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-        const ranges = this.getRanges(editor, targets);
-        const editWrappers = this.getEdits(editor, ranges);
-        const rangeSelections = ranges.map(
-          ({ range }) => new Selection(range.start, range.end)
-        );
-
-        const [editorSelections, copySelections] =
-          await performEditsAndUpdateSelections(
-            this.graph.rangeUpdater,
-            editor,
-            editWrappers.map((wrapper) => wrapper.edit),
-            [editor.selections, rangeSelections]
-          );
-
-        editor.selections = editorSelections;
-        editor.revealRange(copySelections[0]);
-
-        let sourceSelections;
-        if (this.isUp) {
-          sourceSelections = editWrappers.map((wrapper) => {
-            const startIndex =
-              editor.document.offsetAt(wrapper.edit.range.start) +
-              wrapper.offset;
-            const endIndex = startIndex + wrapper.length;
-            return new Selection(
-              editor.document.positionAt(startIndex),
-              editor.document.positionAt(endIndex)
-            );
-          });
-        } else {
-          sourceSelections = rangeSelections;
-        }
-
-        return {
-          sourceMark: sourceSelections.map((selection) => ({
-            editor,
-            selection,
-          })),
-          thatMark: copySelections.map((selection) => ({
-            editor,
-            selection,
-          })),
-        };
-      })
+      await runOnTargetsForEachEditor(targets, this.runForEditor)
     );
 
     await displayPendingEditDecorationsForRanges(
@@ -111,10 +95,10 @@ class CopyLines implements Action {
       this.graph.editStyles.justAdded.token
     );
 
-    const sourceMark = results.flatMap((result) => result.sourceMark);
-    const thatMark = results.flatMap((result) => result.thatMark);
-
-    return { sourceMark, thatMark };
+    return {
+      sourceMark: results.flatMap((result) => result.sourceMark),
+      thatMark: results.flatMap((result) => result.thatMark),
+    };
   }
 }
 
@@ -130,8 +114,27 @@ export class CopyLinesDown extends CopyLines {
   }
 }
 
-function expandToContainingLine(editor: TextEditor, range: Range) {
-  const start = range.start.with({ character: 0 });
-  const end = editor.document.lineAt(range.end).range.end;
-  return new Range(start, end);
+export function getLinePadding(
+  editor: TextEditor,
+  range: Range,
+  isBefore: boolean
+) {
+  const line = editor.document.lineAt(isBefore ? range.start : range.end);
+  const characterIndex = line.isEmptyOrWhitespace
+    ? range.start.character
+    : line.firstNonWhitespaceCharacterIndex;
+  return line.text.slice(0, characterIndex);
+}
+
+export function getEditRange(
+  editor: TextEditor,
+  range: Range,
+  isLine: boolean,
+  isBefore: boolean
+) {
+  // In case of trialing whitespaces we need to go to the end of the line(not content)
+  const editRange =
+    isLine && !isBefore ? editor.document.lineAt(range.end).range : range;
+  const position = isBefore ? editRange.start : editRange.end;
+  return new Range(position, position);
 }
