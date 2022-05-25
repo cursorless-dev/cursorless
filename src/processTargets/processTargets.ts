@@ -152,7 +152,10 @@ function processContinuousRangeTarget(
     if (excludeEnd) {
       if (endTarget.isLine) {
         return {
-          range: new Range(contentRange.end, endTarget.contentRange.start),
+          range: new Range(
+            contentRange.end,
+            endTarget.leadingDelimiter!.range.end
+          ),
           highlight: new Range(
             contentRange.end,
             endTarget.contentRange.start.translate({ lineDelta: -1 })

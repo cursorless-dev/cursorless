@@ -161,6 +161,8 @@ function upgradeTarget(target: PartialTargetV0V1): PartialTargetDesc {
         ...target,
         anchor: upgradePrimitiveTarget(target.start),
         active: upgradePrimitiveTarget(target.end),
+        excludeAnchor: target.excludeStart ?? false,
+        excludeActive: target.excludeEnd ?? false,
       };
     case "primitive":
       return upgradePrimitiveTarget(target);
