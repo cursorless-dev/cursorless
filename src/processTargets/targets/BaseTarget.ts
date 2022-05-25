@@ -14,6 +14,7 @@ export function extractCommonParameters(parameters: CommonTargetParameters) {
     isReversed: parameters.isReversed,
     contentRange: parameters.contentRange,
     position: parameters.position,
+    weakTarget: parameters.weakTarget,
   };
 }
 
@@ -23,6 +24,12 @@ export interface CommonTargetParameters {
   isReversed: boolean;
   contentRange: Range;
   position?: Position;
+  weakTarget?: Target;
+}
+
+export interface CloneWithParameters {
+  position?: Position;
+  weakTarget?: Target;
 }
 
 export interface BaseTargetParameters extends CommonTargetParameters {
@@ -37,6 +44,7 @@ interface BaseTargetState {
   readonly editor: TextEditor;
   readonly isReversed: boolean;
   readonly contentRange: Range;
+  readonly weakTarget?: Target;
   readonly delimiter: string;
   readonly removalRange?: Range;
   readonly leadingDelimiter?: RemovalRange;
@@ -57,6 +65,7 @@ export default abstract class BaseTarget implements Target {
       removalRange: parameters.removalRange,
       leadingDelimiter: parameters.leadingDelimiter,
       trailingDelimiter: parameters.trailingDelimiter,
+      weakTarget: parameters.weakTarget,
     };
   }
 
@@ -88,8 +97,10 @@ export default abstract class BaseTarget implements Target {
     return false;
   }
 
-  getThatTarget() {
-    return this;
+  get thatTarget(): Target {
+    return this.state.weakTarget != null
+      ? this.state.weakTarget.thatTarget
+      : this;
   }
 
   getInteriorStrict(): Target[] {
@@ -247,5 +258,13 @@ export default abstract class BaseTarget implements Target {
     };
   }
 
-  abstract withPosition(position: Position): Target;
+  withPosition(position: Position): Target {
+    return this.cloneWith({ position });
+  }
+
+  withWeakTarget(weakTarget: Target): Target {
+    return this.cloneWith({ weakTarget });
+  }
+
+  abstract cloneWith(parameters: CloneWithParameters): Target;
 }

@@ -1,7 +1,8 @@
 import { Range } from "vscode";
-import { Position, RemovalRange, Target } from "../../typings/target.types";
+import { Target } from "../../typings/target.types";
 import { getTokenDelimiters } from "../modifiers/scopeTypeStages/TokenStage";
 import BaseTarget, {
+  CloneWithParameters,
   CommonTargetParameters,
   extractCommonParameters,
 } from "./BaseTarget";
@@ -63,12 +64,12 @@ export default class SurroundingPairTarget extends BaseTarget {
     );
   }
 
-  withPosition(position: Position): SurroundingPairTarget {
+  cloneWith(parameters: CloneWithParameters): SurroundingPairTarget {
     return new SurroundingPairTarget({
       ...this.state,
       interiorRange: this.interiorRange_,
       boundary: this.boundary_,
-      position,
+      ...parameters,
     });
   }
 }

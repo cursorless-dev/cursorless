@@ -1,5 +1,5 @@
-import { Position } from "../../typings/target.types";
 import BaseTarget, {
+  CloneWithParameters,
   CommonTargetParameters,
   extractCommonParameters,
 } from "./BaseTarget";
@@ -13,7 +13,7 @@ export default class RawSelectionTarget extends BaseTarget {
     return undefined;
   }
 
-  withPosition(position: Position): RawSelectionTarget {
-    return new RawSelectionTarget({ ...this.state, position });
+  cloneWith(parameters: CloneWithParameters): RawSelectionTarget {
+    return new RawSelectionTarget({ ...this.state, ...parameters });
   }
 }

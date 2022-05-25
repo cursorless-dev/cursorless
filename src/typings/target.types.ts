@@ -301,6 +301,7 @@ export interface Target {
 
   readonly contentText: string;
   readonly contentSelection: Selection;
+  readonly thatTarget: Target;
 
   getInteriorStrict(): Target[];
   getBoundaryStrict(): Target[];
@@ -309,5 +310,5 @@ export interface Target {
   getRemovalHighlightRange(): Range | undefined;
   getEditNewContext(isBefore: boolean): EditNewContext;
   withPosition(position: Position): Target;
-  getThatTarget(): Target;
+  withWeakTarget(weakTarget: Target): Target;
 }

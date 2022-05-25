@@ -1,7 +1,8 @@
 import { Range } from "vscode";
-import { Position, RemovalRange } from "../../typings/target.types";
+import { RemovalRange } from "../../typings/target.types";
 import { parseRemovalRange } from "../../util/targetUtils";
 import BaseTarget, {
+  CloneWithParameters,
   CommonTargetParameters,
   extractCommonParameters,
 } from "./BaseTarget";
@@ -27,8 +28,8 @@ export default class ParagraphTarget extends BaseTarget {
     return true;
   }
 
-  withPosition(position: Position): ParagraphTarget {
-    return new ParagraphTarget({ ...this.state, position });
+  cloneWith(parameters: CloneWithParameters): ParagraphTarget {
+    return new ParagraphTarget({ ...this.state, ...parameters });
   }
 
   getRemovalContentRange(): Range {

@@ -30,7 +30,7 @@ export default class ToggleBreakpoint implements Action {
   }
 
   async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
-    const thatTargets = targets.map((target) => target.getThatTarget());
+    const thatTargets = targets.map(({ thatTarget }) => thatTarget);
 
     await displayPendingEditDecorations(
       thatTargets,

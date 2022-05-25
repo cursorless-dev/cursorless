@@ -1,6 +1,6 @@
 import { Range } from "vscode";
-import { Position } from "../../typings/target.types";
 import BaseTarget, {
+  CloneWithParameters,
   CommonTargetParameters,
   extractCommonParameters,
 } from "./BaseTarget";
@@ -34,7 +34,7 @@ export default class DocumentTarget extends BaseTarget {
     );
   }
 
-  withPosition(position: Position): DocumentTarget {
-    return new DocumentTarget({ ...this.state, position });
+  cloneWith(parameters: CloneWithParameters): DocumentTarget {
+    return new DocumentTarget({ ...this.state, ...parameters });
   }
 }

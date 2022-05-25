@@ -1,7 +1,8 @@
 import { Range } from "vscode";
-import { Position, RemovalRange } from "../../typings/target.types";
+import { RemovalRange } from "../../typings/target.types";
 import { parseRemovalRange } from "../../util/targetUtils";
 import BaseTarget, {
+  CloneWithParameters,
   CommonTargetParameters,
   extractCommonParameters,
 } from "./BaseTarget";
@@ -46,7 +47,7 @@ export default class LineTarget extends BaseTarget {
       : removalRange;
   }
 
-  withPosition(position: Position): LineTarget {
-    return new LineTarget({ ...this.state, position });
+  cloneWith(parameters: CloneWithParameters): LineTarget {
+    return new LineTarget({ ...this.state, ...parameters });
   }
 }

@@ -1,10 +1,7 @@
 import { Range } from "vscode";
-import {
-  Position,
-  RemovalRange,
-  SimpleScopeTypeType,
-} from "../../typings/target.types";
+import { RemovalRange, SimpleScopeTypeType } from "../../typings/target.types";
 import BaseTarget, {
+  CloneWithParameters,
   CommonTargetParameters,
   extractCommonParameters,
 } from "./BaseTarget";
@@ -28,10 +25,10 @@ export default class ScopeTypeTarget extends BaseTarget {
     });
   }
 
-  withPosition(position: Position): ScopeTypeTarget {
+  cloneWith(parameters: CloneWithParameters): ScopeTypeTarget {
     return new ScopeTypeTarget({
       ...(<ScopeTypeTargetParameters>this.state),
-      position,
+      ...parameters,
     });
   }
 }

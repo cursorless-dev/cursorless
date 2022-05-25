@@ -1,7 +1,10 @@
 import { TextEditor } from "vscode";
-import { EditNewContext, Position } from "../../typings/target.types";
+import { EditNewContext } from "../../typings/target.types";
 import { getNotebookFromCellDocument } from "../../util/notebook";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
+import BaseTarget, {
+  CloneWithParameters,
+  CommonTargetParameters,
+} from "./BaseTarget";
 
 export default class NotebookCellTarget extends BaseTarget {
   constructor(parameters: CommonTargetParameters) {
@@ -26,8 +29,8 @@ export default class NotebookCellTarget extends BaseTarget {
     };
   }
 
-  withPosition(position: Position): NotebookCellTarget {
-    return new NotebookCellTarget({ ...this.state, position });
+  cloneWith(parameters: CloneWithParameters): NotebookCellTarget {
+    return new NotebookCellTarget({ ...this.state, ...parameters });
   }
 
   private isNotebookEditor(editor: TextEditor) {
