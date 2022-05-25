@@ -6,7 +6,8 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - {type: everyScope, scopeType: paragraph}
+        - type: everyScope
+          scopeType: {type: paragraph}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |

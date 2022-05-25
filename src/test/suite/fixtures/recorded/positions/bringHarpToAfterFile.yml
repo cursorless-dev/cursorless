@@ -9,7 +9,8 @@ command:
     - type: primitive
       modifiers:
         - {type: position, position: after}
-        - {type: containingScope, scopeType: document}
+        - type: containingScope
+          scopeType: {type: document}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: hello world

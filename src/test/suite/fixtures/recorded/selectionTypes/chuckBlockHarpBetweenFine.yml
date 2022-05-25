@@ -18,11 +18,11 @@ command:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: h}
         modifiers:
-          - {type: containingScope, scopeType: paragraph}
+          - type: containingScope
+          scopeType: {type: paragraph}
       active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: f}
-        modifiers: []
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |

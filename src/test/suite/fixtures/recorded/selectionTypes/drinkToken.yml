@@ -6,7 +6,8 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - {type: containingScope, scopeType: token}
+        - type: containingScope
+          scopeType: {type: token}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: foo
