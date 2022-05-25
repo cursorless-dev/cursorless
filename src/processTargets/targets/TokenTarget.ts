@@ -1,3 +1,4 @@
+import { Position } from "../../typings/target.types";
 import { getTokenDelimiters } from "../modifiers/scopeTypeStages/TokenStage";
 import BaseTarget, {
   CommonTargetParameters,
@@ -12,7 +13,7 @@ export default class TokenTarget extends BaseTarget {
     });
   }
 
-  clone(): TokenTarget {
-    return new TokenTarget(this.state);
+  withPosition(position: Position): TokenTarget {
+    return new TokenTarget({ ...this.state, position });
   }
 }

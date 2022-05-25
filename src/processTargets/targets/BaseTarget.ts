@@ -34,32 +34,17 @@ export interface BaseTargetParameters extends CommonTargetParameters {
 }
 
 interface BaseTargetState {
-  /** The text editor used for all ranges */
   readonly editor: TextEditor;
-
-  /** If true active is before anchor */
   readonly isReversed: boolean;
-
-  /** The range of the content */
   readonly contentRange: Range;
-
-  /** If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument */
   readonly delimiter: string;
-
-  /** The range to remove the content */
   readonly removalRange?: Range;
-
-  /** The range of the delimiter before the content selection */
   readonly leadingDelimiter?: RemovalRange;
-
-  /** The range of the delimiter after the content selection */
   readonly trailingDelimiter?: RemovalRange;
-
-  /** The current position */
   position?: Position;
 }
 
-export default abstract class BaseTarget {
+export default abstract class BaseTarget implements Target {
   protected readonly state: BaseTargetState;
 
   constructor(parameters: BaseTargetParameters) {
@@ -67,11 +52,11 @@ export default abstract class BaseTarget {
       editor: parameters.editor,
       isReversed: parameters.isReversed,
       contentRange: parameters.contentRange,
+      position: parameters.position,
       delimiter: parameters.delimiter,
       removalRange: parameters.removalRange,
       leadingDelimiter: parameters.leadingDelimiter,
       trailingDelimiter: parameters.trailingDelimiter,
-      position: parameters.position,
     };
   }
 
@@ -91,17 +76,14 @@ export default abstract class BaseTarget {
     return this.state.removalRange;
   }
 
-  /** If true this target should be treated as a line */
   get isLine() {
     return false;
   }
 
-  /** If true this target should be treated as a paragraph */
   get isParagraph() {
     return false;
   }
 
-  /** If true this target is of weak type and should use inference/upgrade when needed. See {@link WeakTarget} for more info  */
   get isWeak() {
     return false;
   }
@@ -261,11 +243,5 @@ export default abstract class BaseTarget {
     };
   }
 
-  abstract clone(): Target;
-
-  withPosition(position: Position): Target {
-    const target = this.clone();
-    target.state.position = position;
-    return target;
-  }
+  abstract withPosition(position: Position): Target;
 }

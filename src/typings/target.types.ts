@@ -1,6 +1,5 @@
-import { Range } from "vscode";
+import { Range, Selection, TextEditor } from "vscode";
 import { HatStyleName } from "../core/constants";
-import BaseTarget from "../processTargets/targets/BaseTarget";
 
 export interface CursorMark {
   type: "cursor";
@@ -266,4 +265,48 @@ export interface EditNewDelimiterContext {
 
 export type EditNewContext = EditNewCommandContext | EditNewDelimiterContext;
 
-export type Target = BaseTarget;
+export interface Target {
+  /** The text editor used for all ranges */
+  readonly editor: TextEditor;
+
+  /** If true active is before anchor */
+  readonly isReversed: boolean;
+
+  /** The range of the content */
+  readonly contentRange: Range;
+
+  /** If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument */
+  readonly delimiter?: string;
+
+  /** The range to remove the content */
+  readonly removalRange?: Range;
+
+  /** The range of the delimiter before the content selection */
+  readonly leadingDelimiter?: RemovalRange;
+
+  /** The range of the delimiter after the content selection */
+  readonly trailingDelimiter?: RemovalRange;
+
+  /** The current position */
+  readonly position?: Position;
+
+  /** If true this target should be treated as a line */
+  readonly isLine: boolean;
+
+  /** If true this target should be treated as a paragraph */
+  readonly isParagraph: boolean;
+
+  /** If true this target is of weak type and should use inference/upgrade when needed. See {@link WeakTarget} for more info  */
+  readonly isWeak: boolean;
+
+  readonly contentText: string;
+  readonly contentSelection: Selection;
+
+  getInteriorStrict(): Target[];
+  getBoundaryStrict(): Target[];
+  maybeAddDelimiter(text: string): string;
+  getRemovalRange(): Range;
+  getRemovalHighlightRange(): Range | undefined;
+  getEditNewContext(isBefore: boolean): EditNewContext;
+  withPosition(position: Position): Target;
+}

@@ -1,3 +1,4 @@
+import { Position } from "../../typings/target.types";
 import { getTokenDelimiters } from "../modifiers/scopeTypeStages/TokenStage";
 import BaseTarget, {
   CommonTargetParameters,
@@ -21,7 +22,7 @@ export default class WeakTarget extends BaseTarget {
     return true;
   }
 
-  clone(): WeakTarget {
-    return new WeakTarget(this.state);
+  withPosition(position: Position): WeakTarget {
+    return new WeakTarget({ ...this.state, position });
   }
 }

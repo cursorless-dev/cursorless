@@ -1,4 +1,5 @@
 import { Range } from "vscode";
+import { Position } from "../../typings/target.types";
 import BaseTarget, {
   CommonTargetParameters,
   extractCommonParameters,
@@ -12,16 +13,6 @@ export default class DocumentTarget extends BaseTarget {
     });
   }
 
-  protected getRemovalContentRange(): Range {
-    if (this.position != null) {
-      return this.contentRange;
-    }
-    return new Range(
-      this.editor.document.lineAt(0).range.start,
-      this.editor.document.lineAt(this.editor.document.lineCount - 1).range.end
-    );
-  }
-
   get isLine() {
     return true;
   }
@@ -33,7 +24,17 @@ export default class DocumentTarget extends BaseTarget {
     return this.contentRange;
   }
 
-  clone(): DocumentTarget {
-    return new DocumentTarget(this.state);
+  protected getRemovalContentRange(): Range {
+    if (this.position != null) {
+      return this.contentRange;
+    }
+    return new Range(
+      this.editor.document.lineAt(0).range.start,
+      this.editor.document.lineAt(this.editor.document.lineCount - 1).range.end
+    );
+  }
+
+  withPosition(position: Position): DocumentTarget {
+    return new DocumentTarget({ ...this.state, position });
   }
 }

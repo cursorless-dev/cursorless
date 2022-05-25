@@ -1,5 +1,5 @@
 import { Range } from "vscode";
-import { RemovalRange } from "../../typings/target.types";
+import { Position, RemovalRange } from "../../typings/target.types";
 import { parseRemovalRange } from "../../util/targetUtils";
 import BaseTarget, {
   CommonTargetParameters,
@@ -23,6 +23,13 @@ export default class LineTarget extends BaseTarget {
     return true;
   }
 
+  getRemovalHighlightRange(): Range | undefined {
+    if (this.position != null) {
+      return undefined;
+    }
+    return this.contentRange;
+  }
+
   protected getRemovalContentRange(): Range {
     if (this.position != null) {
       return this.contentRange;
@@ -39,14 +46,7 @@ export default class LineTarget extends BaseTarget {
       : removalRange;
   }
 
-  getRemovalHighlightRange(): Range | undefined {
-    if (this.position != null) {
-      return undefined;
-    }
-    return this.contentRange;
-  }
-
-  clone(): LineTarget {
-    return new LineTarget(this.state);
+  withPosition(position: Position): LineTarget {
+    return new LineTarget({ ...this.state, position });
   }
 }

@@ -1,5 +1,5 @@
 import { Range } from "vscode";
-import { RemovalRange } from "../../typings/target.types";
+import { Position, RemovalRange } from "../../typings/target.types";
 import { parseRemovalRange } from "../../util/targetUtils";
 import BaseTarget, {
   CommonTargetParameters,
@@ -27,15 +27,8 @@ export default class ParagraphTarget extends BaseTarget {
     return true;
   }
 
-  protected getRemovalBeforeRange(): Range {
-    return this.leadingDelimiter != null
-      ? new Range(
-          this.leadingDelimiter.range.start,
-          this.editor.document.lineAt(
-            this.contentRange.start.line - 1
-          ).range.start
-        )
-      : this.contentRange;
+  withPosition(position: Position): ParagraphTarget {
+    return new ParagraphTarget({ ...this.state, position });
   }
 
   getRemovalContentRange(): Range {
@@ -70,7 +63,14 @@ export default class ParagraphTarget extends BaseTarget {
       : removalRange;
   }
 
-  clone(): ParagraphTarget {
-    return new ParagraphTarget(this.state);
+  protected getRemovalBeforeRange(): Range {
+    return this.leadingDelimiter != null
+      ? new Range(
+          this.leadingDelimiter.range.start,
+          this.editor.document.lineAt(
+            this.contentRange.start.line - 1
+          ).range.start
+        )
+      : this.contentRange;
   }
 }
