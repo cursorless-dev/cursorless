@@ -1,5 +1,5 @@
 languageId: python
-postEditorOpenSleepTimeMs: 10
+postEditorOpenSleepTimeMs: 50
 command:
   spokenForm: pour line
   version: 2

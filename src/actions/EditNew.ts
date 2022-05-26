@@ -1,17 +1,14 @@
 import { zip } from "lodash";
 import { commands, Range, TextEditor } from "vscode";
-import {
-  callFunctionAndUpdateRanges,
-  performEditsAndUpdateRanges,
-} from "../core/updateSelections/updateSelections";
+import { callFunctionAndUpdateRanges } from "../core/updateSelections/updateSelections";
 import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { selectionFromRange } from "../util/selectionUtils";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
+import { insertTextAfter, insertTextBefore } from "../util/textInsertion";
 import { Action, ActionReturnValue } from "./actions.types";
-import { getEditRange, getLinePadding } from "./CopyLines";
 
 class EditNew implements Action {
   getFinalStages = () => [weakContainingLineStage];
@@ -25,45 +22,42 @@ class EditNew implements Action {
 
     const richTargets: RichTarget[] = targets.map((target) => {
       const context = target.getEditNewContext(this.isBefore);
-
       const common = {
         target,
         targetRange: target.thatTarget.contentRange,
+        cursorRange: target.contentRange,
       };
       switch (context.type) {
         case "command":
           return {
             ...common,
             type: "command",
-            updateSelection: !context.dontUpdateSelection,
             command: context.command,
-            cursorRange: getEditRange(
-              editor,
-              target.contentRange,
-              false,
-              this.isBefore
-            ),
+            updateSelection: !context.dontUpdateSelection,
           };
         case "delimiter":
-          const isLine = context.delimiter.includes("\n");
           return {
             ...common,
             type: "delimiter",
-            updateSelection: true,
             delimiter: context.delimiter,
-            isLine,
-            cursorRange: getEditRange(
-              editor,
-              target.contentRange,
-              isLine,
-              this.isBefore
-            ),
+            updateSelection: true,
           };
       }
     });
 
-    await this.runCommandTargets(editor, richTargets);
-    await this.runDelimiterTargets(editor, richTargets);
+    const commandTargets: CommandTarget[] = richTargets.filter(
+      (target): target is CommandTarget => target.type === "command"
+    );
+    const delimiterTargets: DelimiterTarget[] = richTargets.filter(
+      (target): target is DelimiterTarget => target.type === "delimiter"
+    );
+
+    if (commandTargets.length > 0) {
+      await this.runCommandTargets(editor, richTargets, commandTargets);
+    }
+    if (delimiterTargets.length > 0) {
+      await this.runDelimiterTargets(editor, commandTargets, delimiterTargets);
+    }
 
     // Only update selection if all targets are agreeing on this
     if (!richTargets.find(({ updateSelection }) => !updateSelection)) {
@@ -80,48 +74,33 @@ class EditNew implements Action {
     };
   }
 
-  async runDelimiterTargets(editor: TextEditor, targets: RichTarget[]) {
-    const delimiterTargets: DelimiterTarget[] = targets.filter(
-      (target): target is DelimiterTarget => target.type === "delimiter"
-    );
-
-    if (delimiterTargets.length === 0) {
-      return;
-    }
-
-    const edits = delimiterTargets.map(({ delimiter, isLine, cursorRange }) => {
+  async runDelimiterTargets(
+    editor: TextEditor,
+    commandTargets: CommandTarget[],
+    delimiterTargets: DelimiterTarget[]
+  ) {
+    const textInsertions = delimiterTargets.map((target) => {
       return {
-        text: isLine
-          ? delimiter + getLinePadding(editor, cursorRange, this.isBefore)
-          : delimiter,
-        range: cursorRange,
-        isReplace: this.isBefore,
+        range: target.targetRange,
+        delimiter: target.delimiter,
+        text: "",
       };
     });
 
-    const [updatedTargetRanges, updatedCursorRanges] =
-      await performEditsAndUpdateRanges(
-        this.graph.rangeUpdater,
-        editor,
-        edits,
-        [
-          targets.map(({ targetRange }) => targetRange),
-          targets.map(({ cursorRange }) => cursorRange),
-        ]
-      );
+    const { updatedEditorSelections, updatedContentRanges, insertionRanges } =
+      this.isBefore
+        ? await insertTextBefore(this.graph, editor, textInsertions)
+        : await insertTextAfter(this.graph, editor, textInsertions);
 
-    updateTargets(targets, updatedTargetRanges, updatedCursorRanges);
+    updateTargets(delimiterTargets, updatedContentRanges, insertionRanges);
+    updateCommandTargets(commandTargets, updatedEditorSelections);
   }
 
-  async runCommandTargets(editor: TextEditor, targets: RichTarget[]) {
-    const commandTargets: CommandTarget[] = targets.filter(
-      (target): target is CommandTarget => target.type === "command"
-    );
-
-    if (commandTargets.length === 0) {
-      return;
-    }
-
+  async runCommandTargets(
+    editor: TextEditor,
+    targets: RichTarget[],
+    commandTargets: CommandTarget[]
+  ) {
     const command = ensureSingleCommand(commandTargets);
 
     if (this.isBefore) {
@@ -146,12 +125,7 @@ class EditNew implements Action {
       );
 
     updateTargets(targets, updatedTargetRanges, updatedCursorRanges);
-
-    zip(commandTargets, editor.selections).forEach(
-      ([commandTarget, cursorSelection]) => {
-        commandTarget!.cursorRange = cursorSelection!;
-      }
-    );
+    updateCommandTargets(commandTargets, editor.selections);
   }
 }
 
@@ -180,7 +154,6 @@ interface CommandTarget extends CommonTarget {
 interface DelimiterTarget extends CommonTarget {
   type: "delimiter";
   delimiter: string;
-  isLine: boolean;
 }
 type RichTarget = CommandTarget | DelimiterTarget;
 
@@ -190,6 +163,15 @@ function ensureSingleCommand(targets: CommandTarget[]) {
     throw new Error("Can't run multiple different commands at once");
   }
   return commands[0];
+}
+
+function updateCommandTargets(
+  targets: CommandTarget[],
+  cursorRanges: readonly Range[]
+) {
+  targets.forEach((target, i) => {
+    target.cursorRange = cursorRanges[i];
+  });
 }
 
 function updateTargets(
