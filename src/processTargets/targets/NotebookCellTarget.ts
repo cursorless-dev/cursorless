@@ -18,6 +18,7 @@ export default class NotebookCellTarget extends BaseTarget {
     if (this.isNotebookEditor(this.editor)) {
       return {
         type: "command",
+        dontUpdateSelection: true,
         command: isBefore
           ? "notebook.cell.insertCodeCellAbove"
           : "notebook.cell.insertCodeCellBelow",
@@ -25,7 +26,7 @@ export default class NotebookCellTarget extends BaseTarget {
     }
     return {
       type: "command",
-      noFocusOnSelection: true,
+      dontUpdateSelection: true,
       command: isBefore ? "jupyter.insertCellAbove" : "jupyter.insertCellBelow",
     };
   }

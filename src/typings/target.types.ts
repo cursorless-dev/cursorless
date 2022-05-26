@@ -257,7 +257,7 @@ export interface RemovalRange {
 export interface EditNewCommandContext {
   type: "command";
   command: string;
-  noFocusOnSelection?: boolean;
+  dontUpdateSelection?: boolean;
 }
 export interface EditNewDelimiterContext {
   type: "delimiter";

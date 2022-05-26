@@ -8,10 +8,7 @@ import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakC
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { selectionFromRange } from "../util/selectionUtils";
-import {
-  setSelectionsAndFocusEditor,
-  setSelectionsWithoutFocusingEditor,
-} from "../util/setSelectionsAndFocusEditor";
+import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 import { getEditRange, getLinePadding } from "./CopyLines";
@@ -32,27 +29,27 @@ class EditNew implements Action {
       const common = {
         target,
         targetRange: target.thatTarget.contentRange,
-        cursorRange: getEditRange(
-          editor,
-          target.contentRange,
-          false,
-          this.isBefore
-        ),
       };
       switch (context.type) {
         case "command":
           return {
             ...common,
             type: "command",
-            focusOnSelection: !context.noFocusOnSelection,
+            updateSelection: !context.dontUpdateSelection,
             command: context.command,
+            cursorRange: getEditRange(
+              editor,
+              target.contentRange,
+              false,
+              this.isBefore
+            ),
           };
         case "delimiter":
           const isLine = context.delimiter.includes("\n");
           return {
             ...common,
             type: "delimiter",
-            focusOnSelection: true,
+            updateSelection: true,
             delimiter: context.delimiter,
             isLine,
             cursorRange: getEditRange(
@@ -68,21 +65,15 @@ class EditNew implements Action {
     await this.runCommandTargets(editor, richTargets);
     await this.runDelimiterTargets(editor, richTargets);
 
-    const newSelections = richTargets.map((target) =>
-      selectionFromRange(target.target.isReversed, target.cursorRange)
-    );
-    const targetRanges = richTargets.map((target) => target.targetRange);
-
-    // Only set focus if all targets are agreeing on this
-    const focusOnSelection = !richTargets.find(
-      ({ focusOnSelection }) => !focusOnSelection
-    );
-
-    if (focusOnSelection) {
+    // Only update selection if all targets are agreeing on this
+    if (!richTargets.find(({ updateSelection }) => !updateSelection)) {
+      const newSelections = richTargets.map((target) =>
+        selectionFromRange(target.target.isReversed, target.cursorRange)
+      );
       await setSelectionsAndFocusEditor(editor, newSelections);
-    } else {
-      setSelectionsWithoutFocusingEditor(editor, newSelections);
     }
+
+    const targetRanges = richTargets.map((target) => target.targetRange);
 
     return {
       thatMark: createThatMark(targets, targetRanges),
@@ -180,7 +171,7 @@ interface CommonTarget {
   target: Target;
   targetRange: Range;
   cursorRange: Range;
-  focusOnSelection: boolean;
+  updateSelection: boolean;
 }
 interface CommandTarget extends CommonTarget {
   type: "command";
