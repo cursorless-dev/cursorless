@@ -73,7 +73,7 @@ class EditNew implements Action {
     );
     const targetRanges = richTargets.map((target) => target.targetRange);
 
-    // Only set selection if all targets are agreeing on this
+    // Only set focus if all targets are agreeing on this
     const focusOnSelection = !richTargets.find(
       ({ focusOnSelection }) => !focusOnSelection
     );
