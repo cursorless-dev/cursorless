@@ -9,6 +9,9 @@ export default class implements MarkStage {
   constructor(private modifier: ThatMark) {}
 
   run(context: ProcessedTargetsContext): Target[] {
+    if (context.thatMark.length === 0) {
+      throw Error("No available that marks");
+    }
     return context.thatMark.map((selection) => {
       return new WeakTarget({
         ...getTokenDelimiters(selection.editor, selection.selection),

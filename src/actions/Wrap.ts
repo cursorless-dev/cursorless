@@ -1,11 +1,10 @@
-import { flatten } from "lodash";
 import { DecorationRangeBehavior, Selection } from "vscode";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
-import { Edit, Graph, SelectionWithEditor } from "../typings/Types";
+import { Edit, Graph } from "../typings/Types";
 import { FullSelectionInfo } from "../typings/updateSelections";
 import { decorationSleep } from "../util/editDisplayUtils";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
@@ -22,95 +21,113 @@ export default class Wrap implements Action {
     left: string,
     right: string
   ): Promise<ActionReturnValue> {
-    const thatMark = flatten(
-      await runOnTargetsForEachEditor<SelectionWithEditor[]>(
-        targets,
-        async (editor, targets) => {
-          const { document } = editor;
-          const boundaries = targets.map((target) => ({
-            start: new Selection(
-              target.contentRange.start,
-              target.contentRange.start
-            ),
-            end: new Selection(
-              target.contentRange.end,
-              target.contentRange.end
-            ),
-          }));
+    const results = await runOnTargetsForEachEditor(
+      targets,
+      async (editor, targets) => {
+        const { document } = editor;
+        const boundaries = targets.map((target) => ({
+          start: new Selection(
+            target.contentRange.start,
+            target.contentRange.start
+          ),
+          end: new Selection(target.contentRange.end, target.contentRange.end),
+        }));
 
-          const edits: Edit[] = boundaries.flatMap(({ start, end }) => [
-            {
-              text: left,
-              range: start,
-            },
-            {
-              text: right,
-              range: end,
-              isReplace: true,
-            },
-          ]);
+        const edits: Edit[] = boundaries.flatMap(({ start, end }) => [
+          {
+            text: left,
+            range: start,
+          },
+          {
+            text: right,
+            range: end,
+            isReplace: true,
+          },
+        ]);
 
-          const delimiterSelectionInfos: FullSelectionInfo[] =
-            boundaries.flatMap(({ start, end }) => {
-              return [
-                getSelectionInfo(
-                  document,
-                  start,
-                  DecorationRangeBehavior.OpenClosed
-                ),
-                getSelectionInfo(
-                  document,
-                  end,
-                  DecorationRangeBehavior.ClosedOpen
-                ),
-              ];
-            });
+        const delimiterSelectionInfos: FullSelectionInfo[] = boundaries.flatMap(
+          ({ start, end }) => {
+            return [
+              getSelectionInfo(
+                document,
+                start,
+                DecorationRangeBehavior.OpenClosed
+              ),
+              getSelectionInfo(
+                document,
+                end,
+                DecorationRangeBehavior.ClosedOpen
+              ),
+            ];
+          }
+        );
 
-          const cursorSelectionInfos = editor.selections.map((selection) =>
-            getSelectionInfo(
-              document,
-              selection,
-              DecorationRangeBehavior.ClosedClosed
-            )
-          );
+        const cursorSelectionInfos = editor.selections.map((selection) =>
+          getSelectionInfo(
+            document,
+            selection,
+            DecorationRangeBehavior.ClosedClosed
+          )
+        );
 
-          const thatMarkSelectionInfos = targets.map((target) =>
-            getSelectionInfo(
-              document,
-              target.contentSelection,
-              DecorationRangeBehavior.OpenOpen
-            )
-          );
+        const sourceMarkSelectionInfos = targets.map((target) =>
+          getSelectionInfo(
+            document,
+            target.contentSelection,
+            DecorationRangeBehavior.ClosedClosed
+          )
+        );
 
-          const [delimiterSelections, cursorSelections, thatMarkSelections] =
-            await performEditsAndUpdateFullSelectionInfos(
-              this.graph.rangeUpdater,
-              editor,
-              edits,
-              [
-                delimiterSelectionInfos,
-                cursorSelectionInfos,
-                thatMarkSelectionInfos,
-              ]
-            );
+        const thatMarkSelectionInfos = targets.map((target) =>
+          getSelectionInfo(
+            document,
+            target.contentSelection,
+            DecorationRangeBehavior.OpenOpen
+          )
+        );
 
-          setSelectionsWithoutFocusingEditor(editor, cursorSelections);
+        const [
+          delimiterSelections,
+          cursorSelections,
+          sourceMarkSelections,
+          thatMarkSelections,
+        ] = await performEditsAndUpdateFullSelectionInfos(
+          this.graph.rangeUpdater,
+          editor,
+          edits,
+          [
+            delimiterSelectionInfos,
+            cursorSelectionInfos,
+            sourceMarkSelectionInfos,
+            thatMarkSelectionInfos,
+          ]
+        );
 
-          editor.setDecorations(
-            this.graph.editStyles.justAdded.token,
-            delimiterSelections
-          );
-          await decorationSleep();
-          editor.setDecorations(this.graph.editStyles.justAdded.token, []);
+        setSelectionsWithoutFocusingEditor(editor, cursorSelections);
 
-          return thatMarkSelections.map((selection) => ({
+        editor.setDecorations(
+          this.graph.editStyles.justAdded.token,
+          delimiterSelections
+        );
+        await decorationSleep();
+        editor.setDecorations(this.graph.editStyles.justAdded.token, []);
+
+        return {
+          sourceMark: sourceMarkSelections.map((selection) => ({
             editor,
             selection,
-          }));
-        }
-      )
+          })),
+          thatMark: thatMarkSelections.map((selection) => ({
+            editor,
+            selection,
+          })),
+        };
+      }
     );
 
-    return { thatMark };
+    return {
+      thatMark: results.flatMap(({ thatMark }) => thatMark),
+      sourceMark: results.flatMap(({ sourceMark }) => sourceMark),
+    };
   }
 }

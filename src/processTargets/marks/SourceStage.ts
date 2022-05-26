@@ -9,6 +9,9 @@ export default class implements MarkStage {
   constructor(private modifier: SourceMark) {}
 
   run(context: ProcessedTargetsContext): Target[] {
+    if (context.sourceMark.length === 0) {
+      throw Error("No available source marks");
+    }
     return context.sourceMark.map((selection) => {
       return new WeakTarget({
         ...getTokenDelimiters(selection.editor, selection.selection),
