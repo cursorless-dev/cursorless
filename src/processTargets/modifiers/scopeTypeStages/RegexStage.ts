@@ -47,7 +47,9 @@ class RegexStage implements ModifierStage {
 
     if (targets.length === 0) {
       if (targets.length === 0) {
-        throw new Error(`Couldn't find containing ${this.modifier.scopeType}`);
+        throw new Error(
+          `Couldn't find containing ${this.modifier.scopeType.type}`
+        );
       }
     }
 

@@ -51,7 +51,9 @@ export default class implements ModifierStage {
     });
 
     if (scopeNodes == null) {
-      throw new Error(`Couldn't find containing ${this.modifier.scopeType}`);
+      throw new Error(
+        `Couldn't find containing ${this.modifier.scopeType.type}`
+      );
     }
 
     return scopeNodes.map(
