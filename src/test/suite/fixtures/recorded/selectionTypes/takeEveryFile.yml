@@ -2,37 +2,37 @@ languageId: plaintext
 command:
   spokenForm: take every file
   version: 2
-  action: {name: setSelection}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: document}
   usePrePhraseSnapshot: true
+  action: {name: setSelection}
 initialState:
-  documentContents: |
+  documentContents: |2+
 
-    a
 
-    b   c
-    d   e
-    f   g
+        foo 
+
+        bar 
+
   selections:
     - anchor: {line: 6, character: 0}
       active: {line: 6, character: 0}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |2+
 
-    a
 
-    b   c
-    d   e
-    f   g
+        foo 
+
+        bar 
+
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 5, character: 5}
+    - anchor: {line: 0, character: 0}
+      active: {line: 6, character: 0}
   thatMark:
-    - anchor: {line: 1, character: 0}
-      active: {line: 5, character: 5}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: document}]}]
+    - anchor: {line: 0, character: 0}
+      active: {line: 6, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: document}}]}]

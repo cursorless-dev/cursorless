@@ -25,6 +25,9 @@ finalState:
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}
+  sourceMark:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 12}
   thatMark:
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 13}

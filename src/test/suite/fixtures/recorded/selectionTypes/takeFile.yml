@@ -2,13 +2,13 @@ languageId: plaintext
 command:
   spokenForm: take file
   version: 2
-  action: {name: setSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: document}
   usePrePhraseSnapshot: true
+  action: {name: setSelection}
 initialState:
   documentContents: |2+
 
@@ -30,9 +30,9 @@ finalState:
         bar 
 
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 4, character: 7}
+    - anchor: {line: 0, character: 0}
+      active: {line: 6, character: 0}
   thatMark:
-    - anchor: {line: 2, character: 4}
-      active: {line: 4, character: 7}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: document}]}]
+    - anchor: {line: 0, character: 0}
+      active: {line: 6, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: document}}]}]

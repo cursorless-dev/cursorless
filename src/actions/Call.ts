@@ -21,10 +21,12 @@ export default class Call implements Action {
       }
     );
 
-    return this.graph.actions.wrapWithPairedDelimiter.run(
+    const { thatMark } = await this.graph.actions.wrapWithPairedDelimiter.run(
       [destinations],
       texts[0] + "(",
       ")"
     );
+
+    return { thatMark };
   }
 }
