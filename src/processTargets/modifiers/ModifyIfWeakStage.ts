@@ -4,10 +4,16 @@ import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";
 
 export default class implements ModifierStage {
-  private nestedStage: ModifierStage;
+  private nestedStage_?: ModifierStage;
 
-  constructor(nestedModifier: Modifier) {
-    this.nestedStage = getModifierStage(nestedModifier);
+  constructor(private nestedModifier: Modifier) {}
+
+  private get nestedStage() {
+    if (this.nestedStage_ == null) {
+      this.nestedStage_ = getModifierStage(this.nestedModifier);
+    }
+
+    return this.nestedStage_;
   }
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {

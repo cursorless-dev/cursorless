@@ -9,7 +9,6 @@ import {
 } from "../typings/Types";
 import { groupBy } from "./itertools";
 import { isReversed } from "./selectionUtils";
-import uniqDeep from "./uniqDeep";
 
 export function ensureSingleEditor(targets: Target[]) {
   if (targets.length === 0) {
@@ -108,7 +107,7 @@ export function createThatMark(
           editor: target!.editor,
           selection: target.contentSelection,
         }));
-  return uniqDeep(thatMark);
+  return thatMark;
 }
 
 export function getRemovalRange(target: Target) {
