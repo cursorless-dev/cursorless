@@ -18,6 +18,7 @@ export default class NotebookCellTarget extends BaseTarget {
     if (this.isNotebookEditor(this.editor)) {
       return {
         type: "command",
+        noFocusOnSelection: true,
         command: isBefore
           ? "notebook.cell.insertCodeCellAbove"
           : "notebook.cell.insertCodeCellBelow",

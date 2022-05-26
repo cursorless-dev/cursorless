@@ -8,7 +8,10 @@ import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakC
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { selectionFromRange } from "../util/selectionUtils";
-import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
+import {
+  setSelectionsAndFocusEditor,
+  setSelectionsWithoutFocusingEditor,
+} from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 import { getEditRange, getLinePadding } from "./CopyLines";
@@ -23,12 +26,11 @@ class EditNew implements Action {
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
-    const richTargets: RichTarget[] = targets.map((target, index) => {
+    const richTargets: RichTarget[] = targets.map((target) => {
       const context = target.getEditNewContext(this.isBefore);
 
       const common = {
         target,
-        index,
         targetRange: target.thatTarget.contentRange,
         cursorRange: getEditRange(
           editor,
@@ -42,6 +44,7 @@ class EditNew implements Action {
           return {
             ...common,
             type: "command",
+            focusOnSelection: !context.noFocusOnSelection,
             command: context.command,
           };
         case "delimiter":
@@ -49,6 +52,7 @@ class EditNew implements Action {
           return {
             ...common,
             type: "delimiter",
+            focusOnSelection: true,
             delimiter: context.delimiter,
             isLine,
             cursorRange: getEditRange(
@@ -69,7 +73,16 @@ class EditNew implements Action {
     );
     const targetRanges = richTargets.map((target) => target.targetRange);
 
-    await setSelectionsAndFocusEditor(editor, newSelections);
+    // Only set selection if all targets are agreeing on this
+    const focusOnSelection = !richTargets.find(
+      ({ focusOnSelection }) => !focusOnSelection
+    );
+
+    if (focusOnSelection) {
+      await setSelectionsAndFocusEditor(editor, newSelections);
+    } else {
+      setSelectionsWithoutFocusingEditor(editor, newSelections);
+    }
 
     return {
       thatMark: createThatMark(targets, targetRanges),
@@ -167,6 +180,7 @@ interface CommonTarget {
   target: Target;
   targetRange: Range;
   cursorRange: Range;
+  focusOnSelection: boolean;
 }
 interface CommandTarget extends CommonTarget {
   type: "command";
