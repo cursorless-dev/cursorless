@@ -39,7 +39,7 @@ export default class SurroundingPairTarget extends BaseTarget {
 
   getInteriorStrict(): Target[] {
     if (this.interiorRange_ == null || this.position != null) {
-      throw Error("No available interior");
+      super.getInteriorStrict();
     }
     return [
       new WeakTarget({
