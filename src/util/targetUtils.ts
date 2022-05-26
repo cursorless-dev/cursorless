@@ -114,7 +114,7 @@ export function getRemovalRange(target: Target) {
   return target.getRemovalRange();
 }
 
-export function parseRemovalRange(
+export function processRemovalRange(
   range?: RemovalRange
 ): Required<RemovalRange> | undefined {
   return range != null && !range.exclude

@@ -1,6 +1,6 @@
 import { Range } from "vscode";
 import { RemovalRange } from "../../typings/target.types";
-import { parseRemovalRange } from "../../util/targetUtils";
+import { processRemovalRange } from "../../util/targetUtils";
 import BaseTarget, {
   CloneWithParameters,
   CommonTargetParameters,
@@ -42,8 +42,8 @@ export default class LineTarget extends BaseTarget {
       this.editor.document.lineAt(this.contentRange.end).range.end
     );
     const delimiter =
-      parseRemovalRange(this.trailingDelimiter) ??
-      parseRemovalRange(this.leadingDelimiter);
+      processRemovalRange(this.trailingDelimiter) ??
+      processRemovalRange(this.leadingDelimiter);
     return delimiter != null
       ? removalRange.union(delimiter.range)
       : removalRange;

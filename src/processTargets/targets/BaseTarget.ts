@@ -6,7 +6,7 @@ import {
   Target,
 } from "../../typings/target.types";
 import { selectionFromRange } from "../../util/selectionUtils";
-import { parseRemovalRange } from "../../util/targetUtils";
+import { processRemovalRange } from "../../util/targetUtils";
 
 export function extractCommonParameters(parameters: CommonTargetParameters) {
   return {
@@ -185,8 +185,8 @@ export default abstract class BaseTarget implements Target {
   protected getRemovalContentRange(): Range {
     const removalRange = this.removalRange ?? this.contentRange;
     const delimiter =
-      parseRemovalRange(this.trailingDelimiter) ??
-      parseRemovalRange(this.leadingDelimiter);
+      processRemovalRange(this.trailingDelimiter) ??
+      processRemovalRange(this.leadingDelimiter);
     return delimiter != null
       ? removalRange.union(delimiter.range)
       : removalRange;
@@ -195,8 +195,8 @@ export default abstract class BaseTarget implements Target {
   protected getRemovalContentHighlightRange() {
     const removalRange = this.removalRange ?? this.contentRange;
     const delimiter =
-      parseRemovalRange(this.trailingDelimiter) ??
-      parseRemovalRange(this.leadingDelimiter);
+      processRemovalRange(this.trailingDelimiter) ??
+      processRemovalRange(this.leadingDelimiter);
     return delimiter != null
       ? removalRange.union(delimiter.highlight)
       : removalRange;

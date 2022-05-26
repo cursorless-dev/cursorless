@@ -1,6 +1,6 @@
 import { Range } from "vscode";
 import { RemovalRange } from "../../typings/target.types";
-import { parseRemovalRange } from "../../util/targetUtils";
+import { processRemovalRange } from "../../util/targetUtils";
 import BaseTarget, {
   CloneWithParameters,
   CommonTargetParameters,
@@ -40,8 +40,8 @@ export default class ParagraphTarget extends BaseTarget {
       this.editor.document.lineAt(this.contentRange.end).range.end
     );
     const delimiterRange = (() => {
-      const leadingDelimiter = parseRemovalRange(this.leadingDelimiter);
-      const trailingDelimiter = parseRemovalRange(this.trailingDelimiter);
+      const leadingDelimiter = processRemovalRange(this.leadingDelimiter);
+      const trailingDelimiter = processRemovalRange(this.trailingDelimiter);
       if (trailingDelimiter != null) {
         const { document } = this.editor;
         // Trailing delimiter to end of file. Need to remove leading new line delimiter

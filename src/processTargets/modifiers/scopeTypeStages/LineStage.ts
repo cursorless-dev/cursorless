@@ -100,6 +100,7 @@ export function fitRangeToLineContent(editor: TextEditor, range: Range) {
   const endCharacterIndex =
     endLine.range.end.character -
     (endLine.text.length - endLine.text.trimEnd().length);
+
   return new Range(
     startLine.lineNumber,
     startLine.firstNonWhitespaceCharacterIndex,

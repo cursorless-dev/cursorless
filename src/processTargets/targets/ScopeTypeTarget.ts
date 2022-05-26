@@ -35,11 +35,11 @@ export default class ScopeTypeTarget extends BaseTarget {
 
 function getDelimiter(scopeType: SimpleScopeTypeType): string {
   switch (scopeType) {
-    case "namedFunction":
     case "anonymousFunction":
     case "statement":
     case "ifStatement":
       return "\n";
+    case "namedFunction":
     case "class":
       return "\n\n";
     default:
