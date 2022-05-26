@@ -19,11 +19,13 @@ interface WeakTargetParameters extends CommonTargetParameters {
  */
 export default class WeakTarget extends BaseTarget {
   constructor(parameters: WeakTargetParameters) {
+    const { delimiter, leadingDelimiter, trailingDelimiter } =
+      getTokenDelimiters(parameters.editor, parameters.contentRange);
     super({
       ...extractCommonParameters(parameters),
-      ...getTokenDelimiters(parameters.editor, parameters.contentRange),
-      leadingDelimiter: parameters.leadingDelimiter,
-      trailingDelimiter: parameters.trailingDelimiter,
+      delimiter,
+      leadingDelimiter: parameters.leadingDelimiter ?? leadingDelimiter,
+      trailingDelimiter: parameters.trailingDelimiter ?? trailingDelimiter,
     });
   }
 
