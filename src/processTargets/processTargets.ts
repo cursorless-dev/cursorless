@@ -239,7 +239,8 @@ function processPrimitiveTarget(
   let targets = markStage.run(context);
 
   const modifierStages = [
-    ...target.modifiers.reverse().map(getModifierStage),
+    // Reverse target modifies because they are in reverse order from the api. Slice is needed to create a copy or the modifiers will be in wrong order in the test recorder.
+    ...target.modifiers.slice().reverse().map(getModifierStage),
     ...context.finalStages,
   ];
 

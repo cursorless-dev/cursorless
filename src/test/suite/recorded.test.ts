@@ -106,7 +106,9 @@ async function runTest(file: string) {
 
   await graph.hatTokenMap.addDecorations();
 
-  const readableHatMap = await graph.hatTokenMap.getReadableMap(false);
+  const readableHatMap = await graph.hatTokenMap.getReadableMap(
+    fixture.command.usePrePhraseSnapshot
+  );
 
   // Assert that recorded decorations are present
   checkMarks(fixture.initialState.marks, readableHatMap);

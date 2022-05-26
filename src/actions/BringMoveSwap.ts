@@ -1,4 +1,4 @@
-import { flatten } from "lodash";
+import { flatten, uniqWith } from "lodash";
 import { DecorationRangeBehavior, Selection, TextEditor } from "vscode";
 import {
   getSelectionInfo,
@@ -240,13 +240,13 @@ class BringMoveSwap implements Action {
     const thatMark =
       this.type === "swap"
         ? markEntries
-        : markEntries.filter(({ isSource }) => !isSource);
+        : uniqMarks(markEntries.filter(({ isSource }) => !isSource));
 
     // Only swap doesn't have a source mark
     const sourceMark =
       this.type === "swap"
         ? []
-        : markEntries.filter(({ isSource }) => isSource);
+        : uniqMarks(markEntries.filter(({ isSource }) => isSource));
 
     return { thatMark, sourceMark };
   }
@@ -293,4 +293,11 @@ export class Swap extends BringMoveSwap {
 function getTextWithPossibleDelimiter(source: Target, destination: Target) {
   const sourceText = source.contentText;
   return destination.maybeAddDelimiter(sourceText);
+}
+
+function uniqMarks(markEntries: MarkEntry[]): MarkEntry[] {
+  return uniqWith(
+    markEntries,
+    (a, b) => a.editor === b.editor && a.selection.isEqual(b.selection)
+  );
 }

@@ -2,18 +2,8 @@ languageId: plaintext
 command:
   spokenForm: chuck line harp between fine
   version: 2
-  action: {name: remove}
   targets:
     - type: range
-      start:
-        type: primitive
-        selectionType: line
-        mark: {type: decoratedSymbol, symbolColor: default, character: h}
-      end:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      excludeStart: true
-      excludeEnd: true
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: h}
@@ -23,8 +13,10 @@ command:
       active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: f}
-        modifiers: []
+      excludeAnchor: true
+      excludeActive: true
   usePrePhraseSnapshot: true
+  action: {name: remove}
 initialState:
   documentContents: |
 
@@ -53,4 +45,4 @@ finalState:
   thatMark:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
-fullTargets: [{type: range, excludeAnchor: true, excludeActive: true, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: &ref_0 [{type: containingScope, scopeType: line}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: *ref_0}}]
+fullTargets: [{type: range, excludeAnchor: true, excludeActive: true, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: line}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: *ref_0}}]

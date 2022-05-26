@@ -1,6 +1,6 @@
-languageId: typescript
+languageId: plaintext
 command:
-  spokenForm: chuck block each between look
+  spokenForm: chuck line each until look
   version: 2
   targets:
     - type: range
@@ -9,11 +9,11 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: e}
         modifiers:
           - type: containingScope
-            scopeType: {type: paragraph}
+            scopeType: {type: line}
       active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: l}
-      excludeAnchor: true
+      excludeAnchor: false
       excludeActive: true
   usePrePhraseSnapshot: true
   action: {name: remove}
@@ -39,14 +39,13 @@ initialState:
 finalState:
   documentContents: |-
     hello there
-    hello there
         hello there
         hello there
             hello 
   selections:
-    - anchor: {line: 2, character: 9}
-      active: {line: 2, character: 9}
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
   thatMark:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
-fullTargets: [{type: range, excludeAnchor: true, excludeActive: true, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: paragraph}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, modifiers: *ref_0}}]
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+fullTargets: [{type: range, excludeAnchor: false, excludeActive: true, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: line}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, modifiers: *ref_0}}]

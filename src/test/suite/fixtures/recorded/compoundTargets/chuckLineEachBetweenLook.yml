@@ -1,6 +1,6 @@
-languageId: typescript
+languageId: plaintext
 command:
-  spokenForm: chuck block each between look
+  spokenForm: chuck line each between look
   version: 2
   targets:
     - type: range
@@ -9,7 +9,7 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: e}
         modifiers:
           - type: containingScope
-            scopeType: {type: paragraph}
+            scopeType: {type: line}
       active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: l}
@@ -49,4 +49,4 @@ finalState:
   thatMark:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
-fullTargets: [{type: range, excludeAnchor: true, excludeActive: true, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: paragraph}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, modifiers: *ref_0}}]
+fullTargets: [{type: range, excludeAnchor: true, excludeActive: true, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: line}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, modifiers: *ref_0}}]
