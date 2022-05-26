@@ -1,6 +1,6 @@
 import { commands } from "vscode";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import WeakContainingScopeStage from "../processTargets/modifiers/WeakContainingScopeStage";
+import ModifyIfWeakStage from "../processTargets/modifiers/ModifyIfWeakStage";
 import { SnippetDefinition } from "../typings/snippet";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -36,7 +36,7 @@ export default class WrapWithSnippet implements Action {
     }
 
     return [
-      new WeakContainingScopeStage({
+      new ModifyIfWeakStage({
         type: "containingScope",
         scopeType: {
           type: defaultScopeType,

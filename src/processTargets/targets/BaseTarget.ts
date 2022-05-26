@@ -14,7 +14,7 @@ export function extractCommonParameters(parameters: CommonTargetParameters) {
     isReversed: parameters.isReversed,
     contentRange: parameters.contentRange,
     position: parameters.position,
-    weakTarget: parameters.weakTarget,
+    thatTarget: parameters.thatTarget,
   };
 }
 
@@ -24,12 +24,12 @@ export interface CommonTargetParameters {
   isReversed: boolean;
   contentRange: Range;
   position?: Position;
-  weakTarget?: Target;
+  thatTarget?: Target;
 }
 
 export interface CloneWithParameters {
   position?: Position;
-  weakTarget?: Target;
+  thatTarget?: Target;
 }
 
 export interface BaseTargetParameters extends CommonTargetParameters {
@@ -44,7 +44,7 @@ interface BaseTargetState {
   readonly editor: TextEditor;
   readonly isReversed: boolean;
   readonly contentRange: Range;
-  readonly weakTarget?: Target;
+  readonly thatTarget?: Target;
   readonly delimiter: string;
   readonly removalRange?: Range;
   readonly leadingDelimiter?: RemovalRange;
@@ -65,7 +65,7 @@ export default abstract class BaseTarget implements Target {
       removalRange: parameters.removalRange,
       leadingDelimiter: parameters.leadingDelimiter,
       trailingDelimiter: parameters.trailingDelimiter,
-      weakTarget: parameters.weakTarget,
+      thatTarget: parameters.thatTarget,
     };
   }
 
@@ -98,8 +98,8 @@ export default abstract class BaseTarget implements Target {
   }
 
   get thatTarget(): Target {
-    return this.state.weakTarget != null
-      ? this.state.weakTarget.thatTarget
+    return this.state.thatTarget != null
+      ? this.state.thatTarget.thatTarget
       : this;
   }
 
@@ -262,8 +262,8 @@ export default abstract class BaseTarget implements Target {
     return this.cloneWith({ position });
   }
 
-  withWeakTarget(weakTarget: Target): Target {
-    return this.cloneWith({ weakTarget });
+  withThatTarget(thatTarget: Target): Target {
+    return this.cloneWith({ thatTarget });
   }
 
   abstract cloneWith(parameters: CloneWithParameters): Target;
