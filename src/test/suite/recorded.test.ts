@@ -1,16 +1,17 @@
 import * as assert from "assert";
-import serialize from "../../testUtil/serialize";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
-import * as vscode from "vscode";
-import { TestCaseFixture } from "../../testUtil/TestCase";
-import HatTokenMap from "../../core/HatTokenMap";
 import * as sinon from "sinon";
-import { Clipboard } from "../../util/Clipboard";
+import * as vscode from "vscode";
+import HatTokenMap from "../../core/HatTokenMap";
+import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
+import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
+import serialize from "../../testUtil/serialize";
 import {
   ExcludableSnapshotField,
   takeSnapshot,
 } from "../../testUtil/takeSnapshot";
+import { TestCaseFixture } from "../../testUtil/TestCase";
 import {
   marksToPlainObject,
   PositionPlainObject,
@@ -18,11 +19,11 @@ import {
   SelectionPlainObject,
   SerializedMarks,
 } from "../../testUtil/toPlainObject";
+import { Clipboard } from "../../util/Clipboard";
 import { getCursorlessApi } from "../../util/getExtensionApi";
-import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
-import asyncSafety from "../util/asyncSafety";
-import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
+import sleep from "../../util/sleep";
 import { openNewEditor } from "../openNewEditor";
+import asyncSafety from "../util/asyncSafety";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
 import { runSingleTest } from "./runSingleRecordedTest";
 
@@ -68,6 +69,10 @@ async function runTest(file: string) {
     fixture.initialState.documentContents,
     fixture.languageId
   );
+
+  if (fixture.sleep != null) {
+    await sleep(fixture.sleep);
+  }
 
   if (!fixture.initialState.documentContents.includes("\n")) {
     await editor.edit((editBuilder) => {

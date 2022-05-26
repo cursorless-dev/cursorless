@@ -29,6 +29,7 @@ export type TestCaseContext = {
 
 export type TestCaseFixture = {
   languageId: string;
+  sleep?: number;
   command: TestCaseCommand;
 
   /**

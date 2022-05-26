@@ -1,4 +1,5 @@
 languageId: python
+sleep: 10
 command:
   spokenForm: pour line
   version: 2
