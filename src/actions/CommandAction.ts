@@ -7,6 +7,7 @@ import displayPendingEditDecorations from "../util/editDisplayUtils";
 import {
   focusEditor,
   setSelectionsAndFocusEditor,
+  setSelectionsWithoutFocusingEditor,
 } from "../util/setSelectionsAndFocusEditor";
 import {
   ensureSingleEditor,
@@ -60,7 +61,7 @@ export default class CommandAction implements Action {
 
         // Reset original selections
         if (options.restoreSelection) {
-          editor.selections = updatedOriginalSelections;
+          setSelectionsWithoutFocusingEditor(editor, updatedOriginalSelections);
         }
 
         return updatedTargetSelections.map((selection) => ({

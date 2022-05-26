@@ -7,6 +7,7 @@ import {
 import { Target } from "../typings/target.types";
 import { Edit, Graph } from "../typings/Types";
 import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import {
   getContentRange,
   getRemovalRange,
@@ -199,7 +200,7 @@ class BringMoveSwap implements Action {
               [editSelectionInfos, cursorSelectionInfos]
             );
 
-          editor.selections = cursorSelections;
+          setSelectionsWithoutFocusingEditor(editor, cursorSelections);
 
           return edits.map((edit, index): MarkEntry => {
             const selection = updatedEditSelections[index];

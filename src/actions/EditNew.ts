@@ -8,6 +8,7 @@ import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakC
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { selectionFromRange } from "../util/selectionUtils";
+import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 import { getEditRange, getLinePadding } from "./CopyLines";
@@ -63,10 +64,12 @@ class EditNew implements Action {
     await this.runCommandTargets(editor, richTargets);
     await this.runDelimiterTargets(editor, richTargets);
 
-    editor.selections = richTargets.map((target) =>
+    const newSelections = richTargets.map((target) =>
       selectionFromRange(target.target.isReversed, target.cursorRange)
     );
     const targetRanges = richTargets.map((target) => target.targetRange);
+
+    await setSelectionsAndFocusEditor(editor, newSelections);
 
     return {
       thatMark: createThatMark(targets, targetRanges),

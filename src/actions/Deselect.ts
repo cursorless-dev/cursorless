@@ -1,6 +1,7 @@
 import { Selection } from "vscode";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -20,9 +21,12 @@ export default class Deselect implements Action {
           })
       );
       // The editor requires at least one selection. Keep "primary" selection active
-      editor.selections = newSelections.length
-        ? newSelections
-        : [new Selection(editor.selection.active, editor.selection.active)];
+      setSelectionsWithoutFocusingEditor(
+        editor,
+        newSelections.length > 0
+          ? newSelections
+          : [new Selection(editor.selection.active, editor.selection.active)]
+      );
     });
 
     return {

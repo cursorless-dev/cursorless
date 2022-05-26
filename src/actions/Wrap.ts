@@ -8,6 +8,7 @@ import { Target } from "../typings/target.types";
 import { Edit, Graph, SelectionWithEditor } from "../typings/Types";
 import { FullSelectionInfo } from "../typings/updateSelections";
 import { decorationSleep } from "../util/editDisplayUtils";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -93,7 +94,7 @@ export default class Wrap implements Action {
               ]
             );
 
-          editor.selections = cursorSelections;
+          setSelectionsWithoutFocusingEditor(editor, cursorSelections);
 
           editor.setDecorations(
             this.graph.editStyles.justAdded.token,

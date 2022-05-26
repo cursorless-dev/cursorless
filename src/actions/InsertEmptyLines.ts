@@ -4,6 +4,7 @@ import { performEditsAndUpdateSelections } from "../core/updateSelections/update
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { displayPendingEditDecorationsForRanges } from "../util/editDisplayUtils";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -58,7 +59,7 @@ class InsertEmptyLines implements Action {
             ]
           );
 
-        editor.selections = updatedOriginalSelections;
+        setSelectionsWithoutFocusingEditor(editor, updatedOriginalSelections);
 
         return {
           thatMark: updatedSelections.map((selection) => ({

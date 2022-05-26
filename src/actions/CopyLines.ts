@@ -5,6 +5,7 @@ import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakC
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { displayPendingEditDecorationsForRanges } from "../util/editDisplayUtils";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -57,8 +58,8 @@ class CopyLines implements Action {
         ]
       );
 
-    editor.selections = updatedEditorSelections;
-    editor.revealRange(thatSelections[0]);
+    setSelectionsWithoutFocusingEditor(editor, updatedEditorSelections);
+    editor.revealRange(editor.selection);
 
     const sourceSelections = zip(edits, updatedEditSelections).map(
       ([edit, selection]) => {
