@@ -4,7 +4,10 @@ import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
 import { CommentLines } from "./Comment";
-import { CopyLinesDown, CopyLinesUp } from "./CopyLines";
+import {
+  CopyContentAfter as InsertCopyAfter,
+  CopyContentBefore as InsertCopyBefore,
+} from "./InsertCopy";
 import { Copy, Cut, Paste } from "./CutCopyPaste";
 import Deselect from "./Deselect";
 import { EditNewBefore, EditNewAfter } from "./EditNew";
@@ -17,8 +20,8 @@ import GetText from "./GetText";
 import Highlight from "./Highlight";
 import { IndentLines, OutdentLines } from "./Indent";
 import {
-  InsertEmptyLineAbove,
-  InsertEmptyLineBelow,
+  InsertEmptyLineAbove as InsertEmptyLineBefore,
+  InsertEmptyLineBelow as InsertEmptyLineAfter,
   InsertEmptyLinesAround,
 } from "./InsertEmptyLines";
 import Remove from "./Remove";
@@ -53,10 +56,10 @@ class Actions implements ActionRecord {
   getText = new GetText(this.graph);
   highlight = new Highlight(this.graph);
   indentLine = new IndentLines(this.graph);
-  insertCopyAfter = new CopyLinesDown(this.graph);
-  insertCopyBefore = new CopyLinesUp(this.graph);
-  insertEmptyLineAfter = new InsertEmptyLineBelow(this.graph);
-  insertEmptyLineBefore = new InsertEmptyLineAbove(this.graph);
+  insertCopyAfter = new InsertCopyAfter(this.graph);
+  insertCopyBefore = new InsertCopyBefore(this.graph);
+  insertEmptyLineAfter = new InsertEmptyLineAfter(this.graph);
+  insertEmptyLineBefore = new InsertEmptyLineBefore(this.graph);
   insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
   moveToTarget = new Move(this.graph);
   outdentLine = new OutdentLines(this.graph);

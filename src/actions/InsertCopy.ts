@@ -9,7 +9,7 @@ import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { insertTextAfter, insertTextBefore } from "../util/textInsertion";
 import { Action, ActionReturnValue } from "./actions.types";
 
-class CopyLines implements Action {
+class InsertCopy implements Action {
   getFinalStages = () => [weakContainingLineStage];
 
   constructor(private graph: Graph, private isBefore: boolean) {
@@ -63,13 +63,13 @@ class CopyLines implements Action {
   }
 }
 
-export class CopyLinesUp extends CopyLines {
+export class CopyContentBefore extends InsertCopy {
   constructor(graph: Graph) {
     super(graph, true);
   }
 }
 
-export class CopyLinesDown extends CopyLines {
+export class CopyContentAfter extends InsertCopy {
   constructor(graph: Graph) {
     super(graph, false);
   }
