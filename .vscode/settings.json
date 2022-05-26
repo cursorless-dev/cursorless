@@ -1,7 +1,8 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+	// Exclude the following files from explorer and search results
 	"files.exclude": {
-		"out": true, // set this to true to hide the "out" folder with the compiled JS files
+		"out": true,
 		".vscode-sandbox": true
 	},
 	"python.formatting.provider": "black",
