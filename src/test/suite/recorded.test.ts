@@ -57,6 +57,10 @@ async function runTest(file: string) {
   const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
   const excludeFields: ExcludableSnapshotField[] = [];
 
+  // TODO The snapshot gets messed up with timing issues when running the recorded tests
+  // "Couldn't find token default.a"
+  fixture.command.usePrePhraseSnapshot = false;
+
   const cursorlessApi = await getCursorlessApi();
   const graph = cursorlessApi.graph!;
 
