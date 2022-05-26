@@ -1,4 +1,3 @@
-import { flatten } from "lodash";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
 import { weakContainingSurroundingPairStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
 import { Target } from "../typings/target.types";
@@ -34,28 +33,36 @@ export default class Rewrap implements Action {
       this.graph.editStyles.pendingModification0
     );
 
-    const thatMark = flatten(
-      await runOnTargetsForEachEditor(
-        boundaryTargets,
-        async (editor, boundaryTargets) => {
-          const edits = boundaryTargets.map((target, i) => ({
-            editor,
-            range: target.contentRange,
-            text: i % 2 === 0 ? left : right,
-          }));
+    const results = await runOnTargetsForEachEditor(
+      boundaryTargets,
+      async (editor, boundaryTargets) => {
+        const edits = boundaryTargets.map((target, i) => ({
+          editor,
+          range: target.contentRange,
+          text: i % 2 === 0 ? left : right,
+        }));
 
-          const [updatedThatRanges] = await performEditsAndUpdateRanges(
+        const [updatedSourceRanges, updatedThatRanges] =
+          await performEditsAndUpdateRanges(
             this.graph.rangeUpdater,
             editor,
             edits,
-            [targets.map((target) => target.contentRange)]
+            [
+              targets.map((target) => target.thatTarget.contentRange),
+              targets.map((target) => target.contentRange),
+            ]
           );
 
-          return createThatMark(targets, updatedThatRanges);
-        }
-      )
+        return {
+          sourceMark: createThatMark(targets, updatedSourceRanges),
+          thatMark: createThatMark(targets, updatedThatRanges),
+        };
+      }
     );
 
-    return { thatMark };
+    return {
+      sourceMark: results.flatMap(({ sourceMark }) => sourceMark),
+      thatMark: results.flatMap(({ thatMark }) => thatMark),
+    };
   }
 }

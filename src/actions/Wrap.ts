@@ -126,8 +126,8 @@ export default class Wrap implements Action {
     );
 
     return {
-      thatMark: results.flatMap(({ thatMark }) => thatMark),
       sourceMark: results.flatMap(({ sourceMark }) => sourceMark),
+      thatMark: results.flatMap(({ thatMark }) => thatMark),
     };
   }
 }
