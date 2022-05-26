@@ -1,3 +1,4 @@
+from contextlib import suppress
 from typing import Any
 
 from talon import Context, Module
@@ -21,9 +22,6 @@ mod.list(
     "cursorless_surrounding_pair_scope_type",
     desc="Scope types that can function as surrounding pairs",
 )
-
-
-import contextlib
 
 
 @mod.capture(
@@ -57,7 +55,7 @@ def cursorless_surrounding_pair(m) -> dict[str, Any]:
         "delimiter": surrounding_pair_scope_type,
     }
 
-    with contextlib.suppress(AttributeError):
+    with suppress(AttributeError):
         scope_type["forceDirection"] = m.cursorless_delimiter_force_direction
 
     return {
