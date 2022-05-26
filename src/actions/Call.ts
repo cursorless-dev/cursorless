@@ -21,6 +21,7 @@ export default class Call implements Action {
       }
     );
 
+    // NB: We unwrap and then rewrap the return value here so that we don't include the source mark
     const { thatMark } = await this.graph.actions.wrapWithPairedDelimiter.run(
       [destinations],
       texts[0] + "(",
