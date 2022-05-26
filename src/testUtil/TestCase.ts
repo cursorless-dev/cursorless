@@ -29,7 +29,7 @@ export type TestCaseContext = {
 
 export type TestCaseFixture = {
   languageId: string;
-  sleep?: number;
+  postEditorOpenSleepTimeMs?: number;
   command: TestCaseCommand;
 
   /**

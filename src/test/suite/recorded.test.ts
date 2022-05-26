@@ -70,8 +70,8 @@ async function runTest(file: string) {
     fixture.languageId
   );
 
-  if (fixture.sleep != null) {
-    await sleep(fixture.sleep);
+  if (fixture.postEditorOpenSleepTimeMs != null) {
+    await sleep(fixture.postEditorOpenSleepTimeMs);
   }
 
   if (!fixture.initialState.documentContents.includes("\n")) {
