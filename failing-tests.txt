@@ -2367,7 +2367,7 @@ Error: Couldn't find mark default 'f'
       +    "line": 3
          }
        }
-      
+
   	at /Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:126:16
   	at Array.forEach (<anonymous>)
   	at checkMarks (/Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:122:27)
@@ -2411,7 +2411,7 @@ Error: Couldn't find mark default 'f'
       +    "line": 3
          }
        }
-      
+
   	at /Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:126:16
   	at Array.forEach (<anonymous>)
   	at checkMarks (/Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:122:27)
@@ -2455,7 +2455,7 @@ Error: Couldn't find mark default 'f'
       +    "line": 3
          }
        }
-      
+
   	at /Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:126:16
   	at Array.forEach (<anonymous>)
   	at checkMarks (/Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:122:27)
@@ -2518,7 +2518,7 @@ Error: Couldn't find mark default 'f'
       +    "line": 3
          }
        }
-      
+
   	at /Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:126:16
   	at Array.forEach (<anonymous>)
   	at checkMarks (/Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:122:27)
@@ -2548,7 +2548,7 @@ Error: Couldn't find mark default 'f'
       -    }
          ]
        }
-      
+
   	at /Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:113:20
   	at Generator.next (<anonymous>)
   	at fulfilled (/Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:5:58)
@@ -2588,7 +2588,7 @@ Error: Couldn't find mark default 'f'
       -    }
          ]
        }
-      
+
   	at /Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:113:20
   	at Generator.next (<anonymous>)
   	at fulfilled (/Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:5:58)
@@ -2628,7 +2628,7 @@ Error: Couldn't find mark default 'f'
       -    }
          ]
        }
-      
+
   	at /Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:113:20
   	at Generator.next (<anonymous>)
   	at fulfilled (/Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:5:58)
@@ -2661,7 +2661,7 @@ Error: Couldn't find mark default 'f'
            }
          ]
          "thatMark": [
-      
+
   	at /Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:113:20
   	at Generator.next (<anonymous>)
   	at fulfilled (/Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:5:58)
@@ -2708,7 +2708,7 @@ Error: Couldn't find mark default 'f'
            }
          ]
          "thatMark": [
-      
+
   	at /Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:113:20
   	at Generator.next (<anonymous>)
   	at fulfilled (/Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:5:58)
@@ -2837,7 +2837,7 @@ Error: Couldn't find mark default 'f'
              }
            }
          ]
-      
+
   	at /Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:113:20
   	at Generator.next (<anonymous>)
   	at fulfilled (/Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:5:58)
@@ -2865,7 +2865,7 @@ Error: Couldn't find mark default 'f'
              }
            }
          ]
-      
+
   	at /Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:113:20
   	at Generator.next (<anonymous>)
   	at fulfilled (/Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:5:58)
@@ -2908,7 +2908,7 @@ Error: Couldn't find mark default 'f'
            }
          ]
        }
-      
+
   	at /Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:113:20
   	at Generator.next (<anonymous>)
   	at fulfilled (/Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:5:58)
@@ -2939,7 +2939,7 @@ Error: Couldn't find mark default 'f'
            }
          ]
        }
-      
+
   	at /Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:113:20
   	at Generator.next (<anonymous>)
   	at fulfilled (/Users/pokey/src/cursorless-vscode/out/test/suite/recorded.test.js:5:58)
