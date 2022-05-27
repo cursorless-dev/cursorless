@@ -218,7 +218,19 @@ export type PartialTargetDesc =
   | PartialListTargetDesc;
 
 export interface PrimitiveTargetDescriptor extends PartialPrimitiveTargetDesc {
+  /**
+   * The mark, eg "air", "this", "that", etc
+   */
   mark: Mark;
+
+  /**
+   * Zero or more modifiers that will be applied in sequence to the output from
+   * the mark.  Note that the modifiers will be applied in reverse order.  For
+   * example, if the user says "take first char name air", then we will apply
+   * "name" to the output of "air" to select the name of the function or
+   * statement containing "air", then apply "first char" to select the first
+   * character of the name.
+   */
   modifiers: Modifier[];
 }
 
