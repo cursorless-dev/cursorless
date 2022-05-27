@@ -1,4 +1,4 @@
-import { flow, flowRight, zip } from "lodash";
+import { zip } from "lodash";
 import { Position, Range } from "vscode";
 import {
   PrimitiveTargetDescriptor,
