@@ -43,6 +43,21 @@ export default class ParagraphTarget extends BaseTarget {
     )?.range;
   }
 
+  get leadingDelimiterHighlightRange() {
+    return getLeadingDelimiter(
+      this.editor,
+      this.contentRange,
+      this.position == null
+    )?.highlight;
+  }
+  get trailingDelimiterHighlightRange() {
+    return getTrailingDelimiter(
+      this.editor,
+      this.contentRange,
+      this.position == null
+    )?.highlight;
+  }
+
   getRemovalRange(): Range {
     switch (this.position) {
       case "before":
@@ -77,6 +92,15 @@ export default class ParagraphTarget extends BaseTarget {
       return undefined;
     })();
 
+    return delimiterRange != null
+      ? this.contentRemovalRange.union(delimiterRange)
+      : this.contentRemovalRange;
+  }
+
+  getRemovalHighlightRange(): Range | undefined {
+    const delimiterRange =
+      this.trailingDelimiterHighlightRange ??
+      this.leadingDelimiterHighlightRange;
     return delimiterRange != null
       ? this.contentRemovalRange.union(delimiterRange)
       : this.contentRemovalRange;

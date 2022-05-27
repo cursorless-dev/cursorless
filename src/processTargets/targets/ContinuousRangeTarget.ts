@@ -40,7 +40,7 @@ export default class ContinuousRangeTarget implements Target {
     return undefined;
   }
   get isLine() {
-    return false;
+    return this.startTarget_.isLine && this.endTarget_.isLine;
   }
   get isParagraph() {
     return false;
@@ -94,6 +94,21 @@ export default class ContinuousRangeTarget implements Target {
     return endTarget.trailingDelimiterRange;
   }
 
+  get leadingDelimiterHighlightRange() {
+    return this.leadingDelimiterRange;
+  }
+
+  get trailingDelimiterHighlightRange() {
+    const endTarget = this.endTarget_;
+    if (this.excludeEnd_ && endTarget.isLine) {
+      return new Range(
+        this.contentRange.end,
+        endTarget.contentRange.start.translate({ lineDelta: -1 })
+      );
+    }
+    return this.trailingDelimiterRange;
+  }
+
   get contentRange() {
     return this.processRanges(
       this.startTarget_.contentRange,
@@ -128,7 +143,12 @@ export default class ContinuousRangeTarget implements Target {
   }
 
   getRemovalHighlightRange(): Range | undefined {
-    return this.getRemovalRange();
+    const delimiterRange =
+      this.trailingDelimiterHighlightRange ??
+      this.leadingDelimiterHighlightRange;
+    return delimiterRange != null
+      ? this.contentRemovalRange.union(delimiterRange)
+      : this.contentRemovalRange;
   }
 
   getInteriorStrict(): Target[] {
