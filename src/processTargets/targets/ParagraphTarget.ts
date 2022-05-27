@@ -29,10 +29,18 @@ export default class ParagraphTarget extends BaseTarget {
   }
 
   get leadingDelimiterRange() {
-    return getLeadingDelimiter(this.editor, this.contentRange)?.range;
+    return getLeadingDelimiter(
+      this.editor,
+      this.contentRange,
+      this.position == null
+    )?.range;
   }
   get trailingDelimiterRange() {
-    return getTrailingDelimiter(this.editor, this.contentRange)?.range;
+    return getTrailingDelimiter(
+      this.editor,
+      this.contentRange,
+      this.position == null
+    )?.range;
   }
 
   getRemovalRange(): Range {
@@ -79,13 +87,19 @@ export default class ParagraphTarget extends BaseTarget {
   }
 }
 
-function getLeadingDelimiter(editor: TextEditor, removalRange: Range) {
+function getLeadingDelimiter(
+  editor: TextEditor,
+  removalRange: Range,
+  keepLastNewline: boolean
+) {
   const { document } = editor;
   const { lineAt } = document;
   const startLine = lineAt(removalRange.start);
   const leadingLine = getPreviousNonEmptyLine(document, startLine);
   if (leadingLine != null) {
-    const startPosition = leadingLine.range.end.translate({ lineDelta: 1 });
+    const startPosition = keepLastNewline
+      ? leadingLine.range.end
+      : leadingLine.range.end.translate({ lineDelta: 1 });
     return {
       range: new Range(startPosition, startLine.range.start),
       highlight: new Range(
@@ -104,13 +118,19 @@ function getLeadingDelimiter(editor: TextEditor, removalRange: Range) {
   return undefined;
 }
 
-function getTrailingDelimiter(editor: TextEditor, removalRange: Range) {
+function getTrailingDelimiter(
+  editor: TextEditor,
+  removalRange: Range,
+  keepLastNewline: boolean
+) {
   const { document } = editor;
   const { lineAt } = document;
   const endLine = lineAt(removalRange.end);
   const trailingLine = getNextNonEmptyLine(document, endLine);
   if (trailingLine != null) {
-    const endPosition = trailingLine.range.start.translate({ lineDelta: -1 });
+    const endPosition = keepLastNewline
+      ? trailingLine.range.start
+      : trailingLine.range.start.translate({ lineDelta: -1 });
     return {
       range: new Range(endLine.range.end, endPosition),
       highlight: new Range(

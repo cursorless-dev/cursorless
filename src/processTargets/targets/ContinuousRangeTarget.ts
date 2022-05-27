@@ -68,6 +68,9 @@ export default class ContinuousRangeTarget implements Target {
 
   get leadingDelimiterRange() {
     const startTarget = this.startTarget_;
+    if (startTarget.position === "start") {
+      return undefined;
+    }
     if (this.excludeStart_) {
       if (startTarget.isLine) {
         return getLineLeadingDelimiterRange(this.editor, this.contentRange);
@@ -79,6 +82,9 @@ export default class ContinuousRangeTarget implements Target {
 
   get trailingDelimiterRange() {
     const endTarget = this.endTarget_;
+    if (endTarget.position === "end") {
+      return undefined;
+    }
     if (this.excludeEnd_) {
       if (endTarget.isLine) {
         return getLineTrailingDelimiterRange(this.editor, this.contentRange);

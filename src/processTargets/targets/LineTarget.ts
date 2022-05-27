@@ -33,11 +33,11 @@ export default class LineTarget extends BaseTarget {
   }
 
   get leadingDelimiterRange() {
-    return getLineLeadingDelimiterRange(this.editor, this.contentRange);
+    return getLineLeadingDelimiterRange(this.editor, this.contentRemovalRange);
   }
 
   get trailingDelimiterRange() {
-    return getLineTrailingDelimiterRange(this.editor, this.contentRange);
+    return getLineTrailingDelimiterRange(this.editor, this.contentRemovalRange);
   }
 
   getRemovalHighlightRange(): Range | undefined {
