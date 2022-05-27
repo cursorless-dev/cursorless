@@ -145,6 +145,7 @@ export class TestCaseRecorder {
           const snapshot = await takeSnapshot(
             undefined,
             undefined,
+            [],
             ["clipboard"],
             this.active ? this.extraSnapshotFields : undefined,
             marks,

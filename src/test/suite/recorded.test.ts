@@ -109,6 +109,10 @@ async function runTest(file: string) {
     excludeFields.push("clipboard");
   }
 
+  if (!fixture.initialState.decorations) {
+    excludeFields.push("decorations");
+  }
+
   await graph.hatTokenMap.addDecorations();
 
   const readableHatMap = await graph.hatTokenMap.getReadableMap(
@@ -138,6 +142,7 @@ async function runTest(file: string) {
   const { visibleRanges, ...resultState } = await takeSnapshot(
     cursorlessApi.thatMark,
     cursorlessApi.sourceMark,
+    graph.editStyles.testDecorations,
     excludeFields,
     [],
     marks

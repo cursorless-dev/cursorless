@@ -1,8 +1,11 @@
 import * as vscode from "vscode";
+import { TestDecoration } from "../core/editStyles";
 import { ThatMark } from "../core/ThatMark";
 import { Clipboard } from "../util/Clipboard";
 import { hrtimeBigintToSeconds } from "../util/timeUtils";
 import {
+  PositionPlainObject,
+  positionToPlainObject,
   RangePlainObject,
   rangeToPlainObject,
   SelectionPlainObject,
@@ -12,6 +15,13 @@ import {
 
 export type ExtraSnapshotField = keyof TestCaseSnapshot;
 export type ExcludableSnapshotField = keyof TestCaseSnapshot;
+
+interface PlainTestDecoration {
+  name: string;
+  type: "token" | "line";
+  start: PositionPlainObject;
+  end: PositionPlainObject;
+}
 
 export type TestCaseSnapshot = {
   documentContents: string;
@@ -23,6 +33,7 @@ export type TestCaseSnapshot = {
   marks?: SerializedMarks;
   thatMark?: SelectionPlainObject[];
   sourceMark?: SelectionPlainObject[];
+  decorations?: PlainTestDecoration[];
   timeOffsetSeconds?: number;
 
   /**
@@ -38,6 +49,7 @@ interface ExtraContext {
 export async function takeSnapshot(
   thatMark: ThatMark | undefined,
   sourceMark: ThatMark | undefined,
+  decorations: TestDecoration[],
   excludeFields: ExcludableSnapshotField[] = [],
   extraFields: ExtraSnapshotField[] = [],
   marks?: SerializedMarks,
@@ -85,6 +97,15 @@ export async function takeSnapshot(
     snapshot.sourceMark = sourceMark
       .get()
       .map((mark) => selectionToPlainObject(mark.selection));
+  }
+
+  if (decorations.length > 0 && !excludeFields.includes("decorations")) {
+    snapshot.decorations = decorations.map(({ name, type, start, end }) => ({
+      name,
+      type,
+      start: positionToPlainObject(start),
+      end: positionToPlainObject(end),
+    }));
   }
 
   if (extraFields.includes("timeOffsetSeconds")) {

@@ -1,6 +1,7 @@
 import {
   DecorationRangeBehavior,
   DecorationRenderOptions,
+  Position,
   Range,
   TextEditor,
   TextEditorDecorationType,
@@ -8,6 +9,7 @@ import {
   window,
   workspace,
 } from "vscode";
+import isTesting from "../testUtil/isTesting";
 import { Target } from "../typings/target.types";
 import { Graph, RangeWithEditor } from "../typings/Types";
 import sleep from "../util/sleep";
@@ -58,6 +60,13 @@ const EDIT_STYLE_NAMES = [
 export type EditStyleName = typeof EDIT_STYLE_NAMES[number];
 type EditStyleThemeColorName = `${EditStyleName}Background`;
 
+export interface TestDecoration {
+  name: EditStyleThemeColorName;
+  type: "token" | "line";
+  start: Position;
+  end: Position;
+}
+
 export class EditStyles implements Record<EditStyleName, EditStyle> {
   pendingDelete!: EditStyle;
   referenced!: EditStyle;
@@ -66,8 +75,9 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
   justAdded!: EditStyle;
   highlight0!: EditStyle;
   highlight1!: EditStyle;
+  testDecorations: TestDecoration[] = [];
 
-  constructor(graph: Graph) {
+  constructor(private graph: Graph) {
     EDIT_STYLE_NAMES.forEach((editStyleName) => {
       this[editStyleName] = new EditStyle(`${editStyleName}Background`);
     });
@@ -182,7 +192,19 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
     isToken: boolean,
     ranges: Range[]
   ) {
-    console.log(style.name, isToken);
+    if (this.graph.testCaseRecorder.isActive() || isTesting()) {
+      ranges.forEach((range) => {
+        this.testDecorations.push({
+          name: style.name,
+          type: isToken ? "token" : "line",
+          start: range.start,
+          end: range.end,
+        });
+      });
+      if (isTesting()) {
+        return;
+      }
+    }
     editor.setDecorations(style.getDecoration(isToken), ranges);
   }
 
@@ -193,7 +215,13 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
   }
 }
 
-const decorationSleep = () => sleep(getPendingEditDecorationTime());
+function decorationSleep() {
+  if (isTesting()) {
+    return;
+  }
+
+  sleep(getPendingEditDecorationTime());
+}
 
 const getPendingEditDecorationTime = () =>
   workspace

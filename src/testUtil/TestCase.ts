@@ -1,6 +1,7 @@
 import { pick } from "lodash";
 import * as vscode from "vscode";
 import { CommandLatest } from "../core/commandRunner/command.types";
+import { TestDecoration } from "../core/editStyles";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ThatMark } from "../core/ThatMark";
 import { TargetDescriptor } from "../typings/target.types";
@@ -24,6 +25,7 @@ export type TestCaseContext = {
   thatMark: ThatMark;
   sourceMark: ThatMark;
   targets: TargetDescriptor[];
+  decorations: TestDecoration[];
   hatTokenMap: ReadOnlyHatMap;
 };
 
@@ -154,6 +156,7 @@ export class TestCase {
     this.initialState = await takeSnapshot(
       this.context.thatMark,
       this.context.sourceMark,
+      this.context.decorations,
       excludeFields,
       this.extraSnapshotFields,
       this.getMarks(),
@@ -167,6 +170,7 @@ export class TestCase {
     this.finalState = await takeSnapshot(
       this.context.thatMark,
       this.context.sourceMark,
+      this.context.decorations,
       excludeFields,
       this.extraSnapshotFields,
       this.isHatTokenMapTest ? this.getMarks() : undefined,

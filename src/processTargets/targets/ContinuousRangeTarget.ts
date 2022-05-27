@@ -43,7 +43,7 @@ export default class ContinuousRangeTarget implements Target {
     return this.startTarget_.isLine && this.endTarget_.isLine;
   }
   get isParagraph() {
-    return false;
+    return this.startTarget_.isParagraph && this.endTarget_.isParagraph;
   }
   get isWeak() {
     return false;
