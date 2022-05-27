@@ -95,18 +95,33 @@ export default class ContinuousRangeTarget implements Target {
   }
 
   get leadingDelimiterHighlightRange() {
-    return this.leadingDelimiterRange;
+    const leadingDelimiterRange = this.leadingDelimiterRange;
+    if (leadingDelimiterRange == null) {
+      return undefined;
+    }
+    const startTarget = this.startTarget_;
+    if (startTarget.isLine && !this.excludeStart_) {
+      return new Range(leadingDelimiterRange.end, this.contentRange.start);
+    }
+    return leadingDelimiterRange;
   }
 
   get trailingDelimiterHighlightRange() {
-    const endTarget = this.endTarget_;
-    if (this.excludeEnd_ && endTarget.isLine) {
-      return new Range(
-        this.contentRange.end,
-        endTarget.contentRange.start.translate({ lineDelta: -1 })
-      );
+    const trailingDelimiterRange = this.trailingDelimiterRange;
+    if (trailingDelimiterRange == null) {
+      return undefined;
     }
-    return this.trailingDelimiterRange;
+    const endTarget = this.endTarget_;
+    if (endTarget.isLine) {
+      if (this.excludeEnd_) {
+        return new Range(
+          this.contentRange.end,
+          endTarget.leadingDelimiterRange!.start
+        );
+      }
+      return new Range(this.contentRange.end, trailingDelimiterRange.start);
+    }
+    return trailingDelimiterRange;
   }
 
   get contentRange() {
