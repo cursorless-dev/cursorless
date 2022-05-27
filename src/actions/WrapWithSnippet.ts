@@ -4,7 +4,6 @@ import ModifyIfWeakStage from "../processTargets/modifiers/ModifyIfWeakStage";
 import { SnippetDefinition } from "../typings/snippet";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { ensureSingleEditor } from "../util/targetUtils";
 import {
   Placeholder,
@@ -80,7 +79,7 @@ export default class WrapWithSnippet implements Action {
 
     const snippetString = parsedSnippet.toTextmateString();
 
-    await displayPendingEditDecorations(
+    await this.graph.editStyles.displayPendingEditDecorations(
       targets,
       this.graph.editStyles.pendingModification0
     );

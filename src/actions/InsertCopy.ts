@@ -3,7 +3,6 @@ import { TextEditor } from "vscode";
 import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { displayPendingEditDecorationsForRanges } from "../util/editDisplayUtils";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { insertTextAfter, insertTextBefore } from "../util/textInsertion";
@@ -22,14 +21,15 @@ class InsertCopy implements Action {
       await runOnTargetsForEachEditor(targets, this.runForEditor)
     );
 
-    await displayPendingEditDecorationsForRanges(
+    await this.graph.editStyles.displayPendingEditDecorationsForRanges(
       results.flatMap((result) =>
         result.thatMark.map((that) => ({
           editor: that.editor,
           range: that.selection,
         }))
       ),
-      this.graph.editStyles.justAdded.token
+      this.graph.editStyles.justAdded,
+      true
     );
 
     return {

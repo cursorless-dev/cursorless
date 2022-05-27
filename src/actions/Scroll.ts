@@ -1,7 +1,6 @@
 import { commands, window } from "vscode";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { displayPendingEditDecorationsForTargets } from "../util/editDisplayUtils";
 import { groupBy } from "../util/itertools";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark } from "../util/targetUtils";
@@ -50,9 +49,10 @@ class Scroll implements Action {
       );
     });
 
-    await displayPendingEditDecorationsForTargets(
+    await this.graph.editStyles.displayPendingEditDecorationsForTargets(
       decorationTargets,
-      this.graph.editStyles.referenced.line
+      this.graph.editStyles.referenced,
+      false
     );
 
     return {

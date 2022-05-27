@@ -6,7 +6,6 @@ import {
 } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
 import { Edit, Graph } from "../typings/Types";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import {
   getContentRange,
@@ -70,12 +69,12 @@ class BringMoveSwap implements Action {
   private async decorateTargets(sources: Target[], destinations: Target[]) {
     const decorationContext = this.getDecorationContext();
     await Promise.all([
-      displayPendingEditDecorations(
+      this.graph.editStyles.displayPendingEditDecorations(
         sources,
         decorationContext.sourceStyle,
         decorationContext.getSourceRangeCallback
       ),
-      displayPendingEditDecorations(
+      this.graph.editStyles.displayPendingEditDecorations(
         destinations,
         decorationContext.destinationStyle
       ),
@@ -221,12 +220,12 @@ class BringMoveSwap implements Action {
     const getRange = (target: Target) =>
       thatMark.find((t) => t.target === target)!.selection;
     return Promise.all([
-      displayPendingEditDecorations(
+      this.graph.editStyles.displayPendingEditDecorations(
         thatMark.filter(({ isSource }) => isSource).map(({ target }) => target),
         decorationContext.sourceStyle,
         getRange
       ),
-      displayPendingEditDecorations(
+      this.graph.editStyles.displayPendingEditDecorations(
         thatMark
           .filter(({ isSource }) => !isSource)
           .map(({ target }) => target),

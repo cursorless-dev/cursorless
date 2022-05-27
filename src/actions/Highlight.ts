@@ -1,7 +1,6 @@
 import { EditStyleName } from "../core/editStyles";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { clearDecorations, setDecorations } from "../util/editDisplayUtils";
 import { createThatMark } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -16,8 +15,8 @@ export default class Highlight implements Action {
   ): Promise<ActionReturnValue> {
     const style = this.graph.editStyles[styleName];
 
-    clearDecorations(style);
-    await setDecorations(targets, style);
+    this.graph.editStyles.clearDecorations(style);
+    await this.graph.editStyles.setDecorations(targets, style);
 
     return {
       thatMark: createThatMark(targets),

@@ -1,7 +1,6 @@
 import RawSelectionTarget from "../processTargets/targets/RawSelectionTarget";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { getOutsideOverflow } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 import CommandAction from "./CommandAction";
@@ -29,8 +28,11 @@ export class Cut implements Action {
     });
 
     await Promise.all([
-      displayPendingEditDecorations(targets, this.graph.editStyles.referenced),
-      displayPendingEditDecorations(
+      this.graph.editStyles.displayPendingEditDecorations(
+        targets,
+        this.graph.editStyles.referenced
+      ),
+      this.graph.editStyles.displayPendingEditDecorations(
         overflowTargets,
         this.graph.editStyles.pendingDelete
       ),

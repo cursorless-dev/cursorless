@@ -3,7 +3,6 @@ import { Range, Selection } from "vscode";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { displayPendingEditDecorationsForRanges } from "../util/editDisplayUtils";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -80,9 +79,10 @@ class InsertEmptyLines implements Action {
       })
     );
 
-    await displayPendingEditDecorationsForRanges(
+    await this.graph.editStyles.displayPendingEditDecorationsForRanges(
       results.flatMap((result) => result.lineSelections),
-      this.graph.editStyles.justAdded.line
+      this.graph.editStyles.justAdded,
+      false
     );
 
     const thatMark = results.flatMap((result) => result.thatMark);

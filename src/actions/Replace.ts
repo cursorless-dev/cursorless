@@ -2,7 +2,6 @@ import { flatten, zip } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { runForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -35,7 +34,7 @@ export default class implements Action {
     [targets]: [Target[]],
     replaceWith: string[] | RangeGenerator
   ): Promise<ActionReturnValue> {
-    await displayPendingEditDecorations(
+    await this.graph.editStyles.displayPendingEditDecorations(
       targets,
       this.graph.editStyles.pendingModification0
     );

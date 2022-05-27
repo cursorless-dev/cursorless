@@ -1,6 +1,5 @@
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { createThatMark, ensureSingleTarget } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -17,7 +16,7 @@ export default class GetText implements Action {
     } = {}
   ): Promise<ActionReturnValue> {
     if (showDecorations) {
-      await displayPendingEditDecorations(
+      await this.graph.editStyles.displayPendingEditDecorations(
         targets,
         this.graph.editStyles.referenced
       );

@@ -2,7 +2,6 @@ import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSele
 import { weakContainingSurroundingPairStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -28,7 +27,7 @@ export default class Rewrap implements Action {
       return boundary;
     });
 
-    await displayPendingEditDecorations(
+    await this.graph.editStyles.displayPendingEditDecorations(
       boundaryTargets,
       this.graph.editStyles.pendingModification0
     );

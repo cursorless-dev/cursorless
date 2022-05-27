@@ -2,7 +2,6 @@ import { flatten } from "lodash";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
 import {
   createThatMark,
   getContentRange,
@@ -27,7 +26,7 @@ export default class Delete implements Action {
     }
 
     if (showDecorations) {
-      await displayPendingEditDecorations(
+      await this.graph.editStyles.displayPendingEditDecorations(
         targets,
         this.graph.editStyles.pendingDelete,
         contentOnly ? getContentRange : getRemovalHighlightRange,

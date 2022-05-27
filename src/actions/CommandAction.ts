@@ -3,7 +3,6 @@ import { commands, window } from "vscode";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
 import {
   focusEditor,
   setSelectionsAndFocusEditor,
@@ -90,7 +89,7 @@ export default class CommandAction implements Action {
     const actualOptions = partialOptions as Required<CommandOptions>;
 
     if (actualOptions.showDecorations) {
-      await displayPendingEditDecorations(
+      await this.graph.editStyles.displayPendingEditDecorations(
         targets,
         this.graph.editStyles.referenced
       );
