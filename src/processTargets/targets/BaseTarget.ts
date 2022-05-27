@@ -1,12 +1,8 @@
 import { Range, Selection, TextEditor } from "vscode";
-import {
-  EditNewContext,
-  Position,
-  RemovalRange,
-  Target,
-} from "../../typings/target.types";
+import { EditNewContext, Position, Target } from "../../typings/target.types";
 import { selectionFromRange } from "../../util/selectionUtils";
-import { processRemovalRange } from "../../util/targetUtils";
+import { getTokenDelimiters } from "../targetUtil/getTokenDelimiters";
+import { maybeAddDelimiter } from "../targetUtil/maybeAddDelimiter";
 
 export function extractCommonParameters(parameters: CommonTargetParameters) {
   return {
@@ -20,40 +16,24 @@ export function extractCommonParameters(parameters: CommonTargetParameters) {
 
 /** Parameters supported by all target classes */
 export interface CommonTargetParameters {
-  editor: TextEditor;
-  isReversed: boolean;
-  contentRange: Range;
-  position?: Position;
-  thatTarget?: Target;
-}
-
-export interface CloneWithParameters {
-  position?: Position;
-  thatTarget?: Target;
-}
-
-export interface BaseTargetParameters extends CommonTargetParameters {
-  delimiter: string;
-  removalRange?: Range;
-  leadingDelimiter?: RemovalRange;
-  trailingDelimiter?: RemovalRange;
-  isLine?: boolean;
-}
-
-interface BaseTargetState {
   readonly editor: TextEditor;
   readonly isReversed: boolean;
   readonly contentRange: Range;
-  readonly thatTarget?: Target;
-  readonly delimiter: string;
-  readonly removalRange?: Range;
-  readonly leadingDelimiter?: RemovalRange;
-  readonly trailingDelimiter?: RemovalRange;
   readonly position?: Position;
+  readonly thatTarget?: Target;
+}
+
+export interface CloneWithParameters {
+  readonly position?: Position;
+  readonly thatTarget?: Target;
+}
+
+export interface BaseTargetParameters extends CommonTargetParameters {
+  readonly delimiter: string;
 }
 
 export default abstract class BaseTarget implements Target {
-  protected readonly state: BaseTargetState;
+  protected readonly state: BaseTargetParameters;
 
   constructor(parameters: BaseTargetParameters) {
     this.state = {
@@ -62,9 +42,6 @@ export default abstract class BaseTarget implements Target {
       contentRange: parameters.contentRange,
       position: parameters.position,
       delimiter: parameters.delimiter,
-      removalRange: parameters.removalRange,
-      leadingDelimiter: parameters.leadingDelimiter,
-      trailingDelimiter: parameters.trailingDelimiter,
       thatTarget: parameters.thatTarget,
     };
   }
@@ -72,27 +49,21 @@ export default abstract class BaseTarget implements Target {
   get position() {
     return this.state.position;
   }
-
   get editor() {
     return this.state.editor;
   }
-
   get isReversed() {
     return this.state.isReversed;
   }
-
-  get removalRange() {
-    return this.state.removalRange;
+  get contentRemovalRange() {
+    return this.contentRange;
   }
-
   get isLine() {
     return false;
   }
-
   get isParagraph() {
     return false;
   }
-
   get isWeak() {
     return false;
   }
@@ -103,18 +74,16 @@ export default abstract class BaseTarget implements Target {
       : this;
   }
 
-  getInteriorStrict(): Target[] {
-    throw Error("No available interior");
+  get contentText(): string {
+    return this.editor.document.getText(this.contentRange);
   }
 
-  getBoundaryStrict(): Target[] {
-    throw Error("No available boundaries");
+  get contentSelection(): Selection {
+    return selectionFromRange(this.isReversed, this.contentRange);
   }
 
   get contentRange(): Range {
     switch (this.position) {
-      case undefined:
-        return this.state.contentRange;
       case "start":
       case "before":
         return new Range(
@@ -127,15 +96,9 @@ export default abstract class BaseTarget implements Target {
           this.state.contentRange.end,
           this.state.contentRange.end
         );
+      default:
+        return this.state.contentRange;
     }
-  }
-
-  get contentText(): string {
-    return this.editor.document.getText(this.contentRange);
-  }
-
-  get contentSelection(): Selection {
-    return selectionFromRange(this.isReversed, this.contentRange);
   }
 
   get delimiter(): string | undefined {
@@ -149,103 +112,24 @@ export default abstract class BaseTarget implements Target {
     }
   }
 
-  get leadingDelimiter() {
-    switch (this.position) {
-      case undefined:
-      case "before":
-        return this.state.leadingDelimiter;
-      default:
-        return undefined;
-    }
+  get leadingDelimiterRange() {
+    const { includeDelimitersInRemoval, leadingDelimiterRange } =
+      getTokenDelimiters(this.state.editor, this.state.contentRange);
+    return includeDelimitersInRemoval || this.position != null
+      ? leadingDelimiterRange
+      : undefined;
   }
 
-  get trailingDelimiter() {
-    switch (this.position) {
-      case undefined:
-      case "after":
-        return this.state.trailingDelimiter;
-      default:
-        return undefined;
-    }
+  get trailingDelimiterRange() {
+    const { includeDelimitersInRemoval, trailingDelimiterRange } =
+      getTokenDelimiters(this.state.editor, this.state.contentRange);
+    return includeDelimitersInRemoval || this.position != null
+      ? trailingDelimiterRange
+      : undefined;
   }
 
-  /** Possibly add delimiter for positions before/after */
   maybeAddDelimiter(text: string): string {
-    if (this.delimiter != null) {
-      if (this.position === "before") {
-        return text + this.delimiter;
-      }
-      if (this.position === "after") {
-        return this.delimiter + text;
-      }
-    }
-    return text;
-  }
-
-  protected getRemovalContentRange(): Range {
-    const removalRange = this.removalRange ?? this.contentRange;
-    const delimiter =
-      processRemovalRange(this.trailingDelimiter) ??
-      processRemovalRange(this.leadingDelimiter);
-    return delimiter != null
-      ? removalRange.union(delimiter.range)
-      : removalRange;
-  }
-
-  protected getRemovalContentHighlightRange() {
-    const removalRange = this.removalRange ?? this.contentRange;
-    const delimiter =
-      processRemovalRange(this.trailingDelimiter) ??
-      processRemovalRange(this.leadingDelimiter);
-    return delimiter != null
-      ? removalRange.union(delimiter.highlight)
-      : removalRange;
-  }
-
-  protected getRemovalBeforeRange(): Range {
-    return this.leadingDelimiter != null
-      ? this.leadingDelimiter.range
-      : this.contentRange;
-  }
-
-  protected getRemovalAfterRange(): Range {
-    return this.trailingDelimiter != null
-      ? this.trailingDelimiter.range
-      : this.contentRange;
-  }
-
-  protected getRemovalBeforeHighlightRange(): Range | undefined {
-    return this.leadingDelimiter != null
-      ? this.leadingDelimiter.highlight ?? this.leadingDelimiter.range
-      : undefined;
-  }
-
-  protected getRemovalAfterHighlightRange(): Range | undefined {
-    return this.trailingDelimiter != null
-      ? this.trailingDelimiter.highlight ?? this.trailingDelimiter.range
-      : undefined;
-  }
-
-  getRemovalRange(): Range {
-    switch (this.position) {
-      case "before":
-        return this.getRemovalBeforeRange();
-      case "after":
-        return this.getRemovalAfterRange();
-      default:
-        return this.getRemovalContentRange();
-    }
-  }
-
-  getRemovalHighlightRange(): Range | undefined {
-    switch (this.position) {
-      case "before":
-        return this.getRemovalBeforeHighlightRange();
-      case "after":
-        return this.getRemovalAfterHighlightRange();
-      default:
-        return this.getRemovalContentHighlightRange();
-    }
+    return maybeAddDelimiter(text, this.delimiter, this.position);
   }
 
   getEditNewContext(isBefore: boolean): EditNewContext {
@@ -258,12 +142,41 @@ export default abstract class BaseTarget implements Target {
     };
   }
 
+  getRemovalRange(): Range {
+    switch (this.position) {
+      case "before":
+        return this.leadingDelimiterRange ?? this.contentRange;
+      case "after":
+        return this.trailingDelimiterRange ?? this.contentRange;
+      case "start":
+      case "end":
+        return this.contentRange;
+      default:
+        const delimiterRange =
+          this.trailingDelimiterRange ?? this.leadingDelimiterRange;
+        return delimiterRange != null
+          ? this.contentRemovalRange.union(delimiterRange)
+          : this.contentRemovalRange;
+    }
+  }
+
+  getRemovalHighlightRange(): Range | undefined {
+    return this.getRemovalRange();
+  }
+
   withPosition(position: Position): Target {
     return this.cloneWith({ position });
   }
 
   withThatTarget(thatTarget: Target): Target {
     return this.cloneWith({ thatTarget });
+  }
+
+  getInteriorStrict(): Target[] {
+    throw Error("No available interior");
+  }
+  getBoundaryStrict(): Target[] {
+    throw Error("No available boundaries");
   }
 
   abstract cloneWith(parameters: CloneWithParameters): Target;

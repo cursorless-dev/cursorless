@@ -1,6 +1,5 @@
 import { Range } from "vscode";
 import { Target } from "../../typings/target.types";
-import { getTokenDelimiters } from "../modifiers/scopeTypeStages/TokenStage";
 import BaseTarget, {
   CloneWithParameters,
   CommonTargetParameters,
@@ -31,7 +30,7 @@ export default class SurroundingPairTarget extends BaseTarget {
   constructor(parameters: SurroundingPairTargetParameters) {
     super({
       ...extractCommonParameters(parameters),
-      ...getTokenDelimiters(parameters.editor, parameters.contentRange),
+      delimiter: " ",
     });
     this.boundary_ = parameters.boundary;
     this.interiorRange_ = parameters.interiorRange;

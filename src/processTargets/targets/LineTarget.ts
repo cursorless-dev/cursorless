@@ -1,23 +1,18 @@
-import { Range } from "vscode";
-import { RemovalRange } from "../../typings/target.types";
-import { processRemovalRange } from "../../util/targetUtils";
+import { Position, Range } from "vscode";
+import {
+  getLineLeadingDelimiterRange,
+  getLineTrailingDelimiterRange,
+} from "../targetUtil/getLineDelimiters";
 import BaseTarget, {
   CloneWithParameters,
   CommonTargetParameters,
   extractCommonParameters,
 } from "./BaseTarget";
 
-interface LineTargetParameters extends CommonTargetParameters {
-  leadingDelimiter?: RemovalRange;
-  trailingDelimiter?: RemovalRange;
-}
-
 export default class LineTarget extends BaseTarget {
-  constructor(parameters: LineTargetParameters) {
+  constructor(parameters: CommonTargetParameters) {
     super({
       ...extractCommonParameters(parameters),
-      leadingDelimiter: parameters.leadingDelimiter,
-      trailingDelimiter: parameters.trailingDelimiter,
       delimiter: "\n",
     });
   }
@@ -26,30 +21,29 @@ export default class LineTarget extends BaseTarget {
     return true;
   }
 
+  cloneWith(parameters: CloneWithParameters): LineTarget {
+    return new LineTarget({ ...this.state, ...parameters });
+  }
+
+  get contentRemovalRange() {
+    return new Range(
+      new Position(this.contentRange.start.line, 0),
+      this.editor.document.lineAt(this.contentRange.end).range.end
+    );
+  }
+
+  get leadingDelimiterRange() {
+    return getLineLeadingDelimiterRange(this.editor, this.contentRange);
+  }
+
+  get trailingDelimiterRange() {
+    return getLineTrailingDelimiterRange(this.editor, this.contentRange);
+  }
+
   getRemovalHighlightRange(): Range | undefined {
     if (this.position != null) {
       return undefined;
     }
     return this.contentRange;
-  }
-
-  protected getRemovalContentRange(): Range {
-    if (this.position != null) {
-      return this.contentRange;
-    }
-    const removalRange = new Range(
-      this.editor.document.lineAt(this.contentRange.start).range.start,
-      this.editor.document.lineAt(this.contentRange.end).range.end
-    );
-    const delimiter =
-      processRemovalRange(this.trailingDelimiter) ??
-      processRemovalRange(this.leadingDelimiter);
-    return delimiter != null
-      ? removalRange.union(delimiter.range)
-      : removalRange;
-  }
-
-  cloneWith(parameters: CloneWithParameters): LineTarget {
-    return new LineTarget({ ...this.state, ...parameters });
   }
 }

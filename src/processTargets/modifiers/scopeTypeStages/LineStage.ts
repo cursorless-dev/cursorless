@@ -1,4 +1,4 @@
-import { Position, Range, TextEditor } from "vscode";
+import { Range, TextEditor } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
@@ -61,36 +61,10 @@ export function createLineTarget(
   range: Range,
   isReversed: boolean
 ) {
-  const { document } = editor;
-  const contentRange = fitRangeToLineContent(editor, range);
-  const { start, end } = contentRange;
-
-  const removalRange = new Range(
-    new Position(start.line, 0),
-    editor.document.lineAt(end).range.end
-  );
-
-  const leadingDelimiterRange =
-    start.line > 0
-      ? new Range(document.lineAt(start.line - 1).range.end, removalRange.start)
-      : undefined;
-  const trailingDelimiterRange =
-    end.line + 1 < document.lineCount
-      ? new Range(removalRange.end, new Position(end.line + 1, 0))
-      : undefined;
-
   return new LineTarget({
     editor,
     isReversed,
-    contentRange,
-    leadingDelimiter:
-      leadingDelimiterRange != null
-        ? { range: leadingDelimiterRange }
-        : undefined,
-    trailingDelimiter:
-      trailingDelimiterRange != null
-        ? { range: trailingDelimiterRange }
-        : undefined,
+    contentRange: fitRangeToLineContent(editor, range),
   });
 }
 

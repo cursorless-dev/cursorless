@@ -245,15 +245,6 @@ export type TargetDescriptor =
   | RangeTargetDescriptor
   | ListTargetDescriptor;
 
-export interface RemovalRange {
-  /** The range to be removed  */
-  range: Range;
-  /** Optional highlight range to be used for highlight instead of the removal range  */
-  highlight?: Range;
-  /** If true this range is excluded from delimiters by default  */
-  exclude?: boolean;
-}
-
 export interface EditNewCommandContext {
   type: "command";
   command: string;
@@ -279,14 +270,14 @@ export interface Target {
   /** If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument */
   readonly delimiter?: string;
 
-  /** The range to remove the content */
-  readonly removalRange?: Range;
+  /** The range to remove the content. This does not include any delimiters. */
+  readonly contentRemovalRange: Range;
 
   /** The range of the delimiter before the content selection */
-  readonly leadingDelimiter?: RemovalRange;
+  readonly leadingDelimiterRange?: Range;
 
   /** The range of the delimiter after the content selection */
-  readonly trailingDelimiter?: RemovalRange;
+  readonly trailingDelimiterRange?: Range;
 
   /** The current position */
   readonly position?: Position;

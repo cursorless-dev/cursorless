@@ -7,7 +7,6 @@ import {
   SimpleScopeType,
   Target,
 } from "../../../typings/target.types";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import {
   NodeMatcher,
   ProcessedTargetsContext,
@@ -15,8 +14,8 @@ import {
   SelectionWithEditorWithContext,
 } from "../../../typings/Types";
 import { selectionWithEditorFromRange } from "../../../util/selectionUtils";
-import { selectionWithEditorWithContextToTarget } from "../../../util/targetUtils";
 import { ModifierStage } from "../../PipelineStages.types";
+import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 
 export interface SimpleContainingScopeModifier extends ContainingScopeModifier {
   scopeType: SimpleScopeType;
@@ -56,14 +55,26 @@ export default class implements ModifierStage {
       );
     }
 
-    return scopeNodes.map(
-      (scope) =>
-        new ScopeTypeTarget({
-          ...selectionWithEditorWithContextToTarget(scope),
-          scopeTypeType: this.modifier.scopeType.type,
-          isReversed: target.isReversed,
-        })
-    );
+    return scopeNodes.map((scope) => {
+      const {
+        containingListDelimiter,
+        leadingDelimiterRange,
+        trailingDelimiterRange,
+        removalRange,
+      } = scope.context;
+      const { editor, selection: contentSelection } = scope.selection;
+
+      return new ScopeTypeTarget({
+        scopeTypeType: this.modifier.scopeType.type,
+        editor,
+        isReversed: target.isReversed,
+        contentRange: contentSelection,
+        contentRemovalRange: removalRange,
+        delimiter: containingListDelimiter,
+        leadingDelimiterRange,
+        trailingDelimiterRange,
+      });
+    });
   }
 }
 

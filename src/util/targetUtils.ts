@@ -1,14 +1,8 @@
 import { zip } from "lodash";
 import { Range, Selection, TextEditor } from "vscode";
-import { getTokenDelimiters } from "../processTargets/modifiers/scopeTypeStages/TokenStage";
-import { RemovalRange, Target } from "../typings/target.types";
-import {
-  SelectionContext,
-  SelectionWithEditor,
-  SelectionWithEditorWithContext,
-} from "../typings/Types";
+import { Target } from "../typings/target.types";
+import { SelectionWithEditor } from "../typings/Types";
 import { groupBy } from "./itertools";
-import { isReversed } from "./selectionUtils";
 
 export function ensureSingleEditor(targets: Target[]) {
   if (targets.length === 0) {
@@ -112,72 +106,4 @@ export function createThatMark(
 
 export function getRemovalRange(target: Target) {
   return target.getRemovalRange();
-}
-
-export function processRemovalRange(
-  range?: RemovalRange
-): Required<RemovalRange> | undefined {
-  return range != null && !range.exclude
-    ? {
-        range: range.range,
-        highlight: range.highlight ?? range.range,
-        exclude: false,
-      }
-    : undefined;
-}
-
-export function selectionWithEditorWithContextToTarget(
-  selection: SelectionWithEditorWithContext
-) {
-  // TODO Only use giving context in the future when all the containing scopes have proper delimiters.
-  // For now fall back on token context
-  const { context } = selection;
-  const {
-    containingListDelimiter,
-    interiorRange,
-    boundary,
-    leadingDelimiterRange,
-    trailingDelimiterRange,
-    removalRange,
-  } = context;
-  const { editor, selection: contentRange } = selection.selection;
-
-  const tokenContext = useTokenContext(selection.context)
-    ? getTokenDelimiters(editor, contentRange)
-    : undefined;
-
-  const leadingDelimiter =
-    tokenContext?.leadingDelimiter != null
-      ? tokenContext.leadingDelimiter
-      : leadingDelimiterRange != null
-      ? { range: leadingDelimiterRange }
-      : undefined;
-
-  const trailingDelimiter =
-    tokenContext?.trailingDelimiter != null
-      ? tokenContext.trailingDelimiter
-      : trailingDelimiterRange != null
-      ? { range: trailingDelimiterRange }
-      : undefined;
-
-  return {
-    editor,
-    isReversed: isReversed(contentRange),
-    contentRange,
-    interiorRange,
-    removalRange,
-    boundary,
-    delimiter: containingListDelimiter,
-    leadingDelimiter,
-    trailingDelimiter,
-  };
-}
-
-function useTokenContext(context: SelectionContext) {
-  return (
-    context.containingListDelimiter == null &&
-    context.removalRange == null &&
-    context.leadingDelimiterRange == null &&
-    context.trailingDelimiterRange == null
-  );
 }

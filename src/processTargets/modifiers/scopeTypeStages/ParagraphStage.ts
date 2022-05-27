@@ -1,4 +1,4 @@
-import { Range, TextDocument, TextLine } from "vscode";
+import { Range } from "vscode";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
@@ -76,76 +76,14 @@ export default class implements ModifierStage {
   }
 
   getTargetFromRange(target: Target, range?: Range): ParagraphTarget {
-    const { document } = target.editor;
-    const { lineAt } = document;
-
     if (range == null) {
       range = calculateRange(target);
     }
 
-    const startLine = lineAt(range.start);
-    const endLine = lineAt(range.end);
-    const contentRange = fitRangeToLineContent(
-      target.editor,
-      new Range(startLine.range.start, endLine.range.end)
-    );
-    const leadingLine = getPreviousNonEmptyLine(document, startLine);
-    const trailingLine = getNextNonEmptyLine(document, endLine);
-
-    const leadingDelimiter = (() => {
-      if (leadingLine != null) {
-        return {
-          range: new Range(leadingLine.range.end, startLine.range.start),
-          highlight: new Range(
-            lineAt(leadingLine.lineNumber + 1).range.start,
-            lineAt(startLine.lineNumber - 1).range.end
-          ),
-        };
-      }
-      if (startLine.lineNumber > 0) {
-        const { start } = lineAt(0).range;
-        return {
-          range: new Range(start, startLine.range.start),
-          highlight: new Range(
-            start,
-            lineAt(startLine.lineNumber - 1).range.end
-          ),
-        };
-      }
-      return undefined;
-    })();
-
-    const trailingDelimiter = (() => {
-      if (trailingLine != null) {
-        return {
-          range: new Range(endLine.range.end, trailingLine.range.start),
-          highlight: new Range(
-            lineAt(endLine.lineNumber + 1).range.start,
-            lineAt(trailingLine.lineNumber - 1).range.end
-          ),
-        };
-      }
-      if (endLine.lineNumber < document.lineCount - 1) {
-        const lastLine = lineAt(document.lineCount - 1);
-        // If true there is an empty line after this one that isn't the last/final one
-        const highlightStart =
-          endLine.lineNumber !== document.lineCount - 1
-            ? lineAt(endLine.lineNumber + 1).range.end
-            : lastLine.range.start;
-        return {
-          range: new Range(endLine.range.end, lastLine.range.end),
-          highlight: new Range(highlightStart, lastLine.range.end),
-        };
-      }
-      return undefined;
-    })();
-
     return new ParagraphTarget({
       editor: target.editor,
       isReversed: target.isReversed,
-      contentRange,
-      leadingDelimiter,
-      trailingDelimiter,
+      contentRange: fitRangeToLineContent(target.editor, range),
     });
   }
 }
@@ -173,26 +111,4 @@ function calculateRange(target: Target) {
     }
   }
   return new Range(startLine.range.start, endLine.range.end);
-}
-
-function getPreviousNonEmptyLine(document: TextDocument, line: TextLine) {
-  while (line.lineNumber > 0) {
-    const previousLine = document.lineAt(line.lineNumber - 1);
-    if (!previousLine.isEmptyOrWhitespace) {
-      return previousLine;
-    }
-    line = previousLine;
-  }
-  return null;
-}
-
-function getNextNonEmptyLine(document: TextDocument, line: TextLine) {
-  while (line.lineNumber + 1 < document.lineCount) {
-    const nextLine = document.lineAt(line.lineNumber + 1);
-    if (!nextLine.isEmptyOrWhitespace) {
-      return nextLine;
-    }
-    line = nextLine;
-  }
-  return null;
 }

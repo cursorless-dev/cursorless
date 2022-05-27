@@ -60,20 +60,6 @@ export interface SelectionContext {
    * The range of the delimiter after the selection
    */
   trailingDelimiterRange?: vscode.Range;
-
-  /**
-   * Represents the boundary ranges of this selection. For example, for a
-   * surrounding pair this would be the opening and closing delimiter. For an if
-   * statement this would be the line of the guard as well as the closing brace.
-   */
-  boundary?: [vscode.Range, vscode.Range];
-
-  /**
-   * Represents the interior ranges of this selection. For example, for a
-   * surrounding pair this would exclude the opening and closing delimiter. For an if
-   * statement this would be the statements in the body.
-   */
-  interiorRange?: vscode.Range;
 }
 
 export type SelectionWithEditorWithContext = {

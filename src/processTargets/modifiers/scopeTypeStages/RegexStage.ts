@@ -4,10 +4,9 @@ import {
   EveryScopeModifier,
   Target,
 } from "../../../typings/target.types";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
-import { getTokenDelimiters } from "./TokenStage";
+import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 
 type RegexModifier = NonWhitespaceSequenceModifier | UrlModifier;
 
@@ -66,7 +65,6 @@ class RegexStage implements ModifierStage {
 
   getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
     return new ScopeTypeTarget({
-      ...getTokenDelimiters(target.editor, range),
       scopeTypeType: this.modifier.scopeType.type,
       editor: target.editor,
       isReversed: target.isReversed,

@@ -1,4 +1,3 @@
-import { getTokenDelimiters } from "../modifiers/scopeTypeStages/TokenStage";
 import BaseTarget, {
   CloneWithParameters,
   CommonTargetParameters,
@@ -9,7 +8,7 @@ export default class TokenTarget extends BaseTarget {
   constructor(parameters: CommonTargetParameters) {
     super({
       ...extractCommonParameters(parameters),
-      ...getTokenDelimiters(parameters.editor, parameters.contentRange),
+      delimiter: " ",
     });
   }
 

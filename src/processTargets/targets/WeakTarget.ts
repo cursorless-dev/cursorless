@@ -1,16 +1,8 @@
-import { RemovalRange } from "../../typings/target.types";
-import { getTokenDelimiters } from "../modifiers/scopeTypeStages/TokenStage";
 import BaseTarget, {
   CloneWithParameters,
   CommonTargetParameters,
   extractCommonParameters,
 } from "./BaseTarget";
-
-interface WeakTargetParameters extends CommonTargetParameters {
-  // These are needed if constructed from a continuous range
-  leadingDelimiter?: RemovalRange;
-  trailingDelimiter?: RemovalRange;
-}
 
 /**
  * - Treated as "line" for "pour", "clone", and "breakpoint"
@@ -18,14 +10,10 @@ interface WeakTargetParameters extends CommonTargetParameters {
  * - Expand to nearest containing pair when asked for boundary or interior
  */
 export default class WeakTarget extends BaseTarget {
-  constructor(parameters: WeakTargetParameters) {
-    const { delimiter, leadingDelimiter, trailingDelimiter } =
-      getTokenDelimiters(parameters.editor, parameters.contentRange);
+  constructor(parameters: CommonTargetParameters) {
     super({
       ...extractCommonParameters(parameters),
-      delimiter,
-      leadingDelimiter: parameters.leadingDelimiter ?? leadingDelimiter,
-      trailingDelimiter: parameters.trailingDelimiter ?? trailingDelimiter,
+      delimiter: " ",
     });
   }
 

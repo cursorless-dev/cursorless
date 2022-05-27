@@ -116,14 +116,8 @@ export default class implements ModifierStage {
         contentRange: new Range(anchor, active),
         scopeTypeType: this.modifier.scopeType.type,
         delimiter: containingListDelimiter ?? "",
-        leadingDelimiter:
-          leadingDelimiterRange != null
-            ? { range: leadingDelimiterRange }
-            : undefined,
-        trailingDelimiter:
-          trailingDelimiterRange != null
-            ? { range: trailingDelimiterRange }
-            : undefined,
+        leadingDelimiterRange,
+        trailingDelimiterRange,
       }),
     ];
   }

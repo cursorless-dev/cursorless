@@ -1,5 +1,5 @@
 import { zip } from "lodash";
-import { Position, Range } from "vscode";
+import { Range } from "vscode";
 import {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
@@ -11,7 +11,7 @@ import { ensureSingleEditor } from "../util/targetUtils";
 import uniqDeep from "../util/uniqDeep";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
-import BaseTarget from "./targets/BaseTarget";
+import ContinuousRangeTarget from "./targets/ContinuousRangeTarget";
 import WeakTarget from "./targets/WeakTarget";
 
 /**
@@ -98,89 +98,15 @@ function processContinuousRangeTarget(
   excludeAnchor: boolean,
   excludeActive: boolean
 ): Target {
-  const { document } = ensureSingleEditor([anchorTarget, activeTarget]);
-  const isForward = calcIsForward(anchorTarget, activeTarget);
-  const startTarget = isForward ? anchorTarget : activeTarget;
-  const endTarget = isForward ? activeTarget : anchorTarget;
-  const excludeStart = isForward ? excludeAnchor : excludeActive;
-  const excludeEnd = isForward ? excludeActive : excludeAnchor;
+  ensureSingleEditor([anchorTarget, activeTarget]);
+  const isReversed = calcIsReversed(anchorTarget, activeTarget);
 
-  const contentStart = (() => {
-    if (excludeStart) {
-      if (startTarget.isLine) {
-        return new Position(startTarget.contentRange.end.line + 1, 0);
-      }
-      return startTarget.contentRange.end;
-    }
-    return startTarget.contentRange.start;
-  })();
-  const contentEnd = (() => {
-    if (excludeEnd) {
-      if (endTarget.isLine) {
-        return document.lineAt(endTarget.contentRange.start.line - 1).range.end;
-      }
-      return endTarget.contentRange.start;
-    }
-    return endTarget.contentRange.end;
-  })();
-  const contentRange = new Range(contentStart, contentEnd);
-
-  const removalRange = (() => {
-    if (startTarget.removalRange == null && endTarget.removalRange == null) {
-      return undefined;
-    }
-    const startRange = startTarget.removalRange ?? startTarget.contentRange;
-    const endRange = endTarget.removalRange ?? endTarget.contentRange;
-    return new Range(
-      excludeStart ? startRange.end : startRange.start,
-      excludeEnd ? endRange.start : endRange.end
-    );
-  })();
-
-  const leadingDelimiter = (() => {
-    if (excludeStart) {
-      if (startTarget.isLine) {
-        return {
-          range: new Range(contentRange.start, startTarget.contentRange.end),
-        };
-      }
-      return startTarget.trailingDelimiter;
-    }
-    return startTarget.leadingDelimiter;
-  })();
-  const trailingDelimiter = (() => {
-    if (excludeEnd) {
-      if (endTarget.isLine) {
-        return {
-          range: new Range(
-            contentRange.end,
-            endTarget.leadingDelimiter!.range.end
-          ),
-          highlight: new Range(
-            contentRange.end,
-            endTarget.contentRange.start.translate({ lineDelta: -1 })
-          ),
-        };
-      }
-      return endTarget.leadingDelimiter;
-    }
-    return endTarget.trailingDelimiter;
-  })();
-
-  // If both objects are of the same type create a new object of the same
-  const startConstructor = Object.getPrototypeOf(startTarget).constructor;
-  const endConstructor = Object.getPrototypeOf(endTarget).constructor;
-  const constructor =
-    startConstructor === endConstructor ? startConstructor : BaseTarget;
-
-  return new constructor({
-    editor: activeTarget.editor,
-    isReversed: !isForward,
-    delimiter: anchorTarget.delimiter,
-    contentRange,
-    removalRange,
-    leadingDelimiter,
-    trailingDelimiter,
+  return new ContinuousRangeTarget({
+    startTarget: isReversed ? activeTarget : anchorTarget,
+    endTarget: isReversed ? anchorTarget : activeTarget,
+    excludeStart: isReversed ? excludeActive : excludeAnchor,
+    excludeEnd: isReversed ? excludeAnchor : excludeActive,
+    isReversed,
   });
 }
 
@@ -197,16 +123,16 @@ function processVerticalRangeTarget(
   excludeAnchor: boolean,
   excludeActive: boolean
 ): Target[] {
-  const isForward = calcIsForward(anchorTarget, activeTarget);
-  const delta = isForward ? 1 : -1;
+  const isReversed = calcIsReversed(anchorTarget, activeTarget);
+  const delta = isReversed ? -1 : 1;
 
-  const anchorPosition = isForward
-    ? anchorTarget.contentRange.end
-    : anchorTarget.contentRange.start;
+  const anchorPosition = isReversed
+    ? anchorTarget.contentRange.start
+    : anchorTarget.contentRange.end;
   const anchorLine = anchorPosition.line + (excludeAnchor ? delta : 0);
-  const activePosition = isForward
-    ? activeTarget.contentRange.end
-    : activeTarget.contentRange.start;
+  const activePosition = isReversed
+    ? activeTarget.contentRange.start
+    : activeTarget.contentRange.end;
   const activeLine = activePosition.line - (excludeActive ? delta : 0);
 
   const results: Target[] = [];
@@ -221,8 +147,8 @@ function processVerticalRangeTarget(
       new WeakTarget({
         editor: anchorTarget.editor,
         isReversed: anchorTarget.isReversed,
-        position: anchorTarget.position,
         contentRange,
+        position: anchorTarget.position,
       })
     );
     if (i === activeLine) {
@@ -255,6 +181,6 @@ function processPrimitiveTarget(
   return targets;
 }
 
-function calcIsForward(anchor: Target, active: Target) {
-  return anchor.contentRange.start.isBeforeOrEqual(active.contentRange.start);
+function calcIsReversed(anchor: Target, active: Target) {
+  return anchor.contentRange.start.isAfter(active.contentRange.start);
 }
