@@ -243,7 +243,8 @@ function processVerticalRangeTarget(
  * stage, it passes the targets from the previous stage to the pipeline stage
  * one by one.  For each target, the stage will output a list of zero or more output
  * targets.  It then concatenates all of these lists into the list of targets
- * that will be passed to the next pipeline stage.
+ * that will be passed to the next pipeline stage.  This process is similar to
+ * the way that [jq](https://stedolan.github.io/jq/) processes its inputs.
  *
  * @param context The context that captures the state of the environment used
  * by each stage to process its input targets
