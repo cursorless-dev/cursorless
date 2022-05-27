@@ -265,10 +265,8 @@ function processPrimitiveTarget(
    */
   const modifierStages = [
     // Reverse target modifiers because they are returned in reverse order from
-    // the api, to match the order in which they are spoken.  Slice is needed
-    // to create a copy or the modifiers will be in wrong order in the test
-    // recorder.
-    ...targetDescriptor.modifiers.slice().reverse().map(getModifierStage),
+    // the api, to match the order in which they are spoken.
+    ...targetDescriptor.modifiers.map(getModifierStage).reverse(),
     ...context.finalStages,
   ];
 
