@@ -157,28 +157,62 @@ function processVerticalRangeTarget(
   }
 }
 
+/**
+ * This function implements the modifier pipeline that is at the core of Cursorless target processing.
+ * It proceeds as follows:
+ *
+ * 1. It begins by getting the output from the {@link markStage} (eg "air", "this", etc).
+ * This output is a list of zero or more targets.
+ * 2. It then constructs a pipeline from the modifiers on the {@link targetDescriptor}
+ * 3. It then runs each pipeline stage in turn, feeding the first stage with
+ * the list of targets output from the {@link markStage}.  For each pipeline
+ * stage, it passes the targets from the previous stage to the pipeline stage
+ * one by one.  For each target, the stage will output a list of zero or more output
+ * targets.  It then concatenates all of these lists into the list of targets
+ * that will be passed to the next pipeline stage.  This process is similar to
+ * the way that [jq](https://stedolan.github.io/jq/) processes its inputs.
+ *
+ * @param context The context that captures the state of the environment used
+ * by each stage to process its input targets
+ * @param targetDescriptor The description of the target, consisting of a mark
+ * and zero or more modifiers
+ * @returns The output of running the modifier pipeline on the output from the mark
+ */
 function processPrimitiveTarget(
   context: ProcessedTargetsContext,
-  target: PrimitiveTargetDescriptor
+  targetDescriptor: PrimitiveTargetDescriptor
 ): Target[] {
-  const markStage = getMarkStage(target.mark);
-  let targets = markStage.run(context);
+  // First, get the targets output by the mark
+  const markStage = getMarkStage(targetDescriptor.mark);
+  const markOutputTargets = markStage.run(context);
 
+  /**
+   * The modifier pipeline that will be applied to construct our final targets
+   */
   const modifierStages = [
-    // Reverse target modifiers because they are returned in reverse order from the api. Slice is needed to create a copy or the modifiers will be in wrong order in the test recorder.
-    ...target.modifiers.slice().reverse().map(getModifierStage),
+    // Reverse target modifiers because they are returned in reverse order from
+    // the api, to match the order in which they are spoken.
+    ...targetDescriptor.modifiers.map(getModifierStage).reverse(),
     ...context.finalStages,
   ];
 
+  /**
+   * Intermediate variable to store the output of the current pipeline stage.
+   * We initialise it to start with the outputs from the mark.
+   */
+  let currentTargets = markOutputTargets;
+
+  // Then we apply each stage in sequence, letting each stage see the targets
+  // one-by-one and concatenating the results before passing them on to the
+  // next stage.
   modifierStages.forEach((stage) => {
-    const stageTargets: Target[] = [];
-    for (const target of targets) {
-      stageTargets.push(...stage.run(context, target));
-    }
-    targets = stageTargets;
+    currentTargets = currentTargets.flatMap((target) =>
+      stage.run(context, target)
+    );
   });
 
-  return targets;
+  // Then return the output from the final stage
+  return currentTargets;
 }
 
 function calcIsReversed(anchor: Target, active: Target) {
