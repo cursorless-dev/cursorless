@@ -128,33 +128,37 @@ Note that if the mark is `"this"`, and you have multiple cursors, the modifiers 
 
 For programming languages where Cursorless has rich parse tree support, we support modifiers that expand to the nearest containing function, class, etc. See [the source code](../../src/languages/constants.ts) for a list of supported languages. Below is a list of supported scope types, keeping in mind that this table can sometimes lag behind the actual list. Your cheatsheet (say "cursorless help") will have the most up-to-date list.
 
-| Term           | Syntactic element                                   |
-| -------------- | --------------------------------------------------- |
-| `"arg"`        | function parameter or function call argument        |
-| `"attribute"`  | attribute, eg on html element                       |
-| `"call"`       | function call, eg `foo(1, 2)`                       |
-| `"class name"` | the name in a class declaration                     |
-| `"class"`      | class definition                                    |
-| `"comment"`    | comment                                             |
-| `"condition"`  | condition, eg in an if statement, while loop etc    |
-| `"element"`    | xml element                                         |
-| `"end tag"`    | xml end tag                                         |
-| `"funk name"`  | the name in a function declaration                  |
-| `"funk"`       | name function declaration                           |
-| `"if state"`   | if statement                                        |
-| `"item"`       | an entry in a map / object / list                   |
-| `"key"`        | key in a map / object                               |
-| `"lambda"`     | anonymous lambda function                           |
-| `"list"`       | list / array                                        |
-| `"map"`        | map / object                                        |
-| `"name"`       | the name in a declaration (eg function name)        |
-| `"regex"`      | regular expression                                  |
-| `"start tag"`  | xml start tag                                       |
-| `"state"`      | a statement, eg `let foo;`                          |
-| `"string"`     | string                                              |
-| `"tags"`       | xml both tags                                       |
-| `"type"`       | a type annotation or declaration                    |
-| `"value"`      | a value eg in a map / object, return statement, etc |
+| Term                | Syntactic element                                                 |
+| ------------------- | ----------------------------------------------------------------- |
+| **Language Scopes** | Scopes that rely a language's syntax                              |
+| `"arg"`             | function parameter or function call argument                      |
+| `"attribute"`       | attribute, eg on html element                                     |
+| `"call"`            | function call, eg `foo(1, 2)`                                     |
+| `"class name"`      | the name in a class declaration                                   |
+| `"class"`           | class definition                                                  |
+| `"comment"`         | comment                                                           |
+| `"condition"`       | condition, eg in an if statement, while loop etc                  |
+| `"element"`         | xml element                                                       |
+| `"end tag"`         | xml end tag                                                       |
+| `"funk name"`       | the name in a function declaration                                |
+| `"funk"`            | name function declaration                                         |
+| `"if state"`        | if statement                                                      |
+| `"item"`            | an entry in a map / object / list                                 |
+| `"key"`             | key in a map / object                                             |
+| `"lambda"`          | anonymous lambda function                                         |
+| `"list"`            | list / array                                                      |
+| `"map"`             | map / object                                                      |
+| `"name"`            | the name in a declaration (eg function name)                      |
+| `"regex"`           | regular expression                                                |
+| `"start tag"`       | xml start tag                                                     |
+| `"state"`           | a statement, eg `let foo;`                                        |
+| `"string"`          | string                                                            |
+| `"tags"`            | xml both tags                                                     |
+| `"type"`            | a type annotation or declaration                                  |
+| `"value"`           | a value eg in a map / object, return statement, etc               |
+| **Textual Scopes**  | Scopes that rely on text parsing, ignoring syntax                 |
+| `"paragraph"`       | a set of lines not separated by an starting and ending empty line |
+| `"paint"`           | a selection of contiguous non-whitespace characters               |
 
 For example, `"take funk blue air"` selects the function containing the token with a blue hat over the letter `'a'`.
 
@@ -202,13 +206,40 @@ Selects the line including the token containing letter 'a' with a blue hat.
 
 ##### `"file"`
 
-The word file can be used to expand the target to refer to the entire file.
+The word '`"file"` can be used to expand the target to refer to the entire file.
 
 - `"copy file"`
 - `"take file"`
 - `"take file blue air"`
 
 For example, `"take file [blue] air"` selects the file including the token containing letter 'a' with a blue hat.
+
+##### `"head & tail"`
+
+The words `"head"` and `"tail"` can be used to create a selection from the cursor's position, through the beginning or end of the line, respectively.
+
+- `"take head"`: select from the cursor the start of the line
+- `"take tail"`: select from the cursor to the end of the line
+- `"take head spun"`
+- `"take tail spun"`
+
+When you have a single cursor point and issue the first two commands, a selection will be made from that position to either the beginning or end of the file. If you have any code highlighted or address a mark(see last two examples) a selection joining the existing selection plus either the beginning or end of the line.
+
+##### `"paragraph"`
+
+The `"paragraph"` modifier expands to above and below the target to select lines until an empty line is reached.
+
+- `"take paragraph"`
+- `"take paragraph <TARGET>"`
+
+##### `"paint"`
+
+The `"paint"` modifier is useful when selecting trailing delimiters or multiple nodes. To be clear, Cursorless tries to do the correct thing selecting a scope or when deleting `"value"` or `"key"`. However, sometimes paint is useful.
+
+- `"take paint"`
+- `"take paint <TARGET>"`
+
+Both of the commands will expand from a mark and return a selection up until a leading and trailing whitespace character.
 
 ##### Surrounding pair
 
@@ -400,6 +431,23 @@ The wrap command can be used to wrap a given target with a pair of symbols
 
 - `"round wrap <TARGET>"`: wraps the target with parentheses
 - `"box wrap <TARGET>"`: wraps the target with square brackets
+
+### Slice
+
+The slice command is used to add multiple cursors to the editor. Each cursor is inserted at the same column on each row requested within the command.
+
+- `"pre <TARGET 1> slice <TARGET 2>"`
+- `"pre <TARGET 1> slice (past|until) <TARGET 2>"`
+
+The first command is equivalent to the second command when `"past"` is used. When `"until"` is used in the second command, cursors are inserted from the first target through to the line above the second target.
+
+### Reverse/Shuffle/Sort
+
+These commands are to be paired with the `"item"` scope and can be used to reorder items within a list.
+
+- `"shuffle every item <TARGET>"`
+- `"sort every item <TARGET>"`
+- `"reverse every item <TARGET>"`
 
 eg:
 `box wrap blue air`
