@@ -17,7 +17,12 @@ import {
   takeSnapshot,
   TestCaseSnapshot,
 } from "./takeSnapshot";
-import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
+import {
+  marksToPlainObject,
+  PositionPlainObject,
+  positionToPlainObject,
+  SerializedMarks,
+} from "./toPlainObject";
 
 export type TestCaseCommand = CommandLatest;
 
@@ -28,6 +33,13 @@ export type TestCaseContext = {
   decorations: TestDecoration[];
   hatTokenMap: ReadOnlyHatMap;
 };
+
+interface PlainTestDecoration {
+  name: string;
+  type: "token" | "line";
+  start: PositionPlainObject;
+  end: PositionPlainObject;
+}
 
 export type TestCaseFixture = {
   languageId: string;
@@ -41,6 +53,7 @@ export type TestCaseFixture = {
 
   initialState: TestCaseSnapshot;
   finalState: TestCaseSnapshot;
+  decorations?: PlainTestDecoration[];
   returnValue: unknown;
   /** Inferred full targets added for context; not currently used in testing */
   fullTargets: TargetDescriptor[];
@@ -51,6 +64,7 @@ export class TestCase {
   fullTargets: TargetDescriptor[];
   initialState: TestCaseSnapshot | null = null;
   finalState: TestCaseSnapshot | null = null;
+  decorations?: PlainTestDecoration[];
   returnValue: unknown = null;
   targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
@@ -61,6 +75,7 @@ export class TestCase {
     command: TestCaseCommand,
     private context: TestCaseContext,
     private isHatTokenMapTest: boolean = false,
+    private isDecorationsTest: boolean = false,
     private startTimestamp: bigint,
     private extraSnapshotFields?: ExtraSnapshotField[]
   ) {
@@ -74,6 +89,18 @@ export class TestCase {
     this.languageId = activeEditor.document.languageId;
     this.fullTargets = targets;
     this._awaitingFinalMarkInfo = isHatTokenMapTest;
+  }
+
+  recordDecorations() {
+    const decorations = this.context.decorations;
+    if (this.isDecorationsTest && decorations.length > 0) {
+      this.decorations = decorations.map(({ name, type, start, end }) => ({
+        name,
+        type,
+        start: positionToPlainObject(start),
+        end: positionToPlainObject(end),
+      }));
+    }
   }
 
   private getMarks() {
@@ -145,6 +172,7 @@ export class TestCase {
       marksToCheck: this.marksToCheck,
       initialState: this.initialState,
       finalState: this.finalState,
+      decorations: this.decorations,
       returnValue: this.returnValue,
       fullTargets: this.fullTargets,
     };
@@ -156,7 +184,6 @@ export class TestCase {
     this.initialState = await takeSnapshot(
       this.context.thatMark,
       this.context.sourceMark,
-      this.context.decorations,
       excludeFields,
       this.extraSnapshotFields,
       this.getMarks(),
@@ -170,7 +197,6 @@ export class TestCase {
     this.finalState = await takeSnapshot(
       this.context.thatMark,
       this.context.sourceMark,
-      this.context.decorations,
       excludeFields,
       this.extraSnapshotFields,
       this.isHatTokenMapTest ? this.getMarks() : undefined,

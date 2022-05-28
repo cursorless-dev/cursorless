@@ -109,10 +109,6 @@ async function runTest(file: string) {
     excludeFields.push("clipboard");
   }
 
-  if (!fixture.initialState.decorations) {
-    excludeFields.push("decorations");
-  }
-
   await graph.hatTokenMap.addDecorations();
 
   const readableHatMap = await graph.hatTokenMap.getReadableMap(
@@ -142,7 +138,6 @@ async function runTest(file: string) {
   const { visibleRanges, ...resultState } = await takeSnapshot(
     cursorlessApi.thatMark,
     cursorlessApi.sourceMark,
-    graph.editStyles.testDecorations,
     excludeFields,
     [],
     marks
@@ -157,6 +152,14 @@ async function runTest(file: string) {
       fixture.finalState,
       "Unexpected final state"
     );
+
+    if (fixture.decorations != null) {
+      assert.deepStrictEqual(
+        graph.editStyles.testDecorations,
+        fixture.decorations,
+        "Unexpected decorations"
+      );
+    }
 
     assert.deepStrictEqual(
       returnValue,

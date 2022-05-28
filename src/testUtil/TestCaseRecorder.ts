@@ -29,6 +29,9 @@ interface RecordTestCaseCommandArg {
    */
   isHatTokenMapTest?: boolean;
 
+  /** If true decorations will be added to the test fixture */
+  isDecorationsTest?: boolean;
+
   /**
    * The directory in which to store the test cases that we record. If left out
    * the user will be prompted to select a directory within the default recorded
@@ -58,6 +61,7 @@ export class TestCaseRecorder {
   private targetDirectory: string | null = null;
   private testCase: TestCase | null = null;
   private isHatTokenMapTest: boolean = false;
+  private isDecorationsTest: boolean = false;
   private disposables: vscode.Disposable[] = [];
   private isSilent?: boolean;
   private startTimestamp?: bigint;
@@ -145,7 +149,6 @@ export class TestCaseRecorder {
           const snapshot = await takeSnapshot(
             undefined,
             undefined,
-            [],
             ["clipboard"],
             this.active ? this.extraSnapshotFields : undefined,
             marks,
@@ -166,6 +169,7 @@ export class TestCaseRecorder {
   async start(arg?: RecordTestCaseCommandArg) {
     const {
       isHatTokenMapTest = false,
+      isDecorationsTest = false,
       directory,
       isSilent = false,
       extraSnapshotFields = [],
@@ -187,6 +191,7 @@ export class TestCaseRecorder {
       this.startTimestamp = process.hrtime.bigint();
       const timestampISO = new Date().toISOString();
       this.isHatTokenMapTest = isHatTokenMapTest;
+      this.isDecorationsTest = isDecorationsTest;
       this.isSilent = isSilent;
       this.extraSnapshotFields = extraSnapshotFields;
       this.paused = false;
@@ -237,6 +242,7 @@ export class TestCaseRecorder {
         command,
         context,
         this.isHatTokenMapTest,
+        this.isDecorationsTest,
         this.startTimestamp!,
         this.extraSnapshotFields
       );
@@ -259,6 +265,8 @@ export class TestCaseRecorder {
       // which marks we wanted to track
       return;
     }
+
+    this.testCase.recordDecorations();
 
     await this.finishTestCase();
   }

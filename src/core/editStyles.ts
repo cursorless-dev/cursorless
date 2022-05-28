@@ -220,7 +220,7 @@ function decorationSleep() {
     return;
   }
 
-  sleep(getPendingEditDecorationTime());
+  return sleep(getPendingEditDecorationTime());
 }
 
 const getPendingEditDecorationTime = () =>
