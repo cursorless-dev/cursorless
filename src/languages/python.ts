@@ -97,10 +97,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     ),
     patternMatcher("return_statement.~return!")
   ),
-  argumentOrParameter: cascadingMatcher(
-    argumentMatcher("parameters", "argument_list"),
-    matcher(patternFinder("call.generator_expression!"), childRangeSelector())
-  ),
+  argumentOrParameter: argumentMatcher("parameters", "argument_list"),
+  callee: "call.identifier!"
 };
 
 export default createPatternMatchers(nodeMatchers);
