@@ -106,8 +106,6 @@ export default class CommandRunner {
         getNodeAtLocation: this.graph.getNodeAtLocation,
       };
 
-      const selections = processTargets(processedTargetsContext, targets);
-
       if (this.graph.testCaseRecorder.isActive()) {
         const context = {
           targets,
@@ -121,6 +119,8 @@ export default class CommandRunner {
           context
         );
       }
+
+      const selections = processTargets(processedTargetsContext, targets);
 
       const {
         returnValue,
@@ -137,6 +137,9 @@ export default class CommandRunner {
 
       return returnValue;
     } catch (e) {
+      if (this.graph.testCaseRecorder.captureErrors()) {
+        await this.graph.testCaseRecorder.postCommandHook(e);
+      }
       this.graph.testCaseRecorder.commandErrorHook();
       const err = e as Error;
       if ((err as Error).name === "ActionableError") {

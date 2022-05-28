@@ -62,6 +62,7 @@ export class TestCaseRecorder {
   private startTimestamp?: bigint;
   private extraSnapshotFields?: ExtraSnapshotField[];
   private paused: boolean = false;
+  private captureErrorTests: boolean = false;
   private calibrationStyle = vscode.window.createTextEditorDecorationType({
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
@@ -153,12 +154,29 @@ export class TestCaseRecorder {
 
           await this.writeToFile(outPath, serialize(snapshot));
         }
+      ),
+
+      vscode.commands.registerCommand(
+        "cursorless.captureErrorTests",
+        async () => {
+          if (!this.active) {
+            throw Error(
+              "Asked to record error tests, but no recording active."
+            );
+          }
+
+          this.captureErrorTests = true;
+        }
       )
     );
   }
 
   isActive() {
     return this.active && !this.paused;
+  }
+
+  captureErrors() {
+    return this.isActive() && this.captureErrorTests;
   }
 
   async start(arg?: RecordTestCaseCommandArg) {
@@ -243,15 +261,14 @@ export class TestCaseRecorder {
   }
 
   async postCommandHook(returnValue: any) {
-    if (this.testCase == null) {
+    if (this.testCase == null && !this.captureErrorTests) {
       // If test case is null then this means that this was just a follow up
       // command for a navigation map test
       return;
     }
+    await this.testCase!.recordFinalState(returnValue);
 
-    await this.testCase.recordFinalState(returnValue);
-
-    if (this.testCase.awaitingFinalMarkInfo) {
+    if (this.testCase!.awaitingFinalMarkInfo) {
       // We don't finish the test case here in the case of a navigation map
       // test because we'll do it after we get the follow up command indicating
       // which marks we wanted to track
@@ -263,7 +280,7 @@ export class TestCaseRecorder {
 
   async finishTestCase(): Promise<void> {
     const outPath = this.calculateFilePath(this.testCase!);
-    const fixture = this.testCase!.toYaml();
+    const fixture = this.testCase!.toYaml(this.captureErrorTests);
     await this.writeToFile(outPath, fixture);
 
     if (!this.isSilent) {

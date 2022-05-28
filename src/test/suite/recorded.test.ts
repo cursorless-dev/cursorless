@@ -105,18 +105,25 @@ async function runTest(file: string) {
 
   // Assert that recorded decorations are present
   checkMarks(fixture.initialState.marks, readableHatMap);
-
+  if (fixture.errorReturned) {
+    return assert.rejects(async () => {
+      await vscode.commands.executeCommand(
+        "cursorless.command",
+        fixture.command
+      );
+    });
+  }
   const returnValue = await vscode.commands.executeCommand(
     "cursorless.command",
     fixture.command
   );
 
   const marks =
-    fixture.finalState.marks == null
+    fixture.finalState!.marks == null
       ? undefined
       : marksToPlainObject(
           extractTargetedMarks(
-            Object.keys(fixture.finalState.marks) as string[],
+            Object.keys(fixture.finalState!.marks) as string[],
             readableHatMap
           )
         );

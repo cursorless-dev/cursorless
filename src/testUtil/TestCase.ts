@@ -36,10 +36,11 @@ export type TestCaseFixture = {
   marksToCheck?: string[];
 
   initialState: TestCaseSnapshot;
-  finalState: TestCaseSnapshot;
+  finalState: TestCaseSnapshot | null;
   returnValue: unknown;
   /** Inferred full targets added for context; not currently used in testing */
   fullTargets: Target[];
+  errorReturned: boolean;
 };
 
 export class TestCase {
@@ -47,6 +48,7 @@ export class TestCase {
   fullTargets: Target[];
   initialState: TestCaseSnapshot | null = null;
   finalState: TestCaseSnapshot | null = null;
+  errorState: Error | null = null;
   returnValue: unknown = null;
   targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
@@ -131,9 +133,13 @@ export class TestCase {
     );
   }
 
-  toYaml() {
-    if (this.initialState == null || this.finalState == null) {
+  toYaml(captureErrors: boolean) {
+    if (
+      this.initialState == null ||
+      (this.finalState == null && !captureErrors)
+    ) {
       throw Error("Two snapshots must be taken before serializing");
+    } else {
     }
     const fixture: TestCaseFixture = {
       languageId: this.languageId,
@@ -143,6 +149,7 @@ export class TestCase {
       finalState: this.finalState,
       returnValue: this.returnValue,
       fullTargets: this.fullTargets,
+      errorReturned: !!this.errorState,
     };
     return serialize(fixture);
   }
@@ -160,6 +167,11 @@ export class TestCase {
   }
 
   async recordFinalState(returnValue: unknown) {
+    if (returnValue instanceof Error) {
+      this.errorState = returnValue;
+      return;
+    }
+
     const excludeFields = this.getExcludedFields();
     this.returnValue = returnValue;
     this.finalState = await takeSnapshot(
