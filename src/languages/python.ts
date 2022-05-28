@@ -98,7 +98,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     patternMatcher("return_statement.~return!")
   ),
   argumentOrParameter: argumentMatcher("parameters", "argument_list"),
-  callee: "call.identifier!"
+  callee: "call.identifier!",
 };
 
 export default createPatternMatchers(nodeMatchers);
