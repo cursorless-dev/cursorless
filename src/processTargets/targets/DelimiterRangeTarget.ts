@@ -1,12 +1,7 @@
 import { Range } from "vscode";
-import { Target, TargetType } from "../../typings/target.types";
-import { createContinuousRange } from "../targetUtil/createContinuousRange";
+import { TargetType } from "../../typings/target.types";
 import { addLineDelimiterRanges } from "../targetUtil/getLineDelimiters";
-import BaseTarget, {
-  CloneWithParameters,
-  CommonTargetParameters,
-} from "./BaseTarget";
-import { createContinuousRangeWeakTarget } from "./WeakTarget";
+import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
 interface DelimiterRangeTargetParameters extends CommonTargetParameters {
   readonly isLine: boolean;
@@ -44,41 +39,6 @@ export default class DelimiterRangeTarget extends BaseTarget {
 
   getRemovalHighlightRange(): Range {
     return this.contentRange;
-  }
-
-  cloneWith(parameters: CloneWithParameters) {
-    return new DelimiterRangeTarget({
-      ...this.getCloneParameters(),
-      ...parameters,
-    });
-  }
-
-  createContinuousRangeTarget(
-    isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean
-  ): Target {
-    if (this.isSameType(endTarget)) {
-      return new DelimiterRangeTarget({
-        ...this.getCloneParameters(),
-        isReversed,
-        contentRange: createContinuousRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd
-        ),
-      });
-    }
-
-    return createContinuousRangeWeakTarget(
-      isReversed,
-      this,
-      endTarget,
-      includeStart,
-      includeEnd
-    );
   }
 
   protected getCloneParameters() {

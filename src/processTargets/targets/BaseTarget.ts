@@ -7,7 +7,9 @@ import {
 } from "../../typings/target.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
+import { createContinuousRange } from "../targetUtil/createContinuousRange";
 import { getTokenDelimiters } from "../targetUtil/getTokenDelimiters";
+import { createContinuousRangeWeakTarget } from "./WeakTarget";
 
 /** Parameters supported by all target classes */
 export interface CommonTargetParameters {
@@ -144,15 +146,46 @@ export default abstract class BaseTarget implements Target {
     throw Error("No available boundaries");
   }
 
-  abstract cloneWith(parameters: CloneWithParameters): Target;
-  protected abstract getCloneParameters(): unknown;
+  readonly cloneWith = (parameters: CloneWithParameters) => {
+    const constructor = Object.getPrototypeOf(this).constructor;
 
-  abstract createContinuousRangeTarget(
+    return new constructor({
+      ...this.getCloneParameters(),
+      ...parameters,
+    });
+  };
+
+  protected abstract getCloneParameters(): object;
+
+  createContinuousRangeTarget(
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
     includeEnd: boolean
-  ): Target;
+  ): Target {
+    if (this.isSameType(endTarget)) {
+      const constructor = Object.getPrototypeOf(this).constructor;
+
+      return new constructor({
+        ...this.getCloneParameters(),
+        isReversed,
+        contentRange: createContinuousRange(
+          this,
+          endTarget,
+          includeStart,
+          includeEnd
+        ),
+      });
+    }
+
+    return createContinuousRangeWeakTarget(
+      isReversed,
+      this,
+      endTarget,
+      includeStart,
+      includeEnd
+    );
+  }
 
   protected isSameType(target: Target) {
     return this.type === target.type;

@@ -8,10 +8,7 @@ import {
   createContinuousRange,
   createContinuousRangeFromRanges,
 } from "../targetUtil/createContinuousRange";
-import BaseTarget, {
-  CloneWithParameters,
-  CommonTargetParameters,
-} from "./BaseTarget";
+import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import { createContinuousRangeWeakTarget } from "./WeakTarget";
 
 export interface ScopeTypeTargetParameters extends CommonTargetParameters {
@@ -64,13 +61,6 @@ export default class ScopeTypeTarget extends BaseTarget {
       return this.trailingDelimiterRange_;
     }
     return super.getTrailingDelimiterRange();
-  }
-
-  cloneWith(parameters: CloneWithParameters) {
-    return new ScopeTypeTarget({
-      ...this.getCloneParameters(),
-      ...parameters,
-    });
   }
 
   createContinuousRangeTarget(

@@ -2,10 +2,7 @@ import { Position, Range, TextDocument, TextEditor, TextLine } from "vscode";
 import { Target, TargetType } from "../../typings/target.types";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
 import { addLineDelimiterRanges } from "../targetUtil/getLineDelimiters";
-import BaseTarget, {
-  CloneWithParameters,
-  CommonTargetParameters,
-} from "./BaseTarget";
+import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import LineTarget from "./LineTarget";
 import { createContinuousRangeWeakTarget } from "./WeakTarget";
 
@@ -74,13 +71,6 @@ export default class ParagraphTarget extends BaseTarget {
     return delimiterRange != null
       ? this.contentRemovalRange.union(delimiterRange)
       : this.contentRemovalRange;
-  }
-
-  cloneWith(parameters: CloneWithParameters) {
-    return new ParagraphTarget({
-      ...this.getCloneParameters(),
-      ...parameters,
-    });
   }
 
   createContinuousRangeTarget(

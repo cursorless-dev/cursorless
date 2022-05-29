@@ -5,10 +5,7 @@ import {
   getLineLeadingDelimiterRange,
   getLineTrailingDelimiterRange,
 } from "../targetUtil/getLineDelimiters";
-import BaseTarget, {
-  CloneWithParameters,
-  CommonTargetParameters,
-} from "./BaseTarget";
+import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import { createContinuousRangeWeakTarget } from "./WeakTarget";
 
 export default class LineTarget extends BaseTarget {
@@ -43,13 +40,6 @@ export default class LineTarget extends BaseTarget {
 
   getRemovalHighlightRange() {
     return this.contentRange;
-  }
-
-  cloneWith(parameters: CloneWithParameters) {
-    return new LineTarget({
-      ...this.getCloneParameters(),
-      ...parameters,
-    });
   }
 
   createContinuousRangeTarget(

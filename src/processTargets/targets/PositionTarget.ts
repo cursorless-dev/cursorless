@@ -1,12 +1,8 @@
-import { Position as VS_Position, Range, TextEditor } from "vscode";
-import { Position, Target, TargetType } from "../../typings/target.types";
+import { Range, TextEditor } from "vscode";
+import * as vscode from "vscode";
+import { Position, TargetType } from "../../typings/target.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
-import { createContinuousRange } from "../targetUtil/createContinuousRange";
-import BaseTarget, {
-  CloneWithParameters,
-  CommonTargetParameters,
-} from "./BaseTarget";
-import { createContinuousRangeWeakTarget } from "./WeakTarget";
+import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
 interface PositionTargetParameters extends CommonTargetParameters {
   readonly position: Position;
@@ -95,41 +91,6 @@ export default class PositionTarget extends BaseTarget {
     return this.constructReplaceEdit(text);
   }
 
-  cloneWith(parameters: CloneWithParameters) {
-    return new PositionTarget({
-      ...this.getCloneParameters(),
-      ...parameters,
-    });
-  }
-
-  createContinuousRangeTarget(
-    isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean
-  ): Target {
-    if (this.isSameType(endTarget)) {
-      return new PositionTarget({
-        ...this.getCloneParameters(),
-        isReversed,
-        contentRange: createContinuousRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd
-        ),
-      });
-    }
-
-    return createContinuousRangeWeakTarget(
-      isReversed,
-      this,
-      endTarget,
-      includeStart,
-      includeEnd
-    );
-  }
-
   protected getCloneParameters() {
     return {
       ...this.state,
@@ -153,13 +114,13 @@ function getEditRange(
   isLine: boolean,
   isBefore: boolean
 ) {
-  let position: VS_Position;
+  let position: vscode.Position;
   if (isLine) {
     const line = editor.document.lineAt(isBefore ? range.start : range.end);
     if (isBefore) {
       position = line.isEmptyOrWhitespace
         ? range.start
-        : new VS_Position(
+        : new vscode.Position(
             line.lineNumber,
             line.firstNonWhitespaceCharacterIndex
           );

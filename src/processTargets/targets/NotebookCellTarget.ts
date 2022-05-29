@@ -1,12 +1,7 @@
 import { TextEditor } from "vscode";
-import { EditNewContext, Target, TargetType } from "../../typings/target.types";
+import { EditNewContext, TargetType } from "../../typings/target.types";
 import { getNotebookFromCellDocument } from "../../util/notebook";
-import { createContinuousRange } from "../targetUtil/createContinuousRange";
-import BaseTarget, {
-  CloneWithParameters,
-  CommonTargetParameters,
-} from "./BaseTarget";
-import { createContinuousRangeWeakTarget } from "./WeakTarget";
+import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
 export default class NotebookCellTarget extends BaseTarget {
   constructor(parameters: CommonTargetParameters) {
@@ -41,41 +36,6 @@ export default class NotebookCellTarget extends BaseTarget {
       dontUpdateSelection: true,
       command: isBefore ? "jupyter.insertCellAbove" : "jupyter.insertCellBelow",
     };
-  }
-
-  cloneWith(parameters: CloneWithParameters) {
-    return new NotebookCellTarget({
-      ...this.getCloneParameters(),
-      ...parameters,
-    });
-  }
-
-  createContinuousRangeTarget(
-    isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean
-  ): Target {
-    if (this.isSameType(endTarget)) {
-      return new NotebookCellTarget({
-        ...this.getCloneParameters(),
-        isReversed,
-        contentRange: createContinuousRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd
-        ),
-      });
-    }
-
-    return createContinuousRangeWeakTarget(
-      isReversed,
-      this,
-      endTarget,
-      includeStart,
-      includeEnd
-    );
   }
 
   protected getCloneParameters() {
