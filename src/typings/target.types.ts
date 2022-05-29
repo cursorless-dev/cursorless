@@ -278,23 +278,7 @@ export interface EditNewDelimiterContext {
 
 export type EditNewContext = EditNewCommandContext | EditNewDelimiterContext;
 
-export type TargetType =
-  | "delimiterRange"
-  | "document"
-  | "line"
-  | "notebookCell"
-  | "paragraph"
-  | "position"
-  | "rawSelection"
-  | "scopeType"
-  | "surroundingPair"
-  | "token"
-  | "weak";
-
 export interface Target {
-  /** The type of this target */
-  readonly type: TargetType;
-
   /** The text editor used for all ranges */
   readonly editor: TextEditor;
 
@@ -322,14 +306,12 @@ export interface Target {
   /** Internal target that should be used for the that mark */
   readonly thatTarget: Target;
 
-  /** Returns true if this target is of the given type */
-  is(type: TargetType): boolean;
   getInteriorStrict(): Target[];
   getBoundaryStrict(): Target[];
   /** The range of the delimiter before the content selection */
-  getLeadingDelimiterRange(force?: boolean): Range | undefined;
+  getLeadingDelimiterTarget(force?: boolean): Range | undefined;
   /** The range of the delimiter after the content selection */
-  getTrailingDelimiterRange(force?: boolean): Range | undefined;
+  getTrailingDelimiterTarget(force?: boolean): Range | undefined;
   getRemovalRange(): Range;
   getRemovalHighlightRange(): Range | undefined;
   getEditNewContext(isBefore: boolean): EditNewContext;

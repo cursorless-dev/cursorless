@@ -2,11 +2,12 @@ import { Range } from "vscode";
 import {
   SimpleScopeTypeType,
   Target,
-  TargetType,
+  TargetType
 } from "../../typings/target.types";
+import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRange,
-  createContinuousRangeFromRanges,
+  createContinuousRangeFromRanges
 } from "../targetUtil/createContinuousRange";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import { createContinuousRangeWeakTarget } from "./WeakTarget";
@@ -49,18 +50,18 @@ export default class ScopeTypeTarget extends BaseTarget {
     return this.contentRemovalRange_ ?? this.contentRange;
   }
 
-  getLeadingDelimiterRange() {
+  getLeadingDelimiterTarget() {
     if (this.hasDelimiterRange_) {
       return this.leadingDelimiterRange_;
     }
-    return super.getLeadingDelimiterRange();
+    return super.getLeadingDelimiterTarget();
   }
 
-  getTrailingDelimiterRange() {
+  getTrailingDelimiterTarget() {
     if (this.hasDelimiterRange_) {
       return this.trailingDelimiterRange_;
     }
-    return super.getTrailingDelimiterRange();
+    return super.getTrailingDelimiterTarget();
   }
 
   createContinuousRangeTarget(
@@ -69,7 +70,7 @@ export default class ScopeTypeTarget extends BaseTarget {
     includeStart: boolean,
     includeEnd: boolean
   ): Target {
-    if (this.isSameType(endTarget)) {
+    if (isSameType(this, endTarget)) {
       const scopeTarget = <ScopeTypeTarget>endTarget;
       if (this.scopeTypeType_ === scopeTarget.scopeTypeType_) {
         const contentRemovalRange =

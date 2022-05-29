@@ -12,10 +12,10 @@ export default class RawSelectionTarget extends BaseTarget {
   get delimiter() {
     return undefined;
   }
-  getLeadingDelimiterRange() {
+  getLeadingDelimiterTarget() {
     return undefined;
   }
-  getTrailingDelimiterRange() {
+  getTrailingDelimiterTarget() {
     return undefined;
   }
 

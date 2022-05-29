@@ -24,10 +24,10 @@ export default class DelimiterRangeTarget extends BaseTarget {
   get isLine() {
     return this.isLine_;
   }
-  getLeadingDelimiterRange() {
+  getLeadingDelimiterTarget() {
     return undefined;
   }
-  getTrailingDelimiterRange() {
+  getTrailingDelimiterTarget() {
     return undefined;
   }
 

@@ -1,12 +1,8 @@
 import { Range, Selection, TextEditor } from "vscode";
-import {
-  EditNewContext,
-  Position,
-  Target,
-  TargetType,
-} from "../../typings/target.types";
+import { EditNewContext, Position, Target } from "../../typings/target.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
+import { isSameType } from "../../util/typeUtils";
 import { createContinuousRange } from "../targetUtil/createContinuousRange";
 import { getTokenDelimiters } from "../targetUtil/getTokenDelimiters";
 import { createContinuousRangeWeakTarget } from "./WeakTarget";
@@ -36,7 +32,6 @@ export default abstract class BaseTarget implements Target {
     };
   }
 
-  abstract get type(): TargetType;
   abstract get delimiter(): string | undefined;
   get editor() {
     return this.state.editor;
@@ -72,11 +67,7 @@ export default abstract class BaseTarget implements Target {
     return this.state.contentRange;
   }
 
-  is(type: TargetType): boolean {
-    return this.type === type;
-  }
-
-  getLeadingDelimiterRange(force?: boolean) {
+  getLeadingDelimiterTarget() {
     const { includeDelimitersInRemoval, leadingDelimiterRange } =
       getTokenDelimiters(this.state.editor, this.state.contentRange);
     return includeDelimitersInRemoval || force
@@ -84,7 +75,7 @@ export default abstract class BaseTarget implements Target {
       : undefined;
   }
 
-  getTrailingDelimiterRange(force?: boolean) {
+  getTrailingDelimiterTarget() {
     const { includeDelimitersInRemoval, trailingDelimiterRange } =
       getTokenDelimiters(this.state.editor, this.state.contentRange);
     return includeDelimitersInRemoval || force
@@ -121,7 +112,7 @@ export default abstract class BaseTarget implements Target {
 
   getRemovalRange(): Range {
     const delimiterRange =
-      this.getTrailingDelimiterRange() ?? this.getLeadingDelimiterRange();
+      this.getTrailingDelimiterTarget() ?? this.getLeadingDelimiterTarget();
     return delimiterRange != null
       ? this.contentRemovalRange.union(delimiterRange)
       : this.contentRemovalRange;
@@ -163,7 +154,7 @@ export default abstract class BaseTarget implements Target {
     includeStart: boolean,
     includeEnd: boolean
   ): Target {
-    if (this.isSameType(endTarget)) {
+    if (isSameType(this, endTarget)) {
       const constructor = Object.getPrototypeOf(this).constructor;
 
       return new constructor({
@@ -185,9 +176,5 @@ export default abstract class BaseTarget implements Target {
       includeStart,
       includeEnd
     );
-  }
-
-  protected isSameType(target: Target) {
-    return this.type === target.type;
   }
 }

@@ -19,10 +19,10 @@ export default class DocumentTarget extends BaseTarget {
     return true;
   }
 
-  getLeadingDelimiterRange() {
+  getLeadingDelimiterTarget() {
     return undefined;
   }
-  getTrailingDelimiterRange() {
+  getTrailingDelimiterTarget() {
     return undefined;
   }
 

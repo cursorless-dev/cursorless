@@ -12,7 +12,7 @@ export default class DelimiterRangeStage implements ModifierStage {
 
     switch (this.modifier.direction) {
       case "leading":
-        const leading = target.getLeadingDelimiterRange(true);
+        const leading = target.getLeadingDelimiterTarget(true);
         if (leading == null) {
           throw Error("No available leading range");
         }
@@ -20,7 +20,7 @@ export default class DelimiterRangeStage implements ModifierStage {
         break;
 
       case "trailing":
-        const trailing = target.getTrailingDelimiterRange(true);
+        const trailing = target.getTrailingDelimiterTarget(true);
         if (trailing == null) {
           throw Error("No available trailing range");
         }

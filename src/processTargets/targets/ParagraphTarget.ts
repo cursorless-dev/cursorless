@@ -1,5 +1,6 @@
 import { Position, Range, TextDocument, TextEditor, TextLine } from "vscode";
 import { Target, TargetType } from "../../typings/target.types";
+import { isSameType } from "../../util/typeUtils";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
 import { addLineDelimiterRanges } from "../targetUtil/getLineDelimiters";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
@@ -28,10 +29,10 @@ export default class ParagraphTarget extends BaseTarget {
     );
   }
 
-  getLeadingDelimiterRange() {
+  getLeadingDelimiterTarget() {
     return getLeadingDelimiter(this.editor, this.contentRange);
   }
-  getTrailingDelimiterRange() {
+  getTrailingDelimiterTarget() {
     return getTrailingDelimiter(this.editor, this.contentRange);
   }
 
@@ -44,8 +45,8 @@ export default class ParagraphTarget extends BaseTarget {
 
   getRemovalRange() {
     const delimiterRange = (() => {
-      const leadingDelimiterRange = this.getLeadingDelimiterRange();
-      let trailingDelimiterRange = this.getTrailingDelimiterRange();
+      const leadingDelimiterRange = this.getLeadingDelimiterTarget();
+      let trailingDelimiterRange = this.getTrailingDelimiterTarget();
       if (trailingDelimiterRange != null) {
         return trailingDelimiterRange;
       }
@@ -79,7 +80,7 @@ export default class ParagraphTarget extends BaseTarget {
     includeStart: boolean,
     includeEnd: boolean
   ): Target {
-    if (this.isSameType(endTarget)) {
+    if (isSameType(this, endTarget)) {
       return new ParagraphTarget({
         ...this.getCloneParameters(),
         isReversed,
@@ -92,7 +93,7 @@ export default class ParagraphTarget extends BaseTarget {
       });
     }
 
-    if (endTarget.is("line")) {
+    if (endTarget.isLine) {
       return new LineTarget({
         editor: this.editor,
         isReversed,

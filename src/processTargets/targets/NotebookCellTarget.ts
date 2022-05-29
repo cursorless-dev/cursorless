@@ -14,10 +14,10 @@ export default class NotebookCellTarget extends BaseTarget {
   get delimiter() {
     return "\n";
   }
-  getLeadingDelimiterRange() {
+  getLeadingDelimiterTarget() {
     return undefined;
   }
-  getTrailingDelimiterRange() {
+  getTrailingDelimiterTarget() {
     return undefined;
   }
 

@@ -29,10 +29,10 @@ export default class PositionTarget extends BaseTarget {
     return this.position_;
   }
 
-  getLeadingDelimiterRange() {
+  getLeadingDelimiterTarget() {
     return undefined;
   }
-  getTrailingDelimiterRange() {
+  getTrailingDelimiterTarget() {
     return undefined;
   }
 
