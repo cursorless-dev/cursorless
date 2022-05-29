@@ -8,11 +8,7 @@ import { Target } from "../typings/target.types";
 import { EditWithRangeUpdater, Graph } from "../typings/Types";
 import { selectionFromRange } from "../util/selectionUtils";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
-import {
-  getContentRange,
-  getRemovalRange,
-  runForEachEditor,
-} from "../util/targetUtils";
+import { getContentRange, runForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -279,4 +275,8 @@ export class Swap extends BringMoveSwap {
   constructor(graph: Graph) {
     super(graph, "swap");
   }
+}
+
+function getRemovalRange(target: Target) {
+  return target.getRemovalRange();
 }

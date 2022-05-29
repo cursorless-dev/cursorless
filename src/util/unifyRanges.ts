@@ -36,11 +36,7 @@ function unifyRangesOnePass(ranges: Range[]): [Range[], boolean] {
   return [result, madeChanges];
 }
 
-/**
- * Unifies overlapping/intersecting targets
- * FIXME This code probably needs to update once we have objected oriented targets
- * https://github.com/cursorless-dev/cursorless/issues/210
- */
+/** Unifies overlapping/intersecting targets */
 export function unifyRemovalTargets(targets: Target[]): Target[] {
   if (targets.length < 2) {
     return targets;

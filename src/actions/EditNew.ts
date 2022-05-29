@@ -1,13 +1,22 @@
 import { zip } from "lodash";
-import { commands, Range, TextEditor } from "vscode";
-import { callFunctionAndUpdateRanges } from "../core/updateSelections/updateSelections";
+import {
+  commands,
+  DecorationRangeBehavior,
+  Range,
+  Selection,
+  TextEditor,
+} from "vscode";
+import {
+  callFunctionAndUpdateRanges,
+  performEditsAndUpdateSelectionsWithBehavior,
+} from "../core/updateSelections/updateSelections";
 import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
+import { toPositionTarget } from "../processTargets/modifiers/PositionStage";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { selectionFromRange } from "../util/selectionUtils";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
-import { insertTextAfter, insertTextBefore } from "../util/textInsertion";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class EditNew implements Action {
@@ -24,7 +33,7 @@ class EditNew implements Action {
       const context = target.getEditNewContext(this.isBefore);
       const common = {
         target,
-        targetRange: target.thatTarget.contentRange,
+        // targetRange: target.thatTarget.contentRange,
         cursorRange: target.contentRange,
       };
       switch (context.type) {
@@ -67,10 +76,8 @@ class EditNew implements Action {
       await setSelectionsAndFocusEditor(editor, newSelections);
     }
 
-    const targetRanges = richTargets.map((target) => target.targetRange);
-
     return {
-      thatMark: createThatMark(targets, targetRanges),
+      thatMark: createThatMark(richTargets.map(({ target }) => target)),
     };
   }
 
@@ -79,20 +86,40 @@ class EditNew implements Action {
     commandTargets: CommandTarget[],
     delimiterTargets: DelimiterTarget[]
   ) {
-    const textInsertions = delimiterTargets.map((target) => {
-      return {
-        range: target.targetRange,
-        delimiter: target.delimiter,
-        text: "",
-      };
-    });
+    const position = this.isBefore ? "before" : "after";
+    const edits = delimiterTargets.flatMap((target) =>
+      toPositionTarget(target.target, position).constructChangeEdit("")
+    );
 
-    const { updatedEditorSelections, updatedContentRanges, insertionRanges } =
-      this.isBefore
-        ? await insertTextBefore(this.graph, editor, textInsertions)
-        : await insertTextAfter(this.graph, editor, textInsertions);
+    const cursorSelections = { selections: editor.selections };
+    const contentSelections = {
+      selections: delimiterTargets.map(
+        ({ target }) => target.thatTarget.contentSelection
+      ),
+    };
+    const editSelections = {
+      selections: edits.map(
+        ({ range }) => new Selection(range.start, range.end)
+      ),
+      rangeBehavior: DecorationRangeBehavior.OpenOpen,
+    };
 
-    updateTargets(delimiterTargets, updatedContentRanges, insertionRanges);
+    const [
+      updatedEditorSelections,
+      updatedContentSelections,
+      updatedEditSelections,
+    ]: Selection[][] = await performEditsAndUpdateSelectionsWithBehavior(
+      this.graph.rangeUpdater,
+      editor,
+      edits,
+      [cursorSelections, contentSelections, editSelections]
+    );
+
+    const insertionRanges = zip(edits, updatedEditSelections).map(
+      ([edit, selection]) => edit!.updateRange(selection!)
+    );
+
+    updateTargets(delimiterTargets, updatedContentSelections, insertionRanges);
     updateCommandTargets(commandTargets, updatedEditorSelections);
   }
 
@@ -119,7 +146,7 @@ class EditNew implements Action {
         () => commands.executeCommand(command),
         editor.document,
         [
-          targets.map(({ targetRange }) => targetRange),
+          targets.map(({ target }) => target.contentRange),
           targets.map(({ cursorRange }) => cursorRange),
         ]
       );
@@ -143,7 +170,6 @@ export class EditNewAfter extends EditNew {
 
 interface CommonTarget {
   target: Target;
-  targetRange: Range;
   cursorRange: Range;
   updateSelection: boolean;
 }
@@ -181,7 +207,7 @@ function updateTargets(
 ) {
   zip(targets, updatedTargetRanges, updatedCursorRanges).forEach(
     ([target, updatedTargetRange, updatedCursorRange]) => {
-      target!.targetRange = updatedTargetRange!;
+      target!.target = target!.target.withContentRange(updatedTargetRange!);
       target!.cursorRange = updatedCursorRange!;
     }
   );

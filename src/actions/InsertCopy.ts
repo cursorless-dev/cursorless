@@ -1,11 +1,12 @@
-import { flatten } from "lodash";
-import { TextEditor } from "vscode";
+import { flatten, zip } from "lodash";
+import { DecorationRangeBehavior, Selection, TextEditor } from "vscode";
+import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
 import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
+import { toPositionTarget } from "../processTargets/modifiers/PositionStage";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
-import { insertTextAfter, insertTextBefore } from "../util/textInsertion";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class InsertCopy implements Action {
@@ -39,26 +40,44 @@ class InsertCopy implements Action {
   }
 
   private async runForEditor(editor: TextEditor, targets: Target[]) {
-    const textInsertions = targets.map((target) => {
-      return {
-        range: target.contentRange,
-        text: target.contentText,
-        delimiter: target.delimiter ?? "",
-      };
-    });
+    // isBefore is inverted because we want the selections to stay with what is to the user the "copy"
+    const position = this.isBefore ? "after" : "before";
+    const edits = targets.flatMap((target) =>
+      toPositionTarget(target, position).constructChangeEdit(target.contentText)
+    );
 
-    const { updatedEditorSelections, updatedContentRanges, insertionRanges } =
-      // isBefore is inverted because we want the selections to stay with what is to the user the "copy"
-      this.isBefore
-        ? await insertTextAfter(this.graph, editor, textInsertions)
-        : await insertTextBefore(this.graph, editor, textInsertions);
+    const cursorSelections = { selections: editor.selections };
+    const contentSelections = {
+      selections: targets.map(({ contentSelection }) => contentSelection),
+    };
+    const editSelections = {
+      selections: edits.map(
+        ({ range }) => new Selection(range.start, range.end)
+      ),
+      rangeBehavior: DecorationRangeBehavior.OpenOpen,
+    };
+
+    const [
+      updatedEditorSelections,
+      updatedContentSelections,
+      updatedEditSelections,
+    ]: Selection[][] = await performEditsAndUpdateSelectionsWithBehavior(
+      this.graph.rangeUpdater,
+      editor,
+      edits,
+      [cursorSelections, contentSelections, editSelections]
+    );
+
+    const insertionRanges = zip(edits, updatedEditSelections).map(
+      ([edit, selection]) => edit!.updateRange(selection!)
+    );
 
     setSelectionsWithoutFocusingEditor(editor, updatedEditorSelections);
     editor.revealRange(editor.selection);
 
     return {
       sourceMark: createThatMark(targets, insertionRanges),
-      thatMark: createThatMark(targets, updatedContentRanges),
+      thatMark: createThatMark(targets, updatedContentSelections),
     };
   }
 }

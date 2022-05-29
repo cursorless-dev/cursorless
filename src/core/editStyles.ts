@@ -88,10 +88,9 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
   async displayPendingEditDecorations(
     targets: Target[],
     style: EditStyle,
-    getRange: (target: Target) => Range | undefined = getContentRange,
-    contentOnly: boolean = false
+    getRange: (target: Target) => Range | undefined = getContentRange
   ) {
-    await this.setDecorations(targets, style, getRange, contentOnly);
+    await this.setDecorations(targets, style, getRange);
 
     await decorationSleep();
 
@@ -142,40 +141,30 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
     );
   }
 
-  async setDecorations(
+  setDecorations(
     targets: Target[],
     style: EditStyle,
-    getRange: (target: Target) => Range | undefined = getContentRange,
-    contentOnly: boolean = false
+    getRange: (target: Target) => Range | undefined = getContentRange
   ) {
-    await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-      if (contentOnly) {
-        this.setEditorDecorations(
-          editor,
-          style,
-          true,
-          targets.map(getRange).filter((range): range is Range => !!range)
-        );
-      } else {
-        this.setEditorDecorations(
-          editor,
-          style,
-          true,
-          targets
-            .filter((target) => !target.isLine)
-            .map(getRange)
-            .filter((range): range is Range => !!range)
-        );
-        this.setEditorDecorations(
-          editor,
-          style,
-          false,
-          targets
-            .filter((target) => target.isLine)
-            .map(getRange)
-            .filter((range): range is Range => !!range)
-        );
-      }
+    return runOnTargetsForEachEditor(targets, async (editor, targets) => {
+      this.setEditorDecorations(
+        editor,
+        style,
+        true,
+        targets
+          .filter((target) => !target.isLine)
+          .map(getRange)
+          .filter((range): range is Range => !!range)
+      );
+      this.setEditorDecorations(
+        editor,
+        style,
+        false,
+        targets
+          .filter((target) => target.isLine)
+          .map(getRange)
+          .filter((range): range is Range => !!range)
+      );
     });
   }
 

@@ -15,6 +15,11 @@ import { performDocumentEdits } from "../../util/performDocumentEdits";
 import { isForward } from "../../util/selectionUtils";
 import { RangeUpdater } from "./RangeUpdater";
 
+interface SelectionsWithBehavior {
+  selections: readonly Selection[];
+  rangeBehavior?: DecorationRangeBehavior;
+}
+
 /**
  * Given a selection, this function creates a `SelectionInfo` object that can
  * be passed in to any of the commands that update selections.
@@ -230,6 +235,39 @@ export async function performEditsAndUpdateSelections(
   );
 }
 
+/**
+ * Performs a list of edits and returns the given selections updated based on
+ * the applied edits
+ * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
+ * @param editor The editor containing the selections
+ * @param edits A list of edits to apply
+ * @param originalSelections The selections to update
+ * @param rangeBehavior How selections should behave with respect to insertions on either end
+ * @returns The updated selections
+ */
+export function performEditsAndUpdateSelectionsWithBehavior(
+  rangeUpdater: RangeUpdater,
+  editor: TextEditor,
+  edits: Edit[],
+  originalSelections: SelectionsWithBehavior[]
+) {
+  return performEditsAndUpdateFullSelectionInfos(
+    rangeUpdater,
+    editor,
+    edits,
+    originalSelections.map((selectionsWithBehavior) =>
+      selectionsWithBehavior.selections.map((selection) =>
+        getSelectionInfo(
+          editor.document,
+          selection,
+          selectionsWithBehavior.rangeBehavior ??
+            DecorationRangeBehavior.ClosedClosed
+        )
+      )
+    )
+  );
+}
+
 export async function performEditsAndUpdateRanges(
   rangeUpdater: RangeUpdater,
   editor: TextEditor,
@@ -267,7 +305,7 @@ export async function performEditsAndUpdateSelectionInfos(
   editor: TextEditor,
   edits: Edit[],
   originalSelectionInfos: SelectionInfo[][]
-) {
+): Promise<Selection[][]> {
   fillOutSelectionInfos(editor.document, originalSelectionInfos);
 
   return await performEditsAndUpdateFullSelectionInfos(
@@ -292,7 +330,7 @@ export async function performEditsAndUpdateFullSelectionInfos(
   editor: TextEditor,
   edits: Edit[],
   originalSelectionInfos: FullSelectionInfo[][]
-) {
+): Promise<Selection[][]> {
   // NB: We do everything using VSCode listeners.  We can associate changes
   // with our changes just by looking at their offets / text in order to
   // recover isReplace.  We need to do this because VSCode does some fancy

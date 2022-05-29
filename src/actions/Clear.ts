@@ -1,3 +1,4 @@
+import { toRawTarget } from "../processTargets/modifiers/RawSelectionStage";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
@@ -11,11 +12,9 @@ export default class Clear implements Action {
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
+    const rawTargets = targets.map(toRawTarget);
 
-    const { thatMark } = await this.graph.actions.remove.run([targets], {
-      showDecorations: true,
-      contentOnly: true,
-    });
+    const { thatMark } = await this.graph.actions.remove.run([rawTargets]);
 
     if (thatMark != null) {
       await setSelectionsAndFocusEditor(

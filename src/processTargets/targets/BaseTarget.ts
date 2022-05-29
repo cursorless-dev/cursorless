@@ -19,6 +19,7 @@ export interface CommonTargetParameters {
 
 export interface CloneWithParameters {
   readonly thatTarget?: Target;
+  readonly contentRange?: Range;
 }
 
 export default abstract class BaseTarget implements Target {
@@ -99,7 +100,7 @@ export default abstract class BaseTarget implements Target {
 
   constructRemovalEdit(): EditWithRangeUpdater {
     return {
-      range: this.contentRange,
+      range: this.getRemovalRange(),
       text: "",
       updateRange: (range) => range,
     };
@@ -130,6 +131,10 @@ export default abstract class BaseTarget implements Target {
 
   withThatTarget(thatTarget: Target): Target {
     return this.cloneWith({ thatTarget });
+  }
+
+  withContentRange(contentRange: Range): Target {
+    return this.cloneWith({ contentRange });
   }
 
   getInteriorStrict(): Target[] {

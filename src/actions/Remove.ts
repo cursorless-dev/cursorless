@@ -2,12 +2,7 @@ import { flatten } from "lodash";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import {
-  createThatMark,
-  getContentRange,
-  getRemovalRange,
-  runOnTargetsForEachEditor,
-} from "../util/targetUtils";
+import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -18,31 +13,22 @@ export default class Delete implements Action {
 
   async run(
     [targets]: [Target[]],
-    { showDecorations = true, contentOnly = false } = {}
+    { showDecorations = true } = {}
   ): Promise<ActionReturnValue> {
     // Unify overlapping targets because of overlapping leading and trailing delimiters.
-    if (!contentOnly) {
-      targets = unifyRemovalTargets(targets);
-    }
+    targets = unifyRemovalTargets(targets);
 
     if (showDecorations) {
       await this.graph.editStyles.displayPendingEditDecorations(
         targets,
         this.graph.editStyles.pendingDelete,
-        contentOnly ? getContentRange : getRemovalHighlightRange,
-        contentOnly
+        (target) => target.getRemovalHighlightRange()
       );
     }
 
     const thatMark = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-        const getRangeCallback = contentOnly
-          ? getContentRange
-          : getRemovalRange;
-        const edits = targets.map((target) => ({
-          range: getRangeCallback(target),
-          text: "",
-        }));
+        const edits = targets.map((target) => target.constructRemovalEdit());
         const ranges = edits.map((edit) => edit.range);
 
         const [updatedRanges] = await performEditsAndUpdateRanges(
@@ -58,8 +44,4 @@ export default class Delete implements Action {
 
     return { thatMark };
   }
-}
-
-function getRemovalHighlightRange(target: Target) {
-  return target.getRemovalHighlightRange();
 }

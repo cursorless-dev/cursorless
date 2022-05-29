@@ -15,7 +15,7 @@ export default class implements ModifierStage {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(target);
     }
-    return [this.getSingleTarget(target)];
+    return [toLineTarget(target)];
   }
 
   getEveryTarget(target: Target): LineTarget[] {
@@ -30,7 +30,9 @@ export default class implements ModifierStage {
     for (let i = startLine; i <= endLine; ++i) {
       const line = editor.document.lineAt(i);
       if (!line.isEmptyOrWhitespace) {
-        targets.push(this.getTargetFromRange(target, line.range));
+        targets.push(
+          createLineTarget(target.editor, line.range, target.isReversed)
+        );
       }
     }
 
@@ -42,18 +44,14 @@ export default class implements ModifierStage {
 
     return targets;
   }
+}
 
-  getSingleTarget(target: Target): LineTarget {
-    return createLineTarget(
-      target.editor,
-      target.contentRange,
-      target.isReversed
-    );
-  }
-
-  getTargetFromRange(target: Target, range: Range): LineTarget {
-    return createLineTarget(target.editor, range, target.isReversed);
-  }
+export function toLineTarget(target: Target): LineTarget {
+  return createLineTarget(
+    target.editor,
+    target.contentRange,
+    target.isReversed
+  );
 }
 
 export function createLineTarget(

@@ -103,7 +103,3 @@ export function createThatMark(
         }));
   return thatMark;
 }
-
-export function getRemovalRange(target: Target) {
-  return target.getRemovalRange();
-}
