@@ -2,12 +2,12 @@ import { Range } from "vscode";
 import {
   SimpleScopeTypeType,
   Target,
-  TargetType
+  TargetType,
 } from "../../typings/target.types";
 import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRange,
-  createContinuousRangeFromRanges
+  createContinuousRangeFromRanges,
 } from "../targetUtil/createContinuousRange";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import { createContinuousRangeWeakTarget } from "./WeakTarget";
