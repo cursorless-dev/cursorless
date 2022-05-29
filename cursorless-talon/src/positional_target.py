@@ -36,9 +36,9 @@ def cursorless_positional_target(m) -> list[dict]:
 
 def update_first_primitive_target(target: dict, modifier: dict):
     if target["type"] == "primitive":
-        if "modifies" not in target:
+        if "modifiers" not in target:
             target["modifiers"] = []
-        target["modifiers"].append(modifier)
+        target["modifiers"].insert(0, modifier)
         return target
     elif target["type"] == "range":
         return {
