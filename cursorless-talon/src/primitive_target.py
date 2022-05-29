@@ -16,7 +16,7 @@ modifiers = [
     "<user.cursorless_surrounding_pair>",  # matching/pair [curly, round]
     "<user.cursorless_to_raw_selection>",  # just
     "<user.cursorless_delimiter_inclusion>",  # inside, bounds
-    # "<user.cursorless_matching_paired_delimiter>",  # matching
+    "<user.cursorless_delimiter_range>",  # leading, trailing
 ]
 
 

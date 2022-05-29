@@ -79,4 +79,7 @@ def is_active_included(range_connective: str):
 def cursorless_target(m) -> dict:
     if len(m.cursorless_range_list) == 1:
         return m.cursorless_range
-    return {"type": "list", "elements": m.cursorless_range_list}
+    return {
+        "type": "list",
+        "elements": m.cursorless_range_list,
+    }

@@ -5,6 +5,16 @@ from talon import Context, Module
 mod = Module()
 ctx = Context()
 
+POSITION_BEFORE = {
+    "before": {
+        "type": "position",
+        "position": "before",
+    }
+}
+
+POSITION_AFTER = {
+    "after": {"type": "position", "position": "after"},
+}
 
 positions = {
     "before": {"position": "before"},
@@ -22,4 +32,7 @@ ctx.lists["self.cursorless_position"] = positions.keys()
 
 @mod.capture(rule="{user.cursorless_position}")
 def cursorless_position(m) -> dict[str, Any]:
-    return {"type": "position", **positions[m.cursorless_position]}
+    return {
+        "type": "position",
+        **positions[m.cursorless_position],
+    }
