@@ -71,3 +71,29 @@ To upgrade all the test fixtures to the latest command version, run the command 
    [`transformRecordedTests/index.ts`](../../src/scripts/transformRecordedTests/index.ts) to
    point to your new transformation
 1. Run `yarn run compile && node ./out/scripts/transformRecordedTests/index.js custom`
+
+Example of a custom transformation
+
+```typescript
+export function updateSurroundingPairTest(fixture: TestCaseFixture) {
+  fixture.command.targets = transformPartialPrimitiveTargets(
+    fixture.command.targets,
+    (target: PartialPrimitiveTargetDesc) => {
+      target.modifiers?.forEach((modifier) => {
+        if (modifier?.type === "surroundingPair") {
+          let delimiterInclusion: DelimiterInclusion;
+          switch (modifier.delimiterInclusion as any) {
+            case "includeDelimiters":
+              delimiterInclusion = undefined;
+              break;
+            case "excludeDelimiters":
+              delimiterInclusion = "interiorOnly";
+              break;
+            case "delimitersOnly":
+              delimiterInclusion = "excludeInterior";
+              break;
+          }
+          modifier.delimiterInclusion = delimiterInclusion;
+        }
+      });
+```

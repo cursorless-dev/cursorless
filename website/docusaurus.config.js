@@ -61,7 +61,7 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
 const config = {
   title: "Cursorless",
   tagline: "Structural voice coding at the speed of thought",
-  url: "https://www.cursorless.org/",
+  url: "https://www.cursorless.org",
   baseUrl: "/docs/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
