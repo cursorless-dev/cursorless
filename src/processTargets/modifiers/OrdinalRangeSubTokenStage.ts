@@ -19,7 +19,7 @@ export interface OrdinalRangeSubTokenModifier extends OrdinalRangeModifier {
   scopeType: OrdinalScopeType;
 }
 
-export default class implements ModifierStage {
+export default class OrdinalRangeSubTokenStage implements ModifierStage {
   constructor(private modifier: OrdinalRangeSubTokenModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {

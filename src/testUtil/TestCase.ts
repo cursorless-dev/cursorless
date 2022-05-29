@@ -20,8 +20,8 @@ import {
 import {
   marksToPlainObject,
   PositionPlainObject,
-  positionToPlainObject,
   SerializedMarks,
+  testDecorationsToPlainObject,
 } from "./toPlainObject";
 
 export type TestCaseCommand = CommandLatest;
@@ -94,12 +94,7 @@ export class TestCase {
   recordDecorations() {
     const decorations = this.context.decorations;
     if (this.isDecorationsTest && decorations.length > 0) {
-      this.decorations = decorations.map(({ name, type, start, end }) => ({
-        name,
-        type,
-        start: positionToPlainObject(start),
-        end: positionToPlainObject(end),
-      }));
+      this.decorations = testDecorationsToPlainObject(decorations);
     }
   }
 

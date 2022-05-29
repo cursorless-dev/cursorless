@@ -1,6 +1,4 @@
-import { TextEditor } from "vscode";
-import { EditNewContext, Target, TargetType } from "../../typings/target.types";
-import { getNotebookFromCellDocument } from "../../util/notebook";
+import { Position, Target, TargetType } from "../../typings/target.types";
 import { createContinuousRange } from "../targetUtil/createContinuousRange";
 import BaseTarget, {
   CloneWithParameters,
@@ -8,17 +6,31 @@ import BaseTarget, {
 } from "./BaseTarget";
 import { createContinuousRangeWeakTarget } from "./WeakTarget";
 
-export default class NotebookCellTarget extends BaseTarget {
-  constructor(parameters: CommonTargetParameters) {
+interface PositionTargetParameters extends CommonTargetParameters {
+  readonly position: Position;
+  readonly delimiter?: string;
+}
+
+export default class PositionTarget extends BaseTarget {
+  private position_: Position;
+  private delimiter_: string | undefined;
+
+  constructor(parameters: PositionTargetParameters) {
     super(parameters);
+    this.position_ = parameters.position;
+    this.delimiter_ = parameters.delimiter;
   }
 
   get type(): TargetType {
-    return "notebookCell";
+    return "position";
   }
   get delimiter() {
-    return "\n";
+    return this.delimiter_;
   }
+  get position() {
+    return this.position_;
+  }
+
   getLeadingDelimiterRange() {
     return undefined;
   }
@@ -26,25 +38,22 @@ export default class NotebookCellTarget extends BaseTarget {
     return undefined;
   }
 
-  getEditNewContext(isBefore: boolean): EditNewContext {
-    if (this.isNotebookEditor(this.editor)) {
-      return {
-        type: "command",
-        dontUpdateSelection: true,
-        command: isBefore
-          ? "notebook.cell.insertCodeCellAbove"
-          : "notebook.cell.insertCodeCellBelow",
-      };
+  maybeAddDelimiter(text: string): string {
+    if (this.delimiter == null) {
+      return text;
     }
-    return {
-      type: "command",
-      dontUpdateSelection: true,
-      command: isBefore ? "jupyter.insertCellAbove" : "jupyter.insertCellBelow",
-    };
+    switch (this.position) {
+      case "before":
+        return text + this.delimiter;
+      case "after":
+        return this.delimiter + text;
+      default:
+        return text;
+    }
   }
 
   cloneWith(parameters: CloneWithParameters) {
-    return new NotebookCellTarget({
+    return new PositionTarget({
       ...this.getCloneParameters(),
       ...parameters,
     });
@@ -57,7 +66,7 @@ export default class NotebookCellTarget extends BaseTarget {
     includeEnd: boolean
   ): Target {
     if (this.isSameType(endTarget)) {
-      return new NotebookCellTarget({
+      return new PositionTarget({
         ...this.getCloneParameters(),
         isReversed,
         contentRange: createContinuousRange(
@@ -79,10 +88,10 @@ export default class NotebookCellTarget extends BaseTarget {
   }
 
   protected getCloneParameters() {
-    return this.state;
-  }
-
-  private isNotebookEditor(editor: TextEditor) {
-    return getNotebookFromCellDocument(editor.document) != null;
+    return {
+      ...this.state,
+      position: this.position_,
+      delimiter: this.delimiter_,
+    };
   }
 }

@@ -1,11 +1,11 @@
 import { Range } from "vscode";
-import { Target } from "../../typings/target.types";
+import { Target, TargetType } from "../../typings/target.types";
+import { createContinuousRange } from "../targetUtil/createContinuousRange";
 import BaseTarget, {
   CloneWithParameters,
   CommonTargetParameters,
-  extractCommonParameters,
 } from "./BaseTarget";
-import WeakTarget from "./WeakTarget";
+import WeakTarget, { createContinuousRangeWeakTarget } from "./WeakTarget";
 
 interface SurroundingPairTargetParameters extends CommonTargetParameters {
   /**
@@ -28,18 +28,19 @@ export default class SurroundingPairTarget extends BaseTarget {
   private boundary_: [Range, Range];
 
   constructor(parameters: SurroundingPairTargetParameters) {
-    super({
-      ...extractCommonParameters(parameters),
-      delimiter: " ",
-    });
+    super(parameters);
     this.boundary_ = parameters.boundary;
     this.interiorRange_ = parameters.interiorRange;
   }
 
-  getInteriorStrict(): Target[] {
-    if (this.interiorRange_ == null || this.position != null) {
-      super.getInteriorStrict();
-    }
+  get type(): TargetType {
+    return "surroundingPair";
+  }
+  get delimiter() {
+    return " ";
+  }
+
+  getInteriorStrict() {
     return [
       new WeakTarget({
         editor: this.editor,
@@ -49,10 +50,7 @@ export default class SurroundingPairTarget extends BaseTarget {
     ];
   }
 
-  getBoundaryStrict(): Target[] {
-    if (this.boundary_ == null || this.position != null) {
-      throw Error("No available boundaries");
-    }
+  getBoundaryStrict() {
     return this.boundary_.map(
       (contentRange) =>
         new WeakTarget({
@@ -63,12 +61,46 @@ export default class SurroundingPairTarget extends BaseTarget {
     );
   }
 
-  cloneWith(parameters: CloneWithParameters): SurroundingPairTarget {
+  cloneWith(parameters: CloneWithParameters) {
     return new SurroundingPairTarget({
+      ...this.getCloneParameters(),
+      ...parameters,
+    });
+  }
+
+  createContinuousRangeTarget(
+    isReversed: boolean,
+    endTarget: Target,
+    includeStart: boolean,
+    includeEnd: boolean
+  ): Target {
+    if (this.isSameType(endTarget)) {
+      return new SurroundingPairTarget({
+        ...this.getCloneParameters(),
+        isReversed,
+        contentRange: createContinuousRange(
+          this,
+          endTarget,
+          includeStart,
+          includeEnd
+        ),
+      });
+    }
+
+    return createContinuousRangeWeakTarget(
+      isReversed,
+      this,
+      endTarget,
+      includeStart,
+      includeEnd
+    );
+  }
+
+  protected getCloneParameters() {
+    return {
       ...this.state,
       interiorRange: this.interiorRange_,
       boundary: this.boundary_,
-      ...parameters,
-    });
+    };
   }
 }

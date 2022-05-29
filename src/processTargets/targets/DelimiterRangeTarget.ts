@@ -1,23 +1,33 @@
-import { TextEditor } from "vscode";
-import { EditNewContext, Target, TargetType } from "../../typings/target.types";
-import { getNotebookFromCellDocument } from "../../util/notebook";
+import { Range } from "vscode";
+import { Target, TargetType } from "../../typings/target.types";
 import { createContinuousRange } from "../targetUtil/createContinuousRange";
+import { addLineDelimiterRanges } from "../targetUtil/getLineDelimiters";
 import BaseTarget, {
   CloneWithParameters,
   CommonTargetParameters,
 } from "./BaseTarget";
 import { createContinuousRangeWeakTarget } from "./WeakTarget";
 
-export default class NotebookCellTarget extends BaseTarget {
-  constructor(parameters: CommonTargetParameters) {
+interface DelimiterRangeTargetParameters extends CommonTargetParameters {
+  readonly isLine: boolean;
+}
+
+export default class DelimiterRangeTarget extends BaseTarget {
+  private isLine_: boolean;
+
+  constructor(parameters: DelimiterRangeTargetParameters) {
     super(parameters);
+    this.isLine_ = parameters.isLine;
   }
 
   get type(): TargetType {
-    return "notebookCell";
+    return "delimiterRange";
   }
   get delimiter() {
-    return "\n";
+    return " ";
+  }
+  get isLine() {
+    return this.isLine_;
   }
   getLeadingDelimiterRange() {
     return undefined;
@@ -26,25 +36,18 @@ export default class NotebookCellTarget extends BaseTarget {
     return undefined;
   }
 
-  getEditNewContext(isBefore: boolean): EditNewContext {
-    if (this.isNotebookEditor(this.editor)) {
-      return {
-        type: "command",
-        dontUpdateSelection: true,
-        command: isBefore
-          ? "notebook.cell.insertCodeCellAbove"
-          : "notebook.cell.insertCodeCellBelow",
-      };
-    }
-    return {
-      type: "command",
-      dontUpdateSelection: true,
-      command: isBefore ? "jupyter.insertCellAbove" : "jupyter.insertCellBelow",
-    };
+  getRemovalRange(): Range {
+    return this.isLine
+      ? addLineDelimiterRanges(this.editor, this.contentRange)
+      : this.contentRange;
+  }
+
+  getRemovalHighlightRange(): Range {
+    return this.contentRange;
   }
 
   cloneWith(parameters: CloneWithParameters) {
-    return new NotebookCellTarget({
+    return new DelimiterRangeTarget({
       ...this.getCloneParameters(),
       ...parameters,
     });
@@ -57,7 +60,7 @@ export default class NotebookCellTarget extends BaseTarget {
     includeEnd: boolean
   ): Target {
     if (this.isSameType(endTarget)) {
-      return new NotebookCellTarget({
+      return new DelimiterRangeTarget({
         ...this.getCloneParameters(),
         isReversed,
         contentRange: createContinuousRange(
@@ -79,10 +82,9 @@ export default class NotebookCellTarget extends BaseTarget {
   }
 
   protected getCloneParameters() {
-    return this.state;
-  }
-
-  private isNotebookEditor(editor: TextEditor) {
-    return getNotebookFromCellDocument(editor.document) != null;
+    return {
+      ...this.state,
+      isLine: this.isLine_,
+    };
   }
 }

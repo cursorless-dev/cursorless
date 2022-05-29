@@ -1,4 +1,5 @@
 import { Selection, Position, Range } from "vscode";
+import { TestDecoration } from "../core/editStyles";
 import { Token } from "../typings/Types";
 
 export type PositionPlainObject = {
@@ -49,4 +50,13 @@ export function marksToPlainObject(marks: {
       (serializedMarks[key] = rangeToPlainObject(value.range))
   );
   return serializedMarks;
+}
+
+export function testDecorationsToPlainObject(decorations: TestDecoration[]) {
+  return decorations.map(({ name, type, start, end }) => ({
+    name,
+    type,
+    start: positionToPlainObject(start),
+    end: positionToPlainObject(end),
+  }));
 }

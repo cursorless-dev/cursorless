@@ -3,7 +3,7 @@ import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";
 
-export default class implements ModifierStage {
+export default class ModifyIfWeakStage implements ModifierStage {
   private nestedStage_?: ModifierStage;
 
   constructor(private nestedModifier: Modifier) {}
@@ -17,7 +17,8 @@ export default class implements ModifierStage {
   }
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    if (target.isWeak) {
+    /** If true this target is of weak type and should use inference/upgrade when needed. See {@link WeakTarget} for more info  */
+    if (target.type === "weak") {
       return this.nestedStage
         .run(context, target)
         .map((newTarget) => newTarget.withThatTarget(target));

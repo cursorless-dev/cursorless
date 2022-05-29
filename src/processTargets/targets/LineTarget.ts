@@ -1,4 +1,6 @@
 import { Position, Range } from "vscode";
+import { Target, TargetType } from "../../typings/target.types";
+import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
 import {
   getLineLeadingDelimiterRange,
   getLineTrailingDelimiterRange,
@@ -6,44 +8,79 @@ import {
 import BaseTarget, {
   CloneWithParameters,
   CommonTargetParameters,
-  extractCommonParameters,
 } from "./BaseTarget";
+import { createContinuousRangeWeakTarget } from "./WeakTarget";
 
 export default class LineTarget extends BaseTarget {
   constructor(parameters: CommonTargetParameters) {
-    super({
-      ...extractCommonParameters(parameters),
-      delimiter: "\n",
-    });
+    super(parameters);
   }
 
+  get type(): TargetType {
+    return "line";
+  }
+  get delimiter() {
+    return "\n";
+  }
   get isLine() {
     return true;
   }
 
-  cloneWith(parameters: CloneWithParameters): LineTarget {
-    return new LineTarget({ ...this.state, ...parameters });
-  }
-
-  get contentRemovalRange() {
+  protected get contentRemovalRange() {
     return new Range(
       new Position(this.contentRange.start.line, 0),
       this.editor.document.lineAt(this.contentRange.end).range.end
     );
   }
 
-  get leadingDelimiterRange() {
+  getLeadingDelimiterRange() {
     return getLineLeadingDelimiterRange(this.editor, this.contentRemovalRange);
   }
 
-  get trailingDelimiterRange() {
+  getTrailingDelimiterRange() {
     return getLineTrailingDelimiterRange(this.editor, this.contentRemovalRange);
   }
 
-  getRemovalHighlightRange(): Range | undefined {
-    if (this.position != null) {
-      return undefined;
-    }
+  getRemovalHighlightRange() {
     return this.contentRange;
+  }
+
+  cloneWith(parameters: CloneWithParameters) {
+    return new LineTarget({
+      ...this.getCloneParameters(),
+      ...parameters,
+    });
+  }
+
+  createContinuousRangeTarget(
+    isReversed: boolean,
+    endTarget: Target,
+    includeStart: boolean,
+    includeEnd: boolean
+  ): Target {
+    if (this.isSameType(endTarget) || endTarget.is("paragraph")) {
+      return new LineTarget({
+        ...this.getCloneParameters(),
+        isReversed,
+        contentRange: createContinuousLineRange(
+          this,
+          endTarget,
+          includeStart,
+          includeEnd
+        ),
+      });
+    }
+
+    return createContinuousRangeWeakTarget(
+      isReversed,
+      this,
+      endTarget,
+      includeStart,
+      includeEnd
+    );
+  }
+
+  protected getCloneParameters() {
+    return this.state;
   }
 }

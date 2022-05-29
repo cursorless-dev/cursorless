@@ -1,12 +1,12 @@
 languageId: plaintext
 command:
-  spokenForm: chuck before block air
+  spokenForm: chuck trailing block vest
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
       modifiers:
-        - {type: position, position: before}
+        - {type: delimiterRange, direction: trailing}
         - type: containingScope
           scopeType: {type: paragraph}
   usePrePhraseSnapshot: true
@@ -21,9 +21,9 @@ initialState:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.a:
-      start: {line: 3, character: 10}
-      end: {line: 3, character: 15}
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
 finalState:
   documentContents: |-
 
@@ -35,4 +35,4 @@ finalState:
   thatMark:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [{type: position, position: before}, {type: containingScope, scopeType: {type: paragraph}}]}]
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: {type: paragraph}}]}]

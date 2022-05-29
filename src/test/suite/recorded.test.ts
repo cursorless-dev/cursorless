@@ -18,6 +18,7 @@ import {
   rangeToPlainObject,
   SelectionPlainObject,
   SerializedMarks,
+  testDecorationsToPlainObject,
 } from "../../testUtil/toPlainObject";
 import { Clipboard } from "../../util/Clipboard";
 import { getCursorlessApi } from "../../util/getExtensionApi";
@@ -64,6 +65,7 @@ async function runTest(file: string) {
 
   const cursorlessApi = await getCursorlessApi();
   const graph = cursorlessApi.graph!;
+  graph.editStyles.testDecorations = [];
 
   const editor = await openNewEditor(
     fixture.initialState.documentContents,
@@ -155,7 +157,7 @@ async function runTest(file: string) {
 
     if (fixture.decorations != null) {
       assert.deepStrictEqual(
-        graph.editStyles.testDecorations,
+        testDecorationsToPlainObject(graph.editStyles.testDecorations),
         fixture.decorations,
         "Unexpected decorations"
       );

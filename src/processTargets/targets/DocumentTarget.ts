@@ -1,26 +1,36 @@
 import { Range, TextEditor } from "vscode";
-import { Target } from "../../typings/target.types";
+import { Target, TargetType } from "../../typings/target.types";
 import { fitRangeToLineContent } from "../modifiers/scopeTypeStages/LineStage";
+import { createContinuousRange } from "../targetUtil/createContinuousRange";
 import BaseTarget, {
   CloneWithParameters,
   CommonTargetParameters,
-  extractCommonParameters,
 } from "./BaseTarget";
-import WeakTarget from "./WeakTarget";
+import WeakTarget, { createContinuousRangeWeakTarget } from "./WeakTarget";
 
 export default class DocumentTarget extends BaseTarget {
   constructor(parameters: CommonTargetParameters) {
-    super({
-      ...extractCommonParameters(parameters),
-      delimiter: "\n",
-    });
+    super(parameters);
   }
 
+  get type(): TargetType {
+    return "document";
+  }
+  get delimiter() {
+    return "\n";
+  }
   get isLine() {
     return true;
   }
 
-  getInteriorStrict(): Target[] {
+  getLeadingDelimiterRange() {
+    return undefined;
+  }
+  getTrailingDelimiterRange() {
+    return undefined;
+  }
+
+  getInteriorStrict() {
     return [
       new WeakTarget({
         editor: this.editor,
@@ -30,8 +40,43 @@ export default class DocumentTarget extends BaseTarget {
     ];
   }
 
-  cloneWith(parameters: CloneWithParameters): DocumentTarget {
-    return new DocumentTarget({ ...this.state, ...parameters });
+  cloneWith(parameters: CloneWithParameters) {
+    return new DocumentTarget({
+      ...this.getCloneParameters(),
+      ...parameters,
+    });
+  }
+
+  createContinuousRangeTarget(
+    isReversed: boolean,
+    endTarget: Target,
+    includeStart: boolean,
+    includeEnd: boolean
+  ): Target {
+    if (this.isSameType(endTarget)) {
+      return new DocumentTarget({
+        ...this.getCloneParameters(),
+        isReversed,
+        contentRange: createContinuousRange(
+          this,
+          endTarget,
+          includeStart,
+          includeEnd
+        ),
+      });
+    }
+
+    return createContinuousRangeWeakTarget(
+      isReversed,
+      this,
+      endTarget,
+      includeStart,
+      includeEnd
+    );
+  }
+
+  protected getCloneParameters() {
+    return this.state;
   }
 }
 

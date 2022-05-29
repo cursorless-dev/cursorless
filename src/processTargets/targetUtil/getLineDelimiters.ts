@@ -16,3 +16,15 @@ export function getLineTrailingDelimiterRange(
     ? new Range(range.end, new Position(end.line + 1, 0))
     : undefined;
 }
+
+export function addLineDelimiterRanges(editor: TextEditor, range: Range) {
+  const trailingDelimiterRange = getLineTrailingDelimiterRange(editor, range);
+  if (trailingDelimiterRange != null) {
+    return range.union(trailingDelimiterRange);
+  }
+  const leadingDelimiterRange = getLineLeadingDelimiterRange(editor, range);
+  if (leadingDelimiterRange != null) {
+    return range.union(leadingDelimiterRange);
+  }
+  return range;
+}

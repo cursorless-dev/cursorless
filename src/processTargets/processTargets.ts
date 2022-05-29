@@ -11,7 +11,7 @@ import { ensureSingleEditor } from "../util/targetUtils";
 import uniqDeep from "../util/uniqDeep";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
-import ContinuousRangeTarget from "./targets/ContinuousRangeTarget";
+import PositionTarget from "./targets/PositionTarget";
 import WeakTarget from "./targets/WeakTarget";
 
 /**
@@ -100,14 +100,17 @@ function processContinuousRangeTarget(
 ): Target {
   ensureSingleEditor([anchorTarget, activeTarget]);
   const isReversed = calcIsReversed(anchorTarget, activeTarget);
+  const startTarget = isReversed ? activeTarget : anchorTarget;
+  const endTarget = isReversed ? anchorTarget : activeTarget;
+  const excludeStart = isReversed ? excludeActive : excludeAnchor;
+  const excludeEnd = isReversed ? excludeAnchor : excludeActive;
 
-  return new ContinuousRangeTarget({
-    startTarget: isReversed ? activeTarget : anchorTarget,
-    endTarget: isReversed ? anchorTarget : activeTarget,
-    excludeStart: isReversed ? excludeActive : excludeAnchor,
-    excludeEnd: isReversed ? excludeAnchor : excludeActive,
+  return startTarget.createContinuousRangeTarget(
     isReversed,
-  });
+    endTarget,
+    !excludeStart,
+    !excludeEnd
+  );
 }
 
 export function targetsToContinuousTarget(
@@ -143,14 +146,27 @@ function processVerticalRangeTarget(
       i,
       anchorTarget.contentRange.end.character
     );
-    results.push(
-      new WeakTarget({
-        editor: anchorTarget.editor,
-        isReversed: anchorTarget.isReversed,
-        contentRange,
-        position: anchorTarget.position,
-      })
-    );
+
+    if (anchorTarget.position != null) {
+      results.push(
+        new PositionTarget({
+          editor: anchorTarget.editor,
+          isReversed: anchorTarget.isReversed,
+          contentRange,
+          position: anchorTarget.position,
+          delimiter: anchorTarget.delimiter,
+        })
+      );
+    } else {
+      results.push(
+        new WeakTarget({
+          editor: anchorTarget.editor,
+          isReversed: anchorTarget.isReversed,
+          contentRange,
+        })
+      );
+    }
+
     if (i === activeLine) {
       return results;
     }

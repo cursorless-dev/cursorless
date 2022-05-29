@@ -1,7 +1,8 @@
+import { Target, TargetType } from "../../typings/target.types";
+import { createContinuousRange } from "../targetUtil/createContinuousRange";
 import BaseTarget, {
   CloneWithParameters,
   CommonTargetParameters,
-  extractCommonParameters,
 } from "./BaseTarget";
 
 /**
@@ -11,17 +12,58 @@ import BaseTarget, {
  */
 export default class WeakTarget extends BaseTarget {
   constructor(parameters: CommonTargetParameters) {
-    super({
-      ...extractCommonParameters(parameters),
-      delimiter: " ",
+    super(parameters);
+  }
+
+  get type(): TargetType {
+    return "weak";
+  }
+  get delimiter() {
+    return " ";
+  }
+
+  cloneWith(parameters: CloneWithParameters) {
+    return new WeakTarget({
+      ...this.getCloneParameters(),
+      ...parameters,
     });
   }
 
-  get isWeak() {
-    return true;
+  createContinuousRangeTarget(
+    isReversed: boolean,
+    endTarget: Target,
+    includeStart: boolean,
+    includeEnd: boolean
+  ): Target {
+    return createContinuousRangeWeakTarget(
+      isReversed,
+      this,
+      endTarget,
+      includeStart,
+      includeEnd
+    );
   }
 
-  cloneWith(parameters: CloneWithParameters): WeakTarget {
-    return new WeakTarget({ ...this.state, ...parameters });
+  protected getCloneParameters() {
+    return this.state;
   }
+}
+
+export function createContinuousRangeWeakTarget(
+  isReversed: boolean,
+  startTarget: Target,
+  endTarget: Target,
+  includeStart: boolean,
+  includeEnd: boolean
+): WeakTarget {
+  return new WeakTarget({
+    editor: startTarget.editor,
+    isReversed,
+    contentRange: createContinuousRange(
+      startTarget,
+      endTarget,
+      includeStart,
+      includeEnd
+    ),
+  });
 }

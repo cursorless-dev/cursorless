@@ -20,7 +20,7 @@ import { processSurroundingPair } from "./surroundingPair";
  * @returns The new selection expanded to the containing surrounding pair or
  * `null` if none was found
  */
-export default class implements ModifierStage {
+export default class SurroundingPairStage implements ModifierStage {
   constructor(private modifier: ContainingSurroundingPairModifier) {}
 
   run(

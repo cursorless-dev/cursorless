@@ -180,6 +180,13 @@ export interface PositionModifier {
   position: Position;
 }
 
+export type DelimiterRangeDirection = "leading" | "trailing";
+
+export interface DelimiterRangeModifier {
+  type: "delimiterRange";
+  direction: DelimiterRangeDirection;
+}
+
 export interface PartialPrimitiveTargetDesc {
   type: "primitive";
   mark?: Mark;
@@ -196,7 +203,8 @@ export type Modifier =
   | OrdinalRangeModifier
   | HeadModifier
   | TailModifier
-  | RawSelectionModifier;
+  | RawSelectionModifier
+  | DelimiterRangeModifier;
 
 export interface PartialRangeTargetDesc {
   type: "range";
@@ -269,7 +277,23 @@ export interface EditNewDelimiterContext {
 
 export type EditNewContext = EditNewCommandContext | EditNewDelimiterContext;
 
+export type TargetType =
+  | "delimiterRange"
+  | "document"
+  | "line"
+  | "notebookCell"
+  | "paragraph"
+  | "position"
+  | "rawSelection"
+  | "scopeType"
+  | "surroundingPair"
+  | "token"
+  | "weak";
+
 export interface Target {
+  /** The type of this target */
+  readonly type: TargetType;
+
   /** The text editor used for all ranges */
   readonly editor: TextEditor;
 
@@ -282,37 +306,39 @@ export interface Target {
   /** If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument */
   readonly delimiter?: string;
 
-  /** The range to remove the content. This does not include any delimiters. */
-  readonly contentRemovalRange: Range;
-
-  /** The range of the delimiter before the content selection */
-  readonly leadingDelimiterRange?: Range;
-
-  /** The range of the delimiter after the content selection */
-  readonly trailingDelimiterRange?: Range;
-
   /** The current position */
   readonly position?: Position;
 
   /** If true this target should be treated as a line */
   readonly isLine: boolean;
 
-  /** If true this target should be treated as a paragraph */
-  readonly isParagraph: boolean;
-
-  /** If true this target is of weak type and should use inference/upgrade when needed. See {@link WeakTarget} for more info  */
-  readonly isWeak: boolean;
-
+  /** The text contained in the content range */
   readonly contentText: string;
+
+  /** The content range and is reversed turned into a selection */
   readonly contentSelection: Selection;
+
+  /** Internal target that should be used for the that mark */
   readonly thatTarget: Target;
 
+  /** Returns true if this target is of the given type */
+  is(type: TargetType): boolean;
   getInteriorStrict(): Target[];
   getBoundaryStrict(): Target[];
+  /** Possibly add delimiter for positions before/after */
   maybeAddDelimiter(text: string): string;
+  /** The range of the delimiter before the content selection */
+  getLeadingDelimiterRange(force?: boolean): Range | undefined;
+  /** The range of the delimiter after the content selection */
+  getTrailingDelimiterRange(force?: boolean): Range | undefined;
   getRemovalRange(): Range;
   getRemovalHighlightRange(): Range | undefined;
   getEditNewContext(isBefore: boolean): EditNewContext;
-  withPosition(position: Position): Target;
   withThatTarget(thatTarget: Target): Target;
+  createContinuousRangeTarget(
+    isReversed: boolean,
+    endTarget: Target,
+    includeStart: boolean,
+    includeEnd: boolean
+  ): Target;
 }

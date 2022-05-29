@@ -4,6 +4,7 @@ import {
   EveryScopeModifier,
   Modifier,
 } from "../typings/target.types";
+import DelimiterRangeStage from "./modifiers/DelimiterRangeStage";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import {
   ExcludeInteriorStage,
@@ -41,23 +42,24 @@ export default (modifier: Modifier): ModifierStage => {
       return new TailStage(modifier);
     case "toRawSelection":
       return new RawSelectionStage(modifier);
+    case "interiorOnly":
+      return new InteriorOnlyStage(modifier);
+    case "excludeInterior":
+      return new ExcludeInteriorStage(modifier);
+    case "delimiterRange":
+      return new DelimiterRangeStage(modifier);
+    case "containingScope":
+    case "everyScope":
+      return getContainingScopeStage(modifier);
     case "ordinalRange":
       if (!["word", "character"].includes(modifier.scopeType.type)) {
         throw Error(
           `Unsupported ordinal scope type ${modifier.scopeType.type}`
         );
       }
-
       return new OrdinalRangeSubTokenStage(
         modifier as OrdinalRangeSubTokenModifier
       );
-    case "interiorOnly":
-      return new InteriorOnlyStage(modifier);
-    case "excludeInterior":
-      return new ExcludeInteriorStage(modifier);
-    case "containingScope":
-    case "everyScope":
-      return getContainingScopeStage(modifier);
   }
 };
 
