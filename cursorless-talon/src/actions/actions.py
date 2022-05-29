@@ -4,7 +4,7 @@ from ..csv_overrides import init_csv_and_watch_changes
 from .actions_callback import callback_action_defaults, callback_action_map
 from .actions_custom import custom_action_defaults
 from .actions_makeshift import makeshift_action_defaults, makeshift_action_map
-from .actions_simple import simple_action_defaults, positional_action_defaults
+from .actions_simple import positional_action_defaults, simple_action_defaults
 
 mod = Module()
 

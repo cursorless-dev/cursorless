@@ -1,6 +1,6 @@
-from talon import Module, Context
+from talon import Context, Module
 
-from .modifiers.position import POSITION_BEFORE, POSITION_AFTER
+from .modifiers.position import POSITION_AFTER, POSITION_BEFORE
 
 mod = Module()
 ctx = Context()

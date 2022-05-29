@@ -1,4 +1,5 @@
 from typing import Any
+
 from talon import Context, Module
 
 mod = Module()
