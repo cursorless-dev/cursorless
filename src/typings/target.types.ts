@@ -1,5 +1,6 @@
 import { Range, Selection, TextEditor } from "vscode";
 import { HatStyleName } from "../core/constants";
+import { EditWithRangeUpdater } from "./Types";
 
 export interface CursorMark {
   type: "cursor";
@@ -325,8 +326,6 @@ export interface Target {
   is(type: TargetType): boolean;
   getInteriorStrict(): Target[];
   getBoundaryStrict(): Target[];
-  /** Possibly add delimiter for positions before/after */
-  maybeAddDelimiter(text: string): string;
   /** The range of the delimiter before the content selection */
   getLeadingDelimiterRange(force?: boolean): Range | undefined;
   /** The range of the delimiter after the content selection */
@@ -341,4 +340,8 @@ export interface Target {
     includeStart: boolean,
     includeEnd: boolean
   ): Target;
+  /** Constructs change/insertion edit. Adds delimiter before/after if needed */
+  constructChangeEdit(text: string): EditWithRangeUpdater;
+  /** Constructs removal edit */
+  constructRemovalEdit(): EditWithRangeUpdater;
 }

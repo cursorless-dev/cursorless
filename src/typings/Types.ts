@@ -180,3 +180,7 @@ export interface Edit {
    */
   isReplace?: boolean;
 }
+
+export interface EditWithRangeUpdater extends Edit {
+  updateRange: (range: vscode.Range) => vscode.Range;
+}

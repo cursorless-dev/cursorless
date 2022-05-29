@@ -5,6 +5,7 @@ import {
   Target,
   TargetType,
 } from "../../typings/target.types";
+import { EditWithRangeUpdater } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
 import { getTokenDelimiters } from "../targetUtil/getTokenDelimiters";
 
@@ -88,8 +89,20 @@ export default abstract class BaseTarget implements Target {
       : undefined;
   }
 
-  maybeAddDelimiter(text: string): string {
-    return text;
+  constructChangeEdit(text: string): EditWithRangeUpdater {
+    return {
+      range: this.contentRange,
+      text,
+      updateRange: (range) => range,
+    };
+  }
+
+  constructRemovalEdit(): EditWithRangeUpdater {
+    return {
+      range: this.contentRange,
+      text: "",
+      updateRange: (range) => range,
+    };
   }
 
   getEditNewContext(isBefore: boolean): EditNewContext {

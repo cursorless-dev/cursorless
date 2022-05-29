@@ -46,9 +46,8 @@ export default class implements Action {
     }
 
     const edits = zip(targets, texts).map(([target, text]) => ({
+      edit: target!.constructChangeEdit(text!),
       editor: target!.editor,
-      range: target!.contentRange,
-      text: target!.maybeAddDelimiter(text!),
     }));
 
     const thatMark = flatten(
@@ -59,7 +58,7 @@ export default class implements Action {
           const [updatedSelections] = await performEditsAndUpdateSelections(
             this.graph.rangeUpdater,
             editor,
-            edits,
+            edits.map(({ edit }) => edit),
             [targets.map((target) => target.contentSelection)]
           );
 
