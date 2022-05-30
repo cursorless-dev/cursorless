@@ -18,7 +18,7 @@ export default class DelimiterRangeTarget extends BaseTarget {
   get type(): TargetType {
     return "delimiterRange";
   }
-  get delimiter() {
+  get delimiterString() {
     return " ";
   }
   get isLine() {

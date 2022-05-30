@@ -43,7 +43,7 @@ export default class ScopeTypeTarget extends BaseTarget {
   get type(): TargetType {
     return "scopeType";
   }
-  get delimiter() {
+  get delimiterString() {
     return this.delimiter_;
   }
   protected get contentRemovalRange() {

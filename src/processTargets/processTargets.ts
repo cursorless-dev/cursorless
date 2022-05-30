@@ -147,25 +147,7 @@ function processVerticalRangeTarget(
       anchorTarget.contentRange.end.character
     );
 
-    if (anchorTarget.position != null) {
-      results.push(
-        new PositionTarget({
-          editor: anchorTarget.editor,
-          isReversed: anchorTarget.isReversed,
-          contentRange,
-          position: anchorTarget.position,
-          delimiter: anchorTarget.delimiter,
-        })
-      );
-    } else {
-      results.push(
-        new WeakTarget({
-          editor: anchorTarget.editor,
-          isReversed: anchorTarget.isReversed,
-          contentRange,
-        })
-      );
-    }
+    results.push(anchorTarget.withContentRange(contentRange));
 
     if (i === activeLine) {
       return results;

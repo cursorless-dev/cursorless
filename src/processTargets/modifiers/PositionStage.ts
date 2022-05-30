@@ -20,12 +20,12 @@ export function toPositionTarget(target: Target, position: Position): Target {
   switch (position) {
     case "before":
       contentRange = new Range(start, start);
-      delimiter = target.delimiter;
+      delimiter = target.delimiterString;
       break;
 
     case "after":
       contentRange = new Range(end, end);
-      delimiter = target.delimiter;
+      delimiter = target.delimiterString;
       break;
 
     case "start":

@@ -18,7 +18,7 @@ export default class WeakTarget extends BaseTarget {
   get type(): TargetType {
     return "weak";
   }
-  get delimiter() {
+  get delimiterString() {
     return " ";
   }
 

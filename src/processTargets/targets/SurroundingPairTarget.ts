@@ -32,7 +32,7 @@ export default class SurroundingPairTarget extends BaseTarget {
   get type(): TargetType {
     return "surroundingPair";
   }
-  get delimiter() {
+  get delimiterString() {
     return " ";
   }
 

@@ -9,7 +9,7 @@ export default class RawSelectionTarget extends BaseTarget {
   get type(): TargetType {
     return "rawSelection";
   }
-  get delimiter() {
+  get delimiterString() {
     return undefined;
   }
   getLeadingDelimiterTarget() {

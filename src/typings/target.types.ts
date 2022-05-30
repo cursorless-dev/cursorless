@@ -289,10 +289,7 @@ export interface Target {
   readonly contentRange: Range;
 
   /** If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument */
-  readonly delimiter?: string;
-
-  /** The current position */
-  readonly position?: Position;
+  readonly delimiterString?: string;
 
   /** If true this target should be treated as a line */
   readonly isLine: boolean;
@@ -309,9 +306,9 @@ export interface Target {
   getInteriorStrict(): Target[];
   getBoundaryStrict(): Target[];
   /** The range of the delimiter before the content selection */
-  getLeadingDelimiterTarget(force?: boolean): Range | undefined;
+  getLeadingDelimiterTarget(): Target | undefined;
   /** The range of the delimiter after the content selection */
-  getTrailingDelimiterTarget(force?: boolean): Range | undefined;
+  getTrailingDelimiterTarget(): Target | undefined;
   getRemovalRange(): Range;
   getRemovalHighlightRange(): Range | undefined;
   getEditNewContext(isBefore: boolean): EditNewContext;

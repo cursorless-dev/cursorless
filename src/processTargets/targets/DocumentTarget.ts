@@ -12,7 +12,7 @@ export default class DocumentTarget extends BaseTarget {
   get type(): TargetType {
     return "document";
   }
-  get delimiter() {
+  get delimiterString() {
     return "\n";
   }
   get isLine() {

@@ -16,7 +16,7 @@ export default class LineTarget extends BaseTarget {
   get type(): TargetType {
     return "line";
   }
-  get delimiter() {
+  get delimiterString() {
     return "\n";
   }
   get isLine() {
@@ -48,17 +48,10 @@ export default class LineTarget extends BaseTarget {
     includeStart: boolean,
     includeEnd: boolean
   ): Target {
-    if (this.isSameType(endTarget) || endTarget.is("paragraph")) {
-      return new LineTarget({
-        ...this.getCloneParameters(),
-        isReversed,
-        contentRange: createContinuousLineRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd
-        ),
-      });
+    if (endTarget.isLine) {
+      return this.withContentRange(
+        createContinuousLineRange(this, endTarget, includeStart, includeEnd)
+      );
     }
 
     return createContinuousRangeWeakTarget(

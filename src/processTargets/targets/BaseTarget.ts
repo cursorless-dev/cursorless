@@ -3,8 +3,8 @@ import { EditNewContext, Position, Target } from "../../typings/target.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
+import InsertionRemovalBehavior from "../insertionRemovalBehavior.types";
 import { createContinuousRange } from "../targetUtil/createContinuousRange";
-import { getTokenDelimiters } from "../targetUtil/getTokenDelimiters";
 import { createContinuousRangeWeakTarget } from "./WeakTarget";
 
 /** Parameters supported by all target classes */
@@ -23,7 +23,10 @@ export interface CloneWithParameters {
 export default abstract class BaseTarget implements Target {
   protected readonly state: CommonTargetParameters;
 
-  constructor(parameters: CommonTargetParameters) {
+  constructor(
+    parameters: CommonTargetParameters,
+    private insertionRemovalBehavior: InsertionRemovalBehavior
+  ) {
     this.state = {
       editor: parameters.editor,
       isReversed: parameters.isReversed,
@@ -32,19 +35,13 @@ export default abstract class BaseTarget implements Target {
     };
   }
 
-  abstract get delimiter(): string | undefined;
   get editor() {
     return this.state.editor;
   }
   get isReversed() {
     return this.state.isReversed;
   }
-  protected get contentRemovalRange() {
-    return this.contentRange;
-  }
-  get position(): Position | undefined {
-    return undefined;
-  }
+
   get isLine() {
     return false;
   }
@@ -67,22 +64,6 @@ export default abstract class BaseTarget implements Target {
     return this.state.contentRange;
   }
 
-  getLeadingDelimiterTarget() {
-    const { includeDelimitersInRemoval, leadingDelimiterRange } =
-      getTokenDelimiters(this.state.editor, this.state.contentRange);
-    return includeDelimitersInRemoval || force
-      ? leadingDelimiterRange
-      : undefined;
-  }
-
-  getTrailingDelimiterTarget() {
-    const { includeDelimitersInRemoval, trailingDelimiterRange } =
-      getTokenDelimiters(this.state.editor, this.state.contentRange);
-    return includeDelimitersInRemoval || force
-      ? trailingDelimiterRange
-      : undefined;
-  }
-
   constructChangeEdit(text: string): EditWithRangeUpdater {
     return {
       range: this.contentRange,
@@ -100,7 +81,7 @@ export default abstract class BaseTarget implements Target {
   }
 
   getEditNewContext(isBefore: boolean): EditNewContext {
-    const delimiter = this.delimiter ?? "";
+    const delimiter = this.delimiterString ?? "";
     if (delimiter === "\n" && !isBefore) {
       return { type: "command", command: "editor.action.insertLineAfter" };
     }
@@ -108,14 +89,6 @@ export default abstract class BaseTarget implements Target {
       type: "delimiter",
       delimiter,
     };
-  }
-
-  getRemovalRange(): Range {
-    const delimiterRange =
-      this.getTrailingDelimiterTarget() ?? this.getLeadingDelimiterTarget();
-    return delimiterRange != null
-      ? this.contentRemovalRange.union(delimiterRange)
-      : this.contentRemovalRange;
   }
 
   getRemovalHighlightRange(): Range | undefined {
@@ -176,5 +149,18 @@ export default abstract class BaseTarget implements Target {
       includeStart,
       includeEnd
     );
+  }
+
+  get delimiterString() {
+    return this.insertionRemovalBehavior.delimiterString;
+  }
+  getLeadingDelimiterTarget() {
+    return this.insertionRemovalBehavior.getLeadingDelimiterTarget();
+  }
+  getTrailingDelimiterTarget() {
+    return this.insertionRemovalBehavior.getTrailingDelimiterTarget();
+  }
+  getRemovalRange() {
+    return this.insertionRemovalBehavior.getRemovalRange();
   }
 }

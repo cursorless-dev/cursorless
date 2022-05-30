@@ -15,7 +15,7 @@ export default class ParagraphTarget extends BaseTarget {
   get type(): TargetType {
     return "paragraph";
   }
-  get delimiter() {
+  get delimiterString() {
     return "\n\n";
   }
   get isLine() {

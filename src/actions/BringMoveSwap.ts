@@ -99,7 +99,7 @@ class BringMoveSwap implements Action {
           text = sources
             .map((source, i) => {
               const text = source.contentText;
-              const delimiter = destination.delimiter ?? source.delimiter;
+              const delimiter = destination.delimiterString ?? source.delimiterString;
               return i > 0 && delimiter != null ? delimiter + text : text;
             })
             .join("");

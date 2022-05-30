@@ -10,30 +10,11 @@ interface PositionTargetParameters extends CommonTargetParameters {
 }
 
 export default class PositionTarget extends BaseTarget {
-  private position_: Position;
-  private delimiter_: string | undefined;
+  private position: Position;
 
   constructor(parameters: PositionTargetParameters) {
     super(parameters);
-    this.position_ = parameters.position;
-    this.delimiter_ = parameters.delimiter;
-  }
-
-  get type(): TargetType {
-    return "position";
-  }
-  get delimiter() {
-    return this.delimiter_;
-  }
-  get position() {
-    return this.position_;
-  }
-
-  getLeadingDelimiterTarget() {
-    return undefined;
-  }
-  getTrailingDelimiterTarget() {
-    return undefined;
+    this.position = parameters.position;
   }
 
   private constructReplaceEdit(text: string): EditWithRangeUpdater {
@@ -45,7 +26,7 @@ export default class PositionTarget extends BaseTarget {
   }
 
   private constructInsertionEdit(text: string): EditWithRangeUpdater {
-    const delimiter = this.delimiter!;
+    const delimiter = this.delimiterString!;
     const isLine = delimiter.includes("\n");
     const isBefore = this.position === "before";
 
@@ -83,7 +64,7 @@ export default class PositionTarget extends BaseTarget {
 
   constructChangeEdit(text: string): EditWithRangeUpdater {
     if (
-      this.delimiter != null &&
+      this.delimiterString != null &&
       (this.position === "before" || this.position === "after")
     ) {
       return this.constructInsertionEdit(text);
@@ -94,8 +75,7 @@ export default class PositionTarget extends BaseTarget {
   protected getCloneParameters() {
     return {
       ...this.state,
-      position: this.position_,
-      delimiter: this.delimiter_,
+      position: this.position,
     };
   }
 }

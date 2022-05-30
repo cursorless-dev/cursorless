@@ -11,7 +11,7 @@ export default class NotebookCellTarget extends BaseTarget {
   get type(): TargetType {
     return "notebookCell";
   }
-  get delimiter() {
+  get delimiterString() {
     return "\n";
   }
   getLeadingDelimiterTarget() {
