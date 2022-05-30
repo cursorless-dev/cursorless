@@ -1,5 +1,6 @@
 import { Range } from "vscode";
 import { Target } from "../../../typings/target.types";
+import { isAtEndOfLine, isAtStartOfLine } from "../../../util/rangeUtils";
 import RawSelectionTarget from "../../targets/RawSelectionTarget";
 import DelimitedSequenceInsertionRemovalBehavior from "./DelimitedSequenceInsertionRemovalBehavior";
 import InsertionRemovalBehavior from "./insertionRemovalBehavior.types";
@@ -66,7 +67,6 @@ export default class TokenInsertionRemovalBehavior
 
   getRemovalRange(): Range {
     const { start, end } = this.target.contentRange;
-    const endLine = this.target.editor.document.lineAt(end);
 
     const leadingDelimiterTarget = this.getLeadingDelimiterTarget();
     const trailingDelimiterTarget = this.getTrailingDelimiterTarget();
@@ -78,8 +78,10 @@ export default class TokenInsertionRemovalBehavior
     //
     // In the future, we might get more sophisticated and to clean up white space if we can detect that it won't cause two tokens be merged
     if (
-      (leadingDelimiterTarget == null && start.character !== 0) ||
-      (trailingDelimiterTarget == null && !end.isEqual(endLine.range.end))
+      (leadingDelimiterTarget == null &&
+        !isAtStartOfLine(this.target.editor, start)) ||
+      (trailingDelimiterTarget == null &&
+        !isAtEndOfLine(this.target.editor, end))
     ) {
       return this.target.contentRange;
     }
