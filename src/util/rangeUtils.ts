@@ -6,6 +6,6 @@ export function isAtEndOfLine(editor: TextEditor, position: Position) {
   return position.isEqual(endLine.range.end);
 }
 
-export function isAtStartOfLine(_editor: TextEditor, position: Position) {
+export function isAtStartOfLine(position: Position) {
   return position.character === 0;
 }

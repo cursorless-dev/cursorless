@@ -78,8 +78,7 @@ export default class TokenInsertionRemovalBehavior
     //
     // In the future, we might get more sophisticated and to clean up white space if we can detect that it won't cause two tokens be merged
     if (
-      (leadingDelimiterTarget == null &&
-        !isAtStartOfLine(this.target.editor, start)) ||
+      (leadingDelimiterTarget == null && !isAtStartOfLine(start)) ||
       (trailingDelimiterTarget == null &&
         !isAtEndOfLine(this.target.editor, end))
     ) {
