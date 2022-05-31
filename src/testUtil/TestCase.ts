@@ -43,7 +43,7 @@ export type TestCaseFixture = {
   /** The final state after a command is issued. If we are testing a non-match(error) case this is null. */
   finalState: TestCaseSnapshot | null;
   /** Used to assert if an error has been thrown. */
-  thrownError?: string;
+  errorName?: string;
   returnValue: unknown;
   /** Inferred full targets added for context; not currently used in testing */
   fullTargets: Target[];
@@ -154,7 +154,7 @@ export class TestCase {
       finalState: this.finalState,
       returnValue: this.returnValue,
       fullTargets: this.fullTargets,
-      thrownError: this.thrownError?.name,
+      errorName: this.thrownError?.name,
     };
     return serialize(fixture);
   }

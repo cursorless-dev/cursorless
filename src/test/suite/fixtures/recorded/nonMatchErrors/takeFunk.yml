@@ -16,4 +16,4 @@ initialState:
 finalState: null
 returnValue: null
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}, isImplicit: false}]
-thrownError: Error
+errorName: Error
