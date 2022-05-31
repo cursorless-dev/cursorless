@@ -196,21 +196,17 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
  * If an inclusion or exclusion list is passed, we return the first range of children such that every child in the range matches the inclusion / exclusion criteria.
  * @param typesToExclude Ensure these child types are excluded in the contiguous range returned.
  * @param typesToInclude Ensure these child types are included in the contiguous range returned.
- * @param useUnnamedStartAndEnd whether or not the boundaries of the child range can be unnamed nodes.
  * @returns A selection extractor
  */
 export function childRangeSelector(
   typesToExclude: string[] = [],
-  typesToInclude: string[] = [],
-  useUnnamedStartAndEnd: boolean = false
+  typesToInclude: string[] = []
 ) {
   return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
     if (typesToExclude.length > 0 && typesToInclude.length > 0) {
       throw new Error("Cannot have both exclusions and inclusions.");
     }
-
-    let nodes = useUnnamedStartAndEnd ? node.children : node.namedChildren;
-
+    let nodes = node.namedChildren;
     const exclusionSet = new Set(typesToExclude);
     const inclusionSet = new Set(typesToInclude);
     nodes = nodes.filter((child) => {
