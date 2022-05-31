@@ -6,7 +6,12 @@ import BaseTarget from "./BaseTarget";
  * inherited from the source in the case of a bring after a bring before
  */
 export default class RawSelectionTarget extends BaseTarget {
+  /**
+   * Note that we use an `undefined` value for `delimiterString` so that
+   * "bring" will use the source delimiterString
+   * */
   delimiterString = undefined;
+
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;

@@ -6,6 +6,7 @@ import BaseTarget from "./BaseTarget";
  */
 export default class PlainTarget extends BaseTarget {
   delimiterString = "";
+
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;
