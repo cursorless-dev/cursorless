@@ -23,7 +23,7 @@ command run, and the final state, all in the form of a yaml document. See
 1.  If you'd like to be able to record tests which assert on non-matches, please add another command to your personal talon files. See the two files links above for context. Add the command below to your to your `vscode.py` and ensure that there is a matching Talon command.
 
 ```
-  actions.user.vscode_with_plugin("cursorless.recordTestCase", {"isErrorTest": True})
+  actions.user.vscode_with_plugin("cursorless.recordTestCase", {"recordErrors": True})
 ```
 
 ## Recording new tests

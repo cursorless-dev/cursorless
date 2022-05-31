@@ -49,10 +49,10 @@ interface RecordTestCaseCommandArg {
   showCalibrationDisplay?: boolean;
 
   /**
-   * Whether we should record a test which yields an error
+   * Whether we should record a tests which yield errors in addition to tests
+   * which do not error.
    */
-
-  isErrorTest?: boolean;
+  recordErrors?: boolean;
 }
 
 export class TestCaseRecorder {
@@ -175,7 +175,7 @@ export class TestCaseRecorder {
       isSilent = false,
       extraSnapshotFields = [],
       showCalibrationDisplay = false,
-      isErrorTest = false,
+      recordErrors: isErrorTest = false,
     } = arg ?? {};
 
     if (directory != null) {
@@ -257,9 +257,9 @@ export class TestCaseRecorder {
       // command for a navigation map test
       return;
     }
-    await this.testCase!.recordFinalState(returnValue);
+    await this.testCase.recordFinalState(returnValue);
 
-    if (this.testCase!.awaitingFinalMarkInfo) {
+    if (this.testCase.awaitingFinalMarkInfo) {
       // We don't finish the test case here in the case of a navigation map
       // test because we'll do it after we get the follow up command indicating
       // which marks we wanted to track

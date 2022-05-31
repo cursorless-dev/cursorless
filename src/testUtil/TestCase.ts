@@ -26,7 +26,7 @@ export type TestCaseContext = {
   hatTokenMap: ReadOnlyHatMap;
 };
 
-export type ErrorInfo = {
+export type ThrownError = {
   name: string;
 };
 
@@ -40,10 +40,10 @@ export type TestCaseFixture = {
   marksToCheck?: string[];
 
   initialState: TestCaseSnapshot;
-  /** The final state after a command is issued. If we are testing a non-match(error) case this is null. */
-  finalState: TestCaseSnapshot | null;
+  /** The final state after a command is issued. Undefined if we are testing a non-match(error) case. */
+  finalState?: TestCaseSnapshot;
   /** Used to assert if an error has been thrown. */
-  errorName?: string;
+  errorName?: ThrownError;
   returnValue: unknown;
   /** Inferred full targets added for context; not currently used in testing */
   fullTargets: Target[];
@@ -53,8 +53,8 @@ export class TestCase {
   languageId: string;
   fullTargets: Target[];
   initialState: TestCaseSnapshot | null = null;
-  finalState: TestCaseSnapshot | null = null;
-  thrownError: ErrorInfo | null = null;
+  finalState?: TestCaseSnapshot;
+  thrownError?: ThrownError;
   returnValue: unknown = null;
   targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
@@ -154,7 +154,7 @@ export class TestCase {
       finalState: this.finalState,
       returnValue: this.returnValue,
       fullTargets: this.fullTargets,
-      errorName: this.thrownError?.name,
+      errorName: this.thrownError,
     };
     return serialize(fixture);
   }
