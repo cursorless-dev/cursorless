@@ -13,11 +13,11 @@ initialState:
       active: {line: 0, character: 28}
   marks: {}
 finalState:
-  documentContents: let test = ()
+  documentContents: let test = new ()
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
   thatMark:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}, isImplicit: false}]

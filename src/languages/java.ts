@@ -69,11 +69,11 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     ),
     matcher(
       patternFinder("object_creation_expression"),
-      childRangeSelector(["argument_list"], [], true)
+      childRangeSelector(["argument_list"], [])
     ),
     matcher(
       patternFinder("explicit_constructor_invocation"),
-      childRangeSelector(["argument_list", ";"], [], true)
+      childRangeSelector(["argument_list", ";"], [])
     )
   ),
   map: "block",

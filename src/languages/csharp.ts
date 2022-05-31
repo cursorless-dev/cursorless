@@ -227,7 +227,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     patternMatcher("invocation_expression[function]"),
     matcher(
       patternFinder("object_creation_expression"),
-      childRangeSelector(["argument_list"], [], true)
+      childRangeSelector(["argument_list"], [])
     )
   ),
   argumentOrParameter: matcher(

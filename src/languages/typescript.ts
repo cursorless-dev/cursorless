@@ -193,7 +193,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     patternMatcher("call_expression[function]"),
     matcher(
       patternFinder("new_expression"),
-      childRangeSelector(["arguments"], [], true)
+      childRangeSelector(["arguments"], [])
     )
   ),
   statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`),
