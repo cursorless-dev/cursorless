@@ -1,5 +1,5 @@
 import { Range, Selection, TextEditor } from "vscode";
-import { EditNewContext, Position, Target } from "../../typings/target.types";
+import { EditNewContext, Target } from "../../typings/target.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
@@ -23,10 +23,7 @@ export interface CloneWithParameters {
 export default abstract class BaseTarget implements Target {
   protected readonly state: CommonTargetParameters;
 
-  constructor(
-    parameters: CommonTargetParameters,
-    private insertionRemovalBehavior: InsertionRemovalBehavior
-  ) {
+  constructor(parameters: CommonTargetParameters) {
     this.state = {
       editor: parameters.editor,
       isReversed: parameters.isReversed,
@@ -151,16 +148,8 @@ export default abstract class BaseTarget implements Target {
     );
   }
 
-  get delimiterString() {
-    return this.insertionRemovalBehavior.delimiterString;
-  }
-  getLeadingDelimiterTarget() {
-    return this.insertionRemovalBehavior.getLeadingDelimiterTarget();
-  }
-  getTrailingDelimiterTarget() {
-    return this.insertionRemovalBehavior.getTrailingDelimiterTarget();
-  }
-  getRemovalRange() {
-    return this.insertionRemovalBehavior.getRemovalRange();
-  }
+  abstract get delimiterString(): string | undefined;
+  abstract getLeadingDelimiterTarget(): Target | undefined;
+  abstract getTrailingDelimiterTarget(): Target | undefined;
+  abstract getRemovalRange(): Range;
 }

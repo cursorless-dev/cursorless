@@ -13,9 +13,6 @@ export default class LineTarget extends BaseTarget {
     super(parameters);
   }
 
-  get type(): TargetType {
-    return "line";
-  }
   get delimiterString() {
     return "\n";
   }

@@ -1,28 +1,11 @@
 import { Range } from "vscode";
 import { Target } from "../../../typings/target.types";
-import InsertionRemovalBehavior from "./insertionRemovalBehavior.types";
 
-interface Config {
-  getLeadingDelimiterTarget(): Target | undefined;
-  getTrailingDelimiterTarget(): Target | undefined;
-  delimiterString: string;
-}
+export function getDelimitedSequenceRemovalRange(target: Target): Range {
+  const delimiterTarget =
+    target.getTrailingDelimiterTarget() ?? target.getLeadingDelimiterTarget();
 
-export default class DelimitedSequenceInsertionRemovalBehavior
-  implements InsertionRemovalBehavior
-{
-  constructor(private target: Target, private config: Config) {}
-
-  delimiterString = this.config.delimiterString;
-  getLeadingDelimiterTarget = this.config.getLeadingDelimiterTarget;
-  getTrailingDelimiterTarget = this.config.getTrailingDelimiterTarget;
-
-  getRemovalRange(): Range {
-    const delimiterTarget =
-      this.getTrailingDelimiterTarget() ?? this.getLeadingDelimiterTarget();
-
-    return delimiterTarget != null
-      ? this.target.contentRange.union(delimiterTarget.getRemovalRange())
-      : this.target.contentRange;
-  }
+  return delimiterTarget != null
+    ? target.contentRange.union(delimiterTarget.contentRange)
+    : target.contentRange;
 }

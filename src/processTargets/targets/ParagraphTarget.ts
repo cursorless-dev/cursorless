@@ -22,18 +22,28 @@ export default class ParagraphTarget extends BaseTarget {
     return true;
   }
 
-  protected get contentRemovalRange() {
-    return new Range(
-      new Position(this.contentRange.start.line, 0),
-      this.editor.document.lineAt(this.contentRange.end).range.end
-    );
+  getLeadingDelimiterTarget() {
+    const contentRange = getLeadingDelimiter(this.editor, this.contentRange);
+
+    return contentRange == null
+      ? undefined
+      : new LineTarget({
+          editor: this.editor,
+          isReversed: false,
+          contentRange,
+        });
   }
 
-  getLeadingDelimiterTarget() {
-    return getLeadingDelimiter(this.editor, this.contentRange);
-  }
   getTrailingDelimiterTarget() {
-    return getTrailingDelimiter(this.editor, this.contentRange);
+    const contentRange = getTrailingDelimiter(this.editor, this.contentRange);
+
+    return contentRange == null
+      ? undefined
+      : new LineTarget({
+          editor: this.editor,
+          isReversed: false,
+          contentRange,
+        });
   }
 
   private get leadingDelimiterHighlightRange() {
@@ -44,25 +54,37 @@ export default class ParagraphTarget extends BaseTarget {
   }
 
   getRemovalRange() {
+    // TODO: In the future we could get rid of this function if {@link
+    // getDelimitedSequenceRemovalRange} made a continuous range from the target
+    // past its delimiter target and then used the removal range of that.
     const delimiterRange = (() => {
       const leadingDelimiterRange = this.getLeadingDelimiterTarget();
       let trailingDelimiterRange = this.getTrailingDelimiterTarget();
       if (trailingDelimiterRange != null) {
-        return trailingDelimiterRange;
+        return trailingDelimiterRange.contentRange;
       }
       if (leadingDelimiterRange) {
-        return leadingDelimiterRange;
+        return leadingDelimiterRange.contentRange;
       }
       return undefined;
     })();
 
+    const contentRemovalRange = this.fullLineContentRange;
+
     const removalRange =
       delimiterRange != null
-        ? this.contentRemovalRange.union(delimiterRange)
-        : this.contentRemovalRange;
+        ? contentRemovalRange.union(delimiterRange)
+        : contentRemovalRange;
 
     // Check if there is a new line delimiter to remove as well
     return addLineDelimiterRanges(this.editor, removalRange);
+  }
+
+  private get fullLineContentRange() {
+    return new Range(
+      new Position(this.contentRange.start.line, 0),
+      this.editor.document.lineAt(this.contentRange.end).range.end
+    );
   }
 
   getRemovalHighlightRange() {
@@ -70,8 +92,8 @@ export default class ParagraphTarget extends BaseTarget {
       this.trailingDelimiterHighlightRange ??
       this.leadingDelimiterHighlightRange;
     return delimiterRange != null
-      ? this.contentRemovalRange.union(delimiterRange)
-      : this.contentRemovalRange;
+      ? this.fullLineContentRange.union(delimiterRange)
+      : this.fullLineContentRange;
   }
 
   createContinuousRangeTarget(
