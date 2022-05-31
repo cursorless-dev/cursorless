@@ -196,6 +196,7 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
  * If an inclusion or exclusion list is passed, we return the first range of children such that every child in the range matches the inclusion / exclusion criteria.
  * @param typesToExclude Ensure these child types are excluded in the contiguous range returned.
  * @param typesToInclude Ensure these child types are included in the contiguous range returned.
+ * @param useUnnamedStartAndEnd whether or not the boundaries of the child range can be unnamed nodes.
  * @returns A selection extractor
  */
 export function childRangeSelector(
