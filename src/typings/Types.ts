@@ -96,7 +96,6 @@ export type ScopeType =
   | "argumentOrParameter"
   | "anonymousFunction"
   | "attribute"
-  | "callee"
   | "class"
   | "className"
   | "collectionItem"
