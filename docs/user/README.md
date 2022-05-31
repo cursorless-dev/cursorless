@@ -6,11 +6,13 @@ slug: /
 
 Welcome to Cursorless! You may find it helpful to start with the [tutorial video](https://www.youtube.com/watch?v=JxcNW0hnfTk).
 
+This guide assumes you've already [installed Cursorless](installation.md).
+
 Once you understand the concepts, you can pull up a cheatsheet for reference using the command `"cursorless help"`.
 
 You can get back to these docs by saying `"cursorless instructions"`.
 
-Note: If you'd like to customize any of the spoken forms, please see the [documentation](customization.md).
+Note: If you'd like to customize any of the spoken forms, please see [Customization](customization.md).
 
 ## Overview
 
@@ -62,7 +64,7 @@ The following colors are supported. Note that to target the default (gray) hat y
 | `"navy"`    | navy    | `userColor1` | ❌                  |
 | `"apricot"` | apricot | `userColor2` | ❌                  |
 
-You can enable or disable colors in your VSCode settings, by searching for `cursorless.hatEnablement.colors` and checking the box next to the internal ID for the given shape as listed above.
+You can enable or disable colors in your VSCode settings, by searching for `cursorless.hatEnablement.colors` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
 You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for `cursorless.colors` and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes.
 
@@ -91,7 +93,7 @@ The following shapes are supported. Note that to target the default (dot) shape 
 | `"cross"`   | ![Crosshairs](../../images/hats/crosshairs.svg) | `crosshairs` | ❌                  |
 | `"bolt"`    | ![Bolt](../../images/hats/bolt.svg)             | `bolt`       | ❌                  |
 
-You can enable or disable shapes in your VSCode settings, by searching for `cursorless.hatEnablement.shapes` and checking the box next to the internal ID for the given shape as listed above.
+You can enable or disable shapes in your VSCode settings, by searching for `cursorless.hatEnablement.shapes` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
 If you find these shape names unintuitive / tough to remember, their
 spoken forms can be [customized](customization.md) like any other spoken form
@@ -123,6 +125,8 @@ Modifiers can be applied to any mark to modify its extent. This is commonly used
 Note that if the mark is `"this"`, and you have multiple cursors, the modifiers will be applied to each cursor individually.
 
 ##### Syntactic scopes
+
+For programming languages where Cursorless has rich parse tree support, we support modifiers that expand to the nearest containing function, class, etc. See [the source code](../../src/languages/constants.ts) for a list of supported languages. Below is a list of supported scope types, keeping in mind that this table can sometimes lag behind the actual list. Your cheatsheet (say "cursorless help") will have the most up-to-date list.
 
 | Term           | Syntactic element                                   |
 | -------------- | --------------------------------------------------- |

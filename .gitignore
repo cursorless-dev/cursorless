@@ -11,3 +11,6 @@ docs/contributing/api/
 
 # Generated docs hub
 gh-pages-root/docs/
+
+# Local extension / data sandbox for debug launch task
+/.vscode-sandbox
