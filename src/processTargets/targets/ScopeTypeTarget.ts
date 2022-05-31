@@ -40,9 +40,6 @@ export default class ScopeTypeTarget extends BaseTarget {
       !!this.leadingDelimiterRange_ || !!this.trailingDelimiterRange_;
   }
 
-  get type(): TargetType {
-    return "scopeType";
-  }
   get delimiterString() {
     return this.delimiter_;
   }

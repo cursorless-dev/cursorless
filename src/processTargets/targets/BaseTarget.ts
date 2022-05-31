@@ -39,9 +39,7 @@ export default abstract class BaseTarget implements Target {
     return this.state.isReversed;
   }
 
-  get isLine() {
-    return false;
-  }
+  isLine = false;
 
   get thatTarget(): Target {
     return this.state.thatTarget != null
