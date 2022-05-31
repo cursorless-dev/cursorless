@@ -63,10 +63,6 @@
 			{
 				"command": "cursorless.resumeRecording",
 				"title": "Cursorless: Resume test case recording"
-			},
-			{
-				"command": "cursorless.captureErrorTests",
-				"title": "Cursorless: Capture both success and error test cases."
 			}
 		],
 		"colors": [

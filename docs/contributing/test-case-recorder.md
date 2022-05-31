@@ -13,12 +13,18 @@ command run, and the final state, all in the form of a yaml document. See
 1.  Add a voice command for recording to your personal talon files:
     - `cursorless record: user.vscode("cursorless.recordTestCase")`
     - We don't want to commit this so add it to your own repository.
-1.  If you'd like to be able to do tests which check the navigation map, you should also add the following to your personal talon files:
+1.  If you'd like to be able to record tests which check the navigation map, please add the following to your personal talon files:
 
     - https://github.com/pokey/pokey_talon/blob/9298c25dd6d28fd9fcf5ed39f305bc6b93e5f229/apps/vscode/vscode.talon#L468
     - https://github.com/pokey/pokey_talon/blob/49643bfa8f62cbec18b5ddad1658f5a28785eb01/apps/vscode/vscode.py#L203-L205
 
     It is quite unlikely you'll need this second step. Most tests don't check the navigation map.
+
+1.  If you'd like to be able to record tests which assert on non-matches, please add another command to your personal talon files. See the two files links above for context. Add the command below to your to your `vscode.py` and ensure that there is a matching Talon command.
+
+```
+  actions.user.vscode_with_plugin("cursorless.recordTestCase", {"isErrorTest": True})
+```
 
 ## Recording new tests
 

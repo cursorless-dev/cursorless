@@ -26,6 +26,10 @@ export type TestCaseContext = {
   hatTokenMap: ReadOnlyHatMap;
 };
 
+export type ErrorInfo = {
+  name: string;
+};
+
 export type TestCaseFixture = {
   languageId: string;
   command: TestCaseCommand;
@@ -36,11 +40,13 @@ export type TestCaseFixture = {
   marksToCheck?: string[];
 
   initialState: TestCaseSnapshot;
+  /** The final state after a command is issued. If we are testing a non-match(error) case this is null. */
   finalState: TestCaseSnapshot | null;
+  /** Used to assert if an error has been thrown. */
+  thrownError?: string;
   returnValue: unknown;
   /** Inferred full targets added for context; not currently used in testing */
   fullTargets: Target[];
-  errorReturned: boolean;
 };
 
 export class TestCase {
@@ -48,7 +54,7 @@ export class TestCase {
   fullTargets: Target[];
   initialState: TestCaseSnapshot | null = null;
   finalState: TestCaseSnapshot | null = null;
-  errorState: Error | null = null;
+  thrownError: ErrorInfo | null = null;
   returnValue: unknown = null;
   targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
@@ -133,13 +139,12 @@ export class TestCase {
     );
   }
 
-  toYaml(captureErrors: boolean) {
+  toYaml() {
     if (
       this.initialState == null ||
-      (this.finalState == null && !captureErrors)
+      (this.finalState == null && this.thrownError == null)
     ) {
       throw Error("Two snapshots must be taken before serializing");
-    } else {
     }
     const fixture: TestCaseFixture = {
       languageId: this.languageId,
@@ -149,7 +154,7 @@ export class TestCase {
       finalState: this.finalState,
       returnValue: this.returnValue,
       fullTargets: this.fullTargets,
-      errorReturned: !!this.errorState,
+      thrownError: this.thrownError?.name,
     };
     return serialize(fixture);
   }
@@ -167,11 +172,6 @@ export class TestCase {
   }
 
   async recordFinalState(returnValue: unknown) {
-    if (returnValue instanceof Error) {
-      this.errorState = returnValue;
-      return;
-    }
-
     const excludeFields = this.getExcludedFields();
     this.returnValue = returnValue;
     this.finalState = await takeSnapshot(

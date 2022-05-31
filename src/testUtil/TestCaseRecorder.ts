@@ -47,6 +47,12 @@ interface RecordTestCaseCommandArg {
    * Whether to flash a background for calibrating a video recording
    */
   showCalibrationDisplay?: boolean;
+
+  /**
+   * Whether we should record a test which yields an error
+   */
+
+  isErrorTest?: boolean;
 }
 
 export class TestCaseRecorder {
@@ -62,7 +68,7 @@ export class TestCaseRecorder {
   private startTimestamp?: bigint;
   private extraSnapshotFields?: ExtraSnapshotField[];
   private paused: boolean = false;
-  private captureErrorTests: boolean = false;
+  private isErrorTest: boolean = false;
   private calibrationStyle = vscode.window.createTextEditorDecorationType({
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
@@ -154,29 +160,12 @@ export class TestCaseRecorder {
 
           await this.writeToFile(outPath, serialize(snapshot));
         }
-      ),
-
-      vscode.commands.registerCommand(
-        "cursorless.captureErrorTests",
-        async () => {
-          if (!this.active) {
-            throw Error(
-              "Asked to record error tests, but no recording active."
-            );
-          }
-
-          this.captureErrorTests = true;
-        }
       )
     );
   }
 
   isActive() {
     return this.active && !this.paused;
-  }
-
-  captureErrors() {
-    return this.isActive() && this.captureErrorTests;
   }
 
   async start(arg?: RecordTestCaseCommandArg) {
@@ -186,6 +175,7 @@ export class TestCaseRecorder {
       isSilent = false,
       extraSnapshotFields = [],
       showCalibrationDisplay = false,
+      isErrorTest = false,
     } = arg ?? {};
 
     if (directory != null) {
@@ -205,6 +195,7 @@ export class TestCaseRecorder {
       this.isHatTokenMapTest = isHatTokenMapTest;
       this.isSilent = isSilent;
       this.extraSnapshotFields = extraSnapshotFields;
+      this.isErrorTest = isErrorTest;
       this.paused = false;
 
       vscode.window.showInformationMessage(
@@ -261,7 +252,7 @@ export class TestCaseRecorder {
   }
 
   async postCommandHook(returnValue: any) {
-    if (this.testCase == null && !this.captureErrorTests) {
+    if (this.testCase == null) {
       // If test case is null then this means that this was just a follow up
       // command for a navigation map test
       return;
@@ -280,7 +271,7 @@ export class TestCaseRecorder {
 
   async finishTestCase(): Promise<void> {
     const outPath = this.calculateFilePath(this.testCase!);
-    const fixture = this.testCase!.toYaml(this.captureErrorTests);
+    const fixture = this.testCase!.toYaml();
     await this.writeToFile(outPath, fixture);
 
     if (!this.isSilent) {
@@ -368,8 +359,13 @@ export class TestCaseRecorder {
     return filePath;
   }
 
-  commandErrorHook() {
-    this.testCase = null;
+  async commandErrorHook(error: Error) {
+    if (this.isErrorTest && this.testCase) {
+      this.testCase.thrownError = { name: error.name };
+      await this.finishTestCase();
+    } else {
+      this.testCase = null;
+    }
   }
 
   dispose() {
