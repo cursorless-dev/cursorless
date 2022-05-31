@@ -1,0 +1,29 @@
+languageId: csharp
+command:
+  version: 1
+  spokenForm: change condition
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
+initialState:
+  documentContents: |-
+    if (columnname != a && columnname != b && columnname != c)
+    {
+    }
+  selections:
+    - anchor: {line: 0, character: 28}
+      active: {line: 0, character: 28}
+  marks: {}
+finalState:
+  documentContents: |-
+    if ()
+    {
+    }
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: condition, includeSiblings: false}, isImplicit: false}]
