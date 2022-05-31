@@ -7,13 +7,23 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
-  documentContents: "public class Test {\r\n    public Test()  {\r\n        super();\r\n    }\r\n}"
+  documentContents: |-
+    public class Test {
+        public Test()  {
+            super();
+        }
+    }
   selections:
     - anchor: {line: 2, character: 14}
       active: {line: 2, character: 14}
   marks: {}
 finalState:
-  documentContents: "public class Test {\r\n    public Test()  {\r\n        ();\r\n    }\r\n}"
+  documentContents: |-
+    public class Test {
+        public Test()  {
+            ();
+        }
+    }
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
