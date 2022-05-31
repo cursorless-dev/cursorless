@@ -1,0 +1,23 @@
+languageId: csharp
+command:
+  version: 1
+  spokenForm: change condition
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
+initialState:
+  documentContents: for (int i = 0; i < 5; i++) { for (int i = 0; i < 5; i++) {} }
+  selections:
+    - anchor: {line: 0, character: 59}
+      active: {line: 0, character: 59}
+  marks: {}
+finalState:
+  documentContents: for (int i = 0; i < 5; i++) { for (int i = 0; ; i++) {} }
+  selections:
+    - anchor: {line: 0, character: 46}
+      active: {line: 0, character: 46}
+  thatMark:
+    - anchor: {line: 0, character: 46}
+      active: {line: 0, character: 46}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: condition, includeSiblings: false}, isImplicit: false}]
