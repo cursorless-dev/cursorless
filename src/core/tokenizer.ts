@@ -1,9 +1,10 @@
+import { omit } from "lodash";
 import { SupportedLanguageId } from "../languages/constants";
 import { DefaultLanguageTokenizer as DefaultLanguageTokenizerSettings } from "../typings/Types";
 import { matchAll } from "../util/regex";
 import css from "./languageTokenizers/css";
 
-export const REPEATABLE_SYMBOLS = [
+const REPEATABLE_SYMBOLS = [
   "-",
   "+",
   "*",
@@ -19,7 +20,7 @@ export const REPEATABLE_SYMBOLS = [
   ":",
 ];
 
-export const FIXED_TOKENS = [
+const FIXED_TOKENS = [
   "!==",
   "!=",
   "+=",
@@ -42,13 +43,10 @@ export const FIXED_TOKENS = [
   "<!--",
   "-->",
 ];
-export const REPEATABLE_SYMBOLS_REGEX = REPEATABLE_SYMBOLS.map(escapeRegExp)
-  .map((s) => `${s}+`)
-  .join("|");
-export const FIXED_TOKENS_REGEX = FIXED_TOKENS.map(escapeRegExp).join("|");
-export const IDENTIFIERS_REGEX = "[\\p{L}(_|\\-)0-9]+";
-export const SINGLE_SYMBOLS_REGEX = "[^\\s\\w\\-]";
-export const NUMBERS_REGEX = "(?<=[^.\\d]|^)\\d+\\.\\d+(?=[^.\\d]|$)"; // (not-dot/digit digits dot digits not-dot/digit)
+
+const IDENTIFIERS_REGEX = "[\\p{L}_0-9]+";
+const SINGLE_SYMBOLS_REGEX = "[^\\s\\w]";
+const NUMBERS_REGEX = "(?<=[^.\\d]|^)\\d+\\.\\d+(?=[^.\\d]|$)"; // (not-dot/digit digits dot digits not-dot/digit)
 
 const defaultLanguageTokenizerSetting: DefaultLanguageTokenizerSettings = {
   fixedTokens: FIXED_TOKENS,
@@ -58,14 +56,9 @@ const defaultLanguageTokenizerSetting: DefaultLanguageTokenizerSettings = {
   singleSymbolsRegex: SINGLE_SYMBOLS_REGEX,
 };
 
-export const TOKEN_MATCHER = generateTokenMatcher(
-  defaultLanguageTokenizerSetting
-);
+export const TOKEN_MATCHER = generateTokenMatcher();
 
-function generateTokenMatcher(
-  defaultLanguageTokenizerSetting: DefaultLanguageTokenizerSettings,
-  languageId?: SupportedLanguageId
-): RegExp {
+function generateTokenMatcher(languageId?: SupportedLanguageId): RegExp {
   let settings = {};
   if (languageId && languageSettings[languageId]) {
     settings = languageSettings[languageId] ?? {};
@@ -86,12 +79,12 @@ function generateTokenMatcher(
     .map(escapeRegExp)
     .join("|");
 
-  const regex = Object.entries(tokenizerDefinition)
-    .filter(
-      ([key, _value]) => key !== "fixedTokens" && key !== "repeatableSymbols"
-    )
-    .flatMap((entry) => entry.values)
+  const regex = Object.values(
+    omit(tokenizerDefinition, ["fixedTokens", "repeatableSymbols"])
+  )
+    .flatMap((value) => value)
     .join("|");
+  console.log("lang:", languageId, regex);
   return new RegExp(regex, "gu");
 }
 
@@ -102,7 +95,8 @@ const languageSettings: Partial<
 };
 
 const tokenMatchersForLanguage: Partial<Record<SupportedLanguageId, RegExp>> = {
-  css: TOKEN_MATCHER,
+  css: generateTokenMatcher("css"),
+  scss: generateTokenMatcher("css"),
 };
 
 export function getTokenMatcher(languageId: string): RegExp {
@@ -116,7 +110,7 @@ export function getTokenMatcher(languageId: string): RegExp {
 
 export function tokenize<T>(
   text: string,
-  languageId: SupportedLanguageId,
+  languageId: string,
   mapfn: (v: RegExpMatchArray, k: number) => T
 ) {
   return matchAll(text, getTokenMatcher(languageId), mapfn);
@@ -126,3 +120,4 @@ export function tokenize<T>(
 function escapeRegExp(string: string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
 }
+q;

@@ -63,9 +63,14 @@ const tests: TestCase[] = [
 suite("tokenizer", () => {
   tests.forEach(([input, expectedOutput]) => {
     test(input, () => {
-      const output = tokenize(input, (match) => match[0]);
+      const output = tokenize(input, "anyLang", (match) => match[0]);
       assert.deepStrictEqual(output, expectedOutput);
     });
+  });
+
+  test("css custom tokenizer", () => {
+    const output = tokenize("--attribute-name", "css", (match) => match[0]);
+    assert.deepStrictEqual(output, ["--attribute-name"]);
   });
 });
 
