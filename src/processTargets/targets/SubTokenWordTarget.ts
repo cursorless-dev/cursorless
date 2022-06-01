@@ -4,7 +4,7 @@ import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemoval
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
 export interface SubTokenTargetParameters extends CommonTargetParameters {
-  readonly delimiterString: string;
+  readonly insertionDelimiter: string;
   readonly leadingDelimiterRange?: Range;
   readonly trailingDelimiterRange?: Range;
 }
@@ -12,13 +12,13 @@ export interface SubTokenTargetParameters extends CommonTargetParameters {
 export default class SubTokenWordTarget extends BaseTarget {
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
-  delimiterString: string;
+  insertionDelimiter: string;
 
   constructor(parameters: SubTokenTargetParameters) {
     super(parameters);
     this.leadingDelimiterRange_ = parameters.leadingDelimiterRange;
     this.trailingDelimiterRange_ = parameters.trailingDelimiterRange;
-    this.delimiterString = parameters.delimiterString;
+    this.insertionDelimiter = parameters.insertionDelimiter;
   }
 
   getLeadingDelimiterTarget() {

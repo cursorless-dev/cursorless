@@ -116,7 +116,7 @@ export default class OrdinalRangeSubTokenStage implements ModifierStage {
         : undefined;
     const isInDelimitedList =
       leadingDelimiterRange != null || trailingDelimiterRange != null;
-    const delimiterString = isInDelimitedList
+    const insertionDelimiter = isInDelimitedList
       ? editor.document.getText(
           (leadingDelimiterRange ?? trailingDelimiterRange)!
         )
@@ -127,7 +127,7 @@ export default class OrdinalRangeSubTokenStage implements ModifierStage {
         editor,
         isReversed,
         contentRange,
-        delimiterString,
+        insertionDelimiter,
         leadingDelimiterRange,
         trailingDelimiterRange,
       }),

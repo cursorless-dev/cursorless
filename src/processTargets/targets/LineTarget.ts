@@ -6,7 +6,7 @@ import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
 import BaseTarget from "./BaseTarget";
 
 export default class LineTarget extends BaseTarget {
-  delimiterString = "\n";
+  insertionDelimiter = "\n";
   isLine = true;
 
   private get fullLineContentRange() {

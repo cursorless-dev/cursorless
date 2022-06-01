@@ -28,7 +28,7 @@ export default class ScopeTypeTarget extends BaseTarget {
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
   private hasDelimiterRange_: boolean;
-  delimiterString: string;
+  insertionDelimiter: string;
 
   constructor(parameters: ScopeTypeTargetParameters) {
     super(parameters);
@@ -36,7 +36,7 @@ export default class ScopeTypeTarget extends BaseTarget {
     this.removalRange_ = parameters.removalRange;
     this.leadingDelimiterRange_ = parameters.leadingDelimiterRange;
     this.trailingDelimiterRange_ = parameters.trailingDelimiterRange;
-    this.delimiterString =
+    this.insertionDelimiter =
       parameters.delimiter ?? getDelimiter(parameters.scopeTypeType);
     this.hasDelimiterRange_ =
       !!this.leadingDelimiterRange_ || !!this.trailingDelimiterRange_;

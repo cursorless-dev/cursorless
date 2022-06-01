@@ -288,14 +288,17 @@ export interface Target {
   /** The range of the content */
   readonly contentRange: Range;
 
-  /** If this selection has a delimiter. For example, new line for a line or paragraph and comma for a list or argument */
-  readonly delimiterString?: string;
+  /** If this selection has a delimiter use it for inserting before or after the target. For example, new line for a line or paragraph and comma for a list or argument */
+  readonly insertionDelimiter: string;
 
   /** If true this target should be treated as a line */
   readonly isLine: boolean;
 
   /** If true this target is weak and can be transformed/upgraded */
   readonly isWeak: boolean;
+
+  /** If true this target is a raw selection and its insertion delimiter should not be used on bring action */
+  readonly isRaw: boolean;
 
   /** The text contained in the content range */
   readonly contentText: string;
@@ -329,4 +332,5 @@ export interface Target {
   constructEmptyChangeEdit(): EditWithRangeUpdater;
   /** Constructs removal edit */
   constructRemovalEdit(): EditWithRangeUpdater;
+  isEqual(target: Target): boolean;
 }

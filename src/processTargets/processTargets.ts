@@ -1,4 +1,4 @@
-import { zip } from "lodash";
+import { uniqWith, zip } from "lodash";
 import { Range } from "vscode";
 import {
   PrimitiveTargetDescriptor,
@@ -8,7 +8,6 @@ import {
 } from "../typings/target.types";
 import { ProcessedTargetsContext } from "../typings/Types";
 import { ensureSingleEditor } from "../util/targetUtils";
-import uniqDeep from "../util/uniqDeep";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
 
@@ -30,7 +29,7 @@ export default function (
   context: ProcessedTargetsContext,
   targets: TargetDescriptor[]
 ): Target[][] {
-  return targets.map((target) => uniqDeep(processTarget(context, target)));
+  return targets.map((target) => uniqTargets(processTarget(context, target)));
 }
 
 function processTarget(
@@ -213,4 +212,8 @@ function processPrimitiveTarget(
 
 function calcIsReversed(anchor: Target, active: Target) {
   return anchor.contentRange.start.isAfter(active.contentRange.start);
+}
+
+function uniqTargets(array: Target[]): Target[] {
+  return uniqWith(array, (a, b) => a.isEqual(b));
 }

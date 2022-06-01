@@ -15,27 +15,28 @@ export default class PositionStage implements ModifierStage {
 export function toPositionTarget(target: Target, position: Position): Target {
   const { start, end } = target.contentRange;
   let contentRange: Range;
-  let delimiter: string | undefined;
+  let insertionDelimiter: string;
 
   switch (position) {
     case "before":
       contentRange = new Range(start, start);
-      delimiter = target.delimiterString;
+      insertionDelimiter = target.insertionDelimiter;
       break;
 
     case "after":
       contentRange = new Range(end, end);
-      delimiter = target.delimiterString;
+      insertionDelimiter = target.insertionDelimiter;
       break;
 
     case "start":
       contentRange = new Range(start, start);
-      delimiter = target.delimiterString != null ? "" : undefined;
+      // This it NOT a raw target. Joining with this should be done on empty delimiter.
+      insertionDelimiter = "";
       break;
 
     case "end":
       contentRange = new Range(end, end);
-      delimiter = target.delimiterString != null ? "" : undefined;
+      insertionDelimiter = "";
       break;
   }
 
@@ -44,6 +45,7 @@ export function toPositionTarget(target: Target, position: Position): Target {
     isReversed: target.isReversed,
     contentRange,
     position,
-    delimiter,
+    insertionDelimiter,
+    isRaw: target.isRaw,
   });
 }

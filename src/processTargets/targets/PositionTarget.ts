@@ -6,21 +6,20 @@ import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
 interface PositionTargetParameters extends CommonTargetParameters {
   readonly position: Position;
-  readonly delimiter?: string;
+  readonly insertionDelimiter: string;
+  readonly isRaw: boolean;
 }
 
 export default class PositionTarget extends BaseTarget {
-  private delimiterString_?: string;
+  insertionDelimiter: string;
+  isRaw: boolean;
   private position: Position;
 
   constructor(parameters: PositionTargetParameters) {
     super(parameters);
     this.position = parameters.position;
-    this.delimiterString_ = parameters.delimiter;
-  }
-
-  get delimiterString() {
-    return this.delimiterString_;
+    this.insertionDelimiter = parameters.insertionDelimiter;
+    this.isRaw = parameters.isRaw;
   }
 
   getLeadingDelimiterTarget = () => undefined;
@@ -41,10 +40,12 @@ export default class PositionTarget extends BaseTarget {
     return this.constructReplaceEdit("");
   }
 
-  protected getCloneParameters() {
+  protected getCloneParameters(): PositionTargetParameters {
     return {
       ...this.state,
       position: this.position,
+      insertionDelimiter: this.insertionDelimiter,
+      isRaw: this.isRaw,
     };
   }
 
@@ -52,7 +53,7 @@ export default class PositionTarget extends BaseTarget {
     text: string,
     useLinePadding: boolean
   ): EditWithRangeUpdater {
-    const delimiter = this.delimiterString ?? "";
+    const delimiter = this.insertionDelimiter;
     const isLine = delimiter.includes("\n");
     const isBefore = this.position === "before";
 
@@ -101,10 +102,7 @@ export default class PositionTarget extends BaseTarget {
   }
 
   private isInsertion() {
-    return (
-      this.delimiterString != null &&
-      (this.position === "before" || this.position === "after")
-    );
+    return this.position === "before" || this.position === "after";
   }
 }
 

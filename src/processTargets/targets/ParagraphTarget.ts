@@ -8,7 +8,7 @@ import BaseTarget from "./BaseTarget";
 import LineTarget from "./LineTarget";
 
 export default class ParagraphTarget extends BaseTarget {
-  delimiterString = "\n\n";
+  insertionDelimiter = "\n\n";
   isLine = true;
 
   getLeadingDelimiterTarget() {

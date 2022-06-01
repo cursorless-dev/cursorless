@@ -4,7 +4,7 @@ import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import WeakTarget from "./WeakTarget";
 
 export default class DocumentTarget extends BaseTarget {
-  delimiterString = "\n";
+  insertionDelimiter = "\n";
   isLine = true;
 
   constructor(parameters: CommonTargetParameters) {

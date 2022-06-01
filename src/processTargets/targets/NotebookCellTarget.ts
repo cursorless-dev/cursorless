@@ -4,7 +4,7 @@ import { getNotebookFromCellDocument } from "../../util/notebook";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
 export default class NotebookCellTarget extends BaseTarget {
-  delimiterString = "\n";
+  insertionDelimiter = "\n";
 
   constructor(parameters: CommonTargetParameters) {
     super(parameters);

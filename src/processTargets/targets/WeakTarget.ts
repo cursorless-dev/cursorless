@@ -13,7 +13,7 @@ import BaseTarget from "./BaseTarget";
  * - Expand to nearest containing pair when asked for boundary or interior
  */
 export default class WeakTarget extends BaseTarget {
-  delimiterString = " ";
+  insertionDelimiter = " ";
   isWeak = true;
 
   getLeadingDelimiterTarget(): Target | undefined {
