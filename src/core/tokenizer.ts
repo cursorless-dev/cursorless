@@ -1,4 +1,3 @@
-import { omit } from "lodash";
 import { SupportedLanguageId } from "../languages/constants";
 import { DefaultLanguageTokenizer as DefaultLanguageTokenizerSettings } from "../typings/Types";
 import { matchAll } from "../util/regex";
@@ -69,21 +68,23 @@ function generateTokenMatcher(languageId?: SupportedLanguageId): RegExp {
     settings
   );
 
-  tokenizerDefinition.repeatableSymbolsRegex =
-    tokenizerDefinition.repeatableSymbols
-      .map(escapeRegExp)
-      .map((s) => `${s}+`)
-      .join("|");
+  const repeatableSymbolsRegex = tokenizerDefinition.repeatableSymbols
+    .map(escapeRegExp)
+    .map((s) => `${s}+`)
+    .join("|");
 
-  tokenizerDefinition.fixedTokensRegex = tokenizerDefinition.fixedTokens
+  const fixedTokensRegex = tokenizerDefinition.fixedTokens
     .map(escapeRegExp)
     .join("|");
 
-  const regex = Object.values(
-    omit(tokenizerDefinition, ["fixedTokens", "repeatableSymbols"])
-  )
-    .flatMap((value) => value)
-    .join("|");
+  // Order matters here.
+  const regex = [
+    fixedTokensRegex,
+    tokenizerDefinition.numbersRegex,
+    tokenizerDefinition.identifiersRegex,
+    repeatableSymbolsRegex,
+    tokenizerDefinition.singleSymbolsRegex,
+  ].join("|");
   console.log("lang:", languageId, regex);
   return new RegExp(regex, "gu");
 }

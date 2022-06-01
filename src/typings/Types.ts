@@ -538,10 +538,8 @@ export interface Edit {
 
 export interface DefaultLanguageTokenizer {
   fixedTokens: string[];
-  fixedTokensRegex?: string;
   identifiersRegex: string;
   numbersRegex: string;
   repeatableSymbols: string[];
-  repeatableSymbolsRegex?: string;
   singleSymbolsRegex: string;
 }

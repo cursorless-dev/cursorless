@@ -1,8 +1,15 @@
 import * as assert from "assert";
 import { tokenize } from "../../core/tokenizer";
 import { flatten, range } from "lodash";
+import { SupportedLanguageId } from "../../languages/constants";
 
 type TestCase = [string, string[]];
+type LanguageTokenizerTests = Partial<
+  Record<
+    SupportedLanguageId,
+    { tests: TestCase[]; exclusionPredicate?: (input: string) => boolean }
+  >
+>;
 const singleSymbolTests: TestCase[] = getAsciiSymbols().map((s) => [s, [s]]);
 
 const tests: TestCase[] = [
@@ -60,18 +67,45 @@ const tests: TestCase[] = [
   ["aåäöb", ["aåäöb"]],
 ];
 
+const languageTokenizerTests: LanguageTokenizerTests = {
+  css: {
+    tests: [
+      ["min-height", ["min-height"]],
+      ["-webkit-font-smoothing", ["-webkit-font-smoothing"]],
+    ],
+    // Leave kebab and dashes to css language specific tests.
+    exclusionPredicate: (input: string) => input.match("-") == null,
+  },
+};
+
 suite("tokenizer", () => {
   tests.forEach(([input, expectedOutput]) => {
-    test(input, () => {
+    test(`tokenizer test, input: ${input}`, () => {
       const output = tokenize(input, "anyLang", (match) => match[0]);
       assert.deepStrictEqual(output, expectedOutput);
     });
   });
 
-  test("css custom tokenizer", () => {
-    const output = tokenize("--attribute-name", "css", (match) => match[0]);
-    assert.deepStrictEqual(output, ["--attribute-name"]);
-  });
+  Object.entries(languageTokenizerTests).forEach(
+    ([language, { tests, exclusionPredicate = () => true }]) => {
+      tests.forEach(([input, expectedOutput]) => {
+        test(`${language} custom tokenizer, input: ${input}`, () => {
+          const output = tokenize(input, language, (match) => match[0]);
+          assert.deepStrictEqual(output, expectedOutput);
+        });
+      });
+
+      tests.forEach(([input, expectedOutput]) => {
+        if (exclusionPredicate(input)) {
+          return;
+        }
+        test(`${language} custom tokenizer, input: ${input}`, () => {
+          const output = tokenize(input, language, (match) => match[0]);
+          assert.deepStrictEqual(output, expectedOutput);
+        });
+      });
+    }
+  );
 });
 
 /**
