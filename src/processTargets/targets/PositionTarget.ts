@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { Range, TextEditor } from "vscode";
-import { Position } from "../../typings/target.types";
+import { Position, Target } from "../../typings/target.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
@@ -8,23 +8,27 @@ interface PositionTargetParameters extends CommonTargetParameters {
   readonly position: Position;
   readonly insertionDelimiter: string;
   readonly isRaw: boolean;
+  readonly removalTarget: Target | undefined;
 }
 
 export default class PositionTarget extends BaseTarget {
   insertionDelimiter: string;
   isRaw: boolean;
   private position: Position;
+  private removalTarget: Target | undefined;
 
   constructor(parameters: PositionTargetParameters) {
     super(parameters);
     this.position = parameters.position;
     this.insertionDelimiter = parameters.insertionDelimiter;
     this.isRaw = parameters.isRaw;
+    this.removalTarget = parameters.removalTarget;
   }
 
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
-  getRemovalRange = () => this.contentRange;
+  getRemovalRange = () =>
+    this.removalTarget?.getRemovalRange() ?? this.contentRange;
 
   constructChangeEdit(text: string): EditWithRangeUpdater {
     if (this.isInsertion()) {
@@ -46,6 +50,7 @@ export default class PositionTarget extends BaseTarget {
       position: this.position,
       insertionDelimiter: this.insertionDelimiter,
       isRaw: this.isRaw,
+      removalTarget: this.removalTarget,
     };
   }
 

@@ -17,15 +17,26 @@ export function toPositionTarget(target: Target, position: Position): Target {
   let contentRange: Range;
   let insertionDelimiter: string;
 
+  /**
+   * We give "after" and "before" targets a removal range for backwards
+   * compatibility. This allows user to continue saying "chuck before" and
+   * "chuck after" to remove leading or trailing delimiter. We prefer that users
+   * use leading and trailing instead, but "before" and "after" are sometimes
+   * easier to think of, so we're keeping them for now
+   */
+  let removalTarget: Target | undefined = undefined;
+
   switch (position) {
     case "before":
       contentRange = new Range(start, start);
       insertionDelimiter = target.insertionDelimiter;
+      removalTarget = target.getLeadingDelimiterTarget();
       break;
 
     case "after":
       contentRange = new Range(end, end);
       insertionDelimiter = target.insertionDelimiter;
+      removalTarget = target.getTrailingDelimiterTarget();
       break;
 
     case "start":
@@ -47,5 +58,6 @@ export function toPositionTarget(target: Target, position: Position): Target {
     position,
     insertionDelimiter,
     isRaw: target.isRaw,
+    removalTarget,
   });
 }
