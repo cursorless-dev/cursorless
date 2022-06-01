@@ -39,8 +39,8 @@ initialState:
 finalState:
   documentContents: hello. world.hello
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
   marks:
     default..:
       start: {line: 0, character: 5}

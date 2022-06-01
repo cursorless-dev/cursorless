@@ -26,12 +26,12 @@ finalState:
       active: {line: 0, character: 5}
     - anchor: {line: 1, character: 5}
       active: {line: 1, character: 5}
-  sourceMark:
+  thatMark:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 9}
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 7}
-  thatMark:
+  sourceMark:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 9}
     - anchor: {line: 1, character: 0}

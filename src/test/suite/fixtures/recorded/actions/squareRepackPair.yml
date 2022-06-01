@@ -20,10 +20,10 @@ finalState:
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
-  sourceMark:
+  thatMark:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 7}
-  thatMark:
+  sourceMark:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 7}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any}}]

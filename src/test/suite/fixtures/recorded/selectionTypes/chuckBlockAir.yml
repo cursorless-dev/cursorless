@@ -22,7 +22,7 @@ initialState:
       start: {line: 3, character: 6}
       end: {line: 3, character: 11}
 finalState:
-  documentContents: |+
+  documentContents: |
 
     const value = "Hello world";
   selections:
