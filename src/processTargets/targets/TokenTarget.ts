@@ -10,7 +10,6 @@ import BaseTarget from "./BaseTarget";
 export default class TokenTarget extends BaseTarget {
   delimiterString = " ";
 
-  /** */
   getLeadingDelimiterTarget(): Target | undefined {
     return getTokenLeadingDelimiterTarget(this);
   }

@@ -81,7 +81,7 @@ export function getTokenRemovalRange(
     (leadingDelimiterTarget == null && !isAtStartOfLine(start)) ||
     (trailingDelimiterTarget == null && !isAtEndOfLine(target.editor, end))
   ) {
-    return target.contentRange;
+    return contentRange ?? target.contentRange;
   }
 
   // Otherwise, behave like a whitespace delimited sequence

@@ -30,13 +30,12 @@ export function toPositionTarget(target: Target, position: Position): Target {
 
     case "start":
       contentRange = new Range(start, start);
-      // This it NOT a raw target. Joining with this should be done on empty delimiter.
-      delimiter = "";
+      delimiter = target.delimiterString != null ? "" : undefined;
       break;
 
     case "end":
       contentRange = new Range(end, end);
-      delimiter = "";
+      delimiter = target.delimiterString != null ? "" : undefined;
       break;
   }
 

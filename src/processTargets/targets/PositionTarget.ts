@@ -10,13 +10,17 @@ interface PositionTargetParameters extends CommonTargetParameters {
 }
 
 export default class PositionTarget extends BaseTarget {
-  delimiterString: string;
+  private delimiterString_?: string;
   private position: Position;
 
   constructor(parameters: PositionTargetParameters) {
     super(parameters);
     this.position = parameters.position;
-    this.delimiterString = parameters.delimiter ?? "";
+    this.delimiterString_ = parameters.delimiter;
+  }
+
+  get delimiterString() {
+    return this.delimiterString_;
   }
 
   getLeadingDelimiterTarget = () => undefined;
@@ -48,7 +52,7 @@ export default class PositionTarget extends BaseTarget {
     text: string,
     useLinePadding: boolean
   ): EditWithRangeUpdater {
-    const delimiter = this.delimiterString!;
+    const delimiter = this.delimiterString ?? "";
     const isLine = delimiter.includes("\n");
     const isBefore = this.position === "before";
 
