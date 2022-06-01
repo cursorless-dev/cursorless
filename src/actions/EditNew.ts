@@ -33,7 +33,6 @@ class EditNew implements Action {
       const context = target.getEditNewContext(this.isBefore);
       const common = {
         target,
-        // targetRange: target.thatTarget.contentRange,
         cursorRange: target.contentRange,
       };
       switch (context.type) {
@@ -146,7 +145,7 @@ class EditNew implements Action {
         () => commands.executeCommand(command),
         editor.document,
         [
-          targets.map(({ target }) => target.contentRange),
+          targets.map(({ target }) => target.thatTarget.contentRange),
           targets.map(({ cursorRange }) => cursorRange),
         ]
       );
