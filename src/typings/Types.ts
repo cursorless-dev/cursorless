@@ -533,3 +533,15 @@ export interface Edit {
    */
   isReplace?: boolean;
 }
+
+/** Represents a custom tokenizer for a language */
+
+export interface DefaultLanguageTokenizer {
+  fixedTokens: string[];
+  identifiersRegex: string;
+  numbersRegex: string;
+  repeatableSymbols: string[];
+  singleSymbolsRegex: string;
+  fixedTokensRegex?: string;
+  repeatableSymbolsRegex?: string;
+}
