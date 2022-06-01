@@ -7,6 +7,7 @@ import {
 } from "../targetUtil/createContinuousRange";
 import {
   getTokenLeadingDelimiterTarget,
+  getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
@@ -69,12 +70,9 @@ export default class ScopeTypeTarget extends BaseTarget {
   }
 
   getRemovalRange(): Range {
-    const delimiterTarget =
-      this.getTrailingDelimiterTarget() ?? this.getLeadingDelimiterTarget();
-    const contentRemovalRange_ = this.removalRange_ ?? this.contentRange;
-    return delimiterTarget != null
-      ? contentRemovalRange_.union(delimiterTarget.contentRange)
-      : contentRemovalRange_;
+    return this.removalRange_ != null
+      ? this.removalRange_
+      : getTokenRemovalRange(this);
   }
 
   createContinuousRangeTarget(

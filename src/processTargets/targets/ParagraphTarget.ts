@@ -46,7 +46,8 @@ export default class ParagraphTarget extends BaseTarget {
       ? contentRemovalRange
       : createSimpleContinuousRangeTarget(
           this,
-          delimiterTarget
+          delimiterTarget,
+          this.isReversed
         ).getRemovalRange();
   }
 

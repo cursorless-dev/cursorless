@@ -22,7 +22,7 @@ export class Cut implements Action {
           new PlainTarget({
             editor: target.editor,
             contentRange: overflow,
-            isReversed: false,
+            isReversed: target.isReversed,
           })
       );
     });

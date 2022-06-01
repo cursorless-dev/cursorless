@@ -3,8 +3,10 @@ import { EditNewContext, Target } from "../../typings/target.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
-import { createContinuousRange } from "../targetUtil/createContinuousRange";
-import { createContinuousRangeWeakTarget } from "./WeakTarget";
+import {
+  createContinuousRange,
+  createContinuousRangeWeakTarget,
+} from "../targetUtil/createContinuousRange";
 
 /** Parameters supported by all target classes */
 export interface CommonTargetParameters {

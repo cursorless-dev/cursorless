@@ -24,7 +24,7 @@ export function getTokenLeadingDelimiterTarget(
           start.character
         ),
         editor,
-        isReversed: false,
+        isReversed: target.isReversed,
       });
 }
 
@@ -48,7 +48,7 @@ export function getTokenTrailingDelimiterTarget(
           end.character + trailingDelimiters[0].length
         ),
         editor,
-        isReversed: false,
+        isReversed: target.isReversed,
       });
 }
 
