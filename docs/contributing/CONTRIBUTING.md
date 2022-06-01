@@ -34,6 +34,10 @@ locally, you need to run the extension in debug mode. To do so you need to run
 the `workbench.action.debug.selectandstart` command in VSCode and then select either "Run
 Extension" or "Extension Tests".
 
+### Running a single test
+
+The entire test suite takes a little while to run (1-2 mins), so if you'd like to repeat a single test, you can edit [`runSingleRecordedTest`](../../src/test/suite/runSingleRecordedTest.ts) to refer to the desired test and use the "Run Single Extension Test" launch config instead of the usual "Extension Tests".
+
 ## Code formatting
 
 We use [`pre-commit`](https://pre-commit.com/) to automate autoformatting.
