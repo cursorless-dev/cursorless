@@ -2,7 +2,7 @@ import { Position, Range, TextDocument, TextEditor, TextLine } from "vscode";
 import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { isSameType } from "../../util/typeUtils";
-import { constructLineTarget } from "../../util/wrapRangeWithTarget";
+import { constructLineTarget } from "../../util/tryConstructTarget";
 import {
   createContinuousLineRange,
   createSimpleContinuousRangeTarget,
@@ -34,21 +34,27 @@ export default class ParagraphTarget extends BaseTarget {
     // TODO: In the future we could get rid of this function if {@link
     // getDelimitedSequenceRemovalRange} made a continuous range from the target
     // past its delimiter target and then used the removal range of that.
-    const contentRemovalRange = this.fullLineContentRange;
     const delimiterTarget =
       this.getTrailingDelimiterTarget() ?? this.getLeadingDelimiterTarget();
+
+    const removalContentRange =
+      delimiterTarget != null
+        ? this.contentRange.union(delimiterTarget.contentRange)
+        : this.contentRange;
 
     // If there is a delimiter, it will be a line target, so we join it with
     // ourself to create a line target containing ourself and the delimiter
     // line. We then allow the line target removal range code to cleanup any
     // extra leading or trailing newline
-    return delimiterTarget == null
-      ? contentRemovalRange
-      : createSimpleContinuousRangeTarget(
-          this,
-          delimiterTarget,
-          this.isReversed
-        ).getRemovalRange();
+    //
+    // If there is no delimiter, we just use the line content range,
+    // converting it to a line target so that it cleans up leading or trailing
+    // newline as necessary
+    return new LineTarget({
+      contentRange: removalContentRange,
+      editor: this.editor,
+      isReversed: this.isReversed,
+    }).getRemovalRange();
   }
 
   private get fullLineContentRange() {

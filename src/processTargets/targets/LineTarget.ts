@@ -1,7 +1,7 @@
 import { Position, Range, TextEditor } from "vscode";
 import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
-import { constructPlainTarget } from "../../util/wrapRangeWithTarget";
+import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
 import BaseTarget from "./BaseTarget";
 
@@ -14,7 +14,7 @@ export default class LineTarget extends BaseTarget {
   }
 
   getLeadingDelimiterTarget() {
-    return constructPlainTarget(
+    return tryConstructPlainTarget(
       this.editor,
       getLeadingDelimiterRange(this.editor, this.fullLineContentRange),
       this.isReversed
@@ -22,7 +22,7 @@ export default class LineTarget extends BaseTarget {
   }
 
   getTrailingDelimiterTarget() {
-    return constructPlainTarget(
+    return tryConstructPlainTarget(
       this.editor,
       getTrailingDelimiterRange(this.editor, this.fullLineContentRange),
       this.isReversed

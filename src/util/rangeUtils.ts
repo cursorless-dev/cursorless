@@ -24,3 +24,7 @@ export function expandToFullLine(editor: TextEditor, range: Range) {
     editor.document.lineAt(range.end).range.end
   );
 }
+
+export function makeEmptyRange(position: Position) {
+  return new Range(position, position);
+}

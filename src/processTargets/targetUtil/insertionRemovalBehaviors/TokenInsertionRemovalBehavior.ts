@@ -52,8 +52,21 @@ export function getTokenTrailingDelimiterTarget(
       });
 }
 
-export function getTokenRemovalRange(target: Target): Range {
-  const { start, end } = target.contentRange;
+/**
+ * Constructs a removal range for the given target that will clean up a json
+ * whitespace on one side unless it will cause two tokens to be merged. This
+ * removal range is designed to be used with things that should clean themselves
+ * up as if they're a range of tokens.
+ * @param target The target to get the token removal range for
+ * @param contentRange Can be used to override the content range instead of
+ * using the one on the target
+ * @returns The removal range for the given target
+ */
+export function getTokenRemovalRange(
+  target: Target,
+  contentRange?: Range
+): Range {
+  const { start, end } = contentRange ?? target.contentRange;
 
   const leadingDelimiterTarget = getTokenLeadingDelimiterTarget(target);
   const trailingDelimiterTarget = getTokenTrailingDelimiterTarget(target);
@@ -72,5 +85,5 @@ export function getTokenRemovalRange(target: Target): Range {
   }
 
   // Otherwise, behave like a whitespace delimited sequence
-  return getDelimitedSequenceRemovalRange(target);
+  return getDelimitedSequenceRemovalRange(target, contentRange);
 }

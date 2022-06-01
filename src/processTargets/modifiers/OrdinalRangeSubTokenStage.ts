@@ -8,7 +8,8 @@ import {
 } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
-import ScopeTypeTarget from "../targets/ScopeTypeTarget";
+import PlainTarget from "../targets/PlainTarget";
+import SubTokenWordTarget from "../targets/SubTokenWordTarget";
 import { getTokenRangeForSelection } from "./scopeTypeStages/TokenStage";
 
 interface OrdinalScopeType extends SimpleScopeType {
@@ -24,11 +25,11 @@ export default class OrdinalRangeSubTokenStage implements ModifierStage {
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const { editor } = target;
-    const contentRange = target.contentRange.isEmpty
+    const tokenContentRange = target.contentRange.isEmpty
       ? getTokenRangeForSelection(target.editor, target.contentRange)
       : target.contentRange;
 
-    const token = editor.document.getText(contentRange);
+    const tokenText = editor.document.getText(tokenContentRange);
     let pieces: { start: number; end: number }[] = [];
 
     if (this.modifier.excludeActive || this.modifier.excludeAnchor) {
@@ -36,12 +37,12 @@ export default class OrdinalRangeSubTokenStage implements ModifierStage {
     }
 
     if (this.modifier.scopeType.type === "word") {
-      pieces = [...token.matchAll(SUBWORD_MATCHER)].map((match) => ({
+      pieces = [...tokenText.matchAll(SUBWORD_MATCHER)].map((match) => ({
         start: match.index!,
         end: match.index! + match[0].length,
       }));
     } else if (this.modifier.scopeType.type === "character") {
-      pieces = range(token.length).map((index) => ({
+      pieces = range(tokenText.length).map((index) => ({
         start: index,
         end: index + 1,
       }));
@@ -67,24 +68,36 @@ export default class OrdinalRangeSubTokenStage implements ModifierStage {
 
     const isReversed = activeIndex < anchorIndex;
 
-    const anchor = contentRange.start.translate(
+    const anchor = tokenContentRange.start.translate(
       undefined,
       isReversed ? pieces[anchorIndex].end : pieces[anchorIndex].start
     );
-    const active = contentRange.start.translate(
+    const active = tokenContentRange.start.translate(
       undefined,
       isReversed ? pieces[activeIndex].start : pieces[activeIndex].end
     );
+
+    const contentRange = new Range(anchor, active);
+
+    if (this.modifier.scopeType.type === "character") {
+      return [
+        new PlainTarget({
+          editor,
+          isReversed,
+          contentRange,
+        }),
+      ];
+    }
 
     const startIndex = Math.min(anchorIndex, activeIndex);
     const endIndex = Math.max(anchorIndex, activeIndex);
     const leadingDelimiterRange =
       startIndex > 0 && pieces[startIndex - 1].end < pieces[startIndex].start
         ? new Range(
-            contentRange.start.translate({
+            tokenContentRange.start.translate({
               characterDelta: pieces[startIndex - 1].end,
             }),
-            contentRange.start.translate({
+            tokenContentRange.start.translate({
               characterDelta: pieces[startIndex].start,
             })
           )
@@ -93,29 +106,28 @@ export default class OrdinalRangeSubTokenStage implements ModifierStage {
       endIndex + 1 < pieces.length &&
       pieces[endIndex].end < pieces[endIndex + 1].start
         ? new Range(
-            contentRange.start.translate({
+            tokenContentRange.start.translate({
               characterDelta: pieces[endIndex].end,
             }),
-            contentRange.start.translate({
+            tokenContentRange.start.translate({
               characterDelta: pieces[endIndex + 1].start,
             })
           )
         : undefined;
     const isInDelimitedList =
       leadingDelimiterRange != null || trailingDelimiterRange != null;
-    const containingListDelimiter = isInDelimitedList
+    const delimiterString = isInDelimitedList
       ? editor.document.getText(
           (leadingDelimiterRange ?? trailingDelimiterRange)!
         )
-      : undefined;
+      : "";
 
     return [
-      new ScopeTypeTarget({
+      new SubTokenWordTarget({
         editor,
         isReversed,
-        contentRange: new Range(anchor, active),
-        scopeTypeType: this.modifier.scopeType.type,
-        delimiter: containingListDelimiter ?? "",
+        contentRange,
+        delimiterString,
         leadingDelimiterRange,
         trailingDelimiterRange,
       }),
