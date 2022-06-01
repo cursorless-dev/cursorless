@@ -3,10 +3,7 @@ import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { isSameType } from "../../util/typeUtils";
 import { constructLineTarget } from "../../util/tryConstructTarget";
-import {
-  createContinuousLineRange,
-  createSimpleContinuousRangeTarget,
-} from "../targetUtil/createContinuousRange";
+import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
 import BaseTarget from "./BaseTarget";
 import LineTarget from "./LineTarget";
 
