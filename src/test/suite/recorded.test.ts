@@ -46,6 +46,11 @@ suite("recorded test cases", async function () {
     sinon.restore();
   });
 
+  suiteSetup(async () => {
+    // Necessary because opening a notebook opens the panel for some reason
+    await vscode.commands.executeCommand("workbench.action.closePanel");
+  });
+
   getRecordedTestPaths().forEach((path) =>
     test(
       path.split(".")[0],
