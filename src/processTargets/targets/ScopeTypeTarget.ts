@@ -1,15 +1,16 @@
 import { Range } from "vscode";
-import {
-  SimpleScopeTypeType,
-  Target,
-  TargetType,
-} from "../../typings/target.types";
+import { SimpleScopeTypeType, Target } from "../../typings/target.types";
 import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRange,
   createContinuousRangeFromRanges,
 } from "../targetUtil/createContinuousRange";
+import {
+  getTokenLeadingDelimiterTarget,
+  getTokenTrailingDelimiterTarget,
+} from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
+import PlainTarget from "./PlainTarget";
 import { createContinuousRangeWeakTarget } from "./WeakTarget";
 
 export interface ScopeTypeTargetParameters extends CommonTargetParameters {
@@ -26,7 +27,7 @@ export default class ScopeTypeTarget extends BaseTarget {
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
   private hasDelimiterRange_: boolean;
-  private delimiter_: string;
+  delimiterString: string;
 
   constructor(parameters: ScopeTypeTargetParameters) {
     super(parameters);
@@ -34,31 +35,47 @@ export default class ScopeTypeTarget extends BaseTarget {
     this.contentRemovalRange_ = parameters.contentRemovalRange;
     this.leadingDelimiterRange_ = parameters.leadingDelimiterRange;
     this.trailingDelimiterRange_ = parameters.trailingDelimiterRange;
-    this.delimiter_ =
+    this.delimiterString =
       parameters.delimiter ?? getDelimiter(parameters.scopeTypeType);
     this.hasDelimiterRange_ =
       !!this.leadingDelimiterRange_ || !!this.trailingDelimiterRange_;
   }
 
-  get delimiterString() {
-    return this.delimiter_;
-  }
-  protected get contentRemovalRange() {
-    return this.contentRemovalRange_ ?? this.contentRange;
+  getLeadingDelimiterTarget(): Target | undefined {
+    if (this.leadingDelimiterRange_ != null) {
+      return new PlainTarget({
+        editor: this.editor,
+        isReversed: this.isReversed,
+        contentRange: this.leadingDelimiterRange_,
+      });
+    }
+    if (!this.hasDelimiterRange_) {
+      return getTokenLeadingDelimiterTarget(this);
+    }
+    return undefined;
   }
 
-  getLeadingDelimiterTarget() {
-    if (this.hasDelimiterRange_) {
-      return this.leadingDelimiterRange_;
+  getTrailingDelimiterTarget(): Target | undefined {
+    if (this.trailingDelimiterRange_ != null) {
+      return new PlainTarget({
+        editor: this.editor,
+        isReversed: this.isReversed,
+        contentRange: this.trailingDelimiterRange_,
+      });
     }
-    return super.getLeadingDelimiterTarget();
+    if (!this.hasDelimiterRange_) {
+      return getTokenTrailingDelimiterTarget(this);
+    }
+    return undefined;
   }
 
-  getTrailingDelimiterTarget() {
-    if (this.hasDelimiterRange_) {
-      return this.trailingDelimiterRange_;
-    }
-    return super.getTrailingDelimiterTarget();
+  getRemovalRange(): Range {
+    const delimiterTarget =
+      this.getTrailingDelimiterTarget() ?? this.getLeadingDelimiterTarget();
+    const contentRemovalRange_ = this.contentRemovalRange_ ?? this.contentRange;
+    return delimiterTarget != null
+      ? contentRemovalRange_.union(delimiterTarget.contentRange)
+      : contentRemovalRange_;
   }
 
   createContinuousRangeTarget(

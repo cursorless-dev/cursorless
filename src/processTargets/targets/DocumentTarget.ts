@@ -1,22 +1,14 @@
 import { Range, TextEditor } from "vscode";
-import { TargetType } from "../../typings/target.types";
 import { fitRangeToLineContent } from "../modifiers/scopeTypeStages/LineStage";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import WeakTarget from "./WeakTarget";
 
 export default class DocumentTarget extends BaseTarget {
+  delimiterString = "\n";
+  isLine = true;
+
   constructor(parameters: CommonTargetParameters) {
     super(parameters);
-  }
-
-  get type(): TargetType {
-    return "document";
-  }
-  get delimiterString() {
-    return "\n";
-  }
-  get isLine() {
-    return true;
   }
 
   getLeadingDelimiterTarget() {
@@ -24,6 +16,9 @@ export default class DocumentTarget extends BaseTarget {
   }
   getTrailingDelimiterTarget() {
     return undefined;
+  }
+  getRemovalRange(): Range {
+    return this.contentRange;
   }
 
   getInteriorStrict() {

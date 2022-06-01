@@ -1,5 +1,10 @@
 import { Range } from "vscode";
-import { TargetType } from "../../typings/target.types";
+import { Target } from "../../typings/target.types";
+import {
+  getTokenLeadingDelimiterTarget,
+  getTokenRemovalRange,
+  getTokenTrailingDelimiterTarget,
+} from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import WeakTarget from "./WeakTarget";
 
@@ -20,6 +25,7 @@ interface SurroundingPairTargetParameters extends CommonTargetParameters {
 }
 
 export default class SurroundingPairTarget extends BaseTarget {
+  delimiterString = " ";
   private interiorRange_: Range;
   private boundary_: [Range, Range];
 
@@ -29,11 +35,14 @@ export default class SurroundingPairTarget extends BaseTarget {
     this.interiorRange_ = parameters.interiorRange;
   }
 
-  get type(): TargetType {
-    return "surroundingPair";
+  getLeadingDelimiterTarget(): Target | undefined {
+    return getTokenLeadingDelimiterTarget(this);
   }
-  get delimiterString() {
-    return " ";
+  getTrailingDelimiterTarget(): Target | undefined {
+    return getTokenTrailingDelimiterTarget(this);
+  }
+  getRemovalRange(): Range {
+    return getTokenRemovalRange(this);
   }
 
   getInteriorStrict() {

@@ -294,6 +294,9 @@ export interface Target {
   /** If true this target should be treated as a line */
   readonly isLine: boolean;
 
+  /** If true this target is weak and can be transformed/upgraded */
+  readonly isWeak: boolean;
+
   /** The text contained in the content range */
   readonly contentText: string;
 

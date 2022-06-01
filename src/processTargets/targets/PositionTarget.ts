@@ -1,6 +1,6 @@
-import { Range, TextEditor } from "vscode";
 import * as vscode from "vscode";
-import { Position, TargetType } from "../../typings/target.types";
+import { Range, TextEditor } from "vscode";
+import { Position } from "../../typings/target.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
@@ -10,12 +10,18 @@ interface PositionTargetParameters extends CommonTargetParameters {
 }
 
 export default class PositionTarget extends BaseTarget {
+  delimiterString: string;
   private position: Position;
 
   constructor(parameters: PositionTargetParameters) {
     super(parameters);
     this.position = parameters.position;
+    this.delimiterString = parameters.delimiter ?? "";
   }
+
+  getLeadingDelimiterTarget = () => undefined;
+  getTrailingDelimiterTarget = () => undefined;
+  getRemovalRange = () => this.contentRange;
 
   private constructReplaceEdit(text: string): EditWithRangeUpdater {
     return {

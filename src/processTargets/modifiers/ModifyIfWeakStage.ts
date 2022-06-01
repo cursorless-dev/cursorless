@@ -18,7 +18,7 @@ export default class ModifyIfWeakStage implements ModifierStage {
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     /** If true this target is of weak type and should use inference/upgrade when needed. See {@link WeakTarget} for more info  */
-    if (target.type === "weak") {
+    if (target.isWeak) {
       return this.nestedStage
         .run(context, target)
         .map((newTarget) => newTarget.withThatTarget(target));

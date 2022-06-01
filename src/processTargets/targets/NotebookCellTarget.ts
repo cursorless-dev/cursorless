@@ -1,25 +1,18 @@
 import { TextEditor } from "vscode";
-import { EditNewContext, TargetType } from "../../typings/target.types";
+import { EditNewContext } from "../../typings/target.types";
 import { getNotebookFromCellDocument } from "../../util/notebook";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
 export default class NotebookCellTarget extends BaseTarget {
+  delimiterString = "\n";
+
   constructor(parameters: CommonTargetParameters) {
     super(parameters);
   }
 
-  get type(): TargetType {
-    return "notebookCell";
-  }
-  get delimiterString() {
-    return "\n";
-  }
-  getLeadingDelimiterTarget() {
-    return undefined;
-  }
-  getTrailingDelimiterTarget() {
-    return undefined;
-  }
+  getLeadingDelimiterTarget = () => undefined;
+  getTrailingDelimiterTarget = () => undefined;
+  getRemovalRange = () => this.contentRange;
 
   getEditNewContext(isBefore: boolean): EditNewContext {
     if (this.isNotebookEditor(this.editor)) {

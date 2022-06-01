@@ -4,7 +4,9 @@ import { isAtEndOfLine, isAtStartOfLine } from "../../../util/rangeUtils";
 import PlainTarget from "../../targets/PlainTarget";
 import { getDelimitedSequenceRemovalRange } from "./DelimitedSequenceInsertionRemovalBehavior";
 
-export function getTokenLeadingDelimiterTarget(target: Target) {
+export function getTokenLeadingDelimiterTarget(
+  target: Target
+): Target | undefined {
   const { editor } = target;
   const { start } = target.contentRange;
 
@@ -26,7 +28,9 @@ export function getTokenLeadingDelimiterTarget(target: Target) {
       });
 }
 
-export function getTokenTrailingDelimiterTarget(target: Target) {
+export function getTokenTrailingDelimiterTarget(
+  target: Target
+): Target | undefined {
   const { editor } = target;
   const { end } = target.contentRange;
 

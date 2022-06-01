@@ -3,7 +3,6 @@ import { EditNewContext, Target } from "../../typings/target.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
-import InsertionRemovalBehavior from "../insertionRemovalBehavior.types";
 import { createContinuousRange } from "../targetUtil/createContinuousRange";
 import { createContinuousRangeWeakTarget } from "./WeakTarget";
 
@@ -22,6 +21,8 @@ export interface CloneWithParameters {
 
 export default abstract class BaseTarget implements Target {
   protected readonly state: CommonTargetParameters;
+  isLine = false;
+  isWeak = false;
 
   constructor(parameters: CommonTargetParameters) {
     this.state = {
@@ -38,8 +39,6 @@ export default abstract class BaseTarget implements Target {
   get isReversed() {
     return this.state.isReversed;
   }
-
-  isLine = false;
 
   get thatTarget(): Target {
     return this.state.thatTarget != null

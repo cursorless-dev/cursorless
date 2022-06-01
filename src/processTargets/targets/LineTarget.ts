@@ -3,10 +3,6 @@ import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { wrapRangeWithTarget } from "../../util/wrapRangeWithTarget";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
-import {
-  getLineLeadingDelimiterRange as getLeadingDelimiterRange,
-  getLineTrailingDelimiterRange as getTrailingDelimiterRange,
-} from "../targetUtil/getLineDelimiters";
 import BaseTarget from "./BaseTarget";
 import PlainTarget from "./PlainTarget";
 import { createContinuousRangeWeakTarget } from "./WeakTarget";

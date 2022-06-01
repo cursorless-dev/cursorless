@@ -1,9 +1,12 @@
-import { Target, TargetType } from "../../typings/target.types";
+import { Range } from "vscode";
+import { Target } from "../../typings/target.types";
 import { createContinuousRange } from "../targetUtil/createContinuousRange";
-import BaseTarget, {
-  CloneWithParameters,
-  CommonTargetParameters,
-} from "./BaseTarget";
+import {
+  getTokenLeadingDelimiterTarget,
+  getTokenRemovalRange,
+  getTokenTrailingDelimiterTarget,
+} from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
 /**
  * - Treated as "line" for "pour", "clone", and "breakpoint"
@@ -11,22 +14,21 @@ import BaseTarget, {
  * - Expand to nearest containing pair when asked for boundary or interior
  */
 export default class WeakTarget extends BaseTarget {
+  delimiterString = " ";
+  isWeak = true;
+
   constructor(parameters: CommonTargetParameters) {
     super(parameters);
   }
 
-  get type(): TargetType {
-    return "weak";
+  getLeadingDelimiterTarget(): Target | undefined {
+    return getTokenLeadingDelimiterTarget(this);
   }
-  get delimiterString() {
-    return " ";
+  getTrailingDelimiterTarget(): Target | undefined {
+    return getTokenTrailingDelimiterTarget(this);
   }
-
-  cloneWith(parameters: CloneWithParameters) {
-    return new WeakTarget({
-      ...this.getCloneParameters(),
-      ...parameters,
-    });
+  getRemovalRange(): Range {
+    return getTokenRemovalRange(this);
   }
 
   createContinuousRangeTarget(
