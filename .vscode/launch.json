@@ -42,6 +42,27 @@
 			]
 		},
 		{
+			"name": "Run Single Extension Test",
+			"type": "extensionHost",
+			"request": "launch",
+			"env": {
+				"CURSORLESS_TEST": "true",
+				"CURSORLESS_RUN_SINGLE_TEST": "true"
+			},
+			"args": [
+				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+			],
+			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+			"preLaunchTask": "${defaultBuildTask}",
+			"resolveSourceMapLocations": [
+				"${workspaceFolder}/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
+				"!**/node_modules/**"
+			]
+		},
+		{
 			"name": "Update fixtures",
 			"type": "extensionHost",
 			"request": "launch",
