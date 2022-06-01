@@ -11,8 +11,6 @@ import { ensureSingleEditor } from "../util/targetUtils";
 import uniqDeep from "../util/uniqDeep";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
-import PositionTarget from "./targets/PositionTarget";
-import WeakTarget from "./targets/WeakTarget";
 
 /**
  * Converts the abstract target descriptions provided by the user to a concrete

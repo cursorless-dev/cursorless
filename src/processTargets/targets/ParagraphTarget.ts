@@ -2,32 +2,31 @@ import { Position, Range, TextDocument, TextEditor, TextLine } from "vscode";
 import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { isSameType } from "../../util/typeUtils";
-import { wrapRangeWithTarget } from "../../util/wrapRangeWithTarget";
+import { constructLineTarget } from "../../util/wrapRangeWithTarget";
 import {
   createContinuousLineRange,
   createSimpleContinuousRangeTarget,
 } from "../targetUtil/createContinuousRange";
 import BaseTarget from "./BaseTarget";
 import LineTarget from "./LineTarget";
-import { createContinuousRangeWeakTarget } from "./WeakTarget";
 
 export default class ParagraphTarget extends BaseTarget {
   delimiterString = "\n\n";
   isLine = true;
 
   getLeadingDelimiterTarget() {
-    return wrapRangeWithTarget(
-      LineTarget,
+    return constructLineTarget(
       this.editor,
-      getLeadingDelimiterRange(this.editor, this.contentRange)
+      getLeadingDelimiterRange(this.editor, this.fullLineContentRange),
+      this.isReversed
     );
   }
 
   getTrailingDelimiterTarget() {
-    return wrapRangeWithTarget(
-      LineTarget,
+    return constructLineTarget(
       this.editor,
-      getTrailingDelimiterRange(this.editor, this.contentRange)
+      getTrailingDelimiterRange(this.editor, this.fullLineContentRange),
+      this.isReversed
     );
   }
 
@@ -96,9 +95,8 @@ export default class ParagraphTarget extends BaseTarget {
       });
     }
 
-    return createContinuousRangeWeakTarget(
+    return super.createContinuousRangeTarget(
       isReversed,
-      this,
       endTarget,
       includeStart,
       includeEnd

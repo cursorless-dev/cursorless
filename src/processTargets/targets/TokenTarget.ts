@@ -2,17 +2,13 @@ import { Range } from "vscode";
 import { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
-  getTokenTrailingDelimiterTarget,
   getTokenRemovalRange,
+  getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
+import BaseTarget from "./BaseTarget";
 
 export default class TokenTarget extends BaseTarget {
   delimiterString = " ";
-
-  constructor(parameters: CommonTargetParameters) {
-    super(parameters);
-  }
 
   getLeadingDelimiterTarget(): Target | undefined {
     return getTokenLeadingDelimiterTarget(this);

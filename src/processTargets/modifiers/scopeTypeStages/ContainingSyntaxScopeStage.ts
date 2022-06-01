@@ -62,6 +62,16 @@ export default class implements ModifierStage {
         trailingDelimiterRange,
         removalRange,
       } = scope.context;
+
+      if (
+        removalRange != null &&
+        (leadingDelimiterRange != null || trailingDelimiterRange != null)
+      ) {
+        throw Error(
+          "Removal range is mutually exclusive with leading or trailing delimiter range"
+        );
+      }
+
       const { editor, selection: contentSelection } = scope.selection;
 
       return new ScopeTypeTarget({
@@ -69,7 +79,7 @@ export default class implements ModifierStage {
         editor,
         isReversed: target.isReversed,
         contentRange: contentSelection,
-        contentRemovalRange: removalRange,
+        removalRange: removalRange,
         delimiter: containingListDelimiter,
         leadingDelimiterRange,
         trailingDelimiterRange,

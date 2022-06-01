@@ -1,12 +1,11 @@
 import { Range } from "vscode";
 import { Target } from "../../typings/target.types";
-import { createContinuousRange } from "../targetUtil/createContinuousRange";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
+import BaseTarget from "./BaseTarget";
 
 /**
  * - Treated as "line" for "pour", "clone", and "breakpoint"
@@ -16,10 +15,6 @@ import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 export default class WeakTarget extends BaseTarget {
   delimiterString = " ";
   isWeak = true;
-
-  constructor(parameters: CommonTargetParameters) {
-    super(parameters);
-  }
 
   getLeadingDelimiterTarget(): Target | undefined {
     return getTokenLeadingDelimiterTarget(this);
@@ -31,41 +26,7 @@ export default class WeakTarget extends BaseTarget {
     return getTokenRemovalRange(this);
   }
 
-  createContinuousRangeTarget(
-    isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean
-  ): Target {
-    return createContinuousRangeWeakTarget(
-      isReversed,
-      this,
-      endTarget,
-      includeStart,
-      includeEnd
-    );
-  }
-
   protected getCloneParameters() {
     return this.state;
   }
-}
-
-export function createContinuousRangeWeakTarget(
-  isReversed: boolean,
-  startTarget: Target,
-  endTarget: Target,
-  includeStart: boolean,
-  includeEnd: boolean
-): WeakTarget {
-  return new WeakTarget({
-    editor: startTarget.editor,
-    isReversed,
-    contentRange: createContinuousRange(
-      startTarget,
-      endTarget,
-      includeStart,
-      includeEnd
-    ),
-  });
 }
