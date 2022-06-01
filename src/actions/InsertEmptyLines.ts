@@ -24,12 +24,12 @@ class InsertEmptyLines implements Action {
       const edits: EditWithRangeUpdater[] = [];
       if (this.insertAbove) {
         edits.push(
-          toPositionTarget(lineTarget, "before").constructChangeEdit("")
+          toPositionTarget(lineTarget, "before").constructEmptyChangeEdit()
         );
       }
       if (this.insertBelow) {
         edits.push(
-          toPositionTarget(lineTarget, "after").constructChangeEdit("")
+          toPositionTarget(lineTarget, "after").constructEmptyChangeEdit()
         );
       }
       return edits;

@@ -23,15 +23,31 @@ export default class PositionTarget extends BaseTarget {
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;
 
-  private constructReplaceEdit(text: string): EditWithRangeUpdater {
+  constructChangeEdit(text: string): EditWithRangeUpdater {
+    if (this.isInsertion()) {
+      return this.constructInsertionEdit(text, true);
+    }
+    return this.constructReplaceEdit(text);
+  }
+
+  constructEmptyChangeEdit(): EditWithRangeUpdater {
+    if (this.isInsertion()) {
+      return this.constructInsertionEdit("", false);
+    }
+    return this.constructReplaceEdit("");
+  }
+
+  protected getCloneParameters() {
     return {
-      range: this.contentRange,
-      text,
-      updateRange: (range) => range,
+      ...this.state,
+      position: this.position,
     };
   }
 
-  private constructInsertionEdit(text: string): EditWithRangeUpdater {
+  private constructInsertionEdit(
+    text: string,
+    useLinePadding: boolean
+  ): EditWithRangeUpdater {
     const delimiter = this.delimiterString!;
     const isLine = delimiter.includes("\n");
     const isBefore = this.position === "before";
@@ -40,9 +56,13 @@ export default class PositionTarget extends BaseTarget {
       this.editor,
       this.contentRange,
       isLine,
+      useLinePadding,
       isBefore
     );
-    const padding = isLine ? getLinePadding(this.editor, range, isBefore) : "";
+    const padding =
+      isLine && useLinePadding
+        ? getLinePadding(this.editor, range, isBefore)
+        : "";
 
     const editText = isBefore
       ? text + delimiter + padding
@@ -61,28 +81,26 @@ export default class PositionTarget extends BaseTarget {
     };
 
     return {
-      range: this.contentRange,
+      range: range,
       text: editText,
       isReplace: this.position === "after",
       updateRange,
     };
   }
 
-  constructChangeEdit(text: string): EditWithRangeUpdater {
-    if (
-      this.delimiterString != null &&
-      (this.position === "before" || this.position === "after")
-    ) {
-      return this.constructInsertionEdit(text);
-    }
-    return this.constructReplaceEdit(text);
+  private constructReplaceEdit(text: string): EditWithRangeUpdater {
+    return {
+      range: this.contentRange,
+      text,
+      updateRange: (range) => range,
+    };
   }
 
-  protected getCloneParameters() {
-    return {
-      ...this.state,
-      position: this.position,
-    };
+  private isInsertion() {
+    return (
+      this.delimiterString != null &&
+      (this.position === "before" || this.position === "after")
+    );
   }
 }
 
@@ -98,18 +116,21 @@ function getEditRange(
   editor: TextEditor,
   range: Range,
   isLine: boolean,
+  useLinePadding: boolean,
   isBefore: boolean
 ) {
   let position: vscode.Position;
   if (isLine) {
     const line = editor.document.lineAt(isBefore ? range.start : range.end);
     if (isBefore) {
-      position = line.isEmptyOrWhitespace
-        ? range.start
-        : new vscode.Position(
-            line.lineNumber,
-            line.firstNonWhitespaceCharacterIndex
-          );
+      position = useLinePadding
+        ? line.isEmptyOrWhitespace
+          ? range.start
+          : new vscode.Position(
+              line.lineNumber,
+              line.firstNonWhitespaceCharacterIndex
+            )
+        : line.range.start;
     } else {
       position = line.range.end;
     }

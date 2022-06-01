@@ -66,6 +66,10 @@ export default abstract class BaseTarget implements Target {
     };
   }
 
+  constructEmptyChangeEdit(): EditWithRangeUpdater {
+    return this.constructChangeEdit("");
+  }
+
   constructRemovalEdit(): EditWithRangeUpdater {
     return {
       range: this.getRemovalRange(),
