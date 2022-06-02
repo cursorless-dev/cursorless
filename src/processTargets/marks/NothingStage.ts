@@ -1,4 +1,5 @@
-import { NothingMark, Target } from "../../typings/target.types";
+import { Target } from "../../typings/target.types";
+import { NothingMark } from "../../typings/targetDescriptor.types";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {

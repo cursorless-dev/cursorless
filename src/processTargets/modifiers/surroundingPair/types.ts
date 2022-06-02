@@ -1,4 +1,4 @@
-import { SimpleSurroundingPairName } from "../../../typings/target.types";
+import { SimpleSurroundingPairName } from "../../../typings/targetDescriptor.types";
 
 /**
  * Used to indicate whether a particular side of the delimiter is left or right

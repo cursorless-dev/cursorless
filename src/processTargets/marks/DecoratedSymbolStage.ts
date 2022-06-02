@@ -1,4 +1,5 @@
-import { DecoratedSymbolMark, Target } from "../../typings/target.types";
+import { Target } from "../../typings/target.types";
+import { DecoratedSymbolMark } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { MarkStage } from "../PipelineStages.types";
 import WeakTarget from "../targets/WeakTarget";

@@ -1,8 +1,7 @@
 import {
-  LeadingModifier,
   Target,
-  TrailingModifier,
 } from "../../typings/target.types";
+import { LeadingModifier, TrailingModifier } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 

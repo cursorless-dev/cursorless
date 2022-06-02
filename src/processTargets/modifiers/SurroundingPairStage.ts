@@ -1,7 +1,7 @@
 import {
-  ContainingSurroundingPairModifier,
   Target,
 } from "../../typings/target.types";
+import { ContainingSurroundingPairModifier } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import SurroundingPairTarget from "../targets/SurroundingPairTarget";

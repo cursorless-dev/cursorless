@@ -4,8 +4,8 @@ import {
   PartialPrimitiveTargetDesc,
   PartialRangeTargetDesc,
   PartialTargetDesc,
-  SimpleScopeTypeType,
-} from "../../../typings/target.types";
+  SimpleScopeTypeType
+} from "../../../typings/targetDescriptor.types";
 import { ActionType } from "../../../actions/actions.types";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
 import { CommandV2 } from "../../commandRunner/command.types";

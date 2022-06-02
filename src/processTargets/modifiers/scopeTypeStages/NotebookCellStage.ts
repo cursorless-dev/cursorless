@@ -1,8 +1,10 @@
 import {
-  ContainingScopeModifier,
-  EveryScopeModifier,
   Target,
 } from "../../../typings/target.types";
+import {
+  ContainingScopeModifier,
+  EveryScopeModifier
+} from "../../../typings/targetDescriptor.types";
 import NotebookCellTarget from "../../targets/NotebookCellTarget";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";

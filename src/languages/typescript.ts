@@ -13,7 +13,7 @@ import {
   NodeMatcherAlternative,
   SelectionWithEditor,
 } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/target.types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import {
   getNodeInternalRange,
   getNodeRange,

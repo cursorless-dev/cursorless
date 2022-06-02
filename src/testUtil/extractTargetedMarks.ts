@@ -3,8 +3,8 @@ import HatTokenMap from "../core/HatTokenMap";
 import { Token } from "../typings/Types";
 import {
   PrimitiveTargetDescriptor,
-  TargetDescriptor,
-} from "../typings/target.types";
+  TargetDescriptor
+} from "../typings/targetDescriptor.types";
 
 function extractPrimitiveTargetKeys(...targets: PrimitiveTargetDescriptor[]) {
   const keys: string[] = [];

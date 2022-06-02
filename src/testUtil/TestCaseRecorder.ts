@@ -4,7 +4,7 @@ import * as path from "path";
 import * as vscode from "vscode";
 import HatTokenMap from "../core/HatTokenMap";
 import { Graph } from "../typings/Types";
-import { DecoratedSymbolMark } from "../typings/target.types";
+import { DecoratedSymbolMark } from "../typings/targetDescriptor.types";
 import { getDocumentRange } from "../util/range";
 import sleep from "../util/sleep";
 import { extractTargetedMarks } from "./extractTargetedMarks";

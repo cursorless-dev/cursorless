@@ -1,5 +1,6 @@
 import { Range } from "vscode";
-import { SimpleScopeTypeType, Target } from "../../typings/target.types";
+import { Target } from "../../typings/target.types";
+import { SimpleScopeTypeType } from "../../typings/targetDescriptor.types";
 import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRange,

@@ -3,8 +3,8 @@ import { Range, TextDocument, TextEditor } from "vscode";
 import {
   SimpleSurroundingPairName,
   SurroundingPairDirection,
-  SurroundingPairName,
-} from "../../../typings/target.types";
+  SurroundingPairName
+} from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/range";
 import { matchAll } from "../../../util/regex";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";

@@ -1,6 +1,6 @@
 import { TestCaseFixture } from "../../../testUtil/TestCase";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
-import { PartialPrimitiveTargetDesc } from "../../../typings/target.types";
+import { PartialPrimitiveTargetDesc } from "../../../typings/targetDescriptor.types";
 
 export function upgradeFromVersion0(fixture: TestCaseFixture) {
   const { command, spokenForm: oldSpokenForm, ...rest } = fixture as any;

@@ -68,7 +68,7 @@ class EditNew implements Action {
     }
 
     // Only update selection if all targets are agreeing on this
-    if (!richTargets.find(({ updateSelection }) => !updateSelection)) {
+    if (!richTargets.some(({ updateSelection }) => !updateSelection)) {
       const newSelections = richTargets.map((target) =>
         selectionFromRange(target.target.isReversed, target.cursorRange)
       );

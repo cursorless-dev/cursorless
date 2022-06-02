@@ -1,4 +1,5 @@
-import { Modifier, Target } from "../../typings/target.types";
+import { Target } from "../../typings/target.types";
+import { Modifier } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";

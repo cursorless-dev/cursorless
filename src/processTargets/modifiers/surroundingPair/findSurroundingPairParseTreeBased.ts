@@ -2,8 +2,8 @@ import { Range, TextDocument, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import {
   SimpleSurroundingPairName,
-  SurroundingPairDirection,
-} from "../../../typings/target.types";
+  SurroundingPairDirection
+} from "../../../typings/targetDescriptor.types";
 import { getNodeRange } from "../../../util/nodeSelectors";
 import { isContainedInErrorNode } from "../../../util/treeSitterUtils";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";

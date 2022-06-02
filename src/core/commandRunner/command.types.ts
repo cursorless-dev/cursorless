@@ -1,4 +1,4 @@
-import { PartialTargetDesc } from "../../typings/target.types";
+import { PartialTargetDesc } from "../../typings/targetDescriptor.types";
 import { ActionType } from "../../actions/actions.types";
 import {
   CommandV0,

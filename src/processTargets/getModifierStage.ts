@@ -2,8 +2,8 @@ import {
   ContainingScopeModifier,
   ContainingSurroundingPairModifier,
   EveryScopeModifier,
-  Modifier,
-} from "../typings/target.types";
+  Modifier
+} from "../typings/targetDescriptor.types";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import {
   ExcludeInteriorStage,

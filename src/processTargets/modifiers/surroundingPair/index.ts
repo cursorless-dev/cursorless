@@ -5,8 +5,8 @@ import getTextFragmentExtractor, {
 } from "../../../languages/getTextFragmentExtractor";
 import {
   ComplexSurroundingPairName,
-  SurroundingPairScopeType,
-} from "../../../typings/target.types";
+  SurroundingPairScopeType
+} from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { complexDelimiterMap } from "./delimiterMaps";
 import { SurroundingPairInfo } from "./extractSelectionFromSurroundingPairOffsets";

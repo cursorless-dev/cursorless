@@ -2,11 +2,13 @@ import { Location, Selection } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
 import {
-  ContainingScopeModifier,
-  EveryScopeModifier,
-  SimpleScopeType,
   Target,
 } from "../../../typings/target.types";
+import {
+  ContainingScopeModifier,
+  EveryScopeModifier,
+  SimpleScopeType
+} from "../../../typings/targetDescriptor.types";
 import {
   NodeMatcher,
   ProcessedTargetsContext,

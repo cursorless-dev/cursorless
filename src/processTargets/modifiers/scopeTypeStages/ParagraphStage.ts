@@ -1,9 +1,11 @@
 import { Range } from "vscode";
 import {
-  ContainingScopeModifier,
-  EveryScopeModifier,
   Target,
 } from "../../../typings/target.types";
+import {
+  ContainingScopeModifier,
+  EveryScopeModifier
+} from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import ParagraphTarget from "../../targets/ParagraphTarget";

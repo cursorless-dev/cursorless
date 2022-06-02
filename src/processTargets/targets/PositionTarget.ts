@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { Range, TextEditor } from "vscode";
-import { Position, Target } from "../../typings/target.types";
+import { Target } from "../../typings/target.types";
+import { Position } from "../../typings/targetDescriptor.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 

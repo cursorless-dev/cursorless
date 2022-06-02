@@ -1,4 +1,5 @@
-import { Target, ThatMark } from "../../typings/target.types";
+import { Target } from "../../typings/target.types";
+import { ThatMark } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { isReversed } from "../../util/selectionUtils";
 import { MarkStage } from "../PipelineStages.types";

@@ -1,4 +1,5 @@
-import { SourceMark, Target } from "../../typings/target.types";
+import { Target } from "../../typings/target.types";
+import { SourceMark } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { isReversed } from "../../util/selectionUtils";
 import { MarkStage } from "../PipelineStages.types";

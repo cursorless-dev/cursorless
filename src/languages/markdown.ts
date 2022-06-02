@@ -5,7 +5,7 @@ import {
   NodeMatcherAlternative,
   SelectionWithContext,
 } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/target.types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { leadingSiblingNodeFinder, patternFinder } from "../util/nodeFinders";
 import {
   createPatternMatchers,

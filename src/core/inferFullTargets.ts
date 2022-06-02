@@ -5,8 +5,8 @@ import {
   PartialTargetDesc,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
-  TargetDescriptor,
-} from "../typings/target.types";
+  TargetDescriptor
+} from "../typings/targetDescriptor.types";
 
 /**
  * Performs inference on the partial targets provided by the user, using

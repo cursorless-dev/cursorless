@@ -5,6 +5,7 @@ import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
 export default class NotebookCellTarget extends BaseTarget {
   insertionDelimiter = "\n";
+  isNotebookCell = true;
 
   constructor(parameters: CommonTargetParameters) {
     super(parameters);

@@ -1,5 +1,6 @@
 import { Position, Range, TextEditor } from "vscode";
-import { HeadModifier, TailModifier, Target } from "../../typings/target.types";
+import { Target } from "../../typings/target.types";
+import { HeadModifier, TailModifier } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import TokenTarget from "../targets/TokenTarget";
