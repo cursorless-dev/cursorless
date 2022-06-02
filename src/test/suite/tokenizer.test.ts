@@ -72,6 +72,8 @@ const languageTokenizerTests: LanguageTokenizerTests = {
     tests: [
       ["min-height", ["min-height"]],
       ["-webkit-font-smoothing", ["-webkit-font-smoothing"]],
+      ["inverted-colors", ["inverted-colors"]],
+      ["prefers-reduced-motion", ["prefers-reduced-motion"]],
     ],
     // Leave kebab and dashes to css language specific tests.
     exclusionPredicate: (input: string) => input.match("-") == null,
