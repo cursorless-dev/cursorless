@@ -91,7 +91,6 @@ class EditNew implements Action {
     await this.setSelections([target]);
     const command = target.getEditNewCommand(this.isBefore);
     await commands.executeCommand(command);
-
     const thatMark = createThatMark([target.thatTarget]);
 
     // Inserting a new jupyter cell above pushes the previous one down two lines
