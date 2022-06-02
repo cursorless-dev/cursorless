@@ -1,6 +1,6 @@
 from talon import Context, Module
 
-from .modifiers.position import POSITION_AFTER, POSITION_BEFORE
+from .modifiers.position import construct_positional_modifier
 
 mod = Module()
 ctx = Context()
@@ -10,12 +10,10 @@ mod.list(
     desc='Connectives used to separate source and destination targets that indicate position, eg "before" or "after"',
 )
 
-positional_connectives = {
-    **POSITION_BEFORE,
-    **POSITION_AFTER,
+ctx.lists["self.cursorless_positional_connective"] = {
+    "before": "before",
+    "after": "after",
 }
-
-ctx.lists["self.cursorless_positional_connective"] = positional_connectives.keys()
 
 
 @mod.capture(
@@ -27,7 +25,7 @@ ctx.lists["self.cursorless_positional_connective"] = positional_connectives.keys
 def cursorless_positional_target(m) -> list[dict]:
     target = m.cursorless_target
     try:
-        modifier = positional_connectives[m.cursorless_positional_connective]
+        modifier = construct_positional_modifier(m.cursorless_positional_connective)
         return update_first_primitive_target(target, modifier)
     except AttributeError:
         return target
@@ -42,7 +40,7 @@ def update_first_primitive_target(target: dict, modifier: dict):
     elif target["type"] == "range":
         return {
             **target,
-            "start": update_first_primitive_target(target["start"], modifier),
+            "anchor": update_first_primitive_target(target["anchor"], modifier),
         }
     else:
         elements = target["elements"]
