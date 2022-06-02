@@ -15,7 +15,6 @@ positional_connectives = {
     **POSITION_AFTER,
 }
 
-print(positional_connectives)
 ctx.lists["self.cursorless_positional_connective"] = positional_connectives.keys()
 
 
