@@ -3,7 +3,7 @@ import { ActionableError } from "../../errors";
 import {
   Modifier,
   PartialTargetDesc,
-  SimpleScopeTypeType
+  SimpleScopeTypeType,
 } from "../../typings/targetDescriptor.types";
 import { ActionType } from "../../actions/actions.types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";

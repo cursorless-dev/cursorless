@@ -3,7 +3,7 @@ import {
   PartialRangeTargetDesc,
   PartialTargetDesc,
   PrimitiveTargetDescriptor,
-  TargetDescriptor
+  TargetDescriptor,
 } from "../typings/targetDescriptor.types";
 
 /**

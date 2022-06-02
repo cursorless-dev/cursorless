@@ -1,11 +1,10 @@
 import { uniqWith, zip } from "lodash";
 import { Range } from "vscode";
-import {
-  Target,
-} from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import {
   PrimitiveTargetDescriptor,
-  RangeTargetDescriptor, TargetDescriptor
+  RangeTargetDescriptor,
+  TargetDescriptor,
 } from "../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../typings/Types";
 import { ensureSingleEditor } from "../util/targetUtils";

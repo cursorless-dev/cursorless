@@ -1,13 +1,11 @@
 import { Location, Selection } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
-import {
-  Target,
-} from "../../../typings/target.types";
+import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
-  SimpleScopeType
+  SimpleScopeType,
 } from "../../../typings/targetDescriptor.types";
 import {
   NodeMatcher,

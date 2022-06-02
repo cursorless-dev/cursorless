@@ -4,7 +4,7 @@ import {
   PartialPrimitiveTargetDesc,
   PartialRangeTargetDesc,
   PartialTargetDesc,
-  SimpleScopeTypeType
+  SimpleScopeTypeType,
 } from "../../../typings/targetDescriptor.types";
 import { ActionType } from "../../../actions/actions.types";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";

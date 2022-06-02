@@ -3,7 +3,7 @@ import { flow } from "lodash";
 import {
   PartialPrimitiveTargetDesc,
   PartialTargetDesc,
-  SimpleScopeTypeType
+  SimpleScopeTypeType,
 } from "../../typings/targetDescriptor.types";
 import { transformPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import { HatStyleName } from "../constants";

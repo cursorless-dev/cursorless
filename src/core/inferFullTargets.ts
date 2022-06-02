@@ -5,7 +5,7 @@ import {
   PartialTargetDesc,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
-  TargetDescriptor
+  TargetDescriptor,
 } from "../typings/targetDescriptor.types";
 
 /**

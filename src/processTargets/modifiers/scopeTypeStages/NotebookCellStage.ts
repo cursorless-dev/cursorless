@@ -1,9 +1,7 @@
-import {
-  Target,
-} from "../../../typings/target.types";
+import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
-  EveryScopeModifier
+  EveryScopeModifier,
 } from "../../../typings/targetDescriptor.types";
 import NotebookCellTarget from "../../targets/NotebookCellTarget";
 import { ProcessedTargetsContext } from "../../../typings/Types";

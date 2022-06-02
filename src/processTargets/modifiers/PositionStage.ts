@@ -1,6 +1,9 @@
 import { Range } from "vscode";
 import { Target } from "../../typings/target.types";
-import { Position, PositionModifier } from "../../typings/targetDescriptor.types";
+import {
+  Position,
+  PositionModifier,
+} from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import PositionTarget from "../targets/PositionTarget";

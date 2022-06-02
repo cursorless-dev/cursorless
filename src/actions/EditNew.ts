@@ -97,7 +97,7 @@ class EditNew implements Action {
     if (command === "jupyter.insertCellAbove") {
       thatMark.
     }
-    
+
     return {
       thatMark,
     };

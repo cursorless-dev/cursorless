@@ -3,7 +3,7 @@ import { Range, TextDocument, TextEditor } from "vscode";
 import {
   SimpleSurroundingPairName,
   SurroundingPairDirection,
-  SurroundingPairName
+  SurroundingPairName,
 } from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/range";
 import { matchAll } from "../../../util/regex";

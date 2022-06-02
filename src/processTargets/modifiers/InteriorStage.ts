@@ -1,9 +1,7 @@
-import {
-  Target,
-} from "../../typings/target.types";
+import { Target } from "../../typings/target.types";
 import {
   ExcludeInteriorModifier,
-  InteriorOnlyModifier
+  InteriorOnlyModifier,
 } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";

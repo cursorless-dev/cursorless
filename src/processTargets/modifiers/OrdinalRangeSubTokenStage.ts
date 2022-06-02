@@ -1,12 +1,10 @@
 import { range } from "lodash";
 import { Range } from "vscode";
 import { SUBWORD_MATCHER } from "../../core/constants";
-import {
-  Target,
-} from "../../typings/target.types";
+import { Target } from "../../typings/target.types";
 import {
   OrdinalRangeModifier,
-  SimpleScopeType
+  SimpleScopeType,
 } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";

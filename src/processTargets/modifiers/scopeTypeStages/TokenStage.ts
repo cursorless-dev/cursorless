@@ -1,10 +1,8 @@
 import { Range, TextEditor } from "vscode";
-import {
-  Target,
-} from "../../../typings/target.types";
+import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
-  EveryScopeModifier
+  EveryScopeModifier,
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getTokensInRange, PartialToken } from "../../../util/getTokensInRange";
