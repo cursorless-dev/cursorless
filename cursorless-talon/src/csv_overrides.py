@@ -163,7 +163,7 @@ def update_dicts(
                     # FIXME: This is a hack to work around the fact that the
                     # spoken form of the `pasteFromClipboard` action used to be
                     # "paste to", but now the spoken form is just "paste" and
-                    # the two is part of the positional target. Users who had
+                    # the "to" is part of the positional target. Users who had
                     # cursorless before this change would have "paste to" as
                     # their spoken form and so would need to say "paste to to".
                     k = k[:-3]
