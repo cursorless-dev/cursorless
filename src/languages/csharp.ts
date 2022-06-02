@@ -7,6 +7,8 @@ import {
   matcher,
   trailingMatcher,
   typeMatcher,
+  conditionMatcher,
+  patternMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative } from "../typings/Types";
 import { SimpleScopeTypeType } from "../typings/target.types";
@@ -221,6 +223,10 @@ const nodeMatchers: Partial<
   ifStatement: "if_statement",
   class: "class_declaration",
   className: "class_declaration[name]",
+  condition: cascadingMatcher(
+    conditionMatcher("*[condition]"),
+    patternMatcher("while_statement[0]")
+  ),
   statement: STATEMENT_TYPES,
   anonymousFunction: "lambda_expression",
   functionCall: "invocation_expression",
