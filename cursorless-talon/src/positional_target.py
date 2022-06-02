@@ -7,7 +7,7 @@ ctx = Context()
 
 mod.list(
     "cursorless_positional_connective",
-    desc="The connective used to separate source and destination targets",
+    desc='Connectives used to separate source and destination targets that indicate position, eg "before" or "after"',
 )
 
 positional_connectives = {
