@@ -12,11 +12,16 @@ import {
 } from "../core/updateSelections/updateSelections";
 import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
 import { toPositionTarget } from "../processTargets/modifiers/PositionStage";
+import NotebookCellTarget from "../processTargets/targets/NotebookCellTarget";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { selectionFromRange } from "../util/selectionUtils";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
-import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
+import {
+  createThatMark,
+  ensureSingleEditor,
+  ensureSingleTarget,
+} from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class EditNew implements Action {
@@ -27,6 +32,10 @@ class EditNew implements Action {
   }
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+    if (targets.some((target) => target.isNotebookCell)) {
+      return this.handleNotebookCellTargets(targets);
+    }
+
     const editor = ensureSingleEditor(targets);
 
     const richTargets: RichTarget[] = targets.map((target) => {
@@ -41,14 +50,12 @@ class EditNew implements Action {
             ...common,
             type: "command",
             command: context.command,
-            updateSelection: !context.dontUpdateSelection,
           };
         case "delimiter":
           return {
             ...common,
             type: "delimiter",
             delimiter: context.delimiter,
-            updateSelection: true,
           };
       }
     });
@@ -67,16 +74,32 @@ class EditNew implements Action {
       await this.runDelimiterTargets(editor, commandTargets, delimiterTargets);
     }
 
-    // Only update selection if all targets are agreeing on this
-    if (!richTargets.some(({ updateSelection }) => !updateSelection)) {
-      const newSelections = richTargets.map((target) =>
-        selectionFromRange(target.target.isReversed, target.cursorRange)
-      );
-      await setSelectionsAndFocusEditor(editor, newSelections);
-    }
+    const newSelections = richTargets.map((target) =>
+      selectionFromRange(target.target.isReversed, target.cursorRange)
+    );
+    await setSelectionsAndFocusEditor(editor, newSelections);
 
     return {
       thatMark: createThatMark(richTargets.map(({ target }) => target)),
+    };
+  }
+
+  async handleNotebookCellTargets(
+    targets: Target[]
+  ): Promise<ActionReturnValue> {
+    const target = ensureSingleTarget(targets) as NotebookCellTarget;
+    await this.setSelections([target]);
+    const command = target.getEditNewCommand(this.isBefore);
+    await commands.executeCommand(command);
+
+    const thatTarget =  ? target.thatTarget : ;
+    let thatMark = createThatMark([target.thatTarget]);
+    if (command === "jupyter.insertCellAbove") {
+      thatMark.
+    }
+    
+    return {
+      thatMark,
     };
   }
 
@@ -129,15 +152,7 @@ class EditNew implements Action {
   ) {
     const command = ensureSingleCommand(commandTargets);
 
-    if (this.isBefore) {
-      await this.graph.actions.setSelectionBefore.run([
-        commandTargets.map(({ target }) => target),
-      ]);
-    } else {
-      await this.graph.actions.setSelectionAfter.run([
-        commandTargets.map(({ target }) => target),
-      ]);
-    }
+    await this.setSelections(commandTargets.map(({ target }) => target));
 
     const [updatedTargetRanges, updatedCursorRanges] =
       await callFunctionAndUpdateRanges(
@@ -152,6 +167,14 @@ class EditNew implements Action {
 
     updateTargets(targets, updatedTargetRanges, updatedCursorRanges);
     updateCommandTargets(commandTargets, editor.selections);
+  }
+
+  private async setSelections(targets: Target[]) {
+    if (this.isBefore) {
+      await this.graph.actions.setSelectionBefore.run([targets]);
+    } else {
+      await this.graph.actions.setSelectionAfter.run([targets]);
+    }
   }
 }
 
@@ -170,8 +193,8 @@ export class EditNewAfter extends EditNew {
 interface CommonTarget {
   target: Target;
   cursorRange: Range;
-  updateSelection: boolean;
 }
+
 interface CommandTarget extends CommonTarget {
   type: "command";
   command: string;

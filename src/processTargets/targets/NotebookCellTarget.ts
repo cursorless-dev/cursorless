@@ -15,21 +15,13 @@ export default class NotebookCellTarget extends BaseTarget {
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;
 
-  getEditNewContext(isBefore: boolean): EditNewContext {
+  getEditNewCommand(isBefore: boolean): string {
     if (this.isNotebookEditor(this.editor)) {
-      return {
-        type: "command",
-        dontUpdateSelection: true,
-        command: isBefore
-          ? "notebook.cell.insertCodeCellAbove"
-          : "notebook.cell.insertCodeCellBelow",
-      };
+      return isBefore
+        ? "notebook.cell.insertCodeCellAbove"
+        : "notebook.cell.insertCodeCellBelow";
     }
-    return {
-      type: "command",
-      dontUpdateSelection: true,
-      command: isBefore ? "jupyter.insertCellAbove" : "jupyter.insertCellBelow",
-    };
+    return isBefore ? "jupyter.insertCellAbove" : "jupyter.insertCellBelow";
   }
 
   protected getCloneParameters() {
