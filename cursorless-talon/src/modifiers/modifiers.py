@@ -25,7 +25,7 @@ mod.list(
 
 @mod.capture(rule="{user.cursorless_simple_modifier}")
 def cursorless_simple_modifier(m) -> dict[str, str]:
-    """Inside or boundary delimiter inclusion"""
+    """Simple cursorless modifiers that only need to specify their type"""
     return {
         "type": m.cursorless_simple_modifier,
     }
