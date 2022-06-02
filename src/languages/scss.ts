@@ -143,6 +143,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
       "parameter.default_value!"
     )
   ),
+  unit: "declaration.integer_value.unit!",
   collectionItem: "declaration",
 };
 

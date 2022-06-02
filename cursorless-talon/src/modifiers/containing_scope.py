@@ -46,6 +46,7 @@ scope_types = {
     "tags": "xmlBothTags",
     "start tag": "xmlStartTag",
     "end tag": "xmlEndTag",
+    "unit": "unit",
 }
 
 
