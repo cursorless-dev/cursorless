@@ -6,7 +6,7 @@ command:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
       modifiers:
-        - {type: delimiterRange, direction: trailing}
+        - {type: trailing}
         - type: containingScope
           scopeType: {type: paragraph}
   usePrePhraseSnapshot: true

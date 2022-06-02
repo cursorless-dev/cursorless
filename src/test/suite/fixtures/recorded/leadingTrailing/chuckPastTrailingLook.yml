@@ -1,17 +1,19 @@
 languageId: plaintext
 command:
-  version: 1
-  spokenForm: chuck past after look
-  action: remove
+  spokenForm: chuck past trailing look
+  version: 2
   targets:
     - type: range
-      start: {type: primitive}
-      end:
+      anchor: {type: primitive}
+      active:
         type: primitive
-        position: after
         mark: {type: decoratedSymbol, symbolColor: default, character: l}
-      excludeStart: false
-      excludeEnd: false
+        modifiers:
+          - {type: trailing}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+  action: {name: remove}
 initialState:
   documentContents: hello there
   selections:
@@ -29,4 +31,4 @@ finalState:
   thatMark:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
-fullTargets: [{type: range, excludeStart: false, excludeEnd: false, start: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: outside}, end: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, selectionType: token, position: after, modifier: {type: identity}, insideOutsideType: outside}}]
+fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: cursor}, modifiers: []}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, modifiers: [{type: trailing}]}}]

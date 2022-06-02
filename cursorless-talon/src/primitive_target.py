@@ -10,13 +10,10 @@ IMPLICIT_TARGET = {"type": "primitive", "isImplicit": True}
 
 modifiers = [
     "<user.cursorless_position>",  # before, end of
-    "<user.cursorless_head_tail>",  # head, tail
+    "<user.cursorless_simple_modifier>",  # eg inside, bounds, just, head, tail, leading, trailing
     "<user.cursorless_containing_scope>",  # funk, state, class
     "<user.cursorless_subtoken_scope>",  # first past second word
     "<user.cursorless_surrounding_pair>",  # matching/pair [curly, round]
-    "<user.cursorless_to_raw_selection>",  # just
-    "<user.cursorless_interior_boundary>",  # inside, bounds
-    "<user.cursorless_delimiter_range>",  # leading, trailing
 ]
 
 

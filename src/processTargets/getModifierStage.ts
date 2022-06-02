@@ -4,12 +4,12 @@ import {
   EveryScopeModifier,
   Modifier,
 } from "../typings/target.types";
-import DelimiterRangeStage from "./modifiers/DelimiterRangeStage";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
 } from "./modifiers/InteriorStage";
+import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import OrdinalRangeSubTokenStage, {
   OrdinalRangeSubTokenModifier,
 } from "./modifiers/OrdinalRangeSubTokenStage";
@@ -36,9 +36,9 @@ export default (modifier: Modifier): ModifierStage => {
   switch (modifier.type) {
     case "position":
       return new PositionStage(modifier);
-    case "head":
+    case "extendThroughStartOf":
       return new HeadStage(modifier);
-    case "tail":
+    case "extendThroughEndOf":
       return new TailStage(modifier);
     case "toRawSelection":
       return new RawSelectionStage(modifier);
@@ -46,8 +46,10 @@ export default (modifier: Modifier): ModifierStage => {
       return new InteriorOnlyStage(modifier);
     case "excludeInterior":
       return new ExcludeInteriorStage(modifier);
-    case "delimiterRange":
-      return new DelimiterRangeStage(modifier);
+    case "leading":
+      return new LeadingStage(modifier);
+    case "trailing":
+      return new TrailingStage(modifier);
     case "containingScope":
     case "everyScope":
       return getContainingScopeStage(modifier);

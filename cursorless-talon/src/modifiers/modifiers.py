@@ -1,27 +1,42 @@
-from talon import app
+from talon import Module, app
 
 from ..csv_overrides import init_csv_and_watch_changes
-from .head_tail import head_tail
 from .range_type import range_types
+
+mod = Module()
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
-
-interior_boundary_modifiers = {
+simple_modifiers = {
     "inside": "interiorOnly",
-    "bound": "excludeInterior",
+    "bounds": "excludeInterior",
+    "just": "toRawSelection",
+    "head": "extendThroughStartOf",
+    "tail": "extendThroughEndOf",
+    "leading": "leading",
+    "trailing": "trailing",
 }
-to_raw_selection = {"just": "toRawSelection"}
+
+mod.list(
+    "cursorless_simple_modifier",
+    desc="Simple cursorless modifiers that only need to specify their type",
+)
+
+
+@mod.capture(rule="{user.cursorless_simple_modifier}")
+def cursorless_simple_modifier(m) -> dict[str, str]:
+    """Inside or boundary delimiter inclusion"""
+    return {
+        "type": m.cursorless_simple_modifier,
+    }
 
 
 def on_ready():
     init_csv_and_watch_changes(
         "modifiers",
         {
-            "interior_boundary": interior_boundary_modifiers,
+            "simple_modifier": simple_modifiers,
             "range_type": range_types,
-            "head_tail": head_tail,
-            "to_raw_selection": to_raw_selection,
         },
     )
 

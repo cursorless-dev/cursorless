@@ -80,14 +80,18 @@ function upgradeModifier(modifier: ModifierV0V1): Modifier[] {
       ];
     }
 
+    case "head":
+      return [{ type: "extendThroughStartOf" }];
+    case "tail":
+      return [{ type: "extendThroughEndOf" }];
+
     default:
       return [modifier];
   }
 }
 
 function upgradePrimitiveTarget(
-  target: PartialPrimitiveTargetV0V1,
-  action: ActionType
+  target: PartialPrimitiveTargetV0V1
 ): PartialPrimitiveTargetDesc {
   const {
     type,
@@ -104,16 +108,12 @@ function upgradePrimitiveTarget(
     if (position === "before") {
       if (insideOutsideType === "inside") {
         modifiers.push({ type: "position", position: "start" });
-      } else if (action === "remove") {
-        modifiers.push({ type: "delimiterRange", direction: "leading" });
       } else {
         modifiers.push({ type: "position", position: "before" });
       }
     } else {
       if (insideOutsideType === "inside") {
         modifiers.push({ type: "position", position: "end" });
-      } else if (action === "remove") {
-        modifiers.push({ type: "delimiterRange", direction: "trailing" });
       } else {
         modifiers.push({ type: "position", position: "after" });
       }
@@ -172,13 +172,13 @@ function upgradeTarget(
       return {
         type,
         rangeType,
-        anchor: upgradePrimitiveTarget(start, action),
-        active: upgradePrimitiveTarget(end, action),
+        anchor: upgradePrimitiveTarget(start),
+        active: upgradePrimitiveTarget(end),
         excludeAnchor: excludeStart ?? false,
         excludeActive: excludeEnd ?? false,
       };
     case "primitive":
-      return upgradePrimitiveTarget(target, action);
+      return upgradePrimitiveTarget(target);
   }
 }
 

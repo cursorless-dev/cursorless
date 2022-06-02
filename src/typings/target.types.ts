@@ -167,11 +167,19 @@ export interface RawSelectionModifier {
 }
 
 export interface HeadModifier {
-  type: "head";
+  type: "extendThroughStartOf";
 }
 
 export interface TailModifier {
-  type: "tail";
+  type: "extendThroughEndOf";
+}
+
+export interface LeadingModifier {
+  type: "leading";
+}
+
+export interface TrailingModifier {
+  type: "trailing";
 }
 
 export type Position = "before" | "after" | "start" | "end";
@@ -179,13 +187,6 @@ export type Position = "before" | "after" | "start" | "end";
 export interface PositionModifier {
   type: "position";
   position: Position;
-}
-
-export type DelimiterRangeDirection = "leading" | "trailing";
-
-export interface DelimiterRangeModifier {
-  type: "delimiterRange";
-  direction: DelimiterRangeDirection;
 }
 
 export interface PartialPrimitiveTargetDesc {
@@ -204,8 +205,9 @@ export type Modifier =
   | OrdinalRangeModifier
   | HeadModifier
   | TailModifier
-  | RawSelectionModifier
-  | DelimiterRangeModifier;
+  | LeadingModifier
+  | TrailingModifier
+  | RawSelectionModifier;
 
 export interface PartialRangeTargetDesc {
   type: "range";
