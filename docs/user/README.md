@@ -154,6 +154,7 @@ For programming languages where Cursorless has rich parse tree support, we suppo
 | `"string"`     | string                                              |
 | `"tags"`       | xml both tags                                       |
 | `"type"`       | a type annotation or declaration                    |
+| `"unit"`       | a unit, eg `px` in `100px`                          |
 | `"value"`      | a value eg in a map / object, return statement, etc |
 
 For example, `"take funk blue air"` selects the function containing the token with a blue hat over the letter `'a'`.
