@@ -7,14 +7,12 @@ export default class RawSelectionStage implements ModifierStage {
   constructor(private modifier: RawSelectionModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    return [toRawTarget(target)];
+    return [
+      new RawSelectionTarget({
+        editor: target.editor,
+        contentRange: target.contentRange,
+        isReversed: target.isReversed,
+      }),
+    ];
   }
-}
-
-export function toRawTarget(target: Target) {
-  return new RawSelectionTarget({
-    editor: target.editor,
-    contentRange: target.contentRange,
-    isReversed: target.isReversed,
-  });
 }
