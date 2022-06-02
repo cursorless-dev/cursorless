@@ -187,6 +187,9 @@ class BringMoveSwap implements Action {
               [editSelectionInfos, cursorSelectionInfos]
             );
 
+          // NB: We set the selections here because we don't trust vscode to
+          // properly move the cursor on a bring. Sometimes it will smear an
+          // empty selection
           setSelectionsWithoutFocusingEditor(editor, cursorSelections);
 
           return edits.map((edit, index): MarkEntry => {

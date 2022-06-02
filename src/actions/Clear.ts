@@ -12,6 +12,8 @@ export default class Clear implements Action {
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
+    // Convert to plain targets so that the remove action just removes the
+    // content range instead of the removal range
     const plainTargets = targets.map(
       (target) =>
         new PlainTarget({
