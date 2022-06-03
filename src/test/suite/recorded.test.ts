@@ -116,6 +116,7 @@ async function runTest(file: string) {
       },
       (err: Error) => {
         assert.strictEqual(err.name, fixture.thrownError?.name);
+        return true;
       }
     );
     return;
