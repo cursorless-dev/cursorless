@@ -38,23 +38,22 @@ class EditNew implements Action {
 
     const editor = ensureSingleEditor(targets);
 
-    const richTargets = targets.map<RichTarget>((target) => {
+    const richTargets: RichTarget[] = targets.map((target) => {
       const context = target.getEditNewContext(this.isBefore);
-
+      const common = {
+        target,
+        cursorRange: target.contentRange,
+      };
       switch (context.type) {
         case "command":
           return {
-            target,
-            thatTarget: target.thatTarget,
-            cursorRange: undefined,
+            ...common,
             type: "command",
             command: context.command,
           };
         case "delimiter":
           return {
-            target,
-            thatTarget: target.thatTarget,
-            cursorRange: undefined,
+            ...common,
             type: "delimiter",
             delimiter: context.delimiter,
           };
@@ -72,16 +71,11 @@ class EditNew implements Action {
       await this.runCommandTargets(editor, richTargets, commandTargets);
     }
     if (delimiterTargets.length > 0) {
-      await this.runDelimiterTargets(
-        editor,
-        richTargets,
-        commandTargets,
-        delimiterTargets
-      );
+      await this.runDelimiterTargets(editor, commandTargets, delimiterTargets);
     }
 
     const newSelections = richTargets.map((target) =>
-      selectionFromRange(target.target.isReversed, target.cursorRange!)
+      selectionFromRange(target.target.isReversed, target.cursorRange)
     );
     await setSelectionsAndFocusEditor(editor, newSelections);
 
@@ -112,23 +106,18 @@ class EditNew implements Action {
 
   async runDelimiterTargets(
     editor: TextEditor,
-    allTargets: RichTarget[],
     commandTargets: CommandTarget[],
     delimiterTargets: DelimiterTarget[]
   ) {
     const position = this.isBefore ? "before" : "after";
-    // NB: We don't use `constructEmptyChangeEdit` here because we want padding
-    // if it's a line target
     const edits = delimiterTargets.flatMap((target) =>
       toPositionTarget(target.target, position).constructChangeEdit("")
     );
 
-    const commandTargetCursorSelections = commandTargets.map(
-      (richTarget) => richTarget.cursorRange
-    );
-    const thatTargetSelections = {
-      selections: allTargets.map(
-        ({ thatTarget }) => thatTarget.contentSelection
+    const cursorSelections = { selections: editor.selections };
+    const contentSelections = {
+      selections: delimiterTargets.map(
+        ({ target }) => target.thatTarget.contentSelection
       ),
     };
     const editSelections = {
@@ -140,24 +129,20 @@ class EditNew implements Action {
 
     const [
       updatedEditorSelections,
-      updatedThatTargetSelections,
+      updatedContentSelections,
       updatedEditSelections,
     ]: Selection[][] = await performEditsAndUpdateSelectionsWithBehavior(
       this.graph.rangeUpdater,
       editor,
       edits,
-      [commandTargetCursorSelections, thatTargetSelections, editSelections]
+      [cursorSelections, contentSelections, editSelections]
     );
 
     const insertionRanges = zip(edits, updatedEditSelections).map(
       ([edit, selection]) => edit!.updateRange(selection!)
     );
 
-    updateRichTargets(
-      delimiterTargets,
-      updatedThatTargetSelections,
-      insertionRanges
-    );
+    updateTargets(delimiterTargets, updatedContentSelections, insertionRanges);
     updateCommandTargets(commandTargets, updatedEditorSelections);
   }
 
@@ -170,24 +155,19 @@ class EditNew implements Action {
 
     await this.setSelections(commandTargets.map(({ target }) => target));
 
-    const [updatedThatTargetRanges, updatedTargetRanges] =
+    const [updatedTargetRanges, updatedCursorRanges] =
       await callFunctionAndUpdateRanges(
         this.graph.rangeUpdater,
         () => commands.executeCommand(command),
         editor.document,
         [
           targets.map(({ target }) => target.thatTarget.contentRange),
-          targets.map(({ target }) => target.contentRange),
+          targets.map(({ cursorRange }) => cursorRange),
         ]
       );
 
-    updateRichTargets(targets, {
-      updatedThatTargetRanges,
-      updatedTargetRanges,
-    });
-    updateRichTargets(commandTargets, {
-      updatedCursorRanges: editor.selections,
-    });
+    updateTargets(targets, updatedTargetRanges, updatedCursorRanges);
+    updateCommandTargets(commandTargets, editor.selections);
   }
 
   private async setSelections(targets: Target[]) {
@@ -212,24 +192,10 @@ export class EditNewAfter extends EditNew {
 }
 
 interface CommonTarget {
-  /**
-   * The target that we apply the edit to. Note that we keep this target up to
-   * date as edits come in
-   */
   target: Target;
-
-  /**
-   * The `that` target that we will return. Note that we keep this target up to
-   * date as edits come in
-   */
-  thatTarget: Target;
-
-  /**
-   * The range of where we would like the cursor to end up before or after this
-   * target. Note that this will be undefined at the start
-   */
-  cursorRange: Range | undefined;
+  cursorRange: Range;
 }
+
 interface CommandTarget extends CommonTarget {
   type: "command";
   command: string;
@@ -238,12 +204,6 @@ interface DelimiterTarget extends CommonTarget {
   type: "delimiter";
   delimiter: string;
 }
-/**
- * Keeps a target as well as information about how to perform and edit. The
- * target will be kept up to date as the edit is performed so that we can turn
- * it as a that mark. We also keep track of where the cursor should end up after
- * applying this edit
- */
 type RichTarget = CommandTarget | DelimiterTarget;
 
 function ensureSingleCommand(targets: CommandTarget[]) {
@@ -254,40 +214,24 @@ function ensureSingleCommand(targets: CommandTarget[]) {
   return commands[0];
 }
 
-interface RangesToUpdate {
-  updatedTargetRanges?: readonly Range[];
-  updatedThatTargetRanges?: readonly Range[];
-  updatedCursorRanges?: readonly Range[];
+function updateCommandTargets(
+  targets: CommandTarget[],
+  cursorRanges: readonly Range[]
+) {
+  targets.forEach((target, i) => {
+    target.cursorRange = cursorRanges[i];
+  });
 }
 
-function updateRichTargets(
+function updateTargets(
   targets: RichTarget[],
-  rangesToUpdate: RangesToUpdate
+  updatedTargetRanges: Range[],
+  updatedCursorRanges: Range[]
 ) {
-  const { updatedTargetRanges, updatedThatTargetRanges, updatedCursorRanges } =
-    rangesToUpdate;
-
-  if (updatedTargetRanges != null) {
-    zip(targets, updatedTargetRanges).forEach(
-      ([target, updatedTargetRange]) => {
-        target!.target = target!.target.withContentRange(updatedTargetRange!);
-      }
-    );
-  }
-
-  if (updatedThatTargetRanges != null) {
-    zip(targets, updatedThatTargetRanges).forEach(
-      ([target, updatedTargetRange]) => {
-        target!.target = target!.target.withContentRange(updatedTargetRange!);
-      }
-    );
-  }
-
-  if (updatedCursorRanges != null) {
-    zip(targets, updatedCursorRanges).forEach(
-      ([target, updatedCursorRange]) => {
-        target!.cursorRange = updatedCursorRange!;
-      }
-    );
-  }
+  zip(targets, updatedTargetRanges, updatedCursorRanges).forEach(
+    ([target, updatedTargetRange, updatedCursorRange]) => {
+      target!.target = target!.target.withContentRange(updatedTargetRange!);
+      target!.cursorRange = updatedCursorRange!;
+    }
+  );
 }
