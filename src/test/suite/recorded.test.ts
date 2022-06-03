@@ -63,6 +63,8 @@ async function runTest(file: string) {
     fixture.initialState.documentContents,
     fixture.languageId
   );
+  // Override any user defaults, all tests are recorded as tabSize = 4
+  editor.options.tabSize = 4;
 
   if (!fixture.initialState.documentContents.includes("\n")) {
     await editor.edit((editBuilder) => {
