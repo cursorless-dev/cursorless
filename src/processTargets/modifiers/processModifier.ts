@@ -17,6 +17,7 @@ import {
 } from "../../typings/Types";
 import { processSurroundingPair } from "./surroundingPair";
 import { getNodeMatcher } from "../../languages/getNodeMatcher";
+import { NoContainingScopeError } from "../../errors";
 
 export type SelectionWithEditorWithContext = {
   selection: SelectionWithEditor;
@@ -99,7 +100,7 @@ function processScopeType(
   );
 
   if (result == null) {
-    throw new Error(`Couldn't find containing ${modifier.scopeType}`);
+    throw new NoContainingScopeError(modifier.scopeType);
   }
 
   return result;
