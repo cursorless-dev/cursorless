@@ -257,6 +257,7 @@ export class TestCaseRecorder {
       // command for a navigation map test
       return;
     }
+
     await this.testCase.recordFinalState(returnValue);
 
     if (this.testCase.awaitingFinalMarkInfo) {
