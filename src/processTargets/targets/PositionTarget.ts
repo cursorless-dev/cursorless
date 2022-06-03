@@ -38,17 +38,15 @@ export default class PositionTarget extends BaseTarget {
   }
 
   constructChangeEdit(text: string): EditWithRangeUpdater {
-    if (this.isInsertion()) {
-      return this.constructInsertionEdit(text, true);
-    }
-    return this.constructReplaceEdit(text);
+    return this.includeDelimitersInChangeEdit
+      ? this.constructEditWithDelimiters(text, true)
+      : this.constructEditWithoutDelimiters(text);
   }
 
   constructEmptyChangeEdit(): EditWithRangeUpdater {
-    if (this.isInsertion()) {
-      return this.constructInsertionEdit("", false);
-    }
-    return this.constructReplaceEdit("");
+    return this.includeDelimitersInChangeEdit
+      ? this.constructEditWithDelimiters("", false)
+      : this.constructEditWithoutDelimiters("");
   }
 
   protected getCloneParameters(): PositionTargetParameters {
@@ -60,7 +58,7 @@ export default class PositionTarget extends BaseTarget {
     };
   }
 
-  private constructInsertionEdit(
+  private constructEditWithDelimiters(
     text: string,
     useLinePadding: boolean
   ): EditWithRangeUpdater {
@@ -104,7 +102,7 @@ export default class PositionTarget extends BaseTarget {
     };
   }
 
-  private constructReplaceEdit(text: string): EditWithRangeUpdater {
+  private constructEditWithoutDelimiters(text: string): EditWithRangeUpdater {
     return {
       range: this.contentRange,
       text,
@@ -112,7 +110,7 @@ export default class PositionTarget extends BaseTarget {
     };
   }
 
-  private isInsertion() {
+  private get includeDelimitersInChangeEdit() {
     return this.position === "before" || this.position === "after";
   }
 }
