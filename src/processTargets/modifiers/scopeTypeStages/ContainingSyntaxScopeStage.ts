@@ -1,5 +1,6 @@
 import { Location, Selection } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
+import { NoContainingScopeError } from "../../../errors";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
 import { Target } from "../../../typings/target.types";
 import {
@@ -50,9 +51,7 @@ export default class implements ModifierStage {
     });
 
     if (scopeNodes == null) {
-      throw new Error(
-        `Couldn't find containing ${this.modifier.scopeType.type}`
-      );
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
     return scopeNodes.map((scope) => {
