@@ -58,7 +58,7 @@ interface RecordTestCaseCommandArg {
 export class TestCaseRecorder {
   private active: boolean = false;
   private workspacePath: string | null;
-  private workSpaceFolder: string | null;
+  private workspaceName: string | null;
   private fixtureRoot: string | null;
   private targetDirectory: string | null = null;
   private testCase: TestCase | null = null;
@@ -81,7 +81,7 @@ export class TestCaseRecorder {
         ? graph.extensionContext.extensionPath
         : vscode.workspace.workspaceFolders?.[0].uri.path ?? null;
 
-    this.workSpaceFolder = this.workspacePath
+    this.workspaceName = this.workspacePath
       ? path.basename(this.workspacePath)
       : null;
 
@@ -294,11 +294,13 @@ export class TestCaseRecorder {
 
   private async promptSubdirectory(): Promise<string | undefined> {
     if (
-      this.workspacePath == null ||
+      this.workspaceName == null ||
       this.fixtureRoot == null ||
-      this.workSpaceFolder !== "cursorless-vscode"
+      !["cursorless-vscode", "cursorless"].includes(this.workspaceName)
     ) {
-      throw new Error("Can't prompt for subdirectory");
+      throw new Error(
+        '"Cursorless record" must be run from within cursorless directory'
+      );
     }
 
     const subdirectories = walkDirsSync(this.fixtureRoot).concat("/");
