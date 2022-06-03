@@ -41,6 +41,10 @@ interface PlainTestDecoration {
   end: PositionPlainObject;
 }
 
+export type ThrownError = {
+  name: string;
+};
+
 export type TestCaseFixture = {
   languageId: string;
   postEditorOpenSleepTimeMs?: number;
@@ -52,8 +56,11 @@ export type TestCaseFixture = {
   marksToCheck?: string[];
 
   initialState: TestCaseSnapshot;
-  finalState: TestCaseSnapshot;
   decorations?: PlainTestDecoration[];
+  /** The final state after a command is issued. Undefined if we are testing a non-match(error) case. */
+  finalState?: TestCaseSnapshot;
+  /** Used to assert if an error has been thrown. */
+  thrownError?: ThrownError;
   returnValue: unknown;
   /** Inferred full targets added for context; not currently used in testing */
   fullTargets: TargetDescriptor[];
@@ -63,8 +70,9 @@ export class TestCase {
   languageId: string;
   fullTargets: TargetDescriptor[];
   initialState: TestCaseSnapshot | null = null;
-  finalState: TestCaseSnapshot | null = null;
   decorations?: PlainTestDecoration[];
+  finalState?: TestCaseSnapshot;
+  thrownError?: ThrownError;
   returnValue: unknown = null;
   targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
@@ -158,7 +166,10 @@ export class TestCase {
   }
 
   toYaml() {
-    if (this.initialState == null || this.finalState == null) {
+    if (
+      this.initialState == null ||
+      (this.finalState == null && this.thrownError == null)
+    ) {
       throw Error("Two snapshots must be taken before serializing");
     }
     const fixture: TestCaseFixture = {
@@ -170,6 +181,7 @@ export class TestCase {
       decorations: this.decorations,
       returnValue: this.returnValue,
       fullTargets: this.fullTargets,
+      thrownError: this.thrownError,
     };
     return serialize(fixture);
   }

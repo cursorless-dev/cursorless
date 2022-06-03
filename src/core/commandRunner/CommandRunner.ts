@@ -106,11 +106,6 @@ export default class CommandRunner {
         getNodeAtLocation: this.graph.getNodeAtLocation,
       };
 
-      const targets = processTargets(
-        processedTargetsContext,
-        targetDescriptors
-      );
-
       if (this.graph.testCaseRecorder.isActive()) {
         this.graph.editStyles.testDecorations = [];
         const context = {
@@ -127,6 +122,11 @@ export default class CommandRunner {
         );
       }
 
+      const targets = processTargets(
+        processedTargetsContext,
+        targetDescriptors
+      );
+
       const {
         returnValue,
         thatMark: newThatMark,
@@ -142,7 +142,7 @@ export default class CommandRunner {
 
       return returnValue;
     } catch (e) {
-      this.graph.testCaseRecorder.commandErrorHook();
+      await this.graph.testCaseRecorder.commandErrorHook(e as Error);
       const err = e as Error;
       if ((err as Error).name === "ActionableError") {
         (err as ActionableError).showErrorMessage();
