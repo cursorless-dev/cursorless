@@ -9,6 +9,13 @@ export class UnsupportedLanguageError extends Error {
   }
 }
 
+export class UnsupportedError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "UnsupportedError";
+  }
+}
+
 interface ErrorAction {
   /**
    * The name of the action to show to the user

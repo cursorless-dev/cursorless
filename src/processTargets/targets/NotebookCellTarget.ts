@@ -1,5 +1,4 @@
 import { TextEditor } from "vscode";
-import { EditNewContext } from "../../typings/target.types";
 import { getNotebookFromCellDocument } from "../../util/notebook";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
