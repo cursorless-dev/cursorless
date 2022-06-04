@@ -60,6 +60,15 @@ push down, editor.action.moveLinesDownAction
 
 Now when you say eg "push down air and bat", cursorless will first select the two tokens with a gray hat over the `a` and `b`, then issue the VSCode command `editor.action.moveLinesDownAction`, and then restore your original selection.
 
+## Toggling "hat" display
+
+Most users, often after less than a week of using Cursorless, do not find the hat display over tokens to be obtrustive. However, should you need to remove the display of hats within your editor, there is a command registered for you.
+
+- Bring up the command pallet(`Shift + CMD + P`).
+- Enter `cursorless.toggleDecorations` or type `Cursorless Toggle` to see the command in the dropdown.
+
+Use the same steps above to reenable hat positioning. During the time when hats are not positioned, you will not be able to address any marks, eg. `take air`. However, Cursorless will still recognize scopes, eg. `take funk`.
+
 ## Cursorless public API
 
 Cursorless exposes a couple talon actions and captures that you can use to define your own custom command grammar leveraging cursorless targets.
