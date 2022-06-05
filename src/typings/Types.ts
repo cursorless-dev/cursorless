@@ -206,6 +206,7 @@ export type SelectionType =
   | "paragraph"
   | "document"
   | "nonWhitespaceSequence"
+  | "nonwhiteSpaceOrDelimiterSequence"
   | "url";
 
 export type Position = "before" | "after" | "contents";

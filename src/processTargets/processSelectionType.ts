@@ -44,6 +44,13 @@ export default function (
         selection,
         selectionContext
       );
+    case "nonwhiteSpaceOrDelimiterSequence":
+      return processRegexDefinedScope(
+        /[^\s'"]+/g,
+        target,
+        selection,
+        selectionContext
+      );
     case "url":
       return processRegexDefinedScope(
         URL_REGEX,

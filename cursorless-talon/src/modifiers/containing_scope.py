@@ -69,6 +69,7 @@ selection_types = {
     "file": "document",
     "line": "line",
     "paint": "nonWhitespaceSequence",
+    "small paint": "nonwhiteSpaceOrDelimiterSequence",
     "link": "url",
     "token": "token",
 }
