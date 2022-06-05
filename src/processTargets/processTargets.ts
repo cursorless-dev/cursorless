@@ -10,6 +10,8 @@ import { ProcessedTargetsContext } from "../typings/Types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
+import PlainTarget from "./targets/PlainTarget";
+import PositionTarget from "./targets/PositionTarget";
 
 /**
  * Converts the abstract target descriptions provided by the user to a concrete
@@ -144,7 +146,17 @@ function processVerticalRangeTarget(
       anchorTarget.contentRange.end.character
     );
 
-    results.push(anchorTarget.withContentRange(contentRange));
+    if (anchorTarget instanceof PositionTarget) {
+      results.push(anchorTarget.withContentRange(contentRange));
+    } else {
+      results.push(
+        new PlainTarget({
+          editor: anchorTarget.editor,
+          isReversed: anchorTarget.isReversed,
+          contentRange,
+        })
+      );
+    }
 
     if (i === activeLine) {
       return results;
