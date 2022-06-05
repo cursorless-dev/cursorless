@@ -183,6 +183,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "optional_parameter.identifier!",
     "required_parameter.identifier!",
     "augmented_assignment_expression[left]",
+    "assignment_expression[left]",
   ],
   comment: "comment",
   regularExpression: "regex",
