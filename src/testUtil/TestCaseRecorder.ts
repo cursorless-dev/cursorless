@@ -47,12 +47,18 @@ interface RecordTestCaseCommandArg {
    * Whether to flash a background for calibrating a video recording
    */
   showCalibrationDisplay?: boolean;
+
+  /**
+   * Whether we should record a tests which yield errors in addition to tests
+   * which do not error.
+   */
+  recordErrors?: boolean;
 }
 
 export class TestCaseRecorder {
   private active: boolean = false;
   private workspacePath: string | null;
-  private workSpaceFolder: string | null;
+  private workspaceName: string | null;
   private fixtureRoot: string | null;
   private targetDirectory: string | null = null;
   private testCase: TestCase | null = null;
@@ -62,6 +68,7 @@ export class TestCaseRecorder {
   private startTimestamp?: bigint;
   private extraSnapshotFields?: ExtraSnapshotField[];
   private paused: boolean = false;
+  private isErrorTest: boolean = false;
   private calibrationStyle = vscode.window.createTextEditorDecorationType({
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
@@ -74,7 +81,7 @@ export class TestCaseRecorder {
         ? graph.extensionContext.extensionPath
         : vscode.workspace.workspaceFolders?.[0].uri.path ?? null;
 
-    this.workSpaceFolder = this.workspacePath
+    this.workspaceName = this.workspacePath
       ? path.basename(this.workspacePath)
       : null;
 
@@ -168,6 +175,7 @@ export class TestCaseRecorder {
       isSilent = false,
       extraSnapshotFields = [],
       showCalibrationDisplay = false,
+      recordErrors: isErrorTest = false,
     } = arg ?? {};
 
     if (directory != null) {
@@ -187,6 +195,7 @@ export class TestCaseRecorder {
       this.isHatTokenMapTest = isHatTokenMapTest;
       this.isSilent = isSilent;
       this.extraSnapshotFields = extraSnapshotFields;
+      this.isErrorTest = isErrorTest;
       this.paused = false;
 
       vscode.window.showInformationMessage(
@@ -286,11 +295,13 @@ export class TestCaseRecorder {
 
   private async promptSubdirectory(): Promise<string | undefined> {
     if (
-      this.workspacePath == null ||
+      this.workspaceName == null ||
       this.fixtureRoot == null ||
-      this.workSpaceFolder !== "cursorless-vscode"
+      !["cursorless-vscode", "cursorless"].includes(this.workspaceName)
     ) {
-      throw new Error("Can't prompt for subdirectory");
+      throw new Error(
+        '"Cursorless record" must be run from within cursorless directory'
+      );
     }
 
     const subdirectories = walkDirsSync(this.fixtureRoot).concat("/");
@@ -351,8 +362,13 @@ export class TestCaseRecorder {
     return filePath;
   }
 
-  commandErrorHook() {
-    this.testCase = null;
+  async commandErrorHook(error: Error) {
+    if (this.isErrorTest && this.testCase) {
+      this.testCase.thrownError = { name: error.name };
+      await this.finishTestCase();
+    } else {
+      this.testCase = null;
+    }
   }
 
   dispose() {
