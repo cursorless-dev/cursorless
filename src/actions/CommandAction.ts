@@ -60,6 +60,10 @@ export default class CommandAction implements Action {
 
         // Reset original selections
         if (options.restoreSelection) {
+          // NB: We don't focus the editor here because we'll do that at the
+          // very end.  This code can run on multiple editors in the course of
+          // one command, so we want to avoid focusing the editor multiple
+          // times.
           setSelectionsWithoutFocusingEditor(editor, updatedOriginalSelections);
         }
 
@@ -112,6 +116,9 @@ export default class CommandAction implements Action {
       originalEditor != null &&
       originalEditor !== window.activeTextEditor
     ) {
+      // NB: We just do one editor focus at the end, instead of using
+      // setSelectionsAndFocusEditor because the command might operate on
+      // multiple editors, so we just do one focus at the end.
       await focusEditor(originalEditor);
     }
 
