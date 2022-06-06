@@ -1,20 +1,20 @@
-import * as path from "path";
-import * as Mocha from "mocha";
 import * as glob from "glob";
-import { runSingleTest } from "./runSingleRecordedTest";
+import * as Mocha from "mocha";
+import * as path from "path";
+import { runTestSubset, TEST_SUBSET_GREP_STRING } from "./runTestSubset";
 
 export function run(): Promise<void> {
   // Create the mocha test
   const mocha = new Mocha({
     ui: "tdd",
     color: true,
+    grep: runTestSubset() ? TEST_SUBSET_GREP_STRING : undefined, // Only run a subset of tests
   });
 
   const testsRoot = path.resolve(__dirname, "..");
 
   return new Promise((c, e) => {
-    const pattern = runSingleTest() ? "**/recorded.test.js" : "**/**.test.js";
-    glob(pattern, { cwd: testsRoot }, (err, files) => {
+    glob("**/**.test.js", { cwd: testsRoot }, (err, files) => {
       if (err) {
         return e(err);
       }

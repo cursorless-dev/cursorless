@@ -26,7 +26,6 @@ import sleep from "../../util/sleep";
 import { openNewEditor } from "../openNewEditor";
 import asyncSafety from "../util/asyncSafety";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
-import { runSingleTest } from "./runSingleRecordedTest";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -40,7 +39,7 @@ function createSelection(selection: SelectionPlainObject): vscode.Selection {
 
 suite("recorded test cases", async function () {
   this.timeout("100s");
-  this.retries(runSingleTest() ? 0 : 5);
+  this.retries(5);
 
   teardown(() => {
     sinon.restore();

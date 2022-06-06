@@ -42,12 +42,12 @@
 			]
 		},
 		{
-			"name": "Run Single Extension Test",
+			"name": "Run Test Subset",
 			"type": "extensionHost",
 			"request": "launch",
 			"env": {
 				"CURSORLESS_TEST": "true",
-				"CURSORLESS_RUN_SINGLE_TEST": "true"
+				"CURSORLESS_RUN_TEST_SUBSET": "true"
 			},
 			"args": [
 				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
