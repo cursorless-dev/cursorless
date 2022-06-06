@@ -191,8 +191,8 @@ function upgradeTargets(
   partialTargets: PartialTargetV0V1[],
   action: ActionType
 ) {
-  const partialTargetsV2: PartialTargetDescriptor[] = partialTargets.map((target) =>
-    upgradeTarget(target, action)
+  const partialTargetsV2: PartialTargetDescriptor[] = partialTargets.map(
+    (target) => upgradeTarget(target, action)
   );
   return transformPartialPrimitiveTargets(
     partialTargetsV2,

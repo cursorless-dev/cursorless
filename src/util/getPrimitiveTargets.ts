@@ -62,7 +62,9 @@ function getPrimitiveTargetsHelper(
  */
 export function transformPartialPrimitiveTargets(
   targets: PartialTargetDescriptor[],
-  func: (target: PartialPrimitiveTargetDescriptor) => PartialPrimitiveTargetDescriptor
+  func: (
+    target: PartialPrimitiveTargetDescriptor
+  ) => PartialPrimitiveTargetDescriptor
 ) {
   return targets.map((target) =>
     transformPartialPrimitiveTargetsHelper(target, func)
@@ -71,7 +73,9 @@ export function transformPartialPrimitiveTargets(
 
 function transformPartialPrimitiveTargetsHelper(
   target: PartialTargetDescriptor,
-  func: (target: PartialPrimitiveTargetDescriptor) => PartialPrimitiveTargetDescriptor
+  func: (
+    target: PartialPrimitiveTargetDescriptor
+  ) => PartialPrimitiveTargetDescriptor
 ): PartialTargetDescriptor {
   switch (target.type) {
     case "primitive":
