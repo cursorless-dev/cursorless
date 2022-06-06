@@ -65,8 +65,6 @@ export interface Target {
   ): Target;
   /** Constructs change/insertion edit. Adds delimiter before/after if needed */
   constructChangeEdit(text: string): EditWithRangeUpdater;
-  /** Constructs change/insertion edit. Differs from constructChangeEdit in that it does not add padding on insertion */
-  constructEmptyChangeEdit(): EditWithRangeUpdater;
   /** Constructs removal edit */
   constructRemovalEdit(): EditWithRangeUpdater;
   isEqual(target: Target): boolean;

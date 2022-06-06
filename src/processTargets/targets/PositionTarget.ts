@@ -37,18 +37,6 @@ export default class PositionTarget extends BaseTarget {
     );
   }
 
-  constructChangeEdit(text: string): EditWithRangeUpdater {
-    return this.includeDelimitersInChangeEdit
-      ? this.constructEditWithDelimiters(text, true)
-      : this.constructEditWithoutDelimiters(text);
-  }
-
-  constructEmptyChangeEdit(): EditWithRangeUpdater {
-    return this.includeDelimitersInChangeEdit
-      ? this.constructEditWithDelimiters("", false)
-      : this.constructEditWithoutDelimiters("");
-  }
-
   protected getCloneParameters(): PositionTargetParameters {
     return {
       ...this.state,
@@ -56,6 +44,12 @@ export default class PositionTarget extends BaseTarget {
       insertionDelimiter: this.insertionDelimiter,
       isRaw: this.isRaw,
     };
+  }
+
+  constructChangeEdit(text: string): EditWithRangeUpdater {
+    return this.position === "before" || this.position === "after"
+      ? this.constructEditWithDelimiters(text, true)
+      : this.constructEditWithoutDelimiters(text);
   }
 
   private constructEditWithDelimiters(
@@ -108,10 +102,6 @@ export default class PositionTarget extends BaseTarget {
       text,
       updateRange: (range) => range,
     };
-  }
-
-  private get includeDelimitersInChangeEdit() {
-    return this.position === "before" || this.position === "after";
   }
 }
 

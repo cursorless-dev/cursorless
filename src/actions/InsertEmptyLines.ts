@@ -1,10 +1,8 @@
-import { flatten, zip } from "lodash";
-import { DecorationRangeBehavior, Selection } from "vscode";
-import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
-import { toPositionTarget } from "../processTargets/modifiers/PositionStage";
-import { toLineTarget } from "../processTargets/modifiers/scopeTypeStages/LineStage";
+import { flatten } from "lodash";
+import { Range, Selection } from "vscode";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
-import { EditWithRangeUpdater, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -18,67 +16,64 @@ class InsertEmptyLines implements Action {
     this.run = this.run.bind(this);
   }
 
-  private getEdits(targets: Target[]) {
-    return targets.flatMap((target) => {
-      const lineTarget = toLineTarget(target);
-      const edits: EditWithRangeUpdater[] = [];
+  private getRanges(targets: Target[]) {
+    let lines = targets.flatMap((target) => {
+      const lines: number[] = [];
       if (this.insertAbove) {
-        edits.push(
-          toPositionTarget(lineTarget, "before").constructEmptyChangeEdit()
-        );
+        lines.push(target.contentRange.start.line);
       }
       if (this.insertBelow) {
-        edits.push(
-          toPositionTarget(lineTarget, "after").constructEmptyChangeEdit()
-        );
+        lines.push(target.contentRange.end.line + 1);
       }
-      return edits;
+      return lines;
     });
+    // Remove duplicates
+    lines = [...new Set(lines)];
+
+    return lines.map((line) => new Range(line, 0, line, 0));
+  }
+
+  private getEdits(ranges: Range[]) {
+    return ranges.map((range) => ({
+      range,
+      text: "\n",
+    }));
   }
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const results = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-        const edits = this.getEdits(targets);
+        const ranges = this.getRanges(targets);
+        const edits = this.getEdits(ranges);
 
-        const cursorSelections = { selections: editor.selections };
-        const contentSelections = {
-          selections: targets.map(
-            (target) => target.thatTarget.contentSelection
-          ),
-        };
-        const editSelections = {
-          selections: edits.map(
-            ({ range }) => new Selection(range.start, range.end)
-          ),
-          rangeBehavior: DecorationRangeBehavior.OpenOpen,
-        };
-
-        const [
-          updatedCursorSelections,
-          updatedContentSelections,
-          updatedEditSelections,
-        ]: Selection[][] = await performEditsAndUpdateSelectionsWithBehavior(
-          this.graph.rangeUpdater,
-          editor,
-          edits,
-          [cursorSelections, contentSelections, editSelections]
-        );
-
-        const insertionRanges = zip(edits, updatedEditSelections).map(
-          ([edit, selection]) => edit!.updateRange(selection!)
-        );
+        const [updatedThatSelections, lineSelections, updatedCursorSelections] =
+          await performEditsAndUpdateSelections(
+            this.graph.rangeUpdater,
+            editor,
+            edits,
+            [
+              targets.map((target) => target.thatTarget.contentSelection),
+              ranges.map((range) => new Selection(range.start, range.end)),
+              editor.selections,
+            ]
+          );
 
         setSelectionsWithoutFocusingEditor(editor, updatedCursorSelections);
 
         return {
-          thatMark: updatedContentSelections.map((selection) => ({
+          thatMark: updatedThatSelections.map((selection) => ({
             editor,
             selection,
           })),
-          lineSelections: insertionRanges.map((range) => ({
+          lineSelections: lineSelections.map((selection, index) => ({
             editor,
-            range,
+            range:
+              ranges[index].start.line < editor.document.lineCount - 1
+                ? new Range(
+                    selection.start.translate({ lineDelta: -1 }),
+                    selection.end.translate({ lineDelta: -1 })
+                  )
+                : selection,
           })),
         };
       })
