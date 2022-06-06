@@ -30,3 +30,8 @@ finalState:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 15}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, modifiers: []}]
+decorations:
+  - name: justAddedBackground
+    type: line
+    start: {line: 2, character: 0}
+    end: {line: 2, character: 0}

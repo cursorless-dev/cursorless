@@ -29,3 +29,8 @@ finalState:
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 11}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]
+decorations:
+  - name: justAddedBackground
+    type: line
+    start: {line: 2, character: 0}
+    end: {line: 2, character: 0}
