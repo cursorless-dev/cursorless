@@ -103,6 +103,15 @@ export default class PositionTarget extends BaseTarget {
       updateRange: (range) => range,
     };
   }
+
+  constructEmptyChangeEdit(): EditWithRangeUpdater {
+    return {
+      range: this.contentRange,
+      text: "",
+      isReplace: this.position === "after" || this.position === "end",
+      updateRange: (range) => range,
+    };
+  }
 }
 
 function getLinePadding(editor: TextEditor, range: Range, isBefore: boolean) {
