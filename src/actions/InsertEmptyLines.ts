@@ -1,21 +1,13 @@
-import {
-  Action,
-  ActionPreferences,
-  ActionReturnValue,
-  Graph,
-  TypedSelection,
-} from "../typings/Types";
-import { Selection, Range } from "vscode";
-import { displayPendingEditDecorationsForSelection } from "../util/editDisplayUtils";
-import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { flatten } from "lodash";
+import { Range, Selection } from "vscode";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
+import { runOnTargetsForEachEditor } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 class InsertEmptyLines implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [
-    { insideOutsideType: "inside" },
-  ];
-
   constructor(
     private graph: Graph,
     private insertAbove: boolean,
@@ -24,14 +16,14 @@ class InsertEmptyLines implements Action {
     this.run = this.run.bind(this);
   }
 
-  private getRanges(targets: TypedSelection[]) {
+  private getRanges(targets: Target[]) {
     let lines = targets.flatMap((target) => {
-      const lines = [];
+      const lines: number[] = [];
       if (this.insertAbove) {
-        lines.push(target.selection.selection.start.line);
+        lines.push(target.contentRange.start.line);
       }
       if (this.insertBelow) {
-        lines.push(target.selection.selection.end.line + 1);
+        lines.push(target.contentRange.end.line + 1);
       }
       return lines;
     });
@@ -48,36 +40,36 @@ class InsertEmptyLines implements Action {
     }));
   }
 
-  async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const results = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const ranges = this.getRanges(targets);
         const edits = this.getEdits(ranges);
 
-        const [updatedSelections, lineSelections, updatedOriginalSelections] =
+        const [updatedThatSelections, lineSelections, updatedCursorSelections] =
           await performEditsAndUpdateSelections(
             this.graph.rangeUpdater,
             editor,
             edits,
             [
-              targets.map((target) => target.selection.selection),
+              targets.map((target) => target.thatTarget.contentSelection),
               ranges.map((range) => new Selection(range.start, range.end)),
               editor.selections,
             ]
           );
 
-        editor.selections = updatedOriginalSelections;
+        setSelectionsWithoutFocusingEditor(editor, updatedCursorSelections);
 
         return {
-          thatMark: updatedSelections.map((selection) => ({
+          thatMark: updatedThatSelections.map((selection) => ({
             editor,
             selection,
           })),
           lineSelections: lineSelections.map((selection, index) => ({
             editor,
-            selection:
+            range:
               ranges[index].start.line < editor.document.lineCount - 1
-                ? new Selection(
+                ? new Range(
                     selection.start.translate({ lineDelta: -1 }),
                     selection.end.translate({ lineDelta: -1 })
                   )
@@ -87,9 +79,10 @@ class InsertEmptyLines implements Action {
       })
     );
 
-    await displayPendingEditDecorationsForSelection(
+    await this.graph.editStyles.displayPendingEditDecorationsForRanges(
       results.flatMap((result) => result.lineSelections),
-      this.graph.editStyles.justAdded.line
+      this.graph.editStyles.justAdded,
+      false
     );
 
     const thatMark = results.flatMap((result) => result.thatMark);

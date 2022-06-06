@@ -1,4 +1,4 @@
-import { SurroundingPairDirection } from "../../../typings/Types";
+import { SurroundingPairDirection } from "../../../typings/targetDescriptor.types";
 import { findUnmatchedDelimiter } from "./generateUnmatchedDelimiters";
 import {
   DelimiterOccurrence,

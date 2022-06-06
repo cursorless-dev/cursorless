@@ -1,29 +1,18 @@
-import {
-  Action,
-  ActionPreferences,
-  ActionReturnValue,
-  Graph,
-  TypedSelection,
-} from "../typings/Types";
-import { groupBy } from "../util/itertools";
 import { commands, window } from "vscode";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
+import { groupBy } from "../util/itertools";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
-import { displayPendingEditDecorationsForSelection } from "../util/editDisplayUtils";
+import { createThatMark } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 class Scroll implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [
-    { insideOutsideType: "inside" },
-  ];
-
   constructor(private graph: Graph, private at: string) {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
-    const selectionGroups = groupBy(
-      targets,
-      (t: TypedSelection) => t.selection.editor
-    );
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+    const selectionGroups = groupBy(targets, (t: Target) => t.editor);
 
     const lines = Array.from(selectionGroups, ([editor, targets]) => {
       return { lineNumber: getLineNumber(targets, this.at), editor };
@@ -47,28 +36,27 @@ class Scroll implements Action {
       await focusEditor(originalEditor);
     }
 
-    const decorationSelections = targets
-      .map((target) => target.selection)
-      .filter((selection) => {
-        const visibleRanges = selection.editor.visibleRanges;
-        const startLine = visibleRanges[0].start.line;
-        const endLine = visibleRanges[visibleRanges.length - 1].end.line;
-        // Don't show decorations for selections that are larger than the visible range
-        return (
-          selection.selection.start.line > startLine ||
-          selection.selection.end.line < endLine ||
-          (selection.selection.start.line === startLine &&
-            selection.selection.end.line === endLine)
-        );
-      });
+    const decorationTargets = targets.filter((target) => {
+      const visibleRanges = target.editor.visibleRanges;
+      const startLine = visibleRanges[0].start.line;
+      const endLine = visibleRanges[visibleRanges.length - 1].end.line;
+      // Don't show decorations for selections that are larger than the visible range
+      return (
+        target.contentRange.start.line > startLine ||
+        target.contentRange.end.line < endLine ||
+        (target.contentRange.start.line === startLine &&
+          target.contentRange.end.line === endLine)
+      );
+    });
 
-    await displayPendingEditDecorationsForSelection(
-      decorationSelections,
-      this.graph.editStyles.referenced.line
+    await this.graph.editStyles.displayPendingEditDecorationsForTargets(
+      decorationTargets,
+      this.graph.editStyles.referenced,
+      false
     );
 
     return {
-      thatMark: targets.map((target) => target.selection),
+      thatMark: createThatMark(targets),
     };
   }
 }
@@ -91,12 +79,12 @@ export class ScrollToBottom extends Scroll {
   }
 }
 
-function getLineNumber(targets: TypedSelection[], at: string) {
+function getLineNumber(targets: Target[], at: string) {
   let startLine = Number.MAX_SAFE_INTEGER;
   let endLine = 0;
-  targets.forEach((t: TypedSelection) => {
-    startLine = Math.min(startLine, t.selection.selection.start.line);
-    endLine = Math.max(endLine, t.selection.selection.end.line);
+  targets.forEach((target: Target) => {
+    startLine = Math.min(startLine, target.contentRange.start.line);
+    endLine = Math.max(endLine, target.contentRange.end.line);
   });
 
   if (at === "top") {
