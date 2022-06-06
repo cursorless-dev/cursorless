@@ -1,8 +1,8 @@
 import update from "immutability-helper";
 import { flow } from "lodash";
 import {
-  PartialPrimitiveTargetDesc,
-  PartialTargetDesc,
+  PartialPrimitiveTargetDescriptor,
+  PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "../../typings/targetDescriptor.types";
 import { transformPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
@@ -20,8 +20,8 @@ const COLOR_CANONICALIZATION_MAPPING: Record<string, HatStyleName> = {
 };
 
 const canonicalizeScopeTypes = (
-  target: PartialPrimitiveTargetDesc
-): PartialPrimitiveTargetDesc => {
+  target: PartialPrimitiveTargetDescriptor
+): PartialPrimitiveTargetDescriptor => {
   target.modifiers?.forEach((mod) => {
     if (mod.type === "containingScope" || mod.type === "everyScope") {
       mod.scopeType.type =
@@ -33,8 +33,8 @@ const canonicalizeScopeTypes = (
 };
 
 const canonicalizeColors = (
-  target: PartialPrimitiveTargetDesc
-): PartialPrimitiveTargetDesc =>
+  target: PartialPrimitiveTargetDescriptor
+): PartialPrimitiveTargetDescriptor =>
   target.mark?.type === "decoratedSymbol"
     ? update(target, {
         mark: {
@@ -45,7 +45,7 @@ const canonicalizeColors = (
     : target;
 
 export default function canonicalizeTargets(
-  partialTargets: PartialTargetDesc[]
+  partialTargets: PartialTargetDescriptor[]
 ) {
   return transformPartialPrimitiveTargets(
     partialTargets,

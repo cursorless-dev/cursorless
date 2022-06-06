@@ -1,7 +1,7 @@
 import {
-  PartialPrimitiveTargetDesc,
-  PartialRangeTargetDesc,
-  PartialTargetDesc,
+  PartialPrimitiveTargetDescriptor,
+  PartialRangeTargetDescriptor,
+  PartialTargetDescriptor,
   PrimitiveTargetDescriptor,
   TargetDescriptor,
 } from "../typings/targetDescriptor.types";
@@ -13,13 +13,13 @@ import {
  * @param targets The targets to extract from
  * @returns A list of primitive targets
  */
-export function getPartialPrimitiveTargets(targets: PartialTargetDesc[]) {
+export function getPartialPrimitiveTargets(targets: PartialTargetDescriptor[]) {
   return targets.flatMap(getPartialPrimitiveTargetsHelper);
 }
 
 function getPartialPrimitiveTargetsHelper(
-  target: PartialTargetDesc
-): PartialPrimitiveTargetDesc[] {
+  target: PartialTargetDescriptor
+): PartialPrimitiveTargetDescriptor[] {
   switch (target.type) {
     case "primitive":
       return [target];
@@ -61,8 +61,8 @@ function getPrimitiveTargetsHelper(
  * @returns A list of primitive targets
  */
 export function transformPartialPrimitiveTargets(
-  targets: PartialTargetDesc[],
-  func: (target: PartialPrimitiveTargetDesc) => PartialPrimitiveTargetDesc
+  targets: PartialTargetDescriptor[],
+  func: (target: PartialPrimitiveTargetDescriptor) => PartialPrimitiveTargetDescriptor
 ) {
   return targets.map((target) =>
     transformPartialPrimitiveTargetsHelper(target, func)
@@ -70,9 +70,9 @@ export function transformPartialPrimitiveTargets(
 }
 
 function transformPartialPrimitiveTargetsHelper(
-  target: PartialTargetDesc,
-  func: (target: PartialPrimitiveTargetDesc) => PartialPrimitiveTargetDesc
-): PartialTargetDesc {
+  target: PartialTargetDescriptor,
+  func: (target: PartialPrimitiveTargetDescriptor) => PartialPrimitiveTargetDescriptor
+): PartialTargetDescriptor {
   switch (target.type) {
     case "primitive":
       return func(target);
@@ -82,8 +82,8 @@ function transformPartialPrimitiveTargetsHelper(
         elements: target.elements.map(
           (element) =>
             transformPartialPrimitiveTargetsHelper(element, func) as
-              | PartialPrimitiveTargetDesc
-              | PartialRangeTargetDesc
+              | PartialPrimitiveTargetDescriptor
+              | PartialRangeTargetDescriptor
         ),
       };
     case "range":

@@ -1,9 +1,9 @@
 import { flow } from "lodash";
 import {
   Modifier,
-  PartialPrimitiveTargetDesc,
-  PartialRangeTargetDesc,
-  PartialTargetDesc,
+  PartialPrimitiveTargetDescriptor,
+  PartialRangeTargetDescriptor,
+  PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "../../../typings/targetDescriptor.types";
 import { ActionType } from "../../../actions/actions.types";
@@ -93,7 +93,7 @@ function upgradeModifier(modifier: ModifierV0V1): Modifier[] {
 function upgradePrimitiveTarget(
   target: PartialPrimitiveTargetV0V1,
   action: ActionType
-): PartialPrimitiveTargetDesc {
+): PartialPrimitiveTargetDescriptor {
   const {
     type,
     isImplicit,
@@ -160,7 +160,7 @@ function upgradePrimitiveTarget(
 function upgradeTarget(
   target: PartialTargetV0V1,
   action: ActionType
-): PartialTargetDesc {
+): PartialTargetDescriptor {
   switch (target.type) {
     case "list":
       return {
@@ -168,8 +168,8 @@ function upgradeTarget(
         elements: target.elements.map(
           (target) =>
             upgradeTarget(target, action) as
-              | PartialPrimitiveTargetDesc
-              | PartialRangeTargetDesc
+              | PartialPrimitiveTargetDescriptor
+              | PartialRangeTargetDescriptor
         ),
       };
     case "range":
@@ -191,7 +191,7 @@ function upgradeTargets(
   partialTargets: PartialTargetV0V1[],
   action: ActionType
 ) {
-  const partialTargetsV2: PartialTargetDesc[] = partialTargets.map((target) =>
+  const partialTargetsV2: PartialTargetDescriptor[] = partialTargets.map((target) =>
     upgradeTarget(target, action)
   );
   return transformPartialPrimitiveTargets(

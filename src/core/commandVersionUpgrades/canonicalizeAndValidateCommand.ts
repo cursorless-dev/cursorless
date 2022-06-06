@@ -2,7 +2,7 @@ import { commands } from "vscode";
 import { ActionableError } from "../../errors";
 import {
   Modifier,
-  PartialTargetDesc,
+  PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "../../typings/targetDescriptor.types";
 import { ActionType } from "../../actions/actions.types";
@@ -94,7 +94,7 @@ function upgradeCommand(command: Command): CommandLatest {
 
 export function validateCommand(
   actionName: ActionType,
-  partialTargets: PartialTargetDesc[]
+  partialTargets: PartialTargetDescriptor[]
 ) {
   if (
     usesScopeType("notebookCell", partialTargets) &&
@@ -108,7 +108,7 @@ export function validateCommand(
 
 function usesScopeType(
   scopeTypeType: SimpleScopeTypeType,
-  partialTargets: PartialTargetDesc[]
+  partialTargets: PartialTargetDescriptor[]
 ) {
   return getPartialPrimitiveTargets(partialTargets).some((partialTarget) =>
     partialTarget.modifiers?.find(

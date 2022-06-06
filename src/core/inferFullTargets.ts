@@ -1,8 +1,8 @@
 import {
-  PartialListTargetDesc,
-  PartialPrimitiveTargetDesc,
-  PartialRangeTargetDesc,
-  PartialTargetDesc,
+  PartialListTargetDescriptor,
+  PartialPrimitiveTargetDescriptor,
+  PartialRangeTargetDescriptor,
+  PartialTargetDescriptor,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
@@ -18,7 +18,7 @@ import {
  * @returns Target objects fully filled out and ready to be processed by {@link processTargets}.
  */
 export default function inferFullTargets(
-  targets: PartialTargetDesc[]
+  targets: PartialTargetDescriptor[]
 ): TargetDescriptor[] {
   return targets.map((target, index) =>
     inferTarget(target, targets.slice(0, index))
@@ -26,8 +26,8 @@ export default function inferFullTargets(
 }
 
 function inferTarget(
-  target: PartialTargetDesc,
-  previousTargets: PartialTargetDesc[]
+  target: PartialTargetDescriptor,
+  previousTargets: PartialTargetDescriptor[]
 ): TargetDescriptor {
   switch (target.type) {
     case "list":
@@ -39,8 +39,8 @@ function inferTarget(
 }
 
 function inferListTarget(
-  target: PartialListTargetDesc,
-  previousTargets: PartialTargetDesc[]
+  target: PartialListTargetDescriptor,
+  previousTargets: PartialTargetDescriptor[]
 ): TargetDescriptor {
   return {
     ...target,
@@ -54,8 +54,8 @@ function inferListTarget(
 }
 
 function inferNonListTarget(
-  target: PartialPrimitiveTargetDesc | PartialRangeTargetDesc,
-  previousTargets: PartialTargetDesc[]
+  target: PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor,
+  previousTargets: PartialTargetDescriptor[]
 ): PrimitiveTargetDescriptor | RangeTargetDescriptor {
   switch (target.type) {
     case "primitive":
@@ -66,8 +66,8 @@ function inferNonListTarget(
 }
 
 function inferRangeTarget(
-  target: PartialRangeTargetDesc,
-  previousTargets: PartialTargetDesc[]
+  target: PartialRangeTargetDescriptor,
+  previousTargets: PartialTargetDescriptor[]
 ): RangeTargetDescriptor {
   return {
     type: "range",
@@ -83,8 +83,8 @@ function inferRangeTarget(
 }
 
 function inferPrimitiveTarget(
-  target: PartialPrimitiveTargetDesc,
-  previousTargets: PartialTargetDesc[]
+  target: PartialPrimitiveTargetDescriptor,
+  previousTargets: PartialTargetDescriptor[]
 ): PrimitiveTargetDescriptor {
   if (target.isImplicit) {
     return {
@@ -132,24 +132,24 @@ function inferPrimitiveTarget(
   };
 }
 
-function getPreviousMark(previousTargets: PartialTargetDesc[]) {
+function getPreviousMark(previousTargets: PartialTargetDescriptor[]) {
   return getPreviousTarget(
     previousTargets,
-    (target: PartialPrimitiveTargetDesc) => target.mark != null
+    (target: PartialPrimitiveTargetDescriptor) => target.mark != null
   )?.mark;
 }
 
-function getPreviousModifiers(previousTargets: PartialTargetDesc[]) {
+function getPreviousModifiers(previousTargets: PartialTargetDescriptor[]) {
   return getPreviousTarget(
     previousTargets,
-    (target: PartialPrimitiveTargetDesc) => target.modifiers != null
+    (target: PartialPrimitiveTargetDescriptor) => target.modifiers != null
   )?.modifiers;
 }
 
 function getPreviousTarget(
-  previousTargets: PartialTargetDesc[],
-  useTarget: (target: PartialPrimitiveTargetDesc) => boolean
-): PartialPrimitiveTargetDesc | null {
+  previousTargets: PartialTargetDescriptor[],
+  useTarget: (target: PartialPrimitiveTargetDescriptor) => boolean
+): PartialPrimitiveTargetDescriptor | null {
   // Search from back(last) to front(first)
   for (let i = previousTargets.length - 1; i > -1; --i) {
     const target = previousTargets[i];
