@@ -24,7 +24,7 @@ The test case recorder has several additional configuration options. The default
 
 #### Testing the hat map
 
-We have a way to test that the hats in the hat map update correctly during the course of a single phrase. These tests are also how we usually test our [range updating code](api/modules/core_updateSelections_updateSelections).
+We have a way to test that the hats in the hat map update correctly during the course of a single phrase. These tests are also how we usually test our [range updating code](../api/modules/core_updateSelections_updateSelections).
 
 Please add the following to your personal talon files:
 
