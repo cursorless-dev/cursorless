@@ -165,8 +165,19 @@ async function runTest(file: string) {
     marks
   );
 
+  const actualDecorations =
+    fixture.decorations == null
+      ? undefined
+      : testDecorationsToPlainObject(graph.editStyles.testDecorations);
+
   if (process.env.CURSORLESS_TEST_UPDATE_FIXTURES === "true") {
-    const outputFixture = { ...fixture, finalState: resultState, returnValue };
+    const outputFixture = {
+      ...fixture,
+      finalState: resultState,
+      decorations: actualDecorations,
+      returnValue,
+    };
+
     await fsp.writeFile(file, serialize(outputFixture));
   } else {
     assert.deepStrictEqual(
@@ -175,13 +186,11 @@ async function runTest(file: string) {
       "Unexpected final state"
     );
 
-    if (fixture.decorations != null) {
-      assert.deepStrictEqual(
-        testDecorationsToPlainObject(graph.editStyles.testDecorations),
-        fixture.decorations,
-        "Unexpected decorations"
-      );
-    }
+    assert.deepStrictEqual(
+      actualDecorations,
+      fixture.decorations,
+      "Unexpected decorations"
+    );
 
     assert.deepStrictEqual(
       returnValue,
