@@ -7,7 +7,7 @@
 		"color": "#00001A",
 		"theme": "dark"
 	},
-	"version": "0.26.0-SNAPSHOT",
+	"version": "0.26.0",
 	"publisher": "pokey",
 	"license": "MIT",
 	"repository": {
