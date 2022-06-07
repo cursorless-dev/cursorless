@@ -1,0 +1,46 @@
+languageId: plaintext
+command:
+  spokenForm: take item blue risk
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: blue, character: r}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: item}
+  usePrePhraseSnapshot: true
+  action: {name: setSelection}
+initialState:
+  documentContents: |-
+    [
+        a b, (c, d),
+        e f, {g, h},
+        i j, [k, l],
+        m n, <o, p>,
+        q r, "s, t",
+        u v, "foo(bar)baz",
+    ]
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    blue.r:
+      start: {line: 6, character: 14}
+      end: {line: 6, character: 17}
+finalState:
+  documentContents: |-
+    [
+        a b, (c, d),
+        e f, {g, h},
+        i j, [k, l],
+        m n, <o, p>,
+        q r, "s, t",
+        u v, "foo(bar)baz",
+    ]
+  selections:
+    - anchor: {line: 6, character: 9}
+      active: {line: 6, character: 22}
+  thatMark:
+    - anchor: {line: 6, character: 9}
+      active: {line: 6, character: 22}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: r}, modifiers: [{type: containingScope, scopeType: {type: item}}]}]

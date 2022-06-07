@@ -1,0 +1,46 @@
+languageId: plaintext
+command:
+  spokenForm: take item air
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: item}
+  usePrePhraseSnapshot: true
+  action: {name: setSelection}
+initialState:
+  documentContents: |-
+    [
+        a b, (c, d),
+        e f, {g, h},
+        i j, [k, l],
+        m n, <o, p>,
+        q r, "s, t",
+        u v, "foo(bar)baz",
+    ]
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 1, character: 4}
+      end: {line: 1, character: 5}
+finalState:
+  documentContents: |-
+    [
+        a b, (c, d),
+        e f, {g, h},
+        i j, [k, l],
+        m n, <o, p>,
+        q r, "s, t",
+        u v, "foo(bar)baz",
+    ]
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 7}
+  thatMark:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 7}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [{type: containingScope, scopeType: {type: item}}]}]
