@@ -10,20 +10,45 @@ command run, and the final state, all in the form of a yaml document. See
 
 ## Initial setup
 
-1.  Add a voice command for recording to your personal talon files:
-    - `cursorless record: user.vscode("cursorless.recordTestCase")`
-    - We don't want to commit this so add it to your own repository.
-1.  If you'd like to be able to record tests which check the navigation map, please add the following to your personal talon files:
+Add a voice command for recording to your personal talon files:
 
-    - https://github.com/pokey/pokey_talon/blob/9298c25dd6d28fd9fcf5ed39f305bc6b93e5f229/apps/vscode/vscode.talon#L468
-    - https://github.com/pokey/pokey_talon/blob/49643bfa8f62cbec18b5ddad1658f5a28785eb01/apps/vscode/vscode.py#L203-L205
+```talon
+cursorless record: user.vscode("cursorless.recordTestCase")
+```
 
-    It is quite unlikely you'll need this second step. Most tests don't check the navigation map.
+We don't want to commit this so please add it to your own Talon user file set.
 
-1.  If you'd like to be able to record tests which assert on non-matches, please add another command to your personal talon files. See the two files links above for context. Add the command below to your to your `vscode.py` and ensure that there is a matching Talon command.
+### Configuring the test case Recorder
+
+The test case recorder has several additional configuration options. The default configuration works for most tests, but you may find the following useful.
+
+#### Testing the hat map
+
+We have a way to test that the hats in the hat map update correctly during the course of a single phrase. These tests are also how we usually test our [range updating code](../api/modules/core_updateSelections_updateSelections).
+
+Please add the following to your personal talon files:
+
+- https://github.com/pokey/pokey_talon/blob/9298c25dd6d28fd9fcf5ed39f305bc6b93e5f229/apps/vscode/vscode.talon#L468
+- https://github.com/pokey/pokey_talon/blob/49643bfa8f62cbec18b5ddad1658f5a28785eb01/apps/vscode/vscode.py#L203-L205
+
+It is quite unlikely you'll need this second step. Most tests don't check the navigation map.
+
+#### Capturing errors
+
+We support recording tests where the expected result is an error
+
+Please add a command to your personal talon files. See the two files links above for context. Add the command below to your to your `vscode.py` and ensure that there is a matching Talon command.
 
 ```
   actions.user.vscode_with_plugin("cursorless.recordTestCase", {"recordErrors": True})
+```
+
+#### Testing decoration highlights
+
+We support testing our decoration highlights, eg the flash of red when something is deleted. If you'd like to be able to record tests which check our decoration highlights, please add another command to your personal talon files. See the two files links above for context. Add the command below to your to your `vscode.py` and ensure that there is a matching Talon command.
+
+```
+  actions.user.vscode_with_plugin("cursorless.recordTestCase", {"isDecorationsTest": True})
 ```
 
 ## Recording new tests
