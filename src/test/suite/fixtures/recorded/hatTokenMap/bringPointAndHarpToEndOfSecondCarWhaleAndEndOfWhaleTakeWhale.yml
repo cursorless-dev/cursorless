@@ -41,8 +41,8 @@ initialState:
 finalState:
   documentContents: hello. wo.rldhello
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
   marks:
     default..:
       start: {line: 0, character: 5}

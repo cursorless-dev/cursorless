@@ -159,6 +159,14 @@ def update_dicts(
         key = obj["key"]
         if not is_removed(key):
             for k in key.split("|"):
+                if value == "pasteFromClipboard" and k.endswith(" to"):
+                    # FIXME: This is a hack to work around the fact that the
+                    # spoken form of the `pasteFromClipboard` action used to be
+                    # "paste to", but now the spoken form is just "paste" and
+                    # the "to" is part of the positional target. Users who had
+                    # cursorless before this change would have "paste to" as
+                    # their spoken form and so would need to say "paste to to".
+                    k = k[:-3]
                 results[obj["list"]][k.strip()] = value
 
     # Assign result to talon context list

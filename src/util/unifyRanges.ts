@@ -1,6 +1,6 @@
-import { Range, Selection } from "vscode";
-import { TypedSelection } from "../typings/Types";
-import { performInsideOutsideAdjustment } from "./performInsideOutsideAdjustment";
+import { Range } from "vscode";
+import { targetsToContinuousTarget } from "../processTargets/processTargets";
+import { Target } from "../typings/target.types";
 import { groupTargetsForEachEditor } from "./targetUtils";
 
 /** Unifies overlapping/intersecting ranges */
@@ -36,12 +36,8 @@ function unifyRangesOnePass(ranges: Range[]): [Range[], boolean] {
   return [result, madeChanges];
 }
 
-/**
- * Unifies overlapping/intersecting targets
- * FIXME This code probably needs to update once we have objected oriented targets
- * https://github.com/cursorless-dev/cursorless/issues/210
- */
-export function unifyTargets(targets: TypedSelection[]): TypedSelection[] {
+/** Unifies overlapping/intersecting targets */
+export function unifyRemovalTargets(targets: Target[]): Target[] {
   if (targets.length < 2) {
     return targets;
   }
@@ -51,7 +47,7 @@ export function unifyTargets(targets: TypedSelection[]): TypedSelection[] {
     }
     let results = [...targets];
     results.sort((a, b) =>
-      a.selection.selection.start.compareTo(b.selection.selection.start)
+      a.contentRange.start.compareTo(b.contentRange.start)
     );
     let run = true;
     // Merge targets untill there are no overlaps/intersections
@@ -62,14 +58,12 @@ export function unifyTargets(targets: TypedSelection[]): TypedSelection[] {
   });
 }
 
-function unifyTargetsOnePass(
-  targets: TypedSelection[]
-): [TypedSelection[], boolean] {
+function unifyTargetsOnePass(targets: Target[]): [Target[], boolean] {
   if (targets.length < 2) {
     return [targets, false];
   }
-  const results: TypedSelection[] = [];
-  let currentGroup: TypedSelection[] = [];
+  const results: Target[] = [];
+  let currentGroup: Target[] = [];
   targets.forEach((target) => {
     // No intersection. Mark start of new group
     if (
@@ -86,33 +80,15 @@ function unifyTargetsOnePass(
   return [results, results.length !== targets.length];
 }
 
-function mergeTargets(targets: TypedSelection[]): TypedSelection {
+function mergeTargets(targets: Target[]): Target {
   if (targets.length === 1) {
     return targets[0];
   }
   const first = targets[0];
   const last = targets[targets.length - 1];
-  const typeSelection: TypedSelection = {
-    selection: {
-      editor: first.selection.editor,
-      selection: new Selection(
-        first.selection.selection.start,
-        last.selection.selection.end
-      ),
-    },
-    position: "contents",
-    selectionType: first.selectionType,
-    insideOutsideType: first.insideOutsideType,
-    selectionContext: {
-      leadingDelimiterRange: first.selectionContext.leadingDelimiterRange,
-      trailingDelimiterRange: last.selectionContext.trailingDelimiterRange,
-    },
-  };
-  return performInsideOutsideAdjustment(typeSelection);
+  return targetsToContinuousTarget(first, last);
 }
 
-function intersects(targetA: TypedSelection, targetB: TypedSelection) {
-  return !!targetA.selection.selection.intersection(
-    targetB.selection.selection
-  );
+function intersects(targetA: Target, targetB: Target) {
+  return !!targetA.getRemovalRange().intersection(targetB.getRemovalRange());
 }

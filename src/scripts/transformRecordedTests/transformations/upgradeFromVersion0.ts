@@ -1,6 +1,6 @@
 import { TestCaseFixture } from "../../../testUtil/TestCase";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
-import { PartialPrimitiveTarget } from "../../../typings/Types";
+import { PartialPrimitiveTargetDescriptor } from "../../../typings/targetDescriptor.types";
 
 export function upgradeFromVersion0(fixture: TestCaseFixture) {
   const { command, spokenForm: oldSpokenForm, ...rest } = fixture as any;
@@ -16,7 +16,7 @@ export function upgradeFromVersion0(fixture: TestCaseFixture) {
 
   const targets = transformPartialPrimitiveTargets(
     newTargets ?? oldTargets,
-    (target: PartialPrimitiveTarget) => {
+    (target: PartialPrimitiveTargetDescriptor) => {
       if (target.mark?.type === "decoratedSymbol") {
         (target.mark as any).usePrePhraseSnapshot = undefined;
       }

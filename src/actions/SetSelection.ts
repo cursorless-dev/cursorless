@@ -1,52 +1,39 @@
-import {
-  Action,
-  ActionPreferences,
-  ActionReturnValue,
-  TypedSelection,
-  Graph,
-} from "../typings/Types";
-import { ensureSingleEditor } from "../util/targetUtils";
 import { Selection } from "vscode";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
+import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export class SetSelection implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [
-    { insideOutsideType: "inside" },
-  ];
-
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
 
-  protected getSelection(target: TypedSelection) {
-    return target.selection.selection;
+  protected getSelection(target: Target) {
+    return target.contentSelection;
   }
 
-  async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
-    await setSelectionsAndFocusEditor(editor, targets.map(this.getSelection));
+    const selections = targets.map(this.getSelection);
+    await setSelectionsAndFocusEditor(editor, selections);
 
     return {
-      thatMark: targets.map((target) => target.selection),
+      thatMark: createThatMark(targets),
     };
   }
 }
 
 export class SetSelectionBefore extends SetSelection {
-  protected getSelection(target: TypedSelection) {
-    return new Selection(
-      target.selection.selection.start,
-      target.selection.selection.start
-    );
+  protected getSelection(target: Target) {
+    return new Selection(target.contentRange.start, target.contentRange.start);
   }
 }
 
 export class SetSelectionAfter extends SetSelection {
-  protected getSelection(target: TypedSelection) {
-    return new Selection(
-      target.selection.selection.end,
-      target.selection.selection.end
-    );
+  protected getSelection(target: Target) {
+    return new Selection(target.contentRange.end, target.contentRange.end);
   }
 }
