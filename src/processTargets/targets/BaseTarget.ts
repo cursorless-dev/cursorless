@@ -15,6 +15,7 @@ export interface CommonTargetParameters {
   readonly isReversed: boolean;
   readonly contentRange: Range;
   readonly thatTarget?: Target;
+  readonly previousTarget?: Target;
 }
 
 export interface CloneWithParameters {
@@ -35,6 +36,7 @@ export default abstract class BaseTarget implements Target {
       isReversed: parameters.isReversed,
       contentRange: parameters.contentRange,
       thatTarget: parameters.thatTarget,
+      previousTarget: parameters.previousTarget,
     };
   }
 
@@ -49,6 +51,10 @@ export default abstract class BaseTarget implements Target {
     return this.state.thatTarget != null
       ? this.state.thatTarget.thatTarget
       : this;
+  }
+
+  get previousTarget(): Target | undefined {
+    return this.state.previousTarget;
   }
 
   get contentText(): string {

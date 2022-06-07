@@ -72,14 +72,16 @@ export default class implements ModifierStage {
   }
 
   getSingleTarget(target: Target): ParagraphTarget {
-    return this.getTargetFromRange(target);
+    const range = calculateRange(target);
+    return new ParagraphTarget({
+      editor: target.editor,
+      isReversed: target.isReversed,
+      contentRange: fitRangeToLineContent(target.editor, range),
+      previousTarget: target,
+    });
   }
 
-  getTargetFromRange(target: Target, range?: Range): ParagraphTarget {
-    if (range == null) {
-      range = calculateRange(target);
-    }
-
+  getTargetFromRange(target: Target, range: Range): ParagraphTarget {
     return new ParagraphTarget({
       editor: target.editor,
       isReversed: target.isReversed,

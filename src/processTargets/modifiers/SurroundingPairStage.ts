@@ -50,6 +50,7 @@ function processedSurroundingPairTarget(
       ...pairInfo,
       editor: target.editor,
       isReversed: target.isReversed,
+      previousTarget: target,
     }),
   ];
 }

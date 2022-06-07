@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  spokenForm: clear head core
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: head}
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: foo(bar baz)
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks: {}
+finalState:
+  documentContents: foo(z)
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: head}, {type: interiorOnly}]}]

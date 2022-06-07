@@ -32,10 +32,12 @@ export default class implements ModifierStage {
   ) {}
 
   run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+    const isEveryScope = this.modifier.type === "everyScope";
+
     const nodeMatcher = getNodeMatcher(
       target.editor.document.languageId,
       this.modifier.scopeType.type,
-      this.modifier.type === "everyScope"
+      isEveryScope
     );
 
     const node: SyntaxNode | null = context.getNodeAtLocation(
@@ -82,6 +84,7 @@ export default class implements ModifierStage {
         delimiter: containingListDelimiter,
         leadingDelimiterRange,
         trailingDelimiterRange,
+        previousTarget: isEveryScope ? undefined : target,
       });
     });
   }

@@ -52,6 +52,7 @@ export default class SurroundingPairTarget extends BaseTarget {
         editor: this.editor,
         isReversed: this.isReversed,
         contentRange: this.interiorRange_,
+        previousTarget: this.previousTarget,
       }),
     ];
   }

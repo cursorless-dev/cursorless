@@ -60,7 +60,13 @@ class RegexStage implements ModifierStage {
     const start = this.getMatchForPos(editor, target.contentRange.start).start;
     const end = this.getMatchForPos(editor, target.contentRange.end).end;
     const contentRange = new Range(start, end);
-    return this.getTargetFromRange(target, contentRange);
+    return new ScopeTypeTarget({
+      scopeTypeType: this.modifier.scopeType.type,
+      editor: target.editor,
+      isReversed: target.isReversed,
+      contentRange,
+      previousTarget: target,
+    });
   }
 
   getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {

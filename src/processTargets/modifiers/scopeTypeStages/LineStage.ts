@@ -47,11 +47,12 @@ export default class implements ModifierStage {
 }
 
 export function toLineTarget(target: Target): LineTarget {
-  return createLineTarget(
-    target.editor,
-    target.contentRange,
-    target.isReversed
-  );
+  return new LineTarget({
+    editor: target.editor,
+    isReversed: target.isReversed,
+    contentRange: fitRangeToLineContent(target.editor, target.contentRange),
+    previousTarget: target,
+  });
 }
 
 export function createLineTarget(
