@@ -66,7 +66,7 @@ It is possible to show / hide the hats with a command. Keep in mind that many us
 
 However, should you like to show / hide the hats within your editor, you can use the following approach.
 
-- Bring up the command pallet(`Shift + CMD + P`).
+- Bring up the command pallet(`Shift + CMD + P` on Mac; `Shift + Ctrl + P` on Windows / Linux).
 - Enter `cursorless.toggleDecorations` or type `Cursorless Toggle` to see the command in the dropdown.
 
 You should also be able to find the above command by saying `"please toggle"`. The same command can be repeated to turn the hats back on.
