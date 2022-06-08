@@ -57,6 +57,7 @@ scope_types = {
     "token": "token",
 }
 
+
 @mod.capture(rule="[every] {user.cursorless_scope_type}")
 def cursorless_containing_scope(m) -> dict[str, Any]:
     """Expand to containing scope"""
