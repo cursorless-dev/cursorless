@@ -69,7 +69,11 @@ However, should you like to show / hide the hats within your editor, you can use
 - Bring up the command pallet(`Shift + CMD + P`).
 - Enter `cursorless.toggleDecorations` or type `Cursorless Toggle` to see the command in the dropdown.
 
-Use the same steps above to reenable hat positioning. During the time when hats are not positioned, you will not be able to address any marks, eg. `take air`. However, Cursorless will still recognize scopes, eg. `take funk`.
+You should also be able to find the above command by saying `"please toggle"`.  The same command can be repeated to turn the hats back on.  
+
+While the hats are hidden, you will not be able to address any marks, eg `"take air"`. However, Cursorless will still recognize scopes, eg `"take funk"`.
+
+If you'd like to map a voice command to toggle the hats, have a look at https://youtu.be/oWUJyDgz63k
 
 ## Cursorless public API
 
