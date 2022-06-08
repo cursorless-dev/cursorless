@@ -62,7 +62,7 @@ Now when you say eg "push down air and bat", cursorless will first select the tw
 
 ## Toggling "hat" display
 
-It is possible to show / hide the hats with a command.  Keep in mind that many users, often after less than a week using Cursorless, find that their brain starts to tune out the hat display. Some start to miss them when they're gone 🥲
+It is possible to show / hide the hats with a command. Keep in mind that many users, often after less than a week using Cursorless, find that their brain starts to tune out the hat display. Some start to miss them when they're gone 🥲
 
 However, should you like to show / hide the hats within your editor, you can use the following approach.
 
