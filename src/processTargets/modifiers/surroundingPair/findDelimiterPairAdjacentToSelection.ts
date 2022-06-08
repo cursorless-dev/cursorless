@@ -29,7 +29,7 @@ export function findDelimiterPairAdjacentToSelection(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   selectionOffsets: Offsets,
   forceDirection: "left" | "right" | undefined,
-  bailOnUnmatchedAdjacent: boolean = false
+  bailOnUnmatchedAdjacent = false
 ): SurroundingPairOffsets | null {
   const indicesToTry = [initialIndex + 1, initialIndex];
 

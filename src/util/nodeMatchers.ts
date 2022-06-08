@@ -88,7 +88,7 @@ export function chainedMatcher(
  */
 export function ancestorChainNodeMatcher(
   nodeFinders: NodeFinder[],
-  nodeToReturn: number = 0,
+  nodeToReturn = 0,
   selector: SelectionExtractor = simpleSelectionExtractor
 ) {
   return matcher(

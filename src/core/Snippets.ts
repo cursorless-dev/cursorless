@@ -32,7 +32,7 @@ export class Snippets {
    * This variable will be set to 0 if the user has no snippets dir configured and
    * we've already set userSnippets to {}.
    */
-  private maxSnippetMtimeMs: number = -1;
+  private maxSnippetMtimeMs = -1;
 
   constructor(private graph: Graph) {
     this.updateUserSnippetsPath();

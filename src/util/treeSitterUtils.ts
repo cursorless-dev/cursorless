@@ -44,7 +44,7 @@ export function getChildNodesForFieldName(
  * @param includeNode Whether to include the node itself in the returned list
  * @returns A list of ancestors possibly including the includeNode node itself
  */
-export function getAncestors(node: SyntaxNode, includeNode: boolean = true) {
+export function getAncestors(node: SyntaxNode, includeNode = true) {
   const ancestors: SyntaxNode[] = includeNode ? [node] : [];
 
   for (

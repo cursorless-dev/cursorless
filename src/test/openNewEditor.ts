@@ -3,7 +3,7 @@ import { getParseTreeApi } from "../util/getExtensionApi";
 
 export async function openNewEditor(
   content: string,
-  language: string = "plaintext"
+  language = "plaintext"
 ) {
   await vscode.commands.executeCommand("workbench.action.closeAllEditors");
 
@@ -26,7 +26,7 @@ export async function openNewEditor(
  */
 export async function openNewNotebookEditor(
   cellContents: string[],
-  language: string = "plaintext"
+  language = "plaintext"
 ) {
   await vscode.commands.executeCommand("workbench.action.closeAllEditors");
 

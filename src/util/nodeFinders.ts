@@ -327,8 +327,8 @@ class Pattern {
   fields: PatternField[];
   isImportant: boolean;
   isOptional: boolean;
-  anyType: boolean = false;
-  notType: boolean = false;
+  anyType = false;
+  notType = false;
 
   constructor(pattern: string) {
     this.type = pattern.match(/^[\w*~]+/)![0];

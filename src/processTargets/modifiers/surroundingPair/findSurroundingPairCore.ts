@@ -34,7 +34,7 @@ export function findSurroundingPairCore(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   acceptableDelimiters: SimpleSurroundingPairName[],
   selectionOffsets: Offsets,
-  bailOnUnmatchedAdjacent: boolean = false
+  bailOnUnmatchedAdjacent = false
 ): SurroundingPairOffsets | null {
   /**
    * The initial index from which to start both of our searches.  We set this
