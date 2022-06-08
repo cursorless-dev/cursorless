@@ -67,17 +67,20 @@ const tests: TestCase[] = [
   ["aåäöb", ["aåäöb"]],
 ];
 
+const cssDialectTokenizerTests: LanguageTokenizerTests[SupportedLanguageId] = {
+  tests: [
+    ["min-height", ["min-height"]],
+    ["-webkit-font-smoothing", ["-webkit-font-smoothing"]],
+    ["(min-width: 400px)", ["(", "min-width", ":", "400px", ")"]],
+    ["prefers-reduced-motion", ["prefers-reduced-motion"]],
+  ],
+  // Leave kebab and dashes to css language specific tests.
+  exclusionPredicate: (input: string) => input.match("-") == null,
+};
+
 const languageTokenizerTests: LanguageTokenizerTests = {
-  css: {
-    tests: [
-      ["min-height", ["min-height"]],
-      ["-webkit-font-smoothing", ["-webkit-font-smoothing"]],
-      ["(min-width: 400px)", ["(", "min-width", ":", "400px", ")"]],
-      ["prefers-reduced-motion", ["prefers-reduced-motion"]],
-    ],
-    // Leave kebab and dashes to css language specific tests.
-    exclusionPredicate: (input: string) => input.match("-") == null,
-  },
+  css: cssDialectTokenizerTests,
+  scss: cssDialectTokenizerTests,
 };
 
 suite("tokenizer", () => {
