@@ -36,7 +36,7 @@ class Actions:
         """Perform cursorless command on target"""
         if action_id in callback_action_map:
             return callback_action_map[action_id](target)
-        elif action_id in makeshift_action_map:
+        if action_id in makeshift_action_map:
             command, command_options, talon_options = makeshift_action_map[action_id]
             return_value = (
                 vscode_command(command, target, command_options)
@@ -48,8 +48,7 @@ class Actions:
                 actions.sleep(f"{talon_options.post_command_sleep_ms}ms")
 
             return return_value
-        else:
-            return actions.user.cursorless_single_target_command(action_id, target)
+        return actions.user.cursorless_single_target_command(action_id, target)
 
     def cursorless_vscode_command(command_id: str, target: dict):
         """Perform vscode command on cursorless target"""
@@ -61,7 +60,7 @@ class Actions:
         value = instruction["value"]
         if type == "cursorless_action":
             return actions.user.cursorless_command(value, target)
-        elif type == "vscode_command":
+        if type == "vscode_command":
             return actions.user.cursorless_vscode_command(value, target)
 
 

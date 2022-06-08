@@ -36,8 +36,7 @@ class Actions:
 
         if default_value is not None:
             return settings.get(key, default_value)
-        else:
-            return settings[key]
+        return settings[key]
 
     def vscode_get_setting_with_fallback(
         key: str,
