@@ -19,7 +19,7 @@ def get_lists(names: list[str], descriptions=None):
     items = sorted(
         item for name in names for item in get_list(name, descriptions).items()
     )
-    return {key: value for key, value in items}
+    return dict(items)
 
 
 def get_raw_list(name):
