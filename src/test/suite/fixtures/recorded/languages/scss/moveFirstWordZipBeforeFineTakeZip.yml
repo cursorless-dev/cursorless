@@ -5,12 +5,34 @@ command:
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: z}
+      modifiers:
+        - type: ordinalRange
+          scopeType: {type: word}
+          anchor: 0
+          active: 0
+          excludeAnchor: false
+          excludeActive: false
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      modifiers:
+        - {type: position, position: before}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
-marksToCheck: [default.z, default.f]
+  action: {name: moveToTarget}
+marksToCheck: [default.z]
 initialState:
-  documentContents: |
-    baz foo-bar bongo
+  documentContents: foo-bar baz-bongo
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  marks:
+    default.z:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 17}
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: baz foo-bar bongo
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
@@ -21,20 +43,10 @@ initialState:
     default.f:
       start: {line: 0, character: 4}
       end: {line: 0, character: 11}
-finalState:
-  documentContents: |
-    baz foo-bar bongo
-  selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 17}
-  marks:
-    default.z:
-      start: {line: 0, character: 12}
-      end: {line: 0, character: 17}
-    default.f:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 11}
   thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 3}
+  sourceMark:
     - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 17}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: z}, modifiers: []}]
+      active: {line: 0, character: 12}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: z}, modifiers: [{type: ordinalRange, scopeType: {type: word}, anchor: 0, active: 0, excludeAnchor: false, excludeActive: false}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: [{type: position, position: before}]}]
