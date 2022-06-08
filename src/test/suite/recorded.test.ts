@@ -3,6 +3,7 @@ import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import * as sinon from "sinon";
 import * as vscode from "vscode";
+import { DEFAULT_TAB_SIZE_FOR_TESTS } from "../../core/constants";
 import HatTokenMap from "../../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
@@ -76,7 +77,7 @@ async function runTest(file: string) {
     fixture.languageId
   );
   // Override any user defaults, all tests are recorded as tabSize = 4
-  editor.options.tabSize = 4;
+  editor.options.tabSize = DEFAULT_TAB_SIZE_FOR_TESTS;
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
     await sleep(fixture.postEditorOpenSleepTimeMs);

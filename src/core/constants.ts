@@ -35,3 +35,5 @@ export interface HatStyle {
   color: HatColor;
   shape: HatShape;
 }
+
+export const DEFAULT_TAB_SIZE_FOR_TESTS = 4 as const;
