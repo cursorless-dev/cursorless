@@ -75,7 +75,7 @@ const cssDialectTokenizerTests: LanguageTokenizerTests[SupportedLanguageId] = {
     ["prefers-reduced-motion", ["prefers-reduced-motion"]],
   ],
   // Leave kebab and dashes to css language specific tests.
-  exclusionPredicate: (input: string) => input.match("-") == null,
+  exclusionPredicate: (input: string) => !!input.match("-"),
 };
 
 const languageTokenizerTests: LanguageTokenizerTests = {
