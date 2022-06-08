@@ -65,13 +65,17 @@ class Actions:
             return actions.user.cursorless_vscode_command(value, target)
 
 
-def vscode_command(command_id: str, target: dict, command_options: dict = {}):
+def vscode_command(command_id: str, target: dict, command_options: dict = None):
+    if command_options is None:
+        command_options = {}
     return actions.user.cursorless_single_target_command(
         "executeCommand", target, command_id, command_options
     )
 
 
-def vscode_command_no_wait(command_id: str, target: dict, command_options: dict = {}):
+def vscode_command_no_wait(command_id: str, target: dict, command_options: dict = None):
+    if command_options is None:
+        command_options = {}
     return actions.user.cursorless_single_target_command_no_wait(
         "executeCommand", target, command_id, command_options
     )

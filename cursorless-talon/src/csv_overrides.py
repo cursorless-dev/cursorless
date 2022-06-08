@@ -25,7 +25,7 @@ def init_csv_and_watch_changes(
     extra_ignored_values: list[str] = None,
     allow_unknown_values: bool = False,
     default_list_name: Optional[str] = None,
-    headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
+    headers: list[str] = None,
     ctx: Context = Context(),
     no_update_file: bool = False,
 ):
@@ -55,6 +55,8 @@ def init_csv_and_watch_changes(
         no_update_file Optional[bool]: Set this to `TRUE` to indicate that we should
         not update the csv. This is used generally in case there was an issue coming up with the default set of values so we don't want to persist those to disk
     """
+    if headers is None:
+        headers = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER]
     if extra_ignored_values is None:
         extra_ignored_values = []
 
