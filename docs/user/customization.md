@@ -62,7 +62,9 @@ Now when you say eg "push down air and bat", cursorless will first select the tw
 
 ## Toggling "hat" display
 
-Most users, often after less than a week of using Cursorless, do not find the hat display over tokens to be obtrustive. However, should you need to remove the display of hats within your editor, there is a command registered for you.
+It is possible to show / hide the hats with a command.  Keep in mind that many users, often after less than a week using Cursorless, find that their brain starts to tune out the hat display. Some start to miss them when they're gone 🥲
+
+However, should you like to show / hide the hats within your editor, you can use the following approach.
 
 - Bring up the command pallet(`Shift + CMD + P`).
 - Enter `cursorless.toggleDecorations` or type `Cursorless Toggle` to see the command in the dropdown.
