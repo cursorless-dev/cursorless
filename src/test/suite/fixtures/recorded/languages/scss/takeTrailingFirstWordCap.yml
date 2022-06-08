@@ -1,0 +1,41 @@
+languageId: css
+command:
+  spokenForm: take trailing first word cap
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+      modifiers:
+        - {type: trailing}
+        - type: ordinalRange
+          scopeType: {type: word}
+          anchor: 0
+          active: 0
+          excludeAnchor: false
+          excludeActive: false
+  usePrePhraseSnapshot: true
+  action: {name: setSelection}
+initialState:
+  documentContents: |2-
+     .child-selector {
+       height: 10px;
+     }
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 16}
+  marks:
+    default.c:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 16}
+finalState:
+  documentContents: |2-
+     .child-selector {
+       height: 10px;
+     }
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 8}
+  thatMark:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 8}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, modifiers: [{type: trailing}, {type: ordinalRange, scopeType: {type: word}, anchor: 0, active: 0, excludeAnchor: false, excludeActive: false}]}]
