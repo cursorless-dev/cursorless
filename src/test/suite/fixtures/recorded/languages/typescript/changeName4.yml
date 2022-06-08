@@ -1,0 +1,23 @@
+languageId: typescript
+command:
+  version: 1
+  spokenForm: change name
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+initialState:
+  documentContents: let name = parameters.leadingDelimiterRange;
+  selections:
+    - anchor: {line: 0, character: 26}
+      active: {line: 0, character: 26}
+  marks: {}
+finalState:
+  documentContents: let  = parameters.leadingDelimiterRange;
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: name, includeSiblings: false}, isImplicit: false}]

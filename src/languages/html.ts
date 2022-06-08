@@ -3,11 +3,8 @@ import {
   leadingMatcher,
   patternMatcher,
 } from "../util/nodeMatchers";
-import {
-  ScopeType,
-  NodeMatcherAlternative,
-  SelectionWithEditor,
-} from "../typings/Types";
+import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { SyntaxNode } from "web-tree-sitter";
 import { getNodeRange } from "../util/nodeSelectors";
 
@@ -21,7 +18,9 @@ const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
   const endTag = getEndTag(selection, node);
   return startTag != null && endTag != null ? startTag.concat(endTag) : null;
 };
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   xmlElement: ["element", "script_element", "style_element"],
   xmlBothTags: getTags,
   xmlStartTag: getStartTag,

@@ -1,0 +1,29 @@
+languageId: plaintext
+command:
+  spokenForm: clone token
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: true
+  action: {name: insertCopyAfter}
+initialState:
+  documentContents: hello
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 5}
+  marks: {}
+finalState:
+  documentContents: hello hello
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 11}
+  thatMark:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 11}
+  sourceMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 5}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: token}}]}]

@@ -1,28 +1,19 @@
 import { env, Uri, window } from "vscode";
-import {
-  Action,
-  ActionPreferences,
-  ActionReturnValue,
-  Graph,
-  TypedSelection,
-} from "../typings/Types";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
 import { getLinkForTarget } from "../util/getLinks";
-import { ensureSingleTarget } from "../util/targetUtils";
+import { createThatMark, ensureSingleTarget } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export default class FollowLink implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [
-    { insideOutsideType: "inside" },
-  ];
-
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const target = ensureSingleTarget(targets);
 
-    await displayPendingEditDecorations(
+    await this.graph.editStyles.displayPendingEditDecorations(
       targets,
       this.graph.editStyles.referenced
     );
@@ -39,7 +30,7 @@ export default class FollowLink implements Action {
     }
 
     return {
-      thatMark: targets.map((target) => target.selection),
+      thatMark: createThatMark(targets),
     };
   }
 

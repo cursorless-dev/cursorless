@@ -3,9 +3,9 @@ import { SyntaxNode } from "web-tree-sitter";
 import {
   NodeFinder,
   NodeMatcherAlternative,
-  ScopeType,
   SelectionWithContext,
 } from "../typings/Types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { leadingSiblingNodeFinder, patternFinder } from "../util/nodeFinders";
 import {
   createPatternMatchers,
@@ -34,12 +34,12 @@ function nameExtractor(
   const contentRange = range.isEmpty
     ? range
     : range.with(range.start.translate(0, 1));
-  const outerRange = getNodeRange(node.parent!);
+  const removalRange = getNodeRange(node.parent!);
 
   return {
     selection: new Selection(contentRange.start, contentRange.end),
     context: {
-      outerSelection: new Selection(outerRange.start, outerRange.end),
+      removalRange,
     },
   };
 }
@@ -89,7 +89,9 @@ function sectionMatcher(...patterns: string[]) {
   return matcher(leadingSiblingNodeFinder(finder), sectionExtractor);
 }
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   list: ["loose_list", "tight_list"],
   comment: "html_block",
   name: matcher(

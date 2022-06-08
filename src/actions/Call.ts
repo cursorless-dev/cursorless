@@ -1,25 +1,16 @@
-import {
-  Action,
-  ActionReturnValue,
-  ActionPreferences,
-  Graph,
-  TypedSelection,
-} from "../typings/Types";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
 import { ensureSingleTarget } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Call implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [
-    { insideOutsideType: "inside" },
-    { insideOutsideType: "inside" },
-  ];
-
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
 
   async run([sources, destinations]: [
-    TypedSelection[],
-    TypedSelection[]
+    Target[],
+    Target[]
   ]): Promise<ActionReturnValue> {
     ensureSingleTarget(sources);
 
@@ -30,10 +21,13 @@ export default class Call implements Action {
       }
     );
 
-    return this.graph.actions.wrapWithPairedDelimiter.run(
+    // NB: We unwrap and then rewrap the return value here so that we don't include the source mark
+    const { thatMark } = await this.graph.actions.wrapWithPairedDelimiter.run(
       [destinations],
       texts[0] + "(",
       ")"
     );
+
+    return { thatMark };
   }
 }

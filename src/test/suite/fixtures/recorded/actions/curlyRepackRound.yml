@@ -31,4 +31,9 @@ finalState:
       active: {line: 0, character: 9}
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 7}
+  sourceMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 9}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 7}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: parentheses}}]

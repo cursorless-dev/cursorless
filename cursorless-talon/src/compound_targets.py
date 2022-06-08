@@ -44,19 +44,19 @@ def cursorless_range(m) -> str:
         return primitive_targets[0]
 
     if len(primitive_targets) == 1:
-        start = BASE_TARGET.copy()
+        anchor = BASE_TARGET.copy()
     else:
-        start = primitive_targets[0]
+        anchor = primitive_targets[0]
 
     range_connective = range_connective_with_type["connective"]
     range_type = range_connective_with_type["type"]
 
     range = {
         "type": "range",
-        "start": start,
-        "end": primitive_targets[-1],
-        "excludeStart": not is_anchor_included(range_connective),
-        "excludeEnd": not is_active_included(range_connective),
+        "anchor": anchor,
+        "active": primitive_targets[-1],
+        "excludeAnchor": not is_anchor_included(range_connective),
+        "excludeActive": not is_active_included(range_connective),
     }
 
     if range_type:
@@ -79,4 +79,7 @@ def is_active_included(range_connective: str):
 def cursorless_target(m) -> dict:
     if len(m.cursorless_range_list) == 1:
         return m.cursorless_range
-    return {"type": "list", "elements": m.cursorless_range_list}
+    return {
+        "type": "list",
+        "elements": m.cursorless_range_list,
+    }
