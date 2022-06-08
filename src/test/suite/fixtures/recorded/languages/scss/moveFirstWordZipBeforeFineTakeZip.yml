@@ -1,0 +1,40 @@
+languageId: scss
+command:
+  spokenForm: move first word zip before fine take zip
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: z}
+  usePrePhraseSnapshot: true
+  action: {name: setSelection}
+marksToCheck: [default.z, default.f]
+initialState:
+  documentContents: |
+    baz foo-bar bongo
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  marks:
+    default.z:
+      start: {line: 0, character: 12}
+      end: {line: 0, character: 17}
+    default.f:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: |
+    baz foo-bar bongo
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 17}
+  marks:
+    default.z:
+      start: {line: 0, character: 12}
+      end: {line: 0, character: 17}
+    default.f:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 11}
+  thatMark:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 17}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: z}, modifiers: []}]
