@@ -1,7 +1,9 @@
+import { mapValues } from "lodash";
 import { SupportedLanguageId } from "../languages/constants";
-import { DefaultLanguageTokenizer as DefaultLanguageTokenizerSettings } from "../typings/Types";
+import { LanguageTokenizerComponents } from "../typings/Types";
 import { matchAll } from "../util/regex";
 import css from "./languageTokenizers/css";
+import { default as scss } from "./languageTokenizers/css";
 
 const REPEATABLE_SYMBOLS = [
   "-",
@@ -47,7 +49,7 @@ const IDENTIFIERS_REGEX = "[\\p{L}_0-9]+";
 const SINGLE_SYMBOLS_REGEX = "[^\\s\\w]";
 const NUMBERS_REGEX = "(?<=[^.\\d]|^)\\d+\\.\\d+(?=[^.\\d]|$)"; // (not-dot/digit digits dot digits not-dot/digit)
 
-const defaultLanguageTokenizerSetting: DefaultLanguageTokenizerSettings = {
+const defaultLanguageTokenizerSetting: LanguageTokenizerComponents = {
   fixedTokens: FIXED_TOKENS,
   repeatableSymbols: REPEATABLE_SYMBOLS,
   identifiersRegex: IDENTIFIERS_REGEX,
@@ -55,17 +57,14 @@ const defaultLanguageTokenizerSetting: DefaultLanguageTokenizerSettings = {
   singleSymbolsRegex: SINGLE_SYMBOLS_REGEX,
 };
 
-export const TOKEN_MATCHER = generateTokenMatcher();
+const defaultTokenMatcher = generateTokenMatcher();
 
-function generateTokenMatcher(languageId?: SupportedLanguageId): RegExp {
-  let settings = {};
-  if (languageId && languageSettings[languageId]) {
-    settings = languageSettings[languageId] ?? {};
-  }
-
+function generateTokenMatcher(
+  languageSetting: LanguageTokenizerComponents = defaultLanguageTokenizerSetting
+): RegExp {
   const tokenizerDefinition = Object.assign(
-    defaultLanguageTokenizerSetting,
-    settings
+    { ...defaultLanguageTokenizerSetting },
+    languageSetting
   );
 
   const repeatableSymbolsRegex = tokenizerDefinition.repeatableSymbols
@@ -85,28 +84,19 @@ function generateTokenMatcher(languageId?: SupportedLanguageId): RegExp {
     repeatableSymbolsRegex,
     tokenizerDefinition.singleSymbolsRegex,
   ].join("|");
-  console.log("lang:", languageId, regex);
   return new RegExp(regex, "gu");
 }
 
-const languageSettings: Partial<
-  Record<SupportedLanguageId, Partial<DefaultLanguageTokenizerSettings>>
-> = {
-  css,
-};
-
-const tokenMatchersForLanguage: Partial<Record<SupportedLanguageId, RegExp>> = {
-  css: generateTokenMatcher("css"),
-  scss: generateTokenMatcher("css"),
-};
+const tokenMatchersForLanguage: Partial<Record<SupportedLanguageId, RegExp>> =
+  mapValues([css, scss], (val: LanguageTokenizerComponents) =>
+    generateTokenMatcher(val)
+  );
 
 export function getTokenMatcher(languageId: string): RegExp {
-  const languageMatcher =
-    tokenMatchersForLanguage[languageId as SupportedLanguageId];
-  if (languageMatcher) {
-    return languageMatcher;
-  }
-  return TOKEN_MATCHER;
+  return (
+    tokenMatchersForLanguage[languageId as SupportedLanguageId] ??
+    defaultTokenMatcher
+  );
 }
 
 export function tokenize<T>(

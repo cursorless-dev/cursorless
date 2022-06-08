@@ -182,8 +182,7 @@ export interface Edit {
 }
 
 /** Represents a custom tokenizer for a language */
-
-export interface DefaultLanguageTokenizer {
+export interface LanguageTokenizerComponents {
   fixedTokens: string[];
   identifiersRegex: string;
   numbersRegex: string;

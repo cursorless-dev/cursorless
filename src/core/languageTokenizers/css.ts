@@ -3,5 +3,5 @@
  * and class-names are tokenized as a single token.
  */
 export default {
-  identifiersRegex: "[\\p{L}_|\\-0-9]+",
+  identifiersRegex: "[\\p{L}_\\-0-9]+",
 };

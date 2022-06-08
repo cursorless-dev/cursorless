@@ -89,8 +89,11 @@ suite("tokenizer", () => {
   });
 
   Object.entries(languageTokenizerTests).forEach(
-    ([language, { tests, exclusionPredicate = () => true }]) => {
-      tests.forEach(([input, expectedOutput]) => {
+    ([
+      language,
+      { tests: languageSpecificTests, exclusionPredicate = () => true },
+    ]) => {
+      languageSpecificTests.forEach(([input, expectedOutput]) => {
         test(`${language} custom tokenizer, input: ${input}`, () => {
           const output = tokenize(input, language, (match) => match[0]);
           assert.deepStrictEqual(output, expectedOutput);
