@@ -34,6 +34,10 @@ locally, you need to run the extension in debug mode. To do so you need to run
 the `workbench.action.debug.selectandstart` command in VSCode and then select either "Run
 Extension" or "Extension Tests".
 
+### Running a subset of tests
+
+The entire test suite takes a little while to run (1-2 mins), so if you'd like to run just a subset of the tests, you can edit the constant in [`runTestSubset`](../../src/test/suite/runTestSubset.ts) to a string supported by [mocha grep](https://mochajs.org/#-grep-regexp-g-regexp) and use the "Run Test Subset" launch config instead of the usual "Extension Tests".
+
 ## Code formatting
 
 We use [`pre-commit`](https://pre-commit.com/) to automate autoformatting.

@@ -1,26 +1,38 @@
-languageId: typescript
+languageId: plaintext
 command:
-  version: 1
   spokenForm: take file
-  action: setSelection
+  version: 2
   targets:
-    - {type: primitive, selectionType: document}
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: document}
+  usePrePhraseSnapshot: true
+  action: {name: setSelection}
 initialState:
-  documentContents: |
+  documentContents: |2+
 
-    const value = "Hello world";
+
+        foo 
+
+        bar 
+
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 6, character: 0}
+      active: {line: 6, character: 0}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |2+
 
-    const value = "Hello world";
+
+        foo 
+
+        bar 
+
   selections:
     - anchor: {line: 0, character: 0}
-      active: {line: 2, character: 0}
+      active: {line: 6, character: 0}
   thatMark:
     - anchor: {line: 0, character: 0}
-      active: {line: 2, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: document, position: contents, modifier: {type: identity}, insideOutsideType: inside}]
+      active: {line: 6, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: document}}]}]

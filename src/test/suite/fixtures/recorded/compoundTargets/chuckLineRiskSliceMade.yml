@@ -1,0 +1,51 @@
+languageId: plaintext
+command:
+  spokenForm: chuck line risk slice made
+  version: 2
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: r}
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      excludeAnchor: false
+      excludeActive: false
+      rangeType: vertical
+  usePrePhraseSnapshot: true
+  action: {name: remove}
+initialState:
+  documentContents: |-
+    short
+    something longer
+    something even longer
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.r:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+    default.m:
+      start: {line: 2, character: 0}
+      end: {line: 2, character: 9}
+finalState:
+  documentContents: |-
+
+    hing longer
+    hing even longer
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: vertical, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: line}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, modifiers: *ref_0}}]

@@ -1,13 +1,15 @@
-import { TextEditor, Selection, Position } from "vscode";
+import { zip } from "lodash";
+import { Range, Selection, TextEditor } from "vscode";
+import { Target } from "../typings/target.types";
+import { SelectionWithEditor } from "../typings/Types";
 import { groupBy } from "./itertools";
-import { TypedSelection } from "../typings/Types";
 
-export function ensureSingleEditor(targets: TypedSelection[]) {
+export function ensureSingleEditor(targets: Target[]) {
   if (targets.length === 0) {
     throw new Error("Require at least one target with this action");
   }
 
-  const editors = targets.map((target) => target.selection.editor);
+  const editors = targets.map((target) => target.editor);
 
   if (new Set(editors).size > 1) {
     throw new Error("Can only have one editor with this action");
@@ -16,7 +18,7 @@ export function ensureSingleEditor(targets: TypedSelection[]) {
   return editors[0];
 }
 
-export function ensureSingleTarget(targets: TypedSelection[]) {
+export function ensureSingleTarget(targets: Target[]) {
   if (targets.length !== 1) {
     throw new Error("Can only have one target with this action");
   }
@@ -37,14 +39,14 @@ export async function runForEachEditor<T, U>(
 }
 
 export async function runOnTargetsForEachEditor<T>(
-  targets: TypedSelection[],
-  func: (editor: TextEditor, selections: TypedSelection[]) => Promise<T>
+  targets: Target[],
+  func: (editor: TextEditor, targets: Target[]) => Promise<T>
 ): Promise<T[]> {
-  return runForEachEditor(targets, (target) => target.selection.editor, func);
+  return runForEachEditor(targets, (target) => target.editor, func);
 }
 
-export function groupTargetsForEachEditor(targets: TypedSelection[]) {
-  return groupForEachEditor(targets, (target) => target.selection.editor);
+export function groupTargetsForEachEditor(targets: Target[]) {
+  return groupForEachEditor(targets, (target) => target.editor);
 }
 
 export function groupForEachEditor<T>(
@@ -61,46 +63,43 @@ export function groupForEachEditor<T>(
   });
 }
 
-/** Get the possible leading and trailing overflow ranges of the outside target compared to the inside target */
+/** Get the possible leading and trailing overflow ranges of the outside range compared to the inside range */
 export function getOutsideOverflow(
-  insideTarget: TypedSelection,
-  outsideTarget: TypedSelection
-): TypedSelection[] {
-  const { start: insideStart, end: insideEnd } =
-    insideTarget.selection.selection;
-  const { start: outsideStart, end: outsideEnd } =
-    outsideTarget.selection.selection;
+  editor: TextEditor,
+  insideRange: Range,
+  outsideRange: Range
+): Range[] {
+  const { start: insideStart, end: insideEnd } = insideRange;
+  const { start: outsideStart, end: outsideEnd } = outsideRange;
   const result = [];
   if (outsideStart.isBefore(insideStart)) {
-    result.push(
-      createTypeSelection(
-        insideTarget.selection.editor,
-        outsideStart,
-        insideStart
-      )
-    );
+    result.push(new Range(outsideStart, insideStart));
   }
   if (outsideEnd.isAfter(insideEnd)) {
-    result.push(
-      createTypeSelection(insideTarget.selection.editor, insideEnd, outsideEnd)
-    );
+    result.push(new Range(insideEnd, outsideEnd));
   }
   return result;
 }
 
-function createTypeSelection(
-  editor: TextEditor,
-  start: Position,
-  end: Position
-): TypedSelection {
-  return {
-    selection: {
-      editor,
-      selection: new Selection(start, end),
-    },
-    selectionType: "token",
-    selectionContext: {},
-    insideOutsideType: "inside",
-    position: "contents",
-  };
+export function getContentRange(target: Target) {
+  return target.contentRange;
+}
+
+export function createThatMark(
+  targets: Target[],
+  ranges?: Range[]
+): SelectionWithEditor[] {
+  const thatMark =
+    ranges != null
+      ? zip(targets, ranges).map(([target, range]) => ({
+          editor: target!.editor,
+          selection: target?.isReversed
+            ? new Selection(range!.end, range!.start)
+            : new Selection(range!.start, range!.end),
+        }))
+      : targets.map((target) => ({
+          editor: target!.editor,
+          selection: target.contentSelection,
+        }));
+  return thatMark;
 }

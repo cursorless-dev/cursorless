@@ -1,10 +1,9 @@
-import { Selection, TextDocument, TextEditor } from "vscode";
+import { Range, TextDocument, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import {
   SimpleSurroundingPairName,
-  DelimiterInclusion,
   SurroundingPairDirection,
-} from "../../../typings/Types";
+} from "../../../typings/targetDescriptor.types";
 import { getNodeRange } from "../../../util/nodeSelectors";
 import { isContainedInErrorNode } from "../../../util/treeSitterUtils";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
@@ -56,15 +55,13 @@ import {
  * @param selection The selection to find surrounding pair around
  * @param node A parse tree node overlapping with the selection
  * @param delimiters The acceptable surrounding pair names
- * @param delimiterInclusion Whether to include / exclude the delimiters themselves
  * @returns The newly expanded selection, including editor info
  */
 export function findSurroundingPairParseTreeBased(
   editor: TextEditor,
-  selection: Selection,
+  selection: Range,
   node: SyntaxNode,
   delimiters: SimpleSurroundingPairName[],
-  delimiterInclusion: DelimiterInclusion,
   forceDirection: "left" | "right" | undefined
 ) {
   const document: TextDocument = editor.document;
@@ -118,12 +115,8 @@ export function findSurroundingPairParseTreeBased(
       return extractSelectionFromSurroundingPairOffsets(
         document,
         0,
-        pairOffsets,
-        delimiterInclusion
-      ).map(({ selection, context }) => ({
-        selection: { selection, editor },
-        context,
-      }));
+        pairOffsets
+      );
     }
   }
 
@@ -182,11 +175,12 @@ function findSurroundingPairContainedInNode(
 
   /**
    * A list of all delimiter nodes descending from `node`, as determined by
-   * their type
+   * their type.
+   * Handles the case of error nodes with no text. https://github.com/cursorless-dev/cursorless/issues/688
    */
-  const possibleDelimiterNodes = node.descendantsOfType(
-    individualDelimiters.map(({ text }) => text)
-  );
+  const possibleDelimiterNodes = node
+    .descendantsOfType(individualDelimiters.map(({ text }) => text))
+    .filter((node) => !(node.text === "" && node.hasError()));
 
   /**
    * A list of all delimiter occurrences, generated from the delimiter nodes.

@@ -1,0 +1,34 @@
+languageId: python
+postEditorOpenSleepTimeMs: 50
+command:
+  spokenForm: pour line
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: true
+  action: {name: editNewLineAfter}
+initialState:
+  documentContents: |
+    class MyClass:
+        def my_funk():
+            pass
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
+  marks: {}
+finalState:
+  documentContents: |
+    class MyClass:
+        def my_funk():
+            
+            pass
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  thatMark:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 18}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: line}}]}]
