@@ -41,30 +41,13 @@ scope_types = {
     "type": "type",
     "value": "value",
     "condition": "condition",
+    "unit": "unit",
     #  XML, JSX
     "element": "xmlElement",
     "tags": "xmlBothTags",
     "start tag": "xmlStartTag",
     "end tag": "xmlEndTag",
-    "unit": "unit",
-}
-
-
-@mod.capture(rule="[every] {user.cursorless_scope_type}")
-def cursorless_containing_scope(m) -> dict[str, dict[str, Any]]:
-    """Expand to containing scope"""
-    return {
-        "modifier": {
-            "type": "containingScope",
-            "scopeType": m.cursorless_scope_type,
-            "includeSiblings": m[0] == "every",
-        }
-    }
-
-
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-selection_types = {
+    # Text-based scope types
     "block": "paragraph",
     "cell": "notebookCell",
     "file": "document",
@@ -73,6 +56,17 @@ selection_types = {
     "link": "url",
     "token": "token",
 }
+
+@mod.capture(rule="[every] {user.cursorless_scope_type}")
+def cursorless_containing_scope(m) -> dict[str, Any]:
+    """Expand to containing scope"""
+    return {
+        "type": "everyScope" if m[0] == "every" else "containingScope",
+        "scopeType": {
+            "type": m.cursorless_scope_type,
+        },
+    }
+
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
@@ -91,7 +85,6 @@ surrounding_pair_scope_types = {
 
 default_values = {
     "scope_type": scope_types,
-    "selection_type": selection_types,
     "subtoken_scope_type": subtoken_scope_types,
     "surrounding_pair_scope_type": surrounding_pair_scope_types,
 }

@@ -317,9 +317,9 @@ export function delimitedSelector(
   getEndNode: (node: SyntaxNode) => SyntaxNode = identity
 ): SelectionExtractor {
   return (editor: TextEditor, node: SyntaxNode) => {
-    let containingListDelimiter: string | null = null;
-    let leadingDelimiterRange: Range | null = null;
-    let trailingDelimiterRange: Range | null = null;
+    let containingListDelimiter: string | undefined;
+    let leadingDelimiterRange: Range | undefined;
+    let trailingDelimiterRange: Range | undefined;
     const startNode = getStartNode(node);
     const endNode = getEndNode(node);
 
@@ -367,7 +367,6 @@ export function delimitedSelector(
         new Position(endNode.endPosition.row, endNode.endPosition.column)
       ),
       context: {
-        isInDelimitedList: true,
         containingListDelimiter,
         leadingDelimiterRange,
         trailingDelimiterRange,

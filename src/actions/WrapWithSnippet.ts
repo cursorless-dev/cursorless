@@ -1,14 +1,9 @@
 import { commands } from "vscode";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import ModifyIfWeakStage from "../processTargets/modifiers/ModifyIfWeakStage";
 import { SnippetDefinition } from "../typings/snippet";
-import {
-  Action,
-  ActionPreferences,
-  ActionReturnValue,
-  Graph,
-  TypedSelection,
-} from "../typings/Types";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import {
   Placeholder,
@@ -17,11 +12,12 @@ import {
   Variable,
 } from "../vendor/snippet/snippetParser";
 import { KnownSnippetVariableNames } from "../vendor/snippet/snippetVariables";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export default class WrapWithSnippet implements Action {
   private snippetParser = new SnippetParser();
 
-  getTargetPreferences(snippetLocation: string): ActionPreferences[] {
+  getFinalStages(snippetLocation: string) {
     const [snippetName, placeholderName] =
       parseSnippetLocation(snippetLocation);
 
@@ -34,18 +30,17 @@ export default class WrapWithSnippet implements Action {
     const variables = snippet.variables ?? {};
     const defaultScopeType = variables[placeholderName]?.wrapperScopeType;
 
+    if (defaultScopeType == null) {
+      return [];
+    }
+
     return [
-      {
-        insideOutsideType: "inside",
-        modifier:
-          defaultScopeType == null
-            ? undefined
-            : {
-                type: "containingScope",
-                scopeType: defaultScopeType,
-                includeSiblings: false,
-              },
-      },
+      new ModifyIfWeakStage({
+        type: "containingScope",
+        scopeType: {
+          type: defaultScopeType,
+        },
+      }),
     ];
   }
 
@@ -54,7 +49,7 @@ export default class WrapWithSnippet implements Action {
   }
 
   async run(
-    [targets]: [TypedSelection[]],
+    [targets]: [Target[]],
     snippetLocation: string
   ): Promise<ActionReturnValue> {
     const [snippetName, placeholderName] =
@@ -84,14 +79,12 @@ export default class WrapWithSnippet implements Action {
 
     const snippetString = parsedSnippet.toTextmateString();
 
-    await displayPendingEditDecorations(
+    await this.graph.editStyles.displayPendingEditDecorations(
       targets,
       this.graph.editStyles.pendingModification0
     );
 
-    const targetSelections = targets.map(
-      (target) => target.selection.selection
-    );
+    const targetSelections = targets.map((target) => target.contentSelection);
 
     await this.graph.actions.setSelection.run([targets]);
 
@@ -165,10 +158,10 @@ function parseSnippetLocation(snippetLocation: string): [string, string] {
 }
 
 function findMatchingSnippetDefinition(
-  typedSelection: TypedSelection,
+  target: Target,
   definitions: SnippetDefinition[]
 ) {
-  const languageId = typedSelection.selection.editor.document.languageId;
+  const languageId = target.editor.document.languageId;
 
   return definitions.find(({ scope }) => {
     if (scope == null) {

@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Any, Callable
 
 from talon import Context, Module
 
@@ -13,7 +14,7 @@ class CustomizableTerm:
     defaultSpokenForm: str
     cursorlessIdentifier: str
     type: str
-    formatter: callable
+    formatter: Callable
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
@@ -33,7 +34,7 @@ DEFAULT_DIRECTIONS = {d.defaultSpokenForm: d.cursorlessIdentifier for d in direc
 
 
 @mod.capture(rule="{user.cursorless_line_direction} <number_small>")
-def cursorless_line_number(m) -> str:
+def cursorless_line_number(m) -> dict[str, Any]:
     direction = directions_map[m.cursorless_line_direction]
     line_number = m.number_small
     line = {
@@ -41,10 +42,7 @@ def cursorless_line_number(m) -> str:
         "type": direction.type,
     }
     return {
-        "selectionType": "line",
-        "mark": {
-            "type": "lineNumber",
-            "anchor": line,
-            "active": line,
-        },
+        "type": "lineNumber",
+        "anchor": line,
+        "active": line,
     }

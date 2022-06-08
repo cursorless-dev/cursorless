@@ -1,3 +1,6 @@
+from contextlib import suppress
+from typing import Any
+
 from talon import Context, Module
 
 from ..paired_delimiter import paired_delimiters_map
@@ -5,11 +8,6 @@ from ..paired_delimiter import paired_delimiters_map
 mod = Module()
 ctx = Context()
 
-
-mod.list(
-    "cursorless_delimiter_inclusion",
-    desc="Whether to include delimiters in surrounding range",
-)
 
 mod.list(
     "cursorless_delimiter_force_direction",
@@ -20,45 +18,10 @@ ctx.lists["user.cursorless_delimiter_force_direction"] = [
     "right",
 ]
 
-# NB: This is a hack until we support having inside and outside on arbitrary
-# scope types
 mod.list(
     "cursorless_surrounding_pair_scope_type",
     desc="Scope types that can function as surrounding pairs",
 )
-
-
-@mod.capture(
-    rule=(
-        "[{user.cursorless_delimiter_inclusion}] [{user.cursorless_delimiter_force_direction}] <user.cursorless_surrounding_pair_scope_type> | "
-        "{user.cursorless_delimiter_inclusion} [{user.cursorless_delimiter_force_direction}]"
-    )
-)
-def cursorless_surrounding_pair(m) -> str:
-    """Surrounding pair modifier"""
-    try:
-        surrounding_pair_scope_type = m.cursorless_surrounding_pair_scope_type
-    except AttributeError:
-        surrounding_pair_scope_type = "any"
-
-    modifier = {
-        "type": "surroundingPair",
-        "delimiter": surrounding_pair_scope_type,
-    }
-
-    try:
-        modifier["delimiterInclusion"] = m.cursorless_delimiter_inclusion
-    except AttributeError:
-        pass
-
-    try:
-        modifier["forceDirection"] = m.cursorless_delimiter_force_direction
-    except AttributeError:
-        pass
-
-    return {
-        "modifier": modifier,
-    }
 
 
 @mod.capture(
@@ -75,3 +38,27 @@ def cursorless_surrounding_pair_scope_type(m) -> str:
         return paired_delimiters_map[
             m.cursorless_selectable_paired_delimiter
         ].cursorlessIdentifier
+
+
+@mod.capture(
+    rule="[{user.cursorless_delimiter_force_direction}] <user.cursorless_surrounding_pair_scope_type>"
+)
+def cursorless_surrounding_pair(m) -> dict[str, Any]:
+    """Expand to containing surrounding pair"""
+    try:
+        surrounding_pair_scope_type = m.cursorless_surrounding_pair_scope_type
+    except AttributeError:
+        surrounding_pair_scope_type = "any"
+
+    scope_type = {
+        "type": "surroundingPair",
+        "delimiter": surrounding_pair_scope_type,
+    }
+
+    with suppress(AttributeError):
+        scope_type["forceDirection"] = m.cursorless_delimiter_force_direction
+
+    return {
+        "type": "containingScope",
+        "scopeType": scope_type,
+    }

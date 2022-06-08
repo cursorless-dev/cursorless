@@ -42,12 +42,55 @@
 			]
 		},
 		{
+			"name": "Run Test Subset",
+			"type": "extensionHost",
+			"request": "launch",
+			"env": {
+				"CURSORLESS_TEST": "true",
+				"CURSORLESS_RUN_TEST_SUBSET": "true"
+			},
+			"args": [
+				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+			],
+			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+			"preLaunchTask": "${defaultBuildTask}",
+			"resolveSourceMapLocations": [
+				"${workspaceFolder}/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
+				"!**/node_modules/**"
+			]
+		},
+		{
 			"name": "Update fixtures",
 			"type": "extensionHost",
 			"request": "launch",
 			"env": {
 				"CURSORLESS_TEST": "true",
 				"CURSORLESS_TEST_UPDATE_FIXTURES": "true"
+			},
+			"args": [
+				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+			],
+			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+			"preLaunchTask": "${defaultBuildTask}",
+			"resolveSourceMapLocations": [
+				"${workspaceFolder}/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
+				"!**/node_modules/**"
+			]
+		},
+		{
+			"name": "Update fixtures subset",
+			"type": "extensionHost",
+			"request": "launch",
+			"env": {
+				"CURSORLESS_TEST": "true",
+				"CURSORLESS_TEST_UPDATE_FIXTURES": "true",
+				"CURSORLESS_RUN_TEST_SUBSET": "true"
 			},
 			"args": [
 				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
