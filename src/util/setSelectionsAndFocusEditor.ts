@@ -1,6 +1,7 @@
 import { range } from "lodash";
 import { commands, Selection, TextEditor, ViewColumn, window } from "vscode";
 import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
+import uniqDeep from "./uniqDeep";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",
@@ -21,7 +22,7 @@ export async function setSelectionsAndFocusEditor(
   selections: Selection[],
   revealRange: boolean = true
 ) {
-  editor.selections = selections;
+  setSelectionsWithoutFocusingEditor(editor, selections);
 
   if (revealRange) {
     editor.revealRange(editor.selection);
@@ -30,6 +31,13 @@ export async function setSelectionsAndFocusEditor(
   // NB: We focus the editor after setting the selection because otherwise you see
   // an intermediate state where the old selection persists
   await focusEditor(editor);
+}
+
+export function setSelectionsWithoutFocusingEditor(
+  editor: TextEditor,
+  selections: Selection[]
+) {
+  editor.selections = uniqDeep(selections);
 }
 
 export async function focusEditor(editor: TextEditor) {

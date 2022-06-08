@@ -4,9 +4,9 @@ import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import {
   NodeMatcher,
   NodeMatcherValue,
-  ScopeType,
   SelectionWithEditor,
 } from "../typings/Types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import cpp from "./cpp";
 import clojure from "./clojure";
 import csharp from "./csharp";
@@ -26,7 +26,7 @@ import { SupportedLanguageId } from "./constants";
 
 export function getNodeMatcher(
   languageId: string,
-  scopeType: ScopeType,
+  scopeTypeType: SimpleScopeTypeType,
   includeSiblings: boolean
 ): NodeMatcher {
   const matchers = languageMatchers[languageId as SupportedLanguageId];
@@ -35,7 +35,7 @@ export function getNodeMatcher(
     throw new UnsupportedLanguageError(languageId);
   }
 
-  const matcher = matchers[scopeType];
+  const matcher = matchers[scopeTypeType];
 
   if (matcher == null) {
     return notSupported;
@@ -50,7 +50,7 @@ export function getNodeMatcher(
 
 const languageMatchers: Record<
   SupportedLanguageId,
-  Record<ScopeType, NodeMatcher>
+  Record<SimpleScopeTypeType, NodeMatcher>
 > = {
   c: cpp,
   cpp,
