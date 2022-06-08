@@ -88,7 +88,7 @@ function generateTokenMatcher(
 }
 
 const tokenMatchersForLanguage: Partial<Record<SupportedLanguageId, RegExp>> =
-  mapValues([css, scss], (val: LanguageTokenizerComponents) =>
+  mapValues({ css, scss }, (val: LanguageTokenizerComponents) =>
     generateTokenMatcher(val)
   );
 
