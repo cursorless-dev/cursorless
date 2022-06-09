@@ -1,3 +1,4 @@
+import { zip } from "lodash";
 import {
   commands,
   DecorationRangeBehavior,
@@ -40,15 +41,14 @@ class EditNew implements Action {
     let state: State = {
       targets,
       thatRanges: targets.map(({ thatTarget }) => thatTarget.contentRange),
-      // The range updater doesn't work with sparsely populated arrays. All these values will get over written.
-      cursorRanges: new Array(targets.length).fill(new Range(0, 0, 0, 0)),
+      cursorRanges: new Array(targets.length).fill(undefined) as undefined[],
     };
 
     state = await this.runCommandTargets(editor, state);
     state = await this.runDelimiterTargets(editor, state);
 
     const newSelections = state.targets.map((target, index) =>
-      selectionFromRange(target.isReversed, state.cursorRanges[index])
+      selectionFromRange(target.isReversed, state.cursorRanges[index]!)
     );
     await setSelectionsAndFocusEditor(editor, newSelections);
 
@@ -150,9 +150,15 @@ class EditNew implements Action {
       selections: state.thatRanges.map(toSelection),
     };
 
+    const cursorInfos = state.cursorRanges
+      .map((range, index) => ({ range, index }))
+      .filter(({ range }) => range != null);
+
+    const cursorIndices = cursorInfos.map(({ index }) => index);
+
     const cursorSelections = {
-      selections: state.cursorRanges.map(toSelection),
-      rangeBehavior: DecorationRangeBehavior.OpenOpen,
+      selections: cursorInfos.map(({ range }) => toSelection(range!)),
+      rangeBehavior: DecorationRangeBehavior.ClosedClosed,
     };
 
     const editSelections = {
@@ -171,17 +177,24 @@ class EditNew implements Action {
       [thatSelections, cursorSelections, editSelections]
     );
 
-    const cursorRanges = <Range[]>[...updatedCursorSelections];
+    const updatedCursorRanges = [...state.cursorRanges];
+
+    zip(cursorIndices, updatedCursorSelections).forEach(
+      ([index, selection]) => {
+        updatedCursorRanges[index!] = selection;
+      }
+    );
+
     delimiterTargets.forEach((delimiterTarget, index) => {
       const edit = edits[index];
       const range = edit.updateRange(updatedEditSelections[index]);
-      cursorRanges[delimiterTarget.index] = range;
+      updatedCursorRanges[delimiterTarget.index] = range;
     });
 
     return {
       targets: state.targets,
       thatRanges: updatedThatSelections,
-      cursorRanges,
+      cursorRanges: updatedCursorRanges,
     };
   }
 
@@ -220,7 +233,7 @@ interface DelimiterTarget {
 interface State {
   targets: Target[];
   thatRanges: Range[];
-  cursorRanges: Range[];
+  cursorRanges: (Range | undefined)[];
 }
 
 function ensureSingleCommand(targets: CommandTarget[]) {
