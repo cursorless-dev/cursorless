@@ -93,7 +93,7 @@ export default class CommandRunner {
           : [];
 
       const processedTargetsContext: ProcessedTargetsContext = {
-        finalStages,
+        actionStages: finalStages,
         currentSelections:
           vscode.window.activeTextEditor?.selections.map((selection) => ({
             selection,
