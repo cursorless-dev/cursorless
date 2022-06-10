@@ -38,8 +38,8 @@ initialState:
 finalState:
   documentContents: hello. wo.rld.
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
   marks:
     default..:
       start: {line: 0, character: 5}

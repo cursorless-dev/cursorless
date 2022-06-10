@@ -3,7 +3,8 @@ import { invariant } from "immutability-helper";
 import * as path from "path";
 import * as vscode from "vscode";
 import HatTokenMap from "../core/HatTokenMap";
-import { DecoratedSymbol, Graph } from "../typings/Types";
+import { Graph } from "../typings/Types";
+import { DecoratedSymbolMark } from "../typings/targetDescriptor.types";
 import { getDocumentRange } from "../util/range";
 import sleep from "../util/sleep";
 import { extractTargetedMarks } from "./extractTargetedMarks";
@@ -27,6 +28,9 @@ interface RecordTestCaseCommandArg {
    * from a token properly updates the token.
    */
   isHatTokenMapTest?: boolean;
+
+  /** If true decorations will be added to the test fixture */
+  isDecorationsTest?: boolean;
 
   /**
    * The directory in which to store the test cases that we record. If left out
@@ -63,6 +67,7 @@ export class TestCaseRecorder {
   private targetDirectory: string | null = null;
   private testCase: TestCase | null = null;
   private isHatTokenMapTest: boolean = false;
+  private isDecorationsTest: boolean = false;
   private disposables: vscode.Disposable[] = [];
   private isSilent?: boolean;
   private startTimestamp?: bigint;
@@ -130,7 +135,7 @@ export class TestCaseRecorder {
         async (
           outPath: string,
           metadata: unknown,
-          targetedMarks: DecoratedSymbol[],
+          targetedMarks: DecoratedSymbolMark[],
           usePrePhraseSnapshot: boolean
         ) => {
           let marks: SerializedMarks | undefined;
@@ -171,6 +176,7 @@ export class TestCaseRecorder {
   async start(arg?: RecordTestCaseCommandArg) {
     const {
       isHatTokenMapTest = false,
+      isDecorationsTest = false,
       directory,
       isSilent = false,
       extraSnapshotFields = [],
@@ -193,6 +199,7 @@ export class TestCaseRecorder {
       this.startTimestamp = process.hrtime.bigint();
       const timestampISO = new Date().toISOString();
       this.isHatTokenMapTest = isHatTokenMapTest;
+      this.isDecorationsTest = isDecorationsTest;
       this.isSilent = isSilent;
       this.extraSnapshotFields = extraSnapshotFields;
       this.isErrorTest = isErrorTest;
@@ -244,6 +251,7 @@ export class TestCaseRecorder {
         command,
         context,
         this.isHatTokenMapTest,
+        this.isDecorationsTest,
         this.startTimestamp!,
         this.extraSnapshotFields
       );
@@ -266,6 +274,8 @@ export class TestCaseRecorder {
       // which marks we wanted to track
       return;
     }
+
+    this.testCase.recordDecorations();
 
     await this.finishTestCase();
   }

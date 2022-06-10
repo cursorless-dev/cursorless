@@ -36,7 +36,7 @@ finalState:
       end: {line: 0, character: 18}
   thatMark:
     - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 13}
+      active: {line: 0, character: 12}
   sourceMark:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 5}

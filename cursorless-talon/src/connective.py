@@ -1,6 +1,14 @@
-from talon import app
+from talon import Module, app
 
 from .csv_overrides import init_csv_and_watch_changes
+
+mod = Module()
+
+mod.list(
+    "cursorless_source_destination_connective",
+    desc="The connective used to separate source and destination targets",
+)
+
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
@@ -10,6 +18,7 @@ range_connectives = {
     "-": "rangeExcludingStart",
     "until": "rangeExcludingEnd",
 }
+
 
 default_range_connective = "rangeInclusive"
 
