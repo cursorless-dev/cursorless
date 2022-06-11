@@ -1,12 +1,16 @@
 languageId: python
 command:
-  version: 1
   spokenForm: clear core sun
-  action: clearAndSetSelection
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
       mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+  usePrePhraseSnapshot: false
+  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     from talon import Context, Module

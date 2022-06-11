@@ -1,11 +1,12 @@
 languageId: python
 command:
-  version: 1
   spokenForm: take look clone line word frown
-  action: setSelection
+  version: 2
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: l}
+  usePrePhraseSnapshot: false
+  action: {name: setSelection}
 initialState:
   documentContents: |-
     from talon import Context, Module

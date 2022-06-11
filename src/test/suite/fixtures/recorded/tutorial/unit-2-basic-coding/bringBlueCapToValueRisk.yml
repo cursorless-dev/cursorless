@@ -1,14 +1,17 @@
 languageId: python
 command:
-  version: 1
   spokenForm: bring blue cap to value risk
-  action: replaceWithTarget
+  version: 2
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: blue, character: c}
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: r}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
+  action: {name: replaceWithTarget}
 initialState:
   documentContents: |
     def print_color(color, invert=False):

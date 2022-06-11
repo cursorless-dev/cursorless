@@ -1,11 +1,12 @@
 languageId: plaintext
 command:
-  version: 1
   spokenForm: clear whale word you
-  action: clearAndSetSelection
+  version: 2
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
+  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     ==================================================

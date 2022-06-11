@@ -1,10 +1,14 @@
 languageId: python
 command:
-  version: 1
   spokenForm: take look clone line word frown
-  action: insertCopyAfter
+  version: 2
   targets:
-    - {type: primitive, selectionType: line}
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: false
+  action: {name: insertCopyAfter}
 initialState:
   documentContents: |-
     from talon import Context, Module

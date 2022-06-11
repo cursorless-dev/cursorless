@@ -1,18 +1,19 @@
 languageId: plaintext
 command:
-  version: 1
   spokenForm: take each past kick
-  action: setSelection
+  version: 2
   targets:
     - type: range
-      start:
+      anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: e}
-      end:
+      active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: k}
-      excludeStart: false
-      excludeEnd: false
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: false
+  action: {name: setSelection}
 initialState:
   documentContents: |-
     ==================================================

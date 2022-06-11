@@ -1,14 +1,17 @@
 languageId: python
 command:
-  version: 1
   spokenForm: swap string air with whale
-  action: swapTargets
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: string}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: string}
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
+  action: {name: swapTargets}
 initialState:
   documentContents: |
     def print_color(color, invert=False):

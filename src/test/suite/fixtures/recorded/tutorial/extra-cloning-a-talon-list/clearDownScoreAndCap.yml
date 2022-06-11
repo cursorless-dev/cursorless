@@ -1,8 +1,7 @@
 languageId: python
 command:
-  version: 1
   spokenForm: clear down score and cap
-  action: clearAndSetSelection
+  version: 2
   targets:
     - type: list
       elements:
@@ -10,6 +9,8 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: _}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  usePrePhraseSnapshot: false
+  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     from talon import Context, Module

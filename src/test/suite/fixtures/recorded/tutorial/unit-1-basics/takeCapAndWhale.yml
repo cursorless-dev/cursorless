@@ -1,8 +1,7 @@
 languageId: plaintext
 command:
-  version: 1
   spokenForm: take cap and whale
-  action: setSelection
+  version: 2
   targets:
     - type: list
       elements:
@@ -10,6 +9,8 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
+  action: {name: setSelection}
 initialState:
   documentContents: |-
     ==================================================

@@ -1,12 +1,15 @@
 languageId: python
 command:
-  version: 1
   spokenForm: clone state ink
-  action: insertCopyAfter
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: i}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: false
+  action: {name: insertCopyAfter}
 initialState:
   documentContents: |
     def print_color(color, invert=False):

@@ -1,11 +1,12 @@
 languageId: plaintext
 command:
-  version: 1
   spokenForm: clear trap
-  action: clearAndSetSelection
+  version: 2
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: t}
+  usePrePhraseSnapshot: false
+  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     ==================================================
