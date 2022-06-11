@@ -1,0 +1,25 @@
+languageId: typescript
+command:
+  version: 1
+  spokenForm: snip funk
+  action: insertSnippet
+  targets:
+    - {type: primitive, isImplicit: true}
+  extraArgs: [functionDeclaration]
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+finalState:
+  documentContents: |-
+    function () {
+        
+    }
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 2, character: 1}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

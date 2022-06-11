@@ -1,32 +1,34 @@
-import { commands } from "vscode";
-import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { commands, DecorationRangeBehavior } from "vscode";
+import textFormatters from "../core/textFormatters";
+import {
+  callFunctionAndUpdateSelectionInfos,
+  getSelectionInfo,
+} from "../core/updateSelections/updateSelections";
 import ModifyIfWeakStage from "../processTargets/modifiers/ModifyIfWeakStage";
+import { Snippet, SnippetDefinition } from "../typings/snippet";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import {
   findMatchingSnippetDefinition,
-  parseSnippetLocation,
   transformSnippetVariables,
 } from "../util/snippet";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { SnippetParser } from "../vendor/snippet/snippetParser";
 import { Action, ActionReturnValue } from "./actions.types";
+import { EditNew } from "./EditNew/EditNew";
 
-export default class WrapWithSnippet implements Action {
+export default class InsertSnippet implements Action {
   private snippetParser = new SnippetParser();
+  private editNewAction: EditNew;
 
-  getFinalStages(snippetLocation: string) {
-    const [snippetName, placeholderName] =
-      parseSnippetLocation(snippetLocation);
-
+  getFinalStages(snippetName: string) {
     const snippet = this.graph.snippets.getSnippet(snippetName);
 
     if (snippet == null) {
       throw new Error(`Couldn't find snippet ${snippetName}`);
     }
 
-    const variables = snippet.variables ?? {};
-    const defaultScopeType = variables[placeholderName]?.wrapperScopeType;
+    const defaultScopeType = snippet.insertionScopeType;
 
     if (defaultScopeType == null) {
       return [];
@@ -44,15 +46,14 @@ export default class WrapWithSnippet implements Action {
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
+    this.editNewAction = new EditNew(graph);
   }
 
   async run(
     [targets]: [Target[]],
-    snippetLocation: string
+    snippetName: string,
+    substitutions: Record<string, string>
   ): Promise<ActionReturnValue> {
-    const [snippetName, placeholderName] =
-      parseSnippetLocation(snippetLocation);
-
     const snippet = this.graph.snippets.getSnippet(snippetName)!;
 
     const editor = ensureSingleEditor(targets);
@@ -73,29 +74,35 @@ export default class WrapWithSnippet implements Action {
 
     const parsedSnippet = this.snippetParser.parse(definition.body.join("\n"));
 
-    transformSnippetVariables(parsedSnippet, placeholderName);
+    const formattedSubstitutions =
+      substitutions == null
+        ? undefined
+        : formatSubstitutions(snippet, definition, substitutions);
+
+    transformSnippetVariables(parsedSnippet, null, formattedSubstitutions);
 
     const snippetString = parsedSnippet.toTextmateString();
 
-    await this.graph.editStyles.displayPendingEditDecorations(
-      targets,
-      this.graph.editStyles.pendingModification0
+    await this.editNewAction.run([targets]);
+
+    const targetSelectionInfos = editor.selections.map((selection) =>
+      getSelectionInfo(
+        editor.document,
+        selection,
+        DecorationRangeBehavior.OpenOpen
+      )
     );
-
-    const targetSelections = targets.map((target) => target.contentSelection);
-
-    await this.graph.actions.setSelection.run([targets]);
 
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
     // because the latter doesn't support special variables like CLIPBOARD
-    const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
+    const [updatedTargetSelections] = await callFunctionAndUpdateSelectionInfos(
       this.graph.rangeUpdater,
       () =>
         commands.executeCommand("editor.action.insertSnippet", {
           snippet: snippetString,
         }),
       editor.document,
-      [targetSelections]
+      [targetSelectionInfos]
     );
 
     return {
@@ -105,4 +112,31 @@ export default class WrapWithSnippet implements Action {
       })),
     };
   }
+}
+function formatSubstitutions(
+  snippet: Snippet,
+  definition: SnippetDefinition,
+  substitutions: Record<string, string>
+) {
+  return Object.fromEntries(
+    Object.entries(substitutions).map(([variableName, value]) => {
+      const formatterName =
+        (definition.variables ?? {})[variableName]?.formatter ??
+        (snippet.variables ?? {})[variableName]?.formatter;
+
+      if (formatterName == null) {
+        return [variableName, value];
+      }
+
+      const formatter = textFormatters[formatterName];
+
+      if (formatter == null) {
+        throw new Error(
+          `Couldn't find formatter ${formatterName} for variable ${variableName}`
+        );
+      }
+
+      return [variableName, formatter(value.split(" "))];
+    })
+  );
 }

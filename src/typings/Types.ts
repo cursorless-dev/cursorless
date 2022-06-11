@@ -24,7 +24,11 @@ export interface Token extends FullRangeInfo {
 }
 
 export interface ProcessedTargetsContext {
-  finalStages: ModifierStage[];
+  /**
+   * Modifier stages contributed by the action. These stages will run at the
+   * end of the pipeline, but before the final positional stage, if there is one
+   */
+  actionStages: ModifierStage[];
   currentSelections: SelectionWithEditor[];
   currentEditor: vscode.TextEditor | undefined;
   hatTokenMap: ReadOnlyHatMap;
@@ -184,3 +188,5 @@ export interface Edit {
 export interface EditWithRangeUpdater extends Edit {
   updateRange: (range: vscode.Range) => vscode.Range;
 }
+
+export type TextFormatterName = "camelCase" | "pascalCase" | "snakeCase";

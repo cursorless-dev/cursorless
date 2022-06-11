@@ -23,6 +23,7 @@ export type ActionType =
   | "insertEmptyLineAfter"
   | "insertEmptyLineBefore"
   | "insertEmptyLinesAround"
+  | "insertSnippet"
   | "moveToTarget"
   | "outdentLine"
   | "pasteFromClipboard"

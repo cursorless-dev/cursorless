@@ -1,5 +1,5 @@
 {
-  "tryCatchStatement": {
+  "functionDeclaration": {
     "definitions": [
       {
         "scope": {
@@ -7,21 +7,19 @@
             "typescript",
             "typescriptreact",
             "javascript",
-            "javascriptreact",
-            "cpp",
-            "c",
-            "java",
-            "csharp",
-            "php"
+            "javascriptreact"
           ]
         },
         "body": [
-          "try {",
+          "function $name($parameterList) {",
           "\t$body",
-          "} catch ($error) {",
-          "\t$exceptBody",
           "}"
-        ]
+        ],
+        "variables": {
+          "name": {
+            "formatter": "camelCase"
+          }
+        }
       },
       {
         "scope": {
@@ -30,19 +28,19 @@
           ]
         },
         "body": [
-          "try:",
-          "\t$body",
-          "except $error:",
-          "\t$exceptBody"
-        ]
+          "def $name($parameterList):",
+          "\t$body"
+        ],
+        "variables": {
+          "name": {
+            "formatter": "snakeCase"
+          }
+        }
       }
     ],
-    "description": "Try catch statement",
+    "description": "Function declaration",
     "variables": {
       "body": {
-        "wrapperScopeType": "statement"
-      },
-      "exceptBody": {
         "wrapperScopeType": "statement"
       }
     },
