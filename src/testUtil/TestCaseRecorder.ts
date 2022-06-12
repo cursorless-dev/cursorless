@@ -75,7 +75,7 @@ export class TestCaseRecorder {
   private extraSnapshotFields?: ExtraSnapshotField[];
   private paused: boolean = false;
   private isErrorTest: boolean = false;
-  private userTabSetting: string | number | undefined = 4;
+  private userTabSetting: string | number | undefined;
   private calibrationStyle = vscode.window.createTextEditorDecorationType({
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
