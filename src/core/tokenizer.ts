@@ -62,10 +62,10 @@ const defaultTokenMatcher = generateTokenMatcher();
 function generateTokenMatcher(
   languageSetting: LanguageTokenizerComponents = defaultLanguageTokenizerSetting
 ): RegExp {
-  const tokenizerDefinition = Object.assign(
-    { ...defaultLanguageTokenizerSetting },
-    languageSetting
-  );
+  const tokenizerDefinition = {
+    ...defaultLanguageTokenizerSetting,
+    ...languageSetting,
+  };
 
   const repeatableSymbolsRegex = tokenizerDefinition.repeatableSymbols
     .map(escapeRegExp)
@@ -87,8 +87,13 @@ function generateTokenMatcher(
   return new RegExp(regex, "gu");
 }
 
+const customTokenizerSettings: Partial<LanguageTokenizerComponents>[] = [
+  css,
+  scss,
+];
+
 const tokenMatchersForLanguage: Partial<Record<SupportedLanguageId, RegExp>> =
-  mapValues({ css, scss }, (val: LanguageTokenizerComponents) =>
+  mapValues(customTokenizerSettings, (val: LanguageTokenizerComponents) =>
     generateTokenMatcher(val)
   );
 
