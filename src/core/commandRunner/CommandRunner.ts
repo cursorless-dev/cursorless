@@ -6,7 +6,6 @@ import { Graph, ProcessedTargetsContext } from "../../typings/Types";
 import { isString } from "../../util/type";
 import { canonicalizeAndValidateCommand } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
-import { DEFAULT_TAB_SIZE_FOR_TESTS } from "../constants";
 import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
 import { Command } from "./command.types";
