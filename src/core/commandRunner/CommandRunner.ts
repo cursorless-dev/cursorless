@@ -61,10 +61,6 @@ export default class CommandRunner {
       if (this.graph.debug.active) {
         this.graph.debug.log(`command:`);
         this.graph.debug.log(JSON.stringify(command, null, 3));
-        if (vscode.window.activeTextEditor) {
-          vscode.window.activeTextEditor.options.tabSize =
-            DEFAULT_TAB_SIZE_FOR_TESTS;
-        }
       }
 
       const commandComplete = canonicalizeAndValidateCommand(command);

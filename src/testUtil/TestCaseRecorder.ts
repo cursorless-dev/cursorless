@@ -13,6 +13,7 @@ import { ExtraSnapshotField, takeSnapshot } from "./takeSnapshot";
 import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
 import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
 import { walkDirsSync } from "./walkSync";
+import { DEFAULT_TAB_SIZE_FOR_TESTS } from "../core/constants";
 
 const CALIBRATION_DISPLAY_BACKGROUND_COLOR = "#230026";
 const CALIBRATION_DISPLAY_DURATION_MS = 30;
@@ -74,6 +75,7 @@ export class TestCaseRecorder {
   private extraSnapshotFields?: ExtraSnapshotField[];
   private paused: boolean = false;
   private isErrorTest: boolean = false;
+  private userTabSetting: string | number | undefined = 4;
   private calibrationStyle = vscode.window.createTextEditorDecorationType({
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
@@ -115,7 +117,7 @@ export class TestCaseRecorder {
         if (!this.active) {
           throw Error("Asked to pause recording, but no recording active");
         }
-
+        this.toggleUserTabSetting(false);
         this.paused = true;
       }),
 
@@ -125,7 +127,7 @@ export class TestCaseRecorder {
           if (!this.active) {
             throw Error("Asked to resume recording, but no recording active");
           }
-
+          this.toggleUserTabSetting(true);
           this.paused = false;
         }
       ),
@@ -208,6 +210,7 @@ export class TestCaseRecorder {
       vscode.window.showInformationMessage(
         `Recording test cases for following commands in:\n${this.targetDirectory}`
       );
+      this.toggleUserTabSetting(true);
 
       return { startTimestampISO: timestampISO };
     }
@@ -230,8 +233,25 @@ export class TestCaseRecorder {
   }
 
   stop() {
+    this.toggleUserTabSetting(false);
+
     this.active = false;
     this.paused = false;
+  }
+
+  private toggleUserTabSetting(shouldSetTabs: boolean) {
+    let message: string;
+    if (shouldSetTabs) {
+      this.userTabSetting = vscode.window.activeTextEditor!.options.tabSize;
+      vscode.window.activeTextEditor!.options.tabSize =
+        DEFAULT_TAB_SIZE_FOR_TESTS;
+      message = `Setting default tab size to ${DEFAULT_TAB_SIZE_FOR_TESTS} spaces for test recording.`;
+    } else {
+      vscode.window.activeTextEditor!.options.tabSize = this.userTabSetting;
+      message = "Resetting tab size to user default.";
+    }
+
+    vscode.window.showInformationMessage(message);
   }
 
   async preCommandHook(command: TestCaseCommand, context: TestCaseContext) {
