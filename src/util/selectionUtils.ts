@@ -43,6 +43,13 @@ export function selectionFromRange(isReversed: boolean, range: Range) {
   return isReversed ? new Selection(end, start) : new Selection(start, end);
 }
 
+/**
+ * Shrink given range to fit text content.
+ * If the given range has no text content the given range will be returned unchanged.
+ * @param editor The text editor to use
+ * @param range The range to shrink down
+ * @returns A new range equal or smaller to the given range
+ */
 export function shrinkRangeToFitContent(editor: TextEditor, range: Range) {
   const { document } = editor;
   const text = document.getText(range);
