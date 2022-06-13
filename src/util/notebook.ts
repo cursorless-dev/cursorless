@@ -1,4 +1,4 @@
-import { lt } from "lodash";
+import { lt } from "semver";
 import {
   NotebookCell,
   NotebookDocument,
