@@ -1,13 +1,14 @@
-import { range } from "lodash";
 import { lt } from "semver";
 import {
   commands,
+  NotebookDocument,
   Selection,
   TextEditor,
   version,
   ViewColumn,
   window,
 } from "vscode";
+import { focusNotebookCellLegacy } from "./focusNotebookCellLegacy";
 import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
 import uniqDeep from "./uniqDeep";
 
@@ -52,58 +53,49 @@ export async function focusEditor(editor: TextEditor) {
   if (editor.viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
   } else {
+    // If the view column is null we see if it's a notebook and try to see if we
+    // can just move around in the notebook to focus the correct editor
+
     if (lt(version, "1.68.0")) {
       return await focusNotebookCellLegacy(editor);
     }
 
-    throw Error("Notebook focusing not yet implemented for latest vscode");
+    await focusNotebookCell(editor);
   }
 }
 
-async function focusNotebookCellLegacy(editor: TextEditor) {
-  // If the view column is null we see if it's a notebook and try to see if we
-  // can just move around in the notebook to focus the correct editor
+async function focusNotebookCell(editor: TextEditor) {
+  const desiredNotebookEditor = getNotebookFromCellDocument(editor.document);
+  if (desiredNotebookEditor == null) {
+    throw new Error("Couldn't find notebook editor for given document");
+  }
+
+  const desiredNotebookDocument: NotebookDocument =
+    desiredNotebookEditor.notebook;
+
+  await commands.executeCommand(
+    columnFocusCommands[
+      desiredNotebookEditor.viewColumn as keyof typeof columnFocusCommands
+    ]
+  );
+
   const activeTextEditor = window.activeTextEditor;
-
   if (activeTextEditor == null) {
-    return;
+    throw new Error("No active text editor");
   }
 
-  const editorNotebook = getNotebookFromCellDocument(editor.document);
-  const activeEditorNotebook = getNotebookFromCellDocument(
-    activeTextEditor.document
+  const desiredEditorIndex = getCellIndex(
+    desiredNotebookDocument,
+    editor.document
   );
 
-  if (
-    editorNotebook == null ||
-    activeEditorNotebook == null ||
-    editorNotebook !== activeEditorNotebook
-  ) {
-    return;
-  }
-
-  const editorIndex = getCellIndex(editorNotebook, editor.document);
-  const activeEditorIndex = getCellIndex(
-    editorNotebook,
-    activeTextEditor.document
-  );
-
-  if (editorIndex === -1 || activeEditorIndex === -1) {
-    throw new Error(
-      "Couldn't find editor corresponding to given cell in the expected notebook"
-    );
-  }
-
-  const cellOffset = editorIndex - activeEditorIndex;
-
-  const command =
-    cellOffset < 0
-      ? "notebook.focusPreviousEditor"
-      : "notebook.focusNextEditor";
-
-  // This is a hack. We just repeatedly issued the command to move upwards or
-  // downwards a cell to get to the right cell
-  for (const _ of range(Math.abs(cellOffset))) {
-    await commands.executeCommand(command);
-  }
+  const desiredSelections = [
+    desiredNotebookEditor.selection.with({
+      start: desiredEditorIndex,
+      end: desiredEditorIndex + 1,
+    }),
+  ];
+  desiredNotebookEditor.selections = desiredSelections;
+  desiredNotebookEditor.revealRange(desiredSelections[0]);
+  await commands.executeCommand("notebook.cell.edit");
 }
