@@ -2,10 +2,10 @@ import { Selection, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import {
   NodeMatcherAlternative,
-  ScopeType,
   SelectionWithContext,
   SelectionWithEditor,
 } from "../typings/Types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,
@@ -88,17 +88,19 @@ function castTypeExtractor(
   const contentRange = range;
   const leftParenRange = getNodeRange(node.previousSibling!);
   const rightParenRange = getNodeRange(node.nextSibling!.nextSibling!);
-  const outerRange = range.with(leftParenRange.start, rightParenRange.start);
+  const removalRange = range.with(leftParenRange.start, rightParenRange.start);
 
   return {
     selection: new Selection(contentRange.start, contentRange.end),
     context: {
-      outerSelection: new Selection(outerRange.start, outerRange.end),
+      removalRange,
     },
   };
 }
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   statement: STATEMENT_TYPES,
   ifStatement: "if_statement",
   class: "class_declaration",

@@ -1,0 +1,29 @@
+languageId: plaintext
+command:
+  spokenForm: take start of whale
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      modifiers:
+        - {type: position, position: start}
+  usePrePhraseSnapshot: true
+  action: {name: setSelection}
+initialState:
+  documentContents: hello world whatever
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: hello world whatever
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  thatMark:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [{type: position, position: start}]}]

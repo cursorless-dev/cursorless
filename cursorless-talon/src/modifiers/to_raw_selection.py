@@ -1,3 +1,5 @@
+from typing import Any
+
 from talon import Module
 
 mod = Module()
@@ -10,5 +12,5 @@ mod.list(
 
 
 @mod.capture(rule="{user.cursorless_to_raw_selection}")
-def cursorless_to_raw_selection(m) -> dict:
-    return {"modifier": {"type": "toRawSelection"}}
+def cursorless_to_raw_selection(m) -> dict[str, Any]:
+    return {"type": "toRawSelection"}

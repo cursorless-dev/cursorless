@@ -1,17 +1,14 @@
 import * as vscode from "vscode";
-import inferFullTargets from "../inferFullTargets";
-import processTargets from "../../processTargets";
-import {
-  ActionType,
-  Graph,
-  PartialTarget,
-  ProcessedTargetsContext,
-} from "../../typings/Types";
-import { ThatMark } from "../ThatMark";
-import { canonicalizeAndValidateCommand } from "../../util/canonicalizeAndValidateCommand";
-import { CommandArgument } from "./types";
-import { isString } from "../../util/type";
+import { ActionType } from "../../actions/actions.types";
 import { ActionableError } from "../../errors";
+import processTargets from "../../processTargets";
+import { Graph, ProcessedTargetsContext } from "../../typings/Types";
+import { isString } from "../../util/type";
+import { canonicalizeAndValidateCommand } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
+import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
+import inferFullTargets from "../inferFullTargets";
+import { ThatMark } from "../ThatMark";
+import { Command } from "./command.types";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -42,14 +39,14 @@ export default class CommandRunner {
    *    {@link canonicalizeAndValidateCommand}, primarily for the purpose of
    *    backwards compatibility
    * 2. Perform inference on targets to fill in details left out using things
-   *    like previous targets and action preferences. For example we would
+   *    like previous targets. For example we would
    *    automatically infer that `"take funk air and bat"` is equivalent to
    *    `"take funk air and funk bat"`. See {@link inferFullTargets} for details
    *    of how this is done.
    * 3. Construct a {@link ProcessedTargetsContext} object to capture the
    *    environment needed by {@link processTargets}.
    * 4. Call {@link processTargets} to map each abstract {@link Target} object
-   *    to a concrete list of {@link TypedSelection} objects.
+   *    to a concrete list of {@link Target} objects.
    * 5. Run the requested action on the given selections. The mapping from
    *    action id (eg `remove`) to implementation is defined in
    *    {@link Actions}.  To understand how actions work, see some examples,
@@ -58,20 +55,20 @@ export default class CommandRunner {
    *    action, and returns the desired return value indicated by the action, if
    *    it has one.
    */
-  async runCommand(commandArgument: CommandArgument) {
+  async runCommand(command: Command) {
     try {
       if (this.graph.debug.active) {
-        this.graph.debug.log(`commandArgument:`);
-        this.graph.debug.log(JSON.stringify(commandArgument, null, 3));
+        this.graph.debug.log(`command:`);
+        this.graph.debug.log(JSON.stringify(command, null, 3));
       }
 
+      const commandComplete = canonicalizeAndValidateCommand(command);
       const {
         spokenForm,
-        action: actionName,
-        targets: partialTargets,
-        extraArgs,
+        action: { name: actionName, args: actionArgs },
+        targets: partialTargetDescriptors,
         usePrePhraseSnapshot,
-      } = canonicalizeAndValidateCommand(commandArgument);
+      } = commandComplete;
 
       const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
         usePrePhraseSnapshot
@@ -83,17 +80,20 @@ export default class CommandRunner {
         throw new Error(`Unknown action ${actionName}`);
       }
 
-      const targets = inferFullTargets(
-        partialTargets,
-        action.getTargetPreferences(...extraArgs)
-      );
+      const targetDescriptors = inferFullTargets(partialTargetDescriptors);
 
       if (this.graph.debug.active) {
         this.graph.debug.log("Full targets:");
-        this.graph.debug.log(JSON.stringify(targets, null, 3));
+        this.graph.debug.log(JSON.stringify(targetDescriptors, null, 3));
       }
 
+      const finalStages =
+        action.getFinalStages != null
+          ? action.getFinalStages(...actionArgs)
+          : [];
+
       const processedTargetsContext: ProcessedTargetsContext = {
+        finalStages,
         currentSelections:
           vscode.window.activeTextEditor?.selections.map((selection) => ({
             selection,
@@ -106,27 +106,32 @@ export default class CommandRunner {
         getNodeAtLocation: this.graph.getNodeAtLocation,
       };
 
-      const selections = processTargets(processedTargetsContext, targets);
-
       if (this.graph.testCaseRecorder.isActive()) {
+        this.graph.editStyles.testDecorations = [];
         const context = {
-          targets,
+          targets: targetDescriptors,
           thatMark: this.thatMark,
           sourceMark: this.sourceMark,
           hatTokenMap: readableHatMap,
           spokenForm,
+          decorations: this.graph.editStyles.testDecorations,
         };
         await this.graph.testCaseRecorder.preCommandHook(
-          commandArgument,
+          commandComplete,
           context
         );
       }
+
+      const targets = processTargets(
+        processedTargetsContext,
+        targetDescriptors
+      );
 
       const {
         returnValue,
         thatMark: newThatMark,
         sourceMark: newSourceMark,
-      } = await action.run(selections, ...extraArgs);
+      } = await action.run(targets, ...actionArgs);
 
       this.thatMark.set(newThatMark);
       this.sourceMark.set(newSourceMark);
@@ -137,7 +142,7 @@ export default class CommandRunner {
 
       return returnValue;
     } catch (e) {
-      this.graph.testCaseRecorder.commandErrorHook();
+      await this.graph.testCaseRecorder.commandErrorHook(e as Error);
       const err = e as Error;
       if ((err as Error).name === "ActionableError") {
         (err as ActionableError).showErrorMessage();
@@ -151,20 +156,20 @@ export default class CommandRunner {
   }
 
   private runCommandBackwardCompatible(
-    spokenFormOrCommandArgument: string | CommandArgument,
+    spokenFormOrCommand: string | Command,
     ...rest: unknown[]
   ) {
-    let commandArgument: CommandArgument;
+    let command: Command;
 
-    if (isString(spokenFormOrCommandArgument)) {
-      const spokenForm = spokenFormOrCommandArgument;
+    if (isString(spokenFormOrCommand)) {
+      const spokenForm = spokenFormOrCommand;
       const [action, targets, ...extraArgs] = rest as [
         ActionType,
-        PartialTarget[],
+        PartialTargetV0V1[],
         ...unknown[]
       ];
 
-      commandArgument = {
+      command = {
         version: 0,
         spokenForm,
         action,
@@ -173,10 +178,10 @@ export default class CommandRunner {
         usePrePhraseSnapshot: false,
       };
     } else {
-      commandArgument = spokenFormOrCommandArgument;
+      command = spokenFormOrCommand;
     }
 
-    return this.runCommand(commandArgument);
+    return this.runCommand(command);
   }
 
   dispose() {

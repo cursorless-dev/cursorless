@@ -43,7 +43,7 @@ hat_shapes = {
 @mod.capture(
     rule="[{user.cursorless_hat_color}] [{user.cursorless_hat_shape}] <user.any_alphanumeric_key>"
 )
-def cursorless_decorated_symbol(m) -> dict[str, dict[str, Any]]:
+def cursorless_decorated_symbol(m) -> dict[str, Any]:
     """A decorated symbol"""
     hat_color = getattr(m, "cursorless_hat_color", "default")
     try:
@@ -51,11 +51,9 @@ def cursorless_decorated_symbol(m) -> dict[str, dict[str, Any]]:
     except AttributeError:
         hat_style_name = hat_color
     return {
-        "mark": {
-            "type": "decoratedSymbol",
-            "symbolColor": hat_style_name,
-            "character": m.any_alphanumeric_key,
-        }
+        "type": "decoratedSymbol",
+        "symbolColor": hat_style_name,
+        "character": m.any_alphanumeric_key,
     }
 
 
@@ -69,10 +67,10 @@ class CustomizableTerm:
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
 special_marks = [
-    CustomizableTerm("this", "currentSelection", {"mark": {"type": "cursor"}}),
-    CustomizableTerm("that", "previousTarget", {"mark": {"type": "that"}}),
-    CustomizableTerm("source", "previousSource", {"mark": {"type": "source"}}),
-    CustomizableTerm("nothing", "nothing", {"mark": {"type": "nothing"}}),
+    CustomizableTerm("this", "currentSelection", {"type": "cursor"}),
+    CustomizableTerm("that", "previousTarget", {"type": "that"}),
+    CustomizableTerm("source", "previousSource", {"type": "source"}),
+    CustomizableTerm("nothing", "nothing", {"type": "nothing"}),
     # "last cursor": {"mark": {"type": "lastCursorPosition"}} # Not implemented
 ]
 
@@ -93,7 +91,7 @@ mod.list("cursorless_special_mark", desc="Cursorless special marks")
         "<user.cursorless_line_number>"  # row (ie absolute mod 100), up, down
     )
 )
-def cursorless_mark(m) -> str:
+def cursorless_mark(m) -> dict[str, Any]:
     try:
         return m.cursorless_decorated_symbol
     except AttributeError:

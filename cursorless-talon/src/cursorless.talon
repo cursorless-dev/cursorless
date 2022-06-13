@@ -4,6 +4,9 @@ app: vscode
 <user.cursorless_action_or_vscode_command> <user.cursorless_target>:
     user.cursorless_action_or_vscode_command(cursorless_action_or_vscode_command, cursorless_target)
 
+{user.cursorless_positional_action} <user.cursorless_positional_target>:
+    user.cursorless_single_target_command(cursorless_positional_action, cursorless_positional_target)
+
 {user.cursorless_swap_action} <user.cursorless_swap_targets>:
     user.cursorless_multiple_target_command(cursorless_swap_action, cursorless_swap_targets)
 

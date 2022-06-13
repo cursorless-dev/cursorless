@@ -9,6 +9,13 @@ export class UnsupportedLanguageError extends Error {
   }
 }
 
+export class UnsupportedError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "UnsupportedError";
+  }
+}
+
 interface ErrorAction {
   /**
    * The name of the action to show to the user
@@ -52,5 +59,19 @@ export class ActionableError extends Error {
 
         actionMap[item]();
       });
+  }
+}
+/**
+ * Throw this error if you have attempted to match based on a language scope but have not
+ * returned a match.
+ */
+export class NoContainingScopeError extends Error {
+  /**
+   *
+   * @param scopeType The scopeType for the failed match to show to the user
+   */
+  constructor(scopeType: string) {
+    super(`Couldn't find containing ${scopeType}.`);
+    this.name = "NoContainingScopeError";
   }
 }
