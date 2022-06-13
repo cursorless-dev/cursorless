@@ -1,6 +1,10 @@
 import { SyntaxNode, Point } from "web-tree-sitter";
 import { Position, Range, Selection, TextEditor } from "vscode";
-import { SelectionWithContext, SelectionExtractor } from "../typings/Types";
+import {
+  SelectionWithContext,
+  SelectionExtractor,
+  NodeFinder,
+} from "../typings/Types";
 import { identity } from "lodash";
 
 export function makeRangeFromPositions(
@@ -56,9 +60,45 @@ export function simpleSelectionExtractor(
 }
 
 /**
+ * Given a node and a node finder extends the selection from the given node
+ * until just before the next matching sibling node or the final node if no
+ * sibling matches
+ * @param editor The text editor containing the given node
+ * @param node The node from which to extend
+ * @param nodeFinder The finder to use to determine whether a given node matches
+ * @returns A range from the start node until just before the next matching
+ * sibling or the final sibling if non matches
+ */
+export function extendUntilNextMatchingSiblingOrLast(
+  editor: TextEditor,
+  node: SyntaxNode,
+  nodeFinder: NodeFinder
+) {
+  const endNode = getNextMatchingSiblingNodeOrLast(node, nodeFinder);
+  return pairSelectionExtractor(editor, node, endNode);
+}
+
+function getNextMatchingSiblingNodeOrLast(
+  node: SyntaxNode,
+  nodeFinder: NodeFinder
+): SyntaxNode {
+  let currentNode: SyntaxNode = node;
+  let nextNode: SyntaxNode | null = node.nextSibling;
+
+  while (true) {
+    if (nextNode == null || nodeFinder(nextNode) != null) {
+      return currentNode;
+    }
+
+    currentNode = nextNode;
+    nextNode = nextNode.nextSibling;
+  }
+}
+
+/**
  * Extracts a selection from the first node to the second node.
  * Both nodes are included in the selected nodes
-*/
+ */
 export function pairSelectionExtractor(
   editor: TextEditor,
   node1: SyntaxNode,
@@ -147,6 +187,41 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
         leadingDelimiterRange,
       },
     };
+  };
+}
+
+/**
+ * Creates an extractor that returns a contiguous range between children of a node.
+ * When no arguments are passed, the function will return a range from the first to the last child node. Pass in either inclusions
+ * If an inclusion or exclusion list is passed, we return the first range of children such that every child in the range matches the inclusion / exclusion criteria.
+ * @param typesToExclude Ensure these child types are excluded in the contiguous range returned.
+ * @param typesToInclude Ensure these child types are included in the contiguous range returned.
+ * @returns A selection extractor
+ */
+export function childRangeSelector(
+  typesToExclude: string[] = [],
+  typesToInclude: string[] = []
+) {
+  return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
+    if (typesToExclude.length > 0 && typesToInclude.length > 0) {
+      throw new Error("Cannot have both exclusions and inclusions.");
+    }
+    let nodes = node.namedChildren;
+    const exclusionSet = new Set(typesToExclude);
+    const inclusionSet = new Set(typesToInclude);
+    nodes = nodes.filter((child) => {
+      if (exclusionSet.size > 0) {
+        return !exclusionSet.has(child.type);
+      }
+
+      if (inclusionSet.size > 0) {
+        return inclusionSet.has(child.type);
+      }
+
+      return true;
+    });
+
+    return pairSelectionExtractor(editor, nodes[0], nodes[nodes.length - 1]);
   };
 }
 
@@ -242,9 +317,9 @@ export function delimitedSelector(
   getEndNode: (node: SyntaxNode) => SyntaxNode = identity
 ): SelectionExtractor {
   return (editor: TextEditor, node: SyntaxNode) => {
-    let containingListDelimiter: string | null = null;
-    let leadingDelimiterRange: Range | null = null;
-    let trailingDelimiterRange: Range | null = null;
+    let containingListDelimiter: string | undefined;
+    let leadingDelimiterRange: Range | undefined;
+    let trailingDelimiterRange: Range | undefined;
     const startNode = getStartNode(node);
     const endNode = getEndNode(node);
 
@@ -292,7 +367,6 @@ export function delimitedSelector(
         new Position(endNode.endPosition.row, endNode.endPosition.column)
       ),
       context: {
-        isInDelimitedList: true,
         containingListDelimiter,
         leadingDelimiterRange,
         trailingDelimiterRange,

@@ -4,3 +4,13 @@ node_modules
 .vscode-test/
 *.vsix
 package-lock.json
+*.DS_Store
+
+# TypeDoc output
+docs/contributing/api/
+
+# Generated docs hub
+gh-pages-root/docs/
+
+# Local extension / data sandbox for debug launch task
+/.vscode-sandbox

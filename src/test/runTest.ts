@@ -6,12 +6,7 @@ import {
   resolveCliPathFromVSCodeExecutablePath,
   downloadAndUnzipVSCode,
 } from "vscode-test";
-
-const extensionDependencies = [
-  "pokey.parse-tree",
-  "ms-toolsai.jupyter",
-  "scalameta.metals",
-];
+import { extensionDependencies } from "./extensionDependencies";
 
 async function main() {
   try {

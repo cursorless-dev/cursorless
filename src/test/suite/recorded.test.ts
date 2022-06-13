@@ -1,27 +1,31 @@
 import * as assert from "assert";
-import serialize from "../../testUtil/serialize";
 import { promises as fsp } from "fs";
-import * as path from "path";
 import * as yaml from "js-yaml";
-import * as vscode from "vscode";
-import { TestCaseFixture } from "../../testUtil/TestCase";
-import HatTokenMap from "../../core/HatTokenMap";
 import * as sinon from "sinon";
-import { Clipboard } from "../../util/Clipboard";
-import { takeSnapshot } from "../../testUtil/takeSnapshot";
+import * as vscode from "vscode";
+import HatTokenMap from "../../core/HatTokenMap";
+import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
+import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
+import serialize from "../../testUtil/serialize";
+import {
+  ExcludableSnapshotField,
+  takeSnapshot,
+} from "../../testUtil/takeSnapshot";
+import { TestCaseFixture } from "../../testUtil/TestCase";
 import {
   marksToPlainObject,
   PositionPlainObject,
   rangeToPlainObject,
   SelectionPlainObject,
   SerializedMarks,
+  testDecorationsToPlainObject,
 } from "../../testUtil/toPlainObject";
+import { Clipboard } from "../../util/Clipboard";
 import { getCursorlessApi } from "../../util/getExtensionApi";
-import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
-import asyncSafety from "./asyncSafety";
-import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
+import sleep from "../../util/sleep";
 import { openNewEditor } from "../openNewEditor";
-import getRecordedTestPaths from "./getRecordedTestPaths";
+import asyncSafety from "../util/asyncSafety";
+import { getRecordedTestPaths } from "../util/getFixturePaths";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -41,6 +45,11 @@ suite("recorded test cases", async function () {
     sinon.restore();
   });
 
+  suiteSetup(async () => {
+    // Necessary because opening a notebook opens the panel for some reason
+    await vscode.commands.executeCommand("workbench.action.closePanel");
+  });
+
   getRecordedTestPaths().forEach((path) =>
     test(
       path.split(".")[0],
@@ -52,15 +61,24 @@ suite("recorded test cases", async function () {
 async function runTest(file: string) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
-  const excludeFields: string[] = [];
+  const excludeFields: ExcludableSnapshotField[] = [];
+
+  // TODO The snapshot gets messed up with timing issues when running the recorded tests
+  // "Couldn't find token default.a"
+  const usePrePhraseSnapshot = false;
 
   const cursorlessApi = await getCursorlessApi();
   const graph = cursorlessApi.graph!;
+  graph.editStyles.testDecorations = [];
 
   const editor = await openNewEditor(
     fixture.initialState.documentContents,
     fixture.languageId
   );
+
+  if (fixture.postEditorOpenSleepTimeMs != null) {
+    await sleep(fixture.postEditorOpenSleepTimeMs);
+  }
 
   if (!fixture.initialState.documentContents.includes("\n")) {
     await editor.edit((editBuilder) => {
@@ -86,54 +104,92 @@ async function runTest(file: string) {
   }
 
   if (fixture.initialState.clipboard) {
-    let mockClipboard = fixture.initialState.clipboard;
-    sinon.replace(Clipboard, "readText", async () => mockClipboard);
-    sinon.replace(Clipboard, "writeText", async (value: string) => {
-      mockClipboard = value;
-    });
+    Clipboard.writeText(fixture.initialState.clipboard);
+    // FIXME https://github.com/cursorless-dev/cursorless/issues/559
+    // let mockClipboard = fixture.initialState.clipboard;
+    // sinon.replace(Clipboard, "readText", async () => mockClipboard);
+    // sinon.replace(Clipboard, "writeText", async (value: string) => {
+    //   mockClipboard = value;
+    // });
   } else {
     excludeFields.push("clipboard");
   }
 
   await graph.hatTokenMap.addDecorations();
 
-  const readableHatMap = await graph.hatTokenMap.getReadableMap(false);
+  const readableHatMap = await graph.hatTokenMap.getReadableMap(
+    usePrePhraseSnapshot
+  );
 
   // Assert that recorded decorations are present
   checkMarks(fixture.initialState.marks, readableHatMap);
 
+  if (fixture.thrownError != null) {
+    await assert.rejects(
+      async () => {
+        await vscode.commands.executeCommand(
+          "cursorless.command",
+          fixture.command
+        );
+      },
+      (err: Error) => {
+        assert.strictEqual(err.name, fixture.thrownError?.name);
+        return true;
+      }
+    );
+    return;
+  }
+
   const returnValue = await vscode.commands.executeCommand(
     "cursorless.command",
-    fixture.command
+    { ...fixture.command, usePrePhraseSnapshot }
   );
 
   const marks =
-    fixture.finalState.marks == null
+    fixture.finalState!.marks == null
       ? undefined
       : marksToPlainObject(
           extractTargetedMarks(
-            Object.keys(fixture.finalState.marks) as string[],
+            Object.keys(fixture.finalState!.marks) as string[],
             readableHatMap
           )
         );
 
   // TODO Visible ranges are not asserted, see:
-  // https://github.com/pokey/cursorless-vscode/issues/160
+  // https://github.com/cursorless-dev/cursorless/issues/160
   const { visibleRanges, ...resultState } = await takeSnapshot(
     cursorlessApi.thatMark,
     cursorlessApi.sourceMark,
     excludeFields,
+    [],
     marks
   );
 
+  const actualDecorations =
+    fixture.decorations == null
+      ? undefined
+      : testDecorationsToPlainObject(graph.editStyles.testDecorations);
+
   if (process.env.CURSORLESS_TEST_UPDATE_FIXTURES === "true") {
-    const outputFixture = { ...fixture, finalState: resultState, returnValue };
+    const outputFixture = {
+      ...fixture,
+      finalState: resultState,
+      decorations: actualDecorations,
+      returnValue,
+    };
+
     await fsp.writeFile(file, serialize(outputFixture));
   } else {
     assert.deepStrictEqual(
       resultState,
       fixture.finalState,
       "Unexpected final state"
+    );
+
+    assert.deepStrictEqual(
+      actualDecorations,
+      fixture.decorations,
+      "Unexpected decorations"
     );
 
     assert.deepStrictEqual(

@@ -1,30 +1,53 @@
+import { pick } from "lodash";
 import * as vscode from "vscode";
-import HatTokenMap from "../core/HatTokenMap";
+import { CommandLatest } from "../core/commandRunner/command.types";
+import { TestDecoration } from "../core/editStyles";
+import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ThatMark } from "../core/ThatMark";
-import { ActionType, PartialTarget, Target, Token } from "../typings/Types";
+import { TargetDescriptor } from "../typings/targetDescriptor.types";
+import { Token } from "../typings/Types";
+import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 import {
   extractTargetedMarks,
   extractTargetKeys,
 } from "./extractTargetedMarks";
-import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
-import { takeSnapshot, TestCaseSnapshot } from "./takeSnapshot";
 import serialize from "./serialize";
-import { pick } from "lodash";
-import { ReadOnlyHatMap } from "../core/IndividualHatMap";
-import { CommandArgument } from "../core/commandRunner/types";
-import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
+import {
+  ExtraSnapshotField,
+  takeSnapshot,
+  TestCaseSnapshot,
+} from "./takeSnapshot";
+import {
+  marksToPlainObject,
+  PositionPlainObject,
+  SerializedMarks,
+  testDecorationsToPlainObject,
+} from "./toPlainObject";
 
-export type TestCaseCommand = CommandArgument;
+export type TestCaseCommand = CommandLatest;
 
 export type TestCaseContext = {
   thatMark: ThatMark;
   sourceMark: ThatMark;
-  targets: Target[];
+  targets: TargetDescriptor[];
+  decorations: TestDecoration[];
   hatTokenMap: ReadOnlyHatMap;
+};
+
+interface PlainTestDecoration {
+  name: string;
+  type: "token" | "line";
+  start: PositionPlainObject;
+  end: PositionPlainObject;
+}
+
+export type ThrownError = {
+  name: string;
 };
 
 export type TestCaseFixture = {
   languageId: string;
+  postEditorOpenSleepTimeMs?: number;
   command: TestCaseCommand;
 
   /**
@@ -33,17 +56,23 @@ export type TestCaseFixture = {
   marksToCheck?: string[];
 
   initialState: TestCaseSnapshot;
-  finalState: TestCaseSnapshot;
+  decorations?: PlainTestDecoration[];
+  /** The final state after a command is issued. Undefined if we are testing a non-match(error) case. */
+  finalState?: TestCaseSnapshot;
+  /** Used to assert if an error has been thrown. */
+  thrownError?: ThrownError;
   returnValue: unknown;
   /** Inferred full targets added for context; not currently used in testing */
-  fullTargets: Target[];
+  fullTargets: TargetDescriptor[];
 };
 
 export class TestCase {
   languageId: string;
-  fullTargets: Target[];
+  fullTargets: TargetDescriptor[];
   initialState: TestCaseSnapshot | null = null;
-  finalState: TestCaseSnapshot | null = null;
+  decorations?: PlainTestDecoration[];
+  finalState?: TestCaseSnapshot;
+  thrownError?: ThrownError;
   returnValue: unknown = null;
   targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
@@ -53,7 +82,10 @@ export class TestCase {
   constructor(
     command: TestCaseCommand,
     private context: TestCaseContext,
-    private isHatTokenMapTest: boolean = false
+    private isHatTokenMapTest: boolean = false,
+    private isDecorationsTest: boolean = false,
+    private startTimestamp: bigint,
+    private extraSnapshotFields?: ExtraSnapshotField[]
   ) {
     const activeEditor = vscode.window.activeTextEditor!;
     this.command = cleanUpTestCaseCommand(command);
@@ -65,6 +97,13 @@ export class TestCase {
     this.languageId = activeEditor.document.languageId;
     this.fullTargets = targets;
     this._awaitingFinalMarkInfo = isHatTokenMapTest;
+  }
+
+  recordDecorations() {
+    const decorations = this.context.decorations;
+    if (this.isDecorationsTest && decorations.length > 0) {
+      this.decorations = testDecorationsToPlainObject(decorations);
+    }
   }
 
   private getMarks() {
@@ -84,7 +123,7 @@ export class TestCase {
     return marksToPlainObject(marks);
   }
 
-  private includesThatMark(target: Target, type: string): boolean {
+  private includesThatMark(target: TargetDescriptor, type: string): boolean {
     if (target.type === "primitive" && target.mark.type === type) {
       return true;
     } else if (target.type === "list") {
@@ -101,7 +140,7 @@ export class TestCase {
 
   private getExcludedFields(context?: { initialSnapshot?: boolean }) {
     const excludableFields = {
-      clipboard: !["copy", "paste"].includes(this.command.action),
+      clipboard: !["copy", "paste"].includes(this.command.action.name),
       thatMark:
         context?.initialSnapshot &&
         !this.fullTargets.some((target) =>
@@ -118,7 +157,7 @@ export class TestCase {
         "scrollToBottom",
         "scrollToCenter",
         "scrollToTop",
-      ].includes(this.command.action),
+      ].includes(this.command.action.name),
     };
 
     return Object.keys(excludableFields).filter(
@@ -127,7 +166,10 @@ export class TestCase {
   }
 
   toYaml() {
-    if (this.initialState == null || this.finalState == null) {
+    if (
+      this.initialState == null ||
+      (this.finalState == null && this.thrownError == null)
+    ) {
       throw Error("Two snapshots must be taken before serializing");
     }
     const fixture: TestCaseFixture = {
@@ -136,8 +178,10 @@ export class TestCase {
       marksToCheck: this.marksToCheck,
       initialState: this.initialState,
       finalState: this.finalState,
+      decorations: this.decorations,
       returnValue: this.returnValue,
       fullTargets: this.fullTargets,
+      thrownError: this.thrownError,
     };
     return serialize(fixture);
   }
@@ -148,7 +192,9 @@ export class TestCase {
       this.context.thatMark,
       this.context.sourceMark,
       excludeFields,
-      this.getMarks()
+      this.extraSnapshotFields,
+      this.getMarks(),
+      { startTimestamp: this.startTimestamp }
     );
   }
 
@@ -159,7 +205,9 @@ export class TestCase {
       this.context.thatMark,
       this.context.sourceMark,
       excludeFields,
-      this.isHatTokenMapTest ? this.getMarks() : undefined
+      this.extraSnapshotFields,
+      this.isHatTokenMapTest ? this.getMarks() : undefined,
+      { startTimestamp: this.startTimestamp }
     );
   }
 

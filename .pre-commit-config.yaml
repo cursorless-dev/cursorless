@@ -1,0 +1,40 @@
+minimum_pre_commit_version: "2.9.0"
+exclude: ^src/vendor/
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.2.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      - id: detect-private-key
+      - id: end-of-file-fixer
+        exclude_types: [svg]
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+        # Trailing whitespace breaks yaml files if you use a multiline string
+        # with a line that has trailing white space. Many of our recorded
+        # tests use strings with trailing white space to represent the final
+        # document contents. For example
+        # src/test/suite/fixtures/recorded/languages/ruby/changeCondition.yml
+        exclude: ^src/test/suite/fixtures/recorded/.*/[^/]*\.yml$
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: "v2.6.2"
+    hooks:
+      - id: prettier
+  - repo: https://github.com/ikamensh/flynt/
+    rev: "0.76"
+    hooks:
+      - id: flynt
+  - repo: https://github.com/Zac-HD/shed
+    rev: 0.10.0
+    hooks:
+      - id: shed
+        # TODO: bump to --py310-plus when Talon moves to Python 3.10.
+        args: [--refactor, --py39-plus]
+        types_or: [python, markdown, rst]

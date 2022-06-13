@@ -1,0 +1,29 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: change argue
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+initialState:
+  documentContents: |-
+    @mixin replace-text($image, $color: red) {
+      text-align: left;
+    }
+  selections:
+    - anchor: {line: 0, character: 34}
+      active: {line: 0, character: 34}
+  marks: {}
+finalState:
+  documentContents: |-
+    @mixin replace-text($image, ) {
+      text-align: left;
+    }
+  selections:
+    - anchor: {line: 0, character: 28}
+      active: {line: 0, character: 28}
+  thatMark:
+    - anchor: {line: 0, character: 28}
+      active: {line: 0, character: 28}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

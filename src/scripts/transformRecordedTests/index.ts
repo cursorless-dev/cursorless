@@ -1,17 +1,13 @@
-import * as path from "path";
-
-import { walkFilesSync } from "../../testUtil/walkSync";
-import { updateSurroundingPairTest } from "./transformations/updateSurroundingPairTest";
-import { FixtureTransformation } from "./types";
-import { upgrade } from "./transformations/upgrade";
+import { getRecordedTestPaths } from "../../test/util/getFixturePaths";
 import { identity } from "./transformations/identity";
+import { upgrade } from "./transformations/upgrade";
 import { transformFile } from "./transformFile";
-import getRecordedTestPaths from "../../test/suite/getRecordedTestPaths";
+import { FixtureTransformation } from "./types";
 
 const AVAILABLE_TRANSFORMATIONS: Record<string, FixtureTransformation> = {
   upgrade,
   autoFormat: identity,
-  custom: updateSurroundingPairTest,
+  // custom: MY_CUSTOM_TRANSFORMER,
 };
 
 async function main(transformationName: string | undefined) {

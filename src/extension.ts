@@ -3,11 +3,18 @@ import graphFactories from "./util/graphFactories";
 import { Graph } from "./typings/Types";
 import makeGraph, { FactoryMap } from "./util/makeGraph";
 import { ThatMark } from "./core/ThatMark";
-import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import isTesting from "./testUtil/isTesting";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 
+/**
+ * Extension entrypoint called by VSCode on Cursorless startup.
+ * - Creates a dependency container {@link Graph} with the components that
+ * implement Cursorless.
+ * - Creates test case recorder {@link TestCaseRecorder} for contributors to
+ * use to record test cases.
+ * - Creates an entrypoint for running commands {@link CommandRunner}.
+ */
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
@@ -22,39 +29,20 @@ export async function activate(context: vscode.ExtensionContext) {
   graph.snippets.init();
   await graph.decorations.init();
   graph.hatTokenMap.init();
+  graph.testCaseRecorder.init();
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
-  const testCaseRecorder = new TestCaseRecorder(context);
-
-  const cursorlessRecordTestCaseDisposable = vscode.commands.registerCommand(
-    "cursorless.recordTestCase",
-    async (isHatTokenMapTest: boolean = false) => {
-      if (testCaseRecorder.active) {
-        vscode.window.showInformationMessage("Stopped recording test cases");
-        testCaseRecorder.stop();
-      } else {
-        if (await testCaseRecorder.start(isHatTokenMapTest)) {
-          vscode.window.showInformationMessage(
-            `Recording test cases for following commands in:\n${testCaseRecorder.fixtureSubdirectory}`
-          );
-        }
-      }
-    }
-  );
 
   // TODO: Do this using the graph once we migrate its dependencies onto the graph
-  const commandRunner = new CommandRunner(
-    graph,
-    thatMark,
-    sourceMark,
-    testCaseRecorder
-  );
+  new CommandRunner(graph, thatMark, sourceMark);
 
   // Disabled for now.
-  // See https://github.com/pokey/cursorless-vscode/issues/320
+  // See https://github.com/cursorless-dev/cursorless/issues/320
   // vscode.workspace.onDidChangeTextDocument(checkForEditsOutsideViewport)
-  function checkForEditsOutsideViewport(event: vscode.TextDocumentChangeEvent) {
+  function _checkForEditsOutsideViewport(
+    event: vscode.TextDocumentChangeEvent
+  ) {
     // TODO: Only activate this code during the course of a cursorless action
     // Can register pre/post command hooks the way we do with test case recorder
     // TODO: Move this thing to a graph component
@@ -94,8 +82,6 @@ export async function activate(context: vscode.ExtensionContext) {
       );
     }
   }
-
-  context.subscriptions.push(cursorlessRecordTestCaseDisposable);
 
   return {
     thatMark,

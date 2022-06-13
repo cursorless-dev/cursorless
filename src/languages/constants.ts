@@ -2,6 +2,7 @@ export const supportedLanguageIds = [
   "c",
   "clojure",
   "cpp",
+  "css",
   "csharp",
   "go",
   "html",
@@ -10,10 +11,15 @@ export const supportedLanguageIds = [
   "javascriptreact",
   "json",
   "jsonc",
+  "markdown",
+  "php",
   "python",
+  "ruby",
   "scala",
+  "scss",
   "typescript",
   "typescriptreact",
+  "xml",
 ] as const;
 
 export type SupportedLanguageId = typeof supportedLanguageIds[number];

@@ -1,0 +1,31 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: chuck argue
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+initialState:
+  documentContents: |-
+    a {
+      clip-path: ellipse(115px 55px at 50% 40%);
+    }
+     
+  selections:
+    - anchor: {line: 1, character: 24}
+      active: {line: 1, character: 24}
+  marks: {}
+finalState:
+  documentContents: |-
+    a {
+      clip-path: ellipse(50% 40%);
+    }
+     
+  selections:
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 21}
+  thatMark:
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 21}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

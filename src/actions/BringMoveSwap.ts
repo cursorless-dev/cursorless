@@ -1,56 +1,39 @@
-import {
-  Action,
-  ActionPreferences,
-  ActionReturnValue,
-  Graph,
-  TypedSelection,
-  Edit,
-} from "../typings/Types";
-import { runForEachEditor } from "../util/targetUtils";
-import update from "immutability-helper";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
-import { performOutsideAdjustment } from "../util/performInsideOutsideAdjustment";
 import { flatten } from "lodash";
-import { Selection, TextEditor, Range, DecorationRangeBehavior } from "vscode";
-
-import {
-  getTextWithPossibleDelimiter,
-  maybeAddDelimiter,
-} from "../util/getTextWithPossibleDelimiter";
+import { DecorationRangeBehavior, Selection, TextEditor } from "vscode";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
+import { Target } from "../typings/target.types";
+import { EditWithRangeUpdater, Graph } from "../typings/Types";
+import { selectionFromRange } from "../util/selectionUtils";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
+import { getContentRange, runForEachEditor } from "../util/targetUtils";
+import { unifyRemovalTargets } from "../util/unifyRanges";
+import { Action, ActionReturnValue } from "./actions.types";
 
 type ActionType = "bring" | "move" | "swap";
 
-interface ExtendedEdit extends Edit {
+interface ExtendedEdit {
+  edit: EditWithRangeUpdater;
   editor: TextEditor;
   isSource: boolean;
-  originalSelection: TypedSelection;
+  originalTarget: Target;
 }
 
 interface MarkEntry {
   editor: TextEditor;
   selection: Selection;
   isSource: boolean;
-  typedSelection: TypedSelection;
+  target: Target;
 }
 
 class BringMoveSwap implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [
-    { insideOutsideType: null },
-    { insideOutsideType: null },
-  ];
-
   constructor(private graph: Graph, private type: ActionType) {
     this.run = this.run.bind(this);
   }
 
-  private broadcastSource(
-    sources: TypedSelection[],
-    destinations: TypedSelection[]
-  ) {
+  private broadcastSource(sources: Target[], destinations: Target[]) {
     if (sources.length === 1 && this.type !== "swap") {
       // If there is only one source target, expand it to same length as
       // destination target
@@ -59,42 +42,45 @@ class BringMoveSwap implements Action {
     return sources;
   }
 
-  private getDecorationStyles() {
+  private getDecorationContext() {
     let sourceStyle;
+    let getSourceRangeCallback;
     if (this.type === "bring") {
       sourceStyle = this.graph.editStyles.referenced;
+      getSourceRangeCallback = getContentRange;
     } else if (this.type === "move") {
       sourceStyle = this.graph.editStyles.pendingDelete;
+      getSourceRangeCallback = getRemovalRange;
     }
     // NB this.type === "swap"
     else {
       sourceStyle = this.graph.editStyles.pendingModification1;
+      getSourceRangeCallback = getContentRange;
     }
     return {
       sourceStyle,
       destinationStyle: this.graph.editStyles.pendingModification0,
+      getSourceRangeCallback,
     };
   }
 
-  private async decorateTargets(
-    sources: TypedSelection[],
-    destinations: TypedSelection[]
-  ) {
-    const decorationTypes = this.getDecorationStyles();
+  private async decorateTargets(sources: Target[], destinations: Target[]) {
+    const decorationContext = this.getDecorationContext();
     await Promise.all([
-      displayPendingEditDecorations(sources, decorationTypes.sourceStyle),
-      displayPendingEditDecorations(
+      this.graph.editStyles.displayPendingEditDecorations(
+        sources,
+        decorationContext.sourceStyle,
+        decorationContext.getSourceRangeCallback
+      ),
+      this.graph.editStyles.displayPendingEditDecorations(
         destinations,
-        decorationTypes.destinationStyle
+        decorationContext.destinationStyle
       ),
     ]);
   }
 
-  private getEdits(
-    sources: TypedSelection[],
-    destinations: TypedSelection[]
-  ): ExtendedEdit[] {
-    const usedSources: TypedSelection[] = [];
+  private getEdits(sources: Target[], destinations: Target[]): ExtendedEdit[] {
+    const usedSources: Target[] = [];
     const results: ExtendedEdit[] = [];
     const zipSources =
       sources.length !== destinations.length &&
@@ -112,31 +98,22 @@ class BringMoveSwap implements Action {
         if (zipSources) {
           text = sources
             .map((source, i) => {
-              let text = source.selection.editor.document.getText(
-                source.selection.selection
-              );
-              const selectionContext = destination.selectionContext
-                .isRawSelection
-                ? source.selectionContext
-                : destination.selectionContext;
-              return i > 0 && selectionContext.containingListDelimiter
-                ? selectionContext.containingListDelimiter + text
-                : text;
+              const text = source.contentText;
+              const delimiter =
+                (destination.isRaw ? null : destination.insertionDelimiter) ??
+                (source.isRaw ? null : source.insertionDelimiter);
+              return i > 0 && delimiter != null ? delimiter + text : text;
             })
             .join("");
-          text = maybeAddDelimiter(text, destination);
         } else {
-          // Get text adjusting for destination position
-          text = getTextWithPossibleDelimiter(source, destination);
+          text = source.contentText;
         }
         // Add destination edit
         results.push({
-          range: destination.selection.selection as Range,
-          text,
-          editor: destination.selection.editor,
-          originalSelection: destination,
+          edit: destination.constructChangeEdit(text),
+          editor: destination.editor,
+          originalTarget: destination,
           isSource: false,
-          isReplace: destination.position === "after",
         });
       } else {
         destination = destinations[0];
@@ -146,32 +123,28 @@ class BringMoveSwap implements Action {
       // Prevent multiple instances of the same expanded source.
       if (!usedSources.includes(source)) {
         usedSources.push(source);
-        let text: string;
-        let range: Range;
-
         if (this.type !== "move") {
-          text = destination.selection.editor.document.getText(
-            destination.selection.selection
-          );
-          range = source.selection.selection;
+          results.push({
+            edit: source.constructChangeEdit(destination.contentText),
+            editor: source.editor,
+            originalTarget: source,
+            isSource: true,
+          });
         }
-        // NB: this.type === "move"
-        else {
-          text = "";
-          source = performOutsideAdjustment(source);
-          range = source.selection.selection;
-        }
-
-        results.push({
-          range,
-          text,
-          editor: source.selection.editor,
-          originalSelection: source,
-          isSource: true,
-          isReplace: false,
-        });
       }
     });
+
+    if (this.type === "move") {
+      // Unify overlapping targets.
+      unifyRemovalTargets(usedSources).forEach((source) => {
+        results.push({
+          edit: source.constructRemovalEdit(),
+          editor: source.editor,
+          originalTarget: source,
+          isSource: true,
+        });
+      });
+    }
 
     return results;
   }
@@ -190,10 +163,10 @@ class BringMoveSwap implements Action {
               ? edits
               : edits.filter(({ isSource }) => !isSource);
 
-          const editSelectionInfos = edits.map(({ originalSelection }) =>
+          const editSelectionInfos = edits.map(({ originalTarget }) =>
             getSelectionInfo(
               editor.document,
-              originalSelection.selection.selection,
+              originalTarget.contentSelection,
               DecorationRangeBehavior.OpenOpen
             )
           );
@@ -210,23 +183,24 @@ class BringMoveSwap implements Action {
             await performEditsAndUpdateFullSelectionInfos(
               this.graph.rangeUpdater,
               editor,
-              filteredEdits,
+              filteredEdits.map(({ edit }) => edit),
               [editSelectionInfos, cursorSelectionInfos]
             );
 
-          editor.selections = cursorSelections;
+          // NB: We set the selections here because we don't trust vscode to
+          // properly move the cursor on a bring. Sometimes it will smear an
+          // empty selection
+          setSelectionsWithoutFocusingEditor(editor, cursorSelections);
 
-          return edits.map((edit, index) => {
+          return edits.map((edit, index): MarkEntry => {
             const selection = updatedEditSelections[index];
+            const range = edit.edit.updateRange(selection);
+            const target = edit.originalTarget;
             return {
               editor,
-              selection,
-              isSource: edit!.isSource,
-              typedSelection: update(edit!.originalSelection, {
-                selection: {
-                  selection: { $set: selection! },
-                },
-              }),
+              selection: selectionFromRange(target.isReversed, range),
+              isSource: edit.isSource,
+              target,
             };
           });
         }
@@ -235,19 +209,21 @@ class BringMoveSwap implements Action {
   }
 
   private async decorateThatMark(thatMark: MarkEntry[]) {
-    const decorationTypes = this.getDecorationStyles();
+    const decorationContext = this.getDecorationContext();
+    const getRange = (target: Target) =>
+      thatMark.find((t) => t.target === target)!.selection;
     return Promise.all([
-      displayPendingEditDecorations(
-        thatMark
-          .filter(({ isSource }) => isSource)
-          .map(({ typedSelection }) => typedSelection),
-        decorationTypes.sourceStyle
+      this.graph.editStyles.displayPendingEditDecorations(
+        thatMark.filter(({ isSource }) => isSource).map(({ target }) => target),
+        decorationContext.sourceStyle,
+        getRange
       ),
-      displayPendingEditDecorations(
+      this.graph.editStyles.displayPendingEditDecorations(
         thatMark
           .filter(({ isSource }) => !isSource)
-          .map(({ typedSelection }) => typedSelection),
-        decorationTypes.destinationStyle
+          .map(({ target }) => target),
+        decorationContext.destinationStyle,
+        getRange
       ),
     ]);
   }
@@ -269,8 +245,8 @@ class BringMoveSwap implements Action {
   }
 
   async run([sources, destinations]: [
-    TypedSelection[],
-    TypedSelection[]
+    Target[],
+    Target[]
   ]): Promise<ActionReturnValue> {
     sources = this.broadcastSource(sources, destinations);
 
@@ -304,4 +280,8 @@ export class Swap extends BringMoveSwap {
   constructor(graph: Graph) {
     super(graph, "swap");
   }
+}
+
+function getRemovalRange(target: Target) {
+  return target.getRemovalRange();
 }

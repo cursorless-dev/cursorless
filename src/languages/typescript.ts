@@ -11,10 +11,9 @@ import {
 import {
   NodeMatcher,
   NodeMatcherAlternative,
-  NodeMatcherValue,
-  ScopeType,
   SelectionWithEditor,
 } from "../typings/Types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import {
   getNodeInternalRange,
   getNodeRange,
@@ -131,20 +130,37 @@ function typeMatcher(): NodeMatcher {
 function valueMatcher() {
   const pFinder = patternFinder(
     "assignment_expression[right]",
+    "augmented_assignment_expression[right]",
     "*[value]",
     "shorthand_property_identifier"
   );
   return matcher(
     (node: SyntaxNode) =>
       node.type === "jsx_attribute" ? node.lastChild : pFinder(node),
-    selectWithLeadingDelimiter("=", ":")
+    selectWithLeadingDelimiter(
+      ":",
+      "=",
+      "+=",
+      "-=",
+      "*=",
+      "/=",
+      "%=",
+      "**=",
+      "&=",
+      "|=",
+      "^=",
+      "<<=",
+      ">>="
+    )
   );
 }
 
 const mapTypes = ["object", "object_pattern"];
 const listTypes = ["array", "array_pattern"];
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   map: mapTypes,
   list: listTypes,
   string: ["string", "template_string"],
@@ -159,7 +175,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   collectionItem: argumentMatcher(...mapTypes, ...listTypes),
   value: cascadingMatcher(
     valueMatcher(),
-    patternMatcher("return_statement.~return!")
+    patternMatcher("return_statement.~return!"),
+    patternMatcher("yield_expression.~yield!")
   ),
   ifStatement: "if_statement",
   anonymousFunction: ["arrow_function", "function"],
@@ -167,6 +184,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "*[name]",
     "optional_parameter.identifier!",
     "required_parameter.identifier!",
+    "augmented_assignment_expression[left]",
+    "assignment_expression[left]",
   ],
   comment: "comment",
   regularExpression: "regex",
@@ -181,6 +200,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   functionName: [
     // function
     "function_declaration[name]",
+    // generator function
+    "generator_function_declaration[name]",
     // export default function
     "function[name]",
     // class method
@@ -217,6 +238,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "assignment_expression.function",
     // foo = () => { }
     "assignment_expression.arrow_function",
+    // foo = function*() { }
+    "generator_function_declaration",
   ],
   type: cascadingMatcher(
     // Typed parameters, properties, and functions
@@ -241,7 +264,7 @@ export const patternMatchers = createPatternMatchers(nodeMatchers);
 
 export function stringTextFragmentExtractor(
   node: SyntaxNode,
-  selection: SelectionWithEditor
+  _selection: SelectionWithEditor
 ) {
   if (node.type === "string_fragment" || node.type === "regex_pattern") {
     return getNodeRange(node);

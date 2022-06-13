@@ -1,105 +1,67 @@
-import { flatten, zip } from "lodash";
-import { TextEditor } from "vscode";
-import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import {
-  Action,
-  ActionPreferences,
-  ActionReturnValue,
-  Graph,
-  SelectionWithContext,
-  TypedSelection,
-} from "../typings/Types";
-import { repeat } from "../util/array";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
-import { runForEachEditor } from "../util/targetUtils";
+import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
+import { weakContainingSurroundingPairStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
+import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Rewrap implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [
-    {
-      insideOutsideType: "inside",
-      modifier: {
-        type: "surroundingPair",
-        delimiter: "any",
-        delimiterInclusion: undefined,
-      },
-    },
-  ];
+  getFinalStages = () => [weakContainingSurroundingPairStage];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
 
   async run(
-    [targets]: [TypedSelection[]],
+    [targets]: [Target[]],
     left: string,
     right: string
   ): Promise<ActionReturnValue> {
-    const targetInfos = targets.flatMap((target) => {
-      const boundary = target.selectionContext.boundary;
+    const boundaryTargets = targets.flatMap((target) => {
+      const boundary = target.getBoundaryStrict();
 
-      if (boundary == null || boundary.length !== 2) {
+      if (boundary.length !== 2) {
         throw Error("Target must have an opening and closing delimiter");
       }
 
-      return {
-        editor: target.selection.editor,
-        boundary: boundary.map((edge) =>
-          constructSimpleTypedSelection(target.selection.editor, edge)
-        ),
-        targetSelection: target.selection.selection,
-      };
+      return boundary;
     });
 
-    await displayPendingEditDecorations(
-      targetInfos.flatMap(({ boundary }) => boundary),
+    await this.graph.editStyles.displayPendingEditDecorations(
+      boundaryTargets,
       this.graph.editStyles.pendingModification0
     );
 
-    const thatMark = flatten(
-      await runForEachEditor(
-        targetInfos,
-        (targetInfo) => targetInfo.editor,
-        async (editor, targetInfos) => {
-          const edits = targetInfos.flatMap((targetInfo) =>
-            zip(targetInfo.boundary, [left, right]).map(([target, text]) => ({
-              editor,
-              range: target!.selection.selection,
-              text: text!,
-            }))
+    const results = await runOnTargetsForEachEditor(
+      boundaryTargets,
+      async (editor, boundaryTargets) => {
+        const edits = boundaryTargets.map((target, i) => ({
+          editor,
+          range: target.contentRange,
+          text: i % 2 === 0 ? left : right,
+        }));
+
+        const [updatedSourceRanges, updatedThatRanges] =
+          await performEditsAndUpdateRanges(
+            this.graph.rangeUpdater,
+            editor,
+            edits,
+            [
+              targets.map((target) => target.thatTarget.contentRange),
+              targets.map((target) => target.contentRange),
+            ]
           );
 
-          const [updatedTargetSelections] =
-            await performEditsAndUpdateSelections(
-              this.graph.rangeUpdater,
-              editor,
-              edits,
-              [targetInfos.map((targetInfo) => targetInfo.targetSelection)]
-            );
-
-          return updatedTargetSelections.map((selection) => ({
-            editor,
-            selection,
-          }));
-        }
-      )
+        return {
+          sourceMark: createThatMark(targets, updatedSourceRanges),
+          thatMark: createThatMark(targets, updatedThatRanges),
+        };
+      }
     );
 
-    return { thatMark };
+    return {
+      sourceMark: results.flatMap(({ sourceMark }) => sourceMark),
+      thatMark: results.flatMap(({ thatMark }) => thatMark),
+    };
   }
-}
-
-function constructSimpleTypedSelection(
-  editor: TextEditor,
-  selection: SelectionWithContext
-): TypedSelection {
-  return {
-    selection: {
-      selection: selection.selection,
-      editor,
-    },
-    selectionType: "token",
-    selectionContext: selection.context,
-    insideOutsideType: null,
-    position: "contents",
-  };
 }

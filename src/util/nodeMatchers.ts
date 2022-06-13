@@ -4,9 +4,9 @@ import {
   NodeFinder,
   SelectionExtractor,
   NodeMatcherAlternative,
-  ScopeType,
   SelectionWithEditor,
 } from "../typings/Types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import {
   simpleSelectionExtractor,
   argumentSelectionExtractor,
@@ -19,6 +19,7 @@ import {
   patternFinder,
   argumentNodeFinder,
   chainedNodeFinder,
+  ancestorChainNodeFinder,
 } from "./nodeFinders";
 
 export function matcher(
@@ -66,6 +67,34 @@ export function chainedMatcher(
       },
     ];
   };
+}
+
+/**
+ * Given a sequence of node finders, returns a new node matcher which applies
+ * them in reverse, walking up the ancestor chain from `node`.
+ * Returns `null` if any finder in the chain returns null.  For example:
+ *
+ * ancestorChainNodeFinder(0, patternFinder("foo", "bar"), patternFinder("bongo"))
+ *
+ * is equivalent to:
+ *
+ * patternFinder("foo.bongo", "bar.bongo")
+ *
+ * @param nodeFinders A list of node finders to apply in sequence
+ * @param nodeToReturn The index of the node from the sequence to return.  For
+ * example, `0` returns the top ancestor in the chain
+ * @param selector The selector to apply to the final node
+ * @returns A node finder which is a chain of the input node finders
+ */
+export function ancestorChainNodeMatcher(
+  nodeFinders: NodeFinder[],
+  nodeToReturn: number = 0,
+  selector: SelectionExtractor = simpleSelectionExtractor
+) {
+  return matcher(
+    ancestorChainNodeFinder(nodeToReturn, ...nodeFinders),
+    selector
+  );
 }
 
 export function typeMatcher(...typeNames: string[]) {
@@ -140,16 +169,16 @@ export function cascadingMatcher(...matchers: NodeMatcher[]): NodeMatcher {
 }
 
 export const notSupported: NodeMatcher = (
-  selection: SelectionWithEditor,
-  node: SyntaxNode
+  _selection: SelectionWithEditor,
+  _node: SyntaxNode
 ) => {
   throw new Error("Node type not supported");
 };
 
 export function createPatternMatchers(
-  nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>>
-): Record<ScopeType, NodeMatcher> {
-  Object.keys(nodeMatchers).forEach((scopeType: ScopeType) => {
+  nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>>
+): Record<SimpleScopeTypeType, NodeMatcher> {
+  Object.keys(nodeMatchers).forEach((scopeType: SimpleScopeTypeType) => {
     let matcher = nodeMatchers[scopeType];
     if (Array.isArray(matcher)) {
       nodeMatchers[scopeType] = patternMatcher(...matcher);
@@ -157,5 +186,5 @@ export function createPatternMatchers(
       nodeMatchers[scopeType] = patternMatcher(matcher);
     }
   });
-  return nodeMatchers as Record<ScopeType, NodeMatcher>;
+  return nodeMatchers as Record<SimpleScopeTypeType, NodeMatcher>;
 }

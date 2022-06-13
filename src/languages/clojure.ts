@@ -5,14 +5,11 @@ import {
   matcher,
   patternMatcher,
 } from "../util/nodeMatchers";
-import {
-  ScopeType,
-  NodeMatcherAlternative,
-  NodeFinder,
-} from "../typings/Types";
+import { NodeMatcherAlternative, NodeFinder } from "../typings/Types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { SyntaxNode } from "web-tree-sitter";
 import { delimitedSelector } from "../util/nodeSelectors";
-import { flow, identity } from "lodash";
+import { identity } from "lodash";
 import { getChildNodesForFieldName } from "../util/treeSitterUtils";
 import { patternFinder } from "../util/nodeFinders";
 
@@ -133,7 +130,9 @@ const ifStatementFinder = functionNameBasedFinder(
 
 const ifStatementMatcher = matcher(ifStatementFinder);
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   comment: "comment",
   map: "map_lit",
 

@@ -1,0 +1,29 @@
+languageId: css
+command:
+  version: 1
+  spokenForm: chuck value
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+initialState:
+  documentContents: |
+    a { 
+      margin-top: 150px !important; 
+    }
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
+  marks: {}
+finalState:
+  documentContents: |
+    a { 
+      margin-top: ; 
+    }
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
+  thatMark:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]

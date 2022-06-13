@@ -2,7 +2,7 @@ import * as assert from "assert";
 import * as vscode from "vscode";
 import * as sinon from "sinon";
 import { getCursorlessApi } from "../../util/getExtensionApi";
-import { openNewEditor, openNewNotebookEditor } from "../openNewEditor";
+import { openNewNotebookEditor } from "../openNewEditor";
 import sleep from "../../util/sleep";
 
 // Check that setSelection is able to focus the correct cell

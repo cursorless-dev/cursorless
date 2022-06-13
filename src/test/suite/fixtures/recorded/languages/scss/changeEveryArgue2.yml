@@ -1,0 +1,33 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: change every argue
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+initialState:
+  documentContents: |-
+    div {
+      background: repeating-linear-gradient(red, orange 50px);
+    }
+  selections:
+    - anchor: {line: 1, character: 50}
+      active: {line: 1, character: 50}
+  marks: {}
+finalState:
+  documentContents: |-
+    div {
+      background: repeating-linear-gradient(, );
+    }
+  selections:
+    - anchor: {line: 1, character: 40}
+      active: {line: 1, character: 40}
+    - anchor: {line: 1, character: 42}
+      active: {line: 1, character: 42}
+  thatMark:
+    - anchor: {line: 1, character: 40}
+      active: {line: 1, character: 40}
+    - anchor: {line: 1, character: 42}
+      active: {line: 1, character: 42}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}]

@@ -1,0 +1,34 @@
+languageId: plaintext
+command:
+  spokenForm: drop this
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: false
+  action: {name: insertEmptyLineBefore}
+initialState:
+  documentContents: |2-
+        hello
+        there
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+finalState:
+  documentContents: |2-
+        hello
+
+        there
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  thatMark:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]
+decorations:
+  - name: justAddedBackground
+    type: line
+    start: {line: 1, character: 0}
+    end: {line: 1, character: 0}

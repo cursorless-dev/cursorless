@@ -1,0 +1,113 @@
+languageId: java
+command:
+  version: 1
+  spokenForm: chuck value
+  action: remove
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+initialState:
+  documentContents: |
+    public class MyClass {
+        public static void main(String[] args) {
+            a = 1;
+            a += 1;
+            a -= 1;
+            a *= 1;
+            a /= 1;
+            a %= 1;
+            a &= 1;
+            a |= 1;
+            a ^= 1;
+            a <<= 1;
+            a >>= 1;
+        }
+    }
+  selections:
+    - anchor: {line: 11, character: 14}
+      active: {line: 11, character: 15}
+    - anchor: {line: 3, character: 13}
+      active: {line: 3, character: 14}
+    - anchor: {line: 4, character: 13}
+      active: {line: 4, character: 14}
+    - anchor: {line: 5, character: 13}
+      active: {line: 5, character: 14}
+    - anchor: {line: 6, character: 13}
+      active: {line: 6, character: 14}
+    - anchor: {line: 7, character: 13}
+      active: {line: 7, character: 14}
+    - anchor: {line: 8, character: 13}
+      active: {line: 8, character: 14}
+    - anchor: {line: 9, character: 13}
+      active: {line: 9, character: 14}
+    - anchor: {line: 10, character: 13}
+      active: {line: 10, character: 14}
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 13}
+    - anchor: {line: 12, character: 14}
+      active: {line: 12, character: 15}
+  marks: {}
+finalState:
+  documentContents: |
+    public class MyClass {
+        public static void main(String[] args) {
+            a;
+            a;
+            a;
+            a;
+            a;
+            a;
+            a;
+            a;
+            a;
+            a;
+            a;
+        }
+    }
+  selections:
+    - anchor: {line: 11, character: 9}
+      active: {line: 11, character: 9}
+    - anchor: {line: 3, character: 9}
+      active: {line: 3, character: 9}
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}
+    - anchor: {line: 5, character: 9}
+      active: {line: 5, character: 9}
+    - anchor: {line: 6, character: 9}
+      active: {line: 6, character: 9}
+    - anchor: {line: 7, character: 9}
+      active: {line: 7, character: 9}
+    - anchor: {line: 8, character: 9}
+      active: {line: 8, character: 9}
+    - anchor: {line: 9, character: 9}
+      active: {line: 9, character: 9}
+    - anchor: {line: 10, character: 9}
+      active: {line: 10, character: 9}
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
+    - anchor: {line: 12, character: 9}
+      active: {line: 12, character: 9}
+  thatMark:
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
+    - anchor: {line: 3, character: 9}
+      active: {line: 3, character: 9}
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}
+    - anchor: {line: 5, character: 9}
+      active: {line: 5, character: 9}
+    - anchor: {line: 6, character: 9}
+      active: {line: 6, character: 9}
+    - anchor: {line: 7, character: 9}
+      active: {line: 7, character: 9}
+    - anchor: {line: 8, character: 9}
+      active: {line: 8, character: 9}
+    - anchor: {line: 9, character: 9}
+      active: {line: 9, character: 9}
+    - anchor: {line: 10, character: 9}
+      active: {line: 10, character: 9}
+    - anchor: {line: 11, character: 9}
+      active: {line: 11, character: 9}
+    - anchor: {line: 12, character: 9}
+      active: {line: 12, character: 9}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]

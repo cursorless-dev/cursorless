@@ -3,11 +3,15 @@ import {
   cascadingMatcher,
   chainedMatcher,
   createPatternMatchers,
+  leadingMatcher,
   matcher,
   trailingMatcher,
   typeMatcher,
+  conditionMatcher,
+  patternMatcher,
 } from "../util/nodeMatchers";
-import { NodeMatcherAlternative, ScopeType } from "../typings/Types";
+import { NodeMatcherAlternative } from "../typings/Types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { nodeFinder, typedNodeFinder } from "../util/nodeFinders";
 import { delimitedSelector } from "../util/nodeSelectors";
 
@@ -175,7 +179,13 @@ const getMapMatchers = {
     typedNodeFinder("assignment_expression"),
     (node: SyntaxNode) => node.childForFieldName("left"),
   ]),
-  value: matcher((node: SyntaxNode) => node.childForFieldName("right")),
+  value: leadingMatcher(
+    [
+      "variable_declaration?.variable_declarator[1][0]!",
+      "assignment_expression[right]",
+    ],
+    ["assignment_operator"]
+  ),
   list: cascadingMatcher(
     chainedMatcher([
       typedNodeFinder(...LIST_TYPES_WITH_INITIALIZERS_AS_CHILDREN),
@@ -206,11 +216,17 @@ const getMapMatchers = {
   string: typeMatcher("string_literal"),
 };
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   ...getMapMatchers,
   ifStatement: "if_statement",
   class: "class_declaration",
   className: "class_declaration[name]",
+  condition: cascadingMatcher(
+    conditionMatcher("*[condition]"),
+    patternMatcher("while_statement[0]")
+  ),
   statement: STATEMENT_TYPES,
   anonymousFunction: "lambda_expression",
   functionCall: "invocation_expression",
@@ -226,7 +242,11 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   comment: "comment",
   regularExpression: "regex",
   type: trailingMatcher(["*[type]"]),
-  name: ["*[name]", "identifier"],
+  name: [
+    "variable_declaration?.variable_declarator.identifier!",
+    "assignment_expression[left]",
+    "*[name]",
+  ],
 };
 
 export default createPatternMatchers(nodeMatchers);

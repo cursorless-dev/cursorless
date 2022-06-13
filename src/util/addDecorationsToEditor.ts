@@ -20,15 +20,17 @@ export function addDecorationsToEditors(
 ) {
   hatTokenMap.clear();
 
-  var editors: vscode.TextEditor[];
+  var editors: readonly vscode.TextEditor[];
 
   if (vscode.window.activeTextEditor == null) {
     editors = vscode.window.visibleTextEditors;
   } else {
-    editors = vscode.window.visibleTextEditors.filter(
-      (editor) => editor !== vscode.window.activeTextEditor
-    );
-    editors.unshift(vscode.window.activeTextEditor);
+    editors = [
+      vscode.window.activeTextEditor,
+      ...vscode.window.visibleTextEditors.filter(
+        (editor) => editor !== vscode.window.activeTextEditor
+      ),
+    ];
   }
 
   const tokens = concat(

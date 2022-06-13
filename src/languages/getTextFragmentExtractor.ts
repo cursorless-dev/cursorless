@@ -1,8 +1,11 @@
 import { SyntaxNode } from "web-tree-sitter";
 import { SelectionWithEditor } from "../typings/Types";
-import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";
-import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } from "./typescript";
 import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
+import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";
+import { stringTextFragmentExtractor as phpStringTextFragmentExtractor } from "./php";
+import { stringTextFragmentExtractor as rubyStringTextFragmentExtractor } from "./ruby";
+import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } from "./typescript";
+import { stringTextFragmentExtractor as scssStringTextFragmentExtractor } from "./scss";
 import { UnsupportedLanguageError } from "../errors";
 import { Range } from "vscode";
 import { SupportedLanguageId } from "./constants";
@@ -112,9 +115,15 @@ export default function getTextFragmentExtractor(
   return extractor;
 }
 
+// NB: For now when we want use the entire file as a text fragment we just
+// return null so that the extractor uses it. In the future we should probably
+// make a fragment extractor which just pulls out the whole document itself
+type FullDocumentTextFragmentExtractor = null;
+const fullDocumentTextFragmentExtractor = null;
+
 const textFragmentExtractors: Record<
   SupportedLanguageId,
-  TextFragmentExtractor
+  TextFragmentExtractor | FullDocumentTextFragmentExtractor
 > = {
   c: constructDefaultTextFragmentExtractor("c"),
   clojure: constructDefaultTextFragmentExtractor(
@@ -123,6 +132,10 @@ const textFragmentExtractors: Record<
   ),
   cpp: constructDefaultTextFragmentExtractor("cpp"),
   csharp: constructDefaultTextFragmentExtractor("csharp"),
+  css: constructDefaultTextFragmentExtractor(
+    "css",
+    scssStringTextFragmentExtractor
+  ),
   go: constructDefaultTextFragmentExtractor("go"),
   html: constructDefaultTextFragmentExtractor(
     "html",
@@ -148,10 +161,23 @@ const textFragmentExtractors: Record<
     "json",
     jsonStringTextFragmentExtractor
   ),
+  markdown: fullDocumentTextFragmentExtractor,
+  php: constructDefaultTextFragmentExtractor(
+    "php",
+    phpStringTextFragmentExtractor
+  ),
   python: constructDefaultTextFragmentExtractor("python"),
+  ruby: constructDefaultTextFragmentExtractor(
+    "ruby",
+    rubyStringTextFragmentExtractor
+  ),
   scala: constructDefaultTextFragmentExtractor(
     "scala",
     constructHackedStringTextFragmentExtractor("scala")
+  ),
+  scss: constructDefaultTextFragmentExtractor(
+    "scss",
+    scssStringTextFragmentExtractor
   ),
   typescript: constructDefaultTextFragmentExtractor(
     "typescript",
@@ -160,5 +186,9 @@ const textFragmentExtractors: Record<
   typescriptreact: constructDefaultTextFragmentExtractor(
     "typescriptreact",
     typescriptStringTextFragmentExtractor
+  ),
+  xml: constructDefaultTextFragmentExtractor(
+    "xml",
+    htmlStringTextFragmentExtractor
   ),
 };

@@ -4,9 +4,9 @@ import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import {
   NodeMatcher,
   NodeMatcherValue,
-  ScopeType,
   SelectionWithEditor,
 } from "../typings/Types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import cpp from "./cpp";
 import clojure from "./clojure";
 import csharp from "./csharp";
@@ -14,15 +14,19 @@ import { patternMatchers as json } from "./json";
 import { patternMatchers as typescript } from "./typescript";
 import java from "./java";
 import { patternMatchers as html } from "./html";
+import php from "./php";
 import python from "./python";
+import markdown from "./markdown";
 import scala from "./scala";
+import { patternMatchers as scss } from "./scss";
 import go from "./go";
+import { patternMatchers as ruby } from "./ruby";
 import { UnsupportedLanguageError } from "../errors";
 import { SupportedLanguageId } from "./constants";
 
 export function getNodeMatcher(
   languageId: string,
-  scopeType: ScopeType,
+  scopeTypeType: SimpleScopeTypeType,
   includeSiblings: boolean
 ): NodeMatcher {
   const matchers = languageMatchers[languageId as SupportedLanguageId];
@@ -31,7 +35,7 @@ export function getNodeMatcher(
     throw new UnsupportedLanguageError(languageId);
   }
 
-  const matcher = matchers[scopeType];
+  const matcher = matchers[scopeTypeType];
 
   if (matcher == null) {
     return notSupported;
@@ -46,10 +50,11 @@ export function getNodeMatcher(
 
 const languageMatchers: Record<
   SupportedLanguageId,
-  Record<ScopeType, NodeMatcher>
+  Record<SimpleScopeTypeType, NodeMatcher>
 > = {
   c: cpp,
   cpp,
+  css: scss,
   csharp,
   clojure,
   go,
@@ -59,10 +64,15 @@ const languageMatchers: Record<
   javascriptreact: typescript,
   json,
   jsonc: json,
+  markdown,
+  php,
   python,
+  ruby,
   scala,
+  scss,
   typescript,
   typescriptreact: typescript,
+  xml: html,
 };
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {

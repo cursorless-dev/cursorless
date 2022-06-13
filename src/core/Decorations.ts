@@ -11,7 +11,7 @@ import {
 } from "./constants";
 import { readFileSync } from "fs";
 import FontMeasurements from "./FontMeasurements";
-import { pull, sortBy } from "lodash";
+import { pull, sortBy, filter } from "lodash";
 import getHatThemeColors from "./getHatThemeColors";
 import {
   IndividualHatAdjustmentMap,
@@ -185,6 +185,9 @@ export default class Decorations {
     const colorPenalties = vscode.workspace
       .getConfiguration("cursorless.hatPenalties")
       .get<Record<HatColor, number>>("colors")!;
+    const maxPenalty = vscode.workspace
+      .getConfiguration("cursorless")
+      .get<number>("maximumHatStylePenalty")!;
 
     shapeEnablement.default = true;
     colorEnablement.default = true;
@@ -213,6 +216,19 @@ export default class Decorations {
       ),
     } as Record<HatStyleName, HatStyle>;
 
+    if (maxPenalty > 0) {
+      this.hatStyleMap = {
+        ...Object.fromEntries(
+          filter(
+            Object.entries(this.hatStyleMap),
+            ([_, hatStyle]) =>
+              colorPenalties[hatStyle.color] + shapePenalties[hatStyle.shape] <=
+              maxPenalty
+          )
+        ),
+      } as Record<HatStyleName, HatStyle>;
+    }
+
     this.hatStyleNames = sortBy(
       Object.entries(this.hatStyleMap),
       ([_, hatStyle]) =>
@@ -240,7 +256,7 @@ export default class Decorations {
   /**
    * Creates an SVG from the hat SVG that pads, offsets and scales it to end up
    * in the right size / place relative to the character it will be placed over.
-   * [This image](../images/svg-calculations.png) may or may not be helpful.
+   * [This image](../../images/svg-calculations.png) may or may not be helpful.
    *
    * @param fontMeasurements Info about the user's font
    * @param shape The hat shape to process

@@ -1,12 +1,7 @@
 import { range } from "lodash";
-import {
-  commands,
-  Selection,
-  TextEditor,
-  ViewColumn,
-  window,
-} from "vscode";
+import { commands, Selection, TextEditor, ViewColumn, window } from "vscode";
 import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
+import uniqDeep from "./uniqDeep";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",
@@ -27,7 +22,7 @@ export async function setSelectionsAndFocusEditor(
   selections: Selection[],
   revealRange: boolean = true
 ) {
-  editor.selections = selections;
+  setSelectionsWithoutFocusingEditor(editor, selections);
 
   if (revealRange) {
     editor.revealRange(editor.selection);
@@ -36,6 +31,13 @@ export async function setSelectionsAndFocusEditor(
   // NB: We focus the editor after setting the selection because otherwise you see
   // an intermediate state where the old selection persists
   await focusEditor(editor);
+}
+
+export function setSelectionsWithoutFocusingEditor(
+  editor: TextEditor,
+  selections: Selection[]
+) {
+  editor.selections = uniqDeep(selections);
 }
 
 export async function focusEditor(editor: TextEditor) {
@@ -84,7 +86,7 @@ export async function focusEditor(editor: TextEditor) {
 
     // This is a hack. We just repeatedly issued the command to move upwards or
     // downwards a cell to get to the right cell
-    for (const index of range(Math.abs(cellOffset))) {
+    for (const _ of range(Math.abs(cellOffset))) {
       await commands.executeCommand(command);
     }
   }

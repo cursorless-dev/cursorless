@@ -1,0 +1,29 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: change round
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: surroundingPair, delimiter: parentheses}
+initialState:
+  documentContents: |-
+    a {
+      font-family: "hello (world)";
+    }
+  selections:
+    - anchor: {line: 1, character: 25}
+      active: {line: 1, character: 25}
+  marks: {}
+finalState:
+  documentContents: |-
+    a {
+      font-family: "hello ";
+    }
+  selections:
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}
+  thatMark:
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: parentheses}, isImplicit: false}]

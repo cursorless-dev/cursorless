@@ -1,0 +1,29 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: change name
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+initialState:
+  documentContents: |
+    a {
+      margin: 10px 10px 10px 10px;
+    }
+  selections:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
+  marks: {}
+finalState:
+  documentContents: |
+    a {
+      : 10px 10px 10px 10px;
+    }
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+  thatMark:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: name, includeSiblings: false}, isImplicit: false}]
