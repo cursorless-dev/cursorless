@@ -7,6 +7,7 @@ import {
   downloadAndUnzipVSCode,
 } from "vscode-test";
 import { extensionDependencies } from "./extensionDependencies";
+import { env } from "process";
 
 async function main() {
   try {
@@ -18,7 +19,8 @@ async function main() {
     // Passed to --extensionTestsPath
     const extensionTestsPath = path.resolve(__dirname, "./suite/index");
 
-    const vscodeExecutablePath = await downloadAndUnzipVSCode();
+    const vscodeVersion = env.VSCODE_VERSION ?? "stable";
+    const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     const cliPath =
       resolveCliPathFromVSCodeExecutablePath(vscodeExecutablePath);
 
