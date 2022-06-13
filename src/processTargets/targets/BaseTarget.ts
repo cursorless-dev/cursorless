@@ -159,7 +159,10 @@ export default abstract class BaseTarget implements Target {
   isEqual(target: Target): boolean {
     return (
       target instanceof BaseTarget &&
-      isEqual(this.getCloneParameters(), target.getCloneParameters())
+      isEqual(
+        { ...this.getCloneParameters(), previousTarget: null },
+        { ...target.getCloneParameters(), previousTarget: null }
+      )
     );
   }
 

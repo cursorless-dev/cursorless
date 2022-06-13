@@ -5,7 +5,7 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - {type: head}
+        - {type: extendThroughStartOf}
         - type: containingScope
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
@@ -29,4 +29,4 @@ finalState:
   thatMark:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: head}, {type: containingScope, scopeType: {type: namedFunction}}]}]
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: extendThroughStartOf}, {type: containingScope, scopeType: {type: namedFunction}}]}]
