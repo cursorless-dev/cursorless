@@ -18,7 +18,7 @@ jobs:
         vscode_version: [stable]
         include:
           - os: ubuntu-latest
-            vscode_version: 1.58.1
+            vscode_version: 1.61.0
     runs-on: ${{ matrix.os }}
     env:
       VSCODE_VERSION: ${{ matrix.vscode_version }}
