@@ -59,8 +59,8 @@ const tests: TestCase[] = [
   ["aåäöb", ["aåäöb"]],
   // Windows filepath
   [
-    "tests\\recorded\\typescript",
-    ["tests", "\\", "recorded", "\\", "typescript"],
+    "tests\\recorded\\typescript\\name",
+    ["tests", "\\", "recorded", "\\", "typescript", "\\", "name"],
   ],
 ];
 
