@@ -19,6 +19,9 @@ async function main() {
     // Passed to --extensionTestsPath
     const extensionTestsPath = path.resolve(__dirname, "./suite/index");
 
+    // NB: We include the exact version here instead of in `test.yml` so that
+    // we don't have to update the branch protection rules every time we bump
+    // the legacy VSCode version.
     const vscodeVersion = env.VSCODE_VERSION === "legacy" ? "1.66.0" : "stable";
     const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     const cliPath =
