@@ -19,7 +19,7 @@ async function main() {
     // Passed to --extensionTestsPath
     const extensionTestsPath = path.resolve(__dirname, "./suite/index");
 
-    const vscodeVersion = env.VSCODE_VERSION ?? "stable";
+    const vscodeVersion = env.VSCODE_VERSION === "legacy" ? "1.66.0" : "stable";
     const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     const cliPath =
       resolveCliPathFromVSCodeExecutablePath(vscodeExecutablePath);
