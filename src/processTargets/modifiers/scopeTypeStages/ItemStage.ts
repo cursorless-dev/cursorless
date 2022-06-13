@@ -1,10 +1,10 @@
 import { Range, TextEditor } from "vscode";
+import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
   SimpleScopeTypeType,
-  Target,
-} from "../../../typings/target.types";
+} from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
@@ -229,6 +229,7 @@ interface Token {
 const delimiter = ",";
 
 // Mapping between opening and closing delimiters
+/* eslint-disable @typescript-eslint/naming-convention */
 const delimiters: { [key: string]: string } = {
   "(": ")",
   "{": "}",
@@ -237,3 +238,4 @@ const delimiters: { [key: string]: string } = {
   '"': '"',
   "'": "'",
 };
+/* eslint-enable @typescript-eslint/naming-convention */
