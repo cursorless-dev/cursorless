@@ -57,6 +57,11 @@ const tests: TestCase[] = [
   ["#111111", ["#", "111111"]],
   // Unicode characters
   ["aåäöb", ["aåäöb"]],
+  // Windows filepath
+  [
+    "tests\\recorded\\typescript",
+    ["tests", "\\", "recorded", "\\", "typescript"],
+  ],
 ];
 
 suite("tokenizer", () => {
