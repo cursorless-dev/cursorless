@@ -79,11 +79,6 @@ async function focusNotebookCell(editor: TextEditor) {
     ]
   );
 
-  const activeTextEditor = window.activeTextEditor;
-  if (activeTextEditor == null) {
-    throw new Error("No active text editor");
-  }
-
   const desiredEditorIndex = getCellIndex(
     desiredNotebookDocument,
     editor.document
