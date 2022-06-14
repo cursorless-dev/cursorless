@@ -1,12 +1,18 @@
 import { range } from "lodash";
+import * as semver from "semver";
 import {
   commands,
   NotebookDocument,
   TextDocument,
   TextEditor,
+  version,
   window,
 } from "vscode";
 import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
+
+export function isVscodeLegacyNotebookVersion() {
+  return semver.lt(version, "1.68.0");
+}
 
 export async function focusNotebookCellLegacy(editor: TextEditor) {
   const activeTextEditor = window.activeTextEditor;

@@ -1,12 +1,8 @@
-import { lt } from "semver";
+import { NotebookCell, NotebookDocument, TextDocument, window } from "vscode";
 import {
-  NotebookCell,
-  NotebookDocument,
-  TextDocument,
-  version,
-  window,
-} from "vscode";
-import { getNotebookFromCellDocumentLegacy } from "./focusNotebookCellLegacy";
+  getNotebookFromCellDocumentLegacy,
+  isVscodeLegacyNotebookVersion,
+} from "./notebookLegacy";
 
 /**
  * Given a document corresponding to a single cell, retrieve the notebook
@@ -16,7 +12,7 @@ import { getNotebookFromCellDocumentLegacy } from "./focusNotebookCellLegacy";
  * given cell
  */
 export function getNotebookFromCellDocument(document: TextDocument) {
-  if (lt(version, "1.68.0")) {
+  if (isVscodeLegacyNotebookVersion()) {
     return getNotebookFromCellDocumentLegacy(document);
   }
 

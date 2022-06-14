@@ -1,15 +1,15 @@
-import { lt } from "semver";
 import {
   commands,
   NotebookDocument,
   Selection,
   TextEditor,
-  version,
   ViewColumn,
-  window,
 } from "vscode";
-import { focusNotebookCellLegacy } from "./focusNotebookCellLegacy";
 import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
+import {
+  focusNotebookCellLegacy,
+  isVscodeLegacyNotebookVersion,
+} from "./notebookLegacy";
 import uniqDeep from "./uniqDeep";
 
 const columnFocusCommands = {
@@ -56,7 +56,7 @@ export async function focusEditor(editor: TextEditor) {
     // If the view column is null we see if it's a notebook and try to see if we
     // can just move around in the notebook to focus the correct editor
 
-    if (lt(version, "1.68.0")) {
+    if (isVscodeLegacyNotebookVersion()) {
       return await focusNotebookCellLegacy(editor);
     }
 
