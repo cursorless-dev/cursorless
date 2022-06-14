@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { ActionType } from "../../actions/actions.types";
-import { ActionableError } from "../../errors";
+import { OutdatedExtensionError } from "../../errors";
 import processTargets from "../../processTargets";
 import { Graph, ProcessedTargetsContext } from "../../typings/Types";
 import { isString } from "../../util/type";
@@ -144,8 +144,8 @@ export default class CommandRunner {
     } catch (e) {
       await this.graph.testCaseRecorder.commandErrorHook(e as Error);
       const err = e as Error;
-      if ((err as Error).name === "ActionableError") {
-        (err as ActionableError).showErrorMessage();
+      if (err instanceof OutdatedExtensionError) {
+        this.showUpdateExtensionErrorMessage(err);
       } else {
         vscode.window.showErrorMessage(err.message);
       }
@@ -153,6 +153,21 @@ export default class CommandRunner {
       console.error(err.stack);
       throw err;
     }
+  }
+
+  async showUpdateExtensionErrorMessage(err: OutdatedExtensionError) {
+    const item = await vscode.window.showErrorMessage(
+      err.message,
+      "Check for updates"
+    );
+
+    if (item == null) {
+      return;
+    }
+
+    await vscode.commands.executeCommand(
+      "workbench.extensions.action.checkForUpdates"
+    );
   }
 
   private runCommandBackwardCompatible(
