@@ -18,7 +18,8 @@
 		"vscode": "^1.61.0"
 	},
 	"extensionKind": [
-		"workspace"
+		"workspace",
+		"ui"
 	],
 	"categories": [
 		"Other"
@@ -522,7 +523,7 @@
 		"@types/node": "^16.11.3",
 		"@types/semver": "^7.3.9",
 		"@types/sinon": "^10.0.2",
-		"@types/vscode": "^1.61.0",
+		"@types/vscode": "~1.61.0",
 		"@typescript-eslint/eslint-plugin": "^5.20.0",
 		"@typescript-eslint/parser": "^5.20.0",
 		"esbuild": "^0.11.12",
@@ -534,11 +535,11 @@
 		"mocha": "^8.1.3",
 		"npm-license-crawler": "^0.2.1",
 		"prettier": "2.6.2",
-		"semver": "^7.3.5",
+		"semver": "^7.3.7",
 		"sinon": "^11.1.1",
+		"ts-unused-exports": "8.0.0",
 		"typescript": "^4.5.5",
-		"vscode-test": "^1.4.1",
-		"ts-unused-exports": "8.0.0"
+		"vscode-test": "^1.4.1"
 	},
 	"dependencies": {
 		"@types/lodash": "^4.14.168",
