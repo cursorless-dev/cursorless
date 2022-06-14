@@ -497,6 +497,9 @@
 			}
 		]
 	},
+	"sponsor": {
+		"url": "https://github.com/sponsors/pokey"
+	},
 	"scripts": {
 		"vscode:prepublish": "npm run -S esbuild-base -- --minify",
 		"postinstall": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv",
