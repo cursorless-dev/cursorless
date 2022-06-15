@@ -27,7 +27,10 @@ export class Paste {
     const [originalCursorSelections] = await callFunctionAndUpdateSelections(
       this.graph.rangeUpdater,
       async () => {
-        await this.editNewAction.run([targets]);
+        await this.editNewAction.run([targets], {
+          undoStopBefore: false,
+          undoStopAfter: false,
+        });
       },
       targetEditor.document,
       [targetEditor.selections]

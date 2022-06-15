@@ -1,13 +1,15 @@
 import { zip } from "lodash";
 import { DecorationRangeBehavior, Range, Selection, TextEditor } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
+import { EditOptions } from "../../typings/edit.types";
 import { Graph } from "../../typings/Types";
 import { EditTarget, State } from "./EditNew.types";
 
 export async function runEditTargets(
   graph: Graph,
   editor: TextEditor,
-  state: State
+  state: State,
+  options?: EditOptions
 ): Promise<State> {
   const delimiterTargets: EditTarget[] = state.targets
     .map((target, index) => {
@@ -56,7 +58,8 @@ export async function runEditTargets(
     graph.rangeUpdater,
     editor,
     edits,
-    [thatSelections, cursorSelections, editSelections]
+    [thatSelections, cursorSelections, editSelections],
+    options
   );
 
   const updatedCursorRanges = [...state.cursorRanges];

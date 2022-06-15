@@ -6,6 +6,7 @@ import {
   TextDocument,
   TextEditor,
 } from "vscode";
+import { EditOptions } from "../../typings/edit.types";
 import { Edit } from "../../typings/Types";
 import {
   FullSelectionInfo,
@@ -274,14 +275,15 @@ export async function performEditsAndUpdateSelections(
  * @param editor The editor containing the selections
  * @param edits A list of edits to apply
  * @param originalSelections The selections to update
- * @param rangeBehavior How selections should behave with respect to insertions on either end
+ * @param options Options such as whether to include an undo stop before and after the edits
  * @returns The updated selections
  */
 export function performEditsAndUpdateSelectionsWithBehavior(
   rangeUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],
-  originalSelections: SelectionsWithBehavior[]
+  originalSelections: SelectionsWithBehavior[],
+  options?: EditOptions
 ) {
   return performEditsAndUpdateFullSelectionInfos(
     rangeUpdater,
@@ -296,7 +298,8 @@ export function performEditsAndUpdateSelectionsWithBehavior(
             DecorationRangeBehavior.ClosedClosed
         )
       )
-    )
+    ),
+    options
   );
 }
 
@@ -361,7 +364,8 @@ export async function performEditsAndUpdateFullSelectionInfos(
   rangeUpdater: RangeUpdater,
   editor: TextEditor,
   edits: Edit[],
-  originalSelectionInfos: FullSelectionInfo[][]
+  originalSelectionInfos: FullSelectionInfo[][],
+  options?: EditOptions
 ): Promise<Selection[][]> {
   // NB: We do everything using VSCode listeners.  We can associate changes
   // with our changes just by looking at their offets / text in order to
@@ -390,7 +394,8 @@ export async function performEditsAndUpdateFullSelectionInfos(
     const wereEditsApplied = await performDocumentEdits(
       rangeUpdater,
       editor,
-      edits
+      edits,
+      options
     );
 
     if (!wereEditsApplied) {

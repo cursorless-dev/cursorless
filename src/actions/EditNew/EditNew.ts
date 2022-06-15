@@ -1,6 +1,7 @@
 import { weakContainingLineStage } from "../../processTargets/modifiers/commonWeakContainingScopeStages";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
+import { EditOptions } from "../../typings/edit.types";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
@@ -21,7 +22,10 @@ export class EditNew implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(
+    [targets]: [Target[]],
+    editOptions?: EditOptions
+  ): Promise<ActionReturnValue> {
     if (targets.some((target) => target.isNotebookCell)) {
       return runNotebookCellTargets(this.graph, targets);
     }
@@ -35,7 +39,7 @@ export class EditNew implements Action {
     };
 
     state = await runCommandTargets(this.graph, editor, state);
-    state = await runEditTargets(this.graph, editor, state);
+    state = await runEditTargets(this.graph, editor, state, editOptions);
 
     const newSelections = state.targets.map((target, index) =>
       selectionFromRange(target.isReversed, state.cursorRanges[index]!)

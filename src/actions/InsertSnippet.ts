@@ -83,7 +83,10 @@ export default class InsertSnippet implements Action {
 
     const snippetString = parsedSnippet.toTextmateString();
 
-    await this.editNewAction.run([targets]);
+    await this.editNewAction.run([targets], {
+      undoStopBefore: true,
+      undoStopAfter: false,
+    });
 
     const targetSelectionInfos = editor.selections.map((selection) =>
       getSelectionInfo(

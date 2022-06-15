@@ -1,11 +1,13 @@
-import { Edit } from "../typings/Types";
 import { TextEditor } from "vscode";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { EditOptions } from "../typings/edit.types";
+import { Edit } from "../typings/Types";
 
 export async function performDocumentEdits(
   rangeUpdater: RangeUpdater,
   editor: TextEditor,
-  edits: Edit[]
+  edits: Edit[],
+  options?: EditOptions
 ) {
   const deregister = rangeUpdater.registerReplaceEditList(
     editor.document,
@@ -22,7 +24,7 @@ export async function performDocumentEdits(
         editBuilder.replace(range, text);
       }
     });
-  });
+  }, options);
 
   deregister();
 
