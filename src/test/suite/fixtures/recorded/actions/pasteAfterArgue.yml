@@ -1,0 +1,27 @@
+languageId: typescript
+command:
+  spokenForm: paste after argue
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: position, position: after}
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+  action: {name: pasteFromClipboard}
+initialState:
+  documentContents: foo(bar, baz, bongo)
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  marks: {}
+finalState:
+  documentContents: foo(bar, baz, bongo, baz)
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  thatMark:
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 24}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: {type: argumentOrParameter}}]}]
