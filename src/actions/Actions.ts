@@ -8,7 +8,8 @@ import {
   CopyContentAfter as InsertCopyAfter,
   CopyContentBefore as InsertCopyBefore,
 } from "./InsertCopy";
-import { Copy, Cut, Paste } from "./CutCopyPaste";
+import { Copy, Cut } from "./CutCopy";
+import { Paste } from "./Paste";
 import Deselect from "./Deselect";
 import { EditNewBefore, EditNewAfter } from "./EditNew";
 import ExecuteCommand from "./ExecuteCommand";
