@@ -1,4 +1,5 @@
 import { Range, TextEditor } from "vscode";
+import { NoContainingScopeError } from "../../../errors";
 import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
@@ -9,12 +10,25 @@ import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { processSurroundingPair } from "../surroundingPair";
+import ContainingSyntaxScopeStage, {
+  SimpleContainingScopeModifier,
+} from "./ContainingSyntaxScopeStage";
 import { fitRangeToLineContent } from "./LineStage";
 
 export default class ItemStage implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
+    try {
+      return new ContainingSyntaxScopeStage(
+        <SimpleContainingScopeModifier>this.modifier
+      ).run(context, target);
+    } catch (error) {
+      if (!(error instanceof NoContainingScopeError)) {
+        throw error;
+      }
+    }
+
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(context, target);
     }
@@ -55,7 +69,7 @@ export default class ItemStage implements ModifierStage {
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange: itemInfo.range,
-      delimiter,
+      delimiter: delimiterInsertion,
       leadingDelimiterRange: itemInfo.leadingDelimiterRange,
       trailingDelimiterRange: itemInfo.trailingDelimiterRange,
     });
@@ -227,6 +241,7 @@ interface Token {
 }
 
 const delimiter = ",";
+const delimiterInsertion = ", ";
 
 // Mapping between opening and closing delimiters
 /* eslint-disable @typescript-eslint/naming-convention */
