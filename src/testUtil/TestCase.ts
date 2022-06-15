@@ -1,5 +1,6 @@
 import { pick } from "lodash";
 import * as vscode from "vscode";
+import { ActionType } from "../actions/actions.types";
 import { CommandLatest } from "../core/commandRunner/command.types";
 import { TestDecoration } from "../core/editStyles";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
@@ -139,8 +140,20 @@ export class TestCase {
   }
 
   private getExcludedFields(context?: { initialSnapshot?: boolean }) {
+    const clipboardActions: ActionType[] = context?.initialSnapshot
+      ? ["pasteFromClipboard"]
+      : ["copyToClipboard", "cutToClipboard"];
+
+    const visibleRangeActions: ActionType[] = [
+      "foldRegion",
+      "unfoldRegion",
+      "scrollToBottom",
+      "scrollToCenter",
+      "scrollToTop",
+    ];
+
     const excludableFields = {
-      clipboard: !["copy", "paste"].includes(this.command.action.name),
+      clipboard: !clipboardActions.includes(this.command.action.name),
       thatMark:
         context?.initialSnapshot &&
         !this.fullTargets.some((target) =>
@@ -151,13 +164,7 @@ export class TestCase {
         !this.fullTargets.some((target) =>
           this.includesThatMark(target, "source")
         ),
-      visibleRanges: ![
-        "fold",
-        "unfold",
-        "scrollToBottom",
-        "scrollToCenter",
-        "scrollToTop",
-      ].includes(this.command.action.name),
+      visibleRanges: !visibleRangeActions.includes(this.command.action.name),
     };
 
     return Object.keys(excludableFields).filter(

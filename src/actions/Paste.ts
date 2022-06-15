@@ -11,33 +11,28 @@ import {
 } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
-import { EditNew } from "./EditNew";
 
 export class Paste {
-  private editNewAction: EditNew;
-
-  constructor(private graph: Graph) {
-    this.editNewAction = new EditNew(graph);
-  }
+  constructor(private graph: Graph) {}
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const targetEditor = ensureSingleEditor(targets);
     const originalEditor = window.activeTextEditor;
 
+    // First call editNew in order to insert delimiters if necessary and leave
+    // the cursor in the right position.  Note that this action will focus the
+    // editor containing the targets
     const [originalCursorSelections] = await callFunctionAndUpdateSelections(
       this.graph.rangeUpdater,
       async () => {
-        await this.editNewAction.run([targets]);
+        await this.graph.actions.editNew.run([targets]);
       },
       targetEditor.document,
       [targetEditor.selections]
     );
 
-    const originalTargetSelections = {
-      selections: targetEditor.selections,
-      rangeBehavior: DecorationRangeBehavior.OpenOpen,
-    };
-
+    // Then use VSCode paste command, using open ranges at the place where we
+    // paste in order to capture the pasted text for highlights and `that` mark
     const [updatedCursorSelections, updatedTargetSelections] =
       await callFunctionAndUpdateSelectionsWithBehavior(
         this.graph.rangeUpdater,
@@ -47,13 +42,16 @@ export class Paste {
           {
             selections: originalCursorSelections,
           },
-          originalTargetSelections,
+          {
+            selections: targetEditor.selections,
+            rangeBehavior: DecorationRangeBehavior.OpenOpen,
+          },
         ]
       );
 
-    // Reset original selections
-    // NB: We don't focus the editor here because we'll do that at the
-    // very end.
+    // Reset cursors on the editor where the edits took place.
+    // NB: We don't focus the editor here because we want to focus the original
+    // editor, not the one where the edits took place
     setSelectionsWithoutFocusingEditor(targetEditor, updatedCursorSelections);
 
     // If necessary focus back original editor
