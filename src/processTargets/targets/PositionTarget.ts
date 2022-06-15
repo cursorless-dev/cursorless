@@ -1,9 +1,10 @@
 import * as vscode from "vscode";
 import { Range, TextEditor } from "vscode";
 import { UnsupportedError } from "../../errors";
+import { EditNewContext } from "../../typings/target.types";
 import { Position } from "../../typings/targetDescriptor.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget, CommonTargetParameters } from ".";
 
 interface PositionTargetParameters extends CommonTargetParameters {
   readonly position: Position;
@@ -26,16 +27,7 @@ export default class PositionTarget extends BaseTarget {
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
 
-  getRemovalRange(): Range {
-    const preferredModifier =
-      this.position === "after" || this.position === "end"
-        ? "trailing"
-        : "leading";
-
-    throw new UnsupportedError(
-      `Please use "${preferredModifier}" modifier; removal is not supported for "${this.position}"`
-    );
-  }
+  getRemovalRange = () => removalUnsupportedForPosition(this.position);
 
   protected getCloneParameters(): PositionTargetParameters {
     return {
@@ -103,6 +95,25 @@ export default class PositionTarget extends BaseTarget {
       updateRange: (range) => range,
     };
   }
+
+  getEditNewContext(): EditNewContext {
+    if (this.insertionDelimiter === "\n" && this.position === "after") {
+      return { type: "command", command: "editor.action.insertLineAfter" };
+    }
+
+    return {
+      type: "edit",
+    };
+  }
+}
+
+export function removalUnsupportedForPosition(position: string): Range {
+  const preferredModifier =
+    position === "after" || position === "end" ? "trailing" : "leading";
+
+  throw new UnsupportedError(
+    `Please use "${preferredModifier}" modifier; removal is not supported for "${position}"`
+  );
 }
 
 function getLinePadding(editor: TextEditor, range: Range, isBefore: boolean) {

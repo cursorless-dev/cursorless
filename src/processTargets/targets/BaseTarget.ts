@@ -1,9 +1,11 @@
 import { isEqual } from "lodash";
 import { Range, Selection, TextEditor } from "vscode";
 import { EditNewContext, Target } from "../../typings/target.types";
+import { Position } from "../../typings/targetDescriptor.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
+import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
   createContinuousRange,
   createContinuousRangeWeakTarget,
@@ -79,14 +81,9 @@ export default abstract class BaseTarget implements Target {
     };
   }
 
-  getEditNewContext(isBefore: boolean): EditNewContext {
-    const delimiter = this.insertionDelimiter ?? "";
-    if (delimiter === "\n" && !isBefore) {
-      return { type: "command", command: "editor.action.insertLineAfter" };
-    }
+  getEditNewContext(): EditNewContext {
     return {
-      type: "delimiter",
-      delimiter,
+      type: "edit",
     };
   }
 
@@ -155,6 +152,10 @@ export default abstract class BaseTarget implements Target {
       target instanceof BaseTarget &&
       isEqual(this.getCloneParameters(), target.getCloneParameters())
     );
+  }
+
+  toPositionTarget(position: Position): Target {
+    return toPositionTarget(this, position);
   }
 
   abstract get insertionDelimiter(): string;
