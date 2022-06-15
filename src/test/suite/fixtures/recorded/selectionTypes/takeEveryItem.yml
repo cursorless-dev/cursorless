@@ -6,7 +6,7 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: item}
+          scopeType: {type: collectionItem}
   usePrePhraseSnapshot: true
   action: {name: setSelection}
 initialState:
@@ -83,4 +83,4 @@ finalState:
       active: {line: 5, character: 11}
     - anchor: {line: 5, character: 13}
       active: {line: 5, character: 14}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: item}}]}]
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]

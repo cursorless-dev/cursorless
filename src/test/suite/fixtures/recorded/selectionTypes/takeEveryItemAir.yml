@@ -7,7 +7,7 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
       modifiers:
         - type: everyScope
-          scopeType: {type: item}
+          scopeType: {type: collectionItem}
   usePrePhraseSnapshot: true
   action: {name: setSelection}
 initialState:
@@ -87,4 +87,4 @@ finalState:
       active: {line: 6, character: 7}
     - anchor: {line: 6, character: 9}
       active: {line: 6, character: 22}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [{type: everyScope, scopeType: {type: item}}]}]
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]

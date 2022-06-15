@@ -1,5 +1,8 @@
 import { Range, TextEditor } from "vscode";
-import { NoContainingScopeError } from "../../../errors";
+import {
+  NoContainingScopeError,
+  UnsupportedLanguageError,
+} from "../../../errors";
 import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
@@ -24,7 +27,10 @@ export default class ItemStage implements ModifierStage {
         <SimpleContainingScopeModifier>this.modifier
       ).run(context, target);
     } catch (error) {
-      if (!(error instanceof NoContainingScopeError)) {
+      if (
+        !(error instanceof NoContainingScopeError) &&
+        !(error instanceof UnsupportedLanguageError)
+      ) {
         throw error;
       }
     }
@@ -39,7 +45,7 @@ export default class ItemStage implements ModifierStage {
     const itemInfos = getItemInfos(context, target);
 
     if (itemInfos.length < 1) {
-      throw Error(`Couldn't find containing ${this.modifier.scopeType.type}`);
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
     return itemInfos.map((itemInfo) => this.itemInfoToTarget(target, itemInfo));
@@ -57,7 +63,7 @@ export default class ItemStage implements ModifierStage {
       );
 
     if (itemInfo == null) {
-      throw Error(`Couldn't find containing ${this.modifier.scopeType.type}`);
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
     return this.itemInfoToTarget(target, itemInfo);
