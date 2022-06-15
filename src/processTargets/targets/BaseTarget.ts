@@ -158,7 +158,7 @@ export default abstract class BaseTarget implements Target {
    * @returns An object that can be used for determining equality between two
    * `BaseTarget`s
    */
-  protected getEqualityParameters() {
+  protected getEqualityParameters(): object {
     const { thatTarget, ...otherCloneParameters } =
       this.getCloneParameters() as { thatTarget?: Target };
     if (!(thatTarget instanceof BaseTarget)) {
@@ -166,7 +166,7 @@ export default abstract class BaseTarget implements Target {
     }
 
     return {
-      thatTarget: thatTarget ? thatTarget.getCloneParameters() : undefined,
+      thatTarget: thatTarget ? thatTarget.getEqualityParameters() : undefined,
       ...otherCloneParameters,
     };
   }
