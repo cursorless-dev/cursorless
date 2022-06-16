@@ -18,7 +18,7 @@ export default class implements ModifierStage {
     return [toLineTarget(target)];
   }
 
-  getEveryTarget(target: Target): LineTarget[] {
+  private getEveryTarget(target: Target): LineTarget[] {
     const { contentRange, editor } = target;
     const { isEmpty } = contentRange;
     const startLine = isEmpty ? 0 : contentRange.start.line;
