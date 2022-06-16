@@ -17,7 +17,6 @@ export default class implements ModifierStage {
         editor: target.editor,
         isReversed: target.isReversed,
         contentRange: getDocumentRange(target.editor),
-        previousTarget: target,
       }),
     ];
   }

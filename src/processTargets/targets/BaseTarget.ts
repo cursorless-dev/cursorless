@@ -1,9 +1,11 @@
 import { isEqual } from "lodash";
 import { Range, Selection, TextEditor } from "vscode";
 import { EditNewContext, Target } from "../../typings/target.types";
+import { Position } from "../../typings/targetDescriptor.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
+import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
   createContinuousRange,
   createContinuousRangeWeakTarget,
@@ -15,7 +17,6 @@ export interface CommonTargetParameters {
   readonly isReversed: boolean;
   readonly contentRange: Range;
   readonly thatTarget?: Target;
-  readonly previousTarget?: Target;
 }
 
 export interface CloneWithParameters {
@@ -36,7 +37,6 @@ export default abstract class BaseTarget implements Target {
       isReversed: parameters.isReversed,
       contentRange: parameters.contentRange,
       thatTarget: parameters.thatTarget,
-      previousTarget: parameters.previousTarget,
     };
   }
 
@@ -51,10 +51,6 @@ export default abstract class BaseTarget implements Target {
     return this.state.thatTarget != null
       ? this.state.thatTarget.thatTarget
       : this;
-  }
-
-  get previousTarget(): Target | undefined {
-    return this.state.previousTarget;
   }
 
   get contentText(): string {
@@ -85,14 +81,9 @@ export default abstract class BaseTarget implements Target {
     };
   }
 
-  getEditNewContext(isBefore: boolean): EditNewContext {
-    const delimiter = this.insertionDelimiter ?? "";
-    if (delimiter === "\n" && !isBefore) {
-      return { type: "command", command: "editor.action.insertLineAfter" };
-    }
+  getEditNewContext(): EditNewContext {
     return {
-      type: "delimiter",
-      delimiter,
+      type: "edit",
     };
   }
 
@@ -156,14 +147,32 @@ export default abstract class BaseTarget implements Target {
     );
   }
 
-  isEqual(target: Target): boolean {
+  isEqual(otherTarget: Target): boolean {
     return (
-      target instanceof BaseTarget &&
-      isEqual(
-        { ...this.getCloneParameters(), previousTarget: null },
-        { ...target.getCloneParameters(), previousTarget: null }
-      )
+      otherTarget instanceof BaseTarget &&
+      isEqual(this.getEqualityParameters(), otherTarget.getEqualityParameters())
     );
+  }
+
+  /**
+   * @returns An object that can be used for determining equality between two
+   * `BaseTarget`s
+   */
+  protected getEqualityParameters(): object {
+    const { thatTarget, ...otherCloneParameters } =
+      this.getCloneParameters() as { thatTarget?: Target };
+    if (!(thatTarget instanceof BaseTarget)) {
+      return { thatTarget, ...otherCloneParameters };
+    }
+
+    return {
+      thatTarget: thatTarget ? thatTarget.getEqualityParameters() : undefined,
+      ...otherCloneParameters,
+    };
+  }
+
+  toPositionTarget(position: Position): Target {
+    return toPositionTarget(this, position);
   }
 
   abstract get insertionDelimiter(): string;

@@ -84,7 +84,6 @@ export default class implements ModifierStage {
         delimiter: containingListDelimiter,
         leadingDelimiterRange,
         trailingDelimiterRange,
-        previousTarget: isEveryScope ? undefined : target,
       });
     });
   }

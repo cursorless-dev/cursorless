@@ -77,7 +77,6 @@ export default class implements ModifierStage {
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange: fitRangeToLineContent(target.editor, range),
-      previousTarget: target,
     });
   }
 

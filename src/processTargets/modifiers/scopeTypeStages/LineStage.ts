@@ -51,7 +51,6 @@ export function toLineTarget(target: Target): LineTarget {
     editor: target.editor,
     isReversed: target.isReversed,
     contentRange: fitRangeToLineContent(target.editor, target.contentRange),
-    previousTarget: target,
   });
 }
 

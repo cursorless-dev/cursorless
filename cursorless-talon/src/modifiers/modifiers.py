@@ -11,15 +11,23 @@ simple_modifiers = {
     "inside": "interiorOnly",
     "bounds": "excludeInterior",
     "just": "toRawSelection",
-    "head": "extendThroughStartOf",
-    "tail": "extendThroughEndOf",
     "leading": "leading",
     "trailing": "trailing",
+}
+
+head_tail_modifiers = {
+    "head": "extendThroughStartOf",
+    "tail": "extendThroughEndOf",
 }
 
 mod.list(
     "cursorless_simple_modifier",
     desc="Simple cursorless modifiers that only need to specify their type",
+)
+
+mod.list(
+    "cursorless_head_tail_modifier",
+    desc="Cursorless head and tail modifiers",
 )
 
 
@@ -31,11 +39,28 @@ def cursorless_simple_modifier(m) -> dict[str, str]:
     }
 
 
+modifiers = [
+    "<user.cursorless_position>",  # before, end of
+    "<user.cursorless_simple_modifier>",  # inside, bounds, just, leading, trailing
+    "<user.cursorless_head_tail_modifier>",  # head, tail
+    "<user.cursorless_containing_scope>",  # funk, state, class
+    "<user.cursorless_subtoken_scope>",  # first past second word
+    "<user.cursorless_surrounding_pair>",  # matching/pair [curly, round]
+]
+
+
+@mod.capture(rule="|".join(modifiers))
+def cursorless_modifier(m) -> str:
+    """Cursorless modifier"""
+    return m[0]
+
+
 def on_ready():
     init_csv_and_watch_changes(
         "modifiers",
         {
             "simple_modifier": simple_modifiers,
+            "head_tail_modifier": head_tail_modifiers,
             "range_type": range_types,
         },
     )

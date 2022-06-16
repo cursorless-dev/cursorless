@@ -1,4 +1,5 @@
 import { Range, Selection, TextEditor } from "vscode";
+import { Position } from "./targetDescriptor.types";
 import { EditWithRangeUpdater } from "./Types";
 
 export interface EditNewCommandContext {
@@ -6,8 +7,7 @@ export interface EditNewCommandContext {
   command: string;
 }
 export interface EditNewDelimiterContext {
-  type: "delimiter";
-  delimiter: string;
+  type: "edit";
 }
 
 export type EditNewContext = EditNewCommandContext | EditNewDelimiterContext;
@@ -46,8 +46,6 @@ export interface Target {
   /** Internal target that should be used for the that mark */
   readonly thatTarget: Target;
 
-  readonly previousTarget: Target | undefined;
-
   getInteriorStrict(): Target[];
   getBoundaryStrict(): Target[];
   /** The range of the delimiter before the content selection */
@@ -56,7 +54,7 @@ export interface Target {
   getTrailingDelimiterTarget(): Target | undefined;
   getRemovalRange(): Range;
   getRemovalHighlightRange(): Range | undefined;
-  getEditNewContext(isBefore: boolean): EditNewContext;
+  getEditNewContext(): EditNewContext;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;
   createContinuousRangeTarget(
@@ -70,4 +68,9 @@ export interface Target {
   /** Constructs removal edit */
   constructRemovalEdit(): EditWithRangeUpdater;
   isEqual(target: Target): boolean;
+  /**
+   * Construct a position target with the given position.
+   * @param position The position to use, eg `start`, `end`, `before`, `after`
+   */
+  toPositionTarget(position: Position): Target;
 }

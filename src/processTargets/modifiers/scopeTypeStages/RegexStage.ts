@@ -65,7 +65,6 @@ class RegexStage implements ModifierStage {
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange,
-      previousTarget: target,
     });
   }
 
