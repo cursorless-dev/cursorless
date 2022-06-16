@@ -114,8 +114,6 @@ async function runTest(file: string) {
     // sinon.replace(Clipboard, "writeText", async (value: string) => {
     //   mockClipboard = value;
     // });
-  } else {
-    excludeFields.push("clipboard");
   }
 
   await graph.hatTokenMap.addDecorations();
@@ -157,6 +155,10 @@ async function runTest(file: string) {
             readableHatMap
           )
         );
+
+  if (fixture.finalState!.clipboard == null) {
+    excludeFields.push("clipboard");
+  }
 
   // TODO Visible ranges are not asserted, see:
   // https://github.com/cursorless-dev/cursorless/issues/160
