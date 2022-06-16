@@ -32,12 +32,10 @@ export default class implements ModifierStage {
   ) {}
 
   run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
-    const isEveryScope = this.modifier.type === "everyScope";
-
     const nodeMatcher = getNodeMatcher(
       target.editor.document.languageId,
       this.modifier.scopeType.type,
-      isEveryScope
+      this.modifier.type === "everyScope"
     );
 
     const node: SyntaxNode | null = context.getNodeAtLocation(

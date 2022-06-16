@@ -31,7 +31,7 @@ export default class implements ModifierStage {
       const line = editor.document.lineAt(i);
       if (!line.isEmptyOrWhitespace) {
         targets.push(
-          createLineTarget(target.editor, line.range, target.isReversed)
+          createLineTarget(target.editor, target.isReversed, line.range)
         );
       }
     }
@@ -47,17 +47,17 @@ export default class implements ModifierStage {
 }
 
 export function toLineTarget(target: Target): LineTarget {
-  return new LineTarget({
-    editor: target.editor,
-    isReversed: target.isReversed,
-    contentRange: fitRangeToLineContent(target.editor, target.contentRange),
-  });
+  return createLineTarget(
+    target.editor,
+    target.isReversed,
+    target.contentRange
+  );
 }
 
 export function createLineTarget(
   editor: TextEditor,
-  range: Range,
-  isReversed: boolean
+  isReversed: boolean,
+  range: Range
 ) {
   return new LineTarget({
     editor,

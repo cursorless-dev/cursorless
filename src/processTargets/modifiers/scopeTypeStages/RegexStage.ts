@@ -24,7 +24,7 @@ class RegexStage implements ModifierStage {
     return [this.getSingleTarget(target)];
   }
 
-  getEveryTarget(target: Target): ScopeTypeTarget[] {
+  private getEveryTarget(target: Target): ScopeTypeTarget[] {
     const { contentRange, editor } = target;
     const { isEmpty } = contentRange;
     const start = isEmpty
@@ -55,11 +55,18 @@ class RegexStage implements ModifierStage {
     return targets;
   }
 
-  getSingleTarget(target: Target): ScopeTypeTarget {
+  private getSingleTarget(target: Target): ScopeTypeTarget {
     const { editor } = target;
     const start = this.getMatchForPos(editor, target.contentRange.start).start;
     const end = this.getMatchForPos(editor, target.contentRange.end).end;
     const contentRange = new Range(start, end);
+    return this.getTargetFromRange(target, contentRange);
+  }
+
+  private getTargetFromRange(
+    target: Target,
+    contentRange: Range
+  ): ScopeTypeTarget {
     return new ScopeTypeTarget({
       scopeTypeType: this.modifier.scopeType.type,
       editor: target.editor,
@@ -68,16 +75,7 @@ class RegexStage implements ModifierStage {
     });
   }
 
-  getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
-    return new ScopeTypeTarget({
-      scopeTypeType: this.modifier.scopeType.type,
-      editor: target.editor,
-      isReversed: target.isReversed,
-      contentRange: range,
-    });
-  }
-
-  getMatchForPos(editor: TextEditor, position: Position) {
+  private getMatchForPos(editor: TextEditor, position: Position) {
     const match = this.getMatchesForLine(editor, position.line).find((range) =>
       range.contains(position)
     );
@@ -91,7 +89,7 @@ class RegexStage implements ModifierStage {
     return match;
   }
 
-  getMatchesForLine(editor: TextEditor, lineNum: number) {
+  private getMatchesForLine(editor: TextEditor, lineNum: number) {
     const line = editor.document.lineAt(lineNum);
     const result = [...line.text.matchAll(this.regex)].map(
       (match) =>
