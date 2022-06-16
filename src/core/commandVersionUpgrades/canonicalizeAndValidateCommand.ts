@@ -1,11 +1,10 @@
-import { commands } from "vscode";
-import { ActionableError } from "../../errors";
+import { ActionType } from "../../actions/actions.types";
+import { OutdatedExtensionError } from "../../errors";
 import {
   Modifier,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "../../typings/targetDescriptor.types";
-import { ActionType } from "../../actions/actions.types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import {
   Command,
@@ -56,18 +55,7 @@ export function canonicalizeAndValidateCommand(
 
 function upgradeCommand(command: Command): CommandLatest {
   if (command.version > LATEST_VERSION) {
-    throw new ActionableError(
-      "Cursorless Talon version is ahead of Cursorless VSCode extension version. Please update Cursorless VSCode.",
-      [
-        {
-          name: "Check for updates",
-          action: () =>
-            commands.executeCommand(
-              "workbench.extensions.action.checkForUpdates"
-            ),
-        },
-      ]
-    );
+    throw new OutdatedExtensionError();
   }
 
   while (command.version < LATEST_VERSION) {
