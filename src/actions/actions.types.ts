@@ -8,6 +8,7 @@ export type ActionType =
   | "copyToClipboard"
   | "cutToClipboard"
   | "deselect"
+  | "editNew"
   | "editNewLineAfter"
   | "editNewLineBefore"
   | "executeCommand"
