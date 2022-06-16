@@ -1,8 +1,8 @@
 from talon import Module, app
 
 from ..csv_overrides import init_csv_and_watch_changes
-from .range_type import range_types
 from .head_tail import head_tail_modifiers
+from .range_type import range_types
 
 mod = Module()
 
