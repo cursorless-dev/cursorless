@@ -2,6 +2,7 @@ from talon import Module, app
 
 from ..csv_overrides import init_csv_and_watch_changes
 from .range_type import range_types
+from .head_tail import head_tail_modifiers
 
 mod = Module()
 
@@ -15,19 +16,9 @@ simple_modifiers = {
     "trailing": "trailing",
 }
 
-head_tail_modifiers = {
-    "head": "extendThroughStartOf",
-    "tail": "extendThroughEndOf",
-}
-
 mod.list(
     "cursorless_simple_modifier",
     desc="Simple cursorless modifiers that only need to specify their type",
-)
-
-mod.list(
-    "cursorless_head_tail_modifier",
-    desc="Cursorless head and tail modifiers",
 )
 
 
