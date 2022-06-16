@@ -147,11 +147,28 @@ export default abstract class BaseTarget implements Target {
     );
   }
 
-  isEqual(target: Target): boolean {
+  isEqual(otherTarget: Target): boolean {
     return (
-      target instanceof BaseTarget &&
-      isEqual(this.getCloneParameters(), target.getCloneParameters())
+      otherTarget instanceof BaseTarget &&
+      isEqual(this.getEqualityParameters(), otherTarget.getEqualityParameters())
     );
+  }
+
+  /**
+   * @returns An object that can be used for determining equality between two
+   * `BaseTarget`s
+   */
+  protected getEqualityParameters(): object {
+    const { thatTarget, ...otherCloneParameters } =
+      this.getCloneParameters() as { thatTarget?: Target };
+    if (!(thatTarget instanceof BaseTarget)) {
+      return { thatTarget, ...otherCloneParameters };
+    }
+
+    return {
+      thatTarget: thatTarget ? thatTarget.getEqualityParameters() : undefined,
+      ...otherCloneParameters,
+    };
   }
 
   toPositionTarget(position: Position): Target {
