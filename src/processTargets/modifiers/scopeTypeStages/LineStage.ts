@@ -46,7 +46,7 @@ export default class implements ModifierStage {
   }
 }
 
-export function toLineTarget(target: Target): LineTarget {
+function toLineTarget(target: Target): LineTarget {
   return createLineTarget(
     target.editor,
     target.isReversed,
