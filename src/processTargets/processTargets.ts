@@ -212,7 +212,7 @@ export function processModifierStages(
   modifierStages: ModifierStage[],
   targets: Target[]
 ) {
-  // Then we apply each stage in sequence, letting each stage see the targets
+  // First we apply each stage in sequence, letting each stage see the targets
   // one-by-one and concatenating the results before passing them on to the
   // next stage.
   modifierStages.forEach((stage) => {

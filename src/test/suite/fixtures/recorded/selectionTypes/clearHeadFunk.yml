@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: extendThroughStartOf
-          modifier:
-            type: containingScope
-            scopeType: {type: namedFunction}
+          modifiers:
+            - type: containingScope
+              scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:

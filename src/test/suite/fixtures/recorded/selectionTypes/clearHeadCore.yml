@@ -6,7 +6,8 @@ command:
     - type: primitive
       modifiers:
         - type: extendThroughStartOf
-          modifier: {type: interiorOnly}
+          modifiers:
+            - {type: interiorOnly}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
