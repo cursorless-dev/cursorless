@@ -94,6 +94,7 @@ import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
     argumentOrParameter: cascadingMatcher(
         argumentMatcher("arguments"),
         trailingMatcher(["parameter"], [","]),
+        trailingMatcher(["self_parameter"], [","]),
     ),
     name: [
       "let_declaration.identifier!",
