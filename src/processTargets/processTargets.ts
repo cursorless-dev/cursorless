@@ -10,6 +10,7 @@ import { ProcessedTargetsContext } from "../typings/Types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
+import { ModifierStage } from "./PipelineStages.types";
 import PlainTarget from "./targets/PlainTarget";
 import PositionTarget from "./targets/PositionTarget";
 
@@ -193,9 +194,7 @@ function processPrimitiveTarget(
   const markStage = getMarkStage(targetDescriptor.mark);
   const markOutputTargets = markStage.run(context);
 
-  /**
-   * The modifier pipeline that will be applied to construct our final targets
-   */
+  // The modifier pipeline that will be applied to construct our final targets
   const modifierStages = [
     // Reverse target modifiers because they are returned in reverse order from
     // the api, to match the order in which they are spoken.
@@ -203,23 +202,25 @@ function processPrimitiveTarget(
     ...context.finalStages,
   ];
 
-  /**
-   * Intermediate variable to store the output of the current pipeline stage.
-   * We initialise it to start with the outputs from the mark.
-   */
-  let currentTargets = markOutputTargets;
+  // Run all targets through the modifier stages
+  return processModifierStages(context, modifierStages, markOutputTargets);
+}
 
+/** Run all targets through the modifier stages */
+export function processModifierStages(
+  context: ProcessedTargetsContext,
+  modifierStages: ModifierStage[],
+  targets: Target[]
+) {
   // Then we apply each stage in sequence, letting each stage see the targets
   // one-by-one and concatenating the results before passing them on to the
   // next stage.
   modifierStages.forEach((stage) => {
-    currentTargets = currentTargets.flatMap((target) =>
-      stage.run(context, target)
-    );
+    targets = targets.flatMap((target) => stage.run(context, target));
   });
 
   // Then return the output from the final stage
-  return currentTargets;
+  return targets;
 }
 
 function calcIsReversed(anchor: Target, active: Target) {

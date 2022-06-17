@@ -188,7 +188,7 @@ export interface PartialPrimitiveTargetDescriptor {
 
 export interface HeadTailModifier {
   type: "extendThroughStartOf" | "extendThroughEndOf";
-  modifier?: Modifier;
+  modifiers?: Modifier[];
 }
 
 export type Modifier =

@@ -13,14 +13,14 @@ mod.list(
 )
 
 
-@mod.capture(rule="{user.cursorless_head_tail_modifier} [<user.cursorless_modifier>]")
+@mod.capture(rule="{user.cursorless_head_tail_modifier} <user.cursorless_modifier>*")
 def cursorless_head_tail_modifier(m) -> dict[str, str]:
     """Cursorless head and tail modifier"""
     result = {
         "type": m.cursorless_head_tail_modifier,
     }
     try:
-        result["modifier"] = m.cursorless_modifier
+        result["modifiers"] = m.cursorless_modifier_list
     except AttributeError:
         pass
     return result
