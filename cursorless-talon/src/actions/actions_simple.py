@@ -4,7 +4,7 @@ from talon import Module
 # See https://www.cursorless.org/docs/user/customization/
 simple_action_defaults = {
     "bottom": "scrollToBottom",
-    "breakpoint": "toggleLineBreakpoint",
+    "break point": "toggleLineBreakpoint",
     "carve": "cutToClipboard",
     "center": "scrollToCenter",
     "chuck": "remove",
