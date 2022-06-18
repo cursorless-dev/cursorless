@@ -24,15 +24,15 @@ abstract class HeadTailStage implements ModifierStage {
     ];
 
     const modifierStages = getModifierStagesFromTargetModifiers(modifiers);
-    const previousTargets = processModifierStages(context, modifierStages, [
+    const modifiedTargets = processModifierStages(context, modifierStages, [
       target,
     ]);
 
-    return previousTargets.map((previousTarget) => {
+    return modifiedTargets.map((modifiedTarget) => {
       const contentRange = this.update(
         target.editor,
         target.contentRange,
-        previousTarget.contentRange
+        modifiedTarget.contentRange
       );
       return new PlainTarget({
         editor: target.editor,
