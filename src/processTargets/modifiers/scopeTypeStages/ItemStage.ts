@@ -13,6 +13,7 @@ import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { processSurroundingPair } from "../surroundingPair";
+import { SurroundingPairInfo } from "../surroundingPair/extractSelectionFromSurroundingPairOffsets";
 import ContainingSyntaxScopeStage, {
   SimpleContainingScopeModifier,
 } from "./ContainingSyntaxScopeStage";
@@ -88,11 +89,18 @@ function getItemInfos(context: ProcessedTargetsContext, target: Target) {
 }
 
 function getCollectionRange(context: ProcessedTargetsContext, target: Target) {
-  let pairInfo = getSurroundingPair(
+  // First check if we are in a string
+  let pairInfo = getStringSurroundingPair(
     context,
     target.editor,
     target.contentRange
   );
+
+  // We don't look for items inside strings. If we are in a string go to parent
+  pairInfo =
+    pairInfo != null
+      ? getParentSurroundingPair(context, target.editor, pairInfo)
+      : getSurroundingPair(context, target.editor, target.contentRange);
 
   while (pairInfo != null) {
     // The selection from the beginning was this pair and we should not go into the interior but instead look in the parent.
@@ -103,15 +111,7 @@ function getCollectionRange(context: ProcessedTargetsContext, target: Target) {
     if (!isNotInterior) {
       return pairInfo.interiorRange;
     }
-    // Step out of this pair and see if we have a parent
-    const position = target.editor.document.positionAt(
-      target.editor.document.offsetAt(pairInfo.contentRange.start) - 1
-    );
-    pairInfo = getSurroundingPair(
-      context,
-      target.editor,
-      new Range(position, position)
-    );
+    pairInfo = getParentSurroundingPair(context, target.editor, pairInfo);
   }
 
   // We have not found a pair containing the delimiter. Look at the full line.
@@ -231,6 +231,29 @@ function getSurroundingPair(
   return processSurroundingPair(context, editor, contentRange, {
     type: "surroundingPair",
     delimiter: "any",
+  });
+}
+
+function getParentSurroundingPair(
+  context: ProcessedTargetsContext,
+  editor: TextEditor,
+  pairInfo: SurroundingPairInfo
+) {
+  // Step out of this pair and see if we have a parent
+  const position = editor.document.positionAt(
+    editor.document.offsetAt(pairInfo.contentRange.start) - 1
+  );
+  return getSurroundingPair(context, editor, new Range(position, position));
+}
+
+function getStringSurroundingPair(
+  context: ProcessedTargetsContext,
+  editor: TextEditor,
+  contentRange: Range
+) {
+  return processSurroundingPair(context, editor, contentRange, {
+    type: "surroundingPair",
+    delimiter: "string",
   });
 }
 

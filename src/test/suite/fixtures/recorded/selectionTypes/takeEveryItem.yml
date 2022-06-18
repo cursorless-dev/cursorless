@@ -16,8 +16,6 @@ initialState:
         e f, {g, h},
         i j, [k, l],
         m n, <o, p>,
-        q r, "s, t",
-        u v, "foo(bar)baz",
     ]
   selections:
     - anchor: {line: 1, character: 10}
@@ -28,8 +26,6 @@ initialState:
       active: {line: 3, character: 10}
     - anchor: {line: 4, character: 10}
       active: {line: 4, character: 10}
-    - anchor: {line: 5, character: 10}
-      active: {line: 5, character: 10}
   marks: {}
 finalState:
   documentContents: |-
@@ -38,8 +34,6 @@ finalState:
         e f, {g, h},
         i j, [k, l],
         m n, <o, p>,
-        q r, "s, t",
-        u v, "foo(bar)baz",
     ]
   selections:
     - anchor: {line: 1, character: 10}
@@ -58,10 +52,6 @@ finalState:
       active: {line: 4, character: 11}
     - anchor: {line: 4, character: 13}
       active: {line: 4, character: 14}
-    - anchor: {line: 5, character: 10}
-      active: {line: 5, character: 11}
-    - anchor: {line: 5, character: 13}
-      active: {line: 5, character: 14}
   thatMark:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 11}
@@ -79,8 +69,4 @@ finalState:
       active: {line: 4, character: 11}
     - anchor: {line: 4, character: 13}
       active: {line: 4, character: 14}
-    - anchor: {line: 5, character: 10}
-      active: {line: 5, character: 11}
-    - anchor: {line: 5, character: 13}
-      active: {line: 5, character: 14}
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]
