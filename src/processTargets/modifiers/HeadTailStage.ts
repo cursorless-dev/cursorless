@@ -5,9 +5,11 @@ import {
   Modifier,
 } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
-import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";
-import { processModifierStages } from "../processTargets";
+import {
+  getModifierStagesFromTargetModifiers,
+  processModifierStages,
+} from "../processTargets";
 import PlainTarget from "../targets/PlainTarget";
 
 abstract class HeadTailStage implements ModifierStage {
@@ -21,7 +23,7 @@ abstract class HeadTailStage implements ModifierStage {
       },
     ];
 
-    const modifierStages = modifiers.map(getModifierStage).reverse();
+    const modifierStages = getModifierStagesFromTargetModifiers(modifiers);
     const previousTargets = processModifierStages(context, modifierStages, [
       target,
     ]);

@@ -2,6 +2,7 @@ import { uniqWith, zip } from "lodash";
 import { Range } from "vscode";
 import { Target } from "../typings/target.types";
 import {
+  Modifier,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
@@ -196,14 +197,21 @@ function processPrimitiveTarget(
 
   // The modifier pipeline that will be applied to construct our final targets
   const modifierStages = [
-    // Reverse target modifiers because they are returned in reverse order from
-    // the api, to match the order in which they are spoken.
-    ...targetDescriptor.modifiers.map(getModifierStage).reverse(),
+    ...getModifierStagesFromTargetModifiers(targetDescriptor.modifiers),
     ...context.finalStages,
   ];
 
   // Run all targets through the modifier stages
   return processModifierStages(context, modifierStages, markOutputTargets);
+}
+
+/** Convert a list of target modifiers to modifier stages */
+export function getModifierStagesFromTargetModifiers(
+  targetModifiers: Modifier[]
+) {
+  // Reverse target modifiers because they are returned in reverse order from
+  // the api, to match the order in which they are spoken.
+  return targetModifiers.map(getModifierStage).reverse();
 }
 
 /** Run all targets through the modifier stages */
