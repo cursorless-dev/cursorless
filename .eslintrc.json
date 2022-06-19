@@ -12,6 +12,12 @@
 	},
 	"plugins": ["@typescript-eslint"],
 	"rules": {
+		"@typescript-eslint/consistent-type-assertions": [
+			"error",
+			{
+				"assertionStyle": "as"
+			}
+		],
 		"@typescript-eslint/naming-convention": "warn",
 		"@typescript-eslint/no-explicit-any": "off",
 		"@typescript-eslint/no-inferrable-types": "off",
