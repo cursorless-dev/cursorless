@@ -131,10 +131,12 @@ function upgradePrimitiveTarget(
         if (modifier?.type === "subpiece") {
           break;
         }
+        // fallthrough
       case "line":
         if (mark?.type === "lineNumber") {
           break;
         }
+        // fallthrough
       default:
         modifiers.push({
           type: "containingScope",
@@ -172,7 +174,7 @@ function upgradeTarget(
               | PartialRangeTargetDescriptor
         ),
       };
-    case "range":
+    case "range": {
       const { type, rangeType, start, end, excludeStart, excludeEnd } = target;
       return {
         type,
@@ -182,6 +184,7 @@ function upgradeTarget(
         excludeAnchor: excludeStart ?? false,
         excludeActive: excludeEnd ?? false,
       };
+    }
     case "primitive":
       return upgradePrimitiveTarget(target, action);
   }

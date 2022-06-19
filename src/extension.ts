@@ -25,7 +25,6 @@ export async function activate(context: vscode.ExtensionContext) {
     commandServerApi: () => commandServerApi,
     getNodeAtLocation: () => getNodeAtLocation,
   } as FactoryMap<Graph>);
-  graph.debug.init();
   graph.snippets.init();
   await graph.decorations.init();
   graph.hatTokenMap.init();
@@ -94,4 +93,6 @@ export async function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+  // do nothing
+}

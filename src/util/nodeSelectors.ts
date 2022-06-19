@@ -85,14 +85,11 @@ function getNextMatchingSiblingNodeOrLast(
   let currentNode: SyntaxNode = node;
   let nextNode: SyntaxNode | null = node.nextSibling;
 
-  while (true) {
-    if (nextNode == null || nodeFinder(nextNode) != null) {
-      return currentNode;
-    }
-
+  while (nextNode != null && nodeFinder(nextNode) == null) {
     currentNode = nextNode;
     nextNode = nextNode.nextSibling;
   }
+  return currentNode;
 }
 
 /**

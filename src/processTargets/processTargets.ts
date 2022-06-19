@@ -138,7 +138,7 @@ function processVerticalRangeTarget(
   const activeLine = activePosition.line - (excludeActive ? delta : 0);
 
   const results: Target[] = [];
-  for (let i = anchorLine; true; i += delta) {
+  for (let i = anchorLine; ; i += delta) {
     const contentRange = new Range(
       i,
       anchorTarget.contentRange.start.character,

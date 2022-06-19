@@ -10,7 +10,7 @@ import { MarkStage } from "./PipelineStages.types";
 export default (mark: Mark): MarkStage => {
   switch (mark.type) {
     case "cursor":
-      return new CursorStage(mark);
+      return new CursorStage();
     case "that":
       return new ThatStage(mark);
     case "source":

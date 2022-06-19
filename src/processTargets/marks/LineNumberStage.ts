@@ -32,7 +32,7 @@ const getLine = (editor: TextEditor, linePosition: LineNumberPosition) => {
       return linePosition.lineNumber;
     case "relative":
       return editor.selection.active.line + linePosition.lineNumber;
-    case "modulo100":
+    case "modulo100": {
       const stepSize = 100;
       const startLine = editor.visibleRanges[0].start.line;
       const endLine =
@@ -64,5 +64,6 @@ const getLine = (editor: TextEditor, linePosition: LineNumberPosition) => {
         return invisibleLines[0];
       }
       throw new Error("Line is not in viewport");
+    }
   }
 };

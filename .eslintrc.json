@@ -1,7 +1,11 @@
 {
 	"root": true,
 	"parser": "@typescript-eslint/parser",
-	"extends": ["prettier"],
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"prettier"
+	],
 	"parserOptions": {
 		"ecmaVersion": 6,
 		"sourceType": "module"
@@ -9,6 +13,9 @@
 	"plugins": ["@typescript-eslint"],
 	"rules": {
 		"@typescript-eslint/naming-convention": "warn",
+		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/no-inferrable-types": "off",
+		"@typescript-eslint/no-non-null-assertion": "off",
 		"@typescript-eslint/no-unused-vars": [
 			"warn",
 			{
@@ -25,6 +32,7 @@
 				"null": "never"
 			}
 		],
+		"no-constant-condition": ["error", { "checkLoops": false }],
 		"no-throw-literal": "warn",
 		"semi": "off"
 	},

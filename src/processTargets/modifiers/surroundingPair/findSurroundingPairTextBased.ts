@@ -266,7 +266,7 @@ function getDelimiterPairOffsets(
 
           const rawDelimiterInfo = delimiterTextToDelimiterInfoMap[matchText];
 
-          let side =
+          const side =
             rawDelimiterInfo.side === "unknown" && forceDirection == null
               ? inferDelimiterSide(
                   text,

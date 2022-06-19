@@ -123,7 +123,7 @@ export class NonWhitespaceSequenceStage extends RegexStage {
 
 // taken from https://regexr.com/3e6m0
 const URL_REGEX =
-  /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+  /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g;
 
 export type UrlModifier = (ContainingScopeModifier | EveryScopeModifier) & {
   scopeType: { type: "url" };

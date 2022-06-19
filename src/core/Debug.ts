@@ -40,8 +40,6 @@ export default class Debug {
     }
   }
 
-  init() {}
-
   log(...args: any[]) {
     if (this.active) {
       console.debug(...args);

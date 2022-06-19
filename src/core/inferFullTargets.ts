@@ -164,12 +164,13 @@ function getPreviousTarget(
           return target.anchor;
         }
         break;
-      case "list":
+      case "list": {
         const result = getPreviousTarget(target.elements, useTarget);
         if (result != null) {
           return result;
         }
         break;
+      }
     }
   }
   return null;

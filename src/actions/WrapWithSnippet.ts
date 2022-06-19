@@ -122,7 +122,7 @@ function transformSnippetVariables(
   parsedSnippet: TextmateSnippet,
   placeholderName: string
 ) {
-  var placeholderIndex = getMaxPlaceholderIndex(parsedSnippet) + 1;
+  let placeholderIndex = getMaxPlaceholderIndex(parsedSnippet) + 1;
 
   parsedSnippet.walk((candidate) => {
     if (candidate instanceof Variable) {
@@ -139,7 +139,7 @@ function transformSnippetVariables(
 }
 
 function getMaxPlaceholderIndex(parsedSnippet: TextmateSnippet) {
-  var placeholderIndex = 0;
+  let placeholderIndex = 0;
   parsedSnippet.walk((candidate) => {
     if (candidate instanceof Placeholder) {
       placeholderIndex = Math.max(placeholderIndex, candidate.index);
