@@ -131,12 +131,12 @@ function upgradePrimitiveTarget(
         if (modifier?.type === "subpiece") {
           break;
         }
-        // fallthrough
+      // fallthrough
       case "line":
         if (mark?.type === "lineNumber") {
           break;
         }
-        // fallthrough
+      // fallthrough
       default:
         modifiers.push({
           type: "containingScope",
