@@ -94,36 +94,27 @@ function inferPrimitiveTarget(
     };
   }
 
-  const hasPosition = !!target.modifiers?.find(
-    (modifier) => modifier.type === "position"
-  );
+  const ownPositionalModifier = getPosition(target);
+  const ownNonPositionalModifiers = getNonPositionalModifiers(target);
 
   // Position without a mark can be something like "take air past end of line"
   const mark = target.mark ??
-    (hasPosition ? getPreviousMark(previousTargets) : null) ?? {
+    (!!ownPositionalModifier ? getPreviousMark(previousTargets) : null) ?? {
       type: "cursor",
     };
 
-  const previousModifiers = getPreviousModifiers(previousTargets);
+  const nonPositionalModifiers =
+    ownNonPositionalModifiers ??
+    getPreviousNonPositionalModifiers(previousTargets) ??
+    [];
 
-  const modifiers = target.modifiers ?? previousModifiers ?? [];
+  const positionalModifier =
+    ownPositionalModifier ?? getPreviousPosition(previousTargets);
 
-  // "bring line to after this" needs to infer line on second target
-  const modifierTypes = [
-    ...new Set(modifiers.map((modifier) => modifier.type)),
+  const modifiers = [
+    ...(positionalModifier == null ? [] : [positionalModifier]),
+    ...nonPositionalModifiers,
   ];
-  if (
-    previousModifiers != null &&
-    modifierTypes.length === 1 &&
-    modifierTypes[0] === "position"
-  ) {
-    const containingScopeModifier = previousModifiers.find(
-      (modifier) => modifier.type === "containingScope"
-    );
-    if (containingScopeModifier != null) {
-      modifiers.push(containingScopeModifier);
-    }
-  }
 
   return {
     type: target.type,
@@ -132,45 +123,87 @@ function inferPrimitiveTarget(
   };
 }
 
+function getPosition(target: PartialPrimitiveTargetDescriptor) {
+  if (target.modifiers == null) {
+    return undefined;
+  }
+
+  const positionModifierIndex = target.modifiers.findIndex(
+    (modifier) => modifier.type === "position"
+  );
+
+  if (positionModifierIndex > 0) {
+    throw Error("Position modifiers must be at the start of a modifier chain");
+  }
+
+  return positionModifierIndex === -1 ? undefined : target.modifiers[0];
+}
+
+function getNonPositionalModifiers(target: PartialPrimitiveTargetDescriptor) {
+  const nonPositionalModifiers = target.modifiers?.filter(
+    (modifier) => modifier.type !== "position"
+  );
+  return nonPositionalModifiers == null || nonPositionalModifiers.length === 0
+    ? undefined
+    : nonPositionalModifiers;
+}
+
 function getPreviousMark(previousTargets: PartialTargetDescriptor[]) {
-  return getPreviousTarget(
+  return getPreviousTargetAttribute(
     previousTargets,
-    (target: PartialPrimitiveTargetDescriptor) => target.mark != null
-  )?.mark;
+    (target: PartialPrimitiveTargetDescriptor) => target.mark
+  );
 }
 
-function getPreviousModifiers(previousTargets: PartialTargetDescriptor[]) {
-  return getPreviousTarget(
+function getPreviousNonPositionalModifiers(
+  previousTargets: PartialTargetDescriptor[]
+) {
+  return getPreviousTargetAttribute(
     previousTargets,
-    (target: PartialPrimitiveTargetDescriptor) => target.modifiers != null
-  )?.modifiers;
+    (target: PartialPrimitiveTargetDescriptor) =>
+      getNonPositionalModifiers(target)
+  );
 }
 
-function getPreviousTarget(
+function getPreviousPosition(previousTargets: PartialTargetDescriptor[]) {
+  return getPreviousTargetAttribute(
+    previousTargets,
+    (target: PartialPrimitiveTargetDescriptor) => getPosition(target)
+  );
+}
+
+function getPreviousTargetAttribute<T>(
   previousTargets: PartialTargetDescriptor[],
-  useTarget: (target: PartialPrimitiveTargetDescriptor) => boolean
-): PartialPrimitiveTargetDescriptor | null {
+  getAttribute: (target: PartialPrimitiveTargetDescriptor) => T | undefined
+): T | undefined {
   // Search from back(last) to front(first)
   for (let i = previousTargets.length - 1; i > -1; --i) {
     const target = previousTargets[i];
     switch (target.type) {
-      case "primitive":
-        if (useTarget(target)) {
-          return target;
+      case "primitive": {
+        const attributeValue = getAttribute(target);
+        if (attributeValue != null) {
+          return attributeValue;
         }
         break;
-      case "range":
-        if (useTarget(target.anchor)) {
-          return target.anchor;
+      }
+      case "range": {
+        const attributeValue = getAttribute(target.anchor);
+        if (attributeValue != null) {
+          return attributeValue;
         }
         break;
+      }
       case "list":
-        const result = getPreviousTarget(target.elements, useTarget);
-        if (result != null) {
-          return result;
+        const attributeValue = getPreviousTargetAttribute(
+          target.elements,
+          getAttribute
+        );
+        if (attributeValue != null) {
+          return attributeValue;
         }
         break;
     }
   }
-  return null;
+  return undefined;
 }
