@@ -60,13 +60,3 @@ export class Copy extends CommandAction {
     });
   }
 }
-
-export class Paste extends CommandAction {
-  constructor(graph: Graph) {
-    super(graph, {
-      command: "editor.action.clipboardPasteAction",
-      ensureSingleEditor: true,
-      showDecorations: true,
-    });
-  }
-}
