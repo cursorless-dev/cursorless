@@ -6,7 +6,7 @@ import {
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
+import TokenTarget from "../../targets/TokenTarget";
 
 type RegexModifier = NonWhitespaceSequenceModifier | UrlModifier | NonWhitespaceOrQuoteSequenceModifier;
 
@@ -17,14 +17,14 @@ class RegexStage implements ModifierStage {
     private name?: string
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): TokenTarget[] {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(target);
     }
     return [this.getSingleTarget(target)];
   }
 
-  getEveryTarget(target: Target): ScopeTypeTarget[] {
+  private getEveryTarget(target: Target): TokenTarget[] {
     const { contentRange, editor } = target;
     const { isEmpty } = contentRange;
     const start = isEmpty
@@ -33,7 +33,7 @@ class RegexStage implements ModifierStage {
     const end = isEmpty
       ? editor.document.lineAt(contentRange.end).range.end
       : contentRange.end;
-    const targets: ScopeTypeTarget[] = [];
+    const targets: TokenTarget[] = [];
 
     for (let i = start.line; i <= end.line; ++i) {
       this.getMatchesForLine(editor, i).forEach((range) => {
@@ -55,7 +55,7 @@ class RegexStage implements ModifierStage {
     return targets;
   }
 
-  getSingleTarget(target: Target): ScopeTypeTarget {
+  private getSingleTarget(target: Target): TokenTarget {
     const { editor } = target;
     const start = this.getMatchForPos(editor, target.contentRange.start).start;
     const end = this.getMatchForPos(editor, target.contentRange.end).end;
@@ -63,16 +63,15 @@ class RegexStage implements ModifierStage {
     return this.getTargetFromRange(target, contentRange);
   }
 
-  getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
-    return new ScopeTypeTarget({
-      scopeTypeType: this.modifier.scopeType.type,
+  private getTargetFromRange(target: Target, range: Range): TokenTarget {
+    return new TokenTarget({
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange: range,
     });
   }
 
-  getMatchForPos(editor: TextEditor, position: Position) {
+  private getMatchForPos(editor: TextEditor, position: Position) {
     const match = this.getMatchesForLine(editor, position.line).find((range) =>
       range.contains(position)
     );
@@ -86,7 +85,7 @@ class RegexStage implements ModifierStage {
     return match;
   }
 
-  getMatchesForLine(editor: TextEditor, lineNum: number) {
+  private getMatchesForLine(editor: TextEditor, lineNum: number) {
     const line = editor.document.lineAt(lineNum);
     const result = [...line.text.matchAll(this.regex)].map(
       (match) =>
