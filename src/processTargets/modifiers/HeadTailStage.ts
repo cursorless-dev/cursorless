@@ -29,11 +29,11 @@ abstract class HeadTailStage implements ModifierStage {
     ]);
 
     return modifiedTargets.map((modifiedTarget) => {
-      const contentRange = this.update(
-        target.editor,
+      const contentRange = this.constructContentRange(
         target.contentRange,
         modifiedTarget.contentRange
       );
+
       return new TokenTarget({
         editor: target.editor,
         isReversed: this.isReversed,
@@ -42,10 +42,9 @@ abstract class HeadTailStage implements ModifierStage {
     });
   }
 
-  protected abstract update(
-    editor: TextEditor,
-    previousRange: Range,
-    nextRange: Range
+  protected abstract constructContentRange(
+    originalRange: Range,
+    modifiedRange: Range
   ): Range;
 }
 
@@ -54,8 +53,8 @@ export class HeadStage extends HeadTailStage {
     super(true, modifier.modifiers);
   }
 
-  protected update(editor: TextEditor, previousRange: Range, nextRange: Range) {
-    return new Range(nextRange.start, previousRange.end);
+  protected constructContentRange(originalRange: Range, modifiedRange: Range) {
+    return new Range(modifiedRange.start, originalRange.end);
   }
 }
 
@@ -64,7 +63,7 @@ export class TailStage extends HeadTailStage {
     super(false, modifier.modifiers);
   }
 
-  protected update(editor: TextEditor, previousRange: Range, nextRange: Range) {
-    return new Range(previousRange.start, nextRange.end);
+  protected constructContentRange(originalRange: Range, modifiedRange: Range) {
+    return new Range(originalRange.start, modifiedRange.end);
   }
 }
