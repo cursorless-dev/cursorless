@@ -9,7 +9,7 @@ command:
 initialState:
   documentContents: |-
     <?php
-    
+
     class MyClass {
         public string $value = 'default';
     }
@@ -20,7 +20,7 @@ initialState:
 finalState:
   documentContents: |-
     <?php
-    
+
     class MyClass {
         public  $value = 'default';
     }
