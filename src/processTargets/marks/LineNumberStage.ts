@@ -22,7 +22,7 @@ export default class implements MarkStage {
     const activeRange = editor.document.lineAt(activeLine).range;
     const contentRange = anchorRange.union(activeRange);
     const isReversed = this.modifier.anchor < this.modifier.active;
-    return [createLineTarget(editor, contentRange, isReversed)];
+    return [createLineTarget(editor, isReversed, contentRange)];
   }
 }
 

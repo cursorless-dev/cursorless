@@ -19,7 +19,7 @@ export default class implements ModifierStage {
     return [this.getSingleTarget(target)];
   }
 
-  getEveryTarget(target: Target): ParagraphTarget[] {
+  private getEveryTarget(target: Target): ParagraphTarget[] {
     const { contentRange, editor } = target;
     const { isEmpty } = contentRange;
     const { lineCount } = editor.document;
@@ -71,15 +71,11 @@ export default class implements ModifierStage {
     return targets;
   }
 
-  getSingleTarget(target: Target): ParagraphTarget {
-    return this.getTargetFromRange(target);
+  private getSingleTarget(target: Target): ParagraphTarget {
+    return this.getTargetFromRange(target, calculateRange(target));
   }
 
-  getTargetFromRange(target: Target, range?: Range): ParagraphTarget {
-    if (range == null) {
-      range = calculateRange(target);
-    }
-
+  private getTargetFromRange(target: Target, range: Range): ParagraphTarget {
     return new ParagraphTarget({
       editor: target.editor,
       isReversed: target.isReversed,

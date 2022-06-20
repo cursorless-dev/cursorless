@@ -164,14 +164,6 @@ export interface RawSelectionModifier {
   type: "toRawSelection";
 }
 
-export interface HeadModifier {
-  type: "extendThroughStartOf";
-}
-
-export interface TailModifier {
-  type: "extendThroughEndOf";
-}
-
 export interface LeadingModifier {
   type: "leading";
 }
@@ -194,6 +186,11 @@ export interface PartialPrimitiveTargetDescriptor {
   isImplicit?: boolean;
 }
 
+export interface HeadTailModifier {
+  type: "extendThroughStartOf" | "extendThroughEndOf";
+  modifiers?: Modifier[];
+}
+
 export type Modifier =
   | PositionModifier
   | InteriorOnlyModifier
@@ -201,8 +198,7 @@ export type Modifier =
   | ContainingScopeModifier
   | EveryScopeModifier
   | OrdinalRangeModifier
-  | HeadModifier
-  | TailModifier
+  | HeadTailModifier
   | LeadingModifier
   | TrailingModifier
   | RawSelectionModifier;

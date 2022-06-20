@@ -19,7 +19,7 @@ export default class implements ModifierStage {
     return [this.getSingleTarget(target)];
   }
 
-  getEveryTarget(
+  private getEveryTarget(
     context: ProcessedTargetsContext,
     target: Target
   ): TokenTarget[] {
@@ -46,11 +46,11 @@ export default class implements ModifierStage {
     return targets;
   }
 
-  getSingleTarget(target: Target): TokenTarget {
+  private getSingleTarget(target: Target): TokenTarget {
     return this.getTargetFromRange(target, target.contentRange);
   }
 
-  getTargetFromRange(target: Target, range: Range): TokenTarget {
+  private getTargetFromRange(target: Target, range: Range): TokenTarget {
     const contentRange = getTokenRangeForSelection(target.editor, range);
     return new TokenTarget({
       editor: target.editor,
