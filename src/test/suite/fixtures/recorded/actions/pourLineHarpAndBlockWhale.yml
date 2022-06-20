@@ -1,0 +1,55 @@
+languageId: plaintext
+command:
+  spokenForm: pour line harp and block whale
+  version: 2
+  targets:
+    - type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: h}
+          modifiers:
+            - type: containingScope
+              scopeType: {type: line}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: w}
+          modifiers:
+            - type: containingScope
+              scopeType: {type: paragraph}
+  usePrePhraseSnapshot: true
+  action: {name: editNewLineAfter}
+initialState:
+  documentContents: |2-
+        hello
+
+        world
+        foo
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.h:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+    default.w:
+      start: {line: 2, character: 4}
+      end: {line: 2, character: 9}
+finalState:
+  documentContents: |2-
+        hello
+        
+
+        world
+        foo
+
+        
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 6, character: 4}
+      active: {line: 6, character: 4}
+  thatMark:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
+    - anchor: {line: 3, character: 4}
+      active: {line: 4, character: 7}
+fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: [{type: containingScope, scopeType: {type: line}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [{type: containingScope, scopeType: {type: paragraph}}]}]}]

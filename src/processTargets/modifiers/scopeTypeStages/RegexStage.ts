@@ -24,7 +24,7 @@ class RegexStage implements ModifierStage {
     return [this.getSingleTarget(target)];
   }
 
-  private getEveryTarget(target: Target): TokenTarget[] {
+  private getEveryTarget(target: Target): ScopeTypeTarget[] {
     const { contentRange, editor } = target;
     const { isEmpty } = contentRange;
     const start = isEmpty
@@ -55,7 +55,7 @@ class RegexStage implements ModifierStage {
     return targets;
   }
 
-  private getSingleTarget(target: Target): TokenTarget {
+  private getSingleTarget(target: Target): ScopeTypeTarget {
     const { editor } = target;
     const start = this.getMatchForPos(editor, target.contentRange.start).start;
     const end = this.getMatchForPos(editor, target.contentRange.end).end;
@@ -63,11 +63,15 @@ class RegexStage implements ModifierStage {
     return this.getTargetFromRange(target, contentRange);
   }
 
-  private getTargetFromRange(target: Target, range: Range): TokenTarget {
-    return new TokenTarget({
+  private getTargetFromRange(
+    target: Target,
+    contentRange: Range
+  ): ScopeTypeTarget {
+    return new ScopeTypeTarget({
+      scopeTypeType: this.modifier.scopeType.type,
       editor: target.editor,
       isReversed: target.isReversed,
-      contentRange: range,
+      contentRange,
     });
   }
 

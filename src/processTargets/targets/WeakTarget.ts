@@ -1,11 +1,11 @@
 import { Range } from "vscode";
+import { BaseTarget } from ".";
 import { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
-import BaseTarget from "./BaseTarget";
 
 /**
  * - Treated as "line" for "pour", "clone", and "breakpoint"

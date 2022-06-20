@@ -8,9 +8,10 @@ import {
   CopyContentAfter as InsertCopyAfter,
   CopyContentBefore as InsertCopyBefore,
 } from "./InsertCopy";
-import { Copy, Cut, Paste } from "./CutCopyPaste";
+import { Copy, Cut } from "./CutCopy";
+import { Paste } from "./Paste";
 import Deselect from "./Deselect";
-import { EditNewBefore, EditNewAfter } from "./EditNew";
+import { EditNewBefore, EditNewAfter, EditNew } from "./EditNew";
 import ExecuteCommand from "./ExecuteCommand";
 import ExtractVariable from "./ExtractVariable";
 import { FindInFiles } from "./Find";
@@ -46,6 +47,7 @@ class Actions implements ActionRecord {
   copyToClipboard = new Copy(this.graph);
   cutToClipboard = new Cut(this.graph);
   deselect = new Deselect(this.graph);
+  editNew = new EditNew(this.graph);
   editNewLineAfter = new EditNewAfter(this.graph);
   editNewLineBefore = new EditNewBefore(this.graph);
   executeCommand = new ExecuteCommand(this.graph);
