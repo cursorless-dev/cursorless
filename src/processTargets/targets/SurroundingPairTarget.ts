@@ -51,7 +51,7 @@ export default class SurroundingPairTarget extends BaseTarget {
       new InteriorTarget({
         editor: this.editor,
         isReversed: this.isReversed,
-        contentRange: this.interiorRange_,
+        fullInteriorRange: this.interiorRange_,
       }),
     ];
   }
