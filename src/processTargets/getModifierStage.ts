@@ -25,6 +25,8 @@ import ParagraphStage from "./modifiers/scopeTypeStages/ParagraphStage";
 import {
   NonWhitespaceSequenceModifier,
   NonWhitespaceSequenceStage,
+  NonWhitespaceOrQuoteSequenceModifier,
+  NonWhitespaceOrQuoteSequenceStage,
   UrlModifier,
   UrlStage,
 } from "./modifiers/scopeTypeStages/RegexStage";
@@ -82,6 +84,10 @@ const getContainingScopeStage = (
     case "nonWhitespaceSequence":
       return new NonWhitespaceSequenceStage(
         modifier as NonWhitespaceSequenceModifier
+      );
+    case "nonWhitespaceOrQuoteSequence":
+      return new NonWhitespaceOrQuoteSequenceStage(
+        modifier as NonWhitespaceOrQuoteSequenceModifier
       );
     case "url":
       return new UrlStage(modifier as UrlModifier);

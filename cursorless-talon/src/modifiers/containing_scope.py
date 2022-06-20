@@ -52,7 +52,7 @@ scope_types = {
     "file": "document",
     "line": "line",
     "paint": "nonWhitespaceSequence",
-    "small paint": "nonwhiteSpaceOrDelimiterSequence",
+    "small paint": "nonWhitespaceOrQuoteSequence",
     "link": "url",
     "token": "token",
 }
