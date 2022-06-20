@@ -195,7 +195,7 @@ function processPrimitiveTarget(
   const markStage = getMarkStage(targetDescriptor.mark);
   const markOutputTargets = markStage.run(context);
 
-  // The modifier pipeline that will be applied to construct our final targets
+  /** The modifier pipeline that will be applied to construct our final targets */
   const modifierStages = [
     ...getModifierStagesFromTargetModifiers(targetDescriptor.modifiers),
     ...context.finalStages,
