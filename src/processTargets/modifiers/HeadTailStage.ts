@@ -10,7 +10,7 @@ import {
   getModifierStagesFromTargetModifiers,
   processModifierStages,
 } from "../processTargets";
-import PlainTarget from "../targets/PlainTarget";
+import { TokenTarget } from "../targets";
 
 abstract class HeadTailStage implements ModifierStage {
   constructor(private isReversed: boolean, private modifiers?: Modifier[]) {}
@@ -34,7 +34,7 @@ abstract class HeadTailStage implements ModifierStage {
         target.contentRange,
         modifiedTarget.contentRange
       );
-      return new PlainTarget({
+      return new TokenTarget({
         editor: target.editor,
         isReversed: this.isReversed,
         contentRange,
