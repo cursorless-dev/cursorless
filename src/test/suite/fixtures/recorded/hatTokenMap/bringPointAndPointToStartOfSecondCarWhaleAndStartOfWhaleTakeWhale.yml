@@ -1,10 +1,9 @@
 languageId: plaintext
 command:
-  version: 1
   spokenForm: >-
     bring point and point to start of second car whale and start of whale take
     whale
-  action: replaceWithTarget
+  version: 2
   targets:
     - type: list
       elements:
@@ -15,15 +14,22 @@ command:
     - type: list
       elements:
         - type: primitive
-          position: before
-          insideOutsideType: inside
-          selectionType: token
-          modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}
           mark: {type: decoratedSymbol, symbolColor: default, character: w}
+          modifiers:
+            - {type: position, position: start}
+            - type: ordinalRange
+              scopeType: {type: character}
+              anchor: 1
+              active: 1
+              excludeAnchor: false
+              excludeActive: false
         - type: primitive
-          position: before
-          insideOutsideType: inside
           mark: {type: decoratedSymbol, symbolColor: default, character: w}
+          modifiers:
+            - {type: position, position: start}
+            - {type: toRawSelection}
+  usePrePhraseSnapshot: false
+  action: {name: replaceWithTarget}
 marksToCheck: [default.w]
 initialState:
   documentContents: hello. world
