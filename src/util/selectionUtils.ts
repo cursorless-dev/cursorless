@@ -45,10 +45,10 @@ export function selectionFromRange(isReversed: boolean, range: Range) {
 
 /**
  * Return a copy of {@link range} excluding any leading or trailing whitespace.
- * If the given range contains only whitespace or is empty {@link range} will be returned unchanged.
+ * If {@link range} contains only whitespace or is empty {@link range} will be returned unchanged.
  * @param editor The text editor to use
  * @param range The range to shrink down
- * @returns A new range equal or smaller to the given range
+ * @returns A new range equal or smaller to {@link range}
  */
 export function shrinkRangeToFitContent(editor: TextEditor, range: Range) {
   const { document } = editor;
