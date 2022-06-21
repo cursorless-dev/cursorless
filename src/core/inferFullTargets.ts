@@ -149,6 +149,13 @@ function getPositionalModifier(
     : (target.modifiers[positionModifierIndex] as PositionModifier);
 }
 
+/**
+ * Return a list of non-positional modifiers on the given target. We return
+ * undefined if there are none. Note that we will never return an empty list; we
+ * will always return `undefined` if there are no non-positional modifiers.
+ * @param target The target from which to get the non-positional modifiers
+ * @returns A list of non-positional modifiers or `undefined` if there are none
+ */
 function getNonPositionalModifiers(
   target: PartialPrimitiveTargetDescriptor
 ): Modifier[] | undefined {
