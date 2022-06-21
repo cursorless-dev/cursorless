@@ -44,7 +44,7 @@ export function selectionFromRange(isReversed: boolean, range: Range) {
 }
 
 /**
- * Shrink given range to fit text content.
+ * Return a copy of {@link range} excluding any leading or trailing whitespace.
  * If the given range has no text content the given range will be returned unchanged.
  * @param editor The text editor to use
  * @param range The range to shrink down
