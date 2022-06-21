@@ -6,9 +6,12 @@ import {
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
-import TokenTarget from "../../targets/TokenTarget";
+import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 
-type RegexModifier = NonWhitespaceSequenceModifier | UrlModifier | NonWhitespaceOrQuoteSequenceModifier;
+type RegexModifier =
+  | NonWhitespaceSequenceModifier
+  | UrlModifier
+  | NonWhitespaceOrQuoteSequenceModifier;
 
 class RegexStage implements ModifierStage {
   constructor(
@@ -17,7 +20,7 @@ class RegexStage implements ModifierStage {
     private name?: string
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): TokenTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(target);
     }
@@ -33,7 +36,7 @@ class RegexStage implements ModifierStage {
     const end = isEmpty
       ? editor.document.lineAt(contentRange.end).range.end
       : contentRange.end;
-    const targets: TokenTarget[] = [];
+    const targets: ScopeTypeTarget[] = [];
 
     for (let i = start.line; i <= end.line; ++i) {
       this.getMatchesForLine(editor, i).forEach((range) => {
