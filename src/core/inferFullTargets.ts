@@ -1,8 +1,11 @@
 import {
+  Mark,
+  Modifier,
   PartialListTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
+  PositionModifier,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
@@ -126,7 +129,9 @@ function inferPrimitiveTarget(
   };
 }
 
-function getPositionalModifier(target: PartialPrimitiveTargetDescriptor) {
+function getPositionalModifier(
+  target: PartialPrimitiveTargetDescriptor
+): PositionModifier | undefined {
   if (target.modifiers == null) {
     return undefined;
   }
@@ -139,10 +144,14 @@ function getPositionalModifier(target: PartialPrimitiveTargetDescriptor) {
     throw Error("Position modifiers must be at the start of a modifier chain");
   }
 
-  return positionModifierIndex === -1 ? undefined : target.modifiers[0];
+  return positionModifierIndex === -1
+    ? undefined
+    : (target.modifiers[0] as PositionModifier);
 }
 
-function getNonPositionalModifiers(target: PartialPrimitiveTargetDescriptor) {
+function getNonPositionalModifiers(
+  target: PartialPrimitiveTargetDescriptor
+): Modifier[] | undefined {
   const nonPositionalModifiers = target.modifiers?.filter(
     (modifier) => modifier.type !== "position"
   );
@@ -151,7 +160,9 @@ function getNonPositionalModifiers(target: PartialPrimitiveTargetDescriptor) {
     : nonPositionalModifiers;
 }
 
-function getPreviousMark(previousTargets: PartialTargetDescriptor[]) {
+function getPreviousMark(
+  previousTargets: PartialTargetDescriptor[]
+): Mark | undefined {
   return getPreviousTargetAttribute(
     previousTargets,
     (target: PartialPrimitiveTargetDescriptor) => target.mark
@@ -160,7 +171,7 @@ function getPreviousMark(previousTargets: PartialTargetDescriptor[]) {
 
 function getPreviousNonPositionalModifiers(
   previousTargets: PartialTargetDescriptor[]
-) {
+): Modifier[] | undefined {
   return getPreviousTargetAttribute(
     previousTargets,
     (target: PartialPrimitiveTargetDescriptor) =>
@@ -170,7 +181,7 @@ function getPreviousNonPositionalModifiers(
 
 function getPreviousPositionalModifier(
   previousTargets: PartialTargetDescriptor[]
-) {
+): PositionModifier | undefined {
   return getPreviousTargetAttribute(
     previousTargets,
     (target: PartialPrimitiveTargetDescriptor) => getPositionalModifier(target)
