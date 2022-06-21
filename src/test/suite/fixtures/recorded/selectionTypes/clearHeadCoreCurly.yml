@@ -23,12 +23,13 @@ initialState:
   marks: {}
 finalState:
   documentContents: |-
-    {z)
+    {
+        z)
     }
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   thatMark:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: extendThroughStartOf, modifiers: [{type: interiorOnly}, {type: containingScope, scopeType: {type: surroundingPair, delimiter: curlyBrackets}}]}]}]
