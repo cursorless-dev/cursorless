@@ -188,6 +188,16 @@ function getPreviousPositionalModifier(
   return getPreviousTargetAttribute(previousTargets, getPositionalModifier);
 }
 
+/**
+ * Walks backward through the given targets and their descendants trying to find
+ * the first target for which the given attribute extractor returns a
+ * non-nullish value. Returns `undefined` if none could be found
+ * @param previousTargets The targets that precede the target we are trying to
+ * infer. We look in these targets and their descendants for the given attribute
+ * @param getAttribute The function used to extract the attribute from a
+ * primitive target
+ * @returns The extracted attribute or undefined if one could not be found
+ */
 function getPreviousTargetAttribute<T>(
   previousTargets: PartialTargetDescriptor[],
   getAttribute: (target: PartialPrimitiveTargetDescriptor) => T | undefined
