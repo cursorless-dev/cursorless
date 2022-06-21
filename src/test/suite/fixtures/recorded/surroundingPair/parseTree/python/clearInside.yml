@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 1
-  spokenForm: clear matching
+  spokenForm: clear inside
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -17,7 +17,9 @@ initialState:
       active: {line: 1, character: 0}
   marks: {}
 finalState:
-  documentContents: "\"\"\"\"\"\""
+  documentContents: |-
+    """
+    """
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

@@ -1,7 +1,7 @@
-import { Range, TextEditor } from "vscode";
-import { fitRangeToLineContent } from "../modifiers/scopeTypeStages/LineStage";
+import { Range } from "vscode";
+import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
-import WeakTarget from "./WeakTarget";
+import PlainTarget from "./PlainTarget";
 
 export default class DocumentTarget extends BaseTarget {
   insertionDelimiter = "\n";
@@ -23,10 +23,11 @@ export default class DocumentTarget extends BaseTarget {
 
   getInteriorStrict() {
     return [
-      new WeakTarget({
+      // Use plain target instead of interior target since we want the same content and removal range for a document interior.
+      new PlainTarget({
         editor: this.editor,
         isReversed: this.isReversed,
-        contentRange: getDocumentContentRange(this.editor),
+        contentRange: shrinkRangeToFitContent(this.editor, this.contentRange),
       }),
     ];
   }
@@ -34,32 +35,4 @@ export default class DocumentTarget extends BaseTarget {
   protected getCloneParameters() {
     return this.state;
   }
-}
-
-function getDocumentContentRange(editor: TextEditor) {
-  const { document } = editor;
-  let firstLineNum = 0;
-  let lastLineNum = document.lineCount - 1;
-
-  for (let i = firstLineNum; i < document.lineCount; ++i) {
-    if (!document.lineAt(i).isEmptyOrWhitespace) {
-      firstLineNum = i;
-      break;
-    }
-  }
-
-  for (let i = lastLineNum; i > -1; --i) {
-    if (!document.lineAt(i).isEmptyOrWhitespace) {
-      lastLineNum = i;
-      break;
-    }
-  }
-
-  const firstLine = document.lineAt(firstLineNum);
-  const lastLine = document.lineAt(lastLineNum);
-
-  return fitRangeToLineContent(
-    editor,
-    new Range(firstLine.range.start, lastLine.range.end)
-  );
 }

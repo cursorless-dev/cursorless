@@ -1,4 +1,4 @@
-import { Range, TextEditor } from "vscode";
+import { Range } from "vscode";
 import { Target } from "../../typings/target.types";
 import {
   HeadTailModifier,
