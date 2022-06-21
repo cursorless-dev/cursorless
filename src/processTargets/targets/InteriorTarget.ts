@@ -8,7 +8,7 @@ export interface InteriorTargetParameters
 }
 
 export default class InteriorTarget extends BaseTarget {
-  insertionDelimiter = "";
+  insertionDelimiter = " ";
   private readonly fullInteriorRange: Range;
 
   constructor(parameters: InteriorTargetParameters) {
