@@ -146,7 +146,7 @@ function getPositionalModifier(
 
   return positionModifierIndex === -1
     ? undefined
-    : (target.modifiers[0] as PositionModifier);
+    : (target.modifiers[positionModifierIndex] as PositionModifier);
 }
 
 function getNonPositionalModifiers(
