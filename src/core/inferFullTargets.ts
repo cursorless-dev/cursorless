@@ -179,20 +179,13 @@ function getPreviousMark(
 function getPreviousNonPositionalModifiers(
   previousTargets: PartialTargetDescriptor[]
 ): Modifier[] | undefined {
-  return getPreviousTargetAttribute(
-    previousTargets,
-    (target: PartialPrimitiveTargetDescriptor) =>
-      getNonPositionalModifiers(target)
-  );
+  return getPreviousTargetAttribute(previousTargets, getNonPositionalModifiers);
 }
 
 function getPreviousPositionalModifier(
   previousTargets: PartialTargetDescriptor[]
 ): PositionModifier | undefined {
-  return getPreviousTargetAttribute(
-    previousTargets,
-    (target: PartialPrimitiveTargetDescriptor) => getPositionalModifier(target)
-  );
+  return getPreviousTargetAttribute(previousTargets, getPositionalModifier);
 }
 
 function getPreviousTargetAttribute<T>(
