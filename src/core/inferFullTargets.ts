@@ -94,12 +94,15 @@ function inferPrimitiveTarget(
     };
   }
 
-  const ownPositionalModifier = getPosition(target);
+  const ownPositionalModifier = getPositionalModifier(target);
   const ownNonPositionalModifiers = getNonPositionalModifiers(target);
 
   // Position without a mark can be something like "take air past end of line"
+  // We will move this case when we implement #736
   const mark = target.mark ??
-    (!!ownPositionalModifier ? getPreviousMark(previousTargets) : null) ?? {
+    (ownPositionalModifier == null
+      ? null
+      : getPreviousMark(previousTargets)) ?? {
       type: "cursor",
     };
 
@@ -109,7 +112,7 @@ function inferPrimitiveTarget(
     [];
 
   const positionalModifier =
-    ownPositionalModifier ?? getPreviousPosition(previousTargets);
+    ownPositionalModifier ?? getPreviousPositionalModifier(previousTargets);
 
   const modifiers = [
     ...(positionalModifier == null ? [] : [positionalModifier]),
@@ -123,7 +126,7 @@ function inferPrimitiveTarget(
   };
 }
 
-function getPosition(target: PartialPrimitiveTargetDescriptor) {
+function getPositionalModifier(target: PartialPrimitiveTargetDescriptor) {
   if (target.modifiers == null) {
     return undefined;
   }
@@ -165,10 +168,12 @@ function getPreviousNonPositionalModifiers(
   );
 }
 
-function getPreviousPosition(previousTargets: PartialTargetDescriptor[]) {
+function getPreviousPositionalModifier(
+  previousTargets: PartialTargetDescriptor[]
+) {
   return getPreviousTargetAttribute(
     previousTargets,
-    (target: PartialPrimitiveTargetDescriptor) => getPosition(target)
+    (target: PartialPrimitiveTargetDescriptor) => getPositionalModifier(target)
   );
 }
 
