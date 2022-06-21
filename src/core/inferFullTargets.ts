@@ -98,7 +98,7 @@ function inferPrimitiveTarget(
   const ownNonPositionalModifiers = getNonPositionalModifiers(target);
 
   // Position without a mark can be something like "take air past end of line"
-  // We will move this case when we implement #736
+  // We will remove this case when we implement #736
   const mark = target.mark ??
     (ownPositionalModifier == null
       ? null
