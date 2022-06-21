@@ -8,7 +8,10 @@ import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import TokenTarget from "../../targets/TokenTarget";
 
-type RegexModifier = NonWhitespaceSequenceModifier | UrlModifier | NonWhitespaceOrQuoteSequenceModifier;
+type RegexModifier =
+  | NonWhitespaceSequenceModifier
+  | UrlModifier
+  | NonWhitespaceOrQuoteSequenceModifier;
 
 class RegexStage implements ModifierStage {
   constructor(
