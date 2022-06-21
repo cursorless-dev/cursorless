@@ -1,17 +1,9 @@
 import { shuffle } from "lodash";
-import {
-  Action,
-  ActionReturnValue,
-  ActionPreferences,
-  Graph,
-  TypedSelection,
-} from "../typings/Types";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export class Sort implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [
-    { insideOutsideType: "inside" },
-  ];
-
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
@@ -20,7 +12,7 @@ export class Sort implements Action {
     return texts.sort();
   }
 
-  async run(targets: TypedSelection[][]): Promise<ActionReturnValue> {
+  async run(targets: Target[][]): Promise<ActionReturnValue> {
     const { returnValue: unsortedTexts } = await this.graph.actions.getText.run(
       targets,
       {

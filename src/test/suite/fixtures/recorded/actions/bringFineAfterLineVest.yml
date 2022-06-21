@@ -1,0 +1,44 @@
+languageId: plaintext
+command:
+  spokenForm: bring fine after line vest
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      modifiers:
+        - {type: position, position: after}
+        - type: containingScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: true
+  action: {name: replaceWithTarget}
+initialState:
+  documentContents: |
+    foo
+        const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+    default.v:
+      start: {line: 1, character: 10}
+      end: {line: 1, character: 15}
+finalState:
+  documentContents: |
+    foo
+        const value = "Hello world";
+        foo
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 7}
+  sourceMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 3}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: []}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: {type: line}}]}]
