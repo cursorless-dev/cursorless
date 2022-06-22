@@ -2,7 +2,6 @@ import { flatten, zip } from "lodash";
 import { DecorationRangeBehavior, Selection, TextEditor } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
 import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
-import { toPositionTarget } from "../processTargets/modifiers/PositionStage";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
@@ -43,7 +42,7 @@ class InsertCopy implements Action {
     // isBefore is inverted because we want the selections to stay with what is to the user the "copy"
     const position = this.isBefore ? "after" : "before";
     const edits = targets.flatMap((target) =>
-      toPositionTarget(target, position).constructChangeEdit(target.contentText)
+      target.toPositionTarget(position).constructChangeEdit(target.contentText)
     );
 
     const cursorSelections = { selections: editor.selections };

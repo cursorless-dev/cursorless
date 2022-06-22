@@ -1,11 +1,12 @@
-import * as path from "path";
 import * as cp from "child_process";
+import * as path from "path";
 
 import {
-  runTests,
-  resolveCliPathFromVSCodeExecutablePath,
   downloadAndUnzipVSCode,
-} from "vscode-test";
+  resolveCliArgsFromVSCodeExecutablePath,
+  runTests,
+} from "@vscode/test-electron";
+import { env } from "process";
 import { extensionDependencies } from "./extensionDependencies";
 
 async function main() {
@@ -18,18 +19,24 @@ async function main() {
     // Passed to --extensionTestsPath
     const extensionTestsPath = path.resolve(__dirname, "./suite/index");
 
-    // This version should match package.json engines.vscode
-    const vscodeExecutablePath = await downloadAndUnzipVSCode("1.58.1");
-    const cliPath =
-      resolveCliPathFromVSCodeExecutablePath(vscodeExecutablePath);
+    // NB: We include the exact version here instead of in `test.yml` so that
+    // we don't have to update the branch protection rules every time we bump
+    // the legacy VSCode version.
+    const vscodeVersion = env.VSCODE_VERSION === "legacy" ? "1.58.1" : "stable";
+    const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
+    const [cli, ...args] =
+      resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
 
     // Install extension dependencies
     cp.spawnSync(
-      cliPath,
-      extensionDependencies.flatMap((dependency) => [
-        "--install-extension",
-        dependency,
-      ]),
+      cli,
+      [
+        ...args,
+        ...extensionDependencies.flatMap((dependency) => [
+          "--install-extension",
+          dependency,
+        ]),
+      ],
       {
         encoding: "utf-8",
         stdio: "inherit",

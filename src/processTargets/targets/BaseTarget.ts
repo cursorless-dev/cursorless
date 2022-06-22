@@ -1,15 +1,17 @@
 import { isEqual } from "lodash";
 import { Range, Selection, TextEditor } from "vscode";
 import { EditNewContext, Target } from "../../typings/target.types";
+import { Position } from "../../typings/targetDescriptor.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
+import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
   createContinuousRange,
   createContinuousRangeWeakTarget,
 } from "../targetUtil/createContinuousRange";
 
-/** Parameters supported by all target classes */
+/** Parameters supported by most target classes */
 export interface CommonTargetParameters {
   readonly editor: TextEditor;
   readonly isReversed: boolean;
@@ -79,14 +81,9 @@ export default abstract class BaseTarget implements Target {
     };
   }
 
-  getEditNewContext(isBefore: boolean): EditNewContext {
-    const delimiter = this.insertionDelimiter ?? "";
-    if (delimiter === "\n" && !isBefore) {
-      return { type: "command", command: "editor.action.insertLineAfter" };
-    }
+  getEditNewContext(): EditNewContext {
     return {
-      type: "delimiter",
-      delimiter,
+      type: "edit",
     };
   }
 
@@ -150,11 +147,32 @@ export default abstract class BaseTarget implements Target {
     );
   }
 
-  isEqual(target: Target): boolean {
+  isEqual(otherTarget: Target): boolean {
     return (
-      target instanceof BaseTarget &&
-      isEqual(this.getCloneParameters(), target.getCloneParameters())
+      otherTarget instanceof BaseTarget &&
+      isEqual(this.getEqualityParameters(), otherTarget.getEqualityParameters())
     );
+  }
+
+  /**
+   * @returns An object that can be used for determining equality between two
+   * `BaseTarget`s
+   */
+  protected getEqualityParameters(): object {
+    const { thatTarget, ...otherCloneParameters } =
+      this.getCloneParameters() as { thatTarget?: Target };
+    if (!(thatTarget instanceof BaseTarget)) {
+      return { thatTarget, ...otherCloneParameters };
+    }
+
+    return {
+      thatTarget: thatTarget ? thatTarget.getEqualityParameters() : undefined,
+      ...otherCloneParameters,
+    };
+  }
+
+  toPositionTarget(position: Position): Target {
+    return toPositionTarget(this, position);
   }
 
   abstract get insertionDelimiter(): string;

@@ -1,0 +1,33 @@
+languageId: typescript
+command:
+  spokenForm: take core
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: true
+  action: {name: setSelection}
+initialState:
+  documentContents: |-
+    [
+        "foo",
+        "bar"
+    ]
+  selections:
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
+  marks: {}
+finalState:
+  documentContents: |-
+    [
+        "foo",
+        "bar"
+    ]
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 2, character: 9}
+  thatMark:
+    - anchor: {line: 1, character: 4}
+      active: {line: 2, character: 9}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: interiorOnly}]}]

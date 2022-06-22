@@ -1,8 +1,11 @@
 import {
+  Mark,
+  Modifier,
   PartialListTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
+  PositionModifier,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
@@ -94,36 +97,30 @@ function inferPrimitiveTarget(
     };
   }
 
-  const hasPosition = !!target.modifiers?.find(
-    (modifier) => modifier.type === "position"
-  );
+  const ownPositionalModifier = getPositionalModifier(target);
+  const ownNonPositionalModifiers = getNonPositionalModifiers(target);
 
   // Position without a mark can be something like "take air past end of line"
+  // We will remove this case when we implement #736
   const mark = target.mark ??
-    (hasPosition ? getPreviousMark(previousTargets) : null) ?? {
+    (ownPositionalModifier == null
+      ? null
+      : getPreviousMark(previousTargets)) ?? {
       type: "cursor",
     };
 
-  const previousModifiers = getPreviousModifiers(previousTargets);
+  const nonPositionalModifiers =
+    ownNonPositionalModifiers ??
+    getPreviousNonPositionalModifiers(previousTargets) ??
+    [];
 
-  const modifiers = target.modifiers ?? previousModifiers ?? [];
+  const positionalModifier =
+    ownPositionalModifier ?? getPreviousPositionalModifier(previousTargets);
 
-  // "bring line to after this" needs to infer line on second target
-  const modifierTypes = [
-    ...new Set(modifiers.map((modifier) => modifier.type)),
+  const modifiers = [
+    ...(positionalModifier == null ? [] : [positionalModifier]),
+    ...nonPositionalModifiers,
   ];
-  if (
-    previousModifiers != null &&
-    modifierTypes.length === 1 &&
-    modifierTypes[0] === "position"
-  ) {
-    const containingScopeModifier = previousModifiers.find(
-      (modifier) => modifier.type === "containingScope"
-    );
-    if (containingScopeModifier != null) {
-      modifiers.push(containingScopeModifier);
-    }
-  }
 
   return {
     type: target.type,
@@ -132,45 +129,107 @@ function inferPrimitiveTarget(
   };
 }
 
-function getPreviousMark(previousTargets: PartialTargetDescriptor[]) {
-  return getPreviousTarget(
-    previousTargets,
-    (target: PartialPrimitiveTargetDescriptor) => target.mark != null
-  )?.mark;
+function getPositionalModifier(
+  target: PartialPrimitiveTargetDescriptor
+): PositionModifier | undefined {
+  if (target.modifiers == null) {
+    return undefined;
+  }
+
+  const positionModifierIndex = target.modifiers.findIndex(
+    (modifier) => modifier.type === "position"
+  );
+
+  if (positionModifierIndex > 0) {
+    throw Error("Position modifiers must be at the start of a modifier chain");
+  }
+
+  return positionModifierIndex === -1
+    ? undefined
+    : (target.modifiers[positionModifierIndex] as PositionModifier);
 }
 
-function getPreviousModifiers(previousTargets: PartialTargetDescriptor[]) {
-  return getPreviousTarget(
-    previousTargets,
-    (target: PartialPrimitiveTargetDescriptor) => target.modifiers != null
-  )?.modifiers;
+/**
+ * Return a list of non-positional modifiers on the given target. We return
+ * undefined if there are none. Note that we will never return an empty list; we
+ * will always return `undefined` if there are no non-positional modifiers.
+ * @param target The target from which to get the non-positional modifiers
+ * @returns A list of non-positional modifiers or `undefined` if there are none
+ */
+function getNonPositionalModifiers(
+  target: PartialPrimitiveTargetDescriptor
+): Modifier[] | undefined {
+  const nonPositionalModifiers = target.modifiers?.filter(
+    (modifier) => modifier.type !== "position"
+  );
+  return nonPositionalModifiers == null || nonPositionalModifiers.length === 0
+    ? undefined
+    : nonPositionalModifiers;
 }
 
-function getPreviousTarget(
+function getPreviousMark(
+  previousTargets: PartialTargetDescriptor[]
+): Mark | undefined {
+  return getPreviousTargetAttribute(
+    previousTargets,
+    (target: PartialPrimitiveTargetDescriptor) => target.mark
+  );
+}
+
+function getPreviousNonPositionalModifiers(
+  previousTargets: PartialTargetDescriptor[]
+): Modifier[] | undefined {
+  return getPreviousTargetAttribute(previousTargets, getNonPositionalModifiers);
+}
+
+function getPreviousPositionalModifier(
+  previousTargets: PartialTargetDescriptor[]
+): PositionModifier | undefined {
+  return getPreviousTargetAttribute(previousTargets, getPositionalModifier);
+}
+
+/**
+ * Walks backward through the given targets and their descendants trying to find
+ * the first target for which the given attribute extractor returns a
+ * non-nullish value. Returns `undefined` if none could be found
+ * @param previousTargets The targets that precede the target we are trying to
+ * infer. We look in these targets and their descendants for the given attribute
+ * @param getAttribute The function used to extract the attribute from a
+ * primitive target
+ * @returns The extracted attribute or undefined if one could not be found
+ */
+function getPreviousTargetAttribute<T>(
   previousTargets: PartialTargetDescriptor[],
-  useTarget: (target: PartialPrimitiveTargetDescriptor) => boolean
-): PartialPrimitiveTargetDescriptor | null {
+  getAttribute: (target: PartialPrimitiveTargetDescriptor) => T | undefined
+): T | undefined {
   // Search from back(last) to front(first)
   for (let i = previousTargets.length - 1; i > -1; --i) {
     const target = previousTargets[i];
     switch (target.type) {
-      case "primitive":
-        if (useTarget(target)) {
-          return target;
+      case "primitive": {
+        const attributeValue = getAttribute(target);
+        if (attributeValue != null) {
+          return attributeValue;
         }
         break;
-      case "range":
-        if (useTarget(target.anchor)) {
-          return target.anchor;
+      }
+      case "range": {
+        const attributeValue = getAttribute(target.anchor);
+        if (attributeValue != null) {
+          return attributeValue;
         }
         break;
+      }
       case "list":
-        const result = getPreviousTarget(target.elements, useTarget);
-        if (result != null) {
-          return result;
+        const attributeValue = getPreviousTargetAttribute(
+          target.elements,
+          getAttribute
+        );
+        if (attributeValue != null) {
+          return attributeValue;
         }
         break;
     }
   }
-  return null;
+  return undefined;
 }
