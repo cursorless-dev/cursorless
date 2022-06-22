@@ -1,8 +1,7 @@
 languageId: plaintext
 command:
-  version: 1
-  spokenForm: bring point and harp to end of second car whale and end of whale take whale
-  action: replaceWithTarget
+  spokenForm: bring point and harp to end of second car whale and end of just whale take whale
+  version: 2
   targets:
     - type: list
       elements:
@@ -13,15 +12,22 @@ command:
     - type: list
       elements:
         - type: primitive
-          position: after
-          insideOutsideType: inside
-          selectionType: token
-          modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}
           mark: {type: decoratedSymbol, symbolColor: default, character: w}
+          modifiers:
+            - {type: position, position: end}
+            - type: ordinalRange
+              scopeType: {type: character}
+              anchor: 1
+              active: 1
+              excludeAnchor: false
+              excludeActive: false
         - type: primitive
-          position: after
-          insideOutsideType: inside
           mark: {type: decoratedSymbol, symbolColor: default, character: w}
+          modifiers:
+            - {type: position, position: end}
+            - {type: toRawSelection}
+  usePrePhraseSnapshot: false
+  action: {name: replaceWithTarget}
 marksToCheck: [default.w]
 initialState:
   documentContents: hello. world

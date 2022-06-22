@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
 import processTargets from "../../processTargets";
+import isTesting from "../../testUtil/isTesting";
 import { Graph, ProcessedTargetsContext } from "../../typings/Types";
 import { isString } from "../../util/type";
 import { canonicalizeAndValidateCommand } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
@@ -146,7 +147,7 @@ export default class CommandRunner {
       const err = e as Error;
       if (err instanceof OutdatedExtensionError) {
         this.showUpdateExtensionErrorMessage(err);
-      } else {
+      } else if (!isTesting()) {
         vscode.window.showErrorMessage(err.message);
       }
       console.error(err.message);

@@ -11,7 +11,7 @@ import {
   createContinuousRangeWeakTarget,
 } from "../targetUtil/createContinuousRange";
 
-/** Parameters supported by all target classes */
+/** Parameters supported by most target classes */
 export interface CommonTargetParameters {
   readonly editor: TextEditor;
   readonly isReversed: boolean;
