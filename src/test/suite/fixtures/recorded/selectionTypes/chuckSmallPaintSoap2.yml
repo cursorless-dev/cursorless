@@ -1,0 +1,30 @@
+languageId: python
+command:
+  spokenForm: chuck small paint soap
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: nonWhitespaceOrQuoteSequence}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
+initialState:
+  documentContents: f.o(some() text)
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
+  marks:
+    default.s:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 8}
+finalState:
+  documentContents: f.o( text)
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  thatMark:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, modifiers: [{type: containingScope, scopeType: {type: nonWhitespaceOrQuoteSequence}}]}]
