@@ -10,8 +10,7 @@ import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 
 type RegexModifier =
   | NonWhitespaceSequenceModifier
-  | UrlModifier
-  | NonWhitespaceOrQuoteSequenceModifier;
+  | UrlModifier;
 
 class RegexStage implements ModifierStage {
   constructor(
@@ -124,19 +123,6 @@ export type NonWhitespaceSequenceModifier = (
 export class NonWhitespaceSequenceStage extends RegexStage {
   constructor(modifier: NonWhitespaceSequenceModifier) {
     super(modifier, /\S+/g, "Non whitespace sequence");
-  }
-}
-
-export type NonWhitespaceOrQuoteSequenceModifier = (
-  | ContainingScopeModifier
-  | EveryScopeModifier
-) & {
-  scopeType: { type: "nonWhitespaceOrQuoteSequence" };
-};
-
-export class NonWhitespaceOrQuoteSequenceStage extends RegexStage {
-  constructor(modifier: NonWhitespaceOrQuoteSequenceModifier) {
-    super(modifier, /[^\s'"]+/g, "Non whitespace or quote sequence");
   }
 }
 
