@@ -133,6 +133,7 @@ For programming languages where Cursorless has rich parse tree support, we suppo
 | `"arg"`        | function parameter or function call argument        |
 | `"attribute"`  | attribute, eg on html element                       |
 | `"call"`       | function call, eg `foo(1, 2)`                       |
+| `"callee"`     | the function being called in a function call        |
 | `"class name"` | the name in a class declaration                     |
 | `"class"`      | class definition                                    |
 | `"comment"`    | comment                                             |
