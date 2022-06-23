@@ -102,6 +102,7 @@ import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
       "parameter.identifier!",
     ],
     class: ["struct_item", "struct_expression"],
+    value: ["let_declaration[value]"],
    };
   
   export default createPatternMatchers(nodeMatchers);
