@@ -31,7 +31,9 @@ export default class SmallPaintStage implements ModifierStage {
       scopeType: { type: "nonWhitespaceSequence" },
     });
 
-    const surroundingPairStage = new InteriorOnlyStage({type: "interiorOnly"});
+    const surroundingPairStage = new InteriorOnlyStage({
+      type: "interiorOnly",
+    });
 
     const paintTargets = paintStage.run(context, target);
 
