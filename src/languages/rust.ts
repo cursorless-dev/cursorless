@@ -90,7 +90,7 @@ const nodeMatchers: Partial<
       ],
       [":", "->"]
     ),
-    patternMatcher("trait_item", "impl_item"),
+    patternMatcher("trait_item", "impl_item")
   ),
   functionName: ["function_item[name]"],
   anonymousFunction: "closure_expression",
