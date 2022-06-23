@@ -89,6 +89,7 @@ import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
       "parameter[type]",
       "generic_type",
       "struct_item",
+      "field_declaration[type]"
     ], [":", "->"]),
     functionName: ["function_item[name]"],
     anonymousFunction: "closure_expression",
