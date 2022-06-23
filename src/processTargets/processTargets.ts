@@ -195,10 +195,29 @@ function processPrimitiveTarget(
   const markStage = getMarkStage(targetDescriptor.mark);
   const markOutputTargets = markStage.run(context);
 
-  /** The modifier pipeline that will be applied to construct our final targets */
+  /**
+   * The modifiers from the target descriptor. Note that we reverse them before
+   * running them through the pipeline because they arrive in the same order in
+   * which they're spoken.
+   */
+  const modifiers = [...targetDescriptor.modifiers].reverse();
+
+  /**
+   * If the pipeline ends in a position modifier, we run in after the action
+   * stages
+   */
+  const [initialModifiers, finalModifiers] =
+    modifiers.at(-1)?.type === "position"
+      ? [modifiers.slice(0, -1), [modifiers.at(-1)!]]
+      : [modifiers, []];
+
+  /**
+   * The modifier pipeline that will be applied to construct our final targets
+   */
   const modifierStages = [
-    ...getModifierStagesFromTargetModifiers(targetDescriptor.modifiers),
-    ...context.finalStages,
+    ...initialModifiers.map(getModifierStage),
+    ...context.actionStages,
+    ...finalModifiers.map(getModifierStage),
   ];
 
   // Run all targets through the modifier stages

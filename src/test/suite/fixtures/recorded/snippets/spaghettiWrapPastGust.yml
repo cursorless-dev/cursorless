@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+  version: 1
+  spokenForm: spaghetti wrap past gust
+  action: wrapWithSnippet
+  targets:
+    - type: range
+      start: {type: primitive}
+      end:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: g}
+      excludeStart: false
+      excludeEnd: false
+  extraArgs: [spaghetti.foo]
+initialState:
+  documentContents: grace hopper
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks:
+    default.g:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: My friend grace hopper likes to eat spaghetti!
+  selections:
+    - anchor: {line: 0, character: 46}
+      active: {line: 0, character: 46}
+  thatMark:
+    - anchor: {line: 0, character: 46}
+      active: {line: 0, character: 0}
+fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, anchor: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: g}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}}]

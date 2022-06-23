@@ -19,7 +19,8 @@
 									"type": "array",
 									"items": {
 										"type": "string"
-									}
+									},
+									"description": "VSCode language ids where this snippet definition should be active"
 								},
 								"scopeType": {
 									"$ref": "#/$defs/scopeType",
@@ -32,32 +33,27 @@
 							"items": {
 								"type": "string"
 							},
-							"description": "Inline snippet text using VSCode snippet syntax; entries joined by newline.  Named variables of the form $foo can be used as wrappers"
+							"description": "Inline snippet text using VSCode snippet syntax; entries joined by newline.  Named variables of the form `$foo` can be used as placeholders"
+						},
+						"variables": {
+							"$ref": "#/$defs/variables",
+							"description": "Scope-specific overrides for the variables defined in the snippet"
 						}
 					},
 					"required": ["body"]
 				}
 			},
 			"variables": {
-				"type": "object",
-				"description": "For each named variable in the snippet, provides extra information about the variable.",
-				"additionalProperties": {
-					"type": "object",
-					"properties": {
-						"wrapperScopeType": {
-							"$ref": "#/$defs/scopeType",
-							"description": "Default to this scope type when wrapping a target without scope type specified"
-						},
-						"description": {
-							"type": "string",
-							"description": "Description of the snippet variable"
-						}
-					}
-				}
+				"$ref": "#/$defs/variables",
+				"description": "For each named variable in the snippet, provides extra information about the variable."
 			},
 			"description": {
 				"type": "string",
 				"description": "Description of the snippet"
+			},
+			"insertionScopeType": {
+				"$ref": "#/$defs/scopeType",
+				"description": "Default to this scope type when inserting this snippet before/after a target without scope type specified"
 			}
 		}
 	},
@@ -85,11 +81,51 @@
 				"string",
 				"type",
 				"value",
+				"condition",
+				"section",
+				"sectionLevelOne",
+				"sectionLevelTwo",
+				"sectionLevelThree",
+				"sectionLevelFour",
+				"sectionLevelFive",
+				"sectionLevelSix",
+				"selector",
 				"xmlBothTags",
 				"xmlElement",
 				"xmlEndTag",
-				"xmlStartTag"
+				"xmlStartTag",
+				"token",
+				"line",
+				"notebookCell",
+				"paragraph",
+				"document",
+				"character",
+				"word",
+				"nonWhitespaceSequence",
+				"url"
 			]
+		},
+		"variables": {
+			"type": "object",
+			"description": "For each named variable in the snippet, provides extra information about the variable.",
+			"additionalProperties": {
+				"type": "object",
+				"properties": {
+					"wrapperScopeType": {
+						"$ref": "#/$defs/scopeType",
+						"description": "Default to this scope type when wrapping a target without scope type specified"
+					},
+					"description": {
+						"type": "string",
+						"description": "Description of the snippet variable"
+					},
+					"formatter": {
+						"type": "string",
+						"description": "Format text inserted into this variable using the given formatter",
+						"enum": ["camelCase", "pascalCase", "snakeCase"]
+					}
+				}
+			}
 		}
 	}
 }

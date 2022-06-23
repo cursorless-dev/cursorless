@@ -412,9 +412,9 @@ The rewrap command, mapped to `"repack"` by default, can be used to swap a given
 
 See [paired delimiters](#paired-delimiters) for a list of possible wrappers.
 
-#### \[experimental\] Wrap with snippet
+### \[experimental\] Snippets
 
-See [experimental documentation](experimental/wrapper-snippets.md).
+See [experimental documentation](experimental/snippets.md).
 
 ### Show definition/reference/quick fix
 

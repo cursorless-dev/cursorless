@@ -1,8 +1,8 @@
 languageId: plaintext
 command:
   spokenForm: >-
-    bring point and point to start of second car whale and start of just whale take
-    whale
+    bring point and point to start of second car whale and start of just whale
+    take whale
   version: 2
   targets:
     - type: list

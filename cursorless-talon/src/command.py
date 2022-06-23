@@ -2,6 +2,8 @@ from typing import Any
 
 from talon import Module, actions, speech_system
 
+from .primitive_target import IMPLICIT_TARGET
+
 mod = Module()
 
 last_phrase = None
@@ -47,17 +49,7 @@ class Actions:
         )
 
     def cursorless_single_target_command_with_arg_list(
-        action: str, target: str, args: list[Any]
-    ):
-        """Execute single-target cursorless command with argument list"""
-        actions.user.cursorless_single_target_command(
-            action,
-            target,
-            *args,
-        )
-
-    def cursorless_single_target_command_with_arg_list(
-        action: str, target: str, args: list[Any]
+        action: str, target: dict, args: list[Any]
     ):
         """Execute single-target cursorless command with argument list"""
         actions.user.cursorless_single_target_command(
@@ -83,12 +75,23 @@ class Actions:
             ),
         )
 
+    def cursorless_implicit_target_command(
+        action: str,
+        arg1: Any = NotSet,
+        arg2: Any = NotSet,
+        arg3: Any = NotSet,
+    ):
+        """Execute cursorless command with implicit target"""
+        actions.user.cursorless_multiple_target_command(
+            action, [IMPLICIT_TARGET], arg1, arg2, arg3
+        )
+
     def cursorless_multiple_target_command(
         action: str,
         targets: list[dict],
-        arg1: any = NotSet,
-        arg2: any = NotSet,
-        arg3: any = NotSet,
+        arg1: Any = NotSet,
+        arg2: Any = NotSet,
+        arg3: Any = NotSet,
     ):
         """Execute multi-target cursorless command"""
         actions.user.vscode_with_plugin_and_wait(
@@ -103,9 +106,9 @@ class Actions:
     def cursorless_multiple_target_command_no_wait(
         action: str,
         targets: list[dict],
-        arg1: any = NotSet,
-        arg2: any = NotSet,
-        arg3: any = NotSet,
+        arg1: Any = NotSet,
+        arg2: Any = NotSet,
+        arg3: Any = NotSet,
     ):
         """Execute multi-target cursorless command"""
         actions.user.vscode_with_plugin(

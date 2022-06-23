@@ -189,7 +189,7 @@ export async function callFunctionAndUpdateRanges(
  * @param selectionInfoMatrix A matrix of selection info objects to update
  * @returns The initial selections updated based upon what happened in the function
  */
-async function callFunctionAndUpdateSelectionInfos(
+export async function callFunctionAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
   func: () => Thenable<void>,
   document: TextDocument,

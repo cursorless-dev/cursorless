@@ -1,11 +1,13 @@
 import { readFile, stat } from "fs/promises";
 import { cloneDeep, max, merge } from "lodash";
 import { join } from "path";
-import { workspace } from "vscode";
+import { window, workspace } from "vscode";
+import isTesting from "../testUtil/isTesting";
 import { walkFiles } from "../testUtil/walkAsync";
 import { Snippet, SnippetMap } from "../typings/snippet";
 import { Graph } from "../typings/Types";
 import { mergeStrict } from "../util/object";
+import { CURSORLESS_SNIPPETS_SUFFIX } from "./constants";
 
 const SNIPPET_DIR_REFRESH_INTERVAL_MS = 1000;
 
@@ -33,6 +35,13 @@ export class Snippets {
    * we've already set userSnippets to {}.
    */
   private maxSnippetMtimeMs: number = -1;
+
+  /**
+   * If the user has misconfigured their snippet dir, then we keep track of the
+   * the path so that we don't spam them with error messages for the same
+   * mistake
+   */
+  private shownErrorMessageForDir: string | null | undefined = null;
 
   constructor(private graph: Graph) {
     this.updateUserSnippetsPath();
@@ -63,7 +72,7 @@ export class Snippets {
   async init() {
     const extensionPath = this.graph.extensionContext.extensionPath;
     const snippetsDir = join(extensionPath, "cursorless-snippets");
-    const snippetFiles = await walkFiles(snippetsDir);
+    const snippetFiles = await getSnippetPaths(snippetsDir);
     this.coreSnippets = mergeStrict(
       ...(await Promise.all(
         snippetFiles.map(async (path) =>
@@ -81,9 +90,22 @@ export class Snippets {
    * @returns Boolean indicating whether path has changed
    */
   private updateUserSnippetsPath(): boolean {
-    const newUserSnippetsDir = workspace
-      .getConfiguration("cursorless.experimental")
-      .get<string>("snippetsDir");
+    let newUserSnippetsDir: string | undefined;
+
+    if (isTesting()) {
+      newUserSnippetsDir = join(
+        this.graph.extensionContext.extensionPath,
+        "src",
+        "test",
+        "suite",
+        "fixtures",
+        "cursorless-snippets"
+      );
+    } else {
+      newUserSnippetsDir = workspace
+        .getConfiguration("cursorless.experimental")
+        .get<string>("snippetsDir");
+    }
 
     if (newUserSnippetsDir === this.userSnippetsDir) {
       return false;
@@ -98,9 +120,25 @@ export class Snippets {
   }
 
   async updateUserSnippets() {
-    const snippetFiles = this.userSnippetsDir
-      ? await walkFiles(this.userSnippetsDir)
-      : [];
+    let snippetFiles: string[];
+    try {
+      snippetFiles = this.userSnippetsDir
+        ? await getSnippetPaths(this.userSnippetsDir)
+        : [];
+    } catch (err) {
+      if (this.shownErrorMessageForDir !== this.userSnippetsDir) {
+        window.showErrorMessage(
+          `Error with cursorless snippets dir "${this.userSnippetsDir}": ${
+            (err as Error).message
+          }`
+        );
+      }
+
+      this.shownErrorMessageForDir = this.userSnippetsDir;
+      return;
+    }
+
+    this.shownErrorMessageForDir = null;
 
     const maxSnippetMtime =
       max(
@@ -117,9 +155,29 @@ export class Snippets {
 
     this.userSnippets = mergeStrict(
       ...(await Promise.all(
-        snippetFiles.map(async (path) =>
-          JSON.parse(await readFile(path, "utf8"))
-        )
+        snippetFiles.map(async (path) => {
+          try {
+            const content = await readFile(path, "utf8");
+
+            if (content.length === 0) {
+              // Gracefully handle an empty file
+              return {};
+            }
+
+            return JSON.parse(content);
+          } catch (err) {
+            window.showErrorMessage(
+              `Error with cursorless snippets file "${path}": ${
+                (err as Error).message
+              }`
+            );
+
+            // We don't want snippets from all files to stop working if there is
+            // a parse error in one file, so we just effectively ignore this file
+            // once we've shown an error message
+            return {};
+          }
+        })
       ))
     );
 
@@ -184,4 +242,10 @@ export class Snippets {
   getSnippet(snippetName: string): Snippet | undefined {
     return this.mergedSnippets[snippetName];
   }
+}
+
+async function getSnippetPaths(snippetsDir: string) {
+  return (await walkFiles(snippetsDir)).filter((path) =>
+    path.endsWith(CURSORLESS_SNIPPETS_SUFFIX)
+  );
 }
