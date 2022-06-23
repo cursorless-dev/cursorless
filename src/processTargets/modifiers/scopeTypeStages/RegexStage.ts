@@ -8,9 +8,7 @@ import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 
-type RegexModifier =
-  | NonWhitespaceSequenceModifier
-  | UrlModifier;
+type RegexModifier = NonWhitespaceSequenceModifier | UrlModifier;
 
 class RegexStage implements ModifierStage {
   constructor(

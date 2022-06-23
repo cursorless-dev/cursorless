@@ -29,7 +29,9 @@ import {
   UrlStage,
 } from "./modifiers/scopeTypeStages/RegexStage";
 import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
-import SmallPaintStage, { NonWhitespaceOrQuoteSequenceModifier } from "./modifiers/SmallPaintStage";
+import SmallPaintStage, {
+  NonWhitespaceOrQuoteSequenceModifier,
+} from "./modifiers/SmallPaintStage";
 import SurroundingPairStage from "./modifiers/SurroundingPairStage";
 import { ModifierStage } from "./PipelineStages.types";
 
