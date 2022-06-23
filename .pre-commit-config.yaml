@@ -1,3 +1,5 @@
+ci:
+  skip: ["generate-third-party-licenses"]
 minimum_pre_commit_version: "2.9.0"
 exclude: ^src/vendor/
 repos:
@@ -38,3 +40,12 @@ repos:
         # TODO: bump to --py310-plus when Talon moves to Python 3.10.
         args: [--refactor, --py39-plus]
         types_or: [python, markdown, rst]
+  - repo: local
+    hooks:
+      - id: generate-third-party-licenses
+        name: generate third-party-licenses.csv
+        description: Generate third-party-licenses.csv
+        entry: npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv
+        language: node
+        always_run: true
+        pass_filenames: false
