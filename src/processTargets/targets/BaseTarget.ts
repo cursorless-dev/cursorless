@@ -155,18 +155,20 @@ export default abstract class BaseTarget implements Target {
   }
 
   /**
-   * @returns An object that can be used for determining equality between two
-   * `BaseTarget`s
+   * Constructs an object that can be used for determining equality between two
+   * {@link BaseTarget} objects. We proceed by just getting the objects clone
+   * parameters and removing the `thatTarget`.
+   *
+   * We would prefer to instead merge the `thatTarget`s into a list. See #780
+   * for more details.
+   *
+   * @returns The object to be used for determining equality
    */
   protected getEqualityParameters(): object {
     const { thatTarget, ...otherCloneParameters } =
       this.getCloneParameters() as { thatTarget?: Target };
-    if (!(thatTarget instanceof BaseTarget)) {
-      return { thatTarget, ...otherCloneParameters };
-    }
 
     return {
-      thatTarget: thatTarget ? thatTarget.getEqualityParameters() : undefined,
       ...otherCloneParameters,
     };
   }
