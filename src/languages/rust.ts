@@ -84,18 +84,19 @@ const nodeMatchers: Partial<
       [
         "let_declaration[type]",
         "parameter[type]",
-        "generic_type",
-        "struct_item",
         "field_declaration[type]",
+
       ],
-      [":", "->"]
+      [":"]
     ),
-    patternMatcher("trait_item", "impl_item"),
+    leadingMatcher(["function_item[return_type]"], ["->"]),
+    patternMatcher("impl_item[type]"),
+    patternMatcher("struct_item", "trait_item","impl_item"),
   ),
   functionName: ["function_item[name]"],
   anonymousFunction: "closure_expression",
   argumentOrParameter: cascadingMatcher(
-    argumentMatcher("arguments"),
+    argumentMatcher("arguments", "type_arguments"),
     trailingMatcher(["parameter"], [","]),
     trailingMatcher(["self_parameter"], [","])
   ),
