@@ -39,6 +39,7 @@ import ToggleBreakpoint from "./ToggleBreakpoint";
 import Wrap from "./Wrap";
 import WrapWithSnippet from "./WrapWithSnippet";
 import InsertSnippet from "./InsertSnippet";
+import GenerateSnippet from "./GenerateSnippet";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -57,6 +58,7 @@ class Actions implements ActionRecord {
   foldRegion = new Fold(this.graph);
   followLink = new FollowLink(this.graph);
   getText = new GetText(this.graph);
+  generateSnippet = new GenerateSnippet(this.graph);
   highlight = new Highlight(this.graph);
   indentLine = new IndentLines(this.graph);
   insertCopyAfter = new InsertCopyAfter(this.graph);

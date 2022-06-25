@@ -4,7 +4,11 @@ from ..csv_overrides import init_csv_and_watch_changes
 from .actions_callback import callback_action_defaults, callback_action_map
 from .actions_custom import custom_action_defaults
 from .actions_makeshift import makeshift_action_defaults, makeshift_action_map
-from .actions_simple import positional_action_defaults, simple_action_defaults
+from .actions_simple import (
+    no_wait_actions,
+    positional_action_defaults,
+    simple_action_defaults,
+)
 
 mod = Module()
 
@@ -48,6 +52,10 @@ class Actions:
                 actions.sleep(f"{talon_options.post_command_sleep_ms}ms")
 
             return return_value
+        elif action_id in no_wait_actions:
+            return actions.user.cursorless_single_target_command_no_wait(
+                action_id, target
+            )
         else:
             return actions.user.cursorless_single_target_command(action_id, target)
 
