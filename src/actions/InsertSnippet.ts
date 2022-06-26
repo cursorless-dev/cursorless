@@ -19,7 +19,7 @@ import { Action, ActionReturnValue } from "./actions.types";
 export default class InsertSnippet implements Action {
   private snippetParser = new SnippetParser();
 
-  getFinalStages(snippetName: string) {
+  getPrePositionStages(snippetName: string) {
     const snippet = this.graph.snippets.getSnippet(snippetName);
 
     if (snippet == null) {

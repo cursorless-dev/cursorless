@@ -82,8 +82,8 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute cursorless command with implicit target"""
-        actions.user.cursorless_multiple_target_command(
-            action, [IMPLICIT_TARGET], arg1, arg2, arg3
+        actions.user.cursorless_single_target_command(
+            action, IMPLICIT_TARGET, arg1, arg2, arg3
         )
 
     def cursorless_multiple_target_command(

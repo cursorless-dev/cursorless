@@ -16,6 +16,10 @@ const textFormatters: Record<TextFormatterName, TextFormatter> = {
     return tokens.join("_");
   },
 
+  upperSnakeCase(tokens: string[]) {
+    return tokens.map((token) => token.toUpperCase()).join("_");
+  },
+
   pascalCase(tokens: string[]) {
     return tokens.map(capitalizeToken).join("");
   },

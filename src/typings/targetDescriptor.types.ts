@@ -239,6 +239,13 @@ export interface PrimitiveTargetDescriptor
    * character of the name.
    */
   modifiers: Modifier[];
+
+  /**
+   * We separate the positional modifier from the other modifiers because it
+   * behaves differently and and makes the target behave like a destination for
+   * example for bring.
+   */
+  positionModifier?: PositionModifier;
 }
 
 export interface RangeTargetDescriptor {

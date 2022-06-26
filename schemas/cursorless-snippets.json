@@ -122,7 +122,7 @@
 					"formatter": {
 						"type": "string",
 						"description": "Format text inserted into this variable using the given formatter",
-						"enum": ["camelCase", "pascalCase", "snakeCase"]
+						"enum": ["camelCase", "pascalCase", "snakeCase", "upperSnakeCase"]
 					}
 				}
 			}
