@@ -104,10 +104,9 @@ minimize syllables.
 
 ##### `"this"`
 
-The word `"this"` can be used as a mark to refer to the current cursor(s) or selection(s) as a target. Note that when combined with a modifier, the `"this"` mark can be omitted, and it will be implied.
+The word `"this"` can be used as a mark to refer to the current cursor(s) or selection(s) as a target. Note that when combined with a modifier, the `"this"` mark must be omitted, and it will be implied.
 
 - `chuck this`
-- `take this funk`
 - `pre funk`
 - `chuck line`
 
