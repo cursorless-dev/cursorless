@@ -502,7 +502,7 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run -S esbuild-base -- --minify",
-		"postinstall": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv",
+		"update-licenses": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv",
 		"esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
 		"esbuild": "npm run -S esbuild-base -- --sourcemap",
 		"esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch",
