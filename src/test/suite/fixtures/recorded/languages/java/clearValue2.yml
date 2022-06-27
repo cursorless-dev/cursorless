@@ -1,6 +1,6 @@
 languageId: java
 command:
-  spokenForm: take value
+  spokenForm: clear value
   version: 2
   targets:
     - type: primitive
@@ -8,7 +8,7 @@ command:
         - type: containingScope
           scopeType: {type: value}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
+  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     public class MyClass {
@@ -24,13 +24,13 @@ finalState:
   documentContents: |-
     public class MyClass {
         String myFunk() {
-            return "hello there";
+            return ;
         }
     }
   selections:
     - anchor: {line: 2, character: 15}
-      active: {line: 2, character: 28}
+      active: {line: 2, character: 15}
   thatMark:
     - anchor: {line: 2, character: 15}
-      active: {line: 2, character: 28}
+      active: {line: 2, character: 15}
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: value}}]}]
