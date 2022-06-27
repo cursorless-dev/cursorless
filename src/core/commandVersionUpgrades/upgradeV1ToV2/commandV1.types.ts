@@ -84,7 +84,6 @@ type SelectionType =
   | "paragraph"
   | "document"
   | "nonWhitespaceSequence"
-  | "boundedNonWhitespaceSequence"
   | "url";
 
 interface CursorMark {
