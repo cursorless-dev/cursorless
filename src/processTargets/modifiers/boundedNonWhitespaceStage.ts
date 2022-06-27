@@ -10,11 +10,11 @@ import { TokenTarget } from "../targets";
 import { NonWhitespaceSequenceStage } from "./scopeTypeStages/RegexStage";
 import { InteriorOnlyStage } from "./InteriorStage";
 
-export type NonWhitespaceOrQuoteSequenceModifier = (
+export type boundedNonWhitespaceSequenceModifier = (
   | ContainingScopeModifier
   | EveryScopeModifier
 ) & {
-  scopeType: { type: "nonWhitespaceOrQuoteSequence" };
+  scopeType: { type: "boundedNonWhitespaceSequence" };
 };
 
 /**
@@ -22,9 +22,10 @@ export type NonWhitespaceOrQuoteSequenceModifier = (
  * Expand the target until reaching a white space or surrounding pair.
  * If there is no surrounding pair defaults to the non white space sequence
  */
-export default class SmallPaintStage implements ModifierStage {
-  constructor(private modifier: NonWhitespaceOrQuoteSequenceModifier) {}
-
+export default class boundedNonWhitespaceSequenceStage
+  implements ModifierStage
+{
+  constructor(private modifier: boundedNonWhitespaceSequenceModifier) {}
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const paintStage = new NonWhitespaceSequenceStage({
       type: "containingScope",

@@ -108,7 +108,7 @@ export type SimpleScopeTypeType =
   | "character"
   | "word"
   | "nonWhitespaceSequence"
-  | "nonWhitespaceOrQuoteSequence"
+  | "boundedNonWhitespaceSequence"
   | "url";
 
 export interface SimpleScopeType {
