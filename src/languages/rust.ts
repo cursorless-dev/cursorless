@@ -21,8 +21,6 @@ const STATEMENT_TYPES = [
   "enum_item",
   "extern_crate_declaration",
   "foreign_mod_item",
-  "function_item",
-  "function_signature_item",
   "impl_item",
   "inner_attribute_item",
   "let_declaration",
@@ -46,19 +44,13 @@ const STATEMENT_PARENT_TYPES = ["source_file", "block", "declaration_list"];
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  statement: ancestorChainNodeMatcher(
-    [
-      patternFinder(...STATEMENT_PARENT_TYPES),
-      patternFinder(...STATEMENT_TYPES),
-    ],
-    1
-  ),
+  statement: STATEMENT_TYPES,
   string: ["raw_string_literal", "string_literal"],
   ifStatement: "if_expression",
   functionCall: ["call_expression", "macro_invocation", "struct_expression"],
   comment: ["line_comment", "block_comment"],
-  list: "array_expression",
-  collectionItem: argumentMatcher("array_expression"),
+  list: ["array_expression", "tuple_expression"],
+  collectionItem: argumentMatcher("array_expression", "tuple_expression"),
   namedFunction: "function_item",
   type: cascadingMatcher(
     leadingMatcher(
@@ -82,7 +74,7 @@ const nodeMatchers: Partial<
   ),
   name: ["let_declaration.identifier!", "parameter.identifier!"],
   class: ["struct_item", "struct_expression"],
-  value: ["let_declaration[value]"],
+  value: ["let_declaration[value]", "block[-1]"],
 };
 
 export default createPatternMatchers(nodeMatchers);
