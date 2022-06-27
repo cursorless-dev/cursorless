@@ -1,0 +1,35 @@
+languageId: typescript
+command:
+  spokenForm: drink arg
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+  action: {name: editNewLineBefore}
+initialState:
+  documentContents: |-
+    function myFunk(
+        name: string,
+        value: number
+    ) {}
+  selections:
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
+  marks: {}
+finalState:
+  documentContents: |-
+    function myFunk(
+        name: string,
+        ,
+        value: number
+    ) {}
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  thatMark:
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 17}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: argumentOrParameter}}]}]

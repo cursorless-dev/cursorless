@@ -49,7 +49,8 @@ export default class PositionTarget extends BaseTarget {
     useLinePadding: boolean
   ): EditWithRangeUpdater {
     const delimiter = this.insertionDelimiter;
-    const isLine = delimiter.includes("\n");
+    // It's only considered a line if the delimiter is only new line symbols
+    const isLine = /^(\n)+$/.test(delimiter);
     const isBefore = this.position === "before";
 
     const range = getEditRange(
