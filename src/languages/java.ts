@@ -101,7 +101,12 @@ const nodeMatchers: Partial<
     "constructor_declaration.identifier!",
   ],
   value: leadingMatcher(
-    ["*[declarator][value]", "assignment_expression[right]", "*[value]"],
+    [
+      "*[declarator][value]",
+      "assignment_expression[right]",
+      "return_statement.*!",
+      "*[value]",
+    ],
     ["=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="]
   ),
   condition: conditionMatcher("*[condition]"),
