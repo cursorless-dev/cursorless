@@ -7,6 +7,7 @@ import {
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import { TokenTarget } from "../targets";
+import getModifierStage from "../getModifierStage";
 import { NonWhitespaceSequenceStage } from "./scopeTypeStages/RegexStage";
 import { InteriorOnlyStage } from "./InteriorStage";
 
@@ -26,9 +27,10 @@ export default class boundedNonWhitespaceSequenceStage
   implements ModifierStage
 {
   constructor(private modifier: boundedNonWhitespaceSequenceModifier) {}
+
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const paintStage = new NonWhitespaceSequenceStage({
-      type: "containingScope",
+      type: this.modifier.type,
       scopeType: { type: "nonWhitespaceSequence" },
     });
 
