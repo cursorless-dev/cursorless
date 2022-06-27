@@ -54,16 +54,11 @@ const nodeMatchers: Partial<
   namedFunction: "function_item",
   type: cascadingMatcher(
     leadingMatcher(
-      [
-        "let_declaration[type]",
-        "parameter[type]",
-        "field_declaration[type]",
-
-      ],
+      ["let_declaration[type]", "parameter[type]", "field_declaration[type]"],
       [":"]
     ),
     leadingMatcher(["function_item[return_type]"], ["->"]),
-    patternMatcher("struct_item", "trait_item", "impl_item", "impl_item[type]"),
+    patternMatcher("struct_item", "trait_item", "impl_item", "impl_item[type]")
   ),
   functionName: ["function_item[name]"],
   anonymousFunction: "closure_expression",
