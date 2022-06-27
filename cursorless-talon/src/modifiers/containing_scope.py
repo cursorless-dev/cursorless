@@ -15,6 +15,7 @@ scope_types = {
     "arg": "argumentOrParameter",
     "attribute": "attribute",
     "call": "functionCall",
+    "callee": "functionCallee",
     "class name": "className",
     "class": "class",
     "comment": "comment",
