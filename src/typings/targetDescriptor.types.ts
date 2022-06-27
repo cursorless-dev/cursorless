@@ -75,6 +75,7 @@ export type SimpleScopeTypeType =
   | "collectionKey"
   | "comment"
   | "functionCall"
+  | "functionCallee"
   | "functionName"
   | "ifStatement"
   | "list"
