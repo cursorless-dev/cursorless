@@ -7,8 +7,8 @@ import { walkFiles } from "../testUtil/walkAsync";
 import { Snippet, SnippetMap } from "../typings/snippet";
 import { Graph } from "../typings/Types";
 import { mergeStrict } from "../util/object";
-import { CURSORLESS_SNIPPETS_SUFFIX } from "./constants";
 
+const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
 const SNIPPET_DIR_REFRESH_INTERVAL_MS = 1000;
 
 /**
