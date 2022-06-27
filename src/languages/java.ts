@@ -104,7 +104,7 @@ const nodeMatchers: Partial<
     [
       "*[declarator][value]",
       "assignment_expression[right]",
-      "return_statement.*!",
+      "return_statement[0]",
       "*[value]",
     ],
     ["=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="]
