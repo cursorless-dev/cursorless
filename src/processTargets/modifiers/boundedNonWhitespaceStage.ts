@@ -8,6 +8,7 @@ import { ModifierStage } from "../PipelineStages.types";
 import { TokenTarget } from "../targets";
 import getModifierStage from "../getModifierStage";
 import { processSurroundingPair } from "./surroundingPair";
+import { NoContainingScopeError } from "../../errors";
 
 export type BoundedNonWhitespaceSequenceModifier = (
   | ContainingScopeModifier
@@ -17,7 +18,7 @@ export type BoundedNonWhitespaceSequenceModifier = (
 };
 
 /**
- * Intersection of NonWhitespaceSequenceStage and InteriorOnlyStage
+ * Intersection of NonWhitespaceSequenceStage and a surrounding pair
  * Expand the target until reaching a white space or surrounding pair.
  * If there is no surrounding pair defaults to the non white space sequence
  */
@@ -44,27 +45,35 @@ export default class BoundedNonWhitespaceSequenceStage
       }
     );
 
-    if (!pairInfo) {
+    if (
+      pairInfo == null ||
+      target.contentRange.intersection(pairInfo.interiorRange) == null
+    ) {
       return paintTargets;
     }
 
-    return paintTargets.map((paintTarget) => {
-      if (!paintTarget) {
-        throw Error("No paint target to intersect with");
-      }
+    const targets = paintTargets.flatMap((paintTarget) => {
       const contentRange = paintTarget.contentRange.intersection(
         pairInfo.interiorRange
       );
 
-      if (!contentRange) {
-        throw Error("No content range after intersection");
+      if (contentRange == null || contentRange.isEmpty) {
+        return [];
       }
 
-      return new TokenTarget({
-        editor: target.editor,
-        isReversed: target.isReversed,
-        contentRange,
-      });
+      return [
+        new TokenTarget({
+          editor: target.editor,
+          isReversed: target.isReversed,
+          contentRange,
+        }),
+      ];
     });
+
+    if (targets.length === 0) {
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
+    }
+
+    return targets;
   }
 }
