@@ -30,7 +30,7 @@ import {
 } from "./modifiers/scopeTypeStages/RegexStage";
 import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
 import SmallPaintStage, {
-  boundedNonWhitespaceSequenceModifier,
+  BoundedNonWhitespaceSequenceModifier,
 } from "./modifiers/BoundedNonWhitespaceStage";
 import SurroundingPairStage from "./modifiers/SurroundingPairStage";
 import { ModifierStage } from "./PipelineStages.types";
@@ -88,7 +88,7 @@ const getContainingScopeStage = (
       );
     case "boundedNonWhitespaceSequence":
       return new SmallPaintStage(
-        modifier as boundedNonWhitespaceSequenceModifier
+        modifier as BoundedNonWhitespaceSequenceModifier
       );
     case "url":
       return new UrlStage(modifier as UrlModifier);

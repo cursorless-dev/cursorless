@@ -9,7 +9,7 @@ import { TokenTarget } from "../targets";
 import getModifierStage from "../getModifierStage";
 import { processSurroundingPair } from "./surroundingPair";
 
-export type boundedNonWhitespaceSequenceModifier = (
+export type BoundedNonWhitespaceSequenceModifier = (
   | ContainingScopeModifier
   | EveryScopeModifier
 ) & {
@@ -24,7 +24,7 @@ export type boundedNonWhitespaceSequenceModifier = (
 export default class BoundedNonWhitespaceSequenceStage
   implements ModifierStage
 {
-  constructor(private modifier: boundedNonWhitespaceSequenceModifier) {}
+  constructor(private modifier: BoundedNonWhitespaceSequenceModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const paintStage = getModifierStage({
