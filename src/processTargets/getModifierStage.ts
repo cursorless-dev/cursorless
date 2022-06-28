@@ -31,7 +31,7 @@ import {
 import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
 import SmallPaintStage, {
   boundedNonWhitespaceSequenceModifier,
-} from "./modifiers/boundedNonWhitespaceStage";
+} from "./modifiers/BoundedNonWhitespaceStage";
 import SurroundingPairStage from "./modifiers/SurroundingPairStage";
 import { ModifierStage } from "./PipelineStages.types";
 
