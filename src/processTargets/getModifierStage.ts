@@ -29,7 +29,7 @@ import {
   UrlStage,
 } from "./modifiers/scopeTypeStages/RegexStage";
 import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
-import SmallPaintStage, {
+import BoundedNonWhitespaceSequenceStage, {
   BoundedNonWhitespaceSequenceModifier,
 } from "./modifiers/BoundedNonWhitespaceStage";
 import SurroundingPairStage from "./modifiers/SurroundingPairStage";
@@ -87,7 +87,7 @@ const getContainingScopeStage = (
         modifier as NonWhitespaceSequenceModifier
       );
     case "boundedNonWhitespaceSequence":
-      return new SmallPaintStage(
+      return new BoundedNonWhitespaceSequenceStage(
         modifier as BoundedNonWhitespaceSequenceModifier
       );
     case "url":
