@@ -4,6 +4,7 @@ import {
   Selection,
   TextEditor,
   ViewColumn,
+  window,
 } from "vscode";
 import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
 import {
@@ -92,5 +93,11 @@ async function focusNotebookCell(editor: TextEditor) {
   ];
   desiredNotebookEditor.selections = desiredSelections;
   desiredNotebookEditor.revealRange(desiredSelections[0]);
-  await commands.executeCommand("notebook.cell.edit");
+
+  // Issue a command to tell VSCode to focus the cell input editor
+  // NB: We don't issue the command if it's already focused, because it turns
+  // out that this command is actually a toggle, so that causes it to de-focus!
+  if (window.activeTextEditor !== editor) {
+    await commands.executeCommand("notebook.cell.edit");
+  }
 }
