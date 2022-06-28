@@ -1,4 +1,3 @@
-import { zip } from "lodash";
 import { Target } from "../../typings/target.types";
 import {
   ContainingScopeModifier,
@@ -8,8 +7,7 @@ import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import { TokenTarget } from "../targets";
 import getModifierStage from "../getModifierStage";
-import { NonWhitespaceSequenceStage } from "./scopeTypeStages/RegexStage";
-import { InteriorOnlyStage } from "./InteriorStage";
+import { processSurroundingPair } from "./surroundingPair";
 
 export type boundedNonWhitespaceSequenceModifier = (
   | ContainingScopeModifier
@@ -29,41 +27,44 @@ export default class boundedNonWhitespaceSequenceStage
   constructor(private modifier: boundedNonWhitespaceSequenceModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const paintStage = new NonWhitespaceSequenceStage({
+    const paintStage = getModifierStage({
       type: this.modifier.type,
       scopeType: { type: "nonWhitespaceSequence" },
     });
 
-    const surroundingPairStage = new InteriorOnlyStage({
-      type: "interiorOnly",
-    });
-
     const paintTargets = paintStage.run(context, target);
 
-    try {
-      const pairTargets = surroundingPairStage.run(context, target);
-      return zip(paintTargets, pairTargets).map(([paintTarget, pairTarget]) => {
-        if (!paintTarget || !pairTarget) {
-          throw Error(
-            "Pair targets and surrounding targets are of different length"
-          );
-        }
-        const contentRange = paintTarget.contentRange.intersection(
-          pairTarget.contentRange
-        );
+    const pairInfo = processSurroundingPair(
+      context,
+      target.editor,
+      target.contentRange,
+      {
+        type: "surroundingPair",
+        delimiter: "any",
+      }
+    );
 
-        if (!contentRange) {
-          throw Error("No content range to intersect");
-        }
-
-        return new TokenTarget({
-          editor: target.editor,
-          isReversed: target.isReversed,
-          contentRange,
-        });
-      });
-    } catch (error) {
+    if (!pairInfo) {
       return paintTargets;
     }
+
+    return paintTargets.map((paintTarget) => {
+      if (!paintTarget) {
+        throw Error("No paint target to intersect with");
+      }
+      const contentRange = paintTarget.contentRange.intersection(
+        pairInfo.interiorRange
+      );
+
+      if (!contentRange) {
+        throw Error("No content range after intersection");
+      }
+
+      return new TokenTarget({
+        editor: target.editor,
+        isReversed: target.isReversed,
+        contentRange,
+      });
+    });
   }
 }
