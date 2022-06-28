@@ -42,13 +42,11 @@ export default class BoundedNonWhitespaceSequenceStage
       {
         type: "surroundingPair",
         delimiter: "any",
+        requireStrongContainment: true,
       }
     );
 
-    if (
-      pairInfo == null ||
-      target.contentRange.intersection(pairInfo.interiorRange) == null
-    ) {
+    if (pairInfo == null) {
       return paintTargets;
     }
 

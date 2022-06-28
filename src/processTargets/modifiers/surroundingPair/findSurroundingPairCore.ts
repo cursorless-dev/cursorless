@@ -1,5 +1,8 @@
 import { sortedIndexBy } from "lodash";
-import { SimpleSurroundingPairName } from "../../../typings/targetDescriptor.types";
+import {
+  SimpleSurroundingPairName,
+  SurroundingPairScopeType,
+} from "../../../typings/targetDescriptor.types";
 import { findDelimiterPairAdjacentToSelection } from "./findDelimiterPairAdjacentToSelection";
 import { findDelimiterPairContainingSelection } from "./findDelimiterPairContainingSelection";
 import {
@@ -30,7 +33,7 @@ import {
  * @returns
  */
 export function findSurroundingPairCore(
-  forceDirection: "left" | "right" | undefined,
+  modifier: SurroundingPairScopeType,
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   acceptableDelimiters: SimpleSurroundingPairName[],
   selectionOffsets: Offsets,
@@ -57,7 +60,7 @@ export function findSurroundingPairCore(
       initialIndex,
       delimiterOccurrences,
       selectionOffsets,
-      forceDirection,
+      modifier,
       bailOnUnmatchedAdjacent
     );
 

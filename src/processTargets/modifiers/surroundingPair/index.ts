@@ -21,7 +21,8 @@ import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
  * smallest pair of delimiters which contains the selection.
  *
  * @param context Context to be leveraged by modifier
- * @param selection The selection to process
+ * @param editor The editor containing the range
+ * @param range The range to process
  * @param modifier The surrounding pair modifier information
  * @returns The new selection expanded to the containing surrounding pair or
  * `null` if none was found
@@ -53,7 +54,7 @@ export function processSurroundingPair(
         range,
         null,
         delimiters,
-        modifier.forceDirection
+        modifier
       );
     } else {
       throw err;
@@ -73,7 +74,7 @@ export function processSurroundingPair(
       range,
       textFragmentRange,
       delimiters,
-      modifier.forceDirection
+      modifier
     );
 
     if (surroundingRange != null) {
@@ -89,6 +90,6 @@ export function processSurroundingPair(
     range,
     node,
     delimiters,
-    modifier.forceDirection
+    modifier
   );
 }

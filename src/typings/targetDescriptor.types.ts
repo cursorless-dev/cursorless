@@ -121,6 +121,12 @@ export interface SurroundingPairScopeType {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
   forceDirection?: SurroundingPairDirection;
+
+  /**
+   * If `true`, then only accept pairs where the pair completely contains the
+   * selection, ie without the edges touching.
+   */
+  requireStrongContainment?: boolean;
 }
 
 export type ScopeType = SimpleScopeType | SurroundingPairScopeType;
