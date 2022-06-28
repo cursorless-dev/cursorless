@@ -1,8 +1,5 @@
 import { Range, TextEditor } from "vscode";
-import {
-  NoContainingScopeError,
-  UnsupportedLanguageError,
-} from "../../../errors";
+import { NoContainingScopeError } from "../../../errors";
 import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
@@ -10,6 +7,7 @@ import {
   SimpleScopeTypeType,
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
+import { rangeLength } from "../../../util/rangeUtils";
 import { ModifierStage } from "../../PipelineStages.types";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import { processSurroundingPair } from "../surroundingPair";
@@ -27,14 +25,7 @@ export default class ItemStage implements ModifierStage {
       return new ContainingSyntaxScopeStage(
         <SimpleContainingScopeModifier>this.modifier
       ).run(context, target);
-    } catch (error) {
-      if (
-        !(error instanceof NoContainingScopeError) &&
-        !(error instanceof UnsupportedLanguageError)
-      ) {
-        throw error;
-      }
-    }
+    } catch (_error) {}
 
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(context, target);
@@ -55,19 +46,24 @@ export default class ItemStage implements ModifierStage {
   private getSingleTarget(context: ProcessedTargetsContext, target: Target) {
     const itemInfos = getItemInfos(context, target);
 
-    const itemInfo =
-      itemInfos.find((itemInfo) =>
-        itemInfo.range.intersection(target.contentRange)
-      ) ??
-      itemInfos.find((itemInfo) =>
-        itemInfo.delimiterRange?.intersection(target.contentRange)
-      );
+    const itemInfoWithIntersections = itemInfos
+      .map((itemInfo) => ({
+        itemInfo,
+        intersection: itemInfo.matchRange.intersection(target.contentRange),
+      }))
+      .filter((e) => e.intersection != null);
 
-    if (itemInfo == null) {
+    if (itemInfoWithIntersections.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
-    return this.itemInfoToTarget(target, itemInfo);
+    itemInfoWithIntersections.sort(
+      (a, b) =>
+        rangeLength(target.editor, b.intersection!) -
+        rangeLength(target.editor, a.intersection!)
+    );
+
+    return this.itemInfoToTarget(target, itemInfoWithIntersections[0].itemInfo);
   }
 
   private itemInfoToTarget(target: Target, itemInfo: ItemInfo) {
@@ -84,8 +80,8 @@ export default class ItemStage implements ModifierStage {
 }
 
 function getItemInfos(context: ProcessedTargetsContext, target: Target) {
-  const collectionRange = getCollectionRange(context, target);
-  return tokensToItemInfos(target.editor, collectionRange);
+  const { range, boundary } = getCollectionRange(context, target);
+  return tokensToItemInfos(target.editor, range, boundary);
 }
 
 function getCollectionRange(context: ProcessedTargetsContext, target: Target) {
@@ -109,24 +105,30 @@ function getCollectionRange(context: ProcessedTargetsContext, target: Target) {
       target.contentRange.start.isBeforeOrEqual(pairInfo.boundary[0].start) ||
       target.contentRange.end.isAfterOrEqual(pairInfo.boundary[1].end);
     if (!isNotInterior) {
-      return pairInfo.interiorRange;
+      return {
+        range: pairInfo.interiorRange,
+        boundary: pairInfo.boundary,
+      };
     }
     pairInfo = getParentSurroundingPair(context, target.editor, pairInfo);
   }
 
   // We have not found a pair containing the delimiter. Look at the full line.
-  return fitRangeToLineContent(target.editor, target.contentRange);
+  return {
+    range: fitRangeToLineContent(target.editor, target.contentRange),
+  };
 }
 
 function tokensToItemInfos(
   editor: TextEditor,
-  collectionRange: Range
+  collectionRange: Range,
+  collectionBoundary?: [Range, Range]
 ): ItemInfo[] {
-  const tokens = tokenizeRange(editor, collectionRange);
+  const tokens = tokenizeRange(editor, collectionRange, collectionBoundary);
   const itemInfos: ItemInfo[] = [];
 
   tokens.forEach((token, i) => {
-    if (token.type === "delimiter") {
+    if (token.type === "delimiter" || token.type === "boundary") {
       return;
     }
     const leadingDelimiterRange = (() => {
@@ -147,20 +149,33 @@ function tokensToItemInfos(
       }
       return undefined;
     })();
-    const delimiterRange =
-      tokens[i + 1]?.type === "delimiter" ? tokens[i + 1].range : undefined;
+    const leadingMatchStart =
+      tokens[i - 1]?.type === "delimiter" || tokens[i - 1]?.type === "boundary"
+        ? tokens[i - 1].range.start
+        : token.range.start;
+    const trailingMatchEnd =
+      tokens[i + 1]?.type === "boundary"
+        ? tokens[i + 1].range.end
+        : tokens[i + 1]?.type === "delimiter"
+        ? tokens[i + 1].range.start
+        : token.range.start;
+    const matchRange = new Range(leadingMatchStart, trailingMatchEnd);
     itemInfos.push({
       range: token.range,
       leadingDelimiterRange,
       trailingDelimiterRange,
-      delimiterRange,
+      matchRange,
     });
   });
 
   return itemInfos;
 }
 
-function tokenizeRange(editor: TextEditor, collectionRange: Range) {
+function tokenizeRange(
+  editor: TextEditor,
+  collectionRange: Range,
+  collectionBoundary?: [Range, Range]
+) {
   const { document } = editor;
   const text = document.getText(collectionRange);
   const parts = text.split(/([,(){}<>[\]"'])/g).filter(Boolean);
@@ -220,6 +235,18 @@ function tokenizeRange(editor: TextEditor, collectionRange: Range) {
     offset += text.length;
   });
 
+  if (tokens.length > 1 && !tokens.find((t) => t.type === "delimiter")) {
+    return [];
+  }
+
+  if (collectionBoundary != null) {
+    return [
+      { type: "boundary", range: collectionBoundary[0] },
+      ...tokens,
+      { type: "boundary", range: collectionBoundary[1] },
+    ];
+  }
+
   return tokens;
 }
 
@@ -261,7 +288,7 @@ interface ItemInfo {
   range: Range;
   leadingDelimiterRange?: Range;
   trailingDelimiterRange?: Range;
-  delimiterRange?: Range;
+  matchRange: Range;
 }
 
 interface Token {
