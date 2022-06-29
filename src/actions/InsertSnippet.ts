@@ -57,7 +57,7 @@ export default class InsertSnippet implements Action {
     // the two targets match those two different contexts, we will just use the
     // snippet that matches the first context for both targets
     const definition = findMatchingSnippetDefinition(
-      targets[0],
+      targets,
       snippet.definitions
     );
 

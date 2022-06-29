@@ -84,12 +84,27 @@ function getMaxPlaceholderIndex(parsedSnippet: TextmateSnippet): number {
  * @returns The snippet definition that matches the given context
  */
 export function findMatchingSnippetDefinition(
-  target: Target,
+  targets: Target[],
   definitions: SnippetDefinition[]
 ): SnippetDefinition | undefined {
+  const definitionIndices = targets.map((target) =>
+    findMatchingSnippetDefinitionForSingleTarget(target, definitions)
+  );
+
+  if (!definitionIndices.every((index) => index === definitionIndices[0])) {
+    throw new Error("Multiple snippet definitions match the given context");
+  }
+
+  return definitions[definitionIndices[0]];
+}
+
+function findMatchingSnippetDefinitionForSingleTarget(
+  target: Target,
+  definitions: SnippetDefinition[]
+): number {
   const languageId = target.editor.document.languageId;
 
-  return definitions.find(({ scope }) => {
+  return definitions.findIndex(({ scope }) => {
     if (scope == null) {
       return true;
     }
