@@ -1,4 +1,3 @@
-import getModifierStage from "../processTargets/getModifierStage";
 import { SnippetDefinition } from "../typings/snippet";
 import { Target } from "../typings/target.types";
 import {
@@ -75,27 +74,34 @@ function getMaxPlaceholderIndex(parsedSnippet: TextmateSnippet): number {
 }
 
 /**
- * Based on the context determined by  {@link target} (eg the file's language id
- * and containing scope), finds the first snippet definition that matches the
- * given context.
- * @param target The target that defines the context to use for finding the
+ * Based on the context determined by  {@link targets} (eg the file's language
+ * id and containing scope), finds the first snippet definition that matches the
+ * given context. Throws an error if different snippet definitions match for
+ * different targets or if matching snippet definition could not be found
+ * @param targets The target that defines the context to use for finding the
  * right snippet definition
  * @param definitions The list of snippet definitions to search
  * @returns The snippet definition that matches the given context
  */
-export function findMatchingSnippetDefinition(
+export function findMatchingSnippetDefinitionStrict(
   targets: Target[],
   definitions: SnippetDefinition[]
-): SnippetDefinition | undefined {
+): SnippetDefinition {
   const definitionIndices = targets.map((target) =>
     findMatchingSnippetDefinitionForSingleTarget(target, definitions)
   );
 
-  if (!definitionIndices.every((index) => index === definitionIndices[0])) {
+  const definitionIndex = definitionIndices[0];
+
+  if (!definitionIndices.every((index) => index === definitionIndex)) {
     throw new Error("Multiple snippet definitions match the given context");
   }
 
-  return definitions[definitionIndices[0]];
+  if (definitionIndex === -1) {
+    throw new Error("Couldn't find matching snippet definition");
+  }
+
+  return definitions[definitionIndex];
 }
 
 function findMatchingSnippetDefinitionForSingleTarget(

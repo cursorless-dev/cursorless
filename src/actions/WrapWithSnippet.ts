@@ -4,7 +4,7 @@ import ModifyIfWeakStage from "../processTargets/modifiers/ModifyIfWeakStage";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import {
-  findMatchingSnippetDefinition,
+  findMatchingSnippetDefinitionStrict,
   transformSnippetVariables,
 } from "../util/snippet";
 import { ensureSingleEditor } from "../util/targetUtils";
@@ -52,19 +52,10 @@ export default class WrapWithSnippet implements Action {
 
     const editor = ensureSingleEditor(targets);
 
-    // Find snippet definition matching context.
-    // NB: We only look at the first target to create our context. This means
-    // that if there are two snippets that match two different contexts, and
-    // the two targets match those two different contexts, we will just use the
-    // snippet that matches the first context for both targets
-    const definition = findMatchingSnippetDefinition(
-      targets[0],
+    const definition = findMatchingSnippetDefinitionStrict(
+      targets,
       snippet.definitions
     );
-
-    if (definition == null) {
-      throw new Error("Couldn't find matching snippet definition");
-    }
 
     const parsedSnippet = this.snippetParser.parse(definition.body.join("\n"));
 
