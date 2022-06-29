@@ -43,7 +43,9 @@ export class Snippets {
 
   /**
    * If the user has misconfigured their snippet dir, then we keep track of it
-   * so that we can show them the error message if we can't find a snippet later
+   * so that we can show them the error message if we can't find a snippet
+   * later, and so that we don't show them the same error message every time
+   * we try to poll the directory.
    */
   private directoryErrorMessage: DirectoryErrorMessage | null | undefined =
     null;
