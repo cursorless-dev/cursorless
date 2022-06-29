@@ -1,12 +1,11 @@
+import { SyntaxNode } from "web-tree-sitter";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
 import {
   createPatternMatchers,
-  argumentMatcher,
   leadingMatcher,
   trailingMatcher,
 } from "../util/nodeMatchers";
-import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
-import { SyntaxNode } from "web-tree-sitter";
 import { getNodeRange } from "../util/nodeSelectors";
 
 const nodeMatchers: Partial<
