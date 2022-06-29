@@ -98,13 +98,25 @@ export default class InsertSnippet implements Action {
   }
 }
 
+/**
+ * Applies the appropriate formatters to the given variable substitution values
+ * in {@link substitutions} based on the formatter specified for the given
+ * variables as defined in {@link snippet} and {@link definition}.
+ * @param snippet The full snippet info
+ * @param definition The specific definition chosen for the given target context
+ * @param substitutions The original unformatted substitution strings
+ * @returns A new map of substitution strings with the values formatted
+ */
 function formatSubstitutions(
   snippet: Snippet,
   definition: SnippetDefinition,
   substitutions: Record<string, string>
-) {
+): Record<string, string> {
   return Object.fromEntries(
     Object.entries(substitutions).map(([variableName, value]) => {
+      // We prefer the variable formatters from the contextually relevant
+      // snippet definition if they exist, otherwise we fall back to the
+      // global definitions for the given snippet.
       const formatterName =
         (definition.variables ?? {})[variableName]?.formatter ??
         (snippet.variables ?? {})[variableName]?.formatter;
