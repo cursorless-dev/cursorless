@@ -36,7 +36,7 @@ export default class ItemStage implements ModifierStage {
   private getEveryTarget(context: ProcessedTargetsContext, target: Target) {
     const itemInfos = getItemInfos(context, target);
 
-    if (itemInfos.length < 1) {
+    if (itemInfos.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
@@ -81,7 +81,7 @@ export default class ItemStage implements ModifierStage {
 
 function getItemInfos(context: ProcessedTargetsContext, target: Target) {
   const { range, boundary } = getCollectionRange(context, target);
-  return tokensToItemInfos(target.editor, range, boundary);
+  return rangeToItemInfos(target.editor, range, boundary);
 }
 
 function getCollectionRange(context: ProcessedTargetsContext, target: Target) {
@@ -119,7 +119,7 @@ function getCollectionRange(context: ProcessedTargetsContext, target: Target) {
   };
 }
 
-function tokensToItemInfos(
+function rangeToItemInfos(
   editor: TextEditor,
   collectionRange: Range,
   collectionBoundary?: [Range, Range]
@@ -178,66 +178,46 @@ function tokenizeRange(
 ) {
   const { document } = editor;
   const text = document.getText(collectionRange);
-  const parts = text.split(/([,(){}<>[\]"'])/g).filter(Boolean);
+  const lexemes = text.split(/([,(){}<>[\]"'])/g).filter(Boolean);
+  const joinedLexemes = joinLexemesBySkippingMatchingPairs(lexemes);
   const tokens: Token[] = [];
   let offset = document.offsetAt(collectionRange.start);
-  let waitingForDelimiter: string | null = null;
-  let offsetStart = 0;
 
-  parts.forEach((text) => {
+  joinedLexemes.forEach((lexeme) => {
     // Whitespace found. Just skip
-    if (text.trim().length === 0) {
-      offset += text.length;
+    if (lexeme.trim().length === 0) {
+      offset += lexeme.length;
       return;
     }
 
-    // We are waiting for a closing delimiter
-    if (waitingForDelimiter != null) {
-      // Closing delimiter found
-      if (waitingForDelimiter === text) {
-        waitingForDelimiter = null;
-        tokens.push({
-          type: "item",
-          range: new Range(
-            document.positionAt(offsetStart),
-            document.positionAt(offset + text.length)
-          ),
-        });
-      }
-    }
     // Separator delimiter found.
-    else if (text === delimiter) {
+    if (lexeme === delimiter) {
       tokens.push({
         type: "delimiter",
         range: new Range(
           document.positionAt(offset),
-          document.positionAt(offset + text.length)
+          document.positionAt(offset + lexeme.length)
         ),
       });
     }
-    // Starting delimiter found
-    else if (delimiters[text] != null) {
-      waitingForDelimiter = delimiters[text];
-      offsetStart = offset;
-    }
     // Text/item content found
     else {
-      const offsetStart = offset + (text.length - text.trimStart().length);
+      const offsetStart = offset + (lexeme.length - lexeme.trimStart().length);
       tokens.push({
         type: "item",
         range: new Range(
           document.positionAt(offsetStart),
-          document.positionAt(offsetStart + text.trim().length)
+          document.positionAt(offsetStart + lexeme.trim().length)
         ),
       });
     }
 
-    offset += text.length;
+    offset += lexeme.length;
   });
 
-  if (tokens.length > 1 && !tokens.find((t) => t.type === "delimiter")) {
-    return [];
-  }
+  // if (tokens.length > 1 && !tokens.find((t) => t.type === "delimiter")) {
+  //   return [];
+  // }
 
   if (collectionBoundary != null) {
     return [
@@ -248,6 +228,58 @@ function tokenizeRange(
   }
 
   return tokens;
+}
+
+function joinLexemesBySkippingMatchingPairs(lexemes: string[]) {
+  const result: string[] = [];
+  let delimiterCount = 0;
+  let openingDelimiter: string | null = null;
+  let closingDelimiter: string | null = null;
+  let startIndex: number = -1;
+
+  lexemes.forEach((lexeme, index) => {
+    // We are waiting for a closing delimiter
+    if (delimiterCount > 0) {
+      // Closing delimiter found
+      if (closingDelimiter === lexeme) {
+        --delimiterCount;
+      }
+      // Additional opening delimiter found
+      else if (openingDelimiter === lexeme) {
+        ++delimiterCount;
+      }
+    }
+
+    // Starting delimiter found
+    else if (delimiters[lexeme] != null) {
+      openingDelimiter = lexeme;
+      closingDelimiter = delimiters[lexeme];
+      delimiterCount = 1;
+      // This is the first lexeme to be joined
+      if (startIndex < 0) {
+        startIndex = index;
+      }
+    }
+
+    // This is the first lexeme to be joined
+    else if (startIndex < 0) {
+      startIndex = index;
+    }
+
+    const isDelimiter = lexeme === delimiter && delimiterCount === 0;
+
+    // This is the last lexeme to be joined
+    if (isDelimiter || index === lexemes.length - 1) {
+      const endIndex = isDelimiter ? index : index + 1;
+      result.push(lexemes.slice(startIndex, endIndex).join(""));
+      startIndex = -1;
+      if (isDelimiter) {
+        result.push(lexeme);
+      }
+    }
+  });
+
+  return result;
 }
 
 function getSurroundingPair(
