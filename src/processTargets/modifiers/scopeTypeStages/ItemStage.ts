@@ -164,16 +164,18 @@ function rangeToItemInfos(
       }
       return undefined;
     })();
+    // Leading boundary is excluded and leading delimiter is included
     const leadingMatchStart =
-      tokens[i - 1]?.type === "delimiter" || tokens[i - 1]?.type === "boundary"
+      tokens[i - 1]?.type === "boundary"
+        ? tokens[i - 1].range.end
+        : tokens[i - 1]?.type === "delimiter"
         ? tokens[i - 1].range.start
         : token.range.start;
+    // Trailing boundary and delimiter is excluded
     const trailingMatchEnd =
-      tokens[i + 1]?.type === "boundary"
-        ? tokens[i + 1].range.end
-        : tokens[i + 1]?.type === "delimiter"
+      tokens[i + 1]?.type === "boundary" || tokens[i + 1]?.type === "delimiter"
         ? tokens[i + 1].range.start
-        : token.range.start;
+        : token.range.end;
     const matchRange = new Range(leadingMatchStart, trailingMatchEnd);
     itemInfos.push({
       range: token.range,
