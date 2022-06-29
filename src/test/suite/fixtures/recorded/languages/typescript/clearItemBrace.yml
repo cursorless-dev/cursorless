@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: take item brace
+  spokenForm: clear item brace
   version: 2
   targets:
     - type: primitive
@@ -9,32 +9,30 @@ command:
         - type: containingScope
           scopeType: {type: collectionItem}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
+  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     [
-        {
-          foo: "bar",
-        },
+      {
+        foo: "bar",
+      },
     ]
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
     default.{:
-      start: {line: 1, character: 4}
-      end: {line: 1, character: 5}
+      start: {line: 1, character: 2}
+      end: {line: 1, character: 3}
 finalState:
   documentContents: |-
     [
-        {
-          foo: "bar",
-        },
+      ,
     ]
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 3, character: 5}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
   thatMark:
-    - anchor: {line: 1, character: 4}
-      active: {line: 3, character: 5}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '{'}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]
