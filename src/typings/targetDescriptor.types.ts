@@ -271,7 +271,7 @@ export interface PrimitiveTargetDescriptor
   /**
    * We separate the positional modifier from the other modifiers because it
    * behaves differently and and makes the target behave like a destination for
-   * example for bring.
+   * example for bring.  This change is the first step toward #803
    */
   positionModifier?: PositionModifier;
 }
