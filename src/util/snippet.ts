@@ -116,7 +116,7 @@ function findMatchingSnippetDefinitionForSingleTarget(
     }
 
     if (scopeType != null) {
-      // TODO: Implement scope types once we have #785
+      // TODO: Implement this; see #802
       throw new Error("Scope types not yet implemented");
     }
 
