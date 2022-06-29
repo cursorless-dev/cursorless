@@ -17,7 +17,6 @@ const nodeMatchers: Partial<
   string: "string",
   collectionKey: trailingMatcher(["pair[key]"], [":"]),
   value: leadingMatcher(["*[value]"], [":"]),
-  collectionItem: argumentMatcher("object", "array"),
 };
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);

@@ -78,7 +78,6 @@ const nodeMatchers: Partial<
     "parameters.identifier!",
     "*[name]",
   ],
-  collectionItem: argumentMatcher(...dictionaryTypes, ...listTypes),
   value: cascadingMatcher(
     leadingMatcher(
       ["assignment[right]", "augmented_assignment[right]", "~subscript[value]"],

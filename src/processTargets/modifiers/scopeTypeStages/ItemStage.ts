@@ -67,12 +67,22 @@ export default class ItemStage implements ModifierStage {
   }
 
   private itemInfoToTarget(target: Target, itemInfo: ItemInfo) {
+    const editor = target.editor;
+    const delimiters = [
+      itemInfo.trailingDelimiterRange != null
+        ? editor.document.getText(itemInfo.trailingDelimiterRange)
+        : defaultDelimiterInsertion,
+      itemInfo.leadingDelimiterRange != null
+        ? editor.document.getText(itemInfo.leadingDelimiterRange)
+        : defaultDelimiterInsertion,
+    ];
+    delimiters.sort((a, b) => b.length - a.length);
     return new ScopeTypeTarget({
       scopeTypeType: <SimpleScopeTypeType>this.modifier.scopeType.type,
-      editor: target.editor,
+      editor,
       isReversed: target.isReversed,
       contentRange: itemInfo.range,
-      delimiter: delimiterInsertion,
+      delimiter: delimiters[0],
       leadingDelimiterRange: itemInfo.leadingDelimiterRange,
       trailingDelimiterRange: itemInfo.trailingDelimiterRange,
     });
@@ -215,10 +225,6 @@ function tokenizeRange(
     offset += lexeme.length;
   });
 
-  // if (tokens.length > 1 && !tokens.find((t) => t.type === "delimiter")) {
-  //   return [];
-  // }
-
   if (collectionBoundary != null) {
     return [
       { type: "boundary", range: collectionBoundary[0] },
@@ -329,7 +335,7 @@ interface Token {
 }
 
 const delimiter = ",";
-const delimiterInsertion = ", ";
+const defaultDelimiterInsertion = ", ";
 
 // Mapping between opening and closing delimiters
 /* eslint-disable @typescript-eslint/naming-convention */

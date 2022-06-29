@@ -110,7 +110,6 @@ const nodeMatchers: Partial<
     ["=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="]
   ),
   condition: conditionMatcher("*[condition]"),
-  collectionItem: argumentMatcher("array_initializer"),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),
 };
 
