@@ -19,6 +19,7 @@ mod.list(
     "cursorless_insertion_snippet_single_phrase",
     desc="Cursorless insertion snippet that can accept a single phrase",
 )
+mod.list("cursorless_phrase_terminator", "Contains term used to terminate a phrase")
 
 
 @mod.capture(
@@ -104,6 +105,13 @@ def on_ready():
         },
         allow_unknown_values=True,
         default_list_name="insertion_snippet_single_phrase",
+        ctx=experimental_snippets_ctx,
+    )
+    init_csv_and_watch_changes(
+        "experimental/miscellaneous",
+        {
+            "phrase_terminator": {"over": "phraseTerminator"},
+        },
         ctx=experimental_snippets_ctx,
     )
 
