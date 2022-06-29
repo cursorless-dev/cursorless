@@ -18,11 +18,7 @@ export default class WrapWithSnippet implements Action {
     const [snippetName, placeholderName] =
       parseSnippetLocation(snippetLocation);
 
-    const snippet = this.graph.snippets.getSnippet(snippetName);
-
-    if (snippet == null) {
-      throw new Error(`Couldn't find snippet ${snippetName}`);
-    }
+    const snippet = this.graph.snippets.getSnippetStrict(snippetName);
 
     const variables = snippet.variables ?? {};
     const defaultScopeType = variables[placeholderName]?.wrapperScopeType;
@@ -52,7 +48,7 @@ export default class WrapWithSnippet implements Action {
     const [snippetName, placeholderName] =
       parseSnippetLocation(snippetLocation);
 
-    const snippet = this.graph.snippets.getSnippet(snippetName)!;
+    const snippet = this.graph.snippets.getSnippetStrict(snippetName);
 
     const editor = ensureSingleEditor(targets);
 

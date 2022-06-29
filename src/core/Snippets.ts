@@ -11,6 +11,11 @@ import { mergeStrict } from "../util/object";
 const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
 const SNIPPET_DIR_REFRESH_INTERVAL_MS = 1000;
 
+interface DirectoryErrorMessage {
+  directory: string;
+  errorMessage: string;
+}
+
 /**
  * Handles all cursorless snippets, including core, third-party and
  * user-defined.  Merges these collections and allows looking up snippets by
@@ -37,11 +42,11 @@ export class Snippets {
   private maxSnippetMtimeMs: number = -1;
 
   /**
-   * If the user has misconfigured their snippet dir, then we keep track of the
-   * the path so that we don't spam them with error messages for the same
-   * mistake
+   * If the user has misconfigured their snippet dir, then we keep track of it
+   * so that we can show them the error message if we can't find a snippet later
    */
-  private shownErrorMessageForDir: string | null | undefined = null;
+  private directoryErrorMessage: DirectoryErrorMessage | null | undefined =
+    null;
 
   constructor(private graph: Graph) {
     this.updateUserSnippetsPath();
@@ -126,19 +131,29 @@ export class Snippets {
         ? await getSnippetPaths(this.userSnippetsDir)
         : [];
     } catch (err) {
-      if (this.shownErrorMessageForDir !== this.userSnippetsDir) {
-        window.showErrorMessage(
-          `Error with cursorless snippets dir "${this.userSnippetsDir}": ${
-            (err as Error).message
-          }`
-        );
+      if (this.directoryErrorMessage?.directory !== this.userSnippetsDir) {
+        // NB: We suppress error messages once we've shown it the first time
+        // because we poll the directory every second and want to make sure we
+        // don't show the same error message repeatedly
+        const errorMessage = `Error with cursorless snippets dir "${
+          this.userSnippetsDir
+        }": ${(err as Error).message}`;
+
+        window.showErrorMessage(errorMessage);
+
+        this.directoryErrorMessage = {
+          directory: this.userSnippetsDir!,
+          errorMessage,
+        };
       }
 
-      this.shownErrorMessageForDir = this.userSnippetsDir;
+      this.userSnippets = {};
+      this.mergeSnippets();
+
       return;
     }
 
-    this.shownErrorMessageForDir = null;
+    this.directoryErrorMessage = null;
 
     const maxSnippetMtime =
       max(
@@ -235,12 +250,25 @@ export class Snippets {
 
   /**
    * Looks in merged collection of snippets for a snippet with key
-   * `snippetName`
+   * `snippetName`. Throws an exception if the snippet of the given name could
+   * not be found
    * @param snippetName The name of the snippet to look up
-   * @returns The named snippet, or undefined if not found
+   * @returns The named snippet
    */
-  getSnippet(snippetName: string): Snippet | undefined {
-    return this.mergedSnippets[snippetName];
+  getSnippetStrict(snippetName: string): Snippet {
+    const snippet = this.mergedSnippets[snippetName];
+
+    if (snippet == null) {
+      let errorMessage = `Couldn't find snippet ${snippetName}. `;
+
+      if (this.directoryErrorMessage != null) {
+        errorMessage += `This could be due to: ${this.directoryErrorMessage.errorMessage}.`;
+      }
+
+      throw Error(errorMessage);
+    }
+
+    return snippet;
   }
 }
 

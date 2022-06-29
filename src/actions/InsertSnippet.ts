@@ -20,11 +20,7 @@ export default class InsertSnippet implements Action {
   private snippetParser = new SnippetParser();
 
   getPrePositionStages(snippetName: string) {
-    const snippet = this.graph.snippets.getSnippet(snippetName);
-
-    if (snippet == null) {
-      throw new Error(`Couldn't find snippet ${snippetName}`);
-    }
+    const snippet = this.graph.snippets.getSnippetStrict(snippetName);
 
     const defaultScopeType = snippet.insertionScopeType;
 
@@ -51,7 +47,7 @@ export default class InsertSnippet implements Action {
     snippetName: string,
     substitutions: Record<string, string>
   ): Promise<ActionReturnValue> {
-    const snippet = this.graph.snippets.getSnippet(snippetName)!;
+    const snippet = this.graph.snippets.getSnippetStrict(snippetName);
 
     const editor = ensureSingleEditor(targets);
 
