@@ -197,23 +197,6 @@ const getMapMatchers = {
       (node: SyntaxNode) => node.childForFieldName("initializer"),
     ])
   ),
-  collectionItem: matcher(
-    nodeFinder(
-      (node) =>
-        (node.parent?.type === "initializer_expression" &&
-          isExpression(node)) ||
-        node.type === "assignment_expression"
-    ),
-    delimitedSelector(
-      (node) =>
-        node.type === "," ||
-        node.type === "[" ||
-        node.type === "]" ||
-        node.type === "}" ||
-        node.type === "{",
-      ", "
-    )
-  ),
   string: typeMatcher("string_literal"),
 };
 

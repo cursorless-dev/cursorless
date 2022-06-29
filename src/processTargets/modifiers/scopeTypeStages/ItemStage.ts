@@ -67,26 +67,31 @@ export default class ItemStage implements ModifierStage {
   }
 
   private itemInfoToTarget(target: Target, itemInfo: ItemInfo) {
-    const editor = target.editor;
-    const delimiters = [
-      itemInfo.trailingDelimiterRange != null
-        ? editor.document.getText(itemInfo.trailingDelimiterRange)
-        : defaultDelimiterInsertion,
-      itemInfo.leadingDelimiterRange != null
-        ? editor.document.getText(itemInfo.leadingDelimiterRange)
-        : defaultDelimiterInsertion,
-    ];
-    delimiters.sort((a, b) => b.length - a.length);
     return new ScopeTypeTarget({
       scopeTypeType: <SimpleScopeTypeType>this.modifier.scopeType.type,
-      editor,
+      editor: target.editor,
       isReversed: target.isReversed,
       contentRange: itemInfo.range,
-      delimiter: delimiters[0],
+      delimiter: getInsertionDelimiter(target, itemInfo),
       leadingDelimiterRange: itemInfo.leadingDelimiterRange,
       trailingDelimiterRange: itemInfo.trailingDelimiterRange,
     });
   }
+}
+
+function getInsertionDelimiter(target: Target, itemInfo: ItemInfo) {
+  const { getText } = target.editor.document;
+  const delimiters = [
+    itemInfo.trailingDelimiterRange != null
+      ? getText(itemInfo.trailingDelimiterRange)
+      : defaultDelimiterInsertion,
+    itemInfo.leadingDelimiterRange != null
+      ? getText(itemInfo.leadingDelimiterRange)
+      : defaultDelimiterInsertion,
+  ];
+  // Use longest delimiter text for insertion
+  delimiters.sort((a, b) => b.length - a.length);
+  return delimiters[0];
 }
 
 function getItemInfos(context: ProcessedTargetsContext, target: Target) {
