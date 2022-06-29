@@ -4,7 +4,12 @@ import {
   leadingMatcher,
   conditionMatcher,
   trailingMatcher,
+  matcher,
+  cascadingMatcher,
 } from "../util/nodeMatchers";
+import { childRangeSelector } from "../util/nodeSelectors";
+import { patternFinder } from "../util/nodeFinders";
+
 import { NodeMatcherAlternative } from "../typings/Types";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 
@@ -55,7 +60,25 @@ const nodeMatchers: Partial<
   comment: "comment",
   anonymousFunction: "lambda_expression",
   list: "array_initializer",
-  functionCall: "method_invocation",
+  functionCall: [
+    "method_invocation",
+    "object_creation_expression",
+    "explicit_constructor_invocation",
+  ],
+  functionCallee: cascadingMatcher(
+    matcher(
+      patternFinder("method_invocation"),
+      childRangeSelector(["argument_list"], [])
+    ),
+    matcher(
+      patternFinder("object_creation_expression"),
+      childRangeSelector(["argument_list"], [])
+    ),
+    matcher(
+      patternFinder("explicit_constructor_invocation"),
+      childRangeSelector(["argument_list", ";"], [])
+    )
+  ),
   map: "block",
   name: [
     "*[declarator][name]",
@@ -78,7 +101,12 @@ const nodeMatchers: Partial<
     "constructor_declaration.identifier!",
   ],
   value: leadingMatcher(
-    ["*[declarator][value]", "assignment_expression[right]", "*[value]"],
+    [
+      "*[declarator][value]",
+      "assignment_expression[right]",
+      "return_statement[0]",
+      "*[value]",
+    ],
     ["=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="]
   ),
   condition: conditionMatcher("*[condition]"),
