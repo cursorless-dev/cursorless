@@ -109,7 +109,7 @@ const nodeMatchers: Partial<
     1
   ),
   string: ["raw_string_literal", "string_literal"],
-  ifStatement: "if_expression",
+  ifStatement: ["if_expression", "if_let_expression"],
   functionCall: ["call_expression", "macro_invocation", "struct_expression"],
   functionCallee: "call_expression[function]",
   comment: ["line_comment", "block_comment"],
