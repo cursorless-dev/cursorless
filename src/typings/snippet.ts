@@ -70,9 +70,9 @@ export interface Snippet {
   description?: string;
 
   /**
-   * Default to this scope type when inserting this snippet before/after a
-   * target without scope type specified. If multiple scope types are specified
-   * try them each in order until one of them matches.
+   * Try to expand target to this scope type when inserting this snippet
+   * before/after a target without scope type specified. If multiple scope types
+   * are specified try them each in order until one of them matches.
    */
   insertionScopeTypes?: SimpleScopeTypeType[];
 }
