@@ -84,7 +84,7 @@ For example:
 
 - `"snippet if after air"`: Insert `if` statement after the statement with a hat over the `a`
 
-Note that each snippet can use an `insertionScopeType` to indicate that it will auto-expand the target. So, for example, `"snip if after this"` will insert an `if` statement after the current statement.
+Note that each snippet can use `insertionScopeTypes` to indicate that it will auto-expand the target. So, for example, `"snip if after this"` will insert an `if` statement after the current statement.
 
 ### Built-in insertion snippets
 
@@ -93,7 +93,7 @@ Note that each snippet can use an `insertionScopeType` to indicate that it will 
 | `"snippet if"`      | If statement                            | Statement                    | ❌                       |
 | `"snippet if else"` | If-else statement                       | Statement                    | ❌                       |
 | `"snippet try"`     | Try-catch statement                     | Statement                    | ❌                       |
-| `"snippet funk"`    | Function; phrase becomes name           | Statement                    | ✅                       |
+| `"snippet funk"`    | Function; phrase becomes name           | Function                     | ✅                       |
 | `"snippet link"`    | Markdown link; phrase becomes link text |                              | ✅                       |
 
 ## Customizing spoken forms

@@ -12,7 +12,7 @@ export interface SnippetScope {
    * have different snippets to define a function if you're in a class or at
    * global scope.
    */
-  scopeType?: SimpleScopeTypeType;
+  scopeTypes?: SimpleScopeTypeType[];
 }
 
 export type SnippetBody = string[];
@@ -71,9 +71,10 @@ export interface Snippet {
 
   /**
    * Default to this scope type when inserting this snippet before/after a
-   * target without scope type specified
+   * target without scope type specified. If multiple scope types are specified
+   * try them each in order until one of them matches.
    */
-  insertionScopeType?: SimpleScopeTypeType;
+  insertionScopeTypes?: SimpleScopeTypeType[];
 }
 
 export type SnippetMap = Record<string, Snippet>;

@@ -44,6 +44,10 @@
         "wrapperScopeType": "statement"
       }
     },
-    "insertionScopeType": "namedFunction"
+    "insertionScopeTypes": [
+      "namedFunction",
+      "statement",
+      "line"
+    ]
   }
 }

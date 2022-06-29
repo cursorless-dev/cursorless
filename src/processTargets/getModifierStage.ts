@@ -4,12 +4,14 @@ import {
   EveryScopeModifier,
   Modifier,
 } from "../typings/targetDescriptor.types";
+import CascadingStage from "./modifiers/CascadingStage";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
 } from "./modifiers/InteriorStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
+import ModifyIfWeakStage from "./modifiers/ModifyIfWeakStage";
 import OrdinalRangeSubTokenStage, {
   OrdinalRangeSubTokenModifier,
 } from "./modifiers/OrdinalRangeSubTokenStage";
@@ -62,6 +64,10 @@ export default (modifier: Modifier): ModifierStage => {
       return new OrdinalRangeSubTokenStage(
         modifier as OrdinalRangeSubTokenModifier
       );
+    case "cascading":
+      return new CascadingStage(modifier);
+    case "modifyIfWeak":
+      return new ModifyIfWeakStage(modifier);
   }
 };
 

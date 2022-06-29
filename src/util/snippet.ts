@@ -115,13 +115,13 @@ function findMatchingSnippetDefinitionForSingleTarget(
       return true;
     }
 
-    const { langIds, scopeType } = scope;
+    const { langIds, scopeTypes } = scope;
 
     if (langIds != null && !langIds.includes(languageId)) {
       return false;
     }
 
-    if (scopeType != null) {
+    if (scopeTypes != null) {
       // TODO: Implement this; see #802
       throw new Error("Scope types not yet implemented");
     }

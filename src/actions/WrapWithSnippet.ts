@@ -29,9 +29,12 @@ export default class WrapWithSnippet implements Action {
 
     return [
       new ModifyIfWeakStage({
-        type: "containingScope",
-        scopeType: {
-          type: defaultScopeType,
+        type: "modifyIfWeak",
+        modifier: {
+          type: "containingScope",
+          scopeType: {
+            type: defaultScopeType,
+          },
         },
       }),
     ];

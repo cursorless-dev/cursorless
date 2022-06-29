@@ -22,17 +22,23 @@ export default class InsertSnippet implements Action {
   getPrePositionStages(snippetName: string) {
     const snippet = this.graph.snippets.getSnippetStrict(snippetName);
 
-    const defaultScopeType = snippet.insertionScopeType;
+    const defaultScopeTypes = snippet.insertionScopeTypes;
 
-    if (defaultScopeType == null) {
+    if (defaultScopeTypes == null) {
       return [];
     }
 
     return [
       new ModifyIfWeakStage({
-        type: "containingScope",
-        scopeType: {
-          type: defaultScopeType,
+        type: "modifyIfWeak",
+        modifier: {
+          type: "cascading",
+          modifiers: defaultScopeTypes.map((scopeType) => ({
+            type: "containingScope",
+            scopeType: {
+              type: scopeType,
+            },
+          })),
         },
       }),
     ];
