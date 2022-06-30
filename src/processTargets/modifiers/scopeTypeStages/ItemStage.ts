@@ -195,7 +195,7 @@ function tokenizeRange(
 ) {
   const { document } = editor;
   const text = document.getText(collectionRange);
-  const lexemes = text.split(/([,(){}<>[\]"'])/g).filter(Boolean);
+  const lexemes = text.split(/([,(){}<>[\]"'`]|\\"|\\'|\\`)/g).filter(Boolean);
   const joinedLexemes = joinLexemesBySkippingMatchingPairs(lexemes);
   const tokens: Token[] = [];
   let offset = document.offsetAt(collectionRange.start);
@@ -315,6 +315,9 @@ function getParentSurroundingPair(
   const position = editor.document.positionAt(
     editor.document.offsetAt(pairInfo.contentRange.start) - 1
   );
+  if (position.isEqual(pairInfo.contentRange.start)) {
+    return null;
+  }
   return getSurroundingPair(context, editor, new Range(position, position));
 }
 
@@ -353,5 +356,6 @@ const delimiters: { [key: string]: string } = {
   "[": "]",
   '"': '"',
   "'": "'",
+  "`": "`",
 };
 /* eslint-enable @typescript-eslint/naming-convention */
