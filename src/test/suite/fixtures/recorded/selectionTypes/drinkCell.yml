@@ -16,6 +16,8 @@ initialState:
 finalState:
   documentContents: |-
     # %%
+
+    # %%
     print("hello")
   selections:
     - anchor: {line: 1, character: 0}

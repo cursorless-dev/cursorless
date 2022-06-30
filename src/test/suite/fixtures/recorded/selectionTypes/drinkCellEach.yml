@@ -24,6 +24,8 @@ initialState:
 finalState:
   documentContents: |-
     # %%
+
+    # %%
     print("hello")
 
     # %%
