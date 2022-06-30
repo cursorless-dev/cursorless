@@ -29,7 +29,8 @@
 									},
 									"description": "Cursorless scopes in which this snippet is active.  Allows, for example, to have different snippets to define a function if you're in a class or at global scope."
 								}
-							}
+							},
+							"additionalProperties": false
 						},
 						"body": {
 							"type": "array",
@@ -43,6 +44,7 @@
 							"description": "Scope-specific overrides for the variables defined in the snippet"
 						}
 					},
+					"additionalProperties": false,
 					"required": ["body"]
 				}
 			},
@@ -61,7 +63,8 @@
 				},
 				"description": "Try to expand target to this scope type when inserting this snippet before/after a target without scope type specified. If multiple scope types are specified try them each in order until one of them matches."
 			}
-		}
+		},
+		"additionalProperties": false
 	},
 	"$defs": {
 		"scopeType": {
@@ -130,7 +133,8 @@
 						"description": "Format text inserted into this variable using the given formatter",
 						"enum": ["camelCase", "pascalCase", "snakeCase", "upperSnakeCase"]
 					}
-				}
+				},
+				"additionalProperties": false
 			}
 		}
 	}
