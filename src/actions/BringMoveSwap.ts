@@ -50,7 +50,7 @@ class BringMoveSwap implements Action {
       getSourceRangeCallback = getContentRange;
     } else if (this.type === "move") {
       sourceStyle = this.graph.editStyles.pendingDelete;
-      getSourceRangeCallback = getRemovalRange;
+      getSourceRangeCallback = getRemovalHighlightRange;
     }
     // NB this.type === "swap"
     else {
@@ -282,6 +282,6 @@ export class Swap extends BringMoveSwap {
   }
 }
 
-function getRemovalRange(target: Target) {
-  return target.getRemovalRange();
+function getRemovalHighlightRange(target: Target) {
+  return target.getRemovalHighlightRange();
 }

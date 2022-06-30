@@ -107,7 +107,7 @@ minimize syllables.
 The word `"this"` can be used as a mark to refer to the current cursor(s) or selection(s) as a target. Note that when combined with a modifier, the `"this"` mark can be omitted, and it will be implied.
 
 - `chuck this`
-- `take this funk`
+- `take funk this`
 - `pre funk`
 - `chuck line`
 
