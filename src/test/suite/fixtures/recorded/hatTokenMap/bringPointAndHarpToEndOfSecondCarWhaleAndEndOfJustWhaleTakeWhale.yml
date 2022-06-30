@@ -1,6 +1,8 @@
 languageId: plaintext
 command:
-  spokenForm: bring point and harp to end of second car whale and end of just whale take whale
+  spokenForm: >-
+    bring point and harp to end of second car whale and end of just whale take
+    whale
   version: 2
   targets:
     - type: list

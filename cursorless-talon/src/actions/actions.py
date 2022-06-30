@@ -86,6 +86,7 @@ default_values = {
     "swap_action": {"swap": "swapTargets"},
     "move_bring_action": {"bring": "replaceWithTarget", "move": "moveToTarget"},
     "wrap_action": {"wrap": "wrapWithPairedDelimiter", "repack": "rewrap"},
+    "insert_snippet_action": {"snippet": "insertSnippet"},
     "reformat_action": {"format": "applyFormatter"},
 }
 
