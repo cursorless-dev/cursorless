@@ -196,10 +196,7 @@ const nodeMatchers: Partial<
     patternMatcher("meta_item[value]"),
     matcher(returnValueFinder)
   ),
-  attribute: cascadingMatcher(
-    trailingMatcher(["mutable_specifier"], [" "]),
-    trailingMatcher(["attribute_item"], ["\n"])
-  ),
+  attribute: trailingMatcher(["mutable_specifier", "attribute_item"]),
 };
 
 export default createPatternMatchers(nodeMatchers);
