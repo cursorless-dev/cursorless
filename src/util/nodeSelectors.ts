@@ -385,8 +385,8 @@ export function delimitedSelector(
       );
       if (nextNonDelimiterNode != null) {
         return makeRangeFromPositions(
-          nextNonDelimiterNode.startPosition,
-          startNode.startPosition
+          endNode.endPosition,
+          nextNonDelimiterNode.startPosition
         );
       }
       const nextDelimiterNode = getNextDelimiterNode(
@@ -395,8 +395,8 @@ export function delimitedSelector(
       );
       if (nextDelimiterNode != null) {
         return makeRangeFromPositions(
-          nextDelimiterNode.endPosition,
-          startNode.startPosition
+          endNode.endPosition,
+          nextDelimiterNode.endPosition
         );
       }
       return undefined;
