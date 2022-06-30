@@ -1,11 +1,11 @@
-import { SyntaxNode, Point } from "web-tree-sitter";
+import { identity, maxBy } from "lodash";
 import { Position, Range, Selection, TextEditor } from "vscode";
+import { Point, SyntaxNode } from "web-tree-sitter";
 import {
-  SelectionWithContext,
-  SelectionExtractor,
   NodeFinder,
+  SelectionExtractor,
+  SelectionWithContext,
 } from "../typings/Types";
-import { identity } from "lodash";
 
 export function makeRangeFromPositions(
   startPosition: Point,
@@ -317,7 +317,6 @@ export function delimitedSelector(
   getEndNode: (node: SyntaxNode) => SyntaxNode = identity
 ): SelectionExtractor {
   return (editor: TextEditor, node: SyntaxNode) => {
-    let containingListDelimiter: string | undefined;
     let leadingDelimiterRange: Range | undefined;
     let trailingDelimiterRange: Range | undefined;
     const startNode = getStartNode(node);
@@ -337,8 +336,6 @@ export function delimitedSelector(
         endNode.endPosition,
         nextNonDelimiterNode.startPosition
       );
-
-      containingListDelimiter = editor.document.getText(trailingDelimiterRange);
     }
 
     if (previousNonDelimiterNode != null) {
@@ -346,17 +343,14 @@ export function delimitedSelector(
         previousNonDelimiterNode.endPosition,
         startNode.startPosition
       );
-
-      if (containingListDelimiter == null) {
-        containingListDelimiter = editor.document.getText(
-          leadingDelimiterRange
-        );
-      }
     }
 
-    if (containingListDelimiter == null) {
-      containingListDelimiter = defaultDelimiter;
-    }
+    const containingListDelimiter = getInsertionDelimiter(
+      editor,
+      leadingDelimiterRange,
+      trailingDelimiterRange,
+      defaultDelimiter
+    );
 
     return {
       selection: new Selection(
@@ -373,4 +367,23 @@ export function delimitedSelector(
       },
     };
   };
+}
+
+export function getInsertionDelimiter(
+  editor: TextEditor,
+  leadingDelimiterRange: Range | undefined,
+  trailingDelimiterRange: Range | undefined,
+  defaultDelimiterInsertion: string
+) {
+  const { getText } = editor.document;
+  const delimiters = [
+    trailingDelimiterRange != null
+      ? getText(trailingDelimiterRange)
+      : defaultDelimiterInsertion,
+    leadingDelimiterRange != null
+      ? getText(leadingDelimiterRange)
+      : defaultDelimiterInsertion,
+  ];
+
+  return maxBy(delimiters, "length");
 }

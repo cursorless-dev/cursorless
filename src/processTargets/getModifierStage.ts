@@ -9,6 +9,7 @@ import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
 } from "./modifiers/InteriorStage";
+import ItemStage from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import OrdinalRangeSubTokenStage, {
   OrdinalRangeSubTokenModifier,
@@ -19,7 +20,6 @@ import ContainingSyntaxScopeStage, {
   SimpleContainingScopeModifier,
 } from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
 import DocumentStage from "./modifiers/scopeTypeStages/DocumentStage";
-import ItemStage from "./modifiers/scopeTypeStages/ItemStage";
 import LineStage from "./modifiers/scopeTypeStages/LineStage";
 import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
 import ParagraphStage from "./modifiers/scopeTypeStages/ParagraphStage";
