@@ -91,7 +91,10 @@ function getItemInfosForIterationScope(
   context: ProcessedTargetsContext,
   target: Target
 ) {
-  const { range, boundary } = getIterationScope(context, target);
+  // It's only for week targets we expand to iteration scope
+  const { range, boundary } = target.isWeak
+    ? getIterationScope(context, target)
+    : { range: target.contentRange, boundary: undefined };
   return rangeToItemInfos(target.editor, range, boundary);
 }
 
