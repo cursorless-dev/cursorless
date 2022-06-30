@@ -293,6 +293,40 @@ function getPreviousNonDelimiterNode(
   return node;
 }
 
+function getNextDelimiterNode(
+  startNode: SyntaxNode,
+  isDelimiterNode: (node: SyntaxNode) => boolean
+): SyntaxNode | null {
+  let node = startNode.nextSibling;
+
+  while (node != null) {
+    if (isDelimiterNode(node)) {
+      return node;
+    }
+
+    node = node.nextSibling;
+  }
+
+  return node;
+}
+
+function getPreviousDelimiterNode(
+  startNode: SyntaxNode,
+  isDelimiterNode: (node: SyntaxNode) => boolean
+): SyntaxNode | null {
+  let node = startNode.previousSibling;
+
+  while (node != null) {
+    if (isDelimiterNode(node)) {
+      return node;
+    }
+
+    node = node.previousSibling;
+  }
+
+  return node;
+}
+
 export function delimitersSelector(...delimiters: string[]) {
   return delimitedSelector((node) => delimiters.includes(node.type), ", ");
 }
@@ -317,33 +351,56 @@ export function delimitedSelector(
   getEndNode: (node: SyntaxNode) => SyntaxNode = identity
 ): SelectionExtractor {
   return (editor: TextEditor, node: SyntaxNode) => {
-    let leadingDelimiterRange: Range | undefined;
-    let trailingDelimiterRange: Range | undefined;
     const startNode = getStartNode(node);
     const endNode = getEndNode(node);
 
-    const nextNonDelimiterNode = getNextNonDelimiterNode(
-      endNode,
-      isDelimiterNode
-    );
-    const previousNonDelimiterNode = getPreviousNonDelimiterNode(
-      startNode,
-      isDelimiterNode
-    );
-
-    if (nextNonDelimiterNode != null) {
-      trailingDelimiterRange = makeRangeFromPositions(
-        endNode.endPosition,
-        nextNonDelimiterNode.startPosition
+    const leadingDelimiterRange = (() => {
+      const previousNonDelimiterNode = getPreviousNonDelimiterNode(
+        startNode,
+        isDelimiterNode
       );
-    }
-
-    if (previousNonDelimiterNode != null) {
-      leadingDelimiterRange = makeRangeFromPositions(
-        previousNonDelimiterNode.endPosition,
-        startNode.startPosition
+      if (previousNonDelimiterNode != null) {
+        return makeRangeFromPositions(
+          previousNonDelimiterNode.endPosition,
+          startNode.startPosition
+        );
+      }
+      const previousDelimiterNode = getPreviousDelimiterNode(
+        startNode,
+        isDelimiterNode
       );
-    }
+      if (previousDelimiterNode != null) {
+        return makeRangeFromPositions(
+          previousDelimiterNode.startPosition,
+          startNode.startPosition
+        );
+      }
+      return undefined;
+    })();
+
+    const trailingDelimiterRange = (() => {
+      const nextNonDelimiterNode = getNextNonDelimiterNode(
+        startNode,
+        isDelimiterNode
+      );
+      if (nextNonDelimiterNode != null) {
+        return makeRangeFromPositions(
+          nextNonDelimiterNode.startPosition,
+          startNode.startPosition
+        );
+      }
+      const nextDelimiterNode = getNextDelimiterNode(
+        startNode,
+        isDelimiterNode
+      );
+      if (nextDelimiterNode != null) {
+        return makeRangeFromPositions(
+          nextDelimiterNode.endPosition,
+          startNode.startPosition
+        );
+      }
+      return undefined;
+    })();
 
     const containingListDelimiter = getInsertionDelimiter(
       editor,

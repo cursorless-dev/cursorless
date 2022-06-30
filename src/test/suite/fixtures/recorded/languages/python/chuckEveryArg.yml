@@ -1,0 +1,35 @@
+languageId: python
+command:
+  spokenForm: chuck every arg
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
+initialState:
+  documentContents: |-
+    def foo(
+        aaa,
+        bbb,
+    ):
+        
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    def foo(
+        
+    ):
+        
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  thatMark:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: argumentOrParameter}}]}]
