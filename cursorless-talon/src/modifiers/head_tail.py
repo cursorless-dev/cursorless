@@ -12,6 +12,7 @@ mod.list(
     desc="Cursorless head and tail modifiers",
 )
 
+
 @mod.capture(
     rule=(
         "{user.cursorless_head_tail_modifier} "

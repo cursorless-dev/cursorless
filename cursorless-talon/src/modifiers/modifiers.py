@@ -2,8 +2,8 @@ from talon import Module, app
 
 from ..csv_overrides import init_csv_and_watch_changes
 from .head_tail import head_tail_modifiers
-from .range_type import range_types
 from .interior import interior_modifiers
+from .range_type import range_types
 
 mod = Module()
 
@@ -20,6 +20,7 @@ mod.list(
     "cursorless_simple_modifier",
     desc="Simple cursorless modifiers that only need to specify their type",
 )
+
 
 @mod.capture(rule="{user.cursorless_simple_modifier}")
 def cursorless_simple_modifier(m) -> dict[str, str]:
