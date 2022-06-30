@@ -3,13 +3,13 @@ from talon import Module, app
 from ..csv_overrides import init_csv_and_watch_changes
 from .head_tail import head_tail_modifiers
 from .range_type import range_types
+from .interior import interior_modifiers
 
 mod = Module()
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
 simple_modifiers = {
-    "inside": "interiorOnly",
     "bounds": "excludeInterior",
     "just": "toRawSelection",
     "leading": "leading",
@@ -21,7 +21,6 @@ mod.list(
     desc="Simple cursorless modifiers that only need to specify their type",
 )
 
-
 @mod.capture(rule="{user.cursorless_simple_modifier}")
 def cursorless_simple_modifier(m) -> dict[str, str]:
     """Simple cursorless modifiers that only need to specify their type"""
@@ -32,7 +31,8 @@ def cursorless_simple_modifier(m) -> dict[str, str]:
 
 modifiers = [
     "<user.cursorless_position>",  # before, end of
-    "<user.cursorless_simple_modifier>",  # inside, bounds, just, leading, trailing
+    "<user.cursorless_simple_modifier>",  # bounds, just, leading, trailing
+    "<user.cursorless_interior_modifier>",  # inside
     "<user.cursorless_head_tail_modifier>",  # head, tail
     "<user.cursorless_containing_scope>",  # funk, state, class
     "<user.cursorless_subtoken_scope>",  # first past second word
@@ -51,6 +51,7 @@ def on_ready():
         "modifiers",
         {
             "simple_modifier": simple_modifiers,
+            "interior_modifier": interior_modifiers,
             "head_tail_modifier": head_tail_modifiers,
             "range_type": range_types,
         },
