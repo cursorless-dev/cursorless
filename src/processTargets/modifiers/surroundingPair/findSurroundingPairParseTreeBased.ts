@@ -62,7 +62,7 @@ export function findSurroundingPairParseTreeBased(
   selection: Range,
   node: SyntaxNode,
   delimiters: SimpleSurroundingPairName[],
-  modifier: SurroundingPairScopeType
+  scopeType: SurroundingPairScopeType
 ) {
   const document: TextDocument = editor.document;
 
@@ -88,7 +88,7 @@ export function findSurroundingPairParseTreeBased(
     individualDelimiters,
     delimiters,
     selectionOffsets,
-    modifier,
+    scopeType,
   };
 
   // Walk up the parse tree from parent to parent until we find a node whose
@@ -149,7 +149,7 @@ interface Context {
    */
   selectionOffsets: Offsets;
 
-  modifier: SurroundingPairScopeType;
+  scopeType: SurroundingPairScopeType;
 }
 
 /**
@@ -170,7 +170,7 @@ function findSurroundingPairContainedInNode(
     individualDelimiters,
     delimiters,
     selectionOffsets,
-    modifier,
+    scopeType,
   } = context;
 
   /**
@@ -213,7 +213,7 @@ function findSurroundingPairContainedInNode(
           // approach might not always work, but seems to work in the
           // languages we've tried.
           let side =
-            delimiterInfo.side === "unknown" && modifier.forceDirection == null
+            delimiterInfo.side === "unknown" && scopeType.forceDirection == null
               ? inferDelimiterSide(delimiterNode)
               : delimiterInfo.side;
 
@@ -227,7 +227,7 @@ function findSurroundingPairContainedInNode(
 
   // Just run core algorithm once we have our list of delimiters.
   return findSurroundingPairCore(
-    modifier,
+    scopeType,
     delimiterOccurrences,
     delimiters,
     selectionOffsets,

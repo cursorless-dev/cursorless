@@ -70,7 +70,7 @@ export function findSurroundingPairTextBased(
   range: Range,
   allowableRange: Range | null,
   delimiters: SimpleSurroundingPairName[],
-  modifier: SurroundingPairScopeType
+  scopeType: SurroundingPairScopeType
 ) {
   const document: TextDocument = editor.document;
   const fullRange = allowableRange ?? getDocumentRange(document);
@@ -106,7 +106,7 @@ export function findSurroundingPairTextBased(
    * Context to pass to nested call
    */
   const context: Context = {
-    modifier,
+    scopeType,
     delimiterRegex,
     delimiters,
     delimiterTextToDelimiterInfoMap,
@@ -196,7 +196,7 @@ function getDelimiterRegex(individualDelimiters: IndividualDelimiter[]) {
  * Context to pass to nested call
  */
 interface Context {
-  modifier: SurroundingPairScopeType;
+  scopeType: SurroundingPairScopeType;
   delimiterTextToDelimiterInfoMap: {
     [k: string]: IndividualDelimiter;
   };
@@ -229,12 +229,12 @@ function getDelimiterPairOffsets(
   isAtEndOfFullRange: boolean
 ): SurroundingPairOffsets | null {
   const {
-    modifier,
+    scopeType,
     delimiterTextToDelimiterInfoMap,
     delimiterRegex,
     delimiters,
   } = context;
-  const { forceDirection } = modifier;
+  const { forceDirection } = scopeType;
 
   // XXX: The below is a bit wasteful when there are multiple targets, because
   // this whole function gets run once per target, so we're re-running this
@@ -291,7 +291,7 @@ function getDelimiterPairOffsets(
 
   // Then just run core algorithm
   const surroundingPair = findSurroundingPairCore(
-    modifier,
+    scopeType,
     delimiterOccurrences,
     delimiters,
     selectionOffsets,

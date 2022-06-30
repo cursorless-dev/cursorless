@@ -23,7 +23,7 @@ import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
  * @param context Context to be leveraged by modifier
  * @param editor The editor containing the range
  * @param range The range to process
- * @param modifier The surrounding pair modifier information
+ * @param scopeType The surrounding pair modifier information
  * @returns The new selection expanded to the containing surrounding pair or
  * `null` if none was found
  */
@@ -31,12 +31,12 @@ export function processSurroundingPair(
   context: ProcessedTargetsContext,
   editor: TextEditor,
   range: Range,
-  modifier: SurroundingPairScopeType
+  scopeType: SurroundingPairScopeType
 ): SurroundingPairInfo | null {
   const document = editor.document;
   const delimiters = complexDelimiterMap[
-    modifier.delimiter as ComplexSurroundingPairName
-  ] ?? [modifier.delimiter];
+    scopeType.delimiter as ComplexSurroundingPairName
+  ] ?? [scopeType.delimiter];
 
   let node: SyntaxNode | null;
   let textFragmentExtractor: TextFragmentExtractor;
@@ -54,7 +54,7 @@ export function processSurroundingPair(
         range,
         null,
         delimiters,
-        modifier
+        scopeType
       );
     } else {
       throw err;
@@ -74,7 +74,7 @@ export function processSurroundingPair(
       range,
       textFragmentRange,
       delimiters,
-      modifier
+      scopeType
     );
 
     if (surroundingRange != null) {
@@ -90,6 +90,6 @@ export function processSurroundingPair(
     range,
     node,
     delimiters,
-    modifier
+    scopeType
   );
 }
