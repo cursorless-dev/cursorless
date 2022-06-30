@@ -50,21 +50,19 @@ const STATEMENT_PARENT_TYPES = ["source_file", "block", "declaration_list"];
  * @param node The node which we will start our search from
  * @returns node or null
  */
-function traitTypeMatcher(node: SyntaxNode) {
-  var parentNode = node.parent
+function implItemTypeFinder(node: SyntaxNode) {
   // Try find parentNode which type is "impl_item"
   while (true) {
-      if (parentNode == null) {
+      if (node.parent == null) {
         return null
       }
-      if (parentNode.type === "impl_item") {
+      if (node.parent.type === "impl_item") {
         break
       }
-      node = parentNode
-      parentNode = node.parent
+      node = node.parent
   }
 
-  if (parentNode.childForFieldName("type")?.equals(node)) {
+  if (node.parent.childForFieldName("type")?.equals(node)) {
     return node
   }
   return null
@@ -148,7 +146,7 @@ const nodeMatchers: Partial<
       [":"]
     ),
     leadingMatcher(["function_item[return_type]"], ["->"]),
-    matcher(traitTypeMatcher),
+    matcher(implItemTypeFinder),
     patternMatcher("struct_item", "trait_item", "impl_item"),
 
   ),
