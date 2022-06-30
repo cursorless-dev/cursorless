@@ -51,18 +51,7 @@ const STATEMENT_PARENT_TYPES = ["source_file", "block", "declaration_list"];
  * @returns node or null
  */
 function implItemTypeFinder(node: SyntaxNode) {
-  // Try find parentNode which type is "impl_item"
-  while (true) {
-      if (node.parent == null) {
-        return null
-      }
-      if (node.parent.type === "impl_item") {
-        break
-      }
-      node = node.parent
-  }
-
-  if (node.parent.childForFieldName("type")?.equals(node)) {
+  if (node.parent?.type === "impl_item" && node.parent?.childForFieldName("type")?.equals(node)) {
     return node
   }
   return null
