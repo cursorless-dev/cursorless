@@ -1,3 +1,4 @@
+import { maxBy } from "lodash";
 import { Range, TextEditor } from "vscode";
 import { NoContainingScopeError } from "../../../errors";
 import { Target } from "../../../typings/target.types";
@@ -49,7 +50,7 @@ export default class ItemStage implements ModifierStage {
     const itemInfoWithIntersections = itemInfos
       .map((itemInfo) => ({
         itemInfo,
-        intersection: itemInfo.matchRange.intersection(target.contentRange),
+        intersection: itemInfo.domain.intersection(target.contentRange),
       }))
       .filter((e) => e.intersection != null);
 
@@ -71,7 +72,7 @@ export default class ItemStage implements ModifierStage {
       scopeTypeType: <SimpleScopeTypeType>this.modifier.scopeType.type,
       editor: target.editor,
       isReversed: target.isReversed,
-      contentRange: itemInfo.range,
+      contentRange: itemInfo.contentRange,
       delimiter: getInsertionDelimiter(target, itemInfo),
       leadingDelimiterRange: itemInfo.leadingDelimiterRange,
       trailingDelimiterRange: itemInfo.trailingDelimiterRange,
@@ -89,17 +90,19 @@ function getInsertionDelimiter(target: Target, itemInfo: ItemInfo) {
       ? getText(itemInfo.leadingDelimiterRange)
       : defaultDelimiterInsertion,
   ];
-  // Use longest delimiter text for insertion
-  delimiters.sort((a, b) => b.length - a.length);
-  return delimiters[0];
+
+  return maxBy(delimiters, "length");
 }
 
 function getItemInfos(context: ProcessedTargetsContext, target: Target) {
-  const { range, boundary } = getCollectionRange(context, target);
+  const { range, boundary } = getIterationScopeRange(context, target);
   return rangeToItemInfos(target.editor, range, boundary);
 }
 
-function getCollectionRange(context: ProcessedTargetsContext, target: Target) {
+function getIterationScopeRange(
+  context: ProcessedTargetsContext,
+  target: Target
+) {
   // First check if we are in a string
   let pairInfo = getStringSurroundingPair(
     context,
@@ -178,10 +181,10 @@ function rangeToItemInfos(
         : token.range.end;
     const matchRange = new Range(leadingMatchStart, trailingMatchEnd);
     itemInfos.push({
-      range: token.range,
+      contentRange: token.range,
       leadingDelimiterRange,
       trailingDelimiterRange,
-      matchRange,
+      domain: matchRange,
     });
   });
 
@@ -333,10 +336,10 @@ function getStringSurroundingPair(
 }
 
 interface ItemInfo {
-  range: Range;
+  contentRange: Range;
   leadingDelimiterRange?: Range;
   trailingDelimiterRange?: Range;
-  matchRange: Range;
+  domain: Range;
 }
 
 interface Token {
