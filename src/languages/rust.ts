@@ -152,7 +152,7 @@ const nodeMatchers: Partial<
   ),
   functionName: ["function_item[name]"],
   anonymousFunction: "closure_expression",
-  argumentOrParameter: argumentMatcher("arguments", "parameters", "meta_arguments"),
+  argumentOrParameter: argumentMatcher("arguments", "parameters", "meta_arguments", "type_parameters"),
   name: [
     "let_declaration.identifier!",
     "parameter.identifier!",
