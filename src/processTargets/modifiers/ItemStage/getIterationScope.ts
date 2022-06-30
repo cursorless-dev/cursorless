@@ -9,18 +9,11 @@ export function getIterationScope(
   context: ProcessedTargetsContext,
   target: Target
 ) {
-  // First check if we are in a string
-  let pairInfo = getStringSurroundingPair(
+  let pairInfo = getSurroundingPair(
     context,
     target.editor,
     target.contentRange
   );
-
-  // We don't look for items inside strings. If we are in a string go to parent
-  pairInfo =
-    pairInfo != null
-      ? getParentSurroundingPair(context, target.editor, pairInfo)
-      : getSurroundingPair(context, target.editor, target.contentRange);
 
   while (pairInfo != null) {
     // The selection from the beginning was this pair and we should not go into the interior but instead look in the parent.
@@ -28,11 +21,24 @@ export function getIterationScope(
       target.contentRange.isEqual(pairInfo.contentRange) ||
       target.contentRange.start.isBeforeOrEqual(pairInfo.boundary[0].start) ||
       target.contentRange.end.isAfterOrEqual(pairInfo.boundary[1].end);
+
     if (!isNotInterior) {
-      return {
-        range: pairInfo.interiorRange,
-        boundary: pairInfo.boundary,
-      };
+      const stringPairInfo = getStringSurroundingPair(
+        context,
+        target.editor,
+        pairInfo.contentRange
+      );
+
+      // We don't look for items inside strings.
+      if (
+        stringPairInfo == null ||
+        !stringPairInfo.contentRange.isEqual(pairInfo.contentRange)
+      ) {
+        return {
+          range: pairInfo.interiorRange,
+          boundary: pairInfo.boundary,
+        };
+      }
     }
     pairInfo = getParentSurroundingPair(context, target.editor, pairInfo);
   }
