@@ -164,7 +164,10 @@ const nodeMatchers: Partial<
       [":"]
     ),
     matcher(
-      patternFinder("constrained_type_parameter[bounds]", "where_predicate[bounds]"),
+      patternFinder(
+        "constrained_type_parameter[bounds]",
+        "where_predicate[bounds]"
+      ),
       traitBoundExtractor
     ),
     leadingMatcher(["function_item[return_type]"], ["->"]),
