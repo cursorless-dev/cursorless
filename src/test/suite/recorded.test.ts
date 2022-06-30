@@ -142,6 +142,10 @@ async function runTest(editor: vscode.TextEditor, file: string) {
     { ...fixture.command, usePrePhraseSnapshot }
   );
 
+  if (fixture.postCommandSleepTimeMs != null) {
+    await sleep(fixture.postCommandSleepTimeMs);
+  }
+
   const marks =
     fixture.finalState!.marks == null
       ? undefined

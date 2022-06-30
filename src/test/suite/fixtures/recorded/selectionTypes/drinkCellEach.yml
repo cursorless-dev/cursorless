@@ -1,4 +1,6 @@
 languageId: python
+postEditorOpenSleepTimeMs: 250
+postCommandSleepTimeMs: 400
 command:
   version: 1
   spokenForm: drink cell each
