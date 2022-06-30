@@ -23,7 +23,7 @@ import {
 import { Clipboard } from "../../util/Clipboard";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import sleep from "../../util/sleep";
-import { openNewEditor } from "../openNewEditor";
+import { openNewEditor, reuseEditor } from "../openNewEditor";
 import asyncSafety from "../util/asyncSafety";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
 
@@ -41,6 +41,8 @@ suite("recorded test cases", async function () {
   this.timeout("100s");
   this.retries(5);
 
+  let editor: vscode.TextEditor;
+
   teardown(() => {
     sinon.restore();
   });
@@ -48,17 +50,19 @@ suite("recorded test cases", async function () {
   suiteSetup(async () => {
     // Necessary because opening a notebook opens the panel for some reason
     await vscode.commands.executeCommand("workbench.action.closePanel");
+
+    editor = await openNewEditor("");
   });
 
   getRecordedTestPaths().forEach((path) =>
     test(
       path.split(".")[0],
-      asyncSafety(() => runTest(path))
+      asyncSafety(() => runTest(editor, path))
     )
   );
 });
 
-async function runTest(file: string) {
+async function runTest(editor: vscode.TextEditor, file: string) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
   const excludeFields: ExcludableSnapshotField[] = [];
@@ -71,19 +75,14 @@ async function runTest(file: string) {
   const graph = cursorlessApi.graph!;
   graph.editStyles.testDecorations = [];
 
-  const editor = await openNewEditor(
+  await reuseEditor(
+    editor,
     fixture.initialState.documentContents,
     fixture.languageId
   );
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
     await sleep(fixture.postEditorOpenSleepTimeMs);
-  }
-
-  if (!fixture.initialState.documentContents.includes("\n")) {
-    await editor.edit((editBuilder) => {
-      editBuilder.setEndOfLine(vscode.EndOfLine.LF);
-    });
   }
 
   editor.selections = fixture.initialState.selections.map(createSelection);
