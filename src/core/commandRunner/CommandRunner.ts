@@ -88,13 +88,19 @@ export default class CommandRunner {
         this.graph.debug.log(JSON.stringify(targetDescriptors, null, 3));
       }
 
-      const finalStages =
+      const actionPrePositionStages =
+        action.getPrePositionStages != null
+          ? action.getPrePositionStages(...actionArgs)
+          : [];
+
+      const actionFinalStages =
         action.getFinalStages != null
           ? action.getFinalStages(...actionArgs)
           : [];
 
       const processedTargetsContext: ProcessedTargetsContext = {
-        finalStages,
+        actionPrePositionStages,
+        actionFinalStages,
         currentSelections:
           vscode.window.activeTextEditor?.selections.map((selection) => ({
             selection,

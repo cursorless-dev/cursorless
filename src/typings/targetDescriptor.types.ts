@@ -199,6 +199,32 @@ export interface HeadTailModifier {
   modifiers?: Modifier[];
 }
 
+/**
+ * Runs {@link modifier} if the target is weak.
+ */
+export interface ModifyIfWeakModifier {
+  type: "modifyIfWeak";
+
+  /**
+   * The modifier to apply if the target is weak
+   */
+  modifier: Modifier;
+}
+
+/**
+ * Tries each of the modifiers in {@link modifiers} in turn until one of them
+ * doesn't throw an error, returning the output from the first modifier not
+ * throwing an error.
+ */
+export interface CascadingModifier {
+  type: "cascading";
+
+  /**
+   * The modifiers to try in turn
+   */
+  modifiers: Modifier[];
+}
+
 export type Modifier =
   | PositionModifier
   | InteriorOnlyModifier
@@ -209,7 +235,9 @@ export type Modifier =
   | HeadTailModifier
   | LeadingModifier
   | TrailingModifier
-  | RawSelectionModifier;
+  | RawSelectionModifier
+  | ModifyIfWeakModifier
+  | CascadingModifier;
 
 export interface PartialRangeTargetDescriptor {
   type: "range";
@@ -246,6 +274,13 @@ export interface PrimitiveTargetDescriptor
    * character of the name.
    */
   modifiers: Modifier[];
+
+  /**
+   * We separate the positional modifier from the other modifiers because it
+   * behaves differently and and makes the target behave like a destination for
+   * example for bring.  This change is the first step toward #803
+   */
+  positionModifier?: PositionModifier;
 }
 
 export interface RangeTargetDescriptor {

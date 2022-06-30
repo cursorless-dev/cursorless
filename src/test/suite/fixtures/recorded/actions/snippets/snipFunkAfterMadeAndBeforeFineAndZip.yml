@@ -1,0 +1,68 @@
+languageId: typescript
+command:
+  spokenForm: snip funk after made and before fine and zip
+  version: 2
+  targets:
+    - type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: m}
+          modifiers:
+            - {type: position, position: after}
+        - type: primitive
+          modifiers:
+            - {type: position, position: before}
+          mark: {type: decoratedSymbol, symbolColor: default, character: f}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: z}
+  usePrePhraseSnapshot: true
+  action:
+    name: insertSnippet
+    args: [functionDeclaration]
+initialState:
+  documentContents: |
+    const foo = "bar";
+    const baz = "bongo";
+    const bazman = "bongo";
+  selections:
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 12}
+  marks:
+    default.m:
+      start: {line: 2, character: 6}
+      end: {line: 2, character: 12}
+    default.f:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 9}
+    default.z:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 9}
+finalState:
+  documentContents: |
+    function () {
+        
+    }
+    const foo = "bar";
+    function () {
+        
+    }
+    const baz = "bongo";
+    const bazman = "bongo";
+    function () {
+        
+    }
+  selections:
+    - anchor: {line: 9, character: 9}
+      active: {line: 9, character: 9}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}
+  thatMark:
+    - anchor: {line: 9, character: 0}
+      active: {line: 11, character: 1}
+    - anchor: {line: 0, character: 0}
+      active: {line: 2, character: 1}
+    - anchor: {line: 4, character: 0}
+      active: {line: 6, character: 1}
+fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, modifiers: [{type: position, position: after}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: [{type: position, position: before}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: z}, modifiers: [{type: position, position: before}]}]}]
