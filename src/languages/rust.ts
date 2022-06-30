@@ -51,10 +51,13 @@ const STATEMENT_PARENT_TYPES = ["source_file", "block", "declaration_list"];
  * @returns node or null
  */
 function implItemTypeFinder(node: SyntaxNode) {
-  if (node.parent?.type === "impl_item" && node.parent?.childForFieldName("type")?.equals(node)) {
-    return node
+  if (
+    node.parent?.type === "impl_item" &&
+    node.parent?.childForFieldName("type")?.equals(node)
+  ) {
+    return node;
   }
-  return null
+  return null;
 }
 
 /**
@@ -136,12 +139,16 @@ const nodeMatchers: Partial<
     ),
     leadingMatcher(["function_item[return_type]"], ["->"]),
     matcher(implItemTypeFinder),
-    patternMatcher("struct_item", "trait_item", "impl_item"),
-
+    patternMatcher("struct_item", "trait_item", "impl_item")
   ),
   functionName: ["function_item[name]"],
   anonymousFunction: "closure_expression",
-  argumentOrParameter: argumentMatcher("arguments", "parameters", "meta_arguments", "type_parameters"),
+  argumentOrParameter: argumentMatcher(
+    "arguments",
+    "parameters",
+    "meta_arguments",
+    "type_parameters"
+  ),
   name: [
     "let_declaration.identifier!",
     "parameter.identifier!",
@@ -157,8 +164,8 @@ const nodeMatchers: Partial<
   ),
   attribute: cascadingMatcher(
     trailingMatcher(["mutable_specifier"], [" "]),
-    trailingMatcher(["attribute_item"], ["\n"]),
-  )
+    trailingMatcher(["attribute_item"], ["\n"])
+  ),
 };
 
 export default createPatternMatchers(nodeMatchers);
