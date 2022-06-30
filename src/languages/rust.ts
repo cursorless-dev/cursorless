@@ -158,11 +158,7 @@ const nodeMatchers: Partial<
   name: [
     "let_declaration.identifier!",
     "parameter.identifier!",
-    "function_item[name]",
-    "struct_item[name]",
-    "enum_item[name]",
-    "trait_item[name]",
-    "const_item[name]",
+    "*[name]",
   ],
   class: ["struct_item", "struct_expression", "enum_item"],
   className: ["struct_item[name]", "enum_item[name]", "trait_item[name]"],
