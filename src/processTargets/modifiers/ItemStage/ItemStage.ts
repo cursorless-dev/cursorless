@@ -38,22 +38,24 @@ export default class ItemStage implements ModifierStage {
   private getEveryTarget(context: ProcessedTargetsContext, target: Target) {
     const itemInfos = getItemInfosForIterationScope(context, target);
 
-    if (itemInfos.length === 0) {
+    // If weak expand to all items in iteration scope
+    const filteredItemInfos = target.isWeak
+      ? itemInfos
+      : filterItemInfos(target, itemInfos).map((e) => e.itemInfo);
+
+    if (filteredItemInfos.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
-    return itemInfos.map((itemInfo) => this.itemInfoToTarget(target, itemInfo));
+    return filteredItemInfos.map((itemInfo) =>
+      this.itemInfoToTarget(target, itemInfo)
+    );
   }
 
   private getSingleTarget(context: ProcessedTargetsContext, target: Target) {
     const itemInfos = getItemInfosForIterationScope(context, target);
 
-    const itemInfoWithIntersections = itemInfos
-      .map((itemInfo) => ({
-        itemInfo,
-        intersection: itemInfo.domain.intersection(target.contentRange),
-      }))
-      .filter((e) => e.intersection != null);
+    const itemInfoWithIntersections = filterItemInfos(target, itemInfos);
 
     if (itemInfoWithIntersections.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -87,14 +89,21 @@ export default class ItemStage implements ModifierStage {
   }
 }
 
+/** Filter item infos by content range and domain intersection */
+function filterItemInfos(target: Target, itemInfos: ItemInfo[]) {
+  return itemInfos
+    .map((itemInfo) => ({
+      itemInfo,
+      intersection: itemInfo.domain.intersection(target.contentRange),
+    }))
+    .filter((e) => e.intersection != null);
+}
+
 function getItemInfosForIterationScope(
   context: ProcessedTargetsContext,
   target: Target
 ) {
-  // It's only for week targets we expand to iteration scope
-  const { range, boundary } = target.isWeak
-    ? getIterationScope(context, target)
-    : { range: target.contentRange, boundary: undefined };
+  const { range, boundary } = getIterationScope(context, target);
   return rangeToItemInfos(target.editor, range, boundary);
 }
 
