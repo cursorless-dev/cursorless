@@ -152,7 +152,7 @@ const nodeMatchers: Partial<
   ),
   functionName: ["function_item[name]"],
   anonymousFunction: "closure_expression",
-  argumentOrParameter: argumentMatcher("arguments", "parameters"),
+  argumentOrParameter: argumentMatcher("arguments", "parameters", "meta_arguments"),
   name: [
     "let_declaration.identifier!",
     "parameter.identifier!",
@@ -164,7 +164,10 @@ const nodeMatchers: Partial<
     patternMatcher("let_declaration[value]"),
     matcher(returnValueFinder)
   ),
-  attribute: trailingMatcher(["mutable_specifier"], [" "])
+  attribute: cascadingMatcher(
+    trailingMatcher(["mutable_specifier"], [" "]),
+    trailingMatcher(["attribute_item"], ["\n"]),
+  )
 };
 
 export default createPatternMatchers(nodeMatchers);
