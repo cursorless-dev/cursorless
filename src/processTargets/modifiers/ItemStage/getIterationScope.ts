@@ -2,7 +2,10 @@ import { Range, TextEditor } from "vscode";
 import { Target } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { fitRangeToLineContent } from "../scopeTypeStages/LineStage";
-import { processSurroundingPair } from "../surroundingPair";
+import {
+  processSurroundingPair,
+  processSurroundingPairForDelimiters,
+} from "../surroundingPair";
 import { SurroundingPairInfo } from "../surroundingPair/extractSelectionFromSurroundingPairOffsets";
 
 export function getIterationScope(
@@ -32,7 +35,7 @@ export function getIterationScope(
       // We don't look for items inside strings.
       if (
         stringPairInfo == null ||
-        !stringPairInfo.contentRange.isEqual(pairInfo.contentRange)
+        stringPairInfo.contentRange.start.isBefore(pairInfo.contentRange.start)
       ) {
         return {
           range: pairInfo.interiorRange,
@@ -54,10 +57,12 @@ function getSurroundingPair(
   editor: TextEditor,
   contentRange: Range
 ) {
-  return processSurroundingPair(context, editor, contentRange, {
-    type: "surroundingPair",
-    delimiter: "any",
-  });
+  return processSurroundingPairForDelimiters(context, editor, contentRange, [
+    "parentheses",
+    "squareBrackets",
+    "curlyBrackets",
+    "angleBrackets",
+  ]);
 }
 
 function getParentSurroundingPair(
