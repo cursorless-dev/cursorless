@@ -161,7 +161,7 @@ const nodeMatchers: Partial<
   class: ["struct_item", "struct_expression", "enum_item"],
   className: ["struct_item[name]", "enum_item[name]", "trait_item[name]"],
   value: cascadingMatcher(
-    patternMatcher("let_declaration[value]"),
+    leadingMatcher(["let_declaration[value]"], ["="]),
     matcher(returnValueFinder)
   ),
   attribute: cascadingMatcher(
