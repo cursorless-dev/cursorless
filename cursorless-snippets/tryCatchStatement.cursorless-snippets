@@ -45,6 +45,9 @@
       "exceptBody": {
         "wrapperScopeType": "statement"
       }
-    }
+    },
+    "insertionScopeTypes": [
+      "statement"
+    ]
   }
 }

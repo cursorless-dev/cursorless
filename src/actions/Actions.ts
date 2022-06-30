@@ -38,6 +38,7 @@ import { Random, Reverse, Sort } from "./Sort";
 import ToggleBreakpoint from "./ToggleBreakpoint";
 import Wrap from "./Wrap";
 import WrapWithSnippet from "./WrapWithSnippet";
+import InsertSnippet from "./InsertSnippet";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -63,6 +64,7 @@ class Actions implements ActionRecord {
   insertEmptyLineAfter = new InsertEmptyLineAfter(this.graph);
   insertEmptyLineBefore = new InsertEmptyLineBefore(this.graph);
   insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
+  insertSnippet = new InsertSnippet(this.graph);
   moveToTarget = new Move(this.graph);
   outdentLine = new OutdentLines(this.graph);
   pasteFromClipboard = new Paste(this.graph);

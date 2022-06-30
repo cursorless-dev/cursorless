@@ -38,6 +38,9 @@
       "consequence": {
         "wrapperScopeType": "statement"
       }
-    }
+    },
+    "insertionScopeTypes": [
+      "statement"
+    ]
   }
 }
