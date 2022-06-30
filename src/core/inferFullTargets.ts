@@ -97,39 +97,33 @@ function inferPrimitiveTarget(
     };
   }
 
-  const ownPositionalModifier = getPositionalModifier(target);
-  const ownNonPositionalModifiers = getNonPositionalModifiers(target);
+  const ownPositionModifier = getPositionModifier(target);
+  const ownNonPositionModifiers = getNonPositionModifiers(target);
 
   // Position without a mark can be something like "take air past end of line"
   // We will remove this case when we implement #736
   const mark = target.mark ??
-    (ownPositionalModifier == null
-      ? null
-      : getPreviousMark(previousTargets)) ?? {
+    (ownPositionModifier == null ? null : getPreviousMark(previousTargets)) ?? {
       type: "cursor",
     };
 
-  const nonPositionalModifiers =
-    ownNonPositionalModifiers ??
-    getPreviousNonPositionalModifiers(previousTargets) ??
+  const modifiers =
+    ownNonPositionModifiers ??
+    getPreviousNonPositionModifiers(previousTargets) ??
     [];
 
-  const positionalModifier =
-    ownPositionalModifier ?? getPreviousPositionalModifier(previousTargets);
-
-  const modifiers = [
-    ...(positionalModifier == null ? [] : [positionalModifier]),
-    ...nonPositionalModifiers,
-  ];
+  const positionModifier =
+    ownPositionModifier ?? getPreviousPositionModifier(previousTargets);
 
   return {
     type: target.type,
     mark,
     modifiers,
+    positionModifier,
   };
 }
 
-function getPositionalModifier(
+function getPositionModifier(
   target: PartialPrimitiveTargetDescriptor
 ): PositionModifier | undefined {
   if (target.modifiers == null) {
@@ -156,15 +150,15 @@ function getPositionalModifier(
  * @param target The target from which to get the non-positional modifiers
  * @returns A list of non-positional modifiers or `undefined` if there are none
  */
-function getNonPositionalModifiers(
+function getNonPositionModifiers(
   target: PartialPrimitiveTargetDescriptor
 ): Modifier[] | undefined {
-  const nonPositionalModifiers = target.modifiers?.filter(
+  const nonPositionModifiers = target.modifiers?.filter(
     (modifier) => modifier.type !== "position"
   );
-  return nonPositionalModifiers == null || nonPositionalModifiers.length === 0
+  return nonPositionModifiers == null || nonPositionModifiers.length === 0
     ? undefined
-    : nonPositionalModifiers;
+    : nonPositionModifiers;
 }
 
 function getPreviousMark(
@@ -176,16 +170,16 @@ function getPreviousMark(
   );
 }
 
-function getPreviousNonPositionalModifiers(
+function getPreviousNonPositionModifiers(
   previousTargets: PartialTargetDescriptor[]
 ): Modifier[] | undefined {
-  return getPreviousTargetAttribute(previousTargets, getNonPositionalModifiers);
+  return getPreviousTargetAttribute(previousTargets, getNonPositionModifiers);
 }
 
-function getPreviousPositionalModifier(
+function getPreviousPositionModifier(
   previousTargets: PartialTargetDescriptor[]
 ): PositionModifier | undefined {
-  return getPreviousTargetAttribute(previousTargets, getPositionalModifier);
+  return getPreviousTargetAttribute(previousTargets, getPositionModifier);
 }
 
 /**
