@@ -1,12 +1,7 @@
 import { TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
-import {
-  NodeMatcherAlternative,
-  NodeMatcherValue,
-  SelectionWithContext,
-  SelectionWithEditor,
-} from "../typings/Types";
+import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   ancestorChainNodeMatcher,
@@ -19,7 +14,6 @@ import {
   trailingMatcher,
 } from "../util/nodeMatchers";
 import {
-  getNodeRange,
   makeNodePairSelection,
   makeRangeFromPositions,
 } from "../util/nodeSelectors";
