@@ -51,7 +51,8 @@ suite("recorded test cases", async function () {
     // Necessary because opening a notebook opens the panel for some reason
     await vscode.commands.executeCommand("workbench.action.closePanel");
 
-    editor = await openNewEditor("");
+    // NB: For some unfathomable reason the content string can't be empty or the first test will fail.
+    editor = await openNewEditor(" ");
   });
 
   getRecordedTestPaths().forEach((path) =>
