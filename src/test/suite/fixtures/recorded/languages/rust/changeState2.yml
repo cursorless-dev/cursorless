@@ -23,7 +23,7 @@ initialState:
 finalState:
   documentContents: |
     let expensive_closure = |num| {
-        ;
+        
         thread::sleep(Duration::from_secs(2));
         num
     };
