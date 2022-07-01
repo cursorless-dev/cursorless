@@ -154,7 +154,12 @@ const nodeMatchers: Partial<
   namedFunction: "function_item",
   type: cascadingMatcher(
     leadingMatcher(
-      ["let_declaration[type]", "parameter[type]", "field_declaration[type]"],
+      [
+        "let_declaration[type]",
+        "parameter[type]",
+        "field_declaration[type]",
+        "const_item[type]",
+      ],
       [":"]
     ),
     matcher(
@@ -166,7 +171,12 @@ const nodeMatchers: Partial<
     ),
     leadingMatcher(["function_item[return_type]"], ["->"]),
     matcher(implItemTypeFinder),
-    patternMatcher("struct_item", "trait_item", "impl_item")
+    patternMatcher(
+      "struct_item",
+      "trait_item",
+      "impl_item",
+      "array_type[element]"
+    )
   ),
   functionName: ["function_item[name]"],
   anonymousFunction: "closure_expression",
