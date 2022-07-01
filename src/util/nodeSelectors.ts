@@ -133,6 +133,8 @@ export function argumentSelectionExtractor(): SelectionExtractor {
       node.type === ")" ||
       node.type === "[" ||
       node.type === "]" ||
+      node.type === ">" ||
+      node.type === "<" ||
       node.type === "}" ||
       node.type === "{",
     ", "

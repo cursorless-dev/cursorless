@@ -12,7 +12,7 @@ command:
   action: {name: remove}
 initialState:
   documentContents: |
-    struct S<'a, 'b: 'a, T>;
+    struct S<'a, 'b: 'a, T> {};
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -22,11 +22,11 @@ initialState:
       end: {line: 0, character: 22}
 finalState:
   documentContents: |
-    struct S<'a, 'b: 'a, >;
+    struct S<'a, 'b: 'a> {};
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
   thatMark:
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 21}
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, modifiers: [{type: containingScope, scopeType: {type: argumentOrParameter}}]}]
