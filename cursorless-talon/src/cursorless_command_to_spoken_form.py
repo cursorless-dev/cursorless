@@ -35,6 +35,7 @@ lookup_scope_type = make_cursorless_list_reverse_look_up(*SCOPE_LIST_NAMES)
 
 
 def cursorless_command_to_spoken_form(command: dict):
+    return command["spokenForm"]
     action_list_name, action_spoken_form = lookup_action(command["action"])
     targets_spoken_form = targets_processor_map[action_list_name](command["targets"])
     return f"{action_spoken_form} {targets_spoken_form}"
