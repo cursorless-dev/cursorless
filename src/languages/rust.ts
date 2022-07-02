@@ -203,7 +203,7 @@ const nodeMatchers: Partial<
   className: ["struct_item[name]", "enum_item[name]", "trait_item[name]"],
   value: cascadingMatcher(
     leadingMatcher(["let_declaration[value]"], ["="]),
-    patternMatcher("meta_item[value]"),
+    patternMatcher("meta_item[value]", "const_item[value]"),
     matcher(returnValueFinder)
   ),
   attribute: trailingMatcher(["mutable_specifier", "attribute_item"]),
