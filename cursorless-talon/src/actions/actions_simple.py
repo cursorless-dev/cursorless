@@ -31,7 +31,7 @@ simple_action_defaults = {
     "shuffle": "randomizeTargets",
     "reverse": "reverseTargets",
     "scout all": "findInWorkspace",
-    "snip make": "generateSnippet",
+    "snippet make": "generateSnippet",
     "sort": "sortTargets",
     "take": "setSelection",
     "unfold": "unfoldRegion",
