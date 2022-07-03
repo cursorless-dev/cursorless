@@ -60,6 +60,7 @@ const nodeMatchers: Partial<
   ifStatement: "if_statement",
   anonymousFunction: "lambda?.lambda",
   functionCall: "call",
+  functionCallee: "call[function]",
   comment: "comment",
   class: "decorated_definition?.class_definition",
   className: "class_definition[name]",

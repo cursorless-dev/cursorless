@@ -1,13 +1,20 @@
 import { readFile, stat } from "fs/promises";
 import { cloneDeep, max, merge } from "lodash";
 import { join } from "path";
-import { workspace } from "vscode";
+import { window, workspace } from "vscode";
+import isTesting from "../testUtil/isTesting";
 import { walkFiles } from "../testUtil/walkAsync";
 import { Snippet, SnippetMap } from "../typings/snippet";
 import { Graph } from "../typings/Types";
 import { mergeStrict } from "../util/object";
 
+const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
 const SNIPPET_DIR_REFRESH_INTERVAL_MS = 1000;
+
+interface DirectoryErrorMessage {
+  directory: string;
+  errorMessage: string;
+}
 
 /**
  * Handles all cursorless snippets, including core, third-party and
@@ -33,6 +40,15 @@ export class Snippets {
    * we've already set userSnippets to {}.
    */
   private maxSnippetMtimeMs: number = -1;
+
+  /**
+   * If the user has misconfigured their snippet dir, then we keep track of it
+   * so that we can show them the error message if we can't find a snippet
+   * later, and so that we don't show them the same error message every time
+   * we try to poll the directory.
+   */
+  private directoryErrorMessage: DirectoryErrorMessage | null | undefined =
+    null;
 
   constructor(private graph: Graph) {
     this.updateUserSnippetsPath();
@@ -63,7 +79,7 @@ export class Snippets {
   async init() {
     const extensionPath = this.graph.extensionContext.extensionPath;
     const snippetsDir = join(extensionPath, "cursorless-snippets");
-    const snippetFiles = await walkFiles(snippetsDir);
+    const snippetFiles = await getSnippetPaths(snippetsDir);
     this.coreSnippets = mergeStrict(
       ...(await Promise.all(
         snippetFiles.map(async (path) =>
@@ -81,9 +97,22 @@ export class Snippets {
    * @returns Boolean indicating whether path has changed
    */
   private updateUserSnippetsPath(): boolean {
-    const newUserSnippetsDir = workspace
-      .getConfiguration("cursorless.experimental")
-      .get<string>("snippetsDir");
+    let newUserSnippetsDir: string | undefined;
+
+    if (isTesting()) {
+      newUserSnippetsDir = join(
+        this.graph.extensionContext.extensionPath,
+        "src",
+        "test",
+        "suite",
+        "fixtures",
+        "cursorless-snippets"
+      );
+    } else {
+      newUserSnippetsDir = workspace
+        .getConfiguration("cursorless.experimental")
+        .get<string>("snippetsDir");
+    }
 
     if (newUserSnippetsDir === this.userSnippetsDir) {
       return false;
@@ -98,9 +127,35 @@ export class Snippets {
   }
 
   async updateUserSnippets() {
-    const snippetFiles = this.userSnippetsDir
-      ? await walkFiles(this.userSnippetsDir)
-      : [];
+    let snippetFiles: string[];
+    try {
+      snippetFiles = this.userSnippetsDir
+        ? await getSnippetPaths(this.userSnippetsDir)
+        : [];
+    } catch (err) {
+      if (this.directoryErrorMessage?.directory !== this.userSnippetsDir) {
+        // NB: We suppress error messages once we've shown it the first time
+        // because we poll the directory every second and want to make sure we
+        // don't show the same error message repeatedly
+        const errorMessage = `Error with cursorless snippets dir "${
+          this.userSnippetsDir
+        }": ${(err as Error).message}`;
+
+        window.showErrorMessage(errorMessage);
+
+        this.directoryErrorMessage = {
+          directory: this.userSnippetsDir!,
+          errorMessage,
+        };
+      }
+
+      this.userSnippets = {};
+      this.mergeSnippets();
+
+      return;
+    }
+
+    this.directoryErrorMessage = null;
 
     const maxSnippetMtime =
       max(
@@ -117,9 +172,29 @@ export class Snippets {
 
     this.userSnippets = mergeStrict(
       ...(await Promise.all(
-        snippetFiles.map(async (path) =>
-          JSON.parse(await readFile(path, "utf8"))
-        )
+        snippetFiles.map(async (path) => {
+          try {
+            const content = await readFile(path, "utf8");
+
+            if (content.length === 0) {
+              // Gracefully handle an empty file
+              return {};
+            }
+
+            return JSON.parse(content);
+          } catch (err) {
+            window.showErrorMessage(
+              `Error with cursorless snippets file "${path}": ${
+                (err as Error).message
+              }`
+            );
+
+            // We don't want snippets from all files to stop working if there is
+            // a parse error in one file, so we just effectively ignore this file
+            // once we've shown an error message
+            return {};
+          }
+        })
       ))
     );
 
@@ -177,11 +252,30 @@ export class Snippets {
 
   /**
    * Looks in merged collection of snippets for a snippet with key
-   * `snippetName`
+   * `snippetName`. Throws an exception if the snippet of the given name could
+   * not be found
    * @param snippetName The name of the snippet to look up
-   * @returns The named snippet, or undefined if not found
+   * @returns The named snippet
    */
-  getSnippet(snippetName: string): Snippet | undefined {
-    return this.mergedSnippets[snippetName];
+  getSnippetStrict(snippetName: string): Snippet {
+    const snippet = this.mergedSnippets[snippetName];
+
+    if (snippet == null) {
+      let errorMessage = `Couldn't find snippet ${snippetName}. `;
+
+      if (this.directoryErrorMessage != null) {
+        errorMessage += `This could be due to: ${this.directoryErrorMessage.errorMessage}.`;
+      }
+
+      throw Error(errorMessage);
+    }
+
+    return snippet;
   }
+}
+
+async function getSnippetPaths(snippetsDir: string) {
+  return (await walkFiles(snippetsDir)).filter((path) =>
+    path.endsWith(CURSORLESS_SNIPPETS_SUFFIX)
+  );
 }

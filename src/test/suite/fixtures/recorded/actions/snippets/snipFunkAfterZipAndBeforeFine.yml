@@ -1,0 +1,54 @@
+languageId: typescript
+command:
+  spokenForm: snip funk after zip and before fine
+  version: 2
+  targets:
+    - type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: z}
+          modifiers:
+            - {type: position, position: after}
+        - type: primitive
+          modifiers:
+            - {type: position, position: before}
+          mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: true
+  action:
+    name: insertSnippet
+    args: [functionDeclaration]
+initialState:
+  documentContents: |-
+    const foo = "bar";
+    const baz = "bongo";
+  selections:
+    - anchor: {line: 1, character: 20}
+      active: {line: 1, character: 20}
+  marks:
+    default.z:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 9}
+    default.f:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 9}
+finalState:
+  documentContents: |-
+    function () {
+        
+    }
+    const foo = "bar";
+    const baz = "bongo";
+    function () {
+        
+    }
+  selections:
+    - anchor: {line: 5, character: 9}
+      active: {line: 5, character: 9}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+  thatMark:
+    - anchor: {line: 5, character: 0}
+      active: {line: 7, character: 1}
+    - anchor: {line: 0, character: 0}
+      active: {line: 2, character: 1}
+fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: z}, modifiers: [{type: position, position: after}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: [{type: position, position: before}]}]}]

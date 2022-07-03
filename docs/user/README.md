@@ -107,7 +107,7 @@ minimize syllables.
 The word `"this"` can be used as a mark to refer to the current cursor(s) or selection(s) as a target. Note that when combined with a modifier, the `"this"` mark can be omitted, and it will be implied.
 
 - `chuck this`
-- `take this funk`
+- `take funk this`
 - `pre funk`
 - `chuck line`
 
@@ -133,6 +133,7 @@ For programming languages where Cursorless has rich parse tree support, we suppo
 | `"arg"`        | function parameter or function call argument        |
 | `"attribute"`  | attribute, eg on html element                       |
 | `"call"`       | function call, eg `foo(1, 2)`                       |
+| `"callee"`     | the function being called in a function call        |
 | `"class name"` | the name in a class declaration                     |
 | `"class"`      | class definition                                    |
 | `"comment"`    | comment                                             |
@@ -411,9 +412,9 @@ The rewrap command, mapped to `"repack"` by default, can be used to swap a given
 
 See [paired delimiters](#paired-delimiters) for a list of possible wrappers.
 
-#### \[experimental\] Wrap with snippet
+### \[experimental\] Snippets
 
-See [experimental documentation](experimental/wrapper-snippets.md).
+See [experimental documentation](experimental/snippets.md).
 
 ### Show definition/reference/quick fix
 

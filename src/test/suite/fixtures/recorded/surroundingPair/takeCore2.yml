@@ -1,0 +1,25 @@
+languageId: plaintext
+command:
+  spokenForm: take core
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: true
+  action: {name: setSelection}
+initialState:
+  documentContents: ( hello )
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks: {}
+finalState:
+  documentContents: ( hello )
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 7}
+  thatMark:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 7}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: interiorOnly}]}]

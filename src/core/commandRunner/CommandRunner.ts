@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
 import processTargets from "../../processTargets";
+import isTesting from "../../testUtil/isTesting";
 import { Graph, ProcessedTargetsContext } from "../../typings/Types";
 import { isString } from "../../util/type";
 import { canonicalizeAndValidateCommand } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
@@ -87,13 +88,19 @@ export default class CommandRunner {
         this.graph.debug.log(JSON.stringify(targetDescriptors, null, 3));
       }
 
-      const finalStages =
+      const actionPrePositionStages =
+        action.getPrePositionStages != null
+          ? action.getPrePositionStages(...actionArgs)
+          : [];
+
+      const actionFinalStages =
         action.getFinalStages != null
           ? action.getFinalStages(...actionArgs)
           : [];
 
       const processedTargetsContext: ProcessedTargetsContext = {
-        finalStages,
+        actionPrePositionStages,
+        actionFinalStages,
         currentSelections:
           vscode.window.activeTextEditor?.selections.map((selection) => ({
             selection,
@@ -146,7 +153,7 @@ export default class CommandRunner {
       const err = e as Error;
       if (err instanceof OutdatedExtensionError) {
         this.showUpdateExtensionErrorMessage(err);
-      } else {
+      } else if (!isTesting()) {
         vscode.window.showErrorMessage(err.message);
       }
       console.error(err.message);

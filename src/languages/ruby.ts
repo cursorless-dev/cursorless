@@ -167,8 +167,8 @@ const nodeMatchers: Partial<
   ifStatement: "if",
   functionCall: "call",
   comment: "comment",
-  namedFunction: "method",
-  functionName: "method[name]",
+  namedFunction: ["method", "singleton_method"],
+  functionName: ["method[name]", "singleton_method[name]"],
   anonymousFunction: cascadingMatcher(
     patternMatcher("lambda", "do_block"),
     matcher(blockFinder)
@@ -189,6 +189,7 @@ const nodeMatchers: Partial<
     "operator_assignment[left]",
     "class[name]",
     "method[name]",
+    "singleton_method[name]",
   ],
   value: leadingMatcher(
     [

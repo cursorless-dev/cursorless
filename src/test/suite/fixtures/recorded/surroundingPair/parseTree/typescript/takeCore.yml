@@ -29,9 +29,9 @@ finalState:
         )
     }
   selections:
-    - anchor: {line: 1, character: 45}
-      active: {line: 3, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 30}
   thatMark:
-    - anchor: {line: 1, character: 45}
-      active: {line: 3, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 30}
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: surroundingPair, delimiter: any}}, {type: interiorOnly}]}]
