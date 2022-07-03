@@ -21,9 +21,7 @@ interface Line {
  * expected by textmate.
  *
  * Note that if you want tabstops, you must first modify {@link text} to
- * contain the tabstops.  contain tabstops and then reset it afterwards.  Also
- * note that in order to avoid extra escaping of eg slashes, you need to do so
- * using something like {@link Substituter}.
+ * contain the tabstops.
  *
  * @param text The text to use for the snippet body
  * @param linePrefix The text on the line that the snippet starts on leading to
