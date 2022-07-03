@@ -49,6 +49,7 @@ export type ThrownError = {
 export type TestCaseFixture = {
   languageId: string;
   postEditorOpenSleepTimeMs?: number;
+  postCommandSleepTimeMs?: number;
   command: TestCaseCommand;
 
   /**

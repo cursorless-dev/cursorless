@@ -17,6 +17,34 @@ export async function openNewEditor(
   return await vscode.window.showTextDocument(document);
 }
 
+export async function reuseEditor(
+  editor: vscode.TextEditor,
+  content: string,
+  language: string = "plaintext"
+) {
+  if (editor.document.languageId !== language) {
+    await vscode.languages.setTextDocumentLanguage(editor.document, language);
+    await (await getParseTreeApi()).loadLanguage(language);
+  }
+
+  await editor.edit((editBuilder) => {
+    editBuilder.replace(
+      new vscode.Range(
+        editor.document.lineAt(0).range.start,
+        editor.document.lineAt(editor.document.lineCount - 1).range.end
+      ),
+      content
+    );
+
+    const eol = content.includes("\r\n")
+      ? vscode.EndOfLine.CRLF
+      : vscode.EndOfLine.LF;
+    if (eol !== editor.document.eol) {
+      editBuilder.setEndOfLine(eol);
+    }
+  });
+}
+
 /**
  * Open a new notebook editor with the given cells
  * @param cellContents A list of strings each of which will become the contents
