@@ -5,6 +5,10 @@ import { MarkStage } from "../PipelineStages.types";
 import WeakTarget from "../targets/WeakTarget";
 
 export default class CursorStage implements MarkStage {
+  constructor(_modifier: CursorMark) {
+    // takes mark for consistency and does nothing
+  }
+
   run(context: ProcessedTargetsContext): Target[] {
     return context.currentSelections.map((selection) => {
       return new WeakTarget({
