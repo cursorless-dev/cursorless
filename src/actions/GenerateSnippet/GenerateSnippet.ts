@@ -1,18 +1,17 @@
 import { ensureSingleTarget } from "../../util/targetUtils";
 
-import { open } from "fs/promises";
-import { join } from "path";
-import { commands, Range, window, workspace } from "vscode";
+import { commands, Range, window } from "vscode";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
+import isTesting from "../../testUtil/isTesting";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
+import { getDocumentRange } from "../../util/range";
+import { selectionFromRange } from "../../util/selectionUtils";
 import { Action, ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
+import { openNewSnippetFile } from "./openNewSnippetFile";
 import Substituter from "./Substituter";
-import isTesting from "../../testUtil/isTesting";
-import { getDocumentRange } from "../../util/range";
-import { selectionFromRange } from "../../util/selectionUtils";
 
 /**
  * This action can be used to automatically create a snippet from a target. Any
@@ -213,26 +212,15 @@ export default class GenerateSnippet implements Action {
       JSON.stringify(snippet, null, 2)
     );
 
-    const userSnippetsDir = workspace
-      .getConfiguration("cursorless.experimental")
-      .get<string>("snippetsDir");
-
-    if (!userSnippetsDir) {
-      throw new Error("User snippets dir not configured.");
-    }
-
     if (isTesting()) {
       // If we're testing, we just overwrite the current document
       editor.selections = [
         selectionFromRange(false, getDocumentRange(editor.document)),
       ];
     } else {
-      // Otherwise, we create a new document for the snippet in the user
-      // snippets dir
-      const path = join(userSnippetsDir, `${snippetName}.cursorless-snippets`);
-      await touch(path);
-      const snippetDoc = await workspace.openTextDocument(path);
-      await window.showTextDocument(snippetDoc);
+      // Otherwise, we create and open a new document for the snippet in the
+      // user snippets dir
+      await openNewSnippetFile(snippetName);
     }
 
     // Insert the meta-snippet
@@ -247,11 +235,6 @@ export default class GenerateSnippet implements Action {
       })),
     };
   }
-}
-
-async function touch(path: string) {
-  const file = await open(path, "w");
-  await file.close();
 }
 
 interface Variable {
