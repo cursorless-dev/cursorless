@@ -44,6 +44,10 @@ import { selectionFromRange } from "../../util/selectionUtils";
  *    text we desire.  This modified json output is the meta snippet.
  * 8. Open a new document in user custom snippets dir to hold the new snippet.
  * 9. Insert the meta snippet so that the user can construct their snippet.
+ *
+ * Note that we avoid using JS interpolation strings here because the syntax is
+ * very similar to snippet placeholders, so we would end up with lots of
+ * confusing escaping.
  */
 export default class GenerateSnippet implements Action {
   constructor(private graph: Graph) {
@@ -105,6 +109,11 @@ export default class GenerateSnippet implements Action {
      */
     const substituter = new Substituter();
 
+    /**
+     * Text before the start of the snippet in the snippet start line.  We need
+     * to pass this to {@link constructSnippetBody} so that it knows the
+     * baseline indentation of the snippet
+     */
     const linePrefix = editor.document.getText(
       new Range(
         target.contentRange.start.with(undefined, 0),
@@ -117,14 +126,14 @@ export default class GenerateSnippet implements Action {
       editor.document.getText(target.contentRange),
       variables.map(({ offsets, defaultName, placeholderIndex }) => ({
         offsets,
+        // Note that the reason we use the substituter here is primarily so
+        // that the `\` below doesn't get escaped upon conversion to json.
         text: substituter.addSubstitution(
           [
             // This `\$` will end up being a `$` in the final document.  It
             // indicates the start of a variable in the user snippet.  We need
             // the `\` so that the meta-snippet doesn't see it as one of its
             // placeholders.
-            // Note that the reason we use the substituter here is primarily so
-            // that the `\` here doesn't get escaped upon conversion to json.
             "\\$",
 
             // The remaining text here is a placeholder in the meta-snippet
@@ -185,7 +194,7 @@ export default class GenerateSnippet implements Action {
             body: snippetLines,
           },
         ],
-        description: `$${currentPlaceholderIndex++}`,
+        description: "$" + currentPlaceholderIndex++,
         variables:
           variables.length === 0
             ? undefined
@@ -226,6 +235,7 @@ export default class GenerateSnippet implements Action {
       await window.showTextDocument(snippetDoc);
     }
 
+    // Insert the meta-snippet
     await commands.executeCommand("editor.action.insertSnippet", {
       snippet: snippetText,
     });
