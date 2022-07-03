@@ -27,10 +27,37 @@ initialState:
       active: {line: 5, character: 9}
   marks: {}
 finalState:
-  documentContents: ""
+  documentContents: |-
+    {
+      "snippetTest1": {
+        "definitions": [
+          {
+            "scope": {
+              "langIds": [
+                "typescript"
+              ]
+            },
+            "body": [
+              "function $variable1() {",
+              "\tconst whatever = \"hello\";",
+              "",
+              "\t$variable2",
+              "}"
+            ]
+          }
+        ],
+        "description": "",
+        "variables": {
+          "variable1": {},
+          "variable2": {}
+        }
+      }
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 10, character: 21}
+      active: {line: 10, character: 30}
+    - anchor: {line: 20, character: 7}
+      active: {line: 20, character: 16}
   thatMark:
     - anchor: {line: 0, character: 4}
       active: {line: 6, character: 5}

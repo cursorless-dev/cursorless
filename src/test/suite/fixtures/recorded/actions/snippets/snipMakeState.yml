@@ -21,10 +21,34 @@ initialState:
       active: {line: 0, character: 4}
   marks: {}
 finalState:
-  documentContents: ""
+  documentContents: |-
+    {
+      "snippetTest1": {
+        "definitions": [
+          {
+            "scope": {
+              "langIds": [
+                "typescript"
+              ]
+            },
+            "body": [
+              "if ($variable1) {",
+              "\tconsole.log(\"hello\")",
+              "}"
+            ]
+          }
+        ],
+        "description": "",
+        "variables": {
+          "variable1": {}
+        }
+      }
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 10, character: 16}
+      active: {line: 10, character: 25}
+    - anchor: {line: 18, character: 7}
+      active: {line: 18, character: 16}
   thatMark:
     - anchor: {line: 0, character: 0}
       active: {line: 2, character: 1}

@@ -10,26 +10,9 @@ import { Action, ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
 import Substituter from "./Substituter";
-
-interface Variable {
-  /**
-   * The start an end offsets of the variable relative to the text of the
-   * snippet that contains it
-   */
-  offsets: Offsets;
-
-  /**
-   * The default name for the given variable that will appear as the placeholder
-   * text in the meta snippet
-   */
-  defaultName: string;
-
-  /**
-   * The placeholder to use when filling out the name of this variable in the
-   * meta snippet.
-   */
-  placeholderIndex: number;
-}
+import isTesting from "../../testUtil/isTesting";
+import { getDocumentRange } from "../../util/range";
+import { selectionFromRange } from "../../util/selectionUtils";
 
 /**
  * This action can be used to automatically create a snippet from a target.
@@ -225,12 +208,21 @@ export default class GenerateSnippet implements Action {
       throw new Error("User snippets dir not configured.");
     }
 
-    const path = join(userSnippetsDir, `${snippetName}.cursorless-snippets`);
-    await touch(path);
-    const snippetDoc = await workspace.openTextDocument(path);
-    await window.showTextDocument(snippetDoc);
+    if (isTesting()) {
+      // If we're testing, we just overwrite the current document
+      editor.selections = [
+        selectionFromRange(false, getDocumentRange(editor.document)),
+      ];
+    } else {
+      // Otherwise, we create a new document for the snippet in the user
+      // snippets dir
+      const path = join(userSnippetsDir, `${snippetName}.cursorless-snippets`);
+      await touch(path);
+      const snippetDoc = await workspace.openTextDocument(path);
+      await window.showTextDocument(snippetDoc);
+    }
 
-    commands.executeCommand("editor.action.insertSnippet", {
+    await commands.executeCommand("editor.action.insertSnippet", {
       snippet: snippetText,
     });
 
@@ -246,4 +238,24 @@ export default class GenerateSnippet implements Action {
 async function touch(path: string) {
   const file = await open(path, "w");
   await file.close();
+}
+
+interface Variable {
+  /**
+   * The start an end offsets of the variable relative to the text of the
+   * snippet that contains it
+   */
+  offsets: Offsets;
+
+  /**
+   * The default name for the given variable that will appear as the placeholder
+   * text in the meta snippet
+   */
+  defaultName: string;
+
+  /**
+   * The placeholder to use when filling out the name of this variable in the
+   * meta snippet.
+   */
+  placeholderIndex: number;
 }
