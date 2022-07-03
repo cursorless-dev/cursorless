@@ -9,9 +9,10 @@ interface Substitution {
  * strings you'd like to insert into a document. This functionality is useful if
  * the strings you'd like to insert might get modified by something like json
  * serialization. You proceed by calling {@link addSubstitution}  for each string you'd
- * like to put in inserting that string in the appropriate place within the text
- * and then finally calling {@link makeSubstitutions} on the final text to put in
- * the original strings you desired.
+ * like to put into your document.  This function returns a random id that you
+ * can put into your text.  When you are done, call {@link makeSubstitutions}
+ * on the final text to replace the random id's with the original strings you
+ * desired.
  */
 export default class Substituter {
   private substitutions: Substitution[] = [];
