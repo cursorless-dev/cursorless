@@ -42,7 +42,8 @@ import { selectionFromRange } from "../../util/selectionUtils";
  * 6. Serialize the javascript object to json
  * 7. Perform replacements on the random id's appearing in this json to get the
  *    text we desire.  This modified json output is the meta snippet.
- * 8. Insert the meta snippet so that the user can construct their snippet.
+ * 8. Open a new document in user custom snippets dir to hold the new snippet.
+ * 9. Insert the meta snippet so that the user can construct their snippet.
  */
 export default class GenerateSnippet implements Action {
   constructor(private graph: Graph) {
@@ -56,8 +57,9 @@ export default class GenerateSnippet implements Action {
     const target = ensureSingleTarget(targets);
     const editor = target.editor;
 
-    // NB: We don't await the pending edit decoration so that if they
-    // immediately start saying the name of the snippet, we're more likely to
+    // NB: We don't await the pending edit decoration so that if the user
+    // immediately starts saying the name of the snippet (eg command chain
+    // "snippet make funk camel my function"), we're more likely to
     // win the race and have the input box ready for them
     this.graph.editStyles.displayPendingEditDecorations(
       targets,
@@ -77,7 +79,7 @@ export default class GenerateSnippet implements Action {
     }
 
     /** The next placeholder index to use for the meta snippet */
-    let nextPlaceholderIndex = 1;
+    let currentPlaceholderIndex = 1;
 
     const baseOffset = editor.document.offsetAt(target.contentRange.start);
 
@@ -94,7 +96,7 @@ export default class GenerateSnippet implements Action {
           end: editor.document.offsetAt(selection.end) - baseOffset,
         },
         defaultName: `variable${index + 1}`,
-        placeholderIndex: nextPlaceholderIndex++,
+        placeholderIndex: currentPlaceholderIndex++,
       }));
 
     /**
@@ -165,7 +167,7 @@ export default class GenerateSnippet implements Action {
       // to end up with json like `"hgidfsivhs"`, and then replace the whole
       // string (including quotes) with `{$3}` after json-ification
       const value = substituter.addSubstitution(
-        "{$" + nextPlaceholderIndex++ + "}",
+        "{$" + currentPlaceholderIndex++ + "}",
         true
       );
 
@@ -183,7 +185,7 @@ export default class GenerateSnippet implements Action {
             body: snippetLines,
           },
         ],
-        description: `$${nextPlaceholderIndex++}`,
+        description: `$${currentPlaceholderIndex++}`,
         variables:
           variables.length === 0
             ? undefined
