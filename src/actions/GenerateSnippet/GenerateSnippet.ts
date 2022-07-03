@@ -15,31 +15,33 @@ import { getDocumentRange } from "../../util/range";
 import { selectionFromRange } from "../../util/selectionUtils";
 
 /**
- * This action can be used to automatically create a snippet from a target.
- * Any cursor selections inside the target will become placeholders in the final
- * snippet.  This action creates a new file, and inserts a snippet that the
- * user can fill out to construct their desired snippet.
+ * This action can be used to automatically create a snippet from a target. Any
+ * cursor selections inside the target will become placeholders in the final
+ * snippet.  This action creates a new file, and inserts a snippet that the user
+ * can fill out to construct their desired snippet.
  *
  * Note that there are two snippets involved in this implementation:
  *
- * - The snippet that the user is trying to create.  We refer to this snippet as the user snippet.
- * - The snippet that we insert that the user can use to build their snippet.
- * We refer to this as the meta snippet.
+ * - The snippet that the user is trying to create.  We refer to this snippet as
+ *   the user snippet.
+ * - The snippet that we insert that the user can use to build their snippet. We
+ *   refer to this as the meta snippet.
  *
  * We proceed as follows:
  *
  * 1. Ask user for snippet name if not provided as arg
- * 2. Find all cursor selections inside target
+ * 2. Find all cursor selections inside target - these will become the user
+ *    snippet variables
  * 3. Extract text of target
- * 4. Replace cursor selections in text with random ids that won't be
- * affected by json serialization.  After serialization we'll replace these
- * id's by snippet placeholders.
+ * 4. Replace cursor selections in text with random ids that won't be affected
+ *    by json serialization.  After serialization we'll replace these id's by
+ *    snippet placeholders.
  * 4. Construct the user snippet body as a list of strings
  * 5. Construct a javascript object that will be json-ified to become the meta
- * snippet
+ *    snippet
  * 6. Serialize the javascript object to json
  * 7. Perform replacements on the random id's appearing in this json to get the
- * text we desire.  This modified json output is the meta snippet.
+ *    text we desire.  This modified json output is the meta snippet.
  * 8. Insert the meta snippet so that the user can construct their snippet.
  */
 export default class GenerateSnippet implements Action {
