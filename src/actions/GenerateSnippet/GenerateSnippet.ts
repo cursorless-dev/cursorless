@@ -1,18 +1,23 @@
-import { range, zip } from "lodash";
 import { ensureSingleTarget } from "../../util/targetUtils";
 
 import { open } from "fs/promises";
 import { join } from "path";
-import { commands, window, workspace } from "vscode";
-import { performEditsAndUpdateSelections } from "../../core/updateSelections/updateSelections";
+import { commands, Range, window, workspace } from "vscode";
+import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
-import { performDocumentEdits } from "../../util/performDocumentEdits";
 import { Action, ActionReturnValue } from "../actions.types";
-import Substituter from "./Substituter";
 import { constructSnippetBody } from "./constructSnippetBody";
+import { editText } from "./editText";
+import Substituter from "./Substituter";
 
 interface Variable {
+  /**
+   * The start an end offsets of the variable relative to the text of the
+   * snippet that contains it
+   */
+  offsets: Offsets;
+
   /**
    * The default name for the given variable that will appear as the placeholder
    * text in the meta snippet
@@ -42,12 +47,13 @@ interface Variable {
  *
  * 1. Ask user for snippet name if not provided as arg
  * 2. Find all cursor selections inside target
- * 3. Replace cursor selections in document with random ids that won't be
+ * 3. Extract text of target
+ * 4. Replace cursor selections in text with random ids that won't be
  * affected by json serialization.  After serialization we'll replace these
- * id's by snippet placeholders.  Note that this modifies the document, so we
- * need to reset later.
- * 4. Construct a snippet body as a list of strings
- * 5. Construct a snippet as a javascript object
+ * id's by snippet placeholders.
+ * 4. Construct the user snippet body as a list of strings
+ * 5. Construct a javascript object that will be json-ified to become the meta
+ * snippet
  * 6. Serialize the javascript object to json
  * 7. Perform replacements on the random id's appearing in this json to get the
  * text we desire.  This modified json output is the meta snippet.
@@ -88,33 +94,23 @@ export default class GenerateSnippet implements Action {
     /** The next placeholder index to use for the meta snippet */
     let nextPlaceholderIndex = 1;
 
-    /**
-     * The original selections and the editor that will become variables in the
-     * user snippet
-     */
-    const originalVariableSelections = editor.selections.filter((selection) =>
-      target.contentRange.contains(selection)
-    );
-
-    /**
-     * The original text of the selections where the variables were in the
-     * document to use to restore the document contents when we're done.
-     */
-    const originalVariableTexts = originalVariableSelections.map((selection) =>
-      editor.document.getText(selection)
-    );
+    const baseOffset = editor.document.offsetAt(target.contentRange.start);
 
     /**
      * The variables that will appear in the user snippet. Note that
      * `placeholderIndex` here is the placeholder index in the meta snippet not
      * the user snippet.
      */
-    const variables: Variable[] = range(originalVariableSelections.length).map(
-      (index) => ({
+    const variables: Variable[] = editor.selections
+      .filter((selection) => target.contentRange.contains(selection))
+      .map((selection, index) => ({
+        offsets: {
+          start: editor.document.offsetAt(selection.start) - baseOffset,
+          end: editor.document.offsetAt(selection.end) - baseOffset,
+        },
         defaultName: `variable${index + 1}`,
         placeholderIndex: nextPlaceholderIndex++,
-      })
-    );
+      }));
 
     /**
      * Constructs random ids that can be put into the text that won't be
@@ -122,38 +118,76 @@ export default class GenerateSnippet implements Action {
      */
     const substituter = new Substituter();
 
-    const [variableSelections, [targetSelection]] =
-      await performEditsAndUpdateSelections(
-        this.graph.rangeUpdater,
-        editor,
-        originalVariableSelections.map((selection, index) => ({
-          editor,
-          range: selection,
-          text: substituter.addSubstitution(
-            [
-              "\\$${",
-              variables[index].placeholderIndex,
-              ":",
-              variables[index].defaultName,
-              "}",
-            ].join("")
-          ),
-        })),
-        [originalVariableSelections, [target.contentSelection]]
-      );
+    const linePrefix = editor.document.getText(
+      new Range(
+        target.contentRange.start.with(undefined, 0),
+        target.contentRange.start
+      )
+    );
 
-    const snippetLines = constructSnippetBody(editor, targetSelection);
+    /** The text of the snippet, with placeholders inserted for variables */
+    const snippetBodyText = editText(
+      editor.document.getText(target.contentRange),
+      variables.map(({ offsets, defaultName, placeholderIndex }) => ({
+        offsets,
+        text: substituter.addSubstitution(
+          [
+            // This `\$` will end up being a `$` in the final document.  It
+            // indicates the start of a variable in the user snippet.  We need
+            // the `\` so that the meta-snippet doesn't see it as one of its
+            // placeholders.
+            // Note that the reason we use the substituter here is primarily so
+            // that the `\` here doesn't get escaped upon conversion to json.
+            "\\$",
 
-    await performDocumentEdits(
-      this.graph.rangeUpdater,
-      editor,
-      zip(variableSelections, originalVariableTexts).map(([range, text]) => ({
-        editor,
-        range: range!,
-        text: text!,
+            // The remaining text here is a placeholder in the meta-snippet
+            // that the user can use to name their snippet variable that will
+            // be in the user snippet.
+            "${",
+            placeholderIndex,
+            ":",
+            defaultName,
+            "}",
+          ].join("")
+        ),
       }))
     );
 
+    const snippetLines = constructSnippetBody(snippetBodyText, linePrefix);
+
+    /**
+     * Constructs a key-value entry for use in the variable description section
+     * of the user snippet definition.  It contains tabstops for use in the
+     * meta-snippet.
+     * @param variable The variable
+     * @returns A [key, value] pair for use in the meta-snippet
+     */
+    const constructVariableDescriptionEntry = ({
+      placeholderIndex,
+    }: Variable): [string, string] => {
+      // The key will have the same placeholder index as the other location
+      // where this variable appears.
+      const key = "$" + placeholderIndex;
+
+      // The value will end up being an empty object with a tabstop in the
+      // middle so that the user can add information about the variable, such
+      // as wrapperScopeType.  Ie the output will look like `{|}` (with the `|`
+      // representing a tabstop in the meta-snippet)
+      //
+      // NB: We use the subsituter here, with `isQuoted=true` because in order
+      // to make this work for the meta-snippet, we want to end up with
+      // something like `{$3}`, which is not valid json.  So we instead arrange
+      // to end up with json like `"hgidfsivhs"`, and then replace the whole
+      // string (including quotes) with `{$3}` after json-ification
+      const value = substituter.addSubstitution(
+        "{$" + nextPlaceholderIndex++ + "}",
+        true
+      );
+
+      return [key, value];
+    };
+
+    /** An object that will be json-ified to become the meta-snippet */
     const snippet = {
       [snippetName]: {
         definitions: [
@@ -166,23 +200,22 @@ export default class GenerateSnippet implements Action {
         ],
         description: `$${nextPlaceholderIndex++}`,
         variables:
-          originalVariableSelections.length === 0
+          variables.length === 0
             ? undefined
             : Object.fromEntries(
-                range(originalVariableSelections.length).map((index) => [
-                  `$${variables[index].placeholderIndex}`,
-                  substituter.addSubstitution(
-                    `{$${nextPlaceholderIndex++}}`,
-                    true
-                  ),
-                ])
+                variables.map(constructVariableDescriptionEntry)
               ),
       },
     };
+
+    /**
+     * This is the text of the meta-snippet in Textmate format that we will
+     * insert into the new document where the user will fill out their snippet
+     * definition
+     */
     const snippetText = substituter.makeSubstitutions(
       JSON.stringify(snippet, null, 2)
     );
-    console.debug(snippetText);
 
     const userSnippetsDir = workspace
       .getConfiguration("cursorless.experimental")

@@ -1,49 +1,56 @@
-import { range, repeat } from "lodash";
-import { Range, TextEditor } from "vscode";
+import { repeat } from "lodash";
+
+interface Line {
+  /**
+   * The text of the line
+   */
+  text: string;
+
+  /**
+   * The index at which the snippet starts on this line.  Will be 0 for all but
+   * the first line.  For the first line it will be set so that the first line
+   * can be the actual document line containing the start of the snippet, for
+   * use with indentation, but we set startIndex so that we only use the
+   * content from where the snippet starts.
+   */
+  startIndex: number;
+}
 
 /**
  * Converts a range of text in an editor into a snippet body representation as
  * expected by textmate.
  *
- * Note that if you want tabstops, you must first directly modify the editor to
- * contain tabstops and then reset it afterwards.  Also note that in order to
- * avoid extra escaping of eg slashes, you need to do so using something like
- * {@link Substituter}.
+ * Note that if you want tabstops, you must first modify {@link text} to
+ * contain the tabstops.  contain tabstops and then reset it afterwards.  Also
+ * note that in order to avoid extra escaping of eg slashes, you need to do so
+ * using something like {@link Substituter}.
  *
- * NB: We operate on a range here instead of just getting the text for a few reasons:
- *
- * - We want to be able to see the entire first line so that we know the indentation of the first lines
- * - We let vscode normalize line endings
- * - We let vscode figure out where line content starts
- *
- * None of these are insurmountable obstacles if we switched to just operating
- * on text, so we should probably do that in the future to avoid needing to
- * manipulate the editor before running this function.
- *
- * @param editor The editor containing {@param snippetRange}
- * @param snippetRange The range of text in the editor to convert to a snippet
+ * @param text The text to use for the snippet body
+ * @param linePrefix The text on the line that the snippet starts on leading to
+ * the start of the snippet. This is used for determining indentation
  * @returns The body of a snippet represented as a list of lines as expected for
  * textmate snippets
  */
 export function constructSnippetBody(
-  editor: TextEditor,
-  snippetRange: Range
+  text: string,
+  linePrefix: string
 ): string[] {
-  const snippetLines: string[] = [];
+  const outputLines: string[] = [];
   let currentTabCount = 0;
   let currentIndentationString: string | null = null;
 
-  const { start, end } = snippetRange;
-  const startLine = start.line;
-  const endLine = end.line;
+  const [firstLine, ...remainingLines] = text.split(/\r?\n/);
+  const lines: Line[] = [
+    {
+      text: linePrefix + firstLine,
+      startIndex: linePrefix.length,
+    },
+    ...remainingLines.map((line) => ({ text: line, startIndex: 0 })),
+  ];
 
-  range(startLine, endLine + 1).forEach((lineNumber) => {
-    const line = editor.document.lineAt(lineNumber);
-    const { text, firstNonWhitespaceCharacterIndex } = line;
-    const newIndentationString = text.substring(
-      0,
-      firstNonWhitespaceCharacterIndex
-    );
+  lines.forEach(({ text, startIndex }) => {
+    const newIndentationString = text.match(/^\s*/)?.[0] ?? "";
+    const firstNonWhitespaceCharacterIndex = newIndentationString.length;
 
     if (currentIndentationString != null) {
       if (newIndentationString.length > currentIndentationString.length) {
@@ -59,16 +66,13 @@ export function constructSnippetBody(
 
     const lineContentStart = Math.max(
       firstNonWhitespaceCharacterIndex,
-      lineNumber === startLine ? start.character : 0
-    );
-    const lineContentEnd = Math.min(
-      text.length,
-      lineNumber === endLine ? end.character : Infinity
+      startIndex
     );
     const snippetIndentationString = repeat("\t", currentTabCount);
-    const lineContent = text.substring(lineContentStart, lineContentEnd);
-    snippetLines.push(snippetIndentationString + lineContent);
+    const lineContent = text.slice(lineContentStart);
+
+    outputLines.push(snippetIndentationString + lineContent);
   });
 
-  return snippetLines;
+  return outputLines;
 }
