@@ -203,6 +203,7 @@ const nodeMatchers: Partial<
   condition: conditionMatcher("*[condition]"),
   class: [
     "export_statement?.class_declaration", // export class | class
+    "export_statement?.abstract_class_declaration", // export abstract class | abstract class
     "export_statement.class", // export default class
   ],
   functionName: [
