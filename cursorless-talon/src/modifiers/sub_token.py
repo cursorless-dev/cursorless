@@ -11,7 +11,7 @@ mod.list("cursorless_subtoken_scope_type", desc="Supported subtoken scope types"
 
 
 @mod.capture(rule="<user.ordinals_small> | last")
-def ordinal_or_last(m) -> str:
+def ordinal_or_last(m) -> int:
     """An ordinal or the word 'last'"""
     if m[0] == "last":
         return -1
@@ -21,7 +21,7 @@ def ordinal_or_last(m) -> str:
 @mod.capture(
     rule="<user.ordinal_or_last> [{user.cursorless_range_connective} <user.ordinal_or_last>]"
 )
-def cursorless_ordinal_range(m) -> str:
+def cursorless_ordinal_range(m) -> dict[str, Any]:
     """Ordinal range"""
     try:
         range_connective = m.cursorless_range_connective
@@ -40,7 +40,7 @@ def cursorless_ordinal_range(m) -> str:
 
 
 @mod.capture(rule="(first | last) <number_small>")
-def cursorless_first_last_range(m) -> str:
+def cursorless_first_last_range(m) -> dict[str, Any]:
     """First/last range"""
     if m[0] == "first":
         return {"anchor": 0, "active": m.number_small - 1}

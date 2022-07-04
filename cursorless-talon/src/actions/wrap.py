@@ -29,7 +29,7 @@ def cursorless_wrapper(m) -> dict[str, Any]:
 
 
 # Maps from (action_type, wrapper_type) to action name
-action_map = {
+action_map: dict[tuple[str, str], str] = {
     ("wrapWithPairedDelimiter", "pairedDelimiter"): "wrapWithPairedDelimiter",
     # This is awkward because we used an action name which was to verbose previously
     ("wrapWithPairedDelimiter", "snippet"): "wrapWithSnippet",
@@ -41,7 +41,9 @@ action_map = {
 
 @mod.action_class
 class Actions:
-    def cursorless_wrap(action_type: str, targets: dict, cursorless_wrapper: dict):
+    def cursorless_wrap(
+        action_type: str, targets: dict, cursorless_wrapper: dict[str, str]
+    ):
         """Perform cursorless wrap action"""
         wrapper_type = cursorless_wrapper["type"]
         action = action_map[(action_type, wrapper_type)]
