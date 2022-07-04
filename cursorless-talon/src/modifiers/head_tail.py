@@ -1,4 +1,5 @@
 from talon import Module
+from .modifiers import head_tail_trailing_modifiers
 
 head_tail_modifiers = {
     "head": "extendThroughStartOf",
@@ -12,12 +13,17 @@ mod.list(
     desc="Cursorless head and tail modifiers",
 )
 
+@mod.capture(rule="|".join(head_tail_trailing_modifiers))
+def cursorless_head_tail_trailing_modifier(m) -> str:
+    """Cursorless modifier that is trailing the head/tail modifier. Interior excluded."""
+    return m[0]
+
 
 @mod.capture(
     rule=(
         "{user.cursorless_head_tail_modifier} "
         "[<user.cursorless_interior_modifier>] "
-        "[<user.cursorless_modifier>]"
+        "[<user.cursorless_head_tail_trailing_modifier>]"
     )
 )
 def cursorless_head_tail_modifier(m) -> dict[str, str]:
@@ -30,7 +36,7 @@ def cursorless_head_tail_modifier(m) -> dict[str, str]:
         pass
 
     try:
-        modifiers.append(m.cursorless_modifier)
+        modifiers.append(m.cursorless_head_tail_trailing_modifier)
     except AttributeError:
         pass
 

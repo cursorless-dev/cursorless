@@ -29,15 +29,19 @@ def cursorless_simple_modifier(m) -> dict[str, str]:
         "type": m.cursorless_simple_modifier,
     }
 
-
-modifiers = [
-    "<user.cursorless_position>",  # before, end of
+# These are all modifiers that can be trailing head/tail modifier. Interior excluded.
+head_tail_trailing_modifiers = [
     "<user.cursorless_simple_modifier>",  # bounds, just, leading, trailing
-    "<user.cursorless_interior_modifier>",  # inside
-    "<user.cursorless_head_tail_modifier>",  # head, tail
     "<user.cursorless_containing_scope>",  # funk, state, class
     "<user.cursorless_subtoken_scope>",  # first past second word
     "<user.cursorless_surrounding_pair>",  # matching/pair [curly, round]
+]
+
+modifiers = [
+    "<user.cursorless_position>",  # before, end of
+    "<user.cursorless_interior_modifier>",  # inside
+    "<user.cursorless_head_tail_modifier>",  # head, tail
+    *head_tail_trailing_modifiers
 ]
 
 
