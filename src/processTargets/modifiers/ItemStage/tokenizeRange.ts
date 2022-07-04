@@ -90,16 +90,18 @@ export function joinLexemesBySkippingMatchingPairs(lexemes: string[]) {
         // Additional opening delimiter found
         ++delimiterBalance;
       }
-    } else if (leftToRightMap[lexeme] != null) {
+
+      return;
+    }
+
+    if (leftToRightMap[lexeme] != null) {
       // Starting delimiter found
       openingDelimiter = lexeme;
       closingDelimiter = leftToRightMap[lexeme];
       delimiterBalance = 1;
-      if (startIndex < 0) {
-        // This is the first lexeme to be joined
-        startIndex = index;
-      }
-    } else if (startIndex < 0) {
+    }
+
+    if (startIndex < 0) {
       // This is the first lexeme to be joined
       startIndex = index;
     }
@@ -112,6 +114,7 @@ export function joinLexemesBySkippingMatchingPairs(lexemes: string[]) {
       result.push(lexemes.slice(startIndex, endIndex).join(""));
       startIndex = -1;
       if (isSeparator) {
+        // Add the separator itself
         result.push(lexeme);
       }
     }

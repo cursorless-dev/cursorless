@@ -119,6 +119,7 @@ function getItemsInRange(
     if (token.type === "delimiter" || token.type === "boundary") {
       return;
     }
+
     const leadingDelimiterRange = (() => {
       if (tokens[i - 2]?.type === "item") {
         return new Range(tokens[i - 2].range.end, token.range.start);
@@ -128,6 +129,7 @@ function getItemsInRange(
       }
       return undefined;
     })();
+
     const trailingDelimiterRange = (() => {
       if (tokens[i + 2]?.type === "item") {
         return new Range(token.range.end, tokens[i + 2].range.start);
@@ -137,24 +139,26 @@ function getItemsInRange(
       }
       return undefined;
     })();
+
     // Leading boundary is excluded and leading delimiter is included
-    const leadingMatchStart =
+    const domainStart =
       tokens[i - 1]?.type === "boundary"
         ? tokens[i - 1].range.end
         : tokens[i - 1]?.type === "delimiter"
         ? tokens[i - 1].range.start
         : token.range.start;
+
     // Trailing boundary and delimiter is excluded
-    const trailingMatchEnd =
+    const domainEnd =
       tokens[i + 1]?.type === "boundary" || tokens[i + 1]?.type === "delimiter"
         ? tokens[i + 1].range.start
         : token.range.end;
-    const matchRange = new Range(leadingMatchStart, trailingMatchEnd);
+
     itemInfos.push({
       contentRange: token.range,
       leadingDelimiterRange,
       trailingDelimiterRange,
-      domain: matchRange,
+      domain: new Range(domainStart, domainEnd),
     });
   });
 
