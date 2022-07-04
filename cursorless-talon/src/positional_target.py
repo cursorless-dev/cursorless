@@ -1,3 +1,5 @@
+from typing import Any
+
 from talon import Module
 
 from .modifiers.position import construct_positional_modifier
@@ -11,8 +13,8 @@ mod = Module()
         "<user.cursorless_target>"
     )
 )
-def cursorless_positional_target(m) -> list[dict]:
-    target = m.cursorless_target
+def cursorless_positional_target(m) -> dict[str, Any]:
+    target: dict[str, Any] = m.cursorless_target
     try:
         modifier = construct_positional_modifier(m.cursorless_position)
         return update_first_primitive_target(target, modifier)
@@ -20,7 +22,7 @@ def cursorless_positional_target(m) -> list[dict]:
         return target
 
 
-def update_first_primitive_target(target: dict, modifier: dict):
+def update_first_primitive_target(target: dict[str, Any], modifier: dict[str, Any]):
     if target["type"] == "primitive":
         if "modifiers" not in target:
             target["modifiers"] = []
