@@ -104,21 +104,22 @@ function getItemInfosForIterationScope(
   target: Target
 ) {
   const { range, boundary } = getIterationScope(context, target);
-  return rangeToItemInfos(target.editor, range, boundary);
+  return getItemsInRange(target.editor, range, boundary);
 }
 
-function rangeToItemInfos(
+function getItemsInRange(
   editor: TextEditor,
-  collectionRange: Range,
-  collectionBoundary?: [Range, Range]
+  interior: Range,
+  boundary?: [Range, Range]
 ): ItemInfo[] {
-  const tokens = tokenizeRange(editor, collectionRange, collectionBoundary);
+  const tokens = tokenizeRange(editor, interior, boundary);
   const itemInfos: ItemInfo[] = [];
 
   tokens.forEach((token, i) => {
     if (token.type === "separator" || token.type === "boundary") {
       return;
     }
+
     const leadingDelimiterRange = (() => {
       if (tokens[i - 2]?.type === "item") {
         return new Range(tokens[i - 2].range.end, token.range.start);
@@ -128,6 +129,7 @@ function rangeToItemInfos(
       }
       return undefined;
     })();
+
     const trailingDelimiterRange = (() => {
       if (tokens[i + 2]?.type === "item") {
         return new Range(token.range.end, tokens[i + 2].range.start);
@@ -137,24 +139,26 @@ function rangeToItemInfos(
       }
       return undefined;
     })();
+
     // Leading boundary is excluded and leading separator is included
-    const leadingMatchStart =
+    const domainStart =
       tokens[i - 1]?.type === "boundary"
         ? tokens[i - 1].range.end
         : tokens[i - 1]?.type === "separator"
         ? tokens[i - 1].range.start
         : token.range.start;
+
     // Trailing boundary and separator is excluded
-    const trailingMatchEnd =
+    const domainEnd =
       tokens[i + 1]?.type === "boundary" || tokens[i + 1]?.type === "separator"
         ? tokens[i + 1].range.start
         : token.range.end;
-    const matchRange = new Range(leadingMatchStart, trailingMatchEnd);
+
     itemInfos.push({
       contentRange: token.range,
       leadingDelimiterRange,
       trailingDelimiterRange,
-      domain: matchRange,
+      domain: new Range(domainStart, domainEnd),
     });
   });
 
