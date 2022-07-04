@@ -108,8 +108,8 @@ export const typedNodeFinder = (...typeNames: string[]): NodeFinder => {
 const toPosition = (point: Point) => new Position(point.row, point.column);
 
 export const argumentNodeFinder = (...parentTypes: string[]): NodeFinder => {
-  const left = ["(", "{", "["];
-  const right = [")", "}", "]"];
+  const left = ["(", "{", "[", "<"];
+  const right = [")", "}", "]", ">"];
   const delimiters = left.concat(right);
   const isType = (node: SyntaxNode | null, typeNames: string[]) =>
     node != null && typeNames.includes(node.type);

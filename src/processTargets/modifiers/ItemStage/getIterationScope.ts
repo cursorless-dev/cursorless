@@ -57,12 +57,13 @@ function getSurroundingPair(
   editor: TextEditor,
   contentRange: Range
 ) {
-  return processSurroundingPairForDelimiters(context, editor, contentRange, [
-    "parentheses",
-    "squareBrackets",
-    "curlyBrackets",
-    "angleBrackets",
-  ]);
+  return processSurroundingPairForDelimiters(
+    context,
+    editor,
+    contentRange,
+    { type: "surroundingPair", delimiter: "any" },
+    ["parentheses", "squareBrackets", "curlyBrackets", "angleBrackets"]
+  );
 }
 
 function getParentSurroundingPair(

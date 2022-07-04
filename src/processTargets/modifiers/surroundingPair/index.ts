@@ -6,7 +6,6 @@ import getTextFragmentExtractor, {
 import {
   ComplexSurroundingPairName,
   SimpleSurroundingPairName,
-  SurroundingPairDirection,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
@@ -23,8 +22,9 @@ import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
  * smallest pair of delimiters which contains the selection.
  *
  * @param context Context to be leveraged by modifier
- * @param selection The selection to process
- * @param modifier The surrounding pair modifier information
+ * @param editor The editor containing the range
+ * @param range The range to process
+ * @param scopeType The surrounding pair modifier information
  * @returns The new selection expanded to the containing surrounding pair or
  * `null` if none was found
  */
@@ -32,17 +32,17 @@ export function processSurroundingPair(
   context: ProcessedTargetsContext,
   editor: TextEditor,
   range: Range,
-  modifier: SurroundingPairScopeType
+  scopeType: SurroundingPairScopeType
 ): SurroundingPairInfo | null {
   const delimiters = complexDelimiterMap[
-    modifier.delimiter as ComplexSurroundingPairName
-  ] ?? [modifier.delimiter];
+    scopeType.delimiter as ComplexSurroundingPairName
+  ] ?? [scopeType.delimiter];
   return processSurroundingPairForDelimiters(
     context,
     editor,
     range,
-    delimiters,
-    modifier.forceDirection
+    scopeType,
+    delimiters
   );
 }
 
@@ -64,11 +64,10 @@ export function processSurroundingPairForDelimiters(
   context: ProcessedTargetsContext,
   editor: TextEditor,
   range: Range,
-  delimiters: SimpleSurroundingPairName[],
-  forceDirection?: SurroundingPairDirection
+  scopeType: SurroundingPairScopeType,
+  delimiters: SimpleSurroundingPairName[]
 ): SurroundingPairInfo | null {
   const document = editor.document;
-
   let node: SyntaxNode | null;
   let textFragmentExtractor: TextFragmentExtractor;
 
@@ -85,7 +84,7 @@ export function processSurroundingPairForDelimiters(
         range,
         null,
         delimiters,
-        forceDirection
+        scopeType
       );
     } else {
       throw err;
@@ -105,7 +104,7 @@ export function processSurroundingPairForDelimiters(
       range,
       textFragmentRange,
       delimiters,
-      forceDirection
+      scopeType
     );
 
     if (surroundingRange != null) {
@@ -121,6 +120,6 @@ export function processSurroundingPairForDelimiters(
     range,
     node,
     delimiters,
-    forceDirection
+    scopeType
   );
 }
