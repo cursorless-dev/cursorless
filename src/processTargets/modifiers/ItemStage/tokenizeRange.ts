@@ -98,27 +98,29 @@ export function joinLexemesBySkippingMatchingPairs(lexemes: string[]) {
   lexemes.forEach((lexeme, index) => {
     if (delimiterBalance > 0) {
       // We are waiting for a closing delimiter
-
       if (lexeme === closingDelimiter) {
         // Closing delimiter found
         --delimiterBalance;
-      } else if (lexeme === openingDelimiter) {
-        // Additional opening delimiter found
+      }
+      // Additional opening delimiter found
+      else if (lexeme === openingDelimiter) {
         ++delimiterBalance;
       }
-
-      return;
     }
 
-    if (leftToRightMap[lexeme] != null) {
-      // Starting delimiter found
+    // Starting delimiter found
+    else if (leftToRightMap[lexeme] != null) {
       openingDelimiter = lexeme;
       closingDelimiter = leftToRightMap[lexeme];
       delimiterBalance = 1;
+      if (startIndex < 0) {
+        // This is the first lexeme to be joined
+        startIndex = index;
+      }
     }
 
-    if (startIndex < 0) {
-      // This is the first lexeme to be joined
+    // This is the first lexeme to be joined
+    else if (startIndex < 0) {
       startIndex = index;
     }
 
