@@ -30,8 +30,13 @@ def cursorless_simple_modifier(m) -> dict[str, str]:
     }
 
 
-# These are all modifiers that can be trailing head/tail modifier. Interior excluded.
-head_tail_trailing_modifiers = [
+# These are the modifiers that will be "swallowed" by the head/tail modifier.
+# For example, saying "head funk" will result in a "head" modifier that will
+# select past the start of the function.
+# Note that we don't include "inside" here, because that requires slightly
+# special treatment to ensure that "head inside round" swallows "inside round"
+# rather than just "inside".
+head_tail_swallowed_modifiers = [
     "<user.cursorless_simple_modifier>",  # bounds, just, leading, trailing
     "<user.cursorless_containing_scope>",  # funk, state, class
     "<user.cursorless_subtoken_scope>",  # first past second word
@@ -42,7 +47,7 @@ modifiers = [
     "<user.cursorless_position>",  # before, end of
     "<user.cursorless_interior_modifier>",  # inside
     "<user.cursorless_head_tail_modifier>",  # head, tail
-    *head_tail_trailing_modifiers,
+    *head_tail_swallowed_modifiers,
 ]
 
 
