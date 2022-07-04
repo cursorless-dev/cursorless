@@ -2,10 +2,7 @@ import { Range, TextEditor } from "vscode";
 import { Target } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { fitRangeToLineContent } from "../scopeTypeStages/LineStage";
-import {
-  processSurroundingPair,
-  processSurroundingPairForDelimiters,
-} from "../surroundingPair";
+import { processSurroundingPair } from "../surroundingPair";
 import { SurroundingPairInfo } from "../surroundingPair/extractSelectionFromSurroundingPairOffsets";
 
 /**
@@ -75,17 +72,11 @@ function getSurroundingPair(
   editor: TextEditor,
   contentRange: Range
 ) {
-  return processSurroundingPairForDelimiters(
-    context,
-    editor,
-    contentRange,
-    {
-      type: "surroundingPair",
-      delimiter: "any",
-      requireStrongContainment: true,
-    },
-    ["parentheses", "squareBrackets", "curlyBrackets", "angleBrackets"]
-  );
+  return processSurroundingPair(context, editor, contentRange, {
+    type: "surroundingPair",
+    delimiter: "collectionBoundary",
+    requireStrongContainment: true,
+  });
 }
 
 function getStringSurroundingPair(

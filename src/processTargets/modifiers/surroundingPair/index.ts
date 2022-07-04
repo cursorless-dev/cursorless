@@ -5,7 +5,6 @@ import getTextFragmentExtractor, {
 } from "../../../languages/getTextFragmentExtractor";
 import {
   ComplexSurroundingPairName,
-  SimpleSurroundingPairName,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
@@ -34,40 +33,11 @@ export function processSurroundingPair(
   range: Range,
   scopeType: SurroundingPairScopeType
 ): SurroundingPairInfo | null {
+  const document = editor.document;
   const delimiters = complexDelimiterMap[
     scopeType.delimiter as ComplexSurroundingPairName
   ] ?? [scopeType.delimiter];
-  return processSurroundingPairForDelimiters(
-    context,
-    editor,
-    range,
-    scopeType,
-    delimiters
-  );
-}
 
-/**
- * Applies the surrounding pair modifier to the given selection. First looks to
- * see if the target is itself adjacent to or contained by a modifier token. If
- * so it will expand the selection to the opposite delimiter token. Otherwise,
- * or if the opposite token wasn't found, it will proceed by finding the
- * smallest pair of delimiters which contains the selection.
- *
- * @param context Context to be leveraged by modifier
- * @param selection The selection to process
- * @param modifier The surrounding pair modifier information
- * @param delimiters List of delimiter per names to use
- * @returns The new selection expanded to the containing surrounding pair or
- * `null` if none was found
- */
-export function processSurroundingPairForDelimiters(
-  context: ProcessedTargetsContext,
-  editor: TextEditor,
-  range: Range,
-  scopeType: SurroundingPairScopeType,
-  delimiters: SimpleSurroundingPairName[]
-): SurroundingPairInfo | null {
-  const document = editor.document;
   let node: SyntaxNode | null;
   let textFragmentExtractor: TextFragmentExtractor;
 

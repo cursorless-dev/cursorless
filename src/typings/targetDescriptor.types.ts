@@ -60,7 +60,10 @@ export type SimpleSurroundingPairName =
   | "parentheses"
   | "singleQuotes"
   | "squareBrackets";
-export type ComplexSurroundingPairName = "string" | "any";
+export type ComplexSurroundingPairName =
+  | "string"
+  | "any"
+  | "collectionBoundary";
 export type SurroundingPairName =
   | SimpleSurroundingPairName
   | ComplexSurroundingPairName;
