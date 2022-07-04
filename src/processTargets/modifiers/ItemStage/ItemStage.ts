@@ -140,15 +140,13 @@ function getItemsInRange(
       return undefined;
     })();
 
-    // Leading boundary is excluded and leading separator is included
+    // Leading boundary and separator are excluded
     const domainStart =
-      tokens[i - 1]?.type === "boundary"
+      tokens[i - 1]?.type === "boundary" || tokens[i - 1]?.type === "separator"
         ? tokens[i - 1].range.end
-        : tokens[i - 1]?.type === "separator"
-        ? tokens[i - 1].range.start
         : token.range.start;
 
-    // Trailing boundary and separator is excluded
+    // Trailing boundary and separator are excluded
     const domainEnd =
       tokens[i + 1]?.type === "boundary" || tokens[i + 1]?.type === "separator"
         ? tokens[i + 1].range.start
