@@ -19,30 +19,23 @@ export function getIterationScope(
   );
 
   while (pairInfo != null) {
-    // The selection from the beginning was this pair and we should not go into the interior but instead look in the parent.
-    const isNotInterior =
-      target.contentRange.isEqual(pairInfo.contentRange) ||
-      target.contentRange.start.isBeforeOrEqual(pairInfo.boundary[0].start) ||
-      target.contentRange.end.isAfterOrEqual(pairInfo.boundary[1].end);
+    const stringPairInfo = getStringSurroundingPair(
+      context,
+      target.editor,
+      pairInfo.contentRange
+    );
 
-    if (!isNotInterior) {
-      const stringPairInfo = getStringSurroundingPair(
-        context,
-        target.editor,
-        pairInfo.contentRange
-      );
-
-      // We don't look for items inside strings.
-      if (
-        stringPairInfo == null ||
-        stringPairInfo.contentRange.start.isBefore(pairInfo.contentRange.start)
-      ) {
-        return {
-          range: pairInfo.interiorRange,
-          boundary: pairInfo.boundary,
-        };
-      }
+    // We don't look for items inside strings.
+    if (
+      stringPairInfo == null ||
+      stringPairInfo.contentRange.start.isBefore(pairInfo.contentRange.start)
+    ) {
+      return {
+        range: pairInfo.interiorRange,
+        boundary: pairInfo.boundary,
+      };
     }
+
     pairInfo = getParentSurroundingPair(context, target.editor, pairInfo);
   }
 
@@ -61,7 +54,11 @@ function getSurroundingPair(
     context,
     editor,
     contentRange,
-    { type: "surroundingPair", delimiter: "any" },
+    {
+      type: "surroundingPair",
+      delimiter: "any",
+      requireStrongContainment: true,
+    },
     ["parentheses", "squareBrackets", "curlyBrackets", "angleBrackets"]
   );
 }
@@ -89,5 +86,6 @@ function getStringSurroundingPair(
   return processSurroundingPair(context, editor, contentRange, {
     type: "surroundingPair",
     delimiter: "string",
+    requireStrongContainment: true,
   });
 }
