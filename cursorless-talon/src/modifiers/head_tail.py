@@ -1,4 +1,5 @@
 from talon import Module
+
 from .modifiers import head_tail_trailing_modifiers
 
 head_tail_modifiers = {
@@ -12,6 +13,7 @@ mod.list(
     "cursorless_head_tail_modifier",
     desc="Cursorless head and tail modifiers",
 )
+
 
 @mod.capture(rule="|".join(head_tail_trailing_modifiers))
 def cursorless_head_tail_trailing_modifier(m) -> str:

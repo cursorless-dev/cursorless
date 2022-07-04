@@ -29,6 +29,7 @@ def cursorless_simple_modifier(m) -> dict[str, str]:
         "type": m.cursorless_simple_modifier,
     }
 
+
 # These are all modifiers that can be trailing head/tail modifier. Interior excluded.
 head_tail_trailing_modifiers = [
     "<user.cursorless_simple_modifier>",  # bounds, just, leading, trailing
@@ -41,7 +42,7 @@ modifiers = [
     "<user.cursorless_position>",  # before, end of
     "<user.cursorless_interior_modifier>",  # inside
     "<user.cursorless_head_tail_modifier>",  # head, tail
-    *head_tail_trailing_modifiers
+    *head_tail_trailing_modifiers,
 ]
 
 
