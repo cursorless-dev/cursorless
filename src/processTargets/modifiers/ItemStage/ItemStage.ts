@@ -8,7 +8,6 @@ import {
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getInsertionDelimiter } from "../../../util/nodeSelectors";
-import { rangeLength } from "../../../util/rangeUtils";
 import { ModifierStage } from "../../PipelineStages.types";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import ContainingSyntaxScopeStage, {
@@ -41,7 +40,7 @@ export default class ItemStage implements ModifierStage {
     // If weak expand to all items in iteration scope
     const filteredItemInfos = target.isWeak
       ? itemInfos
-      : filterItemInfos(target, itemInfos).map((e) => e.itemInfo);
+      : filterItemInfos(target, itemInfos);
 
     if (filteredItemInfos.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -55,19 +54,23 @@ export default class ItemStage implements ModifierStage {
   private getSingleTarget(context: ProcessedTargetsContext, target: Target) {
     const itemInfos = getItemInfosForIterationScope(context, target);
 
-    const itemInfoWithIntersections = filterItemInfos(target, itemInfos);
+    const filteredItemInfos = filterItemInfos(target, itemInfos);
 
-    if (itemInfoWithIntersections.length === 0) {
+    if (filteredItemInfos.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
-    itemInfoWithIntersections.sort(
-      (a, b) =>
-        rangeLength(target.editor, b.intersection!) -
-        rangeLength(target.editor, a.intersection!)
-    );
+    const first = filteredItemInfos[0];
+    const last = filteredItemInfos[filteredItemInfos.length - 1];
 
-    return this.itemInfoToTarget(target, itemInfoWithIntersections[0].itemInfo);
+    const itemInfo: ItemInfo = {
+      contentRange: first.contentRange.union(last.contentRange),
+      domain: first.domain.union(last.domain),
+      leadingDelimiterRange: first.leadingDelimiterRange,
+      trailingDelimiterRange: last.trailingDelimiterRange,
+    };
+
+    return this.itemInfoToTarget(target, itemInfo);
   }
 
   private itemInfoToTarget(target: Target, itemInfo: ItemInfo) {
@@ -90,13 +93,10 @@ export default class ItemStage implements ModifierStage {
 }
 
 /** Filter item infos by content range and domain intersection */
-function filterItemInfos(target: Target, itemInfos: ItemInfo[]) {
-  return itemInfos
-    .map((itemInfo) => ({
-      itemInfo,
-      intersection: itemInfo.domain.intersection(target.contentRange),
-    }))
-    .filter((e) => e.intersection != null);
+function filterItemInfos(target: Target, itemInfos: ItemInfo[]): ItemInfo[] {
+  return itemInfos.filter(
+    (itemInfo) => itemInfo.domain.intersection(target.contentRange) != null
+  );
 }
 
 function getItemInfosForIterationScope(
