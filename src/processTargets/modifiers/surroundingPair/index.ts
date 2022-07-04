@@ -5,7 +5,7 @@ import getTextFragmentExtractor, {
 } from "../../../languages/getTextFragmentExtractor";
 import {
   ComplexSurroundingPairName,
-  SimpleSurroundingPairName,
+  SurroundingPairComplexScopeType,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
@@ -34,16 +34,14 @@ export function processSurroundingPair(
   range: Range,
   scopeType: SurroundingPairScopeType
 ): SurroundingPairInfo | null {
+  const { delimiter, ...rest } = scopeType;
   const delimiters = complexDelimiterMap[
-    scopeType.delimiter as ComplexSurroundingPairName
-  ] ?? [scopeType.delimiter];
-  return processSurroundingPairForDelimiters(
-    context,
-    editor,
-    range,
-    scopeType,
-    delimiters
-  );
+    delimiter as ComplexSurroundingPairName
+  ] ?? [delimiter];
+  return processSurroundingPairForDelimiters(context, editor, range, {
+    ...rest,
+    delimiters,
+  });
 }
 
 /**
@@ -64,8 +62,7 @@ export function processSurroundingPairForDelimiters(
   context: ProcessedTargetsContext,
   editor: TextEditor,
   range: Range,
-  scopeType: SurroundingPairScopeType,
-  delimiters: SimpleSurroundingPairName[]
+  scopeType: SurroundingPairComplexScopeType
 ): SurroundingPairInfo | null {
   const document = editor.document;
   let node: SyntaxNode | null;
@@ -79,13 +76,7 @@ export function processSurroundingPairForDelimiters(
     if ((err as Error).name === "UnsupportedLanguageError") {
       // If we're in a language where we don't have a parse tree we use the text
       // based algorithm
-      return findSurroundingPairTextBased(
-        editor,
-        range,
-        null,
-        delimiters,
-        scopeType
-      );
+      return findSurroundingPairTextBased(editor, range, null, scopeType);
     } else {
       throw err;
     }
@@ -103,7 +94,6 @@ export function processSurroundingPairForDelimiters(
       editor,
       range,
       textFragmentRange,
-      delimiters,
       scopeType
     );
 
@@ -115,11 +105,5 @@ export function processSurroundingPairForDelimiters(
   // If we have a parse tree and either we are not in a string or comment or we
   // couldn't find a surrounding pair within a string or comment, we use the
   // parse tree-based algorithm
-  return findSurroundingPairParseTreeBased(
-    editor,
-    range,
-    node,
-    delimiters,
-    scopeType
-  );
+  return findSurroundingPairParseTreeBased(editor, range, node, scopeType);
 }

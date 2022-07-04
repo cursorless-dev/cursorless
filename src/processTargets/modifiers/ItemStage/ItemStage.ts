@@ -116,7 +116,7 @@ function getItemsInRange(
   const itemInfos: ItemInfo[] = [];
 
   tokens.forEach((token, i) => {
-    if (token.type === "delimiter" || token.type === "boundary") {
+    if (token.type === "separator" || token.type === "boundary") {
       return;
     }
 
@@ -124,7 +124,7 @@ function getItemsInRange(
       if (tokens[i - 2]?.type === "item") {
         return new Range(tokens[i - 2].range.end, token.range.start);
       }
-      if (tokens[i - 1]?.type === "delimiter") {
+      if (tokens[i - 1]?.type === "separator") {
         return new Range(tokens[i - 1].range.start, token.range.start);
       }
       return undefined;
@@ -134,23 +134,23 @@ function getItemsInRange(
       if (tokens[i + 2]?.type === "item") {
         return new Range(token.range.end, tokens[i + 2].range.start);
       }
-      if (tokens[i + 1]?.type === "delimiter") {
+      if (tokens[i + 1]?.type === "separator") {
         return new Range(token.range.end, tokens[i + 1].range.end);
       }
       return undefined;
     })();
 
-    // Leading boundary is excluded and leading delimiter is included
+    // Leading boundary is excluded and leading separator is included
     const domainStart =
       tokens[i - 1]?.type === "boundary"
         ? tokens[i - 1].range.end
-        : tokens[i - 1]?.type === "delimiter"
+        : tokens[i - 1]?.type === "separator"
         ? tokens[i - 1].range.start
         : token.range.start;
 
-    // Trailing boundary and delimiter is excluded
+    // Trailing boundary and separator is excluded
     const domainEnd =
-      tokens[i + 1]?.type === "boundary" || tokens[i + 1]?.type === "delimiter"
+      tokens[i + 1]?.type === "boundary" || tokens[i + 1]?.type === "separator"
         ? tokens[i + 1].range.start
         : token.range.end;
 

@@ -1,9 +1,8 @@
 import { escapeRegExp, findLast, uniq } from "lodash";
 import { Range, TextDocument, TextEditor } from "vscode";
 import {
-  SimpleSurroundingPairName,
+  SurroundingPairComplexScopeType,
   SurroundingPairName,
-  SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/range";
 import { matchAll } from "../../../util/regex";
@@ -69,13 +68,12 @@ export function findSurroundingPairTextBased(
   editor: TextEditor,
   range: Range,
   allowableRange: Range | null,
-  delimiters: SimpleSurroundingPairName[],
-  scopeType: SurroundingPairScopeType
+  scopeType: SurroundingPairComplexScopeType
 ) {
   const document: TextDocument = editor.document;
   const fullRange = allowableRange ?? getDocumentRange(document);
 
-  const individualDelimiters = getIndividualDelimiters(delimiters);
+  const individualDelimiters = getIndividualDelimiters(scopeType.delimiters);
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
@@ -108,7 +106,6 @@ export function findSurroundingPairTextBased(
   const context: Context = {
     scopeType,
     delimiterRegex,
-    delimiters,
     delimiterTextToDelimiterInfoMap,
   };
 
@@ -196,16 +193,11 @@ function getDelimiterRegex(individualDelimiters: IndividualDelimiter[]) {
  * Context to pass to nested call
  */
 interface Context {
-  scopeType: SurroundingPairScopeType;
+  scopeType: SurroundingPairComplexScopeType;
   delimiterTextToDelimiterInfoMap: {
     [k: string]: IndividualDelimiter;
   };
   delimiterRegex: RegExp;
-
-  /**
-   * The allowable delimiter names
-   */
-  delimiters: SimpleSurroundingPairName[];
 }
 
 /**
@@ -228,12 +220,8 @@ function getDelimiterPairOffsets(
   isAtStartOfFullRange: boolean,
   isAtEndOfFullRange: boolean
 ): SurroundingPairOffsets | null {
-  const {
-    scopeType,
-    delimiterTextToDelimiterInfoMap,
-    delimiterRegex,
-    delimiters,
-  } = context;
+  const { scopeType, delimiterTextToDelimiterInfoMap, delimiterRegex } =
+    context;
   const { forceDirection } = scopeType;
 
   // XXX: The below is a bit wasteful when there are multiple targets, because
@@ -293,7 +281,6 @@ function getDelimiterPairOffsets(
   const surroundingPair = findSurroundingPairCore(
     scopeType,
     delimiterOccurrences,
-    delimiters,
     selectionOffsets,
     !isAtStartOfFullRange || !isAtEndOfFullRange
   );

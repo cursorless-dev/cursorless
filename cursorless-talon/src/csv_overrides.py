@@ -1,6 +1,6 @@
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
+from typing import Container, Optional
 
 from talon import Context, Module, actions, app, fs
 
@@ -21,8 +21,8 @@ cursorless_settings_directory = mod.setting(
 
 def init_csv_and_watch_changes(
     filename: str,
-    default_values: dict[str, dict],
-    extra_ignored_values: list[str] = None,
+    default_values: dict[str, dict[str, str]],
+    extra_ignored_values: Optional[list[str]] = None,
     allow_unknown_values: bool = False,
     default_list_name: Optional[str] = None,
     headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
@@ -81,7 +81,7 @@ def init_csv_and_watch_changes(
                 ctx,
             )
 
-    fs.watch(file_path.parent, on_watch)
+    fs.watch(str(file_path.parent), on_watch)
 
     if file_path.is_file():
         current_values = update_file(
@@ -113,7 +113,7 @@ def init_csv_and_watch_changes(
         )
 
     def unsubscribe():
-        fs.unwatch(file_path.parent, on_watch)
+        fs.unwatch(str(file_path.parent), on_watch)
 
     return unsubscribe
 
@@ -177,7 +177,7 @@ def update_dicts(
 def update_file(
     path: Path,
     headers: list[str],
-    default_values: dict,
+    default_values: dict[str, str],
     extra_ignored_values: list[str],
     allow_unknown_values: bool,
     no_update_file: bool,
@@ -250,7 +250,7 @@ def csv_error(path: Path, index: int, message: str, value: str):
 def read_file(
     path: Path,
     headers: list[str],
-    default_identifiers: list[str],
+    default_identifiers: Container[str],
     extra_ignored_values: list[str],
     allow_unknown_values: bool,
 ):
@@ -313,7 +313,7 @@ def get_full_path(filename: str):
     if not filename.endswith(".csv"):
         filename = f"{filename}.csv"
 
-    user_dir = actions.path.talon_user()
+    user_dir: Path = actions.path.talon_user()
     settings_directory = Path(cursorless_settings_directory.get())
 
     if not settings_directory.is_absolute():
@@ -322,8 +322,8 @@ def get_full_path(filename: str):
     return (settings_directory / filename).resolve()
 
 
-def get_super_values(values: dict[str, dict]):
-    result = {}
-    for dict in values.values():
-        result.update(dict)
+def get_super_values(values: dict[str, dict[str, str]]):
+    result: dict[str, str] = {}
+    for value_dict in values.values():
+        result.update(value_dict)
     return result

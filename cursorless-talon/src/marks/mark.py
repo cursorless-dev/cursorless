@@ -230,7 +230,7 @@ def on_ready():
         fast_reload_job = cron.after("500ms", setup_hat_styles_csv)
         slow_reload_job = cron.after("10s", setup_hat_styles_csv)
 
-    fs.watch(vscode_settings_path, on_watch)
+    fs.watch(str(vscode_settings_path), on_watch)
 
 
 app.register("ready", on_ready)
