@@ -51,6 +51,11 @@ export function setSelectionsWithoutFocusingEditor(
 }
 
 export async function focusEditor(editor: TextEditor) {
+  // That correct editor is already focused
+  if (window.activeTextEditor === editor) {
+    return;
+  }
+
   if (editor.viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
   } else {
