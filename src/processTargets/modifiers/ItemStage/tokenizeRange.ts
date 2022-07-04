@@ -77,6 +77,10 @@ export function joinLexemesBySkippingMatchingPairs(lexemes: string[]) {
   let openingDelimiter: string | null = null;
   /** The closing delimiter we're currently looking for */
   let closingDelimiter: string | null = null;
+  /**
+   * The index in {@link lexemes} of the first lexeme in the current token we're
+   * merging.
+   */
   let startIndex: number = -1;
 
   lexemes.forEach((lexeme, index) => {
