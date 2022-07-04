@@ -160,16 +160,19 @@
 				"cursorless.hatSizeAdjustment": {
 					"type": "number",
 					"default": 0,
-					"description": "Percentage to increase or decrease hat size; positive increases size"
+					"description": "Percentage to increase or decrease hat size; positive increases size",
+					"order": 0
 				},
 				"cursorless.hatVerticalOffset": {
 					"type": "number",
 					"default": 0,
-					"description": "How much to vertically shift the hats as a percentage of font size; positive is up"
+					"description": "How much to vertically shift the hats as a percentage of font size; positive is up",
+					"order": 1
 				},
 				"cursorless.colors.dark": {
 					"description": "Colors to use for dark theme",
 					"type": "object",
+					"order": 5,
 					"properties": {
 						"default": {
 							"type": "string"
@@ -211,6 +214,7 @@
 				"cursorless.colors.light": {
 					"description": "Colors to use for light theme",
 					"type": "object",
+					"order": 4,
 					"properties": {
 						"default": {
 							"type": "string"
@@ -252,6 +256,7 @@
 				"cursorless.hatEnablement.colors": {
 					"description": "Which colors to enable",
 					"type": "object",
+					"order": 2,
 					"properties": {
 						"blue": {
 							"type": "boolean"
@@ -289,6 +294,7 @@
 				"cursorless.hatEnablement.shapes": {
 					"markdownDescription": "Which shapes to enable.  See the [docs](https://www.cursorless.org/docs/#shapes) if you're not sure which shape name corresponds to which hat shape.",
 					"type": "object",
+					"order": 3,
 					"properties": {
 						"ex": {
 							"type": "boolean"
