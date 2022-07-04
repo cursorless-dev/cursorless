@@ -75,16 +75,17 @@ function getSurroundingPair(
   editor: TextEditor,
   contentRange: Range
 ) {
-  return processSurroundingPairForDelimiters(context, editor, contentRange, {
-    type: "surroundingPair",
-    requireStrongContainment: true,
-    delimiters: [
-      "parentheses",
-      "squareBrackets",
-      "curlyBrackets",
-      "angleBrackets",
-    ],
-  });
+  return processSurroundingPairForDelimiters(
+    context,
+    editor,
+    contentRange,
+    {
+      type: "surroundingPair",
+      delimiter: "any",
+      requireStrongContainment: true,
+    },
+    ["parentheses", "squareBrackets", "curlyBrackets", "angleBrackets"]
+  );
 }
 
 function getStringSurroundingPair(

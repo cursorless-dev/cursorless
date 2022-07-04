@@ -1,6 +1,9 @@
 import { Range, TextDocument, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
-import { SurroundingPairComplexScopeType } from "../../../typings/targetDescriptor.types";
+import {
+  SimpleSurroundingPairName,
+  SurroundingPairScopeType,
+} from "../../../typings/targetDescriptor.types";
 import { getNodeRange } from "../../../util/nodeSelectors";
 import { isContainedInErrorNode } from "../../../util/treeSitterUtils";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
@@ -58,11 +61,12 @@ export function findSurroundingPairParseTreeBased(
   editor: TextEditor,
   selection: Range,
   node: SyntaxNode,
-  scopeType: SurroundingPairComplexScopeType
+  delimiters: SimpleSurroundingPairName[],
+  scopeType: SurroundingPairScopeType
 ) {
   const document: TextDocument = editor.document;
 
-  const individualDelimiters = getIndividualDelimiters(scopeType.delimiters);
+  const individualDelimiters = getIndividualDelimiters(delimiters);
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
@@ -82,6 +86,7 @@ export function findSurroundingPairParseTreeBased(
   const context: Context = {
     delimiterTextToDelimiterInfoMap,
     individualDelimiters,
+    delimiters,
     selectionOffsets,
     scopeType,
   };
@@ -135,11 +140,16 @@ interface Context {
   individualDelimiters: IndividualDelimiter[];
 
   /**
+   * The names of the delimiters that we're considering
+   */
+  delimiters: SimpleSurroundingPairName[];
+
+  /**
    * The offsets of the selection
    */
   selectionOffsets: Offsets;
 
-  scopeType: SurroundingPairComplexScopeType;
+  scopeType: SurroundingPairScopeType;
 }
 
 /**
@@ -158,6 +168,7 @@ function findSurroundingPairContainedInNode(
   const {
     delimiterTextToDelimiterInfoMap,
     individualDelimiters,
+    delimiters,
     selectionOffsets,
     scopeType,
   } = context;
@@ -218,6 +229,7 @@ function findSurroundingPairContainedInNode(
   return findSurroundingPairCore(
     scopeType,
     delimiterOccurrences,
+    delimiters,
     selectionOffsets,
 
     // If we're not the root node of the parse tree (ie `node.parent !=

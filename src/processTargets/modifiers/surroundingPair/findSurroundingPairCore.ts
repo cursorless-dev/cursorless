@@ -1,11 +1,14 @@
 import { sortedIndexBy } from "lodash";
-import { SurroundingPairComplexScopeType } from "../../../typings/targetDescriptor.types";
+import {
+  SimpleSurroundingPairName,
+  SurroundingPairScopeType,
+} from "../../../typings/targetDescriptor.types";
 import { findDelimiterPairAdjacentToSelection } from "./findDelimiterPairAdjacentToSelection";
 import { findDelimiterPairContainingSelection } from "./findDelimiterPairContainingSelection";
 import {
+  SurroundingPairOffsets,
   Offsets,
   PossibleDelimiterOccurrence,
-  SurroundingPairOffsets,
 } from "./types";
 
 /**
@@ -20,6 +23,7 @@ import {
  * delimiter pair that contains the selection.
  *
  * @param delimiterOccurrences A list of delimiter occurrences.  Expected to be sorted by offsets
+ * @param acceptableDelimiters A list of names of acceptable delimiters to look for
  * @param selectionOffsets The offsets of the selection
  * @param bailOnUnmatchedAdjacent If `true`, immediately return null if we find
  * an adjacent delimiter that we can't find a match for.  This variable will
@@ -29,8 +33,9 @@ import {
  * @returns
  */
 export function findSurroundingPairCore(
-  scopeType: SurroundingPairComplexScopeType,
+  scopeType: SurroundingPairScopeType,
   delimiterOccurrences: PossibleDelimiterOccurrence[],
+  acceptableDelimiters: SimpleSurroundingPairName[],
   selectionOffsets: Offsets,
   bailOnUnmatchedAdjacent: boolean = false
 ): SurroundingPairOffsets | null {
@@ -67,7 +72,7 @@ export function findSurroundingPairCore(
   return findDelimiterPairContainingSelection(
     initialIndex,
     delimiterOccurrences,
-    scopeType.delimiters,
+    acceptableDelimiters,
     selectionOffsets
   );
 }
