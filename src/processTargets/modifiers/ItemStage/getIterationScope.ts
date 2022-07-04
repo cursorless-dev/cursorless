@@ -8,16 +8,24 @@ import {
 } from "../surroundingPair";
 import { SurroundingPairInfo } from "../surroundingPair/extractSelectionFromSurroundingPairOffsets";
 
+/**
+ * Get the iteration scope range for item scope.
+ * Try to find non-string surrounding scope with a fallback to line content.
+ * @param context The stage process context
+ * @param target The stage target
+ * @returns The stage iteration scope and optional surrounding pair boundaries
+ */
 export function getIterationScope(
   context: ProcessedTargetsContext,
   target: Target
-) {
+): { range: Range; boundary?: [Range, Range] } {
   let pairInfo = getSurroundingPair(
     context,
     target.editor,
     target.contentRange
   );
 
+  // Iteration is necessary in case of nested strings
   while (pairInfo != null) {
     const stringPairInfo = getStringSurroundingPair(
       context,
@@ -52,13 +60,13 @@ function getParentSurroundingPair(
   editor: TextEditor,
   pairInfo: SurroundingPairInfo
 ) {
-  // Step out of this pair and see if we have a parent
-  const position = editor.document.positionAt(
-    editor.document.offsetAt(pairInfo.contentRange.start) - 1
-  );
-  if (position.isEqual(pairInfo.contentRange.start)) {
+  const startOffset = editor.document.offsetAt(pairInfo.contentRange.start);
+  // Can't have a parent; already at start of document
+  if (startOffset === 0) {
     return null;
   }
+  // Step out of this pair and see if we have a parent
+  const position = editor.document.positionAt(startOffset - 1);
   return getSurroundingPair(context, editor, new Range(position, position));
 }
 

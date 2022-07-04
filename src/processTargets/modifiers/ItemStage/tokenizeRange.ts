@@ -1,10 +1,17 @@
 import { Range, TextEditor } from "vscode";
 
+/**
+ * Takes the range for a collection and returns a list of tokens within that collection
+ * @param editor The editor containing the range
+ * @param collectionRange The range to look for tokens within
+ * @param collectionBoundary Optional boundaries for collections. [], {}
+ * @returns List of tokens
+ */
 export function tokenizeRange(
   editor: TextEditor,
   collectionRange: Range,
   collectionBoundary?: [Range, Range]
-) {
+): Token[] {
   const { document } = editor;
   const text = document.getText(collectionRange);
   const lexemes = text.split(/([,(){}<>[\]"'`]|\\"|\\'|\\`)/g).filter(Boolean);
@@ -22,7 +29,7 @@ export function tokenizeRange(
     // Separator delimiter found.
     if (lexeme === delimiter) {
       tokens.push({
-        type: "delimiter",
+        type: "separator",
         range: new Range(
           document.positionAt(offset),
           document.positionAt(offset + lexeme.length)
@@ -56,6 +63,11 @@ export function tokenizeRange(
   return tokens;
 }
 
+/**
+ * Takes a list of lexemes and joins them by skipping matching pairs (), {}, etc
+ * @param lexemes List of lexemes to operate on
+ * @returns List of lexemes with equal or less length then {@link lexemes}
+ */
 export function joinLexemesBySkippingMatchingPairs(lexemes: string[]) {
   const result: string[] = [];
   let delimiterCount = 0;
@@ -125,5 +137,5 @@ const delimiters: { [key: string]: string } = {
 
 interface Token {
   range: Range;
-  type: string;
+  type: "item" | "separator" | "boundary";
 }
