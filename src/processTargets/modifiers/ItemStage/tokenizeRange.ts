@@ -2,15 +2,24 @@ import { Range, TextEditor } from "vscode";
 
 export function tokenizeRange(
   editor: TextEditor,
-  collectionRange: Range,
-  collectionBoundary?: [Range, Range]
+  interior: Range,
+  boundary?: [Range, Range]
 ) {
   const { document } = editor;
-  const text = document.getText(collectionRange);
-  const lexemes = text.split(/([,(){}<>[\]"'`]|\\"|\\'|\\`)/g).filter(Boolean);
+  const text = document.getText(interior);
+  /**
+   * The interior range tokenized into delimited regions, including the delimiters themselves.  For example:
+   * `"foo(hello), bar, whatever"` =>
+   * `["foo", "(", "hello", ")", ",", " bar", ",", " whatever"]`
+   */
+  const lexemes = text
+    // NB: Both the delimiters and the text between them are included because we
+    // use a capture group in this split regex
+    .split(/([,(){}<>[\]"'`]|\\"|\\'|\\`)/g)
+    .filter((lexeme) => lexeme.length > 0);
   const joinedLexemes = joinLexemesBySkippingMatchingPairs(lexemes);
   const tokens: Token[] = [];
-  let offset = document.offsetAt(collectionRange.start);
+  let offset = document.offsetAt(interior.start);
 
   joinedLexemes.forEach((lexeme) => {
     // Whitespace found. Just skip
@@ -20,7 +29,7 @@ export function tokenizeRange(
     }
 
     // Separator delimiter found.
-    if (lexeme === delimiter) {
+    if (lexeme === separator) {
       tokens.push({
         type: "delimiter",
         range: new Range(
@@ -45,11 +54,11 @@ export function tokenizeRange(
     offset += lexeme.length;
   });
 
-  if (collectionBoundary != null) {
+  if (boundary != null) {
     return [
-      { type: "boundary", range: collectionBoundary[0] },
+      { type: "boundary", range: boundary[0] },
       ...tokens,
-      { type: "boundary", range: collectionBoundary[1] },
+      { type: "boundary", range: boundary[1] },
     ];
   }
 
@@ -58,48 +67,51 @@ export function tokenizeRange(
 
 export function joinLexemesBySkippingMatchingPairs(lexemes: string[]) {
   const result: string[] = [];
-  let delimiterCount = 0;
+  /**
+   * The number of left delimiters minus right delimiters we've seen.  If the
+   * balance is 0, we're at the top level of the collection, so separators are
+   * relevant.  Otherwise we ignore separators because they're nested
+   */
+  let delimiterBalance = 0;
+  /** The most recent opening delimiter we've seen */
   let openingDelimiter: string | null = null;
+  /** The closing delimiter we're currently looking for */
   let closingDelimiter: string | null = null;
   let startIndex: number = -1;
 
   lexemes.forEach((lexeme, index) => {
-    // We are waiting for a closing delimiter
-    if (delimiterCount > 0) {
-      // Closing delimiter found
-      if (closingDelimiter === lexeme) {
-        --delimiterCount;
-      }
-      // Additional opening delimiter found
-      else if (openingDelimiter === lexeme) {
-        ++delimiterCount;
-      }
-    }
+    if (delimiterBalance > 0) {
+      // We are waiting for a closing delimiter
 
-    // Starting delimiter found
-    else if (delimiters[lexeme] != null) {
+      if (lexeme === closingDelimiter) {
+        // Closing delimiter found
+        --delimiterBalance;
+      } else if (lexeme === openingDelimiter) {
+        // Additional opening delimiter found
+        ++delimiterBalance;
+      }
+    } else if (leftToRightMap[lexeme] != null) {
+      // Starting delimiter found
       openingDelimiter = lexeme;
-      closingDelimiter = delimiters[lexeme];
-      delimiterCount = 1;
-      // This is the first lexeme to be joined
+      closingDelimiter = leftToRightMap[lexeme];
+      delimiterBalance = 1;
       if (startIndex < 0) {
+        // This is the first lexeme to be joined
         startIndex = index;
       }
-    }
-
-    // This is the first lexeme to be joined
-    else if (startIndex < 0) {
+    } else if (startIndex < 0) {
+      // This is the first lexeme to be joined
       startIndex = index;
     }
 
-    const isDelimiter = lexeme === delimiter && delimiterCount === 0;
+    const isSeparator = lexeme === separator && delimiterBalance === 0;
 
-    // This is the last lexeme to be joined
-    if (isDelimiter || index === lexemes.length - 1) {
-      const endIndex = isDelimiter ? index : index + 1;
+    if (isSeparator || index === lexemes.length - 1) {
+      // This is the last lexeme to be joined
+      const endIndex = isSeparator ? index : index + 1;
       result.push(lexemes.slice(startIndex, endIndex).join(""));
       startIndex = -1;
-      if (isDelimiter) {
+      if (isSeparator) {
         result.push(lexeme);
       }
     }
@@ -108,11 +120,11 @@ export function joinLexemesBySkippingMatchingPairs(lexemes: string[]) {
   return result;
 }
 
-const delimiter = ",";
+const separator = ",";
 
 // Mapping between opening and closing delimiters
 /* eslint-disable @typescript-eslint/naming-convention */
-const delimiters: { [key: string]: string } = {
+const leftToRightMap: { [key: string]: string } = {
   "(": ")",
   "{": "}",
   "<": ">",

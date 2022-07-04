@@ -104,15 +104,15 @@ function getItemInfosForIterationScope(
   target: Target
 ) {
   const { range, boundary } = getIterationScope(context, target);
-  return rangeToItemInfos(target.editor, range, boundary);
+  return getItemsInRange(target.editor, range, boundary);
 }
 
-function rangeToItemInfos(
+function getItemsInRange(
   editor: TextEditor,
-  collectionRange: Range,
-  collectionBoundary?: [Range, Range]
+  interior: Range,
+  boundary?: [Range, Range]
 ): ItemInfo[] {
-  const tokens = tokenizeRange(editor, collectionRange, collectionBoundary);
+  const tokens = tokenizeRange(editor, interior, boundary);
   const itemInfos: ItemInfo[] = [];
 
   tokens.forEach((token, i) => {
