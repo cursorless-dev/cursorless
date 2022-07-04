@@ -57,6 +57,12 @@ def cursorless_modifier(m) -> str:
     return m[0]
 
 
+@mod.capture(rule="|".join(head_tail_swallowed_modifiers))
+def cursorless_head_tail_swallowed_modifier(m) -> str:
+    """Cursorless modifier that is swallowed by the head/tail modifier, excluding interior, which requires special treatment"""
+    return m[0]
+
+
 def on_ready():
     init_csv_and_watch_changes(
         "modifiers",
