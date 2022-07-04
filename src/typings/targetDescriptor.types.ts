@@ -129,6 +129,15 @@ export interface SurroundingPairScopeType {
   requireStrongContainment?: boolean;
 }
 
+/** The same as `SurroundingPairScopeType` but with multiple delimiters */
+export interface SurroundingPairComplexScopeType
+  extends Omit<SurroundingPairScopeType, "delimiter"> {
+  /**
+   * The allowable delimiter names
+   */
+  delimiters: SimpleSurroundingPairName[];
+}
+
 export type ScopeType = SimpleScopeType | SurroundingPairScopeType;
 
 export interface ContainingSurroundingPairModifier

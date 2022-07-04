@@ -1,4 +1,4 @@
-import { SurroundingPairScopeType } from "../../../typings/targetDescriptor.types";
+import { SurroundingPairComplexScopeType } from "../../../typings/targetDescriptor.types";
 import { findOppositeDelimiter } from "./findOppositeDelimiter";
 import { getSurroundingPairOffsets } from "./getSurroundingPairOffsets";
 import {
@@ -30,7 +30,7 @@ export function findDelimiterPairAdjacentToSelection(
   initialIndex: number,
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   selectionOffsets: Offsets,
-  scopeType: SurroundingPairScopeType,
+  scopeType: SurroundingPairComplexScopeType,
   bailOnUnmatchedAdjacent: boolean = false
 ): SurroundingPairOffsets | null {
   const indicesToTry = [initialIndex + 1, initialIndex];
