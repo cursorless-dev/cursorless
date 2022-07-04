@@ -27,7 +27,9 @@ export function getIterationScope(
 
     // We don't look for items inside strings.
     if (
+      // Not in a string
       stringPairInfo == null ||
+      // In a non-string surrounding pair that is inside a surrounding string. This is fine.
       stringPairInfo.contentRange.start.isBefore(pairInfo.contentRange.start)
     ) {
       return {
@@ -39,10 +41,25 @@ export function getIterationScope(
     pairInfo = getParentSurroundingPair(context, target.editor, pairInfo);
   }
 
-  // We have not found a pair containing the delimiter. Look at the full line.
+  // We have not found a surrounding pair. Use the line.
   return {
     range: fitRangeToLineContent(target.editor, target.contentRange),
   };
+}
+
+function getParentSurroundingPair(
+  context: ProcessedTargetsContext,
+  editor: TextEditor,
+  pairInfo: SurroundingPairInfo
+) {
+  // Step out of this pair and see if we have a parent
+  const position = editor.document.positionAt(
+    editor.document.offsetAt(pairInfo.contentRange.start) - 1
+  );
+  if (position.isEqual(pairInfo.contentRange.start)) {
+    return null;
+  }
+  return getSurroundingPair(context, editor, new Range(position, position));
 }
 
 function getSurroundingPair(
@@ -61,21 +78,6 @@ function getSurroundingPair(
     },
     ["parentheses", "squareBrackets", "curlyBrackets", "angleBrackets"]
   );
-}
-
-function getParentSurroundingPair(
-  context: ProcessedTargetsContext,
-  editor: TextEditor,
-  pairInfo: SurroundingPairInfo
-) {
-  // Step out of this pair and see if we have a parent
-  const position = editor.document.positionAt(
-    editor.document.offsetAt(pairInfo.contentRange.start) - 1
-  );
-  if (position.isEqual(pairInfo.contentRange.start)) {
-    return null;
-  }
-  return getSurroundingPair(context, editor, new Range(position, position));
 }
 
 function getStringSurroundingPair(
