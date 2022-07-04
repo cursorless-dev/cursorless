@@ -145,7 +145,10 @@ const nodeMatchers: Partial<
     1
   ),
   string: ["raw_string_literal", "string_literal"],
-  ifStatement: ["if_expression", "if_let_expression"],
+  ifStatement: cascadingMatcher(
+    patternMatcher("if_expression", "if_let_expression"),
+    leadingMatcher(["match_pattern[condition]"], ["if"])
+  ),
   functionCall: ["call_expression", "macro_invocation", "struct_expression"],
   functionCallee: "call_expression[function]",
   comment: ["line_comment", "block_comment"],
@@ -187,8 +190,10 @@ const nodeMatchers: Partial<
     "type_parameters"
   ),
   collectionKey: cascadingMatcher(
-    trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"])
+    trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"]),
+    patternMatcher("match_pattern")
   ),
+  condition: ["match_pattern"],
   name: cascadingMatcher(
     patternMatcher(
       "let_declaration.identifier!",
@@ -202,6 +207,7 @@ const nodeMatchers: Partial<
       "let_declaration[pattern]",
       "constrained_type_parameter[left]",
       "where_predicate[left]",
+      "match_pattern",
       "field_declaration[name]"
     ),
     trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"])
@@ -218,6 +224,8 @@ const nodeMatchers: Partial<
     matcher(returnValueFinder)
   ),
   attribute: trailingMatcher(["mutable_specifier", "attribute_item"]),
+  subject: "match_expression[value]",
+  branch: "match_arm",
 };
 
 export default createPatternMatchers(nodeMatchers);

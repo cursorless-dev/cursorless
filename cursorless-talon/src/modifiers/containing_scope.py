@@ -39,6 +39,8 @@ scope_types = {
     "selector": "selector",
     "state": "statement",
     "string": "string",
+    "subject": "subject",
+    "branch": "branch",
     "type": "type",
     "value": "value",
     "condition": "condition",
