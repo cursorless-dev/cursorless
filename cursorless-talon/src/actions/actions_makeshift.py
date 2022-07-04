@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Any, Optional
 
 from talon import Module
 
@@ -8,9 +9,9 @@ class MakeshiftAction:
     term: str
     identifier: str
     vscode_command_id: str
-    vscode_command_args: list = None
+    vscode_command_args: Optional[list] = None
     restore_selection: bool = False
-    post_command_sleep_ms: int = None
+    post_command_sleep_ms: Optional[int] = None
     await_command: bool = True
 
 
@@ -56,13 +57,13 @@ mod.list(
 
 @dataclass
 class TalonOptions:
-    post_command_sleep_ms: int = None
+    post_command_sleep_ms: Optional[int] = None
     await_command: bool = True
 
 
 def get_parameters(action: MakeshiftAction):
     command = action.vscode_command_id
-    command_options = {
+    command_options: dict[str, Any] = {
         "restoreSelection": action.restore_selection,
     }
     if action.vscode_command_args:
