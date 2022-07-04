@@ -17,7 +17,7 @@ mod.list(
     rule=(
         "{user.cursorless_head_tail_modifier} "
         "[<user.cursorless_interior_modifier>] "
-        "[<user.cursorless_modifier>]"
+        "[<user.cursorless_head_tail_swallowed_modifier>]"
     )
 )
 def cursorless_head_tail_modifier(m) -> dict[str, str]:
@@ -30,7 +30,7 @@ def cursorless_head_tail_modifier(m) -> dict[str, str]:
         pass
 
     try:
-        modifiers.append(m.cursorless_modifier)
+        modifiers.append(m.cursorless_head_tail_swallowed_modifier)
     except AttributeError:
         pass
 
