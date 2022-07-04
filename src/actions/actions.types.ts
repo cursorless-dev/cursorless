@@ -16,6 +16,7 @@ export type ActionType =
   | "findInWorkspace"
   | "foldRegion"
   | "followLink"
+  | "generateSnippet"
   | "getText"
   | "highlight"
   | "indentLine"

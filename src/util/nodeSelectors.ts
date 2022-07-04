@@ -32,6 +32,15 @@ export function getNodeRange(node: SyntaxNode) {
   );
 }
 
+export function makeNodePairSelection(anchor: SyntaxNode, active: SyntaxNode) {
+  return new Selection(
+    anchor.startPosition.row,
+    anchor.startPosition.column,
+    active.endPosition.row,
+    active.endPosition.column
+  );
+}
+
 /**
  * Returns node range excluding the first and last child
  * @param node The note for which to get the internal range
@@ -121,6 +130,8 @@ export function argumentSelectionExtractor(): SelectionExtractor {
       node.type === ")" ||
       node.type === "[" ||
       node.type === "]" ||
+      node.type === ">" ||
+      node.type === "<" ||
       node.type === "}" ||
       node.type === "{",
     ", "

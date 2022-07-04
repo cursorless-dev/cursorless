@@ -1,11 +1,13 @@
+import { SurroundingPairScopeType } from "../../../typings/targetDescriptor.types";
+import { findOppositeDelimiter } from "./findOppositeDelimiter";
 import { getSurroundingPairOffsets } from "./getSurroundingPairOffsets";
 import {
-  SurroundingPairOffsets,
+  DelimiterOccurrence,
   Offsets,
   PossibleDelimiterOccurrence,
-  DelimiterOccurrence,
+  SurroundingPairOffsets,
 } from "./types";
-import { findOppositeDelimiter } from "./findOppositeDelimiter";
+import { weaklyContains } from "./weaklyContains";
 
 /**
  * Looks for a surrounding pair where one of its delimiters contains the entire selection.
@@ -28,7 +30,7 @@ export function findDelimiterPairAdjacentToSelection(
   initialIndex: number,
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   selectionOffsets: Offsets,
-  forceDirection: "left" | "right" | undefined,
+  scopeType: SurroundingPairScopeType,
   bailOnUnmatchedAdjacent: boolean = false
 ): SurroundingPairOffsets | null {
   const indicesToTry = [initialIndex + 1, initialIndex];
@@ -38,8 +40,7 @@ export function findDelimiterPairAdjacentToSelection(
 
     if (
       delimiterOccurrence != null &&
-      delimiterOccurrence.offsets.start <= selectionOffsets.start &&
-      delimiterOccurrence.offsets.end >= selectionOffsets.end
+      weaklyContains(delimiterOccurrence.offsets, selectionOffsets)
     ) {
       const { delimiterInfo } = delimiterOccurrence;
 
@@ -48,14 +49,23 @@ export function findDelimiterPairAdjacentToSelection(
           delimiterOccurrences,
           index,
           delimiterInfo,
-          forceDirection
+          scopeType.forceDirection
         );
 
         if (possibleMatch != null) {
-          return getSurroundingPairOffsets(
+          const surroundingPairOffsets = getSurroundingPairOffsets(
             delimiterOccurrence as DelimiterOccurrence,
             possibleMatch
           );
+
+          if (
+            !scopeType.requireStrongContainment ||
+            (surroundingPairOffsets.leftDelimiter.start <
+              selectionOffsets.start &&
+              surroundingPairOffsets.rightDelimiter.end > selectionOffsets.end)
+          ) {
+            return surroundingPairOffsets;
+          }
         } else if (bailOnUnmatchedAdjacent) {
           return null;
         }
