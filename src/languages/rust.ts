@@ -186,6 +186,7 @@ const nodeMatchers: Partial<
     "meta_arguments",
     "type_parameters"
   ),
+  collectionKey: ["field_pattern[name]"],
   name: [
     "let_declaration.identifier!",
     "parameter.identifier!",
