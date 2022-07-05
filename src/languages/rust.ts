@@ -200,13 +200,18 @@ const nodeMatchers: Partial<
     "where_predicate[left]",
     "field_declaration[name]",
     "field_initializer[name]",
+    "field_pattern[name]",
   ],
   class: ["struct_item", "struct_expression", "enum_item"],
   className: ["struct_item[name]", "enum_item[name]", "trait_item[name]"],
   value: cascadingMatcher(
     leadingMatcher(["let_declaration[value]"], ["="]),
     leadingMatcher(["field_initializer[value]"], [":"]),
-    patternMatcher("meta_item[value]", "const_item[value]"),
+    patternMatcher(
+      "meta_item[value]",
+      "const_item[value]",
+      "field_pattern[pattern]"
+    ),
     matcher(returnValueFinder)
   ),
   attribute: trailingMatcher(["mutable_specifier", "attribute_item"]),
