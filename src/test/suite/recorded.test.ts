@@ -23,7 +23,7 @@ import {
 import { Clipboard } from "../../util/Clipboard";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import sleep from "../../util/sleep";
-import { openNewEditor, reuseEditor } from "../openNewEditor";
+import { openNewEditor } from "../openNewEditor";
 import asyncSafety from "../util/asyncSafety";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
 
@@ -58,15 +58,7 @@ suite("recorded test cases", async function () {
   getRecordedTestPaths().forEach((path) =>
     test(
       path.split(".")[0],
-      asyncSafety(async () => {
-        try {
-          return runTest(editor, path);
-        } catch (error) {
-          // On error it safest to create a new editor
-          editor = await openNewEditor(" ");
-          throw error;
-        }
-      })
+      asyncSafety(() => runTest(editor, path))
     )
   );
 });
@@ -84,8 +76,16 @@ async function runTest(editor: vscode.TextEditor, file: string) {
   const graph = cursorlessApi.graph!;
   graph.editStyles.testDecorations = [];
 
-  await reuseEditor(
-    editor,
+  // TODO: Disable this for now since tests are failing in CI with error
+  // Error: TextEditor#edit not possible on closed editors
+  // await reuseEditor(
+  //   editor,
+  //   fixture.initialState.documentContents,
+  //   fixture.languageId
+  // );
+
+  // For now open new editor for every test
+  editor = await openNewEditor(
     fixture.initialState.documentContents,
     fixture.languageId
   );
