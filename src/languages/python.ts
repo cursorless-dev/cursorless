@@ -59,7 +59,7 @@ function importNodeFinder(): NodeFinder {
     const childNode = finder(node, selection);
     if (
       childNode?.type === "dotted_name" &&
-      !childNode.equals(childNode.parent.firstNamedChild)
+      childNode.id !== childNode?.parent?.firstNamedChild?.id
     ) {
       return childNode;
     }

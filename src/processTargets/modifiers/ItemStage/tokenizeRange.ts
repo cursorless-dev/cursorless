@@ -2,6 +2,8 @@ import { Range, TextEditor } from "vscode";
 
 /**
  * Takes the range for a collection and returns a list of tokens within that collection
+ * A token is just an item which has a range and a type [item, separator, boundary]
+ * `[{range, type: "item"}, {range, type: "separator"}]`
  * @param editor The editor containing the range
  * @param interior The range to look for tokens within
  * @param boundary Optional boundaries for collections. [], {}
