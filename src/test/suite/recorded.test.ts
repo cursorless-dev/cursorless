@@ -58,7 +58,15 @@ suite("recorded test cases", async function () {
   getRecordedTestPaths().forEach((path) =>
     test(
       path.split(".")[0],
-      asyncSafety(() => runTest(editor, path))
+      asyncSafety(async () => {
+        try {
+          return runTest(editor, path);
+        } catch (error) {
+          // On error it safest to create a new editor
+          editor = await openNewEditor(" ");
+          throw error;
+        }
+      })
     )
   );
 });
