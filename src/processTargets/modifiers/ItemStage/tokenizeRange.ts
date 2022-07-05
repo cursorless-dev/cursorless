@@ -73,7 +73,7 @@ export function tokenizeRange(
 }
 
 /**
- * Takes a list of lexemes and joins them by skipping matching pairs (), {}, etc
+ * Takes a list of lexemes and joins them into a list of alternating items and separators, skipping matching pairs (), {}, etc
  * @param lexemes List of lexemes to operate on
  * @returns List of merged lexemes.  Note that its length will be less than or equal to {@link lexemes}
  */
