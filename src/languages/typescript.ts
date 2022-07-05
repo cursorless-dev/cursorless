@@ -173,7 +173,6 @@ const nodeMatchers: Partial<
     ],
     [":"]
   ),
-  collectionItem: argumentMatcher(...mapTypes, ...listTypes),
   value: cascadingMatcher(
     valueMatcher(),
     patternMatcher("return_statement.~return!"),

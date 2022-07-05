@@ -39,4 +39,10 @@ export const complexDelimiterMap: Record<
 > = {
   any: Object.keys(delimiterToText),
   string: ["singleQuotes", "doubleQuotes", "backtickQuotes"],
+  collectionBoundary: [
+    "parentheses",
+    "squareBrackets",
+    "curlyBrackets",
+    "angleBrackets",
+  ],
 };
