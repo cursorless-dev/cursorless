@@ -58,12 +58,13 @@ function importNodeFinder(): NodeFinder {
   return (node: SyntaxNode, selection?: Selection) => {
     const childNode = finder(node, selection);
     if (
-      childNode?.type !== "dotted_name" ||
-      childNode?.id === childNode?.parent?.namedChildren[0].id
+      childNode?.type === "dotted_name" &&
+      !childNode.equals(childNode.parent.firstNamedChild)
     ) {
-      return null;
+      return childNode;
     }
-    return childNode;
+
+    return null;
   };
 }
 
