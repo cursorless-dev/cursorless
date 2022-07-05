@@ -41,8 +41,6 @@ suite("recorded test cases", async function () {
   this.timeout("100s");
   this.retries(5);
 
-  let editor: vscode.TextEditor;
-
   teardown(() => {
     sinon.restore();
   });
@@ -50,20 +48,17 @@ suite("recorded test cases", async function () {
   suiteSetup(async () => {
     // Necessary because opening a notebook opens the panel for some reason
     await vscode.commands.executeCommand("workbench.action.closePanel");
-
-    // NB: For some unfathomable reason the content string can't be empty or the first test will fail.
-    editor = await openNewEditor(" ");
   });
 
   getRecordedTestPaths().forEach((path) =>
     test(
       path.split(".")[0],
-      asyncSafety(() => runTest(editor, path))
+      asyncSafety(() => runTest(path))
     )
   );
 });
 
-async function runTest(editor: vscode.TextEditor, file: string) {
+async function runTest(file: string) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
   const excludeFields: ExcludableSnapshotField[] = [];
@@ -76,16 +71,7 @@ async function runTest(editor: vscode.TextEditor, file: string) {
   const graph = cursorlessApi.graph!;
   graph.editStyles.testDecorations = [];
 
-  // TODO: Disable this for now since tests are failing in CI with error
-  // Error: TextEditor#edit not possible on closed editors
-  // await reuseEditor(
-  //   editor,
-  //   fixture.initialState.documentContents,
-  //   fixture.languageId
-  // );
-
-  // For now open new editor for every test
-  editor = await openNewEditor(
+  const editor = await openNewEditor(
     fixture.initialState.documentContents,
     fixture.languageId
   );

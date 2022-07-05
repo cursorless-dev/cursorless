@@ -14,7 +14,16 @@ export async function openNewEditor(
 
   await (await getParseTreeApi()).loadLanguage(language);
 
-  return await vscode.window.showTextDocument(document);
+  const editor = await vscode.window.showTextDocument(document);
+
+  const eol = content.includes("\r\n")
+    ? vscode.EndOfLine.CRLF
+    : vscode.EndOfLine.LF;
+  if (eol !== editor.document.eol) {
+    await editor.edit((editBuilder) => editBuilder.setEndOfLine(eol));
+  }
+
+  return editor;
 }
 
 export async function reuseEditor(
