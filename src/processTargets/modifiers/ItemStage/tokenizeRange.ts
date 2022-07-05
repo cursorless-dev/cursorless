@@ -1,9 +1,26 @@
 import { Range, TextEditor } from "vscode";
 
 /**
- * Takes the range for a collection and returns a list of tokens within that collection
- * A token is just an item which has a range and a type [item, separator, boundary]
- * `[{range, type: "item"}, {range, type: "separator"}]`
+ * Given the iteration scope, returns a list of "tokens" within that collection
+ * In this context, we define a "token" to be either an item in the collection,
+ * a delimiter or a separator.  For example, if {@link interior} is a range
+ * containing `foo(hello), bar, whatever`, and {@link boundary} consists of
+ * two ranges containing `(` and `)`, then we'd return the following:
+ *
+ * ```json
+ * [
+ *   { range: "(", type: "boundary" },
+ *   { range: "foo(hello)", type: "item" },
+ *   { range: ",", type: "separator" },
+ *   { range: "bar", type: "item" },
+ *   { range: ",", type: "separator" },
+ *   { range: "whatever", type: "item" },
+ *   { range: ")", type: "boundary" },
+ * ]
+ * ```
+ *
+ * Where each `range` isn't actually a string, but a range whose text is the
+ * given string.
  * @param editor The editor containing the range
  * @param interior The range to look for tokens within
  * @param boundary Optional boundaries for collections. [], {}
