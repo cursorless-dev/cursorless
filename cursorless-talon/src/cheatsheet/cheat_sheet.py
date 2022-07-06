@@ -1,5 +1,4 @@
 import math
-import webbrowser
 from typing import Optional
 
 from talon import Module, actions, cron, skia, ui
@@ -301,10 +300,6 @@ class Actions:
         else:
             cheat_sheet = CheatSheet()
             actions.mode.enable("user.cursorless_cheat_sheet")
-
-    def cursorless_open_instructions():
-        """Open web page with cursorless instructions"""
-        webbrowser.open(instructions_url)
 
 
 def get_y(canvas):
