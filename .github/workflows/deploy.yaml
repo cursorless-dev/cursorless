@@ -22,6 +22,12 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn run compile
       - run: yarn run prepare-for-extension-publish
+      - name: Initialize cursorless-nx subdir
+        run: npm install
+        working-directory: cursorless-nx
+      - name: Build cheatsheet html
+        run: nx build cheatsheet-local
+        working-directory: cursorless-nx
       - name: Publish to Open VSX Registry
         uses: HaaLeo/publish-vscode-extension@v1
         id: publishToOpenVSX
