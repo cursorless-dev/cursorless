@@ -186,33 +186,36 @@ const nodeMatchers: Partial<
     "meta_arguments",
     "type_parameters"
   ),
-  collectionKey: ["field_pattern[name]"],
-  name: [
-    "let_declaration.identifier!",
-    "parameter.identifier!",
-    "function_item[name]",
-    "struct_item[name]",
-    "enum_item[name]",
-    "trait_item[name]",
-    "const_item[name]",
-    "meta_item.identifier!",
-    "let_declaration[pattern]",
-    "constrained_type_parameter[left]",
-    "where_predicate[left]",
-    "field_declaration[name]",
-    "field_initializer[name]",
-    "field_pattern[name]",
-  ],
+  collectionKey: cascadingMatcher(
+    patternMatcher("field_pattern[name]"),
+    trailingMatcher(["field_initializer[name]"], [":"])
+  ),
+  name: cascadingMatcher(
+    patternMatcher(
+      "let_declaration.identifier!",
+      "parameter.identifier!",
+      "function_item[name]",
+      "struct_item[name]",
+      "enum_item[name]",
+      "trait_item[name]",
+      "const_item[name]",
+      "meta_item.identifier!",
+      "let_declaration[pattern]",
+      "constrained_type_parameter[left]",
+      "where_predicate[left]",
+      "field_declaration[name]"
+    ),
+    trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"])
+  ),
   class: ["struct_item", "struct_expression", "enum_item"],
   className: ["struct_item[name]", "enum_item[name]", "trait_item[name]"],
   value: cascadingMatcher(
     leadingMatcher(["let_declaration[value]"], ["="]),
-    leadingMatcher(["field_initializer[value]"], [":"]),
-    patternMatcher(
-      "meta_item[value]",
-      "const_item[value]",
-      "field_pattern[pattern]"
+    leadingMatcher(
+      ["field_initializer[value]", "field_pattern[pattern]"],
+      [":"]
     ),
+    patternMatcher("meta_item[value]", "const_item[value]"),
     matcher(returnValueFinder)
   ),
   attribute: trailingMatcher(["mutable_specifier", "attribute_item"]),
