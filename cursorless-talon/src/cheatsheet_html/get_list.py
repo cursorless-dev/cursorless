@@ -31,7 +31,7 @@ def make_dict_readable(type: str, dict, descriptions=None):
 
     return [
         {
-            "identifier": value,
+            "id": value,
             "type": type,
             "spokenForms": [
                 {

@@ -15,7 +15,7 @@ def get_compound_targets():
 
     return [
         {
-            "identifier": "listConnective",
+            "id": "listConnective",
             "type": "compoundTargetConnective",
             "spokenForms": [
                 {
@@ -25,7 +25,7 @@ def get_compound_targets():
             ],
         },
         {
-            "identifier": "rangeInclusive",
+            "id": "rangeInclusive",
             "type": "action",
             "spokenForms": [
                 {

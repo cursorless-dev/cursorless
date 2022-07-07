@@ -40,7 +40,7 @@ def get_actions():
             },
         ),
         {
-            "identifier": "replaceWithTarget",
+            "id": "replaceWithTarget",
             "type": "action",
             "spokenForms": [
                 {
@@ -54,7 +54,7 @@ def get_actions():
             ],
         },
         {
-            "identifier": "moveToTarget",
+            "id": "moveToTarget",
             "type": "action",
             "spokenForms": [
                 {
@@ -68,7 +68,7 @@ def get_actions():
             ],
         },
         {
-            "identifier": "swapTargets",
+            "id": "swapTargets",
             "type": "action",
             "spokenForms": [
                 {
@@ -82,7 +82,7 @@ def get_actions():
             ],
         },
         {
-            "identifier": "applyFormatter",
+            "id": "applyFormatter",
             "type": "action",
             "spokenForms": [
                 {
@@ -92,7 +92,7 @@ def get_actions():
             ],
         },
         {
-            "identifier": "wrapWithPairedDelimiter",
+            "id": "wrapWithPairedDelimiter",
             "type": "action",
             "spokenForms": [
                 {
@@ -102,7 +102,7 @@ def get_actions():
             ],
         },
         {
-            "identifier": "rewrap",
+            "id": "rewrap",
             "type": "action",
             "spokenForms": [
                 {

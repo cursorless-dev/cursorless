@@ -7,7 +7,7 @@ export interface CheatsheetSection {
   name: string;
   id: string;
   items: {
-    identifier: string;
+    id: string;
     type: string;
     spokenForms: SpokenForm[];
   }[];

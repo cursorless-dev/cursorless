@@ -5,7 +5,7 @@
 			"id": "actions",
 			"items": [
 				{
-					"identifier": "scrollToBottom",
+					"id": "scrollToBottom",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -15,7 +15,7 @@
 					]
 				},
 				{
-					"identifier": "toggleLineBreakpoint",
+					"id": "toggleLineBreakpoint",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -25,7 +25,7 @@
 					]
 				},
 				{
-					"identifier": "cutToClipboard",
+					"id": "cutToClipboard",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -35,7 +35,7 @@
 					]
 				},
 				{
-					"identifier": "scrollToCenter",
+					"id": "scrollToCenter",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -45,7 +45,7 @@
 					]
 				},
 				{
-					"identifier": "remove",
+					"id": "remove",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -55,7 +55,7 @@
 					]
 				},
 				{
-					"identifier": "clearAndSetSelection",
+					"id": "clearAndSetSelection",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -65,7 +65,7 @@
 					]
 				},
 				{
-					"identifier": "insertCopyBefore",
+					"id": "insertCopyBefore",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -75,7 +75,7 @@
 					]
 				},
 				{
-					"identifier": "insertCopyAfter",
+					"id": "insertCopyAfter",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -85,7 +85,7 @@
 					]
 				},
 				{
-					"identifier": "toggleLineComment",
+					"id": "toggleLineComment",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -95,7 +95,7 @@
 					]
 				},
 				{
-					"identifier": "copyToClipboard",
+					"id": "copyToClipboard",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -105,7 +105,7 @@
 					]
 				},
 				{
-					"identifier": "scrollToTop",
+					"id": "scrollToTop",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -115,7 +115,7 @@
 					]
 				},
 				{
-					"identifier": "outdentLine",
+					"id": "outdentLine",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -125,7 +125,7 @@
 					]
 				},
 				{
-					"identifier": "editNewLineBefore",
+					"id": "editNewLineBefore",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -135,7 +135,7 @@
 					]
 				},
 				{
-					"identifier": "insertEmptyLineBefore",
+					"id": "insertEmptyLineBefore",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -145,7 +145,7 @@
 					]
 				},
 				{
-					"identifier": "extractVariable",
+					"id": "extractVariable",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -155,7 +155,7 @@
 					]
 				},
 				{
-					"identifier": "insertEmptyLineAfter",
+					"id": "insertEmptyLineAfter",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -165,7 +165,7 @@
 					]
 				},
 				{
-					"identifier": "foldRegion",
+					"id": "foldRegion",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -175,7 +175,7 @@
 					]
 				},
 				{
-					"identifier": "followLink",
+					"id": "followLink",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -185,7 +185,7 @@
 					]
 				},
 				{
-					"identifier": "deselect",
+					"id": "deselect",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -195,7 +195,7 @@
 					]
 				},
 				{
-					"identifier": "highlight",
+					"id": "highlight",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -205,7 +205,7 @@
 					]
 				},
 				{
-					"identifier": "indentLine",
+					"id": "indentLine",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -215,7 +215,7 @@
 					]
 				},
 				{
-					"identifier": "setSelectionAfter",
+					"id": "setSelectionAfter",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -225,7 +225,7 @@
 					]
 				},
 				{
-					"identifier": "editNewLineAfter",
+					"id": "editNewLineAfter",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -235,7 +235,7 @@
 					]
 				},
 				{
-					"identifier": "setSelectionBefore",
+					"id": "setSelectionBefore",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -245,7 +245,7 @@
 					]
 				},
 				{
-					"identifier": "insertEmptyLinesAround",
+					"id": "insertEmptyLinesAround",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -255,7 +255,7 @@
 					]
 				},
 				{
-					"identifier": "randomizeTargets",
+					"id": "randomizeTargets",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -265,7 +265,7 @@
 					]
 				},
 				{
-					"identifier": "reverseTargets",
+					"id": "reverseTargets",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -275,7 +275,7 @@
 					]
 				},
 				{
-					"identifier": "findInWorkspace",
+					"id": "findInWorkspace",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -285,7 +285,7 @@
 					]
 				},
 				{
-					"identifier": "generateSnippet",
+					"id": "generateSnippet",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -295,7 +295,7 @@
 					]
 				},
 				{
-					"identifier": "sortTargets",
+					"id": "sortTargets",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -305,7 +305,7 @@
 					]
 				},
 				{
-					"identifier": "setSelection",
+					"id": "setSelection",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -315,7 +315,7 @@
 					]
 				},
 				{
-					"identifier": "unfoldRegion",
+					"id": "unfoldRegion",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -325,7 +325,7 @@
 					]
 				},
 				{
-					"identifier": "pasteFromClipboard",
+					"id": "pasteFromClipboard",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -335,7 +335,7 @@
 					]
 				},
 				{
-					"identifier": "callAsFunction",
+					"id": "callAsFunction",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -345,7 +345,7 @@
 					]
 				},
 				{
-					"identifier": "findInDocument",
+					"id": "findInDocument",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -355,7 +355,7 @@
 					]
 				},
 				{
-					"identifier": "nextHomophone",
+					"id": "nextHomophone",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -365,7 +365,7 @@
 					]
 				},
 				{
-					"identifier": "revealDefinition",
+					"id": "revealDefinition",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -375,7 +375,7 @@
 					]
 				},
 				{
-					"identifier": "revealTypeDefinition",
+					"id": "revealTypeDefinition",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -385,7 +385,7 @@
 					]
 				},
 				{
-					"identifier": "showHover",
+					"id": "showHover",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -395,7 +395,7 @@
 					]
 				},
 				{
-					"identifier": "showDebugHover",
+					"id": "showDebugHover",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -405,7 +405,7 @@
 					]
 				},
 				{
-					"identifier": "showQuickFix",
+					"id": "showQuickFix",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -415,7 +415,7 @@
 					]
 				},
 				{
-					"identifier": "showReferences",
+					"id": "showReferences",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -425,7 +425,7 @@
 					]
 				},
 				{
-					"identifier": "rename",
+					"id": "rename",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -435,7 +435,7 @@
 					]
 				},
 				{
-					"identifier": "insertSnippet",
+					"id": "insertSnippet",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -445,7 +445,7 @@
 					]
 				},
 				{
-					"identifier": "replaceWithTarget",
+					"id": "replaceWithTarget",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -459,7 +459,7 @@
 					]
 				},
 				{
-					"identifier": "moveToTarget",
+					"id": "moveToTarget",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -473,7 +473,7 @@
 					]
 				},
 				{
-					"identifier": "swapTargets",
+					"id": "swapTargets",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -487,7 +487,7 @@
 					]
 				},
 				{
-					"identifier": "applyFormatter",
+					"id": "applyFormatter",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -497,7 +497,7 @@
 					]
 				},
 				{
-					"identifier": "wrapWithPairedDelimiter",
+					"id": "wrapWithPairedDelimiter",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -507,7 +507,7 @@
 					]
 				},
 				{
-					"identifier": "rewrap",
+					"id": "rewrap",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -523,7 +523,7 @@
 			"id": "scopes",
 			"items": [
 				{
-					"identifier": "argumentOrParameter",
+					"id": "argumentOrParameter",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -533,7 +533,7 @@
 					]
 				},
 				{
-					"identifier": "attribute",
+					"id": "attribute",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -543,7 +543,7 @@
 					]
 				},
 				{
-					"identifier": "functionCall",
+					"id": "functionCall",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -553,7 +553,7 @@
 					]
 				},
 				{
-					"identifier": "functionCallee",
+					"id": "functionCallee",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -563,7 +563,7 @@
 					]
 				},
 				{
-					"identifier": "className",
+					"id": "className",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -573,7 +573,7 @@
 					]
 				},
 				{
-					"identifier": "class",
+					"id": "class",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -583,7 +583,7 @@
 					]
 				},
 				{
-					"identifier": "comment",
+					"id": "comment",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -593,7 +593,7 @@
 					]
 				},
 				{
-					"identifier": "functionName",
+					"id": "functionName",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -603,7 +603,7 @@
 					]
 				},
 				{
-					"identifier": "namedFunction",
+					"id": "namedFunction",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -613,7 +613,7 @@
 					]
 				},
 				{
-					"identifier": "ifStatement",
+					"id": "ifStatement",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -623,7 +623,7 @@
 					]
 				},
 				{
-					"identifier": "collectionItem",
+					"id": "collectionItem",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -633,7 +633,7 @@
 					]
 				},
 				{
-					"identifier": "collectionKey",
+					"id": "collectionKey",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -643,7 +643,7 @@
 					]
 				},
 				{
-					"identifier": "anonymousFunction",
+					"id": "anonymousFunction",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -653,7 +653,7 @@
 					]
 				},
 				{
-					"identifier": "list",
+					"id": "list",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -663,7 +663,7 @@
 					]
 				},
 				{
-					"identifier": "map",
+					"id": "map",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -673,7 +673,7 @@
 					]
 				},
 				{
-					"identifier": "name",
+					"id": "name",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -683,7 +683,7 @@
 					]
 				},
 				{
-					"identifier": "regularExpression",
+					"id": "regularExpression",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -693,7 +693,7 @@
 					]
 				},
 				{
-					"identifier": "section",
+					"id": "section",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -703,7 +703,7 @@
 					]
 				},
 				{
-					"identifier": "selector",
+					"id": "selector",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -713,7 +713,7 @@
 					]
 				},
 				{
-					"identifier": "statement",
+					"id": "statement",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -723,7 +723,7 @@
 					]
 				},
 				{
-					"identifier": "type",
+					"id": "type",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -733,7 +733,7 @@
 					]
 				},
 				{
-					"identifier": "value",
+					"id": "value",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -743,7 +743,7 @@
 					]
 				},
 				{
-					"identifier": "condition",
+					"id": "condition",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -753,7 +753,7 @@
 					]
 				},
 				{
-					"identifier": "xmlElement",
+					"id": "xmlElement",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -763,7 +763,7 @@
 					]
 				},
 				{
-					"identifier": "xmlBothTags",
+					"id": "xmlBothTags",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -773,7 +773,7 @@
 					]
 				},
 				{
-					"identifier": "xmlStartTag",
+					"id": "xmlStartTag",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -783,7 +783,7 @@
 					]
 				},
 				{
-					"identifier": "xmlEndTag",
+					"id": "xmlEndTag",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -793,7 +793,7 @@
 					]
 				},
 				{
-					"identifier": "paragraph",
+					"id": "paragraph",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -803,7 +803,7 @@
 					]
 				},
 				{
-					"identifier": "notebookCell",
+					"id": "notebookCell",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -813,7 +813,7 @@
 					]
 				},
 				{
-					"identifier": "document",
+					"id": "document",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -823,7 +823,7 @@
 					]
 				},
 				{
-					"identifier": "line",
+					"id": "line",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -833,7 +833,7 @@
 					]
 				},
 				{
-					"identifier": "nonWhitespaceSequence",
+					"id": "nonWhitespaceSequence",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -843,7 +843,7 @@
 					]
 				},
 				{
-					"identifier": "boundedNonWhitespaceSequence",
+					"id": "boundedNonWhitespaceSequence",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -853,7 +853,7 @@
 					]
 				},
 				{
-					"identifier": "url",
+					"id": "url",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -863,7 +863,7 @@
 					]
 				},
 				{
-					"identifier": "token",
+					"id": "token",
 					"type": "scope_type",
 					"spokenForms": [
 						{
@@ -873,7 +873,7 @@
 					]
 				},
 				{
-					"identifier": "word",
+					"id": "word",
 					"type": "subtoken_scope_type",
 					"spokenForms": [
 						{
@@ -883,7 +883,7 @@
 					]
 				},
 				{
-					"identifier": "character",
+					"id": "character",
 					"type": "subtoken_scope_type",
 					"spokenForms": [
 						{
@@ -899,7 +899,7 @@
 			"id": "paired-delimiters",
 			"items": [
 				{
-					"identifier": "whitespace",
+					"id": "whitespace",
 					"type": "wrapper_only_paired_delimiter",
 					"spokenForms": [
 						{
@@ -909,7 +909,7 @@
 					]
 				},
 				{
-					"identifier": "curlyBrackets",
+					"id": "curlyBrackets",
 					"type": "wrapper_selectable_paired_delimiter",
 					"spokenForms": [
 						{
@@ -919,7 +919,7 @@
 					]
 				},
 				{
-					"identifier": "angleBrackets",
+					"id": "angleBrackets",
 					"type": "wrapper_selectable_paired_delimiter",
 					"spokenForms": [
 						{
@@ -929,7 +929,7 @@
 					]
 				},
 				{
-					"identifier": "escapedDoubleQuotes",
+					"id": "escapedDoubleQuotes",
 					"type": "wrapper_selectable_paired_delimiter",
 					"spokenForms": [
 						{
@@ -939,7 +939,7 @@
 					]
 				},
 				{
-					"identifier": "escapedSingleQuotes",
+					"id": "escapedSingleQuotes",
 					"type": "wrapper_selectable_paired_delimiter",
 					"spokenForms": [
 						{
@@ -949,7 +949,7 @@
 					]
 				},
 				{
-					"identifier": "escapedParentheses",
+					"id": "escapedParentheses",
 					"type": "wrapper_selectable_paired_delimiter",
 					"spokenForms": [
 						{
@@ -959,7 +959,7 @@
 					]
 				},
 				{
-					"identifier": "escapedSquareBrackets",
+					"id": "escapedSquareBrackets",
 					"type": "wrapper_selectable_paired_delimiter",
 					"spokenForms": [
 						{
@@ -969,7 +969,7 @@
 					]
 				},
 				{
-					"identifier": "doubleQuotes",
+					"id": "doubleQuotes",
 					"type": "wrapper_selectable_paired_delimiter",
 					"spokenForms": [
 						{
@@ -979,7 +979,7 @@
 					]
 				},
 				{
-					"identifier": "parentheses",
+					"id": "parentheses",
 					"type": "wrapper_selectable_paired_delimiter",
 					"spokenForms": [
 						{
@@ -989,7 +989,7 @@
 					]
 				},
 				{
-					"identifier": "backtickQuotes",
+					"id": "backtickQuotes",
 					"type": "wrapper_selectable_paired_delimiter",
 					"spokenForms": [
 						{
@@ -999,7 +999,7 @@
 					]
 				},
 				{
-					"identifier": "squareBrackets",
+					"id": "squareBrackets",
 					"type": "wrapper_selectable_paired_delimiter",
 					"spokenForms": [
 						{
@@ -1009,7 +1009,7 @@
 					]
 				},
 				{
-					"identifier": "singleQuotes",
+					"id": "singleQuotes",
 					"type": "wrapper_selectable_paired_delimiter",
 					"spokenForms": [
 						{
@@ -1019,7 +1019,7 @@
 					]
 				},
 				{
-					"identifier": "any",
+					"id": "any",
 					"type": "selectable_only_paired_delimiter",
 					"spokenForms": [
 						{
@@ -1035,7 +1035,7 @@
 			"id": "special-marks",
 			"items": [
 				{
-					"identifier": "currentSelection",
+					"id": "currentSelection",
 					"type": "special_mark",
 					"spokenForms": [
 						{
@@ -1045,7 +1045,7 @@
 					]
 				},
 				{
-					"identifier": "previousTarget",
+					"id": "previousTarget",
 					"type": "special_mark",
 					"spokenForms": [
 						{
@@ -1055,7 +1055,7 @@
 					]
 				},
 				{
-					"identifier": "previousSource",
+					"id": "previousSource",
 					"type": "special_mark",
 					"spokenForms": [
 						{
@@ -1065,7 +1065,7 @@
 					]
 				},
 				{
-					"identifier": "nothing",
+					"id": "nothing",
 					"type": "special_mark",
 					"spokenForms": [
 						{
@@ -1081,7 +1081,7 @@
 			"id": "positions",
 			"items": [
 				{
-					"identifier": "start",
+					"id": "start",
 					"type": "position",
 					"spokenForms": [
 						{
@@ -1091,7 +1091,7 @@
 					]
 				},
 				{
-					"identifier": "end",
+					"id": "end",
 					"type": "position",
 					"spokenForms": [
 						{
@@ -1101,7 +1101,7 @@
 					]
 				},
 				{
-					"identifier": "before",
+					"id": "before",
 					"type": "position",
 					"spokenForms": [
 						{
@@ -1111,7 +1111,7 @@
 					]
 				},
 				{
-					"identifier": "after",
+					"id": "after",
 					"type": "position",
 					"spokenForms": [
 						{
@@ -1127,7 +1127,7 @@
 			"id": "compound-targets",
 			"items": [
 				{
-					"identifier": "listConnective",
+					"id": "listConnective",
 					"type": "compoundTargetConnective",
 					"spokenForms": [
 						{
@@ -1137,7 +1137,7 @@
 					]
 				},
 				{
-					"identifier": "rangeInclusive",
+					"id": "rangeInclusive",
 					"type": "action",
 					"spokenForms": [
 						{
@@ -1157,7 +1157,7 @@
 			"id": "colors",
 			"items": [
 				{
-					"identifier": "blue",
+					"id": "blue",
 					"type": "hat_color",
 					"spokenForms": [
 						{
@@ -1167,7 +1167,7 @@
 					]
 				},
 				{
-					"identifier": "red",
+					"id": "red",
 					"type": "hat_color",
 					"spokenForms": [
 						{
@@ -1177,7 +1177,7 @@
 					]
 				},
 				{
-					"identifier": "yellow",
+					"id": "yellow",
 					"type": "hat_color",
 					"spokenForms": [
 						{
@@ -1193,7 +1193,7 @@
 			"id": "shapes",
 			"items": [
 				{
-					"identifier": "ex",
+					"id": "ex",
 					"type": "hat_shape",
 					"spokenForms": [
 						{
@@ -1203,7 +1203,7 @@
 					]
 				},
 				{
-					"identifier": "fox",
+					"id": "fox",
 					"type": "hat_shape",
 					"spokenForms": [
 						{
@@ -1213,7 +1213,7 @@
 					]
 				},
 				{
-					"identifier": "frame",
+					"id": "frame",
 					"type": "hat_shape",
 					"spokenForms": [
 						{
@@ -1223,7 +1223,7 @@
 					]
 				},
 				{
-					"identifier": "curve",
+					"id": "curve",
 					"type": "hat_shape",
 					"spokenForms": [
 						{
@@ -1233,7 +1233,7 @@
 					]
 				},
 				{
-					"identifier": "eye",
+					"id": "eye",
 					"type": "hat_shape",
 					"spokenForms": [
 						{
@@ -1243,7 +1243,7 @@
 					]
 				},
 				{
-					"identifier": "play",
+					"id": "play",
 					"type": "hat_shape",
 					"spokenForms": [
 						{
@@ -1253,7 +1253,7 @@
 					]
 				},
 				{
-					"identifier": "crosshairs",
+					"id": "crosshairs",
 					"type": "hat_shape",
 					"spokenForms": [
 						{
@@ -1263,7 +1263,7 @@
 					]
 				},
 				{
-					"identifier": "bolt",
+					"id": "bolt",
 					"type": "hat_shape",
 					"spokenForms": [
 						{
