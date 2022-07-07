@@ -23,7 +23,7 @@ jobs:
       - run: yarn run compile
       - run: yarn run prepare-for-extension-publish
       - name: Initialize cursorless-nx subdir
-        run: npm install
+        run: npm ci
         working-directory: cursorless-nx
       - name: Build cheatsheet html
         run: nx build cheatsheet-local
