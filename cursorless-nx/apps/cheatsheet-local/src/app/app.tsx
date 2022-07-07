@@ -13,7 +13,7 @@ import { environment } from '../environments/environment';
  */
 const cheatsheetData: CheatsheetInfo = environment.production
   ? (document as unknown as { cheatsheetData: CheatsheetInfo }).cheatsheetData
-  : require('libs/cheatsheet/src/lib/data/cheatsheet/defaults.json');
+  : require('libs/cheatsheet/src/lib/data/sampleSpokenFormInfos/defaults.json');
 
 export function App() {
   return <CheatsheetPage cheatsheetInfo={cheatsheetData} />;

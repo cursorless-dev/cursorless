@@ -111,7 +111,7 @@ export default class Cheatsheet {
       "src",
       "lib",
       "data",
-      "cheatsheet",
+      "sampleSpokenFormInfos",
       "defaults.json"
     );
 
