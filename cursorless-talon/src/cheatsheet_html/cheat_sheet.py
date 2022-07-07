@@ -22,8 +22,11 @@ class Actions:
         cheatsheet_out_path = cheatsheet_out_dir / "cheatsheet.html"
         actions.user.vscode_with_plugin_and_wait(
             "cursorless.showCheatsheet",
-            actions.user.cursorless_cheat_sheet_get_json(),
-            str(cheatsheet_out_path),
+            {
+                "version": 0,
+                "spokenFormInfo": actions.user.cursorless_cheat_sheet_get_json(),
+                "outputPath": str(cheatsheet_out_path),
+            },
         )
         webbrowser.open(cheatsheet_out_path.as_uri())
 
@@ -43,39 +46,40 @@ class Actions:
                 },
                 {
                     "name": "Paired delimiters",
-                    "id": "paired-delimiters",
+                    "id": "pairedDelimiters",
                     "items": get_lists(
                         [
                             "wrapper_only_paired_delimiter",
                             "wrapper_selectable_paired_delimiter",
                             "selectable_only_paired_delimiter",
-                        ]
+                        ],
+                        "pairedDelimiter",
                     ),
                 },
                 {
                     "name": "Special marks",
-                    "id": "special-marks",
-                    "items": get_list("special_mark"),
+                    "id": "specialMarks",
+                    "items": get_list("special_mark", "mark"),
                 },
                 {
                     "name": "Positions",
                     "id": "positions",
-                    "items": get_list("position"),
+                    "items": get_list("position", "position"),
                 },
                 {
                     "name": "Compound targets",
-                    "id": "compound-targets",
+                    "id": "compoundTargets",
                     "items": get_compound_targets(),
                 },
                 {
                     "name": "Colors",
                     "id": "colors",
-                    "items": get_list("hat_color"),
+                    "items": get_list("hat_color", "hatColor"),
                 },
                 {
                     "name": "Shapes",
                     "id": "shapes",
-                    "items": get_list("hat_shape"),
+                    "items": get_list("hat_shape", "hatShape"),
                 },
             ]
         }

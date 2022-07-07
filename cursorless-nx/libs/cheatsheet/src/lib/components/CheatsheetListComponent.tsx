@@ -11,15 +11,10 @@ export default function CheatsheetListComponent({
 }: Props): JSX.Element {
   const isHighlighted = useIsHighlighted(section.id);
 
-  const spokenForms = section.items.flatMap((item) =>
-    item.spokenForms.map((spokenForm) => ({
-      item,
-      spokenForm,
-    }))
-  );
+  const variations = section.items.flatMap((item) => item.variations);
 
-  spokenForms.sort((form1, form2) =>
-    form1.spokenForm.spokenForm.localeCompare(form2.spokenForm.spokenForm)
+  variations.sort((form1, form2) =>
+    form1.spokenForm.localeCompare(form2.spokenForm)
   );
 
   const borderClassName = isHighlighted
@@ -42,19 +37,17 @@ export default function CheatsheetListComponent({
           </tr>
         </thead>
         <tbody>
-          {spokenForms.map(({ item, spokenForm }) => (
+          {variations.map(({ spokenForm, description }) => (
             <tr
-              key={spokenForm.spokenForm}
+              key={spokenForm}
               className="odd:bg-stone-200 dark:odd:bg-stone-600"
             >
               <td className="px-1">
                 <span className="text-stone-400">&#8220;</span>
-                {spokenForm.spokenForm}
+                {spokenForm}
                 <span className="text-stone-400">&#8221;</span>
               </td>
-              <td className="border-l border-stone-400 px-1">
-                {spokenForm.description}
-              </td>
+              <td className="border-l border-stone-400 px-1">{description}</td>
             </tr>
           ))}
         </tbody>

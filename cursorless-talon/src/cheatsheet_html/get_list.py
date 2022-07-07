@@ -5,19 +5,19 @@ from talon import registry
 from ..conventions import get_cursorless_list_name
 
 
-def get_list(name, descriptions=None):
+def get_list(name, type, descriptions=None):
     if descriptions is None:
         descriptions = {}
 
     items = get_raw_list(name)
     item_dict = items if isinstance(items, dict) else {item: item for item in items}
 
-    return make_dict_readable(name, item_dict, descriptions)
+    return make_dict_readable(type, item_dict, descriptions)
 
 
-def get_lists(names: list[str], descriptions=None):
+def get_lists(names: list[str], type: str, descriptions=None):
 
-    return [item for name in names for item in get_list(name, descriptions)]
+    return [item for name in names for item in get_list(name, type, descriptions)]
 
 
 def get_raw_list(name):
@@ -33,7 +33,7 @@ def make_dict_readable(type: str, dict, descriptions=None):
         {
             "id": value,
             "type": type,
-            "spokenForms": [
+            "variations": [
                 {
                     "spokenForm": key,
                     "description": descriptions.get(value, make_readable(value)),

@@ -17,7 +17,7 @@ def get_compound_targets():
         {
             "id": "listConnective",
             "type": "compoundTargetConnective",
-            "spokenForms": [
+            "variations": [
                 {
                     "spokenForm": f"<T1> {list_connective_term} <T2>",
                     "description": "T1 and T2",
@@ -27,7 +27,7 @@ def get_compound_targets():
         {
             "id": "rangeInclusive",
             "type": "action",
-            "spokenForms": [
+            "variations": [
                 {
                     "spokenForm": f"<T1> {include_both_term} <T2>",
                     "description": "T1 through T2",

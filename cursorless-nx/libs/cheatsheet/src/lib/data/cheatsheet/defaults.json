@@ -7,7 +7,7 @@
 				{
 					"id": "scrollToBottom",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "bottom <T>",
 							"description": "Scroll to bottom"
@@ -17,7 +17,7 @@
 				{
 					"id": "toggleLineBreakpoint",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "break point <T>",
 							"description": "Toggle line breakpoint"
@@ -27,7 +27,7 @@
 				{
 					"id": "cutToClipboard",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "carve <T>",
 							"description": "Cut to clipboard"
@@ -37,7 +37,7 @@
 				{
 					"id": "scrollToCenter",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "center <T>",
 							"description": "Scroll to center"
@@ -47,7 +47,7 @@
 				{
 					"id": "remove",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "chuck <T>",
 							"description": "Remove"
@@ -57,9 +57,9 @@
 				{
 					"id": "clearAndSetSelection",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
-							"spokenForm": "change <T>",
+							"spokenForm": "clear <T>",
 							"description": "Clear and set selection"
 						}
 					]
@@ -67,7 +67,7 @@
 				{
 					"id": "insertCopyBefore",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "clone up <T>",
 							"description": "Insert copy before"
@@ -77,7 +77,7 @@
 				{
 					"id": "insertCopyAfter",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "clone <T>",
 							"description": "Insert copy after"
@@ -87,7 +87,7 @@
 				{
 					"id": "toggleLineComment",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "comment <T>",
 							"description": "Toggle line comment"
@@ -97,7 +97,7 @@
 				{
 					"id": "copyToClipboard",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "copy <T>",
 							"description": "Copy to clipboard"
@@ -107,7 +107,7 @@
 				{
 					"id": "scrollToTop",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "crown <T>",
 							"description": "Scroll to top"
@@ -117,7 +117,7 @@
 				{
 					"id": "outdentLine",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "dedent <T>",
 							"description": "Outdent line"
@@ -127,7 +127,7 @@
 				{
 					"id": "editNewLineBefore",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "drink <T>",
 							"description": "Edit new line before"
@@ -137,9 +137,9 @@
 				{
 					"id": "insertEmptyLineBefore",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
-							"spokenForm": "drop <T>",
+							"spokenForm": "spike <T>",
 							"description": "Insert empty line before"
 						}
 					]
@@ -147,7 +147,7 @@
 				{
 					"id": "extractVariable",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "extract <T>",
 							"description": "Extract variable"
@@ -157,7 +157,7 @@
 				{
 					"id": "insertEmptyLineAfter",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "float <T>",
 							"description": "Insert empty line after"
@@ -167,7 +167,7 @@
 				{
 					"id": "foldRegion",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "fold <T>",
 							"description": "Fold region"
@@ -177,9 +177,9 @@
 				{
 					"id": "followLink",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
-							"spokenForm": "follow <T>",
+							"spokenForm": "falling <T>",
 							"description": "Follow link"
 						}
 					]
@@ -187,7 +187,7 @@
 				{
 					"id": "deselect",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "give <T>",
 							"description": "Deselect"
@@ -197,7 +197,7 @@
 				{
 					"id": "highlight",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "highlight <T>",
 							"description": "Highlight"
@@ -207,7 +207,7 @@
 				{
 					"id": "indentLine",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "indent <T>",
 							"description": "Indent line"
@@ -217,7 +217,7 @@
 				{
 					"id": "setSelectionAfter",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "post <T>",
 							"description": "Set selection after"
@@ -227,7 +227,7 @@
 				{
 					"id": "editNewLineAfter",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "pour <T>",
 							"description": "Edit new line after"
@@ -237,7 +237,7 @@
 				{
 					"id": "setSelectionBefore",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "pre <T>",
 							"description": "Set selection before"
@@ -247,7 +247,7 @@
 				{
 					"id": "insertEmptyLinesAround",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "puff <T>",
 							"description": "Insert empty lines around"
@@ -257,7 +257,7 @@
 				{
 					"id": "randomizeTargets",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "shuffle <T>",
 							"description": "Randomize targets"
@@ -267,7 +267,7 @@
 				{
 					"id": "reverseTargets",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "reverse <T>",
 							"description": "Reverse targets"
@@ -277,7 +277,7 @@
 				{
 					"id": "findInWorkspace",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "scout all <T>",
 							"description": "Find in workspace"
@@ -287,9 +287,9 @@
 				{
 					"id": "generateSnippet",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
-							"spokenForm": "snippet make <T>",
+							"spokenForm": "snip make <T>",
 							"description": "Generate snippet"
 						}
 					]
@@ -297,7 +297,7 @@
 				{
 					"id": "sortTargets",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "sort <T>",
 							"description": "Sort targets"
@@ -307,7 +307,7 @@
 				{
 					"id": "setSelection",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "take <T>",
 							"description": "Set selection"
@@ -317,7 +317,7 @@
 				{
 					"id": "unfoldRegion",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "unfold <T>",
 							"description": "Unfold region"
@@ -327,7 +327,7 @@
 				{
 					"id": "pasteFromClipboard",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "paste <T>",
 							"description": "Paste from clipboard"
@@ -337,9 +337,9 @@
 				{
 					"id": "callAsFunction",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
-							"spokenForm": "call <T>",
+							"spokenForm": "apply <T>",
 							"description": "Call T on S"
 						}
 					]
@@ -347,7 +347,7 @@
 				{
 					"id": "findInDocument",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "scout <T>",
 							"description": "Find in document"
@@ -357,7 +357,7 @@
 				{
 					"id": "nextHomophone",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "phones <T>",
 							"description": "Next homophone"
@@ -365,19 +365,9 @@
 					]
 				},
 				{
-					"id": "revealDefinition",
-					"type": "action",
-					"spokenForms": [
-						{
-							"spokenForm": "define <T>",
-							"description": "Reveal definition"
-						}
-					]
-				},
-				{
 					"id": "revealTypeDefinition",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "type deaf <T>",
 							"description": "Reveal type definition"
@@ -387,7 +377,7 @@
 				{
 					"id": "showHover",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "hover <T>",
 							"description": "Show hover"
@@ -397,7 +387,7 @@
 				{
 					"id": "showDebugHover",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "inspect <T>",
 							"description": "Show debug hover"
@@ -407,7 +397,7 @@
 				{
 					"id": "showQuickFix",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "quick fix <T>",
 							"description": "Show quick fix"
@@ -417,7 +407,7 @@
 				{
 					"id": "showReferences",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "reference <T>",
 							"description": "Show references"
@@ -427,7 +417,7 @@
 				{
 					"id": "rename",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "rename <T>",
 							"description": "Rename"
@@ -435,11 +425,151 @@
 					]
 				},
 				{
+					"id": "editor.action.joinLines",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "join <T>",
+							"description": "Editor action join lines"
+						}
+					]
+				},
+				{
+					"id": "editor.emmet.action.incrementNumberByOne",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "increment <T>",
+							"description": "Editor emmet action increment number by one"
+						}
+					]
+				},
+				{
+					"id": "editor.emmet.action.decrementNumberByOne",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "decrement <T>",
+							"description": "Editor emmet action decrement number by one"
+						}
+					]
+				},
+				{
+					"id": "editor.action.openLink",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "open <T>",
+							"description": "Editor action open link"
+						}
+					]
+				},
+				{
+					"id": "gitlens.openFileOnRemote",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "open link to <T>",
+							"description": "Gitlens open file on remote"
+						}
+					]
+				},
+				{
+					"id": "gitlens.copyRemoteFileUrlToClipboard",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "copy link to <T>",
+							"description": "Gitlens copy remote file url to clipboard"
+						}
+					]
+				},
+				{
+					"id": "issue.copyMarkdownGithubPermalink",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "copy markdown link to <T>",
+							"description": "Issue copy markdown github permalink"
+						}
+					]
+				},
+				{
+					"id": "merge-conflict.accept.selection",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "accept <T>",
+							"description": "Merge-conflict accept selection"
+						}
+					]
+				},
+				{
+					"id": "merge-conflict.accept.both",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "accept both <T>",
+							"description": "Merge-conflict accept both"
+						}
+					]
+				},
+				{
+					"id": "editor.emmet.action.updateTag",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "retag <T>",
+							"description": "Editor emmet action update tag"
+						}
+					]
+				},
+				{
+					"id": "git.revertSelectedRanges",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "git revert <T>",
+							"description": "Git revert selected ranges"
+						}
+					]
+				},
+				{
+					"id": "git.stageSelectedRanges",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "git stage <T>",
+							"description": "Git stage selected ranges"
+						}
+					]
+				},
+				{
+					"id": "workbench.action.addComment",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "add comment to <T>",
+							"description": "Workbench action add comment"
+						}
+					]
+				},
+				{
+					"id": "rewrap.rewrapComment",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "reflow <T>",
+							"description": "Rewrap rewrap comment"
+						}
+					]
+				},
+				{
 					"id": "insertSnippet",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
-							"spokenForm": "snippet <T>",
+							"spokenForm": "snip <T>",
 							"description": "Insert snippet"
 						}
 					]
@@ -447,7 +577,7 @@
 				{
 					"id": "replaceWithTarget",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "bring <T1> to <T2>",
 							"description": "Replace T2 with T1"
@@ -461,7 +591,7 @@
 				{
 					"id": "moveToTarget",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "move <T1> to <T2>",
 							"description": "Move T1 to T2"
@@ -475,7 +605,7 @@
 				{
 					"id": "swapTargets",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "swap <T1> with <T2>",
 							"description": "Swap T1 with T2"
@@ -489,9 +619,9 @@
 				{
 					"id": "applyFormatter",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
-							"spokenForm": "format <F> at <T>",
+							"spokenForm": "form <F> at <T>",
 							"description": "Reformat T as F"
 						}
 					]
@@ -499,7 +629,7 @@
 				{
 					"id": "wrapWithPairedDelimiter",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "<P> wrap <T>",
 							"description": "Wrap T with P"
@@ -509,9 +639,9 @@
 				{
 					"id": "rewrap",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
-							"spokenForm": "<P> repack <T>",
+							"spokenForm": "<P> switch <T>",
 							"description": "Rewrap T with P"
 						}
 					]
@@ -524,28 +654,28 @@
 			"items": [
 				{
 					"id": "argumentOrParameter",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
-							"spokenForm": "arg",
+							"spokenForm": "argue",
 							"description": "Argument"
 						}
 					]
 				},
 				{
 					"id": "attribute",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
-							"spokenForm": "attribute",
+							"spokenForm": "at her",
 							"description": "Attribute"
 						}
 					]
 				},
 				{
 					"id": "functionCall",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "call",
 							"description": "Function call"
@@ -554,8 +684,8 @@
 				},
 				{
 					"id": "functionCallee",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "callee",
 							"description": "Function callee"
@@ -564,8 +694,8 @@
 				},
 				{
 					"id": "className",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "class name",
 							"description": "Class name"
@@ -574,8 +704,8 @@
 				},
 				{
 					"id": "class",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "class",
 							"description": "Class"
@@ -584,8 +714,8 @@
 				},
 				{
 					"id": "comment",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "comment",
 							"description": "Comment"
@@ -594,8 +724,8 @@
 				},
 				{
 					"id": "functionName",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "funk name",
 							"description": "Function name"
@@ -604,8 +734,8 @@
 				},
 				{
 					"id": "namedFunction",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "funk",
 							"description": "Named function"
@@ -614,8 +744,8 @@
 				},
 				{
 					"id": "ifStatement",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "if state",
 							"description": "If statement"
@@ -624,8 +754,8 @@
 				},
 				{
 					"id": "collectionItem",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "item",
 							"description": "Collection item"
@@ -634,8 +764,8 @@
 				},
 				{
 					"id": "collectionKey",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "key",
 							"description": "Collection key"
@@ -644,8 +774,8 @@
 				},
 				{
 					"id": "anonymousFunction",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "lambda",
 							"description": "Anonymous function"
@@ -654,8 +784,8 @@
 				},
 				{
 					"id": "list",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "list",
 							"description": "List"
@@ -664,8 +794,8 @@
 				},
 				{
 					"id": "map",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "map",
 							"description": "Map"
@@ -674,8 +804,8 @@
 				},
 				{
 					"id": "name",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "name",
 							"description": "Name"
@@ -684,8 +814,8 @@
 				},
 				{
 					"id": "regularExpression",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "regex",
 							"description": "Regular expression"
@@ -694,8 +824,8 @@
 				},
 				{
 					"id": "section",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "section",
 							"description": "Section"
@@ -704,8 +834,8 @@
 				},
 				{
 					"id": "selector",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "selector",
 							"description": "Selector"
@@ -714,8 +844,8 @@
 				},
 				{
 					"id": "statement",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "state",
 							"description": "Statement"
@@ -724,8 +854,8 @@
 				},
 				{
 					"id": "type",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "type",
 							"description": "Type"
@@ -734,8 +864,8 @@
 				},
 				{
 					"id": "value",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "value",
 							"description": "Value"
@@ -744,8 +874,8 @@
 				},
 				{
 					"id": "condition",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "condition",
 							"description": "Condition"
@@ -754,18 +884,18 @@
 				},
 				{
 					"id": "xmlElement",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
-							"spokenForm": "element",
+							"spokenForm": "eli",
 							"description": "Xml element"
 						}
 					]
 				},
 				{
 					"id": "xmlBothTags",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "tags",
 							"description": "Xml both tags"
@@ -774,8 +904,8 @@
 				},
 				{
 					"id": "xmlStartTag",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "start tag",
 							"description": "Xml start tag"
@@ -784,8 +914,8 @@
 				},
 				{
 					"id": "xmlEndTag",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "end tag",
 							"description": "Xml end tag"
@@ -794,8 +924,8 @@
 				},
 				{
 					"id": "paragraph",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "block",
 							"description": "Paragraph"
@@ -804,8 +934,8 @@
 				},
 				{
 					"id": "notebookCell",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "cell",
 							"description": "Notebook cell"
@@ -814,8 +944,8 @@
 				},
 				{
 					"id": "document",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "file",
 							"description": "Document"
@@ -824,8 +954,8 @@
 				},
 				{
 					"id": "line",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "line",
 							"description": "Line"
@@ -834,8 +964,8 @@
 				},
 				{
 					"id": "nonWhitespaceSequence",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "paint",
 							"description": "Non whitespace sequence"
@@ -844,8 +974,8 @@
 				},
 				{
 					"id": "boundedNonWhitespaceSequence",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "short paint",
 							"description": "Bounded non whitespace sequence"
@@ -854,8 +984,8 @@
 				},
 				{
 					"id": "url",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "link",
 							"description": "Url"
@@ -864,8 +994,8 @@
 				},
 				{
 					"id": "token",
-					"type": "scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "token",
 							"description": "Token"
@@ -874,8 +1004,8 @@
 				},
 				{
 					"id": "word",
-					"type": "subtoken_scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
 							"spokenForm": "word",
 							"description": "Word"
@@ -884,10 +1014,10 @@
 				},
 				{
 					"id": "character",
-					"type": "subtoken_scope_type",
-					"spokenForms": [
+					"type": "scopeType",
+					"variations": [
 						{
-							"spokenForm": "char",
+							"spokenForm": "car",
 							"description": "Character"
 						}
 					]
@@ -896,12 +1026,12 @@
 		},
 		{
 			"name": "Paired delimiters",
-			"id": "paired-delimiters",
+			"id": "pairedDelimiters",
 			"items": [
 				{
 					"id": "whitespace",
-					"type": "wrapper_only_paired_delimiter",
-					"spokenForms": [
+					"type": "pairedDelimiter",
+					"variations": [
 						{
 							"spokenForm": "void",
 							"description": "Whitespace"
@@ -910,8 +1040,8 @@
 				},
 				{
 					"id": "curlyBrackets",
-					"type": "wrapper_selectable_paired_delimiter",
-					"spokenForms": [
+					"type": "pairedDelimiter",
+					"variations": [
 						{
 							"spokenForm": "curly",
 							"description": "Curly brackets"
@@ -920,8 +1050,8 @@
 				},
 				{
 					"id": "angleBrackets",
-					"type": "wrapper_selectable_paired_delimiter",
-					"spokenForms": [
+					"type": "pairedDelimiter",
+					"variations": [
 						{
 							"spokenForm": "diamond",
 							"description": "Angle brackets"
@@ -929,9 +1059,19 @@
 					]
 				},
 				{
+					"id": "angleBrackets",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "angle",
+							"description": "Angle brackets"
+						}
+					]
+				},
+				{
 					"id": "escapedDoubleQuotes",
-					"type": "wrapper_selectable_paired_delimiter",
-					"spokenForms": [
+					"type": "pairedDelimiter",
+					"variations": [
 						{
 							"spokenForm": "escaped quad",
 							"description": "Escaped double quotes"
@@ -940,8 +1080,8 @@
 				},
 				{
 					"id": "escapedSingleQuotes",
-					"type": "wrapper_selectable_paired_delimiter",
-					"spokenForms": [
+					"type": "pairedDelimiter",
+					"variations": [
 						{
 							"spokenForm": "escaped twin",
 							"description": "Escaped single quotes"
@@ -950,8 +1090,8 @@
 				},
 				{
 					"id": "escapedParentheses",
-					"type": "wrapper_selectable_paired_delimiter",
-					"spokenForms": [
+					"type": "pairedDelimiter",
+					"variations": [
 						{
 							"spokenForm": "escaped round",
 							"description": "Escaped parentheses"
@@ -960,18 +1100,18 @@
 				},
 				{
 					"id": "escapedSquareBrackets",
-					"type": "wrapper_selectable_paired_delimiter",
-					"spokenForms": [
+					"type": "pairedDelimiter",
+					"variations": [
 						{
-							"spokenForm": "escaped box",
+							"spokenForm": "escaped square",
 							"description": "Escaped square brackets"
 						}
 					]
 				},
 				{
 					"id": "doubleQuotes",
-					"type": "wrapper_selectable_paired_delimiter",
-					"spokenForms": [
+					"type": "pairedDelimiter",
+					"variations": [
 						{
 							"spokenForm": "quad",
 							"description": "Double quotes"
@@ -980,8 +1120,8 @@
 				},
 				{
 					"id": "parentheses",
-					"type": "wrapper_selectable_paired_delimiter",
-					"spokenForms": [
+					"type": "pairedDelimiter",
+					"variations": [
 						{
 							"spokenForm": "round",
 							"description": "Parentheses"
@@ -990,28 +1130,28 @@
 				},
 				{
 					"id": "backtickQuotes",
-					"type": "wrapper_selectable_paired_delimiter",
-					"spokenForms": [
+					"type": "pairedDelimiter",
+					"variations": [
 						{
-							"spokenForm": "skis",
+							"spokenForm": "ski",
 							"description": "Backtick quotes"
 						}
 					]
 				},
 				{
 					"id": "squareBrackets",
-					"type": "wrapper_selectable_paired_delimiter",
-					"spokenForms": [
+					"type": "pairedDelimiter",
+					"variations": [
 						{
-							"spokenForm": "box",
+							"spokenForm": "square",
 							"description": "Square brackets"
 						}
 					]
 				},
 				{
 					"id": "singleQuotes",
-					"type": "wrapper_selectable_paired_delimiter",
-					"spokenForms": [
+					"type": "pairedDelimiter",
+					"variations": [
 						{
 							"spokenForm": "twin",
 							"description": "Single quotes"
@@ -1020,8 +1160,8 @@
 				},
 				{
 					"id": "any",
-					"type": "selectable_only_paired_delimiter",
-					"spokenForms": [
+					"type": "pairedDelimiter",
+					"variations": [
 						{
 							"spokenForm": "pair",
 							"description": "Any"
@@ -1032,12 +1172,12 @@
 		},
 		{
 			"name": "Special marks",
-			"id": "special-marks",
+			"id": "specialMarks",
 			"items": [
 				{
 					"id": "currentSelection",
-					"type": "special_mark",
-					"spokenForms": [
+					"type": "mark",
+					"variations": [
 						{
 							"spokenForm": "this",
 							"description": "Current selection"
@@ -1046,8 +1186,8 @@
 				},
 				{
 					"id": "previousTarget",
-					"type": "special_mark",
-					"spokenForms": [
+					"type": "mark",
+					"variations": [
 						{
 							"spokenForm": "that",
 							"description": "Previous target"
@@ -1056,8 +1196,8 @@
 				},
 				{
 					"id": "previousSource",
-					"type": "special_mark",
-					"spokenForms": [
+					"type": "mark",
+					"variations": [
 						{
 							"spokenForm": "source",
 							"description": "Previous source"
@@ -1066,8 +1206,8 @@
 				},
 				{
 					"id": "nothing",
-					"type": "special_mark",
-					"spokenForms": [
+					"type": "mark",
+					"variations": [
 						{
 							"spokenForm": "nothing",
 							"description": "Nothing"
@@ -1083,7 +1223,7 @@
 				{
 					"id": "start",
 					"type": "position",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "start of",
 							"description": "Start"
@@ -1093,7 +1233,7 @@
 				{
 					"id": "end",
 					"type": "position",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "end of",
 							"description": "End"
@@ -1103,7 +1243,7 @@
 				{
 					"id": "before",
 					"type": "position",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "before",
 							"description": "Before"
@@ -1113,7 +1253,7 @@
 				{
 					"id": "after",
 					"type": "position",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "after",
 							"description": "After"
@@ -1124,12 +1264,12 @@
 		},
 		{
 			"name": "Compound targets",
-			"id": "compound-targets",
+			"id": "compoundTargets",
 			"items": [
 				{
 					"id": "listConnective",
 					"type": "compoundTargetConnective",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "<T1> and <T2>",
 							"description": "T1 and T2"
@@ -1139,7 +1279,7 @@
 				{
 					"id": "rangeInclusive",
 					"type": "action",
-					"spokenForms": [
+					"variations": [
 						{
 							"spokenForm": "<T1> past <T2>",
 							"description": "T1 through T2"
@@ -1158,8 +1298,8 @@
 			"items": [
 				{
 					"id": "blue",
-					"type": "hat_color",
-					"spokenForms": [
+					"type": "hatColor",
+					"variations": [
 						{
 							"spokenForm": "blue",
 							"description": "Blue"
@@ -1168,8 +1308,8 @@
 				},
 				{
 					"id": "red",
-					"type": "hat_color",
-					"spokenForms": [
+					"type": "hatColor",
+					"variations": [
 						{
 							"spokenForm": "red",
 							"description": "Red"
@@ -1178,8 +1318,8 @@
 				},
 				{
 					"id": "yellow",
-					"type": "hat_color",
-					"spokenForms": [
+					"type": "hatColor",
+					"variations": [
 						{
 							"spokenForm": "yellow",
 							"description": "Yellow"
@@ -1194,8 +1334,8 @@
 			"items": [
 				{
 					"id": "ex",
-					"type": "hat_shape",
-					"spokenForms": [
+					"type": "hatShape",
+					"variations": [
 						{
 							"spokenForm": "ex",
 							"description": "Ex"
@@ -1204,8 +1344,8 @@
 				},
 				{
 					"id": "fox",
-					"type": "hat_shape",
-					"spokenForms": [
+					"type": "hatShape",
+					"variations": [
 						{
 							"spokenForm": "fox",
 							"description": "Fox"
@@ -1214,18 +1354,18 @@
 				},
 				{
 					"id": "frame",
-					"type": "hat_shape",
-					"spokenForms": [
+					"type": "hatShape",
+					"variations": [
 						{
-							"spokenForm": "frame",
+							"spokenForm": "box",
 							"description": "Frame"
 						}
 					]
 				},
 				{
 					"id": "curve",
-					"type": "hat_shape",
-					"spokenForms": [
+					"type": "hatShape",
+					"variations": [
 						{
 							"spokenForm": "curve",
 							"description": "Curve"
@@ -1234,18 +1374,18 @@
 				},
 				{
 					"id": "eye",
-					"type": "hat_shape",
-					"spokenForms": [
+					"type": "hatShape",
+					"variations": [
 						{
-							"spokenForm": "eye",
+							"spokenForm": "eyeball",
 							"description": "Eye"
 						}
 					]
 				},
 				{
 					"id": "play",
-					"type": "hat_shape",
-					"spokenForms": [
+					"type": "hatShape",
+					"variations": [
 						{
 							"spokenForm": "play",
 							"description": "Play"
@@ -1254,18 +1394,18 @@
 				},
 				{
 					"id": "crosshairs",
-					"type": "hat_shape",
-					"spokenForms": [
+					"type": "hatShape",
+					"variations": [
 						{
-							"spokenForm": "cross",
+							"spokenForm": "star",
 							"description": "Crosshairs"
 						}
 					]
 				},
 				{
 					"id": "bolt",
-					"type": "hat_shape",
-					"spokenForms": [
+					"type": "hatShape",
+					"variations": [
 						{
 							"spokenForm": "bolt",
 							"description": "Bolt"

@@ -1,4 +1,4 @@
-export interface SpokenForm {
+export interface Variation {
   spokenForm: string;
   description: string;
 }
@@ -9,7 +9,7 @@ export interface CheatsheetSection {
   items: {
     id: string;
     type: string;
-    spokenForms: SpokenForm[];
+    variations: Variation[];
   }[];
 }
 

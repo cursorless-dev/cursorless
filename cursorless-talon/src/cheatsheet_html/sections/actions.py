@@ -42,7 +42,7 @@ def get_actions():
         {
             "id": "replaceWithTarget",
             "type": "action",
-            "spokenForms": [
+            "variations": [
                 {
                     "spokenForm": f"{complex_actions['replaceWithTarget']} <T1> {source_destination_connective} <T2>",
                     "description": "Replace T2 with T1",
@@ -56,7 +56,7 @@ def get_actions():
         {
             "id": "moveToTarget",
             "type": "action",
-            "spokenForms": [
+            "variations": [
                 {
                     "spokenForm": f"{complex_actions['moveToTarget']} <T1> {source_destination_connective} <T2>",
                     "description": "Move T1 to T2",
@@ -70,7 +70,7 @@ def get_actions():
         {
             "id": "swapTargets",
             "type": "action",
-            "spokenForms": [
+            "variations": [
                 {
                     "spokenForm": f"{complex_actions['swapTargets']} <T1> {swap_connective} <T2>",
                     "description": "Swap T1 with T2",
@@ -84,7 +84,7 @@ def get_actions():
         {
             "id": "applyFormatter",
             "type": "action",
-            "spokenForms": [
+            "variations": [
                 {
                     "spokenForm": f"{complex_actions['applyFormatter']} <F> at <T>",
                     "description": "Reformat T as F",
@@ -94,7 +94,7 @@ def get_actions():
         {
             "id": "wrapWithPairedDelimiter",
             "type": "action",
-            "spokenForms": [
+            "variations": [
                 {
                     "spokenForm": f"<P> {complex_actions['wrapWithPairedDelimiter']} <T>",
                     "description": "Wrap T with P",
@@ -104,7 +104,7 @@ def get_actions():
         {
             "id": "rewrap",
             "type": "action",
-            "spokenForms": [
+            "variations": [
                 {
                     "spokenForm": f"<P> {complex_actions['rewrap']} <T>",
                     "description": "Rewrap T with P",

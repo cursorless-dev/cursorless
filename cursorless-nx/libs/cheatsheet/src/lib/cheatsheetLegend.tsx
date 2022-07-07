@@ -16,8 +16,8 @@ const cheatsheetLegend: CheatsheetLegend = [
   {
     term: 'P',
     definition: 'Paired delimiter',
-    link: '#paired-delimiters',
-    id: 'paired-delimiter',
+    link: '#pairedDelimiters',
+    id: 'pairedDelimiter',
   },
   {
     term: 'S',
