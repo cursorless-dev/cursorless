@@ -24,3 +24,8 @@ cursorless instructions:   user.cursorless_open_instructions()
 cursorless docks:          user.cursorless_open_instructions()
 cursorless reference:      user.cursorless_cheat_sheet_show_html()
 cursorless cheat sheet:    user.cursorless_cheat_sheet_show_html()
+cursorless settings:
+    sleep(50ms)
+    user.vscode("workbench.action.openGlobalSettings")
+    sleep(250ms)
+    insert("cursorless")
