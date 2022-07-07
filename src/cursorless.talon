@@ -21,3 +21,4 @@ app: vscode
 
 cursorless help:           user.cursorless_cheat_sheet_toggle()
 cursorless instructions:   user.cursorless_open_instructions()
+cursorless reference:   user.cursorless_cheat_sheet_show_html()
