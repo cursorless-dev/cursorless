@@ -59,7 +59,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "clear <T>",
+							"spokenForm": "change <T>",
 							"description": "Clear and set selection"
 						}
 					]
@@ -139,7 +139,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "spike <T>",
+							"spokenForm": "drop <T>",
 							"description": "Insert empty line before"
 						}
 					]
@@ -179,7 +179,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "falling <T>",
+							"spokenForm": "follow <T>",
 							"description": "Follow link"
 						}
 					]
@@ -289,7 +289,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "snip make <T>",
+							"spokenForm": "snippet make <T>",
 							"description": "Generate snippet"
 						}
 					]
@@ -339,7 +339,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "apply <T>",
+							"spokenForm": "call <T>",
 							"description": "Call T on S"
 						}
 					]
@@ -361,6 +361,16 @@
 						{
 							"spokenForm": "phones <T>",
 							"description": "Next homophone"
+						}
+					]
+				},
+				{
+					"id": "revealDefinition",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "define <T>",
+							"description": "Reveal definition"
 						}
 					]
 				},
@@ -425,151 +435,11 @@
 					]
 				},
 				{
-					"id": "editor.action.joinLines",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "join <T>",
-							"description": "Editor action join lines"
-						}
-					]
-				},
-				{
-					"id": "editor.emmet.action.incrementNumberByOne",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "increment <T>",
-							"description": "Editor emmet action increment number by one"
-						}
-					]
-				},
-				{
-					"id": "editor.emmet.action.decrementNumberByOne",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "decrement <T>",
-							"description": "Editor emmet action decrement number by one"
-						}
-					]
-				},
-				{
-					"id": "editor.action.openLink",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "open <T>",
-							"description": "Editor action open link"
-						}
-					]
-				},
-				{
-					"id": "gitlens.openFileOnRemote",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "open link to <T>",
-							"description": "Gitlens open file on remote"
-						}
-					]
-				},
-				{
-					"id": "gitlens.copyRemoteFileUrlToClipboard",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "copy link to <T>",
-							"description": "Gitlens copy remote file url to clipboard"
-						}
-					]
-				},
-				{
-					"id": "issue.copyMarkdownGithubPermalink",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "copy markdown link to <T>",
-							"description": "Issue copy markdown github permalink"
-						}
-					]
-				},
-				{
-					"id": "merge-conflict.accept.selection",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "accept <T>",
-							"description": "Merge-conflict accept selection"
-						}
-					]
-				},
-				{
-					"id": "merge-conflict.accept.both",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "accept both <T>",
-							"description": "Merge-conflict accept both"
-						}
-					]
-				},
-				{
-					"id": "editor.emmet.action.updateTag",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "retag <T>",
-							"description": "Editor emmet action update tag"
-						}
-					]
-				},
-				{
-					"id": "git.revertSelectedRanges",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "git revert <T>",
-							"description": "Git revert selected ranges"
-						}
-					]
-				},
-				{
-					"id": "git.stageSelectedRanges",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "git stage <T>",
-							"description": "Git stage selected ranges"
-						}
-					]
-				},
-				{
-					"id": "workbench.action.addComment",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "add comment to <T>",
-							"description": "Workbench action add comment"
-						}
-					]
-				},
-				{
-					"id": "rewrap.rewrapComment",
-					"type": "action",
-					"variations": [
-						{
-							"spokenForm": "reflow <T>",
-							"description": "Rewrap rewrap comment"
-						}
-					]
-				},
-				{
 					"id": "insertSnippet",
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "snip <T>",
+							"spokenForm": "snippet <T>",
 							"description": "Insert snippet"
 						}
 					]
@@ -621,7 +491,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "form <F> at <T>",
+							"spokenForm": "format <F> at <T>",
 							"description": "Reformat T as F"
 						}
 					]
@@ -641,7 +511,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "<P> switch <T>",
+							"spokenForm": "<P> repack <T>",
 							"description": "Rewrap T with P"
 						}
 					]
@@ -657,7 +527,7 @@
 					"type": "scopeType",
 					"variations": [
 						{
-							"spokenForm": "argue",
+							"spokenForm": "arg",
 							"description": "Argument"
 						}
 					]
@@ -667,7 +537,7 @@
 					"type": "scopeType",
 					"variations": [
 						{
-							"spokenForm": "at her",
+							"spokenForm": "attribute",
 							"description": "Attribute"
 						}
 					]
@@ -887,7 +757,7 @@
 					"type": "scopeType",
 					"variations": [
 						{
-							"spokenForm": "eli",
+							"spokenForm": "element",
 							"description": "Xml element"
 						}
 					]
@@ -1017,7 +887,7 @@
 					"type": "scopeType",
 					"variations": [
 						{
-							"spokenForm": "car",
+							"spokenForm": "char",
 							"description": "Character"
 						}
 					]
@@ -1059,16 +929,6 @@
 					]
 				},
 				{
-					"id": "angleBrackets",
-					"type": "pairedDelimiter",
-					"variations": [
-						{
-							"spokenForm": "angle",
-							"description": "Angle brackets"
-						}
-					]
-				},
-				{
 					"id": "escapedDoubleQuotes",
 					"type": "pairedDelimiter",
 					"variations": [
@@ -1103,7 +963,7 @@
 					"type": "pairedDelimiter",
 					"variations": [
 						{
-							"spokenForm": "escaped square",
+							"spokenForm": "escaped box",
 							"description": "Escaped square brackets"
 						}
 					]
@@ -1133,7 +993,7 @@
 					"type": "pairedDelimiter",
 					"variations": [
 						{
-							"spokenForm": "ski",
+							"spokenForm": "skis",
 							"description": "Backtick quotes"
 						}
 					]
@@ -1143,7 +1003,7 @@
 					"type": "pairedDelimiter",
 					"variations": [
 						{
-							"spokenForm": "square",
+							"spokenForm": "box",
 							"description": "Square brackets"
 						}
 					]
@@ -1307,12 +1167,32 @@
 					]
 				},
 				{
+					"id": "green",
+					"type": "hatColor",
+					"variations": [
+						{
+							"spokenForm": "green",
+							"description": "Green"
+						}
+					]
+				},
+				{
 					"id": "red",
 					"type": "hatColor",
 					"variations": [
 						{
 							"spokenForm": "red",
 							"description": "Red"
+						}
+					]
+				},
+				{
+					"id": "pink",
+					"type": "hatColor",
+					"variations": [
+						{
+							"spokenForm": "pink",
+							"description": "Pink"
 						}
 					]
 				},
@@ -1331,88 +1211,7 @@
 		{
 			"name": "Shapes",
 			"id": "shapes",
-			"items": [
-				{
-					"id": "ex",
-					"type": "hatShape",
-					"variations": [
-						{
-							"spokenForm": "ex",
-							"description": "Ex"
-						}
-					]
-				},
-				{
-					"id": "fox",
-					"type": "hatShape",
-					"variations": [
-						{
-							"spokenForm": "fox",
-							"description": "Fox"
-						}
-					]
-				},
-				{
-					"id": "frame",
-					"type": "hatShape",
-					"variations": [
-						{
-							"spokenForm": "box",
-							"description": "Frame"
-						}
-					]
-				},
-				{
-					"id": "curve",
-					"type": "hatShape",
-					"variations": [
-						{
-							"spokenForm": "curve",
-							"description": "Curve"
-						}
-					]
-				},
-				{
-					"id": "eye",
-					"type": "hatShape",
-					"variations": [
-						{
-							"spokenForm": "eyeball",
-							"description": "Eye"
-						}
-					]
-				},
-				{
-					"id": "play",
-					"type": "hatShape",
-					"variations": [
-						{
-							"spokenForm": "play",
-							"description": "Play"
-						}
-					]
-				},
-				{
-					"id": "crosshairs",
-					"type": "hatShape",
-					"variations": [
-						{
-							"spokenForm": "star",
-							"description": "Crosshairs"
-						}
-					]
-				},
-				{
-					"id": "bolt",
-					"type": "hatShape",
-					"variations": [
-						{
-							"spokenForm": "bolt",
-							"description": "Bolt"
-						}
-					]
-				}
-			]
+			"items": []
 		}
 	]
 }
