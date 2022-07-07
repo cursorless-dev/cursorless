@@ -12,8 +12,7 @@ import { ensureSingleEditor } from "../util/targetUtils";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
 import { ModifierStage } from "./PipelineStages.types";
-import PlainTarget from "./targets/PlainTarget";
-import PositionTarget from "./targets/PositionTarget";
+import { PlainTarget, PositionTarget } from "./targets";
 
 /**
  * Converts the abstract target descriptions provided by the user to a concrete

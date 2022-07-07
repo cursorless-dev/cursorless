@@ -1,5 +1,5 @@
 import { Range } from "vscode";
-import { BaseTarget } from ".";
+import { BaseTarget } from "./";
 import { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
