@@ -14,6 +14,7 @@ import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { CommandServerApi } from "../util/getExtensionApi";
 import { FullRangeInfo } from "./updateSelections";
+import Cheatsheet from "../core/Cheatsheet";
 
 /**
  * A token within a text editor, including the current display line of the token
@@ -144,6 +145,11 @@ export interface Graph {
    * Used for recording test cases
    */
   readonly testCaseRecorder: TestCaseRecorder;
+
+  /**
+   * Used to display cheatsheet
+   */
+  readonly cheatsheet: Cheatsheet;
 }
 
 export type NodeMatcherValue = {
