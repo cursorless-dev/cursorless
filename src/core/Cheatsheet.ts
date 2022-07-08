@@ -62,8 +62,9 @@ export default class Cheatsheet {
 
     const cheatsheetPath = path.join(
       this.graph.extensionContext.extensionPath,
+      "cursorless-nx",
       "dist",
-      "assets",
+      "apps",
       "cheatsheet-local",
       "index.html"
     );
