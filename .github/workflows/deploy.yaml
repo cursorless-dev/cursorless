@@ -26,7 +26,7 @@ jobs:
         run: npm ci
         working-directory: cursorless-nx
       - name: Build cheatsheet html
-        run: npx nx build cheatsheet-local --skip-nx-cache
+        run: npx nx build cheatsheet-local
         working-directory: cursorless-nx
       - name: Publish to Open VSX Registry
         uses: HaaLeo/publish-vscode-extension@v1
