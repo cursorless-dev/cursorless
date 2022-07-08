@@ -187,8 +187,7 @@ const nodeMatchers: Partial<
     "type_parameters"
   ),
   collectionKey: cascadingMatcher(
-    patternMatcher("field_pattern[name]"),
-    trailingMatcher(["field_initializer[name]"], [":"])
+    trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"])
   ),
   name: cascadingMatcher(
     patternMatcher(
