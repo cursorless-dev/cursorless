@@ -5,7 +5,7 @@
 !README.md
 !build-info.json
 !cursorless-snippets/**
-!dist/assets/cheatsheet-local/index.html
+!cursorless-nx/dist/apps/cheatsheet-local/index.html
 !dist/extension.js
 !images/hats/**
 !images/icon.png
