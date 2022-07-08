@@ -4,7 +4,7 @@ slug: /
 
 # Cursorless documentation
 
-Welcome to Cursorless! You may find it helpful to start with the [tutorial video](https://www.youtube.com/watch?v=JxcNW0hnfTk).
+Welcome to Cursorless! You may find it helpful to start with the [tutorial videos](https://www.youtube.com/watch?v=5mAzHGM2M0k&list=PLXv2sppxeoQZz49evjy4T0QJRIgc_JPqs).
 
 This guide assumes you've already [installed Cursorless](installation.md).
 
