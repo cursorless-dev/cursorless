@@ -118,6 +118,14 @@ The word `"that"` can be used as a mark to refer to the target of the previous c
 - `"pre that"`
 - `"round wrap that"`
 
+##### `"token"`
+
+The word `"token"` refers to the value of the mark that your cursor is currently on. If you have dragged and selected/highlighted something, it refers to that instead.
+
+- `"copy token"`
+- `"take token"`
+- `"chuck token"`
+
 #### Modifiers
 
 Modifiers can be applied to any mark to modify its extent. This is commonly used to refer to larger syntactic elements within a source code document.
