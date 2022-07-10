@@ -1,11 +1,9 @@
-import { Range } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import {
   NodeFinder,
   NodeMatcher,
   NodeMatcherAlternative,
-  NodeMatcherValue,
   SelectionExtractor,
   SelectionWithEditor,
 } from "../typings/Types";
@@ -190,27 +188,3 @@ export function createPatternMatchers(
   });
   return nodeMatchers as Record<SimpleScopeTypeType, NodeMatcher>;
 }
-
-export const getElementMatcher = (...elementTypes: string[]): NodeMatcher => {
-  const matcher = patternMatcher(...elementTypes);
-  return (
-    selection: SelectionWithEditor,
-    node: SyntaxNode
-  ): NodeMatcherValue[] | null => {
-    const matches = matcher(selection, node);
-    if (matches != null && node.namedChildCount > 1) {
-      matches.forEach((match) => {
-        const { firstNamedChild, lastNamedChild } = match.node;
-        if (firstNamedChild != null && lastNamedChild != null) {
-          match.selection.context.interiorRange = new Range(
-            firstNamedChild.endPosition.row,
-            firstNamedChild.endPosition.column,
-            lastNamedChild.startPosition.row,
-            lastNamedChild.startPosition.column
-          );
-        }
-      });
-    }
-    return matches;
-  };
-};

@@ -5,19 +5,19 @@ import {
   NodeMatcherAlternative,
   SelectionWithEditor,
 } from "../typings/Types";
-import { patternFinder } from "../util/nodeFinders";
+import { patternFinder, typedNodeFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,
   cascadingMatcher,
   conditionMatcher,
   createPatternMatchers,
-  getElementMatcher,
   matcher,
   patternMatcher,
   trailingMatcher,
 } from "../util/nodeMatchers";
 import {
   childRangeSelector,
+  xmlElementExtractor,
   getNodeInternalRange,
   getNodeRange,
   pairSelectionExtractor,
@@ -263,7 +263,10 @@ const nodeMatchers: Partial<
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
   // XML, JSX
   attribute: ["jsx_attribute"],
-  xmlElement: getElementMatcher("jsx_element", "jsx_self_closing_element"),
+  xmlElement: matcher(
+    typedNodeFinder("jsx_element", "jsx_self_closing_element"),
+    xmlElementExtractor
+  ),
   xmlBothTags: getTags,
   xmlStartTag: getStartTag,
   xmlEndTag: getEndTag,

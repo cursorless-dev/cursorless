@@ -1,13 +1,14 @@
 import { SyntaxNode } from "web-tree-sitter";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
+import { typedNodeFinder } from "../util/nodeFinders";
 import {
   createPatternMatchers,
-  getElementMatcher,
   leadingMatcher,
+  matcher,
   patternMatcher,
 } from "../util/nodeMatchers";
-import { getNodeRange } from "../util/nodeSelectors";
+import { xmlElementExtractor, getNodeRange } from "../util/nodeSelectors";
 
 const attribute = "*?.attribute!";
 
@@ -23,7 +24,10 @@ const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  xmlElement: getElementMatcher("element", "script_element", "style_element"),
+  xmlElement: matcher(
+    typedNodeFinder("element", "script_element", "style_element"),
+    xmlElementExtractor
+  ),
   xmlBothTags: getTags,
   xmlStartTag: getStartTag,
   xmlEndTag: getEndTag,
