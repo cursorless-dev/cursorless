@@ -1,26 +1,28 @@
+import { Range } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
-import {
-  NodeMatcher,
-  NodeFinder,
-  SelectionExtractor,
-  NodeMatcherAlternative,
-  SelectionWithEditor,
-} from "../typings/Types";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import {
-  simpleSelectionExtractor,
+  NodeFinder,
+  NodeMatcher,
+  NodeMatcherAlternative,
+  NodeMatcherValue,
+  SelectionExtractor,
+  SelectionWithEditor,
+} from "../typings/Types";
+import {
+  ancestorChainNodeFinder,
+  argumentNodeFinder,
+  chainedNodeFinder,
+  patternFinder,
+  typedNodeFinder,
+} from "./nodeFinders";
+import {
   argumentSelectionExtractor,
   selectWithLeadingDelimiter,
   selectWithTrailingDelimiter,
+  simpleSelectionExtractor,
   unwrapSelectionExtractor as conditionSelectionExtractor,
 } from "./nodeSelectors";
-import {
-  typedNodeFinder,
-  patternFinder,
-  argumentNodeFinder,
-  chainedNodeFinder,
-  ancestorChainNodeFinder,
-} from "./nodeFinders";
 
 export function matcher(
   finder: NodeFinder,
@@ -188,3 +190,27 @@ export function createPatternMatchers(
   });
   return nodeMatchers as Record<SimpleScopeTypeType, NodeMatcher>;
 }
+
+export const getElementMatcher = (...elementTypes: string[]): NodeMatcher => {
+  const matcher = patternMatcher(...elementTypes);
+  return (
+    selection: SelectionWithEditor,
+    node: SyntaxNode
+  ): NodeMatcherValue[] | null => {
+    const matches = matcher(selection, node);
+    if (matches != null && node.namedChildCount > 1) {
+      matches.forEach((match) => {
+        const { firstNamedChild, lastNamedChild } = match.node;
+        if (firstNamedChild != null && lastNamedChild != null) {
+          match.selection.context.interiorRange = new Range(
+            firstNamedChild.endPosition.row,
+            firstNamedChild.endPosition.column,
+            lastNamedChild.startPosition.row,
+            lastNamedChild.startPosition.column
+          );
+        }
+      });
+    }
+    return matches;
+  };
+};
