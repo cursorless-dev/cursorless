@@ -1,0 +1,3 @@
+[build]
+  publish = "gh-pages-root"
+  command = "./scripts/docs-build.sh"
