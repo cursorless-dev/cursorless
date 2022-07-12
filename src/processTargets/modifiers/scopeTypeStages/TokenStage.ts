@@ -7,7 +7,7 @@ import {
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getTokensInRange, PartialToken } from "../../../util/getTokensInRange";
 import { ModifierStage } from "../../PipelineStages.types";
-import TokenTarget from "../../targets/TokenTarget";
+import { TokenTarget } from "../../targets";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}

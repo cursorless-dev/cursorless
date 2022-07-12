@@ -10,7 +10,7 @@ import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getInsertionDelimiter } from "../../../util/nodeSelectors";
 import { getRangeLength } from "../../../util/rangeUtils";
 import { ModifierStage } from "../../PipelineStages.types";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
+import { ScopeTypeTarget } from "../../targets";
 import ContainingSyntaxScopeStage, {
   SimpleContainingScopeModifier,
 } from "../scopeTypeStages/ContainingSyntaxScopeStage";
