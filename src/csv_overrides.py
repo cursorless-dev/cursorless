@@ -1,6 +1,7 @@
+from collections.abc import Container
 from datetime import datetime
 from pathlib import Path
-from typing import Container, Optional
+from typing import Optional
 
 from talon import Context, Module, actions, app, fs
 
