@@ -1,4 +1,4 @@
-import PlainTarget from "../processTargets/targets/PlainTarget";
+import { PlainTarget } from "../processTargets/targets";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";

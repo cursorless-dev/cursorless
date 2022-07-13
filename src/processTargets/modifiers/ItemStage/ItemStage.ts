@@ -8,8 +8,9 @@ import {
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getInsertionDelimiter } from "../../../util/nodeSelectors";
+import { getRangeLength } from "../../../util/rangeUtils";
 import { ModifierStage } from "../../PipelineStages.types";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
+import { ScopeTypeTarget } from "../../targets";
 import ContainingSyntaxScopeStage, {
   SimpleContainingScopeModifier,
 } from "../scopeTypeStages/ContainingSyntaxScopeStage";
@@ -70,10 +71,24 @@ export default class ItemStage implements ModifierStage {
       trailingDelimiterRange: last.trailingDelimiterRange,
     };
 
-    return this.itemInfoToTarget(target, itemInfo);
+    // We have both leading and trailing delimiter ranges
+    // The leading one is longer/more specific so prefer to use that for removal.
+    const removalRange =
+      itemInfo.leadingDelimiterRange != null &&
+      itemInfo.trailingDelimiterRange != null &&
+      getRangeLength(target.editor, itemInfo.leadingDelimiterRange) >
+        getRangeLength(target.editor, itemInfo.trailingDelimiterRange)
+        ? itemInfo.contentRange.union(itemInfo.leadingDelimiterRange)
+        : undefined;
+
+    return this.itemInfoToTarget(target, itemInfo, removalRange);
   }
 
-  private itemInfoToTarget(target: Target, itemInfo: ItemInfo) {
+  private itemInfoToTarget(
+    target: Target,
+    itemInfo: ItemInfo,
+    removalRange?: Range
+  ) {
     const delimiter = getInsertionDelimiter(
       target.editor,
       itemInfo.leadingDelimiterRange,
@@ -88,6 +103,7 @@ export default class ItemStage implements ModifierStage {
       delimiter,
       leadingDelimiterRange: itemInfo.leadingDelimiterRange,
       trailingDelimiterRange: itemInfo.trailingDelimiterRange,
+      removalRange,
     });
   }
 }

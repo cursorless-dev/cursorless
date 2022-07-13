@@ -60,6 +60,7 @@ export default class implements ModifierStage {
         leadingDelimiterRange,
         trailingDelimiterRange,
         removalRange,
+        interiorRange,
       } = scope.context;
 
       if (
@@ -79,6 +80,7 @@ export default class implements ModifierStage {
         isReversed: target.isReversed,
         contentRange: contentSelection,
         removalRange: removalRange,
+        interiorRange: interiorRange,
         delimiter: containingListDelimiter,
         leadingDelimiterRange,
         trailingDelimiterRange,

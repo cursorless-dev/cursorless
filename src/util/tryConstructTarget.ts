@@ -1,7 +1,9 @@
 import { Range, TextEditor } from "vscode";
-import { CommonTargetParameters } from "../processTargets/targets/BaseTarget";
-import LineTarget from "../processTargets/targets/LineTarget";
-import PlainTarget from "../processTargets/targets/PlainTarget";
+import {
+  CommonTargetParameters,
+  LineTarget,
+  PlainTarget,
+} from "../processTargets/targets";
 import { Target } from "../typings/target.types";
 
 type TargetConstructor<T extends Target> = new (

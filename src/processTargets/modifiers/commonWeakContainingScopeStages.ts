@@ -15,3 +15,11 @@ export const weakContainingLineStage = new ModifyIfWeakStage({
     scopeType: { type: "line" },
   },
 });
+
+export const weakContainingTokenStage = new ModifyIfWeakStage({
+  type: "modifyIfWeak",
+  modifier: {
+    type: "containingScope",
+    scopeType: { type: "token" },
+  },
+});
