@@ -3,7 +3,9 @@
 	"projects": {
 		"cheatsheet": "libs/cheatsheet",
 		"cheatsheet-local": "apps/cheatsheet-local",
-		"cheatsheet-local-e2e": "apps/cheatsheet-local-e2e"
+		"cheatsheet-local-e2e": "apps/cheatsheet-local-e2e",
+		"cursorless-org": "apps/cursorless-org",
+		"cursorless-org-e2e": "apps/cursorless-org-e2e"
 	},
 	"$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
