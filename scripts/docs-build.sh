@@ -21,4 +21,4 @@ cp -r website/build/* "$out_dir"
 
 cd cursorless-nx
 npm ci
-npx nx build cursorless-org
+npx nx build cursorless-org --prod
