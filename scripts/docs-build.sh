@@ -14,6 +14,11 @@ cd ..
 # Since baseUrl in Docusaurus is /docs, for links within our website
 # to work correctly we need to serve /website-root with /docs subfolder
 # containting the build
-rm -rf website-root/docs
-mkdir -p website-root/docs
-cp -r website/build/* website-root/docs
+out_dir=cursorless-nx/apps/cursorless-org/public/docs
+rm -rf "$out_dir"
+mkdir -p "$out_dir"
+cp -r website/build/* "$out_dir"
+
+cd cursorless-nx
+npm ci
+npx nx build cursorless-org

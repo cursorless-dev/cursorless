@@ -1,3 +1,13 @@
 [build]
-  publish = "website-root"
   command = "./scripts/docs-build.sh"
+  publish = "cursorless-nx/dist/apps/cursorless-org/.next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+[[plugins]]
+  package = "netlify-plugin-cypress"
+  [plugins.inputs.postBuild]
+    enable = true
+
+  [plugins.inputs]
+    enable = false
