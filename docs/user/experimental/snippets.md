@@ -84,7 +84,7 @@ For example:
 
 - `"snippet if after air"`: Insert `if` statement after the statement with a hat over the `a`
 
-Note that each snippet can use `insertionScopeTypes` to indicate that it will auto-expand the target. So, for example, `"snip if after this"` will insert an `if` statement after the current statement.
+Note that each snippet can use `insertionScopeTypes` to indicate that it will auto-expand the target. So, for example, `"snippet if after this"` will insert an `if` statement after the current statement.
 
 ### Built-in insertion snippets
 
