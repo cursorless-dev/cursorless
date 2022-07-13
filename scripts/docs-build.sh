@@ -11,14 +11,13 @@ yarn install --frozen-lockfile
 yarn build
 cd ..
 
-# Since baseUrl in Docusaurus is /docs, for links within our website
-# to work correctly we need to serve /website-root with /docs subfolder
-# containting the build
-out_dir=cursorless-nx/apps/cursorless-org/public/docs
-rm -rf "$out_dir"
-mkdir -p "$out_dir"
-cp -r website/build/* "$out_dir"
-
 cd cursorless-nx
 npm ci
 npx nx build cursorless-org --prod
+
+# Since baseUrl in Docusaurus is /docs, for links within our website
+# to work correctly we need to serve /website-root with /docs subfolder
+# containting the build
+out_dir=cursorless-nx/dist/apps/cursorless-org/public/docs
+mkdir -p "$out_dir"
+cp -r website/build/* "$out_dir"
