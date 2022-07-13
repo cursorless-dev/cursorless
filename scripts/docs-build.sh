@@ -14,6 +14,7 @@ cd ..
 cd cursorless-nx
 npm ci
 npx nx build cursorless-org --prod
+cd ..
 
 # Since baseUrl in Docusaurus is /docs, for links within our website
 # to work correctly we need to serve /website-root with /docs subfolder
