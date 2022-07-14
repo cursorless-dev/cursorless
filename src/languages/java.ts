@@ -86,9 +86,13 @@ const nodeMatchers: Partial<
     "assignment_expression[left]",
     "*[name]",
     "formal_parameter.identifier!",
-    "switch_label.parenthesized_expression!"
+    "switch_label.parenthesized_expression![0]",
+    "switch_rule.switch_label![0]",
   ],
-  collectionKey: ["switch_label.parenthesized_expression!"],
+  collectionKey: [
+    "switch_label.parenthesized_expression![0]",
+    "switch_rule.switch_label![0]",
+  ],
   namedFunction: ["method_declaration", "constructor_declaration"],
   type: trailingMatcher([
     "generic_type.type_arguments.type_identifier",
@@ -113,11 +117,25 @@ const nodeMatchers: Partial<
     ["=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="]
   ),
   condition: cascadingMatcher(
-    conditionMatcher("*[condition]"),
+    conditionMatcher("while_statement[condition]"),
+    conditionMatcher("if_statement[condition]"),
+    conditionMatcher("do_statement[condition]"),
+    conditionMatcher("ternary_expression[condition]"),
+    patternMatcher("switch_label.parenthesized_expression![0]"),
+    patternMatcher("switch_rule.switch_label![0]")
   ),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),
-  subject: patternMatcher("switch_expression[condition]"),
-  branch: ["switch_block_statement_group", "switch_rule"],
+  subject: patternMatcher("switch_expression[condition][0]"),
+  branch: cascadingMatcher(
+    matcher(
+      patternFinder("switch_block_statement_group"),
+      childRangeSelector(["switch_label"], [])
+    ),
+    matcher(
+      patternFinder("switch_rule"),
+      childRangeSelector(["switch_label"], [])
+    )
+  ),
 };
 
 export default createPatternMatchers(nodeMatchers);

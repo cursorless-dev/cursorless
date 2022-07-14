@@ -1,0 +1,74 @@
+languageId: java
+command:
+  spokenForm: change subject whale
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: subject}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |
+    class C {
+        static void main(String args[]) {
+            switch (arg[0]) {
+                case("0"):
+                    System.out.println("zero");
+                    break;
+                case("1"):
+                    System.out.println("one");
+                    break;
+                default:
+                    System.out.println("other");
+                    break;
+            };
+
+            var s = switch (arg[0]) {
+                case "0" -> "zero";
+                case "1" -> "one";
+                default -> "other";
+            };
+            System.out.println(s);
+        }
+    }
+  selections:
+    - anchor: {line: 22, character: 0}
+      active: {line: 22, character: 0}
+  marks:
+    default.w:
+      start: {line: 14, character: 16}
+      end: {line: 14, character: 22}
+finalState:
+  documentContents: |
+    class C {
+        static void main(String args[]) {
+            switch (arg[0]) {
+                case("0"):
+                    System.out.println("zero");
+                    break;
+                case("1"):
+                    System.out.println("one");
+                    break;
+                default:
+                    System.out.println("other");
+                    break;
+            };
+
+            var s = switch () {
+                case "0" -> "zero";
+                case "1" -> "one";
+                default -> "other";
+            };
+            System.out.println(s);
+        }
+    }
+  selections:
+    - anchor: {line: 14, character: 24}
+      active: {line: 14, character: 24}
+  thatMark:
+    - anchor: {line: 14, character: 24}
+      active: {line: 14, character: 24}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [{type: containingScope, scopeType: {type: subject}}]}]

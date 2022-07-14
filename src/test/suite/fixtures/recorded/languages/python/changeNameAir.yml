@@ -1,0 +1,48 @@
+languageId: python
+command:
+  spokenForm: change name air
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |
+    match command.split():
+        case ["quit"]:
+            print("quit")
+        case ["go", direction] | []:
+            print("going", direction)
+        case ["drop", *objects]:
+            print("drop", objects)
+        case _:
+            print(f"Sorry, I couldn't understand {command!r}")
+  selections:
+    - anchor: {line: 3, character: 18}
+      active: {line: 3, character: 21}
+  marks:
+    default.a:
+      start: {line: 3, character: 4}
+      end: {line: 3, character: 8}
+finalState:
+  documentContents: |
+    match command.split():
+        case ["quit"]:
+            print("quit")
+        case :
+            print("going", direction)
+        case ["drop", *objects]:
+            print("drop", objects)
+        case _:
+            print(f"Sorry, I couldn't understand {command!r}")
+  selections:
+    - anchor: {line: 3, character: 9}
+      active: {line: 3, character: 9}
+  thatMark:
+    - anchor: {line: 3, character: 9}
+      active: {line: 3, character: 9}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [{type: containingScope, scopeType: {type: name}}]}]

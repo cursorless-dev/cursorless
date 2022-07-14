@@ -1,0 +1,48 @@
+languageId: python
+command:
+  spokenForm: change subject harp
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: subject}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |
+    match command.split():
+        case ["quit"]:
+            print("quit")
+        case ["go", direction] | []:
+            print("going", direction)
+        case ["drop", *objects]:
+            print("drop", objects)
+        case _:
+            print(f"Sorry, I couldn't understand {command!r}")
+  selections:
+    - anchor: {line: 9, character: 0}
+      active: {line: 9, character: 0}
+  marks:
+    default.h:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: |
+    match :
+        case ["quit"]:
+            print("quit")
+        case ["go", direction] | []:
+            print("going", direction)
+        case ["drop", *objects]:
+            print("drop", objects)
+        case _:
+            print(f"Sorry, I couldn't understand {command!r}")
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  thatMark:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: [{type: containingScope, scopeType: {type: subject}}]}]

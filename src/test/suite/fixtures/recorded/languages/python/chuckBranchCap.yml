@@ -1,0 +1,30 @@
+languageId: Log
+command:
+  spokenForm: chuck branch cap
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.c:
+      start: {line: 5, character: 4}
+      end: {line: 5, character: 8}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 5, character: 0}
+      active: {line: 5, character: 0}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]

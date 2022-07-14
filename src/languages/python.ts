@@ -76,7 +76,10 @@ const nodeMatchers: Partial<
   statement: STATEMENT_TYPES,
   string: "string",
   collectionItem: matcher(importNodeFinder(), argumentSelectionExtractor()),
-  collectionKey: trailingMatcher(["pair[key]"], [":"]),
+  collectionKey: cascadingMatcher(
+    trailingMatcher(["pair[key]"], [":"]),
+    patternMatcher("case_clause[pattern]")
+  ),
   ifStatement: "if_statement",
   anonymousFunction: "lambda?.lambda",
   functionCall: "call",
@@ -86,7 +89,10 @@ const nodeMatchers: Partial<
   className: "class_definition[name]",
   namedFunction: "decorated_definition?.function_definition",
   functionName: "function_definition[name]",
-  condition: conditionMatcher("*[condition]"),
+  condition: cascadingMatcher(
+    conditionMatcher("*[condition]"),
+    patternMatcher("case_clause[pattern]")
+  ),
   type: leadingMatcher(
     ["function_definition[return_type]", "*[type]"],
     [":", "->"]
@@ -97,6 +103,7 @@ const nodeMatchers: Partial<
     "typed_parameter.identifier!",
     "parameters.identifier!",
     "*[name]",
+    "case_clause[pattern]",
   ],
   value: cascadingMatcher(
     leadingMatcher(
@@ -118,12 +125,15 @@ const nodeMatchers: Partial<
         ">>=",
       ]
     ),
-    patternMatcher("return_statement.~return!")
+    patternMatcher("return_statement.~return!"),
+    patternMatcher("case_clause[consequence]")
   ),
   argumentOrParameter: cascadingMatcher(
     argumentMatcher("parameters", "argument_list"),
     matcher(patternFinder("call.generator_expression!"), childRangeSelector())
   ),
+  subject: "match_statement[subject]",
+  branch: "case_clause",
 };
 
 export default createPatternMatchers(nodeMatchers);

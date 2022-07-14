@@ -1,0 +1,45 @@
+languageId: python
+command:
+  spokenForm: chuck sun
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
+initialState:
+  documentContents: |
+    match command.split():
+        case ["quit"]:
+            print("quit")
+        case ["go", direction] | []:
+            print("going", direction)
+        case ["drop", *objects]:
+            print("drop", objects)
+        case _:
+            print(f"Sorry, I couldn't understand {command!r}")
+  selections:
+    - anchor: {line: 9, character: 0}
+      active: {line: 9, character: 0}
+  marks:
+    default.s:
+      start: {line: 3, character: 4}
+      end: {line: 3, character: 8}
+finalState:
+  documentContents: |
+    match command.split():
+        case ["quit"]:
+            print("quit")
+        ["go", direction] | []:
+            print("going", direction)
+        case ["drop", *objects]:
+            print("drop", objects)
+        case _:
+            print(f"Sorry, I couldn't understand {command!r}")
+  selections:
+    - anchor: {line: 9, character: 0}
+      active: {line: 9, character: 0}
+  thatMark:
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, modifiers: []}]
