@@ -1,6 +1,3 @@
 [build]
   command = "./scripts/docs-build.sh"
-  publish = "cursorless-nx/dist/apps/cursorless-org/.next"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+  publish = "cursorless-nx/dist/apps/cursorless-org/export"
