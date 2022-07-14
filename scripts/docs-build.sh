@@ -13,7 +13,6 @@ cd ..
 
 cd cursorless-nx
 npm ci
-npx nx build cursorless-org --prod
 npx nx export cursorless-org
 cd ..
 
