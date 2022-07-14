@@ -20,6 +20,6 @@ cd ..
 # Since baseUrl in Docusaurus is /docs, for links within our website
 # to work correctly we need to serve /website-root with /docs subfolder
 # containting the build
-out_dir=cursorless-nx/dist/apps/cursorless-org/export/docs
+out_dir=cursorless-nx/dist/apps/cursorless-org/exported/docs
 mkdir -p "$out_dir"
 cp -r website/build/* "$out_dir"
