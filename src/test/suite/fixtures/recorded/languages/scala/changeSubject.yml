@@ -1,0 +1,38 @@
+languageId: scala
+command:
+  spokenForm: change subject
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: subject}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |
+    def matchTest(x: Int): String = x match {
+      case 0 => "zero"
+      case 1 => "one"
+      case 2 => "two"
+      case _ => "other"
+    }
+  selections:
+    - anchor: {line: 3, character: 2}
+      active: {line: 4, character: 2}
+  marks: {}
+finalState:
+  documentContents: |
+    def matchTest(x: Int): String =  match {
+      case 0 => "zero"
+      case 1 => "one"
+      case 2 => "two"
+      case _ => "other"
+    }
+  selections:
+    - anchor: {line: 0, character: 32}
+      active: {line: 0, character: 32}
+  thatMark:
+    - anchor: {line: 0, character: 32}
+      active: {line: 0, character: 32}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: subject}}]}]
