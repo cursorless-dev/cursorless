@@ -16,7 +16,7 @@ let retryCount = -1;
 let previousTestTitle = "";
 
 export function standardSuiteSetup(suite: Mocha.Suite) {
-  suite.timeout();
+  suite.timeout("100s");
   suite.retries(5);
 
   teardown(() => {
