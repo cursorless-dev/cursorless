@@ -24,6 +24,7 @@ import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewEditor } from "../openNewEditor";
 import asyncSafety from "../util/asyncSafety";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
+import shouldUpdateFixtures from "./shouldUpdateFixtures";
 import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
 
 function createPosition(position: PositionPlainObject) {
@@ -164,7 +165,7 @@ async function runTest(file: string) {
       ? undefined
       : testDecorationsToPlainObject(graph.editStyles.testDecorations);
 
-  if (process.env.CURSORLESS_TEST_UPDATE_FIXTURES === "true") {
+  if (shouldUpdateFixtures()) {
     const outputFixture = {
       ...fixture,
       finalState: resultState,
