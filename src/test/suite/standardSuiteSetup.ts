@@ -35,7 +35,7 @@ export function standardSuiteSetup(suite: Mocha.Suite) {
  * Sleep function for use in tests that will be retried. Doubles the amount of
  * time it sleeps each time a test is run, starting from {@link ms} / 4.
  *
- * If the user used the update fixtures launch config, we sleep for {@link ms} *
+ * If the developer used the update fixtures launch config, we sleep for {@link ms} *
  * 2 every time so that they don't get spurious updates to fixtures due to not
  * sleeping enough.
  * @param ms The baseline number of milliseconds to sleep.
