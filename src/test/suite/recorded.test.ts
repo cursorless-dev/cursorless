@@ -21,11 +21,10 @@ import {
 } from "../../testUtil/toPlainObject";
 import { Clipboard } from "../../util/Clipboard";
 import { getCursorlessApi } from "../../util/getExtensionApi";
-import sleep from "../../util/sleep";
 import { openNewEditor } from "../openNewEditor";
 import asyncSafety from "../util/asyncSafety";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
-import { standardSuiteSetup } from "./standardSuiteSetup";
+import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -72,7 +71,7 @@ async function runTest(file: string) {
   );
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
-    await sleep(fixture.postEditorOpenSleepTimeMs);
+    await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
   }
 
   editor.selections = fixture.initialState.selections.map(createSelection);
@@ -133,7 +132,7 @@ async function runTest(file: string) {
   );
 
   if (fixture.postCommandSleepTimeMs != null) {
-    await sleep(fixture.postCommandSleepTimeMs);
+    await sleepWithBackoff(fixture.postCommandSleepTimeMs);
   }
 
   const marks =
