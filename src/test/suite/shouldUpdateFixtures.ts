@@ -1,5 +1,5 @@
 /**
- * Used to check weather the update fixers launch config was used.
+ * Used to check weather the update fixtures launch config was used.
  * @returns `true` if developer used to the update fixtures launch config
  */
 export default function shouldUpdateFixtures() {
