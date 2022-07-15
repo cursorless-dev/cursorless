@@ -36,8 +36,6 @@ export function standardSuiteSetup(suite: Mocha.Suite) {
  * @param ms The baseline number of milliseconds to sleep.
  * @returns A promise that will resolve when the sleep is over
  */
-
 export function sleepWithBackoff(ms: number) {
-  console.log(`Sleeping; runNumber = ${retryCount}`);
   return sleep(ms * Math.pow(2, retryCount - 2));
 }
