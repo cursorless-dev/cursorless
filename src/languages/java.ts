@@ -57,7 +57,7 @@ const nodeMatchers: Partial<
   className: "class_declaration[name]",
   ifStatement: "if_statement",
   string: "string_literal",
-  comment: "comment",
+  comment: ["line_comment", "block_comment", "comment"],
   anonymousFunction: "lambda_expression",
   list: "array_initializer",
   functionCall: [
