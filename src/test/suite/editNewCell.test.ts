@@ -1,20 +1,15 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import * as sinon from "sinon";
 import { getCursorlessApi } from "../../util/getExtensionApi";
-import { openNewNotebookEditor } from "../openNewEditor";
-import sleep from "../../util/sleep";
 import { getCellIndex } from "../../util/notebook";
+import sleep from "../../util/sleep";
+import { openNewNotebookEditor } from "../openNewEditor";
 import { getPlainNotebookContents } from "../util/notebook";
+import { standardSuiteSetup } from "./standardSuiteSetup";
 
 // Check that setSelection is able to focus the correct cell
 suite("Edit new cell", async function () {
-  this.timeout("100s");
-  this.retries(3);
-
-  teardown(() => {
-    sinon.restore();
-  });
+  standardSuiteSetup(this);
 
   test("drink cell", () =>
     runTest("drink cell", "editNewLineBefore", 0, ["", "hello"]));
