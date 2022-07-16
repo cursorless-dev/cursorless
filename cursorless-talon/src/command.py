@@ -122,7 +122,7 @@ class Actions:
 
 
 def construct_cursorless_command_argument(
-    action: str, targets: list[dict], args: list[any]
+    action: str, targets: list[dict], args: list[Any]
 ):
     try:
         use_pre_phrase_snapshot = actions.user.did_emit_pre_phrase_signal()

@@ -10,6 +10,7 @@ import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
 } from "./modifiers/InteriorStage";
+import ItemStage from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import ModifyIfWeakStage from "./modifiers/ModifyIfWeakStage";
 import OrdinalRangeSubTokenStage, {
@@ -98,6 +99,8 @@ const getContainingScopeStage = (
       );
     case "url":
       return new UrlStage(modifier as UrlModifier);
+    case "collectionItem":
+      return new ItemStage(modifier);
     case "surroundingPair":
       return new SurroundingPairStage(
         modifier as ContainingSurroundingPairModifier

@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { ExtensionContext, Location } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
+import Cheatsheet from "../core/Cheatsheet";
 import Debug from "../core/Debug";
 import Decorations from "../core/Decorations";
 import { EditStyles } from "../core/editStyles";
@@ -56,9 +57,14 @@ export interface SelectionContext {
   containingListDelimiter?: string;
 
   /**
-   * Selection used for outside selection
+   * Selection used for removal
    */
   removalRange?: vscode.Range;
+
+  /**
+   * The range used for the interior
+   */
+  interiorRange?: vscode.Range;
 
   /**
    * The range of the delimiter before the selection
@@ -144,6 +150,11 @@ export interface Graph {
    * Used for recording test cases
    */
   readonly testCaseRecorder: TestCaseRecorder;
+
+  /**
+   * Used to display cheatsheet
+   */
+  readonly cheatsheet: Cheatsheet;
 }
 
 export type NodeMatcherValue = {

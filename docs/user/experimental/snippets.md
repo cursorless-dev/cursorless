@@ -84,7 +84,7 @@ For example:
 
 - `"snippet if after air"`: Insert `if` statement after the statement with a hat over the `a`
 
-Note that each snippet can use `insertionScopeTypes` to indicate that it will auto-expand the target. So, for example, `"snip if after this"` will insert an `if` statement after the current statement.
+Note that each snippet can use `insertionScopeTypes` to indicate that it will auto-expand the target. So, for example, `"snippet if after this"` will insert an `if` statement after the current statement.
 
 ### Built-in insertion snippets
 
@@ -100,9 +100,11 @@ Note that each snippet can use `insertionScopeTypes` to indicate that it will au
 
 As usual, the spoken forms for these snippets can be [customized by csv](../customization.md). The csvs are in the files in `cursorless-settings/experimental` with `snippet` in their name.
 
+In addition, you can change the term `"snippet"` (for snippet insertion) using actions.csv. Keep in mind that if you change it to `"snip"`, you may want to turn off the built-in knausj `"snip"` commands to avoid conflicts.
+
 ## Adding your own snippets
 
-To define your own wrapper snippets, proceed as follows:
+To define your own snippets, proceed as follows:
 
 ### Define snippets in vscode
 

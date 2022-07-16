@@ -1,7 +1,6 @@
 import * as assert from "assert";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
-import * as sinon from "sinon";
 import * as vscode from "vscode";
 import HatTokenMap from "../../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
@@ -22,10 +21,11 @@ import {
 } from "../../testUtil/toPlainObject";
 import { Clipboard } from "../../util/Clipboard";
 import { getCursorlessApi } from "../../util/getExtensionApi";
-import sleep from "../../util/sleep";
-import { openNewEditor, reuseEditor } from "../openNewEditor";
+import { openNewEditor } from "../openNewEditor";
 import asyncSafety from "../util/asyncSafety";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
+import shouldUpdateFixtures from "./shouldUpdateFixtures";
+import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -38,32 +38,22 @@ function createSelection(selection: SelectionPlainObject): vscode.Selection {
 }
 
 suite("recorded test cases", async function () {
-  this.timeout("100s");
-  this.retries(5);
-
-  let editor: vscode.TextEditor;
-
-  teardown(() => {
-    sinon.restore();
-  });
+  standardSuiteSetup(this);
 
   suiteSetup(async () => {
     // Necessary because opening a notebook opens the panel for some reason
     await vscode.commands.executeCommand("workbench.action.closePanel");
-
-    // NB: For some unfathomable reason the content string can't be empty or the first test will fail.
-    editor = await openNewEditor(" ");
   });
 
   getRecordedTestPaths().forEach((path) =>
     test(
       path.split(".")[0],
-      asyncSafety(() => runTest(editor, path))
+      asyncSafety(() => runTest(path))
     )
   );
 });
 
-async function runTest(editor: vscode.TextEditor, file: string) {
+async function runTest(file: string) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
   const excludeFields: ExcludableSnapshotField[] = [];
@@ -76,14 +66,13 @@ async function runTest(editor: vscode.TextEditor, file: string) {
   const graph = cursorlessApi.graph!;
   graph.editStyles.testDecorations = [];
 
-  await reuseEditor(
-    editor,
+  const editor = await openNewEditor(
     fixture.initialState.documentContents,
     fixture.languageId
   );
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
-    await sleep(fixture.postEditorOpenSleepTimeMs);
+    await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
   }
 
   editor.selections = fixture.initialState.selections.map(createSelection);
@@ -144,7 +133,7 @@ async function runTest(editor: vscode.TextEditor, file: string) {
   );
 
   if (fixture.postCommandSleepTimeMs != null) {
-    await sleep(fixture.postCommandSleepTimeMs);
+    await sleepWithBackoff(fixture.postCommandSleepTimeMs);
   }
 
   const marks =
@@ -176,7 +165,7 @@ async function runTest(editor: vscode.TextEditor, file: string) {
       ? undefined
       : testDecorationsToPlainObject(graph.editStyles.testDecorations);
 
-  if (process.env.CURSORLESS_TEST_UPDATE_FIXTURES === "true") {
+  if (shouldUpdateFixtures()) {
     const outputFixture = {
       ...fixture,
       finalState: resultState,
