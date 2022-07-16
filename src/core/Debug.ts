@@ -40,7 +40,9 @@ export default class Debug {
     }
   }
 
-  init() {}
+  init() {
+    // do nothing
+  }
 
   log(...args: any[]) {
     if (this.active) {

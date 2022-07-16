@@ -45,7 +45,7 @@ async function breakpointHarpAdd() {
   const breakpoints = vscode.debug.breakpoints;
   assert.deepStrictEqual(breakpoints.length, 1);
   assert.ok(breakpoints[0] instanceof vscode.SourceBreakpoint);
-  const breakpoint = <vscode.SourceBreakpoint>breakpoints[0];
+  const breakpoint = breakpoints[0];
   assert.ok(breakpoint.location.range.isEqual(new vscode.Range(0, 0, 0, 0)));
 }
 
@@ -74,7 +74,7 @@ async function breakpointTokenHarpAdd() {
   const breakpoints = vscode.debug.breakpoints;
   assert.deepStrictEqual(breakpoints.length, 1);
   assert.ok(breakpoints[0] instanceof vscode.SourceBreakpoint);
-  const breakpoint = <vscode.SourceBreakpoint>breakpoints[0];
+  const breakpoint = breakpoints[0];
   assert.ok(breakpoint.location.range.isEqual(new vscode.Range(0, 2, 0, 7)));
 }
 
@@ -146,7 +146,7 @@ async function breakpointTokenHarpRemove() {
   const breakpoints = vscode.debug.breakpoints;
   assert.deepStrictEqual(breakpoints.length, 1);
   assert.ok(breakpoints[0] instanceof vscode.SourceBreakpoint);
-  const breakpoint = <vscode.SourceBreakpoint>breakpoints[0];
+  const breakpoint = breakpoints[0];
   assert.ok(breakpoint.location.range.isEqual(new vscode.Range(0, 0, 0, 0)));
 }
 
