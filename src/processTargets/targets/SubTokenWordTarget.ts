@@ -1,7 +1,8 @@
-import { Range } from "vscode";
+import type { Range } from "vscode";
 import { tryConstructPlainTarget as tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
+import type { CommonTargetParameters } from "./BaseTarget";
+import BaseTarget from "./BaseTarget";
 
 export interface SubTokenTargetParameters extends CommonTargetParameters {
   readonly insertionDelimiter: string;

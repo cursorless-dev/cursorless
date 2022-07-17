@@ -1,21 +1,21 @@
 import { Location, Selection } from "vscode";
-import { SyntaxNode } from "web-tree-sitter";
+import type { SyntaxNode } from "web-tree-sitter";
 import { NoContainingScopeError } from "../../../errors";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
-import { Target } from "../../../typings/target.types";
-import {
+import type { Target } from "../../../typings/target.types";
+import type {
   ContainingScopeModifier,
   EveryScopeModifier,
   SimpleScopeType,
 } from "../../../typings/targetDescriptor.types";
-import {
+import type {
   NodeMatcher,
   ProcessedTargetsContext,
   SelectionWithEditor,
   SelectionWithEditorWithContext,
 } from "../../../typings/Types";
 import { selectionWithEditorFromRange } from "../../../util/selectionUtils";
-import { ModifierStage } from "../../PipelineStages.types";
+import type { ModifierStage } from "../../PipelineStages.types";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 
 export interface SimpleContainingScopeModifier extends ContainingScopeModifier {

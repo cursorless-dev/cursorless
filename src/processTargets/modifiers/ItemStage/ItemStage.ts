@@ -1,19 +1,19 @@
-import { Range, TextEditor } from "vscode";
+import type { TextEditor } from "vscode";
+import { Range } from "vscode";
 import { NoContainingScopeError } from "../../../errors";
-import { Target } from "../../../typings/target.types";
-import {
+import type { Target } from "../../../typings/target.types";
+import type {
   ContainingScopeModifier,
   EveryScopeModifier,
   SimpleScopeTypeType,
 } from "../../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../../typings/Types";
+import type { ProcessedTargetsContext } from "../../../typings/Types";
 import { getInsertionDelimiter } from "../../../util/nodeSelectors";
 import { getRangeLength } from "../../../util/rangeUtils";
-import { ModifierStage } from "../../PipelineStages.types";
+import type { ModifierStage } from "../../PipelineStages.types";
 import { ScopeTypeTarget } from "../../targets";
-import ContainingSyntaxScopeStage, {
-  SimpleContainingScopeModifier,
-} from "../scopeTypeStages/ContainingSyntaxScopeStage";
+import type { SimpleContainingScopeModifier } from "../scopeTypeStages/ContainingSyntaxScopeStage";
+import ContainingSyntaxScopeStage from "../scopeTypeStages/ContainingSyntaxScopeStage";
 import { getIterationScope } from "./getIterationScope";
 import { tokenizeRange } from "./tokenizeRange";
 

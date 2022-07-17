@@ -1,7 +1,8 @@
 import { zip } from "lodash";
-import { Range, Selection, TextEditor } from "vscode";
-import { Target } from "../typings/target.types";
-import { SelectionWithEditor } from "../typings/Types";
+import type { TextEditor } from "vscode";
+import { Range, Selection } from "vscode";
+import type { Target } from "../typings/target.types";
+import type { SelectionWithEditor } from "../typings/Types";
 import { groupBy } from "./itertools";
 
 export function ensureSingleEditor(targets: Target[]) {

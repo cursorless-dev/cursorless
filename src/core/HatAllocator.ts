@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 import { addDecorationsToEditors } from "../util/addDecorationsToEditor";
-import { Graph } from "../typings/Types";
-import { Disposable } from "vscode";
-import { IndividualHatMap } from "./IndividualHatMap";
+import type { Graph } from "../typings/Types";
+import type { Disposable } from "vscode";
+import type { IndividualHatMap } from "./IndividualHatMap";
 
 interface Context {
   getActiveMap(): Promise<IndividualHatMap>;

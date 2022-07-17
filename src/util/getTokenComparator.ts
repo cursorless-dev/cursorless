@@ -1,4 +1,4 @@
-import { Token } from "../typings/Types";
+import type { Token } from "../typings/Types";
 
 /**
  * Gets a comparison function that can be used to sort tokens based on their

@@ -1,6 +1,6 @@
-import { TextDocument } from "vscode";
-import { HatStyleName } from "./constants";
-import { Graph, Token } from "../typings/Types";
+import type { TextDocument } from "vscode";
+import type { HatStyleName } from "./constants";
+import type { Graph, Token } from "../typings/Types";
 import HatTokenMap from "./HatTokenMap";
 
 export interface ReadOnlyHatMap {

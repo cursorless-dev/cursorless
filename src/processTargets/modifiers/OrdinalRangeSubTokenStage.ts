@@ -1,13 +1,13 @@
 import { range } from "lodash";
 import { Range } from "vscode";
 import { SUBWORD_MATCHER } from "../../core/constants";
-import { Target } from "../../typings/target.types";
-import {
+import type { Target } from "../../typings/target.types";
+import type {
   OrdinalRangeModifier,
   SimpleScopeType,
 } from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
-import { ModifierStage } from "../PipelineStages.types";
+import type { ProcessedTargetsContext } from "../../typings/Types";
+import type { ModifierStage } from "../PipelineStages.types";
 import PlainTarget from "../targets/PlainTarget";
 import SubTokenWordTarget from "../targets/SubTokenWordTarget";
 import { getTokenRangeForSelection } from "./scopeTypeStages/TokenStage";

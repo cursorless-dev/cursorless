@@ -1,11 +1,5 @@
-import {
-  commands,
-  NotebookDocument,
-  Selection,
-  TextEditor,
-  ViewColumn,
-  window,
-} from "vscode";
+import type { NotebookDocument, Selection, TextEditor } from "vscode";
+import { commands, ViewColumn, window } from "vscode";
 import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
 import {
   focusNotebookCellLegacy,

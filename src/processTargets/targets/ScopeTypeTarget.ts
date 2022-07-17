@@ -1,6 +1,6 @@
-import { Range } from "vscode";
-import { Target } from "../../typings/target.types";
-import { SimpleScopeTypeType } from "../../typings/targetDescriptor.types";
+import type { Range } from "vscode";
+import type { Target } from "../../typings/target.types";
+import type { SimpleScopeTypeType } from "../../typings/targetDescriptor.types";
 import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRange,
@@ -12,7 +12,8 @@ import {
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
+import type { CommonTargetParameters } from "./BaseTarget";
+import BaseTarget from "./BaseTarget";
 import InteriorTarget from "./InteriorTarget";
 import PlainTarget from "./PlainTarget";
 

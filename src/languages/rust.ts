@@ -1,7 +1,10 @@
-import { TextEditor } from "vscode";
-import { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
-import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
+import type { TextEditor } from "vscode";
+import type { SyntaxNode } from "web-tree-sitter";
+import type { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import type {
+  NodeMatcherAlternative,
+  SelectionWithContext,
+} from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   ancestorChainNodeMatcher,

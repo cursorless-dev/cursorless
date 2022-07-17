@@ -1,4 +1,5 @@
-import { NotebookCell, NotebookDocument, TextDocument, window } from "vscode";
+import type { NotebookCell, NotebookDocument, TextDocument } from "vscode";
+import { window } from "vscode";
 import {
   getNotebookFromCellDocumentLegacy,
   isVscodeLegacyNotebookVersion,

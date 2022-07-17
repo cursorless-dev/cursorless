@@ -1,4 +1,4 @@
-import {
+import type {
   ContainingScopeModifier,
   ContainingSurroundingPairModifier,
   EveryScopeModifier,
@@ -13,30 +13,29 @@ import {
 import ItemStage from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import ModifyIfWeakStage from "./modifiers/ModifyIfWeakStage";
-import OrdinalRangeSubTokenStage, {
-  OrdinalRangeSubTokenModifier,
-} from "./modifiers/OrdinalRangeSubTokenStage";
+import type { OrdinalRangeSubTokenModifier } from "./modifiers/OrdinalRangeSubTokenStage";
+import OrdinalRangeSubTokenStage from "./modifiers/OrdinalRangeSubTokenStage";
 import PositionStage from "./modifiers/PositionStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
-import ContainingSyntaxScopeStage, {
-  SimpleContainingScopeModifier,
-} from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
+import type { SimpleContainingScopeModifier } from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
+import ContainingSyntaxScopeStage from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
 import DocumentStage from "./modifiers/scopeTypeStages/DocumentStage";
 import LineStage from "./modifiers/scopeTypeStages/LineStage";
 import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
 import ParagraphStage from "./modifiers/scopeTypeStages/ParagraphStage";
-import {
+import type {
   NonWhitespaceSequenceModifier,
-  NonWhitespaceSequenceStage,
   UrlModifier,
+} from "./modifiers/scopeTypeStages/RegexStage";
+import {
+  NonWhitespaceSequenceStage,
   UrlStage,
 } from "./modifiers/scopeTypeStages/RegexStage";
 import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
-import BoundedNonWhitespaceSequenceStage, {
-  BoundedNonWhitespaceSequenceModifier,
-} from "./modifiers/BoundedNonWhitespaceStage";
+import type { BoundedNonWhitespaceSequenceModifier } from "./modifiers/BoundedNonWhitespaceStage";
+import BoundedNonWhitespaceSequenceStage from "./modifiers/BoundedNonWhitespaceStage";
 import SurroundingPairStage from "./modifiers/SurroundingPairStage";
-import { ModifierStage } from "./PipelineStages.types";
+import type { ModifierStage } from "./PipelineStages.types";
 
 export default (modifier: Modifier): ModifierStage => {
   switch (modifier.type) {

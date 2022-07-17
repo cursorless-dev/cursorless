@@ -1,11 +1,11 @@
-import { Mark } from "../typings/targetDescriptor.types";
+import type { Mark } from "../typings/targetDescriptor.types";
 import CursorStage from "./marks/CursorStage";
 import DecoratedSymbolStage from "./marks/DecoratedSymbolStage";
 import LineNumberStage from "./marks/LineNumberStage";
 import NothingStage from "./marks/NothingStage";
 import SourceStage from "./marks/SourceStage";
 import ThatStage from "./marks/ThatStage";
-import { MarkStage } from "./PipelineStages.types";
+import type { MarkStage } from "./PipelineStages.types";
 
 export default (mark: Mark): MarkStage => {
   switch (mark.type) {

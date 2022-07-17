@@ -1,6 +1,6 @@
-import { Range } from "vscode";
+import type { Range } from "vscode";
 import { targetsToContinuousTarget } from "../processTargets/processTargets";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { groupTargetsForEachEditor } from "./targetUtils";
 
 /** Unifies overlapping/intersecting ranges */

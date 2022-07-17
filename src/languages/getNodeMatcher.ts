@@ -1,12 +1,12 @@
-import { SyntaxNode } from "web-tree-sitter";
+import type { SyntaxNode } from "web-tree-sitter";
 import { notSupported } from "../util/nodeMatchers";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
-import {
+import type {
   NodeMatcher,
   NodeMatcherValue,
   SelectionWithEditor,
 } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import type { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import cpp from "./cpp";
 import clojure from "./clojure";
 import csharp from "./csharp";
@@ -23,7 +23,7 @@ import go from "./go";
 import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 import { UnsupportedLanguageError } from "../errors";
-import { SupportedLanguageId } from "./constants";
+import type { SupportedLanguageId } from "./constants";
 
 export function getNodeMatcher(
   languageId: string,

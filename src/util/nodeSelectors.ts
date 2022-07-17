@@ -1,7 +1,8 @@
 import { identity, maxBy } from "lodash";
-import { Position, Range, Selection, TextEditor } from "vscode";
-import { Point, SyntaxNode } from "web-tree-sitter";
-import {
+import type { TextEditor } from "vscode";
+import { Position, Range, Selection } from "vscode";
+import type { Point, SyntaxNode } from "web-tree-sitter";
+import type {
   NodeFinder,
   SelectionExtractor,
   SelectionWithContext,

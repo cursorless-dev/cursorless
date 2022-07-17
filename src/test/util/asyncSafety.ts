@@ -1,4 +1,4 @@
-import { Context, Done } from "mocha";
+import type { Context, Done } from "mocha";
 
 /**
  * if an async returns after the method times out,

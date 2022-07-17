@@ -1,13 +1,7 @@
 import { range } from "lodash";
 import * as semver from "semver";
-import {
-  commands,
-  NotebookDocument,
-  TextDocument,
-  TextEditor,
-  version,
-  window,
-} from "vscode";
+import type { NotebookDocument, TextDocument, TextEditor } from "vscode";
+import { commands, version, window } from "vscode";
 import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
 
 export function isVscodeLegacyNotebookVersion() {

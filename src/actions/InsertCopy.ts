@@ -1,12 +1,13 @@
 import { flatten, zip } from "lodash";
-import { DecorationRangeBehavior, Selection, TextEditor } from "vscode";
+import type { TextEditor } from "vscode";
+import { DecorationRangeBehavior, Selection } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
 import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
-import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import type { Target } from "../typings/target.types";
+import type { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import type { Action, ActionReturnValue } from "./actions.types";
 
 class InsertCopy implements Action {
   getFinalStages = () => [weakContainingLineStage];

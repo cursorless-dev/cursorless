@@ -1,8 +1,8 @@
-import { Target } from "../../typings/target.types";
-import { ThatMark } from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
+import type { Target } from "../../typings/target.types";
+import type { ThatMark } from "../../typings/targetDescriptor.types";
+import type { ProcessedTargetsContext } from "../../typings/Types";
 import { isReversed } from "../../util/selectionUtils";
-import { MarkStage } from "../PipelineStages.types";
+import type { MarkStage } from "../PipelineStages.types";
 import WeakTarget from "../targets/WeakTarget";
 
 export default class implements MarkStage {

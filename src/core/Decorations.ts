@@ -1,25 +1,18 @@
 import * as vscode from "vscode";
 import { join } from "path";
-import {
-  HatStyleName,
-  HatShape,
-  HAT_SHAPES,
-  HAT_COLORS,
-  HAT_NON_DEFAULT_SHAPES,
-  HatStyle,
-  HatColor,
-} from "./constants";
+import type { HatStyleName, HatShape, HatStyle, HatColor } from "./constants";
+import { HAT_SHAPES, HAT_COLORS, HAT_NON_DEFAULT_SHAPES } from "./constants";
 import { readFileSync } from "fs";
-import FontMeasurements from "./FontMeasurements";
+import type FontMeasurements from "./FontMeasurements";
 import { pull, sortBy, filter } from "lodash";
 import getHatThemeColors from "./getHatThemeColors";
+import type { IndividualHatAdjustmentMap } from "./shapeAdjustments";
 import {
-  IndividualHatAdjustmentMap,
   defaultShapeAdjustments,
   DEFAULT_HAT_HEIGHT_EM,
   DEFAULT_VERTICAL_OFFSET_EM,
 } from "./shapeAdjustments";
-import { Graph } from "../typings/Types";
+import type { Graph } from "../typings/Types";
 import isTesting from "../testUtil/isTesting";
 
 export type DecorationMap = {

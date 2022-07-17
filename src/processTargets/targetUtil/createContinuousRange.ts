@@ -1,5 +1,5 @@
 import { Position, Range } from "vscode";
-import { Target } from "../../typings/target.types";
+import type { Target } from "../../typings/target.types";
 import WeakTarget from "../targets/WeakTarget";
 
 export function createContinuousRange(

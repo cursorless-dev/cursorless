@@ -1,11 +1,7 @@
-import { SnippetDefinition } from "../typings/snippet";
-import { Target } from "../typings/target.types";
-import {
-  Placeholder,
-  Text,
-  TextmateSnippet,
-  Variable,
-} from "../vendor/snippet/snippetParser";
+import type { SnippetDefinition } from "../typings/snippet";
+import type { Target } from "../typings/target.types";
+import type { TextmateSnippet } from "../vendor/snippet/snippetParser";
+import { Placeholder, Text, Variable } from "../vendor/snippet/snippetParser";
 import { KnownSnippetVariableNames } from "../vendor/snippet/snippetVariables";
 
 /**

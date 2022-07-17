@@ -1,7 +1,8 @@
-import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
-import { Action, ActionReturnValue } from "./actions.types";
-import CommandAction, { CommandOptions } from "./CommandAction";
+import type { Target } from "../typings/target.types";
+import type { Graph } from "../typings/Types";
+import type { Action, ActionReturnValue } from "./actions.types";
+import type { CommandOptions } from "./CommandAction";
+import CommandAction from "./CommandAction";
 
 export default class ExecuteCommand implements Action {
   private commandAction: CommandAction;

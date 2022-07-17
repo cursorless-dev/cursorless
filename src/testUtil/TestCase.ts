@@ -1,27 +1,23 @@
 import { pick } from "lodash";
 import * as vscode from "vscode";
-import { ActionType } from "../actions/actions.types";
-import { CommandLatest } from "../core/commandRunner/command.types";
-import { TestDecoration } from "../core/editStyles";
-import { ReadOnlyHatMap } from "../core/IndividualHatMap";
-import { ThatMark } from "../core/ThatMark";
-import { TargetDescriptor } from "../typings/targetDescriptor.types";
-import { Token } from "../typings/Types";
+import type { ActionType } from "../actions/actions.types";
+import type { CommandLatest } from "../core/commandRunner/command.types";
+import type { TestDecoration } from "../core/editStyles";
+import type { ReadOnlyHatMap } from "../core/IndividualHatMap";
+import type { ThatMark } from "../core/ThatMark";
+import type { TargetDescriptor } from "../typings/targetDescriptor.types";
+import type { Token } from "../typings/Types";
 import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 import {
   extractTargetedMarks,
   extractTargetKeys,
 } from "./extractTargetedMarks";
 import serialize from "./serialize";
-import {
-  ExtraSnapshotField,
-  takeSnapshot,
-  TestCaseSnapshot,
-} from "./takeSnapshot";
+import type { ExtraSnapshotField, TestCaseSnapshot } from "./takeSnapshot";
+import { takeSnapshot } from "./takeSnapshot";
+import type { PositionPlainObject, SerializedMarks } from "./toPlainObject";
 import {
   marksToPlainObject,
-  PositionPlainObject,
-  SerializedMarks,
   testDecorationsToPlainObject,
 } from "./toPlainObject";
 

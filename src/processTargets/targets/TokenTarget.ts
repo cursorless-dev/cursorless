@@ -1,6 +1,6 @@
-import { Range } from "vscode";
+import type { Range } from "vscode";
 import { BaseTarget } from ".";
-import { Target } from "../../typings/target.types";
+import type { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,

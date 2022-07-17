@@ -1,11 +1,11 @@
 import { flatten } from "lodash";
 import { Range, Selection } from "vscode";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import type { Target } from "../typings/target.types";
+import type { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import type { Action, ActionReturnValue } from "./actions.types";
 
 class InsertEmptyLines implements Action {
   constructor(

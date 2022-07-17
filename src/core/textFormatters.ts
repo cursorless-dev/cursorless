@@ -1,4 +1,4 @@
-import { TextFormatterName } from "../typings/Types";
+import type { TextFormatterName } from "../typings/Types";
 
 type TextFormatter = (tokens: string[]) => string;
 const textFormatters: Record<TextFormatterName, TextFormatter> = {

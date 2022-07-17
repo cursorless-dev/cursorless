@@ -1,15 +1,15 @@
-import { Location, Range, Selection, TextEditor } from "vscode";
-import { SyntaxNode } from "web-tree-sitter";
-import getTextFragmentExtractor, {
-  TextFragmentExtractor,
-} from "../../../languages/getTextFragmentExtractor";
-import {
+import type { Range, TextEditor } from "vscode";
+import { Location, Selection } from "vscode";
+import type { SyntaxNode } from "web-tree-sitter";
+import type { TextFragmentExtractor } from "../../../languages/getTextFragmentExtractor";
+import getTextFragmentExtractor from "../../../languages/getTextFragmentExtractor";
+import type {
   ComplexSurroundingPairName,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../../typings/Types";
+import type { ProcessedTargetsContext } from "../../../typings/Types";
 import { complexDelimiterMap } from "./delimiterMaps";
-import { SurroundingPairInfo } from "./extractSelectionFromSurroundingPairOffsets";
+import type { SurroundingPairInfo } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
 import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
 

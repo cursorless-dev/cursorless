@@ -1,4 +1,4 @@
-import { Context } from "mocha";
+import type { Context } from "mocha";
 import * as sinon from "sinon";
 import sleep from "../../util/sleep";
 import shouldUpdateFixtures from "./shouldUpdateFixtures";

@@ -5,9 +5,9 @@ import {
   matcher,
   patternMatcher,
 } from "../util/nodeMatchers";
-import { NodeMatcherAlternative, NodeFinder } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
-import { SyntaxNode } from "web-tree-sitter";
+import type { NodeMatcherAlternative, NodeFinder } from "../typings/Types";
+import type { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import type { SyntaxNode } from "web-tree-sitter";
 import { delimitedSelector } from "../util/nodeSelectors";
 import { identity } from "lodash";
 import { getChildNodesForFieldName } from "../util/treeSitterUtils";

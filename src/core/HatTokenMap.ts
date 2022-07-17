@@ -1,6 +1,7 @@
-import { HatStyleName } from "./constants";
-import { Graph } from "../typings/Types";
-import { IndividualHatMap, ReadOnlyHatMap } from "./IndividualHatMap";
+import type { HatStyleName } from "./constants";
+import type { Graph } from "../typings/Types";
+import type { ReadOnlyHatMap } from "./IndividualHatMap";
+import { IndividualHatMap } from "./IndividualHatMap";
 import { HatAllocator } from "./HatAllocator";
 import { hrtime } from "process";
 import { abs } from "../util/bigint";

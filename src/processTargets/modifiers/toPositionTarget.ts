@@ -1,6 +1,6 @@
 import { Range } from "vscode";
-import { Target } from "../../typings/target.types";
-import { Position } from "../../typings/targetDescriptor.types";
+import type { Target } from "../../typings/target.types";
+import type { Position } from "../../typings/targetDescriptor.types";
 import { PositionTarget } from "../targets";
 
 export function toPositionTarget(target: Target, position: Position): Target {

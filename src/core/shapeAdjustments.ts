@@ -1,4 +1,4 @@
-import { HatShape } from "./constants";
+import type { HatShape } from "./constants";
 
 export interface HatAdjustments {
   sizeAdjustment?: number;

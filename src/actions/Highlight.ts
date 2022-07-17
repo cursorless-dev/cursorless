@@ -1,8 +1,8 @@
-import { EditStyleName } from "../core/editStyles";
-import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import type { EditStyleName } from "../core/editStyles";
+import type { Target } from "../typings/target.types";
+import type { Graph } from "../typings/Types";
 import { createThatMark } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import type { Action, ActionReturnValue } from "./actions.types";
 
 export default class Highlight implements Action {
   constructor(private graph: Graph) {

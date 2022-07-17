@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { Graph } from "../typings/Types";
+import type { Graph } from "../typings/Types";
 import { readFile, writeFile } from "fs/promises";
 import path = require("path");
 import parse from "node-html-parser";

@@ -1,10 +1,10 @@
 import { flatten } from "lodash";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
-import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import type { Target } from "../typings/target.types";
+import type { Graph } from "../typings/Types";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
-import { Action, ActionReturnValue } from "./actions.types";
+import type { Action, ActionReturnValue } from "./actions.types";
 
 export default class Delete implements Action {
   constructor(private graph: Graph) {

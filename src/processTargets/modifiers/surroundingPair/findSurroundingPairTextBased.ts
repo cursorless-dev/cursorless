@@ -1,6 +1,7 @@
 import { escapeRegExp, findLast, uniq } from "lodash";
-import { Range, TextDocument, TextEditor } from "vscode";
-import {
+import type { TextDocument, TextEditor } from "vscode";
+import { Range } from "vscode";
+import type {
   SimpleSurroundingPairName,
   SurroundingPairName,
   SurroundingPairScopeType,
@@ -10,7 +11,7 @@ import { matchAll } from "../../../util/regex";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
-import {
+import type {
   IndividualDelimiter,
   Offsets,
   PossibleDelimiterOccurrence,

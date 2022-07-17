@@ -1,17 +1,17 @@
-import { ActionType } from "../../actions/actions.types";
+import type { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
-import {
+import type {
   Modifier,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "../../typings/targetDescriptor.types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
-import {
+import type {
   Command,
   CommandComplete,
   CommandLatest,
-  LATEST_VERSION,
 } from "../commandRunner/command.types";
+import { LATEST_VERSION } from "../commandRunner/command.types";
 import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";

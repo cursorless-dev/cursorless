@@ -3,11 +3,11 @@
  */
 import { sum } from "lodash";
 import { HAT_SHAPES } from "../../core/constants";
-import {
-  defaultShapeAdjustments,
+import type {
   HatAdjustments,
   IndividualHatAdjustmentMap,
 } from "../../core/shapeAdjustments";
+import { defaultShapeAdjustments } from "../../core/shapeAdjustments";
 import { postProcessValue } from "./lib";
 
 /**

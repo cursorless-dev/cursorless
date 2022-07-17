@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
-import { ThatMark } from "../core/ThatMark";
-import { SyntaxNode } from "web-tree-sitter";
-import { Graph } from "../typings/Types";
+import type { ThatMark } from "../core/ThatMark";
+import type { SyntaxNode } from "web-tree-sitter";
+import type { Graph } from "../typings/Types";
 
 export interface CursorlessApi {
   thatMark: ThatMark;

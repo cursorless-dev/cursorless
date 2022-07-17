@@ -1,5 +1,5 @@
-import { SyntaxNode } from "web-tree-sitter";
-import { SelectionWithEditor } from "../typings/Types";
+import type { SyntaxNode } from "web-tree-sitter";
+import type { SelectionWithEditor } from "../typings/Types";
 import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
 import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";
 import { stringTextFragmentExtractor as phpStringTextFragmentExtractor } from "./php";
@@ -7,8 +7,8 @@ import { stringTextFragmentExtractor as rubyStringTextFragmentExtractor } from "
 import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } from "./typescript";
 import { stringTextFragmentExtractor as scssStringTextFragmentExtractor } from "./scss";
 import { UnsupportedLanguageError } from "../errors";
-import { Range } from "vscode";
-import { SupportedLanguageId } from "./constants";
+import type { Range } from "vscode";
+import type { SupportedLanguageId } from "./constants";
 import { getNodeInternalRange, getNodeRange } from "../util/nodeSelectors";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { notSupported } from "../util/nodeMatchers";

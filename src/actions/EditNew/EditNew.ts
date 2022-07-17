@@ -1,13 +1,13 @@
 import { weakContainingLineStage } from "../../processTargets/modifiers/commonWeakContainingScopeStages";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
-import { ModifierStage } from "../../processTargets/PipelineStages.types";
-import { Target } from "../../typings/target.types";
-import { Graph } from "../../typings/Types";
+import type { ModifierStage } from "../../processTargets/PipelineStages.types";
+import type { Target } from "../../typings/target.types";
+import type { Graph } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
 import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
-import { Action, ActionReturnValue } from "../actions.types";
-import { State } from "./EditNew.types";
+import type { Action, ActionReturnValue } from "../actions.types";
+import type { State } from "./EditNew.types";
 import { runNotebookCellTargets } from "./runNotebookCellTargets";
 import { runCommandTargets } from "./runCommandTargets";
 import { runEditTargets } from "./runEditTargets";

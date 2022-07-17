@@ -1,7 +1,7 @@
-import { Target } from "../../typings/target.types";
-import { DecoratedSymbolMark } from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
-import { MarkStage } from "../PipelineStages.types";
+import type { Target } from "../../typings/target.types";
+import type { DecoratedSymbolMark } from "../../typings/targetDescriptor.types";
+import type { ProcessedTargetsContext } from "../../typings/Types";
+import type { MarkStage } from "../PipelineStages.types";
 import { WeakTarget } from "../targets";
 
 export default class implements MarkStage {

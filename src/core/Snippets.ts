@@ -4,8 +4,8 @@ import { join } from "path";
 import { window, workspace } from "vscode";
 import isTesting from "../testUtil/isTesting";
 import { walkFiles } from "../testUtil/walkAsync";
-import { Snippet, SnippetMap } from "../typings/snippet";
-import { Graph } from "../typings/Types";
+import type { Snippet, SnippetMap } from "../typings/snippet";
+import type { Graph } from "../typings/Types";
 import { mergeStrict } from "../util/object";
 
 const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";

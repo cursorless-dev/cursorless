@@ -1,6 +1,6 @@
-import { Range, Selection, TextEditor } from "vscode";
-import { Position } from "./targetDescriptor.types";
-import { EditWithRangeUpdater } from "./Types";
+import type { Range, Selection, TextEditor } from "vscode";
+import type { Position } from "./targetDescriptor.types";
+import type { EditWithRangeUpdater } from "./Types";
 
 export interface EditNewCommandContext {
   type: "command";

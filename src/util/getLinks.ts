@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 
 export async function getLinksForSelections(
   editor: vscode.TextEditor,

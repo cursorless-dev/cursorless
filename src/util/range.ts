@@ -1,4 +1,5 @@
-import { Range, TextDocument } from "vscode";
+import type { TextDocument } from "vscode";
+import { Range } from "vscode";
 
 /**
  * Get a range that corresponds to the entire contents of the given document.

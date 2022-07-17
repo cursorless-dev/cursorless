@@ -1,5 +1,5 @@
-import { Graph } from "../typings/Types";
-import { ActionRecord } from "./actions.types";
+import type { Graph } from "../typings/Types";
+import type { ActionRecord } from "./actions.types";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";

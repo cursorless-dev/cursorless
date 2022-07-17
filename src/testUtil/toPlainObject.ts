@@ -1,6 +1,6 @@
-import { Selection, Position, Range } from "vscode";
-import { TestDecoration } from "../core/editStyles";
-import { Token } from "../typings/Types";
+import type { Selection, Position, Range } from "vscode";
+import type { TestDecoration } from "../core/editStyles";
+import type { Token } from "../typings/Types";
 
 export type PositionPlainObject = {
   line: number;

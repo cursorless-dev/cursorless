@@ -1,9 +1,9 @@
 import { commands, Selection } from "vscode";
-import { NotebookCellPositionTarget } from "../../processTargets/targets";
-import { Target } from "../../typings/target.types";
-import { Graph } from "../../typings/Types";
+import type { NotebookCellPositionTarget } from "../../processTargets/targets";
+import type { Target } from "../../typings/target.types";
+import type { Graph } from "../../typings/Types";
 import { createThatMark, ensureSingleTarget } from "../../util/targetUtils";
-import { ActionReturnValue } from "../actions.types";
+import type { ActionReturnValue } from "../actions.types";
 
 export async function runNotebookCellTargets(
   graph: Graph,

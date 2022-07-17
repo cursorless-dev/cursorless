@@ -4,8 +4,8 @@ import {
   leadingMatcher,
   conditionMatcher,
 } from "../util/nodeMatchers";
-import { NodeMatcherAlternative } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import type { NodeMatcherAlternative } from "../typings/Types";
+import type { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>

@@ -2,11 +2,11 @@
  * This script can be used to add hat tweaks to the currently shipping ones
  */
 import { HAT_SHAPES } from "../../core/constants";
-import {
-  defaultShapeAdjustments,
+import type {
   HatAdjustments,
   IndividualHatAdjustmentMap,
 } from "../../core/shapeAdjustments";
+import { defaultShapeAdjustments } from "../../core/shapeAdjustments";
 import { postProcessValue } from "./lib";
 
 /**

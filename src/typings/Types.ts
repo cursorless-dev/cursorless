@@ -1,20 +1,20 @@
-import * as vscode from "vscode";
-import { ExtensionContext, Location } from "vscode";
-import { SyntaxNode } from "web-tree-sitter";
-import { ActionRecord } from "../actions/actions.types";
-import Cheatsheet from "../core/Cheatsheet";
-import Debug from "../core/Debug";
-import Decorations from "../core/Decorations";
-import { EditStyles } from "../core/editStyles";
-import FontMeasurements from "../core/FontMeasurements";
-import HatTokenMap from "../core/HatTokenMap";
-import { ReadOnlyHatMap } from "../core/IndividualHatMap";
-import { Snippets } from "../core/Snippets";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { ModifierStage } from "../processTargets/PipelineStages.types";
-import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
-import { CommandServerApi } from "../util/getExtensionApi";
-import { FullRangeInfo } from "./updateSelections";
+import type * as vscode from "vscode";
+import type { ExtensionContext, Location } from "vscode";
+import type { SyntaxNode } from "web-tree-sitter";
+import type { ActionRecord } from "../actions/actions.types";
+import type Cheatsheet from "../core/Cheatsheet";
+import type Debug from "../core/Debug";
+import type Decorations from "../core/Decorations";
+import type { EditStyles } from "../core/editStyles";
+import type FontMeasurements from "../core/FontMeasurements";
+import type HatTokenMap from "../core/HatTokenMap";
+import type { ReadOnlyHatMap } from "../core/IndividualHatMap";
+import type { Snippets } from "../core/Snippets";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { ModifierStage } from "../processTargets/PipelineStages.types";
+import type { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
+import type { CommandServerApi } from "../util/getExtensionApi";
+import type { FullRangeInfo } from "./updateSelections";
 
 /**
  * A token within a text editor, including the current display line of the token

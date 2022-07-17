@@ -5,16 +5,16 @@ import {
   getSelectionInfo,
 } from "../core/updateSelections/updateSelections";
 import ModifyIfWeakStage from "../processTargets/modifiers/ModifyIfWeakStage";
-import { Snippet, SnippetDefinition } from "../typings/snippet";
-import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import type { Snippet, SnippetDefinition } from "../typings/snippet";
+import type { Target } from "../typings/target.types";
+import type { Graph } from "../typings/Types";
 import {
   findMatchingSnippetDefinitionStrict,
   transformSnippetVariables,
 } from "../util/snippet";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { SnippetParser } from "../vendor/snippet/snippetParser";
-import { Action, ActionReturnValue } from "./actions.types";
+import type { Action, ActionReturnValue } from "./actions.types";
 
 export default class InsertSnippet implements Action {
   private snippetParser = new SnippetParser();

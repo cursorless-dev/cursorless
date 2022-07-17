@@ -1,7 +1,8 @@
 import * as vscode from "vscode";
 import graphFactories from "./util/graphFactories";
-import { Graph } from "./typings/Types";
-import makeGraph, { FactoryMap } from "./util/makeGraph";
+import type { Graph } from "./typings/Types";
+import type { FactoryMap } from "./util/makeGraph";
+import makeGraph from "./util/makeGraph";
 import { ThatMark } from "./core/ThatMark";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import isTesting from "./testUtil/isTesting";

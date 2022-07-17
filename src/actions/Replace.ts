@@ -1,9 +1,9 @@
 import { flatten, zip } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import type { Target } from "../typings/target.types";
+import type { Graph } from "../typings/Types";
 import { runForEachEditor } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import type { Action, ActionReturnValue } from "./actions.types";
 
 type RangeGenerator = { start: number };
 

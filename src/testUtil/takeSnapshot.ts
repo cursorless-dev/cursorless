@@ -1,14 +1,13 @@
 import * as vscode from "vscode";
-import { ThatMark } from "../core/ThatMark";
+import type { ThatMark } from "../core/ThatMark";
 import { Clipboard } from "../util/Clipboard";
 import { hrtimeBigintToSeconds } from "../util/timeUtils";
-import {
+import type {
   RangePlainObject,
-  rangeToPlainObject,
   SelectionPlainObject,
-  selectionToPlainObject,
   SerializedMarks,
 } from "./toPlainObject";
+import { rangeToPlainObject, selectionToPlainObject } from "./toPlainObject";
 
 export type ExtraSnapshotField = keyof TestCaseSnapshot;
 export type ExcludableSnapshotField = keyof TestCaseSnapshot;

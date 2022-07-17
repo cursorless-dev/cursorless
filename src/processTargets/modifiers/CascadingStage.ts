@@ -1,8 +1,8 @@
-import { Target } from "../../typings/target.types";
-import { CascadingModifier } from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
+import type { Target } from "../../typings/target.types";
+import type { CascadingModifier } from "../../typings/targetDescriptor.types";
+import type { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
-import { ModifierStage } from "../PipelineStages.types";
+import type { ModifierStage } from "../PipelineStages.types";
 
 /**
  * Tries each of the given modifiers in turn until one of them doesn't throw an

@@ -1,17 +1,17 @@
 import { uniqWith, zip } from "lodash";
 import { Range } from "vscode";
-import { Target } from "../typings/target.types";
-import {
+import type { Target } from "../typings/target.types";
+import type {
   Modifier,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../typings/Types";
+import type { ProcessedTargetsContext } from "../typings/Types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
-import { ModifierStage } from "./PipelineStages.types";
+import type { ModifierStage } from "./PipelineStages.types";
 import { PlainTarget, PositionTarget } from "./targets";
 
 /**

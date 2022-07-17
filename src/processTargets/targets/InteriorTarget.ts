@@ -1,6 +1,7 @@
-import { Range } from "vscode";
+import type { Range } from "vscode";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
+import type { CommonTargetParameters } from "./BaseTarget";
+import BaseTarget from "./BaseTarget";
 
 export interface InteriorTargetParameters
   extends Omit<CommonTargetParameters, "contentRange"> {

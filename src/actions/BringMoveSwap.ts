@@ -1,16 +1,17 @@
 import { flatten } from "lodash";
-import { DecorationRangeBehavior, Selection, TextEditor } from "vscode";
+import type { Selection, TextEditor } from "vscode";
+import { DecorationRangeBehavior } from "vscode";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
-import { Target } from "../typings/target.types";
-import { EditWithRangeUpdater, Graph } from "../typings/Types";
+import type { Target } from "../typings/target.types";
+import type { EditWithRangeUpdater, Graph } from "../typings/Types";
 import { selectionFromRange } from "../util/selectionUtils";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { getContentRange, runForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
-import { Action, ActionReturnValue } from "./actions.types";
+import type { Action, ActionReturnValue } from "./actions.types";
 
 type ActionType = "bring" | "move" | "swap";
 

@@ -1,8 +1,8 @@
-import { Target } from "../../typings/target.types";
+import type { Target } from "../../typings/target.types";
 import type { CursorMark } from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
+import type { ProcessedTargetsContext } from "../../typings/Types";
 import { isReversed } from "../../util/selectionUtils";
-import { MarkStage } from "../PipelineStages.types";
+import type { MarkStage } from "../PipelineStages.types";
 import WeakTarget from "../targets/WeakTarget";
 import TokenTarget from "../targets/TokenTarget";
 

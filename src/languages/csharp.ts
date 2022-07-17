@@ -1,4 +1,4 @@
-import { SyntaxNode } from "web-tree-sitter";
+import type { SyntaxNode } from "web-tree-sitter";
 import {
   cascadingMatcher,
   chainedMatcher,
@@ -10,8 +10,8 @@ import {
   conditionMatcher,
   patternMatcher,
 } from "../util/nodeMatchers";
-import { NodeMatcherAlternative } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import type { NodeMatcherAlternative } from "../typings/Types";
+import type { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { nodeFinder, typedNodeFinder } from "../util/nodeFinders";
 import { delimitedSelector, childRangeSelector } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";

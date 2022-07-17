@@ -1,4 +1,5 @@
-import { Range, TextEditor } from "vscode";
+import type { TextEditor } from "vscode";
+import { Range } from "vscode";
 
 /**
  * Given the iteration scope, returns a list of "tokens" within that collection

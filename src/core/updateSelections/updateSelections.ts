@@ -1,19 +1,14 @@
 import { flatten } from "lodash";
-import {
-  DecorationRangeBehavior,
-  Range,
-  Selection,
-  TextDocument,
-  TextEditor,
-} from "vscode";
-import { Edit } from "../../typings/Types";
-import {
+import type { Range, TextDocument, TextEditor } from "vscode";
+import { DecorationRangeBehavior, Selection } from "vscode";
+import type { Edit } from "../../typings/Types";
+import type {
   FullSelectionInfo,
   SelectionInfo,
 } from "../../typings/updateSelections";
 import { performDocumentEdits } from "../../util/performDocumentEdits";
 import { isForward } from "../../util/selectionUtils";
-import { RangeUpdater } from "./RangeUpdater";
+import type { RangeUpdater } from "./RangeUpdater";
 
 interface SelectionsWithBehavior {
   selections: readonly Selection[];

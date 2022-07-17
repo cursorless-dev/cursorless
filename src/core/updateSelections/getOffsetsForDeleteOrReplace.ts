@@ -1,5 +1,5 @@
 import { invariant } from "immutability-helper";
-import {
+import type {
   ChangeEventInfo,
   FullRangeInfo,
   RangeOffsets,

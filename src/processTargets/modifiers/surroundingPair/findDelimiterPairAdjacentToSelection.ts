@@ -1,7 +1,7 @@
-import { SurroundingPairScopeType } from "../../../typings/targetDescriptor.types";
+import type { SurroundingPairScopeType } from "../../../typings/targetDescriptor.types";
 import { findOppositeDelimiter } from "./findOppositeDelimiter";
 import { getSurroundingPairOffsets } from "./getSurroundingPairOffsets";
-import {
+import type {
   DelimiterOccurrence,
   Offsets,
   PossibleDelimiterOccurrence,

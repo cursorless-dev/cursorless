@@ -1,5 +1,6 @@
-import { Position, Range, TextEditor } from "vscode";
-import { Target } from "../../typings/target.types";
+import type { TextEditor } from "vscode";
+import { Position, Range } from "vscode";
+import type { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";

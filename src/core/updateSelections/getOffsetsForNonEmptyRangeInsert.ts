@@ -1,6 +1,6 @@
 import { invariant } from "immutability-helper";
 import { leftAnchored, rightAnchored } from "../../util/regex";
-import {
+import type {
   ChangeEventInfo,
   FullRangeInfo,
   RangeOffsets,

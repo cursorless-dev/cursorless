@@ -1,16 +1,10 @@
-import {
-  Breakpoint,
-  debug,
-  Location,
-  Range,
-  SourceBreakpoint,
-  Uri,
-} from "vscode";
+import type { Breakpoint, Range, Uri } from "vscode";
+import { debug, Location, SourceBreakpoint } from "vscode";
 import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
-import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import type { Target } from "../typings/target.types";
+import type { Graph } from "../typings/Types";
 import { createThatMark } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import type { Action, ActionReturnValue } from "./actions.types";
 
 function getBreakpoints(uri: Uri, range: Range) {
   return debug.breakpoints.filter(

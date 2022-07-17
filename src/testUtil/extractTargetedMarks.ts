@@ -1,7 +1,7 @@
-import { ReadOnlyHatMap } from "../core/IndividualHatMap";
+import type { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import HatTokenMap from "../core/HatTokenMap";
-import { Token } from "../typings/Types";
-import {
+import type { Token } from "../typings/Types";
+import type {
   PrimitiveTargetDescriptor,
   TargetDescriptor,
 } from "../typings/targetDescriptor.types";

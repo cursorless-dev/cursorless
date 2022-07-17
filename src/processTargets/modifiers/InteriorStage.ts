@@ -1,10 +1,10 @@
-import { Target } from "../../typings/target.types";
-import {
+import type { Target } from "../../typings/target.types";
+import type {
   ExcludeInteriorModifier,
   InteriorOnlyModifier,
 } from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
-import { ModifierStage } from "../PipelineStages.types";
+import type { ProcessedTargetsContext } from "../../typings/Types";
+import type { ModifierStage } from "../PipelineStages.types";
 import { weakContainingSurroundingPairStage } from "./commonWeakContainingScopeStages";
 
 export class InteriorOnlyStage implements ModifierStage {

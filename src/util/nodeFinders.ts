@@ -1,6 +1,7 @@
-import { Position, Selection } from "vscode";
-import { Point, SyntaxNode } from "web-tree-sitter";
-import { NodeFinder } from "../typings/Types";
+import type { Selection } from "vscode";
+import { Position } from "vscode";
+import type { Point, SyntaxNode } from "web-tree-sitter";
+import type { NodeFinder } from "../typings/Types";
 
 export const nodeFinder = (
   isTargetNode: (node: SyntaxNode) => boolean

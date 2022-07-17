@@ -1,5 +1,6 @@
-import { Position, Range, Selection, TextEditor } from "vscode";
-import { SelectionWithEditor } from "../typings/Types";
+import type { Position, TextEditor } from "vscode";
+import { Range, Selection } from "vscode";
+import type { SelectionWithEditor } from "../typings/Types";
 
 export function isForward(selection: Selection) {
   return selection.active.isAfterOrEqual(selection.anchor);

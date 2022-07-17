@@ -1,9 +1,10 @@
-import { Range, TextEditor } from "vscode";
-import { Target } from "../../../typings/target.types";
-import { ProcessedTargetsContext } from "../../../typings/Types";
+import type { TextEditor } from "vscode";
+import { Range } from "vscode";
+import type { Target } from "../../../typings/target.types";
+import type { ProcessedTargetsContext } from "../../../typings/Types";
 import { fitRangeToLineContent } from "../scopeTypeStages/LineStage";
 import { processSurroundingPair } from "../surroundingPair";
-import { SurroundingPairInfo } from "../surroundingPair/extractSelectionFromSurroundingPairOffsets";
+import type { SurroundingPairInfo } from "../surroundingPair/extractSelectionFromSurroundingPairOffsets";
 
 /**
  * Get the iteration scope range for item scope.

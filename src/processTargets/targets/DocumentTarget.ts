@@ -1,6 +1,7 @@
-import { Range } from "vscode";
+import type { Range } from "vscode";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
+import type { CommonTargetParameters } from "./BaseTarget";
+import BaseTarget from "./BaseTarget";
 import PlainTarget from "./PlainTarget";
 
 export default class DocumentTarget extends BaseTarget {

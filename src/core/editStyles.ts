@@ -1,17 +1,14 @@
-import {
-  DecorationRangeBehavior,
+import type {
   DecorationRenderOptions,
   Position,
   Range,
   TextEditor,
   TextEditorDecorationType,
-  ThemeColor,
-  window,
-  workspace,
 } from "vscode";
+import { DecorationRangeBehavior, ThemeColor, window, workspace } from "vscode";
 import isTesting from "../testUtil/isTesting";
-import { Target } from "../typings/target.types";
-import { Graph, RangeWithEditor } from "../typings/Types";
+import type { Target } from "../typings/target.types";
+import type { Graph, RangeWithEditor } from "../typings/Types";
 import sleep from "../util/sleep";
 import {
   getContentRange,

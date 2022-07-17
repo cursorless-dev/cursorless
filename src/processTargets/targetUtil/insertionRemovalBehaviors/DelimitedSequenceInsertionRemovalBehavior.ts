@@ -1,5 +1,5 @@
-import { Range } from "vscode";
-import { Target } from "../../../typings/target.types";
+import type { Range } from "vscode";
+import type { Target } from "../../../typings/target.types";
 
 /**
  * Constructs a removal range for the given target that includes either the

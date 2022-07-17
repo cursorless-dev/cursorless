@@ -1,11 +1,12 @@
-import { Position, Range, TextEditor } from "vscode";
-import { Target } from "../../../typings/target.types";
-import {
+import type { Position, TextEditor } from "vscode";
+import { Range } from "vscode";
+import type { Target } from "../../../typings/target.types";
+import type {
   ContainingScopeModifier,
   EveryScopeModifier,
 } from "../../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../../typings/Types";
-import { ModifierStage } from "../../PipelineStages.types";
+import type { ProcessedTargetsContext } from "../../../typings/Types";
+import type { ModifierStage } from "../../PipelineStages.types";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 
 type RegexModifier = NonWhitespaceSequenceModifier | UrlModifier;

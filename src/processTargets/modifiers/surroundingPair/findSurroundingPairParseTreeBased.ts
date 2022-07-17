@@ -1,6 +1,6 @@
-import { Range, TextDocument, TextEditor } from "vscode";
-import { SyntaxNode } from "web-tree-sitter";
-import {
+import type { Range, TextDocument, TextEditor } from "vscode";
+import type { SyntaxNode } from "web-tree-sitter";
+import type {
   SimpleSurroundingPairName,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
@@ -9,7 +9,7 @@ import { isContainedInErrorNode } from "../../../util/treeSitterUtils";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
-import {
+import type {
   IndividualDelimiter,
   Offsets,
   PossibleDelimiterOccurrence,

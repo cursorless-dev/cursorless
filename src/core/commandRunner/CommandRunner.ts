@@ -1,15 +1,15 @@
 import * as vscode from "vscode";
-import { ActionType } from "../../actions/actions.types";
+import type { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
 import processTargets from "../../processTargets";
 import isTesting from "../../testUtil/isTesting";
-import { Graph, ProcessedTargetsContext } from "../../typings/Types";
+import type { Graph, ProcessedTargetsContext } from "../../typings/Types";
 import { isString } from "../../util/type";
 import { canonicalizeAndValidateCommand } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
+import type { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
 import inferFullTargets from "../inferFullTargets";
-import { ThatMark } from "../ThatMark";
-import { Command } from "./command.types";
+import type { ThatMark } from "../ThatMark";
+import type { Command } from "./command.types";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {

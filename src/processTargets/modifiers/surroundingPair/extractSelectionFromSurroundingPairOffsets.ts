@@ -1,5 +1,6 @@
-import { Range, Selection, TextDocument } from "vscode";
-import { SurroundingPairOffsets } from "./types";
+import type { TextDocument } from "vscode";
+import { Range, Selection } from "vscode";
+import type { SurroundingPairOffsets } from "./types";
 
 export interface SurroundingPairInfo {
   contentRange: Selection;

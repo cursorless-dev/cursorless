@@ -1,7 +1,8 @@
-import { commands, TextEditor } from "vscode";
+import type { TextEditor } from "vscode";
+import { commands } from "vscode";
 import { callFunctionAndUpdateRanges } from "../../core/updateSelections/updateSelections";
-import { Graph } from "../../typings/Types";
-import { CommandTarget, State } from "./EditNew.types";
+import type { Graph } from "../../typings/Types";
+import type { CommandTarget, State } from "./EditNew.types";
 
 /**
  * Handle targets that will use a VSCode command to insert a new target, eg

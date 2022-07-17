@@ -1,4 +1,5 @@
-import { Position, Range, TextEditor } from "vscode";
+import type { TextEditor } from "vscode";
+import { Position, Range } from "vscode";
 
 export function isAtEndOfLine(editor: TextEditor, position: Position) {
   const endLine = editor.document.lineAt(position);

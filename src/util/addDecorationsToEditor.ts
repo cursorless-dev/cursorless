@@ -3,11 +3,11 @@ import * as vscode from "vscode";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator as getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
-import { Token } from "../typings/Types";
-import Decorations from "../core/Decorations";
-import { HatStyleName } from "../core/constants";
+import type { Token } from "../typings/Types";
+import type Decorations from "../core/Decorations";
+import type { HatStyleName } from "../core/constants";
 import { TOKEN_MATCHER } from "../core/tokenizer";
-import { IndividualHatMap } from "../core/IndividualHatMap";
+import type { IndividualHatMap } from "../core/IndividualHatMap";
 
 interface CharacterTokenInfo {
   characterIdx: number;

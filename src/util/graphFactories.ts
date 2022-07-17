@@ -1,7 +1,7 @@
 import Actions from "../actions";
 import { EditStyles } from "../core/editStyles";
-import { Graph } from "../typings/Types";
-import { FactoryMap } from "./makeGraph";
+import type { Graph } from "../typings/Types";
+import type { FactoryMap } from "./makeGraph";
 import HatTokenMap from "../core/HatTokenMap";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";

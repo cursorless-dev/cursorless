@@ -1,5 +1,6 @@
-import { Position, Range, TextDocument, TextEditor, TextLine } from "vscode";
-import { Target } from "../../typings/target.types";
+import type { TextDocument, TextEditor, TextLine } from "vscode";
+import { Position, Range } from "vscode";
+import type { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { isSameType } from "../../util/typeUtils";
 import { constructLineTarget } from "../../util/tryConstructTarget";

@@ -1,4 +1,4 @@
-import { Graph } from "../typings/Types";
+import type { Graph } from "../typings/Types";
 import CommandAction from "./CommandAction";
 
 export class CommentLines extends CommandAction {

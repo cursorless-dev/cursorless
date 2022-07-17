@@ -9,9 +9,12 @@ import {
   patternMatcher,
   trailingMatcher,
 } from "../util/nodeMatchers";
-import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
-import { SyntaxNode } from "web-tree-sitter";
+import type {
+  NodeMatcherAlternative,
+  SelectionWithEditor,
+} from "../typings/Types";
+import type { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import type { SyntaxNode } from "web-tree-sitter";
 import { getNodeRange } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";
 

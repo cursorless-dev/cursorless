@@ -1,10 +1,12 @@
 import * as vscode from "vscode";
-import { Range, TextEditor } from "vscode";
+import type { TextEditor } from "vscode";
+import { Range } from "vscode";
 import { UnsupportedError } from "../../errors";
-import { EditNewContext } from "../../typings/target.types";
-import { Position } from "../../typings/targetDescriptor.types";
-import { EditWithRangeUpdater } from "../../typings/Types";
-import { BaseTarget, CommonTargetParameters } from ".";
+import type { EditNewContext } from "../../typings/target.types";
+import type { Position } from "../../typings/targetDescriptor.types";
+import type { EditWithRangeUpdater } from "../../typings/Types";
+import type { CommonTargetParameters } from ".";
+import { BaseTarget } from ".";
 
 interface PositionTargetParameters extends CommonTargetParameters {
   readonly position: Position;

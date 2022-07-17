@@ -1,12 +1,12 @@
-import { TextEditor } from "vscode";
-import {
+import type { TextEditor } from "vscode";
+import type {
   LineNumberMark,
   LineNumberPosition,
 } from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
+import type { ProcessedTargetsContext } from "../../typings/Types";
 import { createLineTarget } from "../modifiers/scopeTypeStages/LineStage";
-import { MarkStage } from "../PipelineStages.types";
-import LineTarget from "../targets/LineTarget";
+import type { MarkStage } from "../PipelineStages.types";
+import type LineTarget from "../targets/LineTarget";
 
 export default class implements MarkStage {
   constructor(private modifier: LineNumberMark) {}

@@ -1,5 +1,5 @@
 import { concat, flatten, flow, range, uniq } from "lodash";
-import * as vscode from "vscode";
+import type * as vscode from "vscode";
 
 /**
  * Returns a map from line numbers in the file to display lines, which skip

@@ -1,4 +1,4 @@
-import {
+import type {
   ComplexSurroundingPairName,
   SimpleSurroundingPairName,
 } from "../../../typings/targetDescriptor.types";

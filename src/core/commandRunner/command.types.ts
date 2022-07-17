@@ -1,6 +1,6 @@
-import { PartialTargetDescriptor } from "../../typings/targetDescriptor.types";
-import { ActionType } from "../../actions/actions.types";
-import {
+import type { PartialTargetDescriptor } from "../../typings/targetDescriptor.types";
+import type { ActionType } from "../../actions/actions.types";
+import type {
   CommandV0,
   CommandV1,
 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";

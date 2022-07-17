@@ -1,13 +1,13 @@
 import { pull } from "lodash";
-import {
-  workspace,
+import type {
   TextDocument,
   TextDocumentChangeEvent,
   Disposable,
   TextDocumentContentChangeEvent,
 } from "vscode";
-import { Edit } from "../../typings/Types";
-import {
+import { workspace } from "vscode";
+import type { Edit } from "../../typings/Types";
+import type {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,
 } from "../../typings/updateSelections";

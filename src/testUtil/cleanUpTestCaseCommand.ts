@@ -1,4 +1,4 @@
-import { TestCaseCommand } from "./TestCase";
+import type { TestCaseCommand } from "./TestCase";
 
 export function cleanUpTestCaseCommand(
   command: TestCaseCommand

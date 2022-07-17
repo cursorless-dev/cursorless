@@ -1,13 +1,13 @@
 import { ensureSingleTarget } from "../../util/targetUtils";
 
 import { commands, Range, window } from "vscode";
-import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
+import type { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import isTesting from "../../testUtil/isTesting";
-import { Target } from "../../typings/target.types";
-import { Graph } from "../../typings/Types";
+import type { Target } from "../../typings/target.types";
+import type { Graph } from "../../typings/Types";
 import { getDocumentRange } from "../../util/range";
 import { selectionFromRange } from "../../util/selectionUtils";
-import { Action, ActionReturnValue } from "../actions.types";
+import type { Action, ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
 import { openNewSnippetFile } from "./openNewSnippetFile";

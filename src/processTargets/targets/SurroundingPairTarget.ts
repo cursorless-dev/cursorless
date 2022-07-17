@@ -1,11 +1,12 @@
-import { Range } from "vscode";
-import { Target } from "../../typings/target.types";
+import type { Range } from "vscode";
+import type { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
+import type { CommonTargetParameters } from "./BaseTarget";
+import BaseTarget from "./BaseTarget";
 import InteriorTarget from "./InteriorTarget";
 import TokenTarget from "./TokenTarget";
 

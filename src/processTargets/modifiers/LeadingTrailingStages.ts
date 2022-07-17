@@ -1,10 +1,10 @@
-import { Target } from "../../typings/target.types";
-import {
+import type { Target } from "../../typings/target.types";
+import type {
   LeadingModifier,
   TrailingModifier,
 } from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
-import { ModifierStage } from "../PipelineStages.types";
+import type { ProcessedTargetsContext } from "../../typings/Types";
+import type { ModifierStage } from "../PipelineStages.types";
 import { weakContainingTokenStage } from "./commonWeakContainingScopeStages";
 
 export class LeadingStage implements ModifierStage {

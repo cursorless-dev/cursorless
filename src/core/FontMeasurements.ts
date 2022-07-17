@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { Graph } from "../typings/Types";
+import type { Graph } from "../typings/Types";
 
 /**
  * Contains measurements for the user's font

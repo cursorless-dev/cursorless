@@ -1,8 +1,8 @@
-import { Target } from "../../typings/target.types";
-import { ModifyIfWeakModifier } from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
+import type { Target } from "../../typings/target.types";
+import type { ModifyIfWeakModifier } from "../../typings/targetDescriptor.types";
+import type { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
-import { ModifierStage } from "../PipelineStages.types";
+import type { ModifierStage } from "../PipelineStages.types";
 
 /**
  * Runs {@link ModifyIfWeakModifier.modifier} if the target is weak.

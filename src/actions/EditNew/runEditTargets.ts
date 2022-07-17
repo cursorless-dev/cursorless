@@ -1,8 +1,9 @@
 import { zip } from "lodash";
-import { DecorationRangeBehavior, Range, Selection, TextEditor } from "vscode";
+import type { Range, TextEditor } from "vscode";
+import { DecorationRangeBehavior, Selection } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
-import { Graph } from "../../typings/Types";
-import { EditTarget, State } from "./EditNew.types";
+import type { Graph } from "../../typings/Types";
+import type { EditTarget, State } from "./EditNew.types";
 
 /**
  * Handle targets that will use an edit action to insert a new target, and

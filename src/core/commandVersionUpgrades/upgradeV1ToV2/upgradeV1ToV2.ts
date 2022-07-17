@@ -1,15 +1,15 @@
 import { flow } from "lodash";
-import {
+import type {
   Modifier,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "../../../typings/targetDescriptor.types";
-import { ActionType } from "../../../actions/actions.types";
+import type { ActionType } from "../../../actions/actions.types";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
-import { CommandV2 } from "../../commandRunner/command.types";
-import {
+import type { CommandV2 } from "../../commandRunner/command.types";
+import type {
   CommandV1,
   ModifierV0V1,
   PartialPrimitiveTargetV0V1,

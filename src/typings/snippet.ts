@@ -1,5 +1,5 @@
-import { SimpleScopeTypeType } from "./targetDescriptor.types";
-import { TextFormatterName } from "./Types";
+import type { SimpleScopeTypeType } from "./targetDescriptor.types";
+import type { TextFormatterName } from "./Types";
 
 export interface SnippetScope {
   /**

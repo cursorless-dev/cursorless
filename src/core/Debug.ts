@@ -1,13 +1,7 @@
-import {
-  Disposable,
-  ExtensionMode,
-  Location,
-  TextEditorSelectionChangeEvent,
-  window,
-  workspace,
-} from "vscode";
-import { SyntaxNode, TreeCursor } from "web-tree-sitter";
-import { Graph } from "../typings/Types";
+import type { Disposable, TextEditorSelectionChangeEvent } from "vscode";
+import { ExtensionMode, Location, window, workspace } from "vscode";
+import type { SyntaxNode, TreeCursor } from "web-tree-sitter";
+import type { Graph } from "../typings/Types";
 
 export default class Debug {
   private disposableConfiguration?: Disposable;

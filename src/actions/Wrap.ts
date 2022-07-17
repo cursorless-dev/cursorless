@@ -3,12 +3,12 @@ import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
-import { Target } from "../typings/target.types";
-import { Edit, Graph } from "../typings/Types";
-import { FullSelectionInfo } from "../typings/updateSelections";
+import type { Target } from "../typings/target.types";
+import type { Edit, Graph } from "../typings/Types";
+import type { FullSelectionInfo } from "../typings/updateSelections";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import type { Action, ActionReturnValue } from "./actions.types";
 
 export default class Wrap implements Action {
   constructor(private graph: Graph) {

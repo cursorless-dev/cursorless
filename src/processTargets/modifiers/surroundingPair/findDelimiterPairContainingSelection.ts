@@ -1,11 +1,11 @@
 import { getSurroundingPairOffsets } from "./getSurroundingPairOffsets";
-import {
+import type {
   SurroundingPairOffsets,
   PossibleDelimiterOccurrence,
   Offsets,
 } from "./types";
 import { generateUnmatchedDelimiters } from "./generateUnmatchedDelimiters";
-import { SimpleSurroundingPairName } from "../../../typings/targetDescriptor.types";
+import type { SimpleSurroundingPairName } from "../../../typings/targetDescriptor.types";
 
 /**
  * Looks for a surrounding pair that contains the selection, returning null if none is found.

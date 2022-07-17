@@ -3,20 +3,20 @@ import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import HatTokenMap from "../../core/HatTokenMap";
-import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
+import type { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 import serialize from "../../testUtil/serialize";
-import {
-  ExcludableSnapshotField,
-  takeSnapshot,
-} from "../../testUtil/takeSnapshot";
-import { TestCaseFixture } from "../../testUtil/TestCase";
-import {
-  marksToPlainObject,
+import type { ExcludableSnapshotField } from "../../testUtil/takeSnapshot";
+import { takeSnapshot } from "../../testUtil/takeSnapshot";
+import type { TestCaseFixture } from "../../testUtil/TestCase";
+import type {
   PositionPlainObject,
-  rangeToPlainObject,
   SelectionPlainObject,
   SerializedMarks,
+} from "../../testUtil/toPlainObject";
+import {
+  marksToPlainObject,
+  rangeToPlainObject,
   testDecorationsToPlainObject,
 } from "../../testUtil/toPlainObject";
 import { Clipboard } from "../../util/Clipboard";

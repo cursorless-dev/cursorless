@@ -1,5 +1,5 @@
 import * as sinon from "sinon";
-import { Graph } from "../typings/Types";
+import type { Graph } from "../typings/Types";
 
 export function mockPrePhraseGetVersion(
   graph: Graph,

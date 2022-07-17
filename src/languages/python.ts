@@ -1,7 +1,7 @@
-import { Selection } from "vscode";
-import { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
-import { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
+import type { Selection } from "vscode";
+import type { SyntaxNode } from "web-tree-sitter";
+import type { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import type { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
 import { argumentNodeFinder, patternFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,
