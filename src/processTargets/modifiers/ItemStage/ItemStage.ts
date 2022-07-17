@@ -24,9 +24,11 @@ export default class ItemStage implements ModifierStage {
     // First try the language specific implementation of item
     try {
       return new ContainingSyntaxScopeStage(
-        <SimpleContainingScopeModifier>this.modifier
+        this.modifier as SimpleContainingScopeModifier
       ).run(context, target);
-    } catch (_error) {}
+    } catch (_error) {
+      // do nothing
+    }
 
     // Then try the textual implementation
     if (this.modifier.type === "everyScope") {
@@ -96,7 +98,7 @@ export default class ItemStage implements ModifierStage {
       ", "
     );
     return new ScopeTypeTarget({
-      scopeTypeType: <SimpleScopeTypeType>this.modifier.scopeType.type,
+      scopeTypeType: this.modifier.scopeType.type as SimpleScopeTypeType,
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange: itemInfo.contentRange,

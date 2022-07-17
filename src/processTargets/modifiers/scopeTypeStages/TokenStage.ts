@@ -143,7 +143,7 @@ function getRelevantTokens(editor: TextEditor, range: Range) {
   const startLine = range.start.line;
   const endLine = range.end.line;
 
-  let tokens = getTokensInRange(
+  const tokens = getTokensInRange(
     editor,
     editor.document.lineAt(startLine).range
   );

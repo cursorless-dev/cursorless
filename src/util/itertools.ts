@@ -10,7 +10,7 @@ export function groupBy<T, U>(list: T[], func: (element: T) => U): Map<U, T[]> {
 
   list.forEach((element) => {
     const key = func(element);
-    var group: T[];
+    let group: T[];
 
     if (map.has(key)) {
       group = map.get(key)!;

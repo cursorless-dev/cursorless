@@ -1,17 +1,12 @@
 import * as assert from "assert";
-import * as vscode from "vscode";
-import * as sinon from "sinon";
 import * as os from "os";
+import * as vscode from "vscode";
 import { openNewEditor } from "../openNewEditor";
 import { getFixturePath } from "../util/getFixturePaths";
+import { standardSuiteSetup } from "./standardSuiteSetup";
 
 suite("followLink", async function () {
-  this.timeout("100s");
-  this.retries(3);
-
-  teardown(() => {
-    sinon.restore();
-  });
+  standardSuiteSetup(this);
 
   test("follow definition", followDefinition);
   test("follow link", followLink);

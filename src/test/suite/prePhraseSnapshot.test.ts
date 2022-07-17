@@ -1,10 +1,10 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import * as sinon from "sinon";
-import { getCursorlessApi } from "../../util/getExtensionApi";
 import { selectionToPlainObject } from "../../testUtil/toPlainObject";
+import { getCursorlessApi } from "../../util/getExtensionApi";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
 import { openNewEditor } from "../openNewEditor";
+import { standardSuiteSetup } from "./standardSuiteSetup";
 
 /**
  * The selections we expect when the pre-phrase snapshot is used
@@ -17,12 +17,7 @@ const snapshotExpectedSelections = [new vscode.Selection(0, 6, 0, 11)];
 const noSnapshotExpectedSelections = [new vscode.Selection(1, 6, 1, 11)];
 
 suite("Pre-phrase snapshots", async function () {
-  this.timeout("100s");
-  this.retries(3);
-
-  teardown(() => {
-    sinon.restore();
-  });
+  standardSuiteSetup(this);
 
   test("Pre-phrase snapshot; single phrase", () =>
     runTest(true, false, snapshotExpectedSelections));
