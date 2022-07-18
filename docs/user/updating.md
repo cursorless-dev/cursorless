@@ -10,8 +10,8 @@ The Talon side of Cursorless always needs to be updated manually, simply by perf
 
 Assuming the default install location of `~/.talon/user`:
 
-```insert code:
-cd ~/.talon/user
+```bash
+cd ~/.talon/user/cursorless-talon
 git pull
 ```
 
@@ -19,7 +19,7 @@ git pull
 
 Assuming the default install location of `%AppData%\Talon\user`:
 
-```insert code:
+```batch
 cd %AppData%\Talon\user
 git pull
 ```
