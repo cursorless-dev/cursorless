@@ -13,6 +13,9 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      mono: ['Inconsolata'],
+    },
   },
   plugins: [],
 };

@@ -5,3 +5,41 @@
 body {
   background-color: #f6cbbd;
 }
+
+/* From https://google-webfonts-helper.herokuapp.com/fonts/inconsolata?subsets=latin */
+
+/* inconsolata-500 - latin */
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/fonts/inconsolata-v31-latin-500.eot'); /* IE9 Compat Modes */
+  src: local(''),
+    url('/fonts/inconsolata-v31-latin-500.eot?#iefix')
+      format('embedded-opentype'),
+    /* IE6-IE8 */ url('/fonts/inconsolata-v31-latin-500.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('/fonts/inconsolata-v31-latin-500.woff')
+      format('woff'),
+    /* Modern Browsers */ url('/fonts/inconsolata-v31-latin-500.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */
+      url('/fonts/inconsolata-v31-latin-500.svg#Inconsolata') format('svg'); /* Legacy iOS */
+}
+
+/* inconsolata-600 - latin */
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/fonts/inconsolata-v31-latin-600.eot'); /* IE9 Compat Modes */
+  src: local(''),
+    url('/fonts/inconsolata-v31-latin-600.eot?#iefix')
+      format('embedded-opentype'),
+    /* IE6-IE8 */ url('/fonts/inconsolata-v31-latin-600.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('/fonts/inconsolata-v31-latin-600.woff')
+      format('woff'),
+    /* Modern Browsers */ url('/fonts/inconsolata-v31-latin-600.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */
+      url('/fonts/inconsolata-v31-latin-600.svg#Inconsolata') format('svg'); /* Legacy iOS */
+}
