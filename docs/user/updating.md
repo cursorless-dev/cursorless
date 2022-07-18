@@ -8,7 +8,7 @@ The Talon side of Cursorless always needs to be updated manually, simply by perf
 
 ### Linux & Mac
 
-Assuming the default install location of `~/.talon/user`:
+Assuming the default install location of `~/.talon/user/cursorless-talon`:
 
 ```bash
 cd ~/.talon/user/cursorless-talon
@@ -17,9 +17,9 @@ git pull
 
 ### Windows
 
-Assuming the default install location of `%AppData%\Talon\user`:
+Assuming the default install location of `%AppData%\Talon\user\cursorless-talon`:
 
 ```batch
-cd %AppData%\Talon\user
+cd %AppData%\Talon\user\cursorless-talon
 git pull
 ```
