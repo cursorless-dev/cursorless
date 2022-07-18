@@ -106,10 +106,10 @@ minimize syllables.
 
 The word `"this"` can be used as a mark to refer to the current cursor(s) or selection(s) as a target. Note that when combined with a modifier, the `"this"` mark can be omitted, and it will be implied.
 
-- `chuck this`
-- `take funk this`
-- `pre funk`
-- `chuck line`
+- `"chuck this"`
+- `"take funk this"`
+- `"pre funk"`
+- `"chuck line"`
 
 ##### `"that"`
 
@@ -117,6 +117,20 @@ The word `"that"` can be used as a mark to refer to the target of the previous c
 
 - `"pre that"`
 - `"round wrap that"`
+
+##### `"row #"`
+
+The word `"row"` followed by a line number serves as a mark to refer to a line. The line must be visible within the viewport. Note that the line numbers are modulo 100, meaning that you only ever need to say a two digit line number.
+
+- `"post row 89"`
+- `"pour row 11"`
+
+##### `"up #"` / `"down #"`
+
+Use `"up"` or `"down"` followed by a number as a mark to refer to a line relative to the cursor ("the line that is X above/below this one"). The line may be outside of the viewport.
+
+- `"copy up 1"`
+- `"comment down 2"`
 
 #### Modifiers
 
