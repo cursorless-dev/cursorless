@@ -118,19 +118,20 @@ The word `"that"` can be used as a mark to refer to the target of the previous c
 - `"pre that"`
 - `"round wrap that"`
 
-##### `"row #"`
+##### `"row <number>"`
 
-The word `"row"` followed by a line number serves as a mark to refer to a line. The line must be visible within the viewport. Note that the line numbers are modulo 100, meaning that you only ever need to say a two digit line number.
+The word `"row"` followed by a number can be used to refer to a line by its line number. Note that the line numbers are modulo 100, meaning that you only say the last two digits of the line number. Also note that the line must be visible within the viewport.
 
-- `"post row 89"`
-- `"pour row 11"`
+- `"chuck row twenty four"`
+- `"post row eighty nine"`
+- `"pour row eleven"`
 
-##### `"up #"` / `"down #"`
+##### `"up <number>"` / `"down <number>"`
 
-Use `"up"` or `"down"` followed by a number as a mark to refer to a line relative to the cursor ("the line that is X above/below this one"). The line may be outside of the viewport.
+The word `"up"` or `"down"` followed by a number can be used to refer to the line that is `<number>` lines above or below the cursor. The line may be outside of the viewport.
 
-- `"copy up 1"`
-- `"comment down 2"`
+- `"copy up one"`
+- `"comment down two"`
 
 #### Modifiers
 
