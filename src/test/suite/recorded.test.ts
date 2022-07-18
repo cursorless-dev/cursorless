@@ -1,7 +1,6 @@
 import * as assert from "assert";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
-import * as sinon from "sinon";
 import * as vscode from "vscode";
 import HatTokenMap from "../../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
@@ -22,10 +21,11 @@ import {
 } from "../../testUtil/toPlainObject";
 import { Clipboard } from "../../util/Clipboard";
 import { getCursorlessApi } from "../../util/getExtensionApi";
-import sleep from "../../util/sleep";
 import { openNewEditor } from "../openNewEditor";
 import asyncSafety from "../util/asyncSafety";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
+import shouldUpdateFixtures from "./shouldUpdateFixtures";
+import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -38,12 +38,7 @@ function createSelection(selection: SelectionPlainObject): vscode.Selection {
 }
 
 suite("recorded test cases", async function () {
-  this.timeout("100s");
-  this.retries(5);
-
-  teardown(() => {
-    sinon.restore();
-  });
+  standardSuiteSetup(this);
 
   suiteSetup(async () => {
     // Necessary because opening a notebook opens the panel for some reason
@@ -77,7 +72,7 @@ async function runTest(file: string) {
   );
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
-    await sleep(fixture.postEditorOpenSleepTimeMs);
+    await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
   }
 
   editor.selections = fixture.initialState.selections.map(createSelection);
@@ -138,7 +133,7 @@ async function runTest(file: string) {
   );
 
   if (fixture.postCommandSleepTimeMs != null) {
-    await sleep(fixture.postCommandSleepTimeMs);
+    await sleepWithBackoff(fixture.postCommandSleepTimeMs);
   }
 
   const marks =
@@ -170,7 +165,7 @@ async function runTest(file: string) {
       ? undefined
       : testDecorationsToPlainObject(graph.editStyles.testDecorations);
 
-  if (process.env.CURSORLESS_TEST_UPDATE_FIXTURES === "true") {
+  if (shouldUpdateFixtures()) {
     const outputFixture = {
       ...fixture,
       finalState: resultState,

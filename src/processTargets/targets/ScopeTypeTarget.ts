@@ -103,7 +103,7 @@ export default class ScopeTypeTarget extends BaseTarget {
     includeEnd: boolean
   ): Target {
     if (isSameType(this, endTarget)) {
-      const scopeTarget = <ScopeTypeTarget>endTarget;
+      const scopeTarget = endTarget;
       if (this.scopeTypeType_ === scopeTarget.scopeTypeType_) {
         const contentRemovalRange =
           this.removalRange_ != null || scopeTarget.removalRange_ != null

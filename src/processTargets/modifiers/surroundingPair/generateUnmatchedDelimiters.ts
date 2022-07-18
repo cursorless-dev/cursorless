@@ -91,7 +91,7 @@ export function* generateUnmatchedDelimiters(
    * right delimiters of the given type we've seen. If this number drops to
    * -1 for any delimiter, we yield it.
    */
-  let delimiterBalances: Partial<Record<SimpleSurroundingPairName, number>> =
+  const delimiterBalances: Partial<Record<SimpleSurroundingPairName, number>> =
     {};
 
   /**

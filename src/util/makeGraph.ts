@@ -11,7 +11,7 @@ function makeGetter<GraphType, K extends keyof GraphType>(
   key: K
 ): () => GraphType[K] {
   return () => {
-    var returnValue: GraphType[K];
+    let returnValue: GraphType[K];
 
     if (components[key] == null) {
       const factory = factoryMap[key] as (graph: GraphType) => GraphType[K];

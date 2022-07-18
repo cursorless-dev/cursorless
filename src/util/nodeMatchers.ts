@@ -179,7 +179,7 @@ export function createPatternMatchers(
   nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>>
 ): Record<SimpleScopeTypeType, NodeMatcher> {
   Object.keys(nodeMatchers).forEach((scopeType: SimpleScopeTypeType) => {
-    let matcher = nodeMatchers[scopeType];
+    const matcher = nodeMatchers[scopeType];
     if (Array.isArray(matcher)) {
       nodeMatchers[scopeType] = patternMatcher(...matcher);
     } else if (typeof matcher === "string") {
