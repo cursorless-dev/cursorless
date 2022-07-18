@@ -24,7 +24,7 @@ export default function LandingPage() {
           className="mt-[-0.15em] md:scale-[2] md:mt-[0.5em]"
         />
       </header>
-      <div className="text-2xl md:text-4xl text-[#1F0202] my-auto grid place-content-center text-center tracking-[0.06em] md:font-semibold ">
+      <div className="text-2xl md:text-4xl text-[#1F0202] dark:text-[#F8C9BA] my-auto grid place-content-center text-center tracking-[0.06em] md:font-semibold ">
         Structural voice coding at the speed of thought.
       </div>
       <footer className="flex flex-row justify-between md:w-[607px] md:mx-auto">
