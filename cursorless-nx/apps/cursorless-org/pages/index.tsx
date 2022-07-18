@@ -14,27 +14,30 @@ import { ReactComponent as Wing } from './svg/wing.svg';
 
 export default function LandingPage() {
   return (
-    <main className="p-8 text-black dark:text-[#F8C9BA] font-mono">
+    <main className="p-8 md:p-16 text-black dark:text-[#F8C9BA] font-mono h-screen flex flex-col">
       <header className="flex flex-row">
-        <h1 className="mr-auto text-2xl uppercase place-content-center font-medium tracking-[0.22em]">
+        <h1 className="mr-auto text-2xl md:text-5xl uppercase place-content-center font-medium tracking-[0.22em]">
           Cursorless
         </h1>
-        <Logo title="Logo" className="mt-[-0.15em]" />
+        <Logo
+          title="Logo"
+          className="mt-[-0.15em] md:scale-[2] md:mt-[0.5em]"
+        />
       </header>
-      <div className="text-2xl text-[#1F0202] h-[720px] grid place-content-center text-center tracking-[0.06em]">
+      <div className="text-2xl md:text-4xl text-[#1F0202] my-auto grid place-content-center text-center tracking-[0.06em] md:font-semibold ">
         Structural voice coding at the speed of thought.
       </div>
-      <footer className="flex flex-row justify-between">
-        <Dot title="Dot" />
-        <Star title="Star" />
-        <Wing title="Wing" />
-        <Play title="Play" />
-        <Hole title="Hole" />
-        <Eye title="Eye" />
-        <Fox title="Fox" />
-        <Curve title="Curve" />
-        <Frame title="Frame" />
-        <Bolt title="Bolt" />
+      <footer className="flex flex-row justify-between md:w-[607px] md:mx-auto">
+        <Dot title="Dot" className="md:scale-[1.764705]" />
+        <Star title="Star" className="md:scale-[1.904761]" />
+        <Wing title="Wing" className="md:scale-[2]" />
+        <Play title="Play" className="md:scale-[1.845018]" />
+        <Hole title="Hole" className="md:scale-[1.845018]" />
+        <Eye title="Eye" className="md:scale-[1.845018]" />
+        <Fox title="Fox" className="md:scale-[1.845018]" />
+        <Curve title="Curve" className="md:scale-[1.845018]" />
+        <Frame title="Frame" className="md:scale-[1.845018]" />
+        <Bolt title="Bolt" className="md:scale-[1.845018]" />
       </footer>
     </main>
   );

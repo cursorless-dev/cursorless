@@ -12,9 +12,13 @@ module.exports = {
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
-    extend: {},
-    fontFamily: {
-      mono: ['Inconsolata'],
+    extend: {
+      fontFamily: {
+        mono: ['Inconsolata'],
+      },
+      fontSize: {
+        '4xl': ['44px', '56px'],
+      },
     },
   },
   plugins: [],
