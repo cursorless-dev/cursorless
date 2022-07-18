@@ -214,7 +214,7 @@ function getPreviousTargetAttribute<T>(
         }
         break;
       }
-      case "list":
+      case "list": {
         const attributeValue = getPreviousTargetAttribute(
           target.elements,
           getAttribute
@@ -223,6 +223,7 @@ function getPreviousTargetAttribute<T>(
           return attributeValue;
         }
         break;
+      }
     }
   }
   return undefined;

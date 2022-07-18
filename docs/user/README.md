@@ -211,6 +211,14 @@ The word file can be used to expand the target to refer to the entire file.
 
 For example, `"take file [blue] air"` selects the file including the token containing letter 'a' with a blue hat.
 
+##### `"token"`
+
+The `"token"` modifier expands its input to the nearest containing token. This modifier is often used without a mark, either to select the token adjacent to your cursor or to expand your selection to the nearest containing token range. For example:
+
+- `"copy token"`
+- `"take token"`
+- `"chuck token"`
+
 ##### Surrounding pair
 
 Cursorless has support for expanding the selection to the nearest containing paired delimiter, eg the surrounding parentheses.

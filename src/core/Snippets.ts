@@ -233,7 +233,7 @@ export class Snippets {
     ];
 
     entries.forEach(([key, value]) => {
-      if (this.mergedSnippets.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(this.mergedSnippets, key)) {
         const { definitions, ...rest } = value;
         const mergedSnippet = this.mergedSnippets[key];
 

@@ -27,7 +27,7 @@ export default class FontMeasurements {
   async calculate() {
     const fontFamily = getFontFamily();
     let widthRatio, heightRatio;
-    let fontRatiosCache = this.graph.extensionContext.globalState.get<{
+    const fontRatiosCache = this.graph.extensionContext.globalState.get<{
       widthRatio: number;
       heightRatio: number;
       fontFamily: string;
