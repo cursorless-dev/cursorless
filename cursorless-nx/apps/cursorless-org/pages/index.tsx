@@ -33,7 +33,7 @@ export default function LandingPage() {
         <div className="text-xl sm:text-2xl md:text-4xl text-[#1F0202] dark:text-[#F8C9BA] my-auto grid place-content-center text-center tracking-[0.06em] md:font-semibold ">
           Structural voice coding at the speed of thought.
         </div>
-        <footer className="flex flex-row justify-between md:w-[607px] md:mx-auto">
+        <footer className="flex flex-row items-center justify-between md:w-[607px] md:mx-auto">
           <Dot title="Dot" className="md:scale-[1.764705]" />
           <Star title="Star" className="md:scale-[1.904761]" />
           <Wing title="Wing" className="md:scale-[2]" />
