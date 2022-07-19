@@ -10,6 +10,7 @@ import FontMeasurements from "../core/FontMeasurements";
 import Debug from "../core/Debug";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import Cheatsheet from "../core/Cheatsheet";
+import StatusBarItem from "../core/StatusBarItem";
 
 type ConstructorMap<T> = {
   [P in keyof T]: new (t: T) => T[P];
@@ -26,6 +27,7 @@ const graphConstructors: Partial<ConstructorMap<Graph>> = {
   debug: Debug,
   testCaseRecorder: TestCaseRecorder,
   cheatsheet: Cheatsheet,
+  statusBarItem: StatusBarItem,
 };
 
 const graphFactories: Partial<FactoryMap<Graph>> = Object.fromEntries(

@@ -10,6 +10,7 @@ import FontMeasurements from "../core/FontMeasurements";
 import HatTokenMap from "../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
+import StatusBarItem from "../core/StatusBarItem";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
@@ -155,6 +156,11 @@ export interface Graph {
    * Used to display cheatsheet
    */
   readonly cheatsheet: Cheatsheet;
+
+  /**
+   * Creates a VSCode status bar item
+   */
+  readonly statusBarItem: StatusBarItem;
 }
 
 export type NodeMatcherValue = {
