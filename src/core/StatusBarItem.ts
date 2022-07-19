@@ -25,7 +25,7 @@ export default class StatusBarItem {
   }
 
   private showQuickPick = () =>
-    vscode.commands.executeCommand("workbench.action.quickOpen", ">cursorless");
+    vscode.commands.executeCommand("workbench.action.quickOpen", ">Cursorless");
 
   dispose() {
     this.disposables.forEach(({ dispose }) => dispose());
