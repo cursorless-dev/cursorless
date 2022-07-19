@@ -1095,7 +1095,7 @@
 					]
 				},
 				{
-					"id": "row",
+					"id": "lineNumberModulo100",
 					"type": "mark",
 					"variations": [
 						{
@@ -1105,7 +1105,7 @@
 					]
 				},
 				{
-					"id": "up",
+					"id": "lineNumberRelativeUp",
 					"type": "mark",
 					"variations": [
 						{
@@ -1115,7 +1115,7 @@
 					]
 				},
 				{
-					"id": "down",
+					"id": "lineNumberRelativeDown",
 					"type": "mark",
 					"variations": [
 						{
