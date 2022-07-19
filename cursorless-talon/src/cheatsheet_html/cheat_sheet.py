@@ -46,6 +46,7 @@ class Actions:
                 success = True
                 break
 
+        # Fall back to using the system default
         if not success:
             webbrowser.open(cheatsheet_local_uri)
 
