@@ -2,16 +2,6 @@
 @tailwind base;
 @tailwind utilities;
 
-body {
-  background-color: #f6cbbd;
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #05020c;
-  }
-}
-
 /* From https://google-webfonts-helper.herokuapp.com/fonts/inconsolata?subsets=latin */
 
 /* inconsolata-regular - latin */

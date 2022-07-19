@@ -17,7 +17,11 @@ module.exports = {
         mono: ['Inconsolata'],
       },
       fontSize: {
+        xl: ['21px', '30px'],
         '4xl': ['44px', '56px'],
+      },
+      screens: {
+        xs: '387px',
       },
     },
   },
