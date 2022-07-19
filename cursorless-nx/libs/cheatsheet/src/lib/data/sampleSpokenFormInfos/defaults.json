@@ -543,6 +543,16 @@
 					]
 				},
 				{
+					"id": "excludeInterior",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "bounds",
+							"description": "Bounding paired delimiters"
+						}
+					]
+				},
+				{
 					"id": "functionCall",
 					"type": "scopeType",
 					"variations": [
@@ -619,6 +629,16 @@
 						{
 							"spokenForm": "if state",
 							"description": "If statement"
+						}
+					]
+				},
+				{
+					"id": "interiorOnly",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "inside",
+							"description": "Inside paired delimiter"
 						}
 					]
 				},
@@ -1071,6 +1091,36 @@
 						{
 							"spokenForm": "nothing",
 							"description": "Nothing"
+						}
+					]
+				},
+				{
+					"id": "row",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "row <#>",
+							"description": "Line at line number"
+						}
+					]
+				},
+				{
+					"id": "up",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "up <#>",
+							"description": "Line relative to cursor"
+						}
+					]
+				},
+				{
+					"id": "down",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "down <#>",
+							"description": "Line relative to cursor"
 						}
 					]
 				}

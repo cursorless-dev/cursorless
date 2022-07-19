@@ -30,6 +30,11 @@ const cheatsheetLegend: CheatsheetLegend = [
     link: 'https://www.cursorless.org/docs/#targets',
     id: 'target',
   },
+  {
+    term: '#',
+    definition: 'Number',
+    id: 'number',
+  },
 ];
 
 export default cheatsheetLegend;
