@@ -106,10 +106,10 @@ minimize syllables.
 
 The word `"this"` can be used as a mark to refer to the current cursor(s) or selection(s) as a target. Note that when combined with a modifier, the `"this"` mark can be omitted, and it will be implied.
 
-- `chuck this`
-- `take funk this`
-- `pre funk`
-- `chuck line`
+- `"chuck this"`
+- `"take funk this"`
+- `"pre funk"`
+- `"chuck line"`
 
 ##### `"that"`
 
@@ -117,6 +117,21 @@ The word `"that"` can be used as a mark to refer to the target of the previous c
 
 - `"pre that"`
 - `"round wrap that"`
+
+##### `"row <number>"`
+
+The word `"row"` followed by a number can be used to refer to a line by its line number. Note that the line numbers are modulo 100, meaning that you only say the last two digits of the line number. Also note that the line must be visible within the viewport.
+
+- `"chuck row twenty four"`
+- `"post row eighty nine"`
+- `"pour row eleven"`
+
+##### `"up <number>"` / `"down <number>"`
+
+The word `"up"` or `"down"` followed by a number can be used to refer to the line that is `<number>` lines above or below the cursor. The line may be outside of the viewport. In the case of multiple selections, this mark only refers to the line relative to the primary selection. You can turn on relative line numbers in the VSCode settings to make these marks easier to use.
+
+- `"copy up one"`
+- `"comment down two"`
 
 #### Modifiers
 
