@@ -128,7 +128,7 @@ The word `"row"` followed by a number can be used to refer to a line by its line
 
 ##### `"up <number>"` / `"down <number>"`
 
-The word `"up"` or `"down"` followed by a number can be used to refer to the line that is `<number>` lines above or below the cursor. The line may be outside of the viewport.
+The word `"up"` or `"down"` followed by a number can be used to refer to the line that is `<number>` lines above or below the cursor. The line may be outside of the viewport. In the case of multiple selections, this mark only refers to the line relative to the primary selection. You can turn on relative line numbers in the VSCode settings to make these marks easier to use.
 
 - `"copy up one"`
 - `"comment down two"`
