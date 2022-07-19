@@ -20,7 +20,7 @@ import { ReactComponent as Sponsor } from './svg/sponsor.svg';
 export default function LandingPage() {
   return (
     <main className="bg-[#f6cbbd] dark:bg-[#05020c] overflow-auto fixed top-0 bottom-0 left-0 right-0 p-8 md:p-16 text-black dark:text-[#F8C9BA] font-mono">
-      <div className="h-full flex flex-col mb-8">
+      <div className="h-full flex flex-col mb-8 md:mb-20">
         <header className="flex flex-row">
           <h1 className="mr-auto text-2xl md:text-5xl uppercase place-content-center font-medium tracking-[0.22em]">
             Cursorless
@@ -47,9 +47,9 @@ export default function LandingPage() {
         </footer>
       </div>
       <div className="h-full flex flex-col">
-        <header className="flex flex-col items-center">
+        <header className="flex flex-col items-center text-center">
           <Logo title="Logo" className="scale-[1.7] mt-10 mb-9" />
-          <div className="mr-auto text-[22px] md:text-5xl place-content-center tracking-[0.06em]">
+          <div className="text-[21px] xs:text-[22px] md:text-5xl tracking-[0.06em]">
             Cursorless is open source.
           </div>
         </header>
