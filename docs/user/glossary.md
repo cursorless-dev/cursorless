@@ -1,6 +1,6 @@
 # Glossary
 
-Here we provide a breakdown of several commonly used Cursorless terms.
+Here we provide definitions for several commonly used Cursorless terms.
 
 ## Action
 
