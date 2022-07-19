@@ -19,12 +19,17 @@ export default class StatusBarItem {
     statusBarItem.show();
 
     this.disposables.push(
-      vscode.commands.registerCommand(commandId, this.showQuickPick),
+      vscode.commands.registerCommand("cursorless.showDocumentation", () =>
+        vscode.env.openExternal(
+          vscode.Uri.parse("https://www.cursorless.org/docs/")
+        )
+      ),
+      vscode.commands.registerCommand(commandId, this.showQuickOpen),
       statusBarItem
     );
   }
 
-  private showQuickPick = () =>
+  private showQuickOpen = () =>
     vscode.commands.executeCommand("workbench.action.quickOpen", ">Cursorless");
 
   dispose() {

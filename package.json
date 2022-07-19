@@ -77,6 +77,10 @@
 			{
 				"command": "cursorless.resumeRecording",
 				"title": "Cursorless: Resume test case recording"
+			},
+			{
+				"command": "cursorless.showDocumentation",
+				"title": "Cursorless: Show documentation"
 			}
 		],
 		"colors": [
