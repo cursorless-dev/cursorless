@@ -30,7 +30,7 @@ export default function LandingPage() {
             className="mt-[-0.15em] md:scale-[2] md:mt-[0.5em]"
           />
         </header>
-        <div className="text-xl xs:text-2xl md:text-4xl text-[#1F0202] dark:text-[#F8C9BA] my-auto grid place-content-center text-center tracking-[0.06em] md:font-semibold ">
+        <div className="text-xl sm:text-2xl md:text-4xl text-[#1F0202] dark:text-[#F8C9BA] my-auto grid place-content-center text-center tracking-[0.06em] md:font-semibold ">
           Structural voice coding at the speed of thought.
         </div>
         <footer className="flex flex-row justify-between md:w-[607px] md:mx-auto">
@@ -48,12 +48,15 @@ export default function LandingPage() {
       </div>
       <div className="h-full flex flex-col">
         <header className="flex flex-col items-center text-center">
-          <Logo title="Logo" className="scale-[1.7] mt-10 mb-9" />
-          <div className="text-[21px] xs:text-[22px] md:text-5xl tracking-[0.06em]">
+          <Logo
+            title="Logo"
+            className="scale-[1.7] md:scale-[4] mt-10 mb-9 md:mb-20 md:mt-28"
+          />
+          <div className="text-[21px] sm:text-[22px] md:text-4xl md:font-semibold tracking-[0.06em]">
             Cursorless is open source.
           </div>
         </header>
-        <div className="text-xl xs:text-2xl md:text-4xl text-[#1F0202] dark:text-[#F8C9BA] my-auto flex flex-row items-center justify-between md:w-[607px] md:mx-auto">
+        <div className="text-xl sm:text-2xl md:text-4xl text-[#1F0202] dark:text-[#F8C9BA] my-auto flex flex-row items-center justify-between md:justify-around">
           <a href="/docs" target="_blank">
             <Docs
               title="Docs"
@@ -101,7 +104,7 @@ export default function LandingPage() {
             />
           </a>
         </div>
-        <footer className="text-center">
+        <footer className="text-center md:text-xl">
           This site is powered by{' '}
           <a
             href="https://www.netlify.com/"
