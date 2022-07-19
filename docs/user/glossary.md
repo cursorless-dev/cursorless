@@ -16,7 +16,7 @@ The [range](#range) within which a [scope](#scope) is valid/active. For example,
 
 ## Iteration scope
 
-The parental [scope](#scope) in within to look for new instances of the current [scope](#scope). `"take every line"` will look for lines in its `iteration scope` which is `document`.
+A canonical [range](#range) for a given [scope type](#scope-type) that defines a list of sibling [scopes](#scope).  For example, the iteration scope for `"arg"` is an argument list.  The iteration scope is used for things like `"every"`, to select all sibling scopes.  This allows us to say things like `"take every arg"`, `"pre every line"`, etc.
 
 ## Insertion delimiter
 
