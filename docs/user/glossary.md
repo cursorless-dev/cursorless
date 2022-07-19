@@ -20,7 +20,7 @@ The delimiter to be inserted before / after targets when inserting a new target.
 
 ## Leading / trailing delimiter range
 
-The leading delimiter range, if it exists, contains the delimiter before a [target](#target); the trailing delimiter range contains the delimiter after a target. For example, for a token with a hat over it, the trailing delimiter will be any whitespace after the token. For a function argument, it will be the trailing comma and any whitespace after the comma.  Leading and trailing delimiters are used when constructing the [removal range](#removal-range), and can also be targeted directly using the `"leading"` / `"trailing"` modifiers.
+The leading delimiter range, if it exists, contains the delimiter before a [target](#target); the trailing delimiter range contains the delimiter after a target. For example, for a token with a hat over it, the trailing delimiter will be any whitespace after the token. For a function argument, it will be the trailing comma and any whitespace after the comma. Leading and trailing delimiters are used when constructing the [removal range](#removal-range), and can also be targeted directly using the `"leading"` / `"trailing"` modifiers.
 
 ## Position
 
