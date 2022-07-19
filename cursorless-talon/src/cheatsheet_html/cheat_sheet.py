@@ -1,5 +1,5 @@
-import tempfile
 import webbrowser
+from contextlib import suppress
 from pathlib import Path
 
 from talon import Module, actions
@@ -11,15 +11,20 @@ from .sections.scopes import get_scopes
 
 mod = Module()
 
-cheatsheet_out_dir = Path(tempfile.mkdtemp())
 instructions_url = "https://www.cursorless.org/docs/"
 
 
 @mod.action_class
 class Actions:
     def cursorless_cheat_sheet_show_html():
-        """Show new cursorless html cheat sheet"""
-        cheatsheet_out_path = cheatsheet_out_dir / "cheatsheet.html"
+        """Show cursorless html cheat sheet"""
+
+        # NB: We use the user's home directory instead of temp to make sure that
+        # Linux snaps work
+        cheatsheet_out_dir = Path.home() / ".cursorless" / "cheatsheet"
+        cheatsheet_out_dir.mkdir(parents=True, exist_ok=True)
+
+        cheatsheet_out_path = cheatsheet_out_dir / "index.html"
         actions.user.vscode_with_plugin_and_wait(
             "cursorless.showCheatsheet",
             {
@@ -28,7 +33,21 @@ class Actions:
                 "outputPath": str(cheatsheet_out_path),
             },
         )
-        webbrowser.open(cheatsheet_out_path.as_uri())
+
+        cheatsheet_local_uri = cheatsheet_out_path.as_uri()
+
+        # NB: We explicitly ask for browsers by name rather than using the
+        # default because the user may have set something like vscode to be the
+        # default for html files.
+        success = False
+        for browser in ["chrome", "firefox"]:
+            with suppress(Exception):
+                webbrowser.get(browser).open(cheatsheet_local_uri)
+                success = True
+                break
+
+        if not success:
+            webbrowser.open(cheatsheet_local_uri)
 
     def cursorless_cheat_sheet_get_json():
         """Get cursorless cheat sheet json"""
