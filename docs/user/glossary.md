@@ -14,6 +14,10 @@ The [range](#range) containing the content of a target. This is the range that w
 
 The [range](#range) within which a [scope](#scope) is valid/active. For example, the scope type `"key"` is valid anywhere inside its containing key/value pair, and `"funk name"` is valid anywhere inside its containing function.
 
+## Iteration scope
+
+The parental [scope](#scope) in within to look for new instances of the current [scope](#scope). `"take every line"` will look for lines in its `iteration scope` which is `document`.
+
 ## Insertion delimiter
 
 The delimiter to be inserted before / after targets when inserting a new target. For example, for list items, the insertion delimiter is `", "`.
