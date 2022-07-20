@@ -31,7 +31,7 @@ const cheatsheetLegend: CheatsheetLegend = [
     id: 'target',
   },
   {
-    term: '#',
+    term: 'number',
     definition: 'Number',
     id: 'number',
   },

@@ -1099,7 +1099,7 @@
 					"type": "mark",
 					"variations": [
 						{
-							"spokenForm": "row <#>",
+							"spokenForm": "row <number>",
 							"description": "Line number mod 100"
 						}
 					]
@@ -1109,7 +1109,7 @@
 					"type": "mark",
 					"variations": [
 						{
-							"spokenForm": "up <#>",
+							"spokenForm": "up <number>",
 							"description": "Line number relative to cursor"
 						}
 					]
@@ -1119,7 +1119,7 @@
 					"type": "mark",
 					"variations": [
 						{
-							"spokenForm": "down <#>",
+							"spokenForm": "down <number>",
 							"description": "Line number relative to cursor"
 						}
 					]
