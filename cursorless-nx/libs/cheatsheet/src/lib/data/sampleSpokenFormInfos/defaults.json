@@ -1110,7 +1110,7 @@
 					"variations": [
 						{
 							"spokenForm": "up <#>",
-							"description": "Line relative to cursor"
+							"description": "Line number relative to cursor"
 						}
 					]
 				},
