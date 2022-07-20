@@ -19,7 +19,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "break point <T>",
+							"spokenForm": "breakpoint <T>",
 							"description": "Toggle line breakpoint"
 						}
 					]
@@ -543,16 +543,6 @@
 					]
 				},
 				{
-					"id": "excludeInterior",
-					"type": "scopeType",
-					"variations": [
-						{
-							"spokenForm": "bounds",
-							"description": "Bounding paired delimiters"
-						}
-					]
-				},
-				{
 					"id": "functionCall",
 					"type": "scopeType",
 					"variations": [
@@ -629,16 +619,6 @@
 						{
 							"spokenForm": "if state",
 							"description": "If statement"
-						}
-					]
-				},
-				{
-					"id": "interiorOnly",
-					"type": "scopeType",
-					"variations": [
-						{
-							"spokenForm": "inside",
-							"description": "Inside paired delimiter"
 						}
 					]
 				},
@@ -915,6 +895,92 @@
 			]
 		},
 		{
+			"name": "Modifiers",
+			"id": "modifiers",
+			"items": [
+				{
+					"id": "excludeInterior",
+					"type": "modifiers",
+					"variations": [
+						{
+							"spokenForm": "bound",
+							"description": "Bounding paired delimiters"
+						}
+					]
+				},
+				{
+					"id": "toRawSelection",
+					"type": "modifiers",
+					"variations": [
+						{
+							"spokenForm": "just",
+							"description": "Mark without inference"
+						}
+					]
+				},
+				{
+					"id": "leading",
+					"type": "modifiers",
+					"variations": [
+						{
+							"spokenForm": "leading",
+							"description": "Leading removal range"
+						}
+					]
+				},
+				{
+					"id": "trailing",
+					"type": "modifiers",
+					"variations": [
+						{
+							"spokenForm": "trailing",
+							"description": "Trailing removal range"
+						}
+					]
+				},
+				{
+					"id": "interiorOnly",
+					"type": "modifiers",
+					"variations": [
+						{
+							"spokenForm": "inside",
+							"description": "Inside paired delimiters"
+						}
+					]
+				},
+				{
+					"id": "extendThroughStartOf",
+					"type": "modifiers",
+					"variations": [
+						{
+							"spokenForm": "head",
+							"description": "Start of line to mark"
+						}
+					]
+				},
+				{
+					"id": "extendThroughEndOf",
+					"type": "modifiers",
+					"variations": [
+						{
+							"spokenForm": "tail",
+							"description": "Mark to end of line"
+						}
+					]
+				},
+				{
+					"id": "verticalRange",
+					"type": "modifiers",
+					"variations": [
+						{
+							"spokenForm": "slice",
+							"description": "Vertical range"
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Paired delimiters",
 			"id": "pairedDelimiters",
 			"items": [
@@ -1100,7 +1166,7 @@
 					"variations": [
 						{
 							"spokenForm": "row <number>",
-							"description": "Line number mod 100"
+							"description": "Line number modulo 100"
 						}
 					]
 				},
@@ -1110,7 +1176,7 @@
 					"variations": [
 						{
 							"spokenForm": "up <number>",
-							"description": "Line number relative to cursor"
+							"description": "Line number up from cursor"
 						}
 					]
 				},
@@ -1120,7 +1186,7 @@
 					"variations": [
 						{
 							"spokenForm": "down <number>",
-							"description": "Line number relative to cursor"
+							"description": "Line number down from cursor"
 						}
 					]
 				}
