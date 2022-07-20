@@ -16,6 +16,7 @@ import { ReactComponent as Youtube } from './svg/youtube.svg';
 import { ReactComponent as Github } from './svg/github.svg';
 import { ReactComponent as Twitter } from './svg/twitter.svg';
 import { ReactComponent as Sponsor } from './svg/sponsor.svg';
+import { EmbeddedVideo } from '@cursorless/react/embedded-video';
 
 export default function LandingPage() {
   return (
@@ -30,6 +31,7 @@ export default function LandingPage() {
             className="mt-[-0.15em] md:scale-[2] md:mt-[0.5em]"
           />
         </header>
+        <EmbeddedVideo youtubeSlug="5mAzHGM2M0k" />
         <div className="text-xl sm:text-2xl md:text-4xl text-[#1F0202] dark:text-[#F8C9BA] my-auto grid place-content-center text-center tracking-[0.06em] md:font-semibold ">
           Structural voice coding at the speed of thought.
         </div>
