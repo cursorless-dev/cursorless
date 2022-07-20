@@ -8,6 +8,7 @@ from .get_list import get_list, get_lists
 from .sections.actions import get_actions
 from .sections.compound_targets import get_compound_targets
 from .sections.scopes import get_scopes
+from .sections.special_marks import get_special_marks
 
 mod = Module()
 
@@ -59,7 +60,7 @@ class Actions:
                 {
                     "name": "Special marks",
                     "id": "specialMarks",
-                    "items": get_list("special_mark", "mark"),
+                    "items": get_special_marks(),
                 },
                 {
                     "name": "Positions",
