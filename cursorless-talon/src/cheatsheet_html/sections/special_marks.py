@@ -9,8 +9,8 @@ def get_special_marks():
             for key, value in get_raw_list("line_direction").items()
         },
         {
-            "lineNumberRelativeUp":"Line number up from cursor",
-            "lineNumberRelativeDown":"Line number down from cursor",
+            "lineNumberRelativeUp": "Line number up from cursor",
+            "lineNumberRelativeDown": "Line number down from cursor",
         },
     )
 
