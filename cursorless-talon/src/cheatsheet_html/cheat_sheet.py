@@ -56,6 +56,15 @@ class Actions:
                             "range_type",
                         ],
                         "modifiers",
+                        {
+                            "excludeInterior": "Bounding paired delimiters",
+                            "extendThroughStartOf": "Start of line to mark",
+                            "interiorOnly": "Inside paired delimiters",
+                            "toRawSelection": "Mark without inference",
+                            "extendThroughEndOf": "Mark to end of line",
+                            "leading": "Leading removal range",
+                            "trailing": "Trailing removal range",
+                        },
                     ),
                 },
                 {
