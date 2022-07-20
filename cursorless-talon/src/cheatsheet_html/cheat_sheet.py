@@ -46,6 +46,19 @@ class Actions:
                     "items": get_scopes(),
                 },
                 {
+                    "name": "Modifiers",
+                    "id": "modifiers",
+                    "items": get_lists(
+                        [
+                            "simple_modifier",
+                            "interior_modifier",
+                            "head_tail_modifier",
+                            "range_type",
+                        ],
+                        "modifiers",
+                    ),
+                },
+                {
                     "name": "Paired delimiters",
                     "id": "pairedDelimiters",
                     "items": get_lists(
