@@ -21,6 +21,7 @@ export function EmbeddedVideo({ youtubeSlug, controller }: Props) {
       className={styles['embedContainer']}
       videoId={youtubeSlug}
       onReady={controller?.onReady}
+      opts={{ playerVars: { rel: 0 } }}
     />
   );
 }
