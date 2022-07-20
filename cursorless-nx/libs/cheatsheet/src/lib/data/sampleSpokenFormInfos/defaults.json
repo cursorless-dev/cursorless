@@ -1100,7 +1100,7 @@
 					"variations": [
 						{
 							"spokenForm": "row <#>",
-							"description": "Line at line number"
+							"description": "Line number mod 100"
 						}
 					]
 				},
