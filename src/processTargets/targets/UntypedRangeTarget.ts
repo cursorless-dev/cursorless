@@ -39,6 +39,9 @@ export default class UntypedRangeTarget extends BaseTarget {
   }
 
   protected getCloneParameters() {
-    return this.state;
+    return {
+      ...this.state,
+      hasExplicitRange: this.hasExplicitRange,
+    };
   }
 }
