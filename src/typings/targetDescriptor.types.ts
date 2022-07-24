@@ -239,7 +239,7 @@ export type Modifier =
   | LeadingModifier
   | TrailingModifier
   | RawSelectionModifier
-  | ModifyIfImplicitScopeTypeModifier
+  | ModifyIfUntypedModifier
   | CascadingModifier;
 
 export interface PartialRangeTargetDescriptor {
