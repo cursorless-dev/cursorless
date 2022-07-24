@@ -12,7 +12,7 @@ import {
 } from "./modifiers/InteriorStage";
 import ItemStage from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
-import ModifyIfWeakStage from "./modifiers/ModifyIfWeakStage";
+import ModifyIfImplicitScopeTypeStage from "./modifiers/ModifyIfImplicitScopeTypeStage";
 import OrdinalRangeSubTokenStage, {
   OrdinalRangeSubTokenModifier,
 } from "./modifiers/OrdinalRangeSubTokenStage";
@@ -70,8 +70,8 @@ export default (modifier: Modifier): ModifierStage => {
       );
     case "cascading":
       return new CascadingStage(modifier);
-    case "modifyIfWeak":
-      return new ModifyIfWeakStage(modifier);
+    case "modifyIfImplicitScopeType":
+      return new ModifyIfImplicitScopeTypeStage(modifier);
   }
 };
 

@@ -40,10 +40,10 @@ export default class ItemStage implements ModifierStage {
   private getEveryTarget(context: ProcessedTargetsContext, target: Target) {
     const itemInfos = getItemInfosForIterationScope(context, target);
 
-    // If weak expand to all items in iteration scope
-    const filteredItemInfos = target.isWeak
-      ? itemInfos
-      : filterItemInfos(target, itemInfos);
+    // If target has explicit scope type filter to items in that scope. Otherwise expand to all items in iteration scope.
+    const filteredItemInfos = target.hasExplicitScopeType
+      ? filterItemInfos(target, itemInfos)
+      : itemInfos;
 
     if (filteredItemInfos.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);

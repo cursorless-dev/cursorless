@@ -8,7 +8,7 @@ import { isSameType } from "../../util/typeUtils";
 import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
   createContinuousRange,
-  createContinuousRangeWeakTarget,
+  createContinuousRangeUntypedRangeTarget,
 } from "../targetUtil/createContinuousRange";
 
 /** Parameters supported by most target classes */
@@ -27,7 +27,8 @@ export interface CloneWithParameters {
 export default abstract class BaseTarget implements Target {
   protected readonly state: CommonTargetParameters;
   isLine = false;
-  isWeak = false;
+  hasExplicitScopeType = true;
+  hasExplicitRange = true;
   isRaw = false;
   isNotebookCell = false;
 
@@ -138,7 +139,7 @@ export default abstract class BaseTarget implements Target {
       });
     }
 
-    return createContinuousRangeWeakTarget(
+    return createContinuousRangeUntypedRangeTarget(
       isReversed,
       this,
       endTarget,

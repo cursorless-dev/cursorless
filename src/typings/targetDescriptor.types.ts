@@ -203,10 +203,10 @@ export interface HeadTailModifier {
 }
 
 /**
- * Runs {@link modifier} if the target is weak.
+ * Runs {@link modifier} if the target is lacking an explicit scope type.
  */
-export interface ModifyIfWeakModifier {
-  type: "modifyIfWeak";
+export interface ModifyIfImplicitScopeTypeModifier {
+  type: "modifyIfImplicitScopeType";
 
   /**
    * The modifier to apply if the target is weak
@@ -239,7 +239,7 @@ export type Modifier =
   | LeadingModifier
   | TrailingModifier
   | RawSelectionModifier
-  | ModifyIfWeakModifier
+  | ModifyIfImplicitScopeTypeModifier
   | CascadingModifier;
 
 export interface PartialRangeTargetDescriptor {

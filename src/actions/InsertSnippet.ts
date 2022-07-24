@@ -4,7 +4,7 @@ import {
   callFunctionAndUpdateSelectionInfos,
   getSelectionInfo,
 } from "../core/updateSelections/updateSelections";
-import ModifyIfWeakStage from "../processTargets/modifiers/ModifyIfWeakStage";
+import ModifyIfImplicitScopeTypeStage from "../processTargets/modifiers/ModifyIfImplicitScopeTypeStage";
 import { Snippet, SnippetDefinition } from "../typings/snippet";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -29,8 +29,8 @@ export default class InsertSnippet implements Action {
     }
 
     return [
-      new ModifyIfWeakStage({
-        type: "modifyIfWeak",
+      new ModifyIfImplicitScopeTypeStage({
+        type: "modifyIfImplicitScopeType",
         modifier: {
           type: "cascading",
           modifiers: defaultScopeTypes.map((scopeType) => ({

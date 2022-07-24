@@ -1,12 +1,12 @@
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
-import { weakContainingSurroundingPairStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
+import { implicitScopeTypeContainingSurroundingPairStage } from "../processTargets/modifiers/commonImplicitScopeTypeContainingScopeStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Rewrap implements Action {
-  getFinalStages = () => [weakContainingSurroundingPairStage];
+  getFinalStages = () => [implicitScopeTypeContainingSurroundingPairStage];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);

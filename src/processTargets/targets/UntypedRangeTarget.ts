@@ -1,5 +1,5 @@
 import { Range } from "vscode";
-import { BaseTarget } from ".";
+import { BaseTarget, CommonTargetParameters } from ".";
 import { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
@@ -7,14 +7,23 @@ import {
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 
+interface UntypedRangeTargetParameters extends CommonTargetParameters {
+  readonly hasExplicitRange: boolean;
+}
+
 /**
  * - Treated as "line" for "pour", "clone", and "breakpoint"
  * - Use token delimiters (space) for removal and insertion
  * - Expand to nearest containing pair when asked for boundary or interior
  */
-export default class WeakTarget extends BaseTarget {
+export default class UntypedRangeTarget extends BaseTarget {
   insertionDelimiter = " ";
-  isWeak = true;
+  hasExplicitScopeType = false;
+
+  constructor(parameters: UntypedRangeTargetParameters) {
+    super(parameters);
+    this.hasExplicitRange = parameters.hasExplicitRange;
+  }
 
   getLeadingDelimiterTarget(): Target | undefined {
     return getTokenLeadingDelimiterTarget(this);
@@ -23,7 +32,10 @@ export default class WeakTarget extends BaseTarget {
     return getTokenTrailingDelimiterTarget(this);
   }
   getRemovalRange(): Range {
-    return getTokenRemovalRange(this);
+    // If the range is empty in a whitespace sequence we don't want to remove anything.
+    return this.contentRange.isEmpty
+      ? this.contentRange
+      : getTokenRemovalRange(this);
   }
 
   protected getCloneParameters() {

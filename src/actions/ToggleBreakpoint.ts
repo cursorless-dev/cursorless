@@ -6,7 +6,7 @@ import {
   SourceBreakpoint,
   Uri,
 } from "vscode";
-import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
+import { implicitScopeTypeContainingLineStage } from "../processTargets/modifiers/commonImplicitScopeTypeContainingScopeStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { createThatMark } from "../util/targetUtils";
@@ -22,7 +22,7 @@ function getBreakpoints(uri: Uri, range: Range) {
 }
 
 export default class ToggleBreakpoint implements Action {
-  getFinalStages = () => [weakContainingLineStage];
+  getFinalStages = () => [implicitScopeTypeContainingLineStage];
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);

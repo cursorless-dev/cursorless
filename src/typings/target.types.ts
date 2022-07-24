@@ -28,8 +28,11 @@ export interface Target {
   /** If true this target should be treated as a line */
   readonly isLine: boolean;
 
-  /** If true this target is weak and can be transformed/upgraded */
-  readonly isWeak: boolean;
+  /** If true this target is lacks an explicit scope type and can be transformed/upgraded */
+  readonly hasExplicitScopeType: boolean;
+
+  /** If true this target is lacks an explicit range and can be transformed/upgraded */
+  readonly hasExplicitRange: boolean;
 
   /** If true this target is a raw selection and its insertion delimiter should not be used on bring action */
   readonly isRaw: boolean;
