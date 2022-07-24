@@ -12,7 +12,7 @@ import {
 } from "./modifiers/InteriorStage";
 import ItemStage from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
-import ModifyIfUntypedStage from "./modifiers/ModifyIfImplicitScopeTypeStage";
+import ModifyIfUntypedStage from "./modifiers/ModifyIfUntypedStage";
 import OrdinalRangeSubTokenStage, {
   OrdinalRangeSubTokenModifier,
 } from "./modifiers/OrdinalRangeSubTokenStage";

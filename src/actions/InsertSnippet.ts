@@ -4,7 +4,7 @@ import {
   callFunctionAndUpdateSelectionInfos,
   getSelectionInfo,
 } from "../core/updateSelections/updateSelections";
-import ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfImplicitScopeTypeStage";
+import ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfUntypedStage";
 import { Snippet, SnippetDefinition } from "../typings/snippet";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";

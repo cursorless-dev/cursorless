@@ -1,4 +1,4 @@
-import ModifyIfUntypedStage from "./ModifyIfImplicitScopeTypeStage";
+import ModifyIfUntypedStage from "./ModifyIfUntypedStage";
 
 export const containingSurroundingPairIfUntypedStage = new ModifyIfUntypedStage(
   {
