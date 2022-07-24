@@ -40,8 +40,8 @@ export default class ItemStage implements ModifierStage {
   private getEveryTarget(context: ProcessedTargetsContext, target: Target) {
     const itemInfos = getItemInfosForIterationScope(context, target);
 
-    // If target has explicit scope type filter to items in that scope. Otherwise expand to all items in iteration scope.
-    const filteredItemInfos = target.hasExplicitScopeType
+    // If target has explicit range filter to items in that range. Otherwise expand to all items in iteration scope.
+    const filteredItemInfos = target.hasExplicitRange
       ? filterItemInfos(target, itemInfos)
       : itemInfos;
 

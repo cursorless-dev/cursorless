@@ -1,6 +1,6 @@
 import { commands } from "vscode";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import ModifyIfImplicitScopeTypeStage from "../processTargets/modifiers/ModifyIfImplicitScopeTypeStage";
+import ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfImplicitScopeTypeStage";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import {
@@ -28,8 +28,8 @@ export default class WrapWithSnippet implements Action {
     }
 
     return [
-      new ModifyIfImplicitScopeTypeStage({
-        type: "modifyIfImplicitScopeType",
+      new ModifyIfUntypedStage({
+        type: "modifyIfUntyped",
         modifier: {
           type: "containingScope",
           scopeType: {

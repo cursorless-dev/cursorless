@@ -206,7 +206,7 @@ export interface HeadTailModifier {
  * Runs {@link modifier} if the target is lacking an explicit scope type.
  */
 export interface ModifyIfImplicitScopeTypeModifier {
-  type: "modifyIfImplicitScopeType";
+  type: "modifyIfUntyped";
 
   /**
    * The modifier to apply if the target is weak

@@ -74,16 +74,15 @@ export function createContinuousRangeUntypedTarget(
   includeStart: boolean,
   includeEnd: boolean
 ): UntypedTarget {
-  const contentRange = createContinuousRange(
-    startTarget,
-    endTarget,
-    includeStart,
-    includeEnd
-  );
   return new UntypedTarget({
     editor: startTarget.editor,
     isReversed,
-    contentRange,
-    hasExplicitRange: !contentRange.isEmpty,
+    hasExplicitRange: true,
+    contentRange: createContinuousRange(
+      startTarget,
+      endTarget,
+      includeStart,
+      includeEnd
+    ),
   });
 }

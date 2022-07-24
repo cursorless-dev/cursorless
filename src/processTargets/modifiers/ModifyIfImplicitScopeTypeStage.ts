@@ -1,16 +1,16 @@
 import { Target } from "../../typings/target.types";
-import { ModifyIfImplicitScopeTypeModifier } from "../../typings/targetDescriptor.types";
+import { ModifyIfImplicitScopeTypeModifier as ModifyIfUntypedModifier } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";
 
 /**
- * Runs {@link ModifyIfImplicitScopeTypeModifier.modifier} if the target is lacking an explicit modifier.
+ * Runs {@link ModifyIfUntypedModifier.modifier} if the target is lacking an explicit modifier.
  */
-export default class ModifyIfImplicitScopeTypeStage implements ModifierStage {
+export default class ModifyIfUntypedStage implements ModifierStage {
   private nestedStage_?: ModifierStage;
 
-  constructor(private modifier: ModifyIfImplicitScopeTypeModifier) {}
+  constructor(private modifier: ModifyIfUntypedModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     // If true this target has an explicit scope type and should not be modified.
