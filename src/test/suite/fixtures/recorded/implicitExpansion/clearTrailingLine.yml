@@ -1,0 +1,29 @@
+languageId: plaintext
+command:
+  spokenForm: clear trailing line
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: trailing}
+        - type: containingScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |-
+    a b
+    c d
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: a bc d
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  thatMark:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: trailing}, {type: containingScope, scopeType: {type: line}}]}]
