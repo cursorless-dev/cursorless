@@ -113,12 +113,6 @@ export default class CommandRunner {
         getNodeAtLocation: this.graph.getNodeAtLocation,
       };
 
-      // Process targets before the `testCaseRecorder.preCommandHook()` to make sure all marks actually exist.
-      const targets = processTargets(
-        processedTargetsContext,
-        targetDescriptors
-      );
-
       if (this.graph.testCaseRecorder.isActive()) {
         this.graph.editStyles.testDecorations = [];
         const context = {
@@ -134,6 +128,11 @@ export default class CommandRunner {
           context
         );
       }
+
+      const targets = processTargets(
+        processedTargetsContext,
+        targetDescriptors
+      );
 
       const {
         returnValue,

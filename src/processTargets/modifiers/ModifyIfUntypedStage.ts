@@ -1,5 +1,5 @@
 import { Target } from "../../typings/target.types";
-import { ModifyIfImplicitScopeTypeModifier as ModifyIfUntypedModifier } from "../../typings/targetDescriptor.types";
+import { ModifyIfUntypedModifier } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";
