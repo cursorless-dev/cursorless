@@ -47,7 +47,7 @@ export function marksToPlainObject(marks: {
   const serializedMarks: SerializedMarks = {};
   Object.entries(marks).forEach(
     ([key, value]: [string, Token]) =>
-      (serializedMarks[key] = rangeToPlainObject(value?.range))
+      (serializedMarks[key] = rangeToPlainObject(value.range))
   );
   return serializedMarks;
 }
