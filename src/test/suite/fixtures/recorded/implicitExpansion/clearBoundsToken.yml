@@ -1,0 +1,21 @@
+languageId: plaintext
+command:
+  spokenForm: clear bounds token
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: excludeInterior}
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: (aaa)
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks: {}
+returnValue: null
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: excludeInterior}, {type: containingScope, scopeType: {type: token}}]}]
+thrownError: {name: Error}

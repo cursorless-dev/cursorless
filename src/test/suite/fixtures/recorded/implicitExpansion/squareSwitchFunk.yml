@@ -1,0 +1,27 @@
+languageId: typescript
+command:
+  spokenForm: square switch funk
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+  action:
+    name: rewrapWithPairedDelimiter
+    args: ['[', ']']
+initialState:
+  documentContents: |-
+    {
+      function myFunk() {
+        // aaa
+      }
+    }
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
+  marks: {}
+returnValue: null
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: namedFunction}}]}]
+thrownError: {name: Error}
