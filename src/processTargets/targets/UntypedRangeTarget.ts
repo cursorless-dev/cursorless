@@ -1,6 +1,7 @@
 import { Range } from "vscode";
 import { BaseTarget, CommonTargetParameters } from ".";
 import { Target } from "../../typings/target.types";
+import { createContinuousRangeUntypedRangeTarget } from "../targetUtil/createContinuousRange";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
@@ -36,6 +37,21 @@ export default class UntypedRangeTarget extends BaseTarget {
     return this.editor.document.getText(this.contentRange).trim().length === 0
       ? this.contentRange
       : getTokenRemovalRange(this);
+  }
+
+  createContinuousRangeTarget(
+    isReversed: boolean,
+    endTarget: Target,
+    includeStart: boolean,
+    includeEnd: boolean
+  ): Target {
+    return createContinuousRangeUntypedRangeTarget(
+      isReversed,
+      this,
+      endTarget,
+      includeStart,
+      includeEnd
+    );
   }
 
   protected getCloneParameters() {
