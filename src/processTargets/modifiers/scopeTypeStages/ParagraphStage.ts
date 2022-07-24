@@ -21,10 +21,11 @@ export default class implements ModifierStage {
 
   private getEveryTarget(target: Target): ParagraphTarget[] {
     const { contentRange, editor } = target;
-    const { isEmpty } = contentRange;
     const { lineCount } = editor.document;
-    const startLine = isEmpty ? 0 : contentRange.start.line;
-    const endLine = isEmpty ? lineCount - 1 : contentRange.end.line;
+    const startLine = target.hasExplicitRange ? contentRange.start.line : 0;
+    const endLine = target.hasExplicitRange
+      ? contentRange.end.line - 1
+      : lineCount;
     const targets: ParagraphTarget[] = [];
     let paragraphStart = -1;
 
