@@ -32,8 +32,8 @@ export default class UntypedRangeTarget extends BaseTarget {
     return getTokenTrailingDelimiterTarget(this);
   }
   getRemovalRange(): Range {
-    // If the range is empty in a whitespace sequence we don't want to remove anything.
-    return this.contentRange.isEmpty
+    // If this range is in the middle of a whitespace sequence we don't want to remove leading or trailing whitespaces.
+    return this.editor.document.getText(this.contentRange).trim().length === 0
       ? this.contentRange
       : getTokenRemovalRange(this);
   }
