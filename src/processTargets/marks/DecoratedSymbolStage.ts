@@ -2,7 +2,7 @@ import { Target } from "../../typings/target.types";
 import { DecoratedSymbolMark } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { MarkStage } from "../PipelineStages.types";
-import { UntypedRangeTarget } from "../targets";
+import { UntypedTarget } from "../targets";
 
 export default class implements MarkStage {
   constructor(private modifier: DecoratedSymbolMark) {}
@@ -20,7 +20,7 @@ export default class implements MarkStage {
     }
 
     return [
-      new UntypedRangeTarget({
+      new UntypedTarget({
         editor: token.editor,
         contentRange: token.range,
         isReversed: false,

@@ -8,7 +8,7 @@ import { isSameType } from "../../util/typeUtils";
 import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
   createContinuousRange,
-  createContinuousRangeUntypedRangeTarget,
+  createContinuousRangeUntypedTarget,
 } from "../targetUtil/createContinuousRange";
 
 /** Parameters supported by most target classes */
@@ -139,7 +139,7 @@ export default abstract class BaseTarget implements Target {
       });
     }
 
-    return createContinuousRangeUntypedRangeTarget(
+    return createContinuousRangeUntypedTarget(
       isReversed,
       this,
       endTarget,

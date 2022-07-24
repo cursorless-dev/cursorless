@@ -20,7 +20,7 @@ export default class ModifyIfImplicitScopeTypeStage implements ModifierStage {
 
     /**
      * This target is lacking an explicit scope type and should use inference/upgrade when needed.
-     * See {@link UntypedRangeTarget} for more info
+     * See {@link UntypedTarget} for more info
      */
     return this.nestedStage
       .run(context, target)

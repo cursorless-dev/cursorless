@@ -1,6 +1,6 @@
 import { Position, Range } from "vscode";
 import { Target } from "../../typings/target.types";
-import UntypedRangeTarget from "../targets/UntypedRangeTarget";
+import UntypedTarget from "../targets/UntypedTarget";
 
 export function createContinuousRange(
   startTarget: Target,
@@ -67,20 +67,20 @@ export function createSimpleContinuousRangeTarget(
   );
 }
 
-export function createContinuousRangeUntypedRangeTarget(
+export function createContinuousRangeUntypedTarget(
   isReversed: boolean,
   startTarget: Target,
   endTarget: Target,
   includeStart: boolean,
   includeEnd: boolean
-): UntypedRangeTarget {
+): UntypedTarget {
   const contentRange = createContinuousRange(
     startTarget,
     endTarget,
     includeStart,
     includeEnd
   );
-  return new UntypedRangeTarget({
+  return new UntypedTarget({
     editor: startTarget.editor,
     isReversed,
     contentRange,

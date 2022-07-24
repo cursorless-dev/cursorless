@@ -3,7 +3,7 @@ import { SourceMark } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { isReversed } from "../../util/selectionUtils";
 import { MarkStage } from "../PipelineStages.types";
-import UntypedRangeTarget from "../targets/UntypedRangeTarget";
+import UntypedTarget from "../targets/UntypedTarget";
 
 export default class implements MarkStage {
   constructor(private modifier: SourceMark) {}
@@ -13,7 +13,7 @@ export default class implements MarkStage {
       throw Error("No available source marks");
     }
     return context.sourceMark.map((selection) => {
-      return new UntypedRangeTarget({
+      return new UntypedTarget({
         editor: selection.editor,
         isReversed: isReversed(selection.selection),
         contentRange: selection.selection,

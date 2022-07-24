@@ -1,14 +1,14 @@
 import { Range } from "vscode";
 import { BaseTarget, CommonTargetParameters } from ".";
 import { Target } from "../../typings/target.types";
-import { createContinuousRangeUntypedRangeTarget } from "../targetUtil/createContinuousRange";
+import { createContinuousRangeUntypedTarget } from "../targetUtil/createContinuousRange";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 
-interface UntypedRangeTargetParameters extends CommonTargetParameters {
+interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
 }
 
@@ -17,11 +17,11 @@ interface UntypedRangeTargetParameters extends CommonTargetParameters {
  * - Use token delimiters (space) for removal and insertion
  * - Expand to nearest containing pair when asked for boundary or interior
  */
-export default class UntypedRangeTarget extends BaseTarget {
+export default class UntypedTarget extends BaseTarget {
   insertionDelimiter = " ";
   hasExplicitScopeType = false;
 
-  constructor(parameters: UntypedRangeTargetParameters) {
+  constructor(parameters: UntypedTargetParameters) {
     super(parameters);
     this.hasExplicitRange = parameters.hasExplicitRange;
   }
@@ -45,7 +45,7 @@ export default class UntypedRangeTarget extends BaseTarget {
     includeStart: boolean,
     includeEnd: boolean
   ): Target {
-    return createContinuousRangeUntypedRangeTarget(
+    return createContinuousRangeUntypedTarget(
       isReversed,
       this,
       endTarget,
