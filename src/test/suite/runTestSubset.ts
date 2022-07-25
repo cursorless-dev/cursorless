@@ -4,7 +4,7 @@
  * configuration.
  * See https://mochajs.org/#-grep-regexp-g-regexp for supported syntax
  */
-export const TEST_SUBSET_GREP_STRING = "rust";
+export const TEST_SUBSET_GREP_STRING = "implicit";
 
 /**
  * Determine whether we should run just the subset of the tests specified by
