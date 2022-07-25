@@ -63,7 +63,13 @@ export type TestCaseFixture = {
   finalState?: TestCaseSnapshot;
   /** Used to assert if an error has been thrown. */
   thrownError?: ThrownError;
-  returnValue: unknown;
+
+  /**
+   * The return value of the command. Will be undefined when we have recorded an
+   * error test case.
+   */
+  returnValue?: unknown;
+
   /** Inferred full targets added for context; not currently used in testing */
   fullTargets: TargetDescriptor[];
 };
@@ -75,7 +81,7 @@ export class TestCase {
   decorations?: PlainTestDecoration[];
   finalState?: TestCaseSnapshot;
   thrownError?: ThrownError;
-  returnValue: unknown = null;
+  returnValue?: unknown;
   targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
   marksToCheck?: string[];
