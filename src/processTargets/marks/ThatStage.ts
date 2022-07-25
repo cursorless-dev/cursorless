@@ -9,9 +9,7 @@ import { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
 
 export class ThatStage implements MarkStage {
-  constructor(_modifier: ThatMark) {
-    // Empty
-  }
+  constructor(private modifier: ThatMark) {}
 
   run(context: ProcessedTargetsContext): Target[] {
     if (context.thatMark.length === 0) {
@@ -23,13 +21,11 @@ export class ThatStage implements MarkStage {
 }
 
 export class SourceStage implements MarkStage {
-  constructor(_modifier: SourceMark) {
-    // Empty
-  }
+  constructor(private modifier: SourceMark) {}
 
   run(context: ProcessedTargetsContext): Target[] {
     if (context.sourceMark.length === 0) {
-      throw Error("No available that marks");
+      throw Error("No available source marks");
     }
 
     return selectionsToTarget(context.sourceMark);
