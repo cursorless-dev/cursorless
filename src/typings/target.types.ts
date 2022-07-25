@@ -1,4 +1,20 @@
 import { Range, Selection, TextEditor } from "vscode";
+// NB: We import `Target` below just so that @link below resolves.  Once one of
+// the following issues are fixed, we can either remove the above line or
+// switch to `{import("foo")}` syntax in the `{@link}` tag.
+// - https://github.com/microsoft/TypeScript/issues/43869
+// - https://github.com/microsoft/TypeScript/issues/43950
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfUntypedStage";
+
+import type {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ScopeTypeTarget,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  TokenTarget,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  UntypedTarget,
+} from "../processTargets/targets";
 
 export interface EditNewCommandContext {
   type: "command";
