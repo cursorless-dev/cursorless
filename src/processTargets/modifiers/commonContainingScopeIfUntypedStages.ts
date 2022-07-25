@@ -1,5 +1,10 @@
 import ModifyIfUntypedStage from "./ModifyIfUntypedStage";
 
+/**
+ * Expands the given target to the nearest containing surrounding pair if the
+ * target has no explicit scope type, ie if {@link Target.hasExplicitScopeType}
+ * is `false`.
+ */
 export const containingSurroundingPairIfUntypedStage = new ModifyIfUntypedStage(
   {
     type: "modifyIfUntyped",
@@ -10,6 +15,10 @@ export const containingSurroundingPairIfUntypedStage = new ModifyIfUntypedStage(
   }
 );
 
+/**
+ * Expands the given target to the nearest containing line if the target has no
+ * explicit scope type, ie if {@link Target.hasExplicitScopeType} is `false`.
+ */
 export const containingLineIfUntypedStage = new ModifyIfUntypedStage({
   type: "modifyIfUntyped",
   modifier: {
@@ -18,6 +27,10 @@ export const containingLineIfUntypedStage = new ModifyIfUntypedStage({
   },
 });
 
+/**
+ * Expands the given target to the nearest containing token if the target has no
+ * explicit scope type, ie if {@link Target.hasExplicitScopeType} is `false`.
+ */
 export const containingTokenIfUntypedStage = new ModifyIfUntypedStage({
   type: "modifyIfUntyped",
   modifier: {

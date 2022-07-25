@@ -5,7 +5,8 @@ import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";
 
 /**
- * Runs {@link ModifyIfUntypedModifier.modifier} if the target is lacking an explicit modifier.
+ * Runs {@link ModifyIfUntypedModifier.modifier} if the target has no explicit
+ * scope type, ie if {@link Target.hasExplicitScopeType} is `false`.
  */
 export default class ModifyIfUntypedStage implements ModifierStage {
   private nestedStage_?: ModifierStage;
@@ -20,7 +21,7 @@ export default class ModifyIfUntypedStage implements ModifierStage {
 
     /**
      * This target is lacking an explicit scope type and should use inference/upgrade when needed.
-     * See {@link UntypedTarget} for more info
+     * See {@link Target.hasExplicitScopeType} for more info
      */
     return this.nestedStage
       .run(context, target)
