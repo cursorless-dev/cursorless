@@ -22,6 +22,5 @@ initialState:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}
   marks: {}
-returnValue: null
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: namedFunction}}]}]
-thrownError: {name: Error}
+thrownError: {name: NoContainingScopeError}

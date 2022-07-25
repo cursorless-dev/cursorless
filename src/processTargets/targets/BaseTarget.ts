@@ -1,5 +1,6 @@
 import { isEqual } from "lodash";
 import { Range, Selection, TextEditor } from "vscode";
+import { NoContainingScopeError } from "../../errors";
 import { EditNewContext, Target } from "../../typings/target.types";
 import { Position } from "../../typings/targetDescriptor.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
@@ -101,10 +102,10 @@ export default abstract class BaseTarget implements Target {
   }
 
   getInteriorStrict(): Target[] {
-    throw Error("No available interior");
+    throw new NoContainingScopeError("interior");
   }
   getBoundaryStrict(): Target[] {
-    throw Error("No available boundaries");
+    throw new NoContainingScopeError("boundary");
   }
 
   readonly cloneWith = (parameters: CloneWithParameters) => {
