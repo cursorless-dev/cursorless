@@ -1,46 +1,65 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import CheatsheetListComponent from './components/CheatsheetListComponent';
 import CheatsheetLegendComponent from './components/CheatsheetLegendComponent';
 import cheatsheetLegend from './cheatsheetLegend';
 import Helmet from 'react-helmet';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import { faCircleQuestion, faGear } from '@fortawesome/free-solid-svg-icons';
 import CheatsheetNotesComponent from './components/CheatsheetNotesComponent';
 import SmartLink from './components/SmartLink';
 import { CheatsheetInfo } from './CheatsheetInfo';
+import { SettingsProvider } from './components/Settings/SettingsContext';
+import { DarkModeToggle } from './components/DarkModeToggle';
+import { SettingsControls } from './components/Settings/SettingsControls';
+import { IconButton } from './components/IconButton';
 
 type CheatsheetPageProps = {
   cheatsheetInfo: CheatsheetInfo;
 };
 
-// markup
 export const CheatsheetPage: React.FC<CheatsheetPageProps> = ({
   cheatsheetInfo,
 }) => {
+  const [settingsOpen, setSettingsOpen] = useState(false);
+
   return (
-    <main className="dark:text-stone-100">
-      <Helmet
-        bodyAttributes={{
-          class: 'bg-stone-50 dark:bg-stone-800',
-        }}
-      />
-      <h1 className="text-2xl md:text-3xl text-center mt-2 mb-1 xl:mt-4">
-        Cursorless Cheatsheet{' '}
-        <span className="text-sm inline-block align-middle">
-          <SmartLink to="#legend">
-            <FontAwesomeIcon icon={faCircleQuestion} />
-          </SmartLink>
-        </span>
-        <small className="text-sm block">
-          See the{' '}
-          <SmartLink to={'https://www.cursorless.org/docs/'}>
-            full documentation
-          </SmartLink>{' '}
-          to learn more.
-        </small>
-      </h1>
-      <Cheatsheet cheatsheetInfo={cheatsheetInfo} />
-    </main>
+    <SettingsProvider>
+      <main className="dark:text-stone-100">
+        <Helmet
+          bodyAttributes={{
+            class: 'bg-stone-50 dark:bg-stone-800',
+          }}
+        />
+        <div className="absolute flex gap-1 right-0 top-0 p-2">
+          <IconButton
+            icon={faGear}
+            title="Settings"
+            onClick={() => setSettingsOpen((v) => !v)}
+          />
+          <DarkModeToggle />
+        </div>
+        <h1 className="text-2xl md:text-3xl text-center mt-2 mb-1 xl:mt-4">
+          Cursorless Cheatsheet{' '}
+          <span className="text-sm inline-block align-middle">
+            <SmartLink to="#legend">
+              <FontAwesomeIcon icon={faCircleQuestion} />
+            </SmartLink>
+          </span>
+          <small className="text-sm block">
+            See the{' '}
+            <SmartLink to={'https://www.cursorless.org/docs/'}>
+              full documentation
+            </SmartLink>{' '}
+            to learn more.
+          </small>
+        </h1>
+        <SettingsControls
+          onClose={() => setSettingsOpen(false)}
+          open={settingsOpen}
+        />
+        <Cheatsheet cheatsheetInfo={cheatsheetInfo} />
+      </main>
+    </SettingsProvider>
   );
 };
 

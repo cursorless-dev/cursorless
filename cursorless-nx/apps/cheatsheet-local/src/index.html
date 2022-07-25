@@ -9,6 +9,17 @@
     <script id="cheatsheet-data"></script>
   </head>
   <body>
+    <script>
+      // Initialize dark mode. Inline script runs ASAP to prevent flashing.
+      const setting = localStorage.getItem('theme');
+      const system = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      const darkMode = setting === null ? system : setting === 'dark';
+
+      if (darkMode) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
     <div id="root"></div>
   </body>
 </html>
