@@ -1,0 +1,58 @@
+languageId: typescript
+command:
+  spokenForm: snip funk after this past vest
+  version: 2
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        mark: {type: cursor}
+        modifiers:
+          - {type: position, position: after}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+  action:
+    name: insertSnippet
+    args: [functionDeclaration]
+initialState:
+  documentContents: |+
+    function testing() {
+        const whatever = "hello";
+    }
+
+    function another() {
+        const whatever = "hello";
+    }
+
+  selections:
+    - anchor: {line: 5, character: 10}
+      active: {line: 5, character: 10}
+  marks:
+    default.v:
+      start: {line: 1, character: 10}
+      end: {line: 1, character: 18}
+finalState:
+  documentContents: |+
+    function testing() {
+        const whatever = "hello";
+    }
+
+    function another() {
+        const whatever = "hello";
+    }
+
+    function () {
+        
+    }
+
+  selections:
+    - anchor: {line: 8, character: 9}
+      active: {line: 8, character: 9}
+  thatMark:
+    - anchor: {line: 8, character: 0}
+      active: {line: 10, character: 1}
+fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: cursor}, modifiers: [], positionModifier: {type: position, position: after}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, modifiers: [], positionModifier: {type: position, position: after}}}]
