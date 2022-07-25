@@ -15,6 +15,8 @@ import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   UntypedTarget,
 } from "../processTargets/targets";
+import { Position } from "./targetDescriptor.types";
+import { EditWithRangeUpdater } from "./Types";
 
 export interface EditNewCommandContext {
   type: "command";
