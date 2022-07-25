@@ -1,6 +1,20 @@
 import { Range, Selection, TextEditor } from "vscode";
-import { Position } from "./targetDescriptor.types";
-import { EditWithRangeUpdater } from "./Types";
+// NB: We import `Target` below just so that @link below resolves.  Once one of
+// the following issues are fixed, we can either remove the above line or
+// switch to `{import("foo")}` syntax in the `{@link}` tag.
+// - https://github.com/microsoft/TypeScript/issues/43869
+// - https://github.com/microsoft/TypeScript/issues/43950
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfUntypedStage";
+
+import type {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ScopeTypeTarget,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  TokenTarget,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  UntypedTarget,
+} from "../processTargets/targets";
 
 export interface EditNewCommandContext {
   type: "command";
@@ -28,10 +42,57 @@ export interface Target {
   /** If true this target should be treated as a line */
   readonly isLine: boolean;
 
-  /** If true this target has an explicit scope type and can't be transformed/upgraded */
+  /**
+   * If `true`, then this target has an explicit scope type, and so should never
+   * be automatically expanded to a containing scope.
+   *
+   * Examples of targets that have explicit scopes are {@link ScopeTypeTarget}
+   * (eg `"funk"`), {@link TokenTarget} (eg `"token"`), etc.
+   *
+   * As of writing this comment, the only target type that doesn't have an
+   * explicit scope type is {@link UntypedTarget}, which can be constructed by
+   *
+   * - using a decorated mark (`"air"`), or
+   * - using any cursor mark (`"this"` with an empty selection), or
+   * - using any `"that"` mark (eg after saying `"copy air"`).
+   * - using a range between decorated marks or cursor marks (eg `"past air"` or
+   *   `"air past bat"`)
+   *
+   * The primary consumer of this attribute is {@link ModifyIfUntypedStage},
+   * which is used in the following situations to automatically expand to the
+   * given scope type when `hasExplicitScopeType` is `false`:
+   *
+   * - To expand to `"line"` for `"pour"`, `"clone"`, and `"breakpoint"`
+   * - To expand to `"token"` for `"leading"` and `"trailing"`
+   * - Expand to nearest containing pair for `"inside"`, `"bounds"`, and
+   *   `"rewrap"`
+   * - To expand to wrapper scope for snippet wrapping
+   * - To expand to insertion scope for snippet insertion
+   *
+   * For example, when the user says `"pour air"`, the
+   * {@link DecoratedSymbolStage} will return an {@link UntypedTarget}, which
+   * has `hasExplicitScopeType=false`, so `"pour"` will expand to the line
+   * containining the air token and insert a newline after it.
+   */
   readonly hasExplicitScopeType: boolean;
 
-  /** If true this target has an explicit range and can't be transformed/upgraded */
+  /**
+   * If `true`, then this target has an explicit range.  This attribute is used
+   * by `"every"` to determine whether to return all scopes in the iteration
+   * scope or just the ones that overlap with the given target's
+   * {@link contentRange}.
+   *
+   * Most targets have explicit ranges.  As of writing this comment, the only
+   * targets that don't are as follows:
+   *
+   * - a decorated mark (`"air"`), or
+   * - an empty cursor mark (`"this"` with an empty selection), or
+   * - an empty `"that"` mark (eg after saying `"chuck air"`).
+   *
+   * For example, when the user says `"change every state air"`, we clear every
+   * statement in the function, but `"change every state this"` with a non-empty
+   * selection will only target statements overlapping the cursor.
+   */
   readonly hasExplicitRange: boolean;
 
   /** If true this target is a raw selection and its insertion delimiter should not be used on bring action */
