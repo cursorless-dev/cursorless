@@ -58,6 +58,9 @@ export type TestCaseFixture = {
   marksToCheck?: string[];
 
   initialState: TestCaseSnapshot;
+  /**
+   * Expected decorations in the test case, for example highlighting deletions in red.
+   */
   decorations?: PlainTestDecoration[];
   /** The final state after a command is issued. Undefined if we are testing a non-match(error) case. */
   finalState?: TestCaseSnapshot;
