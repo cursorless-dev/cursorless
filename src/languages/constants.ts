@@ -4,6 +4,7 @@ export const supportedLanguageIds = [
   "cpp",
   "css",
   "csharp",
+  "elm",
   "go",
   "html",
   "java",

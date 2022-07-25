@@ -10,6 +10,7 @@ import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import cpp from "./cpp";
 import clojure from "./clojure";
 import csharp from "./csharp";
+import elm from "./elm";
 import { patternMatchers as json } from "./json";
 import { patternMatchers as typescript } from "./typescript";
 import java from "./java";
@@ -58,6 +59,7 @@ const languageMatchers: Record<
   css: scss,
   csharp,
   clojure,
+  elm,
   go,
   html,
   java,

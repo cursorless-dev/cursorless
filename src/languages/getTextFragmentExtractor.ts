@@ -136,6 +136,7 @@ const textFragmentExtractors: Record<
     "css",
     scssStringTextFragmentExtractor
   ),
+  elm: constructDefaultTextFragmentExtractor("elm"),
   go: constructDefaultTextFragmentExtractor("go"),
   html: constructDefaultTextFragmentExtractor(
     "html",
