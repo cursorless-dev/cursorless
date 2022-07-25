@@ -546,6 +546,7 @@
 		"@types/vscode": "~1.61.0",
 		"@typescript-eslint/eslint-plugin": "^5.20.0",
 		"@typescript-eslint/parser": "^5.20.0",
+		"@vscode/test-electron": "^2.1.3",
 		"esbuild": "^0.11.12",
 		"eslint": "^8.13.0",
 		"eslint-config-prettier": "^8.5.0",
@@ -558,8 +559,7 @@
 		"semver": "^7.3.7",
 		"sinon": "^11.1.1",
 		"ts-unused-exports": "8.0.0",
-		"typescript": "^4.5.5",
-		"@vscode/test-electron": "^2.1.3"
+		"typescript": "^4.5.5"
 	},
 	"dependencies": {
 		"@types/lodash": "^4.14.168",

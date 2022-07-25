@@ -1,4 +1,11 @@
 import ModifyIfUntypedStage from "./ModifyIfUntypedStage";
+// NB: We import `Target` below just so that @link below resolves.  Once one of
+// the following issues are fixed, we can either remove the above line or
+// switch to `{import("foo")}` syntax in the `{@link}` tag.
+// - https://github.com/microsoft/TypeScript/issues/43869
+// - https://github.com/microsoft/TypeScript/issues/43950
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type { Target } from "../../typings/target.types";
 
 /**
  * Expands the given target to the nearest containing surrounding pair if the
