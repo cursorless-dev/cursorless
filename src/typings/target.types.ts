@@ -6,7 +6,8 @@ import { Range, Selection, TextEditor } from "vscode";
 // - https://github.com/microsoft/TypeScript/issues/43950
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfUntypedStage";
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type { SnippetVariable, Snippet } from "./snippet";
 import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ScopeTypeTarget,
@@ -56,20 +57,22 @@ export interface Target {
    *
    * - using a decorated mark (`"air"`), or
    * - using any cursor mark (`"this"`), or
-   * - using any `"that"` mark (eg after saying `"copy air"`).
    * - using a range between decorated marks or cursor marks (eg `"past air"` or
-   *   `"air past bat"`)
+   *   `"air past bat"`), or
+   * - using any `"that"` mark (eg after saying `"copy air"`), though this
+   *   final behaviour will change with #466.
    *
    * The primary consumer of this attribute is {@link ModifyIfUntypedStage},
-   * which is used in the following situations to automatically expand to the
-   * given scope type when `hasExplicitScopeType` is `false`:
+   * which is used in the following situations to automatically expand to a
+   * particular scope type when `hasExplicitScopeType` is `false`:
    *
    * - To expand to `"line"` for `"pour"`, `"clone"`, and `"breakpoint"`
    * - To expand to `"token"` for `"leading"` and `"trailing"`
-   * - Expand to nearest containing pair for `"inside"`, `"bounds"`, and
+   * - To expand to nearest containing pair for `"inside"`, `"bounds"`, and
    *   `"rewrap"`
-   * - To expand to wrapper scope for snippet wrapping
-   * - To expand to insertion scope for snippet insertion
+   * - To expand to {@link SnippetVariable.wrapperScopeType} for snippet
+   *   wrapping
+   * - To expand to {@link Snippet.insertionScopeTypes} for snippet insertion
    *
    * For example, when the user says `"pour air"`, the
    * {@link DecoratedSymbolStage} will return an {@link UntypedTarget}, which
