@@ -55,7 +55,7 @@ export interface Target {
    * explicit scope type is {@link UntypedTarget}, which can be constructed by
    *
    * - using a decorated mark (`"air"`), or
-   * - using any cursor mark (`"this"` with an empty selection), or
+   * - using any cursor mark (`"this"`), or
    * - using any `"that"` mark (eg after saying `"copy air"`).
    * - using a range between decorated marks or cursor marks (eg `"past air"` or
    *   `"air past bat"`)
