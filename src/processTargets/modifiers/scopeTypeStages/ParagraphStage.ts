@@ -23,7 +23,9 @@ export default class implements ModifierStage {
     const { contentRange, editor } = target;
     const { lineCount } = editor.document;
     const startLine = target.hasExplicitRange ? contentRange.start.line : 0;
-    const endLine = target.hasExplicitRange ? contentRange.end.line : lineCount;
+    const endLine = target.hasExplicitRange
+      ? contentRange.end.line
+      : lineCount - 1;
     const targets: ParagraphTarget[] = [];
     let paragraphStart = -1;
 
