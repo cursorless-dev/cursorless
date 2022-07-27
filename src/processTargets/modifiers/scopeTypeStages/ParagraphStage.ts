@@ -23,9 +23,7 @@ export default class implements ModifierStage {
     const { contentRange, editor } = target;
     const { lineCount } = editor.document;
     const startLine = target.hasExplicitRange ? contentRange.start.line : 0;
-    const endLine = target.hasExplicitRange
-      ? contentRange.end.line - 1
-      : lineCount;
+    const endLine = target.hasExplicitRange ? contentRange.end.line : lineCount;
     const targets: ParagraphTarget[] = [];
     let paragraphStart = -1;
 
@@ -52,6 +50,8 @@ export default class implements ModifierStage {
           possiblyAddParagraph(paragraphStart, i - 1);
           paragraphStart = -1;
         }
+        // NB: Ignore empty line if paragraphStart === -1 because it means it's
+        // just an extra empty line between blocks
       }
       // Start of paragraph
       else if (paragraphStart < 0) {
