@@ -1,0 +1,53 @@
+languageId: python
+command:
+  spokenForm: bring funk bat before air
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - {type: position, position: before}
+  usePrePhraseSnapshot: true
+  action: {name: replaceWithTarget}
+initialState:
+  documentContents: |2
+        def aaa():
+            pass
+
+        def bbb():
+            pass
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 3, character: 8}
+      end: {line: 3, character: 11}
+    default.a:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: |2
+        def bbb():
+            pass
+
+        def aaa():
+            pass
+
+        def bbb():
+            pass
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 4}
+      active: {line: 1, character: 12}
+  sourceMark:
+    - anchor: {line: 6, character: 4}
+      active: {line: 7, character: 12}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [&ref_0 {type: containingScope, scopeType: {type: namedFunction}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [*ref_0], positionModifier: {type: position, position: before}}]
