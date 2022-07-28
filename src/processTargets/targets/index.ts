@@ -22,5 +22,5 @@ export * from "./SurroundingPairTarget";
 export { default as SurroundingPairTarget } from "./SurroundingPairTarget";
 export * from "./TokenTarget";
 export { default as TokenTarget } from "./TokenTarget";
-export * from "./WeakTarget";
-export { default as WeakTarget } from "./WeakTarget";
+export * from "./UntypedTarget";
+export { default as UntypedTarget } from "./UntypedTarget";

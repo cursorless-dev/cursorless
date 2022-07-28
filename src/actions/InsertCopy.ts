@@ -1,7 +1,7 @@
 import { flatten, zip } from "lodash";
 import { DecorationRangeBehavior, Selection, TextEditor } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
-import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
+import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
@@ -9,7 +9,7 @@ import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class InsertCopy implements Action {
-  getFinalStages = () => [weakContainingLineStage];
+  getFinalStages = () => [containingLineIfUntypedStage];
 
   constructor(private graph: Graph, private isBefore: boolean) {
     this.run = this.run.bind(this);

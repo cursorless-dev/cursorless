@@ -25,9 +25,10 @@ export default class OrdinalRangeSubTokenStage implements ModifierStage {
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const { editor } = target;
-    const tokenContentRange = target.contentRange.isEmpty
-      ? getTokenRangeForSelection(target.editor, target.contentRange)
-      : target.contentRange;
+    // If the target has an explicit range use that. Otherwise expand to the token.
+    const tokenContentRange = target.hasExplicitRange
+      ? target.contentRange
+      : getTokenRangeForSelection(target.editor, target.contentRange);
 
     const tokenText = editor.document.getText(tokenContentRange);
     let pieces: { start: number; end: number }[] = [];
