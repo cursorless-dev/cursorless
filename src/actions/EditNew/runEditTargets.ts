@@ -43,7 +43,9 @@ export async function runEditTargets(
   );
 
   const thatSelections = {
-    selections: state.thatRanges.map(toSelection),
+    selections: state.targets.map(
+      ({ thatTarget }) => thatTarget.contentSelection
+    ),
   };
 
   // We need to remove undefined cursor locations.  Note that these undefined
@@ -91,8 +93,11 @@ export async function runEditTargets(
   });
 
   return {
-    targets: state.targets,
-    thatRanges: updatedThatSelections,
+    targets: state.targets.map((target, index) =>
+      target.withThatTarget(
+        target.thatTarget.withContentRange(updatedThatSelections[index])
+      )
+    ),
     cursorRanges: updatedCursorRanges,
   };
 }

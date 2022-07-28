@@ -37,7 +37,6 @@ export class EditNew implements Action {
      */
     let state: State = {
       targets,
-      thatRanges: targets.map(({ thatTarget }) => thatTarget.contentRange),
       cursorRanges: new Array(targets.length).fill(undefined) as undefined[],
     };
 
@@ -50,7 +49,10 @@ export class EditNew implements Action {
     await setSelectionsAndFocusEditor(editor, newSelections);
 
     return {
-      thatMark: createThatMark(state.targets, state.thatRanges),
+      thatMark: createThatMark(
+        state.targets,
+        state.targets.map((t) => t.thatTarget.contentRange)
+      ),
     };
   }
 }

@@ -40,14 +40,11 @@ export default class PositionTarget extends BaseTarget {
 
   constructChangeEdit(text: string): EditWithRangeUpdater {
     return this.position === "before" || this.position === "after"
-      ? this.constructEditWithDelimiters(text, true)
+      ? this.constructEditWithDelimiters(text)
       : this.constructEditWithoutDelimiters(text);
   }
 
-  private constructEditWithDelimiters(
-    text: string,
-    useLinePadding: boolean
-  ): EditWithRangeUpdater {
+  private constructEditWithDelimiters(text: string): EditWithRangeUpdater {
     const delimiter = this.insertionDelimiter;
     // It's only considered a line if the delimiter is only new line symbols
     const isLine = /^(\n)+$/.test(delimiter);
@@ -57,13 +54,15 @@ export default class PositionTarget extends BaseTarget {
       this.editor,
       this.contentRange,
       isLine,
-      useLinePadding,
       isBefore
     );
-    const padding =
-      isLine && useLinePadding
-        ? getLinePadding(this.editor, range, isBefore)
-        : "";
+    const padding = isLine
+      ? getLinePadding(
+          this.editor,
+          // The reason for going to `state.thatTarget` immediately is that `target.thatTarget` is recursive and we only want the previous target.
+          this.state.thatTarget!.contentRange
+        )
+      : "";
 
     const editText = isBefore
       ? text + delimiter + padding
@@ -117,8 +116,8 @@ export function removalUnsupportedForPosition(position: string): Range {
   );
 }
 
-function getLinePadding(editor: TextEditor, range: Range, isBefore: boolean) {
-  const line = editor.document.lineAt(isBefore ? range.start : range.end);
+function getLinePadding(editor: TextEditor, range: Range) {
+  const line = editor.document.lineAt(range.start);
   const characterIndex = line.isEmptyOrWhitespace
     ? range.start.character
     : line.firstNonWhitespaceCharacterIndex;
@@ -129,21 +128,18 @@ function getEditRange(
   editor: TextEditor,
   range: Range,
   isLine: boolean,
-  useLinePadding: boolean,
   isBefore: boolean
 ) {
   let position: vscode.Position;
   if (isLine) {
     const line = editor.document.lineAt(isBefore ? range.start : range.end);
     if (isBefore) {
-      position = useLinePadding
-        ? line.isEmptyOrWhitespace
-          ? range.start
-          : new vscode.Position(
-              line.lineNumber,
-              line.firstNonWhitespaceCharacterIndex
-            )
-        : line.range.start;
+      position = line.isEmptyOrWhitespace
+        ? range.start
+        : new vscode.Position(
+            line.lineNumber,
+            line.firstNonWhitespaceCharacterIndex
+          );
     } else {
       position = line.range.end;
     }

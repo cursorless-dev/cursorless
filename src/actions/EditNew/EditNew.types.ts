@@ -49,12 +49,6 @@ export interface State {
   targets: Target[];
 
   /**
-   * We use this field to track the desired `thatMark` at the end, updating it
-   * as necessary.
-   */
-  thatRanges: Range[];
-
-  /**
    * Where the cursors should be placed.  We update these after each step.
    * They are initially undefined, and we update them as we run commands /
    * perform edits, and the finally use them to set the cursor positions at the
