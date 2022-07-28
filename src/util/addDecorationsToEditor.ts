@@ -3,20 +3,16 @@ import * as vscode from "vscode";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator as getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
-import { Token } from "../typings/Types";
+import { Token, TokenHatSplittingMode } from "../typings/Types";
 import Decorations from "../core/Decorations";
 import { HatStyleName } from "../core/constants";
 import { TOKEN_MATCHER } from "../core/tokenizer";
 import { IndividualHatMap } from "../core/IndividualHatMap";
 
-interface CharacterTokenInfo {
-  characterIdx: number;
-  tokenIdx: number;
-}
-
 export function addDecorationsToEditors(
   hatTokenMap: IndividualHatMap,
-  decorations: Decorations
+  decorations: Decorations,
+  tokenHatSplittingMode: TokenHatSplittingMode
 ) {
   hatTokenMap.clear();
 
@@ -63,29 +59,32 @@ export function addDecorationsToEditors(
     })
   );
 
-  const characterTokens: {
-    [key: string]: Map<Token, CharacterTokenInfo>;
+  /**
+   * Maps each lexeme to a list of the indices of the tokens in which the given
+   * lexeme appears.
+   */
+  const lexemeTokenIndices: {
+    [key: string]: number[];
   } = {};
 
   tokens.forEach((token, tokenIdx) => {
-    [...token.text].forEach((character, characterIdx) => {
-      let characterTokenMap: Map<Token, CharacterTokenInfo>;
+    getTokenLexemes(token.text, tokenHatSplittingMode).forEach(
+      ({ text: lexemeText }) => {
+        let tokenIndicesForLexeme: number[];
 
-      if (character in characterTokens) {
-        characterTokenMap = characterTokens[character];
-      } else {
-        characterTokenMap = new Map();
-        characterTokens[character] = characterTokenMap;
+        if (lexemeText in lexemeTokenIndices) {
+          tokenIndicesForLexeme = lexemeTokenIndices[lexemeText];
+        } else {
+          tokenIndicesForLexeme = [];
+          lexemeTokenIndices[lexemeText] = tokenIndicesForLexeme;
+        }
+
+        tokenIndicesForLexeme.push(tokenIdx);
       }
-
-      characterTokenMap.set(token, {
-        characterIdx,
-        tokenIdx,
-      });
-    });
+    );
   });
 
-  const characterDecorationIndices: { [character: string]: number } = {};
+  const lexemeDecorationIndices: { [lexeme: string]: number } = {};
 
   const decorationRanges: Map<
     vscode.TextEditor,
@@ -112,36 +111,37 @@ export function addDecorationsToEditors(
   // Here is an example where the existing algorithm false down:
   // "ab ax b"
   tokens.forEach((token, tokenIdx) => {
-    const tokenCharacters = [...token.text].map((character, characterIdx) => ({
-      character,
-      characterIdx,
-      decorationIndex:
-        character in characterDecorationIndices
-          ? characterDecorationIndices[character]
-          : 0,
-    }));
+    const tokenLexemes = getTokenLexemes(token.text, tokenHatSplittingMode).map(
+      (lexeme) => ({
+        ...lexeme,
+        decorationIndex:
+          lexeme.text in lexemeDecorationIndices
+            ? lexemeDecorationIndices[lexeme.text]
+            : 0,
+      })
+    );
 
     const minDecorationIndex = min(
-      tokenCharacters.map(({ decorationIndex }) => decorationIndex)
+      tokenLexemes.map(({ decorationIndex }) => decorationIndex)
     )!;
 
     if (minDecorationIndex >= decorations.decorations.length) {
       return;
     }
 
-    const bestCharacter = maxBy(
-      tokenCharacters.filter(
+    const bestLexeme = maxBy(
+      tokenLexemes.filter(
         ({ decorationIndex }) => decorationIndex === minDecorationIndex
       ),
-      ({ character }) =>
+      ({ text }) =>
         min(
-          [...characterTokens[character].values()]
-            .map(({ tokenIdx }) => tokenIdx)
-            .filter((laterTokenIdx) => laterTokenIdx > tokenIdx)
+          lexemeTokenIndices[text].filter(
+            (laterTokenIdx) => laterTokenIdx > tokenIdx
+          )
         ) ?? Infinity
     )!;
 
-    const currentDecorationIndex = bestCharacter.decorationIndex;
+    const currentDecorationIndex = bestLexeme.decorationIndex;
 
     const hatStyleName = decorations.decorations[currentDecorationIndex].name;
 
@@ -149,15 +149,14 @@ export function addDecorationsToEditors(
       .get(token.editor)!
       [hatStyleName]!.push(
         new vscode.Range(
-          token.range.start.translate(undefined, bestCharacter.characterIdx),
-          token.range.start.translate(undefined, bestCharacter.characterIdx + 1)
+          token.range.start.translate(undefined, bestLexeme.tokenStartOffset),
+          token.range.start.translate(undefined, bestLexeme.tokenEndOffset)
         )
       );
 
-    hatTokenMap.addToken(hatStyleName, bestCharacter.character, token);
+    hatTokenMap.addToken(hatStyleName, bestLexeme.text, token);
 
-    characterDecorationIndices[bestCharacter.character] =
-      currentDecorationIndex + 1;
+    lexemeDecorationIndices[bestLexeme.text] = currentDecorationIndex + 1;
   });
 
   decorationRanges.forEach((ranges, editor) => {
@@ -168,4 +167,34 @@ export function addDecorationsToEditors(
       );
     });
   });
+}
+
+interface Lexeme {
+  /** The normalised text of the lexeme. */
+  text: string;
+
+  /** The start offset of the lexeme within its containing token */
+  tokenStartOffset: number;
+
+  /** The end offset of the lexeme within its containing token */
+  tokenEndOffset: number;
+}
+
+function getTokenLexemes(
+  text: string,
+  tokenHatSplittingMode: TokenHatSplittingMode
+): Lexeme[] {
+  switch (tokenHatSplittingMode) {
+    case "standard":
+    case "preserveCase": {
+      const normalisedText =
+        tokenHatSplittingMode === "preserveCase" ? text : text.toLowerCase();
+
+      return [...normalisedText].map((character, idx) => ({
+        text: character,
+        tokenStartOffset: idx,
+        tokenEndOffset: idx + 1,
+      }));
+    }
+  }
 }

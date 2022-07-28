@@ -210,3 +210,5 @@ export type TextFormatterName =
   | "pascalCase"
   | "snakeCase"
   | "upperSnakeCase";
+
+export type TokenHatSplittingMode = "standard" | "preserveCase";

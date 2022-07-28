@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { addDecorationsToEditors } from "../util/addDecorationsToEditor";
-import { Graph } from "../typings/Types";
+import { Graph, TokenHatSplittingMode } from "../typings/Types";
 import { Disposable } from "vscode";
 import { IndividualHatMap } from "./IndividualHatMap";
 
@@ -50,7 +50,11 @@ export class HatAllocator {
       // An Event which fires when the visible ranges of an editor has changed.
       vscode.window.onDidChangeTextEditorVisibleRanges(
         this.addDecorationsDebounced
-      )
+      ),
+
+      // Re-draw hats on settings change in case they changed their token hat
+      // splitting setting.
+      vscode.workspace.onDidChangeConfiguration(this.addDecorationsDebounced)
     );
   }
 
@@ -64,7 +68,15 @@ export class HatAllocator {
     const activeMap = await this.context.getActiveMap();
 
     if (this.isActive) {
-      addDecorationsToEditors(activeMap, this.graph.decorations);
+      const tokenHatSplittingMode = vscode.workspace
+        .getConfiguration("cursorless")
+        .get<TokenHatSplittingMode>("tokenHatSplittingMode")!;
+
+      addDecorationsToEditors(
+        activeMap,
+        this.graph.decorations,
+        tokenHatSplittingMode
+      );
     } else {
       vscode.window.visibleTextEditors.forEach(this.clearEditorDecorations);
       activeMap.clear();

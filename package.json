@@ -155,6 +155,15 @@
 					"default": true,
 					"description": "Whether to show decorations on vscode start."
 				},
+				"cursorless.tokenHatSplittingMode": {
+					"type": "string",
+					"default": "standard",
+					"description": "How to split tokens into pieces for placing hats",
+					"enum": [
+						"standard",
+						"preserveCase"
+					]
+				},
 				"cursorless.decorationDebounceDelayMs": {
 					"type": "number",
 					"default": 50,
