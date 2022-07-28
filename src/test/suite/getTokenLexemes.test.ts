@@ -3,7 +3,7 @@ import { TokenHatSplittingMode } from "../../typings/Types";
 import { getTokenLexemes } from "../../util/addDecorationsToEditor";
 
 /**
- * Compact representation of Alex seem to make the tests easier to read.
+ * Compact representation of a lexeme to make the tests easier to read.
  * Expected to be of the form
  * [text, tokenStartOffset, tokenEndOffset]
  */
