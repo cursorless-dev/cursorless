@@ -1,0 +1,34 @@
+languageId: plaintext
+command:
+  spokenForm: square switch that
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: that}
+  usePrePhraseSnapshot: true
+  action:
+    name: rewrapWithPairedDelimiter
+    args: ['[', ']']
+initialState:
+  documentContents: |
+    (hello world)
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+  thatMark:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 12}
+finalState:
+  documentContents: |
+    [hello world]
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 13}
+  sourceMark:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 12}
+fullTargets: [{type: primitive, mark: {type: that}, modifiers: []}]
