@@ -3,8 +3,7 @@ import CursorStage from "./marks/CursorStage";
 import DecoratedSymbolStage from "./marks/DecoratedSymbolStage";
 import LineNumberStage from "./marks/LineNumberStage";
 import NothingStage from "./marks/NothingStage";
-import SourceStage from "./marks/SourceStage";
-import ThatStage from "./marks/ThatStage";
+import { SourceStage, ThatStage } from "./marks/ThatStage";
 import { MarkStage } from "./PipelineStages.types";
 
 export default (mark: Mark): MarkStage => {

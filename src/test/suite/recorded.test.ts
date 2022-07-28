@@ -111,26 +111,40 @@ async function runTest(file: string) {
   // Assert that recorded decorations are present
   checkMarks(fixture.initialState.marks, readableHatMap);
 
-  if (fixture.thrownError != null) {
-    await assert.rejects(
-      async () => {
-        await vscode.commands.executeCommand(
-          "cursorless.command",
-          fixture.command
-        );
-      },
-      (err: Error) => {
-        assert.strictEqual(err.name, fixture.thrownError?.name);
-        return true;
-      }
-    );
+  let returnValue: unknown;
+
+  try {
+    returnValue = await vscode.commands.executeCommand("cursorless.command", {
+      ...fixture.command,
+      usePrePhraseSnapshot,
+    });
+  } catch (err) {
+    const error = err as Error;
+
+    if (shouldUpdateFixtures()) {
+      const outputFixture = {
+        ...fixture,
+        finalState: undefined,
+        decorations: undefined,
+        returnValue: undefined,
+        thrownError: { name: error.name },
+      };
+
+      await fsp.writeFile(file, serialize(outputFixture));
+    } else if (fixture.thrownError != null) {
+      assert.strictEqual(error.name, fixture.thrownError.name);
+    } else {
+      throw error;
+    }
+
     return;
   }
 
-  const returnValue = await vscode.commands.executeCommand(
-    "cursorless.command",
-    { ...fixture.command, usePrePhraseSnapshot }
-  );
+  if (fixture.thrownError != null) {
+    throw Error(
+      `Expected error ${fixture.thrownError.name} but none was thrown`
+    );
+  }
 
   if (fixture.postCommandSleepTimeMs != null) {
     await sleepWithBackoff(fixture.postCommandSleepTimeMs);
@@ -171,6 +185,7 @@ async function runTest(file: string) {
       finalState: resultState,
       decorations: actualDecorations,
       returnValue,
+      thrownError: undefined,
     };
 
     await fsp.writeFile(file, serialize(outputFixture));
