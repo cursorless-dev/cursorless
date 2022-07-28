@@ -1,13 +1,14 @@
 import { concat, flatten, maxBy, min } from "lodash";
 import * as vscode from "vscode";
-import { getDisplayLineMap } from "./getDisplayLineMap";
-import { getTokenComparator as getTokenComparator } from "./getTokenComparator";
-import { getTokensInRange } from "./getTokensInRange";
-import { Token, TokenHatSplittingMode } from "../typings/Types";
-import Decorations from "../core/Decorations";
 import { HatStyleName } from "../core/constants";
-import { TOKEN_MATCHER } from "../core/tokenizer";
+import Decorations from "../core/Decorations";
 import { IndividualHatMap } from "../core/IndividualHatMap";
+import { TOKEN_MATCHER } from "../core/tokenizer";
+import { Token, TokenHatSplittingMode } from "../typings/Types";
+import { getDisplayLineMap } from "./getDisplayLineMap";
+import { getTokenComparator } from "./getTokenComparator";
+import { getTokensInRange } from "./getTokensInRange";
+import { matchAll } from "./regex";
 
 export function addDecorationsToEditors(
   hatTokenMap: IndividualHatMap,
@@ -169,7 +170,7 @@ export function addDecorationsToEditors(
   });
 }
 
-interface Lexeme {
+export interface Lexeme {
   /** The normalised text of the lexeme. */
   text: string;
 
@@ -180,21 +181,33 @@ interface Lexeme {
   tokenEndOffset: number;
 }
 
-function getTokenLexemes(
+export function getTokenLexemes(
   text: string,
   tokenHatSplittingMode: TokenHatSplittingMode
 ): Lexeme[] {
-  switch (tokenHatSplittingMode) {
-    case "standard":
-    case "preserveCase": {
-      const normalisedText =
-        tokenHatSplittingMode === "preserveCase" ? text : text.toLowerCase();
+  const { preserveCase, removeAccents } = tokenHatSplittingMode;
 
-      return [...normalisedText].map((character, idx) => ({
-        text: character,
-        tokenStartOffset: idx,
-        tokenEndOffset: idx + 1,
-      }));
-    }
+  if (removeAccents) {
+    return matchAll<Lexeme>(text, /\p{L}\p{M}*|\P{L}/gu, (match) => {
+      const matchTextNoAccents = match[0]
+        .normalize("NFD")
+        .replace(/\p{M}/gu, "");
+
+      return {
+        text: preserveCase
+          ? matchTextNoAccents
+          : matchTextNoAccents.toLowerCase(),
+        tokenStartOffset: match.index!,
+        tokenEndOffset: match.index! + match[0].length,
+      };
+    });
+  } else {
+    const normalisedText = preserveCase ? text : text.toLowerCase();
+
+    return [...normalisedText].map((character, idx) => ({
+      text: character,
+      tokenStartOffset: idx,
+      tokenEndOffset: idx + 1,
+    }));
   }
 }

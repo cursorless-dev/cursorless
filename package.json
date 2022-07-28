@@ -155,14 +155,15 @@
 					"default": true,
 					"description": "Whether to show decorations on vscode start."
 				},
-				"cursorless.tokenHatSplittingMode": {
-					"type": "string",
-					"default": "standard",
-					"description": "How to split tokens into pieces for placing hats",
-					"enum": [
-						"standard",
-						"preserveCase"
-					]
+				"cursorless.tokenHatSplittingMode.preserveCase": {
+					"type": "boolean",
+					"default": false,
+					"description": "Whether to distinguished between uppercase and lower case letters for hat"
+				},
+				"cursorless.tokenHatSplittingMode.removeAccents": {
+					"type": "boolean",
+					"default": false,
+					"description": "Whether to remove accents when constructing hats"
 				},
 				"cursorless.decorationDebounceDelayMs": {
 					"type": "number",

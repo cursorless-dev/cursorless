@@ -211,4 +211,14 @@ export type TextFormatterName =
   | "snakeCase"
   | "upperSnakeCase";
 
-export type TokenHatSplittingMode = "standard" | "preserveCase";
+export interface TokenHatSplittingMode {
+  /**
+   * Whether to distinguished between uppercase and lower case letters for hat
+   */
+  preserveCase: boolean;
+
+  /**
+   * Whether to remove accents when constructing hats
+   */
+  removeAccents: boolean;
+}
