@@ -1,10 +1,9 @@
-import * as vscode from "vscode";
 import { Range, TextEditor } from "vscode";
+import { BaseTarget, CommonTargetParameters } from ".";
 import { UnsupportedError } from "../../errors";
 import { EditNewContext } from "../../typings/target.types";
 import { Position } from "../../typings/targetDescriptor.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
-import { BaseTarget, CommonTargetParameters } from ".";
 
 interface PositionTargetParameters extends CommonTargetParameters {
   readonly position: Position;
@@ -16,6 +15,8 @@ export default class PositionTarget extends BaseTarget {
   insertionDelimiter: string;
   isRaw: boolean;
   private position: Position;
+  private isLineDelimiter: boolean;
+  private isBefore: boolean;
   private linePadding: string;
 
   constructor(parameters: PositionTargetParameters) {
@@ -23,16 +24,35 @@ export default class PositionTarget extends BaseTarget {
     this.position = parameters.position;
     this.insertionDelimiter = parameters.insertionDelimiter;
     this.isRaw = parameters.isRaw;
-    this.linePadding = getLinePadding(
-      parameters.editor,
-      parameters.thatTarget!.contentRange
-    );
+    this.isBefore = parameters.position === "before";
+    // It's only considered a line if the delimiter is only new line symbols
+    this.isLineDelimiter = /^(\n)+$/.test(parameters.insertionDelimiter);
+    // This calculation must be done here since that that target is not updated by our range updater
+    this.linePadding = this.isLineDelimiter
+      ? getLinePadding(parameters.editor, parameters.thatTarget!.contentRange)
+      : "";
   }
 
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
 
   getRemovalRange = () => removalUnsupportedForPosition(this.position);
+
+  getEditNewContext(): EditNewContext {
+    if (this.insertionDelimiter === "\n" && this.position === "after") {
+      return { type: "command", command: "editor.action.insertLineAfter" };
+    }
+
+    return {
+      type: "edit",
+    };
+  }
+
+  constructChangeEdit(text: string): EditWithRangeUpdater {
+    return this.position === "before" || this.position === "after"
+      ? this.constructEditWithDelimiters(text)
+      : this.constructEditWithoutDelimiters(text);
+  }
 
   protected getCloneParameters(): PositionTargetParameters {
     return {
@@ -43,55 +63,12 @@ export default class PositionTarget extends BaseTarget {
     };
   }
 
-  constructChangeEdit(text: string): EditWithRangeUpdater {
-    return this.position === "before" || this.position === "after"
-      ? this.constructEditWithDelimiters(text)
-      : this.constructEditWithoutDelimiters(text);
-  }
-
   private constructEditWithDelimiters(text: string): EditWithRangeUpdater {
-    const delimiter = this.insertionDelimiter;
-    // It's only considered a line if the delimiter is only new line symbols
-    const isLine = /^(\n)+$/.test(delimiter);
-    const isBefore = this.position === "before";
-
-    const range = getEditRange(
-      this.editor,
-      this.contentRange,
-      isLine,
-      isBefore
-    );
-
-    const editText = (() => {
-      if (isLine) {
-        return isBefore
-          ? this.linePadding + text + delimiter
-          : delimiter + this.linePadding + text;
-      }
-      return isBefore ? text + delimiter : delimiter + text;
-    })();
+    const range = this.getEditRange();
+    const editText = this.getEditText(text);
 
     const updateRange = (range: Range) => {
-      const startIndex = (() => {
-        if (isLine) {
-          const line = this.editor.document.lineAt(
-            isBefore ? range.end : range.start
-          );
-          const startOffset = this.editor.document.offsetAt(
-            isBefore ? line.range.start : line.range.end
-          );
-          return isBefore
-            ? startOffset - delimiter.length - text.length
-            : startOffset + delimiter.length + this.linePadding.length;
-        }
-        const startOffset = this.editor.document.offsetAt(range.start);
-        return isBefore ? startOffset : startOffset + delimiter.length;
-      })();
-      const endIndex = startIndex + text.length;
-      return new Range(
-        this.editor.document.positionAt(startIndex),
-        this.editor.document.positionAt(endIndex)
-      );
+      return this.updateRange(range, text);
     };
 
     return {
@@ -110,14 +87,56 @@ export default class PositionTarget extends BaseTarget {
     };
   }
 
-  getEditNewContext(): EditNewContext {
-    if (this.insertionDelimiter === "\n" && this.position === "after") {
-      return { type: "command", command: "editor.action.insertLineAfter" };
-    }
+  private getEditRange() {
+    const position = (() => {
+      if (this.isLineDelimiter) {
+        const line = this.editor.document.lineAt(
+          this.isBefore ? this.contentRange.start : this.contentRange.end
+        );
+        return this.isBefore ? line.range.start : line.range.end;
+      } else {
+        return this.isBefore ? this.contentRange.start : this.contentRange.end;
+      }
+    })();
+    return new Range(position, position);
+  }
 
-    return {
-      type: "edit",
-    };
+  private getEditText(text: string) {
+    if (this.isLineDelimiter) {
+      return this.isBefore
+        ? this.linePadding + text + this.insertionDelimiter
+        : this.insertionDelimiter + this.linePadding + text;
+    }
+    return this.isBefore
+      ? text + this.insertionDelimiter
+      : this.insertionDelimiter + text;
+  }
+
+  private updateRange(range: Range, text: string) {
+    const startIndex = (() => {
+      if (this.isLineDelimiter) {
+        const line = this.editor.document.lineAt(
+          this.isBefore ? range.end : range.start
+        );
+        const startOffset = this.editor.document.offsetAt(
+          this.isBefore ? line.range.start : line.range.end
+        );
+        return this.isBefore
+          ? startOffset - this.insertionDelimiter.length - text.length
+          : startOffset +
+              this.insertionDelimiter.length +
+              this.linePadding.length;
+      }
+      const startOffset = this.editor.document.offsetAt(range.start);
+      return this.isBefore
+        ? startOffset
+        : startOffset + this.insertionDelimiter.length;
+    })();
+    const endIndex = startIndex + text.length;
+    return new Range(
+      this.editor.document.positionAt(startIndex),
+      this.editor.document.positionAt(endIndex)
+    );
   }
 }
 
@@ -130,35 +149,19 @@ export function removalUnsupportedForPosition(position: string): Range {
   );
 }
 
+/** Calculate the minimum indentation/padding for a range */
 function getLinePadding(editor: TextEditor, range: Range) {
   let length = Number.MAX_SAFE_INTEGER;
   let padding = "";
   for (let i = range.start.line; i <= range.end.line; ++i) {
     const line = editor.document.lineAt(i);
-    const characterIndex = line.isEmptyOrWhitespace
-      ? line.range.start.character
-      : line.firstNonWhitespaceCharacterIndex;
-    if (characterIndex < length) {
-      length = characterIndex;
-      padding = line.text.slice(0, characterIndex);
+    if (line.isEmptyOrWhitespace) {
+      continue;
+    }
+    if (line.firstNonWhitespaceCharacterIndex < length) {
+      length = line.firstNonWhitespaceCharacterIndex;
+      padding = line.text.slice(0, length);
     }
   }
   return padding;
-}
-
-function getEditRange(
-  editor: TextEditor,
-  range: Range,
-  isLine: boolean,
-  isBefore: boolean
-) {
-  const position = (() => {
-    if (isLine) {
-      const line = editor.document.lineAt(isBefore ? range.start : range.end);
-      return isBefore ? line.range.start : line.range.end;
-    } else {
-      return isBefore ? range.start : range.end;
-    }
-  })();
-  return new Range(position, position);
 }
