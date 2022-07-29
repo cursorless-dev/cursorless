@@ -156,7 +156,7 @@ function getLinePadding(editor: TextEditor, range: Range) {
   for (let i = range.start.line; i <= range.end.line; ++i) {
     const line = editor.document.lineAt(i);
     if (
-      line.isEmptyOrWhitespace &&
+      !line.isEmptyOrWhitespace &&
       line.firstNonWhitespaceCharacterIndex < length
     ) {
       length = line.firstNonWhitespaceCharacterIndex;
