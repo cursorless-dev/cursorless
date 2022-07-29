@@ -158,12 +158,12 @@
 				"cursorless.tokenHatSplittingMode.preserveCase": {
 					"type": "boolean",
 					"default": false,
-					"description": "Whether to distinguished between uppercase and lower case letters for hat"
+					"description": "Whether to distinguish between uppercase and lower case letters for hat"
 				},
-				"cursorless.tokenHatSplittingMode.removeAccents": {
+				"cursorless.tokenHatSplittingMode.preserveAccents": {
 					"type": "boolean",
 					"default": false,
-					"description": "Whether to remove accents when constructing hats"
+					"description": "Whether to preserve accents when constructing hats"
 				},
 				"cursorless.decorationDebounceDelayMs": {
 					"type": "number",

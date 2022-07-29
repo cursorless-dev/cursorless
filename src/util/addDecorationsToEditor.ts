@@ -3,17 +3,17 @@ import * as vscode from "vscode";
 import { HatStyleName } from "../core/constants";
 import Decorations from "../core/Decorations";
 import { IndividualHatMap } from "../core/IndividualHatMap";
+import { TokenGraphemeSplitter } from "../core/TokenGraphemeSplitter";
 import { TOKEN_MATCHER } from "../core/tokenizer";
-import { Token, TokenHatSplittingMode } from "../typings/Types";
+import { Token } from "../typings/Types";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
-import { matchAll } from "./regex";
 
 export function addDecorationsToEditors(
   hatTokenMap: IndividualHatMap,
   decorations: Decorations,
-  tokenHatSplittingMode: TokenHatSplittingMode
+  tokenGraphemeSplitter: TokenGraphemeSplitter
 ) {
   hatTokenMap.clear();
 
@@ -61,31 +61,31 @@ export function addDecorationsToEditors(
   );
 
   /**
-   * Maps each lexeme to a list of the indices of the tokens in which the given
-   * lexeme appears.
+   * Maps each grapheme to a list of the indices of the tokens in which the given
+   * grapheme appears.
    */
-  const lexemeTokenIndices: {
+  const graphemeTokenIndices: {
     [key: string]: number[];
   } = {};
 
   tokens.forEach((token, tokenIdx) => {
-    getTokenLexemes(token.text, tokenHatSplittingMode).forEach(
-      ({ text: lexemeText }) => {
-        let tokenIndicesForLexeme: number[];
+    tokenGraphemeSplitter
+      .getTokenGraphemes(token.text)
+      .forEach(({ text: graphemeText }) => {
+        let tokenIndicesForGrapheme: number[];
 
-        if (lexemeText in lexemeTokenIndices) {
-          tokenIndicesForLexeme = lexemeTokenIndices[lexemeText];
+        if (graphemeText in graphemeTokenIndices) {
+          tokenIndicesForGrapheme = graphemeTokenIndices[graphemeText];
         } else {
-          tokenIndicesForLexeme = [];
-          lexemeTokenIndices[lexemeText] = tokenIndicesForLexeme;
+          tokenIndicesForGrapheme = [];
+          graphemeTokenIndices[graphemeText] = tokenIndicesForGrapheme;
         }
 
-        tokenIndicesForLexeme.push(tokenIdx);
-      }
-    );
+        tokenIndicesForGrapheme.push(tokenIdx);
+      });
   });
 
-  const lexemeDecorationIndices: { [lexeme: string]: number } = {};
+  const graphemeDecorationIndices: { [grapheme: string]: number } = {};
 
   const decorationRanges: Map<
     vscode.TextEditor,
@@ -112,37 +112,37 @@ export function addDecorationsToEditors(
   // Here is an example where the existing algorithm false down:
   // "ab ax b"
   tokens.forEach((token, tokenIdx) => {
-    const tokenLexemes = getTokenLexemes(token.text, tokenHatSplittingMode).map(
-      (lexeme) => ({
-        ...lexeme,
+    const tokenGraphemes = tokenGraphemeSplitter
+      .getTokenGraphemes(token.text)
+      .map((grapheme) => ({
+        ...grapheme,
         decorationIndex:
-          lexeme.text in lexemeDecorationIndices
-            ? lexemeDecorationIndices[lexeme.text]
+          grapheme.text in graphemeDecorationIndices
+            ? graphemeDecorationIndices[grapheme.text]
             : 0,
-      })
-    );
+      }));
 
     const minDecorationIndex = min(
-      tokenLexemes.map(({ decorationIndex }) => decorationIndex)
+      tokenGraphemes.map(({ decorationIndex }) => decorationIndex)
     )!;
 
     if (minDecorationIndex >= decorations.decorations.length) {
       return;
     }
 
-    const bestLexeme = maxBy(
-      tokenLexemes.filter(
+    const bestGrapheme = maxBy(
+      tokenGraphemes.filter(
         ({ decorationIndex }) => decorationIndex === minDecorationIndex
       ),
       ({ text }) =>
         min(
-          lexemeTokenIndices[text].filter(
+          graphemeTokenIndices[text].filter(
             (laterTokenIdx) => laterTokenIdx > tokenIdx
           )
         ) ?? Infinity
     )!;
 
-    const currentDecorationIndex = bestLexeme.decorationIndex;
+    const currentDecorationIndex = bestGrapheme.decorationIndex;
 
     const hatStyleName = decorations.decorations[currentDecorationIndex].name;
 
@@ -150,14 +150,14 @@ export function addDecorationsToEditors(
       .get(token.editor)!
       [hatStyleName]!.push(
         new vscode.Range(
-          token.range.start.translate(undefined, bestLexeme.tokenStartOffset),
-          token.range.start.translate(undefined, bestLexeme.tokenEndOffset)
+          token.range.start.translate(undefined, bestGrapheme.tokenStartOffset),
+          token.range.start.translate(undefined, bestGrapheme.tokenEndOffset)
         )
       );
 
-    hatTokenMap.addToken(hatStyleName, bestLexeme.text, token);
+    hatTokenMap.addToken(hatStyleName, bestGrapheme.text, token);
 
-    lexemeDecorationIndices[bestLexeme.text] = currentDecorationIndex + 1;
+    graphemeDecorationIndices[bestGrapheme.text] = currentDecorationIndex + 1;
   });
 
   decorationRanges.forEach((ranges, editor) => {
@@ -168,46 +168,4 @@ export function addDecorationsToEditors(
       );
     });
   });
-}
-
-export interface Lexeme {
-  /** The normalised text of the lexeme. */
-  text: string;
-
-  /** The start offset of the lexeme within its containing token */
-  tokenStartOffset: number;
-
-  /** The end offset of the lexeme within its containing token */
-  tokenEndOffset: number;
-}
-
-export function getTokenLexemes(
-  text: string,
-  tokenHatSplittingMode: TokenHatSplittingMode
-): Lexeme[] {
-  const { preserveCase, removeAccents } = tokenHatSplittingMode;
-
-  if (removeAccents) {
-    return matchAll<Lexeme>(text, /\p{L}\p{M}*|\P{L}/gu, (match) => {
-      const matchTextNoAccents = match[0]
-        .normalize("NFD")
-        .replace(/\p{M}/gu, "");
-
-      return {
-        text: preserveCase
-          ? matchTextNoAccents
-          : matchTextNoAccents.toLowerCase(),
-        tokenStartOffset: match.index!,
-        tokenEndOffset: match.index! + match[0].length,
-      };
-    });
-  } else {
-    const normalisedText = preserveCase ? text : text.toLowerCase();
-
-    return [...normalisedText].map((character, idx) => ({
-      text: character,
-      tokenStartOffset: idx,
-      tokenEndOffset: idx + 1,
-    }));
-  }
 }

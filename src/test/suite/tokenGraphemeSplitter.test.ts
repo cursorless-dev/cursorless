@@ -1,17 +1,20 @@
 import * as assert from "assert";
-import { TokenHatSplittingMode } from "../../typings/Types";
-import { getTokenLexemes } from "../../util/addDecorationsToEditor";
+import { Graph, TokenHatSplittingMode } from "../../typings/Types";
+import graphFactories from "../../util/graphFactories";
+import makeGraph, { FactoryMap } from "../../util/makeGraph";
+import { FakeIDE } from "./fakes/ide/FakeIDE";
+import { FakeConfiguration } from "./fakes/ide/VscodeConfiguration";
 
 /**
- * Compact representation of a lexeme to make the tests easier to read.
+ * Compact representation of a grapheme to make the tests easier to read.
  * Expected to be of the form
  * [text, tokenStartOffset, tokenEndOffset]
  */
-type CompactLexeme = [string, number, number];
+type CompactGrapheme = [string, number, number];
 
 interface TestCase {
   input: string;
-  expectedOutput: CompactLexeme[];
+  expectedOutput: CompactGrapheme[];
 }
 
 interface SplittingModeTestCases {
@@ -21,7 +24,7 @@ interface SplittingModeTestCases {
 
 const tests: SplittingModeTestCases[] = [
   {
-    tokenHatSplittingMode: { preserveCase: false, removeAccents: false },
+    tokenHatSplittingMode: { preserveCase: false, preserveAccents: true },
     testCases: [
       {
         input: "Hi",
@@ -37,7 +40,7 @@ const tests: SplittingModeTestCases[] = [
     ],
   },
   {
-    tokenHatSplittingMode: { preserveCase: true, removeAccents: false },
+    tokenHatSplittingMode: { preserveCase: true, preserveAccents: true },
     testCases: [
       {
         input: "Hi",
@@ -53,7 +56,7 @@ const tests: SplittingModeTestCases[] = [
     ],
   },
   {
-    tokenHatSplittingMode: { preserveCase: true, removeAccents: true },
+    tokenHatSplittingMode: { preserveCase: true, preserveAccents: false },
     testCases: [
       {
         input: "\u00F1", // ñ as single codepoint
@@ -78,7 +81,7 @@ const tests: SplittingModeTestCases[] = [
     ],
   },
   {
-    tokenHatSplittingMode: { preserveCase: false, removeAccents: true },
+    tokenHatSplittingMode: { preserveCase: false, preserveAccents: false },
     testCases: [
       {
         input: "\u00D1", // Ñ as single codepoint
@@ -96,8 +99,20 @@ const tests: SplittingModeTestCases[] = [
   },
 ];
 
+const graph = makeGraph({
+  ...graphFactories,
+  ide: (graph: Graph) => new FakeIDE(graph),
+} as FactoryMap<Graph>);
+
+const tokenGraphemeSplitter = graph.tokenGraphemeSplitter;
+
 tests.forEach(({ tokenHatSplittingMode, testCases }) => {
-  suite(`getTokenLexemes(${JSON.stringify(tokenHatSplittingMode)})`, () => {
+  suite(`getTokenGraphemes(${JSON.stringify(tokenHatSplittingMode)})`, () => {
+    (graph.ide.configuration as FakeConfiguration).mockConfiguration(
+      "tokenHatSplittingMode",
+      tokenHatSplittingMode
+    );
+
     testCases.forEach(({ input, expectedOutput: compactExpectedOutput }) => {
       const expectedOutput = compactExpectedOutput.map(
         ([text, tokenStartOffset, tokenEndOffset]) => ({
@@ -107,7 +122,7 @@ tests.forEach(({ tokenHatSplittingMode, testCases }) => {
         })
       );
 
-      const actualOutput = getTokenLexemes(input, tokenHatSplittingMode);
+      const actualOutput = tokenGraphemeSplitter.getTokenGraphemes(input);
 
       test(input, () => {
         assert.deepStrictEqual(actualOutput, expectedOutput);

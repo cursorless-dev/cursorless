@@ -10,7 +10,9 @@ import FontMeasurements from "../core/FontMeasurements";
 import HatTokenMap from "../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
+import { TokenGraphemeSplitter } from "../core/TokenGraphemeSplitter";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { IDE } from "../ide/ide.types";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { CommandServerApi } from "../util/getExtensionApi";
@@ -155,6 +157,16 @@ export interface Graph {
    * Used to display cheatsheet
    */
   readonly cheatsheet: Cheatsheet;
+
+  /**
+   * Used to split a token into a graphemes that can be used for a hat placement
+   */
+  readonly tokenGraphemeSplitter: TokenGraphemeSplitter;
+
+  /**
+   * Used to interact with the ide
+   */
+  readonly ide: IDE;
 }
 
 export type NodeMatcherValue = {
@@ -218,7 +230,7 @@ export interface TokenHatSplittingMode {
   preserveCase: boolean;
 
   /**
-   * Whether to remove accents when constructing hats
+   * Whether to preserve accents when constructing hats
    */
-  removeAccents: boolean;
+  preserveAccents: boolean;
 }
