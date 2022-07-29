@@ -47,10 +47,7 @@ export async function runCommandTargets(
       graph.rangeUpdater,
       () => commands.executeCommand(command),
       editor.document,
-      [
-        state.targets.map(({ contentRange }) => contentRange),
-        state.targets.map(({ thatTarget }) => thatTarget.contentRange),
-      ]
+      [state.targets.map(({ contentRange }) => contentRange), state.thatRanges]
     );
 
   // For each of the given command targets, the cursor will go where it ended
@@ -63,12 +60,9 @@ export async function runCommandTargets(
 
   return {
     targets: state.targets.map((target, index) =>
-      target
-        .withContentRange(updatedTargetRanges[index])
-        .withThatTarget(
-          target.thatTarget.withContentRange(updatedThatRanges[index])
-        )
+      target.withContentRange(updatedTargetRanges[index])
     ),
+    thatRanges: updatedThatRanges,
     cursorRanges,
   };
 }
