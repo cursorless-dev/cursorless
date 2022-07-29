@@ -1,7 +1,54 @@
+import { escapeRegExp } from "lodash";
 import { Disposable } from "../ide/ide.types";
 import { Graph, TokenHatSplittingMode } from "../typings/Types";
 import { Notifier } from "../util/Notifier";
 import { matchAll } from "../util/regex";
+
+const KNOWN_SYMBOLS = [
+  "!",
+  "#",
+  "$",
+  "%",
+  "&",
+  "'",
+  "(",
+  ")",
+  "*",
+  "+",
+  ",",
+  "-",
+  ".",
+  "/",
+  ":",
+  ";",
+  "<",
+  "=",
+  ">",
+  "?",
+  "@",
+  "[",
+  "\\",
+  "]",
+  "^",
+  "_",
+  "`",
+  "{",
+  "|",
+  "}",
+  "~",
+  "£",
+  '"',
+];
+const KNOWN_SYMBOL_REGEXP = KNOWN_SYMBOLS.map(escapeRegExp).join("|");
+
+const KNOWN_GRAPHEME_REGEXP = [
+  "\\p{L}\\p{M}*",
+  "[0-9]",
+  KNOWN_SYMBOL_REGEXP,
+].join("|");
+const KNOWN_GRAPHEME_MATCHER = new RegExp(`^${KNOWN_GRAPHEME_REGEXP}$`, "gu");
+
+const UNKNOWN = "[unk]";
 
 export class TokenGraphemeSplitter {
   private disposables: Disposable[] = [];
@@ -51,13 +98,23 @@ export class TokenGraphemeSplitter {
     let returnValue = rawGraphemeText;
 
     if (preserveAccents) {
+      // If we preserve accents, we still normalise the grapheme so that the
+      // user doesn't get confusing behaviour where the grapheme is represented
+      // as the naked grapheme and a separate combining diacritic, but they
+      // pass in the combined version of the grapheme.
       returnValue = returnValue.normalize("NFC");
     } else {
+      // Separate into naked char and combinining diacritic, then remove the
+      // diacritic
       returnValue = returnValue.normalize("NFD").replace(/\p{M}/gu, "");
     }
 
     if (!preserveCase) {
       returnValue = returnValue.toLowerCase();
+    }
+
+    if (!KNOWN_GRAPHEME_MATCHER.test(returnValue)) {
+      returnValue = UNKNOWN;
     }
 
     return returnValue;
