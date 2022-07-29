@@ -46,9 +46,9 @@ const KNOWN_GRAPHEME_REGEXP = [
   "[0-9]",
   KNOWN_SYMBOL_REGEXP,
 ].join("|");
-const KNOWN_GRAPHEME_MATCHER = new RegExp(`^${KNOWN_GRAPHEME_REGEXP}$`, "gu");
+const KNOWN_GRAPHEME_MATCHER = new RegExp(`^${KNOWN_GRAPHEME_REGEXP}$`, "u");
 
-const UNKNOWN = "[unk]";
+export const UNKNOWN = "[unk]";
 
 export class TokenGraphemeSplitter {
   private disposables: Disposable[] = [];

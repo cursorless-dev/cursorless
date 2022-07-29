@@ -40,8 +40,18 @@ hat_shapes = {
 }
 
 
+@mod.capture(rule="<user.any_alphanumeric_key> | special")
+def cursorless_grapheme(m) -> str:
+    try:
+        return m.any_alphanumeric_key
+    except AttributeError:
+        # NB: This represents unknown char in Unicode.  It will be translated
+        # to "[unk]" by Cursorless extension.
+        return "\uFFFD"
+
+
 @mod.capture(
-    rule="[{user.cursorless_hat_color}] [{user.cursorless_hat_shape}] <user.any_alphanumeric_key>"
+    rule="[{user.cursorless_hat_color}] [{user.cursorless_hat_shape}] <user.cursorless_grapheme>"
 )
 def cursorless_decorated_symbol(m) -> dict[str, Any]:
     """A decorated symbol"""
@@ -53,7 +63,7 @@ def cursorless_decorated_symbol(m) -> dict[str, Any]:
     return {
         "type": "decoratedSymbol",
         "symbolColor": hat_style_name,
-        "character": m.any_alphanumeric_key,
+        "character": m.cursorless_grapheme,
     }
 
 

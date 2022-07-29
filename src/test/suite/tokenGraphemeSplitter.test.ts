@@ -1,5 +1,8 @@
 import * as assert from "assert";
-import { TokenGraphemeSplitter } from "../../core/TokenGraphemeSplitter";
+import {
+  TokenGraphemeSplitter,
+  UNKNOWN,
+} from "../../core/TokenGraphemeSplitter";
 import { Graph, TokenHatSplittingMode } from "../../typings/Types";
 import makeGraph, { FactoryMap } from "../../util/makeGraph";
 import { FakeIDE } from "./fakes/ide/FakeIDE";
@@ -32,6 +35,10 @@ const commonTestCases: TestCase[] = [
   {
     input: "_",
     expectedOutput: [["_", 0, 1]],
+  },
+  {
+    input: "😄",
+    expectedOutput: [[UNKNOWN, 0, 2]],
   },
 ];
 
