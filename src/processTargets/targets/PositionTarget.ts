@@ -155,10 +155,10 @@ function getLinePadding(editor: TextEditor, range: Range) {
   let padding = "";
   for (let i = range.start.line; i <= range.end.line; ++i) {
     const line = editor.document.lineAt(i);
-    if (line.isEmptyOrWhitespace) {
-      continue;
-    }
-    if (line.firstNonWhitespaceCharacterIndex < length) {
+    if (
+      line.isEmptyOrWhitespace &&
+      line.firstNonWhitespaceCharacterIndex < length
+    ) {
       length = line.firstNonWhitespaceCharacterIndex;
       padding = line.text.slice(0, length);
     }
