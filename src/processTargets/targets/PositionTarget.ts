@@ -16,12 +16,17 @@ export default class PositionTarget extends BaseTarget {
   insertionDelimiter: string;
   isRaw: boolean;
   private position: Position;
+  private linePadding: string;
 
   constructor(parameters: PositionTargetParameters) {
     super(parameters);
     this.position = parameters.position;
     this.insertionDelimiter = parameters.insertionDelimiter;
     this.isRaw = parameters.isRaw;
+    this.linePadding = getLinePadding(
+      parameters.editor,
+      parameters.thatTarget!.contentRange
+    );
   }
 
   getLeadingDelimiterTarget = () => undefined;
@@ -56,23 +61,32 @@ export default class PositionTarget extends BaseTarget {
       isLine,
       isBefore
     );
-    const padding = isLine
-      ? getLinePadding(
-          this.editor,
-          // The reason for going to `state.thatTarget` immediately is that `target.thatTarget` is recursive and we only want the previous target.
-          this.state.thatTarget!.contentRange
-        )
-      : "";
 
-    const editText = isBefore
-      ? text + delimiter + padding
-      : delimiter + padding + text;
+    const editText = (() => {
+      if (isLine) {
+        return isBefore
+          ? this.linePadding + text + delimiter
+          : delimiter + this.linePadding + text;
+      }
+      return isBefore ? text + delimiter : delimiter + text;
+    })();
 
     const updateRange = (range: Range) => {
-      const startOffset = this.editor.document.offsetAt(range.start);
-      const startIndex = isBefore
-        ? startOffset
-        : startOffset + delimiter.length + padding.length;
+      const startIndex = (() => {
+        if (isLine) {
+          const line = this.editor.document.lineAt(
+            isBefore ? range.end : range.start
+          );
+          const startOffset = this.editor.document.offsetAt(
+            isBefore ? line.range.start : line.range.end
+          );
+          return isBefore
+            ? startOffset - delimiter.length - text.length
+            : startOffset + delimiter.length + this.linePadding.length;
+        }
+        const startOffset = this.editor.document.offsetAt(range.start);
+        return isBefore ? startOffset : startOffset + delimiter.length;
+      })();
       const endIndex = startIndex + text.length;
       return new Range(
         this.editor.document.positionAt(startIndex),
@@ -117,11 +131,19 @@ export function removalUnsupportedForPosition(position: string): Range {
 }
 
 function getLinePadding(editor: TextEditor, range: Range) {
-  const line = editor.document.lineAt(range.start);
-  const characterIndex = line.isEmptyOrWhitespace
-    ? range.start.character
-    : line.firstNonWhitespaceCharacterIndex;
-  return line.text.slice(0, characterIndex);
+  let length = Number.MAX_SAFE_INTEGER;
+  let padding = "";
+  for (let i = range.start.line; i <= range.end.line; ++i) {
+    const line = editor.document.lineAt(i);
+    const characterIndex = line.isEmptyOrWhitespace
+      ? line.range.start.character
+      : line.firstNonWhitespaceCharacterIndex;
+    if (characterIndex < length) {
+      length = characterIndex;
+      padding = line.text.slice(0, characterIndex);
+    }
+  }
+  return padding;
 }
 
 function getEditRange(
@@ -130,21 +152,13 @@ function getEditRange(
   isLine: boolean,
   isBefore: boolean
 ) {
-  let position: vscode.Position;
-  if (isLine) {
-    const line = editor.document.lineAt(isBefore ? range.start : range.end);
-    if (isBefore) {
-      position = line.isEmptyOrWhitespace
-        ? range.start
-        : new vscode.Position(
-            line.lineNumber,
-            line.firstNonWhitespaceCharacterIndex
-          );
+  const position = (() => {
+    if (isLine) {
+      const line = editor.document.lineAt(isBefore ? range.start : range.end);
+      return isBefore ? line.range.start : line.range.end;
     } else {
-      position = line.range.end;
+      return isBefore ? range.start : range.end;
     }
-  } else {
-    position = isBefore ? range.start : range.end;
-  }
+  })();
   return new Range(position, position);
 }
