@@ -1,9 +1,8 @@
 import * as assert from "assert";
+import { TokenGraphemeSplitter } from "../../core/TokenGraphemeSplitter";
 import { Graph, TokenHatSplittingMode } from "../../typings/Types";
-import graphFactories from "../../util/graphFactories";
 import makeGraph, { FactoryMap } from "../../util/makeGraph";
 import { FakeIDE } from "./fakes/ide/FakeIDE";
-import { FakeConfiguration } from "./fakes/ide/VscodeConfiguration";
 
 /**
  * Compact representation of a grapheme to make the tests easier to read.
@@ -19,13 +18,43 @@ interface TestCase {
 
 interface SplittingModeTestCases {
   tokenHatSplittingMode: TokenHatSplittingMode;
-  testCases: TestCase[];
+  extraTestCases: TestCase[];
 }
+
+const commonTestCases: TestCase[] = [
+  {
+    input: "hi",
+    expectedOutput: [
+      ["h", 0, 1],
+      ["i", 1, 2],
+    ],
+  },
+  {
+    input: "_",
+    expectedOutput: [["_", 0, 1]],
+  },
+];
 
 const tests: SplittingModeTestCases[] = [
   {
     tokenHatSplittingMode: { preserveCase: false, preserveAccents: true },
-    testCases: [
+    extraTestCases: [
+      {
+        input: "\u00F1", // ñ as single codepoint
+        expectedOutput: [["\u00F1", 0, 1]],
+      },
+      {
+        input: "\u006E\u0303", // ñ using combining mark
+        expectedOutput: [["\u00F1", 0, 2]],
+      },
+      {
+        input: "\u00D1", // Ñ as single codepoint
+        expectedOutput: [["\u00F1", 0, 1]],
+      },
+      {
+        input: "\u004E\u0303", // Ñ using combining mark
+        expectedOutput: [["\u00F1", 0, 2]],
+      },
       {
         input: "Hi",
         expectedOutput: [
@@ -33,15 +62,27 @@ const tests: SplittingModeTestCases[] = [
           ["i", 1, 2],
         ],
       },
-      {
-        input: "_",
-        expectedOutput: [["_", 0, 1]],
-      },
     ],
   },
   {
     tokenHatSplittingMode: { preserveCase: true, preserveAccents: true },
-    testCases: [
+    extraTestCases: [
+      {
+        input: "\u00F1", // ñ as single codepoint
+        expectedOutput: [["\u00F1", 0, 1]],
+      },
+      {
+        input: "\u006E\u0303", // ñ using combining mark
+        expectedOutput: [["\u00F1", 0, 2]],
+      },
+      {
+        input: "\u00D1", // Ñ as single codepoint
+        expectedOutput: [["\u00D1", 0, 1]],
+      },
+      {
+        input: "\u004E\u0303", // Ñ using combining mark
+        expectedOutput: [["\u00D1", 0, 2]],
+      },
       {
         input: "Hi",
         expectedOutput: [
@@ -49,15 +90,11 @@ const tests: SplittingModeTestCases[] = [
           ["i", 1, 2],
         ],
       },
-      {
-        input: "_",
-        expectedOutput: [["_", 0, 1]],
-      },
     ],
   },
   {
     tokenHatSplittingMode: { preserveCase: true, preserveAccents: false },
-    testCases: [
+    extraTestCases: [
       {
         input: "\u00F1", // ñ as single codepoint
         expectedOutput: [["n", 0, 1]],
@@ -74,15 +111,19 @@ const tests: SplittingModeTestCases[] = [
         input: "\u004E\u0303", // Ñ using combining mark
         expectedOutput: [["N", 0, 2]],
       },
-      {
-        input: "_",
-        expectedOutput: [["_", 0, 1]],
-      },
     ],
   },
   {
     tokenHatSplittingMode: { preserveCase: false, preserveAccents: false },
-    testCases: [
+    extraTestCases: [
+      {
+        input: "\u00F1", // ñ as single codepoint
+        expectedOutput: [["n", 0, 1]],
+      },
+      {
+        input: "\u006E\u0303", // ñ using combining mark
+        expectedOutput: [["n", 0, 2]],
+      },
       {
         input: "\u00D1", // Ñ as single codepoint
         expectedOutput: [["n", 0, 1]],
@@ -91,27 +132,25 @@ const tests: SplittingModeTestCases[] = [
         input: "\u004E\u0303", // Ñ using combining mark
         expectedOutput: [["n", 0, 2]],
       },
-      {
-        input: "_",
-        expectedOutput: [["_", 0, 1]],
-      },
     ],
   },
 ];
 
 const graph = makeGraph({
-  ...graphFactories,
+  tokenGraphemeSplitter: (graph: Graph) => new TokenGraphemeSplitter(graph),
   ide: (graph: Graph) => new FakeIDE(graph),
-} as FactoryMap<Graph>);
+} as unknown as FactoryMap<Graph>);
 
 const tokenGraphemeSplitter = graph.tokenGraphemeSplitter;
 
-tests.forEach(({ tokenHatSplittingMode, testCases }) => {
+tests.forEach(({ tokenHatSplittingMode, extraTestCases }) => {
   suite(`getTokenGraphemes(${JSON.stringify(tokenHatSplittingMode)})`, () => {
-    (graph.ide.configuration as FakeConfiguration).mockConfiguration(
+    graph.ide.configuration.mockConfiguration(
       "tokenHatSplittingMode",
       tokenHatSplittingMode
     );
+
+    const testCases = [...commonTestCases, ...extraTestCases];
 
     testCases.forEach(({ input, expectedOutput: compactExpectedOutput }) => {
       const expectedOutput = compactExpectedOutput.map(
