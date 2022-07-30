@@ -292,8 +292,7 @@ def read_file(
             )
             continue
 
-        key = row[0]
-        value = row[1]
+        key, value = row
 
         if (
             value not in default_identifiers
