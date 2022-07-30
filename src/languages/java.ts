@@ -125,7 +125,7 @@ const nodeMatchers: Partial<
     patternMatcher("switch_rule.switch_label![0]")
   ),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),
-  subject: patternMatcher("switch_expression[condition][0]"),
+  subject: "switch_expression[condition][0]",
   branch: cascadingMatcher(
     matcher(
       patternFinder("switch_block_statement_group"),
