@@ -276,7 +276,7 @@ def read_file(
 
         if not seen_headers:
             seen_headers = True
-            if create_line(*row) != expected_headers:
+            if row != headers:
                 has_errors = True
                 csv_error(path, i, "Malformed header", create_line(*row))
                 print(f"Expected '{expected_headers}'")
