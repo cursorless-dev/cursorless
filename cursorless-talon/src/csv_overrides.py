@@ -1,8 +1,8 @@
+import csv
 from collections.abc import Container
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
-import csv
 
 from talon import Context, Module, actions, app, fs
 
@@ -256,7 +256,7 @@ def read_file(
     extra_ignored_values: list[str],
     allow_unknown_values: bool,
 ):
-    with open(path, "r") as csv_file:
+    with open(path) as csv_file:
         # Use `skipinitialspace` to allow spaces before quote. `, "a,b"`
         csv_reader = csv.reader(csv_file, skipinitialspace=True)
         rows = list(csv_reader)
