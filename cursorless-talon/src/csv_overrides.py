@@ -265,7 +265,6 @@ def read_file(
     used_identifiers = []
     has_errors = False
     seen_headers = False
-    expected_headers = create_line(*headers)
 
     for i, row in enumerate(rows):
         # Remove trailing whitespaces for each cell
@@ -279,7 +278,7 @@ def read_file(
             if row != headers:
                 has_errors = True
                 csv_error(path, i, "Malformed header", create_line(*row))
-                print(f"Expected '{expected_headers}'")
+                print(f"Expected '{create_line(*headers)}'")
             continue
 
         if len(row) != len(headers):
