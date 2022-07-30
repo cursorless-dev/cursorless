@@ -82,15 +82,12 @@ export class TokenGraphemeSplitter {
     this.algorithmChangeNotifier.notifyListeners();
   }
 
-  getTokenGraphemes(text: string): Grapheme[] {
-    return matchAll<Grapheme>(text, /\p{L}\p{M}*|\P{L}/gu, (match) => {
-      return {
-        text: this.normalizeGrapheme(match[0]),
-        tokenStartOffset: match.index!,
-        tokenEndOffset: match.index! + match[0].length,
-      };
-    });
-  }
+  getTokenGraphemes = (text: string): Grapheme[] =>
+    matchAll<Grapheme>(text, /\p{L}\p{M}*|\P{L}/gu, (match) => ({
+      text: this.normalizeGrapheme(match[0]),
+      tokenStartOffset: match.index!,
+      tokenEndOffset: match.index! + match[0].length,
+    }));
 
   normalizeGrapheme(rawGraphemeText: string): string {
     const { preserveCase, preserveAccents } = this.tokenHatSplittingMode;
