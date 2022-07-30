@@ -1,20 +1,19 @@
 import { Position, Range, TextEditor } from "vscode";
+import { NoContainingScopeError } from "../../../errors";
 import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  SimpleScopeTypeType,
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 
-type RegexModifier = NonWhitespaceSequenceModifier | UrlModifier;
-
-class RegexStage implements ModifierStage {
+class RegexStageBase implements ModifierStage {
   constructor(
-    private modifier: RegexModifier,
-    private regex: RegExp,
-    private name?: string
+    private modifier: ContainingScopeModifier | EveryScopeModifier,
+    protected regex: RegExp
   ) {}
 
   run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
@@ -47,11 +46,7 @@ class RegexStage implements ModifierStage {
     }
 
     if (targets.length === 0) {
-      if (targets.length === 0) {
-        throw new Error(
-          `Couldn't find containing ${this.modifier.scopeType.type}`
-        );
-      }
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
     return targets;
@@ -70,7 +65,7 @@ class RegexStage implements ModifierStage {
     contentRange: Range
   ): ScopeTypeTarget {
     return new ScopeTypeTarget({
-      scopeTypeType: this.modifier.scopeType.type,
+      scopeTypeType: this.modifier.scopeType.type as SimpleScopeTypeType,
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange,
@@ -82,11 +77,7 @@ class RegexStage implements ModifierStage {
       range.contains(position)
     );
     if (match == null) {
-      if (this.name) {
-        throw new Error(`Couldn't find containing ${this.name}`);
-      } else {
-        throw new Error(`Cannot find sequence defined by regex: ${this.regex}`);
-      }
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
     return match;
   }
@@ -103,26 +94,15 @@ class RegexStage implements ModifierStage {
         )
     );
     if (result == null) {
-      if (this.name) {
-        throw new Error(`Couldn't find containing ${this.name}`);
-      } else {
-        throw new Error(`Cannot find sequence defined by regex: ${this.regex}`);
-      }
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
     return result;
   }
 }
 
-export type NonWhitespaceSequenceModifier = (
-  | ContainingScopeModifier
-  | EveryScopeModifier
-) & {
-  scopeType: { type: "nonWhitespaceSequence" };
-};
-
-export class NonWhitespaceSequenceStage extends RegexStage {
-  constructor(modifier: NonWhitespaceSequenceModifier) {
-    super(modifier, /\S+/g, "Non whitespace sequence");
+export class NonWhitespaceSequenceStage extends RegexStageBase {
+  constructor(modifier: ContainingScopeModifier | EveryScopeModifier) {
+    super(modifier, /\S+/g);
   }
 }
 
@@ -130,12 +110,29 @@ export class NonWhitespaceSequenceStage extends RegexStage {
 const URL_REGEX =
   /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g;
 
-export type UrlModifier = (ContainingScopeModifier | EveryScopeModifier) & {
-  scopeType: { type: "url" };
+export class UrlStage extends RegexStageBase {
+  constructor(modifier: ContainingScopeModifier | EveryScopeModifier) {
+    super(modifier, URL_REGEX);
+  }
+}
+
+export type CustomRegexModifier = (
+  | ContainingScopeModifier
+  | EveryScopeModifier
+) & {
+  scopeType: { type: "customRegex" };
 };
 
-export class UrlStage extends RegexStage {
-  constructor(modifier: UrlModifier) {
-    super(modifier, URL_REGEX, "URL");
+export class CustomRegexStage extends RegexStageBase {
+  constructor(modifier: CustomRegexModifier) {
+    super(modifier, new RegExp(modifier.scopeType.regex, "g"));
+  }
+  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+    try {
+      return super.run(context, target);
+    } catch (error) {
+      console.error(`Couldn't find custom regex: ${this.regex}`);
+      throw error;
+    }
   }
 }
