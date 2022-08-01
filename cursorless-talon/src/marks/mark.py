@@ -44,11 +44,7 @@ mod.list(
     "cursorless_unknown_symbol",
     "This list contains the term that is used to refer to any unknown symbol",
 )
-unknown_symbols_defaults = {
-    # NB: This represents unknown char in Unicode.  It will be translated
-    # to "[unk]" by Cursorless extension.
-    "special": "unknownSymbol"
-}
+unknown_symbols_defaults = {"special": "unknownSymbol"}
 
 
 @mod.capture(rule="<user.any_alphanumeric_key> | {user.cursorless_unknown_symbol}")
@@ -56,6 +52,8 @@ def cursorless_grapheme(m) -> str:
     try:
         return m.any_alphanumeric_key
     except AttributeError:
+        # NB: This represents unknown char in Unicode.  It will be translated
+        # to "[unk]" by Cursorless extension.
         return "\uFFFD"
 
 
