@@ -50,10 +50,13 @@ const KNOWN_GRAPHEME_MATCHER = new RegExp(`^${KNOWN_GRAPHEME_REGEXP}$`, "u");
 
 export const UNKNOWN = "[unk]";
 
+const SPLIT_REGEX = /\p{L}\p{M}*|\P{L}/gu;
+
 export class TokenGraphemeSplitter {
   private disposables: Disposable[] = [];
   private algorithmChangeNotifier = new Notifier();
   private tokenHatSplittingMode!: TokenHatSplittingMode;
+  private symbolsToPreserve!: string[];
 
   constructor(private graph: Graph) {
     graph.ide.disposeOnExit(this);
@@ -79,11 +82,17 @@ export class TokenGraphemeSplitter {
         "tokenHatSplittingMode"
       )!;
 
+    this.symbolsToPreserve = matchAll<string>(
+      this.tokenHatSplittingMode.symbolsToPreserve,
+      SPLIT_REGEX,
+      (match) => match[0].normalize("NFC")
+    );
+
     this.algorithmChangeNotifier.notifyListeners();
   }
 
   getTokenGraphemes = (text: string): Grapheme[] =>
-    matchAll<Grapheme>(text, /\p{L}\p{M}*|\P{L}/gu, (match) => ({
+    matchAll<Grapheme>(text, SPLIT_REGEX, (match) => ({
       text: this.normalizeGrapheme(match[0]),
       tokenStartOffset: match.index!,
       tokenEndOffset: match.index! + match[0].length,
@@ -91,6 +100,14 @@ export class TokenGraphemeSplitter {
 
   normalizeGrapheme(rawGraphemeText: string): string {
     const { preserveCase, preserveAccents } = this.tokenHatSplittingMode;
+
+    if (this.symbolsToPreserve.length > 0) {
+      const nfcNormalized = rawGraphemeText.normalize("NFC");
+
+      if (this.symbolsToPreserve.includes(nfcNormalized)) {
+        return nfcNormalized;
+      }
+    }
 
     let returnValue = rawGraphemeText;
 

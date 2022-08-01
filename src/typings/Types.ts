@@ -233,4 +233,11 @@ export interface TokenHatSplittingMode {
    * Whether to preserve accents when constructing hats
    */
   preserveAccents: boolean;
+
+  /**
+   * Any symbols in this string won't be normalized by the token hat splitter.
+   * This can be used for example if you would like to strip all accents except
+   * for those of a few characters, which you can add to this string.
+   */
+  symbolsToPreserve: string;
 }

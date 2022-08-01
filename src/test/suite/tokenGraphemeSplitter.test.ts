@@ -44,7 +44,11 @@ const commonTestCases: TestCase[] = [
 
 const tests: SplittingModeTestCases[] = [
   {
-    tokenHatSplittingMode: { preserveCase: false, preserveAccents: true },
+    tokenHatSplittingMode: {
+      preserveCase: false,
+      preserveAccents: true,
+      symbolsToPreserve: "",
+    },
     extraTestCases: [
       {
         input: "\u00F1", // ñ as single codepoint
@@ -72,7 +76,11 @@ const tests: SplittingModeTestCases[] = [
     ],
   },
   {
-    tokenHatSplittingMode: { preserveCase: true, preserveAccents: true },
+    tokenHatSplittingMode: {
+      preserveCase: true,
+      preserveAccents: true,
+      symbolsToPreserve: "",
+    },
     extraTestCases: [
       {
         input: "\u00F1", // ñ as single codepoint
@@ -100,7 +108,11 @@ const tests: SplittingModeTestCases[] = [
     ],
   },
   {
-    tokenHatSplittingMode: { preserveCase: true, preserveAccents: false },
+    tokenHatSplittingMode: {
+      preserveCase: true,
+      preserveAccents: false,
+      symbolsToPreserve: "",
+    },
     extraTestCases: [
       {
         input: "\u00F1", // ñ as single codepoint
@@ -121,7 +133,11 @@ const tests: SplittingModeTestCases[] = [
     ],
   },
   {
-    tokenHatSplittingMode: { preserveCase: false, preserveAccents: false },
+    tokenHatSplittingMode: {
+      preserveCase: false,
+      preserveAccents: false,
+      symbolsToPreserve: "",
+    },
     extraTestCases: [
       {
         input: "\u00F1", // ñ as single codepoint
@@ -141,12 +157,80 @@ const tests: SplittingModeTestCases[] = [
       },
     ],
   },
+  {
+    tokenHatSplittingMode: {
+      preserveCase: false,
+      preserveAccents: false,
+      symbolsToPreserve: "\u00e4\u00e5", // äå, NFC-normalised
+    },
+    extraTestCases: [
+      {
+        input: "\u00F1", // ñ as single codepoint
+        expectedOutput: [["n", 0, 1]],
+      },
+      {
+        input: "\u006E\u0303", // ñ using combining mark
+        expectedOutput: [["n", 0, 2]],
+      },
+      {
+        input: "\u00D1", // Ñ as single codepoint
+        expectedOutput: [["n", 0, 1]],
+      },
+      {
+        input: "\u004E\u0303", // Ñ using combining mark
+        expectedOutput: [["n", 0, 2]],
+      },
+      {
+        input: "\u00e4\u00e5", // äå, NFC-normalised
+        expectedOutput: [
+          ["\u00e4", 0, 1],
+          ["\u00e5", 1, 2],
+        ],
+      },
+      {
+        input: "\u0061\u0308\u0061\u030a", // äå, NFD-normalised
+        expectedOutput: [
+          ["\u00e4", 0, 2],
+          ["\u00e5", 2, 4],
+        ],
+      },
+    ],
+  },
+  {
+    tokenHatSplittingMode: {
+      preserveCase: false,
+      preserveAccents: false,
+      symbolsToPreserve: "\u0061\u0308\u0061\u030a", // äå, NFD-normalised
+    },
+    extraTestCases: [
+      {
+        input: "\u00e4\u00e5", // äå, NFC-normalised
+        expectedOutput: [
+          ["\u00e4", 0, 1],
+          ["\u00e5", 1, 2],
+        ],
+      },
+      {
+        input: "\u0061\u0308\u0061\u030a", // äå, NFD-normalised
+        expectedOutput: [
+          ["\u00e4", 0, 2],
+          ["\u00e5", 2, 4],
+        ],
+      },
+    ],
+  },
 ];
 
 const graph = makeGraph({
   tokenGraphemeSplitter: (graph: Graph) => new TokenGraphemeSplitter(graph),
   ide: (graph: Graph) => new FakeIDE(graph),
 } as unknown as FactoryMap<Graph>);
+
+graph.ide.configuration.mockConfiguration("tokenHatSplittingMode", {
+  preserveCase: false,
+  preserveAccents: false,
+  symbolsToPreserve: "",
+});
 
 const tokenGraphemeSplitter = graph.tokenGraphemeSplitter;
 
