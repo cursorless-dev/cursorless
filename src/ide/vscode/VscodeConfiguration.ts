@@ -9,7 +9,7 @@ export class VscodeConfiguration implements Configuration {
   private mocks: Record<string, unknown> = {};
 
   constructor(private graph: Graph) {
-    this.graph.extensionContext.subscriptions.push(this);
+    this.graph.ide.disposeOnExit(this);
 
     this.onDidChangeConfiguration = this.onDidChangeConfiguration.bind(this);
 
