@@ -2,15 +2,16 @@ import * as vscode from "vscode";
 import { Graph } from "../../typings/Types";
 import { Notifier } from "../../util/Notifier";
 import { Configuration } from "../ide.types";
+import { VscodeIDE } from "./VscodeIDE";
 
 export class VscodeConfiguration implements Configuration {
   private notifier = new Notifier();
   private mocks: Record<string, unknown> = {};
 
-  constructor(private graph: Graph) {
+  constructor(private ide: VscodeIDE) {
     this.onDidChangeConfiguration = this.onDidChangeConfiguration.bind(this);
 
-    this.graph.ide.disposeOnExit(
+    ide.disposeOnExit(
       vscode.workspace.onDidChangeConfiguration(this.notifier.notifyListeners)
     );
   }

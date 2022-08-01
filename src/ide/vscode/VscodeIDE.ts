@@ -7,7 +7,7 @@ export class VscodeIDE implements IDE {
   configuration: VscodeConfiguration;
 
   constructor(private graph: Graph) {
-    this.configuration = new VscodeConfiguration(graph);
+    this.configuration = new VscodeConfiguration(this);
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
