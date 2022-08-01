@@ -1,5 +1,4 @@
 import * as vscode from "vscode";
-import { Graph } from "../../typings/Types";
 import { Notifier } from "../../util/Notifier";
 import { Configuration } from "../ide.types";
 import { VscodeIDE } from "./VscodeIDE";
