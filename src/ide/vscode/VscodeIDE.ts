@@ -1,3 +1,4 @@
+import { pull } from "lodash";
 import { Graph } from "../../typings/Types";
 import { Disposable, IDE } from "../ide.types";
 import { VscodeConfiguration } from "./VscodeConfiguration";
@@ -9,7 +10,10 @@ export class VscodeIDE implements IDE {
     this.configuration = new VscodeConfiguration(graph);
   }
 
-  disposeOnExit(disposable: Disposable): void {
-    this.graph.extensionContext.subscriptions.push(disposable);
+  disposeOnExit(...disposables: Disposable[]): () => void {
+    this.graph.extensionContext.subscriptions.push(...disposables);
+
+    return () =>
+      pull(this.graph.extensionContext.subscriptions, ...disposables);
   }
 }

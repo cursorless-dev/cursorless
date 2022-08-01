@@ -1,19 +1,16 @@
 import * as vscode from "vscode";
 import { Graph } from "../../typings/Types";
 import { Notifier } from "../../util/Notifier";
-import { Configuration, Disposable } from "../ide.types";
+import { Configuration } from "../ide.types";
 
 export class VscodeConfiguration implements Configuration {
   private notifier = new Notifier();
-  private disposables: Disposable[] = [];
   private mocks: Record<string, unknown> = {};
 
   constructor(private graph: Graph) {
-    this.graph.ide.disposeOnExit(this);
-
     this.onDidChangeConfiguration = this.onDidChangeConfiguration.bind(this);
 
-    this.graph.extensionContext.subscriptions.push(
+    this.graph.ide.disposeOnExit(
       vscode.workspace.onDidChangeConfiguration(this.notifier.notifyListeners)
     );
   }
@@ -34,9 +31,5 @@ export class VscodeConfiguration implements Configuration {
 
   resetMocks(): void {
     this.mocks = {};
-  }
-
-  dispose() {
-    this.disposables.forEach(({ dispose }) => dispose());
   }
 }

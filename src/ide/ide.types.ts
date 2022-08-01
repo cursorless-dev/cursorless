@@ -3,7 +3,13 @@ import type { Listener } from "../util/Notifier";
 export interface IDE {
   configuration: Configuration;
 
-  disposeOnExit(disposable: Disposable): void;
+  /**
+   * Register disposables to be disposed of on IDE exit.
+   *
+   * @param disposables A list of {@link Disposable}s to dispose when the IDE is exited.
+   * @returns A function that can be called to deregister the disposables
+   */
+  disposeOnExit(...disposables: Disposable[]): () => void;
 }
 
 export interface Configuration {
