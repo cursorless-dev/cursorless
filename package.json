@@ -158,7 +158,7 @@
 				"cursorless.tokenHatSplittingMode.preserveCase": {
 					"type": "boolean",
 					"default": false,
-					"description": "Whether to distinguish between uppercase and lower case letters for hat"
+					"markdownDescription": "Whether to distinguish between uppercase and lower case letters for hats.  Set this to `true` if you have separate terms for uppercase letters in your `<user.any_alphanumeric_key>` capture."
 				},
 				"cursorless.tokenHatSplittingMode.preserveAccents": {
 					"type": "boolean",
@@ -171,7 +171,7 @@
 						"type": "string"
 					},
 					"default": [],
-					"description": "A list of characters whose accents should not be stripped. This can be used, for example, if you would like to strip all accents except for those of a few characters, which you can add to this string."
+					"description": "A list of characters whose accents should not be stripped. This can be used, for example, if you would like to strip all accents except for those of a few characters, which you would add to this list."
 				},
 				"cursorless.tokenHatSplittingMode.symbolsToPreserve": {
 					"type": "array",
@@ -179,7 +179,7 @@
 						"type": "string"
 					},
 					"default": [],
-					"description": "A list of symbols that shouldn't be normalized by the token hat splitter. Add any extra symbols here that you have added to your <user.any_alphanumeric_key> capture."
+					"markdownDescription": "A list of symbols that shouldn't be normalized by the token hat splitter. Add any extra symbols here that you have added to your `<user.any_alphanumeric_key>` capture. Unlike the Accents To Preserve setting, these symbols won't even undergo case normalisation, so you would need separate terms for the lowercase and uppercase versions (if the symbol has a notion of upper and lower case)."
 				},
 				"cursorless.decorationDebounceDelayMs": {
 					"type": "number",

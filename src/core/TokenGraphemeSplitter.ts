@@ -83,10 +83,10 @@ export class TokenGraphemeSplitter {
 
     this.tokenHatSplittingMode = {
       accentsToPreserve: accentsToPreserve.map((grapheme) =>
-        grapheme.normalize("NFC")
+        grapheme.toLowerCase().normalize("NFC")
       ),
       symbolsToPreserve: symbolsToPreserve.map((grapheme) =>
-        grapheme.normalize("NFC")
+        grapheme.toLowerCase().normalize("NFC")
       ),
       ...rest,
     };
@@ -119,14 +119,17 @@ export class TokenGraphemeSplitter {
       return returnValue;
     }
 
-    if (!preserveAccents && !accentsToPreserve.includes(returnValue)) {
+    if (!preserveCase) {
+      returnValue = returnValue.toLowerCase();
+    }
+
+    if (
+      !preserveAccents &&
+      !accentsToPreserve.includes(returnValue.toLowerCase())
+    ) {
       // Separate into naked char and combinining diacritic, then remove the
       // diacritic
       returnValue = returnValue.normalize("NFD").replace(/\p{M}/gu, "");
-    }
-
-    if (!preserveCase) {
-      returnValue = returnValue.toLowerCase();
     }
 
     if (!KNOWN_GRAPHEME_MATCHER.test(returnValue)) {
