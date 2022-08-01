@@ -297,7 +297,7 @@ const graph = makeGraph({
   ide: (graph: Graph) => new FakeIDE(graph),
 } as unknown as FactoryMap<Graph>);
 
-const tokenHatSplittingDefaults = {
+const tokenHatSplittingDefaults: TokenHatSplittingMode = {
   preserveCase: false,
   preserveAccents: false,
   accentsToPreserve: [],
