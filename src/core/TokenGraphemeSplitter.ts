@@ -86,7 +86,7 @@ export class TokenGraphemeSplitter {
         grapheme.toLowerCase().normalize("NFC")
       ),
       symbolsToPreserve: symbolsToPreserve.map((grapheme) =>
-        grapheme.toLowerCase().normalize("NFC")
+        grapheme.normalize("NFC")
       ),
       ...rest,
     };
