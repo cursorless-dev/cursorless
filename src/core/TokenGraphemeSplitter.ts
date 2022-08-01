@@ -4,6 +4,9 @@ import { Graph, TokenHatSplittingMode } from "../typings/Types";
 import { Notifier } from "../util/Notifier";
 import { matchAll } from "../util/regex";
 
+/**
+ * A list of all symbols that are speakable by default in knausj.
+ */
 const KNOWN_SYMBOLS = [
   "!",
   "#",
@@ -41,15 +44,32 @@ const KNOWN_SYMBOLS = [
 ];
 const KNOWN_SYMBOL_REGEXP = KNOWN_SYMBOLS.map(escapeRegExp).join("|");
 
-const KNOWN_GRAPHEME_REGEXP = [
+const KNOWN_GRAPHEME_REGEXP_STR = [
   "\\p{L}\\p{M}*",
   "[0-9]",
   KNOWN_SYMBOL_REGEXP,
 ].join("|");
-const KNOWN_GRAPHEME_MATCHER = new RegExp(`^${KNOWN_GRAPHEME_REGEXP}$`, "u");
 
+/**
+ * Any token *not* matched by this regex will be mapped to {@link UNKNOWN}, so
+ * that they will count as the same grapheme from the perspective of hat
+ * allocation, and can be referred to using "special", "red special", etc.
+ */
+const KNOWN_GRAPHEME_MATCHER = new RegExp(
+  `^${KNOWN_GRAPHEME_REGEXP_STR}$`,
+  "u"
+);
+
+/**
+ * All unknown graphemes will be mapped to this value, so that they will count
+ * as the same grapheme from the perspective of hat allocation, and can be
+ * referred to using "special", "red special", etc.
+ */
 export const UNKNOWN = "[unk]";
 
+/**
+ * Regex used to split a token into graphemes.
+ */
 const SPLIT_REGEX = /\p{L}\p{M}*|\P{L}/gu;
 
 export class TokenGraphemeSplitter {
@@ -94,13 +114,40 @@ export class TokenGraphemeSplitter {
     this.algorithmChangeNotifier.notifyListeners();
   }
 
-  getTokenGraphemes = (text: string): Grapheme[] =>
-    matchAll<Grapheme>(text, SPLIT_REGEX, (match) => ({
+  /**
+   * Splits {@link token} into a list of graphemes, normalised as per
+   * {@link normalizeGrapheme}.
+   * @param token The token to split
+   * @returns A list of normalised graphemes in {@link token}
+   */
+  getTokenGraphemes = (token: string): Grapheme[] =>
+    matchAll<Grapheme>(token, SPLIT_REGEX, (match) => ({
       text: this.normalizeGrapheme(match[0]),
       tokenStartOffset: match.index!,
       tokenEndOffset: match.index! + match[0].length,
     }));
 
+  /**
+   * Normalizes the grapheme {@link rawGraphemeText} based on user
+   * configuration.  Proceeds as follows:
+   *
+   * 1. Runs text through Unicode NFC normalization to ensure that characters
+   * that look identical are handled the same (eg whether they use combining
+   * mark or single codepoint for diacritics).
+   * 2. If the grapheme is a known grapheme, returns it.
+   * 3. Transforms grapheme to lowercase if
+   * {@link TokenHatSplittingMode.preserveCase} is `false`
+   * 4. Strips diacritics from the grapheme if
+   * {@link TokenHatSplittingMode.preserveAccents} is `false` and the grapheme
+   * doesn't appear in {@link TokenHatSplittingMode.accentsToPreserve}
+   * 5. If the grapheme doesn't match {@link KNOWN_GRAPHEME_MATCHER}, maps the
+   * grapheme to the constant {@link UNKNOWN}, so that it can be referred to
+   * using "special", "red special", etc.
+   * 6. Returns the grapheme.
+   *
+   * @param rawGraphemeText The raw grapheme text to normalise
+   * @returns The normalised grapheme
+   */
   normalizeGrapheme(rawGraphemeText: string): string {
     const {
       preserveCase,
