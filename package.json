@@ -165,10 +165,21 @@
 					"default": false,
 					"description": "Whether to preserve accents when constructing hats"
 				},
+				"cursorless.tokenHatSplittingMode.accentsToPreserve": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [],
+					"description": "A list of characters whose accents should not be stripped. This can be used, for example, if you would like to strip all accents except for those of a few characters, which you can add to this string."
+				},
 				"cursorless.tokenHatSplittingMode.symbolsToPreserve": {
-					"type": "string",
-					"default": "",
-					"description": "Any symbols in this string won't be normalized by the token hat splitter. This can be used for example if you would like to strip all accents except for those of a few characters, which you can add to this string."
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [],
+					"description": "A list of symbols that shouldn't be normalized by the token hat splitter. Add any extra symbols here that you have added to your <user.any_alphanumeric_key> capture."
 				},
 				"cursorless.decorationDebounceDelayMs": {
 					"type": "number",

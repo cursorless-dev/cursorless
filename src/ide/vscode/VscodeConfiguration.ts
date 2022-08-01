@@ -28,7 +28,7 @@ export class VscodeConfiguration implements Configuration {
 
   onDidChangeConfiguration = this.notifier.registerListener;
 
-  mockConfiguration(key: string, value: unknown): void {
+  mockConfiguration<T>(key: string, value: T): void {
     this.mocks[key] = value;
   }
 

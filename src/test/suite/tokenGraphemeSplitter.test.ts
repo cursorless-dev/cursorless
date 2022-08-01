@@ -47,7 +47,8 @@ const tests: SplittingModeTestCases[] = [
     tokenHatSplittingMode: {
       preserveCase: false,
       preserveAccents: true,
-      symbolsToPreserve: "",
+      accentsToPreserve: [],
+      symbolsToPreserve: [],
     },
     extraTestCases: [
       {
@@ -79,7 +80,8 @@ const tests: SplittingModeTestCases[] = [
     tokenHatSplittingMode: {
       preserveCase: true,
       preserveAccents: true,
-      symbolsToPreserve: "",
+      accentsToPreserve: [],
+      symbolsToPreserve: [],
     },
     extraTestCases: [
       {
@@ -111,7 +113,8 @@ const tests: SplittingModeTestCases[] = [
     tokenHatSplittingMode: {
       preserveCase: true,
       preserveAccents: false,
-      symbolsToPreserve: "",
+      accentsToPreserve: [],
+      symbolsToPreserve: [],
     },
     extraTestCases: [
       {
@@ -136,7 +139,8 @@ const tests: SplittingModeTestCases[] = [
     tokenHatSplittingMode: {
       preserveCase: false,
       preserveAccents: false,
-      symbolsToPreserve: "",
+      accentsToPreserve: [],
+      symbolsToPreserve: [],
     },
     extraTestCases: [
       {
@@ -161,7 +165,8 @@ const tests: SplittingModeTestCases[] = [
     tokenHatSplittingMode: {
       preserveCase: false,
       preserveAccents: false,
-      symbolsToPreserve: "\u00e4\u00e5", // äå, NFC-normalised
+      accentsToPreserve: ["\u00e4", "\u00e5"], // äå, NFC-normalised
+      symbolsToPreserve: [],
     },
     extraTestCases: [
       {
@@ -200,7 +205,8 @@ const tests: SplittingModeTestCases[] = [
     tokenHatSplittingMode: {
       preserveCase: false,
       preserveAccents: false,
-      symbolsToPreserve: "\u0061\u0308\u0061\u030a", // äå, NFD-normalised
+      accentsToPreserve: ["\u0061\u0308", "\u0061\u030a"], // äå, NFD-normalised
+      symbolsToPreserve: [],
     },
     extraTestCases: [
       {
@@ -216,6 +222,36 @@ const tests: SplittingModeTestCases[] = [
           ["\u00e4", 0, 2],
           ["\u00e5", 2, 4],
         ],
+      },
+    ],
+  },
+  {
+    tokenHatSplittingMode: {
+      preserveCase: false,
+      preserveAccents: false,
+      accentsToPreserve: [],
+      symbolsToPreserve: ["🙃"],
+    },
+    extraTestCases: [
+      {
+        input: "\u00F1", // ñ as single codepoint
+        expectedOutput: [["n", 0, 1]],
+      },
+      {
+        input: "\u006E\u0303", // ñ using combining mark
+        expectedOutput: [["n", 0, 2]],
+      },
+      {
+        input: "\u00D1", // Ñ as single codepoint
+        expectedOutput: [["n", 0, 1]],
+      },
+      {
+        input: "\u004E\u0303", // Ñ using combining mark
+        expectedOutput: [["n", 0, 2]],
+      },
+      {
+        input: "🙃",
+        expectedOutput: [["🙃", 0, 2]],
       },
     ],
   },
@@ -226,11 +262,15 @@ const graph = makeGraph({
   ide: (graph: Graph) => new FakeIDE(graph),
 } as unknown as FactoryMap<Graph>);
 
-graph.ide.configuration.mockConfiguration("tokenHatSplittingMode", {
-  preserveCase: false,
-  preserveAccents: false,
-  symbolsToPreserve: "",
-});
+graph.ide.configuration.mockConfiguration<TokenHatSplittingMode>(
+  "tokenHatSplittingMode",
+  {
+    preserveCase: false,
+    preserveAccents: false,
+    accentsToPreserve: [],
+    symbolsToPreserve: [],
+  }
+);
 
 const tokenGraphemeSplitter = graph.tokenGraphemeSplitter;
 

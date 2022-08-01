@@ -56,7 +56,6 @@ export class TokenGraphemeSplitter {
   private disposables: Disposable[] = [];
   private algorithmChangeNotifier = new Notifier();
   private tokenHatSplittingMode!: TokenHatSplittingMode;
-  private symbolsToPreserve!: string[];
 
   constructor(private graph: Graph) {
     graph.ide.disposeOnExit(this);
@@ -77,16 +76,20 @@ export class TokenGraphemeSplitter {
   }
 
   private updateTokenHatSplittingMode() {
-    this.tokenHatSplittingMode =
+    const { accentsToPreserve, symbolsToPreserve, ...rest } =
       this.graph.ide.configuration.getOwnConfiguration<TokenHatSplittingMode>(
         "tokenHatSplittingMode"
       )!;
 
-    this.symbolsToPreserve = matchAll<string>(
-      this.tokenHatSplittingMode.symbolsToPreserve,
-      SPLIT_REGEX,
-      (match) => match[0].normalize("NFC")
-    );
+    this.tokenHatSplittingMode = {
+      accentsToPreserve: accentsToPreserve.map((grapheme) =>
+        grapheme.normalize("NFC")
+      ),
+      symbolsToPreserve: symbolsToPreserve.map((grapheme) =>
+        grapheme.normalize("NFC")
+      ),
+      ...rest,
+    };
 
     this.algorithmChangeNotifier.notifyListeners();
   }
@@ -99,25 +102,24 @@ export class TokenGraphemeSplitter {
     }));
 
   normalizeGrapheme(rawGraphemeText: string): string {
-    const { preserveCase, preserveAccents } = this.tokenHatSplittingMode;
+    const {
+      preserveCase,
+      preserveAccents,
+      accentsToPreserve,
+      symbolsToPreserve,
+    } = this.tokenHatSplittingMode;
 
-    if (this.symbolsToPreserve.length > 0) {
-      const nfcNormalized = rawGraphemeText.normalize("NFC");
+    // We always normalise the grapheme so that the user doesn't get confusing
+    // behaviour where the grapheme is represented as the naked grapheme and a
+    // separate combining diacritic, but they pass in the combined version of
+    // the grapheme.
+    let returnValue = rawGraphemeText.normalize("NFC");
 
-      if (this.symbolsToPreserve.includes(nfcNormalized)) {
-        return nfcNormalized;
-      }
+    if (symbolsToPreserve.includes(returnValue)) {
+      return returnValue;
     }
 
-    let returnValue = rawGraphemeText;
-
-    if (preserveAccents) {
-      // If we preserve accents, we still normalise the grapheme so that the
-      // user doesn't get confusing behaviour where the grapheme is represented
-      // as the naked grapheme and a separate combining diacritic, but they
-      // pass in the combined version of the grapheme.
-      returnValue = returnValue.normalize("NFC");
-    } else {
+    if (!preserveAccents && !accentsToPreserve.includes(returnValue)) {
       // Separate into naked char and combinining diacritic, then remove the
       // diacritic
       returnValue = returnValue.normalize("NFD").replace(/\p{M}/gu, "");

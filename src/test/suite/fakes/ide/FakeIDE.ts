@@ -1,6 +1,6 @@
 import { Disposable, IDE } from "../../../../ide/ide.types";
 import { Graph } from "../../../../typings/Types";
-import { FakeConfiguration } from "./VscodeConfiguration";
+import { FakeConfiguration } from "./FakeConfiguration";
 
 export class FakeIDE implements IDE {
   configuration: FakeConfiguration;

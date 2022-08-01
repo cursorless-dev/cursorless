@@ -235,9 +235,16 @@ export interface TokenHatSplittingMode {
   preserveAccents: boolean;
 
   /**
-   * Any symbols in this string won't be normalized by the token hat splitter.
-   * This can be used for example if you would like to strip all accents except
-   * for those of a few characters, which you can add to this string.
+   * A list of characters whose accents should not be stripped. This can be
+   * used, for example, if you would like to strip all accents except for those
+   * of a few characters, which you can add to this string.
    */
-  symbolsToPreserve: string;
+  accentsToPreserve: string[];
+
+  /**
+   * A list of symbols that shouldn't be normalized by the token hat splitter.
+   * Add any extra symbols here that you have added to your
+   * <user.any_alphanumeric_key> capture.
+   */
+  symbolsToPreserve: string[];
 }

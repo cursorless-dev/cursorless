@@ -10,7 +10,7 @@ export interface Configuration {
   getOwnConfiguration<T>(key: string): T | undefined;
   onDidChangeConfiguration: (listener: Listener) => Disposable;
 
-  mockConfiguration(key: string, value: unknown): void;
+  mockConfiguration<T>(key: string, value: T): void;
   resetMocks(): void;
 }
 
