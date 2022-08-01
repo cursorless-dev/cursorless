@@ -59,7 +59,7 @@ class Actions:
                 {
                     "name": "Special marks",
                     "id": "specialMarks",
-                    "items": get_list("special_mark", "mark"),
+                    "items": get_lists(["special_mark", "unknown_symbol"], "mark"),
                 },
                 {
                     "name": "Positions",

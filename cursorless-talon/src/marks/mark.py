@@ -40,13 +40,22 @@ hat_shapes = {
 }
 
 
-@mod.capture(rule="<user.any_alphanumeric_key> | special")
+mod.list(
+    "cursorless_unknown_symbol",
+    "This list contains the term that is used to refer to any unknown symbol",
+)
+unknown_symbols_defaults = {
+    # NB: This represents unknown char in Unicode.  It will be translated
+    # to "[unk]" by Cursorless extension.
+    "special": "unknownSymbol"
+}
+
+
+@mod.capture(rule="<user.any_alphanumeric_key> | {user.cursorless_unknown_symbol}")
 def cursorless_grapheme(m) -> str:
     try:
         return m.any_alphanumeric_key
     except AttributeError:
-        # NB: This represents unknown char in Unicode.  It will be translated
-        # to "[unk]" by Cursorless extension.
         return "\uFFFD"
 
 
@@ -225,6 +234,7 @@ def on_ready():
         "special_marks",
         {
             "special_mark": special_marks_defaults,
+            "unknown_symbol": unknown_symbols_defaults,
             "line_direction": DEFAULT_DIRECTIONS,
         },
     )
