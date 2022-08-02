@@ -1,15 +1,17 @@
 import Actions from "../actions";
+import Cheatsheet from "../core/Cheatsheet";
+import Debug from "../core/Debug";
+import Decorations from "../core/Decorations";
 import { EditStyles } from "../core/editStyles";
-import { Graph } from "../typings/Types";
-import { FactoryMap } from "./makeGraph";
+import FontMeasurements from "../core/FontMeasurements";
 import HatTokenMap from "../core/HatTokenMap";
 import { Snippets } from "../core/Snippets";
+import { TokenGraphemeSplitter } from "../core/TokenGraphemeSplitter";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import Decorations from "../core/Decorations";
-import FontMeasurements from "../core/FontMeasurements";
-import Debug from "../core/Debug";
+import { VscodeIDE } from "../ide/vscode/VscodeIDE";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
-import Cheatsheet from "../core/Cheatsheet";
+import { Graph } from "../typings/Types";
+import { FactoryMap } from "./makeGraph";
 
 type ConstructorMap<T> = {
   [P in keyof T]: new (t: T) => T[P];
@@ -26,6 +28,8 @@ const graphConstructors: Partial<ConstructorMap<Graph>> = {
   debug: Debug,
   testCaseRecorder: TestCaseRecorder,
   cheatsheet: Cheatsheet,
+  tokenGraphemeSplitter: TokenGraphemeSplitter,
+  ide: VscodeIDE,
 };
 
 const graphFactories: Partial<FactoryMap<Graph>> = Object.fromEntries(
