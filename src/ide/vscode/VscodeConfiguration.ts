@@ -23,12 +23,12 @@ export class VscodeConfiguration implements Configuration {
     key: T
   ): CursorlessConfiguration[T] | undefined {
     if (key in this.mocks) {
-      return this.mocks[key]!;
+      return this.mocks[key];
     }
 
     return vscode.workspace
       .getConfiguration("cursorless")
-      .get<CursorlessConfiguration[T]>(key)!;
+      .get<CursorlessConfiguration[T]>(key);
   }
 
   onDidChangeConfiguration = this.notifier.registerListener;
