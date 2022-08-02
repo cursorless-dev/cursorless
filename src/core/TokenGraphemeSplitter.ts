@@ -97,7 +97,7 @@ export class TokenGraphemeSplitter {
 
   private updateTokenHatSplittingMode() {
     const { accentsToPreserve, symbolsToPreserve, ...rest } =
-      this.graph.ide.configuration.getOwnConfiguration<TokenHatSplittingMode>(
+      this.graph.ide.configuration.getOwnConfiguration(
         "tokenHatSplittingMode"
       )!;
 
@@ -124,7 +124,7 @@ export class TokenGraphemeSplitter {
     matchAll<Grapheme>(token, SPLIT_REGEX, (match) => ({
       text: this.normalizeGrapheme(match[0]),
       tokenStartOffset: match.index!,
-      tokenEndOffset: match.index + match[0].length,
+      tokenEndOffset: match.index! + match[0].length,
     }));
 
   /**

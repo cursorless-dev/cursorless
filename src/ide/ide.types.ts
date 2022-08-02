@@ -1,3 +1,4 @@
+import { TokenHatSplittingMode } from "../typings/Types";
 import type { Listener } from "../util/Notifier";
 
 export interface IDE {
@@ -12,11 +13,21 @@ export interface IDE {
   disposeOnExit(...disposables: Disposable[]): () => void;
 }
 
+export interface CursorlessConfiguration {
+  tokenHatSplittingMode: TokenHatSplittingMode;
+}
+export type CursorlessConfigKey = keyof CursorlessConfiguration;
+
 export interface Configuration {
-  getOwnConfiguration<T>(key: string): T | undefined;
+  getOwnConfiguration<T extends CursorlessConfigKey>(
+    key: T
+  ): CursorlessConfiguration[T] | undefined;
   onDidChangeConfiguration: (listener: Listener) => Disposable;
 
-  mockConfiguration<T>(key: string, value: T): void;
+  mockConfiguration<T extends CursorlessConfigKey>(
+    key: T,
+    value: CursorlessConfiguration[T]
+  ): void;
   resetMocks(): void;
 }
 

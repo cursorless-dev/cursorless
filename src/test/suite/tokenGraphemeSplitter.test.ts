@@ -304,7 +304,7 @@ const tokenHatSplittingDefaults: TokenHatSplittingMode = {
   symbolsToPreserve: [],
 };
 
-graph.ide.configuration.mockConfiguration<TokenHatSplittingMode>(
+graph.ide.configuration.mockConfiguration(
   "tokenHatSplittingMode",
   tokenHatSplittingDefaults
 );
