@@ -1,6 +1,6 @@
 import { Range } from "vscode";
 import { SUBWORD_MATCHER } from "../../core/constants";
-import { SPLIT_REGEX } from "../../core/TokenGraphemeSplitter";
+import { GRAPHEME_SPLIT_REGEX } from "../../core/TokenGraphemeSplitter";
 import { Target } from "../../typings/target.types";
 import {
   OrdinalRangeModifier,
@@ -38,7 +38,9 @@ export default class OrdinalRangeSubTokenStage implements ModifierStage {
     }
 
     const regex =
-      this.modifier.scopeType.type === "word" ? SUBWORD_MATCHER : SPLIT_REGEX;
+      this.modifier.scopeType.type === "word"
+        ? SUBWORD_MATCHER
+        : GRAPHEME_SPLIT_REGEX;
     pieces = [...tokenText.matchAll(regex)].map((match) => ({
       start: match.index!,
       end: match.index! + match[0].length,

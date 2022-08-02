@@ -70,7 +70,7 @@ export const UNKNOWN = "[unk]";
 /**
  * Regex used to split a token into graphemes.
  */
-export const SPLIT_REGEX = /\p{L}\p{M}*|\P{L}/gu;
+export const GRAPHEME_SPLIT_REGEX = /\p{L}\p{M}*|\P{L}/gu;
 
 export class TokenGraphemeSplitter {
   private disposables: Disposable[] = [];
@@ -121,7 +121,7 @@ export class TokenGraphemeSplitter {
    * @returns A list of normalised graphemes in {@link token}
    */
   getTokenGraphemes = (token: string): Grapheme[] =>
-    matchAll<Grapheme>(token, SPLIT_REGEX, (match) => ({
+    matchAll<Grapheme>(token, GRAPHEME_SPLIT_REGEX, (match) => ({
       text: this.normalizeGrapheme(match[0]),
       tokenStartOffset: match.index!,
       tokenEndOffset: match.index! + match[0].length,
