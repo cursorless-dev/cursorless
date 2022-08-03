@@ -35,7 +35,6 @@ const commonTestCases: TestCase[] = [
   ],
   ["_", [["_", 0, 1]]],
   ["😄", [[UNKNOWN, 0, 2]]],
-  ["æ", [[UNKNOWN, 0, 1]]],
 ];
 
 const tests: SplittingModeTestCases[] = [
@@ -60,8 +59,10 @@ const tests: SplittingModeTestCases[] = [
       ],
       ["ꝏ", [[UNKNOWN, 0, 1]]],
       ["ø", [["o", 0, 1]]],
+      ["æ", [[UNKNOWN, 0, 1]]],
       ["Ꝏ", [[UNKNOWN, 0, 1]]],
       ["Ø", [["o", 0, 1]]],
+      ["Æ", [[UNKNOWN, 0, 1]]],
       ["Σ", [[UNKNOWN, 0, 1]]],
       ["σ", [[UNKNOWN, 0, 1]]],
     ],
@@ -89,13 +90,21 @@ const tests: SplittingModeTestCases[] = [
       ],
       ["ꝏ", [[UNKNOWN, 0, 1]]],
       ["ø", [["o", 0, 1]]],
+      ["æ", [[UNKNOWN, 0, 1]]],
       ["Ꝏ", [[UNKNOWN, 0, 1]]],
       ["Ø", [["O", 0, 1]]],
+      ["Æ", [[UNKNOWN, 0, 1]]],
     ],
   },
   {
     tokenHatSplittingMode: {
-      lettersToPreserve: ["\u00e4", "\u00e5", "ꝏ", "ø"], // äå, NFC-normalised
+      lettersToPreserve: [
+        "\u00e4", // ä, NFC-normalised
+        "\u00e5", // å, NFC-normalised
+        "ꝏ",
+        "ø",
+        "æ",
+      ],
     },
     extraTestCases: [
       [
@@ -144,13 +153,18 @@ const tests: SplittingModeTestCases[] = [
       ],
       ["ꝏ", [["ꝏ", 0, 1]]],
       ["ø", [["ø", 0, 1]]],
+      ["æ", [["æ", 0, 1]]],
       ["Ꝏ", [["ꝏ", 0, 1]]],
       ["Ø", [["ø", 0, 1]]],
+      ["Æ", [["æ", 0, 1]]],
     ],
   },
   {
     tokenHatSplittingMode: {
-      lettersToPreserve: ["\u0061\u0308", "\u0061\u030a"], // äå, NFD-normalised
+      lettersToPreserve: [
+        "\u0061\u0308", // ä, NFD-normalised
+        "\u0061\u030a", // å, NFD-normalised
+      ],
     },
     extraTestCases: [
       [
@@ -172,7 +186,13 @@ const tests: SplittingModeTestCases[] = [
   {
     tokenHatSplittingMode: {
       preserveCase: true,
-      lettersToPreserve: ["\u00e4", "\u00e5", "ꝏ", "ø"], // äå, NFC-normalised
+      lettersToPreserve: [
+        "\u00e4", // ä, NFC-normalised
+        "\u00e5", // å, NFC-normalised
+        "ꝏ",
+        "ø",
+        "æ",
+      ],
     },
     extraTestCases: [
       [
@@ -191,13 +211,21 @@ const tests: SplittingModeTestCases[] = [
       ],
       ["ꝏ", [["ꝏ", 0, 1]]],
       ["ø", [["ø", 0, 1]]],
+      ["æ", [["æ", 0, 1]]],
       ["Ꝏ", [["Ꝏ", 0, 1]]],
       ["Ø", [["Ø", 0, 1]]],
+      ["Æ", [["Æ", 0, 1]]],
     ],
   },
   {
     tokenHatSplittingMode: {
-      lettersToPreserve: ["\u00c4", "\u00c5", "Ꝏ", "Ø"], // ÄÅ, NFC-normalised
+      lettersToPreserve: [
+        "\u00c4", // Ä, NFC-normalised
+        "\u00c5", // Å, NFC-normalised
+        "Ꝏ",
+        "Ø",
+        "Æ",
+      ],
     },
     extraTestCases: [
       [
@@ -216,8 +244,10 @@ const tests: SplittingModeTestCases[] = [
       ],
       ["ꝏ", [["ꝏ", 0, 1]]],
       ["ø", [["ø", 0, 1]]],
+      ["æ", [["æ", 0, 1]]],
       ["Ꝏ", [["ꝏ", 0, 1]]],
       ["Ø", [["ø", 0, 1]]],
+      ["Æ", [["æ", 0, 1]]],
     ],
   },
   {
@@ -285,7 +315,9 @@ tests.forEach(({ tokenHatSplittingMode, extraTestCases }) => {
 
       const actualOutput = tokenGraphemeSplitter.getTokenGraphemes(input);
 
-      test(input, () => {
+      const displayOutput = expectedOutput.map(({ text }) => text).join(", ");
+
+      test(`${input} -> ${displayOutput}`, () => {
         assert.deepStrictEqual(actualOutput, expectedOutput);
       });
     });
