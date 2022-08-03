@@ -39,6 +39,33 @@ const commonTestCases: TestCase[] = [
 
 const tests: SplittingModeTestCases[] = [
   {
+    tokenHatSplittingMode: {},
+    extraTestCases: [
+      [
+        "\u00F1", // ñ as single codepoint
+        [["n", 0, 1]],
+      ],
+      [
+        "\u006E\u0303", // ñ using combining mark
+        [["n", 0, 2]],
+      ],
+      [
+        "\u00D1", // Ñ as single codepoint
+        [["n", 0, 1]],
+      ],
+      [
+        "\u004E\u0303", // Ñ using combining mark
+        [["n", 0, 2]],
+      ],
+      ["ꝏ", [[UNKNOWN, 0, 1]]],
+      ["ø", [["o", 0, 1]]],
+      ["Ꝏ", [[UNKNOWN, 0, 1]]],
+      ["Ø", [["o", 0, 1]]],
+      ["Σ", [[UNKNOWN, 0, 1]]],
+      ["σ", [[UNKNOWN, 0, 1]]],
+    ],
+  },
+  {
     tokenHatSplittingMode: {
       preserveCase: true,
     },
@@ -66,33 +93,8 @@ const tests: SplittingModeTestCases[] = [
     ],
   },
   {
-    tokenHatSplittingMode: {},
-    extraTestCases: [
-      [
-        "\u00F1", // ñ as single codepoint
-        [["n", 0, 1]],
-      ],
-      [
-        "\u006E\u0303", // ñ using combining mark
-        [["n", 0, 2]],
-      ],
-      [
-        "\u00D1", // Ñ as single codepoint
-        [["n", 0, 1]],
-      ],
-      [
-        "\u004E\u0303", // Ñ using combining mark
-        [["n", 0, 2]],
-      ],
-      ["ꝏ", [[UNKNOWN, 0, 1]]],
-      ["ø", [["o", 0, 1]]],
-      ["Ꝏ", [[UNKNOWN, 0, 1]]],
-      ["Ø", [["o", 0, 1]]],
-    ],
-  },
-  {
     tokenHatSplittingMode: {
-      lettersToPreserve: ["\u00e4", "\u00e5"], // äå, NFC-normalised
+      lettersToPreserve: ["\u00e4", "\u00e5", "ꝏ", "ø"], // äå, NFC-normalised
     },
     extraTestCases: [
       [
@@ -139,6 +141,10 @@ const tests: SplittingModeTestCases[] = [
           ["\u00e5", 2, 4], // å, NFC-normalised
         ],
       ],
+      ["ꝏ", [["ꝏ", 0, 1]]],
+      ["ø", [["ø", 0, 1]]],
+      ["Ꝏ", [["ꝏ", 0, 1]]],
+      ["Ø", [["ø", 0, 1]]],
     ],
   },
   {
@@ -165,7 +171,7 @@ const tests: SplittingModeTestCases[] = [
   {
     tokenHatSplittingMode: {
       preserveCase: true,
-      lettersToPreserve: ["\u00e4", "\u00e5"], // äå, NFC-normalised
+      lettersToPreserve: ["\u00e4", "\u00e5", "ꝏ", "ø"], // äå, NFC-normalised
     },
     extraTestCases: [
       [
@@ -182,11 +188,15 @@ const tests: SplittingModeTestCases[] = [
           ["\u00c5", 1, 2], // Å, NFC-normalised
         ],
       ],
+      ["ꝏ", [["ꝏ", 0, 1]]],
+      ["ø", [["ø", 0, 1]]],
+      ["Ꝏ", [["Ꝏ", 0, 1]]],
+      ["Ø", [["Ø", 0, 1]]],
     ],
   },
   {
     tokenHatSplittingMode: {
-      lettersToPreserve: ["\u00c4", "\u00c5"], // ÄÅ, NFC-normalised
+      lettersToPreserve: ["\u00c4", "\u00c5", "Ꝏ", "Ø"], // ÄÅ, NFC-normalised
     },
     extraTestCases: [
       [
@@ -203,11 +213,15 @@ const tests: SplittingModeTestCases[] = [
           ["\u00e5", 1, 2], // å, NFC-normalised
         ],
       ],
+      ["ꝏ", [["ꝏ", 0, 1]]],
+      ["ø", [["ø", 0, 1]]],
+      ["Ꝏ", [["ꝏ", 0, 1]]],
+      ["Ø", [["ø", 0, 1]]],
     ],
   },
   {
     tokenHatSplittingMode: {
-      symbolsToPreserve: ["🙃"],
+      symbolsToPreserve: ["🙃", "Σ", "σ"],
     },
     extraTestCases: [
       [
@@ -226,7 +240,8 @@ const tests: SplittingModeTestCases[] = [
         "\u004E\u0303", // Ñ using combining mark
         [["n", 0, 2]],
       ],
-      ["🙃", [["🙃", 0, 2]]],
+      ["Σ", [["Σ", 0, 1]]],
+      ["σ", [["σ", 0, 1]]],
     ],
   },
 ];

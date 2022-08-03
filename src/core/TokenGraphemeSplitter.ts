@@ -1,4 +1,4 @@
-import { escapeRegExp } from "lodash";
+import { deburr, escapeRegExp } from "lodash";
 import { Disposable } from "../ide/ide.types";
 import { Graph, TokenHatSplittingMode } from "../typings/Types";
 import { Notifier } from "../util/Notifier";
@@ -44,11 +44,9 @@ const KNOWN_SYMBOLS = [
 ];
 const KNOWN_SYMBOL_REGEXP_STR = KNOWN_SYMBOLS.map(escapeRegExp).join("|");
 
-const KNOWN_GRAPHEME_REGEXP_STR = [
-  "\\p{L}\\p{M}*",
-  "[0-9]",
-  KNOWN_SYMBOL_REGEXP_STR,
-].join("|");
+const KNOWN_GRAPHEME_REGEXP_STR = ["[a-zA-Z0-9]", KNOWN_SYMBOL_REGEXP_STR].join(
+  "|"
+);
 
 /**
  * Any token *not* matched by this regex will be mapped to {@link UNKNOWN}, so
@@ -165,11 +163,11 @@ export class TokenGraphemeSplitter {
       returnValue = returnValue.toLowerCase();
     }
 
-    if (!lettersToPreserve.includes(returnValue.toLowerCase())) {
-      // Separate into naked char and combinining diacritic, then remove the
-      // diacritic
-      returnValue = returnValue.normalize("NFD").replace(/\p{M}/gu, "");
+    if (lettersToPreserve.includes(returnValue.toLowerCase())) {
+      return returnValue;
     }
+
+    returnValue = deburr(returnValue);
 
     if (!KNOWN_GRAPHEME_MATCHER.test(returnValue)) {
       returnValue = UNKNOWN;
