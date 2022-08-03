@@ -14,10 +14,11 @@ import { FakeIDE } from "./fakes/ide/FakeIDE";
  */
 type CompactGrapheme = [string, number, number];
 
-interface TestCase {
-  input: string;
-  expectedOutput: CompactGrapheme[];
-}
+/**
+ * A compact representation of a test case. Expected to be of the form
+ * [input, expectedOutput]
+ */
+type TestCase = [string, CompactGrapheme[]];
 
 interface SplittingModeTestCases {
   tokenHatSplittingMode: Partial<TokenHatSplittingMode>;
@@ -25,21 +26,15 @@ interface SplittingModeTestCases {
 }
 
 const commonTestCases: TestCase[] = [
-  {
-    input: "hi",
-    expectedOutput: [
+  [
+    "hi",
+    [
       ["h", 0, 1],
       ["i", 1, 2],
     ],
-  },
-  {
-    input: "_",
-    expectedOutput: [["_", 0, 1]],
-  },
-  {
-    input: "😄",
-    expectedOutput: [[UNKNOWN, 0, 2]],
-  },
+  ],
+  ["_", [["_", 0, 1]]],
+  ["😄", [[UNKNOWN, 0, 2]]],
 ];
 
 const tests: SplittingModeTestCases[] = [
@@ -48,29 +43,33 @@ const tests: SplittingModeTestCases[] = [
       preserveAccents: true,
     },
     extraTestCases: [
-      {
-        input: "\u00F1", // ñ as single codepoint
-        expectedOutput: [["\u00F1", 0, 1]],
-      },
-      {
-        input: "\u006E\u0303", // ñ using combining mark
-        expectedOutput: [["\u00F1", 0, 2]],
-      },
-      {
-        input: "\u00D1", // Ñ as single codepoint
-        expectedOutput: [["\u00F1", 0, 1]],
-      },
-      {
-        input: "\u004E\u0303", // Ñ using combining mark
-        expectedOutput: [["\u00F1", 0, 2]],
-      },
-      {
-        input: "Hi",
-        expectedOutput: [
+      [
+        "\u00F1", // ñ as single codepoint
+        [["\u00F1", 0, 1]],
+      ],
+      [
+        "\u006E\u0303", // ñ using combining mark
+        [["\u00F1", 0, 2]],
+      ],
+      [
+        "\u00D1", // Ñ as single codepoint
+        [["\u00F1", 0, 1]],
+      ],
+      [
+        "\u004E\u0303", // Ñ using combining mark
+        [["\u00F1", 0, 2]],
+      ],
+      [
+        "Hi",
+        [
           ["h", 0, 1],
           ["i", 1, 2],
         ],
-      },
+      ],
+      ["ꝏ", [["ꝏ", 0, 1]]],
+      ["ø", [["ø", 0, 1]]],
+      ["Ꝏ", [["ꝏ", 0, 1]]],
+      ["Ø", [["ø", 0, 1]]],
     ],
   },
   {
@@ -79,29 +78,33 @@ const tests: SplittingModeTestCases[] = [
       preserveAccents: true,
     },
     extraTestCases: [
-      {
-        input: "\u00F1", // ñ as single codepoint
-        expectedOutput: [["\u00F1", 0, 1]],
-      },
-      {
-        input: "\u006E\u0303", // ñ using combining mark
-        expectedOutput: [["\u00F1", 0, 2]],
-      },
-      {
-        input: "\u00D1", // Ñ as single codepoint
-        expectedOutput: [["\u00D1", 0, 1]],
-      },
-      {
-        input: "\u004E\u0303", // Ñ using combining mark
-        expectedOutput: [["\u00D1", 0, 2]],
-      },
-      {
-        input: "Hi",
-        expectedOutput: [
+      [
+        "\u00F1", // ñ as single codepoint
+        [["\u00F1", 0, 1]],
+      ],
+      [
+        "\u006E\u0303", // ñ using combining mark
+        [["\u00F1", 0, 2]],
+      ],
+      [
+        "\u00D1", // Ñ as single codepoint
+        [["\u00D1", 0, 1]],
+      ],
+      [
+        "\u004E\u0303", // Ñ using combining mark
+        [["\u00D1", 0, 2]],
+      ],
+      [
+        "Hi",
+        [
           ["H", 0, 1],
           ["i", 1, 2],
         ],
-      },
+      ],
+      ["ꝏ", [["ꝏ", 0, 1]]],
+      ["ø", [["ø", 0, 1]]],
+      ["Ꝏ", [["Ꝏ", 0, 1]]],
+      ["Ø", [["Ø", 0, 1]]],
     ],
   },
   {
@@ -109,43 +112,51 @@ const tests: SplittingModeTestCases[] = [
       preserveCase: true,
     },
     extraTestCases: [
-      {
-        input: "\u00F1", // ñ as single codepoint
-        expectedOutput: [["n", 0, 1]],
-      },
-      {
-        input: "\u006E\u0303", // ñ using combining mark
-        expectedOutput: [["n", 0, 2]],
-      },
-      {
-        input: "\u00D1", // Ñ as single codepoint
-        expectedOutput: [["N", 0, 1]],
-      },
-      {
-        input: "\u004E\u0303", // Ñ using combining mark
-        expectedOutput: [["N", 0, 2]],
-      },
+      [
+        "\u00F1", // ñ as single codepoint
+        [["n", 0, 1]],
+      ],
+      [
+        "\u006E\u0303", // ñ using combining mark
+        [["n", 0, 2]],
+      ],
+      [
+        "\u00D1", // Ñ as single codepoint
+        [["N", 0, 1]],
+      ],
+      [
+        "\u004E\u0303", // Ñ using combining mark
+        [["N", 0, 2]],
+      ],
+      ["ꝏ", [[UNKNOWN, 0, 1]]],
+      ["ø", [["o", 0, 1]]],
+      ["Ꝏ", [[UNKNOWN, 0, 1]]],
+      ["Ø", [["O", 0, 1]]],
     ],
   },
   {
     tokenHatSplittingMode: {},
     extraTestCases: [
-      {
-        input: "\u00F1", // ñ as single codepoint
-        expectedOutput: [["n", 0, 1]],
-      },
-      {
-        input: "\u006E\u0303", // ñ using combining mark
-        expectedOutput: [["n", 0, 2]],
-      },
-      {
-        input: "\u00D1", // Ñ as single codepoint
-        expectedOutput: [["n", 0, 1]],
-      },
-      {
-        input: "\u004E\u0303", // Ñ using combining mark
-        expectedOutput: [["n", 0, 2]],
-      },
+      [
+        "\u00F1", // ñ as single codepoint
+        [["n", 0, 1]],
+      ],
+      [
+        "\u006E\u0303", // ñ using combining mark
+        [["n", 0, 2]],
+      ],
+      [
+        "\u00D1", // Ñ as single codepoint
+        [["n", 0, 1]],
+      ],
+      [
+        "\u004E\u0303", // Ñ using combining mark
+        [["n", 0, 2]],
+      ],
+      ["ꝏ", [[UNKNOWN, 0, 1]]],
+      ["ø", [["o", 0, 1]]],
+      ["Ꝏ", [[UNKNOWN, 0, 1]]],
+      ["Ø", [["o", 0, 1]]],
     ],
   },
   {
@@ -153,50 +164,50 @@ const tests: SplittingModeTestCases[] = [
       accentsToPreserve: ["\u00e4", "\u00e5"], // äå, NFC-normalised
     },
     extraTestCases: [
-      {
-        input: "\u00F1", // ñ as single codepoint
-        expectedOutput: [["n", 0, 1]],
-      },
-      {
-        input: "\u006E\u0303", // ñ using combining mark
-        expectedOutput: [["n", 0, 2]],
-      },
-      {
-        input: "\u00D1", // Ñ as single codepoint
-        expectedOutput: [["n", 0, 1]],
-      },
-      {
-        input: "\u004E\u0303", // Ñ using combining mark
-        expectedOutput: [["n", 0, 2]],
-      },
-      {
-        input: "\u00e4\u00e5", // äå, NFC-normalised
-        expectedOutput: [
+      [
+        "\u00F1", // ñ as single codepoint
+        [["n", 0, 1]],
+      ],
+      [
+        "\u006E\u0303", // ñ using combining mark
+        [["n", 0, 2]],
+      ],
+      [
+        "\u00D1", // Ñ as single codepoint
+        [["n", 0, 1]],
+      ],
+      [
+        "\u004E\u0303", // Ñ using combining mark
+        [["n", 0, 2]],
+      ],
+      [
+        "\u00e4\u00e5", // äå, NFC-normalised
+        [
           ["\u00e4", 0, 1], // ä, NFC-normalised
           ["\u00e5", 1, 2], // å, NFC-normalised
         ],
-      },
-      {
-        input: "\u0061\u0308\u0061\u030a", // äå, NFD-normalised
-        expectedOutput: [
+      ],
+      [
+        "\u0061\u0308\u0061\u030a", // äå, NFD-normalised
+        [
           ["\u00e4", 0, 2], // ä, NFC-normalised
           ["\u00e5", 2, 4], // å, NFC-normalised
         ],
-      },
-      {
-        input: "\u00c4\u00c5", // ÄÅ, NFC-normalised
-        expectedOutput: [
+      ],
+      [
+        "\u00c4\u00c5", // ÄÅ, NFC-normalised
+        [
           ["\u00e4", 0, 1], // ä, NFC-normalised
           ["\u00e5", 1, 2], // å, NFC-normalised
         ],
-      },
-      {
-        input: "\u0041\u0308\u0041\u030a", // ÄÅ, NFD-normalised
-        expectedOutput: [
+      ],
+      [
+        "\u0041\u0308\u0041\u030a", // ÄÅ, NFD-normalised
+        [
           ["\u00e4", 0, 2], // ä, NFC-normalised
           ["\u00e5", 2, 4], // å, NFC-normalised
         ],
-      },
+      ],
     ],
   },
   {
@@ -204,20 +215,20 @@ const tests: SplittingModeTestCases[] = [
       accentsToPreserve: ["\u0061\u0308", "\u0061\u030a"], // äå, NFD-normalised
     },
     extraTestCases: [
-      {
-        input: "\u00e4\u00e5", // äå, NFC-normalised
-        expectedOutput: [
+      [
+        "\u00e4\u00e5", // äå, NFC-normalised
+        [
           ["\u00e4", 0, 1],
           ["\u00e5", 1, 2],
         ],
-      },
-      {
-        input: "\u0061\u0308\u0061\u030a", // äå, NFD-normalised
-        expectedOutput: [
+      ],
+      [
+        "\u0061\u0308\u0061\u030a", // äå, NFD-normalised
+        [
           ["\u00e4", 0, 2],
           ["\u00e5", 2, 4],
         ],
-      },
+      ],
     ],
   },
   {
@@ -226,20 +237,20 @@ const tests: SplittingModeTestCases[] = [
       accentsToPreserve: ["\u00e4", "\u00e5"], // äå, NFC-normalised
     },
     extraTestCases: [
-      {
-        input: "\u00e4\u00e5", // äå, NFC-normalised
-        expectedOutput: [
+      [
+        "\u00e4\u00e5", // äå, NFC-normalised
+        [
           ["\u00e4", 0, 1],
           ["\u00e5", 1, 2],
         ],
-      },
-      {
-        input: "\u00c4\u00c5", // ÄÅ, NFC-normalised
-        expectedOutput: [
+      ],
+      [
+        "\u00c4\u00c5", // ÄÅ, NFC-normalised
+        [
           ["\u00c4", 0, 1], // Ä, NFC-normalised
           ["\u00c5", 1, 2], // Å, NFC-normalised
         ],
-      },
+      ],
     ],
   },
   {
@@ -247,20 +258,20 @@ const tests: SplittingModeTestCases[] = [
       accentsToPreserve: ["\u00c4", "\u00c5"], // ÄÅ, NFC-normalised
     },
     extraTestCases: [
-      {
-        input: "\u00e4\u00e5", // äå, NFC-normalised
-        expectedOutput: [
+      [
+        "\u00e4\u00e5", // äå, NFC-normalised
+        [
           ["\u00e4", 0, 1], // ä, NFC-normalised
           ["\u00e5", 1, 2], // å, NFC-normalised
         ],
-      },
-      {
-        input: "\u00c4\u00c5", // ÄÅ, NFC-normalised
-        expectedOutput: [
+      ],
+      [
+        "\u00c4\u00c5", // ÄÅ, NFC-normalised
+        [
           ["\u00e4", 0, 1], // ä, NFC-normalised
           ["\u00e5", 1, 2], // å, NFC-normalised
         ],
-      },
+      ],
     ],
   },
   {
@@ -268,26 +279,23 @@ const tests: SplittingModeTestCases[] = [
       symbolsToPreserve: ["🙃"],
     },
     extraTestCases: [
-      {
-        input: "\u00F1", // ñ as single codepoint
-        expectedOutput: [["n", 0, 1]],
-      },
-      {
-        input: "\u006E\u0303", // ñ using combining mark
-        expectedOutput: [["n", 0, 2]],
-      },
-      {
-        input: "\u00D1", // Ñ as single codepoint
-        expectedOutput: [["n", 0, 1]],
-      },
-      {
-        input: "\u004E\u0303", // Ñ using combining mark
-        expectedOutput: [["n", 0, 2]],
-      },
-      {
-        input: "🙃",
-        expectedOutput: [["🙃", 0, 2]],
-      },
+      [
+        "\u00F1", // ñ as single codepoint
+        [["n", 0, 1]],
+      ],
+      [
+        "\u006E\u0303", // ñ using combining mark
+        [["n", 0, 2]],
+      ],
+      [
+        "\u00D1", // Ñ as single codepoint
+        [["n", 0, 1]],
+      ],
+      [
+        "\u004E\u0303", // Ñ using combining mark
+        [["n", 0, 2]],
+      ],
+      ["🙃", [["🙃", 0, 2]]],
     ],
   },
 ];
@@ -320,7 +328,7 @@ tests.forEach(({ tokenHatSplittingMode, extraTestCases }) => {
 
     const testCases = [...commonTestCases, ...extraTestCases];
 
-    testCases.forEach(({ input, expectedOutput: compactExpectedOutput }) => {
+    testCases.forEach(([input, compactExpectedOutput]) => {
       const expectedOutput = compactExpectedOutput.map(
         ([text, tokenStartOffset, tokenEndOffset]) => ({
           text,
