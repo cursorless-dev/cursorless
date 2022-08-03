@@ -42,12 +42,12 @@ const KNOWN_SYMBOLS = [
   "£",
   '"',
 ];
-const KNOWN_SYMBOL_REGEXP = KNOWN_SYMBOLS.map(escapeRegExp).join("|");
+const KNOWN_SYMBOL_REGEXP_STR = KNOWN_SYMBOLS.map(escapeRegExp).join("|");
 
 const KNOWN_GRAPHEME_REGEXP_STR = [
   "\\p{L}\\p{M}*",
   "[0-9]",
-  KNOWN_SYMBOL_REGEXP,
+  KNOWN_SYMBOL_REGEXP_STR,
 ].join("|");
 
 /**
