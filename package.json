@@ -159,6 +159,32 @@
 					"default": true,
 					"description": "Whether to show decorations on vscode start."
 				},
+				"cursorless.tokenHatSplittingMode.preserveCase": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Whether to distinguish between uppercase and lower case letters for hats.  Set this to `true` if you have separate terms for uppercase letters in your `<user.any_alphanumeric_key>` capture."
+				},
+				"cursorless.tokenHatSplittingMode.preserveAccents": {
+					"type": "boolean",
+					"default": false,
+					"description": "Whether to preserve accents when constructing hats"
+				},
+				"cursorless.tokenHatSplittingMode.accentsToPreserve": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [],
+					"description": "A list of characters whose accents should not be stripped. This can be used, for example, if you would like to strip all accents except for those of a few characters, which you would add to this list."
+				},
+				"cursorless.tokenHatSplittingMode.symbolsToPreserve": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [],
+					"markdownDescription": "A list of symbols that shouldn't be normalized by the token hat splitter. Add any extra symbols here that you have added to your `<user.any_alphanumeric_key>` capture. Unlike the Accents To Preserve setting, these symbols won't even undergo case normalisation, so you would need separate terms for the lowercase and uppercase versions (if the symbol has a notion of upper and lower case)."
+				},
 				"cursorless.decorationDebounceDelayMs": {
 					"type": "number",
 					"default": 50,
@@ -559,6 +585,7 @@
 		"@types/vscode": "~1.61.0",
 		"@typescript-eslint/eslint-plugin": "^5.20.0",
 		"@typescript-eslint/parser": "^5.20.0",
+		"@vscode/test-electron": "^2.1.3",
 		"esbuild": "^0.11.12",
 		"eslint": "^8.13.0",
 		"eslint-config-prettier": "^8.5.0",
@@ -571,8 +598,7 @@
 		"semver": "^7.3.7",
 		"sinon": "^11.1.1",
 		"ts-unused-exports": "8.0.0",
-		"typescript": "^4.5.5",
-		"@vscode/test-electron": "^2.1.3"
+		"typescript": "^4.5.5"
 	},
 	"dependencies": {
 		"@types/lodash": "^4.14.168",
