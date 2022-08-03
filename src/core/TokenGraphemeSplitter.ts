@@ -135,8 +135,9 @@ export class TokenGraphemeSplitter {
    * 2. If the grapheme is a known grapheme, returns it.
    * 3. Transforms grapheme to lowercase if
    *    {@link TokenHatSplittingMode.preserveCase} is `false`
-   * 4. Strips diacritics from the grapheme if the grapheme doesn't appear in
+   * 3. Returns the (possibly case-normalised) grapheme if it appears in
    *    {@link TokenHatSplittingMode.lettersToPreserve}
+   * 4. Strips diacritics from the grapheme
    * 5. If the grapheme doesn't match {@link KNOWN_GRAPHEME_MATCHER}, maps the
    *    grapheme to the constant {@link UNKNOWN}, so that it can be referred to
    *    using "special", "red special", etc.
