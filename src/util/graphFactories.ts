@@ -6,6 +6,7 @@ import { EditStyles } from "../core/editStyles";
 import FontMeasurements from "../core/FontMeasurements";
 import HatTokenMap from "../core/HatTokenMap";
 import { Snippets } from "../core/Snippets";
+import StatusBarItem from "../core/StatusBarItem";
 import { TokenGraphemeSplitter } from "../core/TokenGraphemeSplitter";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { VscodeIDE } from "../ide/vscode/VscodeIDE";
@@ -28,6 +29,7 @@ const graphConstructors: Partial<ConstructorMap<Graph>> = {
   debug: Debug,
   testCaseRecorder: TestCaseRecorder,
   cheatsheet: Cheatsheet,
+  statusBarItem: StatusBarItem,
   tokenGraphemeSplitter: TokenGraphemeSplitter,
   ide: VscodeIDE,
 };

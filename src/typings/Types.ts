@@ -10,6 +10,7 @@ import FontMeasurements from "../core/FontMeasurements";
 import HatTokenMap from "../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
+import StatusBarItem from "../core/StatusBarItem";
 import { TokenGraphemeSplitter } from "../core/TokenGraphemeSplitter";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { IDE } from "../ide/ide.types";
@@ -157,6 +158,11 @@ export interface Graph {
    * Used to display cheatsheet
    */
   readonly cheatsheet: Cheatsheet;
+
+  /**
+   * Creates a VSCode status bar item
+   */
+  readonly statusBarItem: StatusBarItem;
 
   /**
    * Used to split a token into a graphemes that can be used for a hat placement
