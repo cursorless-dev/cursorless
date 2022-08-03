@@ -92,7 +92,7 @@ const tests: SplittingModeTestCases[] = [
   },
   {
     tokenHatSplittingMode: {
-      accentsToPreserve: ["\u00e4", "\u00e5"], // äå, NFC-normalised
+      lettersToPreserve: ["\u00e4", "\u00e5"], // äå, NFC-normalised
     },
     extraTestCases: [
       [
@@ -143,7 +143,7 @@ const tests: SplittingModeTestCases[] = [
   },
   {
     tokenHatSplittingMode: {
-      accentsToPreserve: ["\u0061\u0308", "\u0061\u030a"], // äå, NFD-normalised
+      lettersToPreserve: ["\u0061\u0308", "\u0061\u030a"], // äå, NFD-normalised
     },
     extraTestCases: [
       [
@@ -165,7 +165,7 @@ const tests: SplittingModeTestCases[] = [
   {
     tokenHatSplittingMode: {
       preserveCase: true,
-      accentsToPreserve: ["\u00e4", "\u00e5"], // äå, NFC-normalised
+      lettersToPreserve: ["\u00e4", "\u00e5"], // äå, NFC-normalised
     },
     extraTestCases: [
       [
@@ -186,7 +186,7 @@ const tests: SplittingModeTestCases[] = [
   },
   {
     tokenHatSplittingMode: {
-      accentsToPreserve: ["\u00c4", "\u00c5"], // ÄÅ, NFC-normalised
+      lettersToPreserve: ["\u00c4", "\u00c5"], // ÄÅ, NFC-normalised
     },
     extraTestCases: [
       [
@@ -238,7 +238,7 @@ const graph = makeGraph({
 
 const tokenHatSplittingDefaults: TokenHatSplittingMode = {
   preserveCase: false,
-  accentsToPreserve: [],
+  lettersToPreserve: [],
   symbolsToPreserve: [],
 };
 

@@ -17,11 +17,11 @@ The above setup will allow you to refer to any Unicode token. However, if you ha
 
 If you have a separate alphabet for uppercase letters as part of `<user.any_alphanumeric_key>`, you can enable the _Cursorless › Token Hat Splitting Mode: **Preserve Case**_ setting, and Cursorless will distinguish between lower and uppercase letters.
 
-### Preserving accents
+### Preserving special letters
 
-If you have terms in `<user.any_alphanumeric_key>` for letters with accents, such as `é`, you can use the following setting:
+If you have terms in `<user.any_alphanumeric_key>` for letters with accents, such as `é`, or other letters, such as `ø` or `ꝏ`, you can use the following setting:
 
-#### _Cursorless › Token Hat Splitting Mode: **Accents To Preserve**_
+#### _Cursorless › Token Hat Splitting Mode: **Letters To Preserve**_
 
 Add any accented letters to this list that you have a spoken form for in `<user.any_alphanumeric_key>`. Cursorless will then preserve their accents during normalization. Note that Cursorless will still do case normalisation for these letters if you have [case preservation](#preserving-case) on. So, for example, if the list contains `ä`, and you'd like to refer to the token `Ällo` with a hat over the first letter (`Ä`), you can use your spoken form for `ä`.
 

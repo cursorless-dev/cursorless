@@ -96,13 +96,13 @@ export class TokenGraphemeSplitter {
   }
 
   private updateTokenHatSplittingMode() {
-    const { accentsToPreserve, symbolsToPreserve, ...rest } =
+    const { lettersToPreserve, symbolsToPreserve, ...rest } =
       this.graph.ide.configuration.getOwnConfiguration(
         "tokenHatSplittingMode"
       )!;
 
     this.tokenHatSplittingMode = {
-      accentsToPreserve: accentsToPreserve.map((grapheme) =>
+      lettersToPreserve: lettersToPreserve.map((grapheme) =>
         grapheme.toLowerCase().normalize("NFC")
       ),
       symbolsToPreserve: symbolsToPreserve.map((grapheme) =>
@@ -138,7 +138,7 @@ export class TokenGraphemeSplitter {
    * 3. Transforms grapheme to lowercase if
    *    {@link TokenHatSplittingMode.preserveCase} is `false`
    * 4. Strips diacritics from the grapheme if the grapheme doesn't appear in
-   *    {@link TokenHatSplittingMode.accentsToPreserve}
+   *    {@link TokenHatSplittingMode.lettersToPreserve}
    * 5. If the grapheme doesn't match {@link KNOWN_GRAPHEME_MATCHER}, maps the
    *    grapheme to the constant {@link UNKNOWN}, so that it can be referred to
    *    using "special", "red special", etc.
@@ -148,7 +148,7 @@ export class TokenGraphemeSplitter {
    * @returns The normalised grapheme
    */
   normalizeGrapheme(rawGraphemeText: string): string {
-    const { preserveCase, accentsToPreserve, symbolsToPreserve } =
+    const { preserveCase, lettersToPreserve, symbolsToPreserve } =
       this.tokenHatSplittingMode;
 
     // We always normalise the grapheme so that the user doesn't get confusing
@@ -165,7 +165,7 @@ export class TokenGraphemeSplitter {
       returnValue = returnValue.toLowerCase();
     }
 
-    if (!accentsToPreserve.includes(returnValue.toLowerCase())) {
+    if (!lettersToPreserve.includes(returnValue.toLowerCase())) {
       // Separate into naked char and combinining diacritic, then remove the
       // diacritic
       returnValue = returnValue.normalize("NFD").replace(/\p{M}/gu, "");
