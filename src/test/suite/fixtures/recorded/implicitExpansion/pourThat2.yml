@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+  spokenForm: pour that
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: that}
+  usePrePhraseSnapshot: true
+  action: {name: editNewLineAfter}
+initialState:
+  documentContents: |+
+    hello world
+
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks: {}
+  thatMark:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 11}
+finalState:
+  documentContents: |+
+    hello world
+
+
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 11}
+fullTargets: [{type: primitive, mark: {type: that}, modifiers: []}]

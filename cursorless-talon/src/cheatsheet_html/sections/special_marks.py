@@ -1,4 +1,4 @@
-from ..get_list import get_list, get_raw_list, make_dict_readable
+from ..get_list import get_lists, get_raw_list, make_dict_readable
 
 
 def get_special_marks():
@@ -14,4 +14,7 @@ def get_special_marks():
         },
     )
 
-    return [*get_list("special_mark", "mark"), *line_direction_marks]
+    return [
+        *get_lists(["special_mark", "unknown_symbol"], "mark"),
+        *line_direction_marks,
+    ]
