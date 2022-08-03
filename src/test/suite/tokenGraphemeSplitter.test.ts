@@ -40,75 +40,6 @@ const commonTestCases: TestCase[] = [
 const tests: SplittingModeTestCases[] = [
   {
     tokenHatSplittingMode: {
-      preserveAccents: true,
-    },
-    extraTestCases: [
-      [
-        "\u00F1", // ñ as single codepoint
-        [["\u00F1", 0, 1]],
-      ],
-      [
-        "\u006E\u0303", // ñ using combining mark
-        [["\u00F1", 0, 2]],
-      ],
-      [
-        "\u00D1", // Ñ as single codepoint
-        [["\u00F1", 0, 1]],
-      ],
-      [
-        "\u004E\u0303", // Ñ using combining mark
-        [["\u00F1", 0, 2]],
-      ],
-      [
-        "Hi",
-        [
-          ["h", 0, 1],
-          ["i", 1, 2],
-        ],
-      ],
-      ["ꝏ", [["ꝏ", 0, 1]]],
-      ["ø", [["ø", 0, 1]]],
-      ["Ꝏ", [["ꝏ", 0, 1]]],
-      ["Ø", [["ø", 0, 1]]],
-    ],
-  },
-  {
-    tokenHatSplittingMode: {
-      preserveCase: true,
-      preserveAccents: true,
-    },
-    extraTestCases: [
-      [
-        "\u00F1", // ñ as single codepoint
-        [["\u00F1", 0, 1]],
-      ],
-      [
-        "\u006E\u0303", // ñ using combining mark
-        [["\u00F1", 0, 2]],
-      ],
-      [
-        "\u00D1", // Ñ as single codepoint
-        [["\u00D1", 0, 1]],
-      ],
-      [
-        "\u004E\u0303", // Ñ using combining mark
-        [["\u00D1", 0, 2]],
-      ],
-      [
-        "Hi",
-        [
-          ["H", 0, 1],
-          ["i", 1, 2],
-        ],
-      ],
-      ["ꝏ", [["ꝏ", 0, 1]]],
-      ["ø", [["ø", 0, 1]]],
-      ["Ꝏ", [["Ꝏ", 0, 1]]],
-      ["Ø", [["Ø", 0, 1]]],
-    ],
-  },
-  {
-    tokenHatSplittingMode: {
       preserveCase: true,
     },
     extraTestCases: [
@@ -307,7 +238,6 @@ const graph = makeGraph({
 
 const tokenHatSplittingDefaults: TokenHatSplittingMode = {
   preserveCase: false,
-  preserveAccents: false,
   accentsToPreserve: [],
   symbolsToPreserve: [],
 };

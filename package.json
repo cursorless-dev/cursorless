@@ -160,11 +160,6 @@
 					"default": false,
 					"markdownDescription": "Whether to distinguish between uppercase and lower case letters for hats.  Set this to `true` if you have separate terms for uppercase letters in your `<user.any_alphanumeric_key>` capture."
 				},
-				"cursorless.tokenHatSplittingMode.preserveAccents": {
-					"type": "boolean",
-					"default": false,
-					"description": "Whether to preserve accents when constructing hats"
-				},
 				"cursorless.tokenHatSplittingMode.accentsToPreserve": {
 					"type": "array",
 					"items": {
