@@ -1,5 +1,6 @@
 import { isEqual } from "lodash";
 import { Range, Selection, TextEditor } from "vscode";
+import { NoContainingScopeError } from "../../errors";
 import { EditNewContext, Target } from "../../typings/target.types";
 import { Position } from "../../typings/targetDescriptor.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
@@ -8,7 +9,7 @@ import { isSameType } from "../../util/typeUtils";
 import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
   createContinuousRange,
-  createContinuousRangeWeakTarget,
+  createContinuousRangeUntypedTarget,
 } from "../targetUtil/createContinuousRange";
 
 /** Parameters supported by most target classes */
@@ -27,7 +28,8 @@ export interface CloneWithParameters {
 export default abstract class BaseTarget implements Target {
   protected readonly state: CommonTargetParameters;
   isLine = false;
-  isWeak = false;
+  hasExplicitScopeType = true;
+  hasExplicitRange = true;
   isRaw = false;
   isNotebookCell = false;
 
@@ -100,10 +102,10 @@ export default abstract class BaseTarget implements Target {
   }
 
   getInteriorStrict(): Target[] {
-    throw Error("No available interior");
+    throw new NoContainingScopeError("interior");
   }
   getBoundaryStrict(): Target[] {
-    throw Error("No available boundaries");
+    throw new NoContainingScopeError("boundary");
   }
 
   readonly cloneWith = (parameters: CloneWithParameters) => {
@@ -138,7 +140,7 @@ export default abstract class BaseTarget implements Target {
       });
     }
 
-    return createContinuousRangeWeakTarget(
+    return createContinuousRangeUntypedTarget(
       isReversed,
       this,
       endTarget,

@@ -1,15 +1,10 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import * as sinon from "sinon";
 import { openNewEditor } from "../openNewEditor";
+import { standardSuiteSetup } from "./standardSuiteSetup";
 
 suite("scroll", async function () {
-  this.timeout("100s");
-  this.retries(3);
-
-  teardown(() => {
-    sinon.restore();
-  });
+  standardSuiteSetup(this);
 
   test("top whale", topWhale);
   test("bottom whale", bottomWhale);

@@ -361,7 +361,7 @@ export class TestCaseRecorder {
       fs.mkdirSync(this.targetDirectory, { recursive: true });
     }
 
-    let filename = camelize(testCase.command.spokenForm!);
+    const filename = camelize(testCase.command.spokenForm!);
     let filePath = path.join(this.targetDirectory, `${filename}.yml`);
 
     let i = 2;

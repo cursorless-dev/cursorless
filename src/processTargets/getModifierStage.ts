@@ -10,8 +10,9 @@ import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
 } from "./modifiers/InteriorStage";
+import ItemStage from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
-import ModifyIfWeakStage from "./modifiers/ModifyIfWeakStage";
+import ModifyIfUntypedStage from "./modifiers/ModifyIfUntypedStage";
 import OrdinalRangeSubTokenStage, {
   OrdinalRangeSubTokenModifier,
 } from "./modifiers/OrdinalRangeSubTokenStage";
@@ -69,8 +70,8 @@ export default (modifier: Modifier): ModifierStage => {
       );
     case "cascading":
       return new CascadingStage(modifier);
-    case "modifyIfWeak":
-      return new ModifyIfWeakStage(modifier);
+    case "modifyIfUntyped":
+      return new ModifyIfUntypedStage(modifier);
   }
 };
 
@@ -98,6 +99,8 @@ const getContainingScopeStage = (
       );
     case "url":
       return new UrlStage(modifier as UrlModifier);
+    case "collectionItem":
+      return new ItemStage(modifier);
     case "surroundingPair":
       return new SurroundingPairStage(
         modifier as ContainingSurroundingPairModifier

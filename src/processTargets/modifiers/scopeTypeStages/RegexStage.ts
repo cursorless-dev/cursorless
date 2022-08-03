@@ -26,13 +26,12 @@ class RegexStage implements ModifierStage {
 
   private getEveryTarget(target: Target): ScopeTypeTarget[] {
     const { contentRange, editor } = target;
-    const { isEmpty } = contentRange;
-    const start = isEmpty
-      ? editor.document.lineAt(contentRange.start).range.start
-      : contentRange.start;
-    const end = isEmpty
-      ? editor.document.lineAt(contentRange.end).range.end
-      : contentRange.end;
+    const start = target.hasExplicitRange
+      ? contentRange.start
+      : editor.document.lineAt(contentRange.start).range.start;
+    const end = target.hasExplicitRange
+      ? contentRange.end
+      : editor.document.lineAt(contentRange.end).range.end;
     const targets: ScopeTypeTarget[] = [];
 
     for (let i = start.line; i <= end.line; ++i) {
@@ -129,7 +128,7 @@ export class NonWhitespaceSequenceStage extends RegexStage {
 
 // taken from https://regexr.com/3e6m0
 const URL_REGEX =
-  /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+  /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g;
 
 export type UrlModifier = (ContainingScopeModifier | EveryScopeModifier) & {
   scopeType: { type: "url" };

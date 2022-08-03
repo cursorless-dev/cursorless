@@ -1,4 +1,6 @@
+from collections.abc import Callable
 from dataclasses import dataclass
+from typing import Any
 
 from talon import Module
 
@@ -11,7 +13,7 @@ from .homophones import run_homophones_action
 class CallbackAction:
     term: str
     identifier: str
-    callback: callable
+    callback: Callable[[dict], Any]
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.

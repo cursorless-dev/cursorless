@@ -1,26 +1,26 @@
 import { SyntaxNode } from "web-tree-sitter";
-import {
-  NodeMatcher,
-  NodeFinder,
-  SelectionExtractor,
-  NodeMatcherAlternative,
-  SelectionWithEditor,
-} from "../typings/Types";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import {
-  simpleSelectionExtractor,
+  NodeFinder,
+  NodeMatcher,
+  NodeMatcherAlternative,
+  SelectionExtractor,
+  SelectionWithEditor,
+} from "../typings/Types";
+import {
+  ancestorChainNodeFinder,
+  argumentNodeFinder,
+  chainedNodeFinder,
+  patternFinder,
+  typedNodeFinder,
+} from "./nodeFinders";
+import {
   argumentSelectionExtractor,
   selectWithLeadingDelimiter,
   selectWithTrailingDelimiter,
+  simpleSelectionExtractor,
   unwrapSelectionExtractor as conditionSelectionExtractor,
 } from "./nodeSelectors";
-import {
-  typedNodeFinder,
-  patternFinder,
-  argumentNodeFinder,
-  chainedNodeFinder,
-  ancestorChainNodeFinder,
-} from "./nodeFinders";
 
 export function matcher(
   finder: NodeFinder,
@@ -179,7 +179,7 @@ export function createPatternMatchers(
   nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>>
 ): Record<SimpleScopeTypeType, NodeMatcher> {
   Object.keys(nodeMatchers).forEach((scopeType: SimpleScopeTypeType) => {
-    let matcher = nodeMatchers[scopeType];
+    const matcher = nodeMatchers[scopeType];
     if (Array.isArray(matcher)) {
       nodeMatchers[scopeType] = patternMatcher(...matcher);
     } else if (typeof matcher === "string") {

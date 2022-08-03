@@ -1,4 +1,4 @@
-import { weakContainingLineStage } from "../../processTargets/modifiers/commonWeakContainingScopeStages";
+import { containingLineIfUntypedStage } from "../../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
 import { Target } from "../../typings/target.types";
@@ -14,7 +14,7 @@ import { runEditTargets } from "./runEditTargets";
 
 export class EditNew implements Action {
   getFinalStages(): ModifierStage[] {
-    return [weakContainingLineStage];
+    return [containingLineIfUntypedStage];
   }
 
   constructor(private graph: Graph) {

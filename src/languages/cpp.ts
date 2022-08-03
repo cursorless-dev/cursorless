@@ -113,7 +113,6 @@ const nodeMatchers: Partial<
     ],
     [":", "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="]
   ),
-  collectionItem: argumentMatcher("initializer_list"),
   argumentOrParameter: argumentMatcher("parameter_list", "argument_list"),
   attribute: "attribute",
 };

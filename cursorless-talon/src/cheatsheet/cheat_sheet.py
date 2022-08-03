@@ -1,5 +1,5 @@
 import math
-import webbrowser
+from typing import Optional
 
 from talon import Module, actions, cron, skia, ui
 from talon.canvas import Canvas
@@ -161,7 +161,7 @@ class CheatSheet:
         self.draw_items(canvas, items)
 
     def draw_multicolumn_section(
-        self, canvas, items, column_names: str, scopes_limit=25
+        self, canvas, items, column_names: list[str], scopes_limit=25
     ):
         items_0 = slice_dict(items, 0, scopes_limit)
         items_1 = slice_dict(items, scopes_limit)
@@ -301,10 +301,6 @@ class Actions:
             cheat_sheet = CheatSheet()
             actions.mode.enable("user.cursorless_cheat_sheet")
 
-    def cursorless_open_instructions():
-        """Open web page with cursorless instructions"""
-        webbrowser.open(instructions_url)
-
 
 def get_y(canvas):
     return canvas.y + outer_padding
@@ -338,6 +334,6 @@ def is_in_rect(canvas, mouse_pos, rect):
     )
 
 
-def slice_dict(dict: dict, start: int, end: int = None):
+def slice_dict(dict: dict, start: int, end: Optional[int] = None):
     keys = sorted(dict)[start:end]
     return {key: dict[key] for key in keys}
