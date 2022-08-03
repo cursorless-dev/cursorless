@@ -28,7 +28,6 @@ class Actions:
                 "version": 0,
                 "spokenFormInfo": actions.user.cursorless_cheat_sheet_get_json(),
                 "outputPath": str(cheatsheet_out_path),
-                "updateDefaults": True,
             },
         )
         webbrowser.open(cheatsheet_out_path.as_uri())
