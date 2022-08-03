@@ -54,7 +54,7 @@ const KNOWN_GRAPHEME_REGEXP_STR = ["[a-zA-Z0-9]", KNOWN_SYMBOL_REGEXP_STR].join(
  * allocation, and can be referred to using "special", "red special", etc.
  */
 const KNOWN_GRAPHEME_MATCHER = new RegExp(
-  `^${KNOWN_GRAPHEME_REGEXP_STR}$`,
+  `^(${KNOWN_GRAPHEME_REGEXP_STR})$`,
   "u"
 );
 

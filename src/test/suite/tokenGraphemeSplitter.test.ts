@@ -35,6 +35,7 @@ const commonTestCases: TestCase[] = [
   ],
   ["_", [["_", 0, 1]]],
   ["😄", [[UNKNOWN, 0, 2]]],
+  ["æ", [[UNKNOWN, 0, 1]]],
 ];
 
 const tests: SplittingModeTestCases[] = [
