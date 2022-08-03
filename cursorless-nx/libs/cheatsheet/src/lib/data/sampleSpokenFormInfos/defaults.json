@@ -19,7 +19,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "breakpoint <T>",
+							"spokenForm": "break point <T>",
 							"description": "Toggle line breakpoint"
 						}
 					]
@@ -900,81 +900,79 @@
 			"items": [
 				{
 					"id": "excludeInterior",
-					"type": "modifiers",
+					"type": "modifier",
 					"variations": [
 						{
-							"spokenForm": "bound",
+							"spokenForm": "bounds",
 							"description": "Bounding paired delimiters"
 						}
 					]
 				},
 				{
 					"id": "toRawSelection",
-					"type": "modifiers",
+					"type": "modifier",
 					"variations": [
 						{
 							"spokenForm": "just",
-							"description": "Mark without inference"
+							"description": "No inference"
 						}
 					]
 				},
 				{
 					"id": "leading",
-					"type": "modifiers",
+					"type": "modifier",
 					"variations": [
 						{
 							"spokenForm": "leading",
-							"description": "Leading removal range"
+							"description": "Leading delimiter range"
 						}
 					]
 				},
 				{
 					"id": "trailing",
-					"type": "modifiers",
+					"type": "modifier",
 					"variations": [
 						{
 							"spokenForm": "trailing",
-							"description": "Trailing removal range"
+							"description": "Trailing delimiter range"
 						}
 					]
 				},
 				{
 					"id": "interiorOnly",
-					"type": "modifiers",
+					"type": "modifier",
 					"variations": [
 						{
 							"spokenForm": "inside",
-							"description": "Inside paired delimiters"
+							"description": "Interior only"
 						}
 					]
 				},
 				{
 					"id": "extendThroughStartOf",
-					"type": "modifiers",
+					"type": "modifier",
 					"variations": [
 						{
 							"spokenForm": "head",
-							"description": "Start of line to mark"
+							"description": "Extend through start of line"
+						},
+						{
+							"spokenForm": "head <M>",
+							"description": "Extend through start of <M>"
 						}
 					]
 				},
 				{
 					"id": "extendThroughEndOf",
-					"type": "modifiers",
+					"type": "modifier",
 					"variations": [
 						{
 							"spokenForm": "tail",
-							"description": "Mark to end of line"
-						}
-					]
-				},
-				{
-					"id": "verticalRange",
-					"type": "modifiers",
-					"variations": [
+							"description": "Extend through end of line"
+						},
 						{
-							"spokenForm": "slice",
-							"description": "Vertical range"
+							"spokenForm": "tail <M>",
+							"description": "Extend through end of <M>"
 						}
 					]
 				}
@@ -1161,6 +1159,16 @@
 					]
 				},
 				{
+					"id": "unknownSymbol",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "special",
+							"description": "Unknown symbol"
+						}
+					]
+				},
+				{
 					"id": "lineNumberModulo100",
 					"type": "mark",
 					"variations": [
@@ -1253,8 +1261,22 @@
 					]
 				},
 				{
+					"id": "rangeExclusive",
+					"type": "compoundTargetConnective",
+					"variations": [
+						{
+							"spokenForm": "<T1> between <T2>",
+							"description": "between T1 and T2"
+						},
+						{
+							"spokenForm": "between <T>",
+							"description": "between S and T"
+						}
+					]
+				},
+				{
 					"id": "rangeInclusive",
-					"type": "action",
+					"type": "compoundTargetConnective",
 					"variations": [
 						{
 							"spokenForm": "<T1> past <T2>",
@@ -1263,6 +1285,34 @@
 						{
 							"spokenForm": "past <T>",
 							"description": "S through T"
+						}
+					]
+				},
+				{
+					"id": "rangeExcludingEnd",
+					"type": "compoundTargetConnective",
+					"variations": [
+						{
+							"spokenForm": "<T1> until <T2>",
+							"description": "T1 until start of T2"
+						},
+						{
+							"spokenForm": "until <T>",
+							"description": "S until start of T"
+						}
+					]
+				},
+				{
+					"id": "verticalRange",
+					"type": "compoundTargetConnective",
+					"variations": [
+						{
+							"spokenForm": "<T1> slice <T2>",
+							"description": "T1 vertically through T2"
+						},
+						{
+							"spokenForm": "slice <T>",
+							"description": "S vertically through T"
 						}
 					]
 				}

@@ -7,6 +7,7 @@ from talon import Module, actions
 from .get_list import get_list, get_lists
 from .sections.actions import get_actions
 from .sections.compound_targets import get_compound_targets
+from .sections.modifiers import get_modifiers
 from .sections.scopes import get_scopes
 from .sections.special_marks import get_special_marks
 
@@ -27,6 +28,7 @@ class Actions:
                 "version": 0,
                 "spokenFormInfo": actions.user.cursorless_cheat_sheet_get_json(),
                 "outputPath": str(cheatsheet_out_path),
+                "updateDefaults": True,
             },
         )
         webbrowser.open(cheatsheet_out_path.as_uri())
@@ -48,24 +50,7 @@ class Actions:
                 {
                     "name": "Modifiers",
                     "id": "modifiers",
-                    "items": get_lists(
-                        [
-                            "simple_modifier",
-                            "interior_modifier",
-                            "head_tail_modifier",
-                            "range_type",
-                        ],
-                        "modifiers",
-                        {
-                            "excludeInterior": "Bounding paired delimiters",
-                            "extendThroughStartOf": "Start of line to mark",
-                            "interiorOnly": "Inside paired delimiters",
-                            "toRawSelection": "Mark without inference",
-                            "extendThroughEndOf": "Mark to end of line",
-                            "leading": "Leading delimiter range",
-                            "trailing": "Trailing delimiter range",
-                        },
-                    ),
+                    "items": get_modifiers(),
                 },
                 {
                     "name": "Paired delimiters",

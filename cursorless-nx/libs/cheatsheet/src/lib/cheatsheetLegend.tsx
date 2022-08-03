@@ -14,6 +14,12 @@ const cheatsheetLegend: CheatsheetLegend = [
     id: 'formatter',
   },
   {
+    term: 'M',
+    definition: 'Cursorless modifier',
+    link: 'https://www.cursorless.org/docs/#modifiers',
+    id: 'modifier',
+  },
+  {
     term: 'P',
     definition: 'Paired delimiter',
     link: '#pairedDelimiters',
