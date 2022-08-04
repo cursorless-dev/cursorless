@@ -1,30 +1,42 @@
 import { Graph } from "../typings/Types";
 import { ActionRecord } from "./actions.types";
+import {
+  CommentLines,
+  ExtractVariable,
+  IndentLines,
+  OutdentLines,
+  Rename,
+  RevealDefinition,
+  RevealTypeDefinition,
+  ShowDebugHover,
+  ShowHover,
+  ShowQuickFix,
+  ShowReferences,
+} from "./ActionsMakeshift";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
-import { CommentLines } from "./Comment";
+import { Copy, Cut } from "./CutCopy";
+import Deselect from "./Deselect";
+import { EditNew, EditNewAfter, EditNewBefore } from "./EditNew";
+import ExecuteCommand from "./ExecuteCommand";
+import { FindInFiles } from "./Find";
+import { Fold, Unfold } from "./Fold";
+import FollowLink from "./FollowLink";
+import GenerateSnippet from "./GenerateSnippet";
+import GetText from "./GetText";
+import Highlight from "./Highlight";
 import {
   CopyContentAfter as InsertCopyAfter,
   CopyContentBefore as InsertCopyBefore,
 } from "./InsertCopy";
-import { Copy, Cut } from "./CutCopy";
-import { Paste } from "./Paste";
-import Deselect from "./Deselect";
-import { EditNewBefore, EditNewAfter, EditNew } from "./EditNew";
-import ExecuteCommand from "./ExecuteCommand";
-import ExtractVariable from "./ExtractVariable";
-import { FindInFiles } from "./Find";
-import { Fold, Unfold } from "./Fold";
-import FollowLink from "./FollowLink";
-import GetText from "./GetText";
-import Highlight from "./Highlight";
-import { IndentLines, OutdentLines } from "./Indent";
 import {
   InsertEmptyLineAbove as InsertEmptyLineBefore,
   InsertEmptyLineBelow as InsertEmptyLineAfter,
   InsertEmptyLinesAround,
 } from "./InsertEmptyLines";
+import InsertSnippet from "./InsertSnippet";
+import { Paste } from "./Paste";
 import Remove from "./Remove";
 import Replace from "./Replace";
 import Rewrap from "./Rewrap";
@@ -38,8 +50,6 @@ import { Random, Reverse, Sort } from "./Sort";
 import ToggleBreakpoint from "./ToggleBreakpoint";
 import Wrap from "./Wrap";
 import WrapWithSnippet from "./WrapWithSnippet";
-import InsertSnippet from "./InsertSnippet";
-import GenerateSnippet from "./GenerateSnippet";
 
 class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
@@ -57,8 +67,8 @@ class Actions implements ActionRecord {
   findInWorkspace = new FindInFiles(this.graph);
   foldRegion = new Fold(this.graph);
   followLink = new FollowLink(this.graph);
-  getText = new GetText(this.graph);
   generateSnippet = new GenerateSnippet(this.graph);
+  getText = new GetText(this.graph);
   highlight = new Highlight(this.graph);
   indentLine = new IndentLines(this.graph);
   insertCopyAfter = new InsertCopyAfter(this.graph);
@@ -72,8 +82,11 @@ class Actions implements ActionRecord {
   pasteFromClipboard = new Paste(this.graph);
   randomizeTargets = new Random(this.graph);
   remove = new Remove(this.graph);
+  rename = new Rename(this.graph);
   replace = new Replace(this.graph);
   replaceWithTarget = new Bring(this.graph);
+  revealDefinition = new RevealDefinition(this.graph);
+  revealTypeDefinition = new RevealTypeDefinition(this.graph);
   reverseTargets = new Reverse(this.graph);
   rewrapWithPairedDelimiter = new Rewrap(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
@@ -82,6 +95,10 @@ class Actions implements ActionRecord {
   setSelection = new SetSelection(this.graph);
   setSelectionAfter = new SetSelectionAfter(this.graph);
   setSelectionBefore = new SetSelectionBefore(this.graph);
+  showDebugHover = new ShowDebugHover(this.graph);
+  showHover = new ShowHover(this.graph);
+  showQuickFix = new ShowQuickFix(this.graph);
+  showReferences = new ShowReferences(this.graph);
   sortTargets = new Sort(this.graph);
   swapTargets = new Swap(this.graph);
   toggleLineBreakpoint = new ToggleBreakpoint(this.graph);

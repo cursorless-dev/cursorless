@@ -7,14 +7,15 @@ simple_action_defaults = {
     "break point": "toggleLineBreakpoint",
     "carve": "cutToClipboard",
     "center": "scrollToCenter",
-    "chuck": "remove",
     "change": "clearAndSetSelection",
+    "chuck": "remove",
     "clone up": "insertCopyBefore",
     "clone": "insertCopyAfter",
     "comment": "toggleLineComment",
     "copy": "copyToClipboard",
     "crown": "scrollToTop",
     "dedent": "outdentLine",
+    "define": "revealDefinition",
     "drink": "editNewLineBefore",
     "drop": "insertEmptyLineBefore",
     "extract": "extractVariable",
@@ -23,17 +24,23 @@ simple_action_defaults = {
     "follow": "followLink",
     "give": "deselect",
     "highlight": "highlight",
+    "hover": "showHover",
     "indent": "indentLine",
+    "inspect": "showDebugHover",
     "post": "setSelectionAfter",
     "pour": "editNewLineAfter",
     "pre": "setSelectionBefore",
     "puff": "insertEmptyLinesAround",
-    "shuffle": "randomizeTargets",
+    "quick fix": "showQuickFix",
+    "reference": "showReferences",
+    "rename": "rename",
     "reverse": "reverseTargets",
     "scout all": "findInWorkspace",
+    "shuffle": "randomizeTargets",
     "snippet make": "generateSnippet",
     "sort": "sortTargets",
     "take": "setSelection",
+    "type deaf": "revealTypeDefinition",
     "unfold": "unfoldRegion",
 }
 
@@ -46,6 +53,7 @@ positional_action_defaults = {
 # Don't wait for these actions to finish, usually because they hang on some kind of user interaction
 no_wait_actions = [
     "generateSnippet",
+    "rename",
 ]
 
 mod = Module()
