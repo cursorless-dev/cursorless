@@ -77,6 +77,10 @@
 			{
 				"command": "cursorless.resumeRecording",
 				"title": "Cursorless: Resume test case recording"
+			},
+			{
+				"command": "cursorless.showDocumentation",
+				"title": "Cursorless: Show documentation"
 			}
 		],
 		"colors": [
@@ -535,7 +539,16 @@
 				"fileMatch": "*.cursorless-snippets",
 				"url": "./schemas/cursorless-snippets.json"
 			}
-		]
+		],
+		"icons": {
+			"cursorless-icon": {
+				"description": "Cursorless icon",
+				"default": {
+					"fontPath": "fonts/cursorless.woff",
+					"fontCharacter": "\\E900"
+				}
+			}
+		}
 	},
 	"sponsor": {
 		"url": "https://github.com/sponsors/pokey"

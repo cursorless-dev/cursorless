@@ -31,6 +31,7 @@ export async function activate(context: vscode.ExtensionContext) {
   graph.hatTokenMap.init();
   graph.testCaseRecorder.init();
   graph.cheatsheet.init();
+  graph.statusBarItem.init();
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
