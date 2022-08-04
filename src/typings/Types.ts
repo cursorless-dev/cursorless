@@ -236,16 +236,11 @@ export interface TokenHatSplittingMode {
   preserveCase: boolean;
 
   /**
-   * Whether to preserve accents when constructing hats
-   */
-  preserveAccents: boolean;
-
-  /**
    * A list of characters whose accents should not be stripped. This can be
    * used, for example, if you would like to strip all accents except for those
    * of a few characters, which you can add to this string.
    */
-  accentsToPreserve: string[];
+  lettersToPreserve: string[];
 
   /**
    * A list of symbols that shouldn't be normalized by the token hat splitter.
