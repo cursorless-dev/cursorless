@@ -7,7 +7,9 @@ from talon import Module, actions
 from .get_list import get_list, get_lists
 from .sections.actions import get_actions
 from .sections.compound_targets import get_compound_targets
+from .sections.modifiers import get_modifiers
 from .sections.scopes import get_scopes
+from .sections.special_marks import get_special_marks
 
 mod = Module()
 
@@ -45,6 +47,11 @@ class Actions:
                     "items": get_scopes(),
                 },
                 {
+                    "name": "Modifiers",
+                    "id": "modifiers",
+                    "items": get_modifiers(),
+                },
+                {
                     "name": "Paired delimiters",
                     "id": "pairedDelimiters",
                     "items": get_lists(
@@ -59,7 +66,7 @@ class Actions:
                 {
                     "name": "Special marks",
                     "id": "specialMarks",
-                    "items": get_lists(["special_mark", "unknown_symbol"], "mark"),
+                    "items": get_special_marks(),
                 },
                 {
                     "name": "Positions",
