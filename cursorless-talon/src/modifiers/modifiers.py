@@ -44,7 +44,6 @@ head_tail_swallowed_modifiers = [
 ]
 
 modifiers = [
-    "<user.cursorless_position>",  # before, end of
     "<user.cursorless_interior_modifier>",  # inside
     "<user.cursorless_head_tail_modifier>",  # head, tail
     *head_tail_swallowed_modifiers,
