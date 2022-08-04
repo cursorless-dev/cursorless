@@ -1,4 +1,4 @@
-import { escapeRegExp } from "lodash";
+import { deburr, escapeRegExp } from "lodash";
 import { Disposable } from "../ide/ide.types";
 import { Graph, TokenHatSplittingMode } from "../typings/Types";
 import { Notifier } from "../util/Notifier";
@@ -42,13 +42,11 @@ const KNOWN_SYMBOLS = [
   "£",
   '"',
 ];
-const KNOWN_SYMBOL_REGEXP = KNOWN_SYMBOLS.map(escapeRegExp).join("|");
+const KNOWN_SYMBOL_REGEXP_STR = KNOWN_SYMBOLS.map(escapeRegExp).join("|");
 
-const KNOWN_GRAPHEME_REGEXP_STR = [
-  "\\p{L}\\p{M}*",
-  "[0-9]",
-  KNOWN_SYMBOL_REGEXP,
-].join("|");
+const KNOWN_GRAPHEME_REGEXP_STR = ["[a-zA-Z0-9]", KNOWN_SYMBOL_REGEXP_STR].join(
+  "|"
+);
 
 /**
  * Any token *not* matched by this regex will be mapped to {@link UNKNOWN}, so
@@ -56,7 +54,7 @@ const KNOWN_GRAPHEME_REGEXP_STR = [
  * allocation, and can be referred to using "special", "red special", etc.
  */
 const KNOWN_GRAPHEME_MATCHER = new RegExp(
-  `^${KNOWN_GRAPHEME_REGEXP_STR}$`,
+  `^(${KNOWN_GRAPHEME_REGEXP_STR})$`,
   "u"
 );
 
@@ -96,13 +94,13 @@ export class TokenGraphemeSplitter {
   }
 
   private updateTokenHatSplittingMode() {
-    const { accentsToPreserve, symbolsToPreserve, ...rest } =
+    const { lettersToPreserve, symbolsToPreserve, ...rest } =
       this.graph.ide.configuration.getOwnConfiguration(
         "tokenHatSplittingMode"
       )!;
 
     this.tokenHatSplittingMode = {
-      accentsToPreserve: accentsToPreserve.map((grapheme) =>
+      lettersToPreserve: lettersToPreserve.map((grapheme) =>
         grapheme.toLowerCase().normalize("NFC")
       ),
       symbolsToPreserve: symbolsToPreserve.map((grapheme) =>
@@ -132,29 +130,25 @@ export class TokenGraphemeSplitter {
    * configuration.  Proceeds as follows:
    *
    * 1. Runs text through Unicode NFC normalization to ensure that characters
-   * that look identical are handled the same (eg whether they use combining
-   * mark or single codepoint for diacritics).
+   *    that look identical are handled the same (eg whether they use combining
+   *    mark or single codepoint for diacritics).
    * 2. If the grapheme is a known grapheme, returns it.
    * 3. Transforms grapheme to lowercase if
-   * {@link TokenHatSplittingMode.preserveCase} is `false`
-   * 4. Strips diacritics from the grapheme if
-   * {@link TokenHatSplittingMode.preserveAccents} is `false` and the grapheme
-   * doesn't appear in {@link TokenHatSplittingMode.accentsToPreserve}
+   *    {@link TokenHatSplittingMode.preserveCase} is `false`
+   * 3. Returns the (possibly case-normalised) grapheme if it appears in
+   *    {@link TokenHatSplittingMode.lettersToPreserve}
+   * 4. Strips diacritics from the grapheme
    * 5. If the grapheme doesn't match {@link KNOWN_GRAPHEME_MATCHER}, maps the
-   * grapheme to the constant {@link UNKNOWN}, so that it can be referred to
-   * using "special", "red special", etc.
+   *    grapheme to the constant {@link UNKNOWN}, so that it can be referred to
+   *    using "special", "red special", etc.
    * 6. Returns the grapheme.
    *
    * @param rawGraphemeText The raw grapheme text to normalise
    * @returns The normalised grapheme
    */
   normalizeGrapheme(rawGraphemeText: string): string {
-    const {
-      preserveCase,
-      preserveAccents,
-      accentsToPreserve,
-      symbolsToPreserve,
-    } = this.tokenHatSplittingMode;
+    const { preserveCase, lettersToPreserve, symbolsToPreserve } =
+      this.tokenHatSplittingMode;
 
     // We always normalise the grapheme so that the user doesn't get confusing
     // behaviour where the grapheme is represented as the naked grapheme and a
@@ -170,14 +164,11 @@ export class TokenGraphemeSplitter {
       returnValue = returnValue.toLowerCase();
     }
 
-    if (
-      !preserveAccents &&
-      !accentsToPreserve.includes(returnValue.toLowerCase())
-    ) {
-      // Separate into naked char and combinining diacritic, then remove the
-      // diacritic
-      returnValue = returnValue.normalize("NFD").replace(/\p{M}/gu, "");
+    if (lettersToPreserve.includes(returnValue.toLowerCase())) {
+      return returnValue;
     }
+
+    returnValue = deburr(returnValue);
 
     if (!KNOWN_GRAPHEME_MATCHER.test(returnValue)) {
       returnValue = UNKNOWN;
