@@ -1,0 +1,46 @@
+languageId: rust
+command:
+  spokenForm: change branch two
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: '2'}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |
+    fn main() {
+        let foo = if true {
+            1
+        } else if false {
+            2
+        } else {
+            3
+        };
+    }
+  selections:
+    - anchor: {line: 3, character: 20}
+      active: {line: 5, character: 5}
+  marks:
+    default.2:
+      start: {line: 4, character: 8}
+      end: {line: 4, character: 9}
+finalState:
+  documentContents: |
+    fn main() {
+        let foo = if true {
+            1
+        } else if false  else {
+            3
+        };
+    }
+  selections:
+    - anchor: {line: 3, character: 20}
+      active: {line: 3, character: 20}
+  thatMark:
+    - anchor: {line: 3, character: 20}
+      active: {line: 3, character: 20}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '2'}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]

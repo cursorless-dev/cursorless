@@ -225,7 +225,7 @@ const nodeMatchers: Partial<
   ),
   attribute: trailingMatcher(["mutable_specifier", "attribute_item"]),
   subject: "match_expression[value]",
-  branch: "match_arm",
+  branch: ["match_arm", "if_expression[consequence]", "else_clause.block!"],
 };
 
 export default createPatternMatchers(nodeMatchers);
