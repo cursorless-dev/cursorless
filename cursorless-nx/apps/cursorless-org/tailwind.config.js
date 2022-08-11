@@ -23,6 +23,15 @@ module.exports = {
       screens: {
         sm: '387px',
       },
+      colors: {
+        salmon: {
+          50: '#FFF4EC',
+          100: '#ECE1D9',
+          200: '#EFD8D1',
+          300: '#F8C9BA',
+          900: '#0E0B0A',
+        },
+      },
     },
   },
   plugins: [],
