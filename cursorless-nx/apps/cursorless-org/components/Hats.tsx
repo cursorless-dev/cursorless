@@ -1,13 +1,13 @@
-import { ReactComponent as Bolt } from './svg/bolt.svg';
-import { ReactComponent as Curve } from './svg/curve.svg';
-import { ReactComponent as Dot } from './svg/dot.svg';
-import { ReactComponent as Eye } from './svg/eye.svg';
-import { ReactComponent as Fox } from './svg/fox.svg';
-import { ReactComponent as Frame } from './svg/frame.svg';
-import { ReactComponent as Hole } from './svg/hole.svg';
-import { ReactComponent as Play } from './svg/play.svg';
-import { ReactComponent as Star } from './svg/star.svg';
-import { ReactComponent as Wing } from './svg/wing.svg';
+import { ReactComponent as Bolt } from '../pages/svg/bolt.svg';
+import { ReactComponent as Curve } from '../pages/svg/curve.svg';
+import { ReactComponent as Dot } from '../pages/svg/dot.svg';
+import { ReactComponent as Eye } from '../pages/svg/eye.svg';
+import { ReactComponent as Fox } from '../pages/svg/fox.svg';
+import { ReactComponent as Frame } from '../pages/svg/frame.svg';
+import { ReactComponent as Hole } from '../pages/svg/hole.svg';
+import { ReactComponent as Play } from '../pages/svg/play.svg';
+import { ReactComponent as Star } from '../pages/svg/star.svg';
+import { ReactComponent as Wing } from '../pages/svg/wing.svg';
 
 export function Hats() {
   return (
