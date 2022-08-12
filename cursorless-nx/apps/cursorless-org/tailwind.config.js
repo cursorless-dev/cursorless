@@ -25,10 +25,10 @@ module.exports = {
       },
       colors: {
         salmon: {
-          50: '#FFF4EC',
-          100: '#ECE1D9',
+          100: '#FFFAF8',
           200: '#EFD8D1',
           300: '#F8C9BA',
+          800: '#161110',
           900: '#0E0B0A',
         },
       },
