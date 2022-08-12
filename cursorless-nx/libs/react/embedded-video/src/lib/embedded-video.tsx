@@ -2,7 +2,6 @@ import styles from './embedded-video.module.css';
 
 import { useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
-import { ReactComponent as Play } from '../svg/video-play.svg';
 
 interface Props {
   youtubeSlug: string;
@@ -25,9 +24,6 @@ export function EmbeddedVideo({ youtubeSlug }: Props) {
           url={`https://www.youtube-nocookie.com/watch?v=${youtubeSlug}`}
           width="100%"
           height="100%"
-          light={'images/video-placeholder.svg'}
-          playIcon={<Play />}
-          playing={true}
           controls={true}
           onError={(e) => {
             console.log(`Error loading YouTube video: ${e}`);
