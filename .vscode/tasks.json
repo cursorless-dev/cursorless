@@ -5,7 +5,10 @@
 	"tasks": [
 		{
 			"label": "Build",
-			"dependsOn": ["ESBuild", "TSBuild"],
+			"dependsOn": [
+				"ESBuild",
+				"TSBuild"
+			],
 			"group": {
 				"kind": "build",
 				"isDefault": true
@@ -41,6 +44,15 @@
 				"reveal": "never"
 			},
 			"group": "build"
+		},
+		{
+			"label": "Serve cursorless.org",
+			"type": "shell",
+			"command": "nx serve cursorless-org",
+			"options": {
+				"cwd": "cursorless-nx"
+			},
+			"problemMatcher": []
 		}
 	]
 }
