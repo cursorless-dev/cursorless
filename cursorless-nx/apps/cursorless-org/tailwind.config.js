@@ -16,13 +16,6 @@ module.exports = {
       fontFamily: {
         mono: ['Inconsolata'],
       },
-      fontSize: {
-        // xl: ['21px', '30px'],
-        // '4xl': ['44px', '56px'],
-      },
-      screens: {
-        sm: '387px',
-      },
       colors: {
         salmon: {
           100: '#FFFAF8',

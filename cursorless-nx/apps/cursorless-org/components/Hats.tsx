@@ -11,17 +11,17 @@ import { ReactComponent as Wing } from '../pages/svg/wing.svg';
 
 export function Hats() {
   return (
-    <div className="flex flex-row items-center justify-between md:w-[607px] md:mx-auto">
-      <Dot title="Dot" className="md:scale-[1.764705]" />
-      <Star title="Star" className="md:scale-[1.904761]" />
-      <Wing title="Wing" className="md:scale-[2]" />
-      <Play title="Play" className="md:scale-[1.845018]" />
-      <Hole title="Hole" className="md:scale-[1.845018]" />
-      <Eye title="Eye" className="md:scale-[1.845018]" />
-      <Fox title="Fox" className="md:scale-[1.845018]" />
-      <Curve title="Curve" className="md:scale-[1.845018]" />
-      <Frame title="Frame" className="md:scale-[1.845018]" />
-      <Bolt title="Bolt" className="md:scale-[1.845018]" />
+    <div className="flex flex-row items-center justify-between sm:w-[607px] sm:mx-auto">
+      <Dot title="Dot" className="sm:scale-[1.764705]" />
+      <Star title="Star" className="sm:scale-[1.904761]" />
+      <Wing title="Wing" className="sm:scale-[2]" />
+      <Play title="Play" className="sm:scale-[1.845018]" />
+      <Hole title="Hole" className="sm:scale-[1.845018]" />
+      <Eye title="Eye" className="sm:scale-[1.845018]" />
+      <Fox title="Fox" className="sm:scale-[1.845018]" />
+      <Curve title="Curve" className="sm:scale-[1.845018]" />
+      <Frame title="Frame" className="sm:scale-[1.845018]" />
+      <Bolt title="Bolt" className="sm:scale-[1.845018]" />
     </div>
   );
 }
