@@ -9,6 +9,7 @@ import {isRegexpStringMatch} from '@docusaurus/theme-common';
 import {useSearchPage} from '@docusaurus/theme-common/internal';
 import {DocSearchButton, useDocSearchKeyboardEvents} from '@docsearch/react';
 import {useAlgoliaContextualFacetFilters} from '@docusaurus/theme-search-algolia/client';
+import useIsBrowser from '@docusaurus/useIsBrowser';
 import Translate from '@docusaurus/Translate';
 import translations from '@theme/SearchTranslations';
 let DocSearchModal = null;
@@ -40,10 +41,28 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
       mergeFacetFilters(contextualSearchFacetFilters, configFacetFilters)
     : // ... or use config facetFilters
       configFacetFilters;
+
+  const isBrowser = useIsBrowser()
+
+  // Tweak search so that we prefer:
+  // - the same lvl0 as the current doc (eg "For users"),
+  // - docs that are not api docs.
+  // Note that the below lvl0 query was written to match the query used by the
+  // crawler at https://crawler.algolia.com/admin/crawlers
+  const lvl0 =
+    (isBrowser
+      ? document.querySelector(".navbar__item.navbar__link--active")
+          ?.textContent
+      : null) ?? "Documentation";
+
   // We let user override default searchParameters if she wants to
   const searchParameters = {
     ...props.searchParameters,
     facetFilters,
+    optionalFilters: [
+      `hierarchy.lvl0: ${lvl0}`,
+      "is_api: no"
+    ],
   };
   const {withBaseUrl} = useBaseUrlUtils();
   const history = useHistory();
