@@ -13,23 +13,29 @@ new Crawler({
       recordExtractor: ({ $, helpers }) => {
         // priority order: deepest active sub list header -> navbar active item -> 'Documentation'
         const lvl0 =
-          $(
-            ".menu__link.menu__link--sublist.menu__link--active, .navbar__item.navbar__link--active"
-          )
-            .last()
-            .text() || "Documentation";
+          $(".navbar__item.navbar__link--active").last().text() ||
+          "Documentation";
+        const isApi = $(".menu__link.menu__link--active")
+          .toArray()
+          .some((element) => $(element).text() === "API")
+          ? "yes"
+          : "no";
         return helpers.docsearch({
           recordProps: {
             lvl0: {
               selectors: "",
               defaultValue: lvl0,
             },
-            lvl1: "header h1",
+            lvl1: "article h1",
             lvl2: "article h2",
             lvl3: "article h3",
             lvl4: "article h4",
             lvl5: "article h5, article td:first-child",
             lvl6: "article h6",
+            is_api: {
+              selectors: "",
+              defaultValue: isApi,
+            },
             content: "article p, article li, article td:last-child",
           },
           aggregateContent: true,
@@ -45,6 +51,8 @@ new Crawler({
         "language",
         "version",
         "docusaurus_tag",
+        "hierarchy.lvl0",
+        "is_api",
       ],
       attributesToRetrieve: [
         "hierarchy",

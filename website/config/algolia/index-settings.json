@@ -54,11 +54,13 @@
 		"unretrievableAttributes": null,
 		"optionalWords": null,
 		"attributesForFaceting": [
-			"type",
+			"docusaurus_tag",
+			"hierarchy.lvl0",
+			"is_api",
 			"lang",
 			"language",
-			"version",
-			"docusaurus_tag"
+			"type",
+			"version"
 		],
 		"attributesToSnippet": ["content:10"],
 		"attributesToHighlight": ["hierarchy", "hierarchy_camel", "content"],
