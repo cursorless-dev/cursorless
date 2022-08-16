@@ -1,4 +1,4 @@
-# Doc search
+# Documentation search
 
 The documentation search is powered by Algolia.
 
@@ -12,7 +12,8 @@ Unfortunately, today, the source of truth for the Algolia search configuration l
 2. Copy the new crawler config and paste it to [`crawler-settings.js`](../../website/config/algolia/crawler-settings.js)
 3. **IMPORTANT** Replace the `apiKey` field with `"<REDACTED>"`
 4. File a PR to get feedback on the new config
-5. Press the Save button in the crawler console and trigger a new deploy.
+5. Press the Save button in the crawler console to persist the new config.
+6. Use [the crawler overview](https://crawler.algolia.com/admin/crawlers/ff3ea576-b9e0-4e01-8a19-110106760e74/overview) to start a new crawl.
 
 ### Index settings
 
