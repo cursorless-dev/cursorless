@@ -155,19 +155,6 @@ function extractItemContent(
   };
 }
 
-function sectionNameFinder(node: SyntaxNode) {
-  for (const s of SECTIONING) {
-    const sectionNode = patternFinder(s)(node);
-    if (sectionNode != null) {
-      const titleNode = sectionNode.childForFieldName("text");
-      if (titleNode != null) {
-        return titleNode;
-      }
-    }
-  }
-  return null;
-}
-
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
@@ -188,7 +175,7 @@ const nodeMatchers: Partial<
     matcher(patternFinder(...sectioningCommand), extendToNamedSiblingIfExists)
   ),
 
-  name: matcher(sectionNameFinder, unwrapGroupParens),
+  name: matcher(patternFinder(...sectioningText), unwrapGroupParens),
   functionCallee: "command_name",
 
   collectionItem: matcher(patternFinder("enum_item"), extractItemContent),
