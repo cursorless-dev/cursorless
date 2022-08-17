@@ -447,8 +447,8 @@ Replaces the token containing letter 'b' with a green hat using the token contai
 
 The slice command is used to add multiple cursors to the editor. Each cursor is inserted at the same column on each row requested within the command.
 
-- `"pre <TARGET 1> slice <TARGET 2>"`
 - `"pre <TARGET 1> slice past <TARGET 2>"`: Add cursors from the first target through to the second target's line(inclusive end)
+- `"pre <TARGET 1> slice <TARGET 2>"`: Shortened version of above `"slice past"` command
 - `"pre <TARGET 1> slice until <TARGET 2>"`: Add cursors until the second target's line(non-inclusive end)
 - `"pre <TARGET 1> slice between <TARGET 2>"`: Add cursors between first and second target's lines(non-inclusive start and end)
 
