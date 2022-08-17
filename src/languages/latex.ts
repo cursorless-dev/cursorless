@@ -1,17 +1,14 @@
-import {
-  createPatternMatchers,
-  cascadingMatcher,
-  matcher,
-  ancestorChainNodeMatcher,
-} from "../util/nodeMatchers";
-import {
-  NodeMatcherAlternative,
-  ScopeType,
-  SelectionWithContext,
-} from "../typings/Types";
 import { Range, Selection, TextEditor } from "vscode";
-import { patternFinder } from "../util/nodeFinders";
 import { SyntaxNode } from "web-tree-sitter";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
+import { patternFinder } from "../util/nodeFinders";
+import {
+  ancestorChainNodeMatcher,
+  cascadingMatcher,
+  createPatternMatchers,
+  matcher,
+} from "../util/nodeMatchers";
 
 const COMMANDS = [
   "command",
@@ -99,7 +96,7 @@ function unwrapGroupParens(
       editor.document.positionAt(node.endIndex - 1)
     ),
     context: {
-      outerSelection: new Selection(
+      removalRange: new Selection(
         editor.document.positionAt(node.startIndex),
         editor.document.positionAt(node.endIndex)
       ),
@@ -111,11 +108,11 @@ function extendToNamedSiblingIfExists(
   editor: TextEditor,
   node: SyntaxNode
 ): SelectionWithContext {
-  let startIndex = node.startIndex;
+  const startIndex = node.startIndex;
   let endIndex = node.endIndex;
-  let sibling = node.nextNamedSibling;
+  const sibling = node.nextNamedSibling;
 
-  if (sibling != null && sibling.isNamed) {
+  if (sibling != null && sibling.isNamed()) {
     endIndex = sibling.endIndex;
   }
 
@@ -159,8 +156,8 @@ function extractItemContent(
 }
 
 function sectionNameFinder(node: SyntaxNode) {
-  for (let s of SECTIONING) {
-    let sectionNode = patternFinder(s)(node);
+  for (const s of SECTIONING) {
+    const sectionNode = patternFinder(s)(node);
     if (sectionNode != null) {
       const titleNode = sectionNode.childForFieldName("text");
       if (titleNode != null) {
@@ -171,7 +168,9 @@ function sectionNameFinder(node: SyntaxNode) {
   return null;
 }
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   argumentOrParameter: cascadingMatcher(
     ancestorChainNodeMatcher(
       [patternFinder(...COMMANDS), patternFinder(...GROUPS)],
