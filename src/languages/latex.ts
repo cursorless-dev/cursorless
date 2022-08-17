@@ -165,7 +165,7 @@ const nodeMatchers: Partial<
       unwrapGroupParens
     ),
     matcher(
-      patternFinder(...["begin[name]", "end[name]"].concat(sectioningText)),
+      patternFinder("begin[name]", "end[name]", ...sectioningText),
       unwrapGroupParens
     )
   ),
