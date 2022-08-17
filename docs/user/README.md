@@ -233,14 +233,19 @@ The word '`"file"` can be used to expand the target to refer to the entire file.
 
 For example, `"take file [blue] air"` selects the file including the token containing letter 'a' with a blue hat.
 
-##### `"head & tail"`
+##### `"head"` and `"tail"`
 
-The words `"head"` and `"tail"` can be used to create a selection from the input mark, through the beginning or end of the line, respectively.
+The modifiers `"head"` and `"tail"` can be used to expand a target through the beginning or end of the line, respectively.
 
 - `"take head"`: select from the cursor the start of the line
 - `"take tail"`: select from the cursor to the end of the line
 - `"take head air"`: selects the mark through to start of the line
 - `"take tail air"`: selects the mark through to the end of the line
+
+When followed by a modifier, they will expand their input to the start or end of the given modifier range. For example:
+
+- `"take head funk"`: select from the cursor the start of the containing function
+- `"chuck tail class air"`: Delete from the token with a hat over the letter `a` through the end of its containing class
 
 ##### `"token"`
 
@@ -465,7 +470,7 @@ Replaces the token containing letter 'b' with a green hat using the token contai
 
 ### Reverse/Shuffle/Sort
 
-These commands are to be paired with the `"item"` scope or can be used with multiple selections.
+These commands accept multiple selections, and change their order. For example:
 
 - `"shuffle every item <TARGET>"`
 - `"sort every item <TARGET>"`
