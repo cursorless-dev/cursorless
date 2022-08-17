@@ -111,7 +111,7 @@ export type SimpleScopeTypeType =
   | "chapter"
   | "subsection"
   | "subSubSection"
-  | "paragraph"
+  | "namedParagraph"
   | "subParagraph"
   | "environment"
   // Text based scopes

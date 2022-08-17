@@ -187,7 +187,7 @@ const nodeMatchers: Partial<
   section: "section",
   subsection: "subsection",
   subSubSection: "subsubsection",
-  paragraph: "paragraph",
+  namedParagraph: "paragraph",
   subParagraph: "subparagraph",
 
   environment: ENVIRONMENTS,

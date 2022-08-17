@@ -5,7 +5,7 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: paragraph, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: namedParagraph, includeSiblings: false}
 initialState:
   documentContents: |
     \paragraph{1}

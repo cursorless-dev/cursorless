@@ -61,7 +61,7 @@ scope_types = {
     "chapter": "chapter",
     "subsection": "subsection",
     "subsubsection": "subSubSection",
-    "paragraph": "paragraph",
+    "paragraph": "namedParagraph",
     "subparagraph": "subParagraph",
     "environment": "environment",
 }
