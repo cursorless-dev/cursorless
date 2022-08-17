@@ -59,7 +59,7 @@ scope_types = {
     # LaTeX
     "part": "part",
     "chapter": "chapter",
-    "subsection": "subsection",
+    "subsection": "subSection",
     "subsubsection": "subSubSection",
     "paragraph": "namedParagraph",
     "subparagraph": "subParagraph",

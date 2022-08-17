@@ -109,7 +109,7 @@ export type SimpleScopeTypeType =
   // Latex scope types
   | "part"
   | "chapter"
-  | "subsection"
+  | "subSection"
   | "subSubSection"
   | "namedParagraph"
   | "subParagraph"

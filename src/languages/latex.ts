@@ -185,7 +185,7 @@ const nodeMatchers: Partial<
   part: "part",
   chapter: "chapter",
   section: "section",
-  subsection: "subsection",
+  subSection: "subsection",
   subSubSection: "subsubsection",
   namedParagraph: "paragraph",
   subParagraph: "subparagraph",
