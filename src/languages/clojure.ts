@@ -5,11 +5,8 @@ import {
   matcher,
   patternMatcher,
 } from "../util/nodeMatchers";
-import {
-  ScopeType,
-  NodeMatcherAlternative,
-  NodeFinder,
-} from "../typings/Types";
+import { NodeMatcherAlternative, NodeFinder } from "../typings/Types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { SyntaxNode } from "web-tree-sitter";
 import { delimitedSelector } from "../util/nodeSelectors";
 import { identity } from "lodash";
@@ -133,7 +130,9 @@ const ifStatementFinder = functionNameBasedFinder(
 
 const ifStatementMatcher = matcher(ifStatementFinder);
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   comment: "comment",
   map: "map_lit",
 
@@ -168,6 +167,10 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   string: "str_lit",
 
   functionCall: functionCallPattern,
+  functionCallee: chainedMatcher([
+    functionCallFinder,
+    (functionNode) => getValueNodes(functionNode)[0],
+  ]),
 
   namedFunction: matcher(functionFinder),
 

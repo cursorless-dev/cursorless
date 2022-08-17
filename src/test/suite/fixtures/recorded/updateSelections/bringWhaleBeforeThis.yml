@@ -25,7 +25,7 @@ finalState:
       active: {line: 0, character: 9}
   thatMark:
     - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 9}
+      active: {line: 0, character: 8}
   sourceMark:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 15}

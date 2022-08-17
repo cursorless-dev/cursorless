@@ -1,9 +1,6 @@
 import { SyntaxNode } from "web-tree-sitter";
-import {
-  NodeMatcherAlternative,
-  ScopeType,
-  SelectionWithEditor,
-} from "../typings/Types";
+import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   cascadingMatcher,
@@ -90,7 +87,9 @@ function findAdjacentArgValues(
   };
 }
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   ifStatement: "if_statement",
   condition: conditionMatcher("condition"),
   statement: cascadingMatcher(
@@ -102,6 +101,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ),
   string: "string_value",
   functionCall: "call_expression",
+  functionCallee: "call_expression.function_name!",
   namedFunction: ["mixin_statement", "function_statement"],
   functionName: ["mixin_statement.name!", "function_statement.name!"],
   comment: ["comment", "single_line_comment"],

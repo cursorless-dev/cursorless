@@ -1,0 +1,35 @@
+languageId: typescript
+command:
+  spokenForm: clone up argue
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+  action: {name: insertCopyBefore}
+initialState:
+  documentContents: |-
+    function foo(bar: number) {
+        
+    }
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks: {}
+finalState:
+  documentContents: |-
+    function foo(bar: number, bar: number) {
+        
+    }
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  thatMark:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 24}
+  sourceMark:
+    - anchor: {line: 0, character: 26}
+      active: {line: 0, character: 37}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: argumentOrParameter}}]}]

@@ -1,0 +1,53 @@
+{
+  "functionDeclaration": {
+    "definitions": [
+      {
+        "scope": {
+          "langIds": [
+            "typescript",
+            "typescriptreact",
+            "javascript",
+            "javascriptreact"
+          ]
+        },
+        "body": [
+          "function $name($parameterList) {",
+          "\t$body",
+          "}"
+        ],
+        "variables": {
+          "name": {
+            "formatter": "camelCase"
+          }
+        }
+      },
+      {
+        "scope": {
+          "langIds": [
+            "python"
+          ]
+        },
+        "body": [
+          "def $name($parameterList):",
+          "\t$body"
+        ],
+        "variables": {
+          "name": {
+            "formatter": "snakeCase"
+          }
+        }
+      }
+    ],
+    "description": "Function declaration",
+    "variables": {
+      "body": {
+        "wrapperScopeType": "statement"
+      }
+    },
+    "insertionScopeTypes": [
+      "namedFunction",
+      "statement",
+      "line"
+    ]
+  }
+}
