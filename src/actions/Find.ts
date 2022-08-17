@@ -1,21 +1,15 @@
-import {
-  Action,
-  ActionReturnValue,
-  ActionPreferences,
-  Graph,
-  TypedSelection,
-} from "../typings/Types";
 import { commands } from "vscode";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
 import { ensureSingleTarget } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export class FindInFiles implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
-
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [TypedSelection[]]): Promise<ActionReturnValue> {
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     ensureSingleTarget(targets);
 
     const {

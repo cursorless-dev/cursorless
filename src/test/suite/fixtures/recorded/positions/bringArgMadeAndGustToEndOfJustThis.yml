@@ -1,0 +1,53 @@
+languageId: typescript
+command:
+  spokenForm: bring arg made and gust to end of just this
+  version: 2
+  targets:
+    - type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: m}
+          modifiers:
+            - type: containingScope
+              scopeType: {type: argumentOrParameter}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: g}
+    - type: primitive
+      mark: {type: cursor}
+      modifiers:
+        - {type: position, position: end}
+        - {type: toRawSelection}
+  usePrePhraseSnapshot: true
+  action: {name: replaceWithTarget}
+initialState:
+  documentContents: |-
+    function whatever(name: string, age: number, inclose: boolean) {
+        
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks:
+    default.m:
+      start: {line: 0, character: 18}
+      end: {line: 0, character: 22}
+    default.g:
+      start: {line: 0, character: 32}
+      end: {line: 0, character: 35}
+finalState:
+  documentContents: |-
+    function whatever(name: string, age: number, inclose: boolean) {
+        name: string, age: number
+    }
+  selections:
+    - anchor: {line: 1, character: 29}
+      active: {line: 1, character: 29}
+  thatMark:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 29}
+  sourceMark:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 30}
+    - anchor: {line: 0, character: 32}
+      active: {line: 0, character: 43}
+fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: argumentOrParameter}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: g}, modifiers: *ref_0}]}, {type: primitive, mark: {type: cursor}, modifiers: [{type: position, position: end}, {type: toRawSelection}]}]

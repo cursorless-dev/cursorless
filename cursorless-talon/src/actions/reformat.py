@@ -1,6 +1,6 @@
 from talon import Module, actions
-from .get_text import get_text
 
+from .get_text import get_text
 
 mod = Module()
 

@@ -1,5 +1,7 @@
-from talon import Module
 from dataclasses import dataclass
+from typing import Any, Optional
+
+from talon import Module
 
 
 @dataclass
@@ -7,14 +9,14 @@ class MakeshiftAction:
     term: str
     identifier: str
     vscode_command_id: str
-    vscode_command_args: list = None
+    vscode_command_args: Optional[list] = None
     restore_selection: bool = False
-    post_command_sleep_ms: int = None
+    post_command_sleep_ms: Optional[int] = None
     await_command: bool = True
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
+# See https://www.cursorless.org/docs/user/customization/
 makeshift_actions = [
     MakeshiftAction("define", "revealDefinition", "editor.action.revealDefinition"),
     MakeshiftAction(
@@ -38,7 +40,7 @@ makeshift_actions = [
         "editor.action.rename",
         restore_selection=True,
         await_command=False,
-        post_command_sleep_ms=150,
+        post_command_sleep_ms=200,
     ),
 ]
 
@@ -55,13 +57,13 @@ mod.list(
 
 @dataclass
 class TalonOptions:
-    post_command_sleep_ms: int = None
+    post_command_sleep_ms: Optional[int] = None
     await_command: bool = True
 
 
 def get_parameters(action: MakeshiftAction):
     command = action.vscode_command_id
-    command_options = {
+    command_options: dict[str, Any] = {
         "restoreSelection": action.restore_selection,
     }
     if action.vscode_command_args:

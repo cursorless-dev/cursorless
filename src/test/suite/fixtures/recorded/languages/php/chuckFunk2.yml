@@ -16,7 +16,9 @@ initialState:
       active: {line: 2, character: 25}
   marks: {}
 finalState:
-  documentContents: "<?php\n\n"
+  documentContents: |+
+    <?php
+
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

@@ -1,0 +1,30 @@
+languageId: plaintext
+command:
+  spokenForm: float this
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: true
+  action: {name: insertEmptyLineAfter}
+initialState:
+  documentContents: "    "
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks: {}
+finalState:
+  documentContents: |2
+        
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  thatMark:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]
+decorations:
+  - name: justAddedBackground
+    type: line
+    start: {line: 1, character: 0}
+    end: {line: 1, character: 0}

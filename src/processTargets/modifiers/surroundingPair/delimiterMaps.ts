@@ -1,7 +1,7 @@
 import {
   ComplexSurroundingPairName,
   SimpleSurroundingPairName,
-} from "../../../typings/Types";
+} from "../../../typings/targetDescriptor.types";
 
 type IndividualDelimiterText = string | string[];
 
@@ -39,4 +39,10 @@ export const complexDelimiterMap: Record<
 > = {
   any: Object.keys(delimiterToText),
   string: ["singleQuotes", "doubleQuotes", "backtickQuotes"],
+  collectionBoundary: [
+    "parentheses",
+    "squareBrackets",
+    "curlyBrackets",
+    "angleBrackets",
+  ],
 };

@@ -1,0 +1,29 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: change argue
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+initialState:
+  documentContents: |-
+    div {
+      clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    }
+  selections:
+    - anchor: {line: 1, character: 40}
+      active: {line: 1, character: 40}
+  marks: {}
+finalState:
+  documentContents: |-
+    div {
+      clip-path: polygon(50% 0%, 60% 40%, , 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    }
+  selections:
+    - anchor: {line: 1, character: 38}
+      active: {line: 1, character: 38}
+  thatMark:
+    - anchor: {line: 1, character: 38}
+      active: {line: 1, character: 38}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

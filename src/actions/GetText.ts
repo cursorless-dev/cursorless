@@ -1,44 +1,34 @@
-import {
-  Action,
-  ActionPreferences,
-  ActionReturnValue,
-  Graph,
-  TypedSelection,
-} from "../typings/Types";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
-import { ensureSingleTarget } from "../util/targetUtils";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
+import { createThatMark, ensureSingleTarget } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 export default class GetText implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [{ insideOutsideType: "inside" }];
-
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
 
   async run(
-    [targets]: [TypedSelection[]],
+    [targets]: [Target[]],
     {
       showDecorations = true,
       ensureSingleTarget: doEnsureSingleTarget = false,
     } = {}
   ): Promise<ActionReturnValue> {
     if (showDecorations) {
-      await displayPendingEditDecorations(
+      await this.graph.editStyles.displayPendingEditDecorations(
         targets,
         this.graph.editStyles.referenced
       );
     }
+
     if (doEnsureSingleTarget) {
       ensureSingleTarget(targets);
     }
 
-    const returnValue = targets.map((target) =>
-      target.selection.editor.document.getText(target.selection.selection)
-    );
-
     return {
-      returnValue,
-      thatMark: targets.map((target) => target.selection),
+      returnValue: targets.map((target) => target.contentText),
+      thatMark: createThatMark(targets),
     };
   }
 }

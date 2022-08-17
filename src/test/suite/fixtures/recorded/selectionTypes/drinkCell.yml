@@ -1,4 +1,5 @@
 languageId: python
+postCommandSleepTimeMs: 400
 command:
   version: 1
   spokenForm: drink cell
@@ -16,11 +17,13 @@ initialState:
 finalState:
   documentContents: |-
     # %%
+
+    # %%
     print("hello")
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
   thatMark:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 3, character: 12}
+      active: {line: 3, character: 12}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: notebookCell, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

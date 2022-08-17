@@ -5,6 +5,7 @@ import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "
 import { stringTextFragmentExtractor as phpStringTextFragmentExtractor } from "./php";
 import { stringTextFragmentExtractor as rubyStringTextFragmentExtractor } from "./ruby";
 import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } from "./typescript";
+import { stringTextFragmentExtractor as scssStringTextFragmentExtractor } from "./scss";
 import { UnsupportedLanguageError } from "../errors";
 import { Range } from "vscode";
 import { SupportedLanguageId } from "./constants";
@@ -131,6 +132,10 @@ const textFragmentExtractors: Record<
   ),
   cpp: constructDefaultTextFragmentExtractor("cpp"),
   csharp: constructDefaultTextFragmentExtractor("csharp"),
+  css: constructDefaultTextFragmentExtractor(
+    "css",
+    scssStringTextFragmentExtractor
+  ),
   go: constructDefaultTextFragmentExtractor("go"),
   html: constructDefaultTextFragmentExtractor(
     "html",
@@ -171,6 +176,11 @@ const textFragmentExtractors: Record<
     "scala",
     constructHackedStringTextFragmentExtractor("scala")
   ),
+  scss: constructDefaultTextFragmentExtractor(
+    "scss",
+    scssStringTextFragmentExtractor
+  ),
+  rust: constructDefaultTextFragmentExtractor("rust"),
   typescript: constructDefaultTextFragmentExtractor(
     "typescript",
     typescriptStringTextFragmentExtractor

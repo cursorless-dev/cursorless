@@ -1,16 +1,11 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import * as sinon from "sinon";
-import { getCursorlessApi } from "../../util/getExtensionApi";
 import HatTokenMap from "../../core/HatTokenMap";
+import { getCursorlessApi } from "../../util/getExtensionApi";
+import { standardSuiteSetup } from "./standardSuiteSetup";
 
 suite("Group by document", async function () {
-  this.timeout("100s");
-  this.retries(3);
-
-  teardown(() => {
-    sinon.restore();
-  });
+  standardSuiteSetup(this);
 
   test("Group by document", runTest);
 });

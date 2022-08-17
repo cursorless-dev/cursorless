@@ -1,5 +1,7 @@
-from talon import Module, app
 from dataclasses import dataclass
+
+from talon import Module, app
+
 from .csv_overrides import init_csv_and_watch_changes
 
 mod = Module()
@@ -36,7 +38,7 @@ class PairedDelimiter:
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
+# See https://www.cursorless.org/docs/user/customization/
 paired_delimiters = [
     PairedDelimiter("curly", "curlyBrackets", "{", "}"),
     PairedDelimiter("diamond", "angleBrackets", "<", ">"),

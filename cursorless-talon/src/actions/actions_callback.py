@@ -1,19 +1,23 @@
-from talon import Module
+from collections.abc import Callable
 from dataclasses import dataclass
-from .homophones import run_homophones_action
-from .find import run_find_action
+from typing import Any
+
+from talon import Module
+
 from .call import run_call_action
+from .find import run_find_action
+from .homophones import run_homophones_action
 
 
 @dataclass
 class CallbackAction:
     term: str
     identifier: str
-    callback: callable
+    callback: Callable[[dict], Any]
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
+# See https://www.cursorless.org/docs/user/customization/
 callbacks = [
     CallbackAction("call", "callAsFunction", run_call_action),
     CallbackAction("scout", "findInDocument", run_find_action),

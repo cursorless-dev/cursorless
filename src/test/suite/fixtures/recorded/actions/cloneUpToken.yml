@@ -1,0 +1,34 @@
+languageId: plaintext
+command:
+  spokenForm: clone up token
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: true
+  action: {name: insertCopyBefore}
+initialState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  marks: {}
+finalState:
+  documentContents: hello world world
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  thatMark:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 11}
+  sourceMark:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 17}
+decorations:
+  - name: justAddedBackground
+    type: token
+    start: {line: 0, character: 6}
+    end: {line: 0, character: 11}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: token}}]}]

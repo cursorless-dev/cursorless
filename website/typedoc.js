@@ -1,16 +1,18 @@
 module.exports = {
-    tsconfig: "../tsconfig.json",
-    entryPoints: ["../src/"],
-    entryPointStrategy: "expand",
-    
-    readme: "../docs/contributing/_api-index.md",
+  tsconfig: "../tsconfig.json",
+  entryPoints: ["../src/"],
+  entryPointStrategy: "expand",
 
-    // typedoc-plugin-missing-exports option
-    internalNamespace: "internal",
+  readme: "../docs/contributing/_api-index.md",
 
-    plugin: [
-      "typedoc-plugin-rename-defaults",
-      "typedoc-plugin-mdn-links",
-      "typedoc-plugin-missing-exports",
-    ],
+  // typedoc-plugin-missing-exports option
+  internalNamespace: "internal",
+
+  exclude: "**/node_modules/**",
+
+  plugin: [
+    "typedoc-plugin-rename-defaults",
+    "typedoc-plugin-mdn-links",
+    "typedoc-plugin-missing-exports",
+  ],
 };

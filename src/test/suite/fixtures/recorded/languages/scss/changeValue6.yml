@@ -1,0 +1,29 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: change value
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+initialState:
+  documentContents: |
+    a {
+      background-image: url("/icons/mail.svg");
+    }
+  selections:
+    - anchor: {line: 1, character: 35}
+      active: {line: 1, character: 35}
+  marks: {}
+finalState:
+  documentContents: |
+    a {
+      background-image: ;
+    }
+  selections:
+    - anchor: {line: 1, character: 20}
+      active: {line: 1, character: 20}
+  thatMark:
+    - anchor: {line: 1, character: 20}
+      active: {line: 1, character: 20}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]

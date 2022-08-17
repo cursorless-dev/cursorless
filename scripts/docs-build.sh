@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 set -euo pipefail
 
 # We still need the main project to have all depedencies
@@ -10,8 +12,8 @@ yarn build
 cd ..
 
 # Since baseUrl in Docusaurus is /docs, for links within our website
-# to work correctly we need to serve /gh-pages-root with /docs subfolder
+# to work correctly we need to serve /website-root with /docs subfolder
 # containting the build
-rm -rf gh-pages-root/docs
-mkdir -p gh-pages-root/docs
-cp -r website/build/* gh-pages-root/docs
+rm -rf website-root/docs
+mkdir -p website-root/docs
+cp -r website/build/* website-root/docs

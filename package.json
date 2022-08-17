@@ -7,18 +7,32 @@
 		"color": "#00001A",
 		"theme": "dark"
 	},
-	"version": "0.25.0",
+	"badges": [
+		{
+			"url": "https://img.shields.io/badge/documentation-yes-brightgreen.svg?logo=data:image/svg%2bxml;base64,PHN2ZyBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgZGF0YS1wcmVmaXg9ImZhcyIgZGF0YS1pY29uPSJib29rIiBjbGFzcz0ic3ZnLWlubGluZS0tZmEgZmEtYm9vayBmYS13LTE0IiByb2xlPSJpbWciCiAgICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj4KICAgIDxwYXRoIGZpbGw9IndoaXRlIiBkPSJNNDQ4IDM2MFYyNGMwLTEzLjMtMTAuNy0yNC0yNC0yNEg5NkM0MyAwIDAgNDMgMCA5NnYzMjBjMCA1MyA0MyA5NiA5NiA5NmgzMjhjMTMuMyAwIDI0LTEwLjcgMjQtMjR2LTE2YzAtNy41LTMuNS0xNC4zLTguOS0xOC43LTQuMi0xNS40LTQuMi01OS4zIDAtNzQuNyA1LjQtNC4zIDguOS0xMS4xIDguOS0xOC42ek0xMjggMTM0YzAtMy4zIDIuNy02IDYtNmgyMTJjMy4zIDAgNiAyLjcgNiA2djIwYzAgMy4zLTIuNyA2LTYgNkgxMzRjLTMuMyAwLTYtMi43LTYtNnYtMjB6bTAgNjRjMC0zLjMgMi43LTYgNi02aDIxMmMzLjMgMCA2IDIuNyA2IDZ2MjBjMCAzLjMtMi43IDYtNiA2SDEzNGMtMy4zIDAtNi0yLjctNi02di0yMHptMjUzLjQgMjUwSDk2Yy0xNy43IDAtMzItMTQuMy0zMi0zMiAwLTE3LjYgMTQuNC0zMiAzMi0zMmgyODUuNGMtMS45IDE3LjEtMS45IDQ2LjkgMCA2NHoiPjwvcGF0aD4KPC9zdmc+",
+			"href": "https://www.cursorless.org/docs/",
+			"description": "Documentation"
+		},
+		{
+			"url": "https://img.shields.io/github/workflow/status/cursorless-dev/cursorless-vscode/Run%20Tests?logo=github&label=tests",
+			"href": "https://github.com/cursorless-dev/cursorless/actions/workflows/test.yml?query=branch%3Amain",
+			"description": "Tests"
+		}
+	],
+	"version": "0.26.0",
 	"publisher": "pokey",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/cursorless-dev/cursorless-vscode.git"
+		"url": "https://github.com/cursorless-dev/cursorless.git"
 	},
+	"homepage": "https://www.cursorless.org/",
 	"engines": {
 		"vscode": "^1.61.0"
 	},
 	"extensionKind": [
-		"workspace"
+		"workspace",
+		"ui"
 	],
 	"categories": [
 		"Other"
@@ -63,6 +77,10 @@
 			{
 				"command": "cursorless.resumeRecording",
 				"title": "Cursorless: Resume test case recording"
+			},
+			{
+				"command": "cursorless.showDocumentation",
+				"title": "Cursorless: Show documentation"
 			}
 		],
 		"colors": [
@@ -141,6 +159,27 @@
 					"default": true,
 					"description": "Whether to show decorations on vscode start."
 				},
+				"cursorless.tokenHatSplittingMode.preserveCase": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Whether to distinguish between uppercase and lower case letters for hats.  Set this to `true` if you have separate terms for uppercase letters in your `<user.any_alphanumeric_key>` capture."
+				},
+				"cursorless.tokenHatSplittingMode.lettersToPreserve": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [],
+					"description": "A list of characters whose accents should not be stripped. This can be used, for example, if you would like to strip all accents except for those of a few characters, which you would add to this list."
+				},
+				"cursorless.tokenHatSplittingMode.symbolsToPreserve": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [],
+					"markdownDescription": "A list of symbols that shouldn't be normalized by the token hat splitter. Add any extra symbols here that you have added to your `<user.any_alphanumeric_key>` capture. Unlike the Accents To Preserve setting, these symbols won't even undergo case normalisation, so you would need separate terms for the lowercase and uppercase versions (if the symbol has a notion of upper and lower case)."
+				},
 				"cursorless.decorationDebounceDelayMs": {
 					"type": "number",
 					"default": 50,
@@ -159,16 +198,19 @@
 				"cursorless.hatSizeAdjustment": {
 					"type": "number",
 					"default": 0,
-					"description": "Percentage to increase or decrease hat size; positive increases size"
+					"description": "Percentage to increase or decrease hat size; positive increases size",
+					"order": 0
 				},
 				"cursorless.hatVerticalOffset": {
 					"type": "number",
 					"default": 0,
-					"description": "How much to vertically shift the hats as a percentage of font size; positive is up"
+					"description": "How much to vertically shift the hats as a percentage of font size; positive is up",
+					"order": 1
 				},
 				"cursorless.colors.dark": {
 					"description": "Colors to use for dark theme",
 					"type": "object",
+					"order": 5,
 					"properties": {
 						"default": {
 							"type": "string"
@@ -210,6 +252,7 @@
 				"cursorless.colors.light": {
 					"description": "Colors to use for light theme",
 					"type": "object",
+					"order": 4,
 					"properties": {
 						"default": {
 							"type": "string"
@@ -251,6 +294,7 @@
 				"cursorless.hatEnablement.colors": {
 					"description": "Which colors to enable",
 					"type": "object",
+					"order": 2,
 					"properties": {
 						"blue": {
 							"type": "boolean"
@@ -286,8 +330,9 @@
 					"additionalProperties": false
 				},
 				"cursorless.hatEnablement.shapes": {
-					"markdownDescription": "Which shapes to enable.  See the [docs](https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/README.md#shapes) if you're not sure which shape name corresponds to which hat shape.",
+					"markdownDescription": "Which shapes to enable.  See the [docs](https://www.cursorless.org/docs/#shapes) if you're not sure which shape name corresponds to which hat shape.",
 					"type": "object",
+					"order": 3,
 					"properties": {
 						"ex": {
 							"type": "boolean"
@@ -333,6 +378,11 @@
 						"crosshairs": false
 					},
 					"additionalProperties": false
+				},
+				"cursorless.maximumHatStylePenalty": {
+					"description": "The maximum allowed penalty for a hat style. Any hat style whose penalty is greater than this amount will not be used. A hat style penalty is defined to be the shape penalty plus the colour penalty. Setting this value less than or equal to zero is treated as no maximum.",
+					"type": "number",
+					"default": 0
 				},
 				"cursorless.hatPenalties.colors": {
 					"description": "How much to penalize each hat color. Number of syllables is a good default",
@@ -489,11 +539,24 @@
 				"fileMatch": "*.cursorless-snippets",
 				"url": "./schemas/cursorless-snippets.json"
 			}
-		]
+		],
+		"icons": {
+			"cursorless-icon": {
+				"description": "Cursorless icon",
+				"default": {
+					"fontPath": "fonts/cursorless.woff",
+					"fontCharacter": "\\E900"
+				}
+			}
+		}
 	},
+	"sponsor": {
+		"url": "https://github.com/sponsors/pokey"
+	},
+	"funding": "https://github.com/sponsors/pokey",
 	"scripts": {
 		"vscode:prepublish": "npm run -S esbuild-base -- --minify",
-		"postinstall": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv",
+		"update-licenses": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv",
 		"esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
 		"esbuild": "npm run -S esbuild-base -- --sourcemap",
 		"esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch",
@@ -503,6 +566,8 @@
 		"pretest": "yarn run compile && yarn run lint && yarn run esbuild",
 		"lint": "eslint src --ext ts",
 		"test": "env CURSORLESS_TEST=true node ./out/test/runTest.js",
+		"unused-exports": "ts-unused-exports tsconfig.json --showLineNumber",
+		"init-launch-sandbox": "node ./out/test/initLaunchSandbox.js",
 		"prepare-for-extension-publish": "node ./out/scripts/prepareForExtensionPublish.js"
 	},
 	"devDependencies": {
@@ -512,24 +577,28 @@
 		"@types/node": "^16.11.3",
 		"@types/semver": "^7.3.9",
 		"@types/sinon": "^10.0.2",
-		"@types/vscode": "^1.61.0",
-		"@typescript-eslint/eslint-plugin": "^5.11.0",
-		"@typescript-eslint/parser": "^5.11.0",
+		"@types/vscode": "~1.61.0",
+		"@typescript-eslint/eslint-plugin": "^5.20.0",
+		"@typescript-eslint/parser": "^5.20.0",
+		"@vscode/test-electron": "^2.1.3",
 		"esbuild": "^0.11.12",
-		"eslint": "^7.15.0",
+		"eslint": "^8.13.0",
+		"eslint-config-prettier": "^8.5.0",
 		"fast-xml-parser": "^3.20.0",
 		"glob": "^7.1.7",
 		"js-yaml": "^4.1.0",
 		"mocha": "^8.1.3",
 		"npm-license-crawler": "^0.2.1",
-		"semver": "^7.3.5",
+		"prettier": "2.7.1",
+		"semver": "^7.3.7",
 		"sinon": "^11.1.1",
-		"typescript": "^4.5.5",
-		"vscode-test": "^1.4.1"
+		"ts-unused-exports": "8.0.0",
+		"typescript": "^4.5.5"
 	},
 	"dependencies": {
 		"@types/lodash": "^4.14.168",
 		"immutability-helper": "^3.1.1",
-		"lodash": "^4.17.21"
+		"lodash": "^4.17.21",
+		"node-html-parser": "^5.3.3"
 	}
 }

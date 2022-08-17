@@ -1,0 +1,23 @@
+languageId: plaintext
+command:
+  version: 1
+  spokenForm: snip spaghetti
+  action: insertSnippet
+  targets:
+    - {type: primitive, isImplicit: true}
+  extraArgs: [spaghetti]
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: My friend  likes to eat spaghetti!
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 34}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

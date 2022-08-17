@@ -1,0 +1,29 @@
+languageId: css
+command:
+  version: 1
+  spokenForm: change argue
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+initialState:
+  documentContents: |-
+    a {
+      clip-path: ellipse(115px 55px at 50% 40%);
+    }
+  selections:
+    - anchor: {line: 1, character: 39}
+      active: {line: 1, character: 39}
+  marks: {}
+finalState:
+  documentContents: |-
+    a {
+      clip-path: ellipse(115px 55px at );
+    }
+  selections:
+    - anchor: {line: 1, character: 35}
+      active: {line: 1, character: 35}
+  thatMark:
+    - anchor: {line: 1, character: 35}
+      active: {line: 1, character: 35}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

@@ -1,0 +1,4 @@
+/src/vendor
+
+# We use our own format for our recorded yaml tests to keep them compact
+/src/test/suite/fixtures/recorded/**/*.yml

@@ -4,9 +4,9 @@ import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import {
   NodeMatcher,
   NodeMatcherValue,
-  ScopeType,
   SelectionWithEditor,
 } from "../typings/Types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import cpp from "./cpp";
 import clojure from "./clojure";
 import csharp from "./csharp";
@@ -18,15 +18,17 @@ import php from "./php";
 import python from "./python";
 import markdown from "./markdown";
 import scala from "./scala";
+import { patternMatchers as scss } from "./scss";
 import go from "./go";
 import latex from "./latex";
 import { patternMatchers as ruby } from "./ruby";
+import rust from "./rust";
 import { UnsupportedLanguageError } from "../errors";
 import { SupportedLanguageId } from "./constants";
 
 export function getNodeMatcher(
   languageId: string,
-  scopeType: ScopeType,
+  scopeTypeType: SimpleScopeTypeType,
   includeSiblings: boolean
 ): NodeMatcher {
   const matchers = languageMatchers[languageId as SupportedLanguageId];
@@ -35,7 +37,7 @@ export function getNodeMatcher(
     throw new UnsupportedLanguageError(languageId);
   }
 
-  const matcher = matchers[scopeType];
+  const matcher = matchers[scopeTypeType];
 
   if (matcher == null) {
     return notSupported;
@@ -50,10 +52,11 @@ export function getNodeMatcher(
 
 const languageMatchers: Record<
   SupportedLanguageId,
-  Record<ScopeType, NodeMatcher>
+  Record<SimpleScopeTypeType, NodeMatcher>
 > = {
   c: cpp,
   cpp,
+  css: scss,
   csharp,
   clojure,
   go,
@@ -67,8 +70,10 @@ const languageMatchers: Record<
   markdown,
   php,
   python,
-  ruby, 
+  ruby,
   scala,
+  scss,
+  rust,
   typescript,
   typescriptreact: typescript,
   xml: html,

@@ -1,29 +1,31 @@
 import * as assert from "assert";
-import serialize from "../../testUtil/serialize";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
-import { TestCaseFixture } from "../../testUtil/TestCase";
 import HatTokenMap from "../../core/HatTokenMap";
-import * as sinon from "sinon";
-import { Clipboard } from "../../util/Clipboard";
+import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
+import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
+import serialize from "../../testUtil/serialize";
 import {
   ExcludableSnapshotField,
   takeSnapshot,
 } from "../../testUtil/takeSnapshot";
+import { TestCaseFixture } from "../../testUtil/TestCase";
 import {
   marksToPlainObject,
   PositionPlainObject,
   rangeToPlainObject,
   SelectionPlainObject,
   SerializedMarks,
+  testDecorationsToPlainObject,
 } from "../../testUtil/toPlainObject";
+import { Clipboard } from "../../util/Clipboard";
 import { getCursorlessApi } from "../../util/getExtensionApi";
-import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
-import asyncSafety from "../util/asyncSafety";
-import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { openNewEditor } from "../openNewEditor";
+import asyncSafety from "../util/asyncSafety";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
+import shouldUpdateFixtures from "./shouldUpdateFixtures";
+import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -36,11 +38,11 @@ function createSelection(selection: SelectionPlainObject): vscode.Selection {
 }
 
 suite("recorded test cases", async function () {
-  this.timeout("100s");
-  this.retries(5);
+  standardSuiteSetup(this);
 
-  teardown(() => {
-    sinon.restore();
+  suiteSetup(async () => {
+    // Necessary because opening a notebook opens the panel for some reason
+    await vscode.commands.executeCommand("workbench.action.closePanel");
   });
 
   getRecordedTestPaths().forEach((path) =>
@@ -56,18 +58,21 @@ async function runTest(file: string) {
   const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
   const excludeFields: ExcludableSnapshotField[] = [];
 
+  // TODO The snapshot gets messed up with timing issues when running the recorded tests
+  // "Couldn't find token default.a"
+  const usePrePhraseSnapshot = false;
+
   const cursorlessApi = await getCursorlessApi();
   const graph = cursorlessApi.graph!;
+  graph.editStyles.testDecorations = [];
 
   const editor = await openNewEditor(
     fixture.initialState.documentContents,
     fixture.languageId
   );
 
-  if (!fixture.initialState.documentContents.includes("\n")) {
-    await editor.edit((editBuilder) => {
-      editBuilder.setEndOfLine(vscode.EndOfLine.LF);
-    });
+  if (fixture.postEditorOpenSleepTimeMs != null) {
+    await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
   }
 
   editor.selections = fixture.initialState.selections.map(createSelection);
@@ -89,40 +94,78 @@ async function runTest(file: string) {
 
   if (fixture.initialState.clipboard) {
     Clipboard.writeText(fixture.initialState.clipboard);
-    // FIXME https://github.com/cursorless-dev/cursorless-vscode/issues/559
+    // FIXME https://github.com/cursorless-dev/cursorless/issues/559
     // let mockClipboard = fixture.initialState.clipboard;
     // sinon.replace(Clipboard, "readText", async () => mockClipboard);
     // sinon.replace(Clipboard, "writeText", async (value: string) => {
     //   mockClipboard = value;
     // });
-  } else {
-    excludeFields.push("clipboard");
   }
 
   await graph.hatTokenMap.addDecorations();
 
-  const readableHatMap = await graph.hatTokenMap.getReadableMap(false);
+  const readableHatMap = await graph.hatTokenMap.getReadableMap(
+    usePrePhraseSnapshot
+  );
 
   // Assert that recorded decorations are present
   checkMarks(fixture.initialState.marks, readableHatMap);
 
-  const returnValue = await vscode.commands.executeCommand(
-    "cursorless.command",
-    fixture.command
-  );
+  let returnValue: unknown;
+
+  try {
+    returnValue = await vscode.commands.executeCommand("cursorless.command", {
+      ...fixture.command,
+      usePrePhraseSnapshot,
+    });
+  } catch (err) {
+    const error = err as Error;
+
+    if (shouldUpdateFixtures()) {
+      const outputFixture = {
+        ...fixture,
+        finalState: undefined,
+        decorations: undefined,
+        returnValue: undefined,
+        thrownError: { name: error.name },
+      };
+
+      await fsp.writeFile(file, serialize(outputFixture));
+    } else if (fixture.thrownError != null) {
+      assert.strictEqual(error.name, fixture.thrownError.name);
+    } else {
+      throw error;
+    }
+
+    return;
+  }
+
+  if (fixture.thrownError != null) {
+    throw Error(
+      `Expected error ${fixture.thrownError.name} but none was thrown`
+    );
+  }
+
+  if (fixture.postCommandSleepTimeMs != null) {
+    await sleepWithBackoff(fixture.postCommandSleepTimeMs);
+  }
 
   const marks =
-    fixture.finalState.marks == null
+    fixture.finalState!.marks == null
       ? undefined
       : marksToPlainObject(
           extractTargetedMarks(
-            Object.keys(fixture.finalState.marks) as string[],
+            Object.keys(fixture.finalState!.marks) as string[],
             readableHatMap
           )
         );
 
+  if (fixture.finalState!.clipboard == null) {
+    excludeFields.push("clipboard");
+  }
+
   // TODO Visible ranges are not asserted, see:
-  // https://github.com/cursorless-dev/cursorless-vscode/issues/160
+  // https://github.com/cursorless-dev/cursorless/issues/160
   const { visibleRanges, ...resultState } = await takeSnapshot(
     cursorlessApi.thatMark,
     cursorlessApi.sourceMark,
@@ -131,14 +174,32 @@ async function runTest(file: string) {
     marks
   );
 
-  if (process.env.CURSORLESS_TEST_UPDATE_FIXTURES === "true") {
-    const outputFixture = { ...fixture, finalState: resultState, returnValue };
+  const actualDecorations =
+    fixture.decorations == null
+      ? undefined
+      : testDecorationsToPlainObject(graph.editStyles.testDecorations);
+
+  if (shouldUpdateFixtures()) {
+    const outputFixture = {
+      ...fixture,
+      finalState: resultState,
+      decorations: actualDecorations,
+      returnValue,
+      thrownError: undefined,
+    };
+
     await fsp.writeFile(file, serialize(outputFixture));
   } else {
     assert.deepStrictEqual(
       resultState,
       fixture.finalState,
       "Unexpected final state"
+    );
+
+    assert.deepStrictEqual(
+      actualDecorations,
+      fixture.decorations,
+      "Unexpected decorations"
     );
 
     assert.deepStrictEqual(
