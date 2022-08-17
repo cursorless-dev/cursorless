@@ -257,7 +257,13 @@ Both of the commands below will expand from the mark forward and backward to inc
 - `"take paint"`
 - `"take paint <TARGET>"`
 
-The `"paint"` modifier is useful when selecting trailing delimiters or multiple nodes. To be clear, Cursorless tries to do the correct thing selecting a scope or when deleting `"value"` or `"key"`. However, sometimes paint is useful.
+For example, in the following text:
+
+```
+foo.bar baz|bongo
+```
+
+Saying `"every paint"` would select `foo.bar` and `baz|bongo`.
 
 ##### Surrounding pair
 
@@ -320,6 +326,20 @@ Note that if the first target is omitted, the start of the range will be the cur
 eg:
 `take blue air past green bat`
 Selects the range from the token containing letter 'a' with a blue hat past the token containing letter 'b' with a green hat.
+
+##### Vertical ranges
+
+The `"slice"` range modifier is used to refer to multiple targets that are vertically aligned. It is commonly used with the `"pre"` action to add multiple cursors to the editor. Each cursor is inserted at the same column on each row requested within the command.
+
+- `"pre <TARGET 1> slice past <TARGET 2>"`: Add cursors from the first target through to the second target's line(inclusive end)
+- `"pre <TARGET 1> slice <TARGET 2>"`: Shortened version of above `"slice past"` command
+- `"pre <TARGET 1> slice until <TARGET 2>"`: Add cursors until the second target's line(non-inclusive end)
+- `"pre <TARGET 1> slice between <TARGET 2>"`: Add cursors between first and second target's lines(non-inclusive start and end)
+
+For example:
+
+- `"pre air slice bat"`: Places cursors at the same position on every line (inclusive) between token with hat over the `a` and token with the hat over the `b`. The position will be the start of the token with a hat over the `a`
+- `"chuck tail air slice end of block"`: Delete the end of every line from air through the end of its non-empty line block.
 
 #### List targets
 
@@ -442,15 +462,6 @@ The `"move"` command can be used to move a target.
 eg:
 `move blue air to green bat`
 Replaces the token containing letter 'b' with a green hat using the token containing letter 'a' with a blue hat, and the delete the latter token.
-
-### Slice
-
-The slice command is used to add multiple cursors to the editor. Each cursor is inserted at the same column on each row requested within the command.
-
-- `"pre <TARGET 1> slice past <TARGET 2>"`: Add cursors from the first target through to the second target's line(inclusive end)
-- `"pre <TARGET 1> slice <TARGET 2>"`: Shortened version of above `"slice past"` command
-- `"pre <TARGET 1> slice until <TARGET 2>"`: Add cursors until the second target's line(non-inclusive end)
-- `"pre <TARGET 1> slice between <TARGET 2>"`: Add cursors between first and second target's lines(non-inclusive start and end)
 
 ### Reverse/Shuffle/Sort
 
