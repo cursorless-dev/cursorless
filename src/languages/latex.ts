@@ -171,7 +171,7 @@ const nodeMatchers: Partial<
   ),
 
   functionCall: cascadingMatcher(
-    matcher(patternFinder(...COMMANDS.concat(["begin", "end"]))),
+    matcher(patternFinder(...COMMANDS, "begin", "end")),
     matcher(patternFinder(...sectioningCommand), extendToNamedSiblingIfExists)
   ),
 
