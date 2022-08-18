@@ -9,8 +9,8 @@ mod = Module()
 
 mod.list("cursorless_scope_type", desc="Supported scope types")
 mod.list(
-    "cursorless_custom_regex_modifier",
-    desc="Supported custom regular expression modifiers",
+    "cursorless_custom_regex_scope_type",
+    desc="Supported custom regular expression scope types",
 )
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
@@ -69,10 +69,10 @@ def cursorless_scope_type(m) -> dict[str, str]:
     return {"type": m.cursorless_scope_type}
 
 
-@mod.capture(rule="{user.cursorless_custom_regex_modifier}")
+@mod.capture(rule="{user.cursorless_custom_regex_scope_type}")
 def cursorless_custom_regex_scope_type(m) -> dict[str, str]:
     """Cursorless custom regular expression scope type"""
-    return {"type": "customRegex", "regex": m.cursorless_custom_regex_modifier}
+    return {"type": "customRegex", "regex": m.cursorless_custom_regex_scope_type}
 
 
 @mod.capture(
@@ -116,11 +116,11 @@ def on_ready():
         },
     )
     init_csv_and_watch_changes(
-        "experimental/regex_modifiers",
+        "experimental/regex_scope_types",
         {},
         headers=[SPOKEN_FORM_HEADER, "Regex"],
         allow_unknown_values=True,
-        default_list_name="custom_regex_modifier",
+        default_list_name="custom_regex_scope_type",
     )
 
 
