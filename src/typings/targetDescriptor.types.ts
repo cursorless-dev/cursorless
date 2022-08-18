@@ -106,6 +106,14 @@ export type SimpleScopeTypeType =
   | "xmlElement"
   | "xmlEndTag"
   | "xmlStartTag"
+  // Latex scope types
+  | "part"
+  | "chapter"
+  | "subSection"
+  | "subSubSection"
+  | "namedParagraph"
+  | "subParagraph"
+  | "environment"
   // Text based scopes
   | "token"
   | "line"
