@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Optional
 
 from talon import Context, Module
 
@@ -34,16 +34,68 @@ directions_map = {d.cursorlessIdentifier: d for d in directions}
 DEFAULT_DIRECTIONS = {d.defaultSpokenForm: d.cursorlessIdentifier for d in directions}
 
 
-@mod.capture(rule="{user.cursorless_line_direction} <number_small>")
-def cursorless_line_number(m) -> dict[str, Any]:
-    direction = directions_map[m.cursorless_line_direction]
-    line_number = m.number_small
-    line = {
-        "lineNumber": direction.formatter(line_number),
+@dataclass
+class LineNumberRange:
+    anchor: int
+    range_connective_with_type: Optional[dict[str, Any]] = None
+    active: Optional[int] = None
+
+
+@mod.capture(
+    rule=(
+        "<number_small> [<user.cursorless_range_connective_with_type> <number_small>]"
+    )
+)
+def cursorless_line_number_range(m) -> LineNumberRange:
+    if len(m.number_small_list) == 1:
+        return LineNumberRange(anchor=m.number_small)
+    return LineNumberRange(
+        anchor=m.number_small_1,
+        range_connective_with_type=m.cursorless_range_connective_with_type,
+        active=m.number_small_2,
+    )
+
+
+def create_line_number_target(
+    direction: CustomizableTerm, range: LineNumberRange
+) -> dict[str, Any]:
+    anchor = {
+        "lineNumber": direction.formatter(range.anchor),
         "type": direction.type,
     }
+    if range.range_connective_with_type:
+        range_connective_with_type = range.range_connective_with_type
+        exclude_anchor = range_connective_with_type["excludeAnchor"]
+        exclude_active = range_connective_with_type["excludeActive"]
+        range_type = range_connective_with_type["type"] or "continuous"
+        active = {
+            "lineNumber": direction.formatter(range.active),
+            "type": direction.type,
+        }
+    else:
+        active = anchor
+        range_type = "continuous"
+        exclude_anchor = False
+        exclude_active = False
     return {
-        "type": "lineNumber",
-        "anchor": line,
-        "active": line,
+        "rangeType": range_type,
+        "anchor": anchor,
+        "active": active,
+        "excludeAnchor": exclude_anchor,
+        "excludeActive": exclude_active,
     }
+
+
+@mod.capture(
+    rule=(
+        "{user.cursorless_line_direction} <user.cursorless_line_number_range> "
+        "({user.cursorless_list_connective} <user.cursorless_line_number_range>)*"
+    )
+)
+def cursorless_line_number(m) -> dict[str, Any]:
+    direction = directions_map[m.cursorless_line_direction]
+    targets = [
+        create_line_number_target(direction, range)
+        for range in m.cursorless_line_number_range_list
+    ]
+    return {"type": "lineNumber", "elements": targets}

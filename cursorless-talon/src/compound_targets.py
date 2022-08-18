@@ -27,8 +27,8 @@ def cursorless_range_connective_with_type(m) -> dict[str, Any]:
 
     return {
         "type": getattr(m, "cursorless_range_type", None),
-        "excludeStart": not is_anchor_included(range_connective),
-        "excludeEnd": not is_active_included(range_connective),
+        "excludeAnchor": not is_anchor_included(range_connective),
+        "excludeActive": not is_active_included(range_connective),
     }
 
 
@@ -59,8 +59,8 @@ def cursorless_range(m) -> dict[str, Any]:
         "type": "range",
         "anchor": anchor,
         "active": primitive_targets[-1],
-        "excludeStart": range_connective_with_type["excludeStart"],
-        "excludeEnd": range_connective_with_type["excludeEnd"],
+        "excludeAnchor": range_connective_with_type["excludeAnchor"],
+        "excludeActive": range_connective_with_type["excludeActive"],
     }
 
     if range_type:

@@ -36,10 +36,20 @@ export interface LineNumberPosition {
   lineNumber: number;
 }
 
-export interface LineNumberMark {
-  type: "lineNumber";
+export interface LineNumberRange {
+  rangeType: RangeType;
   anchor: LineNumberPosition;
   active: LineNumberPosition;
+  excludeAnchor: boolean;
+  excludeActive: boolean;
+}
+
+export interface LineNumberMark {
+  type: "lineNumber";
+  // Either (anchor AND active) OR elements must be set.
+  anchor?: LineNumberPosition;
+  active?: LineNumberPosition;
+  elements?: LineNumberRange[];
 }
 
 export type Mark =
