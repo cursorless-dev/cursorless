@@ -56,6 +56,14 @@ scope_types = {
     "short paint": "boundedNonWhitespaceSequence",
     "link": "url",
     "token": "token",
+    # LaTeX
+    "part": "part",
+    "chapter": "chapter",
+    "subsection": "subSection",
+    "subsubsection": "subSubSection",
+    "paragraph": "namedParagraph",
+    "subparagraph": "subParagraph",
+    "environment": "environment",
 }
 
 
