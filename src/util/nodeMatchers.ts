@@ -1,26 +1,26 @@
 import { SyntaxNode } from "web-tree-sitter";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import {
-  NodeMatcher,
   NodeFinder,
-  SelectionExtractor,
+  NodeMatcher,
   NodeMatcherAlternative,
-  ScopeType,
+  SelectionExtractor,
   SelectionWithEditor,
 } from "../typings/Types";
 import {
-  simpleSelectionExtractor,
+  ancestorChainNodeFinder,
+  argumentNodeFinder,
+  chainedNodeFinder,
+  patternFinder,
+  typedNodeFinder,
+} from "./nodeFinders";
+import {
   argumentSelectionExtractor,
   selectWithLeadingDelimiter,
   selectWithTrailingDelimiter,
+  simpleSelectionExtractor,
   unwrapSelectionExtractor as conditionSelectionExtractor,
 } from "./nodeSelectors";
-import {
-  typedNodeFinder,
-  patternFinder,
-  argumentNodeFinder,
-  chainedNodeFinder,
-  ancestorChainNodeFinder,
-} from "./nodeFinders";
 
 export function matcher(
   finder: NodeFinder,
@@ -176,15 +176,15 @@ export const notSupported: NodeMatcher = (
 };
 
 export function createPatternMatchers(
-  nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>>
-): Record<ScopeType, NodeMatcher> {
-  Object.keys(nodeMatchers).forEach((scopeType: ScopeType) => {
-    let matcher = nodeMatchers[scopeType];
+  nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>>
+): Record<SimpleScopeTypeType, NodeMatcher> {
+  Object.keys(nodeMatchers).forEach((scopeType: SimpleScopeTypeType) => {
+    const matcher = nodeMatchers[scopeType];
     if (Array.isArray(matcher)) {
       nodeMatchers[scopeType] = patternMatcher(...matcher);
     } else if (typeof matcher === "string") {
       nodeMatchers[scopeType] = patternMatcher(matcher);
     }
   });
-  return nodeMatchers as Record<ScopeType, NodeMatcher>;
+  return nodeMatchers as Record<SimpleScopeTypeType, NodeMatcher>;
 }

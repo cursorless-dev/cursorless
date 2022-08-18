@@ -5,7 +5,7 @@ import {
   Offsets,
 } from "./types";
 import { generateUnmatchedDelimiters } from "./generateUnmatchedDelimiters";
-import { SimpleSurroundingPairName } from "../../../typings/Types";
+import { SimpleSurroundingPairName } from "../../../typings/targetDescriptor.types";
 
 /**
  * Looks for a surrounding pair that contains the selection, returning null if none is found.
@@ -66,22 +66,22 @@ export function findDelimiterPairContainingSelection(
 
   while (true) {
     // Scan right until we find an acceptable unmatched closing delimiter
-    let rightNext = rightDelimiterGenerator.next();
+    const rightNext = rightDelimiterGenerator.next();
     if (rightNext.done) {
       return null;
     }
-    let rightDelimiterOccurrence = rightNext.value!;
+    const rightDelimiterOccurrence = rightNext.value!;
 
     // Then scan left until we find an unmatched delimiter matching the
     // delimiter we found in our rightward pass.
     acceptableLeftDelimiters = [
       rightDelimiterOccurrence.delimiterInfo.delimiter,
     ];
-    let leftNext = leftDelimiterGenerator.next();
+    const leftNext = leftDelimiterGenerator.next();
     if (leftNext.done) {
       return null;
     }
-    let leftDelimiterOccurrence = leftNext.value!;
+    const leftDelimiterOccurrence = leftNext.value!;
 
     // If left delimiter is left of our selection, we return it.  Otherwise
     // loop back and continue scanning outwards.

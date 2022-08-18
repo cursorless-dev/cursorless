@@ -1,9 +1,11 @@
-import { Selection, TextDocument } from "vscode";
-import {
-  DelimiterInclusion,
-  SelectionWithContext,
-} from "../../../typings/Types";
+import { Range, Selection, TextDocument } from "vscode";
 import { SurroundingPairOffsets } from "./types";
+
+export interface SurroundingPairInfo {
+  contentRange: Selection;
+  boundary: [Range, Range];
+  interiorRange: Range;
+}
 
 /**
  * Given offsets describing a surrounding pair, returns a selection
@@ -17,73 +19,41 @@ import { SurroundingPairOffsets } from "./types";
 export function extractSelectionFromSurroundingPairOffsets(
   document: TextDocument,
   baseOffset: number,
-  surroundingPairOffsets: SurroundingPairOffsets,
-  delimiterInclusion: DelimiterInclusion
-): SelectionWithContext[] {
-  const interior = [
-    {
-      selection: new Selection(
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.leftDelimiter.end
-        ),
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.rightDelimiter.start
-        )
+  surroundingPairOffsets: SurroundingPairOffsets
+): SurroundingPairInfo {
+  const interior = new Range(
+    document.positionAt(baseOffset + surroundingPairOffsets.leftDelimiter.end),
+    document.positionAt(
+      baseOffset + surroundingPairOffsets.rightDelimiter.start
+    )
+  );
+  const boundary: [Range, Range] = [
+    new Range(
+      document.positionAt(
+        baseOffset + surroundingPairOffsets.leftDelimiter.start
       ),
-      context: {},
-    },
+      document.positionAt(baseOffset + surroundingPairOffsets.leftDelimiter.end)
+    ),
+    new Range(
+      document.positionAt(
+        baseOffset + surroundingPairOffsets.rightDelimiter.start
+      ),
+      document.positionAt(
+        baseOffset + surroundingPairOffsets.rightDelimiter.end
+      )
+    ),
   ];
 
-  const boundary = [
-    {
-      selection: new Selection(
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.leftDelimiter.start
-        ),
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.leftDelimiter.end
-        )
+  return {
+    contentRange: new Selection(
+      document.positionAt(
+        baseOffset + surroundingPairOffsets.leftDelimiter.start
       ),
-      context: {},
-    },
-    {
-      selection: new Selection(
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.rightDelimiter.start
-        ),
-        document.positionAt(
-          baseOffset + surroundingPairOffsets.rightDelimiter.end
-        )
-      ),
-      context: {},
-    },
-  ];
-
-  // If delimiter inclusion is null, do default behavior and include the
-  // delimiters
-  if (delimiterInclusion == null) {
-    return [
-      {
-        selection: new Selection(
-          document.positionAt(
-            baseOffset + surroundingPairOffsets.leftDelimiter.start
-          ),
-          document.positionAt(
-            baseOffset + surroundingPairOffsets.rightDelimiter.end
-          )
-        ),
-        context: {
-          boundary,
-          interior,
-        },
-      },
-    ];
-  }
-
-  switch (delimiterInclusion) {
-    case "interiorOnly":
-      return interior;
-    case "excludeInterior":
-      return boundary;
-  }
+      document.positionAt(
+        baseOffset + surroundingPairOffsets.rightDelimiter.end
+      )
+    ),
+    boundary,
+    interiorRange: interior,
+  };
 }

@@ -1,4 +1,4 @@
-import { AsyncFunc, Context, Done } from "mocha";
+import { Context, Done } from "mocha";
 
 /**
  * if an async returns after the method times out,
@@ -12,20 +12,19 @@ import { AsyncFunc, Context, Done } from "mocha";
  * @param fn The test function to run
  * @returns A safely wrapped test function
  */
-export default function asyncSafety(fn: AsyncFunc) {
+export default function asyncSafety(fn: () => Promise<void>) {
   return function (this: Context, done: Done) {
-    let runnable = this.runnable();
+    const runnable = this.runnable();
 
     fn.bind(this)()
-      .then((res) => {
+      .then(() => {
         // for successful I think we only need timedOut? not sure though, might have side effects
         // when the duration check is added it will get stuck and never complete on a second runthrough
         if (!runnable.timedOut) {
-          done(res);
+          done();
         }
       })
-      // @ts-ignore
-      .catch((err) => {
+      .catch((err: unknown) => {
         if (!runnable.timedOut && !runnable.duration) {
           done(err);
         }

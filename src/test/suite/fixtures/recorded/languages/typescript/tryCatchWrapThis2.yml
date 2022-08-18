@@ -26,20 +26,20 @@ finalState:
         if (true) {
             const foo = "hello";
         }
-    } catch () {
+    } catch (err) {
         
     }
 
     try {
         const bar = "hello";
-    } catch () {
+    } catch (err) {
         
     }
   selections:
-    - anchor: {line: 10, character: 9}
-      active: {line: 10, character: 9}
-    - anchor: {line: 4, character: 9}
-      active: {line: 4, character: 9}
+    - anchor: {line: 11, character: 4}
+      active: {line: 11, character: 4}
+    - anchor: {line: 5, character: 4}
+      active: {line: 5, character: 4}
   thatMark:
     - anchor: {line: 8, character: 0}
       active: {line: 12, character: 1}

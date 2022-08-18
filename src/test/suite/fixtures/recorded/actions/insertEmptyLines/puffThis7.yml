@@ -1,0 +1,38 @@
+languageId: plaintext
+command:
+  spokenForm: puff this
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: true
+  action: {name: insertEmptyLinesAround}
+initialState:
+  documentContents: |-
+    whatever
+    hello
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+    whatever
+
+    hello
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  thatMark:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]
+decorations:
+  - name: justAddedBackground
+    type: line
+    start: {line: 1, character: 0}
+    end: {line: 1, character: 0}
+  - name: justAddedBackground
+    type: line
+    start: {line: 2, character: 0}
+    end: {line: 2, character: 0}

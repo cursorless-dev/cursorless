@@ -1,0 +1,22 @@
+{
+    "spaghetti": {
+        "definitions": [
+            {
+                "scope": {
+                    "langIds": [
+                        "plaintext"
+                    ]
+                },
+                "body": [
+                    "My friend $foo likes to eat spaghetti!"
+                ],
+                "variables": {
+                    "foo": {
+                        "formatter": "snakeCase"
+                    }
+                }
+            }
+        ],
+        "description": "Snippet just for testing user adding snippets"
+    }
+}

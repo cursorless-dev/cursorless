@@ -9,11 +9,8 @@ import {
   patternMatcher,
   trailingMatcher,
 } from "../util/nodeMatchers";
-import {
-  NodeMatcherAlternative,
-  ScopeType,
-  SelectionWithEditor,
-} from "../typings/Types";
+import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { SyntaxNode } from "web-tree-sitter";
 import { getNodeRange } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";
@@ -151,7 +148,9 @@ function blockFinder(node: SyntaxNode) {
   return block;
 }
 
-const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
+const nodeMatchers: Partial<
+  Record<SimpleScopeTypeType, NodeMatcherAlternative>
+> = {
   map: mapTypes,
   list: listTypes,
   statement: cascadingMatcher(
@@ -168,8 +167,8 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
   ifStatement: "if",
   functionCall: "call",
   comment: "comment",
-  namedFunction: "method",
-  functionName: "method[name]",
+  namedFunction: ["method", "singleton_method"],
+  functionName: ["method[name]", "singleton_method[name]"],
   anonymousFunction: cascadingMatcher(
     patternMatcher("lambda", "do_block"),
     matcher(blockFinder)
@@ -190,6 +189,7 @@ const nodeMatchers: Partial<Record<ScopeType, NodeMatcherAlternative>> = {
     "operator_assignment[left]",
     "class[name]",
     "method[name]",
+    "singleton_method[name]",
   ],
   value: leadingMatcher(
     [

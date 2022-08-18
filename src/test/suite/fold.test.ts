@@ -1,15 +1,10 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import * as sinon from "sinon";
 import { openNewEditor } from "../openNewEditor";
+import { standardSuiteSetup } from "./standardSuiteSetup";
 
 suite("fold", async function () {
-  this.timeout("100s");
-  this.retries(3);
-
-  teardown(() => {
-    sinon.restore();
-  });
+  standardSuiteSetup(this);
 
   test("fold made", foldMade);
   test("unfold made", unfoldMade);

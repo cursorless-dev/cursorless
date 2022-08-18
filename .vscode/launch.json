@@ -10,14 +10,16 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
-				"--disable-extension",
-				"asvetliakov.vscode-neovim",
-				"--disable-extension",
-				"pokey.cursorless-local",
-				"--extensionDevelopmentPath=${workspaceFolder}"
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions"
 			],
 			"outFiles": ["${workspaceFolder}/out/**/*.js"],
-			"preLaunchTask": "${defaultBuildTask}"
+			"preLaunchTask": "${defaultBuildTask}",
+			"resolveSourceMapLocations": [
+				"${workspaceFolder}/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
+				"!**/node_modules/**"
+			]
 		},
 		{
 			"name": "Extension Tests",
@@ -27,15 +29,38 @@
 				"CURSORLESS_TEST": "true"
 			},
 			"args": [
-				"--disable-extension",
-				"asvetliakov.vscode-neovim",
-				"--disable-extension",
-				"pokey.cursorless-local",
+				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
 			],
 			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
-			"preLaunchTask": "${defaultBuildTask}"
+			"preLaunchTask": "${defaultBuildTask}",
+			"resolveSourceMapLocations": [
+				"${workspaceFolder}/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
+				"!**/node_modules/**"
+			]
+		},
+		{
+			"name": "Run Test Subset",
+			"type": "extensionHost",
+			"request": "launch",
+			"env": {
+				"CURSORLESS_TEST": "true",
+				"CURSORLESS_RUN_TEST_SUBSET": "true"
+			},
+			"args": [
+				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+			],
+			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+			"preLaunchTask": "${defaultBuildTask}",
+			"resolveSourceMapLocations": [
+				"${workspaceFolder}/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
+				"!**/node_modules/**"
+			]
 		},
 		{
 			"name": "Update fixtures",
@@ -46,15 +71,39 @@
 				"CURSORLESS_TEST_UPDATE_FIXTURES": "true"
 			},
 			"args": [
-				"--disable-extension",
-				"asvetliakov.vscode-neovim",
-				"--disable-extension",
-				"pokey.cursorless-local",
+				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
 			],
 			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
-			"preLaunchTask": "${defaultBuildTask}"
+			"preLaunchTask": "${defaultBuildTask}",
+			"resolveSourceMapLocations": [
+				"${workspaceFolder}/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
+				"!**/node_modules/**"
+			]
+		},
+		{
+			"name": "Update fixtures subset",
+			"type": "extensionHost",
+			"request": "launch",
+			"env": {
+				"CURSORLESS_TEST": "true",
+				"CURSORLESS_TEST_UPDATE_FIXTURES": "true",
+				"CURSORLESS_RUN_TEST_SUBSET": "true"
+			},
+			"args": [
+				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+			],
+			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+			"preLaunchTask": "${defaultBuildTask}",
+			"resolveSourceMapLocations": [
+				"${workspaceFolder}/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
+				"!**/node_modules/**"
+			]
 		},
 		{
 			"name": "Docusaurus Start (Debug)",
@@ -62,7 +111,12 @@
 			"request": "launch",
 			"cwd": "${workspaceFolder}/website",
 			"runtimeExecutable": "npm",
-			"runtimeArgs": ["run", "start"]
+			"runtimeArgs": ["run", "start"],
+			"resolveSourceMapLocations": [
+				"${workspaceFolder}/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
+				"!**/node_modules/**"
+			]
 		}
 	]
 }

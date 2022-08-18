@@ -17,7 +17,15 @@ extension](#running--testing-extension-locally), you may want to check out the
 
 1. Clone [`cursorless`](https://github.com/cursorless-dev/cursorless)
 2. Open the newly created `cursorless` directory in VSCode
-3. Run `yarn` in the terminal
+3. Run the following in the terminal:
+
+   ```bash
+   yarn
+   yarn compile
+   yarn init-launch-sandbox
+   ```
+
+   The `yarn init-launch-sandbox` command creates a local sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. Please file an issue if you'd like to use additional extensions when debugging locally.
 
 ## Running / testing extension locally
 
@@ -25,6 +33,10 @@ In order to test out your local version of the extension or to run unit tests
 locally, you need to run the extension in debug mode. To do so you need to run
 the `workbench.action.debug.selectandstart` command in VSCode and then select either "Run
 Extension" or "Extension Tests".
+
+### Running a subset of tests
+
+The entire test suite takes a little while to run (1-2 mins), so if you'd like to run just a subset of the tests, you can edit the constant in [`runTestSubset`](../../src/test/suite/runTestSubset.ts) to a string supported by [mocha grep](https://mochajs.org/#-grep-regexp-g-regexp) and use the "Run Test Subset" launch config instead of the usual "Extension Tests".
 
 ## Code formatting
 
@@ -42,13 +54,31 @@ Run the `workbench.action.debug.selectandstart` command and then select
 
 See [test-case-recorder.md](./test-case-recorder.md).
 
-## Adding a new programming language
+## Parse tree support
+
+### Adding a new programming language
 
 See [docs](./adding-a-new-language.md).
 
-## Adding syntactic scope types to an existing language
+### Adding syntactic scope types to an existing language
 
 See [parse-tree-patterns.md](./parse-tree-patterns.md).
+
+### Testing Cursorless with a local version of the VSCode parse tree extension
+
+First bundle the parse tree extension into a `.vsix`, using something like the following:
+
+```
+cd ../vscode-parse-tree
+vsce package -o bundle.vsix
+```
+
+Once you have your package then you can install it into the sandbox using the following command:
+
+```
+cd ../cursorless
+code --extensions-dir .vscode-sandbox/extensions --install-extension ../vscode-parse-tree/bundle.vsix
+```
 
 ## Changing SVGs
 
