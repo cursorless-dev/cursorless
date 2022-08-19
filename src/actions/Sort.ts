@@ -13,6 +13,11 @@ export class Sort implements Action {
   }
 
   async run(targets: Target[][]): Promise<ActionReturnValue> {
+    // First sort target by document order
+    targets.forEach((t) =>
+      t.sort((a, b) => a.contentRange.start.compareTo(b.contentRange.start))
+    );
+
     const { returnValue: unsortedTexts } = await this.graph.actions.getText.run(
       targets,
       {
