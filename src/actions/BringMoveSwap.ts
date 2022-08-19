@@ -10,7 +10,7 @@ import { selectionFromRange } from "../util/selectionUtils";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { getContentRange, runForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
-import { Action } from "./actions.types";
+import { Action, ActionReturnValue } from "./actions.types";
 
 type ActionType = "bring" | "move" | "swap";
 
