@@ -60,7 +60,12 @@ export class IndividualHatMap implements ReadOnlyHatMap {
 
   getToken(hatStyle: HatStyleName, character: string) {
     this.checkExpired();
-    return this.map[HatTokenMap.getKey(hatStyle, character)];
+    return this.map[
+      HatTokenMap.getKey(
+        hatStyle,
+        this.graph.tokenGraphemeSplitter.normalizeGrapheme(character)
+      )
+    ];
   }
 
   clear() {

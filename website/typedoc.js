@@ -8,6 +8,8 @@ module.exports = {
   // typedoc-plugin-missing-exports option
   internalNamespace: "internal",
 
+  exclude: "**/node_modules/**",
+
   plugin: [
     "typedoc-plugin-rename-defaults",
     "typedoc-plugin-mdn-links",
