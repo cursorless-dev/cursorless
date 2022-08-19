@@ -1,4 +1,7 @@
 import { HatStyleName } from "../core/constants";
+// FIXME: See microsoft/TypeScript#43869
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type { Target } from "./target.types";
 
 export interface CursorMark {
   type: "cursor";
@@ -103,6 +106,14 @@ export type SimpleScopeTypeType =
   | "xmlElement"
   | "xmlEndTag"
   | "xmlStartTag"
+  // Latex scope types
+  | "part"
+  | "chapter"
+  | "subSection"
+  | "subSubSection"
+  | "namedParagraph"
+  | "subParagraph"
+  | "environment"
   // Text based scopes
   | "token"
   | "line"
@@ -203,13 +214,14 @@ export interface HeadTailModifier {
 }
 
 /**
- * Runs {@link modifier} if the target is weak.
+ * Runs {@link modifier} if the target has no explicit scope type, ie if
+ * {@link Target.hasExplicitScopeType} is `false`.
  */
-export interface ModifyIfWeakModifier {
-  type: "modifyIfWeak";
+export interface ModifyIfUntypedModifier {
+  type: "modifyIfUntyped";
 
   /**
-   * The modifier to apply if the target is weak
+   * The modifier to apply if the target is untyped
    */
   modifier: Modifier;
 }
@@ -239,7 +251,7 @@ export type Modifier =
   | LeadingModifier
   | TrailingModifier
   | RawSelectionModifier
-  | ModifyIfWeakModifier
+  | ModifyIfUntypedModifier
   | CascadingModifier;
 
 export interface PartialRangeTargetDescriptor {

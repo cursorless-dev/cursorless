@@ -1,0 +1,44 @@
+languageId: typescript
+command:
+  spokenForm: clear every line funk
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: line}
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |
+
+    function myFunk() {
+      // aaa
+    }
+  selections:
+    - anchor: {line: 2, character: 5}
+      active: {line: 2, character: 5}
+  marks: {}
+finalState:
+  documentContents: |2+
+
+
+      
+
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  thatMark:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: line}}, {type: containingScope, scopeType: {type: namedFunction}}]}]
