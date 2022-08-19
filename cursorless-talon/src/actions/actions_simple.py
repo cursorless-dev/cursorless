@@ -56,6 +56,11 @@ no_wait_actions = [
     "rename",
 ]
 
+# These are actions that we don't wait for, but still want to have a post action sleep
+no_wait_actions_post_sleep = {
+    "rename": 0.2,
+}
+
 mod = Module()
 mod.list(
     "cursorless_simple_action",

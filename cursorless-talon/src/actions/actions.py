@@ -5,6 +5,7 @@ from .actions_callback import callback_action_defaults, callback_action_map
 from .actions_custom import custom_action_defaults
 from .actions_simple import (
     no_wait_actions,
+    no_wait_actions_post_sleep,
     positional_action_defaults,
     simple_action_defaults,
 )
@@ -40,9 +41,9 @@ class Actions:
         if action_id in callback_action_map:
             return callback_action_map[action_id](target)
         elif action_id in no_wait_actions:
-            return actions.user.cursorless_single_target_command_no_wait(
-                action_id, target
-            )
+            actions.user.cursorless_single_target_command_no_wait(action_id, target)
+            if action_id in no_wait_actions_post_sleep:
+                actions.sleep(no_wait_actions_post_sleep[action_id])
         else:
             return actions.user.cursorless_single_target_command(action_id, target)
 

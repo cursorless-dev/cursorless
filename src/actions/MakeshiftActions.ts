@@ -10,7 +10,7 @@ abstract class MakeshiftAction extends CommandAction {
   postCommandSleepMs?: number;
 
   async run(targets: [Target[]]) {
-    const returnValue = super.run(targets, {
+    const returnValue = await super.run(targets, {
       command: this.command,
       commandArgs: this.commandArg ? [this.commandArg] : [],
       ensureSingleTarget: this.ensureSingleTarget ?? false,
@@ -61,7 +61,6 @@ export class ShowReferences extends MakeshiftAction {
 export class Rename extends MakeshiftAction {
   command = "editor.action.rename";
   ensureSingleTarget = true;
-  postCommandSleepMs = 200;
 }
 
 export class ExtractVariable extends MakeshiftAction {
