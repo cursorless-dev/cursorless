@@ -202,6 +202,11 @@ export interface Edit {
 }
 
 export interface EditWithRangeUpdater extends Edit {
+  /**
+   * This function will be passed the resulting range containing {@link text}
+   * after applying the edit, and should return a new range which excludes any
+   * delimiters that were inserted.
+   */
   updateRange: (range: vscode.Range) => vscode.Range;
 }
 

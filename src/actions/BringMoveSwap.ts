@@ -10,7 +10,7 @@ import { selectionFromRange } from "../util/selectionUtils";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { getContentRange, runForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
-import { Action, ActionReturnValue } from "./actions.types";
+import { Action } from "./actions.types";
 
 type ActionType = "bring" | "move" | "swap";
 
@@ -163,12 +163,13 @@ class BringMoveSwap implements Action {
               ? edits
               : edits.filter(({ isSource }) => !isSource);
 
-          const editSelectionInfos = edits.map(({ originalTarget }) =>
-            getSelectionInfo(
-              editor.document,
-              originalTarget.contentSelection,
-              DecorationRangeBehavior.OpenOpen
-            )
+          const editSelectionInfos = edits.map(
+            ({ edit: { range }, originalTarget }) =>
+              getSelectionInfo(
+                editor.document,
+                selectionFromRange(originalTarget.isReversed, range),
+                DecorationRangeBehavior.OpenOpen
+              )
           );
 
           const cursorSelectionInfos = editor.selections.map((selection) =>

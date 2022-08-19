@@ -113,26 +113,15 @@ export default class PositionTarget extends BaseTarget {
   }
 
   private updateRange(range: Range, text: string) {
-    const startIndex = (() => {
-      if (this.isLineDelimiter) {
-        const line = this.editor.document.lineAt(
-          this.isBefore ? range.end : range.start
-        );
-        const startOffset = this.editor.document.offsetAt(
-          this.isBefore ? line.range.start : line.range.end
-        );
-        return this.isBefore
-          ? startOffset - this.insertionDelimiter.length - text.length
-          : startOffset +
-              this.insertionDelimiter.length +
-              this.indentationString.length;
-      }
-      const startOffset = this.editor.document.offsetAt(range.start);
-      return this.isBefore
-        ? startOffset
-        : startOffset + this.insertionDelimiter.length;
-    })();
+    const baseStartOffset = this.editor.document.offsetAt(range.start);
+    const startIndex = this.isBefore
+      ? baseStartOffset + this.indentationString.length
+      : baseStartOffset +
+        this.insertionDelimiter.length +
+        this.indentationString.length;
+
     const endIndex = startIndex + text.length;
+
     return new Range(
       this.editor.document.positionAt(startIndex),
       this.editor.document.positionAt(endIndex)
