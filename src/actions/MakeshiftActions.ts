@@ -10,7 +10,7 @@ abstract class MakeshiftAction extends CommandAction {
   postCommandSleepMs?: number;
 
   async run(targets: [Target[]]) {
-    return super.run(targets, {
+    const returnValue = super.run(targets, {
       command: this.command,
       commandArgs: this.commandArg ? [this.commandArg] : [],
       ensureSingleTarget: this.ensureSingleTarget ?? false,
@@ -19,6 +19,7 @@ abstract class MakeshiftAction extends CommandAction {
     if (this.postCommandSleepMs) {
       await sleep(this.postCommandSleepMs);
     }
+    return returnValue;
   }
 }
 

@@ -12,7 +12,7 @@ import {
   ShowHover,
   ShowQuickFix,
   ShowReferences,
-} from "./ActionsMakeshift";
+} from "./MakeshiftActions";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
