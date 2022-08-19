@@ -161,6 +161,7 @@ const textFragmentExtractors: Record<
     "json",
     jsonStringTextFragmentExtractor
   ),
+  latex: fullDocumentTextFragmentExtractor,
   markdown: fullDocumentTextFragmentExtractor,
   php: constructDefaultTextFragmentExtractor(
     "php",
