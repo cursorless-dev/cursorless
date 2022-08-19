@@ -17,7 +17,7 @@ export default class PositionTarget extends BaseTarget {
   private position: Position;
   private isLineDelimiter: boolean;
   private isBefore: boolean;
-  private linePadding: string;
+  private indentationString: string;
 
   constructor(parameters: PositionTargetParameters) {
     super(parameters);
@@ -28,8 +28,11 @@ export default class PositionTarget extends BaseTarget {
     // It's only considered a line if the delimiter is only new line symbols
     this.isLineDelimiter = /^(\n)+$/.test(parameters.insertionDelimiter);
     // This calculation must be done here since that that target is not updated by our range updater
-    this.linePadding = this.isLineDelimiter
-      ? getLinePadding(parameters.editor, parameters.thatTarget!.contentRange)
+    this.indentationString = this.isLineDelimiter
+      ? getIndentationString(
+          parameters.editor,
+          parameters.thatTarget!.contentRange
+        )
       : "";
   }
 
@@ -72,7 +75,7 @@ export default class PositionTarget extends BaseTarget {
     };
 
     return {
-      range: range,
+      range,
       text: editText,
       isReplace: this.position === "after",
       updateRange,
@@ -102,14 +105,11 @@ export default class PositionTarget extends BaseTarget {
   }
 
   private getEditText(text: string) {
-    if (this.isLineDelimiter) {
-      return this.isBefore
-        ? this.linePadding + text + this.insertionDelimiter
-        : this.insertionDelimiter + this.linePadding + text;
-    }
+    const insertionText = this.indentationString + text;
+
     return this.isBefore
-      ? text + this.insertionDelimiter
-      : this.insertionDelimiter + text;
+      ? insertionText + this.insertionDelimiter
+      : this.insertionDelimiter + insertionText;
   }
 
   private updateRange(range: Range, text: string) {
@@ -125,7 +125,7 @@ export default class PositionTarget extends BaseTarget {
           ? startOffset - this.insertionDelimiter.length - text.length
           : startOffset +
               this.insertionDelimiter.length +
-              this.linePadding.length;
+              this.indentationString.length;
       }
       const startOffset = this.editor.document.offsetAt(range.start);
       return this.isBefore
@@ -150,9 +150,9 @@ export function removalUnsupportedForPosition(position: string): Range {
 }
 
 /** Calculate the minimum indentation/padding for a range */
-function getLinePadding(editor: TextEditor, range: Range) {
+function getIndentationString(editor: TextEditor, range: Range) {
   let length = Number.MAX_SAFE_INTEGER;
-  let padding = "";
+  let indentationString = "";
   for (let i = range.start.line; i <= range.end.line; ++i) {
     const line = editor.document.lineAt(i);
     if (
@@ -160,8 +160,8 @@ function getLinePadding(editor: TextEditor, range: Range) {
       line.firstNonWhitespaceCharacterIndex < length
     ) {
       length = line.firstNonWhitespaceCharacterIndex;
-      padding = line.text.slice(0, length);
+      indentationString = line.text.slice(0, length);
     }
   }
-  return padding;
+  return indentationString;
 }
