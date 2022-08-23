@@ -8,8 +8,8 @@ from talon import Module
 class MakeshiftAction:
     term: str
     identifier: str
-    vscode_command_id: str
-    vscode_command_args: Optional[list] = None
+    server_command_id: str
+    server_command_args: Optional[list] = None
     restore_selection: bool = False
     post_command_sleep_ms: Optional[int] = None
     await_command: bool = True
@@ -62,12 +62,12 @@ class TalonOptions:
 
 
 def get_parameters(action: MakeshiftAction):
-    command = action.vscode_command_id
+    command = action.server_command_id
     command_options: dict[str, Any] = {
         "restoreSelection": action.restore_selection,
     }
-    if action.vscode_command_args:
-        command_options["commandArgs"] = action.vscode_command_args
+    if action.server_command_args:
+        command_options["commandArgs"] = action.server_command_args
 
     talon_options = TalonOptions(
         post_command_sleep_ms=action.post_command_sleep_ms,

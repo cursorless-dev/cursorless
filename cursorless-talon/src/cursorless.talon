@@ -1,8 +1,8 @@
 app: vscode
 -
 
-<user.cursorless_action_or_vscode_command> <user.cursorless_target>:
-    user.cursorless_action_or_vscode_command(cursorless_action_or_vscode_command, cursorless_target)
+<user.cursorless_action_or_server_command> <user.cursorless_target>:
+    user.cursorless_action_or_server_command(cursorless_action_or_server_command, cursorless_target)
 
 {user.cursorless_positional_action} <user.cursorless_positional_target>:
     user.cursorless_single_target_command(cursorless_positional_action, cursorless_positional_target)
@@ -25,6 +25,6 @@ cursorless docks:          user.cursorless_open_instructions()
 cursorless reference:      user.cursorless_cheat_sheet_show_html()
 cursorless cheat sheet:    user.cursorless_cheat_sheet_show_html()
 cursorless settings:
-    user.vscode("workbench.action.openGlobalSettings")
+    user.fs_run_command("workbench.action.openGlobalSettings")
     sleep(250ms)
     insert("cursorless")

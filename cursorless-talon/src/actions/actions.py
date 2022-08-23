@@ -21,10 +21,10 @@ mod = Module()
         "{user.cursorless_custom_action}"
     )
 )
-def cursorless_action_or_vscode_command(m) -> dict:
+def cursorless_action_or_server_command(m) -> dict:
     try:
         value = m.cursorless_custom_action
-        type = "vscode_command"
+        type = "server_command"
     except AttributeError:
         value = m[0]
         type = "cursorless_action"
@@ -43,9 +43,9 @@ class Actions:
         elif action_id in makeshift_action_map:
             command, command_options, talon_options = makeshift_action_map[action_id]
             return_value = (
-                vscode_command(command, target, command_options)
+                server_command(command, target, command_options)
                 if talon_options.await_command
-                else vscode_command_no_wait(command, target, command_options)
+                else server_command_no_wait(command, target, command_options)
             )
 
             if talon_options.post_command_sleep_ms:
@@ -59,27 +59,27 @@ class Actions:
         else:
             return actions.user.cursorless_single_target_command(action_id, target)
 
-    def cursorless_vscode_command(command_id: str, target: dict):
-        """Perform vscode command on cursorless target"""
-        return vscode_command(command_id, target)
+    def cursorless_server_command(command_id: str, target: dict):
+        """Perform aplication command on cursorless target"""
+        return server_command(command_id, target)
 
-    def cursorless_action_or_vscode_command(instruction: dict, target: dict):
-        """Perform cursorless action or vscode command on target (internal use only)"""
+    def cursorless_action_or_server_command(instruction: dict, target: dict):
+        """Perform cursorless action or command server command on target (internal use only)"""
         type = instruction["type"]
         value = instruction["value"]
         if type == "cursorless_action":
             return actions.user.cursorless_command(value, target)
-        elif type == "vscode_command":
-            return actions.user.cursorless_vscode_command(value, target)
+        elif type == "server_command":
+            return actions.user.cursorless_server_command(value, target)
 
 
-def vscode_command(command_id: str, target: dict, command_options: dict = {}):
+def server_command(command_id: str, target: dict, command_options: dict = {}):
     return actions.user.cursorless_single_target_command(
         "executeCommand", target, command_id, command_options
     )
 
 
-def vscode_command_no_wait(command_id: str, target: dict, command_options: dict = {}):
+def server_command_no_wait(command_id: str, target: dict, command_options: dict = {}):
     return actions.user.cursorless_single_target_command_no_wait(
         "executeCommand", target, command_id, command_options
     )
