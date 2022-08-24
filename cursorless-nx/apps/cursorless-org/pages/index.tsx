@@ -4,7 +4,7 @@ import { ReactComponent as Logo } from './svg/logo.svg';
 
 export default function LandingPage() {
   return (
-    <main className="items-center justify-center bg-salmon-100 dark:bg-salmon-900 text-salmon-900 dark:text-salmon-300 overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:px-16 sm:pt-16 sm:pb-4 font-mono">
+    <main className="items-center justify-center bg-salmon-100 dark:bg-salmon-900 text-salmon-900 dark:text-salmon-100 overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:px-16 sm:pt-16 sm:pb-4 font-mono">
       <div className="h-full flex flex-col max-w-[1000px] mx-auto">
         <div className="flex-1 flex flex-col">
           <header className="flex flex-row items-center ">
@@ -13,12 +13,12 @@ export default function LandingPage() {
             </div>
             <Logo
               title="Logo"
-              className="align-middle scale-[0.961] sm:scale-[1.2]"
+              className="align-middle scale-[0.961] sm:scale-[1.333]"
             />
           </header>
           <Slogan />
         </div>
-        <div className="border border-salmon-300 sm:border-salmon-100 rounded-sm p-[1px]">
+        <div className="border-[0.5px] border-salmon-100 sm:border-salmon-100 p-[1px]">
           <EmbeddedVideo youtubeSlug="5mAzHGM2M0k" />
         </div>
         <div className="flex-1 flex flex-col">
@@ -39,16 +39,16 @@ export default function LandingPage() {
 
 function Slogan() {
   return (
-    <h1 className="text-[22px] sm:text-sm leading-6 sm:leading-normal font-semibold dark:font-medium sm:font-medium tracking-[0.06em] sm:tracking-[0.24em] text-black dark:text-salmon-100 text-center my-auto">
-      <span className="inline-block">Voice coding at the</span>{' '}
-      <span className="inline-block">speed of thought.</span>
+    <h1 className="text-[22px] sm:text-[20px] leading-6 sm:leading-normal font-semibold dark:font-bold sm:font-bold sm:font-monosemiexpanded uppercase [font-stretch:112.5%] tracking-[0.06em] sm:tracking-[0.24em] text-black dark:text-salmon-100 text-center my-auto">
+      <span className="inline-block">Voice coding</span>{' '}
+      <span className="inline-block">at the speed of thought</span>
     </h1>
   );
 }
 
 function NetlifyFooter() {
   return (
-    <footer className="text-center text-salmon-800 dark:text-salmon-100 dark:sm:text-salmon-300 text-sm sm:text-xs tracking-widest ">
+    <footer className="text-center text-salmon-800 dark:text-salmon-100 text-sm sm:text-xs tracking-widest sm:font-light">
       This site is powered by{' '}
       <a
         href="https://www.netlify.com/"

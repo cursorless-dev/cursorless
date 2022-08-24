@@ -14,7 +14,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        mono: ['Inconsolata'],
+        mono: ['Inconsolata-SemiExpanded'],
       },
       colors: {
         salmon: {

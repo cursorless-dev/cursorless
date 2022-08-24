@@ -58,3 +58,66 @@
     /* Safari, Android, iOS */
       url('/fonts/inconsolata-v31-latin-600.svg#Inconsolata') format('svg'); /* Legacy iOS */
 }
+
+/* inconsolata-700 - latin */
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src: url('/fonts/inconsolata-v31-latin-700.eot'); /* IE9 Compat Modes */
+  src: local(''),
+    url('/fonts/inconsolata-v31-latin-700.eot?#iefix')
+      format('embedded-opentype'),
+    /* IE6-IE8 */ url('/fonts/inconsolata-v31-latin-700.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('/fonts/inconsolata-v31-latin-700.woff')
+      format('woff'),
+    /* Modern Browsers */ url('/fonts/inconsolata-v31-latin-700.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */
+      url('/fonts/inconsolata-v31-latin-700.svg#Inconsolata') format('svg'); /* Legacy iOS */
+}
+
+/* inconsolata-700 - latin */
+@font-face {
+  font-family: 'Inconsolata-SemiExpanded';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src: local(''),
+    /* Modern Browsers */ url('/fonts/Inconsolata_SemiExpanded-Bold.ttf')
+      format('truetype');
+}
+
+/* inconsolata-700 - latin */
+@font-face {
+  font-family: 'Inconsolata_SemiExpanded';
+  font-style: normal;
+  font-weight: 800;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src: local(''),
+    /* Modern Browsers */ url('/fonts/Inconsolata_SemiExpanded-ExtraBold.ttf')
+      format('truetype');
+}
+
+/* inconsolata-700 - latin */
+@font-face {
+  font-family: 'Inconsolata_SemiExpanded';
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src: local(''),
+    /* Modern Browsers */ url('/fonts/Inconsolata_SemiExpanded-Light.ttf')
+      format('truetype');
+}
+
+/* inconsolata-700 - latin */
+@font-face {
+  font-family: 'Inconsolata_SemiExpanded';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src: local(''),
+    /* Modern Browsers */ url('/fonts/Inconsolata_SemiExpanded-Medium.ttf')
+      format('truetype');
+}
