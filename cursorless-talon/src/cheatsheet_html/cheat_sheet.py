@@ -16,6 +16,7 @@ mod = Module()
 cheatsheet_out_dir = Path(tempfile.mkdtemp())
 instructions_url = "https://www.cursorless.org/docs/"
 
+
 @mod.action_class
 class Actions:
     def cursorless_cheat_sheet_show_html():

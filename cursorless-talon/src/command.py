@@ -1,6 +1,6 @@
 from typing import Any
 
-from talon import Module,Context,  actions, speech_system
+from talon import Context, Module, actions, speech_system
 
 from .primitive_target import IMPLICIT_TARGET
 
@@ -9,6 +9,7 @@ mod = Module()
 ctx = Context()
 
 last_phrase = None
+
 
 def on_phrase(d):
     global last_phrase
@@ -21,6 +22,7 @@ speech_system.register("pre:phrase", on_phrase)
 class NotSet:
     def __repr__(self):
         return "<argument not set>"
+
 
 @mod.action_class
 class Actions:
@@ -143,4 +145,3 @@ def construct_cursorless_command_argument(
 
 def get_spoken_form():
     return " ".join(last_phrase["phrase"])
-
