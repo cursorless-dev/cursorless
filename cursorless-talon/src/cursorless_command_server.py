@@ -1,83 +1,47 @@
 from .command import Any, NotSet
 import string
 
-from talon import Module, actions, Context
+from talon import Module, actions
 
 mod = Module()
 
-mod.tag(
-    "cursorless", desc="commands for accessing command server with fallbacks to old commands"
-)
-
-ctx = Context()
-ctx.tags = r"""command_client"""
-
 @mod.action_class
 class cs_actions:
-  def fs_run_command(command_id: str):
-        """Execute command via application command server, if available, or fallback to vs code handler"""
-        actions.user.run_command(command_id)
-
-  def fs_run_command_and_wait(command_id: str):
-      """Execute command via application command server, if available, and wait
-      for command to finish.  If command server not available, uses command
-      palette and doesn't guarantee that it will wait for command to
-      finish."""
-      
-      actions.user.run_command_and_wait(command_id)
-      
-
   def fs_run_command_with_plugin(
-      command_id: str,
-      arg1: Any = NotSet,
-      arg2: Any = NotSet,
-      arg3: Any = NotSet,
-      arg4: Any = NotSet,
-      arg5: Any = NotSet,
+        action: str,
+        command: Any
   ):
       """Execute command via application command server."""
-      actions.user.vscode_with_plugin(
-          command_id,
-          arg1,
-          arg2,
-          arg3,
-          arg4,
-          arg5,
-      )
+      try:
+        actions.user.run_rpc_command(action, command)
+      except KeyError:
+        actions.user.vscode_with_plugin(action,command)
 
   def fs_run_command_with_plugin_and_wait(
       action: str,
-      arg1: Any = NotSet,
-      arg2: Any = NotSet,
-      arg3: Any = NotSet,
-      arg4: Any = NotSet,
-      arg5: Any = NotSet,
+      command: Any
   ):
       """Execute command via application command server and wait for command to finish."""
-      print("******************Running fallback")
-      return actions.user.vscode_with_plugin_and_wait(
+      try: 
+        actions.user.run_rpc_command_and_wait(
+            action,
+            command
+        )
+      except KeyError:  
+        actions.user.vscode_with_plugin_and_wait(
           action,
-          arg1,
-          arg2,
-          arg3,
-          arg4,
-          arg5    
-      )
+          command
+        )
 
-  def run_command_get(
-      command_id: str,
-      arg1: Any = NotSet,
-      arg2: Any = NotSet,
-      arg3: Any = NotSet,
-      arg4: Any = NotSet,
-      arg5: Any = NotSet,
+  def fs_run_command_get(
+      action: str,
+      command: Any,
   ) -> Any:
       """Execute command via application command server and return command output."""
-      return actions.user.run_command_get(
-          command_id,
-          arg1,
-          arg2,
-          arg3,
-          arg4,
-          arg5
-      )
+      try:
+        return actions.user.run_rpc_command_get(
+            action,
+            command
+        )
+      except KeyError:
+        return action.user.vscode_get(action,command)

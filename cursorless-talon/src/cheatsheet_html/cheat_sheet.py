@@ -2,7 +2,7 @@ import tempfile
 import webbrowser
 from pathlib import Path
 
-from talon import Module, Context,actions
+from talon import Module, actions
 
 from .get_list import get_list, get_lists
 from .sections.actions import get_actions
@@ -13,12 +13,8 @@ from .sections.special_marks import get_special_marks
 
 mod = Module()
 
-ctx = Context()
-ctx.tags = r"""cursorless"""
-
 cheatsheet_out_dir = Path(tempfile.mkdtemp())
 instructions_url = "https://www.cursorless.org/docs/"
-
 
 @mod.action_class
 class Actions:

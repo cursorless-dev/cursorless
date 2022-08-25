@@ -4,13 +4,11 @@ from talon import Module,Context,  actions, speech_system
 
 from .primitive_target import IMPLICIT_TARGET
 
-
 mod = Module()
 
 ctx = Context()
-ctx.tags = """user.cursorless"""
-last_phrase = None
 
+last_phrase = None
 
 def on_phrase(d):
     global last_phrase
@@ -96,8 +94,7 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute multi-target cursorless command"""
-        #actions.user.vscode_with_plugin_and_wait(
-        actions.user.fs_run_command_and_wait(
+        actions.user.fs_run_command_with_plugin_and_wait(
             "cursorless.command",
             construct_cursorless_command_argument(
                 action=action,

@@ -1,9 +1,6 @@
-from talon import actions, Context
+from talon import actions
 
 from .get_text import get_text
-
-ctx = Context()
-ctx.tags = r"""cursorless"""
 
 def run_find_action(targets: dict):
     """Find text in editor"""
