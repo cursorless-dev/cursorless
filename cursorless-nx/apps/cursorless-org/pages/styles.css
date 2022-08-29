@@ -91,7 +91,18 @@
 
 /* inconsolata-700 - latin */
 @font-face {
-  font-family: 'Inconsolata_SemiExpanded';
+  font-family: 'Inconsolata-SemiExpanded';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src: local(''),
+    /* Modern Browsers */ url('/fonts/Inconsolata_SemiExpanded-SemiBold.ttf')
+      format('truetype');
+}
+
+/* inconsolata-700 - latin */
+@font-face {
+  font-family: 'Inconsolata-SemiExpanded';
   font-style: normal;
   font-weight: 800;
   font-stretch: 1% 500%; /* Required by Chrome */
@@ -102,7 +113,7 @@
 
 /* inconsolata-700 - latin */
 @font-face {
-  font-family: 'Inconsolata_SemiExpanded';
+  font-family: 'Inconsolata-SemiExpanded';
   font-style: normal;
   font-weight: 300;
   font-stretch: 1% 500%; /* Required by Chrome */
@@ -113,7 +124,7 @@
 
 /* inconsolata-700 - latin */
 @font-face {
-  font-family: 'Inconsolata_SemiExpanded';
+  font-family: 'Inconsolata-SemiExpanded';
   font-style: normal;
   font-weight: 500;
   font-stretch: 1% 500%; /* Required by Chrome */
