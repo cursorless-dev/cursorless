@@ -21,7 +21,7 @@ mod = Module()
         "{user.cursorless_custom_action}"
     )
 )
-def cursorless_action_or_server_command(m) -> dict:
+def cursorless_action_or_ide_command(m) -> dict:
     try:
         value = m.cursorless_custom_action
         type = "server_command"
@@ -43,9 +43,9 @@ class Actions:
         elif action_id in makeshift_action_map:
             command, command_options, talon_options = makeshift_action_map[action_id]
             return_value = (
-                server_command(command, target, command_options)
+                ide_command(command, target, command_options)
                 if talon_options.await_command
-                else server_command_no_wait(command, target, command_options)
+                else ide_command_no_wait(command, target, command_options)
             )
 
             if talon_options.post_command_sleep_ms:
@@ -59,11 +59,15 @@ class Actions:
         else:
             return actions.user.cursorless_single_target_command(action_id, target)
 
-    def cursorless_server_command(command_id: str, target: dict):
-        """Perform aplication command on cursorless target"""
-        return server_command(command_id, target)
+    def cursorless_vscode_command(command_id:str, target:dict):
+        """Perform application command on cursorless target (Legacy use cursorless_ide_command)"""
+        return actions.user.cursorless_ide_command(command_id, target)
 
-    def cursorless_action_or_server_command(instruction: dict, target: dict):
+    def cursorless_ide_command(command_id: str, target: dict):
+        """Perform application command on cursorless target"""
+        return ide_command(command_id, target)
+
+    def cursorless_action_or_ide_command(instruction: dict, target: dict):
         """Perform cursorless action or command server command on target (internal use only)"""
         type = instruction["type"]
         value = instruction["value"]
@@ -73,13 +77,13 @@ class Actions:
             return actions.user.cursorless_server_command(value, target)
 
 
-def server_command(command_id: str, target: dict, command_options: dict = {}):
+def ide_command(command_id: str, target: dict, command_options: dict = {}):
     return actions.user.cursorless_single_target_command(
         "executeCommand", target, command_id, command_options
     )
 
 
-def server_command_no_wait(command_id: str, target: dict, command_options: dict = {}):
+def ide_command_no_wait(command_id: str, target: dict, command_options: dict = {}):
     return actions.user.cursorless_single_target_command_no_wait(
         "executeCommand", target, command_id, command_options
     )

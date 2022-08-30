@@ -1,11 +1,9 @@
-from talon import actions
+from talon import Module
 
-from .get_text import get_text
+mod = Module()
 
+@mod.action_class
+class Actions:
+    def run_find_action(targets: dict):
+        """Find text in editor"""
 
-def run_find_action(targets: dict):
-    """Find text in editor"""
-    texts = get_text(targets, ensure_single_target=True)
-    actions.user.fs_run_command("actions.find")
-    actions.sleep("50ms")
-    actions.insert(texts[0])

@@ -1,8 +1,9 @@
 app: vscode
+app: visual_studio
 -
 
-<user.cursorless_action_or_server_command> <user.cursorless_target>:
-    user.cursorless_action_or_server_command(cursorless_action_or_server_command, cursorless_target)
+<user.cursorless_action_or_ide_command> <user.cursorless_target>:
+    user.cursorless_action_or_ide_command(cursorless_action_or_ide_command, cursorless_target)
 
 {user.cursorless_positional_action} <user.cursorless_positional_target>:
     user.cursorless_single_target_command(cursorless_positional_action, cursorless_positional_target)
