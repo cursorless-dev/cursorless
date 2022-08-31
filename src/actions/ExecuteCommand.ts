@@ -3,11 +3,14 @@ import { Graph } from "../typings/Types";
 import { Action, ActionReturnValue } from "./actions.types";
 import CommandAction, { CommandOptions } from "./CommandAction";
 
+/**
+ * This is just a wrapper for {@link CommandAction} that allows the commands string without an options object.
+ * Should only be used by the API. Internally go directly to {@link CommandAction}
+ */
 export default class ExecuteCommand implements Action {
   private commandAction: CommandAction;
 
   constructor(graph: Graph) {
-    this.run = this.run.bind(this);
     this.commandAction = new CommandAction(graph);
   }
 
