@@ -66,7 +66,7 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute single-target cursorless command and return result"""
-        return actions.user.fs_run_command_get(
+        return actions.user.cursorless_run_rpc_command_get(
             "cursorless.command",
             construct_cursorless_command_argument(
                 action=action,

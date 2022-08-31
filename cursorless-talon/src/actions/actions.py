@@ -44,8 +44,6 @@ class Actions:
             command, command_options, talon_options = makeshift_action_map[action_id]
             return_value = (
                 ide_command(command, target, command_options)
-                if talon_options.await_command
-                else ide_command_no_wait(command, target, command_options)
             )
 
             if talon_options.post_command_sleep_ms:

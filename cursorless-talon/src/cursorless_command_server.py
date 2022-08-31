@@ -1,5 +1,4 @@
 from .command import Any, NotSet
-import string
 
 from talon import Module, actions
 
@@ -35,7 +34,7 @@ class cs_actions:
 
   def cursorless_run_rpc_command_get(
       action: str,
-      command: Any,
+      command: Any
   ) -> Any:
       """Execute command via application command server and return command output."""
       try:

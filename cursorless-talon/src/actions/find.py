@@ -6,4 +6,3 @@ mod = Module()
 class Actions:
     def run_find_action(targets: dict):
         """Find text in editor"""
-
