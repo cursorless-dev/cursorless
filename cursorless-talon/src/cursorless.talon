@@ -26,4 +26,3 @@ cursorless docks:          user.cursorless_open_instructions()
 cursorless reference:      user.cursorless_cheat_sheet_show_html()
 cursorless cheat sheet:    user.cursorless_cheat_sheet_show_html()
 cursorless settings:       user.show_cursorless_settings()
-

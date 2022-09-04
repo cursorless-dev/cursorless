@@ -47,7 +47,7 @@ class Actions:
         else:
             return actions.user.cursorless_single_target_command(action_id, target)
 
-    def cursorless_vscode_command(command_id:str, target:dict):
+    def cursorless_vscode_command(command_id: str, target: dict):
         """Perform application command on cursorless target (Legacy use cursorless_ide_command)"""
         return actions.user.cursorless_ide_command(command_id, target)
 
