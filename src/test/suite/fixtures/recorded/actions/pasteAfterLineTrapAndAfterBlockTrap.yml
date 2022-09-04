@@ -37,13 +37,13 @@ finalState:
         print("hello")
         pass
 
-        print("hello")
+    print("hello")
   selections:
     - anchor: {line: 5, character: 0}
       active: {line: 5, character: 0}
   thatMark:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 18}
-    - anchor: {line: 4, character: 4}
-      active: {line: 4, character: 18}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 14}
 fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: {type: line}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: {type: paragraph}}]}]}]
