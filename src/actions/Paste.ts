@@ -28,7 +28,7 @@ export class Paste {
         await this.graph.actions.editNew.run([targets]);
       },
       targetEditor.document,
-      [targetEditor.selections]
+      [targetEditor.selections],
     );
 
     // Then use VSCode paste command, using open ranges at the place where we
@@ -46,7 +46,7 @@ export class Paste {
             selections: targetEditor.selections,
             rangeBehavior: DecorationRangeBehavior.OpenOpen,
           },
-        ]
+        ],
       );
 
     // Reset cursors on the editor where the edits took place.
@@ -68,7 +68,7 @@ export class Paste {
         range: selection,
       })),
       this.graph.editStyles.justAdded,
-      true
+      true,
     );
 
     return {

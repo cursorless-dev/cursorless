@@ -23,13 +23,13 @@ export function findUnmatchedDelimiter(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   initialIndex: number,
   acceptableDelimiters: SimpleSurroundingPairName[],
-  lookForward: boolean
+  lookForward: boolean,
 ): DelimiterOccurrence | null {
   const generatorResult = generateUnmatchedDelimiters(
     delimiterOccurrences,
     initialIndex,
     () => acceptableDelimiters,
-    lookForward
+    lookForward,
   ).next();
 
   return generatorResult.done ? null : generatorResult.value;
@@ -62,7 +62,7 @@ export function* generateUnmatchedDelimiters(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   initialIndex: number,
   getCurrentAcceptableDelimiters: () => SimpleSurroundingPairName[],
-  lookForward: boolean
+  lookForward: boolean,
 ): Generator<DelimiterOccurrence, void, never> {
   /**
    * This map tells us whether to increment or decrement our delimiter count

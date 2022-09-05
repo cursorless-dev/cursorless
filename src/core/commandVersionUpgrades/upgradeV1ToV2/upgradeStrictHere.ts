@@ -14,6 +14,6 @@ const IMPLICIT_TARGET: PartialPrimitiveTargetDescriptor = {
   isImplicit: true,
 };
 export const upgradeStrictHere = (
-  target: PartialPrimitiveTargetDescriptor
+  target: PartialPrimitiveTargetDescriptor,
 ): PartialPrimitiveTargetDescriptor =>
   isDeepStrictEqual(target, STRICT_HERE) ? IMPLICIT_TARGET : target;

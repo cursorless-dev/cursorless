@@ -20,7 +20,7 @@ import {
 export function getUpdatedText(
   changeEventInfo: ChangeEventInfo,
   rangeInfo: FullRangeInfo,
-  newOffsets: RangeOffsets
+  newOffsets: RangeOffsets,
 ): string {
   const { start: changeOriginalOffsetsStart, end: changeOriginalOffsetsEnd } =
     changeEventInfo.originalOffsets;
@@ -29,7 +29,7 @@ export function getUpdatedText(
 
   const newTextStartOffset = Math.min(
     changeOriginalOffsetsStart,
-    rangeOriginalOffsetsStart
+    rangeOriginalOffsetsStart,
   );
 
   let result = "";
@@ -38,7 +38,7 @@ export function getUpdatedText(
   if (rangeOriginalOffsetsStart < changeOriginalOffsetsStart) {
     result += rangeInfo.text.substring(
       0,
-      changeOriginalOffsetsStart - rangeOriginalOffsetsStart
+      changeOriginalOffsetsStart - rangeOriginalOffsetsStart,
     );
   }
 
@@ -49,13 +49,13 @@ export function getUpdatedText(
   if (changeOriginalOffsetsEnd < rangeOriginalOffsetsEnd) {
     result += rangeInfo.text.substring(
       rangeOriginalOffsetsEnd - changeOriginalOffsetsEnd,
-      rangeInfo.text.length
+      rangeInfo.text.length,
     );
   }
 
   // Then take a substring based on the range's new offsets
   return result.substring(
     newOffsets.start - newTextStartOffset,
-    newOffsets.end - newTextStartOffset
+    newOffsets.end - newTextStartOffset,
   );
 }

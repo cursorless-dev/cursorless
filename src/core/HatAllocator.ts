@@ -27,14 +27,14 @@ export class HatAllocator {
 
     this.disposalFunctions.push(
       graph.decorations.registerDecorationChangeListener(
-        this.addDecorationsDebounced
-      )
+        this.addDecorationsDebounced,
+      ),
     );
 
     this.disposables.push(
       vscode.commands.registerCommand(
         "cursorless.toggleDecorations",
-        this.toggleDecorations
+        this.toggleDecorations,
       ),
 
       // An Event which fires when the active editor has changed. Note that the event also fires when the active editor changes to undefined.
@@ -45,17 +45,17 @@ export class HatAllocator {
       vscode.workspace.onDidChangeTextDocument(this.addDecorationsDebounced),
       // An Event which fires when the selection in an editor has changed.
       vscode.window.onDidChangeTextEditorSelection(
-        this.addDecorationsDebounced
+        this.addDecorationsDebounced,
       ),
       // An Event which fires when the visible ranges of an editor has changed.
       vscode.window.onDidChangeTextEditorVisibleRanges(
-        this.addDecorationsDebounced
+        this.addDecorationsDebounced,
       ),
       // Re-draw hats on grapheme splitting algorithm change in case they
       // changed their token hat splitting setting.
       graph.tokenGraphemeSplitter.registerAlgorithmChangeListener(
-        this.addDecorationsDebounced
-      )
+        this.addDecorationsDebounced,
+      ),
     );
   }
 
@@ -72,7 +72,7 @@ export class HatAllocator {
       addDecorationsToEditors(
         activeMap,
         this.graph.decorations,
-        this.graph.tokenGraphemeSplitter
+        this.graph.tokenGraphemeSplitter,
       );
     } else {
       vscode.window.visibleTextEditors.forEach(this.clearEditorDecorations);

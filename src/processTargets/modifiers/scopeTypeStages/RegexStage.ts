@@ -14,7 +14,7 @@ class RegexStage implements ModifierStage {
   constructor(
     private modifier: RegexModifier,
     private regex: RegExp,
-    private name?: string
+    private name?: string,
   ) {}
 
   run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
@@ -49,7 +49,7 @@ class RegexStage implements ModifierStage {
     if (targets.length === 0) {
       if (targets.length === 0) {
         throw new Error(
-          `Couldn't find containing ${this.modifier.scopeType.type}`
+          `Couldn't find containing ${this.modifier.scopeType.type}`,
         );
       }
     }
@@ -67,7 +67,7 @@ class RegexStage implements ModifierStage {
 
   private getTargetFromRange(
     target: Target,
-    contentRange: Range
+    contentRange: Range,
   ): ScopeTypeTarget {
     return new ScopeTypeTarget({
       scopeTypeType: this.modifier.scopeType.type,
@@ -79,7 +79,7 @@ class RegexStage implements ModifierStage {
 
   private getMatchForPos(editor: TextEditor, position: Position) {
     const match = this.getMatchesForLine(editor, position.line).find((range) =>
-      range.contains(position)
+      range.contains(position),
     );
     if (match == null) {
       if (this.name) {
@@ -99,8 +99,8 @@ class RegexStage implements ModifierStage {
           lineNum,
           match.index!,
           lineNum,
-          match.index! + match[0].length
-        )
+          match.index! + match[0].length,
+        ),
     );
     if (result == null) {
       if (this.name) {

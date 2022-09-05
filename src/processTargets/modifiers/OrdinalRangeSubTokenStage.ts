@@ -68,11 +68,11 @@ export default class OrdinalRangeSubTokenStage implements ModifierStage {
 
     const anchor = tokenContentRange.start.translate(
       undefined,
-      isReversed ? pieces[anchorIndex].end : pieces[anchorIndex].start
+      isReversed ? pieces[anchorIndex].end : pieces[anchorIndex].start,
     );
     const active = tokenContentRange.start.translate(
       undefined,
-      isReversed ? pieces[activeIndex].start : pieces[activeIndex].end
+      isReversed ? pieces[activeIndex].start : pieces[activeIndex].end,
     );
 
     const contentRange = new Range(anchor, active);
@@ -97,7 +97,7 @@ export default class OrdinalRangeSubTokenStage implements ModifierStage {
             }),
             tokenContentRange.start.translate({
               characterDelta: pieces[startIndex].start,
-            })
+            }),
           )
         : undefined;
     const trailingDelimiterRange =
@@ -109,14 +109,14 @@ export default class OrdinalRangeSubTokenStage implements ModifierStage {
             }),
             tokenContentRange.start.translate({
               characterDelta: pieces[endIndex + 1].start,
-            })
+            }),
           )
         : undefined;
     const isInDelimitedList =
       leadingDelimiterRange != null || trailingDelimiterRange != null;
     const insertionDelimiter = isInDelimitedList
       ? editor.document.getText(
-          (leadingDelimiterRange ?? trailingDelimiterRange)!
+          (leadingDelimiterRange ?? trailingDelimiterRange)!,
         )
       : "";
 

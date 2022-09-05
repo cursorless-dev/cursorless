@@ -43,7 +43,7 @@ export default class BoundedNonWhitespaceSequenceStage
         type: "surroundingPair",
         delimiter: "any",
         requireStrongContainment: true,
-      }
+      },
     );
 
     if (pairInfo == null) {
@@ -52,7 +52,7 @@ export default class BoundedNonWhitespaceSequenceStage
 
     const targets = paintTargets.flatMap((paintTarget) => {
       const contentRange = paintTarget.contentRange.intersection(
-        pairInfo.interiorRange
+        pairInfo.interiorRange,
       );
 
       if (contentRange == null || contentRange.isEmpty) {

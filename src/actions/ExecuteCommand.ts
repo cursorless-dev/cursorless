@@ -17,7 +17,7 @@ export default class ExecuteCommand implements Action {
   async run(
     targets: [Target[]],
     command: string,
-    args: CommandOptions = {}
+    args: CommandOptions = {},
   ): Promise<ActionReturnValue> {
     return this.commandAction.run(targets, { ...args, command });
   }

@@ -56,7 +56,7 @@ export const TOKEN_MATCHER = new RegExp(REGEX, "gu");
 
 export function tokenize<T>(
   text: string,
-  mapfn: (v: RegExpMatchArray, k: number) => T
+  mapfn: (v: RegExpMatchArray, k: number) => T,
 ) {
   return matchAll(text, TOKEN_MATCHER, mapfn);
 }

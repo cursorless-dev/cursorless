@@ -40,6 +40,6 @@ function selectionsToTarget(selections: SelectionWithEditor[]) {
         isReversed: isReversed(selection.selection),
         contentRange: selection.selection,
         hasExplicitRange: !selection.selection.isEmpty,
-      })
+      }),
   );
 }

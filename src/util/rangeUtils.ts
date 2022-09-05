@@ -21,7 +21,7 @@ export function isAtStartOfLine(position: Position) {
 export function expandToFullLine(editor: TextEditor, range: Range) {
   return new Range(
     new Position(range.start.line, 0),
-    editor.document.lineAt(range.end).range.end
+    editor.document.lineAt(range.end).range.end,
   );
 }
 

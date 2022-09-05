@@ -19,10 +19,10 @@ class FoldAction implements Action {
     }
 
     const singleLineTargets = targets.filter(
-      (target) => target.contentRange.isSingleLine
+      (target) => target.contentRange.isSingleLine,
     );
     const multiLineTargets = targets.filter(
-      (target) => !target.contentRange.isSingleLine
+      (target) => !target.contentRange.isSingleLine,
     );
     // Don't mix multi and single line targets.
     // This is probably the result of an "every" command
@@ -35,7 +35,7 @@ class FoldAction implements Action {
       levels: 1,
       direction: "down",
       selectionLines: selectedTargets.map(
-        (target) => target.contentRange.start.line
+        (target) => target.contentRange.start.line,
       ),
     });
 
