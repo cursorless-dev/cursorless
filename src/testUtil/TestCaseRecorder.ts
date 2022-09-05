@@ -15,7 +15,7 @@ import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
 import { walkDirsSync } from "./walkSync";
 
 const CALIBRATION_DISPLAY_BACKGROUND_COLOR = "#230026";
-const CALIBRATION_DISPLAY_DURATION_MS = 30;
+const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
 interface RecordTestCaseCommandArg {
   /**
