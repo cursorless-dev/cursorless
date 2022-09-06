@@ -193,11 +193,9 @@ export class TestCaseRecorder {
     this.active = this.targetDirectory != null;
 
     if (this.active) {
-      if (showCalibrationDisplay) {
-        this.showCalibrationDisplay();
-      }
-      this.startTimestamp = process.hrtime.bigint();
-      const timestampISO = new Date().toISOString();
+      const startTimestampISO = await this.recordStartTime(
+        showCalibrationDisplay
+      );
       this.isHatTokenMapTest = isHatTokenMapTest;
       this.isDecorationsTest = isDecorationsTest;
       this.isSilent = isSilent;
@@ -209,25 +207,38 @@ export class TestCaseRecorder {
         `Recording test cases for following commands in:\n${this.targetDirectory}`
       );
 
-      return { startTimestampISO: timestampISO };
+      return { startTimestampISO };
     }
 
     return null;
   }
 
-  async showCalibrationDisplay() {
-    vscode.window.visibleTextEditors.map((editor) => {
-      editor.setDecorations(this.calibrationStyle, [
-        getDocumentRange(editor.document),
-      ]);
-    });
+  private async recordStartTime(showCalibrationDisplay: boolean) {
+    if (showCalibrationDisplay) {
+      vscode.window.visibleTextEditors.map((editor) => {
+        editor.setDecorations(this.calibrationStyle, [
+          getDocumentRange(editor.document),
+        ]);
+      });
 
-    await sleep(CALIBRATION_DISPLAY_DURATION_MS);
+      await sleep(CALIBRATION_DISPLAY_DURATION_MS);
+    }
 
-    vscode.window.visibleTextEditors.map((editor) => {
-      editor.setDecorations(this.calibrationStyle, []);
-    });
+    // NB: Record timestamp here so that timestamp is last frame of calibration
+    // display
+    this.startTimestamp = process.hrtime.bigint();
+    const timestampISO = new Date().toISOString();
+
+    if (showCalibrationDisplay) {
+      vscode.window.visibleTextEditors.map((editor) => {
+        editor.setDecorations(this.calibrationStyle, []);
+      });
+    }
+
+    return timestampISO;
   }
+
+  async showCalibrationDisplay() {}
 
   stop() {
     this.active = false;
