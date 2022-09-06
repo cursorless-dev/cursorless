@@ -1,3 +1,3 @@
 ## Checklist
 
-- [ ] I have added [tests](https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/contributing/test-case-recorder.md)
+- [ ] I have added [tests](https://www.cursorless.org/docs/contributing/test-case-recorder/)

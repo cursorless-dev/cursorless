@@ -1,4 +1,5 @@
 from talon import actions, app
+
 from .get_text import get_text
 
 
@@ -6,7 +7,7 @@ def run_homophones_action(targets: dict):
     """Replaced target with next homophone"""
     texts = get_text(targets, show_decorations=False)
     try:
-        updated_texts = list(map(lambda text: get_next_homophone(text), texts))
+        updated_texts = list(map(get_next_homophone, texts))
     except LookupError as e:
         app.notify(str(e))
         return

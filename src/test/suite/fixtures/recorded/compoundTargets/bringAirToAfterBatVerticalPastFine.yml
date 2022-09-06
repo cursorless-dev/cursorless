@@ -48,11 +48,11 @@ finalState:
     - anchor: {line: 5, character: 0}
       active: {line: 5, character: 0}
   thatMark:
-    - anchor: {line: 2, character: 1}
+    - anchor: {line: 2, character: 2}
       active: {line: 2, character: 3}
-    - anchor: {line: 3, character: 1}
+    - anchor: {line: 3, character: 2}
       active: {line: 3, character: 3}
-    - anchor: {line: 4, character: 1}
+    - anchor: {line: 4, character: 2}
       active: {line: 4, character: 3}
   sourceMark:
     - anchor: {line: 0, character: 0}

@@ -1,4 +1,6 @@
 languageId: python
+postEditorOpenSleepTimeMs: 250
+postCommandSleepTimeMs: 400
 command:
   version: 1
   spokenForm: pour cell each
@@ -27,11 +29,13 @@ finalState:
     print("hello")
 
     # %%
+
+    # %%
     print("hello")
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
   thatMark:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 12}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, selectionType: notebookCell, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

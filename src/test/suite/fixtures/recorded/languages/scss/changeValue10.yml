@@ -1,0 +1,29 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: change value
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+initialState:
+  documentContents: |
+    @mixin horizontal-list {
+      @include rtl(float, left, right);
+    }
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
+  marks: {}
+finalState:
+  documentContents: |
+    @mixin horizontal-list {
+      @include ;
+    }
+  selections:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
+  thatMark:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]

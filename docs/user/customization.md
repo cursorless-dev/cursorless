@@ -4,7 +4,7 @@ Many of the spoken forms used in cursorless can be easily customized without
 needing to fork cursorless or modify the talon / python files contained
 therein. If you find that your customization needs cannot be met without making
 changes to cursorless files, please [file an
-issue](https://github.com/cursorless-dev/cursorless-vscode/issues/new) so we can
+issue](https://github.com/cursorless-dev/cursorless/issues/new) so we can
 improve customization.
 
 ## Cursorless settings csvs
@@ -33,7 +33,7 @@ reload, as cursorless uses these lines to track disabled spoken forms.
 Simply modify the spoken form in the first column of any of the csvs in the
 directory above to change the spoken you'd like to use. The new spoken form will be usable immediately.
 
-Multiple spoken forms can be used for the same action using the pipe operator  
+Multiple spoken forms can be used for the same action using the pipe operator
 `remove|delete`
 
 ### New features
@@ -60,23 +60,38 @@ push down, editor.action.moveLinesDownAction
 
 Now when you say eg "push down air and bat", cursorless will first select the two tokens with a gray hat over the `a` and `b`, then issue the VSCode command `editor.action.moveLinesDownAction`, and then restore your original selection.
 
+## Toggling "hat" display
+
+It is possible to show / hide the hats with a command. Keep in mind that many users, often after less than a week using Cursorless, find that their brain starts to tune out the hat display. Some start to miss them when they're gone 🥲
+
+However, should you like to show / hide the hats within your editor, you can use the following approach.
+
+- Bring up the command pallet(`Shift + CMD + P` on Mac; `Shift + Ctrl + P` on Windows / Linux).
+- Enter `cursorless.toggleDecorations` or type `Cursorless Toggle` to see the command in the dropdown.
+
+You should also be able to find the above command by saying `"please toggle"`. The same command can be repeated to turn the hats back on.
+
+While the hats are hidden, you will not be able to address any marks, eg `"take air"`. However, Cursorless will still recognize scopes, eg `"take funk"`.
+
+If you'd like to map a voice command to toggle the hats, have a look at https://youtu.be/oWUJyDgz63k
+
 ## Cursorless public API
 
 Cursorless exposes a couple talon actions and captures that you can use to define your own custom command grammar leveraging cursorless targets.
 
 ### Public Talon captures
 
-- `<user.cursorless_target>`  
-   Represents a cursorless target, such as `"air"`, `"this"`, `"air past bat"`, `"air and bat"`, `"funk air past token bat and class cap"`, etc
+- `<user.cursorless_target>`
+  Represents a cursorless target, such as `"air"`, `"this"`, `"air past bat"`, `"air and bat"`, `"funk air past token bat and class cap"`, etc
 
 ### Public Talon actions
 
-- `user.cursorless_command(action_id: str, target: cursorless_target)`  
-   Perform a Cursorless command on the given target  
-   eg: `user.cursorless_command("setSelection", cursorless_target)`
-- `user.cursorless_vscode_command(command_id: str, target: cursorless_target)`  
-   Performs a VSCode command on the given target  
-   eg: `user.cursorless_vscode_command("editor.action.addCommentLine", cursorless_target)`
+- `user.cursorless_command(action_id: str, target: cursorless_target)`
+  Perform a Cursorless command on the given target
+  eg: `user.cursorless_command("setSelection", cursorless_target)`
+- `user.cursorless_vscode_command(command_id: str, target: cursorless_target)`
+  Performs a VSCode command on the given target
+  eg: `user.cursorless_vscode_command("editor.action.addCommentLine", cursorless_target)`
 
 ### Example of combining capture and action
 

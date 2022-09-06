@@ -1,36 +1,33 @@
-from talon import Module
+from contextlib import suppress
+from typing import Any
 
+from talon import Module
 
 mod = Module()
 
-BASE_TARGET = {"type": "primitive"}
+BASE_TARGET: dict[str, Any] = {"type": "primitive"}
 IMPLICIT_TARGET = {"type": "primitive", "isImplicit": True}
 
 
-modifiers = [
-    "<user.cursorless_position>",  # before, end of
-    "<user.cursorless_selection_type>",  # token, line, file
-    "<user.cursorless_head_tail>",  # head, tail
-    "<user.cursorless_containing_scope>",  # funk, state, class
-    "<user.cursorless_subtoken_scope>",  # first past second word
-    "<user.cursorless_surrounding_pair>",  # matching/pair [curly, round]
-    "<user.cursorless_to_raw_selection>",  # just
-    # "<user.cursorless_matching_paired_delimiter>",  # matching
-]
-
-
-@mod.capture(rule="|".join(modifiers))
-def cursorless_modifier(m) -> str:
-    """Cursorless modifier"""
-    return m[0]
-
-
 @mod.capture(
-    rule="<user.cursorless_modifier>+ [<user.cursorless_mark>] | <user.cursorless_mark>"
+    rule=(
+        "[<user.cursorless_position>] "
+        "(<user.cursorless_modifier>+ [<user.cursorless_mark>] | <user.cursorless_mark>)"
+    )
 )
-def cursorless_primitive_target(m) -> str:
+def cursorless_primitive_target(m) -> dict[str, Any]:
     """Supported extents for cursorless navigation"""
     result = BASE_TARGET.copy()
-    for capture in m:
-        result.update(capture)
+
+    modifiers = [
+        *getattr(m, "cursorless_position_list", []),
+        *getattr(m, "cursorless_modifier_list", []),
+    ]
+
+    if modifiers:
+        result["modifiers"] = modifiers
+
+    with suppress(AttributeError):
+        result["mark"] = m.cursorless_mark
+
     return result

@@ -1,58 +1,24 @@
+---
+slug: /
+---
+
 # Cursorless documentation
 
-Welcome to Cursorless! You may find it helpful to start with the [tutorial video](https://www.youtube.com/watch?v=JxcNW0hnfTk).
+Welcome to Cursorless! You may find it helpful to start with the [tutorial videos](https://www.youtube.com/watch?v=5mAzHGM2M0k&list=PLXv2sppxeoQZz49evjy4T0QJRIgc_JPqs).
+
+This guide assumes you've already [installed Cursorless](installation.md).
 
 Once you understand the concepts, you can pull up a cheatsheet for reference using either `"cursorless reference"` or `"reference cursorless"` commands within VSCode.
 
 You can get back to these docs by saying `"cursorless docs"`, `"cursorless help"` or `"help cursorless"` within VSCode.
 
-Note: If you'd like to customize any of the spoken forms, please see the [documentation](customization.md).
-
-## Table of contents
-
-- [Table of contents](#table-of-contents)
-- [Overview](#overview)
-- [Targets](#targets)
-  - [Primitive targets](#primitive-targets)
-    - [Marks](#marks)
-      - [Decorated symbol](#decorated-symbol)
-        - [Colors](#colors)
-        - [Shapes](#shapes)
-      - [`"this"`](#this)
-      - [`"that"`](#that)
-    - [Modifiers](#modifiers)
-      - [Syntactic scopes](#syntactic-scopes)
-      - [`"every"`](#every)
-      - [Sub-token modifiers](#sub-token-modifiers)
-        - [`"word"`](#word)
-        - [`"char"`](#char)
-      - [`"line"`](#line)
-      - [`"file"`](#file)
-      - [Surrounding pair](#surrounding-pair)
-        - [Ambiguous delimiters (`"`, `'`, `` ` ``, etc)](#ambiguous-delimiters----etc)
-  - [Compound targets](#compound-targets)
-    - [Range targets](#range-targets)
-    - [List targets](#list-targets)
-- [Actions](#actions)
-  - [Cursor movement](#cursor-movement)
-  - [Delete](#delete)
-  - [Changing a target](#changing-a-target)
-  - [Cut / copy](#cut--copy)
-  - [Swap](#swap)
-  - [Insert empty lines](#insert-empty-lines)
-  - [Rename](#rename)
-  - [Scroll](#scroll)
-  - [Insert/Use/Repeat](#insertuserepeat)
-  - [Wrap/Rewrap](#wraprewrap)
-    - [\[experimental\] Wrap with snippet](#experimental-wrap-with-snippet)
-  - [Show definition/reference/quick fix](#show-definitionreferencequick-fix)
-  - [Fold/unfold](#foldunfold)
-  - [Extract](#extract)
-- [Paired delimiters](#paired-delimiters)
+Note: If you'd like to customize any of the spoken forms, please see [Customization](customization.md).
 
 ## Overview
 
-Every cursorless command consists of an action performed on a target. For example, the command `"chuck blue air"` deletes the token with a blue hat over the `"a"`. In this command, the action is `"chuck"` (delete), and the target is `"blue air"`.
+Every cursorless command consists of an action performed on a target. For example, the command `"chuck bat"` deletes the token with a hat over the `b`. In this command, the action is `"chuck"` (delete), and the target is `"bat"`. There are no actions without at least one target.
+
+![`"chuck bat"`](images/chuckBat.gif)
 
 ## Targets
 
@@ -85,45 +51,49 @@ Combining this with an action, we might say `"take blue air"` to select the toke
 
 ###### Colors
 
-The following colors are supported:
+The following colors are supported. Note that to target the default (gray) hat you don't need to specify a color.
 
-| Spoken form | Visible color | Internal ID |
-| ----------- | ------------- | ----------- |
-| `"blue"`    | Blue          | `blue`      |
-| `"green"`   | Green         | `green`     |
-| `"rose"`    | Red           | `rose`      |
-| `"squash"`  | Yellow        | `yellow`    |
-| `"plum"`    | Pink          | `pink`      |
+| Spoken form | Color   | Internal ID  | Enabled by default? |
+| ----------- | ------- | ------------ | ------------------- |
+| N/A         | grey    | `default`    | ✅                  |
+| `"blue"`    | blue    | `blue`       | ✅                  |
+| `"green"`   | green   | `green`      | ✅                  |
+| `"red"`     | red     | `red`        | ✅                  |
+| `"pink"`    | pink    | `pink`       | ✅                  |
+| `"yellow"`  | yellow  | `yellow`     | ✅                  |
+| `"navy"`    | navy    | `userColor1` | ❌                  |
+| `"apricot"` | apricot | `userColor2` | ❌                  |
 
-You can enable or disable colors in your VSCode settings, by searching for `cursorless.hatEnablement.colors` and checking the box next to the internal ID for the given shape as listed above.
+You can enable or disable colors in your VSCode settings, by searching for `cursorless.hatEnablement.colors` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
 You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for `cursorless.colors` and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes.
 
 If you find these color names unintuitive / tough to remember, their
 spoken forms can be [customized](customization.md) like any other spoken form
-in cursorless. If you change a spoken form to be more than one syllable, you
+in Cursorless. If you change a spoken form to be more than one syllable, you
 can change the penalty in the `cursorless.hatPenalties.colors` setting to the
-number of syllables you use, so that cursorless can optimize hat allocation to
+number of syllables you use, so that Cursorless can optimize hat allocation to
 minimize syllables.
 
 ###### Shapes
 
-The following shapes are supported:
+The following shapes are supported. Note that to target the default (dot) shape you don't need to specify a shape.
 
-| Spoken form | Internal ID  | Shape                                           | Enabled by default? |
-| ----------- | ------------ | ----------------------------------------------- | ------------------- |
-| `"ex"`      | `ex`         | ![Ex](../../images/hats/ex.svg)                 | ❌                  |
-| `"fox"`     | `fox`        | ![Fox](../../images/hats/fox.svg)               | ❌                  |
-| `"wing"`    | `wing`       | ![Wing](../../images/hats/wing.svg)             | ❌                  |
-| `"hole"`    | `hole`       | ![Hole](../../images/hats/hole.svg)             | ❌                  |
-| `"frame"`   | `frame`      | ![Frame](../../images/hats/frame.svg)           | ❌                  |
-| `"curve"`   | `curve`      | ![Curve](../../images/hats/curve.svg)           | ❌                  |
-| `"eye"`     | `eye`        | ![Eye](../../images/hats/eye.svg)               | ❌                  |
-| `"play"`    | `play`       | ![Play](../../images/hats/play.svg)             | ❌                  |
-| `"cross"`   | `crosshairs` | ![Crosshairs](../../images/hats/crosshairs.svg) | ❌                  |
-| `"bolt"`    | `bolt`       | ![Bolt](../../images/hats/bolt.svg)             | ❌                  |
+| Spoken form | Shape                                           | Internal ID  | Enabled by default? |
+| ----------- | ----------------------------------------------- | ------------ | ------------------- |
+| N/A         | ![Default](../../images/hats/default.svg)       | `default`    | ✅                  |
+| `"ex"`      | ![Ex](../../images/hats/ex.svg)                 | `ex`         | ❌                  |
+| `"fox"`     | ![Fox](../../images/hats/fox.svg)               | `fox`        | ❌                  |
+| `"wing"`    | ![Wing](../../images/hats/wing.svg)             | `wing`       | ❌                  |
+| `"hole"`    | ![Hole](../../images/hats/hole.svg)             | `hole`       | ❌                  |
+| `"frame"`   | ![Frame](../../images/hats/frame.svg)           | `frame`      | ❌                  |
+| `"curve"`   | ![Curve](../../images/hats/curve.svg)           | `curve`      | ❌                  |
+| `"eye"`     | ![Eye](../../images/hats/eye.svg)               | `eye`        | ❌                  |
+| `"play"`    | ![Play](../../images/hats/play.svg)             | `play`       | ❌                  |
+| `"cross"`   | ![Crosshairs](../../images/hats/crosshairs.svg) | `crosshairs` | ❌                  |
+| `"bolt"`    | ![Bolt](../../images/hats/bolt.svg)             | `bolt`       | ❌                  |
 
-You can enable or disable shapes in your VSCode settings, by searching for `cursorless.hatEnablement.shapes` and checking the box next to the internal ID for the given shape as listed above.
+You can enable or disable shapes in your VSCode settings, by searching for `cursorless.hatEnablement.shapes` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
 If you find these shape names unintuitive / tough to remember, their
 spoken forms can be [customized](customization.md) like any other spoken form
@@ -134,12 +104,12 @@ minimize syllables.
 
 ##### `"this"`
 
-The word `"this"` can be used as a mark to refer to the current cursor(s) or selection(s). Note that when combined with a modifier, the `"this"` mark can be omitted, and it will be implied.
+The word `"this"` can be used as a mark to refer to the current cursor(s) or selection(s) as a target. Note that when combined with a modifier, the `"this"` mark can be omitted, and it will be implied.
 
-- `chuck this`
-- `take this funk`
-- `pre funk`
-- `chuck line`
+- `"chuck this"`
+- `"take funk this"`
+- `"pre funk"`
+- `"chuck line"`
 
 ##### `"that"`
 
@@ -147,6 +117,21 @@ The word `"that"` can be used as a mark to refer to the target of the previous c
 
 - `"pre that"`
 - `"round wrap that"`
+
+##### `"row <number>"`
+
+The word `"row"` followed by a number can be used to refer to a line by its line number. Note that the line numbers are modulo 100, meaning that you only say the last two digits of the line number. Also note that the line must be visible within the viewport.
+
+- `"chuck row twenty four"`
+- `"post row eighty nine"`
+- `"pour row eleven"`
+
+##### `"up <number>"` / `"down <number>"`
+
+The word `"up"` or `"down"` followed by a number can be used to refer to the line that is `<number>` lines above or below the cursor. The line may be outside of the viewport. In the case of multiple selections, this mark only refers to the line relative to the primary selection. You can turn on relative line numbers in the VSCode settings to make these marks easier to use.
+
+- `"copy up one"`
+- `"comment down two"`
 
 #### Modifiers
 
@@ -156,11 +141,14 @@ Note that if the mark is `"this"`, and you have multiple cursors, the modifiers 
 
 ##### Syntactic scopes
 
+For programming languages where Cursorless has rich parse tree support, we support modifiers that expand to the nearest containing function, class, etc. See [the source code](../../src/languages/constants.ts) for a list of supported languages. Below is a list of supported scope types, keeping in mind that this table can sometimes lag behind the actual list. Your cheatsheet (say "cursorless help") will have the most up-to-date list.
+
 | Term           | Syntactic element                                   |
 | -------------- | --------------------------------------------------- |
 | `"arg"`        | function parameter or function call argument        |
 | `"attribute"`  | attribute, eg on html element                       |
 | `"call"`       | function call, eg `foo(1, 2)`                       |
+| `"callee"`     | the function being called in a function call        |
 | `"class name"` | the name in a class declaration                     |
 | `"class"`      | class definition                                    |
 | `"comment"`    | comment                                             |
@@ -228,15 +216,59 @@ eg:
 `take line [blue] air`
 Selects the line including the token containing letter 'a' with a blue hat.
 
+##### `"block"`
+
+The `"block"` modifier expands to above and below the target to select lines until an empty line is reached.
+
+- `"take block"`
+- `"take block <TARGET>"`
+
 ##### `"file"`
 
-The word file can be used to expand the target to refer to the entire file.
+The word '`"file"` can be used to expand the target to refer to the entire file.
 
 - `"copy file"`
 - `"take file"`
 - `"take file blue air"`
 
 For example, `"take file [blue] air"` selects the file including the token containing letter 'a' with a blue hat.
+
+##### `"head"` and `"tail"`
+
+The modifiers `"head"` and `"tail"` can be used to expand a target through the beginning or end of the line, respectively.
+
+- `"take head"`: select from the cursor the start of the line
+- `"take tail"`: select from the cursor to the end of the line
+- `"take head air"`: selects the mark through to start of the line
+- `"take tail air"`: selects the mark through to the end of the line
+
+When followed by a modifier, they will expand their input to the start or end of the given modifier range. For example:
+
+- `"take head funk"`: select from the cursor the start of the containing function
+- `"chuck tail class air"`: Delete from the token with a hat over the letter `a` through the end of its containing class
+
+##### `"token"`
+
+The `"token"` modifier expands its input to the nearest containing token. This modifier is often used without a mark, either to select the token adjacent to your cursor or to expand your selection to the nearest containing token range. For example:
+
+- `"copy token"`
+- `"take token"`
+- `"chuck token"`
+
+##### `"paint"`
+
+Both of the commands below will expand from the mark forward and backward to include all adjacent non-whitespace characters.
+
+- `"take paint"`
+- `"take paint <TARGET>"`
+
+For example, in the following text:
+
+```
+foo.bar baz|bongo
+```
+
+Saying `"every paint"` would select `foo.bar` and `baz|bongo`.
 
 ##### Surrounding pair
 
@@ -300,6 +332,20 @@ eg:
 `take blue air past green bat`
 Selects the range from the token containing letter 'a' with a blue hat past the token containing letter 'b' with a green hat.
 
+##### Vertical ranges
+
+The `"slice"` range modifier is used to refer to multiple targets that are vertically aligned. It is commonly used with the `"pre"` action to add multiple cursors to the editor. Each cursor is inserted at the same column on each row requested within the command.
+
+- `"pre <TARGET 1> slice past <TARGET 2>"`: Add cursors from the first target through to the second target's line(inclusive end)
+- `"pre <TARGET 1> slice <TARGET 2>"`: Shortened version of above `"slice past"` command
+- `"pre <TARGET 1> slice until <TARGET 2>"`: Add cursors until the second target's line(non-inclusive end)
+- `"pre <TARGET 1> slice between <TARGET 2>"`: Add cursors between first and second target's lines(non-inclusive start and end)
+
+For example:
+
+- `"pre air slice bat"`: Places cursors at the same position on every line (inclusive) between token with hat over the `a` and token with the hat over the `b`. The position will be the start of the token with a hat over the `a`
+- `"chuck tail air slice end of block"`: Delete the end of every line from air through the end of its non-empty line block.
+
 #### List targets
 
 In addition to range targets, cursorless supports list targets, which allow you to refer to multiple targets at the same time. When combined with the `"take"` action, this will result in multiple cursors, for other actions, such as `"chuck"` the action will be applied to all the different targets at once.
@@ -315,7 +361,7 @@ Selects both the token containing letter 'a' with a blue hat AND the token conta
 
 ## Actions
 
-In any cursorless command the action defines what happens to the given target, for example deleting the target (`"chuck"`) or moving the cursor to select the target (`"take"`).
+In any cursorless command, the action defines what happens to the specified target. Every command must have a target. For example, deleting the target (`"chuck"`, as in `"chuck air"`) or moving the cursor to select the target (`"take"`, as in `"take air"`).
 
 ### Cursor movement
 
@@ -323,9 +369,9 @@ Despite the name cursorless, some of the most basic commands in cursorless are f
 
 Note that when combined with list targets, these commands will result in multiple cursors
 
-- `"take"`: Selects the given target
-- `"pre"`: Places the cursor before the given target
-- `"post"`: Places the cursor after the given target
+- `"take <TARGET>"`: Selects the given target
+- `"pre <TARGET>"`: Places the cursor before the given target
+- `"post <TARGET>"`: Places the cursor after the given target
 
 eg:
 `pre blue air`
@@ -335,7 +381,7 @@ Moves the cursor to before the token containing letter 'a' with a blue hat.
 
 This command can be used to delete a target without moving the cursor
 
-- `"chuck"`
+- `"chuck <TARGET>"`
 
 eg:
 `chuck blue air`
@@ -345,12 +391,15 @@ Deletes the token containing letter 'a' with a blue hat.
 
 This command will delete a target and leave the cursor where the target used to be, making it easy to change a target
 
-- `"change"`
+- `"change <TARGET>"`
+  eg:
+  `change blue air`
+  Deletes the token containing letter 'a' with a blue hat then places your cursor where the token had been.
 
 ### Cut / copy
 
-- `"carve"`: cut
-- `"copy"`: copy
+- `"carve <TARGET>"`: cut
+- `"copy <TARGET>"`: copy
 
 eg:
 `copy blue air`
@@ -358,7 +407,7 @@ Copies the token containing letter 'a' with a blue hat.
 
 ### Swap
 
-Swaps two targets. If the first target is omitted, it will refer to the current selection. If the targets are list targets they will be zipped together.
+Swaps two targets. If the first target is omitted, it will target the current selection. If the targets are list targets they will be zipped together.
 
 - `"swap <TARGET 1> with <TARGET 2>"`
 - `"swap with <TARGET>"`
@@ -370,8 +419,8 @@ Swaps the given tokens.
 
 ### Insert empty lines
 
-- `"drink"`: Inserts a new line above the current line, and moves the cursor to the newly created line
-- `"pour"`: Inserts a new line below the current line, and moves the cursor to the newly created line
+- `"drink <TARGET>"`: Inserts a new line above the target line, and moves the cursor to the newly created line
+- `"pour <TARGET>"`: Inserts a new line below the target line, and moves the cursor to the newly created line
 
 eg:
 `pour blue air`
@@ -379,9 +428,9 @@ Insert empty line below the token containing letter 'a' with a blue hat.
 
 ### Rename
 
-Executes vscode rename action on the given target
+Executes vscode rename action on the specified target
 
-- `"rename"`
+- `"rename <TARGET>"`
 
 eg:
 `rename blue air`
@@ -391,9 +440,9 @@ Rename the token containing letter 'a' with a blue hat.
 
 Scrolls a given target to the top, center or bottom of the screen.
 
-- `"crown"`: top
-- `"center"`: center
-- `"bottom"`: bottom
+- `"crown <TARGET>"`: top
+- `"center <TARGET>"`: center
+- `"bottom <TARGET>"`: bottom
 
 eg `crown blue air` scrolls the line containing the letter 'a' with a blue hat to the top of the screen.
 
@@ -419,6 +468,16 @@ eg:
 `move blue air to green bat`
 Replaces the token containing letter 'b' with a green hat using the token containing letter 'a' with a blue hat, and the delete the latter token.
 
+### Reverse/Shuffle/Sort
+
+These commands accept multiple selections, and change their order. For example:
+
+- `"shuffle every item <TARGET>"`
+- `"sort every item <TARGET>"`
+- `"reverse every item <TARGET>"`
+- `"sort line air slice bat"`: sort lines within the selection.
+- `"sort this"`: Sort the multiple selections.
+
 ### Wrap/Rewrap
 
 The wrap command can be used to wrap a given target with a pair of symbols
@@ -431,20 +490,23 @@ eg:
 Wraps the token containing letter 'a' with a blue hat in square brackets.
 
 The rewrap command, mapped to `"repack"` by default, can be used to swap a given pair of symbols with another
+
 - `"curly repack <TARGET>"`: wraps the target with curly brackets, replacing the previous paired delimiter
 
 See [paired delimiters](#paired-delimiters) for a list of possible wrappers.
 
-#### \[experimental\] Wrap with snippet
+### \[experimental\] Snippets
 
-See [experimental documentation](experimental/wrapper-snippets.md).
+See [experimental documentation](experimental/snippets.md).
 
 ### Show definition/reference/quick fix
 
-- `"define"`
-- `"reference"`
-- `"hover"`
-- `"quick fix"`
+Each of these commands performs a vscode action of the same or a similar name on the target.
+
+- `"define <TARGET>"` navigate to the definition of the target
+- `"reference <TARGET>"` search the workspace for all references to the target
+- `"hover <TARGET>"` displays the tooltip that would appear if you hovered the mouse over the target
+- `"quick fix <TARGET>"` displays quick fixes and refactors suggested by the vscode
 
 eg:
 `define blue air`
@@ -452,8 +514,8 @@ Shows definition for the token containing letter 'a' with a blue hat.
 
 ### Fold/unfold
 
-- `"fold"`
-- `"unfold"`
+- `"fold <TARGET>"`
+- `"unfold <TARGET>"`
 
 eg:
 `fold funk blue air`
@@ -463,8 +525,7 @@ Fold the function with the token containing letter 'a' with a blue hat.
 
 Extracts a target as a variable using the VSCode refactor action
 
-- `"extract"`
-- `"extract {TARGET} as hello world"`
+- `"extract <TARGET>"`
 
 eg:
 `extract call air`

@@ -1,6 +1,17 @@
-import { range } from "lodash";
-import { commands, Selection, TextEditor, ViewColumn, window } from "vscode";
+import {
+  commands,
+  NotebookDocument,
+  Selection,
+  TextEditor,
+  ViewColumn,
+  window,
+} from "vscode";
 import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
+import {
+  focusNotebookCellLegacy,
+  isVscodeLegacyNotebookVersion,
+} from "./notebookLegacy";
+import uniqDeep from "./uniqDeep";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",
@@ -21,7 +32,7 @@ export async function setSelectionsAndFocusEditor(
   selections: Selection[],
   revealRange: boolean = true
 ) {
-  editor.selections = selections;
+  setSelectionsWithoutFocusingEditor(editor, selections);
 
   if (revealRange) {
     editor.revealRange(editor.selection);
@@ -32,54 +43,61 @@ export async function setSelectionsAndFocusEditor(
   await focusEditor(editor);
 }
 
+export function setSelectionsWithoutFocusingEditor(
+  editor: TextEditor,
+  selections: Selection[]
+) {
+  editor.selections = uniqDeep(selections);
+}
+
 export async function focusEditor(editor: TextEditor) {
   if (editor.viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
   } else {
     // If the view column is null we see if it's a notebook and try to see if we
     // can just move around in the notebook to focus the correct editor
-    const activeTextEditor = window.activeTextEditor;
 
-    if (activeTextEditor == null) {
-      return;
+    if (isVscodeLegacyNotebookVersion()) {
+      return await focusNotebookCellLegacy(editor);
     }
 
-    const editorNotebook = getNotebookFromCellDocument(editor.document);
-    const activeEditorNotebook = getNotebookFromCellDocument(
-      activeTextEditor.document
-    );
+    await focusNotebookCell(editor);
+  }
+}
 
-    if (
-      editorNotebook == null ||
-      activeEditorNotebook == null ||
-      editorNotebook !== activeEditorNotebook
-    ) {
-      return;
-    }
+async function focusNotebookCell(editor: TextEditor) {
+  const desiredNotebookEditor = getNotebookFromCellDocument(editor.document);
+  if (desiredNotebookEditor == null) {
+    throw new Error("Couldn't find notebook editor for given document");
+  }
 
-    const editorIndex = getCellIndex(editorNotebook, editor.document);
-    const activeEditorIndex = getCellIndex(
-      editorNotebook,
-      activeTextEditor.document
-    );
+  const desiredNotebookDocument: NotebookDocument =
+    desiredNotebookEditor.notebook;
 
-    if (editorIndex === -1 || activeEditorIndex === -1) {
-      throw new Error(
-        "Couldn't find editor corresponding to given cell in the expected notebook"
-      );
-    }
+  await commands.executeCommand(
+    columnFocusCommands[
+      desiredNotebookEditor.viewColumn as keyof typeof columnFocusCommands
+    ]
+  );
 
-    const cellOffset = editorIndex - activeEditorIndex;
+  const desiredEditorIndex = getCellIndex(
+    desiredNotebookDocument,
+    editor.document
+  );
 
-    const command =
-      cellOffset < 0
-        ? "notebook.focusPreviousEditor"
-        : "notebook.focusNextEditor";
+  const desiredSelections = [
+    desiredNotebookEditor.selection.with({
+      start: desiredEditorIndex,
+      end: desiredEditorIndex + 1,
+    }),
+  ];
+  desiredNotebookEditor.selections = desiredSelections;
+  desiredNotebookEditor.revealRange(desiredSelections[0]);
 
-    // This is a hack. We just repeatedly issued the command to move upwards or
-    // downwards a cell to get to the right cell
-    for (const _ of range(Math.abs(cellOffset))) {
-      await commands.executeCommand(command);
-    }
+  // Issue a command to tell VSCode to focus the cell input editor
+  // NB: We don't issue the command if it's already focused, because it turns
+  // out that this command is actually a toggle, so that causes it to de-focus!
+  if (window.activeTextEditor !== editor) {
+    await commands.executeCommand("notebook.cell.edit");
   }
 }

@@ -1,6 +1,8 @@
-from ..conventions import get_cursorless_list_name
-from talon import registry
 import re
+
+from talon import registry
+
+from ..conventions import get_cursorless_list_name
 
 
 def get_list(name, descriptions=None):

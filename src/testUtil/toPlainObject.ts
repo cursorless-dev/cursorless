@@ -1,4 +1,5 @@
 import { Selection, Position, Range } from "vscode";
+import { TestDecoration } from "../core/editStyles";
 import { Token } from "../typings/Types";
 
 export type PositionPlainObject = {
@@ -16,7 +17,9 @@ export type SelectionPlainObject = {
   active: PositionPlainObject;
 };
 
-export type SerializedMarks = { [decoratedCharacter: string]: RangePlainObject };
+export type SerializedMarks = {
+  [decoratedCharacter: string]: RangePlainObject;
+};
 
 export function rangeToPlainObject(range: Range): RangePlainObject {
   return {
@@ -38,11 +41,22 @@ export function positionToPlainObject(position: Position): PositionPlainObject {
   return { line: position.line, character: position.character };
 }
 
-export function marksToPlainObject(marks: { [decoratedCharacter: string]: Token }) {
+export function marksToPlainObject(marks: {
+  [decoratedCharacter: string]: Token;
+}) {
   const serializedMarks: SerializedMarks = {};
   Object.entries(marks).forEach(
     ([key, value]: [string, Token]) =>
       (serializedMarks[key] = rangeToPlainObject(value.range))
   );
   return serializedMarks;
+}
+
+export function testDecorationsToPlainObject(decorations: TestDecoration[]) {
+  return decorations.map(({ name, type, start, end }) => ({
+    name,
+    type,
+    start: positionToPlainObject(start),
+    end: positionToPlainObject(end),
+  }));
 }

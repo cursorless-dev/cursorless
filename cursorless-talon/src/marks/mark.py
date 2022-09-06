@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
-from talon import Module, actions, app, Context, fs, cron
+
+from talon import Context, Module, actions, app, cron, fs
+
 from ..csv_overrides import init_csv_and_watch_changes
 from .lines_number import DEFAULT_DIRECTIONS
 
@@ -13,7 +15,7 @@ mod.list("cursorless_hat_color", desc="Supported hat colors for cursorless")
 mod.list("cursorless_hat_shape", desc="Supported hat shapes for cursorless")
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
+# See https://www.cursorless.org/docs/user/customization/
 hat_colors = {
     "blue": "blue",
     "green": "green",
@@ -38,10 +40,27 @@ hat_shapes = {
 }
 
 
-@mod.capture(
-    rule="[{user.cursorless_hat_color}] [{user.cursorless_hat_shape}] <user.any_alphanumeric_key>"
+mod.list(
+    "cursorless_unknown_symbol",
+    "This list contains the term that is used to refer to any unknown symbol",
 )
-def cursorless_decorated_symbol(m) -> dict[str, dict[str, Any]]:
+unknown_symbols_defaults = {"special": "unknownSymbol"}
+
+
+@mod.capture(rule="<user.any_alphanumeric_key> | {user.cursorless_unknown_symbol}")
+def cursorless_grapheme(m) -> str:
+    try:
+        return m.any_alphanumeric_key
+    except AttributeError:
+        # NB: This represents unknown char in Unicode.  It will be translated
+        # to "[unk]" by Cursorless extension.
+        return "\uFFFD"
+
+
+@mod.capture(
+    rule="[{user.cursorless_hat_color}] [{user.cursorless_hat_shape}] <user.cursorless_grapheme>"
+)
+def cursorless_decorated_symbol(m) -> dict[str, Any]:
     """A decorated symbol"""
     hat_color = getattr(m, "cursorless_hat_color", "default")
     try:
@@ -49,11 +68,9 @@ def cursorless_decorated_symbol(m) -> dict[str, dict[str, Any]]:
     except AttributeError:
         hat_style_name = hat_color
     return {
-        "mark": {
-            "type": "decoratedSymbol",
-            "symbolColor": hat_style_name,
-            "character": m.any_alphanumeric_key,
-        }
+        "type": "decoratedSymbol",
+        "symbolColor": hat_style_name,
+        "character": m.cursorless_grapheme,
     }
 
 
@@ -65,12 +82,12 @@ class CustomizableTerm:
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/user/customization.md
+# See https://www.cursorless.org/docs/user/customization/
 special_marks = [
-    CustomizableTerm("this", "currentSelection", {"mark": {"type": "cursor"}}),
-    CustomizableTerm("that", "previousTarget", {"mark": {"type": "that"}}),
-    CustomizableTerm("source", "previousSource", {"mark": {"type": "source"}}),
-    CustomizableTerm("nothing", "nothing", {"mark": {"type": "nothing"}}),
+    CustomizableTerm("this", "currentSelection", {"type": "cursor"}),
+    CustomizableTerm("that", "previousTarget", {"type": "that"}),
+    CustomizableTerm("source", "previousSource", {"type": "source"}),
+    CustomizableTerm("nothing", "nothing", {"type": "nothing"}),
     # "last cursor": {"mark": {"type": "lastCursorPosition"}} # Not implemented
 ]
 
@@ -91,7 +108,7 @@ mod.list("cursorless_special_mark", desc="Cursorless special marks")
         "<user.cursorless_line_number>"  # row (ie absolute mod 100), up, down
     )
 )
-def cursorless_mark(m) -> str:
+def cursorless_mark(m) -> dict[str, Any]:
     try:
         return m.cursorless_decorated_symbol
     except AttributeError:
@@ -215,6 +232,7 @@ def on_ready():
         "special_marks",
         {
             "special_mark": special_marks_defaults,
+            "unknown_symbol": unknown_symbols_defaults,
             "line_direction": DEFAULT_DIRECTIONS,
         },
     )
@@ -230,7 +248,7 @@ def on_ready():
         fast_reload_job = cron.after("500ms", setup_hat_styles_csv)
         slow_reload_job = cron.after("10s", setup_hat_styles_csv)
 
-    fs.watch(vscode_settings_path, on_watch)
+    fs.watch(str(vscode_settings_path), on_watch)
 
 
 app.register("ready", on_ready)

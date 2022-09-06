@@ -15,7 +15,13 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
+        vscode_version: [stable]
+        include:
+          - os: ubuntu-latest
+            vscode_version: legacy
     runs-on: ${{ matrix.os }}
+    env:
+      VSCODE_VERSION: ${{ matrix.vscode_version }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -27,9 +33,3 @@ jobs:
         if: runner.os == 'Linux'
       - run: yarn test
         if: runner.os != 'Linux'
-  lint-python:
-    name: Python lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: psf/black@stable

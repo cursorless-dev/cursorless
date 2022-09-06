@@ -1,0 +1,29 @@
+languageId: scss
+command:
+  version: 1
+  spokenForm: change name
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+initialState:
+  documentContents: |
+    @mixin move($left-start, $left-stop) {
+      transition: left ($left-stop - $left-start) * $transition-speed;
+    }
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
+  marks: {}
+finalState:
+  documentContents: |
+    @mixin move($left-start, $left-stop) {
+      : left ($left-stop - $left-start) * $transition-speed;
+    }
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+  thatMark:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: name, includeSiblings: false}, isImplicit: false}]

@@ -1,21 +1,19 @@
-from talon import Module, ui, skia, actions, cron
-from talon.canvas import Canvas
-import webbrowser
 import math
+from typing import Optional
 
-from .sections.actions import get_actions
-from .sections.scopes import get_scopes
-from .sections.compound_targets import get_compound_targets
+from talon import Module, actions, cron, skia, ui
+from talon.canvas import Canvas
 
 from .get_list import get_list, get_lists
+from .sections.actions import get_actions
+from .sections.compound_targets import get_compound_targets
+from .sections.scopes import get_scopes
 
 mod = Module()
 mod.mode("cursorless_cheat_sheet", "Mode for showing cursorless cheat sheet gui")
 cheat_sheet = None
 
-instructions_url = (
-    "https://github.com/cursorless-dev/cursorless-vscode/tree/main/docs/user"
-)
+instructions_url = "https://www.cursorless.org/docs/"
 instructions_text = "Full docs"
 line_height = 34
 outer_padding = 27
@@ -122,9 +120,9 @@ class CheatSheet:
             ),
         )
 
-        self.draw_section(canvas, "Special marks", get_list("special_mark"))
-
         self.next_column(canvas)
+
+        self.draw_section(canvas, "Special marks", get_list("special_mark"))
 
         self.draw_section(canvas, "Positions", get_list("position"))
 
@@ -163,7 +161,7 @@ class CheatSheet:
         self.draw_items(canvas, items)
 
     def draw_multicolumn_section(
-        self, canvas, items, column_names: str, scopes_limit=25
+        self, canvas, items, column_names: list[str], scopes_limit=25
     ):
         items_0 = slice_dict(items, 0, scopes_limit)
         items_1 = slice_dict(items, scopes_limit)
@@ -303,10 +301,6 @@ class Actions:
             cheat_sheet = CheatSheet()
             actions.mode.enable("user.cursorless_cheat_sheet")
 
-    def cursorless_open_instructions():
-        """Open web page with cursorless instructions"""
-        webbrowser.open(instructions_url)
-
 
 def get_y(canvas):
     return canvas.y + outer_padding
@@ -340,6 +334,6 @@ def is_in_rect(canvas, mouse_pos, rect):
     )
 
 
-def slice_dict(dict: dict, start: int, end: int = None):
+def slice_dict(dict: dict, start: int, end: Optional[int] = None):
     keys = sorted(dict)[start:end]
     return {key: dict[key] for key in keys}

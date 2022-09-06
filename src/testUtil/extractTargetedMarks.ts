@@ -1,8 +1,12 @@
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import HatTokenMap from "../core/HatTokenMap";
-import { PrimitiveTarget, Target, Token } from "../typings/Types";
+import { Token } from "../typings/Types";
+import {
+  PrimitiveTargetDescriptor,
+  TargetDescriptor,
+} from "../typings/targetDescriptor.types";
 
-function extractPrimitiveTargetKeys(...targets: PrimitiveTarget[]) {
+function extractPrimitiveTargetKeys(...targets: PrimitiveTargetDescriptor[]) {
   const keys: string[] = [];
   targets.forEach((target) => {
     if (target.mark.type === "decoratedSymbol") {
@@ -13,7 +17,7 @@ function extractPrimitiveTargetKeys(...targets: PrimitiveTarget[]) {
   return keys;
 }
 
-export function extractTargetKeys(target: Target): string[] {
+export function extractTargetKeys(target: TargetDescriptor): string[] {
   switch (target.type) {
     case "primitive":
       return extractPrimitiveTargetKeys(target);

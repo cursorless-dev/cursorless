@@ -1,21 +1,20 @@
 import { escapeRegExp, findLast, uniq } from "lodash";
-import { Range, Selection, TextDocument, TextEditor } from "vscode";
+import { Range, TextDocument, TextEditor } from "vscode";
 import {
   SimpleSurroundingPairName,
-  DelimiterInclusion,
   SurroundingPairName,
-  SurroundingPairDirection,
-} from "../../../typings/Types";
+  SurroundingPairScopeType,
+} from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/range";
 import { matchAll } from "../../../util/regex";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import {
-  Offsets,
-  SurroundingPairOffsets,
-  PossibleDelimiterOccurrence,
   IndividualDelimiter,
+  Offsets,
+  PossibleDelimiterOccurrence,
+  SurroundingPairOffsets,
 } from "./types";
 
 /**
@@ -60,20 +59,18 @@ const SCAN_EXPANSION_FACTOR = 3;
  * form of opening quote in Python.
  *
  * @param editor The text editor containing the selection
- * @param selection The selection to find surrounding pair around
+ * @param range The selection to find surrounding pair around
  * @param allowableRange The range in which to look for delimiters, or the
  * entire document if `null`
  * @param delimiters The acceptable surrounding pair names
- * @param delimiterInclusion Whether to include / exclude the delimiters themselves
  * @returns The newly expanded selection, including editor info
  */
 export function findSurroundingPairTextBased(
   editor: TextEditor,
-  selection: Selection,
+  range: Range,
   allowableRange: Range | null,
   delimiters: SimpleSurroundingPairName[],
-  delimiterInclusion: DelimiterInclusion,
-  forceDirection: "left" | "right" | undefined
+  scopeType: SurroundingPairScopeType
 ) {
   const document: TextDocument = editor.document;
   const fullRange = allowableRange ?? getDocumentRange(document);
@@ -101,15 +98,15 @@ export function findSurroundingPairTextBased(
     end: document.offsetAt(fullRange.end),
   };
   const selectionOffsets = {
-    start: document.offsetAt(selection.start),
-    end: document.offsetAt(selection.end),
+    start: document.offsetAt(range.start),
+    end: document.offsetAt(range.end),
   };
 
   /**
    * Context to pass to nested call
    */
   const context: Context = {
-    forceDirection,
+    scopeType,
     delimiterRegex,
     delimiters,
     delimiterTextToDelimiterInfoMap,
@@ -142,7 +139,7 @@ export function findSurroundingPairTextBased(
 
     // Just bail early if the range doesn't completely contain our selection as
     // it is a lost cause.
-    if (!currentRange.contains(selection)) {
+    if (!currentRange.contains(range)) {
       continue;
     }
 
@@ -168,12 +165,8 @@ export function findSurroundingPairTextBased(
       return extractSelectionFromSurroundingPairOffsets(
         document,
         currentRangeOffsets.start,
-        pairOffsets,
-        delimiterInclusion
-      ).map(({ selection, context }) => ({
-        selection: { selection, editor },
-        context,
-      }));
+        pairOffsets
+      );
     }
 
     // If the current range is greater than are equal to the full range then we
@@ -203,7 +196,7 @@ function getDelimiterRegex(individualDelimiters: IndividualDelimiter[]) {
  * Context to pass to nested call
  */
 interface Context {
-  forceDirection: SurroundingPairDirection | undefined;
+  scopeType: SurroundingPairScopeType;
   delimiterTextToDelimiterInfoMap: {
     [k: string]: IndividualDelimiter;
   };
@@ -236,11 +229,12 @@ function getDelimiterPairOffsets(
   isAtEndOfFullRange: boolean
 ): SurroundingPairOffsets | null {
   const {
-    forceDirection,
+    scopeType,
     delimiterTextToDelimiterInfoMap,
     delimiterRegex,
     delimiters,
   } = context;
+  const { forceDirection } = scopeType;
 
   // XXX: The below is a bit wasteful when there are multiple targets, because
   // this whole function gets run once per target, so we're re-running this
@@ -273,7 +267,7 @@ function getDelimiterPairOffsets(
 
           const rawDelimiterInfo = delimiterTextToDelimiterInfoMap[matchText];
 
-          let side =
+          const side =
             rawDelimiterInfo.side === "unknown" && forceDirection == null
               ? inferDelimiterSide(
                   text,
@@ -297,7 +291,7 @@ function getDelimiterPairOffsets(
 
   // Then just run core algorithm
   const surroundingPair = findSurroundingPairCore(
-    forceDirection,
+    scopeType,
     delimiterOccurrences,
     delimiters,
     selectionOffsets,

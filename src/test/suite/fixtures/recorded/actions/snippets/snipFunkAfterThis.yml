@@ -1,0 +1,32 @@
+languageId: typescript
+command:
+  spokenForm: snip funk after this
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+      modifiers:
+        - {type: position, position: after}
+  usePrePhraseSnapshot: true
+  action:
+    name: insertSnippet
+    args: [functionDeclaration]
+initialState:
+  documentContents: "    const foo = \"bar\";"
+  selections:
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}
+  marks: {}
+finalState:
+  documentContents: |2-
+        const foo = "bar";
+        function () {
+            
+        }
+  selections:
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}
+  thatMark:
+    - anchor: {line: 1, character: 4}
+      active: {line: 3, character: 5}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: position, position: after}]}]

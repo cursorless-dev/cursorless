@@ -4,6 +4,9 @@ app: vscode
 <user.cursorless_action_or_vscode_command> <user.cursorless_target>:
     user.cursorless_action_or_vscode_command(cursorless_action_or_vscode_command, cursorless_target)
 
+{user.cursorless_positional_action} <user.cursorless_positional_target>:
+    user.cursorless_single_target_command(cursorless_positional_action, cursorless_positional_target)
+
 {user.cursorless_swap_action} <user.cursorless_swap_targets>:
     user.cursorless_multiple_target_command(cursorless_swap_action, cursorless_swap_targets)
 
@@ -16,8 +19,11 @@ app: vscode
 <user.cursorless_wrapper> {user.cursorless_wrap_action} <user.cursorless_target>:
     user.cursorless_wrap(cursorless_wrap_action, cursorless_target, cursorless_wrapper)
 
-<user.cursorless_window_trigger> reference: user.cursorless_cheat_sheet_toggle()
-reference <user.cursorless_window_trigger>: user.cursorless_cheat_sheet_toggle()
-
-<user.cursorless_window_trigger> help | help <user.cursorless_window_trigger> | <user.cursorless_window_trigger> docks:
+{user.cursorless_window_trigger} (reference | cheatsheet | cheat sheet): user.cursorless_cheat_sheet_show_html()
+{user.cursorless_window_trigger} (instructions | docks | help) | help {user.cursorless_window_trigger}:
     user.cursorless_open_instructions()
+
+cursorless settings:
+    user.vscode("workbench.action.openGlobalSettings")
+    sleep(250ms)
+    insert("cursorless")

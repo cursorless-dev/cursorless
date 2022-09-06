@@ -11,7 +11,8 @@
             "cpp",
             "c",
             "java",
-            "csharp"
+            "csharp",
+            "php"
           ]
         },
         "body": [
@@ -44,6 +45,9 @@
       "alternative": {
         "wrapperScopeType": "statement"
       }
-    }
+    },
+    "insertionScopeTypes": [
+      "statement"
+    ]
   }
 }

@@ -1,29 +1,19 @@
-import {
-  Action,
-  ActionPreferences,
-  ActionReturnValue,
-  Graph,
-  TypedSelection,
-} from "../typings/Types";
-import displayPendingEditDecorations from "../util/editDisplayUtils";
-import { runForEachEditor } from "../util/targetUtils";
 import { flatten, zip } from "lodash";
-import { maybeAddDelimiter } from "../util/getTextWithPossibleDelimiter";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
+import { runForEachEditor } from "../util/targetUtils";
+import { Action, ActionReturnValue } from "./actions.types";
 
 type RangeGenerator = { start: number };
 
-export default class implements Action {
-  getTargetPreferences: () => ActionPreferences[] = () => [
-    { insideOutsideType: null },
-  ];
-
+export default class Replace implements Action {
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
 
   private getTexts(
-    targets: TypedSelection[],
+    targets: Target[],
     replaceWith: string[] | RangeGenerator
   ): string[] {
     if (Array.isArray(replaceWith)) {
@@ -41,10 +31,10 @@ export default class implements Action {
   }
 
   async run(
-    [targets]: [TypedSelection[]],
+    [targets]: [Target[]],
     replaceWith: string[] | RangeGenerator
   ): Promise<ActionReturnValue> {
-    await displayPendingEditDecorations(
+    await this.graph.editStyles.displayPendingEditDecorations(
       targets,
       this.graph.editStyles.pendingModification0
     );
@@ -56,9 +46,8 @@ export default class implements Action {
     }
 
     const edits = zip(targets, texts).map(([target, text]) => ({
-      editor: target!.selection.editor,
-      range: target!.selection.selection,
-      text: maybeAddDelimiter(text!, target!),
+      edit: target!.constructChangeEdit(text!),
+      editor: target!.editor,
     }));
 
     const thatMark = flatten(
@@ -69,8 +58,8 @@ export default class implements Action {
           const [updatedSelections] = await performEditsAndUpdateSelections(
             this.graph.rangeUpdater,
             editor,
-            edits,
-            [targets.map((target) => target.selection.selection)]
+            edits.map(({ edit }) => edit),
+            [targets.map((target) => target.contentSelection)]
           );
 
           return updatedSelections.map((selection) => ({

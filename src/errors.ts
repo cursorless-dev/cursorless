@@ -1,56 +1,38 @@
-import * as vscode from "vscode";
-
 export class UnsupportedLanguageError extends Error {
   constructor(languageId: string) {
     super(
-      `Language '${languageId}' is not implemented yet; See https://github.com/cursorless-dev/cursorless-vscode/blob/main/docs/contributing/adding-a-new-language.md`
+      `Language '${languageId}' is not implemented yet; See https://www.cursorless.org/docs/contributing/adding-a-new-language/`
     );
     this.name = "UnsupportedLanguageError";
   }
 }
 
-interface ErrorAction {
-  /**
-   * The name of the action to show to the user
-   */
-  name: string;
+export class UnsupportedError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "UnsupportedError";
+  }
+}
 
-  /**
-   * The function that is called if the user selects this action
-   */
-  action: () => void;
+export class OutdatedExtensionError extends Error {
+  constructor() {
+    super(
+      "Cursorless Talon version is ahead of Cursorless VSCode extension version. Please update Cursorless VSCode."
+    );
+  }
 }
 
 /**
- * Throw this error if you want the displayed error message to have a list of
- * actions that the user can take
+ * Throw this error if you have attempted to match based on a language scope but have not
+ * returned a match.
  */
-export class ActionableError extends Error {
-  actionMap: Record<string, () => void>;
-
+export class NoContainingScopeError extends Error {
   /**
    *
-   * @param message The message to show to the user
-   * @param actions A list of actions to show to the user
+   * @param scopeType The scopeType for the failed match to show to the user
    */
-  constructor(message: string, actions: ErrorAction[]) {
-    super(message);
-    this.name = "ActionableError";
-    this.actionMap = Object.fromEntries(
-      actions.map(({ name, action }) => [name, action])
-    );
-  }
-
-  showErrorMessage() {
-    const actionMap = this.actionMap;
-    vscode.window
-      .showErrorMessage(this.message, ...Object.keys(this.actionMap))
-      .then((item) => {
-        if (item == null) {
-          return;
-        }
-
-        actionMap[item]();
-      });
+  constructor(scopeType: string) {
+    super(`Couldn't find containing ${scopeType}.`);
+    this.name = "NoContainingScopeError";
   }
 }

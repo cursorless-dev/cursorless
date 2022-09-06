@@ -1,18 +1,17 @@
-import { Location } from "vscode";
+import { Location, Range, Selection, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
-import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
-import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
-import {
-  ComplexSurroundingPairName,
-  ProcessedTargetsContext,
-  SelectionWithEditor,
-  SurroundingPairModifier,
-} from "../../../typings/Types";
-import { SelectionWithEditorWithContext } from "../processModifier";
-import { complexDelimiterMap } from "./delimiterMaps";
 import getTextFragmentExtractor, {
   TextFragmentExtractor,
 } from "../../../languages/getTextFragmentExtractor";
+import {
+  ComplexSurroundingPairName,
+  SurroundingPairScopeType,
+} from "../../../typings/targetDescriptor.types";
+import { ProcessedTargetsContext } from "../../../typings/Types";
+import { complexDelimiterMap } from "./delimiterMaps";
+import { SurroundingPairInfo } from "./extractSelectionFromSurroundingPairOffsets";
+import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
+import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
 
 /**
  * Applies the surrounding pair modifier to the given selection. First looks to
@@ -22,28 +21,28 @@ import getTextFragmentExtractor, {
  * smallest pair of delimiters which contains the selection.
  *
  * @param context Context to be leveraged by modifier
- * @param selection The selection to process
- * @param modifier The surrounding pair modifier information
+ * @param editor The editor containing the range
+ * @param range The range to process
+ * @param scopeType The surrounding pair modifier information
  * @returns The new selection expanded to the containing surrounding pair or
  * `null` if none was found
  */
 export function processSurroundingPair(
   context: ProcessedTargetsContext,
-  selection: SelectionWithEditor,
-  modifier: SurroundingPairModifier
-): SelectionWithEditorWithContext[] | null {
-  const document = selection.editor.document;
+  editor: TextEditor,
+  range: Range,
+  scopeType: SurroundingPairScopeType
+): SurroundingPairInfo | null {
+  const document = editor.document;
   const delimiters = complexDelimiterMap[
-    modifier.delimiter as ComplexSurroundingPairName
-  ] ?? [modifier.delimiter];
+    scopeType.delimiter as ComplexSurroundingPairName
+  ] ?? [scopeType.delimiter];
 
   let node: SyntaxNode | null;
   let textFragmentExtractor: TextFragmentExtractor;
 
   try {
-    node = context.getNodeAtLocation(
-      new Location(document.uri, selection.selection)
-    );
+    node = context.getNodeAtLocation(new Location(document.uri, range));
 
     textFragmentExtractor = getTextFragmentExtractor(document.languageId);
   } catch (err) {
@@ -51,12 +50,11 @@ export function processSurroundingPair(
       // If we're in a language where we don't have a parse tree we use the text
       // based algorithm
       return findSurroundingPairTextBased(
-        selection.editor,
-        selection.selection,
+        editor,
+        range,
         null,
         delimiters,
-        modifier.delimiterInclusion,
-        modifier.forceDirection
+        scopeType
       );
     } else {
       throw err;
@@ -65,15 +63,18 @@ export function processSurroundingPair(
 
   // If we have a parse tree but we are in a string node or in a comment node,
   // then we use the text-based algorithm
-  const textFragmentRange = textFragmentExtractor(node, selection);
+  const selectionWithEditor = {
+    editor,
+    selection: new Selection(range.start, range.end),
+  };
+  const textFragmentRange = textFragmentExtractor(node, selectionWithEditor);
   if (textFragmentRange != null) {
     const surroundingRange = findSurroundingPairTextBased(
-      selection.editor,
-      selection.selection,
+      editor,
+      range,
       textFragmentRange,
       delimiters,
-      modifier.delimiterInclusion,
-      modifier.forceDirection
+      scopeType
     );
 
     if (surroundingRange != null) {
@@ -85,11 +86,10 @@ export function processSurroundingPair(
   // couldn't find a surrounding pair within a string or comment, we use the
   // parse tree-based algorithm
   return findSurroundingPairParseTreeBased(
-    selection.editor,
-    selection.selection,
+    editor,
+    range,
     node,
     delimiters,
-    modifier.delimiterInclusion,
-    modifier.forceDirection
+    scopeType
   );
 }

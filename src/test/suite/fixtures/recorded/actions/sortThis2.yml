@@ -1,0 +1,42 @@
+languageId: plaintext
+command:
+  spokenForm: sort this
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: true
+  action: {name: sortTargets}
+initialState:
+  documentContents: |-
+    2
+    1
+    3
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 1}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 1}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+  marks: {}
+finalState:
+  documentContents: |-
+    1
+    2
+    3
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 1}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 1}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 1}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 1}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]

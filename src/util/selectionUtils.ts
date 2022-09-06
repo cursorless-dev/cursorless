@@ -1,27 +1,12 @@
-import { Range, Selection, Position } from "vscode";
-import update from "immutability-helper";
-import { TypedSelection, SelectionWithEditor } from "../typings/Types";
-
-export function selectionFromRange(
-  selection: Selection,
-  range: Range
-): Selection {
-  return selectionFromPositions(selection, range.start, range.end);
-}
-
-export function selectionFromPositions(
-  selection: Selection,
-  start: Position,
-  end: Position
-): Selection {
-  // The built in isReversed is bugged on empty selection. don't use
-  return isForward(selection)
-    ? new Selection(start, end)
-    : new Selection(end, start);
-}
+import { Position, Range, Selection, TextEditor } from "vscode";
+import { SelectionWithEditor } from "../typings/Types";
 
 export function isForward(selection: Selection) {
   return selection.active.isAfterOrEqual(selection.anchor);
+}
+
+export function isReversed(selection: Selection) {
+  return selection.active.isBefore(selection.anchor);
 }
 
 export function selectionWithEditorFromRange(
@@ -31,7 +16,7 @@ export function selectionWithEditorFromRange(
   return selectionWithEditorFromPositions(selection, range.start, range.end);
 }
 
-export function selectionWithEditorFromPositions(
+function selectionWithEditorFromPositions(
   selection: SelectionWithEditor,
   start: Position,
   end: Position
@@ -42,21 +27,37 @@ export function selectionWithEditorFromPositions(
   };
 }
 
+function selectionFromPositions(
+  selection: Selection,
+  start: Position,
+  end: Position
+): Selection {
+  // The built in isReversed is bugged on empty selection. don't use
+  return isForward(selection)
+    ? new Selection(start, end)
+    : new Selection(end, start);
+}
+
+export function selectionFromRange(isReversed: boolean, range: Range) {
+  const { start, end } = range;
+  return isReversed ? new Selection(end, start) : new Selection(start, end);
+}
+
 /**
- * Returns a copy of the given typed selection so that the new selection has the new given range
- * preserving the direction of the original selection
- *
- * @param selection The original typed selection to Update
- * @param range The new range for the given selection
- * @returns The updated typed selection
+ * Return a copy of {@link range} excluding any leading or trailing whitespace.
+ * If {@link range} contains only whitespace or is empty {@link range} will be returned unchanged.
+ * @param editor The text editor to use
+ * @param range The range to shrink down
+ * @returns A new range equal or smaller to {@link range}
  */
-export function updateTypedSelectionRange(
-  selection: TypedSelection,
-  range: Range
-): TypedSelection {
-  return update(selection, {
-    selection: {
-      selection: () => selectionFromRange(selection.selection.selection, range),
-    },
-  });
+export function shrinkRangeToFitContent(editor: TextEditor, range: Range) {
+  const { document } = editor;
+  const text = document.getText(range);
+  const startDelta = text.length - text.trimStart().length;
+  const endDelta = text.length - text.trimEnd().length;
+  const startOffset = document.offsetAt(range.start) + startDelta;
+  const endOffset = document.offsetAt(range.end) - endDelta;
+  const start = document.positionAt(startOffset);
+  const end = document.positionAt(endOffset);
+  return new Range(start, end);
 }

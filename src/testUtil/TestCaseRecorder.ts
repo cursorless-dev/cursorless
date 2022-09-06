@@ -1,13 +1,18 @@
-import * as vscode from "vscode";
-import * as path from "path";
 import * as fs from "fs";
-import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
-import { walkDirsSync } from "./walkSync";
 import { invariant } from "immutability-helper";
+import * as path from "path";
+import * as vscode from "vscode";
+import HatTokenMap from "../core/HatTokenMap";
 import { Graph } from "../typings/Types";
-import { ExtraSnapshotField } from "./takeSnapshot";
-import sleep from "../util/sleep";
+import { DecoratedSymbolMark } from "../typings/targetDescriptor.types";
 import { getDocumentRange } from "../util/range";
+import sleep from "../util/sleep";
+import { extractTargetedMarks } from "./extractTargetedMarks";
+import serialize from "./serialize";
+import { ExtraSnapshotField, takeSnapshot } from "./takeSnapshot";
+import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
+import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
+import { walkDirsSync } from "./walkSync";
 
 const CALIBRATION_DISPLAY_BACKGROUND_COLOR = "#230026";
 const CALIBRATION_DISPLAY_DURATION_MS = 30;
@@ -23,6 +28,9 @@ interface RecordTestCaseCommandArg {
    * from a token properly updates the token.
    */
   isHatTokenMapTest?: boolean;
+
+  /** If true decorations will be added to the test fixture */
+  isDecorationsTest?: boolean;
 
   /**
    * The directory in which to store the test cases that we record. If left out
@@ -43,26 +51,34 @@ interface RecordTestCaseCommandArg {
    * Whether to flash a background for calibrating a video recording
    */
   showCalibrationDisplay?: boolean;
+
+  /**
+   * Whether we should record a tests which yield errors in addition to tests
+   * which do not error.
+   */
+  recordErrors?: boolean;
 }
 
 export class TestCaseRecorder {
   private active: boolean = false;
   private workspacePath: string | null;
-  private workSpaceFolder: string | null;
+  private workspaceName: string | null;
   private fixtureRoot: string | null;
   private targetDirectory: string | null = null;
   private testCase: TestCase | null = null;
   private isHatTokenMapTest: boolean = false;
+  private isDecorationsTest: boolean = false;
   private disposables: vscode.Disposable[] = [];
   private isSilent?: boolean;
   private startTimestamp?: bigint;
   private extraSnapshotFields?: ExtraSnapshotField[];
   private paused: boolean = false;
+  private isErrorTest: boolean = false;
   private calibrationStyle = vscode.window.createTextEditorDecorationType({
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
 
-  constructor(graph: Graph) {
+  constructor(private graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
 
     this.workspacePath =
@@ -70,7 +86,7 @@ export class TestCaseRecorder {
         ? graph.extensionContext.extensionPath
         : vscode.workspace.workspaceFolders?.[0].uri.path ?? null;
 
-    this.workSpaceFolder = this.workspacePath
+    this.workspaceName = this.workspacePath
       ? path.basename(this.workspacePath)
       : null;
 
@@ -112,6 +128,43 @@ export class TestCaseRecorder {
 
           this.paused = false;
         }
+      ),
+
+      vscode.commands.registerCommand(
+        "cursorless.takeSnapshot",
+        async (
+          outPath: string,
+          metadata: unknown,
+          targetedMarks: DecoratedSymbolMark[],
+          usePrePhraseSnapshot: boolean
+        ) => {
+          let marks: SerializedMarks | undefined;
+          if (targetedMarks.length !== 0) {
+            const keys = targetedMarks.map(({ character, symbolColor }) =>
+              HatTokenMap.getKey(symbolColor, character)
+            );
+            const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
+              usePrePhraseSnapshot
+            );
+            marks = marksToPlainObject(
+              extractTargetedMarks(keys, readableHatMap)
+            );
+          } else {
+            marks = undefined;
+          }
+
+          const snapshot = await takeSnapshot(
+            undefined,
+            undefined,
+            ["clipboard"],
+            this.active ? this.extraSnapshotFields : undefined,
+            marks,
+            this.active ? { startTimestamp: this.startTimestamp } : undefined,
+            metadata
+          );
+
+          await this.writeToFile(outPath, serialize(snapshot));
+        }
       )
     );
   }
@@ -123,10 +176,12 @@ export class TestCaseRecorder {
   async start(arg?: RecordTestCaseCommandArg) {
     const {
       isHatTokenMapTest = false,
+      isDecorationsTest = false,
       directory,
       isSilent = false,
       extraSnapshotFields = [],
       showCalibrationDisplay = false,
+      recordErrors: isErrorTest = false,
     } = arg ?? {};
 
     if (directory != null) {
@@ -144,8 +199,10 @@ export class TestCaseRecorder {
       this.startTimestamp = process.hrtime.bigint();
       const timestampISO = new Date().toISOString();
       this.isHatTokenMapTest = isHatTokenMapTest;
+      this.isDecorationsTest = isDecorationsTest;
       this.isSilent = isSilent;
       this.extraSnapshotFields = extraSnapshotFields;
+      this.isErrorTest = isErrorTest;
       this.paused = false;
 
       vscode.window.showInformationMessage(
@@ -194,6 +251,7 @@ export class TestCaseRecorder {
         command,
         context,
         this.isHatTokenMapTest,
+        this.isDecorationsTest,
         this.startTimestamp!,
         this.extraSnapshotFields
       );
@@ -217,6 +275,8 @@ export class TestCaseRecorder {
       return;
     }
 
+    this.testCase.recordDecorations();
+
     await this.finishTestCase();
   }
 
@@ -224,11 +284,7 @@ export class TestCaseRecorder {
     const outPath = this.calculateFilePath(this.testCase!);
     const fixture = this.testCase!.toYaml();
     await this.writeToFile(outPath, fixture);
-    this.testCase = null;
-  }
 
-  private async writeToFile(outPath: string, fixture: string) {
-    fs.writeFileSync(outPath, fixture);
     if (!this.isSilent) {
       vscode.window
         .showInformationMessage("Cursorless test case saved.", "View")
@@ -239,15 +295,23 @@ export class TestCaseRecorder {
           }
         });
     }
+
+    this.testCase = null;
+  }
+
+  private async writeToFile(outPath: string, fixture: string) {
+    fs.writeFileSync(outPath, fixture);
   }
 
   private async promptSubdirectory(): Promise<string | undefined> {
     if (
-      this.workspacePath == null ||
+      this.workspaceName == null ||
       this.fixtureRoot == null ||
-      this.workSpaceFolder !== "cursorless-vscode"
+      !["cursorless-vscode", "cursorless"].includes(this.workspaceName)
     ) {
-      throw new Error("Can't prompt for subdirectory");
+      throw new Error(
+        '"Cursorless record" must be run from within cursorless directory'
+      );
     }
 
     const subdirectories = walkDirsSync(this.fixtureRoot).concat("/");
@@ -297,7 +361,7 @@ export class TestCaseRecorder {
       fs.mkdirSync(this.targetDirectory, { recursive: true });
     }
 
-    let filename = camelize(testCase.command.spokenForm!);
+    const filename = camelize(testCase.command.spokenForm!);
     let filePath = path.join(this.targetDirectory, `${filename}.yml`);
 
     let i = 2;
@@ -308,8 +372,13 @@ export class TestCaseRecorder {
     return filePath;
   }
 
-  commandErrorHook() {
-    this.testCase = null;
+  async commandErrorHook(error: Error) {
+    if (this.isErrorTest && this.testCase) {
+      this.testCase.thrownError = { name: error.name };
+      await this.finishTestCase();
+    } else {
+      this.testCase = null;
+    }
   }
 
   dispose() {

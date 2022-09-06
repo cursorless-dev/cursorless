@@ -7,6 +7,14 @@ import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import isTesting from "./testUtil/isTesting";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 
+/**
+ * Extension entrypoint called by VSCode on Cursorless startup.
+ * - Creates a dependency container {@link Graph} with the components that
+ * implement Cursorless.
+ * - Creates test case recorder {@link TestCaseRecorder} for contributors to
+ * use to record test cases.
+ * - Creates an entrypoint for running commands {@link CommandRunner}.
+ */
 export async function activate(context: vscode.ExtensionContext) {
   const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
@@ -22,6 +30,8 @@ export async function activate(context: vscode.ExtensionContext) {
   await graph.decorations.init();
   graph.hatTokenMap.init();
   graph.testCaseRecorder.init();
+  graph.cheatsheet.init();
+  graph.statusBarItem.init();
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
@@ -30,7 +40,7 @@ export async function activate(context: vscode.ExtensionContext) {
   new CommandRunner(graph, thatMark, sourceMark);
 
   // Disabled for now.
-  // See https://github.com/cursorless-dev/cursorless-vscode/issues/320
+  // See https://github.com/cursorless-dev/cursorless/issues/320
   // vscode.workspace.onDidChangeTextDocument(checkForEditsOutsideViewport)
   function _checkForEditsOutsideViewport(
     event: vscode.TextDocumentChangeEvent
@@ -86,4 +96,6 @@ export async function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+  // do nothing
+}

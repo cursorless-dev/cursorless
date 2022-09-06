@@ -1,0 +1,1383 @@
+{
+	"sections": [
+		{
+			"name": "Actions",
+			"id": "actions",
+			"items": [
+				{
+					"id": "scrollToBottom",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "bottom <T>",
+							"description": "Scroll to bottom"
+						}
+					]
+				},
+				{
+					"id": "toggleLineBreakpoint",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "break point <T>",
+							"description": "Toggle line breakpoint"
+						}
+					]
+				},
+				{
+					"id": "cutToClipboard",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "carve <T>",
+							"description": "Cut to clipboard"
+						}
+					]
+				},
+				{
+					"id": "scrollToCenter",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "center <T>",
+							"description": "Scroll to center"
+						}
+					]
+				},
+				{
+					"id": "remove",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "chuck <T>",
+							"description": "Remove"
+						}
+					]
+				},
+				{
+					"id": "clearAndSetSelection",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "change <T>",
+							"description": "Clear and set selection"
+						}
+					]
+				},
+				{
+					"id": "insertCopyBefore",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "clone up <T>",
+							"description": "Insert copy before"
+						}
+					]
+				},
+				{
+					"id": "insertCopyAfter",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "clone <T>",
+							"description": "Insert copy after"
+						}
+					]
+				},
+				{
+					"id": "toggleLineComment",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "comment <T>",
+							"description": "Toggle line comment"
+						}
+					]
+				},
+				{
+					"id": "copyToClipboard",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "copy <T>",
+							"description": "Copy to clipboard"
+						}
+					]
+				},
+				{
+					"id": "scrollToTop",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "crown <T>",
+							"description": "Scroll to top"
+						}
+					]
+				},
+				{
+					"id": "outdentLine",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "dedent <T>",
+							"description": "Outdent line"
+						}
+					]
+				},
+				{
+					"id": "editNewLineBefore",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "drink <T>",
+							"description": "Edit new line before"
+						}
+					]
+				},
+				{
+					"id": "insertEmptyLineBefore",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "drop <T>",
+							"description": "Insert empty line before"
+						}
+					]
+				},
+				{
+					"id": "extractVariable",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "extract <T>",
+							"description": "Extract variable"
+						}
+					]
+				},
+				{
+					"id": "insertEmptyLineAfter",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "float <T>",
+							"description": "Insert empty line after"
+						}
+					]
+				},
+				{
+					"id": "foldRegion",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "fold <T>",
+							"description": "Fold region"
+						}
+					]
+				},
+				{
+					"id": "followLink",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "follow <T>",
+							"description": "Follow link"
+						}
+					]
+				},
+				{
+					"id": "deselect",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "give <T>",
+							"description": "Deselect"
+						}
+					]
+				},
+				{
+					"id": "highlight",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "highlight <T>",
+							"description": "Highlight"
+						}
+					]
+				},
+				{
+					"id": "indentLine",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "indent <T>",
+							"description": "Indent line"
+						}
+					]
+				},
+				{
+					"id": "setSelectionAfter",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "post <T>",
+							"description": "Set selection after"
+						}
+					]
+				},
+				{
+					"id": "editNewLineAfter",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "pour <T>",
+							"description": "Edit new line after"
+						}
+					]
+				},
+				{
+					"id": "setSelectionBefore",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "pre <T>",
+							"description": "Set selection before"
+						}
+					]
+				},
+				{
+					"id": "insertEmptyLinesAround",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "puff <T>",
+							"description": "Insert empty lines around"
+						}
+					]
+				},
+				{
+					"id": "randomizeTargets",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "shuffle <T>",
+							"description": "Randomize targets"
+						}
+					]
+				},
+				{
+					"id": "reverseTargets",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "reverse <T>",
+							"description": "Reverse targets"
+						}
+					]
+				},
+				{
+					"id": "findInWorkspace",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "scout all <T>",
+							"description": "Find in workspace"
+						}
+					]
+				},
+				{
+					"id": "generateSnippet",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "snippet make <T>",
+							"description": "Generate snippet"
+						}
+					]
+				},
+				{
+					"id": "sortTargets",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "sort <T>",
+							"description": "Sort targets"
+						}
+					]
+				},
+				{
+					"id": "setSelection",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "take <T>",
+							"description": "Set selection"
+						}
+					]
+				},
+				{
+					"id": "unfoldRegion",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "unfold <T>",
+							"description": "Unfold region"
+						}
+					]
+				},
+				{
+					"id": "pasteFromClipboard",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "paste <T>",
+							"description": "Paste from clipboard"
+						}
+					]
+				},
+				{
+					"id": "callAsFunction",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "call <T>",
+							"description": "Call T on S"
+						}
+					]
+				},
+				{
+					"id": "findInDocument",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "scout <T>",
+							"description": "Find in document"
+						}
+					]
+				},
+				{
+					"id": "nextHomophone",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "phones <T>",
+							"description": "Next homophone"
+						}
+					]
+				},
+				{
+					"id": "revealDefinition",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "define <T>",
+							"description": "Reveal definition"
+						}
+					]
+				},
+				{
+					"id": "revealTypeDefinition",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "type deaf <T>",
+							"description": "Reveal type definition"
+						}
+					]
+				},
+				{
+					"id": "showHover",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "hover <T>",
+							"description": "Show hover"
+						}
+					]
+				},
+				{
+					"id": "showDebugHover",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "inspect <T>",
+							"description": "Show debug hover"
+						}
+					]
+				},
+				{
+					"id": "showQuickFix",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "quick fix <T>",
+							"description": "Show quick fix"
+						}
+					]
+				},
+				{
+					"id": "showReferences",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "reference <T>",
+							"description": "Show references"
+						}
+					]
+				},
+				{
+					"id": "rename",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "rename <T>",
+							"description": "Rename"
+						}
+					]
+				},
+				{
+					"id": "insertSnippet",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "snippet <T>",
+							"description": "Insert snippet"
+						}
+					]
+				},
+				{
+					"id": "replaceWithTarget",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "bring <T1> to <T2>",
+							"description": "Replace T2 with T1"
+						},
+						{
+							"spokenForm": "bring <T>",
+							"description": "Replace S with T"
+						}
+					]
+				},
+				{
+					"id": "moveToTarget",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "move <T1> to <T2>",
+							"description": "Move T1 to T2"
+						},
+						{
+							"spokenForm": "move <T>",
+							"description": "Move T to S"
+						}
+					]
+				},
+				{
+					"id": "swapTargets",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "swap <T1> with <T2>",
+							"description": "Swap T1 with T2"
+						},
+						{
+							"spokenForm": "swap with <T>",
+							"description": "Swap S with T"
+						}
+					]
+				},
+				{
+					"id": "applyFormatter",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "format <F> at <T>",
+							"description": "Reformat T as F"
+						}
+					]
+				},
+				{
+					"id": "wrapWithPairedDelimiter",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "<P> wrap <T>",
+							"description": "Wrap T with P"
+						}
+					]
+				},
+				{
+					"id": "rewrap",
+					"type": "action",
+					"variations": [
+						{
+							"spokenForm": "<P> repack <T>",
+							"description": "Rewrap T with P"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Scopes",
+			"id": "scopes",
+			"items": [
+				{
+					"id": "argumentOrParameter",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "arg",
+							"description": "Argument"
+						}
+					]
+				},
+				{
+					"id": "attribute",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "attribute",
+							"description": "Attribute"
+						}
+					]
+				},
+				{
+					"id": "functionCall",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "call",
+							"description": "Function call"
+						}
+					]
+				},
+				{
+					"id": "functionCallee",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "callee",
+							"description": "Function callee"
+						}
+					]
+				},
+				{
+					"id": "className",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "class name",
+							"description": "Class name"
+						}
+					]
+				},
+				{
+					"id": "class",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "class",
+							"description": "Class"
+						}
+					]
+				},
+				{
+					"id": "comment",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "comment",
+							"description": "Comment"
+						}
+					]
+				},
+				{
+					"id": "functionName",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "funk name",
+							"description": "Function name"
+						}
+					]
+				},
+				{
+					"id": "namedFunction",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "funk",
+							"description": "Named function"
+						}
+					]
+				},
+				{
+					"id": "ifStatement",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "if state",
+							"description": "If statement"
+						}
+					]
+				},
+				{
+					"id": "collectionItem",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "item",
+							"description": "Collection item"
+						}
+					]
+				},
+				{
+					"id": "collectionKey",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "key",
+							"description": "Collection key"
+						}
+					]
+				},
+				{
+					"id": "anonymousFunction",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "lambda",
+							"description": "Anonymous function"
+						}
+					]
+				},
+				{
+					"id": "list",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "list",
+							"description": "List"
+						}
+					]
+				},
+				{
+					"id": "map",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "map",
+							"description": "Map"
+						}
+					]
+				},
+				{
+					"id": "name",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "name",
+							"description": "Name"
+						}
+					]
+				},
+				{
+					"id": "regularExpression",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "regex",
+							"description": "Regular expression"
+						}
+					]
+				},
+				{
+					"id": "section",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "section",
+							"description": "Section"
+						}
+					]
+				},
+				{
+					"id": "selector",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "selector",
+							"description": "Selector"
+						}
+					]
+				},
+				{
+					"id": "statement",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "state",
+							"description": "Statement"
+						}
+					]
+				},
+				{
+					"id": "type",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "type",
+							"description": "Type"
+						}
+					]
+				},
+				{
+					"id": "value",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "value",
+							"description": "Value"
+						}
+					]
+				},
+				{
+					"id": "condition",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "condition",
+							"description": "Condition"
+						}
+					]
+				},
+				{
+					"id": "xmlElement",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "element",
+							"description": "Xml element"
+						}
+					]
+				},
+				{
+					"id": "xmlBothTags",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "tags",
+							"description": "Xml both tags"
+						}
+					]
+				},
+				{
+					"id": "xmlStartTag",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "start tag",
+							"description": "Xml start tag"
+						}
+					]
+				},
+				{
+					"id": "xmlEndTag",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "end tag",
+							"description": "Xml end tag"
+						}
+					]
+				},
+				{
+					"id": "paragraph",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "block",
+							"description": "Paragraph"
+						}
+					]
+				},
+				{
+					"id": "notebookCell",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "cell",
+							"description": "Notebook cell"
+						}
+					]
+				},
+				{
+					"id": "document",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "file",
+							"description": "Document"
+						}
+					]
+				},
+				{
+					"id": "line",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "line",
+							"description": "Line"
+						}
+					]
+				},
+				{
+					"id": "nonWhitespaceSequence",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "paint",
+							"description": "Non whitespace sequence"
+						}
+					]
+				},
+				{
+					"id": "boundedNonWhitespaceSequence",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "short paint",
+							"description": "Bounded non whitespace sequence"
+						}
+					]
+				},
+				{
+					"id": "url",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "link",
+							"description": "Url"
+						}
+					]
+				},
+				{
+					"id": "token",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "token",
+							"description": "Token"
+						}
+					]
+				},
+				{
+					"id": "word",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "word",
+							"description": "Word"
+						}
+					]
+				},
+				{
+					"id": "character",
+					"type": "scopeType",
+					"variations": [
+						{
+							"spokenForm": "char",
+							"description": "Character"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Modifiers",
+			"id": "modifiers",
+			"items": [
+				{
+					"id": "excludeInterior",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "bounds",
+							"description": "Bounding paired delimiters"
+						}
+					]
+				},
+				{
+					"id": "toRawSelection",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "just",
+							"description": "No inference"
+						}
+					]
+				},
+				{
+					"id": "leading",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "leading",
+							"description": "Leading delimiter range"
+						}
+					]
+				},
+				{
+					"id": "trailing",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "trailing",
+							"description": "Trailing delimiter range"
+						}
+					]
+				},
+				{
+					"id": "interiorOnly",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "inside",
+							"description": "Interior only"
+						}
+					]
+				},
+				{
+					"id": "extendThroughStartOf",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "head",
+							"description": "Extend through start of line"
+						},
+						{
+							"spokenForm": "head <M>",
+							"description": "Extend through start of <M>"
+						}
+					]
+				},
+				{
+					"id": "extendThroughEndOf",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "tail",
+							"description": "Extend through end of line"
+						},
+						{
+							"spokenForm": "tail <M>",
+							"description": "Extend through end of <M>"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Paired delimiters",
+			"id": "pairedDelimiters",
+			"items": [
+				{
+					"id": "whitespace",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "void",
+							"description": "Whitespace"
+						}
+					]
+				},
+				{
+					"id": "curlyBrackets",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "curly",
+							"description": "Curly brackets"
+						}
+					]
+				},
+				{
+					"id": "angleBrackets",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "diamond",
+							"description": "Angle brackets"
+						}
+					]
+				},
+				{
+					"id": "escapedDoubleQuotes",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "escaped quad",
+							"description": "Escaped double quotes"
+						}
+					]
+				},
+				{
+					"id": "escapedSingleQuotes",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "escaped twin",
+							"description": "Escaped single quotes"
+						}
+					]
+				},
+				{
+					"id": "escapedParentheses",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "escaped round",
+							"description": "Escaped parentheses"
+						}
+					]
+				},
+				{
+					"id": "escapedSquareBrackets",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "escaped box",
+							"description": "Escaped square brackets"
+						}
+					]
+				},
+				{
+					"id": "doubleQuotes",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "quad",
+							"description": "Double quotes"
+						}
+					]
+				},
+				{
+					"id": "parentheses",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "round",
+							"description": "Parentheses"
+						}
+					]
+				},
+				{
+					"id": "backtickQuotes",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "skis",
+							"description": "Backtick quotes"
+						}
+					]
+				},
+				{
+					"id": "squareBrackets",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "box",
+							"description": "Square brackets"
+						}
+					]
+				},
+				{
+					"id": "singleQuotes",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "twin",
+							"description": "Single quotes"
+						}
+					]
+				},
+				{
+					"id": "any",
+					"type": "pairedDelimiter",
+					"variations": [
+						{
+							"spokenForm": "pair",
+							"description": "Any"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Special marks",
+			"id": "specialMarks",
+			"items": [
+				{
+					"id": "currentSelection",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "this",
+							"description": "Current selection"
+						}
+					]
+				},
+				{
+					"id": "previousTarget",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "that",
+							"description": "Previous target"
+						}
+					]
+				},
+				{
+					"id": "previousSource",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "source",
+							"description": "Previous source"
+						}
+					]
+				},
+				{
+					"id": "nothing",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "nothing",
+							"description": "Nothing"
+						}
+					]
+				},
+				{
+					"id": "unknownSymbol",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "special",
+							"description": "Unknown symbol"
+						}
+					]
+				},
+				{
+					"id": "lineNumberModulo100",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "row <number>",
+							"description": "Line number modulo 100"
+						}
+					]
+				},
+				{
+					"id": "lineNumberRelativeUp",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "up <number>",
+							"description": "Line number up from cursor"
+						}
+					]
+				},
+				{
+					"id": "lineNumberRelativeDown",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "down <number>",
+							"description": "Line number down from cursor"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Positions",
+			"id": "positions",
+			"items": [
+				{
+					"id": "start",
+					"type": "position",
+					"variations": [
+						{
+							"spokenForm": "start of",
+							"description": "Start"
+						}
+					]
+				},
+				{
+					"id": "end",
+					"type": "position",
+					"variations": [
+						{
+							"spokenForm": "end of",
+							"description": "End"
+						}
+					]
+				},
+				{
+					"id": "before",
+					"type": "position",
+					"variations": [
+						{
+							"spokenForm": "before",
+							"description": "Before"
+						}
+					]
+				},
+				{
+					"id": "after",
+					"type": "position",
+					"variations": [
+						{
+							"spokenForm": "after",
+							"description": "After"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Compound targets",
+			"id": "compoundTargets",
+			"items": [
+				{
+					"id": "listConnective",
+					"type": "compoundTargetConnective",
+					"variations": [
+						{
+							"spokenForm": "<T1> and <T2>",
+							"description": "T1 and T2"
+						}
+					]
+				},
+				{
+					"id": "rangeExclusive",
+					"type": "compoundTargetConnective",
+					"variations": [
+						{
+							"spokenForm": "<T1> between <T2>",
+							"description": "between T1 and T2"
+						},
+						{
+							"spokenForm": "between <T>",
+							"description": "between S and T"
+						}
+					]
+				},
+				{
+					"id": "rangeInclusive",
+					"type": "compoundTargetConnective",
+					"variations": [
+						{
+							"spokenForm": "<T1> past <T2>",
+							"description": "T1 through T2"
+						},
+						{
+							"spokenForm": "past <T>",
+							"description": "S through T"
+						}
+					]
+				},
+				{
+					"id": "rangeExcludingEnd",
+					"type": "compoundTargetConnective",
+					"variations": [
+						{
+							"spokenForm": "<T1> until <T2>",
+							"description": "T1 until start of T2"
+						},
+						{
+							"spokenForm": "until <T>",
+							"description": "S until start of T"
+						}
+					]
+				},
+				{
+					"id": "verticalRange",
+					"type": "compoundTargetConnective",
+					"variations": [
+						{
+							"spokenForm": "<T1> slice <T2>",
+							"description": "T1 vertically through T2"
+						},
+						{
+							"spokenForm": "slice <T>",
+							"description": "S vertically through T"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Colors",
+			"id": "colors",
+			"items": [
+				{
+					"id": "blue",
+					"type": "hatColor",
+					"variations": [
+						{
+							"spokenForm": "blue",
+							"description": "Blue"
+						}
+					]
+				},
+				{
+					"id": "green",
+					"type": "hatColor",
+					"variations": [
+						{
+							"spokenForm": "green",
+							"description": "Green"
+						}
+					]
+				},
+				{
+					"id": "red",
+					"type": "hatColor",
+					"variations": [
+						{
+							"spokenForm": "red",
+							"description": "Red"
+						}
+					]
+				},
+				{
+					"id": "pink",
+					"type": "hatColor",
+					"variations": [
+						{
+							"spokenForm": "pink",
+							"description": "Pink"
+						}
+					]
+				},
+				{
+					"id": "yellow",
+					"type": "hatColor",
+					"variations": [
+						{
+							"spokenForm": "yellow",
+							"description": "Yellow"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Shapes",
+			"id": "shapes",
+			"items": []
+		}
+	]
+}

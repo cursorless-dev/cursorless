@@ -1,5 +1,5 @@
-from ..get_list import get_raw_list, make_dict_readable
 from ...actions.actions import ACTION_LIST_NAMES
+from ..get_list import get_raw_list, make_dict_readable
 
 
 def get_actions():
@@ -16,7 +16,7 @@ def get_actions():
         "rewrap",
     ]
     simple_actions = {
-        key: value
+        f"{key} <T>": value
         for key, value in all_actions.items()
         if value not in multiple_target_action_names
     }
