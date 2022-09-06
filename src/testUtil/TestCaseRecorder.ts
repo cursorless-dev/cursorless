@@ -238,8 +238,6 @@ export class TestCaseRecorder {
     return timestampISO;
   }
 
-  async showCalibrationDisplay() {}
-
   stop() {
     this.active = false;
     this.paused = false;
