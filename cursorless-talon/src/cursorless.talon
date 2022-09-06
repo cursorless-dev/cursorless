@@ -19,8 +19,8 @@ app: vscode
 <user.cursorless_wrapper> {user.cursorless_wrap_action} <user.cursorless_target>:
     user.cursorless_wrap(cursorless_wrap_action, cursorless_target, cursorless_wrapper)
 
-{user.cursorless_window_trigger} (reference | ref | cheatsheet | cheat sheet): user.cursorless_cheat_sheet_show_html()
-{user.cursorless_window_trigger} (instructions | docks | help) | help {user.cursorless_window_trigger}:
+{user.cursorless_homophone} (reference | ref | cheatsheet | cheat sheet): user.cursorless_cheat_sheet_show_html()
+{user.cursorless_homophone} (instructions | docks | help) | help {user.cursorless_homophone}:
     user.cursorless_open_instructions()
 
 cursorless settings:
