@@ -1,3 +1,5 @@
+// Original swizzled version: https://github.com/cursorless-dev/cursorless/blob/01028c948387ad98e3c6099c3eda9e8a96753c19/website/src/theme/SearchBar/index.js
+
 import React, {useState, useRef, useCallback, useMemo} from 'react';
 import {createPortal} from 'react-dom';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';

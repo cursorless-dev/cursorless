@@ -6,6 +6,8 @@ The documentation search is powered by Algolia.
 
 Unfortunately, today, the source of truth for the Algolia search configuration lives in the Algolia web console. Whenever we update the configuration, we update the copies that we keep in [source control](../../website/config/algolia). In the future, we'd like to use the files in source control as the source of truth and deploy them to Algolia in CI. See #917.
 
+To see what changes we've made to the default configuration, compare the contents of [this directory](../../website/config/algolia) with https://github.com/cursorless-dev/cursorless/tree/e043ce4795ffcda5a3f5875d91887a09e0f9905b/website/config/algolia
+
 ### Crawler config
 
 1. Use the [crawler console](https://crawler.algolia.com/admin/crawlers/ff3ea576-b9e0-4e01-8a19-110106760e74/configuration/edit) to experiment with the config until it works as expected.
