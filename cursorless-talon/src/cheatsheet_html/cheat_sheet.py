@@ -1,5 +1,4 @@
 import webbrowser
-from contextlib import suppress
 from pathlib import Path
 
 from talon import Module, actions
@@ -33,22 +32,7 @@ class Actions:
                 "outputPath": str(cheatsheet_out_path),
             },
         )
-
-        cheatsheet_local_uri = cheatsheet_out_path.as_uri()
-
-        # NB: We explicitly ask for browsers by name rather than using the
-        # default because the user may have set something like vscode to be the
-        # default for html files.
-        success = False
-        for browser in ["chrome", "firefox"]:
-            with suppress(Exception):
-                webbrowser.get(browser).open(cheatsheet_local_uri)
-                success = True
-                break
-
-        # Fall back to using the system default
-        if not success:
-            webbrowser.open(cheatsheet_local_uri)
+        webbrowser.open(cheatsheet_out_path.as_uri())
 
     def cursorless_cheat_sheet_get_json():
         """Get cursorless cheat sheet json"""
