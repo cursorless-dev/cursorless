@@ -1,6 +1,6 @@
-import { range } from "lodash";
 import { Range } from "vscode";
 import { SUBWORD_MATCHER } from "../../core/constants";
+import { GRAPHEME_SPLIT_REGEX } from "../../core/TokenGraphemeSplitter";
 import { Target } from "../../typings/target.types";
 import {
   OrdinalRangeModifier,
@@ -25,9 +25,10 @@ export default class OrdinalRangeSubTokenStage implements ModifierStage {
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const { editor } = target;
-    const tokenContentRange = target.contentRange.isEmpty
-      ? getTokenRangeForSelection(target.editor, target.contentRange)
-      : target.contentRange;
+    // If the target has an explicit range use that. Otherwise expand to the token.
+    const tokenContentRange = target.hasExplicitRange
+      ? target.contentRange
+      : getTokenRangeForSelection(target.editor, target.contentRange);
 
     const tokenText = editor.document.getText(tokenContentRange);
     let pieces: { start: number; end: number }[] = [];
@@ -36,17 +37,14 @@ export default class OrdinalRangeSubTokenStage implements ModifierStage {
       throw new Error("Subtoken exclusions unsupported");
     }
 
-    if (this.modifier.scopeType.type === "word") {
-      pieces = [...tokenText.matchAll(SUBWORD_MATCHER)].map((match) => ({
-        start: match.index!,
-        end: match.index! + match[0].length,
-      }));
-    } else if (this.modifier.scopeType.type === "character") {
-      pieces = range(tokenText.length).map((index) => ({
-        start: index,
-        end: index + 1,
-      }));
-    }
+    const regex =
+      this.modifier.scopeType.type === "word"
+        ? SUBWORD_MATCHER
+        : GRAPHEME_SPLIT_REGEX;
+    pieces = [...tokenText.matchAll(regex)].map((match) => ({
+      start: match.index!,
+      end: match.index! + match[0].length,
+    }));
 
     const anchorIndex =
       this.modifier.anchor < 0

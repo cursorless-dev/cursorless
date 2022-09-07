@@ -10,7 +10,10 @@ import FontMeasurements from "../core/FontMeasurements";
 import HatTokenMap from "../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
+import StatusBarItem from "../core/StatusBarItem";
+import { TokenGraphemeSplitter } from "../core/TokenGraphemeSplitter";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { IDE } from "../ide/ide.types";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { CommandServerApi } from "../util/getExtensionApi";
@@ -155,6 +158,21 @@ export interface Graph {
    * Used to display cheatsheet
    */
   readonly cheatsheet: Cheatsheet;
+
+  /**
+   * Creates a VSCode status bar item
+   */
+  readonly statusBarItem: StatusBarItem;
+
+  /**
+   * Used to split a token into a graphemes that can be used for a hat placement
+   */
+  readonly tokenGraphemeSplitter: TokenGraphemeSplitter;
+
+  /**
+   * Used to interact with the ide
+   */
+  readonly ide: IDE;
 }
 
 export type NodeMatcherValue = {
@@ -202,6 +220,11 @@ export interface Edit {
 }
 
 export interface EditWithRangeUpdater extends Edit {
+  /**
+   * This function will be passed the resulting range containing {@link text}
+   * after applying the edit, and should return a new range which excludes any
+   * delimiters that were inserted.
+   */
   updateRange: (range: vscode.Range) => vscode.Range;
 }
 
@@ -210,3 +233,24 @@ export type TextFormatterName =
   | "pascalCase"
   | "snakeCase"
   | "upperSnakeCase";
+
+export interface TokenHatSplittingMode {
+  /**
+   * Whether to distinguished between uppercase and lower case letters for hat
+   */
+  preserveCase: boolean;
+
+  /**
+   * A list of characters whose accents should not be stripped. This can be
+   * used, for example, if you would like to strip all accents except for those
+   * of a few characters, which you can add to this string.
+   */
+  lettersToPreserve: string[];
+
+  /**
+   * A list of symbols that shouldn't be normalized by the token hat splitter.
+   * Add any extra symbols here that you have added to your
+   * <user.any_alphanumeric_key> capture.
+   */
+  symbolsToPreserve: string[];
+}
