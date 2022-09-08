@@ -8,9 +8,9 @@ Welcome to Cursorless! You may find it helpful to start with the [tutorial video
 
 This guide assumes you've already [installed Cursorless](installation.md).
 
-Once you understand the concepts, you can pull up a cheatsheet for reference using the command `"cursorless help"`.
+Once you understand the concepts, you can pull up a cheatsheet for reference using either `"cursorless reference"` or `"cursorless cheatsheet"` commands within VSCode.
 
-You can get back to these docs by saying `"cursorless instructions"`.
+You can get back to these docs by saying `"cursorless docs"`, `"cursorless help"` within VSCode.
 
 Note: If you'd like to customize any of the spoken forms, please see [Customization](customization.md).
 
