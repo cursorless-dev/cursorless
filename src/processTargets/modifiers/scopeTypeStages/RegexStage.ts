@@ -122,11 +122,14 @@ export class CustomRegexStage extends RegexStageBase {
   constructor(modifier: CustomRegexModifier) {
     super(modifier, new RegExp(modifier.scopeType.regex, "g"));
   }
+
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     try {
       return super.run(context, target);
     } catch (error) {
-      console.error(`Couldn't find custom regex: ${this.regex}`);
+      if (error instanceof NoContainingScopeError) {
+        throw Error(`Couldn't find custom regex: ${this.regex}`);
+      }
       throw error;
     }
   }
