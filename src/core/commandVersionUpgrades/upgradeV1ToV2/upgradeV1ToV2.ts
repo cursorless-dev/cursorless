@@ -152,10 +152,10 @@ function upgradePrimitiveTarget(
   return {
     type,
     isImplicit,
-    // Cursor token is just cursor position but treated as a token. This is done in the pipeline for normal cursor now
-    mark: mark?.type === "cursorToken" ? undefined : mark,
     // Empty array of modifiers is not allowed
     modifiers: modifiers.length > 0 ? modifiers : undefined,
+    // Cursor token is just cursor position but treated as a token. This is done in the pipeline for normal cursor now
+    mark: mark?.type === "cursorToken" ? undefined : mark,
   };
 }
 

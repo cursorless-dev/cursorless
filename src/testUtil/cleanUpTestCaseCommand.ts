@@ -1,16 +1,12 @@
 import { TestCaseCommand } from "./TestCase";
+import { merge } from "lodash";
 
 export function cleanUpTestCaseCommand(
   command: TestCaseCommand
 ): TestCaseCommand {
-  const { action, ...rest } = command;
-  const { args } = action;
-
-  return {
-    ...rest,
-    action: {
-      ...action,
-      args: args == null ? undefined : args.length === 0 ? undefined : args,
-    },
-  };
+  const { args } = command.action;
+  const result = merge({}, command);
+  result.action.args =
+    args == null ? undefined : args.length === 0 ? undefined : args;
+  return result;
 }
