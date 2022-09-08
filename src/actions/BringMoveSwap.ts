@@ -163,12 +163,13 @@ class BringMoveSwap implements Action {
               ? edits
               : edits.filter(({ isSource }) => !isSource);
 
-          const editSelectionInfos = edits.map(({ originalTarget }) =>
-            getSelectionInfo(
-              editor.document,
-              originalTarget.contentSelection,
-              DecorationRangeBehavior.OpenOpen
-            )
+          const editSelectionInfos = edits.map(
+            ({ edit: { range }, originalTarget }) =>
+              getSelectionInfo(
+                editor.document,
+                selectionFromRange(originalTarget.isReversed, range),
+                DecorationRangeBehavior.OpenOpen
+              )
           );
 
           const cursorSelectionInfos = editor.selections.map((selection) =>
