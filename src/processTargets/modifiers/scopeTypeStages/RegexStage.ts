@@ -4,11 +4,10 @@ import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
-  SimpleScopeTypeType,
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
+import { TokenTarget } from "../../targets";
 
 class RegexStageBase implements ModifierStage {
   constructor(
@@ -16,14 +15,14 @@ class RegexStageBase implements ModifierStage {
     protected regex: RegExp
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): Target[] {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(target);
     }
     return [this.getSingleTarget(target)];
   }
 
-  private getEveryTarget(target: Target): ScopeTypeTarget[] {
+  private getEveryTarget(target: Target): Target[] {
     const { contentRange, editor } = target;
     const start = target.hasExplicitRange
       ? contentRange.start
@@ -31,7 +30,7 @@ class RegexStageBase implements ModifierStage {
     const end = target.hasExplicitRange
       ? contentRange.end
       : editor.document.lineAt(contentRange.end).range.end;
-    const targets: ScopeTypeTarget[] = [];
+    const targets: Target[] = [];
 
     for (let i = start.line; i <= end.line; ++i) {
       this.getMatchesForLine(editor, i).forEach((range) => {
@@ -52,7 +51,7 @@ class RegexStageBase implements ModifierStage {
     return targets;
   }
 
-  private getSingleTarget(target: Target): ScopeTypeTarget {
+  private getSingleTarget(target: Target): Target {
     const { editor } = target;
     const start = this.getMatchForPos(editor, target.contentRange.start).start;
     const end = this.getMatchForPos(editor, target.contentRange.end).end;
@@ -60,12 +59,8 @@ class RegexStageBase implements ModifierStage {
     return this.getTargetFromRange(target, contentRange);
   }
 
-  private getTargetFromRange(
-    target: Target,
-    contentRange: Range
-  ): ScopeTypeTarget {
-    return new ScopeTypeTarget({
-      scopeTypeType: this.modifier.scopeType.type as SimpleScopeTypeType,
+  private getTargetFromRange(target: Target, contentRange: Range): Target {
+    return new TokenTarget({
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange,
@@ -127,7 +122,7 @@ export class CustomRegexStage extends RegexStageBase {
   constructor(modifier: CustomRegexModifier) {
     super(modifier, new RegExp(modifier.scopeType.regex, "g"));
   }
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): Target[] {
     try {
       return super.run(context, target);
     } catch (error) {
