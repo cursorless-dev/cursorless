@@ -8,12 +8,12 @@ export default function LandingPage() {
       <div className="h-full flex flex-col max-w-[1000px] mx-auto">
         <div className="flex-1 flex flex-col">
           <header className="flex flex-row items-center ">
-            <div className="mr-auto text-2xl sm:text-[32px] sm:leading-[34px] font-semibold dark:font-medium sm:font-medium tracking-[0.3em] sm:tracking-[0.24em] uppercase">
+            <div className="align-middle mr-auto text-2xl sm:text-[min(10vh,_32px)] sm:leading-[34px] font-semibold dark:font-medium sm:font-medium tracking-[0.3em] sm:tracking-[0.24em] uppercase">
               Cursorless
             </div>
             <Logo
               title="Logo"
-              className="align-middle scale-[0.961] sm:scale-[1.333]"
+              className="align-middle w-[29px] h-[29px] sm:w-[40px] sm:h-[40px]"
             />
           </header>
           <Slogan />
@@ -48,12 +48,14 @@ function Slogan() {
 
 function NetlifyFooter() {
   return (
-    <footer className="text-center text-salmon-800 dark:text-salmon-100 text-sm sm:text-xs tracking-widest sm:font-light">
-      <span className="uppercase">This site is powered by </span>
+    <footer className="text-center text-sm sm:text-xs tracking-widest font-light">
+      <span className="uppercase text-salmon-800 dark:text-salmon-100 dark:opacity-50">
+        This site is powered by{' '}
+      </span>
       <a
         href="https://www.netlify.com/"
         target="_blank"
-        className="text-salmon-400 dark:text-salmon-300 dark:sm:text-salmon-400 hover:text-purple-500 "
+        className="text-salmon-400 hover:text-purple-500 "
         rel="noreferrer"
       >
         Netlify
