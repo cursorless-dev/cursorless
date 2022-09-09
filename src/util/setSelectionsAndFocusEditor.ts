@@ -57,6 +57,7 @@ export async function focusEditor(editor: TextEditor) {
   } else {
     // If the view column is null we see if it's a notebook and try to see if we
     // can just move around in the notebook to focus the correct editor
+
     if (isVscodeLegacyNotebookVersion()) {
       return await focusNotebookCellLegacy(editor);
     }
