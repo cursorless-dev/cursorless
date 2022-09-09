@@ -11,9 +11,9 @@ export function reorderFields(
     finalState: fixture.finalState,
     decorations: fixture.decorations,
     returnValue: fixture.returnValue,
-    fullTargets: fixture.fullTargets,
     thrownError: fixture.thrownError,
-    postCommandSleepTimeMs: fixture.postCommandSleepTimeMs,
     postEditorOpenSleepTimeMs: fixture.postEditorOpenSleepTimeMs,
+    postCommandSleepTimeMs: fixture.postCommandSleepTimeMs,
+    fullTargets: fixture.fullTargets,
   };
 }
