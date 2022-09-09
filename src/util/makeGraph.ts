@@ -12,26 +12,24 @@ function makeGetter<GraphType, K extends keyof GraphType>(
   key: K
 ): () => GraphType[K] {
   return () => {
-    let returnValue: GraphType[K];
-
-    if (components[key] == null) {
-      if (lockedKeys.includes(key)) {
-        const cycle = [...lockedKeys.slice(lockedKeys.indexOf(key)), key].join(
-          " -> "
-        );
-        throw new Error(`Dependency injection graph cycle detected: ${cycle}`);
-      }
-      const factory = factoryMap[key] as (graph: GraphType) => GraphType[K];
-      lockedKeys.push(key);
-      returnValue = factory(graph);
-      if (lockedKeys.pop() !== key) {
-        throw new Error("Unexpected key at top of graph stack");
-      }
-      components[key] = returnValue;
-    } else {
-      returnValue = components[key] as GraphType[K];
+    const componentValue = components[key];
+    if (componentValue != null) {
+      return componentValue;
     }
 
+    if (lockedKeys.includes(key)) {
+      const cycle = [...lockedKeys.slice(lockedKeys.indexOf(key)), key].join(
+        " -> "
+      );
+      throw new Error(`Dependency injection graph cycle detected: ${cycle}`);
+    }
+    const factory = factoryMap[key];
+    lockedKeys.push(key);
+    const returnValue = factory(graph);
+    if (lockedKeys.pop() !== key) {
+      throw new Error("Unexpected key at top of graph stack");
+    }
+    components[key] = returnValue;
     return returnValue;
   };
 }
