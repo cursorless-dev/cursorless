@@ -1,8 +1,10 @@
+import * as semver from "semver";
 import {
   commands,
   NotebookDocument,
   Selection,
   TextEditor,
+  version,
   ViewColumn,
   window,
 } from "vscode";
@@ -72,6 +74,9 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
   }
   // TODO: tabGroups is not available on older versions of vscode we still support.
   // Remove any cast as soon as version is updated.
+  if (semver.lt(version, "1.67.0")) {
+    return undefined;
+  }
   const viewColumn: ViewColumn | undefined = (window as any)?.tabGroups
     ?.activeTabGroup?.viewColumn;
   if (viewColumn != null) {
