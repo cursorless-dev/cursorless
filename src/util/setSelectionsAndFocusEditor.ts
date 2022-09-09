@@ -51,18 +51,35 @@ export function setSelectionsWithoutFocusingEditor(
 }
 
 export async function focusEditor(editor: TextEditor) {
-  if (editor.viewColumn != null) {
-    await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
+  const viewColumn = getViewColumn(editor);
+  if (viewColumn != null) {
+    await commands.executeCommand(columnFocusCommands[viewColumn]);
   } else {
     // If the view column is null we see if it's a notebook and try to see if we
     // can just move around in the notebook to focus the correct editor
-
     if (isVscodeLegacyNotebookVersion()) {
       return await focusNotebookCellLegacy(editor);
     }
 
     await focusNotebookCell(editor);
   }
+}
+
+function getViewColumn(editor: TextEditor): ViewColumn | undefined {
+  if (editor.viewColumn != null) {
+    return editor.viewColumn;
+  }
+  // TODO: tabGroups is not available on older versions of vscode we still support.
+  // Remove any cast as soon as version is updated.
+  const viewColumn: ViewColumn | undefined = (window as any)?.tabGroups
+    ?.activeTabGroup?.viewColumn;
+  if (viewColumn != null) {
+    // viewColumn exists even on notebooks. Check to make sure.
+    if (getNotebookFromCellDocument(editor.document) == null) {
+      return viewColumn;
+    }
+  }
+  return undefined;
 }
 
 async function focusNotebookCell(editor: TextEditor) {
