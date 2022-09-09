@@ -4,11 +4,11 @@ import { ReactComponent as Logo } from './svg/logo.svg';
 
 export default function LandingPage() {
   return (
-    <main className="items-center justify-center bg-salmon-100 dark:bg-salmon-900 text-salmon-900 dark:text-salmon-100 overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:px-16 sm:pt-4 sm:pb-4 font-mono">
-      <div className="h-full flex flex-col max-w-[1000px] mx-auto">
+    <main className="items-center justify-center bg-salmon-100 dark:bg-salmon-900 text-salmon-900 dark:text-salmon-100 overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex font-mono">
+      <div className="h-full flex flex-col sm:m-auto sm:w-[90vw] sm:h-[90vw] sm:max-h-[90vh] sm:max-w-[90vh] sm:text-[100%]">
         <div className="flex-1 flex flex-col">
           <header className="flex flex-row items-center ">
-            <div className="align-middle mr-auto text-2xl sm:text-[min(10vh,_32px)] sm:leading-[34px] font-semibold dark:font-medium sm:font-medium tracking-[0.3em] sm:tracking-[0.24em] uppercase">
+            <div className="align-middle mr-auto text-2xl sm:text-[2em] sm:leading-[34px] font-semibold dark:font-medium sm:font-medium tracking-[0.3em] sm:tracking-[0.24em] uppercase">
               Cursorless
             </div>
             <Logo
