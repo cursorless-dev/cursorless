@@ -77,8 +77,15 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
   if (semver.lt(version, "1.67.0")) {
     return undefined;
   }
-  const viewColumn: ViewColumn | undefined = (window as any)?.tabGroups
-    ?.activeTabGroup?.viewColumn;
+  const uri = editor.document.uri.toString();
+  const tabGroups: any[] = (window as any)?.tabGroups?.all ?? [];
+  const tabGroup = tabGroups.find(
+    (tabGroup: any) =>
+      !!tabGroup?.tabs.find(
+        (tab: any) => tab?.input?.modified?.toString() === uri
+      )
+  );
+  const viewColumn: ViewColumn | undefined = tabGroup?.viewColumn;
   if (viewColumn != null) {
     // viewColumn exists even on notebooks. Check to make sure.
     if (getNotebookFromCellDocument(editor.document) == null) {
