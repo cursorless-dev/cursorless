@@ -78,21 +78,10 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
     return undefined;
   }
   const uri = editor.document.uri.toString();
-  const tabGroups: any[] = (window as any)?.tabGroups?.all ?? [];
-  const tabGroup = tabGroups.find(
-    (tabGroup: any) =>
-      !!tabGroup?.tabs.find(
-        (tab: any) => tab?.input?.modified?.toString() === uri
-      )
+  const tabGroup = (window as any)?.tabGroups?.all?.find((tabGroup: any) =>
+    tabGroup?.tabs.find((tab: any) => tab?.input?.modified?.toString() === uri)
   );
-  const viewColumn: ViewColumn | undefined = tabGroup?.viewColumn;
-  if (viewColumn != null) {
-    // viewColumn exists even on notebooks. Check to make sure.
-    if (getNotebookFromCellDocument(editor.document) == null) {
-      return viewColumn;
-    }
-  }
-  return undefined;
+  return tabGroup?.viewColumn;
 }
 
 async function focusNotebookCell(editor: TextEditor) {
