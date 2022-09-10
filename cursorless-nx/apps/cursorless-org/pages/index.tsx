@@ -3,17 +3,26 @@ import Button from '../components/Button';
 import { ReactComponent as Logo } from './svg/logo.svg';
 
 export default function LandingPage() {
+  // const smallScaling = getsScaling('sm', 30.56, 20.51);
+  const smallScaling = 'sm:w-smBase sm:h-smBase sm:text-smBase';
+  const mediumScaling = 'md:w-mdBase md:h-mdBase md:text-mdBase';
+  const largeScaling = 'lg:w-lgBase lg:h-lgBase lg:text-lgBase';
+  const extraLargeScaling = 'xl:w-xlBase xl:h-xlBase xl:text-xlBase';
+  // const mediumScaling = getsScaling('md', 30.56, 20.51);
+
   return (
     <main className="items-center justify-center bg-salmon-100 dark:bg-salmon-900 text-salmon-900 dark:text-salmon-100 overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex font-mono">
-      <div className="h-full flex flex-col sm:m-auto sm:w-[90vw] sm:h-[90vw] sm:max-h-[90vh] sm:max-w-[90vh] sm:text-[100%]">
+      <div
+        className={`h-full flex flex-col sm:m-auto ${smallScaling} ${mediumScaling} ${largeScaling} ${extraLargeScaling} `}
+      >
         <div className="flex-1 flex flex-col">
           <header className="flex flex-row items-center ">
-            <div className="align-middle mr-auto text-2xl sm:text-[2em] sm:leading-[34px] font-semibold dark:font-medium sm:font-medium tracking-[0.3em] sm:tracking-[0.24em] uppercase">
+            <div className="align-middle mr-auto text-2xl sm:text-[3.2em] sm:leading-[34px] font-semibold dark:font-medium sm:font-medium tracking-[0.3em] sm:tracking-[0.24em] uppercase">
               Cursorless
             </div>
             <Logo
               title="Logo"
-              className="align-middle w-[29px] h-[29px] sm:w-[40px] sm:h-[40px]"
+              className="align-middle w-[29px] h-[29px] sm:w-[4em] sm:h-[4em]"
             />
           </header>
           <Slogan />
@@ -39,7 +48,7 @@ export default function LandingPage() {
 
 function Slogan() {
   return (
-    <h1 className="text-[22px] sm:text-[18px] leading-6 sm:leading-normal font-semibold sm:font-semibold uppercase [font-stretch:112.5%] tracking-[0.06em] sm:tracking-[0.24em] text-black dark:text-salmon-100 text-center my-auto">
+    <h1 className="text-[22px] sm:text-[2em] leading-6 sm:leading-normal font-semibold sm:font-semibold uppercase [font-stretch:112.5%] tracking-[0.06em] sm:tracking-[0.24em] text-black dark:text-salmon-100 text-center my-auto">
       <span className="inline-block">Voice coding</span>{' '}
       <span className="inline-block">at the speed of thought</span>
     </h1>
@@ -48,7 +57,7 @@ function Slogan() {
 
 function NetlifyFooter() {
   return (
-    <footer className="text-center text-sm sm:text-xs tracking-widest font-light">
+    <footer className="text-center text-sm sm:text-[1.2em] tracking-widest font-light">
       <span className="uppercase text-salmon-800 dark:text-salmon-100 dark:opacity-50">
         This site is powered by{' '}
       </span>
