@@ -2,6 +2,13 @@
 @tailwind base;
 @tailwind utilities;
 
+:root {
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-left: env(safe-area-inset-left);
+  --safe-area-inset-right: env(safe-area-inset-right);
+}
+
 @layer base {
   body {
     @apply bg-salmon-100 dark:bg-salmon-900;

@@ -7,20 +7,19 @@ const CONTENT_RATIO = 1000 / 814;
 /** @type {(marginXPct: number, marginYPct: number) => [string, string, string]} */
 function getScalingStrings(marginXPct, marginYPct) {
   const widthVw = 100 - marginXPct;
+  const maxWidth = `calc(${widthVw}vw - var(--safe-area-inset-right) - var(--safe-area-inset-left))`;
   const heightVh = 100 - marginYPct;
-  const widthVh = heightVh * CONTENT_RATIO;
-  const heightVw = widthVw / CONTENT_RATIO;
+  const maxHeight = `calc(${heightVh}vh - var(--safe-area-inset-bottom) - var(--safe-area-inset-top))`;
+  const heightFromWidth = `calc(${maxWidth} / ${CONTENT_RATIO})`;
+  const widthFromHeight = `calc(${maxHeight} * ${CONTENT_RATIO})`;
 
   const classInfos = [
-    [widthVw, widthVh],
-    [heightVw, heightVh],
-    [widthVw / 100, widthVh / 100],
+    [maxWidth, widthFromHeight],
+    [maxHeight, heightFromWidth],
+    [`calc(${maxWidth} / 100)`, `calc(${widthFromHeight} / 100)`],
   ];
 
-  return classInfos.map(
-    ([valueVw, valueVh]) =>
-      `min(${valueVw.toFixed(6)}vw, ${valueVh.toFixed(6)}vh)`
-  );
+  return classInfos.map(([value1, value2]) => `min(${value1}, ${value2})`);
 }
 
 const [smallWidth, smallHeight, smallText] = getScalingStrings(30.56, 20.51);
