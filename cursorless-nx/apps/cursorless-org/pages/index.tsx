@@ -3,17 +3,14 @@ import Button from '../components/Button';
 import { ReactComponent as Logo } from './svg/logo.svg';
 
 export default function LandingPage() {
-  // const smallScaling = getsScaling('sm', 30.56, 20.51);
   const smallScaling = 'sm:w-smBase sm:h-smBase sm:text-smBase';
-  const mediumScaling = 'md:w-mdBase md:h-mdBase md:text-mdBase';
-  const largeScaling = 'lg:w-lgBase lg:h-lgBase lg:text-lgBase';
-  const extraLargeScaling = 'xl:w-xlBase xl:h-xlBase xl:text-xlBase';
-  // const mediumScaling = getsScaling('md', 30.56, 20.51);
+  const stretchedScaling =
+    'sm:stretched:w-stretchedBase sm:stretched:h-stretchedBase sm:stretched:text-stretchedBase';
 
   return (
     <main className="items-center justify-center bg-salmon-100 dark:bg-salmon-900 text-salmon-900 dark:text-salmon-100 overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex font-mono">
       <div
-        className={`h-full flex flex-col sm:m-auto ${smallScaling} ${mediumScaling} ${largeScaling} ${extraLargeScaling} `}
+        className={`h-full flex flex-col sm:m-auto ${smallScaling} ${stretchedScaling}`}
       >
         <div className="flex-1 flex flex-col">
           <header className="flex flex-row items-center ">

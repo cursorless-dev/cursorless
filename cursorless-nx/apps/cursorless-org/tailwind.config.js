@@ -23,12 +23,10 @@ function getScalingStrings(marginXPct, marginYPct) {
   );
 }
 
-const [smallWidth, smallHeight, smallText] = getScalingStrings(10, 10);
-const [mediumWidth, mediumHeight, mediumText] = getScalingStrings(10, 10);
-const [largeWidth, largeHeight, largeText] = getScalingStrings(10, 10);
-const [extraLargeWidth, extraLargeHeight, extraLargeText] = getScalingStrings(
-  30.56,
-  20.51
+const [smallWidth, smallHeight, smallText] = getScalingStrings(30.56, 20.51);
+const [stretchedWidth, stretchedHeight, stretchedText] = getScalingStrings(
+  10,
+  10
 );
 
 /** @type {import('tailwindcss').Config} */
@@ -43,28 +41,22 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        stretched: { raw: '(min-aspect-ratio: 2/1), ' },
+        stretched: { raw: '(min-aspect-ratio: 2/1), (max-aspect-ratio: 1/1)' },
       },
       fontFamily: {
         mono: ['Inconsolata-SemiExpanded'],
       },
       width: {
         smBase: smallWidth,
-        mdBase: mediumWidth,
-        lgBase: largeWidth,
-        xlBase: extraLargeWidth,
+        stretchedBase: stretchedWidth,
       },
       height: {
         smBase: smallHeight,
-        mdBase: mediumHeight,
-        lgBase: largeHeight,
-        xlBase: extraLargeHeight,
+        stretchedBase: stretchedHeight,
       },
       fontSize: {
         smBase: smallText,
-        mdBase: mediumText,
-        lgBase: largeText,
-        xlBase: extraLargeText,
+        stretchedBase: stretchedText,
       },
       colors: {
         salmon: {
