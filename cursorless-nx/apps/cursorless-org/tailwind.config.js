@@ -42,6 +42,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        stretched: { raw: '(min-aspect-ratio: 2/1), ' },
+      },
       fontFamily: {
         mono: ['Inconsolata-SemiExpanded'],
       },
