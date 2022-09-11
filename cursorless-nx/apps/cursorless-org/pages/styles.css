@@ -2,6 +2,12 @@
 @tailwind base;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply bg-salmon-100 dark:bg-salmon-900;
+  }
+}
+
 /* From https://google-webfonts-helper.herokuapp.com/fonts/inconsolata?subsets=latin */
 
 /* inconsolata-regular - latin */

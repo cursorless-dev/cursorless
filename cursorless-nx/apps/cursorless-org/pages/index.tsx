@@ -8,7 +8,7 @@ export default function LandingPage() {
     'sm:stretched:w-stretchedBase sm:stretched:h-stretchedBase sm:stretched:text-stretchedBase';
 
   return (
-    <main className="items-center justify-center bg-salmon-100 dark:bg-salmon-900 text-salmon-900 dark:text-salmon-100 overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex font-mono">
+    <main className="items-center justify-center text-salmon-900 dark:text-salmon-100 overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex font-mono">
       <div
         className={`h-full flex flex-col sm:m-auto ${smallScaling} ${stretchedScaling}`}
       >
