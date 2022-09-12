@@ -83,7 +83,9 @@ const cssDialectTokenizerTests: LanguageTokenizerTests[SupportedLanguageId] = {
   exclusionPredicate: (input: string) => !!input.match("-"),
 };
 
-const languageTokenizerTests: Partial<Record<SupportedLanguageId, LanguageTokenizerTests>> = {
+const languageTokenizerTests: Partial<
+  Record<SupportedLanguageId, LanguageTokenizerTests>
+> = {
   css: cssDialectTokenizerTests,
   scss: cssDialectTokenizerTests,
 };
