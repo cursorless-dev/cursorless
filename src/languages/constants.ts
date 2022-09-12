@@ -26,35 +26,14 @@ export const supportedLanguageIds = [
 ] as const;
 
 /**
- * All language IDs that we might reference (e.g., for token customization)
+ * Other language IDs that we might reference (e.g., for token customization)
  * but don't have full tree-sitter support for yet.
  */
-export const allLanguageIds = [
-  "c",
-  "clojure",
-  "cpp",
-  "css",
-  "csharp",
-  "go",
-  "html",
-  "java",
-  "javascript",
-  "javascriptreact",
-  "json",
-  "jsonc",
-  "latex",
-  "markdown",
-  "php",
-  "python",
-  "ruby",
-  "scala",
-  "scss",
+export const otherLanguageIds = [
   "shellscript",
-  "rust",
-  "typescript",
-  "typescriptreact",
-  "xml",
 ] as const;
+
+export const allLanguageIds = [...supportedLanguageIds, ...otherLanguageIds];
 
 export type SupportedLanguageId = typeof supportedLanguageIds[number];
 export type AllLanguageId = typeof allLanguageIds[number];
