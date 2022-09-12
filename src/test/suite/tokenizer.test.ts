@@ -16,7 +16,8 @@ interface LanguageTokenizerTests {
 }
 const singleSymbolTests: TestCase[] = getAsciiSymbols().map((s) => [s, [s]]);
 
-const tests: TestCase[] = [
+/** Tokenizer tests that will be run on the default tokenizer, as well as on all language-specific tokenizers */
+const globalTests: TestCase[] = [
   // Numbers
   ["0.0 0 1 120 2.5 0.1", ["0.0", "0", "1", "120", "2.5", "0.1"]],
   // Semantic versioning
@@ -95,7 +96,7 @@ const languageTokenizerTests: Partial<
 };
 
 suite("tokenizer", () => {
-  tests.forEach(([input, expectedOutput]) => {
+  globalTests.forEach(([input, expectedOutput]) => {
     test(`tokenizer test, input: "${input}"`, () => {
       const output = tokenize(input, "anyLang", (match) => match[0]);
       assert.deepStrictEqual(output, expectedOutput);
@@ -114,7 +115,7 @@ suite("tokenizer", () => {
         });
       });
 
-      tests.forEach(([input, expectedOutput]) => {
+      globalTests.forEach(([input, expectedOutput]) => {
         if (exclusionPredicate(input)) {
           return;
         }

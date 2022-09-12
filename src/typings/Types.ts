@@ -219,17 +219,6 @@ export interface Edit {
   isReplace?: boolean;
 }
 
-/** Represents a custom tokenizer for a language */
-export interface LanguageTokenizerComponents {
-  fixedTokens: string[];
-  identifiersRegex: string;
-  numbersRegex: string;
-  repeatableSymbols: string[];
-  singleSymbolsRegex: string;
-}
-
-export type LanguageTokenizerOverrides = Partial<LanguageTokenizerComponents>;
-
 export interface EditWithRangeUpdater extends Edit {
   /**
    * This function will be passed the resulting range containing {@link text}

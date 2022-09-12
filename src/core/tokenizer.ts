@@ -1,12 +1,12 @@
 import { mapValues } from "lodash";
 import { SupportedLanguageId } from "../languages/constants";
+
+import { matchAll } from "../util/regex";
+import css, { default as scss } from "./languageTokenizers/css";
 import {
   LanguageTokenizerComponents,
   LanguageTokenizerOverrides,
-} from "../typings/Types";
-import { matchAll } from "../util/regex";
-import css from "./languageTokenizers/css";
-import { default as scss } from "./languageTokenizers/css";
+} from "./tokenizer.types";
 
 const REPEATABLE_SYMBOLS = [
   "-",
