@@ -37,6 +37,10 @@ export class HatAllocator {
         this.toggleDecorations
       ),
 
+      // An event that fires when a text document opens
+      vscode.workspace.onDidOpenTextDocument(this.addDecorationsDebounced),
+      // An event that fires when a text document closes
+      vscode.workspace.onDidCloseTextDocument(this.addDecorationsDebounced),
       // An Event which fires when the active editor has changed. Note that the event also fires when the active editor changes to undefined.
       vscode.window.onDidChangeActiveTextEditor(this.addDecorationsDebounced),
       // An Event which fires when the array of visible editors has changed.
