@@ -19,7 +19,7 @@ initialState:
   marks:
     default.h:
       start: {line: 0, character: 3}
-      end: {line: 0, character: 8}
+      end: {line: 0, character: 17}
 finalState:
   documentContents: ""
   selections:
