@@ -1,7 +1,6 @@
 import * as assert from "assert";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
-import * as sinon from "sinon";
 import * as vscode from "vscode";
 import HatTokenMap from "../../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
@@ -22,10 +21,11 @@ import {
 } from "../../testUtil/toPlainObject";
 import { Clipboard } from "../../util/Clipboard";
 import { getCursorlessApi } from "../../util/getExtensionApi";
-import sleep from "../../util/sleep";
 import { openNewEditor } from "../openNewEditor";
 import asyncSafety from "../util/asyncSafety";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
+import shouldUpdateFixtures from "./shouldUpdateFixtures";
+import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -38,12 +38,7 @@ function createSelection(selection: SelectionPlainObject): vscode.Selection {
 }
 
 suite("recorded test cases", async function () {
-  this.timeout("100s");
-  this.retries(5);
-
-  teardown(() => {
-    sinon.restore();
-  });
+  standardSuiteSetup(this);
 
   suiteSetup(async () => {
     // Necessary because opening a notebook opens the panel for some reason
@@ -77,13 +72,7 @@ async function runTest(file: string) {
   );
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
-    await sleep(fixture.postEditorOpenSleepTimeMs);
-  }
-
-  if (!fixture.initialState.documentContents.includes("\n")) {
-    await editor.edit((editBuilder) => {
-      editBuilder.setEndOfLine(vscode.EndOfLine.LF);
-    });
+    await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
   }
 
   editor.selections = fixture.initialState.selections.map(createSelection);
@@ -111,8 +100,6 @@ async function runTest(file: string) {
     // sinon.replace(Clipboard, "writeText", async (value: string) => {
     //   mockClipboard = value;
     // });
-  } else {
-    excludeFields.push("clipboard");
   }
 
   await graph.hatTokenMap.addDecorations();
@@ -124,26 +111,44 @@ async function runTest(file: string) {
   // Assert that recorded decorations are present
   checkMarks(fixture.initialState.marks, readableHatMap);
 
-  if (fixture.thrownError != null) {
-    await assert.rejects(
-      async () => {
-        await vscode.commands.executeCommand(
-          "cursorless.command",
-          fixture.command
-        );
-      },
-      (err: Error) => {
-        assert.strictEqual(err.name, fixture.thrownError?.name);
-        return true;
-      }
-    );
+  let returnValue: unknown;
+
+  try {
+    returnValue = await vscode.commands.executeCommand("cursorless.command", {
+      ...fixture.command,
+      usePrePhraseSnapshot,
+    });
+  } catch (err) {
+    const error = err as Error;
+
+    if (shouldUpdateFixtures()) {
+      const outputFixture = {
+        ...fixture,
+        finalState: undefined,
+        decorations: undefined,
+        returnValue: undefined,
+        thrownError: { name: error.name },
+      };
+
+      await fsp.writeFile(file, serialize(outputFixture));
+    } else if (fixture.thrownError != null) {
+      assert.strictEqual(error.name, fixture.thrownError.name);
+    } else {
+      throw error;
+    }
+
     return;
   }
 
-  const returnValue = await vscode.commands.executeCommand(
-    "cursorless.command",
-    { ...fixture.command, usePrePhraseSnapshot }
-  );
+  if (fixture.thrownError != null) {
+    throw Error(
+      `Expected error ${fixture.thrownError.name} but none was thrown`
+    );
+  }
+
+  if (fixture.postCommandSleepTimeMs != null) {
+    await sleepWithBackoff(fixture.postCommandSleepTimeMs);
+  }
 
   const marks =
     fixture.finalState!.marks == null
@@ -154,6 +159,10 @@ async function runTest(file: string) {
             readableHatMap
           )
         );
+
+  if (fixture.finalState!.clipboard == null) {
+    excludeFields.push("clipboard");
+  }
 
   // TODO Visible ranges are not asserted, see:
   // https://github.com/cursorless-dev/cursorless/issues/160
@@ -170,12 +179,13 @@ async function runTest(file: string) {
       ? undefined
       : testDecorationsToPlainObject(graph.editStyles.testDecorations);
 
-  if (process.env.CURSORLESS_TEST_UPDATE_FIXTURES === "true") {
+  if (shouldUpdateFixtures()) {
     const outputFixture = {
       ...fixture,
       finalState: resultState,
       decorations: actualDecorations,
       returnValue,
+      thrownError: undefined,
     };
 
     await fsp.writeFile(file, serialize(outputFixture));

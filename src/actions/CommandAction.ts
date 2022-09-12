@@ -10,6 +10,7 @@ import {
 } from "../util/setSelectionsAndFocusEditor";
 import {
   ensureSingleEditor,
+  ensureSingleTarget,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -19,6 +20,7 @@ export interface CommandOptions {
   commandArgs?: any[];
   restoreSelection?: boolean;
   ensureSingleEditor?: boolean;
+  ensureSingleTarget?: boolean;
   showDecorations?: boolean;
 }
 
@@ -26,6 +28,7 @@ const defaultOptions: CommandOptions = {
   commandArgs: [],
   restoreSelection: true,
   ensureSingleEditor: false,
+  ensureSingleTarget: false,
   showDecorations: false,
 };
 
@@ -101,6 +104,10 @@ export default class CommandAction implements Action {
 
     if (actualOptions.ensureSingleEditor) {
       ensureSingleEditor(targets);
+    }
+
+    if (actualOptions.ensureSingleTarget) {
+      ensureSingleTarget(targets);
     }
 
     const originalEditor = window.activeTextEditor;

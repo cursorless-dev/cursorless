@@ -45,7 +45,6 @@ const tests: TestCase[] = [
   ["::", ["::"]],
   ["->", ["->"]],
   ["??", ["??"]],
-  ["\\r\\n\\t", ["\\r", "\\n", "\\t"]],
   ['"""hello"""', ['"""', "hello", '"""']],
   ["```typescript", ["```", "typescript"]],
   ['""""""', ['"""', '"""']],
@@ -65,6 +64,12 @@ const tests: TestCase[] = [
   ["#111111", ["#", "111111"]],
   // Unicode characters
   ["aåäöb", ["aåäöb"]],
+  ["\u006E\u0303", ["\u006E\u0303"]], // ñ using combining mark
+  // Windows filepath
+  [
+    "tests\\recorded\\typescript\\name",
+    ["tests", "\\", "recorded", "\\", "typescript", "\\", "name"],
+  ],
 ];
 
 const cssDialectTokenizerTests: LanguageTokenizerTests[SupportedLanguageId] = {

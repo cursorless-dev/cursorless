@@ -50,7 +50,7 @@ class BringMoveSwap implements Action {
       getSourceRangeCallback = getContentRange;
     } else if (this.type === "move") {
       sourceStyle = this.graph.editStyles.pendingDelete;
-      getSourceRangeCallback = getRemovalRange;
+      getSourceRangeCallback = getRemovalHighlightRange;
     }
     // NB this.type === "swap"
     else {
@@ -163,12 +163,13 @@ class BringMoveSwap implements Action {
               ? edits
               : edits.filter(({ isSource }) => !isSource);
 
-          const editSelectionInfos = edits.map(({ originalTarget }) =>
-            getSelectionInfo(
-              editor.document,
-              originalTarget.contentSelection,
-              DecorationRangeBehavior.OpenOpen
-            )
+          const editSelectionInfos = edits.map(
+            ({ edit: { range }, originalTarget }) =>
+              getSelectionInfo(
+                editor.document,
+                selectionFromRange(originalTarget.isReversed, range),
+                DecorationRangeBehavior.OpenOpen
+              )
           );
 
           const cursorSelectionInfos = editor.selections.map((selection) =>
@@ -282,6 +283,6 @@ export class Swap extends BringMoveSwap {
   }
 }
 
-function getRemovalRange(target: Target) {
-  return target.getRemovalRange();
+function getRemovalHighlightRange(target: Target) {
+  return target.getRemovalHighlightRange();
 }

@@ -161,6 +161,7 @@ const textFragmentExtractors: Record<
     "json",
     jsonStringTextFragmentExtractor
   ),
+  latex: fullDocumentTextFragmentExtractor,
   markdown: fullDocumentTextFragmentExtractor,
   php: constructDefaultTextFragmentExtractor(
     "php",
@@ -179,6 +180,7 @@ const textFragmentExtractors: Record<
     "scss",
     scssStringTextFragmentExtractor
   ),
+  rust: constructDefaultTextFragmentExtractor("rust"),
   typescript: constructDefaultTextFragmentExtractor(
     "typescript",
     typescriptStringTextFragmentExtractor

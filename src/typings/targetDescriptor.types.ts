@@ -1,4 +1,7 @@
 import { HatStyleName } from "../core/constants";
+// FIXME: See microsoft/TypeScript#43869
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type { Target } from "./target.types";
 
 export interface CursorMark {
   type: "cursor";
@@ -60,7 +63,10 @@ export type SimpleSurroundingPairName =
   | "parentheses"
   | "singleQuotes"
   | "squareBrackets";
-export type ComplexSurroundingPairName = "string" | "any";
+export type ComplexSurroundingPairName =
+  | "string"
+  | "any"
+  | "collectionBoundary";
 export type SurroundingPairName =
   | SimpleSurroundingPairName
   | ComplexSurroundingPairName;
@@ -75,6 +81,7 @@ export type SimpleScopeTypeType =
   | "collectionKey"
   | "comment"
   | "functionCall"
+  | "functionCallee"
   | "functionName"
   | "ifStatement"
   | "list"
@@ -99,6 +106,14 @@ export type SimpleScopeTypeType =
   | "xmlElement"
   | "xmlEndTag"
   | "xmlStartTag"
+  // Latex scope types
+  | "part"
+  | "chapter"
+  | "subSection"
+  | "subSubSection"
+  | "namedParagraph"
+  | "subParagraph"
+  | "environment"
   // Text based scopes
   | "token"
   | "line"
@@ -108,10 +123,16 @@ export type SimpleScopeTypeType =
   | "character"
   | "word"
   | "nonWhitespaceSequence"
+  | "boundedNonWhitespaceSequence"
   | "url";
 
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;
+}
+
+export interface CustomRegexScopeType {
+  type: "customRegex";
+  regex: string;
 }
 
 export type SurroundingPairDirection = "left" | "right";
@@ -119,9 +140,18 @@ export interface SurroundingPairScopeType {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
   forceDirection?: SurroundingPairDirection;
+
+  /**
+   * If `true`, then only accept pairs where the pair completely contains the
+   * selection, ie without the edges touching.
+   */
+  requireStrongContainment?: boolean;
 }
 
-export type ScopeType = SimpleScopeType | SurroundingPairScopeType;
+export type ScopeType =
+  | SimpleScopeType
+  | SurroundingPairScopeType
+  | CustomRegexScopeType;
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {
@@ -164,14 +194,6 @@ export interface RawSelectionModifier {
   type: "toRawSelection";
 }
 
-export interface HeadModifier {
-  type: "extendThroughStartOf";
-}
-
-export interface TailModifier {
-  type: "extendThroughEndOf";
-}
-
 export interface LeadingModifier {
   type: "leading";
 }
@@ -194,6 +216,38 @@ export interface PartialPrimitiveTargetDescriptor {
   isImplicit?: boolean;
 }
 
+export interface HeadTailModifier {
+  type: "extendThroughStartOf" | "extendThroughEndOf";
+  modifiers?: Modifier[];
+}
+
+/**
+ * Runs {@link modifier} if the target has no explicit scope type, ie if
+ * {@link Target.hasExplicitScopeType} is `false`.
+ */
+export interface ModifyIfUntypedModifier {
+  type: "modifyIfUntyped";
+
+  /**
+   * The modifier to apply if the target is untyped
+   */
+  modifier: Modifier;
+}
+
+/**
+ * Tries each of the modifiers in {@link modifiers} in turn until one of them
+ * doesn't throw an error, returning the output from the first modifier not
+ * throwing an error.
+ */
+export interface CascadingModifier {
+  type: "cascading";
+
+  /**
+   * The modifiers to try in turn
+   */
+  modifiers: Modifier[];
+}
+
 export type Modifier =
   | PositionModifier
   | InteriorOnlyModifier
@@ -201,11 +255,12 @@ export type Modifier =
   | ContainingScopeModifier
   | EveryScopeModifier
   | OrdinalRangeModifier
-  | HeadModifier
-  | TailModifier
+  | HeadTailModifier
   | LeadingModifier
   | TrailingModifier
-  | RawSelectionModifier;
+  | RawSelectionModifier
+  | ModifyIfUntypedModifier
+  | CascadingModifier;
 
 export interface PartialRangeTargetDescriptor {
   type: "range";
@@ -242,6 +297,13 @@ export interface PrimitiveTargetDescriptor
    * character of the name.
    */
   modifiers: Modifier[];
+
+  /**
+   * We separate the positional modifier from the other modifiers because it
+   * behaves differently and and makes the target behave like a destination for
+   * example for bring.  This change is the first step toward #803
+   */
+  positionModifier?: PositionModifier;
 }
 
 export interface RangeTargetDescriptor {

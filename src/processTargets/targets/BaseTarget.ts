@@ -1,15 +1,18 @@
 import { isEqual } from "lodash";
 import { Range, Selection, TextEditor } from "vscode";
+import { NoContainingScopeError } from "../../errors";
 import { EditNewContext, Target } from "../../typings/target.types";
+import { Position } from "../../typings/targetDescriptor.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
+import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
   createContinuousRange,
-  createContinuousRangeWeakTarget,
+  createContinuousRangeUntypedTarget,
 } from "../targetUtil/createContinuousRange";
 
-/** Parameters supported by all target classes */
+/** Parameters supported by most target classes */
 export interface CommonTargetParameters {
   readonly editor: TextEditor;
   readonly isReversed: boolean;
@@ -25,7 +28,8 @@ export interface CloneWithParameters {
 export default abstract class BaseTarget implements Target {
   protected readonly state: CommonTargetParameters;
   isLine = false;
-  isWeak = false;
+  hasExplicitScopeType = true;
+  hasExplicitRange = true;
   isRaw = false;
   isNotebookCell = false;
 
@@ -79,14 +83,9 @@ export default abstract class BaseTarget implements Target {
     };
   }
 
-  getEditNewContext(isBefore: boolean): EditNewContext {
-    const delimiter = this.insertionDelimiter ?? "";
-    if (delimiter === "\n" && !isBefore) {
-      return { type: "command", command: "editor.action.insertLineAfter" };
-    }
+  getEditNewContext(): EditNewContext {
     return {
-      type: "delimiter",
-      delimiter,
+      type: "edit",
     };
   }
 
@@ -103,10 +102,10 @@ export default abstract class BaseTarget implements Target {
   }
 
   getInteriorStrict(): Target[] {
-    throw Error("No available interior");
+    throw new NoContainingScopeError("interior");
   }
   getBoundaryStrict(): Target[] {
-    throw Error("No available boundaries");
+    throw new NoContainingScopeError("boundary");
   }
 
   readonly cloneWith = (parameters: CloneWithParameters) => {
@@ -141,7 +140,7 @@ export default abstract class BaseTarget implements Target {
       });
     }
 
-    return createContinuousRangeWeakTarget(
+    return createContinuousRangeUntypedTarget(
       isReversed,
       this,
       endTarget,
@@ -150,11 +149,34 @@ export default abstract class BaseTarget implements Target {
     );
   }
 
-  isEqual(target: Target): boolean {
+  isEqual(otherTarget: Target): boolean {
     return (
-      target instanceof BaseTarget &&
-      isEqual(this.getCloneParameters(), target.getCloneParameters())
+      otherTarget instanceof BaseTarget &&
+      isEqual(this.getEqualityParameters(), otherTarget.getEqualityParameters())
     );
+  }
+
+  /**
+   * Constructs an object that can be used for determining equality between two
+   * {@link BaseTarget} objects. We proceed by just getting the objects clone
+   * parameters and removing the `thatTarget`.
+   *
+   * We would prefer to instead merge the `thatTarget`s into a list. See #780
+   * for more details.
+   *
+   * @returns The object to be used for determining equality
+   */
+  protected getEqualityParameters(): object {
+    const { thatTarget, ...otherCloneParameters } =
+      this.getCloneParameters() as { thatTarget?: Target };
+
+    return {
+      ...otherCloneParameters,
+    };
+  }
+
+  toPositionTarget(position: Position): Target {
+    return toPositionTarget(this, position);
   }
 
   abstract get insertionDelimiter(): string;

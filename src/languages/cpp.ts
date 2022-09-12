@@ -84,7 +84,11 @@ const nodeMatchers: Partial<
   comment: "comment",
   anonymousFunction: "lambda_expression",
   list: "initializer_list",
-  functionCall: "call_expression",
+  functionCall: ["call_expression", "declaration.init_declarator!"],
+  functionCallee: [
+    "call_expression[function]",
+    "declaration.init_declarator[declarator]!",
+  ],
   name: [
     "*[declarator][declarator][name]",
     "*[declarator][name]",
@@ -109,7 +113,6 @@ const nodeMatchers: Partial<
     ],
     [":", "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="]
   ),
-  collectionItem: argumentMatcher("initializer_list"),
   argumentOrParameter: argumentMatcher("parameter_list", "argument_list"),
   attribute: "attribute",
 };

@@ -61,7 +61,7 @@ export default function getOffsetsForEmptyRangeInsert(
       case "open":
         return { start, end };
 
-      case "regex":
+      case "regex": {
         const matches = text.match(leftAnchored(expansionBehavior.regex));
 
         return matches == null
@@ -73,6 +73,7 @@ export default function getOffsetsForEmptyRangeInsert(
               start,
               end: start + matches[0].length,
             };
+      }
     }
   } else {
     // In this case the range moves to the right so we care about the start of the range
@@ -88,7 +89,7 @@ export default function getOffsetsForEmptyRangeInsert(
       case "open":
         return { start, end };
 
-      case "regex":
+      case "regex": {
         const index = text.search(rightAnchored(expansionBehavior.regex));
 
         return index === -1
@@ -100,6 +101,7 @@ export default function getOffsetsForEmptyRangeInsert(
               start: start + index,
               end,
             };
+      }
     }
   }
 }

@@ -10,7 +10,7 @@ export function mergeStrict<Value>(
 
   objects.forEach((object: object) => {
     for (const [key, value] of Object.entries(object)) {
-      if (returnValue.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(returnValue, key)) {
         throw new Error(`Found duplicate property ${key}`);
       }
 

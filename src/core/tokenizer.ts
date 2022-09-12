@@ -36,16 +36,13 @@ const FIXED_TOKENS = [
   "??",
   '"""',
   "```",
-  "\\r",
-  "\\n",
-  "\\t",
   "/*",
   "*/",
   "<!--",
   "-->",
 ];
 
-const IDENTIFIERS_REGEX = "[\\p{L}_0-9]+";
+const IDENTIFIERS_REGEX = "[\\p{L}\\p{M}_0-9]+";
 const SINGLE_SYMBOLS_REGEX = "[^\\s\\w]";
 const NUMBERS_REGEX = "(?<=[^.\\d]|^)\\d+\\.\\d+(?=[^.\\d]|$)"; // (not-dot/digit digits dot digits not-dot/digit)
 

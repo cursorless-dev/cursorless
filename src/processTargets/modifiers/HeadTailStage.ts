@@ -1,46 +1,69 @@
-import { Position, Range, TextEditor } from "vscode";
+import { Range } from "vscode";
 import { Target } from "../../typings/target.types";
 import {
-  HeadModifier,
-  TailModifier,
+  HeadTailModifier,
+  Modifier,
 } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
-import TokenTarget from "../targets/TokenTarget";
+import {
+  getModifierStagesFromTargetModifiers,
+  processModifierStages,
+} from "../processTargets";
+import { TokenTarget } from "../targets";
 
 abstract class HeadTailStage implements ModifierStage {
-  abstract update(editor: TextEditor, range: Range): Range;
-
-  constructor(private isReversed: boolean) {}
+  constructor(private isReversed: boolean, private modifiers?: Modifier[]) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const contentRange = this.update(target.editor, target.contentRange);
-    return [
-      new TokenTarget({
+    const modifiers = this.modifiers ?? [
+      {
+        type: "containingScope",
+        scopeType: { type: "line" },
+      },
+    ];
+
+    const modifierStages = getModifierStagesFromTargetModifiers(modifiers);
+    const modifiedTargets = processModifierStages(context, modifierStages, [
+      target,
+    ]);
+
+    return modifiedTargets.map((modifiedTarget) => {
+      const contentRange = this.constructContentRange(
+        target.contentRange,
+        modifiedTarget.contentRange
+      );
+
+      return new TokenTarget({
         editor: target.editor,
         isReversed: this.isReversed,
         contentRange,
-      }),
-    ];
+      });
+    });
   }
+
+  protected abstract constructContentRange(
+    originalRange: Range,
+    modifiedRange: Range
+  ): Range;
 }
 
 export class HeadStage extends HeadTailStage {
-  constructor(private modifier: HeadModifier) {
-    super(true);
+  constructor(modifier: HeadTailModifier) {
+    super(true, modifier.modifiers);
   }
 
-  update(editor: TextEditor, range: Range) {
-    return new Range(new Position(range.start.line, 0), range.end);
+  protected constructContentRange(originalRange: Range, modifiedRange: Range) {
+    return new Range(modifiedRange.start, originalRange.end);
   }
 }
 
 export class TailStage extends HeadTailStage {
-  constructor(private modifier: TailModifier) {
-    super(false);
+  constructor(modifier: HeadTailModifier) {
+    super(false, modifier.modifiers);
   }
 
-  update(editor: TextEditor, range: Range) {
-    return new Range(range.start, editor.document.lineAt(range.end).range.end);
+  protected constructContentRange(originalRange: Range, modifiedRange: Range) {
+    return new Range(originalRange.start, modifiedRange.end);
   }
 }

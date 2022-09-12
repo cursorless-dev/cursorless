@@ -1,4 +1,5 @@
 import { Position, Range, TextEditor } from "vscode";
+import { NoContainingScopeError } from "../../../errors";
 import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
@@ -6,56 +7,51 @@ import {
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
+import { TokenTarget } from "../../targets";
 
-type RegexModifier = NonWhitespaceSequenceModifier | UrlModifier;
-
-class RegexStage implements ModifierStage {
+class RegexStageBase implements ModifierStage {
   constructor(
-    private modifier: RegexModifier,
-    private regex: RegExp,
-    private name?: string
+    private modifier: ContainingScopeModifier | EveryScopeModifier,
+    protected regex: RegExp
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): Target[] {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(target);
     }
     return [this.getSingleTarget(target)];
   }
 
-  getEveryTarget(target: Target): ScopeTypeTarget[] {
+  private getEveryTarget(target: Target): Target[] {
     const { contentRange, editor } = target;
-    const { isEmpty } = contentRange;
-    const start = isEmpty
-      ? editor.document.lineAt(contentRange.start).range.start
-      : contentRange.start;
-    const end = isEmpty
-      ? editor.document.lineAt(contentRange.end).range.end
-      : contentRange.end;
-    const targets: ScopeTypeTarget[] = [];
+    const start = target.hasExplicitRange
+      ? contentRange.start
+      : editor.document.lineAt(contentRange.start).range.start;
+    const end = target.hasExplicitRange
+      ? contentRange.end
+      : editor.document.lineAt(contentRange.end).range.end;
+    const targets: Target[] = [];
 
     for (let i = start.line; i <= end.line; ++i) {
       this.getMatchesForLine(editor, i).forEach((range) => {
         // Regex match and selection intersects
-        if (range.end.isAfterOrEqual(start) && range.end.isBeforeOrEqual(end)) {
+        if (
+          range.end.isAfterOrEqual(start) &&
+          range.start.isBeforeOrEqual(end)
+        ) {
           targets.push(this.getTargetFromRange(target, range));
         }
       });
     }
 
     if (targets.length === 0) {
-      if (targets.length === 0) {
-        throw new Error(
-          `Couldn't find containing ${this.modifier.scopeType.type}`
-        );
-      }
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
     return targets;
   }
 
-  getSingleTarget(target: Target): ScopeTypeTarget {
+  private getSingleTarget(target: Target): Target {
     const { editor } = target;
     const start = this.getMatchForPos(editor, target.contentRange.start).start;
     const end = this.getMatchForPos(editor, target.contentRange.end).end;
@@ -63,30 +59,25 @@ class RegexStage implements ModifierStage {
     return this.getTargetFromRange(target, contentRange);
   }
 
-  getTargetFromRange(target: Target, range: Range): ScopeTypeTarget {
-    return new ScopeTypeTarget({
-      scopeTypeType: this.modifier.scopeType.type,
+  private getTargetFromRange(target: Target, contentRange: Range): Target {
+    return new TokenTarget({
       editor: target.editor,
       isReversed: target.isReversed,
-      contentRange: range,
+      contentRange,
     });
   }
 
-  getMatchForPos(editor: TextEditor, position: Position) {
+  private getMatchForPos(editor: TextEditor, position: Position) {
     const match = this.getMatchesForLine(editor, position.line).find((range) =>
       range.contains(position)
     );
     if (match == null) {
-      if (this.name) {
-        throw new Error(`Couldn't find containing ${this.name}`);
-      } else {
-        throw new Error(`Cannot find sequence defined by regex: ${this.regex}`);
-      }
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
     return match;
   }
 
-  getMatchesForLine(editor: TextEditor, lineNum: number) {
+  private getMatchesForLine(editor: TextEditor, lineNum: number) {
     const line = editor.document.lineAt(lineNum);
     const result = [...line.text.matchAll(this.regex)].map(
       (match) =>
@@ -98,39 +89,48 @@ class RegexStage implements ModifierStage {
         )
     );
     if (result == null) {
-      if (this.name) {
-        throw new Error(`Couldn't find containing ${this.name}`);
-      } else {
-        throw new Error(`Cannot find sequence defined by regex: ${this.regex}`);
-      }
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
     return result;
   }
 }
 
-export type NonWhitespaceSequenceModifier = (
-  | ContainingScopeModifier
-  | EveryScopeModifier
-) & {
-  scopeType: { type: "nonWhitespaceSequence" };
-};
-
-export class NonWhitespaceSequenceStage extends RegexStage {
-  constructor(modifier: NonWhitespaceSequenceModifier) {
-    super(modifier, /\S+/g, "Non whitespace sequence");
+export class NonWhitespaceSequenceStage extends RegexStageBase {
+  constructor(modifier: ContainingScopeModifier | EveryScopeModifier) {
+    super(modifier, /\S+/g);
   }
 }
 
 // taken from https://regexr.com/3e6m0
 const URL_REGEX =
-  /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+  /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g;
 
-export type UrlModifier = (ContainingScopeModifier | EveryScopeModifier) & {
-  scopeType: { type: "url" };
+export class UrlStage extends RegexStageBase {
+  constructor(modifier: ContainingScopeModifier | EveryScopeModifier) {
+    super(modifier, URL_REGEX);
+  }
+}
+
+export type CustomRegexModifier = (
+  | ContainingScopeModifier
+  | EveryScopeModifier
+) & {
+  scopeType: { type: "customRegex" };
 };
 
-export class UrlStage extends RegexStage {
-  constructor(modifier: UrlModifier) {
-    super(modifier, URL_REGEX, "URL");
+export class CustomRegexStage extends RegexStageBase {
+  constructor(modifier: CustomRegexModifier) {
+    super(modifier, new RegExp(modifier.scopeType.regex, "g"));
+  }
+
+  run(context: ProcessedTargetsContext, target: Target): Target[] {
+    try {
+      return super.run(context, target);
+    } catch (error) {
+      if (error instanceof NoContainingScopeError) {
+        throw Error(`Couldn't find custom regex: ${this.regex}`);
+      }
+      throw error;
+    }
   }
 }

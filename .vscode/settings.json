@@ -21,5 +21,6 @@
 		"nonlocal",
 		"pojo",
 		"subword"
-	]
+	],
+	"files.eol": "\n"
 }

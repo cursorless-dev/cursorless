@@ -1,29 +1,42 @@
 import { Graph } from "../typings/Types";
 import { ActionRecord } from "./actions.types";
+import {
+  CommentLines,
+  ExtractVariable,
+  IndentLines,
+  OutdentLines,
+  Rename,
+  RevealDefinition,
+  RevealTypeDefinition,
+  ShowDebugHover,
+  ShowHover,
+  ShowQuickFix,
+  ShowReferences,
+} from "./MakeshiftActions";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
-import { CommentLines } from "./Comment";
+import { Copy, Cut } from "./CutCopy";
+import Deselect from "./Deselect";
+import { EditNew, EditNewAfter, EditNewBefore } from "./EditNew";
+import ExecuteCommand from "./ExecuteCommand";
+import { FindInFiles } from "./Find";
+import { Fold, Unfold } from "./Fold";
+import FollowLink from "./FollowLink";
+import GenerateSnippet from "./GenerateSnippet";
+import GetText from "./GetText";
+import Highlight from "./Highlight";
 import {
   CopyContentAfter as InsertCopyAfter,
   CopyContentBefore as InsertCopyBefore,
 } from "./InsertCopy";
-import { Copy, Cut, Paste } from "./CutCopyPaste";
-import Deselect from "./Deselect";
-import { EditNewBefore, EditNewAfter } from "./EditNew";
-import ExecuteCommand from "./ExecuteCommand";
-import ExtractVariable from "./ExtractVariable";
-import { FindInFiles } from "./Find";
-import { Fold, Unfold } from "./Fold";
-import FollowLink from "./FollowLink";
-import GetText from "./GetText";
-import Highlight from "./Highlight";
-import { IndentLines, OutdentLines } from "./Indent";
 import {
   InsertEmptyLineAbove as InsertEmptyLineBefore,
   InsertEmptyLineBelow as InsertEmptyLineAfter,
   InsertEmptyLinesAround,
 } from "./InsertEmptyLines";
+import InsertSnippet from "./InsertSnippet";
+import { Paste } from "./Paste";
 import Remove from "./Remove";
 import Replace from "./Replace";
 import Rewrap from "./Rewrap";
@@ -46,6 +59,7 @@ class Actions implements ActionRecord {
   copyToClipboard = new Copy(this.graph);
   cutToClipboard = new Cut(this.graph);
   deselect = new Deselect(this.graph);
+  editNew = new EditNew(this.graph);
   editNewLineAfter = new EditNewAfter(this.graph);
   editNewLineBefore = new EditNewBefore(this.graph);
   executeCommand = new ExecuteCommand(this.graph);
@@ -53,6 +67,7 @@ class Actions implements ActionRecord {
   findInWorkspace = new FindInFiles(this.graph);
   foldRegion = new Fold(this.graph);
   followLink = new FollowLink(this.graph);
+  generateSnippet = new GenerateSnippet(this.graph);
   getText = new GetText(this.graph);
   highlight = new Highlight(this.graph);
   indentLine = new IndentLines(this.graph);
@@ -61,13 +76,17 @@ class Actions implements ActionRecord {
   insertEmptyLineAfter = new InsertEmptyLineAfter(this.graph);
   insertEmptyLineBefore = new InsertEmptyLineBefore(this.graph);
   insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
+  insertSnippet = new InsertSnippet(this.graph);
   moveToTarget = new Move(this.graph);
   outdentLine = new OutdentLines(this.graph);
   pasteFromClipboard = new Paste(this.graph);
   randomizeTargets = new Random(this.graph);
   remove = new Remove(this.graph);
+  rename = new Rename(this.graph);
   replace = new Replace(this.graph);
   replaceWithTarget = new Bring(this.graph);
+  revealDefinition = new RevealDefinition(this.graph);
+  revealTypeDefinition = new RevealTypeDefinition(this.graph);
   reverseTargets = new Reverse(this.graph);
   rewrapWithPairedDelimiter = new Rewrap(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
@@ -76,6 +95,10 @@ class Actions implements ActionRecord {
   setSelection = new SetSelection(this.graph);
   setSelectionAfter = new SetSelectionAfter(this.graph);
   setSelectionBefore = new SetSelectionBefore(this.graph);
+  showDebugHover = new ShowDebugHover(this.graph);
+  showHover = new ShowHover(this.graph);
+  showQuickFix = new ShowQuickFix(this.graph);
+  showReferences = new ShowReferences(this.graph);
   sortTargets = new Sort(this.graph);
   swapTargets = new Swap(this.graph);
   toggleLineBreakpoint = new ToggleBreakpoint(this.graph);

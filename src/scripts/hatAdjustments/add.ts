@@ -24,7 +24,7 @@ function processProperty(
   hatAdjustmentsList: HatAdjustments[],
   propertyName: keyof HatAdjustments
 ) {
-  let value = sum(
+  const value = sum(
     hatAdjustmentsList.map((adjustment) => adjustment[propertyName] ?? 0)
   );
 

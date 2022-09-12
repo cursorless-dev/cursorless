@@ -1,8 +1,7 @@
 import { flatten, zip } from "lodash";
 import { DecorationRangeBehavior, Selection, TextEditor } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
-import { weakContainingLineStage } from "../processTargets/modifiers/commonWeakContainingScopeStages";
-import { toPositionTarget } from "../processTargets/modifiers/PositionStage";
+import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
@@ -10,7 +9,7 @@ import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class InsertCopy implements Action {
-  getFinalStages = () => [weakContainingLineStage];
+  getFinalStages = () => [containingLineIfUntypedStage];
 
   constructor(private graph: Graph, private isBefore: boolean) {
     this.run = this.run.bind(this);
@@ -43,7 +42,7 @@ class InsertCopy implements Action {
     // isBefore is inverted because we want the selections to stay with what is to the user the "copy"
     const position = this.isBefore ? "after" : "before";
     const edits = targets.flatMap((target) =>
-      toPositionTarget(target, position).constructChangeEdit(target.contentText)
+      target.toPositionTarget(position).constructChangeEdit(target.contentText)
     );
 
     const cursorSelections = { selections: editor.selections };

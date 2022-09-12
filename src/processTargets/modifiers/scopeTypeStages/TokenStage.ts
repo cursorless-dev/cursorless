@@ -7,7 +7,7 @@ import {
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getTokensInRange, PartialToken } from "../../../util/getTokensInRange";
 import { ModifierStage } from "../../PipelineStages.types";
-import TokenTarget from "../../targets/TokenTarget";
+import { TokenTarget } from "../../targets";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
@@ -19,18 +19,17 @@ export default class implements ModifierStage {
     return [this.getSingleTarget(target)];
   }
 
-  getEveryTarget(
+  private getEveryTarget(
     context: ProcessedTargetsContext,
     target: Target
   ): TokenTarget[] {
     const { contentRange, editor } = target;
-    const { isEmpty } = contentRange;
-    const start = isEmpty
-      ? editor.document.lineAt(contentRange.start).range.start
-      : contentRange.start;
-    const end = isEmpty
-      ? editor.document.lineAt(contentRange.end).range.end
-      : contentRange.end;
+    const start = target.hasExplicitRange
+      ? contentRange.start
+      : editor.document.lineAt(contentRange.start).range.start;
+    const end = target.hasExplicitRange
+      ? contentRange.end
+      : editor.document.lineAt(contentRange.end).range.end;
     const range = new Range(start, end);
 
     const targets = getTokensInRange(editor, range).map(({ range }) =>
@@ -46,11 +45,11 @@ export default class implements ModifierStage {
     return targets;
   }
 
-  getSingleTarget(target: Target): TokenTarget {
+  private getSingleTarget(target: Target): TokenTarget {
     return this.getTargetFromRange(target, target.contentRange);
   }
 
-  getTargetFromRange(target: Target, range: Range): TokenTarget {
+  private getTargetFromRange(target: Target, range: Range): TokenTarget {
     const contentRange = getTokenRangeForSelection(target.editor, range);
     return new TokenTarget({
       editor: target.editor,
@@ -143,7 +142,7 @@ function getRelevantTokens(editor: TextEditor, range: Range) {
   const startLine = range.start.line;
   const endLine = range.end.line;
 
-  let tokens = getTokensInRange(
+  const tokens = getTokensInRange(
     editor,
     editor.document.lineAt(startLine).range
   );

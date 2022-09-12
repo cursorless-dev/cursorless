@@ -8,6 +8,7 @@ export type ActionType =
   | "copyToClipboard"
   | "cutToClipboard"
   | "deselect"
+  | "editNew"
   | "editNewLineAfter"
   | "editNewLineBefore"
   | "executeCommand"
@@ -15,6 +16,7 @@ export type ActionType =
   | "findInWorkspace"
   | "foldRegion"
   | "followLink"
+  | "generateSnippet"
   | "getText"
   | "highlight"
   | "indentLine"
@@ -23,13 +25,17 @@ export type ActionType =
   | "insertEmptyLineAfter"
   | "insertEmptyLineBefore"
   | "insertEmptyLinesAround"
+  | "insertSnippet"
   | "moveToTarget"
   | "outdentLine"
   | "pasteFromClipboard"
   | "randomizeTargets"
   | "remove"
+  | "rename"
   | "replace"
   | "replaceWithTarget"
+  | "revealDefinition"
+  | "revealTypeDefinition"
   | "reverseTargets"
   | "rewrapWithPairedDelimiter"
   | "scrollToBottom"
@@ -38,6 +44,10 @@ export type ActionType =
   | "setSelection"
   | "setSelectionAfter"
   | "setSelectionBefore"
+  | "showDebugHover"
+  | "showHover"
+  | "showQuickFix"
+  | "showReferences"
   | "sortTargets"
   | "swapTargets"
   | "toggleLineBreakpoint"
@@ -54,6 +64,12 @@ export interface ActionReturnValue {
 
 export interface Action {
   run(targets: Target[][], ...args: any[]): Promise<ActionReturnValue>;
+
+  /**
+   * Used to define stages that should be run before the final positional stage, if there is one
+   * @param args Extra args to command
+   */
+  getPrePositionStages?(...args: any[]): ModifierStage[];
 
   /**
    * Used to define final stages that should be run at the end of the pipeline before the action

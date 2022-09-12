@@ -1,0 +1,27 @@
+languageId: typescript
+command:
+  version: 1
+  spokenForm: snip funk hello world
+  action: insertSnippet
+  targets:
+    - {type: primitive, isImplicit: true}
+  extraArgs:
+    - functionDeclaration
+    - {name: hello world}
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+finalState:
+  documentContents: |-
+    function helloWorld() {
+        
+    }
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 2, character: 1}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

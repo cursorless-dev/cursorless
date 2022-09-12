@@ -186,10 +186,10 @@ export async function callFunctionAndUpdateRanges(
  * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
  * @param func The function to call
  * @param document The document containing the selections
- * @param selectionMatrix A matrix of selection info objects to update
+ * @param selectionInfoMatrix A matrix of selection info objects to update
  * @returns The initial selections updated based upon what happened in the function
  */
-async function callFunctionAndUpdateSelectionInfos(
+export async function callFunctionAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
   func: () => Thenable<void>,
   document: TextDocument,
@@ -205,6 +205,38 @@ async function callFunctionAndUpdateSelectionInfos(
   unsubscribe();
 
   return selectionInfosToSelections(selectionInfoMatrix);
+}
+
+/**
+ * Performs a list of edits and returns the given selections updated based on
+ * the applied edits
+ * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
+ * @param func The function to call
+ * @param document The document containing the selections
+ * @param originalSelections The selections to update
+ * @returns The updated selections
+ */
+export function callFunctionAndUpdateSelectionsWithBehavior(
+  rangeUpdater: RangeUpdater,
+  func: () => Thenable<void>,
+  document: TextDocument,
+  originalSelections: SelectionsWithBehavior[]
+) {
+  return callFunctionAndUpdateSelectionInfos(
+    rangeUpdater,
+    func,
+    document,
+    originalSelections.map((selectionsWithBehavior) =>
+      selectionsWithBehavior.selections.map((selection) =>
+        getSelectionInfo(
+          document,
+          selection,
+          selectionsWithBehavior.rangeBehavior ??
+            DecorationRangeBehavior.ClosedClosed
+        )
+      )
+    )
+  );
 }
 
 /**

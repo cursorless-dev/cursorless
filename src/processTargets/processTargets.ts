@@ -2,6 +2,7 @@ import { uniqWith, zip } from "lodash";
 import { Range } from "vscode";
 import { Target } from "../typings/target.types";
 import {
+  Modifier,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
@@ -10,8 +11,8 @@ import { ProcessedTargetsContext } from "../typings/Types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
-import PlainTarget from "./targets/PlainTarget";
-import PositionTarget from "./targets/PositionTarget";
+import { ModifierStage } from "./PipelineStages.types";
+import { PlainTarget, PositionTarget } from "./targets";
 
 /**
  * Converts the abstract target descriptions provided by the user to a concrete
@@ -193,33 +194,49 @@ function processPrimitiveTarget(
   const markStage = getMarkStage(targetDescriptor.mark);
   const markOutputTargets = markStage.run(context);
 
+  const positionModifierStages =
+    targetDescriptor.positionModifier == null
+      ? []
+      : [getModifierStage(targetDescriptor.positionModifier)];
+
   /**
    * The modifier pipeline that will be applied to construct our final targets
    */
   const modifierStages = [
-    // Reverse target modifiers because they are returned in reverse order from
-    // the api, to match the order in which they are spoken.
-    ...targetDescriptor.modifiers.map(getModifierStage).reverse(),
-    ...context.finalStages,
+    ...getModifierStagesFromTargetModifiers(targetDescriptor.modifiers),
+    ...context.actionPrePositionStages,
+    ...positionModifierStages,
+    ...context.actionFinalStages,
   ];
 
-  /**
-   * Intermediate variable to store the output of the current pipeline stage.
-   * We initialise it to start with the outputs from the mark.
-   */
-  let currentTargets = markOutputTargets;
+  // Run all targets through the modifier stages
+  return processModifierStages(context, modifierStages, markOutputTargets);
+}
 
-  // Then we apply each stage in sequence, letting each stage see the targets
+/** Convert a list of target modifiers to modifier stages */
+export function getModifierStagesFromTargetModifiers(
+  targetModifiers: Modifier[]
+) {
+  // Reverse target modifiers because they are returned in reverse order from
+  // the api, to match the order in which they are spoken.
+  return targetModifiers.map(getModifierStage).reverse();
+}
+
+/** Run all targets through the modifier stages */
+export function processModifierStages(
+  context: ProcessedTargetsContext,
+  modifierStages: ModifierStage[],
+  targets: Target[]
+) {
+  // First we apply each stage in sequence, letting each stage see the targets
   // one-by-one and concatenating the results before passing them on to the
   // next stage.
   modifierStages.forEach((stage) => {
-    currentTargets = currentTargets.flatMap((target) =>
-      stage.run(context, target)
-    );
+    targets = targets.flatMap((target) => stage.run(context, target));
   });
 
   // Then return the output from the final stage
-  return currentTargets;
+  return targets;
 }
 
 function calcIsReversed(anchor: Target, active: Target) {
