@@ -2,12 +2,16 @@ from typing import Any
 
 from talon import Module, app
 
-from ..csv_overrides import init_csv_and_watch_changes
+from ..csv_overrides import SPOKEN_FORM_HEADER, init_csv_and_watch_changes
 
 mod = Module()
 
 
 mod.list("cursorless_scope_type", desc="Supported scope types")
+mod.list(
+    "cursorless_custom_regex_scope_type",
+    desc="Supported custom regular expression scope types",
+)
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
@@ -67,14 +71,30 @@ scope_types = {
 }
 
 
-@mod.capture(rule="[every] {user.cursorless_scope_type}")
+@mod.capture(rule="{user.cursorless_scope_type}")
+def cursorless_scope_type(m) -> dict[str, str]:
+    """Simple cursorless scope type that only need to specify their type"""
+    return {"type": m.cursorless_scope_type}
+
+
+@mod.capture(rule="{user.cursorless_custom_regex_scope_type}")
+def cursorless_custom_regex_scope_type(m) -> dict[str, str]:
+    """Cursorless custom regular expression scope type"""
+    return {"type": "customRegex", "regex": m.cursorless_custom_regex_scope_type}
+
+
+@mod.capture(
+    rule="[every] (<user.cursorless_scope_type> | <user.cursorless_custom_regex_scope_type>)"
+)
 def cursorless_containing_scope(m) -> dict[str, Any]:
     """Expand to containing scope"""
+    try:
+        scope_type = m.cursorless_scope_type
+    except AttributeError:
+        scope_type = m.cursorless_custom_regex_scope_type
     return {
         "type": "everyScope" if m[0] == "every" else "containingScope",
-        "scopeType": {
-            "type": m.cursorless_scope_type,
-        },
+        "scopeType": scope_type,
     }
 
 
@@ -93,15 +113,23 @@ surrounding_pair_scope_types = {
     "string": "string",
 }
 
-default_values = {
-    "scope_type": scope_types,
-    "subtoken_scope_type": subtoken_scope_types,
-    "surrounding_pair_scope_type": surrounding_pair_scope_types,
-}
-
 
 def on_ready():
-    init_csv_and_watch_changes("modifier_scope_types", default_values)
+    init_csv_and_watch_changes(
+        "modifier_scope_types",
+        {
+            "scope_type": scope_types,
+            "subtoken_scope_type": subtoken_scope_types,
+            "surrounding_pair_scope_type": surrounding_pair_scope_types,
+        },
+    )
+    init_csv_and_watch_changes(
+        "experimental/regex_scope_types",
+        {},
+        headers=[SPOKEN_FORM_HEADER, "Regex"],
+        allow_unknown_values=True,
+        default_list_name="custom_regex_scope_type",
+    )
 
 
 app.register("ready", on_ready)
