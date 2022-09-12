@@ -15,7 +15,7 @@ export default class ParagraphTarget extends BaseTarget {
     return constructLineTarget(
       this.editor,
       getLeadingDelimiterRange(this.editor, this.fullLineContentRange),
-      this.isReversed
+      this.isReversed,
     );
   }
 
@@ -23,7 +23,7 @@ export default class ParagraphTarget extends BaseTarget {
     return constructLineTarget(
       this.editor,
       getTrailingDelimiterRange(this.editor, this.fullLineContentRange),
-      this.isReversed
+      this.isReversed,
     );
   }
 
@@ -71,7 +71,7 @@ export default class ParagraphTarget extends BaseTarget {
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
-    includeEnd: boolean
+    includeEnd: boolean,
   ): Target {
     if (isSameType(this, endTarget)) {
       return new ParagraphTarget({
@@ -81,7 +81,7 @@ export default class ParagraphTarget extends BaseTarget {
           this,
           endTarget,
           includeStart,
-          includeEnd
+          includeEnd,
         ),
       });
     }
@@ -94,7 +94,7 @@ export default class ParagraphTarget extends BaseTarget {
           this,
           endTarget,
           includeStart,
-          includeEnd
+          includeEnd,
         ),
       });
     }
@@ -103,7 +103,7 @@ export default class ParagraphTarget extends BaseTarget {
       isReversed,
       endTarget,
       includeStart,
-      includeEnd
+      includeEnd,
     );
   }
 
@@ -124,14 +124,14 @@ function getLeadingDelimiterRange(editor: TextEditor, contentRange: Range) {
     }
     return new Range(
       new Position(leadingLine.lineNumber + 1, 0),
-      lineAt(startLine.lineNumber - 1).range.end
+      lineAt(startLine.lineNumber - 1).range.end,
     );
   }
   // Leading delimiter to start of file
   if (startLine.lineNumber > 0) {
     return new Range(
       new Position(0, 0),
-      lineAt(startLine.lineNumber - 1).range.end
+      lineAt(startLine.lineNumber - 1).range.end,
     );
   }
   return undefined;
@@ -148,14 +148,14 @@ function getTrailingDelimiterRange(editor: TextEditor, contentRange: Range) {
     }
     return new Range(
       new Position(endLine.lineNumber + 1, 0),
-      lineAt(trailingLine.lineNumber - 1).range.end
+      lineAt(trailingLine.lineNumber - 1).range.end,
     );
   }
   // Trailing delimiter to end of file
   if (endLine.lineNumber < document.lineCount - 1) {
     return new Range(
       new Position(endLine.lineNumber + 1, 0),
-      lineAt(document.lineCount - 1).range.end
+      lineAt(document.lineCount - 1).range.end,
     );
   }
   return undefined;

@@ -13,6 +13,6 @@ export function getRecordedTestPaths() {
   const directory = path.join(getFixturesPath(), "recorded");
 
   return walkFilesSync(directory).filter(
-    (path) => path.endsWith(".yml") || path.endsWith(".yaml")
+    (path) => path.endsWith(".yml") || path.endsWith(".yaml"),
   );
 }

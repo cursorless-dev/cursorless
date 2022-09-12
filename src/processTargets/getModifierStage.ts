@@ -60,11 +60,11 @@ export default (modifier: Modifier): ModifierStage => {
     case "ordinalRange":
       if (!["word", "character"].includes(modifier.scopeType.type)) {
         throw Error(
-          `Unsupported ordinal scope type ${modifier.scopeType.type}`
+          `Unsupported ordinal scope type ${modifier.scopeType.type}`,
         );
       }
       return new OrdinalRangeSubTokenStage(
-        modifier as OrdinalRangeSubTokenModifier
+        modifier as OrdinalRangeSubTokenModifier,
       );
     case "cascading":
       return new CascadingStage(modifier);
@@ -74,7 +74,7 @@ export default (modifier: Modifier): ModifierStage => {
 };
 
 const getContainingScopeStage = (
-  modifier: ContainingScopeModifier | EveryScopeModifier
+  modifier: ContainingScopeModifier | EveryScopeModifier,
 ): ModifierStage => {
   switch (modifier.scopeType.type) {
     case "token":
@@ -99,7 +99,7 @@ const getContainingScopeStage = (
       return new CustomRegexStage(modifier as CustomRegexModifier);
     case "surroundingPair":
       return new SurroundingPairStage(
-        modifier as ContainingSurroundingPairModifier
+        modifier as ContainingSurroundingPairModifier,
       );
     case "word":
     case "character":
@@ -107,7 +107,7 @@ const getContainingScopeStage = (
     default:
       // Default to containing syntax scope using tree sitter
       return new ContainingSyntaxScopeStage(
-        modifier as SimpleContainingScopeModifier
+        modifier as SimpleContainingScopeModifier,
       );
   }
 };

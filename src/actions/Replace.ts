@@ -14,7 +14,7 @@ export default class Replace implements Action {
 
   private getTexts(
     targets: Target[],
-    replaceWith: string[] | RangeGenerator
+    replaceWith: string[] | RangeGenerator,
   ): string[] {
     if (Array.isArray(replaceWith)) {
       // Broadcast single text to each target
@@ -32,11 +32,11 @@ export default class Replace implements Action {
 
   async run(
     [targets]: [Target[]],
-    replaceWith: string[] | RangeGenerator
+    replaceWith: string[] | RangeGenerator,
   ): Promise<ActionReturnValue> {
     await this.graph.editStyles.displayPendingEditDecorations(
       targets,
-      this.graph.editStyles.pendingModification0
+      this.graph.editStyles.pendingModification0,
     );
 
     const texts = this.getTexts(targets, replaceWith);
@@ -59,15 +59,15 @@ export default class Replace implements Action {
             this.graph.rangeUpdater,
             editor,
             edits.map(({ edit }) => edit),
-            [targets.map((target) => target.contentSelection)]
+            [targets.map((target) => target.contentSelection)],
           );
 
           return updatedSelections.map((selection) => ({
             editor,
             selection,
           }));
-        }
-      )
+        },
+      ),
     );
 
     return { thatMark };
