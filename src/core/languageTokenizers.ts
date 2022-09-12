@@ -5,5 +5,5 @@ import { LanguageTokenizerOverrides } from "./tokenizer.types";
  * and class-names are tokenized as a single token.
  */
 export const css: LanguageTokenizerOverrides = {
-  identifiersRegex: "[\\p{L}_\\-0-9]+",
+  identifiersRegex: "[\\p{L}\\p{M}_\\-0-9]+",
 };
