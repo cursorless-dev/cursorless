@@ -1,3 +1,4 @@
+import csv
 from collections.abc import Container
 from datetime import datetime
 from pathlib import Path
@@ -255,37 +256,42 @@ def read_file(
     extra_ignored_values: list[str],
     allow_unknown_values: bool,
 ):
-    with open(path) as f:
-        lines = list(f)
+    with open(path) as csv_file:
+        # Use `skipinitialspace` to allow spaces before quote. `, "a,b"`
+        csv_reader = csv.reader(csv_file, skipinitialspace=True)
+        rows = list(csv_reader)
 
     result = {}
     used_identifiers = []
     has_errors = False
     seen_headers = False
-    expected_headers = create_line(*headers)
 
-    for i, raw_line in enumerate(lines):
-        line = raw_line.strip()
-        if not line or line.startswith("#"):
+    for i, row in enumerate(rows):
+        # Remove trailing whitespaces for each cell
+        row = [x.rstrip() for x in row]
+        # Exclude empty or comment rows
+        if len(row) == 0 or (len(row) == 1 and row[0] == "") or row[0].startswith("#"):
             continue
 
         if not seen_headers:
             seen_headers = True
-            if line != expected_headers:
+            if row != headers:
                 has_errors = True
-                csv_error(path, i, "Malformed header", line)
-                print(f"Expected '{expected_headers}'")
+                csv_error(path, i, "Malformed header", create_line(*row))
+                print(f"Expected '{create_line(*headers)}'")
             continue
 
-        parts = line.split(",")
-
-        if len(parts) != len(headers):
+        if len(row) != len(headers):
             has_errors = True
-            csv_error(path, i, "Malformed csv entry", line)
+            csv_error(
+                path,
+                i,
+                f"Malformed csv entry. Expected {len(headers)} columns.",
+                create_line(*row),
+            )
             continue
 
-        key = parts[0].strip()
-        value = parts[1].strip()
+        key, value = row
 
         if (
             value not in default_identifiers

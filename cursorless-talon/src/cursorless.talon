@@ -19,12 +19,7 @@ app: vscode
 <user.cursorless_wrapper> {user.cursorless_wrap_action} <user.cursorless_target>:
     user.cursorless_wrap(cursorless_wrap_action, cursorless_target, cursorless_wrapper)
 
-cursorless help:           user.cursorless_cheat_sheet_toggle()
-cursorless instructions:   user.cursorless_open_instructions()
-cursorless docks:          user.cursorless_open_instructions()
-cursorless reference:      user.cursorless_cheat_sheet_show_html()
-cursorless cheat sheet:    user.cursorless_cheat_sheet_show_html()
-cursorless settings:
+{user.cursorless_homophone} settings:
     user.vscode("workbench.action.openGlobalSettings")
     sleep(250ms)
     insert("cursorless")
