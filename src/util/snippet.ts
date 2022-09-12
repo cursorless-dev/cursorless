@@ -35,7 +35,7 @@ export function transformSnippetVariables(
         candidate.name = "TM_SELECTED_TEXT";
       } else if (
         substitutions != null &&
-        substitutions.hasOwnProperty(candidate.name)
+        Object.prototype.hasOwnProperty.call(substitutions, candidate.name)
       ) {
         candidate.parent.replace(candidate, [
           new Text(substitutions[candidate.name]),
@@ -63,7 +63,7 @@ export function transformSnippetVariables(
  * @returns The highest placeholder index in the given snippet
  */
 function getMaxPlaceholderIndex(parsedSnippet: TextmateSnippet): number {
-  var placeholderIndex = 0;
+  let placeholderIndex = 0;
   parsedSnippet.walk((candidate) => {
     if (candidate instanceof Placeholder) {
       placeholderIndex = Math.max(placeholderIndex, candidate.index);

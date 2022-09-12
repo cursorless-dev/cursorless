@@ -28,3 +28,10 @@ export function expandToFullLine(editor: TextEditor, range: Range) {
 export function makeEmptyRange(position: Position) {
   return new Range(position, position);
 }
+
+export function getRangeLength(editor: TextEditor, range: Range) {
+  return range.isEmpty
+    ? 0
+    : editor.document.offsetAt(range.end) -
+        editor.document.offsetAt(range.start);
+}

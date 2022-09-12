@@ -57,7 +57,7 @@ const nodeMatchers: Partial<
   className: "class_declaration[name]",
   ifStatement: "if_statement",
   string: "string_literal",
-  comment: "comment",
+  comment: ["line_comment", "block_comment", "comment"],
   anonymousFunction: "lambda_expression",
   list: "array_initializer",
   functionCall: [
@@ -110,7 +110,6 @@ const nodeMatchers: Partial<
     ["=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="]
   ),
   condition: conditionMatcher("*[condition]"),
-  collectionItem: argumentMatcher("array_initializer"),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),
 };
 

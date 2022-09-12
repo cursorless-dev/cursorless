@@ -212,7 +212,7 @@ function findSurroundingPairContainedInNode(
           // first child of its parent, and right delimiter otherwise.  This
           // approach might not always work, but seems to work in the
           // languages we've tried.
-          let side =
+          const side =
             delimiterInfo.side === "unknown" && scopeType.forceDirection == null
               ? inferDelimiterSide(delimiterNode)
               : delimiterInfo.side;

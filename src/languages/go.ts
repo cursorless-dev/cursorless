@@ -64,7 +64,6 @@ const nodeMatchers: Partial<
     patternMatcher("parameter_declaration"),
     patternMatcher("argument_declaration")
   ),
-  collectionItem: ["keyed_element", "element"],
   collectionKey: "keyed_element[0]",
   value: cascadingMatcher(
     patternMatcher("keyed_element[1]"),
