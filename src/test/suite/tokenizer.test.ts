@@ -77,8 +77,8 @@ const globalTests: TestCase[] = [
   ],
 ];
 
-const cssDialectTokenizerTests: LanguageTokenizerTests[SupportedLanguageId] = {
-  tests: [
+const cssDialectTokenizerTests: LanguageTokenizerTests = {
+  additionalTests: [
     ["min-height", ["min-height"]],
     ["-webkit-font-smoothing", ["-webkit-font-smoothing"]],
     ["(min-width: 400px)", ["(", "min-width", ":", "400px", ")"]],
@@ -106,7 +106,10 @@ suite("tokenizer", () => {
   Object.entries(languageTokenizerTests).forEach(
     ([
       language,
-      { tests: languageSpecificTests, exclusionPredicate = () => true },
+      {
+        additionalTests: languageSpecificTests,
+        exclusionPredicate = () => true,
+      },
     ]) => {
       languageSpecificTests.forEach(([input, expectedOutput]) => {
         test(`${language} custom tokenizer, input: "${input}"`, () => {
