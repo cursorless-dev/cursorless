@@ -228,6 +228,8 @@ export interface LanguageTokenizerComponents {
   singleSymbolsRegex: string;
 }
 
+export type LanguageTokenizerOverrides = Partial<LanguageTokenizerComponents>;
+
 export interface EditWithRangeUpdater extends Edit {
   /**
    * This function will be passed the resulting range containing {@link text}

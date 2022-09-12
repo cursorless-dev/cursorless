@@ -112,7 +112,7 @@ suite("tokenizer", () => {
         if (exclusionPredicate(input)) {
           return;
         }
-        test(`${language} custom tokenizer, input: ${input}`, () => {
+        test(`${language} custom tokenizer, input: "${input}"`, () => {
           const output = tokenize(input, language, (match) => match[0]);
           assert.deepStrictEqual(output, expectedOutput);
         });

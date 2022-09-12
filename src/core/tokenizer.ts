@@ -1,6 +1,9 @@
 import { mapValues } from "lodash";
 import { SupportedLanguageId } from "../languages/constants";
-import { LanguageTokenizerComponents } from "../typings/Types";
+import {
+  LanguageTokenizerComponents,
+  LanguageTokenizerOverrides,
+} from "../typings/Types";
 import { matchAll } from "../util/regex";
 import css from "./languageTokenizers/css";
 import { default as scss } from "./languageTokenizers/css";
@@ -46,7 +49,7 @@ const IDENTIFIERS_REGEX = "[\\p{L}\\p{M}_0-9]+";
 const SINGLE_SYMBOLS_REGEX = "[^\\s\\w]";
 const NUMBERS_REGEX = "(?<=[^.\\d]|^)\\d+\\.\\d+(?=[^.\\d]|$)"; // (not-dot/digit digits dot digits not-dot/digit)
 
-const defaultLanguageTokenizerSetting: LanguageTokenizerComponents = {
+const defaultLanguageTokenizerComponents: LanguageTokenizerComponents = {
   fixedTokens: FIXED_TOKENS,
   repeatableSymbols: REPEATABLE_SYMBOLS,
   identifiersRegex: IDENTIFIERS_REGEX,
@@ -57,40 +60,47 @@ const defaultLanguageTokenizerSetting: LanguageTokenizerComponents = {
 const defaultTokenMatcher = generateTokenMatcher();
 
 function generateTokenMatcher(
-  languageSetting: LanguageTokenizerComponents = defaultLanguageTokenizerSetting
+  languageOverrides: LanguageTokenizerOverrides = {}
 ): RegExp {
-  const tokenizerDefinition = {
-    ...defaultLanguageTokenizerSetting,
-    ...languageSetting,
+  const {
+    fixedTokens,
+    repeatableSymbols,
+    identifiersRegex,
+    numbersRegex,
+    singleSymbolsRegex,
+  }: LanguageTokenizerComponents = {
+    ...defaultLanguageTokenizerComponents,
+    ...languageOverrides,
   };
 
-  const repeatableSymbolsRegex = tokenizerDefinition.repeatableSymbols
+  const repeatableSymbolsRegex = repeatableSymbols
     .map(escapeRegExp)
     .map((s) => `${s}+`)
     .join("|");
 
-  const fixedTokensRegex = tokenizerDefinition.fixedTokens
-    .map(escapeRegExp)
-    .join("|");
+  const fixedTokensRegex = fixedTokens.map(escapeRegExp).join("|");
 
   // Order matters here.
   const regex = [
     fixedTokensRegex,
-    tokenizerDefinition.numbersRegex,
-    tokenizerDefinition.identifiersRegex,
+    numbersRegex,
+    identifiersRegex,
     repeatableSymbolsRegex,
-    tokenizerDefinition.singleSymbolsRegex,
+    singleSymbolsRegex,
   ].join("|");
+
   return new RegExp(regex, "gu");
 }
 
-const customTokenizerSettings: Partial<LanguageTokenizerComponents>[] = [
+const languageTokenizerOverrides: Partial<
+  Record<SupportedLanguageId, LanguageTokenizerOverrides>
+> = {
   css,
   scss,
-];
+};
 
 const tokenMatchersForLanguage: Partial<Record<SupportedLanguageId, RegExp>> =
-  mapValues(customTokenizerSettings, (val: LanguageTokenizerComponents) =>
+  mapValues(languageTokenizerOverrides, (val: LanguageTokenizerComponents) =>
     generateTokenMatcher(val)
   );
 
