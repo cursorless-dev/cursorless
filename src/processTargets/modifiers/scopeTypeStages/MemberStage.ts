@@ -29,12 +29,7 @@ export default class MemberStage implements ModifierStage {
       /([\w.](\(.*\))?)+/g,
       pairInfo != null ? pairInfo.interiorRange : undefined
     );
-    const targets = regexStage.run(context, target);
 
-    if (targets.length === 0) {
-      throw new NoContainingScopeError(this.modifier.scopeType.type);
-    }
-
-    return targets;
+    return regexStage.run(context, target);
   }
 }
