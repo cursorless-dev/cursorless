@@ -19,7 +19,7 @@ export default class MemberStage implements ModifierStage {
       target.contentRange,
       {
         type: "surroundingPair",
-        delimiter: "any",
+        delimiter: "parentheses",
         requireStrongContainment: true,
       }
     );
