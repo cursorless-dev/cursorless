@@ -200,7 +200,10 @@ const nodeMatchers: Partial<
     )
   ),
   statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`),
-  condition: conditionMatcher("*[condition]"),
+  condition: cascadingMatcher(
+    patternMatcher("ternary_expression[condition]"),
+    conditionMatcher("*[condition]")
+  ),
   class: [
     "export_statement?.class_declaration", // export class | class
     "export_statement?.abstract_class_declaration", // export abstract class | abstract class
