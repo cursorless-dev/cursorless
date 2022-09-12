@@ -86,6 +86,7 @@ export type SimpleScopeTypeType =
   | "ifStatement"
   | "list"
   | "map"
+  | "member"
   | "name"
   | "namedFunction"
   | "regularExpression"

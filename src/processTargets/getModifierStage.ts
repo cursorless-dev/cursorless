@@ -4,7 +4,6 @@ import {
   EveryScopeModifier,
   Modifier,
 } from "../typings/targetDescriptor.types";
-import BoundedNonWhitespaceSequenceStage from "./modifiers/BoundedNonWhitespaceStage";
 import CascadingStage from "./modifiers/CascadingStage";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import {
@@ -19,17 +18,19 @@ import OrdinalRangeSubTokenStage, {
 } from "./modifiers/OrdinalRangeSubTokenStage";
 import PositionStage from "./modifiers/PositionStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
+import BoundedNonWhitespaceSequenceStage from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
 import ContainingSyntaxScopeStage, {
   SimpleContainingScopeModifier,
 } from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
 import DocumentStage from "./modifiers/scopeTypeStages/DocumentStage";
 import LineStage from "./modifiers/scopeTypeStages/LineStage";
+import MemberStage from "./modifiers/scopeTypeStages/MemberStage";
 import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
 import ParagraphStage from "./modifiers/scopeTypeStages/ParagraphStage";
 import {
-  NonWhitespaceSequenceStage,
   CustomRegexModifier,
   CustomRegexStage,
+  NonWhitespaceSequenceStage,
   UrlStage,
 } from "./modifiers/scopeTypeStages/RegexStage";
 import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
@@ -95,6 +96,8 @@ const getContainingScopeStage = (
       return new UrlStage(modifier);
     case "collectionItem":
       return new ItemStage(modifier);
+    case "member":
+      return new MemberStage(modifier);
     case "customRegex":
       return new CustomRegexStage(modifier as CustomRegexModifier);
     case "surroundingPair":

@@ -9,10 +9,11 @@ import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import { TokenTarget } from "../../targets";
 
-class RegexStageBase implements ModifierStage {
+export class RegexStageBase implements ModifierStage {
   constructor(
     private modifier: ContainingScopeModifier | EveryScopeModifier,
-    protected regex: RegExp
+    protected regex: RegExp,
+    private textRange?: Range
   ) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
@@ -30,19 +31,20 @@ class RegexStageBase implements ModifierStage {
     const end = target.hasExplicitRange
       ? contentRange.end
       : editor.document.lineAt(contentRange.end).range.end;
-    const targets: Target[] = [];
+    const textRange =
+      this.textRange ??
+      new Range(
+        editor.document.lineAt(contentRange.start).range.start,
+        editor.document.lineAt(contentRange.end).range.end
+      );
 
-    for (let i = start.line; i <= end.line; ++i) {
-      this.getMatchesForLine(editor, i).forEach((range) => {
-        // Regex match and selection intersects
-        if (
-          range.end.isAfterOrEqual(start) &&
-          range.start.isBeforeOrEqual(end)
-        ) {
-          targets.push(this.getTargetFromRange(target, range));
-        }
-      });
-    }
+    const targets = this.getMatchesForRange(editor, textRange)
+      .filter(
+        (contentRange) =>
+          contentRange.end.isAfterOrEqual(start) &&
+          contentRange.start.isBeforeOrEqual(end)
+      )
+      .map((contentRange) => this.getTargetFromRange(target, contentRange));
 
     if (targets.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -52,11 +54,10 @@ class RegexStageBase implements ModifierStage {
   }
 
   private getSingleTarget(target: Target): Target {
-    const { editor } = target;
-    const start = this.getMatchForPos(editor, target.contentRange.start).start;
-    const end = this.getMatchForPos(editor, target.contentRange.end).end;
-    const contentRange = new Range(start, end);
-    return this.getTargetFromRange(target, contentRange);
+    const { editor, contentRange } = target;
+    const start = this.getMatchForPos(editor, contentRange.start).start;
+    const end = this.getMatchForPos(editor, contentRange.end).end;
+    return this.getTargetFromRange(target, new Range(start, end));
   }
 
   private getTargetFromRange(target: Target, contentRange: Range): Target {
@@ -68,7 +69,9 @@ class RegexStageBase implements ModifierStage {
   }
 
   private getMatchForPos(editor: TextEditor, position: Position) {
-    const match = this.getMatchesForLine(editor, position.line).find((range) =>
+    const line = editor.document.lineAt(position.line);
+    const textRange = this.textRange ?? line.range;
+    const match = this.getMatchesForRange(editor, textRange).find((range) =>
       range.contains(position)
     );
     if (match == null) {
@@ -77,15 +80,14 @@ class RegexStageBase implements ModifierStage {
     return match;
   }
 
-  private getMatchesForLine(editor: TextEditor, lineNum: number) {
-    const line = editor.document.lineAt(lineNum);
-    const result = [...line.text.matchAll(this.regex)].map(
+  private getMatchesForRange(editor: TextEditor, range: Range) {
+    const offset = editor.document.offsetAt(range.start);
+    const text = editor.document.getText(range);
+    const result = [...text.matchAll(this.regex)].map(
       (match) =>
         new Range(
-          lineNum,
-          match.index!,
-          lineNum,
-          match.index! + match[0].length
+          editor.document.positionAt(offset + match.index!),
+          editor.document.positionAt(offset + match.index! + match[0].length)
         )
     );
     if (result == null) {

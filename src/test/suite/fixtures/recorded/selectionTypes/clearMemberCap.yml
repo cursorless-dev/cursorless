@@ -1,0 +1,30 @@
+languageId: plaintext
+command:
+  spokenForm: clear member cap
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: member}
+      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: aaa.bbb(ccc.ddd("hello"), eee).fff()
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.c:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: aaa.bbb(, eee).fff()
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  thatMark:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, modifiers: [{type: containingScope, scopeType: {type: member}}]}]
