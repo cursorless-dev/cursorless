@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import { tokenize } from "../core/tokenizer";
-import { SupportedLanguageId } from "../languages/constants";
 import { RangeOffsets } from "../typings/updateSelections";
 
 export interface PartialToken {
@@ -13,7 +12,7 @@ export function getTokensInRange(
   editor: vscode.TextEditor,
   range: vscode.Range
 ): PartialToken[] {
-  const languageId = editor.document.languageId as SupportedLanguageId;
+  const languageId = editor.document.languageId;
   const text = editor.document.getText(range);
   const rangeOffset = editor.document.offsetAt(range.start);
 
