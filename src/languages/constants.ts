@@ -18,6 +18,7 @@ export const supportedLanguageIds = [
   "ruby",
   "scala",
   "scss",
+  "shellscript",
   "rust",
   "typescript",
   "typescriptreact",

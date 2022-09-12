@@ -97,6 +97,7 @@ const languageTokenizerOverrides: Partial<
 > = {
   css,
   scss: css,
+  shellscript: css,
 };
 
 const tokenMatchersForLanguage: Partial<Record<SupportedLanguageId, RegExp>> =
