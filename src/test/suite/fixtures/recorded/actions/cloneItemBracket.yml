@@ -1,0 +1,99 @@
+languageId: typescript
+command:
+  spokenForm: clone item bracket
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '{'}
+  usePrePhraseSnapshot: true
+  action: {name: insertCopyAfter}
+initialState:
+  documentContents: |
+    import Ember from "ember";
+
+    const classUpdateDefinitions = [
+      {
+        className: "table-selected-original",
+        mapKeys: [
+          {
+            valueKey: "currentTimetableable",
+            watchKeys: ["origTables.[]"],
+          },
+        ],
+        calculateValue: (self, tableId) => self.isSelectedOriginal(tableId),
+      },
+    ];
+
+    const EmberMixin = Ember.Mixin.create({
+      init() {
+        this._super(...arguments);
+      },
+      onSelectedTimetableableTablesChange: Ember.observer(
+        "selectedTimetableable.tables.[]",
+        () => {
+          // do sometihng
+        }
+      ),
+    });
+
+    export default EmberMixin;
+  selections:
+    - anchor: {line: 11, character: 4}
+      active: {line: 11, character: 18}
+  marks:
+    default.{:
+      start: {line: 15, character: 38}
+      end: {line: 15, character: 39}
+finalState:
+  documentContents: |
+    import Ember from "ember";
+
+    const classUpdateDefinitions = [
+      {
+        className: "table-selected-original",
+        mapKeys: [
+          {
+            valueKey: "currentTimetableable",
+            watchKeys: ["origTables.[]"],
+          },
+        ],
+        calculateValue: (self, tableId) => self.isSelectedOriginal(tableId),
+      },
+      {
+        className: "table-selected-original",
+        mapKeys: [
+          {
+            valueKey: "currentTimetableable",
+            watchKeys: ["origTables.[]"],
+          },
+        ],
+        calculateValue: (self, tableId) => self.isSelectedOriginal(tableId),
+      },
+    ];
+
+    const EmberMixin = Ember.Mixin.create({
+      init() {
+        this._super(...arguments);
+      },
+      onSelectedTimetableableTablesChange: Ember.observer(
+        "selectedTimetableable.tables.[]",
+        () => {
+          // do sometihng
+        }
+      ),
+    });
+
+    export default EmberMixin;
+  selections:
+    - anchor: {line: 11, character: 4}
+      active: {line: 11, character: 18}
+  thatMark:
+    - anchor: {line: 25, character: 3}
+      active: {line: 35, character: 1}
+  sourceMark:
+    - anchor: {line: 15, character: 38}
+      active: {line: 25, character: 1}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '{'}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]
