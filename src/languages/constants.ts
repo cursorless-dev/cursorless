@@ -26,8 +26,8 @@ export const supportedLanguageIds = [
 ] as const;
 
 /**
- * All language IDs that we might reference but don't have full support.
- * (e.g., for token customization).
+ * All language IDs that we might reference (e.g., for token customization)
+ * but don't have full tree-sitter support for yet.
  */
 export const allLanguageIds = [
   "c",
