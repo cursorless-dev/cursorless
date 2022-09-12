@@ -6,13 +6,13 @@ import { SupportedLanguageId } from "../../languages/constants";
 type TestCase = [string, string[]];
 /** Language-specific tokenizer test configuration object */
 interface LanguageTokenizerTests {
-   /** Language-specific test cases to run in addition to the global tests for this language */
-   additionalTests: TestCase[];
+  /** Language-specific test cases to run in addition to the global tests for this language */
+  additionalTests: TestCase[];
 
-   /**
-    * By default we run all global tests in the given language, in addition to the specific tests.  We exclude global test inputs that match this predicate.
-    */
-   exclusionPredicate?: (input: string) => boolean;
+  /**
+   * By default we run all global tests in the given language, in addition to the specific tests.  We exclude global test inputs that match this predicate.
+   */
+  exclusionPredicate?: (input: string) => boolean;
 }
 const singleSymbolTests: TestCase[] = getAsciiSymbols().map((s) => [s, [s]]);
 
