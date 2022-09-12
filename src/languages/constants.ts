@@ -34,4 +34,4 @@ export const otherLanguageIds = ["shellscript"] as const;
 export const allLanguageIds = [...supportedLanguageIds, ...otherLanguageIds];
 
 export type SupportedLanguageId = typeof supportedLanguageIds[number];
-export type AllLanguageId = typeof allLanguageIds[number];
+export type LanguageId = typeof allLanguageIds[number];
