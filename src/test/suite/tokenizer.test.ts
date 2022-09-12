@@ -83,14 +83,14 @@ const cssDialectTokenizerTests: LanguageTokenizerTests[SupportedLanguageId] = {
   exclusionPredicate: (input: string) => !!input.match("-"),
 };
 
-const languageTokenizerTests: LanguageTokenizerTests = {
+const languageTokenizerTests: Partial<Record<SupportedLanguageId, LanguageTokenizerTests>> = {
   css: cssDialectTokenizerTests,
   scss: cssDialectTokenizerTests,
 };
 
 suite("tokenizer", () => {
   tests.forEach(([input, expectedOutput]) => {
-    test(`tokenizer test, input: ${input}`, () => {
+    test(`tokenizer test, input: "${input}"`, () => {
       const output = tokenize(input, "anyLang", (match) => match[0]);
       assert.deepStrictEqual(output, expectedOutput);
     });
@@ -102,7 +102,7 @@ suite("tokenizer", () => {
       { tests: languageSpecificTests, exclusionPredicate = () => true },
     ]) => {
       languageSpecificTests.forEach(([input, expectedOutput]) => {
-        test(`${language} custom tokenizer, input: ${input}`, () => {
+        test(`${language} custom tokenizer, input: "${input}"`, () => {
           const output = tokenize(input, language, (match) => match[0]);
           assert.deepStrictEqual(output, expectedOutput);
         });
