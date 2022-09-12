@@ -6,7 +6,8 @@ export function cleanUpTestCaseCommand(
 ): TestCaseCommand {
   const { args } = command.action;
   const result = merge({}, command);
-  result.action.args =
-    args == null ? undefined : args.length === 0 ? undefined : args;
+  if (args == null || args.length === 0) {
+    result.action.args = undefined;
+  }
   return result;
 }
