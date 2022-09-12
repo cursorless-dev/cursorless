@@ -16,7 +16,7 @@ extension](#running--testing-extension-locally), you may want to check out the
 ### Steps
 
 1. Clone [`cursorless`](https://github.com/cursorless-dev/cursorless)
-2. Open the newly created `cursorless` directory in VSCode. If you're on Windows, don't use WSL (see [issue #919](https://github.com/cursorless-dev/cursorless/issues/919) for discussion / workaround).
+2. Open the newly created `cursorless` directory in VSCode. If you're on Windows, don't use WSL (see [#919](https://github.com/cursorless-dev/cursorless/issues/919) for discussion / workaround).
 3. Run the following in the terminal:
 
    ```bash
