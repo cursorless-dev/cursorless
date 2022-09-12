@@ -69,8 +69,8 @@ export class RegexStageBase implements ModifierStage {
   }
 
   private getMatchForPos(editor: TextEditor, position: Position) {
-    const line = editor.document.lineAt(position.line);
-    const textRange = this.textRange ?? line.range;
+    const textRange =
+      this.textRange ?? editor.document.lineAt(position.line).range;
     const match = this.getMatchesForRange(editor, textRange).find((range) =>
       range.contains(position)
     );
