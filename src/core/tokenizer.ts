@@ -2,7 +2,7 @@ import { mapValues } from "lodash";
 import { SupportedLanguageId } from "../languages/constants";
 
 import { matchAll } from "../util/regex";
-import css, { default as scss } from "./languageTokenizers/css";
+import { css } from "./languageTokenizers";
 import {
   LanguageTokenizerComponents,
   LanguageTokenizerOverrides,
@@ -96,7 +96,7 @@ const languageTokenizerOverrides: Partial<
   Record<SupportedLanguageId, LanguageTokenizerOverrides>
 > = {
   css,
-  scss,
+  scss: css,
 };
 
 const tokenMatchersForLanguage: Partial<Record<SupportedLanguageId, RegExp>> =
