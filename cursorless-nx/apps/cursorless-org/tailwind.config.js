@@ -4,7 +4,10 @@ const { join } = require('path');
 
 const CONTENT_RATIO = 1000 / 814;
 
-/** @type {(marginXPct: number, marginYPct: number) => [string, string, string]} */
+/**
+ * Based loosely on https://stackoverflow.com/a/20593342
+ * @type {(marginXPct: number, marginYPct: number) => [string, string, string]}
+ */
 function getScalingStrings(marginXPct, marginYPct) {
   const widthVw = 100 - marginXPct;
   const maxWidth = `calc(${widthVw}vw - var(--safe-area-inset-right) - var(--safe-area-inset-left))`;
