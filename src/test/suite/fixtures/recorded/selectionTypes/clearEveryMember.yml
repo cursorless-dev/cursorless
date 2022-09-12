@@ -1,0 +1,30 @@
+languageId: plaintext
+command:
+  spokenForm: clear every member
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: member}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: aaa.bbb(ccc.ddd("hello"), eee).fff()
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  marks: {}
+finalState:
+  documentContents: aaa.bbb(, ).fff()
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  thatMark:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: member}}]}]

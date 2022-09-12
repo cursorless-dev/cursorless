@@ -71,8 +71,8 @@ export class RegexStageBase implements ModifierStage {
   private getMatchForPos(editor: TextEditor, position: Position) {
     const textRange =
       this.textRange ?? editor.document.lineAt(position.line).range;
-    const match = this.getMatchesForRange(editor, textRange).find((range) =>
-      range.contains(position)
+    const match = this.getMatchesForRange(editor, textRange).find(
+      (contentRange) => contentRange.contains(position)
     );
     if (match == null) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
