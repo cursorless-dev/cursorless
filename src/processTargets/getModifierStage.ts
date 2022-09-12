@@ -4,6 +4,7 @@ import {
   EveryScopeModifier,
   Modifier,
 } from "../typings/targetDescriptor.types";
+import BoundedNonWhitespaceSequenceStage from "./modifiers/BoundedNonWhitespaceStage";
 import CascadingStage from "./modifiers/CascadingStage";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import {
@@ -26,15 +27,12 @@ import LineStage from "./modifiers/scopeTypeStages/LineStage";
 import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
 import ParagraphStage from "./modifiers/scopeTypeStages/ParagraphStage";
 import {
-  NonWhitespaceSequenceModifier,
   NonWhitespaceSequenceStage,
-  UrlModifier,
+  CustomRegexModifier,
+  CustomRegexStage,
   UrlStage,
 } from "./modifiers/scopeTypeStages/RegexStage";
 import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
-import BoundedNonWhitespaceSequenceStage, {
-  BoundedNonWhitespaceSequenceModifier,
-} from "./modifiers/BoundedNonWhitespaceStage";
 import SurroundingPairStage from "./modifiers/SurroundingPairStage";
 import { ModifierStage } from "./PipelineStages.types";
 
@@ -90,17 +88,15 @@ const getContainingScopeStage = (
     case "paragraph":
       return new ParagraphStage(modifier);
     case "nonWhitespaceSequence":
-      return new NonWhitespaceSequenceStage(
-        modifier as NonWhitespaceSequenceModifier
-      );
+      return new NonWhitespaceSequenceStage(modifier);
     case "boundedNonWhitespaceSequence":
-      return new BoundedNonWhitespaceSequenceStage(
-        modifier as BoundedNonWhitespaceSequenceModifier
-      );
+      return new BoundedNonWhitespaceSequenceStage(modifier);
     case "url":
-      return new UrlStage(modifier as UrlModifier);
+      return new UrlStage(modifier);
     case "collectionItem":
       return new ItemStage(modifier);
+    case "customRegex":
+      return new CustomRegexStage(modifier as CustomRegexModifier);
     case "surroundingPair":
       return new SurroundingPairStage(
         modifier as ContainingSurroundingPairModifier

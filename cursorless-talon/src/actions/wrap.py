@@ -42,7 +42,7 @@ action_map: dict[tuple[str, str], str] = {
 @mod.action_class
 class Actions:
     def cursorless_wrap(
-        action_type: str, targets: dict, cursorless_wrapper: dict[str, str]
+        action_type: str, targets: dict, cursorless_wrapper: dict[str, Any]
     ):
         """Perform cursorless wrap action"""
         wrapper_type = cursorless_wrapper["type"]
