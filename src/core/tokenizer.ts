@@ -1,5 +1,5 @@
 import { mapValues } from "lodash";
-import {AllLanguageId, SupportedLanguageId} from "../languages/constants";
+import { AllLanguageId, SupportedLanguageId } from "../languages/constants";
 
 import { matchAll } from "../util/regex";
 import { languageWithDashedIdentifiers } from "./languageTokenizers";
