@@ -108,20 +108,17 @@ suite("tokenizer", () => {
       language,
       {
         additionalTests: languageSpecificTests,
-        exclusionPredicate = () => true,
+        exclusionPredicate = () => false,
       },
     ]) => {
-      languageSpecificTests.forEach(([input, expectedOutput]) => {
-        test(`${language} custom tokenizer, input: "${input}"`, () => {
-          const output = tokenize(input, language, (match) => match[0]);
-          assert.deepStrictEqual(output, expectedOutput);
-        });
-      });
+      const tests = [
+        ...languageSpecificTests,
+        ...globalTests.filter(
+          ([input, _expectedOutput]) => !exclusionPredicate(input)
+        ),
+      ];
 
-      globalTests.forEach(([input, expectedOutput]) => {
-        if (exclusionPredicate(input)) {
-          return;
-        }
+      tests.forEach(([input, expectedOutput]) => {
         test(`${language} custom tokenizer, input: "${input}"`, () => {
           const output = tokenize(input, language, (match) => match[0]);
           assert.deepStrictEqual(output, expectedOutput);
