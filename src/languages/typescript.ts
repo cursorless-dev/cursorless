@@ -202,7 +202,12 @@ const nodeMatchers: Partial<
   statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`),
   condition: cascadingMatcher(
     patternMatcher("ternary_expression[condition]"),
-    conditionMatcher("*[condition]")
+    conditionMatcher(
+      "if_statement[condition]",
+      "for_statement[condition]",
+      "while_statement[condition]",
+      "do_statement[condition]"
+    )
   ),
   class: [
     "export_statement?.class_declaration", // export class | class
