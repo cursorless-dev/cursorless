@@ -2,7 +2,7 @@ import { mapValues } from "lodash";
 import { SupportedLanguageId } from "../languages/constants";
 
 import { matchAll } from "../util/regex";
-import { css } from "./languageTokenizers";
+import { languageWithDashedIdentifiers } from "./languageTokenizers";
 import {
   LanguageTokenizerComponents,
   LanguageTokenizerOverrides,
@@ -95,9 +95,9 @@ function generateTokenMatcher(
 const languageTokenizerOverrides: Partial<
   Record<SupportedLanguageId, LanguageTokenizerOverrides>
 > = {
-  css,
-  scss: css,
-  shellscript: css,
+  css: languageWithDashedIdentifiers,
+  scss: languageWithDashedIdentifiers,
+  shellscript: languageWithDashedIdentifiers,
 };
 
 const tokenMatchersForLanguage: Partial<Record<SupportedLanguageId, RegExp>> =
