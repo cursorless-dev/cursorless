@@ -100,10 +100,10 @@ const languageTokenizerOverrides: Partial<
   shellscript: languageWithDashedIdentifiers,
 };
 
-const tokenMatchersForLanguage: Partial<Record<LanguageId, RegExp>> =
-  mapValues(languageTokenizerOverrides, (val: LanguageTokenizerComponents) =>
-    generateTokenMatcher(val)
-  );
+const tokenMatchersForLanguage: Partial<Record<LanguageId, RegExp>> = mapValues(
+  languageTokenizerOverrides,
+  (val: LanguageTokenizerComponents) => generateTokenMatcher(val)
+);
 
 export function getTokenMatcher(languageId: string): RegExp {
   return (
