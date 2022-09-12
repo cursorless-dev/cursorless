@@ -1,6 +1,7 @@
 import { EmbeddedVideo } from '@cursorless/react/embedded-video';
 import Button from '../components/Button';
 import { ReactComponent as Logo } from './svg/logo.svg';
+import Head from 'next/head';
 
 export default function LandingPage() {
   const smallScaling = 'sm:w-smBase sm:h-smBase sm:text-smBase';
@@ -9,6 +10,15 @@ export default function LandingPage() {
 
   return (
     <main className="items-center justify-center text-salmon-900 dark:text-salmon-100 overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex font-mono">
+      <Head>
+        <title>Cursorless: Voice coding at the speed of thought</title>
+        <meta
+          property="og:title"
+          content="Cursorless: Voice coding at the speed of thought"
+          key="title"
+        />
+        <link rel="shortcut icon" href="/favicon.ico" />
+      </Head>
       <div
         className={`h-full flex flex-col sm:m-auto ${smallScaling} ${stretchedScaling}`}
       >
