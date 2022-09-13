@@ -19,7 +19,7 @@ import {
   selectWithLeadingDelimiter,
   selectWithTrailingDelimiter,
   simpleSelectionExtractor,
-  unwrapSelectionExtractor as conditionSelectionExtractor,
+  unwrapSelectionExtractor,
 } from "./nodeSelectors";
 
 export function matcher(
@@ -113,7 +113,7 @@ export function argumentMatcher(...parentTypes: string[]): NodeMatcher {
 }
 
 export function conditionMatcher(...patterns: string[]): NodeMatcher {
-  return matcher(patternFinder(...patterns), conditionSelectionExtractor);
+  return matcher(patternFinder(...patterns), unwrapSelectionExtractor);
 }
 
 /**
