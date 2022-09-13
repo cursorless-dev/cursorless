@@ -42,12 +42,12 @@ export class Cut implements Action {
 
     await this.graph.actions.copyToClipboard.run([targets], options);
 
-    const { thatMark } = await this.graph.actions.remove.run(
+    const { thatSelections: thatMark } = await this.graph.actions.remove.run(
       [targets],
       options
     );
 
-    return { thatMark };
+    return { thatSelections: thatMark };
   }
 }
 

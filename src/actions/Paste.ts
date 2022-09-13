@@ -72,7 +72,7 @@ export class Paste {
     );
 
     return {
-      thatMark: updatedTargetSelections.map((selection) => ({
+      thatSelections: updatedTargetSelections.map((selection) => ({
         editor: targetEditor,
         selection,
       })),

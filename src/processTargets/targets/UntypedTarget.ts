@@ -1,6 +1,6 @@
 import { Range } from "vscode";
 import { BaseTarget, CommonTargetParameters } from ".";
-import { Target } from "../../typings/target.types";
+import type { Target } from "../../typings/target.types";
 import { createContinuousRangeUntypedTarget } from "../targetUtil/createContinuousRange";
 import {
   getTokenLeadingDelimiterTarget,

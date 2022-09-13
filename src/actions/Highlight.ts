@@ -19,7 +19,7 @@ export default class Highlight implements Action {
     await this.graph.editStyles.setDecorations(targets, style);
 
     return {
-      thatMark: createThatMark(targets),
+      thatSelections: createThatMark(targets),
     };
   }
 }

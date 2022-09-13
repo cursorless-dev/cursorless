@@ -56,7 +56,7 @@ class Scroll implements Action {
     );
 
     return {
-      thatMark: createThatMark(targets),
+      thatSelections: createThatMark(targets),
     };
   }
 }
