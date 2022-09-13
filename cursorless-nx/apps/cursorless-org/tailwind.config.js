@@ -59,6 +59,9 @@ module.exports = {
       fontSize: {
         smBase: smallText,
         stretchedBase: stretchedText,
+        xs: '1.2em',
+        lg: '1.8em',
+        '2xl': '2.4em',
       },
       colors: {
         salmon: {

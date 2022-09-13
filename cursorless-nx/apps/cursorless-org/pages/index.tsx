@@ -9,7 +9,7 @@ export default function LandingPage() {
     'sm:stretched:w-stretchedBase sm:stretched:h-stretchedBase sm:stretched:text-stretchedBase';
 
   return (
-    <main className="items-center justify-center text-salmon-900 dark:text-salmon-100 overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex font-mono">
+    <main className="items-center justify-center text-salmon-900 dark:text-salmon-100 font-mono font-bold tracking-[0.18em] overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex ">
       <Head>
         <title>Cursorless: Voice coding at the speed of thought</title>
         <meta
@@ -20,25 +20,25 @@ export default function LandingPage() {
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <div
-        className={`h-full flex flex-col sm:m-auto ${smallScaling} ${stretchedScaling}`}
+        className={`h-full flex flex-col text-[10px] sm:m-auto ${smallScaling} ${stretchedScaling}`}
       >
         <div className="flex-1 flex flex-col">
           <header className="flex flex-row items-center ">
-            <div className="align-middle mr-auto text-2xl sm:text-[3.2em] sm:leading-[34px] font-semibold dark:font-medium sm:font-medium tracking-[0.3em] sm:tracking-[0.24em] uppercase">
+            <div className="align-middle mr-auto text-2xl uppercase">
               Cursorless
             </div>
             <Logo
               title="Logo"
-              className="align-middle w-[29px] h-[29px] sm:w-[4em] sm:h-[4em]"
+              className="align-middle w-[30px] h-[30px] sm:w-[4em] sm:h-[4em]"
             />
           </header>
           <Slogan />
         </div>
-        <div className="border-[0.5px] border-salmon-100 sm:border-salmon-100 p-[1px]">
+        <div className="border-[0.5px] border-salmon-100 p-[1px]">
           <EmbeddedVideo youtubeSlug="5mAzHGM2M0k" />
         </div>
         <div className="flex-1 flex flex-col">
-          <div className="flex flex-row justify-around sm:justify-center w-full my-auto sm:gap-32">
+          <div className="flex flex-row justify-around sm:justify-center w-full my-auto sm:gap-[12.8em]">
             <Button text="Start" href="/docs" isExternal={false} />{' '}
             <Button
               text="Donate"
@@ -55,7 +55,7 @@ export default function LandingPage() {
 
 function Slogan() {
   return (
-    <h1 className="text-[22px] sm:text-[2em] leading-6 sm:leading-normal font-semibold sm:font-semibold uppercase [font-stretch:112.5%] tracking-[0.06em] sm:tracking-[0.24em] text-black dark:text-salmon-100 text-center my-auto">
+    <h1 className="text-lg leading-[1.048888] uppercase text-center my-auto">
       <span className="inline-block">Voice coding</span>{' '}
       <span className="inline-block">at the speed of thought</span>
     </h1>
@@ -64,14 +64,14 @@ function Slogan() {
 
 function NetlifyFooter() {
   return (
-    <footer className="text-center text-sm sm:text-[1.2em] tracking-widest font-light">
-      <span className="uppercase text-salmon-800 dark:text-salmon-100 dark:opacity-50">
+    <footer className="text-center text-xs tracking-widest font-light">
+      <span className="uppercase dark:opacity-50">
         This site is powered by{' '}
       </span>
       <a
         href="https://www.netlify.com/"
         target="_blank"
-        className="text-salmon-400 hover:text-purple-500 "
+        className="text-salmon-400 hover:text-salmon-300"
         rel="noreferrer"
       >
         Netlify
