@@ -23,7 +23,7 @@ async function runTest() {
   const editor1 = await vscode.window.showTextDocument(document);
   const editor2 = await vscode.window.showTextDocument(
     document,
-    vscode.ViewColumn.Beside,
+    vscode.ViewColumn.Beside
   );
 
   await graph.hatTokenMap.addDecorations();
@@ -37,10 +37,10 @@ async function runTest() {
     .find(([, token]) => token.editor === editor2 && token.text === "world");
 
   const { hatStyle: hatStyle1, character: char1 } = HatTokenMap.splitKey(
-    hat1![0],
+    hat1![0]
   );
   const { hatStyle: hatStyle2, character: char2 } = HatTokenMap.splitKey(
-    hat2![0],
+    hat2![0]
   );
 
   await vscode.commands.executeCommand(
@@ -64,7 +64,7 @@ async function runTest() {
           character: char2,
         },
       },
-    ],
+    ]
   );
 
   assert.deepStrictEqual(document.getText(), "world hello");

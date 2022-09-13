@@ -17,7 +17,7 @@ import { CommandTarget, State } from "./EditNew.types";
 export async function runCommandTargets(
   graph: Graph,
   editor: TextEditor,
-  state: State,
+  state: State
 ): Promise<State> {
   const commandTargets: CommandTarget[] = state.targets
     .map((target, index) => {
@@ -47,7 +47,7 @@ export async function runCommandTargets(
       graph.rangeUpdater,
       () => commands.executeCommand(command),
       editor.document,
-      [state.targets.map(({ contentRange }) => contentRange), state.thatRanges],
+      [state.targets.map(({ contentRange }) => contentRange), state.thatRanges]
     );
 
   // For each of the given command targets, the cursor will go where it ended
@@ -60,7 +60,7 @@ export async function runCommandTargets(
 
   return {
     targets: state.targets.map((target, index) =>
-      target.withContentRange(updatedTargetRanges[index]),
+      target.withContentRange(updatedTargetRanges[index])
     ),
     thatRanges: updatedThatRanges,
     cursorRanges,

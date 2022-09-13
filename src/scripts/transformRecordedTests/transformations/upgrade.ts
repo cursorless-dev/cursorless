@@ -9,7 +9,7 @@ export const upgrade = flow(upgradeCommand, reorderFields);
 function upgradeCommand(fixture: TestCaseFixture) {
   fixture.command = flow(
     canonicalizeAndValidateCommand,
-    cleanUpTestCaseCommand,
+    cleanUpTestCaseCommand
   )(fixture.command);
 
   return fixture;

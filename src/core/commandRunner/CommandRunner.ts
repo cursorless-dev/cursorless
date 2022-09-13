@@ -18,7 +18,7 @@ export default class CommandRunner {
   constructor(
     private graph: Graph,
     private thatMark: ThatMark,
-    private sourceMark: ThatMark,
+    private sourceMark: ThatMark
   ) {
     graph.extensionContext.subscriptions.push(this);
 
@@ -28,8 +28,8 @@ export default class CommandRunner {
     this.disposables.push(
       vscode.commands.registerCommand(
         "cursorless.command",
-        this.runCommandBackwardCompatible,
-      ),
+        this.runCommandBackwardCompatible
+      )
     );
   }
 
@@ -72,7 +72,7 @@ export default class CommandRunner {
       } = commandComplete;
 
       const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
-        usePrePhraseSnapshot,
+        usePrePhraseSnapshot
       );
 
       const action = this.graph.actions[actionName];
@@ -125,13 +125,13 @@ export default class CommandRunner {
         };
         await this.graph.testCaseRecorder.preCommandHook(
           commandComplete,
-          context,
+          context
         );
       }
 
       const targets = processTargets(
         processedTargetsContext,
-        targetDescriptors,
+        targetDescriptors
       );
 
       const {
@@ -165,7 +165,7 @@ export default class CommandRunner {
   async showUpdateExtensionErrorMessage(err: OutdatedExtensionError) {
     const item = await vscode.window.showErrorMessage(
       err.message,
-      "Check for updates",
+      "Check for updates"
     );
 
     if (item == null) {
@@ -173,7 +173,7 @@ export default class CommandRunner {
     }
 
     await vscode.commands.executeCommand(
-      "workbench.extensions.action.checkForUpdates",
+      "workbench.extensions.action.checkForUpdates"
     );
   }
 
@@ -188,7 +188,7 @@ export default class CommandRunner {
       const [action, targets, ...extraArgs] = rest as [
         ActionType,
         PartialTargetV0V1[],
-        ...unknown[],
+        ...unknown[]
       ];
 
       command = {

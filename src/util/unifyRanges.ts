@@ -47,7 +47,7 @@ export function unifyRemovalTargets(targets: Target[]): Target[] {
     }
     let results = [...targets];
     results.sort((a, b) =>
-      a.contentRange.start.compareTo(b.contentRange.start),
+      a.contentRange.start.compareTo(b.contentRange.start)
     );
     let run = true;
     // Merge targets untill there are no overlaps/intersections

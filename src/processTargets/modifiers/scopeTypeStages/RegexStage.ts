@@ -12,7 +12,7 @@ import { TokenTarget } from "../../targets";
 class RegexStageBase implements ModifierStage {
   constructor(
     private modifier: ContainingScopeModifier | EveryScopeModifier,
-    protected regex: RegExp,
+    protected regex: RegExp
   ) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
@@ -69,7 +69,7 @@ class RegexStageBase implements ModifierStage {
 
   private getMatchForPos(editor: TextEditor, position: Position) {
     const match = this.getMatchesForLine(editor, position.line).find((range) =>
-      range.contains(position),
+      range.contains(position)
     );
     if (match == null) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -85,8 +85,8 @@ class RegexStageBase implements ModifierStage {
           lineNum,
           match.index!,
           lineNum,
-          match.index! + match[0].length,
-        ),
+          match.index! + match[0].length
+        )
     );
     if (result == null) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);

@@ -12,7 +12,7 @@ export default class StatusBarItem {
     const commandId = "cursorless.showQuickPick";
     const statusBarItem = vscode.window.createStatusBarItem(
       vscode.StatusBarAlignment.Right,
-      100,
+      100
     );
     statusBarItem.command = commandId;
     statusBarItem.text = "$(cursorless-icon) Cursorless";
@@ -21,11 +21,11 @@ export default class StatusBarItem {
     this.disposables.push(
       vscode.commands.registerCommand("cursorless.showDocumentation", () =>
         vscode.env.openExternal(
-          vscode.Uri.parse("https://www.cursorless.org/docs/"),
-        ),
+          vscode.Uri.parse("https://www.cursorless.org/docs/")
+        )
       ),
       vscode.commands.registerCommand(commandId, this.showQuickOpen),
-      statusBarItem,
+      statusBarItem
     );
   }
 

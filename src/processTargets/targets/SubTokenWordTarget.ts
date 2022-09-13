@@ -25,7 +25,7 @@ export default class SubTokenWordTarget extends BaseTarget {
     return tryConstructPlainTarget(
       this.editor,
       this.leadingDelimiterRange_,
-      this.isReversed,
+      this.isReversed
     );
   }
 
@@ -33,7 +33,7 @@ export default class SubTokenWordTarget extends BaseTarget {
     return tryConstructPlainTarget(
       this.editor,
       this.trailingDelimiterRange_,
-      this.isReversed,
+      this.isReversed
     );
   }
 

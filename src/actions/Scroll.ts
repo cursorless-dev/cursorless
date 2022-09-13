@@ -52,7 +52,7 @@ class Scroll implements Action {
     await this.graph.editStyles.displayPendingEditDecorationsForTargets(
       decorationTargets,
       this.graph.editStyles.referenced,
-      false,
+      false
     );
 
     return {

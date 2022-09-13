@@ -18,7 +18,7 @@ export function getPartialPrimitiveTargets(targets: PartialTargetDescriptor[]) {
 }
 
 function getPartialPrimitiveTargetsHelper(
-  target: PartialTargetDescriptor,
+  target: PartialTargetDescriptor
 ): PartialPrimitiveTargetDescriptor[] {
   switch (target.type) {
     case "primitive":
@@ -41,7 +41,7 @@ export function getPrimitiveTargets(targets: TargetDescriptor[]) {
 }
 
 function getPrimitiveTargetsHelper(
-  target: TargetDescriptor,
+  target: TargetDescriptor
 ): PrimitiveTargetDescriptor[] {
   switch (target.type) {
     case "primitive":
@@ -63,19 +63,19 @@ function getPrimitiveTargetsHelper(
 export function transformPartialPrimitiveTargets(
   targets: PartialTargetDescriptor[],
   func: (
-    target: PartialPrimitiveTargetDescriptor,
-  ) => PartialPrimitiveTargetDescriptor,
+    target: PartialPrimitiveTargetDescriptor
+  ) => PartialPrimitiveTargetDescriptor
 ) {
   return targets.map((target) =>
-    transformPartialPrimitiveTargetsHelper(target, func),
+    transformPartialPrimitiveTargetsHelper(target, func)
   );
 }
 
 function transformPartialPrimitiveTargetsHelper(
   target: PartialTargetDescriptor,
   func: (
-    target: PartialPrimitiveTargetDescriptor,
-  ) => PartialPrimitiveTargetDescriptor,
+    target: PartialPrimitiveTargetDescriptor
+  ) => PartialPrimitiveTargetDescriptor
 ): PartialTargetDescriptor {
   switch (target.type) {
     case "primitive":
@@ -87,7 +87,7 @@ function transformPartialPrimitiveTargetsHelper(
           (element) =>
             transformPartialPrimitiveTargetsHelper(element, func) as
               | PartialPrimitiveTargetDescriptor
-              | PartialRangeTargetDescriptor,
+              | PartialRangeTargetDescriptor
         ),
       };
     case "range":

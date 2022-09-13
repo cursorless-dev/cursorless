@@ -7,13 +7,13 @@ import * as yaml from "js-yaml";
 class CustomDump {
   constructor(
     private readonly data: unknown,
-    private readonly opts: yaml.DumpOptions,
+    private readonly opts: yaml.DumpOptions
   ) {}
 
   represent() {
     let result = yaml.dump(
       this.data,
-      Object.assign({ replacer, schema }, this.opts),
+      Object.assign({ replacer, schema }, this.opts)
     );
     result = result.trim();
     if (result.includes("\n")) {
@@ -38,7 +38,7 @@ const isObject = (value: unknown): value is object =>
 function hasSimpleChildren(value: unknown) {
   if (isObject(value)) {
     return Object.values(value).every(
-      (value) => !isObject(value) && !Array.isArray(value),
+      (value) => !isObject(value) && !Array.isArray(value)
     );
   }
   if (Array.isArray(value)) {

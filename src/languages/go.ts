@@ -62,12 +62,12 @@ const nodeMatchers: Partial<
   argumentOrParameter: cascadingMatcher(
     argumentMatcher("argument_list", "parameter_list"),
     patternMatcher("parameter_declaration"),
-    patternMatcher("argument_declaration"),
+    patternMatcher("argument_declaration")
   ),
   collectionKey: "keyed_element[0]",
   value: cascadingMatcher(
     patternMatcher("keyed_element[1]"),
-    patternMatcher("return_statement.expression_list!"),
+    patternMatcher("return_statement.expression_list!")
   ),
 };
 

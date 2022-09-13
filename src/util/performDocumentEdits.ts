@@ -5,11 +5,11 @@ import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 export async function performDocumentEdits(
   rangeUpdater: RangeUpdater,
   editor: TextEditor,
-  edits: Edit[],
+  edits: Edit[]
 ) {
   const deregister = rangeUpdater.registerReplaceEditList(
     editor.document,
-    edits.filter((edit) => edit.isReplace),
+    edits.filter((edit) => edit.isReplace)
   );
 
   const wereEditsApplied = await editor.edit((editBuilder) => {

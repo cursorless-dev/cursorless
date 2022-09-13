@@ -11,7 +11,7 @@ class InsertEmptyLines implements Action {
   constructor(
     private graph: Graph,
     private insertAbove: boolean,
-    private insertBelow: boolean,
+    private insertBelow: boolean
   ) {
     this.run = this.run.bind(this);
   }
@@ -55,7 +55,7 @@ class InsertEmptyLines implements Action {
               targets.map((target) => target.thatTarget.contentSelection),
               ranges.map((range) => new Selection(range.start, range.end)),
               editor.selections,
-            ],
+            ]
           );
 
         setSelectionsWithoutFocusingEditor(editor, updatedCursorSelections);
@@ -71,18 +71,18 @@ class InsertEmptyLines implements Action {
               ranges[index].start.line < editor.document.lineCount - 1
                 ? new Range(
                     selection.start.translate({ lineDelta: -1 }),
-                    selection.end.translate({ lineDelta: -1 }),
+                    selection.end.translate({ lineDelta: -1 })
                   )
                 : selection,
           })),
         };
-      }),
+      })
     );
 
     await this.graph.editStyles.displayPendingEditDecorationsForRanges(
       results.flatMap((result) => result.lineSelections),
       this.graph.editStyles.justAdded,
-      false,
+      false
     );
 
     const thatMark = results.flatMap((result) => result.thatMark);

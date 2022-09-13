@@ -88,7 +88,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
   async displayPendingEditDecorations(
     targets: Target[],
     style: EditStyle,
-    getRange: (target: Target) => Range | undefined = getContentRange,
+    getRange: (target: Target) => Range | undefined = getContentRange
   ) {
     await this.setDecorations(targets, style, getRange);
 
@@ -100,7 +100,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
   displayPendingEditDecorationsForTargets(
     targets: Target[],
     style: EditStyle,
-    isToken: boolean,
+    isToken: boolean
   ) {
     return this.displayPendingEditDecorationsForRanges(
       targets.map(({ editor, contentRange }) => ({
@@ -108,14 +108,14 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
         range: contentRange,
       })),
       style,
-      isToken,
+      isToken
     );
   }
 
   async displayPendingEditDecorationsForRanges(
     ranges: RangeWithEditor[],
     style: EditStyle,
-    isToken: boolean,
+    isToken: boolean
   ) {
     await runForEachEditor(
       ranges,
@@ -125,9 +125,9 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
           editor,
           style,
           isToken,
-          ranges.map((range) => range.range),
+          ranges.map((range) => range.range)
         );
-      },
+      }
     );
 
     await decorationSleep();
@@ -137,14 +137,14 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
       (range) => range.editor,
       async (editor) => {
         editor.setDecorations(style.getDecoration(isToken), []);
-      },
+      }
     );
   }
 
   setDecorations(
     targets: Target[],
     style: EditStyle,
-    getRange: (target: Target) => Range | undefined = getContentRange,
+    getRange: (target: Target) => Range | undefined = getContentRange
   ) {
     return runOnTargetsForEachEditor(targets, async (editor, targets) => {
       this.setEditorDecorations(
@@ -154,7 +154,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
         targets
           .filter((target) => !target.isLine)
           .map(getRange)
-          .filter((range): range is Range => !!range),
+          .filter((range): range is Range => !!range)
       );
       this.setEditorDecorations(
         editor,
@@ -163,7 +163,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
         targets
           .filter((target) => target.isLine)
           .map(getRange)
-          .filter((range): range is Range => !!range),
+          .filter((range): range is Range => !!range)
       );
     });
   }
@@ -179,7 +179,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
     editor: TextEditor,
     style: EditStyle,
     isToken: boolean,
-    ranges: Range[],
+    ranges: Range[]
   ) {
     if (this.graph.testCaseRecorder.isActive() || isTesting()) {
       ranges.forEach((range) => {

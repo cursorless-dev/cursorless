@@ -59,7 +59,7 @@ export class Snippets {
 
     const timer = setInterval(
       this.updateUserSnippets,
-      SNIPPET_DIR_REFRESH_INTERVAL_MS,
+      SNIPPET_DIR_REFRESH_INTERVAL_MS
     );
 
     graph.extensionContext.subscriptions.push(
@@ -72,7 +72,7 @@ export class Snippets {
         dispose() {
           clearInterval(timer);
         },
-      },
+      }
     );
   }
 
@@ -83,9 +83,9 @@ export class Snippets {
     this.coreSnippets = mergeStrict(
       ...(await Promise.all(
         snippetFiles.map(async (path) =>
-          JSON.parse(await readFile(path, "utf8")),
-        ),
-      )),
+          JSON.parse(await readFile(path, "utf8"))
+        )
+      ))
     );
     await this.updateUserSnippets();
   }
@@ -106,7 +106,7 @@ export class Snippets {
         "test",
         "suite",
         "fixtures",
-        "cursorless-snippets",
+        "cursorless-snippets"
       );
     } else {
       newUserSnippetsDir = workspace
@@ -160,8 +160,8 @@ export class Snippets {
     const maxSnippetMtime =
       max(
         (await Promise.all(snippetFiles.map((file) => stat(file)))).map(
-          (stat) => stat.mtimeMs,
-        ),
+          (stat) => stat.mtimeMs
+        )
       ) ?? 0;
 
     if (maxSnippetMtime <= this.maxSnippetMtimeMs) {
@@ -186,7 +186,7 @@ export class Snippets {
             window.showErrorMessage(
               `Error with cursorless snippets file "${path}": ${
                 (err as Error).message
-              }`,
+              }`
             );
 
             // We don't want snippets from all files to stop working if there is
@@ -194,8 +194,8 @@ export class Snippets {
             // once we've shown an error message
             return {};
           }
-        }),
-      )),
+        })
+      ))
     );
 
     this.mergeSnippets();
@@ -227,7 +227,7 @@ export class Snippets {
     const entries = [
       ...Object.entries(cloneDeep(this.coreSnippets)),
       ...Object.values(this.thirdPartySnippets).flatMap((snippets) =>
-        Object.entries(cloneDeep(snippets)),
+        Object.entries(cloneDeep(snippets))
       ),
       ...Object.entries(cloneDeep(this.userSnippets)),
     ];
@@ -240,7 +240,7 @@ export class Snippets {
         // NB: We make sure that the new definitions appear before the previous
         // ones so that they take precedence
         mergedSnippet.definitions = definitions.concat(
-          ...mergedSnippet.definitions,
+          ...mergedSnippet.definitions
         );
 
         merge(mergedSnippet, rest);
@@ -276,6 +276,6 @@ export class Snippets {
 
 async function getSnippetPaths(snippetsDir: string) {
   return (await walkFiles(snippetsDir)).filter((path) =>
-    path.endsWith(CURSORLESS_SNIPPETS_SUFFIX),
+    path.endsWith(CURSORLESS_SNIPPETS_SUFFIX)
   );
 }

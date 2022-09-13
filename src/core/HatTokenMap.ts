@@ -91,14 +91,14 @@ export default class HatTokenMap {
     if (usePrePhraseSnapshot) {
       if (this.lastSignalVersion == null) {
         console.error(
-          "Pre phrase snapshot requested but no signal was present; please upgrade command client",
+          "Pre phrase snapshot requested but no signal was present; please upgrade command client"
         );
         return this.activeMap;
       }
 
       if (this.prePhraseMapSnapshot == null) {
         console.error(
-          "Navigation map pre-phrase snapshot requested, but no snapshot has been taken",
+          "Navigation map pre-phrase snapshot requested, but no snapshot has been taken"
         );
         return this.activeMap;
       }
@@ -108,7 +108,7 @@ export default class HatTokenMap {
         PRE_PHRASE_SNAPSHOT_MAX_AGE_NS
       ) {
         console.error(
-          "Navigation map pre-phrase snapshot requested, but snapshot is more than a minute old",
+          "Navigation map pre-phrase snapshot requested, but snapshot is more than a minute old"
         );
         return this.activeMap;
       }

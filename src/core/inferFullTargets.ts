@@ -21,16 +21,16 @@ import {
  * @returns Target objects fully filled out and ready to be processed by {@link processTargets}.
  */
 export default function inferFullTargets(
-  targets: PartialTargetDescriptor[],
+  targets: PartialTargetDescriptor[]
 ): TargetDescriptor[] {
   return targets.map((target, index) =>
-    inferTarget(target, targets.slice(0, index)),
+    inferTarget(target, targets.slice(0, index))
   );
 }
 
 function inferTarget(
   target: PartialTargetDescriptor,
-  previousTargets: PartialTargetDescriptor[],
+  previousTargets: PartialTargetDescriptor[]
 ): TargetDescriptor {
   switch (target.type) {
     case "list":
@@ -43,22 +43,22 @@ function inferTarget(
 
 function inferListTarget(
   target: PartialListTargetDescriptor,
-  previousTargets: PartialTargetDescriptor[],
+  previousTargets: PartialTargetDescriptor[]
 ): TargetDescriptor {
   return {
     ...target,
     elements: target.elements.map((element, index) =>
       inferNonListTarget(
         element,
-        previousTargets.concat(target.elements.slice(0, index)),
-      ),
+        previousTargets.concat(target.elements.slice(0, index))
+      )
     ),
   };
 }
 
 function inferNonListTarget(
   target: PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor,
-  previousTargets: PartialTargetDescriptor[],
+  previousTargets: PartialTargetDescriptor[]
 ): PrimitiveTargetDescriptor | RangeTargetDescriptor {
   switch (target.type) {
     case "primitive":
@@ -70,7 +70,7 @@ function inferNonListTarget(
 
 function inferRangeTarget(
   target: PartialRangeTargetDescriptor,
-  previousTargets: PartialTargetDescriptor[],
+  previousTargets: PartialTargetDescriptor[]
 ): RangeTargetDescriptor {
   return {
     type: "range",
@@ -80,14 +80,14 @@ function inferRangeTarget(
     anchor: inferPrimitiveTarget(target.anchor, previousTargets),
     active: inferPrimitiveTarget(
       target.active,
-      previousTargets.concat(target.anchor),
+      previousTargets.concat(target.anchor)
     ),
   };
 }
 
 function inferPrimitiveTarget(
   target: PartialPrimitiveTargetDescriptor,
-  previousTargets: PartialTargetDescriptor[],
+  previousTargets: PartialTargetDescriptor[]
 ): PrimitiveTargetDescriptor {
   if (target.isImplicit) {
     return {
@@ -124,14 +124,14 @@ function inferPrimitiveTarget(
 }
 
 function getPositionModifier(
-  target: PartialPrimitiveTargetDescriptor,
+  target: PartialPrimitiveTargetDescriptor
 ): PositionModifier | undefined {
   if (target.modifiers == null) {
     return undefined;
   }
 
   const positionModifierIndex = target.modifiers.findIndex(
-    (modifier) => modifier.type === "position",
+    (modifier) => modifier.type === "position"
   );
 
   if (positionModifierIndex > 0) {
@@ -151,10 +151,10 @@ function getPositionModifier(
  * @returns A list of non-positional modifiers or `undefined` if there are none
  */
 function getNonPositionModifiers(
-  target: PartialPrimitiveTargetDescriptor,
+  target: PartialPrimitiveTargetDescriptor
 ): Modifier[] | undefined {
   const nonPositionModifiers = target.modifiers?.filter(
-    (modifier) => modifier.type !== "position",
+    (modifier) => modifier.type !== "position"
   );
   return nonPositionModifiers == null || nonPositionModifiers.length === 0
     ? undefined
@@ -162,22 +162,22 @@ function getNonPositionModifiers(
 }
 
 function getPreviousMark(
-  previousTargets: PartialTargetDescriptor[],
+  previousTargets: PartialTargetDescriptor[]
 ): Mark | undefined {
   return getPreviousTargetAttribute(
     previousTargets,
-    (target: PartialPrimitiveTargetDescriptor) => target.mark,
+    (target: PartialPrimitiveTargetDescriptor) => target.mark
   );
 }
 
 function getPreviousNonPositionModifiers(
-  previousTargets: PartialTargetDescriptor[],
+  previousTargets: PartialTargetDescriptor[]
 ): Modifier[] | undefined {
   return getPreviousTargetAttribute(previousTargets, getNonPositionModifiers);
 }
 
 function getPreviousPositionModifier(
-  previousTargets: PartialTargetDescriptor[],
+  previousTargets: PartialTargetDescriptor[]
 ): PositionModifier | undefined {
   return getPreviousTargetAttribute(previousTargets, getPositionModifier);
 }
@@ -194,7 +194,7 @@ function getPreviousPositionModifier(
  */
 function getPreviousTargetAttribute<T>(
   previousTargets: PartialTargetDescriptor[],
-  getAttribute: (target: PartialPrimitiveTargetDescriptor) => T | undefined,
+  getAttribute: (target: PartialPrimitiveTargetDescriptor) => T | undefined
 ): T | undefined {
   // Search from back(last) to front(first)
   for (let i = previousTargets.length - 1; i > -1; --i) {
@@ -217,7 +217,7 @@ function getPreviousTargetAttribute<T>(
       case "list": {
         const attributeValue = getPreviousTargetAttribute(
           target.elements,
-          getAttribute,
+          getAttribute
         );
         if (attributeValue != null) {
           return attributeValue;

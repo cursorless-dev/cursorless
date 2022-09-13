@@ -38,7 +38,7 @@ const graphFactories: Partial<FactoryMap<Graph>> = Object.fromEntries(
   Object.entries(graphConstructors).map(([key, constructor]) => [
     key,
     (graph: Graph) => new constructor(graph),
-  ]),
+  ])
 );
 
 export default graphFactories;

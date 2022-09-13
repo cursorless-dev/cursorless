@@ -20,7 +20,7 @@ export default class Clear implements Action {
           editor: target.editor,
           isReversed: target.isReversed,
           contentRange: target.contentRange,
-        }),
+        })
     );
 
     const { thatMark } = await this.graph.actions.remove.run([plainTargets]);
@@ -28,7 +28,7 @@ export default class Clear implements Action {
     if (thatMark != null) {
       await setSelectionsAndFocusEditor(
         editor,
-        thatMark.map(({ selection }) => selection),
+        thatMark.map(({ selection }) => selection)
       );
     }
 

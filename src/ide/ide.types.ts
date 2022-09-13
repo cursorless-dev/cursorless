@@ -20,13 +20,13 @@ export type CursorlessConfigKey = keyof CursorlessConfiguration;
 
 export interface Configuration {
   getOwnConfiguration<T extends CursorlessConfigKey>(
-    key: T,
+    key: T
   ): CursorlessConfiguration[T] | undefined;
   onDidChangeConfiguration: (listener: Listener) => Disposable;
 
   mockConfiguration<T extends CursorlessConfigKey>(
     key: T,
-    value: CursorlessConfiguration[T],
+    value: CursorlessConfiguration[T]
   ): void;
   resetMocks(): void;
 }

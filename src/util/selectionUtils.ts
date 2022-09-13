@@ -11,7 +11,7 @@ export function isReversed(selection: Selection) {
 
 export function selectionWithEditorFromRange(
   selection: SelectionWithEditor,
-  range: Range,
+  range: Range
 ): SelectionWithEditor {
   return selectionWithEditorFromPositions(selection, range.start, range.end);
 }
@@ -19,7 +19,7 @@ export function selectionWithEditorFromRange(
 function selectionWithEditorFromPositions(
   selection: SelectionWithEditor,
   start: Position,
-  end: Position,
+  end: Position
 ): SelectionWithEditor {
   return {
     editor: selection.editor,
@@ -30,7 +30,7 @@ function selectionWithEditorFromPositions(
 function selectionFromPositions(
   selection: Selection,
   start: Position,
-  end: Position,
+  end: Position
 ): Selection {
   // The built in isReversed is bugged on empty selection. don't use
   return isForward(selection)

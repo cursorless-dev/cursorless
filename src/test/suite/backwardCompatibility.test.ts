@@ -25,7 +25,7 @@ async function runTest() {
     "wrapWithPairedDelimiter",
     [{ type: "primitive", selectionType: "line", mark: { type: "cursor" } }],
     "(",
-    ")",
+    ")"
   );
 
   assert.deepStrictEqual(editor.document.getText(), "()");

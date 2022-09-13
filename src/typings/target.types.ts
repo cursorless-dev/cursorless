@@ -130,7 +130,7 @@ export interface Target {
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
-    includeEnd: boolean,
+    includeEnd: boolean
   ): Target;
   /** Constructs change/insertion edit. Adds delimiter before/after if needed */
   constructChangeEdit(text: string): EditWithRangeUpdater;

@@ -44,7 +44,7 @@ const getLine = (editor: TextEditor, linePosition: LineNumberPosition) => {
       while (lineNumber <= endLine) {
         if (lineNumber >= startLine) {
           const visible = editor.visibleRanges.find(
-            (r) => lineNumber >= r.start.line && lineNumber <= r.end.line,
+            (r) => lineNumber >= r.start.line && lineNumber <= r.end.line
           );
           if (visible) {
             visibleLines.push(lineNumber);

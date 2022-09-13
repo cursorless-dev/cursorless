@@ -22,7 +22,7 @@ export const patternMatchers = createPatternMatchers(nodeMatchers);
 
 export function stringTextFragmentExtractor(
   node: SyntaxNode,
-  _selection: SelectionWithEditor,
+  _selection: SelectionWithEditor
 ) {
   if (node.type === "string_content") {
     return getNodeRange(node);

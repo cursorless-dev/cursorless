@@ -7,7 +7,7 @@ import {
 import { Target } from "../typings/target.types";
 
 type TargetConstructor<T extends Target> = new (
-  parameters: CommonTargetParameters,
+  parameters: CommonTargetParameters
 ) => T;
 
 /**
@@ -24,7 +24,7 @@ export function tryConstructTarget<T extends Target>(
   constructor: TargetConstructor<T>,
   editor: TextEditor,
   range: Range | undefined,
-  isReversed: boolean,
+  isReversed: boolean
 ): T | undefined {
   return range == null
     ? undefined
@@ -47,7 +47,7 @@ export function tryConstructTarget<T extends Target>(
 export function tryConstructPlainTarget(
   editor: TextEditor,
   range: Range | undefined,
-  isReversed: boolean,
+  isReversed: boolean
 ): PlainTarget | undefined {
   return tryConstructTarget(PlainTarget, editor, range, isReversed);
 }
@@ -64,7 +64,7 @@ export function tryConstructPlainTarget(
 export function constructLineTarget(
   editor: TextEditor,
   range: Range | undefined,
-  isReversed: boolean,
+  isReversed: boolean
 ): LineTarget | undefined {
   return tryConstructTarget(LineTarget, editor, range, isReversed);
 }

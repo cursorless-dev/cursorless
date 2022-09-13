@@ -33,7 +33,7 @@ import {
  */
 export default function getOffsetsForNonEmptyRangeInsert(
   changeEventInfo: ChangeEventInfo,
-  rangeInfo: FullRangeInfo,
+  rangeInfo: FullRangeInfo
 ): RangeOffsets {
   const {
     event: { text: insertedText },
@@ -47,11 +47,11 @@ export default function getOffsetsForNonEmptyRangeInsert(
 
   invariant(
     rangeEnd > rangeStart,
-    () => "Selection range expected to be nonempty",
+    () => "Selection range expected to be nonempty"
   );
   invariant(
     insertOffset >= rangeStart && insertOffset <= rangeEnd,
-    () => "Insertion offset expected to intersect with selection range",
+    () => "Insertion offset expected to intersect with selection range"
   );
 
   if (insertOffset > rangeStart && insertOffset < rangeEnd) {

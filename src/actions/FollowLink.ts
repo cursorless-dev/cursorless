@@ -15,7 +15,7 @@ export default class FollowLink implements Action {
 
     await this.graph.editStyles.displayPendingEditDecorations(
       targets,
-      this.graph.editStyles.referenced,
+      this.graph.editStyles.referenced
     );
 
     const link = await getLinkForTarget(target);
@@ -25,7 +25,7 @@ export default class FollowLink implements Action {
       await this.graph.actions.executeCommand.run(
         [targets],
         "editor.action.revealDefinition",
-        { restoreSelection: false },
+        { restoreSelection: false }
       );
     }
 

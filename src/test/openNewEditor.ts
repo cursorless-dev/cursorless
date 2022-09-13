@@ -3,7 +3,7 @@ import { getParseTreeApi } from "../util/getExtensionApi";
 
 export async function openNewEditor(
   content: string,
-  language: string = "plaintext",
+  language: string = "plaintext"
 ) {
   await vscode.commands.executeCommand("workbench.action.closeAllEditors");
 
@@ -29,7 +29,7 @@ export async function openNewEditor(
 export async function reuseEditor(
   editor: vscode.TextEditor,
   content: string,
-  language: string = "plaintext",
+  language: string = "plaintext"
 ) {
   if (editor.document.languageId !== language) {
     await vscode.languages.setTextDocumentLanguage(editor.document, language);
@@ -40,9 +40,9 @@ export async function reuseEditor(
     editBuilder.replace(
       new vscode.Range(
         editor.document.lineAt(0).range.start,
-        editor.document.lineAt(editor.document.lineCount - 1).range.end,
+        editor.document.lineAt(editor.document.lineCount - 1).range.end
       ),
-      content,
+      content
     );
 
     const eol = content.includes("\r\n")
@@ -63,7 +63,7 @@ export async function reuseEditor(
  */
 export async function openNewNotebookEditor(
   cellContents: string[],
-  language: string = "plaintext",
+  language: string = "plaintext"
 ) {
   await vscode.commands.executeCommand("workbench.action.closeAllEditors");
 
@@ -75,10 +75,10 @@ export async function openNewNotebookEditor(
           new vscode.NotebookCellData(
             vscode.NotebookCellKind.Code,
             contents,
-            language,
-          ),
-      ),
-    ),
+            language
+          )
+      )
+    )
   );
 
   await (await getParseTreeApi()).loadLanguage(language);

@@ -290,7 +290,7 @@ const tokenHatSplittingDefaults: TokenHatSplittingMode = {
 
 graph.ide.configuration.mockConfiguration(
   "tokenHatSplittingMode",
-  tokenHatSplittingDefaults,
+  tokenHatSplittingDefaults
 );
 
 const tokenGraphemeSplitter = graph.tokenGraphemeSplitter;
@@ -310,7 +310,7 @@ tests.forEach(({ tokenHatSplittingMode, extraTestCases }) => {
           text,
           tokenStartOffset,
           tokenEndOffset,
-        }),
+        })
       );
 
       const actualOutput = tokenGraphemeSplitter.getTokenGraphemes(input);

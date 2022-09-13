@@ -39,7 +39,7 @@ export function findDelimiterPairContainingSelection(
   initialIndex: number,
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   acceptableDelimiters: SimpleSurroundingPairName[],
-  selectionOffsets: Offsets,
+  selectionOffsets: Offsets
 ): SurroundingPairOffsets | null {
   // Accept any delimiter when scanning right
   const acceptableRightDelimiters = acceptableDelimiters;
@@ -52,7 +52,7 @@ export function findDelimiterPairContainingSelection(
     delimiterOccurrences,
     initialIndex,
     () => acceptableRightDelimiters,
-    true,
+    true
   );
 
   // Start just to the left of the delimiter we start from in our rightward
@@ -61,7 +61,7 @@ export function findDelimiterPairContainingSelection(
     delimiterOccurrences,
     initialIndex - 1,
     () => acceptableLeftDelimiters,
-    false,
+    false
   );
 
   while (true) {
@@ -88,7 +88,7 @@ export function findDelimiterPairContainingSelection(
     if (leftDelimiterOccurrence.offsets.start <= selectionOffsets.start) {
       return getSurroundingPairOffsets(
         leftDelimiterOccurrence,
-        rightDelimiterOccurrence,
+        rightDelimiterOccurrence
       );
     }
   }

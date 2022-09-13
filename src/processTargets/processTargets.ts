@@ -30,19 +30,19 @@ import { PlainTarget, PositionTarget } from "./targets";
  */
 export default function (
   context: ProcessedTargetsContext,
-  targets: TargetDescriptor[],
+  targets: TargetDescriptor[]
 ): Target[][] {
   return targets.map((target) => uniqTargets(processTarget(context, target)));
 }
 
 function processTarget(
   context: ProcessedTargetsContext,
-  target: TargetDescriptor,
+  target: TargetDescriptor
 ): Target[] {
   switch (target.type) {
     case "list":
       return target.elements.flatMap((element) =>
-        processTarget(context, element),
+        processTarget(context, element)
       );
     case "range":
       return processRangeTarget(context, target);
@@ -53,7 +53,7 @@ function processTarget(
 
 function processRangeTarget(
   context: ProcessedTargetsContext,
-  targetDesc: RangeTargetDescriptor,
+  targetDesc: RangeTargetDescriptor
 ): Target[] {
   const anchorTargets = processPrimitiveTarget(context, targetDesc.anchor);
   const activeTargets = processPrimitiveTarget(context, targetDesc.active);
@@ -66,7 +66,7 @@ function processRangeTarget(
 
       if (anchorTarget.editor !== activeTarget.editor) {
         throw new Error(
-          "anchorTarget and activeTarget must be in same document",
+          "anchorTarget and activeTarget must be in same document"
         );
       }
 
@@ -77,7 +77,7 @@ function processRangeTarget(
               anchorTarget,
               activeTarget,
               targetDesc.excludeAnchor,
-              targetDesc.excludeActive,
+              targetDesc.excludeActive
             ),
           ];
         case "vertical":
@@ -85,10 +85,10 @@ function processRangeTarget(
             anchorTarget,
             activeTarget,
             targetDesc.excludeAnchor,
-            targetDesc.excludeActive,
+            targetDesc.excludeActive
           );
       }
-    },
+    }
   );
 }
 
@@ -96,7 +96,7 @@ function processContinuousRangeTarget(
   anchorTarget: Target,
   activeTarget: Target,
   excludeAnchor: boolean,
-  excludeActive: boolean,
+  excludeActive: boolean
 ): Target {
   ensureSingleEditor([anchorTarget, activeTarget]);
   const isReversed = calcIsReversed(anchorTarget, activeTarget);
@@ -109,13 +109,13 @@ function processContinuousRangeTarget(
     isReversed,
     endTarget,
     !excludeStart,
-    !excludeEnd,
+    !excludeEnd
   );
 }
 
 export function targetsToContinuousTarget(
   anchorTarget: Target,
-  activeTarget: Target,
+  activeTarget: Target
 ): Target {
   return processContinuousRangeTarget(anchorTarget, activeTarget, false, false);
 }
@@ -124,7 +124,7 @@ function processVerticalRangeTarget(
   anchorTarget: Target,
   activeTarget: Target,
   excludeAnchor: boolean,
-  excludeActive: boolean,
+  excludeActive: boolean
 ): Target[] {
   const isReversed = calcIsReversed(anchorTarget, activeTarget);
   const delta = isReversed ? -1 : 1;
@@ -144,7 +144,7 @@ function processVerticalRangeTarget(
       i,
       anchorTarget.contentRange.start.character,
       i,
-      anchorTarget.contentRange.end.character,
+      anchorTarget.contentRange.end.character
     );
 
     if (anchorTarget instanceof PositionTarget) {
@@ -155,7 +155,7 @@ function processVerticalRangeTarget(
           editor: anchorTarget.editor,
           isReversed: anchorTarget.isReversed,
           contentRange,
-        }),
+        })
       );
     }
 
@@ -188,7 +188,7 @@ function processVerticalRangeTarget(
  */
 function processPrimitiveTarget(
   context: ProcessedTargetsContext,
-  targetDescriptor: PrimitiveTargetDescriptor,
+  targetDescriptor: PrimitiveTargetDescriptor
 ): Target[] {
   // First, get the targets output by the mark
   const markStage = getMarkStage(targetDescriptor.mark);
@@ -215,7 +215,7 @@ function processPrimitiveTarget(
 
 /** Convert a list of target modifiers to modifier stages */
 export function getModifierStagesFromTargetModifiers(
-  targetModifiers: Modifier[],
+  targetModifiers: Modifier[]
 ) {
   // Reverse target modifiers because they are returned in reverse order from
   // the api, to match the order in which they are spoken.
@@ -226,7 +226,7 @@ export function getModifierStagesFromTargetModifiers(
 export function processModifierStages(
   context: ProcessedTargetsContext,
   modifierStages: ModifierStage[],
-  targets: Target[],
+  targets: Target[]
 ) {
   // First we apply each stage in sequence, letting each stage see the targets
   // one-by-one and concatenating the results before passing them on to the

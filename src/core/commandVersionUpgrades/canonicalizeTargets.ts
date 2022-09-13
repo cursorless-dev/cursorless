@@ -20,7 +20,7 @@ const COLOR_CANONICALIZATION_MAPPING: Record<string, HatStyleName> = {
 };
 
 const canonicalizeScopeTypes = (
-  target: PartialPrimitiveTargetDescriptor,
+  target: PartialPrimitiveTargetDescriptor
 ): PartialPrimitiveTargetDescriptor => {
   target.modifiers?.forEach((mod) => {
     if (mod.type === "containingScope" || mod.type === "everyScope") {
@@ -33,7 +33,7 @@ const canonicalizeScopeTypes = (
 };
 
 const canonicalizeColors = (
-  target: PartialPrimitiveTargetDescriptor,
+  target: PartialPrimitiveTargetDescriptor
 ): PartialPrimitiveTargetDescriptor =>
   target.mark?.type === "decoratedSymbol"
     ? update(target, {
@@ -45,10 +45,10 @@ const canonicalizeColors = (
     : target;
 
 export default function canonicalizeTargets(
-  partialTargets: PartialTargetDescriptor[],
+  partialTargets: PartialTargetDescriptor[]
 ) {
   return transformPartialPrimitiveTargets(
     partialTargets,
-    flow(canonicalizeScopeTypes, canonicalizeColors),
+    flow(canonicalizeScopeTypes, canonicalizeColors)
   );
 }

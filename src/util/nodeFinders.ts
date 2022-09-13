@@ -3,7 +3,7 @@ import { Point, SyntaxNode } from "web-tree-sitter";
 import { NodeFinder } from "../typings/Types";
 
 export const nodeFinder = (
-  isTargetNode: (node: SyntaxNode) => boolean,
+  isTargetNode: (node: SyntaxNode) => boolean
 ): NodeFinder => {
   return (node: SyntaxNode) => {
     return isTargetNode(node) ? node : null;
@@ -137,7 +137,7 @@ export const argumentNodeFinder = (...parentTypes: string[]): NodeFinder => {
       const children = [...node.children];
       const childRight =
         children.find(({ startPosition }) =>
-          toPosition(startPosition).isAfterOrEqual(end),
+          toPosition(startPosition).isAfterOrEqual(end)
         ) ?? null;
       if (isOk(childRight)) {
         return childRight;
@@ -145,7 +145,7 @@ export const argumentNodeFinder = (...parentTypes: string[]): NodeFinder => {
       children.reverse();
       const childLeft =
         children.find(({ endPosition }) =>
-          toPosition(endPosition).isBeforeOrEqual(start),
+          toPosition(endPosition).isBeforeOrEqual(start)
         ) ?? null;
       if (isOk(childLeft)) {
         return childLeft;
@@ -170,7 +170,7 @@ export const argumentNodeFinder = (...parentTypes: string[]): NodeFinder => {
 export function findPossiblyWrappedNode(
   isWrapperNode: NodeFinder,
   isTargetNode: NodeFinder,
-  getWrappedNodes: (node: SyntaxNode) => (SyntaxNode | null)[],
+  getWrappedNodes: (node: SyntaxNode) => (SyntaxNode | null)[]
 ): NodeFinder {
   return (node: SyntaxNode) => {
     if (node.parent != null && isWrapperNode(node.parent)) {
@@ -182,7 +182,7 @@ export function findPossiblyWrappedNode(
 
     if (isWrapperNode(node)) {
       const isWrappingTargetNode = getWrappedNodes(node).some(
-        (node) => node != null && isTargetNode(node),
+        (node) => node != null && isTargetNode(node)
       );
 
       if (isWrappingTargetNode) {
@@ -209,13 +209,13 @@ export function patternFinder(...patterns: string[]): NodeFinder {
 
 function parsePatternStrings(patternStrings: string[]) {
   return patternStrings.map((patternString) =>
-    patternString.split(".").map((pattern) => new Pattern(pattern)),
+    patternString.split(".").map((pattern) => new Pattern(pattern))
   );
 }
 
 function tryPatternMatch(
   node: SyntaxNode,
-  patterns: Pattern[],
+  patterns: Pattern[]
 ): SyntaxNode | null {
   let result = searchNodeAscending(node, patterns);
 
@@ -251,7 +251,7 @@ type NodePattern = [SyntaxNode, Pattern] | null;
 
 function searchNodeAscending(
   node: SyntaxNode,
-  patterns: Pattern[],
+  patterns: Pattern[]
 ): NodePattern {
   let result: NodePattern = null;
   let currentNode: SyntaxNode | null = node;
@@ -279,7 +279,7 @@ function searchNodeAscending(
 
 function searchNodeDescending(
   node: SyntaxNode,
-  patterns: Pattern[],
+  patterns: Pattern[]
 ): NodePattern {
   let result: NodePattern = null;
   let currentNode: SyntaxNode | null = node;
@@ -301,7 +301,7 @@ function searchNodeDescending(
 
     if (i + 1 < patterns.length) {
       const children: SyntaxNode[] = currentNode.namedChildren.filter((node) =>
-        patterns[i + 1].typeEquals(node),
+        patterns[i + 1].typeEquals(node)
       );
       currentNode = children.length === 1 ? children[0] : null;
     }

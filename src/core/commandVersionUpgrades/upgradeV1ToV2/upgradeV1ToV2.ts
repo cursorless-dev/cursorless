@@ -92,7 +92,7 @@ function upgradeModifier(modifier: ModifierV0V1): Modifier[] {
 
 function upgradePrimitiveTarget(
   target: PartialPrimitiveTargetV0V1,
-  action: ActionType,
+  action: ActionType
 ): PartialPrimitiveTargetDescriptor {
   const {
     type,
@@ -161,7 +161,7 @@ function upgradePrimitiveTarget(
 
 function upgradeTarget(
   target: PartialTargetV0V1,
-  action: ActionType,
+  action: ActionType
 ): PartialTargetDescriptor {
   switch (target.type) {
     case "list":
@@ -171,7 +171,7 @@ function upgradeTarget(
           (target) =>
             upgradeTarget(target, action) as
               | PartialPrimitiveTargetDescriptor
-              | PartialRangeTargetDescriptor,
+              | PartialRangeTargetDescriptor
         ),
       };
     case "range": {
@@ -192,13 +192,13 @@ function upgradeTarget(
 
 function upgradeTargets(
   partialTargets: PartialTargetV0V1[],
-  action: ActionType,
+  action: ActionType
 ) {
   const partialTargetsV2: PartialTargetDescriptor[] = partialTargets.map(
-    (target) => upgradeTarget(target, action),
+    (target) => upgradeTarget(target, action)
   );
   return transformPartialPrimitiveTargets(
     partialTargetsV2,
-    flow(upgradeStrictHere),
+    flow(upgradeStrictHere)
   );
 }

@@ -19,41 +19,39 @@ export interface SurroundingPairInfo {
 export function extractSelectionFromSurroundingPairOffsets(
   document: TextDocument,
   baseOffset: number,
-  surroundingPairOffsets: SurroundingPairOffsets,
+  surroundingPairOffsets: SurroundingPairOffsets
 ): SurroundingPairInfo {
   const interior = new Range(
     document.positionAt(baseOffset + surroundingPairOffsets.leftDelimiter.end),
     document.positionAt(
-      baseOffset + surroundingPairOffsets.rightDelimiter.start,
-    ),
+      baseOffset + surroundingPairOffsets.rightDelimiter.start
+    )
   );
   const boundary: [Range, Range] = [
     new Range(
       document.positionAt(
-        baseOffset + surroundingPairOffsets.leftDelimiter.start,
+        baseOffset + surroundingPairOffsets.leftDelimiter.start
       ),
-      document.positionAt(
-        baseOffset + surroundingPairOffsets.leftDelimiter.end,
-      ),
+      document.positionAt(baseOffset + surroundingPairOffsets.leftDelimiter.end)
     ),
     new Range(
       document.positionAt(
-        baseOffset + surroundingPairOffsets.rightDelimiter.start,
+        baseOffset + surroundingPairOffsets.rightDelimiter.start
       ),
       document.positionAt(
-        baseOffset + surroundingPairOffsets.rightDelimiter.end,
-      ),
+        baseOffset + surroundingPairOffsets.rightDelimiter.end
+      )
     ),
   ];
 
   return {
     contentRange: new Selection(
       document.positionAt(
-        baseOffset + surroundingPairOffsets.leftDelimiter.start,
+        baseOffset + surroundingPairOffsets.leftDelimiter.start
       ),
       document.positionAt(
-        baseOffset + surroundingPairOffsets.rightDelimiter.end,
-      ),
+        baseOffset + surroundingPairOffsets.rightDelimiter.end
+      )
     ),
     boundary,
     interiorRange: interior,

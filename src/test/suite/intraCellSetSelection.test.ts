@@ -35,7 +35,7 @@ async function runTest() {
           character: "w",
         },
       },
-    ],
+    ]
   );
 
   const editor = vscode.window.activeTextEditor;

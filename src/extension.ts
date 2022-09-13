@@ -43,7 +43,7 @@ export async function activate(context: vscode.ExtensionContext) {
   // See https://github.com/cursorless-dev/cursorless/issues/320
   // vscode.workspace.onDidChangeTextDocument(checkForEditsOutsideViewport)
   function _checkForEditsOutsideViewport(
-    event: vscode.TextDocumentChangeEvent,
+    event: vscode.TextDocumentChangeEvent
   ) {
     // TODO: Only activate this code during the course of a cursorless action
     // Can register pre/post command hooks the way we do with test case recorder
@@ -69,8 +69,8 @@ export async function activate(context: vscode.ExtensionContext) {
         (contentChange) =>
           !editor.visibleRanges.some(
             (visibleRange) =>
-              contentChange.range.intersection(visibleRange) != null,
-          ),
+              contentChange.range.intersection(visibleRange) != null
+          )
       )
       .map(({ range }) => range);
 
@@ -80,7 +80,7 @@ export async function activate(context: vscode.ExtensionContext) {
         .map((range) => `${range.start.line + 1}-${range.end.line + 1}`)
         .join(", ");
       vscode.window.showWarningMessage(
-        `Modification outside of viewport at lines: ${linesText}`,
+        `Modification outside of viewport at lines: ${linesText}`
       );
     }
   }
