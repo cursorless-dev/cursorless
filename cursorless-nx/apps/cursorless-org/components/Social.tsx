@@ -2,9 +2,11 @@ import { Fragment } from 'react';
 import {
   DESCRIPTION,
   BASE_URL,
-  LOGO_URL,
+  VIDEO_SHARE_THUMBNAIL_URL,
   YOUTUBE_SLUG,
   TITLE,
+  VIDEO_SHARE_THUMBNAIL_WIDTH,
+  VIDEO_SHARE_THUMBNAIL_HEIGHT,
 } from './constants';
 
 export default function Social() {
@@ -31,9 +33,9 @@ export default function Social() {
       <link rel="manifest" href="/site.webmanifest" />
       <meta property="og:site_name" content="Cursorless" />
       <meta property="og:url" content={BASE_URL} />
-      <meta property="og:image" content={LOGO_URL} />
-      <meta property="og:image:width" content="900" />
-      <meta property="og:image:height" content="900" />
+      <meta property="og:image" content={VIDEO_SHARE_THUMBNAIL_URL} />
+      <meta property="og:image:width" content={VIDEO_SHARE_THUMBNAIL_WIDTH} />
+      <meta property="og:image:height" content={VIDEO_SHARE_THUMBNAIL_HEIGHT} />
       <meta property="og:description" content={DESCRIPTION} />
       <meta property="og:type" content="video" />
       <meta
@@ -70,7 +72,7 @@ export default function Social() {
       <meta name="twitter:url" content={BASE_URL} />
       <meta name="twitter:title" content="Cursorless" />
       <meta name="twitter:description" content={DESCRIPTION} />
-      <meta name="twitter:image" content={LOGO_URL} />
+      <meta name="twitter:image" content={VIDEO_SHARE_THUMBNAIL_URL} />
       <meta
         name="twitter:player"
         content={`https://www.youtube.com/embed/${YOUTUBE_SLUG}`}
@@ -89,15 +91,15 @@ export default function Social() {
         />
         <meta itemProp="name" content="Cursorless" />
       </span>
-      <link itemProp="thumbnailUrl" href={LOGO_URL} />
+      <link itemProp="thumbnailUrl" href={VIDEO_SHARE_THUMBNAIL_URL} />
       <span
         itemProp="thumbnail"
         itemScope
         itemType="http://schema.org/ImageObject"
       >
-        <link itemProp="url" href={LOGO_URL} />
-        <meta itemProp="width" content="900" />
-        <meta itemProp="height" content="900" />
+        <link itemProp="url" href={VIDEO_SHARE_THUMBNAIL_URL} />
+        <meta itemProp="width" content={VIDEO_SHARE_THUMBNAIL_WIDTH} />
+        <meta itemProp="height" content={VIDEO_SHARE_THUMBNAIL_HEIGHT} />
       </span>
       <meta itemProp="isFamilyFriendly" content="true" />
       <meta
