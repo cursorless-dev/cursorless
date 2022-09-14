@@ -22,27 +22,33 @@ class RegexStageBase implements ModifierStage {
     return [this.getSingleTarget(target)];
   }
 
+  private getSingleTarget(target: Target): Target {
+    const { editor, contentRange } = target;
+    const start = this.getMatchForPos(editor, contentRange.start).start;
+    const end = this.getMatchForPos(editor, contentRange.end).end;
+    return this.getTargetFromRange(target, new Range(start, end));
+  }
+
   private getEveryTarget(target: Target): Target[] {
-    const { contentRange, editor } = target;
+    const { editor, contentRange } = target;
     const start = target.hasExplicitRange
       ? contentRange.start
       : editor.document.lineAt(contentRange.start).range.start;
     const end = target.hasExplicitRange
       ? contentRange.end
       : editor.document.lineAt(contentRange.end).range.end;
-    const targets: Target[] = [];
+    const textRange = new Range(
+      editor.document.lineAt(contentRange.start).range.start,
+      editor.document.lineAt(contentRange.end).range.end
+    );
 
-    for (let i = start.line; i <= end.line; ++i) {
-      this.getMatchesForLine(editor, i).forEach((range) => {
-        // Regex match and selection intersects
-        if (
-          range.end.isAfterOrEqual(start) &&
-          range.start.isBeforeOrEqual(end)
-        ) {
-          targets.push(this.getTargetFromRange(target, range));
-        }
-      });
-    }
+    const targets = this.getMatchesInRange(editor, textRange)
+      .filter(
+        (contentRange) =>
+          contentRange.end.isAfterOrEqual(start) &&
+          contentRange.start.isBeforeOrEqual(end)
+      )
+      .map((contentRange) => this.getTargetFromRange(target, contentRange));
 
     if (targets.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -51,12 +57,31 @@ class RegexStageBase implements ModifierStage {
     return targets;
   }
 
-  private getSingleTarget(target: Target): Target {
-    const { editor } = target;
-    const start = this.getMatchForPos(editor, target.contentRange.start).start;
-    const end = this.getMatchForPos(editor, target.contentRange.end).end;
-    const contentRange = new Range(start, end);
-    return this.getTargetFromRange(target, contentRange);
+  private getMatchForPos(editor: TextEditor, position: Position) {
+    const textRange = editor.document.lineAt(position.line).range;
+    const match = this.getMatchesInRange(editor, textRange).find(
+      (contentRange) => contentRange.contains(position)
+    );
+    if (match == null) {
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
+    }
+    return match;
+  }
+
+  private getMatchesInRange(editor: TextEditor, range: Range) {
+    const offset = editor.document.offsetAt(range.start);
+    const text = editor.document.getText(range);
+    const result = [...text.matchAll(this.regex)].map(
+      (match) =>
+        new Range(
+          editor.document.positionAt(offset + match.index!),
+          editor.document.positionAt(offset + match.index! + match[0].length)
+        )
+    );
+    if (result == null) {
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
+    }
+    return result;
   }
 
   private getTargetFromRange(target: Target, contentRange: Range): Target {
@@ -65,33 +90,6 @@ class RegexStageBase implements ModifierStage {
       isReversed: target.isReversed,
       contentRange,
     });
-  }
-
-  private getMatchForPos(editor: TextEditor, position: Position) {
-    const match = this.getMatchesForLine(editor, position.line).find((range) =>
-      range.contains(position)
-    );
-    if (match == null) {
-      throw new NoContainingScopeError(this.modifier.scopeType.type);
-    }
-    return match;
-  }
-
-  private getMatchesForLine(editor: TextEditor, lineNum: number) {
-    const line = editor.document.lineAt(lineNum);
-    const result = [...line.text.matchAll(this.regex)].map(
-      (match) =>
-        new Range(
-          lineNum,
-          match.index!,
-          lineNum,
-          match.index! + match[0].length
-        )
-    );
-    if (result == null) {
-      throw new NoContainingScopeError(this.modifier.scopeType.type);
-    }
-    return result;
   }
 }
 
