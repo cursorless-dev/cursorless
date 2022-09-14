@@ -64,6 +64,6 @@
 		"react-use": "^17.4.0",
 		"regenerator-runtime": "0.13.7",
 		"tailwindcss": "^3.0.24",
-		"tslib": "^2.3.0",
+		"tslib": "^2.3.0"
 	}
 }
