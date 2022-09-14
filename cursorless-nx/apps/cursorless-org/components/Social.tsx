@@ -35,22 +35,48 @@ export default function Social() {
       <meta property="og:image:width" content="900" />
       <meta property="og:image:height" content="900" />
       <meta property="og:description" content={DESCRIPTION} />
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content="video" />
       <meta
-        property="og:video"
-        content={`https://www.youtube.com/v/${YOUTUBE_SLUG}`}
+        property="og:video:url"
+        content={`https://www.youtube.com/embed/${YOUTUBE_SLUG}`}
       />
+      <meta
+        property="og:video:secure_url"
+        content={`https://www.youtube.com/embed/${YOUTUBE_SLUG}`}
+      />
+      <meta property="og:video:type" content="text/html" />
+      <meta property="og:video:width" content="1280" />
+      <meta property="og:video:height" content="720" />
+      <meta
+        property="og:video:url"
+        content={`http://www.youtube.com/v/${YOUTUBE_SLUG}?version=3&amp;autohide=1`}
+      />
+      <meta
+        property="og:video:secure_url"
+        content={`https://www.youtube.com/v/${YOUTUBE_SLUG}?version=3&amp;autohide=1`}
+      />
+      <meta property="og:video:type" content="application/x-shockwave-flash" />
+      <meta property="og:video:width" content="1280" />
+      <meta property="og:video:height" content="720" />
+
       <meta property="og:video:tag" content="voice coding" />
       <meta property="og:video:tag" content="speech recognition programming" />
       <meta property="og:video:tag" content="program voice" />
       <meta property="og:video:tag" content="speech to text programming" />
       <meta property="og:video:tag" content="Talon voice" />
-      <meta name="twitter:card" content={DESCRIPTION} />
+
+      <meta name="twitter:card" content="player" />
       <meta name="twitter:site" content="@GoCursorless" />
       <meta name="twitter:url" content={BASE_URL} />
       <meta name="twitter:title" content="Cursorless" />
       <meta name="twitter:description" content={DESCRIPTION} />
       <meta name="twitter:image" content={LOGO_URL} />
+      <meta
+        name="twitter:player"
+        content={`https://www.youtube.com/embed/${YOUTUBE_SLUG}`}
+      />
+      <meta name="twitter:player:width" content="1280" />
+      <meta name="twitter:player:height" content="720" />
       <link itemProp="url" href={BASE_URL} />
       <meta itemProp="name" content="Cursorless" />
       <meta itemProp="description" content={DESCRIPTION} />
