@@ -1,11 +1,23 @@
 import * as assert from "assert";
 import { tokenize } from "../../core/tokenizer";
 import { flatten, range } from "lodash";
+import { SupportedLanguageId } from "../../languages/constants";
 
 type TestCase = [string, string[]];
+/** Language-specific tokenizer test configuration object */
+interface LanguageTokenizerTests {
+  /** Language-specific test cases to run in addition to the global tests for this language */
+  additionalTests: TestCase[];
+
+  /**
+   * By default we run all global tests in the given language, in addition to the specific tests.  We exclude global test inputs that match this predicate.
+   */
+  exclusionPredicate?: (input: string) => boolean;
+}
 const singleSymbolTests: TestCase[] = getAsciiSymbols().map((s) => [s, [s]]);
 
-const tests: TestCase[] = [
+/** Tokenizer tests that will be run on the default tokenizer, as well as on all language-specific tokenizers */
+const globalTests: TestCase[] = [
   // Numbers
   ["0.0 0 1 120 2.5 0.1", ["0.0", "0", "1", "120", "2.5", "0.1"]],
   // Semantic versioning
@@ -57,6 +69,7 @@ const tests: TestCase[] = [
   ["#111111", ["#", "111111"]],
   // Unicode characters
   ["aåäöb", ["aåäöb"]],
+  ["\u006E\u0303", ["\u006E\u0303"]], // ñ using combining mark
   // Windows filepath
   [
     "tests\\recorded\\typescript\\name",
@@ -64,13 +77,55 @@ const tests: TestCase[] = [
   ],
 ];
 
+const cssDialectTokenizerTests: LanguageTokenizerTests = {
+  additionalTests: [
+    ["min-height", ["min-height"]],
+    ["-webkit-font-smoothing", ["-webkit-font-smoothing"]],
+    ["(min-width: 400px)", ["(", "min-width", ":", "400px", ")"]],
+    ["prefers-reduced-motion", ["prefers-reduced-motion"]],
+  ],
+  // Leave kebab and dashes to css language specific tests.
+  exclusionPredicate: (input: string) => !!input.match("-"),
+};
+
+const languageTokenizerTests: Partial<
+  Record<SupportedLanguageId, LanguageTokenizerTests>
+> = {
+  css: cssDialectTokenizerTests,
+  scss: cssDialectTokenizerTests,
+};
+
 suite("tokenizer", () => {
-  tests.forEach(([input, expectedOutput]) => {
-    test(input, () => {
-      const output = tokenize(input, (match) => match[0]);
+  globalTests.forEach(([input, expectedOutput]) => {
+    test(`tokenizer test, input: "${input}"`, () => {
+      const output = tokenize(input, "anyLang", (match) => match[0]);
       assert.deepStrictEqual(output, expectedOutput);
     });
   });
+
+  Object.entries(languageTokenizerTests).forEach(
+    ([
+      language,
+      {
+        additionalTests: languageSpecificTests,
+        exclusionPredicate = () => false,
+      },
+    ]) => {
+      const tests = [
+        ...languageSpecificTests,
+        ...globalTests.filter(
+          ([input, _expectedOutput]) => !exclusionPredicate(input)
+        ),
+      ];
+
+      tests.forEach(([input, expectedOutput]) => {
+        test(`${language} custom tokenizer, input: "${input}"`, () => {
+          const output = tokenize(input, language, (match) => match[0]);
+          assert.deepStrictEqual(output, expectedOutput);
+        });
+      });
+    }
+  );
 });
 
 /**

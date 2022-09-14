@@ -10,13 +10,6 @@ import getModifierStage from "../getModifierStage";
 import { processSurroundingPair } from "./surroundingPair";
 import { NoContainingScopeError } from "../../errors";
 
-export type BoundedNonWhitespaceSequenceModifier = (
-  | ContainingScopeModifier
-  | EveryScopeModifier
-) & {
-  scopeType: { type: "boundedNonWhitespaceSequence" };
-};
-
 /**
  * Intersection of NonWhitespaceSequenceStage and a surrounding pair
  * Expand the target until reaching a white space or surrounding pair.
@@ -25,7 +18,7 @@ export type BoundedNonWhitespaceSequenceModifier = (
 export default class BoundedNonWhitespaceSequenceStage
   implements ModifierStage
 {
-  constructor(private modifier: BoundedNonWhitespaceSequenceModifier) {}
+  constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const paintStage = getModifierStage({

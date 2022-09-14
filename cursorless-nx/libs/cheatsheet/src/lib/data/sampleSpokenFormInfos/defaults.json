@@ -895,6 +895,90 @@
 			]
 		},
 		{
+			"name": "Modifiers",
+			"id": "modifiers",
+			"items": [
+				{
+					"id": "excludeInterior",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "bounds",
+							"description": "Bounding paired delimiters"
+						}
+					]
+				},
+				{
+					"id": "toRawSelection",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "just",
+							"description": "No inference"
+						}
+					]
+				},
+				{
+					"id": "leading",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "leading",
+							"description": "Leading delimiter range"
+						}
+					]
+				},
+				{
+					"id": "trailing",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "trailing",
+							"description": "Trailing delimiter range"
+						}
+					]
+				},
+				{
+					"id": "interiorOnly",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "inside",
+							"description": "Interior only"
+						}
+					]
+				},
+				{
+					"id": "extendThroughStartOf",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "head",
+							"description": "Extend through start of line"
+						},
+						{
+							"spokenForm": "head <M>",
+							"description": "Extend through start of <M>"
+						}
+					]
+				},
+				{
+					"id": "extendThroughEndOf",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "tail",
+							"description": "Extend through end of line"
+						},
+						{
+							"spokenForm": "tail <M>",
+							"description": "Extend through end of <M>"
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Paired delimiters",
 			"id": "pairedDelimiters",
 			"items": [
@@ -1073,6 +1157,46 @@
 							"description": "Nothing"
 						}
 					]
+				},
+				{
+					"id": "unknownSymbol",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "special",
+							"description": "Unknown symbol"
+						}
+					]
+				},
+				{
+					"id": "lineNumberModulo100",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "row <number>",
+							"description": "Line number modulo 100"
+						}
+					]
+				},
+				{
+					"id": "lineNumberRelativeUp",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "up <number>",
+							"description": "Line number up from cursor"
+						}
+					]
+				},
+				{
+					"id": "lineNumberRelativeDown",
+					"type": "mark",
+					"variations": [
+						{
+							"spokenForm": "down <number>",
+							"description": "Line number down from cursor"
+						}
+					]
 				}
 			]
 		},
@@ -1137,8 +1261,22 @@
 					]
 				},
 				{
+					"id": "rangeExclusive",
+					"type": "compoundTargetConnective",
+					"variations": [
+						{
+							"spokenForm": "<T1> between <T2>",
+							"description": "between T1 and T2"
+						},
+						{
+							"spokenForm": "between <T>",
+							"description": "between S and T"
+						}
+					]
+				},
+				{
 					"id": "rangeInclusive",
-					"type": "action",
+					"type": "compoundTargetConnective",
 					"variations": [
 						{
 							"spokenForm": "<T1> past <T2>",
@@ -1147,6 +1285,34 @@
 						{
 							"spokenForm": "past <T>",
 							"description": "S through T"
+						}
+					]
+				},
+				{
+					"id": "rangeExcludingEnd",
+					"type": "compoundTargetConnective",
+					"variations": [
+						{
+							"spokenForm": "<T1> until <T2>",
+							"description": "T1 until start of T2"
+						},
+						{
+							"spokenForm": "until <T>",
+							"description": "S until start of T"
+						}
+					]
+				},
+				{
+					"id": "verticalRange",
+					"type": "compoundTargetConnective",
+					"variations": [
+						{
+							"spokenForm": "<T1> slice <T2>",
+							"description": "T1 vertically through T2"
+						},
+						{
+							"spokenForm": "slice <T>",
+							"description": "S vertically through T"
 						}
 					]
 				}

@@ -13,8 +13,15 @@ export class Sort implements Action {
   }
 
   async run(targets: Target[][]): Promise<ActionReturnValue> {
+    // First sort target by document order
+    const sortedTargets = targets.map((t) =>
+      t
+        .slice()
+        .sort((a, b) => a.contentRange.start.compareTo(b.contentRange.start))
+    );
+
     const { returnValue: unsortedTexts } = await this.graph.actions.getText.run(
-      targets,
+      sortedTargets,
       {
         showDecorations: false,
       }
@@ -22,7 +29,7 @@ export class Sort implements Action {
 
     const sortedTexts = this.sortTexts(unsortedTexts);
 
-    return this.graph.actions.replace.run(targets, sortedTexts);
+    return this.graph.actions.replace.run(sortedTargets, sortedTexts);
   }
 }
 
