@@ -1,7 +1,9 @@
 import { EmbeddedVideo } from '@cursorless/react/embedded-video';
-import Button from '../components/Button';
-import { ReactComponent as Logo } from './svg/logo.svg';
 import Head from 'next/head';
+import Button from '../components/Button';
+import { TITLE, YOUTUBE_SLUG } from '../components/constants';
+import Social from '../components/Social';
+import { ReactComponent as Logo } from './svg/logo.svg';
 
 export default function LandingPage() {
   const smallScaling = 'sm:w-smBase sm:h-smBase sm:text-smBase';
@@ -11,30 +13,8 @@ export default function LandingPage() {
   return (
     <main className="items-center justify-center text-salmon-900 dark:text-salmon-100 font-mono font-bold tracking-[0.18em] overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex ">
       <Head>
-        <title>Cursorless: Voice coding at the speed of thought</title>
-        <meta
-          property="og:title"
-          content="Cursorless: Voice coding at the speed of thought"
-          key="title"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
+        <title>{TITLE}</title>
+        <Social />
       </Head>
       <div
         className={`h-full flex flex-col text-[10px] sm:m-auto ${smallScaling} ${stretchedScaling}`}
@@ -52,7 +32,7 @@ export default function LandingPage() {
           <Slogan />
         </div>
         <div className="border-[0.5px] border-salmon-100 p-[1px]">
-          <EmbeddedVideo youtubeSlug="5mAzHGM2M0k" />
+          <EmbeddedVideo youtubeSlug={YOUTUBE_SLUG} />
         </div>
         <div className="flex-1 flex flex-col">
           <div className="flex flex-row justify-around sm:justify-center w-full my-auto sm:gap-[12.8em]">
