@@ -63,6 +63,7 @@ const config = {
   tagline: "Structural voice coding at the speed of thought",
   url: "https://www.cursorless.org",
   baseUrl: "/docs/",
+  favicon: "/docs/favicon.ico",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
   trailingSlash: true,
