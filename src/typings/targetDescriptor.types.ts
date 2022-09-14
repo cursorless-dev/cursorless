@@ -106,6 +106,14 @@ export type SimpleScopeTypeType =
   | "xmlElement"
   | "xmlEndTag"
   | "xmlStartTag"
+  // Latex scope types
+  | "part"
+  | "chapter"
+  | "subSection"
+  | "subSubSection"
+  | "namedParagraph"
+  | "subParagraph"
+  | "environment"
   // Text based scopes
   | "token"
   | "line"
@@ -122,6 +130,11 @@ export interface SimpleScopeType {
   type: SimpleScopeTypeType;
 }
 
+export interface CustomRegexScopeType {
+  type: "customRegex";
+  regex: string;
+}
+
 export type SurroundingPairDirection = "left" | "right";
 export interface SurroundingPairScopeType {
   type: "surroundingPair";
@@ -135,7 +148,10 @@ export interface SurroundingPairScopeType {
   requireStrongContainment?: boolean;
 }
 
-export type ScopeType = SimpleScopeType | SurroundingPairScopeType;
+export type ScopeType =
+  | SimpleScopeType
+  | SurroundingPairScopeType
+  | CustomRegexScopeType;
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {

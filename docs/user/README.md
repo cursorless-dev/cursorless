@@ -8,9 +8,9 @@ Welcome to Cursorless! You may find it helpful to start with the [tutorial video
 
 This guide assumes you've already [installed Cursorless](installation.md).
 
-Once you understand the concepts, you can pull up a cheatsheet for reference using the command `"cursorless help"`.
+Once you understand the concepts, you can pull up a cheatsheet for reference using either `"cursorless reference"` or `"cursorless cheatsheet"` commands within VSCode.
 
-You can get back to these docs by saying `"cursorless instructions"`.
+You can get back to these docs by saying `"cursorless docs"`, `"cursorless help"` within VSCode.
 
 Note: If you'd like to customize any of the spoken forms, please see [Customization](customization.md).
 
@@ -216,15 +216,36 @@ eg:
 `take line [blue] air`
 Selects the line including the token containing letter 'a' with a blue hat.
 
+##### `"block"`
+
+The `"block"` modifier expands to above and below the target to select lines until an empty line is reached.
+
+- `"take block"`
+- `"take block <TARGET>"`
+
 ##### `"file"`
 
-The word file can be used to expand the target to refer to the entire file.
+The word '`"file"` can be used to expand the target to refer to the entire file.
 
 - `"copy file"`
 - `"take file"`
 - `"take file blue air"`
 
 For example, `"take file [blue] air"` selects the file including the token containing letter 'a' with a blue hat.
+
+##### `"head"` and `"tail"`
+
+The modifiers `"head"` and `"tail"` can be used to expand a target through the beginning or end of the line, respectively.
+
+- `"take head"`: select from the cursor the start of the line
+- `"take tail"`: select from the cursor to the end of the line
+- `"take head air"`: selects the mark through to start of the line
+- `"take tail air"`: selects the mark through to the end of the line
+
+When followed by a modifier, they will expand their input to the start or end of the given modifier range. For example:
+
+- `"take head funk"`: select from the cursor the start of the containing function
+- `"chuck tail class air"`: Delete from the token with a hat over the letter `a` through the end of its containing class
 
 ##### `"token"`
 
@@ -233,6 +254,21 @@ The `"token"` modifier expands its input to the nearest containing token. This m
 - `"copy token"`
 - `"take token"`
 - `"chuck token"`
+
+##### `"paint"`
+
+Both of the commands below will expand from the mark forward and backward to include all adjacent non-whitespace characters.
+
+- `"take paint"`
+- `"take paint <TARGET>"`
+
+For example, in the following text:
+
+```
+foo.bar baz|bongo
+```
+
+Saying `"every paint"` would select `foo.bar` and `baz|bongo`.
 
 ##### Surrounding pair
 
@@ -295,6 +331,20 @@ Note that if the first target is omitted, the start of the range will be the cur
 eg:
 `take blue air past green bat`
 Selects the range from the token containing letter 'a' with a blue hat past the token containing letter 'b' with a green hat.
+
+##### Vertical ranges
+
+The `"slice"` range modifier is used to refer to multiple targets that are vertically aligned. It is commonly used with the `"pre"` action to add multiple cursors to the editor. Each cursor is inserted at the same column on each row requested within the command.
+
+- `"pre <TARGET 1> slice past <TARGET 2>"`: Add cursors from the first target through to the second target's line(inclusive end)
+- `"pre <TARGET 1> slice <TARGET 2>"`: Shortened version of above `"slice past"` command
+- `"pre <TARGET 1> slice until <TARGET 2>"`: Add cursors until the second target's line(non-inclusive end)
+- `"pre <TARGET 1> slice between <TARGET 2>"`: Add cursors between first and second target's lines(non-inclusive start and end)
+
+For example:
+
+- `"pre air slice bat"`: Places cursors at the same position on every line (inclusive) between token with hat over the `a` and token with the hat over the `b`. The position will be the start of the token with a hat over the `a`
+- `"chuck tail air slice end of block"`: Delete the end of every line from air through the end of its non-empty line block.
 
 #### List targets
 
@@ -417,6 +467,16 @@ The `"move"` command can be used to move a target.
 eg:
 `move blue air to green bat`
 Replaces the token containing letter 'b' with a green hat using the token containing letter 'a' with a blue hat, and the delete the latter token.
+
+### Reverse/Shuffle/Sort
+
+These commands accept multiple selections, and change their order. For example:
+
+- `"shuffle every item <TARGET>"`
+- `"sort every item <TARGET>"`
+- `"reverse every item <TARGET>"`
+- `"sort line air slice bat"`: sort lines within the selection.
+- `"sort this"`: Sort the multiple selections.
 
 ### Wrap/Rewrap
 
