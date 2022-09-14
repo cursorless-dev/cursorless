@@ -171,6 +171,16 @@ export interface ContainingScopeModifier {
   scopeType: ScopeType;
 }
 
+export interface PreviousContainingScopeModifier {
+  type: "previousContainingScope";
+  scopeType: ScopeType;
+}
+
+export interface NextContainingScopeModifier {
+  type: "nextContainingScope";
+  scopeType: ScopeType;
+}
+
 export interface EveryScopeModifier {
   type: "everyScope";
   scopeType: ScopeType;
@@ -254,6 +264,8 @@ export type Modifier =
   | ExcludeInteriorModifier
   | ContainingScopeModifier
   | EveryScopeModifier
+  | PreviousContainingScopeModifier
+  | NextContainingScopeModifier
   | OrdinalRangeModifier
   | HeadTailModifier
   | LeadingModifier

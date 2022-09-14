@@ -18,6 +18,7 @@ import OrdinalRangeSubTokenStage, {
   OrdinalRangeSubTokenModifier,
 } from "./modifiers/OrdinalRangeSubTokenStage";
 import PositionStage from "./modifiers/PositionStage";
+import PreviousNextContainingScopeStage from "./modifiers/PreviousNextContainingScopeStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
 import ContainingSyntaxScopeStage, {
   SimpleContainingScopeModifier,
@@ -27,9 +28,9 @@ import LineStage from "./modifiers/scopeTypeStages/LineStage";
 import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
 import ParagraphStage from "./modifiers/scopeTypeStages/ParagraphStage";
 import {
-  NonWhitespaceSequenceStage,
   CustomRegexModifier,
   CustomRegexStage,
+  NonWhitespaceSequenceStage,
   UrlStage,
 } from "./modifiers/scopeTypeStages/RegexStage";
 import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
@@ -57,6 +58,9 @@ export default (modifier: Modifier): ModifierStage => {
     case "containingScope":
     case "everyScope":
       return getContainingScopeStage(modifier);
+    case "previousContainingScope":
+    case "nextContainingScope":
+      return new PreviousNextContainingScopeStage(modifier);
     case "ordinalRange":
       if (!["word", "character"].includes(modifier.scopeType.type)) {
         throw Error(

@@ -84,7 +84,7 @@ def cursorless_custom_regex_scope_type(m) -> dict[str, str]:
 
 
 @mod.capture(
-    rule="[every] (<user.cursorless_scope_type> | <user.cursorless_custom_regex_scope_type>)"
+    rule="[every | previous | next] (<user.cursorless_scope_type> | <user.cursorless_custom_regex_scope_type>)"
 )
 def cursorless_containing_scope(m) -> dict[str, Any]:
     """Expand to containing scope"""
@@ -92,8 +92,16 @@ def cursorless_containing_scope(m) -> dict[str, Any]:
         scope_type = m.cursorless_scope_type
     except AttributeError:
         scope_type = m.cursorless_custom_regex_scope_type
+    if m[0] == "every":
+        type = "everyScope"
+    elif m[0] == "previous":
+        type = "previousContainingScope"
+    elif m[0] == "next":
+        type = "nextContainingScope"
+    else:
+        type = "containingScope"
     return {
-        "type": "everyScope" if m[0] == "every" else "containingScope",
+        "type": type,
         "scopeType": scope_type,
     }
 
