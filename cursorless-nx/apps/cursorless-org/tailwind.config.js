@@ -1,10 +1,14 @@
 // apps/app1/tailwind.config.js
 const { createGlobPatternsForDependencies } = require('@nrwl/react/tailwind');
+const defaultTheme = require('tailwindcss/defaultTheme');
 const { join } = require('path');
 
 const CONTENT_RATIO = 1000 / 814;
 
 /**
+ * Returns css strings [width, height, fontSize] that will result in a fixed
+ * aspect ratio and automaticaly expand to fill the smallest dimension.
+ *
  * Based loosely on https://stackoverflow.com/a/20593342
  * @type {(marginXPct: number, marginYPct: number) => [string, string, string]}
  */
@@ -26,6 +30,11 @@ function getScalingStrings(marginXPct, marginYPct) {
 }
 
 const [smallWidth, smallHeight, smallText] = getScalingStrings(30.56, 20.51);
+
+/**
+ * On screens that have very wide or very tall aspect ratios, we expand closer
+ * to the narrow dimension, otherwise the content feels small.
+ */
 const [stretchedWidth, stretchedHeight, stretchedText] = getScalingStrings(
   10,
   10
@@ -46,7 +55,7 @@ module.exports = {
         stretched: { raw: '(min-aspect-ratio: 2/1), (max-aspect-ratio: 1/1)' },
       },
       fontFamily: {
-        mono: ['Inconsolata-SemiExpanded'],
+        mono: ['Inconsolata-SemiExpanded', ...defaultTheme.fontFamily.mono],
       },
       width: {
         smBase: smallWidth,
