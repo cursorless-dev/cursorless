@@ -28,6 +28,16 @@
 @font-face {
   font-family: 'Inconsolata-SemiExpanded';
   font-style: normal;
+  font-weight: 400;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src: local(''),
+    /* Modern Browsers */ url('/fonts/Inconsolata_SemiExpanded-Regular.ttf')
+      format('truetype');
+}
+
+@font-face {
+  font-family: 'Inconsolata-SemiExpanded';
+  font-style: normal;
   font-weight: 500;
   font-stretch: 1% 500%; /* Required by Chrome */
   src: local(''),
