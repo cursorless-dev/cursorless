@@ -6,7 +6,7 @@ interface Props {
 
 export default function Button({ text, href, isExternal }: Props) {
   const className =
-    'text-center uppercase text-2xl sm:text-[2.4em] tracking-[0.18em]';
+    'text-center uppercase text-2xl sm:text-[2.4em] tracking-[0.18em] hover:text-salmon-400';
 
   const extraProps = isExternal
     ? {
