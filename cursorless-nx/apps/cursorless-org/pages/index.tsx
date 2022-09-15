@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import { TITLE, YOUTUBE_SLUG } from '../components/constants';
 import Social from '../components/Social';
 import { ReactComponent as Logo } from './svg/logo.svg';
+import './styles.css';
 
 export default function LandingPage() {
   const smallScaling = 'sm:w-smBase sm:h-smBase sm:text-smBase';
