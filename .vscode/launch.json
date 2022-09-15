@@ -13,9 +13,7 @@
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions"
 			],
-			"outFiles": [
-				"${workspaceFolder}/out/**/*.js"
-			],
+			"outFiles": ["${workspaceFolder}/out/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}",
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
@@ -35,9 +33,7 @@
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
 			],
-			"outFiles": [
-				"${workspaceFolder}/out/test/**/*.js"
-			],
+			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}",
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
@@ -58,9 +54,7 @@
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
 			],
-			"outFiles": [
-				"${workspaceFolder}/out/test/**/*.js"
-			],
+			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}",
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
@@ -81,9 +75,7 @@
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
 			],
-			"outFiles": [
-				"${workspaceFolder}/out/test/**/*.js"
-			],
+			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}",
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
@@ -105,9 +97,7 @@
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
 			],
-			"outFiles": [
-				"${workspaceFolder}/out/test/**/*.js"
-			],
+			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}",
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
@@ -121,10 +111,7 @@
 			"request": "launch",
 			"cwd": "${workspaceFolder}/docs-site",
 			"runtimeExecutable": "npm",
-			"runtimeArgs": [
-				"run",
-				"start"
-			],
+			"runtimeArgs": ["run", "start"],
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
 				"!${workspaceFolder}/.vscode-sandbox/**",
