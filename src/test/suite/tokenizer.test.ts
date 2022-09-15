@@ -91,7 +91,10 @@ const cssDialectTokenizerTests: LanguageTokenizerTests = {
 const shellScriptDialectTokenizerTests: LanguageTokenizerTests = {
   additionalTests: [
     ["--commit-hooks", ["--commit-hooks"]],
-    ["patch --force --commit-hooks $MY_SNAKE_VAR", ["patch", "--force", "--commit-hooks", "$", "MY_SNAKE_VAR"]],
+    [
+      "patch --force --commit-hooks $MY_SNAKE_VAR",
+      ["patch", "--force", "--commit-hooks", "$", "MY_SNAKE_VAR"],
+    ],
   ],
   // Leave kebab and dashes to css language specific tests.
   exclusionPredicate: (input: string) => !!input.match("-"),
