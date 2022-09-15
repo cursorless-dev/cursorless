@@ -3,11 +3,9 @@ import './styles.css';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <main className="app">
-        <Component {...pageProps} />
-      </main>
-    </>
+    <main className="app">
+      <Component {...pageProps} />
+    </main>
   );
 }
 
