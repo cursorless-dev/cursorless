@@ -6,19 +6,24 @@ set -euo pipefail
 # it will be compiled as part of API docs generation
 yarn install --frozen-lockfile
 
-cd website
+# Build the documentation site
+cd docs-site
 yarn install --frozen-lockfile
 yarn build
 cd ..
 
+# Build the root site
 cd cursorless-nx
 npm ci
 npx nx export cursorless-org
 cd ..
 
-# Since baseUrl in Docusaurus is /docs, for links within our website
-# to work correctly we need to serve /website-root with /docs subfolder
-# containting the build
-out_dir=cursorless-nx/dist/apps/cursorless-org/exported/docs
-mkdir -p "$out_dir"
-cp -r website/build/* "$out_dir"
+# Merge the root site and the documentation site, placing the documentation site
+# under docs/
+root_dir=dist/cursorless-org
+mkdir -p "$root_dir"
+cp -r cursorless-nx/dist/apps/cursorless-org/exported/* "$root_dir"
+
+docs_dir="$root_dir/docs"
+mkdir -p "$docs_dir"
+cp -r docs-site/build/* "$docs_dir"

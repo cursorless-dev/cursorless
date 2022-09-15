@@ -16,6 +16,12 @@ export default function LandingPage() {
         <title>{TITLE}</title>
         <Social />
       </Head>
+      {/*
+        Note that the font scale gets applied to this element so that all nested elements can use
+        `em` units and will automatically be scaled.
+        FIXME: We should probably add the font size to the root element so that we can use `rem`
+        units instead
+        */}
       <div
         className={`h-full flex flex-col text-[10px] sm:m-auto ${smallScaling} ${stretchedScaling}`}
       >
