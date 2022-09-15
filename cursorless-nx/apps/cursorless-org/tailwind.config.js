@@ -6,39 +6,43 @@ const { join } = require('path');
 const CONTENT_RATIO = 1000 / 814;
 
 /**
- * Returns css strings [width, height, fontSize] that will result in a fixed
- * aspect ratio and automaticaly expand to fill the smallest dimension.
+ * Returns css strings for width, height, and fontSize that will result in a
+ * fixed aspect ratio and automaticaly expand to fill the smallest dimension.
  *
  * Based loosely on https://stackoverflow.com/a/20593342
- * @type {(marginXPct: number, marginYPct: number) => [string, string, string]}
+ * @type {(marginXPct: number, marginYPct: number) => {width: string, height:
+ * string, fontSize: string}}
  */
 function getScalingStrings(marginXPct, marginYPct) {
-  const widthVw = 100 - marginXPct;
+  const widthVw = 100 - marginXPct * 2;
   const maxWidth = `calc(${widthVw}vw - var(--safe-area-inset-right) - var(--safe-area-inset-left))`;
-  const heightVh = 100 - marginYPct;
+  const heightVh = 100 - marginYPct * 2;
   const maxHeight = `calc(${heightVh}vh - var(--safe-area-inset-bottom) - var(--safe-area-inset-top))`;
   const heightFromWidth = `calc(${maxWidth} / ${CONTENT_RATIO})`;
   const widthFromHeight = `calc(${maxHeight} * ${CONTENT_RATIO})`;
 
-  const classInfos = [
-    [maxWidth, widthFromHeight],
-    [maxHeight, heightFromWidth],
-    [`calc(${maxWidth} / 100)`, `calc(${widthFromHeight} / 100)`],
-  ];
-
-  return classInfos.map(([value1, value2]) => `min(${value1}, ${value2})`);
+  return {
+    width: `min(${maxWidth}, ${widthFromHeight})`,
+    height: `min(${maxHeight}, ${heightFromWidth})`,
+    fontSize: `min(calc(${maxWidth} / 100), calc(${widthFromHeight} / 100))`,
+  };
 }
 
-const [smallWidth, smallHeight, smallText] = getScalingStrings(30.56, 20.51);
+const {
+  width: smallWidth,
+  height: smallHeight,
+  fontSize: smallFontSize,
+} = getScalingStrings(15.28, 10.255);
 
 /**
  * On screens that have very wide or very tall aspect ratios, we expand closer
  * to the narrow dimension, otherwise the content feels small.
  */
-const [stretchedWidth, stretchedHeight, stretchedText] = getScalingStrings(
-  10,
-  10
-);
+const {
+  width: stretchedWidth,
+  height: stretchedHeight,
+  fontSize: stretchedFontSize,
+} = getScalingStrings(5, 5);
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -66,8 +70,8 @@ module.exports = {
         stretchedBase: stretchedHeight,
       },
       fontSize: {
-        smBase: smallText,
-        stretchedBase: stretchedText,
+        smBase: smallFontSize,
+        stretchedBase: stretchedFontSize,
         xs: '1.2em',
         lg: '1.8em',
         '2xl': '2.4em',
