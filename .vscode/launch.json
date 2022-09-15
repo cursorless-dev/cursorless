@@ -109,7 +109,7 @@
 			"name": "Docusaurus Start (Debug)",
 			"type": "node",
 			"request": "launch",
-			"cwd": "${workspaceFolder}/website",
+			"cwd": "${workspaceFolder}/docs-site",
 			"runtimeExecutable": "npm",
 			"runtimeArgs": ["run", "start"],
 			"resolveSourceMapLocations": [
@@ -117,6 +117,18 @@
 				"!${workspaceFolder}/.vscode-sandbox/**",
 				"!**/node_modules/**"
 			]
+		},
+		{
+			"name": "cursorless.org client-side",
+			"type": "chrome",
+			"request": "launch",
+			"url": "http://localhost:4200",
+			"webRoot": "${workspaceFolder}/cursorless-nx",
+			"sourceMapPathOverrides": {
+				"webpack://_N_E/*": "${webRoot}/apps/cursorless-org/*",
+				"webpack://_N_E/libs/*": "${webRoot}/libs/*",
+				"webpack://_N_E/node_modules/*": "${webRoot}/node_modules/*"
+			}
 		}
 	]
 }

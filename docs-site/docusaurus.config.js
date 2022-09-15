@@ -34,7 +34,7 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
       // markdown representaiton as well as on our original files.
       // These are relative links that docusaurus already figured out
       // based on realative links to .md files
-      if (link.startsWith("/docs")) {
+      if (link.startsWith("/docs/")) {
         return;
       }
 
@@ -43,7 +43,7 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
       let artifactRelative = path.relative(repoRoot, artifact);
 
       // We host all files under docs, will resolve as a relative link
-      if (artifactRelative.startsWith("docs")) {
+      if (artifactRelative.startsWith("docs/")) {
         return;
       }
 
@@ -63,6 +63,7 @@ const config = {
   tagline: "Structural voice coding at the speed of thought",
   url: "https://www.cursorless.org",
   baseUrl: "/docs/",
+  favicon: "/docs/favicon.ico",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
   trailingSlash: true,
@@ -141,6 +142,9 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+      },
+      colorMode: {
+        respectPrefersColorScheme: true,
       },
       algolia: {
         appId: "YTJQ4I3GBJ",
