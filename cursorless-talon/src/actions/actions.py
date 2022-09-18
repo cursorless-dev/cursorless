@@ -16,7 +16,6 @@ mod = Module()
 @mod.capture(
     rule=(
         "{user.cursorless_simple_action} |"
-        "{user.cursorless_makeshift_action} |"
         "{user.cursorless_callback_action} |"
         "{user.cursorless_custom_action}"
     )

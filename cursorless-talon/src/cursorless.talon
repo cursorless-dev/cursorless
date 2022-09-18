@@ -1,5 +1,4 @@
 app: vscode
-app: visual_studio
 -
 
 <user.cursorless_action_or_ide_command> <user.cursorless_target>:
@@ -20,9 +19,7 @@ app: visual_studio
 <user.cursorless_wrapper> {user.cursorless_wrap_action} <user.cursorless_target>:
     user.cursorless_wrap(cursorless_wrap_action, cursorless_target, cursorless_wrapper)
 
-cursorless help:           user.cursorless_cheat_sheet_toggle()
-cursorless instructions:   user.cursorless_open_instructions()
-cursorless docks:          user.cursorless_open_instructions()
-cursorless reference:      user.cursorless_cheat_sheet_show_html()
-cursorless cheat sheet:    user.cursorless_cheat_sheet_show_html()
-cursorless settings:       user.show_cursorless_settings()
+{user.cursorless_homophone} settings:
+    user.run_rpc_command("workbench.action.openGlobalSettings")
+    sleep(250ms)
+    insert("cursorless")
