@@ -1,10 +1,12 @@
 import * as fs from "fs";
+import { readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
+import { merge } from "lodash";
 import * as path from "path";
 import * as vscode from "vscode";
 import HatTokenMap from "../core/HatTokenMap";
-import { Graph } from "../typings/Types";
 import { DecoratedSymbolMark } from "../typings/targetDescriptor.types";
+import { Graph } from "../typings/Types";
 import { getDocumentRange } from "../util/range";
 import sleep from "../util/sleep";
 import { extractTargetedMarks } from "./extractTargetedMarks";
@@ -180,47 +182,78 @@ export class TestCaseRecorder {
   }
 
   async start(arg?: RecordTestCaseCommandArg) {
+    const { directory, ...explicitConfig } = arg ?? {};
+
+    /**
+     * A list of paths of every parent directory between the root fixture
+     * directory and the user's chosen recording directory
+     */
+    let parentDirectories: string[];
+
+    if (directory != null) {
+      this.targetDirectory = directory;
+      parentDirectories = [directory];
+    } else {
+      this.targetDirectory = (await this.promptSubdirectory()) ?? null;
+
+      if (this.targetDirectory == null) {
+        return null;
+      }
+
+      const parentNames = path
+        .relative(this.fixtureRoot!, this.targetDirectory)
+        .split(path.sep);
+
+      parentDirectories = [this.fixtureRoot!];
+      let currentDirectory = this.fixtureRoot!;
+      for (const name of parentNames) {
+        currentDirectory = path.join(currentDirectory, name);
+        parentDirectories.push(currentDirectory);
+      }
+    }
+
+    // Look for a `config.json` file in ancestors of the recording directory,
+    // and merge it with the config provided when calling the command.
+    const config: RecordTestCaseCommandArg = merge(
+      {},
+      ...(await Promise.all(
+        parentDirectories.map((parent) =>
+          readJsonIfExists(path.join(parent, "config.json"))
+        )
+      )),
+      explicitConfig
+    );
+
     const {
       isHatTokenMapTest = false,
       isDecorationsTest = false,
-      directory,
       isSilent = false,
       extraSnapshotFields = [],
       showCalibrationDisplay = false,
       recordErrors: isErrorTest = false,
       captureFinalThatMark = false,
-    } = arg ?? {};
+    } = config;
 
-    if (directory != null) {
-      this.targetDirectory = directory;
-    } else {
-      this.targetDirectory = (await this.promptSubdirectory()) ?? null;
+    this.active = true;
+
+    if (showCalibrationDisplay) {
+      this.showCalibrationDisplay();
     }
+    this.startTimestamp = process.hrtime.bigint();
+    const timestampISO = new Date().toISOString();
+    this.isHatTokenMapTest = isHatTokenMapTest;
+    this.captureFinalThatMark = captureFinalThatMark;
+    this.isDecorationsTest = isDecorationsTest;
+    this.isSilent = isSilent;
+    this.extraSnapshotFields = extraSnapshotFields;
+    this.isErrorTest = isErrorTest;
+    this.paused = false;
 
-    this.active = this.targetDirectory != null;
+    vscode.window.showInformationMessage(
+      `Recording test cases for following commands in:\n${this.targetDirectory}`
+    );
 
-    if (this.active) {
-      if (showCalibrationDisplay) {
-        this.showCalibrationDisplay();
-      }
-      this.startTimestamp = process.hrtime.bigint();
-      const timestampISO = new Date().toISOString();
-      this.isHatTokenMapTest = isHatTokenMapTest;
-      this.captureFinalThatMark = captureFinalThatMark;
-      this.isDecorationsTest = isDecorationsTest;
-      this.isSilent = isSilent;
-      this.extraSnapshotFields = extraSnapshotFields;
-      this.isErrorTest = isErrorTest;
-      this.paused = false;
-
-      vscode.window.showInformationMessage(
-        `Recording test cases for following commands in:\n${this.targetDirectory}`
-      );
-
-      return { startTimestampISO: timestampISO };
-    }
-
-    return null;
+    return { startTimestampISO: timestampISO };
   }
 
   async showCalibrationDisplay() {
@@ -405,4 +438,22 @@ function camelize(str: string) {
 
 function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+async function readJsonIfExists(
+  path: string
+): Promise<RecordTestCaseCommandArg> {
+  let rawText: string;
+
+  try {
+    rawText = await readFile(path, { encoding: "utf-8" });
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
+      return {};
+    }
+
+    throw err;
+  }
+
+  return JSON.parse(rawText);
 }

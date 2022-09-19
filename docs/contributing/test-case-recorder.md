@@ -51,6 +51,18 @@ We support testing our decoration highlights, eg the flash of red when something
   actions.user.vscode_with_plugin("cursorless.recordTestCase", {"isDecorationsTest": True})
 ```
 
+#### Testing the returned `that` mark
+
+By default, we don't capture the `that` mark returned by a command, unless the test is being recorded in the `actions/` directory of the recorded tests. If you'd like to capture the returned `that` mark when recording a test somewhere else, you can do something like
+
+```
+  actions.user.vscode_with_plugin("cursorless.recordTestCase", {"captureFinalThatMark": True})
+```
+
+### Default config per test case directory
+
+Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../src/test/suite/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark.
+
 ## Recording new tests
 
 1. Start debugging (F5)
