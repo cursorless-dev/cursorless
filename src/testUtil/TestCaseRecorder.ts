@@ -57,6 +57,11 @@ interface RecordTestCaseCommandArg {
    * which do not error.
    */
   recordErrors?: boolean;
+
+  /**
+   * Whether to capture the `that` mark returned by the action.
+   */
+  captureFinalThatMark?: boolean;
 }
 
 export class TestCaseRecorder {
@@ -77,6 +82,7 @@ export class TestCaseRecorder {
   private calibrationStyle = vscode.window.createTextEditorDecorationType({
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
+  private captureFinalThatMark: boolean = false;
 
   constructor(private graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
@@ -182,6 +188,7 @@ export class TestCaseRecorder {
       extraSnapshotFields = [],
       showCalibrationDisplay = false,
       recordErrors: isErrorTest = false,
+      captureFinalThatMark = false,
     } = arg ?? {};
 
     if (directory != null) {
@@ -199,6 +206,7 @@ export class TestCaseRecorder {
       this.startTimestamp = process.hrtime.bigint();
       const timestampISO = new Date().toISOString();
       this.isHatTokenMapTest = isHatTokenMapTest;
+      this.captureFinalThatMark = captureFinalThatMark;
       this.isDecorationsTest = isDecorationsTest;
       this.isSilent = isSilent;
       this.extraSnapshotFields = extraSnapshotFields;
@@ -253,6 +261,7 @@ export class TestCaseRecorder {
         this.isHatTokenMapTest,
         this.isDecorationsTest,
         this.startTimestamp!,
+        this.captureFinalThatMark,
         this.extraSnapshotFields
       );
       await this.testCase.recordInitialState();

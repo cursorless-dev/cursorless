@@ -96,6 +96,7 @@ export class TestCase {
     private isHatTokenMapTest: boolean = false,
     private isDecorationsTest: boolean = false,
     private startTimestamp: bigint,
+    private captureFinalThatMark: boolean,
     private extraSnapshotFields?: ExtraSnapshotField[]
   ) {
     const activeEditor = vscode.window.activeTextEditor!;
@@ -149,8 +150,8 @@ export class TestCase {
     return false;
   }
 
-  private getExcludedFields(context?: { initialSnapshot?: boolean }) {
-    const clipboardActions: ActionType[] = context?.initialSnapshot
+  private getExcludedFields(isInitialSnapshot: boolean) {
+    const clipboardActions: ActionType[] = isInitialSnapshot
       ? ["pasteFromClipboard"]
       : ["copyToClipboard", "cutToClipboard"];
 
@@ -165,15 +166,17 @@ export class TestCase {
     const excludableFields = {
       clipboard: !clipboardActions.includes(this.command.action.name),
       thatMark:
-        context?.initialSnapshot &&
-        !this.fullTargets.some((target) =>
-          this.includesThatMark(target, "that")
-        ),
+        (!isInitialSnapshot && !this.captureFinalThatMark) ||
+        (isInitialSnapshot &&
+          !this.fullTargets.some((target) =>
+            this.includesThatMark(target, "that")
+          )),
       sourceMark:
-        context?.initialSnapshot &&
-        !this.fullTargets.some((target) =>
-          this.includesThatMark(target, "source")
-        ),
+        (!isInitialSnapshot && !this.captureFinalThatMark) ||
+        (isInitialSnapshot &&
+          !this.fullTargets.some((target) =>
+            this.includesThatMark(target, "source")
+          )),
       visibleRanges: !visibleRangeActions.includes(this.command.action.name),
     };
 
@@ -204,7 +207,7 @@ export class TestCase {
   }
 
   async recordInitialState() {
-    const excludeFields = this.getExcludedFields({ initialSnapshot: true });
+    const excludeFields = this.getExcludedFields(true);
     this.initialState = await takeSnapshot(
       this.context.thatMark,
       this.context.sourceMark,
@@ -216,7 +219,7 @@ export class TestCase {
   }
 
   async recordFinalState(returnValue: unknown) {
-    const excludeFields = this.getExcludedFields();
+    const excludeFields = this.getExcludedFields(false);
     this.returnValue = returnValue;
     this.finalState = await takeSnapshot(
       this.context.thatMark,
