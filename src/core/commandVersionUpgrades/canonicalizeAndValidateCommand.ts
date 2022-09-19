@@ -25,7 +25,7 @@ import { upgradeV1ToV2 } from "./upgradeV1ToV2";
  * @returns The normalized command argument
  */
 export function canonicalizeAndValidateCommand(
-  command: Command
+  command: Command,
 ): CommandComplete {
   const commandUpgraded = upgradeCommand(command);
   const {
@@ -68,7 +68,7 @@ function upgradeCommand(command: Command): CommandLatest {
         break;
       default:
         throw new Error(
-          `Can't upgrade from unknown version ${command.version}`
+          `Can't upgrade from unknown version ${command.version}`,
         );
     }
   }
@@ -82,27 +82,27 @@ function upgradeCommand(command: Command): CommandLatest {
 
 export function validateCommand(
   actionName: ActionType,
-  partialTargets: PartialTargetDescriptor[]
+  partialTargets: PartialTargetDescriptor[],
 ) {
   if (
     usesScopeType("notebookCell", partialTargets) &&
     !["editNewLineBefore", "editNewLineAfter"].includes(actionName)
   ) {
     throw new Error(
-      "The notebookCell scope type is currently only supported with the actions editNewLineAbove and editNewLineBelow"
+      "The notebookCell scope type is currently only supported with the actions editNewLineAbove and editNewLineBelow",
     );
   }
 }
 
 function usesScopeType(
   scopeTypeType: SimpleScopeTypeType,
-  partialTargets: PartialTargetDescriptor[]
+  partialTargets: PartialTargetDescriptor[],
 ) {
   return getPartialPrimitiveTargets(partialTargets).some((partialTarget) =>
     partialTarget.modifiers?.find(
       (mod: Modifier) =>
         (mod.type === "containingScope" || mod.type === "everyScope") &&
-        mod.scopeType.type === scopeTypeType
-    )
+        mod.scopeType.type === scopeTypeType,
+    ),
   );
 }

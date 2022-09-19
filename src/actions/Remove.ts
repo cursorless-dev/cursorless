@@ -13,7 +13,7 @@ export default class Delete implements Action {
 
   async run(
     [targets]: [Target[]],
-    { showDecorations = true } = {}
+    { showDecorations = true } = {},
   ): Promise<ActionReturnValue> {
     // Unify overlapping targets because of overlapping leading and trailing delimiters.
     targets = unifyRemovalTargets(targets);
@@ -22,7 +22,7 @@ export default class Delete implements Action {
       await this.graph.editStyles.displayPendingEditDecorations(
         targets,
         this.graph.editStyles.pendingDelete,
-        (target) => target.getRemovalHighlightRange()
+        (target) => target.getRemovalHighlightRange(),
       );
     }
 
@@ -35,11 +35,11 @@ export default class Delete implements Action {
           this.graph.rangeUpdater,
           editor,
           edits,
-          [ranges]
+          [ranges],
         );
 
         return createThatMark(targets, updatedRanges);
-      })
+      }),
     );
 
     return { thatMark };

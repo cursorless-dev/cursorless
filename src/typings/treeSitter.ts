@@ -7,7 +7,7 @@ declare module "web-tree-sitter" {
     parse(
       input: string | Parser.Input,
       previousTree?: Parser.Tree,
-      options?: Parser.Options
+      options?: Parser.Options,
     ): Parser.Tree;
     getLanguage(): any;
     setLanguage(language: any): void;
@@ -45,13 +45,13 @@ declare module "web-tree-sitter" {
     export type Logger = (
       message: string,
       params: { [param: string]: string },
-      type: "parse" | "lex"
+      type: "parse" | "lex",
     ) => void;
 
     export type Input = (
       startIndex: number,
       startPoint?: Point,
-      endIndex?: number
+      endIndex?: number,
     ) => string | null;
 
     export interface SyntaxNode {
@@ -93,19 +93,19 @@ declare module "web-tree-sitter" {
       descendantsOfType(
         type: string | Array<string>,
         startPosition?: Point,
-        endPosition?: Point
+        endPosition?: Point,
       ): Array<SyntaxNode>;
       namedDescendantForIndex(index: number): SyntaxNode;
       namedDescendantForIndex(startIndex: number, endIndex: number): SyntaxNode;
       descendantForPosition(position: Point): SyntaxNode;
       descendantForPosition(
         startPosition: Point,
-        endPosition: Point
+        endPosition: Point,
       ): SyntaxNode;
       namedDescendantForPosition(position: Point): SyntaxNode;
       namedDescendantForPosition(
         startPosition: Point,
-        endPosition: Point
+        endPosition: Point,
       ): SyntaxNode;
 
       walk(): TreeCursor;
@@ -181,12 +181,12 @@ declare module "web-tree-sitter" {
       matches(
         node: SyntaxNode,
         startPosition?: Point,
-        endPosition?: Point
+        endPosition?: Point,
       ): QueryMatch[];
       captures(
         node: SyntaxNode,
         startPosition?: Point,
-        endPosition?: Point
+        endPosition?: Point,
       ): QueryCapture[];
       predicatesForPattern(patternIndex: number): PredicateResult[];
     }

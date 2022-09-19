@@ -60,7 +60,7 @@ const defaultLanguageTokenizerComponents: LanguageTokenizerComponents = {
 const defaultTokenMatcher = generateTokenMatcher();
 
 function generateTokenMatcher(
-  languageOverrides: LanguageTokenizerOverrides = {}
+  languageOverrides: LanguageTokenizerOverrides = {},
 ): RegExp {
   const {
     fixedTokens,
@@ -102,7 +102,7 @@ const languageTokenizerOverrides: Partial<
 
 const tokenMatchersForLanguage: Partial<Record<LanguageId, RegExp>> = mapValues(
   languageTokenizerOverrides,
-  (val: LanguageTokenizerComponents) => generateTokenMatcher(val)
+  (val: LanguageTokenizerComponents) => generateTokenMatcher(val),
 );
 
 export function getTokenMatcher(languageId: string): RegExp {
@@ -115,7 +115,7 @@ export function getTokenMatcher(languageId: string): RegExp {
 export function tokenize<T>(
   text: string,
   languageId: string,
-  mapfn: (v: RegExpMatchArray, k: number) => T
+  mapfn: (v: RegExpMatchArray, k: number) => T,
 ) {
   return matchAll(text, getTokenMatcher(languageId), mapfn);
 }

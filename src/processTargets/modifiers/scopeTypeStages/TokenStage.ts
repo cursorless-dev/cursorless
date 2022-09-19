@@ -21,7 +21,7 @@ export default class implements ModifierStage {
 
   private getEveryTarget(
     context: ProcessedTargetsContext,
-    target: Target
+    target: Target,
   ): TokenTarget[] {
     const { contentRange, editor } = target;
     const start = target.hasExplicitRange
@@ -33,12 +33,12 @@ export default class implements ModifierStage {
     const range = new Range(start, end);
 
     const targets = getTokensInRange(editor, range).map(({ range }) =>
-      this.getTargetFromRange(target, range)
+      this.getTargetFromRange(target, range),
     );
 
     if (targets.length === 0) {
       throw new Error(
-        `Couldn't find containing ${this.modifier.scopeType.type}`
+        `Couldn't find containing ${this.modifier.scopeType.type}`,
       );
     }
 
@@ -68,7 +68,7 @@ export default class implements ModifierStage {
  */
 export function getTokenRangeForSelection(
   editor: TextEditor,
-  range: Range
+  range: Range,
 ): Range {
   let tokens = getTokenIntersectionsForSelection(editor, range);
   // Use single token for overlapping or adjacent range
@@ -115,7 +115,7 @@ export function getTokenRangeForSelection(
  */
 export function getTokenIntersectionsForSelection(
   editor: TextEditor,
-  range: Range
+  range: Range,
 ) {
   const tokens = getRelevantTokens(editor, range);
 
@@ -144,12 +144,12 @@ function getRelevantTokens(editor: TextEditor, range: Range) {
 
   const tokens = getTokensInRange(
     editor,
-    editor.document.lineAt(startLine).range
+    editor.document.lineAt(startLine).range,
   );
 
   if (endLine !== startLine) {
     tokens.push(
-      ...getTokensInRange(editor, editor.document.lineAt(endLine).range)
+      ...getTokensInRange(editor, editor.document.lineAt(endLine).range),
     );
   }
 

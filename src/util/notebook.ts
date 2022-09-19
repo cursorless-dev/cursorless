@@ -24,10 +24,10 @@ export function getNotebookFromCellDocument(document: TextDocument) {
         (notebookEditor.document.getCells() as NotebookCell[]).map((cell) => ({
           notebookEditor,
           cell,
-        }))
+        })),
       )
       .find(
-        ({ cell }) => cell.document.uri.toString() === document.uri.toString()
+        ({ cell }) => cell.document.uri.toString() === document.uri.toString(),
       ) ?? {};
 
   return notebookEditor;
@@ -42,11 +42,11 @@ export function getNotebookFromCellDocument(document: TextDocument) {
  */
 export function getCellIndex(
   notebookDocument: NotebookDocument,
-  document: TextDocument
+  document: TextDocument,
 ) {
   return notebookDocument
     .getCells()
     .findIndex(
-      (cell) => cell.document.uri.toString() === document.uri.toString()
+      (cell) => cell.document.uri.toString() === document.uri.toString(),
     );
 }

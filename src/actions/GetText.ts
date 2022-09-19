@@ -13,12 +13,12 @@ export default class GetText implements Action {
     {
       showDecorations = true,
       ensureSingleTarget: doEnsureSingleTarget = false,
-    } = {}
+    } = {},
   ): Promise<ActionReturnValue> {
     if (showDecorations) {
       await this.graph.editStyles.displayPendingEditDecorations(
         targets,
-        this.graph.editStyles.referenced
+        this.graph.editStyles.referenced,
       );
     }
 

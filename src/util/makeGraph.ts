@@ -9,7 +9,7 @@ function makeGetter<GraphType, K extends keyof GraphType>(
   components: Partial<GraphType>,
   factoryMap: FactoryMap<GraphType>,
   lockedKeys: K[],
-  key: K
+  key: K,
 ): () => GraphType[K] {
   return () => {
     let returnValue: GraphType[K];
@@ -17,7 +17,7 @@ function makeGetter<GraphType, K extends keyof GraphType>(
     if (components[key] == null) {
       if (lockedKeys.includes(key)) {
         const cycle = [...lockedKeys.slice(lockedKeys.indexOf(key)), key].join(
-          " -> "
+          " -> ",
         );
         throw new Error(`Dependency injection graph cycle detected: ${cycle}`);
       }
@@ -37,7 +37,7 @@ function makeGetter<GraphType, K extends keyof GraphType>(
 }
 
 export default function makeGraph<GraphType extends object>(
-  factoryMap: FactoryMap<GraphType>
+  factoryMap: FactoryMap<GraphType>,
 ) {
   const components: Partial<GraphType> = {};
   const graph: Partial<GraphType> = {};
@@ -50,7 +50,7 @@ export default function makeGraph<GraphType extends object>(
         components,
         factoryMap,
         lockedKeys,
-        key as keyof GraphType
+        key as keyof GraphType,
       ),
 
       // NB: If we're testing, we make property mutable to allow mocking
