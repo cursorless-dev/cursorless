@@ -24,10 +24,4 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-  thatMark:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 11}
-  sourceMark:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 11}
 fullTargets: [{type: primitive, mark: {type: that}, modifiers: []}]
