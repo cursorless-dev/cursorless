@@ -20,18 +20,18 @@ We don't want to commit this so please add it to your own Talon user file set.
 
 ### Configuring the test case Recorder
 
-The test case recorder has several additional configuration options. The default configuration works for most tests, but you may find the following useful.
+The test case recorder has several additional configuration options. The default configuration works for most tests, but you may find the following useful. For a full list of supported configuration options, see [the api docs](../api/interfaces/testutil_testcaserecorder.internal.recordtestcasecommandarg/).
 
 #### Testing the hat map
 
 We have a way to test that the hats in the hat map update correctly during the course of a single phrase. These tests are also how we usually test our [range updating code](../api/modules/core_updateSelections_updateSelections).
 
-Please add the following to your personal talon files:
+Any tests recorded in the `hatTokenMap` directory will automatically be treated as hat token map tests. To initiate a series of hat token map tests in another directory, please add the following to your personal talon files:
 
 - https://github.com/pokey/pokey_talon/blob/9298c25dd6d28fd9fcf5ed39f305bc6b93e5f229/apps/vscode/vscode.talon#L468
 - https://github.com/pokey/pokey_talon/blob/49643bfa8f62cbec18b5ddad1658f5a28785eb01/apps/vscode/vscode.py#L203-L205
 
-It is quite unlikely you'll need this second step. Most tests don't check the navigation map.
+When recording each test case for the hat token map, you'll need to proceed as described in [Navigation map tests](#navigation-map-tests).
 
 #### Capturing errors
 
@@ -45,7 +45,9 @@ Please add a command to your personal talon files. See the two files links above
 
 #### Testing decoration highlights
 
-We support testing our decoration highlights, eg the flash of red when something is deleted. If you'd like to be able to record tests which check our decoration highlights, please add another command to your personal talon files. See the two files links above for context. Add the command below to your to your `vscode.py` and ensure that there is a matching Talon command.
+We support testing our decoration highlights, eg the flash of red when something is deleted. If you record tests into the `decorations/` directory, these will automatically be captured.
+
+If you'd like to record decorations when recording into a different directory, please add another command to your personal talon files. See the two files links above for context. Add the command below to your to your `vscode.py` and ensure that there is a matching Talon command.
 
 ```
   actions.user.vscode_with_plugin("cursorless.recordTestCase", {"isDecorationsTest": True})
@@ -61,7 +63,7 @@ By default, we don't capture the `that` mark returned by a command, unless the t
 
 ### Default config per test case directory
 
-Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../src/test/suite/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark.
+Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../src/test/suite/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark. For a full list of keys supported in this json, see [the api docs](../api/interfaces/testutil_testcaserecorder.internal.recordtestcasecommandarg/).
 
 ## Recording new tests
 
