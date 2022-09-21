@@ -29,10 +29,9 @@ export type SelectionPlainObject = {
  */
 export type TargetPlainObject = {
   /**
-   * The type name of the target, eg `UntypedTarget`. If excluded, assumed to be
-   * `"UntypedTarget"`.
+   * The type name of the target, eg `UntypedTarget`.
    */
-  type?: string;
+  type: string;
 
   /**
    * Corresponds to {@link Target.contentRange}
@@ -40,36 +39,15 @@ export type TargetPlainObject = {
   contentRange: RangePlainObject;
 
   /**
-   * Corresponds to {@link Target.isReversed}.  If excluded, assumed to be `false`.
+   * Corresponds to {@link Target.isReversed}.
    */
-  isReversed?: boolean;
+  isReversed: boolean;
 
   /**
-   * Corresponds to {@link Target.hasExplicitRange}.  If excluded, assumed to
-   * be `true`.
+   * Corresponds to {@link Target.hasExplicitRange}.
    */
-  hasExplicitRange?: boolean;
+  hasExplicitRange: boolean;
 };
-
-/**
- * Returns an object including only the optional fields of {@link T}
- */
-type GetOptional<T> = {
-  [K in keyof T as Pick<T, K> extends Required<Pick<T, K>> ? never : K]: T[K];
-};
-
-/**
- * For concision, any fields in a {@link TargetPlainObject} which are equal to
- * the default value from this object will be excluded from serialisation.  We
- * re-insert these default values during deserialisation.
- */
-export const TARGET_DEFAULTS: Required<GetOptional<TargetPlainObject>> = {
-  type: "UntypedTarget",
-  isReversed: false,
-  hasExplicitRange: true,
-};
-
-export type KeyWithDefault = Exclude<keyof typeof TARGET_DEFAULTS, "type">;
 
 export type SerializedMarks = {
   [decoratedCharacter: string]: RangePlainObject;
@@ -98,28 +76,16 @@ export function selectionToPlainObject(
  * object is not an un typed target if it is not, via the {@link type}
  * attribute.
  *
- * Note that we exclude any attributes that are equal to their value in
- * {@link TARGET_DEFAULTS} for concision.
- *
  * @param target The target to convert to a plain object
  * @returns A plain object that can be json serialized
  */
 export function targetToPlainObject(target: Target): TargetPlainObject {
-  const returnValue = {
+  return {
     type: target.constructor.name,
     contentRange: rangeToPlainObject(target.contentRange),
     isReversed: target.isReversed,
     hasExplicitRange: target.hasExplicitRange,
   };
-
-  // To remove any entries that are equal to their defaults for concision
-  for (const [key, defaultValue] of Object.entries(TARGET_DEFAULTS)) {
-    if (returnValue[key as KeyWithDefault] === defaultValue) {
-      delete returnValue[key as KeyWithDefault];
-    }
-  }
-
-  return returnValue;
 }
 
 export function positionToPlainObject({

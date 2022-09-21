@@ -6,7 +6,6 @@ import {
   RangePlainObject,
   SelectionPlainObject,
   TargetPlainObject,
-  TARGET_DEFAULTS,
 } from "./toPlainObject";
 
 /**
@@ -19,22 +18,19 @@ import {
  * exception if we try to rehydrate anything other than an `UntypedTarget`.
  *
  * @param editor The editor where the target ranges are defined
- * @param partialPlainObject A plain object describing a `Target`
+ * @param plainObject A plain object describing a `Target`
  * @returns A `Target` constructed from the given plain object
  */
 export function plainObjectToTarget(
   editor: TextEditor,
-  partialPlainObject: TargetPlainObject
+  plainObject: TargetPlainObject
 ): Target {
-  const plainObject = { ...TARGET_DEFAULTS, ...partialPlainObject };
-
-  const contentRange = plainObjectToRange(plainObject.contentRange);
   switch (plainObject.type) {
     case "UntypedTarget":
       return new UntypedTarget({
         editor,
         isReversed: plainObject.isReversed,
-        contentRange,
+        contentRange: plainObjectToRange(plainObject.contentRange),
         hasExplicitRange: plainObject.hasExplicitRange,
       });
     default:
