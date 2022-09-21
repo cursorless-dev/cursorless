@@ -22,8 +22,12 @@ finalState:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
   thatMark:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 4}
+        end: {line: 0, character: 4}
+      isReversed: false
+      hasExplicitRange: false
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]
 decorations:
   - name: justAddedBackground

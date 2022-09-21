@@ -38,8 +38,16 @@ finalState:
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 20}
   thatMark:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 12}
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 29}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 6}
+        end: {line: 0, character: 12}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 24}
+        end: {line: 0, character: 29}
+      isReversed: false
+      hasExplicitRange: true
 fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]}]

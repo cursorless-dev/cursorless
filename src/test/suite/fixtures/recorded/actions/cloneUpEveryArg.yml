@@ -21,13 +21,29 @@ finalState:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}
   thatMark:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 25}
-    - anchor: {line: 0, character: 38}
-      active: {line: 0, character: 47}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 16}
+        end: {line: 0, character: 25}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 38}
+        end: {line: 0, character: 47}
+      isReversed: false
+      hasExplicitRange: true
   sourceMark:
-    - anchor: {line: 0, character: 27}
-      active: {line: 0, character: 36}
-    - anchor: {line: 0, character: 49}
-      active: {line: 0, character: 58}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 27}
+        end: {line: 0, character: 36}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 49}
+        end: {line: 0, character: 58}
+      isReversed: false
+      hasExplicitRange: true
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: argumentOrParameter}}]}]
