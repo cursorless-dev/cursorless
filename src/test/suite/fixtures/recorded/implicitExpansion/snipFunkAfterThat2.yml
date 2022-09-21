@@ -21,8 +21,12 @@ initialState:
       active: {line: 0, character: 0}
   marks: {}
   thatMark:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 15}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 10}
+        end: {line: 1, character: 15}
+      isReversed: false
+      hasExplicitRange: true
 finalState:
   documentContents: |-
     function whatever() {

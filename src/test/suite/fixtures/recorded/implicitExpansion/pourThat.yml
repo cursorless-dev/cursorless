@@ -16,8 +16,12 @@ initialState:
       active: {line: 2, character: 0}
   marks: {}
   thatMark:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 6}
+        end: {line: 0, character: 6}
+      isReversed: false
+      hasExplicitRange: false
 finalState:
   documentContents: |+
     hello world

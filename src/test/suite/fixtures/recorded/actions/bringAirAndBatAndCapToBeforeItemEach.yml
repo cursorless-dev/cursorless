@@ -50,13 +50,29 @@ finalState:
     - anchor: {line: 5, character: 0}
       active: {line: 5, character: 0}
   thatMark:
-    - anchor: {line: 4, character: 16}
-      active: {line: 4, character: 23}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 4, character: 16}
+        end: {line: 4, character: 23}
+      isReversed: false
+      hasExplicitRange: true
   sourceMark:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 1}
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 1}
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 1}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 1}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 0}
+        end: {line: 1, character: 1}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 0}
+        end: {line: 2, character: 1}
+      isReversed: false
+      hasExplicitRange: true
 fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, selectionType: token, position: before, insideOutsideType: null, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}}]

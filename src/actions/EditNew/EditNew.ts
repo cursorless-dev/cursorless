@@ -50,7 +50,7 @@ export class EditNew implements Action {
     await setSelectionsAndFocusEditor(editor, newSelections);
 
     return {
-      thatMark: createThatMark(state.targets, state.thatRanges),
+      thatSelections: createThatMark(state.targets, state.thatRanges),
     };
   }
 }

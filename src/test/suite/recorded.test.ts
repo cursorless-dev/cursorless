@@ -5,6 +5,7 @@ import * as vscode from "vscode";
 import HatTokenMap from "../../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
+import { plainObjectToTarget } from "../../testUtil/fromPlainObject";
 import serialize from "../../testUtil/serialize";
 import {
   ExcludableSnapshotField,
@@ -78,18 +79,17 @@ async function runTest(file: string) {
   editor.selections = fixture.initialState.selections.map(createSelection);
 
   if (fixture.initialState.thatMark) {
-    const initialThatMark = fixture.initialState.thatMark.map((mark) => ({
-      selection: createSelection(mark),
-      editor,
-    }));
-    cursorlessApi.thatMark.set(initialThatMark);
+    const initialThatTargets = fixture.initialState.thatMark.map((mark) =>
+      plainObjectToTarget(editor, mark)
+    );
+    cursorlessApi.thatMark.set(initialThatTargets);
   }
+
   if (fixture.initialState.sourceMark) {
-    const initialSourceMark = fixture.initialState.sourceMark.map((mark) => ({
-      selection: createSelection(mark),
-      editor,
-    }));
-    cursorlessApi.sourceMark.set(initialSourceMark);
+    const initialSourceTargets = fixture.initialState.sourceMark.map((mark) =>
+      plainObjectToTarget(editor, mark)
+    );
+    cursorlessApi.sourceMark.set(initialSourceTargets);
   }
 
   if (fixture.initialState.clipboard) {

@@ -1,9 +1,9 @@
-import { Target } from "../../typings/target.types";
+import type { Target } from "../../typings/target.types";
 import type { CursorMark } from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
+import type { ProcessedTargetsContext } from "../../typings/Types";
 import { isReversed } from "../../util/selectionUtils";
-import { MarkStage } from "../PipelineStages.types";
-import UntypedTarget from "../targets/UntypedTarget";
+import type { MarkStage } from "../PipelineStages.types";
+import { UntypedTarget } from "../targets";
 
 export default class CursorStage implements MarkStage {
   constructor(private modifier: CursorMark) {}

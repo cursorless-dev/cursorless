@@ -61,7 +61,7 @@ export default class ToggleBreakpoint implements Action {
     debug.removeBreakpoints(toRemove);
 
     return {
-      thatMark: createThatMark(thatTargets),
+      thatSelections: createThatMark(thatTargets),
     };
   }
 }

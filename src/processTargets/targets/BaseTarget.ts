@@ -1,9 +1,9 @@
 import { isEqual } from "lodash";
 import { Range, Selection, TextEditor } from "vscode";
 import { NoContainingScopeError } from "../../errors";
-import { EditNewContext, Target } from "../../typings/target.types";
-import { Position } from "../../typings/targetDescriptor.types";
-import { EditWithRangeUpdater } from "../../typings/Types";
+import type { EditNewContext, Target } from "../../typings/target.types";
+import type { Position } from "../../typings/targetDescriptor.types";
+import type { EditWithRangeUpdater } from "../../typings/Types";
 import { selectionFromRange } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
 import { toPositionTarget } from "../modifiers/toPositionTarget";

@@ -129,6 +129,6 @@ export default class CommandAction implements Action {
       await focusEditor(originalEditor);
     }
 
-    return { thatMark };
+    return { thatSelections: thatMark };
   }
 }

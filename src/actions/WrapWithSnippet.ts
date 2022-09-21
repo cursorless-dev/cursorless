@@ -88,7 +88,7 @@ export default class WrapWithSnippet implements Action {
     );
 
     return {
-      thatMark: updatedTargetSelections.map((selection) => ({
+      thatSelections: updatedTargetSelections.map((selection) => ({
         editor,
         selection,
       })),
