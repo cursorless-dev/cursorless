@@ -164,6 +164,14 @@ async function runTest(file: string) {
     excludeFields.push("clipboard");
   }
 
+  if (fixture.finalState!.thatMark == null) {
+    excludeFields.push("thatMark");
+  }
+
+  if (fixture.finalState!.sourceMark == null) {
+    excludeFields.push("sourceMark");
+  }
+
   // TODO Visible ranges are not asserted, see:
   // https://github.com/cursorless-dev/cursorless/issues/160
   const { visibleRanges, ...resultState } = await takeSnapshot(
