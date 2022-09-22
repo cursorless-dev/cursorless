@@ -171,10 +171,13 @@ export default class OrdinalRangeStage implements ModifierStage {
     const { isReversed, ...rest } = (() => {
       if (this.modifier.isRelative) {
         const isReversed = active < anchor;
+        const start = isReversed ? active : anchor;
+        const end = isReversed ? anchor : active;
         return {
           isReversed,
-          startIndex: relativeStartIndex! + (isReversed ? active : anchor),
-          endIndex: relativeEndIndex! + (isReversed ? anchor : active),
+          startIndex:
+            start + (start < 0 ? relativeStartIndex! : relativeEndIndex!),
+          endIndex: end + (end < 0 ? relativeStartIndex! : relativeEndIndex!),
         };
       }
 
