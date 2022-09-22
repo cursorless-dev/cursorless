@@ -177,7 +177,6 @@ export interface EveryScopeModifier {
 }
 
 export interface OrdinalRangeModifier {
-  type: "ordinalRange";
   scopeType: ScopeType;
   anchor: number;
   active: number;
