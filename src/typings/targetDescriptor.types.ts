@@ -183,6 +183,8 @@ export interface OrdinalRangeModifier {
   active: number;
   excludeAnchor?: boolean;
   excludeActive?: boolean;
+  /* Whether to be relative to target or relative to iteration scope */
+  isRelative?: boolean;
 }
 /**
  * Converts its input to a raw selection with no type information so for

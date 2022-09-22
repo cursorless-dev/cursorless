@@ -14,9 +14,7 @@ import {
 import ItemStage from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import ModifyIfUntypedStage from "./modifiers/ModifyIfUntypedStage";
-import OrdinalRangeSubTokenStage, {
-  OrdinalRangeSubTokenModifier,
-} from "./modifiers/OrdinalRangeSubTokenStage";
+import OrdinalRangeStage from "./modifiers/OrdinalRangeStage";
 import PositionStage from "./modifiers/PositionStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
 import ContainingSyntaxScopeStage, {
@@ -27,9 +25,9 @@ import LineStage from "./modifiers/scopeTypeStages/LineStage";
 import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
 import ParagraphStage from "./modifiers/scopeTypeStages/ParagraphStage";
 import {
-  NonWhitespaceSequenceStage,
   CustomRegexModifier,
   CustomRegexStage,
+  NonWhitespaceSequenceStage,
   UrlStage,
 } from "./modifiers/scopeTypeStages/RegexStage";
 import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
@@ -58,14 +56,7 @@ export default (modifier: Modifier): ModifierStage => {
     case "everyScope":
       return getContainingScopeStage(modifier);
     case "ordinalRange":
-      if (!["word", "character"].includes(modifier.scopeType.type)) {
-        throw Error(
-          `Unsupported ordinal scope type ${modifier.scopeType.type}`
-        );
-      }
-      return new OrdinalRangeSubTokenStage(
-        modifier as OrdinalRangeSubTokenModifier
-      );
+      return new OrdinalRangeStage(modifier);
     case "cascading":
       return new CascadingStage(modifier);
     case "modifyIfUntyped":
