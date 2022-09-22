@@ -25,7 +25,4 @@ finalState:
   selections:
     - anchor: {line: 0, character: 27}
       active: {line: 0, character: 27}
-  thatMark:
-    - anchor: {line: 0, character: 18}
-      active: {line: 2, character: 1}
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: token}}]}]

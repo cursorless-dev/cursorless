@@ -33,8 +33,8 @@ class InsertCopy implements Action {
     );
 
     return {
-      sourceMark: results.flatMap(({ sourceMark }) => sourceMark),
-      thatMark: results.flatMap(({ thatMark }) => thatMark),
+      sourceSelections: results.flatMap(({ sourceMark }) => sourceMark),
+      thatSelections: results.flatMap(({ thatMark }) => thatMark),
     };
   }
 

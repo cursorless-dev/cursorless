@@ -1,8 +1,8 @@
 import { mapValues } from "lodash";
-import { SupportedLanguageId } from "../languages/constants";
+import { LanguageId, SupportedLanguageId } from "../languages/constants";
 
 import { matchAll } from "../util/regex";
-import { css } from "./languageTokenizers";
+import { languageWithDashedIdentifiers } from "./languageTokenizers";
 import {
   LanguageTokenizerComponents,
   LanguageTokenizerOverrides,
@@ -93,16 +93,17 @@ function generateTokenMatcher(
 }
 
 const languageTokenizerOverrides: Partial<
-  Record<SupportedLanguageId, LanguageTokenizerOverrides>
+  Record<LanguageId, LanguageTokenizerOverrides>
 > = {
-  css,
-  scss: css,
+  css: languageWithDashedIdentifiers,
+  scss: languageWithDashedIdentifiers,
+  shellscript: languageWithDashedIdentifiers,
 };
 
-const tokenMatchersForLanguage: Partial<Record<SupportedLanguageId, RegExp>> =
-  mapValues(languageTokenizerOverrides, (val: LanguageTokenizerComponents) =>
-    generateTokenMatcher(val)
-  );
+const tokenMatchersForLanguage: Partial<Record<LanguageId, RegExp>> = mapValues(
+  languageTokenizerOverrides,
+  (val: LanguageTokenizerComponents) => generateTokenMatcher(val)
+);
 
 export function getTokenMatcher(languageId: string): RegExp {
   return (

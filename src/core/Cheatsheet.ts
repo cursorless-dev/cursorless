@@ -25,11 +25,6 @@ interface CheatSheetCommandArg {
    * The file to write the cheatsheet to
    */
   outputPath: string;
-
-  /**
-   * Pass `true` here t oupdate `defaults.json` used for development
-   */
-  updateDefaults?: boolean;
 }
 
 export default class Cheatsheet {
@@ -39,6 +34,7 @@ export default class Cheatsheet {
     graph.extensionContext.subscriptions.push(this);
 
     this.showCheatsheet = this.showCheatsheet.bind(this);
+    this.updateDefaults = this.updateDefaults.bind(this);
   }
 
   init() {
@@ -46,6 +42,10 @@ export default class Cheatsheet {
       vscode.commands.registerCommand(
         "cursorless.showCheatsheet",
         this.showCheatsheet
+      ),
+      vscode.commands.registerCommand(
+        "cursorless.internal.updateCheatsheetDefaults",
+        this.updateDefaults
       )
     );
   }
@@ -54,7 +54,6 @@ export default class Cheatsheet {
     version,
     spokenFormInfo,
     outputPath,
-    updateDefaults = false,
   }: CheatSheetCommandArg) {
     if (version !== 0) {
       throw new Error(`Unsupported cheatsheet api version: ${version}`);
@@ -78,10 +77,6 @@ export default class Cheatsheet {
     ).textContent = `document.cheatsheetData = ${JSON.stringify(
       spokenFormInfo
     )};`;
-
-    if (updateDefaults) {
-      await this.updateDefaults(spokenFormInfo);
-    }
 
     await writeFile(outputPath, root.toString());
   }
@@ -116,7 +111,7 @@ export default class Cheatsheet {
       "defaults.json"
     );
 
-    await writeFile(defaultsPath, JSON.stringify(spokenFormInfo, null, 2));
+    await writeFile(defaultsPath, JSON.stringify(spokenFormInfo, null, "\t"));
   }
 
   dispose() {

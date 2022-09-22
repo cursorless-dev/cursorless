@@ -31,11 +31,19 @@ finalState:
     - anchor: {line: 0, character: 33}
       active: {line: 0, character: 33}
   thatMark:
-    - anchor: {line: 0, character: 26}
-      active: {line: 0, character: 37}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 26}
+        end: {line: 0, character: 37}
+      isReversed: false
+      hasExplicitRange: true
   sourceMark:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 24}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 13}
+        end: {line: 0, character: 24}
+      isReversed: false
+      hasExplicitRange: true
 decorations:
   - name: justAddedBackground
     type: token

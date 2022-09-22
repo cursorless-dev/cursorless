@@ -41,6 +41,15 @@
 				"reveal": "never"
 			},
 			"group": "build"
+		},
+		{
+			"label": "Serve cursorless.org",
+			"type": "shell",
+			"command": "nx serve cursorless-org",
+			"options": {
+				"cwd": "cursorless-nx"
+			},
+			"problemMatcher": []
 		}
 	]
 }

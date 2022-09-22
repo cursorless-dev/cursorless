@@ -8,6 +8,8 @@ import {
   SelectionPlainObject,
   selectionToPlainObject,
   SerializedMarks,
+  TargetPlainObject,
+  targetToPlainObject,
 } from "./toPlainObject";
 
 export type ExtraSnapshotField = keyof TestCaseSnapshot;
@@ -21,8 +23,8 @@ export type TestCaseSnapshot = {
   // https://github.com/cursorless-dev/cursorless/issues/160
   visibleRanges?: RangePlainObject[];
   marks?: SerializedMarks;
-  thatMark?: SelectionPlainObject[];
-  sourceMark?: SelectionPlainObject[];
+  thatMark?: TargetPlainObject[];
+  sourceMark?: TargetPlainObject[];
   timeOffsetSeconds?: number;
 
   /**
@@ -72,9 +74,7 @@ export async function takeSnapshot(
     thatMark.exists() &&
     !excludeFields.includes("thatMark")
   ) {
-    snapshot.thatMark = thatMark
-      .get()
-      .map((mark) => selectionToPlainObject(mark.selection));
+    snapshot.thatMark = thatMark.get().map(targetToPlainObject);
   }
 
   if (
@@ -82,9 +82,7 @@ export async function takeSnapshot(
     sourceMark.exists() &&
     !excludeFields.includes("sourceMark")
   ) {
-    snapshot.sourceMark = sourceMark
-      .get()
-      .map((mark) => selectionToPlainObject(mark.selection));
+    snapshot.sourceMark = sourceMark.get().map(targetToPlainObject);
   }
 
   if (extraFields.includes("timeOffsetSeconds")) {

@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import { tokenize } from "../../core/tokenizer";
 import { flatten, range } from "lodash";
-import { SupportedLanguageId } from "../../languages/constants";
+import { LanguageId } from "../../languages/constants";
 
 type TestCase = [string, string[]];
 /** Language-specific tokenizer test configuration object */
@@ -88,11 +88,24 @@ const cssDialectTokenizerTests: LanguageTokenizerTests = {
   exclusionPredicate: (input: string) => !!input.match("-"),
 };
 
+const shellScriptDialectTokenizerTests: LanguageTokenizerTests = {
+  additionalTests: [
+    ["--commit-hooks", ["--commit-hooks"]],
+    [
+      "patch --force --commit-hooks $MY_SNAKE_VAR",
+      ["patch", "--force", "--commit-hooks", "$", "MY_SNAKE_VAR"],
+    ],
+  ],
+  // Leave kebab and dashes to css language specific tests.
+  exclusionPredicate: (input: string) => !!input.match("-"),
+};
+
 const languageTokenizerTests: Partial<
-  Record<SupportedLanguageId, LanguageTokenizerTests>
+  Record<LanguageId, LanguageTokenizerTests>
 > = {
   css: cssDialectTokenizerTests,
   scss: cssDialectTokenizerTests,
+  shellscript: shellScriptDialectTokenizerTests,
 };
 
 suite("tokenizer", () => {

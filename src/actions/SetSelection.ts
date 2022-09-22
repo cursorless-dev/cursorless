@@ -21,7 +21,7 @@ export class SetSelection implements Action {
     await setSelectionsAndFocusEditor(editor, selections);
 
     return {
-      thatMark: createThatMark(targets),
+      thatSelections: createThatMark(targets),
     };
   }
 }

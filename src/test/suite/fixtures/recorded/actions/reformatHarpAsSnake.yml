@@ -27,7 +27,11 @@ finalState:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   thatMark:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 25}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 15}
+        end: {line: 1, character: 25}
+      isReversed: false
+      hasExplicitRange: true
 returnValue: [helloWorld]
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

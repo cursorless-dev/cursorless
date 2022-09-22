@@ -229,7 +229,7 @@ export default class GenerateSnippet implements Action {
     });
 
     return {
-      thatMark: targets.map(({ editor, contentSelection }) => ({
+      thatSelections: targets.map(({ editor, contentSelection }) => ({
         editor,
         selection: contentSelection,
       })),
