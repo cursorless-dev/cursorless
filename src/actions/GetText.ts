@@ -1,6 +1,6 @@
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { createThatMark, ensureSingleTarget } from "../util/targetUtils";
+import { ensureSingleTarget } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class GetText implements Action {
@@ -28,7 +28,7 @@ export default class GetText implements Action {
 
     return {
       returnValue: targets.map((target) => target.contentText),
-      thatSelections: createThatMark(targets),
+      thatTargets: targets,
     };
   }
 }
