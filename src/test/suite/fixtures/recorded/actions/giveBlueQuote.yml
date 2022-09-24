@@ -34,5 +34,5 @@ finalState:
         start: {line: 0, character: 6}
         end: {line: 0, character: 7}
       isReversed: false
-      hasExplicitRange: true
+      hasExplicitRange: false
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: '"'}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
