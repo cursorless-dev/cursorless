@@ -47,9 +47,9 @@ spoken form in the first column to any thing starting with `-`. Please don't
 delete any lines, as that will trigger cursorless to automatically add the
 spoken form back on talon restart.
 
-## \[Experimental\] Cursorless custom VSCode actions
+## \[Experimental\] Cursorless custom IDE actions
 
-You can use Cursorless to run any built-in VSCode command on a specific target.
+You can use Cursorless to run any built-in IDE command on a specific target.
 
 Just add your custom commands to: `experimental/actions_custom.csv`. For example, if you wanted to be able to say `"push down <T>"` to move the line(s) containing target `<T>` downwards, you could do the following:
 
@@ -89,9 +89,9 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
 - `user.cursorless_command(action_id: str, target: cursorless_target)`
   Perform a Cursorless command on the given target
   eg: `user.cursorless_command("setSelection", cursorless_target)`
-- `user.cursorless_vscode_command(command_id: str, target: cursorless_target)`
-  Performs a VSCode command on the given target
-  eg: `user.cursorless_vscode_command("editor.action.addCommentLine", cursorless_target)`
+- `user.cursorless_ide_command(command_id: str, target: cursorless_target)`
+  Performs a built-in IDE command on the given target
+  eg: `user.cursorless_ide_command("editor.action.addCommentLine", cursorless_target)`
 
 ### Example of combining capture and action
 
@@ -102,5 +102,5 @@ add dock string <user.cursorless_target>:
     key(left:3)
 
 push <user.cursorless_target> down:
-    user.cursorless_vscode_command("editor.action.moveLinesDownAction", cursorless_target)
+    user.cursorless_ide_command("editor.action.moveLinesDownAction", cursorless_target)
 ```

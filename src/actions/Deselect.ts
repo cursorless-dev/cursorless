@@ -2,7 +2,7 @@ import { Selection } from "vscode";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
-import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
+import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Deselect implements Action {
@@ -30,7 +30,7 @@ export default class Deselect implements Action {
     });
 
     return {
-      thatSelections: createThatMark(targets),
+      thatTargets: targets,
     };
   }
 }
