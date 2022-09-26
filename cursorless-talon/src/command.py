@@ -2,6 +2,11 @@ from typing import Any
 
 from talon import Module, actions, speech_system
 
+from .cursorless_command_server import (
+    run_rpc_command_and_wait,
+    run_rpc_command_get,
+    run_rpc_command_no_wait,
+)
 from .primitive_target import IMPLICIT_TARGET
 
 mod = Module()
@@ -66,7 +71,7 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute single-target cursorless command and return result"""
-        return actions.user.vscode_get(
+        return run_rpc_command_get(
             "cursorless.command",
             construct_cursorless_command_argument(
                 action=action,
@@ -94,7 +99,7 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute multi-target cursorless command"""
-        actions.user.vscode_with_plugin_and_wait(
+        run_rpc_command_and_wait(
             "cursorless.command",
             construct_cursorless_command_argument(
                 action=action,
@@ -111,7 +116,7 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute multi-target cursorless command"""
-        actions.user.vscode_with_plugin(
+        run_rpc_command_no_wait(
             "cursorless.command",
             construct_cursorless_command_argument(
                 action=action,
