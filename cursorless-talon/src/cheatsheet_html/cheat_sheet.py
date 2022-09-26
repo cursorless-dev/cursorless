@@ -14,7 +14,7 @@ from .sections.special_marks import get_special_marks
 mod = Module()
 ctx = Context()
 ctx.matches = r"""
-app: vscode
+tag: user.cursorless
 """
 
 cheatsheet_out_dir = Path(tempfile.mkdtemp())
