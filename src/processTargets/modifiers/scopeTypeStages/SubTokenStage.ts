@@ -20,9 +20,10 @@ abstract class SubTokenStage implements ModifierStage {
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     // If the target has an explicit range use that. Otherwise expand to the token.
-    const textRange = target.hasExplicitRange
-      ? target.contentRange
-      : getTokenRangeForSelection(target.editor, target.contentRange);
+    const textRange = getTokenRangeForSelection(
+      target.editor,
+      target.contentRange
+    );
 
     const { document } = target.editor;
     const text = document.getText(textRange);
