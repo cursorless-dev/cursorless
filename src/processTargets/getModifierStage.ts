@@ -13,7 +13,10 @@ import {
 import ItemStage from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import ModifyIfUntypedStage from "./modifiers/ModifyIfUntypedStage";
-import OrdinalRangeStage from "./modifiers/OrdinalRangeStage";
+import {
+  AbsoluteOrdinalStage,
+  RelativeOrdinalStage,
+} from "./modifiers/OrdinalStages";
 import PositionStage from "./modifiers/PositionStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
 import BoundedNonWhitespaceSequenceStage from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
@@ -33,7 +36,7 @@ import {
 import {
   CharacterStage,
   WordStage,
-} from "./modifiers/scopeTypeStages/SubTokenStage";
+} from "./modifiers/scopeTypeStages/SubTokenStages";
 import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
 import SurroundingPairStage from "./modifiers/SurroundingPairStage";
 import { ModifierStage } from "./PipelineStages.types";
@@ -59,8 +62,10 @@ export default (modifier: Modifier): ModifierStage => {
     case "containingScope":
     case "everyScope":
       return getContainingScopeStage(modifier);
-    case "ordinalRange":
-      return new OrdinalRangeStage(modifier);
+    case "absoluteOrdinalScope":
+      return new AbsoluteOrdinalStage(modifier);
+    case "relativeOrdinalScope":
+      return new RelativeOrdinalStage(modifier);
     case "cascading":
       return new CascadingStage(modifier);
     case "modifyIfUntyped":

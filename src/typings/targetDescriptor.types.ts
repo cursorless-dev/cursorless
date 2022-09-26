@@ -176,22 +176,48 @@ export interface EveryScopeModifier {
   scopeType: ScopeType;
 }
 
-export interface OrdinalRangeModifier {
-  type: "ordinalRange";
+// TODO migration
+// export interface OrdinalRangeModifier {
+//   type: "ordinalRange";
+//   scopeType: ScopeType;
+//   anchor: number;
+//   active: number;
+//   excludeAnchor?: boolean;
+//   excludeActive?: boolean;
+// }
+
+export interface AbsoluteOrdinalModifier {
+  type: "absoluteOrdinalScope";
+
   scopeType: ScopeType;
-  anchor: number;
-  active: number;
-  excludeAnchor?: boolean;
-  excludeActive?: boolean;
-  /* Whether to be relative to target or relative to iteration scope */
-  isRelative?: boolean;
+
+  /* The start of the range.  Start from end of iteration scope if `start` is negative */
+  start: number;
+
+  /* The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes after {@link start} */
+  length: number;
 }
+
+export interface RelativeOrdinalModifier {
+  type: "relativeOrdinalScope";
+
+  scopeType: ScopeType;
+
+  /* Indicates how many scopes away to start relative to the input target.  Note that if {@link direction} is `"backward"`, then this scope will be the end of the output range.  */
+  offset: number;
+
+  /* The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes in the direction of {@link direction} */
+  length: number;
+
+  /* Indicates which direction both `offset` and `length` go relative to input target  */
+  direction: "forward" | "backward";
+}
+
 /**
  * Converts its input to a raw selection with no type information so for
  * example if it is the destination of a bring or move it should inherit the
  * type information such as delimiters from its source.
  */
-
 export interface RawSelectionModifier {
   type: "toRawSelection";
 }
@@ -256,7 +282,8 @@ export type Modifier =
   | ExcludeInteriorModifier
   | ContainingScopeModifier
   | EveryScopeModifier
-  | OrdinalRangeModifier
+  | AbsoluteOrdinalModifier
+  | RelativeOrdinalModifier
   | HeadTailModifier
   | LeadingModifier
   | TrailingModifier

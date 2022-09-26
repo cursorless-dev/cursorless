@@ -55,20 +55,15 @@ abstract class SubTokenStage implements ModifierStage {
       }))
       .filter((it) => it.intersection != null);
 
-    // Select/utilize single target
+    // Empty range utilize single leftmost target
     if (target.contentRange.isEmpty) {
-      // Sort on start position. ie leftmost
-      intersectingTargets.sort((a, b) =>
-        a.target.contentRange.start.compareTo(b.target.contentRange.start)
-      );
-      intersectingTargets = intersectingTargets.slice(0, 1);
+      return intersectingTargets[0].target;
     }
-    // Select/utilize all fully intersecting targets
-    else {
-      intersectingTargets = intersectingTargets.filter(
-        (it) => !it.intersection!.isEmpty
-      );
-    }
+
+    // On non empty range utilize all non-empty intersecting targets
+    intersectingTargets = intersectingTargets.filter(
+      (it) => !it.intersection!.isEmpty
+    );
 
     if (intersectingTargets.length === 1) {
       return intersectingTargets[0].target;
