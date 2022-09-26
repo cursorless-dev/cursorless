@@ -14,6 +14,7 @@ export class AbsoluteOrdinalStage implements ModifierStage {
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     let targets = getTargets(context, target, this.modifier.scopeType);
 
+    // For explicit ranges use that range as the iteration scope
     if (target.hasExplicitRange) {
       targets = targets.filter((t) => {
         const intersection = t.contentRange.intersection(target.contentRange);
