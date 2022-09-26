@@ -1,14 +1,14 @@
-import { Target } from "../../typings/target.types";
+import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
-} from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
-import { ModifierStage } from "../PipelineStages.types";
-import { TokenTarget } from "../targets";
-import getModifierStage from "../getModifierStage";
-import { processSurroundingPair } from "./surroundingPair";
-import { NoContainingScopeError } from "../../errors";
+} from "../../../typings/targetDescriptor.types";
+import { ProcessedTargetsContext } from "../../../typings/Types";
+import { ModifierStage } from "../../PipelineStages.types";
+import { TokenTarget } from "../../targets";
+import getModifierStage from "../../getModifierStage";
+import { processSurroundingPair } from "../surroundingPair";
+import { NoContainingScopeError } from "../../../errors";
 
 /**
  * Intersection of NonWhitespaceSequenceStage and a surrounding pair

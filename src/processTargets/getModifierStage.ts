@@ -4,7 +4,6 @@ import {
   EveryScopeModifier,
   Modifier,
 } from "../typings/targetDescriptor.types";
-import BoundedNonWhitespaceSequenceStage from "./modifiers/BoundedNonWhitespaceStage";
 import CascadingStage from "./modifiers/CascadingStage";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import {
@@ -17,6 +16,7 @@ import ModifyIfUntypedStage from "./modifiers/ModifyIfUntypedStage";
 import OrdinalRangeStage from "./modifiers/OrdinalRangeStage";
 import PositionStage from "./modifiers/PositionStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
+import BoundedNonWhitespaceSequenceStage from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
 import ContainingSyntaxScopeStage, {
   SimpleContainingScopeModifier,
 } from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
@@ -30,6 +30,10 @@ import {
   NonWhitespaceSequenceStage,
   UrlStage,
 } from "./modifiers/scopeTypeStages/RegexStage";
+import {
+  CharacterStage,
+  WordStage,
+} from "./modifiers/scopeTypeStages/SubTokenStage";
 import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
 import SurroundingPairStage from "./modifiers/SurroundingPairStage";
 import { ModifierStage } from "./PipelineStages.types";
@@ -93,8 +97,9 @@ const getContainingScopeStage = (
         modifier as ContainingSurroundingPairModifier
       );
     case "word":
+      return new WordStage(modifier);
     case "character":
-      throw new Error(`Unsupported scope type ${modifier.scopeType.type}`);
+      return new CharacterStage(modifier);
     default:
       // Default to containing syntax scope using tree sitter
       return new ContainingSyntaxScopeStage(

@@ -52,6 +52,8 @@ scope_types = {
     "start tag": "xmlStartTag",
     "end tag": "xmlEndTag",
     # Text-based scope types
+    "word": "word",
+    "char": "character",
     "block": "paragraph",
     "cell": "notebookCell",
     "file": "document",
@@ -100,13 +102,6 @@ def cursorless_containing_scope(m) -> dict[str, Any]:
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
-subtoken_scope_types = {
-    "word": "word",
-    "char": "character",
-}
-
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
 # NB: This is a hack until we support having inside and outside on arbitrary
 # scope types
 surrounding_pair_scope_types = {
@@ -119,7 +114,6 @@ def on_ready():
         "modifier_scope_types",
         {
             "scope_type": scope_types,
-            "subtoken_scope_type": subtoken_scope_types,
             "surrounding_pair_scope_type": surrounding_pair_scope_types,
         },
     )
