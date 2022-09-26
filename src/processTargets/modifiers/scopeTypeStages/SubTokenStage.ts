@@ -44,7 +44,40 @@ abstract class SubTokenStage implements ModifierStage {
       return targets;
     }
 
-    return [];
+    let intersectingTargets = targets
+      .map((t) => ({
+        target: t,
+        intersection: t.contentRange.intersection(target.contentRange),
+      }))
+      .filter((it) => it.intersection != null);
+
+    // Select/utilize single target
+    if (target.contentRange.isEmpty) {
+      // Sort on start position. ie leftmost
+      intersectingTargets.sort((a, b) =>
+        a.target.contentRange.start.compareTo(b.target.contentRange.start)
+      );
+      intersectingTargets = intersectingTargets.slice(0, 1);
+    }
+    // Select/utilize all fully intersecting targets
+    else {
+      intersectingTargets = intersectingTargets.filter(
+        (it) => !it.intersection!.isEmpty
+      );
+    }
+
+    if (intersectingTargets.length === 1) {
+      return [intersectingTargets[0].target];
+    }
+
+    return [
+      intersectingTargets[0].target.createContinuousRangeTarget(
+        target.isReversed,
+        intersectingTargets.at(-1)!.target,
+        true,
+        true
+      ),
+    ];
   }
 
   protected abstract createTargets(target: Target, ranges: Range[]): Target[];
