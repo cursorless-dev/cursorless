@@ -36,7 +36,7 @@ export class RelativeOrdinalStage implements ModifierStage {
       .filter((t) => t.intersection != null)
       .map((t) => t.index);
     const containingStartIndex = containingIndices[0];
-    const containingEndIndex = containingIndices[containingIndices.length];
+    const containingEndIndex = containingIndices[containingIndices.length - 1];
 
     let index: number;
 
