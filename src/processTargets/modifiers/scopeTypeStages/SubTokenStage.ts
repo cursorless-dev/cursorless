@@ -44,6 +44,10 @@ abstract class SubTokenStage implements ModifierStage {
       return targets;
     }
 
+    return [this.findSingleTarget(target, targets)];
+  }
+
+  private findSingleTarget(target: Target, targets: Target[]): Target {
     let intersectingTargets = targets
       .map((t) => ({
         target: t,
@@ -67,17 +71,15 @@ abstract class SubTokenStage implements ModifierStage {
     }
 
     if (intersectingTargets.length === 1) {
-      return [intersectingTargets[0].target];
+      return intersectingTargets[0].target;
     }
 
-    return [
-      intersectingTargets[0].target.createContinuousRangeTarget(
-        target.isReversed,
-        intersectingTargets.at(-1)!.target,
-        true,
-        true
-      ),
-    ];
+    return intersectingTargets[0].target.createContinuousRangeTarget(
+      target.isReversed,
+      intersectingTargets.at(-1)!.target,
+      true,
+      true
+    );
   }
 
   protected abstract createTargets(target: Target, ranges: Range[]): Target[];
