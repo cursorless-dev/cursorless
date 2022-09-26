@@ -39,11 +39,11 @@ finalState:
         start: {line: 0, character: 1}
         end: {line: 0, character: 2}
       isReversed: false
-      hasExplicitRange: true
+      hasExplicitRange: false
     - type: UntypedTarget
       contentRange:
         start: {line: 0, character: 2}
         end: {line: 0, character: 3}
       isReversed: false
-      hasExplicitRange: true
+      hasExplicitRange: false
 fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '!'}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]}]

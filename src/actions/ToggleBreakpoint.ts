@@ -9,7 +9,6 @@ import {
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { createThatMark } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 function getBreakpoints(uri: Uri, range: Range) {
@@ -61,7 +60,7 @@ export default class ToggleBreakpoint implements Action {
     debug.removeBreakpoints(toRemove);
 
     return {
-      thatSelections: createThatMark(thatTargets),
+      thatTargets: targets,
     };
   }
 }

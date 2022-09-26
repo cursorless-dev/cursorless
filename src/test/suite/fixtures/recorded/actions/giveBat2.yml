@@ -28,5 +28,5 @@ finalState:
         start: {line: 0, character: 2}
         end: {line: 0, character: 3}
       isReversed: false
-      hasExplicitRange: true
+      hasExplicitRange: false
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
