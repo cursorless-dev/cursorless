@@ -65,7 +65,7 @@ class Actions:
         if type == "cursorless_action":
             return actions.user.cursorless_command(value, target)
         elif type == "ide_command":
-            return actions.user.cursorless_server_command(value, target)
+            return actions.user.cursorless_ide_command(value, target)
 
 
 def ide_command(command_id: str, target: dict, command_options: dict = {}):
