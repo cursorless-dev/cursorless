@@ -74,12 +74,6 @@ def ide_command(command_id: str, target: dict, command_options: dict = {}):
     )
 
 
-def ide_command_no_wait(command_id: str, target: dict, command_options: dict = {}):
-    return actions.user.cursorless_single_target_command_no_wait(
-        "executeCommand", target, command_id, command_options
-    )
-
-
 default_values = {
     "simple_action": simple_action_defaults,
     "positional_action": positional_action_defaults,
