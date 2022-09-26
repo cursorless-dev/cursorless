@@ -52,8 +52,8 @@ scope_types = {
     "start tag": "xmlStartTag",
     "end tag": "xmlEndTag",
     # Text-based scope types
-    "word": "word",
     "char": "character",
+    "word": "word",
     "block": "paragraph",
     "cell": "notebookCell",
     "file": "document",
