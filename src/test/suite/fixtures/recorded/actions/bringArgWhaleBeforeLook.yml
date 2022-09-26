@@ -43,9 +43,17 @@ finalState:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   thatMark:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 21}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 4}
+        end: {line: 2, character: 21}
+      isReversed: false
+      hasExplicitRange: true
   sourceMark:
-    - anchor: {line: 4, character: 4}
-      active: {line: 4, character: 21}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 4, character: 4}
+        end: {line: 4, character: 21}
+      isReversed: false
+      hasExplicitRange: true
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [&ref_0 {type: containingScope, scopeType: {type: argumentOrParameter}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, modifiers: [{type: position, position: before}, *ref_0]}]

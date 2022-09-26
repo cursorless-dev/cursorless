@@ -23,7 +23,9 @@ export default class Clear implements Action {
         })
     );
 
-    const { thatMark } = await this.graph.actions.remove.run([plainTargets]);
+    const { thatSelections: thatMark } = await this.graph.actions.remove.run([
+      plainTargets,
+    ]);
 
     if (thatMark != null) {
       await setSelectionsAndFocusEditor(
@@ -32,6 +34,6 @@ export default class Clear implements Action {
       );
     }
 
-    return { thatMark };
+    return { thatSelections: thatMark };
   }
 }

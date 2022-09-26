@@ -1,7 +1,7 @@
 import { Range } from "vscode";
-import { Target } from "../../../typings/target.types";
+import type { Target } from "../../../typings/target.types";
 import { isAtEndOfLine, isAtStartOfLine } from "../../../util/rangeUtils";
-import PlainTarget from "../../targets/PlainTarget";
+import { PlainTarget } from "../../targets";
 import { getDelimitedSequenceRemovalRange } from "./DelimitedSequenceInsertionRemovalBehavior";
 
 export function getTokenLeadingDelimiterTarget(
