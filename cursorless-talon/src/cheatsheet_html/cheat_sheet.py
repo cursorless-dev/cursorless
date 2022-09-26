@@ -4,6 +4,7 @@ from pathlib import Path
 
 from talon import Context, Module, actions, app
 
+from ..cursorless_command_server import run_rpc_command_and_wait
 from .get_list import get_list, get_lists
 from .sections.actions import get_actions
 from .sections.compound_targets import get_compound_targets
@@ -39,7 +40,7 @@ class Actions:
     def cursorless_cheat_sheet_show_html():
         """Show new cursorless html cheat sheet"""
         cheatsheet_out_path = cheatsheet_out_dir / "cheatsheet.html"
-        actions.user.cursorless_private_run_rpc_command_and_wait(
+        run_rpc_command_and_wait(
             "cursorless.showCheatsheet",
             {
                 "version": 0,
