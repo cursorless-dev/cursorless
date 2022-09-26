@@ -12,7 +12,14 @@ export class AbsoluteOrdinalStage implements ModifierStage {
   constructor(private modifier: AbsoluteOrdinalScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const targets = getTargets(context, target, this.modifier.scopeType);
+    let targets = getTargets(context, target, this.modifier.scopeType);
+
+    if (target.hasExplicitRange) {
+      targets = targets.filter((t) => {
+        const intersection = t.contentRange.intersection(target.contentRange);
+        return intersection != null && !intersection.isEmpty;
+      });
+    }
 
     const startIndex =
       this.modifier.start + (this.modifier.start < 0 ? targets.length : 0);
