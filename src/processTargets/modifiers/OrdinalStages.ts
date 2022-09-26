@@ -1,7 +1,7 @@
 import { Target } from "../../typings/target.types";
 import {
-  AbsoluteOrdinalModifier,
-  RelativeOrdinalModifier,
+  AbsoluteOrdinalScopeModifier,
+  RelativeOrdinalScopeModifier,
   ScopeType,
 } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
@@ -9,7 +9,7 @@ import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";
 
 export class AbsoluteOrdinalStage implements ModifierStage {
-  constructor(private modifier: AbsoluteOrdinalModifier) {}
+  constructor(private modifier: AbsoluteOrdinalScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const targets = getTargets(context, target, this.modifier.scopeType);
@@ -23,7 +23,7 @@ export class AbsoluteOrdinalStage implements ModifierStage {
 }
 
 export class RelativeOrdinalStage implements ModifierStage {
-  constructor(private modifier: RelativeOrdinalModifier) {}
+  constructor(private modifier: RelativeOrdinalScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const targets = getTargets(context, target, this.modifier.scopeType);

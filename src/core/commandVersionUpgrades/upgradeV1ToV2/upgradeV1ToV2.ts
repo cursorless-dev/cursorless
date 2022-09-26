@@ -1,4 +1,5 @@
 import { flow } from "lodash";
+import { ActionType } from "../../../actions/actions.types";
 import {
   Modifier,
   PartialPrimitiveTargetDescriptor,
@@ -6,9 +7,9 @@ import {
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "../../../typings/targetDescriptor.types";
-import { ActionType } from "../../../actions/actions.types";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
-import { CommandV2 } from "../../commandRunner/command.types";
+import { CommandV2 } from "../upgradeV2ToV3/commandV2.types";
+import { ModifierV2 } from "../upgradeV2ToV3/targetDescriptorV2.types";
 import {
   CommandV1,
   ModifierV0V1,
@@ -31,7 +32,7 @@ export function upgradeV1ToV2(command: CommandV1): CommandV2 {
   };
 }
 
-function upgradeModifier(modifier: ModifierV0V1): Modifier[] {
+function upgradeModifier(modifier: ModifierV0V1): ModifierV2[] {
   switch (modifier.type) {
     case "identity":
       return [];
@@ -103,7 +104,7 @@ function upgradePrimitiveTarget(
     selectionType,
     position,
   } = target;
-  const modifiers: Modifier[] = [];
+  const modifiers: ModifierV2[] = [];
 
   if (position && position !== "contents") {
     if (position === "before") {
@@ -155,7 +156,7 @@ function upgradePrimitiveTarget(
     // Cursor token is just cursor position but treated as a token. This is done in the pipeline for normal cursor now
     mark: mark?.type === "cursorToken" ? undefined : mark,
     // Empty array of modifiers is not allowed
-    modifiers: modifiers.length > 0 ? modifiers : undefined,
+    modifiers: modifiers.length > 0 ? (modifiers as Modifier[]) : undefined,
   };
 }
 

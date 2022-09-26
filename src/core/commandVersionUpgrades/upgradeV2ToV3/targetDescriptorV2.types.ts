@@ -1,7 +1,4 @@
-import { HatStyleName } from "../core/constants";
-// FIXME: See microsoft/TypeScript#43869
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { Target } from "./target.types";
+import { HatStyleName } from "../../constants";
 
 export interface CursorMark {
   type: "cursor";
@@ -176,31 +173,13 @@ export interface EveryScopeModifier {
   scopeType: ScopeType;
 }
 
-export interface AbsoluteOrdinalScopeModifier {
-  type: "absoluteOrdinalScope";
-
+export interface OrdinalRangeModifier {
+  type: "ordinalRange";
   scopeType: ScopeType;
-
-  /* The start of the range.  Start from end of iteration scope if `start` is negative */
-  start: number;
-
-  /* The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes after {@link start} */
-  length: number;
-}
-
-export interface RelativeOrdinalScopeModifier {
-  type: "relativeOrdinalScope";
-
-  scopeType: ScopeType;
-
-  /* Indicates how many scopes away to start relative to the input target.  Note that if {@link direction} is `"backward"`, then this scope will be the end of the output range.  */
-  offset: number;
-
-  /* The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes in the direction of {@link direction} */
-  length: number;
-
-  /* Indicates which direction both `offset` and `length` go relative to input target  */
-  direction: "forward" | "backward";
+  anchor: number;
+  active: number;
+  excludeAnchor?: boolean;
+  excludeActive?: boolean;
 }
 
 /**
@@ -230,13 +209,13 @@ export interface PositionModifier {
 export interface PartialPrimitiveTargetDescriptor {
   type: "primitive";
   mark?: Mark;
-  modifiers?: Modifier[];
+  modifiers?: ModifierV2[];
   isImplicit?: boolean;
 }
 
 export interface HeadTailModifier {
   type: "extendThroughStartOf" | "extendThroughEndOf";
-  modifiers?: Modifier[];
+  modifiers?: ModifierV2[];
 }
 
 /**
@@ -249,7 +228,7 @@ export interface ModifyIfUntypedModifier {
   /**
    * The modifier to apply if the target is untyped
    */
-  modifier: Modifier;
+  modifier: ModifierV2;
 }
 
 /**
@@ -263,17 +242,16 @@ export interface CascadingModifier {
   /**
    * The modifiers to try in turn
    */
-  modifiers: Modifier[];
+  modifiers: ModifierV2[];
 }
 
-export type Modifier =
+export type ModifierV2 =
   | PositionModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
   | ContainingScopeModifier
   | EveryScopeModifier
-  | AbsoluteOrdinalScopeModifier
-  | RelativeOrdinalScopeModifier
+  | OrdinalRangeModifier
   | HeadTailModifier
   | LeadingModifier
   | TrailingModifier
@@ -315,7 +293,7 @@ export interface PrimitiveTargetDescriptor
    * statement containing "air", then apply "first char" to select the first
    * character of the name.
    */
-  modifiers: Modifier[];
+  modifiers: ModifierV2[];
 
   /**
    * We separate the positional modifier from the other modifiers because it

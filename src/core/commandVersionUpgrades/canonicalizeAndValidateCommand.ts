@@ -16,6 +16,7 @@ import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";
 import { upgradeV1ToV2 } from "./upgradeV1ToV2";
+import { upgradeV2ToV3 } from "./upgradeV2ToV3/upgradeV2ToV3";
 
 /**
  * Given a command argument which comes from the client, normalize it so that it
@@ -65,6 +66,9 @@ function upgradeCommand(command: Command): CommandLatest {
         break;
       case 1:
         command = upgradeV1ToV2(command);
+        break;
+      case 2:
+        command = upgradeV2ToV3(command);
         break;
       default:
         throw new Error(
