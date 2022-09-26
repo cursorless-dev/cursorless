@@ -59,7 +59,7 @@ def cursorless_first_last_range(m) -> dict[str, Any]:
 
 
 @mod.capture(
-    rule=("(<user.cursorless_ordinal_range> | <user.cursorless_first_last_range>)")
+    rule=("<user.cursorless_ordinal_range> | <user.cursorless_first_last_range>")
 )
 def cursorless_ordinal_scope(m) -> dict[str, Any]:
     """Ordinal ranges such as subwords or characters"""
