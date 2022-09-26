@@ -2,7 +2,7 @@ import tempfile
 import webbrowser
 from pathlib import Path
 
-from talon import Context, Module, actions, app
+from talon import Context, Module, app
 
 from ..cursorless_command_server import run_rpc_command_and_wait
 from .get_list import get_list, get_lists
