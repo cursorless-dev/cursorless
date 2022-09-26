@@ -27,9 +27,9 @@ class Actions:
         """Execute command via rpc."""
         args = filter_args(arg1, arg2, arg3, arg4, arg5)
         try:
-            actions.user.run_rpc_command(*args)
+            actions.user.run_rpc_command(command_id, *args)
         except KeyError:
-            actions.user.vscode_with_plugin(*args)
+            actions.user.vscode_with_plugin(command_id, *args)
 
     def cursorless_private_run_rpc_command_and_wait(
         command_id: str,
@@ -42,9 +42,9 @@ class Actions:
         """Execute command via rpc and wait for command to finish."""
         args = filter_args(arg1, arg2, arg3, arg4, arg5)
         try:
-            actions.user.run_rpc_command_and_wait(*args)
+            actions.user.run_rpc_command_and_wait(command_id, *args)
         except KeyError:
-            actions.user.vscode_with_plugin_and_wait(*args)
+            actions.user.vscode_with_plugin_and_wait(command_id, *args)
 
     def cursorless_private_run_rpc_command_get(
         command_id: str,
@@ -57,6 +57,6 @@ class Actions:
         """Execute command via rpc and return command output."""
         args = filter_args(arg1, arg2, arg3, arg4, arg5)
         try:
-            return actions.user.run_rpc_command_get(*args)
+            return actions.user.run_rpc_command_get(command_id, *args)
         except KeyError:
-            return actions.user.vscode_get(*args)
+            return actions.user.vscode_get(command_id, *args)
