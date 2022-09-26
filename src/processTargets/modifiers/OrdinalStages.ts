@@ -35,6 +35,7 @@ export class RelativeOrdinalStage implements ModifierStage {
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const targets = getTargets(context, target, this.modifier.scopeType);
+    const isForward = this.modifier.direction === "forward";
 
     const containingIndices = targets
       .map((t, i) => ({
@@ -56,23 +57,18 @@ export class RelativeOrdinalStage implements ModifierStage {
           `Incorrect ordinal length ${this.modifier.length}. Containing length is already ${containingIndices.length}`
         );
       }
-      index =
-        this.modifier.direction === "forward"
-          ? containingStartIndex
-          : containingEndIndex;
+      index = isForward ? containingStartIndex : containingEndIndex;
     }
     // Exclude containing/intersecting scopes
     else {
-      index =
-        this.modifier.direction === "forward"
-          ? containingEndIndex + this.modifier.offset
-          : containingStartIndex - this.modifier.offset;
+      index = isForward
+        ? containingEndIndex + this.modifier.offset
+        : containingStartIndex - this.modifier.offset;
     }
 
-    const index2 =
-      this.modifier.direction === "forward"
-        ? index + this.modifier.length - 1
-        : index - this.modifier.length + 1;
+    const index2 = isForward
+      ? index + this.modifier.length - 1
+      : index - this.modifier.length + 1;
 
     const startIndex = Math.min(index, index2);
     const endIndex = Math.max(index, index2);
