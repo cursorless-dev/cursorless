@@ -1,12 +1,10 @@
 from typing import Any
 
-from talon import Context, Module, actions, speech_system
+from talon import Module, actions, speech_system
 
 from .primitive_target import IMPLICIT_TARGET
 
 mod = Module()
-
-ctx = Context()
 
 last_phrase = None
 
