@@ -19,7 +19,9 @@ class CallbackAction:
 # See https://www.cursorless.org/docs/user/customization/
 callbacks = [
     CallbackAction("call", "callAsFunction", run_call_action),
-    CallbackAction("scout", "findInDocument", actions.user.run_find_action),
+    CallbackAction(
+        "scout", "findInDocument", actions.user.cursorless_private_run_find_action
+    ),
     CallbackAction("phones", "nextHomophone", run_homophones_action),
 ]
 

@@ -39,7 +39,7 @@ class Actions:
     def cursorless_cheat_sheet_show_html():
         """Show new cursorless html cheat sheet"""
         cheatsheet_out_path = cheatsheet_out_dir / "cheatsheet.html"
-        actions.user.cursorless_run_rpc_command_and_wait(
+        actions.user.cursorless_private_run_rpc_command_and_wait(
             "cursorless.showCheatsheet",
             {
                 "version": 0,

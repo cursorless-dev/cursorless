@@ -1,4 +1,4 @@
-app: vscode
+tag: user.cursorless
 -
 
 <user.cursorless_action_or_ide_command> <user.cursorless_target>:
@@ -20,6 +20,4 @@ app: vscode
     user.cursorless_wrap(cursorless_wrap_action, cursorless_target, cursorless_wrapper)
 
 {user.cursorless_homophone} settings:
-    user.run_rpc_command("workbench.action.openGlobalSettings")
-    sleep(250ms)
-    insert("cursorless")
+    user.cursorless_show_settings_in_ide()

@@ -68,7 +68,7 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute single-target cursorless command and return result"""
-        return actions.user.cursorless_run_rpc_command_get(
+        return actions.user.cursorless_private_run_rpc_command_get(
             "cursorless.command",
             construct_cursorless_command_argument(
                 action=action,
@@ -96,7 +96,7 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute multi-target cursorless command"""
-        actions.user.cursorless_run_rpc_command_and_wait(
+        actions.user.cursorless_private_run_rpc_command_and_wait(
             "cursorless.command",
             construct_cursorless_command_argument(
                 action=action,
@@ -113,7 +113,7 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute multi-target cursorless command"""
-        actions.user.cursorless_run_rpc_command_plugin(
+        actions.user.cursorless_private_run_rpc_command_no_wait(
             "cursorless.command",
             construct_cursorless_command_argument(
                 action=action,

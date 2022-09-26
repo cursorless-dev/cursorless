@@ -23,7 +23,7 @@ mod = Module()
 def cursorless_action_or_ide_command(m) -> dict:
     try:
         value = m.cursorless_custom_action
-        type = "server_command"
+        type = "ide_command"
     except AttributeError:
         value = m[0]
         type = "cursorless_action"
@@ -47,20 +47,24 @@ class Actions:
             return actions.user.cursorless_single_target_command(action_id, target)
 
     def cursorless_vscode_command(command_id: str, target: dict):
-        """Perform application command on cursorless target (Legacy use cursorless_ide_command)"""
+        """
+        Perform vscode command on cursorless target
+
+        Deprecated: prefer `cursorless_ide_command`
+        """
         return actions.user.cursorless_ide_command(command_id, target)
 
     def cursorless_ide_command(command_id: str, target: dict):
-        """Perform application command on cursorless target"""
+        """Perform ide command on cursorless target"""
         return ide_command(command_id, target)
 
     def cursorless_action_or_ide_command(instruction: dict, target: dict):
-        """Perform cursorless action or command server command on target (internal use only)"""
+        """Perform cursorless action or ide command on target (internal use only)"""
         type = instruction["type"]
         value = instruction["value"]
         if type == "cursorless_action":
             return actions.user.cursorless_command(value, target)
-        elif type == "server_command":
+        elif type == "ide_command":
             return actions.user.cursorless_server_command(value, target)
 
 

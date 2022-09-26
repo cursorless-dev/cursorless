@@ -5,5 +5,5 @@ mod = Module()
 
 @mod.action_class
 class Actions:
-    def show_cursorless_settings():
-        """Show the settings for editor"""
+    def cursorless_show_settings_in_ide():
+        """Show Cursorless-specific settings in ide"""
