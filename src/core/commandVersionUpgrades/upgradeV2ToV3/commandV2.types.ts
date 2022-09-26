@@ -1,10 +1,11 @@
+import { ActionType } from "../../../actions/actions.types";
 import { PartialTargetDescriptor } from "../../../typings/targetDescriptor.types";
 
 interface ActionCommand {
   /**
    * The action to run
    */
-  name: string;
+  name: ActionType;
 
   /**
    * A list of arguments expected by the given action.

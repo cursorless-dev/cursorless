@@ -266,6 +266,14 @@ export interface CascadingModifier {
   modifiers: Modifier[];
 }
 
+export interface RangeModifier {
+  type: "range";
+  anchor: Modifier;
+  active: Modifier;
+  excludeAnchor?: boolean;
+  excludeActive?: boolean;
+}
+
 export type Modifier =
   | PositionModifier
   | InteriorOnlyModifier
@@ -279,7 +287,8 @@ export type Modifier =
   | TrailingModifier
   | RawSelectionModifier
   | ModifyIfUntypedModifier
-  | CascadingModifier;
+  | CascadingModifier
+  | RangeModifier;
 
 export interface PartialRangeTargetDescriptor {
   type: "range";

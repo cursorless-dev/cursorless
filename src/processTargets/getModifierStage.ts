@@ -18,6 +18,7 @@ import {
   RelativeOrdinalStage,
 } from "./modifiers/OrdinalStages";
 import PositionStage from "./modifiers/PositionStage";
+import RangeStage from "./modifiers/RangeStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
 import BoundedNonWhitespaceSequenceStage from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
 import ContainingSyntaxScopeStage, {
@@ -70,6 +71,8 @@ export default (modifier: Modifier): ModifierStage => {
       return new CascadingStage(modifier);
     case "modifyIfUntyped":
       return new ModifyIfUntypedStage(modifier);
+    case "range":
+      return new RangeStage(modifier);
   }
 };
 

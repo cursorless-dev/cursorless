@@ -1,6 +1,6 @@
-import { ActionType } from "../../../actions/actions.types";
 import {
   AbsoluteOrdinalScopeModifier,
+  Modifier,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
@@ -15,13 +15,8 @@ import {
 
 export function upgradeV2ToV3(command: CommandV2): CommandV3 {
   return {
+    ...command,
     version: 3,
-    spokenForm: command.spokenForm,
-    usePrePhraseSnapshot: command.usePrePhraseSnapshot,
-    action: {
-      name: command.action.name as ActionType,
-      args: command.action.args,
-    },
     targets: command.targets.map(upgradeTarget),
   };
 }
@@ -43,96 +38,52 @@ function upgradeTarget(
     case "range": {
       const { anchor, active, ...rest } = target;
       return {
-        anchor: upgradePrimitiveTarget(
-          anchor,
-          true
-        ) as PartialPrimitiveTargetDescriptor,
-        active: upgradePrimitiveTarget(
-          active,
-          true
-        ) as PartialPrimitiveTargetDescriptor,
+        anchor: upgradePrimitiveTarget(anchor),
+        active: upgradePrimitiveTarget(active),
         ...rest,
       };
     }
     case "primitive":
-      return upgradePrimitiveTarget(target, false);
+      return upgradePrimitiveTarget(target);
   }
 }
 
 function upgradePrimitiveTarget(
-  target: PartialPrimitiveTargetDescriptor,
-  requirePrimitive: boolean
-): PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor {
-  if (target.modifiers == null) {
-    return target;
-  }
-
-  const modifiers = target.modifiers as ModifierV2[];
-
-  const oldModifiers = modifiers
-    .map((m, i) => ({ index: i, modifier: m as OrdinalRangeModifier }))
-    .filter((m) => m.modifier.type === "ordinalRange");
-  const oldRangeModifiers = oldModifiers.filter(
-    ({ modifier }) => modifier.anchor !== modifier.active
-  );
-
-  if (oldModifiers.length === 0) {
-    return target;
-  }
-
-  if (oldRangeModifiers.length > 0) {
-    if (
-      // Can't create multiple range targets
-      oldRangeModifiers.length > 1 ||
-      // Can't create range target with additional ordinal modifiers
-      oldModifiers.length > 1 ||
-      // Primitive target is required but we have a range modifier
-      requirePrimitive
-    ) {
-      throw Error("Can't support nested range targets");
+  target: PartialPrimitiveTargetDescriptor
+): PartialPrimitiveTargetDescriptor {
+  if (target.modifiers != null) {
+    const modifiers = target.modifiers as ModifierV2[];
+    for (let i = 0; i < modifiers.length; ++i) {
+      const oldModifier = modifiers[i];
+      if (oldModifier.type === "ordinalRange") {
+        target.modifiers[i] = createNewModifier(oldModifier);
+      }
     }
-
-    return createRangeTarget(
-      target,
-      oldRangeModifiers[0].index,
-      oldRangeModifiers[0].modifier
-    );
   }
-
-  oldModifiers.forEach(({ modifier, index }) => {
-    target.modifiers![index] = createAbsoluteOrdinalModifier(
-      modifier.scopeType,
-      modifier.anchor
-    );
-  });
 
   return target;
 }
 
-function createRangeTarget(
-  target: PartialPrimitiveTargetDescriptor,
-  modifierIndex: number,
-  modifier: OrdinalRangeModifier
-): PartialRangeTargetDescriptor {
-  target.modifiers![modifierIndex] = createAbsoluteOrdinalModifier(
-    modifier.scopeType,
-    modifier.anchor
-  );
-
-  const activeModifiers = [...target.modifiers!];
-  activeModifiers[modifierIndex] = createAbsoluteOrdinalModifier(
-    modifier.scopeType,
-    modifier.active
-  );
-
-  const active = { ...target, modifiers: activeModifiers };
+function createNewModifier(oldModifier: OrdinalRangeModifier): Modifier {
+  if (oldModifier.anchor === oldModifier.active) {
+    return createAbsoluteOrdinalModifier(
+      oldModifier.scopeType,
+      oldModifier.anchor
+    );
+  }
 
   return {
     type: "range",
-    anchor: target,
-    active,
-    excludeAnchor: modifier.excludeAnchor ?? false,
-    excludeActive: modifier.excludeActive ?? false,
+    anchor: createAbsoluteOrdinalModifier(
+      oldModifier.scopeType,
+      oldModifier.anchor
+    ),
+    active: createAbsoluteOrdinalModifier(
+      oldModifier.scopeType,
+      oldModifier.active
+    ),
+    excludeAnchor: oldModifier.excludeAnchor,
+    excludeActive: oldModifier.excludeActive,
   };
 }
 

@@ -8,7 +8,6 @@ import {
   TargetDescriptor,
 } from "../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../typings/Types";
-import { ensureSingleEditor } from "../util/targetUtils";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
 import { ModifierStage } from "./PipelineStages.types";
@@ -61,19 +60,13 @@ function processRangeTarget(
   return zip(anchorTargets, activeTargets).flatMap(
     ([anchorTarget, activeTarget]) => {
       if (anchorTarget == null || activeTarget == null) {
-        throw new Error("anchorTargets and activeTargets lengths don't match");
-      }
-
-      if (anchorTarget.editor !== activeTarget.editor) {
-        throw new Error(
-          "anchorTarget and activeTarget must be in same document"
-        );
+        throw new Error("AnchorTargets and activeTargets lengths don't match");
       }
 
       switch (targetDesc.rangeType) {
         case "continuous":
           return [
-            processContinuousRangeTarget(
+            targetsToContinuousTarget(
               anchorTarget,
               activeTarget,
               targetDesc.excludeAnchor,
@@ -81,7 +74,7 @@ function processRangeTarget(
             ),
           ];
         case "vertical":
-          return processVerticalRangeTarget(
+          return targetsToVerticalTarget(
             anchorTarget,
             activeTarget,
             targetDesc.excludeAnchor,
@@ -92,13 +85,14 @@ function processRangeTarget(
   );
 }
 
-function processContinuousRangeTarget(
+export function targetsToContinuousTarget(
   anchorTarget: Target,
   activeTarget: Target,
-  excludeAnchor: boolean,
-  excludeActive: boolean
+  excludeAnchor: boolean = false,
+  excludeActive: boolean = false
 ): Target {
-  ensureSingleEditor([anchorTarget, activeTarget]);
+  ensureSingleEditor(anchorTarget, activeTarget);
+
   const isReversed = calcIsReversed(anchorTarget, activeTarget);
   const startTarget = isReversed ? activeTarget : anchorTarget;
   const endTarget = isReversed ? anchorTarget : activeTarget;
@@ -113,19 +107,14 @@ function processContinuousRangeTarget(
   );
 }
 
-export function targetsToContinuousTarget(
-  anchorTarget: Target,
-  activeTarget: Target
-): Target {
-  return processContinuousRangeTarget(anchorTarget, activeTarget, false, false);
-}
-
-function processVerticalRangeTarget(
+function targetsToVerticalTarget(
   anchorTarget: Target,
   activeTarget: Target,
   excludeAnchor: boolean,
   excludeActive: boolean
 ): Target[] {
+  ensureSingleEditor(anchorTarget, activeTarget);
+
   const isReversed = calcIsReversed(anchorTarget, activeTarget);
   const delta = isReversed ? -1 : 1;
 
@@ -245,4 +234,10 @@ function calcIsReversed(anchor: Target, active: Target) {
 
 function uniqTargets(array: Target[]): Target[] {
   return uniqWith(array, (a, b) => a.isEqual(b));
+}
+
+function ensureSingleEditor(anchorTarget: Target, activeTarget: Target) {
+  if (anchorTarget.editor !== activeTarget.editor) {
+    throw new Error("anchorTarget and activeTarget must be in same document");
+  }
 }
