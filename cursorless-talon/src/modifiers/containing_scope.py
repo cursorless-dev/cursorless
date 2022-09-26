@@ -73,30 +73,23 @@ scope_types = {
 }
 
 
-@mod.capture(rule="{user.cursorless_scope_type}")
+@mod.capture(
+    rule="{user.cursorless_scope_type} | {user.cursorless_custom_regex_scope_type}"
+)
 def cursorless_scope_type(m) -> dict[str, str]:
     """Simple cursorless scope type that only need to specify their type"""
-    return {"type": m.cursorless_scope_type}
+    try:
+        return {"type": m.cursorless_scope_type}
+    except AttributeError:
+        return {"type": "customRegex", "regex": m.cursorless_custom_regex_scope_type}
 
 
-@mod.capture(rule="{user.cursorless_custom_regex_scope_type}")
-def cursorless_custom_regex_scope_type(m) -> dict[str, str]:
-    """Cursorless custom regular expression scope type"""
-    return {"type": "customRegex", "regex": m.cursorless_custom_regex_scope_type}
-
-
-@mod.capture(
-    rule="[every] (<user.cursorless_scope_type> | <user.cursorless_custom_regex_scope_type>)"
-)
+@mod.capture(rule="[every] <user.cursorless_scope_type>")
 def cursorless_containing_scope(m) -> dict[str, Any]:
     """Expand to containing scope"""
-    try:
-        scope_type = m.cursorless_scope_type
-    except AttributeError:
-        scope_type = m.cursorless_custom_regex_scope_type
     return {
         "type": "everyScope" if m[0] == "every" else "containingScope",
-        "scopeType": scope_type,
+        "scopeType": m.cursorless_scope_type,
     }
 
 
