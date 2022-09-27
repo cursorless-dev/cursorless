@@ -1,5 +1,4 @@
 import { Range } from "vscode";
-import { SUBWORD_MATCHER } from "../../core/constants";
 import { GRAPHEME_SPLIT_REGEX } from "../../core/TokenGraphemeSplitter";
 import type { Target } from "../../typings/target.types";
 import type {
@@ -10,6 +9,7 @@ import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { ModifierStage } from "../PipelineStages.types";
 import { PlainTarget, SubTokenWordTarget } from "../targets";
 import { getTokenRangeForSelection } from "./scopeTypeStages/TokenStage";
+import { SUBWORD_MATCHER } from "./subToken";
 
 interface OrdinalScopeType extends SimpleScopeType {
   type: "character" | "word";
