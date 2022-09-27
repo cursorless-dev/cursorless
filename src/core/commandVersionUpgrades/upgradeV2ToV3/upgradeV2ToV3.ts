@@ -10,6 +10,8 @@ import { CommandV2 } from "./commandV2.types";
 import {
   ModifierV2,
   OrdinalRangeModifier,
+  PartialPrimitiveTargetDescriptorV2,
+  PartialTargetDescriptorV2,
   ScopeType,
 } from "./targetDescriptorV2.types";
 
@@ -22,7 +24,7 @@ export function upgradeV2ToV3(command: CommandV2): CommandV3 {
 }
 
 function upgradeTarget(
-  target: PartialTargetDescriptor
+  target: PartialTargetDescriptorV2
 ): PartialTargetDescriptor {
   switch (target.type) {
     case "list":
@@ -49,19 +51,24 @@ function upgradeTarget(
 }
 
 function upgradePrimitiveTarget(
-  target: PartialPrimitiveTargetDescriptor
+  target: PartialPrimitiveTargetDescriptorV2
 ): PartialPrimitiveTargetDescriptor {
-  if (target.modifiers != null) {
-    const modifiers = target.modifiers as ModifierV2[];
-    for (let i = 0; i < modifiers.length; ++i) {
-      const oldModifier = modifiers[i];
-      if (oldModifier.type === "ordinalRange") {
-        target.modifiers[i] = createNewModifier(oldModifier);
-      }
-    }
-  }
+  return {
+    ...target,
+    modifiers:
+      target.modifiers != null
+        ? target.modifiers.map(updateModifier)
+        : undefined,
+  };
+}
 
-  return target;
+function updateModifier(modifier: ModifierV2): Modifier {
+  switch (modifier.type) {
+    case "ordinalRange":
+      return createNewModifier(modifier);
+    default:
+      return modifier as Modifier;
+  }
 }
 
 function createNewModifier(oldModifier: OrdinalRangeModifier): Modifier {

@@ -206,7 +206,7 @@ export interface PositionModifier {
   position: Position;
 }
 
-export interface PartialPrimitiveTargetDescriptor {
+export interface PartialPrimitiveTargetDescriptorV2 {
   type: "primitive";
   mark?: Mark;
   modifiers?: ModifierV2[];
@@ -259,27 +259,30 @@ export type ModifierV2 =
   | ModifyIfUntypedModifier
   | CascadingModifier;
 
-export interface PartialRangeTargetDescriptor {
+export interface PartialRangeTargetDescriptorV2 {
   type: "range";
-  anchor: PartialPrimitiveTargetDescriptor;
-  active: PartialPrimitiveTargetDescriptor;
+  anchor: PartialPrimitiveTargetDescriptorV2;
+  active: PartialPrimitiveTargetDescriptorV2;
   excludeAnchor: boolean;
   excludeActive: boolean;
   rangeType?: RangeType;
 }
 
-export interface PartialListTargetDescriptor {
+export interface PartialListTargetDescriptorV2 {
   type: "list";
-  elements: (PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor)[];
+  elements: (
+    | PartialPrimitiveTargetDescriptorV2
+    | PartialRangeTargetDescriptorV2
+  )[];
 }
 
-export type PartialTargetDescriptor =
-  | PartialPrimitiveTargetDescriptor
-  | PartialRangeTargetDescriptor
-  | PartialListTargetDescriptor;
+export type PartialTargetDescriptorV2 =
+  | PartialPrimitiveTargetDescriptorV2
+  | PartialRangeTargetDescriptorV2
+  | PartialListTargetDescriptorV2;
 
 export interface PrimitiveTargetDescriptor
-  extends PartialPrimitiveTargetDescriptor {
+  extends PartialPrimitiveTargetDescriptorV2 {
   /**
    * The mark, eg "air", "this", "that", etc
    */

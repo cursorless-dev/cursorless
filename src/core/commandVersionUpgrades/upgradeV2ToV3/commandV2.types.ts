@@ -1,5 +1,5 @@
 import { ActionType } from "../../../actions/actions.types";
-import { PartialTargetDescriptor } from "../../../typings/targetDescriptor.types";
+import { PartialTargetDescriptorV2 } from "./targetDescriptorV2.types";
 
 interface ActionCommand {
   /**
@@ -38,5 +38,5 @@ export interface CommandV2 {
    * A list of targets expected by the action. Inference will be run on the
    * targets
    */
-  targets: PartialTargetDescriptor[];
+  targets: PartialTargetDescriptorV2[];
 }
