@@ -192,6 +192,10 @@ export interface AbsoluteOrdinalScopeModifier {
   length: number;
 }
 
+/**
+ * Refer to scopes by offset relative to input target, eg "next
+ * funk" to refer to the first function after the function containing the target input.
+ */
 export interface RelativeOrdinalScopeModifier {
   type: "relativeOrdinalScope";
 
