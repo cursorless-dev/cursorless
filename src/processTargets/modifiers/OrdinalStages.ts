@@ -7,20 +7,13 @@ import {
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";
+import { UntypedTarget } from "../targets";
 
 export class AbsoluteOrdinalStage implements ModifierStage {
   constructor(private modifier: AbsoluteOrdinalScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    let targets = getTargets(context, target, this.modifier.scopeType);
-
-    // For explicit ranges use that range as the iteration scope
-    if (target.hasExplicitRange) {
-      targets = targets.filter((t) => {
-        const intersection = t.contentRange.intersection(target.contentRange);
-        return intersection != null && !intersection.isEmpty;
-      });
-    }
+    const targets = getTargets(context, target, this.modifier.scopeType);
 
     const startIndex =
       this.modifier.start + (this.modifier.start < 0 ? targets.length : 0);
@@ -34,7 +27,11 @@ export class RelativeOrdinalStage implements ModifierStage {
   constructor(private modifier: RelativeOrdinalScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const targets = getTargets(context, target, this.modifier.scopeType);
+    const targets = getTargets(
+      context,
+      createTargetWithoutExplicitRange(target),
+      this.modifier.scopeType
+    );
     const isForward = this.modifier.direction === "forward";
 
     const containingIndices = targets
@@ -109,4 +106,13 @@ function getTargets(
     scopeType,
   });
   return containingStage.run(context, target);
+}
+
+function createTargetWithoutExplicitRange(target: Target) {
+  return new UntypedTarget({
+    editor: target.editor,
+    isReversed: target.isReversed,
+    contentRange: target.contentRange,
+    hasExplicitRange: false,
+  });
 }

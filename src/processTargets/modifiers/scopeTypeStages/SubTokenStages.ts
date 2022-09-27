@@ -1,6 +1,7 @@
 import { Range } from "vscode";
 import { SUBWORD_MATCHER } from "../../../core/constants";
 import { GRAPHEME_SPLIT_REGEX } from "../../../core/TokenGraphemeSplitter";
+import { NoContainingScopeError } from "../../../errors";
 import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
@@ -19,12 +20,11 @@ abstract class SubTokenStage implements ModifierStage {
   ) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
+    const { document } = target.editor;
     const tokenRange = getTokenRangeForSelection(
       target.editor,
       target.contentRange
     );
-
-    const { document } = target.editor;
     const text = document.getText(tokenRange);
     const offset = document.offsetAt(tokenRange.start);
 
@@ -40,11 +40,20 @@ abstract class SubTokenStage implements ModifierStage {
 
     const targets = this.createTargets(target, contentRanges);
 
-    if (this.modifier.type === "everyScope") {
-      return targets;
+    // If target has explicit range filter to scopes in that range. Otherwise expand to all scopes in iteration scope.
+    const filteredTargets = target.hasExplicitRange
+      ? filterTargets(target, targets)
+      : targets;
+
+    if (filteredTargets.length === 0) {
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
-    return [this.findSingleTarget(target, targets)];
+    if (this.modifier.type === "everyScope") {
+      return filteredTargets;
+    }
+
+    return [this.findSingleTarget(target, filteredTargets)];
   }
 
   private findSingleTarget(target: Target, targets: Target[]): Target {
@@ -136,4 +145,11 @@ export class CharacterStage extends SubTokenStage {
       });
     });
   }
+}
+
+function filterTargets(target: Target, targets: Target[]): Target[] {
+  return targets.filter((t) => {
+    const intersection = t.contentRange.intersection(target.contentRange);
+    return intersection != null && !intersection.isEmpty;
+  });
 }

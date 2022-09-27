@@ -58,8 +58,24 @@ def cursorless_first_last_range(m) -> dict[str, Any]:
     )
 
 
+@mod.capture(rule="(previous | next) <user.cursorless_scope_type>")
+def cursorless_previous_next_scope(m) -> dict[str, Any]:
+    """Previous/next scope"""
+    return {
+        "type": "relativeOrdinalScope",
+        "scopeType": m.cursorless_scope_type,
+        "offset": 1,
+        "length": 1,
+        "direction": "backward" if m[0] == "previous" else "forward",
+    }
+
+
 @mod.capture(
-    rule=("<user.cursorless_ordinal_range> | <user.cursorless_first_last_range>")
+    rule=(
+        "<user.cursorless_ordinal_range> | "
+        "<user.cursorless_first_last_range> | "
+        "<user.cursorless_previous_next_scope>"
+    )
 )
 def cursorless_ordinal_scope(m) -> dict[str, Any]:
     """Ordinal ranges such as subwords or characters"""
