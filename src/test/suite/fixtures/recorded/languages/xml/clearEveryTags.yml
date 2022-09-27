@@ -43,21 +43,4 @@ finalState:
       active: {line: 4, character: 4}
     - anchor: {line: 4, character: 33}
       active: {line: 4, character: 33}
-  thatMark:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
-    - anchor: {line: 3, character: 12}
-      active: {line: 3, character: 12}
-    - anchor: {line: 4, character: 4}
-      active: {line: 4, character: 4}
-    - anchor: {line: 4, character: 33}
-      active: {line: 4, character: 33}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: xmlBothTags, includeSiblings: true}, isImplicit: false}]

@@ -50,11 +50,23 @@ finalState:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
   thatMark:
-    - anchor: {line: 4, character: 15}
-      active: {line: 4, character: 39}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 4, character: 15}
+        end: {line: 4, character: 39}
+      isReversed: false
+      hasExplicitRange: true
   sourceMark:
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 31}
-    - anchor: {line: 0, character: 46}
-      active: {line: 0, character: 57}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 20}
+        end: {line: 0, character: 31}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 46}
+        end: {line: 0, character: 57}
+      isReversed: false
+      hasExplicitRange: true
 fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: z}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: (}, selectionType: token, position: after, insideOutsideType: null, modifier: {type: toRawSelection}, isImplicit: false}]

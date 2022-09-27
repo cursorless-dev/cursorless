@@ -1,6 +1,6 @@
 import { Position, Range } from "vscode";
-import { Target } from "../../typings/target.types";
-import UntypedTarget from "../targets/UntypedTarget";
+import type { Target } from "../../typings/target.types";
+import { UntypedTarget } from "../targets";
 
 export function createContinuousRange(
   startTarget: Target,

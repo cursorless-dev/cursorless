@@ -1,4 +1,4 @@
-app: vscode
+tag: user.cursorless
 tag: user.cursorless_experimental_snippets
 -
 

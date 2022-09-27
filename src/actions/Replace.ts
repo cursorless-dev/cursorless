@@ -70,6 +70,6 @@ export default class Replace implements Action {
       )
     );
 
-    return { thatMark };
+    return { thatSelections: thatMark };
   }
 }
