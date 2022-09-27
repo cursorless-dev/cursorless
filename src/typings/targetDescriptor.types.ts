@@ -176,6 +176,10 @@ export interface EveryScopeModifier {
   scopeType: ScopeType;
 }
 
+/**
+ * Refer to scopes by absolute index relative to iteration scope, eg "first
+ * funk" to refer to the first function in a class.
+ */
 export interface AbsoluteOrdinalScopeModifier {
   type: "absoluteOrdinalScope";
 
