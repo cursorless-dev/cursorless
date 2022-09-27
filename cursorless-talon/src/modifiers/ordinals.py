@@ -20,7 +20,7 @@ def ordinal_or_last(m) -> int:
 )
 def cursorless_ordinal_range(m) -> dict[str, Any]:
     """Ordinal range"""
-    try:
+    if len(m.ordinal_or_last_list) > 1:
         range_connective = m.cursorless_range_connective
         include_anchor = is_anchor_included(range_connective)
         include_active = is_active_included(range_connective)
@@ -37,7 +37,7 @@ def cursorless_ordinal_range(m) -> dict[str, Any]:
             "excludeAnchor": not include_anchor,
             "excludeActive": not include_active,
         }
-    except AttributeError:
+    else:
         return create_absolute_scope_modifier(
             m.cursorless_scope_type, m.ordinal_or_last_list[0]
         )
