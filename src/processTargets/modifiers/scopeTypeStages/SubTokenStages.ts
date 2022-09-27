@@ -1,5 +1,4 @@
 import { Range } from "vscode";
-import { SUBWORD_MATCHER } from "../../../core/constants";
 import { GRAPHEME_SPLIT_REGEX } from "../../../core/TokenGraphemeSplitter";
 import { NoContainingScopeError } from "../../../errors";
 import { Target } from "../../../typings/target.types";
@@ -11,6 +10,7 @@ import { ProcessedTargetsContext } from "../../../typings/Types";
 import { matchAll } from "../../../util/regex";
 import { ModifierStage } from "../../PipelineStages.types";
 import { PlainTarget, SubTokenWordTarget } from "../../targets";
+import { SUBWORD_MATCHER } from "../subToken";
 import { getTokenRangeForSelection } from "./TokenStage";
 
 abstract class SubTokenStage implements ModifierStage {
