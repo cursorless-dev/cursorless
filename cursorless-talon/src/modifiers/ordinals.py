@@ -7,9 +7,6 @@ from ..compound_targets import is_active_included, is_anchor_included
 mod = Module()
 
 
-mod.list("cursorless_subtoken_scope_type", desc="Supported subtoken scope types")
-
-
 @mod.capture(rule="<user.ordinals_small> | last")
 def ordinal_or_last(m) -> int:
     """An ordinal or the word 'last'"""
