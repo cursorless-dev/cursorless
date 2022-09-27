@@ -86,7 +86,13 @@ abstract class SubTokenStage implements ModifierStage {
     );
   }
 
-  protected abstract createTargets(target: Target, ranges: Range[]): Target[];
+  /**
+   * Create new target for each content range
+   */
+  protected abstract createTargets(
+    target: Target,
+    contentRanges: Range[]
+  ): Target[];
 }
 
 export class WordStage extends SubTokenStage {
@@ -94,10 +100,11 @@ export class WordStage extends SubTokenStage {
     super(modifier, SUBWORD_MATCHER);
   }
 
-  protected createTargets(target: Target, ranges: Range[]): Target[] {
-    return ranges.map((contentRange, i) => {
-      const previousContentRange = i > 0 ? ranges[i - 1] : null;
-      const nextContentRange = i + 1 < ranges.length ? ranges[i + 1] : null;
+  protected createTargets(target: Target, contentRanges: Range[]): Target[] {
+    return contentRanges.map((contentRange, i) => {
+      const previousContentRange = i > 0 ? contentRanges[i - 1] : null;
+      const nextContentRange =
+        i + 1 < contentRanges.length ? contentRanges[i + 1] : null;
 
       const leadingDelimiterRange =
         previousContentRange != null &&
@@ -136,14 +143,15 @@ export class CharacterStage extends SubTokenStage {
     super(modifier, GRAPHEME_SPLIT_REGEX);
   }
 
-  protected createTargets(target: Target, ranges: Range[]): Target[] {
-    return ranges.map((contentRange) => {
-      return new PlainTarget({
-        editor: target.editor,
-        isReversed: target.isReversed,
-        contentRange,
-      });
-    });
+  protected createTargets(target: Target, contentRanges: Range[]): Target[] {
+    return contentRanges.map(
+      (contentRange) =>
+        new PlainTarget({
+          editor: target.editor,
+          isReversed: target.isReversed,
+          contentRange,
+        })
+    );
   }
 }
 
