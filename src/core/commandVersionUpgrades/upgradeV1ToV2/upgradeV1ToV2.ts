@@ -1,15 +1,12 @@
-import { flow } from "lodash";
 import { ActionType } from "../../../actions/actions.types";
-import {
-  Modifier,
-  PartialPrimitiveTargetDescriptor,
-  PartialRangeTargetDescriptor,
-  PartialTargetDescriptor,
-  SimpleScopeTypeType,
-} from "../../../typings/targetDescriptor.types";
-import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
+import { SimpleScopeTypeType } from "../../../typings/targetDescriptor.types";
 import { CommandV2 } from "../upgradeV2ToV3/commandV2.types";
-import { ModifierV2 } from "../upgradeV2ToV3/targetDescriptorV2.types";
+import {
+  ModifierV2,
+  PartialPrimitiveTargetDescriptorV2,
+  PartialRangeTargetDescriptorV2,
+  PartialTargetDescriptorV2,
+} from "../upgradeV2ToV3/targetDescriptorV2.types";
 import {
   CommandV1,
   ModifierV0V1,
@@ -94,7 +91,7 @@ function upgradeModifier(modifier: ModifierV0V1): ModifierV2[] {
 function upgradePrimitiveTarget(
   target: PartialPrimitiveTargetV0V1,
   action: ActionType
-): PartialPrimitiveTargetDescriptor {
+): PartialPrimitiveTargetDescriptorV2 {
   const {
     type,
     isImplicit,
@@ -156,14 +153,14 @@ function upgradePrimitiveTarget(
     // Cursor token is just cursor position but treated as a token. This is done in the pipeline for normal cursor now
     mark: mark?.type === "cursorToken" ? undefined : mark,
     // Empty array of modifiers is not allowed
-    modifiers: modifiers.length > 0 ? (modifiers as Modifier[]) : undefined,
+    modifiers: modifiers.length > 0 ? modifiers : undefined,
   };
 }
 
 function upgradeTarget(
   target: PartialTargetV0V1,
   action: ActionType
-): PartialTargetDescriptor {
+): PartialTargetDescriptorV2 {
   switch (target.type) {
     case "list":
       return {
@@ -171,8 +168,8 @@ function upgradeTarget(
         elements: target.elements.map(
           (target) =>
             upgradeTarget(target, action) as
-              | PartialPrimitiveTargetDescriptor
-              | PartialRangeTargetDescriptor
+              | PartialPrimitiveTargetDescriptorV2
+              | PartialRangeTargetDescriptorV2
         ),
       };
     case "range": {
@@ -194,12 +191,10 @@ function upgradeTarget(
 function upgradeTargets(
   partialTargets: PartialTargetV0V1[],
   action: ActionType
-) {
-  const partialTargetsV2: PartialTargetDescriptor[] = partialTargets.map(
-    (target) => upgradeTarget(target, action)
-  );
-  return transformPartialPrimitiveTargets(
-    partialTargetsV2,
-    flow(upgradeStrictHere)
-  );
+): PartialTargetDescriptorV2[] {
+  return partialTargets
+    .map((target) => upgradeTarget(target, action))
+    .map((target) =>
+      target.type === "primitive" ? upgradeStrictHere(target) : target
+    );
 }
