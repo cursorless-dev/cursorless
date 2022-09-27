@@ -56,8 +56,8 @@ abstract class SubTokenStage implements ModifierStage {
     return [this.findSingleTarget(target, filteredTargets)];
   }
 
-  private findSingleTarget(target: Target, targets: Target[]): Target {
-    let intersectingTargets = targets
+  private findSingleTarget(target: Target, allTargets: Target[]): Target {
+    let intersectingTargets = allTargets
       .map((t) => ({
         target: t,
         intersection: t.contentRange.intersection(target.contentRange),

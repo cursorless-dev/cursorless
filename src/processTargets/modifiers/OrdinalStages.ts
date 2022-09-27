@@ -19,7 +19,7 @@ export class AbsoluteOrdinalStage implements ModifierStage {
       this.modifier.start + (this.modifier.start < 0 ? targets.length : 0);
     const endIndex = startIndex + this.modifier.length - 1;
 
-    return [createTarget(target, targets, startIndex, endIndex)];
+    return [createTarget(target.isReversed, targets, startIndex, endIndex)];
   }
 }
 
@@ -44,6 +44,7 @@ export class RelativeOrdinalStage implements ModifierStage {
     const containingStartIndex = containingIndices[0];
     const containingEndIndex = containingIndices[containingIndices.length - 1];
 
+    // Reference index. This is the index close as to the target content range
     let index: number;
 
     // Include containing/intersecting scopes
@@ -63,6 +64,7 @@ export class RelativeOrdinalStage implements ModifierStage {
         : containingStartIndex - this.modifier.offset;
     }
 
+    // Index opposite reference index
     const index2 = isForward
       ? index + this.modifier.length - 1
       : index - this.modifier.length + 1;
@@ -70,12 +72,17 @@ export class RelativeOrdinalStage implements ModifierStage {
     const startIndex = Math.min(index, index2);
     const endIndex = Math.max(index, index2);
 
-    return [createTarget(target, targets, startIndex, endIndex)];
+    return [createTarget(target.isReversed, targets, startIndex, endIndex)];
   }
 }
 
+/**
+ * Construct a single target from the list of targets
+ * @param startIndex inclusive
+ * @param endIndex inclusive
+ */
 function createTarget(
-  target: Target,
+  isReversed: boolean,
   targets: Target[],
   startIndex: number,
   endIndex: number
@@ -89,7 +96,7 @@ function createTarget(
   }
 
   return targets[startIndex].createContinuousRangeTarget(
-    target.isReversed,
+    isReversed,
     targets[endIndex],
     true,
     true
