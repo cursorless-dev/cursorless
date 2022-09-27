@@ -203,7 +203,7 @@ export interface RelativeOrdinalScopeModifier {
   /* The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes in the direction of {@link direction} */
   length: number;
 
-  /* Indicates which direction both `offset` and `length` go relative to input target  */
+  /* Indicates which direction both {@link offset} and {@link length} go relative to input target  */
   direction: "forward" | "backward";
 }
 
