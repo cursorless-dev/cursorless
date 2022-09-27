@@ -1,5 +1,3 @@
-export const SUBWORD_MATCHER = /[A-Z]?[a-z]+|[A-Z]+(?![a-z])|[0-9]+/g;
-
 export const HAT_COLORS = [
   "default",
   "blue",
@@ -34,4 +32,12 @@ export type HatStyleName = HatColor | `${HatColor}-${HatNonDefaultShape}`;
 export interface HatStyle {
   color: HatColor;
   shape: HatShape;
+}
+
+export function getStyleName(color: HatColor, shape: HatShape): HatStyleName {
+  if (shape === "default") {
+    return color;
+  }
+
+  return `${color}-${shape}`;
 }

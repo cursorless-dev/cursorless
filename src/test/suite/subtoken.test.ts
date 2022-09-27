@@ -1,6 +1,6 @@
 import * as assert from "assert";
+import { SUBWORD_MATCHER } from "../../processTargets/modifiers/subToken";
 
-import { SUBWORD_MATCHER } from "../../core/constants";
 import { subtokenFixture } from "./fixtures/subtoken.fixture";
 
 suite("subtoken regex matcher", () => {
