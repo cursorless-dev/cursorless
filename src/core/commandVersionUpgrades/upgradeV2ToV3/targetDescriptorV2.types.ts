@@ -1,4 +1,4 @@
-import { HatStyleName } from "../../constants";
+import { HatStyleName } from "../../hatStyles";
 
 export interface CursorMark {
   type: "cursor";
