@@ -176,6 +176,10 @@ export interface EveryScopeModifier {
   scopeType: ScopeType;
 }
 
+/**
+ * Refer to scopes by absolute index relative to iteration scope, eg "first
+ * funk" to refer to the first function in a class.
+ */
 export interface AbsoluteOrdinalScopeModifier {
   type: "absoluteOrdinalScope";
 
@@ -188,6 +192,10 @@ export interface AbsoluteOrdinalScopeModifier {
   length: number;
 }
 
+/**
+ * Refer to scopes by offset relative to input target, eg "next
+ * funk" to refer to the first function after the function containing the target input.
+ */
 export interface RelativeOrdinalScopeModifier {
   type: "relativeOrdinalScope";
 
@@ -199,7 +207,7 @@ export interface RelativeOrdinalScopeModifier {
   /* The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes in the direction of {@link direction} */
   length: number;
 
-  /* Indicates which direction both `offset` and `length` go relative to input target  */
+  /* Indicates which direction both {@link offset} and {@link length} go relative to input target  */
   direction: "forward" | "backward";
 }
 

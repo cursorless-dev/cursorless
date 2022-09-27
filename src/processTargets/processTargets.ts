@@ -238,6 +238,6 @@ function uniqTargets(array: Target[]): Target[] {
 
 function ensureSingleEditor(anchorTarget: Target, activeTarget: Target) {
   if (anchorTarget.editor !== activeTarget.editor) {
-    throw new Error("AnchorTarget and activeTarget must be in same document");
+    throw new Error("Cannot form range between targets in different editors");
   }
 }
