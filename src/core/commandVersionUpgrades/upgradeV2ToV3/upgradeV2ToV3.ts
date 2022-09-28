@@ -104,27 +104,18 @@ function createLineNumberMark(
 }
 
 function createOrdinalModifier(
-  oldModifier: OrdinalRangeModifier
+  modifier: OrdinalRangeModifier
 ): AbsoluteOrdinalScopeModifier | RangeModifier {
-  if (oldModifier.anchor === oldModifier.active) {
-    return createAbsoluteOrdinalModifier(
-      oldModifier.scopeType,
-      oldModifier.anchor
-    );
+  if (modifier.anchor === modifier.active) {
+    return createAbsoluteOrdinalModifier(modifier.scopeType, modifier.anchor);
   }
 
   return {
     type: "range",
-    anchor: createAbsoluteOrdinalModifier(
-      oldModifier.scopeType,
-      oldModifier.anchor
-    ),
-    active: createAbsoluteOrdinalModifier(
-      oldModifier.scopeType,
-      oldModifier.active
-    ),
-    excludeAnchor: oldModifier.excludeAnchor,
-    excludeActive: oldModifier.excludeActive,
+    anchor: createAbsoluteOrdinalModifier(modifier.scopeType, modifier.anchor),
+    active: createAbsoluteOrdinalModifier(modifier.scopeType, modifier.active),
+    excludeAnchor: modifier.excludeAnchor,
+    excludeActive: modifier.excludeActive,
   };
 }
 
