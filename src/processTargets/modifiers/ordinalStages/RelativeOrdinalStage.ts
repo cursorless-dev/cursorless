@@ -1,27 +1,9 @@
-import { Target } from "../../typings/target.types";
-import {
-  AbsoluteOrdinalScopeModifier,
-  RelativeOrdinalScopeModifier,
-  ScopeType,
-} from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
-import getModifierStage from "../getModifierStage";
-import { ModifierStage } from "../PipelineStages.types";
-import { UntypedTarget } from "../targets";
-
-export class AbsoluteOrdinalStage implements ModifierStage {
-  constructor(private modifier: AbsoluteOrdinalScopeModifier) {}
-
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const targets = getTargets(context, target, this.modifier.scopeType);
-
-    const startIndex =
-      this.modifier.start + (this.modifier.start < 0 ? targets.length : 0);
-    const endIndex = startIndex + this.modifier.length - 1;
-
-    return [createTarget(target.isReversed, targets, startIndex, endIndex)];
-  }
-}
+import { Target } from "../../../typings/target.types";
+import { RelativeOrdinalScopeModifier } from "../../../typings/targetDescriptor.types";
+import { ProcessedTargetsContext } from "../../../typings/Types";
+import { ModifierStage } from "../../PipelineStages.types";
+import { UntypedTarget } from "../../targets";
+import { createTarget, getTargets } from "./OrdinalStagesUtil";
 
 export class RelativeOrdinalStage implements ModifierStage {
   constructor(private modifier: RelativeOrdinalScopeModifier) {}
@@ -74,45 +56,6 @@ export class RelativeOrdinalStage implements ModifierStage {
 
     return [createTarget(target.isReversed, targets, startIndex, endIndex)];
   }
-}
-
-/**
- * Construct a single target from the list of targets
- * @param startIndex inclusive
- * @param endIndex inclusive
- */
-function createTarget(
-  isReversed: boolean,
-  targets: Target[],
-  startIndex: number,
-  endIndex: number
-): Target {
-  if (startIndex < 0 || endIndex >= targets.length) {
-    throw new Error("Ordinal index out of range");
-  }
-
-  if (startIndex === endIndex) {
-    return targets[startIndex];
-  }
-
-  return targets[startIndex].createContinuousRangeTarget(
-    isReversed,
-    targets[endIndex],
-    true,
-    true
-  );
-}
-
-function getTargets(
-  context: ProcessedTargetsContext,
-  target: Target,
-  scopeType: ScopeType
-): Target[] {
-  const containingStage = getModifierStage({
-    type: "everyScope",
-    scopeType,
-  });
-  return containingStage.run(context, target);
 }
 
 function createTargetWithoutExplicitRange(target: Target) {

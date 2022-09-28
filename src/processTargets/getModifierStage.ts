@@ -16,7 +16,7 @@ import ModifyIfUntypedStage from "./modifiers/ModifyIfUntypedStage";
 import {
   AbsoluteOrdinalStage,
   RelativeOrdinalStage,
-} from "./modifiers/OrdinalStages";
+} from "./modifiers/ordinalStages";
 import PositionStage from "./modifiers/PositionStage";
 import RangeStage from "./modifiers/RangeStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
