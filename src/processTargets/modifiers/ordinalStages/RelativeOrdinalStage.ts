@@ -1,3 +1,4 @@
+import { Range } from "vscode";
 import { Target } from "../../../typings/target.types";
 import { RelativeOrdinalScopeModifier } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
@@ -14,22 +15,18 @@ export class RelativeOrdinalStage implements ModifierStage {
       createTargetWithoutExplicitRange(target),
       this.modifier.scopeType
     );
+    const containingIndices = getContainingIndices(
+      target.contentRange,
+      targets
+    );
+    const containingStartIndex = containingIndices[0];
+    const containingEndIndex = containingIndices.at(-1)!;
     const isForward = this.modifier.direction === "forward";
 
-    const containingIndices = targets
-      .map((t, i) => ({
-        index: i,
-        intersection: t.contentRange.intersection(target.contentRange),
-      }))
-      .filter((t) => t.intersection != null)
-      .map((t) => t.index);
-    const containingStartIndex = containingIndices[0];
-    const containingEndIndex = containingIndices[containingIndices.length - 1];
+    // Reference index. This is the index closest to the target content range.
+    let refIndex: number;
 
-    // Reference index. This is the index close as to the target content range
-    let index: number;
-
-    // Include containing/intersecting scopes
+    // Include containing scopes
     if (this.modifier.offset === 0) {
       // Number of current containing scopes is already greater than desired length.
       if (containingIndices.length > this.modifier.length) {
@@ -37,25 +34,49 @@ export class RelativeOrdinalStage implements ModifierStage {
           `Incorrect ordinal length ${this.modifier.length}. Containing length is already ${containingIndices.length}`
         );
       }
-      index = isForward ? containingStartIndex : containingEndIndex;
+      refIndex = isForward ? containingStartIndex : containingEndIndex;
     }
-    // Exclude containing/intersecting scopes
+    // Exclude containing scopes
     else {
-      index = isForward
+      refIndex = isForward
         ? containingEndIndex + this.modifier.offset
         : containingStartIndex - this.modifier.offset;
     }
 
     // Index opposite reference index
-    const index2 = isForward
-      ? index + this.modifier.length - 1
-      : index - this.modifier.length + 1;
+    const oppIndex = isForward
+      ? refIndex + this.modifier.length - 1
+      : refIndex - this.modifier.length + 1;
 
-    const startIndex = Math.min(index, index2);
-    const endIndex = Math.max(index, index2);
+    const startIndex = Math.min(refIndex, oppIndex);
+    const endIndex = Math.max(refIndex, oppIndex);
 
     return [createTarget(target.isReversed, targets, startIndex, endIndex)];
   }
+}
+
+/** Get indices to all targets containing content range */
+function getContainingIndices(
+  contentRange: Range,
+  targets: Target[]
+): number[] {
+  const targetsWithIntersection = targets.map((t, i) => ({
+    index: i,
+    intersection: t.contentRange.intersection(contentRange),
+  }));
+
+  // Content range is empty. Use rightmost target.
+  if (contentRange.isEmpty) {
+    return targetsWithIntersection
+      .filter((t) => t.intersection != null)
+      .slice(-1)
+      .map((t) => t.index);
+  }
+
+  // Content range is not empty. Use all fully contained targets.
+  return targetsWithIntersection
+    .filter((t) => t.intersection != null && !t.intersection.isEmpty)
+    .map((t) => t.index);
 }
 
 function createTargetWithoutExplicitRange(target: Target) {
