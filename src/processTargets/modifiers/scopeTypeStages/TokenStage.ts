@@ -89,15 +89,14 @@ export function getTokenRangeForSelection(
       if (lengthDiff !== 0) {
         return lengthDiff;
       }
-      // Lastly sort on start position. ie leftmost
-      return a.offsets.start - b.offsets.start;
+      // Lastly sort on start position in reverse. ie prefer rightmost
+      return b.offsets.start - a.offsets.start;
     });
     tokens = tokens.slice(0, 1);
   }
   // Use tokens for overlapping ranges
   else {
     tokens = tokens.filter((token) => !token.intersection.isEmpty);
-    tokens.sort((a, b) => a.token.offsets.start - b.token.offsets.start);
   }
   if (tokens.length < 1) {
     throw new Error("Couldn't find token in selection");

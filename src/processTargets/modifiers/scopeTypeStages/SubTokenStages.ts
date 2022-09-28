@@ -64,15 +64,23 @@ abstract class SubTokenStage implements ModifierStage {
       }))
       .filter((it) => it.intersection != null);
 
-    // Empty range utilize single leftmost target
+    if (intersectingTargets.length === 0) {
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
+    }
+
+    // Empty range utilize single rightmost target
     if (target.contentRange.isEmpty) {
-      return intersectingTargets[0].target;
+      return intersectingTargets.at(-1)!.target;
     }
 
     // On non empty range utilize all non-empty intersecting targets
     intersectingTargets = intersectingTargets.filter(
       (it) => !it.intersection!.isEmpty
     );
+
+    if (intersectingTargets.length === 0) {
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
+    }
 
     if (intersectingTargets.length === 1) {
       return intersectingTargets[0].target;
