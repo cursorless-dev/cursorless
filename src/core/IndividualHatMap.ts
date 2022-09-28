@@ -1,5 +1,5 @@
 import { TextDocument } from "vscode";
-import { HatStyleName } from "./constants";
+import { HatStyleName } from "./hatStyles";
 import { Graph, Token } from "../typings/Types";
 import HatTokenMap from "./HatTokenMap";
 
