@@ -208,7 +208,7 @@ export interface PositionModifier {
 
 export interface PartialPrimitiveTargetDescriptorV2 {
   type: "primitive";
-  mark?: Mark;
+  mark?: MarkV2;
   modifiers?: ModifierV2[];
   isImplicit?: boolean;
 }
