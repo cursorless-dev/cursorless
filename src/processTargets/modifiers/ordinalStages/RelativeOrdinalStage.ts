@@ -4,13 +4,13 @@ import { RelativeOrdinalScopeModifier } from "../../../typings/targetDescriptor.
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import { UntypedTarget } from "../../targets";
-import { createTarget, getTargets } from "./OrdinalStagesUtil";
+import { createTarget, getEveryScopeTargets } from "./OrdinalStagesUtil";
 
 export class RelativeOrdinalStage implements ModifierStage {
   constructor(private modifier: RelativeOrdinalScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const targets = getTargets(
+    const targets = getEveryScopeTargets(
       context,
       createTargetWithoutExplicitRange(target),
       this.modifier.scopeType

@@ -30,7 +30,7 @@ export function createTarget(
   );
 }
 
-export function getTargets(
+export function getEveryScopeTargets(
   context: ProcessedTargetsContext,
   target: Target,
   scopeType: ScopeType
