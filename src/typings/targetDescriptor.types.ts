@@ -31,25 +31,28 @@ export interface DecoratedSymbolMark {
 
 export type LineNumberType = "absolute" | "relative" | "modulo100";
 
-export interface LineNumberPosition {
-  type: LineNumberType;
+export interface LineNumberMark {
+  type: "lineNumber";
+  lineType: LineNumberType;
   lineNumber: number;
 }
 
-export interface LineNumberMark {
-  type: "lineNumber";
-  anchor: LineNumberPosition;
-  active: LineNumberPosition;
+export interface RangeMark {
+  type: "range";
+  anchor: Mark;
+  active: Mark;
+  excludeAnchor?: boolean;
+  excludeActive?: boolean;
 }
 
 export type Mark =
   | CursorMark
   | ThatMark
   | SourceMark
-  //   | LastCursorPositionMark Not implemented yet
   | DecoratedSymbolMark
   | NothingMark
-  | LineNumberMark;
+  | LineNumberMark
+  | RangeMark;
 
 export type SimpleSurroundingPairName =
   | "angleBrackets"

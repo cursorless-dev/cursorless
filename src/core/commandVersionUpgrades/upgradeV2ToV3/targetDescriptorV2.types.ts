@@ -28,25 +28,25 @@ export interface DecoratedSymbolMark {
 
 export type LineNumberType = "absolute" | "relative" | "modulo100";
 
-export interface LineNumberPosition {
+export interface LineNumberPositionV2 {
   type: LineNumberType;
   lineNumber: number;
 }
 
-export interface LineNumberMark {
+export interface LineNumberMarkV2 {
   type: "lineNumber";
-  anchor: LineNumberPosition;
-  active: LineNumberPosition;
+  anchor: LineNumberPositionV2;
+  active: LineNumberPositionV2;
 }
 
-export type Mark =
+export type MarkV2 =
   | CursorMark
   | ThatMark
   | SourceMark
   //   | LastCursorPositionMark Not implemented yet
   | DecoratedSymbolMark
   | NothingMark
-  | LineNumberMark;
+  | LineNumberMarkV2;
 
 export type SimpleSurroundingPairName =
   | "angleBrackets"
@@ -286,7 +286,7 @@ export interface PrimitiveTargetDescriptor
   /**
    * The mark, eg "air", "this", "that", etc
    */
-  mark: Mark;
+  mark: MarkV2;
 
   /**
    * Zero or more modifiers that will be applied in sequence to the output from
