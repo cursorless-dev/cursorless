@@ -4,7 +4,7 @@ import { ProcessedTargetsContext } from "../../typings/Types";
 import { MarkStage } from "../PipelineStages.types";
 
 export class ThatStage implements MarkStage {
-  constructor(private modifier: ThatMark) {}
+  constructor(private mark: ThatMark) {}
 
   run(context: ProcessedTargetsContext): Target[] {
     if (context.thatMark.length === 0) {
@@ -16,7 +16,7 @@ export class ThatStage implements MarkStage {
 }
 
 export class SourceStage implements MarkStage {
-  constructor(private modifier: SourceMark) {}
+  constructor(private mark: SourceMark) {}
 
   run(context: ProcessedTargetsContext): Target[] {
     if (context.sourceMark.length === 0) {

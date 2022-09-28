@@ -6,11 +6,11 @@ import { MarkStage } from "../PipelineStages.types";
 import { targetsToContinuousTarget } from "../processTargets";
 
 export default class RangeStage implements MarkStage {
-  constructor(private modifier: RangeMark) {}
+  constructor(private mark: RangeMark) {}
 
   run(context: ProcessedTargetsContext): Target[] {
-    const anchorStage = getMarkStage(this.modifier.anchor);
-    const activeStage = getMarkStage(this.modifier.active);
+    const anchorStage = getMarkStage(this.mark.anchor);
+    const activeStage = getMarkStage(this.mark.active);
     const anchorTargets = anchorStage.run(context);
     const activeTargets = activeStage.run(context);
 
@@ -22,8 +22,8 @@ export default class RangeStage implements MarkStage {
       targetsToContinuousTarget(
         anchorTargets[0],
         activeTargets[0],
-        this.modifier.excludeAnchor,
-        this.modifier.excludeActive
+        this.mark.excludeAnchor,
+        this.mark.excludeActive
       ),
     ];
   }
