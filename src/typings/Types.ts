@@ -14,6 +14,7 @@ import StatusBarItem from "../core/StatusBarItem";
 import { TokenGraphemeSplitter } from "../core/TokenGraphemeSplitter";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { IDE } from "../ide/ide.types";
+import KeyboardCommands from "../keyboard/KeyboardCommands";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { CommandServerApi } from "../util/getExtensionApi";
@@ -174,6 +175,11 @@ export interface Graph {
    * Used to interact with the ide
    */
   readonly ide: IDE;
+
+  /**
+   * Set of simplified commands that can be easily mapped to keyboard shortcuts.
+   */
+  readonly keyboardCommands: KeyboardCommands;
 }
 
 export type NodeMatcherValue = {

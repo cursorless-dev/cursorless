@@ -10,6 +10,7 @@ import StatusBarItem from "../core/StatusBarItem";
 import { TokenGraphemeSplitter } from "../core/TokenGraphemeSplitter";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { VscodeIDE } from "../ide/vscode/VscodeIDE";
+import KeyboardCommands from "../keyboard/KeyboardCommands";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { Graph } from "../typings/Types";
 import { FactoryMap } from "./makeGraph";
@@ -32,6 +33,7 @@ const graphConstructors: Partial<ConstructorMap<Graph>> = {
   statusBarItem: StatusBarItem,
   tokenGraphemeSplitter: TokenGraphemeSplitter,
   ide: VscodeIDE,
+  keyboardCommands: KeyboardCommands,
 };
 
 const graphFactories: Partial<FactoryMap<Graph>> = Object.fromEntries(
