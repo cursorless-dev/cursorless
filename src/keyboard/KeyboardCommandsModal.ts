@@ -1,16 +1,6 @@
-import { toPairs } from "lodash";
 import * as vscode from "vscode";
-import { ActionType } from "../actions/actions.types";
 import { Graph } from "../typings/Types";
-import { actionKeymap, colorKeymap, KeyMap, scopeKeymap } from "./Keymaps";
-
-type SectionName = "actions" | "scopes" | "colors";
-
-interface KeyHandler<T> {
-  sectionName: SectionName;
-  value: T;
-  handleValue(): void;
-}
+import { topLevelKeys } from "./Keymaps";
 
 /**
  * Defines a mode to use with a modal version of Cursorless keyboard.
@@ -19,14 +9,11 @@ export default class KeyboardCommandsModal {
   private isModeOn = false;
   private isActivated = false;
   private inputDisposable: vscode.Disposable | undefined;
-  private mergedKeymap!: Record<string, KeyHandler<any>>;
 
   constructor(private graph: Graph) {
     this.modeOn = this.modeOn.bind(this);
     this.modeOff = this.modeOff.bind(this);
     this.handleInput = this.handleInput.bind(this);
-
-    this.constructMergedKeymap();
   }
 
   init() {
@@ -50,51 +37,6 @@ export default class KeyboardCommandsModal {
     this.ensureState();
   }
 
-  private constructMergedKeymap() {
-    this.mergedKeymap = {};
-
-    this.handleSection("actions", actionKeymap, (value) => {
-      return this.graph.keyboardCommands.targeted.performActionOnTarget(value);
-    });
-    this.handleSection("scopes", scopeKeymap, (value) => {
-      return this.graph.keyboardCommands.targeted.targetScopeType({
-        scopeType: value,
-      });
-    });
-    this.handleSection("colors", colorKeymap, (value) => {
-      return this.graph.keyboardCommands.targeted.targetDecoratedMark({
-        color: value,
-      });
-    });
-  }
-
-  private handleSection<T>(
-    sectionName: SectionName,
-    keyMap: KeyMap<T>,
-    handleValue: (value: T) => void
-  ) {
-    for (const [key, value] of toPairs(keyMap)) {
-      if (key in this.mergedKeymap) {
-        const { sectionName: conflictingSection, value: conflictingValue } =
-          this.mergedKeymap[key];
-
-        vscode.window.showErrorMessage(
-          `Duplicated keybindings: ${sectionName} ${value} and ${conflictingSection} ${conflictingValue} both want key '${key}'`
-        );
-
-        return;
-      }
-
-      const entry: KeyHandler<T> = {
-        sectionName,
-        value,
-        handleValue: () => handleValue(value),
-      };
-
-      this.mergedKeymap[key] = entry;
-    }
-  }
-
   private modeOn = () => {
     this.isModeOn = true;
     this.isActivated = true;
@@ -112,7 +54,9 @@ export default class KeyboardCommandsModal {
   };
 
   handleInput(text: string) {
-    this.mergedKeymap[text].handleValue();
+    console.log(`Got keypress: ${text}`);
+    const command = topLevelKeys[text];
+    const [commandType, commandPayload] = command.split(".");
   }
 
   private modeOff = () => {
@@ -155,9 +99,5 @@ export default class KeyboardCommandsModal {
         cursorStyle: cursorStyle,
       };
     }
-  }
-
-  private handleAction(action: ActionType) {
-    return this.graph.keyboardCommands.targeted.performActionOnTarget(action);
   }
 }

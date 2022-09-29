@@ -2,16 +2,13 @@ import { ActionType } from "../actions/actions.types";
 import { HatColor } from "../core/hatStyles";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 
-export type KeyMap<T> = Record<string, T>;
+type ActionCommand = `actions.${ActionType}`;
+type ScopeCommand = `scopes.${SimpleScopeTypeType}`;
+type ColorCommand = `colors.${HatColor}`;
+type Command = ActionCommand | ScopeCommand | ColorCommand;
 
-export const actionKeymap: KeyMap<ActionType> = {
-  c: "remove",
-};
-
-export const scopeKeymap: KeyMap<SimpleScopeTypeType> = {
-  f: "namedFunction",
-};
-
-export const colorKeymap: KeyMap<HatColor> = {
-  d: "default",
+export const topLevelKeys: Record<string, Command> = {
+  d: "colors.default",
+  f: "scopes.namedFunction",
+  c: "actions.remove",
 };
