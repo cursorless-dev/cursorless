@@ -40,6 +40,7 @@ head_tail_swallowed_modifiers = [
     "<user.cursorless_simple_modifier>",  # bounds, just, leading, trailing
     "<user.cursorless_containing_scope>",  # funk, state, class
     "<user.cursorless_ordinal_scope>",  # first past second word
+    "<user.cursorless_relative_scope>",  # next funk
     "<user.cursorless_surrounding_pair>",  # matching/pair [curly, round]
 ]
 

@@ -24,10 +24,10 @@ def cursorless_ordinal_range(m) -> dict[str, Any]:
         range_connective = m.cursorless_range_connective
         include_anchor = is_anchor_included(range_connective)
         include_active = is_active_included(range_connective)
-        anchor = create_absolute_scope_modifier(
+        anchor = create_ordinal_scope_modifier(
             m.cursorless_scope_type, m.ordinal_or_last_list[0]
         )
-        active = create_absolute_scope_modifier(
+        active = create_ordinal_scope_modifier(
             m.cursorless_scope_type, m.ordinal_or_last_list[1]
         )
         return {
@@ -38,48 +38,28 @@ def cursorless_ordinal_range(m) -> dict[str, Any]:
             "excludeActive": not include_active,
         }
     else:
-        return create_absolute_scope_modifier(
+        return create_ordinal_scope_modifier(
             m.cursorless_scope_type, m.ordinal_or_last_list[0]
         )
 
 
 @mod.capture(rule="(first | last) <number_small> <user.cursorless_scope_type>")
-def cursorless_first_last_range(m) -> dict[str, Any]:
+def cursorless_first_last(m) -> dict[str, Any]:
     """First/last `n` scopes; eg "first three funk"""
     if m[0] == "first":
-        return create_absolute_scope_modifier(
-            m.cursorless_scope_type, 0, m.number_small
-        )
-    return create_absolute_scope_modifier(
+        return create_ordinal_scope_modifier(m.cursorless_scope_type, 0, m.number_small)
+    return create_ordinal_scope_modifier(
         m.cursorless_scope_type, -m.number_small, m.number_small
     )
 
 
-@mod.capture(rule="(previous | next) <user.cursorless_scope_type>")
-def cursorless_previous_next_scope(m) -> dict[str, Any]:
-    """Previous/next scope"""
-    return {
-        "type": "relativeScope",
-        "scopeType": m.cursorless_scope_type,
-        "offset": 1,
-        "length": 1,
-        "direction": "backward" if m[0] == "previous" else "forward",
-    }
-
-
-@mod.capture(
-    rule=(
-        "<user.cursorless_ordinal_range> | "
-        "<user.cursorless_first_last_range> | "
-        "<user.cursorless_previous_next_scope>"
-    )
-)
+@mod.capture(rule="<user.cursorless_ordinal_range> | <user.cursorless_first_last>")
 def cursorless_ordinal_scope(m) -> dict[str, Any]:
     """Ordinal ranges such as subwords or characters"""
     return m[0]
 
 
-def create_absolute_scope_modifier(scope_type: Any, start: int, length: int = 1):
+def create_ordinal_scope_modifier(scope_type: Any, start: int, length: int = 1):
     return {
         "type": "ordinalScope",
         "scopeType": scope_type,
