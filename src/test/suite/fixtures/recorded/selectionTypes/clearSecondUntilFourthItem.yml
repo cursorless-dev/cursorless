@@ -7,12 +7,12 @@ command:
       modifiers:
         - type: range
           anchor:
-            type: absoluteOrdinalScope
+            type: ordinalScope
             scopeType: {type: collectionItem}
             start: 1
             length: 1
           active:
-            type: absoluteOrdinalScope
+            type: ordinalScope
             scopeType: {type: collectionItem}
             start: 3
             length: 1
@@ -31,4 +31,4 @@ finalState:
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: range, anchor: {type: absoluteOrdinalScope, scopeType: {type: collectionItem}, start: 1, length: 1}, active: {type: absoluteOrdinalScope, scopeType: {type: collectionItem}, start: 3, length: 1}, excludeAnchor: false, excludeActive: true}]}]
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: range, anchor: {type: ordinalScope, scopeType: {type: collectionItem}, start: 1, length: 1}, active: {type: ordinalScope, scopeType: {type: collectionItem}, start: 3, length: 1}, excludeAnchor: false, excludeActive: true}]}]

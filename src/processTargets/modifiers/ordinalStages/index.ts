@@ -1,2 +1,2 @@
-export * from "./AbsoluteOrdinalStage";
-export * from "./RelativeOrdinalStage";
+export * from "./OrdinalScopeStage";
+export * from "./RelativeScopeStage";

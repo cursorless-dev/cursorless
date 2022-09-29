@@ -5,7 +5,7 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - type: relativeOrdinalScope
+        - type: relativeScope
           scopeType: {type: word}
           offset: 1
           length: 1
@@ -23,4 +23,4 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeOrdinalScope, scopeType: {type: word}, offset: 1, length: 1, direction: backward}]}]
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: word}, offset: 1, length: 1, direction: backward}]}]

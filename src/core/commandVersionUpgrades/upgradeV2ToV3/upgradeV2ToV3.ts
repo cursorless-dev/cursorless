@@ -1,6 +1,6 @@
 import { isEqual } from "lodash";
 import {
-  AbsoluteOrdinalScopeModifier,
+  OrdinalScopeModifier,
   LineNumberMark,
   Mark,
   Modifier,
@@ -105,7 +105,7 @@ function createLineNumberMark(
 
 function createOrdinalModifier(
   modifier: OrdinalRangeModifier
-): AbsoluteOrdinalScopeModifier | RangeModifier {
+): OrdinalScopeModifier | RangeModifier {
   if (modifier.anchor === modifier.active) {
     return createAbsoluteOrdinalModifier(modifier.scopeType, modifier.anchor);
   }
@@ -132,9 +132,9 @@ function createLineNumberMarkFromPos(
 function createAbsoluteOrdinalModifier(
   scopeType: ScopeType,
   start: number
-): AbsoluteOrdinalScopeModifier {
+): OrdinalScopeModifier {
   return {
-    type: "absoluteOrdinalScope",
+    type: "ordinalScope",
     scopeType,
     start,
     length: 1,

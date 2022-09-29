@@ -5,7 +5,7 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - type: absoluteOrdinalScope
+        - type: ordinalScope
           scopeType: {type: collectionItem}
           start: 0
           length: 2
@@ -22,4 +22,4 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: absoluteOrdinalScope, scopeType: {type: collectionItem}, start: 0, length: 2}]}]
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: ordinalScope, scopeType: {type: collectionItem}, start: 0, length: 2}]}]

@@ -14,8 +14,8 @@ import ItemStage from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import ModifyIfUntypedStage from "./modifiers/ModifyIfUntypedStage";
 import {
-  AbsoluteOrdinalStage,
-  RelativeOrdinalStage,
+  OrdinalScopeStage,
+  RelativeScopeStage,
 } from "./modifiers/ordinalStages";
 import PositionStage from "./modifiers/PositionStage";
 import RangeStage from "./modifiers/RangeStage";
@@ -63,10 +63,10 @@ export default (modifier: Modifier): ModifierStage => {
     case "containingScope":
     case "everyScope":
       return getContainingScopeStage(modifier);
-    case "absoluteOrdinalScope":
-      return new AbsoluteOrdinalStage(modifier);
-    case "relativeOrdinalScope":
-      return new RelativeOrdinalStage(modifier);
+    case "ordinalScope":
+      return new OrdinalScopeStage(modifier);
+    case "relativeScope":
+      return new RelativeScopeStage(modifier);
     case "cascading":
       return new CascadingStage(modifier);
     case "modifyIfUntyped":

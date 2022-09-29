@@ -183,8 +183,8 @@ export interface EveryScopeModifier {
  * Refer to scopes by absolute index relative to iteration scope, eg "first
  * funk" to refer to the first function in a class.
  */
-export interface AbsoluteOrdinalScopeModifier {
-  type: "absoluteOrdinalScope";
+export interface OrdinalScopeModifier {
+  type: "ordinalScope";
 
   scopeType: ScopeType;
 
@@ -199,8 +199,8 @@ export interface AbsoluteOrdinalScopeModifier {
  * Refer to scopes by offset relative to input target, eg "next
  * funk" to refer to the first function after the function containing the target input.
  */
-export interface RelativeOrdinalScopeModifier {
-  type: "relativeOrdinalScope";
+export interface RelativeScopeModifier {
+  type: "relativeScope";
 
   scopeType: ScopeType;
 
@@ -291,8 +291,8 @@ export type Modifier =
   | ExcludeInteriorModifier
   | ContainingScopeModifier
   | EveryScopeModifier
-  | AbsoluteOrdinalScopeModifier
-  | RelativeOrdinalScopeModifier
+  | OrdinalScopeModifier
+  | RelativeScopeModifier
   | HeadTailModifier
   | LeadingModifier
   | TrailingModifier

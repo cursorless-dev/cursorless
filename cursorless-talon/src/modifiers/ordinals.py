@@ -59,7 +59,7 @@ def cursorless_first_last_range(m) -> dict[str, Any]:
 def cursorless_previous_next_scope(m) -> dict[str, Any]:
     """Previous/next scope"""
     return {
-        "type": "relativeOrdinalScope",
+        "type": "relativeScope",
         "scopeType": m.cursorless_scope_type,
         "offset": 1,
         "length": 1,
@@ -81,7 +81,7 @@ def cursorless_ordinal_scope(m) -> dict[str, Any]:
 
 def create_absolute_scope_modifier(scope_type: Any, start: int, length: int = 1):
     return {
-        "type": "absoluteOrdinalScope",
+        "type": "ordinalScope",
         "scopeType": scope_type,
         "start": start,
         "length": length,

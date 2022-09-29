@@ -5,7 +5,7 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - type: relativeOrdinalScope
+        - type: relativeScope
           scopeType: {type: namedFunction}
           offset: 1
           length: 1
