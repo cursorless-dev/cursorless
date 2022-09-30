@@ -44,19 +44,21 @@ const getLineNumber = (
       const base = Math.floor(startLine / stepSize) * stepSize;
       const visibleLines = [];
       const invisibleLines = [];
-      lineNumber = base + lineNumber;
-      while (lineNumber <= endLine) {
-        if (lineNumber >= startLine) {
+      let currentLineNumber = base + lineNumber;
+      while (currentLineNumber <= endLine) {
+        if (currentLineNumber >= startLine) {
           const visible = editor.visibleRanges.find(
-            (r) => lineNumber >= r.start.line && lineNumber <= r.end.line
+            (r) =>
+              currentLineNumber >= r.start.line &&
+              currentLineNumber <= r.end.line
           );
           if (visible) {
-            visibleLines.push(lineNumber);
+            visibleLines.push(currentLineNumber);
           } else {
-            invisibleLines.push(lineNumber);
+            invisibleLines.push(currentLineNumber);
           }
         }
-        lineNumber += stepSize;
+        currentLineNumber += stepSize;
       }
       if (visibleLines.length === 1) {
         return visibleLines[0];
