@@ -4,11 +4,15 @@ import { ProcessedTargetsContext } from "../../../typings/Types";
 import getModifierStage from "../../getModifierStage";
 
 /**
- * Construct a single target from the list of targets
- * @param startIndex inclusive
- * @param endIndex inclusive
+ * Construct a single range target between two targets in a list of targets,
+ * inclusive
+ * @param targets The list of targets to index into
+ * @param startIndex The index of the target in {@link targets} that will form
+ * the start of the range
+ * @param endIndex The index of the target in {@link targets} that will form the
+ * end of the range
  */
-export function createTarget(
+export function createRangeTargetFromIndices(
   isReversed: boolean,
   targets: Target[],
   startIndex: number,

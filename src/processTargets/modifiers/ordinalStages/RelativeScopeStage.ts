@@ -4,7 +4,10 @@ import { RelativeScopeModifier } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import { UntypedTarget } from "../../targets";
-import { createTarget, getEveryScopeTargets } from "./OrdinalStagesUtil";
+import {
+  createRangeTargetFromIndices,
+  getEveryScopeTargets,
+} from "./OrdinalStagesUtil";
 
 export class RelativeScopeStage implements ModifierStage {
   constructor(private modifier: RelativeScopeModifier) {}
@@ -23,7 +26,7 @@ export class RelativeScopeStage implements ModifierStage {
     const containingEndIndex = containingIndices.at(-1)!;
     const isForward = this.modifier.direction === "forward";
 
-    // Reference index. This is the index closest to the target content range.
+    /** Reference index. This is the index closest to the target content range. */
     let refIndex: number;
 
     // Include containing scopes
@@ -43,7 +46,7 @@ export class RelativeScopeStage implements ModifierStage {
         : containingStartIndex - this.modifier.offset;
     }
 
-    // Index opposite reference index
+    /** Index opposite reference index */
     const oppIndex = isForward
       ? refIndex + this.modifier.length - 1
       : refIndex - this.modifier.length + 1;
@@ -51,31 +54,38 @@ export class RelativeScopeStage implements ModifierStage {
     const startIndex = Math.min(refIndex, oppIndex);
     const endIndex = Math.max(refIndex, oppIndex);
 
-    return [createTarget(target.isReversed, targets, startIndex, endIndex)];
+    return [
+      createRangeTargetFromIndices(
+        target.isReversed,
+        targets,
+        startIndex,
+        endIndex
+      ),
+    ];
   }
 }
 
-/** Get indices to all targets containing content range */
+/** Get indices of all targets containing content range */
 function getContainingIndices(
-  contentRange: Range,
+  inputTargetRange: Range,
   targets: Target[]
 ): number[] {
-  const targetsWithIntersection = targets.map((t, i) => ({
-    index: i,
-    intersection: t.contentRange.intersection(contentRange),
-  }));
+  const targetsWithIntersection = targets
+    .map((t, i) => ({
+      index: i,
+      intersection: t.contentRange.intersection(inputTargetRange),
+    }))
+    .filter((t) => t.intersection != null);
 
-  // Content range is empty. Use rightmost target.
-  if (contentRange.isEmpty) {
-    return targetsWithIntersection
-      .filter((t) => t.intersection != null)
-      .slice(-1)
-      .map((t) => t.index);
+  // Content range is empty. Use rightmost target and accept weak containment.
+  if (inputTargetRange.isEmpty) {
+    // FIXME: Handle case where no targets intersect with the input range
+    return targetsWithIntersection.slice(-1).map((t) => t.index);
   }
 
-  // Content range is not empty. Use all fully contained targets.
+  // Content range is not empty. Use all targets with non empty intersections.
   return targetsWithIntersection
-    .filter((t) => t.intersection != null && !t.intersection.isEmpty)
+    .filter((t) => !t.intersection!.isEmpty)
     .map((t) => t.index);
 }
 
