@@ -5,7 +5,7 @@ import getMarkStage from "../getMarkStage";
 import { MarkStage } from "../PipelineStages.types";
 import { targetsToContinuousTarget } from "../processTargets";
 
-export default class RangeStage implements MarkStage {
+export default class RangeMarkStage implements MarkStage {
   constructor(private mark: RangeMark) {}
 
   run(context: ProcessedTargetsContext): Target[] {

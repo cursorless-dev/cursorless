@@ -5,7 +5,7 @@ import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";
 import { targetsToContinuousTarget } from "../processTargets";
 
-export default class RangeStage implements ModifierStage {
+export default class RangeModifierStage implements ModifierStage {
   constructor(private modifier: RangeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {

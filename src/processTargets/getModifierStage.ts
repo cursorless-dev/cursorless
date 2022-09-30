@@ -18,7 +18,7 @@ import {
   RelativeScopeStage,
 } from "./modifiers/ordinalStages";
 import PositionStage from "./modifiers/PositionStage";
-import RangeStage from "./modifiers/RangeStage";
+import RangeModifierStage from "./modifiers/RangeModifierStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
 import BoundedNonWhitespaceSequenceStage from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
 import ContainingSyntaxScopeStage, {
@@ -72,7 +72,7 @@ export default (modifier: Modifier): ModifierStage => {
     case "modifyIfUntyped":
       return new ModifyIfUntypedStage(modifier);
     case "range":
-      return new RangeStage(modifier);
+      return new RangeModifierStage(modifier);
   }
 };
 
