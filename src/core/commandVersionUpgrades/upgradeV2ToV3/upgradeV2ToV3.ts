@@ -124,7 +124,7 @@ function createLineNumberMarkFromPos(
 ): LineNumberMark {
   return {
     type: "lineNumber",
-    lineType: position.type,
+    lineNumberType: position.type,
     lineNumber: position.lineNumber,
   };
 }

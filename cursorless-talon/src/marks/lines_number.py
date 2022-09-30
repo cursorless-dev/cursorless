@@ -39,6 +39,6 @@ def cursorless_line_number(m) -> dict[str, Any]:
     direction = directions_map[m.cursorless_line_direction]
     return {
         "type": "lineNumber",
-        "lineType": direction.type,
+        "lineNumberType": direction.type,
         "lineNumber": direction.formatter(m.number_small),
     }

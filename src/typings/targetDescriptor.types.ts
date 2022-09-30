@@ -33,7 +33,7 @@ export type LineNumberType = "absolute" | "relative" | "modulo100";
 
 export interface LineNumberMark {
   type: "lineNumber";
-  lineType: LineNumberType;
+  lineNumberType: LineNumberType;
   lineNumber: number;
 }
 

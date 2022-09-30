@@ -18,7 +18,7 @@ export default class implements MarkStage {
     const editor = context.currentEditor;
     const lineNumber = getLineNumber(
       editor,
-      this.mark.lineType,
+      this.mark.lineNumberType,
       this.mark.lineNumber
     );
     const contentRange = editor.document.lineAt(lineNumber).range;
@@ -28,10 +28,10 @@ export default class implements MarkStage {
 
 const getLineNumber = (
   editor: TextEditor,
-  lineType: LineNumberType,
+  lineNumberType: LineNumberType,
   lineNumber: number
 ) => {
-  switch (lineType) {
+  switch (lineNumberType) {
     case "absolute":
       return lineNumber;
     case "relative":
