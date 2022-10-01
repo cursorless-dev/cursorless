@@ -5,7 +5,7 @@ import { ModifierStage } from "../../PipelineStages.types";
 import {
   createRangeTargetFromIndices,
   getEveryScopeTargets,
-} from "./OrdinalStagesUtil";
+} from "./targetSequenceUtils";
 
 export class OrdinalScopeStage implements ModifierStage {
   constructor(private modifier: OrdinalScopeModifier) {}

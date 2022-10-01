@@ -9,7 +9,7 @@ import { UntypedTarget } from "../../targets";
 import {
   createRangeTargetFromIndices,
   getEveryScopeTargets,
-} from "./OrdinalStagesUtil";
+} from "./targetSequenceUtils";
 
 export class RelativeScopeStage implements ModifierStage {
   constructor(private modifier: RelativeScopeModifier) {}
