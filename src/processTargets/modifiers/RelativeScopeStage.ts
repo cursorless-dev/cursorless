@@ -15,12 +15,8 @@ export class RelativeScopeStage implements ModifierStage {
   constructor(private modifier: RelativeScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    /**
-     * This boolean indicates that {@link RelativeScopeModifier.offset} is 0,
-     * meaning that we need to include the scope containing the input {@link target}
-     */
-    const includeContaining = this.modifier.offset === 0;
     const isForward = this.modifier.direction === "forward";
+
     /**
      * A list of targets in the iteration scope for the input {@link target}.
      * Note that we convert {@link target} to have no explicit range so that we
@@ -36,63 +32,20 @@ export class RelativeScopeStage implements ModifierStage {
       this.modifier.scopeType
     );
 
-    const intersectingIndices = (() => {
-      const intersectingIndices = getIntersectingTargetIndices(
-        target.contentRange,
-        targets
-      );
+    /** Proximal index. This is the index closest to the target content range. */
+    const proximalIndex = this.computeProximalIndex(
+      target.contentRange,
+      targets,
+      isForward
+    );
 
-      // The content range isnt containing any scopes, but they should not be
-      // included anyhow. Find a non containing relative index.
-      if (intersectingIndices.length === 0 && !includeContaining) {
-        const adjacentTargetIndex = getAdjacentTargetIndex(
-          target.contentRange,
-          targets,
-          isForward
-        );
-        return adjacentTargetIndex === -1 ? [] : [adjacentTargetIndex];
-      }
+    /** Index of range farther from input target */
+    const distalIndex = isForward
+      ? proximalIndex + this.modifier.length - 1
+      : proximalIndex - this.modifier.length + 1;
 
-      return intersectingIndices;
-    })();
-
-    if (intersectingIndices.length === 0) {
-      throw new NoContainingScopeError(this.modifier.scopeType.type);
-    }
-
-    const intersectingStartIndex = intersectingIndices[0];
-    const intersectingEndIndex = intersectingIndices.at(-1)!;
-
-    /** Reference index. This is the index closest to the target content range. */
-    let refIndex: number;
-
-    // Include containing scopes
-    if (includeContaining) {
-      // Number of scopes intersecting with input target is already greater than
-      // desired length; throw error.  This occurs if user says "two funks", and
-      // they have 3 functions selected.  Not clear what to do in that case so
-      // we throw error.
-      if (intersectingIndices.length > this.modifier.length) {
-        throw new Error(
-          `Incorrect ordinal length ${this.modifier.length}. Containing length is already ${intersectingIndices.length}`
-        );
-      }
-      refIndex = isForward ? intersectingStartIndex : intersectingEndIndex;
-    }
-    // Exclude containing scopes
-    else {
-      refIndex = isForward
-        ? intersectingEndIndex + this.modifier.offset
-        : intersectingStartIndex - this.modifier.offset;
-    }
-
-    /** Index opposite reference index */
-    const oppIndex = isForward
-      ? refIndex + this.modifier.length - 1
-      : refIndex - this.modifier.length + 1;
-
-    const startIndex = Math.min(refIndex, oppIndex);
-    const endIndex = Math.max(refIndex, oppIndex);
+    const startIndex = Math.min(proximalIndex, distalIndex);
+    const endIndex = Math.max(proximalIndex, distalIndex);
 
     return [
       createRangeTargetFromIndices(
@@ -102,6 +55,77 @@ export class RelativeScopeStage implements ModifierStage {
         endIndex
       ),
     ];
+  }
+
+  /**
+   * Compute the index of the target that will form the near end of the range.
+   *
+   * @param inputTargetRange The range of the input target to the modifier stage
+   * @param targets A list of all targets under consideration (eg in iteration
+   * scope)
+   * @param isForward `true` if we are handling "next", `false` if "previous"
+   * @returns The index into {@link targets} that will form the near end of the range.
+   */
+  private computeProximalIndex(
+    inputTargetRange: Range,
+    targets: Target[],
+    isForward: boolean
+  ) {
+    const includeIntersectingScopes = this.modifier.offset === 0;
+
+    const intersectingIndices = getIntersectingTargetIndices(
+      inputTargetRange,
+      targets
+    );
+
+    if (intersectingIndices.length === 0) {
+      const adjacentTargetIndex = isForward
+        ? targets.findIndex((t) =>
+            t.contentRange.start.isAfter(inputTargetRange.start)
+          )
+        : findLastIndex(targets, (t) =>
+            t.contentRange.start.isBefore(inputTargetRange.start)
+          );
+
+      if (adjacentTargetIndex === -1) {
+        throw new NoContainingScopeError(this.modifier.scopeType.type);
+      }
+
+      if (includeIntersectingScopes) {
+        return adjacentTargetIndex;
+      }
+
+      return isForward
+        ? adjacentTargetIndex + this.modifier.offset - 1
+        : adjacentTargetIndex - this.modifier.offset + 1;
+    }
+
+    // There are scopes intersecting with {@link inputTargetRange}
+
+    const intersectingStartIndex = intersectingIndices[0];
+    const intersectingEndIndex = intersectingIndices.at(-1)!;
+
+    if (includeIntersectingScopes) {
+      // Number of scopes intersecting with input target is already greater than
+      // desired length; throw error.  This occurs if user says "two funks", and
+      // they have 3 functions selected.  Not clear what to do in that case so
+      // we throw error.
+      if (intersectingIndices.length > this.modifier.length) {
+        throw new Error(
+          `Incorrect ordinal length ${this.modifier.length}. Containing length is already ${intersectingIndices.length}`
+        );
+      }
+
+      // This ensures that we count intersecting scopes in "three funks", so
+      // that we will never get more than 3 functions.
+      return isForward ? intersectingStartIndex : intersectingEndIndex;
+    }
+
+    // If we are excluding the intersecting scopes, then we set 0 to be such
+    // that the next scope will be the first non-intersecting.
+    return isForward
+      ? intersectingEndIndex + this.modifier.offset
+      : intersectingStartIndex - this.modifier.offset;
   }
 }
 
@@ -129,28 +153,6 @@ function getIntersectingTargetIndices(
   return targetsWithIntersection
     .filter((t) => !t.intersection!.isEmpty)
     .map((t) => t.index);
-}
-
-/** Get index of closest target to {@link inputTargetRange} in direction
- * determined by {@link isForward}, or -1 if no target exists in the given direction. */
-function getAdjacentTargetIndex(
-  inputTargetRange: Range,
-  targets: Target[],
-  isForward: boolean
-): number {
-  const index = isForward
-    ? targets.findIndex((t) =>
-        t.contentRange.start.isAfter(inputTargetRange.start)
-      )
-    : findLastIndex(targets, (t) =>
-        t.contentRange.start.isBefore(inputTargetRange.start)
-      );
-
-  if (index > -1) {
-    return isForward ? index - 1 : index + 1;
-  }
-
-  return index;
 }
 
 function createTargetWithoutExplicitRange(target: Target) {

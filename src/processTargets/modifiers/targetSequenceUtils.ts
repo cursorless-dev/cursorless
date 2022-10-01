@@ -3,6 +3,13 @@ import { ScopeType } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 
+export class OutOfRangeError extends Error {
+  constructor() {
+    super("Scope index out of range");
+    this.name = "OutOfRangeError";
+  }
+}
+
 /**
  * Construct a single range target between two targets in a list of targets,
  * inclusive
@@ -19,7 +26,7 @@ export function createRangeTargetFromIndices(
   endIndex: number
 ): Target {
   if (startIndex < 0 || endIndex >= targets.length) {
-    throw new Error("Ordinal index out of range");
+    throw new OutOfRangeError();
   }
 
   if (startIndex === endIndex) {
