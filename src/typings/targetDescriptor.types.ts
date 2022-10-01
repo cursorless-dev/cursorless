@@ -204,13 +204,17 @@ export interface RelativeScopeModifier {
 
   scopeType: ScopeType;
 
-  /* Indicates how many scopes away to start relative to the input target.  Note that if {@link direction} is `"backward"`, then this scope will be the end of the output range.  */
+  /** Indicates how many scopes away to start relative to the input target.
+   * Note that if {@link direction} is `"backward"`, then this scope will be the
+   * end of the output range.  */
   offset: number;
 
-  /* The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes in the direction of {@link direction} */
+  /** The number of scopes to include.  Will always be positive.  If greater
+   * than 1, will include scopes in the direction of {@link direction} */
   length: number;
 
-  /* Indicates which direction both {@link offset} and {@link length} go relative to input target  */
+  /** Indicates which direction both {@link offset} and {@link length} go
+   * relative to input target  */
   direction: "forward" | "backward";
 }
 
