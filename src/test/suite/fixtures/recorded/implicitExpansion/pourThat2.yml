@@ -16,8 +16,12 @@ initialState:
       active: {line: 2, character: 0}
   marks: {}
   thatMark:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 11}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 6}
+        end: {line: 0, character: 11}
+      isReversed: false
+      hasExplicitRange: true
 finalState:
   documentContents: |+
     hello world
@@ -26,7 +30,4 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-  thatMark:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 11}
 fullTargets: [{type: primitive, mark: {type: that}, modifiers: []}]

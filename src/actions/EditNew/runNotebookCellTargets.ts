@@ -25,5 +25,5 @@ export async function runNotebookCellTargets(
     );
   }
 
-  return { thatMark };
+  return { thatSelections: thatMark };
 }

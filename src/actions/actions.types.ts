@@ -56,10 +56,41 @@ export type ActionType =
   | "wrapWithPairedDelimiter"
   | "wrapWithSnippet";
 
+/**
+ * To be returned by {@link Action.run}
+ */
 export interface ActionReturnValue {
+  /**
+   * The value that should be returned to the caller of the command
+   */
   returnValue?: any;
-  thatMark?: SelectionWithEditor[];
-  sourceMark?: SelectionWithEditor[];
+
+  /**
+   * A list of selections that will become the `that` mark for the next command.
+   * The given selections will be wrapped in {@link UntypedTarget}s. This
+   * attribute is provided for convenience. Mutually exclusive with
+   * {@link thatTargets}
+   */
+  thatSelections?: SelectionWithEditor[];
+
+  /**
+   * A list of targets that will become the `that` mark for the next command.
+   * Mutually exclusive with {@link thatSelections}
+   */
+  thatTargets?: Target[];
+
+  /**
+   * A list of selections that will become the `source` mark for the next command.
+   * The given selections will be wrapped in {@link UntypedTarget}s. This
+   * attribute is provided for convenience. Mutually exclusive with {@link sourceTargets}
+   */
+  sourceSelections?: SelectionWithEditor[];
+
+  /**
+   * A list of targets that will become the `source` mark for the next command.
+   * Mutually exclusive with {@link sourceSelections}
+   */
+  sourceTargets?: Target[];
 }
 
 export interface Action {

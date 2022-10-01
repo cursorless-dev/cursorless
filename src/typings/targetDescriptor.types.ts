@@ -1,4 +1,4 @@
-import { HatStyleName } from "../core/constants";
+import { HatStyleName } from "../core/hatStyles";
 // FIXME: See microsoft/TypeScript#43869
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Target } from "./target.types";

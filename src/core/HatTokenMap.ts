@@ -1,4 +1,4 @@
-import { HatStyleName } from "./constants";
+import { HatStyleName } from "./hatStyles";
 import { Graph } from "../typings/Types";
 import { IndividualHatMap, ReadOnlyHatMap } from "./IndividualHatMap";
 import { HatAllocator } from "./HatAllocator";

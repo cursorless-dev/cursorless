@@ -45,7 +45,7 @@ class FoldAction implements Action {
     }
 
     return {
-      thatMark: createThatMark(targets),
+      thatSelections: createThatMark(targets),
     };
   }
 }

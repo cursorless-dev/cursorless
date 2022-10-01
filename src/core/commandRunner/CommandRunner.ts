@@ -3,13 +3,19 @@ import { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
 import processTargets from "../../processTargets";
 import isTesting from "../../testUtil/isTesting";
-import { Graph, ProcessedTargetsContext } from "../../typings/Types";
+import { Target } from "../../typings/target.types";
+import {
+  Graph,
+  ProcessedTargetsContext,
+  SelectionWithEditor,
+} from "../../typings/Types";
 import { isString } from "../../util/type";
 import { canonicalizeAndValidateCommand } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
 import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
 import { Command } from "./command.types";
+import { selectionToThatTarget } from "./selectionToThatTarget";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -136,12 +142,16 @@ export default class CommandRunner {
 
       const {
         returnValue,
-        thatMark: newThatMark,
-        sourceMark: newSourceMark,
+        thatSelections: newThatSelections,
+        thatTargets: newThatTargets,
+        sourceSelections: newSourceSelections,
+        sourceTargets: newSourceTargets,
       } = await action.run(targets, ...actionArgs);
 
-      this.thatMark.set(newThatMark);
-      this.sourceMark.set(newSourceMark);
+      this.thatMark.set(constructThatTarget(newThatTargets, newThatSelections));
+      this.sourceMark.set(
+        constructThatTarget(newSourceTargets, newSourceSelections)
+      );
 
       if (this.graph.testCaseRecorder.isActive()) {
         await this.graph.testCaseRecorder.postCommandHook(returnValue);
@@ -208,5 +218,22 @@ export default class CommandRunner {
 
   dispose() {
     this.disposables.forEach(({ dispose }) => dispose());
+  }
+}
+
+function constructThatTarget(
+  targets: Target[] | undefined,
+  selections: SelectionWithEditor[] | undefined
+) {
+  if (targets != null && selections != null) {
+    throw Error(
+      "Actions may only return full targets or selections for that mark"
+    );
+  }
+
+  if (selections != null) {
+    return selections.map(selectionToThatTarget);
+  } else {
+    return targets;
   }
 }
