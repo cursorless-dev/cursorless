@@ -104,7 +104,8 @@ export class RelativeScopeStage implements ModifierStage {
         : adjacentTargetIndex - this.modifier.offset + 1;
     }
 
-    // There are scopes intersecting with {@link inputTargetRange}
+    // If we've made it here, then there are scopes intersecting with
+    // {@link inputTargetRange}
 
     const intersectingStartIndex = intersectingIndices[0];
     const intersectingEndIndex = intersectingIndices.at(-1)!;
