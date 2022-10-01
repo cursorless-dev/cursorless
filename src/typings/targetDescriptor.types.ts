@@ -37,6 +37,9 @@ export interface LineNumberMark {
   lineNumber: number;
 }
 
+/**
+ * Constructs a range between {@link anchor} and {@link active}
+ */
 export interface RangeMark {
   type: "range";
   anchor: Mark;
@@ -188,10 +191,10 @@ export interface OrdinalScopeModifier {
 
   scopeType: ScopeType;
 
-  /* The start of the range.  Start from end of iteration scope if `start` is negative */
+  /** The start of the range.  Start from end of iteration scope if `start` is negative */
   start: number;
 
-  /* The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes after {@link start} */
+  /** The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes after {@link start} */
   length: number;
 }
 
@@ -281,6 +284,10 @@ export interface CascadingModifier {
   modifiers: Modifier[];
 }
 
+/**
+ * First applies {@link anchor} to input, then independently applies
+ * {@link active}, and forms a range between the two resulting targets
+ */
 export interface RangeModifier {
   type: "range";
   anchor: Modifier;
