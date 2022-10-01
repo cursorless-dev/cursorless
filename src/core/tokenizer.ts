@@ -98,6 +98,7 @@ const languageTokenizerOverrides: Partial<
   css: languageWithDashedIdentifiers,
   scss: languageWithDashedIdentifiers,
   shellscript: languageWithDashedIdentifiers,
+  talon: languageWithDashedIdentifiers,
 };
 
 const tokenMatchersForLanguage: Partial<Record<LanguageId, RegExp>> = mapValues(

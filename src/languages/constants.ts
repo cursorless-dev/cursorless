@@ -29,7 +29,7 @@ export const supportedLanguageIds = [
  * Other language IDs that we might reference (e.g., for token customization)
  * but don't have full tree-sitter support for yet.
  */
-export const otherLanguageIds = ["shellscript"] as const;
+export const otherLanguageIds = ["shellscript", "talon"] as const;
 
 export const allLanguageIds = [...supportedLanguageIds, ...otherLanguageIds];
 
