@@ -1,7 +1,7 @@
 import type { TextEditor } from "vscode";
 import type {
   LineNumberMark,
-  LineNumberPosition,
+  LineNumberType,
 } from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import { createLineTarget } from "../modifiers/scopeTypeStages/LineStage";
@@ -9,29 +9,33 @@ import type { MarkStage } from "../PipelineStages.types";
 import { LineTarget } from "../targets";
 
 export default class implements MarkStage {
-  constructor(private modifier: LineNumberMark) {}
+  constructor(private mark: LineNumberMark) {}
 
   run(context: ProcessedTargetsContext): LineTarget[] {
     if (context.currentEditor == null) {
       return [];
     }
     const editor = context.currentEditor;
-    const anchorLine = getLine(editor, this.modifier.anchor);
-    const activeLine = getLine(editor, this.modifier.active);
-    const anchorRange = editor.document.lineAt(anchorLine).range;
-    const activeRange = editor.document.lineAt(activeLine).range;
-    const contentRange = anchorRange.union(activeRange);
-    const isReversed = this.modifier.anchor < this.modifier.active;
-    return [createLineTarget(editor, isReversed, contentRange)];
+    const lineNumber = getLineNumber(
+      editor,
+      this.mark.lineNumberType,
+      this.mark.lineNumber
+    );
+    const contentRange = editor.document.lineAt(lineNumber).range;
+    return [createLineTarget(editor, false, contentRange)];
   }
 }
 
-const getLine = (editor: TextEditor, linePosition: LineNumberPosition) => {
-  switch (linePosition.type) {
+const getLineNumber = (
+  editor: TextEditor,
+  lineNumberType: LineNumberType,
+  lineNumber: number
+) => {
+  switch (lineNumberType) {
     case "absolute":
-      return linePosition.lineNumber;
+      return lineNumber;
     case "relative":
-      return editor.selection.active.line + linePosition.lineNumber;
+      return editor.selection.active.line + lineNumber;
     case "modulo100": {
       const stepSize = 100;
       const startLine = editor.visibleRanges[0].start.line;
@@ -40,19 +44,21 @@ const getLine = (editor: TextEditor, linePosition: LineNumberPosition) => {
       const base = Math.floor(startLine / stepSize) * stepSize;
       const visibleLines = [];
       const invisibleLines = [];
-      let lineNumber = base + linePosition.lineNumber;
-      while (lineNumber <= endLine) {
-        if (lineNumber >= startLine) {
+      let currentLineNumber = base + lineNumber;
+      while (currentLineNumber <= endLine) {
+        if (currentLineNumber >= startLine) {
           const visible = editor.visibleRanges.find(
-            (r) => lineNumber >= r.start.line && lineNumber <= r.end.line
+            (r) =>
+              currentLineNumber >= r.start.line &&
+              currentLineNumber <= r.end.line
           );
           if (visible) {
-            visibleLines.push(lineNumber);
+            visibleLines.push(currentLineNumber);
           } else {
-            invisibleLines.push(lineNumber);
+            invisibleLines.push(currentLineNumber);
           }
         }
-        lineNumber += stepSize;
+        currentLineNumber += stepSize;
       }
       if (visibleLines.length === 1) {
         return visibleLines[0];

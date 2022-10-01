@@ -6,7 +6,7 @@ import type { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
 
 export default class CursorStage implements MarkStage {
-  constructor(private modifier: CursorMark) {}
+  constructor(private mark: CursorMark) {}
 
   run(context: ProcessedTargetsContext): Target[] {
     return context.currentSelections.map(
