@@ -135,7 +135,7 @@ def construct_cursorless_command_argument(
         use_pre_phrase_snapshot = False
 
     return {
-        "version": 2,
+        "version": 3,
         "spokenForm": get_spoken_form(),
         "action": {
             "name": action,

@@ -37,13 +37,8 @@ DEFAULT_DIRECTIONS = {d.defaultSpokenForm: d.cursorlessIdentifier for d in direc
 @mod.capture(rule="{user.cursorless_line_direction} <number_small>")
 def cursorless_line_number(m) -> dict[str, Any]:
     direction = directions_map[m.cursorless_line_direction]
-    line_number = m.number_small
-    line = {
-        "lineNumber": direction.formatter(line_number),
-        "type": direction.type,
-    }
     return {
         "type": "lineNumber",
-        "anchor": line,
-        "active": line,
+        "lineNumberType": direction.type,
+        "lineNumber": direction.formatter(m.number_small),
     }
