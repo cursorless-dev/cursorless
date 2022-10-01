@@ -1,7 +1,7 @@
-import { Target } from "../../../typings/target.types";
-import { ScopeType } from "../../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../../typings/Types";
-import getModifierStage from "../../getModifierStage";
+import { Target } from "../../typings/target.types";
+import { ScopeType } from "../../typings/targetDescriptor.types";
+import { ProcessedTargetsContext } from "../../typings/Types";
+import getModifierStage from "../getModifierStage";
 
 /**
  * Construct a single range target between two targets in a list of targets,

@@ -1,11 +1,11 @@
 import { findLastIndex } from "lodash";
 import { Range } from "vscode";
-import { NoContainingScopeError } from "../../../errors";
-import { Target } from "../../../typings/target.types";
-import { RelativeScopeModifier } from "../../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../../typings/Types";
-import { ModifierStage } from "../../PipelineStages.types";
-import { UntypedTarget } from "../../targets";
+import { NoContainingScopeError } from "../../errors";
+import { Target } from "../../typings/target.types";
+import { RelativeScopeModifier } from "../../typings/targetDescriptor.types";
+import { ProcessedTargetsContext } from "../../typings/Types";
+import { ModifierStage } from "../PipelineStages.types";
+import { UntypedTarget } from "../targets";
 import {
   createRangeTargetFromIndices,
   getEveryScopeTargets,

@@ -13,13 +13,11 @@ import {
 import ItemStage from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import ModifyIfUntypedStage from "./modifiers/ModifyIfUntypedStage";
-import {
-  OrdinalScopeStage,
-  RelativeScopeStage,
-} from "./modifiers/ordinalStages";
+import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";
 import PositionStage from "./modifiers/PositionStage";
 import RangeModifierStage from "./modifiers/RangeModifierStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
+import { RelativeScopeStage } from "./modifiers/RelativeScopeStage";
 import BoundedNonWhitespaceSequenceStage from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
 import ContainingSyntaxScopeStage, {
   SimpleContainingScopeModifier,
