@@ -47,18 +47,14 @@ class RegexStageBase implements ModifierStage {
   }
 
   private getSingleTarget(target: Target): Target {
-    const { editor, contentRange } = target;
-
-    const start = this.getMatchContainingPosition(
-      editor,
-      contentRange.start
-    ).start;
-    const end = this.getMatchContainingPosition(editor, contentRange.end).end;
+    const { editor, isReversed, contentRange } = target;
 
     return this.rangeToTarget(
-      target.isReversed,
-      target.editor,
-      new Range(start, end)
+      isReversed,
+      editor,
+      this.getMatchContainingPosition(editor, contentRange.start).union(
+        this.getMatchContainingPosition(editor, contentRange.end)
+      )
     );
   }
 
