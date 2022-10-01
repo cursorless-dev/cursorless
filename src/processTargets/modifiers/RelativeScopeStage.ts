@@ -9,6 +9,7 @@ import { UntypedTarget } from "../targets";
 import {
   createRangeTargetFromIndices,
   getEveryScopeTargets,
+  OutOfRangeError,
 } from "./targetSequenceUtils";
 
 export class RelativeScopeStage implements ModifierStage {
@@ -88,7 +89,7 @@ export class RelativeScopeStage implements ModifierStage {
           );
 
       if (adjacentTargetIndex === -1) {
-        throw new NoContainingScopeError(this.modifier.scopeType.type);
+        throw new OutOfRangeError();
       }
 
       // For convenience, if they ask to include intersecting indices, we just
@@ -116,8 +117,10 @@ export class RelativeScopeStage implements ModifierStage {
       // they have 3 functions selected.  Not clear what to do in that case so
       // we throw error.
       if (intersectingIndices.length > this.modifier.length) {
-        throw new Error(
-          `Incorrect ordinal length ${this.modifier.length}. Containing length is already ${intersectingIndices.length}`
+        throw new TooFewScopesError(
+          this.modifier.length,
+          intersectingIndices.length,
+          this.modifier.scopeType.type
         );
       }
 
@@ -131,6 +134,19 @@ export class RelativeScopeStage implements ModifierStage {
     return isForward
       ? intersectingEndIndex + this.modifier.offset
       : intersectingStartIndex - this.modifier.offset;
+  }
+}
+
+class TooFewScopesError extends Error {
+  constructor(
+    requestedLength: number,
+    currentLength: number,
+    scopeType: string
+  ) {
+    super(
+      `Requested ${requestedLength} ${scopeType}s, but ${currentLength} are already selected.`
+    );
+    this.name = "TooFewScopesError";
   }
 }
 
