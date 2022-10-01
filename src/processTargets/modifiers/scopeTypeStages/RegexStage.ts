@@ -58,7 +58,10 @@ class RegexStageBase implements ModifierStage {
     );
   }
 
-  private getMatchContainingPosition(editor: TextEditor, position: Position) {
+  private getMatchContainingPosition(
+    editor: TextEditor,
+    position: Position
+  ): Range {
     const textRange = this.expandRangeForSearch(editor, position);
     const match = this.getMatchesInRange(editor, textRange).find(
       (contentRange) => contentRange.contains(position)
@@ -78,11 +81,14 @@ class RegexStageBase implements ModifierStage {
    * @param position The position from which to expand for searching
    * @returns A range within which to search for instances of {@link regex}
    */
-  protected expandRangeForSearch(editor: TextEditor, position: Position) {
+  protected expandRangeForSearch(
+    editor: TextEditor,
+    position: Position
+  ): Range {
     return editor.document.lineAt(position.line).range;
   }
 
-  private getMatchesInRange(editor: TextEditor, range: Range) {
+  private getMatchesInRange(editor: TextEditor, range: Range): Range[] {
     const offset = editor.document.offsetAt(range.start);
     const text = editor.document.getText(range);
     const result = [...text.matchAll(this.regex)].map(
