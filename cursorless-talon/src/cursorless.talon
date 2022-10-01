@@ -19,5 +19,4 @@ tag: user.cursorless
 <user.cursorless_wrapper> {user.cursorless_wrap_action} <user.cursorless_target>:
     user.cursorless_wrap(cursorless_wrap_action, cursorless_target, cursorless_wrapper)
 
-{user.cursorless_homophone} settings:
-    user.cursorless_show_settings_in_ide()
+{user.cursorless_homophone} settings: user.cursorless_show_settings_in_ide()
