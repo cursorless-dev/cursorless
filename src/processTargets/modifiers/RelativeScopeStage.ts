@@ -91,6 +91,10 @@ export class RelativeScopeStage implements ModifierStage {
         throw new NoContainingScopeError(this.modifier.scopeType.type);
       }
 
+      // For convenience, if they ask to include intersecting indices, we just
+      // start with the nearest one in the correct direction.  So eg if you say
+      // "two funks" between functions, it will take two functions to the right
+      // of you.
       if (includeIntersectingScopes) {
         return adjacentTargetIndex;
       }
