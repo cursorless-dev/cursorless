@@ -22,33 +22,22 @@ class RegexStageBase implements ModifierStage {
     return [this.getSingleTarget(target)];
   }
 
-  private getSingleTarget(target: Target): Target {
-    const { editor, contentRange } = target;
-    const start = this.getMatchForPos(editor, contentRange.start).start;
-    const end = this.getMatchForPos(editor, contentRange.end).end;
-    return this.getTargetFromRange(target, new Range(start, end));
-  }
-
   private getEveryTarget(target: Target): Target[] {
     const { editor, contentRange } = target;
-    const start = target.hasExplicitRange
-      ? contentRange.start
-      : editor.document.lineAt(contentRange.start).range.start;
-    const end = target.hasExplicitRange
-      ? contentRange.end
-      : editor.document.lineAt(contentRange.end).range.end;
-    const textRange = new Range(
-      editor.document.lineAt(contentRange.start).range.start,
-      editor.document.lineAt(contentRange.end).range.end
+
+    const searchRange = new Range(
+      this.expandRangeForSearch(target.editor, contentRange.start).start,
+      this.expandRangeForSearch(target.editor, contentRange.end).end
     );
 
-    const targets = this.getMatchesInRange(editor, textRange)
-      .filter(
-        (contentRange) =>
-          contentRange.end.isAfterOrEqual(start) &&
-          contentRange.start.isBeforeOrEqual(end)
-      )
-      .map((contentRange) => this.getTargetFromRange(target, contentRange));
+    const matches = this.getMatchesInRange(editor, searchRange);
+    const targets = (
+      target.hasExplicitRange
+        ? matches.filter((match) => match.intersection(contentRange) != null)
+        : matches
+    ).map((contentRange) =>
+      this.rangeToTarget(target.isReversed, target.editor, contentRange)
+    );
 
     if (targets.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -57,8 +46,24 @@ class RegexStageBase implements ModifierStage {
     return targets;
   }
 
-  private getMatchForPos(editor: TextEditor, position: Position) {
-    const textRange = editor.document.lineAt(position.line).range;
+  private getSingleTarget(target: Target): Target {
+    const { editor, contentRange } = target;
+
+    const start = this.getMatchContainingPosition(
+      editor,
+      contentRange.start
+    ).start;
+    const end = this.getMatchContainingPosition(editor, contentRange.end).end;
+
+    return this.rangeToTarget(
+      target.isReversed,
+      target.editor,
+      new Range(start, end)
+    );
+  }
+
+  private getMatchContainingPosition(editor: TextEditor, position: Position) {
+    const textRange = this.expandRangeForSearch(editor, position);
     const match = this.getMatchesInRange(editor, textRange).find(
       (contentRange) => contentRange.contains(position)
     );
@@ -66,6 +71,19 @@ class RegexStageBase implements ModifierStage {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
     return match;
+  }
+
+  /**
+   * Constructs a range from {@link position} within which to search for
+   * instances of {@link regex}.  By default we expand to containing line, as
+   * all our regexes today operate within a line, but deriving modifier stages
+   * can override this to properly handle multiline regexes.
+   * @param editor The editor containing {@link position}
+   * @param position The position from which to expand for searching
+   * @returns A range within which to search for instances of {@link regex}
+   */
+  protected expandRangeForSearch(editor: TextEditor, position: Position) {
+    return editor.document.lineAt(position.line).range;
   }
 
   private getMatchesInRange(editor: TextEditor, range: Range) {
@@ -84,10 +102,14 @@ class RegexStageBase implements ModifierStage {
     return result;
   }
 
-  private getTargetFromRange(target: Target, contentRange: Range): Target {
+  private rangeToTarget(
+    isReversed: boolean,
+    editor: TextEditor,
+    contentRange: Range
+  ): Target {
     return new TokenTarget({
-      editor: target.editor,
-      isReversed: target.isReversed,
+      editor,
+      isReversed,
       contentRange,
     });
   }
