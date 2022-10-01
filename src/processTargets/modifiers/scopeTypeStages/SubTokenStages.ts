@@ -1,4 +1,4 @@
-import { Range } from "vscode";
+import { Range, TextEditor } from "vscode";
 import { GRAPHEME_SPLIT_REGEX } from "../../../core/TokenGraphemeSplitter";
 import { NoContainingScopeError } from "../../../errors";
 import { Target } from "../../../typings/target.types";
@@ -38,7 +38,11 @@ abstract class SubTokenStage implements ModifierStage {
         )
     );
 
-    const targets = this.createTargets(target, contentRanges);
+    const targets = this.createTargetsFromRanges(
+      target.isReversed,
+      target.editor,
+      contentRanges
+    );
 
     // If target has explicit range filter to scopes in that range. Otherwise expand to all scopes in iteration scope.
     const filteredTargets = target.hasExplicitRange
@@ -53,14 +57,22 @@ abstract class SubTokenStage implements ModifierStage {
       return filteredTargets;
     }
 
-    return [this.findSingleTarget(target, filteredTargets)];
+    return [this.getSingleTarget(target, filteredTargets)];
   }
 
-  private findSingleTarget(target: Target, allTargets: Target[]): Target {
+  /**
+   * Constructs a single range target containing all targets from
+   * {@link allTargets} that intersect with {@link inputTarget}.
+   * @param inputTarget The input target to this stage
+   * @param allTargets A list of all targets under consideration
+   * @returns A single target constructed by forming a range containing all
+   * targets that intersect with {@link inputTarget}
+   */
+  private getSingleTarget(inputTarget: Target, allTargets: Target[]): Target {
     let intersectingTargets = allTargets
       .map((t) => ({
         target: t,
-        intersection: t.contentRange.intersection(target.contentRange),
+        intersection: t.contentRange.intersection(inputTarget.contentRange),
       }))
       .filter((it) => it.intersection != null);
 
@@ -68,12 +80,13 @@ abstract class SubTokenStage implements ModifierStage {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
-    // Empty range utilize single rightmost target
-    if (target.contentRange.isEmpty) {
+    // Empty range utilize single adjacent target to the right of {@link inputTarget}
+    if (inputTarget.contentRange.isEmpty) {
       return intersectingTargets.at(-1)!.target;
     }
 
-    // On non empty range utilize all non-empty intersecting targets
+    // On non empty input range, utilize all targets with a non-empty
+    // intersection with {@link inputTarget}
     intersectingTargets = intersectingTargets.filter(
       (it) => !it.intersection!.isEmpty
     );
@@ -87,7 +100,7 @@ abstract class SubTokenStage implements ModifierStage {
     }
 
     return intersectingTargets[0].target.createContinuousRangeTarget(
-      target.isReversed,
+      inputTarget.isReversed,
       intersectingTargets.at(-1)!.target,
       true,
       true
@@ -95,10 +108,11 @@ abstract class SubTokenStage implements ModifierStage {
   }
 
   /**
-   * Create new target for each content range
+   * Create one target for each element of {@link contentRanges}
    */
-  protected abstract createTargets(
-    target: Target,
+  protected abstract createTargetsFromRanges(
+    isReversed: boolean,
+    editor: TextEditor,
     contentRanges: Range[]
   ): Target[];
 }
@@ -108,7 +122,11 @@ export class WordStage extends SubTokenStage {
     super(modifier, SUBWORD_MATCHER);
   }
 
-  protected createTargets(target: Target, contentRanges: Range[]): Target[] {
+  protected createTargetsFromRanges(
+    isReversed: boolean,
+    editor: TextEditor,
+    contentRanges: Range[]
+  ): Target[] {
     return contentRanges.map((contentRange, i) => {
       const previousContentRange = i > 0 ? contentRanges[i - 1] : null;
       const nextContentRange =
@@ -129,14 +147,14 @@ export class WordStage extends SubTokenStage {
       const isInDelimitedList =
         leadingDelimiterRange != null || trailingDelimiterRange != null;
       const insertionDelimiter = isInDelimitedList
-        ? target.editor.document.getText(
+        ? editor.document.getText(
             (leadingDelimiterRange ?? trailingDelimiterRange)!
           )
         : "";
 
       return new SubTokenWordTarget({
-        editor: target.editor,
-        isReversed: target.isReversed,
+        editor,
+        isReversed,
         contentRange,
         insertionDelimiter,
         leadingDelimiterRange,
@@ -151,12 +169,16 @@ export class CharacterStage extends SubTokenStage {
     super(modifier, GRAPHEME_SPLIT_REGEX);
   }
 
-  protected createTargets(target: Target, contentRanges: Range[]): Target[] {
+  protected createTargetsFromRanges(
+    isReversed: boolean,
+    editor: TextEditor,
+    contentRanges: Range[]
+  ): Target[] {
     return contentRanges.map(
       (contentRange) =>
         new PlainTarget({
-          editor: target.editor,
-          isReversed: target.isReversed,
+          editor,
+          isReversed,
           contentRange,
         })
     );
