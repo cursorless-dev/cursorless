@@ -7,11 +7,11 @@ from ..compound_targets import is_active_included, is_anchor_included
 mod = Module()
 
 
-@mod.capture(rule="<user.ordinals_small> | last")
+@mod.capture(rule="<user.ordinals_small> | [<user.ordinals_small>] last")
 def ordinal_or_last(m) -> int:
     """An ordinal or the word 'last'"""
-    if m[0] == "last":
-        return -1
+    if m[-1] == "last":
+        return -getattr(m, "ordinals_small", 1)
     return m.ordinals_small - 1
 
 
