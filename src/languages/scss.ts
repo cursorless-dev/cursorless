@@ -1,10 +1,10 @@
 import { SyntaxNode } from "web-tree-sitter";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import {
   NodeMatcherAlternative,
   NodeMatcherValue,
   SelectionWithEditor,
 } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   cascadingMatcher,
