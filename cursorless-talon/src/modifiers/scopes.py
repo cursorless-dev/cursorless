@@ -8,10 +8,14 @@ mod = Module()
 
 
 mod.list("cursorless_scope_type", desc="Supported scope types")
-mod.list("cursorless_scope_type_plural", desc="Supported scope types")
+mod.list("cursorless_scope_type_plural", desc="Supported plural scope types")
 mod.list(
     "cursorless_custom_regex_scope_type",
     desc="Supported custom regular expression scope types",
+)
+mod.list(
+    "cursorless_custom_regex_scope_type_plural",
+    desc="Supported plural custom regular expression scope types",
 )
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
