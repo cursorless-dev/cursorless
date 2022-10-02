@@ -43,13 +43,15 @@ def cursorless_ordinal_range(m) -> dict[str, Any]:
         )
 
 
-@mod.capture(rule="(first | last) <number_small> <user.cursorless_scope_type>")
+@mod.capture(rule="(first | last) <number_small> <user.cursorless_scope_type_plural>")
 def cursorless_first_last(m) -> dict[str, Any]:
-    """First/last `n` scopes; eg "first three funk"""
+    """First/last `n` scopes; eg "first three funks"""
     if m[0] == "first":
-        return create_ordinal_scope_modifier(m.cursorless_scope_type, 0, m.number_small)
+        return create_ordinal_scope_modifier(
+            m.cursorless_scope_type_plural, 0, m.number_small
+        )
     return create_ordinal_scope_modifier(
-        m.cursorless_scope_type, -m.number_small, m.number_small
+        m.cursorless_scope_type_plural, -m.number_small, m.number_small
     )
 
 
