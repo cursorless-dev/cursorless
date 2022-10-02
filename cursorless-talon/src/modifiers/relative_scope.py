@@ -65,7 +65,6 @@ def cursorless_relative_scope_count(m) -> dict[str, Any]:
 )
 def cursorless_relative_scope(m) -> dict[str, Any]:
     """Previous/next scope"""
-    print(m)
     return m[0]
 
 
