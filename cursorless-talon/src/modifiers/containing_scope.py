@@ -8,6 +8,7 @@ mod = Module()
 
 
 mod.list("cursorless_scope_type", desc="Supported scope types")
+mod.list("cursorless_scope_type_plural", desc="Supported scope types")
 mod.list(
     "cursorless_custom_regex_scope_type",
     desc="Supported custom regular expression scope types",
@@ -109,6 +110,7 @@ def on_ready():
             "scope_type": scope_types,
             "surrounding_pair_scope_type": surrounding_pair_scope_types,
         },
+        pluralize_lists=["scope_type"],
     )
     init_csv_and_watch_changes(
         "experimental/regex_scope_types",
