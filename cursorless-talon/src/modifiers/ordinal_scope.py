@@ -20,16 +20,15 @@ def ordinal_or_last(m) -> int:
 )
 def cursorless_ordinal_range(m) -> dict[str, Any]:
     """Ordinal range"""
+    anchor = create_ordinal_scope_modifier(
+        m.cursorless_scope_type, m.ordinal_or_last_list[0]
+    )
     if len(m.ordinal_or_last_list) > 1:
-        range_connective = m.cursorless_range_connective
-        include_anchor = is_anchor_included(range_connective)
-        include_active = is_active_included(range_connective)
-        anchor = create_ordinal_scope_modifier(
-            m.cursorless_scope_type, m.ordinal_or_last_list[0]
-        )
         active = create_ordinal_scope_modifier(
             m.cursorless_scope_type, m.ordinal_or_last_list[1]
         )
+        include_anchor = is_anchor_included(m.cursorless_range_connective)
+        include_active = is_active_included(m.cursorless_range_connective)
         return {
             "type": "range",
             "anchor": anchor,
@@ -37,10 +36,7 @@ def cursorless_ordinal_range(m) -> dict[str, Any]:
             "excludeAnchor": not include_anchor,
             "excludeActive": not include_active,
         }
-    else:
-        return create_ordinal_scope_modifier(
-            m.cursorless_scope_type, m.ordinal_or_last_list[0]
-        )
+    return anchor
 
 
 @mod.capture(rule="(first | last) <number_small> <user.cursorless_scope_type_plural>")
