@@ -3,8 +3,8 @@ import CursorStage from "./marks/CursorStage";
 import DecoratedSymbolStage from "./marks/DecoratedSymbolStage";
 import LineNumberStage from "./marks/LineNumberStage";
 import NothingStage from "./marks/NothingStage";
-import SourceStage from "./marks/SourceStage";
-import ThatStage from "./marks/ThatStage";
+import RangeMarkStage from "./marks/RangeMarkStage";
+import { SourceStage, ThatStage } from "./marks/ThatStage";
 import { MarkStage } from "./PipelineStages.types";
 
 export default (mark: Mark): MarkStage => {
@@ -19,6 +19,8 @@ export default (mark: Mark): MarkStage => {
       return new DecoratedSymbolStage(mark);
     case "lineNumber":
       return new LineNumberStage(mark);
+    case "range":
+      return new RangeMarkStage(mark);
     case "nothing":
       return new NothingStage(mark);
   }

@@ -2,7 +2,7 @@ import { Range, TextDocument, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import {
   SimpleSurroundingPairName,
-  SurroundingPairDirection,
+  SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
 import { getNodeRange } from "../../../util/nodeSelectors";
 import { isContainedInErrorNode } from "../../../util/treeSitterUtils";
@@ -62,7 +62,7 @@ export function findSurroundingPairParseTreeBased(
   selection: Range,
   node: SyntaxNode,
   delimiters: SimpleSurroundingPairName[],
-  forceDirection: "left" | "right" | undefined
+  scopeType: SurroundingPairScopeType
 ) {
   const document: TextDocument = editor.document;
 
@@ -88,7 +88,7 @@ export function findSurroundingPairParseTreeBased(
     individualDelimiters,
     delimiters,
     selectionOffsets,
-    forceDirection,
+    scopeType,
   };
 
   // Walk up the parse tree from parent to parent until we find a node whose
@@ -149,7 +149,7 @@ interface Context {
    */
   selectionOffsets: Offsets;
 
-  forceDirection: SurroundingPairDirection | undefined;
+  scopeType: SurroundingPairScopeType;
 }
 
 /**
@@ -170,7 +170,7 @@ function findSurroundingPairContainedInNode(
     individualDelimiters,
     delimiters,
     selectionOffsets,
-    forceDirection,
+    scopeType,
   } = context;
 
   /**
@@ -212,8 +212,8 @@ function findSurroundingPairContainedInNode(
           // first child of its parent, and right delimiter otherwise.  This
           // approach might not always work, but seems to work in the
           // languages we've tried.
-          let side =
-            delimiterInfo.side === "unknown" && forceDirection == null
+          const side =
+            delimiterInfo.side === "unknown" && scopeType.forceDirection == null
               ? inferDelimiterSide(delimiterNode)
               : delimiterInfo.side;
 
@@ -227,7 +227,7 @@ function findSurroundingPairContainedInNode(
 
   // Just run core algorithm once we have our list of delimiters.
   return findSurroundingPairCore(
-    forceDirection,
+    scopeType,
     delimiterOccurrences,
     delimiters,
     selectionOffsets,

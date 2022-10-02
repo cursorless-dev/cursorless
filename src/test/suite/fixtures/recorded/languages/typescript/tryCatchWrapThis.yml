@@ -17,13 +17,10 @@ finalState:
   documentContents: |-
     try {
         const foo = "hello";
-    } catch () {
+    } catch (err) {
         
     }
   selections:
-    - anchor: {line: 2, character: 9}
-      active: {line: 2, character: 9}
-  thatMark:
-    - anchor: {line: 0, character: 0}
-      active: {line: 4, character: 1}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]

@@ -49,6 +49,7 @@ export type ThrownError = {
 export type TestCaseFixture = {
   languageId: string;
   postEditorOpenSleepTimeMs?: number;
+  postCommandSleepTimeMs?: number;
   command: TestCaseCommand;
 
   /**
@@ -57,12 +58,21 @@ export type TestCaseFixture = {
   marksToCheck?: string[];
 
   initialState: TestCaseSnapshot;
+  /**
+   * Expected decorations in the test case, for example highlighting deletions in red.
+   */
   decorations?: PlainTestDecoration[];
   /** The final state after a command is issued. Undefined if we are testing a non-match(error) case. */
   finalState?: TestCaseSnapshot;
   /** Used to assert if an error has been thrown. */
   thrownError?: ThrownError;
-  returnValue: unknown;
+
+  /**
+   * The return value of the command. Will be undefined when we have recorded an
+   * error test case.
+   */
+  returnValue?: unknown;
+
   /** Inferred full targets added for context; not currently used in testing */
   fullTargets: TargetDescriptor[];
 };
@@ -74,7 +84,7 @@ export class TestCase {
   decorations?: PlainTestDecoration[];
   finalState?: TestCaseSnapshot;
   thrownError?: ThrownError;
-  returnValue: unknown = null;
+  returnValue?: unknown;
   targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
   marksToCheck?: string[];
@@ -86,6 +96,7 @@ export class TestCase {
     private isHatTokenMapTest: boolean = false,
     private isDecorationsTest: boolean = false,
     private startTimestamp: bigint,
+    private captureFinalThatMark: boolean,
     private extraSnapshotFields?: ExtraSnapshotField[]
   ) {
     const activeEditor = vscode.window.activeTextEditor!;
@@ -139,8 +150,8 @@ export class TestCase {
     return false;
   }
 
-  private getExcludedFields(context?: { initialSnapshot?: boolean }) {
-    const clipboardActions: ActionType[] = context?.initialSnapshot
+  private getExcludedFields(isInitialSnapshot: boolean) {
+    const clipboardActions: ActionType[] = isInitialSnapshot
       ? ["pasteFromClipboard"]
       : ["copyToClipboard", "cutToClipboard"];
 
@@ -155,15 +166,17 @@ export class TestCase {
     const excludableFields = {
       clipboard: !clipboardActions.includes(this.command.action.name),
       thatMark:
-        context?.initialSnapshot &&
-        !this.fullTargets.some((target) =>
-          this.includesThatMark(target, "that")
-        ),
+        (!isInitialSnapshot && !this.captureFinalThatMark) ||
+        (isInitialSnapshot &&
+          !this.fullTargets.some((target) =>
+            this.includesThatMark(target, "that")
+          )),
       sourceMark:
-        context?.initialSnapshot &&
-        !this.fullTargets.some((target) =>
-          this.includesThatMark(target, "source")
-        ),
+        (!isInitialSnapshot && !this.captureFinalThatMark) ||
+        (isInitialSnapshot &&
+          !this.fullTargets.some((target) =>
+            this.includesThatMark(target, "source")
+          )),
       visibleRanges: !visibleRangeActions.includes(this.command.action.name),
     };
 
@@ -194,7 +207,7 @@ export class TestCase {
   }
 
   async recordInitialState() {
-    const excludeFields = this.getExcludedFields({ initialSnapshot: true });
+    const excludeFields = this.getExcludedFields(true);
     this.initialState = await takeSnapshot(
       this.context.thatMark,
       this.context.sourceMark,
@@ -206,7 +219,7 @@ export class TestCase {
   }
 
   async recordFinalState(returnValue: unknown) {
-    const excludeFields = this.getExcludedFields();
+    const excludeFields = this.getExcludedFields(false);
     this.returnValue = returnValue;
     this.finalState = await takeSnapshot(
       this.context.thatMark,

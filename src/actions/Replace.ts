@@ -7,7 +7,7 @@ import { Action, ActionReturnValue } from "./actions.types";
 
 type RangeGenerator = { start: number };
 
-export default class implements Action {
+export default class Replace implements Action {
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
@@ -70,6 +70,6 @@ export default class implements Action {
       )
     );
 
-    return { thatMark };
+    return { thatSelections: thatMark };
   }
 }

@@ -1,5 +1,6 @@
 import { flatten } from "lodash";
 import { commands, window } from "vscode";
+import { selectionToThatTarget } from "../core/commandRunner/selectionToThatTarget";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -10,6 +11,7 @@ import {
 } from "../util/setSelectionsAndFocusEditor";
 import {
   ensureSingleEditor,
+  ensureSingleTarget,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -19,6 +21,7 @@ export interface CommandOptions {
   commandArgs?: any[];
   restoreSelection?: boolean;
   ensureSingleEditor?: boolean;
+  ensureSingleTarget?: boolean;
   showDecorations?: boolean;
 }
 
@@ -26,6 +29,7 @@ const defaultOptions: CommandOptions = {
   commandArgs: [],
   restoreSelection: true,
   ensureSingleEditor: false,
+  ensureSingleTarget: false,
   showDecorations: false,
 };
 
@@ -37,10 +41,11 @@ export default class CommandAction implements Action {
   private async runCommandAndUpdateSelections(
     targets: Target[],
     options: Required<CommandOptions>
-  ) {
+  ): Promise<Target[]> {
     return flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const originalSelections = editor.selections;
+        const originalEditorVersion = editor.document.version;
 
         const targetSelections = targets.map(
           (target) => target.contentSelection
@@ -67,10 +72,17 @@ export default class CommandAction implements Action {
           setSelectionsWithoutFocusingEditor(editor, updatedOriginalSelections);
         }
 
-        return updatedTargetSelections.map((selection) => ({
-          editor,
-          selection,
-        }));
+        // If the document hasn't changed then we just return the original targets
+        // so that we preserve their rich types, but if it has changed then we
+        // just downgrade them to untyped targets
+        return editor.document.version === originalEditorVersion
+          ? targets
+          : updatedTargetSelections.map((selection) =>
+              selectionToThatTarget({
+                editor,
+                selection,
+              })
+            );
       })
     );
   }
@@ -103,9 +115,13 @@ export default class CommandAction implements Action {
       ensureSingleEditor(targets);
     }
 
+    if (actualOptions.ensureSingleTarget) {
+      ensureSingleTarget(targets);
+    }
+
     const originalEditor = window.activeTextEditor;
 
-    const thatMark = await this.runCommandAndUpdateSelections(
+    const thatTargets = await this.runCommandAndUpdateSelections(
       targets,
       actualOptions
     );
@@ -122,6 +138,6 @@ export default class CommandAction implements Action {
       await focusEditor(originalEditor);
     }
 
-    return { thatMark };
+    return { thatTargets };
   }
 }

@@ -19,7 +19,7 @@ positions = {
 }
 
 
-def construct_positional_modifier(position: str) -> dict:
+def construct_positional_modifier(position: str) -> dict[str, Any]:
     return {"type": "position", "position": position}
 
 

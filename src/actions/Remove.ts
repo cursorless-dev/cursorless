@@ -42,6 +42,6 @@ export default class Delete implements Action {
       })
     );
 
-    return { thatMark };
+    return { thatSelections: thatMark };
   }
 }

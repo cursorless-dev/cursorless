@@ -1,8 +1,8 @@
-app: vscode
+tag: user.cursorless
 -
 
-<user.cursorless_action_or_vscode_command> <user.cursorless_target>:
-    user.cursorless_action_or_vscode_command(cursorless_action_or_vscode_command, cursorless_target)
+<user.cursorless_action_or_ide_command> <user.cursorless_target>:
+    user.cursorless_action_or_ide_command(cursorless_action_or_ide_command, cursorless_target)
 
 {user.cursorless_positional_action} <user.cursorless_positional_target>:
     user.cursorless_single_target_command(cursorless_positional_action, cursorless_positional_target)
@@ -19,5 +19,5 @@ app: vscode
 <user.cursorless_wrapper> {user.cursorless_wrap_action} <user.cursorless_target>:
     user.cursorless_wrap(cursorless_wrap_action, cursorless_target, cursorless_wrapper)
 
-cursorless help:           user.cursorless_cheat_sheet_toggle()
-cursorless instructions:   user.cursorless_open_instructions()
+{user.cursorless_homophone} settings:
+    user.cursorless_show_settings_in_ide()

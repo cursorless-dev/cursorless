@@ -1,3 +1,5 @@
+import csv
+from collections.abc import Container
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
@@ -21,8 +23,8 @@ cursorless_settings_directory = mod.setting(
 
 def init_csv_and_watch_changes(
     filename: str,
-    default_values: dict[str, dict],
-    extra_ignored_values: list[str] = None,
+    default_values: dict[str, dict[str, str]],
+    extra_ignored_values: Optional[list[str]] = None,
     allow_unknown_values: bool = False,
     default_list_name: Optional[str] = None,
     headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
@@ -81,7 +83,7 @@ def init_csv_and_watch_changes(
                 ctx,
             )
 
-    fs.watch(file_path.parent, on_watch)
+    fs.watch(str(file_path.parent), on_watch)
 
     if file_path.is_file():
         current_values = update_file(
@@ -113,7 +115,7 @@ def init_csv_and_watch_changes(
         )
 
     def unsubscribe():
-        fs.unwatch(file_path.parent, on_watch)
+        fs.unwatch(str(file_path.parent), on_watch)
 
     return unsubscribe
 
@@ -177,7 +179,7 @@ def update_dicts(
 def update_file(
     path: Path,
     headers: list[str],
-    default_values: dict,
+    default_values: dict[str, str],
     extra_ignored_values: list[str],
     allow_unknown_values: bool,
     no_update_file: bool,
@@ -250,41 +252,46 @@ def csv_error(path: Path, index: int, message: str, value: str):
 def read_file(
     path: Path,
     headers: list[str],
-    default_identifiers: list[str],
+    default_identifiers: Container[str],
     extra_ignored_values: list[str],
     allow_unknown_values: bool,
 ):
-    with open(path) as f:
-        lines = list(f)
+    with open(path) as csv_file:
+        # Use `skipinitialspace` to allow spaces before quote. `, "a,b"`
+        csv_reader = csv.reader(csv_file, skipinitialspace=True)
+        rows = list(csv_reader)
 
     result = {}
     used_identifiers = []
     has_errors = False
     seen_headers = False
-    expected_headers = create_line(*headers)
 
-    for i, raw_line in enumerate(lines):
-        line = raw_line.strip()
-        if not line or line.startswith("#"):
+    for i, row in enumerate(rows):
+        # Remove trailing whitespaces for each cell
+        row = [x.rstrip() for x in row]
+        # Exclude empty or comment rows
+        if len(row) == 0 or (len(row) == 1 and row[0] == "") or row[0].startswith("#"):
             continue
 
         if not seen_headers:
             seen_headers = True
-            if line != expected_headers:
+            if row != headers:
                 has_errors = True
-                csv_error(path, i, "Malformed header", line)
-                print(f"Expected '{expected_headers}'")
+                csv_error(path, i, "Malformed header", create_line(*row))
+                print(f"Expected '{create_line(*headers)}'")
             continue
 
-        parts = line.split(",")
-
-        if len(parts) != len(headers):
+        if len(row) != len(headers):
             has_errors = True
-            csv_error(path, i, "Malformed csv entry", line)
+            csv_error(
+                path,
+                i,
+                f"Malformed csv entry. Expected {len(headers)} columns.",
+                create_line(*row),
+            )
             continue
 
-        key = parts[0].strip()
-        value = parts[1].strip()
+        key, value = row
 
         if (
             value not in default_identifiers
@@ -313,7 +320,7 @@ def get_full_path(filename: str):
     if not filename.endswith(".csv"):
         filename = f"{filename}.csv"
 
-    user_dir = actions.path.talon_user()
+    user_dir: Path = actions.path.talon_user()
     settings_directory = Path(cursorless_settings_directory.get())
 
     if not settings_directory.is_absolute():
@@ -322,8 +329,8 @@ def get_full_path(filename: str):
     return (settings_directory / filename).resolve()
 
 
-def get_super_values(values: dict[str, dict]):
-    result = {}
-    for dict in values.values():
-        result.update(dict)
+def get_super_values(values: dict[str, dict[str, str]]):
+    result: dict[str, str] = {}
+    for value_dict in values.values():
+        result.update(value_dict)
     return result

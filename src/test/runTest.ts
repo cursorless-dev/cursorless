@@ -1,13 +1,13 @@
-import * as path from "path";
 import * as cp from "child_process";
+import * as path from "path";
 
 import {
-  runTests,
-  resolveCliPathFromVSCodeExecutablePath,
   downloadAndUnzipVSCode,
-} from "vscode-test";
-import { extensionDependencies } from "./extensionDependencies";
+  resolveCliArgsFromVSCodeExecutablePath,
+  runTests,
+} from "@vscode/test-electron";
 import { env } from "process";
+import { extensionDependencies } from "./extensionDependencies";
 
 async function main() {
   try {
@@ -24,16 +24,19 @@ async function main() {
     // the legacy VSCode version.
     const vscodeVersion = env.VSCODE_VERSION === "legacy" ? "1.66.0" : "stable";
     const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
-    const cliPath =
-      resolveCliPathFromVSCodeExecutablePath(vscodeExecutablePath);
+    const [cli, ...args] =
+      resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
 
     // Install extension dependencies
     cp.spawnSync(
-      cliPath,
-      extensionDependencies.flatMap((dependency) => [
-        "--install-extension",
-        dependency,
-      ]),
+      cli,
+      [
+        ...args,
+        ...extensionDependencies.flatMap((dependency) => [
+          "--install-extension",
+          dependency,
+        ]),
+      ],
       {
         encoding: "utf-8",
         stdio: "inherit",

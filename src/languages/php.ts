@@ -145,7 +145,6 @@ const nodeMatchers: Partial<
   ),
 
   collectionKey: trailingMatcher(["array_element_initializer[0]"], ["=>"]),
-  collectionItem: argumentMatcher("array_creation_expression"),
 
   argumentOrParameter: argumentMatcher("arguments", "formal_parameters"),
 };

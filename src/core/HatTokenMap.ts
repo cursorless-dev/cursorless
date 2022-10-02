@@ -1,4 +1,4 @@
-import { HatStyleName } from "./constants";
+import { HatStyleName } from "./hatStyles";
 import { Graph } from "../typings/Types";
 import { IndividualHatMap, ReadOnlyHatMap } from "./IndividualHatMap";
 import { HatAllocator } from "./HatAllocator";
@@ -55,13 +55,14 @@ export default class HatTokenMap {
   }
 
   static splitKey(key: string) {
-    let [hatStyle, character] = key.split(".");
-    if (character.length === 0) {
+    const [hatStyle, character] = key.split(".");
+
+    return {
+      hatStyle: hatStyle as HatStyleName,
       // If the character is `.` then it will appear as a zero length string
       // due to the way the split on `.` works
-      character = ".";
-    }
-    return { hatStyle: hatStyle as HatStyleName, character };
+      character: character.length === 0 ? "." : character,
+    };
   }
 
   private async getActiveMap() {

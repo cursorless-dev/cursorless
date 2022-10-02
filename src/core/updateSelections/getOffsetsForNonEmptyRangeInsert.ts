@@ -76,7 +76,7 @@ export default function getOffsetsForNonEmptyRangeInsert(
           end: newRangeEnd,
         };
 
-      case "regex":
+      case "regex": {
         let text = insertedText + originalRangeText;
         const regex = rightAnchored(expansionBehavior.regex);
         let index = text.search(regex);
@@ -95,6 +95,7 @@ export default function getOffsetsForNonEmptyRangeInsert(
               start: rangeStart + index,
               end: newRangeEnd,
             };
+      }
     }
   } else {
     const expansionBehavior = rangeInfo.expansionBehavior.end;
@@ -113,7 +114,7 @@ export default function getOffsetsForNonEmptyRangeInsert(
           end: rangeEnd + displacement,
         };
 
-      case "regex":
+      case "regex": {
         let text = originalRangeText + insertedText;
         const regex = leftAnchored(expansionBehavior.regex);
         let matches = text.match(regex);
@@ -134,6 +135,7 @@ export default function getOffsetsForNonEmptyRangeInsert(
               start: newRangeStart,
               end: rangeStart + matchLength,
             };
+      }
     }
   }
 }

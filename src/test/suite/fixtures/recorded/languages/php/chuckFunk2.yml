@@ -16,11 +16,10 @@ initialState:
       active: {line: 2, character: 25}
   marks: {}
 finalState:
-  documentContents: "<?php\n\n"
+  documentContents: |+
+    <?php
+
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
-  thatMark:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}, isImplicit: false}]

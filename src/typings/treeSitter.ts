@@ -15,6 +15,7 @@ declare module "web-tree-sitter" {
     setLogger(logFunc: Parser.Logger): void;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Parser {
     export type Options = {
       includedRanges?: Range[];

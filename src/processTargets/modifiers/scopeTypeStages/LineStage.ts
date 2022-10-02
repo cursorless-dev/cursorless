@@ -1,12 +1,12 @@
 import { Range, TextEditor } from "vscode";
-import { Target } from "../../../typings/target.types";
-import {
+import type { Target } from "../../../typings/target.types";
+import type {
   ContainingScopeModifier,
   EveryScopeModifier,
 } from "../../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../../typings/Types";
-import { ModifierStage } from "../../PipelineStages.types";
-import LineTarget from "../../targets/LineTarget";
+import type { ProcessedTargetsContext } from "../../../typings/Types";
+import type { ModifierStage } from "../../PipelineStages.types";
+import { LineTarget } from "../../targets";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
@@ -18,20 +18,19 @@ export default class implements ModifierStage {
     return [toLineTarget(target)];
   }
 
-  getEveryTarget(target: Target): LineTarget[] {
+  private getEveryTarget(target: Target): LineTarget[] {
     const { contentRange, editor } = target;
-    const { isEmpty } = contentRange;
-    const startLine = isEmpty ? 0 : contentRange.start.line;
-    const endLine = isEmpty
-      ? editor.document.lineCount - 1
-      : contentRange.end.line;
+    const startLine = target.hasExplicitRange ? contentRange.start.line : 0;
+    const endLine = target.hasExplicitRange
+      ? contentRange.end.line
+      : editor.document.lineCount - 1;
     const targets: LineTarget[] = [];
 
     for (let i = startLine; i <= endLine; ++i) {
       const line = editor.document.lineAt(i);
       if (!line.isEmptyOrWhitespace) {
         targets.push(
-          createLineTarget(target.editor, line.range, target.isReversed)
+          createLineTarget(target.editor, target.isReversed, line.range)
         );
       }
     }
@@ -46,18 +45,18 @@ export default class implements ModifierStage {
   }
 }
 
-export function toLineTarget(target: Target): LineTarget {
+function toLineTarget(target: Target): LineTarget {
   return createLineTarget(
     target.editor,
-    target.contentRange,
-    target.isReversed
+    target.isReversed,
+    target.contentRange
   );
 }
 
 export function createLineTarget(
   editor: TextEditor,
-  range: Range,
-  isReversed: boolean
+  isReversed: boolean,
+  range: Range
 ) {
   return new LineTarget({
     editor,

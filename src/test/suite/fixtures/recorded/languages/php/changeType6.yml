@@ -9,7 +9,7 @@ command:
 initialState:
   documentContents: |-
     <?php
-    
+
     class MyClass {
         public string $value = 'default';
     }
@@ -20,14 +20,11 @@ initialState:
 finalState:
   documentContents: |-
     <?php
-    
+
     class MyClass {
         public  $value = 'default';
     }
   selections:
-    - anchor: {line: 3, character: 11}
-      active: {line: 3, character: 11}
-  thatMark:
     - anchor: {line: 3, character: 11}
       active: {line: 3, character: 11}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]

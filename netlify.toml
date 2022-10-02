@@ -1,0 +1,3 @@
+[build]
+  command = "./scripts/docs-build.sh"
+  publish = "dist/cursorless-org"

@@ -27,9 +27,6 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
-  thatMark:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
 decorations:
   - name: pendingDeleteBackground
     type: token

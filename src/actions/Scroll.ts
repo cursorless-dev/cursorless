@@ -3,7 +3,6 @@ import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { groupBy } from "../util/itertools";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
-import { createThatMark } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class Scroll implements Action {
@@ -56,7 +55,7 @@ class Scroll implements Action {
     );
 
     return {
-      thatMark: createThatMark(targets),
+      thatTargets: targets,
     };
   }
 }
