@@ -21,7 +21,7 @@ def cursorless_relative_backward() -> str:
     rule="[<user.ordinals_small>] <user.cursorless_relative_direction> <user.cursorless_scope_type>"
 )
 def cursorless_relative_scope_singular(m) -> dict[str, Any]:
-    """Relative previous/next singular scope. `next funk`"""
+    """Relative previous/next singular scope, eg `"next funk"` or `"third next funk"`."""
     return create_relative_scope_modifier(
         m.cursorless_scope_type,
         getattr(m, "ordinals_small", 1),
