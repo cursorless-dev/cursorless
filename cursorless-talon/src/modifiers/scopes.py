@@ -1,5 +1,3 @@
-from typing import Any
-
 from talon import Module, app
 
 from ..csv_overrides import SPOKEN_FORM_HEADER, init_csv_and_watch_changes

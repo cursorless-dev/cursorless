@@ -1,7 +1,6 @@
 """Copied from inflection. https://github.com/jpvanhal/inflection/blob/master/inflection/__init__.py"""
 import re
 
-
 PLURALS = [
     (r"(?i)(quiz)$", r"\1zes"),
     (r"(?i)^(oxen)$", r"\1"),
@@ -92,55 +91,49 @@ def _irregular(singular: str, plural: str) -> None:
         return "".join("[" + char + char.upper() + "]" for char in string)
 
     if singular[0].upper() == plural[0].upper():
-        PLURALS.insert(
-            0, (r"(?i)({}){}$".format(singular[0], singular[1:]), r"\1" + plural[1:])
-        )
-        PLURALS.insert(
-            0, (r"(?i)({}){}$".format(plural[0], plural[1:]), r"\1" + plural[1:])
-        )
-        SINGULARS.insert(
-            0, (r"(?i)({}){}$".format(plural[0], plural[1:]), r"\1" + singular[1:])
-        )
+        PLURALS.insert(0, (rf"(?i)({singular[0]}){singular[1:]}$", r"\1" + plural[1:]))
+        PLURALS.insert(0, (rf"(?i)({plural[0]}){plural[1:]}$", r"\1" + plural[1:]))
+        SINGULARS.insert(0, (rf"(?i)({plural[0]}){plural[1:]}$", r"\1" + singular[1:]))
     else:
         PLURALS.insert(
             0,
             (
-                r"{}{}$".format(singular[0].upper(), caseinsensitive(singular[1:])),
+                rf"{singular[0].upper()}{caseinsensitive(singular[1:])}$",
                 plural[0].upper() + plural[1:],
             ),
         )
         PLURALS.insert(
             0,
             (
-                r"{}{}$".format(singular[0].lower(), caseinsensitive(singular[1:])),
+                rf"{singular[0].lower()}{caseinsensitive(singular[1:])}$",
                 plural[0].lower() + plural[1:],
             ),
         )
         PLURALS.insert(
             0,
             (
-                r"{}{}$".format(plural[0].upper(), caseinsensitive(plural[1:])),
+                rf"{plural[0].upper()}{caseinsensitive(plural[1:])}$",
                 plural[0].upper() + plural[1:],
             ),
         )
         PLURALS.insert(
             0,
             (
-                r"{}{}$".format(plural[0].lower(), caseinsensitive(plural[1:])),
+                rf"{plural[0].lower()}{caseinsensitive(plural[1:])}$",
                 plural[0].lower() + plural[1:],
             ),
         )
         SINGULARS.insert(
             0,
             (
-                r"{}{}$".format(plural[0].upper(), caseinsensitive(plural[1:])),
+                rf"{plural[0].upper()}{caseinsensitive(plural[1:])}$",
                 singular[0].upper() + singular[1:],
             ),
         )
         SINGULARS.insert(
             0,
             (
-                r"{}{}$".format(plural[0].lower(), caseinsensitive(plural[1:])),
+                rf"{plural[0].lower()}{caseinsensitive(plural[1:])}$",
                 singular[0].lower() + singular[1:],
             ),
         )
