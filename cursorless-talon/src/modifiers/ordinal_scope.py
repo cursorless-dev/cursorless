@@ -59,7 +59,7 @@ def cursorless_ordinal_scope(m) -> dict[str, Any]:
     return m[0]
 
 
-def create_ordinal_scope_modifier(scope_type: Any, start: int, length: int = 1):
+def create_ordinal_scope_modifier(scope_type: dict, start: int, length: int = 1):
     return {
         "type": "ordinalScope",
         "scopeType": scope_type,
