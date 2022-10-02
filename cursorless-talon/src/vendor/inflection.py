@@ -1,4 +1,5 @@
-"""Copied from inflection. https://github.com/jpvanhal/inflection/blob/master/inflection/__init__.py"""
+# From https://github.com/jpvanhal/inflection/blob/b00d4d348b32ef5823221b20ee4cbd1d2d924462/inflection/__init__.py
+# License https://github.com/jpvanhal/inflection/blob/b00d4d348b32ef5823221b20ee4cbd1d2d924462/LICENSE
 import re
 
 PLURALS = [
