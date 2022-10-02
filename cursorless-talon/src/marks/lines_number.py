@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from talon import Context, Module
+
 from ..compound_targets import is_active_included, is_anchor_included
 
 mod = Module()
