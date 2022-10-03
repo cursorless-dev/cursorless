@@ -1,12 +1,12 @@
 from talon import Module, app
 
 from ..csv_overrides import init_csv_and_watch_changes
+from .containing_scope import every_modifiers
 from .head_tail import head_tail_modifiers
 from .interior import interior_modifiers
-from .range_type import range_types
-from .containing_scope import every_modifiers
 from .ordinal_scope import first_modifiers, last_modifiers
-from .relative_scope import previous_next_modifiers, backward_modifiers
+from .range_type import range_types
+from .relative_scope import backward_modifiers, previous_next_modifiers
 
 mod = Module()
 
