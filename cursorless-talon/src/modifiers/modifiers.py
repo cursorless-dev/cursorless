@@ -4,6 +4,9 @@ from ..csv_overrides import init_csv_and_watch_changes
 from .head_tail import head_tail_modifiers
 from .interior import interior_modifiers
 from .range_type import range_types
+from .containing_scope import every_modifiers
+from .ordinal_scope import first_modifiers, last_modifiers
+from .relative_scope import previous_next_modifiers, backward_modifiers
 
 mod = Module()
 
@@ -71,6 +74,11 @@ def on_ready():
             "interior_modifier": interior_modifiers,
             "head_tail_modifier": head_tail_modifiers,
             "range_type": range_types,
+            "every_modifier": every_modifiers,
+            "first_modifier": first_modifiers,
+            "last_modifier": last_modifiers,
+            "previous_next_modifier": previous_next_modifiers,
+            "backward_modifier": backward_modifiers,
         },
     )
 

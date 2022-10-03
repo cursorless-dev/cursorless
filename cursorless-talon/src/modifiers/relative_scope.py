@@ -2,19 +2,19 @@ from typing import Any
 
 from talon import Module
 
+previous_next_modifiers = {"previous": "previous", "next": "next"}
+backward_modifiers = {"backward": "backward"}
+
 mod = Module()
 
+mod.list("cursorless_previous_next_modifier", desc="Cursorless previous/next modifiers")
+mod.list("cursorless_backward_modifier", desc="Cursorless backward modifiers")
 
-@mod.capture(rule="previous | next")
+
+@mod.capture(rule="{user.cursorless_previous_next_modifier}")
 def cursorless_relative_direction(m) -> str:
     """Previous/next"""
     return "backward" if m[0] == "previous" else "forward"
-
-
-@mod.capture(rule="backward")
-def cursorless_relative_backward() -> str:
-    """Backward"""
-    return "backward"
 
 
 @mod.capture(
@@ -44,7 +44,7 @@ def cursorless_relative_scope_plural(m) -> dict[str, Any]:
 
 
 @mod.capture(
-    rule="<number_small> <user.cursorless_scope_type_plural> [<user.cursorless_relative_backward>]"
+    rule="<number_small> <user.cursorless_scope_type_plural> [{user.cursorless_backward_modifier}]"
 )
 def cursorless_relative_scope_count(m) -> dict[str, Any]:
     """Relative count scope. `three funks`"""
@@ -52,7 +52,7 @@ def cursorless_relative_scope_count(m) -> dict[str, Any]:
         m.cursorless_scope_type_plural,
         0,
         m.number_small,
-        getattr(m, "cursorless_relative_backward", "forward"),
+        getattr(m, "cursorless_backward_modifier", "forward"),
     )
 
 

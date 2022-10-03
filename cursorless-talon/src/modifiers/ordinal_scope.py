@@ -4,10 +4,18 @@ from talon import Module
 
 from ..compound_targets import is_active_included, is_anchor_included
 
+first_modifiers = {"first": "first"}
+last_modifiers = {"last": "last"}
+
 mod = Module()
 
+mod.list("cursorless_first_modifier", desc="Cursorless first modifiers")
+mod.list("cursorless_last_modifier", desc="Cursorless last modifiers")
 
-@mod.capture(rule="<user.ordinals_small> | [<user.ordinals_small>] last")
+
+@mod.capture(
+    rule="<user.ordinals_small> | [<user.ordinals_small>] {user.cursorless_last_modifier}"
+)
 def ordinal_or_last(m) -> int:
     """An ordinal or the word 'last'"""
     if m[-1] == "last":
@@ -39,7 +47,9 @@ def cursorless_ordinal_range(m) -> dict[str, Any]:
     return anchor
 
 
-@mod.capture(rule="(first | last) <number_small> <user.cursorless_scope_type_plural>")
+@mod.capture(
+    rule="({user.cursorless_first_modifier} | {user.cursorless_last_modifier}) <number_small> <user.cursorless_scope_type_plural>"
+)
 def cursorless_first_last(m) -> dict[str, Any]:
     """First/last `n` scopes; eg "first three funks"""
     if m[0] == "first":
