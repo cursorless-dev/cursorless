@@ -37,6 +37,12 @@ const cheatsheetLegend: CheatsheetLegend = [
     id: 'target',
   },
   {
+    term: 'scope',
+    definition: 'Cursorless scope',
+    link: '#scopes',
+    id: 'scope',
+  },
+  {
     term: 'number',
     definition: 'Number',
     id: 'number',
