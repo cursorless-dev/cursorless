@@ -31,7 +31,7 @@ class Actions:
         )
 
     def cursorless_cheat_sheet_update_json():
-        """Show new cursorless html cheat sheet"""
+        """Update default cursorless cheatsheet json (for developer use only)"""
         app.notify(
             'Please first focus an app that supports cursorless, eg say "focus code"'
         )
