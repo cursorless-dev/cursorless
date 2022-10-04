@@ -174,6 +174,21 @@ For programming languages where Cursorless has rich parse tree support, we suppo
 
 For example, `"take funk blue air"` selects the function containing the token with a blue hat over the letter `'a'`.
 
+##### `"previous"` / `"next"` / `<ordinal>` / `<number>`
+
+| Spoken form                    | Description                                           | Example                     |
+| ------------------------------ | ----------------------------------------------------- | --------------------------- |
+| `"<number> <scope>"`           | `<number>` instances of `<scope>`                     | "take three funks"          |
+| `"<number> <scope> backward"`  | `<number>` instances of `<scope>` backwards           | "take three funks backward" |
+| `"first <number> <scope>"`     | First `<number>` instances of `<scope>`               | "first three funks"         |
+| `"last <number> <scope>"`      | Last `<number>` instances of `<scope>`                | "last three funks"          |
+| `"<ordinal> <scope>"`          | `<ordinal>` instance of `<scope>` counting from front | "take second funk"          |
+| `"<ordinal> last <scope>"`     | `<ordinal>` instance of `<scope>` counting from back  | "take second last funk"     |
+| `"<ordinal> next <scope>"`     | `<ordinal>` next instance of `<scope>`                | "take second next funk"     |
+| `"<ordinal> previous <scope>"` | `<ordinal>` previous instance of `<scope>`            | "take second previous funk" |
+| `"next scope"`                 | Next instance of `<scope>`                            | "take next funk"            |
+| `"previous scope"`             | Previous instance of `<scope>`                        | "take previous funk"        |
+
 ##### `"every"`
 
 The command `"every"` can be used to select a syntactic element and all of its matching siblings.
