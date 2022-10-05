@@ -6,9 +6,9 @@ import {
 } from "../typings/targetDescriptor.types";
 import CascadingStage from "./modifiers/CascadingStage";
 import {
-  ContentStage,
-  EmptyStage,
-  WhitespaceStage,
+  ContentFilterStage,
+  EmptyFilterStage,
+  WhitespaceFilterStage,
 } from "./modifiers/FilterStage";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import {
@@ -71,11 +71,11 @@ export default (modifier: Modifier): ModifierStage => {
     case "relativeScope":
       return new RelativeScopeStage(modifier);
     case "content":
-      return new ContentStage(modifier);
+      return new ContentFilterStage(modifier);
     case "empty":
-      return new EmptyStage(modifier);
+      return new EmptyFilterStage(modifier);
     case "whitespace":
-      return new WhitespaceStage(modifier);
+      return new WhitespaceFilterStage(modifier);
     case "cascading":
       return new CascadingStage(modifier);
     case "modifyIfUntyped":

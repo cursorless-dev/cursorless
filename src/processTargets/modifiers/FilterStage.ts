@@ -7,7 +7,7 @@ import type {
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { ModifierStage } from "../PipelineStages.types";
 
-export class ContentStage implements ModifierStage {
+export class ContentFilterStage implements ModifierStage {
   constructor(private modifier: ContentModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
@@ -15,7 +15,7 @@ export class ContentStage implements ModifierStage {
   }
 }
 
-export class EmptyStage implements ModifierStage {
+export class EmptyFilterStage implements ModifierStage {
   constructor(private modifier: EmptyModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
@@ -23,7 +23,7 @@ export class EmptyStage implements ModifierStage {
   }
 }
 
-export class WhitespaceStage implements ModifierStage {
+export class WhitespaceFilterStage implements ModifierStage {
   constructor(private modifier: WhitespaceModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
