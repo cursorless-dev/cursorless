@@ -9,7 +9,7 @@ import {
   ContentFilterStage,
   EmptyFilterStage,
   WhitespaceFilterStage,
-} from "./modifiers/FilterStage";
+} from "./modifiers/FilterStages";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import {
   ExcludeInteriorStage,
