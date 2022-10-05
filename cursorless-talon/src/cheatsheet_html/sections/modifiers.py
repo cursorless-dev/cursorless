@@ -96,8 +96,8 @@ def get_modifiers():
                     "description": "Previous instance of <scope>",
                 },
                 {
-                    "spokenForm": f"<ordinal> {complex_modifiers['previous']} <scope>",
-                    "description": "<ordinal> previous instance of <scope>",
+                    "spokenForm": f"<nth> {complex_modifiers['previous']} <scope>",
+                    "description": "<nth> previous instance of <scope>",
                 },
             ],
         },
@@ -110,8 +110,8 @@ def get_modifiers():
                     "description": "Next instance of <scope>",
                 },
                 {
-                    "spokenForm": f"<ordinal> {complex_modifiers['next']} <scope>",
-                    "description": "<ordinal> next instance of <scope>",
+                    "spokenForm": f"<nth> {complex_modifiers['next']} <scope>",
+                    "description": "<nth> next instance of <scope>",
                 },
             ],
         },
@@ -154,12 +154,12 @@ def get_modifiers():
             "type": "modifier",
             "variations": [
                 {
-                    "spokenForm": f"<ordinal> <scope>",
-                    "description": "<ordinal> instance of <scope> counting from front",
+                    "spokenForm": f"<nth> <scope>",
+                    "description": "<nth> instance of <scope>",
                 },
                 {
-                    "spokenForm": f"<ordinal> {complex_modifiers['last']} <scope>",
-                    "description": "<ordinal> instance of <scope> counting from back",
+                    "spokenForm": f"<nth> {complex_modifiers['last']} <scope>",
+                    "description": "<nth> instance of <scope> counting from back",
                 },
             ],
         },
