@@ -13,6 +13,7 @@ export class Sort implements Action {
       new Intl.Collator(undefined, {
         numeric: true,
         caseFirst: "upper",
+        sensitivity: "base",
       }).compare
     );
   }
