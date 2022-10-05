@@ -9,7 +9,12 @@ export class Sort implements Action {
   }
 
   protected sortTexts(texts: string[]) {
-    return texts.sort();
+    return texts.sort(
+      new Intl.Collator(undefined, {
+        numeric: true,
+        caseFirst: "upper",
+      }).compare
+    );
   }
 
   async run(targets: Target[][]): Promise<ActionReturnValue> {
