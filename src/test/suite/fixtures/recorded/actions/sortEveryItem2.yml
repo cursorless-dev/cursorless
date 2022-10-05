@@ -10,13 +10,13 @@ command:
   usePrePhraseSnapshot: true
   action: {name: sortTargets}
 initialState:
-  documentContents: ä, z, a, b, E, e
+  documentContents: z, a, b, e, E
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: a, b, E, e, z, ä
+  documentContents: a, b, E, e, z
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -49,12 +49,6 @@ finalState:
       contentRange:
         start: {line: 0, character: 12}
         end: {line: 0, character: 13}
-      isReversed: false
-      hasExplicitRange: true
-    - type: UntypedTarget
-      contentRange:
-        start: {line: 0, character: 15}
-        end: {line: 0, character: 16}
       isReversed: false
       hasExplicitRange: true
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]
