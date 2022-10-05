@@ -14,9 +14,9 @@ simple_modifiers = {
     "just": "toRawSelection",
     "leading": "leading",
     "trailing": "trailing",
-    "content": "content",
-    "empty": "empty",
-    "whitespace": "whitespace",
+    "keep content": "content",
+    "-keep empty": "empty",
+    "-keep whitespace": "whitespace",
 }
 
 mod.list(
