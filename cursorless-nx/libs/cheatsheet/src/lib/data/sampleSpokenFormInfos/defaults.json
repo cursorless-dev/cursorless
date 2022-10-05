@@ -651,6 +651,16 @@
 			"id": "modifiers",
 			"items": [
 				{
+					"id": "every",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "every <scope>",
+							"description": "Every instance of <scope>"
+						}
+					]
+				},
+				{
 					"id": "excludeInterior",
 					"type": "modifier",
 					"variations": [
@@ -689,6 +699,16 @@
 					]
 				},
 				{
+					"id": "first",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "first <number> <scope>",
+							"description": "First <number> instances of <scope>"
+						}
+					]
+				},
+				{
 					"id": "interiorOnly",
 					"type": "modifier",
 					"variations": [
@@ -699,12 +719,78 @@
 					]
 				},
 				{
+					"id": "last",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "last <number> <scope>",
+							"description": "Last <number> instances of <scope>"
+						}
+					]
+				},
+				{
 					"id": "leading",
 					"type": "modifier",
 					"variations": [
 						{
 							"spokenForm": "leading",
 							"description": "Leading delimiter range"
+						}
+					]
+				},
+				{
+					"id": "next",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "next <scope>",
+							"description": "Next instance of <scope>"
+						},
+						{
+							"spokenForm": "<ordinal> next <scope>",
+							"description": "<ordinal> next instance of <scope>"
+						}
+					]
+				},
+				{
+					"id": "ordinal",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "<ordinal> <scope>",
+							"description": "<ordinal> instance of <scope> counting from front"
+						},
+						{
+							"spokenForm": "<ordinal> last <scope>",
+							"description": "<ordinal> instance of <scope> counting from back"
+						}
+					]
+				},
+				{
+					"id": "previous",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "previous <scope>",
+							"description": "Previous instance of <scope>"
+						},
+						{
+							"spokenForm": "<ordinal> previous <scope>",
+							"description": "<ordinal> previous instance of <scope>"
+						}
+					]
+				},
+				{
+					"id": "relative",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "<number> <scope>",
+							"description": "<number> instances of <scope>"
+						},
+						{
+							"spokenForm": "<number> <scope> backward",
+							"description": "<number> instances of <scope> backwards"
 						}
 					]
 				},
