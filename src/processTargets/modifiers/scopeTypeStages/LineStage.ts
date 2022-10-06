@@ -27,12 +27,13 @@ export default class implements ModifierStage {
     const targets: LineTarget[] = [];
 
     for (let i = startLine; i <= endLine; ++i) {
-      const line = editor.document.lineAt(i);
-      if (!line.isEmptyOrWhitespace) {
-        targets.push(
-          createLineTarget(target.editor, target.isReversed, line.range)
-        );
-      }
+      targets.push(
+        createLineTarget(
+          target.editor,
+          target.isReversed,
+          editor.document.lineAt(i).range
+        )
+      );
     }
 
     if (targets.length === 0) {
