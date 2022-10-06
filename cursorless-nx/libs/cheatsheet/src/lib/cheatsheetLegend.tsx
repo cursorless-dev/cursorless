@@ -47,6 +47,11 @@ const cheatsheetLegend: CheatsheetLegend = [
     definition: 'Number',
     id: 'number',
   },
+  {
+    term: 'nth',
+    definition: 'Ordinal, eg first, second, third',
+    id: 'ordinal',
+  },
 ];
 
 export default cheatsheetLegend;
