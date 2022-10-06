@@ -651,6 +651,16 @@
 			"id": "modifiers",
 			"items": [
 				{
+					"id": "containingScope",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "<scope>",
+							"description": "Containing instance of <scope>"
+						}
+					]
+				},
+				{
 					"id": "every",
 					"type": "modifier",
 					"variations": [
@@ -699,16 +709,6 @@
 					]
 				},
 				{
-					"id": "first",
-					"type": "modifier",
-					"variations": [
-						{
-							"spokenForm": "first <number> <scope>",
-							"description": "First <number> instances of <scope>"
-						}
-					]
-				},
-				{
 					"id": "interiorOnly",
 					"type": "modifier",
 					"variations": [
@@ -719,12 +719,22 @@
 					]
 				},
 				{
-					"id": "last",
+					"id": "keepContentFilter",
 					"type": "modifier",
 					"variations": [
 						{
-							"spokenForm": "last <number> <scope>",
-							"description": "Last <number> instances of <scope>"
+							"spokenForm": "content",
+							"description": "Keep content filter"
+						}
+					]
+				},
+				{
+					"id": "keepEmptyFilter",
+					"type": "modifier",
+					"variations": [
+						{
+							"spokenForm": "empty",
+							"description": "Keep empty filter"
 						}
 					]
 				},
@@ -739,39 +749,29 @@
 					]
 				},
 				{
-					"id": "next",
-					"type": "modifier",
-					"variations": [
-						{
-							"spokenForm": "next <scope>",
-							"description": "Next instance of <scope>"
-						},
-						{
-							"spokenForm": "<nth> next <scope>",
-							"description": "<nth> next instance of <scope>"
-						},
-						{
-							"spokenForm": "<number> next <scope>",
-							"description": "<number> next instances of <scope>"
-						}
-					]
-				},
-				{
-					"id": "ordinal",
+					"id": "ordinalScope",
 					"type": "modifier",
 					"variations": [
 						{
 							"spokenForm": "<nth> <scope>",
-							"description": "<nth> instance of <scope>"
+							"description": "<nth> instance of <scope> in iteration scope"
 						},
 						{
 							"spokenForm": "<nth> last <scope>",
-							"description": "<nth> instance of <scope> counting from back"
+							"description": "<nth>-to-last instance of <scope> in iteration scope"
+						},
+						{
+							"spokenForm": "first <number> <scope>s",
+							"description": "First <number> instances of <scope> in iteration scope"
+						},
+						{
+							"spokenForm": "last <number> <scope>s",
+							"description": "Last <number> instances of <scope> in iteration scope"
 						}
 					]
 				},
 				{
-					"id": "previous",
+					"id": "relativeScope",
 					"type": "modifier",
 					"variations": [
 						{
@@ -779,26 +779,32 @@
 							"description": "Previous instance of <scope>"
 						},
 						{
+							"spokenForm": "next <scope>",
+							"description": "Next instance of <scope>"
+						},
+						{
 							"spokenForm": "<nth> previous <scope>",
-							"description": "<nth> previous instance of <scope>"
+							"description": "<nth> instance of <scope> before target"
 						},
 						{
-							"spokenForm": "<number> previous <scope>",
-							"description": "<number> previous instances of <scope>"
-						}
-					]
-				},
-				{
-					"id": "relative",
-					"type": "modifier",
-					"variations": [
-						{
-							"spokenForm": "<number> <scope>",
-							"description": "<number> instances of <scope> forwards"
+							"spokenForm": "<nth> next <scope>",
+							"description": "<nth> instance of <scope> after target"
 						},
 						{
-							"spokenForm": "<number> <scope> backward",
-							"description": "<number> instances of <scope> backwards"
+							"spokenForm": "previous <number> <scope>s",
+							"description": "previous <number> instances of <scope>"
+						},
+						{
+							"spokenForm": "<number> <scope>s backward",
+							"description": "<number> instances of <scope> including target, going backwards"
+						},
+						{
+							"spokenForm": "<number> <scope>s",
+							"description": "<number> instances of <scope> including target, going forwards"
+						},
+						{
+							"spokenForm": "next <number> <scope>s",
+							"description": "next <number> instances of <scope>"
 						}
 					]
 				},

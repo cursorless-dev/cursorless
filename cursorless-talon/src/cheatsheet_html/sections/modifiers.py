@@ -78,16 +78,6 @@ def get_modifiers():
             ],
         },
         {
-            "id": "every",
-            "type": "modifier",
-            "variations": [
-                {
-                    "spokenForm": f"{complex_modifiers['every']} <scope>",
-                    "description": "Every instance of <scope>",
-                },
-            ],
-        },
-        {
             "id": "containingScope",
             "type": "modifier",
             "variations": [
@@ -98,7 +88,17 @@ def get_modifiers():
             ],
         },
         {
-            "id": "previous",
+            "id": "every",
+            "type": "modifier",
+            "variations": [
+                {
+                    "spokenForm": f"{complex_modifiers['every']} <scope>",
+                    "description": "Every instance of <scope>",
+                },
+            ],
+        },
+        {
+            "id": "relativeScope",
             "type": "modifier",
             "variations": [
                 {
@@ -106,78 +106,54 @@ def get_modifiers():
                     "description": "Previous instance of <scope>",
                 },
                 {
-                    "spokenForm": f"<nth> {complex_modifiers['previous']} <scope>",
-                    "description": "<nth> previous instance of <scope>",
-                },
-                {
-                    "spokenForm": f"<number> {complex_modifiers['previous']} <scope>s",
-                    "description": "<number> previous instances of <scope>",
-                },
-            ],
-        },
-        {
-            "id": "next",
-            "type": "modifier",
-            "variations": [
-                {
                     "spokenForm": f"{complex_modifiers['next']} <scope>",
                     "description": "Next instance of <scope>",
                 },
                 {
+                    "spokenForm": f"<nth> {complex_modifiers['previous']} <scope>",
+                    "description": "<nth> instance of <scope> before target",
+                },
+                {
                     "spokenForm": f"<nth> {complex_modifiers['next']} <scope>",
-                    "description": "<nth> next instance of <scope>",
+                    "description": "<nth> instance of <scope> after target",
                 },
                 {
-                    "spokenForm": f"<number> {complex_modifiers['next']} <scope>s",
-                    "description": "<number> next instances of <scope>",
-                },
-            ],
-        },
-        {
-            "id": "first",
-            "type": "modifier",
-            "variations": [
-                {
-                    "spokenForm": f"{complex_modifiers['first']} <number> <scope>s",
-                    "description": "First <number> instances of <scope>",
-                },
-            ],
-        },
-        {
-            "id": "last",
-            "type": "modifier",
-            "variations": [
-                {
-                    "spokenForm": f"{complex_modifiers['last']} <number> <scope>s",
-                    "description": "Last <number> instances of <scope>",
-                },
-            ],
-        },
-        {
-            "id": "relative",
-            "type": "modifier",
-            "variations": [
-                {
-                    "spokenForm": f"<number> <scope>s",
-                    "description": "<number> instances of <scope> forwards",
+                    "spokenForm": f"{complex_modifiers['previous']} <number> <scope>s",
+                    "description": "previous <number> instances of <scope>",
                 },
                 {
                     "spokenForm": f"<number> <scope>s {complex_modifiers['backward']}",
-                    "description": "<number> instances of <scope> backwards",
+                    "description": "<number> instances of <scope> including target, going backwards",
+                },
+                {
+                    "spokenForm": f"<number> <scope>s",
+                    "description": "<number> instances of <scope> including target, going forwards",
+                },
+                {
+                    "spokenForm": f"{complex_modifiers['next']} <number> <scope>s",
+                    "description": "next <number> instances of <scope>",
                 },
             ],
         },
         {
-            "id": "ordinal",
+            "id": "ordinalScope",
             "type": "modifier",
             "variations": [
                 {
                     "spokenForm": f"<nth> <scope>",
-                    "description": "<nth> instance of <scope>",
+                    "description": "<nth> instance of <scope> in iteration scope",
                 },
                 {
                     "spokenForm": f"<nth> {complex_modifiers['last']} <scope>",
-                    "description": "<nth> instance of <scope> counting from back",
+                    "description": "<nth>-to-last instance of <scope> in iteration scope",
+                },
+                {
+                    "spokenForm": f"{complex_modifiers['first']} <number> <scope>s",
+                    "description": "First <number> instances of <scope> in iteration scope",
+                },
+                {
+                    "spokenForm": f"{complex_modifiers['last']} <number> <scope>s",
+                    "description": "Last <number> instances of <scope> in iteration scope",
                 },
             ],
         },
