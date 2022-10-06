@@ -88,6 +88,16 @@ def get_modifiers():
             ],
         },
         {
+            "id": "containingScope",
+            "type": "modifier",
+            "variations": [
+                {
+                    "spokenForm": f"<scope>",
+                    "description": "Containing instance of <scope>",
+                },
+            ],
+        },
+        {
             "id": "previous",
             "type": "modifier",
             "variations": [
@@ -100,7 +110,7 @@ def get_modifiers():
                     "description": "<nth> previous instance of <scope>",
                 },
                 {
-                    "spokenForm": f"<number> {complex_modifiers['previous']} <scope>",
+                    "spokenForm": f"<number> {complex_modifiers['previous']} <scope>s",
                     "description": "<number> previous instances of <scope>",
                 },
             ],
@@ -118,7 +128,7 @@ def get_modifiers():
                     "description": "<nth> next instance of <scope>",
                 },
                 {
-                    "spokenForm": f"<number> {complex_modifiers['next']} <scope>",
+                    "spokenForm": f"<number> {complex_modifiers['next']} <scope>s",
                     "description": "<number> next instances of <scope>",
                 },
             ],
@@ -128,7 +138,7 @@ def get_modifiers():
             "type": "modifier",
             "variations": [
                 {
-                    "spokenForm": f"{complex_modifiers['first']} <number> <scope>",
+                    "spokenForm": f"{complex_modifiers['first']} <number> <scope>s",
                     "description": "First <number> instances of <scope>",
                 },
             ],
@@ -138,7 +148,7 @@ def get_modifiers():
             "type": "modifier",
             "variations": [
                 {
-                    "spokenForm": f"{complex_modifiers['last']} <number> <scope>",
+                    "spokenForm": f"{complex_modifiers['last']} <number> <scope>s",
                     "description": "Last <number> instances of <scope>",
                 },
             ],
@@ -148,11 +158,11 @@ def get_modifiers():
             "type": "modifier",
             "variations": [
                 {
-                    "spokenForm": f"<number> <scope>",
+                    "spokenForm": f"<number> <scope>s",
                     "description": "<number> instances of <scope> forwards",
                 },
                 {
-                    "spokenForm": f"<number> <scope> {complex_modifiers['backward']}",
+                    "spokenForm": f"<number> <scope>s {complex_modifiers['backward']}",
                     "description": "<number> instances of <scope> backwards",
                 },
             ],
