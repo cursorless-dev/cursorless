@@ -142,7 +142,7 @@ export type CustomRegexModifier = (
 
 export class CustomRegexStage extends RegexStageBase {
   constructor(modifier: CustomRegexModifier) {
-    super(modifier, new RegExp(modifier.scopeType.regex, "g"));
+    super(modifier, new RegExp(modifier.scopeType.regex, "gu"));
   }
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
