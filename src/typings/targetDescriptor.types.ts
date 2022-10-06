@@ -238,16 +238,12 @@ export interface TrailingModifier {
   type: "trailing";
 }
 
-export interface ContentModifier {
-  type: "content";
+export interface KeepContentFilterModifier {
+  type: "keepContentFilter";
 }
 
-export interface EmptyModifier {
-  type: "empty";
-}
-
-export interface WhitespaceModifier {
-  type: "whitespace";
+export interface KeepEmptyFilterModifier {
+  type: "keepEmptyFilter";
 }
 
 export type Position = "before" | "after" | "start" | "end";
@@ -323,9 +319,8 @@ export type Modifier =
   | ModifyIfUntypedModifier
   | CascadingModifier
   | RangeModifier
-  | ContentModifier
-  | EmptyModifier
-  | WhitespaceModifier;
+  | KeepContentFilterModifier
+  | KeepEmptyFilterModifier;
 
 export interface PartialRangeTargetDescriptor {
   type: "range";
