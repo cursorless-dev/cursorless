@@ -47,7 +47,7 @@ We support recording tests where the expected result is an error. This can be do
 
 We support testing our decoration highlights, eg the flash of red when something is deleted. If you record tests into the `decorations/` directory, these will automatically be captured.
 
-If you'd like to record decorations when recording into a different directory, you can say `"cursorless record navigation"`.
+If you'd like to record decorations when recording into a different directory, you can say `"cursorless record highlights"`.
 
 #### Testing the returned `that` mark
 
