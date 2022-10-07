@@ -13,9 +13,9 @@ def get_compound_targets():
         if value == "listConnective"
     )
     compound_targets = {
-        f"<target 1> {list_connective_term} <target 2>": "T1 and T2",
-        f"<target 1> {include_both_term} <target 2>": "T1 through T2",
-        f"{include_both_term} <target>": "S through T",
+        f"<T1> {list_connective_term} <T2>": "T1 and T2",
+        f"<T1> {include_both_term} <T2>": "T1 through T2",
+        f"{include_both_term} <T>": "S through T",
     }
 
     return compound_targets
