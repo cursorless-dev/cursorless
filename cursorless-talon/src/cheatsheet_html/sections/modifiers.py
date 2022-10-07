@@ -4,7 +4,7 @@ MODIFIER_LIST_NAMES = [
     "simple_modifier",
     "interior_modifier",
     "head_tail_modifier",
-    "every_modifier",
+    "simple_scope_modifier",
     "first_modifier",
     "last_modifier",
     "previous_next_modifier",

@@ -1,12 +1,12 @@
 from talon import Module, app
 
 from ..csv_overrides import init_csv_and_watch_changes
-from .containing_scope import every_modifiers
 from .head_tail import head_tail_modifiers
 from .interior import interior_modifiers
 from .ordinal_scope import first_modifiers, last_modifiers
 from .range_type import range_types
 from .relative_scope import backward_modifiers, previous_next_modifiers
+from .simple_scope_modifier import simple_scope_modifiers
 
 mod = Module()
 
@@ -43,7 +43,7 @@ def cursorless_simple_modifier(m) -> dict[str, str]:
 # rather than just "inside".
 head_tail_swallowed_modifiers = [
     "<user.cursorless_simple_modifier>",  # bounds, just, leading, trailing
-    "<user.cursorless_containing_scope>",  # funk, state, class
+    "<user.cursorless_simple_scope_modifier>",  # funk, state, class, every funk
     "<user.cursorless_ordinal_scope>",  # first past second word
     "<user.cursorless_relative_scope>",  # next funk, 3 funks
     "<user.cursorless_surrounding_pair>",  # matching/pair [curly, round]
@@ -76,7 +76,7 @@ def on_ready():
             "interior_modifier": interior_modifiers,
             "head_tail_modifier": head_tail_modifiers,
             "range_type": range_types,
-            "every_modifier": every_modifiers,
+            "simple_scope_modifier": simple_scope_modifiers,
             "first_modifier": first_modifiers,
             "last_modifier": last_modifiers,
             "previous_next_modifier": previous_next_modifiers,
