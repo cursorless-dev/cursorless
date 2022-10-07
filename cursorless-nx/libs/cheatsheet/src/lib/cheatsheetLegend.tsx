@@ -9,37 +9,43 @@ export type CheatsheetLegend = CheatsheetLegendEntry[];
 
 const cheatsheetLegend: CheatsheetLegend = [
   {
-    term: 'F',
+    term: 'formatter',
     definition: 'Formatter (eg "camel", "snake"). Say "format help" for a list',
     id: 'formatter',
   },
   {
-    term: 'M',
+    term: 'modifier',
     definition: 'Cursorless modifier',
     link: 'https://www.cursorless.org/docs/#modifiers',
     id: 'modifier',
   },
   {
-    term: 'P',
+    term: 'pair',
     definition: 'Paired delimiter',
     link: '#pairedDelimiters',
     id: 'pairedDelimiter',
   },
   {
-    term: 'S',
-    definition: 'Current selection(s)',
-    id: 'selection',
-  },
-  {
-    term: 'T',
+    term: 'target',
     definition: 'Cursorless target',
     link: 'https://www.cursorless.org/docs/#targets',
     id: 'target',
   },
   {
+    term: 'scope',
+    definition: 'Cursorless scope',
+    link: '#scopes',
+    id: 'scope',
+  },
+  {
     term: 'number',
     definition: 'Number',
     id: 'number',
+  },
+  {
+    term: 'ordinal',
+    definition: 'Ordinal, eg first, second, third',
+    id: 'ordinal',
   },
 ];
 

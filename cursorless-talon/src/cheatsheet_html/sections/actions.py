@@ -16,7 +16,7 @@ def get_actions():
         "rewrap",
     ]
     simple_actions = {
-        f"{key} <T>": value
+        f"{key} <target>": value
         for key, value in all_actions.items()
         if value not in multiple_target_action_names
     }
@@ -36,7 +36,7 @@ def get_actions():
             "action",
             simple_actions,
             {
-                "callAsFunction": "Call T on S",
+                "callAsFunction": "Call <target> on selection",
             },
         ),
         {
@@ -44,12 +44,12 @@ def get_actions():
             "type": "action",
             "variations": [
                 {
-                    "spokenForm": f"{complex_actions['replaceWithTarget']} <T1> {source_destination_connective} <T2>",
-                    "description": "Replace T2 with T1",
+                    "spokenForm": f"{complex_actions['replaceWithTarget']} <target 1> {source_destination_connective} <target 2>",
+                    "description": "Replace <target 2> with <target 1>",
                 },
                 {
-                    "spokenForm": f"{complex_actions['replaceWithTarget']} <T>",
-                    "description": "Replace S with T",
+                    "spokenForm": f"{complex_actions['replaceWithTarget']} <target>",
+                    "description": "Replace selection with <target>",
                 },
             ],
         },
@@ -58,12 +58,12 @@ def get_actions():
             "type": "action",
             "variations": [
                 {
-                    "spokenForm": f"{complex_actions['moveToTarget']} <T1> {source_destination_connective} <T2>",
-                    "description": "Move T1 to T2",
+                    "spokenForm": f"{complex_actions['moveToTarget']} <target 1> {source_destination_connective} <target 2>",
+                    "description": "Move <target 1> to <target 2>",
                 },
                 {
-                    "spokenForm": f"{complex_actions['moveToTarget']} <T>",
-                    "description": "Move T to S",
+                    "spokenForm": f"{complex_actions['moveToTarget']} <target>",
+                    "description": "Move <target> to selection",
                 },
             ],
         },
@@ -72,12 +72,12 @@ def get_actions():
             "type": "action",
             "variations": [
                 {
-                    "spokenForm": f"{complex_actions['swapTargets']} <T1> {swap_connective} <T2>",
-                    "description": "Swap T1 with T2",
+                    "spokenForm": f"{complex_actions['swapTargets']} <target 1> {swap_connective} <target 2>",
+                    "description": "Swap <target 1> with <target 2>",
                 },
                 {
-                    "spokenForm": f"{complex_actions['swapTargets']} {swap_connective} <T>",
-                    "description": "Swap S with T",
+                    "spokenForm": f"{complex_actions['swapTargets']} {swap_connective} <target>",
+                    "description": "Swap selection with <target>",
                 },
             ],
         },
@@ -86,8 +86,8 @@ def get_actions():
             "type": "action",
             "variations": [
                 {
-                    "spokenForm": f"{complex_actions['applyFormatter']} <F> at <T>",
-                    "description": "Reformat T as F",
+                    "spokenForm": f"{complex_actions['applyFormatter']} <formatter> at <target>",
+                    "description": "Reformat <target> as <formatter>",
                 }
             ],
         },
@@ -96,8 +96,8 @@ def get_actions():
             "type": "action",
             "variations": [
                 {
-                    "spokenForm": f"<P> {complex_actions['wrapWithPairedDelimiter']} <T>",
-                    "description": "Wrap T with P",
+                    "spokenForm": f"<pair> {complex_actions['wrapWithPairedDelimiter']} <target>",
+                    "description": "Wrap <target> with <pair>",
                 }
             ],
         },
@@ -106,8 +106,8 @@ def get_actions():
             "type": "action",
             "variations": [
                 {
-                    "spokenForm": f"<P> {complex_actions['rewrap']} <T>",
-                    "description": "Rewrap T with P",
+                    "spokenForm": f"<pair> {complex_actions['rewrap']} <target>",
+                    "description": "Rewrap <target> with <pair>",
                 }
             ],
         },
