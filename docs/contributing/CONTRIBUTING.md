@@ -27,6 +27,8 @@ extension](#running--testing-extension-locally), you may want to check out the
 
    The `yarn init-launch-sandbox` command creates a local sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. Please file an issue if you'd like to use additional extensions when debugging locally.
 
+4. Copy / symlink `cursorless-talon-dev` into your Talon user directory for some useful voice commands for developing Cursorless.
+
 ## Running / testing extension locally
 
 In order to test out your local version of the extension or to run unit tests
