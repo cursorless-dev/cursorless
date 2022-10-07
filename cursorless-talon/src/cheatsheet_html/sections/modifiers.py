@@ -58,8 +58,8 @@ def get_modifiers():
                     "description": "Extend through start of line",
                 },
                 {
-                    "spokenForm": f"{complex_modifiers['extendThroughStartOf']} <M>",
-                    "description": "Extend through start of <M>",
+                    "spokenForm": f"{complex_modifiers['extendThroughStartOf']} <modifier>",
+                    "description": "Extend through start of <modifier>",
                 },
             ],
         },
@@ -72,8 +72,8 @@ def get_modifiers():
                     "description": "Extend through end of line",
                 },
                 {
-                    "spokenForm": f"{complex_modifiers['extendThroughEndOf']} <M>",
-                    "description": "Extend through end of <M>",
+                    "spokenForm": f"{complex_modifiers['extendThroughEndOf']} <modifier>",
+                    "description": "Extend through end of <modifier>",
                 },
             ],
         },
@@ -110,12 +110,12 @@ def get_modifiers():
                     "description": "Next instance of <scope>",
                 },
                 {
-                    "spokenForm": f"<nth> {complex_modifiers['previous']} <scope>",
-                    "description": "<nth> instance of <scope> before target",
+                    "spokenForm": f"<ordinal> {complex_modifiers['previous']} <scope>",
+                    "description": "<ordinal> instance of <scope> before target",
                 },
                 {
-                    "spokenForm": f"<nth> {complex_modifiers['next']} <scope>",
-                    "description": "<nth> instance of <scope> after target",
+                    "spokenForm": f"<ordinal> {complex_modifiers['next']} <scope>",
+                    "description": "<ordinal> instance of <scope> after target",
                 },
                 {
                     "spokenForm": f"{complex_modifiers['previous']} <number> <scope>s",
@@ -140,12 +140,12 @@ def get_modifiers():
             "type": "modifier",
             "variations": [
                 {
-                    "spokenForm": f"<nth> <scope>",
-                    "description": "<nth> instance of <scope> in iteration scope",
+                    "spokenForm": f"<ordinal> <scope>",
+                    "description": "<ordinal> instance of <scope> in iteration scope",
                 },
                 {
-                    "spokenForm": f"<nth> {complex_modifiers['last']} <scope>",
-                    "description": "<nth>-to-last instance of <scope> in iteration scope",
+                    "spokenForm": f"<ordinal> {complex_modifiers['last']} <scope>",
+                    "description": "<ordinal>-to-last instance of <scope> in iteration scope",
                 },
                 {
                     "spokenForm": f"{complex_modifiers['first']} <number> <scope>s",

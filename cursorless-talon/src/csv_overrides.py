@@ -216,7 +216,7 @@ def update_file(
                 "csv due to errors.  Please fix csv errors above and restart talon"
             )
         else:
-            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%selection")
             lines = [
                 f"# {timestamp} - New entries automatically added by cursorless",
                 *[create_line(key, missing[key]) for key in sorted(missing)],

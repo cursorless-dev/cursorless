@@ -1,7 +1,6 @@
-import reactStringReplace from 'react-string-replace';
 import { CheatsheetSection, Variation } from '../CheatsheetInfo';
 import useIsHighlighted from '../hooks/useIsHighlighted';
-import SmartLink from './SmartLink';
+import { formatCaptures } from './formatCaptures';
 
 type Props = {
   section: CheatsheetSection;
@@ -70,27 +69,4 @@ function CheatsheetListEntry({
       </td>
     </tr>
   );
-}
-
-const captureRegex = /<([^>]+)>/g;
-
-function formatCaptures(input: string) {
-  return reactStringReplace(input, captureRegex, (match, i) => {
-    const innerElement =
-      match === 'nth' ? (
-        <span>
-          n<sup>th</sup>
-        </span>
-      ) : (
-        match
-      );
-
-    return (
-      <span className="inline-block px-[1px] mx-[-1px] rounded-sm bg-cyan-600">
-        <SmartLink key={i} to="#legend" noFormatting={true}>
-          {innerElement}
-        </SmartLink>
-      </span>
-    );
-  });
 }

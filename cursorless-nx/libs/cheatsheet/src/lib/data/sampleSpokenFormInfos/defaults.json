@@ -9,8 +9,8 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "format <F> at <T>",
-							"description": "Reformat T as F"
+							"spokenForm": "format <formatter> at <target>",
+							"description": "Reformat <target> as <formatter>"
 						}
 					]
 				},
@@ -19,8 +19,8 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "call <T>",
-							"description": "Call T on S"
+							"spokenForm": "call <target>",
+							"description": "Call <target> on selection"
 						}
 					]
 				},
@@ -29,7 +29,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "change <T>",
+							"spokenForm": "change <target>",
 							"description": "Clear and set selection"
 						}
 					]
@@ -39,7 +39,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "copy <T>",
+							"spokenForm": "copy <target>",
 							"description": "Copy to clipboard"
 						}
 					]
@@ -49,7 +49,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "carve <T>",
+							"spokenForm": "carve <target>",
 							"description": "Cut to clipboard"
 						}
 					]
@@ -59,7 +59,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "give <T>",
+							"spokenForm": "give <target>",
 							"description": "Deselect"
 						}
 					]
@@ -69,7 +69,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "pour <T>",
+							"spokenForm": "pour <target>",
 							"description": "Edit new line after"
 						}
 					]
@@ -79,7 +79,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "drink <T>",
+							"spokenForm": "drink <target>",
 							"description": "Edit new line before"
 						}
 					]
@@ -89,7 +89,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "extract <T>",
+							"spokenForm": "extract <target>",
 							"description": "Extract variable"
 						}
 					]
@@ -99,7 +99,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "scout <T>",
+							"spokenForm": "scout <target>",
 							"description": "Find in document"
 						}
 					]
@@ -109,7 +109,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "scout all <T>",
+							"spokenForm": "scout all <target>",
 							"description": "Find in workspace"
 						}
 					]
@@ -119,7 +119,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "fold <T>",
+							"spokenForm": "fold <target>",
 							"description": "Fold region"
 						}
 					]
@@ -129,7 +129,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "follow <T>",
+							"spokenForm": "follow <target>",
 							"description": "Follow link"
 						}
 					]
@@ -139,7 +139,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "snippet make <T>",
+							"spokenForm": "snippet make <target>",
 							"description": "Generate snippet"
 						}
 					]
@@ -149,7 +149,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "highlight <T>",
+							"spokenForm": "highlight <target>",
 							"description": "Highlight"
 						}
 					]
@@ -159,7 +159,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "indent <T>",
+							"spokenForm": "indent <target>",
 							"description": "Indent line"
 						}
 					]
@@ -169,7 +169,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "clone <T>",
+							"spokenForm": "clone <target>",
 							"description": "Insert copy after"
 						}
 					]
@@ -179,7 +179,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "clone up <T>",
+							"spokenForm": "clone up <target>",
 							"description": "Insert copy before"
 						}
 					]
@@ -189,7 +189,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "float <T>",
+							"spokenForm": "float <target>",
 							"description": "Insert empty line after"
 						}
 					]
@@ -199,7 +199,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "drop <T>",
+							"spokenForm": "drop <target>",
 							"description": "Insert empty line before"
 						}
 					]
@@ -209,7 +209,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "puff <T>",
+							"spokenForm": "puff <target>",
 							"description": "Insert empty lines around"
 						}
 					]
@@ -219,7 +219,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "snippet <T>",
+							"spokenForm": "snippet <target>",
 							"description": "Insert snippet"
 						}
 					]
@@ -229,12 +229,12 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "move <T1> to <T2>",
-							"description": "Move T1 to T2"
+							"spokenForm": "move <target 1> to <target 2>",
+							"description": "Move <target 1> to <target 2>"
 						},
 						{
-							"spokenForm": "move <T>",
-							"description": "Move T to S"
+							"spokenForm": "move <target>",
+							"description": "Move <target> to selection"
 						}
 					]
 				},
@@ -243,7 +243,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "phones <T>",
+							"spokenForm": "phones <target>",
 							"description": "Next homophone"
 						}
 					]
@@ -253,7 +253,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "dedent <T>",
+							"spokenForm": "dedent <target>",
 							"description": "Outdent line"
 						}
 					]
@@ -263,7 +263,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "paste <T>",
+							"spokenForm": "paste <target>",
 							"description": "Paste from clipboard"
 						}
 					]
@@ -273,7 +273,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "shuffle <T>",
+							"spokenForm": "shuffle <target>",
 							"description": "Randomize targets"
 						}
 					]
@@ -283,7 +283,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "chuck <T>",
+							"spokenForm": "chuck <target>",
 							"description": "Remove"
 						}
 					]
@@ -293,7 +293,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "rename <T>",
+							"spokenForm": "rename <target>",
 							"description": "Rename"
 						}
 					]
@@ -303,12 +303,12 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "bring <T1> to <T2>",
-							"description": "Replace T2 with T1"
+							"spokenForm": "bring <target 1> to <target 2>",
+							"description": "Replace <target 2> with <target 1>"
 						},
 						{
-							"spokenForm": "bring <T>",
-							"description": "Replace S with T"
+							"spokenForm": "bring <target>",
+							"description": "Replace selection with <target>"
 						}
 					]
 				},
@@ -317,7 +317,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "define <T>",
+							"spokenForm": "define <target>",
 							"description": "Reveal definition"
 						}
 					]
@@ -327,7 +327,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "type deaf <T>",
+							"spokenForm": "type deaf <target>",
 							"description": "Reveal type definition"
 						}
 					]
@@ -337,7 +337,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "reverse <T>",
+							"spokenForm": "reverse <target>",
 							"description": "Reverse targets"
 						}
 					]
@@ -347,8 +347,8 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "<P> repack <T>",
-							"description": "Rewrap T with P"
+							"spokenForm": "<pair> repack <target>",
+							"description": "Rewrap <target> with <pair>"
 						}
 					]
 				},
@@ -357,7 +357,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "bottom <T>",
+							"spokenForm": "bottom <target>",
 							"description": "Scroll to bottom"
 						}
 					]
@@ -367,7 +367,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "center <T>",
+							"spokenForm": "center <target>",
 							"description": "Scroll to center"
 						}
 					]
@@ -377,7 +377,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "crown <T>",
+							"spokenForm": "crown <target>",
 							"description": "Scroll to top"
 						}
 					]
@@ -387,7 +387,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "take <T>",
+							"spokenForm": "take <target>",
 							"description": "Set selection"
 						}
 					]
@@ -397,7 +397,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "post <T>",
+							"spokenForm": "post <target>",
 							"description": "Set selection after"
 						}
 					]
@@ -407,7 +407,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "pre <T>",
+							"spokenForm": "pre <target>",
 							"description": "Set selection before"
 						}
 					]
@@ -417,7 +417,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "inspect <T>",
+							"spokenForm": "inspect <target>",
 							"description": "Show debug hover"
 						}
 					]
@@ -427,7 +427,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "hover <T>",
+							"spokenForm": "hover <target>",
 							"description": "Show hover"
 						}
 					]
@@ -437,7 +437,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "quick fix <T>",
+							"spokenForm": "quick fix <target>",
 							"description": "Show quick fix"
 						}
 					]
@@ -447,7 +447,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "reference <T>",
+							"spokenForm": "reference <target>",
 							"description": "Show references"
 						}
 					]
@@ -457,7 +457,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "sort <T>",
+							"spokenForm": "sort <target>",
 							"description": "Sort targets"
 						}
 					]
@@ -467,12 +467,12 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "swap <T1> with <T2>",
-							"description": "Swap T1 with T2"
+							"spokenForm": "swap <target 1> with <target 2>",
+							"description": "Swap <target 1> with <target 2>"
 						},
 						{
-							"spokenForm": "swap with <T>",
-							"description": "Swap S with T"
+							"spokenForm": "swap with <target>",
+							"description": "Swap selection with <target>"
 						}
 					]
 				},
@@ -481,7 +481,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "break point <T>",
+							"spokenForm": "break point <target>",
 							"description": "Toggle line breakpoint"
 						}
 					]
@@ -491,7 +491,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "comment <T>",
+							"spokenForm": "comment <target>",
 							"description": "Toggle line comment"
 						}
 					]
@@ -501,7 +501,7 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "unfold <T>",
+							"spokenForm": "unfold <target>",
 							"description": "Unfold region"
 						}
 					]
@@ -511,8 +511,8 @@
 					"type": "action",
 					"variations": [
 						{
-							"spokenForm": "<P> wrap <T>",
-							"description": "Wrap T with P"
+							"spokenForm": "<pair> wrap <target>",
+							"description": "Wrap <target> with <pair>"
 						}
 					]
 				}
@@ -583,8 +583,8 @@
 					"type": "compoundTargetConnective",
 					"variations": [
 						{
-							"spokenForm": "<T1> and <T2>",
-							"description": "T1 and T2"
+							"spokenForm": "<target 1> and <target 2>",
+							"description": "<target 1> and <target 2>"
 						}
 					]
 				},
@@ -593,12 +593,12 @@
 					"type": "compoundTargetConnective",
 					"variations": [
 						{
-							"spokenForm": "<T1> until <T2>",
-							"description": "T1 until start of T2"
+							"spokenForm": "<target 1> until <target 2>",
+							"description": "<target 1> until start of <target 2>"
 						},
 						{
-							"spokenForm": "until <T>",
-							"description": "S until start of T"
+							"spokenForm": "until <target>",
+							"description": "selection until start of <target>"
 						}
 					]
 				},
@@ -607,12 +607,12 @@
 					"type": "compoundTargetConnective",
 					"variations": [
 						{
-							"spokenForm": "<T1> between <T2>",
-							"description": "between T1 and T2"
+							"spokenForm": "<target 1> between <target 2>",
+							"description": "between <target 1> and <target 2>"
 						},
 						{
-							"spokenForm": "between <T>",
-							"description": "between S and T"
+							"spokenForm": "between <target>",
+							"description": "between selection and <target>"
 						}
 					]
 				},
@@ -621,12 +621,12 @@
 					"type": "compoundTargetConnective",
 					"variations": [
 						{
-							"spokenForm": "<T1> past <T2>",
-							"description": "T1 through T2"
+							"spokenForm": "<target 1> past <target 2>",
+							"description": "<target 1> through <target 2>"
 						},
 						{
-							"spokenForm": "past <T>",
-							"description": "S through T"
+							"spokenForm": "past <target>",
+							"description": "selection through <target>"
 						}
 					]
 				},
@@ -635,12 +635,12 @@
 					"type": "compoundTargetConnective",
 					"variations": [
 						{
-							"spokenForm": "<T1> slice <T2>",
-							"description": "T1 vertically through T2"
+							"spokenForm": "<target 1> slice <target 2>",
+							"description": "<target 1> vertically through <target 2>"
 						},
 						{
-							"spokenForm": "slice <T>",
-							"description": "S vertically through T"
+							"spokenForm": "slice <target>",
+							"description": "selection vertically through <target>"
 						}
 					]
 				}
@@ -689,8 +689,8 @@
 							"description": "Extend through end of line"
 						},
 						{
-							"spokenForm": "tail <M>",
-							"description": "Extend through end of <M>"
+							"spokenForm": "tail <modifier>",
+							"description": "Extend through end of <modifier>"
 						}
 					]
 				},
@@ -703,8 +703,8 @@
 							"description": "Extend through start of line"
 						},
 						{
-							"spokenForm": "head <M>",
-							"description": "Extend through start of <M>"
+							"spokenForm": "head <modifier>",
+							"description": "Extend through start of <modifier>"
 						}
 					]
 				},
@@ -753,12 +753,12 @@
 					"type": "modifier",
 					"variations": [
 						{
-							"spokenForm": "<nth> <scope>",
-							"description": "<nth> instance of <scope> in iteration scope"
+							"spokenForm": "<ordinal> <scope>",
+							"description": "<ordinal> instance of <scope> in iteration scope"
 						},
 						{
-							"spokenForm": "<nth> last <scope>",
-							"description": "<nth>-to-last instance of <scope> in iteration scope"
+							"spokenForm": "<ordinal> last <scope>",
+							"description": "<ordinal>-to-last instance of <scope> in iteration scope"
 						},
 						{
 							"spokenForm": "first <number> <scope>s",
@@ -783,12 +783,12 @@
 							"description": "Next instance of <scope>"
 						},
 						{
-							"spokenForm": "<nth> previous <scope>",
-							"description": "<nth> instance of <scope> before target"
+							"spokenForm": "<ordinal> previous <scope>",
+							"description": "<ordinal> instance of <scope> before target"
 						},
 						{
-							"spokenForm": "<nth> next <scope>",
-							"description": "<nth> instance of <scope> after target"
+							"spokenForm": "<ordinal> next <scope>",
+							"description": "<ordinal> instance of <scope> after target"
 						},
 						{
 							"spokenForm": "previous <number> <scope>s",

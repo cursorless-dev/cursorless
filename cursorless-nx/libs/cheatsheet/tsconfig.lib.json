@@ -2,11 +2,14 @@
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
 		"outDir": "../../dist/out-tsc",
-		"types": ["node"]
+		"types": [
+			"node"
+		]
 	},
 	"files": [
 		"../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
-		"../../node_modules/@nrwl/react/typings/image.d.ts"
+		"../../node_modules/@nrwl/react/typings/image.d.ts",
+		"./src/lib/components/formatCaptures.tsx"
 	],
 	"exclude": [
 		"jest.config.ts",
@@ -19,5 +22,10 @@
 		"**/*.spec.jsx",
 		"**/*.test.jsx"
 	],
-	"include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+	"include": [
+		"**/*.js",
+		"**/*.jsx",
+		"**/*.ts",
+		"**/*.tsx"
+	]
 }
