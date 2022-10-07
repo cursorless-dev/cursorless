@@ -27,8 +27,8 @@ def get_compound_targets():
             "type": "compoundTargetConnective",
             "variations": [
                 {
-                    "spokenForm": f"<T1> {list_connective_term} <T2>",
-                    "description": "T1 and T2",
+                    "spokenForm": f"<target 1> {list_connective_term} <target 2>",
+                    "description": "<target 1> and <target 2>",
                 },
             ],
         },
@@ -48,12 +48,12 @@ def get_entry(spoken_form, id):
         "type": "compoundTargetConnective",
         "variations": [
             {
-                "spokenForm": f"<T1> {spoken_form} <T2>",
-                "description": formatter("T1", "T2"),
+                "spokenForm": f"<target 1> {spoken_form} <target 2>",
+                "description": formatter("<target 1>", "<target 2>"),
             },
             {
-                "spokenForm": f"{spoken_form} <T>",
-                "description": formatter("S", "T"),
+                "spokenForm": f"{spoken_form} <target>",
+                "description": formatter("selection", "<target>"),
             },
         ],
     }

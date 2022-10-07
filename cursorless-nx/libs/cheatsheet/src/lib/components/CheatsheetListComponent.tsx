@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { CheatsheetSection, Variation } from '../CheatsheetInfo';
 import useIsHighlighted from '../hooks/useIsHighlighted';
-import { CheatsheetSection } from '../CheatsheetInfo';
+import { formatCaptures } from './formatCaptures';
 
 type Props = {
   section: CheatsheetSection;
@@ -37,21 +37,36 @@ export default function CheatsheetListComponent({
           </tr>
         </thead>
         <tbody>
-          {variations.map(({ spokenForm, description }) => (
-            <tr
-              key={spokenForm}
-              className="odd:bg-stone-200 dark:odd:bg-stone-600"
-            >
-              <td className="px-1">
-                <span className="text-stone-400">&#8220;</span>
-                {spokenForm}
-                <span className="text-stone-400">&#8221;</span>
-              </td>
-              <td className="border-l border-stone-400 px-1">{description}</td>
-            </tr>
+          {variations.map((variation) => (
+            <CheatsheetListEntry variation={variation} />
           ))}
         </tbody>
       </table>
     </div>
+  );
+}
+
+type CheatsheetListEntryProps = {
+  variation: Variation;
+};
+
+function CheatsheetListEntry({
+  variation: { spokenForm, description },
+}: CheatsheetListEntryProps): JSX.Element {
+  return (
+    <tr key={spokenForm} className="odd:bg-stone-200 dark:odd:bg-stone-600">
+      <td className="px-1">
+        <span key="openingQuote" className="text-stone-400">
+          &#8220;
+        </span>
+        {formatCaptures(spokenForm)}
+        <span key="closingQuote" className="text-stone-400">
+          &#8221;
+        </span>
+      </td>
+      <td className="border-l border-stone-400 px-1">
+        {formatCaptures(description)}
+      </td>
+    </tr>
   );
 }
