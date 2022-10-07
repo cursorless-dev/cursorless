@@ -1,6 +1,7 @@
-import * as React from 'react';
+import reactStringReplace from 'react-string-replace';
+import { CheatsheetSection, Variation } from '../CheatsheetInfo';
 import useIsHighlighted from '../hooks/useIsHighlighted';
-import { CheatsheetSection } from '../CheatsheetInfo';
+import SmartLink from './SmartLink';
 
 type Props = {
   section: CheatsheetSection;
@@ -37,21 +38,59 @@ export default function CheatsheetListComponent({
           </tr>
         </thead>
         <tbody>
-          {variations.map(({ spokenForm, description }) => (
-            <tr
-              key={spokenForm}
-              className="odd:bg-stone-200 dark:odd:bg-stone-600"
-            >
-              <td className="px-1">
-                <span className="text-stone-400">&#8220;</span>
-                {spokenForm}
-                <span className="text-stone-400">&#8221;</span>
-              </td>
-              <td className="border-l border-stone-400 px-1">{description}</td>
-            </tr>
+          {variations.map((variation) => (
+            <CheatsheetListEntry variation={variation} />
           ))}
         </tbody>
       </table>
     </div>
   );
+}
+
+type CheatsheetListEntryProps = {
+  variation: Variation;
+};
+
+function CheatsheetListEntry({
+  variation: { spokenForm, description },
+}: CheatsheetListEntryProps): JSX.Element {
+  return (
+    <tr key={spokenForm} className="odd:bg-stone-200 dark:odd:bg-stone-600">
+      <td className="px-1">
+        <span key="openingQuote" className="text-stone-400">
+          &#8220;
+        </span>
+        {formatCaptures(spokenForm)}
+        <span key="closingQuote" className="text-stone-400">
+          &#8221;
+        </span>
+      </td>
+      <td className="border-l border-stone-400 px-1">
+        {formatCaptures(description)}
+      </td>
+    </tr>
+  );
+}
+
+const captureRegex = /<([^>]+)>/g;
+
+function formatCaptures(input: string) {
+  return reactStringReplace(input, captureRegex, (match, i) => {
+    const innerElement =
+      match === 'nth' ? (
+        <span>
+          n<sup>th</sup>
+        </span>
+      ) : (
+        match
+      );
+
+    return (
+      <span className="inline-block px-[1px] mx-[-1px] rounded-sm bg-cyan-600">
+        <SmartLink key={i} to="#legend" noFormatting={true}>
+          {innerElement}
+        </SmartLink>
+      </span>
+    );
+  });
 }
