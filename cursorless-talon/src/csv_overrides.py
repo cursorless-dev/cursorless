@@ -136,7 +136,7 @@ def update_dicts(
     extra_ignored_values: list[str],
     allow_unknown_values: bool,
     default_list_name: Optional[str],
-    pluralize_lists: list[str],
+    pluralize_lists: Optional[list[str]],
     ctx: Context,
 ):
     # Create map with all default values
@@ -216,7 +216,7 @@ def update_file(
                 "csv due to errors.  Please fix csv errors above and restart talon"
             )
         else:
-            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%selection")
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             lines = [
                 f"# {timestamp} - New entries automatically added by cursorless",
                 *[create_line(key, missing[key]) for key in sorted(missing)],
