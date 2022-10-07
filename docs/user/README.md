@@ -176,18 +176,20 @@ For example, `"take funk blue air"` selects the function containing the token wi
 
 ##### `"previous"` / `"next"` / `<ordinal>` / `<number>`
 
-| Spoken form                    | Description                                           | Example                     |
-| ------------------------------ | ----------------------------------------------------- | --------------------------- |
-| `"<number> <scope>"`           | `<number>` instances of `<scope>`                     | "take three funks"          |
-| `"<number> <scope> backward"`  | `<number>` instances of `<scope>` backwards           | "take three funks backward" |
-| `"first <number> <scope>"`     | First `<number>` instances of `<scope>`               | "first three funks"         |
-| `"last <number> <scope>"`      | Last `<number>` instances of `<scope>`                | "last three funks"          |
-| `"<ordinal> <scope>"`          | `<ordinal>` instance of `<scope>` counting from front | "take second funk"          |
-| `"<ordinal> last <scope>"`     | `<ordinal>` instance of `<scope>` counting from back  | "take second last funk"     |
-| `"<ordinal> next <scope>"`     | `<ordinal>` next instance of `<scope>`                | "take second next funk"     |
-| `"<ordinal> previous <scope>"` | `<ordinal>` previous instance of `<scope>`            | "take second previous funk" |
-| `"next scope"`                 | Next instance of `<scope>`                            | "take next funk"            |
-| `"previous scope"`             | Previous instance of `<scope>`                        | "take previous funk"        |
+| Spoken form                  | Description                                                         | Example                     |
+| ---------------------------- | ------------------------------------------------------------------- | --------------------------- |
+| `[number] [scope]s`          | `[number]` instances of `[scope]` including target, going forwards  | "take three funks"          |
+| `[number] [scope]s backward` | `[number]` instances of `[scope]` including target, going backwards | "take three funks backward" |
+| `[nth] [scope]`              | `[nth]` instance of `[scope]` in iteration scope                    | "take third funk"           |
+| `[nth] last [scope]`         | `[nth]`-to-last instance of `[scope]` in iteration scope            | "take third last funk"      |
+| `[nth] next [scope]`         | `[nth]` instance of `[scope]` after target                          | "take third next funk"      |
+| `[nth] previous [scope]`     | `[nth]` instance of `[scope]` before target                         | "take third previous funk"  |
+| `first [number] [scope]s`    | First `[number]` instances of `[scope]` in iteration scope          | "take first three funks"    |
+| `last [number] [scope]s`     | Last `[number]` instances of `[scope]` in iteration scope           | "take last three funks"     |
+| `next [number] [scope]s`     | next `[number]` instances of `[scope]`                              | "take next three funks"     |
+| `next [scope]`               | Next instance of `[scope]`                                          | "take next funk"            |
+| `previous [number] [scope]s` | previous `[number]` instances of `[scope]`                          | "take previous three funks" |
+| `previous [scope]`           | Previous instance of `[scope]`                                      | "take previous funk"        |
 
 ##### `"every"`
 
