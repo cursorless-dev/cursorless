@@ -176,6 +176,14 @@ For example, `"take funk blue air"` selects the function containing the token wi
 
 ##### `"previous"` / `"next"` / `<ordinal>` / `<number>`
 
+We support several modifiers that allow you to refer to scopes relative to the input target, or relative to the canonical iteration scope of the scope type.  For example, the iteration scope of functions is a class, of tokens is a line, of characters is a token, etc.
+
+Here is a diagram of the possible relative / ordinal modifiers:
+
+![Relative ordinal diagram](images/relative-ordinal.jpeg)
+
+And here is a table of the spoken forms:
+
 | Spoken form                    | Description                                                         | Example                       |
 | ------------------------------ | ------------------------------------------------------------------- | ----------------------------- |
 | `"[number] [scope]s"`          | `[number]` instances of `[scope]` including target, going forwards  | `"take three funks"`          |
