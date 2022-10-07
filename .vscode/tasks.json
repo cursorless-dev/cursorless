@@ -5,10 +5,7 @@
 	"tasks": [
 		{
 			"label": "Build",
-			"dependsOn": [
-				"ESBuild",
-				"TSBuild"
-			],
+			"dependsOn": ["ESBuild", "TSBuild"],
 			"group": {
 				"kind": "build",
 				"isDefault": true
