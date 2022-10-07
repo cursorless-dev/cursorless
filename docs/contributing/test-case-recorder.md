@@ -51,11 +51,7 @@ If you'd like to record decorations when recording into a different directory, y
 
 #### Testing the returned `that` mark
 
-By default, we don't capture the `that` mark returned by a command, unless the test is being recorded in the `actions/` directory of the recorded tests. If you'd like to capture the returned `that` mark when recording a test somewhere else, you can do something like
-
-```
-  actions.user.vscode_with_plugin("cursorless.recordTestCase", {"captureFinalThatMark": True})
-```
+By default, we don't capture the `that` mark returned by a command, unless the test is being recorded in the `actions/` directory of the recorded tests. If you'd like to capture the returned `that` mark when recording a test somewhere else, you can say `"cursorless record that mark"`
 
 #### Testing the hat map
 
