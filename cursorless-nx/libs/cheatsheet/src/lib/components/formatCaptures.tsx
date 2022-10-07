@@ -15,9 +15,9 @@ export function formatCaptures(input: string) {
     return (
       <span className="inline-block px-[2px] rounded-md text-cyan-900 dark:text-inherit bg-cyan-400 dark:bg-cyan-600">
         <SmartLink key={i} to="#legend" noFormatting={true}>
-          {'{'}
+          {'['}
           {innerElement}
-          {'}'}
+          {']'}
         </SmartLink>
       </span>
     );
