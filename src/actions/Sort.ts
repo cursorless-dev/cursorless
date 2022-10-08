@@ -3,19 +3,12 @@ import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { Action, ActionReturnValue } from "./actions.types";
 
-export class Sort implements Action {
+abstract class SortBase implements Action {
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
 
-  protected sortTexts(texts: string[]) {
-    return texts.sort(
-      new Intl.Collator(undefined, {
-        numeric: true,
-        caseFirst: "upper",
-      }).compare
-    );
-  }
+  protected abstract sortTexts(texts: string[]): string[];
 
   async run(targets: Target[][]): Promise<ActionReturnValue> {
     // First sort target by document order
@@ -38,13 +31,24 @@ export class Sort implements Action {
   }
 }
 
-export class Reverse extends Sort {
+export class Sort extends SortBase {
+  private collator = new Intl.Collator(undefined, {
+    numeric: true,
+    caseFirst: "upper",
+  });
+
+  protected sortTexts(texts: string[]) {
+    return texts.sort(this.collator.compare);
+  }
+}
+
+export class Reverse extends SortBase {
   protected sortTexts(texts: string[]) {
     return texts.reverse();
   }
 }
 
-export class Random extends Sort {
+export class Random extends SortBase {
   protected sortTexts(texts: string[]) {
     return shuffle(texts);
   }
