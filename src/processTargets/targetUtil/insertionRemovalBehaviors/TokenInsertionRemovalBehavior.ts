@@ -69,10 +69,10 @@ export function getTokenRemovalRange(
 ): Range {
   const actualContentRange = contentRange ?? target.contentRange;
   const { document } = target.editor;
-  const fullRange = expandToFullLine(target.editor, actualContentRange);
   const removalRange = getDelimitedSequenceRemovalRange(target, contentRange);
 
   if (!actualContentRange.isEqual(removalRange)) {
+    const fullRange = expandToFullLine(target.editor, actualContentRange);
     const fullText = document.getText(fullRange);
     const fullTextOffset = document.offsetAt(fullRange.start);
 
