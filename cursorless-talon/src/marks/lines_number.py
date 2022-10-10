@@ -37,16 +37,17 @@ DEFAULT_DIRECTIONS = {d.defaultSpokenForm: d.cursorlessIdentifier for d in direc
 
 
 @mod.capture(
-    rule="{user.cursorless_line_direction} <number_small> [{user.cursorless_range_connective} <number_small>]"
+    rule="{user.cursorless_line_direction} <user.private_cursorless_number_small> [{user.cursorless_range_connective} <user.private_cursorless_number_small>]"
 )
 def cursorless_line_number(m) -> dict[str, Any]:
     direction = directions_map[m.cursorless_line_direction]
     anchor = create_line_number_mark(
-        direction.type, direction.formatter(m.number_small_list[0])
+        direction.type, direction.formatter(m.private_cursorless_number_small_list[0])
     )
-    if len(m.number_small_list) > 1:
+    if len(m.private_cursorless_number_small_list) > 1:
         active = create_line_number_mark(
-            direction.type, direction.formatter(m.number_small_list[1])
+            direction.type,
+            direction.formatter(m.private_cursorless_number_small_list[1]),
         )
         include_anchor = is_anchor_included(m.cursorless_range_connective)
         include_active = is_active_included(m.cursorless_range_connective)
