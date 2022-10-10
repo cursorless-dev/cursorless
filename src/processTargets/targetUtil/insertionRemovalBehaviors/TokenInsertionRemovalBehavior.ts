@@ -67,8 +67,8 @@ export function getTokenRemovalRange(
   target: Target,
   contentRange?: Range
 ): Range {
-  const actualContentRange = contentRange ?? target.contentRange;
   const { document } = target.editor;
+  const actualContentRange = contentRange ?? target.contentRange;
   const removalRange = getDelimitedSequenceRemovalRange(target, contentRange);
 
   if (!actualContentRange.isEqual(removalRange)) {
