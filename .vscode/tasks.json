@@ -50,6 +50,21 @@
 				"cwd": "cursorless-nx"
 			},
 			"problemMatcher": []
+		},
+		{
+			"label": "Install local",
+			"type": "shell",
+			"command": "vsce package -o bundle.vsix && code --install-extension bundle.vsix",
+			"presentation": {
+				"focus": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Run pre commit",
+			"type": "shell",
+			"command": "pre-commit run",
+			"presentation": {}
 		}
 	]
 }
