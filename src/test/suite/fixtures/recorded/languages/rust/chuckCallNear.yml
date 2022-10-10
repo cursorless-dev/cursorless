@@ -22,7 +22,7 @@ initialState:
       end: {line: 0, character: 20}
 finalState:
   documentContents: |
-    let user = ;
+    let user =;
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
