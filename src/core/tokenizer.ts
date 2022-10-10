@@ -45,7 +45,10 @@ const FIXED_TOKENS = [
   "-->",
 ];
 
-export const IDENTIFIERS_REGEX = "[\\p{L}\\p{M}_0-9]+";
+const LETTERS_NUMBERS = "\\p{L}\\p{M}\\d";
+const DELIMITERS = "_";
+export const IDENTIFIERS_REGEX = `[${LETTERS_NUMBERS}${DELIMITERS}]+`;
+export const IDENTIFIERS_WORD_REGEX = `[${LETTERS_NUMBERS}]+`;
 const SINGLE_SYMBOLS_REGEX = "[^\\s\\w]";
 const NUMBERS_REGEX = "(?<=[^.\\d]|^)\\d+\\.\\d+(?=[^.\\d]|$)"; // (not-dot/digit digits dot digits not-dot/digit)
 
