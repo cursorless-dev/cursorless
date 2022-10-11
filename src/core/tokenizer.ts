@@ -45,10 +45,10 @@ const FIXED_TOKENS = [
   "-->",
 ];
 
-const LETTERS_NUMBERS = "\\p{L}\\p{M}\\d";
+export const LETTERS_NUMBERS = "\\p{L}\\p{M}\\d";
 const DELIMITERS = "_";
-export const IDENTIFIERS_REGEX = `[${LETTERS_NUMBERS}${DELIMITERS}]+`;
-export const IDENTIFIERS_WORD_REGEX = `[${LETTERS_NUMBERS}]+`;
+const IDENTIFIERS_REGEX = `[${LETTERS_NUMBERS}${DELIMITERS}]+`;
+export const IDENTIFIERS_WORD_REGEX = new RegExp(`[${LETTERS_NUMBERS}]+`, "gu");
 const SINGLE_SYMBOLS_REGEX = "[^\\s\\w]";
 const NUMBERS_REGEX = "(?<=[^.\\d]|^)\\d+\\.\\d+(?=[^.\\d]|$)"; // (not-dot/digit digits dot digits not-dot/digit)
 
@@ -113,6 +113,13 @@ export function getTokenMatcher(languageId: string): RegExp {
     tokenMatchersForLanguage[languageId as SupportedLanguageId] ??
     defaultTokenMatcher
   );
+}
+
+export function getIdentifierMatcher(languageId?: string): RegExp {
+  const regex =
+    languageTokenizerOverrides[languageId as SupportedLanguageId]
+      ?.identifiersRegex ?? IDENTIFIERS_REGEX;
+  return new RegExp(regex, "gu");
 }
 
 export function tokenize<T>(

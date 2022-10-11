@@ -6,5 +6,5 @@ import { LanguageTokenizerOverrides } from "./tokenizer.types";
  * Useful for languages like CSS, SCSS, shell, etc.
  */
 export const languageWithDashedIdentifiers: LanguageTokenizerOverrides = {
-  identifiersRegex: "[\\p{L}\\p{M}_\\-0-9]+",
+  identifiersRegex: "[\\p{L}\\p{M}\\d_-]+",
 };

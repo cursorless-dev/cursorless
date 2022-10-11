@@ -24,7 +24,7 @@ abstract class SubTokenStage implements ModifierStage {
     );
     const text = document.getText(tokenRange);
     const offset = document.offsetAt(tokenRange.start);
-    const matches = this.getMatchedText(text);
+    const matches = this.getMatchedText(text, document.languageId);
     const contentRanges = matches.map(
       (match) =>
         new Range(
@@ -105,7 +105,10 @@ abstract class SubTokenStage implements ModifierStage {
   /**
    * Return matches for {@link text}
    */
-  protected abstract getMatchedText(text: string): MatchedText[];
+  protected abstract getMatchedText(
+    text: string,
+    languageId: string
+  ): MatchedText[];
 
   /**
    * Create one target for each element of {@link contentRanges}
@@ -122,8 +125,8 @@ export class WordStage extends SubTokenStage {
     super(modifier);
   }
 
-  protected getMatchedText(text: string): MatchedText[] {
-    return subWordSplitter(text);
+  protected getMatchedText(text: string, languageId: string): MatchedText[] {
+    return subWordSplitter(text, languageId);
   }
 
   protected createTargetsFromRanges(
