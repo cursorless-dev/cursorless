@@ -13,7 +13,7 @@ initialState:
       active: {line: 0, character: 6}
   marks: {}
 finalState:
-  documentContents: "@namespace ;"
+  documentContents: "@namespace;"
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
