@@ -16,7 +16,7 @@ function getBreakpoints(uri: Uri, range: Range) {
     (breakpoint) =>
       breakpoint instanceof SourceBreakpoint &&
       breakpoint.location.uri.toString() === uri.toString() &&
-      breakpoint.location.range.intersection(range) != null
+      breakpoint.location.range.intersection(range) != null,
   );
 }
 
@@ -32,7 +32,7 @@ export default class ToggleBreakpoint implements Action {
 
     await this.graph.editStyles.displayPendingEditDecorations(
       thatTargets,
-      this.graph.editStyles.referenced
+      this.graph.editStyles.referenced,
     );
 
     const toAdd: Breakpoint[] = [];

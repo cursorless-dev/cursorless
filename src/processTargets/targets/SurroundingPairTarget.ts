@@ -63,7 +63,7 @@ export default class SurroundingPairTarget extends BaseTarget {
           editor: this.editor,
           isReversed: this.isReversed,
           contentRange,
-        })
+        }),
     );
   }
 

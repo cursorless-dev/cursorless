@@ -23,7 +23,7 @@ export default class SurroundingPairStage implements ModifierStage {
 
   run(
     context: ProcessedTargetsContext,
-    target: Target
+    target: Target,
   ): SurroundingPairTarget[] {
     return processedSurroundingPairTarget(this.modifier, context, target);
   }
@@ -32,13 +32,13 @@ export default class SurroundingPairStage implements ModifierStage {
 function processedSurroundingPairTarget(
   modifier: ContainingSurroundingPairModifier,
   context: ProcessedTargetsContext,
-  target: Target
+  target: Target,
 ): SurroundingPairTarget[] {
   const pairInfo = processSurroundingPair(
     context,
     target.editor,
     target.contentRange,
-    modifier.scopeType
+    modifier.scopeType,
   );
 
   if (pairInfo == null) {

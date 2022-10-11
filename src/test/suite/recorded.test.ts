@@ -49,8 +49,8 @@ suite("recorded test cases", async function () {
   getRecordedTestPaths().forEach((path) =>
     test(
       path.split(".")[0],
-      asyncSafety(() => runTest(path))
-    )
+      asyncSafety(() => runTest(path)),
+    ),
   );
 });
 
@@ -69,7 +69,7 @@ async function runTest(file: string) {
 
   const editor = await openNewEditor(
     fixture.initialState.documentContents,
-    fixture.languageId
+    fixture.languageId,
   );
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
@@ -80,14 +80,14 @@ async function runTest(file: string) {
 
   if (fixture.initialState.thatMark) {
     const initialThatTargets = fixture.initialState.thatMark.map((mark) =>
-      plainObjectToTarget(editor, mark)
+      plainObjectToTarget(editor, mark),
     );
     cursorlessApi.thatMark.set(initialThatTargets);
   }
 
   if (fixture.initialState.sourceMark) {
     const initialSourceTargets = fixture.initialState.sourceMark.map((mark) =>
-      plainObjectToTarget(editor, mark)
+      plainObjectToTarget(editor, mark),
     );
     cursorlessApi.sourceMark.set(initialSourceTargets);
   }
@@ -105,7 +105,7 @@ async function runTest(file: string) {
   await graph.hatTokenMap.addDecorations();
 
   const readableHatMap = await graph.hatTokenMap.getReadableMap(
-    usePrePhraseSnapshot
+    usePrePhraseSnapshot,
   );
 
   // Assert that recorded decorations are present
@@ -142,7 +142,7 @@ async function runTest(file: string) {
 
   if (fixture.thrownError != null) {
     throw Error(
-      `Expected error ${fixture.thrownError.name} but none was thrown`
+      `Expected error ${fixture.thrownError.name} but none was thrown`,
     );
   }
 
@@ -156,8 +156,8 @@ async function runTest(file: string) {
       : marksToPlainObject(
           extractTargetedMarks(
             Object.keys(fixture.finalState!.marks) as string[],
-            readableHatMap
-          )
+            readableHatMap,
+          ),
         );
 
   if (fixture.finalState!.clipboard == null) {
@@ -179,7 +179,7 @@ async function runTest(file: string) {
     cursorlessApi.sourceMark,
     excludeFields,
     [],
-    marks
+    marks,
   );
 
   const actualDecorations =
@@ -201,26 +201,26 @@ async function runTest(file: string) {
     assert.deepStrictEqual(
       resultState,
       fixture.finalState,
-      "Unexpected final state"
+      "Unexpected final state",
     );
 
     assert.deepStrictEqual(
       actualDecorations,
       fixture.decorations,
-      "Unexpected decorations"
+      "Unexpected decorations",
     );
 
     assert.deepStrictEqual(
       returnValue,
       fixture.returnValue,
-      "Unexpected return value"
+      "Unexpected return value",
     );
   }
 }
 
 function checkMarks(
   marks: SerializedMarks | undefined,
-  hatTokenMap: ReadOnlyHatMap
+  hatTokenMap: ReadOnlyHatMap,
 ) {
   if (marks == null) {
     return;

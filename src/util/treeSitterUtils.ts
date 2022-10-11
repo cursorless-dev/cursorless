@@ -17,7 +17,7 @@ export const getDeclarationNode = (node: SyntaxNode) =>
 
 export function getChildNodesForFieldName(
   node: SyntaxNode,
-  fieldName: string
+  fieldName: string,
 ): SyntaxNode[] {
   const treeCursor = node.walk();
   treeCursor.gotoFirstChild();

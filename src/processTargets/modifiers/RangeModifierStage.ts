@@ -23,7 +23,7 @@ export default class RangeModifierStage implements ModifierStage {
         anchorTargets[0],
         activeTargets[0],
         this.modifier.excludeAnchor,
-        this.modifier.excludeActive
+        this.modifier.excludeActive,
       ),
     ];
   }

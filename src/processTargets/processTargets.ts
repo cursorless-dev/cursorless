@@ -29,19 +29,19 @@ import { PlainTarget, PositionTarget } from "./targets";
  */
 export default function (
   context: ProcessedTargetsContext,
-  targets: TargetDescriptor[]
+  targets: TargetDescriptor[],
 ): Target[][] {
   return targets.map((target) => uniqTargets(processTarget(context, target)));
 }
 
 function processTarget(
   context: ProcessedTargetsContext,
-  target: TargetDescriptor
+  target: TargetDescriptor,
 ): Target[] {
   switch (target.type) {
     case "list":
       return target.elements.flatMap((element) =>
-        processTarget(context, element)
+        processTarget(context, element),
       );
     case "range":
       return processRangeTarget(context, target);
@@ -52,7 +52,7 @@ function processTarget(
 
 function processRangeTarget(
   context: ProcessedTargetsContext,
-  targetDesc: RangeTargetDescriptor
+  targetDesc: RangeTargetDescriptor,
 ): Target[] {
   const anchorTargets = processPrimitiveTarget(context, targetDesc.anchor);
   const activeTargets = processPrimitiveTarget(context, targetDesc.active);
@@ -70,7 +70,7 @@ function processRangeTarget(
               anchorTarget,
               activeTarget,
               targetDesc.excludeAnchor,
-              targetDesc.excludeActive
+              targetDesc.excludeActive,
             ),
           ];
         case "vertical":
@@ -78,10 +78,10 @@ function processRangeTarget(
             anchorTarget,
             activeTarget,
             targetDesc.excludeAnchor,
-            targetDesc.excludeActive
+            targetDesc.excludeActive,
           );
       }
-    }
+    },
   );
 }
 
@@ -89,7 +89,7 @@ export function targetsToContinuousTarget(
   anchorTarget: Target,
   activeTarget: Target,
   excludeAnchor: boolean = false,
-  excludeActive: boolean = false
+  excludeActive: boolean = false,
 ): Target {
   ensureSingleEditor(anchorTarget, activeTarget);
 
@@ -103,7 +103,7 @@ export function targetsToContinuousTarget(
     isReversed,
     endTarget,
     !excludeStart,
-    !excludeEnd
+    !excludeEnd,
   );
 }
 
@@ -111,7 +111,7 @@ function targetsToVerticalTarget(
   anchorTarget: Target,
   activeTarget: Target,
   excludeAnchor: boolean,
-  excludeActive: boolean
+  excludeActive: boolean,
 ): Target[] {
   ensureSingleEditor(anchorTarget, activeTarget);
 
@@ -133,7 +133,7 @@ function targetsToVerticalTarget(
       i,
       anchorTarget.contentRange.start.character,
       i,
-      anchorTarget.contentRange.end.character
+      anchorTarget.contentRange.end.character,
     );
 
     if (anchorTarget instanceof PositionTarget) {
@@ -144,7 +144,7 @@ function targetsToVerticalTarget(
           editor: anchorTarget.editor,
           isReversed: anchorTarget.isReversed,
           contentRange,
-        })
+        }),
       );
     }
 
@@ -177,7 +177,7 @@ function targetsToVerticalTarget(
  */
 function processPrimitiveTarget(
   context: ProcessedTargetsContext,
-  targetDescriptor: PrimitiveTargetDescriptor
+  targetDescriptor: PrimitiveTargetDescriptor,
 ): Target[] {
   // First, get the targets output by the mark
   const markStage = getMarkStage(targetDescriptor.mark);
@@ -204,7 +204,7 @@ function processPrimitiveTarget(
 
 /** Convert a list of target modifiers to modifier stages */
 export function getModifierStagesFromTargetModifiers(
-  targetModifiers: Modifier[]
+  targetModifiers: Modifier[],
 ) {
   // Reverse target modifiers because they are returned in reverse order from
   // the api, to match the order in which they are spoken.
@@ -215,7 +215,7 @@ export function getModifierStagesFromTargetModifiers(
 export function processModifierStages(
   context: ProcessedTargetsContext,
   modifierStages: ModifierStage[],
-  targets: Target[]
+  targets: Target[],
 ) {
   // First we apply each stage in sequence, letting each stage see the targets
   // one-by-one and concatenating the results before passing them on to the
