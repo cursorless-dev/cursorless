@@ -45,7 +45,7 @@ const KNOWN_SYMBOLS = [
 const KNOWN_SYMBOL_REGEXP_STR = KNOWN_SYMBOLS.map(escapeRegExp).join("|");
 
 const KNOWN_GRAPHEME_REGEXP_STR = ["[a-zA-Z0-9]", KNOWN_SYMBOL_REGEXP_STR].join(
-  "|",
+  "|"
 );
 
 /**
@@ -55,7 +55,7 @@ const KNOWN_GRAPHEME_REGEXP_STR = ["[a-zA-Z0-9]", KNOWN_SYMBOL_REGEXP_STR].join(
  */
 const KNOWN_GRAPHEME_MATCHER = new RegExp(
   `^(${KNOWN_GRAPHEME_REGEXP_STR})$`,
-  "u",
+  "u"
 );
 
 /**
@@ -88,23 +88,23 @@ export class TokenGraphemeSplitter {
       // Notify listeners in case the user changed their token hat splitting
       // setting.
       this.graph.ide.configuration.onDidChangeConfiguration(
-        this.updateTokenHatSplittingMode,
-      ),
+        this.updateTokenHatSplittingMode
+      )
     );
   }
 
   private updateTokenHatSplittingMode() {
     const { lettersToPreserve, symbolsToPreserve, ...rest } =
       this.graph.ide.configuration.getOwnConfiguration(
-        "tokenHatSplittingMode",
+        "tokenHatSplittingMode"
       )!;
 
     this.tokenHatSplittingMode = {
       lettersToPreserve: lettersToPreserve.map((grapheme) =>
-        grapheme.toLowerCase().normalize("NFC"),
+        grapheme.toLowerCase().normalize("NFC")
       ),
       symbolsToPreserve: symbolsToPreserve.map((grapheme) =>
-        grapheme.normalize("NFC"),
+        grapheme.normalize("NFC")
       ),
       ...rest,
     };

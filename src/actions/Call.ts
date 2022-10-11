@@ -10,7 +10,7 @@ export default class Call implements Action {
 
   async run([sources, destinations]: [
     Target[],
-    Target[],
+    Target[]
   ]): Promise<ActionReturnValue> {
     ensureSingleTarget(sources);
 
@@ -18,7 +18,7 @@ export default class Call implements Action {
       [sources],
       {
         showDecorations: false,
-      },
+      }
     );
 
     // NB: We unwrap and then rewrap the return value here so that we don't include the source mark
@@ -26,7 +26,7 @@ export default class Call implements Action {
       await this.graph.actions.wrapWithPairedDelimiter.run(
         [destinations],
         texts[0] + "(",
-        ")",
+        ")"
       );
 
     return { thatSelections: thatMark };

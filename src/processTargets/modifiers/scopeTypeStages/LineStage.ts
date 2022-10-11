@@ -31,14 +31,14 @@ export default class implements ModifierStage {
         createLineTarget(
           target.editor,
           target.isReversed,
-          editor.document.lineAt(i).range,
-        ),
+          editor.document.lineAt(i).range
+        )
       );
     }
 
     if (targets.length === 0) {
       throw new Error(
-        `Couldn't find containing ${this.modifier.scopeType.type}`,
+        `Couldn't find containing ${this.modifier.scopeType.type}`
       );
     }
 
@@ -50,14 +50,14 @@ function toLineTarget(target: Target): LineTarget {
   return createLineTarget(
     target.editor,
     target.isReversed,
-    target.contentRange,
+    target.contentRange
   );
 }
 
 export function createLineTarget(
   editor: TextEditor,
   isReversed: boolean,
-  range: Range,
+  range: Range
 ) {
   return new LineTarget({
     editor,
@@ -77,6 +77,6 @@ export function fitRangeToLineContent(editor: TextEditor, range: Range) {
     startLine.lineNumber,
     startLine.firstNonWhitespaceCharacterIndex,
     endLine.lineNumber,
-    endCharacterIndex,
+    endCharacterIndex
   );
 }

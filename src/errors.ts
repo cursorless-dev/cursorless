@@ -1,7 +1,7 @@
 export class UnsupportedLanguageError extends Error {
   constructor(languageId: string) {
     super(
-      `Language '${languageId}' is not implemented yet; See https://www.cursorless.org/docs/contributing/adding-a-new-language/`,
+      `Language '${languageId}' is not implemented yet; See https://www.cursorless.org/docs/contributing/adding-a-new-language/`
     );
     this.name = "UnsupportedLanguageError";
   }
@@ -17,7 +17,7 @@ export class UnsupportedError extends Error {
 export class OutdatedExtensionError extends Error {
   constructor() {
     super(
-      "Cursorless Talon version is ahead of Cursorless VSCode extension version. Please update Cursorless VSCode.",
+      "Cursorless Talon version is ahead of Cursorless VSCode extension version. Please update Cursorless VSCode."
     );
   }
 }

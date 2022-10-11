@@ -28,7 +28,7 @@ import { getUpdatedText } from "./getUpdatedText";
  */
 export function updateRangeInfos(
   changeEvent: ExtendedTextDocumentChangeEvent,
-  rangeInfoGenerator: Generator<FullRangeInfo, void, unknown>,
+  rangeInfoGenerator: Generator<FullRangeInfo, void, unknown>
 ) {
   const { document, contentChanges } = changeEvent;
 
@@ -91,12 +91,12 @@ export function updateRangeInfos(
         if (rangeInfo.range.isEmpty) {
           newOffsets = getOffsetsForEmptyRangeInsert(
             changeEventInfo,
-            rangeInfo,
+            rangeInfo
           );
         } else {
           newOffsets = getOffsetsForNonEmptyRangeInsert(
             changeEventInfo,
-            rangeInfo,
+            rangeInfo
           );
         }
       } else {
@@ -123,7 +123,7 @@ export function updateRangeInfos(
     // Do final range and offset update
     rangeInfo.range = rangeInfo.range.with(
       document.positionAt(newOffsets.start),
-      document.positionAt(newOffsets.end),
+      document.positionAt(newOffsets.end)
     );
     rangeInfo.offsets = newOffsets;
   }

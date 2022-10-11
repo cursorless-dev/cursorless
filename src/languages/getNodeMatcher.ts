@@ -29,7 +29,7 @@ import { SupportedLanguageId } from "./constants";
 export function getNodeMatcher(
   languageId: string,
   scopeTypeType: SimpleScopeTypeType,
-  includeSiblings: boolean,
+  includeSiblings: boolean
 ): NodeMatcher {
   const matchers = languageMatchers[languageId as SupportedLanguageId];
 
@@ -82,7 +82,7 @@ const languageMatchers: Record<
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
   return (
     selection: SelectionWithEditor,
-    node: SyntaxNode,
+    node: SyntaxNode
   ): NodeMatcherValue[] | null => {
     let matches = matcher(selection, node);
     if (matches == null) {
@@ -92,8 +92,8 @@ function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
       iterateNearestIterableAncestor(
         match.node,
         selectionWithEditorFromRange(selection, match.selection.selection),
-        matcher,
-      ),
+        matcher
+      )
     ) as NodeMatcherValue[];
     if (matches.length > 0) {
       return matches;
@@ -105,7 +105,7 @@ function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
 function iterateNearestIterableAncestor(
   node: SyntaxNode,
   selection: SelectionWithEditor,
-  nodeMatcher: NodeMatcher,
+  nodeMatcher: NodeMatcher
 ) {
   let parent: SyntaxNode | null = node.parent;
   while (parent != null) {

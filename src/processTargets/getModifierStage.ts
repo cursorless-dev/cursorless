@@ -83,7 +83,7 @@ export default (modifier: Modifier): ModifierStage => {
 };
 
 const getContainingScopeStage = (
-  modifier: ContainingScopeModifier | EveryScopeModifier,
+  modifier: ContainingScopeModifier | EveryScopeModifier
 ): ModifierStage => {
   switch (modifier.scopeType.type) {
     case "token":
@@ -108,7 +108,7 @@ const getContainingScopeStage = (
       return new CustomRegexStage(modifier as CustomRegexModifier);
     case "surroundingPair":
       return new SurroundingPairStage(
-        modifier as ContainingSurroundingPairModifier,
+        modifier as ContainingSurroundingPairModifier
       );
     case "word":
       return new WordStage(modifier);
@@ -117,7 +117,7 @@ const getContainingScopeStage = (
     default:
       // Default to containing syntax scope using tree sitter
       return new ContainingSyntaxScopeStage(
-        modifier as SimpleContainingScopeModifier,
+        modifier as SimpleContainingScopeModifier
       );
   }
 };

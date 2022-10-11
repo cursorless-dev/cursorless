@@ -68,7 +68,7 @@ function isAtDelimiter(node: SyntaxNode) {
  * @returns A non-delimiter node
  */
 function findAdjacentArgValues(
-  siblingFunc: (node: SyntaxNode) => SyntaxNode | null,
+  siblingFunc: (node: SyntaxNode) => SyntaxNode | null
 ) {
   return (node: SyntaxNode) => {
     // Handle the case where we are the cursor is placed before a delimiter, e.g. "|at"
@@ -96,8 +96,8 @@ const nodeMatchers: Partial<
     patternMatcher(...STATEMENT_TYPES),
     matcher(
       patternFinder("attribute_selector"),
-      childRangeSelector([], ["attribute_name", "string_value"]),
-    ),
+      childRangeSelector([], ["attribute_name", "string_value"])
+    )
   ),
   string: "string_value",
   functionCall: "call_expression",
@@ -112,9 +112,9 @@ const nodeMatchers: Partial<
         (node) => isArgumentListDelimiter(node),
         ", ",
         findAdjacentArgValues((node) => node.previousSibling),
-        findAdjacentArgValues((node) => node.nextSibling),
-      ),
-    ),
+        findAdjacentArgValues((node) => node.nextSibling)
+      )
+    )
   ),
   name: [
     "function_statement.name!",
@@ -129,19 +129,19 @@ const nodeMatchers: Partial<
   value: cascadingMatcher(
     matcher(
       patternFinder("declaration"),
-      childRangeSelector(["property_name", "variable_name"]),
+      childRangeSelector(["property_name", "variable_name"])
     ),
     matcher(
       patternFinder("include_statement", "namespace_statement"),
-      childRangeSelector(),
+      childRangeSelector()
     ),
     patternMatcher(
       "return_statement.*!",
       "import_statement.*!",
       "attribute_selector.plain_value!",
       "attribute_selector.string_value!",
-      "parameter.default_value!",
-    ),
+      "parameter.default_value!"
+    )
   ),
   collectionItem: "declaration",
 };
@@ -150,7 +150,7 @@ export const patternMatchers = createPatternMatchers(nodeMatchers);
 
 export function stringTextFragmentExtractor(
   node: SyntaxNode,
-  _selection: SelectionWithEditor,
+  _selection: SelectionWithEditor
 ) {
   if (node.type === "string_value") {
     return getNodeRange(node);

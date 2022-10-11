@@ -29,14 +29,14 @@ export class RelativeScopeStage implements ModifierStage {
     const targets = getEveryScopeTargets(
       context,
       createTargetWithoutExplicitRange(target),
-      this.modifier.scopeType,
+      this.modifier.scopeType
     );
 
     /** Proximal index. This is the index closest to the target content range. */
     const proximalIndex = this.computeProximalIndex(
       target.contentRange,
       targets,
-      isForward,
+      isForward
     );
 
     /** Index of range farther from input target */
@@ -52,7 +52,7 @@ export class RelativeScopeStage implements ModifierStage {
         target.isReversed,
         targets,
         startIndex,
-        endIndex,
+        endIndex
       ),
     ];
   }
@@ -69,22 +69,22 @@ export class RelativeScopeStage implements ModifierStage {
   private computeProximalIndex(
     inputTargetRange: Range,
     targets: Target[],
-    isForward: boolean,
+    isForward: boolean
   ) {
     const includeIntersectingScopes = this.modifier.offset === 0;
 
     const intersectingIndices = getIntersectingTargetIndices(
       inputTargetRange,
-      targets,
+      targets
     );
 
     if (intersectingIndices.length === 0) {
       const adjacentTargetIndex = isForward
         ? targets.findIndex((t) =>
-            t.contentRange.start.isAfter(inputTargetRange.start),
+            t.contentRange.start.isAfter(inputTargetRange.start)
           )
         : findLastIndex(targets, (t) =>
-            t.contentRange.start.isBefore(inputTargetRange.start),
+            t.contentRange.start.isBefore(inputTargetRange.start)
           );
 
       if (adjacentTargetIndex === -1) {
@@ -119,7 +119,7 @@ export class RelativeScopeStage implements ModifierStage {
         throw new TooFewScopesError(
           this.modifier.length,
           intersectingIndices.length,
-          this.modifier.scopeType.type,
+          this.modifier.scopeType.type
         );
       }
 
@@ -140,10 +140,10 @@ class TooFewScopesError extends Error {
   constructor(
     requestedLength: number,
     currentLength: number,
-    scopeType: string,
+    scopeType: string
   ) {
     super(
-      `Requested ${requestedLength} ${scopeType}s, but ${currentLength} are already selected.`,
+      `Requested ${requestedLength} ${scopeType}s, but ${currentLength} are already selected.`
     );
     this.name = "TooFewScopesError";
   }
@@ -153,7 +153,7 @@ class TooFewScopesError extends Error {
  * {@link inputTargetRange} */
 function getIntersectingTargetIndices(
   inputTargetRange: Range,
-  targets: Target[],
+  targets: Target[]
 ): number[] {
   const targetsWithIntersection = targets
     .map((t, i) => ({

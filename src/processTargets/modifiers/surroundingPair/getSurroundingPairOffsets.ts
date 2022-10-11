@@ -9,7 +9,7 @@ import { SurroundingPairOffsets, DelimiterOccurrence } from "./types";
  */
 export function getSurroundingPairOffsets(
   delimiter1: DelimiterOccurrence,
-  delimiter2: DelimiterOccurrence,
+  delimiter2: DelimiterOccurrence
 ): SurroundingPairOffsets {
   const isDelimiter1First = delimiter1.offsets.start < delimiter2.offsets.start;
   const leftDelimiter = isDelimiter1First ? delimiter1 : delimiter2;

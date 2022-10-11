@@ -41,12 +41,12 @@ export default class Cheatsheet {
     this.disposables.push(
       vscode.commands.registerCommand(
         "cursorless.showCheatsheet",
-        this.showCheatsheet,
+        this.showCheatsheet
       ),
       vscode.commands.registerCommand(
         "cursorless.internal.updateCheatsheetDefaults",
-        this.updateDefaults,
-      ),
+        this.updateDefaults
+      )
     );
   }
 
@@ -65,7 +65,7 @@ export default class Cheatsheet {
       "dist",
       "apps",
       "cheatsheet-local",
-      "index.html",
+      "index.html"
     );
 
     const cheatsheetContent = (await readFile(cheatsheetPath)).toString();
@@ -73,9 +73,9 @@ export default class Cheatsheet {
     const root = parse(cheatsheetContent);
 
     root.getElementById(
-      "cheatsheet-data",
+      "cheatsheet-data"
     ).textContent = `document.cheatsheetData = ${JSON.stringify(
-      spokenFormInfo,
+      spokenFormInfo
     )};`;
 
     await writeFile(outputPath, root.toString());
@@ -95,7 +95,7 @@ export default class Cheatsheet {
 
     if (workspacePath == null) {
       throw new Error(
-        "Please update defaults from Cursorless workspace or running in debug",
+        "Please update defaults from Cursorless workspace or running in debug"
       );
     }
 
@@ -108,7 +108,7 @@ export default class Cheatsheet {
       "lib",
       "data",
       "sampleSpokenFormInfos",
-      "defaults.json",
+      "defaults.json"
     );
 
     const outputObject = produce(spokenFormInfo, (draft) => {

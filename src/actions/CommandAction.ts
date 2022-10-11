@@ -40,7 +40,7 @@ export default class CommandAction implements Action {
 
   private async runCommandAndUpdateSelections(
     targets: Target[],
-    options: Required<CommandOptions>,
+    options: Required<CommandOptions>
   ): Promise<Target[]> {
     return flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
@@ -48,7 +48,7 @@ export default class CommandAction implements Action {
         const originalEditorVersion = editor.document.version;
 
         const targetSelections = targets.map(
-          (target) => target.contentSelection,
+          (target) => target.contentSelection
         );
 
         // For command to the work we have to have the correct editor focused
@@ -60,7 +60,7 @@ export default class CommandAction implements Action {
             () =>
               commands.executeCommand(options.command, ...options.commandArgs),
             editor.document,
-            [originalSelections, targetSelections],
+            [originalSelections, targetSelections]
           );
 
         // Reset original selections
@@ -81,21 +81,21 @@ export default class CommandAction implements Action {
               selectionToThatTarget({
                 editor,
                 selection,
-              }),
+              })
             );
-      }),
+      })
     );
   }
 
   async run(
     [targets]: [Target[]],
-    options: CommandOptions = {},
+    options: CommandOptions = {}
   ): Promise<ActionReturnValue> {
     const partialOptions = Object.assign(
       {},
       defaultOptions,
       this.options,
-      options,
+      options
     );
 
     if (partialOptions.command == null) {
@@ -107,7 +107,7 @@ export default class CommandAction implements Action {
     if (actualOptions.showDecorations) {
       await this.graph.editStyles.displayPendingEditDecorations(
         targets,
-        this.graph.editStyles.referenced,
+        this.graph.editStyles.referenced
       );
     }
 
@@ -123,7 +123,7 @@ export default class CommandAction implements Action {
 
     const thatTargets = await this.runCommandAndUpdateSelections(
       targets,
-      actualOptions,
+      actualOptions
     );
 
     // If necessary focus back original editor

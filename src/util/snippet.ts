@@ -24,7 +24,7 @@ import { KnownSnippetVariableNames } from "../vendor/snippet/snippetVariables";
 export function transformSnippetVariables(
   parsedSnippet: TextmateSnippet,
   placeholderName?: string | null,
-  substitutions?: Record<string, string>,
+  substitutions?: Record<string, string>
 ): void {
   let nextPlaceholderIndex = getMaxPlaceholderIndex(parsedSnippet) + 1;
   const placeholderIndexMap: Record<string, number> = {};
@@ -85,10 +85,10 @@ function getMaxPlaceholderIndex(parsedSnippet: TextmateSnippet): number {
  */
 export function findMatchingSnippetDefinitionStrict(
   targets: Target[],
-  definitions: SnippetDefinition[],
+  definitions: SnippetDefinition[]
 ): SnippetDefinition {
   const definitionIndices = targets.map((target) =>
-    findMatchingSnippetDefinitionForSingleTarget(target, definitions),
+    findMatchingSnippetDefinitionForSingleTarget(target, definitions)
   );
 
   const definitionIndex = definitionIndices[0];
@@ -106,7 +106,7 @@ export function findMatchingSnippetDefinitionStrict(
 
 function findMatchingSnippetDefinitionForSingleTarget(
   target: Target,
-  definitions: SnippetDefinition[],
+  definitions: SnippetDefinition[]
 ): number {
   const languageId = target.editor.document.languageId;
 

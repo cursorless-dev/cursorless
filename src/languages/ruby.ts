@@ -160,8 +160,8 @@ const nodeMatchers: Partial<
         patternFinder(...EXPRESSION_STATEMENT_PARENT_TYPES),
         patternFinder(...EXPRESSION_TYPES),
       ],
-      1,
-    ),
+      1
+    )
   ),
   string: "string",
   ifStatement: "if",
@@ -171,7 +171,7 @@ const nodeMatchers: Partial<
   functionName: ["method[name]", "singleton_method[name]"],
   anonymousFunction: cascadingMatcher(
     patternMatcher("lambda", "do_block"),
-    matcher(blockFinder),
+    matcher(blockFinder)
   ),
   regularExpression: "regex",
   condition: conditionMatcher("*[condition]"),
@@ -179,7 +179,7 @@ const nodeMatchers: Partial<
     "lambda_parameters",
     "method_parameters",
     "block_parameters",
-    "argument_list",
+    "argument_list"
   ),
   class: "class",
   className: "class[name]",
@@ -198,7 +198,7 @@ const nodeMatchers: Partial<
       "operator_assignment[right]",
       "return.argument_list!",
     ],
-    assignmentOperators.concat(mapKeyValueSeparators),
+    assignmentOperators.concat(mapKeyValueSeparators)
   ),
   collectionItem: argumentMatcher(...mapTypes, ...listTypes),
 };
@@ -206,7 +206,7 @@ export const patternMatchers = createPatternMatchers(nodeMatchers);
 
 export function stringTextFragmentExtractor(
   node: SyntaxNode,
-  _selection: SelectionWithEditor,
+  _selection: SelectionWithEditor
 ) {
   if (node.type === "string_content" || node.type === "heredoc_content") {
     return getNodeRange(node);

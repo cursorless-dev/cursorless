@@ -31,15 +31,15 @@ export default class implements ModifierStage {
 
     const possiblyAddParagraph = (
       paragraphStart: number,
-      paragraphEnd: number,
+      paragraphEnd: number
     ) => {
       // Paragraph and selection intersects
       if (paragraphEnd >= startLine && paragraphStart <= endLine) {
         targets.push(
           this.getTargetFromRange(
             target,
-            new Range(paragraphStart, 0, paragraphEnd, 0),
-          ),
+            new Range(paragraphStart, 0, paragraphEnd, 0)
+          )
         );
       }
     };
@@ -67,7 +67,7 @@ export default class implements ModifierStage {
 
     if (targets.length === 0) {
       throw new Error(
-        `Couldn't find containing ${this.modifier.scopeType.type}`,
+        `Couldn't find containing ${this.modifier.scopeType.type}`
       );
     }
 

@@ -13,16 +13,16 @@ export function getDisplayLineMap(editor: vscode.TextEditor) {
   return new Map(
     flow(
       flatten,
-      uniq,
+      uniq
     )(
       concat(
         [[editor.selection.start.line]],
         editor.visibleRanges.map((visibleRange) =>
-          range(visibleRange.start.line, visibleRange.end.line + 1),
-        ),
-      ),
+          range(visibleRange.start.line, visibleRange.end.line + 1)
+        )
+      )
     )
       .sort((a, b) => a - b)
-      .map((value, index) => [value, index]),
+      .map((value, index) => [value, index])
   );
 }

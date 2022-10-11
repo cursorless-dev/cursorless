@@ -18,14 +18,14 @@ export default class Deselect implements Action {
           !targets.some((target) => {
             const intersection = target.contentRange.intersection(selection);
             return intersection && (!intersection.isEmpty || selection.isEmpty);
-          }),
+          })
       );
       // The editor requires at least one selection. Keep "primary" selection active
       setSelectionsWithoutFocusingEditor(
         editor,
         newSelections.length > 0
           ? newSelections
-          : [new Selection(editor.selection.active, editor.selection.active)],
+          : [new Selection(editor.selection.active, editor.selection.active)]
       );
     });
 

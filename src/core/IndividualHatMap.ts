@@ -27,7 +27,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
       currentValue = [];
       this.documentTokenLists.set(key, currentValue);
       this.deregisterFunctions.push(
-        this.graph.rangeUpdater.registerRangeInfoList(document, currentValue),
+        this.graph.rangeUpdater.registerRangeInfoList(document, currentValue)
       );
     }
 
@@ -63,7 +63,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     return this.map[
       HatTokenMap.getKey(
         hatStyle,
-        this.graph.tokenGraphemeSplitter.normalizeGrapheme(character),
+        this.graph.tokenGraphemeSplitter.normalizeGrapheme(character)
       )
     ];
   }

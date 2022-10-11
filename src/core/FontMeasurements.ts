@@ -67,7 +67,7 @@ function getFontRatios() {
     },
     {
       enableScripts: true,
-    },
+    }
   );
 
   panel.webview.html = getWebviewContent();

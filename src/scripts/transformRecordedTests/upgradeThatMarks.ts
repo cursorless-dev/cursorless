@@ -7,13 +7,13 @@ import { FixtureTransformation } from "./types";
 
 // FIXME: Remove this before merging the PR
 export const upgradeThatMarks: FixtureTransformation = (
-  fixture: TestCaseFixture,
+  fixture: TestCaseFixture
 ) => {
   fixture.initialState.thatMark = fixture.initialState.thatMark?.map(
-    (rangePlainObject) => fixRange(rangePlainObject as any),
+    (rangePlainObject) => fixRange(rangePlainObject as any)
   );
   fixture.initialState.sourceMark = fixture.initialState.sourceMark?.map(
-    (rangePlainObject) => fixRange(rangePlainObject as any),
+    (rangePlainObject) => fixRange(rangePlainObject as any)
   );
 
   if (fixture.finalState == null) {
@@ -21,10 +21,10 @@ export const upgradeThatMarks: FixtureTransformation = (
   }
 
   fixture.finalState.thatMark = fixture.finalState.thatMark?.map(
-    (rangePlainObject) => fixRange(rangePlainObject as any),
+    (rangePlainObject) => fixRange(rangePlainObject as any)
   );
   fixture.finalState.sourceMark = fixture.finalState.sourceMark?.map(
-    (rangePlainObject) => fixRange(rangePlainObject as any),
+    (rangePlainObject) => fixRange(rangePlainObject as any)
   );
 
   return fixture;

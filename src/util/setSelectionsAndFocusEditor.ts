@@ -32,7 +32,7 @@ const columnFocusCommands = {
 export async function setSelectionsAndFocusEditor(
   editor: TextEditor,
   selections: Selection[],
-  revealRange: boolean = true,
+  revealRange: boolean = true
 ) {
   setSelectionsWithoutFocusingEditor(editor, selections);
 
@@ -47,7 +47,7 @@ export async function setSelectionsAndFocusEditor(
 
 export function setSelectionsWithoutFocusingEditor(
   editor: TextEditor,
-  selections: Selection[],
+  selections: Selection[]
 ) {
   editor.selections = uniqDeep(selections);
 }
@@ -79,7 +79,7 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
   }
   const uri = editor.document.uri.toString();
   const tabGroup = (window as any)?.tabGroups?.all?.find((tabGroup: any) =>
-    tabGroup?.tabs.find((tab: any) => tab?.input?.modified?.toString() === uri),
+    tabGroup?.tabs.find((tab: any) => tab?.input?.modified?.toString() === uri)
   );
   return tabGroup?.viewColumn;
 }
@@ -96,12 +96,12 @@ async function focusNotebookCell(editor: TextEditor) {
   await commands.executeCommand(
     columnFocusCommands[
       desiredNotebookEditor.viewColumn as keyof typeof columnFocusCommands
-    ],
+    ]
   );
 
   const desiredEditorIndex = getCellIndex(
     desiredNotebookDocument,
-    editor.document,
+    editor.document
   );
 
   const desiredSelections = [

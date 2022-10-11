@@ -21,7 +21,7 @@ export function upgradeFromVersion0(fixture: TestCaseFixture) {
         (target.mark as any).usePrePhraseSnapshot = undefined;
       }
       return target;
-    },
+    }
   );
 
   return {

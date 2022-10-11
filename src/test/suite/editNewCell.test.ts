@@ -20,7 +20,7 @@ async function runTest(
   spokenForm: string,
   command: string,
   expectedActiveCellIndex: number,
-  expectedNotebookContents: string[],
+  expectedNotebookContents: string[]
 ) {
   const graph = (await getCursorlessApi()).graph!;
   const notebook = await openNewNotebookEditor(["hello"]);
@@ -45,20 +45,20 @@ async function runTest(
           type: "cursor",
         },
       },
-    ],
+    ]
   );
 
   assert.equal(notebook.cellCount, 2);
 
   const activeCelIndex = getCellIndex(
     notebook,
-    vscode.window.activeTextEditor!.document,
+    vscode.window.activeTextEditor!.document
   );
 
   assert.equal(activeCelIndex, expectedActiveCellIndex);
 
   assert.deepStrictEqual(
     getPlainNotebookContents(notebook),
-    expectedNotebookContents,
+    expectedNotebookContents
   );
 }

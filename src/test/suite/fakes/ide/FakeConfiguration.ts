@@ -15,7 +15,7 @@ export class FakeConfiguration implements Configuration {
   }
 
   getOwnConfiguration<T extends CursorlessConfigKey>(
-    key: T,
+    key: T
   ): CursorlessConfiguration[T] | undefined {
     return this.mocks[key];
   }
@@ -24,7 +24,7 @@ export class FakeConfiguration implements Configuration {
 
   mockConfiguration<T extends CursorlessConfigKey>(
     key: T,
-    value: CursorlessConfiguration[T],
+    value: CursorlessConfiguration[T]
   ): void {
     this.mocks[key] = value;
     this.notifier.notifyListeners();

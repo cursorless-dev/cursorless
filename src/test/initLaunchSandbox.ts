@@ -16,7 +16,7 @@ async function main() {
     const extensionSandboxDir = path.join(
       extensionDevelopmentPath,
       ".vscode-sandbox",
-      "extensions",
+      "extensions"
     );
     await mkdir(extensionSandboxDir, { recursive: true });
 
@@ -24,7 +24,7 @@ async function main() {
       "--extensions-dir",
       extensionSandboxDir,
       ...[...extensionDependencies, ...extraExtensions].flatMap(
-        (dependency) => ["--install-extension", dependency],
+        (dependency) => ["--install-extension", dependency]
       ),
     ];
 

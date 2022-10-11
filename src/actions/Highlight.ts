@@ -10,7 +10,7 @@ export default class Highlight implements Action {
 
   async run(
     [targets]: [Target[]],
-    styleName: EditStyleName = "highlight0",
+    styleName: EditStyleName = "highlight0"
   ): Promise<ActionReturnValue> {
     const style = this.graph.editStyles[styleName];
 

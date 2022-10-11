@@ -25,7 +25,7 @@ async function topWhale() {
           type: "cursor",
         },
       },
-    ],
+    ]
   );
 
   assert.equal(editor.visibleRanges.length, 1);
@@ -53,7 +53,7 @@ async function bottomWhale() {
           type: "cursor",
         },
       },
-    ],
+    ]
   );
 
   assert.equal(editor.visibleRanges.length, 1);

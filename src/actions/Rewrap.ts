@@ -15,7 +15,7 @@ export default class Rewrap implements Action {
   async run(
     [targets]: [Target[]],
     left: string,
-    right: string,
+    right: string
   ): Promise<ActionReturnValue> {
     const boundaryTargets = targets.flatMap((target) => {
       const boundary = target.getBoundaryStrict();
@@ -29,7 +29,7 @@ export default class Rewrap implements Action {
 
     await this.graph.editStyles.displayPendingEditDecorations(
       boundaryTargets,
-      this.graph.editStyles.pendingModification0,
+      this.graph.editStyles.pendingModification0
     );
 
     const results = await runOnTargetsForEachEditor(
@@ -49,14 +49,14 @@ export default class Rewrap implements Action {
             [
               targets.map((target) => target.thatTarget.contentRange),
               targets.map((target) => target.contentRange),
-            ],
+            ]
           );
 
         return {
           sourceMark: createThatMark(targets, updatedSourceRanges),
           thatMark: createThatMark(targets, updatedThatRanges),
         };
-      },
+      }
     );
 
     return {

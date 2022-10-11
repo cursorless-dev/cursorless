@@ -17,7 +17,7 @@ const newAdjustments: Partial<IndividualHatAdjustmentMap> = {};
 function processProperty(
   originalAdjustment: HatAdjustments,
   newAdjustment: HatAdjustments,
-  propertyName: keyof HatAdjustments,
+  propertyName: keyof HatAdjustments
 ) {
   const originalValue = originalAdjustment[propertyName] ?? 0;
   const newAdjustmentValue = newAdjustment[propertyName] ?? 0;
@@ -43,16 +43,16 @@ function main() {
           sizeAdjustment: processProperty(
             originalAdjustment,
             newAdjustment,
-            "sizeAdjustment",
+            "sizeAdjustment"
           ),
           verticalOffset: processProperty(
             originalAdjustment,
             newAdjustment,
-            "verticalOffset",
+            "verticalOffset"
           ),
         },
       ];
-    }),
+    })
   );
 
   (["value", "originalAdjustment", "newAdjustment"] as const).forEach((key) => {
@@ -65,7 +65,7 @@ function main() {
             verticalOffset: fullMap[shape].verticalOffset[key],
           },
         ];
-      }),
+      })
     ) as IndividualHatAdjustmentMap;
     console.log(`${key}: `);
     console.log(JSON.stringify(map, null, 2));

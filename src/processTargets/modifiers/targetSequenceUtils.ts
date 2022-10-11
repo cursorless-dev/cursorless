@@ -23,7 +23,7 @@ export function createRangeTargetFromIndices(
   isReversed: boolean,
   targets: Target[],
   startIndex: number,
-  endIndex: number,
+  endIndex: number
 ): Target {
   if (startIndex < 0 || endIndex >= targets.length) {
     throw new OutOfRangeError();
@@ -37,14 +37,14 @@ export function createRangeTargetFromIndices(
     isReversed,
     targets[endIndex],
     true,
-    true,
+    true
   );
 }
 
 export function getEveryScopeTargets(
   context: ProcessedTargetsContext,
   target: Target,
-  scopeType: ScopeType,
+  scopeType: ScopeType
 ): Target[] {
   const containingStage = getModifierStage({
     type: "everyScope",

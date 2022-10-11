@@ -33,7 +33,7 @@ suite("Pre-phrase snapshots", async function () {
 async function runTest(
   usePrePhraseSnapshot: boolean,
   multiplePhrases: boolean,
-  expectedSelections: vscode.Selection[],
+  expectedSelections: vscode.Selection[]
 ) {
   const graph = (await getCursorlessApi()).graph!;
 
@@ -87,6 +87,6 @@ async function runTest(
 
   assert.deepStrictEqual(
     editor.selections.map(selectionToPlainObject),
-    expectedSelections.map(selectionToPlainObject),
+    expectedSelections.map(selectionToPlainObject)
   );
 }

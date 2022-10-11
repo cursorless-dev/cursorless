@@ -44,7 +44,7 @@ async function main() {
     JSON.stringify({
       gitSha: (await runCommand("git rev-parse HEAD")).trim(),
       buildUrl: `${githubBaseUrl}/${repository}/actions/runs/${runId}`,
-    }),
+    })
   );
 }
 

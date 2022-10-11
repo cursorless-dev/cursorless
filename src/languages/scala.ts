@@ -32,7 +32,7 @@ const nodeMatchers: Partial<
     "arguments",
     "parameters",
     "class_parameters",
-    "bindings",
+    "bindings"
   ),
 
   name: ["*[name]", "*[pattern]"],
@@ -59,11 +59,11 @@ const nodeMatchers: Partial<
       "typed_pattern[type]",
       "binding[type]",
     ],
-    [":"],
+    [":"]
   ),
   value: leadingMatcher(
     ["*[value]", "*[default_value]", "type_definition[type]"],
-    ["="],
+    ["="]
   ),
   condition: conditionMatcher("*[condition]"),
 

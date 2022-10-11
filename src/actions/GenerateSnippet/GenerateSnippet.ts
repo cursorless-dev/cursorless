@@ -55,7 +55,7 @@ export default class GenerateSnippet implements Action {
 
   async run(
     [targets]: [Target[]],
-    snippetName?: string,
+    snippetName?: string
   ): Promise<ActionReturnValue> {
     const target = ensureSingleTarget(targets);
     const editor = target.editor;
@@ -66,7 +66,7 @@ export default class GenerateSnippet implements Action {
     // win the race and have the input box ready for them
     this.graph.editStyles.displayPendingEditDecorations(
       targets,
-      this.graph.editStyles.referenced,
+      this.graph.editStyles.referenced
     );
 
     if (snippetName == null) {
@@ -116,8 +116,8 @@ export default class GenerateSnippet implements Action {
     const linePrefix = editor.document.getText(
       new Range(
         target.contentRange.start.with(undefined, 0),
-        target.contentRange.start,
-      ),
+        target.contentRange.start
+      )
     );
 
     /** The text of the snippet, with placeholders inserted for variables */
@@ -143,9 +143,9 @@ export default class GenerateSnippet implements Action {
             ":",
             defaultName,
             "}",
-          ].join(""),
+          ].join("")
         ),
-      })),
+      }))
     );
 
     const snippetLines = constructSnippetBody(snippetBodyText, linePrefix);
@@ -176,7 +176,7 @@ export default class GenerateSnippet implements Action {
       // string (including quotes) with `{$3}` after json-ification
       const value = substituter.addSubstitution(
         "{$" + currentPlaceholderIndex++ + "}",
-        true,
+        true
       );
 
       return [key, value];
@@ -198,7 +198,7 @@ export default class GenerateSnippet implements Action {
           variables.length === 0
             ? undefined
             : Object.fromEntries(
-                variables.map(constructVariableDescriptionEntry),
+                variables.map(constructVariableDescriptionEntry)
               ),
       },
     };
@@ -209,7 +209,7 @@ export default class GenerateSnippet implements Action {
      * definition
      */
     const snippetText = substituter.makeSubstitutions(
-      JSON.stringify(snippet, null, 2),
+      JSON.stringify(snippet, null, 2)
     );
 
     if (isTesting()) {

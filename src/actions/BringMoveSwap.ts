@@ -70,11 +70,11 @@ class BringMoveSwap implements Action {
       this.graph.editStyles.displayPendingEditDecorations(
         sources,
         decorationContext.sourceStyle,
-        decorationContext.getSourceRangeCallback,
+        decorationContext.getSourceRangeCallback
       ),
       this.graph.editStyles.displayPendingEditDecorations(
         destinations,
-        decorationContext.destinationStyle,
+        decorationContext.destinationStyle
       ),
     ]);
   }
@@ -150,7 +150,7 @@ class BringMoveSwap implements Action {
   }
 
   private async performEditsAndComputeThatMark(
-    edits: ExtendedEdit[],
+    edits: ExtendedEdit[]
   ): Promise<MarkEntry[]> {
     return flatten(
       await runForEachEditor(
@@ -168,16 +168,16 @@ class BringMoveSwap implements Action {
               getSelectionInfo(
                 editor.document,
                 selectionFromRange(originalTarget.isReversed, range),
-                DecorationRangeBehavior.OpenOpen,
-              ),
+                DecorationRangeBehavior.OpenOpen
+              )
           );
 
           const cursorSelectionInfos = editor.selections.map((selection) =>
             getSelectionInfo(
               editor.document,
               selection,
-              DecorationRangeBehavior.ClosedClosed,
-            ),
+              DecorationRangeBehavior.ClosedClosed
+            )
           );
 
           const [updatedEditSelections, cursorSelections]: Selection[][] =
@@ -185,7 +185,7 @@ class BringMoveSwap implements Action {
               this.graph.rangeUpdater,
               editor,
               filteredEdits.map(({ edit }) => edit),
-              [editSelectionInfos, cursorSelectionInfos],
+              [editSelectionInfos, cursorSelectionInfos]
             );
 
           // NB: We set the selections here because we don't trust vscode to
@@ -204,8 +204,8 @@ class BringMoveSwap implements Action {
               target,
             };
           });
-        },
-      ),
+        }
+      )
     );
   }
 
@@ -217,14 +217,14 @@ class BringMoveSwap implements Action {
       this.graph.editStyles.displayPendingEditDecorations(
         thatMark.filter(({ isSource }) => isSource).map(({ target }) => target),
         decorationContext.sourceStyle,
-        getRange,
+        getRange
       ),
       this.graph.editStyles.displayPendingEditDecorations(
         thatMark
           .filter(({ isSource }) => !isSource)
           .map(({ target }) => target),
         decorationContext.destinationStyle,
-        getRange,
+        getRange
       ),
     ]);
   }
@@ -247,7 +247,7 @@ class BringMoveSwap implements Action {
 
   async run([sources, destinations]: [
     Target[],
-    Target[],
+    Target[]
   ]): Promise<ActionReturnValue> {
     sources = this.broadcastSource(sources, destinations);
 

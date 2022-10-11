@@ -26,7 +26,7 @@ export const delimiterToText: Record<
 };
 
 export const leftToRightMap: Record<string, string> = Object.fromEntries(
-  Object.values(delimiterToText),
+  Object.values(delimiterToText)
 );
 
 /**

@@ -31,7 +31,7 @@ export function processSurroundingPair(
   context: ProcessedTargetsContext,
   editor: TextEditor,
   range: Range,
-  scopeType: SurroundingPairScopeType,
+  scopeType: SurroundingPairScopeType
 ): SurroundingPairInfo | null {
   const document = editor.document;
   const delimiters = complexDelimiterMap[
@@ -54,7 +54,7 @@ export function processSurroundingPair(
         range,
         null,
         delimiters,
-        scopeType,
+        scopeType
       );
     } else {
       throw err;
@@ -74,7 +74,7 @@ export function processSurroundingPair(
       range,
       textFragmentRange,
       delimiters,
-      scopeType,
+      scopeType
     );
 
     if (surroundingRange != null) {
@@ -90,6 +90,6 @@ export function processSurroundingPair(
     range,
     node,
     delimiters,
-    scopeType,
+    scopeType
   );
 }

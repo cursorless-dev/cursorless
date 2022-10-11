@@ -123,7 +123,7 @@ export default abstract class BaseTarget implements Target {
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
-    includeEnd: boolean,
+    includeEnd: boolean
   ): Target {
     if (isSameType(this, endTarget)) {
       const constructor = Object.getPrototypeOf(this).constructor;
@@ -135,7 +135,7 @@ export default abstract class BaseTarget implements Target {
           this,
           endTarget,
           includeStart,
-          includeEnd,
+          includeEnd
         ),
       });
     }
@@ -145,7 +145,7 @@ export default abstract class BaseTarget implements Target {
       this,
       endTarget,
       includeStart,
-      includeEnd,
+      includeEnd
     );
   }
 
