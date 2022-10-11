@@ -1,6 +1,7 @@
-import { Range } from "vscode";
+import { Range, TextDocument } from "vscode";
+import { tokenize } from "../../../core/tokenizer";
 import type { Target } from "../../../typings/target.types";
-import { isAtEndOfLine, isAtStartOfLine } from "../../../util/rangeUtils";
+import { expandToFullLine } from "../../../util/rangeUtils";
 import { PlainTarget } from "../../targets";
 import { getDelimitedSequenceRemovalRange } from "./DelimitedSequenceInsertionRemovalBehavior";
 
@@ -66,24 +67,48 @@ export function getTokenRemovalRange(
   target: Target,
   contentRange?: Range
 ): Range {
-  const { start, end } = contentRange ?? target.contentRange;
+  const { document } = target.editor;
+  const actualContentRange = contentRange ?? target.contentRange;
+  const removalRange = getDelimitedSequenceRemovalRange(target, contentRange);
 
-  const leadingDelimiterTarget = getTokenLeadingDelimiterTarget(target);
-  const trailingDelimiterTarget = getTokenTrailingDelimiterTarget(target);
+  if (!actualContentRange.isEqual(removalRange)) {
+    const fullRange = expandToFullLine(target.editor, actualContentRange);
+    const fullText = document.getText(fullRange);
+    const fullTextOffset = document.offsetAt(fullRange.start);
 
-  // If there is a token directly to the left or right of us with no
-  // separating white space, then we might join two tokens if we try to clean
-  // up whitespace space. In this case we just remove the content range
-  // without attempting to clean up white space.
-  //
-  // In the future, we might get more sophisticated and to clean up white space if we can detect that it won't cause two tokens be merged
-  if (
-    (leadingDelimiterTarget == null && !isAtStartOfLine(start)) ||
-    (trailingDelimiterTarget == null && !isAtEndOfLine(target.editor, end))
-  ) {
-    return contentRange ?? target.contentRange;
+    const numTokensContentRangeRemoved = calculateNumberOfTokensAfterRemoval(
+      document,
+      fullText,
+      fullTextOffset,
+      actualContentRange
+    );
+
+    const numTokensRemovalRangeRemoved = calculateNumberOfTokensAfterRemoval(
+      document,
+      fullText,
+      fullTextOffset,
+      removalRange
+    );
+
+    // Using removal range has not merged any tokens. Removal range is ok to use.
+    if (numTokensContentRangeRemoved === numTokensRemovalRangeRemoved) {
+      return removalRange;
+    }
   }
 
-  // Otherwise, behave like a whitespace delimited sequence
-  return getDelimitedSequenceRemovalRange(target, contentRange);
+  // No removal range available or it would merge tokens.
+  return actualContentRange;
+}
+
+function calculateNumberOfTokensAfterRemoval(
+  document: TextDocument,
+  fullText: string,
+  fullTextOffset: number,
+  removalRange: Range
+): number {
+  const startIndex = document.offsetAt(removalRange.start) - fullTextOffset;
+  const endIndex = document.offsetAt(removalRange.end) - fullTextOffset;
+  const modifiedText = fullText.slice(0, startIndex) + fullText.slice(endIndex);
+  const tokens = tokenize(modifiedText, document.languageId, (m) => m);
+  return tokens.length;
 }
