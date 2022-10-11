@@ -16,7 +16,7 @@ extension](#running--testing-extension-locally), you may want to check out the
 ### Steps
 
 1. Clone [`cursorless`](https://github.com/cursorless-dev/cursorless)
-2. Open the newly created `cursorless` directory in VSCode
+2. Open the newly created `cursorless` directory in VSCode. If you're on Windows, don't use WSL (see [#919](https://github.com/cursorless-dev/cursorless/issues/919) for discussion / workaround).
 3. Run the following in the terminal:
 
    ```bash
@@ -26,6 +26,8 @@ extension](#running--testing-extension-locally), you may want to check out the
    ```
 
    The `yarn init-launch-sandbox` command creates a local sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. Please file an issue if you'd like to use additional extensions when debugging locally.
+
+4. Copy / symlink `cursorless-talon-dev` into your Talon user directory for some useful voice commands for developing Cursorless.
 
 ## Running / testing extension locally
 

@@ -17,6 +17,7 @@ import { IDE } from "../ide/ide.types";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { CommandServerApi } from "../util/getExtensionApi";
+import { Target } from "./target.types";
 import { FullRangeInfo } from "./updateSelections";
 
 /**
@@ -41,8 +42,8 @@ export interface ProcessedTargetsContext {
   currentSelections: SelectionWithEditor[];
   currentEditor: vscode.TextEditor | undefined;
   hatTokenMap: ReadOnlyHatMap;
-  thatMark: SelectionWithEditor[];
-  sourceMark: SelectionWithEditor[];
+  thatMark: Target[];
+  sourceMark: Target[];
   getNodeAtLocation: (location: Location) => SyntaxNode;
 }
 

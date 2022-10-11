@@ -261,7 +261,7 @@ class BringMoveSwap implements Action {
 
     await this.decorateThatMark(thatMark);
 
-    return { thatMark, sourceMark };
+    return { thatSelections: thatMark, sourceSelections: sourceMark };
   }
 }
 

@@ -1,10 +1,10 @@
 import { concat, flatten, maxBy, min } from "lodash";
 import * as vscode from "vscode";
-import { HatStyleName } from "../core/constants";
+import { HatStyleName } from "../core/hatStyles";
+import { getTokenMatcher } from "../core/tokenizer";
 import Decorations from "../core/Decorations";
 import { IndividualHatMap } from "../core/IndividualHatMap";
 import { TokenGraphemeSplitter } from "../core/TokenGraphemeSplitter";
-import { TOKEN_MATCHER } from "../core/tokenizer";
 import { Token } from "../typings/Types";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator } from "./getTokenComparator";
@@ -34,7 +34,7 @@ export function addDecorationsToEditors(
     [],
     ...editors.map((editor) => {
       const displayLineMap = getDisplayLineMap(editor);
-
+      const languageId = editor.document.languageId;
       const tokens: Token[] = flatten(
         editor.visibleRanges.map((range) =>
           getTokensInRange(editor, range).map((partialToken) => ({
@@ -42,8 +42,11 @@ export function addDecorationsToEditors(
             displayLine: displayLineMap.get(partialToken.range.start.line)!,
             editor,
             expansionBehavior: {
-              start: { type: "regex", regex: TOKEN_MATCHER },
-              end: { type: "regex", regex: TOKEN_MATCHER },
+              start: {
+                type: "regex",
+                regex: getTokenMatcher(languageId),
+              },
+              end: { type: "regex", regex: getTokenMatcher(languageId) },
             },
           }))
         )

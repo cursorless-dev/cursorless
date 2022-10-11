@@ -1,4 +1,4 @@
-import { HatStyleName } from "../core/constants";
+import { HatStyleName } from "../core/hatStyles";
 // FIXME: See microsoft/TypeScript#43869
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Target } from "./target.types";
@@ -31,25 +31,31 @@ export interface DecoratedSymbolMark {
 
 export type LineNumberType = "absolute" | "relative" | "modulo100";
 
-export interface LineNumberPosition {
-  type: LineNumberType;
+export interface LineNumberMark {
+  type: "lineNumber";
+  lineNumberType: LineNumberType;
   lineNumber: number;
 }
 
-export interface LineNumberMark {
-  type: "lineNumber";
-  anchor: LineNumberPosition;
-  active: LineNumberPosition;
+/**
+ * Constructs a range between {@link anchor} and {@link active}
+ */
+export interface RangeMark {
+  type: "range";
+  anchor: Mark;
+  active: Mark;
+  excludeAnchor?: boolean;
+  excludeActive?: boolean;
 }
 
 export type Mark =
   | CursorMark
   | ThatMark
   | SourceMark
-  //   | LastCursorPositionMark Not implemented yet
   | DecoratedSymbolMark
   | NothingMark
-  | LineNumberMark;
+  | LineNumberMark
+  | RangeMark;
 
 export type SimpleSurroundingPairName =
   | "angleBrackets"
@@ -130,6 +136,11 @@ export interface SimpleScopeType {
   type: SimpleScopeTypeType;
 }
 
+export interface CustomRegexScopeType {
+  type: "customRegex";
+  regex: string;
+}
+
 export type SurroundingPairDirection = "left" | "right";
 export interface SurroundingPairScopeType {
   type: "surroundingPair";
@@ -143,7 +154,10 @@ export interface SurroundingPairScopeType {
   requireStrongContainment?: boolean;
 }
 
-export type ScopeType = SimpleScopeType | SurroundingPairScopeType;
+export type ScopeType =
+  | SimpleScopeType
+  | SurroundingPairScopeType
+  | CustomRegexScopeType;
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {
@@ -168,20 +182,50 @@ export interface EveryScopeModifier {
   scopeType: ScopeType;
 }
 
-export interface OrdinalRangeModifier {
-  type: "ordinalRange";
+/**
+ * Refer to scopes by absolute index relative to iteration scope, eg "first
+ * funk" to refer to the first function in a class.
+ */
+export interface OrdinalScopeModifier {
+  type: "ordinalScope";
+
   scopeType: ScopeType;
-  anchor: number;
-  active: number;
-  excludeAnchor?: boolean;
-  excludeActive?: boolean;
+
+  /** The start of the range.  Start from end of iteration scope if `start` is negative */
+  start: number;
+
+  /** The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes after {@link start} */
+  length: number;
 }
+
+/**
+ * Refer to scopes by offset relative to input target, eg "next
+ * funk" to refer to the first function after the function containing the target input.
+ */
+export interface RelativeScopeModifier {
+  type: "relativeScope";
+
+  scopeType: ScopeType;
+
+  /** Indicates how many scopes away to start relative to the input target.
+   * Note that if {@link direction} is `"backward"`, then this scope will be the
+   * end of the output range.  */
+  offset: number;
+
+  /** The number of scopes to include.  Will always be positive.  If greater
+   * than 1, will include scopes in the direction of {@link direction} */
+  length: number;
+
+  /** Indicates which direction both {@link offset} and {@link length} go
+   * relative to input target  */
+  direction: "forward" | "backward";
+}
+
 /**
  * Converts its input to a raw selection with no type information so for
  * example if it is the destination of a bring or move it should inherit the
  * type information such as delimiters from its source.
  */
-
 export interface RawSelectionModifier {
   type: "toRawSelection";
 }
@@ -192,6 +236,14 @@ export interface LeadingModifier {
 
 export interface TrailingModifier {
   type: "trailing";
+}
+
+export interface KeepContentFilterModifier {
+  type: "keepContentFilter";
+}
+
+export interface KeepEmptyFilterModifier {
+  type: "keepEmptyFilter";
 }
 
 export type Position = "before" | "after" | "start" | "end";
@@ -240,19 +292,35 @@ export interface CascadingModifier {
   modifiers: Modifier[];
 }
 
+/**
+ * First applies {@link anchor} to input, then independently applies
+ * {@link active}, and forms a range between the two resulting targets
+ */
+export interface RangeModifier {
+  type: "range";
+  anchor: Modifier;
+  active: Modifier;
+  excludeAnchor?: boolean;
+  excludeActive?: boolean;
+}
+
 export type Modifier =
   | PositionModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
   | ContainingScopeModifier
   | EveryScopeModifier
-  | OrdinalRangeModifier
+  | OrdinalScopeModifier
+  | RelativeScopeModifier
   | HeadTailModifier
   | LeadingModifier
   | TrailingModifier
   | RawSelectionModifier
   | ModifyIfUntypedModifier
-  | CascadingModifier;
+  | CascadingModifier
+  | RangeModifier
+  | KeepContentFilterModifier
+  | KeepEmptyFilterModifier;
 
 export interface PartialRangeTargetDescriptor {
   type: "range";

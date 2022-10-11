@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Runs the development server, binding to 0.0.0.0 so that it can be tested from
+# eg your mobile phone.  Also copies the external URL.  Only works on MacOS.
+set -euo pipefail
+
+if [[ $OSTYPE != 'darwin'* ]]; then
+  echo "This script only works on MacOS"
+  exit 1
+fi
+
+# From https://apple.stackexchange.com/a/147777
+ip_address=$(ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}')
+
+url="http://${ip_address}:4200/"
+
+echo -n "$url" | pbcopy
+echo "URL '${url}' copied to clipboard!"
+
+# From https://github.com/nrwl/nx/issues/2123#issuecomment-1048184095
+nx serve cursorless-org -- --hostname 0.0.0.0

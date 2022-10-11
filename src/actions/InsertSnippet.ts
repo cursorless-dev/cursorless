@@ -96,7 +96,7 @@ export default class InsertSnippet implements Action {
     );
 
     return {
-      thatMark: updatedTargetSelections.map((selection) => ({
+      thatSelections: updatedTargetSelections.map((selection) => ({
         editor,
         selection,
       })),

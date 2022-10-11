@@ -27,7 +27,4 @@ finalState:
     default.w:
       start: {line: 0, character: 7}
       end: {line: 0, character: 10}
-  thatMark:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: -2, active: -1}}]

@@ -3,7 +3,7 @@ import { NothingMark } from "../../typings/targetDescriptor.types";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {
-  constructor(private modifier: NothingMark) {}
+  constructor(private mark: NothingMark) {}
 
   run(): Target[] {
     return [];
