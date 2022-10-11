@@ -6,7 +6,7 @@ suite("subtoken regex matcher", () => {
   subtokenFixture.forEach(({ input, expectedOutput }) => {
     test(input, () => {
       assert.deepStrictEqual(
-        subWordSplitter(input).map(({ text }) => text),
+        subWordSplitter(input, "anyLang").map(({ text }) => text),
         expectedOutput
       );
     });
