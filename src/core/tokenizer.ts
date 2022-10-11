@@ -1,4 +1,4 @@
-import { mapValues } from "lodash";
+import { escapeRegExp, mapValues } from "lodash";
 import { LanguageId, SupportedLanguageId } from "../languages/constants";
 
 import { matchAll } from "../util/regex";
@@ -45,27 +45,34 @@ const FIXED_TOKENS = [
   "-->",
 ];
 
-const IDENTIFIERS_REGEX = "[\\p{L}\\p{M}_0-9]+";
+export const IDENTIFIER_WORD_REGEXES = ["\\p{L}", "\\p{M}", "\\p{N}"];
+const IDENTIFIER_WORD_DELIMITERS = ["_"];
 const SINGLE_SYMBOLS_REGEX = "[^\\s\\w]";
 const NUMBERS_REGEX = "(?<=[^.\\d]|^)\\d+\\.\\d+(?=[^.\\d]|$)"; // (not-dot/digit digits dot digits not-dot/digit)
 
 const defaultLanguageTokenizerComponents: LanguageTokenizerComponents = {
   fixedTokens: FIXED_TOKENS,
   repeatableSymbols: REPEATABLE_SYMBOLS,
-  identifiersRegex: IDENTIFIERS_REGEX,
+  identifierWordRegexes: IDENTIFIER_WORD_REGEXES,
+  identifierWordDelimiters: IDENTIFIER_WORD_DELIMITERS,
   numbersRegex: NUMBERS_REGEX,
   singleSymbolsRegex: SINGLE_SYMBOLS_REGEX,
 };
+interface Matcher {
+  tokenMatcher: RegExp;
+  identifierMatcher: RegExp;
+  wordMatcher: RegExp;
+}
+const defaultMatcher = generateMatcher();
 
-const defaultTokenMatcher = generateTokenMatcher();
-
-function generateTokenMatcher(
+function generateMatcher(
   languageOverrides: LanguageTokenizerOverrides = {}
-): RegExp {
+): Matcher {
   const {
     fixedTokens,
     repeatableSymbols,
-    identifiersRegex,
+    identifierWordRegexes,
+    identifierWordDelimiters,
     numbersRegex,
     singleSymbolsRegex,
   }: LanguageTokenizerComponents = {
@@ -80,6 +87,12 @@ function generateTokenMatcher(
 
   const fixedTokensRegex = fixedTokens.map(escapeRegExp).join("|");
 
+  const identifierComponents = identifierWordRegexes.concat(
+    identifierWordDelimiters.map(escapeRegExp)
+  );
+  const identifiersRegex = `(${identifierComponents.join("|")})+`;
+  const wordRegex = `(${identifierWordRegexes.join("|")})+`;
+
   // Order matters here.
   const regex = [
     fixedTokensRegex,
@@ -89,7 +102,11 @@ function generateTokenMatcher(
     singleSymbolsRegex,
   ].join("|");
 
-  return new RegExp(regex, "gu");
+  return {
+    identifierMatcher: new RegExp(identifiersRegex, "gu"),
+    wordMatcher: new RegExp(wordRegex, "gu"),
+    tokenMatcher: new RegExp(regex, "gu"),
+  };
 }
 
 const languageTokenizerOverrides: Partial<
@@ -100,15 +117,15 @@ const languageTokenizerOverrides: Partial<
   shellscript: languageWithDashedIdentifiers,
 };
 
-const tokenMatchersForLanguage: Partial<Record<LanguageId, RegExp>> = mapValues(
-  languageTokenizerOverrides,
-  (val: LanguageTokenizerComponents) => generateTokenMatcher(val)
-);
+const tokenMatchersForLanguage: Partial<Record<LanguageId, Matcher>> =
+  mapValues(languageTokenizerOverrides, (val: LanguageTokenizerComponents) =>
+    generateMatcher(val)
+  );
 
-export function getTokenMatcher(languageId: string): RegExp {
+export function getMatcher(languageId: string): Matcher {
   return (
     tokenMatchersForLanguage[languageId as SupportedLanguageId] ??
-    defaultTokenMatcher
+    defaultMatcher
   );
 }
 
@@ -117,10 +134,5 @@ export function tokenize<T>(
   languageId: string,
   mapfn: (v: RegExpMatchArray, k: number) => T
 ) {
-  return matchAll(text, getTokenMatcher(languageId), mapfn);
-}
-
-//https://stackoverflow.com/a/6969486
-function escapeRegExp(string: string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+  return matchAll(text, getMatcher(languageId).tokenMatcher, mapfn);
 }

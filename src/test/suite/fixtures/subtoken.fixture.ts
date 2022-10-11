@@ -65,7 +65,27 @@ export const subtokenFixture: Fixture[] = [
     expectedOutput: ["mock", "API", "Client", "Factory"],
   },
   {
-    input: "mockAPIClient123Factory",
-    expectedOutput: ["mock", "API", "Client", "123", "Factory"],
+    input: "mockAPIClient123FactoryV1",
+    expectedOutput: ["mock", "API", "Client", "123", "Factory", "V", "1"],
+  },
+  {
+    input: "mock_api_client_123_factory_v1",
+    expectedOutput: ["mock", "api", "client", "123", "factory", "v1"],
+  },
+  {
+    input: "v1",
+    expectedOutput: ["v", "1"],
+  },
+  {
+    input: "aaBbÄä",
+    expectedOutput: ["aa", "Bb", "Ää"],
+  },
+  {
+    input: "apiV1 api_v_1",
+    expectedOutput: ["api", "V", "1", "api", "v", "1"],
+  },
+  {
+    input: "_quickBrownFox_",
+    expectedOutput: ["quick", "Brown", "Fox"],
   },
 ];
