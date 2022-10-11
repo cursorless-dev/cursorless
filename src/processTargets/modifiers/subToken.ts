@@ -1,7 +1,7 @@
 import { getMatcher } from "../../core/tokenizer";
 import { matchText } from "../../util/regex";
 
-const camelRegex = /\p{Lu}?\p{Ll}+|\p{Lu}+(?!\p{Ll})|\d+/gu;
+const camelRegex = /\p{Lu}?\p{Ll}+|\p{Lu}+(?!\p{Ll})|\p{N}+/gu;
 
 export function subWordSplitter(text: string, languageId: string) {
   // First split on identifiers. The input text can contain multiple
