@@ -11,7 +11,7 @@ import { matchAll } from "../../../util/regex";
 import { ModifierStage } from "../../PipelineStages.types";
 import { PlainTarget, SubTokenWordTarget } from "../../targets";
 import { SUBWORD_MATCHER } from "../subToken";
-import { getTokenRangeForSelection } from "./TokenStage";
+import { getTokenRangeForSelection } from "../scopeHandlers/TokenScopeHandler";
 
 abstract class SubTokenStage implements ModifierStage {
   constructor(

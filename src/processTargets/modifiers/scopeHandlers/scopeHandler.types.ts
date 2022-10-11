@@ -72,10 +72,6 @@ export interface ScopeHandler {
    * the given position return null.
    * @param position The position from which to expand
    */
-  getScopeContainingPosition(
-    editor: TextEditor,
-    position: Position
-  ): Scope | null;
 
   /**
    * Returns the iteration scopes containing {@link position}, in order of
@@ -96,8 +92,10 @@ export interface ScopeHandler {
    * two is just an optimization.
    * @param position The position from which to expand
    */
-  getIterationScopesContainingPosition(
+  getTargetsIntersectingRange(editor: TextEditor, range: Range): Target[];
+
+  getTargetsInIterationScopeContainingRange(
     editor: TextEditor,
-    position: Position
-  ): IterationScope[];
+    range: Range
+  ): Target[];
 }

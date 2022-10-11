@@ -1,15 +1,8 @@
 import { Target } from "../../../typings/target.types";
-import {
-  ContainingScopeModifier,
-  SimpleScopeType,
-} from "../../../typings/targetDescriptor.types";
+import { ContainingScopeModifier } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
-
-export interface SimpleContainingScopeModifier extends ContainingScopeModifier {
-  scopeType: SimpleScopeType;
-}
 
 /**
  * Expands from input target to the smallest containing scope for the given
@@ -17,7 +10,7 @@ export interface SimpleContainingScopeModifier extends ContainingScopeModifier {
  * scope-specific logic, eg tree-sitter.
  */
 export default class ContainingScopeStage implements ModifierStage {
-  constructor(private modifier: SimpleContainingScopeModifier) {}
+  constructor(private modifier: ContainingScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
     // TODO: Instantiate the right scope handler based on the scope type and
