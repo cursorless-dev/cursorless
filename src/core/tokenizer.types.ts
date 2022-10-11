@@ -12,7 +12,7 @@ export interface LanguageTokenizerComponents {
 
   /**
    * These are allowable inside identifiers, and act to separate words in the
-   * identifier.  They are raw strings, and will be regex-escaped.
+   * identifier. They are raw strings, and will be regex-escaped.
    */
   identifierWordDelimiters: string[];
 
