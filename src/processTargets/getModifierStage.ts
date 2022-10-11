@@ -5,6 +5,10 @@ import {
   Modifier,
 } from "../typings/targetDescriptor.types";
 import CascadingStage from "./modifiers/CascadingStage";
+import {
+  KeepContentFilterStage,
+  KeepEmptyFilterStage,
+} from "./modifiers/FilterStages";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import {
   ExcludeInteriorStage,
@@ -65,6 +69,10 @@ export default (modifier: Modifier): ModifierStage => {
       return new OrdinalScopeStage(modifier);
     case "relativeScope":
       return new RelativeScopeStage(modifier);
+    case "keepContentFilter":
+      return new KeepContentFilterStage(modifier);
+    case "keepEmptyFilter":
+      return new KeepEmptyFilterStage(modifier);
     case "cascading":
       return new CascadingStage(modifier);
     case "modifyIfUntyped":

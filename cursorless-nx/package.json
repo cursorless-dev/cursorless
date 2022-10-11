@@ -61,6 +61,7 @@
 		"react-dom": "18.1.0",
 		"react-helmet": "^6.1.0",
 		"react-player": "^2.10.1",
+		"react-string-replace": "^1.1.0",
 		"react-use": "^17.4.0",
 		"regenerator-runtime": "0.13.7",
 		"tailwindcss": "^3.0.24",

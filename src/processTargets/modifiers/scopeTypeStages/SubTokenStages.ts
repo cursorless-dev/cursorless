@@ -7,17 +7,14 @@ import {
   EveryScopeModifier,
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
-import { matchAll } from "../../../util/regex";
+import { MatchedText, matchText } from "../../../util/regex";
 import { ModifierStage } from "../../PipelineStages.types";
 import { PlainTarget, SubTokenWordTarget } from "../../targets";
-import { SUBWORD_MATCHER } from "../subToken";
+import { subWordSplitter } from "../subToken";
 import { getTokenRangeForSelection } from "./TokenStage";
 
 abstract class SubTokenStage implements ModifierStage {
-  constructor(
-    private modifier: ContainingScopeModifier | EveryScopeModifier,
-    private regex: RegExp
-  ) {}
+  constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const { document } = target.editor;
@@ -27,14 +24,12 @@ abstract class SubTokenStage implements ModifierStage {
     );
     const text = document.getText(tokenRange);
     const offset = document.offsetAt(tokenRange.start);
-
-    const contentRanges = matchAll<Range>(
-      text,
-      this.regex,
+    const matches = this.getMatchedText(text, document.languageId);
+    const contentRanges = matches.map(
       (match) =>
         new Range(
-          document.positionAt(offset + match.index!),
-          document.positionAt(offset + match.index! + match[0].length)
+          document.positionAt(offset + match.index),
+          document.positionAt(offset + match.index + match.text.length)
         )
     );
 
@@ -108,6 +103,14 @@ abstract class SubTokenStage implements ModifierStage {
   }
 
   /**
+   * Return matches for {@link text}
+   */
+  protected abstract getMatchedText(
+    text: string,
+    languageId: string
+  ): MatchedText[];
+
+  /**
    * Create one target for each element of {@link contentRanges}
    */
   protected abstract createTargetsFromRanges(
@@ -119,7 +122,11 @@ abstract class SubTokenStage implements ModifierStage {
 
 export class WordStage extends SubTokenStage {
   constructor(modifier: ContainingScopeModifier | EveryScopeModifier) {
-    super(modifier, SUBWORD_MATCHER);
+    super(modifier);
+  }
+
+  protected getMatchedText(text: string, languageId: string): MatchedText[] {
+    return subWordSplitter(text, languageId);
   }
 
   protected createTargetsFromRanges(
@@ -166,7 +173,11 @@ export class WordStage extends SubTokenStage {
 
 export class CharacterStage extends SubTokenStage {
   constructor(modifier: ContainingScopeModifier | EveryScopeModifier) {
-    super(modifier, GRAPHEME_SPLIT_REGEX);
+    super(modifier);
+  }
+
+  protected getMatchedText(text: string): MatchedText[] {
+    return matchText(text, GRAPHEME_SPLIT_REGEX);
   }
 
   protected createTargetsFromRanges(

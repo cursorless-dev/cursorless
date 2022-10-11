@@ -1,10 +1,10 @@
 import { concat, flatten, maxBy, min } from "lodash";
 import * as vscode from "vscode";
-import { HatStyleName } from "../core/hatStyles";
-import { getTokenMatcher } from "../core/tokenizer";
 import Decorations from "../core/Decorations";
+import { HatStyleName } from "../core/hatStyles";
 import { IndividualHatMap } from "../core/IndividualHatMap";
 import { TokenGraphemeSplitter } from "../core/TokenGraphemeSplitter";
+import { getMatcher } from "../core/tokenizer";
 import { Token } from "../typings/Types";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator } from "./getTokenComparator";
@@ -44,9 +44,12 @@ export function addDecorationsToEditors(
             expansionBehavior: {
               start: {
                 type: "regex",
-                regex: getTokenMatcher(languageId),
+                regex: getMatcher(languageId).tokenMatcher,
               },
-              end: { type: "regex", regex: getTokenMatcher(languageId) },
+              end: {
+                type: "regex",
+                regex: getMatcher(languageId).tokenMatcher,
+              },
             },
           }))
         )
