@@ -18,8 +18,8 @@ export default class TokenScopeHandler extends ScopeHandler {
     );
   }
 
-  protected createTarget(parameters: object): Target {
-    return new TokenTarget(parameters as CommonTargetParameters);
+  protected createTarget(parameters: CommonTargetParameters): Target {
+    return new TokenTarget(parameters);
   }
 
   protected getContainingIndicesForPosition(

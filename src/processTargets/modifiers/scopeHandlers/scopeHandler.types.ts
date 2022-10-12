@@ -4,6 +4,7 @@
 import { Position, Range, TextEditor } from "vscode";
 import { Target } from "../../../typings/target.types";
 import { ScopeType } from "../../../typings/targetDescriptor.types";
+import { CommonTargetParameters } from "../../targets";
 
 // /**
 //  * Represents a scope, which is a specific instantiation of a scope type,
@@ -114,9 +115,13 @@ export interface IterationScope {
   containingIndices: ContainingIndices | undefined;
 }
 
+export interface TargetParameters {
+  contentRange: Range;
+}
+
 export interface Scope {
   domain: Range;
-  targetParameters: object;
+  targetParameters: TargetParameters;
 }
 
 export abstract class ScopeHandler {
@@ -212,5 +217,5 @@ export abstract class ScopeHandler {
     contentRange: Range
   ): Scope[];
 
-  protected abstract createTarget(parameters: object): Target;
+  protected abstract createTarget(parameters: CommonTargetParameters): Target;
 }
