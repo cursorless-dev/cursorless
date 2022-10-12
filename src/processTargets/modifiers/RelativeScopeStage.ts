@@ -3,6 +3,7 @@ import { Range } from "vscode";
 import { Target } from "../../typings/target.types";
 import { RelativeScopeModifier } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
+import getScopeHandler from "../getScopeHandler";
 import { ModifierStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
 import {
@@ -15,8 +16,42 @@ export class RelativeScopeStage implements ModifierStage {
   constructor(private modifier: RelativeScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const isForward = this.modifier.direction === "forward";
+    switch (this.modifier.scopeType.type) {
+      case "token":
+        return this.runNew(target);
+      default:
+        return this.runLegacy(context, target);
+    }
+  }
 
+  private runNew(target: Target): Target[] {
+    const scopeHandler = getScopeHandler(this.modifier.scopeType);
+    const iterationScope = scopeHandler.run(
+      target.editor,
+      target.contentRange,
+      target.isReversed,
+      false
+    );
+
+    const intersectingIndices =
+      iterationScope.containingIndices != null
+        ? [
+            iterationScope.containingIndices.start,
+            iterationScope.containingIndices.end,
+          ]
+        : [];
+
+    return this.calculateIndicesAndCreateTarget(
+      target,
+      iterationScope.targets,
+      intersectingIndices
+    );
+  }
+
+  private runLegacy(
+    context: ProcessedTargetsContext,
+    target: Target
+  ): Target[] {
     /**
      * A list of targets in the iteration scope for the input {@link target}.
      * Note that we convert {@link target} to have no explicit range so that we
@@ -32,11 +67,31 @@ export class RelativeScopeStage implements ModifierStage {
       this.modifier.scopeType
     );
 
+    const intersectingIndices = getIntersectingTargetIndices(
+      target.contentRange,
+      targets
+    );
+
+    return this.calculateIndicesAndCreateTarget(
+      target,
+      targets,
+      intersectingIndices
+    );
+  }
+
+  private calculateIndicesAndCreateTarget(
+    target: Target,
+    targets: Target[],
+    intersectingIndices: number[]
+  ): Target[] {
+    const isForward = this.modifier.direction === "forward";
+
     /** Proximal index. This is the index closest to the target content range. */
     const proximalIndex = this.computeProximalIndex(
       target.contentRange,
       targets,
-      isForward
+      isForward,
+      intersectingIndices
     );
 
     /** Index of range farther from input target */
@@ -69,14 +124,10 @@ export class RelativeScopeStage implements ModifierStage {
   private computeProximalIndex(
     inputTargetRange: Range,
     targets: Target[],
-    isForward: boolean
+    isForward: boolean,
+    intersectingIndices: number[]
   ) {
     const includeIntersectingScopes = this.modifier.offset === 0;
-
-    const intersectingIndices = getIntersectingTargetIndices(
-      inputTargetRange,
-      targets
-    );
 
     if (intersectingIndices.length === 0) {
       const adjacentTargetIndex = isForward
