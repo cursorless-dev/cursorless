@@ -6,7 +6,7 @@ import { ProcessedTargetsContext } from "../../typings/Types";
 import getScopeHandler from "../getScopeHandler";
 import { ModifierStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
-import { ContainedIndices } from "./scopeHandlers/scopeHandler.types";
+import { ContainingIndices } from "./scopeHandlers/scopeHandler.types";
 import {
   createRangeTargetFromIndices,
   getEveryScopeTargets,
@@ -75,7 +75,7 @@ export class RelativeScopeStage implements ModifierStage {
   private calculateIndicesAndCreateTarget(
     target: Target,
     targets: Target[],
-    containingIndices: ContainedIndices | undefined
+    containingIndices: ContainingIndices | undefined
   ): Target[] {
     const isForward = this.modifier.direction === "forward";
 
@@ -118,7 +118,7 @@ export class RelativeScopeStage implements ModifierStage {
     inputTargetRange: Range,
     targets: Target[],
     isForward: boolean,
-    containingIndices: ContainedIndices | undefined
+    containingIndices: ContainingIndices | undefined
   ) {
     const includeIntersectingScopes = this.modifier.offset === 0;
 
@@ -200,7 +200,7 @@ class TooFewScopesError extends Error {
 function getContainingIndices(
   inputTargetRange: Range,
   targets: Target[]
-): ContainedIndices | undefined {
+): ContainingIndices | undefined {
   const targetsWithIntersection = targets
     .map((t, i) => ({
       index: i,

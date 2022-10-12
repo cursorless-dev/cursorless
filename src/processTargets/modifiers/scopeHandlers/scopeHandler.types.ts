@@ -104,14 +104,14 @@ import { ScopeType } from "../../../typings/targetDescriptor.types";
 //   ): Target[];
 // },
 
-export interface ContainedIndices {
+export interface ContainingIndices {
   start: number;
   end: number;
 }
 
 export interface IterationScope {
   targets: Target[];
-  containingIndices: ContainedIndices | undefined;
+  containingIndices: ContainingIndices | undefined;
 }
 
 export abstract class ScopeHandler {
@@ -143,7 +143,7 @@ export abstract class ScopeHandler {
   protected getContainingIndicesForPosition(
     position: Position,
     targets: Target[]
-  ): ContainedIndices | undefined {
+  ): ContainingIndices | undefined {
     const mappings = targets
       .map((target, index) => ({ range: target.contentRange, index }))
       .filter((mapping) => mapping.range.contains(position));
@@ -160,7 +160,7 @@ export abstract class ScopeHandler {
   protected getContainingIndicesForRange(
     range: Range,
     targets: Target[]
-  ): ContainedIndices | undefined {
+  ): ContainingIndices | undefined {
     const mappings = targets
       .map((target, index) => ({ range: target.contentRange, index }))
       .filter((mapping) => {

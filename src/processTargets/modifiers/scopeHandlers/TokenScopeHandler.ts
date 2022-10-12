@@ -4,7 +4,7 @@ import { Target } from "../../../typings/target.types";
 import { getTokensInRange } from "../../../util/getTokensInRange";
 import { expandToFullLine } from "../../../util/rangeUtils";
 import { TokenTarget } from "../../targets";
-import { ContainedIndices, ScopeHandler } from "./scopeHandler.types";
+import { ContainingIndices, ScopeHandler } from "./scopeHandler.types";
 
 export default class TokenScopeHandler extends ScopeHandler {
   protected getEveryTarget(
@@ -35,7 +35,7 @@ export default class TokenScopeHandler extends ScopeHandler {
   protected getContainingIndicesForPosition(
     position: Position,
     targets: Target[]
-  ): ContainedIndices | undefined {
+  ): ContainingIndices | undefined {
     const mappings = targets
       .map((target, index) => ({ target, index }))
       .filter((mapping) => mapping.target.contentRange.contains(position));
