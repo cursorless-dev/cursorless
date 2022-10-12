@@ -8,21 +8,24 @@ import {
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { MatchedText, matchText } from "../../../util/regex";
+import getModifierStage from "../../getModifierStage";
 import { ModifierStage } from "../../PipelineStages.types";
 import { PlainTarget, SubTokenWordTarget } from "../../targets";
-import { getTokenRangeForSelection } from "../scopeHandlers/TokenScopeHandler";
+
 import { subWordSplitter } from "../subToken";
 
 abstract class SubTokenStage implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
+    const tokenStage = getModifierStage({
+      type: "containingScope",
+      scopeType: { type: "token" },
+    });
+    const tokenTarget = tokenStage.run(context, target)[0];
     const { document } = target.editor;
-    const tokenRange = getTokenRangeForSelection(
-      target.editor,
-      target.contentRange
-    );
-    const text = document.getText(tokenRange);
+    const tokenRange = tokenTarget.contentRange;
+    const text = tokenTarget.contentText;
     const offset = document.offsetAt(tokenRange.start);
     const matches = this.getMatchedText(text, document.languageId);
     const contentRanges = matches.map(

@@ -1,7 +1,7 @@
 // import { Position, Range, TextEditor } from "vscode";
 // import { Target } from "../../../typings/target.types";
 
-import { Range, TextEditor } from "vscode";
+import { Position, Range, TextEditor } from "vscode";
 import { Target } from "../../../typings/target.types";
 import { ScopeType } from "../../../typings/targetDescriptor.types";
 
@@ -104,12 +104,14 @@ import { ScopeType } from "../../../typings/targetDescriptor.types";
 //   ): Target[];
 // },
 
+export interface ContainedIndices {
+  start: number;
+  end: number;
+}
+
 export interface IterationScope {
   targets: Target[];
-  containingIndices?: {
-    start: number;
-    end: number;
-  };
+  containingIndices: ContainedIndices | undefined;
 }
 
 export abstract class ScopeHandler {
@@ -128,12 +130,62 @@ export abstract class ScopeHandler {
       hasExplicitRange
     );
 
+    const containingIndices = contentRange.isEmpty
+      ? this.getContainingIndicesForPosition(contentRange.start, targets)
+      : this.getContainingIndicesForRange(contentRange, targets);
+
     return {
       targets,
+      containingIndices,
     };
   }
 
-  abstract getEveryTarget(
+  protected getContainingIndicesForPosition(
+    position: Position,
+    targets: Target[]
+  ): ContainedIndices | undefined {
+    const mappings = targets
+      .map((target, index) => ({ range: target.contentRange, index }))
+      .filter((mapping) => mapping.range.contains(position));
+
+    if (mappings.length === 0) {
+      return undefined;
+    }
+
+    const index = mappings.at(-1)!.index;
+
+    return { start: index, end: index };
+  }
+
+  protected getContainingIndicesForRange(
+    range: Range,
+    targets: Target[]
+  ): ContainedIndices | undefined {
+    const mappings = targets
+      .map((target, index) => ({ range: target.contentRange, index }))
+      .filter((mapping) => {
+        const intersection = mapping.range.intersection(range);
+        return intersection != null && !intersection.isEmpty;
+      });
+
+    if (mappings.length === 0) {
+      return undefined;
+    }
+
+    return { start: mappings[0].index, end: mappings.at(-1)!.index };
+  }
+
+  protected filterRangesByIterationScope(
+    iterationScope: Range,
+    ranges: Range[]
+  ): Range[] {
+    return ranges.filter((r) => {
+      const intersection = r.intersection(iterationScope);
+      return intersection != null && !intersection.isEmpty;
+    });
+  }
+
+  protected abstract getEveryTarget(
     editor: TextEditor,
     contentRange: Range,
     isReversed: boolean,
