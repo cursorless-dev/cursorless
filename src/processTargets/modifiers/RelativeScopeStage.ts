@@ -6,6 +6,7 @@ import { ProcessedTargetsContext } from "../../typings/Types";
 import getScopeHandler from "../getScopeHandler";
 import { ModifierStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
+import { ContainedIndices } from "./scopeHandlers/scopeHandler.types";
 import {
   createRangeTargetFromIndices,
   getEveryScopeTargets,
@@ -33,18 +34,10 @@ export class RelativeScopeStage implements ModifierStage {
       false
     );
 
-    const intersectingIndices =
-      iterationScope.containingIndices != null
-        ? [
-            iterationScope.containingIndices.start,
-            iterationScope.containingIndices.end,
-          ]
-        : [];
-
     return this.calculateIndicesAndCreateTarget(
       target,
       iterationScope.targets,
-      intersectingIndices
+      iterationScope.containingIndices
     );
   }
 
@@ -67,7 +60,7 @@ export class RelativeScopeStage implements ModifierStage {
       this.modifier.scopeType
     );
 
-    const intersectingIndices = getIntersectingTargetIndices(
+    const containingIndices = getContainingIndices(
       target.contentRange,
       targets
     );
@@ -75,14 +68,14 @@ export class RelativeScopeStage implements ModifierStage {
     return this.calculateIndicesAndCreateTarget(
       target,
       targets,
-      intersectingIndices
+      containingIndices
     );
   }
 
   private calculateIndicesAndCreateTarget(
     target: Target,
     targets: Target[],
-    intersectingIndices: number[]
+    containingIndices: ContainedIndices | undefined
   ): Target[] {
     const isForward = this.modifier.direction === "forward";
 
@@ -91,7 +84,7 @@ export class RelativeScopeStage implements ModifierStage {
       target.contentRange,
       targets,
       isForward,
-      intersectingIndices
+      containingIndices
     );
 
     /** Index of range farther from input target */
@@ -125,11 +118,11 @@ export class RelativeScopeStage implements ModifierStage {
     inputTargetRange: Range,
     targets: Target[],
     isForward: boolean,
-    intersectingIndices: number[]
+    containingIndices: ContainedIndices | undefined
   ) {
     const includeIntersectingScopes = this.modifier.offset === 0;
 
-    if (intersectingIndices.length === 0) {
+    if (containingIndices == null) {
       const adjacentTargetIndex = isForward
         ? targets.findIndex((t) =>
             t.contentRange.start.isAfter(inputTargetRange.start)
@@ -158,18 +151,20 @@ export class RelativeScopeStage implements ModifierStage {
     // If we've made it here, then there are scopes intersecting with
     // {@link inputTargetRange}
 
-    const intersectingStartIndex = intersectingIndices[0];
-    const intersectingEndIndex = intersectingIndices.at(-1)!;
+    const intersectingStartIndex = containingIndices.start;
+    const intersectingEndIndex = containingIndices.end;
 
     if (includeIntersectingScopes) {
       // Number of scopes intersecting with input target is already greater than
       // desired length; throw error.  This occurs if user says "two funks", and
       // they have 3 functions selected.  Not clear what to do in that case so
       // we throw error.
-      if (intersectingIndices.length > this.modifier.length) {
+      const intersectingLength =
+        intersectingEndIndex - intersectingStartIndex + 1;
+      if (intersectingLength > this.modifier.length) {
         throw new TooFewScopesError(
           this.modifier.length,
-          intersectingIndices.length,
+          intersectingLength,
           this.modifier.scopeType.type
         );
       }
@@ -202,10 +197,10 @@ class TooFewScopesError extends Error {
 
 /** Get indices of all targets in {@link targets} intersecting with
  * {@link inputTargetRange} */
-function getIntersectingTargetIndices(
+function getContainingIndices(
   inputTargetRange: Range,
   targets: Target[]
-): number[] {
+): ContainedIndices | undefined {
   const targetsWithIntersection = targets
     .map((t, i) => ({
       index: i,
@@ -216,14 +211,25 @@ function getIntersectingTargetIndices(
   // Input target range is empty. Use rightmost target and accept weak
   // containment.
   if (inputTargetRange.isEmpty) {
-    return targetsWithIntersection.slice(-1).map((t) => t.index);
+    if (targetsWithIntersection.length === 0) {
+      return undefined;
+    }
+    const index = targetsWithIntersection.at(-1)!.index;
+    return { start: index, end: index };
   }
 
   // Input target range is not empty. Use all targets with non empty
   // intersections.
-  return targetsWithIntersection
+  const targetsWithNonEmptyIntersection = targetsWithIntersection
     .filter((t) => !t.intersection!.isEmpty)
     .map((t) => t.index);
+  if (targetsWithNonEmptyIntersection.length === 0) {
+    return undefined;
+  }
+  return {
+    start: targetsWithNonEmptyIntersection[0],
+    end: targetsWithNonEmptyIntersection.at(-1)!,
+  };
 }
 
 function createTargetWithoutExplicitRange(target: Target) {
