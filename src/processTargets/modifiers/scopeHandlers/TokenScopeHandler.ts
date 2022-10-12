@@ -3,33 +3,23 @@ import { getMatcher } from "../../../core/tokenizer";
 import { Target } from "../../../typings/target.types";
 import { getTokensInRange } from "../../../util/getTokensInRange";
 import { expandToFullLine } from "../../../util/rangeUtils";
-import { TokenTarget } from "../../targets";
-import { ContainingIndices, ScopeHandler } from "./scopeHandler.types";
+import { CommonTargetParameters, TokenTarget } from "../../targets";
+import { ContainingIndices, Scope, ScopeHandler } from "./scopeHandler.types";
 
 export default class TokenScopeHandler extends ScopeHandler {
-  protected getEveryTarget(
-    editor: TextEditor,
-    contentRange: Range,
-    isReversed: boolean,
-    hasExplicitRange: boolean
-  ): Target[] {
-    const tokenRanges = getTokensInRange(
-      editor,
-      expandToFullLine(editor, contentRange)
-    ).map(({ range }) => range);
-
-    const filteredTokenRanges = hasExplicitRange
-      ? this.filterRangesByIterationScope(contentRange, tokenRanges)
-      : tokenRanges;
-
-    return filteredTokenRanges.map(
-      (contentRange) =>
-        new TokenTarget({
-          editor,
-          isReversed,
-          contentRange,
-        })
+  protected getEveryScope(editor: TextEditor, contentRange: Range): Scope[] {
+    return getTokensInRange(editor, expandToFullLine(editor, contentRange)).map(
+      (token) => ({
+        domain: token.range,
+        targetParameters: {
+          contentRange: token.range,
+        },
+      })
     );
+  }
+
+  protected createTarget(parameters: object): Target {
+    return new TokenTarget(parameters as CommonTargetParameters);
   }
 
   protected getContainingIndicesForPosition(

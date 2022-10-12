@@ -114,6 +114,11 @@ export interface IterationScope {
   containingIndices: ContainingIndices | undefined;
 }
 
+export interface Scope {
+  domain: Range;
+  targetParameters: object;
+}
+
 export abstract class ScopeHandler {
   constructor(protected scopeType: ScopeType) {}
 
@@ -140,24 +145,34 @@ export abstract class ScopeHandler {
     };
   }
 
-  protected getContainingIndicesForPosition(
-    position: Position,
-    targets: Target[]
-  ): ContainingIndices | undefined {
-    const mappings = targets
-      .map((target, index) => ({ range: target.contentRange, index }))
-      .filter((mapping) => mapping.range.contains(position));
+  private getEveryTarget(
+    editor: TextEditor,
+    contentRange: Range,
+    isReversed: boolean,
+    hasExplicitRange: boolean
+  ): Target[] {
+    const scopes = this.getEveryScope(editor, contentRange);
 
-    if (mappings.length === 0) {
-      return undefined;
-    }
+    const filteredScopes = hasExplicitRange
+      ? this.filterScopesByIterationScope(contentRange, scopes)
+      : scopes;
 
-    const index = mappings.at(-1)!.index;
-
-    return { start: index, end: index };
+    return filteredScopes.map((scope) =>
+      this.createTarget({ ...scope.targetParameters, editor, isReversed })
+    );
   }
 
-  protected getContainingIndicesForRange(
+  private filterScopesByIterationScope(
+    iterationScope: Range,
+    scopes: Scope[]
+  ): Scope[] {
+    return scopes.filter((scope) => {
+      const intersection = scope.domain.intersection(iterationScope);
+      return intersection != null && !intersection.isEmpty;
+    });
+  }
+
+  private getContainingIndicesForRange(
     range: Range,
     targets: Target[]
   ): ContainingIndices | undefined {
@@ -175,20 +190,27 @@ export abstract class ScopeHandler {
     return { start: mappings[0].index, end: mappings.at(-1)!.index };
   }
 
-  protected filterRangesByIterationScope(
-    iterationScope: Range,
-    ranges: Range[]
-  ): Range[] {
-    return ranges.filter((r) => {
-      const intersection = r.intersection(iterationScope);
-      return intersection != null && !intersection.isEmpty;
-    });
+  protected getContainingIndicesForPosition(
+    position: Position,
+    targets: Target[]
+  ): ContainingIndices | undefined {
+    const mappings = targets
+      .map((target, index) => ({ range: target.contentRange, index }))
+      .filter((mapping) => mapping.range.contains(position));
+
+    if (mappings.length === 0) {
+      return undefined;
+    }
+
+    const index = mappings.at(-1)!.index;
+
+    return { start: index, end: index };
   }
 
-  protected abstract getEveryTarget(
+  protected abstract getEveryScope(
     editor: TextEditor,
-    contentRange: Range,
-    isReversed: boolean,
-    hasExplicitRange: boolean
-  ): Target[];
+    contentRange: Range
+  ): Scope[];
+
+  protected abstract createTarget(parameters: object): Target;
 }
