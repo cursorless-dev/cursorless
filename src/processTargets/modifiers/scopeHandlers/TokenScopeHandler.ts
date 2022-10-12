@@ -63,7 +63,7 @@ export default class TokenScopeHandler extends ScopeHandler {
           return 1;
         }
         // Second sort on length
-        const lengthDiff = textA.length - textB.length;
+        const lengthDiff = textB.length - textA.length;
         if (lengthDiff !== 0) {
           return lengthDiff;
         }
