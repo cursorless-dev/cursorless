@@ -37,3 +37,15 @@ export function matchAll<T>(
 ) {
   return Array.from(text.matchAll(regex), mapfn);
 }
+
+export interface MatchedText {
+  index: number;
+  text: string;
+}
+
+export function matchText(text: string, regex: RegExp): MatchedText[] {
+  return matchAll(text, regex, (match) => ({
+    index: match.index!,
+    text: match[0],
+  }));
+}

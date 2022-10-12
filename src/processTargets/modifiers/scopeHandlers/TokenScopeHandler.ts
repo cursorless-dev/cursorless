@@ -1,63 +1,105 @@
 import { Range, TextEditor } from "vscode";
 import { Target } from "../../../typings/target.types";
-import {
-  ContainingScopeModifier,
-  EveryScopeModifier
-} from "../../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getTokensInRange, PartialToken } from "../../../util/getTokensInRange";
 import { TokenTarget } from "../../targets";
 import { ScopeHandler } from "./scopeHandler.types";
 
-export default class TokenScopeHandler implements ScopeHandler {
-  constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
-
-  run(context: ProcessedTargetsContext, target: Target): TokenTarget[] {
-    if (this.modifier.type === "everyScope") {
-      return this.getEveryTarget(context, target);
-    }
-    return [this.getSingleTarget(target)];
-  }
-
-  private getEveryTarget(
-    context: ProcessedTargetsContext,
-    target: Target
-  ): TokenTarget[] {
-    const { contentRange, editor } = target;
-    const start = target.hasExplicitRange
+export default class TokenScopeHandler extends ScopeHandler {
+  getEveryTarget(
+    editor: TextEditor,
+    contentRange: Range,
+    isReversed: boolean,
+    hasExplicitRange: boolean
+  ): Target[] {
+    const start = hasExplicitRange
       ? contentRange.start
       : editor.document.lineAt(contentRange.start).range.start;
-    const end = target.hasExplicitRange
+    const end = hasExplicitRange
       ? contentRange.end
       : editor.document.lineAt(contentRange.end).range.end;
     const range = new Range(start, end);
 
     const targets = getTokensInRange(editor, range).map(({ range }) =>
-      this.getTargetFromRange(target, range)
+      this.getTargetFromRange(editor, isReversed, range)
     );
-
-    if (targets.length === 0) {
-      throw new Error(
-        `Couldn't find containing ${this.modifier.scopeType.type}`
-      );
-    }
 
     return targets;
   }
 
-  private getSingleTarget(target: Target): TokenTarget {
-    return this.getTargetFromRange(target, target.contentRange);
-  }
-
-  private getTargetFromRange(target: Target, range: Range): TokenTarget {
-    const contentRange = getTokenRangeForSelection(target.editor, range);
+  private getTargetFromRange(
+    editor: TextEditor,
+    isReversed: boolean,
+    range: Range
+  ): TokenTarget {
+    const contentRange = getTokenRangeForSelection(editor, range);
     return new TokenTarget({
-      editor: target.editor,
-      isReversed: target.isReversed,
+      editor: editor,
+      isReversed: isReversed,
       contentRange,
     });
   }
 }
+
+// import { Range, TextEditor } from "vscode";
+// import { Target } from "../../../typings/target.types";
+// import {
+//   ContainingScopeModifier,
+//   EveryScopeModifier
+// } from "../../../typings/targetDescriptor.types";
+// import { ProcessedTargetsContext } from "../../../typings/Types";
+// import { getTokensInRange, PartialToken } from "../../../util/getTokensInRange";
+// import { TokenTarget } from "../../targets";
+// import { ScopeHandler } from "./scopeHandler.types";
+
+// export default class TokenScopeHandler implements ScopeHandler {
+//   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
+
+//   run(context: ProcessedTargetsContext, target: Target): TokenTarget[] {
+//     if (this.modifier.type === "everyScope") {
+//       return this.getEveryTarget(context, target);
+//     }
+//     return [this.getSingleTarget(target)];
+//   }
+
+//   private getEveryTarget(
+//     context: ProcessedTargetsContext,
+//     target: Target
+//   ): TokenTarget[] {
+//     const { contentRange, editor } = target;
+//     const start = target.hasExplicitRange
+//       ? contentRange.start
+//       : editor.document.lineAt(contentRange.start).range.start;
+//     const end = target.hasExplicitRange
+//       ? contentRange.end
+//       : editor.document.lineAt(contentRange.end).range.end;
+//     const range = new Range(start, end);
+
+//     const targets = getTokensInRange(editor, range).map(({ range }) =>
+//       this.getTargetFromRange(target, range)
+//     );
+
+//     if (targets.length === 0) {
+//       throw new Error(
+//         `Couldn't find containing ${this.modifier.scopeType.type}`
+//       );
+//     }
+
+//     return targets;
+//   }
+
+//   private getSingleTarget(target: Target): TokenTarget {
+//     return this.getTargetFromRange(target, target.contentRange);
+//   }
+
+//   private getTargetFromRange(target: Target, range: Range): TokenTarget {
+//     const contentRange = getTokenRangeForSelection(target.editor, range);
+//     return new TokenTarget({
+//       editor: target.editor,
+//       isReversed: target.isReversed,
+//       contentRange,
+//     });
+//   }
+// }
 
 /**
  * Given a selection returns a new range which contains the tokens
