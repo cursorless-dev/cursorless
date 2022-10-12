@@ -8,14 +8,16 @@ import { ContainingIndices, Scope, ScopeHandler } from "./scopeHandler.types";
 
 export default class TokenScopeHandler extends ScopeHandler {
   protected getEveryScope(editor: TextEditor, contentRange: Range): Scope[] {
-    return getTokensInRange(editor, expandToFullLine(editor, contentRange)).map(
-      (token) => ({
-        domain: token.range,
-        targetParameters: {
-          contentRange: token.range,
-        },
-      })
+    const tokens = getTokensInRange(
+      editor,
+      expandToFullLine(editor, contentRange)
     );
+    return tokens.map((token) => ({
+      domain: token.range,
+      targetParameters: {
+        contentRange: token.range,
+      },
+    }));
   }
 
   protected createTarget(parameters: CommonTargetParameters): Target {

@@ -1,6 +1,3 @@
-// import { Position, Range, TextEditor } from "vscode";
-// import { Target } from "../../../typings/target.types";
-
 import { Position, Range, TextEditor } from "vscode";
 import { Target } from "../../../typings/target.types";
 import { ScopeType } from "../../../typings/targetDescriptor.types";
