@@ -169,6 +169,8 @@ export default class CommandRunner {
       console.error(err.message);
       console.error(err.stack);
       throw err;
+    } finally {
+      this.graph.testCaseRecorder.finallyHook();
     }
   }
 
