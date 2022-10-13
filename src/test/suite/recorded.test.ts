@@ -1,5 +1,5 @@
-import * as assert from "assert";
 import { promises as fsp } from "fs";
+import { assert } from "chai";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import HatTokenMap from "../../core/HatTokenMap";
