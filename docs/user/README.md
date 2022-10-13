@@ -333,6 +333,14 @@ For example:
 
 If your cursor / mark is between two delimiters (not adjacent to one), then saying either "left" or "right" will cause cursorless to just expand to the nearest delimiters on either side, without trying to determine whether they are opening or closing delimiters.
 
+#### `"its"`
+
+The the modifier `"its"` is intended to be used as part of a compound target, and will tell Cursorless to use the previously mentioned mark in the compound target.
+
+For example, `"take air past end of its line"` selects the range from the token containing letter `a` to the end of the line containing the same token. This is in contrast from `"take air past end of line"` which selects the range from the token containing letter `a` to the end of the line containing the current selection.
+
+Another example is `"bring air to its value"`, which would cause the token with a hat over `a` to replace the return value containing it.
+
 ### Compound targets
 
 Individual targets can be combined into compound targets to make bigger targets or refer to multiple selections at the same time.

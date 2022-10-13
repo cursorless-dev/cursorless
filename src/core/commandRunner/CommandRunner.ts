@@ -10,7 +10,10 @@ import {
   SelectionWithEditor,
 } from "../../typings/Types";
 import { isString } from "../../util/type";
-import { canonicalizeAndValidateCommand } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
+import {
+  canonicalizeAndValidateCommand,
+  checkForOldInference,
+} from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
 import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
@@ -134,6 +137,10 @@ export default class CommandRunner {
           context
         );
       }
+
+      // NB: We do this once test recording has started so that we can capture
+      // warning.
+      checkForOldInference(this.graph, partialTargetDescriptors);
 
       const targets = processTargets(
         processedTargetsContext,
