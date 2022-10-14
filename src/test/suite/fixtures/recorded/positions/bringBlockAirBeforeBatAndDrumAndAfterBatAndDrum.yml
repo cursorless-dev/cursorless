@@ -66,16 +66,4 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-  thatMark:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 7}
-    - anchor: {line: 9, character: 4}
-      active: {line: 9, character: 7}
-    - anchor: {line: 7, character: 4}
-      active: {line: 7, character: 7}
-    - anchor: {line: 14, character: 4}
-      active: {line: 14, character: 7}
-  sourceMark:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 3}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [&ref_0 {type: containingScope, scopeType: {type: paragraph}}]}, {type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [*ref_0], positionModifier: {type: position, position: before}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, modifiers: [*ref_0], positionModifier: {type: position, position: before}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [*ref_0], positionModifier: {type: position, position: after}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, modifiers: [*ref_0], positionModifier: {type: position, position: after}}]}]

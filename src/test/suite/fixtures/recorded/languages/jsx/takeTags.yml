@@ -27,9 +27,4 @@ finalState:
       active: {line: 2, character: 27}
     - anchor: {line: 2, character: 30}
       active: {line: 2, character: 36}
-  thatMark:
-    - anchor: {line: 2, character: 2}
-      active: {line: 2, character: 27}
-    - anchor: {line: 2, character: 30}
-      active: {line: 2, character: 36}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: xmlBothTags}, insideOutsideType: inside}]

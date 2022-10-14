@@ -1,9 +1,9 @@
-import tempfile
 import webbrowser
 from pathlib import Path
 
-from talon import Module, actions
+from talon import Context, Module, app
 
+from ..cursorless_command_server import run_rpc_command_and_wait
 from .get_list import get_list, get_lists
 from .sections.actions import get_actions
 from .sections.compound_targets import get_compound_targets
@@ -12,8 +12,11 @@ from .sections.scopes import get_scopes
 from .sections.special_marks import get_special_marks
 
 mod = Module()
+ctx = Context()
+ctx.matches = r"""
+tag: user.cursorless
+"""
 
-cheatsheet_out_dir = Path(tempfile.mkdtemp())
 instructions_url = "https://www.cursorless.org/docs/"
 
 
@@ -21,76 +24,103 @@ instructions_url = "https://www.cursorless.org/docs/"
 class Actions:
     def cursorless_cheat_sheet_show_html():
         """Show new cursorless html cheat sheet"""
-        cheatsheet_out_path = cheatsheet_out_dir / "cheatsheet.html"
-        actions.user.vscode_with_plugin_and_wait(
+        app.notify(
+            'Please first focus an app that supports cursorless, eg say "focus code"'
+        )
+
+    def cursorless_cheat_sheet_update_json():
+        """Update default cursorless cheatsheet json (for developer use only)"""
+        app.notify(
+            'Please first focus an app that supports cursorless, eg say "focus code"'
+        )
+
+    def cursorless_open_instructions():
+        """Open web page with cursorless instructions"""
+        webbrowser.open(instructions_url)
+
+
+@ctx.action_class("user")
+class Actions:
+    def cursorless_cheat_sheet_show_html():
+        """Show cursorless html cheat sheet"""
+        # NB: We use the user's home directory instead of temp to make sure that
+        # Linux snaps work
+        cheatsheet_out_dir = Path.home() / ".cursorless" / "cheatsheet"
+        cheatsheet_out_dir.mkdir(parents=True, exist_ok=True)
+        cheatsheet_out_path = cheatsheet_out_dir / "index.html"
+        run_rpc_command_and_wait(
             "cursorless.showCheatsheet",
             {
                 "version": 0,
-                "spokenFormInfo": actions.user.cursorless_cheat_sheet_get_json(),
+                "spokenFormInfo": cursorless_cheat_sheet_get_json(),
                 "outputPath": str(cheatsheet_out_path),
             },
         )
         webbrowser.open(cheatsheet_out_path.as_uri())
 
-    def cursorless_cheat_sheet_get_json():
-        """Get cursorless cheat sheet json"""
-        return {
-            "sections": [
-                {
-                    "name": "Actions",
-                    "id": "actions",
-                    "items": get_actions(),
-                },
-                {
-                    "name": "Scopes",
-                    "id": "scopes",
-                    "items": get_scopes(),
-                },
-                {
-                    "name": "Modifiers",
-                    "id": "modifiers",
-                    "items": get_modifiers(),
-                },
-                {
-                    "name": "Paired delimiters",
-                    "id": "pairedDelimiters",
-                    "items": get_lists(
-                        [
-                            "wrapper_only_paired_delimiter",
-                            "wrapper_selectable_paired_delimiter",
-                            "selectable_only_paired_delimiter",
-                        ],
-                        "pairedDelimiter",
-                    ),
-                },
-                {
-                    "name": "Special marks",
-                    "id": "specialMarks",
-                    "items": get_special_marks(),
-                },
-                {
-                    "name": "Positions",
-                    "id": "positions",
-                    "items": get_list("position", "position"),
-                },
-                {
-                    "name": "Compound targets",
-                    "id": "compoundTargets",
-                    "items": get_compound_targets(),
-                },
-                {
-                    "name": "Colors",
-                    "id": "colors",
-                    "items": get_list("hat_color", "hatColor"),
-                },
-                {
-                    "name": "Shapes",
-                    "id": "shapes",
-                    "items": get_list("hat_shape", "hatShape"),
-                },
-            ]
-        }
+    def cursorless_cheat_sheet_update_json():
+        """Update default cursorless cheatsheet json (for developer use only)"""
+        run_rpc_command_and_wait(
+            "cursorless.internal.updateCheatsheetDefaults",
+            cursorless_cheat_sheet_get_json(),
+        )
 
-    def cursorless_open_instructions():
-        """Open web page with cursorless instructions"""
-        webbrowser.open(instructions_url)
+
+def cursorless_cheat_sheet_get_json():
+    """Get cursorless cheat sheet json"""
+    return {
+        "sections": [
+            {
+                "name": "Actions",
+                "id": "actions",
+                "items": get_actions(),
+            },
+            {
+                "name": "Scopes",
+                "id": "scopes",
+                "items": get_scopes(),
+            },
+            {
+                "name": "Modifiers",
+                "id": "modifiers",
+                "items": get_modifiers(),
+            },
+            {
+                "name": "Paired delimiters",
+                "id": "pairedDelimiters",
+                "items": get_lists(
+                    [
+                        "wrapper_only_paired_delimiter",
+                        "wrapper_selectable_paired_delimiter",
+                        "selectable_only_paired_delimiter",
+                    ],
+                    "pairedDelimiter",
+                ),
+            },
+            {
+                "name": "Special marks",
+                "id": "specialMarks",
+                "items": get_special_marks(),
+            },
+            {
+                "name": "Positions",
+                "id": "positions",
+                "items": get_list("position", "position"),
+            },
+            {
+                "name": "Compound targets",
+                "id": "compoundTargets",
+                "items": get_compound_targets(),
+            },
+            {
+                "name": "Colors",
+                "id": "colors",
+                "items": get_list("hat_color", "hatColor"),
+            },
+            {
+                "name": "Shapes",
+                "id": "shapes",
+                "items": get_list("hat_shape", "hatShape"),
+            },
+        ]
+    }

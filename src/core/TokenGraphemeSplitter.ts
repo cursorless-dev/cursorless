@@ -68,7 +68,7 @@ export const UNKNOWN = "[unk]";
 /**
  * Regex used to split a token into graphemes.
  */
-export const GRAPHEME_SPLIT_REGEX = /\p{L}\p{M}*|\P{L}/gu;
+export const GRAPHEME_SPLIT_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}]/gu;
 
 export class TokenGraphemeSplitter {
   private disposables: Disposable[] = [];

@@ -1,10 +1,10 @@
-import { SelectionWithEditor } from "../typings/Types";
+import { Target } from "../typings/target.types";
 
 export class ThatMark {
-  private mark?: SelectionWithEditor[];
+  private mark?: Target[];
 
-  set(value?: SelectionWithEditor[]) {
-    this.mark = value;
+  set(targets: Target[] | undefined) {
+    this.mark = targets;
   }
 
   get() {

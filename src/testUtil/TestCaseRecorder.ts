@@ -1,10 +1,13 @@
 import * as fs from "fs";
+import { readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
+import { merge } from "lodash";
 import * as path from "path";
 import * as vscode from "vscode";
 import HatTokenMap from "../core/HatTokenMap";
-import { Graph } from "../typings/Types";
+import { injectSpyIde, SpyInfo } from "../ide/spies/SpyIDE";
 import { DecoratedSymbolMark } from "../typings/targetDescriptor.types";
+import { Graph } from "../typings/Types";
 import { getDocumentRange } from "../util/range";
 import sleep from "../util/sleep";
 import { extractTargetedMarks } from "./extractTargetedMarks";
@@ -57,6 +60,11 @@ interface RecordTestCaseCommandArg {
    * which do not error.
    */
   recordErrors?: boolean;
+
+  /**
+   * Whether to capture the `that` mark returned by the action.
+   */
+  captureFinalThatMark?: boolean;
 }
 
 export class TestCaseRecorder {
@@ -77,6 +85,8 @@ export class TestCaseRecorder {
   private calibrationStyle = vscode.window.createTextEditorDecorationType({
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
+  private captureFinalThatMark: boolean = false;
+  private spyInfo: SpyInfo | undefined;
 
   constructor(private graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
@@ -174,43 +184,76 @@ export class TestCaseRecorder {
   }
 
   async start(arg?: RecordTestCaseCommandArg) {
+    const { directory, ...explicitConfig } = arg ?? {};
+
+    /**
+     * A list of paths of every parent directory between the root fixture
+     * directory and the user's chosen recording directory
+     */
+    let parentDirectories: string[];
+
+    if (directory != null) {
+      this.targetDirectory = directory;
+      parentDirectories = [directory];
+    } else {
+      this.targetDirectory = (await this.promptSubdirectory()) ?? null;
+
+      if (this.targetDirectory == null) {
+        return null;
+      }
+
+      const parentNames = path
+        .relative(this.fixtureRoot!, this.targetDirectory)
+        .split(path.sep);
+
+      parentDirectories = [this.fixtureRoot!];
+      let currentDirectory = this.fixtureRoot!;
+      for (const name of parentNames) {
+        currentDirectory = path.join(currentDirectory, name);
+        parentDirectories.push(currentDirectory);
+      }
+    }
+
+    // Look for a `config.json` file in ancestors of the recording directory,
+    // and merge it with the config provided when calling the command.
+    const config: RecordTestCaseCommandArg = merge(
+      {},
+      ...(await Promise.all(
+        parentDirectories.map((parent) =>
+          readJsonIfExists(path.join(parent, "config.json"))
+        )
+      )),
+      explicitConfig
+    );
+
     const {
       isHatTokenMapTest = false,
       isDecorationsTest = false,
-      directory,
       isSilent = false,
       extraSnapshotFields = [],
       showCalibrationDisplay = false,
       recordErrors: isErrorTest = false,
-    } = arg ?? {};
+      captureFinalThatMark = false,
+    } = config;
 
-    if (directory != null) {
-      this.targetDirectory = directory;
-    } else {
-      this.targetDirectory = (await this.promptSubdirectory()) ?? null;
-    }
+    this.active = true;
 
-    this.active = this.targetDirectory != null;
+    const startTimestampISO = await this.recordStartTime(
+      showCalibrationDisplay
+    );
+    this.isHatTokenMapTest = isHatTokenMapTest;
+    this.captureFinalThatMark = captureFinalThatMark;
+    this.isDecorationsTest = isDecorationsTest;
+    this.isSilent = isSilent;
+    this.extraSnapshotFields = extraSnapshotFields;
+    this.isErrorTest = isErrorTest;
+    this.paused = false;
 
-    if (this.active) {
-      const startTimestampISO = await this.recordStartTime(
-        showCalibrationDisplay
-      );
-      this.isHatTokenMapTest = isHatTokenMapTest;
-      this.isDecorationsTest = isDecorationsTest;
-      this.isSilent = isSilent;
-      this.extraSnapshotFields = extraSnapshotFields;
-      this.isErrorTest = isErrorTest;
-      this.paused = false;
+    vscode.window.showInformationMessage(
+      `Recording test cases for following commands in:\n${this.targetDirectory}`
+    );
 
-      vscode.window.showInformationMessage(
-        `Recording test cases for following commands in:\n${this.targetDirectory}`
-      );
-
-      return { startTimestampISO };
-    }
-
-    return null;
+    return { startTimestampISO };
   }
 
   private async recordStartTime(showCalibrationDisplay: boolean) {
@@ -256,14 +299,19 @@ export class TestCaseRecorder {
       await this.finishTestCase();
     } else {
       // Otherwise, we are starting a new test case
+      this.spyInfo = injectSpyIde(this.graph);
+
       this.testCase = new TestCase(
         command,
         context,
+        this.spyInfo.spy,
         this.isHatTokenMapTest,
         this.isDecorationsTest,
         this.startTimestamp!,
+        this.captureFinalThatMark,
         this.extraSnapshotFields
       );
+
       await this.testCase.recordInitialState();
     }
   }
@@ -283,8 +331,6 @@ export class TestCaseRecorder {
       // which marks we wanted to track
       return;
     }
-
-    this.testCase.recordDecorations();
 
     await this.finishTestCase();
   }
@@ -390,6 +436,11 @@ export class TestCaseRecorder {
     }
   }
 
+  finallyHook() {
+    this.spyInfo?.dispose();
+    this.spyInfo = undefined;
+  }
+
   dispose() {
     this.disposables.forEach(({ dispose }) => dispose());
     this.calibrationStyle.dispose();
@@ -405,4 +456,22 @@ function camelize(str: string) {
 
 function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+async function readJsonIfExists(
+  path: string
+): Promise<RecordTestCaseCommandArg> {
+  let rawText: string;
+
+  try {
+    rawText = await readFile(path, { encoding: "utf-8" });
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
+      return {};
+    }
+
+    throw err;
+  }
+
+  return JSON.parse(rawText);
 }

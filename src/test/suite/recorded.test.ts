@@ -1,10 +1,12 @@
-import * as assert from "assert";
 import { promises as fsp } from "fs";
+import { assert } from "chai";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import HatTokenMap from "../../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
+import { injectSpyIde } from "../../ide/spies/SpyIDE";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
+import { plainObjectToTarget } from "../../testUtil/fromPlainObject";
 import serialize from "../../testUtil/serialize";
 import {
   ExcludableSnapshotField,
@@ -24,6 +26,7 @@ import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewEditor } from "../openNewEditor";
 import asyncSafety from "../util/asyncSafety";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
+import { injectFakeIde } from "./fakes/ide/FakeIDE";
 import shouldUpdateFixtures from "./shouldUpdateFixtures";
 import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
 
@@ -78,18 +81,17 @@ async function runTest(file: string) {
   editor.selections = fixture.initialState.selections.map(createSelection);
 
   if (fixture.initialState.thatMark) {
-    const initialThatMark = fixture.initialState.thatMark.map((mark) => ({
-      selection: createSelection(mark),
-      editor,
-    }));
-    cursorlessApi.thatMark.set(initialThatMark);
+    const initialThatTargets = fixture.initialState.thatMark.map((mark) =>
+      plainObjectToTarget(editor, mark)
+    );
+    cursorlessApi.thatMark.set(initialThatTargets);
   }
+
   if (fixture.initialState.sourceMark) {
-    const initialSourceMark = fixture.initialState.sourceMark.map((mark) => ({
-      selection: createSelection(mark),
-      editor,
-    }));
-    cursorlessApi.sourceMark.set(initialSourceMark);
+    const initialSourceTargets = fixture.initialState.sourceMark.map((mark) =>
+      plainObjectToTarget(editor, mark)
+    );
+    cursorlessApi.sourceMark.set(initialSourceTargets);
   }
 
   if (fixture.initialState.clipboard) {
@@ -110,6 +112,9 @@ async function runTest(file: string) {
 
   // Assert that recorded decorations are present
   checkMarks(fixture.initialState.marks, readableHatMap);
+
+  const { dispose: disposeFakeIde } = injectFakeIde(graph);
+  const { spy: spyIde } = injectSpyIde(graph);
 
   let returnValue: unknown;
 
@@ -140,6 +145,8 @@ async function runTest(file: string) {
     return;
   }
 
+  disposeFakeIde();
+
   if (fixture.thrownError != null) {
     throw Error(
       `Expected error ${fixture.thrownError.name} but none was thrown`
@@ -164,6 +171,14 @@ async function runTest(file: string) {
     excludeFields.push("clipboard");
   }
 
+  if (fixture.finalState!.thatMark == null) {
+    excludeFields.push("thatMark");
+  }
+
+  if (fixture.finalState!.sourceMark == null) {
+    excludeFields.push("sourceMark");
+  }
+
   // TODO Visible ranges are not asserted, see:
   // https://github.com/cursorless-dev/cursorless/issues/160
   const { visibleRanges, ...resultState } = await takeSnapshot(
@@ -179,12 +194,15 @@ async function runTest(file: string) {
       ? undefined
       : testDecorationsToPlainObject(graph.editStyles.testDecorations);
 
+  const actualSpyIdeValues = spyIde.getSpyValues();
+
   if (shouldUpdateFixtures()) {
     const outputFixture = {
       ...fixture,
       finalState: resultState,
       decorations: actualDecorations,
       returnValue,
+      ide: actualSpyIdeValues,
       thrownError: undefined,
     };
 
@@ -206,6 +224,12 @@ async function runTest(file: string) {
       returnValue,
       fixture.returnValue,
       "Unexpected return value"
+    );
+
+    assert.deepStrictEqual(
+      actualSpyIdeValues,
+      fixture.ide,
+      "Unexpected ide captured values"
     );
   }
 }

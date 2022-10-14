@@ -1,11 +1,9 @@
-from talon import actions
+from talon import Module
 
-from .get_text import get_text
+mod = Module()
 
 
-def run_find_action(targets: dict):
-    """Find text in editor"""
-    texts = get_text(targets, ensure_single_target=True)
-    actions.user.vscode("actions.find")
-    actions.sleep("50ms")
-    actions.insert(texts[0])
+@mod.action_class
+class Actions:
+    def cursorless_private_run_find_action(targets: dict):
+        """Find text of targets in editor"""

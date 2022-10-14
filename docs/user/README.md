@@ -8,9 +8,9 @@ Welcome to Cursorless! You may find it helpful to start with the [tutorial video
 
 This guide assumes you've already [installed Cursorless](installation.md).
 
-Once you understand the concepts, you can pull up a cheatsheet for reference using the command `"cursorless help"`.
+Once you understand the concepts, you can pull up a cheatsheet for reference using either `"cursorless reference"` or `"cursorless cheatsheet"` commands within VSCode.
 
-You can get back to these docs by saying `"cursorless instructions"`.
+You can get back to these docs by saying `"cursorless docs"`, `"cursorless help"` within VSCode.
 
 Note: If you'd like to customize any of the spoken forms, please see [Customization](customization.md).
 
@@ -174,6 +174,31 @@ For programming languages where Cursorless has rich parse tree support, we suppo
 
 For example, `"take funk blue air"` selects the function containing the token with a blue hat over the letter `'a'`.
 
+##### `"previous"` / `"next"` / `<ordinal>` / `<number>`
+
+We support several modifiers that allow you to refer to scopes relative to the input target, or relative to the canonical iteration scope of the scope type. For example, the iteration scope of functions is a class, of tokens is a line, of characters is a token, etc.
+
+Here is a diagram of the possible relative / ordinal modifiers:
+
+![Relative ordinal diagram](images/relative-ordinal.jpeg)
+
+And here is a table of the spoken forms:
+
+| Spoken form                    | Description                                                         | Example                       |
+| ------------------------------ | ------------------------------------------------------------------- | ----------------------------- |
+| `"[number] [scope]s"`          | `[number]` instances of `[scope]` including target, going forwards  | `"take three funks"`          |
+| `"[number] [scope]s backward"` | `[number]` instances of `[scope]` including target, going backwards | `"take three funks backward"` |
+| `"[nth] [scope]"`              | `[nth]` instance of `[scope]` in iteration scope                    | `"take third funk"`           |
+| `"[nth] last [scope]"`         | `[nth]`-to-last instance of `[scope]` in iteration scope            | `"take third last funk"`      |
+| `"[nth] next [scope]"`         | `[nth]` instance of `[scope]` after target                          | `"take third next funk"`      |
+| `"[nth] previous [scope]"`     | `[nth]` instance of `[scope]` before target                         | `"take third previous funk"`  |
+| `"first [number] [scope]s"`    | First `[number]` instances of `[scope]` in iteration scope          | `"take first three funks"`    |
+| `"last [number] [scope]s"`     | Last `[number]` instances of `[scope]` in iteration scope           | `"take last three funks"`     |
+| `"next [number] [scope]s"`     | next `[number]` instances of `[scope]`                              | `"take next three funks"`     |
+| `"next [scope]"`               | Next instance of `[scope]`                                          | `"take next funk"`            |
+| `"previous [number] [scope]s"` | previous `[number]` instances of `[scope]`                          | `"take previous three funks"` |
+| `"previous [scope]"`           | Previous instance of `[scope]`                                      | `"take previous funk"`        |
+
 ##### `"every"`
 
 The command `"every"` can be used to select a syntactic element and all of its matching siblings.
@@ -307,6 +332,14 @@ For example:
 - `"take inside right quad"`
 
 If your cursor / mark is between two delimiters (not adjacent to one), then saying either "left" or "right" will cause cursorless to just expand to the nearest delimiters on either side, without trying to determine whether they are opening or closing delimiters.
+
+#### `"its"`
+
+The the modifier `"its"` is intended to be used as part of a compound target, and will tell Cursorless to use the previously mentioned mark in the compound target.
+
+For example, `"take air past end of its line"` selects the range from the token containing letter `a` to the end of the line containing the same token. This is in contrast from `"take air past end of line"` which selects the range from the token containing letter `a` to the end of the line containing the current selection.
+
+Another example is `"bring air to its value"`, which would cause the token with a hat over `a` to replace the return value containing it.
 
 ### Compound targets
 

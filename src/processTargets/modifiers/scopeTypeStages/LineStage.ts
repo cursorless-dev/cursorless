@@ -1,12 +1,12 @@
 import { Range, TextEditor } from "vscode";
-import { Target } from "../../../typings/target.types";
-import {
+import type { Target } from "../../../typings/target.types";
+import type {
   ContainingScopeModifier,
   EveryScopeModifier,
 } from "../../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../../typings/Types";
-import { ModifierStage } from "../../PipelineStages.types";
-import LineTarget from "../../targets/LineTarget";
+import type { ProcessedTargetsContext } from "../../../typings/Types";
+import type { ModifierStage } from "../../PipelineStages.types";
+import { LineTarget } from "../../targets";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
@@ -27,12 +27,13 @@ export default class implements ModifierStage {
     const targets: LineTarget[] = [];
 
     for (let i = startLine; i <= endLine; ++i) {
-      const line = editor.document.lineAt(i);
-      if (!line.isEmptyOrWhitespace) {
-        targets.push(
-          createLineTarget(target.editor, target.isReversed, line.range)
-        );
-      }
+      targets.push(
+        createLineTarget(
+          target.editor,
+          target.isReversed,
+          editor.document.lineAt(i).range
+        )
+      );
     }
 
     if (targets.length === 0) {

@@ -5,17 +5,17 @@ import { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
 
 export default class implements MarkStage {
-  constructor(private modifier: DecoratedSymbolMark) {}
+  constructor(private mark: DecoratedSymbolMark) {}
 
   run(context: ProcessedTargetsContext): Target[] {
     const token = context.hatTokenMap.getToken(
-      this.modifier.symbolColor,
-      this.modifier.character
+      this.mark.symbolColor,
+      this.mark.character
     );
 
     if (token == null) {
       throw new Error(
-        `Couldn't find mark ${this.modifier.symbolColor} '${this.modifier.character}'`
+        `Couldn't find mark ${this.mark.symbolColor} '${this.mark.character}'`
       );
     }
 

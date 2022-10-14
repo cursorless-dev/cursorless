@@ -1,14 +1,12 @@
-import { flow } from "lodash";
-import {
-  Modifier,
-  PartialPrimitiveTargetDescriptor,
-  PartialRangeTargetDescriptor,
-  PartialTargetDescriptor,
-  SimpleScopeTypeType,
-} from "../../../typings/targetDescriptor.types";
 import { ActionType } from "../../../actions/actions.types";
-import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
-import { CommandV2 } from "../../commandRunner/command.types";
+import { SimpleScopeTypeType } from "../../../typings/targetDescriptor.types";
+import { CommandV2 } from "../upgradeV2ToV3/commandV2.types";
+import {
+  ModifierV2,
+  PartialPrimitiveTargetDescriptorV2,
+  PartialRangeTargetDescriptorV2,
+  PartialTargetDescriptorV2,
+} from "../upgradeV2ToV3/targetDescriptorV2.types";
 import {
   CommandV1,
   ModifierV0V1,
@@ -31,7 +29,7 @@ export function upgradeV1ToV2(command: CommandV1): CommandV2 {
   };
 }
 
-function upgradeModifier(modifier: ModifierV0V1): Modifier[] {
+function upgradeModifier(modifier: ModifierV0V1): ModifierV2[] {
   switch (modifier.type) {
     case "identity":
       return [];
@@ -93,7 +91,7 @@ function upgradeModifier(modifier: ModifierV0V1): Modifier[] {
 function upgradePrimitiveTarget(
   target: PartialPrimitiveTargetV0V1,
   action: ActionType
-): PartialPrimitiveTargetDescriptor {
+): PartialPrimitiveTargetDescriptorV2 {
   const {
     type,
     isImplicit,
@@ -103,7 +101,7 @@ function upgradePrimitiveTarget(
     selectionType,
     position,
   } = target;
-  const modifiers: Modifier[] = [];
+  const modifiers: ModifierV2[] = [];
 
   if (position && position !== "contents") {
     if (position === "before") {
@@ -162,7 +160,7 @@ function upgradePrimitiveTarget(
 function upgradeTarget(
   target: PartialTargetV0V1,
   action: ActionType
-): PartialTargetDescriptor {
+): PartialTargetDescriptorV2 {
   switch (target.type) {
     case "list":
       return {
@@ -170,8 +168,8 @@ function upgradeTarget(
         elements: target.elements.map(
           (target) =>
             upgradeTarget(target, action) as
-              | PartialPrimitiveTargetDescriptor
-              | PartialRangeTargetDescriptor
+              | PartialPrimitiveTargetDescriptorV2
+              | PartialRangeTargetDescriptorV2
         ),
       };
     case "range": {
@@ -193,12 +191,10 @@ function upgradeTarget(
 function upgradeTargets(
   partialTargets: PartialTargetV0V1[],
   action: ActionType
-) {
-  const partialTargetsV2: PartialTargetDescriptor[] = partialTargets.map(
-    (target) => upgradeTarget(target, action)
-  );
-  return transformPartialPrimitiveTargets(
-    partialTargetsV2,
-    flow(upgradeStrictHere)
-  );
+): PartialTargetDescriptorV2[] {
+  return partialTargets
+    .map((target) => upgradeTarget(target, action))
+    .map((target) =>
+      target.type === "primitive" ? upgradeStrictHere(target) : target
+    );
 }

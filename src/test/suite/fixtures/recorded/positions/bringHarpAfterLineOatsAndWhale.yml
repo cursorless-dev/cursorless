@@ -45,12 +45,4 @@ finalState:
   selections:
     - anchor: {line: 3, character: 24}
       active: {line: 3, character: 24}
-  thatMark:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 8}
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 8}
-  sourceMark:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 14}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: []}, {type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, modifiers: &ref_0 [{type: position, position: after}, {type: containingScope, scopeType: {type: line}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: *ref_0}]}]

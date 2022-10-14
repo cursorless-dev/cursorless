@@ -5,6 +5,7 @@ import { CommandLatest } from "../core/commandRunner/command.types";
 import { TestDecoration } from "../core/editStyles";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ThatMark } from "../core/ThatMark";
+import SpyIDE, { SpyIDERecordedValues } from "../ide/spies/SpyIDE";
 import { TargetDescriptor } from "../typings/targetDescriptor.types";
 import { Token } from "../typings/Types";
 import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
@@ -62,6 +63,7 @@ export type TestCaseFixture = {
    * Expected decorations in the test case, for example highlighting deletions in red.
    */
   decorations?: PlainTestDecoration[];
+  ide?: SpyIDERecordedValues;
   /** The final state after a command is issued. Undefined if we are testing a non-match(error) case. */
   finalState?: TestCaseSnapshot;
   /** Used to assert if an error has been thrown. */
@@ -78,24 +80,27 @@ export type TestCaseFixture = {
 };
 
 export class TestCase {
-  languageId: string;
-  fullTargets: TargetDescriptor[];
-  initialState: TestCaseSnapshot | null = null;
-  decorations?: PlainTestDecoration[];
-  finalState?: TestCaseSnapshot;
+  private languageId: string;
+  private fullTargets: TargetDescriptor[];
+  private initialState: TestCaseSnapshot | null = null;
+  private decorations?: PlainTestDecoration[];
+  private finalState?: TestCaseSnapshot;
   thrownError?: ThrownError;
-  returnValue?: unknown;
-  targetKeys: string[];
+  private returnValue?: unknown;
+  private targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
-  marksToCheck?: string[];
-  public command: TestCaseCommand;
+  private marksToCheck?: string[];
+  command: TestCaseCommand;
+  private spyIdeValues?: SpyIDERecordedValues;
 
   constructor(
     command: TestCaseCommand,
     private context: TestCaseContext,
+    private spyIde: SpyIDE,
     private isHatTokenMapTest: boolean = false,
     private isDecorationsTest: boolean = false,
     private startTimestamp: bigint,
+    private captureFinalThatMark: boolean,
     private extraSnapshotFields?: ExtraSnapshotField[]
   ) {
     const activeEditor = vscode.window.activeTextEditor!;
@@ -149,8 +154,8 @@ export class TestCase {
     return false;
   }
 
-  private getExcludedFields(context?: { initialSnapshot?: boolean }) {
-    const clipboardActions: ActionType[] = context?.initialSnapshot
+  private getExcludedFields(isInitialSnapshot: boolean) {
+    const clipboardActions: ActionType[] = isInitialSnapshot
       ? ["pasteFromClipboard"]
       : ["copyToClipboard", "cutToClipboard"];
 
@@ -165,15 +170,17 @@ export class TestCase {
     const excludableFields = {
       clipboard: !clipboardActions.includes(this.command.action.name),
       thatMark:
-        context?.initialSnapshot &&
-        !this.fullTargets.some((target) =>
-          this.includesThatMark(target, "that")
-        ),
+        (!isInitialSnapshot && !this.captureFinalThatMark) ||
+        (isInitialSnapshot &&
+          !this.fullTargets.some((target) =>
+            this.includesThatMark(target, "that")
+          )),
       sourceMark:
-        context?.initialSnapshot &&
-        !this.fullTargets.some((target) =>
-          this.includesThatMark(target, "source")
-        ),
+        (!isInitialSnapshot && !this.captureFinalThatMark) ||
+        (isInitialSnapshot &&
+          !this.fullTargets.some((target) =>
+            this.includesThatMark(target, "source")
+          )),
       visibleRanges: !visibleRangeActions.includes(this.command.action.name),
     };
 
@@ -199,12 +206,13 @@ export class TestCase {
       returnValue: this.returnValue,
       fullTargets: this.fullTargets,
       thrownError: this.thrownError,
+      ide: this.spyIdeValues,
     };
     return serialize(fixture);
   }
 
   async recordInitialState() {
-    const excludeFields = this.getExcludedFields({ initialSnapshot: true });
+    const excludeFields = this.getExcludedFields(true);
     this.initialState = await takeSnapshot(
       this.context.thatMark,
       this.context.sourceMark,
@@ -216,7 +224,7 @@ export class TestCase {
   }
 
   async recordFinalState(returnValue: unknown) {
-    const excludeFields = this.getExcludedFields();
+    const excludeFields = this.getExcludedFields(false);
     this.returnValue = returnValue;
     this.finalState = await takeSnapshot(
       this.context.thatMark,
@@ -226,6 +234,12 @@ export class TestCase {
       this.isHatTokenMapTest ? this.getMarks() : undefined,
       { startTimestamp: this.startTimestamp }
     );
+    this.recordDecorations();
+    this.recordSpyIdeValues();
+  }
+
+  private recordSpyIdeValues() {
+    this.spyIdeValues = this.spyIde.getSpyValues();
   }
 
   filterMarks(command: TestCaseCommand, context: TestCaseContext) {

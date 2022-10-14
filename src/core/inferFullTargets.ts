@@ -98,19 +98,17 @@ function inferPrimitiveTarget(
   }
 
   const ownPositionModifier = getPositionModifier(target);
-  const ownNonPositionModifiers = getNonPositionModifiers(target);
+  const ownModifiers = getPreservedModifiers(target);
 
-  // Position without a mark can be something like "take air past end of line"
-  // We will remove this case when we implement #736
   const mark = target.mark ??
-    (ownPositionModifier == null ? null : getPreviousMark(previousTargets)) ?? {
+    (shouldInferPreviousMark(target)
+      ? getPreviousMark(previousTargets)
+      : null) ?? {
       type: "cursor",
     };
 
   const modifiers =
-    ownNonPositionModifiers ??
-    getPreviousNonPositionModifiers(previousTargets) ??
-    [];
+    ownModifiers ?? getPreviousPreservedModifiers(previousTargets) ?? [];
 
   const positionModifier =
     ownPositionModifier ?? getPreviousPositionModifier(previousTargets);
@@ -143,22 +141,33 @@ function getPositionModifier(
     : (target.modifiers[positionModifierIndex] as PositionModifier);
 }
 
+function shouldInferPreviousMark(
+  target: PartialPrimitiveTargetDescriptor
+): boolean {
+  return target.modifiers?.some((m) => m.type === "inferPreviousMark") ?? false;
+}
+
 /**
- * Return a list of non-positional modifiers on the given target. We return
- * undefined if there are none. Note that we will never return an empty list; we
- * will always return `undefined` if there are no non-positional modifiers.
- * @param target The target from which to get the non-positional modifiers
- * @returns A list of non-positional modifiers or `undefined` if there are none
+ * Return a list of modifiers that should not be removed during inference.
+ * Today, we remove positional modifiers, because they have their own field on
+ * the full targets.  We also remove modifiers that only impact inference, such
+ * as `inferPreviousMark`.
+ *
+ * We return `undefined` if there are no preserved modifiers. Note that we will
+ * never return an empty list; we will always return `undefined` if there are no
+ * preserved modifiers.
+ * @param target The target from which to get the modifiers
+ * @returns A list of preserved modifiers or `undefined` if there are none
  */
-function getNonPositionModifiers(
+function getPreservedModifiers(
   target: PartialPrimitiveTargetDescriptor
 ): Modifier[] | undefined {
-  const nonPositionModifiers = target.modifiers?.filter(
-    (modifier) => modifier.type !== "position"
+  const preservedModifiers = target.modifiers?.filter(
+    (modifier) => !["position", "inferPreviousMark"].includes(modifier.type)
   );
-  return nonPositionModifiers == null || nonPositionModifiers.length === 0
+  return preservedModifiers == null || preservedModifiers.length === 0
     ? undefined
-    : nonPositionModifiers;
+    : preservedModifiers;
 }
 
 function getPreviousMark(
@@ -170,10 +179,10 @@ function getPreviousMark(
   );
 }
 
-function getPreviousNonPositionModifiers(
+function getPreviousPreservedModifiers(
   previousTargets: PartialTargetDescriptor[]
 ): Modifier[] | undefined {
-  return getPreviousTargetAttribute(previousTargets, getNonPositionModifiers);
+  return getPreviousTargetAttribute(previousTargets, getPreservedModifiers);
 }
 
 function getPreviousPositionModifier(
