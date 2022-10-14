@@ -246,6 +246,10 @@ export interface KeepEmptyFilterModifier {
   type: "keepEmptyFilter";
 }
 
+export interface InferPreviousMarkModifier {
+  type: "inferPreviousMark";
+}
+
 export type Position = "before" | "after" | "start" | "end";
 
 export interface PositionModifier {
@@ -320,7 +324,8 @@ export type Modifier =
   | CascadingModifier
   | RangeModifier
   | KeepContentFilterModifier
-  | KeepEmptyFilterModifier;
+  | KeepEmptyFilterModifier
+  | InferPreviousMarkModifier;
 
 export interface PartialRangeTargetDescriptor {
   type: "range";
