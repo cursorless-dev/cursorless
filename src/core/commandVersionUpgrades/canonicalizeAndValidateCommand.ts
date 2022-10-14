@@ -137,7 +137,7 @@ export async function checkForOldInference(
     if (!hideInferenceWarning) {
       const pressed = await graph.ide.messages.showWarning(
         "deprecatedPositionInference",
-        'The "past start of" / "past end of" form has changed behavior.  For the old behavior, you can now say "past start of its" / "past end of its". For example, "take air past end of its line".  You may also consider using "head" / "tail" instead; see https://www.cursorless.org/docs/#head-and-tail',
+        'The "past start of" / "past end of" form has changed behavior.  For the old behavior, update cursorless-talon (https://www.cursorless.org/docs/user/updating/), and then you can now say "past start of its" / "past end of its". For example, "take air past end of its line".  You may also consider using "head" / "tail" instead; see https://www.cursorless.org/docs/#head-and-tail',
         "Don't show again"
       );
 
