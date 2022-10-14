@@ -1,12 +1,11 @@
-import { values } from "lodash";
+import { pickBy, values } from "lodash";
 import { Graph } from "../../typings/Types";
 import { Disposable, IDE } from "../ide.types";
 import SpyConfiguration from "./SpyConfiguration";
 import SpyMessages, { Message } from "./SpyMessages";
 
 export interface SpyIDERecordedValues {
-  configuration: undefined;
-  messages: Message[] | undefined;
+  messages?: Message[];
 }
 
 export default class SpyIDE implements IDE {
@@ -28,7 +27,9 @@ export default class SpyIDE implements IDE {
       messages: this.messages.getSpyValues(),
     };
 
-    return values(ret).every((value) => value == null) ? undefined : ret;
+    return values(ret).every((value) => value == null)
+      ? undefined
+      : pickBy(ret, (value) => value != null);
   }
 }
 
