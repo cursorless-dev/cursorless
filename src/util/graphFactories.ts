@@ -9,7 +9,7 @@ import { Snippets } from "../core/Snippets";
 import StatusBarItem from "../core/StatusBarItem";
 import { TokenGraphemeSplitter } from "../core/TokenGraphemeSplitter";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { VscodeIDE } from "../ide/vscode/VscodeIDE";
+import VscodeIDE from "../ide/vscode/VscodeIDE";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { Graph } from "../typings/Types";
 import { FactoryMap } from "./makeGraph";

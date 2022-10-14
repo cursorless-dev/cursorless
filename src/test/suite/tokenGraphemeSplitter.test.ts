@@ -5,7 +5,7 @@ import {
 } from "../../core/TokenGraphemeSplitter";
 import { Graph, TokenHatSplittingMode } from "../../typings/Types";
 import makeGraph, { FactoryMap } from "../../util/makeGraph";
-import { FakeIDE } from "./fakes/ide/FakeIDE";
+import FakeIDE from "./fakes/ide/FakeIDE";
 
 /**
  * Compact representation of a grapheme to make the tests easier to read.
@@ -288,7 +288,9 @@ const tokenHatSplittingDefaults: TokenHatSplittingMode = {
   symbolsToPreserve: [],
 };
 
-graph.ide.configuration.mockConfiguration(
+const ide = graph.ide as FakeIDE;
+
+ide.configuration.mockConfiguration(
   "tokenHatSplittingMode",
   tokenHatSplittingDefaults
 );
@@ -297,7 +299,7 @@ const tokenGraphemeSplitter = graph.tokenGraphemeSplitter;
 
 tests.forEach(({ tokenHatSplittingMode, extraTestCases }) => {
   suite(`getTokenGraphemes(${JSON.stringify(tokenHatSplittingMode)})`, () => {
-    graph.ide.configuration.mockConfiguration("tokenHatSplittingMode", {
+    ide.configuration.mockConfiguration("tokenHatSplittingMode", {
       ...tokenHatSplittingDefaults,
       ...tokenHatSplittingMode,
     });

@@ -5,6 +5,7 @@ import { merge } from "lodash";
 import * as path from "path";
 import * as vscode from "vscode";
 import HatTokenMap from "../core/HatTokenMap";
+import { injectSpyIde, SpyInfo } from "../ide/spies/SpyIDE";
 import { DecoratedSymbolMark } from "../typings/targetDescriptor.types";
 import { Graph } from "../typings/Types";
 import { getDocumentRange } from "../util/range";
@@ -85,6 +86,7 @@ export class TestCaseRecorder {
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
   private captureFinalThatMark: boolean = false;
+  private spyInfo: SpyInfo | undefined;
 
   constructor(private graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
@@ -288,15 +290,19 @@ export class TestCaseRecorder {
       await this.finishTestCase();
     } else {
       // Otherwise, we are starting a new test case
+      this.spyInfo = injectSpyIde(this.graph);
+
       this.testCase = new TestCase(
         command,
         context,
+        this.spyInfo.spy,
         this.isHatTokenMapTest,
         this.isDecorationsTest,
         this.startTimestamp!,
         this.captureFinalThatMark,
         this.extraSnapshotFields
       );
+
       await this.testCase.recordInitialState();
     }
   }
@@ -316,8 +322,6 @@ export class TestCaseRecorder {
       // which marks we wanted to track
       return;
     }
-
-    this.testCase.recordDecorations();
 
     await this.finishTestCase();
   }
@@ -421,6 +425,11 @@ export class TestCaseRecorder {
     } else {
       this.testCase = null;
     }
+  }
+
+  finallyHook() {
+    this.spyInfo?.dispose();
+    this.spyInfo = undefined;
   }
 
   dispose() {
