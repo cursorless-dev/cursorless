@@ -5,13 +5,12 @@ import {
   CursorlessConfigKey,
   CursorlessConfiguration,
 } from "../ide.types";
-import { VscodeIDE } from "./VscodeIDE";
+import type VscodeIDE from "./VscodeIDE";
 
-export class VscodeConfiguration implements Configuration {
+export default class VscodeConfiguration implements Configuration {
   private notifier = new Notifier();
-  private mocks: Partial<CursorlessConfiguration> = {};
 
-  constructor(private ide: VscodeIDE) {
+  constructor(ide: VscodeIDE) {
     this.onDidChangeConfiguration = this.onDidChangeConfiguration.bind(this);
 
     ide.disposeOnExit(
@@ -22,25 +21,10 @@ export class VscodeConfiguration implements Configuration {
   getOwnConfiguration<T extends CursorlessConfigKey>(
     key: T
   ): CursorlessConfiguration[T] | undefined {
-    if (key in this.mocks) {
-      return this.mocks[key];
-    }
-
     return vscode.workspace
       .getConfiguration("cursorless")
       .get<CursorlessConfiguration[T]>(key);
   }
 
   onDidChangeConfiguration = this.notifier.registerListener;
-
-  mockConfiguration<T extends CursorlessConfigKey>(
-    key: T,
-    value: CursorlessConfiguration[T]
-  ): void {
-    this.mocks[key] = value;
-  }
-
-  resetMocks(): void {
-    this.mocks = {};
-  }
 }
