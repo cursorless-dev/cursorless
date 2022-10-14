@@ -239,6 +239,18 @@ export interface TrailingModifier {
   type: "trailing";
 }
 
+export interface KeepContentFilterModifier {
+  type: "keepContentFilter";
+}
+
+export interface KeepEmptyFilterModifier {
+  type: "keepEmptyFilter";
+}
+
+export interface InferPreviousMarkModifier {
+  type: "inferPreviousMark";
+}
+
 export type Position = "before" | "after" | "start" | "end";
 
 export interface PositionModifier {
@@ -311,7 +323,10 @@ export type Modifier =
   | RawSelectionModifier
   | ModifyIfUntypedModifier
   | CascadingModifier
-  | RangeModifier;
+  | RangeModifier
+  | KeepContentFilterModifier
+  | KeepEmptyFilterModifier
+  | InferPreviousMarkModifier;
 
 export interface PartialRangeTargetDescriptor {
   type: "range";

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { CheatsheetLegend } from '../cheatsheetLegend';
 import useIsHighlighted from '../hooks/useIsHighlighted';
+import { formatCaptures } from './formatCaptures';
 import SmartLink from './SmartLink';
 
 type Props = {
@@ -39,12 +40,12 @@ export default function CheatsheetLegendComponent({
               key={id}
               className="odd:bg-violet-200 odd:dark:bg-violet-600 dark:bg-violet-800"
             >
-              <td className="px-1">{`<${term}>`}</td>
+              <td className="px-1">{formatCaptures(`<${term}>`)}</td>
               <td className="border-l border-violet-400 px-1">
                 {link != null ? (
                   <SmartLink to={link}>{definition}</SmartLink>
                 ) : (
-                  definition
+                  formatCaptures(definition)
                 )}
               </td>
             </tr>
