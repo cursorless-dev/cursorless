@@ -571,6 +571,7 @@
 		"prepare-for-extension-publish": "node ./out/scripts/prepareForExtensionPublish.js"
 	},
 	"devDependencies": {
+		"@types/chai": "^4.3.3",
 		"@types/glob": "^7.1.3",
 		"@types/js-yaml": "^4.0.2",
 		"@types/mocha": "^8.0.4",
@@ -581,6 +582,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.20.0",
 		"@typescript-eslint/parser": "^5.20.0",
 		"@vscode/test-electron": "^2.1.3",
+		"chai": "^4.3.6",
 		"esbuild": "^0.11.12",
 		"eslint": "^8.13.0",
 		"eslint-config-prettier": "^8.5.0",
