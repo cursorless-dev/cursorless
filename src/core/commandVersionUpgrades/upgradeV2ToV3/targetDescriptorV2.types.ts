@@ -68,7 +68,7 @@ export type SurroundingPairName =
   | SimpleSurroundingPairName
   | ComplexSurroundingPairName;
 
-export type SimpleScopeTypeType =
+export type SimpleScopeTypeTypeV2 =
   | "argumentOrParameter"
   | "anonymousFunction"
   | "attribute"
@@ -124,7 +124,7 @@ export type SimpleScopeTypeType =
   | "url";
 
 export interface SimpleScopeType {
-  type: SimpleScopeTypeType;
+  type: SimpleScopeTypeTypeV2;
 }
 
 export interface CustomRegexScopeType {

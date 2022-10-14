@@ -108,6 +108,7 @@ export type SimpleScopeTypeType =
   | "sectionLevelFive"
   | "sectionLevelSix"
   | "selector"
+  | "unit"
   | "xmlBothTags"
   | "xmlElement"
   | "xmlEndTag"
