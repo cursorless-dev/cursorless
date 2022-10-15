@@ -1,4 +1,5 @@
 import isTesting from "../testUtil/isTesting";
+import { ExtractMutable } from "./typeUtils";
 
 export type FactoryMap<T> = {
   [P in keyof T]: (t: T) => T[P];
@@ -37,13 +38,17 @@ function makeGetter<GraphType, K extends keyof GraphType>(
 }
 
 export default function makeGraph<GraphType extends object>(
-  factoryMap: FactoryMap<GraphType>
+  factoryMap: FactoryMap<GraphType>,
+  writableKeys: ExtractMutable<GraphType>[] = []
 ) {
   const components: Partial<GraphType> = {};
   const graph: Partial<GraphType> = {};
   const lockedKeys: (keyof GraphType)[] = [];
 
   Object.keys(factoryMap).forEach((key: keyof GraphType | PropertyKey) => {
+    const isMutable = (
+      writableKeys as (keyof GraphType | PropertyKey)[]
+    ).includes(key);
     Object.defineProperty(graph, key, {
       get: makeGetter(
         graph as GraphType,
@@ -53,8 +58,14 @@ export default function makeGraph<GraphType extends object>(
         key as keyof GraphType
       ),
 
-      // NB: If we're testing, we make property mutable to allow mocking
-      configurable: isTesting(),
+      set: isMutable
+        ? (value) => {
+            components[key as keyof GraphType] = value;
+          }
+        : undefined,
+
+      // NB: We allow mutable keys for spying
+      configurable: isMutable || isTesting(),
     });
   });
 

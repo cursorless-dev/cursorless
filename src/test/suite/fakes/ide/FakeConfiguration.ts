@@ -6,7 +6,7 @@ import {
 import { Graph } from "../../../../typings/Types";
 import { Notifier } from "../../../../util/Notifier";
 
-export class FakeConfiguration implements Configuration {
+export default class FakeConfiguration implements Configuration {
   private notifier = new Notifier();
   private mocks: Partial<CursorlessConfiguration> = {};
 

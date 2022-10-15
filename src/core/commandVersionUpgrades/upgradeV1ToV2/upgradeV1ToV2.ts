@@ -1,11 +1,11 @@
 import { ActionType } from "../../../actions/actions.types";
-import { SimpleScopeTypeType } from "../../../typings/targetDescriptor.types";
 import { CommandV2 } from "../upgradeV2ToV3/commandV2.types";
 import {
   ModifierV2,
   PartialPrimitiveTargetDescriptorV2,
   PartialRangeTargetDescriptorV2,
   PartialTargetDescriptorV2,
+  SimpleScopeTypeTypeV2,
 } from "../upgradeV2ToV3/targetDescriptorV2.types";
 import {
   CommandV1,
@@ -41,7 +41,7 @@ function upgradeModifier(modifier: ModifierV0V1): ModifierV2[] {
         {
           type: includeSiblings ? "everyScope" : "containingScope",
           scopeType: {
-            type: scopeType as SimpleScopeTypeType,
+            type: scopeType as SimpleScopeTypeTypeV2,
           },
           ...rest,
         },

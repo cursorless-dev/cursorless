@@ -5,6 +5,7 @@ import { CommandLatest } from "../core/commandRunner/command.types";
 import { TestDecoration } from "../core/editStyles";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ThatMark } from "../core/ThatMark";
+import SpyIDE, { SpyIDERecordedValues } from "../ide/spies/SpyIDE";
 import { TargetDescriptor } from "../typings/targetDescriptor.types";
 import { Token } from "../typings/Types";
 import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
@@ -62,6 +63,7 @@ export type TestCaseFixture = {
    * Expected decorations in the test case, for example highlighting deletions in red.
    */
   decorations?: PlainTestDecoration[];
+  ide?: SpyIDERecordedValues;
   /** The final state after a command is issued. Undefined if we are testing a non-match(error) case. */
   finalState?: TestCaseSnapshot;
   /** Used to assert if an error has been thrown. */
@@ -78,21 +80,23 @@ export type TestCaseFixture = {
 };
 
 export class TestCase {
-  languageId: string;
-  fullTargets: TargetDescriptor[];
-  initialState: TestCaseSnapshot | null = null;
-  decorations?: PlainTestDecoration[];
-  finalState?: TestCaseSnapshot;
+  private languageId: string;
+  private fullTargets: TargetDescriptor[];
+  private initialState: TestCaseSnapshot | null = null;
+  private decorations?: PlainTestDecoration[];
+  private finalState?: TestCaseSnapshot;
   thrownError?: ThrownError;
-  returnValue?: unknown;
-  targetKeys: string[];
+  private returnValue?: unknown;
+  private targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
-  marksToCheck?: string[];
-  public command: TestCaseCommand;
+  private marksToCheck?: string[];
+  command: TestCaseCommand;
+  private spyIdeValues?: SpyIDERecordedValues;
 
   constructor(
     command: TestCaseCommand,
     private context: TestCaseContext,
+    private spyIde: SpyIDE,
     private isHatTokenMapTest: boolean = false,
     private isDecorationsTest: boolean = false,
     private startTimestamp: bigint,
@@ -202,6 +206,7 @@ export class TestCase {
       returnValue: this.returnValue,
       fullTargets: this.fullTargets,
       thrownError: this.thrownError,
+      ide: this.spyIdeValues,
     };
     return serialize(fixture);
   }
@@ -229,6 +234,12 @@ export class TestCase {
       this.isHatTokenMapTest ? this.getMarks() : undefined,
       { startTimestamp: this.startTimestamp }
     );
+    this.recordDecorations();
+    this.recordSpyIdeValues();
+  }
+
+  private recordSpyIdeValues() {
+    this.spyIdeValues = this.spyIde.getSpyValues();
   }
 
   filterMarks(command: TestCaseCommand, context: TestCaseContext) {
