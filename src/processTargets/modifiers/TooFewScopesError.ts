@@ -1,4 +1,3 @@
-
 export class TooFewScopesError extends Error {
   constructor(
     requestedLength: number,

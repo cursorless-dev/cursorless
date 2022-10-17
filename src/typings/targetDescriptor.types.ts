@@ -198,7 +198,7 @@ export interface OrdinalScopeModifier {
   length: number;
 }
 
-export  type Direction = "forward" | "backward";
+export type Direction = "forward" | "backward";
 
 /**
  * Refer to scopes by offset relative to input target, eg "next

@@ -4,7 +4,8 @@ import { Scope } from "./scopeHandlers/BaseScopeHandler";
 export function constructScopeRangeTarget(
   isReversed: boolean,
   scope1: Scope,
-  scope2: Scope): Target[] {
+  scope2: Scope
+): Target[] {
   const target1 = scope1.getTarget(isReversed);
   const target2 = scope2.getTarget(isReversed);
 
