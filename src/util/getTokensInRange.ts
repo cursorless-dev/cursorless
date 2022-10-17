@@ -10,7 +10,7 @@ export interface PartialToken {
 
 export function getTokensInRange(
   editor: vscode.TextEditor,
-  range: vscode.Range
+  range: vscode.Range,
 ): PartialToken[] {
   const languageId = editor.document.languageId;
   const text = editor.document.getText(range);
@@ -21,7 +21,7 @@ export function getTokensInRange(
     const endOffset = rangeOffset + match.index! + match[0].length;
     const range = new vscode.Range(
       editor.document.positionAt(startOffset),
-      editor.document.positionAt(endOffset)
+      editor.document.positionAt(endOffset),
     );
 
     return {

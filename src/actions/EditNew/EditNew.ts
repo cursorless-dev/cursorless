@@ -45,7 +45,7 @@ export class EditNew implements Action {
     state = await runEditTargets(this.graph, editor, state);
 
     const newSelections = state.targets.map((target, index) =>
-      selectionFromRange(target.isReversed, state.cursorRanges[index]!)
+      selectionFromRange(target.isReversed, state.cursorRanges[index]!),
     );
     await setSelectionsAndFocusEditor(editor, newSelections);
 

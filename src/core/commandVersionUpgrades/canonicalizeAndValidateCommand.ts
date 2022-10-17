@@ -29,7 +29,7 @@ import { upgradeV2ToV3 } from "./upgradeV2ToV3";
  * @returns The normalized command argument
  */
 export function canonicalizeAndValidateCommand(
-  command: Command
+  command: Command,
 ): CommandComplete {
   const commandUpgraded = upgradeCommand(command);
   const {
@@ -75,7 +75,7 @@ function upgradeCommand(command: Command): CommandLatest {
         break;
       default:
         throw new Error(
-          `Can't upgrade from unknown version ${command.version}`
+          `Can't upgrade from unknown version ${command.version}`,
         );
     }
   }
@@ -89,34 +89,34 @@ function upgradeCommand(command: Command): CommandLatest {
 
 function validateCommand(
   actionName: ActionType,
-  partialTargets: PartialTargetDescriptor[]
+  partialTargets: PartialTargetDescriptor[],
 ) {
   if (
     usesScopeType("notebookCell", partialTargets) &&
     !["editNewLineBefore", "editNewLineAfter"].includes(actionName)
   ) {
     throw new Error(
-      "The notebookCell scope type is currently only supported with the actions editNewLineAbove and editNewLineBelow"
+      "The notebookCell scope type is currently only supported with the actions editNewLineAbove and editNewLineBelow",
     );
   }
 }
 
 function usesScopeType(
   scopeTypeType: SimpleScopeTypeType,
-  partialTargets: PartialTargetDescriptor[]
+  partialTargets: PartialTargetDescriptor[],
 ) {
   return getPartialPrimitiveTargets(partialTargets).some((partialTarget) =>
     partialTarget.modifiers?.find(
       (mod: Modifier) =>
         (mod.type === "containingScope" || mod.type === "everyScope") &&
-        mod.scopeType.type === scopeTypeType
-    )
+        mod.scopeType.type === scopeTypeType,
+    ),
   );
 }
 
 export async function checkForOldInference(
   graph: Graph,
-  partialTargets: PartialTargetDescriptor[]
+  partialTargets: PartialTargetDescriptor[],
 ) {
   const hasOldInference = partialTargets.some((target) => {
     return (
@@ -131,20 +131,20 @@ export async function checkForOldInference(
     const hideInferenceWarning =
       graph.extensionContext.globalState.get<boolean>(
         globalStateKeys.hideInferenceWarning,
-        false
+        false,
       );
 
     if (!hideInferenceWarning) {
       const pressed = await graph.ide.messages.showWarning(
         "deprecatedPositionInference",
         'The "past start of" / "past end of" form has changed behavior.  For the old behavior, update cursorless-talon (https://www.cursorless.org/docs/user/updating/), and then you can now say "past start of its" / "past end of its". For example, "take air past end of its line".  You may also consider using "head" / "tail" instead; see https://www.cursorless.org/docs/#head-and-tail',
-        "Don't show again"
+        "Don't show again",
       );
 
       if (pressed) {
         graph.extensionContext.globalState.update(
           globalStateKeys.hideInferenceWarning,
-          true
+          true,
         );
       }
     }

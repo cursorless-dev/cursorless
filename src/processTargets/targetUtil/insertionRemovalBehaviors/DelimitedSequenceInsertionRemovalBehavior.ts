@@ -11,7 +11,7 @@ import { Target } from "../../../typings/target.types";
  */
 export function getDelimitedSequenceRemovalRange(
   target: Target,
-  contentRange?: Range
+  contentRange?: Range,
 ): Range {
   contentRange = contentRange ?? target.contentRange;
 

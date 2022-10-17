@@ -6,7 +6,7 @@ import { PlainTarget } from "../../targets";
 import { getDelimitedSequenceRemovalRange } from "./DelimitedSequenceInsertionRemovalBehavior";
 
 export function getTokenLeadingDelimiterTarget(
-  target: Target
+  target: Target,
 ): Target | undefined {
   const { editor } = target;
   const { start } = target.contentRange;
@@ -22,7 +22,7 @@ export function getTokenLeadingDelimiterTarget(
           start.line,
           start.character - leadingDelimiters[0].length,
           start.line,
-          start.character
+          start.character,
         ),
         editor,
         isReversed: target.isReversed,
@@ -30,7 +30,7 @@ export function getTokenLeadingDelimiterTarget(
 }
 
 export function getTokenTrailingDelimiterTarget(
-  target: Target
+  target: Target,
 ): Target | undefined {
   const { editor } = target;
   const { end } = target.contentRange;
@@ -46,7 +46,7 @@ export function getTokenTrailingDelimiterTarget(
           end.line,
           end.character,
           end.line,
-          end.character + trailingDelimiters[0].length
+          end.character + trailingDelimiters[0].length,
         ),
         editor,
         isReversed: target.isReversed,
@@ -65,7 +65,7 @@ export function getTokenTrailingDelimiterTarget(
  */
 export function getTokenRemovalRange(
   target: Target,
-  contentRange?: Range
+  contentRange?: Range,
 ): Range {
   const { document } = target.editor;
   const actualContentRange = contentRange ?? target.contentRange;
@@ -80,14 +80,14 @@ export function getTokenRemovalRange(
       document,
       fullText,
       fullTextOffset,
-      actualContentRange
+      actualContentRange,
     );
 
     const numTokensRemovalRangeRemoved = calculateNumberOfTokensAfterRemoval(
       document,
       fullText,
       fullTextOffset,
-      removalRange
+      removalRange,
     );
 
     // Using removal range has not merged any tokens. Removal range is ok to use.
@@ -104,7 +104,7 @@ function calculateNumberOfTokensAfterRemoval(
   document: TextDocument,
   fullText: string,
   fullTextOffset: number,
-  removalRange: Range
+  removalRange: Range,
 ): number {
   const startIndex = document.offsetAt(removalRange.start) - fullTextOffset;
   const endIndex = document.offsetAt(removalRange.end) - fullTextOffset;

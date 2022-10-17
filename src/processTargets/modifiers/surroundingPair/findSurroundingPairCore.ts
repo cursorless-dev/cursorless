@@ -37,7 +37,7 @@ export function findSurroundingPairCore(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   acceptableDelimiters: SimpleSurroundingPairName[],
   selectionOffsets: Offsets,
-  bailOnUnmatchedAdjacent: boolean = false
+  bailOnUnmatchedAdjacent: boolean = false,
 ): SurroundingPairOffsets | null {
   /**
    * The initial index from which to start both of our searches.  We set this
@@ -51,7 +51,7 @@ export function findSurroundingPairCore(
     {
       offsets: selectionOffsets,
     },
-    "offsets.end"
+    "offsets.end",
   );
 
   // First look for delimiter pair where one delimiter contains the selection.
@@ -61,7 +61,7 @@ export function findSurroundingPairCore(
       delimiterOccurrences,
       selectionOffsets,
       scopeType,
-      bailOnUnmatchedAdjacent
+      bailOnUnmatchedAdjacent,
     );
 
   if (delimiterPairAdjacentToSelection != null) {
@@ -73,6 +73,6 @@ export function findSurroundingPairCore(
     initialIndex,
     delimiterOccurrences,
     acceptableDelimiters,
-    selectionOffsets
+    selectionOffsets,
   );
 }

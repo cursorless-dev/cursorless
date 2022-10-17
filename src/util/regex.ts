@@ -33,7 +33,7 @@ export const leftAnchored = makeCache(_leftAnchored);
 export function matchAll<T>(
   text: string,
   regex: RegExp,
-  mapfn: (v: RegExpMatchArray, k: number) => T
+  mapfn: (v: RegExpMatchArray, k: number) => T,
 ) {
   return Array.from(text.matchAll(regex), mapfn);
 }

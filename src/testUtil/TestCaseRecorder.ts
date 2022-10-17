@@ -112,13 +112,13 @@ export class TestCaseRecorder {
         async (arg?: RecordTestCaseCommandArg) => {
           if (this.active) {
             vscode.window.showInformationMessage(
-              "Stopped recording test cases"
+              "Stopped recording test cases",
             );
             this.stop();
           } else {
             return await this.start(arg);
           }
-        }
+        },
       ),
 
       vscode.commands.registerCommand("cursorless.pauseRecording", async () => {
@@ -137,7 +137,7 @@ export class TestCaseRecorder {
           }
 
           this.paused = false;
-        }
+        },
       ),
 
       vscode.commands.registerCommand(
@@ -146,18 +146,18 @@ export class TestCaseRecorder {
           outPath: string,
           metadata: unknown,
           targetedMarks: DecoratedSymbolMark[],
-          usePrePhraseSnapshot: boolean
+          usePrePhraseSnapshot: boolean,
         ) => {
           let marks: SerializedMarks | undefined;
           if (targetedMarks.length !== 0) {
             const keys = targetedMarks.map(({ character, symbolColor }) =>
-              HatTokenMap.getKey(symbolColor, character)
+              HatTokenMap.getKey(symbolColor, character),
             );
             const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
-              usePrePhraseSnapshot
+              usePrePhraseSnapshot,
             );
             marks = marksToPlainObject(
-              extractTargetedMarks(keys, readableHatMap)
+              extractTargetedMarks(keys, readableHatMap),
             );
           } else {
             marks = undefined;
@@ -170,12 +170,12 @@ export class TestCaseRecorder {
             this.active ? this.extraSnapshotFields : undefined,
             marks,
             this.active ? { startTimestamp: this.startTimestamp } : undefined,
-            metadata
+            metadata,
           );
 
           await this.writeToFile(outPath, serialize(snapshot));
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -220,10 +220,10 @@ export class TestCaseRecorder {
       {},
       ...(await Promise.all(
         parentDirectories.map((parent) =>
-          readJsonIfExists(path.join(parent, "config.json"))
-        )
+          readJsonIfExists(path.join(parent, "config.json")),
+        ),
       )),
-      explicitConfig
+      explicitConfig,
     );
 
     const {
@@ -239,7 +239,7 @@ export class TestCaseRecorder {
     this.active = true;
 
     const startTimestampISO = await this.recordStartTime(
-      showCalibrationDisplay
+      showCalibrationDisplay,
     );
     this.isHatTokenMapTest = isHatTokenMapTest;
     this.captureFinalThatMark = captureFinalThatMark;
@@ -250,7 +250,7 @@ export class TestCaseRecorder {
     this.paused = false;
 
     vscode.window.showInformationMessage(
-      `Recording test cases for following commands in:\n${this.targetDirectory}`
+      `Recording test cases for following commands in:\n${this.targetDirectory}`,
     );
 
     return { startTimestampISO };
@@ -293,7 +293,7 @@ export class TestCaseRecorder {
       // cared about from the last command
       invariant(
         this.testCase.awaitingFinalMarkInfo,
-        () => "expected to be awaiting final mark info"
+        () => "expected to be awaiting final mark info",
       );
       this.testCase.filterMarks(command, context);
       await this.finishTestCase();
@@ -309,7 +309,7 @@ export class TestCaseRecorder {
         this.isDecorationsTest,
         this.startTimestamp!,
         this.captureFinalThatMark,
-        this.extraSnapshotFields
+        this.extraSnapshotFields,
       );
 
       await this.testCase.recordInitialState();
@@ -365,7 +365,7 @@ export class TestCaseRecorder {
       !["cursorless-vscode", "cursorless"].includes(this.workspaceName)
     ) {
       throw new Error(
-        '"Cursorless record" must be run from within cursorless directory'
+        '"Cursorless record" must be run from within cursorless directory',
       );
     }
 
@@ -459,7 +459,7 @@ function capitalize(str: string) {
 }
 
 async function readJsonIfExists(
-  path: string
+  path: string,
 ): Promise<RecordTestCaseCommandArg> {
   let rawText: string;
 

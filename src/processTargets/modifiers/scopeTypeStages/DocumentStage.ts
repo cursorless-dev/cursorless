@@ -25,6 +25,6 @@ export default class implements ModifierStage {
 function getDocumentRange(editor: TextEditor) {
   return new Range(
     new Position(0, 0),
-    editor.document.lineAt(editor.document.lineCount - 1).range.end
+    editor.document.lineAt(editor.document.lineCount - 1).range.end,
   );
 }

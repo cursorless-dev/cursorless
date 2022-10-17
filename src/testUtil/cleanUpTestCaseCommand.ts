@@ -1,7 +1,7 @@
 import { TestCaseCommand } from "./TestCase";
 
 export function cleanUpTestCaseCommand(
-  command: TestCaseCommand
+  command: TestCaseCommand,
 ): TestCaseCommand {
   const { action, ...rest } = command;
   const { args } = action;

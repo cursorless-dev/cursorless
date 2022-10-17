@@ -20,7 +20,7 @@ abstract class SubTokenStage implements ModifierStage {
     const { document } = target.editor;
     const tokenRange = getTokenRangeForSelection(
       target.editor,
-      target.contentRange
+      target.contentRange,
     );
     const text = document.getText(tokenRange);
     const offset = document.offsetAt(tokenRange.start);
@@ -29,14 +29,14 @@ abstract class SubTokenStage implements ModifierStage {
       (match) =>
         new Range(
           document.positionAt(offset + match.index),
-          document.positionAt(offset + match.index + match.text.length)
-        )
+          document.positionAt(offset + match.index + match.text.length),
+        ),
     );
 
     const targets = this.createTargetsFromRanges(
       target.isReversed,
       target.editor,
-      contentRanges
+      contentRanges,
     );
 
     // If target has explicit range filter to scopes in that range. Otherwise expand to all scopes in iteration scope.
@@ -83,7 +83,7 @@ abstract class SubTokenStage implements ModifierStage {
     // On non empty input range, utilize all targets with a non-empty
     // intersection with {@link inputTarget}
     intersectingTargets = intersectingTargets.filter(
-      (it) => !it.intersection!.isEmpty
+      (it) => !it.intersection!.isEmpty,
     );
 
     if (intersectingTargets.length === 0) {
@@ -98,7 +98,7 @@ abstract class SubTokenStage implements ModifierStage {
       inputTarget.isReversed,
       intersectingTargets.at(-1)!.target,
       true,
-      true
+      true,
     );
   }
 
@@ -107,7 +107,7 @@ abstract class SubTokenStage implements ModifierStage {
    */
   protected abstract getMatchedText(
     text: string,
-    languageId: string
+    languageId: string,
   ): MatchedText[];
 
   /**
@@ -116,7 +116,7 @@ abstract class SubTokenStage implements ModifierStage {
   protected abstract createTargetsFromRanges(
     isReversed: boolean,
     editor: TextEditor,
-    contentRanges: Range[]
+    contentRanges: Range[],
   ): Target[];
 }
 
@@ -132,7 +132,7 @@ export class WordStage extends SubTokenStage {
   protected createTargetsFromRanges(
     isReversed: boolean,
     editor: TextEditor,
-    contentRanges: Range[]
+    contentRanges: Range[],
   ): Target[] {
     return contentRanges.map((contentRange, i) => {
       const previousContentRange = i > 0 ? contentRanges[i - 1] : null;
@@ -155,7 +155,7 @@ export class WordStage extends SubTokenStage {
         leadingDelimiterRange != null || trailingDelimiterRange != null;
       const insertionDelimiter = isInDelimitedList
         ? editor.document.getText(
-            (leadingDelimiterRange ?? trailingDelimiterRange)!
+            (leadingDelimiterRange ?? trailingDelimiterRange)!,
           )
         : "";
 
@@ -183,7 +183,7 @@ export class CharacterStage extends SubTokenStage {
   protected createTargetsFromRanges(
     isReversed: boolean,
     editor: TextEditor,
-    contentRanges: Range[]
+    contentRanges: Range[],
   ): Target[] {
     return contentRanges.map(
       (contentRange) =>
@@ -191,7 +191,7 @@ export class CharacterStage extends SubTokenStage {
           editor,
           isReversed,
           contentRange,
-        })
+        }),
     );
   }
 }

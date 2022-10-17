@@ -3,11 +3,11 @@ import { Target } from "../typings/target.types";
 
 export async function getLinksForSelections(
   editor: vscode.TextEditor,
-  selections: vscode.Selection[]
+  selections: vscode.Selection[],
 ) {
   const links = await getLinksForEditor(editor);
   return links.filter((link) =>
-    selections.find((selection) => link.range.contains(selection))
+    selections.find((selection) => link.range.contains(selection)),
   );
 }
 
@@ -19,6 +19,6 @@ export async function getLinkForTarget(target: Target) {
 function getLinksForEditor(editor: vscode.TextEditor) {
   return vscode.commands.executeCommand(
     "vscode.executeLinkProvider",
-    editor.document.uri
+    editor.document.uri,
   ) as Thenable<vscode.DocumentLink[]>;
 }

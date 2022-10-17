@@ -32,7 +32,7 @@ export function upgradeV2ToV3(command: CommandV2): CommandV3 {
 }
 
 function upgradeTarget(
-  target: PartialTargetDescriptorV2
+  target: PartialTargetDescriptorV2,
 ): PartialTargetDescriptor {
   switch (target.type) {
     case "list":
@@ -42,7 +42,7 @@ function upgradeTarget(
           (target) =>
             upgradeTarget(target) as
               | PartialPrimitiveTargetDescriptor
-              | PartialRangeTargetDescriptor
+              | PartialRangeTargetDescriptor,
         ),
       };
     case "range": {
@@ -59,7 +59,7 @@ function upgradeTarget(
 }
 
 function upgradePrimitiveTarget(
-  target: PartialPrimitiveTargetDescriptorV2
+  target: PartialPrimitiveTargetDescriptorV2,
 ): PartialPrimitiveTargetDescriptor {
   return {
     ...target,
@@ -90,7 +90,7 @@ function updateModifier(modifier: ModifierV2): Modifier {
 }
 
 function createLineNumberMark(
-  mark: LineNumberMarkV2
+  mark: LineNumberMarkV2,
 ): LineNumberMark | RangeMark {
   if (isEqual(mark.anchor, mark.active)) {
     return createLineNumberMarkFromPos(mark.anchor);
@@ -104,7 +104,7 @@ function createLineNumberMark(
 }
 
 function createOrdinalModifier(
-  modifier: OrdinalRangeModifier
+  modifier: OrdinalRangeModifier,
 ): OrdinalScopeModifier | RangeModifier {
   if (modifier.anchor === modifier.active) {
     return createAbsoluteOrdinalModifier(modifier.scopeType, modifier.anchor);
@@ -120,7 +120,7 @@ function createOrdinalModifier(
 }
 
 function createLineNumberMarkFromPos(
-  position: LineNumberPositionV2
+  position: LineNumberPositionV2,
 ): LineNumberMark {
   return {
     type: "lineNumber",
@@ -131,7 +131,7 @@ function createLineNumberMarkFromPos(
 
 function createAbsoluteOrdinalModifier(
   scopeType: ScopeType,
-  start: number
+  start: number,
 ): OrdinalScopeModifier {
   return {
     type: "ordinalScope",

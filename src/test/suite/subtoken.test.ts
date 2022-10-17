@@ -7,7 +7,7 @@ suite("subtoken regex matcher", () => {
     test(input, () => {
       assert.deepStrictEqual(
         subWordSplitter(input, "anyLang").map(({ text }) => text),
-        expectedOutput
+        expectedOutput,
       );
     });
   });

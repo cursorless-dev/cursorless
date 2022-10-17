@@ -9,7 +9,7 @@ export function subWordSplitter(text: string, languageId: string) {
   // eg `publicApiV1 public_api_v1`
   const { identifierMatcher, wordMatcher } = getMatcher(languageId);
   return matchText(text, identifierMatcher).flatMap((t) =>
-    splitIdentifier(wordMatcher, t.text, t.index)
+    splitIdentifier(wordMatcher, t.text, t.index),
   );
 }
 

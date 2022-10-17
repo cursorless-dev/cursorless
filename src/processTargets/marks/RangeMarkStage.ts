@@ -23,7 +23,7 @@ export default class RangeMarkStage implements MarkStage {
         anchorTargets[0],
         activeTargets[0],
         this.mark.excludeAnchor,
-        this.mark.excludeActive
+        this.mark.excludeActive,
       ),
     ];
   }

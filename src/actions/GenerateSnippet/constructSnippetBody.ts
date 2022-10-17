@@ -31,7 +31,7 @@ interface Line {
  */
 export function constructSnippetBody(
   text: string,
-  linePrefix: string
+  linePrefix: string,
 ): string[] {
   const outputLines: string[] = [];
   let currentTabCount = 0;
@@ -64,7 +64,7 @@ export function constructSnippetBody(
 
     const lineContentStart = Math.max(
       firstNonWhitespaceCharacterIndex,
-      startIndex
+      startIndex,
     );
     const snippetIndentationString = repeat("\t", currentTabCount);
     const lineContent = text.slice(lineContentStart);
