@@ -7,6 +7,7 @@ import type {
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import getScopeHandler from "../getScopeHandler";
 import type { ModifierStage } from "../PipelineStages.types";
+import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import ItemStage from "./ItemStage";
 import BoundedNonWhitespaceSequenceStage from "./scopeTypeStages/BoundedNonWhitespaceStage";
 import ContainingSyntaxScopeStage, {
@@ -38,38 +39,23 @@ export class ContainingScopeStage implements ModifierStage {
   }
 
   private runNew(target: Target): Target[] {
-    const scopeHandler = getScopeHandler(this.modifier.scopeType);
-    const iterationScope = scopeHandler.run(
-      target.editor,
-      target.contentRange,
-      target.isReversed,
-      target.hasExplicitRange
-    );
+    const {
+      isReversed,
+      editor,
+      contentRange: { start, end },
+    } = target;
+    const { scopeType } = this.modifier;
 
-    if (iterationScope.containingIndices == null) {
-      throw new NoContainingScopeError(this.modifier.scopeType.type);
+    const scopeHandler = getScopeHandler(scopeType);
+    const startScope = scopeHandler.getScopeContainingPosition(editor, start);
+
+    if (startScope.domain.contains(end)) {
+      return [startScope.getTarget(isReversed)];
     }
 
-    const startTarget =
-      iterationScope.targets[iterationScope.containingIndices.start];
-    const endTarget =
-      iterationScope.targets[iterationScope.containingIndices.end];
+    const endScope = scopeHandler.getScopeContainingPosition(editor, end);
 
-    if (
-      iterationScope.containingIndices.start ===
-      iterationScope.containingIndices.end
-    ) {
-      return [startTarget];
-    }
-
-    return [
-      startTarget.createContinuousRangeTarget(
-        target.isReversed,
-        endTarget,
-        true,
-        true
-      ),
-    ];
+    return constructScopeRangeTarget(isReversed, startScope, endScope);
   }
 
   private runLegacy(

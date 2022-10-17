@@ -198,6 +198,8 @@ export interface OrdinalScopeModifier {
   length: number;
 }
 
+export  type Direction = "forward" | "backward";
+
 /**
  * Refer to scopes by offset relative to input target, eg "next
  * funk" to refer to the first function after the function containing the target input.
@@ -218,7 +220,7 @@ export interface RelativeScopeModifier {
 
   /** Indicates which direction both {@link offset} and {@link length} go
    * relative to input target  */
-  direction: "forward" | "backward";
+  direction: Direction;
 }
 
 /**

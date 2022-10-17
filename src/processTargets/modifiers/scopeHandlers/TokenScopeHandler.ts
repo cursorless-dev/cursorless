@@ -4,9 +4,13 @@ import { Target } from "../../../typings/target.types";
 import { getTokensInRange } from "../../../util/getTokensInRange";
 import { expandToFullLine } from "../../../util/rangeUtils";
 import { CommonTargetParameters, TokenTarget } from "../../targets";
-import { ContainingIndices, Scope, ScopeHandler } from "./scopeHandler.types";
+import {
+  ContainingIndices,
+  Scope,
+  BaseScopeHandler
+} from "./BaseScopeHandler";
 
-export default class TokenScopeHandler extends ScopeHandler {
+export default class TokenScopeHandler extends BaseScopeHandler {
   protected getEveryScope(editor: TextEditor, contentRange: Range): Scope[] {
     const tokens = getTokensInRange(
       editor,

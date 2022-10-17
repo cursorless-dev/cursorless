@@ -1,7 +1,6 @@
 import { Target } from "../../typings/target.types";
 import { OrdinalScopeModifier } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
-import getScopeHandler from "../getScopeHandler";
 import { ModifierStage } from "../PipelineStages.types";
 import {
   createRangeTargetFromIndices,
@@ -12,30 +11,6 @@ export class OrdinalScopeStage implements ModifierStage {
   constructor(private modifier: OrdinalScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    switch (this.modifier.scopeType.type) {
-      case "token":
-        return this.runNew(target);
-      default:
-        return this.runLegacy(context, target);
-    }
-  }
-
-  private runNew(target: Target): Target[] {
-    const scopeHandler = getScopeHandler(this.modifier.scopeType);
-    const iterationScope = scopeHandler.run(
-      target.editor,
-      target.contentRange,
-      target.isReversed,
-      target.hasExplicitRange
-    );
-
-    return this.calculateIndicesAndCreateTarget(target, iterationScope.targets);
-  }
-
-  private runLegacy(
-    context: ProcessedTargetsContext,
-    target: Target
-  ): Target[] {
     const targets = getEveryScopeTargets(
       context,
       target,

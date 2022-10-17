@@ -34,19 +34,37 @@ export class EveryScopeStage implements ModifierStage {
   }
 
   private runNew(target: Target): Target[] {
-    const scopeHandler = getScopeHandler(this.modifier.scopeType);
-    const iterationScope = scopeHandler.run(
-      target.editor,
-      target.contentRange,
-      target.isReversed,
-      target.hasExplicitRange
-    );
+    const { editor, isReversed, contentRange: range } = target;
+    const { scopeType } = this.modifier;
 
-    if (iterationScope.targets.length === 0) {
-      throw new NoContainingScopeError(this.modifier.scopeType.type);
+    const scopeHandler = getScopeHandler(scopeType);
+
+    if (target.hasExplicitRange) {
+      const scopes = scopeHandler.getScopesIntersectingRange(editor, range);
+
+      if (scopes.length === 0) {
+        throw new NoContainingScopeError(scopeType.type);
+      }
+
+      return scopes.map((scope) => scope.getTarget(isReversed));
     }
 
-    return iterationScope.targets;
+    const { start, end } = range;
+
+    const startScope = scopeHandler.getIterationScopeContainingPosition(
+      editor,
+      start
+    );
+
+    if (!startScope.domain.contains(end)) {
+      // NB: This shouldn't really happen, because our weak scopes are
+      // generally no bigger than a token.
+      throw new Error(
+        "Canonical iteration scope domain must include entire input range"
+      );
+    }
+
+    return startScope.scopes.map((scope) => scope.getTarget(isReversed));
   }
 
   private runLegacy(
