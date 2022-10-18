@@ -4,13 +4,13 @@ import type { EveryScopeModifier } from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import getScopeHandler from "../getScopeHandler";
 import type { ModifierStage } from "../PipelineStages.types";
+import { getPreferredScope, getRightScope } from "./getPreferredScope";
 import ItemStage from "./ItemStage";
 import BoundedNonWhitespaceSequenceStage from "./scopeTypeStages/BoundedNonWhitespaceStage";
 import ContainingSyntaxScopeStage, {
   SimpleEveryScopeModifier,
 } from "./scopeTypeStages/ContainingSyntaxScopeStage";
 import DocumentStage from "./scopeTypeStages/DocumentStage";
-import LineStage from "./scopeTypeStages/LineStage";
 import NotebookCellStage from "./scopeTypeStages/NotebookCellStage";
 import ParagraphStage from "./scopeTypeStages/ParagraphStage";
 import {
@@ -27,6 +27,7 @@ export class EveryScopeStage implements ModifierStage {
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     switch (this.modifier.scopeType.type) {
       case "token":
+      case "line":
         return this.runNew(target);
       default:
         return this.runLegacy(context, target);
@@ -51,10 +52,14 @@ export class EveryScopeStage implements ModifierStage {
 
     const { start, end } = range;
 
-    const startScope = scopeHandler.getIterationScopeContainingPosition(
+    const startScopes = scopeHandler.getIterationScopesContainingPosition(
       editor,
       start
     );
+
+    const startScope = end.isEqual(start)
+      ? getPreferredScope(startScopes)
+      : getRightScope(startScopes);
 
     if (!startScope.domain.contains(end)) {
       // NB: This shouldn't really happen, because our weak scopes are
@@ -82,8 +87,6 @@ const getEveryScopeStage = (modifier: EveryScopeModifier): ModifierStage => {
       return new NotebookCellStage(modifier);
     case "document":
       return new DocumentStage(modifier);
-    case "line":
-      return new LineStage(modifier);
     case "paragraph":
       return new ParagraphStage(modifier);
     case "nonWhitespaceSequence":

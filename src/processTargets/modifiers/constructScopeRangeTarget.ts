@@ -1,10 +1,10 @@
 import { Target } from "../../typings/target.types";
-import { Scope } from "./scopeHandlers/BaseScopeHandler";
+import { TargetScope } from "./scopeHandlers/scopeHandler.types";
 
 export function constructScopeRangeTarget(
   isReversed: boolean,
-  scope1: Scope,
-  scope2: Scope
+  scope1: TargetScope,
+  scope2: TargetScope
 ): Target[] {
   const target1 = scope1.getTarget(isReversed);
   const target2 = scope2.getTarget(isReversed);

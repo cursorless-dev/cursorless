@@ -1,4 +1,3 @@
-import { NoContainingScopeError } from "../../errors";
 import type { Target } from "../../typings/target.types";
 import type {
   ContainingScopeModifier,
@@ -8,13 +7,17 @@ import type { ProcessedTargetsContext } from "../../typings/Types";
 import getScopeHandler from "../getScopeHandler";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
+import {
+  getLeftScope,
+  getPreferredScope,
+  getRightScope,
+} from "./getPreferredScope";
 import ItemStage from "./ItemStage";
 import BoundedNonWhitespaceSequenceStage from "./scopeTypeStages/BoundedNonWhitespaceStage";
 import ContainingSyntaxScopeStage, {
   SimpleContainingScopeModifier,
 } from "./scopeTypeStages/ContainingSyntaxScopeStage";
 import DocumentStage from "./scopeTypeStages/DocumentStage";
-import LineStage from "./scopeTypeStages/LineStage";
 import NotebookCellStage from "./scopeTypeStages/NotebookCellStage";
 import ParagraphStage from "./scopeTypeStages/ParagraphStage";
 import {
@@ -32,6 +35,7 @@ export class ContainingScopeStage implements ModifierStage {
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     switch (this.modifier.scopeType.type) {
       case "token":
+      case "line":
         return this.runNew(target);
       default:
         return this.runLegacy(context, target);
@@ -47,13 +51,20 @@ export class ContainingScopeStage implements ModifierStage {
     const { scopeType } = this.modifier;
 
     const scopeHandler = getScopeHandler(scopeType);
-    const startScope = scopeHandler.getScopeContainingPosition(editor, start);
+    const startScopes = scopeHandler.getScopesContainingPosition(editor, start);
+
+    if (end.isEqual(start)) {
+      return [getPreferredScope(startScopes).getTarget(isReversed)];
+    }
+
+    const startScope = getRightScope(startScopes);
 
     if (startScope.domain.contains(end)) {
       return [startScope.getTarget(isReversed)];
     }
 
-    const endScope = scopeHandler.getScopeContainingPosition(editor, end);
+    const endScopes = scopeHandler.getScopesContainingPosition(editor, end);
+    const endScope = getLeftScope(endScopes);
 
     return constructScopeRangeTarget(isReversed, startScope, endScope);
   }
@@ -75,8 +86,6 @@ const getContainingScopeStage = (
       return new NotebookCellStage(modifier);
     case "document":
       return new DocumentStage(modifier);
-    case "line":
-      return new LineStage(modifier);
     case "paragraph":
       return new ParagraphStage(modifier);
     case "nonWhitespaceSequence":
