@@ -2,9 +2,7 @@ import { TextEditor, Position, Range } from "vscode";
 import { NoContainingScopeError } from "../../../errors";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { getPreferredScope } from "../getPreferredScope";
-import {
-  ScopeHandler,
-} from "./scopeHandler.types";
+import { ScopeHandler } from "./scopeHandler.types";
 import { IterationScope, TargetScope } from "./scope.types";
 
 export default abstract class NestedScopeHandler implements ScopeHandler {

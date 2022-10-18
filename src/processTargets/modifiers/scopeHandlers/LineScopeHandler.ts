@@ -5,9 +5,7 @@ import { NoContainingScopeError } from "../../../errors";
 import { Direction } from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/range";
 import { LineTarget } from "../../targets";
-import {
-  ScopeHandler,
-} from "./scopeHandler.types";
+import { ScopeHandler } from "./scopeHandler.types";
 import { IterationScope, TargetScope } from "./scope.types";
 
 export default class LineScopeHandler implements ScopeHandler {
