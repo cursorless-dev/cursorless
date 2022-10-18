@@ -102,7 +102,7 @@ export interface ScopeHandler {
    * @param position The position from which to expand
    * @throws {NoContainingScopeError} If no scope contains the given position
    */
-  getScopesContainingPosition(
+  getScopesIntersectingPosition(
     editor: TextEditor,
     position: Position
   ): TargetScope[];
@@ -123,7 +123,7 @@ export interface ScopeHandler {
    * @throws {NoContainingScopeError} If no iteration scope contains the given
    * position
    */
-  getIterationScopesContainingPosition(
+  getIterationScopesIntersectingPosition(
     editor: TextEditor,
     position: Position
   ): IterationScope[];

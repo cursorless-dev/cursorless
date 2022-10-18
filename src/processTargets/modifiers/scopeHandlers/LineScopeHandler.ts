@@ -16,7 +16,7 @@ export default class LineScopeHandler implements ScopeHandler {
     return { type: "line" };
   }
 
-  getScopesContainingPosition(
+  getScopesIntersectingPosition(
     editor: TextEditor,
     position: Position
   ): TargetScope[] {
@@ -32,7 +32,7 @@ export default class LineScopeHandler implements ScopeHandler {
     );
   }
 
-  getIterationScopesContainingPosition(
+  getIterationScopesIntersectingPosition(
     editor: TextEditor,
     _position: Position
   ): IterationScope[] {

@@ -17,12 +17,12 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
     parentScope: TargetScope
   ): TargetScope[];
 
-  getScopesContainingPosition(
+  getScopesIntersectingPosition(
     editor: TextEditor,
     position: Position
   ): TargetScope[] {
     const parentScope = getPreferredScope(
-      this.parentScopeHandler.getScopesContainingPosition(editor, position)
+      this.parentScopeHandler.getScopesIntersectingPosition(editor, position)
     );
 
     return this.getScopesInParentScope(parentScope).filter(({ domain }) =>
@@ -40,12 +40,12 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
       });
   }
 
-  getIterationScopesContainingPosition(
+  getIterationScopesIntersectingPosition(
     editor: TextEditor,
     position: Position
   ): IterationScope[] {
     return this.parentScopeHandler
-      .getScopesContainingPosition(editor, position)
+      .getScopesIntersectingPosition(editor, position)
       .map((parentScope) => ({
         domain: parentScope.domain,
         editor,
@@ -82,7 +82,7 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
     direction: Direction
   ): Generator<TargetScope[], void, unknown> {
     const containingParentScope = getPreferredScope(
-      this.parentScopeHandler.getScopesContainingPosition(editor, position)
+      this.parentScopeHandler.getScopesIntersectingPosition(editor, position)
     );
 
     yield this.getScopesInParentScope(containingParentScope).filter(

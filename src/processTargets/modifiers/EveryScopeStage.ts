@@ -52,7 +52,7 @@ export class EveryScopeStage implements ModifierStage {
 
     const { start, end } = range;
 
-    const startScopes = scopeHandler.getIterationScopesContainingPosition(
+    const startScopes = scopeHandler.getIterationScopesIntersectingPosition(
       editor,
       start
     );

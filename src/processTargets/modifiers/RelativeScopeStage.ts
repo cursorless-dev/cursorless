@@ -135,7 +135,7 @@ function getIndex0Scopes(
   return range.isEmpty
     ? [
         getPreferredScope(
-          scopeHandler.getScopesContainingPosition(editor, range.start)
+          scopeHandler.getScopesIntersectingPosition(editor, range.start)
         ),
       ]
     : scopeHandler.getScopesIntersectingRange(editor, range);
