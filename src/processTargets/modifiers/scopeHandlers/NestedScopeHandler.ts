@@ -17,12 +17,12 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
     parentScope: TargetScope
   ): TargetScope[];
 
-  getScopesIntersectingPosition(
+  getScopesTouchingPosition(
     editor: TextEditor,
     position: Position
   ): TargetScope[] {
     const parentScope = getPreferredScope(
-      this.parentScopeHandler.getScopesIntersectingPosition(editor, position)
+      this.parentScopeHandler.getScopesTouchingPosition(editor, position)
     );
 
     if (parentScope == null) {
@@ -34,9 +34,9 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
     );
   }
 
-  getScopesIntersectingRange(editor: TextEditor, range: Range): TargetScope[] {
+  getScopesOverlappingRange(editor: TextEditor, range: Range): TargetScope[] {
     return this.parentScopeHandler
-      .getScopesIntersectingRange(editor, range)
+      .getScopesOverlappingRange(editor, range)
       .flatMap((parentScope) => this.getScopesInParentScope(parentScope))
       .filter(({ domain }) => {
         const intersection = domain.intersection(range);
@@ -44,12 +44,12 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
       });
   }
 
-  getIterationScopesIntersectingPosition(
+  getIterationScopesTouchingPosition(
     editor: TextEditor,
     position: Position
   ): IterationScope[] {
     return this.parentScopeHandler
-      .getScopesIntersectingPosition(editor, position)
+      .getScopesTouchingPosition(editor, position)
       .map((parentScope) => ({
         domain: parentScope.domain,
         editor,
@@ -86,7 +86,7 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
     direction: Direction
   ): Generator<TargetScope[], void, unknown> {
     const containingParentScope = getPreferredScope(
-      this.parentScopeHandler.getScopesIntersectingPosition(editor, position)
+      this.parentScopeHandler.getScopesTouchingPosition(editor, position)
     );
 
     let currentPosition = position;

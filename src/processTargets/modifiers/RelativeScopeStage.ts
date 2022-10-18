@@ -141,11 +141,11 @@ function getIndex0Scopes(
 ): TargetScope[] {
   if (range.isEmpty) {
     const preferredScope = getPreferredScope(
-      scopeHandler.getScopesIntersectingPosition(editor, range.start)
+      scopeHandler.getScopesTouchingPosition(editor, range.start)
     );
 
     return preferredScope == null ? [] : [preferredScope];
   }
 
-  return scopeHandler.getScopesIntersectingRange(editor, range);
+  return scopeHandler.getScopesOverlappingRange(editor, range);
 }

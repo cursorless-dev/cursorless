@@ -41,7 +41,7 @@ export class EveryScopeStage implements ModifierStage {
     const scopeHandler = getScopeHandler(scopeType);
 
     if (target.hasExplicitRange) {
-      const scopes = scopeHandler.getScopesIntersectingRange(editor, range);
+      const scopes = scopeHandler.getScopesOverlappingRange(editor, range);
 
       if (scopes.length === 0) {
         throw new NoContainingScopeError(scopeType.type);
@@ -52,7 +52,7 @@ export class EveryScopeStage implements ModifierStage {
 
     const { start, end } = range;
 
-    const startScopes = scopeHandler.getIterationScopesIntersectingPosition(
+    const startScopes = scopeHandler.getIterationScopesTouchingPosition(
       editor,
       start
     );

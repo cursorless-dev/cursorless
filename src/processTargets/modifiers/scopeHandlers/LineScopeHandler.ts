@@ -16,14 +16,14 @@ export default class LineScopeHandler implements ScopeHandler {
     return { type: "line" };
   }
 
-  getScopesIntersectingPosition(
+  getScopesTouchingPosition(
     editor: TextEditor,
     position: Position
   ): TargetScope[] {
     return [lineNumberToScope(editor, position.line)];
   }
 
-  getScopesIntersectingRange(
+  getScopesOverlappingRange(
     editor: TextEditor,
     { start, end }: Range
   ): TargetScope[] {
@@ -32,7 +32,7 @@ export default class LineScopeHandler implements ScopeHandler {
     );
   }
 
-  getIterationScopesIntersectingPosition(
+  getIterationScopesTouchingPosition(
     editor: TextEditor,
     _position: Position
   ): IterationScope[] {
