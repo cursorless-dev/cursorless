@@ -6,10 +6,9 @@ import { Direction } from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/range";
 import { LineTarget } from "../../targets";
 import {
-  IterationScope,
   ScopeHandler,
-  TargetScope,
 } from "./scopeHandler.types";
+import { IterationScope, TargetScope } from "./scope.types";
 
 export default class LineScopeHandler implements ScopeHandler {
   get scopeType(): ScopeType {

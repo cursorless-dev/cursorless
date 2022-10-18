@@ -5,7 +5,7 @@ import { getTokensInRange } from "../../../util/getTokensInRange";
 import { TokenTarget } from "../../targets";
 import LineScopeHandler from "./LineScopeHandler";
 import NestedScopeHandler from "./NestedScopeHandler";
-import { TargetScope } from "./scopeHandler.types";
+import { TargetScope } from "./scope.types";
 
 export default class TokenScopeHandler extends NestedScopeHandler {
   constructor() {

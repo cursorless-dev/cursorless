@@ -2,10 +2,9 @@ import { TextEditor, Position, Range } from "vscode";
 import { ScopeType } from "../../../core/commandVersionUpgrades/upgradeV2ToV3/targetDescriptorV2.types";
 import { Direction } from "../../../typings/targetDescriptor.types";
 import {
-  IterationScope,
   ScopeHandler,
-  TargetScope,
 } from "./scopeHandler.types";
+import { IterationScope, TargetScope } from "./scope.types";
 
 export default class SurroundingPairScopeHandler implements ScopeHandler {
   scopeType: ScopeType;

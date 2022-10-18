@@ -8,7 +8,8 @@ import { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScope } from "./getPreferredScope";
 import { runLegacy } from "./relativeScopeLegacy";
-import { ScopeHandler, TargetScope } from "./scopeHandlers/scopeHandler.types";
+import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
+import { TargetScope } from "./scopeHandlers/scope.types";
 import { TooFewScopesError } from "./TooFewScopesError";
 
 export class RelativeScopeStage implements ModifierStage {

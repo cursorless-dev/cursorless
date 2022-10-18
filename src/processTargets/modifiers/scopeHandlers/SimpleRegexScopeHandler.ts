@@ -1,7 +1,8 @@
 import { Range, TextEditor } from "vscode";
 import { Target } from "../../../typings/target.types";
 import NestedScopeHandler from "./NestedScopeHandler";
-import { ScopeHandler, TargetScope } from "./scopeHandler.types";
+import { ScopeHandler } from "./scopeHandler.types";
+import { TargetScope } from "./scope.types";
 
 export default abstract class SimpleRegexScopeHandler extends NestedScopeHandler {
   constructor(parentScopeHandler: ScopeHandler, private regex: RegExp) {

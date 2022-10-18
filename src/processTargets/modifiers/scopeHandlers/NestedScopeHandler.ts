@@ -3,10 +3,9 @@ import { NoContainingScopeError } from "../../../errors";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { getPreferredScope } from "../getPreferredScope";
 import {
-  IterationScope,
   ScopeHandler,
-  TargetScope,
 } from "./scopeHandler.types";
+import { IterationScope, TargetScope } from "./scope.types";
 
 export default abstract class NestedScopeHandler implements ScopeHandler {
   constructor(private parentScopeHandler: ScopeHandler) {}

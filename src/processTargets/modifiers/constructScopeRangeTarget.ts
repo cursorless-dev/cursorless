@@ -1,5 +1,5 @@
 import { Target } from "../../typings/target.types";
-import { TargetScope } from "./scopeHandlers/scopeHandler.types";
+import { TargetScope } from "./scopeHandlers/scope.types";
 
 export function constructScopeRangeTarget(
   isReversed: boolean,

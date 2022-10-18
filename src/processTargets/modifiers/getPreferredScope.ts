@@ -1,4 +1,4 @@
-import { Scope } from "./scopeHandlers/scopeHandler.types";
+import { Scope } from "./scopeHandlers/scope.types";
 
 export function getPreferredScope<T extends Scope>(scopes: T[]): T | undefined {
   return getScopeHelper(
