@@ -37,9 +37,16 @@ export class RelativeScopeStage implements ModifierStage {
 
     const index0Scopes = getIndex0Scopes(scopeHandler, editor, range);
 
+    const initialPosition =
+      index0Scopes.length > 0
+        ? getIndex0DistalPosition(direction, index0Scopes)
+        : direction === "forward"
+        ? range.end
+        : range.start;
+
     const proximalScope = scopeHandler.getScopeRelativeToPosition(
       editor,
-      getIndex0DistalPosition(direction, index0Scopes),
+      initialPosition,
       offset,
       direction
     );
