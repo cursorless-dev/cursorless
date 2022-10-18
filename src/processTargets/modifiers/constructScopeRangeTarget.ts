@@ -5,7 +5,7 @@ export function constructScopeRangeTarget(
   isReversed: boolean,
   scope1: TargetScope,
   scope2: TargetScope
-): Target[] {
+): Target {
   const target1 = scope1.getTarget(isReversed);
   const target2 = scope2.getTarget(isReversed);
 
@@ -17,7 +17,10 @@ export function constructScopeRangeTarget(
     ? [target1, target2]
     : [target2, target1];
 
-  return [
-    startTarget.createContinuousRangeTarget(isReversed, endTarget, true, true),
-  ];
+  return startTarget.createContinuousRangeTarget(
+    isReversed,
+    endTarget,
+    true,
+    true
+  );
 }

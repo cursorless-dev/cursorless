@@ -65,7 +65,7 @@ export class RelativeScopeStage implements ModifierStage {
       direction
     );
 
-    return constructScopeRangeTarget(isReversed, proximalScope, distalScope);
+    return [constructScopeRangeTarget(isReversed, proximalScope, distalScope)];
   }
 
   private handleIncludingIntersecting(target: Target): Target[] {
@@ -105,7 +105,7 @@ export class RelativeScopeStage implements ModifierStage {
         ? index0Scopes.at(-1)!
         : index0Scopes[0];
 
-    return constructScopeRangeTarget(isReversed, proximalScope, distalScope);
+    return [constructScopeRangeTarget(isReversed, proximalScope, distalScope)];
   }
 }
 

@@ -75,7 +75,7 @@ export class ContainingScopeStage implements ModifierStage {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
-    return constructScopeRangeTarget(isReversed, startScope, endScope);
+    return [constructScopeRangeTarget(isReversed, startScope, endScope)];
   }
 
   private runLegacy(
