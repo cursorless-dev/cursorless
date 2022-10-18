@@ -3,9 +3,9 @@ import { Target } from "../../../typings/target.types";
 
 /**
  * A range in the document within which a particular scope type is considered
- * to own the given region.  We use this type both to define the domain within
- * which a target is canonical, and the domain within which an iteration scope
- * is canonical.
+ * the canonical instance of the given region.  We use this type both to define
+ * the domain within which a target is canonical, and the domain within which
+ * an iteration scope is canonical.
  */
 export interface Scope {
   /**
@@ -43,17 +43,15 @@ export interface Scope {
 /**
  * Represents a scope, which is a specific instantiation of a scope type,
  * eg a specific function, or a specific line or range of lines.  Contains
- * {@link target}, which represents the actual scope, as well as {@link domain},
- * which represents the range within which the given scope is canonical.  For
- * example, a scope representing the type of a parameter will have the entire
- * parameter as its domain, so that one can say "take type" from anywhere
- * within the parameter.
+ * {@link getTarget}, which represents the actual scope, as well as
+ * {@link domain}, which represents the range within which the given scope is
+ * canonical.  For example, a scope representing the type of a parameter will
+ * have the entire parameter as its domain, so that one can say "take type"
+ * from anywhere within the parameter.
  */
 export interface TargetScope extends Scope {
   /**
-   * The target that represents this scope.  Note that the target can represent
-   * a contiguous range of instances of the given scope type, eg a range from
-   * one function to another or a line range.
+   * The target corresponding to this scope.
    */
   getTarget(isReversed: boolean): Target;
 }
