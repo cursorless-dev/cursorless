@@ -17,13 +17,6 @@ export class OrdinalScopeStage implements ModifierStage {
       this.modifier.scopeType
     );
 
-    return this.calculateIndicesAndCreateTarget(target, targets);
-  }
-
-  private calculateIndicesAndCreateTarget(
-    target: Target,
-    targets: Target[]
-  ): Target[] {
     const startIndex =
       this.modifier.start + (this.modifier.start < 0 ? targets.length : 0);
     const endIndex = startIndex + this.modifier.length - 1;
