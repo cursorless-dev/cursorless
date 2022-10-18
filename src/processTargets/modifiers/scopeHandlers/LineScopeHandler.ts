@@ -37,9 +37,10 @@ export default class LineScopeHandler implements ScopeHandler {
       {
         editor,
         domain: getDocumentRange(editor.document),
-        scopes: range(editor.document.lineCount).map((lineNumber) =>
-          lineNumberToScope(editor, lineNumber)
-        ),
+        getScopes: () =>
+          range(editor.document.lineCount).map((lineNumber) =>
+            lineNumberToScope(editor, lineNumber)
+          ),
       },
     ];
   }

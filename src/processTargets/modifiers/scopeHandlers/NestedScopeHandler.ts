@@ -51,7 +51,7 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
         domain: parentScope.domain,
         editor,
         isPreferredOver: parentScope.isPreferredOver,
-        scopes: this.getScopesInParentScope(parentScope),
+        getScopes: () => this.getScopesInParentScope(parentScope),
       }));
   }
 

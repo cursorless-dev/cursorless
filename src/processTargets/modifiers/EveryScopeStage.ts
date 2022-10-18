@@ -69,7 +69,7 @@ export class EveryScopeStage implements ModifierStage {
       );
     }
 
-    return startScope.scopes.map((scope) => scope.getTarget(isReversed));
+    return startScope.getScopes().map((scope) => scope.getTarget(isReversed));
   }
 
   private runLegacy(
