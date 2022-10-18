@@ -1,12 +1,12 @@
 import { range } from "lodash";
 import { Position, Range, TextEditor } from "vscode";
 import { ScopeType } from "../../../core/commandVersionUpgrades/upgradeV2ToV3/targetDescriptorV2.types";
-import { NoContainingScopeError } from "../../../errors";
 import { Direction } from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/range";
 import { LineTarget } from "../../targets";
 import { ScopeHandler } from "./scopeHandler.types";
 import { IterationScope, TargetScope } from "./scope.types";
+import { OutOfRangeError } from "../targetSequenceUtils";
 
 export default class LineScopeHandler implements ScopeHandler {
   get scopeType(): ScopeType {
@@ -55,7 +55,7 @@ export default class LineScopeHandler implements ScopeHandler {
       direction === "forward" ? position.line + offset : position.line - offset;
 
     if (lineNumber < 0 || lineNumber >= editor.document.lineCount) {
-      throw new NoContainingScopeError(this.scopeType.type);
+      throw new OutOfRangeError();
     }
 
     return lineNumberToScope(editor, lineNumber);
