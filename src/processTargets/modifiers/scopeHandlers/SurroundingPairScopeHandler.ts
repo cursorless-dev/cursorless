@@ -1,39 +1,41 @@
 import { TextEditor, Position, Range } from "vscode";
-import { ScopeType } from "../../../core/commandVersionUpgrades/upgradeV2ToV3/targetDescriptorV2.types";
-import { Direction } from "../../../typings/targetDescriptor.types";
+import {
+  Direction,
+  SurroundingPairScopeType,
+} from "../../../typings/targetDescriptor.types";
 import { ScopeHandler } from "./scopeHandler.types";
 import { IterationScope, TargetScope } from "./scope.types";
 
 export default class SurroundingPairScopeHandler implements ScopeHandler {
-  scopeType: ScopeType;
+  constructor(public readonly scopeType: SurroundingPairScopeType) {}
 
   getScopesTouchingPosition(
-    editor: TextEditor,
-    position: Position
+    _editor: TextEditor,
+    _position: Position
   ): TargetScope[] {
     // TODO: Run existing surrounding pair code on empty range constructed from
     // position, returning both if position is adjacent to to
     throw new Error("Method not implemented.");
   }
 
-  getScopesOverlappingRange(editor: TextEditor, range: Range): TargetScope[] {
+  getScopesOverlappingRange(_editor: TextEditor, _range: Range): TargetScope[] {
     // TODO: Implement https://github.com/cursorless-dev/cursorless/pull/1031#issuecomment-1276777449
     throw new Error("Method not implemented.");
   }
 
   getIterationScopesTouchingPosition(
-    editor: TextEditor,
-    position: Position
+    _editor: TextEditor,
+    _position: Position
   ): IterationScope[] {
     // TODO: Return inside strict containing pair
     throw new Error("Method not implemented.");
   }
 
   getScopeRelativeToPosition(
-    editor: TextEditor,
-    position: Position,
-    offset: number,
-    direction: Direction
+    _editor: TextEditor,
+    _position: Position,
+    _offset: number,
+    _direction: Direction
   ): TargetScope {
     // TODO: Walk forward until we hit either an opening or closing delimiter.
     // If we hit an opening delimiter then we walk over as many pairs as we need

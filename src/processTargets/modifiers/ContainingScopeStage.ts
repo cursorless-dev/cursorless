@@ -1,3 +1,4 @@
+import { NoContainingScopeError } from "../../errors";
 import type { Target } from "../../typings/target.types";
 import type {
   ContainingScopeModifier,
@@ -53,11 +54,15 @@ export class ContainingScopeStage implements ModifierStage {
     const scopeHandler = getScopeHandler(scopeType);
     const startScopes = scopeHandler.getScopesTouchingPosition(editor, start);
 
-    if (end.isEqual(start)) {
-      return [getPreferredScope(startScopes).getTarget(isReversed)];
+    if (startScopes.length === 0) {
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
-    const startScope = getRightScope(startScopes);
+    if (end.isEqual(start)) {
+      return [getPreferredScope(startScopes)!.getTarget(isReversed)];
+    }
+
+    const startScope = getRightScope(startScopes)!;
 
     if (startScope.domain.contains(end)) {
       return [startScope.getTarget(isReversed)];
@@ -65,6 +70,10 @@ export class ContainingScopeStage implements ModifierStage {
 
     const endScopes = scopeHandler.getScopesTouchingPosition(editor, end);
     const endScope = getLeftScope(endScopes);
+
+    if (endScope == null) {
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
+    }
 
     return constructScopeRangeTarget(isReversed, startScope, endScope);
   }

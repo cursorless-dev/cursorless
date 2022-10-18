@@ -19,8 +19,8 @@ initialState:
       active: {line: 0, character: 7}
   marks: {}
 finalState:
-  documentContents: aaa  ccc
+  documentContents: . ccc
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: token}, offset: 0, length: 2, direction: backward}]}]

@@ -30,7 +30,7 @@ export interface ScopeHandler {
   /**
    * The scope type handled by this scope handler
    */
-  scopeType: ScopeType;
+  readonly scopeType: ScopeType;
 
   /**
    * Return all scope(s) touching the given position. A scope is considered to

@@ -52,16 +52,18 @@ export class EveryScopeStage implements ModifierStage {
 
     const { start, end } = range;
 
-    const startScopes = scopeHandler.getIterationScopesTouchingPosition(
-      editor,
-      start
-    );
+    const startIterationScopes =
+      scopeHandler.getIterationScopesTouchingPosition(editor, start);
 
-    const startScope = end.isEqual(start)
-      ? getPreferredScope(startScopes)
-      : getRightScope(startScopes);
+    const startIterationScope = end.isEqual(start)
+      ? getPreferredScope(startIterationScopes)
+      : getRightScope(startIterationScopes);
 
-    if (!startScope.domain.contains(end)) {
+    if (startIterationScope == null) {
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
+    }
+
+    if (!startIterationScope.domain.contains(end)) {
       // NB: This shouldn't really happen, because our weak scopes are
       // generally no bigger than a token.
       throw new Error(
@@ -69,7 +71,9 @@ export class EveryScopeStage implements ModifierStage {
       );
     }
 
-    return startScope.getScopes().map((scope) => scope.getTarget(isReversed));
+    return startIterationScope
+      .getScopes()
+      .map((scope) => scope.getTarget(isReversed));
   }
 
   private runLegacy(

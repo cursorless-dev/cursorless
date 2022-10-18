@@ -4,6 +4,7 @@ import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { getPreferredScope } from "../getPreferredScope";
 import { ScopeHandler } from "./scopeHandler.types";
 import { IterationScope, TargetScope } from "./scope.types";
+import { OutOfRangeError } from "../targetSequenceUtils";
 
 export default abstract class NestedScopeHandler implements ScopeHandler {
   constructor(private parentScopeHandler: ScopeHandler) {}
@@ -74,7 +75,7 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
       remainingOffset -= scopes.length;
     }
 
-    throw new NoContainingScopeError(this.scopeType.type);
+    throw new OutOfRangeError();
   }
 
   private *iterateScopeGroups(
