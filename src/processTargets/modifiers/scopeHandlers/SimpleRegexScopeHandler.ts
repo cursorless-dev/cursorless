@@ -3,12 +3,10 @@ import { Target } from "../../../typings/target.types";
 import NestedScopeHandler from "./NestedScopeHandler";
 import { ScopeHandler, TargetScope } from "./scopeHandler.types";
 
-export default abstract class BaseRegexScopeHandler extends NestedScopeHandler {
-  constructor(parentScopeHandler: ScopeHandler) {
+export default abstract class SimpleRegexScopeHandler extends NestedScopeHandler {
+  constructor(parentScopeHandler: ScopeHandler, private regex: RegExp) {
     super(parentScopeHandler);
   }
-
-  protected abstract getRegex(editor: TextEditor, domain: Range): RegExp;
 
   protected abstract constructTarget(
     isReversed: boolean,
@@ -16,38 +14,23 @@ export default abstract class BaseRegexScopeHandler extends NestedScopeHandler {
     contentRange: Range
   ): Target;
 
-  protected isPreferredOver(
-    _editor: TextEditor,
-    _scope1: TargetScope,
-    _scope2: TargetScope
-  ): boolean | undefined {
-    return undefined;
-  }
-
   protected getScopesInParentScope({
     editor,
     domain,
   }: TargetScope): TargetScope[] {
-    return this.getMatchesInRange(editor, domain).map((range) => {
-      const scope: TargetScope = {
-        editor,
-        domain: range,
-        getTarget: (isReversed) =>
-          this.constructTarget(isReversed, editor, range),
-      };
-
-      scope.isPreferredOver = (other) =>
-        this.isPreferredOver(editor, scope, other as TargetScope);
-
-      return scope;
-    });
+    return this.getMatchesInRange(editor, domain).map((range) => ({
+      editor,
+      domain: range,
+      getTarget: (isReversed) =>
+        this.constructTarget(isReversed, editor, range),
+    }));
   }
 
   private getMatchesInRange(editor: TextEditor, range: Range): Range[] {
     const offset = editor.document.offsetAt(range.start);
     const text = editor.document.getText(range);
 
-    return [...text.matchAll(this.getRegex(editor, range))].map(
+    return [...text.matchAll(this.regex)].map(
       (match) =>
         new Range(
           editor.document.positionAt(offset + match.index!),

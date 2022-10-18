@@ -1,13 +1,13 @@
 import { Range, TextEditor } from "vscode";
 import { getMatcher } from "../../../core/tokenizer";
-import { Target } from "../../../typings/target.types";
 import { ScopeType } from "../../../typings/targetDescriptor.types";
+import { getTokensInRange } from "../../../util/getTokensInRange";
 import { TokenTarget } from "../../targets";
-import BaseRegexScopeHandler from "./BaseRegexScopeHandler";
 import LineScopeHandler from "./LineScopeHandler";
+import NestedScopeHandler from "./NestedScopeHandler";
 import { TargetScope } from "./scopeHandler.types";
 
-export default class TokenScopeHandler extends BaseRegexScopeHandler {
+export default class TokenScopeHandler extends NestedScopeHandler {
   constructor() {
     super(new LineScopeHandler());
   }
@@ -16,28 +16,23 @@ export default class TokenScopeHandler extends BaseRegexScopeHandler {
     return { type: "token" };
   }
 
-  protected getRegex(editor: TextEditor, _domain: Range) {
-    return getMatcher(editor.document.languageId).tokenMatcher;
-  }
-
-  protected isPreferredOver(
-    editor: TextEditor,
-    scope1: TargetScope,
-    scope2: TargetScope
-  ): boolean | undefined {
-    return isPreferredOver(editor, scope1.domain, scope2.domain);
-  }
-
-  protected constructTarget(
-    isReversed: boolean,
-    editor: TextEditor,
-    contentRange: Range
-  ): Target {
-    return new TokenTarget({
+  protected getScopesInParentScope({
+    editor,
+    domain,
+  }: TargetScope): TargetScope[] {
+    return getTokensInRange(editor, domain).map(({ range }) => ({
       editor,
-      contentRange,
-      isReversed,
-    });
+      domain: range,
+      getTarget: (isReversed) =>
+        new TokenTarget({
+          editor,
+          contentRange: range,
+          isReversed,
+        }),
+      isPreferredOver(other) {
+        return isPreferredOver(editor, range, other.domain);
+      },
+    }));
   }
 }
 

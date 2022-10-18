@@ -57,7 +57,7 @@ export default class LineScopeHandler implements ScopeHandler {
       direction === "forward" ? position.line + offset : position.line - offset;
 
     if (lineNumber < 0 || lineNumber >= editor.document.lineCount) {
-      throw new NoContainingScopeError("line");
+      throw new NoContainingScopeError(this.scopeType.type);
     }
 
     return lineNumberToScope(editor, lineNumber);
