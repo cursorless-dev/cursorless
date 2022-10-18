@@ -51,7 +51,10 @@ export class ContainingScopeStage implements ModifierStage {
     const { scopeType } = this.modifier;
 
     const scopeHandler = getScopeHandler(scopeType);
-    const startScopes = scopeHandler.getScopesIntersectingPosition(editor, start);
+    const startScopes = scopeHandler.getScopesIntersectingPosition(
+      editor,
+      start
+    );
 
     if (end.isEqual(start)) {
       return [getPreferredScope(startScopes).getTarget(isReversed)];

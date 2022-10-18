@@ -25,6 +25,10 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
       this.parentScopeHandler.getScopesIntersectingPosition(editor, position)
     );
 
+    if (parentScope == null) {
+      return [];
+    }
+
     return this.getScopesInParentScope(parentScope).filter(({ domain }) =>
       domain.contains(position)
     );
@@ -85,24 +89,27 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
       this.parentScopeHandler.getScopesIntersectingPosition(editor, position)
     );
 
-    yield this.getScopesInParentScope(containingParentScope).filter(
-      ({ domain }) =>
-        direction === "forward"
-          ? domain.start.isAfterOrEqual(position)
-          : domain.end.isBeforeOrEqual(position)
-    );
+    let currentPosition = position;
 
-    let parentOffset = 1;
-    let currentPosition =
-      direction === "forward"
-        ? containingParentScope.domain.start
-        : containingParentScope.domain.end;
+    if (containingParentScope != null) {
+      yield this.getScopesInParentScope(containingParentScope).filter(
+        ({ domain }) =>
+          direction === "forward"
+            ? domain.start.isAfterOrEqual(position)
+            : domain.end.isBeforeOrEqual(position)
+      );
+
+      currentPosition =
+        direction === "forward"
+          ? containingParentScope.domain.end
+          : containingParentScope.domain.start;
+    }
 
     while (true) {
       const parentScope = this.parentScopeHandler.getScopeRelativeToPosition(
         editor,
         currentPosition,
-        parentOffset,
+        1,
         direction
       );
 
@@ -110,10 +117,8 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
 
       currentPosition =
         direction === "forward"
-          ? parentScope.domain.start
-          : parentScope.domain.end;
-
-      parentOffset += 1;
+          ? parentScope.domain.end
+          : parentScope.domain.start;
     }
   }
 }

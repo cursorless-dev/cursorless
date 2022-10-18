@@ -132,11 +132,13 @@ function getIndex0Scopes(
   editor: TextEditor,
   range: Range
 ): TargetScope[] {
-  return range.isEmpty
-    ? [
-        getPreferredScope(
-          scopeHandler.getScopesIntersectingPosition(editor, range.start)
-        ),
-      ]
-    : scopeHandler.getScopesIntersectingRange(editor, range);
+  if (range.isEmpty) {
+    const preferredScope = getPreferredScope(
+      scopeHandler.getScopesIntersectingPosition(editor, range.start)
+    );
+
+    return preferredScope == null ? [] : [preferredScope];
+  }
+
+  return scopeHandler.getScopesIntersectingRange(editor, range);
 }

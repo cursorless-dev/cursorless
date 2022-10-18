@@ -96,11 +96,10 @@ export interface ScopeHandler {
    * given position. A scope is considered to contain the position even if it is
    * adjacent to the position. If the position is adjacent to two scopes, return
    * both. You can use {@link TargetScope.isPreferredOver} to indicate which one
-   * should have precedence.  If no scope contains the given position, throw
-   * {@link NoContainingScopeError}.
+   * should have precedence.  If no scope contains the given position, return
+   * an empty list.
    * @param editor The editor containing {@link position}
    * @param position The position from which to expand
-   * @throws {NoContainingScopeError} If no scope contains the given position
    */
   getScopesIntersectingPosition(
     editor: TextEditor,
