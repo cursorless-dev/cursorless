@@ -3,9 +3,9 @@ import { Position, Range, TextEditor } from "vscode";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/range";
 import { LineTarget } from "../../targets";
-import type { ScopeHandler } from "./scopeHandler.types";
-import type { IterationScope, TargetScope } from "./scope.types";
 import { OutOfRangeError } from "../targetSequenceUtils";
+import type { IterationScope, TargetScope } from "./scope.types";
+import type { ScopeHandler } from "./scopeHandler.types";
 
 export default class LineScopeHandler implements ScopeHandler {
   public readonly scopeType: ScopeType = { type: "line" };

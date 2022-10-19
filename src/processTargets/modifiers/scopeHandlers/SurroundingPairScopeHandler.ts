@@ -1,10 +1,10 @@
-import { TextEditor, Position, Range } from "vscode";
+import { Position, Range, TextEditor } from "vscode";
 import {
   Direction,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { ScopeHandler } from "./scopeHandler.types";
 import { IterationScope, TargetScope } from "./scope.types";
+import { ScopeHandler } from "./scopeHandler.types";
 
 export default class SurroundingPairScopeHandler implements ScopeHandler {
   public readonly iterationScopeType = undefined;

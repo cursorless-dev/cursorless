@@ -1,5 +1,5 @@
-import { Range, TextEditor } from "vscode";
-import { Target } from "../../../typings/target.types";
+import type { Range, TextEditor } from "vscode";
+import type { Target } from "../../../typings/target.types";
 
 /**
  * A range in the document within which a particular scope type is considered

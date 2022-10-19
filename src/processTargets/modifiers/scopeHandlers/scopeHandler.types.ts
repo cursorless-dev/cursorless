@@ -1,6 +1,9 @@
-import { Position, Range, TextEditor } from "vscode";
-import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
-import { TargetScope, IterationScope } from "./scope.types";
+import type { Position, Range, TextEditor } from "vscode";
+import type {
+  Direction,
+  ScopeType,
+} from "../../../typings/targetDescriptor.types";
+import type { TargetScope, IterationScope } from "./scope.types";
 
 /**
  * Represents a scope type.  The functions in this interface allow us to find
