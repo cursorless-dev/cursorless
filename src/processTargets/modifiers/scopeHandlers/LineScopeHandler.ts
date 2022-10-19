@@ -1,10 +1,10 @@
 import { range } from "lodash";
 import { Position, Range, TextEditor } from "vscode";
-import { NoContainingScopeError } from "../../../errors";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/range";
 import { LineTarget } from "../../targets";
 import { OutOfRangeError } from "../targetSequenceUtils";
+import NotHierarchicalScopeError from "./NotHierarchicalScopeError";
 import type { IterationScope, TargetScope } from "./scope.types";
 import type { ScopeHandler } from "./scopeHandler.types";
 
@@ -22,7 +22,7 @@ export default class LineScopeHandler implements ScopeHandler {
     ancestorIndex: number = 0
   ): TargetScope[] {
     if (ancestorIndex !== 0) {
-      throw new NoContainingScopeError(this.scopeType.type);
+      throw new NotHierarchicalScopeError(this.scopeType);
     }
 
     return [lineNumberToScope(editor, position.line)];

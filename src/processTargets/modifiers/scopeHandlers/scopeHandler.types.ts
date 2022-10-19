@@ -62,7 +62,7 @@ export interface ScopeHandler {
    * not scope A.
    *
    * If {@link ancestorIndex} is supplied and is greater than 0, throw a
-   * {@link NoContainingScopeError} if the scope type is not hierarchical.
+   * {@link NotHierarchicalScopeError} if the scope type is not hierarchical.
    *
    * If the scope type is hierarchical, then if {@link ancestorIndex} is 1,
    * return all scopes touching {@link position} that have a child that is a

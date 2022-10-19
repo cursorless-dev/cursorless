@@ -1,14 +1,14 @@
 import type { Position, Range, TextEditor } from "vscode";
+import { getScopeHandler } from ".";
 import type {
   Direction,
   ScopeType,
 } from "../../../typings/targetDescriptor.types";
 import { getPreferredScope } from "../getPreferredScope";
 import { OutOfRangeError } from "../targetSequenceUtils";
-import { getScopeHandler } from ".";
+import NotHierarchicalScopeError from "./NotHierarchicalScopeError";
 import type { IterationScope, TargetScope } from "./scope.types";
 import type { ScopeHandler } from "./scopeHandler.types";
-import { NoContainingScopeError } from "../../../errors";
 
 export default abstract class NestedScopeHandler implements ScopeHandler {
   public abstract readonly scopeType: ScopeType;
@@ -39,7 +39,7 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
     ancestorIndex: number = 0
   ): TargetScope[] {
     if (ancestorIndex !== 0) {
-      throw new NoContainingScopeError(this.scopeType.type);
+      throw new NotHierarchicalScopeError(this.scopeType);
     }
 
     const iterationScope = getPreferredScope(
