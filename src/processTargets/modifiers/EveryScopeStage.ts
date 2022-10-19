@@ -2,7 +2,7 @@ import { NoContainingScopeError } from "../../errors";
 import type { Target } from "../../typings/target.types";
 import type { EveryScopeModifier } from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
-import getScopeHandler from "../getScopeHandler";
+import getScopeHandler from "./scopeHandlers/getScopeHandler";
 import type { ModifierStage } from "../PipelineStages.types";
 import getLegacyScopeStage from "./getLegacyScopeStage";
 import { getPreferredScope, getRightScope } from "./getPreferredScope";
@@ -11,20 +11,17 @@ export class EveryScopeStage implements ModifierStage {
   constructor(private modifier: EveryScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    switch (this.modifier.scopeType.type) {
-      case "token":
-      case "line":
-        return this.runNew(target);
-      default:
-        return this.runLegacy(context, target);
-    }
-  }
-
-  private runNew(target: Target): Target[] {
     const { editor, isReversed, contentRange: range } = target;
     const { scopeType } = this.modifier;
 
-    const scopeHandler = getScopeHandler(scopeType);
+    const scopeHandler = getScopeHandler(
+      scopeType,
+      target.editor.document.languageId
+    );
+
+    if (scopeHandler == null) {
+      return getLegacyScopeStage(this.modifier).run(context, target);
+    }
 
     if (target.hasExplicitRange) {
       const scopes = scopeHandler.getScopesOverlappingRange(editor, range);
@@ -60,12 +57,5 @@ export class EveryScopeStage implements ModifierStage {
     return startIterationScope
       .getScopes()
       .map((scope) => scope.getTarget(isReversed));
-  }
-
-  private runLegacy(
-    context: ProcessedTargetsContext,
-    target: Target
-  ): Target[] {
-    return getLegacyScopeStage(this.modifier).run(context, target);
   }
 }

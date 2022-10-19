@@ -1,7 +1,7 @@
 import { Range, TextEditor } from "vscode";
 import { Target } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
-import { fitRangeToLineContent } from "../scopeHandlers/LineScopeHandler";
+import { fitRangeToLineContent } from "../scopeHandlers";
 import { processSurroundingPair } from "../surroundingPair";
 import { SurroundingPairInfo } from "../surroundingPair/extractSelectionFromSurroundingPairOffsets";
 

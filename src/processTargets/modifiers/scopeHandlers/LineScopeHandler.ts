@@ -3,13 +3,21 @@ import { Position, Range, TextEditor } from "vscode";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/range";
 import { LineTarget } from "../../targets";
-import { ScopeHandler } from "./scopeHandler.types";
-import { IterationScope, TargetScope } from "./scope.types";
+import type { ScopeHandler } from "./scopeHandler.types";
+import type { IterationScope, TargetScope } from "./scope.types";
 import { OutOfRangeError } from "../targetSequenceUtils";
 
 export default class LineScopeHandler implements ScopeHandler {
+  constructor(_scopeType: ScopeType, _languageId: string) {
+    // empty
+  }
+
   get scopeType(): ScopeType {
     return { type: "line" };
+  }
+
+  get iterationScopeType(): ScopeType {
+    return { type: "document" };
   }
 
   getScopesTouchingPosition(

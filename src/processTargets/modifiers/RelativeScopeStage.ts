@@ -3,7 +3,7 @@ import { NoContainingScopeError } from "../../errors";
 import { Target } from "../../typings/target.types";
 import { RelativeScopeModifier } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
-import getScopeHandler from "../getScopeHandler";
+import getScopeHandler from "./scopeHandlers/getScopeHandler";
 import { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScope } from "./getPreferredScope";
@@ -17,30 +17,26 @@ export class RelativeScopeStage implements ModifierStage {
   constructor(private modifier: RelativeScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    switch (this.modifier.scopeType.type) {
-      case "token":
-        return this.runNew(target);
-      default:
-        return runLegacy(this.modifier, context, target);
+    const scopeHandler = getScopeHandler(
+      this.modifier.scopeType,
+      target.editor.document.languageId
+    );
+
+    if (scopeHandler == null) {
+      return runLegacy(this.modifier, context, target);
     }
-  }
 
-  private runNew(target: Target): Target[] {
     return this.modifier.offset === 0
-      ? this.handleIncludingIntersecting(target)
-      : this.handleNotIncludingIntersecting(target);
+      ? this.handleIncludingIntersecting(scopeHandler, target)
+      : this.handleNotIncludingIntersecting(scopeHandler, target);
   }
 
-  private handleNotIncludingIntersecting(target: Target): Target[] {
+  private handleNotIncludingIntersecting(
+    scopeHandler: ScopeHandler,
+    target: Target
+  ): Target[] {
     const { isReversed, editor, contentRange: range } = target;
-    const {
-      scopeType,
-      length: desiredScopeCount,
-      direction,
-      offset,
-    } = this.modifier;
-
-    const scopeHandler = getScopeHandler(scopeType);
+    const { length: desiredScopeCount, direction, offset } = this.modifier;
 
     const index0Scopes = getIndex0Scopes(scopeHandler, editor, range);
 
@@ -100,11 +96,12 @@ export class RelativeScopeStage implements ModifierStage {
     return [constructScopeRangeTarget(isReversed, proximalScope, distalScope)];
   }
 
-  private handleIncludingIntersecting(target: Target): Target[] {
+  private handleIncludingIntersecting(
+    scopeHandler: ScopeHandler,
+    target: Target
+  ): Target[] {
     const { isReversed, editor, contentRange: range } = target;
     const { scopeType, length: desiredScopeCount, direction } = this.modifier;
-
-    const scopeHandler = getScopeHandler(scopeType);
 
     const index0Scopes = getIndex0Scopes(scopeHandler, editor, range);
 

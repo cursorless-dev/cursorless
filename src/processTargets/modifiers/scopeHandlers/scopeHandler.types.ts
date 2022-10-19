@@ -34,6 +34,12 @@ export interface ScopeHandler {
   readonly scopeType: ScopeType;
 
   /**
+   * The scope type of the iteration scope of this scope type, or `undefined`
+   * if there is no scope type corresponding to the iteration scope.
+   */
+  readonly iterationScopeType: ScopeType | undefined;
+
+  /**
    * Return all scope(s) touching the given position. A scope is considered to
    * touch a position if its domain contains the position or is directly
    * adjacent to the position. In other words, return all scopes for which the

@@ -4,7 +4,7 @@ import type {
   LineNumberType,
 } from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
-import { createLineTarget } from "../modifiers/scopeHandlers/LineScopeHandler";
+import { createLineTarget } from "../modifiers/scopeHandlers";
 import type { MarkStage } from "../PipelineStages.types";
 import { LineTarget } from "../targets";
 

@@ -2,7 +2,7 @@ import { NoContainingScopeError } from "../../errors";
 import type { Target } from "../../typings/target.types";
 import type { ContainingScopeModifier } from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
-import getScopeHandler from "../getScopeHandler";
+import getScopeHandler from "./scopeHandlers/getScopeHandler";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import getLegacyScopeStage from "./getLegacyScopeStage";
@@ -16,16 +16,6 @@ export class ContainingScopeStage implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    switch (this.modifier.scopeType.type) {
-      case "token":
-      case "line":
-        return this.runNew(target);
-      default:
-        return this.runLegacy(context, target);
-    }
-  }
-
-  private runNew(target: Target): Target[] {
     const {
       isReversed,
       editor,
@@ -33,7 +23,15 @@ export class ContainingScopeStage implements ModifierStage {
     } = target;
     const { scopeType } = this.modifier;
 
-    const scopeHandler = getScopeHandler(scopeType);
+    const scopeHandler = getScopeHandler(
+      scopeType,
+      target.editor.document.languageId
+    );
+
+    if (scopeHandler == null) {
+      return getLegacyScopeStage(this.modifier).run(context, target);
+    }
+
     const startScopes = scopeHandler.getScopesTouchingPosition(editor, start);
 
     if (startScopes.length === 0) {
@@ -58,12 +56,5 @@ export class ContainingScopeStage implements ModifierStage {
     }
 
     return [constructScopeRangeTarget(isReversed, startScope, endScope)];
-  }
-
-  private runLegacy(
-    context: ProcessedTargetsContext,
-    target: Target
-  ): Target[] {
-    return getLegacyScopeStage(this.modifier).run(context, target);
   }
 }

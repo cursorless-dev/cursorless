@@ -1,22 +1,21 @@
-import { Range, TextEditor } from "vscode";
+import type { Range, TextEditor } from "vscode";
+import { NestedScopeHandler } from ".";
 import { getMatcher } from "../../../core/tokenizer";
-import { ScopeType } from "../../../typings/targetDescriptor.types";
+import type { ScopeType } from "../../../typings/targetDescriptor.types";
 import { getTokensInRange } from "../../../util/getTokensInRange";
 import { TokenTarget } from "../../targets";
-import LineScopeHandler from "./LineScopeHandler";
-import NestedScopeHandler from "./NestedScopeHandler";
-import { TargetScope } from "./scope.types";
+import type { TargetScope } from "./scope.types";
 
 export default class TokenScopeHandler extends NestedScopeHandler {
-  constructor() {
-    super(new LineScopeHandler());
+  constructor(_scopeType: ScopeType, _languageId: string) {
+    super({ type: "line" }, _languageId);
   }
 
   get scopeType(): ScopeType {
     return { type: "token" };
   }
 
-  protected getScopesInParentScope({
+  protected getScopesInIterationScope({
     editor,
     domain,
   }: TargetScope): TargetScope[] {

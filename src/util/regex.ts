@@ -1,3 +1,5 @@
+import { Range, TextEditor } from "vscode";
+
 function _rightAnchored(regex: RegExp) {
   const { source, flags } = regex;
 
@@ -48,4 +50,21 @@ export function matchText(text: string, regex: RegExp): MatchedText[] {
     index: match.index!,
     text: match[0],
   }));
+}
+
+export function getMatchesInRange(
+  regex: RegExp,
+  editor: TextEditor,
+  range: Range
+): Range[] {
+  const offset = editor.document.offsetAt(range.start);
+  const text = editor.document.getText(range);
+
+  return [...text.matchAll(regex)].map(
+    (match) =>
+      new Range(
+        editor.document.positionAt(offset + match.index!),
+        editor.document.positionAt(offset + match.index! + match[0].length)
+      )
+  );
 }

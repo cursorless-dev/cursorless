@@ -1,40 +1,56 @@
-import { TextEditor, Position, Range } from "vscode";
-import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
+import type { Position, Range, TextEditor } from "vscode";
+import type {
+  Direction,
+  ScopeType,
+} from "../../../typings/targetDescriptor.types";
 import { getPreferredScope } from "../getPreferredScope";
-import { ScopeHandler } from "./scopeHandler.types";
-import { IterationScope, TargetScope } from "./scope.types";
 import { OutOfRangeError } from "../targetSequenceUtils";
+import { getScopeHandler } from ".";
+import type { IterationScope, TargetScope } from "./scope.types";
+import type { ScopeHandler } from "./scopeHandler.types";
 
 export default abstract class NestedScopeHandler implements ScopeHandler {
-  constructor(private parentScopeHandler: ScopeHandler) {}
+  private iterationScopeHandler: ScopeHandler;
+
+  constructor(
+    public readonly iterationScopeType: ScopeType,
+    languageId: string
+  ) {
+    this.iterationScopeHandler = getScopeHandler(
+      iterationScopeType,
+      languageId
+    )!;
+  }
 
   abstract get scopeType(): ScopeType;
 
-  protected abstract getScopesInParentScope(
-    parentScope: TargetScope
+  protected abstract getScopesInIterationScope(
+    iterationScope: TargetScope
   ): TargetScope[];
 
   getScopesTouchingPosition(
     editor: TextEditor,
     position: Position
   ): TargetScope[] {
-    const parentScope = getPreferredScope(
-      this.parentScopeHandler.getScopesTouchingPosition(editor, position)
+    const iterationScope = getPreferredScope(
+      this.iterationScopeHandler.getScopesTouchingPosition(editor, position)
     );
 
-    if (parentScope == null) {
+    if (iterationScope == null) {
       return [];
     }
 
-    return this.getScopesInParentScope(parentScope).filter(({ domain }) =>
+    return this.getScopesInIterationScope(iterationScope).filter(({ domain }) =>
       domain.contains(position)
     );
   }
 
   getScopesOverlappingRange(editor: TextEditor, range: Range): TargetScope[] {
-    return this.parentScopeHandler
+    return this.iterationScopeHandler
       .getScopesOverlappingRange(editor, range)
-      .flatMap((parentScope) => this.getScopesInParentScope(parentScope))
+      .flatMap((iterationScope) =>
+        this.getScopesInIterationScope(iterationScope)
+      )
       .filter(({ domain }) => {
         const intersection = domain.intersection(range);
         return intersection != null && !intersection.isEmpty;
@@ -45,13 +61,13 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
     editor: TextEditor,
     position: Position
   ): IterationScope[] {
-    return this.parentScopeHandler
+    return this.iterationScopeHandler
       .getScopesTouchingPosition(editor, position)
-      .map((parentScope) => ({
-        domain: parentScope.domain,
+      .map((iterationScope) => ({
+        domain: iterationScope.domain,
         editor,
-        isPreferredOver: parentScope.isPreferredOver,
-        getScopes: () => this.getScopesInParentScope(parentScope),
+        isPreferredOver: iterationScope.isPreferredOver,
+        getScopes: () => this.getScopesInIterationScope(iterationScope),
       }));
   }
 
@@ -82,14 +98,14 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
     position: Position,
     direction: Direction
   ): Generator<TargetScope[], void, unknown> {
-    const containingParentScope = getPreferredScope(
-      this.parentScopeHandler.getScopesTouchingPosition(editor, position)
+    const containingIterationScope = getPreferredScope(
+      this.iterationScopeHandler.getScopesTouchingPosition(editor, position)
     );
 
     let currentPosition = position;
 
-    if (containingParentScope != null) {
-      yield this.getScopesInParentScope(containingParentScope).filter(
+    if (containingIterationScope != null) {
+      yield this.getScopesInIterationScope(containingIterationScope).filter(
         ({ domain }) =>
           direction === "forward"
             ? domain.start.isAfterOrEqual(position)
@@ -98,24 +114,25 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
 
       currentPosition =
         direction === "forward"
-          ? containingParentScope.domain.end
-          : containingParentScope.domain.start;
+          ? containingIterationScope.domain.end
+          : containingIterationScope.domain.start;
     }
 
     while (true) {
-      const parentScope = this.parentScopeHandler.getScopeRelativeToPosition(
-        editor,
-        currentPosition,
-        1,
-        direction
-      );
+      const iterationScope =
+        this.iterationScopeHandler.getScopeRelativeToPosition(
+          editor,
+          currentPosition,
+          1,
+          direction
+        );
 
-      yield this.getScopesInParentScope(parentScope);
+      yield this.getScopesInIterationScope(iterationScope);
 
       currentPosition =
         direction === "forward"
-          ? parentScope.domain.end
-          : parentScope.domain.start;
+          ? iterationScope.domain.end
+          : iterationScope.domain.start;
     }
   }
 }
