@@ -54,18 +54,34 @@ export interface ScopeHandler {
    *
    * If the position is directly adjacent to two scopes, return both. You can
    * use {@link TargetScope.isPreferredOver} to indicate which one should have
-   * precedence.  If no scope contains the given position, return an empty
-   * list.
+   * precedence.  If no scope contains the given position, return an empty list.
    *
-   * Note that if this scope type is hierarchical, return only minimal scopes,
-   * ie if scope A and scope B both touch {@link position}, and scope A contains
-   * scope B, return scope B but not scope A.
+   * Note that if this scope type is hierarchical, return only minimal scopes if
+   * {@link ancestorIndex} is omitted or is 0.  Ie if scope A and scope B both
+   * touch {@link position}, and scope A contains scope B, return scope B but
+   * not scope A.
+   *
+   * If {@link ancestorIndex} is supplied and is greater than 0, throw a
+   * {@link NoContainingScopeError} if the scope type is not hierarchical.
+   *
+   * If the scope type is hierarchical, then if {@link ancestorIndex} is 1,
+   * return all scopes touching {@link position} that have a child that is a
+   * minimal scope touching {@link position}.  If {@link ancestorIndex} is 2,
+   * return all scopes touching {@link position} that have a child with
+   * {@link ancestorIndex} of 1 with respect to {@link position}, etc.
+   *
+   * The {@link ancestorIndex} parameter is primarily to be used by `"grand"`
+   * scopes (#124).
+   *
    * @param editor The editor containing {@link position}
    * @param position The position from which to expand
+   * @param ancestorIndex If supplied, skip this many ancestors up the
+   * hierarchy.
    */
   getScopesTouchingPosition(
     editor: TextEditor,
-    position: Position
+    position: Position,
+    ancestorIndex?: number
   ): TargetScope[];
 
   /**

@@ -8,6 +8,7 @@ import { OutOfRangeError } from "../targetSequenceUtils";
 import { getScopeHandler } from ".";
 import type { IterationScope, TargetScope } from "./scope.types";
 import type { ScopeHandler } from "./scopeHandler.types";
+import { NoContainingScopeError } from "../../../errors";
 
 export default abstract class NestedScopeHandler implements ScopeHandler {
   public abstract readonly scopeType: ScopeType;
@@ -34,8 +35,13 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
 
   getScopesTouchingPosition(
     editor: TextEditor,
-    position: Position
+    position: Position,
+    ancestorIndex: number = 0
   ): TargetScope[] {
+    if (ancestorIndex !== 0) {
+      throw new NoContainingScopeError(this.scopeType.type);
+    }
+
     const iterationScope = getPreferredScope(
       this.iterationScopeHandler.getScopesTouchingPosition(editor, position)
     );

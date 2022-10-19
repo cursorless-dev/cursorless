@@ -16,10 +16,12 @@ export default class SurroundingPairScopeHandler implements ScopeHandler {
 
   getScopesTouchingPosition(
     _editor: TextEditor,
-    _position: Position
+    _position: Position,
+    _ancestorIndex: number = 0
   ): TargetScope[] {
     // TODO: Run existing surrounding pair code on empty range constructed from
     // position, returning both if position is adjacent to two
+    // TODO: Handle ancestor index
     throw new Error("Method not implemented.");
   }
 

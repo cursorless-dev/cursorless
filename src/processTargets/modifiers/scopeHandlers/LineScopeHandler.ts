@@ -1,5 +1,6 @@
 import { range } from "lodash";
 import { Position, Range, TextEditor } from "vscode";
+import { NoContainingScopeError } from "../../../errors";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/range";
 import { LineTarget } from "../../targets";
@@ -17,8 +18,13 @@ export default class LineScopeHandler implements ScopeHandler {
 
   getScopesTouchingPosition(
     editor: TextEditor,
-    position: Position
+    position: Position,
+    ancestorIndex: number = 0
   ): TargetScope[] {
+    if (ancestorIndex !== 0) {
+      throw new NoContainingScopeError(this.scopeType.type);
+    }
+
     return [lineNumberToScope(editor, position.line)];
   }
 
