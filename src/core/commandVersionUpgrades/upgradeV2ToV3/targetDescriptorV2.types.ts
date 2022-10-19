@@ -145,37 +145,32 @@ export interface SurroundingPairScopeType {
   requireStrongContainment?: boolean;
 }
 
-export type ScopeType =
+export type ScopeTypeV2 =
   | SimpleScopeType
   | SurroundingPairScopeType
   | CustomRegexScopeType;
 
-export interface ContainingSurroundingPairModifier
-  extends ContainingScopeModifier {
-  scopeType: SurroundingPairScopeType;
-}
-
-export interface InteriorOnlyModifier {
+interface InteriorOnlyModifier {
   type: "interiorOnly";
 }
 
-export interface ExcludeInteriorModifier {
+interface ExcludeInteriorModifier {
   type: "excludeInterior";
 }
 
-export interface ContainingScopeModifier {
+interface ContainingScopeModifier {
   type: "containingScope";
-  scopeType: ScopeType;
+  scopeType: ScopeTypeV2;
 }
 
-export interface EveryScopeModifier {
+interface EveryScopeModifier {
   type: "everyScope";
-  scopeType: ScopeType;
+  scopeType: ScopeTypeV2;
 }
 
-export interface OrdinalRangeModifier {
+export interface OrdinalRangeModifierV2 {
   type: "ordinalRange";
-  scopeType: ScopeType;
+  scopeType: ScopeTypeV2;
   anchor: number;
   active: number;
   excludeAnchor?: boolean;
@@ -187,21 +182,21 @@ export interface OrdinalRangeModifier {
  * example if it is the destination of a bring or move it should inherit the
  * type information such as delimiters from its source.
  */
-export interface RawSelectionModifier {
+interface RawSelectionModifier {
   type: "toRawSelection";
 }
 
-export interface LeadingModifier {
+interface LeadingModifier {
   type: "leading";
 }
 
-export interface TrailingModifier {
+interface TrailingModifier {
   type: "trailing";
 }
 
-export type Position = "before" | "after" | "start" | "end";
+type Position = "before" | "after" | "start" | "end";
 
-export interface PositionModifier {
+interface PositionModifier {
   type: "position";
   position: Position;
 }
@@ -213,7 +208,7 @@ export interface PartialPrimitiveTargetDescriptorV2 {
   isImplicit?: boolean;
 }
 
-export interface HeadTailModifier {
+interface HeadTailModifier {
   type: "extendThroughStartOf" | "extendThroughEndOf";
   modifiers?: ModifierV2[];
 }
@@ -222,7 +217,7 @@ export interface HeadTailModifier {
  * Runs {@link modifier} if the target has no explicit scope type, ie if
  * {@link Target.hasExplicitScopeType} is `false`.
  */
-export interface ModifyIfUntypedModifier {
+interface ModifyIfUntypedModifier {
   type: "modifyIfUntyped";
 
   /**
@@ -236,7 +231,7 @@ export interface ModifyIfUntypedModifier {
  * doesn't throw an error, returning the output from the first modifier not
  * throwing an error.
  */
-export interface CascadingModifier {
+interface CascadingModifier {
   type: "cascading";
 
   /**
@@ -251,7 +246,7 @@ export type ModifierV2 =
   | ExcludeInteriorModifier
   | ContainingScopeModifier
   | EveryScopeModifier
-  | OrdinalRangeModifier
+  | OrdinalRangeModifierV2
   | HeadTailModifier
   | LeadingModifier
   | TrailingModifier
@@ -281,50 +276,7 @@ export type PartialTargetDescriptorV2 =
   | PartialRangeTargetDescriptorV2
   | PartialListTargetDescriptorV2;
 
-export interface PrimitiveTargetDescriptor
-  extends PartialPrimitiveTargetDescriptorV2 {
-  /**
-   * The mark, eg "air", "this", "that", etc
-   */
-  mark: MarkV2;
-
-  /**
-   * Zero or more modifiers that will be applied in sequence to the output from
-   * the mark.  Note that the modifiers will be applied in reverse order.  For
-   * example, if the user says "take first char name air", then we will apply
-   * "name" to the output of "air" to select the name of the function or
-   * statement containing "air", then apply "first char" to select the first
-   * character of the name.
-   */
-  modifiers: ModifierV2[];
-
-  /**
-   * We separate the positional modifier from the other modifiers because it
-   * behaves differently and and makes the target behave like a destination for
-   * example for bring.  This change is the first step toward #803
-   */
-  positionModifier?: PositionModifier;
-}
-
-export interface RangeTargetDescriptor {
-  type: "range";
-  anchor: PrimitiveTargetDescriptor;
-  active: PrimitiveTargetDescriptor;
-  excludeAnchor: boolean;
-  excludeActive: boolean;
-  rangeType: RangeType;
-}
 // continuous is one single continuous selection between the two targets
 // vertical puts a selection on each line vertically between the two targets
 
-export type RangeType = "continuous" | "vertical";
-
-export interface ListTargetDescriptor {
-  type: "list";
-  elements: (PrimitiveTargetDescriptor | RangeTargetDescriptor)[];
-}
-
-export type TargetDescriptor =
-  | PrimitiveTargetDescriptor
-  | RangeTargetDescriptor
-  | ListTargetDescriptor;
+type RangeType = "continuous" | "vertical";
