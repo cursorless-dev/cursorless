@@ -36,6 +36,17 @@ export function getRangeLength(editor: TextEditor, range: Range) {
         editor.document.offsetAt(range.start);
 }
 
+/**
+ * Returns
+ *
+ * ```
+ * range1.start < range2.start && range1.end > range2.end
+ * ```
+ * @param range1 One of the ranges to compare
+ * @param range2 The other range to compare
+ * @returns A boolean indicating whether {@link range1} completely contains
+ * {@link range2} without it touching either boundary
+ */
 export function strictlyContains(range1: Range, range2: Range): boolean {
   return range1.start.isBefore(range2.start) && range1.end.isAfter(range2.end);
 }
