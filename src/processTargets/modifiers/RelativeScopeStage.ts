@@ -1,17 +1,17 @@
-import { Position, Range, TextEditor } from "vscode";
+import type { Position, Range, TextEditor } from "vscode";
 import { NoContainingScopeError } from "../../errors";
-import { Target } from "../../typings/target.types";
-import { RelativeScopeModifier } from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
-import getScopeHandler from "./scopeHandlers/getScopeHandler";
-import { ModifierStage } from "../PipelineStages.types";
+import type { Target } from "../../typings/target.types";
+import type { RelativeScopeModifier } from "../../typings/targetDescriptor.types";
+import type { ProcessedTargetsContext } from "../../typings/Types";
+import { strictlyContains } from "../../util/rangeUtils";
+import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScope } from "./getPreferredScope";
 import { runLegacy } from "./relativeScopeLegacy";
-import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
-import { TargetScope } from "./scopeHandlers/scope.types";
+import getScopeHandler from "./scopeHandlers/getScopeHandler";
+import type { TargetScope } from "./scopeHandlers/scope.types";
+import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 import { TooFewScopesError } from "./TooFewScopesError";
-import { strictlyContains } from "../../util/rangeUtils";
 
 export class RelativeScopeStage implements ModifierStage {
   constructor(private modifier: RelativeScopeModifier) {}
