@@ -2,10 +2,10 @@ import type { Range, TextEditor } from "vscode";
 import type { Target } from "../../../typings/target.types";
 
 /**
- * A range in the document within which a particular scope type is considered
- * the canonical instance of the given region.  We use this type both to define
- * the domain within which a target is canonical, and the domain within which
- * an iteration scope is canonical.
+ * A range in the document within which a particular scope is considered the
+ * canonical instance of the given scope type.  We use this type both to define
+ * the domain within which a target is canonical, and the domain within which an
+ * iteration scope is canonical.
  */
 export interface Scope {
   /**
