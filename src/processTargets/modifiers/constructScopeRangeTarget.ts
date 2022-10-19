@@ -8,7 +8,7 @@ import { TargetScope } from "./scopeHandlers/scope.types";
  * the range, and which should be the end.
  * @param isReversed Whether the returned target should have active before
  * anchor
- * @param scope1 The scope forming one end of the range
+ * @param scope1 A scope forming one end of the range
  * @param scope2 A scope forming another end of the range
  * @returns A target consisting of a range between {@link scope1} and
  * {@link scope2}
