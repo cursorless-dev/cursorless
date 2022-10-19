@@ -12,7 +12,8 @@ import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
  * This modifier returns all scopes intersecting the input target if the target
  * has an explicit range (ie {@link Target.hasExplicitRange} is `true`).  If the
  * target does not have an explicit range, this modifier returns all scopes in
- * the canonical iteration scope defined by the scope handler.
+ * the canonical iteration scope defined by the scope handler in
+ * {@link ScopeHandler.getIterationScopesTouchingPosition}.
  *
  * We proceed as follows:
  *
