@@ -123,20 +123,10 @@ const tokenMatchersForLanguage: Partial<Record<LanguageId, Matcher>> =
   );
 
 export function getMatcher(languageId: string): Matcher {
-  const matcher =
+  return (
     tokenMatchersForLanguage[languageId as SupportedLanguageId] ??
-    defaultMatcher;
-
-  return {
-    ...matcher,
-    // TODO Why is this necessary???????????
-    identifierMatcher: new RegExp(matcher.identifierMatcher),
-  };
-
-  // return (
-  //   tokenMatchersForLanguage[languageId as SupportedLanguageId] ??
-  //   defaultMatcher
-  // );
+    defaultMatcher
+  );
 }
 
 export function tokenize<T>(

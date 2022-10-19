@@ -37,6 +37,10 @@ export function matchAll<T>(
   regex: RegExp,
   mapfn: (v: RegExpMatchArray, k: number) => T
 ) {
+  // Reset the regex to start at the beginning of string, in case the regex has
+  // been used before.
+  // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
+  regex.lastIndex = 0;
   return Array.from(text.matchAll(regex), mapfn);
 }
 
