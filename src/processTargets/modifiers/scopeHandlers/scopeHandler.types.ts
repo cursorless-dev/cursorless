@@ -37,8 +37,14 @@ export interface ScopeHandler {
   readonly scopeType: ScopeType;
 
   /**
-   * The scope type of the iteration scope of this scope type, or `undefined`
-   * if there is no scope type corresponding to the iteration scope.
+   * The scope type of the iteration scope of this scope type, or `undefined` if
+   * there is no scope type corresponding to the iteration scope.  Note that
+   * even when this property is `undefined`, all scope types should have an
+   * iteration scope; it just may not correspond to one of our first-class scope
+   * types.
+   *
+   * FIXME: Revisit this; maybe we should always find a way to make the
+   * iteration scope a scope type.
    */
   readonly iterationScopeType: ScopeType | undefined;
 
@@ -66,9 +72,11 @@ export interface ScopeHandler {
    *
    * If the scope type is hierarchical, then if {@link ancestorIndex} is 1,
    * return all scopes touching {@link position} that have a child that is a
-   * minimal scope touching {@link position}.  If {@link ancestorIndex} is 2,
-   * return all scopes touching {@link position} that have a child with
-   * {@link ancestorIndex} of 1 with respect to {@link position}, etc.
+   * minimal scope touching {@link position} (ie they have a child that has an
+   * {@link ancestorIndex} of 1 with respect to {@link position}).  If
+   * {@link ancestorIndex} is 2, return all scopes touching {@link position}
+   * that have a child with {@link ancestorIndex} of 1 with respect to
+   * {@link position}, etc.
    *
    * The {@link ancestorIndex} parameter is primarily to be used by `"grand"`
    * scopes (#124).
