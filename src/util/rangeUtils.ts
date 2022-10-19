@@ -35,3 +35,7 @@ export function getRangeLength(editor: TextEditor, range: Range) {
     : editor.document.offsetAt(range.end) -
         editor.document.offsetAt(range.start);
 }
+
+export function strictlyContains(range1: Range, range2: Range): boolean {
+  return range1.start.isBefore(range2.start) && range1.end.isAfter(range2.end);
+}

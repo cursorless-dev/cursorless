@@ -11,6 +11,7 @@ import { runLegacy } from "./relativeScopeLegacy";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { TooFewScopesError } from "./TooFewScopesError";
+import { strictlyContains } from "../../util/rangeUtils";
 
 export class RelativeScopeStage implements ModifierStage {
   constructor(private modifier: RelativeScopeModifier) {}
@@ -38,12 +39,38 @@ export class RelativeScopeStage implements ModifierStage {
 
     const index0Scopes = getIndex0Scopes(scopeHandler, editor, range);
 
-    const initialPosition =
-      index0Scopes.length > 0
-        ? getIndex0DistalPosition(direction, index0Scopes)
-        : direction === "forward"
-        ? range.end
-        : range.start;
+    /**
+     * Indicates whether we move our initial position past the index 0 scopes
+     * before finding next scopes.  The two cases we need to keep in mind are as
+     * follows:
+     *
+     * - For surrounding pairs, eg "round", we don't want to skip past the
+     * containing pair if we're in the middle of a pair.  For example, in
+     * `(() | ())`, where `|` is our cursor, we want `"next round"` to select the
+     * second `()`, rather than jumping out of the big pair.
+     * - For tokens, we want to take into account what is considered the
+     * containing scope so that `"next token"` and `"token"` don't just do the
+     * same thing.  For example, in `foo|. bar`, where `|` is the cursor,
+     * `"token"` is `foo`, so we want `"next token"` to refer to `.`, but in
+     * `.|foo bar`, `"token"` is also `foo`, so `"next token"` should refer to
+     * `bar`.
+     *
+     * To accommodate both of these cases, if we have only one index 0 scope,
+     * we ignore it if it completely contains {@link range}.  That way when the
+     * token adjacency logic kicks in, we'll respect it, but if we're in the
+     * middle of a "round", we won't skip to the end.
+     *
+     */
+    const skipIndex0Scopes =
+      index0Scopes.length > 1 ||
+      (index0Scopes.length === 1 &&
+        !strictlyContains(index0Scopes[0].domain, range));
+
+    const initialPosition = skipIndex0Scopes
+      ? getIndex0DistalPosition(direction, index0Scopes)
+      : direction === "forward"
+      ? range.end
+      : range.start;
 
     const proximalScope = scopeHandler.getScopeRelativeToPosition(
       editor,
@@ -128,8 +155,8 @@ function getIndex0DistalPosition(
 /**
  * Returns a list of scopes that are considered to be at relative scope index
  * 0, ie "containing" / "intersecting" with the input target.  If the input
- * target is zero length, we return the containing scope, otherwise we return
- * the intersecting scopes.
+ * target is zero length, we return at most one scope: the same scope preferred
+ * by {@link ContainingScopeModifier}.
  * @param scopeHandler The scope handler for the given scope type
  * @param editor The editor containing {@link range}
  * @param range The input target range
