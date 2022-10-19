@@ -1,5 +1,13 @@
 import { Scope } from "./scopeHandlers/scope.types";
 
+/**
+ * Given a list of scopes, returns the preferred scope, or `undefined` if
+ * {@link scopes} is empty.  If {@link Scope.isPreferredOver} is defined and
+ * returns a boolean, we use that preference.  Otherwise we just prefer the
+ * rightmost scope.
+ * @param scopes A list of scopes to choose from
+ * @returns A single preferred scope, or `undefined` if {@link scopes} is empty
+ */
 export function getPreferredScope<T extends Scope>(scopes: T[]): T | undefined {
   return getScopeHelper(
     scopes,
@@ -9,12 +17,24 @@ export function getPreferredScope<T extends Scope>(scopes: T[]): T | undefined {
   );
 }
 
+/**
+ * Given a list of scopes, returns the leftmost scope, or `undefined` if
+ * {@link scopes} is empty.
+ * @param scopes A list of scopes to choose from
+ * @returns A single preferred scope, or `undefined` if {@link scopes} is empty
+ */
 export function getLeftScope<T extends Scope>(scopes: T[]): T | undefined {
   return getScopeHelper(scopes, (scope1, scope2) =>
     scope1.domain.start.isBefore(scope2.domain.start)
   );
 }
 
+/**
+ * Given a list of scopes, returns the rightmost scope, or `undefined` if
+ * {@link scopes} is empty.
+ * @param scopes A list of scopes to choose from
+ * @returns A single preferred scope, or `undefined` if {@link scopes} is empty
+ */
 export function getRightScope<T extends Scope>(scopes: T[]): T | undefined {
   return getScopeHelper(scopes, (scope1, scope2) =>
     scope1.domain.start.isAfter(scope2.domain.start)
