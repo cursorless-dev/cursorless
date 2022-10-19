@@ -20,11 +20,15 @@ import {
  *    content range
  * 2. If input target has an empty content range, return the start scope,
  *    breaking ties as defined by {@link getPreferredScope} when more than one
- *    scope touches content range start
- * 3. If end of input target is weakly contained by the domain of the rightmost
- *    start scope, return rightmost start scope.
- * 4. Expand from end of input target and form a range from rightmost start
- *    scope through leftmost end scope.
+ *    scope touches content range
+ * 3. Otherwise, if end of input target is weakly contained by the domain of the
+ *    rightmost start scope, return rightmost start scope.  We return rightmost
+ *    because that will have non-empty intersection with input target content
+ *    range.
+ * 4. Otherwise, expand from end of input target and form a range from rightmost
+ *    start scope through leftmost end scope.  We use rightmost start scope and
+ *    leftmost end scope because those will have non-empty intersection with
+ *    input target content range.
  */
 export class ContainingScopeStage implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier) {}
