@@ -33,7 +33,12 @@ export class RelativeScopeStage implements ModifierStage {
 
   private handleNotIncludingIntersecting(target: Target): Target[] {
     const { isReversed, editor, contentRange: range } = target;
-    const { scopeType, length, direction, offset } = this.modifier;
+    const {
+      scopeType,
+      length: desiredScopeCount,
+      direction,
+      offset,
+    } = this.modifier;
 
     const scopeHandler = getScopeHandler(scopeType);
 
@@ -79,7 +84,7 @@ export class RelativeScopeStage implements ModifierStage {
       direction
     );
 
-    if (length === 1) {
+    if (desiredScopeCount === 1) {
       return [proximalScope.getTarget(isReversed)];
     }
 
@@ -88,7 +93,7 @@ export class RelativeScopeStage implements ModifierStage {
       direction === "forward"
         ? proximalScope.domain.end
         : proximalScope.domain.start,
-      length - 1,
+      desiredScopeCount - 1,
       direction
     );
 
