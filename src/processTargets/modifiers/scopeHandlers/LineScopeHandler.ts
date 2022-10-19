@@ -1,7 +1,6 @@
 import { range } from "lodash";
 import { Position, Range, TextEditor } from "vscode";
-import { ScopeType } from "../../../core/commandVersionUpgrades/upgradeV2ToV3/targetDescriptorV2.types";
-import { Direction } from "../../../typings/targetDescriptor.types";
+import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/range";
 import { LineTarget } from "../../targets";
 import { ScopeHandler } from "./scopeHandler.types";
