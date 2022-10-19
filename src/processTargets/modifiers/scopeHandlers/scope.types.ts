@@ -11,7 +11,7 @@ export interface Scope {
   /**
    * The text editor containing {@link domain}.
    */
-  editor: TextEditor;
+  readonly editor: TextEditor;
 
   /**
    * The domain within which this scope is considered the canonical instance of
@@ -27,7 +27,7 @@ export interface Scope {
    * is function, then the domain might be a class, so that "take every funk"
    * works from anywhere within the given class.
    */
-  domain: Range;
+  readonly domain: Range;
 
   /**
    * This fuction can be defined to indicate how to choose between adjacent

@@ -1,27 +1,28 @@
 import { Position, Range, TextEditor } from "vscode";
-import { ScopeType } from "../../../core/commandVersionUpgrades/upgradeV2ToV3/targetDescriptorV2.types";
-import { Direction } from "../../../typings/targetDescriptor.types";
+import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { TargetScope, IterationScope } from "./scope.types";
 
 /**
  * Represents a scope type.  The functions in this interface allow us to find
- * specific instances of the given scope type in a document.  For example, it
- * has a function to find the scopes touching a given position, a function to
- * find every instance of the scope overlapping a range, etc. These functions
- * are used by the various modifier stages to implement modifiers that involve
- * the given scope type.
+ * specific instances of the given scope type in a document.  For example, there
+ * is a function to find the scopes touching a given position
+ * ({@link getScopesTouchingPosition}), a function to find every instance of
+ * the scope overlapping a range ({@link getScopesOverlappingRange}), etc.
+ * These functions are used by the various modifier stages to implement
+ * modifiers that involve the given scope type, such as containing, every,
+ * next, etc.
  *
- * Note that a scope type can be hierarchical, ie one scope of the given type
+ * Note that some scope types are hierarchical, ie one scope of the given type
  * can contain another scope of the same type.  For example, a function can
  * contain other functions, so functions are hierarchical.  Surrounding pairs
  * are also hierarchical, as they can be nested.  Many scope types are not
  * hierarchical, though, eg line, token, word, etc.
  *
  * In the case of a hierarchical scope type, these functions should never
- * return scopes that contain one another.  Ie if we return a surrounding pair,
- * we shouldn't also return any surrounding pairs contained within, or if we
- * return a function, we shouldn't also return a function nested within that
- * function.
+ * return two scopes that contain one another.  Ie if we return a surrounding
+ * pair, we shouldn't also return any surrounding pairs contained within, or
+ * if we return a function, we shouldn't also return a function nested within
+ * that function.
  *
  * Note that there are helpers that can sometimes be used to avoid implementing
  * a scope handler from scratch, eg {@link NestedScopeHandler}.
@@ -77,10 +78,10 @@ export interface ScopeHandler {
   /**
    * Returns all iteration scopes touching {@link position}.  For example, if
    * scope type is `namedFunction`, and {@link position} is inside a class, the
-   * iteration scope would contain a list of functions in the class.  A scope
-   * is considered to touch a position if its domain contains the position or
-   * is directly adjacent to the position. In other words, return all iteration
-   * scopes for which the following is true:
+   * iteration scope would contain a list of functions in the class.  An
+   * iteration scope is considered to touch a position if its domain contains
+   * the position or is directly adjacent to the position. In other words,
+   * return all iteration scopes for which the following is true:
    *
    * ```typescript
    * iterationScope.domain.start <= position && iterationScope.domain.end >= position
@@ -92,9 +93,9 @@ export interface ScopeHandler {
    * position, return an empty list.
    *
    * Note that if the iteration scope type is hierarchical, return only minimal
-   * scopes, ie if iteration scope A and iteration scope B both touch
-   * {@link position}, and iteration scope A contains iteration scope B, return
-   * iteration scope B but not iteration scope A.
+   * iteration scopes, ie if iteration scope A and iteration scope B both touch
+   * {@link position}, and iteration scope A contains iteration scope B,
+   * return iteration scope B but not iteration scope A.
    *
    * @param editor The editor containing {@link position}
    * @param position The position from which to expand
@@ -112,7 +113,8 @@ export interface ScopeHandler {
    * scopes whose {@link Scope.domain.end} is equal or before
    * {@link position}.  Note that {@link offset} will always be greater than or
    * equal to 1.  For example, an {@link offset} of 1 should return the first
-   * scope after {@link position} (before if {@link direction} is `"backward"`)
+   * scope after {@link position} (before if {@link direction} is
+   * `"backward"`).
    * @param editor The editor containing {@link position}
    * @param position The position from which to start
    * @param offset Which scope before / after position to return
