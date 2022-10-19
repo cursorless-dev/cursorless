@@ -7,21 +7,19 @@ import { ScopeHandler } from "./scopeHandler.types";
 import { IterationScope, TargetScope } from "./scope.types";
 
 export default class SurroundingPairScopeHandler implements ScopeHandler {
+  public readonly iterationScopeType = undefined;
+
   constructor(
     public readonly scopeType: SurroundingPairScopeType,
     _languageId: string
   ) {}
-
-  get iterationScopeType() {
-    return undefined;
-  }
 
   getScopesTouchingPosition(
     _editor: TextEditor,
     _position: Position
   ): TargetScope[] {
     // TODO: Run existing surrounding pair code on empty range constructed from
-    // position, returning both if position is adjacent to to
+    // position, returning both if position is adjacent to two
     throw new Error("Method not implemented.");
   }
 

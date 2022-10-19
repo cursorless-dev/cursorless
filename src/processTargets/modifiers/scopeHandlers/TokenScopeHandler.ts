@@ -7,12 +7,11 @@ import { TokenTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
 
 export default class TokenScopeHandler extends NestedScopeHandler {
-  constructor(_scopeType: ScopeType, _languageId: string) {
-    super({ type: "line" }, _languageId);
-  }
+  public readonly scopeType: ScopeType = { type: "token" };
+  public readonly iterationScopeType: ScopeType = { type: "line" };
 
-  get scopeType(): ScopeType {
-    return { type: "token" };
+  constructor(_scopeType: ScopeType, _languageId: string) {
+    super(_languageId);
   }
 
   protected getScopesInIterationScope({

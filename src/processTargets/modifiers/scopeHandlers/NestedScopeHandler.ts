@@ -10,23 +10,27 @@ import type { IterationScope, TargetScope } from "./scope.types";
 import type { ScopeHandler } from "./scopeHandler.types";
 
 export default abstract class NestedScopeHandler implements ScopeHandler {
-  private iterationScopeHandler: ScopeHandler;
-
-  constructor(
-    public readonly iterationScopeType: ScopeType,
-    languageId: string
-  ) {
-    this.iterationScopeHandler = getScopeHandler(
-      iterationScopeType,
-      languageId
-    )!;
-  }
-
-  abstract get scopeType(): ScopeType;
+  public abstract readonly scopeType: ScopeType;
+  public abstract readonly iterationScopeType: ScopeType;
 
   protected abstract getScopesInIterationScope(
     iterationScope: TargetScope
   ): TargetScope[];
+
+  private _iterationScopeHandler: ScopeHandler | undefined;
+
+  constructor(private languageId: string) {}
+
+  private get iterationScopeHandler(): ScopeHandler {
+    if (this._iterationScopeHandler == null) {
+      this._iterationScopeHandler = getScopeHandler(
+        this.iterationScopeType,
+        this.languageId
+      )!;
+    }
+
+    return this._iterationScopeHandler;
+  }
 
   getScopesTouchingPosition(
     editor: TextEditor,

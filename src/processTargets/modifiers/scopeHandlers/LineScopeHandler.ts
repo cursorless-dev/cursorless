@@ -8,16 +8,11 @@ import type { IterationScope, TargetScope } from "./scope.types";
 import { OutOfRangeError } from "../targetSequenceUtils";
 
 export default class LineScopeHandler implements ScopeHandler {
+  public readonly scopeType: ScopeType = { type: "line" };
+  public readonly iterationScopeType: ScopeType = { type: "document" };
+
   constructor(_scopeType: ScopeType, _languageId: string) {
     // empty
-  }
-
-  get scopeType(): ScopeType {
-    return { type: "line" };
-  }
-
-  get iterationScopeType(): ScopeType {
-    return { type: "document" };
   }
 
   getScopesTouchingPosition(
