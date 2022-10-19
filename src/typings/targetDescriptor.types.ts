@@ -164,6 +164,14 @@ export interface ContainingSurroundingPairModifier
   scopeType: SurroundingPairScopeType;
 }
 
+export interface EverySurroundingPairModifier extends EveryScopeModifier {
+  scopeType: SurroundingPairScopeType;
+}
+
+export type SurroundingPairModifier =
+  | ContainingSurroundingPairModifier
+  | EverySurroundingPairModifier;
+
 export interface InteriorOnlyModifier {
   type: "interiorOnly";
 }
