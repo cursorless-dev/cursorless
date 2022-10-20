@@ -183,6 +183,7 @@ export interface ExcludeInteriorModifier {
 export interface ContainingScopeModifier {
   type: "containingScope";
   scopeType: ScopeType;
+  ancestorIndex?: number;
 }
 
 export interface EveryScopeModifier {

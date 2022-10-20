@@ -39,7 +39,7 @@ export class ContainingScopeStage implements ModifierStage {
       editor,
       contentRange: { start, end },
     } = target;
-    const { scopeType } = this.modifier;
+    const { scopeType, ancestorIndex } = this.modifier;
 
     const scopeHandler = getScopeHandler(
       scopeType,
@@ -50,7 +50,11 @@ export class ContainingScopeStage implements ModifierStage {
       return getLegacyScopeStage(this.modifier).run(context, target);
     }
 
-    const startScopes = scopeHandler.getScopesTouchingPosition(editor, start);
+    const startScopes = scopeHandler.getScopesTouchingPosition(
+      editor,
+      start,
+      ancestorIndex
+    );
 
     if (startScopes.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -75,7 +79,11 @@ export class ContainingScopeStage implements ModifierStage {
     // between start and end scopes.  For the end scope, we break ties to the
     // left so that the scope will have non-empty overlap with input target
     // content range.
-    const endScopes = scopeHandler.getScopesTouchingPosition(editor, end);
+    const endScopes = scopeHandler.getScopesTouchingPosition(
+      editor,
+      end,
+      ancestorIndex
+    );
     const endScope = getLeftScope(endScopes);
 
     if (endScope == null) {
