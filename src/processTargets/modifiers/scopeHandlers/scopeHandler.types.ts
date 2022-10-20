@@ -127,6 +127,10 @@ export interface ScopeHandler {
    * {@link position}, and iteration scope A contains iteration scope B, return
    * iteration scope B but not iteration scope A.
    *
+   * FIXME: We may want to remove this function and just call
+   * `iterationScope.getScopesTouchingPosition`, then run
+   * `getScopesOverlappingRange` on that range.
+   *
    * @param editor The editor containing {@link position}
    * @param position The position from which to expand
    */
@@ -137,14 +141,21 @@ export interface ScopeHandler {
 
   /**
    * Returns a scope before or after {@link position}, depending on
-   * {@link direction}.  If {@link direction} is `"forward"`, consider all
-   * scopes whose {@link Scope.domain.start} is equal or after
-   * {@link position}.  If {@link direction} is `"backward"`, consider all
-   * scopes whose {@link Scope.domain.end} is equal or before
-   * {@link position}.  Note that {@link offset} will always be greater than or
-   * equal to 1.  For example, an {@link offset} of 1 should return the first
-   * scope after {@link position} (before if {@link direction} is
-   * `"backward"`).
+   * {@link direction}.  If {@link direction} is `"forward"` and {@link offset}
+   * is 1, return the leftmost scope whose {@link Scope.domain.start} is equal
+   * or after {@link position}.  If {@link direction} is `"forward"` and
+   * {@link offset} is 2, return the leftmost scope whose
+   * {@link Scope.domain.start} is equal or after the {@link Scope.domain.end}
+   * of the scope at `offset` 1.  Etc.
+   *
+   * If {@link direction} is `"backward"` and {@link offset} is 1, return the
+   * rightmost scope whose {@link Scope.domain.end} is equal or before
+   * {@link position}.  If {@link direction} is `"backward"` and {@link offset}
+   * is 2, return the rightmost scope whose {@link Scope.domain.end} is equal
+   * or after the {@link Scope.domain.start} of the scope at `offset` 1.  Etc.
+   *
+   * Note that {@link offset} will always be greater than or equal to 1.
+   *
    * @param editor The editor containing {@link position}
    * @param position The position from which to start
    * @param offset Which scope before / after position to return
