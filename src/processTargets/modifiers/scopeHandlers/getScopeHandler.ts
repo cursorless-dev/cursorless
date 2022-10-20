@@ -1,4 +1,4 @@
-import { LineScopeHandler, TokenScopeHandler } from ".";
+import { IdentifierScopeHandler, LineScopeHandler, TokenScopeHandler } from ".";
 import type { ScopeType } from "../../../typings/targetDescriptor.types";
 import type { ScopeHandler } from "./scopeHandler.types";
 
@@ -13,7 +13,7 @@ import type { ScopeHandler } from "./scopeHandler.types";
  * function.
  *
  * @param scopeType The scope type for which to get a scope handler
- * @param _languageId The language id of the document where the scope handler
+ * @param languageId The language id of the document where the scope handler
  * will be used
  * @returns A scope handler for the given scope type and language id, or
  * undefined if the given scope type / language id combination is still using
@@ -21,13 +21,15 @@ import type { ScopeHandler } from "./scopeHandler.types";
  */
 export default function getScopeHandler(
   scopeType: ScopeType,
-  _languageId?: string
+  languageId?: string
 ): ScopeHandler | undefined {
   switch (scopeType.type) {
     case "token":
       return new TokenScopeHandler();
     case "line":
       return new LineScopeHandler();
+    case "identifier":
+      return new IdentifierScopeHandler(languageId!);
     default:
       return undefined;
   }

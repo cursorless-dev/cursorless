@@ -128,6 +128,7 @@ export type SimpleScopeTypeType =
   | "document"
   | "character"
   | "word"
+  | "identifier"
   | "nonWhitespaceSequence"
   | "boundedNonWhitespaceSequence"
   | "url";

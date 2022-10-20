@@ -57,6 +57,7 @@ scope_types = {
     # Text-based scope types
     "char": "character",
     "word": "word",
+    "identifier": "identifier",
     "block": "paragraph",
     "cell": "notebookCell",
     "file": "document",
