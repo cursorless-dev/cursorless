@@ -1,32 +1,28 @@
 import { HatStyleName } from "../../hatStyles";
 
-export interface CursorMark {
+interface CursorMark {
   type: "cursor";
 }
 
-export interface ThatMark {
+interface ThatMark {
   type: "that";
 }
 
-export interface SourceMark {
+interface SourceMark {
   type: "source";
 }
 
-export interface NothingMark {
+interface NothingMark {
   type: "nothing";
 }
 
-export interface LastCursorPositionMark {
-  type: "lastCursorPosition";
-}
-
-export interface DecoratedSymbolMark {
+interface DecoratedSymbolMark {
   type: "decoratedSymbol";
   symbolColor: HatStyleName;
   character: string;
 }
 
-export type LineNumberType = "absolute" | "relative" | "modulo100";
+type LineNumberType = "absolute" | "relative" | "modulo100";
 
 export interface LineNumberPositionV2 {
   type: LineNumberType;
@@ -48,7 +44,7 @@ export type MarkV2 =
   | NothingMark
   | LineNumberMarkV2;
 
-export type SimpleSurroundingPairName =
+type SimpleSurroundingPairName =
   | "angleBrackets"
   | "backtickQuotes"
   | "curlyBrackets"
@@ -60,15 +56,12 @@ export type SimpleSurroundingPairName =
   | "parentheses"
   | "singleQuotes"
   | "squareBrackets";
-export type ComplexSurroundingPairName =
-  | "string"
-  | "any"
-  | "collectionBoundary";
-export type SurroundingPairName =
+type ComplexSurroundingPairName = "string" | "any" | "collectionBoundary";
+type SurroundingPairName =
   | SimpleSurroundingPairName
   | ComplexSurroundingPairName;
 
-export type SimpleScopeTypeType =
+export type SimpleScopeTypeTypeV2 =
   | "argumentOrParameter"
   | "anonymousFunction"
   | "attribute"
@@ -123,17 +116,17 @@ export type SimpleScopeTypeType =
   | "boundedNonWhitespaceSequence"
   | "url";
 
-export interface SimpleScopeType {
-  type: SimpleScopeTypeType;
+interface SimpleScopeType {
+  type: SimpleScopeTypeTypeV2;
 }
 
-export interface CustomRegexScopeType {
+interface CustomRegexScopeType {
   type: "customRegex";
   regex: string;
 }
 
-export type SurroundingPairDirection = "left" | "right";
-export interface SurroundingPairScopeType {
+type SurroundingPairDirection = "left" | "right";
+interface SurroundingPairScopeType {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
   forceDirection?: SurroundingPairDirection;
