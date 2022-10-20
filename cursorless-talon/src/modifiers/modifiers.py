@@ -19,6 +19,7 @@ simple_modifiers = {
     "trailing": "trailing",
     "content": "keepContentFilter",
     "empty": "keepEmptyFilter",
+    "its": "inferPreviousMark",
 }
 
 mod.list(

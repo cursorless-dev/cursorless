@@ -5,6 +5,7 @@ import { merge } from "lodash";
 import * as path from "path";
 import * as vscode from "vscode";
 import HatTokenMap from "../core/HatTokenMap";
+import { injectSpyIde, SpyInfo } from "../ide/spies/SpyIDE";
 import { DecoratedSymbolMark } from "../typings/targetDescriptor.types";
 import { Graph } from "../typings/Types";
 import { getDocumentRange } from "../util/range";
@@ -17,7 +18,7 @@ import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
 import { walkDirsSync } from "./walkSync";
 
 const CALIBRATION_DISPLAY_BACKGROUND_COLOR = "#230026";
-const CALIBRATION_DISPLAY_DURATION_MS = 30;
+const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
 interface RecordTestCaseCommandArg {
   /**
@@ -85,6 +86,7 @@ export class TestCaseRecorder {
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
   private captureFinalThatMark: boolean = false;
+  private spyInfo: SpyInfo | undefined;
 
   constructor(private graph: Graph) {
     graph.extensionContext.subscriptions.push(this);
@@ -236,11 +238,9 @@ export class TestCaseRecorder {
 
     this.active = true;
 
-    if (showCalibrationDisplay) {
-      this.showCalibrationDisplay();
-    }
-    this.startTimestamp = process.hrtime.bigint();
-    const timestampISO = new Date().toISOString();
+    const startTimestampISO = await this.recordStartTime(
+      showCalibrationDisplay
+    );
     this.isHatTokenMapTest = isHatTokenMapTest;
     this.captureFinalThatMark = captureFinalThatMark;
     this.isDecorationsTest = isDecorationsTest;
@@ -253,21 +253,32 @@ export class TestCaseRecorder {
       `Recording test cases for following commands in:\n${this.targetDirectory}`
     );
 
-    return { startTimestampISO: timestampISO };
+    return { startTimestampISO };
   }
 
-  async showCalibrationDisplay() {
-    vscode.window.visibleTextEditors.map((editor) => {
-      editor.setDecorations(this.calibrationStyle, [
-        getDocumentRange(editor.document),
-      ]);
-    });
+  private async recordStartTime(showCalibrationDisplay: boolean) {
+    if (showCalibrationDisplay) {
+      vscode.window.visibleTextEditors.map((editor) => {
+        editor.setDecorations(this.calibrationStyle, [
+          getDocumentRange(editor.document),
+        ]);
+      });
 
-    await sleep(CALIBRATION_DISPLAY_DURATION_MS);
+      await sleep(CALIBRATION_DISPLAY_DURATION_MS);
+    }
 
-    vscode.window.visibleTextEditors.map((editor) => {
-      editor.setDecorations(this.calibrationStyle, []);
-    });
+    // NB: Record timestamp here so that timestamp is last frame of calibration
+    // display
+    this.startTimestamp = process.hrtime.bigint();
+    const timestampISO = new Date().toISOString();
+
+    if (showCalibrationDisplay) {
+      vscode.window.visibleTextEditors.map((editor) => {
+        editor.setDecorations(this.calibrationStyle, []);
+      });
+    }
+
+    return timestampISO;
   }
 
   stop() {
@@ -288,15 +299,19 @@ export class TestCaseRecorder {
       await this.finishTestCase();
     } else {
       // Otherwise, we are starting a new test case
+      this.spyInfo = injectSpyIde(this.graph);
+
       this.testCase = new TestCase(
         command,
         context,
+        this.spyInfo.spy,
         this.isHatTokenMapTest,
         this.isDecorationsTest,
         this.startTimestamp!,
         this.captureFinalThatMark,
         this.extraSnapshotFields
       );
+
       await this.testCase.recordInitialState();
     }
   }
@@ -316,8 +331,6 @@ export class TestCaseRecorder {
       // which marks we wanted to track
       return;
     }
-
-    this.testCase.recordDecorations();
 
     await this.finishTestCase();
   }
@@ -421,6 +434,11 @@ export class TestCaseRecorder {
     } else {
       this.testCase = null;
     }
+  }
+
+  finallyHook() {
+    this.spyInfo?.dispose();
+    this.spyInfo = undefined;
   }
 
   dispose() {

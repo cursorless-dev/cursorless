@@ -56,5 +56,9 @@ export default (modifier: Modifier): ModifierStage => {
       return new ModifyIfUntypedStage(modifier);
     case "range":
       return new RangeModifierStage(modifier);
+    case "inferPreviousMark":
+      throw Error(
+        `Unexpected modifier '${modifier.type}'; it should have been removed during inference`
+      );
   }
 };

@@ -1,9 +1,10 @@
-import * as assert from "assert";
 import { promises as fsp } from "fs";
+import { assert } from "chai";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import HatTokenMap from "../../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
+import { injectSpyIde } from "../../ide/spies/SpyIDE";
 import { extractTargetedMarks } from "../../testUtil/extractTargetedMarks";
 import { plainObjectToTarget } from "../../testUtil/fromPlainObject";
 import serialize from "../../testUtil/serialize";
@@ -25,6 +26,7 @@ import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewEditor } from "../openNewEditor";
 import asyncSafety from "../util/asyncSafety";
 import { getRecordedTestPaths } from "../util/getFixturePaths";
+import { injectFakeIde } from "./fakes/ide/FakeIDE";
 import shouldUpdateFixtures from "./shouldUpdateFixtures";
 import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
 
@@ -111,6 +113,9 @@ async function runTest(file: string) {
   // Assert that recorded decorations are present
   checkMarks(fixture.initialState.marks, readableHatMap);
 
+  const { dispose: disposeFakeIde } = injectFakeIde(graph);
+  const { spy: spyIde } = injectSpyIde(graph);
+
   let returnValue: unknown;
 
   try {
@@ -139,6 +144,8 @@ async function runTest(file: string) {
 
     return;
   }
+
+  disposeFakeIde();
 
   if (fixture.thrownError != null) {
     throw Error(
@@ -187,12 +194,15 @@ async function runTest(file: string) {
       ? undefined
       : testDecorationsToPlainObject(graph.editStyles.testDecorations);
 
+  const actualSpyIdeValues = spyIde.getSpyValues();
+
   if (shouldUpdateFixtures()) {
     const outputFixture = {
       ...fixture,
       finalState: resultState,
       decorations: actualDecorations,
       returnValue,
+      ide: actualSpyIdeValues,
       thrownError: undefined,
     };
 
@@ -214,6 +224,12 @@ async function runTest(file: string) {
       returnValue,
       fixture.returnValue,
       "Unexpected return value"
+    );
+
+    assert.deepStrictEqual(
+      actualSpyIdeValues,
+      fixture.ide,
+      "Unexpected ide captured values"
     );
   }
 }
