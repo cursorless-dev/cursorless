@@ -17,7 +17,7 @@ import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";
 import PositionStage from "./modifiers/PositionStage";
 import RangeModifierStage from "./modifiers/RangeModifierStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
-import { RelativeScopeStage } from "./modifiers/RelativeScopeStage";
+import RelativeScopeStage from "./modifiers/RelativeScopeStage";
 import { ModifierStage } from "./PipelineStages.types";
 
 export default (modifier: Modifier): ModifierStage => {
