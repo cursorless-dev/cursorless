@@ -87,7 +87,6 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
       .map((iterationScope) => ({
         domain: iterationScope.domain,
         editor,
-        isPreferredOver: iterationScope.isPreferredOver,
         getScopes: () => this.getScopesInIterationScope(iterationScope),
       }));
   }

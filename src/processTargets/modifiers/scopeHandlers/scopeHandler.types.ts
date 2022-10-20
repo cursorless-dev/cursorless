@@ -58,9 +58,8 @@ export interface ScopeHandler {
    * scope.domain.start <= position && scope.domain.end >= position
    * ```
    *
-   * If the position is directly adjacent to two scopes, return both. You can
-   * use {@link TargetScope.isPreferredOver} to indicate which one should have
-   * precedence.  If no scope contains the given position, return an empty list.
+   * If the position is directly adjacent to two scopes, return both. If no
+   * scope touches the given position, return an empty list.
    *
    * Note that if this scope type is hierarchical, return only minimal scopes if
    * {@link ancestorIndex} is omitted or is 0.  Ie if scope A and scope B both
@@ -121,14 +120,12 @@ export interface ScopeHandler {
    * ```
    *
    * If the position is directly adjacent to two iteration scopes, return both.
-   * You can use {@link TargetScope.isPreferredOver} to indicate which one
-   * should have precedence.  If no iteration scope contains the given
-   * position, return an empty list.
+   * If no iteration scope touches the given position, return an empty list.
    *
    * Note that if the iteration scope type is hierarchical, return only minimal
    * iteration scopes, ie if iteration scope A and iteration scope B both touch
-   * {@link position}, and iteration scope A contains iteration scope B,
-   * return iteration scope B but not iteration scope A.
+   * {@link position}, and iteration scope A contains iteration scope B, return
+   * iteration scope B but not iteration scope A.
    *
    * @param editor The editor containing {@link position}
    * @param position The position from which to expand

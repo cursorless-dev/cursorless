@@ -28,16 +28,6 @@ export interface Scope {
    * works from anywhere within the given class.
    */
   readonly domain: Range;
-
-  /**
-   * This fuction can be defined to indicate how to choose between adjacent
-   * scopes.  If the input target is zero width, and between two adjacent
-   * scopes, this funciton will be used to decide which scope is considered to
-   * contain the input target.  If this function is `undefined`, or returns
-   * `undefined`, then the one to the right will be preferred.
-   * @param other The scope to compare to
-   */
-  isPreferredOver?(other: Scope): boolean | undefined;
 }
 
 /**
