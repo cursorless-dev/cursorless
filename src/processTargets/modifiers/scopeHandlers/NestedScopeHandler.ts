@@ -36,7 +36,7 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
 
   private _iterationScopeHandler: ScopeHandler | undefined;
 
-  constructor(private languageId: string) {}
+  constructor(private languageId?: string) {}
 
   private get iterationScopeHandler(): ScopeHandler {
     if (this._iterationScopeHandler == null) {

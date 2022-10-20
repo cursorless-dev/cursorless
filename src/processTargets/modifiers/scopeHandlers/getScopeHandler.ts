@@ -21,13 +21,13 @@ import type { ScopeHandler } from "./scopeHandler.types";
  */
 export default function getScopeHandler(
   scopeType: ScopeType,
-  _languageId: string
+  _languageId?: string
 ): ScopeHandler | undefined {
   switch (scopeType.type) {
     case "token":
-      return new TokenScopeHandler(scopeType, _languageId);
+      return new TokenScopeHandler();
     case "line":
-      return new LineScopeHandler(scopeType, _languageId);
+      return new LineScopeHandler();
     default:
       return undefined;
   }

@@ -12,10 +12,6 @@ export default class LineScopeHandler implements ScopeHandler {
   public readonly scopeType: ScopeType = { type: "line" };
   public readonly iterationScopeType: ScopeType = { type: "document" };
 
-  constructor(_scopeType: ScopeType, _languageId: string) {
-    // empty
-  }
-
   getScopesTouchingPosition(
     editor: TextEditor,
     position: Position,

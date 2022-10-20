@@ -8,10 +8,6 @@ export default class TokenScopeHandler extends NestedScopeHandler {
   public readonly scopeType: ScopeType = { type: "token" };
   public readonly iterationScopeType: ScopeType = { type: "line" };
 
-  constructor(_scopeType: ScopeType, _languageId: string) {
-    super(_languageId);
-  }
-
   protected getScopesInIterationScope({
     editor,
     domain,
