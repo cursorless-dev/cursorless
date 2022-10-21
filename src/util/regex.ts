@@ -64,7 +64,9 @@ export function getMatchesInRange(
   const offset = editor.document.offsetAt(range.start);
   const text = editor.document.getText(range);
 
-  return [...text.matchAll(regex)].map(
+  return matchAll(
+    text,
+    regex,
     (match) =>
       new Range(
         editor.document.positionAt(offset + match.index!),

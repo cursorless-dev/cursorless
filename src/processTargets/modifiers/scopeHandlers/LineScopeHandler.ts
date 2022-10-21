@@ -1,6 +1,6 @@
 import { range } from "lodash";
 import { Position, Range, TextEditor } from "vscode";
-import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
+import { Direction } from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/range";
 import { LineTarget } from "../../targets";
 import { OutOfRangeError } from "../targetSequenceUtils";
@@ -9,8 +9,12 @@ import type { IterationScope, TargetScope } from "./scope.types";
 import type { ScopeHandler } from "./scopeHandler.types";
 
 export default class LineScopeHandler implements ScopeHandler {
-  public readonly scopeType: ScopeType = { type: "line" };
-  public readonly iterationScopeType: ScopeType = { type: "document" };
+  public readonly iterationScopeType = { type: "document" } as const;
+
+  constructor(
+    public readonly scopeType: { type: "line" },
+    protected languageId: string
+  ) {}
 
   getScopesTouchingPosition(
     editor: TextEditor,

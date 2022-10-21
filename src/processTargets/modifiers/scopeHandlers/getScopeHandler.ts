@@ -1,4 +1,10 @@
-import { IdentifierScopeHandler, LineScopeHandler, TokenScopeHandler } from ".";
+import {
+  CharacterScopeHandler,
+  IdentifierScopeHandler,
+  LineScopeHandler,
+  TokenScopeHandler,
+  WordScopeHandler,
+} from ".";
 import type { ScopeType } from "../../../typings/targetDescriptor.types";
 import type { ScopeHandler } from "./scopeHandler.types";
 
@@ -21,15 +27,19 @@ import type { ScopeHandler } from "./scopeHandler.types";
  */
 export default function getScopeHandler(
   scopeType: ScopeType,
-  languageId?: string
+  languageId: string
 ): ScopeHandler | undefined {
   switch (scopeType.type) {
+    case "character":
+      return new CharacterScopeHandler(scopeType, languageId);
+    case "word":
+      return new WordScopeHandler(scopeType, languageId);
     case "token":
-      return new TokenScopeHandler();
-    case "line":
-      return new LineScopeHandler();
+      return new TokenScopeHandler(scopeType, languageId);
     case "identifier":
-      return new IdentifierScopeHandler(languageId!);
+      return new IdentifierScopeHandler(scopeType, languageId);
+    case "line":
+      return new LineScopeHandler(scopeType as { type: "line" }, languageId);
     default:
       return undefined;
   }

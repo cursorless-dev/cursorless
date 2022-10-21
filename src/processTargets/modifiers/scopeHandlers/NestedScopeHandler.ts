@@ -19,7 +19,6 @@ import type { ScopeHandler } from "./scopeHandler.types";
  * regex matches to this base class and let it handle the rest.
  */
 export default abstract class NestedScopeHandler implements ScopeHandler {
-  public abstract readonly scopeType: ScopeType;
   public abstract readonly iterationScopeType: ScopeType;
 
   /**
@@ -36,7 +35,10 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
 
   private _iterationScopeHandler: ScopeHandler | undefined;
 
-  constructor(private languageId?: string) {}
+  constructor(
+    public readonly scopeType: ScopeType,
+    protected languageId: string
+  ) {}
 
   private get iterationScopeHandler(): ScopeHandler {
     if (this._iterationScopeHandler == null) {

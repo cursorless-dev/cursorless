@@ -191,7 +191,7 @@ export class TokenGraphemeSplitter {
   }
 }
 
-export interface Grapheme {
+export interface  Grapheme {
   /** The normalised text of the grapheme. */
   text: string;
 

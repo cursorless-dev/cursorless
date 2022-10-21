@@ -1,9 +1,9 @@
-import {
+import type {
   ContainingScopeModifier,
   EveryScopeModifier,
   SurroundingPairModifier,
 } from "../../typings/targetDescriptor.types";
-import { ModifierStage } from "../PipelineStages.types";
+import type { ModifierStage } from "../PipelineStages.types";
 import ItemStage from "./ItemStage";
 import BoundedNonWhitespaceSequenceStage from "./scopeTypeStages/BoundedNonWhitespaceStage";
 import ContainingSyntaxScopeStage, {
@@ -19,7 +19,6 @@ import {
   NonWhitespaceSequenceStage,
   UrlStage,
 } from "./scopeTypeStages/RegexStage";
-import { CharacterStage, WordStage } from "./scopeTypeStages/SubTokenStages";
 import SurroundingPairStage from "./SurroundingPairStage";
 
 /**
@@ -55,10 +54,6 @@ export default function getLegacyScopeStage(
       return new ItemStage(modifier);
     case "customRegex":
       return new CustomRegexStage(modifier as CustomRegexModifier);
-    case "word":
-      return new WordStage(modifier);
-    case "character":
-      return new CharacterStage(modifier);
     case "surroundingPair":
       return new SurroundingPairStage(modifier as SurroundingPairModifier);
     default:
