@@ -122,6 +122,10 @@ def get_modifiers():
                     "description": "previous <number> instances of <scope>",
                 },
                 {
+                    "spokenForm": f"<scope> {complex_modifiers['backward']}",
+                    "description": "single instance of <scope> including target, going backwards",
+                },
+                {
                     "spokenForm": f"<number> <scope>s {complex_modifiers['backward']}",
                     "description": "<number> instances of <scope> including target, going backwards",
                 },

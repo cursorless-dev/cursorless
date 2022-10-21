@@ -281,6 +281,16 @@ The `"token"` modifier expands its input to the nearest containing token. This m
 - `"take token"`
 - `"chuck token"`
 
+##### `"identifier`
+
+The `"identifier"` modifier behaves like `"token"`, but only considers tokens that are viable identifiers. For example `"identifier"` could be used to select `foo`, `fooBar`, or `foo_bar`, but not `.`, `=`, `+=`, etc. For example:
+
+- `"copy identifier"`
+- `"take identifier"`
+- `"chuck identifier"`
+
+This scope type is useful with ordinals, allow
+
 ##### `"paint"`
 
 Both of the commands below will expand from the mark forward and backward to include all adjacent non-whitespace characters.
