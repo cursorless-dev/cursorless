@@ -152,7 +152,7 @@ export interface ScopeHandler {
    * rightmost scope whose {@link Scope.domain.end} is equal or before
    * {@link position}.  If {@link direction} is `"backward"` and {@link offset}
    * is 2, return the rightmost scope whose {@link Scope.domain.end} is equal
-   * or after the {@link Scope.domain.start} of the scope at `offset` 1.  Etc.
+   * or before the {@link Scope.domain.start} of the scope at `offset` 1.  Etc.
    *
    * Note that {@link offset} will always be greater than or equal to 1.
    *
