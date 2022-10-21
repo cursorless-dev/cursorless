@@ -25,7 +25,8 @@ import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
  * 4. If {@link RelativeScopeModifier.length} is 1, returns that scope
  * 5. Otherwise, asks scope handler for scope at offset
  *    {@link RelativeScopeModifier.length} - 1, starting from the end of
- *    {@link Scope.domain} of that scope, and forms a range target.
+ *    {@link Scope.domain} of that scope (start for "backward"), and forms a
+ *    range target.
  */
 export default class RelativeExclusiveScopeStage implements ModifierStage {
   constructor(private modifier: RelativeScopeModifier) {}
