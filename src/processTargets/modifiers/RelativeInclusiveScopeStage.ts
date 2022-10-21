@@ -15,6 +15,29 @@ import type { TargetScope } from "./scopeHandlers/scope.types";
 import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 import { TooFewScopesError } from "./TooFewScopesError";
 
+/**
+ * Handles relative modifiers that include targets intersecting with the input,
+ * eg `"two funks"`, `"token backward"`, etc.  Proceeds as follows:
+ *
+ * 1. Gets all scopes intersecting with input target.  For empty range, that
+ *    will be the scope touching the input, preferring the one in the direction
+ *    of {@link RelativeScopeModifier.direction} if the input is adjacent to
+ *    two. For non-empty range, just queries
+ *    {@link ScopeHandler.getScopesOverlappingRange}.  These are called the
+ *    offset 0 scopes, as they correspond to "offset 0".
+ * 2. Subtracts the number of scopes at offset 0 from
+ *    {@link RelativeScopeModifier.length} to determine how many more are
+ *    needed, throwing an error if offset zero already has more scopes than
+ *    needed.
+ * 3. Calls {@link ScopeHandler.getScopeRelativeToPosition} starting from the
+ *    end of the last offset 0 scope if direction is forward (start of the first
+ *    if direction is backward). Uses `offset` determined from subtraction above
+ *    to get enough scopes to result in {@link RelativeScopeModifier.length}
+ *    total scopes.
+ * 4. Constructs a range target from the first offset 0 scope past the newly
+ *    returned scope if direction is forward, or from last offset 0 scope if
+ *    direction is backward.
+ */
 export class RelativeInclusiveScopeStage implements ModifierStage {
   constructor(private modifier: RelativeScopeModifier) {}
 
@@ -31,46 +54,46 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
     const { isReversed, editor, contentRange: inputRange } = target;
     const { scopeType, length: desiredScopeCount, direction } = this.modifier;
 
-    const index0Scopes = getIndex0Scopes(
+    const offset0Scopes = getOffset0Scopes(
       scopeHandler,
       direction,
       editor,
       inputRange
     );
 
-    const index0ScopeCount = index0Scopes.length;
+    const offset0ScopeCount = offset0Scopes.length;
 
-    if (index0ScopeCount === 0) {
+    if (offset0ScopeCount === 0) {
       throw new NoContainingScopeError(scopeType.type);
     }
 
-    if (index0ScopeCount > desiredScopeCount) {
+    if (offset0ScopeCount > desiredScopeCount) {
       throw new TooFewScopesError(
         desiredScopeCount,
-        index0ScopeCount,
+        offset0ScopeCount,
         scopeType.type
       );
     }
 
     const proximalScope =
-      direction === "forward" ? index0Scopes[0] : index0Scopes.at(-1)!;
+      direction === "forward" ? offset0Scopes[0] : offset0Scopes.at(-1)!;
 
     const initialPosition =
       direction === "forward"
-        ? index0Scopes.at(-1)!.domain.end
-        : index0Scopes[0].domain.start;
+        ? offset0Scopes.at(-1)!.domain.end
+        : offset0Scopes[0].domain.start;
 
     const distalScope =
-      desiredScopeCount > index0ScopeCount
+      desiredScopeCount > offset0ScopeCount
         ? scopeHandler.getScopeRelativeToPosition(
             editor,
             initialPosition,
-            desiredScopeCount - index0ScopeCount,
+            desiredScopeCount - offset0ScopeCount,
             direction
           )
         : direction === "forward"
-        ? index0Scopes.at(-1)!
-        : index0Scopes[0];
+        ? offset0Scopes.at(-1)!
+        : offset0Scopes[0];
 
     return [constructScopeRangeTarget(isReversed, proximalScope, distalScope)];
   }
@@ -87,7 +110,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
  * @param range The input target range
  * @returns The scopes that are considered to be at index 0, ie "containing" / "intersecting" with the input target
  */
-function getIndex0Scopes(
+function getOffset0Scopes(
   scopeHandler: ScopeHandler,
   direction: Direction,
   editor: TextEditor,
