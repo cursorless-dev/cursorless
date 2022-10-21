@@ -100,7 +100,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
 }
 
 /**
- * Returns a list of scopes that are considered to be at relative scope index
+ * Returns a list of scopes that are considered to be at relative scope offset
  * 0, ie "containing" / "intersecting" with the input target.  If the input
  * target is zero length, we return at most one scope, breaking ties by moving
  * in {@link direction} if the input position is adjacent to two scopes.
@@ -108,7 +108,8 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
  * @param direction The direction defined by the modifier
  * @param editor The editor containing {@link range}
  * @param range The input target range
- * @returns The scopes that are considered to be at index 0, ie "containing" / "intersecting" with the input target
+ * @returns The scopes that are considered to be at offset 0, ie "containing" /
+ * "intersecting" with the input target
  */
 function getOffset0Scopes(
   scopeHandler: ScopeHandler,
