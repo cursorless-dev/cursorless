@@ -82,8 +82,8 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
  * Determines the position to pass in to
  * {@link ScopeHandler.getScopeRelativeToPosition}.  If input target is empty,
  * we skip past one scope if it is direclty adjacent to us in the direction
- * we're going.  Otherwise we just use end or start of input target,
- * depending which direction we're going (`end` for `"forward"`).
+ * we're going.  Otherwise we just use end or start of input target, depending
+ * which direction we're going (`end` for `"forward"`).
  * @param scopeHandler The scope handler to ask
  * @param direction The direction we are going
  * @param editor The editor containing {@link inputPosition}
