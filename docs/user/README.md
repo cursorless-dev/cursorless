@@ -289,7 +289,7 @@ The `"identifier"` modifier behaves like `"token"`, but only considers tokens th
 - `"take identifier"`
 - `"chuck identifier"`
 
-This scope type is useful with ordinals, allow
+This scope type is useful with ordinals, allowing you to say eg `"last identifier"` to refer to the last identifier on the current line.
 
 ##### `"paint"`
 
