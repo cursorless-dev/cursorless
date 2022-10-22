@@ -74,7 +74,7 @@ export function chainedMatcher(
  * them in reverse, walking up the ancestor chain from `node`.
  * Returns `null` if any finder in the chain returns null.  For example:
  *
- * ancestorChainNodeFinder([patternFinder("foo", "bar"), patternFinder("bongo")], 0)
+ * ancestorChainNodeMatcher([patternFinder("foo", "bar"), patternFinder("bongo")], 0)
  *
  * is equivalent to:
  *
