@@ -292,7 +292,11 @@ export function stringTextFragmentExtractor(
   node: SyntaxNode,
   _selection: SelectionWithEditor
 ) {
-  if (node.type === "string_fragment" || node.type === "regex_pattern") {
+  if (
+    node.type === "string_fragment" ||
+    node.type === "regex_pattern" ||
+    node.type === "jsx_text"
+  ) {
     return getNodeRange(node);
   }
 
