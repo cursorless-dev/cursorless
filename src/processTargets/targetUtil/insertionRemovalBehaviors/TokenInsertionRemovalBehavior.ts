@@ -1,9 +1,8 @@
 import { Range, TextDocument, TextEditor } from "vscode";
 import { tokenize } from "../../../core/tokenizer";
 import type { Target } from "../../../typings/target.types";
-import { expandToFullLine } from "../../../util/rangeUtils";
+import { expandToFullLine, makeEmptyRange } from "../../../util/rangeUtils";
 import { PlainTarget } from "../../targets";
-import { getDelimitedSequenceRemovalRange } from "./DelimitedSequenceInsertionRemovalBehavior";
 
 export function getTokenLeadingDelimiterTarget(
   target: Target
@@ -59,46 +58,53 @@ export function getTokenTrailingDelimiterTarget(
  * removal range is designed to be used with things that should clean themselves
  * up as if they're a range of tokens.
  * @param target The target to get the token removal range for
- * @param contentRange Can be used to override the content range instead of
- * using the one on the target
  * @returns The removal range for the given target
  */
-export function getTokenRemovalRange(
-  target: Target,
-  contentRange?: Range
-): Range {
-  const actualContentRange = contentRange ?? target.contentRange;
-  const removalRange = getDelimitedSequenceRemovalRange(target, contentRange);
+export function getTokenRemovalRange(target: Target): Range {
+  const { editor, contentRange } = target;
+  const { start, end } = contentRange;
 
-  if (!actualContentRange.isEqual(removalRange)) {
-    if (
-      !keepIndentation(target.editor, actualContentRange, removalRange) &&
-      !mergesTokens(target.editor, actualContentRange, removalRange)
-    ) {
-      // We have no indentation we want to keep and we don't merge any tokens.
-      return removalRange;
+  const leadingWhitespaceRange =
+    target.getLeadingDelimiterTarget()?.contentRange ?? makeEmptyRange(start);
+
+  const trailingWhitespaceRange =
+    target.getTrailingDelimiterTarget()?.contentRange ?? makeEmptyRange(end);
+
+  const fullLineRange = expandToFullLine(editor, contentRange);
+
+  if (
+    leadingWhitespaceRange.union(trailingWhitespaceRange).isEqual(fullLineRange)
+  ) {
+    // If we would just be leaving a line with whitespace on it, we delete the
+    // whitespace
+    return fullLineRange;
+  }
+
+  if (!trailingWhitespaceRange.isEmpty) {
+    const candidateRemovalRange = contentRange.union(trailingWhitespaceRange);
+
+    if (!mergesTokens(editor, contentRange, candidateRemovalRange)) {
+      // If there is trailing whitespace and it doesn't result in tokens getting
+      // merged, then we remove it
+      return candidateRemovalRange;
     }
   }
 
-  // No removal range available or it would merge tokens.
-  return actualContentRange;
-}
+  if (
+    !leadingWhitespaceRange.isEmpty &&
+    leadingWhitespaceRange.start.character !== 0
+  ) {
+    const candidateRemovalRange = leadingWhitespaceRange.union(contentRange);
 
-/** Returns true if we want to keep indentation. ie don't use removal range */
-function keepIndentation(
-  editor: TextEditor,
-  contentRange: Range,
-  removalRange: Range
-): boolean {
-  const removesIndentation =
-    !contentRange.start.isEqual(removalRange.start) &&
-    removalRange.start.character === 0;
-  if (removesIndentation) {
-    const lineRange = editor.document.lineAt(removalRange.start).range;
-    // Return true if there is more content on the line
-    return !removalRange.contains(lineRange.end);
+    if (!mergesTokens(editor, contentRange, candidateRemovalRange)) {
+      // If there is leading whitespace that is not indentation and it doesn't
+      // result in tokens getting merged, then we remove it
+      return candidateRemovalRange;
+    }
   }
-  return false;
+
+  // Otherwise just return the content range
+  return contentRange;
 }
 
 /** Returns true if removal range causes tokens to merge */
