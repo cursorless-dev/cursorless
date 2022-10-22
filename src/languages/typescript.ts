@@ -200,7 +200,7 @@ const nodeMatchers: Partial<
     )
   ),
   statement: cascadingMatcher(
-    trailingMatcher(["property_signature"], [";"]),
+    trailingMatcher(["property_signature", "public_field_definition"], [";"]),
     patternMatcher(
       ...STATEMENT_TYPES.map((type) => `export_statement?.${type}`)
     )
