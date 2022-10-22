@@ -199,7 +199,9 @@ const nodeMatchers: Partial<
       childRangeSelector(["arguments"], [])
     )
   ),
-  statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`),
+  statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`).concat([
+    "property_signature",
+  ]),
   condition: cascadingMatcher(
     patternMatcher("ternary_expression[condition]"),
     conditionMatcher(
