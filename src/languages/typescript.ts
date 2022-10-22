@@ -223,6 +223,8 @@ const nodeMatchers: Partial<
     "function[name]",
     // class method
     "method_definition[name]",
+    // abstract class method
+    "abstract_method_signature[name]",
     // class arrow method
     "public_field_definition[name].arrow_function",
     // const foo = function() { }
@@ -245,6 +247,8 @@ const nodeMatchers: Partial<
     "export_statement.arrow_function",
     // class method
     "method_definition",
+    // abstract class method
+    "abstract_method_signature",
     // class arrow method
     "public_field_definition.arrow_function",
     // [export] const foo = function() { }
