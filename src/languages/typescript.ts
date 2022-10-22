@@ -236,32 +236,34 @@ const nodeMatchers: Partial<
     // foo = () => { }
     "assignment_expression[left].arrow_function",
   ],
-  namedFunction: [
-    // [export] function
-    "export_statement?.function_declaration",
-    // export default function
-    // NB: We require export statement because otherwise it is an anonymous
-    // function
-    "export_statement.function",
-    // export default arrow
-    "export_statement.arrow_function",
-    // class method
-    "method_definition",
+  namedFunction: cascadingMatcher(
+    patternMatcher(
+      // [export] function
+      "export_statement?.function_declaration",
+      // export default function
+      // NB: We require export statement because otherwise it is an anonymous
+      // function
+      "export_statement.function",
+      // export default arrow
+      "export_statement.arrow_function",
+      // class method
+      "method_definition",
+      // class arrow method
+      "public_field_definition.arrow_function",
+      // [export] const foo = function() { }
+      "export_statement?.lexical_declaration.variable_declarator.function",
+      // [export] const foo = () => { }
+      "export_statement?.lexical_declaration.variable_declarator.arrow_function",
+      // foo = function() { }
+      "assignment_expression.function",
+      // foo = () => { }
+      "assignment_expression.arrow_function",
+      // foo = function*() { }
+      "generator_function_declaration"
+    ),
     // abstract class method
-    "abstract_method_signature",
-    // class arrow method
-    "public_field_definition.arrow_function",
-    // [export] const foo = function() { }
-    "export_statement?.lexical_declaration.variable_declarator.function",
-    // [export] const foo = () => { }
-    "export_statement?.lexical_declaration.variable_declarator.arrow_function",
-    // foo = function() { }
-    "assignment_expression.function",
-    // foo = () => { }
-    "assignment_expression.arrow_function",
-    // foo = function*() { }
-    "generator_function_declaration",
-  ],
+    trailingMatcher(["abstract_method_signature"], [";"])
+  ),
   type: cascadingMatcher(
     // Typed parameters, properties, and functions
     typeMatcher(),
