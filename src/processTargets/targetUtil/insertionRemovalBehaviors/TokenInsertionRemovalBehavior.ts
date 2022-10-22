@@ -1,4 +1,4 @@
-import { Range, TextDocument } from "vscode";
+import { Range, TextDocument, TextEditor } from "vscode";
 import { tokenize } from "../../../core/tokenizer";
 import type { Target } from "../../../typings/target.types";
 import { expandToFullLine } from "../../../util/rangeUtils";
@@ -67,37 +67,66 @@ export function getTokenRemovalRange(
   target: Target,
   contentRange?: Range
 ): Range {
-  const { document } = target.editor;
   const actualContentRange = contentRange ?? target.contentRange;
   const removalRange = getDelimitedSequenceRemovalRange(target, contentRange);
 
   if (!actualContentRange.isEqual(removalRange)) {
-    const fullRange = expandToFullLine(target.editor, actualContentRange);
-    const fullText = document.getText(fullRange);
-    const fullTextOffset = document.offsetAt(fullRange.start);
-
-    const numTokensContentRangeRemoved = calculateNumberOfTokensAfterRemoval(
-      document,
-      fullText,
-      fullTextOffset,
-      actualContentRange
-    );
-
-    const numTokensRemovalRangeRemoved = calculateNumberOfTokensAfterRemoval(
-      document,
-      fullText,
-      fullTextOffset,
-      removalRange
-    );
-
-    // Using removal range has not merged any tokens. Removal range is ok to use.
-    if (numTokensContentRangeRemoved === numTokensRemovalRangeRemoved) {
+    if (
+      !keepIndentation(target.editor, actualContentRange, removalRange) &&
+      !mergesTokens(target.editor, actualContentRange, removalRange)
+    ) {
+      // We have no indentation we want to keep and we don't merge any tokens.
       return removalRange;
     }
   }
 
   // No removal range available or it would merge tokens.
   return actualContentRange;
+}
+
+/** Returns true if we want to keep indentation. ie don't use removal range */
+function keepIndentation(
+  editor: TextEditor,
+  contentRange: Range,
+  removalRange: Range
+): boolean {
+  const removesIndentation =
+    !contentRange.start.isEqual(removalRange.start) &&
+    removalRange.start.character === 0;
+  if (removesIndentation) {
+    const lineRange = editor.document.lineAt(removalRange.start).range;
+    // Return true if there is more content on the line
+    return !removalRange.contains(lineRange.end);
+  }
+  return false;
+}
+
+/** Returns true if removal range causes tokens to merge */
+function mergesTokens(
+  editor: TextEditor,
+  contentRange: Range,
+  removalRange: Range
+) {
+  const { document } = editor;
+  const fullRange = expandToFullLine(editor, contentRange);
+  const fullText = document.getText(fullRange);
+  const fullTextOffset = document.offsetAt(fullRange.start);
+
+  const numTokensContentRangeRemoved = calculateNumberOfTokensAfterRemoval(
+    document,
+    fullText,
+    fullTextOffset,
+    contentRange
+  );
+
+  const numTokensRemovalRangeRemoved = calculateNumberOfTokensAfterRemoval(
+    document,
+    fullText,
+    fullTextOffset,
+    removalRange
+  );
+
+  return numTokensContentRangeRemoved !== numTokensRemovalRangeRemoved;
 }
 
 function calculateNumberOfTokensAfterRemoval(
