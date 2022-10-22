@@ -1,4 +1,3 @@
-import { window } from "vscode";
 import { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
 import {
@@ -128,11 +127,10 @@ export async function checkForOldInference(
   });
 
   if (hasOldInference) {
-    const hideInferenceWarning =
-      graph.extensionContext.globalState.get<boolean>(
-        globalStateKeys.hideInferenceWarning,
-        false
-      );
+    const hideInferenceWarning = graph.ide.globalState.get<boolean>(
+      globalStateKeys.hideInferenceWarning,
+      false
+    );
 
     if (!hideInferenceWarning) {
       const pressed = await graph.ide.messages.showWarning(
@@ -142,10 +140,7 @@ export async function checkForOldInference(
       );
 
       if (pressed) {
-        graph.extensionContext.globalState.update(
-          globalStateKeys.hideInferenceWarning,
-          true
-        );
+        graph.ide.globalState.set(globalStateKeys.hideInferenceWarning, true);
       }
     }
   }

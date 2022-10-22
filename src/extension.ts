@@ -4,7 +4,6 @@ import { ThatMark } from "./core/ThatMark";
 import isTesting from "./testUtil/isTesting";
 import { Graph } from "./typings/Types";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
-import { globalStateKeys } from "./util/globalStateKeys";
 import graphFactories from "./util/graphFactories";
 import makeGraph, { FactoryMap } from "./util/makeGraph";
 
@@ -36,11 +35,6 @@ export async function activate(context: vscode.ExtensionContext) {
   graph.testCaseRecorder.init();
   graph.cheatsheet.init();
   graph.statusBarItem.init();
-
-  // Mark these keys for synchronization
-  graph.extensionContext.globalState.setKeysForSync([
-    globalStateKeys.hideInferenceWarning,
-  ]);
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();

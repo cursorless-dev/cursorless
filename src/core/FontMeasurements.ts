@@ -21,13 +21,13 @@ export default class FontMeasurements {
   constructor(private graph: Graph) {}
 
   clearCache() {
-    this.graph.extensionContext.globalState.update("fontRatios", undefined);
+    this.graph.ide.globalState.set("fontRatios", undefined);
   }
 
   async calculate() {
     const fontFamily = getFontFamily();
     let widthRatio, heightRatio;
-    const fontRatiosCache = this.graph.extensionContext.globalState.get<{
+    const fontRatiosCache = this.graph.ide.globalState.get<{
       widthRatio: number;
       heightRatio: number;
       fontFamily: string;
@@ -35,7 +35,7 @@ export default class FontMeasurements {
 
     if (fontRatiosCache == null || fontRatiosCache.fontFamily !== fontFamily) {
       const fontRatios = await getFontRatios();
-      this.graph.extensionContext.globalState.update("fontRatios", {
+      this.graph.ide.globalState.set("fontRatios", {
         ...fontRatios,
         fontFamily,
       });
