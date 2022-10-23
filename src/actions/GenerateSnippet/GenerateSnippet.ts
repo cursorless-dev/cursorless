@@ -5,7 +5,7 @@ import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import isTesting from "../../testUtil/isTesting";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
-import { getDocumentRange } from "../../util/range";
+import { getDocumentRange } from "../../util/rangeUtils";
 import { selectionFromRange } from "../../util/selectionUtils";
 import { Action, ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
