@@ -38,7 +38,7 @@ export interface ScopeHandler {
 
   /**
    * The scope type of the default iteration scope of this scope type.  This
-   * scope type will be used when the input target hs no explicit range (ie
+   * scope type will be used when the input target has no explicit range (ie
    * {@link Target.hasExplicitRange} is `false`).
    */
   readonly iterationScopeType: ScopeType;
