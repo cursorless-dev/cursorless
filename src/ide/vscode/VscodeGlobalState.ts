@@ -1,13 +1,10 @@
 import { ExtensionContext } from "vscode";
-import { globalStateKeys } from "../../util/globalStateKeys";
-import { State } from "../ide.types";
+import { State, STATE_KEYS } from "../ide.types";
 
 export default class VscodeGlobalState implements State {
   constructor(private extensionContext: ExtensionContext) {
     // Mark these keys for synchronization
-    extensionContext.globalState.setKeysForSync([
-      globalStateKeys.hideInferenceWarning,
-    ]);
+    extensionContext.globalState.setKeysForSync(STATE_KEYS);
   }
 
   get<T>(key: string, defaultValue?: T): T | undefined {

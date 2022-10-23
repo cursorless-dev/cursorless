@@ -55,7 +55,8 @@ export interface Disposable {
   dispose(): void;
 }
 
-export type StateKey = "hideInferenceWarning";
+export const STATE_KEYS = ["hideInferenceWarning"] as const;
+export type StateKey = typeof STATE_KEYS[number];
 
 /**
  * A state represents a storage utility. It can store and retrieve
