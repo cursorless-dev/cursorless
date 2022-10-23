@@ -3,7 +3,7 @@ import {
   Direction,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { IterationScope, TargetScope } from "./scope.types";
+import { TargetScope } from "./scope.types";
 import { ScopeHandler } from "./scopeHandler.types";
 
 export default class SurroundingPairScopeHandler implements ScopeHandler {
@@ -27,14 +27,6 @@ export default class SurroundingPairScopeHandler implements ScopeHandler {
 
   getScopesOverlappingRange(_editor: TextEditor, _range: Range): TargetScope[] {
     // TODO: Implement https://github.com/cursorless-dev/cursorless/pull/1031#issuecomment-1276777449
-    throw new Error("Method not implemented.");
-  }
-
-  getIterationScopesTouchingPosition(
-    _editor: TextEditor,
-    _position: Position
-  ): IterationScope[] {
-    // TODO: Return inside strict containing pair
     throw new Error("Method not implemented.");
   }
 

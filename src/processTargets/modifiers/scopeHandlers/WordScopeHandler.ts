@@ -10,7 +10,7 @@ export default class WordScopeHandler extends NestedScopeHandler {
 
   private wordTokenizer = new WordTokenizer(this.languageId);
 
-  protected getScopesInIterationScope({
+  protected getScopesInSearchScope({
     editor,
     domain,
   }: TargetScope): TargetScope[] {
