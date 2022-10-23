@@ -55,8 +55,8 @@ export interface Disposable {
   dispose(): void;
 }
 
-export const STATE_KEYS = ["hideInferenceWarning"] as const;
-export type StateKey = typeof STATE_KEYS[number];
+export const STATE_KEYS = { hideInferenceWarning: false } as const;
+export type StateKey = keyof typeof STATE_KEYS;
 
 /**
  * A state represents a storage utility. It can store and retrieve
@@ -67,11 +67,9 @@ export interface State {
    * Return a value.
    *
    * @param key A string.
-   * @param defaultValue A value that should be returned when there is no
-   * value (`undefined`) with the given key.
    * @return The stored value or the defaultValue.
    */
-  get<T>(key: StateKey, defaultValue?: T): T | undefined;
+  get<T>(key: StateKey): T;
 
   /**
    * Store a value. The value must be JSON-stringifyable.
