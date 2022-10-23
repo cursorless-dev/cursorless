@@ -21,7 +21,6 @@ initialState:
     - anchor: {line: 6, character: 0}
       active: {line: 6, character: 0}
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: document}}]}]
 finalState:
   documentContents: |2+
 
@@ -33,3 +32,4 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 6, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: document}}]}]
