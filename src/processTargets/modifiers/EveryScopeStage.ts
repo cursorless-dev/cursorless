@@ -1,17 +1,13 @@
 import { Range } from "vscode";
 import { NoContainingScopeError } from "../../errors";
 import type { Target } from "../../typings/target.types";
-import type {
-  EveryScopeModifier,
-  ScopeType,
-} from "../../typings/targetDescriptor.types";
+import type { EveryScopeModifier } from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 import type { ModifierStage } from "../PipelineStages.types";
 import getLegacyScopeStage from "./getLegacyScopeStage";
 import getScopeHandler from "./scopeHandlers/getScopeHandler";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
-import { scopeTypeToString } from "./scopeHandlers/scopeTypeUtil";
 
 /**
  * This modifier returns all scopes intersecting the input target if the target
@@ -24,14 +20,10 @@ import { scopeTypeToString } from "./scopeHandlers/scopeTypeUtil";
  *
  * 1. If target has an explicit range, just return all targets returned from
  *    {@link ScopeHandler.getScopesOverlappingRange}.
- * 2. Otherwise, get the iteration scope for the start of the input target.
- * 3. If two iteration scopes touch the start position, choose the preferred one
- *    if input target has empty content range, otherwise prefer the rightmost
- *    one, as that will have an overlap with the target input content range.
- * 3. If the domain of the iteration scope doesn't contain the end of the input
- *    target, we error, because this situation shouldn't really happen, as
- *    targets without explicit range tend to be small.
- * 4. Return all targets in the iteration scope
+ * 2. Otherwise, expand to the containing instance of
+ *    {@link ScopeHandler.iterationScopeType}, and then return all targets
+ *    returned from {@link ScopeHandler.getScopesOverlappingRange} when applied
+ *    to the expanded target's {@link Target.contentRange}.
  */
 export class EveryScopeStage implements ModifierStage {
   constructor(private modifier: EveryScopeModifier) {}
@@ -64,37 +56,12 @@ export class EveryScopeStage implements ModifierStage {
     scopeHandler: ScopeHandler,
     target: Target
   ): Range {
-    const { iterationScopeType } = scopeHandler;
-
-    if (iterationScopeType == null) {
-      throw new NoDefaultIterationScopeError(this.modifier.scopeType);
-    }
-
     const containingIterationScopeModifier = getModifierStage({
       type: "containingScope",
-      scopeType: iterationScopeType,
+      scopeType: scopeHandler.iterationScopeType,
     });
 
     return containingIterationScopeModifier.run(context, target)[0]
       .contentRange;
-  }
-}
-
-/**
- * Throw this error when the user calls `"every"` on a scope with no explicit
- * range and a scope type that has no iteration scope
- */
-export default class NoDefaultIterationScopeError extends Error {
-  /**
-   *
-   * @param scopeType The scopeType for the failed match to show to the user
-   */
-  constructor(scopeType: ScopeType) {
-    super(
-      `The ${scopeTypeToString(
-        scopeType
-      )} scope type has no default iteration scope.`
-    );
-    this.name = "NoDefaultIterationScopeError";
   }
 }

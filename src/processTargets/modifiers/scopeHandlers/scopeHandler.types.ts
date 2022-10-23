@@ -37,10 +37,11 @@ export interface ScopeHandler {
   readonly scopeType: ScopeType;
 
   /**
-   * The scope type of the iteration scope of this scope type, or `undefined` if
-   * there is no default iteration scope.
+   * The scope type of the default iteration scope of this scope type.  This
+   * scope type will be used when the input target hs no explicit range (ie
+   * {@link Target.hasExplicitRange} is `false`).
    */
-  readonly iterationScopeType: ScopeType | undefined;
+  readonly iterationScopeType: ScopeType;
 
   /**
    * Return all scope(s) touching the given position. A scope is considered to

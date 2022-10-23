@@ -7,12 +7,15 @@ import { TargetScope } from "./scope.types";
 import { ScopeHandler } from "./scopeHandler.types";
 
 export default class SurroundingPairScopeHandler implements ScopeHandler {
-  public readonly iterationScopeType = undefined;
+  public readonly iterationScopeType;
 
   constructor(
     public readonly scopeType: SurroundingPairScopeType,
     _languageId: string
-  ) {}
+  ) {
+    // FIXME: Figure out the actual iteration scope type
+    this.iterationScopeType = this.scopeType;
+  }
 
   getScopesTouchingPosition(
     _editor: TextEditor,
