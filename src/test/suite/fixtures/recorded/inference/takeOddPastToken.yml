@@ -30,5 +30,5 @@ finalState:
     const bar = "hello";
   selections:
     - anchor: {line: 0, character: 0}
-      active: {line: 2, character: 18}
+      active: {line: 2, character: 19}
 fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: cursorToken}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}}]

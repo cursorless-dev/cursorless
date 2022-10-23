@@ -1,4 +1,4 @@
-import { Range, Selection, TextEditor } from "vscode";
+import type { Range, Selection, TextEditor } from "vscode";
 // NB: We import `Target` below just so that @link below resolves.  Once one of
 // the following issues are fixed, we can either remove the above line or
 // switch to `{import("foo")}` syntax in the `{@link}` tag.
@@ -16,8 +16,8 @@ import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   UntypedTarget,
 } from "../processTargets/targets";
-import { Position } from "./targetDescriptor.types";
-import { EditWithRangeUpdater } from "./Types";
+import type { Position } from "./targetDescriptor.types";
+import type { EditWithRangeUpdater } from "./Types";
 
 export interface EditNewCommandContext {
   type: "command";
