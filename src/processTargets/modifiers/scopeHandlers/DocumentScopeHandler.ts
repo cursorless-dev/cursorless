@@ -8,9 +8,12 @@ import { TargetScope } from "./scope.types";
 import { ScopeHandler } from "./scopeHandler.types";
 
 export default class DocumentScopeHandler implements ScopeHandler {
-  iterationScopeType = undefined;
+  public readonly scopeType = { type: "line" } as const;
+  public readonly iterationScopeType = { type: "document" } as const;
 
-  constructor(public scopeType: ScopeType, private _languageId: string) {}
+  constructor(_scopeType: ScopeType, _languageId: string) {
+    // Empty
+  }
 
   getScopesTouchingPosition(
     editor: TextEditor,
@@ -29,15 +32,13 @@ export default class DocumentScopeHandler implements ScopeHandler {
   }
 
   getScopeRelativeToPosition(
-    editor: TextEditor,
+    _editor: TextEditor,
     _position: Position,
-    offset: number,
+    _offset: number,
     _direction: Direction
   ): TargetScope {
-    if (offset === 0) {
-      return getDocumentScope(editor);
-    }
-
+    // NB: offset will always be greater than or equal to 1, so this will be an
+    // error
     throw new OutOfRangeError();
   }
 }

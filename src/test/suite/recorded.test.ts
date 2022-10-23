@@ -147,35 +147,29 @@ async function runTest(file: string) {
 
   disposeFakeIde();
 
-  if (fixture.thrownError != null) {
-    throw Error(
-      `Expected error ${fixture.thrownError.name} but none was thrown`
-    );
-  }
-
   if (fixture.postCommandSleepTimeMs != null) {
     await sleepWithBackoff(fixture.postCommandSleepTimeMs);
   }
 
   const marks =
-    fixture.finalState!.marks == null
+    fixture.finalState?.marks == null
       ? undefined
       : marksToPlainObject(
           extractTargetedMarks(
-            Object.keys(fixture.finalState!.marks) as string[],
+            Object.keys(fixture.finalState.marks) as string[],
             readableHatMap
           )
         );
 
-  if (fixture.finalState!.clipboard == null) {
+  if (fixture.finalState?.clipboard == null) {
     excludeFields.push("clipboard");
   }
 
-  if (fixture.finalState!.thatMark == null) {
+  if (fixture.finalState?.thatMark == null) {
     excludeFields.push("thatMark");
   }
 
-  if (fixture.finalState!.sourceMark == null) {
+  if (fixture.finalState?.sourceMark == null) {
     excludeFields.push("sourceMark");
   }
 
@@ -208,6 +202,12 @@ async function runTest(file: string) {
 
     await fsp.writeFile(file, serialize(outputFixture));
   } else {
+    if (fixture.thrownError != null) {
+      throw Error(
+        `Expected error ${fixture.thrownError.name} but none was thrown`
+      );
+    }
+
     assert.deepStrictEqual(
       resultState,
       fixture.finalState,
