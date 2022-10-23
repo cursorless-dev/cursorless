@@ -10,7 +10,6 @@ import ContainingSyntaxScopeStage, {
   SimpleContainingScopeModifier,
   SimpleEveryScopeModifier,
 } from "./scopeTypeStages/ContainingSyntaxScopeStage";
-import DocumentStage from "./scopeTypeStages/DocumentStage";
 import NotebookCellStage from "./scopeTypeStages/NotebookCellStage";
 import ParagraphStage from "./scopeTypeStages/ParagraphStage";
 import {
@@ -40,8 +39,6 @@ export default function getLegacyScopeStage(
   switch (modifier.scopeType.type) {
     case "notebookCell":
       return new NotebookCellStage(modifier);
-    case "document":
-      return new DocumentStage(modifier);
     case "paragraph":
       return new ParagraphStage(modifier);
     case "nonWhitespaceSequence":

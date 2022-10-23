@@ -1,5 +1,6 @@
 import {
   CharacterScopeHandler,
+  DocumentScopeHandler,
   IdentifierScopeHandler,
   LineScopeHandler,
   TokenScopeHandler,
@@ -39,7 +40,9 @@ export default function getScopeHandler(
     case "identifier":
       return new IdentifierScopeHandler(scopeType, languageId);
     case "line":
-      return new LineScopeHandler(scopeType as { type: "line" }, languageId);
+      return new LineScopeHandler(scopeType, languageId);
+    case "document":
+      return new DocumentScopeHandler(scopeType, languageId);
     default:
       return undefined;
   }
