@@ -1,5 +1,5 @@
 import { ExtensionContext } from "vscode";
-import { State, STATE_KEYS } from "../ide.types";
+import { State, StateKey, STATE_KEYS } from "../ide.types";
 
 export default class VscodeGlobalState implements State {
   constructor(private extensionContext: ExtensionContext) {
@@ -7,11 +7,11 @@ export default class VscodeGlobalState implements State {
     extensionContext.globalState.setKeysForSync(STATE_KEYS);
   }
 
-  get<T>(key: string, defaultValue?: T): T | undefined {
+  get<T>(key: StateKey, defaultValue?: T): T | undefined {
     return this.extensionContext.globalState.get(key, defaultValue);
   }
 
-  set(key: string, value: any): Thenable<void> {
+  set(key: StateKey, value: any): Thenable<void> {
     return this.extensionContext.globalState.update(key, value);
   }
 }
