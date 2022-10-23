@@ -8,7 +8,7 @@ export default class VscodeGlobalState implements State {
   }
 
   get<T>(key: StateKey): T {
-    return this.extensionContext.globalState.get(key, STATE_KEYS[key] as T);
+    return this.extensionContext.globalState.get(key) ?? (STATE_KEYS[key] as T);
   }
 
   set(key: StateKey, value: any): Thenable<void> {
