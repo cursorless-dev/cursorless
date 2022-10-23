@@ -1,14 +1,31 @@
+import { minBy } from "lodash";
 import { Position, Range, TextEditor } from "vscode";
 import { getScopeHandler } from ".";
 import {
   Direction,
   OneOfScopeType,
 } from "../../../typings/targetDescriptor.types";
-import type { IterationScope, Scope, TargetScope } from "./scope.types";
+import NotHierarchicalScopeError from "./NotHierarchicalScopeError";
+import type { TargetScope } from "./scope.types";
 import { ScopeHandler } from "./scopeHandler.types";
 
 export default class OneOfScopeHandler implements ScopeHandler {
-  iterationScopeType = undefined;
+  private scopeHandlers: ScopeHandler[] = this.scopeType.scopeTypes.map(
+    (scopeType) => {
+      const handler = getScopeHandler(scopeType, this.languageId);
+      if (handler == null) {
+        throw new Error(`No available scope handler for '${scopeType.type}'`);
+      }
+      return handler;
+    }
+  );
+
+  public iterationScopeType: OneOfScopeType = {
+    type: "oneOf",
+    scopeTypes: this.scopeHandlers.map(
+      ({ iterationScopeType }) => iterationScopeType
+    ),
+  };
 
   constructor(
     public readonly scopeType: OneOfScopeType,
@@ -21,34 +38,25 @@ export default class OneOfScopeHandler implements ScopeHandler {
     position: Position,
     ancestorIndex?: number
   ): TargetScope[] {
-    const targetScopes = this.getsScopeHandlers().flatMap((scopeHandler) =>
-      scopeHandler.getScopesTouchingPosition(editor, position, ancestorIndex)
+    if (ancestorIndex !== 0) {
+      // FIXME: Maybe we could find a way to support this opne in the future.
+      throw new NotHierarchicalScopeError(this.scopeType);
+    }
+
+    return keepOnlyTopLevelScopes(
+      this.scopeHandlers.flatMap((scopeHandler) =>
+        scopeHandler.getScopesTouchingPosition(editor, position, ancestorIndex)
+      )
     );
-    targetScopes.sort(scopeComparator);
-    return [targetScopes[0]];
   }
 
   /** Return all scopes overlapping range not contained by another scope */
   getScopesOverlappingRange(editor: TextEditor, range: Range): TargetScope[] {
-    const targetScopes = this.getsScopeHandlers().flatMap((scopeHandler) =>
-      scopeHandler.getScopesOverlappingRange(editor, range)
+    return keepOnlyTopLevelScopes(
+      this.scopeHandlers.flatMap((scopeHandler) =>
+        scopeHandler.getScopesOverlappingRange(editor, range)
+      )
     );
-    return targetScopes.filter(
-      (targetScope) =>
-        !targetScopes.find((s) => s.domain.contains(targetScope.domain))
-    );
-  }
-
-  /** Returns smallest iteration scope touching position */
-  getIterationScopesTouchingPosition(
-    editor: TextEditor,
-    position: Position
-  ): IterationScope[] {
-    const iterationScopes = this.getsScopeHandlers().flatMap((scopeHandler) =>
-      scopeHandler.getIterationScopesTouchingPosition(editor, position)
-    );
-    iterationScopes.sort(scopeComparator);
-    return [iterationScopes[0]];
   }
 
   getScopeRelativeToPosition(
@@ -57,35 +65,38 @@ export default class OneOfScopeHandler implements ScopeHandler {
     offset: number,
     direction: Direction
   ): TargetScope {
-    throw new Error("not implemented");
-    // const scopeType=this.scopeType.scopeTypes[offset]
-    // const targetScopes = this.getsScopeHandlers().map((scopeHandler) =>
-    //   scopeHandler.getScopeRelativeToPosition(
-    //     editor,
-    //     position,
-    //     offset,
-    //     direction
-    //   )
-    // )
-  }
+    let currentPosition = position;
+    let currentScope: TargetScope;
 
-  private getsScopeHandlers(): ScopeHandler[] {
-    return this.scopeType.scopeTypes.map((scopeType) => {
-      const handler = getScopeHandler(scopeType, this.languageId);
-      if (handler == null) {
-        throw new Error(`No available scope handler for '${scopeType.type}'`);
-      }
-      return handler;
-    });
+    for (let i = 0; i < offset; i++) {
+      const candidateScopes = this.scopeHandlers.map((scopeHandler) =>
+        scopeHandler.getScopeRelativeToPosition(
+          editor,
+          currentPosition,
+          1,
+          direction
+        )
+      );
+
+      currentScope = minBy(candidateScopes, (scope) =>
+        direction === "forward" ? scope.domain.start : -scope.domain.start
+      )!;
+
+      currentPosition =
+        direction === "forward"
+          ? currentScope.domain.end
+          : currentScope.domain.start;
+    }
+
+    return currentScope!;
   }
 }
 
-function scopeComparator(a: Scope, b: Scope): number {
-  if (a.domain.contains(b.domain)) {
-    return 1;
-  }
-  if (b.domain.contains(a.domain)) {
-    return -1;
-  }
-  return 0;
+function keepOnlyTopLevelScopes(candidateScopes: TargetScope[]): TargetScope[] {
+  return candidateScopes.filter(
+    ({ domain }) =>
+      !candidateScopes.some(({ domain: otherDomain }) =>
+        otherDomain.contains(domain)
+      )
+  );
 }
