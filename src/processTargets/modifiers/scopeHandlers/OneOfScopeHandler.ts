@@ -43,7 +43,7 @@ export default class OneOfScopeHandler implements ScopeHandler {
       throw new NotHierarchicalScopeError(this.scopeType);
     }
 
-    return keepOnlyTopLevelScopes(
+    return keepOnlyBottomLevelScopes(
       this.scopeHandlers.flatMap((scopeHandler) =>
         scopeHandler.getScopesTouchingPosition(editor, position, ancestorIndex)
       )
@@ -97,6 +97,17 @@ function keepOnlyTopLevelScopes(candidateScopes: TargetScope[]): TargetScope[] {
     ({ domain }) =>
       !candidateScopes.some(({ domain: otherDomain }) =>
         otherDomain.contains(domain)
+      )
+  );
+}
+
+function keepOnlyBottomLevelScopes(
+  candidateScopes: TargetScope[]
+): TargetScope[] {
+  return candidateScopes.filter(
+    ({ domain }) =>
+      !candidateScopes.some(({ domain: otherDomain }) =>
+        domain.contains(otherDomain)
       )
   );
 }
