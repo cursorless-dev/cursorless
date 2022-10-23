@@ -102,6 +102,24 @@ function getNextMatchingSiblingNodeOrLast(
 }
 
 /**
+ * Creates an extractor that will extend past the next node if it has one of the
+ * types defined in {@link delimiters}
+ * @param delimiters Allowable next node type
+ * @returns An extractor
+ */
+export function extendForwardPastOptional(...delimiters: string[]) {
+  return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
+    const nextNode: SyntaxNode | null = node.nextSibling;
+
+    if (nextNode != null && delimiters.includes(nextNode.type)) {
+      return pairSelectionExtractor(editor, node, nextNode);
+    }
+
+    return simpleSelectionExtractor(editor, node);
+  };
+}
+
+/**
  * Extracts a selection from the first node to the second node.
  * Both nodes are included in the selected nodes
  */
