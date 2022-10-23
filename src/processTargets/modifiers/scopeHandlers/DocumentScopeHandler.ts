@@ -1,5 +1,6 @@
 import { Position, Range, TextEditor } from "vscode";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
+import { getDocumentRange } from "../../../util/rangeUtils";
 import { DocumentTarget } from "../../targets";
 import { OutOfRangeError } from "../targetSequenceUtils";
 import NotHierarchicalScopeError from "./NotHierarchicalScopeError";
@@ -48,10 +49,7 @@ export default class DocumentScopeHandler implements ScopeHandler {
   }
 
   private getIterationScope(editor: TextEditor): IterationScope {
-    const contentRange = new Range(
-      new Position(0, 0),
-      editor.document.lineAt(editor.document.lineCount - 1).range.end
-    );
+    const contentRange = getDocumentRange(editor.document);
 
     return {
       editor,

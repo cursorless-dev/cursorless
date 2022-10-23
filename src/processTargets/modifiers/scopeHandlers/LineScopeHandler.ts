@@ -1,7 +1,7 @@
 import { range } from "lodash";
 import { Position, Range, TextEditor } from "vscode";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
-import { getDocumentRange } from "../../../util/range";
+import { getDocumentRange } from "../../../util/rangeUtils";
 import { LineTarget } from "../../targets";
 import { OutOfRangeError } from "../targetSequenceUtils";
 import NotHierarchicalScopeError from "./NotHierarchicalScopeError";
