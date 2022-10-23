@@ -8,7 +8,7 @@ import { TargetScope } from "./scope.types";
 import { ScopeHandler } from "./scopeHandler.types";
 
 export default class DocumentScopeHandler implements ScopeHandler {
-  public readonly scopeType = { type: "line" } as const;
+  public readonly scopeType = { type: "document" } as const;
   public readonly iterationScopeType = { type: "document" } as const;
 
   constructor(_scopeType: ScopeType, _languageId: string) {
