@@ -7,7 +7,6 @@ import {
 } from "../../typings/targetDescriptor.types";
 import { Graph } from "../../typings/Types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
-import { globalStateKeys } from "../../util/globalStateKeys";
 import {
   Command,
   CommandComplete,
@@ -128,7 +127,7 @@ export async function checkForOldInference(
 
   if (hasOldInference) {
     const hideInferenceWarning = graph.ide.globalState.get<boolean>(
-      globalStateKeys.hideInferenceWarning,
+      "hideInferenceWarning",
       false
     );
 
@@ -140,7 +139,7 @@ export async function checkForOldInference(
       );
 
       if (pressed) {
-        graph.ide.globalState.set(globalStateKeys.hideInferenceWarning, true);
+        graph.ide.globalState.set("hideInferenceWarning", true);
       }
     }
   }

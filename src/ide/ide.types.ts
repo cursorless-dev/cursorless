@@ -55,6 +55,8 @@ export interface Disposable {
   dispose(): void;
 }
 
+export type StateKey = "hideInferenceWarning";
+
 /**
  * A state represents a storage utility. It can store and retrieve
  * values.
@@ -68,7 +70,7 @@ export interface State {
    * value (`undefined`) with the given key.
    * @return The stored value or the defaultValue.
    */
-  get<T>(key: string, defaultValue?: T): T | undefined;
+  get<T>(key: StateKey, defaultValue?: T): T | undefined;
 
   /**
    * Store a value. The value must be JSON-stringifyable.
@@ -76,5 +78,5 @@ export interface State {
    * @param key A string.
    * @param value A value. MUST not contain cyclic references.
    */
-  set(key: string, value: any): Thenable<void>;
+  set(key: StateKey, value: any): Thenable<void>;
 }
