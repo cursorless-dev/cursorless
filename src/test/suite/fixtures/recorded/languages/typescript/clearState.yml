@@ -22,7 +22,7 @@ initialState:
 finalState:
   documentContents: |-
     interface Foo {
-      ;
+      
       baz: Baz;
     }
   selections:
