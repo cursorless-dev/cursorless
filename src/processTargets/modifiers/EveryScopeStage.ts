@@ -70,12 +70,12 @@ export class EveryScopeStage implements ModifierStage {
       throw new NoDefaultIterationScopeError(this.modifier.scopeType);
     }
 
-    const containingIterationsScopeModifier = getModifierStage({
+    const containingIterationScopeModifier = getModifierStage({
       type: "containingScope",
       scopeType: iterationScopeType,
     });
 
-    return containingIterationsScopeModifier.run(context, target)[0]
+    return containingIterationScopeModifier.run(context, target)[0]
       .contentRange;
   }
 }
