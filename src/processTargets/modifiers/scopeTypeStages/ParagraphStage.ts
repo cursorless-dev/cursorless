@@ -7,7 +7,7 @@ import type {
 import type { ProcessedTargetsContext } from "../../../typings/Types";
 import type { ModifierStage } from "../../PipelineStages.types";
 import { ParagraphTarget } from "../../targets";
-import { fitRangeToLineContent } from "./LineStage";
+import { fitRangeToLineContent } from "../scopeHandlers";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}

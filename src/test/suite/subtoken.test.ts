@@ -1,12 +1,13 @@
 import * as assert from "assert";
-import { subWordSplitter } from "../../processTargets/modifiers/subToken";
+import WordTokenizer from "../../processTargets/modifiers/scopeHandlers/WordTokenizer";
 import { subtokenFixture } from "./fixtures/subtoken.fixture";
 
 suite("subtoken regex matcher", () => {
+  const wordTokenizer = new WordTokenizer("anyLang");
   subtokenFixture.forEach(({ input, expectedOutput }) => {
     test(input, () => {
       assert.deepStrictEqual(
-        subWordSplitter(input, "anyLang").map(({ text }) => text),
+        wordTokenizer.splitIdentifier(input).map(({ text }) => text),
         expectedOutput
       );
     });
