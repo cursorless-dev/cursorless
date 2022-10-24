@@ -8,7 +8,7 @@ export default class TokenScopeHandler extends NestedScopeHandler {
   public readonly scopeType: ScopeType = { type: "token" };
   public readonly iterationScopeType: ScopeType = { type: "line" };
 
-  protected getScopesInIterationScope({
+  protected getScopesInSearchScope({
     editor,
     domain,
   }: TargetScope): TargetScope[] {

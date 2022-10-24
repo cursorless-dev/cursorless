@@ -3,7 +3,7 @@ import type {
   Direction,
   ScopeType,
 } from "../../../typings/targetDescriptor.types";
-import type { TargetScope, IterationScope } from "./scope.types";
+import type { TargetScope } from "./scope.types";
 
 /**
  * Represents a scope type.  The functions in this interface allow us to find
@@ -37,16 +37,11 @@ export interface ScopeHandler {
   readonly scopeType: ScopeType;
 
   /**
-   * The scope type of the iteration scope of this scope type, or `undefined` if
-   * there is no scope type corresponding to the iteration scope.  Note that
-   * even when this property is `undefined`, all scope types should have an
-   * iteration scope; it just may not correspond to one of our first-class scope
-   * types.
-   *
-   * FIXME: Revisit this; maybe we should always find a way to make the
-   * iteration scope a scope type.
+   * The scope type of the default iteration scope of this scope type.  This
+   * scope type will be used when the input target has no explicit range (ie
+   * {@link Target.hasExplicitRange} is `false`).
    */
-  readonly iterationScopeType: ScopeType | undefined;
+  readonly iterationScopeType: ScopeType;
 
   /**
    * Return all scope(s) touching the given position. A scope is considered to
@@ -106,38 +101,6 @@ export interface ScopeHandler {
    * @param range The range with which to find overlapping scopes
    */
   getScopesOverlappingRange(editor: TextEditor, range: Range): TargetScope[];
-
-  /**
-   * Returns all iteration scopes touching {@link position}.  For example, if
-   * scope type is `namedFunction`, and {@link position} is inside a class, the
-   * iteration scope would contain a list of functions in the class.  An
-   * iteration scope is considered to touch a position if its domain contains
-   * the position or is directly adjacent to the position. In other words,
-   * return all iteration scopes for which the following is true:
-   *
-   * ```typescript
-   * iterationScope.domain.start <= position && iterationScope.domain.end >= position
-   * ```
-   *
-   * If the position is directly adjacent to two iteration scopes, return both.
-   * If no iteration scope touches the given position, return an empty list.
-   *
-   * Note that if the iteration scope type is hierarchical, return only minimal
-   * iteration scopes, ie if iteration scope A and iteration scope B both touch
-   * {@link position}, and iteration scope A contains iteration scope B, return
-   * iteration scope B but not iteration scope A.
-   *
-   * FIXME: We may want to remove this function and just call
-   * `iterationScope.getScopesTouchingPosition`, then run
-   * `getScopesOverlappingRange` on that range.
-   *
-   * @param editor The editor containing {@link position}
-   * @param position The position from which to expand
-   */
-  getIterationScopesTouchingPosition(
-    editor: TextEditor,
-    position: Position
-  ): IterationScope[];
 
   /**
    * Returns a scope before or after {@link position}, depending on

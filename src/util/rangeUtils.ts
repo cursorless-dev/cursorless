@@ -1,4 +1,4 @@
-import { Position, Range, TextEditor } from "vscode";
+import { Position, Range, TextDocument, TextEditor } from "vscode";
 
 export function isAtEndOfLine(editor: TextEditor, position: Position) {
   const endLine = editor.document.lineAt(position);
@@ -49,4 +49,17 @@ export function getRangeLength(editor: TextEditor, range: Range) {
  */
 export function strictlyContains(range1: Range, range2: Range): boolean {
   return range1.start.isBefore(range2.start) && range1.end.isAfter(range2.end);
+}
+
+/**
+ * Get a range that corresponds to the entire contents of the given document.
+ *
+ * @param document The document to consider
+ * @returns A range corresponding to the entire document contents
+ */
+export function getDocumentRange(document: TextDocument) {
+  return new Range(
+    new Position(0, 0),
+    document.lineAt(document.lineCount - 1).range.end
+  );
 }

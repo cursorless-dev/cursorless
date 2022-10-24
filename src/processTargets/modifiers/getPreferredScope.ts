@@ -1,4 +1,4 @@
-import { Scope } from "./scopeHandlers/scope.types";
+import { TargetScope } from "./scopeHandlers/scope.types";
 
 /**
  * Given a list of scopes, returns the preferred scope, or `undefined` if
@@ -7,7 +7,9 @@ import { Scope } from "./scopeHandlers/scope.types";
  * @param scopes A list of scopes to choose from
  * @returns A single preferred scope, or `undefined` if {@link scopes} is empty
  */
-export function getPreferredScope<T extends Scope>(scopes: T[]): T | undefined {
+export function getPreferredScope(
+  scopes: TargetScope[]
+): TargetScope | undefined {
   return getRightScope(scopes);
 }
 
@@ -17,7 +19,7 @@ export function getPreferredScope<T extends Scope>(scopes: T[]): T | undefined {
  * @param scopes A list of scopes to choose from
  * @returns A single preferred scope, or `undefined` if {@link scopes} is empty
  */
-export function getLeftScope<T extends Scope>(scopes: T[]): T | undefined {
+export function getLeftScope(scopes: TargetScope[]): TargetScope | undefined {
   return getScopeHelper(scopes, (scope1, scope2) =>
     scope1.domain.start.isBefore(scope2.domain.start)
   );
@@ -29,16 +31,16 @@ export function getLeftScope<T extends Scope>(scopes: T[]): T | undefined {
  * @param scopes A list of scopes to choose from
  * @returns A single preferred scope, or `undefined` if {@link scopes} is empty
  */
-export function getRightScope<T extends Scope>(scopes: T[]): T | undefined {
+export function getRightScope(scopes: TargetScope[]): TargetScope | undefined {
   return getScopeHelper(scopes, (scope1, scope2) =>
     scope1.domain.start.isAfter(scope2.domain.start)
   );
 }
 
-function getScopeHelper<T extends Scope>(
-  scopes: T[],
-  isScope1Preferred: (scope1: Scope, scope2: Scope) => boolean
-): T | undefined {
+function getScopeHelper(
+  scopes: TargetScope[],
+  isScope1Preferred: (scope1: TargetScope, scope2: TargetScope) => boolean
+): TargetScope | undefined {
   if (scopes.length === 0) {
     return undefined;
   }

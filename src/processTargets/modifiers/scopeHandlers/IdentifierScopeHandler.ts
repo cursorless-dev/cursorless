@@ -10,7 +10,7 @@ export default class IdentifierScopeHandler extends NestedScopeHandler {
 
   private regex: RegExp = getMatcher(this.languageId).identifierMatcher;
 
-  protected getScopesInIterationScope({
+  protected getScopesInSearchScope({
     editor,
     domain,
   }: TargetScope): TargetScope[] {
