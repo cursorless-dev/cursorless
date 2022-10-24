@@ -205,14 +205,14 @@ const nodeMatchers: Partial<
       patternFinder(
         "property_signature",
         "public_field_definition",
-        "abstract_method_signature"
+        "abstract_method_signature",
       ),
-      extendForwardPastOptional(";")
+      extendForwardPastOptional(";"),
     ),
     patternMatcher(
       ...STATEMENT_TYPES.map((type) => `export_statement?.${type}`),
-      "method_definition"
-    )
+      "method_definition",
+    ),
   ),
   condition: cascadingMatcher(
     patternMatcher("ternary_expression[condition]"),
