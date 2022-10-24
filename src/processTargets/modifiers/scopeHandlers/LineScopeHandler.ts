@@ -1,20 +1,19 @@
 import { range } from "lodash";
 import { Position, Range, TextEditor } from "vscode";
-import { Direction } from "../../../typings/targetDescriptor.types";
-import { getDocumentRange } from "../../../util/range";
+import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { LineTarget } from "../../targets";
 import { OutOfRangeError } from "../targetSequenceUtils";
 import NotHierarchicalScopeError from "./NotHierarchicalScopeError";
-import type { IterationScope, TargetScope } from "./scope.types";
+import type { TargetScope } from "./scope.types";
 import type { ScopeHandler } from "./scopeHandler.types";
 
 export default class LineScopeHandler implements ScopeHandler {
+  public readonly scopeType = { type: "line" } as const;
   public readonly iterationScopeType = { type: "document" } as const;
 
-  constructor(
-    public readonly scopeType: { type: "line" },
-    protected languageId: string
-  ) {}
+  constructor(_scopeType: ScopeType, _languageId: string) {
+    // Empty
+  }
 
   getScopesTouchingPosition(
     editor: TextEditor,
@@ -35,22 +34,6 @@ export default class LineScopeHandler implements ScopeHandler {
     return range(start.line, end.line + 1).map((lineNumber) =>
       lineNumberToScope(editor, lineNumber)
     );
-  }
-
-  getIterationScopesTouchingPosition(
-    editor: TextEditor,
-    _position: Position
-  ): IterationScope[] {
-    return [
-      {
-        editor,
-        domain: getDocumentRange(editor.document),
-        getScopes: () =>
-          range(editor.document.lineCount).map((lineNumber) =>
-            lineNumberToScope(editor, lineNumber)
-          ),
-      },
-    ];
   }
 
   getScopeRelativeToPosition(

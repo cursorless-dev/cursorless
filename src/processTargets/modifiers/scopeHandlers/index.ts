@@ -10,5 +10,7 @@ export * from "./WordScopeHandler";
 export { default as WordScopeHandler } from "./WordScopeHandler";
 export * from "./TokenScopeHandler";
 export { default as TokenScopeHandler } from "./TokenScopeHandler";
+export * from "./DocumentScopeHandler";
+export { default as DocumentScopeHandler } from "./DocumentScopeHandler";
 export * from "./getScopeHandler";
 export { default as getScopeHandler } from "./getScopeHandler";

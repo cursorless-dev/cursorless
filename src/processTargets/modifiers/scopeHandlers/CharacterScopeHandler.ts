@@ -8,7 +8,7 @@ export default class CharacterScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "character" } as const;
   public readonly iterationScopeType = { type: "token" } as const;
 
-  protected getScopesInIterationScope({
+  protected getScopesInSearchScope({
     editor,
     domain,
   }: TargetScope): TargetScope[] {
