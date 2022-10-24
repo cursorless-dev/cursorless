@@ -19,7 +19,10 @@ export const tokenizerConfiguration = {
   getWordSeparators: (languageId: string) => {
     return getWordSeparators(languageId);
   },
-  overrideWordSeparators: () => {
+  // For testing purposes, we override the word separator in a few languages to
+  // make sure that overriding the word separator works.  Note that in
+  // production, we tokenize all languages the same way by default.
+  mockWordSeparators: () => {
     getWordSeparators = (languageId: string) => {
       switch (languageId) {
         case "css":

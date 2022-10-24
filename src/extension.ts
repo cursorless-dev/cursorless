@@ -45,7 +45,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   // TODO: Remove this once tokenizer has access to graph
   if (isTesting()) {
-    tokenizerConfiguration.overrideWordSeparators();
+    tokenizerConfiguration.mockWordSeparators();
   }
 
   return {
