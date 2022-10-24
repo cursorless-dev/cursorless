@@ -209,7 +209,6 @@
 				},
 				"cursorless.wordSeparators": {
 					"type": "array",
-					"order": 6,
 					"items": {
 						"type": "string"
 					},
