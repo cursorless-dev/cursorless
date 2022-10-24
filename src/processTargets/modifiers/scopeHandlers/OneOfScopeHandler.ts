@@ -5,7 +5,6 @@ import {
   Direction,
   OneOfScopeType,
 } from "../../../typings/targetDescriptor.types";
-import NotHierarchicalScopeError from "./NotHierarchicalScopeError";
 import type { TargetScope } from "./scope.types";
 import { ScopeHandler } from "./scopeHandler.types";
 
@@ -32,15 +31,14 @@ export default class OneOfScopeHandler implements ScopeHandler {
     private languageId: string
   ) {}
 
-  /** Return smallest target scope touching position */
   getScopesTouchingPosition(
     editor: TextEditor,
     position: Position,
     ancestorIndex?: number
   ): TargetScope[] {
     if (ancestorIndex !== 0) {
-      // FIXME: Maybe we could find a way to support this opne in the future.
-      throw new NotHierarchicalScopeError(this.scopeType);
+      // FIXME: We could support this one, but it will be a bit of work.
+      throw new Error("`grand` not yet supported for compound scopes.");
     }
 
     return keepOnlyBottomLevelScopes(
@@ -50,13 +48,29 @@ export default class OneOfScopeHandler implements ScopeHandler {
     );
   }
 
-  /** Return all scopes overlapping range not contained by another scope */
+  /**
+   * We proceed as follows:
+   *
+   * 1. Get all scopes returned by
+   *    {@link ScopeHandler.getScopesOverlappingRange} from each of
+   *    {@link scopeHandlers}.
+   * 2. If any of these scopes has a {@link TargetScope.domain|domain} that
+   *    terminates within {@link range}, return all such maximal scopes.
+   * 3. Otherwise, return a list containing just the minimal scope containing
+   *    {@link range}.
+   */
   getScopesOverlappingRange(editor: TextEditor, range: Range): TargetScope[] {
-    return keepOnlyTopLevelScopes(
-      this.scopeHandlers.flatMap((scopeHandler) =>
-        scopeHandler.getScopesOverlappingRange(editor, range)
-      )
+    const candidateScopes = this.scopeHandlers.flatMap((scopeHandler) =>
+      scopeHandler.getScopesOverlappingRange(editor, range)
     );
+
+    const scopesTerminatingInRange = candidateScopes.filter(
+      ({ domain }) => !domain.contains(range)
+    );
+
+    return scopesTerminatingInRange.length > 0
+      ? keepOnlyTopLevelScopes(scopesTerminatingInRange)
+      : keepOnlyBottomLevelScopes(candidateScopes);
   }
 
   getScopeRelativeToPosition(
