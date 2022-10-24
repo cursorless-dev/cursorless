@@ -19,14 +19,14 @@ export default class WordScopeHandler extends NestedScopeHandler {
     // mock away vscode for the unit tests in subtoken.test.ts
     const offset = document.offsetAt(domain.start);
     const matches = this.wordTokenizer.splitIdentifier(
-      document.getText(domain)
+      document.getText(domain),
     );
     const contentRanges = matches.map(
       (match) =>
         new Range(
           document.positionAt(offset + match.index),
-          document.positionAt(offset + match.index + match.text.length)
-        )
+          document.positionAt(offset + match.index + match.text.length),
+        ),
     );
 
     return contentRanges.map((range, i) => ({
@@ -42,7 +42,7 @@ export default class WordScopeHandler extends NestedScopeHandler {
           editor,
           previousContentRange,
           range,
-          nextContentRange
+          nextContentRange,
         );
       },
     }));
@@ -54,7 +54,7 @@ function constructTarget(
   editor: TextEditor,
   previousContentRange: Range | null,
   contentRange: Range,
-  nextContentRange: Range | null
+  nextContentRange: Range | null,
 ) {
   const leadingDelimiterRange =
     previousContentRange != null &&
@@ -71,7 +71,7 @@ function constructTarget(
     leadingDelimiterRange != null || trailingDelimiterRange != null;
   const insertionDelimiter = isInDelimitedList
     ? editor.document.getText(
-        (leadingDelimiterRange ?? trailingDelimiterRange)!
+        (leadingDelimiterRange ?? trailingDelimiterRange)!,
       )
     : "";
 

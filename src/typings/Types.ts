@@ -186,7 +186,7 @@ export type NodeMatcherAlternative = NodeMatcher | string[] | string;
 
 export type NodeMatcher = (
   selection: SelectionWithEditor,
-  node: SyntaxNode
+  node: SyntaxNode,
 ) => NodeMatcherValue[] | null;
 
 /**
@@ -195,13 +195,13 @@ export type NodeMatcher = (
  **/
 export type NodeFinder = (
   node: SyntaxNode,
-  selection?: vscode.Selection
+  selection?: vscode.Selection,
 ) => SyntaxNode | null;
 
 /** Returns one or more selections for a given SyntaxNode */
 export type SelectionExtractor = (
   editor: vscode.TextEditor,
-  nodes: SyntaxNode
+  nodes: SyntaxNode,
 ) => SelectionWithContext;
 
 /** Represent a single edit/change in the document */

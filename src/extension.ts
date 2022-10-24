@@ -27,7 +27,7 @@ export async function activate(context: vscode.ExtensionContext) {
       commandServerApi: () => commandServerApi,
       getNodeAtLocation: () => getNodeAtLocation,
     } as FactoryMap<Graph>,
-    ["ide"]
+    ["ide"],
   );
   graph.debug.init();
   graph.snippets.init();

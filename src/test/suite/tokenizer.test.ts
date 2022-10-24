@@ -133,7 +133,7 @@ suite("tokenizer", () => {
       const tests = [
         ...languageSpecificTests,
         ...globalTests.filter(
-          ([input, _expectedOutput]) => !exclusionPredicate(input)
+          ([input, _expectedOutput]) => !exclusionPredicate(input),
         ),
       ];
 
@@ -143,7 +143,7 @@ suite("tokenizer", () => {
           assert.deepStrictEqual(output, expectedOutput);
         });
       });
-    }
+    },
   );
 });
 
@@ -160,8 +160,8 @@ function getAsciiSymbols() {
   return flatten(
     rangesToTest.map(([start, end]) =>
       range(start.charCodeAt(0), end.charCodeAt(0) + 1).map((charCode) =>
-        String.fromCharCode(charCode)
-      )
-    )
+        String.fromCharCode(charCode),
+      ),
+    ),
   );
 }

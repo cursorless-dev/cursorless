@@ -22,10 +22,10 @@ const adjustments: Partial<IndividualHatAdjustmentMap>[] = [
 
 function processProperty(
   hatAdjustmentsList: HatAdjustments[],
-  propertyName: keyof HatAdjustments
+  propertyName: keyof HatAdjustments,
 ) {
   const value = sum(
-    hatAdjustmentsList.map((adjustment) => adjustment[propertyName] ?? 0)
+    hatAdjustmentsList.map((adjustment) => adjustment[propertyName] ?? 0),
   );
 
   return postProcessValue(value);
@@ -35,7 +35,7 @@ function main() {
   const finalMap = Object.fromEntries(
     HAT_SHAPES.map((shape) => {
       const adjustmentsList = adjustments.map(
-        (adjustment) => adjustment[shape] ?? {}
+        (adjustment) => adjustment[shape] ?? {},
       );
 
       return [
@@ -45,7 +45,7 @@ function main() {
           verticalOffset: processProperty(adjustmentsList, "verticalOffset"),
         },
       ];
-    })
+    }),
   ) as IndividualHatAdjustmentMap;
 
   console.log(JSON.stringify(finalMap, null, 2));

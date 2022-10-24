@@ -51,7 +51,7 @@ interface Matcher {
 }
 
 function generateMatcher(
-  languageComponents: LanguageTokenizerComponents
+  languageComponents: LanguageTokenizerComponents,
 ): Matcher {
   const {
     fixedTokens,
@@ -70,7 +70,7 @@ function generateMatcher(
   const fixedTokensRegex = fixedTokens.map(escapeRegExp).join("|");
 
   const identifierComponents = identifierWordRegexes.concat(
-    identifierWordDelimiters.map(escapeRegExp)
+    identifierWordDelimiters.map(escapeRegExp),
   );
   const identifiersRegex = `(${identifierComponents.join("|")})+`;
   const wordRegex = `(${identifierWordRegexes.join("|")})+`;
@@ -115,7 +115,7 @@ export function getMatcher(languageId: string): Matcher {
 export function tokenize<T>(
   text: string,
   languageId: string,
-  mapfn: (v: RegExpMatchArray, k: number) => T
+  mapfn: (v: RegExpMatchArray, k: number) => T,
 ) {
   return matchAll(text, getMatcher(languageId).tokenMatcher, mapfn);
 }

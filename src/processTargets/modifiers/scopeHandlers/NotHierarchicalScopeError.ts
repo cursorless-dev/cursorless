@@ -12,7 +12,7 @@ export default class NotHierarchicalScopeError extends Error {
    */
   constructor(scopeType: ScopeType) {
     super(
-      `Cannot use hierarchical modifiers on ${scopeTypeToString(scopeType)}.`
+      `Cannot use hierarchical modifiers on ${scopeTypeToString(scopeType)}.`,
     );
     this.name = "NotHierarchicalScopeError";
   }

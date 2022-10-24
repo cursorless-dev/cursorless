@@ -35,7 +35,7 @@ export function extractTargetKeys(target: TargetDescriptor): string[] {
 
 export function extractTargetedMarks(
   targetKeys: string[],
-  hatTokenMap: ReadOnlyHatMap
+  hatTokenMap: ReadOnlyHatMap,
 ) {
   const targetedMarks: { [decoratedCharacter: string]: Token } = {};
 

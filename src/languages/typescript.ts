@@ -84,10 +84,10 @@ function typeMatcher(): NodeMatcher {
       node.type !== "arguments"
     ) {
       const identifierNode = node.parent.children.find(
-        (n) => n.type === "identifier"
+        (n) => n.type === "identifier",
       );
       const argsNode = node.parent.children.find(
-        (n) => n.type === "type_arguments"
+        (n) => n.type === "type_arguments",
       );
       if (identifierNode && argsNode) {
         return [
@@ -96,7 +96,7 @@ function typeMatcher(): NodeMatcher {
             selection: pairSelectionExtractor(
               selection.editor,
               identifierNode,
-              argsNode
+              argsNode,
             ),
           },
         ];
@@ -106,7 +106,7 @@ function typeMatcher(): NodeMatcher {
             node: identifierNode,
             selection: simpleSelectionExtractor(
               selection.editor,
-              identifierNode
+              identifierNode,
             ),
           },
         ];
@@ -114,7 +114,7 @@ function typeMatcher(): NodeMatcher {
     }
 
     const typeAnnotationNode = node.children.find((child) =>
-      ["type_annotation", "opting_type_annotation"].includes(child.type)
+      ["type_annotation", "opting_type_annotation"].includes(child.type),
     );
     const targetNode = typeAnnotationNode?.lastChild;
 
@@ -135,7 +135,7 @@ function valueMatcher() {
     "assignment_expression[right]",
     "augmented_assignment_expression[right]",
     "*[value]",
-    "shorthand_property_identifier"
+    "shorthand_property_identifier",
   );
   return matcher(
     (node: SyntaxNode) =>
@@ -153,8 +153,8 @@ function valueMatcher() {
       "|=",
       "^=",
       "<<=",
-      ">>="
-    )
+      ">>=",
+    ),
   );
 }
 
@@ -173,12 +173,12 @@ const nodeMatchers: Partial<
       "jsx_attribute.property_identifier!",
       "shorthand_property_identifier",
     ],
-    [":"]
+    [":"],
   ),
   value: cascadingMatcher(
     valueMatcher(),
     patternMatcher("return_statement.~return!"),
-    patternMatcher("yield_expression.~yield!")
+    patternMatcher("yield_expression.~yield!"),
   ),
   ifStatement: "if_statement",
   anonymousFunction: ["arrow_function", "function"],
@@ -197,8 +197,8 @@ const nodeMatchers: Partial<
     patternMatcher("call_expression[function]"),
     matcher(
       patternFinder("new_expression"),
-      childRangeSelector(["arguments"], [])
-    )
+      childRangeSelector(["arguments"], []),
+    ),
   ),
   statement: STATEMENT_TYPES.map((type) => `export_statement?.${type}`),
   condition: cascadingMatcher(
@@ -207,8 +207,8 @@ const nodeMatchers: Partial<
       "if_statement[condition]",
       "for_statement[condition]",
       "while_statement[condition]",
-      "do_statement[condition]"
-    )
+      "do_statement[condition]",
+    ),
   ),
   class: [
     "export_statement?.class_declaration", // export class | class
@@ -260,13 +260,13 @@ const nodeMatchers: Partial<
       // foo = () => { }
       "assignment_expression.arrow_function",
       // foo = function*() { }
-      "generator_function_declaration"
+      "generator_function_declaration",
     ),
     // abstract class method
     matcher(
       patternFinder("abstract_method_signature"),
-      extendForwardPastOptional(";")
-    )
+      extendForwardPastOptional(";"),
+    ),
   ),
   type: cascadingMatcher(
     // Typed parameters, properties, and functions
@@ -275,15 +275,15 @@ const nodeMatchers: Partial<
     // Type alias/interface declarations
     patternMatcher(
       "export_statement?.type_alias_declaration",
-      "export_statement?.interface_declaration"
-    )
+      "export_statement?.interface_declaration",
+    ),
   ),
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
   // XML, JSX
   attribute: ["jsx_attribute"],
   xmlElement: matcher(
     typedNodeFinder("jsx_element", "jsx_self_closing_element"),
-    xmlElementExtractor
+    xmlElementExtractor,
   ),
   xmlBothTags: getTags,
   xmlStartTag: getStartTag,
@@ -294,7 +294,7 @@ export const patternMatchers = createPatternMatchers(nodeMatchers);
 
 export function stringTextFragmentExtractor(
   node: SyntaxNode,
-  _selection: SelectionWithEditor
+  _selection: SelectionWithEditor,
 ) {
   if (
     node.type === "string_fragment" ||

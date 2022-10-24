@@ -99,7 +99,7 @@ const makeDelimitedSelector = (leftType: string, rightType: string) =>
   delimitedSelector(
     (node) =>
       node.type === "," || node.type === leftType || node.type === rightType,
-    ", "
+    ", ",
   );
 
 const getMapMatchers = {
@@ -111,7 +111,7 @@ const getMapMatchers = {
     chainedMatcher([
       typedNodeFinder("object_creation_expression"),
       getInitializerNode,
-    ])
+    ]),
   ),
   collectionKey: chainedMatcher([
     typedNodeFinder("assignment_expression"),
@@ -122,7 +122,7 @@ const getMapMatchers = {
       "variable_declaration?.variable_declarator[1][0]!",
       "assignment_expression[right]",
     ],
-    ["assignment_operator"]
+    ["assignment_operator"],
   ),
   list: cascadingMatcher(
     chainedMatcher([
@@ -132,7 +132,7 @@ const getMapMatchers = {
     chainedMatcher([
       typedNodeFinder("object_creation_expression"),
       (node: SyntaxNode) => node.childForFieldName("initializer"),
-    ])
+    ]),
   ),
   string: typeMatcher("string_literal"),
 };
@@ -146,7 +146,7 @@ const nodeMatchers: Partial<
   className: "class_declaration[name]",
   condition: cascadingMatcher(
     conditionMatcher("*[condition]"),
-    patternMatcher("while_statement[0]")
+    patternMatcher("while_statement[0]"),
   ),
   statement: STATEMENT_TYPES,
   anonymousFunction: "lambda_expression",
@@ -155,15 +155,15 @@ const nodeMatchers: Partial<
     patternMatcher("invocation_expression[function]"),
     matcher(
       patternFinder("object_creation_expression"),
-      childRangeSelector(["argument_list"], [])
-    )
+      childRangeSelector(["argument_list"], []),
+    ),
   ),
   argumentOrParameter: matcher(
     nodeFinder(
       (node) =>
-        node.parent?.type === "argument_list" || node.type === "parameter"
+        node.parent?.type === "argument_list" || node.type === "parameter",
     ),
-    makeDelimitedSelector("(", ")")
+    makeDelimitedSelector("(", ")"),
   ),
   namedFunction: NAMED_FUNCTION_TYPES,
   functionName: NAMED_FUNCTION_TYPES.map((t) => t + "[name]"),

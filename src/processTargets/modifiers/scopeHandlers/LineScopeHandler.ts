@@ -18,7 +18,7 @@ export default class LineScopeHandler implements ScopeHandler {
   getScopesTouchingPosition(
     editor: TextEditor,
     position: Position,
-    ancestorIndex: number = 0
+    ancestorIndex: number = 0,
   ): TargetScope[] {
     if (ancestorIndex !== 0) {
       throw new NotHierarchicalScopeError(this.scopeType);
@@ -29,10 +29,10 @@ export default class LineScopeHandler implements ScopeHandler {
 
   getScopesOverlappingRange(
     editor: TextEditor,
-    { start, end }: Range
+    { start, end }: Range,
   ): TargetScope[] {
     return range(start.line, end.line + 1).map((lineNumber) =>
-      lineNumberToScope(editor, lineNumber)
+      lineNumberToScope(editor, lineNumber),
     );
   }
 
@@ -40,7 +40,7 @@ export default class LineScopeHandler implements ScopeHandler {
     editor: TextEditor,
     position: Position,
     offset: number,
-    direction: Direction
+    direction: Direction,
   ): TargetScope {
     const lineNumber =
       direction === "forward" ? position.line + offset : position.line - offset;
@@ -55,7 +55,7 @@ export default class LineScopeHandler implements ScopeHandler {
 
 function lineNumberToScope(
   editor: TextEditor,
-  lineNumber: number
+  lineNumber: number,
 ): TargetScope {
   const { range } = editor.document.lineAt(lineNumber);
 
@@ -69,7 +69,7 @@ function lineNumberToScope(
 export function createLineTarget(
   editor: TextEditor,
   isReversed: boolean,
-  range: Range
+  range: Range,
 ) {
   return new LineTarget({
     editor,
@@ -89,6 +89,6 @@ export function fitRangeToLineContent(editor: TextEditor, range: Range) {
     startLine.lineNumber,
     startLine.firstNonWhitespaceCharacterIndex,
     endLine.lineNumber,
-    endCharacterIndex
+    endCharacterIndex,
   );
 }

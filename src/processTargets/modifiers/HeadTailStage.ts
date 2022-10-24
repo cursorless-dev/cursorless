@@ -31,7 +31,7 @@ abstract class HeadTailStage implements ModifierStage {
     return modifiedTargets.map((modifiedTarget) => {
       const contentRange = this.constructContentRange(
         target.contentRange,
-        modifiedTarget.contentRange
+        modifiedTarget.contentRange,
       );
 
       return new TokenTarget({
@@ -44,7 +44,7 @@ abstract class HeadTailStage implements ModifierStage {
 
   protected abstract constructContentRange(
     originalRange: Range,
-    modifiedRange: Range
+    modifiedRange: Range,
   ): Range;
 }
 

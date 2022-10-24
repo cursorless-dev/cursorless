@@ -7,6 +7,7 @@ import getModifierStage from "../getModifierStage";
 import type { ModifierStage } from "../PipelineStages.types";
 import getLegacyScopeStage from "./getLegacyScopeStage";
 import getScopeHandler from "./scopeHandlers/getScopeHandler";
+import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
 /**
@@ -18,10 +19,14 @@ import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
  *
  * We proceed as follows:
  *
- * 1. If target has an explicit range, just return all targets returned from
- *    {@link ScopeHandler.getScopesOverlappingRange}.
- * 2. Otherwise, expand to the containing instance of
- *    {@link ScopeHandler.iterationScopeType}, and then return all targets
+ * 1. If target has an explicit range, call
+ *    {@link ScopeHandler.getScopesOverlappingRange} on our scope handler.  If
+ *    we get back at least one {@link TargetScope} whose
+ *    {@link TargetScope.domain|domain} terminates within the input target
+ *    range, just return all targets directly.
+ * 2. If we didn't get any scopes that terminate within the input target, or if
+ *    the target had no explicit range, then expand to the containing instance
+ *    of {@link ScopeHandler.iterationScopeType}, and then return all targets
  *    returned from {@link ScopeHandler.getScopesOverlappingRange} when applied
  *    to the expanded target's {@link Target.contentRange}.
  */
@@ -38,11 +43,33 @@ export class EveryScopeStage implements ModifierStage {
       return getLegacyScopeStage(this.modifier).run(context, target);
     }
 
-    const range = target.hasExplicitRange
-      ? target.contentRange
-      : this.getDefaultIterationRange(context, scopeHandler, target);
+    let scopes: TargetScope[] | undefined;
 
-    const scopes = scopeHandler.getScopesOverlappingRange(editor, range);
+    if (target.hasExplicitRange) {
+      scopes = scopeHandler.getScopesOverlappingRange(
+        editor,
+        target.contentRange,
+      );
+
+      if (
+        scopes.length === 1 &&
+        scopes[0].domain.contains(target.contentRange)
+      ) {
+        // If the only scope that came back completely contains the input target
+        // range, we treat the input as if it had no explicit range, expanding
+        // to default iteration socpe below
+        scopes = undefined;
+      }
+    }
+
+    if (scopes == null) {
+      // If target had no explicit range, or was contained by a single target
+      // instance, expand to iteration scope before overlapping
+      scopes = scopeHandler.getScopesOverlappingRange(
+        editor,
+        this.getDefaultIterationRange(context, scopeHandler, target),
+      );
+    }
 
     if (scopes.length === 0) {
       throw new NoContainingScopeError(scopeType.type);
@@ -54,7 +81,7 @@ export class EveryScopeStage implements ModifierStage {
   getDefaultIterationRange(
     context: ProcessedTargetsContext,
     scopeHandler: ScopeHandler,
-    target: Target
+    target: Target,
   ): Range {
     const containingIterationScopeModifier = getModifierStage({
       type: "containingScope",
