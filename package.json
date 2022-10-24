@@ -207,6 +207,12 @@
 					"description": "How much to vertically shift the hats as a percentage of font size; positive is up",
 					"order": 1
 				},
+				"cursorless.wordSeparators": {
+					"type": "string",
+					"default": "_",
+					"description": "Characters that separate words in identifiers",
+					"scope": "language-overridable"
+				},
 				"cursorless.colors.dark": {
 					"description": "Colors to use for dark theme",
 					"type": "object",

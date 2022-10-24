@@ -1,12 +1,7 @@
-import { escapeRegExp, mapValues } from "lodash";
-import { LanguageId, SupportedLanguageId } from "../languages/constants";
-
+import { escapeRegExp } from "lodash";
+import * as vscode from "vscode";
 import { matchAll } from "../util/regex";
-import { languageWithDashedIdentifiers } from "./languageTokenizers";
-import {
-  LanguageTokenizerComponents,
-  LanguageTokenizerOverrides,
-} from "./tokenizer.types";
+import { LanguageTokenizerComponents } from "./tokenizer.types";
 
 const REPEATABLE_SYMBOLS = [
   "-",
@@ -46,27 +41,17 @@ const FIXED_TOKENS = [
 ];
 
 export const IDENTIFIER_WORD_REGEXES = ["\\p{L}", "\\p{M}", "\\p{N}"];
-const IDENTIFIER_WORD_DELIMITERS = ["_"];
 const SINGLE_SYMBOLS_REGEX = "[^\\s\\w]";
 const NUMBERS_REGEX = "(?<=[^.\\d]|^)\\d+\\.\\d+(?=[^.\\d]|$)"; // (not-dot/digit digits dot digits not-dot/digit)
 
-const defaultLanguageTokenizerComponents: LanguageTokenizerComponents = {
-  fixedTokens: FIXED_TOKENS,
-  repeatableSymbols: REPEATABLE_SYMBOLS,
-  identifierWordRegexes: IDENTIFIER_WORD_REGEXES,
-  identifierWordDelimiters: IDENTIFIER_WORD_DELIMITERS,
-  numbersRegex: NUMBERS_REGEX,
-  singleSymbolsRegex: SINGLE_SYMBOLS_REGEX,
-};
 interface Matcher {
   tokenMatcher: RegExp;
   identifierMatcher: RegExp;
   wordMatcher: RegExp;
 }
-const defaultMatcher = generateMatcher();
 
 function generateMatcher(
-  languageOverrides: LanguageTokenizerOverrides = {}
+  languageComponents: LanguageTokenizerComponents
 ): Matcher {
   const {
     fixedTokens,
@@ -75,10 +60,7 @@ function generateMatcher(
     identifierWordDelimiters,
     numbersRegex,
     singleSymbolsRegex,
-  }: LanguageTokenizerComponents = {
-    ...defaultLanguageTokenizerComponents,
-    ...languageOverrides,
-  };
+  } = languageComponents;
 
   const repeatableSymbolsRegex = repeatableSymbols
     .map(escapeRegExp)
@@ -109,24 +91,26 @@ function generateMatcher(
   };
 }
 
-const languageTokenizerOverrides: Partial<
-  Record<LanguageId, LanguageTokenizerOverrides>
-> = {
-  css: languageWithDashedIdentifiers,
-  scss: languageWithDashedIdentifiers,
-  shellscript: languageWithDashedIdentifiers,
-};
-
-const tokenMatchersForLanguage: Partial<Record<LanguageId, Matcher>> =
-  mapValues(languageTokenizerOverrides, (val: LanguageTokenizerComponents) =>
-    generateMatcher(val)
-  );
+const matchers = new Map<string, Matcher>();
 
 export function getMatcher(languageId: string): Matcher {
-  return (
-    tokenMatchersForLanguage[languageId as SupportedLanguageId] ??
-    defaultMatcher
-  );
+  const wordSeparators = vscode.workspace
+    .getConfiguration("cursorless", { languageId })
+    .get<string>("wordSeparators", "_");
+
+  if (!matchers.has(wordSeparators)) {
+    const components: LanguageTokenizerComponents = {
+      fixedTokens: FIXED_TOKENS,
+      repeatableSymbols: REPEATABLE_SYMBOLS,
+      identifierWordRegexes: IDENTIFIER_WORD_REGEXES,
+      identifierWordDelimiters: wordSeparators.split(""),
+      numbersRegex: NUMBERS_REGEX,
+      singleSymbolsRegex: SINGLE_SYMBOLS_REGEX,
+    };
+    matchers.set(languageId, generateMatcher(components));
+  }
+
+  return matchers.get(languageId)!;
 }
 
 export function tokenize<T>(

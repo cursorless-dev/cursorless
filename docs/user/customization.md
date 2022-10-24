@@ -75,6 +75,20 @@ While the hats are hidden, you will not be able to address any marks, eg `"take 
 
 If you'd like to map a voice command to toggle the hats, have a look at https://youtu.be/oWUJyDgz63k
 
+## Updating word separators
+
+The word separators are characters that defines the boundary between words in a identifier. eg `hello_world` is an identifier with two words separated by `_`. If you like to support other separators like `-` in `hello-world` that can be accomplished by changing the `cursorless.wordSeparators` setting. This setting is also language overridable.
+
+```json
+// Sets the word separator for all languages
+"cursorless.wordSeparators": "_"
+
+// Sets the word separator for css only
+"[css]": {
+  "cursorless.wordSeparators": "_-"
+}
+```
+
 ## Cursorless public API
 
 Cursorless exposes a couple talon actions and captures that you can use to define your own custom command grammar leveraging cursorless targets.
