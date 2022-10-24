@@ -7,7 +7,7 @@ import * as vscode from "vscode";
 
 const defaultGetWordSeparators = (languageId: string) => {
   // FIXME: The reason this code will auto-reload on settings change is that we don't use fine-grained settings listener in `Decorations`:
-  // https://github.com/cursorless-dev/cursorless/blob/c914d477c9624c498a47c964088b34e484eac494/src/core/Decorations.ts#L58 
+  // https://github.com/cursorless-dev/cursorless/blob/c914d477c9624c498a47c964088b34e484eac494/src/core/Decorations.ts#L58
   return vscode.workspace
     .getConfiguration("cursorless", { languageId })
     .get<string[]>("wordSeparators", ["_"]);
