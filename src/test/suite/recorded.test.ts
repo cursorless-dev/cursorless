@@ -1,5 +1,5 @@
-import { promises as fsp } from "fs";
 import { assert } from "chai";
+import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import HatTokenMap from "../../core/HatTokenMap";
@@ -13,6 +13,7 @@ import {
   takeSnapshot,
 } from "../../testUtil/takeSnapshot";
 import { TestCaseFixture } from "../../testUtil/TestCase";
+import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "../../testUtil/testConstants";
 import {
   marksToPlainObject,
   PositionPlainObject,
@@ -73,6 +74,9 @@ async function runTest(file: string) {
     fixture.initialState.documentContents,
     fixture.languageId,
   );
+
+  // Override any user settings and make sure tests run with default tabs.
+  editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
     await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
