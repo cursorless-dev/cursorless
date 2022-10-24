@@ -55,7 +55,7 @@ export interface Disposable {
   dispose(): void;
 }
 
-export const STATE_KEYS = { hideInferenceWarning: false } as const;
+export const STATE_KEYS = { hideInferenceWarning: false };
 export type StateKey = keyof typeof STATE_KEYS;
 
 /**
@@ -69,7 +69,7 @@ export interface State {
    * @param key A string.
    * @return The stored value or the defaultValue.
    */
-  get<T>(key: StateKey): T;
+  get(key: StateKey): typeof STATE_KEYS[StateKey];
 
   /**
    * Store a value. The value must be JSON-stringifyable.
@@ -77,5 +77,5 @@ export interface State {
    * @param key A string.
    * @param value A value. MUST not contain cyclic references.
    */
-  set(key: StateKey, value: any): Thenable<void>;
+  set(key: StateKey, value: typeof STATE_KEYS[StateKey]): Thenable<void>;
 }

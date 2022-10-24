@@ -126,7 +126,7 @@ export async function checkForOldInference(
   });
 
   if (hasOldInference) {
-    const hideInferenceWarning = graph.ide.globalState.get<boolean>(
+    const hideInferenceWarning = graph.ide.globalState.get(
       "hideInferenceWarning"
     );
 
