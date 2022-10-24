@@ -300,18 +300,22 @@ export class TestCaseRecorder {
     const editor = vscode.window.activeTextEditor!;
     this.userTabSetting = editor.options.tabSize;
     this.userInsertSpacesSetting = editor.options.insertSpaces;
-    editor.options.tabSize = DEFAULT_TAB_SIZE_FOR_TESTS;
-    editor.options.insertSpaces = DEFAULT_INSERT_SPACES_FOR_TEST;
-    vscode.window.showInformationMessage(
-      `Setting default tab size to ${DEFAULT_TAB_SIZE_FOR_TESTS} spaces for test recording.`
-    );
+    if (
+      this.userTabSetting !== DEFAULT_TAB_SIZE_FOR_TESTS ||
+      this.userInsertSpacesSetting !== DEFAULT_INSERT_SPACES_FOR_TEST
+    ) {
+      editor.options.tabSize = DEFAULT_TAB_SIZE_FOR_TESTS;
+      editor.options.insertSpaces = DEFAULT_INSERT_SPACES_FOR_TEST;
+      vscode.window.showInformationMessage(
+        "Setting default tab size for test recording."
+      );
+    }
   }
 
   private disableTabSetting() {
     const editor = vscode.window.activeTextEditor!;
     editor.options.tabSize = this.userTabSetting;
     editor.options.insertSpaces = this.userInsertSpacesSetting;
-    vscode.window.showInformationMessage("Resetting tab size to user default.");
   }
 
   async preCommandHook(command: TestCaseCommand, context: TestCaseContext) {
