@@ -208,10 +208,15 @@
 					"order": 1
 				},
 				"cursorless.wordSeparators": {
-					"type": "string",
-					"default": "_",
-					"description": "Characters that separate words in identifiers",
-					"scope": "language-overridable"
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [
+						"_"
+					],
+					"scope": "language-overridable",
+					"markdownDescription": "A list of characters that separate words in identifiers. For example `_` splits `hello_world` into two words."
 				},
 				"cursorless.colors.dark": {
 					"description": "Colors to use for dark theme",

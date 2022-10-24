@@ -91,26 +91,26 @@ function generateMatcher(
   };
 }
 
-const matchers = new Map<string, Matcher>();
+const matchers = new Map<string[], Matcher>();
 
 export function getMatcher(languageId: string): Matcher {
   const wordSeparators = vscode.workspace
     .getConfiguration("cursorless", { languageId })
-    .get<string>("wordSeparators", "_");
+    .get<string[]>("wordSeparators", ["_"]);
 
   if (!matchers.has(wordSeparators)) {
     const components: LanguageTokenizerComponents = {
       fixedTokens: FIXED_TOKENS,
       repeatableSymbols: REPEATABLE_SYMBOLS,
       identifierWordRegexes: IDENTIFIER_WORD_REGEXES,
-      identifierWordDelimiters: wordSeparators.split(""),
+      identifierWordDelimiters: wordSeparators,
       numbersRegex: NUMBERS_REGEX,
       singleSymbolsRegex: SINGLE_SYMBOLS_REGEX,
     };
-    matchers.set(languageId, generateMatcher(components));
+    matchers.set(wordSeparators, generateMatcher(components));
   }
 
-  return matchers.get(languageId)!;
+  return matchers.get(wordSeparators)!;
 }
 
 export function tokenize<T>(
