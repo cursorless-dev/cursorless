@@ -55,6 +55,9 @@ export interface Disposable {
   dispose(): void;
 }
 
+/**
+ * A mapping from allowable state keys to their default values
+ */
 export const STATE_KEYS = { hideInferenceWarning: false };
 export type StateKey = keyof typeof STATE_KEYS;
 
