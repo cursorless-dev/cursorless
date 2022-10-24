@@ -1,6 +1,7 @@
 import * as assert from "assert";
-import { tokenize } from "../../core/tokenizer";
 import { flatten, range } from "lodash";
+import { tokenize } from "../../core/tokenizer";
+import { tokenizerConfiguration } from "../../core/tokenizerConfiguration";
 import { LanguageId } from "../../languages/constants";
 
 type TestCase = [string, string[]];
@@ -109,6 +110,11 @@ const languageTokenizerTests: Partial<
 };
 
 suite("tokenizer", () => {
+  // TODO: Remove this once tokenizer has access to graph
+  suiteSetup(() => {
+    tokenizerConfiguration.overrideWordSeparators();
+  });
+
   globalTests.forEach(([input, expectedOutput]) => {
     test(`tokenizer test, input: "${input}"`, () => {
       const output = tokenize(input, "anyLang", (match) => match[0]);

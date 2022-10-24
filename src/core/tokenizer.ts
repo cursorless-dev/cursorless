@@ -1,7 +1,7 @@
 import { escapeRegExp } from "lodash";
-import * as vscode from "vscode";
 import { matchAll } from "../util/regex";
 import { LanguageTokenizerComponents } from "./tokenizer.types";
+import { tokenizerConfiguration } from "./tokenizerConfiguration";
 
 const REPEATABLE_SYMBOLS = [
   "-",
@@ -94,9 +94,7 @@ function generateMatcher(
 const matchers = new Map<string[], Matcher>();
 
 export function getMatcher(languageId: string): Matcher {
-  const wordSeparators = vscode.workspace
-    .getConfiguration("cursorless", { languageId })
-    .get<string[]>("wordSeparators", ["_"]);
+  const wordSeparators = tokenizerConfiguration.getWordSeparators(languageId);
 
   if (!matchers.has(wordSeparators)) {
     const components: LanguageTokenizerComponents = {

@@ -18,7 +18,7 @@ initialState:
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: "-top: 0;"
+  documentContents: "margin: 0;"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
