@@ -17,7 +17,7 @@ export default class LineTarget extends BaseTarget {
     return tryConstructPlainTarget(
       this.editor,
       getLeadingDelimiterRange(this.editor, this.fullLineContentRange),
-      this.isReversed
+      this.isReversed,
     );
   }
 
@@ -25,7 +25,7 @@ export default class LineTarget extends BaseTarget {
     return tryConstructPlainTarget(
       this.editor,
       getTrailingDelimiterRange(this.editor, this.fullLineContentRange),
-      this.isReversed
+      this.isReversed,
     );
   }
 
@@ -45,7 +45,7 @@ export default class LineTarget extends BaseTarget {
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
-    includeEnd: boolean
+    includeEnd: boolean,
   ): Target {
     if (endTarget.isLine) {
       return new LineTarget({
@@ -55,7 +55,7 @@ export default class LineTarget extends BaseTarget {
           this,
           endTarget,
           includeStart,
-          includeEnd
+          includeEnd,
         ),
       });
     }
@@ -64,7 +64,7 @@ export default class LineTarget extends BaseTarget {
       isReversed,
       endTarget,
       includeStart,
-      includeEnd
+      includeEnd,
     );
   }
 

@@ -16,13 +16,13 @@ import { TargetScope } from "./scopeHandlers/scope.types";
 export function constructScopeRangeTarget(
   isReversed: boolean,
   scope1: TargetScope,
-  scope2: TargetScope
+  scope2: TargetScope,
 ): Target {
   const target1 = scope1.getTarget(isReversed);
   const target2 = scope2.getTarget(isReversed);
 
   const isScope2After = target2.contentRange.start.isAfterOrEqual(
-    target1.contentRange.start
+    target1.contentRange.start,
   );
 
   const [startTarget, endTarget] = isScope2After
@@ -33,6 +33,6 @@ export function constructScopeRangeTarget(
     isReversed,
     endTarget,
     true,
-    true
+    true,
   );
 }

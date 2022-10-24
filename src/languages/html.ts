@@ -26,7 +26,7 @@ const nodeMatchers: Partial<
 > = {
   xmlElement: matcher(
     typedNodeFinder("element", "script_element", "style_element"),
-    xmlElementExtractor
+    xmlElementExtractor,
   ),
   xmlBothTags: getTags,
   xmlStartTag: getStartTag,
@@ -37,7 +37,7 @@ const nodeMatchers: Partial<
   collectionKey: ["*?.attribute_name!"],
   value: leadingMatcher(
     ["*?.quoted_attribute_value!.attribute_value", "*?.attribute_value!"],
-    ["="]
+    ["="],
   ),
   string: "quoted_attribute_value",
   comment: "comment",
@@ -49,7 +49,7 @@ const textFragmentTypes = ["attribute_value", "raw_text", "text"];
 
 export function stringTextFragmentExtractor(
   node: SyntaxNode,
-  _selection: SelectionWithEditor
+  _selection: SelectionWithEditor,
 ) {
   if (textFragmentTypes.includes(node.type)) {
     return getNodeRange(node);

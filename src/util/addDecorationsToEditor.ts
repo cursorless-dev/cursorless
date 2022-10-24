@@ -13,7 +13,7 @@ import { getTokensInRange } from "./getTokensInRange";
 export function addDecorationsToEditors(
   hatTokenMap: IndividualHatMap,
   decorations: Decorations,
-  tokenGraphemeSplitter: TokenGraphemeSplitter
+  tokenGraphemeSplitter: TokenGraphemeSplitter,
 ) {
   hatTokenMap.clear();
 
@@ -25,7 +25,7 @@ export function addDecorationsToEditors(
     editors = [
       vscode.window.activeTextEditor,
       ...vscode.window.visibleTextEditors.filter(
-        (editor) => editor !== vscode.window.activeTextEditor
+        (editor) => editor !== vscode.window.activeTextEditor,
       ),
     ];
   }
@@ -51,19 +51,19 @@ export function addDecorationsToEditors(
                 regex: getMatcher(languageId).tokenMatcher,
               },
             },
-          }))
-        )
+          })),
+        ),
       );
 
       tokens.sort(
         getTokenComparator(
           displayLineMap.get(editor.selection.active.line)!,
-          editor.selection.active.character
-        )
+          editor.selection.active.character,
+        ),
       );
 
       return tokens;
-    })
+    }),
   );
 
   /**
@@ -102,9 +102,9 @@ export function addDecorationsToEditors(
     editors.map((editor) => [
       editor,
       Object.fromEntries(
-        decorations.decorations.map((decoration) => [decoration.name, []])
+        decorations.decorations.map((decoration) => [decoration.name, []]),
       ),
-    ])
+    ]),
   );
 
   // Picks the character with minimum color such that the next token that contains
@@ -129,7 +129,7 @@ export function addDecorationsToEditors(
       }));
 
     const minDecorationIndex = min(
-      tokenGraphemes.map(({ decorationIndex }) => decorationIndex)
+      tokenGraphemes.map(({ decorationIndex }) => decorationIndex),
     )!;
 
     if (minDecorationIndex >= decorations.decorations.length) {
@@ -138,14 +138,14 @@ export function addDecorationsToEditors(
 
     const bestGrapheme = maxBy(
       tokenGraphemes.filter(
-        ({ decorationIndex }) => decorationIndex === minDecorationIndex
+        ({ decorationIndex }) => decorationIndex === minDecorationIndex,
       ),
       ({ text }) =>
         min(
           graphemeTokenIndices[text].filter(
-            (laterTokenIdx) => laterTokenIdx > tokenIdx
-          )
-        ) ?? Infinity
+            (laterTokenIdx) => laterTokenIdx > tokenIdx,
+          ),
+        ) ?? Infinity,
     )!;
 
     const currentDecorationIndex = bestGrapheme.decorationIndex;
@@ -157,8 +157,8 @@ export function addDecorationsToEditors(
       [hatStyleName]!.push(
         new vscode.Range(
           token.range.start.translate(undefined, bestGrapheme.tokenStartOffset),
-          token.range.start.translate(undefined, bestGrapheme.tokenEndOffset)
-        )
+          token.range.start.translate(undefined, bestGrapheme.tokenEndOffset),
+        ),
       );
 
     hatTokenMap.addToken(hatStyleName, bestGrapheme.text, token);
@@ -170,7 +170,7 @@ export function addDecorationsToEditors(
     decorations.hatStyleNames.forEach((hatStyleName) => {
       editor.setDecorations(
         decorations.decorationMap[hatStyleName]!,
-        ranges[hatStyleName]!
+        ranges[hatStyleName]!,
       );
     });
   });

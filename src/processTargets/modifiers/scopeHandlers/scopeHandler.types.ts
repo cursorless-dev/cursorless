@@ -83,7 +83,7 @@ export interface ScopeHandler {
   getScopesTouchingPosition(
     editor: TextEditor,
     position: Position,
-    ancestorIndex?: number
+    ancestorIndex?: number,
   ): TargetScope[];
 
   /**
@@ -148,6 +148,6 @@ export interface ScopeHandler {
     editor: TextEditor,
     position: Position,
     offset: number,
-    direction: Direction
+    direction: Direction,
   ): TargetScope;
 }

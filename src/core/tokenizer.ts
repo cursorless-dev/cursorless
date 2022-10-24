@@ -66,7 +66,7 @@ interface Matcher {
 const defaultMatcher = generateMatcher();
 
 function generateMatcher(
-  languageOverrides: LanguageTokenizerOverrides = {}
+  languageOverrides: LanguageTokenizerOverrides = {},
 ): Matcher {
   const {
     fixedTokens,
@@ -88,7 +88,7 @@ function generateMatcher(
   const fixedTokensRegex = fixedTokens.map(escapeRegExp).join("|");
 
   const identifierComponents = identifierWordRegexes.concat(
-    identifierWordDelimiters.map(escapeRegExp)
+    identifierWordDelimiters.map(escapeRegExp),
   );
   const identifiersRegex = `(${identifierComponents.join("|")})+`;
   const wordRegex = `(${identifierWordRegexes.join("|")})+`;
@@ -119,7 +119,7 @@ const languageTokenizerOverrides: Partial<
 
 const tokenMatchersForLanguage: Partial<Record<LanguageId, Matcher>> =
   mapValues(languageTokenizerOverrides, (val: LanguageTokenizerComponents) =>
-    generateMatcher(val)
+    generateMatcher(val),
   );
 
 export function getMatcher(languageId: string): Matcher {
@@ -132,7 +132,7 @@ export function getMatcher(languageId: string): Matcher {
 export function tokenize<T>(
   text: string,
   languageId: string,
-  mapfn: (v: RegExpMatchArray, k: number) => T
+  mapfn: (v: RegExpMatchArray, k: number) => T,
 ) {
   return matchAll(text, getMatcher(languageId).tokenMatcher, mapfn);
 }

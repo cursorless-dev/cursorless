@@ -24,7 +24,7 @@ import { patternFinder } from "../util/nodeFinders";
 function parityNodeFinder(parentFinder: NodeFinder, parity: 0 | 1) {
   return indexNodeFinder(
     parentFinder,
-    (nodeIndex: number) => Math.floor(nodeIndex / 2) * 2 + parity
+    (nodeIndex: number) => Math.floor(nodeIndex / 2) * 2 + parity,
   );
 }
 
@@ -44,7 +44,7 @@ function mapParityNodeFinder(parity: 0 | 1) {
  */
 function indexNodeFinder(
   parentFinder: NodeFinder,
-  indexTransform: (index: number) => number
+  indexTransform: (index: number) => number,
 ) {
   return (node: SyntaxNode) => {
     const parent = node.parent;
@@ -76,7 +76,7 @@ function indexNodeFinder(
 function itemFinder() {
   return indexNodeFinder(
     (node) => node,
-    (nodeIndex: number) => nodeIndex
+    (nodeIndex: number) => nodeIndex,
   );
 }
 
@@ -125,7 +125,7 @@ const ifStatementFinder = functionNameBasedFinder(
   "if",
   "if-let",
   "when",
-  "when-let"
+  "when-let",
 );
 
 const ifStatementMatcher = matcher(ifStatementFinder);
@@ -145,20 +145,20 @@ const nodeMatchers: Partial<
         (node) => node.type === "{" || node.type === "}",
         ", ",
         identity,
-        mapParityNodeFinder(1) as (node: SyntaxNode) => SyntaxNode
-      )
+        mapParityNodeFinder(1) as (node: SyntaxNode) => SyntaxNode,
+      ),
     ),
 
     // Otherwise just treat every item within a list as an item
-    matcher(itemFinder())
+    matcher(itemFinder()),
   ),
   value: matcher(mapParityNodeFinder(1)),
 
   // TODO: Handle formal parameters
   argumentOrParameter: matcher(
     indexNodeFinder(patternFinder(functionCallPattern), (nodeIndex: number) =>
-      nodeIndex !== 0 ? nodeIndex : -1
-    )
+      nodeIndex !== 0 ? nodeIndex : -1,
+    ),
   ),
 
   // A list is either a vector literal or a quoted list literal
@@ -181,7 +181,7 @@ const nodeMatchers: Partial<
 
   anonymousFunction: cascadingMatcher(
     functionNameBasedMatcher("fn"),
-    patternMatcher("anon_fn_lit")
+    patternMatcher("anon_fn_lit"),
   ),
 
   ifStatement: ifStatementMatcher,

@@ -19,7 +19,7 @@ interface ContainingIndices {
 export function runLegacy(
   modifier: RelativeScopeModifier,
   context: ProcessedTargetsContext,
-  target: Target
+  target: Target,
 ): Target[] {
   /**
    * A list of targets in the iteration scope for the input {@link target}.
@@ -33,7 +33,7 @@ export function runLegacy(
   const targets = getEveryScopeTargets(
     context,
     createTargetWithoutExplicitRange(target),
-    modifier.scopeType
+    modifier.scopeType,
   );
 
   const containingIndices = getContainingIndices(target.contentRange, targets);
@@ -42,7 +42,7 @@ export function runLegacy(
     modifier,
     target,
     targets,
-    containingIndices
+    containingIndices,
   );
 }
 
@@ -50,7 +50,7 @@ function calculateIndicesAndCreateTarget(
   modifier: RelativeScopeModifier,
   target: Target,
   targets: Target[],
-  containingIndices: ContainingIndices | undefined
+  containingIndices: ContainingIndices | undefined,
 ): Target[] {
   const isForward = modifier.direction === "forward";
 
@@ -60,7 +60,7 @@ function calculateIndicesAndCreateTarget(
     target.contentRange,
     targets,
     isForward,
-    containingIndices
+    containingIndices,
   );
 
   /** Index of range farther from input target */
@@ -76,7 +76,7 @@ function calculateIndicesAndCreateTarget(
       target.isReversed,
       targets,
       startIndex,
-      endIndex
+      endIndex,
     ),
   ];
 }
@@ -95,17 +95,17 @@ function computeProximalIndex(
   inputTargetRange: Range,
   targets: Target[],
   isForward: boolean,
-  containingIndices: ContainingIndices | undefined
+  containingIndices: ContainingIndices | undefined,
 ) {
   const includeIntersectingScopes = modifier.offset === 0;
 
   if (containingIndices == null) {
     const adjacentTargetIndex = isForward
       ? targets.findIndex((t) =>
-          t.contentRange.start.isAfter(inputTargetRange.start)
+          t.contentRange.start.isAfter(inputTargetRange.start),
         )
       : findLastIndex(targets, (t) =>
-          t.contentRange.start.isBefore(inputTargetRange.start)
+          t.contentRange.start.isBefore(inputTargetRange.start),
         );
 
     if (adjacentTargetIndex === -1) {
@@ -141,7 +141,7 @@ function computeProximalIndex(
       throw new TooFewScopesError(
         modifier.length,
         intersectingLength,
-        modifier.scopeType.type
+        modifier.scopeType.type,
       );
     }
 
@@ -161,7 +161,7 @@ function computeProximalIndex(
  * {@link inputTargetRange} */
 function getContainingIndices(
   inputTargetRange: Range,
-  targets: Target[]
+  targets: Target[],
 ): ContainingIndices | undefined {
   const targetsWithIntersection = targets
     .map((t, i) => ({
