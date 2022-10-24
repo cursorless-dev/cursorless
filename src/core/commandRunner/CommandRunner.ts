@@ -177,7 +177,9 @@ export default class CommandRunner {
       console.error(err.stack);
       throw err;
     } finally {
-      this.graph.testCaseRecorder.finallyHook();
+      if (this.graph.testCaseRecorder.isActive()) {
+        this.graph.testCaseRecorder.finallyHook();
+      }
     }
   }
 

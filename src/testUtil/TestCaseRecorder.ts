@@ -83,7 +83,8 @@ export class TestCaseRecorder {
   private extraSnapshotFields?: ExtraSnapshotField[];
   private paused: boolean = false;
   private isErrorTest: boolean = false;
-  private textEditorOptions: vscode.TextEditorOptions = {};
+  /** We use this variable to capture editor settings and then restore them */
+  private originalTextEditorOptions: vscode.TextEditorOptions = {};
   private calibrationStyle = vscode.window.createTextEditorDecorationType({
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
@@ -127,6 +128,7 @@ export class TestCaseRecorder {
         if (!this.active) {
           throw Error("Asked to pause recording, but no recording active");
         }
+
         this.paused = true;
       }),
 
@@ -136,6 +138,7 @@ export class TestCaseRecorder {
           if (!this.active) {
             throw Error("Asked to resume recording, but no recording active");
           }
+
           this.paused = false;
         }
       ),
@@ -315,7 +318,9 @@ export class TestCaseRecorder {
       await this.testCase.recordInitialState();
 
       const editor = vscode.window.activeTextEditor!;
-      this.textEditorOptions = editor.options;
+      // NB: We need to copy the editor options rather than storing a reference
+      // because its properties are lazy
+      this.originalTextEditorOptions = { ...editor.options };
       editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
     }
   }
@@ -445,7 +450,7 @@ export class TestCaseRecorder {
     this.spyInfo = undefined;
 
     const editor = vscode.window.activeTextEditor!;
-    editor.options = this.textEditorOptions;
+    editor.options = this.originalTextEditorOptions;
   }
 
   dispose() {
