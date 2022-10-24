@@ -55,6 +55,7 @@ export default class Decorations {
         }
       ),
 
+      // Don't use fine grained settings here until tokenizer has migrated to graph
       vscode.workspace.onDidChangeConfiguration(this.recomputeDecorationStyles)
     );
   }

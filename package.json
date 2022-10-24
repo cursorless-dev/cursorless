@@ -216,7 +216,8 @@
 						"_"
 					],
 					"scope": "language-overridable",
-					"markdownDescription": "A list of characters that separate words in identifiers. For example `_` splits `hello_world` into two words."
+					"markdownDescription": "A list of characters that separate words in identifiers. For example `_` splits `hello_world` into two words.",
+					"order": 6
 				},
 				"cursorless.colors.dark": {
 					"description": "Colors to use for dark theme",
