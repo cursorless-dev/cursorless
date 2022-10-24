@@ -54,7 +54,7 @@ export class EveryScopeStage implements ModifierStage {
   getDefaultIterationRange(
     context: ProcessedTargetsContext,
     scopeHandler: ScopeHandler,
-    target: Target
+    target: Target,
   ): Range {
     const containingIterationScopeModifier = getModifierStage({
       type: "containingScope",

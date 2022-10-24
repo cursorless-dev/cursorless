@@ -5,7 +5,7 @@ import { expandToFullLine, makeEmptyRange } from "../../../util/rangeUtils";
 import { PlainTarget } from "../../targets";
 
 export function getTokenLeadingDelimiterTarget(
-  target: Target
+  target: Target,
 ): Target | undefined {
   const { editor } = target;
   const { start } = target.contentRange;
@@ -21,7 +21,7 @@ export function getTokenLeadingDelimiterTarget(
           start.line,
           start.character - leadingDelimiters[0].length,
           start.line,
-          start.character
+          start.character,
         ),
         editor,
         isReversed: target.isReversed,
@@ -29,7 +29,7 @@ export function getTokenLeadingDelimiterTarget(
 }
 
 export function getTokenTrailingDelimiterTarget(
-  target: Target
+  target: Target,
 ): Target | undefined {
   const { editor } = target;
   const { end } = target.contentRange;
@@ -45,7 +45,7 @@ export function getTokenTrailingDelimiterTarget(
           end.line,
           end.character,
           end.line,
-          end.character + trailingDelimiters[0].length
+          end.character + trailingDelimiters[0].length,
         ),
         editor,
         isReversed: target.isReversed,
@@ -111,7 +111,7 @@ export function getTokenRemovalRange(target: Target): Range {
 function mergesTokens(
   editor: TextEditor,
   contentRange: Range,
-  removalRange: Range
+  removalRange: Range,
 ) {
   const { document } = editor;
   const fullRange = expandToFullLine(editor, contentRange);
@@ -122,14 +122,14 @@ function mergesTokens(
     document,
     fullText,
     fullTextOffset,
-    contentRange
+    contentRange,
   );
 
   const numTokensRemovalRangeRemoved = calculateNumberOfTokensAfterRemoval(
     document,
     fullText,
     fullTextOffset,
-    removalRange
+    removalRange,
   );
 
   return numTokensContentRangeRemoved !== numTokensRemovalRangeRemoved;
@@ -139,7 +139,7 @@ function calculateNumberOfTokensAfterRemoval(
   document: TextDocument,
   fullText: string,
   fullTextOffset: number,
-  removalRange: Range
+  removalRange: Range,
 ): number {
   const startIndex = document.offsetAt(removalRange.start) - fullTextOffset;
   const endIndex = document.offsetAt(removalRange.end) - fullTextOffset;

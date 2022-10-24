@@ -44,7 +44,7 @@ export async function takeSnapshot(
   extraFields: ExtraSnapshotField[] = [],
   marks?: SerializedMarks,
   extraContext?: ExtraContext,
-  metadata?: unknown
+  metadata?: unknown,
 ) {
   const activeEditor = vscode.window.activeTextEditor!;
 
@@ -90,7 +90,7 @@ export async function takeSnapshot(
 
     if (startTimestamp == null) {
       throw new Error(
-        "No start timestamp provided but time offset was requested"
+        "No start timestamp provided but time offset was requested",
       );
     }
 

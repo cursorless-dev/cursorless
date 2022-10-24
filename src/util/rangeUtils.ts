@@ -21,7 +21,7 @@ export function isAtStartOfLine(position: Position) {
 export function expandToFullLine(editor: TextEditor, range: Range) {
   return new Range(
     new Position(range.start.line, 0),
-    editor.document.lineAt(range.end).range.end
+    editor.document.lineAt(range.end).range.end,
   );
 }
 
@@ -60,6 +60,6 @@ export function strictlyContains(range1: Range, range2: Range): boolean {
 export function getDocumentRange(document: TextDocument) {
   return new Range(
     new Position(0, 0),
-    document.lineAt(document.lineCount - 1).range.end
+    document.lineAt(document.lineCount - 1).range.end,
   );
 }

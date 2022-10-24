@@ -14,12 +14,12 @@ export default class VscodeConfiguration implements Configuration {
     this.onDidChangeConfiguration = this.onDidChangeConfiguration.bind(this);
 
     ide.disposeOnExit(
-      vscode.workspace.onDidChangeConfiguration(this.notifier.notifyListeners)
+      vscode.workspace.onDidChangeConfiguration(this.notifier.notifyListeners),
     );
   }
 
   getOwnConfiguration<T extends CursorlessConfigKey>(
-    key: T
+    key: T,
   ): CursorlessConfiguration[T] | undefined {
     return vscode.workspace
       .getConfiguration("cursorless")
