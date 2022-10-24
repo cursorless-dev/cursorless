@@ -48,7 +48,7 @@ export class EveryScopeStage implements ModifierStage {
     if (target.hasExplicitRange) {
       scopes = scopeHandler.getScopesOverlappingRange(
         editor,
-        target.contentRange
+        target.contentRange,
       );
 
       if (
@@ -67,7 +67,7 @@ export class EveryScopeStage implements ModifierStage {
       // instance, expand to iteration scope before overlapping
       scopes = scopeHandler.getScopesOverlappingRange(
         editor,
-        this.getDefaultIterationRange(context, scopeHandler, target)
+        this.getDefaultIterationRange(context, scopeHandler, target),
       );
     }
 
