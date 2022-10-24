@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 import { ThatMark } from "./core/ThatMark";
+import { tokenizerConfiguration } from "./core/tokenizerConfiguration";
 import isTesting from "./testUtil/isTesting";
 import { Graph } from "./typings/Types";
 import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
@@ -41,6 +42,11 @@ export async function activate(context: vscode.ExtensionContext) {
 
   // TODO: Do this using the graph once we migrate its dependencies onto the graph
   new CommandRunner(graph, thatMark, sourceMark);
+
+  // TODO: Remove this once tokenizer has access to graph
+  if (isTesting()) {
+    tokenizerConfiguration.mockWordSeparators();
+  }
 
   return {
     thatMark,

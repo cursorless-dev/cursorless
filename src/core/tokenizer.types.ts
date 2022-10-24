@@ -20,5 +20,3 @@ export interface LanguageTokenizerComponents {
   repeatableSymbols: string[];
   singleSymbolsRegex: string;
 }
-
-export type LanguageTokenizerOverrides = Partial<LanguageTokenizerComponents>;
