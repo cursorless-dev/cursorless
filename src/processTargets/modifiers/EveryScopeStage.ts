@@ -43,7 +43,8 @@ export class EveryScopeStage implements ModifierStage {
       return getLegacyScopeStage(this.modifier).run(context, target);
     }
 
-    let scopes: TargetScope[];
+    let scopes: TargetScope[] | undefined;
+
     if (target.hasExplicitRange) {
       scopes = scopeHandler.getScopesOverlappingRange(
         editor,
@@ -54,19 +55,20 @@ export class EveryScopeStage implements ModifierStage {
         scopes.length === 1 &&
         scopes[0].domain.contains(target.contentRange)
       ) {
-        const range = this.getDefaultIterationRange(
-          context,
-          scopeHandler,
-          target
-        );
-        scopes = scopeHandler.getScopesOverlappingRange(editor, range);
+        // If the only scope that came back completely contains the input target
+        // range, we treat the input as if it had no explicit range, expanding
+        // to default iteration socpe below
+        scopes = undefined;
       }
-    } else {
-      const range = target.hasExplicitRange
-        ? target.contentRange
-        : this.getDefaultIterationRange(context, scopeHandler, target);
+    }
 
-      scopes = scopeHandler.getScopesOverlappingRange(editor, range);
+    if (scopes == null) {
+      // If target had no explicit range, or was contained by a single target
+      // instance, expand to iteration scope before overlapping
+      scopes = scopeHandler.getScopesOverlappingRange(
+        editor,
+        this.getDefaultIterationRange(context, scopeHandler, target)
+      );
     }
 
     if (scopes.length === 0) {
