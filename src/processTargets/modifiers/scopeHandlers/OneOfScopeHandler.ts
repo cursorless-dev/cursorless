@@ -1,10 +1,11 @@
-import { minBy } from "lodash";
+import { maxBy, minBy } from "lodash";
 import { Position, Range, TextEditor } from "vscode";
 import { getScopeHandler } from ".";
 import {
   Direction,
   OneOfScopeType,
 } from "../../../typings/targetDescriptor.types";
+import { OutOfRangeError } from "../targetSequenceUtils";
 import type { TargetScope } from "./scope.types";
 import { ScopeHandler } from "./scopeHandler.types";
 
@@ -82,6 +83,10 @@ export default class OneOfScopeHandler implements ScopeHandler {
     let currentPosition = position;
     let currentScope: TargetScope;
 
+    if (this.scopeHandlers.length === 0) {
+      throw new OutOfRangeError();
+    }
+
     for (let i = 0; i < offset; i++) {
       const candidateScopes = this.scopeHandlers.map((scopeHandler) =>
         scopeHandler.getScopeRelativeToPosition(
@@ -92,9 +97,10 @@ export default class OneOfScopeHandler implements ScopeHandler {
         )
       );
 
-      currentScope = minBy(candidateScopes, (scope) =>
-        direction === "forward" ? scope.domain.start : -scope.domain.start
-      )!;
+      currentScope =
+        direction === "forward"
+          ? minBy(candidateScopes, ({ domain: start }) => start)!
+          : maxBy(candidateScopes, ({ domain: end }) => end)!;
 
       currentPosition =
         direction === "forward"
