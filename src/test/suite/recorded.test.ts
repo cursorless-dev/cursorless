@@ -1,5 +1,5 @@
-import { promises as fsp } from "fs";
 import { assert } from "chai";
+import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import HatTokenMap from "../../core/HatTokenMap";
@@ -13,6 +13,10 @@ import {
   takeSnapshot,
 } from "../../testUtil/takeSnapshot";
 import { TestCaseFixture } from "../../testUtil/TestCase";
+import {
+  DEFAULT_INSERT_SPACES_FOR_TEST,
+  DEFAULT_TAB_SIZE_FOR_TESTS,
+} from "../../testUtil/testConstants";
 import {
   marksToPlainObject,
   PositionPlainObject,
@@ -29,8 +33,6 @@ import { getRecordedTestPaths } from "../util/getFixturePaths";
 import { injectFakeIde } from "./fakes/ide/FakeIDE";
 import shouldUpdateFixtures from "./shouldUpdateFixtures";
 import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
-
-export const DEFAULT_TAB_SIZE_FOR_TESTS = 4;
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -75,8 +77,10 @@ async function runTest(file: string) {
     fixture.initialState.documentContents,
     fixture.languageId
   );
-  // Override any user defaults, all tests are recorded as tabSize = 4
-  // editor.options.tabSize = DEFAULT_TAB_SIZE_FOR_TESTS;
+
+  // Override any user settings and make sure tests run with default tabs.
+  editor.options.tabSize = DEFAULT_TAB_SIZE_FOR_TESTS;
+  editor.options.insertSpaces = DEFAULT_INSERT_SPACES_FOR_TEST;
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
     await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
