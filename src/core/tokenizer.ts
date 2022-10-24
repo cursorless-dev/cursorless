@@ -95,7 +95,7 @@ const matchers = new Map<string, Matcher>();
 
 export function getMatcher(languageId: string): Matcher {
   const wordSeparators = tokenizerConfiguration.getWordSeparators(languageId);
-  const key = wordSeparators.join();
+  const key = wordSeparators.join("\u0000");
 
   if (!matchers.has(key)) {
     const components: LanguageTokenizerComponents = {
