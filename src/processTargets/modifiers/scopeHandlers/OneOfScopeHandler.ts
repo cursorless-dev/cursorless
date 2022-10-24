@@ -17,25 +17,25 @@ export default class OneOfScopeHandler implements ScopeHandler {
         throw new Error(`No available scope handler for '${scopeType.type}'`);
       }
       return handler;
-    }
+    },
   );
 
   public iterationScopeType: OneOfScopeType = {
     type: "oneOf",
     scopeTypes: this.scopeHandlers.map(
-      ({ iterationScopeType }) => iterationScopeType
+      ({ iterationScopeType }) => iterationScopeType,
     ),
   };
 
   constructor(
     public readonly scopeType: OneOfScopeType,
-    private languageId: string
+    private languageId: string,
   ) {}
 
   getScopesTouchingPosition(
     editor: TextEditor,
     position: Position,
-    ancestorIndex?: number
+    ancestorIndex?: number,
   ): TargetScope[] {
     if (ancestorIndex !== 0) {
       // FIXME: We could support this one, but it will be a bit of work.
@@ -44,8 +44,8 @@ export default class OneOfScopeHandler implements ScopeHandler {
 
     return keepOnlyBottomLevelScopes(
       this.scopeHandlers.flatMap((scopeHandler) =>
-        scopeHandler.getScopesTouchingPosition(editor, position, ancestorIndex)
-      )
+        scopeHandler.getScopesTouchingPosition(editor, position, ancestorIndex),
+      ),
     );
   }
 
@@ -62,11 +62,11 @@ export default class OneOfScopeHandler implements ScopeHandler {
    */
   getScopesOverlappingRange(editor: TextEditor, range: Range): TargetScope[] {
     const candidateScopes = this.scopeHandlers.flatMap((scopeHandler) =>
-      scopeHandler.getScopesOverlappingRange(editor, range)
+      scopeHandler.getScopesOverlappingRange(editor, range),
     );
 
     const scopesTerminatingInRange = candidateScopes.filter(
-      ({ domain }) => !domain.contains(range)
+      ({ domain }) => !domain.contains(range),
     );
 
     return scopesTerminatingInRange.length > 0
@@ -78,7 +78,7 @@ export default class OneOfScopeHandler implements ScopeHandler {
     editor: TextEditor,
     position: Position,
     offset: number,
-    direction: Direction
+    direction: Direction,
   ): TargetScope {
     let currentPosition = position;
     let currentScope: TargetScope;
@@ -93,8 +93,8 @@ export default class OneOfScopeHandler implements ScopeHandler {
           editor,
           currentPosition,
           1,
-          direction
-        )
+          direction,
+        ),
       );
 
       currentScope =
@@ -116,18 +116,18 @@ function keepOnlyTopLevelScopes(candidateScopes: TargetScope[]): TargetScope[] {
   return candidateScopes.filter(
     ({ domain }) =>
       !candidateScopes.some(({ domain: otherDomain }) =>
-        otherDomain.contains(domain)
-      )
+        otherDomain.contains(domain),
+      ),
   );
 }
 
 function keepOnlyBottomLevelScopes(
-  candidateScopes: TargetScope[]
+  candidateScopes: TargetScope[],
 ): TargetScope[] {
   return candidateScopes.filter(
     ({ domain }) =>
       !candidateScopes.some(({ domain: otherDomain }) =>
-        domain.contains(otherDomain)
-      )
+        domain.contains(otherDomain),
+      ),
   );
 }
