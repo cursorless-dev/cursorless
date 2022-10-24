@@ -202,11 +202,16 @@ const nodeMatchers: Partial<
   ),
   statement: cascadingMatcher(
     matcher(
-      patternFinder("property_signature", "public_field_definition"),
+      patternFinder(
+        "property_signature",
+        "public_field_definition",
+        "abstract_method_signature"
+      ),
       extendForwardPastOptional(";")
     ),
     patternMatcher(
-      ...STATEMENT_TYPES.map((type) => `export_statement?.${type}`)
+      ...STATEMENT_TYPES.map((type) => `export_statement?.${type}`),
+      "method_definition"
     )
   ),
   condition: cascadingMatcher(
