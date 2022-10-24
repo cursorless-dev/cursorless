@@ -8,7 +8,7 @@ import HatTokenMap from "../core/HatTokenMap";
 import { injectSpyIde, SpyInfo } from "../ide/spies/SpyIDE";
 import { DecoratedSymbolMark } from "../typings/targetDescriptor.types";
 import { Graph } from "../typings/Types";
-import { getDocumentRange } from "../util/range";
+import { getDocumentRange } from "../util/rangeUtils";
 import sleep from "../util/sleep";
 import { extractTargetedMarks } from "./extractTargetedMarks";
 import serialize from "./serialize";

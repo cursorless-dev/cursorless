@@ -129,6 +129,7 @@ export type SimpleScopeTypeType =
   | "document"
   | "character"
   | "word"
+  | "identifier"
   | "nonWhitespaceSequence"
   | "boundedNonWhitespaceSequence"
   | "url";
@@ -165,6 +166,14 @@ export interface ContainingSurroundingPairModifier
   scopeType: SurroundingPairScopeType;
 }
 
+export interface EverySurroundingPairModifier extends EveryScopeModifier {
+  scopeType: SurroundingPairScopeType;
+}
+
+export type SurroundingPairModifier =
+  | ContainingSurroundingPairModifier
+  | EverySurroundingPairModifier;
+
 export interface InteriorOnlyModifier {
   type: "interiorOnly";
 }
@@ -176,6 +185,7 @@ export interface ExcludeInteriorModifier {
 export interface ContainingScopeModifier {
   type: "containingScope";
   scopeType: ScopeType;
+  ancestorIndex?: number;
 }
 
 export interface EveryScopeModifier {
@@ -199,6 +209,8 @@ export interface OrdinalScopeModifier {
   length: number;
 }
 
+export type Direction = "forward" | "backward";
+
 /**
  * Refer to scopes by offset relative to input target, eg "next
  * funk" to refer to the first function after the function containing the target input.
@@ -219,7 +231,7 @@ export interface RelativeScopeModifier {
 
   /** Indicates which direction both {@link offset} and {@link length} go
    * relative to input target  */
-  direction: "forward" | "backward";
+  direction: Direction;
 }
 
 /**

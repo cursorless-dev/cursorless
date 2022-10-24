@@ -5,7 +5,7 @@ import {
   SurroundingPairName,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { getDocumentRange } from "../../../util/range";
+import { getDocumentRange } from "../../../util/rangeUtils";
 import { matchAll } from "../../../util/regex";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";

@@ -81,10 +81,6 @@ export const subtokenFixture: Fixture[] = [
     expectedOutput: ["aa", "Bb", "Ää"],
   },
   {
-    input: "apiV1 api_v_1",
-    expectedOutput: ["api", "V", "1", "api", "v", "1"],
-  },
-  {
     input: "_quickBrownFox_",
     expectedOutput: ["quick", "Brown", "Fox"],
   },

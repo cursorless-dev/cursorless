@@ -1,5 +1,8 @@
 import type { Target } from "../../typings/target.types";
-import type { ContainingSurroundingPairModifier } from "../../typings/targetDescriptor.types";
+import type {
+  ContainingSurroundingPairModifier,
+  SurroundingPairModifier,
+} from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { ModifierStage } from "../PipelineStages.types";
 import { SurroundingPairTarget } from "../targets";
@@ -19,12 +22,16 @@ import { processSurroundingPair } from "./surroundingPair";
  * `null` if none was found
  */
 export default class SurroundingPairStage implements ModifierStage {
-  constructor(private modifier: ContainingSurroundingPairModifier) {}
+  constructor(private modifier: SurroundingPairModifier) {}
 
   run(
     context: ProcessedTargetsContext,
     target: Target
   ): SurroundingPairTarget[] {
+    if (this.modifier.type === "everyScope") {
+      throw Error(`Unsupported every scope ${this.modifier.scopeType.type}`);
+    }
+
     return processedSurroundingPairTarget(this.modifier, context, target);
   }
 }
