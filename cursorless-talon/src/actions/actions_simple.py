@@ -4,17 +4,18 @@ from talon import Module
 # See https://www.cursorless.org/docs/user/customization/
 simple_action_defaults = {
     "bottom": "scrollToBottom",
-    "breakpoint": "toggleLineBreakpoint",
+    "break point": "toggleLineBreakpoint",
     "carve": "cutToClipboard",
     "center": "scrollToCenter",
-    "chuck": "remove",
     "change": "clearAndSetSelection",
+    "chuck": "remove",
     "clone up": "insertCopyBefore",
     "clone": "insertCopyAfter",
     "comment": "toggleLineComment",
     "copy": "copyToClipboard",
     "crown": "scrollToTop",
     "dedent": "outdentLine",
+    "define": "revealDefinition",
     "drink": "editNewLineBefore",
     "drop": "insertEmptyLineBefore",
     "extract": "extractVariable",
@@ -23,16 +24,23 @@ simple_action_defaults = {
     "follow": "followLink",
     "give": "deselect",
     "highlight": "highlight",
+    "hover": "showHover",
     "indent": "indentLine",
+    "inspect": "showDebugHover",
     "post": "setSelectionAfter",
     "pour": "editNewLineAfter",
     "pre": "setSelectionBefore",
     "puff": "insertEmptyLinesAround",
-    "shuffle": "randomizeTargets",
+    "quick fix": "showQuickFix",
+    "reference": "showReferences",
+    "rename": "rename",
     "reverse": "reverseTargets",
     "scout all": "findInWorkspace",
+    "shuffle": "randomizeTargets",
+    "snippet make": "generateSnippet",
     "sort": "sortTargets",
     "take": "setSelection",
+    "type deaf": "revealTypeDefinition",
     "unfold": "unfoldRegion",
 }
 
@@ -40,6 +48,17 @@ simple_action_defaults = {
 # See https://www.cursorless.org/docs/user/customization/
 positional_action_defaults = {
     "paste": "pasteFromClipboard",
+}
+
+# Don't wait for these actions to finish, usually because they hang on some kind of user interaction
+no_wait_actions = [
+    "generateSnippet",
+    "rename",
+]
+
+# These are actions that we don't wait for, but still want to have a post action sleep
+no_wait_actions_post_sleep = {
+    "rename": 0.2,
 }
 
 mod = Module()

@@ -6,8 +6,8 @@ import {
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
+import InteriorTarget from "./InteriorTarget";
 import TokenTarget from "./TokenTarget";
-import WeakTarget from "./WeakTarget";
 
 interface SurroundingPairTargetParameters extends CommonTargetParameters {
   /**
@@ -48,10 +48,10 @@ export default class SurroundingPairTarget extends BaseTarget {
 
   getInteriorStrict() {
     return [
-      new WeakTarget({
+      new InteriorTarget({
         editor: this.editor,
         isReversed: this.isReversed,
-        contentRange: this.interiorRange_,
+        fullInteriorRange: this.interiorRange_,
       }),
     ];
   }

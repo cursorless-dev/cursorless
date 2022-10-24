@@ -2,13 +2,23 @@ import * as vscode from "vscode";
 import { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
 import processTargets from "../../processTargets";
-import { Graph, ProcessedTargetsContext } from "../../typings/Types";
+import isTesting from "../../testUtil/isTesting";
+import { Target } from "../../typings/target.types";
+import {
+  Graph,
+  ProcessedTargetsContext,
+  SelectionWithEditor,
+} from "../../typings/Types";
 import { isString } from "../../util/type";
-import { canonicalizeAndValidateCommand } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
+import {
+  canonicalizeAndValidateCommand,
+  checkForOldInference,
+} from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
 import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
 import { Command } from "./command.types";
+import { selectionToThatTarget } from "./selectionToThatTarget";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -87,13 +97,19 @@ export default class CommandRunner {
         this.graph.debug.log(JSON.stringify(targetDescriptors, null, 3));
       }
 
-      const finalStages =
+      const actionPrePositionStages =
+        action.getPrePositionStages != null
+          ? action.getPrePositionStages(...actionArgs)
+          : [];
+
+      const actionFinalStages =
         action.getFinalStages != null
           ? action.getFinalStages(...actionArgs)
           : [];
 
       const processedTargetsContext: ProcessedTargetsContext = {
-        finalStages,
+        actionPrePositionStages,
+        actionFinalStages,
         currentSelections:
           vscode.window.activeTextEditor?.selections.map((selection) => ({
             selection,
@@ -122,6 +138,10 @@ export default class CommandRunner {
         );
       }
 
+      // NB: We do this once test recording has started so that we can capture
+      // warning.
+      checkForOldInference(this.graph, partialTargetDescriptors);
+
       const targets = processTargets(
         processedTargetsContext,
         targetDescriptors
@@ -129,12 +149,16 @@ export default class CommandRunner {
 
       const {
         returnValue,
-        thatMark: newThatMark,
-        sourceMark: newSourceMark,
+        thatSelections: newThatSelections,
+        thatTargets: newThatTargets,
+        sourceSelections: newSourceSelections,
+        sourceTargets: newSourceTargets,
       } = await action.run(targets, ...actionArgs);
 
-      this.thatMark.set(newThatMark);
-      this.sourceMark.set(newSourceMark);
+      this.thatMark.set(constructThatTarget(newThatTargets, newThatSelections));
+      this.sourceMark.set(
+        constructThatTarget(newSourceTargets, newSourceSelections)
+      );
 
       if (this.graph.testCaseRecorder.isActive()) {
         await this.graph.testCaseRecorder.postCommandHook(returnValue);
@@ -146,12 +170,14 @@ export default class CommandRunner {
       const err = e as Error;
       if (err instanceof OutdatedExtensionError) {
         this.showUpdateExtensionErrorMessage(err);
-      } else {
+      } else if (!isTesting()) {
         vscode.window.showErrorMessage(err.message);
       }
       console.error(err.message);
       console.error(err.stack);
       throw err;
+    } finally {
+      this.graph.testCaseRecorder.finallyHook();
     }
   }
 
@@ -201,5 +227,22 @@ export default class CommandRunner {
 
   dispose() {
     this.disposables.forEach(({ dispose }) => dispose());
+  }
+}
+
+function constructThatTarget(
+  targets: Target[] | undefined,
+  selections: SelectionWithEditor[] | undefined
+) {
+  if (targets != null && selections != null) {
+    throw Error(
+      "Actions may only return full targets or selections for that mark"
+    );
+  }
+
+  if (selections != null) {
+    return selections.map(selectionToThatTarget);
+  } else {
+    return targets;
   }
 }

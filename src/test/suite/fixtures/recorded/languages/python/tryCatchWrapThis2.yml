@@ -36,9 +36,4 @@ finalState:
       active: {line: 8, character: 7}
     - anchor: {line: 3, character: 7}
       active: {line: 3, character: 7}
-  thatMark:
-    - anchor: {line: 6, character: 0}
-      active: {line: 9, character: 4}
-    - anchor: {line: 0, character: 0}
-      active: {line: 4, character: 4}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]

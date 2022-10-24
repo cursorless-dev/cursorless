@@ -12,16 +12,22 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment: production
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: yarn
       - run: yarn install --frozen-lockfile
       - run: yarn run compile
       - run: yarn run prepare-for-extension-publish
+      - name: Initialize cursorless-nx subdir
+        run: npm ci
+        working-directory: cursorless-nx
+      - name: Build cheatsheet html
+        run: npx nx build cheatsheet-local
+        working-directory: cursorless-nx
       - name: Publish to Open VSX Registry
         uses: HaaLeo/publish-vscode-extension@v1
         id: publishToOpenVSX
@@ -40,7 +46,7 @@ jobs:
     needs: publish-extension
     environment: production
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           token: ${{ secrets.CURSORLESS_BOT_TOKEN }}

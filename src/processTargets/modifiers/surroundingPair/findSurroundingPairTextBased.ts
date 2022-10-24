@@ -2,10 +2,10 @@ import { escapeRegExp, findLast, uniq } from "lodash";
 import { Range, TextDocument, TextEditor } from "vscode";
 import {
   SimpleSurroundingPairName,
-  SurroundingPairDirection,
   SurroundingPairName,
+  SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { getDocumentRange } from "../../../util/range";
+import { getDocumentRange } from "../../../util/rangeUtils";
 import { matchAll } from "../../../util/regex";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
@@ -70,7 +70,7 @@ export function findSurroundingPairTextBased(
   range: Range,
   allowableRange: Range | null,
   delimiters: SimpleSurroundingPairName[],
-  forceDirection: "left" | "right" | undefined
+  scopeType: SurroundingPairScopeType
 ) {
   const document: TextDocument = editor.document;
   const fullRange = allowableRange ?? getDocumentRange(document);
@@ -106,7 +106,7 @@ export function findSurroundingPairTextBased(
    * Context to pass to nested call
    */
   const context: Context = {
-    forceDirection,
+    scopeType,
     delimiterRegex,
     delimiters,
     delimiterTextToDelimiterInfoMap,
@@ -196,7 +196,7 @@ function getDelimiterRegex(individualDelimiters: IndividualDelimiter[]) {
  * Context to pass to nested call
  */
 interface Context {
-  forceDirection: SurroundingPairDirection | undefined;
+  scopeType: SurroundingPairScopeType;
   delimiterTextToDelimiterInfoMap: {
     [k: string]: IndividualDelimiter;
   };
@@ -229,11 +229,12 @@ function getDelimiterPairOffsets(
   isAtEndOfFullRange: boolean
 ): SurroundingPairOffsets | null {
   const {
-    forceDirection,
+    scopeType,
     delimiterTextToDelimiterInfoMap,
     delimiterRegex,
     delimiters,
   } = context;
+  const { forceDirection } = scopeType;
 
   // XXX: The below is a bit wasteful when there are multiple targets, because
   // this whole function gets run once per target, so we're re-running this
@@ -266,7 +267,7 @@ function getDelimiterPairOffsets(
 
           const rawDelimiterInfo = delimiterTextToDelimiterInfoMap[matchText];
 
-          let side =
+          const side =
             rawDelimiterInfo.side === "unknown" && forceDirection == null
               ? inferDelimiterSide(
                   text,
@@ -290,7 +291,7 @@ function getDelimiterPairOffsets(
 
   // Then just run core algorithm
   const surroundingPair = findSurroundingPairCore(
-    forceDirection,
+    scopeType,
     delimiterOccurrences,
     delimiters,
     selectionOffsets,

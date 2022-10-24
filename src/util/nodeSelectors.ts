@@ -1,11 +1,11 @@
-import { SyntaxNode, Point } from "web-tree-sitter";
+import { identity, maxBy } from "lodash";
 import { Position, Range, Selection, TextEditor } from "vscode";
+import { Point, SyntaxNode } from "web-tree-sitter";
 import {
-  SelectionWithContext,
-  SelectionExtractor,
   NodeFinder,
+  SelectionExtractor,
+  SelectionWithContext,
 } from "../typings/Types";
-import { identity } from "lodash";
 
 export function makeRangeFromPositions(
   startPosition: Point,
@@ -29,6 +29,15 @@ export function getNodeRange(node: SyntaxNode) {
     node.startPosition.column,
     node.endPosition.row,
     node.endPosition.column
+  );
+}
+
+export function makeNodePairSelection(anchor: SyntaxNode, active: SyntaxNode) {
+  return new Selection(
+    anchor.startPosition.row,
+    anchor.startPosition.column,
+    active.endPosition.row,
+    active.endPosition.column
   );
 }
 
@@ -85,14 +94,29 @@ function getNextMatchingSiblingNodeOrLast(
   let currentNode: SyntaxNode = node;
   let nextNode: SyntaxNode | null = node.nextSibling;
 
-  while (true) {
-    if (nextNode == null || nodeFinder(nextNode) != null) {
-      return currentNode;
-    }
-
+  while (nextNode != null && nodeFinder(nextNode) == null) {
     currentNode = nextNode;
     nextNode = nextNode.nextSibling;
   }
+  return currentNode;
+}
+
+/**
+ * Creates an extractor that will extend past the next node if it has one of the
+ * types defined in {@link delimiters}
+ * @param delimiters Allowable next node type
+ * @returns An extractor
+ */
+export function extendForwardPastOptional(...delimiters: string[]) {
+  return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
+    const nextNode: SyntaxNode | null = node.nextSibling;
+
+    if (nextNode != null && delimiters.includes(nextNode.type)) {
+      return pairSelectionExtractor(editor, node, nextNode);
+    }
+
+    return simpleSelectionExtractor(editor, node);
+  };
 }
 
 /**
@@ -124,6 +148,8 @@ export function argumentSelectionExtractor(): SelectionExtractor {
       node.type === ")" ||
       node.type === "[" ||
       node.type === "]" ||
+      node.type === ">" ||
+      node.type === "<" ||
       node.type === "}" ||
       node.type === "{",
     ", "
@@ -317,46 +343,40 @@ export function delimitedSelector(
   getEndNode: (node: SyntaxNode) => SyntaxNode = identity
 ): SelectionExtractor {
   return (editor: TextEditor, node: SyntaxNode) => {
-    let containingListDelimiter: string | undefined;
     let leadingDelimiterRange: Range | undefined;
     let trailingDelimiterRange: Range | undefined;
     const startNode = getStartNode(node);
     const endNode = getEndNode(node);
 
-    const nextNonDelimiterNode = getNextNonDelimiterNode(
-      endNode,
-      isDelimiterNode
-    );
     const previousNonDelimiterNode = getPreviousNonDelimiterNode(
       startNode,
       isDelimiterNode
     );
-
-    if (nextNonDelimiterNode != null) {
-      trailingDelimiterRange = makeRangeFromPositions(
-        endNode.endPosition,
-        nextNonDelimiterNode.startPosition
-      );
-
-      containingListDelimiter = editor.document.getText(trailingDelimiterRange);
-    }
+    const nextNonDelimiterNode = getNextNonDelimiterNode(
+      endNode,
+      isDelimiterNode
+    );
 
     if (previousNonDelimiterNode != null) {
       leadingDelimiterRange = makeRangeFromPositions(
         previousNonDelimiterNode.endPosition,
         startNode.startPosition
       );
-
-      if (containingListDelimiter == null) {
-        containingListDelimiter = editor.document.getText(
-          leadingDelimiterRange
-        );
-      }
     }
 
-    if (containingListDelimiter == null) {
-      containingListDelimiter = defaultDelimiter;
+    if (nextNonDelimiterNode != null) {
+      trailingDelimiterRange = makeRangeFromPositions(
+        endNode.endPosition,
+        nextNonDelimiterNode.startPosition
+      );
     }
+
+    const containingListDelimiter = getInsertionDelimiter(
+      editor,
+      leadingDelimiterRange,
+      trailingDelimiterRange,
+      defaultDelimiter
+    );
 
     return {
       selection: new Selection(
@@ -373,4 +393,46 @@ export function delimitedSelector(
       },
     };
   };
+}
+
+export function xmlElementExtractor(
+  editor: TextEditor,
+  node: SyntaxNode
+): SelectionWithContext {
+  const selection = simpleSelectionExtractor(editor, node);
+
+  // Interior range for an element is found by excluding the start and end nodes.
+  // Element nodes with too few children are self closing and therefore have no interior.
+  if (node.namedChildCount > 1) {
+    const { firstNamedChild, lastNamedChild } = node;
+    if (firstNamedChild != null && lastNamedChild != null) {
+      selection.context.interiorRange = new Range(
+        firstNamedChild.endPosition.row,
+        firstNamedChild.endPosition.column,
+        lastNamedChild.startPosition.row,
+        lastNamedChild.startPosition.column
+      );
+    }
+  }
+
+  return selection;
+}
+
+export function getInsertionDelimiter(
+  editor: TextEditor,
+  leadingDelimiterRange: Range | undefined,
+  trailingDelimiterRange: Range | undefined,
+  defaultDelimiterInsertion: string
+) {
+  const { getText } = editor.document;
+  const delimiters = [
+    trailingDelimiterRange != null
+      ? getText(trailingDelimiterRange)
+      : defaultDelimiterInsertion,
+    leadingDelimiterRange != null
+      ? getText(leadingDelimiterRange)
+      : defaultDelimiterInsertion,
+  ];
+
+  return maxBy(delimiters, "length");
 }

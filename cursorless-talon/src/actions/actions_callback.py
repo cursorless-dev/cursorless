@@ -1,9 +1,10 @@
+from collections.abc import Callable
 from dataclasses import dataclass
+from typing import Any
 
-from talon import Module
+from talon import Module, actions
 
 from .call import run_call_action
-from .find import run_find_action
 from .homophones import run_homophones_action
 
 
@@ -11,14 +12,16 @@ from .homophones import run_homophones_action
 class CallbackAction:
     term: str
     identifier: str
-    callback: callable
+    callback: Callable[[dict], Any]
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
 callbacks = [
     CallbackAction("call", "callAsFunction", run_call_action),
-    CallbackAction("scout", "findInDocument", run_find_action),
+    CallbackAction(
+        "scout", "findInDocument", actions.user.cursorless_private_run_find_action
+    ),
     CallbackAction("phones", "nextHomophone", run_homophones_action),
 ]
 

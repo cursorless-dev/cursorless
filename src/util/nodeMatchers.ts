@@ -1,26 +1,26 @@
 import { SyntaxNode } from "web-tree-sitter";
-import {
-  NodeMatcher,
-  NodeFinder,
-  SelectionExtractor,
-  NodeMatcherAlternative,
-  SelectionWithEditor,
-} from "../typings/Types";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import {
-  simpleSelectionExtractor,
+  NodeFinder,
+  NodeMatcher,
+  NodeMatcherAlternative,
+  SelectionExtractor,
+  SelectionWithEditor,
+} from "../typings/Types";
+import {
+  ancestorChainNodeFinder,
+  argumentNodeFinder,
+  chainedNodeFinder,
+  patternFinder,
+  typedNodeFinder,
+} from "./nodeFinders";
+import {
   argumentSelectionExtractor,
   selectWithLeadingDelimiter,
   selectWithTrailingDelimiter,
-  unwrapSelectionExtractor as conditionSelectionExtractor,
+  simpleSelectionExtractor,
+  unwrapSelectionExtractor,
 } from "./nodeSelectors";
-import {
-  typedNodeFinder,
-  patternFinder,
-  argumentNodeFinder,
-  chainedNodeFinder,
-  ancestorChainNodeFinder,
-} from "./nodeFinders";
 
 export function matcher(
   finder: NodeFinder,
@@ -74,7 +74,7 @@ export function chainedMatcher(
  * them in reverse, walking up the ancestor chain from `node`.
  * Returns `null` if any finder in the chain returns null.  For example:
  *
- * ancestorChainNodeFinder(0, patternFinder("foo", "bar"), patternFinder("bongo"))
+ * ancestorChainNodeMatcher([patternFinder("foo", "bar"), patternFinder("bongo")], 0)
  *
  * is equivalent to:
  *
@@ -113,7 +113,7 @@ export function argumentMatcher(...parentTypes: string[]): NodeMatcher {
 }
 
 export function conditionMatcher(...patterns: string[]): NodeMatcher {
-  return matcher(patternFinder(...patterns), conditionSelectionExtractor);
+  return matcher(patternFinder(...patterns), unwrapSelectionExtractor);
 }
 
 /**
@@ -179,7 +179,7 @@ export function createPatternMatchers(
   nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>>
 ): Record<SimpleScopeTypeType, NodeMatcher> {
   Object.keys(nodeMatchers).forEach((scopeType: SimpleScopeTypeType) => {
-    let matcher = nodeMatchers[scopeType];
+    const matcher = nodeMatchers[scopeType];
     if (Array.isArray(matcher)) {
       nodeMatchers[scopeType] = patternMatcher(...matcher);
     } else if (typeof matcher === "string") {

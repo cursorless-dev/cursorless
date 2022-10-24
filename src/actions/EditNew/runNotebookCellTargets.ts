@@ -1,5 +1,5 @@
 import { commands, Selection } from "vscode";
-import { NotebookCellPositionTarget } from "../../processTargets/targets/NotebookCellTarget";
+import { NotebookCellPositionTarget } from "../../processTargets/targets";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
 import { createThatMark, ensureSingleTarget } from "../../util/targetUtils";
@@ -25,5 +25,5 @@ export async function runNotebookCellTargets(
     );
   }
 
-  return { thatMark };
+  return { thatSelections: thatMark };
 }

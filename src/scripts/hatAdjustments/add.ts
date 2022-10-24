@@ -2,7 +2,7 @@
  * This script can be used to add hat tweaks to the currently shipping ones
  */
 import { sum } from "lodash";
-import { HAT_SHAPES } from "../../core/constants";
+import { HAT_SHAPES } from "../../core/hatStyles";
 import {
   defaultShapeAdjustments,
   HatAdjustments,
@@ -24,7 +24,7 @@ function processProperty(
   hatAdjustmentsList: HatAdjustments[],
   propertyName: keyof HatAdjustments
 ) {
-  let value = sum(
+  const value = sum(
     hatAdjustmentsList.map((adjustment) => adjustment[propertyName] ?? 0)
   );
 

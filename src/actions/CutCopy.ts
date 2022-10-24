@@ -1,4 +1,4 @@
-import PlainTarget from "../processTargets/targets/PlainTarget";
+import { PlainTarget } from "../processTargets/targets";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { getOutsideOverflow } from "../util/targetUtils";
@@ -42,12 +42,12 @@ export class Cut implements Action {
 
     await this.graph.actions.copyToClipboard.run([targets], options);
 
-    const { thatMark } = await this.graph.actions.remove.run(
+    const { thatSelections: thatMark } = await this.graph.actions.remove.run(
       [targets],
       options
     );
 
-    return { thatMark };
+    return { thatSelections: thatMark };
   }
 }
 

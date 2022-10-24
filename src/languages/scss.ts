@@ -1,6 +1,10 @@
 import { SyntaxNode } from "web-tree-sitter";
-import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import {
+  NodeMatcherAlternative,
+  NodeMatcherValue,
+  SelectionWithEditor,
+} from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   cascadingMatcher,
@@ -14,6 +18,7 @@ import {
   childRangeSelector,
   delimitedSelector,
   getNodeRange,
+  simpleSelectionExtractor,
 } from "../util/nodeSelectors";
 
 // curl https://raw.githubusercontent.com/serenadeai/tree-sitter-scss/c478c6868648eff49eb04a4df90d703dc45b312a/src/node-types.json \
@@ -87,6 +92,20 @@ function findAdjacentArgValues(
   };
 }
 
+function unitMatcher(
+  selection: SelectionWithEditor,
+  node: SyntaxNode
+): NodeMatcherValue[] | null {
+  if (node.type !== "declaration") {
+    return null;
+  }
+
+  return node.descendantsOfType("unit").map((n) => ({
+    node: n,
+    selection: simpleSelectionExtractor(selection.editor, n),
+  }));
+}
+
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
@@ -101,6 +120,7 @@ const nodeMatchers: Partial<
   ),
   string: "string_value",
   functionCall: "call_expression",
+  functionCallee: "call_expression.function_name!",
   namedFunction: ["mixin_statement", "function_statement"],
   functionName: ["mixin_statement.name!", "function_statement.name!"],
   comment: ["comment", "single_line_comment"],
@@ -142,6 +162,7 @@ const nodeMatchers: Partial<
       "parameter.default_value!"
     )
   ),
+  unit: cascadingMatcher(patternMatcher("integer_value.unit!"), unitMatcher),
   collectionItem: "declaration",
 };
 

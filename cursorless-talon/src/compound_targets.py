@@ -1,3 +1,5 @@
+from typing import Any
+
 from talon import Module
 
 from .connective import default_range_connective
@@ -18,7 +20,7 @@ mod.list(
 @mod.capture(
     rule="[<user.cursorless_range_type>] {user.cursorless_range_connective} | <user.cursorless_range_type>"
 )
-def cursorless_range_connective_with_type(m) -> str:
+def cursorless_range_connective_with_type(m) -> dict[str, Any]:
     return {
         "connective": getattr(
             m, "cursorless_range_connective", default_range_connective
@@ -34,7 +36,7 @@ def cursorless_range_connective_with_type(m) -> str:
         "<user.cursorless_primitive_target> <user.cursorless_range_connective_with_type> <user.cursorless_primitive_target>"
     )
 )
-def cursorless_range(m) -> str:
+def cursorless_range(m) -> dict[str, Any]:
     primitive_targets = m.cursorless_primitive_target_list
     range_connective_with_type = getattr(
         m, "cursorless_range_connective_with_type", None

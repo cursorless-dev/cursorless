@@ -25,7 +25,4 @@ finalState:
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 8}
-  thatMark:
-    - anchor: {line: 0, character: 23}
-      active: {line: 0, character: 23}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}}]

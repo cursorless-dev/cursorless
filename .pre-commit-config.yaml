@@ -24,7 +24,7 @@ repos:
         # src/test/suite/fixtures/recorded/languages/ruby/changeCondition.yml
         exclude: ^src/test/suite/fixtures/recorded/.*/[^/]*\.yml$
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: "v2.6.2"
+    rev: "v2.7.1"
     hooks:
       - id: prettier
   - repo: https://github.com/ikamensh/flynt/
@@ -32,9 +32,14 @@ repos:
     hooks:
       - id: flynt
   - repo: https://github.com/Zac-HD/shed
-    rev: 0.10.1
+    rev: 0.10.5
     hooks:
       - id: shed
         # TODO: bump to --py310-plus when Talon moves to Python 3.10.
         args: [--refactor, --py39-plus]
         types_or: [python, markdown, rst]
+  - repo: https://github.com/wenkokke/talonfmt
+    rev: 1.8.0
+    hooks:
+      - id: talonfmt
+        args: ["--in-place", "--max-line-width=88"]

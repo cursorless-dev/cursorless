@@ -13,12 +13,14 @@ import {
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
+import InteriorTarget from "./InteriorTarget";
 import PlainTarget from "./PlainTarget";
 
 export interface ScopeTypeTargetParameters extends CommonTargetParameters {
   readonly scopeTypeType: SimpleScopeTypeType;
   readonly delimiter?: string;
   readonly removalRange?: Range;
+  readonly interiorRange?: Range;
   readonly leadingDelimiterRange?: Range;
   readonly trailingDelimiterRange?: Range;
 }
@@ -26,6 +28,7 @@ export interface ScopeTypeTargetParameters extends CommonTargetParameters {
 export default class ScopeTypeTarget extends BaseTarget {
   private scopeTypeType_: SimpleScopeTypeType;
   private removalRange_?: Range;
+  private interiorRange_?: Range;
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
   private hasDelimiterRange_: boolean;
@@ -35,6 +38,7 @@ export default class ScopeTypeTarget extends BaseTarget {
     super(parameters);
     this.scopeTypeType_ = parameters.scopeTypeType;
     this.removalRange_ = parameters.removalRange;
+    this.interiorRange_ = parameters.interiorRange;
     this.leadingDelimiterRange_ = parameters.leadingDelimiterRange;
     this.trailingDelimiterRange_ = parameters.trailingDelimiterRange;
     this.insertionDelimiter =
@@ -71,9 +75,22 @@ export default class ScopeTypeTarget extends BaseTarget {
     return undefined;
   }
 
+  getInteriorStrict() {
+    if (this.interiorRange_ == null) {
+      return super.getInteriorStrict();
+    }
+    return [
+      new InteriorTarget({
+        editor: this.editor,
+        isReversed: this.isReversed,
+        fullInteriorRange: this.interiorRange_,
+      }),
+    ];
+  }
+
   getRemovalRange(): Range {
     return this.removalRange_ != null
-      ? getTokenRemovalRange(this, this.removalRange_)
+      ? this.removalRange_
       : this.hasDelimiterRange_
       ? getDelimitedSequenceRemovalRange(this)
       : getTokenRemovalRange(this);
@@ -86,7 +103,7 @@ export default class ScopeTypeTarget extends BaseTarget {
     includeEnd: boolean
   ): Target {
     if (isSameType(this, endTarget)) {
-      const scopeTarget = <ScopeTypeTarget>endTarget;
+      const scopeTarget = endTarget;
       if (this.scopeTypeType_ === scopeTarget.scopeTypeType_) {
         const contentRemovalRange =
           this.removalRange_ != null || scopeTarget.removalRange_ != null

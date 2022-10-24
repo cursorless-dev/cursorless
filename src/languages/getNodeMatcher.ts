@@ -20,7 +20,9 @@ import markdown from "./markdown";
 import scala from "./scala";
 import { patternMatchers as scss } from "./scss";
 import go from "./go";
+import latex from "./latex";
 import { patternMatchers as ruby } from "./ruby";
+import rust from "./rust";
 import { UnsupportedLanguageError } from "../errors";
 import { SupportedLanguageId } from "./constants";
 
@@ -64,12 +66,14 @@ const languageMatchers: Record<
   javascriptreact: typescript,
   json,
   jsonc: json,
+  latex,
   markdown,
   php,
   python,
   ruby,
   scala,
   scss,
+  rust,
   typescript,
   typescriptreact: typescript,
   xml: html,

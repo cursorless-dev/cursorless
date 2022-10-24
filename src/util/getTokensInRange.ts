@@ -12,10 +12,11 @@ export function getTokensInRange(
   editor: vscode.TextEditor,
   range: vscode.Range
 ): PartialToken[] {
-  const text = editor.document.getText(range).toLowerCase();
+  const languageId = editor.document.languageId;
+  const text = editor.document.getText(range);
   const rangeOffset = editor.document.offsetAt(range.start);
 
-  return tokenize(text, (match) => {
+  return tokenize(text, languageId, (match) => {
     const startOffset = rangeOffset + match.index!;
     const endOffset = rangeOffset + match.index! + match[0].length;
     const range = new vscode.Range(

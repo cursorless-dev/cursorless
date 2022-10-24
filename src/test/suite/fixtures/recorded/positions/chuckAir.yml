@@ -24,11 +24,8 @@ finalState:
     "hello "
     " hello"
     " hello "
-    return .b
+    return.b
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
-  thatMark:
-    - anchor: {line: 3, character: 7}
-      active: {line: 3, character: 7}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: identity}}]

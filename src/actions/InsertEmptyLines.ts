@@ -87,7 +87,7 @@ class InsertEmptyLines implements Action {
 
     const thatMark = results.flatMap((result) => result.thatMark);
 
-    return { thatMark };
+    return { thatSelections: thatMark };
   }
 }
 

@@ -30,6 +30,10 @@ finalState:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
   thatMark:
-    - anchor: {line: 2, character: 12}
-      active: {line: 2, character: 17}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 12}
+        end: {line: 2, character: 17}
+      isReversed: false
+      hasExplicitRange: false
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

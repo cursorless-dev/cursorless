@@ -1,9 +1,12 @@
+import * as semver from "semver";
 import {
   commands,
   NotebookDocument,
   Selection,
   TextEditor,
+  version,
   ViewColumn,
+  window,
 } from "vscode";
 import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
 import {
@@ -50,8 +53,9 @@ export function setSelectionsWithoutFocusingEditor(
 }
 
 export async function focusEditor(editor: TextEditor) {
-  if (editor.viewColumn != null) {
-    await commands.executeCommand(columnFocusCommands[editor.viewColumn]);
+  const viewColumn = getViewColumn(editor);
+  if (viewColumn != null) {
+    await commands.executeCommand(columnFocusCommands[viewColumn]);
   } else {
     // If the view column is null we see if it's a notebook and try to see if we
     // can just move around in the notebook to focus the correct editor
@@ -62,6 +66,22 @@ export async function focusEditor(editor: TextEditor) {
 
     await focusNotebookCell(editor);
   }
+}
+
+function getViewColumn(editor: TextEditor): ViewColumn | undefined {
+  if (editor.viewColumn != null) {
+    return editor.viewColumn;
+  }
+  // TODO: tabGroups is not available on older versions of vscode we still support.
+  // Remove any cast as soon as version is updated.
+  if (semver.lt(version, "1.67.0")) {
+    return undefined;
+  }
+  const uri = editor.document.uri.toString();
+  const tabGroup = (window as any)?.tabGroups?.all?.find((tabGroup: any) =>
+    tabGroup?.tabs.find((tab: any) => tab?.input?.modified?.toString() === uri)
+  );
+  return tabGroup?.viewColumn;
 }
 
 async function focusNotebookCell(editor: TextEditor) {
@@ -92,5 +112,11 @@ async function focusNotebookCell(editor: TextEditor) {
   ];
   desiredNotebookEditor.selections = desiredSelections;
   desiredNotebookEditor.revealRange(desiredSelections[0]);
-  await commands.executeCommand("notebook.cell.edit");
+
+  // Issue a command to tell VSCode to focus the cell input editor
+  // NB: We don't issue the command if it's already focused, because it turns
+  // out that this command is actually a toggle, so that causes it to de-focus!
+  if (window.activeTextEditor !== editor) {
+    await commands.executeCommand("notebook.cell.edit");
+  }
 }

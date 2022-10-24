@@ -4,7 +4,7 @@
  * configuration.
  * See https://mochajs.org/#-grep-regexp-g-regexp for supported syntax
  */
-export const TEST_SUBSET_GREP_STRING = "actions/insertEmptyLines";
+export const TEST_SUBSET_GREP_STRING = "clearLineFine";
 
 /**
  * Determine whether we should run just the subset of the tests specified by

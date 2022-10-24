@@ -2,16 +2,16 @@ import { uniqWith, zip } from "lodash";
 import { Range } from "vscode";
 import { Target } from "../typings/target.types";
 import {
+  Modifier,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../typings/Types";
-import { ensureSingleEditor } from "../util/targetUtils";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
-import PlainTarget from "./targets/PlainTarget";
-import PositionTarget from "./targets/PositionTarget";
+import { ModifierStage } from "./PipelineStages.types";
+import { PlainTarget, PositionTarget } from "./targets";
 
 /**
  * Converts the abstract target descriptions provided by the user to a concrete
@@ -60,19 +60,13 @@ function processRangeTarget(
   return zip(anchorTargets, activeTargets).flatMap(
     ([anchorTarget, activeTarget]) => {
       if (anchorTarget == null || activeTarget == null) {
-        throw new Error("anchorTargets and activeTargets lengths don't match");
-      }
-
-      if (anchorTarget.editor !== activeTarget.editor) {
-        throw new Error(
-          "anchorTarget and activeTarget must be in same document"
-        );
+        throw new Error("AnchorTargets and activeTargets lengths don't match");
       }
 
       switch (targetDesc.rangeType) {
         case "continuous":
           return [
-            processContinuousRangeTarget(
+            targetsToContinuousTarget(
               anchorTarget,
               activeTarget,
               targetDesc.excludeAnchor,
@@ -80,7 +74,7 @@ function processRangeTarget(
             ),
           ];
         case "vertical":
-          return processVerticalRangeTarget(
+          return targetsToVerticalTarget(
             anchorTarget,
             activeTarget,
             targetDesc.excludeAnchor,
@@ -91,13 +85,14 @@ function processRangeTarget(
   );
 }
 
-function processContinuousRangeTarget(
+export function targetsToContinuousTarget(
   anchorTarget: Target,
   activeTarget: Target,
-  excludeAnchor: boolean,
-  excludeActive: boolean
+  excludeAnchor: boolean = false,
+  excludeActive: boolean = false
 ): Target {
-  ensureSingleEditor([anchorTarget, activeTarget]);
+  ensureSingleEditor(anchorTarget, activeTarget);
+
   const isReversed = calcIsReversed(anchorTarget, activeTarget);
   const startTarget = isReversed ? activeTarget : anchorTarget;
   const endTarget = isReversed ? anchorTarget : activeTarget;
@@ -112,19 +107,14 @@ function processContinuousRangeTarget(
   );
 }
 
-export function targetsToContinuousTarget(
-  anchorTarget: Target,
-  activeTarget: Target
-): Target {
-  return processContinuousRangeTarget(anchorTarget, activeTarget, false, false);
-}
-
-function processVerticalRangeTarget(
+function targetsToVerticalTarget(
   anchorTarget: Target,
   activeTarget: Target,
   excludeAnchor: boolean,
   excludeActive: boolean
 ): Target[] {
+  ensureSingleEditor(anchorTarget, activeTarget);
+
   const isReversed = calcIsReversed(anchorTarget, activeTarget);
   const delta = isReversed ? -1 : 1;
 
@@ -193,33 +183,49 @@ function processPrimitiveTarget(
   const markStage = getMarkStage(targetDescriptor.mark);
   const markOutputTargets = markStage.run(context);
 
+  const positionModifierStages =
+    targetDescriptor.positionModifier == null
+      ? []
+      : [getModifierStage(targetDescriptor.positionModifier)];
+
   /**
    * The modifier pipeline that will be applied to construct our final targets
    */
   const modifierStages = [
-    // Reverse target modifiers because they are returned in reverse order from
-    // the api, to match the order in which they are spoken.
-    ...targetDescriptor.modifiers.map(getModifierStage).reverse(),
-    ...context.finalStages,
+    ...getModifierStagesFromTargetModifiers(targetDescriptor.modifiers),
+    ...context.actionPrePositionStages,
+    ...positionModifierStages,
+    ...context.actionFinalStages,
   ];
 
-  /**
-   * Intermediate variable to store the output of the current pipeline stage.
-   * We initialise it to start with the outputs from the mark.
-   */
-  let currentTargets = markOutputTargets;
+  // Run all targets through the modifier stages
+  return processModifierStages(context, modifierStages, markOutputTargets);
+}
 
-  // Then we apply each stage in sequence, letting each stage see the targets
+/** Convert a list of target modifiers to modifier stages */
+export function getModifierStagesFromTargetModifiers(
+  targetModifiers: Modifier[]
+) {
+  // Reverse target modifiers because they are returned in reverse order from
+  // the api, to match the order in which they are spoken.
+  return targetModifiers.map(getModifierStage).reverse();
+}
+
+/** Run all targets through the modifier stages */
+export function processModifierStages(
+  context: ProcessedTargetsContext,
+  modifierStages: ModifierStage[],
+  targets: Target[]
+) {
+  // First we apply each stage in sequence, letting each stage see the targets
   // one-by-one and concatenating the results before passing them on to the
   // next stage.
   modifierStages.forEach((stage) => {
-    currentTargets = currentTargets.flatMap((target) =>
-      stage.run(context, target)
-    );
+    targets = targets.flatMap((target) => stage.run(context, target));
   });
 
   // Then return the output from the final stage
-  return currentTargets;
+  return targets;
 }
 
 function calcIsReversed(anchor: Target, active: Target) {
@@ -228,4 +234,10 @@ function calcIsReversed(anchor: Target, active: Target) {
 
 function uniqTargets(array: Target[]): Target[] {
   return uniqWith(array, (a, b) => a.isEqual(b));
+}
+
+function ensureSingleEditor(anchorTarget: Target, activeTarget: Target) {
+  if (anchorTarget.editor !== activeTarget.editor) {
+    throw new Error("Cannot form range between targets in different editors");
+  }
 }

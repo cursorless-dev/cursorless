@@ -1,13 +1,13 @@
 import { Range } from "vscode";
-import { Target } from "../../../typings/target.types";
-import {
+import type { Target } from "../../../typings/target.types";
+import type {
   ContainingScopeModifier,
   EveryScopeModifier,
 } from "../../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../../typings/Types";
-import { ModifierStage } from "../../PipelineStages.types";
-import ParagraphTarget from "../../targets/ParagraphTarget";
-import { fitRangeToLineContent } from "./LineStage";
+import type { ProcessedTargetsContext } from "../../../typings/Types";
+import type { ModifierStage } from "../../PipelineStages.types";
+import { ParagraphTarget } from "../../targets";
+import { fitRangeToLineContent } from "../scopeHandlers";
 
 export default class implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
@@ -19,12 +19,13 @@ export default class implements ModifierStage {
     return [this.getSingleTarget(target)];
   }
 
-  getEveryTarget(target: Target): ParagraphTarget[] {
+  private getEveryTarget(target: Target): ParagraphTarget[] {
     const { contentRange, editor } = target;
-    const { isEmpty } = contentRange;
     const { lineCount } = editor.document;
-    const startLine = isEmpty ? 0 : contentRange.start.line;
-    const endLine = isEmpty ? lineCount - 1 : contentRange.end.line;
+    const startLine = target.hasExplicitRange ? contentRange.start.line : 0;
+    const endLine = target.hasExplicitRange
+      ? contentRange.end.line
+      : lineCount - 1;
     const targets: ParagraphTarget[] = [];
     let paragraphStart = -1;
 
@@ -51,6 +52,8 @@ export default class implements ModifierStage {
           possiblyAddParagraph(paragraphStart, i - 1);
           paragraphStart = -1;
         }
+        // NB: Ignore empty line if paragraphStart === -1 because it means it's
+        // just an extra empty line between blocks
       }
       // Start of paragraph
       else if (paragraphStart < 0) {
@@ -71,15 +74,11 @@ export default class implements ModifierStage {
     return targets;
   }
 
-  getSingleTarget(target: Target): ParagraphTarget {
-    return this.getTargetFromRange(target);
+  private getSingleTarget(target: Target): ParagraphTarget {
+    return this.getTargetFromRange(target, calculateRange(target));
   }
 
-  getTargetFromRange(target: Target, range?: Range): ParagraphTarget {
-    if (range == null) {
-      range = calculateRange(target);
-    }
-
+  private getTargetFromRange(target: Target, range: Range): ParagraphTarget {
     return new ParagraphTarget({
       editor: target.editor,
       isReversed: target.isReversed,
