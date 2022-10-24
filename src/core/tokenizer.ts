@@ -91,12 +91,13 @@ function generateMatcher(
   };
 }
 
-const matchers = new Map<string[], Matcher>();
+const matcherCache: Record<string, Matcher> = {};
 
 export function getMatcher(languageId: string): Matcher {
   const wordSeparators = tokenizerConfiguration.getWordSeparators(languageId);
+  const cacheKey = JSON.stringify(wordSeparators);
 
-  if (!matchers.has(wordSeparators)) {
+  if (!(cacheKey in matcherCache)) {
     const components: LanguageTokenizerComponents = {
       fixedTokens: FIXED_TOKENS,
       repeatableSymbols: REPEATABLE_SYMBOLS,
@@ -105,10 +106,10 @@ export function getMatcher(languageId: string): Matcher {
       numbersRegex: NUMBERS_REGEX,
       singleSymbolsRegex: SINGLE_SYMBOLS_REGEX,
     };
-    matchers.set(wordSeparators, generateMatcher(components));
+    matcherCache[cacheKey] = generateMatcher(components);
   }
 
-  return matchers.get(wordSeparators)!;
+  return matcherCache[cacheKey];
 }
 
 export function tokenize<T>(
