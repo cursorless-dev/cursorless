@@ -1,6 +1,6 @@
 import { pickBy, values } from "lodash";
 import { Graph } from "../../typings/Types";
-import { Configuration, Disposable, IDE } from "../ide.types";
+import { Configuration, Disposable, IDE, State } from "../ide.types";
 import SpyMessages, { Message } from "./SpyMessages";
 
 export interface SpyIDERecordedValues {
@@ -9,10 +9,12 @@ export interface SpyIDERecordedValues {
 
 export default class SpyIDE implements IDE {
   configuration: Configuration;
+  globalState: State;
   messages: SpyMessages;
 
   constructor(private original: IDE) {
     this.configuration = original.configuration;
+    this.globalState = original.globalState;
     this.messages = new SpyMessages(original.messages);
   }
 
