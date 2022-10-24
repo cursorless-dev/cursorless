@@ -34,7 +34,7 @@ export default class Debug {
       case ExtensionMode.Production:
         this.evaluateSetting();
         this.disposableConfiguration = workspace.onDidChangeConfiguration(
-          this.evaluateSetting
+          this.evaluateSetting,
         );
         break;
     }
@@ -62,7 +62,7 @@ export default class Debug {
   private enableDebugLog() {
     this.active = true;
     this.disposableSelection = window.onDidChangeTextEditorSelection(
-      this.logBranchTypes
+      this.logBranchTypes,
     );
   }
 
@@ -88,7 +88,7 @@ export default class Debug {
   private logBranchTypes(event: TextEditorSelectionChangeEvent) {
     const location = new Location(
       window.activeTextEditor!.document.uri,
-      event.selections[0]
+      event.selections[0],
     );
 
     let node: SyntaxNode;

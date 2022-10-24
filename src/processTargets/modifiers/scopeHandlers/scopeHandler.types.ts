@@ -45,9 +45,9 @@ export interface ScopeHandler {
 
   /**
    * Return all scope(s) touching the given position. A scope is considered to
-   * touch a position if its domain contains the position or is directly
-   * adjacent to the position. In other words, return all scopes for which the
-   * following is true:
+   * touch a position if its {@link TargetScope.domain|domain} contains the
+   * position or is directly adjacent to the position. In other words, return
+   * all scopes for which the following is true:
    *
    * ```typescript
    * scope.domain.start <= position && scope.domain.end >= position
@@ -83,19 +83,36 @@ export interface ScopeHandler {
   getScopesTouchingPosition(
     editor: TextEditor,
     position: Position,
-    ancestorIndex?: number
+    ancestorIndex?: number,
   ): TargetScope[];
 
   /**
    * Return a list of all scopes that overlap with {@link range}.  A scope is
-   * considered to overlap with a range if its domain has a non-empty
-   * intersection with the range. In other words, return all scopes for which
-   * the following is true:
+   * considered to overlap with a range if its {@link TargetScope.domain|domain}
+   * has a non-empty intersection with the range. In other words, return all
+   * scopes for which the following is true:
    *
    * ```typescript
    * const intersection = scope.domain.intersection(range);
    * return intersection != null && !intersection.isEmpty;
    * ```
+   *
+   * If the scope type is hierarchical, then there can be nested scopes that
+   * both overlap with {@link range}. As mentioned in the JSDoc for
+   * {@link ScopeHandler}, you should never return two scopes that contain one
+   * another. Ie if scope A and scope B both overlap with {@link range}, you
+   * must return only one of them. Here's how to decide which scopes to return:
+   *
+   * 1. If there exists any scope whose {@link TargetScope.domain|domain} starts
+   *    or ends within {@link range}, then return all maximal scopes whose
+   *    {@link TargetScope.domain|domain} starts or ends within {@link range}.
+   *    Ie if scope A and scope B both have domains starting or ending in
+   *    {@link range} and scope A contains scope B, return scope A.
+   * 2. Otherwise, ie if no scope terminates within {@link range}, return the
+   *    minimal scope whose {@link TargetScope.domain|domain} contains
+   *    {@link range}, if any such scope exists.  Ie if scope A and scope B both
+   *    have domains containing {@link range} and scope A contains scope B,
+   *    return scope B.
    *
    * @param editor The editor containing {@link range}
    * @param range The range with which to find overlapping scopes
@@ -105,17 +122,20 @@ export interface ScopeHandler {
   /**
    * Returns a scope before or after {@link position}, depending on
    * {@link direction}.  If {@link direction} is `"forward"` and {@link offset}
-   * is 1, return the leftmost scope whose {@link Scope.domain.start} is equal
-   * or after {@link position}.  If {@link direction} is `"forward"` and
-   * {@link offset} is 2, return the leftmost scope whose
-   * {@link Scope.domain.start} is equal or after the {@link Scope.domain.end}
-   * of the scope at `offset` 1.  Etc.
+   * is 1, return the leftmost scope whose {@link TargetScope.domain|domain}'s
+   * {@link Range.start|start} is equal or after {@link position}.  If
+   * {@link direction} is `"forward"` and {@link offset} is 2, return the
+   * leftmost scope whose {@link TargetScope.domain|domain}'s
+   * {@link Range.start|start} is equal or after the {@link Range.end|end} of
+   * {@link TargetScope.domain|domain} of the scope at `offset` 1.  Etc.
    *
    * If {@link direction} is `"backward"` and {@link offset} is 1, return the
-   * rightmost scope whose {@link Scope.domain.end} is equal or before
-   * {@link position}.  If {@link direction} is `"backward"` and {@link offset}
-   * is 2, return the rightmost scope whose {@link Scope.domain.end} is equal
-   * or before the {@link Scope.domain.start} of the scope at `offset` 1.  Etc.
+   * rightmost scope whose {@link TargetScope.domain|domain}'s
+   * {@link Range.end|end} is equal or before {@link position}.  If
+   * {@link direction} is `"backward"` and {@link offset} is 2, return the
+   * rightmost scope whose {@link TargetScope.domain|domain}'s
+   * {@link Range.end|end} is equal or before the {@link Range.start|start} of
+   * {@link TargetScope.domain|domain} of the scope at `offset` 1.  Etc.
    *
    * Note that {@link offset} will always be greater than or equal to 1.
    *
@@ -128,6 +148,6 @@ export interface ScopeHandler {
     editor: TextEditor,
     position: Position,
     offset: number,
-    direction: Direction
+    direction: Direction,
   ): TargetScope;
 }

@@ -6,7 +6,7 @@ import { FixtureTransformation } from "./types";
 
 export async function transformFile(
   transformation: FixtureTransformation,
-  file: string
+  file: string,
 ) {
   const buffer = await fsp.readFile(file);
   const inputFixture = yaml.load(buffer.toString()) as TestCaseFixture;

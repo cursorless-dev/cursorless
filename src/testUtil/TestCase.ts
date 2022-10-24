@@ -101,7 +101,7 @@ export class TestCase {
     private isDecorationsTest: boolean = false,
     private startTimestamp: bigint,
     private captureFinalThatMark: boolean,
-    private extraSnapshotFields?: ExtraSnapshotField[]
+    private extraSnapshotFields?: ExtraSnapshotField[],
   ) {
     const activeEditor = vscode.window.activeTextEditor!;
     this.command = cleanUpTestCaseCommand(command);
@@ -144,11 +144,11 @@ export class TestCase {
       return true;
     } else if (target.type === "list") {
       return target.elements.some((target) =>
-        this.includesThatMark(target, type)
+        this.includesThatMark(target, type),
       );
     } else if (target.type === "range") {
       return [target.anchor, target.active].some((target) =>
-        this.includesThatMark(target, type)
+        this.includesThatMark(target, type),
       );
     }
     return false;
@@ -173,19 +173,19 @@ export class TestCase {
         (!isInitialSnapshot && !this.captureFinalThatMark) ||
         (isInitialSnapshot &&
           !this.fullTargets.some((target) =>
-            this.includesThatMark(target, "that")
+            this.includesThatMark(target, "that"),
           )),
       sourceMark:
         (!isInitialSnapshot && !this.captureFinalThatMark) ||
         (isInitialSnapshot &&
           !this.fullTargets.some((target) =>
-            this.includesThatMark(target, "source")
+            this.includesThatMark(target, "source"),
           )),
       visibleRanges: !visibleRangeActions.includes(this.command.action.name),
     };
 
     return Object.keys(excludableFields).filter(
-      (field) => excludableFields[field]
+      (field) => excludableFields[field],
     );
   }
 
@@ -219,7 +219,7 @@ export class TestCase {
       excludeFields,
       this.extraSnapshotFields,
       this.getMarks(),
-      { startTimestamp: this.startTimestamp }
+      { startTimestamp: this.startTimestamp },
     );
   }
 
@@ -232,7 +232,7 @@ export class TestCase {
       excludeFields,
       this.extraSnapshotFields,
       this.isHatTokenMapTest ? this.getMarks() : undefined,
-      { startTimestamp: this.startTimestamp }
+      { startTimestamp: this.startTimestamp },
     );
     this.recordDecorations();
     this.recordSpyIdeValues();
@@ -248,12 +248,12 @@ export class TestCase {
 
     this.initialState!.marks = pick(
       this.initialState!.marks,
-      keys
+      keys,
     ) as SerializedMarks;
 
     this.finalState!.marks = pick(
       this.finalState!.marks,
-      keys
+      keys,
     ) as SerializedMarks;
 
     this.marksToCheck = marksToCheck;

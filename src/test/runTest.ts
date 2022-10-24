@@ -40,7 +40,7 @@ async function main() {
       {
         encoding: "utf-8",
         stdio: "inherit",
-      }
+      },
     );
 
     // Run the integration test

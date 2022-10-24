@@ -20,7 +20,7 @@ import { EditTarget, State } from "./EditNew.types";
 export async function runEditTargets(
   graph: Graph,
   editor: TextEditor,
-  state: State
+  state: State,
 ): Promise<State> {
   const editTargets: EditTarget[] = state.targets
     .map((target, index) => {
@@ -39,7 +39,7 @@ export async function runEditTargets(
   }
 
   const edits = editTargets.map((target) =>
-    target.target.constructChangeEdit("")
+    target.target.constructChangeEdit(""),
   );
 
   const thatSelections = {
@@ -73,7 +73,7 @@ export async function runEditTargets(
     graph.rangeUpdater,
     editor,
     edits,
-    [thatSelections, cursorSelections, editSelections]
+    [thatSelections, cursorSelections, editSelections],
   );
 
   const updatedCursorRanges = [...state.cursorRanges];

@@ -56,7 +56,7 @@ const listTypes = ["list", "list_comprehension", "set"];
 function itemNodeFinder(
   parentType: string,
   childType: string,
-  excludeFirstChild: boolean = false
+  excludeFirstChild: boolean = false,
 ): NodeFinder {
   const finder = argumentNodeFinder(parentType);
   return (node: SyntaxNode, selection?: Selection) => {
@@ -82,12 +82,12 @@ const nodeMatchers: Partial<
   collectionItem: cascadingMatcher(
     matcher(
       itemNodeFinder("import_from_statement", "dotted_name", true),
-      argumentSelectionExtractor()
+      argumentSelectionExtractor(),
     ),
     matcher(
       itemNodeFinder("global_statement", "identifier"),
-      argumentSelectionExtractor()
-    )
+      argumentSelectionExtractor(),
+    ),
   ),
   collectionKey: trailingMatcher(["pair[key]"], [":"]),
   ifStatement: "if_statement",
@@ -102,7 +102,7 @@ const nodeMatchers: Partial<
   condition: conditionMatcher("*[condition]"),
   type: leadingMatcher(
     ["function_definition[return_type]", "*[type]"],
-    [":", "->"]
+    [":", "->"],
   ),
   name: [
     "assignment[left]",
@@ -129,13 +129,13 @@ const nodeMatchers: Partial<
         "^=",
         "<<=",
         ">>=",
-      ]
+      ],
     ),
-    patternMatcher("return_statement.~return!")
+    patternMatcher("return_statement.~return!"),
   ),
   argumentOrParameter: cascadingMatcher(
     argumentMatcher("parameters", "argument_list"),
-    matcher(patternFinder("call.generator_expression!"), childRangeSelector())
+    matcher(patternFinder("call.generator_expression!"), childRangeSelector()),
   ),
 };
 

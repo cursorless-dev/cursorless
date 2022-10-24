@@ -12,7 +12,7 @@ import { TokenTarget } from "../../targets";
 class RegexStageBase implements ModifierStage {
   constructor(
     private modifier: ContainingScopeModifier | EveryScopeModifier,
-    protected regex: RegExp
+    protected regex: RegExp,
   ) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
@@ -27,7 +27,7 @@ class RegexStageBase implements ModifierStage {
 
     const searchRange = new Range(
       this.expandRangeForSearch(target.editor, contentRange.start).start,
-      this.expandRangeForSearch(target.editor, contentRange.end).end
+      this.expandRangeForSearch(target.editor, contentRange.end).end,
     );
 
     const matches = this.getMatchesInRange(editor, searchRange);
@@ -36,7 +36,7 @@ class RegexStageBase implements ModifierStage {
         ? matches.filter((match) => match.intersection(contentRange) != null)
         : matches
     ).map((contentRange) =>
-      this.rangeToTarget(target.isReversed, target.editor, contentRange)
+      this.rangeToTarget(target.isReversed, target.editor, contentRange),
     );
 
     if (targets.length === 0) {
@@ -53,18 +53,18 @@ class RegexStageBase implements ModifierStage {
       isReversed,
       editor,
       this.getMatchContainingPosition(editor, contentRange.start).union(
-        this.getMatchContainingPosition(editor, contentRange.end)
-      )
+        this.getMatchContainingPosition(editor, contentRange.end),
+      ),
     );
   }
 
   private getMatchContainingPosition(
     editor: TextEditor,
-    position: Position
+    position: Position,
   ): Range {
     const textRange = this.expandRangeForSearch(editor, position);
     const match = this.getMatchesInRange(editor, textRange).find(
-      (contentRange) => contentRange.contains(position)
+      (contentRange) => contentRange.contains(position),
     );
     if (match == null) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -83,7 +83,7 @@ class RegexStageBase implements ModifierStage {
    */
   protected expandRangeForSearch(
     editor: TextEditor,
-    position: Position
+    position: Position,
   ): Range {
     return editor.document.lineAt(position.line).range;
   }
@@ -95,8 +95,8 @@ class RegexStageBase implements ModifierStage {
       (match) =>
         new Range(
           editor.document.positionAt(offset + match.index!),
-          editor.document.positionAt(offset + match.index! + match[0].length)
-        )
+          editor.document.positionAt(offset + match.index! + match[0].length),
+        ),
     );
     if (result == null) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -107,7 +107,7 @@ class RegexStageBase implements ModifierStage {
   private rangeToTarget(
     isReversed: boolean,
     editor: TextEditor,
-    contentRange: Range
+    contentRange: Range,
   ): Target {
     return new TokenTarget({
       editor,

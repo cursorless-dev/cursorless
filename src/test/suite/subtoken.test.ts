@@ -8,7 +8,7 @@ suite("subtoken regex matcher", () => {
     test(input, () => {
       assert.deepStrictEqual(
         wordTokenizer.splitIdentifier(input).map(({ text }) => text),
-        expectedOutput
+        expectedOutput,
       );
     });
   });

@@ -13,7 +13,7 @@ import { isString } from "../../../util/type";
  * @returns A list of information about all possible left / right delimiter instances
  */
 export function getIndividualDelimiters(
-  delimiters: SimpleSurroundingPairName[]
+  delimiters: SimpleSurroundingPairName[],
 ): IndividualDelimiter[] {
   return delimiters.flatMap((delimiter) => {
     const [leftDelimiter, rightDelimiter] = delimiterToText[delimiter];

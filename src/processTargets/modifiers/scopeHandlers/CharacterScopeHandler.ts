@@ -22,7 +22,7 @@ export default class CharacterScopeHandler extends NestedScopeHandler {
             contentRange: range,
             isReversed,
           }),
-      })
+      }),
     );
   }
 }

@@ -14,7 +14,7 @@ export class OrdinalScopeStage implements ModifierStage {
     const targets = getEveryScopeTargets(
       context,
       target,
-      this.modifier.scopeType
+      this.modifier.scopeType,
     );
 
     const startIndex =
@@ -26,7 +26,7 @@ export class OrdinalScopeStage implements ModifierStage {
         target.isReversed,
         targets,
         startIndex,
-        endIndex
+        endIndex,
       ),
     ];
   }
