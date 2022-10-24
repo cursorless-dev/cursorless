@@ -10,12 +10,12 @@ export default class implements MarkStage {
   run(context: ProcessedTargetsContext): Target[] {
     const token = context.hatTokenMap.getToken(
       this.mark.symbolColor,
-      this.mark.character
+      this.mark.character,
     );
 
     if (token == null) {
       throw new Error(
-        `Couldn't find mark ${this.mark.symbolColor} '${this.mark.character}'`
+        `Couldn't find mark ${this.mark.symbolColor} '${this.mark.character}'`,
       );
     }
 

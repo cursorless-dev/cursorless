@@ -39,7 +39,7 @@ async function breakpointHarpAdd() {
           character: "h",
         },
       },
-    ]
+    ],
   );
 
   const breakpoints = vscode.debug.breakpoints;
@@ -68,7 +68,7 @@ async function breakpointTokenHarpAdd() {
           character: "h",
         },
       },
-    ]
+    ],
   );
 
   const breakpoints = vscode.debug.breakpoints;
@@ -85,7 +85,7 @@ async function breakpointHarpRemove() {
 
   vscode.debug.addBreakpoints([
     new vscode.SourceBreakpoint(
-      new vscode.Location(editor.document.uri, new vscode.Range(0, 0, 0, 0))
+      new vscode.Location(editor.document.uri, new vscode.Range(0, 0, 0, 0)),
     ),
   ]);
 
@@ -104,7 +104,7 @@ async function breakpointHarpRemove() {
           character: "h",
         },
       },
-    ]
+    ],
   );
 
   assert.deepStrictEqual(vscode.debug.breakpoints.length, 0);
@@ -117,10 +117,10 @@ async function breakpointTokenHarpRemove() {
 
   vscode.debug.addBreakpoints([
     new vscode.SourceBreakpoint(
-      new vscode.Location(editor.document.uri, new vscode.Range(0, 0, 0, 0))
+      new vscode.Location(editor.document.uri, new vscode.Range(0, 0, 0, 0)),
     ),
     new vscode.SourceBreakpoint(
-      new vscode.Location(editor.document.uri, new vscode.Range(0, 2, 0, 7))
+      new vscode.Location(editor.document.uri, new vscode.Range(0, 2, 0, 7)),
     ),
   ]);
 
@@ -140,7 +140,7 @@ async function breakpointTokenHarpRemove() {
           character: "h",
         },
       },
-    ]
+    ],
   );
 
   const breakpoints = vscode.debug.breakpoints;

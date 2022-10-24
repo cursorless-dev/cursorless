@@ -67,14 +67,14 @@ function implItemTypeFinder(node: SyntaxNode) {
 
 function traitBoundExtractor(
   editor: TextEditor,
-  node: SyntaxNode
+  node: SyntaxNode,
 ): SelectionWithContext {
   return {
     selection: makeNodePairSelection(node.children[1], node.lastNamedChild!),
     context: {
       leadingDelimiterRange: makeRangeFromPositions(
         node.children[0].startPosition,
-        node.children[1].startPosition
+        node.children[1].startPosition,
       ),
     },
   };
@@ -142,7 +142,7 @@ const nodeMatchers: Partial<
       patternFinder(...STATEMENT_PARENT_TYPES),
       patternFinder(...STATEMENT_TYPES),
     ],
-    1
+    1,
   ),
   string: ["raw_string_literal", "string_literal"],
   ifStatement: ["if_expression", "if_let_expression"],
@@ -160,14 +160,14 @@ const nodeMatchers: Partial<
         "field_declaration[type]",
         "const_item[type]",
       ],
-      [":"]
+      [":"],
     ),
     matcher(
       patternFinder(
         "constrained_type_parameter[bounds]",
-        "where_predicate[bounds]"
+        "where_predicate[bounds]",
       ),
-      traitBoundExtractor
+      traitBoundExtractor,
     ),
     leadingMatcher(["function_item[return_type]"], ["->"]),
     matcher(implItemTypeFinder),
@@ -175,8 +175,8 @@ const nodeMatchers: Partial<
       "struct_item",
       "trait_item",
       "impl_item",
-      "array_type[element]"
-    )
+      "array_type[element]",
+    ),
   ),
   functionName: ["function_item[name]"],
   anonymousFunction: "closure_expression",
@@ -184,10 +184,10 @@ const nodeMatchers: Partial<
     "arguments",
     "parameters",
     "meta_arguments",
-    "type_parameters"
+    "type_parameters",
   ),
   collectionKey: cascadingMatcher(
-    trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"])
+    trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"]),
   ),
   name: cascadingMatcher(
     patternMatcher(
@@ -202,9 +202,9 @@ const nodeMatchers: Partial<
       "let_declaration[pattern]",
       "constrained_type_parameter[left]",
       "where_predicate[left]",
-      "field_declaration[name]"
+      "field_declaration[name]",
     ),
-    trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"])
+    trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"]),
   ),
   class: ["struct_item", "struct_expression", "enum_item"],
   className: ["struct_item[name]", "enum_item[name]", "trait_item[name]"],
@@ -212,10 +212,10 @@ const nodeMatchers: Partial<
     leadingMatcher(["let_declaration[value]"], ["="]),
     leadingMatcher(
       ["field_initializer[value]", "field_pattern[pattern]"],
-      [":"]
+      [":"],
     ),
     patternMatcher("meta_item[value]", "const_item[value]"),
-    matcher(returnValueFinder)
+    matcher(returnValueFinder),
   ),
   attribute: trailingMatcher(["mutable_specifier", "attribute_item"]),
 };

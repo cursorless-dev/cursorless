@@ -29,7 +29,7 @@ import type { ScopeHandler } from "./scopeHandler.types";
  */
 export default function getScopeHandler(
   scopeType: ScopeType,
-  languageId: string
+  languageId: string,
 ): ScopeHandler | undefined {
   switch (scopeType.type) {
     case "character":

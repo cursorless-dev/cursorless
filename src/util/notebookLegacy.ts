@@ -23,7 +23,7 @@ export async function focusNotebookCellLegacy(editor: TextEditor) {
 
   const editorNotebook = getNotebookFromCellDocument(editor.document);
   const activeEditorNotebook = getNotebookFromCellDocument(
-    activeTextEditor.document
+    activeTextEditor.document,
   );
 
   if (
@@ -37,12 +37,12 @@ export async function focusNotebookCellLegacy(editor: TextEditor) {
   const editorIndex = getCellIndex(editorNotebook, editor.document);
   const activeEditorIndex = getCellIndex(
     editorNotebook,
-    activeTextEditor.document
+    activeTextEditor.document,
   );
 
   if (editorIndex === -1 || activeEditorIndex === -1) {
     throw new Error(
-      "Couldn't find editor corresponding to given cell in the expected notebook"
+      "Couldn't find editor corresponding to given cell in the expected notebook",
     );
   }
 

@@ -15,14 +15,14 @@ abstract class SortBase implements Action {
     const sortedTargets = targets.map((t) =>
       t
         .slice()
-        .sort((a, b) => a.contentRange.start.compareTo(b.contentRange.start))
+        .sort((a, b) => a.contentRange.start.compareTo(b.contentRange.start)),
     );
 
     const { returnValue: unsortedTexts } = await this.graph.actions.getText.run(
       sortedTargets,
       {
         showDecorations: false,
-      }
+      },
     );
 
     const sortedTexts = this.sortTexts(unsortedTexts);

@@ -15,7 +15,7 @@ suite("followLink", async function () {
 async function followDefinition() {
   const editor = await openNewEditor(
     "const foo = 'hello';\nconst bar = foo;",
-    "typescript"
+    "typescript",
   );
   await vscode.commands.executeCommand("revealLine", {
     lineNumber: 1,
@@ -36,7 +36,7 @@ async function followDefinition() {
           type: "cursor",
         },
       },
-    ]
+    ],
   );
 
   assert.equal(editor.visibleRanges[0].start.line, 0);
@@ -59,7 +59,7 @@ async function followLink() {
           type: "cursor",
         },
       },
-    ]
+    ],
   );
 
   const editor = vscode.window.activeTextEditor;

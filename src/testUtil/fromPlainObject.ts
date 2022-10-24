@@ -23,7 +23,7 @@ import {
  */
 export function plainObjectToTarget(
   editor: TextEditor,
-  plainObject: TargetPlainObject
+  plainObject: TargetPlainObject,
 ): Target {
   switch (plainObject.type) {
     case "UntypedTarget":
@@ -55,6 +55,6 @@ export function plainObjectToSelection({
 }: SelectionPlainObject): Selection {
   return new Selection(
     plainObjectToPosition(anchor),
-    plainObjectToPosition(active)
+    plainObjectToPosition(active),
   );
 }

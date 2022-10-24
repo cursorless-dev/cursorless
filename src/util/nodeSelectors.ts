@@ -9,13 +9,13 @@ import {
 
 export function makeRangeFromPositions(
   startPosition: Point,
-  endPosition: Point
+  endPosition: Point,
 ) {
   return new Range(
     startPosition.row,
     startPosition.column,
     endPosition.row,
-    endPosition.column
+    endPosition.column,
   );
 }
 
@@ -28,7 +28,7 @@ export function getNodeRange(node: SyntaxNode) {
     node.startPosition.row,
     node.startPosition.column,
     node.endPosition.row,
-    node.endPosition.column
+    node.endPosition.column,
   );
 }
 
@@ -37,7 +37,7 @@ export function makeNodePairSelection(anchor: SyntaxNode, active: SyntaxNode) {
     anchor.startPosition.row,
     anchor.startPosition.column,
     active.endPosition.row,
-    active.endPosition.column
+    active.endPosition.column,
   );
 }
 
@@ -51,18 +51,18 @@ export function getNodeInternalRange(node: SyntaxNode) {
 
   return makeRangeFromPositions(
     children[0].endPosition,
-    children[children.length - 1].startPosition
+    children[children.length - 1].startPosition,
   );
 }
 
 export function simpleSelectionExtractor(
   editor: TextEditor,
-  node: SyntaxNode
+  node: SyntaxNode,
 ): SelectionWithContext {
   return {
     selection: new Selection(
       new Position(node.startPosition.row, node.startPosition.column),
-      new Position(node.endPosition.row, node.endPosition.column)
+      new Position(node.endPosition.row, node.endPosition.column),
     ),
     context: {},
   };
@@ -81,7 +81,7 @@ export function simpleSelectionExtractor(
 export function extendUntilNextMatchingSiblingOrLast(
   editor: TextEditor,
   node: SyntaxNode,
-  nodeFinder: NodeFinder
+  nodeFinder: NodeFinder,
 ) {
   const endNode = getNextMatchingSiblingNodeOrLast(node, nodeFinder);
   return pairSelectionExtractor(editor, node, endNode);
@@ -89,7 +89,7 @@ export function extendUntilNextMatchingSiblingOrLast(
 
 function getNextMatchingSiblingNodeOrLast(
   node: SyntaxNode,
-  nodeFinder: NodeFinder
+  nodeFinder: NodeFinder,
 ): SyntaxNode {
   let currentNode: SyntaxNode = node;
   let nextNode: SyntaxNode | null = node.nextSibling;
@@ -126,7 +126,7 @@ export function extendForwardPastOptional(...delimiters: string[]) {
 export function pairSelectionExtractor(
   editor: TextEditor,
   node1: SyntaxNode,
-  node2: SyntaxNode
+  node2: SyntaxNode,
 ): SelectionWithContext {
   const isForward = node1.startIndex < node2.startIndex;
   const start = isForward ? node1 : node2;
@@ -134,7 +134,7 @@ export function pairSelectionExtractor(
   return {
     selection: new Selection(
       new Position(start.startPosition.row, start.startPosition.column),
-      new Position(end.endPosition.row, end.endPosition.column)
+      new Position(end.endPosition.row, end.endPosition.column),
     ),
     context: {},
   };
@@ -152,13 +152,13 @@ export function argumentSelectionExtractor(): SelectionExtractor {
       node.type === "<" ||
       node.type === "}" ||
       node.type === "{",
-    ", "
+    ", ",
   );
 }
 
 export function unwrapSelectionExtractor(
   editor: TextEditor,
-  node: SyntaxNode
+  node: SyntaxNode,
 ): SelectionWithContext {
   let startIndex = node.startIndex;
   let endIndex = node.endIndex;
@@ -171,7 +171,7 @@ export function unwrapSelectionExtractor(
   return {
     selection: new Selection(
       editor.document.positionAt(startIndex),
-      editor.document.positionAt(endIndex)
+      editor.document.positionAt(endIndex),
     ),
     context: {},
   };
@@ -188,14 +188,14 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
         if (secondSibling) {
           leadingDelimiterRange = makeRangeFromPositions(
             secondSibling.endPosition,
-            node.startPosition
+            node.startPosition,
           );
         }
         // First delimiter sibling exists. Terminate after it.
         else {
           leadingDelimiterRange = makeRangeFromPositions(
             firstSibling.startPosition,
-            node.startPosition
+            node.startPosition,
           );
         }
       }
@@ -203,7 +203,7 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
       else {
         leadingDelimiterRange = makeRangeFromPositions(
           firstSibling.endPosition,
-          node.startPosition
+          node.startPosition,
         );
       }
     }
@@ -226,7 +226,7 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
  */
 export function childRangeSelector(
   typesToExclude: string[] = [],
-  typesToInclude: string[] = []
+  typesToInclude: string[] = [],
 ) {
   return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
     if (typesToExclude.length > 0 && typesToInclude.length > 0) {
@@ -261,18 +261,18 @@ export function selectWithTrailingDelimiter(...delimiters: string[]) {
         if (secondSibling) {
           trailingDelimiterRange = makeRangeFromPositions(
             node.endPosition,
-            secondSibling.startPosition
+            secondSibling.startPosition,
           );
         } else {
           trailingDelimiterRange = makeRangeFromPositions(
             node.endPosition,
-            firstSibling.endPosition
+            firstSibling.endPosition,
           );
         }
       } else {
         trailingDelimiterRange = makeRangeFromPositions(
           node.endPosition,
-          firstSibling.startPosition
+          firstSibling.startPosition,
         );
       }
     }
@@ -287,7 +287,7 @@ export function selectWithTrailingDelimiter(...delimiters: string[]) {
 
 function getNextNonDelimiterNode(
   startNode: SyntaxNode,
-  isDelimiterNode: (node: SyntaxNode) => boolean
+  isDelimiterNode: (node: SyntaxNode) => boolean,
 ): SyntaxNode | null {
   let node = startNode.nextSibling;
 
@@ -304,7 +304,7 @@ function getNextNonDelimiterNode(
 
 function getPreviousNonDelimiterNode(
   startNode: SyntaxNode,
-  isDelimiterNode: (node: SyntaxNode) => boolean
+  isDelimiterNode: (node: SyntaxNode) => boolean,
 ): SyntaxNode | null {
   let node = startNode.previousSibling;
 
@@ -340,7 +340,7 @@ export function delimitedSelector(
   isDelimiterNode: (node: SyntaxNode) => boolean,
   defaultDelimiter: string,
   getStartNode: (node: SyntaxNode) => SyntaxNode = identity,
-  getEndNode: (node: SyntaxNode) => SyntaxNode = identity
+  getEndNode: (node: SyntaxNode) => SyntaxNode = identity,
 ): SelectionExtractor {
   return (editor: TextEditor, node: SyntaxNode) => {
     let leadingDelimiterRange: Range | undefined;
@@ -350,24 +350,24 @@ export function delimitedSelector(
 
     const previousNonDelimiterNode = getPreviousNonDelimiterNode(
       startNode,
-      isDelimiterNode
+      isDelimiterNode,
     );
     const nextNonDelimiterNode = getNextNonDelimiterNode(
       endNode,
-      isDelimiterNode
+      isDelimiterNode,
     );
 
     if (previousNonDelimiterNode != null) {
       leadingDelimiterRange = makeRangeFromPositions(
         previousNonDelimiterNode.endPosition,
-        startNode.startPosition
+        startNode.startPosition,
       );
     }
 
     if (nextNonDelimiterNode != null) {
       trailingDelimiterRange = makeRangeFromPositions(
         endNode.endPosition,
-        nextNonDelimiterNode.startPosition
+        nextNonDelimiterNode.startPosition,
       );
     }
 
@@ -375,16 +375,16 @@ export function delimitedSelector(
       editor,
       leadingDelimiterRange,
       trailingDelimiterRange,
-      defaultDelimiter
+      defaultDelimiter,
     );
 
     return {
       selection: new Selection(
         new Position(
           startNode.startPosition.row,
-          startNode.startPosition.column
+          startNode.startPosition.column,
         ),
-        new Position(endNode.endPosition.row, endNode.endPosition.column)
+        new Position(endNode.endPosition.row, endNode.endPosition.column),
       ),
       context: {
         containingListDelimiter,
@@ -397,7 +397,7 @@ export function delimitedSelector(
 
 export function xmlElementExtractor(
   editor: TextEditor,
-  node: SyntaxNode
+  node: SyntaxNode,
 ): SelectionWithContext {
   const selection = simpleSelectionExtractor(editor, node);
 
@@ -410,7 +410,7 @@ export function xmlElementExtractor(
         firstNamedChild.endPosition.row,
         firstNamedChild.endPosition.column,
         lastNamedChild.startPosition.row,
-        lastNamedChild.startPosition.column
+        lastNamedChild.startPosition.column,
       );
     }
   }
@@ -422,7 +422,7 @@ export function getInsertionDelimiter(
   editor: TextEditor,
   leadingDelimiterRange: Range | undefined,
   trailingDelimiterRange: Range | undefined,
-  defaultDelimiterInsertion: string
+  defaultDelimiterInsertion: string,
 ) {
   const { getText } = editor.document;
   const delimiters = [
