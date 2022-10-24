@@ -1,4 +1,3 @@
-import { window } from "vscode";
 import { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
 import {
@@ -8,7 +7,6 @@ import {
 } from "../../typings/targetDescriptor.types";
 import { Graph } from "../../typings/Types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
-import { globalStateKeys } from "../../util/globalStateKeys";
 import {
   Command,
   CommandComplete,
@@ -128,11 +126,9 @@ export async function checkForOldInference(
   });
 
   if (hasOldInference) {
-    const hideInferenceWarning =
-      graph.extensionContext.globalState.get<boolean>(
-        globalStateKeys.hideInferenceWarning,
-        false
-      );
+    const hideInferenceWarning = graph.ide.globalState.get(
+      "hideInferenceWarning"
+    );
 
     if (!hideInferenceWarning) {
       const pressed = await graph.ide.messages.showWarning(
@@ -142,10 +138,7 @@ export async function checkForOldInference(
       );
 
       if (pressed) {
-        graph.extensionContext.globalState.update(
-          globalStateKeys.hideInferenceWarning,
-          true
-        );
+        graph.ide.globalState.set("hideInferenceWarning", true);
       }
     }
   }

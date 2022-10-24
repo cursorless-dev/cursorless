@@ -17,10 +17,10 @@ import {
   LineNumberPositionV2,
   MarkV2,
   ModifierV2,
-  OrdinalRangeModifier,
+  OrdinalRangeModifierV2,
   PartialPrimitiveTargetDescriptorV2,
   PartialTargetDescriptorV2,
-  ScopeType,
+  ScopeTypeV2,
 } from "./targetDescriptorV2.types";
 
 export function upgradeV2ToV3(command: CommandV2): CommandV3 {
@@ -104,7 +104,7 @@ function createLineNumberMark(
 }
 
 function createOrdinalModifier(
-  modifier: OrdinalRangeModifier
+  modifier: OrdinalRangeModifierV2
 ): OrdinalScopeModifier | RangeModifier {
   if (modifier.anchor === modifier.active) {
     return createAbsoluteOrdinalModifier(modifier.scopeType, modifier.anchor);
@@ -130,7 +130,7 @@ function createLineNumberMarkFromPos(
 }
 
 function createAbsoluteOrdinalModifier(
-  scopeType: ScopeType,
+  scopeType: ScopeTypeV2,
   start: number
 ): OrdinalScopeModifier {
   return {

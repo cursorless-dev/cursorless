@@ -90,7 +90,7 @@ export default class ScopeTypeTarget extends BaseTarget {
 
   getRemovalRange(): Range {
     return this.removalRange_ != null
-      ? getTokenRemovalRange(this, this.removalRange_)
+      ? this.removalRange_
       : this.hasDelimiterRange_
       ? getDelimitedSequenceRemovalRange(this)
       : getTokenRemovalRange(this);
