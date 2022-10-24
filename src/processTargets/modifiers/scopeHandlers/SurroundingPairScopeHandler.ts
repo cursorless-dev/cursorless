@@ -11,7 +11,7 @@ export default class SurroundingPairScopeHandler implements ScopeHandler {
 
   constructor(
     public readonly scopeType: SurroundingPairScopeType,
-    _languageId: string
+    _languageId: string,
   ) {
     // FIXME: Figure out the actual iteration scope type
     this.iterationScopeType = this.scopeType;
@@ -20,7 +20,7 @@ export default class SurroundingPairScopeHandler implements ScopeHandler {
   getScopesTouchingPosition(
     _editor: TextEditor,
     _position: Position,
-    _ancestorIndex: number = 0
+    _ancestorIndex: number = 0,
   ): TargetScope[] {
     // TODO: Run existing surrounding pair code on empty range constructed from
     // position, returning both if position is adjacent to two
@@ -37,7 +37,7 @@ export default class SurroundingPairScopeHandler implements ScopeHandler {
     _editor: TextEditor,
     _position: Position,
     _offset: number,
-    _direction: Direction
+    _direction: Direction,
   ): TargetScope {
     // TODO: Walk forward until we hit either an opening or closing delimiter.
     // If we hit an opening delimiter then we walk over as many pairs as we need

@@ -18,7 +18,7 @@ export default class DocumentScopeHandler implements ScopeHandler {
   getScopesTouchingPosition(
     editor: TextEditor,
     _position: Position,
-    ancestorIndex: number = 0
+    ancestorIndex: number = 0,
   ): TargetScope[] {
     if (ancestorIndex !== 0) {
       throw new NotHierarchicalScopeError(this.scopeType);
@@ -35,7 +35,7 @@ export default class DocumentScopeHandler implements ScopeHandler {
     _editor: TextEditor,
     _position: Position,
     _offset: number,
-    _direction: Direction
+    _direction: Direction,
   ): TargetScope {
     // NB: offset will always be greater than or equal to 1, so this will be an
     // error

@@ -100,7 +100,7 @@ export default class ScopeTypeTarget extends BaseTarget {
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
-    includeEnd: boolean
+    includeEnd: boolean,
   ): Target {
     if (isSameType(this, endTarget)) {
       const scopeTarget = endTarget;
@@ -111,7 +111,7 @@ export default class ScopeTypeTarget extends BaseTarget {
                 this.removalRange_ ?? this.contentRange,
                 scopeTarget.removalRange_ ?? scopeTarget.contentRange,
                 includeStart,
-                includeEnd
+                includeEnd,
               )
             : undefined;
 
@@ -125,7 +125,7 @@ export default class ScopeTypeTarget extends BaseTarget {
             this,
             endTarget,
             includeStart,
-            includeEnd
+            includeEnd,
           ),
         });
       }
@@ -135,7 +135,7 @@ export default class ScopeTypeTarget extends BaseTarget {
       isReversed,
       endTarget,
       includeStart,
-      includeEnd
+      includeEnd,
     );
   }
 

@@ -28,7 +28,7 @@ import {
  */
 function nameExtractor(
   editor: TextEditor,
-  node: SyntaxNode
+  node: SyntaxNode,
 ): SelectionWithContext {
   const range = getNodeRange(node);
   const contentRange = range.isEmpty
@@ -62,13 +62,13 @@ type HeadingMarkerType = typeof HEADING_MARKER_TYPES[number];
  * marker level or higher than the original type
  */
 function makeMinimumHeadingLevelFinder(
-  headingType: HeadingMarkerType
+  headingType: HeadingMarkerType,
 ): NodeFinder {
   const markerIndex = HEADING_MARKER_TYPES.indexOf(headingType);
   return (node: SyntaxNode) => {
     return node.type === "atx_heading" &&
       HEADING_MARKER_TYPES.indexOf(
-        node.firstNamedChild?.type as HeadingMarkerType
+        node.firstNamedChild?.type as HeadingMarkerType,
       ) <= markerIndex
       ? node
       : null;
@@ -77,7 +77,7 @@ function makeMinimumHeadingLevelFinder(
 
 function sectionExtractor(editor: TextEditor, node: SyntaxNode) {
   const finder = makeMinimumHeadingLevelFinder(
-    node.firstNamedChild?.type as HeadingMarkerType
+    node.firstNamedChild?.type as HeadingMarkerType,
   );
 
   return extendUntilNextMatchingSiblingOrLast(editor, node, finder);
@@ -96,7 +96,7 @@ const nodeMatchers: Partial<
   comment: "html_block",
   name: matcher(
     leadingSiblingNodeFinder(patternFinder("atx_heading.heading_content!")),
-    nameExtractor
+    nameExtractor,
   ),
   collectionItem: leadingMatcher(["list_item.paragraph!"], ["list_marker"]),
   section: sectionMatcher("atx_heading"),

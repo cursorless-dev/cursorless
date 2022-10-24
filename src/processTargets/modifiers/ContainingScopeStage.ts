@@ -43,7 +43,7 @@ export class ContainingScopeStage implements ModifierStage {
 
     const scopeHandler = getScopeHandler(
       scopeType,
-      target.editor.document.languageId
+      target.editor.document.languageId,
     );
 
     if (scopeHandler == null) {
@@ -53,7 +53,7 @@ export class ContainingScopeStage implements ModifierStage {
     const startScopes = scopeHandler.getScopesTouchingPosition(
       editor,
       start,
-      ancestorIndex
+      ancestorIndex,
     );
 
     if (startScopes.length === 0) {
@@ -82,7 +82,7 @@ export class ContainingScopeStage implements ModifierStage {
     const endScopes = scopeHandler.getScopesTouchingPosition(
       editor,
       end,
-      ancestorIndex
+      ancestorIndex,
     );
     const endScope = getLeftScope(endScopes);
 

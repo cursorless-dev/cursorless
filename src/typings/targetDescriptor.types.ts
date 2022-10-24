@@ -156,10 +156,16 @@ export interface SurroundingPairScopeType {
   requireStrongContainment?: boolean;
 }
 
+export interface OneOfScopeType {
+  type: "oneOf";
+  scopeTypes: ScopeType[];
+}
+
 export type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
-  | CustomRegexScopeType;
+  | CustomRegexScopeType
+  | OneOfScopeType;
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {

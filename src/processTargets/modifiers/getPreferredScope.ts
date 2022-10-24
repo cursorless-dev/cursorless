@@ -8,7 +8,7 @@ import { TargetScope } from "./scopeHandlers/scope.types";
  * @returns A single preferred scope, or `undefined` if {@link scopes} is empty
  */
 export function getPreferredScope(
-  scopes: TargetScope[]
+  scopes: TargetScope[],
 ): TargetScope | undefined {
   return getRightScope(scopes);
 }
@@ -21,7 +21,7 @@ export function getPreferredScope(
  */
 export function getLeftScope(scopes: TargetScope[]): TargetScope | undefined {
   return getScopeHelper(scopes, (scope1, scope2) =>
-    scope1.domain.start.isBefore(scope2.domain.start)
+    scope1.domain.start.isBefore(scope2.domain.start),
   );
 }
 
@@ -33,13 +33,13 @@ export function getLeftScope(scopes: TargetScope[]): TargetScope | undefined {
  */
 export function getRightScope(scopes: TargetScope[]): TargetScope | undefined {
   return getScopeHelper(scopes, (scope1, scope2) =>
-    scope1.domain.start.isAfter(scope2.domain.start)
+    scope1.domain.start.isAfter(scope2.domain.start),
   );
 }
 
 function getScopeHelper(
   scopes: TargetScope[],
-  isScope1Preferred: (scope1: TargetScope, scope2: TargetScope) => boolean
+  isScope1Preferred: (scope1: TargetScope, scope2: TargetScope) => boolean,
 ): TargetScope | undefined {
   if (scopes.length === 0) {
     return undefined;

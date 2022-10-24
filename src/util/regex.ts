@@ -35,7 +35,7 @@ export const leftAnchored = makeCache(_leftAnchored);
 export function matchAll<T>(
   text: string,
   regex: RegExp,
-  mapfn: (v: RegExpMatchArray, k: number) => T
+  mapfn: (v: RegExpMatchArray, k: number) => T,
 ) {
   // Reset the regex to start at the beginning of string, in case the regex has
   // been used before.
@@ -59,7 +59,7 @@ export function matchText(text: string, regex: RegExp): MatchedText[] {
 export function getMatchesInRange(
   regex: RegExp,
   editor: TextEditor,
-  range: Range
+  range: Range,
 ): Range[] {
   const offset = editor.document.offsetAt(range.start);
   const text = editor.document.getText(range);
@@ -70,7 +70,7 @@ export function getMatchesInRange(
     (match) =>
       new Range(
         editor.document.positionAt(offset + match.index!),
-        editor.document.positionAt(offset + match.index! + match[0].length)
-      )
+        editor.document.positionAt(offset + match.index! + match[0].length),
+      ),
   );
 }

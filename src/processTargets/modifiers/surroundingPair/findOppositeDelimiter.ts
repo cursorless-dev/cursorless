@@ -27,7 +27,7 @@ export function findOppositeDelimiter(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   index: number,
   delimiterInfo: IndividualDelimiter,
-  forceDirection: "left" | "right" | undefined
+  forceDirection: "left" | "right" | undefined,
 ): DelimiterOccurrence | null {
   const { side, delimiter } = delimiterInfo;
 
@@ -36,7 +36,7 @@ export function findOppositeDelimiter(
       delimiterOccurrences,
       direction === "right" ? index + 1 : index - 1,
       [delimiter],
-      direction === "right"
+      direction === "right",
     );
 
     if (unmatchedDelimiter != null) {
@@ -49,7 +49,7 @@ export function findOppositeDelimiter(
 
 function getDirections(
   side: DelimiterSide,
-  forceDirection: SurroundingPairDirection | undefined
+  forceDirection: SurroundingPairDirection | undefined,
 ): SurroundingPairDirection[] {
   if (forceDirection != null) {
     return [forceDirection];

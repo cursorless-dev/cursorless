@@ -41,21 +41,21 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
    * @returns A list of all child scope types in the given parent scope type
    */
   protected abstract getScopesInSearchScope(
-    searchScope: TargetScope
+    searchScope: TargetScope,
   ): TargetScope[];
 
   private _searchScopeHandler: ScopeHandler | undefined;
 
   constructor(
     public readonly scopeType: ScopeType,
-    protected languageId: string
+    protected languageId: string,
   ) {}
 
   private get searchScopeHandler(): ScopeHandler {
     if (this._searchScopeHandler == null) {
       this._searchScopeHandler = getScopeHandler(
         this.searchScopeType,
-        this.languageId
+        this.languageId,
       )!;
     }
 
@@ -65,7 +65,7 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
   getScopesTouchingPosition(
     editor: TextEditor,
     position: Position,
-    ancestorIndex: number = 0
+    ancestorIndex: number = 0,
   ): TargetScope[] {
     if (ancestorIndex !== 0) {
       throw new NotHierarchicalScopeError(this.scopeType);
@@ -91,7 +91,7 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
     editor: TextEditor,
     position: Position,
     offset: number,
-    direction: Direction
+    direction: Direction,
   ): TargetScope {
     let remainingOffset = offset;
 
@@ -130,7 +130,7 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
   private *iterateScopeGroups(
     editor: TextEditor,
     position: Position,
-    direction: Direction
+    direction: Direction,
   ): Generator<TargetScope[], void, unknown> {
     const containingSearchScopes =
       this.searchScopeHandler.getScopesTouchingPosition(editor, position);
@@ -147,7 +147,7 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
         ({ domain }) =>
           direction === "forward"
             ? domain.start.isAfterOrEqual(position)
-            : domain.end.isBeforeOrEqual(position)
+            : domain.end.isBeforeOrEqual(position),
       );
 
       // Move current position past containing scope so that asking for next
@@ -168,7 +168,7 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
         editor,
         currentPosition,
         1,
-        direction
+        direction,
       );
 
       yield this.getScopesInSearchScope(searchScope);

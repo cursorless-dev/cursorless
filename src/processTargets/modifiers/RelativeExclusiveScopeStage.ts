@@ -34,7 +34,7 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const scopeHandler = getScopeHandler(
       this.modifier.scopeType,
-      target.editor.document.languageId
+      target.editor.document.languageId,
     );
 
     if (scopeHandler == null) {
@@ -49,7 +49,7 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
           scopeHandler,
           direction,
           editor,
-          inputRange.start
+          inputRange.start,
         )
       : direction === "forward"
       ? inputRange.end
@@ -59,7 +59,7 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
       editor,
       initialPosition,
       offset,
-      direction
+      direction,
     );
 
     if (desiredScopeCount === 1) {
@@ -72,7 +72,7 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
         ? proximalScope.domain.end
         : proximalScope.domain.start,
       desiredScopeCount - 1,
-      direction
+      direction,
     );
 
     return [constructScopeRangeTarget(isReversed, proximalScope, distalScope)];
@@ -95,11 +95,11 @@ function getInitialPositionForEmptyInputRange(
   scopeHandler: ScopeHandler,
   direction: string,
   editor: TextEditor,
-  inputPosition: Position
+  inputPosition: Position,
 ) {
   const scopesTouchingPosition = scopeHandler.getScopesTouchingPosition(
     editor,
-    inputPosition
+    inputPosition,
   );
 
   const skipScope =

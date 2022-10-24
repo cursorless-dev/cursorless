@@ -43,14 +43,14 @@ export default class UntypedTarget extends BaseTarget {
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
-    includeEnd: boolean
+    includeEnd: boolean,
   ): Target {
     return createContinuousRangeUntypedTarget(
       isReversed,
       this,
       endTarget,
       includeStart,
-      includeEnd
+      includeEnd,
     );
   }
 

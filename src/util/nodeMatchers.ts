@@ -24,7 +24,7 @@ import {
 
 export function matcher(
   finder: NodeFinder,
-  selector: SelectionExtractor = simpleSelectionExtractor
+  selector: SelectionExtractor = simpleSelectionExtractor,
 ): NodeMatcher {
   return function (selection: SelectionWithEditor, node: SyntaxNode) {
     const targetNode = finder(node, selection.selection);
@@ -49,7 +49,7 @@ export function matcher(
  */
 export function chainedMatcher(
   finders: NodeFinder[],
-  selector: SelectionExtractor = simpleSelectionExtractor
+  selector: SelectionExtractor = simpleSelectionExtractor,
 ): NodeMatcher {
   const nodeFinder = chainedNodeFinder(...finders);
 
@@ -89,11 +89,11 @@ export function chainedMatcher(
 export function ancestorChainNodeMatcher(
   nodeFinders: NodeFinder[],
   nodeToReturn: number = 0,
-  selector: SelectionExtractor = simpleSelectionExtractor
+  selector: SelectionExtractor = simpleSelectionExtractor,
 ) {
   return matcher(
     ancestorChainNodeFinder(nodeToReturn, ...nodeFinders),
-    selector
+    selector,
   );
 }
 
@@ -108,7 +108,7 @@ export function patternMatcher(...patterns: string[]): NodeMatcher {
 export function argumentMatcher(...parentTypes: string[]): NodeMatcher {
   return matcher(
     argumentNodeFinder(...parentTypes),
-    argumentSelectionExtractor()
+    argumentSelectionExtractor(),
   );
 }
 
@@ -124,11 +124,11 @@ export function conditionMatcher(...patterns: string[]): NodeMatcher {
  */
 export function leadingMatcher(
   patterns: string[],
-  delimiters: string[] = []
+  delimiters: string[] = [],
 ): NodeMatcher {
   return matcher(
     patternFinder(...patterns),
-    selectWithLeadingDelimiter(...delimiters)
+    selectWithLeadingDelimiter(...delimiters),
   );
 }
 
@@ -140,11 +140,11 @@ export function leadingMatcher(
  */
 export function trailingMatcher(
   patterns: string[],
-  delimiters: string[] = []
+  delimiters: string[] = [],
 ): NodeMatcher {
   return matcher(
     patternFinder(...patterns),
-    selectWithTrailingDelimiter(...delimiters)
+    selectWithTrailingDelimiter(...delimiters),
   );
 }
 
@@ -170,13 +170,13 @@ export function cascadingMatcher(...matchers: NodeMatcher[]): NodeMatcher {
 
 export const notSupported: NodeMatcher = (
   _selection: SelectionWithEditor,
-  _node: SyntaxNode
+  _node: SyntaxNode,
 ) => {
   throw new Error("Node type not supported");
 };
 
 export function createPatternMatchers(
-  nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>>
+  nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>>,
 ): Record<SimpleScopeTypeType, NodeMatcher> {
   Object.keys(nodeMatchers).forEach((scopeType: SimpleScopeTypeType) => {
     const matcher = nodeMatchers[scopeType];

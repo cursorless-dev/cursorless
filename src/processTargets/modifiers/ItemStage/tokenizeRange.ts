@@ -29,7 +29,7 @@ import { Range, TextEditor } from "vscode";
 export function tokenizeRange(
   editor: TextEditor,
   interior: Range,
-  boundary?: [Range, Range]
+  boundary?: [Range, Range],
 ): Token[] {
   const { document } = editor;
   const text = document.getText(interior);
@@ -60,7 +60,7 @@ export function tokenizeRange(
         type: "separator",
         range: new Range(
           document.positionAt(offset),
-          document.positionAt(offset + lexeme.length)
+          document.positionAt(offset + lexeme.length),
         ),
       });
     }
@@ -72,7 +72,7 @@ export function tokenizeRange(
         type: "item",
         range: new Range(
           document.positionAt(offsetStart),
-          document.positionAt(offsetStart + lexeme.trim().length)
+          document.positionAt(offsetStart + lexeme.trim().length),
         ),
       });
     }
