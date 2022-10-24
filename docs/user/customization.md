@@ -81,11 +81,11 @@ The word separators are characters that defines the boundary between words in a 
 
 ```json
 // Sets the word separator for all languages
-"cursorless.wordSeparators": "_"
+"cursorless.wordSeparators": ["_"]
 
 // Sets the word separator for css only
 "[css]": {
-  "cursorless.wordSeparators": "_-"
+  "cursorless.wordSeparators": ["_", "-"]
 }
 ```
 
