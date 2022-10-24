@@ -1,2 +1,6 @@
-export const DEFAULT_TAB_SIZE_FOR_TESTS = 4;
-export const DEFAULT_INSERT_SPACES_FOR_TEST = true;
+import * as vscode from "vscode";
+
+export const DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST: vscode.TextEditorOptions = {
+  tabSize: 4,
+  insertSpaces: true,
+};

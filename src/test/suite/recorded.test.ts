@@ -13,10 +13,7 @@ import {
   takeSnapshot,
 } from "../../testUtil/takeSnapshot";
 import { TestCaseFixture } from "../../testUtil/TestCase";
-import {
-  DEFAULT_INSERT_SPACES_FOR_TEST,
-  DEFAULT_TAB_SIZE_FOR_TESTS,
-} from "../../testUtil/testConstants";
+import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "../../testUtil/testConstants";
 import {
   marksToPlainObject,
   PositionPlainObject,
@@ -79,8 +76,7 @@ async function runTest(file: string) {
   );
 
   // Override any user settings and make sure tests run with default tabs.
-  editor.options.tabSize = DEFAULT_TAB_SIZE_FOR_TESTS;
-  editor.options.insertSpaces = DEFAULT_INSERT_SPACES_FOR_TEST;
+  editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
     await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);

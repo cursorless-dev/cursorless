@@ -14,10 +14,7 @@ import { extractTargetedMarks } from "./extractTargetedMarks";
 import serialize from "./serialize";
 import { ExtraSnapshotField, takeSnapshot } from "./takeSnapshot";
 import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
-import {
-  DEFAULT_INSERT_SPACES_FOR_TEST,
-  DEFAULT_TAB_SIZE_FOR_TESTS,
-} from "./testConstants";
+import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "./testConstants";
 import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
 import { walkDirsSync } from "./walkSync";
 
@@ -86,8 +83,7 @@ export class TestCaseRecorder {
   private extraSnapshotFields?: ExtraSnapshotField[];
   private paused: boolean = false;
   private isErrorTest: boolean = false;
-  private userTabSetting: string | number | undefined;
-  private userInsertSpacesSetting: boolean | string | undefined;
+  private textEditorOptions: vscode.TextEditorOptions = {};
   private calibrationStyle = vscode.window.createTextEditorDecorationType({
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
@@ -131,7 +127,6 @@ export class TestCaseRecorder {
         if (!this.active) {
           throw Error("Asked to pause recording, but no recording active");
         }
-        this.disableTabSetting();
         this.paused = true;
       }),
 
@@ -141,7 +136,6 @@ export class TestCaseRecorder {
           if (!this.active) {
             throw Error("Asked to resume recording, but no recording active");
           }
-          this.enableTabSetting();
           this.paused = false;
         }
       ),
@@ -259,8 +253,6 @@ export class TestCaseRecorder {
       `Recording test cases for following commands in:\n${this.targetDirectory}`
     );
 
-    this.enableTabSetting();
-
     return { startTimestampISO };
   }
 
@@ -290,32 +282,8 @@ export class TestCaseRecorder {
   }
 
   stop() {
-    this.disableTabSetting();
-
     this.active = false;
     this.paused = false;
-  }
-
-  private enableTabSetting() {
-    const editor = vscode.window.activeTextEditor!;
-    this.userTabSetting = editor.options.tabSize;
-    this.userInsertSpacesSetting = editor.options.insertSpaces;
-    if (
-      this.userTabSetting !== DEFAULT_TAB_SIZE_FOR_TESTS ||
-      this.userInsertSpacesSetting !== DEFAULT_INSERT_SPACES_FOR_TEST
-    ) {
-      editor.options.tabSize = DEFAULT_TAB_SIZE_FOR_TESTS;
-      editor.options.insertSpaces = DEFAULT_INSERT_SPACES_FOR_TEST;
-      vscode.window.showInformationMessage(
-        "Setting default tab size for test recording."
-      );
-    }
-  }
-
-  private disableTabSetting() {
-    const editor = vscode.window.activeTextEditor!;
-    editor.options.tabSize = this.userTabSetting;
-    editor.options.insertSpaces = this.userInsertSpacesSetting;
   }
 
   async preCommandHook(command: TestCaseCommand, context: TestCaseContext) {
@@ -345,6 +313,10 @@ export class TestCaseRecorder {
       );
 
       await this.testCase.recordInitialState();
+
+      const editor = vscode.window.activeTextEditor!;
+      this.textEditorOptions = editor.options;
+      editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
     }
   }
 
@@ -471,6 +443,9 @@ export class TestCaseRecorder {
   finallyHook() {
     this.spyInfo?.dispose();
     this.spyInfo = undefined;
+
+    const editor = vscode.window.activeTextEditor!;
+    editor.options = this.textEditorOptions;
   }
 
   dispose() {
