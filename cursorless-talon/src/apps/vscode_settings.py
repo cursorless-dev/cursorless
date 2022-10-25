@@ -58,13 +58,13 @@ class Actions:
         """
         try:
             return actions.user.vscode_get_setting(key, default_value), False
-        except Exception as e:
+        except Exception:
             print(fallback_message)
             traceback.print_exc()
             return fallback_value, True
 
 
-def pick_path(paths: list[Path]):
+def pick_path(paths: list[Path]) -> Path:
     existing_paths = [path for path in paths if path.exists()]
     return max(existing_paths, key=lambda path: path.stat().st_mtime)
 
@@ -72,14 +72,11 @@ def pick_path(paths: list[Path]):
 @mac_ctx.action_class("user")
 class MacUserActions:
     def vscode_settings_path() -> Path:
+        application_support = Path.home() / "Library/Application Support"
         return pick_path(
             [
-                Path(
-                    f"{os.environ['HOME']}/Library/Application Support/Code/User/settings.json"
-                ),
-                Path(
-                    f"{os.environ['HOME']}/Library/Application Support/VSCodium/User/settings.json"
-                ),
+                application_support / "Code/User/settings.json",
+                application_support / "VSCodium/User/settings.json",
             ]
         )
 
@@ -87,10 +84,13 @@ class MacUserActions:
 @linux_ctx.action_class("user")
 class LinuxUserActions:
     def vscode_settings_path() -> Path:
+        xdg_config_home = Path(
+            os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")
+        )
         return pick_path(
             [
-                Path(f"{os.environ['HOME']}/.config/Code/User/settings.json"),
-                Path(f"{os.environ['HOME']}/.config/VSCodium/User/settings.json"),
+                xdg_config_home / "Code/User/settings.json",
+                xdg_config_home / "VSCodium/User/settings.json",
             ]
         )
 
@@ -98,9 +98,10 @@ class LinuxUserActions:
 @windows_ctx.action_class("user")
 class WindowsUserActions:
     def vscode_settings_path() -> Path:
+        appdata = Path(os.environ["APPDATA"])
         return pick_path(
             [
-                Path(f"{os.environ['APPDATA']}/Code/User/settings.json"),
-                Path(f"{os.environ['APPDATA']}/VSCodium/User/settings.json"),
+                appdata / "Code/User/settings.json",
+                appdata / "VSCodium/User/settings.json",
             ]
         )
