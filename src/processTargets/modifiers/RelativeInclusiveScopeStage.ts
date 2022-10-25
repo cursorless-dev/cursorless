@@ -44,7 +44,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const scopeHandler = getScopeHandler(
       this.modifier.scopeType,
-      target.editor.document.languageId
+      target.editor.document.languageId,
     );
 
     if (scopeHandler == null) {
@@ -58,7 +58,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
       scopeHandler,
       direction,
       editor,
-      inputRange
+      inputRange,
     );
 
     const offset0ScopeCount = offset0Scopes.length;
@@ -71,7 +71,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
       throw new TooFewScopesError(
         desiredScopeCount,
         offset0ScopeCount,
-        scopeType.type
+        scopeType.type,
       );
     }
 
@@ -89,7 +89,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
             editor,
             initialPosition,
             desiredScopeCount - offset0ScopeCount,
-            direction
+            direction,
           )
         : direction === "forward"
         ? offset0Scopes.at(-1)!
@@ -115,14 +115,14 @@ function getOffset0Scopes(
   scopeHandler: ScopeHandler,
   direction: Direction,
   editor: TextEditor,
-  range: Range
+  range: Range,
 ): TargetScope[] {
   if (range.isEmpty) {
     const inputPosition = range.start;
 
     const scopesTouchingPosition = scopeHandler.getScopesTouchingPosition(
       editor,
-      inputPosition
+      inputPosition,
     );
 
     const preferredScope =

@@ -3,21 +3,24 @@ import {
   Direction,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { IterationScope, TargetScope } from "./scope.types";
+import { TargetScope } from "./scope.types";
 import { ScopeHandler } from "./scopeHandler.types";
 
 export default class SurroundingPairScopeHandler implements ScopeHandler {
-  public readonly iterationScopeType = undefined;
+  public readonly iterationScopeType;
 
   constructor(
     public readonly scopeType: SurroundingPairScopeType,
-    _languageId: string
-  ) {}
+    _languageId: string,
+  ) {
+    // FIXME: Figure out the actual iteration scope type
+    this.iterationScopeType = this.scopeType;
+  }
 
   getScopesTouchingPosition(
     _editor: TextEditor,
     _position: Position,
-    _ancestorIndex: number = 0
+    _ancestorIndex: number = 0,
   ): TargetScope[] {
     // TODO: Run existing surrounding pair code on empty range constructed from
     // position, returning both if position is adjacent to two
@@ -30,19 +33,11 @@ export default class SurroundingPairScopeHandler implements ScopeHandler {
     throw new Error("Method not implemented.");
   }
 
-  getIterationScopesTouchingPosition(
-    _editor: TextEditor,
-    _position: Position
-  ): IterationScope[] {
-    // TODO: Return inside strict containing pair
-    throw new Error("Method not implemented.");
-  }
-
   getScopeRelativeToPosition(
     _editor: TextEditor,
     _position: Position,
     _offset: number,
-    _direction: Direction
+    _direction: Direction,
   ): TargetScope {
     // TODO: Walk forward until we hit either an opening or closing delimiter.
     // If we hit an opening delimiter then we walk over as many pairs as we need

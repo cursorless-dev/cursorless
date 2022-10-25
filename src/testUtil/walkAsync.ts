@@ -17,7 +17,7 @@ export const walkFiles = async (dir: string): Promise<string[]> => {
       dirEntries.map(async (dirent) => {
         const filePath = path.join(dir, dirent.name);
         return dirent.isDirectory() ? await walkFiles(filePath) : [filePath];
-      })
-    )
+      }),
+    ),
   );
 };

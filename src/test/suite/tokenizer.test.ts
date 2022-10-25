@@ -1,10 +1,16 @@
 import * as assert from "assert";
-import { tokenize } from "../../core/tokenizer";
 import { flatten, range } from "lodash";
+import { tokenize } from "../../core/tokenizer";
+import { tokenizerConfiguration } from "../../core/tokenizerConfiguration";
 import { LanguageId } from "../../languages/constants";
 
 type TestCase = [string, string[]];
-/** Language-specific tokenizer test configuration object */
+/**
+ * Language-specific tokenizer test configuration object.  Note that these
+ * languages don't actually behave differently in production, we just mock
+ * overriding the word separator for a few languages to make sure that
+ * overriding works.
+ */
 interface LanguageTokenizerTests {
   /** Language-specific test cases to run in addition to the global tests for this language */
   additionalTests: TestCase[];
@@ -109,6 +115,11 @@ const languageTokenizerTests: Partial<
 };
 
 suite("tokenizer", () => {
+  // TODO: Remove this once tokenizer has access to graph
+  suiteSetup(() => {
+    tokenizerConfiguration.mockWordSeparators();
+  });
+
   globalTests.forEach(([input, expectedOutput]) => {
     test(`tokenizer test, input: "${input}"`, () => {
       const output = tokenize(input, "anyLang", (match) => match[0]);
@@ -127,7 +138,7 @@ suite("tokenizer", () => {
       const tests = [
         ...languageSpecificTests,
         ...globalTests.filter(
-          ([input, _expectedOutput]) => !exclusionPredicate(input)
+          ([input, _expectedOutput]) => !exclusionPredicate(input),
         ),
       ];
 
@@ -137,7 +148,7 @@ suite("tokenizer", () => {
           assert.deepStrictEqual(output, expectedOutput);
         });
       });
-    }
+    },
   );
 });
 
@@ -154,8 +165,8 @@ function getAsciiSymbols() {
   return flatten(
     rangesToTest.map(([start, end]) =>
       range(start.charCodeAt(0), end.charCodeAt(0) + 1).map((charCode) =>
-        String.fromCharCode(charCode)
-      )
-    )
+        String.fromCharCode(charCode),
+      ),
+    ),
   );
 }

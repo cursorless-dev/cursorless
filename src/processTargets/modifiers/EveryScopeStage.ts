@@ -1,11 +1,13 @@
+import { Range } from "vscode";
 import { NoContainingScopeError } from "../../errors";
 import type { Target } from "../../typings/target.types";
 import type { EveryScopeModifier } from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
+import getModifierStage from "../getModifierStage";
 import type { ModifierStage } from "../PipelineStages.types";
 import getLegacyScopeStage from "./getLegacyScopeStage";
-import { getPreferredScope, getRightScope } from "./getPreferredScope";
 import getScopeHandler from "./scopeHandlers/getScopeHandler";
+import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
 /**
@@ -17,43 +19,57 @@ import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
  *
  * We proceed as follows:
  *
- * 1. If target has an explicit range, just return all targets returned from
- *    {@link ScopeHandler.getScopesOverlappingRange}.
- * 2. Otherwise, get the iteration scope for the start of the input target.
- * 3. If two iteration scopes touch the start position, choose the preferred one
- *    if input target has empty content range, otherwise prefer the rightmost
- *    one, as that will have an overlap with the target input content range.
- * 3. If the domain of the iteration scope doesn't contain the end of the input
- *    target, we error, because this situation shouldn't really happen, as
- *    targets without explicit range tend to be small.
- * 4. Return all targets in the iteration scope
+ * 1. If target has an explicit range, call
+ *    {@link ScopeHandler.getScopesOverlappingRange} on our scope handler.  If
+ *    we get back at least one {@link TargetScope} whose
+ *    {@link TargetScope.domain|domain} terminates within the input target
+ *    range, just return all targets directly.
+ * 2. If we didn't get any scopes that terminate within the input target, or if
+ *    the target had no explicit range, then expand to the containing instance
+ *    of {@link ScopeHandler.iterationScopeType}, and then return all targets
+ *    returned from {@link ScopeHandler.getScopesOverlappingRange} when applied
+ *    to the expanded target's {@link Target.contentRange}.
  */
 export class EveryScopeStage implements ModifierStage {
   constructor(private modifier: EveryScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const scopeHandler = getScopeHandler(
-      this.modifier.scopeType,
-      target.editor.document.languageId
-    );
+    const { scopeType } = this.modifier;
+    const { editor, isReversed } = target;
+
+    const scopeHandler = getScopeHandler(scopeType, editor.document.languageId);
 
     if (scopeHandler == null) {
       return getLegacyScopeStage(this.modifier).run(context, target);
     }
 
-    return target.hasExplicitRange
-      ? this.handleExplicitRangeTarget(scopeHandler, target)
-      : this.handleNoExplicitRangeTarget(scopeHandler, target);
-  }
+    let scopes: TargetScope[] | undefined;
 
-  private handleExplicitRangeTarget(
-    scopeHandler: ScopeHandler,
-    target: Target
-  ): Target[] {
-    const { editor, isReversed, contentRange: range } = target;
-    const { scopeType } = this.modifier;
+    if (target.hasExplicitRange) {
+      scopes = scopeHandler.getScopesOverlappingRange(
+        editor,
+        target.contentRange,
+      );
 
-    const scopes = scopeHandler.getScopesOverlappingRange(editor, range);
+      if (
+        scopes.length === 1 &&
+        scopes[0].domain.contains(target.contentRange)
+      ) {
+        // If the only scope that came back completely contains the input target
+        // range, we treat the input as if it had no explicit range, expanding
+        // to default iteration socpe below
+        scopes = undefined;
+      }
+    }
+
+    if (scopes == null) {
+      // If target had no explicit range, or was contained by a single target
+      // instance, expand to iteration scope before overlapping
+      scopes = scopeHandler.getScopesOverlappingRange(
+        editor,
+        this.getDefaultIterationRange(context, scopeHandler, target),
+      );
+    }
 
     if (scopes.length === 0) {
       throw new NoContainingScopeError(scopeType.type);
@@ -62,41 +78,17 @@ export class EveryScopeStage implements ModifierStage {
     return scopes.map((scope) => scope.getTarget(isReversed));
   }
 
-  private handleNoExplicitRangeTarget(
+  getDefaultIterationRange(
+    context: ProcessedTargetsContext,
     scopeHandler: ScopeHandler,
-    target: Target
-  ): Target[] {
-    const {
-      editor,
-      isReversed,
-      contentRange: { start, end },
-    } = target;
-    const { scopeType } = this.modifier;
+    target: Target,
+  ): Range {
+    const containingIterationScopeModifier = getModifierStage({
+      type: "containingScope",
+      scopeType: scopeHandler.iterationScopeType,
+    });
 
-    const startIterationScopes =
-      scopeHandler.getIterationScopesTouchingPosition(editor, start);
-
-    // If target is empty, use the preferred scope; otherwise use the rightmost
-    // scope, as that one will have non-empty intersection with input target
-    // content range
-    const startIterationScope = end.isEqual(start)
-      ? getPreferredScope(startIterationScopes)
-      : getRightScope(startIterationScopes);
-
-    if (startIterationScope == null) {
-      throw new NoContainingScopeError(scopeType.type);
-    }
-
-    if (!startIterationScope.domain.contains(end)) {
-      // NB: This shouldn't really happen, because our weak scopes are
-      // generally no bigger than a token.
-      throw new Error(
-        "Canonical iteration scope domain must include entire input range"
-      );
-    }
-
-    return startIterationScope
-      .getScopes()
-      .map((scope) => scope.getTarget(isReversed));
+    return containingIterationScopeModifier.run(context, target)[0]
+      .contentRange;
   }
 }

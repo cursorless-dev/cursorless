@@ -1,25 +1,24 @@
 import { range } from "lodash";
 import { Position, Range, TextEditor } from "vscode";
-import { Direction } from "../../../typings/targetDescriptor.types";
-import { getDocumentRange } from "../../../util/range";
+import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { LineTarget } from "../../targets";
 import { OutOfRangeError } from "../targetSequenceUtils";
 import NotHierarchicalScopeError from "./NotHierarchicalScopeError";
-import type { IterationScope, TargetScope } from "./scope.types";
+import type { TargetScope } from "./scope.types";
 import type { ScopeHandler } from "./scopeHandler.types";
 
 export default class LineScopeHandler implements ScopeHandler {
+  public readonly scopeType = { type: "line" } as const;
   public readonly iterationScopeType = { type: "document" } as const;
 
-  constructor(
-    public readonly scopeType: { type: "line" },
-    protected languageId: string
-  ) {}
+  constructor(_scopeType: ScopeType, _languageId: string) {
+    // Empty
+  }
 
   getScopesTouchingPosition(
     editor: TextEditor,
     position: Position,
-    ancestorIndex: number = 0
+    ancestorIndex: number = 0,
   ): TargetScope[] {
     if (ancestorIndex !== 0) {
       throw new NotHierarchicalScopeError(this.scopeType);
@@ -30,34 +29,18 @@ export default class LineScopeHandler implements ScopeHandler {
 
   getScopesOverlappingRange(
     editor: TextEditor,
-    { start, end }: Range
+    { start, end }: Range,
   ): TargetScope[] {
     return range(start.line, end.line + 1).map((lineNumber) =>
-      lineNumberToScope(editor, lineNumber)
+      lineNumberToScope(editor, lineNumber),
     );
-  }
-
-  getIterationScopesTouchingPosition(
-    editor: TextEditor,
-    _position: Position
-  ): IterationScope[] {
-    return [
-      {
-        editor,
-        domain: getDocumentRange(editor.document),
-        getScopes: () =>
-          range(editor.document.lineCount).map((lineNumber) =>
-            lineNumberToScope(editor, lineNumber)
-          ),
-      },
-    ];
   }
 
   getScopeRelativeToPosition(
     editor: TextEditor,
     position: Position,
     offset: number,
-    direction: Direction
+    direction: Direction,
   ): TargetScope {
     const lineNumber =
       direction === "forward" ? position.line + offset : position.line - offset;
@@ -72,7 +55,7 @@ export default class LineScopeHandler implements ScopeHandler {
 
 function lineNumberToScope(
   editor: TextEditor,
-  lineNumber: number
+  lineNumber: number,
 ): TargetScope {
   const { range } = editor.document.lineAt(lineNumber);
 
@@ -86,7 +69,7 @@ function lineNumberToScope(
 export function createLineTarget(
   editor: TextEditor,
   isReversed: boolean,
-  range: Range
+  range: Range,
 ) {
   return new LineTarget({
     editor,
@@ -106,6 +89,6 @@ export function fitRangeToLineContent(editor: TextEditor, range: Range) {
     startLine.lineNumber,
     startLine.firstNonWhitespaceCharacterIndex,
     endLine.lineNumber,
-    endCharacterIndex
+    endCharacterIndex,
   );
 }

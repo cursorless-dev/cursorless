@@ -26,7 +26,7 @@ export default class SurroundingPairStage implements ModifierStage {
 
   run(
     context: ProcessedTargetsContext,
-    target: Target
+    target: Target,
   ): SurroundingPairTarget[] {
     if (this.modifier.type === "everyScope") {
       throw Error(`Unsupported every scope ${this.modifier.scopeType.type}`);
@@ -39,13 +39,13 @@ export default class SurroundingPairStage implements ModifierStage {
 function processedSurroundingPairTarget(
   modifier: ContainingSurroundingPairModifier,
   context: ProcessedTargetsContext,
-  target: Target
+  target: Target,
 ): SurroundingPairTarget[] {
   const pairInfo = processSurroundingPair(
     context,
     target.editor,
     target.contentRange,
-    modifier.scopeType
+    modifier.scopeType,
   );
 
   if (pairInfo == null) {

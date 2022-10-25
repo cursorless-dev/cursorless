@@ -1,12 +1,11 @@
-import { Range, TextDocument } from "vscode";
+import { Range, TextDocument, TextEditor } from "vscode";
 import { tokenize } from "../../../core/tokenizer";
 import type { Target } from "../../../typings/target.types";
-import { expandToFullLine } from "../../../util/rangeUtils";
+import { expandToFullLine, makeEmptyRange } from "../../../util/rangeUtils";
 import { PlainTarget } from "../../targets";
-import { getDelimitedSequenceRemovalRange } from "./DelimitedSequenceInsertionRemovalBehavior";
 
 export function getTokenLeadingDelimiterTarget(
-  target: Target
+  target: Target,
 ): Target | undefined {
   const { editor } = target;
   const { start } = target.contentRange;
@@ -22,7 +21,7 @@ export function getTokenLeadingDelimiterTarget(
           start.line,
           start.character - leadingDelimiters[0].length,
           start.line,
-          start.character
+          start.character,
         ),
         editor,
         isReversed: target.isReversed,
@@ -30,7 +29,7 @@ export function getTokenLeadingDelimiterTarget(
 }
 
 export function getTokenTrailingDelimiterTarget(
-  target: Target
+  target: Target,
 ): Target | undefined {
   const { editor } = target;
   const { end } = target.contentRange;
@@ -46,7 +45,7 @@ export function getTokenTrailingDelimiterTarget(
           end.line,
           end.character,
           end.line,
-          end.character + trailingDelimiters[0].length
+          end.character + trailingDelimiters[0].length,
         ),
         editor,
         isReversed: target.isReversed,
@@ -59,52 +58,88 @@ export function getTokenTrailingDelimiterTarget(
  * removal range is designed to be used with things that should clean themselves
  * up as if they're a range of tokens.
  * @param target The target to get the token removal range for
- * @param contentRange Can be used to override the content range instead of
- * using the one on the target
  * @returns The removal range for the given target
  */
-export function getTokenRemovalRange(
-  target: Target,
-  contentRange?: Range
-): Range {
-  const { document } = target.editor;
-  const actualContentRange = contentRange ?? target.contentRange;
-  const removalRange = getDelimitedSequenceRemovalRange(target, contentRange);
+export function getTokenRemovalRange(target: Target): Range {
+  const { editor, contentRange } = target;
+  const { start, end } = contentRange;
 
-  if (!actualContentRange.isEqual(removalRange)) {
-    const fullRange = expandToFullLine(target.editor, actualContentRange);
-    const fullText = document.getText(fullRange);
-    const fullTextOffset = document.offsetAt(fullRange.start);
+  const leadingWhitespaceRange =
+    target.getLeadingDelimiterTarget()?.contentRange ?? makeEmptyRange(start);
 
-    const numTokensContentRangeRemoved = calculateNumberOfTokensAfterRemoval(
-      document,
-      fullText,
-      fullTextOffset,
-      actualContentRange
-    );
+  const trailingWhitespaceRange =
+    target.getTrailingDelimiterTarget()?.contentRange ?? makeEmptyRange(end);
 
-    const numTokensRemovalRangeRemoved = calculateNumberOfTokensAfterRemoval(
-      document,
-      fullText,
-      fullTextOffset,
-      removalRange
-    );
+  const fullLineRange = expandToFullLine(editor, contentRange);
 
-    // Using removal range has not merged any tokens. Removal range is ok to use.
-    if (numTokensContentRangeRemoved === numTokensRemovalRangeRemoved) {
-      return removalRange;
+  if (
+    leadingWhitespaceRange.union(trailingWhitespaceRange).isEqual(fullLineRange)
+  ) {
+    // If we would just be leaving a line with whitespace on it, we delete the
+    // whitespace
+    return fullLineRange;
+  }
+
+  if (!trailingWhitespaceRange.isEmpty) {
+    const candidateRemovalRange = contentRange.union(trailingWhitespaceRange);
+
+    if (!mergesTokens(editor, contentRange, candidateRemovalRange)) {
+      // If there is trailing whitespace and it doesn't result in tokens getting
+      // merged, then we remove it
+      return candidateRemovalRange;
     }
   }
 
-  // No removal range available or it would merge tokens.
-  return actualContentRange;
+  if (
+    !leadingWhitespaceRange.isEmpty &&
+    leadingWhitespaceRange.start.character !== 0
+  ) {
+    const candidateRemovalRange = leadingWhitespaceRange.union(contentRange);
+
+    if (!mergesTokens(editor, contentRange, candidateRemovalRange)) {
+      // If there is leading whitespace that is not indentation and it doesn't
+      // result in tokens getting merged, then we remove it
+      return candidateRemovalRange;
+    }
+  }
+
+  // Otherwise just return the content range
+  return contentRange;
+}
+
+/** Returns true if removal range causes tokens to merge */
+function mergesTokens(
+  editor: TextEditor,
+  contentRange: Range,
+  removalRange: Range,
+) {
+  const { document } = editor;
+  const fullRange = expandToFullLine(editor, contentRange);
+  const fullText = document.getText(fullRange);
+  const fullTextOffset = document.offsetAt(fullRange.start);
+
+  const numTokensContentRangeRemoved = calculateNumberOfTokensAfterRemoval(
+    document,
+    fullText,
+    fullTextOffset,
+    contentRange,
+  );
+
+  const numTokensRemovalRangeRemoved = calculateNumberOfTokensAfterRemoval(
+    document,
+    fullText,
+    fullTextOffset,
+    removalRange,
+  );
+
+  return numTokensContentRangeRemoved !== numTokensRemovalRangeRemoved;
 }
 
 function calculateNumberOfTokensAfterRemoval(
   document: TextDocument,
   fullText: string,
   fullTextOffset: number,
-  removalRange: Range
+  removalRange: Range,
 ): number {
   const startIndex = document.offsetAt(removalRange.start) - fullTextOffset;
   const endIndex = document.offsetAt(removalRange.end) - fullTextOffset;

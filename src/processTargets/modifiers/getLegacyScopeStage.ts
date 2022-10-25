@@ -10,7 +10,6 @@ import ContainingSyntaxScopeStage, {
   SimpleContainingScopeModifier,
   SimpleEveryScopeModifier,
 } from "./scopeTypeStages/ContainingSyntaxScopeStage";
-import DocumentStage from "./scopeTypeStages/DocumentStage";
 import NotebookCellStage from "./scopeTypeStages/NotebookCellStage";
 import ParagraphStage from "./scopeTypeStages/ParagraphStage";
 import {
@@ -35,13 +34,11 @@ import SurroundingPairStage from "./SurroundingPairStage";
  * @returns A scope stage implementing the modifier for the given scope type
  */
 export default function getLegacyScopeStage(
-  modifier: ContainingScopeModifier | EveryScopeModifier
+  modifier: ContainingScopeModifier | EveryScopeModifier,
 ): ModifierStage {
   switch (modifier.scopeType.type) {
     case "notebookCell":
       return new NotebookCellStage(modifier);
-    case "document":
-      return new DocumentStage(modifier);
     case "paragraph":
       return new ParagraphStage(modifier);
     case "nonWhitespaceSequence":
@@ -59,7 +56,7 @@ export default function getLegacyScopeStage(
     default:
       // Default to containing syntax scope using tree sitter
       return new ContainingSyntaxScopeStage(
-        modifier as SimpleContainingScopeModifier | SimpleEveryScopeModifier
+        modifier as SimpleContainingScopeModifier | SimpleEveryScopeModifier,
       );
   }
 }

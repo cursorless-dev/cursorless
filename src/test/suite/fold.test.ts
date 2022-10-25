@@ -24,7 +24,7 @@ async function foldMade() {
           type: "cursor",
         },
       },
-    ]
+    ],
   );
 
   assert.equal(editor.visibleRanges.length, 2);
@@ -53,7 +53,7 @@ async function unfoldMade() {
           type: "cursor",
         },
       },
-    ]
+    ],
   );
 
   assert.equal(editor.visibleRanges.length, 1);

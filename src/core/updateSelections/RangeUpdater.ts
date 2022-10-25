@@ -43,7 +43,7 @@ export class RangeUpdater {
    */
   registerRangeInfoList(
     document: TextDocument,
-    rangeInfoList: FullRangeInfo[]
+    rangeInfoList: FullRangeInfo[],
   ): () => void {
     const documentRangeInfoLists = this.getDocumentRangeInfoLists(document);
 
@@ -70,7 +70,7 @@ export class RangeUpdater {
    */
   registerReplaceEditList(
     document: TextDocument,
-    replaceEditList: Edit[]
+    replaceEditList: Edit[],
   ): () => void {
     const documentReplaceEditLists = this.getDocumentReplaceEditLists(document);
 
@@ -93,7 +93,7 @@ export class RangeUpdater {
     this.disposable = workspace.onDidChangeTextDocument(
       (event: TextDocumentChangeEvent) => {
         const documentReplaceEditLists = this.getDocumentReplaceEditLists(
-          event.document
+          event.document,
         );
 
         const extendedEvent: ExtendedTextDocumentChangeEvent = {
@@ -104,15 +104,15 @@ export class RangeUpdater {
                   ...change,
                   isReplace: true,
                 }
-              : change
+              : change,
           ),
         };
 
         updateRangeInfos(
           extendedEvent,
-          this.documentRangeInfoGenerator(event.document)
+          this.documentRangeInfoGenerator(event.document),
         );
-      }
+      },
     );
   }
 
@@ -123,7 +123,7 @@ export class RangeUpdater {
 
 function isReplace(
   documentReplaceEditLists: Edit[][],
-  change: TextDocumentContentChangeEvent
+  change: TextDocumentContentChangeEvent,
 ) {
   for (const replaceEditLists of documentReplaceEditLists) {
     for (const replaceEdit of replaceEditLists) {
