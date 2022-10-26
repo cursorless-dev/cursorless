@@ -1,16 +1,14 @@
 import { Position, Range, TextEditor } from "vscode";
-import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
+import { ScopeType } from "../../../typings/targetDescriptor.types";
 import { ParagraphTarget } from "../../targets";
-import { OutOfRangeError } from "../targetSequenceUtils";
 import { fitRangeToLineContent } from "./LineScopeHandler";
+import NestedScopeHandler from "./NestedScopeHandler";
 import NotHierarchicalScopeError from "./NotHierarchicalScopeError";
 import { TargetScope } from "./scope.types";
-import { ScopeHandler } from "./scopeHandler.types";
 
-export default class ParagraphScopeHandler implements ScopeHandler {
-  public readonly iterationScopeType = { type: "document" } as const;
-
-  constructor(public scopeType: ScopeType, _languageId: string) {}
+export default class TokenScopeHandler extends NestedScopeHandler {
+  public readonly scopeType: ScopeType = { type: "paragraph" };
+  public readonly iterationScopeType: ScopeType = { type: "document" };
 
   getScopesTouchingPosition(
     editor: TextEditor,
@@ -21,62 +19,57 @@ export default class ParagraphScopeHandler implements ScopeHandler {
       throw new NotHierarchicalScopeError(this.scopeType);
     }
 
-    return this.getScopesOverlappingRange(
-      editor,
-      new Range(position, position),
-    );
+    return getScopesOverlappingRange(editor, new Range(position, position));
   }
 
-  getScopesOverlappingRange(editor: TextEditor, range: Range): TargetScope[] {
-    const searchRange = calculateSearchRange(editor, range);
+  protected getScopesInSearchScope({
+    editor,
+    domain,
+  }: TargetScope): TargetScope[] {
+    return getScopesOverlappingRange(editor, domain);
+  }
+}
 
-    const { startLine, endLine } = searchRange;
-    const scopes: TargetScope[] = [];
-    let paragraphStart = startLine.isEmptyOrWhitespace
-      ? -1
-      : startLine.lineNumber;
+function getScopesOverlappingRange(
+  editor: TextEditor,
+  range: Range,
+): TargetScope[] {
+  const { startLine, endLine } = calculateSearchRange(editor, range);
 
-    for (let i = startLine.lineNumber; i <= endLine.lineNumber; ++i) {
-      const line = editor.document.lineAt(i);
+  const scopes: TargetScope[] = [];
+  let paragraphStart = startLine.isEmptyOrWhitespace
+    ? undefined
+    : startLine.range.start;
 
-      if (line.isEmptyOrWhitespace) {
-        // End of paragraph
-        if (paragraphStart > -1) {
-          scopes.push(
-            createScope(editor, new Range(paragraphStart, 0, i - 1, 0)),
-          );
-          paragraphStart = -1;
-        }
-      }
-      // Start of paragraph
-      else if (paragraphStart < 0) {
-        paragraphStart = i;
-      }
+  for (let i = startLine.lineNumber; i <= endLine.lineNumber; ++i) {
+    const line = editor.document.lineAt(i);
 
-      // End of last paragraph
-      if (i === endLine.lineNumber && !endLine.isEmptyOrWhitespace) {
-        scopes.push(createScope(editor, new Range(paragraphStart, 0, i, 0)));
+    if (line.isEmptyOrWhitespace) {
+      // End of paragraph
+      if (paragraphStart != null) {
+        scopes.push(
+          createScope(
+            editor,
+            new Range(paragraphStart, editor.document.lineAt(i - 1).range.end),
+          ),
+        );
+        paragraphStart = undefined;
       }
     }
-
-    return scopes;
-  }
-
-  getScopeRelativeToPosition(
-    editor: TextEditor,
-    position: Position,
-    offset: number,
-    direction: Direction,
-  ): TargetScope {
-    if (offset === 0) {
-      const scopes = this.getScopesTouchingPosition(editor, position);
-      if (scopes.length > 0) {
-        return scopes[0];
-      }
+    // Start of paragraph
+    else if (paragraphStart == null) {
+      paragraphStart = line.range.start;
     }
 
-    throw new OutOfRangeError();
+    // End of last paragraph
+    if (paragraphStart != null && i === endLine.lineNumber) {
+      scopes.push(
+        createScope(editor, new Range(paragraphStart, endLine.range.end)),
+      );
+    }
   }
+
+  return scopes;
 }
 
 function createScope(editor: TextEditor, domain: Range): TargetScope {
