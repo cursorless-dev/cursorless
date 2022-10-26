@@ -14,5 +14,7 @@ export * from "./DocumentScopeHandler";
 export { default as DocumentScopeHandler } from "./DocumentScopeHandler";
 export * from "./OneOfScopeHandler";
 export { default as OneOfScopeHandler } from "./OneOfScopeHandler";
+export * from "./ParagraphScopeHandler";
+export { default as ParagraphScopeHandler } from "./ParagraphScopeHandler";
 export * from "./getScopeHandler";
 export { default as getScopeHandler } from "./getScopeHandler";
