@@ -1,3 +1,5 @@
+import { Range, TextEditor } from "vscode";
+import { testRegex } from "../../util/regex";
 import { TargetScope } from "./scopeHandlers/scope.types";
 
 /**
@@ -37,6 +39,27 @@ export function getLeftScope(scopes: TargetScope[]): TargetScope | undefined {
 export function getRightScope(scopes: TargetScope[]): TargetScope | undefined {
   return getScopeHelper(scopes, (scope1, scope2) =>
     scope1.domain.start.isAfter(scope2.domain.start),
+  );
+}
+
+/**
+ * Evaluates the text of the given ranges and prefers regex match
+ * @param regex Regex to test text against
+ * @param editor
+ * @param range1
+ * @param range2
+ * @returns
+ */
+export function preferRegexCallback(
+  regex: RegExp,
+  editor: TextEditor,
+  range1: Range,
+  range2: Range,
+) {
+  return (
+    (testRegex(regex, editor.document.getText(range1)) &&
+      !testRegex(regex, editor.document.getText(range2))) ||
+    range1.start.isAfter(range2.start)
   );
 }
 
