@@ -54,8 +54,16 @@ function processRangeTarget(
   context: ProcessedTargetsContext,
   targetDesc: RangeTargetDescriptor,
 ): Target[] {
-  const anchorTargets = processPrimitiveTarget(context, targetDesc.anchor);
-  const activeTargets = processPrimitiveTarget(context, targetDesc.active);
+  const anchorTargets = processPrimitiveTarget(
+    context,
+    targetDesc.anchor,
+    true,
+  );
+  const activeTargets = processPrimitiveTarget(
+    context,
+    targetDesc.active,
+    true,
+  );
 
   return zip(anchorTargets, activeTargets).flatMap(
     ([anchorTarget, activeTarget]) => {
@@ -178,6 +186,7 @@ function targetsToVerticalTarget(
 function processPrimitiveTarget(
   context: ProcessedTargetsContext,
   targetDescriptor: PrimitiveTargetDescriptor,
+  isRangeTarget: boolean = false,
 ): Target[] {
   // First, get the targets output by the mark
   const markStage = getMarkStage(targetDescriptor.mark);
@@ -188,12 +197,6 @@ function processPrimitiveTarget(
       ? []
       : [getModifierStage(targetDescriptor.positionModifier)];
 
-  const modifyIfUntypedAndEmptyStage = getModifierStage({
-    type: "modifyIfUntypedAndEmpty",
-    suppressErrors: true,
-    modifier: { type: "containingScope", scopeType: { type: "token" } },
-  });
-
   /**
    * The modifier pipeline that will be applied to construct our final targets
    */
@@ -202,8 +205,17 @@ function processPrimitiveTarget(
     ...context.actionPrePositionStages,
     ...positionModifierStages,
     ...context.actionFinalStages,
-    modifyIfUntypedAndEmptyStage,
   ];
+
+  if (!isRangeTarget) {
+    modifierStages.push(
+      getModifierStage({
+        type: "modifyIfUntypedAndEmpty",
+        suppressErrors: true,
+        modifier: { type: "containingScope", scopeType: { type: "token" } },
+      }),
+    );
+  }
 
   // Run all targets through the modifier stages
   return processModifierStages(context, modifierStages, markOutputTargets);
