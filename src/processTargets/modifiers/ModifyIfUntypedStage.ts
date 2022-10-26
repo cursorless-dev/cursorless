@@ -12,9 +12,15 @@ abstract class ModifyIfBaseStage implements ModifierStage {
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     if (this.modifyIf(target)) {
       // Modify this target
-      return this.nestedStage
-        .run(context, target)
-        .map((newTarget) => newTarget.withThatTarget(target));
+      try {
+        return this.nestedStage
+          .run(context, target)
+          .map((newTarget) => newTarget.withThatTarget(target));
+      } catch (ex) {
+        if (!this.modifier.suppressErrors) {
+          throw ex;
+        }
+      }
     }
 
     // Don't modify this target

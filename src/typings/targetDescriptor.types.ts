@@ -294,6 +294,7 @@ export interface HeadTailModifier {
  */
 export interface ModifyIfUntypedModifier {
   type: "modifyIfUntyped";
+  suppressErrors?: boolean;
 
   /**
    * The modifier to apply if the target is untyped
@@ -309,6 +310,7 @@ export interface ModifyIfUntypedModifier {
  */
 export interface ModifyIfUntypedAndEmptyModifier {
   type: "modifyIfUntypedAndEmpty";
+  suppressErrors?: boolean;
 
   /**
    * The modifier to apply if the target is untyped

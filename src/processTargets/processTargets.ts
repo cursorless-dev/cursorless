@@ -190,6 +190,7 @@ function processPrimitiveTarget(
 
   const modifyIfUntypedAndEmptyStage = getModifierStage({
     type: "modifyIfUntypedAndEmpty",
+    suppressErrors: true,
     modifier: { type: "containingScope", scopeType: { type: "token" } },
   });
 
