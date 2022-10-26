@@ -302,6 +302,25 @@ export interface ModifyIfUntypedModifier {
 }
 
 /**
+ * Runs {@link modifier} if the target has no explicit scope type and empty range, ie if
+ * {@link Target.hasExplicitScopeType} is `false` and
+ * {@link Target.hasExplicitRange} is `false` and
+ * {@link Target.contentRange.isEmpty} is `true`.
+ */
+export interface ModifyIfUntypedAndEmptyModifier {
+  type: "modifyIfUntypedAndEmpty";
+
+  /**
+   * The modifier to apply if the target is untyped
+   */
+  modifier: Modifier;
+}
+
+export type ModifyIfModifier =
+  | ModifyIfUntypedModifier
+  | ModifyIfUntypedAndEmptyModifier;
+
+/**
  * Tries each of the modifiers in {@link modifiers} in turn until one of them
  * doesn't throw an error, returning the output from the first modifier not
  * throwing an error.
@@ -339,7 +358,7 @@ export type Modifier =
   | LeadingModifier
   | TrailingModifier
   | RawSelectionModifier
-  | ModifyIfUntypedModifier
+  | ModifyIfModifier
   | CascadingModifier
   | RangeModifier
   | KeepContentFilterModifier

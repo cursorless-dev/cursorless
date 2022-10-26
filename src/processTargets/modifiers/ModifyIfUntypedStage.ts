@@ -1,31 +1,24 @@
 import { Target } from "../../typings/target.types";
-import { ModifyIfUntypedModifier } from "../../typings/targetDescriptor.types";
+import { ModifyIfModifier } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";
 
-/**
- * Runs {@link ModifyIfUntypedModifier.modifier} if the target has no explicit
- * scope type, ie if {@link Target.hasExplicitScopeType} is `false`.
- */
-export default class ModifyIfUntypedStage implements ModifierStage {
+abstract class ModifyIfBaseStage implements ModifierStage {
   private nestedStage_?: ModifierStage;
 
-  constructor(private modifier: ModifyIfUntypedModifier) {}
+  constructor(private modifier: ModifyIfModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    // If true this target has an explicit scope type and should not be modified.
-    if (target.hasExplicitScopeType) {
-      return [target];
+    if (this.modifyIf(target)) {
+      // Modify this target
+      return this.nestedStage
+        .run(context, target)
+        .map((newTarget) => newTarget.withThatTarget(target));
     }
 
-    /**
-     * This target is lacking an explicit scope type and should use inference/upgrade when needed.
-     * See {@link Target.hasExplicitScopeType} for more info
-     */
-    return this.nestedStage
-      .run(context, target)
-      .map((newTarget) => newTarget.withThatTarget(target));
+    // Don't modify this target
+    return [target];
   }
 
   private get nestedStage() {
@@ -34,5 +27,34 @@ export default class ModifyIfUntypedStage implements ModifierStage {
     }
 
     return this.nestedStage_;
+  }
+
+  protected abstract modifyIf(target: Target): boolean;
+}
+
+/**
+ * Runs {@link ModifyIfModifier.modifier} if the target has no explicit
+ * scope type, ie if {@link Target.hasExplicitScopeType} is `false`.
+ */
+export class ModifyIfUntypedStage extends ModifyIfBaseStage {
+  protected modifyIf(target: Target): boolean {
+    return !target.hasExplicitScopeType;
+  }
+}
+
+/**
+ * Runs {@link ModifyIfModifier.modifier} if the target has no
+ * explicit scope type and empty range, ie if
+ * {@link Target.hasExplicitScopeType} is `false` and
+ * {@link Target.hasExplicitRange} is `false` and
+ * {@link Target.contentRange.isEmpty} is `true`.
+ */
+export class ModifyIfUntypedAndEmptyStage extends ModifyIfBaseStage {
+  protected modifyIf(target: Target): boolean {
+    return (
+      !target.hasExplicitScopeType &&
+      !target.hasExplicitRange &&
+      target.contentRange.isEmpty
+    );
   }
 }

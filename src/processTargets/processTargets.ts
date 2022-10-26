@@ -188,6 +188,11 @@ function processPrimitiveTarget(
       ? []
       : [getModifierStage(targetDescriptor.positionModifier)];
 
+  const modifyIfUntypedAndEmptyStage = getModifierStage({
+    type: "modifyIfUntypedAndEmpty",
+    modifier: { type: "containingScope", scopeType: { type: "token" } },
+  });
+
   /**
    * The modifier pipeline that will be applied to construct our final targets
    */
@@ -196,6 +201,7 @@ function processPrimitiveTarget(
     ...context.actionPrePositionStages,
     ...positionModifierStages,
     ...context.actionFinalStages,
+    modifyIfUntypedAndEmptyStage,
   ];
 
   // Run all targets through the modifier stages
