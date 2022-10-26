@@ -36,4 +36,9 @@ export interface TargetScope {
    * The target corresponding to this scope.
    */
   getTarget(isReversed: boolean): Target;
+
+  /**
+   * Optional comparator to to show preference between two scopes
+   */
+  isPreferred?(scope: TargetScope): boolean;
 }

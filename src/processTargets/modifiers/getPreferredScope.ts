@@ -2,15 +2,18 @@ import { TargetScope } from "./scopeHandlers/scope.types";
 
 /**
  * Given a list of scopes, returns the preferred scope, or `undefined` if
- * {@link scopes} is empty.  The preferred scope will always be the rightmost
- * scope.
+ * {@link scopes} is empty.
  * @param scopes A list of scopes to choose from
  * @returns A single preferred scope, or `undefined` if {@link scopes} is empty
  */
 export function getPreferredScope(
   scopes: TargetScope[],
 ): TargetScope | undefined {
-  return getRightScope(scopes);
+  return getScopeHelper(scopes, (scope1, scope2) =>
+    scope1.isPreferred != null
+      ? scope1.isPreferred(scope2)
+      : scope1.domain.start.isAfter(scope2.domain.start),
+  );
 }
 
 /**

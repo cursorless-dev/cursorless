@@ -44,6 +44,11 @@ export function matchAll<T>(
   return Array.from(text.matchAll(regex), mapfn);
 }
 
+export function testRegex(regex: RegExp, text: string) {
+  regex.lastIndex = 0;
+  return regex.test(text);
+}
+
 export interface MatchedText {
   index: number;
   text: string;
