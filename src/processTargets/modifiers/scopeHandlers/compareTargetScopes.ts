@@ -6,13 +6,15 @@ export function compareTargetScopes(
   direction: Direction,
   position: Position,
   { domain: a }: TargetScope,
-  { domain: b }: TargetScope): number {
+  { domain: b }: TargetScope,
+): number {
   const aContainsPosition = a.contains(position);
   const bContainsPosition = b.contains(position);
   const multiplier = direction === "forward" ? 1 : -1;
-  const [proximalAttribute, distalAttribute] = direction === "forward"
-    ? (["start", "end"] as const)
-    : (["end", "start"] as const);
+  const [proximalAttribute, distalAttribute] =
+    direction === "forward"
+      ? (["start", "end"] as const)
+      : (["end", "start"] as const);
 
   if (aContainsPosition && bContainsPosition) {
     const value = multiplier * a[distalAttribute].compareTo(b[distalAttribute]);

@@ -3,22 +3,24 @@ interface IteratorInfo<T> {
   value: T;
 }
 export function getInitialIteratorInfos<T>(
-  iterators: Iterator<T>[]): IteratorInfo<T>[] {
+  iterators: Iterator<T>[],
+): IteratorInfo<T>[] {
   return iterators.flatMap((iterator) => {
     const { value, done } = iterator.next();
     return done
       ? []
       : [
-        {
-          iterator,
-          value,
-        },
-      ];
+          {
+            iterator,
+            value,
+          },
+        ];
   });
 }
 export function advanceIteratorsUntil<T>(
   iteratorInfos: IteratorInfo<T>[],
-  criterion: (arg: T) => boolean): IteratorInfo<T>[] {
+  criterion: (arg: T) => boolean,
+): IteratorInfo<T>[] {
   return iteratorInfos.flatMap((iteratorInfo) => {
     const { iterator } = iteratorInfo;
     let { value } = iteratorInfo;
