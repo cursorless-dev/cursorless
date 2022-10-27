@@ -23,4 +23,9 @@ export default class TokenScopeHandler extends NestedScopeHandler {
         }),
     }));
   }
+
+  isPreferredOver(
+    scope1: TargetScope,
+    scope2: TargetScope,
+  ): boolean | undefined {}
 }
