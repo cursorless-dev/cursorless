@@ -1,16 +1,17 @@
 import { NoContainingScopeError } from "../../errors";
 import type { Target } from "../../typings/target.types";
-import type { ContainingScopeModifier } from "../../typings/targetDescriptor.types";
+import type {
+  ContainingScopeModifier,
+  Direction,
+} from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import getScopeHandler from "./scopeHandlers/getScopeHandler";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import getLegacyScopeStage from "./getLegacyScopeStage";
-import {
-  getLeftScope,
-  getPreferredScope,
-  getRightScope,
-} from "./getPreferredScope";
+import { TargetScope } from "./scopeHandlers/scope.types";
+import { TextEditor, Position } from "vscode";
+import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
 /**
  * This modifier stage expands from the input target to the smallest containing
@@ -39,7 +40,7 @@ export class ContainingScopeStage implements ModifierStage {
       editor,
       contentRange: { start, end },
     } = target;
-    const { scopeType, ancestorIndex } = this.modifier;
+    const { scopeType, ancestorIndex = 0 } = this.modifier;
 
     const scopeHandler = getScopeHandler(
       scopeType,
@@ -50,41 +51,54 @@ export class ContainingScopeStage implements ModifierStage {
       return getLegacyScopeStage(this.modifier).run(context, target);
     }
 
-    const startScopes = scopeHandler.getScopesTouchingPosition(
+    if (end.isEqual(start)) {
+      // Input target is empty; return the preferred scope touching target
+      let scope = scopeHandler.getPreferredScopeTouchingPosition(editor, start);
+
+      if (scope == null) {
+        throw new NoContainingScopeError(this.modifier.scopeType.type);
+      }
+
+      if (ancestorIndex > 0) {
+        scope = expandFromPosition(
+          scopeHandler,
+          editor,
+          scope.domain.end,
+          "forward",
+          ancestorIndex - 1,
+        );
+      }
+
+      if (scope == null) {
+        throw new NoContainingScopeError(this.modifier.scopeType.type);
+      }
+
+      return [scope.getTarget(isReversed)];
+    }
+
+    const startScope = expandFromPosition(
+      scopeHandler,
       editor,
       start,
+      "forward",
       ancestorIndex,
     );
 
-    if (startScopes.length === 0) {
+    if (startScope == null) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
-    if (end.isEqual(start)) {
-      // Input target is empty; return the preferred scope touching target
-      return [getPreferredScope(startScopes)!.getTarget(isReversed)];
-    }
-
-    // Target is non-empty; use the rightmost scope touching `startScope`
-    // because that will have non-empty overlap with input content range
-    const startScope = getRightScope(startScopes)!;
-
     if (startScope.domain.contains(end)) {
-      // End of input target is contained in domain of start scope; return start
-      // scope
       return [startScope.getTarget(isReversed)];
     }
 
-    // End of input target is after end of start scope; we need to make a range
-    // between start and end scopes.  For the end scope, we break ties to the
-    // left so that the scope will have non-empty overlap with input target
-    // content range.
-    const endScopes = scopeHandler.getScopesTouchingPosition(
+    const endScope = expandFromPosition(
+      scopeHandler,
       editor,
       end,
+      "backward",
       ancestorIndex,
     );
-    const endScope = getLeftScope(endScopes);
 
     if (endScope == null) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -92,4 +106,30 @@ export class ContainingScopeStage implements ModifierStage {
 
     return [constructScopeRangeTarget(isReversed, startScope, endScope)];
   }
+}
+
+function expandFromPosition(
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  position: Position,
+  direction: Direction,
+  ancestorIndex: number,
+): TargetScope | undefined {
+  let nextAncestorIndex = 0;
+  for (const scope of scopeHandler.generateScopesRelativeToPosition(
+    editor,
+    position,
+    direction,
+    { containment: "required" },
+  )) {
+    if (scope.domain.contains(position)) {
+      if (nextAncestorIndex === ancestorIndex) {
+        return scope;
+      }
+
+      nextAncestorIndex += 1;
+    }
+  }
+
+  return undefined;
 }

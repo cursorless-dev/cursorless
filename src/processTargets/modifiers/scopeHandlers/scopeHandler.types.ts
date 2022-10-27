@@ -44,80 +44,30 @@ export interface ScopeHandler {
   readonly iterationScopeType: ScopeType;
 
   /**
-   * Return all scope(s) touching the given position. A scope is considered to
-   * touch a position if its {@link TargetScope.domain|domain} contains the
-   * position or is directly adjacent to the position. In other words, return
-   * all scopes for which the following is true:
+   * Return the preferred scope touching the given position. A scope is
+   * considered to touch a position if its {@link TargetScope.domain|domain}
+   * contains the position or is directly adjacent to the position. In other
+   * words, return all scopes for which the following is true:
    *
    * ```typescript
    * scope.domain.start <= position && scope.domain.end >= position
    * ```
    *
-   * If the position is directly adjacent to two scopes, return both. If no
-   * scope touches the given position, return an empty list.
+   * If the position is directly adjacent to two scopes, return the preferred
+   * scope.  This will generallly be the rightmost scope. If no scope touches
+   * the given position, return `undefined`.
    *
-   * Note that if this scope type is hierarchical, return only minimal scopes if
-   * {@link ancestorIndex} is omitted or is 0.  Ie if scope A and scope B both
-   * touch {@link position}, and scope A contains scope B, return scope B but
-   * not scope A.
-   *
-   * If {@link ancestorIndex} is supplied and is greater than 0, throw a
-   * {@link NotHierarchicalScopeError} if the scope type is not hierarchical.
-   *
-   * If the scope type is hierarchical, then if {@link ancestorIndex} is 1,
-   * return all scopes touching {@link position} that have a child that is a
-   * minimal scope touching {@link position} (ie they have a child that has an
-   * {@link ancestorIndex} of 1 with respect to {@link position}).  If
-   * {@link ancestorIndex} is 2, return all scopes touching {@link position}
-   * that have a child with {@link ancestorIndex} of 1 with respect to
-   * {@link position}, etc.
-   *
-   * The {@link ancestorIndex} parameter is primarily to be used by `"grand"`
-   * scopes (#124).
+   * Note that if this scope type is hierarchical, return only minimal scopes.
+   * Ie if scope A and scope B both touch {@link position}, and scope A contains
+   * scope B, return scope B but not scope A.
    *
    * @param editor The editor containing {@link position}
    * @param position The position from which to expand
-   * @param ancestorIndex If supplied, skip this many ancestors up the
-   * hierarchy.
    */
-  getScopesTouchingPosition(
+  getPreferredScopeTouchingPosition(
     editor: TextEditor,
     position: Position,
-    ancestorIndex?: number,
-  ): TargetScope[];
-
-  /**
-   * Return a list of all scopes that overlap with {@link range}.  A scope is
-   * considered to overlap with a range if its {@link TargetScope.domain|domain}
-   * has a non-empty intersection with the range. In other words, return all
-   * scopes for which the following is true:
-   *
-   * ```typescript
-   * const intersection = scope.domain.intersection(range);
-   * return intersection != null && !intersection.isEmpty;
-   * ```
-   *
-   * If the scope type is hierarchical, then there can be nested scopes that
-   * both overlap with {@link range}. As mentioned in the JSDoc for
-   * {@link ScopeHandler}, you should never return two scopes that contain one
-   * another. Ie if scope A and scope B both overlap with {@link range}, you
-   * must return only one of them. Here's how to decide which scopes to return:
-   *
-   * 1. If there exists any scope whose {@link TargetScope.domain|domain} starts
-   *    or ends within {@link range}, then return all maximal scopes whose
-   *    {@link TargetScope.domain|domain} starts or ends within {@link range}.
-   *    Ie if scope A and scope B both have domains starting or ending in
-   *    {@link range} and scope A contains scope B, return scope A.
-   * 2. Otherwise, ie if no scope terminates within {@link range}, return the
-   *    minimal scope whose {@link TargetScope.domain|domain} contains
-   *    {@link range}, if any such scope exists.  Ie if scope A and scope B both
-   *    have domains containing {@link range} and scope A contains scope B,
-   *    return scope B.
-   *
-   * @param editor The editor containing {@link range}
-   * @param range The range with which to find overlapping scopes
-   */
-  getScopesOverlappingRange(editor: TextEditor, range: Range): TargetScope[];
+  ): TargetScope | undefined;
 
   /**
    * Returns a scope before or after {@link position}, depending on
@@ -144,10 +94,17 @@ export interface ScopeHandler {
    * @param offset Which scope before / after position to return
    * @param direction The direction to go relative to {@link position}
    */
-  getScopeRelativeToPosition(
+  generateScopesRelativeToPosition(
     editor: TextEditor,
     position: Position,
-    offset: number,
     direction: Direction,
-  ): TargetScope;
+    hints?: ScopeIteratorHints,
+  ): Iterable<TargetScope>;
+}
+
+export type ContainmentPolicy = "required" | "disallowed" | "disallowedStrict";
+
+export interface ScopeIteratorHints {
+  containment?: ContainmentPolicy;
+  mustStartBefore?: Position;
 }

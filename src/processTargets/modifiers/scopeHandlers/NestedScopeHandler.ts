@@ -1,14 +1,14 @@
-import type { Position, Range, TextEditor } from "vscode";
+import type { Position, TextEditor } from "vscode";
 import { getScopeHandler } from ".";
 import type {
   Direction,
   ScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { getLeftScope, getRightScope } from "../getPreferredScope";
+import { getPreferredScope } from "../getPreferredScope";
 import { OutOfRangeError } from "../targetSequenceUtils";
-import NotHierarchicalScopeError from "./NotHierarchicalScopeError";
 import type { TargetScope } from "./scope.types";
-import type { ScopeHandler } from "./scopeHandler.types";
+import type { ScopeHandler, ScopeIteratorHints } from "./scopeHandler.types";
+import { shouldReturnScope } from "./scopeHandlers.helpers";
 
 /**
  * This class can be used to define scope types that are most easily defined by
@@ -51,6 +51,27 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
     protected languageId: string,
   ) {}
 
+  getPreferredScopeTouchingPosition(
+    editor: TextEditor,
+    position: Position,
+  ): TargetScope | undefined {
+    const searchScope =
+      this.searchScopeHandler.getPreferredScopeTouchingPosition(
+        editor,
+        position,
+      );
+
+    if (searchScope === undefined) {
+      return undefined;
+    }
+
+    const candidateScopes = this.getScopesInSearchScope(searchScope).filter(
+      ({ domain }) => domain.contains(position),
+    );
+
+    return getPreferredScope(candidateScopes);
+  }
+
   private get searchScopeHandler(): ScopeHandler {
     if (this._searchScopeHandler == null) {
       this._searchScopeHandler = getScopeHandler(
@@ -60,56 +81,6 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
     }
 
     return this._searchScopeHandler;
-  }
-
-  getScopesTouchingPosition(
-    editor: TextEditor,
-    position: Position,
-    ancestorIndex: number = 0,
-  ): TargetScope[] {
-    if (ancestorIndex !== 0) {
-      throw new NotHierarchicalScopeError(this.scopeType);
-    }
-
-    return this.searchScopeHandler
-      .getScopesTouchingPosition(editor, position)
-      .flatMap((searchScope) => this.getScopesInSearchScope(searchScope))
-      .filter(({ domain }) => domain.contains(position));
-  }
-
-  getScopesOverlappingRange(editor: TextEditor, range: Range): TargetScope[] {
-    return this.searchScopeHandler
-      .getScopesOverlappingRange(editor, range)
-      .flatMap((searchScope) => this.getScopesInSearchScope(searchScope))
-      .filter(({ domain }) => {
-        const intersection = domain.intersection(range);
-        return intersection != null && !intersection.isEmpty;
-      });
-  }
-
-  getScopeRelativeToPosition(
-    editor: TextEditor,
-    position: Position,
-    offset: number,
-    direction: Direction,
-  ): TargetScope {
-    let remainingOffset = offset;
-
-    // Note that most of the heavy lifting is done by iterateScopeGroups; here
-    // we just repeatedly subtract `scopes.length` until we have seen as many
-    // scopes as required by `offset`.
-    const iterator = this.iterateScopeGroups(editor, position, direction);
-    for (const scopes of iterator) {
-      if (scopes.length >= remainingOffset) {
-        return direction === "forward"
-          ? scopes.at(remainingOffset - 1)!
-          : scopes.at(-remainingOffset)!;
-      }
-
-      remainingOffset -= scopes.length;
-    }
-
-    throw new OutOfRangeError();
   }
 
   /**
@@ -127,58 +98,54 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
    * @param direction The direction passed in to
    * {@link getScopeRelativeToPosition}
    */
-  private *iterateScopeGroups(
+  *generateScopesRelativeToPosition(
     editor: TextEditor,
     position: Position,
     direction: Direction,
-  ): Generator<TargetScope[], void, unknown> {
-    const containingSearchScopes =
-      this.searchScopeHandler.getScopesTouchingPosition(editor, position);
+    hints: ScopeIteratorHints | undefined = {},
+  ): Iterable<TargetScope> {
+    const { containment, ...rest } = hints;
+    const iterator = this.searchScopeHandler
+      .generateScopesRelativeToPosition(editor, position, direction, {
+        containment: containment === "required" ? "required" : undefined,
+        ...rest,
+      })
+      [Symbol.iterator]();
 
-    const containingSearchScope =
-      direction === "forward"
-        ? getRightScope(containingSearchScopes)
-        : getLeftScope(containingSearchScopes);
+    let { value: searchScope, done } = iterator.next();
 
-    let currentPosition = position;
-
-    if (containingSearchScope != null) {
-      yield this.getScopesInSearchScope(containingSearchScope).filter(
-        ({ domain }) =>
-          direction === "forward"
-            ? domain.start.isAfterOrEqual(position)
-            : domain.end.isBeforeOrEqual(position),
-      );
-
-      // Move current position past containing scope so that asking for next
-      // parent search scope won't just give us back the same on
-      currentPosition =
-        direction === "forward"
-          ? containingSearchScope.domain.end
-          : containingSearchScope.domain.start;
+    if (done) {
+      return;
     }
+
+    yield* maybeReverse(
+      this.getScopesInSearchScope(searchScope).filter(
+        (scope) =>
+          (direction === "forward"
+            ? scope.domain.end.isAfter(position)
+            : scope.domain.start.isBefore(position)) &&
+          shouldReturnScope(position, hints, scope),
+      ),
+      direction === "backward",
+    );
 
     while (true) {
-      // Note that we always use an `offset` of 1 here.  We could instead have
-      // left `currentPosition` unchanged and incremented offset, but in some
-      // cases it will be more efficient not to ask parent to walk past the same
-      // scopes over and over again.  Eg for surrounding pair this can help us.
-      // For line it makes no difference.
-      const searchScope = this.searchScopeHandler.getScopeRelativeToPosition(
-        editor,
-        currentPosition,
-        1,
-        direction,
+      ({ value: searchScope, done } = iterator.next());
+
+      if (done) {
+        return;
+      }
+
+      yield* maybeReverse(
+        this.getScopesInSearchScope(searchScope).filter((scope) =>
+          shouldReturnScope(position, hints, scope),
+        ),
+        direction === "backward",
       );
-
-      yield this.getScopesInSearchScope(searchScope);
-
-      // Move current position past the scope we just used so that asking for next
-      // parent search scope won't just give us back the same on
-      currentPosition =
-        direction === "forward"
-          ? searchScope.domain.end
-          : searchScope.domain.start;
     }
   }
+}
+
+function maybeReverse<T>(original: T[], doReverse: boolean): Iterable<T> {
+  return doReverse ? [...original].reverse() : original;
 }

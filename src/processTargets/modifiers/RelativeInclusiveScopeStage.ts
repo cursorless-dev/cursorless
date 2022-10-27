@@ -1,19 +1,13 @@
-import type { Range, TextEditor } from "vscode";
-import { NoContainingScopeError } from "../../errors";
 import type { Target } from "../../typings/target.types";
-import type {
-  Direction,
-  RelativeScopeModifier,
-} from "../../typings/targetDescriptor.types";
+import type { RelativeScopeModifier } from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
+import { strictlyContains } from "../../util/rangeUtils";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
-import { getLeftScope, getRightScope } from "./getPreferredScope";
 import { runLegacy } from "./relativeScopeLegacy";
 import getScopeHandler from "./scopeHandlers/getScopeHandler";
 import type { TargetScope } from "./scopeHandlers/scope.types";
-import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
-import { TooFewScopesError } from "./TooFewScopesError";
+import { OutOfRangeError } from "./targetSequenceUtils";
 
 /**
  * Handles relative modifiers that include targets intersecting with the input,
@@ -52,86 +46,38 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
     }
 
     const { isReversed, editor, contentRange: inputRange } = target;
-    const { scopeType, length: desiredScopeCount, direction } = this.modifier;
-
-    const offset0Scopes = getOffset0Scopes(
-      scopeHandler,
-      direction,
-      editor,
-      inputRange,
-    );
-
-    const offset0ScopeCount = offset0Scopes.length;
-
-    if (offset0ScopeCount === 0) {
-      throw new NoContainingScopeError(scopeType.type);
-    }
-
-    if (offset0ScopeCount > desiredScopeCount) {
-      throw new TooFewScopesError(
-        desiredScopeCount,
-        offset0ScopeCount,
-        scopeType.type,
-      );
-    }
-
-    const proximalScope =
-      direction === "forward" ? offset0Scopes[0] : offset0Scopes.at(-1)!;
+    const { length: desiredScopeCount, direction } = this.modifier;
 
     const initialPosition =
-      direction === "forward"
-        ? offset0Scopes.at(-1)!.domain.end
-        : offset0Scopes[0].domain.start;
+      direction === "forward" ? inputRange.start : inputRange.end;
 
-    const distalScope =
-      desiredScopeCount > offset0ScopeCount
-        ? scopeHandler.getScopeRelativeToPosition(
-            editor,
-            initialPosition,
-            desiredScopeCount - offset0ScopeCount,
-            direction,
-          )
-        : direction === "forward"
-        ? offset0Scopes.at(-1)!
-        : offset0Scopes[0];
-
-    return [constructScopeRangeTarget(isReversed, proximalScope, distalScope)];
-  }
-}
-
-/**
- * Returns a list of scopes that are considered to be at relative scope offset
- * 0, ie "containing" / "intersecting" with the input target.  If the input
- * target is zero length, we return at most one scope, breaking ties by moving
- * in {@link direction} if the input position is adjacent to two scopes.
- * @param scopeHandler The scope handler for the given scope type
- * @param direction The direction defined by the modifier
- * @param editor The editor containing {@link range}
- * @param range The input target range
- * @returns The scopes that are considered to be at offset 0, ie "containing" /
- * "intersecting" with the input target
- */
-function getOffset0Scopes(
-  scopeHandler: ScopeHandler,
-  direction: Direction,
-  editor: TextEditor,
-  range: Range,
-): TargetScope[] {
-  if (range.isEmpty) {
-    const inputPosition = range.start;
-
-    const scopesTouchingPosition = scopeHandler.getScopesTouchingPosition(
+    let scopeCount = 0;
+    let proximalScope: TargetScope | undefined;
+    for (const scope of scopeHandler.generateScopesRelativeToPosition(
       editor,
-      inputPosition,
-    );
+      initialPosition,
+      direction,
+    )) {
+      if (scopeCount > 0 && scope.domain.contains(initialPosition)) {
+        continue;
+      }
 
-    const preferredScope =
-      direction === "forward"
-        ? getRightScope(scopesTouchingPosition)
-        : getLeftScope(scopesTouchingPosition);
+      scopeCount += 1;
 
-    return preferredScope == null ? [] : [preferredScope];
+      if (scopeCount === 1) {
+        if (desiredScopeCount === 1) {
+          return [scope.getTarget(isReversed)];
+        }
+
+        proximalScope = scope;
+        continue;
+      }
+
+      if (scopeCount === desiredScopeCount) {
+        return [constructScopeRangeTarget(isReversed, proximalScope!, scope)];
+      }
+    }
+
+    throw new OutOfRangeError();
   }
-
-  return scopeHandler.getScopesOverlappingRange(editor, range);
 }

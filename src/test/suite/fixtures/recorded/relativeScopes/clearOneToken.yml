@@ -19,4 +19,8 @@ initialState:
       active: {line: 0, character: 13}
   marks: {}
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: token}, offset: 0, length: 1, direction: forward}]}]
-thrownError: {name: TooFewScopesError}
+finalState:
+  documentContents: aaa bbb  ddd eee fff
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

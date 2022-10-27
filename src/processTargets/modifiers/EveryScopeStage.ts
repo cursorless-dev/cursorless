@@ -7,6 +7,7 @@ import getModifierStage from "../getModifierStage";
 import type { ModifierStage } from "../PipelineStages.types";
 import getLegacyScopeStage from "./getLegacyScopeStage";
 import getScopeHandler from "./scopeHandlers/getScopeHandler";
+import getScopesOverlappingRange from "./scopeHandlers/getScopesOverlappingRange";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
@@ -46,7 +47,8 @@ export class EveryScopeStage implements ModifierStage {
     let scopes: TargetScope[] | undefined;
 
     if (target.hasExplicitRange) {
-      scopes = scopeHandler.getScopesOverlappingRange(
+      scopes = getScopesOverlappingRange(
+        scopeHandler,
         editor,
         target.contentRange,
       );
@@ -65,7 +67,8 @@ export class EveryScopeStage implements ModifierStage {
     if (scopes == null) {
       // If target had no explicit range, or was contained by a single target
       // instance, expand to iteration scope before overlapping
-      scopes = scopeHandler.getScopesOverlappingRange(
+      scopes = getScopesOverlappingRange(
+        scopeHandler,
         editor,
         this.getDefaultIterationRange(context, scopeHandler, target),
       );
