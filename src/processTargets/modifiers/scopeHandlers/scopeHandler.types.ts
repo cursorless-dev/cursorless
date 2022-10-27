@@ -1,4 +1,4 @@
-import type { Position, Range, TextEditor } from "vscode";
+import type { Position, TextEditor } from "vscode";
 import type {
   Direction,
   ScopeType,
@@ -76,8 +76,8 @@ export interface ScopeHandler {
   ): Iterable<TargetScope>;
 
   isPreferredOver?(
-    scope1: TargetScope,
-    scope2: TargetScope,
+    scopeA: TargetScope,
+    scopeB: TargetScope,
   ): boolean | undefined;
 }
 

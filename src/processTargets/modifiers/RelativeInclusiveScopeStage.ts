@@ -1,7 +1,6 @@
 import type { Target } from "../../typings/target.types";
 import type { RelativeScopeModifier } from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
-import { strictlyContains } from "../../util/rangeUtils";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { runLegacy } from "./relativeScopeLegacy";

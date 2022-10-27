@@ -18,10 +18,10 @@ export default class SurroundingPairScopeHandler implements ScopeHandler {
   }
 
   generateScopesRelativeToPosition(
-    editor: TextEditor,
-    position: Position,
-    direction: Direction,
-    hints?: ScopeIteratorHints | undefined,
+    _editor: TextEditor,
+    _position: Position,
+    _direction: Direction,
+    _hints?: ScopeIteratorHints | undefined,
   ): Iterable<TargetScope> {
     throw new Error("Method not implemented.");
   }
