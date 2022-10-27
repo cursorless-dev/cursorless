@@ -1,18 +1,13 @@
-import type { Position, TextEditor } from "vscode";
 import type { Target } from "../../typings/target.types";
 import type { RelativeScopeModifier } from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import { strictlyContains } from "../../util/rangeUtils";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
-import { getLeftScope, getRightScope } from "./getPreferredScope";
 import { runLegacy } from "./relativeScopeLegacy";
 import getScopeHandler from "./scopeHandlers/getScopeHandler";
 import { TargetScope } from "./scopeHandlers/scope.types";
-import type {
-  ContainmentPolicy,
-  ScopeHandler,
-} from "./scopeHandlers/scopeHandler.types";
+import type { ContainmentPolicy } from "./scopeHandlers/scopeHandler.types";
 import { OutOfRangeError } from "./targetSequenceUtils";
 
 /**

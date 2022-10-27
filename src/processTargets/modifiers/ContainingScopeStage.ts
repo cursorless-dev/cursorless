@@ -53,7 +53,11 @@ export class ContainingScopeStage implements ModifierStage {
 
     if (end.isEqual(start)) {
       // Input target is empty; return the preferred scope touching target
-      let scope = scopeHandler.getPreferredScopeTouchingPosition(editor, start);
+      let scope = getPreferredScopeTouchingPosition(
+        scopeHandler,
+        editor,
+        start,
+      );
 
       if (scope == null) {
         throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -132,4 +136,66 @@ function expandFromPosition(
   }
 
   return undefined;
+}
+
+function getPreferredScopeTouchingPosition(
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  position: Position,
+): TargetScope | undefined {
+  const forwardScope = getContainingScope(
+    scopeHandler,
+    editor,
+    position,
+    "forward",
+  );
+
+  if (forwardScope == null) {
+    return getContainingScope(scopeHandler, editor, position, "backward");
+  }
+
+  if (
+    scopeHandler.isPreferredOver == null ||
+    forwardScope.domain.start.isBefore(position)
+  ) {
+    return forwardScope;
+  }
+
+  const backwardScope = getContainingScope(
+    scopeHandler,
+    editor,
+    position,
+    "backward",
+  );
+
+  if (
+    backwardScope == null ||
+    backwardScope.domain.contains(forwardScope.domain)
+  ) {
+    return forwardScope;
+  }
+
+  return scopeHandler.isPreferredOver(backwardScope, forwardScope) ?? false
+    ? backwardScope
+    : forwardScope;
+}
+
+function getContainingScope(
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  position: Position,
+  direction: Direction,
+) {
+  const scope = getOne(
+    scopeHandler.generateScopesRelativeToPosition(editor, position, direction, {
+      containment: "required",
+    }),
+  );
+
+  return scope?.domain.contains(position) ? scope : undefined;
+}
+
+function getOne<T>(iterable: Iterable<T>): T | undefined {
+  const { value, done } = iterable[Symbol.iterator]().next();
+  return done ? undefined : value;
 }

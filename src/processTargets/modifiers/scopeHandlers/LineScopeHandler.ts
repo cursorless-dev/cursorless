@@ -12,13 +12,6 @@ export default class LineScopeHandler implements ScopeHandler {
     // Empty
   }
 
-  getPreferredScopeTouchingPosition(
-    editor: TextEditor,
-    position: Position,
-  ): TargetScope | undefined {
-    return lineNumberToScope(editor, position.line);
-  }
-
   *generateScopesRelativeToPosition(
     editor: TextEditor,
     position: Position,

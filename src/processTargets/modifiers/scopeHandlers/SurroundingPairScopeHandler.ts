@@ -17,13 +17,6 @@ export default class SurroundingPairScopeHandler implements ScopeHandler {
     this.iterationScopeType = this.scopeType;
   }
 
-  getPreferredScopeTouchingPosition(
-    editor: TextEditor,
-    position: Position,
-  ): TargetScope | undefined {
-    throw new Error("Method not implemented.");
-  }
-
   generateScopesRelativeToPosition(
     editor: TextEditor,
     position: Position,

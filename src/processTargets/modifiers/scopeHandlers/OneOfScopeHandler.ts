@@ -4,7 +4,11 @@ import {
   Direction,
   OneOfScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { getPreferredScope } from "../getPreferredScope";
+import { compareTargetScopes } from "./compareTargetScopes";
+import {
+  getInitialIteratorInfos,
+  advanceIteratorsUntil,
+} from "./getInitialIteratorInfos";
 import type { TargetScope } from "./scope.types";
 import { ScopeHandler, ScopeIteratorHints } from "./scopeHandler.types";
 
@@ -30,21 +34,6 @@ export default class OneOfScopeHandler implements ScopeHandler {
     public readonly scopeType: OneOfScopeType,
     private languageId: string,
   ) {}
-
-  getPreferredScopeTouchingPosition(
-    editor: TextEditor,
-    position: Position,
-  ): TargetScope | undefined {
-    const candidateScopes = keepOnlyBottomLevelScopes(
-      this.scopeHandlers
-        .map((scopeHandler) =>
-          scopeHandler.getPreferredScopeTouchingPosition(editor, position),
-        )
-        .filter((scope) => scope != null) as TargetScope[],
-    );
-
-    return getPreferredScope(candidateScopes);
-  }
 
   *generateScopesRelativeToPosition(
     editor: TextEditor,
@@ -72,94 +61,11 @@ export default class OneOfScopeHandler implements ScopeHandler {
       currentPosition =
         direction === "forward" ? nextScope.domain.end : nextScope.domain.start;
 
-      iteratorInfos = advanceIterators(iteratorInfos, ({ domain }) =>
+      iteratorInfos = advanceIteratorsUntil(iteratorInfos, ({ domain }) =>
         direction === "forward"
           ? domain.end.isAfterOrEqual(currentPosition)
           : domain.start.isBeforeOrEqual(currentPosition),
       );
     }
   }
-}
-
-function keepOnlyBottomLevelScopes(
-  candidateScopes: TargetScope[],
-): TargetScope[] {
-  return candidateScopes.filter(
-    ({ domain }) =>
-      !candidateScopes.some(({ domain: otherDomain }) =>
-        domain.contains(otherDomain),
-      ),
-  );
-}
-
-function getInitialIteratorInfos<T>(iterators: Iterator<T>[]) {
-  return iterators.flatMap((iterator) => {
-    const { value, done } = iterator.next();
-    return done
-      ? []
-      : [
-          {
-            iterator,
-            value,
-          },
-        ];
-  });
-}
-
-function compareTargetScopes(
-  direction: Direction,
-  position: Position,
-  { domain: a }: TargetScope,
-  { domain: b }: TargetScope,
-): number {
-  const aContainsPosition = a.contains(position);
-  const bContainsPosition = b.contains(position);
-  const multiplier = direction === "forward" ? 1 : -1;
-  const [proximalAttribute, distalAttribute] =
-    direction === "forward"
-      ? (["start", "end"] as const)
-      : (["end", "start"] as const);
-
-  if (aContainsPosition && bContainsPosition) {
-    const value = multiplier * a[distalAttribute].compareTo(b[distalAttribute]);
-
-    if (value === 0) {
-      return -multiplier * a[proximalAttribute].compareTo(b[proximalAttribute]);
-    }
-
-    return value;
-  }
-
-  const aPosition = aContainsPosition
-    ? a[distalAttribute]
-    : a[proximalAttribute];
-  const bPosition = bContainsPosition
-    ? b[distalAttribute]
-    : b[proximalAttribute];
-
-  return multiplier * aPosition.compareTo(bPosition);
-}
-
-function advanceIterators<T>(
-  iteratorInfos: {
-    iterator: Iterator<T>;
-    value: T;
-  }[],
-  criterion: (arg: T) => boolean,
-) {
-  return iteratorInfos.flatMap((iteratorInfo) => {
-    const { iterator } = iteratorInfo;
-    let { value } = iteratorInfo;
-
-    let done: boolean | undefined = false;
-    while (!criterion(value) && !done) {
-      ({ value, done } = iterator.next());
-    }
-
-    if (done) {
-      return [];
-    }
-
-    return [{ iterator, value }];
-  });
 }

@@ -4,8 +4,6 @@ import type {
   Direction,
   ScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { getPreferredScope } from "../getPreferredScope";
-import { OutOfRangeError } from "../targetSequenceUtils";
 import type { TargetScope } from "./scope.types";
 import type { ScopeHandler, ScopeIteratorHints } from "./scopeHandler.types";
 import { shouldReturnScope } from "./scopeHandlers.helpers";
@@ -50,27 +48,6 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
     public readonly scopeType: ScopeType,
     protected languageId: string,
   ) {}
-
-  getPreferredScopeTouchingPosition(
-    editor: TextEditor,
-    position: Position,
-  ): TargetScope | undefined {
-    const searchScope =
-      this.searchScopeHandler.getPreferredScopeTouchingPosition(
-        editor,
-        position,
-      );
-
-    if (searchScope === undefined) {
-      return undefined;
-    }
-
-    const candidateScopes = this.getScopesInSearchScope(searchScope).filter(
-      ({ domain }) => domain.contains(position),
-    );
-
-    return getPreferredScope(candidateScopes);
-  }
 
   private get searchScopeHandler(): ScopeHandler {
     if (this._searchScopeHandler == null) {

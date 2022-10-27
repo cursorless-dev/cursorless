@@ -44,32 +44,6 @@ export interface ScopeHandler {
   readonly iterationScopeType: ScopeType;
 
   /**
-   * Return the preferred scope touching the given position. A scope is
-   * considered to touch a position if its {@link TargetScope.domain|domain}
-   * contains the position or is directly adjacent to the position. In other
-   * words, return all scopes for which the following is true:
-   *
-   * ```typescript
-   * scope.domain.start <= position && scope.domain.end >= position
-   * ```
-   *
-   * If the position is directly adjacent to two scopes, return the preferred
-   * scope.  This will generallly be the rightmost scope. If no scope touches
-   * the given position, return `undefined`.
-   *
-   * Note that if this scope type is hierarchical, return only minimal scopes.
-   * Ie if scope A and scope B both touch {@link position}, and scope A contains
-   * scope B, return scope B but not scope A.
-   *
-   * @param editor The editor containing {@link position}
-   * @param position The position from which to expand
-   */
-  getPreferredScopeTouchingPosition(
-    editor: TextEditor,
-    position: Position,
-  ): TargetScope | undefined;
-
-  /**
    * Returns a scope before or after {@link position}, depending on
    * {@link direction}.  If {@link direction} is `"forward"` and {@link offset}
    * is 1, return the leftmost scope whose {@link TargetScope.domain|domain}'s
@@ -100,6 +74,11 @@ export interface ScopeHandler {
     direction: Direction,
     hints?: ScopeIteratorHints,
   ): Iterable<TargetScope>;
+
+  isPreferredOver?(
+    scope1: TargetScope,
+    scope2: TargetScope,
+  ): boolean | undefined;
 }
 
 export type ContainmentPolicy = "required" | "disallowed" | "disallowedStrict";
