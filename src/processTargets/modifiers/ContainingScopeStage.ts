@@ -181,13 +181,11 @@ function getContainingScope(
   position: Position,
   direction: Direction,
 ) {
-  const scope = getOne(
+  return getOne(
     scopeHandler.generateScopes(editor, position, direction, {
       containment: "required",
     }),
   );
-
-  return scope?.domain.contains(position) ? scope : undefined;
 }
 
 function getOne<T>(iterable: Iterable<T>): T | undefined {
