@@ -1,4 +1,4 @@
-import { Position } from "vscode";
+import { Position, Range } from "vscode";
 import { Direction } from "../../../typings/targetDescriptor.types";
 import { TargetScope } from "./scope.types";
 
@@ -8,30 +8,69 @@ export function compareTargetScopes(
   { domain: a }: TargetScope,
   { domain: b }: TargetScope,
 ): number {
-  const aContainsPosition = a.contains(position);
-  const bContainsPosition = b.contains(position);
-  const multiplier = direction === "forward" ? 1 : -1;
-  const [proximalAttribute, distalAttribute] =
-    direction === "forward"
-      ? (["start", "end"] as const)
-      : (["end", "start"] as const);
+  return direction === "forward"
+    ? compareTargetScopesForward(position, a, b)
+    : compareTargetScopesBackward(position, a, b);
+}
 
-  if (aContainsPosition && bContainsPosition) {
-    const value = multiplier * a[distalAttribute].compareTo(b[distalAttribute]);
+function compareTargetScopesForward(
+  position: Position,
+  a: Range,
+  b: Range,
+): number {
+  const aIsStartVisible = a.start.isAfterOrEqual(position);
+  const bIsStartVisible = b.start.isAfterOrEqual(position);
 
-    if (value === 0) {
-      return -multiplier * a[proximalAttribute].compareTo(b[proximalAttribute]);
-    }
+  if (aIsStartVisible && bIsStartVisible) {
+    const value = a.start.compareTo(b.start);
 
-    return value;
+    return value === 0 ? a.end.compareTo(b.end) : value;
   }
 
-  const aPosition = aContainsPosition
-    ? a[distalAttribute]
-    : a[proximalAttribute];
-  const bPosition = bContainsPosition
-    ? b[distalAttribute]
-    : b[proximalAttribute];
+  if (!aIsStartVisible && !bIsStartVisible) {
+    const value = a.end.compareTo(b.end);
 
-  return multiplier * aPosition.compareTo(bPosition);
+    return value === 0 ? -a.start.compareTo(b.start) : value;
+  }
+
+  if (!aIsStartVisible && bIsStartVisible) {
+    const value = a.end.compareTo(b.start);
+
+    return value !== 0 ? value : b.isEmpty ? 1 : -1;
+  }
+
+  const value = a.start.compareTo(b.end);
+
+  return value !== 0 ? value : a.isEmpty ? -1 : 1;
+}
+
+function compareTargetScopesBackward(
+  position: Position,
+  a: Range,
+  b: Range,
+): number {
+  const aIsEndVisible = a.end.isBeforeOrEqual(position);
+  const bIsEndVisible = b.end.isBeforeOrEqual(position);
+
+  if (aIsEndVisible && bIsEndVisible) {
+    const value = -a.end.compareTo(b.end);
+
+    return value === 0 ? -a.start.compareTo(b.start) : value;
+  }
+
+  if (!aIsEndVisible && !bIsEndVisible) {
+    const value = -a.start.compareTo(b.start);
+
+    return value === 0 ? a.end.compareTo(b.end) : value;
+  }
+
+  if (!aIsEndVisible && bIsEndVisible) {
+    const value = -a.start.compareTo(b.end);
+
+    return value !== 0 ? value : b.isEmpty ? 1 : -1;
+  }
+
+  const value = -a.end.compareTo(b.start);
+
+  return value !== 0 ? value : a.isEmpty ? -1 : 1;
 }

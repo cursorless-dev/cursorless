@@ -3,25 +3,26 @@ import {
   Direction,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
+import BaseScopeHandler from "./BaseScopeHandler";
 import { TargetScope } from "./scope.types";
-import { ScopeHandler, ScopeIteratorHints } from "./scopeHandler.types";
+import { ScopeIteratorRequirements } from "./scopeHandler.types";
 
-export default class SurroundingPairScopeHandler implements ScopeHandler {
+export default class SurroundingPairScopeHandler extends BaseScopeHandler {
   public readonly iterationScopeType;
 
   constructor(
     public readonly scopeType: SurroundingPairScopeType,
     _languageId: string,
   ) {
-    // FIXME: Figure out the actual iteration scope type
+    super();
     this.iterationScopeType = this.scopeType;
   }
 
-  generateScopesRelativeToPosition(
+  generateScopeCandidates(
     _editor: TextEditor,
     _position: Position,
     _direction: Direction,
-    _hints?: ScopeIteratorHints | undefined,
+    _hints?: ScopeIteratorRequirements | undefined,
   ): Iterable<TargetScope> {
     throw new Error("Method not implemented.");
   }

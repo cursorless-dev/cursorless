@@ -52,7 +52,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
 
     let scopeCount = 0;
     let proximalScope: TargetScope | undefined;
-    for (const scope of scopeHandler.generateScopesRelativeToPosition(
+    for (const scope of scopeHandler.generateScopes(
       editor,
       initialPosition,
       direction,

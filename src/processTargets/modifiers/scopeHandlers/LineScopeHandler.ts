@@ -1,22 +1,23 @@
 import { Position, Range, TextEditor } from "vscode";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { LineTarget } from "../../targets";
+import BaseScopeHandler from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
-import type { ScopeHandler, ScopeIteratorHints } from "./scopeHandler.types";
+import type { ScopeIteratorRequirements } from "./scopeHandler.types";
 
-export default class LineScopeHandler implements ScopeHandler {
+export default class LineScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "line" } as const;
   public readonly iterationScopeType = { type: "document" } as const;
 
   constructor(_scopeType: ScopeType, _languageId: string) {
-    // Empty
+    super();
   }
 
-  *generateScopesRelativeToPosition(
+  *generateScopeCandidates(
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    hints: ScopeIteratorHints | undefined = {},
+    hints: ScopeIteratorRequirements | undefined = {},
   ): Iterable<TargetScope> {
     const { mustStartBefore, containment } = hints;
 

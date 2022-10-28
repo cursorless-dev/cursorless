@@ -4,9 +4,12 @@ import type {
   Direction,
   ScopeType,
 } from "../../../typings/targetDescriptor.types";
+import BaseScopeHandler from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
-import type { ScopeHandler, ScopeIteratorHints } from "./scopeHandler.types";
-import { shouldReturnScope } from "./scopeHandlers.helpers";
+import type {
+  ScopeHandler,
+  ScopeIteratorRequirements,
+} from "./scopeHandler.types";
 
 /**
  * This class can be used to define scope types that are most easily defined by
@@ -16,7 +19,7 @@ import { shouldReturnScope } from "./scopeHandlers.helpers";
  * {@link iterationScopeType} will be `line`, and we just return a list of all
  * regex matches to this base class and let it handle the rest.
  */
-export default abstract class NestedScopeHandler implements ScopeHandler {
+export default abstract class NestedScopeHandler extends BaseScopeHandler {
   public abstract readonly iterationScopeType: ScopeType;
 
   /**
@@ -47,7 +50,9 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
   constructor(
     public readonly scopeType: ScopeType,
     protected languageId: string,
-  ) {}
+  ) {
+    super();
+  }
 
   private get searchScopeHandler(): ScopeHandler {
     if (this._searchScopeHandler == null) {
@@ -75,54 +80,26 @@ export default abstract class NestedScopeHandler implements ScopeHandler {
    * @param direction The direction passed in to
    * {@link getScopeRelativeToPosition}
    */
-  *generateScopesRelativeToPosition(
+  protected *generateScopeCandidates(
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    hints: ScopeIteratorHints | undefined = {},
+    hints: ScopeIteratorRequirements | undefined = {},
   ): Iterable<TargetScope> {
     const { containment, ...rest } = hints;
-    const iterator = this.searchScopeHandler
-      .generateScopesRelativeToPosition(editor, position, direction, {
+    const generator = this.searchScopeHandler.generateScopes(
+      editor,
+      position,
+      direction,
+      {
         containment: containment === "required" ? "required" : undefined,
         ...rest,
-      })
-      [Symbol.iterator]();
-
-    let { value: searchScope, done } = iterator.next();
-
-    if (done) {
-      return;
-    }
-
-    yield* maybeReverse(
-      this.getScopesInSearchScope(searchScope).filter(
-        (scope) =>
-          (direction === "forward"
-            ? scope.domain.end.isAfter(position)
-            : scope.domain.start.isBefore(position)) &&
-          shouldReturnScope(position, hints, scope),
-      ),
-      direction === "backward",
+      },
     );
 
-    while (true) {
-      ({ value: searchScope, done } = iterator.next());
-
-      if (done) {
-        return;
-      }
-
-      yield* maybeReverse(
-        this.getScopesInSearchScope(searchScope).filter((scope) =>
-          shouldReturnScope(position, hints, scope),
-        ),
-        direction === "backward",
-      );
+    for (const searchScope of generator) {
+      const scopes = this.getScopesInSearchScope(searchScope);
+      yield* direction === "backward" ? [...scopes].reverse() : scopes;
     }
   }
-}
-
-function maybeReverse<T>(original: T[], doReverse: boolean): Iterable<T> {
-  return doReverse ? [...original].reverse() : original;
 }

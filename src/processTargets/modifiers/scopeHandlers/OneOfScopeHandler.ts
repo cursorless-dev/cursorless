@@ -4,15 +4,16 @@ import {
   Direction,
   OneOfScopeType,
 } from "../../../typings/targetDescriptor.types";
+import BaseScopeHandler from "./BaseScopeHandler";
 import { compareTargetScopes } from "./compareTargetScopes";
 import {
   getInitialIteratorInfos,
   advanceIteratorsUntil,
 } from "./getInitialIteratorInfos";
 import type { TargetScope } from "./scope.types";
-import { ScopeHandler, ScopeIteratorHints } from "./scopeHandler.types";
+import { ScopeHandler, ScopeIteratorRequirements } from "./scopeHandler.types";
 
-export default class OneOfScopeHandler implements ScopeHandler {
+export default class OneOfScopeHandler extends BaseScopeHandler {
   private scopeHandlers: ScopeHandler[] = this.scopeType.scopeTypes.map(
     (scopeType) => {
       const handler = getScopeHandler(scopeType, this.languageId);
@@ -33,21 +34,22 @@ export default class OneOfScopeHandler implements ScopeHandler {
   constructor(
     public readonly scopeType: OneOfScopeType,
     private languageId: string,
-  ) {}
+  ) {
+    super();
+  }
 
-  *generateScopesRelativeToPosition(
+  *generateScopeCandidates(
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    hints?: ScopeIteratorHints | undefined,
+    hints?: ScopeIteratorRequirements | undefined,
   ): Iterable<TargetScope> {
     const iterators = this.scopeHandlers.map((scopeHandler) =>
       scopeHandler
-        .generateScopesRelativeToPosition(editor, position, direction, hints)
+        .generateScopes(editor, position, direction, hints)
         [Symbol.iterator](),
     );
 
-    let currentPosition = position;
     let iteratorInfos = getInitialIteratorInfos(iterators);
 
     while (iteratorInfos.length > 0) {
@@ -55,16 +57,14 @@ export default class OneOfScopeHandler implements ScopeHandler {
         compareTargetScopes(direction, position, a.value, b.value),
       );
 
-      const nextScope = iteratorInfos[0].value;
-      yield nextScope;
+      const currentScope = iteratorInfos[0].value;
 
-      currentPosition =
-        direction === "forward" ? nextScope.domain.end : nextScope.domain.start;
+      yield currentScope;
 
-      iteratorInfos = advanceIteratorsUntil(iteratorInfos, ({ domain }) =>
-        direction === "forward"
-          ? domain.end.isAfterOrEqual(currentPosition)
-          : domain.start.isBeforeOrEqual(currentPosition),
+      iteratorInfos = advanceIteratorsUntil(
+        iteratorInfos,
+        (scope) =>
+          compareTargetScopes(direction, position, currentScope, scope) < 0,
       );
     }
   }

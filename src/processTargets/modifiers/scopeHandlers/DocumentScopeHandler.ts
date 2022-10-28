@@ -2,39 +2,32 @@ import { Position, TextEditor } from "vscode";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/rangeUtils";
 import { DocumentTarget } from "../../targets";
+import BaseScopeHandler from "./BaseScopeHandler";
 import { TargetScope } from "./scope.types";
-import { ScopeHandler } from "./scopeHandler.types";
 
-export default class DocumentScopeHandler implements ScopeHandler {
+export default class DocumentScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "document" } as const;
   public readonly iterationScopeType = { type: "document" } as const;
 
   constructor(_scopeType: ScopeType, _languageId: string) {
-    // Empty
+    super();
   }
 
-  *generateScopesRelativeToPosition(
+  protected *generateScopeCandidates(
     editor: TextEditor,
-    position: Position,
-    direction: Direction,
+    _position: Position,
+    _direction: Direction,
   ): Iterable<TargetScope> {
-    const document = getDocumentRange(editor.document);
-
-    if (
-      (direction === "forward" && position.isEqual(document.end)) ||
-      (direction === "backward" && position.isEqual(document.start))
-    ) {
-      return;
-    }
+    const contentRange = getDocumentRange(editor.document);
 
     yield {
       editor,
-      domain: document,
+      domain: contentRange,
       getTarget: (isReversed) =>
         new DocumentTarget({
           editor,
           isReversed,
-          contentRange: document,
+          contentRange,
         }),
     };
   }

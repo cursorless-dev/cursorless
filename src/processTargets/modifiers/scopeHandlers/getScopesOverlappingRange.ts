@@ -9,7 +9,7 @@ export default function getScopesOverlappingRange(
 ): TargetScope[] {
   let seenScope = false;
   const scopes: TargetScope[] = [];
-  for (const scope of scopeHandler.generateScopesRelativeToPosition(
+  for (const scope of scopeHandler.generateScopes(
     editor,
     start,
     "forward",

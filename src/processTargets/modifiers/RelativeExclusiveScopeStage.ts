@@ -50,11 +50,11 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
 
     const containment: ContainmentPolicy | undefined = inputRange.isEmpty
       ? "disallowed"
-      : "disallowedStrict";
+      : "disallowedIfStrict";
 
     let scopeCount = 0;
     let proximalScope: TargetScope | undefined;
-    for (const scope of scopeHandler.generateScopesRelativeToPosition(
+    for (const scope of scopeHandler.generateScopes(
       editor,
       initialPosition,
       direction,

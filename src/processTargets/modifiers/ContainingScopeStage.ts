@@ -120,19 +120,14 @@ function expandFromPosition(
   ancestorIndex: number,
 ): TargetScope | undefined {
   let nextAncestorIndex = 0;
-  for (const scope of scopeHandler.generateScopesRelativeToPosition(
-    editor,
-    position,
-    direction,
-    { containment: "required" },
-  )) {
-    if (scope.domain.contains(position)) {
-      if (nextAncestorIndex === ancestorIndex) {
-        return scope;
-      }
-
-      nextAncestorIndex += 1;
+  for (const scope of scopeHandler.generateScopes(editor, position, direction, {
+    containment: "required",
+  })) {
+    if (nextAncestorIndex === ancestorIndex) {
+      return scope;
     }
+
+    nextAncestorIndex += 1;
   }
 
   return undefined;
@@ -187,8 +182,9 @@ function getContainingScope(
   direction: Direction,
 ) {
   const scope = getOne(
-    scopeHandler.generateScopesRelativeToPosition(editor, position, direction, {
+    scopeHandler.generateScopes(editor, position, direction, {
       containment: "required",
+      disallowBehind: true,
     }),
   );
 
