@@ -1,4 +1,5 @@
-import type { Position, TextEditor } from "vscode";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type { Position, Range, TextEditor } from "vscode";
 import type {
   Direction,
   ScopeType,
@@ -26,10 +27,22 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
   /**
    * Returns an iterable that yields scopes.
    *
-   * If {@link direction} is `"forward"`, walk forward starting at
-   * {@link position} (including position). Any time a scope's
-   * {@link TargetScope.domain|domain} ends or starts, yield that scope.  If
-   * multiple domains start or end at a particular point, break ties as follows:
+   * If your scope type is *not* hierarchical, and {@link direction} is
+   * `"forward"`, yield all scopes whose {@link TargetScope.domain|domain}'s
+   * {@link Range.end|end} is strictly after {@link position}, or that have an
+   * empty domain exactly at {@link position}, in document order.
+   *
+   * If your scope type is *not* hierarchical, and {@link direction} is
+   * `"backward"`, yield all scopes whose {@link TargetScope.domain|domain}'s
+   * {@link Range.start|start} is strictly before {@link position}, or that have
+   * an empty domain exactly at {@link position}, in reverse document order.
+   *
+   * If your scope type *is* hierarchical, and {@link direction} is `"forward"`,
+   * walk forward starting at {@link position} (including position). You can
+   * skip any scopes whose domain ends at position, as long as they are
+   * non-empty.  Any time a scope's {@link TargetScope.domain|domain} ends or
+   * starts, yield that scope. If multiple domains start or end at a particular
+   * point, break ties as follows:
    *
    * 1. First yield any scopes with empty domain.
    * 2. Then yield any scopes whose domains are ending, in reverse order of
@@ -38,17 +51,12 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
    *    yield a scope, advance your position to the end of the scope, but when
    *    considering this new position, don't return this scope again.
    *
-   * In the case of a non-hierarchical scope type, the above is equivalent to
-   * the following:
-   *
-   * Yield all scopes whose {@link TargetScope.domain|domain}'s
-   * {@link Range.end|end} is equal to or after {@link position}, in order of
-   * domain end position.
-   *
-   * If {@link direction} is `"backward"`, walk backward starting at
-   * {@link position} (including position). Any time a scope's
-   * {@link TargetScope.domain|domain} ends or starts, yield that scope.  If
-   * multiple domains start or end at a particular point, break ties as follows:
+   * If your scope type *is* hierarchical, and {@link direction} is
+   * `"backward"`, walk backward starting at {@link position} (including
+   * position). You can skip scopes whose domain starts at position, as long as
+   * they are non-empty.  Any time a scope's {@link TargetScope.domain|domain}
+   * ends or starts, yield that scope. If multiple domains start or end at a
+   * particular point, break ties as follows:
    *
    * 1. First yield any scopes with empty domain.
    * 2. Then yield any scopes whose domains are starting, in order of where they
@@ -57,17 +65,10 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
    *    yield a scope, advance your position to the start of the scope, but when
    *    considering this new position, don't return this scope again.
    *
-   * In the case of a non-hierarchical scope type, the above is equivalent to
-   * the following:
-   *
-   * Yield all scopes whose {@link TargetScope.domain|domain}'s
-   * {@link Range.start|start} is equal to or before {@link position}, in
-   * reverse order domain start position.
-   *
    * Note that the {@link hints} argument can be ignored, but you are welcome to
    * use it to improve performance.  For example, knowing the
-   * {@link ScopeIteratorRequirements.distalPosition} can be useful if you are
-   * getting a list of scopes in bulk.
+   * {@link ScopeIteratorRequirements.distalPosition} can be useful if you need
+   * to query a list of scopes in bulk.
    *
    * Some notes:
    *
