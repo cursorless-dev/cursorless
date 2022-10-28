@@ -14,12 +14,9 @@ export default function getScopeRelativeToPosition(
   strict: boolean,
 ): TargetScope {
   let scopeCount = 0;
-  for (const scope of scopeHandler.generateScopes(
-    editor,
-    position,
-    direction,
-    { containment: strict ? "disallowed" : "disallowedIfStrict" },
-  )) {
+  for (const scope of scopeHandler.generateScopes(editor, position, direction, {
+    containment: strict ? "disallowed" : "disallowedIfStrict",
+  })) {
     if (
       (strict && scope.domain.contains(position)) ||
       strictlyContains(scope.domain, position)

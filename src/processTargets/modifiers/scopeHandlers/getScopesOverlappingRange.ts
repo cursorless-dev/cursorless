@@ -9,12 +9,9 @@ export default function getScopesOverlappingRange(
 ): TargetScope[] {
   let seenScope = false;
   const scopes: TargetScope[] = [];
-  for (const scope of scopeHandler.generateScopes(
-    editor,
-    start,
-    "forward",
-    { mustStartBefore: end },
-  )) {
+  for (const scope of scopeHandler.generateScopes(editor, start, "forward", {
+    mustStartBefore: end,
+  })) {
     if (seenScope && scope.domain.contains(start)) {
       continue;
     }
