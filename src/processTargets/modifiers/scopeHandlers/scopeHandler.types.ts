@@ -17,6 +17,11 @@ import type { TargetScope } from "./scope.types";
  * are also hierarchical, as they can be nested.  Many scope types are not
  * hierarchical, though, eg line, token, word, etc.
  *
+ * Note also that scope's domains are never allowed to partially overlap.
+ * Scopes can be directly adjacent to one another, or have one or more
+ * characters between them, or, for hierarchical scopes, one scope can
+ * completely contain another scope.
+ *
  * Note that there are helpers that can sometimes be used to avoid implementing
  * a scope handler from scratch, eg {@link NestedScopeHandler}.
  */
@@ -123,8 +128,8 @@ export interface ScopeIteratorRequirements {
 
   /**
    * Indicates that the {@link TargetScope.domain|domain} of the scopes must
-   * start before this position.  If the domain starts at the position, that is
-   * *not* allowed.
+   * start strictly before this position for `"forward"`, or strictly after this
+   * position for `"backward"`.
    */
   distalPosition?: Position;
 }
