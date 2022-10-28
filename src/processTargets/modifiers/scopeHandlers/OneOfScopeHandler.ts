@@ -57,10 +57,12 @@ export default class OneOfScopeHandler extends BaseScopeHandler {
         compareTargetScopes(direction, position, a.value, b.value),
       );
 
+      // Pick minimum scope according to canonical scope ordering
       const currentScope = iteratorInfos[0].value;
 
       yield currentScope;
 
+      // Advance all iterators past the scope that was yielded
       iteratorInfos = advanceIteratorsUntil(
         iteratorInfos,
         (scope) =>
