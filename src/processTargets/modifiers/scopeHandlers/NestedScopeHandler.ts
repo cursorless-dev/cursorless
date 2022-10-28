@@ -18,9 +18,14 @@ import type {
  * regex can't cross line boundaries.  In this case the
  * {@link iterationScopeType} will be `line`, and we just return a list of all
  * regex matches to this base class and let it handle the rest.
+ *
+ * Note that this base class only works for non-hierarchical scope types.  In
+ * the future we may define a nested scope handler that supports hierarchical
+ * scope types.
  */
 export default abstract class NestedScopeHandler extends BaseScopeHandler {
   public abstract readonly iterationScopeType: ScopeType;
+  protected readonly isHierarchical = false;
 
   /**
    * We expand to this scope type before looking for instances of the scope type

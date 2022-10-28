@@ -3,11 +3,11 @@ import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { LineTarget } from "../../targets";
 import BaseScopeHandler from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
-import type { ScopeIteratorRequirements } from "./scopeHandler.types";
 
 export default class LineScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "line" } as const;
   public readonly iterationScopeType = { type: "document" } as const;
+  protected readonly isHierarchical = false;
 
   constructor(_scopeType: ScopeType, _languageId: string) {
     super();
@@ -17,21 +17,9 @@ export default class LineScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    hints: ScopeIteratorRequirements | undefined = {},
   ): Iterable<TargetScope> {
-    const { distalPosition: mustStartBefore, containment } = hints;
-
-    if (containment === "required") {
-      yield lineNumberToScope(editor, position.line);
-      return;
-    }
-
     if (direction === "forward") {
       for (let i = position.line; i < editor.document.lineCount; i++) {
-        if (mustStartBefore != null && i > mustStartBefore.line) {
-          break;
-        }
-
         yield lineNumberToScope(editor, i);
       }
     } else {
