@@ -21,8 +21,8 @@ import { getContainingScope } from "./getContainingScope";
  * 1. Expand to smallest scope(s) touching start position of input target's
  *    content range
  * 2. If input target has an empty content range, return the start scope,
- *    breaking ties as defined by {@link getPreferredScope} when more than one
- *    scope touches content range
+ *    breaking ties as defined by {@link ScopeHandler.isPreferredOver} when more
+ *    than one scope touches content range
  * 3. Otherwise, if end of input target is weakly contained by the domain of the
  *    rightmost start scope, return rightmost start scope.  We return rightmost
  *    because that will have non-empty intersection with input target content
@@ -128,6 +128,9 @@ function expandFromPosition(
       return scope;
     }
 
+    // Because containment is required, and we are moving in a consistent
+    // direction (ie forward or backward), each scope will be progressively
+    // larger
     nextAncestorIndex += 1;
   }
 
@@ -164,6 +167,8 @@ function getPreferredScopeTouchingPosition(
     "backward",
   );
 
+  // If there is no backward scope, or if the backward scope is an ancestor of
+  // forward scope, return forward scope
   if (
     backwardScope == null ||
     backwardScope.domain.contains(forwardScope.domain)
