@@ -60,14 +60,6 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
       direction,
       { containment },
     )) {
-      if (
-        (containment === "disallowed" &&
-          scope.domain.contains(initialPosition)) ||
-        strictlyContains(scope.domain, initialPosition)
-      ) {
-        continue;
-      }
-
       scopeCount += 1;
 
       if (scopeCount < offset) {

@@ -12,6 +12,7 @@ import getLegacyScopeStage from "./getLegacyScopeStage";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { TextEditor, Position } from "vscode";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
+import { getContainingScope } from "./getContainingScope";
 
 /**
  * This modifier stage expands from the input target to the smallest containing
@@ -173,22 +174,4 @@ function getPreferredScopeTouchingPosition(
   return scopeHandler.isPreferredOver(backwardScope, forwardScope) ?? false
     ? backwardScope
     : forwardScope;
-}
-
-function getContainingScope(
-  scopeHandler: ScopeHandler,
-  editor: TextEditor,
-  position: Position,
-  direction: Direction,
-) {
-  return getOne(
-    scopeHandler.generateScopes(editor, position, direction, {
-      containment: "required",
-    }),
-  );
-}
-
-function getOne<T>(iterable: Iterable<T>): T | undefined {
-  const { value, done } = iterable[Symbol.iterator]().next();
-  return done ? undefined : value;
 }

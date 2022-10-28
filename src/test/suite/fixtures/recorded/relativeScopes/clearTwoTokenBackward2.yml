@@ -19,8 +19,4 @@ initialState:
       active: {line: 0, character: 8}
   marks: {}
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: token}, offset: 0, length: 2, direction: backward}]}]
-finalState:
-  documentContents: "  ccc"
-  selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+thrownError: {name: NoContainingScopeError}
