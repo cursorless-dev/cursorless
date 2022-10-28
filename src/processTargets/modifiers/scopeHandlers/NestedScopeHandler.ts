@@ -96,6 +96,9 @@ export default abstract class NestedScopeHandler extends BaseScopeHandler {
       editor,
       position,
       direction,
+      // If containment is disallowed, we need to unset that for the search
+      // scope, because the search scope could contain position but nested
+      // scopes do not.
       {
         containment: containment === "required" ? "required" : undefined,
         ...rest,

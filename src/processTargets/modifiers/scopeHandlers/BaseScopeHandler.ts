@@ -17,6 +17,10 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
   public abstract readonly scopeType: ScopeType;
   public abstract readonly iterationScopeType: ScopeType;
 
+  /**
+   * Indicates whether scopes are allowed to contain one another.  If `true`, we
+   * can optimise the algorithm by making certain assumptions.
+   */
   protected abstract readonly isHierarchical: boolean;
 
   /**
@@ -63,12 +67,10 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
    * {@link Range.start|start} is equal to or before {@link position}, in
    * reverse order domain start position.
    *
-   * Note that the {@link hints} argument can be ignored, but you may find
-   * dramatic performance improvements by respecting the hints, especially if
-   * the hints allow you to stop early.  For example, if
-   * {@link ScopeIteratorRequirements.containment} is `"required"`, and your
-   * scope type is not hierarchical, then you can stop once you get to the first
-   * scope that doesn't contain {@link position}.
+   * Note that the {@link hints} argument can be ignored, but you are welcome to
+   * use it to improve performance.  For example, knowing the
+   * {@link ScopeIteratorRequirements.distalPosition} can be useful if you are
+   * getting a list of scopes in bulk.
    *
    * @param editor The editor containing {@link position}
    * @param position The position from which to start
@@ -82,6 +84,17 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     hints?: ScopeIteratorRequirements | undefined,
   ): Iterable<TargetScope>;
 
+  /**
+   * Returns an iterable of scopes meeting the requirements in
+   * {@link requirements}, yielded in a specific order.  See
+   * {@link generateScopeCandidates} for more on the order.
+   *
+   * @param editor The editor containing {@link position}
+   * @param position The position from which to start
+   * @param direction The direction to go relative to {@link position}
+   * @param requirements Extra requirements of the scopes being returned
+   * @returns An iterable of scopes
+   */
   *generateScopes(
     editor: TextEditor,
     position: Position,
@@ -125,6 +138,7 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     const { containment, distalPosition } = requirements;
 
     if (this.isHierarchical) {
+      // Don't try anything fancy if scope is hierarchical
       return false;
     }
 
@@ -134,6 +148,9 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
         ? domain.end.isAfter(position)
         : domain.start.isBefore(position))
     ) {
+      // If we require containment, then if we have already yielded something
+      // ending strictly after position, we won't yield anything else containing
+      // position
       return true;
     }
 
@@ -143,6 +160,9 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
         ? domain.end.isAfterOrEqual(distalPosition)
         : domain.start.isBeforeOrEqual(distalPosition))
     ) {
+      // If we have a distal position, and we have yielded something that ends
+      // at or after distal position, we won't be able to yield anything else
+      // that starts before distal position
       return true;
     }
 
