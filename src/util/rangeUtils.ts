@@ -43,9 +43,9 @@ export function getRangeLength(editor: TextEditor, range: Range) {
  * range1.start < range2.start && range1.end > range2.end
  * ```
  * @param range1 One of the ranges to compare
- * @param range2 The other range to compare
+ * @param rangeOrPosition The other range or position to compare
  * @returns A boolean indicating whether {@link range1} completely contains
- * {@link range2} without it touching either boundary
+ * {@link rangeOrPosition} without it touching either boundary
  */
 export function strictlyContains(
   range1: Range,
