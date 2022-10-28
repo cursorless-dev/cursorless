@@ -127,12 +127,12 @@ export interface ScopeIteratorRequirements {
    * don't yield scopes whose {@link TargetScope.domain|domain} starts at
    * position.
    */
-  disallowBehind?: boolean;
+  allowNoOverlap?: boolean;
 
   /**
    * Indicates that the {@link TargetScope.domain|domain} of the scopes must
    * start before this position.  If the domain starts at the position, that is
    * *not* allowed.
    */
-  mustStartBefore?: Position;
+  distalPosition?: Position;
 }

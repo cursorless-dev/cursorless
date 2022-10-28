@@ -184,7 +184,6 @@ function getContainingScope(
   const scope = getOne(
     scopeHandler.generateScopes(editor, position, direction, {
       containment: "required",
-      disallowBehind: true,
     }),
   );
 

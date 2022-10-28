@@ -19,7 +19,7 @@ export default class LineScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements | undefined = {},
   ): Iterable<TargetScope> {
-    const { mustStartBefore, containment } = hints;
+    const { distalPosition: mustStartBefore, containment } = hints;
 
     if (containment === "required") {
       yield lineNumberToScope(editor, position.line);
