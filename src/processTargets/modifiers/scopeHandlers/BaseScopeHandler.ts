@@ -38,9 +38,6 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
    *    yield a scope, advance your position to the end of the scope, but when
    *    considering this new position, don't return this scope again.
    *
-   * Note that once you have yielded a scope, you should not yield any scopes
-   * contained by that scope.
-   *
    * In the case of a non-hierarchical scope type, the above is equivalent to
    * the following:
    *
@@ -71,6 +68,20 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
    * use it to improve performance.  For example, knowing the
    * {@link ScopeIteratorRequirements.distalPosition} can be useful if you are
    * getting a list of scopes in bulk.
+   *
+   * Some notes:
+   *
+   * - Once you have yielded a scope, you do not need to yield any scopes
+   *   contained by that scope.
+   * - You can yield the same scope more than once if it makes your life easier
+   * - You do not need to yield any scopes that end at or before
+   *   {@link position} if {@link direction} is `"forward"`, or that start at or
+   *   after {@link position} if {@link direction} is `"backward"`.
+   *
+   * The only strict requirements are that
+   *
+   * - you yield every scope that might meet the requirements
+   * - you yield scopes in the correct order
    *
    * @param editor The editor containing {@link position}
    * @param position The position from which to start
