@@ -11,6 +11,8 @@ import type { TargetScope } from "./scope.types";
 import { ScopeHandler, ScopeIteratorRequirements } from "./scopeHandler.types";
 
 export default class OneOfScopeHandler extends BaseScopeHandler {
+  protected isHierarchical = true;
+
   private scopeHandlers: ScopeHandler[] = this.scopeType.scopeTypes.map(
     (scopeType) => {
       const handler = getScopeHandler(scopeType, this.languageId);

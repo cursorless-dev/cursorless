@@ -10,6 +10,8 @@ import { ScopeIteratorRequirements } from "./scopeHandler.types";
 export default class SurroundingPairScopeHandler extends BaseScopeHandler {
   public readonly iterationScopeType;
 
+  protected isHierarchical = true;
+
   constructor(
     public readonly scopeType: SurroundingPairScopeType,
     _languageId: string,
