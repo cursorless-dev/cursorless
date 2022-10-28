@@ -8,7 +8,7 @@ import type {
   ScopeHandler,
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
-import { shouldReturnScope } from "./scopeHandlers.helpers";
+import { shouldYieldScope } from "./shouldYieldScope";
 
 /**
  * All scope handlers should derive from this base class
@@ -84,17 +84,6 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     hints?: ScopeIteratorRequirements | undefined,
   ): Iterable<TargetScope>;
 
-  /**
-   * Returns an iterable of scopes meeting the requirements in
-   * {@link requirements}, yielded in a specific order.  See
-   * {@link generateScopeCandidates} for more on the order.
-   *
-   * @param editor The editor containing {@link position}
-   * @param position The position from which to start
-   * @param direction The direction to go relative to {@link position}
-   * @param requirements Extra requirements of the scopes being returned
-   * @returns An iterable of scopes
-   */
   *generateScopes(
     editor: TextEditor,
     position: Position,
@@ -110,7 +99,7 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
       requirements,
     )) {
       if (
-        shouldReturnScope(
+        shouldYieldScope(
           position,
           direction,
           requirements,

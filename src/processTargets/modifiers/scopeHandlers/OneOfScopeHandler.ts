@@ -9,7 +9,7 @@ import { compareTargetScopes } from "./compareTargetScopes";
 import {
   getInitialIteratorInfos,
   advanceIteratorsUntil,
-} from "./getInitialIteratorInfos";
+} from "./IteratorInfo";
 import type { TargetScope } from "./scope.types";
 import { ScopeHandler, ScopeIteratorRequirements } from "./scopeHandler.types";
 
