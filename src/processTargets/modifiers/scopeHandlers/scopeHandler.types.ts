@@ -122,14 +122,6 @@ export interface ScopeIteratorRequirements {
   containment?: ContainmentPolicy;
 
   /**
-   * If `true`, then for `"forward"`, don't yield scopes whose
-   * {@link TargetScope.domain|domain} ends at position.  For `"backward"`,
-   * don't yield scopes whose {@link TargetScope.domain|domain} starts at
-   * position.
-   */
-  allowNoOverlap?: boolean;
-
-  /**
    * Indicates that the {@link TargetScope.domain|domain} of the scopes must
    * start before this position.  If the domain starts at the position, that is
    * *not* allowed.

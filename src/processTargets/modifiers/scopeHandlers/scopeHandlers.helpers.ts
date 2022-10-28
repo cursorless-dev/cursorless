@@ -12,7 +12,7 @@ export function shouldReturnScope(
   previousScope: TargetScope | undefined,
   scope: TargetScope,
 ): boolean {
-  const { containment, distalPosition, allowNoOverlap } = hints;
+  const { containment, distalPosition } = hints;
   const { domain } = scope;
 
   if (
@@ -49,7 +49,6 @@ export function shouldReturnScope(
   }
 
   if (
-    !allowNoOverlap &&
     !domain.isEmpty &&
     (direction === "forward"
       ? domain.end.isEqual(position)
@@ -68,7 +67,6 @@ export function shouldReturnScope(
     }
 
     if (
-      !allowNoOverlap &&
       !domain.isEmpty &&
       (direction === "forward"
         ? domain.start.isEqual(distalPosition)
