@@ -1,7 +1,6 @@
 import type { Target } from "../../typings/target.types";
 import type { RelativeScopeModifier } from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
-import { strictlyContains } from "../../util/rangeUtils";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { runLegacy } from "./relativeScopeLegacy";
@@ -12,22 +11,9 @@ import { OutOfRangeError } from "./targetSequenceUtils";
 
 /**
  * Handles relative modifiers that don't include targets intersecting with the
- * input, eg "next funk", "previous two tokens". Proceeds as follows:
- *
- * 1. If the input is empty, skips past any scopes that are directly adjacent to
- *    input target in the direction of movement.  Eg if the cursor is at the
- *    very start of a token, we first jump past that token for "next token".
- * 2. Otherwise, we start at the `end` of the input range (`start` if
- *    {@link RelativeScopeModifier.direction} is `"backward"`).
- * 3. Asks the scope handler for the scope at
- *    {@link RelativeScopeModifier.offset} in given
- *    {@link RelativeScopeModifier.direction} by calling
- *    {@link ScopeHandler.getScopeRelativeToPosition}.
- * 4. If {@link RelativeScopeModifier.length} is 1, returns that scope
- * 5. Otherwise, asks scope handler for scope at offset
- *    {@link RelativeScopeModifier.length} - 1, starting from the end of
- *    {@link Scope.domain} of that scope (start for "backward"), and forms a
- *    range target.
+ * input, eg "next funk", "previous two tokens". Proceeds by running
+ * {@link ScopeHandler.generateScopes} to get the desired scopes, skipping the
+ * first scope if input range is empty and is at start of that scope.
  */
 export default class RelativeExclusiveScopeStage implements ModifierStage {
   constructor(private modifier: RelativeScopeModifier) {}
@@ -48,6 +34,9 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
     const initialPosition =
       direction === "forward" ? inputRange.end : inputRange.start;
 
+    // If inputRange is empty, then we skip past any scopes that start at
+    // inputRange.  Otherwise just disallow any scopes that start strictly
+    // before the end of input range (strictly after for "backward").
     const containment: ContainmentPolicy | undefined = inputRange.isEmpty
       ? "disallowed"
       : "disallowedIfStrict";
@@ -63,11 +52,14 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
       scopeCount += 1;
 
       if (scopeCount < offset) {
+        // Skip until we hit `offset`
         continue;
       }
 
       if (scopeCount === offset) {
+        // When we hit offset, that becomes proximal scope
         if (desiredScopeCount === 1) {
+          // Just yield it if we only want 1 scope
           return [scope.getTarget(isReversed)];
         }
 
@@ -76,6 +68,7 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
       }
 
       if (scopeCount === offset + desiredScopeCount - 1) {
+        // Then make a range when we get the desired number of scopes
         return [constructScopeRangeTarget(isReversed, proximalScope!, scope)];
       }
     }

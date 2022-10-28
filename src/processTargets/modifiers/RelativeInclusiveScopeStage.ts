@@ -123,6 +123,7 @@ function getOffset0Scopes(
   range: Range,
 ): TargetScope[] {
   if (range.isEmpty) {
+    // First try scope in correct direction, falling back to opposite direction
     const containingScope =
       getContainingScope(scopeHandler, editor, range.start, direction) ??
       getContainingScope(
