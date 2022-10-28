@@ -6,10 +6,7 @@ import {
 } from "../../../typings/targetDescriptor.types";
 import BaseScopeHandler from "./BaseScopeHandler";
 import { compareTargetScopes } from "./compareTargetScopes";
-import {
-  getInitialIteratorInfos,
-  advanceIteratorsUntil,
-} from "./IteratorInfo";
+import { getInitialIteratorInfos, advanceIteratorsUntil } from "./IteratorInfo";
 import type { TargetScope } from "./scope.types";
 import { ScopeHandler, ScopeIteratorRequirements } from "./scopeHandler.types";
 
