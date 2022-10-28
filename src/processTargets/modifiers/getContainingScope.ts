@@ -6,11 +6,12 @@ export function getContainingScope(
   scopeHandler: ScopeHandler,
   editor: TextEditor,
   position: Position,
-  direction: Direction) {
+  direction: Direction,
+) {
   return getOne(
     scopeHandler.generateScopes(editor, position, direction, {
       containment: "required",
-    })
+    }),
   );
 }
 function getOne<T>(iterable: Iterable<T>): T | undefined {
