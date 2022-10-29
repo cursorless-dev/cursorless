@@ -10,16 +10,16 @@ command:
           offset: 0
           length: 2
           direction: backward
-  usePrePhraseSnapshot: true
+  usePrePhraseSnapshot: false
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: aaa bbb ccc
+  documentContents: aaa bbb. ccc
   selections:
-    - anchor: {line: 0, character: 8}
+    - anchor: {line: 0, character: 7}
       active: {line: 0, character: 8}
   marks: {}
 finalState:
-  documentContents: "aaa "
+  documentContents: aaa  ccc
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

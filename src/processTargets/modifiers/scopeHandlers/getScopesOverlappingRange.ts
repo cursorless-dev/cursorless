@@ -14,27 +14,9 @@ export default function getScopesOverlappingRange(
   editor: TextEditor,
   { start, end }: Range,
 ): TargetScope[] {
-  let seenScope = false;
-  const scopes: TargetScope[] = [];
-  for (const scope of scopeHandler.generateScopes(editor, start, "forward", {
-    distalPosition: end,
-  })) {
-    if (seenScope && scope.domain.contains(start)) {
-      continue;
-    }
-
-    seenScope = true;
-
-    if (scope.domain.start.isAfterOrEqual(end)) {
-      if (scope.domain.end.isEqual(end)) {
-        scopes.push(scope);
-      }
-
-      return scopes;
-    }
-
-    scopes.push(scope);
-  }
-
-  return scopes;
+  return Array.from(
+    scopeHandler.generateScopes(editor, start, "forward", {
+      distalPosition: end,
+    }),
+  );
 }

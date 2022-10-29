@@ -19,7 +19,7 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
   public abstract readonly iterationScopeType: ScopeType;
 
   /**
-   * Indicates whether scopes are allowed to contain one another.  If `true`, we
+   * Indicates whether scopes are allowed to contain one another.  If `false`, we
    * can optimise the algorithm by making certain assumptions.
    */
   protected abstract readonly isHierarchical: boolean;

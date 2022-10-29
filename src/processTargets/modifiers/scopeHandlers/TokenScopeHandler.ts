@@ -27,37 +27,14 @@ export default class TokenScopeHandler extends NestedScopeHandler {
 
   isPreferredOver(
     scopeA: TargetScope,
-    scopeB: TargetScope,
+    _scopeB: TargetScope,
   ): boolean | undefined {
     const {
       editor: { document },
     } = scopeA;
-
     const { identifierMatcher } = getMatcher(document.languageId);
 
-    // If multiple matches sort and take the first
     const textA = document.getText(scopeA.domain);
-    const textB = document.getText(scopeB.domain);
-
-    // First sort on identifier(alphanumeric)
-    const aIsAlphaNum = identifierMatcher.test(textA);
-    const bIsAlphaNum = identifierMatcher.test(textB);
-
-    if (aIsAlphaNum && !bIsAlphaNum) {
-      return true;
-    }
-
-    if (bIsAlphaNum && !aIsAlphaNum) {
-      return false;
-    }
-
-    // Second sort on length
-    const lengthDiff = textA.length - textB.length;
-    if (lengthDiff !== 0) {
-      return lengthDiff > 0 ? true : false;
-    }
-
-    // Otherwise no preference
-    return undefined;
+    return identifierMatcher.test(textA) ? true : undefined;
   }
 }

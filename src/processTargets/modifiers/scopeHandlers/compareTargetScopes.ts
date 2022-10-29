@@ -43,7 +43,7 @@ function compareTargetScopesForward(
   }
 
   if (!aIsStartVisible && !bIsStartVisible) {
-    // If noth of htem start before position, compare their endpoints, yielding
+    // If both of them start before position, compare their endpoints, yielding
     // the one that ends first, breaking ties by yielding smaller one first
     const value = a.end.compareTo(b.end);
 
@@ -74,27 +74,40 @@ function compareTargetScopesBackward(
   a: Range,
   b: Range,
 ): number {
+  // First determine whether the end occurs after position.  If so, we will
+  // only get to see the start when iterating backward.
   const aIsEndVisible = a.end.isBeforeOrEqual(position);
   const bIsEndVisible = b.end.isBeforeOrEqual(position);
 
   if (aIsEndVisible && bIsEndVisible) {
+    // If both of them occur before or equal position, yield them according to
+    // when they end, or yield smaller one first if they end at the same
+    // place
     const value = -a.end.compareTo(b.end);
 
     return value === 0 ? -a.start.compareTo(b.start) : value;
   }
 
   if (!aIsEndVisible && !bIsEndVisible) {
+    // If both of them end after position, compare their startpoints, yielding
+    // the one that starts first, breaking ties by yielding smaller one first
     const value = -a.start.compareTo(b.start);
 
     return value === 0 ? a.end.compareTo(b.end) : value;
   }
 
   if (!aIsEndVisible && bIsEndVisible) {
+    // If `a` ends after position, but `b` does not, then compare the start of
+    // `a` to the end of `b`, returning whichever is greater.
     const value = -a.start.compareTo(b.end);
 
+    // If they are tied, then start with `a` if it is empty, otherwise start
+    // with `b` because it is starting and `a` is ending.
     return value !== 0 ? value : b.isEmpty ? 1 : -1;
   }
 
+  // Otherwise `b` starts before position, but `a` does not.  Apply reverse
+  // logic to last `if` statement above
   const value = -a.end.compareTo(b.start);
 
   return value !== 0 ? value : a.isEmpty ? -1 : 1;

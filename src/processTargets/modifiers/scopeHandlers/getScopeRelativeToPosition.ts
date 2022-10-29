@@ -22,9 +22,10 @@ export default function getScopeRelativeToPosition(
   direction: Direction,
 ): TargetScope {
   let scopeCount = 0;
-  for (const scope of scopeHandler.generateScopes(editor, position, direction, {
+  const iterator = scopeHandler.generateScopes(editor, position, direction, {
     containment: "disallowedIfStrict",
-  })) {
+  });
+  for (const scope of iterator) {
     scopeCount += 1;
 
     if (scopeCount === offset) {
