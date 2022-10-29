@@ -27,14 +27,17 @@ export default class TokenScopeHandler extends NestedScopeHandler {
 
   isPreferredOver(
     scopeA: TargetScope,
-    _scopeB: TargetScope,
+    scopeB: TargetScope,
   ): boolean | undefined {
     const {
       editor: { document },
     } = scopeA;
     const { identifierMatcher } = getMatcher(document.languageId);
 
-    const textA = document.getText(scopeA.domain);
-    return identifierMatcher.test(textA) ? true : undefined;
+    return identifierMatcher.test(document.getText(scopeA.domain))
+      ? true
+      : identifierMatcher.test(document.getText(scopeB.domain))
+      ? false
+      : undefined;
   }
 }
