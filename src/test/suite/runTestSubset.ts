@@ -4,7 +4,7 @@
  * configuration.
  * See https://mochajs.org/#-grep-regexp-g-regexp for supported syntax
  */
-export const TEST_SUBSET_GREP_STRING = "markdown";
+export const TEST_SUBSET_GREP_STRING = "takeEveryCarBlock";
 
 /**
  * Determine whether we should run just the subset of the tests specified by

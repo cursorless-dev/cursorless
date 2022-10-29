@@ -54,7 +54,7 @@ export interface ScopeHandler {
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    requirements?: ScopeIteratorRequirements,
+    requirements?: Partial<ScopeIteratorRequirements>,
   ): Iterable<TargetScope>;
 
   /**
@@ -94,12 +94,12 @@ export interface ScopeIteratorRequirements {
    *   {@link TargetScope.domain|domain} may not strictly contain position.  If
    *   position is directly adjacent to the domain, that *is* allowed.
    */
-  containment?: ContainmentPolicy;
+  containment: ContainmentPolicy | null;
 
   /**
    * Indicates that the {@link TargetScope.domain|domain} of the scopes must
-   * start strictly before this position for `"forward"`, or strictly after this
+   * start at or before this position for `"forward"`, or at or after this
    * position for `"backward"`.
    */
-  distalPosition?: Position;
+  distalPosition: Position | null;
 }
