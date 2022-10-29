@@ -1,3 +1,4 @@
+import { flatten, imap } from "itertools";
 import type { Position, TextEditor } from "vscode";
 import { getScopeHandler } from ".";
 import type {
@@ -40,15 +41,15 @@ export default abstract class NestedScopeHandler extends BaseScopeHandler {
 
   /**
    * This function is the only function that needs to be defined in the derived
-   * type.  It should just return a list of all child scope types in the given
-   * parent scope type.
+   * type.  It should yield all child scope types in the given parent scope
+   * type, in the order specified in {@link direction}.
    * @param searchScope An instance of the parent scope type from which to
    * return all child target scopes
-   * @returns A list of all child scope types in the given parent scope type
    */
-  protected abstract getScopesInSearchScope(
+  protected abstract generateScopesInSearchScope(
+    direction: Direction,
     searchScope: TargetScope,
-  ): TargetScope[];
+  ): Iterable<TargetScope>;
 
   private _searchScopeHandler: ScopeHandler | undefined;
 
@@ -70,22 +71,7 @@ export default abstract class NestedScopeHandler extends BaseScopeHandler {
     return this._searchScopeHandler;
   }
 
-  /**
-   * Yields groups of scopes for use in {@link getScopeRelativeToPosition}.
-   * Begins by returning a list of all scopes in the search scope containing
-   * {@link position} that are after {@link position} (before if
-   * {@link direction} is `"backward"`).
-   *
-   * Then repeatedly calls {@link getScopeRelativeToPosition} on the parent
-   * scope and returns all child scopes in each returned parent scope.
-   *
-   * @param editor The editor containing {@link position}
-   * @param position The position passed in to
-   * {@link getScopeRelativeToPosition}
-   * @param direction The direction passed in to
-   * {@link getScopeRelativeToPosition}
-   */
-  protected *generateScopeCandidates(
+  protected generateScopeCandidates(
     editor: TextEditor,
     position: Position,
     direction: Direction,
@@ -105,9 +91,10 @@ export default abstract class NestedScopeHandler extends BaseScopeHandler {
       },
     );
 
-    for (const searchScope of generator) {
-      const scopes = this.getScopesInSearchScope(searchScope);
-      yield* direction === "backward" ? [...scopes].reverse() : scopes;
-    }
+    return flatten(
+      imap(generator, (searchScope) =>
+        this.generateScopesInSearchScope(direction, searchScope),
+      ),
+    );
   }
 }

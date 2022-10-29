@@ -1,5 +1,6 @@
 import { Range, TextEditor } from "vscode";
 import { NestedScopeHandler } from ".";
+import { Direction } from "../../../typings/targetDescriptor.types";
 import { SubTokenWordTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
 import WordTokenizer from "./WordTokenizer";
@@ -10,7 +11,7 @@ export default class WordScopeHandler extends NestedScopeHandler {
 
   private wordTokenizer = new WordTokenizer(this.languageId);
 
-  protected getScopesInSearchScope({
+  private getScopesInSearchScope({
     editor,
     domain,
   }: TargetScope): TargetScope[] {
@@ -46,6 +47,19 @@ export default class WordScopeHandler extends NestedScopeHandler {
         );
       },
     }));
+  }
+
+  protected generateScopesInSearchScope(
+    direction: Direction,
+    searchScope: TargetScope,
+  ): Iterable<TargetScope> {
+    const scopes = this.getScopesInSearchScope(searchScope);
+
+    if (direction === "backward") {
+      scopes.reverse();
+    }
+
+    return scopes;
   }
 }
 
