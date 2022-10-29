@@ -29,20 +29,19 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
    *
    * If your scope type is *not* hierarchical, and {@link direction} is
    * `"forward"`, yield all scopes whose {@link TargetScope.domain|domain}'s
-   * {@link Range.end|end} is strictly after {@link position}, or that have an
-   * empty domain exactly at {@link position}, in document order.
+   * {@link Range.end|end} is equal to or after {@link position} in document
+   * order.
    *
    * If your scope type is *not* hierarchical, and {@link direction} is
    * `"backward"`, yield all scopes whose {@link TargetScope.domain|domain}'s
-   * {@link Range.start|start} is strictly before {@link position}, or that have
-   * an empty domain exactly at {@link position}, in reverse document order.
+   * {@link Range.start|start} is equal to or before {@link position}, in
+   * reverse document order.
    *
    * If your scope type *is* hierarchical, and {@link direction} is `"forward"`,
-   * walk forward starting at {@link position} (including position). You can
-   * skip any scopes whose domain ends at position, as long as they are
-   * non-empty.  Any time a scope's {@link TargetScope.domain|domain} ends or
-   * starts, yield that scope. If multiple domains start or end at a particular
-   * point, break ties as follows:
+   * walk forward starting at {@link position} (including position). Any time a
+   * scope's {@link TargetScope.domain|domain} ends or starts, yield that scope.
+   * If multiple domains start or end at a particular point, break ties as
+   * follows:
    *
    * 1. First yield any scopes with empty domain.
    * 2. Then yield any scopes whose domains are ending, in reverse order of
@@ -53,10 +52,9 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
    *
    * If your scope type *is* hierarchical, and {@link direction} is
    * `"backward"`, walk backward starting at {@link position} (including
-   * position). You can skip scopes whose domain starts at position, as long as
-   * they are non-empty.  Any time a scope's {@link TargetScope.domain|domain}
-   * ends or starts, yield that scope. If multiple domains start or end at a
-   * particular point, break ties as follows:
+   * position). Any time a scope's {@link TargetScope.domain|domain} ends or
+   * starts, yield that scope. If multiple domains start or end at a particular
+   * point, break ties as follows:
    *
    * 1. First yield any scopes with empty domain.
    * 2. Then yield any scopes whose domains are starting, in order of where they
@@ -75,9 +73,6 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
    * - Once you have yielded a scope, you do not need to yield any scopes
    *   contained by that scope.
    * - You can yield the same scope more than once if it makes your life easier
-   * - You do not need to yield any scopes that end at or before
-   *   {@link position} if {@link direction} is `"forward"`, or that start at or
-   *   after {@link position} if {@link direction} is `"backward"`.
    *
    * The only strict requirements are that
    *
