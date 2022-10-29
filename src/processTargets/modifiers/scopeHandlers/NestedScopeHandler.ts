@@ -1,3 +1,4 @@
+import { flatten, imap } from "itertools";
 import type { Position, TextEditor } from "vscode";
 import { getScopeHandler } from ".";
 import type {
@@ -46,9 +47,10 @@ export default abstract class NestedScopeHandler extends BaseScopeHandler {
    * return all child target scopes
    * @returns A list of all child scope types in the given parent scope type
    */
-  protected abstract getScopesInSearchScope(
+  protected abstract generateScopesInSearchScope(
+    direction: Direction,
     searchScope: TargetScope,
-  ): TargetScope[];
+  ): Iterable<TargetScope>;
 
   private _searchScopeHandler: ScopeHandler | undefined;
 
@@ -85,7 +87,7 @@ export default abstract class NestedScopeHandler extends BaseScopeHandler {
    * @param direction The direction passed in to
    * {@link getScopeRelativeToPosition}
    */
-  protected *generateScopeCandidates(
+  protected generateScopeCandidates(
     editor: TextEditor,
     position: Position,
     direction: Direction,
@@ -105,9 +107,10 @@ export default abstract class NestedScopeHandler extends BaseScopeHandler {
       },
     );
 
-    for (const searchScope of generator) {
-      const scopes = this.getScopesInSearchScope(searchScope);
-      yield* direction === "backward" ? [...scopes].reverse() : scopes;
-    }
+    return flatten(
+      imap(generator, (searchScope) =>
+        this.generateScopesInSearchScope(direction, searchScope),
+      ),
+    );
   }
 }
