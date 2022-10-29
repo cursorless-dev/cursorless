@@ -1,4 +1,5 @@
 import { NestedScopeHandler } from ".";
+import { getMatcher } from "../../../core/tokenizer";
 import type { ScopeType } from "../../../typings/targetDescriptor.types";
 import { getTokensInRange } from "../../../util/getTokensInRange";
 import { TokenTarget } from "../../targets";
@@ -22,5 +23,21 @@ export default class TokenScopeHandler extends NestedScopeHandler {
           isReversed,
         }),
     }));
+  }
+
+  isPreferredOver(
+    scopeA: TargetScope,
+    scopeB: TargetScope,
+  ): boolean | undefined {
+    const {
+      editor: { document },
+    } = scopeA;
+    const { identifierMatcher } = getMatcher(document.languageId);
+
+    return identifierMatcher.test(document.getText(scopeA.domain))
+      ? true
+      : identifierMatcher.test(document.getText(scopeB.domain))
+      ? false
+      : undefined;
   }
 }

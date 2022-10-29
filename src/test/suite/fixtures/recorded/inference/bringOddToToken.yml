@@ -23,7 +23,7 @@ finalState:
   documentContents: |-
     const foo = "hello";
 
-    const bar = "helloconst;
+    const bar = "const";
   selections:
     - anchor: {line: 2, character: 18}
       active: {line: 2, character: 18}
