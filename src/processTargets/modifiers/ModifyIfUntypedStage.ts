@@ -20,7 +20,7 @@ abstract class ModifyIfBaseStage implements ModifierStage {
           .run(context, target)
           .map((newTarget) => newTarget.withThatTarget(target));
       } catch (ex) {
-        // suppressErrors === true => Allowe this target to be returned unmodified
+        // suppressErrors === true => Allow this target to be returned unmodified
         if (!this.suppressErrors) {
           throw ex;
         }
