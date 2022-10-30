@@ -3,12 +3,17 @@ from typing import Any
 from talon import Module
 
 previous_next_modifiers = {"previous": "previous", "next": "next"}
-backward_modifiers = {"backward": "backward"}
+forward_backward_modifiers = {
+    "forward": "forward",
+    "backward": "backward",
+}
 
 mod = Module()
 
 mod.list("cursorless_previous_next_modifier", desc="Cursorless previous/next modifiers")
-mod.list("cursorless_backward_modifier", desc="Cursorless backward modifiers")
+mod.list(
+    "cursorless_forward_backward_modifier", desc="Cursorless forward/backward modifiers"
+)
 
 
 @mod.capture(rule="{user.cursorless_previous_next_modifier}")
@@ -44,7 +49,7 @@ def cursorless_relative_scope_plural(m) -> dict[str, Any]:
 
 
 @mod.capture(
-    rule="<user.private_cursorless_number_small> <user.cursorless_scope_type_plural> [{user.cursorless_backward_modifier}]"
+    rule="<user.private_cursorless_number_small> <user.cursorless_scope_type_plural> [{user.cursorless_forward_backward_modifier}]"
 )
 def cursorless_relative_scope_count(m) -> dict[str, Any]:
     """Relative count scope. `three funks`"""
@@ -52,18 +57,20 @@ def cursorless_relative_scope_count(m) -> dict[str, Any]:
         m.cursorless_scope_type_plural,
         0,
         m.private_cursorless_number_small,
-        getattr(m, "cursorless_backward_modifier", "forward"),
+        getattr(m, "cursorless_forward_backward_modifier", "forward"),
     )
 
 
-@mod.capture(rule="<user.cursorless_scope_type> {user.cursorless_backward_modifier}")
+@mod.capture(
+    rule="<user.cursorless_scope_type> {user.cursorless_forward_backward_modifier}"
+)
 def cursorless_relative_scope_one_backward(m) -> dict[str, Any]:
     """Take scope backward, eg `funk backward`"""
     return create_relative_scope_modifier(
         m.cursorless_scope_type,
         0,
         1,
-        m.cursorless_backward_modifier,
+        m.cursorless_forward_backward_modifier,
     )
 
 
