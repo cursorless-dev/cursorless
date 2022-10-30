@@ -43,7 +43,7 @@ abstract class ModifyIfBaseStage implements ModifierStage {
 }
 
 /**
- * Runs {@link ModifyIfModifier.modifier} if the target has no explicit
+ * Runs {@link ModifyIfUntypedModifier.modifier} if the target has no explicit
  * scope type, ie if {@link Target.hasExplicitScopeType} is `false`.
  */
 export class ModifyIfUntypedStage extends ModifyIfBaseStage {
@@ -62,7 +62,7 @@ export class ModifyIfUntypedStage extends ModifyIfBaseStage {
  * {@link Target.hasExplicitRange} is `false` and
  * {@link Target.contentRange.isEmpty} is `true`.
  */
-export class ModifyUnTypedEmptyToToken extends ModifyIfBaseStage {
+export class ModifyUnTypedEmptyToTokenStage extends ModifyIfBaseStage {
   constructor() {
     super({ type: "containingScope", scopeType: { type: "token" } }, true);
   }
