@@ -1,15 +1,18 @@
-import { maxBy, minBy } from "lodash";
-import { Position, Range, TextEditor } from "vscode";
+import { Position, TextEditor } from "vscode";
 import { getScopeHandler } from ".";
 import {
   Direction,
   OneOfScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { OutOfRangeError } from "../targetSequenceUtils";
+import BaseScopeHandler from "./BaseScopeHandler";
+import { compareTargetScopes } from "./compareTargetScopes";
+import { getInitialIteratorInfos, advanceIteratorsUntil } from "./IteratorInfo";
 import type { TargetScope } from "./scope.types";
-import { ScopeHandler } from "./scopeHandler.types";
+import { ScopeHandler, ScopeIteratorRequirements } from "./scopeHandler.types";
 
-export default class OneOfScopeHandler implements ScopeHandler {
+export default class OneOfScopeHandler extends BaseScopeHandler {
+  protected isHierarchical = true;
+
   private scopeHandlers: ScopeHandler[] = this.scopeType.scopeTypes.map(
     (scopeType) => {
       const handler = getScopeHandler(scopeType, this.languageId);
@@ -30,104 +33,40 @@ export default class OneOfScopeHandler implements ScopeHandler {
   constructor(
     public readonly scopeType: OneOfScopeType,
     private languageId: string,
-  ) {}
-
-  getScopesTouchingPosition(
-    editor: TextEditor,
-    position: Position,
-    ancestorIndex?: number,
-  ): TargetScope[] {
-    if (ancestorIndex !== 0) {
-      // FIXME: We could support this one, but it will be a bit of work.
-      throw new Error("`grand` not yet supported for compound scopes.");
-    }
-
-    return keepOnlyBottomLevelScopes(
-      this.scopeHandlers.flatMap((scopeHandler) =>
-        scopeHandler.getScopesTouchingPosition(editor, position, ancestorIndex),
-      ),
-    );
+  ) {
+    super();
   }
 
-  /**
-   * We proceed as follows:
-   *
-   * 1. Get all scopes returned by
-   *    {@link ScopeHandler.getScopesOverlappingRange} from each of
-   *    {@link scopeHandlers}.
-   * 2. If any of these scopes has a {@link TargetScope.domain|domain} that
-   *    terminates within {@link range}, return all such maximal scopes.
-   * 3. Otherwise, return a list containing just the minimal scope containing
-   *    {@link range}.
-   */
-  getScopesOverlappingRange(editor: TextEditor, range: Range): TargetScope[] {
-    const candidateScopes = this.scopeHandlers.flatMap((scopeHandler) =>
-      scopeHandler.getScopesOverlappingRange(editor, range),
-    );
-
-    const scopesTerminatingInRange = candidateScopes.filter(
-      ({ domain }) => !domain.contains(range),
-    );
-
-    return scopesTerminatingInRange.length > 0
-      ? keepOnlyTopLevelScopes(scopesTerminatingInRange)
-      : keepOnlyBottomLevelScopes(candidateScopes);
-  }
-
-  getScopeRelativeToPosition(
+  *generateScopeCandidates(
     editor: TextEditor,
     position: Position,
-    offset: number,
     direction: Direction,
-  ): TargetScope {
-    let currentPosition = position;
-    let currentScope: TargetScope;
+    hints?: ScopeIteratorRequirements | undefined,
+  ): Iterable<TargetScope> {
+    const iterators = this.scopeHandlers.map((scopeHandler) =>
+      scopeHandler
+        .generateScopes(editor, position, direction, hints)
+        [Symbol.iterator](),
+    );
 
-    if (this.scopeHandlers.length === 0) {
-      throw new OutOfRangeError();
-    }
+    let iteratorInfos = getInitialIteratorInfos(iterators);
 
-    for (let i = 0; i < offset; i++) {
-      const candidateScopes = this.scopeHandlers.map((scopeHandler) =>
-        scopeHandler.getScopeRelativeToPosition(
-          editor,
-          currentPosition,
-          1,
-          direction,
-        ),
+    while (iteratorInfos.length > 0) {
+      iteratorInfos.sort((a, b) =>
+        compareTargetScopes(direction, position, a.value, b.value),
       );
 
-      currentScope =
-        direction === "forward"
-          ? minBy(candidateScopes, ({ domain: start }) => start)!
-          : maxBy(candidateScopes, ({ domain: end }) => end)!;
+      // Pick minimum scope according to canonical scope ordering
+      const currentScope = iteratorInfos[0].value;
 
-      currentPosition =
-        direction === "forward"
-          ? currentScope.domain.end
-          : currentScope.domain.start;
+      yield currentScope;
+
+      // Advance all iterators past the scope that was yielded
+      iteratorInfos = advanceIteratorsUntil(
+        iteratorInfos,
+        (scope) =>
+          compareTargetScopes(direction, position, currentScope, scope) < 0,
+      );
     }
-
-    return currentScope!;
   }
-}
-
-function keepOnlyTopLevelScopes(candidateScopes: TargetScope[]): TargetScope[] {
-  return candidateScopes.filter(
-    ({ domain }) =>
-      !candidateScopes.some(({ domain: otherDomain }) =>
-        otherDomain.contains(domain),
-      ),
-  );
-}
-
-function keepOnlyBottomLevelScopes(
-  candidateScopes: TargetScope[],
-): TargetScope[] {
-  return candidateScopes.filter(
-    ({ domain }) =>
-      !candidateScopes.some(({ domain: otherDomain }) =>
-        domain.contains(otherDomain),
-      ),
-  );
 }

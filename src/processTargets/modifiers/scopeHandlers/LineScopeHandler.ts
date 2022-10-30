@@ -1,55 +1,32 @@
-import { range } from "lodash";
 import { Position, Range, TextEditor } from "vscode";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { LineTarget } from "../../targets";
-import { OutOfRangeError } from "../targetSequenceUtils";
-import NotHierarchicalScopeError from "./NotHierarchicalScopeError";
+import BaseScopeHandler from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
-import type { ScopeHandler } from "./scopeHandler.types";
 
-export default class LineScopeHandler implements ScopeHandler {
+export default class LineScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "line" } as const;
   public readonly iterationScopeType = { type: "document" } as const;
+  protected readonly isHierarchical = false;
 
   constructor(_scopeType: ScopeType, _languageId: string) {
-    // Empty
+    super();
   }
 
-  getScopesTouchingPosition(
+  *generateScopeCandidates(
     editor: TextEditor,
     position: Position,
-    ancestorIndex: number = 0,
-  ): TargetScope[] {
-    if (ancestorIndex !== 0) {
-      throw new NotHierarchicalScopeError(this.scopeType);
-    }
-
-    return [lineNumberToScope(editor, position.line)];
-  }
-
-  getScopesOverlappingRange(
-    editor: TextEditor,
-    { start, end }: Range,
-  ): TargetScope[] {
-    return range(start.line, end.line + 1).map((lineNumber) =>
-      lineNumberToScope(editor, lineNumber),
-    );
-  }
-
-  getScopeRelativeToPosition(
-    editor: TextEditor,
-    position: Position,
-    offset: number,
     direction: Direction,
-  ): TargetScope {
-    const lineNumber =
-      direction === "forward" ? position.line + offset : position.line - offset;
-
-    if (lineNumber < 0 || lineNumber >= editor.document.lineCount) {
-      throw new OutOfRangeError();
+  ): Iterable<TargetScope> {
+    if (direction === "forward") {
+      for (let i = position.line; i < editor.document.lineCount; i++) {
+        yield lineNumberToScope(editor, i);
+      }
+    } else {
+      for (let i = position.line; i >= 0; i--) {
+        yield lineNumberToScope(editor, i);
+      }
     }
-
-    return lineNumberToScope(editor, lineNumber);
   }
 }
 

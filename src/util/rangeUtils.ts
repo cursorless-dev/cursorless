@@ -43,12 +43,18 @@ export function getRangeLength(editor: TextEditor, range: Range) {
  * range1.start < range2.start && range1.end > range2.end
  * ```
  * @param range1 One of the ranges to compare
- * @param range2 The other range to compare
+ * @param rangeOrPosition The other range or position to compare
  * @returns A boolean indicating whether {@link range1} completely contains
- * {@link range2} without it touching either boundary
+ * {@link rangeOrPosition} without it touching either boundary
  */
-export function strictlyContains(range1: Range, range2: Range): boolean {
-  return range1.start.isBefore(range2.start) && range1.end.isAfter(range2.end);
+export function strictlyContains(
+  range1: Range,
+  rangeOrPosition: Range | Position,
+): boolean {
+  const start =
+    "start" in rangeOrPosition ? rangeOrPosition.start : rangeOrPosition;
+  const end = "end" in rangeOrPosition ? rangeOrPosition.end : rangeOrPosition;
+  return range1.start.isBefore(start) && range1.end.isAfter(end);
 }
 
 /**

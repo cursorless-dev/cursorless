@@ -8,9 +8,11 @@ import type {
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
-import { getLeftScope, getRightScope } from "./getPreferredScope";
+import { getContainingScope } from "./getContainingScope";
 import { runLegacy } from "./relativeScopeLegacy";
 import getScopeHandler from "./scopeHandlers/getScopeHandler";
+import getScopeRelativeToPosition from "./scopeHandlers/getScopeRelativeToPosition";
+import getScopesOverlappingRange from "./scopeHandlers/getScopesOverlappingRange";
 import type { TargetScope } from "./scopeHandlers/scope.types";
 import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 import { TooFewScopesError } from "./TooFewScopesError";
@@ -54,6 +56,8 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
     const { isReversed, editor, contentRange: inputRange } = target;
     const { scopeType, length: desiredScopeCount, direction } = this.modifier;
 
+    // FIXME: Figure out how to just continue iteration rather than starting
+    // over after getting offset 0 scopes
     const offset0Scopes = getOffset0Scopes(
       scopeHandler,
       direction,
@@ -85,7 +89,8 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
 
     const distalScope =
       desiredScopeCount > offset0ScopeCount
-        ? scopeHandler.getScopeRelativeToPosition(
+        ? getScopeRelativeToPosition(
+            scopeHandler,
             editor,
             initialPosition,
             desiredScopeCount - offset0ScopeCount,
@@ -118,20 +123,18 @@ function getOffset0Scopes(
   range: Range,
 ): TargetScope[] {
   if (range.isEmpty) {
-    const inputPosition = range.start;
+    // First try scope in correct direction, falling back to opposite direction
+    const containingScope =
+      getContainingScope(scopeHandler, editor, range.start, direction) ??
+      getContainingScope(
+        scopeHandler,
+        editor,
+        range.start,
+        direction === "forward" ? "backward" : "forward",
+      );
 
-    const scopesTouchingPosition = scopeHandler.getScopesTouchingPosition(
-      editor,
-      inputPosition,
-    );
-
-    const preferredScope =
-      direction === "forward"
-        ? getRightScope(scopesTouchingPosition)
-        : getLeftScope(scopesTouchingPosition);
-
-    return preferredScope == null ? [] : [preferredScope];
+    return containingScope == null ? [] : [containingScope];
   }
 
-  return scopeHandler.getScopesOverlappingRange(editor, range);
+  return getScopesOverlappingRange(scopeHandler, editor, range);
 }

@@ -5,7 +5,7 @@ from .head_tail import head_tail_modifiers
 from .interior import interior_modifiers
 from .ordinal_scope import first_modifiers, last_modifiers
 from .range_type import range_types
-from .relative_scope import backward_modifiers, previous_next_modifiers
+from .relative_scope import forward_backward_modifiers, previous_next_modifiers
 from .simple_scope_modifier import simple_scope_modifiers
 
 mod = Module()
@@ -81,7 +81,7 @@ def on_ready():
             "first_modifier": first_modifiers,
             "last_modifier": last_modifiers,
             "previous_next_modifier": previous_next_modifiers,
-            "backward_modifier": backward_modifiers,
+            "forward_backward_modifier": forward_backward_modifiers,
         },
     )
 
