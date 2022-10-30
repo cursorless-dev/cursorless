@@ -1,75 +1,78 @@
-import { Position, Range, TextEditor } from "vscode";
-import { ScopeType } from "../../../typings/targetDescriptor.types";
+import { Position, Range, TextDocument, TextEditor, TextLine } from "vscode";
+import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { ParagraphTarget } from "../../targets";
+import BaseScopeHandler from "./BaseScopeHandler";
 import { fitRangeToLineContent } from "./LineScopeHandler";
-import NestedScopeHandler from "./NestedScopeHandler";
-import NotHierarchicalScopeError from "./NotHierarchicalScopeError";
 import { TargetScope } from "./scope.types";
 
-export default class TokenScopeHandler extends NestedScopeHandler {
+export default class TokenScopeHandler extends BaseScopeHandler {
   public readonly scopeType: ScopeType = { type: "paragraph" };
   public readonly iterationScopeType: ScopeType = { type: "document" };
+  protected readonly isHierarchical = false;
 
-  getScopesTouchingPosition(
+  constructor(_scopeType: ScopeType, _languageId: string) {
+    super();
+  }
+
+  *generateScopeCandidates(
     editor: TextEditor,
     position: Position,
-    ancestorIndex: number = 0,
-  ): TargetScope[] {
-    if (ancestorIndex !== 0) {
-      throw new NotHierarchicalScopeError(this.scopeType);
-    }
+    direction: Direction,
+  ): Iterable<TargetScope> {
+    const { document } = editor;
+    const offset = direction === "forward" ? 1 : -1;
+    const stop = direction === "forward" ? document.lineCount : -1;
+    let startLine = getStartLine(document, position, direction);
+    let previousLine = editor.document.lineAt(position);
 
-    return getScopesOverlappingRange(editor, new Range(position, position));
-  }
+    for (let i = position.line + offset; i !== stop; i += offset) {
+      const currentLine = editor.document.lineAt(i);
 
-  protected getScopesInSearchScope({
-    editor,
-    domain,
-  }: TargetScope): TargetScope[] {
-    return getScopesOverlappingRange(editor, domain);
-  }
-}
-
-function getScopesOverlappingRange(
-  editor: TextEditor,
-  range: Range,
-): TargetScope[] {
-  const { startLine, endLine } = calculateSearchRange(editor, range);
-
-  const scopes: TargetScope[] = [];
-  let paragraphStart = startLine.isEmptyOrWhitespace
-    ? undefined
-    : startLine.range.start;
-
-  for (let i = startLine.lineNumber; i <= endLine.lineNumber; ++i) {
-    const line = editor.document.lineAt(i);
-
-    if (line.isEmptyOrWhitespace) {
-      // End of paragraph
-      if (paragraphStart != null) {
-        scopes.push(
-          createScope(
-            editor,
-            new Range(paragraphStart, editor.document.lineAt(i - 1).range.end),
-          ),
-        );
-        paragraphStart = undefined;
+      if (currentLine.isEmptyOrWhitespace) {
+        // End of paragraph
+        if (startLine != null) {
+          yield createScope(editor, startLine.range.union(previousLine.range));
+          startLine = undefined;
+        }
       }
-    }
-    // Start of paragraph
-    else if (paragraphStart == null) {
-      paragraphStart = line.range.start;
+      // Start of paragraph
+      else if (startLine == null) {
+        startLine = currentLine;
+      }
+
+      previousLine = currentLine;
     }
 
     // End of last paragraph
-    if (paragraphStart != null && i === endLine.lineNumber) {
-      scopes.push(
-        createScope(editor, new Range(paragraphStart, endLine.range.end)),
-      );
+    if (startLine != null) {
+      yield createScope(editor, startLine.range.union(previousLine.range));
     }
   }
+}
 
-  return scopes;
+/** Look in opposite direction for the start/edge of the paragraph */
+function getStartLine(
+  document: TextDocument,
+  position: Position,
+  direction: Direction,
+): TextLine | undefined {
+  const offset = direction === "forward" ? -1 : 1;
+  const stop = direction === "forward" ? -1 : document.lineCount;
+  let startLine = document.lineAt(position);
+
+  if (startLine.isEmptyOrWhitespace) {
+    return undefined;
+  }
+
+  for (let i = position.line + offset; i !== stop; i += offset) {
+    const line = document.lineAt(i);
+    if (line.isEmptyOrWhitespace) {
+      break;
+    }
+    startLine = line;
+  }
+
+  return startLine;
 }
 
 function createScope(editor: TextEditor, domain: Range): TargetScope {
@@ -83,32 +86,4 @@ function createScope(editor: TextEditor, domain: Range): TargetScope {
         contentRange: fitRangeToLineContent(editor, domain),
       }),
   };
-}
-
-function calculateSearchRange(editor: TextEditor, range: Range) {
-  const { document } = editor;
-  let startLine = document.lineAt(range.start);
-  let endLine = document.lineAt(range.end);
-
-  if (!startLine.isEmptyOrWhitespace) {
-    while (startLine.lineNumber > 0) {
-      const line = document.lineAt(startLine.lineNumber - 1);
-      if (line.isEmptyOrWhitespace) {
-        break;
-      }
-      startLine = line;
-    }
-  }
-
-  if (!endLine.isEmptyOrWhitespace) {
-    while (endLine.lineNumber + 1 < document.lineCount) {
-      const line = document.lineAt(endLine.lineNumber + 1);
-      if (line.isEmptyOrWhitespace) {
-        break;
-      }
-      endLine = line;
-    }
-  }
-
-  return { startLine, endLine };
 }
