@@ -1,5 +1,8 @@
 import { Target } from "../../typings/target.types";
-import { ModifyIfModifier } from "../../typings/targetDescriptor.types";
+import {
+  Modifier,
+  ModifyIfUntypedModifier,
+} from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";
@@ -7,7 +10,7 @@ import { ModifierStage } from "../PipelineStages.types";
 abstract class ModifyIfBaseStage implements ModifierStage {
   private nestedStage_?: ModifierStage;
 
-  constructor(private modifier: ModifyIfModifier) {}
+  constructor(private modifier: Modifier, private suppressErrors?: boolean) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     if (this.modifyIf(target)) {
@@ -17,7 +20,8 @@ abstract class ModifyIfBaseStage implements ModifierStage {
           .run(context, target)
           .map((newTarget) => newTarget.withThatTarget(target));
       } catch (ex) {
-        if (!this.modifier.suppressErrors) {
+        // suppressErrors === true => Allowe this target to be returned unmodified
+        if (!this.suppressErrors) {
           throw ex;
         }
       }
@@ -29,7 +33,7 @@ abstract class ModifyIfBaseStage implements ModifierStage {
 
   private get nestedStage() {
     if (this.nestedStage_ == null) {
-      this.nestedStage_ = getModifierStage(this.modifier.modifier);
+      this.nestedStage_ = getModifierStage(this.modifier);
     }
 
     return this.nestedStage_;
@@ -43,19 +47,26 @@ abstract class ModifyIfBaseStage implements ModifierStage {
  * scope type, ie if {@link Target.hasExplicitScopeType} is `false`.
  */
 export class ModifyIfUntypedStage extends ModifyIfBaseStage {
+  constructor(modifier: ModifyIfUntypedModifier) {
+    super(modifier.modifier);
+  }
+
   protected modifyIf(target: Target): boolean {
     return !target.hasExplicitScopeType;
   }
 }
 
 /**
- * Runs {@link ModifyIfModifier.modifier} if the target has no
- * explicit scope type and empty range, ie if
+ * Tries to convert target into token if:
  * {@link Target.hasExplicitScopeType} is `false` and
  * {@link Target.hasExplicitRange} is `false` and
  * {@link Target.contentRange.isEmpty} is `true`.
  */
-export class ModifyIfUntypedAndEmptyStage extends ModifyIfBaseStage {
+export class ModifyUnTypedEmptyToToken extends ModifyIfBaseStage {
+  constructor() {
+    super({ type: "containingScope", scopeType: { type: "token" } }, true);
+  }
+
   protected modifyIf(target: Target): boolean {
     return (
       !target.hasExplicitScopeType &&

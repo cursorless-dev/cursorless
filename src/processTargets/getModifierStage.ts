@@ -12,10 +12,7 @@ import {
   InteriorOnlyStage,
 } from "./modifiers/InteriorStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
-import {
-  ModifyIfUntypedAndEmptyStage,
-  ModifyIfUntypedStage,
-} from "./modifiers/ModifyIfUntypedStage";
+import { ModifyIfUntypedStage } from "./modifiers/ModifyIfUntypedStage";
 import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";
 import PositionStage from "./modifiers/PositionStage";
 import RangeModifierStage from "./modifiers/RangeModifierStage";
@@ -57,8 +54,6 @@ export default (modifier: Modifier): ModifierStage => {
       return new CascadingStage(modifier);
     case "modifyIfUntyped":
       return new ModifyIfUntypedStage(modifier);
-    case "modifyIfUntypedAndEmpty":
-      return new ModifyIfUntypedAndEmptyStage(modifier);
     case "range":
       return new RangeModifierStage(modifier);
     case "inferPreviousMark":

@@ -10,6 +10,7 @@ import {
 import { ProcessedTargetsContext } from "../typings/Types";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
+import { ModifyUnTypedEmptyToToken } from "./modifiers/ModifyIfUntypedStage";
 import { ModifierStage } from "./PipelineStages.types";
 import { PlainTarget, PositionTarget } from "./targets";
 
@@ -208,13 +209,7 @@ function processPrimitiveTarget(
   ];
 
   if (!isRangeTarget) {
-    modifierStages.push(
-      getModifierStage({
-        type: "modifyIfUntypedAndEmpty",
-        suppressErrors: true,
-        modifier: { type: "containingScope", scopeType: { type: "token" } },
-      }),
-    );
+    modifierStages.push(new ModifyUnTypedEmptyToToken());
   }
 
   // Run all targets through the modifier stages
