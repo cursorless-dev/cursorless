@@ -598,6 +598,7 @@
 		"esbuild": "^0.11.12",
 		"eslint": "^8.13.0",
 		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-unused-imports": "^2.0.0",
 		"fast-xml-parser": "^3.20.0",
 		"glob": "^7.1.7",
 		"js-yaml": "^4.1.0",
