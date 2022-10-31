@@ -1,5 +1,4 @@
 import { pick } from "lodash";
-import * as vscode from "vscode";
 import { ActionType } from "../actions/actions.types";
 import { CommandLatest } from "../core/commandRunner/command.types";
 import { TestDecoration } from "../core/editStyles";
@@ -25,6 +24,7 @@ import {
   SerializedMarks,
   testDecorationsToPlainObject,
 } from "./toPlainObject";
+import { getActiveEditor } from "../ide/activeEditor";
 
 export type TestCaseCommand = CommandLatest;
 
@@ -103,7 +103,7 @@ export class TestCase {
     private captureFinalThatMark: boolean,
     private extraSnapshotFields?: ExtraSnapshotField[],
   ) {
-    const activeEditor = vscode.window.activeTextEditor!;
+    const activeEditor = getActiveEditor()!;
     this.command = cleanUpTestCaseCommand(command);
 
     const { targets } = context;

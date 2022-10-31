@@ -9,6 +9,7 @@ import { Token } from "../typings/Types";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
+import { getActiveEditor } from "../ide/activeEditor";
 
 export function addDecorationsToEditors(
   hatTokenMap: IndividualHatMap,
@@ -19,13 +20,13 @@ export function addDecorationsToEditors(
 
   let editors: readonly vscode.TextEditor[];
 
-  if (vscode.window.activeTextEditor == null) {
+  if (getActiveEditor() == null) {
     editors = vscode.window.visibleTextEditors;
   } else {
     editors = [
-      vscode.window.activeTextEditor,
+      getActiveEditor()!,
       ...vscode.window.visibleTextEditors.filter(
-        (editor) => editor !== vscode.window.activeTextEditor,
+        (editor) => editor !== getActiveEditor(),
       ),
     ];
   }

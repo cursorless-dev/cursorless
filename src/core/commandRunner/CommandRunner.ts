@@ -19,6 +19,7 @@ import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
 import { Command } from "./command.types";
 import { selectionToThatTarget } from "./selectionToThatTarget";
+import { getActiveEditor } from "../../ide/activeEditor";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -111,11 +112,11 @@ export default class CommandRunner {
         actionPrePositionStages,
         actionFinalStages,
         currentSelections:
-          vscode.window.activeTextEditor?.selections.map((selection) => ({
+          getActiveEditor()?.selections.map((selection) => ({
             selection,
-            editor: vscode.window.activeTextEditor!,
+            editor: getActiveEditor()!,
           })) ?? [],
-        currentEditor: vscode.window.activeTextEditor,
+        currentEditor: getActiveEditor(),
         hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],

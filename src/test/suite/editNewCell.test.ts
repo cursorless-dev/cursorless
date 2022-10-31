@@ -5,6 +5,7 @@ import { getCellIndex } from "../../util/notebook";
 import { openNewNotebookEditor } from "../openNewEditor";
 import { getPlainNotebookContents } from "../util/notebook";
 import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
+import { getActiveEditor } from "../../ide/activeEditor";
 
 // Check that setSelection is able to focus the correct cell
 suite("Edit new cell", async function () {
@@ -50,10 +51,7 @@ async function runTest(
 
   assert.equal(notebook.cellCount, 2);
 
-  const activeCelIndex = getCellIndex(
-    notebook,
-    vscode.window.activeTextEditor!.document,
-  );
+  const activeCelIndex = getCellIndex(notebook, getActiveEditor()!.document);
 
   assert.equal(activeCelIndex, expectedActiveCellIndex);
 
