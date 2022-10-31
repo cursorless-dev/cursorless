@@ -1,4 +1,4 @@
-import {TextEditor, window} from "vscode";
+import { TextEditor, window } from "vscode";
 
 /**
  * This exists for ease of overriding in Cursorless Everywhere.
