@@ -1,9 +1,10 @@
-import { commands, window } from "vscode";
+import { commands } from "vscode";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
+import { getActiveEditor } from "../ide/activeEditor";
 
 class FoldAction implements Action {
   constructor(private command: string) {
@@ -11,7 +12,7 @@ class FoldAction implements Action {
   }
 
   async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
-    const originalEditor = window.activeTextEditor;
+    const originalEditor = getActiveEditor();
     const editor = ensureSingleEditor(targets);
 
     if (originalEditor !== editor) {
