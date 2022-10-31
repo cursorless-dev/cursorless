@@ -6,6 +6,7 @@ import {
   TokenScopeHandler,
   WordScopeHandler,
   OneOfScopeHandler,
+  ParagraphScopeHandler,
 } from ".";
 import type { ScopeType } from "../../../typings/targetDescriptor.types";
 import type { ScopeHandler } from "./scopeHandler.types";
@@ -46,6 +47,8 @@ export default function getScopeHandler(
       return new DocumentScopeHandler(scopeType, languageId);
     case "oneOf":
       return new OneOfScopeHandler(scopeType, languageId);
+    case "paragraph":
+      return new ParagraphScopeHandler(scopeType, languageId);
     default:
       return undefined;
   }

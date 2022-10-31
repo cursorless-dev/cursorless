@@ -11,7 +11,6 @@ import ContainingSyntaxScopeStage, {
   SimpleEveryScopeModifier,
 } from "./scopeTypeStages/ContainingSyntaxScopeStage";
 import NotebookCellStage from "./scopeTypeStages/NotebookCellStage";
-import ParagraphStage from "./scopeTypeStages/ParagraphStage";
 import {
   CustomRegexModifier,
   CustomRegexStage,
@@ -39,8 +38,6 @@ export default function getLegacyScopeStage(
   switch (modifier.scopeType.type) {
     case "notebookCell":
       return new NotebookCellStage(modifier);
-    case "paragraph":
-      return new ParagraphStage(modifier);
     case "nonWhitespaceSequence":
       return new NonWhitespaceSequenceStage(modifier);
     case "boundedNonWhitespaceSequence":
