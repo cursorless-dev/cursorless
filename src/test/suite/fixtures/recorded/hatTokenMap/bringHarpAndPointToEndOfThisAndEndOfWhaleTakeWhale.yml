@@ -1,8 +1,8 @@
 languageId: plaintext
 command:
-  version: 3
+  version: 1
   spokenForm: bring harp and point to end of this and end of whale take whale
-  action: {name: replaceWithTarget}
+  action: replaceWithTarget
   targets:
     - type: list
       elements:
@@ -13,12 +13,12 @@ command:
     - type: list
       elements:
         - type: primitive
-          modifiers:
-            - {type: position, position: end}
+          position: after
+          insideOutsideType: inside
           mark: {type: cursor}
         - type: primitive
-          modifiers:
-            - {type: position, position: end}
+          position: after
+          insideOutsideType: inside
           mark: {type: decoratedSymbol, symbolColor: default, character: w}
 marksToCheck: [default.w]
 initialState:
