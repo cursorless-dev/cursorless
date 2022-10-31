@@ -8,7 +8,7 @@ MODIFIER_LIST_NAMES = [
     "first_modifier",
     "last_modifier",
     "previous_next_modifier",
-    "backward_modifier",
+    "forward_backward_modifier",
 ]
 
 
