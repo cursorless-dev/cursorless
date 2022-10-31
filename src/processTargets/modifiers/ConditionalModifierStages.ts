@@ -7,13 +7,14 @@ import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";
 
-abstract class ModifyIfBaseStage implements ModifierStage {
+abstract class ConditionalModifierBaseStage implements ModifierStage {
   private nestedStage_?: ModifierStage;
+  protected suppressErrors = false;
 
-  constructor(private modifier: Modifier, private suppressErrors?: boolean) {}
+  constructor(private nestedModifier: Modifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    if (this.modifyIf(target)) {
+    if (this.shouldModify(target)) {
       // Modify this target
       try {
         return this.nestedStage
@@ -33,25 +34,25 @@ abstract class ModifyIfBaseStage implements ModifierStage {
 
   private get nestedStage() {
     if (this.nestedStage_ == null) {
-      this.nestedStage_ = getModifierStage(this.modifier);
+      this.nestedStage_ = getModifierStage(this.nestedModifier);
     }
 
     return this.nestedStage_;
   }
 
-  protected abstract modifyIf(target: Target): boolean;
+  protected abstract shouldModify(target: Target): boolean;
 }
 
 /**
  * Runs {@link ModifyIfUntypedModifier.modifier} if the target has no explicit
  * scope type, ie if {@link Target.hasExplicitScopeType} is `false`.
  */
-export class ModifyIfUntypedStage extends ModifyIfBaseStage {
+export class ModifyIfUntypedStage extends ConditionalModifierBaseStage {
   constructor(modifier: ModifyIfUntypedModifier) {
     super(modifier.modifier);
   }
 
-  protected modifyIf(target: Target): boolean {
+  protected shouldModify(target: Target): boolean {
     return !target.hasExplicitScopeType;
   }
 }
@@ -62,12 +63,14 @@ export class ModifyIfUntypedStage extends ModifyIfBaseStage {
  * {@link Target.hasExplicitRange} is `false` and
  * {@link Target.contentRange.isEmpty} is `true`.
  */
-export class ModifyUnTypedEmptyToTokenStage extends ModifyIfBaseStage {
+export class ContainingTokenIfUntypedEmptyStage extends ConditionalModifierBaseStage {
+  suppressErrors = true;
+
   constructor() {
-    super({ type: "containingScope", scopeType: { type: "token" } }, true);
+    super({ type: "containingScope", scopeType: { type: "token" } });
   }
 
-  protected modifyIf(target: Target): boolean {
+  protected shouldModify(target: Target): boolean {
     return (
       !target.hasExplicitScopeType &&
       !target.hasExplicitRange &&
