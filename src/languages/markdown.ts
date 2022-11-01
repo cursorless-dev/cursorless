@@ -7,11 +7,7 @@ import {
   SelectionWithContext,
 } from "../typings/Types";
 import { leadingSiblingNodeFinder, patternFinder } from "../util/nodeFinders";
-import {
-  createPatternMatchers,
-  leadingMatcher,
-  matcher,
-} from "../util/nodeMatchers";
+import { createPatternMatchers, matcher } from "../util/nodeMatchers";
 import {
   extendUntilNextMatchingSiblingOrLast,
   getNodeRange,
