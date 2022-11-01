@@ -152,13 +152,25 @@ export default class ScopeTypeTarget extends BaseTarget {
 
 function getDelimiter(scopeType: SimpleScopeTypeType): string {
   switch (scopeType) {
-    case "anonymousFunction":
-    case "statement":
-    case "ifStatement":
-      return "\n";
     case "class":
     case "namedFunction":
+    case "ifStatement":
+    case "section":
+    case "sectionLevelOne":
+    case "sectionLevelTwo":
+    case "sectionLevelThree":
+    case "sectionLevelFour":
+    case "sectionLevelFive":
+    case "sectionLevelSix":
       return "\n\n";
+
+    case "anonymousFunction":
+    case "statement":
+    case "comment":
+    case "xmlElement":
+    case "collectionItem":
+      return "\n";
+
     default:
       return " ";
   }

@@ -1,0 +1,25 @@
+languageId: markdown
+command:
+  spokenForm: pour block
+  version: 3
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: paragraph}
+  usePrePhraseSnapshot: true
+  action: {name: editNewLineAfter}
+initialState:
+  documentContents: "# Some section"
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+  marks: {}
+finalState:
+  documentContents: |+
+    # Some section
+
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: paragraph}}]}]
