@@ -51,7 +51,10 @@ async function runTest(
 
   assert.equal(notebook.cellCount, 2);
 
-  const activeCelIndex = getCellIndex(notebook, getActiveTextEditor()!.document);
+  const activeCelIndex = getCellIndex(
+    notebook,
+    getActiveTextEditor()!.document,
+  );
 
   assert.equal(activeCelIndex, expectedActiveCellIndex);
 
