@@ -8,7 +8,7 @@ import {
 } from "vscode";
 import { SyntaxNode, TreeCursor } from "web-tree-sitter";
 import { Graph } from "../typings/Types";
-import { getActiveEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeEditor";
 
 export default class Debug {
   private disposableConfiguration?: Disposable;
@@ -88,7 +88,7 @@ export default class Debug {
 
   private logBranchTypes(event: TextEditorSelectionChangeEvent) {
     const location = new Location(
-      getActiveEditor()!.document.uri,
+      getActiveTextEditor()!.document.uri,
       event.selections[0],
     );
 

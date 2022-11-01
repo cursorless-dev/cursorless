@@ -8,14 +8,14 @@ import {
   version,
 } from "vscode";
 import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
-import { getActiveEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeEditor";
 
 export function isVscodeLegacyNotebookVersion() {
   return semver.lt(version, "1.68.0");
 }
 
 export async function focusNotebookCellLegacy(editor: TextEditor) {
-  const activeTextEditor = getActiveEditor();
+  const activeTextEditor = getActiveTextEditor();
 
   if (activeTextEditor == null) {
     return;

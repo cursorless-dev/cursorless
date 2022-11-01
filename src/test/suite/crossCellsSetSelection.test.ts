@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewNotebookEditor } from "../openNewEditor";
 import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
-import { getActiveEditor } from "../../ide/activeEditor";
+import { getActiveTextEditor } from "../../ide/activeEditor";
 
 // Check that setSelection is able to focus the correct cell
 suite("Cross-cell set selection", async function () {
@@ -39,7 +39,7 @@ async function runTest() {
     ],
   );
 
-  const editor = getActiveEditor();
+  const editor = getActiveTextEditor();
 
   if (editor == null) {
     assert(false, "No editor was focused");

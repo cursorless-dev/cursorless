@@ -10,7 +10,7 @@ import {
   TargetPlainObject,
   targetToPlainObject,
 } from "./toPlainObject";
-import { getActiveEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeEditor";
 
 export type ExtraSnapshotField = keyof TestCaseSnapshot;
 export type ExcludableSnapshotField = keyof TestCaseSnapshot;
@@ -46,7 +46,7 @@ export async function takeSnapshot(
   extraContext?: ExtraContext,
   metadata?: unknown,
 ) {
-  const activeEditor = getActiveEditor()!;
+  const activeEditor = getActiveTextEditor()!;
 
   const snapshot: TestCaseSnapshot = {
     documentContents: activeEditor.document.getText(),

@@ -4,7 +4,7 @@ import { Graph } from "../typings/Types";
 import { groupBy } from "../util/itertools";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { Action, ActionReturnValue } from "./actions.types";
-import { getActiveEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeEditor";
 
 class Scroll implements Action {
   constructor(private graph: Graph, private at: string) {
@@ -18,11 +18,11 @@ class Scroll implements Action {
       return { lineNumber: getLineNumber(targets, this.at), editor };
     });
 
-    const originalEditor = getActiveEditor();
+    const originalEditor = getActiveTextEditor();
 
     for (const lineWithEditor of lines) {
       // For reveal line to the work we have to have the correct editor focused
-      if (lineWithEditor.editor !== getActiveEditor()) {
+      if (lineWithEditor.editor !== getActiveTextEditor()) {
         await focusEditor(lineWithEditor.editor);
       }
       await commands.executeCommand("revealLine", {
@@ -32,7 +32,7 @@ class Scroll implements Action {
     }
 
     // If necessary focus back original editor
-    if (originalEditor != null && originalEditor !== getActiveEditor()) {
+    if (originalEditor != null && originalEditor !== getActiveTextEditor()) {
       await focusEditor(originalEditor);
     }
 

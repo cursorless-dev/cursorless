@@ -15,7 +15,7 @@ import {
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
-import { getActiveEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeEditor";
 
 export interface CommandOptions {
   command?: string;
@@ -120,7 +120,7 @@ export default class CommandAction implements Action {
       ensureSingleTarget(targets);
     }
 
-    const originalEditor = getActiveEditor();
+    const originalEditor = getActiveTextEditor();
 
     const thatTargets = await this.runCommandAndUpdateSelections(
       targets,
@@ -131,7 +131,7 @@ export default class CommandAction implements Action {
     if (
       actualOptions.restoreSelection &&
       originalEditor != null &&
-      originalEditor !== getActiveEditor()
+      originalEditor !== getActiveTextEditor()
     ) {
       // NB: We just do one editor focus at the end, instead of using
       // setSelectionsAndFocusEditor because the command might operate on

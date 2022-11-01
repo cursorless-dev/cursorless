@@ -4,7 +4,7 @@ import * as vscode from "vscode";
 import { openNewEditor } from "../openNewEditor";
 import { getFixturePath } from "../util/getFixturePaths";
 import { standardSuiteSetup } from "./standardSuiteSetup";
-import { getActiveEditor } from "../../ide/activeEditor";
+import { getActiveTextEditor } from "../../ide/activeEditor";
 
 suite("followLink", async function () {
   standardSuiteSetup(this);
@@ -63,7 +63,7 @@ async function followLink() {
     ],
   );
 
-  const editor = getActiveEditor();
+  const editor = getActiveTextEditor();
   assert.equal(editor?.document?.uri?.scheme, "file");
   assert.equal(editor?.document.getText().trimEnd(), "hello world");
 }

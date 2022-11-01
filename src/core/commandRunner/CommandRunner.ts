@@ -19,7 +19,7 @@ import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
 import { Command } from "./command.types";
 import { selectionToThatTarget } from "./selectionToThatTarget";
-import { getActiveEditor } from "../../ide/activeEditor";
+import { getActiveTextEditor } from "../../ide/activeEditor";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -112,11 +112,11 @@ export default class CommandRunner {
         actionPrePositionStages,
         actionFinalStages,
         currentSelections:
-          getActiveEditor()?.selections.map((selection) => ({
+          getActiveTextEditor()?.selections.map((selection) => ({
             selection,
-            editor: getActiveEditor()!,
+            editor: getActiveTextEditor()!,
           })) ?? [],
-        currentEditor: getActiveEditor(),
+        currentEditor: getActiveTextEditor(),
         hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],

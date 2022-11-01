@@ -8,6 +8,6 @@ import { TextEditor, window } from "vscode";
  *
  * It will eventually be replaced by `ide`'s `Editor` abstraction.
  */
-export function getActiveEditor(): TextEditor | undefined {
+export function getActiveTextEditor(): TextEditor | undefined {
   return window.activeTextEditor;
 }

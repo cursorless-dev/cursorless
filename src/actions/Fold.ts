@@ -4,7 +4,7 @@ import { Graph } from "../typings/Types";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
-import { getActiveEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeEditor";
 
 class FoldAction implements Action {
   constructor(private command: string) {
@@ -12,7 +12,7 @@ class FoldAction implements Action {
   }
 
   async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
-    const originalEditor = getActiveEditor();
+    const originalEditor = getActiveTextEditor();
     const editor = ensureSingleEditor(targets);
 
     if (originalEditor !== editor) {

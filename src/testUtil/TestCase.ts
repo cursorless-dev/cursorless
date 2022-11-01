@@ -24,7 +24,7 @@ import {
   SerializedMarks,
   testDecorationsToPlainObject,
 } from "./toPlainObject";
-import { getActiveEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeEditor";
 
 export type TestCaseCommand = CommandLatest;
 
@@ -103,7 +103,7 @@ export class TestCase {
     private captureFinalThatMark: boolean,
     private extraSnapshotFields?: ExtraSnapshotField[],
   ) {
-    const activeEditor = getActiveEditor()!;
+    const activeEditor = getActiveTextEditor()!;
     this.command = cleanUpTestCaseCommand(command);
 
     const { targets } = context;
