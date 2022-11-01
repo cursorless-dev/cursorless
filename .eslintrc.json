@@ -38,9 +38,20 @@
 				"null": "never"
 			}
 		],
-		"no-constant-condition": ["error", { "checkLoops": false }],
+		"no-constant-condition": [
+			"error",
+			{
+				"checkLoops": false
+			}
+		],
 		"no-throw-literal": "warn",
-		"semi": "off"
+		"semi": "off",
+		"no-restricted-properties": [
+			2,
+			{
+				"property": "activeTextEditor"
+			}
+		]
 	},
 	"ignorePatterns": ["**/vendor/**/*.ts", "**/vendor/**/*.js"]
 }

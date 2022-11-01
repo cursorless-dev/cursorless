@@ -9,5 +9,5 @@ import { TextEditor, window } from "vscode";
  * It will eventually be replaced by `ide`'s `Editor` abstraction.
  */
 export function getActiveTextEditor(): TextEditor | undefined {
-  return window.activeTextEditor;
+  return window.activeTextEditor; // eslint-disable-line no-restricted-properties
 }
