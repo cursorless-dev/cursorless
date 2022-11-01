@@ -5,7 +5,7 @@ import type {
   Direction,
   ScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { generateMatchesInRange } from "../../../util/regex";
+import { generateMatchesInRange, testRegex } from "../../../util/regex";
 import { TokenTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
 
@@ -43,9 +43,9 @@ export default class TokenScopeHandler extends NestedScopeHandler {
     } = scopeA;
     const { identifierMatcher } = getMatcher(document.languageId);
 
-    return identifierMatcher.test(document.getText(scopeA.domain))
+    return testRegex(document.getText(scopeA.domain), identifierMatcher)
       ? true
-      : identifierMatcher.test(document.getText(scopeB.domain))
+      : testRegex(document.getText(scopeB.domain), identifierMatcher)
       ? false
       : undefined;
   }
