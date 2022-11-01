@@ -14,6 +14,7 @@ import {
   isVscodeLegacyNotebookVersion,
 } from "./notebookLegacy";
 import uniqDeep from "./uniqDeep";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",
@@ -116,7 +117,7 @@ async function focusNotebookCell(editor: TextEditor) {
   // Issue a command to tell VSCode to focus the cell input editor
   // NB: We don't issue the command if it's already focused, because it turns
   // out that this command is actually a toggle, so that causes it to de-focus!
-  if (window.activeTextEditor !== editor) {
+  if (getActiveTextEditor() !== editor) {
     await commands.executeCommand("notebook.cell.edit");
   }
 }
