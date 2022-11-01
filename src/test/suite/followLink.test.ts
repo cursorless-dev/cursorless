@@ -4,7 +4,7 @@ import * as vscode from "vscode";
 import { openNewEditor } from "../openNewEditor";
 import { getFixturePath } from "../util/getFixturePaths";
 import { standardSuiteSetup } from "./standardSuiteSetup";
-import { getActiveTextEditor } from "../../ide/activeEditor";
+import { getActiveTextEditor } from "../../ide/activeTextEditor";
 
 suite("followLink", async function () {
   standardSuiteSetup(this);

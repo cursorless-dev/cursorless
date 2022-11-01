@@ -15,7 +15,7 @@ import {
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
-import { getActiveTextEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 export interface CommandOptions {
   command?: string;

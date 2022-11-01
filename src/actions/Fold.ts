@@ -4,7 +4,7 @@ import { Graph } from "../typings/Types";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
-import { getActiveTextEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 class FoldAction implements Action {
   constructor(private command: string) {

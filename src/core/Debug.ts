@@ -8,7 +8,7 @@ import {
 } from "vscode";
 import { SyntaxNode, TreeCursor } from "web-tree-sitter";
 import { Graph } from "../typings/Types";
-import { getActiveTextEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 export default class Debug {
   private disposableConfiguration?: Disposable;

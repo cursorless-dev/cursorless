@@ -4,7 +4,7 @@ import { Graph } from "../typings/Types";
 import { groupBy } from "../util/itertools";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { Action, ActionReturnValue } from "./actions.types";
-import { getActiveTextEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 class Scroll implements Action {
   constructor(private graph: Graph, private at: string) {

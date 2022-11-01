@@ -14,7 +14,7 @@ import {
   isVscodeLegacyNotebookVersion,
 } from "./notebookLegacy";
 import uniqDeep from "./uniqDeep";
-import { getActiveTextEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",

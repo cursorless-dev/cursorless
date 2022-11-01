@@ -19,7 +19,7 @@ import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
 import { Command } from "./command.types";
 import { selectionToThatTarget } from "./selectionToThatTarget";
-import { getActiveTextEditor } from "../../ide/activeEditor";
+import { getActiveTextEditor } from "../../ide/activeTextEditor";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {

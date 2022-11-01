@@ -10,7 +10,7 @@ import {
   TargetPlainObject,
   targetToPlainObject,
 } from "./toPlainObject";
-import { getActiveTextEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 export type ExtraSnapshotField = keyof TestCaseSnapshot;
 export type ExcludableSnapshotField = keyof TestCaseSnapshot;

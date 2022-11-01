@@ -24,7 +24,7 @@ import {
   SerializedMarks,
   testDecorationsToPlainObject,
 } from "./toPlainObject";
-import { getActiveTextEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 export type TestCaseCommand = CommandLatest;
 

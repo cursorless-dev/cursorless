@@ -9,7 +9,7 @@ import { Token } from "../typings/Types";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
-import { getActiveTextEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 export function addDecorationsToEditors(
   hatTokenMap: IndividualHatMap,

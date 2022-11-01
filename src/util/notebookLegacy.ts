@@ -8,7 +8,7 @@ import {
   version,
 } from "vscode";
 import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
-import { getActiveTextEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 export function isVscodeLegacyNotebookVersion() {
   return semver.lt(version, "1.68.0");

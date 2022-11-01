@@ -17,7 +17,7 @@ import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
 import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "./testConstants";
 import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
 import { walkDirsSync } from "./walkSync";
-import { getActiveTextEditor } from "../ide/activeEditor";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 const CALIBRATION_DISPLAY_BACKGROUND_COLOR = "#230026";
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
