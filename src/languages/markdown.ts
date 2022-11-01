@@ -1,11 +1,11 @@
-import { Selection, TextEditor } from "vscode";
+import { Range, Selection, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import {
   NodeFinder,
   NodeMatcherAlternative,
   SelectionWithContext,
 } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { leadingSiblingNodeFinder, patternFinder } from "../util/nodeFinders";
 import {
   createPatternMatchers,
@@ -15,7 +15,14 @@ import {
 import {
   extendUntilNextMatchingSiblingOrLast,
   getNodeRange,
+  selectWithLeadingDelimiter,
 } from "../util/nodeSelectors";
+import { getMatchesInRange } from "../util/regex";
+import {
+  isReversed,
+  selectionFromRange,
+  shrinkRangeToFitContent,
+} from "../util/selectionUtils";
 
 /**
  * Given a node representing the text of a section heading (without leading
@@ -80,7 +87,18 @@ function sectionExtractor(editor: TextEditor, node: SyntaxNode) {
     node.firstNamedChild?.type as HeadingMarkerType,
   );
 
-  return extendUntilNextMatchingSiblingOrLast(editor, node, finder);
+  const { context, selection } = extendUntilNextMatchingSiblingOrLast(
+    editor,
+    node,
+    finder,
+  );
+  return {
+    context,
+    selection: selectionFromRange(
+      isReversed(selection),
+      shrinkRangeToFitContent(editor, selection),
+    ),
+  };
 }
 
 function sectionMatcher(...patterns: string[]) {
@@ -89,16 +107,46 @@ function sectionMatcher(...patterns: string[]) {
   return matcher(leadingSiblingNodeFinder(finder), sectionExtractor);
 }
 
+const itemLeadingDelimiterExtractor = selectWithLeadingDelimiter(
+  "list_marker_parenthesis",
+  "list_marker_dot",
+  "list_marker_star",
+  "list_marker_minus",
+  "list_marker_plus",
+);
+
+function excludeTrailingNewline(editor: TextEditor, range: Range) {
+  const matches = getMatchesInRange(/\r?\n?$/g, editor, range);
+
+  if (matches.length > 0) {
+    return new Range(range.start, matches[0].start);
+  }
+
+  return range;
+}
+
+function itemExtractor(editor: TextEditor, node: SyntaxNode) {
+  const { context, selection } = itemLeadingDelimiterExtractor(editor, node);
+
+  return {
+    context,
+    selection: selectionFromRange(
+      isReversed(selection),
+      excludeTrailingNewline(editor, selection),
+    ),
+  };
+}
+
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  list: ["loose_list", "tight_list"],
+  list: ["list"],
   comment: "html_block",
   name: matcher(
-    leadingSiblingNodeFinder(patternFinder("atx_heading.heading_content!")),
+    leadingSiblingNodeFinder(patternFinder("atx_heading[heading_content]")),
     nameExtractor,
   ),
-  collectionItem: leadingMatcher(["list_item.paragraph!"], ["list_marker"]),
+  collectionItem: matcher(patternFinder("list_item.paragraph!"), itemExtractor),
   section: sectionMatcher("atx_heading"),
   sectionLevelOne: sectionMatcher("atx_heading.atx_h1_marker"),
   sectionLevelTwo: sectionMatcher("atx_heading.atx_h2_marker"),
