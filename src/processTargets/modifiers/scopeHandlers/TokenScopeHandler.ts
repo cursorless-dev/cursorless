@@ -43,9 +43,9 @@ export default class TokenScopeHandler extends NestedScopeHandler {
     } = scopeA;
     const { identifierMatcher } = getMatcher(document.languageId);
 
-    return testRegex(document.getText(scopeA.domain), identifierMatcher)
+    return testRegex(identifierMatcher, document.getText(scopeA.domain))
       ? true
-      : testRegex(document.getText(scopeB.domain), identifierMatcher)
+      : testRegex(identifierMatcher, document.getText(scopeB.domain))
       ? false
       : undefined;
   }
