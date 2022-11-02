@@ -21,7 +21,7 @@ initialState:
 finalState:
   documentContents: |
     <html>
-
+        
     </html>
   selections:
     - anchor: {line: 3, character: 0}

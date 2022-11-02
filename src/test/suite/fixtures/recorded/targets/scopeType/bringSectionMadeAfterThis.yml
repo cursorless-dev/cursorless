@@ -31,7 +31,7 @@ initialState:
       start: {line: 2, character: 0}
       end: {line: 2, character: 4}
 finalState:
-  documentContents: |
+  documentContents: |-
     # Some section
 
     Some text
