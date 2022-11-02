@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import { runCursorlessCommand } from "../../client-e2e-test/runCursorlessCommand";
+import { runCursorlessCommand } from "../../client-e2e-test/runCommand";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewEditor } from "../openNewEditor";
 import { standardSuiteSetup } from "./standardSuiteSetup";

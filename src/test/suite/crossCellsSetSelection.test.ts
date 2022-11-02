@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { runCursorlessCommand } from "../../client-e2e-test/runCursorlessCommand";
+import { runCursorlessCommand } from "../../client-e2e-test/runCommand";
 import { getActiveTextEditor } from "../../ide/activeTextEditor";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewNotebookEditor } from "../openNewEditor";
