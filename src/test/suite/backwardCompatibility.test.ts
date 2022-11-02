@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../core/commandRunner/CommandRunner";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewEditor } from "../openNewEditor";
 import { standardSuiteSetup } from "./standardSuiteSetup";
@@ -19,14 +20,18 @@ async function runTest() {
 
   await graph.hatTokenMap.addDecorations();
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "whatever",
-    "wrapWithPairedDelimiter",
-    [{ type: "primitive", selectionType: "line", mark: { type: "cursor" } }],
-    "(",
-    ")",
-  );
+  await runCursorlessCommand({
+    version: 1,
+    action: "wrapWithPairedDelimiter",
+    extraArgs: ["(", ")"],
+    targets: [
+      {
+        type: "primitive",
+        selectionType: "line",
+        mark: { type: "cursor" },
+      },
+    ],
+  });
 
   assert.deepStrictEqual(editor.document.getText(), "()");
 }

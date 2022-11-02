@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../core/commandRunner/CommandRunner";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewEditor } from "../openNewEditor";
 import { standardSuiteSetup } from "./standardSuiteSetup";
@@ -26,11 +27,10 @@ async function breakpointHarpAdd() {
   await openNewEditor("  hello");
   await graph.hatTokenMap.addDecorations();
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "breakpoint harp",
-    "setBreakpoint",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "setBreakpoint",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -40,7 +40,7 @@ async function breakpointHarpAdd() {
         },
       },
     ],
-  );
+  });
 
   const breakpoints = vscode.debug.breakpoints;
   assert.deepStrictEqual(breakpoints.length, 1);
@@ -54,11 +54,10 @@ async function breakpointTokenHarpAdd() {
   await openNewEditor("  hello");
   await graph.hatTokenMap.addDecorations();
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "breakpoint token harp",
-    "setBreakpoint",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "setBreakpoint",
+    targets: [
       {
         type: "primitive",
         selectionType: "token",
@@ -69,7 +68,7 @@ async function breakpointTokenHarpAdd() {
         },
       },
     ],
-  );
+  });
 
   const breakpoints = vscode.debug.breakpoints;
   assert.deepStrictEqual(breakpoints.length, 1);
@@ -91,11 +90,10 @@ async function breakpointHarpRemove() {
 
   assert.deepStrictEqual(vscode.debug.breakpoints.length, 1);
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "breakpoint harp",
-    "setBreakpoint",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "setBreakpoint",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -105,7 +103,7 @@ async function breakpointHarpRemove() {
         },
       },
     ],
-  );
+  });
 
   assert.deepStrictEqual(vscode.debug.breakpoints.length, 0);
 }
@@ -126,11 +124,10 @@ async function breakpointTokenHarpRemove() {
 
   assert.deepStrictEqual(vscode.debug.breakpoints.length, 2);
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "breakpoint token harp",
-    "setBreakpoint",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "setBreakpoint",
+    targets: [
       {
         type: "primitive",
         selectionType: "token",
@@ -141,7 +138,7 @@ async function breakpointTokenHarpRemove() {
         },
       },
     ],
-  );
+  });
 
   const breakpoints = vscode.debug.breakpoints;
   assert.deepStrictEqual(breakpoints.length, 1);

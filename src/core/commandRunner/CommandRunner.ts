@@ -20,6 +20,8 @@ import { ThatMark } from "../ThatMark";
 import { Command } from "./command.types";
 import { selectionToThatTarget } from "./selectionToThatTarget";
 
+const cursorlessCommand = "cursorless.command";
+
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
   private disposables: vscode.Disposable[] = [];
@@ -36,7 +38,7 @@ export default class CommandRunner {
 
     this.disposables.push(
       vscode.commands.registerCommand(
-        "cursorless.command",
+        cursorlessCommand,
         this.runCommandBackwardCompatible,
       ),
     );
@@ -247,4 +249,8 @@ function constructThatTarget(
   } else {
     return targets;
   }
+}
+
+export function runCursorlessCommand(command: Command) {
+  return vscode.commands.executeCommand(cursorlessCommand, command);
 }

@@ -1,6 +1,7 @@
 import * as assert from "assert";
 import * as os from "os";
 import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../core/commandRunner/CommandRunner";
 import { openNewEditor } from "../openNewEditor";
 import { getFixturePath } from "../util/getFixturePaths";
 import { standardSuiteSetup } from "./standardSuiteSetup";
@@ -25,11 +26,10 @@ async function followDefinition() {
 
   assert.equal(editor.visibleRanges[0].start.line, 1);
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "follow this",
-    "followLink",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "followLink",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -37,7 +37,7 @@ async function followDefinition() {
         },
       },
     ],
-  );
+  });
 
   assert.equal(editor.visibleRanges[0].start.line, 0);
 }
@@ -48,11 +48,10 @@ async function followLink() {
     os.platform() === "win32" ? `file:///${filename}` : `file://${filename}`;
   await openNewEditor(linkTextContent);
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "follow this",
-    "followLink",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "followLink",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -60,7 +59,7 @@ async function followLink() {
         },
       },
     ],
-  );
+  });
 
   const editor = vscode.window.activeTextEditor;
   assert.equal(editor?.document?.uri?.scheme, "file");

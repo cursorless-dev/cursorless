@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../core/commandRunner/CommandRunner";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewNotebookEditor } from "../openNewEditor";
 import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
@@ -22,11 +23,10 @@ async function runTest() {
 
   await graph.hatTokenMap.addDecorations();
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "take whale",
-    "setSelection",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "setSelection",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -36,7 +36,7 @@ async function runTest() {
         },
       },
     ],
-  );
+  });
 
   const editor = vscode.window.activeTextEditor;
 

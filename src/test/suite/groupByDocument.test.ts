@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../core/commandRunner/CommandRunner";
 import HatTokenMap from "../../core/HatTokenMap";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { standardSuiteSetup } from "./standardSuiteSetup";
@@ -43,11 +44,10 @@ async function runTest() {
     hat2![0],
   );
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "swap each with whale",
-    "swapTargets",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "swapTargets",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -65,7 +65,7 @@ async function runTest() {
         },
       },
     ],
-  );
+  });
 
   assert.deepStrictEqual(document.getText(), "world hello");
 }

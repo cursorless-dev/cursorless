@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../core/commandRunner/CommandRunner";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { getCellIndex } from "../../util/notebook";
 import { openNewNotebookEditor } from "../openNewEditor";
@@ -33,11 +34,10 @@ async function runTest(
 
   assert.equal(notebook.cellCount, 1);
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    spokenForm,
-    command,
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: command,
+    targets: [
       {
         type: "primitive",
         selectionType: "notebookCell",
@@ -46,7 +46,7 @@ async function runTest(
         },
       },
     ],
-  );
+  });
 
   assert.equal(notebook.cellCount, 2);
 

@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../core/commandRunner/CommandRunner";
 import { openNewEditor } from "../openNewEditor";
 import { standardSuiteSetup } from "./standardSuiteSetup";
 
@@ -13,11 +14,10 @@ suite("fold", async function () {
 async function foldMade() {
   const editor = await openNewEditor("function myFunk() {\n\n}", "typescript");
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "fold made",
-    "fold",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "fold",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -25,7 +25,7 @@ async function foldMade() {
         },
       },
     ],
-  );
+  });
 
   assert.equal(editor.visibleRanges.length, 2);
   assert.equal(editor.visibleRanges[0].start.line, 0);
@@ -42,11 +42,10 @@ async function unfoldMade() {
 
   assert.equal(editor.visibleRanges.length, 2);
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "unfold made",
-    "unfold",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "unfold",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -54,7 +53,7 @@ async function unfoldMade() {
         },
       },
     ],
-  );
+  });
 
   assert.equal(editor.visibleRanges.length, 1);
 }
