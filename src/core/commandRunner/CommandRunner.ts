@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { ActionType } from "../../actions/actions.types";
-import { cursorlessCommandId } from "../../common/commandIds";
+import { CURSORLESS_COMMAND_ID } from "../../common/commandIds";
 import { OutdatedExtensionError } from "../../errors";
 import { getActiveTextEditor } from "../../ide/activeTextEditor";
 import processTargets from "../../processTargets";
@@ -38,7 +38,7 @@ export default class CommandRunner {
 
     this.disposables.push(
       vscode.commands.registerCommand(
-        cursorlessCommandId,
+        CURSORLESS_COMMAND_ID,
         this.runCommandBackwardCompatible,
       ),
     );
