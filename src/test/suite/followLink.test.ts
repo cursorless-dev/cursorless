@@ -5,6 +5,7 @@ import { runCursorlessCommand } from "../../core/commandRunner/CommandRunner";
 import { openNewEditor } from "../openNewEditor";
 import { getFixturePath } from "../util/getFixturePaths";
 import { standardSuiteSetup } from "./standardSuiteSetup";
+import { getActiveTextEditor } from "../../ide/activeTextEditor";
 
 suite("followLink", async function () {
   standardSuiteSetup(this);
@@ -61,7 +62,7 @@ async function followLink() {
     ],
   });
 
-  const editor = vscode.window.activeTextEditor;
+  const editor = getActiveTextEditor();
   assert.equal(editor?.document?.uri?.scheme, "file");
   assert.equal(editor?.document.getText().trimEnd(), "hello world");
 }

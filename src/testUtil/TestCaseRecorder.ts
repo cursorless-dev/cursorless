@@ -17,6 +17,7 @@ import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
 import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "./testConstants";
 import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
 import { walkDirsSync } from "./walkSync";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 const CALIBRATION_DISPLAY_BACKGROUND_COLOR = "#230026";
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
@@ -317,7 +318,7 @@ export class TestCaseRecorder {
 
       await this.testCase.recordInitialState();
 
-      const editor = vscode.window.activeTextEditor!;
+      const editor = getActiveTextEditor()!;
       // NB: We need to copy the editor options rather than storing a reference
       // because its properties are lazy
       this.originalTextEditorOptions = { ...editor.options };
@@ -449,7 +450,7 @@ export class TestCaseRecorder {
     this.spyInfo?.dispose();
     this.spyInfo = undefined;
 
-    const editor = vscode.window.activeTextEditor!;
+    const editor = getActiveTextEditor()!;
     editor.options = this.originalTextEditorOptions;
   }
 

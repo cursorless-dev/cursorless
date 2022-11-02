@@ -19,6 +19,7 @@ import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
 import { Command } from "./command.types";
 import { selectionToThatTarget } from "./selectionToThatTarget";
+import { getActiveTextEditor } from "../../ide/activeTextEditor";
 
 const cursorlessCommand = "cursorless.command";
 
@@ -113,11 +114,11 @@ export default class CommandRunner {
         actionPrePositionStages,
         actionFinalStages,
         currentSelections:
-          vscode.window.activeTextEditor?.selections.map((selection) => ({
+          getActiveTextEditor()?.selections.map((selection) => ({
             selection,
-            editor: vscode.window.activeTextEditor!,
+            editor: getActiveTextEditor()!,
           })) ?? [],
-        currentEditor: vscode.window.activeTextEditor,
+        currentEditor: getActiveTextEditor(),
         hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],

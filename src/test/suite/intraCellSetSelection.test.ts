@@ -4,6 +4,7 @@ import { runCursorlessCommand } from "../../core/commandRunner/CommandRunner";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewNotebookEditor } from "../openNewEditor";
 import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
+import { getActiveTextEditor } from "../../ide/activeTextEditor";
 
 // Check that setSelection is able to focus the correct cell
 suite("Within cell set selection", async function () {
@@ -38,7 +39,7 @@ async function runTest() {
     ],
   });
 
-  const editor = vscode.window.activeTextEditor;
+  const editor = getActiveTextEditor();
 
   if (editor == null) {
     assert(false, "No editor was focused");
