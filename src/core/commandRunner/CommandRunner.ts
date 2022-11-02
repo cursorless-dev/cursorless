@@ -1,6 +1,8 @@
 import * as vscode from "vscode";
 import { ActionType } from "../../actions/actions.types";
+import { CURSORLESS_COMMAND_ID } from "../../common/commandIds";
 import { OutdatedExtensionError } from "../../errors";
+import { getActiveTextEditor } from "../../ide/activeTextEditor";
 import processTargets from "../../processTargets";
 import isTesting from "../../testUtil/isTesting";
 import { Target } from "../../typings/target.types";
@@ -19,7 +21,6 @@ import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
 import { Command } from "./command.types";
 import { selectionToThatTarget } from "./selectionToThatTarget";
-import { getActiveTextEditor } from "../../ide/activeTextEditor";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -37,7 +38,7 @@ export default class CommandRunner {
 
     this.disposables.push(
       vscode.commands.registerCommand(
-        "cursorless.command",
+        CURSORLESS_COMMAND_ID,
         this.runCommandBackwardCompatible,
       ),
     );

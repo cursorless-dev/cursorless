@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import * as vscode from "vscode";
-import { CommandV3 } from "../../core/commandRunner/command.types";
+import { runCursorlessCommand } from "../../client-e2e-test/runCommand";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewEditor } from "../openNewEditor";
 import { standardSuiteSetup } from "./standardSuiteSetup";
@@ -22,7 +22,7 @@ async function runTest() {
   for (let i = 0; i < 2; ++i) {
     editor.selection = new vscode.Selection(0, 1, 0, 1);
 
-    const command: CommandV3 = {
+    await runCursorlessCommand({
       version: 3,
       action: { name: "setSelection" },
       usePrePhraseSnapshot: false,
@@ -35,9 +35,7 @@ async function runTest() {
           mark: { type: "cursor" },
         },
       ],
-    };
-
-    await vscode.commands.executeCommand("cursorless.command", command);
+    });
 
     assert.isTrue(editor.selection.isEqual(new vscode.Selection(0, 0, 0, 1)));
   }
