@@ -11,7 +11,7 @@ from .primitive_target import IMPLICIT_TARGET
 
 mod = Module()
 
-CURSORLESS_COMMAND = "cursorless.command"
+CURSORLESS_COMMAND_ID = "cursorless.command"
 last_phrase = None
 
 
@@ -73,7 +73,7 @@ class Actions:
     ):
         """Execute single-target cursorless command and return result"""
         return run_rpc_command_get(
-            CURSORLESS_COMMAND,
+            CURSORLESS_COMMAND_ID,
             construct_cursorless_command_argument(
                 action=action,
                 targets=[target],
@@ -101,7 +101,7 @@ class Actions:
     ):
         """Execute multi-target cursorless command"""
         run_rpc_command_and_wait(
-            CURSORLESS_COMMAND,
+            CURSORLESS_COMMAND_ID,
             construct_cursorless_command_argument(
                 action=action,
                 targets=targets,
@@ -118,7 +118,7 @@ class Actions:
     ):
         """Execute multi-target cursorless command"""
         run_rpc_command_no_wait(
-            CURSORLESS_COMMAND,
+            CURSORLESS_COMMAND_ID,
             construct_cursorless_command_argument(
                 action=action,
                 targets=targets,
