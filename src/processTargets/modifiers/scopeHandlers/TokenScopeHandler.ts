@@ -43,6 +43,8 @@ export default class TokenScopeHandler extends NestedScopeHandler {
     } = scopeA;
     const { identifierMatcher } = getMatcher(document.languageId);
 
+    // NB: Don't directly use `test` here because global regexes are stateful
+    // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
     return testRegex(identifierMatcher, document.getText(scopeA.domain))
       ? true
       : testRegex(identifierMatcher, document.getText(scopeB.domain))

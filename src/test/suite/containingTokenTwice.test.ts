@@ -5,6 +5,9 @@ import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewEditor } from "../openNewEditor";
 import { standardSuiteSetup } from "./standardSuiteSetup";
 
+// Check that we don't run afoul of stateful regex craziness
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
+// When this fails, the regex that checks if something is an identifier will start at the wrong place the second time it is called
 suite("Take token twice", async function () {
   standardSuiteSetup(this);
 
