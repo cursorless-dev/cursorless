@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import { runCursorlessCommand } from "../../core/commandRunner/CommandRunner";
+import { runCursorlessCommand } from "../../client-e2e-test/runCursorlessCommand";
 import { selectionToPlainObject } from "../../testUtil/toPlainObject";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";

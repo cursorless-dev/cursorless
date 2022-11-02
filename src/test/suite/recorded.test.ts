@@ -2,7 +2,7 @@ import { assert } from "chai";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
-import { runCursorlessCommand } from "../../core/commandRunner/CommandRunner";
+import { runCursorlessCommand } from "../../client-e2e-test/runCursorlessCommand";
 import HatTokenMap from "../../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { injectSpyIde } from "../../ide/spies/SpyIDE";

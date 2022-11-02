@@ -1,11 +1,11 @@
 import * as assert from "assert";
 import * as os from "os";
 import * as vscode from "vscode";
-import { runCursorlessCommand } from "../../core/commandRunner/CommandRunner";
+import { runCursorlessCommand } from "../../client-e2e-test/runCursorlessCommand";
+import { getActiveTextEditor } from "../../ide/activeTextEditor";
 import { openNewEditor } from "../openNewEditor";
 import { getFixturePath } from "../util/getFixturePaths";
 import { standardSuiteSetup } from "./standardSuiteSetup";
-import { getActiveTextEditor } from "../../ide/activeTextEditor";
 
 suite("followLink", async function () {
   standardSuiteSetup(this);
