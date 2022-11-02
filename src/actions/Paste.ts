@@ -1,4 +1,4 @@
-import { commands, DecorationRangeBehavior, window } from "vscode";
+import { commands, DecorationRangeBehavior } from "vscode";
 import {
   callFunctionAndUpdateSelections,
   callFunctionAndUpdateSelectionsWithBehavior,
@@ -11,13 +11,14 @@ import {
 } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 export class Paste {
   constructor(private graph: Graph) {}
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const targetEditor = ensureSingleEditor(targets);
-    const originalEditor = window.activeTextEditor;
+    const originalEditor = getActiveTextEditor();
 
     // First call editNew in order to insert delimiters if necessary and leave
     // the cursor in the right position.  Note that this action will focus the
@@ -55,7 +56,7 @@ export class Paste {
     setSelectionsWithoutFocusingEditor(targetEditor, updatedCursorSelections);
 
     // If necessary focus back original editor
-    if (originalEditor != null && originalEditor !== window.activeTextEditor) {
+    if (originalEditor != null && originalEditor !== getActiveTextEditor()) {
       // NB: We just do one editor focus at the end, instead of using
       // setSelectionsAndFocusEditor because the command might operate on
       // multiple editors, so we just do one focus at the end.
