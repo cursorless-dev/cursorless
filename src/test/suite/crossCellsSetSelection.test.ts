@@ -1,9 +1,9 @@
 import * as assert from "assert";
-import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../client-e2e-test/runCommand";
+import { getActiveTextEditor } from "../../ide/activeTextEditor";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewNotebookEditor } from "../openNewEditor";
 import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
-import { getActiveTextEditor } from "../../ide/activeTextEditor";
 
 // Check that setSelection is able to focus the correct cell
 suite("Cross-cell set selection", async function () {
@@ -23,11 +23,10 @@ async function runTest() {
 
   await graph.hatTokenMap.addDecorations();
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "take whale",
-    "setSelection",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "setSelection",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -37,7 +36,7 @@ async function runTest() {
         },
       },
     ],
-  );
+  });
 
   const editor = getActiveTextEditor();
 

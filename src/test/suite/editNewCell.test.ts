@@ -1,11 +1,11 @@
 import * as assert from "assert";
-import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../client-e2e-test/runCommand";
+import { getActiveTextEditor } from "../../ide/activeTextEditor";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { getCellIndex } from "../../util/notebook";
 import { openNewNotebookEditor } from "../openNewEditor";
 import { getPlainNotebookContents } from "../util/notebook";
 import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
-import { getActiveTextEditor } from "../../ide/activeTextEditor";
 
 // Check that setSelection is able to focus the correct cell
 suite("Edit new cell", async function () {
@@ -34,11 +34,10 @@ async function runTest(
 
   assert.equal(notebook.cellCount, 1);
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    spokenForm,
-    command,
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: command,
+    targets: [
       {
         type: "primitive",
         selectionType: "notebookCell",
@@ -47,7 +46,7 @@ async function runTest(
         },
       },
     ],
-  );
+  });
 
   assert.equal(notebook.cellCount, 2);
 

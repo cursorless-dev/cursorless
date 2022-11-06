@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
+import { CURSORLESS_COMMAND_ID } from "../../common/commandIds";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewEditor } from "../openNewEditor";
 import { standardSuiteSetup } from "./standardSuiteSetup";
@@ -20,7 +21,7 @@ async function runTest() {
   await graph.hatTokenMap.addDecorations();
 
   await vscode.commands.executeCommand(
-    "cursorless.command",
+    CURSORLESS_COMMAND_ID,
     "whatever",
     "wrapWithPairedDelimiter",
     [{ type: "primitive", selectionType: "line", mark: { type: "cursor" } }],

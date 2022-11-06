@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../client-e2e-test/runCommand";
 import { openNewEditor } from "../openNewEditor";
 import { standardSuiteSetup } from "./standardSuiteSetup";
 
@@ -14,11 +15,10 @@ async function topWhale() {
   const editor = await openNewEditor("hello\nworld");
   editor.selections = [new vscode.Selection(1, 0, 1, 0)];
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "crown whale",
-    "scrollToTop",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "scrollToTop",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -26,7 +26,7 @@ async function topWhale() {
         },
       },
     ],
-  );
+  });
 
   assert.equal(editor.visibleRanges.length, 1);
   assert.equal(editor.visibleRanges[0].start.line, 1);
@@ -42,11 +42,10 @@ async function bottomWhale() {
 
   assert.equal(editor.visibleRanges[0].start.line, 1);
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "bottom whale",
-    "scrollToBottom",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "scrollToBottom",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -54,7 +53,7 @@ async function bottomWhale() {
         },
       },
     ],
-  );
+  });
 
   assert.equal(editor.visibleRanges.length, 1);
   assert.equal(editor.visibleRanges[0].start.line, 0);

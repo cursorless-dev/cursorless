@@ -1,10 +1,11 @@
 import * as assert from "assert";
 import * as os from "os";
 import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../client-e2e-test/runCommand";
+import { getActiveTextEditor } from "../../ide/activeTextEditor";
 import { openNewEditor } from "../openNewEditor";
 import { getFixturePath } from "../util/getFixturePaths";
 import { standardSuiteSetup } from "./standardSuiteSetup";
-import { getActiveTextEditor } from "../../ide/activeTextEditor";
 
 suite("followLink", async function () {
   standardSuiteSetup(this);
@@ -26,11 +27,10 @@ async function followDefinition() {
 
   assert.equal(editor.visibleRanges[0].start.line, 1);
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "follow this",
-    "followLink",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "followLink",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -38,7 +38,7 @@ async function followDefinition() {
         },
       },
     ],
-  );
+  });
 
   assert.equal(editor.visibleRanges[0].start.line, 0);
 }
@@ -49,11 +49,10 @@ async function followLink() {
     os.platform() === "win32" ? `file:///${filename}` : `file://${filename}`;
   await openNewEditor(linkTextContent);
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "follow this",
-    "followLink",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "followLink",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -61,7 +60,7 @@ async function followLink() {
         },
       },
     ],
-  );
+  });
 
   const editor = getActiveTextEditor();
   assert.equal(editor?.document?.uri?.scheme, "file");
