@@ -128,6 +128,7 @@ export type SimpleScopeTypeType =
   | "paragraph"
   | "document"
   | "character"
+  | "nonWhitespaceCharacter"
   | "word"
   | "identifier"
   | "nonWhitespaceSequence"
@@ -156,6 +157,11 @@ export interface SurroundingPairScopeType {
   requireStrongContainment?: boolean;
 }
 
+export interface FixedExpansionScopeType {
+  type: "fixedExpansion";
+  numCharacters: number;
+}
+
 export interface OneOfScopeType {
   type: "oneOf";
   scopeTypes: ScopeType[];
@@ -165,6 +171,7 @@ export type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
   | CustomRegexScopeType
+  | FixedExpansionScopeType
   | OneOfScopeType;
 
 export interface ContainingSurroundingPairModifier

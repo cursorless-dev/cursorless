@@ -57,6 +57,7 @@ scope_types = {
     "end tag": "xmlEndTag",
     # Text-based scope types
     "char": "character",
+    "visible char": "nonWhitespaceCharacter",
     "word": "word",
     "identifier": "identifier",
     "block": "paragraph",

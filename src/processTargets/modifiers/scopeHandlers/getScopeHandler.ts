@@ -1,8 +1,10 @@
 import {
   CharacterScopeHandler,
   DocumentScopeHandler,
+  FixedExpansionScopeHandler,
   IdentifierScopeHandler,
   LineScopeHandler,
+  NonWhitespaceCharacterScopeHandler,
   TokenScopeHandler,
   WordScopeHandler,
   OneOfScopeHandler,
@@ -35,6 +37,10 @@ export default function getScopeHandler(
   switch (scopeType.type) {
     case "character":
       return new CharacterScopeHandler(scopeType, languageId);
+    case "nonWhitespaceCharacter":
+      return new NonWhitespaceCharacterScopeHandler(scopeType, languageId);
+    case "fixedExpansion":
+      return new FixedExpansionScopeHandler(scopeType, languageId);
     case "word":
       return new WordScopeHandler(scopeType, languageId);
     case "token":
