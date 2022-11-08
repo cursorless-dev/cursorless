@@ -1,4 +1,4 @@
-import { flatmap, imap } from "itertools";
+import { filter, flatmap, imap } from "itertools";
 import { Position, Range, TextEditor } from "vscode";
 import { getMatcher } from "../../../core/tokenizer";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
@@ -42,7 +42,13 @@ export default class CharacterScopeHandler extends BaseScopeHandler {
     direction: Direction,
   ): Iterable<TargetScope> {
     return imap(
-      generateMatchesInRange(SPLIT_REGEX, editor, range, direction),
+      filter(
+        generateMatchesInRange(SPLIT_REGEX, editor, range, direction),
+
+        // Ignore anything that ends at the end of the range because it could
+        // have trailing diacritics
+        (r) => !r.end.isEqual(range.end),
+      ),
       (range) => ({
         editor,
         domain: range,
@@ -84,7 +90,7 @@ export default class CharacterScopeHandler extends BaseScopeHandler {
    * {@link EXPANSION_CHARACTERS} on either side, then moves the search range to
    * the end (or start, if {@link direction} is `"backward"`) of the previous
    * search range and doubles the width, expanded on either side by
-   * {@link EXPANSION_CHARACTERS}.
+   * {@link EXPANSION_CHARACTERS}.  Note that
    *
    * @param editor
    * @param position
