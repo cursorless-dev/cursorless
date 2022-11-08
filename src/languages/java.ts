@@ -47,6 +47,9 @@ const STATEMENT_TYPES = [
   // ";",
   // "block",
   "switch_statement",
+  "method_declaration",
+  "constructor_declaration",
+  "field_declaration",
 ];
 
 const nodeMatchers: Partial<
