@@ -1,4 +1,3 @@
-import * as vscode from "vscode";
 import { ThatMark } from "../core/ThatMark";
 import { Clipboard } from "../util/Clipboard";
 import { hrtimeBigintToSeconds } from "../util/timeUtils";
@@ -11,6 +10,7 @@ import {
   TargetPlainObject,
   targetToPlainObject,
 } from "./toPlainObject";
+import { getActiveTextEditor } from "../ide/activeTextEditor";
 
 export type ExtraSnapshotField = keyof TestCaseSnapshot;
 export type ExcludableSnapshotField = keyof TestCaseSnapshot;
@@ -46,7 +46,7 @@ export async function takeSnapshot(
   extraContext?: ExtraContext,
   metadata?: unknown,
 ) {
-  const activeEditor = vscode.window.activeTextEditor!;
+  const activeEditor = getActiveTextEditor()!;
 
   const snapshot: TestCaseSnapshot = {
     documentContents: activeEditor.document.getText(),

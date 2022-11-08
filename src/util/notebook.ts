@@ -21,7 +21,11 @@ export function getNotebookFromCellDocument(document: TextDocument) {
   const { notebookEditor } =
     ((window as any).visibleNotebookEditors as any[])
       .flatMap((notebookEditor: any) =>
-        (notebookEditor.document.getCells() as NotebookCell[]).map((cell) => ({
+        (
+          (
+            notebookEditor.document ?? notebookEditor.notebook
+          ).getCells() as NotebookCell[]
+        ).map((cell) => ({
           notebookEditor,
           cell,
         })),

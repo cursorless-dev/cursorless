@@ -2,6 +2,7 @@ import { assert } from "chai";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../client-e2e-test/runCommand";
 import HatTokenMap from "../../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../../core/IndividualHatMap";
 import { injectSpyIde } from "../../ide/spies/SpyIDE";
@@ -123,7 +124,7 @@ async function runTest(file: string) {
   let returnValue: unknown;
 
   try {
-    returnValue = await vscode.commands.executeCommand("cursorless.command", {
+    returnValue = await runCursorlessCommand({
       ...fixture.command,
       usePrePhraseSnapshot,
     });

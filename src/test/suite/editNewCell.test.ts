@@ -1,5 +1,6 @@
 import * as assert from "assert";
-import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../client-e2e-test/runCommand";
+import { getActiveTextEditor } from "../../ide/activeTextEditor";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { getCellIndex } from "../../util/notebook";
 import { openNewNotebookEditor } from "../openNewEditor";
@@ -33,11 +34,10 @@ async function runTest(
 
   assert.equal(notebook.cellCount, 1);
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    spokenForm,
-    command,
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: command,
+    targets: [
       {
         type: "primitive",
         selectionType: "notebookCell",
@@ -46,13 +46,13 @@ async function runTest(
         },
       },
     ],
-  );
+  });
 
   assert.equal(notebook.cellCount, 2);
 
   const activeCelIndex = getCellIndex(
     notebook,
-    vscode.window.activeTextEditor!.document,
+    getActiveTextEditor()!.document,
   );
 
   assert.equal(activeCelIndex, expectedActiveCellIndex);
