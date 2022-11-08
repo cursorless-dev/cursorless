@@ -9,10 +9,11 @@ import {
   window,
   workspace,
 } from "vscode";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import isTesting from "../testUtil/isTesting";
 import { Target } from "../typings/target.types";
 import { Graph, RangeWithEditor } from "../typings/Types";
-import sleep from "../util/sleep";
+import sleep from "../libs/common/util/sleep";
 import {
   getContentRange,
   runForEachEditor,
@@ -82,7 +83,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
       this[editStyleName] = new EditStyle(`${editStyleName}Background`);
     });
 
-    graph.extensionContext.subscriptions.push(this);
+    ide().disposeOnExit(this);
   }
 
   async displayPendingEditDecorations(

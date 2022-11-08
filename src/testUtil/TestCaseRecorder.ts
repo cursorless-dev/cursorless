@@ -4,20 +4,31 @@ import { invariant } from "immutability-helper";
 import { merge } from "lodash";
 import * as path from "path";
 import * as vscode from "vscode";
-import HatTokenMap from "../core/HatTokenMap";
-import { injectSpyIde, SpyInfo } from "../ide/spies/SpyIDE";
+import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
+import { extractTargetedMarks } from "../libs/common/testUtil/extractTargetedMarks";
+import serialize from "../libs/common/testUtil/serialize";
+import SpyIDE from "../libs/common/ide/spy/SpyIDE";
+import sleep from "../libs/common/util/sleep";
+import { getKey } from "@cursorless/common";
+import { walkDirsSync } from "../libs/common/util/walkSync";
+import ide, {
+  injectIde,
+} from "../libs/cursorless-engine/singletons/ide.singleton";
+import { IDE } from "../libs/common/ide/types/ide.types";
+import {
+  ExtraSnapshotField,
+  takeSnapshot,
+} from "../libs/vscode-common/testUtil/takeSnapshot";
+import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "../libs/vscode-common/testUtil/testConstants";
+import {
+  marksToPlainObject,
+  SerializedMarks,
+} from "../libs/vscode-common/toPlainObject";
 import { DecoratedSymbolMark } from "../typings/targetDescriptor.types";
 import { Graph } from "../typings/Types";
 import { getDocumentRange } from "../util/rangeUtils";
-import sleep from "../util/sleep";
-import { extractTargetedMarks } from "./extractTargetedMarks";
-import serialize from "./serialize";
-import { ExtraSnapshotField, takeSnapshot } from "./takeSnapshot";
-import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
-import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "./testConstants";
-import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
-import { walkDirsSync } from "./walkSync";
-import { getActiveTextEditor } from "../ide/activeTextEditor";
+import { TestCase, TestCaseContext } from "./TestCase";
+import { TestCaseCommand } from "./TestCaseFixture";
 
 const CALIBRATION_DISPLAY_BACKGROUND_COLOR = "#230026";
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
@@ -90,15 +101,18 @@ export class TestCaseRecorder {
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
   private captureFinalThatMark: boolean = false;
-  private spyInfo: SpyInfo | undefined;
+  private spyIde: SpyIDE | undefined;
+  private originalIde: IDE | undefined;
 
   constructor(private graph: Graph) {
-    graph.extensionContext.subscriptions.push(this);
+    ide().disposeOnExit(this);
+
+    const { runMode, assetsRoot, workspaceFolders } = ide();
 
     this.workspacePath =
-      graph.extensionContext.extensionMode === vscode.ExtensionMode.Development
-        ? graph.extensionContext.extensionPath
-        : vscode.workspace.workspaceFolders?.[0].uri.path ?? null;
+      runMode === "development"
+        ? assetsRoot
+        : workspaceFolders?.[0].uri.path ?? null;
 
     this.workspaceName = this.workspacePath
       ? path.basename(this.workspacePath)
@@ -155,7 +169,7 @@ export class TestCaseRecorder {
           let marks: SerializedMarks | undefined;
           if (targetedMarks.length !== 0) {
             const keys = targetedMarks.map(({ character, symbolColor }) =>
-              HatTokenMap.getKey(symbolColor, character),
+              getKey(symbolColor, character),
             );
             const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
               usePrePhraseSnapshot,
@@ -172,6 +186,8 @@ export class TestCaseRecorder {
             undefined,
             ["clipboard"],
             this.active ? this.extraSnapshotFields : undefined,
+            getActiveTextEditor()!,
+            ide(),
             marks,
             this.active ? { startTimestamp: this.startTimestamp } : undefined,
             metadata,
@@ -303,12 +319,14 @@ export class TestCaseRecorder {
       await this.finishTestCase();
     } else {
       // Otherwise, we are starting a new test case
-      this.spyInfo = injectSpyIde(this.graph);
+      this.originalIde = ide();
+      this.spyIde = new SpyIDE(this.originalIde);
+      injectIde(this.spyIde!);
 
       this.testCase = new TestCase(
         command,
         context,
-        this.spyInfo.spy,
+        this.spyIde,
         this.isHatTokenMapTest,
         this.isDecorationsTest,
         this.startTimestamp!,
@@ -447,8 +465,9 @@ export class TestCaseRecorder {
   }
 
   finallyHook() {
-    this.spyInfo?.dispose();
-    this.spyInfo = undefined;
+    injectIde(this.originalIde!);
+    this.spyIde = undefined;
+    this.originalIde = undefined;
 
     const editor = getActiveTextEditor()!;
     editor.options = this.originalTextEditorOptions;

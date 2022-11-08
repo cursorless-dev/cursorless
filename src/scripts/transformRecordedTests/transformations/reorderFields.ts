@@ -1,4 +1,4 @@
-import { TestCaseFixture } from "../../../testUtil/TestCase";
+import { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
 
 export function reorderFields(fixture: TestCaseFixture) {
   return {

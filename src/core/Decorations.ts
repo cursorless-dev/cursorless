@@ -40,10 +40,9 @@ export default class Decorations {
   hatStyleNames!: HatStyleName[];
   private decorationChangeListeners: DecorationChangeListener[] = [];
   private disposables: vscode.Disposable[] = [];
+  private extensionContext!: vscode.ExtensionContext;
 
   constructor(private graph: Graph) {
-    graph.extensionContext.subscriptions.push(this);
-
     this.recomputeDecorationStyles = this.recomputeDecorationStyles.bind(this);
 
     this.disposables.push(
@@ -60,7 +59,9 @@ export default class Decorations {
     );
   }
 
-  async init() {
+  async init(extensionContext: vscode.ExtensionContext) {
+    this.extensionContext = extensionContext;
+    extensionContext.subscriptions.push(this);
     await this.graph.fontMeasurements.calculate();
     this.constructDecorations(this.graph.fontMeasurements);
   }
@@ -272,7 +273,7 @@ export default class Decorations {
     hatVerticalOffsetEm: number,
   ) {
     const iconPath = join(
-      this.graph.extensionContext.extensionPath,
+      this.extensionContext.extensionPath,
       "images",
       "hats",
       `${shape}.svg`,

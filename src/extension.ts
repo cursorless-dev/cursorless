@@ -1,10 +1,19 @@
 import * as vscode from "vscode";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 import { ThatMark } from "./core/ThatMark";
-import { tokenizerConfiguration } from "./core/tokenizerConfiguration";
+import VscodeIDE from "./ide/vscode/VscodeIDE";
+import FakeIDE from "./libs/common/ide/fake/FakeIDE";
+import ide, {
+  injectIde,
+} from "./libs/cursorless-engine/singletons/ide.singleton";
+import {
+  CursorlessApi,
+  getCommandServerApi,
+  getParseTreeApi,
+} from "./libs/vscode-common/getExtensionApi";
+import { plainObjectToTarget } from "./testUtil/fromPlainObject";
 import isTesting from "./testUtil/isTesting";
 import { Graph } from "./typings/Types";
-import { getCommandServerApi, getParseTreeApi } from "./util/getExtensionApi";
 import graphFactories from "./util/graphFactories";
 import makeGraph, { FactoryMap } from "./util/makeGraph";
 
@@ -16,22 +25,32 @@ import makeGraph, { FactoryMap } from "./util/makeGraph";
  * use to record test cases.
  * - Creates an entrypoint for running commands {@link CommandRunner}.
  */
-export async function activate(context: vscode.ExtensionContext) {
+export async function activate(
+  context: vscode.ExtensionContext,
+): Promise<CursorlessApi> {
   const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
 
-  const graph = makeGraph(
-    {
-      ...graphFactories,
-      extensionContext: () => context,
-      commandServerApi: () => commandServerApi,
-      getNodeAtLocation: () => getNodeAtLocation,
-    } as FactoryMap<Graph>,
-    ["ide"],
-  );
+  if (isTesting()) {
+    // FIXME: At some point we'll probably want to support partial mocking
+    // rather than mocking away everything that we can
+    const fake = new FakeIDE();
+    fake.mockAssetsRoot(context.extensionPath);
+    injectIde(fake);
+  } else {
+    injectIde(new VscodeIDE(context));
+  }
+
+  const graph = makeGraph({
+    ...graphFactories,
+    extensionContext: () => context,
+    commandServerApi: () => commandServerApi,
+    getNodeAtLocation: () => getNodeAtLocation,
+  } as FactoryMap<Graph>);
   graph.debug.init();
   graph.snippets.init();
-  await graph.decorations.init();
+  graph.fontMeasurements.init(context);
+  await graph.decorations.init(context);
   graph.hatTokenMap.init();
   graph.testCaseRecorder.init();
   graph.cheatsheet.init();
@@ -43,15 +62,17 @@ export async function activate(context: vscode.ExtensionContext) {
   // TODO: Do this using the graph once we migrate its dependencies onto the graph
   new CommandRunner(graph, thatMark, sourceMark);
 
-  // TODO: Remove this once tokenizer has access to graph
-  if (isTesting()) {
-    tokenizerConfiguration.mockWordSeparators();
-  }
-
   return {
     thatMark,
     sourceMark,
     graph: isTesting() ? graph : undefined,
+    ide: isTesting() ? (ide() as FakeIDE) : undefined,
+    injectIde: isTesting() ? injectIde : undefined,
+
+    // FIXME: Remove this once we have a better way to get this function
+    // accessible from our tests
+    plainObjectToTarget: isTesting() ? plainObjectToTarget : undefined,
+
     experimental: {
       registerThirdPartySnippets: graph.snippets.registerThirdPartySnippets,
     },

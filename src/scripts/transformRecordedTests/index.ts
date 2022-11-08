@@ -1,4 +1,4 @@
-import { getRecordedTestPaths } from "../../test/util/getFixturePaths";
+import { getRecordedTestPaths } from "../../apps/cursorless-vscode-e2e/getFixturePaths";
 import { identity } from "./transformations/identity";
 import { upgrade } from "./transformations/upgrade";
 import { transformFile } from "./transformFile";

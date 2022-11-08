@@ -1,5 +1,7 @@
 import * as vscode from "vscode";
 import { Disposable } from "vscode";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
+import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
 import { Graph } from "../typings/Types";
 import { addDecorationsToEditors } from "../util/addDecorationsToEditor";
 import { IndividualHatMap } from "./IndividualHatMap";
@@ -15,7 +17,7 @@ export class HatAllocator {
   private disposalFunctions: (() => void)[] = [];
 
   constructor(private graph: Graph, private context: Context) {
-    graph.extensionContext.subscriptions.push(this);
+    ide().disposeOnExit(this);
 
     this.isActive = vscode.workspace
       .getConfiguration("cursorless")
@@ -57,7 +59,7 @@ export class HatAllocator {
       ),
       // Re-draw hats on grapheme splitting algorithm change in case they
       // changed their token hat splitting setting.
-      graph.tokenGraphemeSplitter.registerAlgorithmChangeListener(
+      tokenGraphemeSplitter().registerAlgorithmChangeListener(
         this.addDecorationsDebounced,
       ),
     );
@@ -76,7 +78,7 @@ export class HatAllocator {
       addDecorationsToEditors(
         activeMap,
         this.graph.decorations,
-        this.graph.tokenGraphemeSplitter,
+        tokenGraphemeSplitter(),
       );
     } else {
       vscode.window.visibleTextEditors.forEach(this.clearEditorDecorations);
