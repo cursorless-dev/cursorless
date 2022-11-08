@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../client-e2e-test/runCommand";
 import { selectionToPlainObject } from "../../testUtil/toPlainObject";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
@@ -47,7 +48,7 @@ async function runTest(
   await graph.hatTokenMap.addDecorations();
   prePhraseVersion = "version2";
 
-  await vscode.commands.executeCommand("cursorless.command", {
+  await runCursorlessCommand({
     version: 1,
     spokenForm: "whatever",
     action: "replaceWithTarget",
@@ -68,7 +69,7 @@ async function runTest(
     prePhraseVersion = "version3";
   }
 
-  await vscode.commands.executeCommand("cursorless.command", {
+  await runCursorlessCommand({
     version: 1,
     spokenForm: "whatever",
     action: "setSelection",

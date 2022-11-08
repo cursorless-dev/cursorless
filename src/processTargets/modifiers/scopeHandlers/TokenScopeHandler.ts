@@ -5,7 +5,7 @@ import type {
   Direction,
   ScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { generateMatchesInRange } from "../../../util/regex";
+import { generateMatchesInRange, testRegex } from "../../../util/regex";
 import { TokenTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
 
@@ -43,9 +43,11 @@ export default class TokenScopeHandler extends NestedScopeHandler {
     } = scopeA;
     const { identifierMatcher } = getMatcher(document.languageId);
 
-    return identifierMatcher.test(document.getText(scopeA.domain))
+    // NB: Don't directly use `test` here because global regexes are stateful
+    // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
+    return testRegex(identifierMatcher, document.getText(scopeA.domain))
       ? true
-      : identifierMatcher.test(document.getText(scopeB.domain))
+      : testRegex(identifierMatcher, document.getText(scopeB.domain))
       ? false
       : undefined;
   }

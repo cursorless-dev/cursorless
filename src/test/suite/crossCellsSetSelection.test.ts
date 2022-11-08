@@ -1,5 +1,6 @@
 import * as assert from "assert";
-import * as vscode from "vscode";
+import { runCursorlessCommand } from "../../client-e2e-test/runCommand";
+import { getActiveTextEditor } from "../../ide/activeTextEditor";
 import { getCursorlessApi } from "../../util/getExtensionApi";
 import { openNewNotebookEditor } from "../openNewEditor";
 import { sleepWithBackoff, standardSuiteSetup } from "./standardSuiteSetup";
@@ -22,11 +23,10 @@ async function runTest() {
 
   await graph.hatTokenMap.addDecorations();
 
-  await vscode.commands.executeCommand(
-    "cursorless.command",
-    "take whale",
-    "setSelection",
-    [
+  await runCursorlessCommand({
+    version: 1,
+    action: "setSelection",
+    targets: [
       {
         type: "primitive",
         mark: {
@@ -36,9 +36,9 @@ async function runTest() {
         },
       },
     ],
-  );
+  });
 
-  const editor = vscode.window.activeTextEditor;
+  const editor = getActiveTextEditor();
 
   if (editor == null) {
     assert(false, "No editor was focused");
