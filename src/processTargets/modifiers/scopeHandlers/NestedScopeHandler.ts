@@ -75,7 +75,7 @@ export default abstract class NestedScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    hints: ScopeIteratorRequirements | undefined = {},
+    hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const { containment, ...rest } = hints;
     const generator = this.searchScopeHandler.generateScopes(
