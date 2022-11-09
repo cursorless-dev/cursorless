@@ -33,7 +33,7 @@ class Container {
 
     // Not registered
     if (typeInfo == null) {
-      throw Error(`Can't inject unregistered type '${cls.name}'`);
+      throw Error(`Can't resolve unregistered dependency '${cls.name}'`);
     }
 
     switch (typeInfo.type) {
