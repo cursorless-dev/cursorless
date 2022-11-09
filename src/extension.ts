@@ -67,27 +67,32 @@ import container from "./injection/Container";
 import Singleton from "./injection/Singleton";
 import Transient from "./injection/Transient";
 
-@Singleton()
 class A {
   constructor() {
     console.log("constructor A");
   }
 }
 
-@Transient()
+@Singleton()
 class B {
-  constructor(a: A, c: C) {
+  constructor(a: A) {
     console.log("constructor B");
   }
 }
 
 class C {
-  constructor() {
-    console.log("constructor C");
+  constructor(value: string) {
+    console.log("constructor C", value);
   }
 }
 
-// container.registerValue(A, new C());
-container.registerTransient(C);
-const instance = container.resolve(B);
-console.log(instance);
+@Transient()
+class D {
+  constructor(b: B, b2: B, c: C) {
+    console.log("constructor D");
+  }
+}
+
+container.registerTransient(A);
+container.registerValue(C, new C("foo"));
+const instance = container.resolve(D);
