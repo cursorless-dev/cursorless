@@ -75,7 +75,7 @@ class A {
 
 @Singleton()
 class B {
-  constructor(a: A) {
+  constructor(a: A, a2: A) {
     console.log("constructor B");
   }
 }

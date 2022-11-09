@@ -36,22 +36,16 @@ class Container {
       throw Error(`Can't inject unregistered type '${cls.name}'`);
     }
 
-    // Registered transient
-    if (typeInfo.type === "transient") {
-      return this.construct(typeInfo);
-    }
-
-    // Registered singleton
-    if (typeInfo.type === "singleton") {
-      if (!singletons.has(cls)) {
-        singletons.set(cls, this.construct(typeInfo));
-      }
-      return singletons.get(cls);
-    }
-
-    // Registered value
-    if (typeInfo.type === "value") {
-      return typeInfo.value;
+    switch (typeInfo.type) {
+      case "value":
+        return typeInfo.value;
+      case "transient":
+        return this.construct(typeInfo);
+      case "singleton":
+        if (!singletons.has(cls)) {
+          singletons.set(cls, this.construct(typeInfo));
+        }
+        return singletons.get(cls);
     }
   }
 
