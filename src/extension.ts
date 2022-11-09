@@ -68,23 +68,22 @@ import Singleton from "./injection/Singleton";
 import Transient from "./injection/Transient";
 
 @Singleton()
-// @Transient()
 class A {
   constructor() {
     console.log("constructor A");
   }
 }
 
-class C {
-  constructor() {
-    console.log("constructor C");
+@Transient()
+class B {
+  constructor(a: A, c: C) {
+    console.log("constructor B");
   }
 }
 
-@Transient()
-class B {
-  constructor(a: A, a2: C) {
-    console.log("constructor B");
+class C {
+  constructor() {
+    console.log("constructor C");
   }
 }
 
