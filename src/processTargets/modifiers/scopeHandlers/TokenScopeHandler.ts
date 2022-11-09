@@ -1,17 +1,14 @@
 import { imap } from "itertools";
 import { NestedScopeHandler } from ".";
 import { getMatcher } from "../../../core/tokenizer";
-import type {
-  Direction,
-  ScopeType,
-} from "../../../typings/targetDescriptor.types";
+import type { Direction } from "../../../typings/targetDescriptor.types";
 import { generateMatchesInRange, testRegex } from "../../../util/regex";
 import { TokenTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
 
 export default class TokenScopeHandler extends NestedScopeHandler {
-  public readonly scopeType: ScopeType = { type: "token" };
-  public readonly iterationScopeType: ScopeType = { type: "line" };
+  public readonly scopeType = { type: "token" } as const;
+  public readonly iterationScopeType = { type: "line" } as const;
 
   private regex: RegExp = getMatcher(this.languageId).tokenMatcher;
 
