@@ -1,7 +1,7 @@
 import { readFile, stat } from "fs/promises";
 import { cloneDeep, max, merge } from "lodash";
 import { join } from "path";
-import { window, workspace } from "vscode";
+import { window } from "vscode";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { walkFiles } from "../testUtil/walkAsync";
 import { Snippet, SnippetMap } from "../typings/snippet";
