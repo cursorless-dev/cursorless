@@ -67,8 +67,8 @@ import container from "./injection/Container";
 import Singleton from "./injection/Singleton";
 import Transient from "./injection/Transient";
 
-// @Singleton()
-@Transient()
+@Singleton()
+// @Transient()
 class A {
   constructor() {
     console.log("constructor A");
@@ -83,11 +83,12 @@ class C {
 
 @Transient()
 class B {
-  constructor(a: A, a2: A) {
+  constructor(a: A, a2: C) {
     console.log("constructor B");
   }
 }
 
 // container.registerValue(A, new C());
+container.registerTransient(C);
 const instance = container.resolve(B);
 console.log(instance);

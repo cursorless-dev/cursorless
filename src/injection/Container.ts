@@ -31,28 +31,28 @@ class Container {
   resolve<T>(cls: Type<T>): T {
     const typeInfo = typeInfos.get(cls);
 
-    if (typeInfo != null) {
-      // Registered transient
-      if (typeInfo.type === "transient") {
-        return this.construct(typeInfo);
-      }
-
-      // Registered singleton
-      if (typeInfo.type === "singleton") {
-        if (!singletons.has(cls)) {
-          singletons.set(cls, this.construct(typeInfo));
-        }
-        return singletons.get(cls);
-      }
-
-      // Registered value
-      if (typeInfo.type === "value") {
-        return typeInfo.value;
-      }
+    // Not registered
+    if (typeInfo == null) {
+      throw Error(`Can't inject unregistered type '${cls.name}'`);
     }
 
-    // Not registered
-    return new cls();
+    // Registered transient
+    if (typeInfo.type === "transient") {
+      return this.construct(typeInfo);
+    }
+
+    // Registered singleton
+    if (typeInfo.type === "singleton") {
+      if (!singletons.has(cls)) {
+        singletons.set(cls, this.construct(typeInfo));
+      }
+      return singletons.get(cls);
+    }
+
+    // Registered value
+    if (typeInfo.type === "value") {
+      return typeInfo.value;
+    }
   }
 
   private construct<T>(typeClass: TypeClass<T>): T {
