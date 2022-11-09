@@ -62,3 +62,32 @@ export async function activate(context: vscode.ExtensionContext) {
 export function deactivate() {
   // do nothing
 }
+
+import container from "./injection/Container";
+import Singleton from "./injection/Singleton";
+import Transient from "./injection/Transient";
+
+// @Singleton()
+@Transient()
+class A {
+  constructor() {
+    console.log("constructor A");
+  }
+}
+
+class C {
+  constructor() {
+    console.log("constructor C");
+  }
+}
+
+@Transient()
+class B {
+  constructor(a: A, a2: A) {
+    console.log("constructor B");
+  }
+}
+
+// container.registerValue(A, new C());
+const instance = container.resolve(B);
+console.log(instance);
