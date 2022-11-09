@@ -1,12 +1,14 @@
 import getParamTypes from "./getParamTypes";
 import { Type, TypeClass, TypeInfo } from "./types";
 
-const typeInfos = new Map<Type<any>, TypeInfo>();
-const singletons = new Map<Type<any>, any>();
+export const typeInfos = new Map<Type<any>, TypeInfo>();
 
 class Container {
+  private register = new Map<Type<any>, TypeInfo>();
+  private instances = new Map<Type<any>, any>();
+
   registerTransient<T>(cls: Type<T>) {
-    typeInfos.set(cls, {
+    this.register.set(cls, {
       type: "transient",
       cls,
       params: getParamTypes(cls),
@@ -14,7 +16,7 @@ class Container {
   }
 
   registerSingleton<T>(cls: Type<T>) {
-    typeInfos.set(cls, {
+    this.register.set(cls, {
       type: "singleton",
       cls,
       params: getParamTypes(cls),
@@ -22,14 +24,14 @@ class Container {
   }
 
   registerValue<T>(cls: Type<T>, value: T) {
-    typeInfos.set(cls, {
+    this.register.set(cls, {
       type: "value",
       value,
     });
   }
 
   resolve<T>(cls: Type<T>): T {
-    const typeInfo = typeInfos.get(cls);
+    const typeInfo = this.register.get(cls) ?? typeInfos.get(cls);
 
     // Not registered
     if (typeInfo == null) {
@@ -42,11 +44,20 @@ class Container {
       case "transient":
         return this.construct(typeInfo);
       case "singleton":
-        if (!singletons.has(cls)) {
-          singletons.set(cls, this.construct(typeInfo));
+        if (!this.instances.has(cls)) {
+          this.instances.set(cls, this.construct(typeInfo));
         }
-        return singletons.get(cls);
+        return this.instances.get(cls);
     }
+  }
+
+  clearInstances() {
+    this.instances.clear();
+  }
+
+  reset() {
+    this.clearInstances();
+    this.register.clear();
   }
 
   private construct<T>(typeClass: TypeClass<T>): T {

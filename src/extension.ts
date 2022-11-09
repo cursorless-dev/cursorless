@@ -64,8 +64,7 @@ export function deactivate() {
 }
 
 import container from "./injection/Container";
-import Singleton from "./injection/Singleton";
-import Transient from "./injection/Transient";
+import { singleton, transient } from "./injection/Decorators";
 
 class A {
   constructor() {
@@ -73,7 +72,7 @@ class A {
   }
 }
 
-@Singleton()
+@singleton()
 class B {
   constructor(a: A, a2: A) {
     console.log("constructor B");
@@ -86,7 +85,7 @@ class C {
   }
 }
 
-@Transient()
+@transient()
 class D {
   constructor(b: B, b2: B, c: C) {
     console.log("constructor D");
@@ -96,3 +95,7 @@ class D {
 container.registerTransient(A);
 container.registerValue(C, new C("foo"));
 const instance = container.resolve(D);
+
+console.log("clearInstances");
+container.clearInstances();
+container.resolve(B);
