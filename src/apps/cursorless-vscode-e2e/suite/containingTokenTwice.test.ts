@@ -15,7 +15,7 @@ suite("Take token twice", async function () {
 });
 
 async function runTest() {
-  const graph = (await getCursorlessApi()).graph!;
+  const { graph } = (await getCursorlessApi()).testHelpers!;
   const editor = await openNewEditor("a)");
   await graph.hatTokenMap.addDecorations();
 

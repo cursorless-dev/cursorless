@@ -581,9 +581,9 @@
 		"watch": "tsc -watch -p ./",
 		"pretest": "yarn run compile && yarn run lint && yarn run esbuild",
 		"lint": "eslint src --ext ts",
-		"test": "env CURSORLESS_TEST=true node ./out/test/scripts/runTestsCI.js",
+		"testCI": "env CURSORLESS_TEST=true node ./out/test/scripts/runTestsCI.js",
 		"unused-exports": "ts-unused-exports tsconfig.json --showLineNumber",
-		"init-launch-sandbox": "node ./out/test/scripts/initLaunchSandbox.js",
+		"init-launch-sandbox": "node ./out/scripts/initLaunchSandbox.js",
 		"prepare-for-extension-publish": "node ./out/scripts/prepareForExtensionPublish.js"
 	},
 	"devDependencies": {

@@ -23,7 +23,7 @@ suite("breakpoints", async function () {
 });
 
 async function breakpointHarpAdd() {
-  const graph = (await getCursorlessApi()).graph!;
+  const { graph } = (await getCursorlessApi()).testHelpers!;
   await openNewEditor("  hello");
   await graph.hatTokenMap.addDecorations();
 
@@ -50,7 +50,7 @@ async function breakpointHarpAdd() {
 }
 
 async function breakpointTokenHarpAdd() {
-  const graph = (await getCursorlessApi()).graph!;
+  const { graph } = (await getCursorlessApi()).testHelpers!;
   await openNewEditor("  hello");
   await graph.hatTokenMap.addDecorations();
 
@@ -78,7 +78,7 @@ async function breakpointTokenHarpAdd() {
 }
 
 async function breakpointHarpRemove() {
-  const graph = (await getCursorlessApi()).graph!;
+  const { graph } = (await getCursorlessApi()).testHelpers!;
   const editor = await openNewEditor("  hello");
   await graph.hatTokenMap.addDecorations();
 
@@ -109,7 +109,7 @@ async function breakpointHarpRemove() {
 }
 
 async function breakpointTokenHarpRemove() {
-  const graph = (await getCursorlessApi()).graph!;
+  const { graph } = (await getCursorlessApi()).testHelpers!;
   const editor = await openNewEditor("  hello");
   await graph.hatTokenMap.addDecorations();
 

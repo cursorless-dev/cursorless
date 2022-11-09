@@ -65,13 +65,17 @@ export async function activate(
   return {
     thatMark,
     sourceMark,
-    graph: isTesting() ? graph : undefined,
-    ide: isTesting() ? (ide() as FakeIDE) : undefined,
-    injectIde: isTesting() ? injectIde : undefined,
+    testHelpers: isTesting()
+      ? {
+          graph,
+          ide: ide() as FakeIDE,
+          injectIde,
 
-    // FIXME: Remove this once we have a better way to get this function
-    // accessible from our tests
-    plainObjectToTarget: isTesting() ? plainObjectToTarget : undefined,
+          // FIXME: Remove this once we have a better way to get this function
+          // accessible from our tests
+          plainObjectToTarget,
+        }
+      : undefined,
 
     experimental: {
       registerThirdPartySnippets: graph.snippets.registerThirdPartySnippets,

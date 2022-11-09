@@ -12,7 +12,7 @@ suite("Backward compatibility", async function () {
 });
 
 async function runTest() {
-  const graph = (await getCursorlessApi()).graph!;
+  const { graph } = (await getCursorlessApi()).testHelpers!;
 
   const editor = await openNewEditor("");
 

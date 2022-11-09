@@ -38,7 +38,7 @@ async function runTest(
   multiplePhrases: boolean,
   expectedSelections: vscode.Selection[],
 ) {
-  const graph = (await getCursorlessApi()).graph!;
+  const { graph } = (await getCursorlessApi()).testHelpers!;
 
   const editor = await openNewEditor("Hello world testing whatever");
 

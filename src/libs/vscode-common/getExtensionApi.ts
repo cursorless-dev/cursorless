@@ -8,19 +8,24 @@ import type FakeIDE from "../common/ide/fake/FakeIDE";
 import type { IDE } from "../common/ide/types/ide.types";
 import type { TargetPlainObject } from "./toPlainObject";
 
-export interface CursorlessApi {
-  thatMark: ThatMark;
-  sourceMark: ThatMark;
-  graph: Graph | undefined;
-  ide: FakeIDE | undefined;
-  injectIde: ((ide: IDE) => void) | undefined;
+interface TestHelpers {
+  graph: Graph;
+  ide: FakeIDE;
+  injectIde: (ide: IDE) => void;
 
   // FIXME: Remove this once we have a better way to get this function
   // accessible from our tests
-  plainObjectToTarget?(
+  plainObjectToTarget(
     editor: vscode.TextEditor,
     plainObject: TargetPlainObject,
   ): Target;
+}
+
+export interface CursorlessApi {
+  thatMark: ThatMark;
+  sourceMark: ThatMark;
+
+  testHelpers: TestHelpers | undefined;
 
   experimental: {
     registerThirdPartySnippets: (

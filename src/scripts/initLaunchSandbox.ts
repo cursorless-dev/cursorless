@@ -4,7 +4,7 @@
  */
 import * as path from "path";
 import * as cp from "child_process";
-import { extensionDependencies } from "../extensionDependencies";
+import { extensionDependencies } from "../test/extensionDependencies";
 import { mkdir } from "fs/promises";
 
 const extraExtensions = ["pokey.command-server", "pokey.talon"];

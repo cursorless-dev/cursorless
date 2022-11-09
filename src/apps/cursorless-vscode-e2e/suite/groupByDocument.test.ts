@@ -12,7 +12,7 @@ suite("Group by document", async function () {
 });
 
 async function runTest() {
-  const graph = (await getCursorlessApi()).graph!;
+  const { graph } = (await getCursorlessApi()).testHelpers!;
 
   await vscode.commands.executeCommand("workbench.action.closeAllEditors");
 

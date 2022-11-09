@@ -46,7 +46,7 @@ suite("recorded test cases", async function () {
   suiteSetup(async () => {
     // Necessary because opening a notebook opens the panel for some reason
     await vscode.commands.executeCommand("workbench.action.closePanel");
-    const { ide: fake } = await getCursorlessApi();
+    const { ide: fake } = (await getCursorlessApi()).testHelpers!;
     setupFake(fake!);
   });
 
@@ -68,8 +68,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const usePrePhraseSnapshot = false;
 
   const cursorlessApi = await getCursorlessApi();
-  const graph = cursorlessApi.graph!;
-  const plainObjectToTarget = cursorlessApi.plainObjectToTarget!;
+  const { graph, plainObjectToTarget } = cursorlessApi.testHelpers!;
 
   graph.editStyles.testDecorations = [];
 

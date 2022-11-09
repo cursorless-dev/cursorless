@@ -22,7 +22,7 @@ async function runTest(
   expectedActiveCellIndex: number,
   expectedNotebookContents: string[],
 ) {
-  const graph = (await getCursorlessApi()).graph!;
+  const { graph } = (await getCursorlessApi()).testHelpers!;
   const notebook = await openNewNotebookEditor(["hello"]);
 
   // FIXME: There seems to be some timing issue when you create a notebook
