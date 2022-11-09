@@ -1,4 +1,4 @@
-import { flatten, imap } from "itertools";
+import { flatmap } from "itertools";
 import type { Position, TextEditor } from "vscode";
 import { getScopeHandler } from ".";
 import type {
@@ -91,10 +91,8 @@ export default abstract class NestedScopeHandler extends BaseScopeHandler {
       },
     );
 
-    return flatten(
-      imap(generator, (searchScope) =>
-        this.generateScopesInSearchScope(direction, searchScope),
-      ),
+    return flatmap(generator, (searchScope) =>
+      this.generateScopesInSearchScope(direction, searchScope),
     );
   }
 }
