@@ -8,14 +8,13 @@ import {
   ViewColumn,
   window,
 } from "vscode";
-import { getNotebookFromCellDocument } from "./notebook";
 import { getCellIndex } from "../libs/vscode-common/notebook";
+import { getNotebookFromCellDocument } from "./notebook";
 import {
   focusNotebookCellLegacy,
   isVscodeLegacyNotebookVersion,
 } from "./notebookLegacy";
 import uniqDeep from "./uniqDeep";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",

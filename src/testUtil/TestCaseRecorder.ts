@@ -1,20 +1,19 @@
+import { getKey } from "@cursorless/common";
 import * as fs from "fs";
 import { readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash";
 import * as path from "path";
 import * as vscode from "vscode";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
+import SpyIDE from "../libs/common/ide/spy/SpyIDE";
+import { IDE } from "../libs/common/ide/types/ide.types";
 import { extractTargetedMarks } from "../libs/common/testUtil/extractTargetedMarks";
 import serialize from "../libs/common/testUtil/serialize";
-import SpyIDE from "../libs/common/ide/spy/SpyIDE";
 import sleep from "../libs/common/util/sleep";
-import { getKey } from "@cursorless/common";
 import { walkDirsSync } from "../libs/common/util/walkSync";
 import ide, {
   injectIde,
 } from "../libs/cursorless-engine/singletons/ide.singleton";
-import { IDE } from "../libs/common/ide/types/ide.types";
 import {
   ExtraSnapshotField,
   takeSnapshot,

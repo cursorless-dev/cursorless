@@ -8,7 +8,6 @@ import {
 import { SyntaxNode, TreeCursor } from "web-tree-sitter";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Graph } from "../typings/Types";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
 
 export default class Debug {
   private disposableConfiguration?: Disposable;

@@ -1,21 +1,20 @@
 import * as vscode from "vscode";
 import { ActionType } from "../../actions/actions.types";
-import { CURSORLESS_COMMAND_ID } from "../../libs/common/commandIds";
 import { OutdatedExtensionError } from "../../errors";
+import { CURSORLESS_COMMAND_ID } from "../../libs/common/commandIds";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
-import { getActiveTextEditor } from "../../ide/vscode/activeTextEditor";
 import processTargets from "../../processTargets";
 import isTesting from "../../testUtil/isTesting";
 import { Target } from "../../typings/target.types";
 import {
   Graph,
   ProcessedTargetsContext,
-  SelectionWithEditor,
+  SelectionWithEditor
 } from "../../typings/Types";
 import { isString } from "../../util/type";
 import {
   canonicalizeAndValidateCommand,
-  checkForOldInference,
+  checkForOldInference
 } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
 import inferFullTargets from "../inferFullTargets";

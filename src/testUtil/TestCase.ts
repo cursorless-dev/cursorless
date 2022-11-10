@@ -4,14 +4,12 @@ import { TestDecoration } from "../core/editStyles";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ThatMark } from "../core/ThatMark";
 import SpyIDE, { SpyIDERecordedValues } from "../libs/common/ide/spy/SpyIDE";
-import { TargetDescriptor } from "../typings/targetDescriptor.types";
-import { Token } from "../typings/Types";
-import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 import {
   extractTargetedMarks,
   extractTargetKeys,
 } from "../libs/common/testUtil/extractTargetedMarks";
 import serialize from "../libs/common/testUtil/serialize";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import {
   ExtraSnapshotField,
   takeSnapshot,
@@ -22,14 +20,15 @@ import {
   SerializedMarks,
   testDecorationsToPlainObject,
 } from "../libs/vscode-common/toPlainObject";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
+import { TargetDescriptor } from "../typings/targetDescriptor.types";
+import { Token } from "../typings/Types";
+import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 import type {
   PlainTestDecoration,
-  ThrownError,
   TestCaseCommand,
   TestCaseFixture,
+  ThrownError,
 } from "./TestCaseFixture";
-import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 
 export type TestCaseContext = {
   thatMark: ThatMark;

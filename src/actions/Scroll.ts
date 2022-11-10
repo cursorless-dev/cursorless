@@ -1,10 +1,10 @@
 import { commands } from "vscode";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { groupBy } from "../util/itertools";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { Action, ActionReturnValue } from "./actions.types";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
 
 class Scroll implements Action {
   constructor(private graph: Graph, private at: string) {

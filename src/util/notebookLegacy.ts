@@ -7,9 +7,9 @@ import {
   TextEditor,
   version,
 } from "vscode";
-import { getNotebookFromCellDocument } from "./notebook";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { getCellIndex } from "../libs/vscode-common/notebook";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
+import { getNotebookFromCellDocument } from "./notebook";
 
 export function isVscodeLegacyNotebookVersion() {
   return semver.lt(version, "1.68.0");

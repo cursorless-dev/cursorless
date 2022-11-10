@@ -3,13 +3,13 @@ import * as vscode from "vscode";
 import Decorations from "../core/Decorations";
 import { HatStyleName } from "../core/hatStyles";
 import { IndividualHatMap } from "../core/IndividualHatMap";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { TokenGraphemeSplitter } from "../libs/cursorless-engine/tokenGraphemeSplitter";
 import { getMatcher } from "../libs/cursorless-engine/tokenizer";
 import { Token } from "../typings/Types";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
 
 export function addDecorationsToEditors(
   hatTokenMap: IndividualHatMap,

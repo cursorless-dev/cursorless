@@ -2,7 +2,6 @@ import { flatten } from "lodash";
 import { commands } from "vscode";
 import { selectionToThatTarget } from "../core/commandRunner/selectionToThatTarget";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
