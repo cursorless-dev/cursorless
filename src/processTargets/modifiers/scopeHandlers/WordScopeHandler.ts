@@ -3,7 +3,7 @@ import { NestedScopeHandler } from ".";
 import { Direction } from "../../../typings/targetDescriptor.types";
 import { SubTokenWordTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
-import WordTokenizer from "./WordTokenizer";
+import WordTokenizer from "../../../libs/cursorless-engine/scopeHandlers/WordScopeHandler/WordTokenizer";
 
 export default class WordScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "word" } as const;

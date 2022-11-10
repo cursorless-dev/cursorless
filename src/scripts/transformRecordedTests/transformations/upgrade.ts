@@ -1,7 +1,7 @@
 import { flow } from "lodash";
 import { canonicalizeAndValidateCommand } from "../../../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { cleanUpTestCaseCommand } from "../../../testUtil/cleanUpTestCaseCommand";
-import { TestCaseFixture } from "../../../testUtil/TestCase";
+import { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
 import { reorderFields } from "./reorderFields";
 
 export const upgrade = flow(upgradeCommand, reorderFields);

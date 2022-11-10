@@ -1,4 +1,4 @@
-import { TestCaseCommand } from "./TestCase";
+import { TestCaseCommand } from "./TestCaseFixture";
 
 export function cleanUpTestCaseCommand(
   command: TestCaseCommand,

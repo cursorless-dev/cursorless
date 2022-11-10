@@ -1,5 +1,5 @@
 import { window } from "vscode";
-import { MessageId, Messages } from "../ide.types";
+import { MessageId, Messages } from "../../libs/common/ide/types/Messages";
 
 export default class VscodeMessages implements Messages {
   async showWarning(

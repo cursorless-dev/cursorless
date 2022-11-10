@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { tokenize } from "../core/tokenizer";
+import { tokenize } from "../libs/cursorless-engine/tokenizer";
 import { RangeOffsets } from "../typings/updateSelections";
 
 export interface PartialToken {

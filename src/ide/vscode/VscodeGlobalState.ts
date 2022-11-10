@@ -1,5 +1,10 @@
 import { ExtensionContext } from "vscode";
-import { State, StateKey, StateType, STATE_KEYS } from "../ide.types";
+import {
+  State,
+  StateKey,
+  StateType,
+  STATE_KEYS,
+} from "../../libs/common/ide/types/State";
 
 export default class VscodeGlobalState implements State {
   constructor(private extensionContext: ExtensionContext) {

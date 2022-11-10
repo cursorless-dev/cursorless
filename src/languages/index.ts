@@ -1,4 +1,7 @@
-import { SupportedLanguageId, supportedLanguageIds } from "./constants";
+import {
+  SupportedLanguageId,
+  supportedLanguageIds,
+} from "../libs/cursorless-engine/languages/constants";
 
 export function isLanguageSupported(
   languageId: string,

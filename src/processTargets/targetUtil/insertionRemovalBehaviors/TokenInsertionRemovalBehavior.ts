@@ -1,5 +1,5 @@
 import { Range, TextDocument, TextEditor } from "vscode";
-import { tokenize } from "../../../core/tokenizer";
+import { tokenize } from "../../../libs/cursorless-engine/tokenizer";
 import type { Target } from "../../../typings/target.types";
 import { expandToFullLine, makeEmptyRange } from "../../../util/rangeUtils";
 import { PlainTarget } from "../../targets";

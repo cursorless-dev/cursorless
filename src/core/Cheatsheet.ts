@@ -5,6 +5,7 @@ import { Graph } from "../typings/Types";
 import path = require("path");
 import produce from "immer";
 import { sortBy } from "lodash";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 
 /**
  * The argument expected by the cheatsheet command.
@@ -31,7 +32,7 @@ export default class Cheatsheet {
   private disposables: vscode.Disposable[] = [];
 
   constructor(private graph: Graph) {
-    graph.extensionContext.subscriptions.push(this);
+    ide().disposeOnExit(this);
 
     this.showCheatsheet = this.showCheatsheet.bind(this);
     this.updateDefaults = this.updateDefaults.bind(this);
@@ -60,7 +61,7 @@ export default class Cheatsheet {
     }
 
     const cheatsheetPath = path.join(
-      this.graph.extensionContext.extensionPath,
+      ide().assetsRoot,
       "cursorless-nx",
       "dist",
       "apps",
@@ -87,11 +88,12 @@ export default class Cheatsheet {
    * @param spokenFormInfo The new value to use for default spoken forms.
    */
   private async updateDefaults(spokenFormInfo: CheatsheetInfo) {
+    const { runMode, assetsRoot, workspaceFolders } = ide();
+
     const workspacePath =
-      this.graph.extensionContext.extensionMode ===
-      vscode.ExtensionMode.Development
-        ? this.graph.extensionContext.extensionPath
-        : vscode.workspace.workspaceFolders?.[0].uri.path ?? null;
+      runMode === "development"
+        ? assetsRoot
+        : workspaceFolders?.[0].uri.path ?? null;
 
     if (workspacePath == null) {
       throw new Error(
