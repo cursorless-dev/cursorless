@@ -3,6 +3,7 @@ import { Clipboard } from "./Clipboard";
 import { Configuration } from "./Configuration";
 import { Messages } from "./Messages";
 import { State } from "./State";
+import type TextEditor from "./TextEditor";
 
 export type RunMode = "production" | "development" | "test";
 
@@ -24,17 +25,24 @@ export interface IDE {
    * The root directory of this shipped code.  Can be used to access bundled
    * assets.
    */
-  assetsRoot: string;
+  readonly assetsRoot: string;
 
   /**
    * Whether we are running in development, test, or production
    */
-  runMode: RunMode;
+  readonly runMode: RunMode;
 
   /**
    * A list of workspace folders for the currently active workspace
    */
-  workspaceFolders: readonly WorkspaceFolder[] | undefined;
+  readonly workspaceFolders: readonly WorkspaceFolder[] | undefined;
+
+  /**
+   * The currently active editor or `undefined`. The active editor is the one
+   * that currently has focus or, when none has focus, the one that has changed
+   * input most recently.
+   */
+  readonly activeTextEditor: TextEditor | undefined;
 }
 
 export interface WorkspaceFolder {

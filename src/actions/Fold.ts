@@ -1,10 +1,10 @@
 import { commands } from "vscode";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
 
 class FoldAction implements Action {
   constructor(private command: string) {
@@ -12,7 +12,7 @@ class FoldAction implements Action {
   }
 
   async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
-    const originalEditor = getActiveTextEditor();
+    const originalEditor = ide().activeTextEditor;
     const editor = ensureSingleEditor(targets);
 
     if (originalEditor !== editor) {

@@ -63,7 +63,7 @@ export class TestCase {
     private captureFinalThatMark: boolean,
     private extraSnapshotFields?: ExtraSnapshotField[],
   ) {
-    const activeEditor = getActiveTextEditor()!;
+    const activeEditor = ide().activeTextEditor!;
     this.command = cleanUpTestCaseCommand(command);
 
     const { targets } = context;
@@ -178,7 +178,7 @@ export class TestCase {
       this.context.sourceMark,
       excludeFields,
       this.extraSnapshotFields,
-      getActiveTextEditor()!,
+      ide().activeTextEditor!,
       ide(),
       this.getMarks(),
       { startTimestamp: this.startTimestamp },
@@ -193,7 +193,7 @@ export class TestCase {
       this.context.sourceMark,
       excludeFields,
       this.extraSnapshotFields,
-      getActiveTextEditor()!,
+      ide().activeTextEditor!,
       ide(),
       this.isHatTokenMapTest ? this.getMarks() : undefined,
       { startTimestamp: this.startTimestamp },

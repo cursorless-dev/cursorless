@@ -2,6 +2,8 @@ import { flatten } from "lodash";
 import { commands } from "vscode";
 import { selectionToThatTarget } from "../core/commandRunner/selectionToThatTarget";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import {
@@ -15,7 +17,6 @@ import {
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
 
 export interface CommandOptions {
   command?: string;
@@ -120,7 +121,7 @@ export default class CommandAction implements Action {
       ensureSingleTarget(targets);
     }
 
-    const originalEditor = getActiveTextEditor();
+    const originalEditor = ide().activeTextEditor;
 
     const thatTargets = await this.runCommandAndUpdateSelections(
       targets,
@@ -131,7 +132,7 @@ export default class CommandAction implements Action {
     if (
       actualOptions.restoreSelection &&
       originalEditor != null &&
-      originalEditor !== getActiveTextEditor()
+      originalEditor !== ide().activeTextEditor
     ) {
       // NB: We just do one editor focus at the end, instead of using
       // setSelectionsAndFocusEditor because the command might operate on

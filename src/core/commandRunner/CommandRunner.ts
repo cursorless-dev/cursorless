@@ -114,11 +114,11 @@ export default class CommandRunner {
         actionPrePositionStages,
         actionFinalStages,
         currentSelections:
-          getActiveTextEditor()?.selections.map((selection) => ({
+          ide().activeTextEditor?.selections.map((selection) => ({
             selection,
-            editor: getActiveTextEditor()!,
+            editor: ide().activeTextEditor!,
           })) ?? [],
-        currentEditor: getActiveTextEditor(),
+        currentEditor: ide().activeTextEditor,
         hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],

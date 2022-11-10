@@ -88,7 +88,7 @@ export default class Debug {
 
   private logBranchTypes(event: TextEditorSelectionChangeEvent) {
     const location = new Location(
-      getActiveTextEditor()!.document.uri,
+      ide().activeTextEditor!.document.uri,
       event.selections[0],
     );
 

@@ -2,6 +2,7 @@ import { pull } from "lodash";
 import {
   ExtensionContext,
   ExtensionMode,
+  window,
   workspace,
   WorkspaceFolder,
 } from "vscode";
@@ -10,10 +11,12 @@ import {
   IDE,
   RunMode,
 } from "../../libs/common/ide/types/ide.types";
+import type TextEditor from "../../libs/common/ide/types/TextEditor";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
 import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeMessages from "./VscodeMessages";
+import VscodeTextEditor from "./VscodeTextEditor";
 
 const EXTENSION_MODE_MAP: Record<ExtensionMode, RunMode> = {
   [ExtensionMode.Development]: "development",
@@ -44,6 +47,12 @@ export default class VscodeIDE implements IDE {
 
   get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
     return workspace.workspaceFolders;
+  }
+
+  get activeTextEditor(): TextEditor | undefined {
+    return window.activeTextEditor != null
+      ? new VscodeTextEditor(window.activeTextEditor)
+      : undefined;
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

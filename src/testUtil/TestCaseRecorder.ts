@@ -186,7 +186,7 @@ export class TestCaseRecorder {
             undefined,
             ["clipboard"],
             this.active ? this.extraSnapshotFields : undefined,
-            getActiveTextEditor()!,
+            ide().activeTextEditor!,
             ide(),
             marks,
             this.active ? { startTimestamp: this.startTimestamp } : undefined,
@@ -336,7 +336,7 @@ export class TestCaseRecorder {
 
       await this.testCase.recordInitialState();
 
-      const editor = getActiveTextEditor()!;
+      const editor = ide().activeTextEditor!;
       // NB: We need to copy the editor options rather than storing a reference
       // because its properties are lazy
       this.originalTextEditorOptions = { ...editor.options };
@@ -469,7 +469,7 @@ export class TestCaseRecorder {
     this.spyIde = undefined;
     this.originalIde = undefined;
 
-    const editor = getActiveTextEditor()!;
+    const editor = ide().activeTextEditor!;
     editor.options = this.originalTextEditorOptions;
   }
 

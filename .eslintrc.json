@@ -52,7 +52,7 @@
 		"no-restricted-properties": [
 			2,
 			{
-				"property": "activeTextEditor"
+				"property": "activeTextEditor TODO: "
 			}
 		]
 	},

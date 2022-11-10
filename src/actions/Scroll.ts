@@ -18,11 +18,11 @@ class Scroll implements Action {
       return { lineNumber: getLineNumber(targets, this.at), editor };
     });
 
-    const originalEditor = getActiveTextEditor();
+    const originalEditor = ide().activeTextEditor;
 
     for (const lineWithEditor of lines) {
       // For reveal line to the work we have to have the correct editor focused
-      if (lineWithEditor.editor !== getActiveTextEditor()) {
+      if (lineWithEditor.editor !== ide().activeTextEditor) {
         await focusEditor(lineWithEditor.editor);
       }
       await commands.executeCommand("revealLine", {
@@ -32,7 +32,7 @@ class Scroll implements Action {
     }
 
     // If necessary focus back original editor
-    if (originalEditor != null && originalEditor !== getActiveTextEditor()) {
+    if (originalEditor != null && originalEditor !== ide().activeTextEditor) {
       await focusEditor(originalEditor);
     }
 

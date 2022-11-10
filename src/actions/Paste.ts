@@ -18,7 +18,7 @@ export class Paste {
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const targetEditor = ensureSingleEditor(targets);
-    const originalEditor = getActiveTextEditor();
+    const originalEditor = ide().activeTextEditor;
 
     // First call editNew in order to insert delimiters if necessary and leave
     // the cursor in the right position.  Note that this action will focus the
@@ -56,7 +56,7 @@ export class Paste {
     setSelectionsWithoutFocusingEditor(targetEditor, updatedCursorSelections);
 
     // If necessary focus back original editor
-    if (originalEditor != null && originalEditor !== getActiveTextEditor()) {
+    if (originalEditor != null && originalEditor !== ide().activeTextEditor) {
       // NB: We just do one editor focus at the end, instead of using
       // setSelectionsAndFocusEditor because the command might operate on
       // multiple editors, so we just do one focus at the end.

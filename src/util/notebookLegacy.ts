@@ -16,7 +16,7 @@ export function isVscodeLegacyNotebookVersion() {
 }
 
 export async function focusNotebookCellLegacy(editor: TextEditor) {
-  const activeTextEditor = getActiveTextEditor();
+  const activeTextEditor = ide().activeTextEditor;
 
   if (activeTextEditor == null) {
     return;

@@ -20,13 +20,13 @@ export function addDecorationsToEditors(
 
   let editors: readonly vscode.TextEditor[];
 
-  if (getActiveTextEditor() == null) {
+  if (ide().activeTextEditor == null) {
     editors = vscode.window.visibleTextEditors;
   } else {
     editors = [
-      getActiveTextEditor()!,
+      ide().activeTextEditor!,
       ...vscode.window.visibleTextEditors.filter(
-        (editor) => editor !== getActiveTextEditor(),
+        (editor) => editor !== ide().activeTextEditor,
       ),
     ];
   }
