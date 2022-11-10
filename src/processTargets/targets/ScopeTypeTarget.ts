@@ -154,7 +154,6 @@ function getDelimiter(scopeType: SimpleScopeTypeType): string {
   switch (scopeType) {
     case "class":
     case "namedFunction":
-    case "ifStatement":
     case "section":
     case "sectionLevelOne":
     case "sectionLevelTwo":
@@ -166,6 +165,7 @@ function getDelimiter(scopeType: SimpleScopeTypeType): string {
 
     case "anonymousFunction":
     case "statement":
+    case "ifStatement":
     case "comment":
     case "xmlElement":
     case "collectionItem":
