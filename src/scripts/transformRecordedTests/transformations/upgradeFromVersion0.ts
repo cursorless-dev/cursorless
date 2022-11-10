@@ -1,4 +1,4 @@
-import { TestCaseFixture } from "../../../testUtil/TestCase";
+import { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
 import { PartialPrimitiveTargetDescriptor } from "../../../typings/targetDescriptor.types";
 

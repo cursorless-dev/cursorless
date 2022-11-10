@@ -1,5 +1,5 @@
 import { Target } from "../typings/target.types";
-import sleep from "../util/sleep";
+import sleep from "../libs/common/util/sleep";
 import CommandAction from "./CommandAction";
 
 abstract class MakeshiftAction extends CommandAction {

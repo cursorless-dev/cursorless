@@ -1,9 +1,9 @@
-import { HatStyleName } from "./hatStyles";
-import { Graph } from "../typings/Types";
-import { IndividualHatMap, ReadOnlyHatMap } from "./IndividualHatMap";
-import { HatAllocator } from "./HatAllocator";
 import { hrtime } from "process";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
+import type { Graph } from "../typings/Types";
 import { abs } from "../util/bigint";
+import { HatAllocator } from "./HatAllocator";
+import { IndividualHatMap, ReadOnlyHatMap } from "./IndividualHatMap";
 
 /**
  * Maximum age for the pre-phrase snapshot before we consider it to be stale
@@ -32,7 +32,7 @@ export default class HatTokenMap {
   private hatAllocator: HatAllocator;
 
   constructor(private graph: Graph) {
-    graph.extensionContext.subscriptions.push(this);
+    ide().disposeOnExit(this);
     this.activeMap = new IndividualHatMap(graph);
 
     this.getActiveMap = this.getActiveMap.bind(this);
@@ -48,21 +48,6 @@ export default class HatTokenMap {
 
   addDecorations() {
     return this.hatAllocator.addDecorations();
-  }
-
-  static getKey(hatStyle: HatStyleName, character: string) {
-    return `${hatStyle}.${character}`;
-  }
-
-  static splitKey(key: string) {
-    const [hatStyle, character] = key.split(".");
-
-    return {
-      hatStyle: hatStyle as HatStyleName,
-      // If the character is `.` then it will appear as a zero length string
-      // due to the way the split on `.` works
-      character: character.length === 0 ? "." : character,
-    };
   }
 
   private async getActiveMap() {
