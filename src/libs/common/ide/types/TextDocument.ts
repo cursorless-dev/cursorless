@@ -1,5 +1,7 @@
 import type { URI } from "vscode-uri";
-import type Range from "./Range";
+import type Position from "../Position";
+import type Range from "../Range";
+import type TextLine from "./TextLine";
 
 export default interface TextDocument {
   /**
@@ -16,13 +18,58 @@ export default interface TextDocument {
   readonly languageId: string;
 
   /**
-   * The end of line sequence that is predominately
-   * used in this document.
-   */
-  readonly eol: "LF" | "CRLF";
-
-  /**
    * The range of the text document.
    */
-  readonly range: Range;
+  getRange(): Range;
+
+  /**
+   * Returns a text line denoted by the line number. Note
+   * that the returned object is *not* live and changes to the
+   * document are not reflected.
+   *
+   * @param line A line number in [0, lineCount).
+   * @return A {@link TextLine line}.
+   */
+  lineAt(line: number): TextLine;
+
+  /**
+   * Returns a text line denoted by the position. Note
+   * that the returned object is *not* live and changes to the
+   * document are not reflected.
+   *
+   * The position will be {@link TextDocument.validatePosition adjusted}.
+   *
+   * @see {@link TextDocument.lineAt}
+   *
+   * @param position A position.
+   * @return A {@link TextLine line}.
+   */
+  lineAt(position: Position): TextLine;
+
+  /**
+   * Converts the position to a zero-based offset.
+   *
+   * The position will be {@link TextDocument.validatePosition adjusted}.
+   *
+   * @param position A position.
+   * @return A valid zero-based offset.
+   */
+  offsetAt(position: Position): number;
+
+  /**
+   * Converts a zero-based offset to a position.
+   *
+   * @param offset A zero-based offset.
+   * @return A valid {@link Position}.
+   */
+  positionAt(offset: number): Position;
+
+  /**
+   * Get the text of this document. A substring can be retrieved by providing
+   * a range. The range will be {@link TextDocument.validateRange adjusted}.
+   *
+   * @param range Include only the text included by the range.
+   * @return The text inside the provided range or the entire text.
+   */
+  getText(range?: Range): string;
 }

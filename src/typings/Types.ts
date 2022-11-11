@@ -1,5 +1,4 @@
 import * as vscode from "vscode";
-import { Location } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
 import Cheatsheet from "../core/Cheatsheet";
@@ -12,6 +11,9 @@ import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
 import StatusBarItem from "../core/StatusBarItem";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import Range from "../libs/common/ide/Range";
+import Selection from "../libs/common/ide/Selection";
+import type TextEditor from "../libs/common/ide/types/TextEditor";
 import { CommandServerApi } from "../libs/vscode-common/getExtensionApi";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
@@ -22,7 +24,7 @@ import { FullRangeInfo } from "./updateSelections";
  * A token within a text editor, including the current display line of the token
  */
 export interface Token extends FullRangeInfo {
-  editor: vscode.TextEditor;
+  editor: TextEditor;
   displayLine: number;
 }
 
@@ -38,21 +40,21 @@ export interface ProcessedTargetsContext {
    */
   actionFinalStages: ModifierStage[];
   currentSelections: SelectionWithEditor[];
-  currentEditor: vscode.TextEditor | undefined;
+  currentEditor: TextEditor | undefined;
   hatTokenMap: ReadOnlyHatMap;
   thatMark: Target[];
   sourceMark: Target[];
-  getNodeAtLocation: (location: Location) => SyntaxNode;
+  getNodeAtLocation: (location: vscode.Location) => SyntaxNode;
 }
 
 export interface SelectionWithEditor {
-  selection: vscode.Selection;
-  editor: vscode.TextEditor;
+  selection: Selection;
+  editor: TextEditor;
 }
 
 export interface RangeWithEditor {
-  range: vscode.Range;
-  editor: vscode.TextEditor;
+  range: Range;
+  editor: TextEditor;
 }
 
 export interface SelectionContext {
@@ -61,22 +63,22 @@ export interface SelectionContext {
   /**
    * Selection used for removal
    */
-  removalRange?: vscode.Range;
+  removalRange?: Range;
 
   /**
    * The range used for the interior
    */
-  interiorRange?: vscode.Range;
+  interiorRange?: Range;
 
   /**
    * The range of the delimiter before the selection
    */
-  leadingDelimiterRange?: vscode.Range;
+  leadingDelimiterRange?: Range;
 
   /**
    * The range of the delimiter after the selection
    */
-  trailingDelimiterRange?: vscode.Range;
+  trailingDelimiterRange?: Range;
 }
 
 export type SelectionWithEditorWithContext = {
@@ -85,7 +87,7 @@ export type SelectionWithEditorWithContext = {
 };
 
 export interface SelectionWithContext {
-  selection: vscode.Selection;
+  selection: Selection;
   context: SelectionContext;
 }
 
@@ -177,18 +179,18 @@ export type NodeMatcher = (
  **/
 export type NodeFinder = (
   node: SyntaxNode,
-  selection?: vscode.Selection,
+  selection?: Selection,
 ) => SyntaxNode | null;
 
 /** Returns one or more selections for a given SyntaxNode */
 export type SelectionExtractor = (
-  editor: vscode.TextEditor,
+  editor: TextEditor,
   nodes: SyntaxNode,
 ) => SelectionWithContext;
 
 /** Represent a single edit/change in the document */
 export interface Edit {
-  range: vscode.Range;
+  range: Range;
   text: string;
 
   /**
@@ -209,7 +211,7 @@ export interface EditWithRangeUpdater extends Edit {
    * after applying the edit, and should return a new range which excludes any
    * delimiters that were inserted.
    */
-  updateRange: (range: vscode.Range) => vscode.Range;
+  updateRange: (range: Range) => Range;
 }
 
 export type TextFormatterName =
