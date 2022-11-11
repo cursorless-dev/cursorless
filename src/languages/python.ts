@@ -1,5 +1,5 @@
-import { Selection } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
+import Selection from "../libs/common/ide/Selection";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
 import { argumentNodeFinder, patternFinder } from "../util/nodeFinders";
