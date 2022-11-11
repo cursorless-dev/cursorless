@@ -9,12 +9,12 @@ import { Target } from "../../typings/target.types";
 import {
   Graph,
   ProcessedTargetsContext,
-  SelectionWithEditor
+  SelectionWithEditor,
 } from "../../typings/Types";
 import { isString } from "../../util/type";
 import {
   canonicalizeAndValidateCommand,
-  checkForOldInference
+  checkForOldInference,
 } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
 import inferFullTargets from "../inferFullTargets";
