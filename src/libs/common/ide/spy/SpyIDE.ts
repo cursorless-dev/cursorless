@@ -1,5 +1,4 @@
 import { pickBy, values } from "lodash";
-import { EditableTarget, Target } from "../../../../typings/target.types";
 import type { Clipboard } from "../types/Clipboard";
 import type { Configuration } from "../types/Configuration";
 import type {

@@ -18,6 +18,12 @@ export default interface TextDocument {
   readonly languageId: string;
 
   /**
+   * The version number of this document (it will strictly increase after each
+   * change, including undo/redo).
+   */
+  readonly version: number;
+
+  /**
    * The number of lines in this document.
    */
   readonly lineCount: number;

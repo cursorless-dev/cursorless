@@ -1,4 +1,4 @@
-import { EditableTarget } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { Action, ActionReturnValue } from "./actions.types";
 import CommandAction, { CommandOptions } from "./CommandAction";
@@ -15,7 +15,7 @@ export default class ExecuteCommand implements Action {
   }
 
   async run(
-    targets: [EditableTarget[]],
+    targets: [Target[]],
     command: string,
     args: CommandOptions = {},
   ): Promise<ActionReturnValue> {

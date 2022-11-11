@@ -1,5 +1,4 @@
 import { URI } from "vscode-uri";
-import { EditableTarget, Target } from "../../../../typings/target.types";
 import { Clipboard } from "./Clipboard";
 import { Configuration } from "./Configuration";
 import { Messages } from "./Messages";

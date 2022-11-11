@@ -1,5 +1,5 @@
 import sleep from "../libs/common/util/sleep";
-import { EditableTarget } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import CommandAction from "./CommandAction";
 
 abstract class MakeshiftAction extends CommandAction {
@@ -9,7 +9,7 @@ abstract class MakeshiftAction extends CommandAction {
   ensureSingleTarget?: boolean;
   postCommandSleepMs?: number;
 
-  async run(targets: [EditableTarget[]]) {
+  async run(targets: [Target[]]) {
     const returnValue = await super.run(targets, {
       command: this.command,
       commandArgs: this.commandArg ? [this.commandArg] : [],

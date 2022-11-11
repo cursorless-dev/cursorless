@@ -1,4 +1,4 @@
-import { EditableTarget } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { ensureSingleTarget } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -9,8 +9,8 @@ export default class Call implements Action {
   }
 
   async run([sources, destinations]: [
-    EditableTarget[],
-    EditableTarget[],
+    Target[],
+    Target[],
   ]): Promise<ActionReturnValue> {
     ensureSingleTarget(sources);
 

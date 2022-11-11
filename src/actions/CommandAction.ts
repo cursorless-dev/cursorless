@@ -3,7 +3,7 @@ import { commands } from "vscode";
 import { selectionToThatTarget } from "../core/commandRunner/selectionToThatTarget";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import { EditableTarget, Target } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import {
   setSelectionsAndFocusEditor,
@@ -39,7 +39,7 @@ export default class CommandAction implements Action {
   }
 
   private async runCommandAndUpdateSelections(
-    targets: EditableTarget[],
+    targets: Target[],
     options: Required<CommandOptions>,
   ): Promise<Target[]> {
     return flatten(
@@ -52,7 +52,11 @@ export default class CommandAction implements Action {
         );
 
         // For command to the work we have to have the correct editor focused
-        await setSelectionsAndFocusEditor(editor, targetSelections, false);
+        await setSelectionsAndFocusEditor(
+          ide().getEditableTextEditor(editor),
+          targetSelections,
+          false,
+        );
 
         const [updatedOriginalSelections, updatedTargetSelections] =
           await callFunctionAndUpdateSelections(
@@ -69,7 +73,10 @@ export default class CommandAction implements Action {
           // very end.  This code can run on multiple editors in the course of
           // one command, so we want to avoid focusing the editor multiple
           // times.
-          setSelectionsWithoutFocusingEditor(editor, updatedOriginalSelections);
+          setSelectionsWithoutFocusingEditor(
+            ide().getEditableTextEditor(editor),
+            updatedOriginalSelections,
+          );
         }
 
         // If the document hasn't changed then we just return the original targets
@@ -88,7 +95,7 @@ export default class CommandAction implements Action {
   }
 
   async run(
-    [targets]: [EditableTarget[]],
+    [targets]: [Target[]],
     options: CommandOptions = {},
   ): Promise<ActionReturnValue> {
     const partialOptions = Object.assign(

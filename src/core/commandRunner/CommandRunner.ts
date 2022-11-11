@@ -11,7 +11,6 @@ import {
   ProcessedTargetsContext,
   SelectionWithEditor,
 } from "../../typings/Types";
-import { toEditableTarget } from "../../util/targetUtils";
 import { isString } from "../../util/type";
 import {
   canonicalizeAndValidateCommand,
@@ -150,17 +149,13 @@ export default class CommandRunner {
         targetDescriptors,
       );
 
-      const editableTargets = targets.map((targets) =>
-        targets.map(toEditableTarget),
-      );
-
       const {
         returnValue,
         thatSelections: newThatSelections,
         thatTargets: newThatTargets,
         sourceSelections: newSourceSelections,
         sourceTargets: newSourceTargets,
-      } = await action.run(editableTargets, ...actionArgs);
+      } = await action.run(targets, ...actionArgs);
 
       this.thatMark.set(constructThatTarget(newThatTargets, newThatSelections));
       this.sourceMark.set(

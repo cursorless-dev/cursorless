@@ -1,5 +1,5 @@
 import { shuffle } from "lodash";
-import { EditableTarget } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -10,7 +10,7 @@ abstract class SortBase implements Action {
 
   protected abstract sortTexts(texts: string[]): string[];
 
-  async run(targets: EditableTarget[][]): Promise<ActionReturnValue> {
+  async run(targets: Target[][]): Promise<ActionReturnValue> {
     // First sort target by document order
     const sortedTargets = targets.map((t) =>
       t

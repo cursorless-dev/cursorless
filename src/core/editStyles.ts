@@ -123,7 +123,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
       (range) => range.editor,
       async (editor, ranges) => {
         this.setEditorDecorations(
-          editor,
+          ide().getEditableTextEditor(editor),
           style,
           isToken,
           ranges.map((range) => range.range),
@@ -137,7 +137,9 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
       ranges,
       (range) => range.editor,
       async (editor) => {
-        editor.setDecorations(style.getDecoration(isToken), []);
+        ide()
+          .getEditableTextEditor(editor)
+          .setDecorations(style.getDecoration(isToken), []);
       },
     );
   }
@@ -149,7 +151,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
   ) {
     return runOnTargetsForEachEditor(targets, async (editor, targets) => {
       this.setEditorDecorations(
-        editor,
+        ide().getEditableTextEditor(editor),
         style,
         true,
         targets
@@ -158,7 +160,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
           .filter((range): range is Range => !!range),
       );
       this.setEditorDecorations(
-        editor,
+        ide().getEditableTextEditor(editor),
         style,
         false,
         targets

@@ -1,6 +1,6 @@
 import { commands } from "vscode";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import { EditableTarget, Target } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { groupBy } from "../util/itertools";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -10,8 +10,8 @@ class Scroll implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
-    const selectionGroups = groupBy(targets, (t: EditableTarget) => t.editor);
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+    const selectionGroups = groupBy(targets, (t: Target) => t.editor);
 
     const lines = Array.from(selectionGroups, ([editor, targets]) => {
       return { lineNumber: getLineNumber(targets, this.at), editor };
@@ -22,7 +22,7 @@ class Scroll implements Action {
     for (const lineWithEditor of lines) {
       // For reveal line to the work we have to have the correct editor focused
       if (lineWithEditor.editor !== ide().activeTextEditor) {
-        await lineWithEditor.editor.focus();
+        await ide().getEditableTextEditor(lineWithEditor.editor).focus();
       }
       await commands.executeCommand("revealLine", {
         lineNumber: lineWithEditor.lineNumber,

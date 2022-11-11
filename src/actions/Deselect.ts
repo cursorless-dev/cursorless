@@ -1,5 +1,6 @@
 import Selection from "../libs/common/ide/Selection";
-import { EditableTarget } from "../typings/target.types";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -10,7 +11,7 @@ export default class Deselect implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     await runOnTargetsForEachEditor(targets, async (editor, targets) => {
       // Remove selections with a non-empty intersection
       const newSelections = editor.selections.filter(
@@ -22,7 +23,7 @@ export default class Deselect implements Action {
       );
       // The editor requires at least one selection. Keep "primary" selection active
       setSelectionsWithoutFocusingEditor(
-        editor,
+        ide().getEditableTextEditor(editor),
         newSelections.length > 0
           ? newSelections
           : [new Selection(editor.selections[0].active)],

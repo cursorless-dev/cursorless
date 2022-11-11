@@ -6,7 +6,7 @@ import {
 } from "../core/updateSelections/updateSelections";
 import ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfUntypedStage";
 import { Snippet, SnippetDefinition } from "../typings/snippet";
-import { EditableTarget } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import {
   findMatchingSnippetDefinitionStrict,
@@ -49,7 +49,7 @@ export default class InsertSnippet implements Action {
   }
 
   async run(
-    [targets]: [EditableTarget[]],
+    [targets]: [Target[]],
     snippetName: string,
     substitutions: Record<string, string>,
   ): Promise<ActionReturnValue> {

@@ -1,18 +1,12 @@
 import { zip } from "lodash";
 import Range from "../libs/common/ide/Range";
 import Selection from "../libs/common/ide/Selection";
-import {
-  EditableTextEditor,
-  TextEditor,
-} from "../libs/common/ide/types/TextEditor";
-import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import { EditableTarget, Target } from "../typings/target.types";
+import { TextEditor } from "../libs/common/ide/types/TextEditor";
+import { Target } from "../typings/target.types";
 import { SelectionWithEditor } from "../typings/Types";
 import { groupBy } from "./itertools";
 
-export function ensureSingleEditor(
-  targets: EditableTarget[],
-): EditableTextEditor {
+export function ensureSingleEditor(targets: Target[]): TextEditor {
   if (targets.length === 0) {
     throw new Error("Require at least one target with this action");
   }
@@ -36,8 +30,8 @@ export function ensureSingleTarget(targets: Target[]) {
 
 export async function runForEachEditor<T, U>(
   targets: T[],
-  getEditor: (target: T) => EditableTextEditor,
-  func: (editor: EditableTextEditor, editorTargets: T[]) => Promise<U>,
+  getEditor: (target: T) => TextEditor,
+  func: (editor: TextEditor, editorTargets: T[]) => Promise<U>,
 ): Promise<U[]> {
   return Promise.all(
     groupForEachEditor(targets, getEditor).map(([editor, editorTargets]) =>
@@ -47,20 +41,20 @@ export async function runForEachEditor<T, U>(
 }
 
 export async function runOnTargetsForEachEditor<T>(
-  targets: EditableTarget[],
-  func: (editor: EditableTextEditor, targets: EditableTarget[]) => Promise<T>,
+  targets: Target[],
+  func: (editor: TextEditor, targets: Target[]) => Promise<T>,
 ): Promise<T[]> {
   return runForEachEditor(targets, (target) => target.editor, func);
 }
 
-export function groupTargetsForEachEditor(targets: EditableTarget[]) {
+export function groupTargetsForEachEditor(targets: Target[]) {
   return groupForEachEditor(targets, (target) => target.editor);
 }
 
 export function groupForEachEditor<T>(
   targets: T[],
-  getEditor: (target: T) => EditableTextEditor,
-): [EditableTextEditor, T[]][] {
+  getEditor: (target: T) => TextEditor,
+): [TextEditor, T[]][] {
   // Actually group by document and not editor. If the same document is open in multiple editors we want to perform all actions in one editor or an concurrency error will occur.
   const getDocument = (target: T) => getEditor(target).document;
   const editorMap = groupBy(targets, getDocument);
@@ -110,11 +104,4 @@ export function createThatMark(
           selection: target.contentSelection,
         }));
   return thatMark;
-}
-
-export function toEditableTarget(target: Target): EditableTarget {
-  return {
-    ...target,
-    editor: ide().getEditableTextEditor(target.editor),
-  };
 }

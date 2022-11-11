@@ -1,6 +1,6 @@
 import { commands } from "vscode";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import { EditableTarget } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -10,10 +10,7 @@ class FoldAction implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [
-    EditableTarget[],
-    EditableTarget[],
-  ]): Promise<ActionReturnValue> {
+  async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
     const originalEditor = ide().activeEditableTextEditor;
     const editor = ensureSingleEditor(targets);
 

@@ -19,6 +19,10 @@ export default class VscodeTextDocumentImpl implements TextDocument {
     return this.document.languageId;
   }
 
+  get version(): number {
+    return this.document.version;
+  }
+
   get lineCount(): number {
     return this.document.lineCount;
   }

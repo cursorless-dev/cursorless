@@ -2,7 +2,8 @@ import { flatten } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import Range from "../libs/common/ide/Range";
 import Selection from "../libs/common/ide/Selection";
-import { EditableTarget } from "../typings/target.types";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -17,7 +18,7 @@ class InsertEmptyLines implements Action {
     this.run = this.run.bind(this);
   }
 
-  private getRanges(targets: EditableTarget[]) {
+  private getRanges(targets: Target[]) {
     let lines = targets.flatMap((target) => {
       const lines: number[] = [];
       if (this.insertAbove) {
@@ -41,7 +42,7 @@ class InsertEmptyLines implements Action {
     }));
   }
 
-  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const results = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const ranges = this.getRanges(targets);
@@ -59,7 +60,10 @@ class InsertEmptyLines implements Action {
             ],
           );
 
-        setSelectionsWithoutFocusingEditor(editor, updatedCursorSelections);
+        setSelectionsWithoutFocusingEditor(
+          ide().getEditableTextEditor(editor),
+          updatedCursorSelections,
+        );
 
         return {
           thatMark: updatedThatSelections.map((selection) => ({

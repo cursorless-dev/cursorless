@@ -1,4 +1,4 @@
-import { EditableTarget } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { ensureSingleTarget } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -9,7 +9,7 @@ export default class GetText implements Action {
   }
 
   async run(
-    [targets]: [EditableTarget[]],
+    [targets]: [Target[]],
     {
       showDecorations = true,
       ensureSingleTarget: doEnsureSingleTarget = false,

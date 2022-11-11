@@ -6,7 +6,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfUntypedStage";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { SnippetVariable, Snippet } from "./snippet";
+import type Range from "../libs/common/ide/Range";
+import type Selection from "../libs/common/ide/Selection";
+import type { TextEditor } from "../libs/common/ide/types/TextEditor";
 import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ScopeTypeTarget,
@@ -15,14 +17,10 @@ import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   UntypedTarget,
 } from "../processTargets/targets";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type { Snippet, SnippetVariable } from "./snippet";
 import type { Position } from "./targetDescriptor.types";
 import type { EditWithRangeUpdater } from "./Types";
-import type {
-  EditableTextEditor,
-  TextEditor,
-} from "../libs/common/ide/types/TextEditor";
-import type Range from "../libs/common/ide/Range";
-import type Selection from "../libs/common/ide/Selection";
 
 export interface EditNewCommandContext {
   type: "command";
@@ -147,8 +145,4 @@ export interface Target {
    * @param position The position to use, eg `start`, `end`, `before`, `after`
    */
   toPositionTarget(position: Position): Target;
-}
-
-export interface EditableTarget extends Omit<Target, "editor"> {
-  editor: EditableTextEditor;
 }

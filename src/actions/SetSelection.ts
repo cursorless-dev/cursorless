@@ -1,5 +1,6 @@
 import Selection from "../libs/common/ide/Selection";
-import { EditableTarget, Target } from "../typings/target.types";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
@@ -14,11 +15,14 @@ export class SetSelection implements Action {
     return target.contentSelection;
   }
 
-  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
     const selections = targets.map(this.getSelection);
-    await setSelectionsAndFocusEditor(editor, selections);
+    await setSelectionsAndFocusEditor(
+      ide().getEditableTextEditor(editor),
+      selections,
+    );
 
     return {
       thatTargets: targets,

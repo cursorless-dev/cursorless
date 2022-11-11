@@ -4,7 +4,7 @@ import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelec
 import Selection from "../libs/common/ide/Selection";
 import { EditableTextEditor } from "../libs/common/ide/types/TextEditor";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
-import { EditableTarget } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -18,7 +18,7 @@ class InsertCopy implements Action {
     this.runForEditor = this.runForEditor.bind(this);
   }
 
-  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const results = flatten(
       await runOnTargetsForEachEditor(targets, this.runForEditor),
     );
@@ -40,10 +40,7 @@ class InsertCopy implements Action {
     };
   }
 
-  private async runForEditor(
-    editor: EditableTextEditor,
-    targets: EditableTarget[],
-  ) {
+  private async runForEditor(editor: EditableTextEditor, targets: Target[]) {
     // isBefore is inverted because we want the selections to stay with what is to the user the "copy"
     const position = this.isBefore ? "after" : "before";
     const edits = targets.flatMap((target) =>

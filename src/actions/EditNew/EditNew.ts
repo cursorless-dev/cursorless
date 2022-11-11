@@ -1,7 +1,7 @@
 import { containingLineIfUntypedStage } from "../../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
-import { EditableTarget } from "../../typings/target.types";
+import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
 import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
@@ -20,7 +20,7 @@ export class EditNew implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     if (targets.some((target) => target.isNotebookCell)) {
       // It is not possible to "pour" a notebook cell and something else,
       // because each notebook cell is its own editor, and you can't have

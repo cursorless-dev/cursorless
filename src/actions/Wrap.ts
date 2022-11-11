@@ -4,7 +4,8 @@ import {
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
 import Selection from "../libs/common/ide/Selection";
-import { EditableTarget } from "../typings/target.types";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
+import { Target } from "../typings/target.types";
 import { Edit, Graph } from "../typings/Types";
 import { FullSelectionInfo } from "../typings/updateSelections";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
@@ -17,7 +18,7 @@ export default class Wrap implements Action {
   }
 
   async run(
-    [targets]: [EditableTarget[]],
+    [targets]: [Target[]],
     left: string,
     right: string,
   ): Promise<ActionReturnValue> {
@@ -103,7 +104,10 @@ export default class Wrap implements Action {
           ],
         );
 
-        setSelectionsWithoutFocusingEditor(editor, cursorSelections);
+        setSelectionsWithoutFocusingEditor(
+          ide().getEditableTextEditor(editor),
+          cursorSelections,
+        );
 
         this.graph.editStyles.displayPendingEditDecorationsForRanges(
           delimiterSelections.map((selection) => ({

@@ -1,5 +1,5 @@
 import { EditStyleName } from "../core/editStyles";
-import { EditableTarget } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -9,7 +9,7 @@ export default class Highlight implements Action {
   }
 
   async run(
-    [targets]: [EditableTarget[]],
+    [targets]: [Target[]],
     styleName: EditStyleName = "highlight0",
   ): Promise<ActionReturnValue> {
     const style = this.graph.editStyles[styleName];

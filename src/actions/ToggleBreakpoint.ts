@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import { URI } from "vscode-uri";
 import { toVscodeRange } from "../ide/vscode/VscodeUtil";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
-import { EditableTarget } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -22,10 +22,7 @@ export default class ToggleBreakpoint implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [
-    EditableTarget[],
-    EditableTarget[],
-  ]): Promise<ActionReturnValue> {
+  async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
     const thatTargets = targets.map(({ thatTarget }) => thatTarget);
 
     await this.graph.editStyles.displayPendingEditDecorations(

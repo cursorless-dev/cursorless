@@ -4,6 +4,7 @@ import type Range from "../../libs/common/ide/Range";
 import type Selection from "../../libs/common/ide/Selection";
 import type { EndOfLine } from "../../libs/common/ide/types/ide.types";
 import type { EditableTextEditor } from "../../libs/common/ide/types/TextEditor";
+import { TextEditorDecorationType } from "../../libs/common/ide/types/TextEditorDecorationType";
 import type TextEditorEdit from "../../libs/common/ide/types/TextEditorEdit";
 import { focusVscodeEditor } from "./VscodeFocusEditor";
 import VscodeTextEditorImpl from "./VscodeTextEditorImpl";
@@ -32,6 +33,13 @@ export default class VscodeEditableTextEditorImpl
 
   public focus(): Promise<void> {
     return focusVscodeEditor(this.editor, this.id);
+  }
+
+  public setDecorations(
+    decorationType: TextEditorDecorationType,
+    ranges: readonly Range[],
+  ): void {
+    this.editor.setDecorations(decorationType, ranges.map(toVscodeRange));
   }
 
   public edit(

@@ -1,7 +1,7 @@
 import { commands } from "vscode";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfUntypedStage";
-import { EditableTarget } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import {
   findMatchingSnippetDefinitionStrict,
@@ -45,7 +45,7 @@ export default class WrapWithSnippet implements Action {
   }
 
   async run(
-    [targets]: [EditableTarget[]],
+    [targets]: [Target[]],
     snippetLocation: string,
   ): Promise<ActionReturnValue> {
     const [snippetName, placeholderName] =

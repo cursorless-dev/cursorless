@@ -1,5 +1,5 @@
 import { commands } from "vscode";
-import { EditableTarget } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { ensureSingleTarget } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -9,7 +9,7 @@ export class FindInFiles implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     ensureSingleTarget(targets);
 
     const {

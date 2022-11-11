@@ -1,10 +1,13 @@
 import { flatten } from "lodash";
-import { DecorationRangeBehavior, Selection, TextEditor } from "vscode";
+import { DecorationRangeBehavior } from "vscode";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
-import { EditableTarget, Target } from "../typings/target.types";
+import Selection from "../libs/common/ide/Selection";
+import { TextEditor } from "../libs/common/ide/types/TextEditor";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
+import { Target } from "../typings/target.types";
 import { EditWithRangeUpdater, Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { getContentRange, runForEachEditor } from "../util/targetUtils";
@@ -17,14 +20,14 @@ interface ExtendedEdit {
   edit: EditWithRangeUpdater;
   editor: TextEditor;
   isSource: boolean;
-  originalTarget: EditableTarget;
+  originalTarget: Target;
 }
 
 interface MarkEntry {
   editor: TextEditor;
   selection: Selection;
   isSource: boolean;
-  target: EditableTarget;
+  target: Target;
 }
 
 class BringMoveSwap implements Action {
@@ -32,10 +35,7 @@ class BringMoveSwap implements Action {
     this.run = this.run.bind(this);
   }
 
-  private broadcastSource(
-    sources: EditableTarget[],
-    destinations: EditableTarget[],
-  ) {
+  private broadcastSource(sources: Target[], destinations: Target[]) {
     if (sources.length === 1 && this.type !== "swap") {
       // If there is only one source target, expand it to same length as
       // destination target
@@ -81,11 +81,8 @@ class BringMoveSwap implements Action {
     ]);
   }
 
-  private getEdits(
-    sources: EditableTarget[],
-    destinations: EditableTarget[],
-  ): ExtendedEdit[] {
-    const usedSources: EditableTarget[] = [];
+  private getEdits(sources: Target[], destinations: Target[]): ExtendedEdit[] {
+    const usedSources: Target[] = [];
     const results: ExtendedEdit[] = [];
     const zipSources =
       sources.length !== destinations.length &&
@@ -196,7 +193,10 @@ class BringMoveSwap implements Action {
           // NB: We set the selections here because we don't trust vscode to
           // properly move the cursor on a bring. Sometimes it will smear an
           // empty selection
-          setSelectionsWithoutFocusingEditor(editor, cursorSelections);
+          setSelectionsWithoutFocusingEditor(
+            ide().getEditableTextEditor(editor),
+            cursorSelections,
+          );
 
           return edits.map((edit, index): MarkEntry => {
             const selection = updatedEditSelections[index];
@@ -251,8 +251,8 @@ class BringMoveSwap implements Action {
   }
 
   async run([sources, destinations]: [
-    EditableTarget[],
-    EditableTarget[],
+    Target[],
+    Target[],
   ]): Promise<ActionReturnValue> {
     sources = this.broadcastSource(sources, destinations);
 
