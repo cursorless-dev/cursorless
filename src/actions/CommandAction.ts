@@ -3,10 +3,9 @@ import { commands } from "vscode";
 import { selectionToThatTarget } from "../core/commandRunner/selectionToThatTarget";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import { EditableTarget, Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import {
-  focusEditor,
   setSelectionsAndFocusEditor,
   setSelectionsWithoutFocusingEditor,
 } from "../util/setSelectionsAndFocusEditor";
@@ -40,7 +39,7 @@ export default class CommandAction implements Action {
   }
 
   private async runCommandAndUpdateSelections(
-    targets: Target[],
+    targets: EditableTarget[],
     options: Required<CommandOptions>,
   ): Promise<Target[]> {
     return flatten(
@@ -89,7 +88,7 @@ export default class CommandAction implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    [targets]: [EditableTarget[]],
     options: CommandOptions = {},
   ): Promise<ActionReturnValue> {
     const partialOptions = Object.assign(
@@ -120,7 +119,7 @@ export default class CommandAction implements Action {
       ensureSingleTarget(targets);
     }
 
-    const originalEditor = ide().activeTextEditor;
+    const originalEditor = ide().activeEditableTextEditor;
 
     const thatTargets = await this.runCommandAndUpdateSelections(
       targets,
@@ -136,7 +135,7 @@ export default class CommandAction implements Action {
       // NB: We just do one editor focus at the end, instead of using
       // setSelectionsAndFocusEditor because the command might operate on
       // multiple editors, so we just do one focus at the end.
-      await focusEditor(originalEditor);
+      await originalEditor.focus();
     }
 
     return { thatTargets };

@@ -1,8 +1,12 @@
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
 import { containingSurroundingPairIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
-import { Target } from "../typings/target.types";
+import { EditableTarget } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
+import {
+  createThatMark,
+  runOnTargetsForEachEditor,
+  toEditableTarget,
+} from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Rewrap implements Action {
@@ -13,19 +17,21 @@ export default class Rewrap implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    [targets]: [EditableTarget[]],
     left: string,
     right: string,
   ): Promise<ActionReturnValue> {
-    const boundaryTargets = targets.flatMap((target) => {
-      const boundary = target.getBoundaryStrict();
+    const boundaryTargets = targets
+      .flatMap((target) => {
+        const boundary = target.getBoundaryStrict();
 
-      if (boundary.length !== 2) {
-        throw Error("Target must have an opening and closing delimiter");
-      }
+        if (boundary.length !== 2) {
+          throw Error("Target must have an opening and closing delimiter");
+        }
 
-      return boundary;
-    });
+        return boundary;
+      })
+      .map(toEditableTarget);
 
     await this.graph.editStyles.displayPendingEditDecorations(
       boundaryTargets,

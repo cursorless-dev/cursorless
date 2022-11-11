@@ -1,16 +1,15 @@
 import { containingLineIfUntypedStage } from "../../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
-import { Target } from "../../typings/target.types";
+import { EditableTarget } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
-import { selectionFromRange } from "../../util/selectionUtils";
 import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
 import { Action, ActionReturnValue } from "../actions.types";
 import { State } from "./EditNew.types";
-import { runNotebookCellTargets } from "./runNotebookCellTargets";
 import { runCommandTargets } from "./runCommandTargets";
 import { runEditTargets } from "./runEditTargets";
+import { runNotebookCellTargets } from "./runNotebookCellTargets";
 
 export class EditNew implements Action {
   getFinalStages(): ModifierStage[] {
@@ -21,7 +20,7 @@ export class EditNew implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
     if (targets.some((target) => target.isNotebookCell)) {
       // It is not possible to "pour" a notebook cell and something else,
       // because each notebook cell is its own editor, and you can't have
@@ -45,7 +44,7 @@ export class EditNew implements Action {
     state = await runEditTargets(this.graph, editor, state);
 
     const newSelections = state.targets.map((target, index) =>
-      selectionFromRange(target.isReversed, state.cursorRanges[index]!),
+      state.cursorRanges[index]!.toSelection(target.isReversed),
     );
     await setSelectionsAndFocusEditor(editor, newSelections);
 

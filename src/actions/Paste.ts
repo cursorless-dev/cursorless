@@ -4,21 +4,18 @@ import {
   callFunctionAndUpdateSelectionsWithBehavior,
 } from "../core/updateSelections/updateSelections";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import { EditableTarget } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import {
-  focusEditor,
-  setSelectionsWithoutFocusingEditor,
-} from "../util/setSelectionsAndFocusEditor";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
 
 export class Paste {
   constructor(private graph: Graph) {}
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
     const targetEditor = ensureSingleEditor(targets);
-    const originalEditor = ide().activeTextEditor;
+    const originalEditor = ide().activeEditableTextEditor;
 
     // First call editNew in order to insert delimiters if necessary and leave
     // the cursor in the right position.  Note that this action will focus the
@@ -60,7 +57,7 @@ export class Paste {
       // NB: We just do one editor focus at the end, instead of using
       // setSelectionsAndFocusEditor because the command might operate on
       // multiple editors, so we just do one focus at the end.
-      await focusEditor(originalEditor);
+      await originalEditor.focus();
     }
 
     this.graph.editStyles.displayPendingEditDecorationsForRanges(

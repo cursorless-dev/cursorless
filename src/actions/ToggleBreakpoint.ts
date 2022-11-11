@@ -1,20 +1,15 @@
-import {
-  Breakpoint,
-  debug,
-  Location,
-  Range,
-  SourceBreakpoint,
-  Uri,
-} from "vscode";
+import * as vscode from "vscode";
+import { URI } from "vscode-uri";
+import { toVscodeRange } from "../ide/vscode/VscodeUtil";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
-import { Target } from "../typings/target.types";
+import { EditableTarget } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { Action, ActionReturnValue } from "./actions.types";
 
-function getBreakpoints(uri: Uri, range: Range) {
-  return debug.breakpoints.filter(
+function getBreakpoints(uri: URI, range: vscode.Range) {
+  return vscode.debug.breakpoints.filter(
     (breakpoint) =>
-      breakpoint instanceof SourceBreakpoint &&
+      breakpoint instanceof vscode.SourceBreakpoint &&
       breakpoint.location.uri.toString() === uri.toString() &&
       breakpoint.location.range.intersection(range) != null,
   );
@@ -27,7 +22,10 @@ export default class ToggleBreakpoint implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
+  async run([targets]: [
+    EditableTarget[],
+    EditableTarget[],
+  ]): Promise<ActionReturnValue> {
     const thatTargets = targets.map(({ thatTarget }) => thatTarget);
 
     await this.graph.editStyles.displayPendingEditDecorations(
@@ -35,11 +33,11 @@ export default class ToggleBreakpoint implements Action {
       this.graph.editStyles.referenced,
     );
 
-    const toAdd: Breakpoint[] = [];
-    const toRemove: Breakpoint[] = [];
+    const toAdd: vscode.Breakpoint[] = [];
+    const toRemove: vscode.Breakpoint[] = [];
 
     targets.forEach((target) => {
-      let range = target.contentRange;
+      let range = toVscodeRange(target.contentRange);
       // The action preference give us line content but line breakpoints are registered on character 0
       if (target.isLine) {
         range = range.with(range.start.with(undefined, 0), undefined);
@@ -52,12 +50,14 @@ export default class ToggleBreakpoint implements Action {
         if (target.isLine) {
           range = range.with(undefined, range.end.with(undefined, 0));
         }
-        toAdd.push(new SourceBreakpoint(new Location(uri, range)));
+        toAdd.push(
+          new vscode.SourceBreakpoint(new vscode.Location(uri, range)),
+        );
       }
     });
 
-    debug.addBreakpoints(toAdd);
-    debug.removeBreakpoints(toRemove);
+    vscode.debug.addBreakpoints(toAdd);
+    vscode.debug.removeBreakpoints(toRemove);
 
     return {
       thatTargets: targets,

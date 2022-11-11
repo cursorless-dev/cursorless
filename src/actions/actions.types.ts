@@ -1,6 +1,6 @@
-import { ModifierStage } from "../processTargets/PipelineStages.types";
-import { Target } from "../typings/target.types";
-import { SelectionWithEditor } from "../typings/Types";
+import type { ModifierStage } from "../processTargets/PipelineStages.types";
+import type { EditableTarget, Target } from "../typings/target.types";
+import type { SelectionWithEditor } from "../typings/Types";
 
 export type ActionType =
   | "callAsFunction"
@@ -94,7 +94,7 @@ export interface ActionReturnValue {
 }
 
 export interface Action {
-  run(targets: Target[][], ...args: any[]): Promise<ActionReturnValue>;
+  run(targets: EditableTarget[][], ...args: any[]): Promise<ActionReturnValue>;
 
   /**
    * Used to define stages that should be run before the final positional stage, if there is one

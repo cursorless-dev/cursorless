@@ -1,5 +1,5 @@
 import { env, Uri, window } from "vscode";
-import { Target } from "../typings/target.types";
+import { EditableTarget } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { getLinkForTarget } from "../util/getLinks";
 import { createThatMark, ensureSingleTarget } from "../util/targetUtils";
@@ -10,7 +10,7 @@ export default class FollowLink implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
     const target = ensureSingleTarget(targets);
 
     await this.graph.editStyles.displayPendingEditDecorations(

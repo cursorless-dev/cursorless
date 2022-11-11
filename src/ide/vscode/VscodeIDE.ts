@@ -11,9 +11,13 @@ import {
   IDE,
   RunMode,
 } from "../../libs/common/ide/types/ide.types";
-import type { TextEditor } from "../../libs/common/ide/types/TextEditor";
+import type {
+  EditableTextEditor,
+  TextEditor,
+} from "../../libs/common/ide/types/TextEditor";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
+import VscodeEditableTextEditorImpl from "./VscodeEditableTextEditorImpl";
 import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeMessages from "./VscodeMessages";
 import VscodeTextEditorImpl from "./VscodeTextEditorImpl";
@@ -53,6 +57,18 @@ export default class VscodeIDE implements IDE {
     return window.activeTextEditor != null
       ? new VscodeTextEditorImpl(window.activeTextEditor)
       : undefined;
+  }
+
+  get activeEditableTextEditor(): EditableTextEditor | undefined {
+    return window.activeTextEditor != null
+      ? new VscodeEditableTextEditorImpl(window.activeTextEditor)
+      : undefined;
+  }
+
+  public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
+    return new VscodeEditableTextEditorImpl(
+      (editor as VscodeTextEditorImpl).editor,
+    );
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

@@ -1,6 +1,6 @@
 import { flatten } from "lodash";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
-import { Target } from "../typings/target.types";
+import { EditableTarget } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
@@ -12,7 +12,7 @@ export default class Delete implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    [targets]: [EditableTarget[]],
     { showDecorations = true } = {},
   ): Promise<ActionReturnValue> {
     // Unify overlapping targets because of overlapping leading and trailing delimiters.

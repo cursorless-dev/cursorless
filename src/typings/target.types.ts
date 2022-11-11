@@ -17,7 +17,10 @@ import type {
 } from "../processTargets/targets";
 import type { Position } from "./targetDescriptor.types";
 import type { EditWithRangeUpdater } from "./Types";
-import type { TextEditor } from "../libs/common/ide/types/TextEditor";
+import type {
+  EditableTextEditor,
+  TextEditor,
+} from "../libs/common/ide/types/TextEditor";
 import type Range from "../libs/common/ide/Range";
 import type Selection from "../libs/common/ide/Selection";
 
@@ -144,4 +147,8 @@ export interface Target {
    * @param position The position to use, eg `start`, `end`, `before`, `after`
    */
   toPositionTarget(position: Position): Target;
+}
+
+export interface EditableTarget extends Omit<Target, "editor"> {
+  editor: EditableTextEditor;
 }

@@ -1,5 +1,5 @@
 import { PlainTarget } from "../processTargets/targets";
-import { Target } from "../typings/target.types";
+import { EditableTarget, Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { getOutsideOverflow } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -10,7 +10,7 @@ export class Cut implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
     const overflowTargets = targets.flatMap((target) => {
       const range = target.getRemovalHighlightRange();
       if (range == null) {

@@ -1,5 +1,5 @@
-import { Selection } from "vscode";
-import { Target } from "../typings/target.types";
+import Selection from "../libs/common/ide/Selection";
+import { EditableTarget, Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
@@ -14,7 +14,7 @@ export class SetSelection implements Action {
     return target.contentSelection;
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
     const selections = targets.map(this.getSelection);

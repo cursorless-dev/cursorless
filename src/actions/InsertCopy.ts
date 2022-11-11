@@ -1,8 +1,10 @@
 import { flatten, zip } from "lodash";
-import { DecorationRangeBehavior, Selection, TextEditor } from "vscode";
+import { DecorationRangeBehavior } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
+import Selection from "../libs/common/ide/Selection";
+import { EditableTextEditor } from "../libs/common/ide/types/TextEditor";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
-import { Target } from "../typings/target.types";
+import { EditableTarget } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -16,7 +18,7 @@ class InsertCopy implements Action {
     this.runForEditor = this.runForEditor.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
     const results = flatten(
       await runOnTargetsForEachEditor(targets, this.runForEditor),
     );
@@ -38,7 +40,10 @@ class InsertCopy implements Action {
     };
   }
 
-  private async runForEditor(editor: TextEditor, targets: Target[]) {
+  private async runForEditor(
+    editor: EditableTextEditor,
+    targets: EditableTarget[],
+  ) {
     // isBefore is inverted because we want the selections to stay with what is to the user the "copy"
     const position = this.isBefore ? "after" : "before";
     const edits = targets.flatMap((target) =>
@@ -72,7 +77,7 @@ class InsertCopy implements Action {
     );
 
     setSelectionsWithoutFocusingEditor(editor, updatedEditorSelections);
-    editor.revealRange(editor.selection);
+    editor.revealRange(editor.selections[0]);
 
     return {
       sourceMark: createThatMark(targets, insertionRanges),

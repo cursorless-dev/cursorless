@@ -1,6 +1,6 @@
 import { flatten, zip } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { Target } from "../typings/target.types";
+import { EditableTarget, Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { runForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -31,7 +31,7 @@ export default class Replace implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    [targets]: [EditableTarget[]],
     replaceWith: string[] | RangeGenerator,
   ): Promise<ActionReturnValue> {
     await this.graph.editStyles.displayPendingEditDecorations(

@@ -1,19 +1,19 @@
 import {
   DecorationRangeBehavior,
   DecorationRenderOptions,
-  Position,
-  Range,
-  TextEditor,
   TextEditorDecorationType,
   ThemeColor,
   window,
   workspace,
 } from "vscode";
+import Position from "../libs/common/ide/Position";
+import Range from "../libs/common/ide/Range";
+import { EditableTextEditor } from "../libs/common/ide/types/TextEditor";
+import sleep from "../libs/common/util/sleep";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import isTesting from "../testUtil/isTesting";
 import { Target } from "../typings/target.types";
 import { Graph, RangeWithEditor } from "../typings/Types";
-import sleep from "../libs/common/util/sleep";
 import {
   getContentRange,
   runForEachEditor,
@@ -177,7 +177,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
   }
 
   private setEditorDecorations(
-    editor: TextEditor,
+    editor: EditableTextEditor,
     style: EditStyle,
     isToken: boolean,
     ranges: Range[],

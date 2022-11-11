@@ -1,15 +1,16 @@
 import { pickBy, values } from "lodash";
+import { EditableTarget, Target } from "../../../../typings/target.types";
+import type { Clipboard } from "../types/Clipboard";
+import type { Configuration } from "../types/Configuration";
 import type {
   Disposable,
   IDE,
   RunMode,
   WorkspaceFolder,
 } from "../types/ide.types";
-import type { Configuration } from "../types/Configuration";
 import type { State } from "../types/State";
+import { EditableTextEditor, TextEditor } from "../types/TextEditor";
 import SpyMessages, { Message } from "./SpyMessages";
-import type { Clipboard } from "../types/Clipboard";
-import { TextEditor } from "../types/TextEditor";
 
 export interface SpyIDERecordedValues {
   messages?: Message[];
@@ -32,6 +33,10 @@ export default class SpyIDE implements IDE {
     return this.original.activeTextEditor;
   }
 
+  public get activeEditableTextEditor(): EditableTextEditor | undefined {
+    return this.original.activeEditableTextEditor;
+  }
+
   public get assetsRoot(): string {
     return this.original.assetsRoot;
   }
@@ -42,6 +47,10 @@ export default class SpyIDE implements IDE {
 
   public get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
     return this.original.workspaceFolders;
+  }
+
+  public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
+    return this.original.getEditableTextEditor(editor);
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

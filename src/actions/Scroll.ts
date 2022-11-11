@@ -1,9 +1,8 @@
 import { commands } from "vscode";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import { EditableTarget, Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { groupBy } from "../util/itertools";
-import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class Scroll implements Action {
@@ -11,19 +10,19 @@ class Scroll implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
-    const selectionGroups = groupBy(targets, (t: Target) => t.editor);
+  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
+    const selectionGroups = groupBy(targets, (t: EditableTarget) => t.editor);
 
     const lines = Array.from(selectionGroups, ([editor, targets]) => {
       return { lineNumber: getLineNumber(targets, this.at), editor };
     });
 
-    const originalEditor = ide().activeTextEditor;
+    const originalEditor = ide().activeEditableTextEditor;
 
     for (const lineWithEditor of lines) {
       // For reveal line to the work we have to have the correct editor focused
       if (lineWithEditor.editor !== ide().activeTextEditor) {
-        await focusEditor(lineWithEditor.editor);
+        await lineWithEditor.editor.focus();
       }
       await commands.executeCommand("revealLine", {
         lineNumber: lineWithEditor.lineNumber,
@@ -33,7 +32,7 @@ class Scroll implements Action {
 
     // If necessary focus back original editor
     if (originalEditor != null && originalEditor !== ide().activeTextEditor) {
-      await focusEditor(originalEditor);
+      await originalEditor.focus();
     }
 
     const decorationTargets = targets.filter((target) => {

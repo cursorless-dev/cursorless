@@ -1,8 +1,7 @@
 import { commands } from "vscode";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import { EditableTarget } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -11,12 +10,15 @@ class FoldAction implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
-    const originalEditor = ide().activeTextEditor;
+  async run([targets]: [
+    EditableTarget[],
+    EditableTarget[],
+  ]): Promise<ActionReturnValue> {
+    const originalEditor = ide().activeEditableTextEditor;
     const editor = ensureSingleEditor(targets);
 
     if (originalEditor !== editor) {
-      await focusEditor(editor);
+      await editor.focus();
     }
 
     const singleLineTargets = targets.filter(
@@ -42,7 +44,7 @@ class FoldAction implements Action {
 
     // If necessary focus back original editor
     if (originalEditor != null && originalEditor !== editor) {
-      await focusEditor(originalEditor);
+      await originalEditor.focus();
     }
 
     return {

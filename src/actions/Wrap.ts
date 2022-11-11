@@ -4,7 +4,7 @@ import {
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
 import Selection from "../libs/common/ide/Selection";
-import { Target } from "../typings/target.types";
+import { EditableTarget } from "../typings/target.types";
 import { Edit, Graph } from "../typings/Types";
 import { FullSelectionInfo } from "../typings/updateSelections";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
@@ -17,7 +17,7 @@ export default class Wrap implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    [targets]: [EditableTarget[]],
     left: string,
     right: string,
   ): Promise<ActionReturnValue> {

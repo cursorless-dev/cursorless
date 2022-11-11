@@ -1,5 +1,5 @@
 import { PlainTarget } from "../processTargets/targets";
-import { Target } from "../typings/target.types";
+import { EditableTarget } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
@@ -10,7 +10,7 @@ export default class Clear implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
     // Convert to plain targets so that the remove action just removes the
     // content range instead of the removal range

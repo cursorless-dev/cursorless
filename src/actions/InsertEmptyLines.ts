@@ -1,7 +1,8 @@
 import { flatten } from "lodash";
-import { Range, Selection } from "vscode";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { Target } from "../typings/target.types";
+import Range from "../libs/common/ide/Range";
+import Selection from "../libs/common/ide/Selection";
+import { EditableTarget } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -16,7 +17,7 @@ class InsertEmptyLines implements Action {
     this.run = this.run.bind(this);
   }
 
-  private getRanges(targets: Target[]) {
+  private getRanges(targets: EditableTarget[]) {
     let lines = targets.flatMap((target) => {
       const lines: number[] = [];
       if (this.insertAbove) {
@@ -40,7 +41,7 @@ class InsertEmptyLines implements Action {
     }));
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run([targets]: [EditableTarget[]]): Promise<ActionReturnValue> {
     const results = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const ranges = this.getRanges(targets);
@@ -70,8 +71,8 @@ class InsertEmptyLines implements Action {
             range:
               ranges[index].start.line < editor.document.lineCount - 1
                 ? new Range(
-                    selection.start.translate({ lineDelta: -1 }),
-                    selection.end.translate({ lineDelta: -1 }),
+                    selection.start.translate(-1, undefined),
+                    selection.end.translate(-1, undefined),
                   )
                 : selection,
           })),

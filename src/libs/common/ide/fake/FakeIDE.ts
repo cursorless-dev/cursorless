@@ -5,7 +5,7 @@ import type {
   RunMode,
   WorkspaceFolder,
 } from "../types/ide.types";
-import { TextEditor } from "../types/TextEditor";
+import { EditableTextEditor, TextEditor } from "../types/TextEditor";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
 import FakeGlobalState from "./FakeGlobalState";
@@ -42,6 +42,11 @@ export default class FakeIDE implements IDE {
   runMode: RunMode = "test";
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   activeTextEditor: TextEditor | undefined = undefined;
+  activeEditableTextEditor: EditableTextEditor | undefined = undefined;
+
+  public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
+    throw Error("Not supported");
+  }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
     this.disposables.push(...disposables);

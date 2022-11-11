@@ -1,9 +1,10 @@
 import { URI } from "vscode-uri";
+import { EditableTarget, Target } from "../../../../typings/target.types";
 import { Clipboard } from "./Clipboard";
 import { Configuration } from "./Configuration";
 import { Messages } from "./Messages";
 import { State } from "./State";
-import type { TextEditor } from "./TextEditor";
+import type { EditableTextEditor, TextEditor } from "./TextEditor";
 
 export type RunMode = "production" | "development" | "test";
 
@@ -43,6 +44,17 @@ export interface IDE {
    * input most recently.
    */
   readonly activeTextEditor: TextEditor | undefined;
+
+  /**
+   * Same as {@link activeTextEditor} but editable
+   */
+  readonly activeEditableTextEditor: EditableTextEditor | undefined;
+
+  /**
+   * Get an editable version of the text editor.
+   * @param editor A editable text editor
+   */
+  getEditableTextEditor(editor: TextEditor): EditableTextEditor;
 }
 
 export interface WorkspaceFolder {

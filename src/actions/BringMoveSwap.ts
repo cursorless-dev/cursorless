@@ -4,9 +4,8 @@ import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
-import { Target } from "../typings/target.types";
+import { EditableTarget, Target } from "../typings/target.types";
 import { EditWithRangeUpdater, Graph } from "../typings/Types";
-import { selectionFromRange } from "../util/selectionUtils";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { getContentRange, runForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
@@ -18,14 +17,14 @@ interface ExtendedEdit {
   edit: EditWithRangeUpdater;
   editor: TextEditor;
   isSource: boolean;
-  originalTarget: Target;
+  originalTarget: EditableTarget;
 }
 
 interface MarkEntry {
   editor: TextEditor;
   selection: Selection;
   isSource: boolean;
-  target: Target;
+  target: EditableTarget;
 }
 
 class BringMoveSwap implements Action {
@@ -33,7 +32,10 @@ class BringMoveSwap implements Action {
     this.run = this.run.bind(this);
   }
 
-  private broadcastSource(sources: Target[], destinations: Target[]) {
+  private broadcastSource(
+    sources: EditableTarget[],
+    destinations: EditableTarget[],
+  ) {
     if (sources.length === 1 && this.type !== "swap") {
       // If there is only one source target, expand it to same length as
       // destination target
@@ -79,8 +81,11 @@ class BringMoveSwap implements Action {
     ]);
   }
 
-  private getEdits(sources: Target[], destinations: Target[]): ExtendedEdit[] {
-    const usedSources: Target[] = [];
+  private getEdits(
+    sources: EditableTarget[],
+    destinations: EditableTarget[],
+  ): ExtendedEdit[] {
+    const usedSources: EditableTarget[] = [];
     const results: ExtendedEdit[] = [];
     const zipSources =
       sources.length !== destinations.length &&
@@ -167,7 +172,7 @@ class BringMoveSwap implements Action {
             ({ edit: { range }, originalTarget }) =>
               getSelectionInfo(
                 editor.document,
-                selectionFromRange(originalTarget.isReversed, range),
+                range.toSelection(originalTarget.isReversed),
                 DecorationRangeBehavior.OpenOpen,
               ),
           );
@@ -199,7 +204,7 @@ class BringMoveSwap implements Action {
             const target = edit.originalTarget;
             return {
               editor,
-              selection: selectionFromRange(target.isReversed, range),
+              selection: range.toSelection(target.isReversed),
               isSource: edit.isSource,
               target,
             };
@@ -246,8 +251,8 @@ class BringMoveSwap implements Action {
   }
 
   async run([sources, destinations]: [
-    Target[],
-    Target[],
+    EditableTarget[],
+    EditableTarget[],
   ]): Promise<ActionReturnValue> {
     sources = this.broadcastSource(sources, destinations);
 

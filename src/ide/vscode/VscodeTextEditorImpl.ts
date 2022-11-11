@@ -11,7 +11,7 @@ export default class VscodeTextEditorImpl implements TextEditor {
   readonly id: string;
   readonly document: TextDocument;
 
-  constructor(protected editor: vscode.TextEditor) {
+  constructor(public editor: vscode.TextEditor) {
     this.id = uuid();
     this.document = new VscodeTextDocumentImpl(editor.document);
   }
