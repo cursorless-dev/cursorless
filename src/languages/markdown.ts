@@ -1,4 +1,3 @@
-import { Range, Selection, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import {
@@ -14,11 +13,10 @@ import {
   selectWithLeadingDelimiter,
 } from "../util/nodeSelectors";
 import { getMatchesInRange } from "../apps/cursorless-vscode/getMatchesInRange";
-import {
-  isReversed,
-  selectionFromRange,
-  shrinkRangeToFitContent,
-} from "../util/selectionUtils";
+import Selection from "../libs/common/ide/Selection";
+import { TextEditor } from "../libs/common/ide/types/TextEditor";
+import Range from "../libs/common/ide/Range";
+import { shrinkRangeToFitContent } from "../util/selectionUtils";
 
 /**
  * Given a node representing the text of a section heading (without leading
@@ -90,9 +88,8 @@ function sectionExtractor(editor: TextEditor, node: SyntaxNode) {
   );
   return {
     context,
-    selection: selectionFromRange(
-      isReversed(selection),
-      shrinkRangeToFitContent(editor, selection),
+    selection: shrinkRangeToFitContent(editor, selection).toSelection(
+      selection.isReversed,
     ),
   };
 }
@@ -126,9 +123,8 @@ function itemExtractor(editor: TextEditor, node: SyntaxNode) {
 
   return {
     context,
-    selection: selectionFromRange(
-      isReversed(selection),
-      excludeTrailingNewline(editor, selection),
+    selection: excludeTrailingNewline(editor, selection).toSelection(
+      selection.isReversed,
     ),
   };
 }

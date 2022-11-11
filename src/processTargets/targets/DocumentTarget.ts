@@ -1,4 +1,4 @@
-import { Range } from "vscode";
+import Range from "../../libs/common/ide/Range";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import PlainTarget from "./PlainTarget";

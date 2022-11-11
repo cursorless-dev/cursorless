@@ -1,7 +1,9 @@
-import { Range, TextDocument, TextEditor } from "vscode";
+import Range from "../../../libs/common/ide/Range";
+import TextDocument from "../../../libs/common/ide/types/TextDocument";
+import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import { tokenize } from "../../../libs/cursorless-engine/tokenizer";
 import type { Target } from "../../../typings/target.types";
-import { expandToFullLine, makeEmptyRange } from "../../../util/rangeUtils";
+import { expandToFullLine } from "../../../util/rangeUtils";
 import { PlainTarget } from "../../targets";
 
 export function getTokenLeadingDelimiterTarget(
@@ -65,10 +67,10 @@ export function getTokenRemovalRange(target: Target): Range {
   const { start, end } = contentRange;
 
   const leadingWhitespaceRange =
-    target.getLeadingDelimiterTarget()?.contentRange ?? makeEmptyRange(start);
+    target.getLeadingDelimiterTarget()?.contentRange ?? new Range(start);
 
   const trailingWhitespaceRange =
-    target.getTrailingDelimiterTarget()?.contentRange ?? makeEmptyRange(end);
+    target.getTrailingDelimiterTarget()?.contentRange ?? new Range(end);
 
   const fullLineRange = expandToFullLine(editor, contentRange);
 

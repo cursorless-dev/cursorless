@@ -1,5 +1,6 @@
+import Position from "../../libs/common/ide/Position";
+import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import { Direction } from "../../typings/targetDescriptor.types";
-import { TextEditor, Position } from "vscode";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
 /**

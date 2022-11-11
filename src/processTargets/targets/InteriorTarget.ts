@@ -1,4 +1,4 @@
-import { Range } from "vscode";
+import Range from "../../libs/common/ide/Range";
 import { Target } from "../../typings/target.types";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";

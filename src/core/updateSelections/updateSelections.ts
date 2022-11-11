@@ -1,18 +1,15 @@
 import { flatten } from "lodash";
-import {
-  DecorationRangeBehavior,
-  Range,
-  Selection,
-  TextDocument,
-  TextEditor,
-} from "vscode";
+import { DecorationRangeBehavior } from "vscode";
+import Range from "../../libs/common/ide/Range";
+import Selection from "../../libs/common/ide/Selection";
+import TextDocument from "../../libs/common/ide/types/TextDocument";
+import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import { Edit } from "../../typings/Types";
 import {
   FullSelectionInfo,
   SelectionInfo,
 } from "../../typings/updateSelections";
 import { performDocumentEdits } from "../../util/performDocumentEdits";
-import { isForward } from "../../util/selectionUtils";
 import { RangeUpdater } from "./RangeUpdater";
 
 interface SelectionsWithBehavior {
@@ -37,7 +34,7 @@ export function getSelectionInfo(
   return getSelectionInfoInternal(
     document,
     selection,
-    isForward(selection),
+    !selection.isReversed,
     rangeBehavior,
   );
 }

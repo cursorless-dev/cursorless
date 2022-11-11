@@ -1,4 +1,5 @@
-import type { Position, TextEditor } from "vscode";
+import type Position from "../../../libs/common/ide/Position";
+import type { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import type {
   Direction,
   ScopeType,

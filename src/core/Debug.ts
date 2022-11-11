@@ -1,11 +1,11 @@
 import {
   Disposable,
-  Location,
   TextEditorSelectionChangeEvent,
   window,
   workspace,
 } from "vscode";
 import { SyntaxNode, TreeCursor } from "web-tree-sitter";
+import Location from "../libs/common/ide/Location";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Graph } from "../typings/Types";
 

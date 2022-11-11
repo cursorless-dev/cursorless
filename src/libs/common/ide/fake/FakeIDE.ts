@@ -5,6 +5,7 @@ import type {
   RunMode,
   WorkspaceFolder,
 } from "../types/ide.types";
+import { TextEditor } from "../types/TextEditor";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
 import FakeGlobalState from "./FakeGlobalState";
@@ -40,6 +41,7 @@ export default class FakeIDE implements IDE {
 
   runMode: RunMode = "test";
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
+  activeTextEditor: TextEditor | undefined = undefined;
 
   disposeOnExit(...disposables: Disposable[]): () => void {
     this.disposables.push(...disposables);

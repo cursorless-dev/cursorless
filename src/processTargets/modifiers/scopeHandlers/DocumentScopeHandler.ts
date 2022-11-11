@@ -1,6 +1,6 @@
-import { Position, TextEditor } from "vscode";
+import Position from "../../../libs/common/ide/Position";
+import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
-import { getDocumentRange } from "../../../util/rangeUtils";
 import { DocumentTarget } from "../../targets";
 import BaseScopeHandler from "./BaseScopeHandler";
 import { TargetScope } from "./scope.types";
@@ -19,7 +19,7 @@ export default class DocumentScopeHandler extends BaseScopeHandler {
     _position: Position,
     _direction: Direction,
   ): Iterable<TargetScope> {
-    const contentRange = getDocumentRange(editor.document);
+    const contentRange = editor.document.range;
 
     yield {
       editor,

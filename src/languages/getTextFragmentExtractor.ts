@@ -7,11 +7,11 @@ import { stringTextFragmentExtractor as rubyStringTextFragmentExtractor } from "
 import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } from "./typescript";
 import { stringTextFragmentExtractor as scssStringTextFragmentExtractor } from "./scss";
 import { UnsupportedLanguageError } from "../errors";
-import { Range } from "vscode";
 import { SupportedLanguageId } from "../libs/cursorless-engine/languages/constants";
 import { getNodeInternalRange, getNodeRange } from "../util/nodeSelectors";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { notSupported } from "../util/nodeMatchers";
+import Range from "../libs/common/ide/Range";
 
 export type TextFragmentExtractor = (
   node: SyntaxNode,

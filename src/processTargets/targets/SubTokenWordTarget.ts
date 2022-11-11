@@ -1,4 +1,4 @@
-import { Range } from "vscode";
+import Range from "../../libs/common/ide/Range";
 import { tryConstructPlainTarget as tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";

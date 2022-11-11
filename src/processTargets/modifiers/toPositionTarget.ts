@@ -1,4 +1,4 @@
-import { Range } from "vscode";
+import Range from "../../libs/common/ide/Range";
 import { Target } from "../../typings/target.types";
 import { Position } from "../../typings/targetDescriptor.types";
 import { PositionTarget } from "../targets";

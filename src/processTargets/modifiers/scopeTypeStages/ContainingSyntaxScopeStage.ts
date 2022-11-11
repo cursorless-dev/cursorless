@@ -1,7 +1,8 @@
-import { Location, Selection } from "vscode";
 import type { SyntaxNode } from "web-tree-sitter";
 import { NoContainingScopeError } from "../../../errors";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
+import Location from "../../../libs/common/ide/Location";
+import Selection from "../../../libs/common/ide/Selection";
 import type { Target } from "../../../typings/target.types";
 import type {
   ContainingScopeModifier,

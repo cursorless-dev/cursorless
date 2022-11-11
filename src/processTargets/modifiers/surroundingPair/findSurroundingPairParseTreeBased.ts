@@ -1,5 +1,7 @@
-import { Range, TextDocument, TextEditor } from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
+import Range from "../../../libs/common/ide/Range";
+import TextDocument from "../../../libs/common/ide/types/TextDocument";
+import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import {
   SimpleSurroundingPairName,
   SurroundingPairScopeType,

@@ -1,5 +1,5 @@
-import { Range } from "vscode";
-import { Target } from "../../../typings/target.types";
+import type Range from "../../../libs/common/ide/Range";
+import type { Target } from "../../../typings/target.types";
 
 export default interface InsertionRemovalBehavior {
   getLeadingDelimiterTarget(): Target | undefined;

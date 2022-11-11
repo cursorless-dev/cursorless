@@ -4,9 +4,13 @@ import Position from "../../libs/common/ide/Position";
 import Range from "../../libs/common/ide/Range";
 import TextDocument from "../../libs/common/ide/types/TextDocument";
 import TextLine from "../../libs/common/ide/types/TextLine";
-import { toVscodePosition, toVscodeRange } from "./VscodeUtil";
+import {
+  fromVscodeTextLine,
+  toVscodePosition,
+  toVscodeRange,
+} from "./VscodeUtil";
 
-export default class VscodeTextDocument implements TextDocument {
+export default class VscodeTextDocumentImpl implements TextDocument {
   get uri(): URI {
     return this.document.uri;
   }
@@ -15,18 +19,26 @@ export default class VscodeTextDocument implements TextDocument {
     return this.document.languageId;
   }
 
-  constructor(private document: vscode.TextDocument) {}
+  get lineCount(): number {
+    return this.document.lineCount;
+  }
 
-  getRange(): Range {
+  get range(): Range {
     return new Range(
       new Position(0, 0),
       this.document.lineAt(this.document.lineCount - 1).range.end,
     );
   }
 
+  constructor(private document: vscode.TextDocument) {}
+
   lineAt(lineOrPosition: number | Position): TextLine {
-    return this.document.lineAt(
-      typeof lineOrPosition === "number" ? lineOrPosition : lineOrPosition.line,
+    return fromVscodeTextLine(
+      this.document.lineAt(
+        typeof lineOrPosition === "number"
+          ? lineOrPosition
+          : lineOrPosition.line,
+      ),
     );
   }
 

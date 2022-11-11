@@ -18,9 +18,14 @@ export default interface TextDocument {
   readonly languageId: string;
 
   /**
+   * The number of lines in this document.
+   */
+  readonly lineCount: number;
+
+  /**
    * The range of the text document.
    */
-  getRange(): Range;
+  readonly range: Range;
 
   /**
    * Returns a text line denoted by the line number. Note

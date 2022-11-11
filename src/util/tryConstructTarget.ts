@@ -1,4 +1,5 @@
-import { Range, TextEditor } from "vscode";
+import Range from "../libs/common/ide/Range";
+import { TextEditor } from "../libs/common/ide/types/TextEditor";
 import {
   CommonTargetParameters,
   LineTarget,

@@ -1,5 +1,7 @@
 import { zip } from "lodash";
-import { Range, Selection, TextEditor } from "vscode";
+import Range from "../libs/common/ide/Range";
+import Selection from "../libs/common/ide/Selection";
+import { TextEditor } from "../libs/common/ide/types/TextEditor";
 import { Target } from "../typings/target.types";
 import { SelectionWithEditor } from "../typings/Types";
 import { groupBy } from "./itertools";

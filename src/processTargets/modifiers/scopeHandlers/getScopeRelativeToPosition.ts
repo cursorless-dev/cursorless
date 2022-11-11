@@ -1,4 +1,5 @@
-import { Position, TextEditor } from "vscode";
+import Position from "../../../libs/common/ide/Position";
+import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import { Direction } from "../../../typings/targetDescriptor.types";
 import { OutOfRangeError } from "../targetSequenceUtils";
 import { TargetScope } from "./scope.types";

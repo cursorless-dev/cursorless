@@ -1,11 +1,11 @@
 import { pull } from "lodash";
 import {
   workspace,
-  TextDocument,
   TextDocumentChangeEvent,
   Disposable,
   TextDocumentContentChangeEvent,
 } from "vscode";
+import TextDocument from "../../libs/common/ide/types/TextDocument";
 import { Edit } from "../../typings/Types";
 import {
   ExtendedTextDocumentChangeEvent,

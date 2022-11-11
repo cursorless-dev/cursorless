@@ -25,7 +25,6 @@ import {
 } from "../libs/vscode-common/toPlainObject";
 import { DecoratedSymbolMark } from "../typings/targetDescriptor.types";
 import { Graph } from "../typings/Types";
-import { getDocumentRange } from "../util/rangeUtils";
 import { TestCase, TestCaseContext } from "./TestCase";
 import { TestCaseCommand } from "./TestCaseFixture";
 
@@ -505,4 +504,17 @@ async function readJsonIfExists(
   }
 
   return JSON.parse(rawText);
+}
+
+/**
+ * Get a range that corresponds to the entire contents of the given document.
+ *
+ * @param document The document to consider
+ * @returns A range corresponding to the entire document contents
+ */
+function getDocumentRange(document: vscode.TextDocument) {
+  return new vscode.Range(
+    new vscode.Position(0, 0),
+    document.lineAt(document.lineCount - 1).range.end,
+  );
 }

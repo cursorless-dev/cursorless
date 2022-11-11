@@ -1,6 +1,6 @@
 import { Edit } from "../typings/Types";
-import { TextEditor } from "vscode";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { TextEditor } from "../libs/common/ide/types/TextEditor";
 
 export async function performDocumentEdits(
   rangeUpdater: RangeUpdater,

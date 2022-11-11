@@ -1,5 +1,5 @@
-import { URI } from "vscode-uri";
-import Position from "./Position";
+import type { URI } from "vscode-uri";
+import type Position from "./Position";
 import Range from "./Range";
 
 /**
@@ -10,12 +10,12 @@ export default class Location {
   /**
    * The resource identifier of this location.
    */
-  uri: URI;
+  readonly uri: URI;
 
   /**
    * The document range of this location.
    */
-  range: Range;
+  readonly range: Range;
 
   /**
    * Creates a new location object.

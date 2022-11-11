@@ -1,5 +1,7 @@
-import { Position, Range, TextEditor } from "vscode";
 import { NoContainingScopeError } from "../../../errors";
+import Position from "../../../libs/common/ide/Position";
+import Range from "../../../libs/common/ide/Range";
+import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,

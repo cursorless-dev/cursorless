@@ -1,17 +1,15 @@
 import { ensureSingleTarget } from "../../util/targetUtils";
-
-import { commands, Range, window } from "vscode";
+import { commands, window } from "vscode";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import isTesting from "../../testUtil/isTesting";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
-import { getDocumentRange } from "../../util/rangeUtils";
-import { selectionFromRange } from "../../util/selectionUtils";
 import { Action, ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
 import { openNewSnippetFile } from "./openNewSnippetFile";
 import Substituter from "./Substituter";
+import Range from "../../libs/common/ide/Range";
 
 /**
  * This action can be used to automatically create a snippet from a target. Any
@@ -214,9 +212,7 @@ export default class GenerateSnippet implements Action {
 
     if (isTesting()) {
       // If we're testing, we just overwrite the current document
-      editor.selections = [
-        selectionFromRange(false, getDocumentRange(editor.document)),
-      ];
+      editor.selections = [editor.document.range.toSelection(false)];
     } else {
       // Otherwise, we create and open a new document for the snippet in the
       // user snippets dir

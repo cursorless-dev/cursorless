@@ -3,7 +3,7 @@ import { Clipboard } from "./Clipboard";
 import { Configuration } from "./Configuration";
 import { Messages } from "./Messages";
 import { State } from "./State";
-import type TextEditor from "./TextEditor";
+import type { TextEditor } from "./TextEditor";
 
 export type RunMode = "production" | "development" | "test";
 
@@ -53,3 +53,8 @@ export interface WorkspaceFolder {
 export interface Disposable {
   dispose(): void;
 }
+
+/**
+ * Represents an end of line character sequence in a {@link TextDocument document}.
+ */
+export type EndOfLine = "LF" | "CRLF";

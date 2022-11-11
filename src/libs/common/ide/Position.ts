@@ -84,4 +84,48 @@ export default class Position {
   public isAfterOrEqual(other: Position): boolean {
     return this.isEqual(other) || this.isAfter(other);
   }
+
+  /**
+   * Compare this to `other`.
+   *
+   * @param other A position.
+   * @return A number smaller than zero if this position is before the given position,
+   * a number greater than zero if this position is after the given position, or zero when
+   * this and the given position are equal.
+   */
+  public compareTo(other: Position): number {
+    if (this.isBefore(other)) {
+      return -1;
+    }
+    if (this.isAfter(other)) {
+      return 1;
+    }
+    return 0;
+  }
+
+  /**
+   * Create a new position derived from this position.
+   *
+   * @param line Value that should be used as line value, default is the {@link Position.line existing value}
+   * @param character Value that should be used as character value, default is the {@link Position.character existing value}
+   * @return A position where line and character are replaced by the given values.
+   */
+  public with(line?: number, character?: number): Position {
+    return new Position(line ?? this.line, character ?? this.character);
+  }
+
+  /**
+   * Create a new position relative to this position.
+   *
+   * @param lineDelta Delta value for the line value, default is `0`.
+   * @param characterDelta Delta value for the character value, default is `0`.
+   * @return A position which line and character is the sum of the current line and
+   * character and the corresponding deltas.
+   */
+  public translate(lineDelta?: number, characterDelta?: number): Position {
+    return new Position(
+      this.line + (lineDelta ?? 0),
+      this.character + (characterDelta ?? 0),
+    );
+  }
 }

@@ -1,4 +1,6 @@
-import { Range, Selection, TextDocument } from "vscode";
+import Range from "../../../libs/common/ide/Range";
+import Selection from "../../../libs/common/ide/Selection";
+import TextDocument from "../../../libs/common/ide/types/TextDocument";
 import { SurroundingPairOffsets } from "./types";
 
 export interface SurroundingPairInfo {

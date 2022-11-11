@@ -1,4 +1,3 @@
-import type { Range, Selection, TextEditor } from "vscode";
 // NB: We import `Target` below just so that @link below resolves.  Once one of
 // the following issues are fixed, we can either remove the above line or
 // switch to `{import("foo")}` syntax in the `{@link}` tag.
@@ -18,6 +17,9 @@ import type {
 } from "../processTargets/targets";
 import type { Position } from "./targetDescriptor.types";
 import type { EditWithRangeUpdater } from "./Types";
+import type { TextEditor } from "../libs/common/ide/types/TextEditor";
+import type Range from "../libs/common/ide/Range";
+import type Selection from "../libs/common/ide/Selection";
 
 export interface EditNewCommandContext {
   type: "command";

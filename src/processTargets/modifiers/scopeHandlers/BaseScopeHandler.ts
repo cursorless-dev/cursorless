@@ -1,5 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { Position, Range, TextEditor } from "vscode";
+import Position from "../../../libs/common/ide/Position";
+import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import type {
   Direction,
   ScopeType,

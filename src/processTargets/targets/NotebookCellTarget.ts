@@ -1,4 +1,4 @@
-import { TextEditor } from "vscode";
+import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import { Target } from "../../typings/target.types";
 import { Position } from "../../typings/targetDescriptor.types";
 import { getNotebookFromCellDocument } from "../../util/notebook";

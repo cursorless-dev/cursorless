@@ -1,6 +1,7 @@
-import { Range, TextEditor } from "vscode";
 import { BaseTarget, CommonTargetParameters } from ".";
 import { UnsupportedError } from "../../errors";
+import Range from "../../libs/common/ide/Range";
+import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import { EditNewContext } from "../../typings/target.types";
 import { Position } from "../../typings/targetDescriptor.types";
 import { EditWithRangeUpdater } from "../../typings/Types";

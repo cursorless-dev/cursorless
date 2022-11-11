@@ -9,6 +9,7 @@ import type { Configuration } from "../types/Configuration";
 import type { State } from "../types/State";
 import SpyMessages, { Message } from "./SpyMessages";
 import type { Clipboard } from "../types/Clipboard";
+import { TextEditor } from "../types/TextEditor";
 
 export interface SpyIDERecordedValues {
   messages?: Message[];
@@ -25,6 +26,10 @@ export default class SpyIDE implements IDE {
     this.globalState = original.globalState;
     this.clipboard = original.clipboard;
     this.messages = new SpyMessages(original.messages);
+  }
+
+  public get activeTextEditor(): TextEditor | undefined {
+    return this.original.activeTextEditor;
   }
 
   public get assetsRoot(): string {

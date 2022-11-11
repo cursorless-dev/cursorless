@@ -1,11 +1,9 @@
 import { escapeRegExp, findLast, uniq } from "lodash";
-import { Range, TextDocument, TextEditor } from "vscode";
 import {
   SimpleSurroundingPairName,
   SurroundingPairName,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { getDocumentRange } from "../../../util/rangeUtils";
 import { matchAll } from "../../../libs/cursorless-engine/util/regex";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
@@ -16,6 +14,9 @@ import {
   PossibleDelimiterOccurrence,
   SurroundingPairOffsets,
 } from "./types";
+import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
+import Range from "../../../libs/common/ide/Range";
+import TextDocument from "../../../libs/common/ide/types/TextDocument";
 
 /**
  * The initial range length that we start by scanning
@@ -73,7 +74,7 @@ export function findSurroundingPairTextBased(
   scopeType: SurroundingPairScopeType,
 ) {
   const document: TextDocument = editor.document;
-  const fullRange = allowableRange ?? getDocumentRange(document);
+  const fullRange = allowableRange ?? document.range;
 
   const individualDelimiters = getIndividualDelimiters(delimiters);
 

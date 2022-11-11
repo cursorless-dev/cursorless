@@ -1,5 +1,5 @@
-import { Range } from "vscode";
 import { BaseTarget, CommonTargetParameters } from ".";
+import Range from "../../libs/common/ide/Range";
 import type { Target } from "../../typings/target.types";
 import { createContinuousRangeUntypedTarget } from "../targetUtil/createContinuousRange";
 import {

@@ -1,10 +1,11 @@
 import { isEqual } from "lodash";
-import { Range, Selection, TextEditor } from "vscode";
 import { NoContainingScopeError } from "../../errors";
+import Range from "../../libs/common/ide/Range";
+import Selection from "../../libs/common/ide/Selection";
+import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import type { EditNewContext, Target } from "../../typings/target.types";
 import type { Position } from "../../typings/targetDescriptor.types";
 import type { EditWithRangeUpdater } from "../../typings/Types";
-import { selectionFromRange } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
 import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
@@ -60,7 +61,7 @@ export default abstract class BaseTarget implements Target {
   }
 
   get contentSelection(): Selection {
-    return selectionFromRange(this.isReversed, this.contentRange);
+    return this.contentRange.toSelection(this.isReversed);
   }
 
   get contentRange(): Range {

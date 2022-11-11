@@ -1,4 +1,3 @@
-import * as vscode from "vscode";
 import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
 import Cheatsheet from "../core/Cheatsheet";
@@ -11,9 +10,10 @@ import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
 import StatusBarItem from "../core/StatusBarItem";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import Location from "../libs/common/ide/Location";
 import Range from "../libs/common/ide/Range";
 import Selection from "../libs/common/ide/Selection";
-import type TextEditor from "../libs/common/ide/types/TextEditor";
+import type { TextEditor } from "../libs/common/ide/types/TextEditor";
 import { CommandServerApi } from "../libs/vscode-common/getExtensionApi";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
@@ -44,7 +44,7 @@ export interface ProcessedTargetsContext {
   hatTokenMap: ReadOnlyHatMap;
   thatMark: Target[];
   sourceMark: Target[];
-  getNodeAtLocation: (location: vscode.Location) => SyntaxNode;
+  getNodeAtLocation: (location: Location) => SyntaxNode;
 }
 
 export interface SelectionWithEditor {
@@ -138,7 +138,7 @@ export interface Graph {
   /**
    * Function to access nodes in the tree sitter.
    */
-  readonly getNodeAtLocation: (location: vscode.Location) => SyntaxNode;
+  readonly getNodeAtLocation: (location: Location) => SyntaxNode;
 
   /**
    * Debug logger

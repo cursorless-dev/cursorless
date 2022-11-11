@@ -11,12 +11,12 @@ import {
   IDE,
   RunMode,
 } from "../../libs/common/ide/types/ide.types";
-import type TextEditor from "../../libs/common/ide/types/TextEditor";
+import type { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
 import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeMessages from "./VscodeMessages";
-import VscodeTextEditor from "./VscodeTextEditor";
+import VscodeTextEditorImpl from "./VscodeTextEditorImpl";
 
 const EXTENSION_MODE_MAP: Record<ExtensionMode, RunMode> = {
   [ExtensionMode.Development]: "development",
@@ -51,7 +51,7 @@ export default class VscodeIDE implements IDE {
 
   get activeTextEditor(): TextEditor | undefined {
     return window.activeTextEditor != null
-      ? new VscodeTextEditor(window.activeTextEditor)
+      ? new VscodeTextEditorImpl(window.activeTextEditor)
       : undefined;
   }
 
