@@ -60,14 +60,11 @@ export function createLineTarget(
 export function fitRangeToLineContent(editor: TextEditor, range: Range) {
   const startLine = editor.document.lineAt(range.start);
   const endLine = editor.document.lineAt(range.end);
-  const endCharacterIndex =
-    endLine.range.end.character -
-    (endLine.text.length - endLine.text.trimEnd().length);
 
   return new Range(
     startLine.lineNumber,
     startLine.firstNonWhitespaceCharacterIndex,
     endLine.lineNumber,
-    endCharacterIndex,
+    endLine.lastNonWhitespaceCharacterIndex,
   );
 }

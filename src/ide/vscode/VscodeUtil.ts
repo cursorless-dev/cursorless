@@ -8,6 +8,7 @@ import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import TextLine from "../../libs/common/ide/types/TextLine";
 import VscodeTextDocumentImpl from "./VscodeTextDocumentImpl";
 import VscodeTextEditorImpl from "./VscodeTextEditorImpl";
+import VscodeTextLineImpl from "./VscodeTextLineImpl";
 
 export function toVscodeRange(range: Range): vscode.Range {
   return new vscode.Range(
@@ -70,11 +71,7 @@ export function toVscodeTextLine(line: TextLine): vscode.TextLine {
 }
 
 export function fromVscodeTextLine(line: vscode.TextLine): TextLine {
-  return {
-    ...line,
-    range: fromVscodeRange(line.range),
-    rangeIncludingLineBreak: fromVscodeRange(line.rangeIncludingLineBreak),
-  };
+  return new VscodeTextLineImpl(line);
 }
 
 export function toVscodeEndOfLine(eol: EndOfLine): vscode.EndOfLine {

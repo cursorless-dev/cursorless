@@ -34,6 +34,12 @@ export default interface TextLine {
   readonly firstNonWhitespaceCharacterIndex: number;
 
   /**
+   * The offset of the last character which is not a whitespace character as defined
+   * by `/\s/`. **Note** that if a line is all whitespace the length of the line is returned.
+   */
+  readonly lastNonWhitespaceCharacterIndex: number;
+
+  /**
    * Whether this line is whitespace only, shorthand
    * for {@link TextLine.firstNonWhitespaceCharacterIndex} === {@link TextLine.text TextLine.text.length}.
    */
