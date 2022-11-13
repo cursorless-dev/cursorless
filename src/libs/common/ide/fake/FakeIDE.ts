@@ -42,21 +42,33 @@ export default class FakeIDE implements IDE {
 
   runMode: RunMode = "test";
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
-  activeTextEditor: TextEditor | undefined = undefined;
-  activeEditableTextEditor: EditableTextEditor | undefined = undefined;
+
+  get activeTextEditor(): TextEditor | undefined {
+    return this.original?.activeTextEditor;
+  }
+
+  get activeEditableTextEditor(): EditableTextEditor | undefined {
+    return this.original?.activeEditableTextEditor;
+  }
 
   get visibleTextEditors(): TextEditor[] {
     return this.original?.visibleTextEditors ?? [];
   }
 
-  public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
-    throw Error("Not supported");
+  public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
+    if (this.original == null) {
+      throw Error("Original ide is missing");
+    }
+    return this.original.getEditableTextEditor(editor);
   }
 
   onDidChangeTextDocument(
-    _listener: (event: TextDocumentChangeEvent) => void,
+    listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
-    throw Error("Not supported");
+    if (this.original == null) {
+      throw Error("Original ide is missing");
+    }
+    return this.original.onDidChangeTextDocument(listener);
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
