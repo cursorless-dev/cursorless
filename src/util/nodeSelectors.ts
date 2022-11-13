@@ -427,13 +427,13 @@ export function getInsertionDelimiter(
   trailingDelimiterRange: Range | undefined,
   defaultDelimiterInsertion: string,
 ) {
-  const { getText } = editor.document;
+  const { document } = editor;
   const delimiters = [
     trailingDelimiterRange != null
-      ? getText(trailingDelimiterRange)
+      ? document.getText(trailingDelimiterRange)
       : defaultDelimiterInsertion,
     leadingDelimiterRange != null
-      ? getText(leadingDelimiterRange)
+      ? document.getText(leadingDelimiterRange)
       : defaultDelimiterInsertion,
   ];
 
