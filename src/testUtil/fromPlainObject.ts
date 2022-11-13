@@ -5,7 +5,7 @@ import type {
   RangePlainObject,
   SelectionPlainObject,
   TargetPlainObject,
-} from "../libs/vscode-common/toPlainObject";
+} from "../libs/vscode-common/testUtil/toPlainObject";
 import Range from "../libs/common/ide/Range";
 import Selection from "../libs/common/ide/Selection";
 import Position from "../libs/common/ide/Position";

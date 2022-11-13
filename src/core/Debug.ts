@@ -5,6 +5,7 @@ import {
   workspace,
 } from "vscode";
 import { SyntaxNode, TreeCursor } from "web-tree-sitter";
+import { fromVscodeRange } from "../ide/vscode/VscodeUtil";
 import Location from "../libs/common/ide/Location";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Graph } from "../typings/Types";
@@ -88,7 +89,7 @@ export default class Debug {
   private logBranchTypes(event: TextEditorSelectionChangeEvent) {
     const location = new Location(
       ide().activeTextEditor!.document.uri,
-      event.selections[0],
+      fromVscodeRange(event.selections[0]),
     );
 
     let node: SyntaxNode;

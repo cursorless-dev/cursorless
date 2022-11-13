@@ -3,7 +3,9 @@ import Position from "../../libs/common/ide/Position";
 import Range from "../../libs/common/ide/Range";
 import Selection from "../../libs/common/ide/Selection";
 import { EndOfLine } from "../../libs/common/ide/types/ide.types";
+import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import TextLine from "../../libs/common/ide/types/TextLine";
+import VscodeTextEditorImpl from "./VscodeTextEditorImpl";
 
 export function toVscodeRange(range: Range): vscode.Range {
   return new vscode.Range(
@@ -79,4 +81,15 @@ export function toVscodeEndOfLine(eol: EndOfLine): vscode.EndOfLine {
 
 export function fromVscodeAndOfLine(eol: vscode.EndOfLine): EndOfLine {
   return eol === vscode.EndOfLine.LF ? "LF" : "CRLF";
+}
+
+export function fromVscodeEditor(editor: vscode.TextEditor): TextEditor {
+  return new VscodeTextEditorImpl(editor);
+}
+
+export function toVscodeEditor(editor: TextEditor): vscode.TextEditor {
+  if ("vscodeEditor" in editor) {
+    return (editor as VscodeTextEditorImpl).vscodeEditor;
+  }
+  throw Error("Can't get vscode editor from non vscode implementation");
 }

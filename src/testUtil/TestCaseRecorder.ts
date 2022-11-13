@@ -22,7 +22,7 @@ import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "../libs/vscode-common/test
 import {
   marksToPlainObject,
   SerializedMarks,
-} from "../libs/vscode-common/toPlainObject";
+} from "../libs/vscode-common/testUtil/toPlainObject";
 import { DecoratedSymbolMark } from "../typings/targetDescriptor.types";
 import { Graph } from "../typings/Types";
 import { TestCase, TestCaseContext } from "./TestCase";

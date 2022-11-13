@@ -1,8 +1,9 @@
 import { concat, flatten, maxBy, min } from "lodash";
-import * as vscode from "vscode";
 import Decorations from "../core/Decorations";
 import { HatStyleName } from "../core/hatStyles";
 import { IndividualHatMap } from "../core/IndividualHatMap";
+import Range from "../libs/common/ide/Range";
+import { TextEditor } from "../libs/common/ide/types/TextEditor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { TokenGraphemeSplitter } from "../libs/cursorless-engine/tokenGraphemeSplitter";
 import { getMatcher } from "../libs/cursorless-engine/tokenizer";
@@ -18,14 +19,14 @@ export function addDecorationsToEditors(
 ) {
   hatTokenMap.clear();
 
-  let editors: readonly vscode.TextEditor[];
+  let editors: readonly TextEditor[];
 
   if (ide().activeTextEditor == null) {
-    editors = vscode.window.visibleTextEditors;
+    editors = ide().visibleTextEditors;
   } else {
     editors = [
       ide().activeTextEditor!,
-      ...vscode.window.visibleTextEditors.filter(
+      ...ide().visibleTextEditors.filter(
         (editor) => editor !== ide().activeTextEditor,
       ),
     ];
@@ -58,8 +59,8 @@ export function addDecorationsToEditors(
 
       tokens.sort(
         getTokenComparator(
-          displayLineMap.get(editor.selection.active.line)!,
-          editor.selection.active.character,
+          displayLineMap.get(editor.selections[0].active.line)!,
+          editor.selections[0].active.character,
         ),
       );
 
@@ -95,9 +96,9 @@ export function addDecorationsToEditors(
   const graphemeDecorationIndices: { [grapheme: string]: number } = {};
 
   const decorationRanges: Map<
-    vscode.TextEditor,
+    TextEditor,
     {
-      [decorationName in HatStyleName]?: vscode.Range[];
+      [decorationName in HatStyleName]?: Range[];
     }
   > = new Map(
     editors.map((editor) => [
@@ -156,7 +157,7 @@ export function addDecorationsToEditors(
     decorationRanges
       .get(token.editor)!
       [hatStyleName]!.push(
-        new vscode.Range(
+        new Range(
           token.range.start.translate(undefined, bestGrapheme.tokenStartOffset),
           token.range.start.translate(undefined, bestGrapheme.tokenEndOffset),
         ),
@@ -169,10 +170,12 @@ export function addDecorationsToEditors(
 
   decorationRanges.forEach((ranges, editor) => {
     decorations.hatStyleNames.forEach((hatStyleName) => {
-      editor.setDecorations(
-        decorations.decorationMap[hatStyleName]!,
-        ranges[hatStyleName]!,
-      );
+      ide()
+        .getEditableTextEditor(editor)
+        .setDecorations(
+          decorations.decorationMap[hatStyleName]!,
+          ranges[hatStyleName]!,
+        );
     });
   });
 }

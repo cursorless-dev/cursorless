@@ -1,5 +1,4 @@
-import { NotebookCell, window } from "vscode";
-import TextDocument from "../libs/common/ide/types/TextDocument";
+import { NotebookCell, TextDocument, window } from "vscode";
 import {
   getNotebookFromCellDocumentLegacy,
   isVscodeLegacyNotebookVersion,

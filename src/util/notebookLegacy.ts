@@ -7,6 +7,7 @@ import {
   TextEditor,
   version,
 } from "vscode";
+import { toVscodeEditor } from "../ide/vscode/VscodeUtil";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { getCellIndex } from "../libs/vscode-common/notebook";
 import { getNotebookFromCellDocument } from "./notebook";
@@ -22,9 +23,11 @@ export async function focusNotebookCellLegacy(editor: TextEditor) {
     return;
   }
 
+  const vscodeEditor = toVscodeEditor(activeTextEditor);
+
   const editorNotebook = getNotebookFromCellDocument(editor.document);
   const activeEditorNotebook = getNotebookFromCellDocument(
-    activeTextEditor.document,
+    vscodeEditor.document,
   );
 
   if (
@@ -36,10 +39,7 @@ export async function focusNotebookCellLegacy(editor: TextEditor) {
   }
 
   const editorIndex = getCellIndex(editorNotebook, editor.document);
-  const activeEditorIndex = getCellIndex(
-    editorNotebook,
-    activeTextEditor.document,
-  );
+  const activeEditorIndex = getCellIndex(editorNotebook, vscodeEditor.document);
 
   if (editorIndex === -1 || activeEditorIndex === -1) {
     throw new Error(

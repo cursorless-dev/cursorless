@@ -1,6 +1,6 @@
 export * from "./getExtensionApi";
 export * from "./notebook";
-export * from "./toPlainObject";
+export * from "./testUtil/toPlainObject";
 export * from "./testUtil/testConstants";
 export {
   takeSnapshot,

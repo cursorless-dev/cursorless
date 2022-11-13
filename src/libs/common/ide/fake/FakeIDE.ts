@@ -43,6 +43,7 @@ export default class FakeIDE implements IDE {
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   activeTextEditor: TextEditor | undefined = undefined;
   activeEditableTextEditor: EditableTextEditor | undefined = undefined;
+  visibleTextEditors: TextEditor[] = [];
 
   public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
     throw Error("Not supported");

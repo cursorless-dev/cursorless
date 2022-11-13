@@ -36,6 +36,10 @@ export default class SpyIDE implements IDE {
     return this.original.activeEditableTextEditor;
   }
 
+  public get visibleTextEditors(): TextEditor[] {
+    return this.original.visibleTextEditors;
+  }
+
   public get assetsRoot(): string {
     return this.original.assetsRoot;
   }

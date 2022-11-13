@@ -20,7 +20,7 @@ import VscodeConfiguration from "./VscodeConfiguration";
 import VscodeEditableTextEditorImpl from "./VscodeEditableTextEditorImpl";
 import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeMessages from "./VscodeMessages";
-import VscodeTextEditorImpl from "./VscodeTextEditorImpl";
+import { fromVscodeEditor, toVscodeEditor } from "./VscodeUtil";
 
 const EXTENSION_MODE_MAP: Record<ExtensionMode, RunMode> = {
   [ExtensionMode.Development]: "development",
@@ -55,7 +55,7 @@ export default class VscodeIDE implements IDE {
 
   get activeTextEditor(): TextEditor | undefined {
     return window.activeTextEditor != null
-      ? new VscodeTextEditorImpl(window.activeTextEditor)
+      ? fromVscodeEditor(window.activeTextEditor)
       : undefined;
   }
 
@@ -65,10 +65,12 @@ export default class VscodeIDE implements IDE {
       : undefined;
   }
 
+  get visibleTextEditors(): TextEditor[] {
+    return window.visibleTextEditors.map(fromVscodeEditor);
+  }
+
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-    return new VscodeEditableTextEditorImpl(
-      (editor as VscodeTextEditorImpl).editor,
-    );
+    return new VscodeEditableTextEditorImpl(toVscodeEditor(editor));
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

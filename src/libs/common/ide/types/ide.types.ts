@@ -50,6 +50,11 @@ export interface IDE {
   readonly activeEditableTextEditor: EditableTextEditor | undefined;
 
   /**
+   * The currently visible editors or an empty array.
+   */
+  readonly visibleTextEditors: TextEditor[];
+
+  /**
    * Get an editable version of the text editor.
    * @param editor A editable text editor
    */

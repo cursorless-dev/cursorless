@@ -8,10 +8,10 @@ import {
   SerializedMarks,
   TargetPlainObject,
   targetToPlainObject,
-} from "../toPlainObject";
-import { TextEditor } from "vscode";
+} from "./toPlainObject";
 import type { IDE } from "../../common/ide/types/ide.types";
 import type { Clipboard } from "../../common/ide/types/Clipboard";
+import type { TextEditor } from "../../common/ide/types/TextEditor";
 
 export type ExtraSnapshotField = keyof TestCaseSnapshot;
 export type ExcludableSnapshotField = keyof TestCaseSnapshot;
