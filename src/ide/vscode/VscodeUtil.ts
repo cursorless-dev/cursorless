@@ -30,19 +30,19 @@ export function fromVscodeRange(range: vscode.Range): Range {
 
 export function toVscodeSelection(range: Selection): vscode.Selection {
   return new vscode.Selection(
-    range.start.line,
-    range.start.character,
-    range.end.line,
-    range.end.character,
+    range.anchor.line,
+    range.anchor.character,
+    range.active.line,
+    range.active.character,
   );
 }
 
 export function fromVscodeSelection(range: vscode.Selection): Selection {
   return new Selection(
-    range.start.line,
-    range.start.character,
-    range.end.line,
-    range.end.character,
+    range.anchor.line,
+    range.anchor.character,
+    range.active.line,
+    range.active.character,
   );
 }
 
@@ -60,6 +60,22 @@ export function toVscodePositionOrRange(
   return "start" in location
     ? toVscodeRange(location)
     : toVscodePosition(location);
+}
+
+export function toVscodePositionOrRangeOrSelection(
+  location: Position | Range | Selection,
+): vscode.Position | vscode.Range | vscode.Selection {
+  return "line" in location
+    ? toVscodePosition(location)
+    : toVscodeRangeOrSelection(location);
+}
+
+export function toVscodeRangeOrSelection(
+  location: Range | Selection,
+): vscode.Range | vscode.Selection {
+  return "anchor" in location
+    ? toVscodeSelection(location)
+    : toVscodeRange(location);
 }
 
 export function toVscodeTextLine(line: TextLine): vscode.TextLine {

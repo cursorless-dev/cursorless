@@ -3,8 +3,8 @@ import TextEditorEdit from "../../libs/common/ide/types/TextEditorEdit";
 import {
   toVscodeEndOfLine,
   toVscodePosition,
-  toVscodePositionOrRange,
-  toVscodeRange,
+  toVscodePositionOrRangeOrSelection,
+  toVscodeRangeOrSelection,
 } from "./VscodeUtil";
 
 export default function vscodeEditEditor(
@@ -15,16 +15,19 @@ export default function vscodeEditEditor(
   return editor.edit((editBuilder) => {
     callback({
       replace: (location, value) => {
-        editBuilder.replace(toVscodePositionOrRange(location), value);
+        editBuilder.replace(
+          toVscodePositionOrRangeOrSelection(location),
+          value,
+        );
       },
       insert: (location, value) => {
         editBuilder.insert(toVscodePosition(location), value);
       },
       delete: (location) => {
-        return editBuilder.delete(toVscodeRange(location));
+        editBuilder.delete(toVscodeRangeOrSelection(location));
       },
       setEndOfLine: (endOfLine) => {
-        return editBuilder.setEndOfLine(toVscodeEndOfLine(endOfLine));
+        editBuilder.setEndOfLine(toVscodeEndOfLine(endOfLine));
       },
     });
   }, options);
