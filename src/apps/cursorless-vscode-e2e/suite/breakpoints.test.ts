@@ -5,7 +5,7 @@ import { openNewEditor } from "../openNewEditor";
 import { runCursorlessCommand } from "../runCommand";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite("breakpoints", async function () {
+suite.only("breakpoints", async function () {
   endToEndTestSetup(this);
 
   setup(() => {

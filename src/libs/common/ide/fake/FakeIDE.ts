@@ -19,7 +19,7 @@ export default class FakeIDE implements IDE {
   clipboard: FakeClipboard;
   private disposables: Disposable[] = [];
 
-  constructor() {
+  constructor(private original?: IDE) {
     this.configuration = new FakeConfiguration();
     this.messages = new FakeMessages();
     this.globalState = new FakeGlobalState();
@@ -44,15 +44,18 @@ export default class FakeIDE implements IDE {
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   activeTextEditor: TextEditor | undefined = undefined;
   activeEditableTextEditor: EditableTextEditor | undefined = undefined;
-  visibleTextEditors: TextEditor[] = [];
+
+  get visibleTextEditors(): TextEditor[] {
+    return this.original?.visibleTextEditors ?? [];
+  }
+
+  public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
+    throw Error("Not supported");
+  }
 
   onDidChangeTextDocument(
     _listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
-    throw Error("Not supported");
-  }
-
-  public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
     throw Error("Not supported");
   }
 

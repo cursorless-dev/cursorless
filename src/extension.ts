@@ -33,14 +33,16 @@ export async function activate(
   const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
 
+  const vscodeIDE = new VscodeIDE(context);
+
   if (isTesting()) {
     // FIXME: At some point we'll probably want to support partial mocking
     // rather than mocking away everything that we can
-    const fake = new FakeIDE();
+    const fake = new FakeIDE(vscodeIDE);
     fake.mockAssetsRoot(context.extensionPath);
     injectIde(fake);
   } else {
-    injectIde(new VscodeIDE(context));
+    injectIde(vscodeIDE);
   }
 
   const graph = makeGraph({
