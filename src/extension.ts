@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 import { ThatMark } from "./core/ThatMark";
 import VscodeIDE from "./ide/vscode/VscodeIDE";
-import VscodeTextEditorImpl from "./ide/vscode/VscodeTextEditorImpl";
+import { fromVscodeEditor } from "./ide/vscode/VscodeUtil";
 import FakeIDE from "./libs/common/ide/fake/FakeIDE";
 import ide, {
   injectIde,
@@ -81,10 +81,7 @@ export async function activate(
             editor: vscode.TextEditor,
             plainObject: TargetPlainObject,
           ) => {
-            return plainObjectToTarget(
-              new VscodeTextEditorImpl(editor),
-              plainObject,
-            );
+            return plainObjectToTarget(fromVscodeEditor(editor), plainObject);
           },
         }
       : undefined,
