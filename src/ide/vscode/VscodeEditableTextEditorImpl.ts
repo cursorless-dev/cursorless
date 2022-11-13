@@ -3,8 +3,9 @@ import type Position from "../../libs/common/ide/Position";
 import type Range from "../../libs/common/ide/Range";
 import type Selection from "../../libs/common/ide/Selection";
 import type { EditableTextEditor } from "../../libs/common/ide/types/TextEditor";
-import { TextEditorDecorationType } from "../../libs/common/ide/types/TextEditorDecorationType";
+import type { TextEditorDecorationType } from "../../libs/common/ide/types/TextEditorDecorationType";
 import type TextEditorEdit from "../../libs/common/ide/types/TextEditorEdit";
+import type { TextEditorOptions } from "../../libs/common/ide/types/TextEditorOptions";
 import vscodeEditEditor from "./VscodeEditEditor";
 import vscodeFocusEditor from "./VscodeFocusEditor";
 import vscodeOpenLink from "./VscodeOpenLink";
@@ -25,6 +26,10 @@ export default class VscodeEditableTextEditorImpl
 
   set selections(selections: Selection[]) {
     this.editor.selections = selections.map(toVscodeSelection);
+  }
+
+  set options(options: TextEditorOptions) {
+    this.editor.options = options;
   }
 
   public revealRange(range: Range): void {

@@ -4,6 +4,7 @@ import type Range from "../../libs/common/ide/Range";
 import type Selection from "../../libs/common/ide/Selection";
 import type TextDocument from "../../libs/common/ide/types/TextDocument";
 import type { TextEditor } from "../../libs/common/ide/types/TextEditor";
+import type { TextEditorOptions } from "../../libs/common/ide/types/TextEditorOptions";
 import VscodeTextDocumentImpl from "./VscodeTextDocumentImpl";
 import { fromVscodeRange, fromVscodeSelection } from "./VscodeUtil";
 
@@ -26,6 +27,10 @@ export default class VscodeTextEditorImpl implements TextEditor {
 
   get visibleRanges(): Range[] {
     return this.editor.visibleRanges.map(fromVscodeRange);
+  }
+
+  get options(): TextEditorOptions {
+    return this.editor.options;
   }
 
   public isEqual(other: TextEditor): boolean {

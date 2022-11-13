@@ -4,6 +4,7 @@ import type Selection from "../Selection";
 import type TextDocument from "./TextDocument";
 import type { TextEditorDecorationType } from "./TextEditorDecorationType";
 import type TextEditorEdit from "./TextEditorEdit";
+import { TextEditorOptions } from "./TextEditorOptions";
 
 export interface TextEditor {
   /**
@@ -28,6 +29,11 @@ export interface TextEditor {
   readonly selections: Selection[];
 
   /**
+   * Text editor options.
+   */
+  readonly options: TextEditorOptions;
+
+  /**
    * Check if this text editor is equal to `other`.
    *
    * @param other A text editor.
@@ -41,6 +47,11 @@ export interface EditableTextEditor extends TextEditor {
    * The selections in this text editor. The primary selection is always at index 0.
    */
   selections: Selection[];
+
+  /**
+   * Text editor options.
+   */
+  options: TextEditorOptions;
 
   /**
    * Scroll to reveal the given range.

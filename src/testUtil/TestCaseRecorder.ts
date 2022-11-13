@@ -338,7 +338,8 @@ export class TestCaseRecorder {
       // NB: We need to copy the editor options rather than storing a reference
       // because its properties are lazy
       this.originalTextEditorOptions = { ...editor.options };
-      editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
+      ide().getEditableTextEditor(editor).options =
+        DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
     }
   }
 
@@ -468,7 +469,8 @@ export class TestCaseRecorder {
     this.originalIde = undefined;
 
     const editor = ide().activeTextEditor!;
-    editor.options = this.originalTextEditorOptions;
+    ide().getEditableTextEditor(editor).options =
+      this.originalTextEditorOptions;
   }
 
   dispose() {

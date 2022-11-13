@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 import { ThatMark } from "./core/ThatMark";
 import VscodeIDE from "./ide/vscode/VscodeIDE";
+import VscodeTextEditorImpl from "./ide/vscode/VscodeTextEditorImpl";
 import FakeIDE from "./libs/common/ide/fake/FakeIDE";
 import ide, {
   injectIde,
@@ -11,6 +12,7 @@ import {
   getCommandServerApi,
   getParseTreeApi,
 } from "./libs/vscode-common/getExtensionApi";
+import { TargetPlainObject } from "./libs/vscode-common/testUtil/toPlainObject";
 import { plainObjectToTarget } from "./testUtil/fromPlainObject";
 import isTesting from "./testUtil/isTesting";
 import { Graph } from "./typings/Types";
@@ -73,7 +75,15 @@ export async function activate(
 
           // FIXME: Remove this once we have a better way to get this function
           // accessible from our tests
-          plainObjectToTarget,
+          plainObjectToTarget: (
+            editor: vscode.TextEditor,
+            plainObject: TargetPlainObject,
+          ) => {
+            return plainObjectToTarget(
+              new VscodeTextEditorImpl(editor),
+              plainObject,
+            );
+          },
         }
       : undefined,
 

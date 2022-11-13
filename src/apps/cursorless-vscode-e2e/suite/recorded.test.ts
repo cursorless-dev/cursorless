@@ -29,6 +29,8 @@ import { openNewEditor } from "../openNewEditor";
 import { runCursorlessCommand } from "../runCommand";
 import shouldUpdateFixtures from "../shouldUpdateFixtures";
 import { sleepWithBackoff, endToEndTestSetup } from "../endToEndTestSetup";
+// eslint-disable-next-line @typescript-eslint/no-restricted-imports
+import ide from "../../../libs/cursorless-engine/singletons/ide.singleton";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -177,7 +179,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
     cursorlessApi.sourceMark,
     excludeFields,
     [],
-    vscode.window.activeTextEditor!, // eslint-disable-line no-restricted-properties
+    ide().activeTextEditor!,
     spyIde,
     marks,
     undefined,
