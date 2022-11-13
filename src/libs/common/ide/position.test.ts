@@ -1,7 +1,12 @@
 import * as assert from "assert";
 import { Position } from ".";
 
-suite.only("Position", () => {
+suite("Position", () => {
+  test("constructor", () => {
+    assert.equal(new Position(5, 0).line, 5);
+    assert.equal(new Position(0, 5).character, 5);
+  });
+
   test("isEqual", () => {
     assert.ok(new Position(0, 0).isEqual(new Position(0, 0)));
     assert.ok(new Position(1, 2).isEqual(new Position(1, 2)));
@@ -37,11 +42,11 @@ suite.only("Position", () => {
   });
 
   test("compareTo", () => {
-    assert.equal(0, new Position(0, 0).compareTo(new Position(0, 0)));
-    assert.equal(-1, new Position(0, 0).compareTo(new Position(1, 0)));
-    assert.equal(-1, new Position(0, 0).compareTo(new Position(0, 1)));
-    assert.equal(1, new Position(1, 0).compareTo(new Position(0, 0)));
-    assert.equal(1, new Position(0, 1).compareTo(new Position(0, 0)));
+    assert.equal(new Position(0, 0).compareTo(new Position(0, 0)), 0);
+    assert.equal(new Position(0, 0).compareTo(new Position(1, 0)), -1);
+    assert.equal(new Position(0, 0).compareTo(new Position(0, 1)), -1);
+    assert.equal(new Position(1, 0).compareTo(new Position(0, 0)), 1);
+    assert.equal(new Position(0, 1).compareTo(new Position(0, 0)), 1);
   });
 
   test("with", () => {

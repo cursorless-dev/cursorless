@@ -84,6 +84,17 @@ export default class Range {
   }
 
   /**
+   * Check if `other` equals this range.
+   *
+   * @param other A range.
+   * @return `true` when start and end are {@link Position.isEqual equal} to
+   * start and end of this range.
+   */
+  public isEqual(other: Range): boolean {
+    return this.start.isEqual(other.start) && this.end.isEqual(other.end);
+  }
+
+  /**
    * Check if a position or a range is contained in this range.
    *
    * @param positionOrRange A position or a range.
@@ -96,17 +107,6 @@ export default class Range {
         ? [positionOrRange, positionOrRange]
         : [positionOrRange.start, positionOrRange.end];
     return start.isAfterOrEqual(this.start) && end.isBeforeOrEqual(this.end);
-  }
-
-  /**
-   * Check if `other` equals this range.
-   *
-   * @param other A range.
-   * @return `true` when start and end are {@link Position.isEqual equal} to
-   * start and end of this range.
-   */
-  public isEqual(other: Range): boolean {
-    return this.start.isEqual(other.start) && this.end.isEqual(other.end);
   }
 
   /**
