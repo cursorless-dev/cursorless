@@ -39,29 +39,29 @@ export default class VscodeEditableTextEditorImpl
     this.editor.options = options;
   }
 
-  public revealRange(range: Range): void {
+  public revealRange = (range: Range): void => {
     this.editor.revealRange(toVscodeRange(range));
-  }
+  };
 
-  public setDecorations(
+  public setDecorations = (
     decorationType: TextEditorDecorationType,
     ranges: readonly Range[],
-  ): void {
+  ): void => {
     this.editor.setDecorations(decorationType, ranges.map(toVscodeRange));
-  }
+  };
 
-  public edit(
+  public edit = (
     callback: (editBuilder: TextEditorEdit) => void,
     options?: { undoStopBefore: boolean; undoStopAfter: boolean },
-  ): Thenable<boolean> {
+  ): Thenable<boolean> => {
     return vscodeEditEditor(this.editor, callback, options);
-  }
+  };
 
-  public focus(): Promise<void> {
+  public focus = (): Promise<void> => {
     return vscodeFocusEditor(this.editor, this.id);
-  }
+  };
 
-  public openLink(location: Position | Range): Promise<boolean> {
+  public openLink = (location: Position | Range): Promise<boolean> => {
     return vscodeOpenLink(this.editor, toVscodePositionOrRange(location));
-  }
+  };
 }

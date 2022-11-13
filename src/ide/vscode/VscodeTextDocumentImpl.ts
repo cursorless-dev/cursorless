@@ -37,7 +37,7 @@ export default class VscodeTextDocumentImpl implements TextDocument {
 
   constructor(private document: vscode.TextDocument) {}
 
-  lineAt(lineOrPosition: number | Position): TextLine {
+  public lineAt = (lineOrPosition: number | Position): TextLine => {
     return fromVscodeTextLine(
       this.document.lineAt(
         typeof lineOrPosition === "number"
@@ -45,19 +45,19 @@ export default class VscodeTextDocumentImpl implements TextDocument {
           : lineOrPosition.line,
       ),
     );
-  }
+  };
 
-  offsetAt(position: Position): number {
+  public offsetAt = (position: Position): number => {
     return this.document.offsetAt(toVscodePosition(position));
-  }
+  };
 
-  positionAt(offset: number): Position {
+  public positionAt = (offset: number): Position => {
     return fromVscodePosition(this.document.positionAt(offset));
-  }
+  };
 
-  getText(range?: Range): string {
+  public getText = (range?: Range): string => {
     return this.document.getText(
       range != null ? toVscodeRange(range) : undefined,
     );
-  }
+  };
 }
