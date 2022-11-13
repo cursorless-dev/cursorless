@@ -2,7 +2,7 @@ import { concat, flatten, maxBy, min } from "lodash";
 import Decorations from "../core/Decorations";
 import { HatStyleName } from "../core/hatStyles";
 import { IndividualHatMap } from "../core/IndividualHatMap";
-import Range from "../libs/common/ide/Range";
+import { Range } from "../libs/common/ide";
 import { TextEditor } from "../libs/common/ide/types/TextEditor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { TokenGraphemeSplitter } from "../libs/cursorless-engine/tokenGraphemeSplitter";

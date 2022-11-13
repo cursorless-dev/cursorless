@@ -2,7 +2,7 @@ import { imap } from "itertools";
 import { Direction } from "../../typings/targetDescriptor.types";
 import { matchAll } from "../../libs/cursorless-engine/util/regex";
 import { TextEditor } from "../../libs/common/ide/types/TextEditor";
-import Range from "../../libs/common/ide/Range";
+import { Range } from "../../libs/common/ide";
 
 export function getMatchesInRange(
   regex: RegExp,

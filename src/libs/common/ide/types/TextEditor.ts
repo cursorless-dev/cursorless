@@ -1,6 +1,6 @@
 import type Position from "../Position";
-import type Range from "../Range";
-import type Selection from "../Selection";
+import type { Range } from "..";
+import type { Selection } from "..";
 import type TextDocument from "./TextDocument";
 import type { TextEditorDecorationType } from "./TextEditorDecorationType";
 import type TextEditorEdit from "./TextEditorEdit";

@@ -1,4 +1,4 @@
-import type Range from "../libs/common/ide/Range";
+import type { Range } from "../libs/common/ide";
 import type {
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,

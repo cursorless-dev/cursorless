@@ -6,8 +6,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfUntypedStage";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type Range from "../libs/common/ide/Range";
-import type Selection from "../libs/common/ide/Selection";
+import type { Range } from "../libs/common/ide";
+import type { Selection } from "../libs/common/ide";
 import type { TextEditor } from "../libs/common/ide/types/TextEditor";
 import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -1,5 +1,5 @@
 import { NoContainingScopeError } from "../../errors";
-import Range from "../../libs/common/ide/Range";
+import { Range } from "../../libs/common/ide";
 import type { Target } from "../../typings/target.types";
 import type { EveryScopeModifier } from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";

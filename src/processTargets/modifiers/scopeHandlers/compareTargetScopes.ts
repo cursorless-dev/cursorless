@@ -1,5 +1,5 @@
 import Position from "../../../libs/common/ide/Position";
-import Range from "../../../libs/common/ide/Range";
+import { Range } from "../../../libs/common/ide";
 import { Direction } from "../../../typings/targetDescriptor.types";
 import { TargetScope } from "./scope.types";
 

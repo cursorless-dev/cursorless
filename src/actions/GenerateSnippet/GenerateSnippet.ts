@@ -1,5 +1,5 @@
 import { commands, window } from "vscode";
-import Range from "../../libs/common/ide/Range";
+import { Range } from "../../libs/common/ide";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import isTesting from "../../testUtil/isTesting";

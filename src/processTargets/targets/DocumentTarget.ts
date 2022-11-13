@@ -1,4 +1,4 @@
-import Range from "../../libs/common/ide/Range";
+import { Range } from "../../libs/common/ide";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import PlainTarget from "./PlainTarget";

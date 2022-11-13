@@ -1,5 +1,5 @@
-import Range from "../../../libs/common/ide/Range";
-import Selection from "../../../libs/common/ide/Selection";
+import { Range } from "../../../libs/common/ide";
+import { Selection } from "../../../libs/common/ide";
 import TextDocument from "../../../libs/common/ide/types/TextDocument";
 import { SurroundingPairOffsets } from "./types";
 

@@ -1,6 +1,6 @@
 import type { URI } from "vscode-uri";
 import type Position from "./Position";
-import Range from "./Range";
+import { Range } from ".";
 
 /**
  * Represents a location inside a resource, such as a line

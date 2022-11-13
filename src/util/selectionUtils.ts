@@ -1,6 +1,6 @@
 import Position from "../libs/common/ide/Position";
-import Range from "../libs/common/ide/Range";
-import Selection from "../libs/common/ide/Selection";
+import { Range } from "../libs/common/ide";
+import { Selection } from "../libs/common/ide";
 import { TextEditor } from "../libs/common/ide/types/TextEditor";
 import { SelectionWithEditor } from "../typings/Types";
 

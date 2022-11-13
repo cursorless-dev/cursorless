@@ -1,5 +1,4 @@
-import Position from "./Position";
-import Range from "./Range";
+import { Position, Range } from ".";
 
 export default class Selection extends Range {
   /**

@@ -1,4 +1,4 @@
-import Range from "../../../libs/common/ide/Range";
+import { Range } from "../../../libs/common/ide";
 import TextDocument from "../../../libs/common/ide/types/TextDocument";
 import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import { tokenize } from "../../../libs/cursorless-engine/tokenizer";

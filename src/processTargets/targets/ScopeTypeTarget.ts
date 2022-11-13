@@ -1,4 +1,4 @@
-import Range from "../../libs/common/ide/Range";
+import { Range } from "../../libs/common/ide";
 import { Target } from "../../typings/target.types";
 import { SimpleScopeTypeType } from "../../typings/targetDescriptor.types";
 import { isSameType } from "../../util/typeUtils";

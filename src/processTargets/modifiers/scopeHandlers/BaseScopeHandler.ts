@@ -1,6 +1,6 @@
 import Position from "../../../libs/common/ide/Position";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type Range from "../../../libs/common/ide/Range";
+import type { Range } from "../../../libs/common/ide";
 import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import type {
   Direction,

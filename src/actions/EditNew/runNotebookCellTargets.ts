@@ -1,5 +1,5 @@
 import { commands } from "vscode";
-import Selection from "../../libs/common/ide/Selection";
+import { Selection } from "../../libs/common/ide";
 import { NotebookCellPositionTarget } from "../../processTargets/targets";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";

@@ -1,6 +1,6 @@
 import type Position from "../Position";
-import type Range from "../Range";
-import type Selection from "../Selection";
+import type { Range } from "..";
+import type { Selection } from "..";
 import type { EndOfLine } from "./ide.types";
 
 /**

@@ -1,5 +1,5 @@
 import Position from "../../../libs/common/ide/Position";
-import Range from "../../../libs/common/ide/Range";
+import { Range } from "../../../libs/common/ide";
 import TextDocument from "../../../libs/common/ide/types/TextDocument";
 import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import TextLine from "../../../libs/common/ide/types/TextLine";

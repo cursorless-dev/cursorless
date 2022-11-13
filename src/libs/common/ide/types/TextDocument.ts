@@ -1,6 +1,6 @@
 import type { URI } from "vscode-uri";
 import type Position from "../Position";
-import type Range from "../Range";
+import type { Range } from "..";
 import type TextLine from "./TextLine";
 
 export default interface TextDocument {

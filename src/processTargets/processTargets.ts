@@ -1,5 +1,5 @@
 import { uniqWith, zip } from "lodash";
-import Range from "../libs/common/ide/Range";
+import { Range } from "../libs/common/ide";
 import { Target } from "../typings/target.types";
 import {
   Modifier,

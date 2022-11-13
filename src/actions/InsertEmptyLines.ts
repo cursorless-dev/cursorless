@@ -1,7 +1,7 @@
 import { flatten } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import Range from "../libs/common/ide/Range";
-import Selection from "../libs/common/ide/Selection";
+import { Range } from "../libs/common/ide";
+import { Selection } from "../libs/common/ide";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";

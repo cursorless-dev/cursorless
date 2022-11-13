@@ -6,8 +6,8 @@ import type {
   SelectionPlainObject,
   TargetPlainObject,
 } from "../libs/vscode-common/testUtil/toPlainObject";
-import Range from "../libs/common/ide/Range";
-import Selection from "../libs/common/ide/Selection";
+import { Range } from "../libs/common/ide";
+import { Selection } from "../libs/common/ide";
 import Position from "../libs/common/ide/Position";
 import { TextEditor } from "../libs/common/ide/types/TextEditor";
 

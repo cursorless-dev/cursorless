@@ -1,4 +1,4 @@
-import type Range from "../Range";
+import type { Range } from "..";
 import type TextDocument from "./TextDocument";
 
 /**

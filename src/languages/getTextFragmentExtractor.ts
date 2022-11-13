@@ -11,7 +11,7 @@ import { SupportedLanguageId } from "../libs/cursorless-engine/languages/constan
 import { getNodeInternalRange, getNodeRange } from "../util/nodeSelectors";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { notSupported } from "../util/nodeMatchers";
-import Range from "../libs/common/ide/Range";
+import { Range } from "../libs/common/ide";
 
 export type TextFragmentExtractor = (
   node: SyntaxNode,

@@ -5,7 +5,7 @@ import { constructLineTarget } from "../../util/tryConstructTarget";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
 import BaseTarget from "./BaseTarget";
 import LineTarget from "./LineTarget";
-import Range from "../../libs/common/ide/Range";
+import { Range } from "../../libs/common/ide";
 import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import Position from "../../libs/common/ide/Position";
 import TextDocument from "../../libs/common/ide/types/TextDocument";

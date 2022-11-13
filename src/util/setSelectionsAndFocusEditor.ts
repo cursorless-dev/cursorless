@@ -1,4 +1,4 @@
-import Selection from "../libs/common/ide/Selection";
+import { Selection } from "../libs/common/ide";
 import { EditableTextEditor } from "../libs/common/ide/types/TextEditor";
 
 import uniqDeep from "./uniqDeep";

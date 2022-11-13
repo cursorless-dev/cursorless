@@ -15,7 +15,7 @@ import {
   SurroundingPairOffsets,
 } from "./types";
 import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
-import Range from "../../../libs/common/ide/Range";
+import { Range } from "../../../libs/common/ide";
 import TextDocument from "../../../libs/common/ide/types/TextDocument";
 
 /**

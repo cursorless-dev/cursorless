@@ -1,4 +1,4 @@
-import Range from "../../../libs/common/ide/Range";
+import { Range } from "../../../libs/common/ide";
 import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import type { Target } from "../../../typings/target.types";
 

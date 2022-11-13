@@ -1,7 +1,7 @@
 import { zip } from "lodash";
 import { DecorationRangeBehavior } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
-import Selection from "../../libs/common/ide/Selection";
+import { Selection } from "../../libs/common/ide";
 import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import { Graph } from "../../typings/Types";
 import { EditTarget, State } from "./EditNew.types";

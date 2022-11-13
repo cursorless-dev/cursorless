@@ -1,7 +1,7 @@
 import { isEqual } from "lodash";
 import { NoContainingScopeError } from "../../errors";
-import Range from "../../libs/common/ide/Range";
-import Selection from "../../libs/common/ide/Selection";
+import { Range } from "../../libs/common/ide";
+import { Selection } from "../../libs/common/ide";
 import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import type { EditNewContext, Target } from "../../typings/target.types";
 import type { Position } from "../../typings/targetDescriptor.types";

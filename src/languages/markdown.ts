@@ -13,9 +13,9 @@ import {
   selectWithLeadingDelimiter,
 } from "../util/nodeSelectors";
 import { getMatchesInRange } from "../apps/cursorless-vscode/getMatchesInRange";
-import Selection from "../libs/common/ide/Selection";
+import { Selection } from "../libs/common/ide";
 import { TextEditor } from "../libs/common/ide/types/TextEditor";
-import Range from "../libs/common/ide/Range";
+import { Range } from "../libs/common/ide";
 import { shrinkRangeToFitContent } from "../util/selectionUtils";
 
 /**

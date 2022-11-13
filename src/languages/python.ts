@@ -1,5 +1,5 @@
 import { SyntaxNode } from "web-tree-sitter";
-import Selection from "../libs/common/ide/Selection";
+import { Selection } from "../libs/common/ide";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
 import { argumentNodeFinder, patternFinder } from "../util/nodeFinders";

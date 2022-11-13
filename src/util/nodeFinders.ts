@@ -1,6 +1,6 @@
 import { Point, SyntaxNode } from "web-tree-sitter";
 import Position from "../libs/common/ide/Position";
-import Selection from "../libs/common/ide/Selection";
+import { Selection } from "../libs/common/ide";
 import { NodeFinder } from "../typings/Types";
 
 export const nodeFinder = (

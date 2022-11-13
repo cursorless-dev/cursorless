@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import type { URI } from "vscode-uri";
 import Position from "../../libs/common/ide/Position";
-import Range from "../../libs/common/ide/Range";
+import { Range } from "../../libs/common/ide";
 import TextDocument from "../../libs/common/ide/types/TextDocument";
 import TextLine from "../../libs/common/ide/types/TextLine";
 import {
