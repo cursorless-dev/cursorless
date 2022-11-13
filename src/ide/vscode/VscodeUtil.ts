@@ -78,14 +78,6 @@ export function toVscodeRangeOrSelection(
     : toVscodeRange(location);
 }
 
-export function toVscodeTextLine(line: TextLine): vscode.TextLine {
-  return {
-    ...line,
-    range: toVscodeRange(line.range),
-    rangeIncludingLineBreak: toVscodeRange(line.rangeIncludingLineBreak),
-  };
-}
-
 export function fromVscodeTextLine(line: vscode.TextLine): TextLine {
   return new VscodeTextLineImpl(line);
 }
