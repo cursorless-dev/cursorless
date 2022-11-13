@@ -1,5 +1,6 @@
-import { Position, TextEditor } from "vscode";
 import { getScopeHandler } from ".";
+import Position from "../../../libs/common/ide/Position";
+import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import {
   Direction,
   OneOfScopeType,

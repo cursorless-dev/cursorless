@@ -1,4 +1,3 @@
-import { Position, Range, Selection, TextEditor } from "vscode";
 import { UntypedTarget } from "../processTargets/targets";
 import type { Target } from "../typings/target.types";
 import type {
@@ -7,6 +6,10 @@ import type {
   SelectionPlainObject,
   TargetPlainObject,
 } from "../libs/vscode-common/toPlainObject";
+import Range from "../libs/common/ide/Range";
+import Selection from "../libs/common/ide/Selection";
+import Position from "../libs/common/ide/Position";
+import { TextEditor } from "../libs/common/ide/types/TextEditor";
 
 /**
  * Given a plain object describing a target, constructs a `Target` object.

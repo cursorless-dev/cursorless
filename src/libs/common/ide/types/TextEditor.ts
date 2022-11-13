@@ -1,7 +1,8 @@
+import type Position from "../Position";
 import type Range from "../Range";
 import type Selection from "../Selection";
 import type TextDocument from "./TextDocument";
-import { TextEditorDecorationType } from "./TextEditorDecorationType";
+import type { TextEditorDecorationType } from "./TextEditorDecorationType";
 import type TextEditorEdit from "./TextEditorEdit";
 
 export interface TextEditor {
@@ -82,4 +83,11 @@ export interface EditableTextEditor extends TextEditor {
     callback: (editBuilder: TextEditorEdit) => void,
     options?: { undoStopBefore: boolean; undoStopAfter: boolean },
   ): Thenable<boolean>;
+
+  /**
+   * Open link at location.
+   * @param location Position or range
+   * @return True if a link was opened
+   */
+  openLink(location: Position | Range): Promise<boolean>;
 }

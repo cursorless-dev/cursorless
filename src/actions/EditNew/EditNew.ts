@@ -1,3 +1,4 @@
+import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
@@ -46,7 +47,10 @@ export class EditNew implements Action {
     const newSelections = state.targets.map((target, index) =>
       state.cursorRanges[index]!.toSelection(target.isReversed),
     );
-    await setSelectionsAndFocusEditor(editor, newSelections);
+    await setSelectionsAndFocusEditor(
+      ide().getEditableTextEditor(editor),
+      newSelections,
+    );
 
     return {
       thatSelections: createThatMark(state.targets, state.thatRanges),

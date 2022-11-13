@@ -1,6 +1,7 @@
-import { Edit } from "../typings/Types";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { TextEditor } from "../libs/common/ide/types/TextEditor";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
+import { Edit } from "../typings/Types";
 
 export async function performDocumentEdits(
   rangeUpdater: RangeUpdater,
@@ -12,17 +13,19 @@ export async function performDocumentEdits(
     edits.filter((edit) => edit.isReplace),
   );
 
-  const wereEditsApplied = await editor.edit((editBuilder) => {
-    edits.forEach(({ range, text, isReplace }) => {
-      if (text === "") {
-        editBuilder.delete(range);
-      } else if (range.isEmpty && !isReplace) {
-        editBuilder.insert(range.start, text);
-      } else {
-        editBuilder.replace(range, text);
-      }
+  const wereEditsApplied = await ide()
+    .getEditableTextEditor(editor)
+    .edit((editBuilder) => {
+      edits.forEach(({ range, text, isReplace }) => {
+        if (text === "") {
+          editBuilder.delete(range);
+        } else if (range.isEmpty && !isReplace) {
+          editBuilder.insert(range.start, text);
+        } else {
+          editBuilder.replace(range, text);
+        }
+      });
     });
-  });
 
   deregister();
 

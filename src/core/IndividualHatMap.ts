@@ -1,5 +1,5 @@
 import { getKey } from "@cursorless/common";
-import { TextDocument } from "vscode";
+import TextDocument from "../libs/common/ide/types/TextDocument";
 import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
 import { Graph, Token } from "../typings/Types";
 import { HatStyleName } from "./hatStyles";

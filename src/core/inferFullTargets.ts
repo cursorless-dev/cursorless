@@ -23,7 +23,9 @@ import {
 export default function inferFullTargets(
   targets: PartialTargetDescriptor[],
 ): TargetDescriptor[] {
-  return targets.map((target, index) => inferTarget(Targets.slice(0, index)));
+  return targets.map((target, index) =>
+    inferTarget(target, targets.slice(0, index)),
+  );
 }
 
 function inferTarget(

@@ -1,9 +1,10 @@
-import { Range, TextEditor } from "vscode";
 import { NestedScopeHandler } from ".";
 import { Direction } from "../../../typings/targetDescriptor.types";
 import { SubTokenWordTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
 import WordTokenizer from "../../../libs/cursorless-engine/scopeHandlers/WordScopeHandler/WordTokenizer";
+import Range from "../../../libs/common/ide/Range";
+import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 
 export default class WordScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "word" } as const;

@@ -29,7 +29,10 @@ const columnFocusCommands = {
   [ViewColumn.Beside]: "",
 };
 
-export async function focusVscodeEditor(editor: TextEditor, editorId: string) {
+export default async function focusVscodeEditor(
+  editor: TextEditor,
+  editorId: string,
+) {
   const viewColumn = getViewColumn(editor);
   if (viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[viewColumn]);

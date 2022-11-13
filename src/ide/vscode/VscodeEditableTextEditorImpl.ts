@@ -6,12 +6,14 @@ import type { EndOfLine } from "../../libs/common/ide/types/ide.types";
 import type { EditableTextEditor } from "../../libs/common/ide/types/TextEditor";
 import { TextEditorDecorationType } from "../../libs/common/ide/types/TextEditorDecorationType";
 import type TextEditorEdit from "../../libs/common/ide/types/TextEditorEdit";
-import { focusVscodeEditor } from "./VscodeFocusEditor";
+import focusVscodeEditor from "./VscodeFocusEditor";
+import vscodeOpenLink from "./VscodeOpenLink";
 import VscodeTextEditorImpl from "./VscodeTextEditorImpl";
 import {
   toVscodeEndOfLine,
   toVscodePosition,
   toVscodeRange,
+  toVscodePositionOrRange,
   toVscodeSelection,
 } from "./VscodeUtil";
 
@@ -49,7 +51,7 @@ export default class VscodeEditableTextEditorImpl
     return this.editor.edit((editBuilder) => {
       callback({
         replace: (location, value) => {
-          editBuilder.replace(toVscodeRangeOrPosition(location), value);
+          editBuilder.replace(toVscodePositionOrRange(location), value);
         },
         insert: (location: Position, value: string) => {
           editBuilder.insert(toVscodePosition(location), value);
@@ -63,12 +65,8 @@ export default class VscodeEditableTextEditorImpl
       });
     }, options);
   }
-}
 
-function toVscodeRangeOrPosition(
-  location: Position | Range,
-): vscode.Position | vscode.Range {
-  return "start" in location
-    ? toVscodeRange(location)
-    : toVscodePosition(location);
+  public openLink(location: Position | Range): Promise<boolean> {
+    return vscodeOpenLink(this.editor, toVscodePositionOrRange(location));
+  }
 }

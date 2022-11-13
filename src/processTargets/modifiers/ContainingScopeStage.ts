@@ -10,9 +10,10 @@ import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import getLegacyScopeStage from "./getLegacyScopeStage";
 import { TargetScope } from "./scopeHandlers/scope.types";
-import { TextEditor, Position } from "vscode";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 import { getContainingScope } from "./getContainingScope";
+import Position from "../../libs/common/ide/Position";
+import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 
 /**
  * This modifier stage expands from the input target to the smallest containing

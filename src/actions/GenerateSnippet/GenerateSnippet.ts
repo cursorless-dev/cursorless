@@ -1,15 +1,16 @@
-import { ensureSingleTarget } from "../../util/targetUtils";
 import { commands, window } from "vscode";
+import Range from "../../libs/common/ide/Range";
+import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import isTesting from "../../testUtil/isTesting";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
+import { ensureSingleTarget } from "../../util/targetUtils";
 import { Action, ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
 import { openNewSnippetFile } from "./openNewSnippetFile";
 import Substituter from "./Substituter";
-import Range from "../../libs/common/ide/Range";
 
 /**
  * This action can be used to automatically create a snippet from a target. Any
@@ -212,7 +213,9 @@ export default class GenerateSnippet implements Action {
 
     if (isTesting()) {
       // If we're testing, we just overwrite the current document
-      editor.selections = [editor.document.range.toSelection(false)];
+      ide().getEditableTextEditor(editor).selections = [
+        editor.document.range.toSelection(false),
+      ];
     } else {
       // Otherwise, we create and open a new document for the snippet in the
       // user snippets dir

@@ -15,7 +15,7 @@ class FoldAction implements Action {
     const editor = ensureSingleEditor(targets);
 
     if (originalEditor !== editor) {
-      await editor.focus();
+      await ide().getEditableTextEditor(editor).focus();
     }
 
     const singleLineTargets = targets.filter(

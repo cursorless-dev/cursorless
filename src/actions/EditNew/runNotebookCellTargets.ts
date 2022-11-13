@@ -1,4 +1,5 @@
-import { commands, Selection } from "vscode";
+import { commands } from "vscode";
+import Selection from "../../libs/common/ide/Selection";
 import { NotebookCellPositionTarget } from "../../processTargets/targets";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
@@ -20,8 +21,8 @@ export async function runNotebookCellTargets(
   // Inserting a new jupyter cell above pushes the previous one down two lines
   if (command === "jupyter.insertCellAbove") {
     thatMark[0].selection = new Selection(
-      thatMark[0].selection.anchor.translate({ lineDelta: 2 }),
-      thatMark[0].selection.active.translate({ lineDelta: 2 }),
+      thatMark[0].selection.anchor.translate(2, undefined),
+      thatMark[0].selection.active.translate(2, undefined),
     );
   }
 

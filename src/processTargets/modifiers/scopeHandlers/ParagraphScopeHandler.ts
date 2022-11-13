@@ -1,4 +1,8 @@
-import { Position, Range, TextDocument, TextEditor, TextLine } from "vscode";
+import Position from "../../../libs/common/ide/Position";
+import Range from "../../../libs/common/ide/Range";
+import TextDocument from "../../../libs/common/ide/types/TextDocument";
+import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
+import TextLine from "../../../libs/common/ide/types/TextLine";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { ParagraphTarget } from "../../targets";
 import BaseScopeHandler from "./BaseScopeHandler";

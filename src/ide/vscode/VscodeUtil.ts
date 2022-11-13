@@ -49,6 +49,14 @@ export function fromVscodePosition(position: vscode.Position): Position {
   return new Position(position.line, position.character);
 }
 
+export function toVscodePositionOrRange(
+  location: Position | Range,
+): vscode.Position | vscode.Range {
+  return "start" in location
+    ? toVscodeRange(location)
+    : toVscodePosition(location);
+}
+
 export function toVscodeTextLine(line: TextLine): vscode.TextLine {
   return {
     ...line,

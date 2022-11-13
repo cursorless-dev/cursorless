@@ -2,7 +2,8 @@ import { flatten, zip } from "lodash";
 import { DecorationRangeBehavior } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
 import Selection from "../libs/common/ide/Selection";
-import { EditableTextEditor } from "../libs/common/ide/types/TextEditor";
+import { TextEditor } from "../libs/common/ide/types/TextEditor";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -40,7 +41,7 @@ class InsertCopy implements Action {
     };
   }
 
-  private async runForEditor(editor: EditableTextEditor, targets: Target[]) {
+  private async runForEditor(editor: TextEditor, targets: Target[]) {
     // isBefore is inverted because we want the selections to stay with what is to the user the "copy"
     const position = this.isBefore ? "after" : "before";
     const edits = targets.flatMap((target) =>
@@ -73,8 +74,9 @@ class InsertCopy implements Action {
       ([edit, selection]) => edit!.updateRange(selection!),
     );
 
-    setSelectionsWithoutFocusingEditor(editor, updatedEditorSelections);
-    editor.revealRange(editor.selections[0]);
+    const editableEditor = ide().getEditableTextEditor(editor);
+    setSelectionsWithoutFocusingEditor(editableEditor, updatedEditorSelections);
+    editableEditor.revealRange(editor.selections[0]);
 
     return {
       sourceMark: createThatMark(targets, insertionRanges),
