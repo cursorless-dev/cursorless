@@ -3,8 +3,10 @@ import Position from "../../libs/common/ide/Position";
 import Range from "../../libs/common/ide/Range";
 import Selection from "../../libs/common/ide/Selection";
 import { EndOfLine } from "../../libs/common/ide/types/ide.types";
+import TextDocument from "../../libs/common/ide/types/TextDocument";
 import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import TextLine from "../../libs/common/ide/types/TextLine";
+import VscodeTextDocumentImpl from "./VscodeTextDocumentImpl";
 import VscodeTextEditorImpl from "./VscodeTextEditorImpl";
 
 export function toVscodeRange(range: Range): vscode.Range {
@@ -92,4 +94,10 @@ export function toVscodeEditor(editor: TextEditor): vscode.TextEditor {
     return (editor as VscodeTextEditorImpl).vscodeEditor;
   }
   throw Error("Can't get vscode editor from non vscode implementation");
+}
+
+export function fromVscodeDocument(
+  document: vscode.TextDocument,
+): TextDocument {
+  return new VscodeTextDocumentImpl(document);
 }

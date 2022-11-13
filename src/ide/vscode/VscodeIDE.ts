@@ -1,12 +1,7 @@
 import { pull } from "lodash";
-import {
-  ExtensionContext,
-  ExtensionMode,
-  window,
-  workspace,
-  WorkspaceFolder,
-} from "vscode";
-import {
+import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
+import type { TextDocumentChangeEvent } from "../../libs/common/ide/types/Events";
+import type {
   Disposable,
   IDE,
   RunMode,
@@ -18,15 +13,11 @@ import type {
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
 import VscodeEditableTextEditorImpl from "./VscodeEditableTextEditorImpl";
+import { vscodeOnDidChangeTextDocument } from "./VscodeEvents";
 import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeMessages from "./VscodeMessages";
+import vscodeRunMode from "./VscodeRunMode";
 import { fromVscodeEditor, toVscodeEditor } from "./VscodeUtil";
-
-const EXTENSION_MODE_MAP: Record<ExtensionMode, RunMode> = {
-  [ExtensionMode.Development]: "development",
-  [ExtensionMode.Production]: "production",
-  [ExtensionMode.Test]: "test",
-};
 
 export default class VscodeIDE implements IDE {
   configuration: VscodeConfiguration;
@@ -46,7 +37,7 @@ export default class VscodeIDE implements IDE {
   }
 
   get runMode(): RunMode {
-    return EXTENSION_MODE_MAP[this.extensionContext.extensionMode];
+    return vscodeRunMode(this.extensionContext);
   }
 
   get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
@@ -71,6 +62,12 @@ export default class VscodeIDE implements IDE {
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
     return new VscodeEditableTextEditorImpl(toVscodeEditor(editor));
+  }
+
+  onDidChangeTextDocument(
+    listener: (event: TextDocumentChangeEvent) => void,
+  ): Disposable {
+    return vscodeOnDidChangeTextDocument(listener);
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

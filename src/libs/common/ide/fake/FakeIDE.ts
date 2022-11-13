@@ -1,11 +1,12 @@
 import { pull } from "lodash";
+import type { TextDocumentChangeEvent } from "../types/Events";
 import type {
   Disposable,
   IDE,
   RunMode,
   WorkspaceFolder,
 } from "../types/ide.types";
-import { EditableTextEditor, TextEditor } from "../types/TextEditor";
+import type { EditableTextEditor, TextEditor } from "../types/TextEditor";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
 import FakeGlobalState from "./FakeGlobalState";
@@ -44,6 +45,12 @@ export default class FakeIDE implements IDE {
   activeTextEditor: TextEditor | undefined = undefined;
   activeEditableTextEditor: EditableTextEditor | undefined = undefined;
   visibleTextEditors: TextEditor[] = [];
+
+  onDidChangeTextDocument(
+    _listener: (event: TextDocumentChangeEvent) => void,
+  ): Disposable {
+    throw Error("Not supported");
+  }
 
   public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
     throw Error("Not supported");

@@ -1,6 +1,7 @@
 import { pickBy, values } from "lodash";
 import type { Clipboard } from "../types/Clipboard";
 import type { Configuration } from "../types/Configuration";
+import type { TextDocumentChangeEvent } from "../types/Events";
 import type {
   Disposable,
   IDE,
@@ -54,6 +55,12 @@ export default class SpyIDE implements IDE {
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
     return this.original.getEditableTextEditor(editor);
+  }
+
+  onDidChangeTextDocument(
+    listener: (event: TextDocumentChangeEvent) => void,
+  ): Disposable {
+    return this.original.onDidChangeTextDocument(listener);
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

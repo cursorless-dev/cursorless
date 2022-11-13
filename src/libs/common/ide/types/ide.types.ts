@@ -1,6 +1,7 @@
 import { URI } from "vscode-uri";
 import { Clipboard } from "./Clipboard";
 import { Configuration } from "./Configuration";
+import { TextDocumentChangeEvent } from "./Events";
 import { Messages } from "./Messages";
 import { State } from "./State";
 import type { EditableTextEditor, TextEditor } from "./TextEditor";
@@ -59,6 +60,15 @@ export interface IDE {
    * @param editor A editable text editor
    */
   getEditableTextEditor(editor: TextEditor): EditableTextEditor;
+
+  /**
+   * An event that is emitted when a {@link TextDocument text document} is changed. This usually happens
+   * when the {@link TextDocument.getText contents} changes but also when other things like the
+   * {@link TextDocument.isDirty dirty}-state changes.
+   */
+  onDidChangeTextDocument(
+    listener: (event: TextDocumentChangeEvent) => void,
+  ): Disposable;
 }
 
 export interface WorkspaceFolder {

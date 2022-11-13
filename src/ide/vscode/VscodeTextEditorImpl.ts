@@ -5,8 +5,11 @@ import type Selection from "../../libs/common/ide/Selection";
 import type TextDocument from "../../libs/common/ide/types/TextDocument";
 import type { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import type { TextEditorOptions } from "../../libs/common/ide/types/TextEditorOptions";
-import VscodeTextDocumentImpl from "./VscodeTextDocumentImpl";
-import { fromVscodeRange, fromVscodeSelection } from "./VscodeUtil";
+import {
+  fromVscodeDocument,
+  fromVscodeRange,
+  fromVscodeSelection,
+} from "./VscodeUtil";
 
 export default class VscodeTextEditorImpl implements TextEditor {
   readonly id: string;
@@ -14,7 +17,7 @@ export default class VscodeTextEditorImpl implements TextEditor {
 
   constructor(protected editor: vscode.TextEditor) {
     this.id = uuid();
-    this.document = new VscodeTextDocumentImpl(editor.document);
+    this.document = fromVscodeDocument(editor.document);
   }
 
   get vscodeEditor(): vscode.TextEditor {

@@ -1,8 +1,8 @@
+import type Range from "../libs/common/ide/Range";
 import type {
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
-} from "vscode";
-import type Range from "../libs/common/ide/Range";
+} from "../libs/common/ide/types/Events";
 
 export interface RangeOffsets {
   start: number;

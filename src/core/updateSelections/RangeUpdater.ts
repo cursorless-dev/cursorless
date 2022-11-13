@@ -1,12 +1,12 @@
 import { pull } from "lodash";
-import {
-  workspace,
+import type {
   TextDocumentChangeEvent,
-  Disposable,
   TextDocumentContentChangeEvent,
-} from "vscode";
-import TextDocument from "../../libs/common/ide/types/TextDocument";
-import { Edit } from "../../typings/Types";
+} from "../../libs/common/ide/types/Events";
+import type { Disposable } from "../../libs/common/ide/types/ide.types";
+import type TextDocument from "../../libs/common/ide/types/TextDocument";
+import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
+import type { Edit } from "../../typings/Types";
 import {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,
@@ -90,7 +90,7 @@ export class RangeUpdater {
   }
 
   private listenForDocumentChanges() {
-    this.disposable = workspace.onDidChangeTextDocument(
+    this.disposable = ide().onDidChangeTextDocument(
       (event: TextDocumentChangeEvent) => {
         const documentReplaceEditLists = this.getDocumentReplaceEditLists(
           event.document,
