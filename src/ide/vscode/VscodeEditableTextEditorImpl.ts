@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
+import type { Range, Selection } from "../../libs/common/ide";
 import type Position from "../../libs/common/ide/Position";
-import type { Range } from "../../libs/common/ide";
-import type { Selection } from "../../libs/common/ide";
 import type { EditableTextEditor } from "../../libs/common/ide/types/TextEditor";
 import type { TextEditorDecorationType } from "../../libs/common/ide/types/TextEditorDecorationType";
 import type TextEditorEdit from "../../libs/common/ide/types/TextEditorEdit";
@@ -24,8 +23,16 @@ export default class VscodeEditableTextEditorImpl
     super(editor);
   }
 
+  get selections(): Selection[] {
+    return super.selections;
+  }
+
   set selections(selections: Selection[]) {
     this.editor.selections = selections.map(toVscodeSelection);
+  }
+
+  get options(): TextEditorOptions {
+    return super.options;
   }
 
   set options(options: TextEditorOptions) {

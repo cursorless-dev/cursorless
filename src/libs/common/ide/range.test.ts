@@ -9,6 +9,11 @@ suite("Range", () => {
     assert.equal(new Range(0, 0, 0, 5).end.character, 5);
     assert.equal(new Range(5, 0, 0, 0).start.line, 0);
     assert.equal(new Range(0, 5, 0, 0).start.character, 0);
+    assert.ok(
+      new Range(new Position(1, 2), new Position(3, 4)).isEqual(
+        new Range(1, 2, 3, 4),
+      ),
+    );
   });
 
   test("isEmpty", () => {
@@ -43,6 +48,7 @@ suite("Range", () => {
     assert.ok(new Range(0, 0, 1, 0).contains(new Range(0, 0, 0, 0)));
     assert.ok(!new Range(0, 0, 0, 0).contains(new Range(0, 0, 0, 1)));
     assert.ok(!new Range(0, 0, 0, 0).contains(new Range(0, 0, 1, 0)));
+    assert.ok(new Range(0, 0, 0, 7).contains(new Position(0, 2)));
   });
 
   test("intersection", () => {
