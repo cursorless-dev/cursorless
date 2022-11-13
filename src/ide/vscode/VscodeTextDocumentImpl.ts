@@ -1,10 +1,11 @@
 import * as vscode from "vscode";
 import type { URI } from "vscode-uri";
-import Position from "../../libs/common/ide/Position";
 import { Range } from "../../libs/common/ide";
+import Position from "../../libs/common/ide/Position";
 import TextDocument from "../../libs/common/ide/types/TextDocument";
 import TextLine from "../../libs/common/ide/types/TextLine";
 import {
+  fromVscodePosition,
   fromVscodeTextLine,
   toVscodePosition,
   toVscodeRange,
@@ -51,7 +52,7 @@ export default class VscodeTextDocumentImpl implements TextDocument {
   }
 
   positionAt(offset: number): Position {
-    return this.document.positionAt(offset);
+    return fromVscodePosition(this.document.positionAt(offset));
   }
 
   getText(range?: Range | undefined): string {
