@@ -1,4 +1,3 @@
-import { Selection } from "../libs/common/ide";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -21,17 +20,26 @@ export default class Deselect implements Action {
             return intersection && (!intersection.isEmpty || selection.isEmpty);
           }),
       );
-      // The editor requires at least one selection. Keep "primary" selection active
+
+      if (newSelections.length === 0) {
+        throw new SelectionRequiredError();
+      }
+
       setSelectionsWithoutFocusingEditor(
         ide().getEditableTextEditor(editor),
-        newSelections.length > 0
-          ? newSelections
-          : [new Selection(editor.selections[0].active)],
+        newSelections,
       );
     });
 
     return {
       thatTargets: targets,
     };
+  }
+}
+
+class SelectionRequiredError extends Error {
+  constructor() {
+    super("Can't deselect every selection. At least one is required");
+    this.name = "SelectionRequiredError";
   }
 }
