@@ -118,8 +118,7 @@ export default class ParagraphTarget extends BaseTarget {
 
 function getLeadingDelimiterRange(editor: TextEditor, contentRange: Range) {
   const { document } = editor;
-  const { lineAt } = document;
-  const startLine = lineAt(contentRange.start);
+  const startLine = document.lineAt(contentRange.start);
   const leadingLine = getPreviousNonEmptyLine(document, startLine);
   // Lines are next to each other so they can be no delimiter range
   if (leadingLine != null) {
@@ -128,14 +127,14 @@ function getLeadingDelimiterRange(editor: TextEditor, contentRange: Range) {
     }
     return new Range(
       new Position(leadingLine.lineNumber + 1, 0),
-      lineAt(startLine.lineNumber - 1).range.end,
+      document.lineAt(startLine.lineNumber - 1).range.end,
     );
   }
   // Leading delimiter to start of file
   if (startLine.lineNumber > 0) {
     return new Range(
       new Position(0, 0),
-      lineAt(startLine.lineNumber - 1).range.end,
+      document.lineAt(startLine.lineNumber - 1).range.end,
     );
   }
   return undefined;
@@ -143,8 +142,7 @@ function getLeadingDelimiterRange(editor: TextEditor, contentRange: Range) {
 
 function getTrailingDelimiterRange(editor: TextEditor, contentRange: Range) {
   const { document } = editor;
-  const { lineAt } = document;
-  const endLine = lineAt(contentRange.end);
+  const endLine = document.lineAt(contentRange.end);
   const trailingLine = getNextNonEmptyLine(document, endLine);
   if (trailingLine != null) {
     if (trailingLine.lineNumber - 1 === endLine.lineNumber) {
@@ -152,14 +150,14 @@ function getTrailingDelimiterRange(editor: TextEditor, contentRange: Range) {
     }
     return new Range(
       new Position(endLine.lineNumber + 1, 0),
-      lineAt(trailingLine.lineNumber - 1).range.end,
+      document.lineAt(trailingLine.lineNumber - 1).range.end,
     );
   }
   // Trailing delimiter to end of file
   if (endLine.lineNumber < document.lineCount - 1) {
     return new Range(
       new Position(endLine.lineNumber + 1, 0),
-      lineAt(document.lineCount - 1).range.end,
+      document.lineAt(document.lineCount - 1).range.end,
     );
   }
   return undefined;

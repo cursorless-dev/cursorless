@@ -36,7 +36,7 @@ export default class VscodeTextEditorImpl implements TextEditor {
     return this.editor.options;
   }
 
-  public isEqual = (other: TextEditor): boolean => {
+  public isEqual(other: TextEditor): boolean {
     return this.id === other.id;
-  };
+  }
 }

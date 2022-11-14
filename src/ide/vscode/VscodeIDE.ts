@@ -64,7 +64,7 @@ export default class VscodeIDE implements IDE {
     return new VscodeEditableTextEditorImpl(toVscodeEditor(editor));
   }
 
-  onDidChangeTextDocument(
+  public onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
     return vscodeOnDidChangeTextDocument(listener);
