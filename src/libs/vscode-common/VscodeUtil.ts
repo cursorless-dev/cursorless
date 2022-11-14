@@ -1,5 +1,12 @@
-import { EndOfLine, Position, Range, Selection } from "@cursorless/common";
+import {
+  EndOfLine,
+  Position,
+  Range,
+  Selection,
+  TextEditor,
+} from "@cursorless/common";
 import * as vscode from "vscode";
+import type { VscodeTextEditorImpl } from "../../ide/vscode/VscodeTextEditorImpl";
 
 export function toVscodeRange(range: Range): vscode.Range {
   return new vscode.Range(
@@ -75,4 +82,11 @@ export function toVscodeEndOfLine(eol: EndOfLine): vscode.EndOfLine {
 
 export function fromVscodeAndOfLine(eol: vscode.EndOfLine): EndOfLine {
   return eol === vscode.EndOfLine.LF ? "LF" : "CRLF";
+}
+
+export function toVscodeEditor(editor: TextEditor): vscode.TextEditor {
+  if ("vscodeEditor" in editor) {
+    return (editor as VscodeTextEditorImpl).vscodeEditor;
+  }
+  throw Error("Can't get vscode editor from non vscode implementation");
 }
