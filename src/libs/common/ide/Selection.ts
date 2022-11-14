@@ -51,7 +51,7 @@ export default class Selection extends Range {
   );
 
   constructor(...args: any[]) {
-    const [anchor, active] = (() => {
+    const [anchor, active]: [Position, Position] = (() => {
       // Arguments are one positions
       if (args.length === 1) {
         return [args[0], args[0]];
@@ -59,7 +59,7 @@ export default class Selection extends Range {
 
       // Arguments are two positions
       if (args.length === 2) {
-        return args;
+        return args as [Position, Position];
       }
 
       // Arguments are four numbers
