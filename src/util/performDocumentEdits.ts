@@ -1,5 +1,5 @@
+import { TextEditor } from "@cursorless/common";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { TextEditor } from "../libs/common/ide/types/TextEditor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Edit } from "../typings/Types";
 

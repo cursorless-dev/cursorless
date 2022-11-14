@@ -1,10 +1,11 @@
+import { Range, TextDocument, TextEditor } from "@cursorless/common";
 import { escapeRegExp, findLast, uniq } from "lodash";
+import { matchAll } from "../../../libs/cursorless-engine/util/regex";
 import {
   SimpleSurroundingPairName,
   SurroundingPairName,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { matchAll } from "../../../libs/cursorless-engine/util/regex";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
@@ -14,9 +15,6 @@ import {
   PossibleDelimiterOccurrence,
   SurroundingPairOffsets,
 } from "./types";
-import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
-import { Range } from "../../../libs/common/ide";
-import TextDocument from "../../../libs/common/ide/types/TextDocument";
 
 /**
  * The initial range length that we start by scanning

@@ -1,17 +1,14 @@
-import * as vscode from "vscode";
-import type { URI } from "vscode-uri";
-import { Range } from "../../libs/common/ide";
-import Position from "../../libs/common/ide/Position";
-import TextDocument from "../../libs/common/ide/types/TextDocument";
-import TextLine from "../../libs/common/ide/types/TextLine";
+import { Position, Range, TextDocument, TextLine } from "@cursorless/common";
 import {
   fromVscodePosition,
-  fromVscodeTextLine,
   toVscodePosition,
   toVscodeRange,
-} from "./VscodeUtil";
+} from "@cursorless/vscode-common";
+import * as vscode from "vscode";
+import type { URI } from "vscode-uri";
+import { fromVscodeTextLine } from "./vscodeIdeUtil";
 
-export default class VscodeTextDocumentImpl implements TextDocument {
+export class VscodeTextDocumentImpl implements TextDocument {
   get uri(): URI {
     return this.document.uri;
   }

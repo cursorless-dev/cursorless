@@ -1,3 +1,4 @@
+import type { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { pull } from "lodash";
 import type { TextDocumentChangeEvent } from "../types/Events";
 import type {
@@ -6,7 +7,6 @@ import type {
   RunMode,
   WorkspaceFolder,
 } from "../types/ide.types";
-import type { EditableTextEditor, TextEditor } from "../types/TextEditor";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
 import FakeGlobalState from "./FakeGlobalState";

@@ -4,8 +4,7 @@ import {
 } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
-// eslint-disable-next-line @typescript-eslint/no-restricted-imports
-import { fromVscodeSelection } from "../../../ide/vscode/VscodeUtil";
+import { fromVscodeSelection } from "@cursorless/vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
 import { openNewEditor } from "../openNewEditor";

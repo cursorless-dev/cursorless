@@ -1,5 +1,4 @@
-import Position from "../../libs/common/ide/Position";
-import { Range } from "../../libs/common/ide";
+import { Position, Range } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import { UntypedTarget } from "../targets";
 

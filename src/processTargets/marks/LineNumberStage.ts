@@ -1,4 +1,4 @@
-import { TextEditor } from "../../libs/common/ide/types/TextEditor";
+import { TextEditor } from "@cursorless/common";
 import type {
   LineNumberMark,
   LineNumberType,

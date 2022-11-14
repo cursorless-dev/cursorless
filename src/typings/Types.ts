@@ -1,3 +1,9 @@
+import type {
+  Location,
+  Range,
+  Selection,
+  TextEditor,
+} from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
 import Cheatsheet from "../core/Cheatsheet";
@@ -10,10 +16,6 @@ import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
 import StatusBarItem from "../core/StatusBarItem";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import type Location from "../libs/common/ide/Location";
-import type { Range } from "../libs/common/ide";
-import type { Selection } from "../libs/common/ide";
-import type { TextEditor } from "../libs/common/ide/types/TextEditor";
 import { CommandServerApi } from "../libs/vscode-common/getExtensionApi";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";

@@ -1,5 +1,5 @@
 import { ExtensionContext, ExtensionMode } from "vscode";
-import type { RunMode } from "../../libs/common/ide/types/ide.types";
+import type { RunMode } from "@cursorless/common";
 
 const EXTENSION_MODE_MAP: Record<ExtensionMode, RunMode> = {
   [ExtensionMode.Development]: "development",
@@ -7,8 +7,6 @@ const EXTENSION_MODE_MAP: Record<ExtensionMode, RunMode> = {
   [ExtensionMode.Test]: "test",
 };
 
-export default function vscodeRunMode(
-  extensionContext: ExtensionContext,
-): RunMode {
+export function vscodeRunMode(extensionContext: ExtensionContext): RunMode {
   return EXTENSION_MODE_MAP[extensionContext.extensionMode];
 }

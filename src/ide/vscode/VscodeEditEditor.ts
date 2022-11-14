@@ -1,11 +1,11 @@
-import * as vscode from "vscode";
-import TextEditorEdit from "../../libs/common/ide/types/TextEditorEdit";
+import { TextEditorEdit } from "@cursorless/common";
 import {
   toVscodeEndOfLine,
   toVscodePosition,
   toVscodePositionOrRangeOrSelection,
   toVscodeRangeOrSelection,
-} from "./VscodeUtil";
+} from "@cursorless/vscode-common";
+import * as vscode from "vscode";
 
 export default function vscodeEditEditor(
   editor: vscode.TextEditor,

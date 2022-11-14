@@ -1,5 +1,4 @@
-import type { Range } from "..";
-import type TextDocument from "./TextDocument";
+import type { TextDocument, Range } from "@cursorless/common";
 
 /**
  * An event describing a transactional {@link TextDocument document} change.

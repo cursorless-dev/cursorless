@@ -1,5 +1,4 @@
-import Position from "../../../libs/common/ide/Position";
-import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
+import { Position, TextEditor } from "@cursorless/common";
 import {
   Direction,
   SurroundingPairScopeType,

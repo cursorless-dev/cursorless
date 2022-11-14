@@ -1,6 +1,5 @@
+import { Range, TextEditor } from "@cursorless/common";
 import { NoContainingScopeError } from "../../../errors";
-import { Range } from "../../../libs/common/ide";
-import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,

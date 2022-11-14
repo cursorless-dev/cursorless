@@ -1,7 +1,5 @@
+import { Range, Selection, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
-import { Range } from "../libs/common/ide";
-import { Selection } from "../libs/common/ide";
-import { TextEditor } from "../libs/common/ide/types/TextEditor";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";

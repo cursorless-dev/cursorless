@@ -3,7 +3,7 @@ import { getCursorlessApi } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
-import { toVscodeEditor } from "../../../ide/vscode/VscodeUtil";
+import { toVscodeEditor } from "../../../ide/vscode/vscodeIdeUtil";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { runCursorlessCommand } from "../runCommand";
 

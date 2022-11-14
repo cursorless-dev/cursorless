@@ -1,5 +1,4 @@
-import { Selection } from "../libs/common/ide";
-import { EditableTextEditor } from "../libs/common/ide/types/TextEditor";
+import { EditableTextEditor, Selection } from "@cursorless/common";
 
 import uniqDeep from "./uniqDeep";
 

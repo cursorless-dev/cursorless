@@ -1,3 +1,5 @@
+import { Location } from "@cursorless/common";
+import { fromVscodeRange } from "@cursorless/vscode-common";
 import {
   Disposable,
   TextEditorSelectionChangeEvent,
@@ -5,8 +7,6 @@ import {
   workspace,
 } from "vscode";
 import { SyntaxNode, TreeCursor } from "web-tree-sitter";
-import { fromVscodeRange } from "../ide/vscode/VscodeUtil";
-import Location from "../libs/common/ide/Location";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Graph } from "../typings/Types";
 

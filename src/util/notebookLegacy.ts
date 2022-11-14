@@ -7,7 +7,7 @@ import {
   TextEditor,
   version,
 } from "vscode";
-import { toVscodeEditor } from "../ide/vscode/VscodeUtil";
+import { toVscodeEditor } from "../ide/vscode/vscodeIdeUtil";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { getCellIndex } from "../libs/vscode-common/notebook";
 import { getNotebookFromCellDocument } from "./notebook";

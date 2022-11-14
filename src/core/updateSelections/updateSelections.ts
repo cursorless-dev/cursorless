@@ -1,9 +1,6 @@
+import { Range, Selection, TextDocument, TextEditor } from "@cursorless/common";
 import { flatten } from "lodash";
 import { DecorationRangeBehavior } from "vscode";
-import { Range } from "../../libs/common/ide";
-import { Selection } from "../../libs/common/ide";
-import TextDocument from "../../libs/common/ide/types/TextDocument";
-import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import { Edit } from "../../typings/Types";
 import {
   FullSelectionInfo,

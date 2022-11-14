@@ -1,5 +1,5 @@
+import { Range } from "@cursorless/common";
 import { findLastIndex } from "lodash";
-import { Range } from "../../libs/common/ide";
 import { Target } from "../../typings/target.types";
 import { RelativeScopeModifier } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";

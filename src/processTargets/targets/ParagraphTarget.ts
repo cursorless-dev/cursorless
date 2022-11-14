@@ -1,15 +1,17 @@
+import {
+  Position,
+  Range,
+  TextDocument,
+  TextEditor,
+  TextLine,
+} from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
-import { isSameType } from "../../util/typeUtils";
 import { constructLineTarget } from "../../util/tryConstructTarget";
+import { isSameType } from "../../util/typeUtils";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
 import BaseTarget from "./BaseTarget";
 import LineTarget from "./LineTarget";
-import { Range } from "../../libs/common/ide";
-import { TextEditor } from "../../libs/common/ide/types/TextEditor";
-import Position from "../../libs/common/ide/Position";
-import TextDocument from "../../libs/common/ide/types/TextDocument";
-import TextLine from "../../libs/common/ide/types/TextLine";
 
 export default class ParagraphTarget extends BaseTarget {
   insertionDelimiter = "\n\n";

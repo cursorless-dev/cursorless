@@ -1,6 +1,6 @@
+import { TextEditor } from "@cursorless/common";
 import { commands } from "vscode";
 import { callFunctionAndUpdateRanges } from "../../core/updateSelections/updateSelections";
-import { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import { Graph } from "../../typings/Types";
 import { CommandTarget, State } from "./EditNew.types";
 

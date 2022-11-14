@@ -1,4 +1,4 @@
-import type { Range } from "../libs/common/ide";
+import type { Range } from "@cursorless/common";
 import type {
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,

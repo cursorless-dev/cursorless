@@ -1,8 +1,7 @@
+import { Selection, TextEditor } from "@cursorless/common";
 import { flatten, zip } from "lodash";
 import { DecorationRangeBehavior } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
-import { Selection } from "../libs/common/ide";
-import { TextEditor } from "../libs/common/ide/types/TextEditor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";

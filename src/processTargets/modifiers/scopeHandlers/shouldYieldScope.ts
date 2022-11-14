@@ -1,4 +1,4 @@
-import Position from "../../../libs/common/ide/Position";
+import { Position } from "@cursorless/common";
 import { Direction } from "../../../typings/targetDescriptor.types";
 import { strictlyContains } from "../../../util/rangeUtils";
 import { compareTargetScopes } from "./compareTargetScopes";

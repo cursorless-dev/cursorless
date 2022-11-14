@@ -1,6 +1,5 @@
 import { getScopeHandler } from ".";
-import Position from "../../../libs/common/ide/Position";
-import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
+import { TextEditor, Position } from "@cursorless/common";
 import {
   Direction,
   OneOfScopeType,

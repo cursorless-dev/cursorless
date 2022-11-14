@@ -1,3 +1,4 @@
+import { EditableTextEditor, Position, Range } from "@cursorless/common";
 import {
   DecorationRangeBehavior,
   DecorationRenderOptions,
@@ -6,9 +7,6 @@ import {
   window,
   workspace,
 } from "vscode";
-import Position from "../libs/common/ide/Position";
-import { Range } from "../libs/common/ide";
-import { EditableTextEditor } from "../libs/common/ide/types/TextEditor";
 import sleep from "../libs/common/util/sleep";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import isTesting from "../testUtil/isTesting";

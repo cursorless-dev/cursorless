@@ -1,3 +1,4 @@
+import type { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { pull } from "lodash";
 import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
 import type { TextDocumentChangeEvent } from "../../libs/common/ide/types/Events";
@@ -6,18 +7,15 @@ import type {
   IDE,
   RunMode,
 } from "../../libs/common/ide/types/ide.types";
-import type {
-  EditableTextEditor,
-  TextEditor,
-} from "../../libs/common/ide/types/TextEditor";
+import { fromVscodeEditor } from "./fromVscodeEditor";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
-import VscodeEditableTextEditorImpl from "./VscodeEditableTextEditorImpl";
+import { VscodeEditableTextEditorImpl } from "./VscodeEditableTextEditorImpl";
 import { vscodeOnDidChangeTextDocument } from "./VscodeEvents";
 import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeMessages from "./VscodeMessages";
-import vscodeRunMode from "./VscodeRunMode";
-import { fromVscodeEditor, toVscodeEditor } from "./VscodeUtil";
+import { vscodeRunMode } from "./VscodeRunMode";
+import { toVscodeEditor } from "./vscodeIdeUtil";
 
 export default class VscodeIDE implements IDE {
   configuration: VscodeConfiguration;

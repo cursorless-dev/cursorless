@@ -1,10 +1,12 @@
-import type Position from "../Position";
-import type { Range } from "..";
-import type { Selection } from "..";
-import type TextDocument from "./TextDocument";
-import type { TextEditorDecorationType } from "./TextEditorDecorationType";
-import type TextEditorEdit from "./TextEditorEdit";
-import { TextEditorOptions } from "./TextEditorOptions";
+import type {
+  Position,
+  Range,
+  Selection,
+  TextDocument,
+  TextEditorDecorationType,
+  TextEditorEdit,
+  TextEditorOptions,
+} from "@cursorless/common";
 
 export interface TextEditor {
   /**

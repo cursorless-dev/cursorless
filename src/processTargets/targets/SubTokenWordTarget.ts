@@ -1,5 +1,5 @@
-import { Range } from "../../libs/common/ide";
-import { tryConstructPlainTarget as tryConstructPlainTarget } from "../../util/tryConstructTarget";
+import { Range } from "@cursorless/common";
+import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 

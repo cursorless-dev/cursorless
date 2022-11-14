@@ -1,11 +1,8 @@
+import { Location, Range, Selection, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import getTextFragmentExtractor, {
   TextFragmentExtractor,
 } from "../../../languages/getTextFragmentExtractor";
-import Location from "../../../libs/common/ide/Location";
-import { Range } from "../../../libs/common/ide";
-import { Selection } from "../../../libs/common/ide";
-import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import {
   ComplexSurroundingPairName,
   SurroundingPairScopeType,

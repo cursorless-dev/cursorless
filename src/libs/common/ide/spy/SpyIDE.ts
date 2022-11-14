@@ -1,3 +1,4 @@
+import { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { pickBy, values } from "lodash";
 import type { Clipboard } from "../types/Clipboard";
 import type { Configuration } from "../types/Configuration";
@@ -9,7 +10,6 @@ import type {
   WorkspaceFolder,
 } from "../types/ide.types";
 import type { State } from "../types/State";
-import { EditableTextEditor, TextEditor } from "../types/TextEditor";
 import SpyMessages, { Message } from "./SpyMessages";
 
 export interface SpyIDERecordedValues {

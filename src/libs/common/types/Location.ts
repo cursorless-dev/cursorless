@@ -1,12 +1,12 @@
 import type { URI } from "vscode-uri";
-import type Position from "./Position";
-import { Range } from ".";
+import type { Position } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 
 /**
  * Represents a location inside a resource, such as a line
  * inside a text file.
  */
-export default class Location {
+export class Location {
   /**
    * The resource identifier of this location.
    */

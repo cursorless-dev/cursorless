@@ -1,4 +1,6 @@
+import { Range, Selection, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
+import { getMatchesInRange } from "../apps/cursorless-vscode/getMatchesInRange";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import {
   NodeFinder,
@@ -12,10 +14,6 @@ import {
   getNodeRange,
   selectWithLeadingDelimiter,
 } from "../util/nodeSelectors";
-import { getMatchesInRange } from "../apps/cursorless-vscode/getMatchesInRange";
-import { Selection } from "../libs/common/ide";
-import { TextEditor } from "../libs/common/ide/types/TextEditor";
-import { Range } from "../libs/common/ide";
 import { shrinkRangeToFitContent } from "../util/selectionUtils";
 
 /**

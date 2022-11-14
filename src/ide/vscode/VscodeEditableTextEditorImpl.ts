@@ -1,21 +1,24 @@
-import * as vscode from "vscode";
-import type { Range, Selection } from "../../libs/common/ide";
-import type Position from "../../libs/common/ide/Position";
-import type { EditableTextEditor } from "../../libs/common/ide/types/TextEditor";
-import type { TextEditorDecorationType } from "../../libs/common/ide/types/TextEditorDecorationType";
-import type TextEditorEdit from "../../libs/common/ide/types/TextEditorEdit";
-import type { TextEditorOptions } from "../../libs/common/ide/types/TextEditorOptions";
-import vscodeEditEditor from "./VscodeEditEditor";
-import vscodeFocusEditor from "./VscodeFocusEditor";
-import vscodeOpenLink from "./VscodeOpenLink";
-import VscodeTextEditorImpl from "./VscodeTextEditorImpl";
+import type {
+  EditableTextEditor,
+  Position,
+  Range,
+  Selection,
+  TextEditorDecorationType,
+  TextEditorEdit,
+  TextEditorOptions,
+} from "@cursorless/common";
 import {
   toVscodePositionOrRange,
   toVscodeRange,
   toVscodeSelection,
-} from "./VscodeUtil";
+} from "@cursorless/vscode-common";
+import * as vscode from "vscode";
+import vscodeFocusEditor from "../../ide/vscode/VscodeFocusEditor";
+import vscodeEditEditor from "./VscodeEditEditor";
+import vscodeOpenLink from "./VscodeOpenLink";
+import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
-export default class VscodeEditableTextEditorImpl
+export class VscodeEditableTextEditorImpl
   extends VscodeTextEditorImpl
   implements EditableTextEditor
 {

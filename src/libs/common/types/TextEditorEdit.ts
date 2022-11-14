@@ -1,14 +1,11 @@
-import type Position from "../Position";
-import type { Range } from "..";
-import type { Selection } from "..";
-import type { EndOfLine } from "./ide.types";
+import type { Position, Range, Selection, EndOfLine } from "@cursorless/common";
 
 /**
  * A complex edit that will be applied in one transaction on a TextEditor.
  * This holds a description of the edits and if the edits are valid (i.e. no overlapping regions, document was not changed in the meantime, etc.)
  * they can be applied on a {@link TextDocument document} associated with a {@link TextEditor text editor}.
  */
-export default interface TextEditorEdit {
+export interface TextEditorEdit {
   /**
    * Replace a certain text region with a new value.
    * You can use \r\n or \n in `value` and they will be normalized to the current {@link TextDocument document}.

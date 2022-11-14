@@ -1,15 +1,5 @@
+import { EndOfLine, Position, Range, Selection } from "@cursorless/common";
 import * as vscode from "vscode";
-import { Range, Selection } from "../../libs/common/ide";
-import Position from "../../libs/common/ide/Position";
-import { EndOfLine } from "../../libs/common/ide/types/ide.types";
-import TextDocument from "../../libs/common/ide/types/TextDocument";
-import { TextEditor } from "../../libs/common/ide/types/TextEditor";
-import TextLine from "../../libs/common/ide/types/TextLine";
-import VscodeTextDocumentImpl from "./VscodeTextDocumentImpl";
-import VscodeTextEditorImpl from "./VscodeTextEditorImpl";
-import VscodeTextLineImpl from "./VscodeTextLineImpl";
-
-const editorMap = new WeakMap<vscode.TextEditor, TextEditor>();
 
 export function toVscodeRange(range: Range): vscode.Range {
   return new vscode.Range(
@@ -79,34 +69,10 @@ export function toVscodeRangeOrSelection(
     : toVscodeRange(location);
 }
 
-export function fromVscodeTextLine(line: vscode.TextLine): TextLine {
-  return new VscodeTextLineImpl(line);
-}
-
 export function toVscodeEndOfLine(eol: EndOfLine): vscode.EndOfLine {
   return eol === "LF" ? vscode.EndOfLine.LF : vscode.EndOfLine.CRLF;
 }
 
 export function fromVscodeAndOfLine(eol: vscode.EndOfLine): EndOfLine {
   return eol === vscode.EndOfLine.LF ? "LF" : "CRLF";
-}
-
-export function fromVscodeEditor(editor: vscode.TextEditor): TextEditor {
-  if (!editorMap.has(editor)) {
-    editorMap.set(editor, new VscodeTextEditorImpl(editor));
-  }
-  return editorMap.get(editor)!;
-}
-
-export function toVscodeEditor(editor: TextEditor): vscode.TextEditor {
-  if ("vscodeEditor" in editor) {
-    return (editor as VscodeTextEditorImpl).vscodeEditor;
-  }
-  throw Error("Can't get vscode editor from non vscode implementation");
-}
-
-export function fromVscodeDocument(
-  document: vscode.TextDocument,
-): TextDocument {
-  return new VscodeTextDocumentImpl(document);
 }

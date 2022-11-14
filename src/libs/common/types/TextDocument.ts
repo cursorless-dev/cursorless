@@ -1,9 +1,7 @@
+import type { Position, Range, TextLine } from "@cursorless/common";
 import type { URI } from "vscode-uri";
-import type Position from "../Position";
-import type { Range } from "..";
-import type TextLine from "./TextLine";
 
-export default interface TextDocument {
+export interface TextDocument {
   /**
    * The associated uri for this document.
    *

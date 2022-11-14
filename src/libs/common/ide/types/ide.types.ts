@@ -1,10 +1,10 @@
+import type { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { URI } from "vscode-uri";
 import { Clipboard } from "./Clipboard";
 import { Configuration } from "./Configuration";
 import { TextDocumentChangeEvent } from "./Events";
 import { Messages } from "./Messages";
 import { State } from "./State";
-import type { EditableTextEditor, TextEditor } from "./TextEditor";
 
 export type RunMode = "production" | "development" | "test";
 

@@ -1,4 +1,4 @@
-export default class Position {
+export class Position {
   /**
    * The zero-based line value.
    */

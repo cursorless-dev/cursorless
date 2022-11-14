@@ -1,4 +1,4 @@
-import type { Range } from "..";
+import type { Range } from "@cursorless/common";
 
 /**
  * Represents a line of text, such as a line of source code.
@@ -6,7 +6,7 @@ import type { Range } from "..";
  * TextLine objects are __immutable__. When a {@link TextDocument document} changes,
  * previously retrieved lines will not represent the latest state.
  */
-export default interface TextLine {
+export interface TextLine {
   /**
    * The zero-based line number.
    */

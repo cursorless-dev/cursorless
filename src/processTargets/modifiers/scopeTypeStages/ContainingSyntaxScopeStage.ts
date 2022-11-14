@@ -1,19 +1,18 @@
+import { Location, Selection } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 import { NoContainingScopeError } from "../../../errors";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
-import Location from "../../../libs/common/ide/Location";
-import { Selection } from "../../../libs/common/ide";
 import type { Target } from "../../../typings/target.types";
 import type {
   ContainingScopeModifier,
   EveryScopeModifier,
-  SimpleScopeType,
+  SimpleScopeType
 } from "../../../typings/targetDescriptor.types";
 import type {
   NodeMatcher,
   ProcessedTargetsContext,
   SelectionWithEditor,
-  SelectionWithEditorWithContext,
+  SelectionWithEditorWithContext
 } from "../../../typings/Types";
 import { selectionWithEditorFromRange } from "../../../util/selectionUtils";
 import type { ModifierStage } from "../../PipelineStages.types";

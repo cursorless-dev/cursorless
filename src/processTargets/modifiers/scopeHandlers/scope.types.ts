@@ -1,5 +1,4 @@
-import { Range } from "../../../libs/common/ide";
-import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
+import { Range, TextEditor } from "@cursorless/common";
 import type { Target } from "../../../typings/target.types";
 
 /**

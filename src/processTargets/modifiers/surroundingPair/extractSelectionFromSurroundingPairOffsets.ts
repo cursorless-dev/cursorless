@@ -1,6 +1,4 @@
-import { Range } from "../../../libs/common/ide";
-import { Selection } from "../../../libs/common/ide";
-import TextDocument from "../../../libs/common/ide/types/TextDocument";
+import { Range, Selection, TextDocument } from "@cursorless/common";
 import { SurroundingPairOffsets } from "./types";
 
 export interface SurroundingPairInfo {

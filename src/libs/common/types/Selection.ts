@@ -1,6 +1,6 @@
-import { Position, Range } from ".";
+import { Position, Range } from "@cursorless/common";
 
-export default class Selection extends Range {
+export class Selection extends Range {
   /**
    * The position at which the selection starts.
    * This position might be before or after {@link Selection.active active}.

@@ -1,3 +1,4 @@
+import { fromVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import type {
   TextDocumentChangeEvent,
@@ -5,7 +6,7 @@ import type {
   TextDocumentContentChangeEvent,
 } from "../../libs/common/ide/types/Events";
 import type { Disposable } from "../../libs/common/ide/types/ide.types";
-import { fromVscodeDocument, fromVscodeRange } from "./VscodeUtil";
+import { fromVscodeDocument } from "./vscodeIdeUtil";
 
 export function vscodeOnDidChangeTextDocument(
   listener: (event: TextDocumentChangeEvent) => void,

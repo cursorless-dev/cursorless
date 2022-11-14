@@ -1,7 +1,4 @@
-import Position from "../libs/common/ide/Position";
-import { Range } from "../libs/common/ide";
-import { Selection } from "../libs/common/ide";
-import { TextEditor } from "../libs/common/ide/types/TextEditor";
+import { Position, Range, Selection, TextEditor } from "@cursorless/common";
 import { SelectionWithEditor } from "../typings/Types";
 
 export function selectionWithEditorFromRange(

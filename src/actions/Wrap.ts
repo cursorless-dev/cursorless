@@ -1,9 +1,9 @@
+import { Selection } from "@cursorless/common";
 import { DecorationRangeBehavior } from "vscode";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
-import { Selection } from "../libs/common/ide";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Edit, Graph } from "../typings/Types";

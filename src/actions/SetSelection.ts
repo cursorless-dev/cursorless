@@ -1,4 +1,4 @@
-import { Selection } from "../libs/common/ide";
+import { Selection } from "@cursorless/common";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";

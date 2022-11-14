@@ -1,5 +1,8 @@
-import type { ThatMark } from "../../../core/ThatMark";
+import type { TextEditor } from "@cursorless/common";
 import { hrtimeBigintToSeconds } from "@cursorless/common";
+import type { ThatMark } from "../../../core/ThatMark";
+import type { Clipboard } from "../../common/ide/types/Clipboard";
+import type { IDE } from "../../common/ide/types/ide.types";
 import {
   RangePlainObject,
   rangeToPlainObject,
@@ -9,9 +12,6 @@ import {
   TargetPlainObject,
   targetToPlainObject,
 } from "./toPlainObject";
-import type { IDE } from "../../common/ide/types/ide.types";
-import type { Clipboard } from "../../common/ide/types/Clipboard";
-import type { TextEditor } from "../../common/ide/types/TextEditor";
 
 export type ExtraSnapshotField = keyof TestCaseSnapshot;
 export type ExcludableSnapshotField = keyof TestCaseSnapshot;

@@ -1,16 +1,19 @@
-import { v4 as uuid } from "uuid";
-import * as vscode from "vscode";
-import type { Range, Selection } from "../../libs/common/ide";
-import type TextDocument from "../../libs/common/ide/types/TextDocument";
-import type { TextEditor } from "../../libs/common/ide/types/TextEditor";
-import type { TextEditorOptions } from "../../libs/common/ide/types/TextEditorOptions";
+import type {
+  Range,
+  Selection,
+  TextDocument,
+  TextEditor,
+  TextEditorOptions,
+} from "@cursorless/common";
 import {
-  fromVscodeDocument,
   fromVscodeRange,
   fromVscodeSelection,
-} from "./VscodeUtil";
+} from "@cursorless/vscode-common";
+import { v4 as uuid } from "uuid";
+import * as vscode from "vscode";
+import { fromVscodeDocument } from "./vscodeIdeUtil";
 
-export default class VscodeTextEditorImpl implements TextEditor {
+export class VscodeTextEditorImpl implements TextEditor {
   readonly id: string;
   readonly document: TextDocument;
 

@@ -1,10 +1,8 @@
+import { Range, TextDocument, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
-import { Range } from "../../../libs/common/ide";
-import TextDocument from "../../../libs/common/ide/types/TextDocument";
-import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
 import {
   SimpleSurroundingPairName,
-  SurroundingPairScopeType,
+  SurroundingPairScopeType
 } from "../../../typings/targetDescriptor.types";
 import { getNodeRange } from "../../../util/nodeSelectors";
 import { isContainedInErrorNode } from "../../../util/treeSitterUtils";
@@ -14,7 +12,7 @@ import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import {
   IndividualDelimiter,
   Offsets,
-  PossibleDelimiterOccurrence,
+  PossibleDelimiterOccurrence
 } from "./types";
 
 /**

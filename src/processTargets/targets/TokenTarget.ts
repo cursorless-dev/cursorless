@@ -1,5 +1,5 @@
+import { Range } from "@cursorless/common";
 import { BaseTarget } from ".";
-import { Range } from "../../libs/common/ide";
 import { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,

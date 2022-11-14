@@ -1,6 +1,4 @@
-import { Range } from "../../../libs/common/ide";
-import TextDocument from "../../../libs/common/ide/types/TextDocument";
-import { TextEditor } from "../../../libs/common/ide/types/TextEditor";
+import { Range, TextDocument, TextEditor } from "@cursorless/common";
 import { tokenize } from "../../../libs/cursorless-engine/tokenizer";
 import type { Target } from "../../../typings/target.types";
 import { expandToFullLine } from "../../../util/rangeUtils";

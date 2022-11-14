@@ -1,6 +1,6 @@
+import { toVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import { URI } from "vscode-uri";
-import { toVscodeRange } from "../ide/vscode/VscodeUtil";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";

@@ -1,6 +1,6 @@
-import { Position, Selection } from ".";
+import { Position, Selection } from "@cursorless/common";
 
-export default class Range {
+export class Range {
   /**
    * The start position. It is before or equal to {@link Range.end end}.
    */

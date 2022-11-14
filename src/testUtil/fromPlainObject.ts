@@ -1,15 +1,12 @@
-import { UntypedTarget } from "../processTargets/targets";
-import type { Target } from "../typings/target.types";
+import { Position, Range, Selection, TextEditor } from "@cursorless/common";
 import type {
   PositionPlainObject,
   RangePlainObject,
   SelectionPlainObject,
   TargetPlainObject,
 } from "../libs/vscode-common/testUtil/toPlainObject";
-import { Range } from "../libs/common/ide";
-import { Selection } from "../libs/common/ide";
-import Position from "../libs/common/ide/Position";
-import { TextEditor } from "../libs/common/ide/types/TextEditor";
+import { UntypedTarget } from "../processTargets/targets";
+import type { Target } from "../typings/target.types";
 
 /**
  * Given a plain object describing a target, constructs a `Target` object.

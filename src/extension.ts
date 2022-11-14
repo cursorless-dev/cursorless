@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 import { ThatMark } from "./core/ThatMark";
+import { fromVscodeEditor } from "./ide/vscode/fromVscodeEditor";
 import VscodeIDE from "./ide/vscode/VscodeIDE";
-import { fromVscodeEditor } from "./ide/vscode/VscodeUtil";
 import FakeIDE from "./libs/common/ide/fake/FakeIDE";
 import ide, {
   injectIde,

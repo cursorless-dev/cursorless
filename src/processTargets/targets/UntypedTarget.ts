@@ -1,5 +1,5 @@
+import { Range } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from ".";
-import { Range } from "../../libs/common/ide";
 import type { Target } from "../../typings/target.types";
 import { createContinuousRangeUntypedTarget } from "../targetUtil/createContinuousRange";
 import {

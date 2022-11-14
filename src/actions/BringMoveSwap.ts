@@ -1,11 +1,10 @@
+import { Selection, TextEditor } from "@cursorless/common";
 import { flatten } from "lodash";
 import { DecorationRangeBehavior } from "vscode";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
-import { Selection } from "../libs/common/ide";
-import { TextEditor } from "../libs/common/ide/types/TextEditor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { EditWithRangeUpdater, Graph } from "../typings/Types";
