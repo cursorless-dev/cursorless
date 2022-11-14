@@ -6,13 +6,13 @@ import type { Target } from "../../../typings/target.types";
 import type {
   ContainingScopeModifier,
   EveryScopeModifier,
-  SimpleScopeType
+  SimpleScopeType,
 } from "../../../typings/targetDescriptor.types";
 import type {
   NodeMatcher,
   ProcessedTargetsContext,
   SelectionWithEditor,
-  SelectionWithEditorWithContext
+  SelectionWithEditorWithContext,
 } from "../../../typings/Types";
 import { selectionWithEditorFromRange } from "../../../util/selectionUtils";
 import type { ModifierStage } from "../../PipelineStages.types";
