@@ -7,15 +7,15 @@ import type {
   IDE,
   RunMode,
 } from "../../libs/common/ide/types/ide.types";
-import { fromVscodeEditor } from "./fromVscodeEditor";
+import { toVscodeEditor } from "@cursorless/vscode-common";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
 import { VscodeEditableTextEditorImpl } from "./VscodeEditableTextEditorImpl";
 import { vscodeOnDidChangeTextDocument } from "./VscodeEvents";
 import VscodeGlobalState from "./VscodeGlobalState";
+import { fromVscodeEditor } from "./vscodeIdeUtil";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
-import { toVscodeEditor } from "./vscodeIdeUtil";
 
 export default class VscodeIDE implements IDE {
   configuration: VscodeConfiguration;

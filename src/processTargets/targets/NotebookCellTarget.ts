@@ -1,5 +1,5 @@
 import { TextEditor } from "@cursorless/common";
-import { toVscodeEditor } from "../../ide/vscode/vscodeIdeUtil";
+import { toVscodeEditor } from "@cursorless/vscode-common";
 import { Target } from "../../typings/target.types";
 import { Position } from "../../typings/targetDescriptor.types";
 import { getNotebookFromCellDocument } from "../../util/notebook";
