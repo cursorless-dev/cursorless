@@ -25,9 +25,9 @@ export default class Position {
    * @return `true` if the line and character of the given position are equal to
    * the line and character of this position.
    */
-  public isEqual(other: Position): boolean {
+  public isEqual = (other: Position): boolean => {
     return this.line === other.line && this.character === other.character;
-  }
+  };
 
   /**
    * Check if this position is before `other`.
@@ -36,7 +36,7 @@ export default class Position {
    * @return `true` if position is on a smaller line
    * or on the same line on a smaller character.
    */
-  public isBefore(other: Position): boolean {
+  public isBefore = (other: Position): boolean => {
     if (this.line < other.line) {
       return true;
     }
@@ -44,7 +44,7 @@ export default class Position {
       return false;
     }
     return this.character < other.character;
-  }
+  };
 
   /**
    * Check if this position is after `other`.
@@ -53,7 +53,7 @@ export default class Position {
    * @return `true` if position is on a greater line
    * or on the same line on a greater character.
    */
-  public isAfter(other: Position): boolean {
+  public isAfter = (other: Position): boolean => {
     if (this.line > other.line) {
       return true;
     }
@@ -61,7 +61,7 @@ export default class Position {
       return false;
     }
     return this.character > other.character;
-  }
+  };
 
   /**
    * Check if this position is before or equal to `other`.
@@ -70,9 +70,9 @@ export default class Position {
    * @return `true` if position is on a smaller line
    * or on the same line on a smaller or equal character.
    */
-  public isBeforeOrEqual(other: Position): boolean {
+  public isBeforeOrEqual = (other: Position): boolean => {
     return this.isEqual(other) || this.isBefore(other);
-  }
+  };
 
   /**
    * Check if this position is after or equal to `other`.
@@ -81,9 +81,9 @@ export default class Position {
    * @return `true` if position is on a greater line
    * or on the same line on a greater or equal character.
    */
-  public isAfterOrEqual(other: Position): boolean {
+  public isAfterOrEqual = (other: Position): boolean => {
     return this.isEqual(other) || this.isAfter(other);
-  }
+  };
 
   /**
    * Compare this to `other`.
@@ -93,7 +93,7 @@ export default class Position {
    * a number greater than zero if this position is after the given position, or zero when
    * this and the given position are equal.
    */
-  public compareTo(other: Position): number {
+  public compareTo = (other: Position): number => {
     if (this.isBefore(other)) {
       return -1;
     }
@@ -101,7 +101,7 @@ export default class Position {
       return 1;
     }
     return 0;
-  }
+  };
 
   /**
    * Create a new position derived from this position.
@@ -110,9 +110,9 @@ export default class Position {
    * @param character Value that should be used as character value, default is the {@link Position.character existing value}
    * @return A position where line and character are replaced by the given values.
    */
-  public with(line?: number, character?: number): Position {
+  public with = (line?: number, character?: number): Position => {
     return new Position(line ?? this.line, character ?? this.character);
-  }
+  };
 
   /**
    * Create a new position relative to this position.
@@ -122,10 +122,13 @@ export default class Position {
    * @return A position which line and character is the sum of the current line and
    * character and the corresponding deltas.
    */
-  public translate(lineDelta?: number, characterDelta?: number): Position {
+  public translate = (
+    lineDelta?: number,
+    characterDelta?: number,
+  ): Position => {
     return new Position(
       this.line + (lineDelta ?? 0),
       this.character + (characterDelta ?? 0),
     );
-  }
+  };
 }

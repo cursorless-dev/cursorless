@@ -29,10 +29,8 @@ export default class VscodeTextDocumentImpl implements TextDocument {
   }
 
   get range(): Range {
-    return new Range(
-      new Position(0, 0),
-      this.document.lineAt(this.document.lineCount - 1).range.end,
-    );
+    const { end } = this.document.lineAt(this.document.lineCount - 1).range;
+    return new Range(0, 0, end.line, end.character);
   }
 
   constructor(private document: vscode.TextDocument) {}
