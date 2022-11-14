@@ -90,9 +90,9 @@ export default class Range {
    * @return `true` when start and end are {@link Position.isEqual equal} to
    * start and end of this range.
    */
-  public isEqual = (other: Range): boolean => {
+  public isEqual(other: Range): boolean {
     return this.start.isEqual(other.start) && this.end.isEqual(other.end);
-  };
+  }
 
   /**
    * Check if a position or a range is contained in this range.
@@ -101,13 +101,13 @@ export default class Range {
    * @return `true` if the position or range is inside or equal
    * to this range.
    */
-  public contains = (positionOrRange: Position | Range): boolean => {
+  public contains(positionOrRange: Position | Range): boolean {
     const [start, end] =
       "line" in positionOrRange
         ? [positionOrRange, positionOrRange]
         : [positionOrRange.start, positionOrRange.end];
     return start.isAfterOrEqual(this.start) && end.isBeforeOrEqual(this.end);
-  };
+  }
 
   /**
    * Intersect `range` with this range and returns a new range or `undefined`
@@ -117,11 +117,11 @@ export default class Range {
    * @return A range of the greater start and smaller end positions. Will
    * return undefined when there is no overlap.
    */
-  public intersection = (other: Range): Range | undefined => {
+  public intersection(other: Range): Range | undefined {
     const start = this.start.isAfter(other.start) ? this.start : other.start;
     const end = this.end.isBefore(other.end) ? this.end : other.end;
     return start.isBeforeOrEqual(end) ? new Range(start, end) : undefined;
-  };
+  }
 
   /**
    * Compute the union of `other` with this range.
@@ -129,12 +129,12 @@ export default class Range {
    * @param other A range.
    * @return A range of smaller start position and the greater end position.
    */
-  public union = (other: Range): Range => {
+  public union(other: Range): Range {
     return new Range(
       this.start.isBefore(other.start) ? this.start : other.start,
       this.end.isAfter(other.end) ? this.end : other.end,
     );
-  };
+  }
 
   /**
    * Derived a new range from this range.
@@ -144,18 +144,18 @@ export default class Range {
    * @return A range derived from this range with the given start and end position.
    * If start and end are not different `this` range will be returned.
    */
-  public with = (start?: Position, end?: Position): Range => {
+  public with(start?: Position, end?: Position): Range {
     return new Range(start ?? this.start, end ?? this.end);
-  };
+  }
 
   /**
    * Construct a new selection from this range
    * @param isReversed If true active is before anchor
    * @returns A new selection
    */
-  public toSelection = (isReversed: boolean): Selection => {
+  public toSelection(isReversed: boolean): Selection {
     return isReversed
       ? new Selection(this.end, this.start)
       : new Selection(this.start, this.end);
-  };
+  }
 }
