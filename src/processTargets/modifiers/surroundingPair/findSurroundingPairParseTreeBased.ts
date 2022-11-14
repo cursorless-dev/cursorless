@@ -2,7 +2,7 @@ import { Range, TextDocument, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import {
   SimpleSurroundingPairName,
-  SurroundingPairScopeType
+  SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
 import { getNodeRange } from "../../../util/nodeSelectors";
 import { isContainedInErrorNode } from "../../../util/treeSitterUtils";
@@ -12,7 +12,7 @@ import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import {
   IndividualDelimiter,
   Offsets,
-  PossibleDelimiterOccurrence
+  PossibleDelimiterOccurrence,
 } from "./types";
 
 /**
