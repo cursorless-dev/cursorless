@@ -21,7 +21,7 @@ class Scroll implements Action {
 
     for (const lineWithEditor of lines) {
       // For reveal line to the work we have to have the correct editor focused
-      if (lineWithEditor.editor !== ide().activeTextEditor) {
+      if (!lineWithEditor.editor.isActive) {
         await ide().getEditableTextEditor(lineWithEditor.editor).focus();
       }
       await commands.executeCommand("revealLine", {
@@ -31,7 +31,7 @@ class Scroll implements Action {
     }
 
     // If necessary focus back original editor
-    if (originalEditor != null && originalEditor !== ide().activeTextEditor) {
+    if (originalEditor != null && !originalEditor.isActive) {
       await originalEditor.focus();
     }
 

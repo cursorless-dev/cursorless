@@ -137,7 +137,7 @@ export default class CommandAction implements Action {
     if (
       actualOptions.restoreSelection &&
       originalEditor != null &&
-      originalEditor !== ide().activeTextEditor
+      !originalEditor.isActive
     ) {
       // NB: We just do one editor focus at the end, instead of using
       // setSelectionsAndFocusEditor because the command might operate on

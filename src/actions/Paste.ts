@@ -56,7 +56,7 @@ export class Paste {
     );
 
     // If necessary focus back original editor
-    if (originalEditor != null && originalEditor !== ide().activeTextEditor) {
+    if (originalEditor != null && !originalEditor.isActive) {
       // NB: We just do one editor focus at the end, instead of using
       // setSelectionsAndFocusEditor because the command might operate on
       // multiple editors, so we just do one focus at the end.

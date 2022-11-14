@@ -34,6 +34,11 @@ export interface TextEditor {
   readonly options: TextEditorOptions;
 
   /**
+   * True if this text editor is active.
+   */
+  readonly isActive: boolean;
+
+  /**
    * Check if this text editor is equal to `other`.
    *
    * @param other A text editor.

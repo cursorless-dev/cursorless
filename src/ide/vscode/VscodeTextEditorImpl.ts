@@ -1,7 +1,6 @@
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
-import type { Range } from "../../libs/common/ide";
-import type { Selection } from "../../libs/common/ide";
+import type { Range, Selection } from "../../libs/common/ide";
 import type TextDocument from "../../libs/common/ide/types/TextDocument";
 import type { TextEditor } from "../../libs/common/ide/types/TextEditor";
 import type { TextEditorOptions } from "../../libs/common/ide/types/TextEditorOptions";
@@ -34,6 +33,10 @@ export default class VscodeTextEditorImpl implements TextEditor {
 
   get options(): TextEditorOptions {
     return this.editor.options;
+  }
+
+  get isActive(): boolean {
+    return this.editor === vscode.window.activeTextEditor;
   }
 
   public isEqual(other: TextEditor): boolean {
