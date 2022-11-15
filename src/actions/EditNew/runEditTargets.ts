@@ -1,4 +1,4 @@
-import { Selection, TextEditor } from "@cursorless/common";
+import { Selection, EditableTextEditor } from "@cursorless/common";
 import { zip } from "lodash";
 import { DecorationRangeBehavior } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
@@ -20,7 +20,7 @@ import { EditTarget, State } from "./EditNew.types";
  */
 export async function runEditTargets(
   graph: Graph,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   state: State,
 ): Promise<State> {
   const editTargets: EditTarget[] = state.targets

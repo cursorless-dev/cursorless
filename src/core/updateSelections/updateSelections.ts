@@ -1,4 +1,9 @@
-import { Range, Selection, TextDocument, TextEditor } from "@cursorless/common";
+import {
+  EditableTextEditor,
+  Range,
+  Selection,
+  TextDocument,
+} from "@cursorless/common";
 import { flatten } from "lodash";
 import { DecorationRangeBehavior } from "vscode";
 import { Edit } from "../../typings/Types";
@@ -244,7 +249,7 @@ export function callFunctionAndUpdateSelectionsWithBehavior(
  */
 export async function performEditsAndUpdateSelections(
   rangeUpdater: RangeUpdater,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   edits: Edit[],
   originalSelections: (readonly Selection[])[],
 ) {
@@ -273,7 +278,7 @@ export async function performEditsAndUpdateSelections(
  */
 export function performEditsAndUpdateSelectionsWithBehavior(
   rangeUpdater: RangeUpdater,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   edits: Edit[],
   originalSelections: SelectionsWithBehavior[],
 ) {
@@ -296,7 +301,7 @@ export function performEditsAndUpdateSelectionsWithBehavior(
 
 export async function performEditsAndUpdateRanges(
   rangeUpdater: RangeUpdater,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   edits: Edit[],
   originalRanges: (readonly Range[])[],
 ): Promise<Range[][]> {
@@ -312,7 +317,7 @@ export async function performEditsAndUpdateRanges(
 
 async function performEditsAndUpdateInternal(
   rangeUpdater: RangeUpdater,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   edits: Edit[],
   selectionInfoMatrix: FullSelectionInfo[][],
 ) {
@@ -328,7 +333,7 @@ async function performEditsAndUpdateInternal(
 // TODO: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
 export async function performEditsAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   edits: Edit[],
   originalSelectionInfos: SelectionInfo[][],
 ): Promise<Selection[][]> {
@@ -353,7 +358,7 @@ export async function performEditsAndUpdateSelectionInfos(
  */
 export async function performEditsAndUpdateFullSelectionInfos(
   rangeUpdater: RangeUpdater,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   edits: Edit[],
   originalSelectionInfos: FullSelectionInfo[][],
 ): Promise<Selection[][]> {

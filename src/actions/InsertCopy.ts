@@ -58,13 +58,15 @@ class InsertCopy implements Action {
       rangeBehavior: DecorationRangeBehavior.OpenOpen,
     };
 
+    const editableEditor = ide().getEditableTextEditor(editor);
+
     const [
       updatedEditorSelections,
       updatedContentSelections,
       updatedEditSelections,
     ]: Selection[][] = await performEditsAndUpdateSelectionsWithBehavior(
       this.graph.rangeUpdater,
-      editor,
+      editableEditor,
       edits,
       [cursorSelections, contentSelections, editSelections],
     );
@@ -73,7 +75,6 @@ class InsertCopy implements Action {
       ([edit, selection]) => edit!.updateRange(selection!),
     );
 
-    const editableEditor = ide().getEditableTextEditor(editor);
     setSelectionsWithoutFocusingEditor(editableEditor, updatedEditorSelections);
     editableEditor.revealRange(editor.selections[0]);
 

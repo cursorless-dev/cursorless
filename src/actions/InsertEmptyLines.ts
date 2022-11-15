@@ -47,10 +47,12 @@ class InsertEmptyLines implements Action {
         const ranges = this.getRanges(targets);
         const edits = this.getEdits(ranges);
 
+        const editableEditor = ide().getEditableTextEditor(editor);
+
         const [updatedThatSelections, lineSelections, updatedCursorSelections] =
           await performEditsAndUpdateSelections(
             this.graph.rangeUpdater,
-            editor,
+            editableEditor,
             edits,
             [
               targets.map((target) => target.thatTarget.contentSelection),
@@ -60,7 +62,7 @@ class InsertEmptyLines implements Action {
           );
 
         setSelectionsWithoutFocusingEditor(
-          ide().getEditableTextEditor(editor),
+          editableEditor,
           updatedCursorSelections,
         );
 

@@ -87,6 +87,8 @@ export default class Wrap implements Action {
           ),
         );
 
+        const editableEditor = ide().getEditableTextEditor(editor);
+
         const [
           delimiterSelections,
           cursorSelections,
@@ -94,7 +96,7 @@ export default class Wrap implements Action {
           thatMarkSelections,
         ] = await performEditsAndUpdateFullSelectionInfos(
           this.graph.rangeUpdater,
-          editor,
+          editableEditor,
           edits,
           [
             delimiterSelectionInfos,
@@ -104,10 +106,7 @@ export default class Wrap implements Action {
           ],
         );
 
-        setSelectionsWithoutFocusingEditor(
-          ide().getEditableTextEditor(editor),
-          cursorSelections,
-        );
+        setSelectionsWithoutFocusingEditor(editableEditor, cursorSelections);
 
         this.graph.editStyles.displayPendingEditDecorationsForRanges(
           delimiterSelections.map((selection) => ({

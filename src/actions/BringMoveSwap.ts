@@ -181,10 +181,12 @@ class BringMoveSwap implements Action {
             ),
           );
 
+          const editableEditor = ide().getEditableTextEditor(editor);
+
           const [updatedEditSelections, cursorSelections]: Selection[][] =
             await performEditsAndUpdateFullSelectionInfos(
               this.graph.rangeUpdater,
-              editor,
+              editableEditor,
               filteredEdits.map(({ edit }) => edit),
               [editSelectionInfos, cursorSelectionInfos],
             );
@@ -192,10 +194,7 @@ class BringMoveSwap implements Action {
           // NB: We set the selections here because we don't trust vscode to
           // properly move the cursor on a bring. Sometimes it will smear an
           // empty selection
-          setSelectionsWithoutFocusingEditor(
-            ide().getEditableTextEditor(editor),
-            cursorSelections,
-          );
+          setSelectionsWithoutFocusingEditor(editableEditor, cursorSelections);
 
           return edits.map((edit, index): MarkEntry => {
             const selection = updatedEditSelections[index];

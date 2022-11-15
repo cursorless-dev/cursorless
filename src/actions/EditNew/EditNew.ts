@@ -29,7 +29,9 @@ export class EditNew implements Action {
       return runNotebookCellTargets(this.graph, targets);
     }
 
-    const editor = ensureSingleEditor(targets);
+    const editableEditor = ide().getEditableTextEditor(
+      ensureSingleEditor(targets),
+    );
 
     /**
      * Keeps track of the desired cursor positions and "that" marks as we
@@ -41,16 +43,13 @@ export class EditNew implements Action {
       cursorRanges: new Array(targets.length).fill(undefined) as undefined[],
     };
 
-    state = await runCommandTargets(this.graph, editor, state);
-    state = await runEditTargets(this.graph, editor, state);
+    state = await runCommandTargets(this.graph, editableEditor, state);
+    state = await runEditTargets(this.graph, editableEditor, state);
 
     const newSelections = state.targets.map((target, index) =>
       state.cursorRanges[index]!.toSelection(target.isReversed),
     );
-    await setSelectionsAndFocusEditor(
-      ide().getEditableTextEditor(editor),
-      newSelections,
-    );
+    await setSelectionsAndFocusEditor(editableEditor, newSelections);
 
     return {
       thatSelections: createThatMark(state.targets, state.thatRanges),
