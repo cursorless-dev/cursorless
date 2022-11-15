@@ -26,10 +26,7 @@ export default class VscodeTextLineImpl implements TextLine {
   }
 
   get lastNonWhitespaceCharacterIndex(): number {
-    return (
-      this.line.range.end.character -
-      (this.line.text.length - this.line.text.trimEnd().length)
-    );
+    return this.line.text.trimEnd().length;
   }
 
   get isEmptyOrWhitespace(): boolean {
