@@ -53,7 +53,7 @@ export default class VscodeIDE implements IDE {
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
     return window.activeTextEditor != null
-      ? new VscodeEditableTextEditorImpl(window.activeTextEditor)
+      ? new VscodeEditableTextEditorImpl(this, window.activeTextEditor)
       : undefined;
   }
 
@@ -62,7 +62,7 @@ export default class VscodeIDE implements IDE {
   }
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-    return new VscodeEditableTextEditorImpl(toVscodeEditor(editor));
+    return new VscodeEditableTextEditorImpl(this, toVscodeEditor(editor));
   }
 
   public onDidChangeTextDocument(

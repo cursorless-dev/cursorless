@@ -15,6 +15,7 @@ import {
 import * as vscode from "vscode";
 import vscodeFocusEditor from "../../ide/vscode/VscodeFocusEditor";
 import vscodeEdit from "./VscodeEdit";
+import type VscodeIDE from "./VscodeIDE";
 import vscodeOpenLink from "./VscodeOpenLink";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
@@ -22,7 +23,7 @@ export class VscodeEditableTextEditorImpl
   extends VscodeTextEditorImpl
   implements EditableTextEditor
 {
-  constructor(editor: vscode.TextEditor) {
+  constructor(public ide: VscodeIDE, editor: vscode.TextEditor) {
     super(editor);
   }
 

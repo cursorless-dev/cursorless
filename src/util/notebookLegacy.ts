@@ -1,14 +1,8 @@
 import { toVscodeEditor } from "@cursorless/vscode-common";
 import { range } from "lodash";
 import * as semver from "semver";
-import {
-  commands,
-  NotebookDocument,
-  TextDocument,
-  TextEditor,
-  version,
-} from "vscode";
-import ide from "../libs/cursorless-engine/singletons/ide.singleton";
+import { commands, NotebookDocument, TextDocument, version } from "vscode";
+import { VscodeEditableTextEditorImpl } from "../ide/vscode/VscodeEditableTextEditorImpl";
 import { getCellIndex } from "../libs/vscode-common/notebook";
 import { getNotebookFromCellDocument } from "./notebook";
 
@@ -16,18 +10,22 @@ export function isVscodeLegacyNotebookVersion() {
   return semver.lt(version, "1.68.0");
 }
 
-export async function focusNotebookCellLegacy(editor: TextEditor) {
-  const activeTextEditor = ide().activeTextEditor;
+export async function focusNotebookCellLegacy(
+  editor: VscodeEditableTextEditorImpl,
+) {
+  const activeTextEditor = editor.ide.activeTextEditor;
 
   if (activeTextEditor == null) {
     return;
   }
 
-  const vscodeEditor = toVscodeEditor(activeTextEditor);
+  const vscodeActiveEditor = toVscodeEditor(activeTextEditor);
 
-  const editorNotebook = getNotebookFromCellDocument(editor.document);
+  const editorNotebook = getNotebookFromCellDocument(
+    editor.vscodeEditor.document,
+  );
   const activeEditorNotebook = getNotebookFromCellDocument(
-    vscodeEditor.document,
+    vscodeActiveEditor.document,
   );
 
   if (
@@ -38,8 +36,14 @@ export async function focusNotebookCellLegacy(editor: TextEditor) {
     return;
   }
 
-  const editorIndex = getCellIndex(editorNotebook, editor.document);
-  const activeEditorIndex = getCellIndex(editorNotebook, vscodeEditor.document);
+  const editorIndex = getCellIndex(
+    editorNotebook,
+    editor.vscodeEditor.document,
+  );
+  const activeEditorIndex = getCellIndex(
+    editorNotebook,
+    vscodeActiveEditor.document,
+  );
 
   if (editorIndex === -1 || activeEditorIndex === -1) {
     throw new Error(
