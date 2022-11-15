@@ -13,6 +13,7 @@ import {
   focusNotebookCellLegacy,
   isVscodeLegacyNotebookVersion,
 } from "../../util/notebookLegacy";
+import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",
@@ -28,8 +29,8 @@ const columnFocusCommands = {
   [ViewColumn.Beside]: "",
 };
 
-export default async function focusVscodeEditor(editor: TextEditor) {
-  const viewColumn = getViewColumn(editor);
+export default async function focusVscodeEditor(editor: VscodeTextEditorImpl) {
+  const viewColumn = getViewColumn(editor.vscodeEditor);
   if (viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[viewColumn]);
   } else {
@@ -37,7 +38,7 @@ export default async function focusVscodeEditor(editor: TextEditor) {
     // can just move around in the notebook to focus the correct editor
 
     if (isVscodeLegacyNotebookVersion()) {
-      return await focusNotebookCellLegacy(editor);
+      return await focusNotebookCellLegacy(editor.vscodeEditor);
     }
 
     await focusNotebookCell(editor);
@@ -60,8 +61,10 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
   return tabGroup?.viewColumn;
 }
 
-async function focusNotebookCell(editor: TextEditor) {
-  const desiredNotebookEditor = getNotebookFromCellDocument(editor.document);
+async function focusNotebookCell(editor: VscodeTextEditorImpl) {
+  const desiredNotebookEditor = getNotebookFromCellDocument(
+    editor.vscodeEditor.document,
+  );
   if (desiredNotebookEditor == null) {
     throw new Error("Couldn't find notebook editor for given document");
   }
@@ -77,7 +80,7 @@ async function focusNotebookCell(editor: TextEditor) {
 
   const desiredEditorIndex = getCellIndex(
     desiredNotebookDocument,
-    editor.document,
+    editor.vscodeEditor.document,
   );
 
   const desiredSelections = [
@@ -92,7 +95,7 @@ async function focusNotebookCell(editor: TextEditor) {
   // Issue a command to tell VSCode to focus the cell input editor
   // NB: We don't issue the command if it's already focused, because it turns
   // out that this command is actually a toggle, so that causes it to de-focus!
-  if (editor !== window.activeTextEditor) {
+  if (!editor.isActive) {
     await commands.executeCommand("notebook.cell.edit");
   }
 }
