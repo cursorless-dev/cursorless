@@ -16,11 +16,16 @@ export function getIterationScope(
   context: ProcessedTargetsContext,
   target: Target,
 ): { range: Range; boundary?: [Range, Range] } {
-  let pairInfo = getSurroundingPair(target.editor, target.contentRange);
+  let pairInfo = getSurroundingPair(
+    context,
+    target.editor,
+    target.contentRange,
+  );
 
   // Iteration is necessary in case of nested strings
   while (pairInfo != null) {
     const stringPairInfo = getStringSurroundingPair(
+      context,
       target.editor,
       pairInfo.contentRange,
     );
@@ -38,7 +43,7 @@ export function getIterationScope(
       };
     }
 
-    pairInfo = getParentSurroundingPair(target.editor, pairInfo);
+    pairInfo = getParentSurroundingPair(context, target.editor, pairInfo);
   }
 
   // We have not found a surrounding pair. Use the line.
@@ -48,6 +53,7 @@ export function getIterationScope(
 }
 
 function getParentSurroundingPair(
+  context: ProcessedTargetsContext,
   editor: TextEditor,
   pairInfo: SurroundingPairInfo,
 ) {
@@ -58,19 +64,27 @@ function getParentSurroundingPair(
   }
   // Step out of this pair and see if we have a parent
   const position = editor.document.positionAt(startOffset - 1);
-  return getSurroundingPair(editor, new Range(position, position));
+  return getSurroundingPair(context, editor, new Range(position, position));
 }
 
-function getSurroundingPair(editor: TextEditor, contentRange: Range) {
-  return processSurroundingPair(editor, contentRange, {
+function getSurroundingPair(
+  context: ProcessedTargetsContext,
+  editor: TextEditor,
+  contentRange: Range,
+) {
+  return processSurroundingPair(context, editor, contentRange, {
     type: "surroundingPair",
     delimiter: "collectionBoundary",
     requireStrongContainment: true,
   });
 }
 
-function getStringSurroundingPair(editor: TextEditor, contentRange: Range) {
-  return processSurroundingPair(editor, contentRange, {
+function getStringSurroundingPair(
+  context: ProcessedTargetsContext,
+  editor: TextEditor,
+  contentRange: Range,
+) {
+  return processSurroundingPair(context, editor, contentRange, {
     type: "surroundingPair",
     delimiter: "string",
     requireStrongContainment: true,

@@ -1,5 +1,5 @@
 import type { EditableTextEditor, TextEditor } from "@cursorless/common";
-import { ParseTreeApi, toVscodeEditor } from "@cursorless/vscode-common";
+import { toVscodeEditor } from "@cursorless/vscode-common";
 import { pull } from "lodash";
 import type * as vscode from "vscode";
 import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
@@ -25,10 +25,7 @@ export default class VscodeIDE implements IDE {
   clipboard: VscodeClipboard;
   private editorMap;
 
-  constructor(
-    private extensionContext: ExtensionContext,
-    private parseTreeApi: ParseTreeApi,
-  ) {
+  constructor(private extensionContext: ExtensionContext) {
     this.configuration = new VscodeConfiguration(this);
     this.globalState = new VscodeGlobalState(extensionContext);
     this.messages = new VscodeMessages();
@@ -56,10 +53,7 @@ export default class VscodeIDE implements IDE {
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
     return window.activeTextEditor != null
-      ? new VscodeEditableTextEditorImpl(
-          this.parseTreeApi,
-          window.activeTextEditor,
-        )
+      ? new VscodeEditableTextEditorImpl(window.activeTextEditor)
       : undefined;
   }
 
@@ -68,10 +62,7 @@ export default class VscodeIDE implements IDE {
   }
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-    return new VscodeEditableTextEditorImpl(
-      this.parseTreeApi,
-      toVscodeEditor(editor),
-    );
+    return new VscodeEditableTextEditorImpl(toVscodeEditor(editor));
   }
 
   public onDidChangeTextDocument(
@@ -82,10 +73,7 @@ export default class VscodeIDE implements IDE {
 
   public fromVscodeEditor(editor: vscode.TextEditor): TextEditor {
     if (!this.editorMap.has(editor)) {
-      this.editorMap.set(
-        editor,
-        new VscodeTextEditorImpl(this.parseTreeApi, editor),
-      );
+      this.editorMap.set(editor, new VscodeTextEditorImpl(editor));
     }
     return this.editorMap.get(editor)!;
   }

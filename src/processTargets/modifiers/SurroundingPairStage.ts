@@ -42,6 +42,7 @@ function processedSurroundingPairTarget(
   target: Target,
 ): SurroundingPairTarget[] {
   const pairInfo = processSurroundingPair(
+    context,
     target.editor,
     target.contentRange,
     modifier.scopeType,

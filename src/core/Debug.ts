@@ -1,3 +1,4 @@
+import { Location } from "@cursorless/common";
 import { fromVscodeRange } from "@cursorless/vscode-common";
 import {
   Disposable,
@@ -86,11 +87,14 @@ export default class Debug {
   }
 
   private logBranchTypes(event: TextEditorSelectionChangeEvent) {
+    const location = new Location(
+      ide().activeTextEditor!.document.uri,
+      fromVscodeRange(event.selections[0]),
+    );
+
     let node: SyntaxNode;
     try {
-      node = ide().activeTextEditor!.getNodeAtLocation(
-        fromVscodeRange(event.selections[0]),
-      );
+      node = this.graph.getNodeAtLocation(location);
     } catch (error) {
       return;
     }

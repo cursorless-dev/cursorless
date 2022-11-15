@@ -29,10 +29,10 @@ import makeGraph, { FactoryMap } from "./util/makeGraph";
 export async function activate(
   context: vscode.ExtensionContext,
 ): Promise<CursorlessApi> {
-  const parseTreeApi = await getParseTreeApi();
+  const { getNodeAtLocation } = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
 
-  const vscodeIDE = new VscodeIDE(context, parseTreeApi);
+  const vscodeIDE = new VscodeIDE(context);
 
   if (isTesting()) {
     // FIXME: At some point we'll probably want to support partial mocking
@@ -48,6 +48,7 @@ export async function activate(
     ...graphFactories,
     extensionContext: () => context,
     commandServerApi: () => commandServerApi,
+    getNodeAtLocation: () => getNodeAtLocation,
   } as FactoryMap<Graph>);
   graph.debug.init();
   graph.snippets.init();

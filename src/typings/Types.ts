@@ -1,4 +1,9 @@
-import type { Range, Selection, TextEditor } from "@cursorless/common";
+import type {
+  Location,
+  Range,
+  Selection,
+  TextEditor,
+} from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
 import Cheatsheet from "../core/Cheatsheet";
@@ -41,6 +46,7 @@ export interface ProcessedTargetsContext {
   hatTokenMap: ReadOnlyHatMap;
   thatMark: Target[];
   sourceMark: Target[];
+  getNodeAtLocation: (location: Location) => SyntaxNode;
 }
 
 export interface SelectionWithEditor {
@@ -130,6 +136,11 @@ export interface Graph {
    * API object for interacting with the command server, if it exists
    */
   readonly commandServerApi: CommandServerApi | null;
+
+  /**
+   * Function to access nodes in the tree sitter.
+   */
+  readonly getNodeAtLocation: (location: Location) => SyntaxNode;
 
   /**
    * Debug logger

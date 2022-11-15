@@ -29,6 +29,7 @@ export default class BoundedNonWhitespaceSequenceStage
     const paintTargets = paintStage.run(context, target);
 
     const pairInfo = processSurroundingPair(
+      context,
       target.editor,
       target.contentRange,
       {
