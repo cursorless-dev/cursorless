@@ -15,7 +15,7 @@ export async function focusNotebookCellLegacy(
   ide: VscodeIDE,
   editor: VscodeEditableTextEditorImpl,
 ) {
-  const activeTextEditor = ide.activeTextEditor;
+  const { activeTextEditor } = ide;
 
   if (activeTextEditor == null) {
     return;
