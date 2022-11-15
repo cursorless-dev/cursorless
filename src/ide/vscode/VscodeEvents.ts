@@ -24,8 +24,10 @@ function fromVscodeContentChange(
   change: vscode.TextDocumentContentChangeEvent,
 ): TextDocumentContentChangeEvent {
   return {
-    ...change,
     range: fromVscodeRange(change.range),
+    rangeOffset: change.rangeOffset,
+    rangeLength: change.rangeLength,
+    text: change.text,
   };
 }
 
