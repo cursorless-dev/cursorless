@@ -8,7 +8,7 @@ import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } 
 import { stringTextFragmentExtractor as scssStringTextFragmentExtractor } from "./scss";
 import { UnsupportedLanguageError } from "../errors";
 import { Range } from "vscode";
-import { SupportedLanguageId } from "./constants";
+import { SupportedLanguageId } from "../libs/cursorless-engine/languages/constants";
 import { getNodeInternalRange, getNodeRange } from "../util/nodeSelectors";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { notSupported } from "../util/nodeMatchers";

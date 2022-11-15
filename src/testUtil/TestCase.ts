@@ -1,32 +1,35 @@
 import { pick } from "lodash";
 import { ActionType } from "../actions/actions.types";
-import { CommandLatest } from "../core/commandRunner/command.types";
 import { TestDecoration } from "../core/editStyles";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ThatMark } from "../core/ThatMark";
-import SpyIDE, { SpyIDERecordedValues } from "../ide/spies/SpyIDE";
+import SpyIDE, { SpyIDERecordedValues } from "../libs/common/ide/spy/SpyIDE";
 import { TargetDescriptor } from "../typings/targetDescriptor.types";
 import { Token } from "../typings/Types";
 import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 import {
   extractTargetedMarks,
   extractTargetKeys,
-} from "./extractTargetedMarks";
-import serialize from "./serialize";
+} from "../libs/common/testUtil/extractTargetedMarks";
+import serialize from "../libs/common/testUtil/serialize";
 import {
   ExtraSnapshotField,
   takeSnapshot,
   TestCaseSnapshot,
-} from "./takeSnapshot";
+} from "../libs/vscode-common/testUtil/takeSnapshot";
 import {
   marksToPlainObject,
-  PositionPlainObject,
   SerializedMarks,
   testDecorationsToPlainObject,
-} from "./toPlainObject";
-import { getActiveTextEditor } from "../ide/activeTextEditor";
-
-export type TestCaseCommand = CommandLatest;
+} from "../libs/vscode-common/toPlainObject";
+import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
+import type {
+  PlainTestDecoration,
+  ThrownError,
+  TestCaseCommand,
+  TestCaseFixture,
+} from "./TestCaseFixture";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 
 export type TestCaseContext = {
   thatMark: ThatMark;
@@ -34,49 +37,6 @@ export type TestCaseContext = {
   targets: TargetDescriptor[];
   decorations: TestDecoration[];
   hatTokenMap: ReadOnlyHatMap;
-};
-
-interface PlainTestDecoration {
-  name: string;
-  type: "token" | "line";
-  start: PositionPlainObject;
-  end: PositionPlainObject;
-}
-
-export type ThrownError = {
-  name: string;
-};
-
-export type TestCaseFixture = {
-  languageId: string;
-  postEditorOpenSleepTimeMs?: number;
-  postCommandSleepTimeMs?: number;
-  command: TestCaseCommand;
-
-  /**
-   * A list of marks to check in the case of navigation map test otherwise undefined
-   */
-  marksToCheck?: string[];
-
-  initialState: TestCaseSnapshot;
-  /**
-   * Expected decorations in the test case, for example highlighting deletions in red.
-   */
-  decorations?: PlainTestDecoration[];
-  ide?: SpyIDERecordedValues;
-  /** The final state after a command is issued. Undefined if we are testing a non-match(error) case. */
-  finalState?: TestCaseSnapshot;
-  /** Used to assert if an error has been thrown. */
-  thrownError?: ThrownError;
-
-  /**
-   * The return value of the command. Will be undefined when we have recorded an
-   * error test case.
-   */
-  returnValue?: unknown;
-
-  /** Inferred full targets added for context; not currently used in testing */
-  fullTargets: TargetDescriptor[];
 };
 
 export class TestCase {
@@ -218,6 +178,8 @@ export class TestCase {
       this.context.sourceMark,
       excludeFields,
       this.extraSnapshotFields,
+      getActiveTextEditor()!,
+      ide(),
       this.getMarks(),
       { startTimestamp: this.startTimestamp },
     );
@@ -231,6 +193,8 @@ export class TestCase {
       this.context.sourceMark,
       excludeFields,
       this.extraSnapshotFields,
+      getActiveTextEditor()!,
+      ide(),
       this.isHatTokenMapTest ? this.getMarks() : undefined,
       { startTimestamp: this.startTimestamp },
     );

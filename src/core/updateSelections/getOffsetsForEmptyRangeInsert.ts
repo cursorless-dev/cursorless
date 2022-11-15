@@ -1,5 +1,8 @@
 import { invariant } from "immutability-helper";
-import { leftAnchored, rightAnchored } from "../../util/regex";
+import {
+  leftAnchored,
+  rightAnchored,
+} from "../../libs/cursorless-engine/util/regex";
 import {
   ChangeEventInfo,
   FullRangeInfo,

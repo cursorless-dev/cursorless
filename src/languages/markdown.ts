@@ -13,7 +13,7 @@ import {
   getNodeRange,
   selectWithLeadingDelimiter,
 } from "../util/nodeSelectors";
-import { getMatchesInRange } from "../util/regex";
+import { getMatchesInRange } from "../apps/cursorless-vscode/getMatchesInRange";
 import {
   isReversed,
   selectionFromRange,

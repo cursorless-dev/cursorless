@@ -15,7 +15,7 @@ import {
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
-import { getActiveTextEditor } from "../ide/activeTextEditor";
+import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
 
 export interface CommandOptions {
   command?: string;

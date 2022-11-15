@@ -1,10 +1,11 @@
 import * as vscode from "vscode";
-import { Notifier } from "../../util/Notifier";
 import {
   Configuration,
-  CursorlessConfigKey,
+  ConfigurationScope,
   CursorlessConfiguration,
-} from "../ide.types";
+} from "../../libs/common/ide/types/Configuration";
+import { GetFieldType, Paths } from "../../libs/common/ide/types/Paths";
+import { Notifier } from "../../libs/common/util/Notifier";
 import type VscodeIDE from "./VscodeIDE";
 
 export default class VscodeConfiguration implements Configuration {
@@ -18,12 +19,13 @@ export default class VscodeConfiguration implements Configuration {
     );
   }
 
-  getOwnConfiguration<T extends CursorlessConfigKey>(
-    key: T,
-  ): CursorlessConfiguration[T] | undefined {
+  getOwnConfiguration<Path extends Paths<CursorlessConfiguration>>(
+    path: Path,
+    scope?: ConfigurationScope,
+  ): GetFieldType<CursorlessConfiguration, Path> {
     return vscode.workspace
-      .getConfiguration("cursorless")
-      .get<CursorlessConfiguration[T]>(key);
+      .getConfiguration("cursorless", scope)
+      .get<GetFieldType<CursorlessConfiguration, Path>>(path)!;
   }
 
   onDidChangeConfiguration = this.notifier.registerListener;

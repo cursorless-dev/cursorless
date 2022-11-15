@@ -6,7 +6,7 @@ import {
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
 import { getDocumentRange } from "../../../util/rangeUtils";
-import { matchAll } from "../../../util/regex";
+import { matchAll } from "../../../libs/cursorless-engine/util/regex";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";

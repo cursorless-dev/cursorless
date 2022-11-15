@@ -1,8 +1,8 @@
 import { imap } from "itertools";
 import { NestedScopeHandler } from ".";
-import { GRAPHEME_SPLIT_REGEX } from "../../../core/TokenGraphemeSplitter";
+import { GRAPHEME_SPLIT_REGEX } from "../../../libs/cursorless-engine/tokenGraphemeSplitter";
 import { Direction } from "../../../typings/targetDescriptor.types";
-import { generateMatchesInRange } from "../../../util/regex";
+import { generateMatchesInRange } from "../../../apps/cursorless-vscode/getMatchesInRange";
 import { PlainTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
 

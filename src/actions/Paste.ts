@@ -11,7 +11,7 @@ import {
 } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
-import { getActiveTextEditor } from "../ide/activeTextEditor";
+import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
 
 export class Paste {
   constructor(private graph: Graph) {}

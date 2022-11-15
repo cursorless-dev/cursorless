@@ -1,11 +1,12 @@
 import * as vscode from "vscode";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Graph } from "../typings/Types";
 
 export default class StatusBarItem {
   private disposables: vscode.Disposable[] = [];
 
   constructor(private graph: Graph) {
-    graph.extensionContext.subscriptions.push(this);
+    ide().disposeOnExit(this);
   }
 
   init() {
