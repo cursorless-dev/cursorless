@@ -46,8 +46,6 @@ export interface TextDocument {
    * that the returned object is *not* live and changes to the
    * document are not reflected.
    *
-   * The position will be {@link TextDocument.validatePosition adjusted}.
-   *
    * @see {@link TextDocument.lineAt}
    *
    * @param position A position.
@@ -57,8 +55,6 @@ export interface TextDocument {
 
   /**
    * Converts the position to a zero-based offset.
-   *
-   * The position will be {@link TextDocument.validatePosition adjusted}.
    *
    * @param position A position.
    * @return A valid zero-based offset.
@@ -75,7 +71,7 @@ export interface TextDocument {
 
   /**
    * Get the text of this document. A substring can be retrieved by providing
-   * a range. The range will be {@link TextDocument.validateRange adjusted}.
+   * a range.
    *
    * @param range Include only the text included by the range.
    * @return The text inside the provided range or the entire text.

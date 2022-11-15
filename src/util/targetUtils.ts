@@ -54,8 +54,8 @@ function groupForEachEditor<T>(
   getEditor: (target: T) => TextEditor,
 ): [TextEditor, T[]][] {
   // Actually group by document and not editor. If the same document is open in multiple editors we want to perform all actions in one editor or an concurrency error will occur.
-  const getDocument = (target: T) => getEditor(target).document.uri;
-  const editorMap = groupBy(targets, getDocument);
+  const getDocumentUri = (target: T) => getEditor(target).document.uri;
+  const editorMap = groupBy(targets, getDocumentUri);
   return Array.from(editorMap.values(), (editorTargets) => {
     // Just pick any editor with the given document open; doesn't matter which
     const editor = getEditor(editorTargets[0]);
