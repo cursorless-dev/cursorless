@@ -9,16 +9,13 @@ import {
   fromVscodeRange,
   fromVscodeSelection,
 } from "@cursorless/vscode-common";
-import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
 import { fromVscodeDocument } from "./vscodeIdeUtil";
 
 export class VscodeTextEditorImpl implements TextEditor {
-  readonly id: string;
   readonly document: TextDocument;
 
-  constructor(protected editor: vscode.TextEditor) {
-    this.id = uuid();
+  constructor(public readonly id: string, protected editor: vscode.TextEditor) {
     this.document = fromVscodeDocument(editor.document);
   }
 

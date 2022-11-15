@@ -1,5 +1,4 @@
 import type { EditableTextEditor, TextEditor } from "@cursorless/common";
-import { toVscodeEditor } from "@cursorless/vscode-common";
 import { pull } from "lodash";
 import type * as vscode from "vscode";
 import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
@@ -16,7 +15,7 @@ import { vscodeOnDidChangeTextDocument } from "./VscodeEvents";
 import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import { v4 as uuid } from "uuid";
 
 export default class VscodeIDE implements IDE {
   configuration: VscodeConfiguration;
@@ -30,7 +29,10 @@ export default class VscodeIDE implements IDE {
     this.globalState = new VscodeGlobalState(extensionContext);
     this.messages = new VscodeMessages();
     this.clipboard = new VscodeClipboard();
-    this.editorMap = new WeakMap<vscode.TextEditor, TextEditor>();
+    this.editorMap = new WeakMap<
+      vscode.TextEditor,
+      VscodeEditableTextEditorImpl
+    >();
   }
 
   get assetsRoot(): string {
@@ -46,14 +48,16 @@ export default class VscodeIDE implements IDE {
   }
 
   get activeTextEditor(): TextEditor | undefined {
-    return window.activeTextEditor != null
-      ? this.fromVscodeEditor(window.activeTextEditor)
-      : undefined;
+    return this.getActiveTextEditor();
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
+    return this.getActiveTextEditor();
+  }
+
+  private getActiveTextEditor() {
     return window.activeTextEditor != null
-      ? new VscodeEditableTextEditorImpl(this, window.activeTextEditor)
+      ? this.fromVscodeEditor(window.activeTextEditor)
       : undefined;
   }
 
@@ -62,7 +66,7 @@ export default class VscodeIDE implements IDE {
   }
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-    return new VscodeEditableTextEditorImpl(this, toVscodeEditor(editor));
+    return editor as VscodeEditableTextEditorImpl;
   }
 
   public onDidChangeTextDocument(
@@ -71,9 +75,14 @@ export default class VscodeIDE implements IDE {
     return vscodeOnDidChangeTextDocument(listener);
   }
 
-  public fromVscodeEditor(editor: vscode.TextEditor): TextEditor {
+  public fromVscodeEditor(
+    editor: vscode.TextEditor,
+  ): VscodeEditableTextEditorImpl {
     if (!this.editorMap.has(editor)) {
-      this.editorMap.set(editor, new VscodeTextEditorImpl(editor));
+      this.editorMap.set(
+        editor,
+        new VscodeEditableTextEditorImpl(uuid(), this, editor),
+      );
     }
     return this.editorMap.get(editor)!;
   }

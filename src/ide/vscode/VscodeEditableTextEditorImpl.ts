@@ -23,8 +23,8 @@ export class VscodeEditableTextEditorImpl
   extends VscodeTextEditorImpl
   implements EditableTextEditor
 {
-  constructor(private ide: VscodeIDE, editor: vscode.TextEditor) {
-    super(editor);
+  constructor(id: string, private ide: VscodeIDE, editor: vscode.TextEditor) {
+    super(id, editor);
   }
 
   get selections(): Selection[] {
