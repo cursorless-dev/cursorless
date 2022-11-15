@@ -7,6 +7,7 @@ import type {
   TextEditorEdit,
   TextEditorOptions,
 } from "@cursorless/common";
+import type { SyntaxNode } from "web-tree-sitter";
 
 export interface TextEditor {
   /**
@@ -47,6 +48,14 @@ export interface TextEditor {
    * @return `true` if the this text editor is equal to `other`.
    */
   isEqual(other: TextEditor): boolean;
+
+  /**
+   * Function to access nodes in the tree sitter.
+   *
+   * @param positionOrRange The position or range. Positions will be converted to an empty range.
+   * @returns A {@link SyntaxNode node}
+   */
+  getNodeAtLocation(positionOrRange: Position | Range): SyntaxNode;
 }
 
 export interface EditableTextEditor extends TextEditor {

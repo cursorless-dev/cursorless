@@ -121,7 +121,6 @@ export default class CommandRunner {
         hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],
-        getNodeAtLocation: this.graph.getNodeAtLocation,
       };
 
       if (this.graph.testCaseRecorder.isActive()) {

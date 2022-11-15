@@ -1,4 +1,4 @@
-import { Location, Range, Selection, TextEditor } from "@cursorless/common";
+import { Range, Selection, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import getTextFragmentExtractor, {
   TextFragmentExtractor,
@@ -7,7 +7,6 @@ import {
   ComplexSurroundingPairName,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../../typings/Types";
 import { complexDelimiterMap } from "./delimiterMaps";
 import { SurroundingPairInfo } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
@@ -28,7 +27,6 @@ import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
  * `null` if none was found
  */
 export function processSurroundingPair(
-  context: ProcessedTargetsContext,
   editor: TextEditor,
   range: Range,
   scopeType: SurroundingPairScopeType,
@@ -42,7 +40,7 @@ export function processSurroundingPair(
   let textFragmentExtractor: TextFragmentExtractor;
 
   try {
-    node = context.getNodeAtLocation(new Location(document.uri, range));
+    node = editor.getNodeAtLocation(range);
 
     textFragmentExtractor = getTextFragmentExtractor(document.languageId);
   } catch (err) {

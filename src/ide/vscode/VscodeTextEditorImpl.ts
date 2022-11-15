@@ -1,4 +1,5 @@
 import type {
+  Position,
   Range,
   Selection,
   TextDocument,
@@ -8,16 +9,22 @@ import type {
 import {
   fromVscodeRange,
   fromVscodeSelection,
+  ParseTreeApi,
+  toVscodePositionOrRange,
 } from "@cursorless/vscode-common";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
+import { SyntaxNode } from "web-tree-sitter";
 import { fromVscodeDocument } from "./vscodeIdeUtil";
 
 export class VscodeTextEditorImpl implements TextEditor {
   readonly id: string;
   readonly document: TextDocument;
 
-  constructor(protected editor: vscode.TextEditor) {
+  constructor(
+    protected parseTreeApi: ParseTreeApi,
+    protected editor: vscode.TextEditor,
+  ) {
     this.id = uuid();
     this.document = fromVscodeDocument(editor.document);
   }
@@ -40,6 +47,15 @@ export class VscodeTextEditorImpl implements TextEditor {
 
   get isActive(): boolean {
     return this.editor === vscode.window.activeTextEditor;
+  }
+
+  public getNodeAtLocation(positionOrRange: Position | Range): SyntaxNode {
+    return this.parseTreeApi.getNodeAtLocation(
+      new vscode.Location(
+        this.document.uri,
+        toVscodePositionOrRange(positionOrRange),
+      ),
+    );
   }
 
   public isEqual(other: TextEditor): boolean {

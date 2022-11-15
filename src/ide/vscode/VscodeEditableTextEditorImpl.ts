@@ -8,6 +8,7 @@ import type {
   TextEditorOptions,
 } from "@cursorless/common";
 import {
+  ParseTreeApi,
   toVscodePositionOrRange,
   toVscodeRange,
   toVscodeSelection,
@@ -22,8 +23,8 @@ export class VscodeEditableTextEditorImpl
   extends VscodeTextEditorImpl
   implements EditableTextEditor
 {
-  constructor(editor: vscode.TextEditor) {
-    super(editor);
+  constructor(parseTreeApi: ParseTreeApi, editor: vscode.TextEditor) {
+    super(parseTreeApi, editor);
   }
 
   get selections(): Selection[] {
