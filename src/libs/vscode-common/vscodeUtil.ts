@@ -64,7 +64,7 @@ export function toVscodeEndOfLine(eol: EndOfLine): vscode.EndOfLine {
   return eol === "LF" ? vscode.EndOfLine.LF : vscode.EndOfLine.CRLF;
 }
 
-export function fromVscodeAndOfLine(eol: vscode.EndOfLine): EndOfLine {
+export function fromVscodeEndOfLine(eol: vscode.EndOfLine): EndOfLine {
   return eol === vscode.EndOfLine.LF ? "LF" : "CRLF";
 }
 
