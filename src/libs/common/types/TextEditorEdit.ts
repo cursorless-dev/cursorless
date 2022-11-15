@@ -1,4 +1,4 @@
-import type { Position, Range, Selection, EndOfLine } from "@cursorless/common";
+import type { EndOfLine, Position, Range } from "@cursorless/common";
 
 /**
  * A complex edit that will be applied in one transaction on a TextEditor.
@@ -13,7 +13,7 @@ export interface TextEditorEdit {
    * @param location The range this operation should remove.
    * @param value The new text this operation should insert after removing `location`.
    */
-  replace(location: Position | Range | Selection, value: string): void;
+  replace(location: Position | Range, value: string): void;
 
   /**
    * Insert text at a location.
@@ -30,7 +30,7 @@ export interface TextEditorEdit {
    *
    * @param location The range this operation should remove.
    */
-  delete(location: Range | Selection): void;
+  delete(location: Range): void;
 
   /**
    * Set the end of line sequence.

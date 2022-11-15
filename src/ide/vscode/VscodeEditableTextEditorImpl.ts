@@ -14,7 +14,7 @@ import {
 } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import vscodeFocusEditor from "../../ide/vscode/VscodeFocusEditor";
-import vscodeEditEditor from "./VscodeEditEditor";
+import vscodeEdit from "./VscodeEdit";
 import vscodeOpenLink from "./VscodeOpenLink";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
@@ -57,7 +57,7 @@ export class VscodeEditableTextEditorImpl
     callback: (editBuilder: TextEditorEdit) => void,
     options?: { undoStopBefore: boolean; undoStopAfter: boolean },
   ): Thenable<boolean> {
-    return vscodeEditEditor(this.editor, callback, options);
+    return vscodeEdit(this.editor, callback, options);
   }
 
   public focus(): Promise<void> {

@@ -2,12 +2,12 @@ import { TextEditorEdit } from "@cursorless/common";
 import {
   toVscodeEndOfLine,
   toVscodePosition,
-  toVscodePositionOrRangeOrSelection,
-  toVscodeRangeOrSelection,
+  toVscodePositionOrRange,
+  toVscodeRange,
 } from "@cursorless/vscode-common";
-import * as vscode from "vscode";
+import type * as vscode from "vscode";
 
-export default function vscodeEditEditor(
+export default function vscodeEdit(
   editor: vscode.TextEditor,
   callback: (editBuilder: TextEditorEdit) => void,
   options?: { undoStopBefore: boolean; undoStopAfter: boolean },
@@ -15,16 +15,13 @@ export default function vscodeEditEditor(
   return editor.edit((editBuilder) => {
     callback({
       replace: (location, value) => {
-        editBuilder.replace(
-          toVscodePositionOrRangeOrSelection(location),
-          value,
-        );
+        editBuilder.replace(toVscodePositionOrRange(location), value);
       },
       insert: (location, value) => {
         editBuilder.insert(toVscodePosition(location), value);
       },
       delete: (location) => {
-        editBuilder.delete(toVscodeRangeOrSelection(location));
+        editBuilder.delete(toVscodeRange(location));
       },
       setEndOfLine: (endOfLine) => {
         editBuilder.setEndOfLine(toVscodeEndOfLine(endOfLine));

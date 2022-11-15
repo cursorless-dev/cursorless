@@ -60,22 +60,6 @@ export function toVscodePositionOrRange(
     : toVscodePosition(location);
 }
 
-export function toVscodePositionOrRangeOrSelection(
-  location: Position | Range | Selection,
-): vscode.Position | vscode.Range | vscode.Selection {
-  return "line" in location
-    ? toVscodePosition(location)
-    : toVscodeRangeOrSelection(location);
-}
-
-export function toVscodeRangeOrSelection(
-  location: Range | Selection,
-): vscode.Range | vscode.Selection {
-  return "anchor" in location
-    ? toVscodeSelection(location)
-    : toVscodeRange(location);
-}
-
 export function toVscodeEndOfLine(eol: EndOfLine): vscode.EndOfLine {
   return eol === "LF" ? vscode.EndOfLine.LF : vscode.EndOfLine.CRLF;
 }
