@@ -7,7 +7,6 @@ import {
   ViewColumn,
   window,
 } from "vscode";
-import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import { getCellIndex } from "../../libs/vscode-common/notebook";
 import { getNotebookFromCellDocument } from "../../util/notebook";
 import {
@@ -29,10 +28,7 @@ const columnFocusCommands = {
   [ViewColumn.Beside]: "",
 };
 
-export default async function focusVscodeEditor(
-  editor: TextEditor,
-  editorId: string,
-) {
+export default async function focusVscodeEditor(editor: TextEditor) {
   const viewColumn = getViewColumn(editor);
   if (viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[viewColumn]);
@@ -44,7 +40,7 @@ export default async function focusVscodeEditor(
       return await focusNotebookCellLegacy(editor);
     }
 
-    await focusNotebookCell(editor, editorId);
+    await focusNotebookCell(editor);
   }
 }
 
@@ -64,7 +60,7 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
   return tabGroup?.viewColumn;
 }
 
-async function focusNotebookCell(editor: TextEditor, editorId: string) {
+async function focusNotebookCell(editor: TextEditor) {
   const desiredNotebookEditor = getNotebookFromCellDocument(editor.document);
   if (desiredNotebookEditor == null) {
     throw new Error("Couldn't find notebook editor for given document");
@@ -96,7 +92,7 @@ async function focusNotebookCell(editor: TextEditor, editorId: string) {
   // Issue a command to tell VSCode to focus the cell input editor
   // NB: We don't issue the command if it's already focused, because it turns
   // out that this command is actually a toggle, so that causes it to de-focus!
-  if (ide().activeTextEditor?.id !== editorId) {
+  if (editor !== window.activeTextEditor) {
     await commands.executeCommand("notebook.cell.edit");
   }
 }
