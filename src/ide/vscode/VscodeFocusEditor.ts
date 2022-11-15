@@ -14,6 +14,7 @@ import {
   isVscodeLegacyNotebookVersion,
 } from "../../util/notebookLegacy";
 import { VscodeEditableTextEditorImpl } from "./VscodeEditableTextEditorImpl";
+import type VscodeIDE from "./VscodeIDE";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 const columnFocusCommands = {
@@ -31,6 +32,7 @@ const columnFocusCommands = {
 };
 
 export default async function focusVscodeEditor(
+  ide: VscodeIDE,
   editor: VscodeEditableTextEditorImpl,
 ) {
   const viewColumn = getViewColumn(editor.vscodeEditor);
@@ -41,7 +43,7 @@ export default async function focusVscodeEditor(
     // can just move around in the notebook to focus the correct editor
 
     if (isVscodeLegacyNotebookVersion()) {
-      return await focusNotebookCellLegacy(editor);
+      return await focusNotebookCellLegacy(ide, editor);
     }
 
     await focusNotebookCell(editor);

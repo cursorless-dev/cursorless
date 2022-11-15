@@ -3,6 +3,7 @@ import { range } from "lodash";
 import * as semver from "semver";
 import { commands, NotebookDocument, TextDocument, version } from "vscode";
 import { VscodeEditableTextEditorImpl } from "../ide/vscode/VscodeEditableTextEditorImpl";
+import type VscodeIDE from "../ide/vscode/VscodeIDE";
 import { getCellIndex } from "../libs/vscode-common/notebook";
 import { getNotebookFromCellDocument } from "./notebook";
 
@@ -11,9 +12,10 @@ export function isVscodeLegacyNotebookVersion() {
 }
 
 export async function focusNotebookCellLegacy(
+  ide: VscodeIDE,
   editor: VscodeEditableTextEditorImpl,
 ) {
-  const activeTextEditor = editor.ide.activeTextEditor;
+  const activeTextEditor = ide.activeTextEditor;
 
   if (activeTextEditor == null) {
     return;

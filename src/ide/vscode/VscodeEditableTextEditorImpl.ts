@@ -23,7 +23,7 @@ export class VscodeEditableTextEditorImpl
   extends VscodeTextEditorImpl
   implements EditableTextEditor
 {
-  constructor(public ide: VscodeIDE, editor: vscode.TextEditor) {
+  constructor(private ide: VscodeIDE, editor: vscode.TextEditor) {
     super(editor);
   }
 
@@ -62,7 +62,7 @@ export class VscodeEditableTextEditorImpl
   }
 
   public focus(): Promise<void> {
-    return vscodeFocusEditor(this);
+    return vscodeFocusEditor(this.ide, this);
   }
 
   public openLink(location: Position | Range): Promise<boolean> {
