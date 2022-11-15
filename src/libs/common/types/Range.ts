@@ -12,13 +12,6 @@ export class Range {
   readonly end: Position;
 
   /**
-   * Create a new empty range.
-   *
-   * @param position A position.
-   */
-  constructor(position: Position);
-
-  /**
    * Create a new range from two positions. If `start` is not
    * before or equal to `end`, the values will be swapped.
    *
@@ -45,11 +38,6 @@ export class Range {
 
   constructor(...args: any[]) {
     const [start, end]: [Position, Position] = (() => {
-      // Arguments are one positions
-      if (args.length === 1) {
-        return [args[0], args[0]];
-      }
-
       // Arguments are two positions
       if (args.length === 2) {
         return args as [Position, Position];

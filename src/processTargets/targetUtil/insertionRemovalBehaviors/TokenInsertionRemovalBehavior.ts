@@ -65,10 +65,10 @@ export function getTokenRemovalRange(target: Target): Range {
   const { start, end } = contentRange;
 
   const leadingWhitespaceRange =
-    target.getLeadingDelimiterTarget()?.contentRange ?? new Range(start);
+    target.getLeadingDelimiterTarget()?.contentRange ?? start.toEmptyRange();
 
   const trailingWhitespaceRange =
-    target.getTrailingDelimiterTarget()?.contentRange ?? new Range(end);
+    target.getTrailingDelimiterTarget()?.contentRange ?? end.toEmptyRange();
 
   const fullLineRange = expandToFullLine(editor, contentRange);
 

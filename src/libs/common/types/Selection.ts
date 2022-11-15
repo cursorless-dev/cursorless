@@ -21,13 +21,6 @@ export class Selection extends Range {
   }
 
   /**
-   * Create a new empty selection.
-   *
-   * @param position A position.
-   */
-  constructor(position: Position);
-
-  /**
    * Create a selection from two positions.
    *
    * @param anchor A position.
@@ -52,11 +45,6 @@ export class Selection extends Range {
 
   constructor(...args: any[]) {
     const [anchor, active]: [Position, Position] = (() => {
-      // Arguments are one positions
-      if (args.length === 1) {
-        return [args[0], args[0]];
-      }
-
       // Arguments are two positions
       if (args.length === 2) {
         return args as [Position, Position];

@@ -1,3 +1,5 @@
+import { Range } from "@cursorless/common";
+
 export class Position {
   /**
    * The zero-based line value.
@@ -127,5 +129,13 @@ export class Position {
       this.line + (lineDelta ?? 0),
       this.character + (characterDelta ?? 0),
     );
+  }
+
+  /**
+   * Create a new empty range from this position.
+   * @returns A {@link Range}
+   */
+  public toEmptyRange(): Range {
+    return new Range(this, this);
   }
 }
