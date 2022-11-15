@@ -1,4 +1,4 @@
-import { Location, Selection } from "@cursorless/common";
+import { Selection } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 import { NoContainingScopeError } from "../../../errors";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
@@ -39,7 +39,8 @@ export default class implements ModifierStage {
     );
 
     const node: SyntaxNode | null = context.getNodeAtLocation(
-      new Location(target.editor.document.uri, target.contentRange),
+      target.editor,
+      target.contentRange,
     );
 
     const scopeNodes = findNearestContainingAncestorNode(node, nodeMatcher, {

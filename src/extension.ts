@@ -1,3 +1,5 @@
+import { Range, TextEditor } from "@cursorless/common";
+import { toVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 import { ThatMark } from "./core/ThatMark";
@@ -29,7 +31,7 @@ import makeGraph, { FactoryMap } from "./util/makeGraph";
 export async function activate(
   context: vscode.ExtensionContext,
 ): Promise<CursorlessApi> {
-  const { getNodeAtLocation } = await getParseTreeApi();
+  const parseTreeApi = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
 
   const vscodeIDE = new VscodeIDE(context);
@@ -43,6 +45,12 @@ export async function activate(
   } else {
     injectIde(vscodeIDE);
   }
+
+  const getNodeAtLocation = (editor: TextEditor, range: Range) => {
+    return parseTreeApi.getNodeAtLocation(
+      new vscode.Location(editor.document.uri, toVscodeRange(range)),
+    );
+  };
 
   const graph = makeGraph({
     ...graphFactories,

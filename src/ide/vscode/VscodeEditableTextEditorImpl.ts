@@ -61,7 +61,7 @@ export class VscodeEditableTextEditorImpl
   }
 
   public focus(): Promise<void> {
-    return vscodeFocusEditor(this.editor);
+    return vscodeFocusEditor(this);
   }
 
   public openLink(location: Position | Range): Promise<boolean> {
