@@ -10,13 +10,13 @@ import {
   fromVscodeSelection,
 } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
-import { fromVscodeDocument } from "./vscodeIdeUtil";
+import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 
 export class VscodeTextEditorImpl implements TextEditor {
   readonly document: TextDocument;
 
   constructor(public readonly id: string, protected editor: vscode.TextEditor) {
-    this.document = fromVscodeDocument(editor.document);
+    this.document = new VscodeTextDocumentImpl(editor.document);
   }
 
   get vscodeEditor(): vscode.TextEditor {

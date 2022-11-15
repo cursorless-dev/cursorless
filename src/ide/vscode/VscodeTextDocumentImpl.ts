@@ -6,7 +6,7 @@ import {
 } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import type { URI } from "vscode-uri";
-import { fromVscodeTextLine } from "./vscodeIdeUtil";
+import VscodeTextLineImpl from "./VscodeTextLineImpl";
 
 export class VscodeTextDocumentImpl implements TextDocument {
   get uri(): URI {
@@ -33,7 +33,7 @@ export class VscodeTextDocumentImpl implements TextDocument {
   constructor(private document: vscode.TextDocument) {}
 
   public lineAt(lineOrPosition: number | Position): TextLine {
-    return fromVscodeTextLine(
+    return new VscodeTextLineImpl(
       this.document.lineAt(
         typeof lineOrPosition === "number"
           ? lineOrPosition

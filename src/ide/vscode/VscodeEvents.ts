@@ -6,14 +6,14 @@ import type {
   TextDocumentContentChangeEvent,
 } from "../../libs/common/ide/types/Events";
 import type { Disposable } from "../../libs/common/ide/types/ide.types";
-import { fromVscodeDocument } from "./vscodeIdeUtil";
+import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 
 export function vscodeOnDidChangeTextDocument(
   listener: (event: TextDocumentChangeEvent) => void,
 ): Disposable {
   return vscode.workspace.onDidChangeTextDocument((e) => {
     listener({
-      document: fromVscodeDocument(e.document),
+      document: new VscodeTextDocumentImpl(e.document),
       contentChanges: e.contentChanges.map(fromVscodeContentChange),
       reason: fromVscodeReason(e.reason),
     });
