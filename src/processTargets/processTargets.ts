@@ -55,16 +55,8 @@ function processRangeTarget(
   context: ProcessedTargetsContext,
   targetDesc: RangeTargetDescriptor,
 ): Target[] {
-  const anchorTargets = processPrimitiveTarget(
-    context,
-    targetDesc.anchor,
-    true,
-  );
-  const activeTargets = processPrimitiveTarget(
-    context,
-    targetDesc.active,
-    true,
-  );
+  const anchorTargets = processPrimitiveTarget(context, targetDesc.anchor);
+  const activeTargets = processPrimitiveTarget(context, targetDesc.active);
 
   return zip(anchorTargets, activeTargets).flatMap(
     ([anchorTarget, activeTarget]) => {
@@ -187,7 +179,6 @@ function targetsToVerticalTarget(
 function processPrimitiveTarget(
   context: ProcessedTargetsContext,
   targetDescriptor: PrimitiveTargetDescriptor,
-  isRangeTarget: boolean = false,
 ): Target[] {
   // First, get the targets output by the mark
   const markStage = getMarkStage(targetDescriptor.mark);
@@ -206,11 +197,8 @@ function processPrimitiveTarget(
     ...context.actionPrePositionStages,
     ...positionModifierStages,
     ...context.actionFinalStages,
+    new ContainingTokenIfUntypedEmptyStage(),
   ];
-
-  if (!isRangeTarget) {
-    modifierStages.push(new ContainingTokenIfUntypedEmptyStage());
-  }
 
   // Run all targets through the modifier stages
   return processModifierStages(context, modifierStages, markOutputTargets);
