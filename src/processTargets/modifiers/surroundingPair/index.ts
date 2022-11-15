@@ -42,7 +42,7 @@ export function processSurroundingPair(
   let textFragmentExtractor: TextFragmentExtractor;
 
   try {
-    node = context.getNodeAtLocation(editor, range);
+    node = context.getNodeAtLocation(document, range);
 
     textFragmentExtractor = getTextFragmentExtractor(document.languageId);
   } catch (err) {

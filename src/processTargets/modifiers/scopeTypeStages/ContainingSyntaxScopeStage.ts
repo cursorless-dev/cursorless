@@ -39,7 +39,7 @@ export default class implements ModifierStage {
     );
 
     const node: SyntaxNode | null = context.getNodeAtLocation(
-      target.editor,
+      target.editor.document,
       target.contentRange,
     );
 

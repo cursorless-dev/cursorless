@@ -1,4 +1,9 @@
-import type { Range, Selection, TextEditor } from "@cursorless/common";
+import type {
+  Range,
+  Selection,
+  TextEditor,
+  TextDocument,
+} from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
 import Cheatsheet from "../core/Cheatsheet";
@@ -41,7 +46,7 @@ export interface ProcessedTargetsContext {
   hatTokenMap: ReadOnlyHatMap;
   thatMark: Target[];
   sourceMark: Target[];
-  getNodeAtLocation: (editor: TextEditor, range: Range) => SyntaxNode;
+  getNodeAtLocation: (document: TextDocument, range: Range) => SyntaxNode;
 }
 
 export interface SelectionWithEditor {
@@ -135,7 +140,10 @@ export interface Graph {
   /**
    * Function to access nodes in the tree sitter.
    */
-  readonly getNodeAtLocation: (editor: TextEditor, range: Range) => SyntaxNode;
+  readonly getNodeAtLocation: (
+    document: TextDocument,
+    range: Range,
+  ) => SyntaxNode;
 
   /**
    * Debug logger

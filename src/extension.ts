@@ -1,4 +1,4 @@
-import { Range, TextEditor } from "@cursorless/common";
+import { Range, TextDocument } from "@cursorless/common";
 import { toVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import CommandRunner from "./core/commandRunner/CommandRunner";
@@ -46,9 +46,9 @@ export async function activate(
     injectIde(vscodeIDE);
   }
 
-  const getNodeAtLocation = (editor: TextEditor, range: Range) => {
+  const getNodeAtLocation = (document: TextDocument, range: Range) => {
     return parseTreeApi.getNodeAtLocation(
-      new vscode.Location(editor.document.uri, toVscodeRange(range)),
+      new vscode.Location(document.uri, toVscodeRange(range)),
     );
   };
 

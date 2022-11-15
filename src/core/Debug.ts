@@ -89,7 +89,7 @@ export default class Debug {
     let node: SyntaxNode;
     try {
       node = this.graph.getNodeAtLocation(
-        ide().activeTextEditor!,
+        ide().activeTextEditor!.document,
         fromVscodeRange(event.selections[0]),
       );
     } catch (error) {
