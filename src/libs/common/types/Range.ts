@@ -91,7 +91,7 @@ export class Range {
    */
   public contains(positionOrRange: Position | Range): boolean {
     const [start, end] =
-      "line" in positionOrRange
+      positionOrRange instanceof Position
         ? [positionOrRange, positionOrRange]
         : [positionOrRange.start, positionOrRange.end];
     return start.isAfterOrEqual(this.start) && end.isBeforeOrEqual(this.end);

@@ -55,9 +55,9 @@ export function fromVscodePosition(position: vscode.Position): Position {
 export function toVscodePositionOrRange(
   location: Position | Range,
 ): vscode.Position | vscode.Range {
-  return "start" in location
-    ? toVscodeRange(location)
-    : toVscodePosition(location);
+  return location instanceof Position
+    ? toVscodePosition(location)
+    : toVscodeRange(location);
 }
 
 export function toVscodeEndOfLine(eol: EndOfLine): vscode.EndOfLine {

@@ -47,8 +47,9 @@ export function strictlyContains(
   range1: Range,
   rangeOrPosition: Range | Position,
 ): boolean {
-  const start =
-    "start" in rangeOrPosition ? rangeOrPosition.start : rangeOrPosition;
-  const end = "end" in rangeOrPosition ? rangeOrPosition.end : rangeOrPosition;
+  const [start, end] =
+    rangeOrPosition instanceof Position
+      ? [rangeOrPosition, rangeOrPosition]
+      : [rangeOrPosition.start, rangeOrPosition.end];
   return range1.start.isBefore(start) && range1.end.isAfter(end);
 }
