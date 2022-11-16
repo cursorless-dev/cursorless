@@ -22,11 +22,15 @@ export default class VscodeTextLineImpl implements TextLine {
   }
 
   get firstNonWhitespaceCharacterIndex(): number {
-    return this.line.firstNonWhitespaceCharacterIndex;
+    return this.isEmptyOrWhitespace
+      ? 0
+      : this.line.firstNonWhitespaceCharacterIndex;
   }
 
   get lastNonWhitespaceCharacterIndex(): number {
-    return this.line.text.trimEnd().length;
+    return this.isEmptyOrWhitespace
+      ? this.line.text.length
+      : this.line.text.trimEnd().length;
   }
 
   get isEmptyOrWhitespace(): boolean {
