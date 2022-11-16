@@ -38,17 +38,29 @@ suite("Range", () => {
     assert.ok(new Range(0, 1, 0, 0).isEqual(new Range(0, 1, 0, 0)));
     assert.ok(new Range(0, 0, 1, 0).isEqual(new Range(0, 0, 1, 0)));
     assert.ok(new Range(0, 0, 0, 1).isEqual(new Range(0, 0, 0, 1)));
+    assert.ok(!new Range(0, 0, 0, 0).isEqual(new Range(1, 0, 0, 0)));
+    assert.ok(!new Range(0, 0, 0, 0).isEqual(new Range(0, 1, 0, 0)));
+    assert.ok(!new Range(0, 0, 0, 0).isEqual(new Range(0, 0, 1, 0)));
+    assert.ok(!new Range(0, 0, 0, 0).isEqual(new Range(0, 0, 0, 1)));
   });
 
   test("contains", () => {
     assert.ok(new Range(0, 0, 0, 0).contains(new Range(0, 0, 0, 0)));
     assert.ok(new Range(0, 0, 4, 0).contains(new Range(1, 0, 2, 0)));
     assert.ok(new Range(0, 0, 0, 4).contains(new Range(0, 1, 0, 2)));
+    assert.ok(new Range(0, 0, 0, 4).contains(new Range(0, 2, 0, 4)));
+    assert.ok(new Range(0, 0, 4, 0).contains(new Range(2, 0, 4, 0)));
     assert.ok(new Range(0, 0, 0, 1).contains(new Range(0, 0, 0, 0)));
     assert.ok(new Range(0, 0, 1, 0).contains(new Range(0, 0, 0, 0)));
+    assert.ok(new Range(0, 0, 0, 1).contains(new Range(0, 1, 0, 1)));
+    assert.ok(new Range(0, 0, 1, 0).contains(new Range(1, 0, 1, 0)));
     assert.ok(!new Range(0, 0, 0, 0).contains(new Range(0, 0, 0, 1)));
     assert.ok(!new Range(0, 0, 0, 0).contains(new Range(0, 0, 1, 0)));
+    assert.ok(!new Range(0, 0, 0, 1).contains(new Range(0, 1, 0, 2)));
+    assert.ok(!new Range(0, 1, 0, 2).contains(new Range(0, 0, 0, 1)));
     assert.ok(new Range(0, 0, 0, 7).contains(new Position(0, 2)));
+    assert.ok(new Range(0, 0, 0, 1).contains(new Position(0, 1)));
+    assert.ok(!new Range(0, 0, 0, 1).contains(new Position(0, 2)));
   });
 
   test("intersection", () => {
@@ -89,6 +101,11 @@ suite("Range", () => {
       new Range(1, 2, 3, 4)
         .union(new Range(0, 1, 0, 1))
         .isEqual(new Range(0, 1, 3, 4)),
+    );
+    assert.ok(
+      new Range(1, 2, 3, 4)
+        .union(new Range(1, 3, 2, 4))
+        .isEqual(new Range(1, 2, 3, 4)),
     );
   });
 
