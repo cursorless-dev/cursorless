@@ -2,12 +2,37 @@ import * as assert from "assert";
 import { openNewEditor } from "../../libs/vscode-common/testUtil/openNewEditor";
 import VscodeTextLineImpl from "./VscodeTextLineImpl";
 
-suite("TextLine", () => {
-  test("whitespace line", async () => {
-    const editor = await openNewEditor("   ");
-    const line = new VscodeTextLineImpl(editor.document.lineAt(0));
+/**
+ * Each test is of the form:
+ *
+ * `[text, firstNonWhitespaceCharacterIndex, lastNonWhitespaceCharacterIndex]`
+ */
+const whiteSpaceTests: [string, number, number][] = [
+  ["   ", 3, 0],
+  ["foo", 0, 3],
+  [" foo ", 1, 4],
+];
 
-    assert.equal(line.firstNonWhitespaceCharacterIndex, 3);
-    assert.equal(line.lastNonWhitespaceCharacterIndex, 0);
-  });
+suite("TextLine", () => {
+  whiteSpaceTests.forEach(
+    ([
+      text,
+      firstNonWhitespaceCharacterIndex,
+      lastNonWhitespaceCharacterIndex,
+    ]) => {
+      test(`whitespace '${text}'`, async () => {
+        const editor = await openNewEditor(text);
+        const line = new VscodeTextLineImpl(editor.document.lineAt(0));
+
+        assert.equal(
+          line.firstNonWhitespaceCharacterIndex,
+          firstNonWhitespaceCharacterIndex,
+        );
+        assert.equal(
+          line.lastNonWhitespaceCharacterIndex,
+          lastNonWhitespaceCharacterIndex,
+        );
+      });
+    },
+  );
 });
