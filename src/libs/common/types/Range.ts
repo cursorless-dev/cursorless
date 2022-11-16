@@ -78,7 +78,7 @@ export class Range {
    * @return `true` when start and end are {@link Position.isEqual equal} to
    * start and end of this range.
    */
-  public isEqual(other: Range): boolean {
+  public isRangeEqual(other: Range): boolean {
     return this.start.isEqual(other.start) && this.end.isEqual(other.end);
   }
 

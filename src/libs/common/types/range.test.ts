@@ -10,7 +10,7 @@ suite("Range", () => {
     assert.equal(new Range(5, 0, 0, 0).start.line, 0);
     assert.equal(new Range(0, 5, 0, 0).start.character, 0);
     assert.ok(
-      new Range(new Position(1, 2), new Position(3, 4)).isEqual(
+      new Range(new Position(1, 2), new Position(3, 4)).isRangeEqual(
         new Range(1, 2, 3, 4),
       ),
     );
@@ -33,15 +33,15 @@ suite("Range", () => {
   });
 
   test("isEqual", () => {
-    assert.ok(new Range(0, 0, 0, 0).isEqual(new Range(0, 0, 0, 0)));
-    assert.ok(new Range(1, 0, 0, 0).isEqual(new Range(1, 0, 0, 0)));
-    assert.ok(new Range(0, 1, 0, 0).isEqual(new Range(0, 1, 0, 0)));
-    assert.ok(new Range(0, 0, 1, 0).isEqual(new Range(0, 0, 1, 0)));
-    assert.ok(new Range(0, 0, 0, 1).isEqual(new Range(0, 0, 0, 1)));
-    assert.ok(!new Range(0, 0, 0, 0).isEqual(new Range(1, 0, 0, 0)));
-    assert.ok(!new Range(0, 0, 0, 0).isEqual(new Range(0, 1, 0, 0)));
-    assert.ok(!new Range(0, 0, 0, 0).isEqual(new Range(0, 0, 1, 0)));
-    assert.ok(!new Range(0, 0, 0, 0).isEqual(new Range(0, 0, 0, 1)));
+    assert.ok(new Range(0, 0, 0, 0).isRangeEqual(new Range(0, 0, 0, 0)));
+    assert.ok(new Range(1, 0, 0, 0).isRangeEqual(new Range(1, 0, 0, 0)));
+    assert.ok(new Range(0, 1, 0, 0).isRangeEqual(new Range(0, 1, 0, 0)));
+    assert.ok(new Range(0, 0, 1, 0).isRangeEqual(new Range(0, 0, 1, 0)));
+    assert.ok(new Range(0, 0, 0, 1).isRangeEqual(new Range(0, 0, 0, 1)));
+    assert.ok(!new Range(0, 0, 0, 0).isRangeEqual(new Range(1, 0, 0, 0)));
+    assert.ok(!new Range(0, 0, 0, 0).isRangeEqual(new Range(0, 1, 0, 0)));
+    assert.ok(!new Range(0, 0, 0, 0).isRangeEqual(new Range(0, 0, 1, 0)));
+    assert.ok(!new Range(0, 0, 0, 0).isRangeEqual(new Range(0, 0, 0, 1)));
   });
 
   test("contains", () => {
@@ -67,7 +67,7 @@ suite("Range", () => {
     assert.ok(
       new Range(1, 2, 3, 4)
         .intersection(new Range(1, 7, 5, 2))
-        ?.isEqual(new Range(1, 7, 3, 4)),
+        ?.isRangeEqual(new Range(1, 7, 3, 4)),
     );
     assert.ok(
       new Range(1, 2, 1, 6).intersection(new Range(1, 6, 5, 2))?.isEmpty,
@@ -82,12 +82,12 @@ suite("Range", () => {
     assert.ok(
       new Range(1, 2, 3, 4)
         .with(new Position(4, 5), undefined)
-        .isEqual(new Range(4, 5, 3, 4)),
+        .isRangeEqual(new Range(4, 5, 3, 4)),
     );
     assert.ok(
       new Range(1, 2, 3, 4)
         .with(undefined, new Position(4, 5))
-        .isEqual(new Range(1, 2, 4, 5)),
+        .isRangeEqual(new Range(1, 2, 4, 5)),
     );
   });
 
@@ -95,17 +95,17 @@ suite("Range", () => {
     assert.ok(
       new Range(1, 2, 3, 4)
         .union(new Range(4, 2, 6, 1))
-        .isEqual(new Range(1, 2, 6, 1)),
+        .isRangeEqual(new Range(1, 2, 6, 1)),
     );
     assert.ok(
       new Range(1, 2, 3, 4)
         .union(new Range(0, 1, 0, 1))
-        .isEqual(new Range(0, 1, 3, 4)),
+        .isRangeEqual(new Range(0, 1, 3, 4)),
     );
     assert.ok(
       new Range(1, 2, 3, 4)
         .union(new Range(1, 3, 2, 4))
-        .isEqual(new Range(1, 2, 3, 4)),
+        .isRangeEqual(new Range(1, 2, 3, 4)),
     );
   });
 

@@ -128,7 +128,7 @@ function isReplace(
   for (const replaceEditLists of documentReplaceEditLists) {
     for (const replaceEdit of replaceEditLists) {
       if (
-        replaceEdit.range.isEqual(change.range) &&
+        replaceEdit.range.isRangeEqual(change.range) &&
         replaceEdit.text === change.text
       ) {
         return true;
