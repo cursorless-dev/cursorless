@@ -1,4 +1,5 @@
-import { TextEditor } from "vscode";
+import { TextEditor } from "@cursorless/common";
+import { toVscodeEditor } from "@cursorless/vscode-common";
 import { Target } from "../../typings/target.types";
 import { Position } from "../../typings/targetDescriptor.types";
 import { getNotebookFromCellDocument } from "../../util/notebook";
@@ -68,6 +69,7 @@ export class NotebookCellPositionTarget extends BaseTarget {
   }
 
   private isNotebookEditor(editor: TextEditor) {
-    return getNotebookFromCellDocument(editor.document) != null;
+    const vscodeEditor = toVscodeEditor(editor);
+    return getNotebookFromCellDocument(vscodeEditor.document) != null;
   }
 }

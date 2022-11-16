@@ -1,10 +1,10 @@
+import { openNewEditor } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as os from "os";
 import * as vscode from "vscode";
-import { getFixturePath } from "../getFixturePaths";
-import { openNewEditor } from "../openNewEditor";
-import { runCursorlessCommand } from "../runCommand";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+import { getFixturePath } from "../getFixturePaths";
+import { runCursorlessCommand } from "../runCommand";
 
 suite("followLink", async function () {
   endToEndTestSetup(this);

@@ -1,4 +1,10 @@
-import { Position, Range, TextDocument, TextEditor, TextLine } from "vscode";
+import {
+  Position,
+  Range,
+  TextDocument,
+  TextEditor,
+  TextLine,
+} from "@cursorless/common";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { ParagraphTarget } from "../../targets";
 import BaseScopeHandler from "./BaseScopeHandler";

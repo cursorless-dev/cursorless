@@ -1,5 +1,5 @@
-import { Range } from "vscode";
-import { Target } from "../../typings/target.types";
+import type { Range } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
 
 /**
  * Internal type to be used for storing a reference to a target that will use a

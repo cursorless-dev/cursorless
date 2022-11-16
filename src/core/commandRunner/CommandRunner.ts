@@ -1,9 +1,8 @@
 import * as vscode from "vscode";
 import { ActionType } from "../../actions/actions.types";
-import { CURSORLESS_COMMAND_ID } from "../../libs/common/commandIds";
 import { OutdatedExtensionError } from "../../errors";
+import { CURSORLESS_COMMAND_ID } from "../../libs/common/commandIds";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
-import { getActiveTextEditor } from "../../ide/vscode/activeTextEditor";
 import processTargets from "../../processTargets";
 import isTesting from "../../testUtil/isTesting";
 import { Target } from "../../typings/target.types";
@@ -114,11 +113,11 @@ export default class CommandRunner {
         actionPrePositionStages,
         actionFinalStages,
         currentSelections:
-          getActiveTextEditor()?.selections.map((selection) => ({
+          ide().activeTextEditor?.selections.map((selection) => ({
             selection,
-            editor: getActiveTextEditor()!,
+            editor: ide().activeTextEditor!,
           })) ?? [],
-        currentEditor: getActiveTextEditor(),
+        currentEditor: ide().activeTextEditor,
         hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],

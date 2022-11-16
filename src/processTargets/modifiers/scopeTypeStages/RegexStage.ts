@@ -1,4 +1,4 @@
-import { Position, Range, TextEditor } from "vscode";
+import { Position, Range, TextEditor } from "@cursorless/common";
 import { NoContainingScopeError } from "../../../errors";
 import { Target } from "../../../typings/target.types";
 import {

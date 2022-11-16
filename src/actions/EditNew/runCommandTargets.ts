@@ -1,4 +1,5 @@
-import { commands, TextEditor } from "vscode";
+import { EditableTextEditor } from "@cursorless/common";
+import { commands } from "vscode";
 import { callFunctionAndUpdateRanges } from "../../core/updateSelections/updateSelections";
 import { Graph } from "../../typings/Types";
 import { CommandTarget, State } from "./EditNew.types";
@@ -16,7 +17,7 @@ import { CommandTarget, State } from "./EditNew.types";
  */
 export async function runCommandTargets(
   graph: Graph,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   state: State,
 ): Promise<State> {
   const commandTargets: CommandTarget[] = state.targets

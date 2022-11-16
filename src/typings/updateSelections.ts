@@ -1,8 +1,8 @@
-import {
-  Range,
+import type { Range } from "@cursorless/common";
+import type {
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
-} from "vscode";
+} from "../libs/common/ide/types/Events";
 
 export interface RangeOffsets {
   start: number;

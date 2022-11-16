@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import { openNewEditor } from "../openNewEditor";
-import { runCursorlessCommand } from "../runCommand";
+import { openNewEditor } from "@cursorless/vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+import { runCursorlessCommand } from "../runCommand";
 
 suite("fold", async function () {
   endToEndTestSetup(this);

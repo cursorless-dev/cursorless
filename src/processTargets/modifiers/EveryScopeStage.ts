@@ -1,4 +1,4 @@
-import { Range } from "vscode";
+import { Range } from "@cursorless/common";
 import { NoContainingScopeError } from "../../errors";
 import type { Target } from "../../typings/target.types";
 import type { EveryScopeModifier } from "../../typings/targetDescriptor.types";

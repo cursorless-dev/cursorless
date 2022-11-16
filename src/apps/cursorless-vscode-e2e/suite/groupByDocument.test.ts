@@ -1,9 +1,9 @@
-import { getCursorlessApi } from "@cursorless/vscode-common";
+import { splitKey } from "@cursorless/common";
+import { getCursorlessApi, toVscodeEditor } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
-import { splitKey } from "@cursorless/common";
-import { runCursorlessCommand } from "../runCommand";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+import { runCursorlessCommand } from "../runCommand";
 
 suite("Group by document", async function () {
   endToEndTestSetup(this);
@@ -32,10 +32,16 @@ async function runTest() {
 
   const hat1 = hatMap
     .getEntries()
-    .find(([, token]) => token.editor === editor1 && token.text === "hello");
+    .find(
+      ([, token]) =>
+        toVscodeEditor(token.editor) === editor1 && token.text === "hello",
+    );
   const hat2 = hatMap
     .getEntries()
-    .find(([, token]) => token.editor === editor2 && token.text === "world");
+    .find(
+      ([, token]) =>
+        toVscodeEditor(token.editor) === editor2 && token.text === "world",
+    );
 
   const { hatStyle: hatStyle1, character: char1 } = splitKey(hat1![0]);
   const { hatStyle: hatStyle2, character: char2 } = splitKey(hat2![0]);

@@ -1,7 +1,7 @@
-import { Range, TextDocument, TextEditor } from "vscode";
+import { Range, TextDocument, TextEditor } from "@cursorless/common";
 import { tokenize } from "../../../libs/cursorless-engine/tokenizer";
 import type { Target } from "../../../typings/target.types";
-import { expandToFullLine, makeEmptyRange } from "../../../util/rangeUtils";
+import { expandToFullLine } from "../../../util/rangeUtils";
 import { PlainTarget } from "../../targets";
 
 export function getTokenLeadingDelimiterTarget(
@@ -65,15 +65,17 @@ export function getTokenRemovalRange(target: Target): Range {
   const { start, end } = contentRange;
 
   const leadingWhitespaceRange =
-    target.getLeadingDelimiterTarget()?.contentRange ?? makeEmptyRange(start);
+    target.getLeadingDelimiterTarget()?.contentRange ?? start.toEmptyRange();
 
   const trailingWhitespaceRange =
-    target.getTrailingDelimiterTarget()?.contentRange ?? makeEmptyRange(end);
+    target.getTrailingDelimiterTarget()?.contentRange ?? end.toEmptyRange();
 
   const fullLineRange = expandToFullLine(editor, contentRange);
 
   if (
-    leadingWhitespaceRange.union(trailingWhitespaceRange).isEqual(fullLineRange)
+    leadingWhitespaceRange
+      .union(trailingWhitespaceRange)
+      .isRangeEqual(fullLineRange)
   ) {
     // If we would just be leaving a line with whitespace on it, we delete the
     // whitespace
