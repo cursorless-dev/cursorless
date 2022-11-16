@@ -231,7 +231,13 @@ export function processModifierStages(
 }
 
 function calcIsReversed(anchor: Target, active: Target) {
-  return anchor.contentRange.start.isAfter(active.contentRange.start);
+  if (anchor.contentRange.start.isAfter(active.contentRange.start)) {
+    return true;
+  }
+  if (anchor.contentRange.start.isBefore(active.contentRange.start)) {
+    return false;
+  }
+  return anchor.contentRange.end.isAfter(active.contentRange.end);
 }
 
 function uniqTargets(array: Target[]): Target[] {

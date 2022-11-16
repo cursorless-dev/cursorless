@@ -1,11 +1,11 @@
-languageId: typescript
+languageId: plaintext
 command:
   version: 1
-  spokenForm: take past start of token
-  action: setSelection
+  spokenForm: clear past start of token
+  action: clearAndSetSelection
   targets:
     - type: range
-      start: {type: primitive}
+      start: {type: primitive, isImplicit: true}
       end: {type: primitive, position: before, insideOutsideType: inside, selectionType: token}
       excludeStart: false
       excludeEnd: false
@@ -16,9 +16,9 @@ initialState:
       active: {line: 0, character: 8}
   marks: {}
 finalState:
-  documentContents: hello there
+  documentContents: hello ere
   selections:
-    - anchor: {line: 0, character: 8}
+    - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
 fullTargets: [{type: range, excludeStart: false, excludeEnd: false, start: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}, end: {type: primitive, mark: {type: cursorToken}, selectionType: token, position: before, modifier: {type: identity}, insideOutsideType: inside}}]
 ide:
