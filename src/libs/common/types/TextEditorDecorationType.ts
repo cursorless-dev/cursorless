@@ -1,6 +1,6 @@
 /**
- * Represents a handle to a set of decorations
- * sharing the same {@link DecorationRenderOptions styling options} in a {@link TextEditor text editor}.
+ * Represents a handle to a set of decorations sharing the same
+ * {@link DecorationRenderOptions styling options}.
  */
 export interface TextEditorDecorationType {
   /**
