@@ -2,10 +2,14 @@
 // package.json are active
 import "module-alias/register";
 import * as path from "path";
-import { runAllTestsInDir } from "../util/runAllTestsInDir";
+import { runAllTestsInDirs } from "../util/runAllTestsInDir";
+
+const testDirectories = ["../../libs/cursorless-engine", "../../libs/common"];
 
 export function run(): Promise<void> {
-  return runAllTestsInDir(
-    path.resolve(__dirname, "../../libs/cursorless-engine"),
+  return runAllTestsInDirs(
+    testDirectories.map((testDirectory) =>
+      path.resolve(__dirname, testDirectory),
+    ),
   );
 }
