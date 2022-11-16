@@ -59,4 +59,17 @@ export class Selection extends Range {
     this.anchor = anchor;
     this.active = active;
   }
+
+  /**
+   * Check if `other` equals this range.
+   *
+   * @param other A selection.
+   * @return `true` when anchor and active are {@link Position.isEqual equal} to
+   * anchor and active of this range.
+   */
+  public isEqual(other: Selection): boolean {
+    return (
+      this.anchor.isEqual(other.anchor) && this.active.isEqual(other.active)
+    );
+  }
 }
