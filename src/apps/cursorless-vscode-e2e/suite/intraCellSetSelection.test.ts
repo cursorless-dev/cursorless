@@ -1,9 +1,11 @@
-import { getCursorlessApi } from "@cursorless/vscode-common";
+import {
+  getCursorlessApi,
+  openNewNotebookEditor,
+} from "@cursorless/vscode-common";
 import * as assert from "assert";
 import { window } from "vscode";
-import { openNewNotebookEditor } from "../openNewEditor";
+import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { runCursorlessCommand } from "../runCommand";
-import { sleepWithBackoff, endToEndTestSetup } from "../endToEndTestSetup";
 
 // Check that setSelection is able to focus the correct cell
 suite("Within cell set selection", async function () {

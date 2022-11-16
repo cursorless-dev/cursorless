@@ -1,13 +1,13 @@
 import {
+  fromVscodeSelection,
   getCursorlessApi,
+  openNewEditor,
   selectionToPlainObject,
 } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
-import { fromVscodeSelection } from "@cursorless/vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
-import { openNewEditor } from "../openNewEditor";
 import { runCursorlessCommand } from "../runCommand";
 
 /**
