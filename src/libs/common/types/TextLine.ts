@@ -29,13 +29,13 @@ export interface TextLine {
 
   /**
    * The offset of the first character which is not a whitespace character as defined
-   * by `/\s/`. **Note** that if a line is all whitespace 0 is returned.
+   * by `/\s/`. **Note** that if a line is all whitespace the length of the line is returned.
    */
   readonly firstNonWhitespaceCharacterIndex: number;
 
   /**
    * The offset of the last character which is not a whitespace character as defined
-   * by `/\s/`. **Note** that if a line is all whitespace the length of the line is returned.
+   * by `/\s/`. **Note** that if a line is all whitespace 0 is returned.
    */
   readonly lastNonWhitespaceCharacterIndex: number;
 
