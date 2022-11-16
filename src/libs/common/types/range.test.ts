@@ -9,6 +9,8 @@ suite("Range", () => {
     assert.equal(new Range(0, 0, 0, 5).end.character, 5);
     assert.equal(new Range(5, 0, 0, 0).start.line, 0);
     assert.equal(new Range(0, 5, 0, 0).start.character, 0);
+    assert.equal(new Range(5, 0, 0, 0).end.line, 5);
+    assert.equal(new Range(0, 5, 0, 0).end.character, 5);
     assert.ok(
       new Range(new Position(1, 2), new Position(3, 4)).isRangeEqual(
         new Range(1, 2, 3, 4),
@@ -18,8 +20,6 @@ suite("Range", () => {
 
   test("isEmpty", () => {
     assert.ok(new Range(0, 0, 0, 0).isEmpty);
-    assert.ok(!new Range(1, 0, 0, 0).isEmpty);
-    assert.ok(!new Range(0, 1, 0, 0).isEmpty);
     assert.ok(!new Range(0, 0, 1, 0).isEmpty);
     assert.ok(!new Range(0, 0, 0, 1).isEmpty);
   });
@@ -32,7 +32,7 @@ suite("Range", () => {
     assert.ok(!new Range(1, 0, 2, 0).isSingleLine);
   });
 
-  test("isEqual", () => {
+  test("isRangeEqual", () => {
     assert.ok(new Range(0, 0, 0, 0).isRangeEqual(new Range(0, 0, 0, 0)));
     assert.ok(new Range(1, 0, 0, 0).isRangeEqual(new Range(1, 0, 0, 0)));
     assert.ok(new Range(0, 1, 0, 0).isRangeEqual(new Range(0, 1, 0, 0)));
