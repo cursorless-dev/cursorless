@@ -10,7 +10,7 @@ import type {
 } from "../../libs/common/ide/types/ide.types";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
-import { VscodeEditableTextEditorImpl } from "./VscodeEditableTextEditorImpl";
+import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 import { vscodeOnDidChangeTextDocument } from "./VscodeEvents";
 import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeMessages from "./VscodeMessages";
@@ -29,10 +29,7 @@ export default class VscodeIDE implements IDE {
     this.globalState = new VscodeGlobalState(extensionContext);
     this.messages = new VscodeMessages();
     this.clipboard = new VscodeClipboard();
-    this.editorMap = new WeakMap<
-      vscode.TextEditor,
-      VscodeEditableTextEditorImpl
-    >();
+    this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
   }
 
   get assetsRoot(): string {
@@ -66,7 +63,7 @@ export default class VscodeIDE implements IDE {
   }
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-    return editor as VscodeEditableTextEditorImpl;
+    return editor as EditableTextEditor;
   }
 
   public onDidChangeTextDocument(
@@ -75,13 +72,11 @@ export default class VscodeIDE implements IDE {
     return vscodeOnDidChangeTextDocument(listener);
   }
 
-  public fromVscodeEditor(
-    editor: vscode.TextEditor,
-  ): VscodeEditableTextEditorImpl {
+  public fromVscodeEditor(editor: vscode.TextEditor): VscodeTextEditorImpl {
     if (!this.editorMap.has(editor)) {
       this.editorMap.set(
         editor,
-        new VscodeEditableTextEditorImpl(uuid(), this, editor),
+        new VscodeTextEditorImpl(uuid(), this, editor),
       );
     }
     return this.editorMap.get(editor)!;

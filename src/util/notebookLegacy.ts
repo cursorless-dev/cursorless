@@ -2,7 +2,7 @@ import { toVscodeEditor } from "@cursorless/vscode-common";
 import { range } from "lodash";
 import * as semver from "semver";
 import { commands, NotebookDocument, TextDocument, version } from "vscode";
-import { VscodeEditableTextEditorImpl } from "../ide/vscode/VscodeEditableTextEditorImpl";
+import type { VscodeTextEditorImpl } from "../ide/vscode/VscodeTextEditorImpl";
 import type VscodeIDE from "../ide/vscode/VscodeIDE";
 import { getCellIndex } from "../libs/vscode-common/notebook";
 import { getNotebookFromCellDocument } from "./notebook";
@@ -13,7 +13,7 @@ export function isVscodeLegacyNotebookVersion() {
 
 export async function focusNotebookCellLegacy(
   ide: VscodeIDE,
-  editor: VscodeEditableTextEditorImpl,
+  editor: VscodeTextEditorImpl,
 ) {
   const { activeTextEditor } = ide;
 
