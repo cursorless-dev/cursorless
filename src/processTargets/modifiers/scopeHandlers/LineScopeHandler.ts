@@ -1,4 +1,4 @@
-import { Position, Range, TextEditor } from "vscode";
+import { Position, Range, TextEditor } from "@cursorless/common";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { LineTarget } from "../../targets";
 import BaseScopeHandler from "./BaseScopeHandler";
@@ -58,14 +58,11 @@ export function createLineTarget(
 export function fitRangeToLineContent(editor: TextEditor, range: Range) {
   const startLine = editor.document.lineAt(range.start);
   const endLine = editor.document.lineAt(range.end);
-  const endCharacterIndex =
-    endLine.range.end.character -
-    (endLine.text.length - endLine.text.trimEnd().length);
 
   return new Range(
     startLine.lineNumber,
     startLine.firstNonWhitespaceCharacterIndex,
     endLine.lineNumber,
-    endCharacterIndex,
+    endLine.lastNonWhitespaceCharacterIndex,
   );
 }

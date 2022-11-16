@@ -1,7 +1,6 @@
-import { getCursorlessApi } from "@cursorless/vscode-common";
+import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
-import { openNewEditor } from "../openNewEditor";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
 suite("toggle decorations", async function () {

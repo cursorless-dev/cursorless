@@ -1,3 +1,5 @@
+import { Range, TextDocument } from "@cursorless/common";
+import { toVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 import { ThatMark } from "./core/ThatMark";
@@ -11,6 +13,7 @@ import {
   getCommandServerApi,
   getParseTreeApi,
 } from "./libs/vscode-common/getExtensionApi";
+import { TargetPlainObject } from "./libs/vscode-common/testUtil/toPlainObject";
 import { plainObjectToTarget } from "./testUtil/fromPlainObject";
 import isTesting from "./testUtil/isTesting";
 import { Graph } from "./typings/Types";
@@ -28,18 +31,26 @@ import makeGraph, { FactoryMap } from "./util/makeGraph";
 export async function activate(
   context: vscode.ExtensionContext,
 ): Promise<CursorlessApi> {
-  const { getNodeAtLocation } = await getParseTreeApi();
+  const parseTreeApi = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
+
+  const vscodeIDE = new VscodeIDE(context);
 
   if (isTesting()) {
     // FIXME: At some point we'll probably want to support partial mocking
     // rather than mocking away everything that we can
-    const fake = new FakeIDE();
+    const fake = new FakeIDE(vscodeIDE);
     fake.mockAssetsRoot(context.extensionPath);
     injectIde(fake);
   } else {
-    injectIde(new VscodeIDE(context));
+    injectIde(vscodeIDE);
   }
+
+  const getNodeAtLocation = (document: TextDocument, range: Range) => {
+    return parseTreeApi.getNodeAtLocation(
+      new vscode.Location(document.uri, toVscodeRange(range)),
+    );
+  };
 
   const graph = makeGraph({
     ...graphFactories,
@@ -73,7 +84,15 @@ export async function activate(
 
           // FIXME: Remove this once we have a better way to get this function
           // accessible from our tests
-          plainObjectToTarget,
+          plainObjectToTarget: (
+            editor: vscode.TextEditor,
+            plainObject: TargetPlainObject,
+          ) => {
+            return plainObjectToTarget(
+              vscodeIDE.fromVscodeEditor(editor),
+              plainObject,
+            );
+          },
         }
       : undefined,
 

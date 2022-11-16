@@ -1,4 +1,4 @@
-import { Selection } from "vscode";
+import { Selection } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { NodeFinder, NodeMatcherAlternative } from "../typings/Types";

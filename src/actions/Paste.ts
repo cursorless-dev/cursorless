@@ -3,22 +3,19 @@ import {
   callFunctionAndUpdateSelections,
   callFunctionAndUpdateSelectionsWithBehavior,
 } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import {
-  focusEditor,
-  setSelectionsWithoutFocusingEditor,
-} from "../util/setSelectionsAndFocusEditor";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
 
 export class Paste {
   constructor(private graph: Graph) {}
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const targetEditor = ensureSingleEditor(targets);
-    const originalEditor = getActiveTextEditor();
+    const originalEditor = ide().activeEditableTextEditor;
 
     // First call editNew in order to insert delimiters if necessary and leave
     // the cursor in the right position.  Note that this action will focus the
@@ -53,14 +50,17 @@ export class Paste {
     // Reset cursors on the editor where the edits took place.
     // NB: We don't focus the editor here because we want to focus the original
     // editor, not the one where the edits took place
-    setSelectionsWithoutFocusingEditor(targetEditor, updatedCursorSelections);
+    setSelectionsWithoutFocusingEditor(
+      ide().getEditableTextEditor(targetEditor),
+      updatedCursorSelections,
+    );
 
     // If necessary focus back original editor
-    if (originalEditor != null && originalEditor !== getActiveTextEditor()) {
+    if (originalEditor != null && !originalEditor.isActive) {
       // NB: We just do one editor focus at the end, instead of using
       // setSelectionsAndFocusEditor because the command might operate on
       // multiple editors, so we just do one focus at the end.
-      await focusEditor(originalEditor);
+      await originalEditor.focus();
     }
 
     this.graph.editStyles.displayPendingEditDecorationsForRanges(

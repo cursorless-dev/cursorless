@@ -1,5 +1,6 @@
 import { flatten, zip } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { runForEachEditor } from "../util/targetUtils";
@@ -57,7 +58,7 @@ export default class Replace implements Action {
         async (editor, edits) => {
           const [updatedSelections] = await performEditsAndUpdateSelections(
             this.graph.rangeUpdater,
-            editor,
+            ide().getEditableTextEditor(editor),
             edits.map(({ edit }) => edit),
             [targets.map((target) => target.contentSelection)],
           );

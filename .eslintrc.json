@@ -48,13 +48,7 @@
 			}
 		],
 		"no-throw-literal": "warn",
-		"semi": "off",
-		"no-restricted-properties": [
-			2,
-			{
-				"property": "activeTextEditor"
-			}
-		]
+		"semi": "off"
 	},
 	"ignorePatterns": ["**/vendor/**/*.ts", "**/vendor/**/*.js"]
 }

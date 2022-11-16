@@ -1,7 +1,7 @@
-import type { Position, Range, Selection } from "vscode";
-import type { TestDecoration } from "../../core/editStyles";
-import type { Target } from "../../typings/target.types";
-import type { Token } from "../../typings/Types";
+import type { TestDecoration } from "../../../core/editStyles";
+import type { Target } from "../../../typings/target.types";
+import type { Token } from "../../../typings/Types";
+import type { Range, Selection, Position } from "@cursorless/common";
 
 export type PositionPlainObject = {
   line: number;

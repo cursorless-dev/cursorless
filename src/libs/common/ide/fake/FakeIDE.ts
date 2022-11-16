@@ -1,4 +1,6 @@
+import type { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { pull } from "lodash";
+import type { TextDocumentChangeEvent } from "../types/Events";
 import type {
   Disposable,
   IDE,
@@ -17,7 +19,7 @@ export default class FakeIDE implements IDE {
   clipboard: FakeClipboard;
   private disposables: Disposable[] = [];
 
-  constructor() {
+  constructor(private original?: IDE) {
     this.configuration = new FakeConfiguration();
     this.messages = new FakeMessages();
     this.globalState = new FakeGlobalState();
@@ -40,6 +42,34 @@ export default class FakeIDE implements IDE {
 
   runMode: RunMode = "test";
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
+
+  get activeTextEditor(): TextEditor | undefined {
+    return this.original?.activeTextEditor;
+  }
+
+  get activeEditableTextEditor(): EditableTextEditor | undefined {
+    return this.original?.activeEditableTextEditor;
+  }
+
+  get visibleTextEditors(): TextEditor[] {
+    return this.original?.visibleTextEditors ?? [];
+  }
+
+  public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
+    if (this.original == null) {
+      throw Error("Original ide is missing");
+    }
+    return this.original.getEditableTextEditor(editor);
+  }
+
+  onDidChangeTextDocument(
+    listener: (event: TextDocumentChangeEvent) => void,
+  ): Disposable {
+    if (this.original == null) {
+      throw Error("Original ide is missing");
+    }
+    return this.original.onDidChangeTextDocument(listener);
+  }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
     this.disposables.push(...disposables);

@@ -1,6 +1,8 @@
+import { Selection, TextEditor } from "@cursorless/common";
 import { flatten, zip } from "lodash";
-import { DecorationRangeBehavior, Selection, TextEditor } from "vscode";
+import { DecorationRangeBehavior } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -56,13 +58,15 @@ class InsertCopy implements Action {
       rangeBehavior: DecorationRangeBehavior.OpenOpen,
     };
 
+    const editableEditor = ide().getEditableTextEditor(editor);
+
     const [
       updatedEditorSelections,
       updatedContentSelections,
       updatedEditSelections,
     ]: Selection[][] = await performEditsAndUpdateSelectionsWithBehavior(
       this.graph.rangeUpdater,
-      editor,
+      editableEditor,
       edits,
       [cursorSelections, contentSelections, editSelections],
     );
@@ -71,8 +75,8 @@ class InsertCopy implements Action {
       ([edit, selection]) => edit!.updateRange(selection!),
     );
 
-    setSelectionsWithoutFocusingEditor(editor, updatedEditorSelections);
-    editor.revealRange(editor.selection);
+    setSelectionsWithoutFocusingEditor(editableEditor, updatedEditorSelections);
+    editableEditor.revealRange(editor.selections[0]);
 
     return {
       sourceMark: createThatMark(targets, insertionRanges),

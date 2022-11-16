@@ -1,18 +1,17 @@
-import { flatten } from "lodash";
 import {
-  DecorationRangeBehavior,
+  EditableTextEditor,
   Range,
   Selection,
   TextDocument,
-  TextEditor,
-} from "vscode";
+} from "@cursorless/common";
+import { flatten } from "lodash";
+import { DecorationRangeBehavior } from "vscode";
 import { Edit } from "../../typings/Types";
 import {
   FullSelectionInfo,
   SelectionInfo,
 } from "../../typings/updateSelections";
 import { performDocumentEdits } from "../../util/performDocumentEdits";
-import { isForward } from "../../util/selectionUtils";
 import { RangeUpdater } from "./RangeUpdater";
 
 interface SelectionsWithBehavior {
@@ -37,7 +36,7 @@ export function getSelectionInfo(
   return getSelectionInfoInternal(
     document,
     selection,
-    isForward(selection),
+    !selection.isReversed,
     rangeBehavior,
   );
 }
@@ -250,7 +249,7 @@ export function callFunctionAndUpdateSelectionsWithBehavior(
  */
 export async function performEditsAndUpdateSelections(
   rangeUpdater: RangeUpdater,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   edits: Edit[],
   originalSelections: (readonly Selection[])[],
 ) {
@@ -279,7 +278,7 @@ export async function performEditsAndUpdateSelections(
  */
 export function performEditsAndUpdateSelectionsWithBehavior(
   rangeUpdater: RangeUpdater,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   edits: Edit[],
   originalSelections: SelectionsWithBehavior[],
 ) {
@@ -302,7 +301,7 @@ export function performEditsAndUpdateSelectionsWithBehavior(
 
 export async function performEditsAndUpdateRanges(
   rangeUpdater: RangeUpdater,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   edits: Edit[],
   originalRanges: (readonly Range[])[],
 ): Promise<Range[][]> {
@@ -318,7 +317,7 @@ export async function performEditsAndUpdateRanges(
 
 async function performEditsAndUpdateInternal(
   rangeUpdater: RangeUpdater,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   edits: Edit[],
   selectionInfoMatrix: FullSelectionInfo[][],
 ) {
@@ -334,7 +333,7 @@ async function performEditsAndUpdateInternal(
 // TODO: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
 export async function performEditsAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   edits: Edit[],
   originalSelectionInfos: SelectionInfo[][],
 ): Promise<Selection[][]> {
@@ -359,7 +358,7 @@ export async function performEditsAndUpdateSelectionInfos(
  */
 export async function performEditsAndUpdateFullSelectionInfos(
   rangeUpdater: RangeUpdater,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   edits: Edit[],
   originalSelectionInfos: FullSelectionInfo[][],
 ): Promise<Selection[][]> {

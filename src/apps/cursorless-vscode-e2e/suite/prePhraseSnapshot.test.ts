@@ -1,13 +1,14 @@
 import {
+  fromVscodeSelection,
   getCursorlessApi,
+  openNewEditor,
   selectionToPlainObject,
 } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
-import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
-import { openNewEditor } from "../openNewEditor";
-import { runCursorlessCommand } from "../runCommand";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
+import { runCursorlessCommand } from "../runCommand";
 
 /**
  * The selections we expect when the pre-phrase snapshot is used
@@ -89,7 +90,7 @@ async function runTest(
   });
 
   assert.deepStrictEqual(
-    editor.selections.map(selectionToPlainObject),
-    expectedSelections.map(selectionToPlainObject),
+    editor.selections.map(fromVscodeSelection).map(selectionToPlainObject),
+    expectedSelections.map(fromVscodeSelection).map(selectionToPlainObject),
   );
 }

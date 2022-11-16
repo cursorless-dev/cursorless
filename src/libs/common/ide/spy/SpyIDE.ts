@@ -1,14 +1,16 @@
+import { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { pickBy, values } from "lodash";
+import type { Clipboard } from "../types/Clipboard";
+import type { Configuration } from "../types/Configuration";
+import type { TextDocumentChangeEvent } from "../types/Events";
 import type {
   Disposable,
   IDE,
   RunMode,
   WorkspaceFolder,
 } from "../types/ide.types";
-import type { Configuration } from "../types/Configuration";
 import type { State } from "../types/State";
 import SpyMessages, { Message } from "./SpyMessages";
-import type { Clipboard } from "../types/Clipboard";
 
 export interface SpyIDERecordedValues {
   messages?: Message[];
@@ -27,6 +29,18 @@ export default class SpyIDE implements IDE {
     this.messages = new SpyMessages(original.messages);
   }
 
+  public get activeTextEditor(): TextEditor | undefined {
+    return this.original.activeTextEditor;
+  }
+
+  public get activeEditableTextEditor(): EditableTextEditor | undefined {
+    return this.original.activeEditableTextEditor;
+  }
+
+  public get visibleTextEditors(): TextEditor[] {
+    return this.original.visibleTextEditors;
+  }
+
   public get assetsRoot(): string {
     return this.original.assetsRoot;
   }
@@ -37,6 +51,16 @@ export default class SpyIDE implements IDE {
 
   public get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
     return this.original.workspaceFolders;
+  }
+
+  public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
+    return this.original.getEditableTextEditor(editor);
+  }
+
+  onDidChangeTextDocument(
+    listener: (event: TextDocumentChangeEvent) => void,
+  ): Disposable {
+    return this.original.onDidChangeTextDocument(listener);
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

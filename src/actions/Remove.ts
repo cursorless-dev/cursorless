@@ -1,5 +1,6 @@
 import { flatten } from "lodash";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -33,7 +34,7 @@ export default class Delete implements Action {
 
         const [updatedRanges] = await performEditsAndUpdateRanges(
           this.graph.rangeUpdater,
-          editor,
+          ide().getEditableTextEditor(editor),
           edits,
           [ranges],
         );

@@ -1,4 +1,4 @@
-import { Range, TextEditor } from "vscode";
+import { Range, TextEditor } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from ".";
 import { UnsupportedError } from "../../errors";
 import { EditNewContext } from "../../typings/target.types";

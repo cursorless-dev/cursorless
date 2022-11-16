@@ -1,4 +1,3 @@
-import type { Range, Selection, TextEditor } from "vscode";
 // NB: We import `Target` below just so that @link below resolves.  Once one of
 // the following issues are fixed, we can either remove the above line or
 // switch to `{import("foo")}` syntax in the `{@link}` tag.
@@ -7,7 +6,7 @@ import type { Range, Selection, TextEditor } from "vscode";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { SnippetVariable, Snippet } from "./snippet";
+import type { Range, Selection, TextEditor } from "@cursorless/common";
 import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ScopeTypeTarget,
@@ -16,6 +15,8 @@ import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   UntypedTarget,
 } from "../processTargets/targets";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type { Snippet, SnippetVariable } from "./snippet";
 import type { Position } from "./targetDescriptor.types";
 import type { EditWithRangeUpdater } from "./Types";
 

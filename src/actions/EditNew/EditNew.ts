@@ -1,16 +1,16 @@
+import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
-import { selectionFromRange } from "../../util/selectionUtils";
 import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
 import { Action, ActionReturnValue } from "../actions.types";
 import { State } from "./EditNew.types";
-import { runNotebookCellTargets } from "./runNotebookCellTargets";
 import { runCommandTargets } from "./runCommandTargets";
 import { runEditTargets } from "./runEditTargets";
+import { runNotebookCellTargets } from "./runNotebookCellTargets";
 
 export class EditNew implements Action {
   getFinalStages(): ModifierStage[] {
@@ -29,7 +29,9 @@ export class EditNew implements Action {
       return runNotebookCellTargets(this.graph, targets);
     }
 
-    const editor = ensureSingleEditor(targets);
+    const editableEditor = ide().getEditableTextEditor(
+      ensureSingleEditor(targets),
+    );
 
     /**
      * Keeps track of the desired cursor positions and "that" marks as we
@@ -41,13 +43,13 @@ export class EditNew implements Action {
       cursorRanges: new Array(targets.length).fill(undefined) as undefined[],
     };
 
-    state = await runCommandTargets(this.graph, editor, state);
-    state = await runEditTargets(this.graph, editor, state);
+    state = await runCommandTargets(this.graph, editableEditor, state);
+    state = await runEditTargets(this.graph, editableEditor, state);
 
     const newSelections = state.targets.map((target, index) =>
-      selectionFromRange(target.isReversed, state.cursorRanges[index]!),
+      state.cursorRanges[index]!.toSelection(target.isReversed),
     );
-    await setSelectionsAndFocusEditor(editor, newSelections);
+    await setSelectionsAndFocusEditor(editableEditor, newSelections);
 
     return {
       thatSelections: createThatMark(state.targets, state.thatRanges),

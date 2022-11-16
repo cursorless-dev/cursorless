@@ -1,5 +1,6 @@
+import { Selection, EditableTextEditor } from "@cursorless/common";
 import { zip } from "lodash";
-import { DecorationRangeBehavior, Range, Selection, TextEditor } from "vscode";
+import { DecorationRangeBehavior } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
 import { Graph } from "../../typings/Types";
 import { EditTarget, State } from "./EditNew.types";
@@ -19,7 +20,7 @@ import { EditTarget, State } from "./EditNew.types";
  */
 export async function runEditTargets(
   graph: Graph,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   state: State,
 ): Promise<State> {
   const editTargets: EditTarget[] = state.targets
@@ -43,7 +44,7 @@ export async function runEditTargets(
   );
 
   const thatSelections = {
-    selections: state.thatRanges.map(toSelection),
+    selections: state.thatRanges.map((r) => r.toSelection(false)),
   };
 
   // We need to remove undefined cursor locations.  Note that these undefined
@@ -57,11 +58,11 @@ export async function runEditTargets(
   const cursorIndices = cursorInfos.map(({ index }) => index);
 
   const cursorSelections = {
-    selections: cursorInfos.map(({ range }) => toSelection(range!)),
+    selections: cursorInfos.map(({ range }) => range!.toSelection(false)),
   };
 
   const editSelections = {
-    selections: edits.map((edit) => toSelection(edit.range)),
+    selections: edits.map((edit) => edit.range.toSelection(false)),
     rangeBehavior: DecorationRangeBehavior.OpenOpen,
   };
 
@@ -95,8 +96,4 @@ export async function runEditTargets(
     thatRanges: updatedThatSelections,
     cursorRanges: updatedCursorRanges,
   };
-}
-
-function toSelection(range: Range) {
-  return new Selection(range.start, range.end);
 }

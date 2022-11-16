@@ -1,3 +1,4 @@
+import { Position, TextEditor } from "@cursorless/common";
 import { NoContainingScopeError } from "../../errors";
 import type { Target } from "../../typings/target.types";
 import type {
@@ -5,14 +6,13 @@ import type {
   Direction,
 } from "../../typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
-import getScopeHandler from "./scopeHandlers/getScopeHandler";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
-import getLegacyScopeStage from "./getLegacyScopeStage";
-import { TargetScope } from "./scopeHandlers/scope.types";
-import { TextEditor, Position } from "vscode";
-import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 import { getContainingScope } from "./getContainingScope";
+import getLegacyScopeStage from "./getLegacyScopeStage";
+import getScopeHandler from "./scopeHandlers/getScopeHandler";
+import { TargetScope } from "./scopeHandlers/scope.types";
+import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
 /**
  * This modifier stage expands from the input target to the smallest containing
