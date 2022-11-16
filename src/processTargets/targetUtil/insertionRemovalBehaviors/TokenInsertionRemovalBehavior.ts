@@ -73,7 +73,9 @@ export function getTokenRemovalRange(target: Target): Range {
   const fullLineRange = expandToFullLine(editor, contentRange);
 
   if (
-    leadingWhitespaceRange.union(trailingWhitespaceRange).isRangeEqual(fullLineRange)
+    leadingWhitespaceRange
+      .union(trailingWhitespaceRange)
+      .isRangeEqual(fullLineRange)
   ) {
     // If we would just be leaving a line with whitespace on it, we delete the
     // whitespace
