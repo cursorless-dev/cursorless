@@ -8,6 +8,10 @@ import type {
   TextEditorOptions,
 } from "@cursorless/common";
 
+/**
+ * Represents a read-only reference to a text editor.  If you need to modify the
+ * editor, use {@link IDE.getEditableTextEditor}.
+ */
 export interface TextEditor {
   /**
    * Unique identifier for this text editor
@@ -26,7 +30,7 @@ export interface TextEditor {
   readonly visibleRanges: Range[];
 
   /**
-   * The selections in this text editor. The primary selection is always at index 0.
+   * The selections in this text editor.
    */
   readonly selections: Selection[];
 
@@ -50,14 +54,8 @@ export interface TextEditor {
 }
 
 export interface EditableTextEditor extends TextEditor {
-  /**
-   * The selections in this text editor. The primary selection is always at index 0.
-   */
   selections: Selection[];
 
-  /**
-   * Text editor options.
-   */
   options: TextEditorOptions;
 
   /**
