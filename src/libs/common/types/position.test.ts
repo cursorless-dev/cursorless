@@ -20,6 +20,7 @@ suite("Position", () => {
     assert.ok(new Position(0, 0).isBefore(new Position(0, 1)));
     assert.ok(!new Position(1, 0).isBefore(new Position(0, 0)));
     assert.ok(!new Position(0, 1).isBefore(new Position(0, 0)));
+    assert.ok(!new Position(0, 0).isBefore(new Position(0, 0)));
   });
 
   test("isAfter", () => {
@@ -27,6 +28,7 @@ suite("Position", () => {
     assert.ok(new Position(0, 1).isAfter(new Position(0, 0)));
     assert.ok(!new Position(0, 0).isAfter(new Position(1, 0)));
     assert.ok(!new Position(0, 0).isAfter(new Position(0, 1)));
+    assert.ok(!new Position(0, 0).isBefore(new Position(0, 0)));
   });
 
   test("isBeforeOrEqual", () => {
