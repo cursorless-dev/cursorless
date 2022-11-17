@@ -57,7 +57,11 @@ export default class SpyIDE implements IDE {
     return this.original.getEditableTextEditor(editor);
   }
 
-  onDidChangeTextDocument(
+  public findInWorkspace(query: string): Promise<void> {
+    return this.original.findInWorkspace(query);
+  }
+
+  public onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
     return this.original.onDidChangeTextDocument(listener);

@@ -20,7 +20,7 @@ import { Copy, Cut } from "./CutCopy";
 import Deselect from "./Deselect";
 import { EditNew, EditNewAfter, EditNewBefore } from "./EditNew";
 import ExecuteCommand from "./ExecuteCommand";
-import { FindInFiles } from "./Find";
+import { FindInWorkspace } from "./Find";
 import { Fold, Unfold } from "./Fold";
 import FollowLink from "./FollowLink";
 import GenerateSnippet from "./GenerateSnippet";
@@ -64,7 +64,7 @@ class Actions implements ActionRecord {
   editNewLineBefore = new EditNewBefore(this.graph);
   executeCommand = new ExecuteCommand(this.graph);
   extractVariable = new ExtractVariable(this.graph);
-  findInWorkspace = new FindInFiles(this.graph);
+  findInWorkspace = new FindInWorkspace(this.graph);
   foldRegion = new Fold(this.graph);
   followLink = new FollowLink(this.graph);
   generateSnippet = new GenerateSnippet(this.graph);

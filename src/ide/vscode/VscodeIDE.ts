@@ -1,6 +1,6 @@
 import type { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { pull } from "lodash";
-import type * as vscode from "vscode";
+import * as vscode from "vscode";
 import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
 import type { TextDocumentChangeEvent } from "../../libs/common/ide/types/Events";
 import type {
@@ -64,6 +64,12 @@ export default class VscodeIDE implements IDE {
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
     return editor as EditableTextEditor;
+  }
+
+  public async findInWorkspace(query: string): Promise<void> {
+    await vscode.commands.executeCommand("workbench.action.findInFiles", {
+      query,
+    });
   }
 
   public onDidChangeTextDocument(

@@ -69,6 +69,12 @@ export interface IDE {
   onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable;
+
+  /**
+   * Find occurrences of query string in all files in the workspace
+   * @param query The string query to search for
+   */
+  findInWorkspace(query: string): Promise<void>;
 }
 
 export interface WorkspaceFolder {

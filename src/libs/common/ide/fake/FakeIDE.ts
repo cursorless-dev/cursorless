@@ -55,6 +55,13 @@ export default class FakeIDE implements IDE {
     return this.original?.visibleTextEditors ?? [];
   }
 
+  public findInWorkspace(query: string): Promise<void> {
+    if (this.original == null) {
+      throw Error("Original ide is missing");
+    }
+    return this.original.findInWorkspace(query);
+  }
+
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
     if (this.original == null) {
       throw Error("Original ide is missing");
@@ -62,7 +69,7 @@ export default class FakeIDE implements IDE {
     return this.original.getEditableTextEditor(editor);
   }
 
-  onDidChangeTextDocument(
+  public onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
     if (this.original == null) {
