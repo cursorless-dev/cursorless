@@ -96,4 +96,8 @@ export class VscodeTextEditorImpl implements TextEditor {
   public openLink(location: Position | Range): Promise<boolean> {
     return vscodeOpenLink(this.editor, toVscodePositionOrRange(location));
   }
+
+  public async clipboardPaste(): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.clipboardPasteAction");
+  }
 }

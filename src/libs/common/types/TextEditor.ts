@@ -115,4 +115,9 @@ export interface EditableTextEditor extends TextEditor {
    * @return True if a link was opened
    */
   openLink(location: Position | Range): Promise<boolean>;
+
+  /**
+   * Paste clipboard content
+   */
+  clipboardPaste(): Promise<void>;
 }

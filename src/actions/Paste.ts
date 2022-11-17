@@ -1,4 +1,3 @@
-import { commands } from "vscode";
 import {
   callFunctionAndUpdateSelections,
   callFunctionAndUpdateSelectionsWithBehavior,
@@ -14,7 +13,9 @@ export class Paste {
   constructor(private graph: Graph) {}
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
-    const targetEditor = ensureSingleEditor(targets);
+    const targetEditor = ide().getEditableTextEditor(
+      ensureSingleEditor(targets),
+    );
     const originalEditor = ide().activeEditableTextEditor;
 
     // First call editNew in order to insert delimiters if necessary and leave
@@ -34,7 +35,7 @@ export class Paste {
     const [updatedCursorSelections, updatedTargetSelections] =
       await callFunctionAndUpdateSelectionsWithBehavior(
         this.graph.rangeUpdater,
-        () => commands.executeCommand("editor.action.clipboardPasteAction"),
+        () => targetEditor.clipboardPaste(),
         targetEditor.document,
         [
           {
@@ -50,10 +51,7 @@ export class Paste {
     // Reset cursors on the editor where the edits took place.
     // NB: We don't focus the editor here because we want to focus the original
     // editor, not the one where the edits took place
-    setSelectionsWithoutFocusingEditor(
-      ide().getEditableTextEditor(targetEditor),
-      updatedCursorSelections,
-    );
+    setSelectionsWithoutFocusingEditor(targetEditor, updatedCursorSelections);
 
     // If necessary focus back original editor
     if (originalEditor != null && !originalEditor.isActive) {
