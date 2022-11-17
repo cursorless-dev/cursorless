@@ -1,4 +1,4 @@
-import { commands } from "vscode";
+import type { RevealLineAt } from "@cursorless/common";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -6,7 +6,7 @@ import { groupBy } from "../util/itertools";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class Scroll implements Action {
-  constructor(private graph: Graph, private at: string) {
+  constructor(private graph: Graph, private at: RevealLineAt) {
     this.run = this.run.bind(this);
   }
 
@@ -20,14 +20,9 @@ class Scroll implements Action {
     const originalEditor = ide().activeEditableTextEditor;
 
     for (const lineWithEditor of lines) {
-      // For reveal line to the work we have to have the correct editor focused
-      if (!lineWithEditor.editor.isActive) {
-        await ide().getEditableTextEditor(lineWithEditor.editor).focus();
-      }
-      await commands.executeCommand("revealLine", {
-        lineNumber: lineWithEditor.lineNumber,
-        at: this.at,
-      });
+      await ide()
+        .getEditableTextEditor(lineWithEditor.editor)
+        .revealLine(lineWithEditor.lineNumber, this.at);
     }
 
     // If necessary focus back original editor

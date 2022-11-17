@@ -1,6 +1,7 @@
 import type {
   Position,
   Range,
+  RevealLineAt,
   Selection,
   TextDocument,
   TextEditor,
@@ -20,6 +21,7 @@ import vscodeEdit from "./VscodeEdit";
 import vscodeFocusEditor from "./VscodeFocusEditor";
 import VscodeIDE from "./VscodeIDE";
 import vscodeOpenLink from "./VscodeOpenLink";
+import { vscodeRevealLine } from "./VscodeRevealLine";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 
 export class VscodeTextEditorImpl implements TextEditor {
@@ -67,6 +69,10 @@ export class VscodeTextEditorImpl implements TextEditor {
 
   public revealRange(range: Range): void {
     this.editor.revealRange(toVscodeRange(range));
+  }
+
+  public revealLine(lineNumber: number, at: RevealLineAt): Promise<void> {
+    return vscodeRevealLine(this, lineNumber, at);
   }
 
   public setDecorations(

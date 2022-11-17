@@ -20,6 +20,7 @@ export * from "./ide/types/ide.types";
 export * from "./types/DecorationRangeBehavior";
 export * from "./types/Position";
 export * from "./types/Range";
+export * from "./types/RevealLineAt";
 export * from "./types/Selection";
 export * from "./types/TextDocument";
 export * from "./types/TextEditor";

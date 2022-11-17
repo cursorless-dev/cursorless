@@ -1,6 +1,7 @@
 import type {
   Position,
   Range,
+  RevealLineAt,
   Selection,
   TextDocument,
   TextEditorDecorationType,
@@ -64,6 +65,14 @@ export interface EditableTextEditor extends TextEditor {
    * @param range A range.
    */
   revealRange(range: Range): void;
+
+  /**
+   * Scroll to reveal the given line.
+   *
+   * @param lineNumber A line number.
+   * @param at Were to reveal the line at: top|center|bottom.
+   */
+  revealLine(lineNumber: number, at: RevealLineAt): Promise<void>;
 
   /**
    * Focus the editor.
