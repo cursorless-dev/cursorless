@@ -109,4 +109,10 @@ export class VscodeTextEditorImpl implements TextEditor {
   public async unfold(lineNumbers: number[]): Promise<void> {
     return vscodeFold(this.ide, this, lineNumbers, false);
   }
+
+  public async insertSnippet(snippet: string): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.insertSnippet", {
+      snippet,
+    });
+  }
 }

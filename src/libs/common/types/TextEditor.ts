@@ -132,4 +132,10 @@ export interface EditableTextEditor extends TextEditor {
    * @param lineNumbers Lines to Unfold
    */
   unfold(lineNumbers: number[]): Promise<void>;
+
+  /**
+   * Insert snippet
+   * @param snippet A snippet string
+   */
+  insertSnippet(snippet: string): Promise<void>;
 }

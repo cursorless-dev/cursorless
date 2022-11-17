@@ -1,9 +1,9 @@
-import { commands } from "vscode";
 import textFormatters from "../core/textFormatters";
 import {
   callFunctionAndUpdateSelectionInfos,
   getSelectionInfo,
 } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfUntypedStage";
 import { Snippet, SnippetDefinition } from "../typings/snippet";
 import { Target } from "../typings/target.types";
@@ -55,7 +55,7 @@ export default class InsertSnippet implements Action {
   ): Promise<ActionReturnValue> {
     const snippet = this.graph.snippets.getSnippetStrict(snippetName);
 
-    const editor = ensureSingleEditor(targets);
+    const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
 
     const definition = findMatchingSnippetDefinitionStrict(
       targets,
@@ -83,10 +83,7 @@ export default class InsertSnippet implements Action {
     // because the latter doesn't support special variables like CLIPBOARD
     const [updatedTargetSelections] = await callFunctionAndUpdateSelectionInfos(
       this.graph.rangeUpdater,
-      () =>
-        commands.executeCommand("editor.action.insertSnippet", {
-          snippet: snippetString,
-        }),
+      () => editor.insertSnippet(snippetString),
       editor.document,
       [targetSelectionInfos],
     );
