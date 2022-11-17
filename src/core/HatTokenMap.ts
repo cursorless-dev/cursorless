@@ -1,9 +1,11 @@
 import { hrtime } from "process";
-import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import type { Graph } from "../typings/Types";
+import { IDE } from "../libs/common/ide/types/ide.types";
+import { CommandServerApi } from "../libs/vscode-common/getExtensionApi";
 import { abs } from "../util/bigint";
+import Debug from "./Debug";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap, ReadOnlyHatMap } from "./IndividualHatMap";
+import { RangeUpdater } from "./updateSelections/RangeUpdater";
 
 /**
  * Maximum age for the pre-phrase snapshot before we consider it to be stale
@@ -31,9 +33,14 @@ export default class HatTokenMap {
   private lastSignalVersion: string | null = null;
   private hatAllocator: HatAllocator;
 
-  constructor(private graph: Graph) {
-    ide().disposeOnExit(this);
-    this.activeMap = new IndividualHatMap(graph);
+  constructor(
+    ide: IDE,
+    private debug: Debug,
+    rangeUpdater: RangeUpdater,
+    private commandServerApi: CommandServerApi | undefined,
+  ) {
+    ide.disposeOnExit(this);
+    this.activeMap = new IndividualHatMap(rangeUpdater);
 
     this.getActiveMap = this.getActiveMap.bind(this);
 
@@ -113,13 +120,13 @@ export default class HatTokenMap {
   }
 
   private async maybeTakePrePhraseSnapshot() {
-    const phraseStartSignal = this.graph.commandServerApi?.signals?.prePhrase;
+    const phraseStartSignal = this.commandServerApi?.signals?.prePhrase;
 
     if (phraseStartSignal != null) {
       const newSignalVersion = await phraseStartSignal.getVersion();
 
       if (newSignalVersion !== this.lastSignalVersion) {
-        this.graph.debug.log("taking snapshot");
+        this.debug.log("taking snapshot");
         this.lastSignalVersion = newSignalVersion;
 
         if (newSignalVersion != null) {

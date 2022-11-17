@@ -1,9 +1,9 @@
 import * as vscode from "vscode";
 import { Disposable } from "vscode";
-import ide from "../libs/cursorless-engine/singletons/ide.singleton";
+import { IDE } from "../libs/common/ide/types/ide.types";
 import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
-import { Graph } from "../typings/Types";
 import { addDecorationsToEditors } from "../util/addDecorationsToEditor";
+import Decorations from "./Decorations";
 import { IndividualHatMap } from "./IndividualHatMap";
 
 interface Context {
@@ -16,8 +16,12 @@ export class HatAllocator {
   private disposables: Disposable[] = [];
   private disposalFunctions: (() => void)[] = [];
 
-  constructor(private graph: Graph, private context: Context) {
-    ide().disposeOnExit(this);
+  constructor(
+    private ide: IDE,
+    private decorations: Decorations,
+    private context: Context,
+  ) {
+    ide.disposeOnExit(this);
 
     this.isActive = vscode.workspace
       .getConfiguration("cursorless")
@@ -28,7 +32,7 @@ export class HatAllocator {
     this.clearEditorDecorations = this.clearEditorDecorations.bind(this);
 
     this.disposalFunctions.push(
-      graph.decorations.registerDecorationChangeListener(
+      decorations.registerDecorationChangeListener(
         this.addDecorationsDebounced,
       ),
     );
@@ -66,7 +70,7 @@ export class HatAllocator {
   }
 
   private clearEditorDecorations(editor: vscode.TextEditor) {
-    this.graph.decorations.decorations.forEach(({ decoration }) => {
+    this.decorations.decorations.forEach(({ decoration }) => {
       editor.setDecorations(decoration, []);
     });
   }
@@ -77,7 +81,7 @@ export class HatAllocator {
     if (this.isActive) {
       addDecorationsToEditors(
         activeMap,
-        this.graph.decorations,
+        this.decorations,
         tokenGraphemeSplitter(),
       );
     } else {
@@ -86,7 +90,7 @@ export class HatAllocator {
     }
   }
 
-  addDecorationsDebounced() {
+  private addDecorationsDebounced() {
     if (this.timeoutHandle != null) {
       clearTimeout(this.timeoutHandle);
     }

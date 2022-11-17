@@ -1,12 +1,11 @@
 import { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
-import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
+import { IDE } from "../../libs/common/ide/types/ide.types";
 import {
   Modifier,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "../../typings/targetDescriptor.types";
-import { Graph } from "../../typings/Types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import {
   Command,
@@ -114,7 +113,7 @@ function usesScopeType(
 }
 
 export async function checkForOldInference(
-  graph: Graph,
+  ide: IDE,
   partialTargets: PartialTargetDescriptor[],
 ) {
   const hasOldInference = partialTargets.some((target) => {
@@ -127,7 +126,7 @@ export async function checkForOldInference(
   });
 
   if (hasOldInference) {
-    const { globalState, messages } = ide();
+    const { globalState, messages } = ide;
     const hideInferenceWarning = globalState.get("hideInferenceWarning");
 
     if (!hideInferenceWarning) {

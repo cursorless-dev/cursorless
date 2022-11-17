@@ -6,22 +6,20 @@ import {
   workspace,
 } from "vscode";
 import { SyntaxNode, TreeCursor } from "web-tree-sitter";
+import { RunMode } from "../libs/common/ide/types/ide.types";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import { Graph } from "../typings/Types";
 
 export default class Debug {
   private disposableConfiguration?: Disposable;
   private disposableSelection?: Disposable;
   active: boolean;
 
-  constructor(private graph: Graph) {
-    ide().disposeOnExit(this);
-
+  constructor(runMode: RunMode) {
     this.evaluateSetting = this.evaluateSetting.bind(this);
     this.logBranchTypes = this.logBranchTypes.bind(this);
     this.active = true;
 
-    switch (ide().runMode) {
+    switch (runMode) {
       // Development mode. Always enable.
       case "development":
         this.enableDebugLog();
@@ -38,10 +36,6 @@ export default class Debug {
         );
         break;
     }
-  }
-
-  init() {
-    // do nothing
   }
 
   log(...args: any[]) {

@@ -1,48 +1,41 @@
 import * as vscode from "vscode";
-import { ActionType } from "../../actions/actions.types";
+import { SyntaxNode } from "web-tree-sitter";
+import { ActionRecord } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
-import { CURSORLESS_COMMAND_ID } from "../../libs/common/commandIds";
+import { IDE } from "../../libs/common/ide/types/ide.types";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import processTargets from "../../processTargets";
 import isTesting from "../../testUtil/isTesting";
+import { TestCaseRecorder } from "../../testUtil/TestCaseRecorder";
 import { Target } from "../../typings/target.types";
 import {
-  Graph,
   ProcessedTargetsContext,
   SelectionWithEditor,
 } from "../../typings/Types";
-import { isString } from "../../util/type";
 import {
   canonicalizeAndValidateCommand,
   checkForOldInference,
 } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
+import Debug from "../Debug";
+import { EditStyles } from "../editStyles";
+import HatTokenMap from "../HatTokenMap";
 import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
-import { Command } from "./command.types";
+import migrateV0Command from "./migrateV0Command";
 import { selectionToThatTarget } from "./selectionToThatTarget";
 
-// TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
-  private disposables: vscode.Disposable[] = [];
-
   constructor(
-    private graph: Graph,
+    private ide: IDE,
+    private debug: Debug,
+    private hatTokenMap: HatTokenMap,
+    private actions: ActionRecord,
+    private getNodeAtLocation: (location: vscode.Location) => SyntaxNode,
+    private editStyles: EditStyles,
+    private testCaseRecorder: TestCaseRecorder,
     private thatMark: ThatMark,
     private sourceMark: ThatMark,
-  ) {
-    ide().disposeOnExit(this);
-
-    this.runCommandBackwardCompatible =
-      this.runCommandBackwardCompatible.bind(this);
-
-    this.disposables.push(
-      vscode.commands.registerCommand(
-        CURSORLESS_COMMAND_ID,
-        this.runCommandBackwardCompatible,
-      ),
-    );
-  }
+  ) {}
 
   /**
    * Entry point for Cursorless commands. We proceed as follows:
@@ -67,11 +60,13 @@ export default class CommandRunner {
    *    action, and returns the desired return value indicated by the action, if
    *    it has one.
    */
-  async runCommand(command: Command) {
+  async runCommand(args: unknown[]) {
     try {
-      if (this.graph.debug.active) {
-        this.graph.debug.log(`command:`);
-        this.graph.debug.log(JSON.stringify(command, null, 3));
+      const command = migrateV0Command(args);
+
+      if (this.debug.active) {
+        this.debug.log(`command:`);
+        this.debug.log(JSON.stringify(command, null, 3));
       }
 
       const commandComplete = canonicalizeAndValidateCommand(command);
@@ -82,11 +77,11 @@ export default class CommandRunner {
         usePrePhraseSnapshot,
       } = commandComplete;
 
-      const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
+      const readableHatMap = await this.hatTokenMap.getReadableMap(
         usePrePhraseSnapshot,
       );
 
-      const action = this.graph.actions[actionName];
+      const action = this.actions[actionName];
 
       if (action == null) {
         throw new Error(`Unknown action ${actionName}`);
@@ -94,20 +89,15 @@ export default class CommandRunner {
 
       const targetDescriptors = inferFullTargets(partialTargetDescriptors);
 
-      if (this.graph.debug.active) {
-        this.graph.debug.log("Full targets:");
-        this.graph.debug.log(JSON.stringify(targetDescriptors, null, 3));
+      if (this.debug.active) {
+        this.debug.log("Full targets:");
+        this.debug.log(JSON.stringify(targetDescriptors, null, 3));
       }
 
       const actionPrePositionStages =
-        action.getPrePositionStages != null
-          ? action.getPrePositionStages(...actionArgs)
-          : [];
+        action.getPrePositionStages?.(...actionArgs) ?? [];
 
-      const actionFinalStages =
-        action.getFinalStages != null
-          ? action.getFinalStages(...actionArgs)
-          : [];
+      const actionFinalStages = action.getFinalStages?.(...actionArgs) ?? [];
 
       const processedTargetsContext: ProcessedTargetsContext = {
         actionPrePositionStages,
@@ -121,28 +111,25 @@ export default class CommandRunner {
         hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],
-        getNodeAtLocation: this.graph.getNodeAtLocation,
+        getNodeAtLocation: this.getNodeAtLocation,
       };
 
-      if (this.graph.testCaseRecorder.isActive()) {
-        this.graph.editStyles.testDecorations = [];
+      if (this.testCaseRecorder.isActive()) {
+        this.editStyles.testDecorations = [];
         const context = {
           targets: targetDescriptors,
           thatMark: this.thatMark,
           sourceMark: this.sourceMark,
           hatTokenMap: readableHatMap,
           spokenForm,
-          decorations: this.graph.editStyles.testDecorations,
+          decorations: this.editStyles.testDecorations,
         };
-        await this.graph.testCaseRecorder.preCommandHook(
-          commandComplete,
-          context,
-        );
+        await this.testCaseRecorder.preCommandHook(commandComplete, context);
       }
 
       // NB: We do this once test recording has started so that we can capture
       // warning.
-      checkForOldInference(this.graph, partialTargetDescriptors);
+      checkForOldInference(this.ide, partialTargetDescriptors);
 
       const targets = processTargets(
         processedTargetsContext,
@@ -162,13 +149,13 @@ export default class CommandRunner {
         constructThatTarget(newSourceTargets, newSourceSelections),
       );
 
-      if (this.graph.testCaseRecorder.isActive()) {
-        await this.graph.testCaseRecorder.postCommandHook(returnValue);
+      if (this.testCaseRecorder.isActive()) {
+        await this.testCaseRecorder.postCommandHook(returnValue);
       }
 
       return returnValue;
     } catch (e) {
-      await this.graph.testCaseRecorder.commandErrorHook(e as Error);
+      await this.testCaseRecorder.commandErrorHook(e as Error);
       const err = e as Error;
       if (err instanceof OutdatedExtensionError) {
         this.showUpdateExtensionErrorMessage(err);
@@ -179,13 +166,13 @@ export default class CommandRunner {
       console.error(err.stack);
       throw err;
     } finally {
-      if (this.graph.testCaseRecorder.isActive()) {
-        this.graph.testCaseRecorder.finallyHook();
+      if (this.testCaseRecorder.isActive()) {
+        this.testCaseRecorder.finallyHook();
       }
     }
   }
 
-  async showUpdateExtensionErrorMessage(err: OutdatedExtensionError) {
+  private async showUpdateExtensionErrorMessage(err: OutdatedExtensionError) {
     const item = await vscode.window.showErrorMessage(
       err.message,
       "Check for updates",
@@ -198,39 +185,6 @@ export default class CommandRunner {
     await vscode.commands.executeCommand(
       "workbench.extensions.action.checkForUpdates",
     );
-  }
-
-  private runCommandBackwardCompatible(
-    spokenFormOrCommand: string | Command,
-    ...rest: unknown[]
-  ) {
-    let command: Command;
-
-    if (isString(spokenFormOrCommand)) {
-      const spokenForm = spokenFormOrCommand;
-      const [action, targets, ...extraArgs] = rest as [
-        ActionType,
-        PartialTargetV0V1[],
-        ...unknown[],
-      ];
-
-      command = {
-        version: 0,
-        spokenForm,
-        action,
-        targets,
-        extraArgs,
-        usePrePhraseSnapshot: false,
-      };
-    } else {
-      command = spokenFormOrCommand;
-    }
-
-    return this.runCommand(command);
-  }
-
-  dispose() {
-    this.disposables.forEach(({ dispose }) => dispose());
   }
 }
 

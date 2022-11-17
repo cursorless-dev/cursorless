@@ -1,7 +1,8 @@
 import { getKey, TextDocument } from "@cursorless/common";
 import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
-import { Graph, Token } from "../typings/Types";
+import { Token } from "../typings/Types";
 import { HatStyleName } from "./hatStyles";
+import { RangeUpdater } from "./updateSelections/RangeUpdater";
 
 export interface ReadOnlyHatMap {
   getEntries(): [string, Token][];
@@ -17,7 +18,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     [decoratedCharacter: string]: Token;
   } = {};
 
-  constructor(private graph: Graph) {}
+  constructor(private rangeUpdater: RangeUpdater) {}
 
   private getDocumentTokenList(document: TextDocument) {
     const key = document.uri.toString();
@@ -27,7 +28,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
       currentValue = [];
       this.documentTokenLists.set(key, currentValue);
       this.deregisterFunctions.push(
-        this.graph.rangeUpdater.registerRangeInfoList(document, currentValue),
+        this.rangeUpdater.registerRangeInfoList(document, currentValue),
       );
     }
 
@@ -35,7 +36,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   }
 
   clone() {
-    const ret = new IndividualHatMap(this.graph);
+    const ret = new IndividualHatMap(this.rangeUpdater);
 
     this.getEntries().forEach(([key, token]) => {
       ret.addTokenByKey(key, { ...token });
