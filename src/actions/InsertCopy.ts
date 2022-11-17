@@ -75,7 +75,7 @@ class InsertCopy implements Action {
     );
 
     setSelectionsWithoutFocusingEditor(editableEditor, updatedEditorSelections);
-    editableEditor.revealRange(editor.selections[0]);
+    await editableEditor.revealRange(editor.selections[0]);
 
     return {
       sourceMark: createThatMark(targets, insertionRanges),

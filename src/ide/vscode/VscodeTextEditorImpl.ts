@@ -67,7 +67,7 @@ export class VscodeTextEditorImpl implements TextEditor {
     return this.id === other.id;
   }
 
-  public revealRange(range: Range): void {
+  public async revealRange(range: Range): Promise<void> {
     this.editor.revealRange(toVscodeRange(range));
   }
 
@@ -75,17 +75,17 @@ export class VscodeTextEditorImpl implements TextEditor {
     return vscodeRevealLine(this, lineNumber, at);
   }
 
-  public setDecorations(
+  public async setDecorations(
     decorationType: TextEditorDecorationType,
     ranges: readonly Range[],
-  ): void {
+  ): Promise<void> {
     this.editor.setDecorations(decorationType, ranges.map(toVscodeRange));
   }
 
   public edit(
     callback: (editBuilder: TextEditorEdit) => void,
     options?: { undoStopBefore: boolean; undoStopAfter: boolean },
-  ): Thenable<boolean> {
+  ): Promise<boolean> {
     return vscodeEdit(this.editor, callback, options);
   }
 

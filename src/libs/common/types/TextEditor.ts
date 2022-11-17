@@ -64,7 +64,7 @@ export interface EditableTextEditor extends TextEditor {
    *
    * @param range A range.
    */
-  revealRange(range: Range): void;
+  revealRange(range: Range): Promise<void>;
 
   /**
    * Scroll to reveal the given line.
@@ -91,7 +91,7 @@ export interface EditableTextEditor extends TextEditor {
   setDecorations(
     decorationType: TextEditorDecorationType,
     ranges: readonly Range[],
-  ): void;
+  ): Promise<void>;
 
   /**
    * Perform an edit on the document associated with this text editor.
@@ -107,7 +107,7 @@ export interface EditableTextEditor extends TextEditor {
   edit(
     callback: (editBuilder: TextEditorEdit) => void,
     options?: { undoStopBefore: boolean; undoStopAfter: boolean },
-  ): Thenable<boolean>;
+  ): Promise<boolean>;
 
   /**
    * Open link at location.

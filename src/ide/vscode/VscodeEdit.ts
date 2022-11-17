@@ -7,12 +7,12 @@ import {
 } from "@cursorless/vscode-common";
 import type * as vscode from "vscode";
 
-export default function vscodeEdit(
+export default async function vscodeEdit(
   editor: vscode.TextEditor,
   callback: (editBuilder: TextEditorEdit) => void,
   options?: { undoStopBefore: boolean; undoStopAfter: boolean },
-): Thenable<boolean> {
-  return editor.edit((editBuilder) => {
+): Promise<boolean> {
+  return await editor.edit((editBuilder) => {
     callback({
       replace: (location, value) => {
         editBuilder.replace(toVscodePositionOrRange(location), value);
