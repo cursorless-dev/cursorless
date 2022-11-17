@@ -1,4 +1,4 @@
-import { commands, DecorationRangeBehavior } from "vscode";
+import { commands } from "vscode";
 import textFormatters from "../core/textFormatters";
 import {
   callFunctionAndUpdateSelectionInfos,
@@ -76,11 +76,7 @@ export default class InsertSnippet implements Action {
     await this.graph.actions.editNew.run([targets]);
 
     const targetSelectionInfos = editor.selections.map((selection) =>
-      getSelectionInfo(
-        editor.document,
-        selection,
-        DecorationRangeBehavior.OpenOpen,
-      ),
+      getSelectionInfo(editor.document, selection, "OpenOpen"),
     );
 
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet

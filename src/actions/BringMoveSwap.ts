@@ -1,6 +1,5 @@
 import { Selection, TextEditor } from "@cursorless/common";
 import { flatten } from "lodash";
-import { DecorationRangeBehavior } from "vscode";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
@@ -169,16 +168,12 @@ class BringMoveSwap implements Action {
               getSelectionInfo(
                 editor.document,
                 range.toSelection(originalTarget.isReversed),
-                DecorationRangeBehavior.OpenOpen,
+                "OpenOpen",
               ),
           );
 
           const cursorSelectionInfos = editor.selections.map((selection) =>
-            getSelectionInfo(
-              editor.document,
-              selection,
-              DecorationRangeBehavior.ClosedClosed,
-            ),
+            getSelectionInfo(editor.document, selection, "ClosedClosed"),
           );
 
           const editableEditor = ide().getEditableTextEditor(editor);

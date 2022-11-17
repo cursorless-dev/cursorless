@@ -1,4 +1,4 @@
-import { commands, DecorationRangeBehavior } from "vscode";
+import { commands } from "vscode";
 import {
   callFunctionAndUpdateSelections,
   callFunctionAndUpdateSelectionsWithBehavior,
@@ -42,7 +42,7 @@ export class Paste {
           },
           {
             selections: targetEditor.selections,
-            rangeBehavior: DecorationRangeBehavior.OpenOpen,
+            rangeBehavior: "OpenOpen",
           },
         ],
       );

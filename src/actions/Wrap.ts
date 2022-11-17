@@ -1,5 +1,4 @@
 import { Selection } from "@cursorless/common";
-import { DecorationRangeBehavior } from "vscode";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
@@ -49,42 +48,22 @@ export default class Wrap implements Action {
         const delimiterSelectionInfos: FullSelectionInfo[] = boundaries.flatMap(
           ({ start, end }) => {
             return [
-              getSelectionInfo(
-                document,
-                start,
-                DecorationRangeBehavior.OpenClosed,
-              ),
-              getSelectionInfo(
-                document,
-                end,
-                DecorationRangeBehavior.ClosedOpen,
-              ),
+              getSelectionInfo(document, start, "OpenClosed"),
+              getSelectionInfo(document, end, "ClosedOpen"),
             ];
           },
         );
 
         const cursorSelectionInfos = editor.selections.map((selection) =>
-          getSelectionInfo(
-            document,
-            selection,
-            DecorationRangeBehavior.ClosedClosed,
-          ),
+          getSelectionInfo(document, selection, "ClosedClosed"),
         );
 
         const sourceMarkSelectionInfos = targets.map((target) =>
-          getSelectionInfo(
-            document,
-            target.contentSelection,
-            DecorationRangeBehavior.ClosedClosed,
-          ),
+          getSelectionInfo(document, target.contentSelection, "ClosedClosed"),
         );
 
         const thatMarkSelectionInfos = targets.map((target) =>
-          getSelectionInfo(
-            document,
-            target.contentSelection,
-            DecorationRangeBehavior.OpenOpen,
-          ),
+          getSelectionInfo(document, target.contentSelection, "OpenOpen"),
         );
 
         const editableEditor = ide().getEditableTextEditor(editor);

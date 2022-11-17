@@ -17,6 +17,7 @@ export { walkFilesSync } from "./util/walkSync";
 export { Listener, Notifier } from "./util/Notifier";
 export { TokenHatSplittingMode } from "./ide/types/Configuration";
 export * from "./ide/types/ide.types";
+export * from "./types/DecorationRangeBehavior";
 export * from "./types/Position";
 export * from "./types/Range";
 export * from "./types/Selection";

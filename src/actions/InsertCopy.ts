@@ -1,6 +1,5 @@
 import { Selection, TextEditor } from "@cursorless/common";
 import { flatten, zip } from "lodash";
-import { DecorationRangeBehavior } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
@@ -55,7 +54,7 @@ class InsertCopy implements Action {
       selections: edits.map(
         ({ range }) => new Selection(range.start, range.end),
       ),
-      rangeBehavior: DecorationRangeBehavior.OpenOpen,
+      rangeBehavior: "OpenOpen",
     };
 
     const editableEditor = ide().getEditableTextEditor(editor);

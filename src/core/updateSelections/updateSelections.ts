@@ -1,11 +1,11 @@
 import {
+  DecorationRangeBehavior,
   EditableTextEditor,
   Range,
   Selection,
   TextDocument,
 } from "@cursorless/common";
 import { flatten } from "lodash";
-import { DecorationRangeBehavior } from "vscode";
 import { Edit } from "../../typings/Types";
 import {
   FullSelectionInfo,
@@ -53,15 +53,13 @@ function getSelectionInfoInternal(
     expansionBehavior: {
       start: {
         type:
-          rangeBehavior === DecorationRangeBehavior.ClosedClosed ||
-          rangeBehavior === DecorationRangeBehavior.ClosedOpen
+          rangeBehavior === "ClosedClosed" || rangeBehavior === "ClosedOpen"
             ? "closed"
             : "open",
       },
       end: {
         type:
-          rangeBehavior === DecorationRangeBehavior.ClosedClosed ||
-          rangeBehavior === DecorationRangeBehavior.OpenClosed
+          rangeBehavior === "ClosedClosed" || rangeBehavior === "OpenClosed"
             ? "closed"
             : "open",
       },
@@ -85,7 +83,7 @@ function getSelectionInfoInternal(
 function selectionsToSelectionInfos(
   document: TextDocument,
   selectionMatrix: (readonly Selection[])[],
-  rangeBehavior: DecorationRangeBehavior = DecorationRangeBehavior.ClosedClosed,
+  rangeBehavior: DecorationRangeBehavior = "ClosedClosed",
 ): FullSelectionInfo[][] {
   return selectionMatrix.map((selections) =>
     selections.map((selection) =>
@@ -97,7 +95,7 @@ function selectionsToSelectionInfos(
 function rangesToSelectionInfos(
   document: TextDocument,
   rangeMatrix: (readonly Range[])[],
-  rangeBehavior: DecorationRangeBehavior = DecorationRangeBehavior.ClosedClosed,
+  rangeBehavior: DecorationRangeBehavior = "ClosedClosed",
 ): FullSelectionInfo[][] {
   return rangeMatrix.map((ranges) =>
     ranges.map((range) =>
@@ -230,8 +228,7 @@ export function callFunctionAndUpdateSelectionsWithBehavior(
         getSelectionInfo(
           document,
           selection,
-          selectionsWithBehavior.rangeBehavior ??
-            DecorationRangeBehavior.ClosedClosed,
+          selectionsWithBehavior.rangeBehavior ?? "ClosedClosed",
         ),
       ),
     ),
@@ -291,8 +288,7 @@ export function performEditsAndUpdateSelectionsWithBehavior(
         getSelectionInfo(
           editor.document,
           selection,
-          selectionsWithBehavior.rangeBehavior ??
-            DecorationRangeBehavior.ClosedClosed,
+          selectionsWithBehavior.rangeBehavior ?? "ClosedClosed",
         ),
       ),
     ),
