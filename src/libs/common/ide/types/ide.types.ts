@@ -75,6 +75,14 @@ export interface IDE {
    * @param query The string query to search for
    */
   findInWorkspace(query: string): Promise<void>;
+
+  /**
+   * Opens a document.
+   *
+   * @see {@link openTextDocument}
+   * @param path A path to a file on disk.
+   */
+  openTextDocument(path: string): Promise<void>;
 }
 
 export interface WorkspaceFolder {

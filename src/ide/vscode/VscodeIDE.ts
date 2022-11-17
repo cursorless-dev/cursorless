@@ -72,6 +72,11 @@ export default class VscodeIDE implements IDE {
     });
   }
 
+  public async openTextDocument(path: string): Promise<void> {
+    const textDocument = await workspace.openTextDocument(path);
+    await window.showTextDocument(textDocument);
+  }
+
   public onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {

@@ -78,6 +78,13 @@ export default class FakeIDE implements IDE {
     return this.original.onDidChangeTextDocument(listener);
   }
 
+  public async openTextDocument(path: string): Promise<void> {
+    if (this.original == null) {
+      throw Error("Original ide is missing");
+    }
+    return this.original.openTextDocument(path);
+  }
+
   disposeOnExit(...disposables: Disposable[]): () => void {
     this.disposables.push(...disposables);
 

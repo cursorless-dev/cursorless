@@ -61,6 +61,10 @@ export default class SpyIDE implements IDE {
     return this.original.findInWorkspace(query);
   }
 
+  public async openTextDocument(path: string): Promise<void> {
+    return this.original.openTextDocument(path);
+  }
+
   public onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
