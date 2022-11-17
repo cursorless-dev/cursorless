@@ -120,4 +120,16 @@ export interface EditableTextEditor extends TextEditor {
    * Paste clipboard content
    */
   clipboardPaste(): Promise<void>;
+
+  /**
+   * Fold lines
+   * @param lineNumbers Lines to fold
+   */
+  fold(lineNumbers: number[]): Promise<void>;
+
+  /**
+   * Unfold lines
+   * @param lineNumbers Lines to Unfold
+   */
+  unfold(lineNumbers: number[]): Promise<void>;
 }

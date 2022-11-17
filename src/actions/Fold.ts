@@ -1,4 +1,3 @@
-import { commands } from "vscode";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -6,17 +5,12 @@ import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class FoldAction implements Action {
-  constructor(private command: string) {
+  constructor(private isFold: boolean) {
     this.run = this.run.bind(this);
   }
 
   async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
-    const originalEditor = ide().activeEditableTextEditor;
-    const editor = ensureSingleEditor(targets);
-
-    if (originalEditor !== editor) {
-      await ide().getEditableTextEditor(editor).focus();
-    }
+    const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
 
     const singleLineTargets = targets.filter(
       (target) => target.contentRange.isSingleLine,
@@ -24,6 +18,7 @@ class FoldAction implements Action {
     const multiLineTargets = targets.filter(
       (target) => !target.contentRange.isSingleLine,
     );
+
     // Don't mix multi and single line targets.
     // This is probably the result of an "every" command
     // and folding the single line targets will fold the parent as well
@@ -31,17 +26,14 @@ class FoldAction implements Action {
       ? multiLineTargets
       : singleLineTargets;
 
-    await commands.executeCommand(this.command, {
-      levels: 1,
-      direction: "down",
-      selectionLines: selectedTargets.map(
-        (target) => target.contentRange.start.line,
-      ),
-    });
+    const selectionLines = selectedTargets.map(
+      (target) => target.contentRange.start.line,
+    );
 
-    // If necessary focus back original editor
-    if (originalEditor != null && originalEditor !== editor) {
-      await originalEditor.focus();
+    if (this.isFold) {
+      await editor.fold(selectionLines);
+    } else {
+      await editor.unfold(selectionLines);
     }
 
     return {
@@ -52,12 +44,12 @@ class FoldAction implements Action {
 
 export class Fold extends FoldAction {
   constructor(_graph: Graph) {
-    super("editor.fold");
+    super(true);
   }
 }
 
 export class Unfold extends FoldAction {
   constructor(_graph: Graph) {
-    super("editor.unfold");
+    super(false);
   }
 }

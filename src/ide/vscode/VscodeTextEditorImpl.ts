@@ -19,6 +19,7 @@ import {
 import * as vscode from "vscode";
 import vscodeEdit from "./VscodeEdit";
 import vscodeFocusEditor from "./VscodeFocusEditor";
+import { vscodeFold } from "./VscodeFold";
 import VscodeIDE from "./VscodeIDE";
 import vscodeOpenLink from "./VscodeOpenLink";
 import { vscodeRevealLine } from "./VscodeRevealLine";
@@ -99,5 +100,13 @@ export class VscodeTextEditorImpl implements TextEditor {
 
   public async clipboardPaste(): Promise<void> {
     await vscode.commands.executeCommand("editor.action.clipboardPasteAction");
+  }
+
+  public async fold(lineNumbers: number[]): Promise<void> {
+    return vscodeFold(this.ide, this, lineNumbers, true);
+  }
+
+  public async unfold(lineNumbers: number[]): Promise<void> {
+    return vscodeFold(this.ide, this, lineNumbers, false);
   }
 }
