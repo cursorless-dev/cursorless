@@ -1,5 +1,5 @@
 import { Range } from "@cursorless/common";
-import { commands, window } from "vscode";
+import { window } from "vscode";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import isTesting from "../../testUtil/isTesting";
@@ -211,11 +211,11 @@ export default class GenerateSnippet implements Action {
       JSON.stringify(snippet, null, 2),
     );
 
+    const editableEditor = ide().getEditableTextEditor(editor);
+
     if (isTesting()) {
       // If we're testing, we just overwrite the current document
-      ide().getEditableTextEditor(editor).selections = [
-        editor.document.range.toSelection(false),
-      ];
+      editableEditor.selections = [editor.document.range.toSelection(false)];
     } else {
       // Otherwise, we create and open a new document for the snippet in the
       // user snippets dir
@@ -223,9 +223,7 @@ export default class GenerateSnippet implements Action {
     }
 
     // Insert the meta-snippet
-    await commands.executeCommand("editor.action.insertSnippet", {
-      snippet: snippetText,
-    });
+    await editableEditor.insertSnippet(snippetText);
 
     return {
       thatSelections: targets.map(({ editor, contentSelection }) => ({
