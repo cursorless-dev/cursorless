@@ -1,5 +1,4 @@
 import { Range } from "@cursorless/common";
-import { window } from "vscode";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import isTesting from "../../testUtil/isTesting";
@@ -69,7 +68,7 @@ export default class GenerateSnippet implements Action {
     );
 
     if (snippetName == null) {
-      snippetName = await window.showInputBox({
+      snippetName = await ide().showInputBox({
         prompt: "Name of snippet",
         placeHolder: "helloWorld",
       });

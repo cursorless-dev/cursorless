@@ -1,4 +1,8 @@
-import { EditableTextEditor, TextEditor } from "@cursorless/common";
+import type {
+  EditableTextEditor,
+  InputBoxOptions,
+  TextEditor,
+} from "@cursorless/common";
 import { pickBy, values } from "lodash";
 import type { Clipboard } from "../types/Clipboard";
 import type { Configuration } from "../types/Configuration";
@@ -63,6 +67,12 @@ export default class SpyIDE implements IDE {
 
   public async openTextDocument(path: string): Promise<void> {
     return this.original.openTextDocument(path);
+  }
+
+  public async showInputBox(
+    options?: InputBoxOptions,
+  ): Promise<string | undefined> {
+    return this.original.showInputBox(options);
   }
 
   public onDidChangeTextDocument(

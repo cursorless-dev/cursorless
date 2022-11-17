@@ -1,4 +1,8 @@
-import type { EditableTextEditor, TextEditor } from "@cursorless/common";
+import type {
+  EditableTextEditor,
+  InputBoxOptions,
+  TextEditor,
+} from "@cursorless/common";
 import { pull } from "lodash";
 import * as vscode from "vscode";
 import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
@@ -75,6 +79,12 @@ export default class VscodeIDE implements IDE {
   public async openTextDocument(path: string): Promise<void> {
     const textDocument = await workspace.openTextDocument(path);
     await window.showTextDocument(textDocument);
+  }
+
+  public async showInputBox(
+    options?: InputBoxOptions,
+  ): Promise<string | undefined> {
+    return await vscode.window.showInputBox(options);
   }
 
   public onDidChangeTextDocument(

@@ -1,4 +1,8 @@
-import type { EditableTextEditor, TextEditor } from "@cursorless/common";
+import type {
+  EditableTextEditor,
+  InputBoxOptions,
+  TextEditor,
+} from "@cursorless/common";
 import { pull } from "lodash";
 import type { TextDocumentChangeEvent } from "../types/Events";
 import type {
@@ -69,6 +73,22 @@ export default class FakeIDE implements IDE {
     return this.original.getEditableTextEditor(editor);
   }
 
+  public async openTextDocument(path: string): Promise<void> {
+    if (this.original == null) {
+      throw Error("Original ide is missing");
+    }
+    return this.original.openTextDocument(path);
+  }
+
+  public async showInputBox(
+    options?: InputBoxOptions,
+  ): Promise<string | undefined> {
+    if (this.original == null) {
+      throw Error("Original ide is missing");
+    }
+    return this.original.showInputBox(options);
+  }
+
   public onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
@@ -76,13 +96,6 @@ export default class FakeIDE implements IDE {
       throw Error("Original ide is missing");
     }
     return this.original.onDidChangeTextDocument(listener);
-  }
-
-  public async openTextDocument(path: string): Promise<void> {
-    if (this.original == null) {
-      throw Error("Original ide is missing");
-    }
-    return this.original.openTextDocument(path);
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

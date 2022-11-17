@@ -1,4 +1,8 @@
-import type { EditableTextEditor, TextEditor } from "@cursorless/common";
+import type {
+  EditableTextEditor,
+  InputBoxOptions,
+  TextEditor,
+} from "@cursorless/common";
 import { URI } from "vscode-uri";
 import { Clipboard } from "./Clipboard";
 import { Configuration } from "./Configuration";
@@ -83,6 +87,18 @@ export interface IDE {
    * @param path A path to a file on disk.
    */
   openTextDocument(path: string): Promise<void>;
+
+  /**
+   * Opens an input box to ask the user for input.
+   *
+   * The returned value will be `undefined` if the input box was canceled (e.g. pressing ESC). Otherwise the
+   * returned value will be the string typed by the user or an empty string if the user did not type
+   * anything but dismissed the input box with OK.
+   *
+   * @param options Configures the behavior of the input box.
+   * @return A promise that resolves to a string the user provided or to `undefined` in case of dismissal.
+   */
+  showInputBox(options?: InputBoxOptions): Promise<string | undefined>;
 }
 
 export interface WorkspaceFolder {
