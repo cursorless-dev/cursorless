@@ -138,4 +138,10 @@ export interface EditableTextEditor extends TextEditor {
    * @param snippet A snippet string
    */
   insertSnippet(snippet: string): Promise<void>;
+
+  /**
+   * Toggle breakpoint at ranges
+   * @param ranges A list of ranges
+   */
+  toggleBreakpoint(ranges: Range[]): Promise<void>;
 }

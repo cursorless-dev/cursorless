@@ -24,6 +24,7 @@ import VscodeIDE from "./VscodeIDE";
 import vscodeOpenLink from "./VscodeOpenLink";
 import { vscodeRevealLine } from "./VscodeRevealLine";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
+import { vscodeToggleBreakpoint } from "./VscodeToggleBreakpoint";
 
 export class VscodeTextEditorImpl implements TextEditor {
   readonly document: TextDocument;
@@ -114,5 +115,9 @@ export class VscodeTextEditorImpl implements TextEditor {
     await vscode.commands.executeCommand("editor.action.insertSnippet", {
       snippet,
     });
+  }
+
+  public async toggleBreakpoint(ranges: Range[]): Promise<void> {
+    return vscodeToggleBreakpoint(this, ranges);
   }
 }

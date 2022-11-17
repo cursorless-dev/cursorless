@@ -1,19 +1,10 @@
-import { toVscodeRange } from "@cursorless/vscode-common";
-import * as vscode from "vscode";
-import { URI } from "vscode-uri";
+import { Range } from "@cursorless/common";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
+import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
-
-function getBreakpoints(uri: URI, range: vscode.Range) {
-  return vscode.debug.breakpoints.filter(
-    (breakpoint) =>
-      breakpoint instanceof vscode.SourceBreakpoint &&
-      breakpoint.location.uri.toString() === uri.toString() &&
-      breakpoint.location.range.intersection(range) != null,
-  );
-}
 
 export default class ToggleBreakpoint implements Action {
   getFinalStages = () => [containingLineIfUntypedStage];
@@ -30,31 +21,18 @@ export default class ToggleBreakpoint implements Action {
       this.graph.editStyles.referenced,
     );
 
-    const toAdd: vscode.Breakpoint[] = [];
-    const toRemove: vscode.Breakpoint[] = [];
-
-    targets.forEach((target) => {
-      let range = toVscodeRange(target.contentRange);
-      // The action preference give us line content but line breakpoints are registered on character 0
-      if (target.isLine) {
-        range = range.with(range.start.with(undefined, 0), undefined);
-      }
-      const uri = target.editor.document.uri;
-      const existing = getBreakpoints(uri, range);
-      if (existing.length > 0) {
-        toRemove.push(...existing);
-      } else {
+    await runOnTargetsForEachEditor(targets, async (editor, targets) => {
+      const ranges = targets.map((target) => {
+        const range = target.contentRange;
+        // The action preference give us line content but line breakpoints are registered on character 0
         if (target.isLine) {
-          range = range.with(undefined, range.end.with(undefined, 0));
+          return new Range(range.start.line, 0, range.end.line, 0);
         }
-        toAdd.push(
-          new vscode.SourceBreakpoint(new vscode.Location(uri, range)),
-        );
-      }
-    });
+        return range;
+      });
 
-    vscode.debug.addBreakpoints(toAdd);
-    vscode.debug.removeBreakpoints(toRemove);
+      await ide().getEditableTextEditor(editor).toggleBreakpoint(ranges);
+    });
 
     return {
       thatTargets: targets,
