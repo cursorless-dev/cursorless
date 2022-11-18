@@ -1,4 +1,5 @@
 import type {
+  Capabilities,
   EditableTextEditor,
   InputBoxOptions,
   TextEditor,
@@ -57,6 +58,13 @@ export default class FakeIDE implements IDE {
 
   get visibleTextEditors(): TextEditor[] {
     return this.original?.visibleTextEditors ?? [];
+  }
+
+  get capabilities(): Capabilities {
+    if (this.original == null) {
+      throw Error("Original ide is missing");
+    }
+    return this.original.capabilities;
   }
 
   public findInWorkspace(query: string): Promise<void> {

@@ -1,4 +1,5 @@
 import type {
+  Capabilities,
   EditableTextEditor,
   InputBoxOptions,
   TextEditor,
@@ -6,7 +7,7 @@ import type {
 import { pickBy, values } from "lodash";
 import type { Clipboard } from "../types/Clipboard";
 import type { Configuration } from "../types/Configuration";
-import type { TextDocumentChangeEvent } from "../types/Events";
+import { TextDocumentChangeEvent } from "../types/Events";
 import type {
   Disposable,
   IDE,
@@ -55,6 +56,10 @@ export default class SpyIDE implements IDE {
 
   public get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
     return this.original.workspaceFolders;
+  }
+
+  public get capabilities(): Capabilities {
+    return this.original.capabilities;
   }
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {

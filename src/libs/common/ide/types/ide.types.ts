@@ -4,6 +4,7 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import { URI } from "vscode-uri";
+import { Capabilities } from "./Capabilities";
 import { Clipboard } from "./Clipboard";
 import { Configuration } from "./Configuration";
 import { TextDocumentChangeEvent } from "./Events";
@@ -58,6 +59,11 @@ export interface IDE {
    * The currently visible editors or an empty array.
    */
   readonly visibleTextEditors: TextEditor[];
+
+  /**
+   * The capabilities of the IDE
+   */
+  readonly capabilities: Capabilities;
 
   /**
    * Get an editable version of the text editor.
