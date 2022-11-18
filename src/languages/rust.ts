@@ -204,7 +204,9 @@ const nodeMatchers: Partial<
   ),
   collectionKey: cascadingMatcher(
     trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"]),
+    patternMatcher("match_pattern"),
   ),
+  condition: ["match_pattern"],
   name: cascadingMatcher(
     patternMatcher(
       "let_declaration.identifier!",
@@ -219,6 +221,7 @@ const nodeMatchers: Partial<
       "let_declaration[pattern]",
       "constrained_type_parameter[left]",
       "where_predicate[left]",
+      "match_pattern",
       "field_declaration[name]",
     ),
     trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"]),

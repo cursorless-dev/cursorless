@@ -6,6 +6,7 @@ import {
   trailingMatcher,
   matcher,
   cascadingMatcher,
+  patternMatcher,
 } from "../util/nodeMatchers";
 import { childRangeSelector } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";
@@ -88,6 +89,12 @@ const nodeMatchers: Partial<
     "assignment_expression[left]",
     "*[name]",
     "formal_parameter.identifier!",
+    "switch_label.parenthesized_expression![0]",
+    "switch_rule.switch_label![0]",
+  ],
+  collectionKey: [
+    "switch_label.parenthesized_expression![0]",
+    "switch_rule.switch_label![0]",
   ],
   namedFunction: ["method_declaration", "constructor_declaration"],
   type: trailingMatcher([
@@ -112,7 +119,14 @@ const nodeMatchers: Partial<
     ],
     ["=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="],
   ),
-  condition: conditionMatcher("*[condition]"),
+  condition: cascadingMatcher(
+    conditionMatcher("while_statement[condition]"),
+    conditionMatcher("if_statement[condition]"),
+    conditionMatcher("do_statement[condition]"),
+    conditionMatcher("ternary_expression[condition]"),
+    patternMatcher("switch_label.parenthesized_expression![0]"),
+    patternMatcher("switch_rule.switch_label![0]"),
+  ),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),
   switchStatementSubject: "switch_expression[condition][0]",
 };

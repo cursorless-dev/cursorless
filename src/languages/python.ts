@@ -89,7 +89,10 @@ const nodeMatchers: Partial<
       argumentSelectionExtractor(),
     ),
   ),
-  collectionKey: trailingMatcher(["pair[key]"], [":"]),
+  collectionKey: cascadingMatcher(
+    trailingMatcher(["pair[key]"], [":"]),
+    patternMatcher("case_clause[pattern]"),
+  ),
   ifStatement: "if_statement",
   anonymousFunction: "lambda?.lambda",
   functionCall: "call",
@@ -107,6 +110,7 @@ const nodeMatchers: Partial<
 
     // Ternaries
     patternMatcher("conditional_expression[1]"),
+    patternMatcher("case_clause[pattern]"),
   ),
   type: leadingMatcher(
     ["function_definition[return_type]", "*[type]"],
@@ -118,6 +122,7 @@ const nodeMatchers: Partial<
     "typed_parameter.identifier!",
     "parameters.identifier!",
     "*[name]",
+    "case_clause[pattern]",
   ],
   value: cascadingMatcher(
     leadingMatcher(

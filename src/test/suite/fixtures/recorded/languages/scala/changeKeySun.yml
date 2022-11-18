@@ -1,0 +1,42 @@
+languageId: scala
+command:
+  spokenForm: change key sun
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |
+    def matchTest(x: Int): String = x match {
+      case 0 => "zero"
+      case 1 => "one"
+      case 2 => "two"
+      case _ => "other"
+    }
+  selections:
+    - anchor: {line: 3, character: 2}
+      active: {line: 4, character: 2}
+  marks:
+    default.s:
+      start: {line: 2, character: 2}
+      end: {line: 2, character: 6}
+finalState:
+  documentContents: |
+    def matchTest(x: Int): String = x match {
+      case 0 => "zero"
+      case  => "one"
+      case 2 => "two"
+      case _ => "other"
+    }
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
+  thatMark:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, modifiers: [{type: containingScope, scopeType: {type: collectionKey}}]}]

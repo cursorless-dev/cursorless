@@ -1,0 +1,38 @@
+languageId: rust
+command:
+  spokenForm: change name fine
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |
+    match user {
+        User { first_name: "John" } => {},
+        User { first_name } if first_name.starts_with("P") => {}
+    }
+  selections:
+    - anchor: {line: 2, character: 27}
+      active: {line: 2, character: 54}
+  marks:
+    default.f:
+      start: {line: 2, character: 11}
+      end: {line: 2, character: 21}
+finalState:
+  documentContents: |
+    match user {
+        User { first_name: "John" } => {},
+         => {}
+    }
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  thatMark:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: [{type: containingScope, scopeType: {type: name}}]}]

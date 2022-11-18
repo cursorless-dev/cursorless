@@ -3,6 +3,8 @@ import {
   argumentMatcher,
   leadingMatcher,
   conditionMatcher,
+  cascadingMatcher,
+  patternMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative } from "../typings/Types";
 import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
@@ -17,6 +19,7 @@ const nodeMatchers: Partial<
     "object_definition[name]",
     "trait_definition[name]",
   ],
+  collectionKey: "case_clause[pattern]",
 
   ifStatement: "if_expression",
 
@@ -36,7 +39,7 @@ const nodeMatchers: Partial<
   ),
 
   switchStatementSubject: "match_expression[value]",
-  name: ["*[name]", "*[pattern]"],
+  name: ["*[name]", "*[pattern]", "case_clause[pattern]"],
   functionName: "function_definition[name]",
 
   // *[type] does not work here because while we want most of these we don't want "compound" types,
@@ -66,7 +69,10 @@ const nodeMatchers: Partial<
     ["*[value]", "*[default_value]", "type_definition[type]"],
     ["="],
   ),
-  condition: conditionMatcher("*[condition]"),
+  condition: cascadingMatcher(
+    conditionMatcher("*[condition]"),
+    patternMatcher("case_clause[pattern]"),
+  ),
 
   // Scala features unsupported in Cursorless terminology
   //  - Pattern matching
