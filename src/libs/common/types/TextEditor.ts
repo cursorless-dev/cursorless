@@ -62,7 +62,7 @@ export interface EditableTextEditor extends TextEditor {
   /**
    * Scroll to reveal the given range.
    *
-   * @param range A range.
+   * @param range A {@link Range range}.
    */
   revealRange(range: Range): Promise<void>;
 
@@ -110,6 +110,16 @@ export interface EditableTextEditor extends TextEditor {
   ): Promise<boolean>;
 
   /**
+   * Executes the command denoted by the given command identifier.
+   *
+   * @param command Identifier of the command to execute.
+   * @param rest Parameters passed to the command function.
+   * @return A promise that resolves to the returned value of the given command. `undefined` when
+   * the command handler function doesn't return anything.
+   */
+  executeCommand<T>(command: string, ...rest: any[]): Promise<T | undefined>;
+
+  /**
    * Open link at location.
    * @param location Position or range
    * @return True if a link was opened
@@ -141,13 +151,73 @@ export interface EditableTextEditor extends TextEditor {
 
   /**
    * Toggle breakpoints
-   * @param ranges A list of ranges
+   * @param ranges A list of {@link Range ranges}
    */
   toggleBreakpoint(ranges: Range[]): Promise<void>;
 
   /**
    * Toggle line comments
-   * @param ranges A list of ranges
+   * @param ranges A list of {@link Range ranges}
    */
   toggleLineComment(ranges: Range[]): Promise<void>;
+
+  /**
+   * Indent lines
+   * @param ranges A list of {@link Range ranges}
+   */
+  indentLines(ranges: Range[]): Promise<void>;
+
+  /**
+   * Outdent lines
+   * @param ranges A list of {@link Range ranges}
+   */
+  outdentLines(ranges: Range[]): Promise<void>;
+
+  /**
+   * Rename
+   * @param range A {@link Range range}
+   */
+  rename(range: Range): Promise<void>;
+
+  /**
+   * Show references
+   * @param range A {@link Range range}
+   */
+  showReferences(range: Range): Promise<void>;
+
+  /**
+   * Show quick fixed dialogue
+   * @param range A {@link Range range}
+   */
+  quickFix(range: Range): Promise<void>;
+
+  /**
+   * Reveal definition
+   * @param range A {@link Range range}
+   */
+  revealDefinition(range: Range): Promise<void>;
+
+  /**
+   * Reveal type definition
+   * @param range A {@link Range range}
+   */
+  revealTypeDefinition(range: Range): Promise<void>;
+
+  /**
+   * Show hover
+   * @param range A {@link Range range}
+   */
+  showHover(range: Range): Promise<void>;
+
+  /**
+   * Show debug hover
+   * @param range A {@link Range range}
+   */
+  showDebugHover(range: Range): Promise<void>;
+
+  /**
+   * Extract variable
+   * @param range A {@link Range range}
+   */
+  extractVariable(range: Range): Promise<void>;
 }

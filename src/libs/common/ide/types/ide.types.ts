@@ -14,10 +14,10 @@ import { State } from "./State";
 export type RunMode = "production" | "development" | "test";
 
 export interface IDE {
-  configuration: Configuration;
-  messages: Messages;
-  globalState: State;
-  clipboard: Clipboard;
+  readonly configuration: Configuration;
+  readonly  messages: Messages;
+  readonly  globalState: State;
+  readonly  clipboard: Clipboard;
 
   /**
    * Register disposables to be disposed of on IDE exit.

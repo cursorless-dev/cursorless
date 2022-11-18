@@ -5,6 +5,7 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import { pull } from "lodash";
+import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
 import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
 import type { TextDocumentChangeEvent } from "../../libs/common/ide/types/Events";
@@ -13,33 +14,29 @@ import type {
   IDE,
   RunMode,
 } from "../../libs/common/ide/types/ide.types";
+import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 import { vscodeOnDidChangeTextDocument } from "./VscodeEvents";
 import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
-import { v4 as uuid } from "uuid";
+import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export default class VscodeIDE implements IDE {
-  configuration: VscodeConfiguration;
-  globalState: VscodeGlobalState;
-  messages: VscodeMessages;
-  clipboard: VscodeClipboard;
+  readonly configuration: VscodeConfiguration;
+  readonly globalState: VscodeGlobalState;
+  readonly messages: VscodeMessages;
+  readonly clipboard: VscodeClipboard;
+  readonly capabilities: Capabilities;
   private editorMap;
-
-  capabilities: Capabilities = {
-    commands: {
-      toggleLineComment: { acceptsLocation: false },
-    },
-  };
 
   constructor(private extensionContext: ExtensionContext) {
     this.configuration = new VscodeConfiguration(this);
     this.globalState = new VscodeGlobalState(extensionContext);
     this.messages = new VscodeMessages();
     this.clipboard = new VscodeClipboard();
+    this.capabilities = new VscodeCapabilities();
     this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
   }
 

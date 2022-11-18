@@ -1,96 +1,11 @@
-import {
-  CommandId,
-  EditableTextEditor,
-  Range,
-  sleep,
-} from "@cursorless/common";
+import { CommandId, EditableTextEditor } from "@cursorless/common";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { ActionReturnValue } from "./actions.types";
 import CallbackAction from "./CallbackAction";
-import CommandAction from "./CommandAction";
 
-abstract class MakeshiftAction extends CommandAction {
-  abstract command: string;
-  restoreSelection?: boolean;
-  commandArg?: object;
-  ensureSingleTarget?: boolean;
-  postCommandSleepMs?: number;
-
-  async run(targets: [Target[]]) {
-    const returnValue = await super.run(targets, {
-      command: this.command,
-      commandArgs: this.commandArg ? [this.commandArg] : [],
-      ensureSingleTarget: this.ensureSingleTarget ?? false,
-      restoreSelection: this.restoreSelection ?? true,
-    });
-    if (this.postCommandSleepMs) {
-      await sleep(this.postCommandSleepMs);
-    }
-    return returnValue;
-  }
-}
-
-export class RevealDefinition extends MakeshiftAction {
-  command = "editor.action.revealDefinition";
-  ensureSingleTarget = true;
-  restoreSelection = false;
-}
-
-export class RevealTypeDefinition extends MakeshiftAction {
-  command = "editor.action.goToTypeDefinition";
-  ensureSingleTarget = true;
-  restoreSelection = false;
-}
-
-export class ShowHover extends MakeshiftAction {
-  command = "editor.action.showHover";
-  ensureSingleTarget = true;
-  restoreSelection = false;
-}
-
-export class ShowDebugHover extends MakeshiftAction {
-  command = "editor.debug.action.showDebugHover";
-  ensureSingleTarget = true;
-  restoreSelection = false;
-}
-
-export class ShowQuickFix extends MakeshiftAction {
-  command = "editor.action.quickFix";
-  ensureSingleTarget = true;
-  postCommandSleepMs = 100;
-}
-
-export class ShowReferences extends MakeshiftAction {
-  command = "references-view.find";
-  ensureSingleTarget = true;
-}
-
-export class Rename extends MakeshiftAction {
-  command = "editor.action.rename";
-  ensureSingleTarget = true;
-}
-
-export class ExtractVariable extends MakeshiftAction {
-  command = "editor.action.codeAction";
-  commandArg = {
-    kind: "refactor.extract.constant",
-    preferred: true,
-  };
-  ensureSingleTarget = true;
-  restoreSelection = false;
-}
-
-export class IndentLines extends MakeshiftAction {
-  command = "editor.action.indentLines";
-}
-
-export class OutdentLines extends MakeshiftAction {
-  command = "editor.action.outdentLines";
-}
-
-abstract class MakeshiftAction2 extends CallbackAction {
+abstract class MakeshiftAction extends CallbackAction {
   abstract command: CommandId;
   ensureSingleEditor: boolean = false;
   ensureSingleTarget: boolean = false;
@@ -104,11 +19,7 @@ abstract class MakeshiftAction2 extends CallbackAction {
   }
 
   async run(targets: [Target[]]): Promise<ActionReturnValue> {
-    const capabilities = ide().capabilities.commands[this.command];
-
-    if (capabilities == null) {
-      throw Error(`Missing command capabilities for '${this.command}'`);
-    }
+    const capabilities = ide().capabilities.getCommand(this.command);
 
     return super.run(targets, {
       callback: this.callback,
@@ -120,20 +31,101 @@ abstract class MakeshiftAction2 extends CallbackAction {
     });
   }
 
-  private async callback(
+  private callback(
     editor: EditableTextEditor,
-    ranges: Range[],
+    targets: Target[],
   ): Promise<void> {
+    const ranges = targets.map((t) => t.contentRange);
+
+    // Multi target actions
     switch (this.command) {
       case "toggleLineComment":
         return editor.toggleLineComment(ranges);
-      default:
-        throw Error(`Unknown command '${this.command}'`);
+      case "indentLine":
+        return editor.indentLines(ranges);
+      case "outdentLine":
+        return editor.outdentLines(ranges);
     }
+
+    const range = ranges[0];
+
+    // Single target actions
+    switch (this.command) {
+      case "rename":
+        return editor.rename(range);
+      case "showReferences":
+        return editor.showReferences(range);
+      case "quickFix":
+        return editor.quickFix(range);
+      case "revealDefinition":
+        return editor.revealDefinition(range);
+      case "revealTypeDefinition":
+        return editor.revealTypeDefinition(range);
+      case "showHover":
+        return editor.showHover(range);
+      case "showDebugHover":
+        return editor.showDebugHover(range);
+      case "extractVariable":
+        return editor.extractVariable(range);
+    }
+
+    throw Error(`Unknown command '${this.command}'`);
   }
 }
 
-export class CommentLines extends MakeshiftAction2 {
+export class ToggleLineComment extends MakeshiftAction {
   command: CommandId = "toggleLineComment";
-  ensureSingleEditor = true;
+}
+
+export class IndentLine extends MakeshiftAction {
+  command: CommandId = "indentLine";
+}
+
+export class OutdentLine extends MakeshiftAction {
+  command: CommandId = "outdentLine";
+}
+
+export class Rename extends MakeshiftAction {
+  command: CommandId = "rename";
+  ensureSingleTarget = true;
+}
+
+export class ShowReferences extends MakeshiftAction {
+  command: CommandId = "showReferences";
+  ensureSingleTarget = true;
+}
+
+export class ShowQuickFix extends MakeshiftAction {
+  command: CommandId = "quickFix";
+  ensureSingleTarget = true;
+}
+
+export class RevealDefinition extends MakeshiftAction {
+  command: CommandId = "revealDefinition";
+  ensureSingleTarget = true;
+  restoreSelection = false;
+}
+
+export class RevealTypeDefinition extends MakeshiftAction {
+  command: CommandId = "revealTypeDefinition";
+  ensureSingleTarget = true;
+  restoreSelection = false;
+}
+
+export class ShowHover extends MakeshiftAction {
+  command: CommandId = "showHover";
+  ensureSingleTarget = true;
+  restoreSelection = false;
+}
+
+export class ShowDebugHover extends MakeshiftAction {
+  command: CommandId = "showDebugHover";
+  ensureSingleTarget = true;
+  restoreSelection = false;
+}
+
+export class ExtractVariable extends MakeshiftAction {
+  command: CommandId = "extractVariable";
+  ensureSingleTarget = true;
+  restoreSelection = false;
 }

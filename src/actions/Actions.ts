@@ -1,10 +1,10 @@
 import { Graph } from "../typings/Types";
 import { ActionRecord } from "./actions.types";
 import {
-  CommentLines,
+  ToggleLineComment,
   ExtractVariable,
-  IndentLines,
-  OutdentLines,
+  IndentLine,
+  OutdentLine,
   Rename,
   RevealDefinition,
   RevealTypeDefinition,
@@ -70,7 +70,7 @@ class Actions implements ActionRecord {
   generateSnippet = new GenerateSnippet(this.graph);
   getText = new GetText(this.graph);
   highlight = new Highlight(this.graph);
-  indentLine = new IndentLines(this.graph);
+  indentLine = new IndentLine(this.graph);
   insertCopyAfter = new InsertCopyAfter(this.graph);
   insertCopyBefore = new InsertCopyBefore(this.graph);
   insertEmptyLineAfter = new InsertEmptyLineAfter(this.graph);
@@ -78,7 +78,7 @@ class Actions implements ActionRecord {
   insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
   insertSnippet = new InsertSnippet(this.graph);
   moveToTarget = new Move(this.graph);
-  outdentLine = new OutdentLines(this.graph);
+  outdentLine = new OutdentLine(this.graph);
   pasteFromClipboard = new Paste(this.graph);
   randomizeTargets = new Random(this.graph);
   remove = new Remove(this.graph);
@@ -102,7 +102,7 @@ class Actions implements ActionRecord {
   sortTargets = new Sort(this.graph);
   swapTargets = new Swap(this.graph);
   toggleLineBreakpoint = new ToggleBreakpoint(this.graph);
-  toggleLineComment = new CommentLines(this.graph);
+  toggleLineComment = new ToggleLineComment(this.graph);
   unfoldRegion = new Unfold(this.graph);
   wrapWithPairedDelimiter = new Wrap(this.graph);
   wrapWithSnippet = new WrapWithSnippet(this.graph);

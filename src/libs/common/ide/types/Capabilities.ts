@@ -1,7 +1,7 @@
 import { CommandId } from "./CommandId";
 
 export interface Capabilities {
-  commands: CapabilitiesCommands;
+  readonly getCommand: (commandId: CommandId) => CapabilitiesCommand;
 }
 
 export type CapabilitiesCommands = Partial<

@@ -1,4 +1,4 @@
-import { EditableTextEditor, Range, TextEditor } from "@cursorless/common";
+import { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { flatten } from "lodash";
 import { selectionToThatTarget } from "../core/commandRunner/selectionToThatTarget";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
@@ -13,11 +13,12 @@ import {
   ensureSingleEditor,
   ensureSingleTarget,
   runOnTargetsForEachEditor,
+  runOnTargetsForEachEditorSequentially,
 } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 interface Options {
-  callback: (editor: EditableTextEditor, ranges: Range[]) => Promise<void>;
+  callback: (editor: EditableTextEditor, targets: Target[]) => Promise<void>;
   setSelection: boolean;
   restoreSelection: boolean;
   ensureSingleEditor: boolean;
@@ -51,14 +52,21 @@ export default class CallbackAction implements Action {
 
     const originalEditor = ide().activeEditableTextEditor;
 
+    // If we are relying on selections we have to wait for one editor to finish
+    // before moving the selection to the next
+    const runOnTargets = options.setSelection
+      ? runOnTargetsForEachEditorSequentially
+      : runOnTargetsForEachEditor;
+
     const thatTargets = flatten(
-      await runOnTargetsForEachEditor(targets, (editor, targets) => {
-        return this.runForEditor(options, editor, targets);
-      }),
+      await runOnTargets(targets, (editor, targets) =>
+        this.runForEditor(options, editor, targets),
+      ),
     );
 
     // If necessary focus back original editor
     if (
+      options.setSelection &&
       options.restoreSelection &&
       originalEditor != null &&
       !originalEditor.isActive
@@ -77,56 +85,53 @@ export default class CallbackAction implements Action {
     editor: TextEditor,
     targets: Target[],
   ): Promise<Target[]> {
-    return flatten(
-      await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-        const editableEditor = ide().getEditableTextEditor(editor);
-        const originalSelections = editor.selections;
-        const originalEditorVersion = editor.document.version;
-        const targetSelections = targets.map(
-          (target) => target.contentSelection,
+    console.log("runForEditor start");
+    const editableEditor = ide().getEditableTextEditor(editor);
+    const originalSelections = editor.selections;
+    const originalEditorVersion = editor.document.version;
+    const targetSelections = targets.map((target) => target.contentSelection);
+
+    // For this callback/command to the work we have to have the correct editor focused
+    if (options.setSelection) {
+      await setSelectionsAndFocusEditor(
+        editableEditor,
+        targetSelections,
+        false,
+      );
+    }
+
+    const [updatedOriginalSelections, updatedTargetSelections] =
+      await callFunctionAndUpdateSelections(
+        this.graph.rangeUpdater,
+        () => options.callback(editableEditor, targets),
+        editor.document,
+        [originalSelections, targetSelections],
+      );
+
+    // Reset original selections
+    if (options.setSelection && options.restoreSelection) {
+      // NB: We don't focus the editor here because we'll do that at the
+      // very end. This code can run on multiple editors in the course of
+      // one command, so we want to avoid focusing the editor multiple
+      // times.
+      setSelectionsWithoutFocusingEditor(
+        editableEditor,
+        updatedOriginalSelections,
+      );
+    }
+
+    console.log("runForEditor return");
+
+    // If the document hasn't changed then we just return the original targets
+    // so that we preserve their rich types, but if it has changed then we
+    // just downgrade them to untyped targets
+    return editor.document.version === originalEditorVersion
+      ? targets
+      : updatedTargetSelections.map((selection) =>
+          selectionToThatTarget({
+            editor,
+            selection,
+          }),
         );
-
-        // For this callback/command to the work we have to have the correct editor focused
-        if (options.setSelection) {
-          await setSelectionsAndFocusEditor(
-            editableEditor,
-            targetSelections,
-            false,
-          );
-        }
-
-        const [updatedOriginalSelections, updatedTargetSelections] =
-          await callFunctionAndUpdateSelections(
-            this.graph.rangeUpdater,
-            () => options.callback(editableEditor, targetSelections),
-            editor.document,
-            [originalSelections, targetSelections],
-          );
-
-        // Reset original selections
-        if (options.restoreSelection) {
-          // NB: We don't focus the editor here because we'll do that at the
-          // very end. This code can run on multiple editors in the course of
-          // one command, so we want to avoid focusing the editor multiple
-          // times.
-          setSelectionsWithoutFocusingEditor(
-            editableEditor,
-            updatedOriginalSelections,
-          );
-        }
-
-        // If the document hasn't changed then we just return the original targets
-        // so that we preserve their rich types, but if it has changed then we
-        // just downgrade them to untyped targets
-        return editor.document.version === originalEditorVersion
-          ? targets
-          : updatedTargetSelections.map((selection) =>
-              selectionToThatTarget({
-                editor,
-                selection,
-              }),
-            );
-      }),
-    );
   }
 }
