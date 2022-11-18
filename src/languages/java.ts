@@ -125,19 +125,19 @@ const nodeMatchers: Partial<
     conditionMatcher("do_statement[condition]"),
     conditionMatcher("ternary_expression[condition]"),
     patternMatcher("switch_label.parenthesized_expression![0]"),
-    patternMatcher("switch_rule.switch_label![0]")
+    patternMatcher("switch_rule.switch_label![0]"),
   ),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),
   subject: "switch_expression[condition][0]",
   branch: cascadingMatcher(
     matcher(
       patternFinder("switch_block_statement_group"),
-      childRangeSelector(["switch_label"], [])
+      childRangeSelector(["switch_label"], []),
     ),
     matcher(
       patternFinder("switch_rule"),
-      childRangeSelector(["switch_label"], [])
-    )
+      childRangeSelector(["switch_label"], []),
+    ),
   ),
 };
 
