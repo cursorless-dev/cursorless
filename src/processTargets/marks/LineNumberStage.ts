@@ -1,4 +1,4 @@
-import type { TextEditor } from "vscode";
+import { TextEditor } from "@cursorless/common";
 import type {
   LineNumberMark,
   LineNumberType,
@@ -35,7 +35,7 @@ const getLineNumber = (
     case "absolute":
       return lineNumber;
     case "relative":
-      return editor.selection.active.line + lineNumber;
+      return editor.selections[0].active.line + lineNumber;
     case "modulo100": {
       const stepSize = 100;
       const startLine = editor.visibleRanges[0].start.line;

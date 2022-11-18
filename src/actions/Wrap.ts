@@ -1,8 +1,10 @@
-import { DecorationRangeBehavior, Selection } from "vscode";
+import { Selection } from "@cursorless/common";
+import { DecorationRangeBehavior } from "vscode";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Edit, Graph } from "../typings/Types";
 import { FullSelectionInfo } from "../typings/updateSelections";
@@ -85,6 +87,8 @@ export default class Wrap implements Action {
           ),
         );
 
+        const editableEditor = ide().getEditableTextEditor(editor);
+
         const [
           delimiterSelections,
           cursorSelections,
@@ -92,7 +96,7 @@ export default class Wrap implements Action {
           thatMarkSelections,
         ] = await performEditsAndUpdateFullSelectionInfos(
           this.graph.rangeUpdater,
-          editor,
+          editableEditor,
           edits,
           [
             delimiterSelectionInfos,
@@ -102,7 +106,7 @@ export default class Wrap implements Action {
           ],
         );
 
-        setSelectionsWithoutFocusingEditor(editor, cursorSelections);
+        setSelectionsWithoutFocusingEditor(editableEditor, cursorSelections);
 
         this.graph.editStyles.displayPendingEditDecorationsForRanges(
           delimiterSelections.map((selection) => ({

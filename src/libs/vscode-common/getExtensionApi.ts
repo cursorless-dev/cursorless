@@ -6,7 +6,7 @@ import type { Target } from "../../typings/target.types";
 import type { Graph } from "../../typings/Types";
 import type FakeIDE from "../common/ide/fake/FakeIDE";
 import type { IDE } from "../common/ide/types/ide.types";
-import type { TargetPlainObject } from "./toPlainObject";
+import type { TargetPlainObject } from "./testUtil/toPlainObject";
 
 interface TestHelpers {
   graph: Graph;

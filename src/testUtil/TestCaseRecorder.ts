@@ -1,20 +1,19 @@
+import { getKey } from "@cursorless/common";
 import * as fs from "fs";
 import { readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash";
 import * as path from "path";
 import * as vscode from "vscode";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
+import SpyIDE from "../libs/common/ide/spy/SpyIDE";
+import { IDE } from "../libs/common/ide/types/ide.types";
 import { extractTargetedMarks } from "../libs/common/testUtil/extractTargetedMarks";
 import serialize from "../libs/common/testUtil/serialize";
-import SpyIDE from "../libs/common/ide/spy/SpyIDE";
 import sleep from "../libs/common/util/sleep";
-import { getKey } from "@cursorless/common";
 import { walkDirsSync } from "../libs/common/util/walkSync";
 import ide, {
   injectIde,
 } from "../libs/cursorless-engine/singletons/ide.singleton";
-import { IDE } from "../libs/common/ide/types/ide.types";
 import {
   ExtraSnapshotField,
   takeSnapshot,
@@ -23,10 +22,9 @@ import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "../libs/vscode-common/test
 import {
   marksToPlainObject,
   SerializedMarks,
-} from "../libs/vscode-common/toPlainObject";
+} from "../libs/vscode-common/testUtil/toPlainObject";
 import { DecoratedSymbolMark } from "../typings/targetDescriptor.types";
 import { Graph } from "../typings/Types";
-import { getDocumentRange } from "../util/rangeUtils";
 import { TestCase, TestCaseContext } from "./TestCase";
 import { TestCaseCommand } from "./TestCaseFixture";
 
@@ -186,7 +184,7 @@ export class TestCaseRecorder {
             undefined,
             ["clipboard"],
             this.active ? this.extraSnapshotFields : undefined,
-            getActiveTextEditor()!,
+            ide().activeTextEditor!,
             ide(),
             marks,
             this.active ? { startTimestamp: this.startTimestamp } : undefined,
@@ -336,11 +334,12 @@ export class TestCaseRecorder {
 
       await this.testCase.recordInitialState();
 
-      const editor = getActiveTextEditor()!;
+      const editor = ide().activeTextEditor!;
       // NB: We need to copy the editor options rather than storing a reference
       // because its properties are lazy
       this.originalTextEditorOptions = { ...editor.options };
-      editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
+      ide().getEditableTextEditor(editor).options =
+        DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
     }
   }
 
@@ -469,8 +468,9 @@ export class TestCaseRecorder {
     this.spyIde = undefined;
     this.originalIde = undefined;
 
-    const editor = getActiveTextEditor()!;
-    editor.options = this.originalTextEditorOptions;
+    const editor = ide().activeTextEditor!;
+    ide().getEditableTextEditor(editor).options =
+      this.originalTextEditorOptions;
   }
 
   dispose() {
@@ -506,4 +506,17 @@ async function readJsonIfExists(
   }
 
   return JSON.parse(rawText);
+}
+
+/**
+ * Get a range that corresponds to the entire contents of the given document.
+ *
+ * @param document The document to consider
+ * @returns A range corresponding to the entire document contents
+ */
+function getDocumentRange(document: vscode.TextDocument) {
+  return new vscode.Range(
+    new vscode.Position(0, 0),
+    document.lineAt(document.lineCount - 1).range.end,
+  );
 }

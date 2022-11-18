@@ -1,9 +1,8 @@
-import { getCursorlessApi } from "@cursorless/vscode-common";
+import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import * as vscode from "vscode";
-import { openNewEditor } from "../openNewEditor";
-import { runCursorlessCommand } from "../runCommand";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+import { runCursorlessCommand } from "../runCommand";
 
 // Check that we don't run afoul of stateful regex craziness
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches

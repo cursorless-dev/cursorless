@@ -1,4 +1,4 @@
-import { Selection } from "vscode";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
@@ -20,17 +20,26 @@ export default class Deselect implements Action {
             return intersection && (!intersection.isEmpty || selection.isEmpty);
           }),
       );
-      // The editor requires at least one selection. Keep "primary" selection active
+
+      if (newSelections.length === 0) {
+        throw new SelectionRequiredError();
+      }
+
       setSelectionsWithoutFocusingEditor(
-        editor,
-        newSelections.length > 0
-          ? newSelections
-          : [new Selection(editor.selection.active, editor.selection.active)],
+        ide().getEditableTextEditor(editor),
+        newSelections,
       );
     });
 
     return {
       thatTargets: targets,
     };
+  }
+}
+
+class SelectionRequiredError extends Error {
+  constructor() {
+    super("Can't deselect every selection. At least one is required");
+    this.name = "SelectionRequiredError";
   }
 }

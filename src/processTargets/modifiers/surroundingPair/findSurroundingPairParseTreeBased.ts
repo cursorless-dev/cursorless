@@ -1,4 +1,4 @@
-import { Range, TextDocument, TextEditor } from "vscode";
+import { Range, TextDocument, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import {
   SimpleSurroundingPairName,

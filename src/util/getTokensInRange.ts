@@ -1,16 +1,16 @@
-import * as vscode from "vscode";
+import { Range, TextEditor } from "@cursorless/common";
 import { tokenize } from "../libs/cursorless-engine/tokenizer";
 import { RangeOffsets } from "../typings/updateSelections";
 
 export interface PartialToken {
   text: string;
-  range: vscode.Range;
+  range: Range;
   offsets: RangeOffsets;
 }
 
 export function getTokensInRange(
-  editor: vscode.TextEditor,
-  range: vscode.Range,
+  editor: TextEditor,
+  range: Range,
 ): PartialToken[] {
   const languageId = editor.document.languageId;
   const text = editor.document.getText(range);
@@ -19,7 +19,7 @@ export function getTokensInRange(
   return tokenize(text, languageId, (match) => {
     const startOffset = rangeOffset + match.index!;
     const endOffset = rangeOffset + match.index! + match[0].length;
-    const range = new vscode.Range(
+    const range = new Range(
       editor.document.positionAt(startOffset),
       editor.document.positionAt(endOffset),
     );

@@ -2,7 +2,7 @@ import { TestCaseFixture } from "../../testUtil/TestCaseFixture";
 import {
   SelectionPlainObject,
   TargetPlainObject,
-} from "../../libs/vscode-common/toPlainObject";
+} from "../../libs/vscode-common/testUtil/toPlainObject";
 import { FixtureTransformation } from "./types";
 
 // FIXME: Remove this before merging the PR

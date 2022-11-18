@@ -24,22 +24,5 @@ initialState:
     default.w:
       start: {line: 0, character: 6}
       end: {line: 0, character: 11}
-finalState:
-  documentContents: hello world
-  selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-  thatMark:
-    - type: UntypedTarget
-      contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 5}
-      isReversed: false
-      hasExplicitRange: false
-    - type: UntypedTarget
-      contentRange:
-        start: {line: 0, character: 6}
-        end: {line: 0, character: 11}
-      isReversed: false
-      hasExplicitRange: false
 fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]}]
+thrownError: {name: SelectionRequiredError}

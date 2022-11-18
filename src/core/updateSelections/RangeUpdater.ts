@@ -1,12 +1,12 @@
+import type { TextDocument } from "@cursorless/common";
 import { pull } from "lodash";
-import {
-  workspace,
-  TextDocument,
+import type {
   TextDocumentChangeEvent,
-  Disposable,
   TextDocumentContentChangeEvent,
-} from "vscode";
-import { Edit } from "../../typings/Types";
+} from "../../libs/common/ide/types/Events";
+import type { Disposable } from "../../libs/common/ide/types/ide.types";
+import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
+import type { Edit } from "../../typings/Types";
 import {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,
@@ -90,7 +90,7 @@ export class RangeUpdater {
   }
 
   private listenForDocumentChanges() {
-    this.disposable = workspace.onDidChangeTextDocument(
+    this.disposable = ide().onDidChangeTextDocument(
       (event: TextDocumentChangeEvent) => {
         const documentReplaceEditLists = this.getDocumentReplaceEditLists(
           event.document,
@@ -128,7 +128,7 @@ function isReplace(
   for (const replaceEditLists of documentReplaceEditLists) {
     for (const replaceEdit of replaceEditLists) {
       if (
-        replaceEdit.range.isEqual(change.range) &&
+        replaceEdit.range.isRangeEqual(change.range) &&
         replaceEdit.text === change.text
       ) {
         return true;

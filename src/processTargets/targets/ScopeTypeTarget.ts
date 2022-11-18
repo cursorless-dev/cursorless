@@ -1,4 +1,4 @@
-import { Range } from "vscode";
+import { Range } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { SimpleScopeTypeType } from "../../typings/targetDescriptor.types";
 import { isSameType } from "../../util/typeUtils";

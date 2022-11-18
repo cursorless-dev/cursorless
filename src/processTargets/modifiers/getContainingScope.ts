@@ -1,5 +1,5 @@
+import { TextEditor, Position } from "@cursorless/common";
 import { Direction } from "../../typings/targetDescriptor.types";
-import { TextEditor, Position } from "vscode";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
 /**
