@@ -1,0 +1,41 @@
+languageId: java
+command:
+  spokenForm: clear value
+  version: 3
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |-
+    class Aaa {
+      static void bbb() {
+        var s =
+          switch ("0") {
+            case "0" -> "zero";
+            case "1" -> "one";
+          };
+      }
+    }
+  selections:
+    - anchor: {line: 4, character: 14}
+      active: {line: 4, character: 14}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Aaa {
+      static void bbb() {
+        var s =
+          switch ("0") {
+            case "0" -> 
+            case "1" -> "one";
+          };
+      }
+    }
+  selections:
+    - anchor: {line: 4, character: 20}
+      active: {line: 4, character: 20}
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: value}}]}]

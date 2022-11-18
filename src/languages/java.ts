@@ -103,14 +103,24 @@ const nodeMatchers: Partial<
     "method_declaration.identifier!",
     "constructor_declaration.identifier!",
   ],
-  value: leadingMatcher(
-    [
-      "*[declarator][value]",
-      "assignment_expression[right]",
-      "return_statement[0]",
-      "*[value]",
-    ],
-    ["=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="],
+  value: cascadingMatcher(
+    leadingMatcher(
+      [
+        "*[declarator][value]",
+        "assignment_expression[right]",
+        "return_statement[0]",
+        "*[value]",
+      ],
+      ["=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="],
+    ),
+    matcher(
+      patternFinder("switch_block_statement_group"),
+      childRangeSelector(["switch_label"], []),
+    ),
+    matcher(
+      patternFinder("switch_rule"),
+      childRangeSelector(["switch_label"], []),
+    ),
   ),
   condition: conditionMatcher("*[condition]"),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),

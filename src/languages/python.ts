@@ -140,6 +140,7 @@ const nodeMatchers: Partial<
       ],
     ),
     patternMatcher("return_statement.~return!"),
+    patternMatcher("case_clause[consequence]"),
   ),
   argumentOrParameter: cascadingMatcher(
     argumentMatcher("parameters", "argument_list"),

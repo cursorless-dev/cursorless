@@ -1,0 +1,48 @@
+languageId: python
+command:
+  spokenForm: change value blue each
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: blue, character: e}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |
+    match command.split():
+        case ["quit"]:
+            print("quit")
+        case ["go", direction] | []:
+            print("going", direction)
+        case ["drop", *objects]:
+            print("drop", objects)
+        case _:
+            print(f"Sorry, I couldn't understand {command!r}")
+  selections:
+    - anchor: {line: 9, character: 0}
+      active: {line: 9, character: 0}
+  marks:
+    blue.e:
+      start: {line: 1, character: 4}
+      end: {line: 1, character: 8}
+finalState:
+  documentContents: |
+    match command.split():
+        case ["quit"]:
+            
+        case ["go", direction] | []:
+            print("going", direction)
+        case ["drop", *objects]:
+            print("drop", objects)
+        case _:
+            print(f"Sorry, I couldn't understand {command!r}")
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  thatMark:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: e}, modifiers: [{type: containingScope, scopeType: {type: value}}]}]

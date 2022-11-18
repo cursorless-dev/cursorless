@@ -1,0 +1,38 @@
+languageId: rust
+command:
+  spokenForm: change value sun
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |
+    match user {
+        User { first_name: "John" } => {},
+        User { first_name } if first_name.starts_with("P") => {}
+    }
+  selections:
+    - anchor: {line: 2, character: 27}
+      active: {line: 2, character: 54}
+  marks:
+    default.s:
+      start: {line: 1, character: 4}
+      end: {line: 1, character: 8}
+finalState:
+  documentContents: |
+    match user {
+        User { first_name: "John" } => ,
+        User { first_name } if first_name.starts_with("P") => {}
+    }
+  selections:
+    - anchor: {line: 1, character: 35}
+      active: {line: 1, character: 35}
+  thatMark:
+    - anchor: {line: 1, character: 35}
+      active: {line: 1, character: 35}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, modifiers: [{type: containingScope, scopeType: {type: value}}]}]

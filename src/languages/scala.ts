@@ -62,9 +62,12 @@ const nodeMatchers: Partial<
     ],
     [":"],
   ),
-  value: leadingMatcher(
-    ["*[value]", "*[default_value]", "type_definition[type]"],
-    ["="],
+  value: cascadingMatcher(
+    patternMatcher("case_clause[body]"),
+    leadingMatcher(
+      ["*[value]", "*[default_value]", "type_definition[type]"],
+      ["="],
+    ),
   ),
   condition: conditionMatcher("*[condition]"),
 
