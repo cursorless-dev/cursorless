@@ -120,4 +120,8 @@ export class VscodeTextEditorImpl implements TextEditor {
   public async toggleBreakpoint(ranges: Range[]): Promise<void> {
     return vscodeToggleBreakpoint(this, ranges);
   }
+
+  public async toggleLineComment(): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.commentLine");
+  }
 }

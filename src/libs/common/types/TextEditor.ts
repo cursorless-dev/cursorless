@@ -129,7 +129,7 @@ export interface EditableTextEditor extends TextEditor {
 
   /**
    * Unfold lines
-   * @param lineNumbers Lines to Unfold
+   * @param lineNumbers Lines to unfold
    */
   unfold(lineNumbers: number[]): Promise<void>;
 
@@ -140,8 +140,14 @@ export interface EditableTextEditor extends TextEditor {
   insertSnippet(snippet: string): Promise<void>;
 
   /**
-   * Toggle breakpoint at ranges
+   * Toggle breakpoints
    * @param ranges A list of ranges
    */
   toggleBreakpoint(ranges: Range[]): Promise<void>;
+
+  /**
+   * Toggle line comments
+   * @param ranges A list of ranges
+   */
+  toggleLineComment(ranges: Range[]): Promise<void>;
 }

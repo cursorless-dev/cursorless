@@ -1,5 +1,14 @@
-import sleep from "../libs/common/util/sleep";
+import {
+  CommandId,
+  EditableTextEditor,
+  Range,
+  sleep,
+} from "@cursorless/common";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
+import { ActionReturnValue } from "./actions.types";
+import CallbackAction from "./CallbackAction";
 import CommandAction from "./CommandAction";
 
 abstract class MakeshiftAction extends CommandAction {
@@ -81,6 +90,50 @@ export class OutdentLines extends MakeshiftAction {
   command = "editor.action.outdentLines";
 }
 
-export class CommentLines extends MakeshiftAction {
-  command = "editor.action.commentLine";
+abstract class MakeshiftAction2 extends CallbackAction {
+  abstract command: CommandId;
+  ensureSingleEditor: boolean = false;
+  ensureSingleTarget: boolean = false;
+  restoreSelection: boolean = true;
+  showDecorations: boolean = true;
+
+  constructor(graph: Graph) {
+    super(graph);
+    this.run = this.run.bind(this);
+    this.callback = this.callback.bind(this);
+  }
+
+  async run(targets: [Target[]]): Promise<ActionReturnValue> {
+    const capabilities = ide().capabilities.commands[this.command];
+
+    if (capabilities == null) {
+      throw Error(`Missing command capabilities for '${this.command}'`);
+    }
+
+    return super.run(targets, {
+      callback: this.callback,
+      setSelection: !capabilities.acceptsLocation,
+      ensureSingleEditor: this.ensureSingleEditor,
+      ensureSingleTarget: this.ensureSingleTarget,
+      restoreSelection: this.restoreSelection,
+      showDecorations: this.showDecorations,
+    });
+  }
+
+  private async callback(
+    editor: EditableTextEditor,
+    ranges: Range[],
+  ): Promise<void> {
+    switch (this.command) {
+      case "toggleLineComment":
+        return editor.toggleLineComment(ranges);
+      default:
+        throw Error(`Unknown command '${this.command}'`);
+    }
+  }
+}
+
+export class CommentLines extends MakeshiftAction2 {
+  command: CommandId = "toggleLineComment";
+  ensureSingleEditor = true;
 }
