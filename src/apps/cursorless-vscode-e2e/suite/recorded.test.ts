@@ -1,10 +1,5 @@
 import type { SpyIDE } from "@cursorless/common";
-import {
-  extractTargetedMarks,
-  FakeIDE,
-  serialize,
-  splitKey,
-} from "@cursorless/common";
+import { extractTargetedMarks, serialize, splitKey } from "@cursorless/common";
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
@@ -23,6 +18,7 @@ import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import type { ReadOnlyHatMap } from "../../../core/IndividualHatMap";
+import type NormalizedIDE from "../../../libs/common/ide/normalized/NormalizedIDE";
 import type { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
@@ -46,8 +42,8 @@ suite("recorded test cases", async function () {
   suiteSetup(async () => {
     // Necessary because opening a notebook opens the panel for some reason
     await vscode.commands.executeCommand("workbench.action.closePanel");
-    const { ide: fake } = (await getCursorlessApi()).testHelpers!;
-    setupFake(fake!);
+    const { ide } = (await getCursorlessApi()).testHelpers!;
+    setupFake(ide);
   });
 
   getRecordedTestPaths().forEach((path) =>
@@ -237,23 +233,8 @@ async function runTest(file: string, spyIde: SpyIDE) {
   }
 }
 
-function setupFake(fakeIde: FakeIDE) {
-  fakeIde.configuration.mockConfigurationScope(
-    { languageId: "css" },
-    { wordSeparators: ["_", "-"] },
-    true,
-  );
-  fakeIde.configuration.mockConfigurationScope(
-    { languageId: "scss" },
-    { wordSeparators: ["_", "-"] },
-    true,
-  );
-  fakeIde.configuration.mockConfigurationScope(
-    { languageId: "shellscript" },
-    { wordSeparators: ["_", "-"] },
-    true,
-  );
-  fakeIde.configuration.mockConfiguration("experimental", {
+function setupFake(ide: NormalizedIDE) {
+  ide.configuration.mockConfiguration("experimental", {
     snippetsDir: getFixturePath("cursorless-snippets"),
   });
 }
