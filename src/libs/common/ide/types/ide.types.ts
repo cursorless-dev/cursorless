@@ -15,9 +15,9 @@ export type RunMode = "production" | "development" | "test";
 
 export interface IDE {
   readonly configuration: Configuration;
-  readonly  messages: Messages;
-  readonly  globalState: State;
-  readonly  clipboard: Clipboard;
+  readonly messages: Messages;
+  readonly globalState: State;
+  readonly clipboard: Clipboard;
 
   /**
    * Register disposables to be disposed of on IDE exit.
