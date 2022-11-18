@@ -36,9 +36,6 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-  thatMark:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
 decorations:
   - name: pendingDeleteBackground
     type: line

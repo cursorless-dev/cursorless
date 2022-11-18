@@ -1,14 +1,12 @@
-import { commands, DecorationRangeBehavior, window } from "vscode";
+import { commands, DecorationRangeBehavior } from "vscode";
 import {
   callFunctionAndUpdateSelections,
   callFunctionAndUpdateSelectionsWithBehavior,
 } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import {
-  focusEditor,
-  setSelectionsWithoutFocusingEditor,
-} from "../util/setSelectionsAndFocusEditor";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
 
@@ -17,7 +15,7 @@ export class Paste {
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const targetEditor = ensureSingleEditor(targets);
-    const originalEditor = window.activeTextEditor;
+    const originalEditor = ide().activeEditableTextEditor;
 
     // First call editNew in order to insert delimiters if necessary and leave
     // the cursor in the right position.  Note that this action will focus the
@@ -28,7 +26,7 @@ export class Paste {
         await this.graph.actions.editNew.run([targets]);
       },
       targetEditor.document,
-      [targetEditor.selections]
+      [targetEditor.selections],
     );
 
     // Then use VSCode paste command, using open ranges at the place where we
@@ -46,20 +44,23 @@ export class Paste {
             selections: targetEditor.selections,
             rangeBehavior: DecorationRangeBehavior.OpenOpen,
           },
-        ]
+        ],
       );
 
     // Reset cursors on the editor where the edits took place.
     // NB: We don't focus the editor here because we want to focus the original
     // editor, not the one where the edits took place
-    setSelectionsWithoutFocusingEditor(targetEditor, updatedCursorSelections);
+    setSelectionsWithoutFocusingEditor(
+      ide().getEditableTextEditor(targetEditor),
+      updatedCursorSelections,
+    );
 
     // If necessary focus back original editor
-    if (originalEditor != null && originalEditor !== window.activeTextEditor) {
+    if (originalEditor != null && !originalEditor.isActive) {
       // NB: We just do one editor focus at the end, instead of using
       // setSelectionsAndFocusEditor because the command might operate on
       // multiple editors, so we just do one focus at the end.
-      await focusEditor(originalEditor);
+      await originalEditor.focus();
     }
 
     this.graph.editStyles.displayPendingEditDecorationsForRanges(
@@ -68,11 +69,11 @@ export class Paste {
         range: selection,
       })),
       this.graph.editStyles.justAdded,
-      true
+      true,
     );
 
     return {
-      thatMark: updatedTargetSelections.map((selection) => ({
+      thatSelections: updatedTargetSelections.map((selection) => ({
         editor: targetEditor,
         selection,
       })),

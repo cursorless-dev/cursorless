@@ -1,4 +1,5 @@
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { containingSurroundingPairIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -15,7 +16,7 @@ export default class Rewrap implements Action {
   async run(
     [targets]: [Target[]],
     left: string,
-    right: string
+    right: string,
   ): Promise<ActionReturnValue> {
     const boundaryTargets = targets.flatMap((target) => {
       const boundary = target.getBoundaryStrict();
@@ -29,7 +30,7 @@ export default class Rewrap implements Action {
 
     await this.graph.editStyles.displayPendingEditDecorations(
       boundaryTargets,
-      this.graph.editStyles.pendingModification0
+      this.graph.editStyles.pendingModification0,
     );
 
     const results = await runOnTargetsForEachEditor(
@@ -44,24 +45,24 @@ export default class Rewrap implements Action {
         const [updatedSourceRanges, updatedThatRanges] =
           await performEditsAndUpdateRanges(
             this.graph.rangeUpdater,
-            editor,
+            ide().getEditableTextEditor(editor),
             edits,
             [
               targets.map((target) => target.thatTarget.contentRange),
               targets.map((target) => target.contentRange),
-            ]
+            ],
           );
 
         return {
           sourceMark: createThatMark(targets, updatedSourceRanges),
           thatMark: createThatMark(targets, updatedThatRanges),
         };
-      }
+      },
     );
 
     return {
-      sourceMark: results.flatMap(({ sourceMark }) => sourceMark),
-      thatMark: results.flatMap(({ thatMark }) => thatMark),
+      sourceSelections: results.flatMap(({ sourceMark }) => sourceMark),
+      thatSelections: results.flatMap(({ thatMark }) => thatMark),
     };
   }
 }

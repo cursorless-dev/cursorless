@@ -1,13 +1,14 @@
-import { getRecordedTestPaths } from "../../test/util/getFixturePaths";
+import { getRecordedTestPaths } from "../../apps/cursorless-vscode-e2e/getFixturePaths";
 import { identity } from "./transformations/identity";
 import { upgrade } from "./transformations/upgrade";
 import { transformFile } from "./transformFile";
 import { FixtureTransformation } from "./types";
+import { upgradeThatMarks } from "./upgradeThatMarks";
 
 const AVAILABLE_TRANSFORMATIONS: Record<string, FixtureTransformation> = {
   upgrade,
   autoFormat: identity,
-  // custom: MY_CUSTOM_TRANSFORMER,
+  custom: upgradeThatMarks,
 };
 
 async function main(transformationName: string | undefined) {

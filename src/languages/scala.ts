@@ -35,7 +35,7 @@ const nodeMatchers: Partial<
     "arguments",
     "parameters",
     "class_parameters",
-    "bindings"
+    "bindings",
   ),
 
   name: ["*[name]", "*[pattern]", "case_clause[pattern]"],
@@ -62,18 +62,18 @@ const nodeMatchers: Partial<
       "typed_pattern[type]",
       "binding[type]",
     ],
-    [":"]
+    [":"],
   ),
   value: cascadingMatcher(
     patternMatcher("case_clause[body]"),
     leadingMatcher(
       ["*[value]", "*[default_value]", "type_definition[type]"],
-      ["="]
-    )
+      ["="],
+    ),
   ),
   condition: cascadingMatcher(
     conditionMatcher("*[condition]"),
-    patternMatcher("case_clause[pattern]")
+    patternMatcher("case_clause[pattern]"),
   ),
   subject: "match_expression[value]",
   branch: "case_clause",

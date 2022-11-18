@@ -1,6 +1,8 @@
+import { Selection, TextEditor } from "@cursorless/common";
 import { flatten, zip } from "lodash";
-import { DecorationRangeBehavior, Selection, TextEditor } from "vscode";
+import { DecorationRangeBehavior } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -18,7 +20,7 @@ class InsertCopy implements Action {
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const results = flatten(
-      await runOnTargetsForEachEditor(targets, this.runForEditor)
+      await runOnTargetsForEachEditor(targets, this.runForEditor),
     );
 
     await this.graph.editStyles.displayPendingEditDecorationsForRanges(
@@ -26,15 +28,15 @@ class InsertCopy implements Action {
         result.thatMark.map((that) => ({
           editor: that.editor,
           range: that.selection,
-        }))
+        })),
       ),
       this.graph.editStyles.justAdded,
-      true
+      true,
     );
 
     return {
-      sourceMark: results.flatMap(({ sourceMark }) => sourceMark),
-      thatMark: results.flatMap(({ thatMark }) => thatMark),
+      sourceSelections: results.flatMap(({ sourceMark }) => sourceMark),
+      thatSelections: results.flatMap(({ thatMark }) => thatMark),
     };
   }
 
@@ -42,7 +44,7 @@ class InsertCopy implements Action {
     // isBefore is inverted because we want the selections to stay with what is to the user the "copy"
     const position = this.isBefore ? "after" : "before";
     const edits = targets.flatMap((target) =>
-      target.toPositionTarget(position).constructChangeEdit(target.contentText)
+      target.toPositionTarget(position).constructChangeEdit(target.contentText),
     );
 
     const cursorSelections = { selections: editor.selections };
@@ -51,10 +53,12 @@ class InsertCopy implements Action {
     };
     const editSelections = {
       selections: edits.map(
-        ({ range }) => new Selection(range.start, range.end)
+        ({ range }) => new Selection(range.start, range.end),
       ),
       rangeBehavior: DecorationRangeBehavior.OpenOpen,
     };
+
+    const editableEditor = ide().getEditableTextEditor(editor);
 
     const [
       updatedEditorSelections,
@@ -62,17 +66,17 @@ class InsertCopy implements Action {
       updatedEditSelections,
     ]: Selection[][] = await performEditsAndUpdateSelectionsWithBehavior(
       this.graph.rangeUpdater,
-      editor,
+      editableEditor,
       edits,
-      [cursorSelections, contentSelections, editSelections]
+      [cursorSelections, contentSelections, editSelections],
     );
 
     const insertionRanges = zip(edits, updatedEditSelections).map(
-      ([edit, selection]) => edit!.updateRange(selection!)
+      ([edit, selection]) => edit!.updateRange(selection!),
     );
 
-    setSelectionsWithoutFocusingEditor(editor, updatedEditorSelections);
-    editor.revealRange(editor.selection);
+    setSelectionsWithoutFocusingEditor(editableEditor, updatedEditorSelections);
+    editableEditor.revealRange(editor.selections[0]);
 
     return {
       sourceMark: createThatMark(targets, insertionRanges),

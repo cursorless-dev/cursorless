@@ -18,7 +18,4 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 7}
-  thatMark:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
 fullTargets: [{type: primitive, mark: {type: cursorToken}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 1, active: 2, excludeAnchor: false, excludeActive: false}}]

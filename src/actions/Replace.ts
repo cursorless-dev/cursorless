@@ -1,5 +1,6 @@
 import { flatten, zip } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { runForEachEditor } from "../util/targetUtils";
@@ -14,7 +15,7 @@ export default class Replace implements Action {
 
   private getTexts(
     targets: Target[],
-    replaceWith: string[] | RangeGenerator
+    replaceWith: string[] | RangeGenerator,
   ): string[] {
     if (Array.isArray(replaceWith)) {
       // Broadcast single text to each target
@@ -32,11 +33,11 @@ export default class Replace implements Action {
 
   async run(
     [targets]: [Target[]],
-    replaceWith: string[] | RangeGenerator
+    replaceWith: string[] | RangeGenerator,
   ): Promise<ActionReturnValue> {
     await this.graph.editStyles.displayPendingEditDecorations(
       targets,
-      this.graph.editStyles.pendingModification0
+      this.graph.editStyles.pendingModification0,
     );
 
     const texts = this.getTexts(targets, replaceWith);
@@ -57,19 +58,19 @@ export default class Replace implements Action {
         async (editor, edits) => {
           const [updatedSelections] = await performEditsAndUpdateSelections(
             this.graph.rangeUpdater,
-            editor,
+            ide().getEditableTextEditor(editor),
             edits.map(({ edit }) => edit),
-            [targets.map((target) => target.contentSelection)]
+            [targets.map((target) => target.contentSelection)],
           );
 
           return updatedSelections.map((selection) => ({
             editor,
             selection,
           }));
-        }
-      )
+        },
+      ),
     );
 
-    return { thatMark };
+    return { thatSelections: thatMark };
   }
 }

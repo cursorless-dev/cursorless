@@ -23,6 +23,10 @@ finalState:
     - anchor: {line: 0, character: 33}
       active: {line: 0, character: 33}
   thatMark:
-    - anchor: {line: 0, character: 35}
-      active: {line: 0, character: 46}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 35}
+        end: {line: 0, character: 46}
+      isReversed: false
+      hasExplicitRange: true
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: argumentOrParameter}]}]

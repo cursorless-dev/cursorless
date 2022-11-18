@@ -31,9 +31,25 @@
 			"args": [
 				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+				"--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
 			],
-			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+			"outFiles": ["${workspaceFolder}/out/**/*.js"],
+			"preLaunchTask": "${defaultBuildTask}",
+			"resolveSourceMapLocations": [
+				"${workspaceFolder}/**",
+				"!${workspaceFolder}/.vscode-sandbox/**",
+				"!**/node_modules/**"
+			]
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Unit tests only",
+			"program": "${workspaceFolder}/out/test/scripts/runUnitTestsOnly",
+			"env": {
+				"CURSORLESS_TEST": "true"
+			},
+			"outFiles": ["${workspaceFolder}/out/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}",
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
@@ -52,9 +68,9 @@
 			"args": [
 				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+				"--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
 			],
-			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+			"outFiles": ["${workspaceFolder}/out/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}",
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
@@ -73,9 +89,9 @@
 			"args": [
 				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+				"--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
 			],
-			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+			"outFiles": ["${workspaceFolder}/out/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}",
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
@@ -95,9 +111,9 @@
 			"args": [
 				"--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+				"--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
 			],
-			"outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+			"outFiles": ["${workspaceFolder}/out/**/*.js"],
 			"preLaunchTask": "${defaultBuildTask}",
 			"resolveSourceMapLocations": [
 				"${workspaceFolder}/**",
@@ -109,7 +125,7 @@
 			"name": "Docusaurus Start (Debug)",
 			"type": "node",
 			"request": "launch",
-			"cwd": "${workspaceFolder}/website",
+			"cwd": "${workspaceFolder}/docs-site",
 			"runtimeExecutable": "npm",
 			"runtimeArgs": ["run", "start"],
 			"resolveSourceMapLocations": [
@@ -117,6 +133,18 @@
 				"!${workspaceFolder}/.vscode-sandbox/**",
 				"!**/node_modules/**"
 			]
+		},
+		{
+			"name": "cursorless.org client-side",
+			"type": "chrome",
+			"request": "launch",
+			"url": "http://localhost:4200",
+			"webRoot": "${workspaceFolder}/cursorless-nx",
+			"sourceMapPathOverrides": {
+				"webpack://_N_E/*": "${webRoot}/apps/cursorless-org/*",
+				"webpack://_N_E/libs/*": "${webRoot}/libs/*",
+				"webpack://_N_E/node_modules/*": "${webRoot}/node_modules/*"
+			}
 		}
 	]
 }

@@ -1,29 +1,33 @@
+import { toVscodeEditor } from "@cursorless/vscode-common";
 import { range } from "lodash";
 import * as semver from "semver";
-import {
-  commands,
-  NotebookDocument,
-  TextDocument,
-  TextEditor,
-  version,
-  window,
-} from "vscode";
-import { getCellIndex, getNotebookFromCellDocument } from "./notebook";
+import { commands, NotebookDocument, TextDocument, version } from "vscode";
+import type { VscodeTextEditorImpl } from "../ide/vscode/VscodeTextEditorImpl";
+import type VscodeIDE from "../ide/vscode/VscodeIDE";
+import { getCellIndex } from "../libs/vscode-common/notebook";
+import { getNotebookFromCellDocument } from "./notebook";
 
 export function isVscodeLegacyNotebookVersion() {
   return semver.lt(version, "1.68.0");
 }
 
-export async function focusNotebookCellLegacy(editor: TextEditor) {
-  const activeTextEditor = window.activeTextEditor;
+export async function focusNotebookCellLegacy(
+  ide: VscodeIDE,
+  editor: VscodeTextEditorImpl,
+) {
+  const { activeTextEditor } = ide;
 
   if (activeTextEditor == null) {
     return;
   }
 
-  const editorNotebook = getNotebookFromCellDocument(editor.document);
+  const vscodeActiveEditor = toVscodeEditor(activeTextEditor);
+
+  const editorNotebook = getNotebookFromCellDocument(
+    editor.vscodeEditor.document,
+  );
   const activeEditorNotebook = getNotebookFromCellDocument(
-    activeTextEditor.document
+    vscodeActiveEditor.document,
   );
 
   if (
@@ -34,15 +38,18 @@ export async function focusNotebookCellLegacy(editor: TextEditor) {
     return;
   }
 
-  const editorIndex = getCellIndex(editorNotebook, editor.document);
+  const editorIndex = getCellIndex(
+    editorNotebook,
+    editor.vscodeEditor.document,
+  );
   const activeEditorIndex = getCellIndex(
     editorNotebook,
-    activeTextEditor.document
+    vscodeActiveEditor.document,
   );
 
   if (editorIndex === -1 || activeEditorIndex === -1) {
     throw new Error(
-      "Couldn't find editor corresponding to given cell in the expected notebook"
+      "Couldn't find editor corresponding to given cell in the expected notebook",
     );
   }
 

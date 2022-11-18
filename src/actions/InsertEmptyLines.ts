@@ -1,6 +1,7 @@
+import { Range, Selection } from "@cursorless/common";
 import { flatten } from "lodash";
-import { Range, Selection } from "vscode";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
@@ -11,7 +12,7 @@ class InsertEmptyLines implements Action {
   constructor(
     private graph: Graph,
     private insertAbove: boolean,
-    private insertBelow: boolean
+    private insertBelow: boolean,
   ) {
     this.run = this.run.bind(this);
   }
@@ -46,19 +47,24 @@ class InsertEmptyLines implements Action {
         const ranges = this.getRanges(targets);
         const edits = this.getEdits(ranges);
 
+        const editableEditor = ide().getEditableTextEditor(editor);
+
         const [updatedThatSelections, lineSelections, updatedCursorSelections] =
           await performEditsAndUpdateSelections(
             this.graph.rangeUpdater,
-            editor,
+            editableEditor,
             edits,
             [
               targets.map((target) => target.thatTarget.contentSelection),
               ranges.map((range) => new Selection(range.start, range.end)),
               editor.selections,
-            ]
+            ],
           );
 
-        setSelectionsWithoutFocusingEditor(editor, updatedCursorSelections);
+        setSelectionsWithoutFocusingEditor(
+          editableEditor,
+          updatedCursorSelections,
+        );
 
         return {
           thatMark: updatedThatSelections.map((selection) => ({
@@ -70,24 +76,24 @@ class InsertEmptyLines implements Action {
             range:
               ranges[index].start.line < editor.document.lineCount - 1
                 ? new Range(
-                    selection.start.translate({ lineDelta: -1 }),
-                    selection.end.translate({ lineDelta: -1 })
+                    selection.start.translate(-1, undefined),
+                    selection.end.translate(-1, undefined),
                   )
                 : selection,
           })),
         };
-      })
+      }),
     );
 
     await this.graph.editStyles.displayPendingEditDecorationsForRanges(
       results.flatMap((result) => result.lineSelections),
       this.graph.editStyles.justAdded,
-      false
+      false,
     );
 
     const thatMark = results.flatMap((result) => result.thatMark);
 
-    return { thatMark };
+    return { thatSelections: thatMark };
   }
 }
 

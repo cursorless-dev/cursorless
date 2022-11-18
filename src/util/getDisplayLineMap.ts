@@ -1,5 +1,5 @@
+import { TextEditor } from "@cursorless/common";
 import { concat, flatten, flow, range, uniq } from "lodash";
-import * as vscode from "vscode";
 
 /**
  * Returns a map from line numbers in the file to display lines, which skip
@@ -9,20 +9,20 @@ import * as vscode from "vscode";
  *
  * @param editor A visible editor
  */
-export function getDisplayLineMap(editor: vscode.TextEditor) {
+export function getDisplayLineMap(editor: TextEditor) {
   return new Map(
     flow(
       flatten,
-      uniq
+      uniq,
     )(
       concat(
-        [[editor.selection.start.line]],
+        [[editor.selections[0].start.line]],
         editor.visibleRanges.map((visibleRange) =>
-          range(visibleRange.start.line, visibleRange.end.line + 1)
-        )
-      )
+          range(visibleRange.start.line, visibleRange.end.line + 1),
+        ),
+      ),
     )
       .sort((a, b) => a - b)
-      .map((value, index) => [value, index])
+      .map((value, index) => [value, index]),
   );
 }

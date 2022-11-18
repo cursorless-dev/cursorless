@@ -1,8 +1,10 @@
-import { DecorationRangeBehavior, Selection } from "vscode";
+import { Selection } from "@cursorless/common";
+import { DecorationRangeBehavior } from "vscode";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Edit, Graph } from "../typings/Types";
 import { FullSelectionInfo } from "../typings/updateSelections";
@@ -18,7 +20,7 @@ export default class Wrap implements Action {
   async run(
     [targets]: [Target[]],
     left: string,
-    right: string
+    right: string,
   ): Promise<ActionReturnValue> {
     const results = await runOnTargetsForEachEditor(
       targets,
@@ -27,7 +29,7 @@ export default class Wrap implements Action {
         const boundaries = targets.map((target) => ({
           start: new Selection(
             target.contentRange.start,
-            target.contentRange.start
+            target.contentRange.start,
           ),
           end: new Selection(target.contentRange.end, target.contentRange.end),
         }));
@@ -50,40 +52,42 @@ export default class Wrap implements Action {
               getSelectionInfo(
                 document,
                 start,
-                DecorationRangeBehavior.OpenClosed
+                DecorationRangeBehavior.OpenClosed,
               ),
               getSelectionInfo(
                 document,
                 end,
-                DecorationRangeBehavior.ClosedOpen
+                DecorationRangeBehavior.ClosedOpen,
               ),
             ];
-          }
+          },
         );
 
         const cursorSelectionInfos = editor.selections.map((selection) =>
           getSelectionInfo(
             document,
             selection,
-            DecorationRangeBehavior.ClosedClosed
-          )
+            DecorationRangeBehavior.ClosedClosed,
+          ),
         );
 
         const sourceMarkSelectionInfos = targets.map((target) =>
           getSelectionInfo(
             document,
             target.contentSelection,
-            DecorationRangeBehavior.ClosedClosed
-          )
+            DecorationRangeBehavior.ClosedClosed,
+          ),
         );
 
         const thatMarkSelectionInfos = targets.map((target) =>
           getSelectionInfo(
             document,
             target.contentSelection,
-            DecorationRangeBehavior.OpenOpen
-          )
+            DecorationRangeBehavior.OpenOpen,
+          ),
         );
+
+        const editableEditor = ide().getEditableTextEditor(editor);
 
         const [
           delimiterSelections,
@@ -92,17 +96,17 @@ export default class Wrap implements Action {
           thatMarkSelections,
         ] = await performEditsAndUpdateFullSelectionInfos(
           this.graph.rangeUpdater,
-          editor,
+          editableEditor,
           edits,
           [
             delimiterSelectionInfos,
             cursorSelectionInfos,
             sourceMarkSelectionInfos,
             thatMarkSelectionInfos,
-          ]
+          ],
         );
 
-        setSelectionsWithoutFocusingEditor(editor, cursorSelections);
+        setSelectionsWithoutFocusingEditor(editableEditor, cursorSelections);
 
         this.graph.editStyles.displayPendingEditDecorationsForRanges(
           delimiterSelections.map((selection) => ({
@@ -110,7 +114,7 @@ export default class Wrap implements Action {
             range: selection,
           })),
           this.graph.editStyles.justAdded,
-          true
+          true,
         );
 
         return {
@@ -123,12 +127,12 @@ export default class Wrap implements Action {
             selection,
           })),
         };
-      }
+      },
     );
 
     return {
-      sourceMark: results.flatMap(({ sourceMark }) => sourceMark),
-      thatMark: results.flatMap(({ thatMark }) => thatMark),
+      sourceSelections: results.flatMap(({ sourceMark }) => sourceMark),
+      thatSelections: results.flatMap(({ thatMark }) => thatMark),
     };
   }
 }

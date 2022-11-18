@@ -1,4 +1,4 @@
-import { Range } from "vscode";
+import { Range } from "@cursorless/common";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import PlainTarget from "./PlainTarget";

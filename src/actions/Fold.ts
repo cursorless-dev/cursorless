@@ -1,7 +1,7 @@
-import { commands, window } from "vscode";
+import { commands } from "vscode";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -11,18 +11,18 @@ class FoldAction implements Action {
   }
 
   async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
-    const originalEditor = window.activeTextEditor;
+    const originalEditor = ide().activeEditableTextEditor;
     const editor = ensureSingleEditor(targets);
 
     if (originalEditor !== editor) {
-      await focusEditor(editor);
+      await ide().getEditableTextEditor(editor).focus();
     }
 
     const singleLineTargets = targets.filter(
-      (target) => target.contentRange.isSingleLine
+      (target) => target.contentRange.isSingleLine,
     );
     const multiLineTargets = targets.filter(
-      (target) => !target.contentRange.isSingleLine
+      (target) => !target.contentRange.isSingleLine,
     );
     // Don't mix multi and single line targets.
     // This is probably the result of an "every" command
@@ -35,17 +35,17 @@ class FoldAction implements Action {
       levels: 1,
       direction: "down",
       selectionLines: selectedTargets.map(
-        (target) => target.contentRange.start.line
+        (target) => target.contentRange.start.line,
       ),
     });
 
     // If necessary focus back original editor
     if (originalEditor != null && originalEditor !== editor) {
-      await focusEditor(originalEditor);
+      await originalEditor.focus();
     }
 
     return {
-      thatMark: createThatMark(targets),
+      thatSelections: createThatMark(targets),
     };
   }
 }

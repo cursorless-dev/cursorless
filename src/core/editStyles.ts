@@ -1,18 +1,17 @@
+import { EditableTextEditor, Position, Range } from "@cursorless/common";
 import {
   DecorationRangeBehavior,
   DecorationRenderOptions,
-  Position,
-  Range,
-  TextEditor,
   TextEditorDecorationType,
   ThemeColor,
   window,
   workspace,
 } from "vscode";
+import sleep from "../libs/common/util/sleep";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import isTesting from "../testUtil/isTesting";
 import { Target } from "../typings/target.types";
 import { Graph, RangeWithEditor } from "../typings/Types";
-import sleep from "../util/sleep";
 import {
   getContentRange,
   runForEachEditor,
@@ -82,13 +81,13 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
       this[editStyleName] = new EditStyle(`${editStyleName}Background`);
     });
 
-    graph.extensionContext.subscriptions.push(this);
+    ide().disposeOnExit(this);
   }
 
   async displayPendingEditDecorations(
     targets: Target[],
     style: EditStyle,
-    getRange: (target: Target) => Range | undefined = getContentRange
+    getRange: (target: Target) => Range | undefined = getContentRange,
   ) {
     await this.setDecorations(targets, style, getRange);
 
@@ -100,7 +99,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
   displayPendingEditDecorationsForTargets(
     targets: Target[],
     style: EditStyle,
-    isToken: boolean
+    isToken: boolean,
   ) {
     return this.displayPendingEditDecorationsForRanges(
       targets.map(({ editor, contentRange }) => ({
@@ -108,26 +107,26 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
         range: contentRange,
       })),
       style,
-      isToken
+      isToken,
     );
   }
 
   async displayPendingEditDecorationsForRanges(
     ranges: RangeWithEditor[],
     style: EditStyle,
-    isToken: boolean
+    isToken: boolean,
   ) {
     await runForEachEditor(
       ranges,
       (range) => range.editor,
       async (editor, ranges) => {
         this.setEditorDecorations(
-          editor,
+          ide().getEditableTextEditor(editor),
           style,
           isToken,
-          ranges.map((range) => range.range)
+          ranges.map((range) => range.range),
         );
-      }
+      },
     );
 
     await decorationSleep();
@@ -136,34 +135,36 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
       ranges,
       (range) => range.editor,
       async (editor) => {
-        editor.setDecorations(style.getDecoration(isToken), []);
-      }
+        ide()
+          .getEditableTextEditor(editor)
+          .setDecorations(style.getDecoration(isToken), []);
+      },
     );
   }
 
   setDecorations(
     targets: Target[],
     style: EditStyle,
-    getRange: (target: Target) => Range | undefined = getContentRange
+    getRange: (target: Target) => Range | undefined = getContentRange,
   ) {
     return runOnTargetsForEachEditor(targets, async (editor, targets) => {
       this.setEditorDecorations(
-        editor,
+        ide().getEditableTextEditor(editor),
         style,
         true,
         targets
           .filter((target) => !target.isLine)
           .map(getRange)
-          .filter((range): range is Range => !!range)
+          .filter((range): range is Range => !!range),
       );
       this.setEditorDecorations(
-        editor,
+        ide().getEditableTextEditor(editor),
         style,
         false,
         targets
           .filter((target) => target.isLine)
           .map(getRange)
-          .filter((range): range is Range => !!range)
+          .filter((range): range is Range => !!range),
       );
     });
   }
@@ -176,10 +177,10 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
   }
 
   private setEditorDecorations(
-    editor: TextEditor,
+    editor: EditableTextEditor,
     style: EditStyle,
     isToken: boolean,
-    ranges: Range[]
+    ranges: Range[],
   ) {
     if (this.graph.testCaseRecorder.isActive() || isTesting()) {
       ranges.forEach((range) => {

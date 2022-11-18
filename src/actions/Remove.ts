@@ -1,5 +1,6 @@
 import { flatten } from "lodash";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -13,7 +14,7 @@ export default class Delete implements Action {
 
   async run(
     [targets]: [Target[]],
-    { showDecorations = true } = {}
+    { showDecorations = true } = {},
   ): Promise<ActionReturnValue> {
     // Unify overlapping targets because of overlapping leading and trailing delimiters.
     targets = unifyRemovalTargets(targets);
@@ -22,7 +23,7 @@ export default class Delete implements Action {
       await this.graph.editStyles.displayPendingEditDecorations(
         targets,
         this.graph.editStyles.pendingDelete,
-        (target) => target.getRemovalHighlightRange()
+        (target) => target.getRemovalHighlightRange(),
       );
     }
 
@@ -33,15 +34,15 @@ export default class Delete implements Action {
 
         const [updatedRanges] = await performEditsAndUpdateRanges(
           this.graph.rangeUpdater,
-          editor,
+          ide().getEditableTextEditor(editor),
           edits,
-          [ranges]
+          [ranges],
         );
 
         return createThatMark(targets, updatedRanges);
-      })
+      }),
     );
 
-    return { thatMark };
+    return { thatSelections: thatMark };
   }
 }

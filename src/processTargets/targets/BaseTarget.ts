@@ -1,10 +1,9 @@
+import { Range, Selection, TextEditor } from "@cursorless/common";
 import { isEqual } from "lodash";
-import { Range, Selection, TextEditor } from "vscode";
 import { NoContainingScopeError } from "../../errors";
-import { EditNewContext, Target } from "../../typings/target.types";
-import { Position } from "../../typings/targetDescriptor.types";
-import { EditWithRangeUpdater } from "../../typings/Types";
-import { selectionFromRange } from "../../util/selectionUtils";
+import type { EditNewContext, Target } from "../../typings/target.types";
+import type { Position } from "../../typings/targetDescriptor.types";
+import type { EditWithRangeUpdater } from "../../typings/Types";
 import { isSameType } from "../../util/typeUtils";
 import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
@@ -60,7 +59,7 @@ export default abstract class BaseTarget implements Target {
   }
 
   get contentSelection(): Selection {
-    return selectionFromRange(this.isReversed, this.contentRange);
+    return this.contentRange.toSelection(this.isReversed);
   }
 
   get contentRange(): Range {
@@ -123,7 +122,7 @@ export default abstract class BaseTarget implements Target {
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
-    includeEnd: boolean
+    includeEnd: boolean,
   ): Target {
     if (isSameType(this, endTarget)) {
       const constructor = Object.getPrototypeOf(this).constructor;
@@ -135,7 +134,7 @@ export default abstract class BaseTarget implements Target {
           this,
           endTarget,
           includeStart,
-          includeEnd
+          includeEnd,
         ),
       });
     }
@@ -145,7 +144,7 @@ export default abstract class BaseTarget implements Target {
       this,
       endTarget,
       includeStart,
-      includeEnd
+      includeEnd,
     );
   }
 

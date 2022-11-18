@@ -111,7 +111,7 @@ const nodeMatchers: Partial<
       "assignment_expression[right]",
       "optional_parameter_declaration[default_value]",
     ],
-    [":", "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="]
+    [":", "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="],
   ),
   argumentOrParameter: argumentMatcher("parameter_list", "argument_list"),
   attribute: "attribute",

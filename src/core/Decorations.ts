@@ -8,7 +8,7 @@ import {
   HAT_NON_DEFAULT_SHAPES,
   HatStyle,
   HatColor,
-} from "./constants";
+} from "./hatStyles";
 import { readFileSync } from "fs";
 import FontMeasurements from "./FontMeasurements";
 import { pull, sortBy, filter } from "lodash";
@@ -40,10 +40,9 @@ export default class Decorations {
   hatStyleNames!: HatStyleName[];
   private decorationChangeListeners: DecorationChangeListener[] = [];
   private disposables: vscode.Disposable[] = [];
+  private extensionContext!: vscode.ExtensionContext;
 
   constructor(private graph: Graph) {
-    graph.extensionContext.subscriptions.push(this);
-
     this.recomputeDecorationStyles = this.recomputeDecorationStyles.bind(this);
 
     this.disposables.push(
@@ -52,14 +51,17 @@ export default class Decorations {
         () => {
           graph.fontMeasurements.clearCache();
           this.recomputeDecorationStyles();
-        }
+        },
       ),
 
-      vscode.workspace.onDidChangeConfiguration(this.recomputeDecorationStyles)
+      // Don't use fine grained settings here until tokenizer has migrated to graph
+      vscode.workspace.onDidChangeConfiguration(this.recomputeDecorationStyles),
     );
   }
 
-  async init() {
+  async init(extensionContext: vscode.ExtensionContext) {
+    this.extensionContext = extensionContext;
+    extensionContext.subscriptions.push(this);
     await this.graph.fontMeasurements.calculate();
     this.constructDecorations(this.graph.fontMeasurements);
   }
@@ -130,10 +132,10 @@ export default class Decorations {
             fontMeasurements,
             shape,
             scaleFactor,
-            finalVerticalOffsetEm
+            finalVerticalOffsetEm,
           ),
         ];
-      })
+      }),
     );
 
     this.decorations = this.hatStyleNames.map((styleName) => {
@@ -166,7 +168,7 @@ export default class Decorations {
     });
 
     this.decorationMap = Object.fromEntries(
-      this.decorations.map(({ name, decoration }) => [name, decoration])
+      this.decorations.map(({ name, decoration }) => [name, decoration]),
     );
 
     this.decorationChangeListeners.forEach((listener) => listener());
@@ -199,20 +201,20 @@ export default class Decorations {
       ? HAT_COLORS.filter((color) => !color.startsWith("user"))
       : HAT_COLORS.filter((color) => colorEnablement[color]);
     const activeNonDefaultHatShapes = HAT_NON_DEFAULT_SHAPES.filter(
-      (shape) => shapeEnablement[shape]
+      (shape) => shapeEnablement[shape],
     );
 
     this.hatStyleMap = {
       ...Object.fromEntries(
-        activeHatColors.map((color) => [color, { color, shape: "default" }])
+        activeHatColors.map((color) => [color, { color, shape: "default" }]),
       ),
       ...Object.fromEntries(
         activeHatColors.flatMap((color) =>
           activeNonDefaultHatShapes.map((shape) => [
             `${color}-${shape}`,
             { color, shape },
-          ])
-        )
+          ]),
+        ),
       ),
     } as Record<HatStyleName, HatStyle>;
 
@@ -223,8 +225,8 @@ export default class Decorations {
             Object.entries(this.hatStyleMap),
             ([_, hatStyle]) =>
               colorPenalties[hatStyle.color] + shapePenalties[hatStyle.shape] <=
-              maxPenalty
-          )
+              maxPenalty,
+          ),
         ),
       } as Record<HatStyleName, HatStyle>;
     }
@@ -232,7 +234,7 @@ export default class Decorations {
     this.hatStyleNames = sortBy(
       Object.entries(this.hatStyleMap),
       ([_, hatStyle]) =>
-        colorPenalties[hatStyle.color] + shapePenalties[hatStyle.shape]
+        colorPenalties[hatStyle.color] + shapePenalties[hatStyle.shape],
     ).map(([hatStyleName, _]) => hatStyleName as HatStyleName);
   }
 
@@ -268,13 +270,13 @@ export default class Decorations {
     fontMeasurements: FontMeasurements,
     shape: HatShape,
     scaleFactor: number,
-    hatVerticalOffsetEm: number
+    hatVerticalOffsetEm: number,
   ) {
     const iconPath = join(
-      this.graph.extensionContext.extensionPath,
+      this.extensionContext.extensionPath,
       "images",
       "hats",
-      `${shape}.svg`
+      `${shape}.svg`,
     );
     const rawSvg = readFileSync(iconPath, "utf8");
     const { characterWidth, characterHeight, fontSize } = fontMeasurements;

@@ -23,18 +23,18 @@ export class Cut implements Action {
             editor: target.editor,
             contentRange: overflow,
             isReversed: target.isReversed,
-          })
+          }),
       );
     });
 
     await Promise.all([
       this.graph.editStyles.displayPendingEditDecorations(
         targets,
-        this.graph.editStyles.referenced
+        this.graph.editStyles.referenced,
       ),
       this.graph.editStyles.displayPendingEditDecorations(
         overflowTargets,
-        this.graph.editStyles.pendingDelete
+        this.graph.editStyles.pendingDelete,
       ),
     ]);
 
@@ -42,12 +42,12 @@ export class Cut implements Action {
 
     await this.graph.actions.copyToClipboard.run([targets], options);
 
-    const { thatMark } = await this.graph.actions.remove.run(
+    const { thatSelections: thatMark } = await this.graph.actions.remove.run(
       [targets],
-      options
+      options,
     );
 
-    return { thatMark };
+    return { thatSelections: thatMark };
   }
 }
 

@@ -1,3 +1,4 @@
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { PlainTarget } from "../processTargets/targets";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -20,18 +21,20 @@ export default class Clear implements Action {
           editor: target.editor,
           isReversed: target.isReversed,
           contentRange: target.contentRange,
-        })
+        }),
     );
 
-    const { thatMark } = await this.graph.actions.remove.run([plainTargets]);
+    const { thatSelections: thatMark } = await this.graph.actions.remove.run([
+      plainTargets,
+    ]);
 
     if (thatMark != null) {
       await setSelectionsAndFocusEditor(
-        editor,
-        thatMark.map(({ selection }) => selection)
+        ide().getEditableTextEditor(editor),
+        thatMark.map(({ selection }) => selection),
       );
     }
 
-    return { thatMark };
+    return { thatSelections: thatMark };
   }
 }

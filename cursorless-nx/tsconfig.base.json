@@ -16,7 +16,10 @@
 		"resolveJsonModule": true,
 		"baseUrl": ".",
 		"paths": {
-			"@cursorless/cheatsheet": ["libs/cheatsheet/src/index.ts"]
+			"@cursorless/cheatsheet": ["libs/cheatsheet/src/index.ts"],
+			"@cursorless/react/embedded-video": [
+				"libs/react/embedded-video/src/index.ts"
+			]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

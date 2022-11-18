@@ -1,5 +1,5 @@
+import { Range } from "@cursorless/common";
 import { uniqWith, zip } from "lodash";
-import { Range } from "vscode";
 import { Target } from "../typings/target.types";
 import {
   Modifier,
@@ -8,7 +8,6 @@ import {
   TargetDescriptor,
 } from "../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../typings/Types";
-import { ensureSingleEditor } from "../util/targetUtils";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
 import { ModifierStage } from "./PipelineStages.types";
@@ -30,19 +29,19 @@ import { PlainTarget, PositionTarget } from "./targets";
  */
 export default function (
   context: ProcessedTargetsContext,
-  targets: TargetDescriptor[]
+  targets: TargetDescriptor[],
 ): Target[][] {
   return targets.map((target) => uniqTargets(processTarget(context, target)));
 }
 
 function processTarget(
   context: ProcessedTargetsContext,
-  target: TargetDescriptor
+  target: TargetDescriptor,
 ): Target[] {
   switch (target.type) {
     case "list":
       return target.elements.flatMap((element) =>
-        processTarget(context, element)
+        processTarget(context, element),
       );
     case "range":
       return processRangeTarget(context, target);
@@ -53,7 +52,7 @@ function processTarget(
 
 function processRangeTarget(
   context: ProcessedTargetsContext,
-  targetDesc: RangeTargetDescriptor
+  targetDesc: RangeTargetDescriptor,
 ): Target[] {
   const anchorTargets = processPrimitiveTarget(context, targetDesc.anchor);
   const activeTargets = processPrimitiveTarget(context, targetDesc.active);
@@ -61,44 +60,39 @@ function processRangeTarget(
   return zip(anchorTargets, activeTargets).flatMap(
     ([anchorTarget, activeTarget]) => {
       if (anchorTarget == null || activeTarget == null) {
-        throw new Error("anchorTargets and activeTargets lengths don't match");
-      }
-
-      if (anchorTarget.editor !== activeTarget.editor) {
-        throw new Error(
-          "anchorTarget and activeTarget must be in same document"
-        );
+        throw new Error("AnchorTargets and activeTargets lengths don't match");
       }
 
       switch (targetDesc.rangeType) {
         case "continuous":
           return [
-            processContinuousRangeTarget(
+            targetsToContinuousTarget(
               anchorTarget,
               activeTarget,
               targetDesc.excludeAnchor,
-              targetDesc.excludeActive
+              targetDesc.excludeActive,
             ),
           ];
         case "vertical":
-          return processVerticalRangeTarget(
+          return targetsToVerticalTarget(
             anchorTarget,
             activeTarget,
             targetDesc.excludeAnchor,
-            targetDesc.excludeActive
+            targetDesc.excludeActive,
           );
       }
-    }
+    },
   );
 }
 
-function processContinuousRangeTarget(
+export function targetsToContinuousTarget(
   anchorTarget: Target,
   activeTarget: Target,
-  excludeAnchor: boolean,
-  excludeActive: boolean
+  excludeAnchor: boolean = false,
+  excludeActive: boolean = false,
 ): Target {
-  ensureSingleEditor([anchorTarget, activeTarget]);
+  ensureSingleEditor(anchorTarget, activeTarget);
+
   const isReversed = calcIsReversed(anchorTarget, activeTarget);
   const startTarget = isReversed ? activeTarget : anchorTarget;
   const endTarget = isReversed ? anchorTarget : activeTarget;
@@ -109,23 +103,18 @@ function processContinuousRangeTarget(
     isReversed,
     endTarget,
     !excludeStart,
-    !excludeEnd
+    !excludeEnd,
   );
 }
 
-export function targetsToContinuousTarget(
-  anchorTarget: Target,
-  activeTarget: Target
-): Target {
-  return processContinuousRangeTarget(anchorTarget, activeTarget, false, false);
-}
-
-function processVerticalRangeTarget(
+function targetsToVerticalTarget(
   anchorTarget: Target,
   activeTarget: Target,
   excludeAnchor: boolean,
-  excludeActive: boolean
+  excludeActive: boolean,
 ): Target[] {
+  ensureSingleEditor(anchorTarget, activeTarget);
+
   const isReversed = calcIsReversed(anchorTarget, activeTarget);
   const delta = isReversed ? -1 : 1;
 
@@ -144,7 +133,7 @@ function processVerticalRangeTarget(
       i,
       anchorTarget.contentRange.start.character,
       i,
-      anchorTarget.contentRange.end.character
+      anchorTarget.contentRange.end.character,
     );
 
     if (anchorTarget instanceof PositionTarget) {
@@ -155,7 +144,7 @@ function processVerticalRangeTarget(
           editor: anchorTarget.editor,
           isReversed: anchorTarget.isReversed,
           contentRange,
-        })
+        }),
       );
     }
 
@@ -188,7 +177,7 @@ function processVerticalRangeTarget(
  */
 function processPrimitiveTarget(
   context: ProcessedTargetsContext,
-  targetDescriptor: PrimitiveTargetDescriptor
+  targetDescriptor: PrimitiveTargetDescriptor,
 ): Target[] {
   // First, get the targets output by the mark
   const markStage = getMarkStage(targetDescriptor.mark);
@@ -215,7 +204,7 @@ function processPrimitiveTarget(
 
 /** Convert a list of target modifiers to modifier stages */
 export function getModifierStagesFromTargetModifiers(
-  targetModifiers: Modifier[]
+  targetModifiers: Modifier[],
 ) {
   // Reverse target modifiers because they are returned in reverse order from
   // the api, to match the order in which they are spoken.
@@ -226,7 +215,7 @@ export function getModifierStagesFromTargetModifiers(
 export function processModifierStages(
   context: ProcessedTargetsContext,
   modifierStages: ModifierStage[],
-  targets: Target[]
+  targets: Target[],
 ) {
   // First we apply each stage in sequence, letting each stage see the targets
   // one-by-one and concatenating the results before passing them on to the
@@ -245,4 +234,10 @@ function calcIsReversed(anchor: Target, active: Target) {
 
 function uniqTargets(array: Target[]): Target[] {
   return uniqWith(array, (a, b) => a.isEqual(b));
+}
+
+function ensureSingleEditor(anchorTarget: Target, activeTarget: Target) {
+  if (anchorTarget.editor !== activeTarget.editor) {
+    throw new Error("Cannot form range between targets in different editors");
+  }
 }

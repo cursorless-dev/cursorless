@@ -16,7 +16,7 @@ def get_actions():
         "rewrap",
     ]
     simple_actions = {
-        f"{key} <T>": value
+        f"{key} <target>": value
         for key, value in all_actions.items()
         if value not in multiple_target_action_names
     }
@@ -31,21 +31,84 @@ def get_actions():
         get_raw_list("source_destination_connective").keys()
     )[0]
 
-    make_dict_readable(
-        simple_actions,
+    return [
+        *make_dict_readable(
+            "action",
+            simple_actions,
+            {
+                "callAsFunction": "Call <target> on selection",
+            },
+        ),
         {
-            "callAsFunction": "Call T on S",
+            "id": "replaceWithTarget",
+            "type": "action",
+            "variations": [
+                {
+                    "spokenForm": f"{complex_actions['replaceWithTarget']} <target 1> {source_destination_connective} <target 2>",
+                    "description": "Replace <target 2> with <target 1>",
+                },
+                {
+                    "spokenForm": f"{complex_actions['replaceWithTarget']} <target>",
+                    "description": "Replace selection with <target>",
+                },
+            ],
         },
-    )
-    return {
-        **simple_actions,
-        f"{complex_actions['replaceWithTarget']} <T1> {source_destination_connective} <T2>": "Replace T2 with T1",
-        f"{complex_actions['replaceWithTarget']} <T>": "Replace S with T",
-        f"{complex_actions['moveToTarget']} <T1> {source_destination_connective} <T2>": "Move T1 to T2",
-        f"{complex_actions['moveToTarget']} <T>": "Move T to S",
-        f"{complex_actions['swapTargets']} <T1> {swap_connective} <T2>": "Swap T1 with T2",
-        f"{complex_actions['swapTargets']} {swap_connective} <T>": "Swap S with T",
-        f"{complex_actions['applyFormatter']} <F> at <T>": "Reformat T as F",
-        f"<P> {complex_actions['wrapWithPairedDelimiter']} <T>": "Wrap T with P",
-        f"<P> {complex_actions['rewrap']} <T>": "Rewrap T with P",
-    }
+        {
+            "id": "moveToTarget",
+            "type": "action",
+            "variations": [
+                {
+                    "spokenForm": f"{complex_actions['moveToTarget']} <target 1> {source_destination_connective} <target 2>",
+                    "description": "Move <target 1> to <target 2>",
+                },
+                {
+                    "spokenForm": f"{complex_actions['moveToTarget']} <target>",
+                    "description": "Move <target> to selection",
+                },
+            ],
+        },
+        {
+            "id": "swapTargets",
+            "type": "action",
+            "variations": [
+                {
+                    "spokenForm": f"{complex_actions['swapTargets']} <target 1> {swap_connective} <target 2>",
+                    "description": "Swap <target 1> with <target 2>",
+                },
+                {
+                    "spokenForm": f"{complex_actions['swapTargets']} {swap_connective} <target>",
+                    "description": "Swap selection with <target>",
+                },
+            ],
+        },
+        {
+            "id": "applyFormatter",
+            "type": "action",
+            "variations": [
+                {
+                    "spokenForm": f"{complex_actions['applyFormatter']} <formatter> at <target>",
+                    "description": "Reformat <target> as <formatter>",
+                }
+            ],
+        },
+        {
+            "id": "wrapWithPairedDelimiter",
+            "type": "action",
+            "variations": [
+                {
+                    "spokenForm": f"<pair> {complex_actions['wrapWithPairedDelimiter']} <target>",
+                    "description": "Wrap <target> with <pair>",
+                }
+            ],
+        },
+        {
+            "id": "rewrap",
+            "type": "action",
+            "variations": [
+                {
+                    "spokenForm": f"<pair> {complex_actions['rewrap']} <target>",
+                    "description": "Rewrap <target> with <pair>",
+                }
+            ],
+        },
+    ]

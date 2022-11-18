@@ -12,6 +12,9 @@
 	},
 	"plugins": ["@typescript-eslint"],
 	"rules": {
+		// Note: you must disable the base rule as it can report incorrect errors
+		"no-restricted-imports": "off",
+		"@typescript-eslint/no-restricted-imports": "error",
 		"@typescript-eslint/consistent-type-assertions": [
 			"error",
 			{
@@ -38,7 +41,12 @@
 				"null": "never"
 			}
 		],
-		"no-constant-condition": ["error", { "checkLoops": false }],
+		"no-constant-condition": [
+			"error",
+			{
+				"checkLoops": false
+			}
+		],
 		"no-throw-literal": "warn",
 		"semi": "off"
 	},

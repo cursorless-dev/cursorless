@@ -48,6 +48,9 @@ const STATEMENT_TYPES = [
   // ";",
   // "block",
   "switch_statement",
+  "method_declaration",
+  "constructor_declaration",
+  "field_declaration",
 ];
 
 const nodeMatchers: Partial<
@@ -69,16 +72,16 @@ const nodeMatchers: Partial<
   functionCallee: cascadingMatcher(
     matcher(
       patternFinder("method_invocation"),
-      childRangeSelector(["argument_list"], [])
+      childRangeSelector(["argument_list"], []),
     ),
     matcher(
       patternFinder("object_creation_expression"),
-      childRangeSelector(["argument_list"], [])
+      childRangeSelector(["argument_list"], []),
     ),
     matcher(
       patternFinder("explicit_constructor_invocation"),
-      childRangeSelector(["argument_list", ";"], [])
-    )
+      childRangeSelector(["argument_list", ";"], []),
+    ),
   ),
   map: "block",
   name: [
@@ -114,7 +117,7 @@ const nodeMatchers: Partial<
       "return_statement[0]",
       "*[value]",
     ],
-    ["=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="]
+    ["=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="],
   ),
   condition: cascadingMatcher(
     conditionMatcher("while_statement[condition]"),

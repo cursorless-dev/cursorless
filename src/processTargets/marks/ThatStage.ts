@@ -1,45 +1,28 @@
 import { Target } from "../../typings/target.types";
 import { SourceMark, ThatMark } from "../../typings/targetDescriptor.types";
-import {
-  ProcessedTargetsContext,
-  SelectionWithEditor,
-} from "../../typings/Types";
-import { isReversed } from "../../util/selectionUtils";
+import { ProcessedTargetsContext } from "../../typings/Types";
 import { MarkStage } from "../PipelineStages.types";
-import { UntypedTarget } from "../targets";
 
 export class ThatStage implements MarkStage {
-  constructor(private modifier: ThatMark) {}
+  constructor(private mark: ThatMark) {}
 
   run(context: ProcessedTargetsContext): Target[] {
     if (context.thatMark.length === 0) {
       throw Error("No available that marks");
     }
 
-    return selectionsToTarget(context.thatMark);
+    return context.thatMark;
   }
 }
 
 export class SourceStage implements MarkStage {
-  constructor(private modifier: SourceMark) {}
+  constructor(private mark: SourceMark) {}
 
   run(context: ProcessedTargetsContext): Target[] {
     if (context.sourceMark.length === 0) {
       throw Error("No available source marks");
     }
 
-    return selectionsToTarget(context.sourceMark);
+    return context.sourceMark;
   }
-}
-
-function selectionsToTarget(selections: SelectionWithEditor[]) {
-  return selections.map(
-    (selection) =>
-      new UntypedTarget({
-        editor: selection.editor,
-        isReversed: isReversed(selection.selection),
-        contentRange: selection.selection,
-        hasExplicitRange: !selection.selection.isEmpty,
-      })
-  );
 }

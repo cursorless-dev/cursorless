@@ -1,4 +1,4 @@
-import { Selection } from "vscode";
+import { Selection } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
@@ -53,17 +53,21 @@ export const getTypeNode = (node: SyntaxNode) =>
 const dictionaryTypes = ["dictionary", "dictionary_comprehension"];
 const listTypes = ["list", "list_comprehension", "set"];
 
-function importNodeFinder(): NodeFinder {
-  const finder = argumentNodeFinder("import_from_statement");
+function itemNodeFinder(
+  parentType: string,
+  childType: string,
+  excludeFirstChild: boolean = false,
+): NodeFinder {
+  const finder = argumentNodeFinder(parentType);
   return (node: SyntaxNode, selection?: Selection) => {
     const childNode = finder(node, selection);
     if (
-      childNode?.type === "dotted_name" &&
-      childNode.id !== childNode.parent?.firstNamedChild?.id
+      childNode?.type === childType &&
+      (!excludeFirstChild ||
+        childNode.id !== childNode.parent?.firstNamedChild?.id)
     ) {
       return childNode;
     }
-
     return null;
   };
 }
@@ -75,10 +79,19 @@ const nodeMatchers: Partial<
   list: listTypes,
   statement: STATEMENT_TYPES,
   string: "string",
-  collectionItem: matcher(importNodeFinder(), argumentSelectionExtractor()),
+  collectionItem: cascadingMatcher(
+    matcher(
+      itemNodeFinder("import_from_statement", "dotted_name", true),
+      argumentSelectionExtractor(),
+    ),
+    matcher(
+      itemNodeFinder("global_statement", "identifier"),
+      argumentSelectionExtractor(),
+    ),
+  ),
   collectionKey: cascadingMatcher(
     trailingMatcher(["pair[key]"], [":"]),
-    patternMatcher("case_clause[pattern]")
+    patternMatcher("case_clause[pattern]"),
   ),
   ifStatement: "if_statement",
   anonymousFunction: "lambda?.lambda",
@@ -91,11 +104,11 @@ const nodeMatchers: Partial<
   functionName: "function_definition[name]",
   condition: cascadingMatcher(
     conditionMatcher("*[condition]"),
-    patternMatcher("case_clause[pattern]")
+    patternMatcher("case_clause[pattern]"),
   ),
   type: leadingMatcher(
     ["function_definition[return_type]", "*[type]"],
-    [":", "->"]
+    [":", "->"],
   ),
   name: [
     "assignment[left]",
@@ -123,14 +136,14 @@ const nodeMatchers: Partial<
         "^=",
         "<<=",
         ">>=",
-      ]
+      ],
     ),
     patternMatcher("return_statement.~return!"),
-    patternMatcher("case_clause[consequence]")
+    patternMatcher("case_clause[consequence]"),
   ),
   argumentOrParameter: cascadingMatcher(
     argumentMatcher("parameters", "argument_list"),
-    matcher(patternFinder("call.generator_expression!"), childRangeSelector())
+    matcher(patternFinder("call.generator_expression!"), childRangeSelector()),
   ),
   subject: "match_statement[subject]",
   branch: "case_clause",
