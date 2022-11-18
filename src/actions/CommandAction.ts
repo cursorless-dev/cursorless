@@ -1,15 +1,17 @@
 import { flatten } from "lodash";
-import { commands, window } from "vscode";
+import { commands } from "vscode";
+import { selectionToThatTarget } from "../core/commandRunner/selectionToThatTarget";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import {
-  focusEditor,
   setSelectionsAndFocusEditor,
   setSelectionsWithoutFocusingEditor,
 } from "../util/setSelectionsAndFocusEditor";
 import {
   ensureSingleEditor,
+  ensureSingleTarget,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -19,6 +21,7 @@ export interface CommandOptions {
   commandArgs?: any[];
   restoreSelection?: boolean;
   ensureSingleEditor?: boolean;
+  ensureSingleTarget?: boolean;
   showDecorations?: boolean;
 }
 
@@ -26,6 +29,7 @@ const defaultOptions: CommandOptions = {
   commandArgs: [],
   restoreSelection: true,
   ensureSingleEditor: false,
+  ensureSingleTarget: false,
   showDecorations: false,
 };
 
@@ -36,18 +40,23 @@ export default class CommandAction implements Action {
 
   private async runCommandAndUpdateSelections(
     targets: Target[],
-    options: Required<CommandOptions>
-  ) {
+    options: Required<CommandOptions>,
+  ): Promise<Target[]> {
     return flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const originalSelections = editor.selections;
+        const originalEditorVersion = editor.document.version;
 
         const targetSelections = targets.map(
-          (target) => target.contentSelection
+          (target) => target.contentSelection,
         );
 
         // For command to the work we have to have the correct editor focused
-        await setSelectionsAndFocusEditor(editor, targetSelections, false);
+        await setSelectionsAndFocusEditor(
+          ide().getEditableTextEditor(editor),
+          targetSelections,
+          false,
+        );
 
         const [updatedOriginalSelections, updatedTargetSelections] =
           await callFunctionAndUpdateSelections(
@@ -55,7 +64,7 @@ export default class CommandAction implements Action {
             () =>
               commands.executeCommand(options.command, ...options.commandArgs),
             editor.document,
-            [originalSelections, targetSelections]
+            [originalSelections, targetSelections],
           );
 
         // Reset original selections
@@ -64,26 +73,36 @@ export default class CommandAction implements Action {
           // very end.  This code can run on multiple editors in the course of
           // one command, so we want to avoid focusing the editor multiple
           // times.
-          setSelectionsWithoutFocusingEditor(editor, updatedOriginalSelections);
+          setSelectionsWithoutFocusingEditor(
+            ide().getEditableTextEditor(editor),
+            updatedOriginalSelections,
+          );
         }
 
-        return updatedTargetSelections.map((selection) => ({
-          editor,
-          selection,
-        }));
-      })
+        // If the document hasn't changed then we just return the original targets
+        // so that we preserve their rich types, but if it has changed then we
+        // just downgrade them to untyped targets
+        return editor.document.version === originalEditorVersion
+          ? targets
+          : updatedTargetSelections.map((selection) =>
+              selectionToThatTarget({
+                editor,
+                selection,
+              }),
+            );
+      }),
     );
   }
 
   async run(
     [targets]: [Target[]],
-    options: CommandOptions = {}
+    options: CommandOptions = {},
   ): Promise<ActionReturnValue> {
     const partialOptions = Object.assign(
       {},
       defaultOptions,
       this.options,
-      options
+      options,
     );
 
     if (partialOptions.command == null) {
@@ -95,7 +114,7 @@ export default class CommandAction implements Action {
     if (actualOptions.showDecorations) {
       await this.graph.editStyles.displayPendingEditDecorations(
         targets,
-        this.graph.editStyles.referenced
+        this.graph.editStyles.referenced,
       );
     }
 
@@ -103,25 +122,29 @@ export default class CommandAction implements Action {
       ensureSingleEditor(targets);
     }
 
-    const originalEditor = window.activeTextEditor;
+    if (actualOptions.ensureSingleTarget) {
+      ensureSingleTarget(targets);
+    }
 
-    const thatMark = await this.runCommandAndUpdateSelections(
+    const originalEditor = ide().activeEditableTextEditor;
+
+    const thatTargets = await this.runCommandAndUpdateSelections(
       targets,
-      actualOptions
+      actualOptions,
     );
 
     // If necessary focus back original editor
     if (
       actualOptions.restoreSelection &&
       originalEditor != null &&
-      originalEditor !== window.activeTextEditor
+      !originalEditor.isActive
     ) {
       // NB: We just do one editor focus at the end, instead of using
       // setSelectionsAndFocusEditor because the command might operate on
       // multiple editors, so we just do one focus at the end.
-      await focusEditor(originalEditor);
+      await originalEditor.focus();
     }
 
-    return { thatMark };
+    return { thatTargets };
   }
 }

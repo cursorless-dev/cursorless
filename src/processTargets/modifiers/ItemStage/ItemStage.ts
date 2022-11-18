@@ -1,4 +1,4 @@
-import { Range, TextEditor } from "vscode";
+import { Range, TextEditor } from "@cursorless/common";
 import { NoContainingScopeError } from "../../../errors";
 import { Target } from "../../../typings/target.types";
 import {
@@ -24,7 +24,7 @@ export default class ItemStage implements ModifierStage {
     // First try the language specific implementation of item
     try {
       return new ContainingSyntaxScopeStage(
-        this.modifier as SimpleContainingScopeModifier
+        this.modifier as SimpleContainingScopeModifier,
       ).run(context, target);
     } catch (_error) {
       // do nothing
@@ -40,17 +40,17 @@ export default class ItemStage implements ModifierStage {
   private getEveryTarget(context: ProcessedTargetsContext, target: Target) {
     const itemInfos = getItemInfosForIterationScope(context, target);
 
-    // If weak expand to all items in iteration scope
-    const filteredItemInfos = target.isWeak
-      ? itemInfos
-      : filterItemInfos(target, itemInfos);
+    // If target has explicit range filter to items in that range. Otherwise expand to all items in iteration scope.
+    const filteredItemInfos = target.hasExplicitRange
+      ? filterItemInfos(target, itemInfos)
+      : itemInfos;
 
     if (filteredItemInfos.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
     return filteredItemInfos.map((itemInfo) =>
-      this.itemInfoToTarget(target, itemInfo)
+      this.itemInfoToTarget(target, itemInfo),
     );
   }
 
@@ -89,13 +89,13 @@ export default class ItemStage implements ModifierStage {
   private itemInfoToTarget(
     target: Target,
     itemInfo: ItemInfo,
-    removalRange?: Range
+    removalRange?: Range,
   ) {
     const delimiter = getInsertionDelimiter(
       target.editor,
       itemInfo.leadingDelimiterRange,
       itemInfo.trailingDelimiterRange,
-      ", "
+      ", ",
     );
     return new ScopeTypeTarget({
       scopeTypeType: this.modifier.scopeType.type as SimpleScopeTypeType,
@@ -113,13 +113,13 @@ export default class ItemStage implements ModifierStage {
 /** Filter item infos by content range and domain intersection */
 function filterItemInfos(target: Target, itemInfos: ItemInfo[]): ItemInfo[] {
   return itemInfos.filter(
-    (itemInfo) => itemInfo.domain.intersection(target.contentRange) != null
+    (itemInfo) => itemInfo.domain.intersection(target.contentRange) != null,
   );
 }
 
 function getItemInfosForIterationScope(
   context: ProcessedTargetsContext,
-  target: Target
+  target: Target,
 ) {
   const { range, boundary } = getIterationScope(context, target);
   return getItemsInRange(target.editor, range, boundary);
@@ -128,7 +128,7 @@ function getItemInfosForIterationScope(
 function getItemsInRange(
   editor: TextEditor,
   interior: Range,
-  boundary?: [Range, Range]
+  boundary?: [Range, Range],
 ): ItemInfo[] {
   const tokens = tokenizeRange(editor, interior, boundary);
   const itemInfos: ItemInfo[] = [];

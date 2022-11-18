@@ -1,4 +1,5 @@
-import { Position, Range, TextEditor } from "vscode";
+import { Position, Range, TextEditor } from "@cursorless/common";
+import { NoContainingScopeError } from "../../../errors";
 import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
@@ -6,124 +7,119 @@ import {
 } from "../../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
+import { TokenTarget } from "../../targets";
 
-type RegexModifier = NonWhitespaceSequenceModifier | UrlModifier;
-
-class RegexStage implements ModifierStage {
+class RegexStageBase implements ModifierStage {
   constructor(
-    private modifier: RegexModifier,
-    private regex: RegExp,
-    private name?: string
+    private modifier: ContainingScopeModifier | EveryScopeModifier,
+    protected regex: RegExp,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): Target[] {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(target);
     }
     return [this.getSingleTarget(target)];
   }
 
-  private getEveryTarget(target: Target): ScopeTypeTarget[] {
-    const { contentRange, editor } = target;
-    const { isEmpty } = contentRange;
-    const start = isEmpty
-      ? editor.document.lineAt(contentRange.start).range.start
-      : contentRange.start;
-    const end = isEmpty
-      ? editor.document.lineAt(contentRange.end).range.end
-      : contentRange.end;
-    const targets: ScopeTypeTarget[] = [];
+  private getEveryTarget(target: Target): Target[] {
+    const { editor, contentRange } = target;
 
-    for (let i = start.line; i <= end.line; ++i) {
-      this.getMatchesForLine(editor, i).forEach((range) => {
-        // Regex match and selection intersects
-        if (
-          range.end.isAfterOrEqual(start) &&
-          range.start.isBeforeOrEqual(end)
-        ) {
-          targets.push(this.getTargetFromRange(target, range));
-        }
-      });
-    }
+    const searchRange = new Range(
+      this.expandRangeForSearch(target.editor, contentRange.start).start,
+      this.expandRangeForSearch(target.editor, contentRange.end).end,
+    );
+
+    const matches = this.getMatchesInRange(editor, searchRange);
+    const targets = (
+      target.hasExplicitRange
+        ? matches.filter((match) => match.intersection(contentRange) != null)
+        : matches
+    ).map((contentRange) =>
+      this.rangeToTarget(target.isReversed, target.editor, contentRange),
+    );
 
     if (targets.length === 0) {
-      if (targets.length === 0) {
-        throw new Error(
-          `Couldn't find containing ${this.modifier.scopeType.type}`
-        );
-      }
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
     return targets;
   }
 
-  private getSingleTarget(target: Target): ScopeTypeTarget {
-    const { editor } = target;
-    const start = this.getMatchForPos(editor, target.contentRange.start).start;
-    const end = this.getMatchForPos(editor, target.contentRange.end).end;
-    const contentRange = new Range(start, end);
-    return this.getTargetFromRange(target, contentRange);
+  private getSingleTarget(target: Target): Target {
+    const { editor, isReversed, contentRange } = target;
+
+    return this.rangeToTarget(
+      isReversed,
+      editor,
+      this.getMatchContainingPosition(editor, contentRange.start).union(
+        this.getMatchContainingPosition(editor, contentRange.end),
+      ),
+    );
   }
 
-  private getTargetFromRange(
-    target: Target,
-    contentRange: Range
-  ): ScopeTypeTarget {
-    return new ScopeTypeTarget({
-      scopeTypeType: this.modifier.scopeType.type,
-      editor: target.editor,
-      isReversed: target.isReversed,
-      contentRange,
-    });
-  }
-
-  private getMatchForPos(editor: TextEditor, position: Position) {
-    const match = this.getMatchesForLine(editor, position.line).find((range) =>
-      range.contains(position)
+  private getMatchContainingPosition(
+    editor: TextEditor,
+    position: Position,
+  ): Range {
+    const textRange = this.expandRangeForSearch(editor, position);
+    const match = this.getMatchesInRange(editor, textRange).find(
+      (contentRange) => contentRange.contains(position),
     );
     if (match == null) {
-      if (this.name) {
-        throw new Error(`Couldn't find containing ${this.name}`);
-      } else {
-        throw new Error(`Cannot find sequence defined by regex: ${this.regex}`);
-      }
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
     return match;
   }
 
-  private getMatchesForLine(editor: TextEditor, lineNum: number) {
-    const line = editor.document.lineAt(lineNum);
-    const result = [...line.text.matchAll(this.regex)].map(
+  /**
+   * Constructs a range from {@link position} within which to search for
+   * instances of {@link regex}.  By default we expand to containing line, as
+   * all our regexes today operate within a line, but deriving modifier stages
+   * can override this to properly handle multiline regexes.
+   * @param editor The editor containing {@link position}
+   * @param position The position from which to expand for searching
+   * @returns A range within which to search for instances of {@link regex}
+   */
+  protected expandRangeForSearch(
+    editor: TextEditor,
+    position: Position,
+  ): Range {
+    return editor.document.lineAt(position.line).range;
+  }
+
+  private getMatchesInRange(editor: TextEditor, range: Range): Range[] {
+    const offset = editor.document.offsetAt(range.start);
+    const text = editor.document.getText(range);
+    const result = [...text.matchAll(this.regex)].map(
       (match) =>
         new Range(
-          lineNum,
-          match.index!,
-          lineNum,
-          match.index! + match[0].length
-        )
+          editor.document.positionAt(offset + match.index!),
+          editor.document.positionAt(offset + match.index! + match[0].length),
+        ),
     );
     if (result == null) {
-      if (this.name) {
-        throw new Error(`Couldn't find containing ${this.name}`);
-      } else {
-        throw new Error(`Cannot find sequence defined by regex: ${this.regex}`);
-      }
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
     return result;
   }
+
+  private rangeToTarget(
+    isReversed: boolean,
+    editor: TextEditor,
+    contentRange: Range,
+  ): Target {
+    return new TokenTarget({
+      editor,
+      isReversed,
+      contentRange,
+    });
+  }
 }
 
-export type NonWhitespaceSequenceModifier = (
-  | ContainingScopeModifier
-  | EveryScopeModifier
-) & {
-  scopeType: { type: "nonWhitespaceSequence" };
-};
-
-export class NonWhitespaceSequenceStage extends RegexStage {
-  constructor(modifier: NonWhitespaceSequenceModifier) {
-    super(modifier, /\S+/g, "Non whitespace sequence");
+export class NonWhitespaceSequenceStage extends RegexStageBase {
+  constructor(modifier: ContainingScopeModifier | EveryScopeModifier) {
+    super(modifier, /\S+/g);
   }
 }
 
@@ -131,12 +127,32 @@ export class NonWhitespaceSequenceStage extends RegexStage {
 const URL_REGEX =
   /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g;
 
-export type UrlModifier = (ContainingScopeModifier | EveryScopeModifier) & {
-  scopeType: { type: "url" };
+export class UrlStage extends RegexStageBase {
+  constructor(modifier: ContainingScopeModifier | EveryScopeModifier) {
+    super(modifier, URL_REGEX);
+  }
+}
+
+export type CustomRegexModifier = (
+  | ContainingScopeModifier
+  | EveryScopeModifier
+) & {
+  scopeType: { type: "customRegex" };
 };
 
-export class UrlStage extends RegexStage {
-  constructor(modifier: UrlModifier) {
-    super(modifier, URL_REGEX, "URL");
+export class CustomRegexStage extends RegexStageBase {
+  constructor(modifier: CustomRegexModifier) {
+    super(modifier, new RegExp(modifier.scopeType.regex, "gu"));
+  }
+
+  run(context: ProcessedTargetsContext, target: Target): Target[] {
+    try {
+      return super.run(context, target);
+    } catch (error) {
+      if (error instanceof NoContainingScopeError) {
+        throw Error(`Couldn't find custom regex: ${this.regex}`);
+      }
+      throw error;
+    }
   }
 }

@@ -1,7 +1,6 @@
-import { env, Uri, window } from "vscode";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { getLinkForTarget } from "../util/getLinks";
 import { createThatMark, ensureSingleTarget } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -15,36 +14,23 @@ export default class FollowLink implements Action {
 
     await this.graph.editStyles.displayPendingEditDecorations(
       targets,
-      this.graph.editStyles.referenced
+      this.graph.editStyles.referenced,
     );
 
-    const link = await getLinkForTarget(target);
-    if (link) {
-      await this.openUri(link.target!);
-    } else {
+    const openedLink = await ide()
+      .getEditableTextEditor(target.editor)
+      .openLink(target.contentRange);
+
+    if (!openedLink) {
       await this.graph.actions.executeCommand.run(
         [targets],
         "editor.action.revealDefinition",
-        { restoreSelection: false }
+        { restoreSelection: false },
       );
     }
 
     return {
-      thatMark: createThatMark(targets),
+      thatSelections: createThatMark(targets),
     };
-  }
-
-  private async openUri(uri: Uri) {
-    switch (uri.scheme) {
-      case "http":
-      case "https":
-        await env.openExternal(uri);
-        break;
-      case "file":
-        await window.showTextDocument(uri);
-        break;
-      default:
-        throw Error(`Unknown uri scheme '${uri.scheme}'`);
-    }
   }
 }

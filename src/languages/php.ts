@@ -1,11 +1,11 @@
-import { Selection, TextEditor } from "vscode";
+import { Selection, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
+import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import {
   NodeMatcherAlternative,
   SelectionWithContext,
   SelectionWithEditor,
 } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,
@@ -82,7 +82,7 @@ const assignmentOperators = [
  */
 function castTypeExtractor(
   editor: TextEditor,
-  node: SyntaxNode
+  node: SyntaxNode,
 ): SelectionWithContext {
   const range = getNodeRange(node);
   const contentRange = range;
@@ -115,7 +115,7 @@ const nodeMatchers: Partial<
   string: "string",
   type: cascadingMatcher(
     trailingMatcher(["~cast_expression[type]"]),
-    matcher(patternFinder("cast_expression[type]"), castTypeExtractor)
+    matcher(patternFinder("cast_expression[type]"), castTypeExtractor),
   ),
 
   namedFunction: trailingMatcher(
@@ -124,7 +124,7 @@ const nodeMatchers: Partial<
       "assignment_expression.anonymous_function_creation_expression",
       "assignment_expression.arrow_function",
     ],
-    [";"]
+    [";"],
   ),
   anonymousFunction: [
     "anonymous_function_creation_expression",
@@ -141,7 +141,7 @@ const nodeMatchers: Partial<
       "return_statement[0]",
       "yield_expression[0]",
     ],
-    assignmentOperators.concat(["=>"])
+    assignmentOperators.concat(["=>"]),
   ),
 
   collectionKey: trailingMatcher(["array_element_initializer[0]"], ["=>"]),
@@ -152,7 +152,7 @@ export default createPatternMatchers(nodeMatchers);
 
 export function stringTextFragmentExtractor(
   node: SyntaxNode,
-  _selection: SelectionWithEditor
+  _selection: SelectionWithEditor,
 ) {
   if (node.type === "string") {
     return getNodeRange(node);

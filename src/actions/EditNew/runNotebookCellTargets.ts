@@ -1,4 +1,5 @@
-import { commands, Selection } from "vscode";
+import { Selection } from "@cursorless/common";
+import { commands } from "vscode";
 import { NotebookCellPositionTarget } from "../../processTargets/targets";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
@@ -7,7 +8,7 @@ import { ActionReturnValue } from "../actions.types";
 
 export async function runNotebookCellTargets(
   graph: Graph,
-  targets: Target[]
+  targets: Target[],
 ): Promise<ActionReturnValue> {
   // Can only run on one target because otherwise we'd end up with cursors in
   // multiple cells, which is unsupported in VSCode
@@ -20,10 +21,10 @@ export async function runNotebookCellTargets(
   // Inserting a new jupyter cell above pushes the previous one down two lines
   if (command === "jupyter.insertCellAbove") {
     thatMark[0].selection = new Selection(
-      thatMark[0].selection.anchor.translate({ lineDelta: 2 }),
-      thatMark[0].selection.active.translate({ lineDelta: 2 })
+      thatMark[0].selection.anchor.translate(2, undefined),
+      thatMark[0].selection.active.translate(2, undefined),
     );
   }
 
-  return { thatMark };
+  return { thatSelections: thatMark };
 }

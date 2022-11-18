@@ -1,6 +1,6 @@
 import { commands } from "vscode";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import ModifyIfWeakStage from "../processTargets/modifiers/ModifyIfWeakStage";
+import ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfUntypedStage";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import {
@@ -28,8 +28,8 @@ export default class WrapWithSnippet implements Action {
     }
 
     return [
-      new ModifyIfWeakStage({
-        type: "modifyIfWeak",
+      new ModifyIfUntypedStage({
+        type: "modifyIfUntyped",
         modifier: {
           type: "containingScope",
           scopeType: {
@@ -46,7 +46,7 @@ export default class WrapWithSnippet implements Action {
 
   async run(
     [targets]: [Target[]],
-    snippetLocation: string
+    snippetLocation: string,
   ): Promise<ActionReturnValue> {
     const [snippetName, placeholderName] =
       parseSnippetLocation(snippetLocation);
@@ -57,7 +57,7 @@ export default class WrapWithSnippet implements Action {
 
     const definition = findMatchingSnippetDefinitionStrict(
       targets,
-      snippet.definitions
+      snippet.definitions,
     );
 
     const parsedSnippet = this.snippetParser.parse(definition.body.join("\n"));
@@ -68,7 +68,7 @@ export default class WrapWithSnippet implements Action {
 
     await this.graph.editStyles.displayPendingEditDecorations(
       targets,
-      this.graph.editStyles.pendingModification0
+      this.graph.editStyles.pendingModification0,
     );
 
     const targetSelections = targets.map((target) => target.contentSelection);
@@ -84,11 +84,11 @@ export default class WrapWithSnippet implements Action {
           snippet: snippetString,
         }),
       editor.document,
-      [targetSelections]
+      [targetSelections],
     );
 
     return {
-      thatMark: updatedTargetSelections.map((selection) => ({
+      thatSelections: updatedTargetSelections.map((selection) => ({
         editor,
         selection,
       })),

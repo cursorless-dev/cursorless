@@ -8,14 +8,25 @@ function makeGetter<GraphType, K extends keyof GraphType>(
   graph: GraphType,
   components: Partial<GraphType>,
   factoryMap: FactoryMap<GraphType>,
-  key: K
+  lockedKeys: K[],
+  key: K,
 ): () => GraphType[K] {
   return () => {
     let returnValue: GraphType[K];
 
     if (components[key] == null) {
+      if (lockedKeys.includes(key)) {
+        const cycle = [...lockedKeys.slice(lockedKeys.indexOf(key)), key].join(
+          " -> ",
+        );
+        throw new Error(`Dependency injection graph cycle detected: ${cycle}`);
+      }
       const factory = factoryMap[key] as (graph: GraphType) => GraphType[K];
+      lockedKeys.push(key);
       returnValue = factory(graph);
+      if (lockedKeys.pop() !== key) {
+        throw new Error("Unexpected key at top of graph stack");
+      }
       components[key] = returnValue;
     } else {
       returnValue = components[key] as GraphType[K];
@@ -26,10 +37,11 @@ function makeGetter<GraphType, K extends keyof GraphType>(
 }
 
 export default function makeGraph<GraphType extends object>(
-  factoryMap: FactoryMap<GraphType>
+  factoryMap: FactoryMap<GraphType>,
 ) {
   const components: Partial<GraphType> = {};
   const graph: Partial<GraphType> = {};
+  const lockedKeys: (keyof GraphType)[] = [];
 
   Object.keys(factoryMap).forEach((key: keyof GraphType | PropertyKey) => {
     Object.defineProperty(graph, key, {
@@ -37,10 +49,11 @@ export default function makeGraph<GraphType extends object>(
         graph as GraphType,
         components,
         factoryMap,
-        key as keyof GraphType
+        lockedKeys,
+        key as keyof GraphType,
       ),
 
-      // NB: If we're testing, we make property mutable to allow mocking
+      // NB: We allow mutable keys for spying
       configurable: isTesting(),
     });
   });

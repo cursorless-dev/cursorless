@@ -20,15 +20,16 @@ import markdown from "./markdown";
 import scala from "./scala";
 import { patternMatchers as scss } from "./scss";
 import go from "./go";
+import latex from "./latex";
 import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 import { UnsupportedLanguageError } from "../errors";
-import { SupportedLanguageId } from "./constants";
+import { SupportedLanguageId } from "../libs/cursorless-engine/languages/constants";
 
 export function getNodeMatcher(
   languageId: string,
   scopeTypeType: SimpleScopeTypeType,
-  includeSiblings: boolean
+  includeSiblings: boolean,
 ): NodeMatcher {
   const matchers = languageMatchers[languageId as SupportedLanguageId];
 
@@ -65,6 +66,7 @@ const languageMatchers: Record<
   javascriptreact: typescript,
   json,
   jsonc: json,
+  latex,
   markdown,
   php,
   python,
@@ -80,7 +82,7 @@ const languageMatchers: Record<
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
   return (
     selection: SelectionWithEditor,
-    node: SyntaxNode
+    node: SyntaxNode,
   ): NodeMatcherValue[] | null => {
     let matches = matcher(selection, node);
     if (matches == null) {
@@ -90,8 +92,8 @@ function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
       iterateNearestIterableAncestor(
         match.node,
         selectionWithEditorFromRange(selection, match.selection.selection),
-        matcher
-      )
+        matcher,
+      ),
     ) as NodeMatcherValue[];
     if (matches.length > 0) {
       return matches;
@@ -103,7 +105,7 @@ function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
 function iterateNearestIterableAncestor(
   node: SyntaxNode,
   selection: SelectionWithEditor,
-  nodeMatcher: NodeMatcher
+  nodeMatcher: NodeMatcher,
 ) {
   let parent: SyntaxNode | null = node.parent;
   while (parent != null) {

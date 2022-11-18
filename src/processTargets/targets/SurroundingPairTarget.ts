@@ -1,4 +1,4 @@
-import { Range } from "vscode";
+import { Range } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
@@ -63,7 +63,7 @@ export default class SurroundingPairTarget extends BaseTarget {
           editor: this.editor,
           isReversed: this.isReversed,
           contentRange,
-        })
+        }),
     );
   }
 

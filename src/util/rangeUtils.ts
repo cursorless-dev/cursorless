@@ -1,4 +1,4 @@
-import { Position, Range, TextEditor } from "vscode";
+import { Position, Range, TextEditor } from "@cursorless/common";
 
 export function isAtEndOfLine(editor: TextEditor, position: Position) {
   const endLine = editor.document.lineAt(position);
@@ -21,12 +21,8 @@ export function isAtStartOfLine(position: Position) {
 export function expandToFullLine(editor: TextEditor, range: Range) {
   return new Range(
     new Position(range.start.line, 0),
-    editor.document.lineAt(range.end).range.end
+    editor.document.lineAt(range.end).range.end,
   );
-}
-
-export function makeEmptyRange(position: Position) {
-  return new Range(position, position);
 }
 
 export function getRangeLength(editor: TextEditor, range: Range) {
@@ -34,4 +30,26 @@ export function getRangeLength(editor: TextEditor, range: Range) {
     ? 0
     : editor.document.offsetAt(range.end) -
         editor.document.offsetAt(range.start);
+}
+
+/**
+ * Returns
+ *
+ * ```
+ * range1.start < range2.start && range1.end > range2.end
+ * ```
+ * @param range1 One of the ranges to compare
+ * @param rangeOrPosition The other range or position to compare
+ * @returns A boolean indicating whether {@link range1} completely contains
+ * {@link rangeOrPosition} without it touching either boundary
+ */
+export function strictlyContains(
+  range1: Range,
+  rangeOrPosition: Range | Position,
+): boolean {
+  const [start, end] =
+    rangeOrPosition instanceof Position
+      ? [rangeOrPosition, rangeOrPosition]
+      : [rangeOrPosition.start, rangeOrPosition.end];
+  return range1.start.isBefore(start) && range1.end.isAfter(end);
 }

@@ -1,5 +1,8 @@
 import { invariant } from "immutability-helper";
-import { leftAnchored, rightAnchored } from "../../util/regex";
+import {
+  leftAnchored,
+  rightAnchored,
+} from "../../libs/cursorless-engine/util/regex";
 import {
   ChangeEventInfo,
   FullRangeInfo,
@@ -33,7 +36,7 @@ import {
  */
 export default function getOffsetsForEmptyRangeInsert(
   changeEventInfo: ChangeEventInfo,
-  rangeInfo: FullRangeInfo
+  rangeInfo: FullRangeInfo,
 ): RangeOffsets {
   const {
     event: { text, isReplace },
@@ -44,7 +47,7 @@ export default function getOffsetsForEmptyRangeInsert(
     start === changeEventInfo.originalOffsets.end &&
       start === rangeInfo.offsets.start &&
       start === rangeInfo.offsets.end,
-    () => "Selection range and change range expected to be same empty range"
+    () => "Selection range and change range expected to be same empty range",
   );
 
   if (isReplace) {

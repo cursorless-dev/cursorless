@@ -14,13 +14,13 @@ export class FindInFiles implements Action {
 
     const {
       returnValue: [query],
-      thatMark,
+      thatTargets,
     } = await this.graph.actions.getText.run([targets]);
 
     await commands.executeCommand("workbench.action.findInFiles", {
       query,
     });
 
-    return { thatMark };
+    return { thatTargets };
   }
 }

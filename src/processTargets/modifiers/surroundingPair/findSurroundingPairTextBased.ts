@@ -1,12 +1,11 @@
+import { Range, TextDocument, TextEditor } from "@cursorless/common";
 import { escapeRegExp, findLast, uniq } from "lodash";
-import { Range, TextDocument, TextEditor } from "vscode";
+import { matchAll } from "../../../libs/cursorless-engine/util/regex";
 import {
   SimpleSurroundingPairName,
   SurroundingPairName,
   SurroundingPairScopeType,
 } from "../../../typings/targetDescriptor.types";
-import { getDocumentRange } from "../../../util/range";
-import { matchAll } from "../../../util/regex";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
@@ -70,10 +69,10 @@ export function findSurroundingPairTextBased(
   range: Range,
   allowableRange: Range | null,
   delimiters: SimpleSurroundingPairName[],
-  scopeType: SurroundingPairScopeType
+  scopeType: SurroundingPairScopeType,
 ) {
   const document: TextDocument = editor.document;
-  const fullRange = allowableRange ?? getDocumentRange(document);
+  const fullRange = allowableRange ?? document.range;
 
   const individualDelimiters = getIndividualDelimiters(delimiters);
 
@@ -81,7 +80,7 @@ export function findSurroundingPairTextBased(
     individualDelimiters.map((individualDelimiter) => [
       individualDelimiter.text,
       individualDelimiter,
-    ])
+    ]),
   );
 
   /**
@@ -124,17 +123,17 @@ export function findSurroundingPairTextBased(
     const currentRangeOffsets = {
       start: Math.max(
         fullRangeOffsets.start,
-        selectionOffsets.end - scanLength / 2
+        selectionOffsets.end - scanLength / 2,
       ),
       end: Math.min(
         fullRangeOffsets.end,
-        selectionOffsets.end + scanLength / 2
+        selectionOffsets.end + scanLength / 2,
       ),
     };
 
     const currentRange = new Range(
       document.positionAt(currentRangeOffsets.start),
-      document.positionAt(currentRangeOffsets.end)
+      document.positionAt(currentRangeOffsets.end),
     );
 
     // Just bail early if the range doesn't completely contain our selection as
@@ -157,7 +156,7 @@ export function findSurroundingPairTextBased(
       document.getText(currentRange),
       adjustedSelectionOffsets,
       currentRangeOffsets.start === fullRangeOffsets.start,
-      currentRangeOffsets.end === fullRangeOffsets.end
+      currentRangeOffsets.end === fullRangeOffsets.end,
     );
 
     if (pairOffsets != null) {
@@ -165,7 +164,7 @@ export function findSurroundingPairTextBased(
       return extractSelectionFromSurroundingPairOffsets(
         document,
         currentRangeOffsets.start,
-        pairOffsets
+        pairOffsets,
       );
     }
 
@@ -183,7 +182,7 @@ function getDelimiterRegex(individualDelimiters: IndividualDelimiter[]) {
   // Create a regex which is a disjunction of all possible left / right
   // delimiter texts
   const individualDelimiterDisjunct = uniq(
-    individualDelimiters.map(({ text }) => text)
+    individualDelimiters.map(({ text }) => text),
   )
     .map(escapeRegExp)
     .join("|");
@@ -226,7 +225,7 @@ function getDelimiterPairOffsets(
   text: string,
   selectionOffsets: Offsets,
   isAtStartOfFullRange: boolean,
-  isAtEndOfFullRange: boolean
+  isAtEndOfFullRange: boolean,
 ): SurroundingPairOffsets | null {
   const {
     scopeType,
@@ -274,7 +273,7 @@ function getDelimiterPairOffsets(
                   delimiterOccurrences,
                   index,
                   rawDelimiterInfo?.delimiter,
-                  startOffset
+                  startOffset,
                 )
               : rawDelimiterInfo.side;
 
@@ -286,7 +285,7 @@ function getDelimiterPairOffsets(
           return delimiterInfo;
         },
       };
-    }
+    },
   );
 
   // Then just run core algorithm
@@ -295,7 +294,7 @@ function getDelimiterPairOffsets(
     delimiterOccurrences,
     delimiters,
     selectionOffsets,
-    !isAtStartOfFullRange || !isAtEndOfFullRange
+    !isAtStartOfFullRange || !isAtEndOfFullRange,
   );
 
   // If we're not at the start of the full range, or we're not at the end of the
@@ -346,7 +345,7 @@ function inferDelimiterSide(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   index: number,
   delimiter: SurroundingPairName,
-  occurrenceStartOffset: number
+  occurrenceStartOffset: number,
 ) {
   const previousOccurrence =
     index === 0
@@ -355,7 +354,7 @@ function inferDelimiterSide(
           delimiterOccurrences,
           (delimiterOccurrence) =>
             delimiterOccurrence.delimiterInfo?.delimiter === delimiter,
-          index - 1
+          index - 1,
         );
 
   if (

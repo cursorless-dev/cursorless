@@ -35,10 +35,4 @@ finalState:
     default..:
       start: {line: 0, character: 1}
       end: {line: 0, character: 2}
-  thatMark:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 7}
-  sourceMark:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 15}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, selectionType: token, position: after, insideOutsideType: inside, modifier: {type: identity}}]

@@ -1,6 +1,6 @@
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { createThatMark, ensureSingleTarget } from "../util/targetUtils";
+import { ensureSingleTarget } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class GetText implements Action {
@@ -13,12 +13,12 @@ export default class GetText implements Action {
     {
       showDecorations = true,
       ensureSingleTarget: doEnsureSingleTarget = false,
-    } = {}
+    } = {},
   ): Promise<ActionReturnValue> {
     if (showDecorations) {
       await this.graph.editStyles.displayPendingEditDecorations(
         targets,
-        this.graph.editStyles.referenced
+        this.graph.editStyles.referenced,
       );
     }
 
@@ -28,7 +28,7 @@ export default class GetText implements Action {
 
     return {
       returnValue: targets.map((target) => target.contentText),
-      thatMark: createThatMark(targets),
+      thatTargets: targets,
     };
   }
 }

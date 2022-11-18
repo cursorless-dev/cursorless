@@ -1,0 +1,60 @@
+{
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/cursorless-org",
+	"projectType": "application",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/next:build",
+			"outputs": ["{options.outputPath}"],
+			"defaultConfiguration": "production",
+			"options": {
+				"root": "apps/cursorless-org",
+				"outputPath": "dist/apps/cursorless-org"
+			},
+			"configurations": {
+				"development": {},
+				"production": {}
+			}
+		},
+		"serve": {
+			"executor": "@nrwl/next:server",
+			"defaultConfiguration": "development",
+			"options": {
+				"buildTarget": "cursorless-org:build",
+				"dev": true
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "cursorless-org:build:development",
+					"dev": true
+				},
+				"production": {
+					"buildTarget": "cursorless-org:build:production",
+					"dev": false
+				}
+			}
+		},
+		"export": {
+			"executor": "@nrwl/next:export",
+			"options": {
+				"buildTarget": "cursorless-org:build:production"
+			}
+		},
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"outputs": ["coverage/apps/cursorless-org"],
+			"options": {
+				"jestConfig": "apps/cursorless-org/jest.config.ts",
+				"passWithNoTests": true
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["apps/cursorless-org/**/*.{ts,tsx,js,jsx}"]
+			}
+		}
+	},
+	"tags": []
+}

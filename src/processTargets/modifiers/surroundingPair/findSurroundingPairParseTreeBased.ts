@@ -1,4 +1,4 @@
-import { Range, TextDocument, TextEditor } from "vscode";
+import { Range, TextDocument, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import {
   SimpleSurroundingPairName,
@@ -62,7 +62,7 @@ export function findSurroundingPairParseTreeBased(
   selection: Range,
   node: SyntaxNode,
   delimiters: SimpleSurroundingPairName[],
-  scopeType: SurroundingPairScopeType
+  scopeType: SurroundingPairScopeType,
 ) {
   const document: TextDocument = editor.document;
 
@@ -72,7 +72,7 @@ export function findSurroundingPairParseTreeBased(
     individualDelimiters.map((individualDelimiter) => [
       individualDelimiter.text,
       individualDelimiter,
-    ])
+    ]),
   );
 
   const selectionOffsets = {
@@ -107,7 +107,7 @@ export function findSurroundingPairParseTreeBased(
     // Here we apply the core algorithm
     const pairOffsets = findSurroundingPairContainedInNode(
       context,
-      currentNode
+      currentNode,
     );
 
     // And then perform postprocessing
@@ -115,7 +115,7 @@ export function findSurroundingPairParseTreeBased(
       return extractSelectionFromSurroundingPairOffsets(
         document,
         0,
-        pairOffsets
+        pairOffsets,
       );
     }
   }
@@ -163,7 +163,7 @@ interface Context {
  */
 function findSurroundingPairContainedInNode(
   context: Context,
-  node: SyntaxNode
+  node: SyntaxNode,
 ) {
   const {
     delimiterTextToDelimiterInfoMap,
@@ -238,7 +238,7 @@ function findSurroundingPairContainedInNode(
     // delimiter within our list. We do so because it's possible that the
     // adjacent delimiter's opposite might be found when we run again on a
     // parent node later.
-    node.parent != null
+    node.parent != null,
   );
 }
 

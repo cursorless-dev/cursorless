@@ -24,6 +24,10 @@ finalState:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
   thatMark:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 2}
+        end: {line: 0, character: 2}
+      isReversed: false
+      hasExplicitRange: false
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]

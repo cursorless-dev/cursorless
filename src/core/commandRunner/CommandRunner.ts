@@ -1,15 +1,26 @@
 import * as vscode from "vscode";
 import { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
+import { CURSORLESS_COMMAND_ID } from "../../libs/common/commandIds";
+import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import processTargets from "../../processTargets";
 import isTesting from "../../testUtil/isTesting";
-import { Graph, ProcessedTargetsContext } from "../../typings/Types";
+import { Target } from "../../typings/target.types";
+import {
+  Graph,
+  ProcessedTargetsContext,
+  SelectionWithEditor,
+} from "../../typings/Types";
 import { isString } from "../../util/type";
-import { canonicalizeAndValidateCommand } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
+import {
+  canonicalizeAndValidateCommand,
+  checkForOldInference,
+} from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
 import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
 import { Command } from "./command.types";
+import { selectionToThatTarget } from "./selectionToThatTarget";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
@@ -18,18 +29,18 @@ export default class CommandRunner {
   constructor(
     private graph: Graph,
     private thatMark: ThatMark,
-    private sourceMark: ThatMark
+    private sourceMark: ThatMark,
   ) {
-    graph.extensionContext.subscriptions.push(this);
+    ide().disposeOnExit(this);
 
     this.runCommandBackwardCompatible =
       this.runCommandBackwardCompatible.bind(this);
 
     this.disposables.push(
       vscode.commands.registerCommand(
-        "cursorless.command",
-        this.runCommandBackwardCompatible
-      )
+        CURSORLESS_COMMAND_ID,
+        this.runCommandBackwardCompatible,
+      ),
     );
   }
 
@@ -72,7 +83,7 @@ export default class CommandRunner {
       } = commandComplete;
 
       const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
-        usePrePhraseSnapshot
+        usePrePhraseSnapshot,
       );
 
       const action = this.graph.actions[actionName];
@@ -102,11 +113,11 @@ export default class CommandRunner {
         actionPrePositionStages,
         actionFinalStages,
         currentSelections:
-          vscode.window.activeTextEditor?.selections.map((selection) => ({
+          ide().activeTextEditor?.selections.map((selection) => ({
             selection,
-            editor: vscode.window.activeTextEditor!,
+            editor: ide().activeTextEditor!,
           })) ?? [],
-        currentEditor: vscode.window.activeTextEditor,
+        currentEditor: ide().activeTextEditor,
         hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],
@@ -125,23 +136,31 @@ export default class CommandRunner {
         };
         await this.graph.testCaseRecorder.preCommandHook(
           commandComplete,
-          context
+          context,
         );
       }
 
+      // NB: We do this once test recording has started so that we can capture
+      // warning.
+      checkForOldInference(this.graph, partialTargetDescriptors);
+
       const targets = processTargets(
         processedTargetsContext,
-        targetDescriptors
+        targetDescriptors,
       );
 
       const {
         returnValue,
-        thatMark: newThatMark,
-        sourceMark: newSourceMark,
+        thatSelections: newThatSelections,
+        thatTargets: newThatTargets,
+        sourceSelections: newSourceSelections,
+        sourceTargets: newSourceTargets,
       } = await action.run(targets, ...actionArgs);
 
-      this.thatMark.set(newThatMark);
-      this.sourceMark.set(newSourceMark);
+      this.thatMark.set(constructThatTarget(newThatTargets, newThatSelections));
+      this.sourceMark.set(
+        constructThatTarget(newSourceTargets, newSourceSelections),
+      );
 
       if (this.graph.testCaseRecorder.isActive()) {
         await this.graph.testCaseRecorder.postCommandHook(returnValue);
@@ -159,13 +178,17 @@ export default class CommandRunner {
       console.error(err.message);
       console.error(err.stack);
       throw err;
+    } finally {
+      if (this.graph.testCaseRecorder.isActive()) {
+        this.graph.testCaseRecorder.finallyHook();
+      }
     }
   }
 
   async showUpdateExtensionErrorMessage(err: OutdatedExtensionError) {
     const item = await vscode.window.showErrorMessage(
       err.message,
-      "Check for updates"
+      "Check for updates",
     );
 
     if (item == null) {
@@ -173,7 +196,7 @@ export default class CommandRunner {
     }
 
     await vscode.commands.executeCommand(
-      "workbench.extensions.action.checkForUpdates"
+      "workbench.extensions.action.checkForUpdates",
     );
   }
 
@@ -188,7 +211,7 @@ export default class CommandRunner {
       const [action, targets, ...extraArgs] = rest as [
         ActionType,
         PartialTargetV0V1[],
-        ...unknown[]
+        ...unknown[],
       ];
 
       command = {
@@ -208,5 +231,22 @@ export default class CommandRunner {
 
   dispose() {
     this.disposables.forEach(({ dispose }) => dispose());
+  }
+}
+
+function constructThatTarget(
+  targets: Target[] | undefined,
+  selections: SelectionWithEditor[] | undefined,
+) {
+  if (targets != null && selections != null) {
+    throw Error(
+      "Actions may only return full targets or selections for that mark",
+    );
+  }
+
+  if (selections != null) {
+    return selections.map(selectionToThatTarget);
+  } else {
+    return targets;
   }
 }

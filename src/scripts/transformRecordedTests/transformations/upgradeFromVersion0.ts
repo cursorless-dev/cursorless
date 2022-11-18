@@ -1,4 +1,4 @@
-import { TestCaseFixture } from "../../../testUtil/TestCase";
+import { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
 import { transformPartialPrimitiveTargets } from "../../../util/getPrimitiveTargets";
 import { PartialPrimitiveTargetDescriptor } from "../../../typings/targetDescriptor.types";
 
@@ -21,7 +21,7 @@ export function upgradeFromVersion0(fixture: TestCaseFixture) {
         (target.mark as any).usePrePhraseSnapshot = undefined;
       }
       return target;
-    }
+    },
   );
 
   return {

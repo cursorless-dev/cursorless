@@ -1,3 +1,4 @@
+import csv
 from collections.abc import Container
 from datetime import datetime
 from pathlib import Path
@@ -6,6 +7,7 @@ from typing import Optional
 from talon import Context, Module, actions, app, fs
 
 from .conventions import get_cursorless_list_name
+from .vendor.inflection import pluralize
 
 SPOKEN_FORM_HEADER = "Spoken form"
 CURSORLESS_IDENTIFIER_HEADER = "Cursorless identifier"
@@ -29,6 +31,7 @@ def init_csv_and_watch_changes(
     headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
     ctx: Context = Context(),
     no_update_file: bool = False,
+    pluralize_lists: Optional[list[str]] = [],
 ):
     """
     Initialize a cursorless settings csv, creating it if necessary, and watch
@@ -55,6 +58,7 @@ def init_csv_and_watch_changes(
         unknown values in this list
         no_update_file Optional[bool]: Set this to `TRUE` to indicate that we should
         not update the csv. This is used generally in case there was an issue coming up with the default set of values so we don't want to persist those to disk
+        pluralize_lists: Create plural version of given lists
     """
     if extra_ignored_values is None:
         extra_ignored_values = []
@@ -79,6 +83,7 @@ def init_csv_and_watch_changes(
                 extra_ignored_values,
                 allow_unknown_values,
                 default_list_name,
+                pluralize_lists,
                 ctx,
             )
 
@@ -99,6 +104,7 @@ def init_csv_and_watch_changes(
             extra_ignored_values,
             allow_unknown_values,
             default_list_name,
+            pluralize_lists,
             ctx,
         )
     else:
@@ -110,6 +116,7 @@ def init_csv_and_watch_changes(
             extra_ignored_values,
             allow_unknown_values,
             default_list_name,
+            pluralize_lists,
             ctx,
         )
 
@@ -129,6 +136,7 @@ def update_dicts(
     extra_ignored_values: list[str],
     allow_unknown_values: bool,
     default_list_name: Optional[str],
+    pluralize_lists: Optional[list[str]],
     ctx: Context,
 ):
     # Create map with all default values
@@ -172,7 +180,11 @@ def update_dicts(
 
     # Assign result to talon context list
     for list_name, dict in results.items():
-        ctx.lists[get_cursorless_list_name(list_name)] = dict
+        list_singular_name = get_cursorless_list_name(list_name)
+        ctx.lists[list_singular_name] = dict
+        if list_name in pluralize_lists:
+            list_plural_name = f"{list_singular_name}_plural"
+            ctx.lists[list_plural_name] = {pluralize(k): v for k, v in dict.items()}
 
 
 def update_file(
@@ -255,37 +267,42 @@ def read_file(
     extra_ignored_values: list[str],
     allow_unknown_values: bool,
 ):
-    with open(path) as f:
-        lines = list(f)
+    with open(path) as csv_file:
+        # Use `skipinitialspace` to allow spaces before quote. `, "a,b"`
+        csv_reader = csv.reader(csv_file, skipinitialspace=True)
+        rows = list(csv_reader)
 
     result = {}
     used_identifiers = []
     has_errors = False
     seen_headers = False
-    expected_headers = create_line(*headers)
 
-    for i, raw_line in enumerate(lines):
-        line = raw_line.strip()
-        if not line or line.startswith("#"):
+    for i, row in enumerate(rows):
+        # Remove trailing whitespaces for each cell
+        row = [x.rstrip() for x in row]
+        # Exclude empty or comment rows
+        if len(row) == 0 or (len(row) == 1 and row[0] == "") or row[0].startswith("#"):
             continue
 
         if not seen_headers:
             seen_headers = True
-            if line != expected_headers:
+            if row != headers:
                 has_errors = True
-                csv_error(path, i, "Malformed header", line)
-                print(f"Expected '{expected_headers}'")
+                csv_error(path, i, "Malformed header", create_line(*row))
+                print(f"Expected '{create_line(*headers)}'")
             continue
 
-        parts = line.split(",")
-
-        if len(parts) != len(headers):
+        if len(row) != len(headers):
             has_errors = True
-            csv_error(path, i, "Malformed csv entry", line)
+            csv_error(
+                path,
+                i,
+                f"Malformed csv entry. Expected {len(headers)} columns.",
+                create_line(*row),
+            )
             continue
 
-        key = parts[0].strip()
-        value = parts[1].strip()
+        key, value = row
 
         if (
             value not in default_identifiers

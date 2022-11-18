@@ -1,7 +1,6 @@
 import { EditStyleName } from "../core/editStyles";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { createThatMark } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Highlight implements Action {
@@ -11,7 +10,7 @@ export default class Highlight implements Action {
 
   async run(
     [targets]: [Target[]],
-    styleName: EditStyleName = "highlight0"
+    styleName: EditStyleName = "highlight0",
   ): Promise<ActionReturnValue> {
     const style = this.graph.editStyles[styleName];
 
@@ -19,7 +18,7 @@ export default class Highlight implements Action {
     await this.graph.editStyles.setDecorations(targets, style);
 
     return {
-      thatMark: createThatMark(targets),
+      thatTargets: targets,
     };
   }
 }
