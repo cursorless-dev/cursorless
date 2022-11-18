@@ -137,6 +137,7 @@ const nodeMatchers: Partial<
     argumentMatcher("parameters", "argument_list"),
     matcher(patternFinder("call.generator_expression!"), childRangeSelector()),
   ),
+  branch: "case_clause",
 };
 
 export default createPatternMatchers(nodeMatchers);

@@ -218,6 +218,7 @@ const nodeMatchers: Partial<
     matcher(returnValueFinder),
   ),
   attribute: trailingMatcher(["mutable_specifier", "attribute_item"]),
+  branch: "match_arm",
 };
 
 export default createPatternMatchers(nodeMatchers);

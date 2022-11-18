@@ -81,6 +81,7 @@ export type SimpleScopeTypeType =
   | "argumentOrParameter"
   | "anonymousFunction"
   | "attribute"
+  | "branch"
   | "class"
   | "className"
   | "collectionItem"

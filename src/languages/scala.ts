@@ -34,6 +34,7 @@ const nodeMatchers: Partial<
     "class_parameters",
     "bindings",
   ),
+  branch: "case_clause",
 
   name: ["*[name]", "*[pattern]"],
   functionName: "function_definition[name]",

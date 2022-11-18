@@ -169,6 +169,7 @@ function getDelimiter(scopeType: SimpleScopeTypeType): string {
     case "comment":
     case "xmlElement":
     case "collectionItem":
+    case "branch":
       return "\n";
 
     default:
