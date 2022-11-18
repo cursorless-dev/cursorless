@@ -1,4 +1,5 @@
 import type {
+  Capabilities,
   EditableTextEditor,
   InputBoxOptions,
   TextEditor,
@@ -27,6 +28,12 @@ export default class VscodeIDE implements IDE {
   messages: VscodeMessages;
   clipboard: VscodeClipboard;
   private editorMap;
+
+  capabilities: Capabilities = {
+    commands: {
+      toggleLineComment: { acceptsLocation: false },
+    },
+  };
 
   constructor(private extensionContext: ExtensionContext) {
     this.configuration = new VscodeConfiguration(this);
