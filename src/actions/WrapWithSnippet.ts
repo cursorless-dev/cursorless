@@ -73,13 +73,11 @@ export default class WrapWithSnippet implements Action {
 
     const targetSelections = targets.map((target) => target.contentSelection);
 
-    await this.graph.actions.setSelection.run([targets]);
-
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
     // because the latter doesn't support special variables like CLIPBOARD
     const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
       this.graph.rangeUpdater,
-      () => editor.insertSnippet(snippetString),
+      () => editor.insertSnippet(snippetString, targetSelections),
       editor.document,
       [targetSelections],
     );

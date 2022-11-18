@@ -9,7 +9,7 @@ import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocu
 import { ensureSingleEditor } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
 
-export class Paste {
+export class ClipboardPaste {
   constructor(private graph: Graph) {}
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
@@ -17,7 +17,7 @@ export class Paste {
     const originalEditor = ide().activeEditableTextEditor;
 
     // First call editNew in order to insert delimiters if necessary and leave
-    // the cursor in the right position.  Note that this action will focus the
+    // the cursor in the right position. Note that this action will focus the
     // editor containing the targets
     const [originalCursorSelections] = await callFunctionAndUpdateSelections(
       this.graph.rangeUpdater,

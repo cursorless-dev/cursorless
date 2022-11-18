@@ -6,6 +6,7 @@ import {
 } from "../../libs/common/ide/types/Capabilities";
 
 const capabilitiesCommands: CapabilitiesCommands = {
+  clipboardCopy: { acceptsLocation: false },
   toggleLineComment: { acceptsLocation: false },
   indentLine: { acceptsLocation: false },
   outdentLine: { acceptsLocation: false },

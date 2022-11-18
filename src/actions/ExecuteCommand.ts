@@ -1,7 +1,8 @@
+import { EditableTextEditor } from "../libs/common/types/TextEditor";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { Action, ActionReturnValue } from "./actions.types";
-import CallbackAction from "./CallbackAction";
+import { CallbackAction } from "./CallbackAction";
 
 interface Options {
   commandArgs?: any[];
@@ -36,10 +37,11 @@ export default class ExecuteCommand implements Action {
     const args = commandArgs ?? [];
 
     return this.callbackAction.run(targets, {
-      callback: (editor) => editor.executeCommand(command, ...args),
+      callback: (editor: EditableTextEditor) =>
+        editor.executeCommand(command, ...args),
       setSelection: true,
       ensureSingleEditor: ensureSingleEditor ?? false,
-      ensureSingleTarget: ensureSingleTarget ?? true,
+      ensureSingleTarget: ensureSingleTarget ?? false,
       restoreSelection: restoreSelection ?? true,
       showDecorations: showDecorations ?? true,
     });

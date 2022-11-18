@@ -1,9 +1,17 @@
-import { CommandId, EditableTextEditor } from "@cursorless/common";
+import {
+  CapabilitiesCommand,
+  CommandId,
+  EditableTextEditor,
+} from "@cursorless/common";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { ActionReturnValue } from "./actions.types";
-import CallbackAction from "./CallbackAction";
+import { CallbackAction } from "./CallbackAction";
+
+interface Options {
+  showDecorations?: boolean;
+}
 
 abstract class MakeshiftAction extends CallbackAction {
   abstract command: CommandId;
@@ -15,62 +23,29 @@ abstract class MakeshiftAction extends CallbackAction {
   constructor(graph: Graph) {
     super(graph);
     this.run = this.run.bind(this);
-    this.callback = this.callback.bind(this);
   }
 
-  async run(targets: [Target[]]): Promise<ActionReturnValue> {
+  async run(
+    targets: [Target[]],
+    { showDecorations }: Options = {},
+  ): Promise<ActionReturnValue> {
     const capabilities = ide().capabilities.getCommand(this.command);
 
     return super.run(targets, {
-      callback: this.callback,
+      callback: (editor, targets) =>
+        callback(editor, targets, this.command, capabilities),
       setSelection: !capabilities.acceptsLocation,
       ensureSingleEditor: this.ensureSingleEditor,
       ensureSingleTarget: this.ensureSingleTarget,
       restoreSelection: this.restoreSelection,
-      showDecorations: this.showDecorations,
+      showDecorations: showDecorations ?? this.showDecorations,
     });
   }
+}
 
-  private callback(
-    editor: EditableTextEditor,
-    targets: Target[],
-  ): Promise<void> {
-    const ranges = targets.map((t) => t.contentRange);
-
-    // Multi target actions
-    switch (this.command) {
-      case "toggleLineComment":
-        return editor.toggleLineComment(ranges);
-      case "indentLine":
-        return editor.indentLines(ranges);
-      case "outdentLine":
-        return editor.outdentLines(ranges);
-    }
-
-    const range = ranges[0];
-
-    // Single target actions
-    switch (this.command) {
-      case "rename":
-        return editor.rename(range);
-      case "showReferences":
-        return editor.showReferences(range);
-      case "quickFix":
-        return editor.quickFix(range);
-      case "revealDefinition":
-        return editor.revealDefinition(range);
-      case "revealTypeDefinition":
-        return editor.revealTypeDefinition(range);
-      case "showHover":
-        return editor.showHover(range);
-      case "showDebugHover":
-        return editor.showDebugHover(range);
-      case "extractVariable":
-        return editor.extractVariable(range);
-    }
-
-    throw Error(`Unknown command '${this.command}'`);
-  }
+export class ClipboardCopy extends MakeshiftAction {
+  command: CommandId = "clipboardCopy";
+  ensureSingleEditor = true;
 }
 
 export class ToggleLineComment extends MakeshiftAction {
@@ -128,4 +103,51 @@ export class ExtractVariable extends MakeshiftAction {
   command: CommandId = "extractVariable";
   ensureSingleTarget = true;
   restoreSelection = false;
+}
+
+function callback(
+  editor: EditableTextEditor,
+  targets: Target[],
+  command: CommandId,
+  capabilities: CapabilitiesCommand,
+): Promise<void> {
+  const ranges = capabilities.acceptsLocation
+    ? targets.map((t) => t.contentRange)
+    : undefined;
+
+  // Multi target actions
+  switch (command) {
+    case "toggleLineComment":
+      return editor.toggleLineComment(ranges);
+    case "indentLine":
+      return editor.indentLines(ranges);
+    case "outdentLine":
+      return editor.outdentLines(ranges);
+    case "clipboardCopy":
+      return editor.clipboardCopy(ranges);
+  }
+
+  const range = ranges?.[0];
+
+  // Single target actions
+  switch (command) {
+    case "rename":
+      return editor.rename(range);
+    case "showReferences":
+      return editor.showReferences(range);
+    case "quickFix":
+      return editor.quickFix(range);
+    case "revealDefinition":
+      return editor.revealDefinition(range);
+    case "revealTypeDefinition":
+      return editor.revealTypeDefinition(range);
+    case "showHover":
+      return editor.showHover(range);
+    case "showDebugHover":
+      return editor.showDebugHover(range);
+    case "extractVariable":
+      return editor.extractVariable(range);
+  }
+
+  throw Error(`Unknown command '${command}'`);
 }

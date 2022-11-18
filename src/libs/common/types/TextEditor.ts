@@ -124,100 +124,108 @@ export interface EditableTextEditor extends TextEditor {
    * @param location Position or range
    * @return True if a link was opened
    */
-  openLink(location: Position | Range): Promise<boolean>;
-
-  /**
-   * Paste clipboard content
-   */
-  clipboardPaste(): Promise<void>;
+  openLink(location?: Position | Range): Promise<boolean>;
 
   /**
    * Fold lines
    * @param lineNumbers Lines to fold
    */
-  fold(lineNumbers: number[]): Promise<void>;
+  fold(lineNumbers?: number[]): Promise<void>;
 
   /**
    * Unfold lines
    * @param lineNumbers Lines to unfold
    */
-  unfold(lineNumbers: number[]): Promise<void>;
+  unfold(lineNumbers?: number[]): Promise<void>;
 
   /**
-   * Insert snippet
-   * @param snippet A snippet string
+   * Copy to clipboard
+   * @param ranges A list of {@link Range ranges}
    */
-  insertSnippet(snippet: string): Promise<void>;
+  clipboardCopy(ranges?: Range[]): Promise<void>;
+
+  /**
+   * Paste clipboard content
+   * @param ranges A list of {@link Range ranges}
+   */
+  clipboardPaste(ranges?: Range[]): Promise<void>;
 
   /**
    * Toggle breakpoints
    * @param ranges A list of {@link Range ranges}
    */
-  toggleBreakpoint(ranges: Range[]): Promise<void>;
+  toggleBreakpoint(ranges?: Range[]): Promise<void>;
 
   /**
    * Toggle line comments
    * @param ranges A list of {@link Range ranges}
    */
-  toggleLineComment(ranges: Range[]): Promise<void>;
+  toggleLineComment(ranges?: Range[]): Promise<void>;
 
   /**
    * Indent lines
    * @param ranges A list of {@link Range ranges}
    */
-  indentLines(ranges: Range[]): Promise<void>;
+  indentLines(ranges?: Range[]): Promise<void>;
 
   /**
    * Outdent lines
    * @param ranges A list of {@link Range ranges}
    */
-  outdentLines(ranges: Range[]): Promise<void>;
+  outdentLines(ranges?: Range[]): Promise<void>;
+
+  /**
+   * Insert snippet
+   * @param snippet A snippet string
+   * @param ranges A list of {@link Range ranges}
+   */
+  insertSnippet(snippet: string, ranges?: Range[]): Promise<void>;
 
   /**
    * Rename
    * @param range A {@link Range range}
    */
-  rename(range: Range): Promise<void>;
+  rename(range?: Range): Promise<void>;
 
   /**
    * Show references
    * @param range A {@link Range range}
    */
-  showReferences(range: Range): Promise<void>;
+  showReferences(range?: Range): Promise<void>;
 
   /**
    * Show quick fixed dialogue
    * @param range A {@link Range range}
    */
-  quickFix(range: Range): Promise<void>;
+  quickFix(range?: Range): Promise<void>;
 
   /**
    * Reveal definition
    * @param range A {@link Range range}
    */
-  revealDefinition(range: Range): Promise<void>;
+  revealDefinition(range?: Range): Promise<void>;
 
   /**
    * Reveal type definition
    * @param range A {@link Range range}
    */
-  revealTypeDefinition(range: Range): Promise<void>;
+  revealTypeDefinition(range?: Range): Promise<void>;
 
   /**
    * Show hover
    * @param range A {@link Range range}
    */
-  showHover(range: Range): Promise<void>;
+  showHover(range?: Range): Promise<void>;
 
   /**
    * Show debug hover
    * @param range A {@link Range range}
    */
-  showDebugHover(range: Range): Promise<void>;
+  showDebugHover(range?: Range): Promise<void>;
 
   /**
    * Extract variable
    * @param range A {@link Range range}
    */
-  extractVariable(range: Range): Promise<void>;
+  extractVariable(range?: Range): Promise<void>;
 }

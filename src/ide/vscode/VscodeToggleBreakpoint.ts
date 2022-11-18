@@ -5,13 +5,14 @@ import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export async function vscodeToggleBreakpoint(
   editor: VscodeTextEditorImpl,
-  ranges: Range[],
+  ranges: Range[] | undefined,
 ): Promise<void> {
   const uri = editor.document.uri;
   const toAdd: vscode.Breakpoint[] = [];
   const toRemove: vscode.Breakpoint[] = [];
+  const actualRanges = ranges ?? editor.selections;
 
-  ranges.forEach((range) => {
+  actualRanges.forEach((range) => {
     const vscodeRange = toVscodeRange(range);
     const existing = getBreakpoints(uri, vscodeRange);
     if (existing.length > 0) {

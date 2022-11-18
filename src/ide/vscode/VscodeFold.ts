@@ -5,7 +5,7 @@ import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 export async function vscodeFold(
   ide: VscodeIDE,
   editor: VscodeTextEditorImpl,
-  lineNumbers: number[],
+  lineNumbers: number[] | undefined,
   isFold: boolean,
 ): Promise<void> {
   const command = isFold ? "editor.fold" : "editor.unfold";
@@ -16,10 +16,13 @@ export async function vscodeFold(
     await editor.focus();
   }
 
+  const selectionLines =
+    lineNumbers ?? editor.selections.map((selection) => selection.start.line);
+
   await vscode.commands.executeCommand(command, {
     levels: 1,
     direction: "down",
-    selectionLines: lineNumbers,
+    selectionLines,
   });
 
   // If necessary focus back original editor

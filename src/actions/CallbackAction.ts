@@ -1,5 +1,6 @@
 import { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { flatten } from "lodash";
+import { Options } from "semver";
 import { selectionToThatTarget } from "../core/commandRunner/selectionToThatTarget";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
@@ -17,7 +18,7 @@ import {
 } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
-interface Options {
+interface CallbackOptions extends Options {
   callback: (editor: EditableTextEditor, targets: Target[]) => Promise<void>;
   ensureSingleEditor: boolean;
   ensureSingleTarget: boolean;
@@ -26,14 +27,14 @@ interface Options {
   showDecorations: boolean;
 }
 
-export default class CallbackAction implements Action {
+export class CallbackAction implements Action {
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
 
   async run(
     [targets]: [Target[]],
-    options: Options,
+    options: CallbackOptions,
   ): Promise<ActionReturnValue> {
     if (options.showDecorations) {
       await this.graph.editStyles.displayPendingEditDecorations(
@@ -81,11 +82,10 @@ export default class CallbackAction implements Action {
   }
 
   private async runForEditor(
-    options: Options,
+    options: CallbackOptions,
     editor: TextEditor,
     targets: Target[],
   ): Promise<Target[]> {
-    console.log("runForEditor start");
     const editableEditor = ide().getEditableTextEditor(editor);
     const originalSelections = editor.selections;
     const originalEditorVersion = editor.document.version;
@@ -119,8 +119,6 @@ export default class CallbackAction implements Action {
         updatedOriginalSelections,
       );
     }
-
-    console.log("runForEditor return");
 
     // If the document hasn't changed then we just return the original targets
     // so that we preserve their rich types, but if it has changed then we
