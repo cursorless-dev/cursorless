@@ -46,7 +46,7 @@ const STATEMENT_TYPES = [
   "while_statement",
 ];
 
-// >  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-cpp/master/src/node-types.json | 101mtype]'
+// >  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-cpp/master/src/node-types.json | jq '[.[] | select(.type == "_type_specifier") | .subtypes[].type]'
 const TYPE_TYPES = [
   "auto",
   "class_specifier",
