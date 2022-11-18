@@ -19,10 +19,10 @@ import { Action, ActionReturnValue } from "./actions.types";
 
 interface Options {
   callback: (editor: EditableTextEditor, targets: Target[]) => Promise<void>;
-  setSelection: boolean;
-  restoreSelection: boolean;
   ensureSingleEditor: boolean;
   ensureSingleTarget: boolean;
+  setSelection: boolean;
+  restoreSelection: boolean;
   showDecorations: boolean;
 }
 
