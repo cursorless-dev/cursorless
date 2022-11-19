@@ -19,7 +19,7 @@ export default class FakeIDE implements IDE {
   clipboard: FakeClipboard;
   private disposables: Disposable[] = [];
 
-  constructor(private original?: IDE) {
+  constructor() {
     this.configuration = new FakeConfiguration();
     this.messages = new FakeMessages();
     this.globalState = new FakeGlobalState();
@@ -44,31 +44,25 @@ export default class FakeIDE implements IDE {
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
 
   get activeTextEditor(): TextEditor | undefined {
-    return this.original?.activeTextEditor;
+    throw Error("Not implemented");
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
-    return this.original?.activeEditableTextEditor;
+    throw Error("Not implemented");
   }
 
   get visibleTextEditors(): TextEditor[] {
-    return this.original?.visibleTextEditors ?? [];
+    throw Error("Not implemented");
   }
 
-  public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-    if (this.original == null) {
-      throw Error("Original ide is missing");
-    }
-    return this.original.getEditableTextEditor(editor);
+  public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
+    throw Error("Not implemented");
   }
 
   onDidChangeTextDocument(
-    listener: (event: TextDocumentChangeEvent) => void,
+    _listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
-    if (this.original == null) {
-      throw Error("Original ide is missing");
-    }
-    return this.original.onDidChangeTextDocument(listener);
+    throw Error("Not implemented");
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
