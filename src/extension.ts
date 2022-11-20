@@ -5,6 +5,7 @@ import CommandRunner from "./core/commandRunner/CommandRunner";
 import { ThatMark } from "./core/ThatMark";
 import VscodeIDE from "./ide/vscode/VscodeIDE";
 import FakeIDE from "./libs/common/ide/fake/FakeIDE";
+import NormalizedIDE from "./libs/common/ide/normalized/NormalizedIDE";
 import ide, {
   injectIde,
 } from "./libs/cursorless-engine/singletons/ide.singleton";
@@ -36,12 +37,10 @@ export async function activate(
 
   const vscodeIDE = new VscodeIDE(context);
 
-  if (isTesting()) {
-    // FIXME: At some point we'll probably want to support partial mocking
-    // rather than mocking away everything that we can
-    const fake = new FakeIDE(vscodeIDE);
-    fake.mockAssetsRoot(context.extensionPath);
-    injectIde(fake);
+  if (vscodeIDE.runMode !== "production") {
+    injectIde(
+      new NormalizedIDE(vscodeIDE, new FakeIDE(), vscodeIDE.runMode === "test"),
+    );
   } else {
     injectIde(vscodeIDE);
   }
@@ -79,7 +78,7 @@ export async function activate(
     testHelpers: isTesting()
       ? {
           graph,
-          ide: ide() as FakeIDE,
+          ide: ide() as NormalizedIDE,
           injectIde,
 
           // FIXME: Remove this once we have a better way to get this function
