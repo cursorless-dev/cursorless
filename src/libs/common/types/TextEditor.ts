@@ -175,6 +175,12 @@ export interface EditableTextEditor extends TextEditor {
   outdentLines(ranges?: Range[]): Promise<void>;
 
   /**
+   * Insert line after
+   * @param ranges A list of {@link Range ranges}
+   */
+  insertLineAfter(ranges?: Range[]): Promise<void>;
+
+  /**
    * Insert snippet
    * @param snippet A snippet string
    * @param ranges A list of {@link Range ranges}

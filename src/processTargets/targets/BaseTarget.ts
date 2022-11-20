@@ -83,9 +83,7 @@ export default abstract class BaseTarget implements Target {
   }
 
   getEditNewContext(): EditNewContext {
-    return {
-      type: "edit",
-    };
+    return "edit";
   }
 
   getRemovalHighlightRange(): Range | undefined {

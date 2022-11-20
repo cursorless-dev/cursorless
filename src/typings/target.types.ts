@@ -20,15 +20,7 @@ import type { Snippet, SnippetVariable } from "./snippet";
 import type { Position } from "./targetDescriptor.types";
 import type { EditWithRangeUpdater } from "./Types";
 
-export interface EditNewCommandContext {
-  type: "command";
-  command: string;
-}
-export interface EditNewDelimiterContext {
-  type: "edit";
-}
-
-export type EditNewContext = EditNewCommandContext | EditNewDelimiterContext;
+export type EditNewContext = "edit" | "insertLineAfter";
 
 export interface Target {
   /** The text editor used for all ranges */

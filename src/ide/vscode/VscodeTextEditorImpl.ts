@@ -143,6 +143,13 @@ export class VscodeTextEditorImpl implements TextEditor {
     await vscode.commands.executeCommand("editor.action.outdentLines");
   }
 
+  public async insertLineAfter(ranges?: Range[]): Promise<void> {
+    if (ranges != null) {
+      this.selections = ranges.map((range) => range.toSelection(false));
+    }
+    await vscode.commands.executeCommand("editor.action.insertLineAfter");
+  }
+
   public insertSnippet(snippet: string, ranges?: Range[]): Promise<void> {
     return vscodeInsertSnippet(this, snippet, ranges);
   }

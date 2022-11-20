@@ -22,10 +22,10 @@ export async function runEditTargets(
   editor: EditableTextEditor,
   state: State,
 ): Promise<State> {
-  const editTargets: EditTarget[] = state.targets
+  const targets: EditTarget[] = state.targets
     .map((target, index) => {
       const context = target.getEditNewContext();
-      if (context.type === "edit") {
+      if (context === "edit") {
         return {
           target,
           index,
@@ -34,13 +34,11 @@ export async function runEditTargets(
     })
     .filter((target): target is EditTarget => !!target);
 
-  if (editTargets.length === 0) {
+  if (targets.length === 0) {
     return state;
   }
 
-  const edits = editTargets.map((target) =>
-    target.target.constructChangeEdit(""),
-  );
+  const edits = targets.map((target) => target.target.constructChangeEdit(""));
 
   const thatSelections = {
     selections: state.thatRanges.map((r) => r.toSelection(false)),
@@ -84,7 +82,7 @@ export async function runEditTargets(
   });
 
   // Add cursor positions for our edit targets.
-  editTargets.forEach((delimiterTarget, index) => {
+  targets.forEach((delimiterTarget, index) => {
     const edit = edits[index];
     const range = edit.updateRange(updatedEditSelections[index]);
     updatedCursorRanges[delimiterTarget.index] = range;

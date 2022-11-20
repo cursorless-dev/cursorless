@@ -43,12 +43,10 @@ export default class PositionTarget extends BaseTarget {
 
   getEditNewContext(): EditNewContext {
     if (this.insertionDelimiter === "\n" && this.position === "after") {
-      return { type: "command", command: "editor.action.insertLineAfter" };
+      return "insertLineAfter";
     }
 
-    return {
-      type: "edit",
-    };
+    return "edit";
   }
 
   constructChangeEdit(text: string): EditWithRangeUpdater {

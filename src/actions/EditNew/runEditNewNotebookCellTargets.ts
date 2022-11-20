@@ -6,7 +6,7 @@ import { Graph } from "../../typings/Types";
 import { createThatMark, ensureSingleTarget } from "../../util/targetUtils";
 import { ActionReturnValue } from "../actions.types";
 
-export async function runNotebookCellTargets(
+export async function runEditNewNotebookCellTargets(
   graph: Graph,
   targets: Target[],
 ): Promise<ActionReturnValue> {
