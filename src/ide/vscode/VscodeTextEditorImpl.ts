@@ -20,9 +20,13 @@ import {
 import * as vscode from "vscode";
 import vscodeEdit from "./VscodeEdit";
 import vscodeFocusEditor from "./VscodeFocusEditor";
-import { vscodeFold } from "./VscodeFold";
+import { vscodeFold, vscodeUnfold } from "./VscodeFold";
 import VscodeIDE from "./VscodeIDE";
 import { vscodeInsertSnippet } from "./VscodeInsertSnippets";
+import {
+  vscodeInsertNotebookCellAbove,
+  vscodeInsertNotebookCellBelow,
+} from "./VscodeNotebooks";
 import vscodeOpenLink from "./VscodeOpenLink";
 import { vscodeRevealLine } from "./VscodeRevealLine";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
@@ -104,6 +108,14 @@ export class VscodeTextEditorImpl implements TextEditor {
     return await vscode.commands.executeCommand(command, ...rest);
   }
 
+  public insertNotebookCellAbove(): Promise<boolean> {
+    return vscodeInsertNotebookCellAbove(this);
+  }
+
+  public insertNotebookCellBelow(): Promise<boolean> {
+    return vscodeInsertNotebookCellBelow(this);
+  }
+
   public openLink(location?: Position | Range): Promise<boolean> {
     return vscodeOpenLink(
       this.editor,
@@ -112,11 +124,11 @@ export class VscodeTextEditorImpl implements TextEditor {
   }
 
   public fold(lineNumbers?: number[]): Promise<void> {
-    return vscodeFold(this.ide, this, lineNumbers, true);
+    return vscodeFold(this.ide, this, lineNumbers);
   }
 
   public unfold(lineNumbers?: number[]): Promise<void> {
-    return vscodeFold(this.ide, this, lineNumbers, false);
+    return vscodeUnfold(this.ide, this, lineNumbers);
   }
 
   public toggleBreakpoint(ranges?: Range[]): Promise<void> {

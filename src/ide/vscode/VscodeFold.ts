@@ -6,9 +6,24 @@ export async function vscodeFold(
   ide: VscodeIDE,
   editor: VscodeTextEditorImpl,
   lineNumbers: number[] | undefined,
-  isFold: boolean,
 ): Promise<void> {
-  const command = isFold ? "editor.fold" : "editor.unfold";
+  return foldOrUnfold(ide, editor, lineNumbers, "editor.fold");
+}
+
+export function vscodeUnfold(
+  ide: VscodeIDE,
+  editor: VscodeTextEditorImpl,
+  lineNumbers: number[] | undefined,
+): Promise<void> {
+  return foldOrUnfold(ide, editor, lineNumbers, "editor.unfold");
+}
+
+async function foldOrUnfold(
+  ide: VscodeIDE,
+  editor: VscodeTextEditorImpl,
+  lineNumbers: number[] | undefined,
+  command: string,
+): Promise<void> {
   const originalEditor = ide.activeEditableTextEditor;
 
   // Necessary to focus editor for fold command to work

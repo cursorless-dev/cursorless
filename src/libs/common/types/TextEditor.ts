@@ -120,6 +120,18 @@ export interface EditableTextEditor extends TextEditor {
   executeCommand<T>(command: string, ...rest: any[]): Promise<T | undefined>;
 
   /**
+   * Insert new notebook cell above.
+   * @return A promised that resolves to a boolean indicating if this was a jupyter notebook
+   */
+  insertNotebookCellAbove(): Promise<boolean>;
+
+  /**
+   * Insert new notebook cell below.
+   * @return A promised that resolves to a boolean indicating if this was a jupyter notebook
+   */
+  insertNotebookCellBelow(): Promise<boolean>;
+
+  /**
    * Open link at location.
    * @param location Position or range
    * @return True if a link was opened
