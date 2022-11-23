@@ -1,4 +1,5 @@
 import {
+  EditableTextEditor,
   Position,
   Range,
   RevealLineAt,
@@ -24,15 +25,15 @@ import { vscodeFold, vscodeUnfold } from "./VscodeFold";
 import VscodeIDE from "./VscodeIDE";
 import { vscodeInsertSnippet } from "./VscodeInsertSnippets";
 import {
-  vscodeInsertNotebookCellAbove,
-  vscodeInsertNotebookCellBelow,
+  vscodeEditNewNotebookCellAbove,
+  vscodeEditNewNotebookCellBelow,
 } from "./VscodeNotebooks";
 import vscodeOpenLink from "./VscodeOpenLink";
 import { vscodeRevealLine } from "./VscodeRevealLine";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 import { vscodeToggleBreakpoint } from "./VscodeToggleBreakpoint";
 
-export class VscodeTextEditorImpl implements TextEditor {
+export class VscodeTextEditorImpl implements EditableTextEditor {
   readonly document: TextDocument;
 
   constructor(
@@ -108,12 +109,14 @@ export class VscodeTextEditorImpl implements TextEditor {
     return await vscode.commands.executeCommand(command, ...rest);
   }
 
-  public insertNotebookCellAbove(): Promise<boolean> {
-    return vscodeInsertNotebookCellAbove(this);
+  public editNewNotebookCellAbove(): Promise<
+    (selection: Selection) => Selection
+  > {
+    return vscodeEditNewNotebookCellAbove(this);
   }
 
-  public insertNotebookCellBelow(): Promise<boolean> {
-    return vscodeInsertNotebookCellBelow(this);
+  public editNewNotebookCellBelow(): Promise<void> {
+    return vscodeEditNewNotebookCellBelow(this);
   }
 
   public openLink(location?: Position | Range): Promise<boolean> {

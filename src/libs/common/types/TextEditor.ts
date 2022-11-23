@@ -120,16 +120,18 @@ export interface EditableTextEditor extends TextEditor {
   executeCommand<T>(command: string, ...rest: any[]): Promise<T | undefined>;
 
   /**
-   * Insert new notebook cell above.
-   * @return A promised that resolves to a boolean indicating if this was a jupyter notebook
+   * Edit a new new notebook cell above.
+   * @return A promise that resolves to a function that must be applied to any
+   * selections that should be updated as result of this operation. This is a
+   * horrible hack to work around the fact that in vscode the promise resolves
+   * before the edits have actually been performed.
    */
-  insertNotebookCellAbove(): Promise<boolean>;
+  editNewNotebookCellAbove(): Promise<(selection: Selection) => Selection>;
 
   /**
-   * Insert new notebook cell below.
-   * @return A promised that resolves to a boolean indicating if this was a jupyter notebook
+   * Edit a new new notebook cell below.
    */
-  insertNotebookCellBelow(): Promise<boolean>;
+  editNewNotebookCellBelow(): Promise<void>;
 
   /**
    * Open link at location.

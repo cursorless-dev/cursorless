@@ -18,19 +18,18 @@ export async function runEditNewNotebookCellTargets(
 
   await graph.actions.setSelection.run([targets]);
 
-  const isJupyter = isAbove
-    ? await editor.insertNotebookCellAbove()
-    : await editor.insertNotebookCellBelow();
+  let modifyThatMark = (selection: Selection) => selection;
+  if (isAbove) {
+    modifyThatMark = await editor.editNewNotebookCellAbove();
+  } else {
+    await editor.editNewNotebookCellBelow();
+  }
 
   const thatMark = createThatMark([target.thatTarget]);
 
-  // Inserting a new jupyter cell above pushes the previous one down two lines
-  if (isAbove && isJupyter) {
-    thatMark[0].selection = new Selection(
-      thatMark[0].selection.anchor.translate(2, undefined),
-      thatMark[0].selection.active.translate(2, undefined),
-    );
-  }
+  // Apply horrible hack to work around the fact that in vscode the promise
+  // resolves before the edits have actually been performed.
+  thatMark[0].selection = modifyThatMark(thatMark[0].selection);
 
   return { thatSelections: thatMark };
 }
