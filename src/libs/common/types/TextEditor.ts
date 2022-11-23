@@ -144,16 +144,16 @@ export interface EditableTextEditor extends TextEditor {
   openLink(location?: Position | Range): Promise<boolean>;
 
   /**
-   * Fold lines
-   * @param lineNumbers Lines to fold
+   * Fold ranges
+   * @param ranges A list of {@link Range ranges}
    */
-  fold(lineNumbers?: number[]): Promise<void>;
+  fold(ranges?: Range[]): Promise<void>;
 
   /**
-   * Unfold lines
-   * @param lineNumbers Lines to unfold
+   * Unfold ranges
+   * @param ranges A list of {@link Range ranges}
    */
-  unfold(lineNumbers?: number[]): Promise<void>;
+  unfold(ranges?: Range[]): Promise<void>;
 
   /**
    * Copy to clipboard
@@ -183,13 +183,13 @@ export interface EditableTextEditor extends TextEditor {
    * Indent lines
    * @param ranges A list of {@link Range ranges}
    */
-  indentLines(ranges?: Range[]): Promise<void>;
+  indentLine(ranges?: Range[]): Promise<void>;
 
   /**
    * Outdent lines
    * @param ranges A list of {@link Range ranges}
    */
-  outdentLines(ranges?: Range[]): Promise<void>;
+  outdentLine(ranges?: Range[]): Promise<void>;
 
   /**
    * Insert line after

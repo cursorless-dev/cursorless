@@ -1,5 +1,7 @@
 export type CommandId =
   | "clipboardCopy"
+  | "fold"
+  | "unfold"
   | "toggleLineComment"
   | "indentLine"
   | "outdentLine"

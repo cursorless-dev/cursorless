@@ -1,8 +1,20 @@
-import { Capabilities, CapabilitiesCommand } from "../types/Capabilities";
-import { CommandId } from "../types/CommandId";
+import { Capabilities } from "../types/Capabilities";
 
 export class FakeCapabilities implements Capabilities {
-  public getCommand(_commandId: CommandId): CapabilitiesCommand {
-    throw Error("Not implemented");
-  }
+  commands = {
+    clipboardCopy: undefined,
+    toggleLineComment: undefined,
+    indentLine: undefined,
+    outdentLine: undefined,
+    rename: undefined,
+    quickFix: undefined,
+    revealDefinition: undefined,
+    revealTypeDefinition: undefined,
+    showHover: undefined,
+    showDebugHover: undefined,
+    extractVariable: undefined,
+    fold: undefined,
+    unfold: undefined,
+    showReferences: undefined,
+  };
 }

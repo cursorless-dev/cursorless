@@ -1,13 +1,14 @@
 import { CommandId } from "./CommandId";
 
 export interface Capabilities {
-  readonly getCommand: (commandId: CommandId) => CapabilitiesCommand;
+  readonly commands: CommandCapabilityMap;
 }
 
-export type CapabilitiesCommands = Partial<
-  Record<CommandId, CapabilitiesCommand>
+export type CommandCapabilityMap = Record<
+  CommandId,
+  CommandCapabilities | undefined
 >;
 
-export interface CapabilitiesCommand {
+export interface CommandCapabilities {
   acceptsLocation: boolean;
 }

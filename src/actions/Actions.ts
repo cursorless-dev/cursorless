@@ -13,6 +13,8 @@ import {
   ShowQuickFix,
   ShowReferences,
   CopyToClipboard,
+  Fold,
+  Unfold,
 } from "./MakeshiftActions";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
@@ -22,7 +24,6 @@ import Deselect from "./Deselect";
 import { EditNew, EditNewAfter, EditNewBefore } from "./EditNew";
 import ExecuteCommand from "./ExecuteCommand";
 import { FindInWorkspace } from "./Find";
-import { Fold, Unfold } from "./Fold";
 import FollowLink from "./FollowLink";
 import GenerateSnippet from "./GenerateSnippet";
 import GetText from "./GetText";

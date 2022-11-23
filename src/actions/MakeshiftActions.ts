@@ -1,5 +1,5 @@
 import {
-  CapabilitiesCommand,
+  CommandCapabilities,
   CommandId,
   EditableTextEditor,
 } from "@cursorless/common";
@@ -31,7 +31,11 @@ abstract class MakeshiftAction {
     targets: [Target[]],
     { showDecorations }: Options = {},
   ): Promise<ActionReturnValue> {
-    const capabilities = ide().capabilities.getCommand(this.command);
+    const capabilities = ide().capabilities.commands[this.command];
+
+    if (capabilities == null) {
+      throw Error(`Action ${this.command} is not supported by your ide`);
+    }
 
     return this.callbackAction.run(targets, {
       callback: (editor, targets) =>
@@ -60,6 +64,14 @@ export class IndentLine extends MakeshiftAction {
 
 export class OutdentLine extends MakeshiftAction {
   command: CommandId = "outdentLine";
+}
+
+export class Fold extends MakeshiftAction {
+  command: CommandId = "fold";
+}
+
+export class Unfold extends MakeshiftAction {
+  command: CommandId = "unfold";
 }
 
 export class Rename extends MakeshiftAction {
@@ -111,7 +123,7 @@ function callback(
   editor: EditableTextEditor,
   targets: Target[],
   command: CommandId,
-  { acceptsLocation }: CapabilitiesCommand,
+  { acceptsLocation }: CommandCapabilities,
 ): Promise<void> {
   const ranges = acceptsLocation
     ? targets.map((t) => t.contentRange)
@@ -122,11 +134,15 @@ function callback(
     case "toggleLineComment":
       return editor.toggleLineComment(ranges);
     case "indentLine":
-      return editor.indentLines(ranges);
+      return editor.indentLine(ranges);
     case "outdentLine":
-      return editor.outdentLines(ranges);
+      return editor.outdentLine(ranges);
     case "clipboardCopy":
       return editor.clipboardCopy(ranges);
+    case "fold":
+      return editor.fold(ranges);
+    case "unfold":
+      return editor.unfold(ranges);
   }
 
   const range = ranges?.[0];

@@ -1,11 +1,9 @@
-import { CommandId } from "@cursorless/common";
 import {
   Capabilities,
-  CapabilitiesCommand,
-  CapabilitiesCommands,
+  CommandCapabilityMap,
 } from "../../libs/common/ide/types/Capabilities";
 
-const capabilitiesCommands: CapabilitiesCommands = {
+const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   clipboardCopy: { acceptsLocation: false },
   toggleLineComment: { acceptsLocation: false },
   indentLine: { acceptsLocation: false },
@@ -17,16 +15,11 @@ const capabilitiesCommands: CapabilitiesCommands = {
   showHover: { acceptsLocation: false },
   showDebugHover: { acceptsLocation: false },
   extractVariable: { acceptsLocation: false },
+  fold: { acceptsLocation: true },
+  unfold: { acceptsLocation: true },
+  showReferences: { acceptsLocation: false },
 };
 
 export class VscodeCapabilities implements Capabilities {
-  public getCommand(commandId: CommandId): CapabilitiesCommand {
-    const capabilities = capabilitiesCommands[commandId];
-
-    if (capabilities == null) {
-      throw Error(`Missing command capabilities for '${commandId}'`);
-    }
-
-    return capabilities;
-  }
+  commands = COMMAND_CAPABILITIES;
 }

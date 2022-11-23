@@ -126,12 +126,12 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     );
   }
 
-  public fold(lineNumbers?: number[]): Promise<void> {
-    return vscodeFold(this.ide, this, lineNumbers);
+  public fold(ranges?: Range[]): Promise<void> {
+    return vscodeFold(this.ide, this, ranges);
   }
 
-  public unfold(lineNumbers?: number[]): Promise<void> {
-    return vscodeUnfold(this.ide, this, lineNumbers);
+  public unfold(ranges?: Range[]): Promise<void> {
+    return vscodeUnfold(this.ide, this, ranges);
   }
 
   public toggleBreakpoint(ranges?: Range[]): Promise<void> {
@@ -150,11 +150,11 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     await vscode.commands.executeCommand("editor.action.clipboardPasteAction");
   }
 
-  public async indentLines(_ranges?: Range[]): Promise<void> {
+  public async indentLine(_ranges?: Range[]): Promise<void> {
     await vscode.commands.executeCommand("editor.action.indentLines");
   }
 
-  public async outdentLines(_ranges?: Range[]): Promise<void> {
+  public async outdentLine(_ranges?: Range[]): Promise<void> {
     await vscode.commands.executeCommand("editor.action.outdentLines");
   }
 
