@@ -4,7 +4,7 @@ import { Graph } from "../typings/Types";
 import { getOutsideOverflow } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
-export class ClipboardCut implements Action {
+export class CutToClipboard implements Action {
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }

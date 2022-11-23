@@ -12,12 +12,12 @@ import {
   ShowHover,
   ShowQuickFix,
   ShowReferences,
-  ClipboardCopy,
+  CopyToClipboard,
 } from "./MakeshiftActions";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
-import { ClipboardCut } from "./ClipboardCut";
+import { CutToClipboard } from "./CutToClipboard";
 import Deselect from "./Deselect";
 import { EditNew, EditNewAfter, EditNewBefore } from "./EditNew";
 import ExecuteCommand from "./ExecuteCommand";
@@ -37,7 +37,7 @@ import {
   InsertEmptyLinesAround,
 } from "./InsertEmptyLines";
 import InsertSnippet from "./InsertSnippet";
-import { ClipboardPaste } from "./ClipboardPaste";
+import { PasteFromClipboard } from "./PasteFromClipboard";
 import Remove from "./Remove";
 import Replace from "./Replace";
 import Rewrap from "./Rewrap";
@@ -57,8 +57,8 @@ class Actions implements ActionRecord {
 
   callAsFunction = new Call(this.graph);
   clearAndSetSelection = new Clear(this.graph);
-  copyToClipboard = new ClipboardCopy(this.graph);
-  cutToClipboard = new ClipboardCut(this.graph);
+  copyToClipboard = new CopyToClipboard(this.graph);
+  cutToClipboard = new CutToClipboard(this.graph);
   deselect = new Deselect(this.graph);
   editNew = new EditNew(this.graph);
   editNewLineAfter = new EditNewAfter(this.graph);
@@ -80,7 +80,7 @@ class Actions implements ActionRecord {
   insertSnippet = new InsertSnippet(this.graph);
   moveToTarget = new Move(this.graph);
   outdentLine = new OutdentLine(this.graph);
-  pasteFromClipboard = new ClipboardPaste(this.graph);
+  pasteFromClipboard = new PasteFromClipboard(this.graph);
   randomizeTargets = new Random(this.graph);
   remove = new Remove(this.graph);
   rename = new Rename(this.graph);

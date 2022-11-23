@@ -9,7 +9,7 @@ import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocu
 import { ensureSingleEditor } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
 
-export class ClipboardPaste {
+export class PasteFromClipboard {
   constructor(private graph: Graph) {}
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {

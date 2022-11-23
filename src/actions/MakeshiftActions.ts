@@ -43,7 +43,7 @@ abstract class MakeshiftAction extends CallbackAction {
   }
 }
 
-export class ClipboardCopy extends MakeshiftAction {
+export class CopyToClipboard extends MakeshiftAction {
   command: CommandId = "clipboardCopy";
   ensureSingleEditor = true;
 }
