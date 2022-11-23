@@ -1,6 +1,5 @@
 import { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { flatten } from "lodash";
-import { Options } from "semver";
 import { selectionToThatTarget } from "../core/commandRunner/selectionToThatTarget";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
@@ -18,7 +17,7 @@ import {
 } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
-interface CallbackOptions extends Options {
+interface CallbackOptions {
   callback: (editor: EditableTextEditor, targets: Target[]) => Promise<void>;
   ensureSingleEditor: boolean;
   ensureSingleTarget: boolean;
@@ -27,6 +26,11 @@ interface CallbackOptions extends Options {
   showDecorations: boolean;
 }
 
+/**
+ * This is a helper action that is used internally to implement various actions.
+ * It takes a {@link CallbackOptions.callback callback} that is called once for
+ * each editor, receiving all the targets that are in the given editor.
+ */
 export class CallbackAction implements Action {
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);

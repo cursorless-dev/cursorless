@@ -13,8 +13,11 @@ interface Options {
 }
 
 /**
- * This is just a wrapper for {@link CallbackAction} that allows the commands string without an options object.
- * Should only be used by the API. Internally go directly to {@link CallbackAction}
+ * This action can be used to execute a built-in ide command on one or more
+ * targets by first setting the selection to those targets and then running the
+ * action, restoring the selections if
+ * {@link Options.restoreSelection restoreSelection} is `true`. Internally, most
+ * of the heavy lifting is done by {@link CallbackAction}.
  */
 export default class ExecuteCommand implements Action {
   private callbackAction: CallbackAction;
@@ -25,7 +28,7 @@ export default class ExecuteCommand implements Action {
 
   async run(
     targets: [Target[]],
-    command: string,
+    commandId: string,
     {
       commandArgs,
       ensureSingleEditor,
@@ -38,7 +41,7 @@ export default class ExecuteCommand implements Action {
 
     return this.callbackAction.run(targets, {
       callback: (editor: EditableTextEditor) =>
-        editor.executeCommand(command, ...args),
+        editor.executeCommand(commandId, ...args),
       setSelection: true,
       ensureSingleEditor: ensureSingleEditor ?? false,
       ensureSingleTarget: ensureSingleTarget ?? false,
