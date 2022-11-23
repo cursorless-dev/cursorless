@@ -110,14 +110,17 @@ export interface EditableTextEditor extends TextEditor {
   ): Promise<boolean>;
 
   /**
-   * Executes the command denoted by the given command identifier.
+   * Executes the built-in ide command denoted by the given command identifier.
    *
    * @param command Identifier of the command to execute.
-   * @param rest Parameters passed to the command function.
-   * @return A promise that resolves to the returned value of the given command. `undefined` when
-   * the command handler function doesn't return anything.
+   * @param args Parameters passed to the command function.
+   * @return A promise that resolves to the returned value of the given command.
+   * `undefined` when the command handler function doesn't return anything.
    */
-  executeCommand<T>(command: string, ...rest: any[]): Promise<T | undefined>;
+  executeBuiltInCommand<T>(
+    command: string,
+    ...args: any[]
+  ): Promise<T | undefined>;
 
   /**
    * Edit a new new notebook cell above.

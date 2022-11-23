@@ -22,7 +22,7 @@ async function foldOrUnfold(
   ide: VscodeIDE,
   editor: VscodeTextEditorImpl,
   lineNumbers: number[] | undefined,
-  command: string,
+  command: "editor.fold" | "editor.unfold",
 ): Promise<void> {
   const originalEditor = ide.activeEditableTextEditor;
 

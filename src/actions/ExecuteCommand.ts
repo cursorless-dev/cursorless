@@ -41,7 +41,7 @@ export default class ExecuteCommand implements Action {
 
     return this.callbackAction.run(targets, {
       callback: (editor: EditableTextEditor) =>
-        editor.executeCommand(commandId, ...args),
+        editor.executeBuiltInCommand(commandId, ...args),
       setSelection: true,
       ensureSingleEditor: ensureSingleEditor ?? false,
       ensureSingleTarget: ensureSingleTarget ?? false,
