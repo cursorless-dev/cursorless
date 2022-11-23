@@ -13,7 +13,9 @@ interface Options {
   showDecorations?: boolean;
 }
 
-abstract class MakeshiftAction extends CallbackAction {
+abstract class MakeshiftAction {
+  private callbackAction: CallbackAction;
+
   abstract command: CommandId;
   ensureSingleEditor: boolean = false;
   ensureSingleTarget: boolean = false;
@@ -21,7 +23,7 @@ abstract class MakeshiftAction extends CallbackAction {
   showDecorations: boolean = true;
 
   constructor(graph: Graph) {
-    super(graph);
+    this.callbackAction = new CallbackAction(graph);
     this.run = this.run.bind(this);
   }
 
@@ -31,7 +33,7 @@ abstract class MakeshiftAction extends CallbackAction {
   ): Promise<ActionReturnValue> {
     const capabilities = ide().capabilities.getCommand(this.command);
 
-    return super.run(targets, {
+    return this.callbackAction.run(targets, {
       callback: (editor, targets) =>
         callback(editor, targets, this.command, capabilities),
       setSelection: !capabilities.acceptsLocation,
@@ -109,9 +111,9 @@ function callback(
   editor: EditableTextEditor,
   targets: Target[],
   command: CommandId,
-  capabilities: CapabilitiesCommand,
+  { acceptsLocation }: CapabilitiesCommand,
 ): Promise<void> {
-  const ranges = capabilities.acceptsLocation
+  const ranges = acceptsLocation
     ? targets.map((t) => t.contentRange)
     : undefined;
 
@@ -148,6 +150,4 @@ function callback(
     case "extractVariable":
       return editor.extractVariable(range);
   }
-
-  throw Error(`Unknown command '${command}'`);
 }

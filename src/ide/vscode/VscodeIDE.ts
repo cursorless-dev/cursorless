@@ -1,5 +1,4 @@
 import type {
-  Capabilities,
   EditableTextEditor,
   InputBoxOptions,
   TextEditor,
@@ -28,7 +27,7 @@ export default class VscodeIDE implements IDE {
   readonly globalState: VscodeGlobalState;
   readonly messages: VscodeMessages;
   readonly clipboard: VscodeClipboard;
-  readonly capabilities: Capabilities;
+  readonly capabilities: VscodeCapabilities;
   private editorMap;
 
   constructor(private extensionContext: ExtensionContext) {
