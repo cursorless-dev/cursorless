@@ -8,9 +8,9 @@ import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEdi
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
 import { Action, ActionReturnValue } from "../actions.types";
 import { State } from "./EditNew.types";
-import { runEditInsertLineAfterTargets } from "./runEditInsertLineAfterTargets";
+import { runInsertLineAfterTargets } from "./runInsertLineAfterTargets";
 import { runEditTargets } from "./runEditTargets";
-import { runEditNewNotebookCellTargets } from "./runEditNewNotebookCellTargets";
+import { runEditNewNotebookCellTargets } from "./runNotebookCellTargets";
 
 export class EditNew implements Action {
   getFinalStages(): ModifierStage[] {
@@ -43,7 +43,7 @@ export class EditNew implements Action {
       cursorRanges: new Array(targets.length).fill(undefined) as undefined[],
     };
 
-    state = await runEditInsertLineAfterTargets(
+    state = await runInsertLineAfterTargets(
       this.graph,
       editableEditor,
       state,

@@ -14,15 +14,15 @@ import { EditTarget, State } from "./EditNew.types";
  * @param state The state object tracking cursors, thatMark, etc
  * @returns An updated `state` object
  */
-export async function runEditInsertLineAfterTargets(
+export async function runInsertLineAfterTargets(
   graph: Graph,
   editor: EditableTextEditor,
   state: State,
 ): Promise<State> {
   const targets: EditTarget[] = state.targets
     .map((target, index) => {
-      const context = target.getEditNewContext();
-      if (context === "insertLineAfter") {
+      const actionType = target.getEditNewActionType();
+      if (actionType === "insertLineAfter") {
         return {
           target,
           index,

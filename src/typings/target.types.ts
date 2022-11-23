@@ -20,7 +20,7 @@ import type { Snippet, SnippetVariable } from "./snippet";
 import type { Position } from "./targetDescriptor.types";
 import type { EditWithRangeUpdater } from "./Types";
 
-export type EditNewContext = "edit" | "insertLineAfter";
+export type EditNewActionType = "edit" | "insertLineAfter";
 
 export interface Target {
   /** The text editor used for all ranges */
@@ -116,7 +116,7 @@ export interface Target {
   getTrailingDelimiterTarget(): Target | undefined;
   getRemovalRange(): Range;
   getRemovalHighlightRange(): Range | undefined;
-  getEditNewContext(): EditNewContext;
+  getEditNewActionType(): EditNewActionType;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;
   createContinuousRangeTarget(

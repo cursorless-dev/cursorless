@@ -24,8 +24,8 @@ export async function runEditTargets(
 ): Promise<State> {
   const targets: EditTarget[] = state.targets
     .map((target, index) => {
-      const context = target.getEditNewContext();
-      if (context === "edit") {
+      const actionType = target.getEditNewActionType();
+      if (actionType === "edit") {
         return {
           target,
           index,
