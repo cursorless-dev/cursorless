@@ -50,7 +50,7 @@ export default class PassthroughIDEBase implements IDE {
     return this.original.findInWorkspace(query);
   }
 
-  public openTextDocument(path: string): Promise<void> {
+  public openTextDocument(path: string): Promise<TextEditor> {
     return this.original.openTextDocument(path);
   }
 

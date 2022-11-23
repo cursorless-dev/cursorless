@@ -80,9 +80,9 @@ export default class VscodeIDE implements IDE {
     });
   }
 
-  public async openTextDocument(path: string): Promise<void> {
+  public async openTextDocument(path: string): Promise<TextEditor> {
     const textDocument = await workspace.openTextDocument(path);
-    await window.showTextDocument(textDocument);
+    return this.fromVscodeEditor(await window.showTextDocument(textDocument));
   }
 
   public async showInputBox(

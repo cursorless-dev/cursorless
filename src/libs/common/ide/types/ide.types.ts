@@ -91,8 +91,9 @@ export interface IDE {
    *
    * @see {@link openTextDocument}
    * @param path A path to a file on disk.
+   * @return An editor for the text document at the given path
    */
-  openTextDocument(path: string): Promise<void>;
+  openTextDocument(path: string): Promise<TextEditor>;
 
   /**
    * Opens an input box to ask the user for input.

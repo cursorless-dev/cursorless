@@ -65,7 +65,7 @@ export default class FakeIDE implements IDE {
     throw Error("Not implemented");
   }
 
-  public openTextDocument(_path: string): Promise<void> {
+  public openTextDocument(_path: string): Promise<TextEditor> {
     throw Error("Not implemented");
   }
 
