@@ -1,8 +1,4 @@
-import {
-  CommandCapabilities,
-  CommandId,
-  EditableTextEditor,
-} from "@cursorless/common";
+import { CommandId, EditableTextEditor } from "@cursorless/common";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -37,10 +33,16 @@ abstract class MakeshiftAction {
       throw Error(`Action ${this.command} is not supported by your ide`);
     }
 
+    const { acceptsLocation } = capabilities;
+
     return this.callbackAction.run(targets, {
       callback: (editor, targets) =>
-        callback(editor, targets, this.command, capabilities),
-      setSelection: !capabilities.acceptsLocation,
+        callback(
+          editor,
+          acceptsLocation ? targets.map((t) => t.contentRange) : undefined,
+          this.command,
+        ),
+      setSelection: !acceptsLocation,
       ensureSingleEditor: this.ensureSingleEditor,
       ensureSingleTarget: this.ensureSingleTarget,
       restoreSelection: this.restoreSelection,
@@ -121,14 +123,9 @@ export class ExtractVariable extends MakeshiftAction {
 
 function callback(
   editor: EditableTextEditor,
-  targets: Target[],
+  ranges: Range[] | undefined,
   command: CommandId,
-  { acceptsLocation }: CommandCapabilities,
 ): Promise<void> {
-  const ranges = acceptsLocation
-    ? targets.map((t) => t.contentRange)
-    : undefined;
-
   // Multi target actions
   switch (command) {
     case "toggleLineComment":
