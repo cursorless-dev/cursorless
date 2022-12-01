@@ -43,11 +43,7 @@ export class EditNew implements Action {
       cursorRanges: new Array(targets.length).fill(undefined) as undefined[],
     };
 
-    state = await runInsertLineAfterTargets(
-      this.graph,
-      editableEditor,
-      state,
-    );
+    state = await runInsertLineAfterTargets(this.graph, editableEditor, state);
     state = await runEditTargets(this.graph, editableEditor, state);
 
     const newSelections = state.targets.map((target, index) =>
