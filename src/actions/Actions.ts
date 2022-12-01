@@ -15,7 +15,7 @@ import {
   CopyToClipboard,
   Fold,
   Unfold,
-} from "./SimpleCommandActions";
+} from "./SimpleIdeCommandActions";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
