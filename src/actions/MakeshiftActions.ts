@@ -1,4 +1,4 @@
-import { CommandId, EditableTextEditor } from "@cursorless/common";
+import { CommandId, EditableTextEditor, Range } from "@cursorless/common";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
