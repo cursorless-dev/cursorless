@@ -9,7 +9,14 @@ interface Options {
   showDecorations?: boolean;
 }
 
-abstract class MakeshiftAction {
+/**
+ * This is the base class for actions that simply call an ide command on the
+ * target. It includes machinery to automatically jump to the target if the
+ * editor does not support running the command directly on a target without
+ * moving the cursor. Note that most of the heavy lifting is done by
+ * {@link CallbackAction}.
+ */
+abstract class SimpleCommandActions {
   private callbackAction: CallbackAction;
 
   abstract command: CommandId;
@@ -51,71 +58,71 @@ abstract class MakeshiftAction {
   }
 }
 
-export class CopyToClipboard extends MakeshiftAction {
+export class CopyToClipboard extends SimpleCommandActions {
   command: CommandId = "clipboardCopy";
   ensureSingleEditor = true;
 }
 
-export class ToggleLineComment extends MakeshiftAction {
+export class ToggleLineComment extends SimpleCommandActions {
   command: CommandId = "toggleLineComment";
 }
 
-export class IndentLine extends MakeshiftAction {
+export class IndentLine extends SimpleCommandActions {
   command: CommandId = "indentLine";
 }
 
-export class OutdentLine extends MakeshiftAction {
+export class OutdentLine extends SimpleCommandActions {
   command: CommandId = "outdentLine";
 }
 
-export class Fold extends MakeshiftAction {
+export class Fold extends SimpleCommandActions {
   command: CommandId = "fold";
 }
 
-export class Unfold extends MakeshiftAction {
+export class Unfold extends SimpleCommandActions {
   command: CommandId = "unfold";
 }
 
-export class Rename extends MakeshiftAction {
+export class Rename extends SimpleCommandActions {
   command: CommandId = "rename";
   ensureSingleTarget = true;
 }
 
-export class ShowReferences extends MakeshiftAction {
+export class ShowReferences extends SimpleCommandActions {
   command: CommandId = "showReferences";
   ensureSingleTarget = true;
 }
 
-export class ShowQuickFix extends MakeshiftAction {
+export class ShowQuickFix extends SimpleCommandActions {
   command: CommandId = "quickFix";
   ensureSingleTarget = true;
 }
 
-export class RevealDefinition extends MakeshiftAction {
+export class RevealDefinition extends SimpleCommandActions {
   command: CommandId = "revealDefinition";
   ensureSingleTarget = true;
   restoreSelection = false;
 }
 
-export class RevealTypeDefinition extends MakeshiftAction {
+export class RevealTypeDefinition extends SimpleCommandActions {
   command: CommandId = "revealTypeDefinition";
   ensureSingleTarget = true;
   restoreSelection = false;
 }
 
-export class ShowHover extends MakeshiftAction {
+export class ShowHover extends SimpleCommandActions {
   command: CommandId = "showHover";
   ensureSingleTarget = true;
   restoreSelection = false;
 }
 
-export class ShowDebugHover extends MakeshiftAction {
+export class ShowDebugHover extends SimpleCommandActions {
   command: CommandId = "showDebugHover";
   ensureSingleTarget = true;
   restoreSelection = false;
 }
 
-export class ExtractVariable extends MakeshiftAction {
+export class ExtractVariable extends SimpleCommandActions {
   command: CommandId = "extractVariable";
   ensureSingleTarget = true;
   restoreSelection = false;
