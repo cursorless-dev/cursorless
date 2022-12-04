@@ -12,10 +12,21 @@ export class FindInWorkspace implements Action {
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     ensureSingleTarget(targets);
 
-    const {
-      returnValue: [query],
-      thatTargets,
-    } = await this.graph.actions.getText.run([targets]);
+    const { returnValue, thatTargets } = await this.graph.actions.getText.run([
+      targets,
+    ]);
+    const [text] = returnValue as [string];
+
+    let query: string;
+    if (text.length > 200) {
+      query = text.substring(0, 200);
+      ide().messages.showWarning(
+        "truncatedSearchText",
+        "Search text is longer than 200 characters; truncating",
+      );
+    } else {
+      query = text;
+    }
 
     await ide().findInWorkspace(query);
 
