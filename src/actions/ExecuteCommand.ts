@@ -1,4 +1,4 @@
-import { EditableTextEditor } from "../libs/common/types/TextEditor";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { Action, ActionReturnValue } from "./actions.types";
@@ -40,8 +40,7 @@ export default class ExecuteCommand implements Action {
     const args = commandArgs ?? [];
 
     return this.callbackAction.run(targets, {
-      callback: (editor: EditableTextEditor) =>
-        editor.executeBuiltInCommand(commandId, ...args),
+      callback: () => ide().executeCommand(commandId, ...args),
       setSelection: true,
       ensureSingleEditor: ensureSingleEditor ?? false,
       ensureSingleTarget: ensureSingleTarget ?? false,

@@ -90,6 +90,13 @@ export default class VscodeIDE implements IDE {
     return await vscode.window.showInputBox(options);
   }
 
+  public async executeCommand<T>(
+    command: string,
+    ...args: any[]
+  ): Promise<T | undefined> {
+    return await vscode.commands.executeCommand(command, ...args);
+  }
+
   public onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {

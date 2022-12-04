@@ -73,6 +73,10 @@ export default class FakeIDE implements IDE {
     throw Error("Not implemented");
   }
 
+  executeCommand<T>(_command: string, ..._args: any[]): Promise<T | undefined> {
+    throw new Error("Method not implemented.");
+  }
+
   public onDidChangeTextDocument(
     _listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {

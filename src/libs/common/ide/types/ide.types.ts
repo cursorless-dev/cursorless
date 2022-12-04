@@ -106,6 +106,16 @@ export interface IDE {
    * @return A promise that resolves to a string the user provided or to `undefined` in case of dismissal.
    */
   showInputBox(options?: InputBoxOptions): Promise<string | undefined>;
+
+  /**
+   * Executes the built-in ide command denoted by the given command identifier.
+   *
+   * @param command Identifier of the command to execute.
+   * @param args Parameters passed to the command function.
+   * @return A promise that resolves to the returned value of the given command.
+   * `undefined` when the command handler function doesn't return anything.
+   */
+  executeCommand<T>(command: string, ...args: any[]): Promise<T | undefined>;
 }
 
 export interface WorkspaceFolder {

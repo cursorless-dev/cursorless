@@ -62,6 +62,10 @@ export default class PassthroughIDEBase implements IDE {
     return this.original.getEditableTextEditor(editor);
   }
 
+  executeCommand<T>(command: string, ...args: any[]): Promise<T | undefined> {
+    return this.original.executeCommand(command, ...args);
+  }
+
   public onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {

@@ -102,13 +102,6 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeFocusEditor(this.ide, this);
   }
 
-  public async executeBuiltInCommand<T>(
-    command: string,
-    ...args: any[]
-  ): Promise<T | undefined> {
-    return await vscode.commands.executeCommand(command, ...args);
-  }
-
   public editNewNotebookCellAbove(): Promise<
     (selection: Selection) => Selection
   > {
