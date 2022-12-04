@@ -16,7 +16,7 @@ interface Options {
  * moving the cursor. Note that most of the heavy lifting is done by
  * {@link CallbackAction}.
  */
-abstract class SimpleIdeCommandActions {
+abstract class SimpleIdeCommandAction {
   private callbackAction: CallbackAction;
 
   abstract command: CommandId;
@@ -58,71 +58,71 @@ abstract class SimpleIdeCommandActions {
   }
 }
 
-export class CopyToClipboard extends SimpleIdeCommandActions {
+export class CopyToClipboard extends SimpleIdeCommandAction {
   command: CommandId = "clipboardCopy";
   ensureSingleEditor = true;
 }
 
-export class ToggleLineComment extends SimpleIdeCommandActions {
+export class ToggleLineComment extends SimpleIdeCommandAction {
   command: CommandId = "toggleLineComment";
 }
 
-export class IndentLine extends SimpleIdeCommandActions {
+export class IndentLine extends SimpleIdeCommandAction {
   command: CommandId = "indentLine";
 }
 
-export class OutdentLine extends SimpleIdeCommandActions {
+export class OutdentLine extends SimpleIdeCommandAction {
   command: CommandId = "outdentLine";
 }
 
-export class Fold extends SimpleIdeCommandActions {
+export class Fold extends SimpleIdeCommandAction {
   command: CommandId = "fold";
 }
 
-export class Unfold extends SimpleIdeCommandActions {
+export class Unfold extends SimpleIdeCommandAction {
   command: CommandId = "unfold";
 }
 
-export class Rename extends SimpleIdeCommandActions {
+export class Rename extends SimpleIdeCommandAction {
   command: CommandId = "rename";
   ensureSingleTarget = true;
 }
 
-export class ShowReferences extends SimpleIdeCommandActions {
+export class ShowReferences extends SimpleIdeCommandAction {
   command: CommandId = "showReferences";
   ensureSingleTarget = true;
 }
 
-export class ShowQuickFix extends SimpleIdeCommandActions {
+export class ShowQuickFix extends SimpleIdeCommandAction {
   command: CommandId = "quickFix";
   ensureSingleTarget = true;
 }
 
-export class RevealDefinition extends SimpleIdeCommandActions {
+export class RevealDefinition extends SimpleIdeCommandAction {
   command: CommandId = "revealDefinition";
   ensureSingleTarget = true;
   restoreSelection = false;
 }
 
-export class RevealTypeDefinition extends SimpleIdeCommandActions {
+export class RevealTypeDefinition extends SimpleIdeCommandAction {
   command: CommandId = "revealTypeDefinition";
   ensureSingleTarget = true;
   restoreSelection = false;
 }
 
-export class ShowHover extends SimpleIdeCommandActions {
+export class ShowHover extends SimpleIdeCommandAction {
   command: CommandId = "showHover";
   ensureSingleTarget = true;
   restoreSelection = false;
 }
 
-export class ShowDebugHover extends SimpleIdeCommandActions {
+export class ShowDebugHover extends SimpleIdeCommandAction {
   command: CommandId = "showDebugHover";
   ensureSingleTarget = true;
   restoreSelection = false;
 }
 
-export class ExtractVariable extends SimpleIdeCommandActions {
+export class ExtractVariable extends SimpleIdeCommandAction {
   command: CommandId = "extractVariable";
   ensureSingleTarget = true;
   restoreSelection = false;
