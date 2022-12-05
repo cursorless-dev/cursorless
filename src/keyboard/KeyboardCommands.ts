@@ -5,7 +5,7 @@ import KeyboardHandler from "./KeyboardHandler";
 
 export default class KeyboardCommands {
   targeted: KeyboardCommandsTargeted;
-  private modal: KeyboardCommandsModal;
+  modal: KeyboardCommandsModal;
   keyboardHandler: KeyboardHandler;
 
   constructor(graph: Graph) {
@@ -17,5 +17,6 @@ export default class KeyboardCommands {
   init() {
     this.targeted.init();
     this.modal.init();
+    this.keyboardHandler.init();
   }
 }

@@ -2,6 +2,7 @@ import { IDE, sleep, SpyIDE } from "@cursorless/common";
 import { getCursorlessApi } from "@cursorless/vscode-common";
 import { Context } from "mocha";
 import * as sinon from "sinon";
+import NormalizedIDE from "../../libs/common/ide/normalized/NormalizedIDE";
 import shouldUpdateFixtures from "./shouldUpdateFixtures";
 
 /**
@@ -21,7 +22,7 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
   suite.timeout("100s");
   suite.retries(5);
 
-  let ide: IDE | undefined;
+  let ide: NormalizedIDE | undefined;
   let injectIde: ((ide: IDE) => void) | undefined;
   let spy: SpyIDE | undefined;
 
@@ -40,8 +41,11 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
   });
 
   return {
-    getSpy() {
-      return spy;
+    getSpyIde() {
+      return spy!;
+    },
+    getOriginalIde() {
+      return ide!;
     },
   };
 }

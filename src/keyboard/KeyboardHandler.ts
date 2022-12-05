@@ -1,15 +1,26 @@
 import { pull } from "lodash";
 import * as vscode from "vscode";
 import { Disposable } from "vscode";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Graph } from "../typings/Types";
 
+const GLOBAL_WHEN_CLAUSE_CONTEXT = "cursorless.keyboard.listening";
+
 interface Listener {
+  displayOptions: DisplayOptions;
   handleInput(text: string): void;
+  handleCancelled(): void;
 }
 
-interface ActiveListener {
+interface DisplayOptions {
+  cursorStyle: vscode.TextEditorCursorStyle;
+  whenClauseContext?: string;
+  statusBarText?: string;
+}
+
+interface ListenerEntry {
   listener: Listener;
-  typeCommandDisposable: Disposable;
+  disposable: Disposable;
 }
 
 interface TypeCommandArg {
@@ -22,10 +33,47 @@ interface TypeCommandArg {
  * will cause typing not to work.
  */
 export default class KeyboardHandler {
-  private listeners: Listener[] = [];
-  private activeListener: ActiveListener | undefined;
+  private listeners: ListenerEntry[] = [];
+  private activeListener: ListenerEntry | undefined;
+  private typeCommandDisposable?: Disposable;
+  private isActivated = false;
+  private disposables: Disposable[] = [];
 
-  constructor(private graph: Graph) {}
+  constructor(private graph: Graph) {
+    this.cancelActiveListener = this.cancelActiveListener.bind(this);
+    ide().disposeOnExit(this);
+  }
+
+  init() {
+    this.disposables.push(
+      vscode.commands.registerCommand(
+        "cursorless.keyboard.escape",
+        this.cancelActiveListener,
+      ),
+      vscode.window.onDidChangeActiveTextEditor((textEditor) => {
+        if (!textEditor) {
+          return;
+        }
+
+        const relinquishCursorControlOnDeactivate = vscode.workspace
+          .getConfiguration("cursorless.keyboard")
+          .get<boolean>(`relinquishCursorControlOnDeactivate`)!;
+
+        if (
+          !relinquishCursorControlOnDeactivate ||
+          this.activeListener != null
+        ) {
+          this.ensureCursorStyle();
+        }
+      }),
+    );
+
+    this.ensureState();
+  }
+
+  dispose() {
+    this.disposables.forEach(({ dispose }) => dispose());
+  }
 
   /**
    * Registers a listener to take over listening to typing events.  Will cause
@@ -35,59 +83,106 @@ export default class KeyboardHandler {
    * @returns A disposable that can be called to remove the listener
    */
   pushListener(listener: Listener): Disposable {
-    this.listeners.push(listener);
-    this.ensureListenerState();
+    this.isActivated = true;
 
-    return {
+    let isDisposed = false;
+
+    const disposable = {
       dispose: () => {
-        pull(this.listeners, listener);
-        this.ensureListenerState();
+        if (isDisposed) {
+          return;
+        }
+
+        isDisposed = true;
+        pull(this.listeners, listenerEntry);
+        this.ensureState();
       },
     };
+
+    const listenerEntry = { listener, disposable };
+
+    this.listeners.push(listenerEntry);
+
+    this.ensureState();
+
+    return disposable;
   }
 
-  awaitSingleKeypress(): Promise<string> {
-    return new Promise<string>((resolve) => {
+  cancelActiveListener(): void {
+    if (this.activeListener == null) {
+      return;
+    }
+
+    const { listener, disposable } = this.activeListener;
+
+    listener.handleCancelled();
+    disposable.dispose();
+  }
+
+  awaitSingleKeypress(
+    displayOptions: DisplayOptions,
+  ): Promise<string | undefined> {
+    return new Promise<string | undefined>((resolve) => {
       const disposable = this.pushListener({
+        displayOptions,
+
         handleInput(text: string) {
           disposable.dispose();
           resolve(text);
+        },
+
+        handleCancelled() {
+          resolve(undefined);
         },
       });
     });
   }
 
-  private ensureListenerState() {
-    if (this.listeners.length === 0) {
-      this.disposeOfActiveListener();
-      return;
-    }
-
-    const activeListener = this.listeners[this.listeners.length - 1];
+  private ensureState() {
+    const activeListener =
+      this.listeners.length === 0
+        ? undefined
+        : this.listeners[this.listeners.length - 1];
 
     if (this.activeListener?.listener === activeListener) {
       return;
     }
 
+    this.disposeOfActiveListener();
     this.activateListener(activeListener);
+
+    this.ensureCursorStyle();
+    this.ensureStatusBarText();
+    this.ensureGlobalWhenClauseContext();
   }
 
-  private activateListener(listener: Listener): void {
-    this.disposeOfActiveListener();
+  private activateListener(listenerEntry: ListenerEntry | undefined): void {
+    if (listenerEntry == null) {
+      return;
+    }
 
-    const typeCommandDisposable = vscode.commands.registerCommand(
+    const {
+      handleInput,
+      displayOptions: { whenClauseContext },
+    } = listenerEntry.listener;
+
+    this.typeCommandDisposable = vscode.commands.registerCommand(
       "type",
       ({ text }: TypeCommandArg) => {
         if (!vscode.window.activeTextEditor) {
           return;
         }
 
-        listener.handleInput(text);
-      }
+        handleInput(text);
+      },
     );
-    this.graph.extensionContext.subscriptions.push(typeCommandDisposable);
+    this.disposables.push(this.typeCommandDisposable);
 
-    this.activeListener = { listener, typeCommandDisposable };
+    if (whenClauseContext != null) {
+      vscode.commands.executeCommand("setContext", whenClauseContext, true);
+    }
+
+    this.activeListener = listenerEntry;
   }
 
   private disposeOfActiveListener() {
@@ -95,11 +190,58 @@ export default class KeyboardHandler {
       return;
     }
 
-    this.activeListener.typeCommandDisposable.dispose();
-    pull(
-      this.graph.extensionContext.subscriptions,
-      this.activeListener.typeCommandDisposable
-    );
+    this.typeCommandDisposable!.dispose();
+    pull(this.disposables, this.typeCommandDisposable);
+    this.typeCommandDisposable = undefined;
+
+    const { whenClauseContext } = this.activeListener.listener.displayOptions;
+
+    if (whenClauseContext != null) {
+      vscode.commands.executeCommand("setContext", whenClauseContext, false);
+    }
+
     this.activeListener = undefined;
+  }
+
+  private ensureCursorStyle() {
+    if (!this.isActivated || !vscode.window.activeTextEditor) {
+      return;
+    }
+
+    const cursorStyle =
+      this.activeListener?.listener.displayOptions.cursorStyle ??
+      vscode.TextEditorCursorStyle.Line;
+
+    const currentCursorStyle =
+      vscode.window.activeTextEditor.options.cursorStyle;
+
+    if (currentCursorStyle !== cursorStyle) {
+      vscode.window.activeTextEditor.options = {
+        cursorStyle,
+      };
+    }
+  }
+
+  private ensureStatusBarText() {
+    if (!this.isActivated) {
+      return;
+    }
+
+    const statusBarText =
+      this.activeListener?.listener.displayOptions.statusBarText;
+
+    if (statusBarText == null) {
+      this.graph.statusBarItem.unsetText();
+    } else {
+      this.graph.statusBarItem.setText(statusBarText);
+    }
+  }
+
+  private ensureGlobalWhenClauseContext() {
+    vscode.commands.executeCommand(
+      "setContext",
+      GLOBAL_WHEN_CLAUSE_CONTEXT,
+      this.activeListener != null,
+    );
   }
 }

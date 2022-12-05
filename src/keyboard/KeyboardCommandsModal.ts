@@ -1,10 +1,16 @@
-import { toPairs } from "lodash";
+import { keys, merge, toPairs } from "lodash";
 import * as vscode from "vscode";
-import { ActionType } from "../actions/actions.types";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Graph } from "../typings/Types";
-import { actionKeymap, colorKeymap, KeyMap, scopeKeymap } from "./Keymaps";
+import {
+  actionKeymap,
+  colorKeymap,
+  Keymap,
+  scopeKeymap,
+  shapeKeymap,
+} from "./Keymaps";
 
-type SectionName = "actions" | "scopes" | "colors";
+type SectionName = "actions" | "scopes" | "colors" | "shapes";
 
 interface KeyHandler<T> {
   sectionName: SectionName;
@@ -16,9 +22,17 @@ interface KeyHandler<T> {
  * Defines a mode to use with a modal version of Cursorless keyboard.
  */
 export default class KeyboardCommandsModal {
-  private isModeOn = false;
-  private isActivated = false;
+  /**
+   * This disposable is returned by {@link KeyboardHandler.pushListener}, and is
+   * used to relinquich control of the keyboard.  If this disposable is
+   * non-null, then our mode is active.
+   */
   private inputDisposable: vscode.Disposable | undefined;
+
+  /**
+   * Merged map from all the different sections of the key map (eg actions,
+   * colors, etc).
+   */
   private mergedKeymap!: Record<string, KeyHandler<any>>;
 
   constructor(private graph: Graph) {
@@ -30,24 +44,27 @@ export default class KeyboardCommandsModal {
   }
 
   init() {
-    this.graph.extensionContext.subscriptions.push(
+    ide().disposeOnExit(
       vscode.commands.registerCommand(
         "cursorless.keyboard.modal.modeOn",
-        this.modeOn
+        this.modeOn,
       ),
       vscode.commands.registerCommand(
         "cursorless.keyboard.modal.modeOff",
-        this.modeOff
+        this.modeOff,
       ),
-      vscode.window.onDidChangeActiveTextEditor((textEditor) => {
-        if (!textEditor) {
-          return;
+      vscode.commands.registerCommand(
+        "cursorless.keyboard.modal.modeToggle",
+        this.modeToggle,
+      ),
+      vscode.workspace.onDidChangeConfiguration((event) => {
+        if (
+          event.affectsConfiguration("cursorless.keyboard.modal.keybindings")
+        ) {
+          this.constructMergedKeymap();
         }
-        this.ensureState();
-      })
+      }),
     );
-
-    this.ensureState();
   }
 
   private constructMergedKeymap() {
@@ -66,23 +83,42 @@ export default class KeyboardCommandsModal {
         color: value,
       });
     });
+    this.handleSection("shapes", shapeKeymap, (value) => {
+      return this.graph.keyboardCommands.targeted.targetDecoratedMark({
+        shape: value,
+      });
+    });
   }
 
+  /**
+   * Adds a section (eg actions, scopes, etc) to the merged keymap.
+   *
+   * @param sectionName The name of the section (eg `"actions"`, `"scopes"`, etc)
+   * @param defaultKeyMap The default values for this keymap
+   * @param handleValue The function to call when the user presses the given key
+   */
   private handleSection<T>(
     sectionName: SectionName,
-    keyMap: KeyMap<T>,
-    handleValue: (value: T) => void
+    defaultKeyMap: Keymap<T>,
+    handleValue: (value: T) => void,
   ) {
+    const userOverrides: Keymap<T> =
+      vscode.workspace
+        .getConfiguration("cursorless.keyboard.modal.keybindings")
+        .get<Keymap<T>>(sectionName) ?? {};
+    const keyMap = merge({}, defaultKeyMap, userOverrides);
+
     for (const [key, value] of toPairs(keyMap)) {
-      if (key in this.mergedKeymap) {
+      const conflictingEntry = this.getConflictingKeyMapEntry(key);
+      if (conflictingEntry != null) {
         const { sectionName: conflictingSection, value: conflictingValue } =
-          this.mergedKeymap[key];
+          conflictingEntry;
 
         vscode.window.showErrorMessage(
-          `Duplicated keybindings: ${sectionName} ${value} and ${conflictingSection} ${conflictingValue} both want key '${key}'`
+          `Conflicting keybindings: \`${sectionName}.${value}\` and \`${conflictingSection}.${conflictingValue}\` both want key '${key}'`,
         );
 
-        return;
+        continue;
       }
 
       const entry: KeyHandler<T> = {
@@ -95,69 +131,98 @@ export default class KeyboardCommandsModal {
     }
   }
 
-  private modeOn = () => {
-    this.isModeOn = true;
-    this.isActivated = true;
-
-    vscode.commands.executeCommand(
-      "setContext",
-      "cursorless.keyboard.modal.mode",
-      true
-    );
+  modeOn = async () => {
+    if (this.isModeOn()) {
+      return;
+    }
 
     this.inputDisposable =
-      this.graph.keyboardCommands.keyboardHandler.pushListener(this);
+      this.graph.keyboardCommands.keyboardHandler.pushListener({
+        handleInput: this.handleInput,
+        displayOptions: {
+          cursorStyle: vscode.TextEditorCursorStyle.BlockOutline,
+          whenClauseContext: "cursorless.keyboard.modal.mode",
+          statusBarText: "Listening...",
+        },
+        handleCancelled: this.modeOff,
+      });
 
-    this.ensureState();
+    // Set target to current selection when we enter the mode
+    await this.graph.keyboardCommands.targeted.targetSelection();
   };
 
-  handleInput(text: string) {
-    this.mergedKeymap[text].handleValue();
-  }
-
-  private modeOff = () => {
-    this.isModeOn = false;
-
-    vscode.commands.executeCommand(
-      "setContext",
-      "cursorless.keyboard.modal.mode",
-      false
-    );
+  modeOff = async () => {
+    if (!this.isModeOn()) {
+      return;
+    }
 
     this.inputDisposable?.dispose();
     this.inputDisposable = undefined;
 
-    this.ensureState();
+    // Clear target upon exiting mode; this will remove the highlight
+    await this.graph.keyboardCommands.targeted.clearTarget();
   };
 
-  private ensureState = () => {
-    if (!this.isActivated) {
-      return;
+  modeToggle = () => {
+    if (this.isModeOn()) {
+      this.modeOff();
+    } else {
+      this.modeOn();
     }
-
-    this.ensureCursorStyle();
   };
 
-  private ensureCursorStyle() {
-    if (!vscode.window.activeTextEditor) {
-      return;
-    }
-
-    const cursorStyle = this.isModeOn
-      ? vscode.TextEditorCursorStyle.LineThin
-      : vscode.TextEditorCursorStyle.Line;
-
-    const currentCursorStyle =
-      vscode.window.activeTextEditor.options.cursorStyle;
-
-    if (currentCursorStyle !== cursorStyle) {
-      vscode.window.activeTextEditor.options = {
-        cursorStyle: cursorStyle,
-      };
-    }
+  private isModeOn() {
+    return this.inputDisposable != null;
   }
 
-  private handleAction(action: ActionType) {
-    return this.graph.keyboardCommands.targeted.performActionOnTarget(action);
+  async handleInput(text: string) {
+    let sequence = text;
+    let keyHandler: KeyHandler<any> | undefined = this.mergedKeymap[sequence];
+
+    // We handle multi-key sequences by repeatedly awaiting a single keypress
+    // until they've pressed somethign in the map.
+    while (keyHandler == null) {
+      if (!this.isPrefixOfKey(sequence)) {
+        const errorMessage = `Unknown key sequence "${sequence}"`;
+        vscode.window.showErrorMessage(errorMessage);
+        throw Error(errorMessage);
+      }
+
+      const nextKey =
+        await this.graph.keyboardCommands.keyboardHandler.awaitSingleKeypress({
+          cursorStyle: vscode.TextEditorCursorStyle.Underline,
+          whenClauseContext: "cursorless.keyboard.targeted.awaitingKeys",
+          statusBarText: "Finish sequence...",
+        });
+
+      if (nextKey == null) {
+        return;
+      }
+
+      sequence += nextKey;
+      keyHandler = this.mergedKeymap[sequence];
+    }
+
+    keyHandler.handleValue();
+  }
+
+  isPrefixOfKey(text: string): boolean {
+    return keys(this.mergedKeymap).some((key) => key.startsWith(text));
+  }
+
+  /**
+   * This function can be used to deterct if a proposed map entry conflicts with
+   * one in the map.  Used to detect if the user tries to use two map entries,
+   * one of which is a prefix of the other.
+   * @param text The proposed new map entry
+   * @returns The first map entry that conflicts with {@link text}, if one
+   * exists
+   */
+  getConflictingKeyMapEntry(text: string): KeyHandler<any> | undefined {
+    const conflictingPair = toPairs(this.mergedKeymap).find(
+      ([key]) => text.startsWith(key) || key.startsWith(text),
+    );
+
+    return conflictingPair == null ? undefined : conflictingPair[1];
   }
 }
