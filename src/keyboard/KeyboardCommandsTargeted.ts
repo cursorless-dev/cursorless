@@ -126,7 +126,7 @@ export default class KeyboardCommandsTargeted {
         break;
     }
 
-    return executeCursorlessCommand({
+    return await executeCursorlessCommand({
       action: {
         name: "highlight",
       },

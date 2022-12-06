@@ -26,10 +26,7 @@ async function runTest() {
   ]);
 
   // Target containing function
-  await Promise.all([
-    vscode.commands.executeCommand("type", { text: "s" }),
-    vscode.commands.executeCommand("type", { text: "f" }),
-  ]);
+  await Promise.all([vscode.commands.executeCommand("type", { text: "sf" })]);
 
   // Select target
   await vscode.commands.executeCommand("type", { text: "t" });
