@@ -3,19 +3,19 @@ import * as vscode from "vscode";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Graph } from "../typings/Types";
 import {
-  actionKeymap,
-  colorKeymap,
+  DEFAULT_ACTION_KEYMAP,
+  DEFAULT_COLOR_KEYMAP,
   Keymap,
-  scopeKeymap,
-  shapeKeymap,
-} from "./Keymaps";
+  DEFAULT_SCOPE_KEYMAP,
+  DEFAULT_SHAPE_KEYMAP,
+} from "./defaultKeymaps";
 
 type SectionName = "actions" | "scopes" | "colors" | "shapes";
 
 interface KeyHandler<T> {
   sectionName: SectionName;
   value: T;
-  handleValue(): void;
+  handleValue(): Promise<unknown>;
 }
 
 /**
@@ -70,24 +70,24 @@ export default class KeyboardCommandsModal {
   private constructMergedKeymap() {
     this.mergedKeymap = {};
 
-    this.handleSection("actions", actionKeymap, (value) => {
-      return this.graph.keyboardCommands.targeted.performActionOnTarget(value);
-    });
-    this.handleSection("scopes", scopeKeymap, (value) => {
-      return this.graph.keyboardCommands.targeted.targetScopeType({
+    this.handleSection("actions", DEFAULT_ACTION_KEYMAP, (value) =>
+      this.graph.keyboardCommands.targeted.performActionOnTarget(value),
+    );
+    this.handleSection("scopes", DEFAULT_SCOPE_KEYMAP, (value) =>
+      this.graph.keyboardCommands.targeted.targetScopeType({
         scopeType: value,
-      });
-    });
-    this.handleSection("colors", colorKeymap, (value) => {
-      return this.graph.keyboardCommands.targeted.targetDecoratedMark({
+      }),
+    );
+    this.handleSection("colors", DEFAULT_COLOR_KEYMAP, (value) =>
+      this.graph.keyboardCommands.targeted.targetDecoratedMark({
         color: value,
-      });
-    });
-    this.handleSection("shapes", shapeKeymap, (value) => {
-      return this.graph.keyboardCommands.targeted.targetDecoratedMark({
+      }),
+    );
+    this.handleSection("shapes", DEFAULT_SHAPE_KEYMAP, (value) =>
+      this.graph.keyboardCommands.targeted.targetDecoratedMark({
         shape: value,
-      });
-    });
+      }),
+    );
   }
 
   /**
@@ -100,7 +100,7 @@ export default class KeyboardCommandsModal {
   private handleSection<T>(
     sectionName: SectionName,
     defaultKeyMap: Keymap<T>,
-    handleValue: (value: T) => void,
+    handleValue: (value: T) => Promise<unknown>,
   ) {
     const userOverrides: Keymap<T> =
       vscode.workspace

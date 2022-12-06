@@ -134,11 +134,11 @@ export default class KeyboardCommandsTargeted {
     });
   };
 
-  targetScopeType = ({
+  targetScopeType = async ({
     scopeType,
     type = "containingScope",
   }: TargetScopeTypeArgument) =>
-    executeCursorlessCommand({
+    await executeCursorlessCommand({
       action: {
         name: "highlight",
       },

@@ -8,7 +8,7 @@ const GLOBAL_WHEN_CLAUSE_CONTEXT = "cursorless.keyboard.listening";
 
 interface Listener {
   displayOptions: DisplayOptions;
-  handleInput(text: string): void;
+  handleInput(text: string): Promise<unknown>;
   handleCancelled(): void;
 }
 
@@ -126,7 +126,7 @@ export default class KeyboardHandler {
       const disposable = this.pushListener({
         displayOptions,
 
-        handleInput(text: string) {
+        async handleInput(text: string) {
           disposable.dispose();
           resolve(text);
         },
@@ -168,12 +168,12 @@ export default class KeyboardHandler {
 
     this.typeCommandDisposable = vscode.commands.registerCommand(
       "type",
-      ({ text }: TypeCommandArg) => {
+      async ({ text }: TypeCommandArg) => {
         if (!vscode.window.activeTextEditor) {
           return;
         }
 
-        handleInput(text);
+        await handleInput(text);
       },
     );
     this.disposables.push(this.typeCommandDisposable);
