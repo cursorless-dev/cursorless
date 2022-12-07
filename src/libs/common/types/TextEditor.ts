@@ -155,10 +155,13 @@ export interface EditableTextEditor extends TextEditor {
   clipboardPaste(ranges?: Range[]): Promise<void>;
 
   /**
-   * Toggle breakpoints
-   * @param ranges A list of {@link Range ranges}
+   * Toggle breakpoints. For each of the descriptors in {@link descriptors},
+   * remove all breakpoints overlapping with the given descriptor if it overlaps
+   * with any existing breakpoint, otherwise add a new breakpoint at the given
+   * location.
+   * @param descriptors A list of breakpoint descriptors
    */
-  toggleBreakpoint(ranges?: Range[]): Promise<void>;
+  toggleBreakpoint(descriptors?: BreakpointDescriptor[]): Promise<void>;
 
   /**
    * Toggle line comments
@@ -239,3 +242,21 @@ export interface EditableTextEditor extends TextEditor {
    */
   extractVariable(range?: Range): Promise<void>;
 }
+
+interface LineBreakpointDescriptor {
+  type: "line";
+  startLine: number;
+  /**
+   * Last line, inclusive
+   */
+  endLine: number;
+}
+
+interface InlineBreakpointDescriptor {
+  type: "inline";
+  range: Range;
+}
+
+export type BreakpointDescriptor =
+  | LineBreakpointDescriptor
+  | InlineBreakpointDescriptor;

@@ -1,4 +1,4 @@
-import { Range } from "@cursorless/common";
+import { BreakpointDescriptor } from "../libs/common/types/TextEditor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
@@ -22,16 +22,25 @@ export default class ToggleBreakpoint implements Action {
     );
 
     await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-      const ranges = targets.map((target) => {
-        const range = target.contentRange;
-        // The action preference give us line content but line breakpoints are registered on character 0
-        if (target.isLine) {
-          return new Range(range.start.line, 0, range.end.line, 0);
-        }
-        return range;
-      });
+      const breakpointDescriptors: BreakpointDescriptor[] = targets.map(
+        (target) => {
+          const range = target.contentRange;
+          return target.isLine
+            ? {
+                type: "line",
+                startLine: range.start.line,
+                endLine: range.end.line,
+              }
+            : {
+                type: "inline",
+                range,
+              };
+        },
+      );
 
-      await ide().getEditableTextEditor(editor).toggleBreakpoint(ranges);
+      await ide()
+        .getEditableTextEditor(editor)
+        .toggleBreakpoint(breakpointDescriptors);
     });
 
     return {
