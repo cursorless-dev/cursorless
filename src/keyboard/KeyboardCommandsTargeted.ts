@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { ActionType } from "../actions/actions.types";
+import { runCursorlessCommand } from "../apps/cursorless-vscode-e2e/runCommand";
 import {
   CommandLatest,
   LATEST_VERSION,
@@ -19,6 +20,10 @@ interface TargetDecoratedMarkArgument {
   color?: HatColor;
   shape?: HatShape;
   character?: string;
+  /**
+   * Indicates if the current target should be replaced by the given mark, or if
+   * we should create a range (using existing target as anchor), or a list.
+   */
   mode?: TargetingMode;
 }
 
@@ -66,6 +71,12 @@ export default class KeyboardCommandsTargeted {
     );
   }
 
+  /**
+   * Sets the highlighted target to the given decorated mark. If {@link character} is
+   * omitted, then we wait for the user to press a character
+   * @param param0 Describes the desired targeted mark
+   * @returns A promise that resolves to the result of the cursorless command
+   */
   targetDecoratedMark = async ({
     color = "default",
     shape = "default",
@@ -81,6 +92,7 @@ export default class KeyboardCommandsTargeted {
       }));
 
     if (character == null) {
+      // Cancelled
       return;
     }
 
@@ -134,6 +146,11 @@ export default class KeyboardCommandsTargeted {
     });
   };
 
+  /**
+   * Expands the current target to the containing {@link scopeType}
+   * @param param0 Describes the desired scope type
+   * @returns A promise that resolves to the result of the cursorless command
+   */
   targetScopeType = async ({
     scopeType,
     type = "containingScope",
@@ -175,6 +192,11 @@ export default class KeyboardCommandsTargeted {
       ],
     });
 
+  /**
+   * Performs action {@link action} on the current target
+   * @param action The action to run
+   * @returns A promise that resolves to the result of the cursorless command
+   */
   performActionOnTarget = async (action: ActionType) => {
     const targets: PartialPrimitiveTargetDescriptor[] = [
       {
@@ -186,6 +208,7 @@ export default class KeyboardCommandsTargeted {
     ];
 
     if (MULTIPLE_TARGET_ACTIONS.includes(action)) {
+      // For multi-target actiosn (eg "bring"), we just use implicit destination
       targets.push({
         type: "primitive",
         isImplicit: true,
@@ -202,12 +225,18 @@ export default class KeyboardCommandsTargeted {
     await this.highlightTarget();
 
     if (EXIT_CURSORLESS_MODE_ACTIONS.includes(action)) {
+      // For some Cursorless actions, it is more convenient if we automatically
+      // exit modal mode
       await this.graph.keyboardCommands.modal.modeOff();
     }
 
     return returnValue;
   };
 
+  /**
+   * Sets the current target to the current selection
+   * @returns A promise that resolves to the result of the cursorless command
+   */
   targetSelection = () =>
     executeCursorlessCommand({
       action: {
@@ -223,6 +252,10 @@ export default class KeyboardCommandsTargeted {
       ],
     });
 
+  /**
+   * Unsets the current target, causing any highlights to disappear
+   * @returns A promise that resolves to the result of the cursorless command
+   */
   clearTarget = () =>
     executeCursorlessCommand({
       action: {
@@ -242,7 +275,7 @@ export default class KeyboardCommandsTargeted {
 function executeCursorlessCommand(
   command: Omit<CommandLatest, "version" | "usePrePhraseSnapshot">,
 ) {
-  return vscode.commands.executeCommand("cursorless.command", {
+  return runCursorlessCommand({
     ...command,
     version: LATEST_VERSION,
     usePrePhraseSnapshot: false,

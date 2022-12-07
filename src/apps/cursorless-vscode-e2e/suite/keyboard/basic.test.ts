@@ -6,10 +6,21 @@ import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
 suite("Basic keyboard test", async function () {
   endToEndTestSetup(this);
 
-  test("Basic keyboard test", () => runTest());
+  test("Don't take keyboard control on startup", () => checkKeyboardStartup());
+  test("Basic keyboard test", () => basic());
 });
 
-async function runTest() {
+async function checkKeyboardStartup() {
+  await getCursorlessApi();
+  const editor = await openNewEditor("");
+
+  // Type the letter
+  await typeText("a");
+
+  assert.equal(editor.document.getText().trim(), "a");
+}
+
+async function basic() {
   const { graph } = (await getCursorlessApi()).testHelpers!;
 
   const editor = await openNewEditor("function foo() {}\n", "typescript");

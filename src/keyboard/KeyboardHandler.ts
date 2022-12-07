@@ -4,17 +4,55 @@ import { Disposable } from "vscode";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Graph } from "../typings/Types";
 
+/**
+ * This when clause context is active if any Cursorless listener is in control
+ * of the keyboard
+ */
 const GLOBAL_WHEN_CLAUSE_CONTEXT = "cursorless.keyboard.listening";
 
+/**
+ * Describes a keyboard listener
+ */
 interface Listener {
+  /**
+   * How to indicate to the user that the listener is active
+   */
   displayOptions: DisplayOptions;
+
+  /**
+   * This function will be called anytime the user presses a key while this
+   * listener is active
+   * @param text The key pressed
+   */
   handleInput(text: string): Promise<unknown>;
+
+  /**
+   * This function will be called if the listener is canceled (eg if the user
+   * has `cursorless.keyboard.escape` bound to `escape` and they press
+   * `escape`)
+   */
   handleCancelled(): void;
 }
 
+/**
+ * How to indicate to the user that the listener is active
+ */
 interface DisplayOptions {
+  /**
+   * The cursor style to show to the user while this listener is active
+   */
   cursorStyle: vscode.TextEditorCursorStyle;
+
+  /**
+   * The
+   * {@link https://code.visualstudio.com/api/references/when-clause-contexts when clause context}
+   * to activate while this listener is active
+   */
   whenClauseContext?: string;
+
+  /**
+   * The status bar text to display while this listener is active
+   */
   statusBarText?: string;
 }
 
@@ -34,6 +72,13 @@ interface TypeCommandArg {
  * Allows other components to register to listen to typing events.  Note that
  * only one listener can be active at a time, and having any listeners active
  * will cause typing not to work.
+ *
+ * Each time {@link pushListener} is called, the listener is pushed onto the top
+ * of the stack.  The `cursorless.keyboard.escape` action can be used to pop the
+ * current listener off the stack, which will call its
+ * {@link Listener.handleCancelled} function.  The next listener on the stack
+ * will take over the keyboard, unless the stack is empty, which will give
+ * keyboard control back to VSCode.
  */
 export default class KeyboardHandler {
   private listeners: ListenerEntry[] = [];
@@ -58,6 +103,11 @@ export default class KeyboardHandler {
           return;
         }
 
+        /**
+         * Indicates that Cursorless should not force cursor to
+         * {@link TextEditorCursorStyle.Line} when it is not listening.  Users
+         * should set this if they're using something like VSCode vim plugin.
+         */
         const relinquishCursorControlOnDeactivate = vscode.workspace
           .getConfiguration("cursorless.keyboard")
           .get<boolean>(`relinquishCursorControlOnDeactivate`)!;
@@ -81,7 +131,7 @@ export default class KeyboardHandler {
   /**
    * Registers a listener to take over listening to typing events.  Will cause
    * all other listeners, as well as default keyboard input, to stop receiving
-   * input until the retunred `dispose` method is called.
+   * input until the returned `dispose` method is called.
    * @param listener The listener to be notified on typing events
    * @returns A disposable that can be called to remove the listener
    */
@@ -111,6 +161,10 @@ export default class KeyboardHandler {
     return disposable;
   }
 
+  /**
+   * Pop active listener of the stack and call its
+   * {@link Listener.handleCancelled} function
+   */
   cancelActiveListener(): void {
     if (this.activeListener == null) {
       return;
@@ -122,6 +176,15 @@ export default class KeyboardHandler {
     disposable.dispose();
   }
 
+  /**
+   * Convenience method that can be used to wait for a single keypress.
+   * @param displayOptions How to indicate that this listener is active (eg
+   * cursor)
+   * @returns A promise that resolves to the next key pressed by the user, or
+   * `undefined` if {@link cancelActiveListener} is called before a keypress (eg
+   * if they have `cursorless.keyboard.escape` bound to `escape` and they press
+   * `escape`)
+   */
   awaitSingleKeypress(
     displayOptions: DisplayOptions,
   ): Promise<string | undefined> {
@@ -141,6 +204,11 @@ export default class KeyboardHandler {
     });
   }
 
+  /**
+   * Called after any input state changes (eg listener pushed), and ensures that
+   * the state that we control is as expected.  Eg it changes cursor if
+   * necessary, sets when clause contexts, etc
+   */
   private ensureState() {
     const activeListener =
       this.listeners.length === 0
@@ -148,6 +216,7 @@ export default class KeyboardHandler {
         : this.listeners[this.listeners.length - 1];
 
     if (this.activeListener?.listener === activeListener) {
+      // If nothing has changed, do nothing
       return;
     }
 
@@ -169,6 +238,10 @@ export default class KeyboardHandler {
       displayOptions: { whenClauseContext },
     } = listenerEntry.listener;
 
+    // Register to receive typing events instead of main VSCode response.  This
+    // is where we take control of the keyboard FIXME: We could probably just do
+    // this when stack goes from empty to non-empty, rather than registering /
+    // deregistering every time another listener pops onto stack
     this.typeCommandDisposable = vscode.commands.registerCommand(
       "type",
       async ({ text }: TypeCommandArg) => {
