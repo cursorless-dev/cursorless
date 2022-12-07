@@ -11,7 +11,7 @@ The VSCode extension will update automatically, unless for some reason you have 
 
 ## Updating the Talon side
 
-The Talon side of Cursorless always needs to be updated manually by performing a `git pull` in the appropriate directory.
+The Talon side of Cursorless always needs to be updated manually by performing a `git pull` in the appropriate directory, and then restarting Talon.
 
 ### Linux & Mac
 
@@ -22,6 +22,8 @@ cd ~/.talon/user/cursorless-talon
 git pull
 ```
 
+Then restart Talon.
+
 ### Windows
 
 Assuming the default install location of `%AppData%\Talon\user\cursorless-talon`:
@@ -30,3 +32,5 @@ Assuming the default install location of `%AppData%\Talon\user\cursorless-talon`
 cd %AppData%\Talon\user\cursorless-talon
 git pull
 ```
+
+Then restart Talon.
