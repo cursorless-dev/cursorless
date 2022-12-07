@@ -1,7 +1,7 @@
 /**
- * Describes the behavior of decorations when typing/editing at their edges.
+ * Describes the behavior of ranges when typing/editing at their edges.
  */
-export enum DecorationRangeBehavior {
+export enum RangeExpansionBehavior {
   /**
    * The decoration's range will widen when edits occur at the start or end.
    */

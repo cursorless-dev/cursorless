@@ -1,4 +1,4 @@
-import { DecorationRangeBehavior } from "@cursorless/common";
+import { RangeExpansionBehavior } from "@cursorless/common";
 import {
   callFunctionAndUpdateSelections,
   callFunctionAndUpdateSelectionsWithBehavior,
@@ -42,7 +42,7 @@ export class PasteFromClipboard {
           },
           {
             selections: editor.selections,
-            rangeBehavior: DecorationRangeBehavior.openOpen,
+            rangeBehavior: RangeExpansionBehavior.openOpen,
           },
         ],
       );

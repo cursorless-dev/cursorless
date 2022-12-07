@@ -1,5 +1,5 @@
 import {
-  DecorationRangeBehavior,
+  RangeExpansionBehavior,
   Selection,
   TextEditor,
 } from "@cursorless/common";
@@ -172,7 +172,7 @@ class BringMoveSwap implements Action {
               getSelectionInfo(
                 editor.document,
                 range.toSelection(originalTarget.isReversed),
-                DecorationRangeBehavior.openOpen,
+                RangeExpansionBehavior.openOpen,
               ),
           );
 
@@ -180,7 +180,7 @@ class BringMoveSwap implements Action {
             getSelectionInfo(
               editor.document,
               selection,
-              DecorationRangeBehavior.closedClosed,
+              RangeExpansionBehavior.closedClosed,
             ),
           );
 

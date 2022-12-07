@@ -1,5 +1,5 @@
 import {
-  DecorationRangeBehavior,
+  RangeExpansionBehavior,
   EditableTextEditor,
   Selection,
 } from "@cursorless/common";
@@ -64,7 +64,7 @@ export async function runEditTargets(
 
   const editSelections = {
     selections: edits.map((edit) => edit.range.toSelection(false)),
-    rangeBehavior: DecorationRangeBehavior.openOpen,
+    rangeBehavior: RangeExpansionBehavior.openOpen,
   };
 
   const [

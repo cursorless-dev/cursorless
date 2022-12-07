@@ -1,5 +1,5 @@
 import {
-  DecorationRangeBehavior,
+  RangeExpansionBehavior,
   Selection,
   TextEditor,
 } from "@cursorless/common";
@@ -58,7 +58,7 @@ class InsertCopy implements Action {
       selections: edits.map(
         ({ range }) => new Selection(range.start, range.end),
       ),
-      rangeBehavior: DecorationRangeBehavior.openOpen,
+      rangeBehavior: RangeExpansionBehavior.openOpen,
     };
 
     const editableEditor = ide().getEditableTextEditor(editor);

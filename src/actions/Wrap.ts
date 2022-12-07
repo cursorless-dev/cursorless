@@ -1,4 +1,4 @@
-import { DecorationRangeBehavior, Selection } from "@cursorless/common";
+import { RangeExpansionBehavior, Selection } from "@cursorless/common";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos
@@ -51,12 +51,12 @@ export default class Wrap implements Action {
               getSelectionInfo(
                 document,
                 start,
-                DecorationRangeBehavior.openClosed,
+                RangeExpansionBehavior.openClosed,
               ),
               getSelectionInfo(
                 document,
                 end,
-                DecorationRangeBehavior.closedOpen,
+                RangeExpansionBehavior.closedOpen,
               ),
             ];
           },
@@ -66,7 +66,7 @@ export default class Wrap implements Action {
           getSelectionInfo(
             document,
             selection,
-            DecorationRangeBehavior.closedClosed,
+            RangeExpansionBehavior.closedClosed,
           ),
         );
 
@@ -74,7 +74,7 @@ export default class Wrap implements Action {
           getSelectionInfo(
             document,
             target.contentSelection,
-            DecorationRangeBehavior.closedClosed,
+            RangeExpansionBehavior.closedClosed,
           ),
         );
 
@@ -82,7 +82,7 @@ export default class Wrap implements Action {
           getSelectionInfo(
             document,
             target.contentSelection,
-            DecorationRangeBehavior.openOpen,
+            RangeExpansionBehavior.openOpen,
           ),
         );
 

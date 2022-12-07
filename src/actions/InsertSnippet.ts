@@ -1,4 +1,4 @@
-import { DecorationRangeBehavior } from "@cursorless/common";
+import { RangeExpansionBehavior } from "@cursorless/common";
 import textFormatters from "../core/textFormatters";
 import {
   callFunctionAndUpdateSelectionInfos,
@@ -80,7 +80,7 @@ export default class InsertSnippet implements Action {
       getSelectionInfo(
         editor.document,
         selection,
-        DecorationRangeBehavior.openOpen,
+        RangeExpansionBehavior.openOpen,
       ),
     );
 

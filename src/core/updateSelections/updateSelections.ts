@@ -1,5 +1,5 @@
 import {
-  DecorationRangeBehavior,
+  RangeExpansionBehavior,
   EditableTextEditor,
   Range,
   Selection,
@@ -16,7 +16,7 @@ import { RangeUpdater } from "./RangeUpdater";
 
 interface SelectionsWithBehavior {
   selections: readonly Selection[];
-  rangeBehavior?: DecorationRangeBehavior;
+  rangeBehavior?: RangeExpansionBehavior;
 }
 
 /**
@@ -31,7 +31,7 @@ interface SelectionsWithBehavior {
 export function getSelectionInfo(
   document: TextDocument,
   selection: Selection,
-  rangeBehavior: DecorationRangeBehavior,
+  rangeBehavior: RangeExpansionBehavior,
 ): FullSelectionInfo {
   return getSelectionInfoInternal(
     document,
@@ -45,7 +45,7 @@ function getSelectionInfoInternal(
   document: TextDocument,
   range: Range,
   isForward: boolean,
-  rangeBehavior: DecorationRangeBehavior,
+  rangeBehavior: RangeExpansionBehavior,
 ): FullSelectionInfo {
   return {
     range,
@@ -53,13 +53,13 @@ function getSelectionInfoInternal(
     expansionBehavior: {
       start: {
         type:
-          rangeBehavior === DecorationRangeBehavior.closedClosed || rangeBehavior === DecorationRangeBehavior.closedOpen
+          rangeBehavior === RangeExpansionBehavior.closedClosed || rangeBehavior === RangeExpansionBehavior.closedOpen
             ? "closed"
             : "open",
       },
       end: {
         type:
-          rangeBehavior === DecorationRangeBehavior.closedClosed || rangeBehavior === DecorationRangeBehavior.openClosed
+          rangeBehavior === RangeExpansionBehavior.closedClosed || rangeBehavior === RangeExpansionBehavior.openClosed
             ? "closed"
             : "open",
       },
@@ -83,7 +83,7 @@ function getSelectionInfoInternal(
 function selectionsToSelectionInfos(
   document: TextDocument,
   selectionMatrix: (readonly Selection[])[],
-  rangeBehavior: DecorationRangeBehavior = DecorationRangeBehavior.closedClosed,
+  rangeBehavior: RangeExpansionBehavior = RangeExpansionBehavior.closedClosed,
 ): FullSelectionInfo[][] {
   return selectionMatrix.map((selections) =>
     selections.map((selection) =>
@@ -95,7 +95,7 @@ function selectionsToSelectionInfos(
 function rangesToSelectionInfos(
   document: TextDocument,
   rangeMatrix: (readonly Range[])[],
-  rangeBehavior: DecorationRangeBehavior = DecorationRangeBehavior.closedClosed,
+  rangeBehavior: RangeExpansionBehavior = RangeExpansionBehavior.closedClosed,
 ): FullSelectionInfo[][] {
   return rangeMatrix.map((ranges) =>
     ranges.map((range) =>
@@ -228,7 +228,7 @@ export function callFunctionAndUpdateSelectionsWithBehavior(
         getSelectionInfo(
           document,
           selection,
-          selectionsWithBehavior.rangeBehavior ?? DecorationRangeBehavior.closedClosed,
+          selectionsWithBehavior.rangeBehavior ?? RangeExpansionBehavior.closedClosed,
         ),
       ),
     ),
@@ -288,7 +288,7 @@ export function performEditsAndUpdateSelectionsWithBehavior(
         getSelectionInfo(
           editor.document,
           selection,
-          selectionsWithBehavior.rangeBehavior ?? DecorationRangeBehavior.closedClosed,
+          selectionsWithBehavior.rangeBehavior ?? RangeExpansionBehavior.closedClosed,
         ),
       ),
     ),
