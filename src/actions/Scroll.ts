@@ -1,4 +1,4 @@
-import type { RevealLineAt } from "@cursorless/common";
+import { RevealLineAt } from "@cursorless/common";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -57,23 +57,23 @@ class Scroll implements Action {
 
 export class ScrollToTop extends Scroll {
   constructor(graph: Graph) {
-    super(graph, "top");
+    super(graph, RevealLineAt.top);
   }
 }
 
 export class ScrollToCenter extends Scroll {
   constructor(graph: Graph) {
-    super(graph, "center");
+    super(graph, RevealLineAt.center);
   }
 }
 
 export class ScrollToBottom extends Scroll {
   constructor(graph: Graph) {
-    super(graph, "bottom");
+    super(graph, RevealLineAt.bottom);
   }
 }
 
-function getLineNumber(targets: Target[], at: string) {
+function getLineNumber(targets: Target[], at: RevealLineAt) {
   let startLine = Number.MAX_SAFE_INTEGER;
   let endLine = 0;
   targets.forEach((target: Target) => {
@@ -81,10 +81,10 @@ function getLineNumber(targets: Target[], at: string) {
     endLine = Math.max(endLine, target.contentRange.end.line);
   });
 
-  if (at === "top") {
+  if (at === RevealLineAt.top) {
     return startLine;
   }
-  if (at === "bottom") {
+  if (at === RevealLineAt.bottom) {
     return endLine;
   }
   return Math.floor((startLine + endLine) / 2);
