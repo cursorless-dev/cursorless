@@ -59,7 +59,9 @@ export default class KeyboardCommandsModal {
       ),
       vscode.workspace.onDidChangeConfiguration((event) => {
         if (
-          event.affectsConfiguration("cursorless.keyboard.modal.keybindings")
+          event.affectsConfiguration(
+            "cursorless.experimental.keyboard.modal.keybindings",
+          )
         ) {
           this.constructMergedKeymap();
         }
@@ -104,7 +106,7 @@ export default class KeyboardCommandsModal {
   ) {
     const userOverrides: Keymap<T> =
       vscode.workspace
-        .getConfiguration("cursorless.keyboard.modal.keybindings")
+        .getConfiguration("cursorless.experimental.keyboard.modal.keybindings")
         .get<Keymap<T>>(sectionName) ?? {};
     const keyMap = merge({}, defaultKeyMap, userOverrides);
 

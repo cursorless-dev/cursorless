@@ -42,7 +42,7 @@ The above allows you to press `ctrl-c` to switch to Cursorless mode, `escape` to
 To bind keys that do not have modifiers (eg just pressing `a`), add entries like the following to your `settings.json`:
 
 ```json
-  "cursorless.keyboard.modal.keybindings.scopes": {
+  "cursorless.experimental.keyboard.modal.keybindings.scopes": {
     "i": "line",
     "p": "paragraph",
     "n": "statement",
@@ -58,7 +58,7 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
     "sp": "nonWhitespaceSequence",
     "sa": "argumentOrParameter"
   },
-  "cursorless.keyboard.modal.keybindings.actions": {
+  "cursorless.experimental.keyboard.modal.keybindings.actions": {
     "t": "setSelection",
     "h": "setSelectionBefore",
     "l": "setSelectionAfter",
@@ -79,13 +79,13 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
     "ap": "pasteFromClipboard",
     "ad": "followLink"
   },
-  "cursorless.keyboard.modal.keybindings.colors": {
+  "cursorless.experimental.keyboard.modal.keybindings.colors": {
     "d": "default",
     "b": "blue",
     "g": "yellow",
     "r": "red"
   },
-  "cursorless.keyboard.modal.keybindings.shapes": {
+  "cursorless.experimental.keyboard.modal.keybindings.shapes": {
     "x": "ex",
     "f": "fox",
     "q": "frame",
