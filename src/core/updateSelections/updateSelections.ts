@@ -53,13 +53,13 @@ function getSelectionInfoInternal(
     expansionBehavior: {
       start: {
         type:
-          rangeBehavior === "ClosedClosed" || rangeBehavior === "ClosedOpen"
+          rangeBehavior === DecorationRangeBehavior.closedClosed || rangeBehavior === DecorationRangeBehavior.closedOpen
             ? "closed"
             : "open",
       },
       end: {
         type:
-          rangeBehavior === "ClosedClosed" || rangeBehavior === "OpenClosed"
+          rangeBehavior === DecorationRangeBehavior.closedClosed || rangeBehavior === DecorationRangeBehavior.openClosed
             ? "closed"
             : "open",
       },
@@ -83,7 +83,7 @@ function getSelectionInfoInternal(
 function selectionsToSelectionInfos(
   document: TextDocument,
   selectionMatrix: (readonly Selection[])[],
-  rangeBehavior: DecorationRangeBehavior = "ClosedClosed",
+  rangeBehavior: DecorationRangeBehavior = DecorationRangeBehavior.closedClosed,
 ): FullSelectionInfo[][] {
   return selectionMatrix.map((selections) =>
     selections.map((selection) =>
@@ -95,7 +95,7 @@ function selectionsToSelectionInfos(
 function rangesToSelectionInfos(
   document: TextDocument,
   rangeMatrix: (readonly Range[])[],
-  rangeBehavior: DecorationRangeBehavior = "ClosedClosed",
+  rangeBehavior: DecorationRangeBehavior = DecorationRangeBehavior.closedClosed,
 ): FullSelectionInfo[][] {
   return rangeMatrix.map((ranges) =>
     ranges.map((range) =>
@@ -228,7 +228,7 @@ export function callFunctionAndUpdateSelectionsWithBehavior(
         getSelectionInfo(
           document,
           selection,
-          selectionsWithBehavior.rangeBehavior ?? "ClosedClosed",
+          selectionsWithBehavior.rangeBehavior ?? DecorationRangeBehavior.closedClosed,
         ),
       ),
     ),
@@ -288,7 +288,7 @@ export function performEditsAndUpdateSelectionsWithBehavior(
         getSelectionInfo(
           editor.document,
           selection,
-          selectionsWithBehavior.rangeBehavior ?? "ClosedClosed",
+          selectionsWithBehavior.rangeBehavior ?? DecorationRangeBehavior.closedClosed,
         ),
       ),
     ),

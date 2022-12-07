@@ -1,3 +1,4 @@
+import { DecorationRangeBehavior } from "@cursorless/common";
 import textFormatters from "../core/textFormatters";
 import {
   callFunctionAndUpdateSelectionInfos,
@@ -76,7 +77,11 @@ export default class InsertSnippet implements Action {
     await this.graph.actions.editNew.run([targets]);
 
     const targetSelectionInfos = editor.selections.map((selection) =>
-      getSelectionInfo(editor.document, selection, "OpenOpen"),
+      getSelectionInfo(
+        editor.document,
+        selection,
+        DecorationRangeBehavior.openOpen,
+      ),
     );
 
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet

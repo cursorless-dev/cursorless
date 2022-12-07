@@ -1,4 +1,8 @@
-import { Selection, TextEditor } from "@cursorless/common";
+import {
+  DecorationRangeBehavior,
+  Selection,
+  TextEditor,
+} from "@cursorless/common";
 import { flatten, zip } from "lodash";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
@@ -54,7 +58,7 @@ class InsertCopy implements Action {
       selections: edits.map(
         ({ range }) => new Selection(range.start, range.end),
       ),
-      rangeBehavior: "OpenOpen",
+      rangeBehavior: DecorationRangeBehavior.openOpen,
     };
 
     const editableEditor = ide().getEditableTextEditor(editor);

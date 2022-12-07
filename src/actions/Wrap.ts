@@ -1,7 +1,7 @@
-import { Selection } from "@cursorless/common";
+import { DecorationRangeBehavior, Selection } from "@cursorless/common";
 import {
   getSelectionInfo,
-  performEditsAndUpdateFullSelectionInfos,
+  performEditsAndUpdateFullSelectionInfos
 } from "../core/updateSelections/updateSelections";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
@@ -48,22 +48,42 @@ export default class Wrap implements Action {
         const delimiterSelectionInfos: FullSelectionInfo[] = boundaries.flatMap(
           ({ start, end }) => {
             return [
-              getSelectionInfo(document, start, "OpenClosed"),
-              getSelectionInfo(document, end, "ClosedOpen"),
+              getSelectionInfo(
+                document,
+                start,
+                DecorationRangeBehavior.openClosed,
+              ),
+              getSelectionInfo(
+                document,
+                end,
+                DecorationRangeBehavior.closedOpen,
+              ),
             ];
           },
         );
 
         const cursorSelectionInfos = editor.selections.map((selection) =>
-          getSelectionInfo(document, selection, "ClosedClosed"),
+          getSelectionInfo(
+            document,
+            selection,
+            DecorationRangeBehavior.closedClosed,
+          ),
         );
 
         const sourceMarkSelectionInfos = targets.map((target) =>
-          getSelectionInfo(document, target.contentSelection, "ClosedClosed"),
+          getSelectionInfo(
+            document,
+            target.contentSelection,
+            DecorationRangeBehavior.closedClosed,
+          ),
         );
 
         const thatMarkSelectionInfos = targets.map((target) =>
-          getSelectionInfo(document, target.contentSelection, "OpenOpen"),
+          getSelectionInfo(
+            document,
+            target.contentSelection,
+            DecorationRangeBehavior.openOpen,
+          ),
         );
 
         const editableEditor = ide().getEditableTextEditor(editor);

@@ -1,4 +1,8 @@
-import { Selection, EditableTextEditor } from "@cursorless/common";
+import {
+  DecorationRangeBehavior,
+  EditableTextEditor,
+  Selection,
+} from "@cursorless/common";
 import { zip } from "lodash";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
 import { Graph } from "../../typings/Types";
@@ -60,7 +64,7 @@ export async function runEditTargets(
 
   const editSelections = {
     selections: edits.map((edit) => edit.range.toSelection(false)),
-    rangeBehavior: "OpenOpen",
+    rangeBehavior: DecorationRangeBehavior.openOpen,
   };
 
   const [
