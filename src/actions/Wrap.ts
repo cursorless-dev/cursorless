@@ -1,7 +1,7 @@
 import { RangeExpansionBehavior, Selection } from "@cursorless/common";
 import {
   getSelectionInfo,
-  performEditsAndUpdateFullSelectionInfos
+  performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";

@@ -53,13 +53,15 @@ function getSelectionInfoInternal(
     expansionBehavior: {
       start: {
         type:
-          rangeBehavior === RangeExpansionBehavior.closedClosed || rangeBehavior === RangeExpansionBehavior.closedOpen
+          rangeBehavior === RangeExpansionBehavior.closedClosed ||
+          rangeBehavior === RangeExpansionBehavior.closedOpen
             ? "closed"
             : "open",
       },
       end: {
         type:
-          rangeBehavior === RangeExpansionBehavior.closedClosed || rangeBehavior === RangeExpansionBehavior.openClosed
+          rangeBehavior === RangeExpansionBehavior.closedClosed ||
+          rangeBehavior === RangeExpansionBehavior.openClosed
             ? "closed"
             : "open",
       },
@@ -228,7 +230,8 @@ export function callFunctionAndUpdateSelectionsWithBehavior(
         getSelectionInfo(
           document,
           selection,
-          selectionsWithBehavior.rangeBehavior ?? RangeExpansionBehavior.closedClosed,
+          selectionsWithBehavior.rangeBehavior ??
+            RangeExpansionBehavior.closedClosed,
         ),
       ),
     ),
@@ -288,7 +291,8 @@ export function performEditsAndUpdateSelectionsWithBehavior(
         getSelectionInfo(
           editor.document,
           selection,
-          selectionsWithBehavior.rangeBehavior ?? RangeExpansionBehavior.closedClosed,
+          selectionsWithBehavior.rangeBehavior ??
+            RangeExpansionBehavior.closedClosed,
         ),
       ),
     ),
