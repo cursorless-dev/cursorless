@@ -23,6 +23,9 @@ interface ListenerEntry {
   disposable: Disposable;
 }
 
+/**
+ * Expected shape of the argument to the built-in vscode "type" command
+ */
 interface TypeCommandArg {
   text: string;
 }

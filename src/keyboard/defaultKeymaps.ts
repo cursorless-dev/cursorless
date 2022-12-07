@@ -5,6 +5,10 @@ import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 
 export type Keymap<T> = Record<string, T>;
 
+// FIXME: Switch to a better mocking setup. We don't use our built in
+// configuration set up because that is probably going to live server side, and
+// the keyboard setup will probably live client side
+
 export const DEFAULT_ACTION_KEYMAP: Keymap<ActionType> = isTesting()
   ? { t: "setSelection" }
   : {};

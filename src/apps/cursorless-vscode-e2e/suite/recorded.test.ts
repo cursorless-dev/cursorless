@@ -37,7 +37,7 @@ function createSelection(selection: SelectionPlainObject): vscode.Selection {
 }
 
 suite("recorded test cases", async function () {
-  const { getSpyIde: getSpy } = endToEndTestSetup(this);
+  const { getSpy } = endToEndTestSetup(this);
 
   suiteSetup(async () => {
     // Necessary because opening a notebook opens the panel for some reason

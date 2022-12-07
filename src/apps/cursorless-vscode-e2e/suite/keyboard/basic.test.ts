@@ -1,7 +1,7 @@
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import * as vscode from "vscode";
-import { endToEndTestSetup } from "../../endToEndTestSetup";
+import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
 
 suite("Basic keyboard test", async function () {
   endToEndTestSetup(this);
@@ -20,22 +20,28 @@ async function runTest() {
   await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOn");
 
   // Target default f
-  await Promise.all([
-    vscode.commands.executeCommand("type", { text: "d" }),
-    vscode.commands.executeCommand("type", { text: "f" }),
-  ]);
+  await typeText("df");
 
   // Target containing function
-  await Promise.all([vscode.commands.executeCommand("type", { text: "sf" })]);
+  await typeText("sf");
 
   // Select target
-  await vscode.commands.executeCommand("type", { text: "t" });
+  await typeText("t");
 
   assert.isTrue(editor.selection.isEqual(new vscode.Selection(0, 0, 0, 17)));
 
   // Turn off modal mode and try typing something
   await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOff");
-  await vscode.commands.executeCommand("type", { text: "a" });
+  await typeText("a");
 
-  assert.equal(editor.document.getText(), "a");
+  assert.equal(editor.document.getText().trim(), "a");
+}
+
+async function typeText(text: string) {
+  for (const char of text) {
+    vscode.commands.executeCommand("type", { text: char });
+    // Note we just hack by using sleep because awaiting is too complicated to
+    // get right.
+    await sleepWithBackoff(100);
+  }
 }
