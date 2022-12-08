@@ -1,5 +1,10 @@
-import type { EditableTextEditor, TextEditor } from "@cursorless/common";
+import type {
+  EditableTextEditor,
+  InputBoxOptions,
+  TextEditor,
+} from "@cursorless/common";
 import { URI } from "vscode-uri";
+import { Capabilities } from "./Capabilities";
 import { Clipboard } from "./Clipboard";
 import { Configuration } from "./Configuration";
 import { TextDocumentChangeEvent } from "./Events";
@@ -9,10 +14,10 @@ import { State } from "./State";
 export type RunMode = "production" | "development" | "test";
 
 export interface IDE {
-  configuration: Configuration;
-  messages: Messages;
-  globalState: State;
-  clipboard: Clipboard;
+  readonly configuration: Configuration;
+  readonly messages: Messages;
+  readonly globalState: State;
+  readonly clipboard: Clipboard;
 
   /**
    * Register disposables to be disposed of on IDE exit.
@@ -56,6 +61,11 @@ export interface IDE {
   readonly visibleTextEditors: TextEditor[];
 
   /**
+   * The capabilities of the IDE
+   */
+  readonly capabilities: Capabilities;
+
+  /**
    * Get an editable version of the text editor.
    * @param editor A editable text editor
    */
@@ -69,6 +79,43 @@ export interface IDE {
   onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable;
+
+  /**
+   * Find occurrences of query string in all files in the workspace
+   * @param query The string query to search for
+   */
+  findInWorkspace(query: string): Promise<void>;
+
+  /**
+   * Opens a document.
+   *
+   * @see {@link openTextDocument}
+   * @param path A path to a file on disk.
+   * @return An editor for the text document at the given path
+   */
+  openTextDocument(path: string): Promise<TextEditor>;
+
+  /**
+   * Opens an input box to ask the user for input.
+   *
+   * The returned value will be `undefined` if the input box was canceled (e.g. pressing ESC). Otherwise the
+   * returned value will be the string typed by the user or an empty string if the user did not type
+   * anything but dismissed the input box with OK.
+   *
+   * @param options Configures the behavior of the input box.
+   * @return A promise that resolves to a string the user provided or to `undefined` in case of dismissal.
+   */
+  showInputBox(options?: InputBoxOptions): Promise<string | undefined>;
+
+  /**
+   * Executes the built-in ide command denoted by the given command identifier.
+   *
+   * @param command Identifier of the command to execute.
+   * @param args Parameters passed to the command function.
+   * @return A promise that resolves to the returned value of the given command.
+   * `undefined` when the command handler function doesn't return anything.
+   */
+  executeCommand<T>(command: string, ...args: any[]): Promise<T | undefined>;
 }
 
 export interface WorkspaceFolder {

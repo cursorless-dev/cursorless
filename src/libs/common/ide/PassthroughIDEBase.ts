@@ -1,4 +1,5 @@
 import { EditableTextEditor, TextEditor } from "../types/TextEditor";
+import { Capabilities } from "./types/Capabilities";
 import { Clipboard } from "./types/Clipboard";
 import { Configuration } from "./types/Configuration";
 import { TextDocumentChangeEvent } from "./types/Events";
@@ -11,12 +12,14 @@ export default class PassthroughIDEBase implements IDE {
   globalState: State;
   clipboard: Clipboard;
   messages: Messages;
+  capabilities: Capabilities;
 
   constructor(private original: IDE) {
     this.configuration = original.configuration;
     this.globalState = original.globalState;
     this.clipboard = original.clipboard;
     this.messages = original.messages;
+    this.capabilities = original.capabilities;
   }
 
   public get activeTextEditor(): TextEditor | undefined {
@@ -43,11 +46,27 @@ export default class PassthroughIDEBase implements IDE {
     return this.original.workspaceFolders;
   }
 
+  public findInWorkspace(query: string): Promise<void> {
+    return this.original.findInWorkspace(query);
+  }
+
+  public openTextDocument(path: string): Promise<TextEditor> {
+    return this.original.openTextDocument(path);
+  }
+
+  public showInputBox(options?: any): Promise<string | undefined> {
+    return this.original.showInputBox(options);
+  }
+
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
     return this.original.getEditableTextEditor(editor);
   }
 
-  onDidChangeTextDocument(
+  executeCommand<T>(command: string, ...args: any[]): Promise<T | undefined> {
+    return this.original.executeCommand(command, ...args);
+  }
+
+  public onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
     return this.original.onDidChangeTextDocument(listener);

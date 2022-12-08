@@ -1,11 +1,10 @@
-import { commands } from "vscode";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { ensureSingleTarget } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
-export class FindInFiles implements Action {
+export class FindInWorkspace implements Action {
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
@@ -29,9 +28,7 @@ export class FindInFiles implements Action {
       query = text;
     }
 
-    await commands.executeCommand("workbench.action.findInFiles", {
-      query,
-    });
+    await ide().findInWorkspace(query);
 
     return { thatTargets };
   }

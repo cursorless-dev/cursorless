@@ -45,6 +45,18 @@ export async function runOnTargetsForEachEditor<T>(
   return runForEachEditor(targets, (target) => target.editor, func);
 }
 
+export async function runOnTargetsForEachEditorSequentially<T>(
+  targets: Target[],
+  func: (editor: TextEditor, targets: Target[]) => Promise<T>,
+): Promise<T[]> {
+  const editorGroups = groupForEachEditor(targets, (target) => target.editor);
+  const result: T[] = [];
+  for (const [editor, targets] of editorGroups) {
+    result.push(await func(editor, targets));
+  }
+  return result;
+}
+
 export function groupTargetsForEachEditor(targets: Target[]) {
   return groupForEachEditor(targets, (target) => target.editor);
 }
