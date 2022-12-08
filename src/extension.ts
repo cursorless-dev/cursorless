@@ -65,6 +65,7 @@ export async function activate(
   graph.testCaseRecorder.init();
   graph.cheatsheet.init();
   graph.statusBarItem.init();
+  graph.keyboardCommands.init();
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
