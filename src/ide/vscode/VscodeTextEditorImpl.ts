@@ -1,7 +1,11 @@
-import type {
+import {
+  BreakpointDescriptor,
+  EditableTextEditor,
   Position,
   Range,
+  RevealLineAt,
   Selection,
+  sleep,
   TextDocument,
   TextEditor,
   TextEditorDecorationType,
@@ -18,11 +22,19 @@ import {
 import * as vscode from "vscode";
 import vscodeEdit from "./VscodeEdit";
 import vscodeFocusEditor from "./VscodeFocusEditor";
+import { vscodeFold, vscodeUnfold } from "./VscodeFold";
 import VscodeIDE from "./VscodeIDE";
+import { vscodeInsertSnippet } from "./VscodeInsertSnippets";
+import {
+  vscodeEditNewNotebookCellAbove,
+  vscodeEditNewNotebookCellBelow,
+} from "./VscodeNotebooks";
 import vscodeOpenLink from "./VscodeOpenLink";
+import { vscodeRevealLine } from "./VscodeRevealLine";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
+import { vscodeToggleBreakpoint } from "./VscodeToggleBreakpoint";
 
-export class VscodeTextEditorImpl implements TextEditor {
+export class VscodeTextEditorImpl implements EditableTextEditor {
   readonly document: TextDocument;
 
   constructor(
@@ -65,21 +77,25 @@ export class VscodeTextEditorImpl implements TextEditor {
     return this.id === other.id;
   }
 
-  public revealRange(range: Range): void {
+  public async revealRange(range: Range): Promise<void> {
     this.editor.revealRange(toVscodeRange(range));
   }
 
-  public setDecorations(
+  public revealLine(lineNumber: number, at: RevealLineAt): Promise<void> {
+    return vscodeRevealLine(this, lineNumber, at);
+  }
+
+  public async setDecorations(
     decorationType: TextEditorDecorationType,
     ranges: readonly Range[],
-  ): void {
+  ): Promise<void> {
     this.editor.setDecorations(decorationType, ranges.map(toVscodeRange));
   }
 
   public edit(
     callback: (editBuilder: TextEditorEdit) => void,
     options?: { undoStopBefore: boolean; undoStopAfter: boolean },
-  ): Thenable<boolean> {
+  ): Promise<boolean> {
     return vscodeEdit(this.editor, callback, options);
   }
 
@@ -87,7 +103,99 @@ export class VscodeTextEditorImpl implements TextEditor {
     return vscodeFocusEditor(this.ide, this);
   }
 
-  public openLink(location: Position | Range): Promise<boolean> {
-    return vscodeOpenLink(this.editor, toVscodePositionOrRange(location));
+  public editNewNotebookCellAbove(): Promise<
+    (selection: Selection) => Selection
+  > {
+    return vscodeEditNewNotebookCellAbove(this);
+  }
+
+  public editNewNotebookCellBelow(): Promise<void> {
+    return vscodeEditNewNotebookCellBelow(this);
+  }
+
+  public openLink(location?: Position | Range): Promise<boolean> {
+    return vscodeOpenLink(
+      this.editor,
+      location != null ? toVscodePositionOrRange(location) : undefined,
+    );
+  }
+
+  public fold(ranges?: Range[]): Promise<void> {
+    return vscodeFold(this.ide, this, ranges);
+  }
+
+  public unfold(ranges?: Range[]): Promise<void> {
+    return vscodeUnfold(this.ide, this, ranges);
+  }
+
+  public toggleBreakpoint(descriptors?: BreakpointDescriptor[]): Promise<void> {
+    return vscodeToggleBreakpoint(this, descriptors);
+  }
+
+  public async toggleLineComment(_ranges?: Range[]): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.commentLine");
+  }
+
+  public async clipboardCopy(_ranges?: Range[]): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.clipboardCopyAction");
+  }
+
+  public async clipboardPaste(_ranges?: Range[]): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.clipboardPasteAction");
+  }
+
+  public async indentLine(_ranges?: Range[]): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.indentLines");
+  }
+
+  public async outdentLine(_ranges?: Range[]): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.outdentLines");
+  }
+
+  public async insertLineAfter(ranges?: Range[]): Promise<void> {
+    if (ranges != null) {
+      this.selections = ranges.map((range) => range.toSelection(false));
+    }
+    await vscode.commands.executeCommand("editor.action.insertLineAfter");
+  }
+
+  public insertSnippet(snippet: string, ranges?: Range[]): Promise<void> {
+    return vscodeInsertSnippet(this, snippet, ranges);
+  }
+
+  public async rename(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.rename");
+  }
+
+  public async showReferences(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("references-view.find");
+  }
+
+  public async quickFix(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.quickFix");
+    await sleep(100);
+  }
+
+  public async revealDefinition(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.revealDefinition");
+  }
+
+  public async revealTypeDefinition(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.goToTypeDefinition");
+  }
+
+  public async showHover(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.showHover");
+  }
+
+  public async showDebugHover(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("editor.debug.action.showDebugHover");
+  }
+
+  public async extractVariable(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("editor.action.codeAction", {
+      kind: "refactor.extract.constant",
+      preferred: true,
+    });
   }
 }

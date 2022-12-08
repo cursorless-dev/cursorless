@@ -1,8 +1,7 @@
 import { EditableTextEditor } from "@cursorless/common";
-import { commands } from "vscode";
 import { callFunctionAndUpdateRanges } from "../../core/updateSelections/updateSelections";
 import { Graph } from "../../typings/Types";
-import { CommandTarget, State } from "./EditNew.types";
+import { EditTarget, State } from "./EditNew.types";
 
 /**
  * Handle targets that will use a VSCode command to insert a new target, eg
@@ -15,38 +14,33 @@ import { CommandTarget, State } from "./EditNew.types";
  * @param state The state object tracking cursors, thatMark, etc
  * @returns An updated `state` object
  */
-export async function runCommandTargets(
+export async function runInsertLineAfterTargets(
   graph: Graph,
   editor: EditableTextEditor,
   state: State,
 ): Promise<State> {
-  const commandTargets: CommandTarget[] = state.targets
+  const targets: EditTarget[] = state.targets
     .map((target, index) => {
-      const context = target.getEditNewContext();
-      if (context.type === "command") {
+      const actionType = target.getEditNewActionType();
+      if (actionType === "insertLineAfter") {
         return {
           target,
           index,
-          command: context.command,
         };
       }
     })
-    .filter((target): target is CommandTarget => !!target);
+    .filter((target): target is EditTarget => !!target);
 
-  if (commandTargets.length === 0) {
+  if (targets.length === 0) {
     return state;
   }
 
-  const command = ensureSingleCommand(commandTargets);
-
-  await graph.actions.setSelection.run([
-    commandTargets.map(({ target }) => target),
-  ]);
+  const contentRanges = targets.map(({ target }) => target.contentRange);
 
   const [updatedTargetRanges, updatedThatRanges] =
     await callFunctionAndUpdateRanges(
       graph.rangeUpdater,
-      () => commands.executeCommand(command),
+      () => editor.insertLineAfter(contentRanges),
       editor.document,
       [state.targets.map(({ contentRange }) => contentRange), state.thatRanges],
     );
@@ -55,7 +49,7 @@ export async function runCommandTargets(
   // up after running the command.  We add it to the state so that any
   // potential edit targets can update them after we return from this function.
   const cursorRanges = [...state.cursorRanges];
-  commandTargets.forEach((commandTarget, index) => {
+  targets.forEach((commandTarget, index) => {
     cursorRanges[commandTarget.index] = editor.selections[index];
   });
 
@@ -66,12 +60,4 @@ export async function runCommandTargets(
     thatRanges: updatedThatRanges,
     cursorRanges,
   };
-}
-
-function ensureSingleCommand(targets: CommandTarget[]) {
-  const commands = targets.map((target) => target.command);
-  if (new Set(commands).size > 1) {
-    throw new Error("Can't run different commands at once");
-  }
-  return commands[0];
 }

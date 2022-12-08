@@ -1,7 +1,7 @@
 import { Range, Selection, TextEditor } from "@cursorless/common";
 import { isEqual } from "lodash";
 import { NoContainingScopeError } from "../../errors";
-import type { EditNewContext, Target } from "../../typings/target.types";
+import type { EditNewActionType, Target } from "../../typings/target.types";
 import type { Position } from "../../typings/targetDescriptor.types";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import { isSameType } from "../../util/typeUtils";
@@ -82,10 +82,8 @@ export default abstract class BaseTarget implements Target {
     };
   }
 
-  getEditNewContext(): EditNewContext {
-    return {
-      type: "edit",
-    };
+  getEditNewActionType(): EditNewActionType {
+    return "edit";
   }
 
   getRemovalHighlightRange(): Range | undefined {

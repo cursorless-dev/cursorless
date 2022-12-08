@@ -10,7 +10,7 @@ export async function setSelectionsAndFocusEditor(
   setSelectionsWithoutFocusingEditor(editor, selections);
 
   if (revealRange) {
-    editor.revealRange(editor.selections[0]);
+    await editor.revealRange(editor.selections[0]);
   }
 
   // NB: We focus the editor after setting the selection because otherwise you see

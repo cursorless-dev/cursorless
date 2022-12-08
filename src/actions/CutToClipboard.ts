@@ -3,9 +3,8 @@ import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { getOutsideOverflow } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
-import CommandAction from "./CommandAction";
 
-export class Cut implements Action {
+export class CutToClipboard implements Action {
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
@@ -48,15 +47,5 @@ export class Cut implements Action {
     );
 
     return { thatSelections: thatMark };
-  }
-}
-
-export class Copy extends CommandAction {
-  constructor(graph: Graph) {
-    super(graph, {
-      command: "editor.action.clipboardCopyAction",
-      ensureSingleEditor: true,
-      showDecorations: true,
-    });
   }
 }
