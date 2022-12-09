@@ -732,7 +732,8 @@
 		"test": "env CURSORLESS_TEST=true node ./out/test/scripts/runTestsCI.js",
 		"unused-exports": "ts-unused-exports tsconfig.json --showLineNumber",
 		"init-launch-sandbox": "node ./out/scripts/initLaunchSandbox.js",
-		"prepare-for-extension-publish": "node ./out/scripts/prepareForExtensionPublish.js"
+		"prepare-for-extension-publish": "node ./out/scripts/prepareForExtensionPublish.js",
+		"transform-recorded-tests": "node ./out/scripts/transformRecordedTests/index.js"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.3.3",
