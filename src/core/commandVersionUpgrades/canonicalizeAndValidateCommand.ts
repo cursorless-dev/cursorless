@@ -28,7 +28,7 @@ import { upgradeV2ToV3 } from "./upgradeV2ToV3";
  * @returns The normalized command argument
  */
 export function canonicalizeAndValidateCommand(
-  command: Command
+  command: Command,
 ): EnforceUndefined<CommandComplete> {
   const commandUpgraded = upgradeCommand(command);
   const {

@@ -1,7 +1,7 @@
 import { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
 
 export function reorderFields(
-  fixture: TestCaseFixture
+  fixture: TestCaseFixture,
 ): EnforceUndefined<TestCaseFixture> {
   return {
     languageId: fixture.languageId,
