@@ -1,3 +1,4 @@
+import { EnforceUndefined } from "../../../libs/common/util/typeUtils";
 import { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
 
 export function reorderFields(
@@ -12,6 +13,7 @@ export function reorderFields(
     decorations: fixture.decorations,
     returnValue: fixture.returnValue,
     thrownError: fixture.thrownError,
+    ide: fixture.ide,
     postEditorOpenSleepTimeMs: fixture.postEditorOpenSleepTimeMs,
     postCommandSleepTimeMs: fixture.postCommandSleepTimeMs,
     fullTargets: fixture.fullTargets,
