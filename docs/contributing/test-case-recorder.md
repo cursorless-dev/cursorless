@@ -8,56 +8,13 @@ recording the initial state of the file including cursor position(s), the
 command run, and the final state, all in the form of a yaml document. See
 [existing test cases](../../src/test/suite/fixtures/recorded) for example outputs.
 
-## Initial setup
-
-Add a voice command for recording to your personal talon files:
-
-```talon
-cursorless record: user.vscode("cursorless.recordTestCase")
-```
-
-We don't want to commit this so please add it to your own Talon user file set.
-
-### Configuring the test case Recorder
-
-The test case recorder has several additional configuration options. The default configuration works for most tests, but you may find the following useful.
-
-#### Testing the hat map
-
-We have a way to test that the hats in the hat map update correctly during the course of a single phrase. These tests are also how we usually test our [range updating code](../api/modules/core_updateSelections_updateSelections).
-
-Please add the following to your personal talon files:
-
-- https://github.com/pokey/pokey_talon/blob/9298c25dd6d28fd9fcf5ed39f305bc6b93e5f229/apps/vscode/vscode.talon#L468
-- https://github.com/pokey/pokey_talon/blob/49643bfa8f62cbec18b5ddad1658f5a28785eb01/apps/vscode/vscode.py#L203-L205
-
-It is quite unlikely you'll need this second step. Most tests don't check the navigation map.
-
-#### Capturing errors
-
-We support recording tests where the expected result is an error
-
-Please add a command to your personal talon files. See the two files links above for context. Add the command below to your to your `vscode.py` and ensure that there is a matching Talon command.
-
-```
-  actions.user.vscode_with_plugin("cursorless.recordTestCase", {"recordErrors": True})
-```
-
-#### Testing decoration highlights
-
-We support testing our decoration highlights, eg the flash of red when something is deleted. If you'd like to be able to record tests which check our decoration highlights, please add another command to your personal talon files. See the two files links above for context. Add the command below to your to your `vscode.py` and ensure that there is a matching Talon command.
-
-```
-  actions.user.vscode_with_plugin("cursorless.recordTestCase", {"isDecorationsTest": True})
-```
-
 ## Recording new tests
 
 1. Start debugging (F5)
 1. Create a minimal file to use for recording tests. And position your cursor
    where you'd like. Check out the `initialState.documentContents` field of
    [existing test cases](../../src/test/suite/fixtures/recorded) for examples.
-1. Issue the `"cursorless record"` command
+1. Issue the `"cursorless record"` command. Alternately, issue one of the special recording commands listed in
    - List of target directories is shown. All test cases will be put into the
      given subdirectory of `src/test/suite/fixtures/recorded`
 1. Select existing directory or create new one
@@ -75,6 +32,38 @@ We support testing our decoration highlights, eg the flash of red when something
 1. Issue `"cursorless record"` command again to stop recording
    - `Stopped recording test cases` is shown
    - You can also just stop the debugger or close the debug window
+
+## Test case recorder options
+
+The test case recorder has several additional configuration options. The default configuration works for most tests, but you may find the following useful. For a full list of supported configuration options, see [the api docs](../api/interfaces/testutil_testcaserecorder.internal.recordtestcasecommandarg/).
+
+### The options
+
+#### Capturing errors
+
+We support recording tests where the expected result is an error. This can be done using the command `"cursorless record error"`.
+
+#### Testing decoration highlights
+
+We support testing our decoration highlights, eg the flash of red when something is deleted. If you record tests into the `decorations/` directory, these will automatically be captured.
+
+If you'd like to record decorations when recording into a different directory, you can say `"cursorless record highlights"`.
+
+#### Testing the returned `that` mark
+
+By default, we don't capture the `that` mark returned by a command, unless the test is being recorded in the `actions/` directory of the recorded tests. If you'd like to capture the returned `that` mark when recording a test somewhere else, you can say `"cursorless record that mark"`.
+
+#### Testing the hat map
+
+We have a way to test that the hats in the hat map update correctly during the course of a single phrase. These tests are also how we usually test our [range updating code](../api/modules/core_updateSelections_updateSelections).
+
+Any tests recorded in the `hatTokenMap` directory will automatically be treated as hat token map tests. To initiate a series of hat token map tests in another directory, say `"cursorless record navigation"`.
+
+Then each time you record a test, you need to issue two commands. The second command should be of the form `"take air"` (or another decorated mark), and will tell the test case recorder which decorated mark you're checking.
+
+### Default config per test case directory
+
+Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../src/test/suite/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark. For a full list of keys supported in this json, see [the api docs](../api/interfaces/testutil_testcaserecorder.internal.recordtestcasecommandarg/).
 
 ### Navigation map tests
 

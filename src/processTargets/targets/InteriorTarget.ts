@@ -1,4 +1,4 @@
-import { Range } from "vscode";
+import { Range } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
@@ -22,7 +22,7 @@ export default class InteriorTarget extends BaseTarget {
       ...parameters,
       contentRange: shrinkRangeToFitContent(
         parameters.editor,
-        parameters.fullInteriorRange
+        parameters.fullInteriorRange,
       ),
     });
     this.fullInteriorRange = parameters.fullInteriorRange;
@@ -43,7 +43,7 @@ export default class InteriorTarget extends BaseTarget {
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
-    includeEnd: boolean
+    includeEnd: boolean,
   ): Target {
     if (isSameType(this, endTarget)) {
       const constructor = Object.getPrototypeOf(this).constructor;
@@ -55,7 +55,7 @@ export default class InteriorTarget extends BaseTarget {
           this.fullInteriorRange,
           endTarget.fullInteriorRange,
           includeStart,
-          includeEnd
+          includeEnd,
         ),
       });
     }
@@ -65,7 +65,7 @@ export default class InteriorTarget extends BaseTarget {
       this,
       endTarget,
       includeStart,
-      includeEnd
+      includeEnd,
     );
   }
 }

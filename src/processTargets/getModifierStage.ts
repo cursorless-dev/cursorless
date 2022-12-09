@@ -1,39 +1,23 @@
-import {
-  ContainingScopeModifier,
-  ContainingSurroundingPairModifier,
-  EveryScopeModifier,
-  Modifier,
-} from "../typings/targetDescriptor.types";
-import BoundedNonWhitespaceSequenceStage from "./modifiers/BoundedNonWhitespaceStage";
+import { Modifier } from "../typings/targetDescriptor.types";
 import CascadingStage from "./modifiers/CascadingStage";
+import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
+import { EveryScopeStage } from "./modifiers/EveryScopeStage";
+import {
+  KeepContentFilterStage,
+  KeepEmptyFilterStage,
+} from "./modifiers/FilterStages";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
 } from "./modifiers/InteriorStage";
-import ItemStage from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import ModifyIfUntypedStage from "./modifiers/ModifyIfUntypedStage";
-import OrdinalRangeSubTokenStage, {
-  OrdinalRangeSubTokenModifier,
-} from "./modifiers/OrdinalRangeSubTokenStage";
+import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";
 import PositionStage from "./modifiers/PositionStage";
+import RangeModifierStage from "./modifiers/RangeModifierStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
-import ContainingSyntaxScopeStage, {
-  SimpleContainingScopeModifier,
-} from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
-import DocumentStage from "./modifiers/scopeTypeStages/DocumentStage";
-import LineStage from "./modifiers/scopeTypeStages/LineStage";
-import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
-import ParagraphStage from "./modifiers/scopeTypeStages/ParagraphStage";
-import {
-  NonWhitespaceSequenceStage,
-  CustomRegexModifier,
-  CustomRegexStage,
-  UrlStage,
-} from "./modifiers/scopeTypeStages/RegexStage";
-import TokenStage from "./modifiers/scopeTypeStages/TokenStage";
-import SurroundingPairStage from "./modifiers/SurroundingPairStage";
+import RelativeScopeStage from "./modifiers/RelativeScopeStage";
 import { ModifierStage } from "./PipelineStages.types";
 
 export default (modifier: Modifier): ModifierStage => {
@@ -55,59 +39,26 @@ export default (modifier: Modifier): ModifierStage => {
     case "trailing":
       return new TrailingStage(modifier);
     case "containingScope":
+      return new ContainingScopeStage(modifier);
     case "everyScope":
-      return getContainingScopeStage(modifier);
-    case "ordinalRange":
-      if (!["word", "character"].includes(modifier.scopeType.type)) {
-        throw Error(
-          `Unsupported ordinal scope type ${modifier.scopeType.type}`
-        );
-      }
-      return new OrdinalRangeSubTokenStage(
-        modifier as OrdinalRangeSubTokenModifier
-      );
+      return new EveryScopeStage(modifier);
+    case "ordinalScope":
+      return new OrdinalScopeStage(modifier);
+    case "relativeScope":
+      return new RelativeScopeStage(modifier);
+    case "keepContentFilter":
+      return new KeepContentFilterStage(modifier);
+    case "keepEmptyFilter":
+      return new KeepEmptyFilterStage(modifier);
     case "cascading":
       return new CascadingStage(modifier);
     case "modifyIfUntyped":
       return new ModifyIfUntypedStage(modifier);
-  }
-};
-
-const getContainingScopeStage = (
-  modifier: ContainingScopeModifier | EveryScopeModifier
-): ModifierStage => {
-  switch (modifier.scopeType.type) {
-    case "token":
-      return new TokenStage(modifier);
-    case "notebookCell":
-      return new NotebookCellStage(modifier);
-    case "document":
-      return new DocumentStage(modifier);
-    case "line":
-      return new LineStage(modifier);
-    case "paragraph":
-      return new ParagraphStage(modifier);
-    case "nonWhitespaceSequence":
-      return new NonWhitespaceSequenceStage(modifier);
-    case "boundedNonWhitespaceSequence":
-      return new BoundedNonWhitespaceSequenceStage(modifier);
-    case "url":
-      return new UrlStage(modifier);
-    case "collectionItem":
-      return new ItemStage(modifier);
-    case "customRegex":
-      return new CustomRegexStage(modifier as CustomRegexModifier);
-    case "surroundingPair":
-      return new SurroundingPairStage(
-        modifier as ContainingSurroundingPairModifier
-      );
-    case "word":
-    case "character":
-      throw new Error(`Unsupported scope type ${modifier.scopeType.type}`);
-    default:
-      // Default to containing syntax scope using tree sitter
-      return new ContainingSyntaxScopeStage(
-        modifier as SimpleContainingScopeModifier
+    case "range":
+      return new RangeModifierStage(modifier);
+    case "inferPreviousMark":
+      throw Error(
+        `Unexpected modifier '${modifier.type}'; it should have been removed during inference`,
       );
   }
 };

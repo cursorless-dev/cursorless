@@ -1,24 +1,51 @@
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { Action, ActionReturnValue } from "./actions.types";
-import CommandAction, { CommandOptions } from "./CommandAction";
+import { CallbackAction } from "./CallbackAction";
+
+interface Options {
+  commandArgs?: any[];
+  ensureSingleEditor?: boolean;
+  ensureSingleTarget?: boolean;
+  restoreSelection?: boolean;
+  showDecorations?: boolean;
+}
 
 /**
- * This is just a wrapper for {@link CommandAction} that allows the commands string without an options object.
- * Should only be used by the API. Internally go directly to {@link CommandAction}
+ * This action can be used to execute a built-in ide command on one or more
+ * targets by first setting the selection to those targets and then running the
+ * action, restoring the selections if
+ * {@link Options.restoreSelection restoreSelection} is `true`. Internally, most
+ * of the heavy lifting is done by {@link CallbackAction}.
  */
 export default class ExecuteCommand implements Action {
-  private commandAction: CommandAction;
-
+  private callbackAction: CallbackAction;
   constructor(graph: Graph) {
-    this.commandAction = new CommandAction(graph);
+    this.callbackAction = new CallbackAction(graph);
+    this.run = this.run.bind(this);
   }
 
   async run(
     targets: [Target[]],
-    command: string,
-    args: CommandOptions = {}
+    commandId: string,
+    {
+      commandArgs,
+      ensureSingleEditor,
+      ensureSingleTarget,
+      restoreSelection,
+      showDecorations,
+    }: Options = {},
   ): Promise<ActionReturnValue> {
-    return this.commandAction.run(targets, { ...args, command });
+    const args = commandArgs ?? [];
+
+    return this.callbackAction.run(targets, {
+      callback: () => ide().executeCommand(commandId, ...args),
+      setSelection: true,
+      ensureSingleEditor: ensureSingleEditor ?? false,
+      ensureSingleTarget: ensureSingleTarget ?? false,
+      restoreSelection: restoreSelection ?? true,
+      showDecorations: showDecorations ?? true,
+    });
   }
 }

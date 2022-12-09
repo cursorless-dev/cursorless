@@ -1,46 +1,32 @@
 import * as vscode from "vscode";
-import { Notifier } from "../../util/Notifier";
 import {
   Configuration,
-  CursorlessConfigKey,
+  ConfigurationScope,
   CursorlessConfiguration,
-} from "../ide.types";
-import { VscodeIDE } from "./VscodeIDE";
+} from "../../libs/common/ide/types/Configuration";
+import { GetFieldType, Paths } from "../../libs/common/ide/types/Paths";
+import { Notifier } from "../../libs/common/util/Notifier";
+import type VscodeIDE from "./VscodeIDE";
 
-export class VscodeConfiguration implements Configuration {
+export default class VscodeConfiguration implements Configuration {
   private notifier = new Notifier();
-  private mocks: Partial<CursorlessConfiguration> = {};
 
-  constructor(private ide: VscodeIDE) {
+  constructor(ide: VscodeIDE) {
     this.onDidChangeConfiguration = this.onDidChangeConfiguration.bind(this);
 
     ide.disposeOnExit(
-      vscode.workspace.onDidChangeConfiguration(this.notifier.notifyListeners)
+      vscode.workspace.onDidChangeConfiguration(this.notifier.notifyListeners),
     );
   }
 
-  getOwnConfiguration<T extends CursorlessConfigKey>(
-    key: T
-  ): CursorlessConfiguration[T] | undefined {
-    if (key in this.mocks) {
-      return this.mocks[key];
-    }
-
+  getOwnConfiguration<Path extends Paths<CursorlessConfiguration>>(
+    path: Path,
+    scope?: ConfigurationScope,
+  ): GetFieldType<CursorlessConfiguration, Path> {
     return vscode.workspace
-      .getConfiguration("cursorless")
-      .get<CursorlessConfiguration[T]>(key);
+      .getConfiguration("cursorless", scope)
+      .get<GetFieldType<CursorlessConfiguration, Path>>(path)!;
   }
 
   onDidChangeConfiguration = this.notifier.registerListener;
-
-  mockConfiguration<T extends CursorlessConfigKey>(
-    key: T,
-    value: CursorlessConfiguration[T]
-  ): void {
-    this.mocks[key] = value;
-  }
-
-  resetMocks(): void {
-    this.mocks = {};
-  }
 }

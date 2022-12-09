@@ -1,12 +1,12 @@
+import type { TextDocument } from "@cursorless/common";
 import { pull } from "lodash";
-import {
-  workspace,
-  TextDocument,
+import type {
   TextDocumentChangeEvent,
-  Disposable,
   TextDocumentContentChangeEvent,
-} from "vscode";
-import { Edit } from "../../typings/Types";
+} from "../../libs/common/ide/types/Events";
+import type { Disposable } from "../../libs/common/ide/types/ide.types";
+import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
+import type { Edit } from "../../typings/Types";
 import {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,
@@ -43,7 +43,7 @@ export class RangeUpdater {
    */
   registerRangeInfoList(
     document: TextDocument,
-    rangeInfoList: FullRangeInfo[]
+    rangeInfoList: FullRangeInfo[],
   ): () => void {
     const documentRangeInfoLists = this.getDocumentRangeInfoLists(document);
 
@@ -70,7 +70,7 @@ export class RangeUpdater {
    */
   registerReplaceEditList(
     document: TextDocument,
-    replaceEditList: Edit[]
+    replaceEditList: Edit[],
   ): () => void {
     const documentReplaceEditLists = this.getDocumentReplaceEditLists(document);
 
@@ -90,10 +90,10 @@ export class RangeUpdater {
   }
 
   private listenForDocumentChanges() {
-    this.disposable = workspace.onDidChangeTextDocument(
+    this.disposable = ide().onDidChangeTextDocument(
       (event: TextDocumentChangeEvent) => {
         const documentReplaceEditLists = this.getDocumentReplaceEditLists(
-          event.document
+          event.document,
         );
 
         const extendedEvent: ExtendedTextDocumentChangeEvent = {
@@ -104,15 +104,15 @@ export class RangeUpdater {
                   ...change,
                   isReplace: true,
                 }
-              : change
+              : change,
           ),
         };
 
         updateRangeInfos(
           extendedEvent,
-          this.documentRangeInfoGenerator(event.document)
+          this.documentRangeInfoGenerator(event.document),
         );
-      }
+      },
     );
   }
 
@@ -123,12 +123,12 @@ export class RangeUpdater {
 
 function isReplace(
   documentReplaceEditLists: Edit[][],
-  change: TextDocumentContentChangeEvent
+  change: TextDocumentContentChangeEvent,
 ) {
   for (const replaceEditLists of documentReplaceEditLists) {
     for (const replaceEdit of replaceEditLists) {
       if (
-        replaceEdit.range.isEqual(change.range) &&
+        replaceEdit.range.isRangeEqual(change.range) &&
         replaceEdit.text === change.text
       ) {
         return true;

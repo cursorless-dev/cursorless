@@ -47,9 +47,9 @@ spoken form in the first column to any thing starting with `-`. Please don't
 delete any lines, as that will trigger cursorless to automatically add the
 spoken form back on talon restart.
 
-## \[Experimental\] Cursorless custom VSCode actions
+## \[Experimental\] Cursorless custom IDE actions
 
-You can use Cursorless to run any built-in VSCode command on a specific target.
+You can use Cursorless to run any built-in IDE command on a specific target.
 
 Just add your custom commands to: `experimental/actions_custom.csv`. For example, if you wanted to be able to say `"push down <T>"` to move the line(s) containing target `<T>` downwards, you could do the following:
 
@@ -75,6 +75,20 @@ While the hats are hidden, you will not be able to address any marks, eg `"take 
 
 If you'd like to map a voice command to toggle the hats, have a look at https://youtu.be/oWUJyDgz63k
 
+## Updating word separators
+
+The word separators are characters that defines the boundary between words in a identifier. eg `hello_world` is an identifier with two words separated by `_`. If you like to support other separators like `-` in `hello-world` that can be accomplished by changing the `cursorless.wordSeparators` setting. This setting is also language overridable.
+
+```json
+// Sets the word separator for all languages
+"cursorless.wordSeparators": ["_"]
+
+// Sets the word separator for css only
+"[css]": {
+  "cursorless.wordSeparators": ["_", "-"]
+}
+```
+
 ## Cursorless public API
 
 Cursorless exposes a couple talon actions and captures that you can use to define your own custom command grammar leveraging cursorless targets.
@@ -89,9 +103,9 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
 - `user.cursorless_command(action_id: str, target: cursorless_target)`
   Perform a Cursorless command on the given target
   eg: `user.cursorless_command("setSelection", cursorless_target)`
-- `user.cursorless_vscode_command(command_id: str, target: cursorless_target)`
-  Performs a VSCode command on the given target
-  eg: `user.cursorless_vscode_command("editor.action.addCommentLine", cursorless_target)`
+- `user.cursorless_ide_command(command_id: str, target: cursorless_target)`
+  Performs a built-in IDE command on the given target
+  eg: `user.cursorless_ide_command("editor.action.addCommentLine", cursorless_target)`
 
 ### Example of combining capture and action
 
@@ -102,5 +116,5 @@ add dock string <user.cursorless_target>:
     key(left:3)
 
 push <user.cursorless_target> down:
-    user.cursorless_vscode_command("editor.action.moveLinesDownAction", cursorless_target)
+    user.cursorless_ide_command("editor.action.moveLinesDownAction", cursorless_target)
 ```

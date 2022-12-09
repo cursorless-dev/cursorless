@@ -1,6 +1,6 @@
-import { Range } from "vscode";
+import { Range } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from ".";
-import { Target } from "../../typings/target.types";
+import type { Target } from "../../typings/target.types";
 import { createContinuousRangeUntypedTarget } from "../targetUtil/createContinuousRange";
 import {
   getTokenLeadingDelimiterTarget,
@@ -43,14 +43,14 @@ export default class UntypedTarget extends BaseTarget {
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
-    includeEnd: boolean
+    includeEnd: boolean,
   ): Target {
     return createContinuousRangeUntypedTarget(
       isReversed,
       this,
       endTarget,
       includeStart,
-      includeEnd
+      includeEnd,
     );
   }
 

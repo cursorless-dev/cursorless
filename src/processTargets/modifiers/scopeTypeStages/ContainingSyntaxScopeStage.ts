@@ -1,22 +1,22 @@
-import { Location, Selection } from "vscode";
-import { SyntaxNode } from "web-tree-sitter";
+import { Selection } from "@cursorless/common";
+import type { SyntaxNode } from "web-tree-sitter";
 import { NoContainingScopeError } from "../../../errors";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
-import { Target } from "../../../typings/target.types";
-import {
+import type { Target } from "../../../typings/target.types";
+import type {
   ContainingScopeModifier,
   EveryScopeModifier,
   SimpleScopeType,
 } from "../../../typings/targetDescriptor.types";
-import {
+import type {
   NodeMatcher,
   ProcessedTargetsContext,
   SelectionWithEditor,
   SelectionWithEditorWithContext,
 } from "../../../typings/Types";
 import { selectionWithEditorFromRange } from "../../../util/selectionUtils";
-import { ModifierStage } from "../../PipelineStages.types";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
+import type { ModifierStage } from "../../PipelineStages.types";
+import { ScopeTypeTarget } from "../../targets";
 
 export interface SimpleContainingScopeModifier extends ContainingScopeModifier {
   scopeType: SimpleScopeType;
@@ -28,25 +28,26 @@ export interface SimpleEveryScopeModifier extends EveryScopeModifier {
 
 export default class implements ModifierStage {
   constructor(
-    private modifier: SimpleContainingScopeModifier | SimpleEveryScopeModifier
+    private modifier: SimpleContainingScopeModifier | SimpleEveryScopeModifier,
   ) {}
 
   run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
     const nodeMatcher = getNodeMatcher(
       target.editor.document.languageId,
       this.modifier.scopeType.type,
-      this.modifier.type === "everyScope"
+      this.modifier.type === "everyScope",
     );
 
     const node: SyntaxNode | null = context.getNodeAtLocation(
-      new Location(target.editor.document.uri, target.contentRange)
+      target.editor.document,
+      target.contentRange,
     );
 
     const scopeNodes = findNearestContainingAncestorNode(node, nodeMatcher, {
       editor: target.editor,
       selection: new Selection(
         target.contentRange.start,
-        target.contentRange.end
+        target.contentRange.end,
       ),
     });
 
@@ -68,7 +69,7 @@ export default class implements ModifierStage {
         (leadingDelimiterRange != null || trailingDelimiterRange != null)
       ) {
         throw Error(
-          "Removal range is mutually exclusive with leading or trailing delimiter range"
+          "Removal range is mutually exclusive with leading or trailing delimiter range",
         );
       }
 
@@ -92,7 +93,7 @@ export default class implements ModifierStage {
 function findNearestContainingAncestorNode(
   startNode: SyntaxNode,
   nodeMatcher: NodeMatcher,
-  selection: SelectionWithEditor
+  selection: SelectionWithEditor,
 ): SelectionWithEditorWithContext[] | null {
   let node: SyntaxNode | null = startNode;
   while (node != null) {
@@ -103,7 +104,7 @@ function findNearestContainingAncestorNode(
         .map((matchedSelection) => ({
           selection: selectionWithEditorFromRange(
             selection,
-            matchedSelection.selection
+            matchedSelection.selection,
           ),
           context: matchedSelection.context,
         }));

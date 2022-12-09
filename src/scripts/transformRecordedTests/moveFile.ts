@@ -1,7 +1,7 @@
 import { promises as fsp } from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
-import { TestCaseFixture } from "../../testUtil/TestCase";
+import { TestCaseFixture } from "../../testUtil/TestCaseFixture";
 import { mkdir, rename } from "fs/promises";
 
 /**

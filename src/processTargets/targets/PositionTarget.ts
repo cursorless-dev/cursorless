@@ -1,7 +1,7 @@
-import { Range, TextEditor } from "vscode";
+import { Range, TextEditor } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from ".";
 import { UnsupportedError } from "../../errors";
-import { EditNewContext } from "../../typings/target.types";
+import { EditNewActionType } from "../../typings/target.types";
 import { Position } from "../../typings/targetDescriptor.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 
@@ -31,7 +31,7 @@ export default class PositionTarget extends BaseTarget {
     this.indentationString = this.isLineDelimiter
       ? getIndentationString(
           parameters.editor,
-          parameters.thatTarget!.contentRange
+          parameters.thatTarget!.contentRange,
         )
       : "";
   }
@@ -41,14 +41,12 @@ export default class PositionTarget extends BaseTarget {
 
   getRemovalRange = () => removalUnsupportedForPosition(this.position);
 
-  getEditNewContext(): EditNewContext {
+  getEditNewActionType(): EditNewActionType {
     if (this.insertionDelimiter === "\n" && this.position === "after") {
-      return { type: "command", command: "editor.action.insertLineAfter" };
+      return "insertLineAfter";
     }
 
-    return {
-      type: "edit",
-    };
+    return "edit";
   }
 
   constructChangeEdit(text: string): EditWithRangeUpdater {
@@ -94,7 +92,7 @@ export default class PositionTarget extends BaseTarget {
     const position = (() => {
       if (this.isLineDelimiter) {
         const line = this.editor.document.lineAt(
-          this.isBefore ? this.contentRange.start : this.contentRange.end
+          this.isBefore ? this.contentRange.start : this.contentRange.end,
         );
         return this.isBefore ? line.range.start : line.range.end;
       } else {
@@ -124,7 +122,7 @@ export default class PositionTarget extends BaseTarget {
 
     return new Range(
       this.editor.document.positionAt(startIndex),
-      this.editor.document.positionAt(endIndex)
+      this.editor.document.positionAt(endIndex),
     );
   }
 }
@@ -134,7 +132,7 @@ export function removalUnsupportedForPosition(position: string): Range {
     position === "after" || position === "end" ? "trailing" : "leading";
 
   throw new UnsupportedError(
-    `Please use "${preferredModifier}" modifier; removal is not supported for "${position}"`
+    `Please use "${preferredModifier}" modifier; removal is not supported for "${position}"`,
   );
 }
 

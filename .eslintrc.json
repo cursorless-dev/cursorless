@@ -10,8 +10,11 @@
 		"ecmaVersion": 6,
 		"sourceType": "module"
 	},
-	"plugins": ["@typescript-eslint"],
+	"plugins": ["@typescript-eslint", "unused-imports"],
 	"rules": {
+		// Note: you must disable the base rule as it can report incorrect errors
+		"no-restricted-imports": "off",
+		"@typescript-eslint/no-restricted-imports": "error",
 		"@typescript-eslint/consistent-type-assertions": [
 			"error",
 			{
@@ -22,6 +25,7 @@
 		"@typescript-eslint/no-explicit-any": "off",
 		"@typescript-eslint/no-inferrable-types": "off",
 		"@typescript-eslint/no-non-null-assertion": "off",
+		"unused-imports/no-unused-imports": "error",
 		"@typescript-eslint/no-unused-vars": [
 			"warn",
 			{
@@ -38,7 +42,12 @@
 				"null": "never"
 			}
 		],
-		"no-constant-condition": ["error", { "checkLoops": false }],
+		"no-constant-condition": [
+			"error",
+			{
+				"checkLoops": false
+			}
+		],
 		"no-throw-literal": "warn",
 		"semi": "off"
 	},

@@ -1,9 +1,10 @@
-import { commands, DecorationRangeBehavior } from "vscode";
+import { RangeExpansionBehavior } from "@cursorless/common";
 import textFormatters from "../core/textFormatters";
 import {
   callFunctionAndUpdateSelectionInfos,
   getSelectionInfo,
 } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfUntypedStage";
 import { Snippet, SnippetDefinition } from "../typings/snippet";
 import { Target } from "../typings/target.types";
@@ -51,15 +52,15 @@ export default class InsertSnippet implements Action {
   async run(
     [targets]: [Target[]],
     snippetName: string,
-    substitutions: Record<string, string>
+    substitutions: Record<string, string>,
   ): Promise<ActionReturnValue> {
     const snippet = this.graph.snippets.getSnippetStrict(snippetName);
 
-    const editor = ensureSingleEditor(targets);
+    const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
 
     const definition = findMatchingSnippetDefinitionStrict(
       targets,
-      snippet.definitions
+      snippet.definitions,
     );
 
     const parsedSnippet = this.snippetParser.parse(definition.body.join("\n"));
@@ -79,24 +80,21 @@ export default class InsertSnippet implements Action {
       getSelectionInfo(
         editor.document,
         selection,
-        DecorationRangeBehavior.OpenOpen
-      )
+        RangeExpansionBehavior.openOpen,
+      ),
     );
 
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
     // because the latter doesn't support special variables like CLIPBOARD
     const [updatedTargetSelections] = await callFunctionAndUpdateSelectionInfos(
       this.graph.rangeUpdater,
-      () =>
-        commands.executeCommand("editor.action.insertSnippet", {
-          snippet: snippetString,
-        }),
+      () => editor.insertSnippet(snippetString),
       editor.document,
-      [targetSelectionInfos]
+      [targetSelectionInfos],
     );
 
     return {
-      thatMark: updatedTargetSelections.map((selection) => ({
+      thatSelections: updatedTargetSelections.map((selection) => ({
         editor,
         selection,
       })),
@@ -116,7 +114,7 @@ export default class InsertSnippet implements Action {
 function formatSubstitutions(
   snippet: Snippet,
   definition: SnippetDefinition,
-  substitutions: Record<string, string>
+  substitutions: Record<string, string>,
 ): Record<string, string> {
   return Object.fromEntries(
     Object.entries(substitutions).map(([variableName, value]) => {
@@ -135,11 +133,11 @@ function formatSubstitutions(
 
       if (formatter == null) {
         throw new Error(
-          `Couldn't find formatter ${formatterName} for variable ${variableName}`
+          `Couldn't find formatter ${formatterName} for variable ${variableName}`,
         );
       }
 
       return [variableName, formatter(value.split(" "))];
-    })
+    }),
   );
 }

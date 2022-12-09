@@ -1,7 +1,5 @@
-import { TextEditor } from "vscode";
 import { Target } from "../../typings/target.types";
 import { Position } from "../../typings/targetDescriptor.types";
-import { getNotebookFromCellDocument } from "../../util/notebook";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import { removalUnsupportedForPosition } from "./PositionTarget";
 
@@ -37,7 +35,7 @@ interface NotebookCellPositionTargetParameters extends CommonTargetParameters {
 export class NotebookCellPositionTarget extends BaseTarget {
   insertionDelimiter = "\n";
   isNotebookCell = true;
-  private position: Position;
+  public position: Position;
 
   constructor(parameters: NotebookCellPositionTargetParameters) {
     super(parameters);
@@ -48,26 +46,10 @@ export class NotebookCellPositionTarget extends BaseTarget {
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => removalUnsupportedForPosition(this.position);
 
-  getEditNewCommand(): string {
-    if (this.isNotebookEditor(this.editor)) {
-      return this.position === "before"
-        ? "notebook.cell.insertCodeCellAbove"
-        : "notebook.cell.insertCodeCellBelow";
-    }
-
-    return this.position === "before"
-      ? "jupyter.insertCellAbove"
-      : "jupyter.insertCellBelow";
-  }
-
   protected getCloneParameters(): NotebookCellPositionTargetParameters {
     return {
       ...this.state,
       position: this.position,
     };
-  }
-
-  private isNotebookEditor(editor: TextEditor) {
-    return getNotebookFromCellDocument(editor.document) != null;
   }
 }

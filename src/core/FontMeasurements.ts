@@ -18,16 +18,32 @@ export default class FontMeasurements {
    */
   characterHeight!: number;
 
+  private extensionContext!: vscode.ExtensionContext;
+  private initialized = false;
+
   constructor(private graph: Graph) {}
 
+  init(extensionContext: vscode.ExtensionContext) {
+    this.extensionContext = extensionContext;
+    this.initialized = true;
+  }
+
   clearCache() {
-    this.graph.extensionContext.globalState.update("fontRatios", undefined);
+    if (!this.initialized) {
+      throw Error("Font measurements used before initialization");
+    }
+
+    this.extensionContext.globalState.update("fontRatios", undefined);
   }
 
   async calculate() {
+    if (!this.initialized) {
+      throw Error("Font measurements used before initialization");
+    }
+
     const fontFamily = getFontFamily();
     let widthRatio, heightRatio;
-    const fontRatiosCache = this.graph.extensionContext.globalState.get<{
+    const fontRatiosCache = this.extensionContext.globalState.get<{
       widthRatio: number;
       heightRatio: number;
       fontFamily: string;
@@ -35,7 +51,7 @@ export default class FontMeasurements {
 
     if (fontRatiosCache == null || fontRatiosCache.fontFamily !== fontFamily) {
       const fontRatios = await getFontRatios();
-      this.graph.extensionContext.globalState.update("fontRatios", {
+      this.extensionContext.globalState.update("fontRatios", {
         ...fontRatios,
         fontFamily,
       });
@@ -67,7 +83,7 @@ function getFontRatios() {
     },
     {
       enableScripts: true,
-    }
+    },
   );
 
   panel.webview.html = getWebviewContent();

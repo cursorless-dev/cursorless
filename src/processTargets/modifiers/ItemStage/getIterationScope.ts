@@ -1,7 +1,7 @@
-import { Range, TextEditor } from "vscode";
+import { Range, TextEditor } from "@cursorless/common";
 import { Target } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
-import { fitRangeToLineContent } from "../scopeTypeStages/LineStage";
+import { fitRangeToLineContent } from "../scopeHandlers";
 import { processSurroundingPair } from "../surroundingPair";
 import { SurroundingPairInfo } from "../surroundingPair/extractSelectionFromSurroundingPairOffsets";
 
@@ -14,12 +14,12 @@ import { SurroundingPairInfo } from "../surroundingPair/extractSelectionFromSurr
  */
 export function getIterationScope(
   context: ProcessedTargetsContext,
-  target: Target
+  target: Target,
 ): { range: Range; boundary?: [Range, Range] } {
   let pairInfo = getSurroundingPair(
     context,
     target.editor,
-    target.contentRange
+    target.contentRange,
   );
 
   // Iteration is necessary in case of nested strings
@@ -27,7 +27,7 @@ export function getIterationScope(
     const stringPairInfo = getStringSurroundingPair(
       context,
       target.editor,
-      pairInfo.contentRange
+      pairInfo.contentRange,
     );
 
     // We don't look for items inside strings.
@@ -55,7 +55,7 @@ export function getIterationScope(
 function getParentSurroundingPair(
   context: ProcessedTargetsContext,
   editor: TextEditor,
-  pairInfo: SurroundingPairInfo
+  pairInfo: SurroundingPairInfo,
 ) {
   const startOffset = editor.document.offsetAt(pairInfo.contentRange.start);
   // Can't have a parent; already at start of document
@@ -70,7 +70,7 @@ function getParentSurroundingPair(
 function getSurroundingPair(
   context: ProcessedTargetsContext,
   editor: TextEditor,
-  contentRange: Range
+  contentRange: Range,
 ) {
   return processSurroundingPair(context, editor, contentRange, {
     type: "surroundingPair",
@@ -82,7 +82,7 @@ function getSurroundingPair(
 function getStringSurroundingPair(
   context: ProcessedTargetsContext,
   editor: TextEditor,
-  contentRange: Range
+  contentRange: Range,
 ) {
   return processSurroundingPair(context, editor, contentRange, {
     type: "surroundingPair",

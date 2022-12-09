@@ -1,5 +1,5 @@
-import { TestCaseFixture } from "../../testUtil/TestCase";
+import { TestCaseFixture } from "../../testUtil/TestCaseFixture";
 
 export type FixtureTransformation = (
-  originalFixture: TestCaseFixture
+  originalFixture: TestCaseFixture,
 ) => TestCaseFixture;

@@ -1,5 +1,5 @@
-import { commands } from "vscode";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfUntypedStage";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -46,18 +46,18 @@ export default class WrapWithSnippet implements Action {
 
   async run(
     [targets]: [Target[]],
-    snippetLocation: string
+    snippetLocation: string,
   ): Promise<ActionReturnValue> {
     const [snippetName, placeholderName] =
       parseSnippetLocation(snippetLocation);
 
     const snippet = this.graph.snippets.getSnippetStrict(snippetName);
 
-    const editor = ensureSingleEditor(targets);
+    const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
 
     const definition = findMatchingSnippetDefinitionStrict(
       targets,
-      snippet.definitions
+      snippet.definitions,
     );
 
     const parsedSnippet = this.snippetParser.parse(definition.body.join("\n"));
@@ -68,27 +68,22 @@ export default class WrapWithSnippet implements Action {
 
     await this.graph.editStyles.displayPendingEditDecorations(
       targets,
-      this.graph.editStyles.pendingModification0
+      this.graph.editStyles.pendingModification0,
     );
 
     const targetSelections = targets.map((target) => target.contentSelection);
-
-    await this.graph.actions.setSelection.run([targets]);
 
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
     // because the latter doesn't support special variables like CLIPBOARD
     const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
       this.graph.rangeUpdater,
-      () =>
-        commands.executeCommand("editor.action.insertSnippet", {
-          snippet: snippetString,
-        }),
+      () => editor.insertSnippet(snippetString, targetSelections),
       editor.document,
-      [targetSelections]
+      [targetSelections],
     );
 
     return {
-      thatMark: updatedTargetSelections.map((selection) => ({
+      thatSelections: updatedTargetSelections.map((selection) => ({
         editor,
         selection,
       })),

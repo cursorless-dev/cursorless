@@ -1,8 +1,8 @@
-import { TestCaseCommand } from "./TestCase";
+import { TestCaseCommand } from "./TestCaseFixture";
 import { merge } from "lodash";
 
 export function cleanUpTestCaseCommand(
-  command: TestCaseCommand
+  command: TestCaseCommand,
 ): TestCaseCommand {
   const { args } = command.action;
   const result = merge({}, command);

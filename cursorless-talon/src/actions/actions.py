@@ -20,10 +20,10 @@ mod = Module()
         "{user.cursorless_custom_action}"
     )
 )
-def cursorless_action_or_vscode_command(m) -> dict:
+def cursorless_action_or_ide_command(m) -> dict:
     try:
         value = m.cursorless_custom_action
-        type = "vscode_command"
+        type = "ide_command"
     except AttributeError:
         value = m[0]
         type = "cursorless_action"
@@ -47,27 +47,29 @@ class Actions:
             return actions.user.cursorless_single_target_command(action_id, target)
 
     def cursorless_vscode_command(command_id: str, target: dict):
-        """Perform vscode command on cursorless target"""
-        return vscode_command(command_id, target)
+        """
+        Perform vscode command on cursorless target
 
-    def cursorless_action_or_vscode_command(instruction: dict, target: dict):
-        """Perform cursorless action or vscode command on target (internal use only)"""
+        Deprecated: prefer `cursorless_ide_command`
+        """
+        return actions.user.cursorless_ide_command(command_id, target)
+
+    def cursorless_ide_command(command_id: str, target: dict):
+        """Perform ide command on cursorless target"""
+        return ide_command(command_id, target)
+
+    def cursorless_action_or_ide_command(instruction: dict, target: dict):
+        """Perform cursorless action or ide command on target (internal use only)"""
         type = instruction["type"]
         value = instruction["value"]
         if type == "cursorless_action":
             return actions.user.cursorless_command(value, target)
-        elif type == "vscode_command":
-            return actions.user.cursorless_vscode_command(value, target)
+        elif type == "ide_command":
+            return actions.user.cursorless_ide_command(value, target)
 
 
-def vscode_command(command_id: str, target: dict, command_options: dict = {}):
+def ide_command(command_id: str, target: dict, command_options: dict = {}):
     return actions.user.cursorless_single_target_command(
-        "executeCommand", target, command_id, command_options
-    )
-
-
-def vscode_command_no_wait(command_id: str, target: dict, command_options: dict = {}):
-    return actions.user.cursorless_single_target_command_no_wait(
         "executeCommand", target, command_id, command_options
     )
 

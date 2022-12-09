@@ -1,16 +1,16 @@
+import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
-import { selectionFromRange } from "../../util/selectionUtils";
 import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
 import { Action, ActionReturnValue } from "../actions.types";
 import { State } from "./EditNew.types";
-import { runNotebookCellTargets } from "./runNotebookCellTargets";
-import { runCommandTargets } from "./runCommandTargets";
+import { runInsertLineAfterTargets } from "./runInsertLineAfterTargets";
 import { runEditTargets } from "./runEditTargets";
+import { runEditNewNotebookCellTargets } from "./runNotebookCellTargets";
 
 export class EditNew implements Action {
   getFinalStages(): ModifierStage[] {
@@ -26,10 +26,12 @@ export class EditNew implements Action {
       // It is not possible to "pour" a notebook cell and something else,
       // because each notebook cell is its own editor, and you can't have
       // cursors in multiple editors.
-      return runNotebookCellTargets(this.graph, targets);
+      return runEditNewNotebookCellTargets(this.graph, targets);
     }
 
-    const editor = ensureSingleEditor(targets);
+    const editableEditor = ide().getEditableTextEditor(
+      ensureSingleEditor(targets),
+    );
 
     /**
      * Keeps track of the desired cursor positions and "that" marks as we
@@ -41,16 +43,16 @@ export class EditNew implements Action {
       cursorRanges: new Array(targets.length).fill(undefined) as undefined[],
     };
 
-    state = await runCommandTargets(this.graph, editor, state);
-    state = await runEditTargets(this.graph, editor, state);
+    state = await runInsertLineAfterTargets(this.graph, editableEditor, state);
+    state = await runEditTargets(this.graph, editableEditor, state);
 
     const newSelections = state.targets.map((target, index) =>
-      selectionFromRange(target.isReversed, state.cursorRanges[index]!)
+      state.cursorRanges[index]!.toSelection(target.isReversed),
     );
-    await setSelectionsAndFocusEditor(editor, newSelections);
+    await setSelectionsAndFocusEditor(editableEditor, newSelections);
 
     return {
-      thatMark: createThatMark(state.targets, state.thatRanges),
+      thatSelections: createThatMark(state.targets, state.thatRanges),
     };
   }
 }

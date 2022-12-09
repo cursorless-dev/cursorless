@@ -1,25 +1,10 @@
-import {
-  Breakpoint,
-  debug,
-  Location,
-  Range,
-  SourceBreakpoint,
-  Uri,
-} from "vscode";
+import { BreakpointDescriptor } from "../libs/common/types/TextEditor";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { createThatMark } from "../util/targetUtils";
+import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
-
-function getBreakpoints(uri: Uri, range: Range) {
-  return debug.breakpoints.filter(
-    (breakpoint) =>
-      breakpoint instanceof SourceBreakpoint &&
-      breakpoint.location.uri.toString() === uri.toString() &&
-      breakpoint.location.range.intersection(range) != null
-  );
-}
 
 export default class ToggleBreakpoint implements Action {
   getFinalStages = () => [containingLineIfUntypedStage];
@@ -33,35 +18,33 @@ export default class ToggleBreakpoint implements Action {
 
     await this.graph.editStyles.displayPendingEditDecorations(
       thatTargets,
-      this.graph.editStyles.referenced
+      this.graph.editStyles.referenced,
     );
 
-    const toAdd: Breakpoint[] = [];
-    const toRemove: Breakpoint[] = [];
+    await runOnTargetsForEachEditor(targets, async (editor, targets) => {
+      const breakpointDescriptors: BreakpointDescriptor[] = targets.map(
+        (target) => {
+          const range = target.contentRange;
+          return target.isLine
+            ? {
+                type: "line",
+                startLine: range.start.line,
+                endLine: range.end.line,
+              }
+            : {
+                type: "inline",
+                range,
+              };
+        },
+      );
 
-    targets.forEach((target) => {
-      let range = target.contentRange;
-      // The action preference give us line content but line breakpoints are registered on character 0
-      if (target.isLine) {
-        range = range.with(range.start.with(undefined, 0), undefined);
-      }
-      const uri = target.editor.document.uri;
-      const existing = getBreakpoints(uri, range);
-      if (existing.length > 0) {
-        toRemove.push(...existing);
-      } else {
-        if (target.isLine) {
-          range = range.with(undefined, range.end.with(undefined, 0));
-        }
-        toAdd.push(new SourceBreakpoint(new Location(uri, range)));
-      }
+      await ide()
+        .getEditableTextEditor(editor)
+        .toggleBreakpoint(breakpointDescriptors);
     });
 
-    debug.addBreakpoints(toAdd);
-    debug.removeBreakpoints(toRemove);
-
     return {
-      thatMark: createThatMark(thatTargets),
+      thatTargets: targets,
     };
   }
 }

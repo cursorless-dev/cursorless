@@ -1,4 +1,4 @@
-import { Range, Selection, TextEditor } from "vscode";
+import { Range, Selection, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
@@ -88,17 +88,17 @@ const sectioningCommand = SECTIONING.map((s) => `${s}[command]`);
 
 function unwrapGroupParens(
   editor: TextEditor,
-  node: SyntaxNode
+  node: SyntaxNode,
 ): SelectionWithContext {
   return {
     selection: new Selection(
       editor.document.positionAt(node.startIndex + 1),
-      editor.document.positionAt(node.endIndex - 1)
+      editor.document.positionAt(node.endIndex - 1),
     ),
     context: {
       removalRange: new Selection(
         editor.document.positionAt(node.startIndex),
-        editor.document.positionAt(node.endIndex)
+        editor.document.positionAt(node.endIndex),
       ),
     },
   };
@@ -106,7 +106,7 @@ function unwrapGroupParens(
 
 function extendToNamedSiblingIfExists(
   editor: TextEditor,
-  node: SyntaxNode
+  node: SyntaxNode,
 ): SelectionWithContext {
   const startIndex = node.startIndex;
   let endIndex = node.endIndex;
@@ -119,7 +119,7 @@ function extendToNamedSiblingIfExists(
   return {
     selection: new Selection(
       editor.document.positionAt(startIndex),
-      editor.document.positionAt(endIndex)
+      editor.document.positionAt(endIndex),
     ),
     context: {},
   };
@@ -127,7 +127,7 @@ function extendToNamedSiblingIfExists(
 
 function extractItemContent(
   editor: TextEditor,
-  node: SyntaxNode
+  node: SyntaxNode,
 ): SelectionWithContext {
   let contentStartIndex = node.startIndex;
 
@@ -144,12 +144,12 @@ function extractItemContent(
   return {
     selection: new Selection(
       editor.document.positionAt(contentStartIndex),
-      editor.document.positionAt(node.endIndex)
+      editor.document.positionAt(node.endIndex),
     ),
     context: {
       leadingDelimiterRange: new Range(
         editor.document.positionAt(node.startIndex),
-        editor.document.positionAt(contentStartIndex - 1)
+        editor.document.positionAt(contentStartIndex - 1),
       ),
     },
   };
@@ -162,17 +162,17 @@ const nodeMatchers: Partial<
     ancestorChainNodeMatcher(
       [patternFinder(...COMMANDS), patternFinder(...GROUPS)],
       1,
-      unwrapGroupParens
+      unwrapGroupParens,
     ),
     matcher(
       patternFinder("begin[name]", "end[name]", ...sectioningText),
-      unwrapGroupParens
-    )
+      unwrapGroupParens,
+    ),
   ),
 
   functionCall: cascadingMatcher(
     matcher(patternFinder(...COMMANDS, "begin", "end")),
-    matcher(patternFinder(...sectioningCommand), extendToNamedSiblingIfExists)
+    matcher(patternFinder(...sectioningCommand), extendToNamedSiblingIfExists),
   ),
 
   name: matcher(patternFinder(...sectioningText), unwrapGroupParens),

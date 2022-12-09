@@ -1,12 +1,12 @@
+import { fromVscodeRange } from "@cursorless/vscode-common";
 import {
   Disposable,
-  ExtensionMode,
-  Location,
   TextEditorSelectionChangeEvent,
   window,
   workspace,
 } from "vscode";
 import { SyntaxNode, TreeCursor } from "web-tree-sitter";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Graph } from "../typings/Types";
 
 export default class Debug {
@@ -15,26 +15,26 @@ export default class Debug {
   active: boolean;
 
   constructor(private graph: Graph) {
-    this.graph.extensionContext.subscriptions.push(this);
+    ide().disposeOnExit(this);
 
     this.evaluateSetting = this.evaluateSetting.bind(this);
     this.logBranchTypes = this.logBranchTypes.bind(this);
     this.active = true;
 
-    switch (this.graph.extensionContext.extensionMode) {
+    switch (ide().runMode) {
       // Development mode. Always enable.
-      case ExtensionMode.Development:
+      case "development":
         this.enableDebugLog();
         break;
       // Test mode. Always disable.
-      case ExtensionMode.Test:
+      case "test":
         this.disableDebugLog();
         break;
       // Production mode. Enable based on user setting.
-      case ExtensionMode.Production:
+      case "production":
         this.evaluateSetting();
         this.disposableConfiguration = workspace.onDidChangeConfiguration(
-          this.evaluateSetting
+          this.evaluateSetting,
         );
         break;
     }
@@ -62,7 +62,7 @@ export default class Debug {
   private enableDebugLog() {
     this.active = true;
     this.disposableSelection = window.onDidChangeTextEditorSelection(
-      this.logBranchTypes
+      this.logBranchTypes,
     );
   }
 
@@ -86,14 +86,12 @@ export default class Debug {
   }
 
   private logBranchTypes(event: TextEditorSelectionChangeEvent) {
-    const location = new Location(
-      window.activeTextEditor!.document.uri,
-      event.selections[0]
-    );
-
     let node: SyntaxNode;
     try {
-      node = this.graph.getNodeAtLocation(location);
+      node = this.graph.getNodeAtLocation(
+        ide().activeTextEditor!.document,
+        fromVscodeRange(event.selections[0]),
+      );
     } catch (error) {
       return;
     }

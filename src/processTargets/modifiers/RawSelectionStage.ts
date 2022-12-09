@@ -1,8 +1,8 @@
-import { Target } from "../../typings/target.types";
-import { RawSelectionModifier } from "../../typings/targetDescriptor.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
-import { ModifierStage } from "../PipelineStages.types";
-import RawSelectionTarget from "../targets/RawSelectionTarget";
+import type { Target } from "../../typings/target.types";
+import type { RawSelectionModifier } from "../../typings/targetDescriptor.types";
+import type { ProcessedTargetsContext } from "../../typings/Types";
+import type { ModifierStage } from "../PipelineStages.types";
+import { RawSelectionTarget } from "../targets";
 
 export default class RawSelectionStage implements ModifierStage {
   constructor(private modifier: RawSelectionModifier) {}

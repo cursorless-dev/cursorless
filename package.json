@@ -31,8 +31,8 @@
 		"vscode": "^1.61.0"
 	},
 	"extensionKind": [
-		"workspace",
-		"ui"
+		"ui",
+		"workspace"
 	],
 	"categories": [
 		"Other"
@@ -206,6 +206,18 @@
 					"default": 0,
 					"description": "How much to vertically shift the hats as a percentage of font size; positive is up",
 					"order": 1
+				},
+				"cursorless.wordSeparators": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [
+						"_"
+					],
+					"scope": "language-overridable",
+					"markdownDescription": "A list of characters that separate words in identifiers. For example `_` splits `hello_world` into two words.",
+					"order": 6
 				},
 				"cursorless.colors.dark": {
 					"description": "Colors to use for dark theme",
@@ -523,6 +535,154 @@
 				"cursorless.experimental.snippetsDir": {
 					"description": "Directory containing snippets for use in cursorless",
 					"type": "string"
+				},
+				"cursorless.experimental.keyboard.modal.keybindings.actions": {
+					"description": "Define modal keybindings for actions",
+					"type": "object",
+					"additionalProperties": {
+						"type": "string",
+						"enum": [
+							"callAsFunction",
+							"clearAndSetSelection",
+							"copyToClipboard",
+							"cutToClipboard",
+							"deselect",
+							"editNew",
+							"editNewLineAfter",
+							"editNewLineBefore",
+							"executeCommand",
+							"extractVariable",
+							"findInWorkspace",
+							"foldRegion",
+							"followLink",
+							"generateSnippet",
+							"getText",
+							"highlight",
+							"indentLine",
+							"insertCopyAfter",
+							"insertCopyBefore",
+							"insertEmptyLineAfter",
+							"insertEmptyLineBefore",
+							"insertEmptyLinesAround",
+							"insertSnippet",
+							"moveToTarget",
+							"outdentLine",
+							"pasteFromClipboard",
+							"randomizeTargets",
+							"remove",
+							"rename",
+							"replace",
+							"replaceWithTarget",
+							"revealDefinition",
+							"revealTypeDefinition",
+							"reverseTargets",
+							"rewrapWithPairedDelimiter",
+							"scrollToBottom",
+							"scrollToCenter",
+							"scrollToTop",
+							"setSelection",
+							"setSelectionAfter",
+							"setSelectionBefore",
+							"showDebugHover",
+							"showHover",
+							"showQuickFix",
+							"showReferences",
+							"sortTargets",
+							"swapTargets",
+							"toggleLineBreakpoint",
+							"toggleLineComment",
+							"unfoldRegion",
+							"wrapWithPairedDelimiter",
+							"wrapWithSnippet"
+						]
+					}
+				},
+				"cursorless.experimental.keyboard.modal.keybindings.colors": {
+					"description": "Define modal keybindings for colors",
+					"type": "object",
+					"additionalProperties": {
+						"type": "string",
+						"enum": [
+							"default",
+							"blue",
+							"green",
+							"red",
+							"pink",
+							"yellow",
+							"userColor1",
+							"userColor2"
+						]
+					}
+				},
+				"cursorless.experimental.keyboard.modal.keybindings.shapes": {
+					"description": "Define modal keybindings for shapes",
+					"type": "object",
+					"additionalProperties": {
+						"type": "string",
+						"enum": [
+							"ex",
+							"fox",
+							"wing",
+							"hole",
+							"frame",
+							"curve",
+							"eye",
+							"play",
+							"bolt",
+							"crosshairs"
+						]
+					}
+				},
+				"cursorless.experimental.keyboard.modal.keybindings.scopes": {
+					"description": "Define modal keybindings for scopes",
+					"type": "object",
+					"additionalProperties": {
+						"type": "string",
+						"enum": [
+							"argumentOrParameter",
+							"anonymousFunction",
+							"attribute",
+							"class",
+							"className",
+							"collectionItem",
+							"collectionKey",
+							"comment",
+							"functionCall",
+							"functionName",
+							"ifStatement",
+							"list",
+							"map",
+							"name",
+							"namedFunction",
+							"regularExpression",
+							"statement",
+							"string",
+							"type",
+							"value",
+							"condition",
+							"section",
+							"sectionLevelOne",
+							"sectionLevelTwo",
+							"sectionLevelThree",
+							"sectionLevelFour",
+							"sectionLevelFive",
+							"sectionLevelSix",
+							"selector",
+							"xmlBothTags",
+							"xmlElement",
+							"xmlEndTag",
+							"xmlStartTag",
+							"token",
+							"line",
+							"notebookCell",
+							"paragraph",
+							"document",
+							"character",
+							"word",
+							"nonWhitespaceSequence",
+							"url"
+						]
+					}
 				}
 			}
 		},
@@ -554,6 +714,10 @@
 		"url": "https://github.com/sponsors/pokey"
 	},
 	"funding": "https://github.com/sponsors/pokey",
+	"_moduleAliases": {
+		"@cursorless/common": "./out/libs/common/index.js",
+		"@cursorless/vscode-common": "./out/libs/vscode-common/index.js"
+	},
 	"scripts": {
 		"vscode:prepublish": "npm run -S esbuild-base -- --minify",
 		"update-licenses": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv",
@@ -565,29 +729,35 @@
 		"watch": "tsc -watch -p ./",
 		"pretest": "yarn run compile && yarn run lint && yarn run esbuild",
 		"lint": "eslint src --ext ts",
-		"test": "env CURSORLESS_TEST=true node ./out/test/runTest.js",
+		"test": "env CURSORLESS_TEST=true node ./out/test/scripts/runTestsCI.js",
 		"unused-exports": "ts-unused-exports tsconfig.json --showLineNumber",
-		"init-launch-sandbox": "node ./out/test/initLaunchSandbox.js",
+		"init-launch-sandbox": "node ./out/scripts/initLaunchSandbox.js",
 		"prepare-for-extension-publish": "node ./out/scripts/prepareForExtensionPublish.js"
 	},
 	"devDependencies": {
+		"@types/chai": "^4.3.3",
 		"@types/glob": "^7.1.3",
 		"@types/js-yaml": "^4.0.2",
+		"@types/lodash": "^4.14.168",
 		"@types/mocha": "^8.0.4",
 		"@types/node": "^16.11.3",
 		"@types/semver": "^7.3.9",
 		"@types/sinon": "^10.0.2",
+		"@types/uuid": "^8.3.4",
 		"@types/vscode": "~1.61.0",
 		"@typescript-eslint/eslint-plugin": "^5.20.0",
 		"@typescript-eslint/parser": "^5.20.0",
 		"@vscode/test-electron": "^2.1.3",
+		"chai": "^4.3.6",
 		"esbuild": "^0.11.12",
-		"eslint": "^8.13.0",
 		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-unused-imports": "^2.0.0",
+		"eslint": "^8.13.0",
 		"fast-xml-parser": "^3.20.0",
 		"glob": "^7.1.7",
 		"js-yaml": "^4.1.0",
 		"mocha": "^8.1.3",
+		"module-alias": "^2.2.2",
 		"npm-license-crawler": "^0.2.1",
 		"prettier": "2.7.1",
 		"semver": "^7.3.7",
@@ -596,9 +766,12 @@
 		"typescript": "^4.8.3"
 	},
 	"dependencies": {
-		"@types/lodash": "^4.14.168",
+		"immer": "^9.0.15",
 		"immutability-helper": "^3.1.1",
+		"itertools": "^1.7.1",
 		"lodash": "^4.17.21",
-		"node-html-parser": "^5.3.3"
+		"node-html-parser": "^5.3.3",
+		"uuid": "^9.0.0",
+		"vscode-uri": "^3.0.6"
 	}
 }

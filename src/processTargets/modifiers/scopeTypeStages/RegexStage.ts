@@ -1,4 +1,4 @@
-import { Position, Range, TextEditor } from "vscode";
+import { Position, Range, TextEditor } from "@cursorless/common";
 import { NoContainingScopeError } from "../../../errors";
 import { Target } from "../../../typings/target.types";
 import {
@@ -12,7 +12,7 @@ import { TokenTarget } from "../../targets";
 class RegexStageBase implements ModifierStage {
   constructor(
     private modifier: ContainingScopeModifier | EveryScopeModifier,
-    protected regex: RegExp
+    protected regex: RegExp,
   ) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
@@ -23,26 +23,21 @@ class RegexStageBase implements ModifierStage {
   }
 
   private getEveryTarget(target: Target): Target[] {
-    const { contentRange, editor } = target;
-    const start = target.hasExplicitRange
-      ? contentRange.start
-      : editor.document.lineAt(contentRange.start).range.start;
-    const end = target.hasExplicitRange
-      ? contentRange.end
-      : editor.document.lineAt(contentRange.end).range.end;
-    const targets: Target[] = [];
+    const { editor, contentRange } = target;
 
-    for (let i = start.line; i <= end.line; ++i) {
-      this.getMatchesForLine(editor, i).forEach((range) => {
-        // Regex match and selection intersects
-        if (
-          range.end.isAfterOrEqual(start) &&
-          range.start.isBeforeOrEqual(end)
-        ) {
-          targets.push(this.getTargetFromRange(target, range));
-        }
-      });
-    }
+    const searchRange = new Range(
+      this.expandRangeForSearch(target.editor, contentRange.start).start,
+      this.expandRangeForSearch(target.editor, contentRange.end).end,
+    );
+
+    const matches = this.getMatchesInRange(editor, searchRange);
+    const targets = (
+      target.hasExplicitRange
+        ? matches.filter((match) => match.intersection(contentRange) != null)
+        : matches
+    ).map((contentRange) =>
+      this.rangeToTarget(target.isReversed, target.editor, contentRange),
+    );
 
     if (targets.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -52,24 +47,24 @@ class RegexStageBase implements ModifierStage {
   }
 
   private getSingleTarget(target: Target): Target {
-    const { editor } = target;
-    const start = this.getMatchForPos(editor, target.contentRange.start).start;
-    const end = this.getMatchForPos(editor, target.contentRange.end).end;
-    const contentRange = new Range(start, end);
-    return this.getTargetFromRange(target, contentRange);
+    const { editor, isReversed, contentRange } = target;
+
+    return this.rangeToTarget(
+      isReversed,
+      editor,
+      this.getMatchContainingPosition(editor, contentRange.start).union(
+        this.getMatchContainingPosition(editor, contentRange.end),
+      ),
+    );
   }
 
-  private getTargetFromRange(target: Target, contentRange: Range): Target {
-    return new TokenTarget({
-      editor: target.editor,
-      isReversed: target.isReversed,
-      contentRange,
-    });
-  }
-
-  private getMatchForPos(editor: TextEditor, position: Position) {
-    const match = this.getMatchesForLine(editor, position.line).find((range) =>
-      range.contains(position)
+  private getMatchContainingPosition(
+    editor: TextEditor,
+    position: Position,
+  ): Range {
+    const textRange = this.expandRangeForSearch(editor, position);
+    const match = this.getMatchesInRange(editor, textRange).find(
+      (contentRange) => contentRange.contains(position),
     );
     if (match == null) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -77,21 +72,48 @@ class RegexStageBase implements ModifierStage {
     return match;
   }
 
-  private getMatchesForLine(editor: TextEditor, lineNum: number) {
-    const line = editor.document.lineAt(lineNum);
-    const result = [...line.text.matchAll(this.regex)].map(
+  /**
+   * Constructs a range from {@link position} within which to search for
+   * instances of {@link regex}.  By default we expand to containing line, as
+   * all our regexes today operate within a line, but deriving modifier stages
+   * can override this to properly handle multiline regexes.
+   * @param editor The editor containing {@link position}
+   * @param position The position from which to expand for searching
+   * @returns A range within which to search for instances of {@link regex}
+   */
+  protected expandRangeForSearch(
+    editor: TextEditor,
+    position: Position,
+  ): Range {
+    return editor.document.lineAt(position.line).range;
+  }
+
+  private getMatchesInRange(editor: TextEditor, range: Range): Range[] {
+    const offset = editor.document.offsetAt(range.start);
+    const text = editor.document.getText(range);
+    const result = [...text.matchAll(this.regex)].map(
       (match) =>
         new Range(
-          lineNum,
-          match.index!,
-          lineNum,
-          match.index! + match[0].length
-        )
+          editor.document.positionAt(offset + match.index!),
+          editor.document.positionAt(offset + match.index! + match[0].length),
+        ),
     );
     if (result == null) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
     return result;
+  }
+
+  private rangeToTarget(
+    isReversed: boolean,
+    editor: TextEditor,
+    contentRange: Range,
+  ): Target {
+    return new TokenTarget({
+      editor,
+      isReversed,
+      contentRange,
+    });
   }
 }
 
@@ -120,7 +142,7 @@ export type CustomRegexModifier = (
 
 export class CustomRegexStage extends RegexStageBase {
   constructor(modifier: CustomRegexModifier) {
-    super(modifier, new RegExp(modifier.scopeType.regex, "g"));
+    super(modifier, new RegExp(modifier.scopeType.regex, "gu"));
   }
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {

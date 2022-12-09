@@ -26,13 +26,4 @@ finalState:
       active: {line: 0, character: 4}
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
-  thatMark:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]

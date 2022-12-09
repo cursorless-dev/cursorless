@@ -7,6 +7,7 @@ type SmartLinkProps = {
   to: string;
 
   children?: React.ReactNode;
+  noFormatting?: boolean;
 };
 
 /**
@@ -14,16 +15,26 @@ type SmartLinkProps = {
  * internal
  * @returns SmartLink component
  */
-const SmartLink: React.FC<SmartLinkProps> = ({ to, children }) => (
-  <span className="text-blue-500 hover:text-violet-700 dark:text-cyan-400 hover:dark:text-violet-200">
-    {to.startsWith('https://') ? (
-      <a href={to} target="_blank" rel="noopener noreferrer">
-        {children}
-      </a>
-    ) : (
-      <a href={to}>{children}</a>
-    )}
-  </span>
-);
+const SmartLink: React.FC<SmartLinkProps> = ({
+  to,
+  children,
+  noFormatting = false,
+}) => {
+  const className = noFormatting
+    ? ''
+    : 'text-blue-500 hover:text-violet-700 dark:text-cyan-400 hover:dark:text-violet-200';
+
+  return (
+    <span className={className}>
+      {to.startsWith('https://') ? (
+        <a href={to} target="_blank" rel="noopener noreferrer">
+          {children}
+        </a>
+      ) : (
+        <a href={to}>{children}</a>
+      )}
+    </span>
+  );
+};
 
 export default SmartLink;

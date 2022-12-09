@@ -1,29 +1,35 @@
-import { commands, Selection } from "vscode";
+import { Selection } from "@cursorless/common";
+import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import { NotebookCellPositionTarget } from "../../processTargets/targets";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
 import { createThatMark, ensureSingleTarget } from "../../util/targetUtils";
 import { ActionReturnValue } from "../actions.types";
 
-export async function runNotebookCellTargets(
+export async function runEditNewNotebookCellTargets(
   graph: Graph,
-  targets: Target[]
+  targets: Target[],
 ): Promise<ActionReturnValue> {
   // Can only run on one target because otherwise we'd end up with cursors in
   // multiple cells, which is unsupported in VSCode
   const target = ensureSingleTarget(targets) as NotebookCellPositionTarget;
-  await graph.actions.setSelection.run([targets]);
-  const command = target.getEditNewCommand();
-  await commands.executeCommand(command);
-  const thatMark = createThatMark([target.thatTarget]);
+  const editor = ide().getEditableTextEditor(target.editor);
+  const isAbove = target.position === "before";
 
-  // Inserting a new jupyter cell above pushes the previous one down two lines
-  if (command === "jupyter.insertCellAbove") {
-    thatMark[0].selection = new Selection(
-      thatMark[0].selection.anchor.translate({ lineDelta: 2 }),
-      thatMark[0].selection.active.translate({ lineDelta: 2 })
-    );
+  await graph.actions.setSelection.run([targets]);
+
+  let modifyThatMark = (selection: Selection) => selection;
+  if (isAbove) {
+    modifyThatMark = await editor.editNewNotebookCellAbove();
+  } else {
+    await editor.editNewNotebookCellBelow();
   }
 
-  return { thatMark };
+  const thatMark = createThatMark([target.thatTarget]);
+
+  // Apply horrible hack to work around the fact that in vscode the promise
+  // resolves before the edits have actually been performed.
+  thatMark[0].selection = modifyThatMark(thatMark[0].selection);
+
+  return { thatSelections: thatMark };
 }

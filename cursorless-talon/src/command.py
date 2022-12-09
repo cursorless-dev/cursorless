@@ -2,10 +2,16 @@ from typing import Any
 
 from talon import Module, actions, speech_system
 
+from .cursorless_command_server import (
+    run_rpc_command_and_wait,
+    run_rpc_command_get,
+    run_rpc_command_no_wait,
+)
 from .primitive_target import IMPLICIT_TARGET
 
 mod = Module()
 
+CURSORLESS_COMMAND_ID = "cursorless.command"
 last_phrase = None
 
 
@@ -66,8 +72,8 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute single-target cursorless command and return result"""
-        return actions.user.vscode_get(
-            "cursorless.command",
+        return run_rpc_command_get(
+            CURSORLESS_COMMAND_ID,
             construct_cursorless_command_argument(
                 action=action,
                 targets=[target],
@@ -94,8 +100,8 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute multi-target cursorless command"""
-        actions.user.vscode_with_plugin_and_wait(
-            "cursorless.command",
+        run_rpc_command_and_wait(
+            CURSORLESS_COMMAND_ID,
             construct_cursorless_command_argument(
                 action=action,
                 targets=targets,
@@ -111,8 +117,8 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute multi-target cursorless command"""
-        actions.user.vscode_with_plugin(
-            "cursorless.command",
+        run_rpc_command_no_wait(
+            CURSORLESS_COMMAND_ID,
             construct_cursorless_command_argument(
                 action=action,
                 targets=targets,
@@ -130,7 +136,7 @@ def construct_cursorless_command_argument(
         use_pre_phrase_snapshot = False
 
     return {
-        "version": 2,
+        "version": 3,
         "spokenForm": get_spoken_form(),
         "action": {
             "name": action,

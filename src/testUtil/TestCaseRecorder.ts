@@ -1,21 +1,35 @@
+import { getKey } from "@cursorless/common";
 import * as fs from "fs";
+import { readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
+import { merge } from "lodash";
 import * as path from "path";
 import * as vscode from "vscode";
-import HatTokenMap from "../core/HatTokenMap";
-import { Graph } from "../typings/Types";
+import SpyIDE from "../libs/common/ide/spy/SpyIDE";
+import { IDE } from "../libs/common/ide/types/ide.types";
+import { extractTargetedMarks } from "../libs/common/testUtil/extractTargetedMarks";
+import serialize from "../libs/common/testUtil/serialize";
+import sleep from "../libs/common/util/sleep";
+import { walkDirsSync } from "../libs/common/util/walkSync";
+import ide, {
+  injectIde,
+} from "../libs/cursorless-engine/singletons/ide.singleton";
+import {
+  ExtraSnapshotField,
+  takeSnapshot,
+} from "../libs/vscode-common/testUtil/takeSnapshot";
+import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "../libs/vscode-common/testUtil/testConstants";
+import {
+  marksToPlainObject,
+  SerializedMarks,
+} from "../libs/vscode-common/testUtil/toPlainObject";
 import { DecoratedSymbolMark } from "../typings/targetDescriptor.types";
-import { getDocumentRange } from "../util/range";
-import sleep from "../util/sleep";
-import { extractTargetedMarks } from "./extractTargetedMarks";
-import serialize from "./serialize";
-import { ExtraSnapshotField, takeSnapshot } from "./takeSnapshot";
-import { TestCase, TestCaseCommand, TestCaseContext } from "./TestCase";
-import { marksToPlainObject, SerializedMarks } from "./toPlainObject";
-import { walkDirsSync } from "./walkSync";
+import { Graph } from "../typings/Types";
+import { TestCase, TestCaseContext } from "./TestCase";
+import { TestCaseCommand } from "./TestCaseFixture";
 
 const CALIBRATION_DISPLAY_BACKGROUND_COLOR = "#230026";
-const CALIBRATION_DISPLAY_DURATION_MS = 30;
+const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
 interface RecordTestCaseCommandArg {
   /**
@@ -57,6 +71,11 @@ interface RecordTestCaseCommandArg {
    * which do not error.
    */
   recordErrors?: boolean;
+
+  /**
+   * Whether to capture the `that` mark returned by the action.
+   */
+  captureFinalThatMark?: boolean;
 }
 
 export class TestCaseRecorder {
@@ -74,17 +93,24 @@ export class TestCaseRecorder {
   private extraSnapshotFields?: ExtraSnapshotField[];
   private paused: boolean = false;
   private isErrorTest: boolean = false;
+  /** We use this variable to capture editor settings and then restore them */
+  private originalTextEditorOptions: vscode.TextEditorOptions = {};
   private calibrationStyle = vscode.window.createTextEditorDecorationType({
     backgroundColor: CALIBRATION_DISPLAY_BACKGROUND_COLOR,
   });
+  private captureFinalThatMark: boolean = false;
+  private spyIde: SpyIDE | undefined;
+  private originalIde: IDE | undefined;
 
   constructor(private graph: Graph) {
-    graph.extensionContext.subscriptions.push(this);
+    ide().disposeOnExit(this);
+
+    const { runMode, assetsRoot, workspaceFolders } = ide();
 
     this.workspacePath =
-      graph.extensionContext.extensionMode === vscode.ExtensionMode.Development
-        ? graph.extensionContext.extensionPath
-        : vscode.workspace.workspaceFolders?.[0].uri.path ?? null;
+      runMode === "development"
+        ? assetsRoot
+        : workspaceFolders?.[0].uri.path ?? null;
 
     this.workspaceName = this.workspacePath
       ? path.basename(this.workspacePath)
@@ -102,13 +128,13 @@ export class TestCaseRecorder {
         async (arg?: RecordTestCaseCommandArg) => {
           if (this.active) {
             vscode.window.showInformationMessage(
-              "Stopped recording test cases"
+              "Stopped recording test cases",
             );
             this.stop();
           } else {
             return await this.start(arg);
           }
-        }
+        },
       ),
 
       vscode.commands.registerCommand("cursorless.pauseRecording", async () => {
@@ -127,7 +153,7 @@ export class TestCaseRecorder {
           }
 
           this.paused = false;
-        }
+        },
       ),
 
       vscode.commands.registerCommand(
@@ -136,18 +162,18 @@ export class TestCaseRecorder {
           outPath: string,
           metadata: unknown,
           targetedMarks: DecoratedSymbolMark[],
-          usePrePhraseSnapshot: boolean
+          usePrePhraseSnapshot: boolean,
         ) => {
           let marks: SerializedMarks | undefined;
           if (targetedMarks.length !== 0) {
             const keys = targetedMarks.map(({ character, symbolColor }) =>
-              HatTokenMap.getKey(symbolColor, character)
+              getKey(symbolColor, character),
             );
             const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
-              usePrePhraseSnapshot
+              usePrePhraseSnapshot,
             );
             marks = marksToPlainObject(
-              extractTargetedMarks(keys, readableHatMap)
+              extractTargetedMarks(keys, readableHatMap),
             );
           } else {
             marks = undefined;
@@ -158,14 +184,16 @@ export class TestCaseRecorder {
             undefined,
             ["clipboard"],
             this.active ? this.extraSnapshotFields : undefined,
+            ide().activeTextEditor!,
+            ide(),
             marks,
             this.active ? { startTimestamp: this.startTimestamp } : undefined,
-            metadata
+            metadata,
           );
 
           await this.writeToFile(outPath, serialize(snapshot));
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -174,59 +202,101 @@ export class TestCaseRecorder {
   }
 
   async start(arg?: RecordTestCaseCommandArg) {
+    const { directory, ...explicitConfig } = arg ?? {};
+
+    /**
+     * A list of paths of every parent directory between the root fixture
+     * directory and the user's chosen recording directory
+     */
+    let parentDirectories: string[];
+
+    if (directory != null) {
+      this.targetDirectory = directory;
+      parentDirectories = [directory];
+    } else {
+      this.targetDirectory = (await this.promptSubdirectory()) ?? null;
+
+      if (this.targetDirectory == null) {
+        return null;
+      }
+
+      const parentNames = path
+        .relative(this.fixtureRoot!, this.targetDirectory)
+        .split(path.sep);
+
+      parentDirectories = [this.fixtureRoot!];
+      let currentDirectory = this.fixtureRoot!;
+      for (const name of parentNames) {
+        currentDirectory = path.join(currentDirectory, name);
+        parentDirectories.push(currentDirectory);
+      }
+    }
+
+    // Look for a `config.json` file in ancestors of the recording directory,
+    // and merge it with the config provided when calling the command.
+    const config: RecordTestCaseCommandArg = merge(
+      {},
+      ...(await Promise.all(
+        parentDirectories.map((parent) =>
+          readJsonIfExists(path.join(parent, "config.json")),
+        ),
+      )),
+      explicitConfig,
+    );
+
     const {
       isHatTokenMapTest = false,
       isDecorationsTest = false,
-      directory,
       isSilent = false,
       extraSnapshotFields = [],
       showCalibrationDisplay = false,
       recordErrors: isErrorTest = false,
-    } = arg ?? {};
+      captureFinalThatMark = false,
+    } = config;
 
-    if (directory != null) {
-      this.targetDirectory = directory;
-    } else {
-      this.targetDirectory = (await this.promptSubdirectory()) ?? null;
-    }
+    this.active = true;
 
-    this.active = this.targetDirectory != null;
+    const startTimestampISO = await this.recordStartTime(
+      showCalibrationDisplay,
+    );
+    this.isHatTokenMapTest = isHatTokenMapTest;
+    this.captureFinalThatMark = captureFinalThatMark;
+    this.isDecorationsTest = isDecorationsTest;
+    this.isSilent = isSilent;
+    this.extraSnapshotFields = extraSnapshotFields;
+    this.isErrorTest = isErrorTest;
+    this.paused = false;
 
-    if (this.active) {
-      if (showCalibrationDisplay) {
-        this.showCalibrationDisplay();
-      }
-      this.startTimestamp = process.hrtime.bigint();
-      const timestampISO = new Date().toISOString();
-      this.isHatTokenMapTest = isHatTokenMapTest;
-      this.isDecorationsTest = isDecorationsTest;
-      this.isSilent = isSilent;
-      this.extraSnapshotFields = extraSnapshotFields;
-      this.isErrorTest = isErrorTest;
-      this.paused = false;
+    vscode.window.showInformationMessage(
+      `Recording test cases for following commands in:\n${this.targetDirectory}`,
+    );
 
-      vscode.window.showInformationMessage(
-        `Recording test cases for following commands in:\n${this.targetDirectory}`
-      );
-
-      return { startTimestampISO: timestampISO };
-    }
-
-    return null;
+    return { startTimestampISO };
   }
 
-  async showCalibrationDisplay() {
-    vscode.window.visibleTextEditors.map((editor) => {
-      editor.setDecorations(this.calibrationStyle, [
-        getDocumentRange(editor.document),
-      ]);
-    });
+  private async recordStartTime(showCalibrationDisplay: boolean) {
+    if (showCalibrationDisplay) {
+      vscode.window.visibleTextEditors.map((editor) => {
+        editor.setDecorations(this.calibrationStyle, [
+          getDocumentRange(editor.document),
+        ]);
+      });
 
-    await sleep(CALIBRATION_DISPLAY_DURATION_MS);
+      await sleep(CALIBRATION_DISPLAY_DURATION_MS);
+    }
 
-    vscode.window.visibleTextEditors.map((editor) => {
-      editor.setDecorations(this.calibrationStyle, []);
-    });
+    // NB: Record timestamp here so that timestamp is last frame of calibration
+    // display
+    this.startTimestamp = process.hrtime.bigint();
+    const timestampISO = new Date().toISOString();
+
+    if (showCalibrationDisplay) {
+      vscode.window.visibleTextEditors.map((editor) => {
+        editor.setDecorations(this.calibrationStyle, []);
+      });
+    }
+
+    return timestampISO;
   }
 
   stop() {
@@ -241,21 +311,35 @@ export class TestCaseRecorder {
       // cared about from the last command
       invariant(
         this.testCase.awaitingFinalMarkInfo,
-        () => "expected to be awaiting final mark info"
+        () => "expected to be awaiting final mark info",
       );
       this.testCase.filterMarks(command, context);
       await this.finishTestCase();
     } else {
       // Otherwise, we are starting a new test case
+      this.originalIde = ide();
+      this.spyIde = new SpyIDE(this.originalIde);
+      injectIde(this.spyIde!);
+
       this.testCase = new TestCase(
         command,
         context,
+        this.spyIde,
         this.isHatTokenMapTest,
         this.isDecorationsTest,
         this.startTimestamp!,
-        this.extraSnapshotFields
+        this.captureFinalThatMark,
+        this.extraSnapshotFields,
       );
+
       await this.testCase.recordInitialState();
+
+      const editor = ide().activeTextEditor!;
+      // NB: We need to copy the editor options rather than storing a reference
+      // because its properties are lazy
+      this.originalTextEditorOptions = { ...editor.options };
+      ide().getEditableTextEditor(editor).options =
+        DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
     }
   }
 
@@ -274,8 +358,6 @@ export class TestCaseRecorder {
       // which marks we wanted to track
       return;
     }
-
-    this.testCase.recordDecorations();
 
     await this.finishTestCase();
   }
@@ -310,7 +392,7 @@ export class TestCaseRecorder {
       !["cursorless-vscode", "cursorless"].includes(this.workspaceName)
     ) {
       throw new Error(
-        '"Cursorless record" must be run from within cursorless directory'
+        '"Cursorless record" must be run from within cursorless directory',
       );
     }
 
@@ -361,7 +443,7 @@ export class TestCaseRecorder {
       fs.mkdirSync(this.targetDirectory, { recursive: true });
     }
 
-    const filename = camelize(testCase.command.spokenForm!);
+    const filename = camelize(testCase.command.spokenForm ?? "command");
     let filePath = path.join(this.targetDirectory, `${filename}.yml`);
 
     let i = 2;
@@ -381,6 +463,16 @@ export class TestCaseRecorder {
     }
   }
 
+  finallyHook() {
+    injectIde(this.originalIde!);
+    this.spyIde = undefined;
+    this.originalIde = undefined;
+
+    const editor = ide().activeTextEditor!;
+    ide().getEditableTextEditor(editor).options =
+      this.originalTextEditorOptions;
+  }
+
   dispose() {
     this.disposables.forEach(({ dispose }) => dispose());
     this.calibrationStyle.dispose();
@@ -396,4 +488,35 @@ function camelize(str: string) {
 
 function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+async function readJsonIfExists(
+  path: string,
+): Promise<RecordTestCaseCommandArg> {
+  let rawText: string;
+
+  try {
+    rawText = await readFile(path, { encoding: "utf-8" });
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
+      return {};
+    }
+
+    throw err;
+  }
+
+  return JSON.parse(rawText);
+}
+
+/**
+ * Get a range that corresponds to the entire contents of the given document.
+ *
+ * @param document The document to consider
+ * @returns A range corresponding to the entire document contents
+ */
+function getDocumentRange(document: vscode.TextDocument) {
+  return new vscode.Range(
+    new vscode.Position(0, 0),
+    document.lineAt(document.lineCount - 1).range.end,
+  );
 }

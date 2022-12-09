@@ -1,10 +1,12 @@
 import { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
+import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import {
   Modifier,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "../../typings/targetDescriptor.types";
+import { Graph } from "../../typings/Types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import {
   Command,
@@ -16,6 +18,7 @@ import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";
 import { upgradeV1ToV2 } from "./upgradeV1ToV2";
+import { upgradeV2ToV3 } from "./upgradeV2ToV3";
 
 /**
  * Given a command argument which comes from the client, normalize it so that it
@@ -65,9 +68,12 @@ function upgradeCommand(command: Command): CommandLatest {
       case 1:
         command = upgradeV1ToV2(command);
         break;
+      case 2:
+        command = upgradeV2ToV3(command);
+        break;
       default:
         throw new Error(
-          `Can't upgrade from unknown version ${command.version}`
+          `Can't upgrade from unknown version ${command.version}`,
         );
     }
   }
@@ -79,29 +85,60 @@ function upgradeCommand(command: Command): CommandLatest {
   return command;
 }
 
-export function validateCommand(
+function validateCommand(
   actionName: ActionType,
-  partialTargets: PartialTargetDescriptor[]
+  partialTargets: PartialTargetDescriptor[],
 ) {
   if (
     usesScopeType("notebookCell", partialTargets) &&
     !["editNewLineBefore", "editNewLineAfter"].includes(actionName)
   ) {
     throw new Error(
-      "The notebookCell scope type is currently only supported with the actions editNewLineAbove and editNewLineBelow"
+      "The notebookCell scope type is currently only supported with the actions editNewLineAbove and editNewLineBelow",
     );
   }
 }
 
 function usesScopeType(
   scopeTypeType: SimpleScopeTypeType,
-  partialTargets: PartialTargetDescriptor[]
+  partialTargets: PartialTargetDescriptor[],
 ) {
   return getPartialPrimitiveTargets(partialTargets).some((partialTarget) =>
     partialTarget.modifiers?.find(
       (mod: Modifier) =>
         (mod.type === "containingScope" || mod.type === "everyScope") &&
-        mod.scopeType.type === scopeTypeType
-    )
+        mod.scopeType.type === scopeTypeType,
+    ),
   );
+}
+
+export async function checkForOldInference(
+  graph: Graph,
+  partialTargets: PartialTargetDescriptor[],
+) {
+  const hasOldInference = partialTargets.some((target) => {
+    return (
+      target.type === "range" &&
+      target.active.mark == null &&
+      target.active.modifiers?.some((m) => m.type === "position") &&
+      !target.active.modifiers?.some((m) => m.type === "inferPreviousMark")
+    );
+  });
+
+  if (hasOldInference) {
+    const { globalState, messages } = ide();
+    const hideInferenceWarning = globalState.get("hideInferenceWarning");
+
+    if (!hideInferenceWarning) {
+      const pressed = await messages.showWarning(
+        "deprecatedPositionInference",
+        'The "past start of" / "past end of" form has changed behavior.  For the old behavior, update cursorless-talon (https://www.cursorless.org/docs/user/updating/), and then you can now say "past start of its" / "past end of its". For example, "take air past end of its line".  You may also consider using "head" / "tail" instead; see https://www.cursorless.org/docs/#head-and-tail',
+        "Don't show again",
+      );
+
+      if (pressed) {
+        globalState.set("hideInferenceWarning", true);
+      }
+    }
+  }
 }

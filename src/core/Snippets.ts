@@ -1,8 +1,8 @@
 import { readFile, stat } from "fs/promises";
 import { cloneDeep, max, merge } from "lodash";
 import { join } from "path";
-import { window, workspace } from "vscode";
-import isTesting from "../testUtil/isTesting";
+import { window } from "vscode";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { walkFiles } from "../testUtil/walkAsync";
 import { Snippet, SnippetMap } from "../typings/snippet";
 import { Graph } from "../typings/Types";
@@ -59,11 +59,11 @@ export class Snippets {
 
     const timer = setInterval(
       this.updateUserSnippets,
-      SNIPPET_DIR_REFRESH_INTERVAL_MS
+      SNIPPET_DIR_REFRESH_INTERVAL_MS,
     );
 
-    graph.extensionContext.subscriptions.push(
-      workspace.onDidChangeConfiguration(() => {
+    ide().disposeOnExit(
+      ide().configuration.onDidChangeConfiguration(() => {
         if (this.updateUserSnippetsPath()) {
           this.updateUserSnippets();
         }
@@ -72,20 +72,20 @@ export class Snippets {
         dispose() {
           clearInterval(timer);
         },
-      }
+      },
     );
   }
 
   async init() {
-    const extensionPath = this.graph.extensionContext.extensionPath;
+    const extensionPath = ide().assetsRoot;
     const snippetsDir = join(extensionPath, "cursorless-snippets");
     const snippetFiles = await getSnippetPaths(snippetsDir);
     this.coreSnippets = mergeStrict(
       ...(await Promise.all(
         snippetFiles.map(async (path) =>
-          JSON.parse(await readFile(path, "utf8"))
-        )
-      ))
+          JSON.parse(await readFile(path, "utf8")),
+        ),
+      )),
     );
     await this.updateUserSnippets();
   }
@@ -97,22 +97,9 @@ export class Snippets {
    * @returns Boolean indicating whether path has changed
    */
   private updateUserSnippetsPath(): boolean {
-    let newUserSnippetsDir: string | undefined;
-
-    if (isTesting()) {
-      newUserSnippetsDir = join(
-        this.graph.extensionContext.extensionPath,
-        "src",
-        "test",
-        "suite",
-        "fixtures",
-        "cursorless-snippets"
-      );
-    } else {
-      newUserSnippetsDir = workspace
-        .getConfiguration("cursorless.experimental")
-        .get<string>("snippetsDir");
-    }
+    const newUserSnippetsDir = ide().configuration.getOwnConfiguration(
+      "experimental.snippetsDir",
+    );
 
     if (newUserSnippetsDir === this.userSnippetsDir) {
       return false;
@@ -160,8 +147,8 @@ export class Snippets {
     const maxSnippetMtime =
       max(
         (await Promise.all(snippetFiles.map((file) => stat(file)))).map(
-          (stat) => stat.mtimeMs
-        )
+          (stat) => stat.mtimeMs,
+        ),
       ) ?? 0;
 
     if (maxSnippetMtime <= this.maxSnippetMtimeMs) {
@@ -186,7 +173,7 @@ export class Snippets {
             window.showErrorMessage(
               `Error with cursorless snippets file "${path}": ${
                 (err as Error).message
-              }`
+              }`,
             );
 
             // We don't want snippets from all files to stop working if there is
@@ -194,8 +181,8 @@ export class Snippets {
             // once we've shown an error message
             return {};
           }
-        })
-      ))
+        }),
+      )),
     );
 
     this.mergeSnippets();
@@ -227,7 +214,7 @@ export class Snippets {
     const entries = [
       ...Object.entries(cloneDeep(this.coreSnippets)),
       ...Object.values(this.thirdPartySnippets).flatMap((snippets) =>
-        Object.entries(cloneDeep(snippets))
+        Object.entries(cloneDeep(snippets)),
       ),
       ...Object.entries(cloneDeep(this.userSnippets)),
     ];
@@ -240,7 +227,7 @@ export class Snippets {
         // NB: We make sure that the new definitions appear before the previous
         // ones so that they take precedence
         mergedSnippet.definitions = definitions.concat(
-          ...mergedSnippet.definitions
+          ...mergedSnippet.definitions,
         );
 
         merge(mergedSnippet, rest);
@@ -276,6 +263,6 @@ export class Snippets {
 
 async function getSnippetPaths(snippetsDir: string) {
   return (await walkFiles(snippetsDir)).filter((path) =>
-    path.endsWith(CURSORLESS_SNIPPETS_SUFFIX)
+    path.endsWith(CURSORLESS_SNIPPETS_SUFFIX),
   );
 }

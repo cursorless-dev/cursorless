@@ -1,12 +1,16 @@
+import {
+  RangeExpansionBehavior,
+  Selection,
+  TextEditor,
+} from "@cursorless/common";
 import { flatten } from "lodash";
-import { DecorationRangeBehavior, Selection, TextEditor } from "vscode";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { EditWithRangeUpdater, Graph } from "../typings/Types";
-import { selectionFromRange } from "../util/selectionUtils";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { getContentRange, runForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
@@ -70,11 +74,11 @@ class BringMoveSwap implements Action {
       this.graph.editStyles.displayPendingEditDecorations(
         sources,
         decorationContext.sourceStyle,
-        decorationContext.getSourceRangeCallback
+        decorationContext.getSourceRangeCallback,
       ),
       this.graph.editStyles.displayPendingEditDecorations(
         destinations,
-        decorationContext.destinationStyle
+        decorationContext.destinationStyle,
       ),
     ]);
   }
@@ -150,7 +154,7 @@ class BringMoveSwap implements Action {
   }
 
   private async performEditsAndComputeThatMark(
-    edits: ExtendedEdit[]
+    edits: ExtendedEdit[],
   ): Promise<MarkEntry[]> {
     return flatten(
       await runForEachEditor(
@@ -167,31 +171,33 @@ class BringMoveSwap implements Action {
             ({ edit: { range }, originalTarget }) =>
               getSelectionInfo(
                 editor.document,
-                selectionFromRange(originalTarget.isReversed, range),
-                DecorationRangeBehavior.OpenOpen
-              )
+                range.toSelection(originalTarget.isReversed),
+                RangeExpansionBehavior.openOpen,
+              ),
           );
 
           const cursorSelectionInfos = editor.selections.map((selection) =>
             getSelectionInfo(
               editor.document,
               selection,
-              DecorationRangeBehavior.ClosedClosed
-            )
+              RangeExpansionBehavior.closedClosed,
+            ),
           );
+
+          const editableEditor = ide().getEditableTextEditor(editor);
 
           const [updatedEditSelections, cursorSelections]: Selection[][] =
             await performEditsAndUpdateFullSelectionInfos(
               this.graph.rangeUpdater,
-              editor,
+              editableEditor,
               filteredEdits.map(({ edit }) => edit),
-              [editSelectionInfos, cursorSelectionInfos]
+              [editSelectionInfos, cursorSelectionInfos],
             );
 
           // NB: We set the selections here because we don't trust vscode to
           // properly move the cursor on a bring. Sometimes it will smear an
           // empty selection
-          setSelectionsWithoutFocusingEditor(editor, cursorSelections);
+          setSelectionsWithoutFocusingEditor(editableEditor, cursorSelections);
 
           return edits.map((edit, index): MarkEntry => {
             const selection = updatedEditSelections[index];
@@ -199,13 +205,13 @@ class BringMoveSwap implements Action {
             const target = edit.originalTarget;
             return {
               editor,
-              selection: selectionFromRange(target.isReversed, range),
+              selection: range.toSelection(target.isReversed),
               isSource: edit.isSource,
               target,
             };
           });
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -217,14 +223,14 @@ class BringMoveSwap implements Action {
       this.graph.editStyles.displayPendingEditDecorations(
         thatMark.filter(({ isSource }) => isSource).map(({ target }) => target),
         decorationContext.sourceStyle,
-        getRange
+        getRange,
       ),
       this.graph.editStyles.displayPendingEditDecorations(
         thatMark
           .filter(({ isSource }) => !isSource)
           .map(({ target }) => target),
         decorationContext.destinationStyle,
-        getRange
+        getRange,
       ),
     ]);
   }
@@ -247,7 +253,7 @@ class BringMoveSwap implements Action {
 
   async run([sources, destinations]: [
     Target[],
-    Target[]
+    Target[],
   ]): Promise<ActionReturnValue> {
     sources = this.broadcastSource(sources, destinations);
 
@@ -261,7 +267,7 @@ class BringMoveSwap implements Action {
 
     await this.decorateThatMark(thatMark);
 
-    return { thatMark, sourceMark };
+    return { thatSelections: thatMark, sourceSelections: sourceMark };
   }
 }
 
