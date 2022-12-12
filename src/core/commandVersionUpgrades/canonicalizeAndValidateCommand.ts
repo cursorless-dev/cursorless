@@ -1,5 +1,6 @@
 import { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
+import { EnforceUndefined } from "../../libs/common/util/typeUtils";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import {
   Modifier,
@@ -29,14 +30,13 @@ import { upgradeV2ToV3 } from "./upgradeV2ToV3";
  */
 export function canonicalizeAndValidateCommand(
   command: Command,
-): CommandComplete {
+): EnforceUndefined<CommandComplete> {
   const commandUpgraded = upgradeCommand(command);
   const {
     action,
     targets: inputPartialTargets,
     usePrePhraseSnapshot = false,
-    version,
-    ...rest
+    spokenForm,
   } = commandUpgraded;
 
   const actionName = canonicalizeActionName(action.name);
@@ -45,8 +45,8 @@ export function canonicalizeAndValidateCommand(
   validateCommand(actionName, partialTargets);
 
   return {
-    ...rest,
     version: LATEST_VERSION,
+    spokenForm,
     action: {
       name: actionName,
       args: action.args ?? [],
