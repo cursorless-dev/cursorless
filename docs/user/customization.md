@@ -5,7 +5,7 @@ Cursorless consists of
 - an IDE plugin (eg a VSCode extension), and
 - a set of Talon files that define spoken commands
 
-Because of this split, Cursorless has user settings available both on the IDE side, and on the Talon side.  The rule of thumb is that anything that changes spoken forms happens Talon-side; everything else is IDE-side.
+Because of this split, Cursorless has user settings available both on the IDE side, and on the Talon side. The rule of thumb is that anything that changes spoken forms happens Talon-side; everything else is IDE-side.
 
 ## IDE-side settings
 
