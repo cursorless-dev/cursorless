@@ -1,13 +1,24 @@
 # Customization
 
+Cursorless consists of
+
+- an IDE plugin (eg a VSCode extension), and
+- a set of Talon files that define spoken commands
+
+Because of this split, Cursorless has user settings available both on the IDE side, and on the Talon side.  The rule of thumb is that anything that changes spoken forms happens Talon-side; everything else is IDE-side.
+
+## IDE-side settings
+
+The IDE settings can be accessed by saying `"cursorless settings"` with your IDE (eg VSCode) focused.
+
+## Talon-side settings
+
 Many of the spoken forms used in cursorless can be easily customized without
 needing to fork cursorless or modify the talon / python files contained
 therein. If you find that your customization needs cannot be met without making
 changes to cursorless files, please [file an
 issue](https://github.com/cursorless-dev/cursorless/issues/new) so we can
 improve customization.
-
-## Cursorless settings csvs
 
 The spoken forms for actions, scope types, colors, etc can be customized using the
 csvs found in the `cursorless-settings` subdirectory of your user folder. On
