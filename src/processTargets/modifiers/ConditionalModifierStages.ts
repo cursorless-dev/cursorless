@@ -58,10 +58,12 @@ export class ModifyIfUntypedStage extends ConditionalModifierBaseStage {
 }
 
 /**
- * Tries to convert target into token if:
- * {@link Target.hasExplicitScopeType} is `false` and
- * {@link Target.hasExplicitRange} is `false` and
+ * Tries to convert target into token if: {@link Target.hasExplicitScopeType} is
+ * `false` and {@link Target.hasExplicitRange} is `false` and
  * {@link Target.contentRange.isEmpty} is `true`.
+ *
+ * Designed to be used for eg auto-expansion to containing token when user says
+ * "take this" with empty selection.
  */
 export class ContainingTokenIfUntypedEmptyStage extends ConditionalModifierBaseStage {
   suppressErrors = true;
