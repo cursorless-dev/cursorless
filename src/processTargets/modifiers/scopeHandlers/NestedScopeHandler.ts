@@ -1,5 +1,5 @@
+import { Position, TextEditor } from "@cursorless/common";
 import { flatten, imap } from "itertools";
-import type { Position, TextEditor } from "vscode";
 import { getScopeHandler } from ".";
 import type {
   Direction,

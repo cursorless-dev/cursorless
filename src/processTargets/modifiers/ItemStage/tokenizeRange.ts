@@ -1,4 +1,4 @@
-import { Range, TextEditor } from "vscode";
+import { Range, TextEditor } from "@cursorless/common";
 
 /**
  * Given the iteration scope, returns a list of "tokens" within that collection

@@ -1,7 +1,7 @@
-import { Range, TextEditor } from "vscode";
+import { Range, TextEditor } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from ".";
 import { UnsupportedError } from "../../errors";
-import { EditNewContext } from "../../typings/target.types";
+import { EditNewActionType } from "../../typings/target.types";
 import { Position } from "../../typings/targetDescriptor.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 
@@ -41,14 +41,12 @@ export default class PositionTarget extends BaseTarget {
 
   getRemovalRange = () => removalUnsupportedForPosition(this.position);
 
-  getEditNewContext(): EditNewContext {
+  getEditNewActionType(): EditNewActionType {
     if (this.insertionDelimiter === "\n" && this.position === "after") {
-      return { type: "command", command: "editor.action.insertLineAfter" };
+      return "insertLineAfter";
     }
 
-    return {
-      type: "edit",
-    };
+    return "edit";
   }
 
   constructChangeEdit(text: string): EditWithRangeUpdater {

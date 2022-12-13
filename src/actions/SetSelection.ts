@@ -1,4 +1,5 @@
-import { Selection } from "vscode";
+import { Selection } from "@cursorless/common";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
@@ -18,7 +19,10 @@ export class SetSelection implements Action {
     const editor = ensureSingleEditor(targets);
 
     const selections = targets.map(this.getSelection);
-    await setSelectionsAndFocusEditor(editor, selections);
+    await setSelectionsAndFocusEditor(
+      ide().getEditableTextEditor(editor),
+      selections,
+    );
 
     return {
       thatTargets: targets,

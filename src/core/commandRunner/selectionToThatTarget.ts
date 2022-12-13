@@ -1,6 +1,5 @@
 import { UntypedTarget } from "../../processTargets/targets";
 import { SelectionWithEditor } from "../../typings/Types";
-import { isReversed } from "../../util/selectionUtils";
 
 /**
  * Given a selection with an editor, constructs an appropriate `Target` to use
@@ -13,7 +12,7 @@ import { isReversed } from "../../util/selectionUtils";
 export const selectionToThatTarget = (selection: SelectionWithEditor) =>
   new UntypedTarget({
     editor: selection.editor,
-    isReversed: isReversed(selection.selection),
+    isReversed: selection.selection.isReversed,
     contentRange: selection.selection,
     hasExplicitRange: !selection.selection.isEmpty,
   });

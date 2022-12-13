@@ -13,7 +13,7 @@ export function formatCaptures(input: string) {
       );
 
     return (
-      <span className="inline-block px-[2px] rounded-md text-cyan-900 dark:text-inherit bg-cyan-400 dark:bg-cyan-600">
+      <span className="inline-block p-[2px] rounded-md text-[#000000E3] dark:text-[#FFFFFFE3] bg-[#8686864C] dark:bg-[#FFFFFF33]">
         <SmartLink key={i} to="#legend" noFormatting={true}>
           {'['}
           {innerElement}

@@ -1,5 +1,5 @@
+import { TextEditor } from "@cursorless/common";
 import { concat, flatten, flow, range, uniq } from "lodash";
-import * as vscode from "vscode";
 
 /**
  * Returns a map from line numbers in the file to display lines, which skip
@@ -9,7 +9,7 @@ import * as vscode from "vscode";
  * @param extraLines Optional extra lines to include in the map
  */
 export function getDisplayLineMap(
-  editor: vscode.TextEditor,
+  editor: TextEditor,
   extraLines: number[] = [],
 ): Map<number, number> {
   return new Map(

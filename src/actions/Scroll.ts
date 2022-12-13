@@ -1,13 +1,12 @@
-import { commands } from "vscode";
+import { RevealLineAt } from "@cursorless/common";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { groupBy } from "../util/itertools";
-import { focusEditor } from "../util/setSelectionsAndFocusEditor";
 import { Action, ActionReturnValue } from "./actions.types";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
 
 class Scroll implements Action {
-  constructor(private graph: Graph, private at: string) {
+  constructor(private graph: Graph, private at: RevealLineAt) {
     this.run = this.run.bind(this);
   }
 
@@ -18,22 +17,17 @@ class Scroll implements Action {
       return { lineNumber: getLineNumber(targets, this.at), editor };
     });
 
-    const originalEditor = getActiveTextEditor();
+    const originalEditor = ide().activeEditableTextEditor;
 
     for (const lineWithEditor of lines) {
-      // For reveal line to the work we have to have the correct editor focused
-      if (lineWithEditor.editor !== getActiveTextEditor()) {
-        await focusEditor(lineWithEditor.editor);
-      }
-      await commands.executeCommand("revealLine", {
-        lineNumber: lineWithEditor.lineNumber,
-        at: this.at,
-      });
+      await ide()
+        .getEditableTextEditor(lineWithEditor.editor)
+        .revealLine(lineWithEditor.lineNumber, this.at);
     }
 
     // If necessary focus back original editor
-    if (originalEditor != null && originalEditor !== getActiveTextEditor()) {
-      await focusEditor(originalEditor);
+    if (originalEditor != null && !originalEditor.isActive) {
+      await originalEditor.focus();
     }
 
     const decorationTargets = targets.filter((target) => {
@@ -63,23 +57,23 @@ class Scroll implements Action {
 
 export class ScrollToTop extends Scroll {
   constructor(graph: Graph) {
-    super(graph, "top");
+    super(graph, RevealLineAt.top);
   }
 }
 
 export class ScrollToCenter extends Scroll {
   constructor(graph: Graph) {
-    super(graph, "center");
+    super(graph, RevealLineAt.center);
   }
 }
 
 export class ScrollToBottom extends Scroll {
   constructor(graph: Graph) {
-    super(graph, "bottom");
+    super(graph, RevealLineAt.bottom);
   }
 }
 
-function getLineNumber(targets: Target[], at: string) {
+function getLineNumber(targets: Target[], at: RevealLineAt) {
   let startLine = Number.MAX_SAFE_INTEGER;
   let endLine = 0;
   targets.forEach((target: Target) => {
@@ -87,10 +81,10 @@ function getLineNumber(targets: Target[], at: string) {
     endLine = Math.max(endLine, target.contentRange.end.line);
   });
 
-  if (at === "top") {
+  if (at === RevealLineAt.top) {
     return startLine;
   }
-  if (at === "bottom") {
+  if (at === RevealLineAt.bottom) {
     return endLine;
   }
   return Math.floor((startLine + endLine) / 2);

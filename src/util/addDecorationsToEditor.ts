@@ -1,15 +1,15 @@
+import { Range, TextEditor } from "@cursorless/common";
 import { concat, flatten, maxBy, min } from "lodash";
-import * as vscode from "vscode";
 import Decorations from "../core/Decorations";
 import { HatStyleName } from "../core/hatStyles";
 import { IndividualHatMap } from "../core/IndividualHatMap";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { TokenGraphemeSplitter } from "../libs/cursorless-engine/tokenGraphemeSplitter";
 import { getMatcher } from "../libs/cursorless-engine/tokenizer";
 import { Token } from "../typings/Types";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
-import { getActiveTextEditor } from "../ide/vscode/activeTextEditor";
 
 export function addDecorationsToEditors(
   hatTokenMap: IndividualHatMap,
@@ -18,15 +18,15 @@ export function addDecorationsToEditors(
 ) {
   hatTokenMap.clear();
 
-  let editors: readonly vscode.TextEditor[];
+  let editors: readonly TextEditor[];
 
-  if (getActiveTextEditor() == null) {
-    editors = vscode.window.visibleTextEditors;
+  if (ide().activeTextEditor == null) {
+    editors = ide().visibleTextEditors;
   } else {
     editors = [
-      getActiveTextEditor()!,
-      ...vscode.window.visibleTextEditors.filter(
-        (editor) => editor !== getActiveTextEditor(),
+      ide().activeTextEditor!,
+      ...ide().visibleTextEditors.filter(
+        (editor) => editor !== ide().activeTextEditor,
       ),
     ];
   }
@@ -36,9 +36,9 @@ export function addDecorationsToEditors(
     ...editors.map((editor) => {
       /**
        * The reference position that will be used to judge how likely a given
-       * token is to be used.  We use the active of the "primary" selection.
-       * */
-      const referencePosition = editor.selection.active;
+       * token is to be used.  We use the active of the first selection.
+       */
+      const referencePosition = editor.selections[0].active;
       const displayLineMap = getDisplayLineMap(editor, [
         referencePosition.line,
       ]);
@@ -102,9 +102,9 @@ export function addDecorationsToEditors(
   const graphemeDecorationIndices: { [grapheme: string]: number } = {};
 
   const decorationRanges: Map<
-    vscode.TextEditor,
+    TextEditor,
     {
-      [decorationName in HatStyleName]?: vscode.Range[];
+      [decorationName in HatStyleName]?: Range[];
     }
   > = new Map(
     editors.map((editor) => [
@@ -163,7 +163,7 @@ export function addDecorationsToEditors(
     decorationRanges
       .get(token.editor)!
       [hatStyleName]!.push(
-        new vscode.Range(
+        new Range(
           token.range.start.translate(undefined, bestGrapheme.tokenStartOffset),
           token.range.start.translate(undefined, bestGrapheme.tokenEndOffset),
         ),
@@ -176,10 +176,12 @@ export function addDecorationsToEditors(
 
   decorationRanges.forEach((ranges, editor) => {
     decorations.hatStyleNames.forEach((hatStyleName) => {
-      editor.setDecorations(
-        decorations.decorationMap[hatStyleName]!,
-        ranges[hatStyleName]!,
-      );
+      ide()
+        .getEditableTextEditor(editor)
+        .setDecorations(
+          decorations.decorationMap[hatStyleName]!,
+          ranges[hatStyleName]!,
+        );
     });
   });
 }

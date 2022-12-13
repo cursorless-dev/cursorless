@@ -1,4 +1,4 @@
-import { Position, TextEditor } from "vscode";
+import { Position, TextEditor } from "@cursorless/common";
 import { Direction } from "../../../typings/targetDescriptor.types";
 import { OutOfRangeError } from "../targetSequenceUtils";
 import { TargetScope } from "./scope.types";

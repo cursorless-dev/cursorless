@@ -1,13 +1,5 @@
-import { Position, Range, Selection, TextEditor } from "vscode";
+import { Position, Range, Selection, TextEditor } from "@cursorless/common";
 import { SelectionWithEditor } from "../typings/Types";
-
-export function isForward(selection: Selection) {
-  return selection.active.isAfterOrEqual(selection.anchor);
-}
-
-export function isReversed(selection: Selection) {
-  return selection.active.isBefore(selection.anchor);
-}
 
 export function selectionWithEditorFromRange(
   selection: SelectionWithEditor,
@@ -32,15 +24,9 @@ function selectionFromPositions(
   start: Position,
   end: Position,
 ): Selection {
-  // The built in isReversed is bugged on empty selection. don't use
-  return isForward(selection)
+  return !selection.isReversed
     ? new Selection(start, end)
     : new Selection(end, start);
-}
-
-export function selectionFromRange(isReversed: boolean, range: Range) {
-  const { start, end } = range;
-  return isReversed ? new Selection(end, start) : new Selection(start, end);
 }
 
 /**

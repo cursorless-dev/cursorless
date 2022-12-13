@@ -1,4 +1,4 @@
-import { Range, Selection, TextEditor } from "vscode";
+import { Range, Selection, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
 import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";

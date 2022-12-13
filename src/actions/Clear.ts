@@ -1,3 +1,4 @@
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { PlainTarget } from "../processTargets/targets";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -29,7 +30,7 @@ export default class Clear implements Action {
 
     if (thatMark != null) {
       await setSelectionsAndFocusEditor(
-        editor,
+        ide().getEditableTextEditor(editor),
         thatMark.map(({ selection }) => selection),
       );
     }

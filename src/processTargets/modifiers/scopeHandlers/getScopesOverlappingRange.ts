@@ -1,4 +1,4 @@
-import { Range, TextEditor } from "vscode";
+import { Range, TextEditor } from "@cursorless/common";
 import { TargetScope } from "./scope.types";
 import { ScopeHandler } from "./scopeHandler.types";
 

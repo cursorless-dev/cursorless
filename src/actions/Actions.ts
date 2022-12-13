@@ -1,10 +1,10 @@
 import { Graph } from "../typings/Types";
 import { ActionRecord } from "./actions.types";
 import {
-  CommentLines,
+  ToggleLineComment,
   ExtractVariable,
-  IndentLines,
-  OutdentLines,
+  IndentLine,
+  OutdentLine,
   Rename,
   RevealDefinition,
   RevealTypeDefinition,
@@ -12,16 +12,18 @@ import {
   ShowHover,
   ShowQuickFix,
   ShowReferences,
-} from "./MakeshiftActions";
+  CopyToClipboard,
+  Fold,
+  Unfold,
+} from "./SimpleIdeCommandActions";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
-import { Copy, Cut } from "./CutCopy";
+import { CutToClipboard } from "./CutToClipboard";
 import Deselect from "./Deselect";
 import { EditNew, EditNewAfter, EditNewBefore } from "./EditNew";
 import ExecuteCommand from "./ExecuteCommand";
-import { FindInFiles } from "./Find";
-import { Fold, Unfold } from "./Fold";
+import { FindInWorkspace } from "./Find";
 import FollowLink from "./FollowLink";
 import GenerateSnippet from "./GenerateSnippet";
 import GetText from "./GetText";
@@ -36,7 +38,7 @@ import {
   InsertEmptyLinesAround,
 } from "./InsertEmptyLines";
 import InsertSnippet from "./InsertSnippet";
-import { Paste } from "./Paste";
+import { PasteFromClipboard } from "./PasteFromClipboard";
 import Remove from "./Remove";
 import Replace from "./Replace";
 import Rewrap from "./Rewrap";
@@ -56,21 +58,21 @@ class Actions implements ActionRecord {
 
   callAsFunction = new Call(this.graph);
   clearAndSetSelection = new Clear(this.graph);
-  copyToClipboard = new Copy(this.graph);
-  cutToClipboard = new Cut(this.graph);
+  copyToClipboard = new CopyToClipboard(this.graph);
+  cutToClipboard = new CutToClipboard(this.graph);
   deselect = new Deselect(this.graph);
   editNew = new EditNew(this.graph);
   editNewLineAfter = new EditNewAfter(this.graph);
   editNewLineBefore = new EditNewBefore(this.graph);
   executeCommand = new ExecuteCommand(this.graph);
   extractVariable = new ExtractVariable(this.graph);
-  findInWorkspace = new FindInFiles(this.graph);
+  findInWorkspace = new FindInWorkspace(this.graph);
   foldRegion = new Fold(this.graph);
   followLink = new FollowLink(this.graph);
   generateSnippet = new GenerateSnippet(this.graph);
   getText = new GetText(this.graph);
   highlight = new Highlight(this.graph);
-  indentLine = new IndentLines(this.graph);
+  indentLine = new IndentLine(this.graph);
   insertCopyAfter = new InsertCopyAfter(this.graph);
   insertCopyBefore = new InsertCopyBefore(this.graph);
   insertEmptyLineAfter = new InsertEmptyLineAfter(this.graph);
@@ -78,8 +80,8 @@ class Actions implements ActionRecord {
   insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
   insertSnippet = new InsertSnippet(this.graph);
   moveToTarget = new Move(this.graph);
-  outdentLine = new OutdentLines(this.graph);
-  pasteFromClipboard = new Paste(this.graph);
+  outdentLine = new OutdentLine(this.graph);
+  pasteFromClipboard = new PasteFromClipboard(this.graph);
   randomizeTargets = new Random(this.graph);
   remove = new Remove(this.graph);
   rename = new Rename(this.graph);
@@ -102,7 +104,7 @@ class Actions implements ActionRecord {
   sortTargets = new Sort(this.graph);
   swapTargets = new Swap(this.graph);
   toggleLineBreakpoint = new ToggleBreakpoint(this.graph);
-  toggleLineComment = new CommentLines(this.graph);
+  toggleLineComment = new ToggleLineComment(this.graph);
   unfoldRegion = new Unfold(this.graph);
   wrapWithPairedDelimiter = new Wrap(this.graph);
   wrapWithSnippet = new WrapWithSnippet(this.graph);

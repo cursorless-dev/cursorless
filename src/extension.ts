@@ -1,8 +1,11 @@
+import { Range, TextDocument } from "@cursorless/common";
+import { toVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import CommandRunner from "./core/commandRunner/CommandRunner";
 import { ThatMark } from "./core/ThatMark";
 import VscodeIDE from "./ide/vscode/VscodeIDE";
 import FakeIDE from "./libs/common/ide/fake/FakeIDE";
+import NormalizedIDE from "./libs/common/ide/normalized/NormalizedIDE";
 import ide, {
   injectIde,
 } from "./libs/cursorless-engine/singletons/ide.singleton";
@@ -11,6 +14,7 @@ import {
   getCommandServerApi,
   getParseTreeApi,
 } from "./libs/vscode-common/getExtensionApi";
+import { TargetPlainObject } from "./libs/vscode-common/testUtil/toPlainObject";
 import { plainObjectToTarget } from "./testUtil/fromPlainObject";
 import isTesting from "./testUtil/isTesting";
 import { Graph } from "./typings/Types";
@@ -28,18 +32,24 @@ import makeGraph, { FactoryMap } from "./util/makeGraph";
 export async function activate(
   context: vscode.ExtensionContext,
 ): Promise<CursorlessApi> {
-  const { getNodeAtLocation } = await getParseTreeApi();
+  const parseTreeApi = await getParseTreeApi();
   const commandServerApi = await getCommandServerApi();
 
-  if (isTesting()) {
-    // FIXME: At some point we'll probably want to support partial mocking
-    // rather than mocking away everything that we can
-    const fake = new FakeIDE();
-    fake.mockAssetsRoot(context.extensionPath);
-    injectIde(fake);
+  const vscodeIDE = new VscodeIDE(context);
+
+  if (vscodeIDE.runMode !== "production") {
+    injectIde(
+      new NormalizedIDE(vscodeIDE, new FakeIDE(), vscodeIDE.runMode === "test"),
+    );
   } else {
-    injectIde(new VscodeIDE(context));
+    injectIde(vscodeIDE);
   }
+
+  const getNodeAtLocation = (document: TextDocument, range: Range) => {
+    return parseTreeApi.getNodeAtLocation(
+      new vscode.Location(document.uri, toVscodeRange(range)),
+    );
+  };
 
   const graph = makeGraph({
     ...graphFactories,
@@ -55,6 +65,7 @@ export async function activate(
   graph.testCaseRecorder.init();
   graph.cheatsheet.init();
   graph.statusBarItem.init();
+  graph.keyboardCommands.init();
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
@@ -68,12 +79,20 @@ export async function activate(
     testHelpers: isTesting()
       ? {
           graph,
-          ide: ide() as FakeIDE,
+          ide: ide() as NormalizedIDE,
           injectIde,
 
           // FIXME: Remove this once we have a better way to get this function
           // accessible from our tests
-          plainObjectToTarget,
+          plainObjectToTarget: (
+            editor: vscode.TextEditor,
+            plainObject: TargetPlainObject,
+          ) => {
+            return plainObjectToTarget(
+              vscodeIDE.fromVscodeEditor(editor),
+              plainObject,
+            );
+          },
         }
       : undefined,
 
