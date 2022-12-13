@@ -1,5 +1,6 @@
 import type { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { pull } from "lodash";
+import { Capabilities } from "../types/Capabilities";
 import type { TextDocumentChangeEvent } from "../types/Events";
 import type {
   Disposable,
@@ -7,6 +8,7 @@ import type {
   RunMode,
   WorkspaceFolder,
 } from "../types/ide.types";
+import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
 import FakeGlobalState from "./FakeGlobalState";
@@ -17,18 +19,21 @@ export default class FakeIDE implements IDE {
   messages: FakeMessages;
   globalState: FakeGlobalState;
   clipboard: FakeClipboard;
+  capabilities: Capabilities;
+  runMode: RunMode = "test";
+  workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
+  private assetsRoot_: string | undefined;
 
-  constructor(private original?: IDE) {
+  constructor() {
     this.configuration = new FakeConfiguration();
     this.messages = new FakeMessages();
     this.globalState = new FakeGlobalState();
     this.clipboard = new FakeClipboard();
+    this.capabilities = new FakeCapabilities();
   }
 
-  private assetsRoot_: string | undefined;
-
-  mockAssetsRoot(_assetsRoot: string) {
+  public mockAssetsRoot(_assetsRoot: string) {
     this.assetsRoot_ = _assetsRoot;
   }
 
@@ -40,35 +45,42 @@ export default class FakeIDE implements IDE {
     return this.assetsRoot_;
   }
 
-  runMode: RunMode = "test";
-  workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
-
   get activeTextEditor(): TextEditor | undefined {
-    return this.original?.activeTextEditor;
+    throw Error("Not implemented");
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
-    return this.original?.activeEditableTextEditor;
+    throw Error("Not implemented");
   }
 
   get visibleTextEditors(): TextEditor[] {
-    return this.original?.visibleTextEditors ?? [];
+    throw Error("Not implemented");
   }
 
-  public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-    if (this.original == null) {
-      throw Error("Original ide is missing");
-    }
-    return this.original.getEditableTextEditor(editor);
+  public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
+    throw Error("Not implemented");
   }
 
-  onDidChangeTextDocument(
-    listener: (event: TextDocumentChangeEvent) => void,
+  public findInWorkspace(_query: string): Promise<void> {
+    throw Error("Not implemented");
+  }
+
+  public openTextDocument(_path: string): Promise<TextEditor> {
+    throw Error("Not implemented");
+  }
+
+  public showInputBox(_options?: any): Promise<string | undefined> {
+    throw Error("Not implemented");
+  }
+
+  executeCommand<T>(_command: string, ..._args: any[]): Promise<T | undefined> {
+    throw new Error("Method not implemented.");
+  }
+
+  public onDidChangeTextDocument(
+    _listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
-    if (this.original == null) {
-      throw Error("Original ide is missing");
-    }
-    return this.original.onDidChangeTextDocument(listener);
+    throw Error("Not implemented");
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

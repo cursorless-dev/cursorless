@@ -163,9 +163,9 @@ export class TestCase {
       finalState: this.finalState,
       decorations: this.decorations,
       returnValue: this.returnValue,
-      fullTargets: this.fullTargets,
       thrownError: this.thrownError,
       ide: this.spyIdeValues,
+      fullTargets: this.fullTargets,
     };
     return serialize(fixture);
   }

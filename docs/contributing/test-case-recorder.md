@@ -78,11 +78,11 @@ and can be run in vscode or via yarn in terminal.
 
 ### Autoformatting
 
-To clean up the formatting of all of the yaml test cases, run `yarn run compile && node ./out/scripts/transformRecordedTests/index.js`
+To clean up the formatting of all of the yaml test cases, run `yarn compile && yarn transform-recorded-tests`
 
 ### Upgrading fixtures
 
-To upgrade all the test fixtures to the latest command version, run the command `yarn run compile && node ./out/scripts/transformRecordedTests/index.js upgrade`. This command should be idempotent.
+To upgrade all the test fixtures to the latest command version, run the command `yarn compile && yarn transform-recorded-tests upgrade`. This command should be idempotent.
 
 ### Custom transformation
 
@@ -90,7 +90,7 @@ To upgrade all the test fixtures to the latest command version, run the command 
 1. Change the value at the `custom` key in `AVAILABLE_TRANSFORMATIONS` at the top of
    [`transformRecordedTests/index.ts`](../../src/scripts/transformRecordedTests/index.ts) to
    point to your new transformation
-1. Run `yarn run compile && node ./out/scripts/transformRecordedTests/index.js custom`
+1. Run `yarn compile && yarn transform-recorded-tests custom`
 
 Example of a custom transformation
 

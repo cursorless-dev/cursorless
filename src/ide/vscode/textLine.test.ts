@@ -13,7 +13,9 @@ const whiteSpaceTests: [string, number, number][] = [
   [" foo ", 1, 4],
 ];
 
-suite("TextLine", () => {
+suite("TextLine", function () {
+  this.timeout("100s");
+  this.retries(5);
   whiteSpaceTests.forEach(
     ([
       text,
