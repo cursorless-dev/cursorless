@@ -197,6 +197,9 @@ function processPrimitiveTarget(
     ...context.actionPrePositionStages,
     ...positionModifierStages,
     ...context.actionFinalStages,
+
+    // This performs auto-expansion to token when you say eg "take this" with an
+    // empty selection
     new ContainingTokenIfUntypedEmptyStage(),
   ];
 
