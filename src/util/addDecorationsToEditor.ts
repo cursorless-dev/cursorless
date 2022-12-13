@@ -36,7 +36,9 @@ export function addDecorationsToEditors(
     ...editors.map((editor) => {
       /**
        * The reference position that will be used to judge how likely a given
-       * token is to be used.  We use the active of the first selection.
+       * token is to be used.  Tokens closer to this position will be considered
+       * more likely to be used, and will get better hats.  We use the first
+       * selection's {@link Selection.active active}.
        */
       const referencePosition = editor.selections[0].active;
       const displayLineMap = getDisplayLineMap(editor, [
