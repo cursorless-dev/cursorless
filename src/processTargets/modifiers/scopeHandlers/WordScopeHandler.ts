@@ -1,9 +1,9 @@
-import { Range, TextEditor } from "vscode";
+import { Range, TextEditor } from "@cursorless/common";
 import { NestedScopeHandler } from ".";
+import WordTokenizer from "../../../libs/cursorless-engine/scopeHandlers/WordScopeHandler/WordTokenizer";
 import { Direction } from "../../../typings/targetDescriptor.types";
 import { SubTokenWordTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
-import WordTokenizer from "./WordTokenizer";
 
 export default class WordScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "word" } as const;

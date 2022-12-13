@@ -1,8 +1,9 @@
-import { DecorationRangeBehavior, Selection } from "vscode";
+import { RangeExpansionBehavior, Selection } from "@cursorless/common";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Edit, Graph } from "../typings/Types";
 import { FullSelectionInfo } from "../typings/updateSelections";
@@ -50,12 +51,12 @@ export default class Wrap implements Action {
               getSelectionInfo(
                 document,
                 start,
-                DecorationRangeBehavior.OpenClosed,
+                RangeExpansionBehavior.openClosed,
               ),
               getSelectionInfo(
                 document,
                 end,
-                DecorationRangeBehavior.ClosedOpen,
+                RangeExpansionBehavior.closedOpen,
               ),
             ];
           },
@@ -65,7 +66,7 @@ export default class Wrap implements Action {
           getSelectionInfo(
             document,
             selection,
-            DecorationRangeBehavior.ClosedClosed,
+            RangeExpansionBehavior.closedClosed,
           ),
         );
 
@@ -73,7 +74,7 @@ export default class Wrap implements Action {
           getSelectionInfo(
             document,
             target.contentSelection,
-            DecorationRangeBehavior.ClosedClosed,
+            RangeExpansionBehavior.closedClosed,
           ),
         );
 
@@ -81,9 +82,11 @@ export default class Wrap implements Action {
           getSelectionInfo(
             document,
             target.contentSelection,
-            DecorationRangeBehavior.OpenOpen,
+            RangeExpansionBehavior.openOpen,
           ),
         );
+
+        const editableEditor = ide().getEditableTextEditor(editor);
 
         const [
           delimiterSelections,
@@ -92,7 +95,7 @@ export default class Wrap implements Action {
           thatMarkSelections,
         ] = await performEditsAndUpdateFullSelectionInfos(
           this.graph.rangeUpdater,
-          editor,
+          editableEditor,
           edits,
           [
             delimiterSelectionInfos,
@@ -102,7 +105,7 @@ export default class Wrap implements Action {
           ],
         );
 
-        setSelectionsWithoutFocusingEditor(editor, cursorSelections);
+        setSelectionsWithoutFocusingEditor(editableEditor, cursorSelections);
 
         this.graph.editStyles.displayPendingEditDecorationsForRanges(
           delimiterSelections.map((selection) => ({

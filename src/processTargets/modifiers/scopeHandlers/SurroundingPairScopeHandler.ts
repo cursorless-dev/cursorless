@@ -1,4 +1,4 @@
-import { Position, TextEditor } from "vscode";
+import { Position, TextEditor } from "@cursorless/common";
 import {
   Direction,
   SurroundingPairScopeType,

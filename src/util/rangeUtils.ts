@@ -1,4 +1,4 @@
-import { Position, Range, TextDocument, TextEditor } from "vscode";
+import { Position, Range, TextEditor } from "@cursorless/common";
 
 export function isAtEndOfLine(editor: TextEditor, position: Position) {
   const endLine = editor.document.lineAt(position);
@@ -25,10 +25,6 @@ export function expandToFullLine(editor: TextEditor, range: Range) {
   );
 }
 
-export function makeEmptyRange(position: Position) {
-  return new Range(position, position);
-}
-
 export function getRangeLength(editor: TextEditor, range: Range) {
   return range.isEmpty
     ? 0
@@ -51,21 +47,9 @@ export function strictlyContains(
   range1: Range,
   rangeOrPosition: Range | Position,
 ): boolean {
-  const start =
-    "start" in rangeOrPosition ? rangeOrPosition.start : rangeOrPosition;
-  const end = "end" in rangeOrPosition ? rangeOrPosition.end : rangeOrPosition;
+  const [start, end] =
+    rangeOrPosition instanceof Position
+      ? [rangeOrPosition, rangeOrPosition]
+      : [rangeOrPosition.start, rangeOrPosition.end];
   return range1.start.isBefore(start) && range1.end.isAfter(end);
-}
-
-/**
- * Get a range that corresponds to the entire contents of the given document.
- *
- * @param document The document to consider
- * @returns A range corresponding to the entire document contents
- */
-export function getDocumentRange(document: TextDocument) {
-  return new Range(
-    new Position(0, 0),
-    document.lineAt(document.lineCount - 1).range.end,
-  );
 }

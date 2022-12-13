@@ -1,24 +1,5 @@
-import { Range } from "vscode";
-import { Target } from "../../typings/target.types";
-
-/**
- * Internal type to be used for storing a reference to a target that will use a
- * VSCode command to insert a new target, eg `editor.action.insertLineAfter`.
- */
-export interface CommandTarget {
-  target: Target;
-
-  /**
-   * The original index of this target in the original list of targets passed
-   * to the action
-   */
-  index: number;
-
-  /**
-   * The VSCode command to run, eg `editor.action.insertLineAfter`
-   */
-  command: string;
-}
+import type { Range } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
 
 /**
  * Internal type to be used for storing a reference to a target that will use an

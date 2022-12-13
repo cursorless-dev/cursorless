@@ -1,4 +1,4 @@
-import { Position, Range } from "vscode";
+import { Position, Range } from "@cursorless/common";
 import { Direction } from "../../../typings/targetDescriptor.types";
 import { TargetScope } from "./scope.types";
 

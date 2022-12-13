@@ -1,5 +1,5 @@
+import { Range } from "@cursorless/common";
 import { uniqWith, zip } from "lodash";
-import { Range } from "vscode";
 import { Target } from "../typings/target.types";
 import {
   Modifier,

@@ -1,7 +1,7 @@
-import { TextDocument } from "vscode";
-import { HatStyleName } from "./hatStyles";
+import { getKey, TextDocument } from "@cursorless/common";
+import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
 import { Graph, Token } from "../typings/Types";
-import HatTokenMap from "./HatTokenMap";
+import { HatStyleName } from "./hatStyles";
 
 export interface ReadOnlyHatMap {
   getEntries(): [string, Token][];
@@ -55,16 +55,13 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   }
 
   addToken(hatStyle: HatStyleName, character: string, token: Token) {
-    this.addTokenByKey(HatTokenMap.getKey(hatStyle, character), token);
+    this.addTokenByKey(getKey(hatStyle, character), token);
   }
 
   getToken(hatStyle: HatStyleName, character: string) {
     this.checkExpired();
     return this.map[
-      HatTokenMap.getKey(
-        hatStyle,
-        this.graph.tokenGraphemeSplitter.normalizeGrapheme(character),
-      )
+      getKey(hatStyle, tokenGraphemeSplitter().normalizeGrapheme(character))
     ];
   }
 

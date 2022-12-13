@@ -1,10 +1,10 @@
+import { Range, Selection, TextEditor } from "@cursorless/common";
 import { zip } from "lodash";
-import { Range, Selection, TextEditor } from "vscode";
 import { Target } from "../typings/target.types";
 import { SelectionWithEditor } from "../typings/Types";
 import { groupBy } from "./itertools";
 
-export function ensureSingleEditor(targets: Target[]) {
+export function ensureSingleEditor(targets: Target[]): TextEditor {
   if (targets.length === 0) {
     throw new Error("Require at least one target with this action");
   }
@@ -45,17 +45,29 @@ export async function runOnTargetsForEachEditor<T>(
   return runForEachEditor(targets, (target) => target.editor, func);
 }
 
+export async function runOnTargetsForEachEditorSequentially<T>(
+  targets: Target[],
+  func: (editor: TextEditor, targets: Target[]) => Promise<T>,
+): Promise<T[]> {
+  const editorGroups = groupForEachEditor(targets, (target) => target.editor);
+  const result: T[] = [];
+  for (const [editor, targets] of editorGroups) {
+    result.push(await func(editor, targets));
+  }
+  return result;
+}
+
 export function groupTargetsForEachEditor(targets: Target[]) {
   return groupForEachEditor(targets, (target) => target.editor);
 }
 
-export function groupForEachEditor<T>(
+function groupForEachEditor<T>(
   targets: T[],
   getEditor: (target: T) => TextEditor,
 ): [TextEditor, T[]][] {
   // Actually group by document and not editor. If the same document is open in multiple editors we want to perform all actions in one editor or an concurrency error will occur.
-  const getDocument = (target: T) => getEditor(target).document;
-  const editorMap = groupBy(targets, getDocument);
+  const getDocumentUri = (target: T) => getEditor(target).document.uri;
+  const editorMap = groupBy(targets, getDocumentUri);
   return Array.from(editorMap.values(), (editorTargets) => {
     // Just pick any editor with the given document open; doesn't matter which
     const editor = getEditor(editorTargets[0]);

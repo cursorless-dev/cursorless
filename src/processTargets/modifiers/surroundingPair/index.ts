@@ -1,4 +1,4 @@
-import { Location, Range, Selection, TextEditor } from "vscode";
+import { Range, Selection, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import getTextFragmentExtractor, {
   TextFragmentExtractor,
@@ -42,7 +42,7 @@ export function processSurroundingPair(
   let textFragmentExtractor: TextFragmentExtractor;
 
   try {
-    node = context.getNodeAtLocation(new Location(document.uri, range));
+    node = context.getNodeAtLocation(document, range);
 
     textFragmentExtractor = getTextFragmentExtractor(document.languageId);
   } catch (err) {

@@ -1,18 +1,17 @@
+import { EditableTextEditor, Position, Range } from "@cursorless/common";
 import {
   DecorationRangeBehavior,
   DecorationRenderOptions,
-  Position,
-  Range,
-  TextEditor,
   TextEditorDecorationType,
   ThemeColor,
   window,
   workspace,
 } from "vscode";
+import sleep from "../libs/common/util/sleep";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import isTesting from "../testUtil/isTesting";
 import { Target } from "../typings/target.types";
 import { Graph, RangeWithEditor } from "../typings/Types";
-import sleep from "../util/sleep";
 import {
   getContentRange,
   runForEachEditor,
@@ -82,7 +81,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
       this[editStyleName] = new EditStyle(`${editStyleName}Background`);
     });
 
-    graph.extensionContext.subscriptions.push(this);
+    ide().disposeOnExit(this);
   }
 
   async displayPendingEditDecorations(
@@ -122,7 +121,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
       (range) => range.editor,
       async (editor, ranges) => {
         this.setEditorDecorations(
-          editor,
+          ide().getEditableTextEditor(editor),
           style,
           isToken,
           ranges.map((range) => range.range),
@@ -136,7 +135,9 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
       ranges,
       (range) => range.editor,
       async (editor) => {
-        editor.setDecorations(style.getDecoration(isToken), []);
+        ide()
+          .getEditableTextEditor(editor)
+          .setDecorations(style.getDecoration(isToken), []);
       },
     );
   }
@@ -148,7 +149,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
   ) {
     return runOnTargetsForEachEditor(targets, async (editor, targets) => {
       this.setEditorDecorations(
-        editor,
+        ide().getEditableTextEditor(editor),
         style,
         true,
         targets
@@ -157,7 +158,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
           .filter((range): range is Range => !!range),
       );
       this.setEditorDecorations(
-        editor,
+        ide().getEditableTextEditor(editor),
         style,
         false,
         targets
@@ -176,7 +177,7 @@ export class EditStyles implements Record<EditStyleName, EditStyle> {
   }
 
   private setEditorDecorations(
-    editor: TextEditor,
+    editor: EditableTextEditor,
     style: EditStyle,
     isToken: boolean,
     ranges: Range[],

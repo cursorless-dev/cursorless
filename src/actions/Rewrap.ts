@@ -1,4 +1,5 @@
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { containingSurroundingPairIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -44,7 +45,7 @@ export default class Rewrap implements Action {
         const [updatedSourceRanges, updatedThatRanges] =
           await performEditsAndUpdateRanges(
             this.graph.rangeUpdater,
-            editor,
+            ide().getEditableTextEditor(editor),
             edits,
             [
               targets.map((target) => target.thatTarget.contentRange),

@@ -1,10 +1,10 @@
-import { Edit } from "../typings/Types";
-import { TextEditor } from "vscode";
+import { EditableTextEditor } from "@cursorless/common";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { Edit } from "../typings/Types";
 
 export async function performDocumentEdits(
   rangeUpdater: RangeUpdater,
-  editor: TextEditor,
+  editor: EditableTextEditor,
   edits: Edit[],
 ) {
   const deregister = rangeUpdater.registerReplaceEditList(

@@ -1,4 +1,4 @@
-import { Range, Selection, TextDocument } from "vscode";
+import { Range, Selection, TextDocument } from "@cursorless/common";
 import { SurroundingPairOffsets } from "./types";
 
 export interface SurroundingPairInfo {

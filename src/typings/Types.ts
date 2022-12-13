@@ -1,5 +1,9 @@
-import * as vscode from "vscode";
-import { ExtensionContext, Location } from "vscode";
+import type {
+  Range,
+  Selection,
+  TextEditor,
+  TextDocument,
+} from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
 import Cheatsheet from "../core/Cheatsheet";
@@ -11,12 +15,11 @@ import HatTokenMap from "../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
 import StatusBarItem from "../core/StatusBarItem";
-import { TokenGraphemeSplitter } from "../core/TokenGraphemeSplitter";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { IDE } from "../ide/ide.types";
+import { CommandServerApi } from "../libs/vscode-common/getExtensionApi";
+import KeyboardCommands from "../keyboard/KeyboardCommands";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
-import { CommandServerApi } from "../util/getExtensionApi";
 import { Target } from "./target.types";
 import { FullRangeInfo } from "./updateSelections";
 
@@ -24,7 +27,7 @@ import { FullRangeInfo } from "./updateSelections";
  * A token within a text editor, including the current display line of the token
  */
 export interface Token extends FullRangeInfo {
-  editor: vscode.TextEditor;
+  editor: TextEditor;
   displayLine: number;
 }
 
@@ -40,21 +43,21 @@ export interface ProcessedTargetsContext {
    */
   actionFinalStages: ModifierStage[];
   currentSelections: SelectionWithEditor[];
-  currentEditor: vscode.TextEditor | undefined;
+  currentEditor: TextEditor | undefined;
   hatTokenMap: ReadOnlyHatMap;
   thatMark: Target[];
   sourceMark: Target[];
-  getNodeAtLocation: (location: Location) => SyntaxNode;
+  getNodeAtLocation: (document: TextDocument, range: Range) => SyntaxNode;
 }
 
 export interface SelectionWithEditor {
-  selection: vscode.Selection;
-  editor: vscode.TextEditor;
+  selection: Selection;
+  editor: TextEditor;
 }
 
 export interface RangeWithEditor {
-  range: vscode.Range;
-  editor: vscode.TextEditor;
+  range: Range;
+  editor: TextEditor;
 }
 
 export interface SelectionContext {
@@ -63,22 +66,22 @@ export interface SelectionContext {
   /**
    * Selection used for removal
    */
-  removalRange?: vscode.Range;
+  removalRange?: Range;
 
   /**
    * The range used for the interior
    */
-  interiorRange?: vscode.Range;
+  interiorRange?: Range;
 
   /**
    * The range of the delimiter before the selection
    */
-  leadingDelimiterRange?: vscode.Range;
+  leadingDelimiterRange?: Range;
 
   /**
    * The range of the delimiter after the selection
    */
-  trailingDelimiterRange?: vscode.Range;
+  trailingDelimiterRange?: Range;
 }
 
 export type SelectionWithEditorWithContext = {
@@ -87,7 +90,7 @@ export type SelectionWithEditorWithContext = {
 };
 
 export interface SelectionWithContext {
-  selection: vscode.Selection;
+  selection: Selection;
   context: SelectionContext;
 }
 
@@ -107,11 +110,6 @@ export interface Graph {
    * Maps from (hatStyle, character) pairs to tokens
    */
   readonly hatTokenMap: HatTokenMap;
-
-  /**
-   * The extension context passed in during extension activation
-   */
-  readonly extensionContext: ExtensionContext;
 
   /**
    * Keeps a merged list of all user-contributed, core, and
@@ -143,7 +141,10 @@ export interface Graph {
   /**
    * Function to access nodes in the tree sitter.
    */
-  readonly getNodeAtLocation: (location: vscode.Location) => SyntaxNode;
+  readonly getNodeAtLocation: (
+    document: TextDocument,
+    range: Range,
+  ) => SyntaxNode;
 
   /**
    * Debug logger
@@ -166,15 +167,9 @@ export interface Graph {
   readonly statusBarItem: StatusBarItem;
 
   /**
-   * Used to split a token into a graphemes that can be used for a hat placement
+   * Set of simplified commands that can be easily mapped to keyboard shortcuts.
    */
-  readonly tokenGraphemeSplitter: TokenGraphemeSplitter;
-
-  /**
-   * Used to interact with the ide
-   * NB: We make ide mutable to allow spying
-   */
-  ide: IDE;
+  readonly keyboardCommands: KeyboardCommands;
 }
 
 export type NodeMatcherValue = {
@@ -195,18 +190,18 @@ export type NodeMatcher = (
  **/
 export type NodeFinder = (
   node: SyntaxNode,
-  selection?: vscode.Selection,
+  selection?: Selection,
 ) => SyntaxNode | null;
 
 /** Returns one or more selections for a given SyntaxNode */
 export type SelectionExtractor = (
-  editor: vscode.TextEditor,
+  editor: TextEditor,
   nodes: SyntaxNode,
 ) => SelectionWithContext;
 
 /** Represent a single edit/change in the document */
 export interface Edit {
-  range: vscode.Range;
+  range: Range;
   text: string;
 
   /**
@@ -227,7 +222,7 @@ export interface EditWithRangeUpdater extends Edit {
    * after applying the edit, and should return a new range which excludes any
    * delimiters that were inserted.
    */
-  updateRange: (range: vscode.Range) => vscode.Range;
+  updateRange: (range: Range) => Range;
 }
 
 export type TextFormatterName =
@@ -235,24 +230,3 @@ export type TextFormatterName =
   | "pascalCase"
   | "snakeCase"
   | "upperSnakeCase";
-
-export interface TokenHatSplittingMode {
-  /**
-   * Whether to distinguished between uppercase and lower case letters for hat
-   */
-  preserveCase: boolean;
-
-  /**
-   * A list of characters whose accents should not be stripped. This can be
-   * used, for example, if you would like to strip all accents except for those
-   * of a few characters, which you can add to this string.
-   */
-  lettersToPreserve: string[];
-
-  /**
-   * A list of symbols that shouldn't be normalized by the token hat splitter.
-   * Add any extra symbols here that you have added to your
-   * <user.any_alphanumeric_key> capture.
-   */
-  symbolsToPreserve: string[];
-}

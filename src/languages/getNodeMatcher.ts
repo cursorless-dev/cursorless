@@ -24,7 +24,7 @@ import latex from "./latex";
 import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 import { UnsupportedLanguageError } from "../errors";
-import { SupportedLanguageId } from "./constants";
+import { SupportedLanguageId } from "../libs/cursorless-engine/languages/constants";
 
 export function getNodeMatcher(
   languageId: string,

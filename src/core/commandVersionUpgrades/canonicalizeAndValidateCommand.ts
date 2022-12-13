@@ -1,5 +1,7 @@
 import { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
+import { EnforceUndefined } from "../../libs/common/util/typeUtils";
+import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import {
   Modifier,
   PartialTargetDescriptor,
@@ -28,14 +30,13 @@ import { upgradeV2ToV3 } from "./upgradeV2ToV3";
  */
 export function canonicalizeAndValidateCommand(
   command: Command,
-): CommandComplete {
+): EnforceUndefined<CommandComplete> {
   const commandUpgraded = upgradeCommand(command);
   const {
     action,
     targets: inputPartialTargets,
     usePrePhraseSnapshot = false,
-    version,
-    ...rest
+    spokenForm,
   } = commandUpgraded;
 
   const actionName = canonicalizeActionName(action.name);
@@ -44,8 +45,8 @@ export function canonicalizeAndValidateCommand(
   validateCommand(actionName, partialTargets);
 
   return {
-    ...rest,
     version: LATEST_VERSION,
+    spokenForm,
     action: {
       name: actionName,
       args: action.args ?? [],
@@ -126,19 +127,18 @@ export async function checkForOldInference(
   });
 
   if (hasOldInference) {
-    const hideInferenceWarning = graph.ide.globalState.get(
-      "hideInferenceWarning",
-    );
+    const { globalState, messages } = ide();
+    const hideInferenceWarning = globalState.get("hideInferenceWarning");
 
     if (!hideInferenceWarning) {
-      const pressed = await graph.ide.messages.showWarning(
+      const pressed = await messages.showWarning(
         "deprecatedPositionInference",
         'The "past start of" / "past end of" form has changed behavior.  For the old behavior, update cursorless-talon (https://www.cursorless.org/docs/user/updating/), and then you can now say "past start of its" / "past end of its". For example, "take air past end of its line".  You may also consider using "head" / "tail" instead; see https://www.cursorless.org/docs/#head-and-tail',
         "Don't show again",
       );
 
       if (pressed) {
-        graph.ide.globalState.set("hideInferenceWarning", true);
+        globalState.set("hideInferenceWarning", true);
       }
     }
   }

@@ -1,4 +1,4 @@
-import { Position, Range, TextDocument } from "vscode";
+import { Position, Range, TextDocument } from "@cursorless/common";
 
 export function expandRange(
   numCharactersBackward: number,

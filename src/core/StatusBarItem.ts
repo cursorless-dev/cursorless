@@ -1,22 +1,26 @@
 import * as vscode from "vscode";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Graph } from "../typings/Types";
+
+const DEFAULT_TEXT = "$(cursorless-icon) Cursorless";
 
 export default class StatusBarItem {
   private disposables: vscode.Disposable[] = [];
+  private statusBarItem?: vscode.StatusBarItem;
 
   constructor(private graph: Graph) {
-    graph.extensionContext.subscriptions.push(this);
+    ide().disposeOnExit(this);
   }
 
   init() {
     const commandId = "cursorless.showQuickPick";
-    const statusBarItem = vscode.window.createStatusBarItem(
+    this.statusBarItem = vscode.window.createStatusBarItem(
       vscode.StatusBarAlignment.Right,
       100,
     );
-    statusBarItem.command = commandId;
-    statusBarItem.text = "$(cursorless-icon) Cursorless";
-    statusBarItem.show();
+    this.statusBarItem.command = commandId;
+    this.statusBarItem.text = DEFAULT_TEXT;
+    this.statusBarItem.show();
 
     this.disposables.push(
       vscode.commands.registerCommand("cursorless.showDocumentation", () =>
@@ -25,8 +29,16 @@ export default class StatusBarItem {
         ),
       ),
       vscode.commands.registerCommand(commandId, this.showQuickOpen),
-      statusBarItem,
+      this.statusBarItem,
     );
+  }
+
+  setText(text: string) {
+    this.statusBarItem!.text = `$(cursorless-icon) ${text}`;
+  }
+
+  unsetText() {
+    this.statusBarItem!.text = DEFAULT_TEXT;
   }
 
   private showQuickOpen = () =>

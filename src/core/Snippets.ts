@@ -1,8 +1,8 @@
 import { readFile, stat } from "fs/promises";
 import { cloneDeep, max, merge } from "lodash";
 import { join } from "path";
-import { window, workspace } from "vscode";
-import isTesting from "../testUtil/isTesting";
+import { window } from "vscode";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { walkFiles } from "../testUtil/walkAsync";
 import { Snippet, SnippetMap } from "../typings/snippet";
 import { Graph } from "../typings/Types";
@@ -62,8 +62,8 @@ export class Snippets {
       SNIPPET_DIR_REFRESH_INTERVAL_MS,
     );
 
-    graph.extensionContext.subscriptions.push(
-      workspace.onDidChangeConfiguration(() => {
+    ide().disposeOnExit(
+      ide().configuration.onDidChangeConfiguration(() => {
         if (this.updateUserSnippetsPath()) {
           this.updateUserSnippets();
         }
@@ -77,7 +77,7 @@ export class Snippets {
   }
 
   async init() {
-    const extensionPath = this.graph.extensionContext.extensionPath;
+    const extensionPath = ide().assetsRoot;
     const snippetsDir = join(extensionPath, "cursorless-snippets");
     const snippetFiles = await getSnippetPaths(snippetsDir);
     this.coreSnippets = mergeStrict(
@@ -97,22 +97,9 @@ export class Snippets {
    * @returns Boolean indicating whether path has changed
    */
   private updateUserSnippetsPath(): boolean {
-    let newUserSnippetsDir: string | undefined;
-
-    if (isTesting()) {
-      newUserSnippetsDir = join(
-        this.graph.extensionContext.extensionPath,
-        "src",
-        "test",
-        "suite",
-        "fixtures",
-        "cursorless-snippets",
-      );
-    } else {
-      newUserSnippetsDir = workspace
-        .getConfiguration("cursorless.experimental")
-        .get<string>("snippetsDir");
-    }
+    const newUserSnippetsDir = ide().configuration.getOwnConfiguration(
+      "experimental.snippetsDir",
+    );
 
     if (newUserSnippetsDir === this.userSnippetsDir) {
       return false;

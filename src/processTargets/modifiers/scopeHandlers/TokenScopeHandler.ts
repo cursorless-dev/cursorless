@@ -1,8 +1,11 @@
 import { imap } from "itertools";
 import { NestedScopeHandler } from ".";
-import { getMatcher } from "../../../core/tokenizer";
-import type { Direction } from "../../../typings/targetDescriptor.types";
-import { generateMatchesInRange, testRegex } from "../../../util/regex";
+import { getMatcher } from "../../../libs/cursorless-engine/tokenizer";
+import type {
+  Direction,
+} from "../../../typings/targetDescriptor.types";
+import { testRegex } from "../../../libs/cursorless-engine/util/regex";
+import { generateMatchesInRange } from "../../../apps/cursorless-vscode/getMatchesInRange";
 import { TokenTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
 

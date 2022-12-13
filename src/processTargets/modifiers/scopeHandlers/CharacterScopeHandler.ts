@@ -1,14 +1,14 @@
-import { filter, flatmap, imap } from "itertools";
-import { Position, Range, TextEditor } from "vscode";
-import { getMatcher } from "../../../core/tokenizer";
+import { imap, flatmap, filter } from "itertools";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
-import { getDocumentRange } from "../../../util/rangeUtils";
-import { generateMatchesInRange, testRegex } from "../../../util/regex";
+import { generateMatchesInRange } from "../../../apps/cursorless-vscode/getMatchesInRange";
 import { PlainTarget } from "../../targets";
 import BaseScopeHandler from "./BaseScopeHandler";
 import { expandPosition, expandRange } from "./expandRange";
 import type { TargetScope } from "./scope.types";
 import { ScopeIteratorRequirements } from "./scopeHandler.types";
+import { Position, Range, TextEditor } from "@cursorless/common";
+import { testRegex } from "../../../libs/cursorless-engine/util/regex";
+import { getMatcher } from "../../../libs/cursorless-engine/tokenizer";
 
 const EXPANSION_CHARACTERS = 4;
 const INITIAL_SEARCH_RANGE_LENGTH = 16;
@@ -139,10 +139,8 @@ export default class CharacterScopeHandler extends BaseScopeHandler {
       yield range;
 
       if (
-        (direction === "forward" &&
-          range.end.isEqual(getDocumentRange(document).end)) ||
-        (direction === "backward" &&
-          range.start.isEqual(getDocumentRange(document).start))
+        (direction === "forward" && range.end.isEqual(document.range.end)) ||
+        (direction === "backward" && range.start.isEqual(document.range.start))
       ) {
         return;
       }

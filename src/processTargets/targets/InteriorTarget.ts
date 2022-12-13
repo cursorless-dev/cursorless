@@ -1,4 +1,4 @@
-import { Range } from "vscode";
+import { Range } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
