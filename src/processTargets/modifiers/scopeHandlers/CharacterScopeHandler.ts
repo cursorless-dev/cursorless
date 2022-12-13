@@ -1,10 +1,10 @@
 import { imap } from "itertools";
+import { NestedScopeHandler } from ".";
 import { generateMatchesInRange } from "../../../apps/cursorless-vscode/getMatchesInRange";
 import { getMatcher } from "../../../libs/cursorless-engine/tokenizer";
 import { testRegex } from "../../../libs/cursorless-engine/util/regex";
 import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
 import { PlainTarget } from "../../targets";
-import NestedScopeHandler from "./NestedScopeHandler";
 import type { TargetScope } from "./scope.types";
 
 /**
