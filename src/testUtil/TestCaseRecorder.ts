@@ -443,7 +443,7 @@ export class TestCaseRecorder {
       fs.mkdirSync(this.targetDirectory, { recursive: true });
     }
 
-    const filename = camelize(testCase.command.spokenForm!);
+    const filename = camelize(testCase.command.spokenForm ?? "command");
     let filePath = path.join(this.targetDirectory, `${filename}.yml`);
 
     let i = 2;

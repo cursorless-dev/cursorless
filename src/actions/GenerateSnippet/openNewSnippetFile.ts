@@ -1,6 +1,6 @@
 import { open } from "fs/promises";
 import { join } from "path";
-import { window, workspace } from "vscode";
+import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 
 /**
  * Creates a new empty file in the users snippet directory and opens an editor
@@ -8,9 +8,9 @@ import { window, workspace } from "vscode";
  * @param snippetName The name of the snippet
  */
 export async function openNewSnippetFile(snippetName: string) {
-  const userSnippetsDir = workspace
-    .getConfiguration("cursorless.experimental")
-    .get<string>("snippetsDir");
+  const userSnippetsDir = ide().configuration.getOwnConfiguration(
+    "experimental.snippetsDir",
+  );
 
   if (!userSnippetsDir) {
     throw new Error("User snippets dir not configured.");
@@ -18,8 +18,7 @@ export async function openNewSnippetFile(snippetName: string) {
 
   const path = join(userSnippetsDir, `${snippetName}.cursorless-snippets`);
   await touch(path);
-  const snippetDoc = await workspace.openTextDocument(path);
-  await window.showTextDocument(snippetDoc);
+  await ide().openTextDocument(path);
 }
 
 async function touch(path: string) {

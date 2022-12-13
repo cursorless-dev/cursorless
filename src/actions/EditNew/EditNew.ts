@@ -8,9 +8,9 @@ import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEdi
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
 import { Action, ActionReturnValue } from "../actions.types";
 import { State } from "./EditNew.types";
-import { runCommandTargets } from "./runCommandTargets";
+import { runInsertLineAfterTargets } from "./runInsertLineAfterTargets";
 import { runEditTargets } from "./runEditTargets";
-import { runNotebookCellTargets } from "./runNotebookCellTargets";
+import { runEditNewNotebookCellTargets } from "./runNotebookCellTargets";
 
 export class EditNew implements Action {
   getFinalStages(): ModifierStage[] {
@@ -26,7 +26,7 @@ export class EditNew implements Action {
       // It is not possible to "pour" a notebook cell and something else,
       // because each notebook cell is its own editor, and you can't have
       // cursors in multiple editors.
-      return runNotebookCellTargets(this.graph, targets);
+      return runEditNewNotebookCellTargets(this.graph, targets);
     }
 
     const editableEditor = ide().getEditableTextEditor(
@@ -43,7 +43,7 @@ export class EditNew implements Action {
       cursorRanges: new Array(targets.length).fill(undefined) as undefined[],
     };
 
-    state = await runCommandTargets(this.graph, editableEditor, state);
+    state = await runInsertLineAfterTargets(this.graph, editableEditor, state);
     state = await runEditTargets(this.graph, editableEditor, state);
 
     const newSelections = state.targets.map((target, index) =>

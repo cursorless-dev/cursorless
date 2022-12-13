@@ -1,6 +1,9 @@
-import { Selection, TextEditor } from "@cursorless/common";
+import {
+  RangeExpansionBehavior,
+  Selection,
+  TextEditor,
+} from "@cursorless/common";
 import { flatten } from "lodash";
-import { DecorationRangeBehavior } from "vscode";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
@@ -169,7 +172,7 @@ class BringMoveSwap implements Action {
               getSelectionInfo(
                 editor.document,
                 range.toSelection(originalTarget.isReversed),
-                DecorationRangeBehavior.OpenOpen,
+                RangeExpansionBehavior.openOpen,
               ),
           );
 
@@ -177,7 +180,7 @@ class BringMoveSwap implements Action {
             getSelectionInfo(
               editor.document,
               selection,
-              DecorationRangeBehavior.ClosedClosed,
+              RangeExpansionBehavior.closedClosed,
             ),
           );
 

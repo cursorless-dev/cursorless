@@ -1,4 +1,4 @@
-import { commands, DecorationRangeBehavior } from "vscode";
+import { RangeExpansionBehavior } from "@cursorless/common";
 import {
   callFunctionAndUpdateSelections,
   callFunctionAndUpdateSelectionsWithBehavior,
@@ -10,23 +10,23 @@ import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocu
 import { ensureSingleEditor } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
 
-export class Paste {
+export class PasteFromClipboard {
   constructor(private graph: Graph) {}
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
-    const targetEditor = ensureSingleEditor(targets);
+    const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
     const originalEditor = ide().activeEditableTextEditor;
 
     // First call editNew in order to insert delimiters if necessary and leave
-    // the cursor in the right position.  Note that this action will focus the
+    // the cursor in the right position. Note that this action will focus the
     // editor containing the targets
     const [originalCursorSelections] = await callFunctionAndUpdateSelections(
       this.graph.rangeUpdater,
       async () => {
         await this.graph.actions.editNew.run([targets]);
       },
-      targetEditor.document,
-      [targetEditor.selections],
+      editor.document,
+      [editor.selections],
     );
 
     // Then use VSCode paste command, using open ranges at the place where we
@@ -34,15 +34,15 @@ export class Paste {
     const [updatedCursorSelections, updatedTargetSelections] =
       await callFunctionAndUpdateSelectionsWithBehavior(
         this.graph.rangeUpdater,
-        () => commands.executeCommand("editor.action.clipboardPasteAction"),
-        targetEditor.document,
+        () => editor.clipboardPaste(),
+        editor.document,
         [
           {
             selections: originalCursorSelections,
           },
           {
-            selections: targetEditor.selections,
-            rangeBehavior: DecorationRangeBehavior.OpenOpen,
+            selections: editor.selections,
+            rangeBehavior: RangeExpansionBehavior.openOpen,
           },
         ],
       );
@@ -50,10 +50,7 @@ export class Paste {
     // Reset cursors on the editor where the edits took place.
     // NB: We don't focus the editor here because we want to focus the original
     // editor, not the one where the edits took place
-    setSelectionsWithoutFocusingEditor(
-      ide().getEditableTextEditor(targetEditor),
-      updatedCursorSelections,
-    );
+    setSelectionsWithoutFocusingEditor(editor, updatedCursorSelections);
 
     // If necessary focus back original editor
     if (originalEditor != null && !originalEditor.isActive) {
@@ -65,7 +62,7 @@ export class Paste {
 
     this.graph.editStyles.displayPendingEditDecorationsForRanges(
       updatedTargetSelections.map((selection) => ({
-        editor: targetEditor,
+        editor: editor,
         range: selection,
       })),
       this.graph.editStyles.justAdded,
@@ -74,7 +71,7 @@ export class Paste {
 
     return {
       thatSelections: updatedTargetSelections.map((selection) => ({
-        editor: targetEditor,
+        editor: editor,
         selection,
       })),
     };

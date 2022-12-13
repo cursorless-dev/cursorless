@@ -185,6 +185,7 @@ const nodeMatchers: Partial<
     "parameters",
     "meta_arguments",
     "type_parameters",
+    "ordered_field_declaration_list",
   ),
   collectionKey: cascadingMatcher(
     trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"]),
@@ -196,6 +197,7 @@ const nodeMatchers: Partial<
       "function_item[name]",
       "struct_item[name]",
       "enum_item[name]",
+      "enum_variant[name]",
       "trait_item[name]",
       "const_item[name]",
       "meta_item.identifier!",
