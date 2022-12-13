@@ -1,17 +1,11 @@
-import { imap, flatmap, filter } from "itertools";
-import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
+import { imap } from "itertools";
 import { generateMatchesInRange } from "../../../apps/cursorless-vscode/getMatchesInRange";
-import { PlainTarget } from "../../targets";
-import BaseScopeHandler from "./BaseScopeHandler";
-import { expandPosition, expandRange } from "./expandRange";
-import type { TargetScope } from "./scope.types";
-import { ScopeIteratorRequirements } from "./scopeHandler.types";
-import { Position, Range, TextEditor } from "@cursorless/common";
-import { testRegex } from "../../../libs/cursorless-engine/util/regex";
 import { getMatcher } from "../../../libs/cursorless-engine/tokenizer";
-
-const EXPANSION_CHARACTERS = 4;
-const INITIAL_SEARCH_RANGE_LENGTH = 16;
+import { testRegex } from "../../../libs/cursorless-engine/util/regex";
+import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
+import { PlainTarget } from "../../targets";
+import NestedScopeHandler from "./NestedScopeHandler";
+import type { TargetScope } from "./scope.types";
 
 /**
  * The regex used to split a range into characters.  Combines letters with their
@@ -27,28 +21,24 @@ const NONWHITESPACE_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}]/gu;
  */
 const WHITESPACE_REGEX = /\p{Z}/gu;
 
-export default class CharacterScopeHandler extends BaseScopeHandler {
+export default class CharacterScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "character" } as const;
   public readonly iterationScopeType = { type: "token" } as const;
-  protected readonly isHierarchical = false;
 
-  constructor(_scopeType: ScopeType, private languageId: string) {
-    super();
+  protected get searchScopeType(): ScopeType {
+    return { type: "line" };
   }
 
-  private generateScopesInRange(
-    editor: TextEditor,
-    range: Range,
+  protected generateScopesInSearchScope(
     direction: Direction,
+    { editor, domain }: TargetScope,
   ): Iterable<TargetScope> {
-    return imap(
-      filter(
-        generateMatchesInRange(SPLIT_REGEX, editor, range, direction),
+    const range = editor.document.lineAt(
+      domain.start.line,
+    ).rangeIncludingLineBreak;
 
-        // Ignore anything that ends at the end of the range because it could
-        // have trailing diacritics
-        (r) => !r.end.isEqual(range.end),
-      ),
+    return imap(
+      generateMatchesInRange(SPLIT_REGEX, editor, range, direction),
       (range) => ({
         editor,
         domain: range,
@@ -60,97 +50,6 @@ export default class CharacterScopeHandler extends BaseScopeHandler {
           }),
       }),
     );
-  }
-
-  protected generateScopeCandidates(
-    editor: TextEditor,
-    position: Position,
-    direction: Direction,
-    hints: ScopeIteratorRequirements,
-  ): Iterable<TargetScope> {
-    return flatmap(
-      this.generateSearchRanges(editor, position, direction, hints),
-      (range) => this.generateScopesInRange(editor, range, direction),
-    );
-  }
-
-  /**
-   * Returns an iterator of ranges in which to search for scopes.
-   *
-   * If there is a
-   * {@link ScopeIteratorRequirements.distalPosition|distalPosition}, just
-   * yields a single range: from {@link position} to
-   * {@link ScopeIteratorRequirements.distalPosition}, expanded by
-   * {@link EXPANSION_CHARACTERS} on either side in case the range ends in the
-   * middle or a scope.
-   *
-   * If there is no
-   * {@link ScopeIteratorRequirements.distalPosition|distalPosition}, starts by
-   * yielding a range of length {@link INITIAL_SEARCH_RANGE_LENGTH}, expanded by
-   * {@link EXPANSION_CHARACTERS} on either side, then moves the search range to
-   * the end (or start, if {@link direction} is `"backward"`) of the previous
-   * search range and doubles the width, expanded on either side by
-   * {@link EXPANSION_CHARACTERS}.  Note that
-   *
-   * @param editor
-   * @param position
-   * @param direction
-   * @param hints
-   */
-  private *generateSearchRanges(
-    editor: TextEditor,
-    position: Position,
-    direction: Direction,
-    hints: ScopeIteratorRequirements,
-  ): Iterable<Range> {
-    const { document } = editor;
-    const { distalPosition } = hints;
-
-    if (distalPosition != null) {
-      // If we have a distalPosition, just expand it by EXPANSION_CHARACTERS and
-      // yield it
-      yield expandRange(
-        EXPANSION_CHARACTERS,
-        EXPANSION_CHARACTERS,
-        document,
-        new Range(position, distalPosition),
-      );
-
-      return;
-    }
-
-    // If we have no distalPosition, we progressively move forward (or backward)
-    // and double the width of the range.
-
-    let coreSearchRange = INITIAL_SEARCH_RANGE_LENGTH;
-    let currentPosition = position;
-
-    while (true) {
-      const [numCharactersBackward, numCharactersForward] =
-        direction === "forward" ? [0, coreSearchRange] : [coreSearchRange, 0];
-
-      const range = expandPosition(
-        numCharactersBackward + EXPANSION_CHARACTERS,
-        numCharactersForward + EXPANSION_CHARACTERS,
-        document,
-        currentPosition,
-      );
-
-      yield range;
-
-      if (
-        (direction === "forward" && range.end.isEqual(document.range.end)) ||
-        (direction === "backward" && range.start.isEqual(document.range.start))
-      ) {
-        return;
-      }
-
-      // Move the range
-      currentPosition = direction === "forward" ? range.end : range.start;
-
-      // Double the width
-      coreSearchRange = coreSearchRange * 2;
-    }
   }
 
   isPreferredOver(
