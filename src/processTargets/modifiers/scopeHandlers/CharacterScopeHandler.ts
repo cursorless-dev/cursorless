@@ -72,11 +72,14 @@ export default class CharacterScopeHandler extends NestedScopeHandler {
     for (const matcher of matchers) {
       // NB: Don't directly use `test` here because global regexes are stateful
       // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
-      if (testRegex(matcher, aText) && !testRegex(matcher, bText)) {
+      const aMatchesRegex = testRegex(matcher, aText);
+      const bMatchesRegex = testRegex(matcher, bText);
+
+      if (aMatchesRegex && !bMatchesRegex) {
         return true;
       }
 
-      if (testRegex(matcher, bText) && !testRegex(matcher, aText)) {
+      if (bMatchesRegex && !aMatchesRegex) {
         return false;
       }
     }
