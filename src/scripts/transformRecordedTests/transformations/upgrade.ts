@@ -1,5 +1,5 @@
 import { flow } from "lodash";
-import { canonicalizeAndValidateCommand } from "../../../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
+import { canonicalizeAndValidateCommand } from "../../../core/CommandVersionUpgrades/canonicalizeAndValidateCommand";
 import { cleanUpTestCaseCommand } from "../../../testUtil/cleanUpTestCaseCommand";
 import { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
 import { reorderFields } from "./reorderFields";

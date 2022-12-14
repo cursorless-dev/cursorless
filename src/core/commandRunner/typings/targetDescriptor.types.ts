@@ -1,7 +1,7 @@
-import { HatStyleName } from "../core/hatStyles";
+import { HatStyleName } from "../../hatStyles";
 // FIXME: See microsoft/TypeScript#43869
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
-import type { Target } from "./target.types";
+import type { Target } from "../../../typings/target.types";
 
 export interface CursorMark {
   type: "cursor";

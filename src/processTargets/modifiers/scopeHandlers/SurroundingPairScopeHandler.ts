@@ -2,7 +2,7 @@ import { Position, TextEditor } from "@cursorless/common";
 import {
   Direction,
   SurroundingPairScopeType,
-} from "../../../typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/targetDescriptor.types";
 import BaseScopeHandler from "./BaseScopeHandler";
 import { TargetScope } from "./scope.types";
 import { ScopeIteratorRequirements } from "./scopeHandler.types";

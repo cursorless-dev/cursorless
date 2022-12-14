@@ -4,7 +4,7 @@ import { getMatcher } from "../../../libs/cursorless-engine/tokenizer";
 import type {
   Direction,
   ScopeType,
-} from "../../../typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/targetDescriptor.types";
 import { testRegex } from "../../../libs/cursorless-engine/util/regex";
 import { generateMatchesInRange } from "../../../apps/cursorless-vscode/getMatchesInRange";
 import { TokenTarget } from "../../targets";

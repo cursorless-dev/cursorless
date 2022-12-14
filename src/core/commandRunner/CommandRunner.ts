@@ -15,11 +15,11 @@ import { isString } from "../../util/type";
 import {
   canonicalizeAndValidateCommand,
   checkForOldInference,
-} from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
+} from "../CommandVersionUpgrades/canonicalizeAndValidateCommand";
+import { PartialTargetV0V1 } from "./typings/legacy/CommandV0V1.types";
 import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
-import { Command } from "./command.types";
+import { Command } from "./typings/command.types";
 import { selectionToThatTarget } from "./selectionToThatTarget";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph

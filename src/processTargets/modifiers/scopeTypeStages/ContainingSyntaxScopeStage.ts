@@ -7,7 +7,7 @@ import type {
   ContainingScopeModifier,
   EveryScopeModifier,
   SimpleScopeType,
-} from "../../../typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/targetDescriptor.types";
 import type {
   NodeMatcher,
   ProcessedTargetsContext,

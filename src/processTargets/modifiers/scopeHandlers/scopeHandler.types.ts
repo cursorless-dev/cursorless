@@ -2,7 +2,7 @@ import type { Position, TextEditor } from "@cursorless/common";
 import type {
   Direction,
   ScopeType,
-} from "../../../typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/targetDescriptor.types";
 import type { TargetScope } from "./scope.types";
 
 /**

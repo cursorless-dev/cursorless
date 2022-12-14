@@ -6,7 +6,7 @@ import {
   patternMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, NodeFinder } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/targetDescriptor.types";
 import { SyntaxNode } from "web-tree-sitter";
 import { delimitedSelector } from "../util/nodeSelectors";
 import { identity } from "lodash";

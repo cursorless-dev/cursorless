@@ -9,7 +9,7 @@ import {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
-} from "../typings/targetDescriptor.types";
+} from "./commandRunner/typings/targetDescriptor.types";
 
 /**
  * Performs inference on the partial targets provided by the user, using
