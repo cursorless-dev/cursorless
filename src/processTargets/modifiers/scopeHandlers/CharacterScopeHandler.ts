@@ -12,14 +12,9 @@ import type { TargetScope } from "./scope.types";
  * diacritics, and combines `\r\n` into one character.  Otherwise just looks for
  * simple characters.
  */
-const SPLIT_REGEX = /\p{L}\p{M}*|\r?\n|[\p{N}\p{P}\p{S}\p{Z}\p{C}]/gu;
+const SPLIT_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}\p{Z}\p{C}]/gu;
 
 const NONWHITESPACE_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}]/gu;
-
-/**
- * Matches whitespace, but not newlines
- */
-const WHITESPACE_REGEX = /\p{Z}/gu;
 
 export default class CharacterScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "character" } as const;
@@ -33,12 +28,8 @@ export default class CharacterScopeHandler extends NestedScopeHandler {
     direction: Direction,
     { editor, domain }: TargetScope,
   ): Iterable<TargetScope> {
-    const range = editor.document.lineAt(
-      domain.start.line,
-    ).rangeIncludingLineBreak;
-
     return imap(
-      generateMatchesInRange(SPLIT_REGEX, editor, range, direction),
+      generateMatchesInRange(SPLIT_REGEX, editor, domain, direction),
       (range) => ({
         editor,
         domain: range,
@@ -65,9 +56,8 @@ export default class CharacterScopeHandler extends NestedScopeHandler {
     const bText = document.getText(scopeB.domain);
 
     // Regexes indicating preferences.  We prefer identifiers, then
-    // nonwhitespace, then whitespace but not newline.  We only pick newlines as
-    // a last resort.
-    const matchers = [identifierMatcher, NONWHITESPACE_REGEX, WHITESPACE_REGEX];
+    // nonwhitespace.
+    const matchers = [identifierMatcher, NONWHITESPACE_REGEX];
 
     for (const matcher of matchers) {
       // NB: Don't directly use `test` here because global regexes are stateful
