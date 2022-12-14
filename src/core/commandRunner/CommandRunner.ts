@@ -15,7 +15,7 @@ import { isString } from "../../util/type";
 import {
   canonicalizeAndValidateCommand,
   checkForOldInference,
-} from "../CommandVersionUpgrades/canonicalizeAndValidateCommand";
+} from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { PartialTargetV0V1 } from "./typings/legacy/CommandV0V1.types";
 import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
