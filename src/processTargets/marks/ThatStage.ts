@@ -1,5 +1,8 @@
 import { Target } from "../../typings/target.types";
-import { SourceMark, ThatMark } from "../../core/commandRunner/typings/targetDescriptor.types";
+import {
+  SourceMark,
+  ThatMark,
+} from "../../core/commandRunner/typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { MarkStage } from "../PipelineStages.types";
 

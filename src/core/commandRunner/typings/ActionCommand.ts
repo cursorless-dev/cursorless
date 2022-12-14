@@ -1,6 +1,5 @@
 import { ActionType } from "../../../actions/actions.types";
 
-
 export interface ActionCommand {
   /**
    * The action to run
