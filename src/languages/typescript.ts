@@ -23,6 +23,7 @@ import {
   pairSelectionExtractor,
   selectWithLeadingDelimiter,
   simpleSelectionExtractor,
+  unwrapSelectionExtractor,
   xmlElementExtractor,
 } from "../util/nodeSelectors";
 
@@ -222,6 +223,10 @@ const nodeMatchers: Partial<
       "while_statement[condition]",
       "do_statement[condition]",
     ),
+  ),
+  subject: matcher(
+    patternFinder("switch_statement[value]"),
+    unwrapSelectionExtractor,
   ),
   class: [
     "export_statement?.class_declaration", // export class | class
