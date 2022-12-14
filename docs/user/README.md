@@ -168,6 +168,7 @@ For programming languages where Cursorless has rich parse tree support, we suppo
 | `"start tag"`  | xml start tag                                       |
 | `"state"`      | a statement, eg `let foo;`                          |
 | `"string"`     | string                                              |
+| `"subject"`    | subject; eg discriminating value in `switch`        |
 | `"tags"`       | xml both tags                                       |
 | `"type"`       | a type annotation or declaration                    |
 | `"unit"`       | a unit, eg `px` in `100px`                          |
