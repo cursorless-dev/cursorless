@@ -10,13 +10,25 @@ command:
           scopeType: {type: subject}
   usePrePhraseSnapshot: false
 initialState:
-  documentContents: "int main() {\n  switch (int i = rand() % 100; i) {\n\t  default:\n\t\t  break;\n  }\n}\n"
+  documentContents: |
+    int main() {
+      switch (int i = rand() % 100; i) {
+        default:
+        break;
+      }
+    }
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
   marks: {}
 finalState:
-  documentContents: "int main() {\n  switch (int i = rand() % 100; ) {\n\t  default:\n\t\t  break;\n  }\n}\n"
+  documentContents: |
+    int main() {
+      switch (int i = rand() % 100; ) {
+        default:
+        break;
+      }
+    }
   selections:
     - anchor: {line: 1, character: 32}
       active: {line: 1, character: 32}

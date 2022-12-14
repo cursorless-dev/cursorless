@@ -10,13 +10,25 @@ command:
           scopeType: {type: subject}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "int main() {\n  switch (i) {\n\t  default:\n\t\t  break;\n  }\n}\n"
+  documentContents: |
+    int main() {
+      switch (i) {
+        default:
+          break;
+      }
+    }
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
   marks: {}
 finalState:
-  documentContents: "int main() {\n  switch () {\n\t  default:\n\t\t  break;\n  }\n}\n"
+  documentContents: |
+    int main() {
+      switch () {
+        default:
+          break;
+      }
+    }
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 10}
