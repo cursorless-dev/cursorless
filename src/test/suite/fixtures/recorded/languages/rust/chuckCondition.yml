@@ -1,6 +1,6 @@
 languageId: rust
 command:
-  spokenForm: chuck if state
+  spokenForm: chuck condition
   version: 2
   targets:
     - type: primitive

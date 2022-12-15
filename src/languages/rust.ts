@@ -145,10 +145,8 @@ const nodeMatchers: Partial<
     1,
   ),
   string: ["raw_string_literal", "string_literal"],
-  ifStatement: cascadingMatcher(
-    patternMatcher("if_expression", "if_let_expression"),
-    leadingMatcher(["match_pattern[condition]"], ["if"]),
-  ),
+  ifStatement: ["if_expression", "if_let_expression"],
+  condition: leadingMatcher(["*.match_pattern![condition]"], ["if"]),
   functionCall: ["call_expression", "macro_invocation", "struct_expression"],
   functionCallee: "call_expression[function]",
   comment: ["line_comment", "block_comment"],
