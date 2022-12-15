@@ -7,7 +7,7 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: subject}
+          scopeType: {type: switchStatementSubject}
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |
@@ -32,4 +32,4 @@ finalState:
   selections:
     - anchor: {line: 1, character: 32}
       active: {line: 1, character: 32}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: subject}}]}]
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: switchStatementSubject}}]}]

@@ -114,7 +114,7 @@ const nodeMatchers: Partial<
   ),
   condition: conditionMatcher("*[condition]"),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),
-  subject: "switch_expression[condition][0]",
+  switchStatementSubject: "switch_expression[condition][0]",
 };
 
 export default createPatternMatchers(nodeMatchers);

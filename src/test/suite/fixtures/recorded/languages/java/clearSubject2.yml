@@ -6,7 +6,7 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: subject}
+          scopeType: {type: switchStatementSubject}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
@@ -38,4 +38,4 @@ finalState:
   selections:
     - anchor: {line: 4, character: 14}
       active: {line: 4, character: 14}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: subject}}]}]
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: switchStatementSubject}}]}]

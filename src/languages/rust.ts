@@ -220,7 +220,7 @@ const nodeMatchers: Partial<
     matcher(returnValueFinder),
   ),
   attribute: trailingMatcher(["mutable_specifier", "attribute_item"]),
-  subject: "match_expression[value]",
+  switchStatementSubject: "match_expression[value]",
 };
 
 export default createPatternMatchers(nodeMatchers);
