@@ -3,7 +3,7 @@ import type { ReadOnlyHatMap } from "../../../core/IndividualHatMap";
 import type {
   PrimitiveTargetDescriptor,
   TargetDescriptor,
-} from "../../../typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/targetDescriptor.types";
 import type { Token } from "../../../typings/Types";
 
 function extractPrimitiveTargetKeys(...targets: PrimitiveTargetDescriptor[]) {

@@ -1,5 +1,5 @@
 import { range } from "lodash";
-import { SimpleSurroundingPairName } from "../../../typings/targetDescriptor.types";
+import { SimpleSurroundingPairName } from "../../../core/commandRunner/typings/targetDescriptor.types";
 import {
   DelimiterOccurrence,
   DelimiterSide,

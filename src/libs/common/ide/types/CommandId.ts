@@ -1,0 +1,15 @@
+export type CommandId =
+  | "clipboardCopy"
+  | "fold"
+  | "unfold"
+  | "toggleLineComment"
+  | "indentLine"
+  | "outdentLine"
+  | "rename"
+  | "showReferences"
+  | "quickFix"
+  | "revealDefinition"
+  | "revealTypeDefinition"
+  | "showHover"
+  | "showDebugHover"
+  | "extractVariable";

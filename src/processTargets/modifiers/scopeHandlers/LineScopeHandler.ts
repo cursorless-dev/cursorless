@@ -1,5 +1,8 @@
 import { Position, Range, TextEditor } from "@cursorless/common";
-import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
+import {
+  Direction,
+  ScopeType,
+} from "../../../core/commandRunner/typings/targetDescriptor.types";
 import { LineTarget } from "../../targets";
 import BaseScopeHandler from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";

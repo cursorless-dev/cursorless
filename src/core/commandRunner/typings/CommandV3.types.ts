@@ -1,23 +1,11 @@
-import { ActionType } from "../../../actions/actions.types";
-import { PartialTargetDescriptorV2 } from "./targetDescriptorV2.types";
+import type { PartialTargetDescriptor } from "./targetDescriptor.types";
+import { ActionCommand } from "./ActionCommand";
 
-interface ActionCommand {
-  /**
-   * The action to run
-   */
-  name: ActionType;
-
-  /**
-   * A list of arguments expected by the given action.
-   */
-  args?: unknown[];
-}
-
-export interface CommandV2 {
+export interface CommandV3 {
   /**
    * The version number of the command API
    */
-  version: 2;
+  version: 3;
 
   /**
    * The spoken form of the command if issued from a voice command system
@@ -38,5 +26,5 @@ export interface CommandV2 {
    * A list of targets expected by the action. Inference will be run on the
    * targets
    */
-  targets: PartialTargetDescriptorV2[];
+  targets: PartialTargetDescriptor[];
 }

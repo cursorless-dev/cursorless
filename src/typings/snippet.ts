@@ -1,4 +1,4 @@
-import { SimpleScopeTypeType } from "./targetDescriptor.types";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/targetDescriptor.types";
 import { TextFormatterName } from "./Types";
 
 export interface SnippetScope {

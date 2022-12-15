@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from "util";
-import { PartialPrimitiveTargetDescriptorV2 } from "../upgradeV2ToV3/targetDescriptorV2.types";
+import { PartialPrimitiveTargetDescriptorV2 } from "../../commandRunner/typings/legacy/targetDescriptorV2.types";
 
 const STRICT_HERE = {
   type: "primitive",

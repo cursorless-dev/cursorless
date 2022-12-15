@@ -34,7 +34,16 @@ export function addDecorationsToEditors(
   const tokens = concat(
     [],
     ...editors.map((editor) => {
-      const displayLineMap = getDisplayLineMap(editor);
+      /**
+       * The reference position that will be used to judge how likely a given
+       * token is to be used.  Tokens closer to this position will be considered
+       * more likely to be used, and will get better hats.  We use the first
+       * selection's {@link Selection.active active}.
+       */
+      const referencePosition = editor.selections[0].active;
+      const displayLineMap = getDisplayLineMap(editor, [
+        referencePosition.line,
+      ]);
       const languageId = editor.document.languageId;
       const tokens: Token[] = flatten(
         editor.visibleRanges.map((range) =>
@@ -58,8 +67,8 @@ export function addDecorationsToEditors(
 
       tokens.sort(
         getTokenComparator(
-          displayLineMap.get(editor.selections[0].active.line)!,
-          editor.selections[0].active.character,
+          displayLineMap.get(referencePosition.line)!,
+          referencePosition.character,
         ),
       );
 

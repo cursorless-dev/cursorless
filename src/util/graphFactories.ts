@@ -8,6 +8,7 @@ import HatTokenMap from "../core/HatTokenMap";
 import { Snippets } from "../core/Snippets";
 import StatusBarItem from "../core/StatusBarItem";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import KeyboardCommands from "../keyboard/KeyboardCommands";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { Graph } from "../typings/Types";
 import { FactoryMap } from "./makeGraph";
@@ -28,6 +29,7 @@ const graphConstructors: Partial<ConstructorMap<Graph>> = {
   testCaseRecorder: TestCaseRecorder,
   cheatsheet: Cheatsheet,
   statusBarItem: StatusBarItem,
+  keyboardCommands: KeyboardCommands,
 };
 
 const graphFactories: Partial<FactoryMap<Graph>> = Object.fromEntries(
