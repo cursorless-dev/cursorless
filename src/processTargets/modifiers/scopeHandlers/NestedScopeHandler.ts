@@ -4,7 +4,7 @@ import { getScopeHandler } from ".";
 import type {
   Direction,
   ScopeType,
-} from "../../../typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/targetDescriptor.types";
 import BaseScopeHandler from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
 import type {

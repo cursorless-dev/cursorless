@@ -1,5 +1,5 @@
 import type { Target } from "../../typings/target.types";
-import type { CursorMark } from "../../typings/targetDescriptor.types";
+import type { CursorMark } from "../../core/commandRunner/typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";

@@ -1,5 +1,5 @@
 import type { Target } from "../../typings/target.types";
-import type { RelativeScopeModifier } from "../../typings/targetDescriptor.types";
+import type { RelativeScopeModifier } from "../../core/commandRunner/typings/targetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { ModifierStage } from "../PipelineStages.types";
 import RelativeExclusiveScopeStage from "./RelativeExclusiveScopeStage";
