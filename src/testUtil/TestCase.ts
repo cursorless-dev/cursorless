@@ -20,7 +20,7 @@ import {
   SerializedMarks,
   testDecorationsToPlainObject,
 } from "../libs/vscode-common/testUtil/toPlainObject";
-import { TargetDescriptor } from "../typings/targetDescriptor.types";
+import { TargetDescriptor } from "../core/commandRunner/typings/targetDescriptor.types";
 import { Token } from "../typings/Types";
 import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 import type {
@@ -163,9 +163,9 @@ export class TestCase {
       finalState: this.finalState,
       decorations: this.decorations,
       returnValue: this.returnValue,
-      fullTargets: this.fullTargets,
       thrownError: this.thrownError,
       ide: this.spyIdeValues,
+      fullTargets: this.fullTargets,
     };
     return serialize(fixture);
   }

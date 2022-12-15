@@ -1,6 +1,6 @@
-import type { CommandLatest } from "../core/commandRunner/command.types";
+import type { CommandLatest } from "../core/commandRunner/typings/command.types";
 import type { SpyIDERecordedValues } from "../libs/common/ide/spy/SpyIDE";
-import type { TargetDescriptor } from "../typings/targetDescriptor.types";
+import type { TargetDescriptor } from "../core/commandRunner/typings/targetDescriptor.types";
 import type { TestCaseSnapshot } from "../libs/vscode-common/testUtil/takeSnapshot";
 import type { PositionPlainObject } from "../libs/vscode-common/testUtil/toPlainObject";
 

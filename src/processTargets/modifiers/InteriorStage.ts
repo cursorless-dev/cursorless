@@ -2,7 +2,7 @@ import { Target } from "../../typings/target.types";
 import {
   ExcludeInteriorModifier,
   InteriorOnlyModifier,
-} from "../../typings/targetDescriptor.types";
+} from "../../core/commandRunner/typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import { containingSurroundingPairIfUntypedStage } from "./commonContainingScopeIfUntypedStages";

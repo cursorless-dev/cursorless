@@ -12,7 +12,7 @@ The cursorless keyboard interface works by moving a highlight around, and allowi
 
 ### `keybindings.json`
 
-Paste the following into your `keybindings.json`:
+Paste the following into your [VSCode `keybindings.json`](https://code.visualstudio.com/docs/getstarted/keybindings#_advanced-customization):
 
 ```json
     {
@@ -39,7 +39,7 @@ The above allows you to press `ctrl-c` to switch to Cursorless mode, `escape` to
 
 ### `settings.json`
 
-To bind keys that do not have modifiers (eg just pressing `a`), add entries like the following to your `settings.json`:
+To bind keys that do not have modifiers (eg just pressing `a`), add entries like the following to your [VSCode `settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settingsjson) (or edit these settings in the VSCode settings gui by saying `"cursorless settings"`):
 
 ```json
   "cursorless.experimental.keyboard.modal.keybindings.scopes": {
