@@ -1,4 +1,4 @@
-import { SurroundingPairScopeType } from "../../../typings/targetDescriptor.types";
+import { SurroundingPairScopeType } from "../../../core/commandRunner/typings/targetDescriptor.types";
 import { findOppositeDelimiter } from "./findOppositeDelimiter";
 import { getSurroundingPairOffsets } from "./getSurroundingPairOffsets";
 import {

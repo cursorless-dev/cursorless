@@ -6,7 +6,7 @@ import {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
-} from "../typings/targetDescriptor.types";
+} from "../core/commandRunner/typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../typings/Types";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";

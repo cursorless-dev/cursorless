@@ -2,11 +2,6 @@ import { ActionType } from "../../actions/actions.types";
 import { OutdatedExtensionError } from "../../errors";
 import { EnforceUndefined } from "../../libs/common/util/typeUtils";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
-import {
-  Modifier,
-  PartialTargetDescriptor,
-  SimpleScopeTypeType,
-} from "../../typings/targetDescriptor.types";
 import { Graph } from "../../typings/Types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import {
@@ -14,7 +9,12 @@ import {
   CommandComplete,
   CommandLatest,
   LATEST_VERSION,
-} from "../commandRunner/command.types";
+} from "../commandRunner/typings/command.types";
+import {
+  Modifier,
+  PartialTargetDescriptor,
+  SimpleScopeTypeType,
+} from "../commandRunner/typings/targetDescriptor.types";
 import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";

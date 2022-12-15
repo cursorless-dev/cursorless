@@ -1,10 +1,10 @@
 import { Position, TextEditor } from "@cursorless/common";
-import { flatten, imap } from "itertools";
+import { flatmap } from "itertools";
 import { getScopeHandler } from ".";
 import type {
   Direction,
   ScopeType,
-} from "../../../typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/targetDescriptor.types";
 import BaseScopeHandler from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
 import type {
@@ -75,7 +75,7 @@ export default abstract class NestedScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    hints: ScopeIteratorRequirements | undefined = {},
+    hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const { containment, ...rest } = hints;
     const generator = this.searchScopeHandler.generateScopes(
@@ -91,10 +91,8 @@ export default abstract class NestedScopeHandler extends BaseScopeHandler {
       },
     );
 
-    return flatten(
-      imap(generator, (searchScope) =>
-        this.generateScopesInSearchScope(direction, searchScope),
-      ),
+    return flatmap(generator, (searchScope) =>
+      this.generateScopesInSearchScope(direction, searchScope),
     );
   }
 }

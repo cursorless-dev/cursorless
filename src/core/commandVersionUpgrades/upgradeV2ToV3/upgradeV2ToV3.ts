@@ -9,9 +9,9 @@ import {
   PartialTargetDescriptor,
   RangeMark,
   RangeModifier,
-} from "../../../typings/targetDescriptor.types";
-import { CommandV3 } from "../../commandRunner/command.types";
-import { CommandV2 } from "./commandV2.types";
+} from "../../commandRunner/typings/targetDescriptor.types";
+import { CommandV3 } from "../../commandRunner/typings/CommandV3.types";
+import { CommandV2 } from "../../commandRunner/typings/legacy/CommandV2.types";
 import {
   LineNumberMarkV2,
   LineNumberPositionV2,
@@ -21,7 +21,7 @@ import {
   PartialPrimitiveTargetDescriptorV2,
   PartialTargetDescriptorV2,
   ScopeTypeV2,
-} from "./targetDescriptorV2.types";
+} from "../../commandRunner/typings/legacy/targetDescriptorV2.types";
 
 export function upgradeV2ToV3(command: CommandV2): CommandV3 {
   return {
