@@ -5,7 +5,10 @@ import {
   TextEditor,
   TextLine,
 } from "@cursorless/common";
-import { Direction, ScopeType } from "../../../typings/targetDescriptor.types";
+import {
+  Direction,
+  ScopeType,
+} from "../../../core/commandRunner/typings/targetDescriptor.types";
 import { ParagraphTarget } from "../../targets";
 import BaseScopeHandler from "./BaseScopeHandler";
 import { fitRangeToLineContent } from "./LineScopeHandler";

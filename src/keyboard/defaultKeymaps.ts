@@ -1,7 +1,7 @@
 import { ActionType } from "../actions/actions.types";
 import { HatColor, HatShape } from "../core/hatStyles";
 import isTesting from "../testUtil/isTesting";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/targetDescriptor.types";
 
 export type Keymap<T> = Record<string, T>;
 
