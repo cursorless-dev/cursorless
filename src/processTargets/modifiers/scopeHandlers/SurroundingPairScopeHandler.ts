@@ -24,7 +24,7 @@ export default class SurroundingPairScopeHandler extends BaseScopeHandler {
     _editor: TextEditor,
     _position: Position,
     _direction: Direction,
-    _hints?: ScopeIteratorRequirements | undefined,
+    _hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     throw new Error("Method not implemented.");
   }

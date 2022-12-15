@@ -1,18 +1,15 @@
 import { imap } from "itertools";
 import { NestedScopeHandler } from ".";
-import { getMatcher } from "../../../libs/cursorless-engine/tokenizer";
-import type {
-  Direction,
-  ScopeType,
-} from "../../../core/commandRunner/typings/targetDescriptor.types";
-import { testRegex } from "../../../libs/cursorless-engine/util/regex";
 import { generateMatchesInRange } from "../../../apps/cursorless-vscode/getMatchesInRange";
+import { Direction } from "../../../core/commandRunner/typings/targetDescriptor.types";
+import { getMatcher } from "../../../libs/cursorless-engine/tokenizer";
+import { testRegex } from "../../../libs/cursorless-engine/util/regex";
 import { TokenTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
 
 export default class TokenScopeHandler extends NestedScopeHandler {
-  public readonly scopeType: ScopeType = { type: "token" };
-  public readonly iterationScopeType: ScopeType = { type: "line" };
+  public readonly scopeType = { type: "token" } as const;
+  public readonly iterationScopeType = { type: "line" } as const;
 
   private regex: RegExp = getMatcher(this.languageId).tokenMatcher;
 
