@@ -17,8 +17,8 @@ declare namespace Cypress {
 }
 //
 // -- This is a parent command --
-Cypress.Commands.add('login', (email, password) => {
-  console.log('Custom command example: Login', email, password);
+Cypress.Commands.add('login', (_email, _password) => {
+  // console.log('Custom command example: Login', email, password);
 });
 //
 // -- This is a child command --

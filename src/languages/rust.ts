@@ -150,7 +150,11 @@ const nodeMatchers: Partial<
   functionCallee: "call_expression[function]",
   comment: ["line_comment", "block_comment"],
   list: ["array_expression", "tuple_expression"],
-  collectionItem: argumentMatcher("array_expression", "tuple_expression"),
+  collectionItem: argumentMatcher(
+    "array_expression",
+    "tuple_expression",
+    "tuple_type",
+  ),
   namedFunction: "function_item",
   type: cascadingMatcher(
     leadingMatcher(

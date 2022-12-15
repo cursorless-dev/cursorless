@@ -4,7 +4,11 @@ import "module-alias/register";
 import * as path from "path";
 import { runAllTestsInDirs } from "../util/runAllTestsInDir";
 
-const testDirectories = ["../../libs/cursorless-engine", "../../libs/common"];
+const testDirectories = [
+  "../../libs/cursorless-engine",
+  "../../libs/common",
+  "../../test/suite",
+];
 
 export function run(): Promise<void> {
   return runAllTestsInDirs(
