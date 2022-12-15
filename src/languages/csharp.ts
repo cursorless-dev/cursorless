@@ -148,7 +148,10 @@ const nodeMatchers: Partial<
     conditionMatcher("*[condition]"),
     patternMatcher("while_statement[0]"),
   ),
-  switchStatementSubject: ["switch_statement.tuple_expression!", "switch_statement[value]"],
+  switchStatementSubject: [
+    "switch_statement.tuple_expression!",
+    "switch_statement[value]",
+  ],
   statement: STATEMENT_TYPES,
   anonymousFunction: "lambda_expression",
   functionCall: ["invocation_expression", "object_creation_expression"],
