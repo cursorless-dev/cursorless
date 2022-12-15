@@ -4,14 +4,14 @@ import { runCursorlessCommand } from "../apps/cursorless-vscode-e2e/runCommand";
 import {
   CommandLatest,
   LATEST_VERSION,
-} from "../core/commandRunner/command.types";
+} from "../core/commandRunner/typings/command.types";
 import { getStyleName, HatColor, HatShape } from "../core/hatStyles";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import {
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
-} from "../typings/targetDescriptor.types";
+} from "../core/commandRunner/typings/targetDescriptor.types";
 import { Graph } from "../typings/Types";
 
 type TargetingMode = "replace" | "extend" | "append";

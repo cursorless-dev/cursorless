@@ -1,4 +1,4 @@
-import { Mark } from "../typings/targetDescriptor.types";
+import { Mark } from "../core/commandRunner/typings/targetDescriptor.types";
 import CursorStage from "./marks/CursorStage";
 import DecoratedSymbolStage from "./marks/DecoratedSymbolStage";
 import LineNumberStage from "./marks/LineNumberStage";

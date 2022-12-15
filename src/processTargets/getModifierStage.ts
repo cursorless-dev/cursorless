@@ -1,4 +1,4 @@
-import { Modifier } from "../typings/targetDescriptor.types";
+import { Modifier } from "../core/commandRunner/typings/targetDescriptor.types";
 import CascadingStage from "./modifiers/CascadingStage";
 import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
 import { EveryScopeStage } from "./modifiers/EveryScopeStage";

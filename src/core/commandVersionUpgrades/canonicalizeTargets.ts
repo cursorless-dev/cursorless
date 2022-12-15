@@ -4,7 +4,7 @@ import {
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
-} from "../../typings/targetDescriptor.types";
+} from "../commandRunner/typings/targetDescriptor.types";
 import { transformPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import { HatStyleName } from "../hatStyles";
 

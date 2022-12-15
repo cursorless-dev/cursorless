@@ -1,6 +1,6 @@
 import { TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/targetDescriptor.types";
 import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
@@ -150,7 +150,11 @@ const nodeMatchers: Partial<
   functionCallee: "call_expression[function]",
   comment: ["line_comment", "block_comment"],
   list: ["array_expression", "tuple_expression"],
-  collectionItem: argumentMatcher("array_expression", "tuple_expression"),
+  collectionItem: argumentMatcher(
+    "array_expression",
+    "tuple_expression",
+    "tuple_type",
+  ),
   namedFunction: "function_item",
   type: cascadingMatcher(
     leadingMatcher(

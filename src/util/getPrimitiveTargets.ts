@@ -4,7 +4,7 @@ import {
   PartialTargetDescriptor,
   PrimitiveTargetDescriptor,
   TargetDescriptor,
-} from "../typings/targetDescriptor.types";
+} from "../core/commandRunner/typings/targetDescriptor.types";
 
 /**
  * Given a list of targets, recursively descends all targets and returns every
