@@ -295,7 +295,7 @@ export class Choice extends Marker {
 
 	toTextmateString(): string {
 		return this.options
-			.map(option => option.value.replace(/\||,\\/g, '\\$&'))
+			.map(option => option.value.replace(/\||,|\\/g, '\\$&'))
 			.join(',');
 	}
 
