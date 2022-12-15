@@ -104,6 +104,9 @@ const nodeMatchers: Partial<
 
     // Comprehensions and match statements
     leadingMatcher(["*.if_clause![0]"], ["if"]),
+
+    // Ternaries
+    patternMatcher("conditional_expression[1]"),
   ),
   type: leadingMatcher(
     ["function_definition[return_type]", "*[type]"],
