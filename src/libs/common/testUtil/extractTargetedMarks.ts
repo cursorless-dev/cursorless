@@ -1,6 +1,6 @@
 import { getKey, splitKey } from "@cursorless/common";
 import type { ReadOnlyHatMap } from "../../../core/IndividualHatMap";
-import {
+import type {
   PrimitiveTargetDescriptor,
   TargetDescriptor,
 } from "../../../typings/TargetDescriptor";
