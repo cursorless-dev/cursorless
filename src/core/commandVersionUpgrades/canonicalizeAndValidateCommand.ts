@@ -14,7 +14,7 @@ import {
   Modifier,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
-} from "../commandRunner/typings/targetDescriptor.types";
+} from "../commandRunner/typings/PartialTargetDescriptor.types";
 import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";

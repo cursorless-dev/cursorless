@@ -15,7 +15,7 @@ import {
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
-} from "../core/commandRunner/typings/targetDescriptor.types";
+} from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { Graph } from "../typings/Types";
 
 type TargetingMode = "replace" | "extend" | "append";

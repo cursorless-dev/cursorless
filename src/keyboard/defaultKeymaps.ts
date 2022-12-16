@@ -4,7 +4,7 @@ import {
   HatShape,
 } from "../core/commandRunner/typings/hatStyles.types";
 import isTesting from "../testUtil/isTesting";
-import { SimpleScopeTypeType } from "../core/commandRunner/typings/targetDescriptor.types";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 
 export type Keymap<T> = Record<string, T>;
 

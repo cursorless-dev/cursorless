@@ -1,4 +1,4 @@
-import type { PartialTargetDescriptor } from "./targetDescriptor.types";
+import type { PartialTargetDescriptor } from "./PartialTargetDescriptor.types";
 import type { ActionCommand } from "./ActionCommand";
 
 export interface CommandV3 {

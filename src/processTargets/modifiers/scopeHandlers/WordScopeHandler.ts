@@ -1,7 +1,7 @@
 import { Range, TextEditor } from "@cursorless/common";
 import { NestedScopeHandler } from ".";
 import WordTokenizer from "../../../libs/cursorless-engine/scopeHandlers/WordScopeHandler/WordTokenizer";
-import { Direction } from "../../../core/commandRunner/typings/targetDescriptor.types";
+import { Direction } from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { SubTokenWordTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
 
