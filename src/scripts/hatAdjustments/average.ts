@@ -1,7 +1,7 @@
 /**
  * This script can be used to add hat tweaks to the currently shipping ones
  */
-import { HAT_SHAPES } from "../../core/hatStyles";
+import { HAT_SHAPES } from "../../core/commandRunner/typings/hatStyles.types";
 import {
   defaultShapeAdjustments,
   HatAdjustments,

@@ -9,7 +9,7 @@ import {
   PartialTargetDescriptor,
   RangeMark,
   RangeModifier,
-} from "../../commandRunner/typings/targetDescriptor.types";
+} from "../../commandRunner/typings/PartialTargetDescriptor.types";
 import { CommandV3 } from "../../commandRunner/typings/legacy/CommandV3.types";
 import { CommandV2 } from "../../commandRunner/typings/legacy/CommandV2.types";
 import {

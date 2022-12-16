@@ -2,7 +2,7 @@ import { Range, TextEditor } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from ".";
 import { UnsupportedError } from "../../errors";
 import { EditNewActionType } from "../../typings/target.types";
-import { Position } from "../../core/commandRunner/typings/targetDescriptor.types";
+import { Position } from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 
 interface PositionTargetParameters extends CommonTargetParameters {
