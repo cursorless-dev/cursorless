@@ -1,5 +1,5 @@
 import { pick } from "lodash";
-import { ActionType } from "../actions/actions.types";
+import { ActionType } from "../core/commandRunner/typings/ActionCommand";
 import { TestDecoration } from "../core/editStyles";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ThatMark } from "../core/ThatMark";

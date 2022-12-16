@@ -1,11 +1,12 @@
 import * as vscode from "vscode";
-import { ActionType } from "../actions/actions.types";
+import { ActionType } from "../core/commandRunner/typings/ActionCommand";
 import { runCursorlessCommand } from "../apps/cursorless-vscode-e2e/runCommand";
 import {
   CommandLatest,
   LATEST_VERSION,
 } from "../core/commandRunner/typings/command.types";
-import { getStyleName, HatColor, HatShape } from "../core/hatStyles";
+import { HatColor, HatShape } from "../core/commandRunner/typings/hatStyles.types";
+import { getStyleName } from "../core/getStyleName";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import {
   PartialPrimitiveTargetDescriptor,

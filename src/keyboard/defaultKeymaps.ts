@@ -1,5 +1,5 @@
-import { ActionType } from "../actions/actions.types";
-import { HatColor, HatShape } from "../core/hatStyles";
+import { ActionType } from "../core/commandRunner/typings/ActionCommand";
+import { HatColor, HatShape } from "../core/commandRunner/typings/hatStyles.types";
 import isTesting from "../testUtil/isTesting";
 import { SimpleScopeTypeType } from "../core/commandRunner/typings/targetDescriptor.types";
 

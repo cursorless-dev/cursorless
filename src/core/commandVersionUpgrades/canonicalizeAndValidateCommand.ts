@@ -1,4 +1,4 @@
-import { ActionType } from "../../actions/actions.types";
+import { ActionType } from "../commandRunner/typings/ActionCommand";
 import { OutdatedExtensionError } from "../../errors";
 import { EnforceUndefined } from "../../libs/common/util/typeUtils";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
