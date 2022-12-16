@@ -22,7 +22,7 @@ async function runTest() {
     editor.selection = new vscode.Selection(0, 1, 0, 1);
 
     await runCursorlessCommand({
-      version: 3,
+      version: 4,
       action: { name: "setSelection" },
       usePrePhraseSnapshot: false,
       targets: [

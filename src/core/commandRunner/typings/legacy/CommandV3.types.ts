@@ -1,4 +1,4 @@
-import type { PartialTargetDescriptor } from "./PartialTargetDescriptorV3.types";
+import { PartialTargetDescriptorV3 } from "./PartialTargetDescriptorV3.types";
 
 type ActionType =
   | "callAsFunction"
@@ -70,7 +70,7 @@ export interface CommandV3 {
   /**
    * The version number of the command API
    */
-  version: 4;
+  version: 3;
 
   /**
    * The spoken form of the command if issued from a voice command system
@@ -91,5 +91,5 @@ export interface CommandV3 {
    * A list of targets expected by the action. Inference will be run on the
    * targets
    */
-  targets: PartialTargetDescriptor[];
+  targets: PartialTargetDescriptorV3[];
 }

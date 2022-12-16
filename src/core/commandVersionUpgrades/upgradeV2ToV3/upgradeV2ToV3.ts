@@ -1,17 +1,11 @@
 import { isEqual } from "lodash";
-import {
-  OrdinalScopeModifier,
-  LineNumberMark,
-  Mark,
-  Modifier,
-  PartialPrimitiveTargetDescriptor,
-  PartialRangeTargetDescriptor,
-  PartialTargetDescriptor,
-  RangeMark,
-  RangeModifier,
-} from "../../commandRunner/typings/PartialTargetDescriptor.types";
-import { CommandV3 } from "../../commandRunner/typings/legacy/CommandV3.types";
 import { CommandV2 } from "../../commandRunner/typings/legacy/CommandV2.types";
+import { CommandV3 } from "../../commandRunner/typings/legacy/CommandV3.types";
+import {
+  PartialPrimitiveTargetDescriptorV3,
+  PartialRangeTargetDescriptorV3,
+  PartialTargetDescriptorV3,
+} from "../../commandRunner/typings/legacy/PartialTargetDescriptorV3.types";
 import {
   LineNumberMarkV2,
   LineNumberPositionV2,
@@ -22,6 +16,15 @@ import {
   PartialTargetDescriptorV2,
   ScopeTypeV2,
 } from "../../commandRunner/typings/legacy/targetDescriptorV2.types";
+import {
+  LineNumberMark,
+  Mark,
+  Modifier,
+  OrdinalScopeModifier,
+  PartialPrimitiveTargetDescriptor,
+  RangeMark,
+  RangeModifier,
+} from "../../commandRunner/typings/PartialTargetDescriptor.types";
 
 export function upgradeV2ToV3(command: CommandV2): CommandV3 {
   return {
@@ -33,7 +36,7 @@ export function upgradeV2ToV3(command: CommandV2): CommandV3 {
 
 function upgradeTarget(
   target: PartialTargetDescriptorV2,
-): PartialTargetDescriptor {
+): PartialTargetDescriptorV3 {
   switch (target.type) {
     case "list":
       return {
@@ -41,8 +44,8 @@ function upgradeTarget(
         elements: target.elements.map(
           (target) =>
             upgradeTarget(target) as
-              | PartialPrimitiveTargetDescriptor
-              | PartialRangeTargetDescriptor,
+              | PartialPrimitiveTargetDescriptorV3
+              | PartialRangeTargetDescriptorV3,
         ),
       };
     case "range": {
