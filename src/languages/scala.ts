@@ -35,6 +35,7 @@ const nodeMatchers: Partial<
     "bindings",
   ),
 
+  switchStatementSubject: "match_expression[value]",
   name: ["*[name]", "*[pattern]"],
   functionName: "function_definition[name]",
 

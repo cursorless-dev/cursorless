@@ -137,6 +137,7 @@ const nodeMatchers: Partial<
     argumentMatcher("parameters", "argument_list"),
     matcher(patternFinder("call.generator_expression!"), childRangeSelector()),
   ),
+  switchStatementSubject: "match_statement[subject]",
 };
 
 export default createPatternMatchers(nodeMatchers);
