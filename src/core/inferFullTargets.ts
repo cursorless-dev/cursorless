@@ -10,7 +10,7 @@ import {
 import {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
-  TargetDescriptor
+  TargetDescriptor,
 } from "../typings/TargetDescriptor";
 
 /**

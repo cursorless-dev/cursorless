@@ -5,7 +5,7 @@ import {
 } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import {
   PrimitiveTargetDescriptor,
-  TargetDescriptor
+  TargetDescriptor,
 } from "../typings/TargetDescriptor";
 
 /**
