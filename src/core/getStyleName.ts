@@ -1,5 +1,8 @@
-import { HatColor, HatShape, HatStyleName } from "./commandRunner/typings/hatStyles.types";
-
+import {
+  HatColor,
+  HatShape,
+  HatStyleName,
+} from "./commandRunner/typings/hatStyles.types";
 
 export function getStyleName(color: HatColor, shape: HatShape): HatStyleName {
   if (shape === "default") {

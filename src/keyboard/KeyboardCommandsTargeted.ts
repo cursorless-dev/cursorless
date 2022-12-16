@@ -5,7 +5,10 @@ import {
   CommandLatest,
   LATEST_VERSION,
 } from "../core/commandRunner/typings/command.types";
-import { HatColor, HatShape } from "../core/commandRunner/typings/hatStyles.types";
+import {
+  HatColor,
+  HatShape,
+} from "../core/commandRunner/typings/hatStyles.types";
 import { getStyleName } from "../core/getStyleName";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import {
