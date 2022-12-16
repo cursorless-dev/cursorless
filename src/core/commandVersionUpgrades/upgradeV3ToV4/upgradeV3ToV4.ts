@@ -1,6 +1,11 @@
 import { CommandV4 } from "../../commandRunner/typings/CommandV4.types";
 import { CommandV3 } from "../../commandRunner/typings/legacy/CommandV3.types";
 import {
+  PartialPrimitiveTargetDescriptorV3,
+  PartialTargetDescriptorV3,
+} from "../../commandRunner/typings/legacy/PartialTargetDescriptorV3.types";
+import {
+  ImplicitTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
 } from "../../commandRunner/typings/PartialTargetDescriptor.types";
@@ -14,13 +19,15 @@ export function upgradeV3ToV4(command: CommandV3): CommandV4 {
 }
 
 function upgradeTarget(
-  target: PartialTargetDescriptor,
+  target: PartialTargetDescriptorV3,
 ): PartialTargetDescriptor {
   switch (target.type) {
+    case "primitive":
+      return upgradePrimitiveTarget(target);
     case "range": {
       const { anchor, ...rest } = target;
       return {
-        anchor: upgradeAnchor(anchor),
+        anchor: upgradePrimitiveTarget(anchor),
         ...rest,
       };
     }
@@ -29,15 +36,11 @@ function upgradeTarget(
   }
 }
 
-function upgradeAnchor(
-  target: PartialPrimitiveTargetDescriptor,
-): PartialPrimitiveTargetDescriptor {
-  if (
-    target.mark == null &&
-    target.modifiers == null &&
-    target.isImplicit == null
-  ) {
-    return { ...target, isImplicit: true };
+function upgradePrimitiveTarget(
+  target: PartialPrimitiveTargetDescriptorV3,
+): PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor {
+  if ((target.mark == null && target.modifiers == null) || target.isImplicit) {
+    return { type: "implicit" };
   }
 
   return target;
