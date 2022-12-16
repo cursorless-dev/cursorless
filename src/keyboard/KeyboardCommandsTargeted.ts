@@ -12,6 +12,7 @@ import {
 import { getStyleName } from "../core/getStyleName";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import {
+  ImplicitTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
@@ -202,7 +203,10 @@ export default class KeyboardCommandsTargeted {
    * @returns A promise that resolves to the result of the cursorless command
    */
   performActionOnTarget = async (action: ActionType) => {
-    const targets: PartialPrimitiveTargetDescriptor[] = [
+    const targets: (
+      | PartialPrimitiveTargetDescriptor
+      | ImplicitTargetDescriptor
+    )[] = [
       {
         type: "primitive",
         mark: {
@@ -214,8 +218,7 @@ export default class KeyboardCommandsTargeted {
     if (MULTIPLE_TARGET_ACTIONS.includes(action)) {
       // For multi-target actiosn (eg "bring"), we just use implicit destination
       targets.push({
-        type: "primitive",
-        isImplicit: true,
+        type: "implicit",
       });
     }
 

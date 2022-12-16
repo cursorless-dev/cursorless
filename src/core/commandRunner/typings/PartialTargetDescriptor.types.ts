@@ -278,7 +278,6 @@ export interface PartialPrimitiveTargetDescriptor {
   type: "primitive";
   mark?: Mark;
   modifiers?: Modifier[];
-  isImplicit?: boolean;
 }
 
 export interface HeadTailModifier {
@@ -350,7 +349,7 @@ export type RangeType = "continuous" | "vertical";
 
 export interface PartialRangeTargetDescriptor {
   type: "range";
-  anchor: PartialPrimitiveTargetDescriptor;
+  anchor: PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor;
   active: PartialPrimitiveTargetDescriptor;
   excludeAnchor: boolean;
   excludeActive: boolean;
@@ -362,7 +361,12 @@ export interface PartialListTargetDescriptor {
   elements: (PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor)[];
 }
 
+export interface ImplicitTargetDescriptor {
+  type: "implicit";
+}
+
 export type PartialTargetDescriptor =
   | PartialPrimitiveTargetDescriptor
   | PartialRangeTargetDescriptor
-  | PartialListTargetDescriptor;
+  | PartialListTargetDescriptor
+  | ImplicitTargetDescriptor;
