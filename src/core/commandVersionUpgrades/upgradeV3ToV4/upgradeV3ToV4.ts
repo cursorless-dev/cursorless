@@ -3,7 +3,7 @@ import { CommandV3 } from "../../commandRunner/typings/legacy/CommandV3.types";
 import {
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
-} from "../../commandRunner/typings/targetDescriptor.types";
+} from "../../commandRunner/typings/PartialTargetDescriptor.types";
 
 export function upgradeV3ToV4(command: CommandV3): CommandV4 {
   return {

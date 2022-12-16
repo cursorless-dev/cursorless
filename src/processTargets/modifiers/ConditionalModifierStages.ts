@@ -1,7 +1,7 @@
 import {
   Modifier,
   ModifyIfUntypedModifier,
-} from "../../core/commandRunner/typings/targetDescriptor.types";
+} from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { Target } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
