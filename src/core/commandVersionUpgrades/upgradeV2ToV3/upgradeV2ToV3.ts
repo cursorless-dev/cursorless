@@ -2,9 +2,15 @@ import { isEqual } from "lodash";
 import { CommandV2 } from "../../commandRunner/typings/legacy/CommandV2.types";
 import { CommandV3 } from "../../commandRunner/typings/legacy/CommandV3.types";
 import {
+  LineNumberMarkV3,
+  MarkV3,
+  ModifierV3,
+  OrdinalScopeModifierV3,
   PartialPrimitiveTargetDescriptorV3,
   PartialRangeTargetDescriptorV3,
   PartialTargetDescriptorV3,
+  RangeMarkV3,
+  RangeModifierV3,
 } from "../../commandRunner/typings/legacy/PartialTargetDescriptorV3.types";
 import {
   LineNumberMarkV2,
@@ -16,15 +22,6 @@ import {
   PartialTargetDescriptorV2,
   ScopeTypeV2,
 } from "../../commandRunner/typings/legacy/targetDescriptorV2.types";
-import {
-  LineNumberMark,
-  Mark,
-  Modifier,
-  OrdinalScopeModifier,
-  PartialPrimitiveTargetDescriptor,
-  RangeMark,
-  RangeModifier,
-} from "../../commandRunner/typings/PartialTargetDescriptor.types";
 
 export function upgradeV2ToV3(command: CommandV2): CommandV3 {
   return {
@@ -63,7 +60,7 @@ function upgradeTarget(
 
 function upgradePrimitiveTarget(
   target: PartialPrimitiveTargetDescriptorV2,
-): PartialPrimitiveTargetDescriptor {
+): PartialPrimitiveTargetDescriptorV3 {
   return {
     ...target,
     mark: target.mark != null ? updateMark(target.mark) : undefined,
@@ -74,27 +71,27 @@ function upgradePrimitiveTarget(
   };
 }
 
-function updateMark(mark: MarkV2): Mark {
+function updateMark(mark: MarkV2): MarkV3 {
   switch (mark.type) {
     case "lineNumber":
       return createLineNumberMark(mark);
     default:
-      return mark as Mark;
+      return mark as MarkV3;
   }
 }
 
-function updateModifier(modifier: ModifierV2): Modifier {
+function updateModifier(modifier: ModifierV2): ModifierV3 {
   switch (modifier.type) {
     case "ordinalRange":
       return createOrdinalModifier(modifier);
     default:
-      return modifier as Modifier;
+      return modifier as ModifierV3;
   }
 }
 
 function createLineNumberMark(
   mark: LineNumberMarkV2,
-): LineNumberMark | RangeMark {
+): LineNumberMarkV3 | RangeMarkV3 {
   if (isEqual(mark.anchor, mark.active)) {
     return createLineNumberMarkFromPos(mark.anchor);
   }
@@ -108,7 +105,7 @@ function createLineNumberMark(
 
 function createOrdinalModifier(
   modifier: OrdinalRangeModifierV2,
-): OrdinalScopeModifier | RangeModifier {
+): OrdinalScopeModifierV3 | RangeModifierV3 {
   if (modifier.anchor === modifier.active) {
     return createAbsoluteOrdinalModifier(modifier.scopeType, modifier.anchor);
   }
@@ -124,7 +121,7 @@ function createOrdinalModifier(
 
 function createLineNumberMarkFromPos(
   position: LineNumberPositionV2,
-): LineNumberMark {
+): LineNumberMarkV3 {
   return {
     type: "lineNumber",
     lineNumberType: position.type,
@@ -135,7 +132,7 @@ function createLineNumberMarkFromPos(
 function createAbsoluteOrdinalModifier(
   scopeType: ScopeTypeV2,
   start: number,
-): OrdinalScopeModifier {
+): OrdinalScopeModifierV3 {
   return {
     type: "ordinalScope",
     scopeType,

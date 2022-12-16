@@ -50,7 +50,7 @@ interface DecoratedSymbolMark {
 
 type LineNumberType = "absolute" | "relative" | "modulo100";
 
-interface LineNumberMark {
+export interface LineNumberMarkV3 {
   type: "lineNumber";
   lineNumberType: LineNumberType;
   lineNumber: number;
@@ -59,22 +59,22 @@ interface LineNumberMark {
 /**
  * Constructs a range between {@link anchor} and {@link active}
  */
-interface RangeMark {
+export interface RangeMarkV3 {
   type: "range";
-  anchor: Mark;
-  active: Mark;
+  anchor: MarkV3;
+  active: MarkV3;
   excludeAnchor?: boolean;
   excludeActive?: boolean;
 }
 
-type Mark =
+export type MarkV3 =
   | CursorMark
   | ThatMark
   | SourceMark
   | DecoratedSymbolMark
   | NothingMark
-  | LineNumberMark
-  | RangeMark;
+  | LineNumberMarkV3
+  | RangeMarkV3;
 
 type SimpleSurroundingPairName =
   | "angleBrackets"
@@ -207,7 +207,7 @@ interface EveryScopeModifier {
  * Refer to scopes by absolute index relative to iteration scope, eg "first
  * funk" to refer to the first function in a class.
  */
-interface OrdinalScopeModifier {
+export interface OrdinalScopeModifierV3 {
   type: "ordinalScope";
 
   scopeType: ScopeType;
@@ -282,14 +282,14 @@ interface PositionModifier {
 
 export interface PartialPrimitiveTargetDescriptorV3 {
   type: "primitive";
-  mark?: Mark;
-  modifiers?: Modifier[];
+  mark?: MarkV3;
+  modifiers?: ModifierV3[];
   isImplicit?: boolean;
 }
 
 interface HeadTailModifier {
   type: "extendThroughStartOf" | "extendThroughEndOf";
-  modifiers?: Modifier[];
+  modifiers?: ModifierV3[];
 }
 
 /**
@@ -302,7 +302,7 @@ interface ModifyIfUntypedModifier {
   /**
    * The modifier to apply if the target is untyped
    */
-  modifier: Modifier;
+  modifier: ModifierV3;
 }
 
 /**
@@ -316,28 +316,28 @@ interface CascadingModifier {
   /**
    * The modifiers to try in turn
    */
-  modifiers: Modifier[];
+  modifiers: ModifierV3[];
 }
 
 /**
  * First applies {@link anchor} to input, then independently applies
  * {@link active}, and forms a range between the two resulting targets
  */
-interface RangeModifier {
+export interface RangeModifierV3 {
   type: "range";
-  anchor: Modifier;
-  active: Modifier;
+  anchor: ModifierV3;
+  active: ModifierV3;
   excludeAnchor?: boolean;
   excludeActive?: boolean;
 }
 
-type Modifier =
+export type ModifierV3 =
   | PositionModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
   | ContainingScopeModifier
   | EveryScopeModifier
-  | OrdinalScopeModifier
+  | OrdinalScopeModifierV3
   | RelativeScopeModifier
   | HeadTailModifier
   | LeadingModifier
@@ -345,7 +345,7 @@ type Modifier =
   | RawSelectionModifier
   | ModifyIfUntypedModifier
   | CascadingModifier
-  | RangeModifier
+  | RangeModifierV3
   | KeepContentFilterModifier
   | KeepEmptyFilterModifier
   | InferPreviousMarkModifier;
