@@ -12,6 +12,7 @@ from .primitive_target import IMPLICIT_TARGET
 mod = Module()
 
 CURSORLESS_COMMAND_ID = "cursorless.command"
+CURSORLESS_COMMAND_VERSION = 4
 last_phrase = None
 
 
@@ -136,7 +137,7 @@ def construct_cursorless_command_argument(
         use_pre_phrase_snapshot = False
 
     return {
-        "version": 3,
+        "version": CURSORLESS_COMMAND_VERSION,
         "spokenForm": get_spoken_form(),
         "action": {
             "name": action,
