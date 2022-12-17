@@ -7,6 +7,7 @@ import {
 import {
   ImplicitTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
+  PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
 } from "../../commandRunner/typings/PartialTargetDescriptor.types";
 
@@ -27,12 +28,20 @@ function upgradeTarget(
     case "range": {
       const { anchor, ...rest } = target;
       return {
-        anchor: upgradePrimitiveTarget(anchor),
         ...rest,
+        anchor: upgradePrimitiveTarget(anchor),
       };
     }
-    default:
-      return target;
+    case "list": {
+      const { elements, ...rest } = target;
+
+      return {
+        ...rest,
+        elements: elements.map(upgradeTarget) as [
+          PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor,
+        ],
+      };
+    }
   }
 }
 
