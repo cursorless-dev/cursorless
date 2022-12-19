@@ -1,7 +1,10 @@
 import { Range } from "@cursorless/common";
 import { uniqWith, zip } from "lodash";
+import {
+  ImplicitTargetDescriptor,
+  Modifier,
+} from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { Target } from "../typings/target.types";
-import { Modifier } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
@@ -10,8 +13,9 @@ import {
 import { ProcessedTargetsContext } from "../typings/Types";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";
+import ImplicitStage from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
-import { ModifierStage } from "./PipelineStages.types";
+import { MarkStage, ModifierStage } from "./PipelineStages.types";
 import { PlainTarget, PositionTarget } from "./targets";
 
 /**
@@ -47,6 +51,7 @@ function processTarget(
     case "range":
       return processRangeTarget(context, target);
     case "primitive":
+    case "implicit":
       return processPrimitiveTarget(context, target);
   }
 }
@@ -178,22 +183,33 @@ function targetsToVerticalTarget(
  */
 function processPrimitiveTarget(
   context: ProcessedTargetsContext,
-  targetDescriptor: PrimitiveTargetDescriptor,
+  targetDescriptor: PrimitiveTargetDescriptor | ImplicitTargetDescriptor,
 ): Target[] {
   // First, get the targets output by the mark
-  const markStage = getMarkStage(targetDescriptor.mark);
+  let markStage: MarkStage;
+  let nonPositionModifierStages: ModifierStage[];
+  let positionModifierStages: ModifierStage[];
+  if (targetDescriptor.type === "implicit") {
+    markStage = new ImplicitStage();
+    nonPositionModifierStages = [];
+    positionModifierStages = [];
+  } else {
+    markStage = getMarkStage(targetDescriptor.mark);
+    positionModifierStages =
+      targetDescriptor.positionModifier == null
+        ? []
+        : [getModifierStage(targetDescriptor.positionModifier)];
+    nonPositionModifierStages = getModifierStagesFromTargetModifiers(
+      targetDescriptor.modifiers,
+    );
+  }
   const markOutputTargets = markStage.run(context);
-
-  const positionModifierStages =
-    targetDescriptor.positionModifier == null
-      ? []
-      : [getModifierStage(targetDescriptor.positionModifier)];
 
   /**
    * The modifier pipeline that will be applied to construct our final targets
    */
   const modifierStages = [
-    ...getModifierStagesFromTargetModifiers(targetDescriptor.modifiers),
+    ...nonPositionModifierStages,
     ...context.actionPrePositionStages,
     ...positionModifierStages,
     ...context.actionFinalStages,

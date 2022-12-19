@@ -56,7 +56,9 @@ function getPrimitiveTargetsHelper(
     case "list":
       return target.elements.flatMap(getPrimitiveTargetsHelper);
     case "range":
-      return [target.anchor, target.active];
+      return [...getPrimitiveTargetsHelper(target.anchor), target.active];
+    case "implicit":
+      return [];
   }
 }
 

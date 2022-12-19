@@ -42,7 +42,7 @@ function inferTarget(
     case "primitive":
       return inferNonListTarget(target, previousTargets);
     case "implicit":
-      return inferImplicitTarget(target);
+      return target;
   }
 }
 
@@ -83,7 +83,7 @@ function inferRangeTarget(
     excludeActive: target.excludeActive ?? false,
     rangeType: target.rangeType ?? "continuous",
     anchor: inferPossiblyImplicitTarget(target.anchor, previousTargets),
-    active: inferPossiblyImplicitTarget(
+    active: inferPrimitiveTarget(
       target.active,
       previousTargets.concat(target.anchor),
     ),
@@ -93,22 +93,12 @@ function inferRangeTarget(
 function inferPossiblyImplicitTarget(
   target: PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
-): PrimitiveTargetDescriptor {
+): PrimitiveTargetDescriptor | ImplicitTargetDescriptor {
   if (target.type === "implicit") {
-    return inferImplicitTarget(target);
+    return target;
   }
 
   return inferPrimitiveTarget(target, previousTargets);
-}
-
-function inferImplicitTarget(
-  _target: ImplicitTargetDescriptor,
-): PrimitiveTargetDescriptor {
-  return {
-    type: "primitive",
-    mark: { type: "implicit" },
-    modifiers: [],
-  };
 }
 
 function inferPrimitiveTarget(

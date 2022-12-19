@@ -1,7 +1,6 @@
 import { Mark } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import CursorStage from "./marks/CursorStage";
 import DecoratedSymbolStage from "./marks/DecoratedSymbolStage";
-import ImplicitStage from "./marks/ImplicitStage";
 import LineNumberStage from "./marks/LineNumberStage";
 import NothingStage from "./marks/NothingStage";
 import RangeMarkStage from "./marks/RangeMarkStage";
@@ -12,8 +11,6 @@ export default (mark: Mark): MarkStage => {
   switch (mark.type) {
     case "cursor":
       return new CursorStage(mark);
-    case "implicit":
-      return new ImplicitStage(mark);
     case "that":
       return new ThatStage(mark);
     case "source":
