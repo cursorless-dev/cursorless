@@ -30,6 +30,7 @@ export default abstract class BaseTarget implements Target {
   hasExplicitScopeType = true;
   hasExplicitRange = true;
   isRaw = false;
+  isImplicit = false;
   isNotebookCell = false;
 
   constructor(parameters: CommonTargetParameters) {

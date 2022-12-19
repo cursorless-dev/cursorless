@@ -96,6 +96,14 @@ export interface Target {
   /** If true this target is a raw selection and its insertion delimiter should not be used on bring action */
   readonly isRaw: boolean;
 
+  /**
+   * If `true`, this target was not explicitly spoken by the user. For example:
+   *
+   * - The implicit destination in the command `"bring air"`
+   * - The implicit anchor in the range `"take past air"`
+   */
+  readonly isImplicit: boolean;
+
   /** If true this target is a notebook cell */
   readonly isNotebookCell: boolean;
 

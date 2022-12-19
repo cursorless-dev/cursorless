@@ -58,6 +58,20 @@ export class ModifyIfUntypedStage extends ConditionalModifierBaseStage {
 }
 
 /**
+ * Runs {@link ModifyIfUntypedModifier.modifier} if the target has no explicit
+ * scope type, ie if {@link Target.hasExplicitScopeType} is `false`.
+ */
+export class ModifyIfUntypedExplicitStage extends ConditionalModifierBaseStage {
+  constructor(nestedModifier: Modifier) {
+    super(nestedModifier);
+  }
+
+  protected shouldModify(target: Target): boolean {
+    return !target.hasExplicitScopeType && !target.isImplicit;
+  }
+}
+
+/**
  * Tries to convert target into token if: {@link Target.hasExplicitScopeType} is
  * `false` and {@link Target.hasExplicitRange} is `false` and
  * {@link Target.contentRange.isEmpty} is `true`.

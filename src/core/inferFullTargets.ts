@@ -106,8 +106,8 @@ function inferImplicitTarget(
 ): PrimitiveTargetDescriptor {
   return {
     type: "primitive",
-    mark: { type: "cursor" },
-    modifiers: [{ type: "toRawSelection" }],
+    mark: { type: "implicit" },
+    modifiers: [],
   };
 }
 

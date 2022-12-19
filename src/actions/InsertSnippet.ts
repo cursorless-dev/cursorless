@@ -5,7 +5,7 @@ import {
   getSelectionInfo,
 } from "../core/updateSelections/updateSelections";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
+import { ModifyIfUntypedExplicitStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { Snippet, SnippetDefinition } from "../typings/snippet";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -30,17 +30,14 @@ export default class InsertSnippet implements Action {
     }
 
     return [
-      new ModifyIfUntypedStage({
-        type: "modifyIfUntyped",
-        modifier: {
-          type: "cascading",
-          modifiers: defaultScopeTypes.map((scopeType) => ({
-            type: "containingScope",
-            scopeType: {
-              type: scopeType,
-            },
-          })),
-        },
+      new ModifyIfUntypedExplicitStage({
+        type: "cascading",
+        modifiers: defaultScopeTypes.map((scopeType) => ({
+          type: "containingScope",
+          scopeType: {
+            type: scopeType,
+          },
+        })),
       }),
     ];
   }

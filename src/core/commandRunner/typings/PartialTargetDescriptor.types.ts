@@ -3,6 +3,9 @@ import type { HatStyleName } from "./hatStyles.types";
 export interface CursorMark {
   type: "cursor";
 }
+export interface ImplicitMark {
+  type: "implicit";
+}
 
 export interface ThatMark {
   type: "that";
@@ -47,6 +50,7 @@ export interface RangeMark {
 
 export type Mark =
   | CursorMark
+  | ImplicitMark
   | ThatMark
   | SourceMark
   | DecoratedSymbolMark
