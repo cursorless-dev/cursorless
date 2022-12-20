@@ -8,7 +8,7 @@ import {
   HAT_NON_DEFAULT_SHAPES,
   HatStyle,
   HatColor,
-} from "./hatStyles";
+} from "./commandRunner/typings/hatStyles.types";
 import { readFileSync } from "fs";
 import FontMeasurements from "./FontMeasurements";
 import { pull, sortBy, filter } from "lodash";

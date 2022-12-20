@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { ActionType } from "../../actions/actions.types";
+import { ActionType } from "./typings/ActionCommand";
 import { OutdatedExtensionError } from "../../errors";
 import { CURSORLESS_COMMAND_ID } from "../../libs/common/commandIds";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";

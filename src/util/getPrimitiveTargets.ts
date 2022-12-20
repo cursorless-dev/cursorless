@@ -2,9 +2,11 @@ import {
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
+} from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+import {
   PrimitiveTargetDescriptor,
   TargetDescriptor,
-} from "../core/commandRunner/typings/targetDescriptor.types";
+} from "../typings/TargetDescriptor";
 
 /**
  * Given a list of targets, recursively descends all targets and returns every

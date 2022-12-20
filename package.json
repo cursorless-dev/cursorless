@@ -648,7 +648,9 @@
 							"collectionKey",
 							"comment",
 							"functionCall",
+							"functionCallee",
 							"functionName",
+							"identifier",
 							"ifStatement",
 							"list",
 							"map",
@@ -668,6 +670,7 @@
 							"sectionLevelFive",
 							"sectionLevelSix",
 							"selector",
+							"unit",
 							"xmlBothTags",
 							"xmlElement",
 							"xmlEndTag",
@@ -679,6 +682,7 @@
 							"document",
 							"character",
 							"word",
+							"boundedNonWhitespaceSequence",
 							"nonWhitespaceSequence",
 							"url"
 						]

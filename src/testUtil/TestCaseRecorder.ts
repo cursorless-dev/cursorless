@@ -23,7 +23,7 @@ import {
   marksToPlainObject,
   SerializedMarks,
 } from "../libs/vscode-common/testUtil/toPlainObject";
-import { DecoratedSymbolMark } from "../core/commandRunner/typings/targetDescriptor.types";
+import { DecoratedSymbolMark } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { Graph } from "../typings/Types";
 import { TestCase, TestCaseContext } from "./TestCase";
 import { TestCaseCommand } from "./TestCaseFixture";

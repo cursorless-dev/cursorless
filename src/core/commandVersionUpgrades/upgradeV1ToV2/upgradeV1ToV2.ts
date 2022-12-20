@@ -1,4 +1,4 @@
-import { ActionType } from "../../../actions/actions.types";
+import { ActionType } from "../../commandRunner/typings/ActionCommand";
 import { CommandV2 } from "../../commandRunner/typings/legacy/CommandV2.types";
 import {
   ModifierV2,

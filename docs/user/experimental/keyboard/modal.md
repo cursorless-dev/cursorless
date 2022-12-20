@@ -45,7 +45,7 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
   "cursorless.experimental.keyboard.modal.keybindings.scopes": {
     "i": "line",
     "p": "paragraph",
-    "n": "statement",
+    ";": "statement",
     ",": "collectionItem",
     ".": "functionCall",
     "'": "string",
@@ -56,7 +56,9 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
     "sv": "value",
     "sk": "collectionKey",
     "sp": "nonWhitespaceSequence",
-    "sa": "argumentOrParameter"
+    "ss": "boundedNonWhitespaceSequence",
+    "sa": "argumentOrParameter",
+    "sl": "url",
   },
   "cursorless.experimental.keyboard.modal.keybindings.actions": {
     "t": "setSelection",

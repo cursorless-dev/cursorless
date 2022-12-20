@@ -1,5 +1,5 @@
 import { Target } from "../../typings/target.types";
-import { ScopeType } from "../../core/commandRunner/typings/targetDescriptor.types";
+import { ScopeType } from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 

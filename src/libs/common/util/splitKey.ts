@@ -1,4 +1,4 @@
-import type { HatStyleName } from "../../../core/hatStyles";
+import type { HatStyleName } from "../../../core/commandRunner/typings/hatStyles.types";
 
 export function splitKey(key: string) {
   const [hatStyle, character] = key.split(".");

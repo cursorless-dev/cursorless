@@ -1,7 +1,7 @@
 import { Range, TextEditor } from "@cursorless/common";
 import { concat, flatten, maxBy, min } from "lodash";
 import Decorations from "../core/Decorations";
-import { HatStyleName } from "../core/hatStyles";
+import { HatStyleName } from "../core/commandRunner/typings/hatStyles.types";
 import { IndividualHatMap } from "../core/IndividualHatMap";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { TokenGraphemeSplitter } from "../libs/cursorless-engine/tokenGraphemeSplitter";

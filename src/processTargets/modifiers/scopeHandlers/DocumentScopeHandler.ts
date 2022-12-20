@@ -2,7 +2,7 @@ import { TextEditor, Position } from "@cursorless/common";
 import {
   Direction,
   ScopeType,
-} from "../../../core/commandRunner/typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { DocumentTarget } from "../../targets";
 import BaseScopeHandler from "./BaseScopeHandler";
 import { TargetScope } from "./scope.types";

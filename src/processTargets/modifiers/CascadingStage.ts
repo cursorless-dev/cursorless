@@ -1,5 +1,5 @@
 import { Target } from "../../typings/target.types";
-import { CascadingModifier } from "../../core/commandRunner/typings/targetDescriptor.types";
+import { CascadingModifier } from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";
