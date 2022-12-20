@@ -185,10 +185,10 @@ function processPrimitiveTarget(
   context: ProcessedTargetsContext,
   targetDescriptor: PrimitiveTargetDescriptor | ImplicitTargetDescriptor,
 ): Target[] {
-  // First, get the targets output by the mark
   let markStage: MarkStage;
   let nonPositionModifierStages: ModifierStage[];
   let positionModifierStages: ModifierStage[];
+
   if (targetDescriptor.type === "implicit") {
     markStage = new ImplicitStage();
     nonPositionModifierStages = [];
@@ -203,6 +203,8 @@ function processPrimitiveTarget(
       targetDescriptor.modifiers,
     );
   }
+
+  // First, get the targets output by the mark
   const markOutputTargets = markStage.run(context);
 
   /**
