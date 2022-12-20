@@ -1,4 +1,4 @@
-import { ActionType } from "../../actions/actions.types";
+import { ActionType } from "../commandRunner/typings/ActionCommand";
 import { OutdatedExtensionError } from "../../errors";
 import { EnforceUndefined } from "../../libs/common/util/typeUtils";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
@@ -14,7 +14,7 @@ import {
   Modifier,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
-} from "../commandRunner/typings/targetDescriptor.types";
+} from "../commandRunner/typings/PartialTargetDescriptor.types";
 import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";

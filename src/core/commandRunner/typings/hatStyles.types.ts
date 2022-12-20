@@ -33,11 +33,3 @@ export interface HatStyle {
   color: HatColor;
   shape: HatShape;
 }
-
-export function getStyleName(color: HatColor, shape: HatShape): HatStyleName {
-  if (shape === "default") {
-    return color;
-  }
-
-  return `${color}-${shape}`;
-}

@@ -1,4 +1,4 @@
-import { ScopeType } from "../../../core/commandRunner/typings/targetDescriptor.types";
+import { ScopeType } from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { scopeTypeToString } from "./scopeTypeUtil";
 
 /**

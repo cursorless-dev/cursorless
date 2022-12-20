@@ -1,5 +1,5 @@
 import { pick } from "lodash";
-import { ActionType } from "../actions/actions.types";
+import { ActionType } from "../core/commandRunner/typings/ActionCommand";
 import { TestDecoration } from "../core/editStyles";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ThatMark } from "../core/ThatMark";
@@ -20,7 +20,7 @@ import {
   SerializedMarks,
   testDecorationsToPlainObject,
 } from "../libs/vscode-common/testUtil/toPlainObject";
-import { TargetDescriptor } from "../core/commandRunner/typings/targetDescriptor.types";
+import { TargetDescriptor } from "../typings/TargetDescriptor";
 import { Token } from "../typings/Types";
 import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 import type {

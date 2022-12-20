@@ -2,7 +2,7 @@ import { Range, Selection, TextEditor } from "@cursorless/common";
 import { isEqual } from "lodash";
 import { NoContainingScopeError } from "../../errors";
 import type { EditNewActionType, Target } from "../../typings/target.types";
-import type { Position } from "../../core/commandRunner/typings/targetDescriptor.types";
+import type { Position } from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import { isSameType } from "../../util/typeUtils";
 import { toPositionTarget } from "../modifiers/toPositionTarget";

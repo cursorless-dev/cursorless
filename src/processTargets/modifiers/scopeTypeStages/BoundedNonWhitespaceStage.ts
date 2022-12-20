@@ -2,7 +2,7 @@ import { Target } from "../../../typings/target.types";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
-} from "../../../core/commandRunner/typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import { TokenTarget } from "../../targets";

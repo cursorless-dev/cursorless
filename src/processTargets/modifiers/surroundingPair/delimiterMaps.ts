@@ -1,7 +1,7 @@
 import {
   ComplexSurroundingPairName,
   SimpleSurroundingPairName,
-} from "../../../core/commandRunner/typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
 
 type IndividualDelimiterText = string | string[];
 
