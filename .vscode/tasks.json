@@ -1,70 +1,70 @@
 // See https://go.microsoft.com/fwlink/?LinkId=733558
 // for the documentation about the tasks.json format
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "Build",
-			"dependsOn": ["ESBuild", "TSBuild"],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		},
-		{
-			"label": "ESBuild",
-			"type": "npm",
-			"script": "esbuild",
-			"isBackground": true,
-			"presentation": {
-				"reveal": "never"
-			},
-			"group": "build"
-		},
-		{
-			"label": "TSBuild",
-			"type": "npm",
-			"script": "compile",
-			"problemMatcher": "$tsc-watch",
-			"isBackground": true,
-			"presentation": {
-				"reveal": "never"
-			},
-			"group": "build"
-		},
-		{
-			"type": "npm",
-			"script": "watch",
-			"problemMatcher": "$tsc-watch",
-			"isBackground": true,
-			"presentation": {
-				"reveal": "never"
-			},
-			"group": "build"
-		},
-		{
-			"label": "Serve cursorless.org",
-			"type": "shell",
-			"command": "nx serve cursorless-org",
-			"options": {
-				"cwd": "cursorless-nx"
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "Install local",
-			"type": "shell",
-			"command": "vsce package -o bundle.vsix && code --install-extension bundle.vsix",
-			"presentation": {
-				"focus": true
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "Run pre commit",
-			"type": "shell",
-			"command": "pre-commit run",
-			"presentation": {}
-		}
-	]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build",
+      "dependsOn": ["ESBuild", "TSBuild"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "ESBuild",
+      "type": "npm",
+      "script": "esbuild",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": "build"
+    },
+    {
+      "label": "TSBuild",
+      "type": "npm",
+      "script": "compile",
+      "problemMatcher": "$tsc-watch",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": "build"
+    },
+    {
+      "type": "npm",
+      "script": "watch",
+      "problemMatcher": "$tsc-watch",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": "build"
+    },
+    {
+      "label": "Serve cursorless.org",
+      "type": "shell",
+      "command": "nx serve cursorless-org",
+      "options": {
+        "cwd": "cursorless-nx"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Install local",
+      "type": "shell",
+      "command": "vsce package -o bundle.vsix && code --install-extension bundle.vsix",
+      "presentation": {
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run pre commit",
+      "type": "shell",
+      "command": "pre-commit run",
+      "presentation": {}
+    }
+  ]
 }
