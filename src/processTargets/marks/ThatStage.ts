@@ -2,7 +2,7 @@ import { Target } from "../../typings/target.types";
 import {
   SourceMark,
   ThatMark,
-} from "../../core/commandRunner/typings/targetDescriptor.types";
+} from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { MarkStage } from "../PipelineStages.types";
 

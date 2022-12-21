@@ -1,5 +1,5 @@
 import { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "../core/commandRunner/typings/targetDescriptor.types";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import {
   NodeMatcher,
   NodeMatcherAlternative,
@@ -23,6 +23,7 @@ import {
   pairSelectionExtractor,
   selectWithLeadingDelimiter,
   simpleSelectionExtractor,
+  unwrapSelectionExtractor,
   xmlElementExtractor,
 } from "../util/nodeSelectors";
 
@@ -222,6 +223,10 @@ const nodeMatchers: Partial<
       "while_statement[condition]",
       "do_statement[condition]",
     ),
+  ),
+  switchStatementSubject: matcher(
+    patternFinder("switch_statement[value]"),
+    unwrapSelectionExtractor,
   ),
   class: [
     "export_statement?.class_declaration", // export class | class

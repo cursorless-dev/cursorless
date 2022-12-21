@@ -1,6 +1,6 @@
 import { Selection, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "../core/commandRunner/typings/targetDescriptor.types";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import {
   NodeMatcherAlternative,
   SelectionWithContext,

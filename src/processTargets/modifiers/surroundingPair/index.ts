@@ -6,7 +6,7 @@ import getTextFragmentExtractor, {
 import {
   ComplexSurroundingPairName,
   SurroundingPairScopeType,
-} from "../../../core/commandRunner/typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { complexDelimiterMap } from "./delimiterMaps";
 import { SurroundingPairInfo } from "./extractSelectionFromSurroundingPairOffsets";

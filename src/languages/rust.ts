@@ -1,6 +1,6 @@
 import { TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "../core/commandRunner/typings/targetDescriptor.types";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
@@ -225,6 +225,7 @@ const nodeMatchers: Partial<
     matcher(returnValueFinder),
   ),
   attribute: trailingMatcher(["mutable_specifier", "attribute_item"]),
+  switchStatementSubject: "match_expression[value]",
 };
 
 export default createPatternMatchers(nodeMatchers);

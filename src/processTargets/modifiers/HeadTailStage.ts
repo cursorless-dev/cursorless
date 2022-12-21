@@ -3,7 +3,7 @@ import { Target } from "../../typings/target.types";
 import {
   HeadTailModifier,
   Modifier,
-} from "../../core/commandRunner/typings/targetDescriptor.types";
+} from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import {

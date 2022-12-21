@@ -1,6 +1,6 @@
 import { Selection } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "../core/commandRunner/typings/targetDescriptor.types";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
 import { argumentNodeFinder, patternFinder } from "../util/nodeFinders";
 import {
@@ -145,6 +145,7 @@ const nodeMatchers: Partial<
     argumentMatcher("parameters", "argument_list"),
     matcher(patternFinder("call.generator_expression!"), childRangeSelector()),
   ),
+  switchStatementSubject: "match_statement[subject]",
 };
 
 export default createPatternMatchers(nodeMatchers);

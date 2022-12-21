@@ -1,4 +1,4 @@
-import { SimpleSurroundingPairName } from "../../../core/commandRunner/typings/targetDescriptor.types";
+import { SimpleSurroundingPairName } from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { IndividualDelimiter } from "./types";
 import { delimiterToText } from "./delimiterMaps";
 import { concat, uniq } from "lodash";

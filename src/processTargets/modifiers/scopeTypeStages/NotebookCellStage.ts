@@ -2,7 +2,7 @@ import type { Target } from "../../../typings/target.types";
 import type {
   ContainingScopeModifier,
   EveryScopeModifier,
-} from "../../../core/commandRunner/typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../../typings/Types";
 import type { ModifierStage } from "../../PipelineStages.types";
 import { NotebookCellTarget } from "../../targets";
