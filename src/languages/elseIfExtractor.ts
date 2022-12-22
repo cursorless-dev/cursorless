@@ -7,6 +7,13 @@ import {
   simpleSelectionExtractor,
 } from "../util/nodeSelectors";
 
+/**
+ * Returns an extractor that can be used to extract `else if` branches in languages
+ * with C-like structure, where the `if` portion of an `else if` structure is
+ * structurally just an arbitrary statement that happens to be an `if`
+ * statement.
+ * @returns An extractor that will exctract `else if` branches
+ */
 export function elseIfExtractor(): SelectionExtractor {
   const contentRangeExtractor = childRangeSelector(["else_clause"], [], {
     includeUnnamedChildren: true,
@@ -47,6 +54,15 @@ export function elseIfExtractor(): SelectionExtractor {
     };
   };
 }
+
+/**
+ * Returns an extractor that can be used to extract `else` branches in languages
+ * with C-like structure, where the `if` portion of an `else if` structure is
+ * structurally just an arbitrary statement that happens to be an `if`
+ * statement.
+ * @param ifNodeType The node type for `if` statements
+ * @returns An extractor that will exctract `else` branches
+ */
 export function elseExtractor(ifNodeType: string): SelectionExtractor {
   const nestedElseIfExtractor = elseIfExtractor();
 
