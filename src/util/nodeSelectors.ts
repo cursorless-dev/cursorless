@@ -216,6 +216,14 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
   };
 }
 
+interface ChildRangeSelectorOptions {
+  /**
+   * If `true`, include unnamed children.  Otherwise, only named children will
+   * be used to construct the child range.  Defaults to `false`
+   */
+  includeUnnamedChildren?: boolean;
+}
+
 /**
  * Creates an extractor that returns a contiguous range between children of a node.
  * When no arguments are passed, the function will return a range from the first to the last child node. Pass in either inclusions
@@ -227,12 +235,13 @@ export function selectWithLeadingDelimiter(...delimiters: string[]) {
 export function childRangeSelector(
   typesToExclude: string[] = [],
   typesToInclude: string[] = [],
+  { includeUnnamedChildren = false }: ChildRangeSelectorOptions = {},
 ) {
   return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
     if (typesToExclude.length > 0 && typesToInclude.length > 0) {
       throw new Error("Cannot have both exclusions and inclusions.");
     }
-    let nodes = node.namedChildren;
+    let nodes = includeUnnamedChildren ? node.children : node.namedChildren;
     const exclusionSet = new Set(typesToExclude);
     const inclusionSet = new Set(typesToInclude);
     nodes = nodes.filter((child) => {
