@@ -145,7 +145,15 @@ const nodeMatchers: Partial<
     argumentMatcher("parameters", "argument_list"),
     matcher(patternFinder("call.generator_expression!"), childRangeSelector()),
   ),
-  branch: "case_clause",
+  branch: cascadingMatcher(
+    patternMatcher("case_clause", "else_clause", "elif_clause"),
+    matcher(
+      patternFinder("if_statement"),
+      childRangeSelector(["else_clause", "elif_clause"], [], {
+        includeUnnamedChildren: true,
+      }),
+    ),
+  ),
   switchStatementSubject: "match_statement[subject]",
 };
 
