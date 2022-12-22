@@ -1,37 +1,31 @@
 languageId: scala
 command:
-  spokenForm: change branch
-  version: 2
+  version: 3
+  spokenForm: clear branch
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: branch}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |
+  documentContents: |-
     def matchTest(x: Int): String = x match {
       case 0 => "zero"
-      case 1 => "one"
-      case 2 => "two"
-      case _ => "other"
-    }
-  selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 17}
-  marks: {}
-finalState:
-  documentContents: |
-    def matchTest(x: Int): String = x match {
-      case 1 => "one"
-      case 2 => "two"
       case _ => "other"
     }
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
-  thatMark:
+  marks: {}
+finalState:
+  documentContents: |-
+    def matchTest(x: Int): String = x match {
+      
+      case _ => "other"
+    }
+  selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]
