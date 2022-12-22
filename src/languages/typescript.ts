@@ -26,6 +26,7 @@ import {
   unwrapSelectionExtractor,
   xmlElementExtractor,
 } from "../util/nodeSelectors";
+import { branchMatcher } from "./branchMatcher";
 import { elseExtractor, elseIfExtractor } from "./elseIfExtractor";
 import { ternaryBranchMatcher } from "./ternaryBranchMatcher";
 
@@ -234,6 +235,7 @@ const nodeMatchers: Partial<
     patternMatcher("switch_case"),
     matcher(patternFinder("else_clause"), elseExtractor("if_statement")),
     matcher(patternFinder("if_statement"), elseIfExtractor()),
+    branchMatcher("try_statement", ["catch_clause", "finally_clause"]),
     ternaryBranchMatcher("ternary_expression", [1, 2]),
   ),
   class: [
