@@ -1,8 +1,8 @@
 languageId: plaintext
 command:
-  version: 1
-  spokenForm: bring harp and point to this and start of whale take whale
-  action: replaceWithTarget
+  version: 3
+  spokenForm: bring harp and point to just this and start of whale take whale
+  action: {name: replaceWithTarget}
   targets:
     - type: list
       elements:
@@ -13,10 +13,12 @@ command:
     - type: list
       elements:
         - type: primitive
+          modifiers:
+            - {type: toRawSelection}
           mark: {type: cursor}
         - type: primitive
-          position: before
-          insideOutsideType: inside
+          modifiers:
+            - {type: position, position: start}
           mark: {type: decoratedSymbol, symbolColor: default, character: w}
 marksToCheck: [default.w]
 initialState:

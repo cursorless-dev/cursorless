@@ -4,7 +4,7 @@ command:
   version: 2
   targets:
     - type: range
-      anchor: {type: primitive}
+      anchor: {type: primitive, isImplicit: true}
       active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: t}

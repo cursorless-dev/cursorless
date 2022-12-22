@@ -1,34 +1,56 @@
-import type { HatStyleName } from "./hatStyles.types";
+const HAT_COLORS = [
+  "default",
+  "blue",
+  "green",
+  "red",
+  "pink",
+  "yellow",
+  "userColor1",
+  "userColor2",
+] as const;
 
-export interface CursorMark {
+const HAT_NON_DEFAULT_SHAPES = [
+  "ex",
+  "fox",
+  "wing",
+  "hole",
+  "frame",
+  "curve",
+  "eye",
+  "play",
+  "bolt",
+  "crosshairs",
+] as const;
+
+type HatColor = typeof HAT_COLORS[number];
+type HatNonDefaultShape = typeof HAT_NON_DEFAULT_SHAPES[number];
+type HatStyleName = HatColor | `${HatColor}-${HatNonDefaultShape}`;
+
+interface CursorMark {
   type: "cursor";
 }
 
-export interface ThatMark {
+interface ThatMark {
   type: "that";
 }
 
-export interface SourceMark {
+interface SourceMark {
   type: "source";
 }
 
-export interface NothingMark {
+interface NothingMark {
   type: "nothing";
 }
 
-export interface LastCursorPositionMark {
-  type: "lastCursorPosition";
-}
-
-export interface DecoratedSymbolMark {
+interface DecoratedSymbolMark {
   type: "decoratedSymbol";
   symbolColor: HatStyleName;
   character: string;
 }
 
-export type LineNumberType = "absolute" | "relative" | "modulo100";
+type LineNumberType = "absolute" | "relative" | "modulo100";
 
-export interface LineNumberMark {
+export interface LineNumberMarkV3 {
   type: "lineNumber";
   lineNumberType: LineNumberType;
   lineNumber: number;
@@ -37,24 +59,24 @@ export interface LineNumberMark {
 /**
  * Constructs a range between {@link anchor} and {@link active}
  */
-export interface RangeMark {
+export interface RangeMarkV3 {
   type: "range";
-  anchor: Mark;
-  active: Mark;
+  anchor: MarkV3;
+  active: MarkV3;
   excludeAnchor?: boolean;
   excludeActive?: boolean;
 }
 
-export type Mark =
+export type MarkV3 =
   | CursorMark
   | ThatMark
   | SourceMark
   | DecoratedSymbolMark
   | NothingMark
-  | LineNumberMark
-  | RangeMark;
+  | LineNumberMarkV3
+  | RangeMarkV3;
 
-export type SimpleSurroundingPairName =
+type SimpleSurroundingPairName =
   | "angleBrackets"
   | "backtickQuotes"
   | "curlyBrackets"
@@ -66,15 +88,12 @@ export type SimpleSurroundingPairName =
   | "parentheses"
   | "singleQuotes"
   | "squareBrackets";
-export type ComplexSurroundingPairName =
-  | "string"
-  | "any"
-  | "collectionBoundary";
-export type SurroundingPairName =
+type ComplexSurroundingPairName = "string" | "any" | "collectionBoundary";
+type SurroundingPairName =
   | SimpleSurroundingPairName
   | ComplexSurroundingPairName;
 
-export type SimpleScopeTypeType =
+type SimpleScopeTypeType =
   | "argumentOrParameter"
   | "anonymousFunction"
   | "attribute"
@@ -132,17 +151,17 @@ export type SimpleScopeTypeType =
   | "boundedNonWhitespaceSequence"
   | "url";
 
-export interface SimpleScopeType {
+interface SimpleScopeType {
   type: SimpleScopeTypeType;
 }
 
-export interface CustomRegexScopeType {
+interface CustomRegexScopeType {
   type: "customRegex";
   regex: string;
 }
 
-export type SurroundingPairDirection = "left" | "right";
-export interface SurroundingPairScopeType {
+type SurroundingPairDirection = "left" | "right";
+interface SurroundingPairScopeType {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
   forceDirection?: SurroundingPairDirection;
@@ -154,45 +173,32 @@ export interface SurroundingPairScopeType {
   requireStrongContainment?: boolean;
 }
 
-export interface OneOfScopeType {
+interface OneOfScopeType {
   type: "oneOf";
   scopeTypes: ScopeType[];
 }
 
-export type ScopeType =
+type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
   | CustomRegexScopeType
   | OneOfScopeType;
 
-export interface ContainingSurroundingPairModifier
-  extends ContainingScopeModifier {
-  scopeType: SurroundingPairScopeType;
-}
-
-export interface EverySurroundingPairModifier extends EveryScopeModifier {
-  scopeType: SurroundingPairScopeType;
-}
-
-export type SurroundingPairModifier =
-  | ContainingSurroundingPairModifier
-  | EverySurroundingPairModifier;
-
-export interface InteriorOnlyModifier {
+interface InteriorOnlyModifier {
   type: "interiorOnly";
 }
 
-export interface ExcludeInteriorModifier {
+interface ExcludeInteriorModifier {
   type: "excludeInterior";
 }
 
-export interface ContainingScopeModifier {
+interface ContainingScopeModifier {
   type: "containingScope";
   scopeType: ScopeType;
   ancestorIndex?: number;
 }
 
-export interface EveryScopeModifier {
+interface EveryScopeModifier {
   type: "everyScope";
   scopeType: ScopeType;
 }
@@ -201,7 +207,7 @@ export interface EveryScopeModifier {
  * Refer to scopes by absolute index relative to iteration scope, eg "first
  * funk" to refer to the first function in a class.
  */
-export interface OrdinalScopeModifier {
+export interface OrdinalScopeModifierV3 {
   type: "ordinalScope";
 
   scopeType: ScopeType;
@@ -213,13 +219,13 @@ export interface OrdinalScopeModifier {
   length: number;
 }
 
-export type Direction = "forward" | "backward";
+type Direction = "forward" | "backward";
 
 /**
  * Refer to scopes by offset relative to input target, eg "next
  * funk" to refer to the first function after the function containing the target input.
  */
-export interface RelativeScopeModifier {
+interface RelativeScopeModifier {
   type: "relativeScope";
 
   scopeType: ScopeType;
@@ -243,59 +249,60 @@ export interface RelativeScopeModifier {
  * example if it is the destination of a bring or move it should inherit the
  * type information such as delimiters from its source.
  */
-export interface RawSelectionModifier {
+interface RawSelectionModifier {
   type: "toRawSelection";
 }
 
-export interface LeadingModifier {
+interface LeadingModifier {
   type: "leading";
 }
 
-export interface TrailingModifier {
+interface TrailingModifier {
   type: "trailing";
 }
 
-export interface KeepContentFilterModifier {
+interface KeepContentFilterModifier {
   type: "keepContentFilter";
 }
 
-export interface KeepEmptyFilterModifier {
+interface KeepEmptyFilterModifier {
   type: "keepEmptyFilter";
 }
 
-export interface InferPreviousMarkModifier {
+interface InferPreviousMarkModifier {
   type: "inferPreviousMark";
 }
 
-export type Position = "before" | "after" | "start" | "end";
+type Position = "before" | "after" | "start" | "end";
 
-export interface PositionModifier {
+interface PositionModifier {
   type: "position";
   position: Position;
 }
 
-export interface PartialPrimitiveTargetDescriptor {
+export interface PartialPrimitiveTargetDescriptorV3 {
   type: "primitive";
-  mark?: Mark;
-  modifiers?: Modifier[];
+  mark?: MarkV3;
+  modifiers?: ModifierV3[];
+  isImplicit?: boolean;
 }
 
-export interface HeadTailModifier {
+interface HeadTailModifier {
   type: "extendThroughStartOf" | "extendThroughEndOf";
-  modifiers?: Modifier[];
+  modifiers?: ModifierV3[];
 }
 
 /**
  * Runs {@link modifier} if the target has no explicit scope type, ie if
  * {@link Target.hasExplicitScopeType} is `false`.
  */
-export interface ModifyIfUntypedModifier {
+interface ModifyIfUntypedModifier {
   type: "modifyIfUntyped";
 
   /**
    * The modifier to apply if the target is untyped
    */
-  modifier: Modifier;
+  modifier: ModifierV3;
 }
 
 /**
@@ -303,34 +310,34 @@ export interface ModifyIfUntypedModifier {
  * doesn't throw an error, returning the output from the first modifier not
  * throwing an error.
  */
-export interface CascadingModifier {
+interface CascadingModifier {
   type: "cascading";
 
   /**
    * The modifiers to try in turn
    */
-  modifiers: Modifier[];
+  modifiers: ModifierV3[];
 }
 
 /**
  * First applies {@link anchor} to input, then independently applies
  * {@link active}, and forms a range between the two resulting targets
  */
-export interface RangeModifier {
+export interface RangeModifierV3 {
   type: "range";
-  anchor: Modifier;
-  active: Modifier;
+  anchor: ModifierV3;
+  active: ModifierV3;
   excludeAnchor?: boolean;
   excludeActive?: boolean;
 }
 
-export type Modifier =
+export type ModifierV3 =
   | PositionModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
   | ContainingScopeModifier
   | EveryScopeModifier
-  | OrdinalScopeModifier
+  | OrdinalScopeModifierV3
   | RelativeScopeModifier
   | HeadTailModifier
   | LeadingModifier
@@ -338,35 +345,33 @@ export type Modifier =
   | RawSelectionModifier
   | ModifyIfUntypedModifier
   | CascadingModifier
-  | RangeModifier
+  | RangeModifierV3
   | KeepContentFilterModifier
   | KeepEmptyFilterModifier
   | InferPreviousMarkModifier;
 
 // continuous is one single continuous selection between the two targets
 // vertical puts a selection on each line vertically between the two targets
-export type RangeType = "continuous" | "vertical";
+type RangeType = "continuous" | "vertical";
 
-export interface PartialRangeTargetDescriptor {
+export interface PartialRangeTargetDescriptorV3 {
   type: "range";
-  anchor: PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor;
-  active: PartialPrimitiveTargetDescriptor;
+  anchor: PartialPrimitiveTargetDescriptorV3;
+  active: PartialPrimitiveTargetDescriptorV3;
   excludeAnchor: boolean;
   excludeActive: boolean;
   rangeType?: RangeType;
 }
 
-export interface PartialListTargetDescriptor {
+interface PartialListTargetDescriptor {
   type: "list";
-  elements: (PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor)[];
+  elements: (
+    | PartialPrimitiveTargetDescriptorV3
+    | PartialRangeTargetDescriptorV3
+  )[];
 }
 
-export interface ImplicitTargetDescriptor {
-  type: "implicit";
-}
-
-export type PartialTargetDescriptor =
-  | PartialPrimitiveTargetDescriptor
-  | PartialRangeTargetDescriptor
-  | PartialListTargetDescriptor
-  | ImplicitTargetDescriptor;
+export type PartialTargetDescriptorV3 =
+  | PartialPrimitiveTargetDescriptorV3
+  | PartialRangeTargetDescriptorV3
+  | PartialListTargetDescriptor;

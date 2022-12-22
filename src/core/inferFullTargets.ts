@@ -1,4 +1,5 @@
 import {
+  ImplicitTargetDescriptor,
   Mark,
   Modifier,
   PartialListTargetDescriptor,
@@ -40,6 +41,8 @@ function inferTarget(
     case "range":
     case "primitive":
       return inferNonListTarget(target, previousTargets);
+    case "implicit":
+      return target;
   }
 }
 
@@ -79,7 +82,7 @@ function inferRangeTarget(
     excludeAnchor: target.excludeAnchor ?? false,
     excludeActive: target.excludeActive ?? false,
     rangeType: target.rangeType ?? "continuous",
-    anchor: inferPrimitiveTarget(target.anchor, previousTargets),
+    anchor: inferPossiblyImplicitTarget(target.anchor, previousTargets),
     active: inferPrimitiveTarget(
       target.active,
       previousTargets.concat(target.anchor),
@@ -87,18 +90,21 @@ function inferRangeTarget(
   };
 }
 
+function inferPossiblyImplicitTarget(
+  target: PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor,
+  previousTargets: PartialTargetDescriptor[],
+): PrimitiveTargetDescriptor | ImplicitTargetDescriptor {
+  if (target.type === "implicit") {
+    return target;
+  }
+
+  return inferPrimitiveTarget(target, previousTargets);
+}
+
 function inferPrimitiveTarget(
   target: PartialPrimitiveTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
 ): PrimitiveTargetDescriptor {
-  if (target.isImplicit) {
-    return {
-      type: "primitive",
-      mark: { type: "cursor" },
-      modifiers: [{ type: "toRawSelection" }],
-    };
-  }
-
   const ownPositionModifier = getPositionModifier(target);
   const ownModifiers = getPreservedModifiers(target);
 
@@ -219,7 +225,10 @@ function getPreviousTargetAttribute<T>(
         break;
       }
       case "range": {
-        const attributeValue = getAttribute(target.anchor);
+        const attributeValue = getPreviousTargetAttribute(
+          [target.anchor],
+          getAttribute,
+        );
         if (attributeValue != null) {
           return attributeValue;
         }

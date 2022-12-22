@@ -1,4 +1,5 @@
 import {
+  ImplicitTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
@@ -28,7 +29,11 @@ function getPartialPrimitiveTargetsHelper(
     case "list":
       return target.elements.flatMap(getPartialPrimitiveTargetsHelper);
     case "range":
-      return [target.anchor, target.active];
+      return [target.anchor, target.active].flatMap(
+        getPartialPrimitiveTargetsHelper,
+      );
+    case "implicit":
+      return [];
   }
 }
 /**
@@ -51,7 +56,9 @@ function getPrimitiveTargetsHelper(
     case "list":
       return target.elements.flatMap(getPrimitiveTargetsHelper);
     case "range":
-      return [target.anchor, target.active];
+      return [...getPrimitiveTargetsHelper(target.anchor), target.active];
+    case "implicit":
+      return [];
   }
 }
 
@@ -82,6 +89,8 @@ function transformPartialPrimitiveTargetsHelper(
   switch (target.type) {
     case "primitive":
       return func(target);
+    case "implicit":
+      return target;
     case "list":
       return {
         ...target,
@@ -95,7 +104,9 @@ function transformPartialPrimitiveTargetsHelper(
     case "range":
       return {
         ...target,
-        anchor: func(target.anchor),
+        anchor: transformPartialPrimitiveTargetsHelper(target.anchor, func) as
+          | PartialPrimitiveTargetDescriptor
+          | ImplicitTargetDescriptor,
         active: func(target.active),
       };
   }

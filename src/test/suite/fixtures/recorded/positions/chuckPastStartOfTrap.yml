@@ -5,7 +5,7 @@ command:
   action: remove
   targets:
     - type: range
-      start: {type: primitive}
+      start: {type: primitive, isImplicit: true}
       end:
         type: primitive
         position: before
