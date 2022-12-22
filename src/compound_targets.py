@@ -3,7 +3,7 @@ from typing import Any
 from talon import Module
 
 from .connective import default_range_connective
-from .primitive_target import BASE_TARGET
+from .primitive_target import IMPLICIT_TARGET
 
 mod = Module()
 
@@ -46,7 +46,7 @@ def cursorless_range(m) -> dict[str, Any]:
         return primitive_targets[0]
 
     if len(primitive_targets) == 1:
-        anchor = BASE_TARGET.copy()
+        anchor = IMPLICIT_TARGET.copy()
     else:
         anchor = primitive_targets[0]
 
