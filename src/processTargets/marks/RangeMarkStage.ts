@@ -1,5 +1,5 @@
 import { Target } from "../../typings/target.types";
-import { RangeMark } from "../../typings/targetDescriptor.types";
+import { RangeMark } from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getMarkStage from "../getMarkStage";
 import { MarkStage } from "../PipelineStages.types";

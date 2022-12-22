@@ -5,7 +5,7 @@ import {
   ContainingScopeModifier,
   EveryScopeModifier,
   SimpleScopeTypeType,
-} from "../../../typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getInsertionDelimiter } from "../../../util/nodeSelectors";
 import { getRangeLength } from "../../../util/rangeUtils";

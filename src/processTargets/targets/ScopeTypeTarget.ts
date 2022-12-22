@@ -1,6 +1,6 @@
 import { Range } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
-import { SimpleScopeTypeType } from "../../typings/targetDescriptor.types";
+import { SimpleScopeTypeType } from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRange,

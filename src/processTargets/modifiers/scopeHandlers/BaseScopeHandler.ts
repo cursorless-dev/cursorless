@@ -1,15 +1,20 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import { Position, Range, TextEditor } from "@cursorless/common";
 import type {
   Direction,
   ScopeType,
-} from "../../../typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import type { TargetScope } from "./scope.types";
 import type {
   ScopeHandler,
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
 import { shouldYieldScope } from "./shouldYieldScope";
+
+const DEFAULT_REQUIREMENTS: ScopeIteratorRequirements = {
+  containment: null,
+  distalPosition: null,
+};
 
 /**
  * All scope handlers should derive from this base class
@@ -88,40 +93,35 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    hints?: ScopeIteratorRequirements | undefined,
+    hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope>;
 
   *generateScopes(
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    requirements: ScopeIteratorRequirements | undefined = {},
+    requirements: Partial<ScopeIteratorRequirements> = {},
   ): Iterable<TargetScope> {
     let previousScope: TargetScope | undefined = undefined;
+    const hints: ScopeIteratorRequirements = {
+      ...DEFAULT_REQUIREMENTS,
+      ...requirements,
+    };
 
     for (const scope of this.generateScopeCandidates(
       editor,
       position,
       direction,
-      requirements,
+      hints,
     )) {
-      if (
-        shouldYieldScope(
-          position,
-          direction,
-          requirements,
-          previousScope,
-          scope,
-        )
-      ) {
+      if (shouldYieldScope(position, direction, hints, previousScope, scope)) {
         yield scope;
+        previousScope = scope;
       }
 
-      if (this.canStopEarly(position, direction, requirements, scope)) {
+      if (this.canStopEarly(position, direction, hints, scope)) {
         return;
       }
-
-      previousScope = scope;
     }
   }
 

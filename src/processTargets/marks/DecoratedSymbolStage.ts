@@ -1,5 +1,5 @@
 import { Target } from "../../typings/target.types";
-import { DecoratedSymbolMark } from "../../typings/targetDescriptor.types";
+import { DecoratedSymbolMark } from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";

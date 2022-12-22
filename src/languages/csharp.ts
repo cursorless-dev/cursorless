@@ -11,7 +11,7 @@ import {
   patternMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { nodeFinder, typedNodeFinder } from "../util/nodeFinders";
 import { delimitedSelector, childRangeSelector } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";
@@ -148,6 +148,10 @@ const nodeMatchers: Partial<
     conditionMatcher("*[condition]"),
     patternMatcher("while_statement[0]"),
   ),
+  switchStatementSubject: [
+    "switch_statement.tuple_expression!",
+    "switch_statement[value]",
+  ],
   statement: STATEMENT_TYPES,
   anonymousFunction: "lambda_expression",
   functionCall: ["invocation_expression", "object_creation_expression"],

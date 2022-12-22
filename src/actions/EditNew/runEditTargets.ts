@@ -1,6 +1,9 @@
-import { Selection, EditableTextEditor } from "@cursorless/common";
+import {
+  RangeExpansionBehavior,
+  EditableTextEditor,
+  Selection,
+} from "@cursorless/common";
 import { zip } from "lodash";
-import { DecorationRangeBehavior } from "vscode";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
 import { Graph } from "../../typings/Types";
 import { EditTarget, State } from "./EditNew.types";
@@ -23,10 +26,10 @@ export async function runEditTargets(
   editor: EditableTextEditor,
   state: State,
 ): Promise<State> {
-  const editTargets: EditTarget[] = state.targets
+  const targets: EditTarget[] = state.targets
     .map((target, index) => {
-      const context = target.getEditNewContext();
-      if (context.type === "edit") {
+      const actionType = target.getEditNewActionType();
+      if (actionType === "edit") {
         return {
           target,
           index,
@@ -35,13 +38,11 @@ export async function runEditTargets(
     })
     .filter((target): target is EditTarget => !!target);
 
-  if (editTargets.length === 0) {
+  if (targets.length === 0) {
     return state;
   }
 
-  const edits = editTargets.map((target) =>
-    target.target.constructChangeEdit(""),
-  );
+  const edits = targets.map((target) => target.target.constructChangeEdit(""));
 
   const thatSelections = {
     selections: state.thatRanges.map((r) => r.toSelection(false)),
@@ -63,7 +64,7 @@ export async function runEditTargets(
 
   const editSelections = {
     selections: edits.map((edit) => edit.range.toSelection(false)),
-    rangeBehavior: DecorationRangeBehavior.OpenOpen,
+    rangeBehavior: RangeExpansionBehavior.openOpen,
   };
 
   const [
@@ -85,7 +86,7 @@ export async function runEditTargets(
   });
 
   // Add cursor positions for our edit targets.
-  editTargets.forEach((delimiterTarget, index) => {
+  targets.forEach((delimiterTarget, index) => {
     const edit = edits[index];
     const range = edit.updateRange(updatedEditSelections[index]);
     updatedCursorRanges[delimiterTarget.index] = range;

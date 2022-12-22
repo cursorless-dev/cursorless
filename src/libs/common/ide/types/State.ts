@@ -1,9 +1,11 @@
 /**
  * A mapping from allowable state keys to their default values
  */
-export const STATE_KEYS = { hideInferenceWarning: false };
-export type StateType = typeof STATE_KEYS;
-export type StateKey = keyof StateType;
+export const STATE_DEFAULTS = {
+  hideInferenceWarning: false,
+};
+export type StateData = typeof STATE_DEFAULTS;
+export type StateKey = keyof StateData;
 
 /**
  * A state represents a storage utility. It can store and retrieve
@@ -16,7 +18,7 @@ export interface State {
    * @param key A string.
    * @return The stored value or the defaultValue.
    */
-  get(key: StateKey): StateType[StateKey];
+  get<K extends StateKey>(key: K): StateData[K];
 
   /**
    * Store a value. The value must be JSON-stringifyable.
@@ -24,5 +26,5 @@ export interface State {
    * @param key A string.
    * @param value A value. MUST not contain cyclic references.
    */
-  set(key: StateKey, value: StateType[StateKey]): Thenable<void>;
+  set<K extends StateKey>(key: K, value: StateData[K]): Thenable<void>;
 }

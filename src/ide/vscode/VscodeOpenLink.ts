@@ -2,10 +2,13 @@ import * as vscode from "vscode";
 
 export default async function vscodeOpenLink(
   editor: vscode.TextEditor,
-  location: vscode.Position | vscode.Range,
+  location: vscode.Position | vscode.Range | undefined,
 ): Promise<boolean> {
   const links = await getLinksForEditor(editor);
-  const filteredLinks = links.filter((link) => link.range.contains(location));
+  const actualLocation = location ?? getSelection(editor);
+  const filteredLinks = links.filter((link) =>
+    link.range.contains(actualLocation),
+  );
 
   if (filteredLinks.length > 1) {
     throw Error("Multiple links found at location");
@@ -46,4 +49,11 @@ async function openUri(uri: vscode.Uri) {
     default:
       throw Error(`Unknown uri scheme '${uri.scheme}'`);
   }
+}
+
+function getSelection(editor: vscode.TextEditor) {
+  if (editor.selections.length > 1) {
+    throw Error("Can't open links for multiple selections");
+  }
+  return editor.selection;
 }

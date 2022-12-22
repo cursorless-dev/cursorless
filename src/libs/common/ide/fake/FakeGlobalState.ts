@@ -1,14 +1,15 @@
-import { State, StateKey, StateType, STATE_KEYS } from "../types/State";
+import type { State, StateData, StateKey } from "../types/State";
+import { STATE_DEFAULTS } from "../types/State";
 
 export default class FakeGlobalState implements State {
-  private readonly data: Map<string, any> = new Map();
+  private readonly data: StateData = { ...STATE_DEFAULTS };
 
-  get(key: StateKey): StateType[StateKey] {
-    return this.data.has(key) ? this.data.get(key) : STATE_KEYS[key];
+  get<K extends StateKey>(key: K): StateData[K] {
+    return this.data[key];
   }
 
-  set(key: StateKey, value: StateType[StateKey]): Thenable<void> {
-    this.data.set(key, value);
+  set<K extends StateKey>(key: K, value: StateData[K]): Thenable<void> {
+    this.data[key] = value;
     return Promise.resolve();
   }
 }

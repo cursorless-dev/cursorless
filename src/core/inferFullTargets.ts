@@ -6,10 +6,12 @@ import {
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
   PositionModifier,
+} from "./commandRunner/typings/PartialTargetDescriptor.types";
+import {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
-} from "../typings/targetDescriptor.types";
+} from "../typings/TargetDescriptor";
 
 /**
  * Performs inference on the partial targets provided by the user, using

@@ -1,12 +1,12 @@
 import { Range } from "@cursorless/common";
 import { uniqWith, zip } from "lodash";
 import { Target } from "../typings/target.types";
+import { Modifier } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import {
-  Modifier,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
-} from "../typings/targetDescriptor.types";
+} from "../typings/TargetDescriptor";
 import { ProcessedTargetsContext } from "../typings/Types";
 import getMarkStage from "./getMarkStage";
 import getModifierStage from "./getModifierStage";

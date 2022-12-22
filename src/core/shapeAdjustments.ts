@@ -1,4 +1,4 @@
-import { HatShape } from "./hatStyles";
+import { HatShape } from "./commandRunner/typings/hatStyles.types";
 
 export interface HatAdjustments {
   sizeAdjustment?: number;

@@ -1,6 +1,6 @@
 import { Selection } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
 import { argumentNodeFinder, patternFinder } from "../util/nodeFinders";
 import {
@@ -99,7 +99,15 @@ const nodeMatchers: Partial<
   className: "class_definition[name]",
   namedFunction: "decorated_definition?.function_definition",
   functionName: "function_definition[name]",
-  condition: conditionMatcher("*[condition]"),
+  condition: cascadingMatcher(
+    conditionMatcher("*[condition]"),
+
+    // Comprehensions and match statements
+    leadingMatcher(["*.if_clause![0]"], ["if"]),
+
+    // Ternaries
+    patternMatcher("conditional_expression[1]"),
+  ),
   type: leadingMatcher(
     ["function_definition[return_type]", "*[type]"],
     [":", "->"],
@@ -138,6 +146,7 @@ const nodeMatchers: Partial<
     matcher(patternFinder("call.generator_expression!"), childRangeSelector()),
   ),
   branch: "case_clause",
+  switchStatementSubject: "match_statement[subject]",
 };
 
 export default createPatternMatchers(nodeMatchers);

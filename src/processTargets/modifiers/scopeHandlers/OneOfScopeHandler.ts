@@ -3,7 +3,7 @@ import { TextEditor, Position } from "@cursorless/common";
 import {
   Direction,
   OneOfScopeType,
-} from "../../../typings/targetDescriptor.types";
+} from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import BaseScopeHandler from "./BaseScopeHandler";
 import { compareTargetScopes } from "./compareTargetScopes";
 import { getInitialIteratorInfos, advanceIteratorsUntil } from "./IteratorInfo";
@@ -41,7 +41,7 @@ export default class OneOfScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    hints?: ScopeIteratorRequirements | undefined,
+    hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const iterators = this.scopeHandlers.map((scopeHandler) =>
       scopeHandler

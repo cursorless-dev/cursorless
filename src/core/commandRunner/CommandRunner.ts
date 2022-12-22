@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { ActionType } from "../../actions/actions.types";
+import { ActionType } from "./typings/ActionCommand";
 import { OutdatedExtensionError } from "../../errors";
 import { CURSORLESS_COMMAND_ID } from "../../libs/common/commandIds";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
@@ -16,10 +16,10 @@ import {
   canonicalizeAndValidateCommand,
   checkForOldInference,
 } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { PartialTargetV0V1 } from "../commandVersionUpgrades/upgradeV1ToV2/commandV1.types";
+import { PartialTargetV0V1 } from "./typings/legacy/CommandV0V1.types";
 import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
-import { Command } from "./command.types";
+import { Command } from "./typings/command.types";
 import { selectionToThatTarget } from "./selectionToThatTarget";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph

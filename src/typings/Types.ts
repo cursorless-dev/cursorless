@@ -17,6 +17,7 @@ import { Snippets } from "../core/Snippets";
 import StatusBarItem from "../core/StatusBarItem";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { CommandServerApi } from "../libs/vscode-common/getExtensionApi";
+import KeyboardCommands from "../keyboard/KeyboardCommands";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { Target } from "./target.types";
@@ -164,6 +165,11 @@ export interface Graph {
    * Creates a VSCode status bar item
    */
   readonly statusBarItem: StatusBarItem;
+
+  /**
+   * Set of simplified commands that can be easily mapped to keyboard shortcuts.
+   */
+  readonly keyboardCommands: KeyboardCommands;
 }
 
 export type NodeMatcherValue = {

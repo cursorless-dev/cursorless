@@ -1,6 +1,6 @@
 import { TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
@@ -14,6 +14,7 @@ import {
   trailingMatcher,
 } from "../util/nodeMatchers";
 import {
+  childRangeSelector,
   makeNodePairSelection,
   makeRangeFromPositions,
 } from "../util/nodeSelectors";
@@ -146,11 +147,25 @@ const nodeMatchers: Partial<
   ),
   string: ["raw_string_literal", "string_literal"],
   ifStatement: ["if_expression", "if_let_expression"],
+  condition: cascadingMatcher(
+    patternMatcher("while_expression[condition]", "if_expression[condition]"),
+    matcher(
+      patternFinder("while_let_expression", "if_let_expression"),
+      childRangeSelector(["while", "if", "block"], [], {
+        includeUnnamedChildren: true,
+      }),
+    ),
+    leadingMatcher(["*.match_pattern![condition]"], ["if"]),
+  ),
   functionCall: ["call_expression", "macro_invocation", "struct_expression"],
   functionCallee: "call_expression[function]",
   comment: ["line_comment", "block_comment"],
   list: ["array_expression", "tuple_expression"],
-  collectionItem: argumentMatcher("array_expression", "tuple_expression"),
+  collectionItem: argumentMatcher(
+    "array_expression",
+    "tuple_expression",
+    "tuple_type",
+  ),
   namedFunction: "function_item",
   type: cascadingMatcher(
     leadingMatcher(
@@ -185,6 +200,7 @@ const nodeMatchers: Partial<
     "parameters",
     "meta_arguments",
     "type_parameters",
+    "ordered_field_declaration_list",
   ),
   collectionKey: cascadingMatcher(
     trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"]),
@@ -196,6 +212,7 @@ const nodeMatchers: Partial<
       "function_item[name]",
       "struct_item[name]",
       "enum_item[name]",
+      "enum_variant[name]",
       "trait_item[name]",
       "const_item[name]",
       "meta_item.identifier!",
@@ -219,6 +236,7 @@ const nodeMatchers: Partial<
   ),
   attribute: trailingMatcher(["mutable_specifier", "attribute_item"]),
   branch: "match_arm",
+  switchStatementSubject: "match_expression[value]",
 };
 
 export default createPatternMatchers(nodeMatchers);

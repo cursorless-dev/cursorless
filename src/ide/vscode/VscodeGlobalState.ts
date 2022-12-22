@@ -1,22 +1,22 @@
-import { ExtensionContext } from "vscode";
-import {
+import type { ExtensionContext } from "vscode";
+import type {
   State,
+  StateData,
   StateKey,
-  StateType,
-  STATE_KEYS,
 } from "../../libs/common/ide/types/State";
+import { STATE_DEFAULTS } from "../../libs/common/ide/types/State";
 
 export default class VscodeGlobalState implements State {
   constructor(private extensionContext: ExtensionContext) {
     // Mark all keys for synchronization
-    extensionContext.globalState.setKeysForSync(Object.keys(STATE_KEYS));
+    extensionContext.globalState.setKeysForSync(Object.keys(STATE_DEFAULTS));
   }
 
-  get(key: StateKey): StateType[StateKey] {
-    return this.extensionContext.globalState.get(key) ?? STATE_KEYS[key];
+  get<K extends StateKey>(key: K): StateData[K] {
+    return this.extensionContext.globalState.get(key, STATE_DEFAULTS[key]);
   }
 
-  set(key: StateKey, value: StateType[StateKey]): Thenable<void> {
+  set<K extends StateKey>(key: K, value: StateData[K]): Thenable<void> {
     return this.extensionContext.globalState.update(key, value);
   }
 }

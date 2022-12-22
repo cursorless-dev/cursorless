@@ -1,5 +1,5 @@
+import { ModifyIfUntypedModifier } from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
 import { Target } from "../../typings/target.types";
-import { ModifyIfUntypedModifier } from "../../typings/targetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";

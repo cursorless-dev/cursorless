@@ -5,7 +5,7 @@ import {
   conditionMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative } from "../typings/Types";
-import { SimpleScopeTypeType } from "../typings/targetDescriptor.types";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
@@ -36,6 +36,7 @@ const nodeMatchers: Partial<
   ),
   branch: "case_clause",
 
+  switchStatementSubject: "match_expression[value]",
   name: ["*[name]", "*[pattern]"],
   functionName: "function_definition[name]",
 
