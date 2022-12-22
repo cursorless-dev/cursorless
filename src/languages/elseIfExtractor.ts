@@ -43,7 +43,7 @@ export function elseIfExtractor(): SelectionExtractor {
       }
 
       // Otherwise, we have no leading `else`, but we do have our own nested
-      // `else` clause, so we want to remove the leading `else` keyword
+      // `else` clause, so we want to remove its `else` keyword
       const { selection } = contentRange;
       return {
         selection,
