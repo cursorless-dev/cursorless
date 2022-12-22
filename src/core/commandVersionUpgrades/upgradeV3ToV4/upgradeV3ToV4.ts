@@ -37,9 +37,10 @@ function upgradeTarget(
 
       return {
         ...rest,
-        elements: elements.map(upgradeTarget) as [
-          PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor,
-        ],
+        elements: elements.map(upgradeTarget) as (
+          | PartialPrimitiveTargetDescriptor
+          | PartialRangeTargetDescriptor
+        )[],
       };
     }
   }
