@@ -24,3 +24,5 @@ export * from "./TokenTarget";
 export { default as TokenTarget } from "./TokenTarget";
 export * from "./UntypedTarget";
 export { default as UntypedTarget } from "./UntypedTarget";
+export * from "./ImplicitTarget";
+export { default as ImplicitTarget } from "./ImplicitTarget";

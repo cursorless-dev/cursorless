@@ -111,6 +111,8 @@ The word `"this"` can be used as a mark to refer to the current cursor(s) or sel
 - `"pre funk"`
 - `"chuck line"`
 
+Note that if you say `"this"` with an empty selection, it refers to the token containing your cursor.
+
 ##### `"that"`
 
 The word `"that"` can be used as a mark to refer to the target of the previous cursorless command.

@@ -6,7 +6,7 @@ from talon import Module
 mod = Module()
 
 BASE_TARGET: dict[str, Any] = {"type": "primitive"}
-IMPLICIT_TARGET = {"type": "primitive", "isImplicit": True}
+IMPLICIT_TARGET = {"type": "implicit"}
 
 
 @mod.capture(

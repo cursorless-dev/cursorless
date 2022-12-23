@@ -26,7 +26,10 @@ export function extractTargetKeys(target: TargetDescriptor): string[] {
       return target.elements.map(extractTargetKeys).flat();
 
     case "range":
-      return extractPrimitiveTargetKeys(target.anchor, target.active);
+      return [
+        ...extractTargetKeys(target.anchor),
+        ...extractPrimitiveTargetKeys(target.active),
+      ];
 
     default:
       return [];

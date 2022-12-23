@@ -4,6 +4,7 @@ import {
   Modifier,
   PositionModifier,
   RangeType,
+  ImplicitTargetDescriptor,
 } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 
 export interface PrimitiveTargetDescriptor
@@ -33,7 +34,7 @@ export interface PrimitiveTargetDescriptor
 
 export interface RangeTargetDescriptor {
   type: "range";
-  anchor: PrimitiveTargetDescriptor;
+  anchor: PrimitiveTargetDescriptor | ImplicitTargetDescriptor;
   active: PrimitiveTargetDescriptor;
   excludeAnchor: boolean;
   excludeActive: boolean;
@@ -48,4 +49,5 @@ export interface ListTargetDescriptor {
 export type TargetDescriptor =
   | PrimitiveTargetDescriptor
   | RangeTargetDescriptor
-  | ListTargetDescriptor;
+  | ListTargetDescriptor
+  | ImplicitTargetDescriptor;

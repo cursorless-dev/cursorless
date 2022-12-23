@@ -12,7 +12,7 @@ import {
   InteriorOnlyStage,
 } from "./modifiers/InteriorStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
-import ModifyIfUntypedStage from "./modifiers/ModifyIfUntypedStage";
+import { ModifyIfUntypedStage } from "./modifiers/ConditionalModifierStages";
 import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";
 import PositionStage from "./modifiers/PositionStage";
 import RangeModifierStage from "./modifiers/RangeModifierStage";

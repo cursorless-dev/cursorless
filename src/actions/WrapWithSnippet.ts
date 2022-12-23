@@ -1,6 +1,6 @@
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import ModifyIfUntypedStage from "../processTargets/modifiers/ModifyIfUntypedStage";
+import { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import {

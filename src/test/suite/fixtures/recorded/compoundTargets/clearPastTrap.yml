@@ -1,11 +1,11 @@
-languageId: typescript
+languageId: plaintext
 command:
   version: 1
-  spokenForm: take past trap
-  action: setSelection
+  spokenForm: clear past trap
+  action: clearAndSetSelection
   targets:
     - type: range
-      start: {type: primitive}
+      start: {type: primitive, isImplicit: true}
       end:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: t}
@@ -21,8 +21,8 @@ initialState:
       start: {line: 0, character: 6}
       end: {line: 0, character: 11}
 finalState:
-  documentContents: hello there
+  documentContents: hel
   selections:
     - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 11}
+      active: {line: 0, character: 3}
 fullTargets: [{type: range, excludeStart: false, excludeEnd: false, start: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}, end: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}}]
