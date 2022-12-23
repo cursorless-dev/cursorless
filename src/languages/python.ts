@@ -150,6 +150,8 @@ const nodeMatchers: Partial<
   branch: cascadingMatcher(
     patternMatcher("case_clause"),
     branchMatcher("if_statement", ["else_clause", "elif_clause"]),
+    branchMatcher("while_statement", ["else_clause"]),
+    branchMatcher("for_statement", ["else_clause"]),
     branchMatcher("try_statement", [
       "except_clause",
       "finally_clause",
