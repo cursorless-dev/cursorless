@@ -24,7 +24,7 @@ extension](#running--testing-extension-locally), you may want to check out the
    "workbench.experimental.settingsProfiles.enabled": true
    ```
 
-   This setting allows you to debug the Cursorless extension in a clean, sandboxed version of VSCode, with its own extensions and settings.
+   This setting allows you to debug the Cursorless extension in a clean, sandboxed version of VSCode, with its own extensions and settings, using the experimental [VSCode settings profile feature](https://code.visualstudio.com/updates/v1_72#_settings-profiles).
 
 4. Run the following in the terminal:
 
@@ -34,7 +34,7 @@ extension](#running--testing-extension-locally), you may want to check out the
    yarn init-launch-sandbox
    ```
 
-   The `yarn init-launch-sandbox` command creates a local VSCode settings profile that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. If you'd like to use additional extensions when debugging locally, you can use the following command:
+   The `yarn init-launch-sandbox` command creates a local [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. This approach is [suggested](https://code.visualstudio.com/updates/v1_72#_extension-debugging-in-a-clean-environment) by the VSCode documentation. If you'd like to use additional extensions when debugging locally, you can use the following command:
 
    ```bash
    code --profile=cursorlessDevelopment --install-extension some.extension
