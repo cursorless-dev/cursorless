@@ -12,6 +12,7 @@ extension](#running--testing-extension-locally), you may want to check out the
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en/)
 - [yarn](https://yarnpkg.com/)
+- [VSCode][https://code.visualstudio.com/]; minimum version for local development is 1.72.0 in order to support settings profiles for sandboxed development. Please file an issue if that is a problem.
 
 ### Steps
 
