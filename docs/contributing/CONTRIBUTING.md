@@ -92,8 +92,7 @@ vsce package -o bundle.vsix
 Once you have your package then you can install it into the sandbox using the following command:
 
 ```
-cd ../cursorless
-code --profile=cursorlessDevelopment --install-extension ../vscode-parse-tree/bundle.vsix
+code --profile=cursorlessDevelopment --install-extension bundle.vsix
 ```
 
 ## Changing SVGs
