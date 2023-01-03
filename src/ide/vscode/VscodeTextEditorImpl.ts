@@ -193,9 +193,20 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
   }
 
   public async extractVariable(_range?: Range): Promise<void> {
-    await vscode.commands.executeCommand("editor.action.codeAction", {
-      kind: "refactor.extract.constant",
-      preferred: true,
-    });
+    if (this.document.languageId === "python") {
+      await vscode.commands.executeCommand("editor.action.codeAction", {
+        kind: "refactor.extract",
+      });
+      await sleep(250);
+      await vscode.commands.executeCommand("selectNextCodeAction");
+      await vscode.commands.executeCommand("acceptSelectedCodeAction");
+    } else {
+      await vscode.commands.executeCommand("editor.action.codeAction", {
+        kind: "refactor.extract.constant",
+        preferred: true,
+      });
+    }
+
+    await sleep(250);
   }
 }
