@@ -53,6 +53,21 @@ const STATEMENT_TYPES = [
   "field_declaration",
 ];
 
+/**
+ * Tree-sitter patterns to capture the pattern in a case clause, eg
+ *
+ * ```java
+ *   case foo:
+ *      break
+ * ```
+ *
+ * This would target `foo`.
+ */
+const caseClausePatternPatterns = [
+  "switch_rule.switch_label![0]",
+  "switch_label.parenthesized_expression![0]",
+];
+
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
@@ -89,13 +104,9 @@ const nodeMatchers: Partial<
     "assignment_expression[left]",
     "*[name]",
     "formal_parameter.identifier!",
-    "switch_label.parenthesized_expression![0]",
-    "switch_rule.switch_label![0]",
+    ...caseClausePatternPatterns,
   ],
-  collectionKey: [
-    "switch_label.parenthesized_expression![0]",
-    "switch_rule.switch_label![0]",
-  ],
+  collectionKey: caseClausePatternPatterns,
   namedFunction: ["method_declaration", "constructor_declaration"],
   type: trailingMatcher([
     "generic_type.type_arguments.type_identifier",
@@ -124,8 +135,7 @@ const nodeMatchers: Partial<
     conditionMatcher("if_statement[condition]"),
     conditionMatcher("do_statement[condition]"),
     conditionMatcher("ternary_expression[condition]"),
-    patternMatcher("switch_label.parenthesized_expression![0]"),
-    patternMatcher("switch_rule.switch_label![0]"),
+    patternMatcher(...caseClausePatternPatterns),
   ),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),
   switchStatementSubject: "switch_expression[condition][0]",

@@ -148,7 +148,11 @@ const nodeMatchers: Partial<
   string: ["raw_string_literal", "string_literal"],
   ifStatement: ["if_expression", "if_let_expression"],
   condition: cascadingMatcher(
-    patternMatcher("while_expression[condition]", "if_expression[condition]"),
+    patternMatcher(
+      "while_expression[condition]",
+      "if_expression[condition]",
+      "match_pattern",
+    ),
     matcher(
       patternFinder("while_let_expression", "if_let_expression"),
       childRangeSelector(["while", "if", "block"], [], {
@@ -206,7 +210,6 @@ const nodeMatchers: Partial<
     trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"]),
     patternMatcher("match_pattern"),
   ),
-  condition: ["match_pattern"],
   name: cascadingMatcher(
     patternMatcher(
       "let_declaration.identifier!",
