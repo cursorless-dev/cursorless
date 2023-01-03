@@ -46,6 +46,7 @@ scope_types = {
     "selector": "selector",
     "state": "statement",
     "string": "string",
+    "branch": "branch",
     "type": "type",
     "value": "value",
     "condition": "condition",
