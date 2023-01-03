@@ -73,6 +73,7 @@
         "argumentOrParameter",
         "anonymousFunction",
         "attribute",
+        "branch",
         "class",
         "className",
         "collectionItem",

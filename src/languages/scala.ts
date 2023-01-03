@@ -1,11 +1,14 @@
-import {
-  createPatternMatchers,
-  argumentMatcher,
-  leadingMatcher,
-  conditionMatcher,
-} from "../util/nodeMatchers";
-import { NodeMatcherAlternative } from "../typings/Types";
 import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { NodeMatcherAlternative } from "../typings/Types";
+import { patternFinder } from "../util/nodeFinders";
+import {
+  argumentMatcher,
+  conditionMatcher,
+  createPatternMatchers,
+  leadingMatcher,
+  matcher,
+} from "../util/nodeMatchers";
+import { childRangeSelector } from "../util/nodeSelectors";
 
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
@@ -33,6 +36,12 @@ const nodeMatchers: Partial<
     "parameters",
     "class_parameters",
     "bindings",
+  ),
+  branch: matcher(
+    patternFinder("case_clause"),
+    childRangeSelector([], [], {
+      includeUnnamedChildren: true,
+    }),
   ),
 
   switchStatementSubject: "match_expression[value]",
