@@ -40,16 +40,20 @@ export default class Decorations {
   hatStyleNames!: HatStyleName[];
   private decorationChangeListeners: DecorationChangeListener[] = [];
   private disposables: vscode.Disposable[] = [];
-  private extensionContext!: vscode.ExtensionContext;
 
-  constructor(private graph: Graph) {
+  constructor(
+    private extensionContext: vscode.ExtensionContext,
+    private fontMeasurements: FontMeasurements,
+  ) {
+    extensionContext.subscriptions.push(this);
+
     this.recomputeDecorationStyles = this.recomputeDecorationStyles.bind(this);
 
     this.disposables.push(
       vscode.commands.registerCommand(
         "cursorless.recomputeDecorationStyles",
         () => {
-          graph.fontMeasurements.clearCache();
+          fontMeasurements.clearCache();
           this.recomputeDecorationStyles();
         },
       ),
@@ -59,11 +63,9 @@ export default class Decorations {
     );
   }
 
-  async init(extensionContext: vscode.ExtensionContext) {
-    this.extensionContext = extensionContext;
-    extensionContext.subscriptions.push(this);
-    await this.graph.fontMeasurements.calculate();
-    this.constructDecorations(this.graph.fontMeasurements);
+  async init() {
+    await this.fontMeasurements.calculate();
+    this.constructDecorations(this.fontMeasurements);
   }
 
   /**
@@ -88,8 +90,8 @@ export default class Decorations {
 
   private async recomputeDecorationStyles() {
     this.destroyDecorations();
-    await this.graph.fontMeasurements.calculate();
-    this.constructDecorations(this.graph.fontMeasurements);
+    await this.fontMeasurements.calculate();
+    this.constructDecorations(this.fontMeasurements);
   }
 
   private constructDecorations(fontMeasurements: FontMeasurements) {
