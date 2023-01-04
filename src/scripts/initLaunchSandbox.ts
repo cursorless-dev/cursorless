@@ -1,28 +1,17 @@
 /**
- * This script creates a local sandbox directory containing extensions that
- * will run alongside Cursorless during local development.
+ * This script creates a VSCode settings profile for Cursorless development,
+ * allowing you to have a separate set of extensions and settings for use when
+ * developing the Cursorless VSCode extension locally.
  */
-import * as path from "path";
 import * as cp from "child_process";
 import { extensionDependencies } from "../test/extensionDependencies";
-import { mkdir } from "fs/promises";
 
 const extraExtensions = ["pokey.command-server", "pokey.talon"];
 
 async function main() {
   try {
-    // The folder containing the Extension Manifest package.json
-    const extensionDevelopmentPath = path.resolve(__dirname, "../../");
-    const extensionSandboxDir = path.join(
-      extensionDevelopmentPath,
-      ".vscode-sandbox",
-      "extensions",
-    );
-    await mkdir(extensionSandboxDir, { recursive: true });
-
     const args = [
-      "--extensions-dir",
-      extensionSandboxDir,
+      "--profile=cursorlessDevelopment",
       ...[...extensionDependencies, ...extraExtensions].flatMap(
         (dependency) => ["--install-extension", dependency],
       ),

@@ -8,6 +8,3 @@ node_modules
 
 # TypeDoc output
 docs/contributing/api/
-
-# Local extension / data sandbox for debug launch task
-/.vscode-sandbox
