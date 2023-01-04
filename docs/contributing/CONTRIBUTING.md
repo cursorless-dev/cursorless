@@ -12,12 +12,21 @@ extension](#running--testing-extension-locally), you may want to check out the
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en/)
 - [yarn](https://yarnpkg.com/)
+- [VSCode][https://code.visualstudio.com/]; minimum version for local development is 1.72.0 in order to support settings profiles for sandboxed development. Please file an issue if that is a problem.
 
 ### Steps
 
 1. Clone [`cursorless`](https://github.com/cursorless-dev/cursorless)
 2. Open the newly created `cursorless` directory in VSCode. If you're on Windows, don't use WSL (see [#919](https://github.com/cursorless-dev/cursorless/issues/919) for discussion / workaround).
-3. Run the following in the terminal:
+3. Add the following to your [VSCode `settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settingsjson) (can be opened by saying `"show settings json"` with a recent install of knausj)
+
+   ```json
+   "workbench.experimental.settingsProfiles.enabled": true
+   ```
+
+   This setting allows you to debug the Cursorless extension in a clean, sandboxed version of VSCode, with its own extensions and settings, using the experimental [VSCode settings profile feature](https://code.visualstudio.com/updates/v1_72#_settings-profiles).
+
+4. Run the following in the terminal:
 
    ```bash
    yarn
@@ -25,9 +34,15 @@ extension](#running--testing-extension-locally), you may want to check out the
    yarn init-launch-sandbox
    ```
 
-   The `yarn init-launch-sandbox` command creates a local sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. Please file an issue if you'd like to use additional extensions when debugging locally.
+   The `yarn init-launch-sandbox` command creates a local [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. This approach is [suggested](https://code.visualstudio.com/updates/v1_72#_extension-debugging-in-a-clean-environment) by the VSCode documentation. If you'd like to use additional extensions when debugging locally, you can use the following command:
 
-4. Copy / symlink `cursorless-talon-dev` into your Talon user directory for some useful voice commands for developing Cursorless.
+   ```bash
+   code --profile=cursorlessDevelopment --install-extension some.extension
+   ```
+
+   where `some.extension` is the id of the extension you'd like to install into the sandbox
+
+5. Copy / symlink `cursorless-talon-dev` into your Talon user directory for some useful voice commands for developing Cursorless.
 
 ## Running / testing extension locally
 
@@ -78,8 +93,7 @@ vsce package -o bundle.vsix
 Once you have your package then you can install it into the sandbox using the following command:
 
 ```
-cd ../cursorless
-code --extensions-dir .vscode-sandbox/extensions --install-extension ../vscode-parse-tree/bundle.vsix
+code --profile=cursorlessDevelopment --install-extension bundle.vsix
 ```
 
 ## Changing SVGs
