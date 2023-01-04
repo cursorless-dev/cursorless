@@ -149,6 +149,7 @@ For programming languages where Cursorless has rich parse tree support, we suppo
 | -------------- | --------------------------------------------------- |
 | `"arg"`        | function parameter or function call argument        |
 | `"attribute"`  | attribute, eg on html element                       |
+| `"branch"`     | branch of a `switch` or `if` statement              |
 | `"call"`       | function call, eg `foo(1, 2)`                       |
 | `"callee"`     | the function being called in a function call        |
 | `"class name"` | the name in a class declaration                     |

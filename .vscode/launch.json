@@ -11,13 +11,12 @@
       "request": "launch",
       "args": [
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions"
+        "--profile=cursorlessDevelopment"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
-        "!${workspaceFolder}/.vscode-sandbox/**",
         "!**/node_modules/**"
       ]
     },
@@ -29,7 +28,7 @@
         "CURSORLESS_TEST": "true"
       },
       "args": [
-        "--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
+        "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
       ],
@@ -37,7 +36,6 @@
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
-        "!${workspaceFolder}/.vscode-sandbox/**",
         "!**/node_modules/**"
       ]
     },
@@ -53,7 +51,6 @@
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
-        "!${workspaceFolder}/.vscode-sandbox/**",
         "!**/node_modules/**"
       ]
     },
@@ -66,7 +63,7 @@
         "CURSORLESS_RUN_TEST_SUBSET": "true"
       },
       "args": [
-        "--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
+        "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
       ],
@@ -74,7 +71,6 @@
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
-        "!${workspaceFolder}/.vscode-sandbox/**",
         "!**/node_modules/**"
       ]
     },
@@ -87,7 +83,7 @@
         "CURSORLESS_TEST_UPDATE_FIXTURES": "true"
       },
       "args": [
-        "--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
+        "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
       ],
@@ -95,7 +91,6 @@
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
-        "!${workspaceFolder}/.vscode-sandbox/**",
         "!**/node_modules/**"
       ]
     },
@@ -109,7 +104,7 @@
         "CURSORLESS_RUN_TEST_SUBSET": "true"
       },
       "args": [
-        "--extensions-dir=${workspaceFolder}/.vscode-sandbox/extensions",
+        "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
       ],
@@ -117,7 +112,6 @@
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
-        "!${workspaceFolder}/.vscode-sandbox/**",
         "!**/node_modules/**"
       ]
     },
@@ -130,7 +124,6 @@
       "runtimeArgs": ["run", "start"],
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
-        "!${workspaceFolder}/.vscode-sandbox/**",
         "!**/node_modules/**"
       ]
     },
