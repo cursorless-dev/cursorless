@@ -8,7 +8,7 @@ import {
 import {
   HatColor,
   HatShape,
-} from "../core/commandRunner/typings/hatStyles.types";
+} from "../libs/common/ide/types/hatStyles.types";
 import { getStyleName } from "../core/getStyleName";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import {

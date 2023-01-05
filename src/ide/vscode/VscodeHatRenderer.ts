@@ -1,51 +1,49 @@
-import * as vscode from "vscode";
+import { readFileSync } from "fs";
+import { filter, pull, sortBy } from "lodash";
 import { join } from "path";
+import * as vscode from "vscode";
 import {
-  HatStyleName,
+  HatColor,
   HatShape,
-  HAT_SHAPES,
+  HatStyle,
   HAT_COLORS,
   HAT_NON_DEFAULT_SHAPES,
-  HatStyle,
-  HatColor,
-} from "./commandRunner/typings/hatStyles.types";
-import { readFileSync } from "fs";
+  HAT_SHAPES,
+  VscodeHatStyleName,
+} from "./hatStyles.types";
+import isTesting from "../../testUtil/isTesting";
 import FontMeasurements from "./FontMeasurements";
-import { pull, sortBy, filter } from "lodash";
-import getHatThemeColors from "./getHatThemeColors";
+import getHatThemeColors from "../../core/getHatThemeColors";
 import {
-  IndividualHatAdjustmentMap,
   defaultShapeAdjustments,
   DEFAULT_HAT_HEIGHT_EM,
   DEFAULT_VERTICAL_OFFSET_EM,
-} from "./shapeAdjustments";
-import { Graph } from "../typings/Types";
-import isTesting from "../testUtil/isTesting";
+  IndividualHatAdjustmentMap,
+} from "../../core/shapeAdjustments";
 
 export type DecorationMap = {
-  [k in HatStyleName]?: vscode.TextEditorDecorationType;
+  [k in VscodeHatStyleName]?: vscode.TextEditorDecorationType;
 };
 
 export interface NamedDecoration {
-  name: HatStyleName;
+  name: VscodeHatStyleName;
   decoration: vscode.TextEditorDecorationType;
 }
 
 type DecorationChangeListener = () => void;
 
-export default class Decorations {
+export default class VscodeHatRenderer {
   decorations!: NamedDecoration[];
   decorationMap!: DecorationMap;
-  private hatStyleMap!: Record<HatStyleName, HatStyle>;
-  hatStyleNames!: HatStyleName[];
+  private hatStyleMap!: Record<VscodeHatStyleName, HatStyle>;
+  hatStyleNames!: VscodeHatStyleName[];
   private decorationChangeListeners: DecorationChangeListener[] = [];
   private disposables: vscode.Disposable[] = [];
+  private fontMeasurements: FontMeasurements;
 
-  constructor(
-    private extensionContext: vscode.ExtensionContext,
-    private fontMeasurements: FontMeasurements,
-  ) {
+  constructor(private extensionContext: vscode.ExtensionContext) {
     extensionContext.subscriptions.push(this);
+    this.fontMeasurements = new FontMeasurements(extensionContext);
 
     this.recomputeDecorationStyles = this.recomputeDecorationStyles.bind(this);
 
@@ -53,7 +51,7 @@ export default class Decorations {
       vscode.commands.registerCommand(
         "cursorless.recomputeDecorationStyles",
         () => {
-          fontMeasurements.clearCache();
+          this.fontMeasurements.clearCache();
           this.recomputeDecorationStyles();
         },
       ),
@@ -218,7 +216,7 @@ export default class Decorations {
           ]),
         ),
       ),
-    } as Record<HatStyleName, HatStyle>;
+    } as Record<VscodeHatStyleName, HatStyle>;
 
     if (maxPenalty > 0) {
       this.hatStyleMap = {
@@ -230,14 +228,14 @@ export default class Decorations {
               maxPenalty,
           ),
         ),
-      } as Record<HatStyleName, HatStyle>;
+      } as Record<VscodeHatStyleName, HatStyle>;
     }
 
     this.hatStyleNames = sortBy(
       Object.entries(this.hatStyleMap),
       ([_, hatStyle]) =>
         colorPenalties[hatStyle.color] + shapePenalties[hatStyle.shape],
-    ).map(([hatStyleName, _]) => hatStyleName as HatStyleName);
+    ).map(([hatStyleName, _]) => hatStyleName as VscodeHatStyleName);
   }
 
   private constructColoredSvgDataUri(originalSvg: string, color: string) {

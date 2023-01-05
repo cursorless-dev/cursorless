@@ -2,7 +2,7 @@ import { ActionType } from "../core/commandRunner/typings/ActionCommand";
 import {
   HatColor,
   HatShape,
-} from "../core/commandRunner/typings/hatStyles.types";
+} from "../libs/common/ide/types/hatStyles.types";
 import isTesting from "../testUtil/isTesting";
 import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 

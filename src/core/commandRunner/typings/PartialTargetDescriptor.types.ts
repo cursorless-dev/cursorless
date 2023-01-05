@@ -1,4 +1,4 @@
-import type { HatStyleName } from "./hatStyles.types";
+import type { HatStyleName } from "../../../libs/common/ide/types/hatStyles.types";
 
 export interface CursorMark {
   type: "cursor";

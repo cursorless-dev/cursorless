@@ -18,6 +18,7 @@ import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
 import { vscodeOnDidChangeTextDocument } from "./VscodeEvents";
 import VscodeGlobalState from "./VscodeGlobalState";
+import { VscodeHats } from "./VscodeHats";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
@@ -28,6 +29,7 @@ export default class VscodeIDE implements IDE {
   readonly messages: VscodeMessages;
   readonly clipboard: VscodeClipboard;
   readonly capabilities: VscodeCapabilities;
+  readonly hats: VscodeHats;
   private editorMap;
 
   constructor(private extensionContext: ExtensionContext) {
@@ -36,6 +38,7 @@ export default class VscodeIDE implements IDE {
     this.messages = new VscodeMessages();
     this.clipboard = new VscodeClipboard();
     this.capabilities = new VscodeCapabilities();
+    this.hats = new VscodeHats(extensionContext);
     this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
   }
 

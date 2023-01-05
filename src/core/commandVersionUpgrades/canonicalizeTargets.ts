@@ -6,7 +6,7 @@ import {
   SimpleScopeTypeType,
 } from "../commandRunner/typings/PartialTargetDescriptor.types";
 import { transformPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
-import { HatStyleName } from "../commandRunner/typings/hatStyles.types";
+import { HatStyleName } from "../../libs/common/ide/types/hatStyles.types";
 
 const SCOPE_TYPE_CANONICALIZATION_MAPPING: Record<string, SimpleScopeTypeType> =
   {

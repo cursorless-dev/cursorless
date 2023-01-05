@@ -27,9 +27,11 @@ export const HAT_SHAPES = ["default", ...HAT_NON_DEFAULT_SHAPES] as const;
 export type HatColor = typeof HAT_COLORS[number];
 export type HatShape = typeof HAT_SHAPES[number];
 export type HatNonDefaultShape = typeof HAT_NON_DEFAULT_SHAPES[number];
-export type HatStyleName = HatColor | `${HatColor}-${HatNonDefaultShape}`;
+export type VscodeHatStyleName = HatColor | `${HatColor}-${HatNonDefaultShape}`;
 
 export interface HatStyle {
   color: HatColor;
   shape: HatShape;
 }
+
+export type HatStyleMap = Record<HatStyleName, HatStyle>;

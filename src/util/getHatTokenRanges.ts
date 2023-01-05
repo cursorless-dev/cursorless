@@ -11,7 +11,7 @@ import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
 
-export function addDecorationsToEditors(
+export function getHatTokenRanges(
   hatTokenMap: IndividualHatMap,
   decorations: VscodeHatRenderer,
   tokenGraphemeSplitter: TokenGraphemeSplitter,
@@ -176,14 +176,5 @@ export function addDecorationsToEditors(
     graphemeDecorationIndices[bestGrapheme.text] = currentDecorationIndex + 1;
   });
 
-  decorationRanges.forEach((ranges, editor) => {
-    decorations.hatStyleNames.forEach((hatStyleName) => {
-      ide()
-        .getEditableTextEditor(editor)
-        .setDecorations(
-          decorations.decorationMap[hatStyleName]!,
-          ranges[hatStyleName]!,
-        );
-    });
-  });
+  return decorationRanges;
 }

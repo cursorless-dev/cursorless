@@ -4,7 +4,6 @@ import type {
   RevealLineAt,
   Selection,
   TextDocument,
-  TextEditorDecorationType,
   TextEditorEdit,
   TextEditorOptions,
 } from "@cursorless/common";
@@ -88,9 +87,9 @@ export interface EditableTextEditor extends TextEditor {
    * @param decorationType A decoration type.
    * @param ranges  {@link Range ranges}
    */
-  setDecorations(
-    decorationType: TextEditorDecorationType,
-    ranges: readonly Range[],
+  setHighlights(
+    id: HighlightId,
+    locations: readonly HighlightRangeDescriptor[],
   ): Promise<void>;
 
   /**
@@ -243,7 +242,7 @@ export interface EditableTextEditor extends TextEditor {
   extractVariable(range?: Range): Promise<void>;
 }
 
-interface LineBreakpointDescriptor {
+interface LineRange {
   type: "line";
   startLine: number;
   /**
@@ -252,11 +251,9 @@ interface LineBreakpointDescriptor {
   endLine: number;
 }
 
-interface InlineBreakpointDescriptor {
+interface CharacterRange {
   type: "inline";
   range: Range;
 }
 
-export type BreakpointDescriptor =
-  | LineBreakpointDescriptor
-  | InlineBreakpointDescriptor;
+export type BreakpointDescriptor = LineRange | CharacterRange;

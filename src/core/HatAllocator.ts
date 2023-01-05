@@ -1,5 +1,3 @@
-import * as vscode from "vscode";
-import { Disposable } from "vscode";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
 import { Graph } from "../typings/Types";
@@ -27,42 +25,37 @@ export class HatAllocator {
     this.toggleDecorations = this.toggleDecorations.bind(this);
     this.clearEditorDecorations = this.clearEditorDecorations.bind(this);
 
-    this.disposalFunctions.push(
-      graph.decorations.registerDecorationChangeListener(
-        this.addDecorationsDebounced,
-      ),
-    );
-
     this.disposables.push(
       vscode.commands.registerCommand(
         "cursorless.toggleDecorations",
         this.toggleDecorations,
       ),
 
+      ide().hats.onDidChangeAvailableHatStyles(this.handleAvailableHatStyles),
+
       // An event that fires when a text document opens
-      vscode.workspace.onDidOpenTextDocument(this.addDecorationsDebounced),
+      ide().onDidOpenTextDocument(this.addDecorationsDebounced),
       // An event that fires when a text document closes
-      vscode.workspace.onDidCloseTextDocument(this.addDecorationsDebounced),
+      ide().onDidCloseTextDocument(this.addDecorationsDebounced),
       // An Event which fires when the active editor has changed. Note that the event also fires when the active editor changes to undefined.
-      vscode.window.onDidChangeActiveTextEditor(this.addDecorationsDebounced),
+      ide().onDidChangeActiveTextEditor(this.addDecorationsDebounced),
       // An Event which fires when the array of visible editors has changed.
-      vscode.window.onDidChangeVisibleTextEditors(this.addDecorationsDebounced),
+      ide().onDidChangeVisibleTextEditors(this.addDecorationsDebounced),
       // An event that is emitted when a text document is changed. This usually happens when the contents changes but also when other things like the dirty-state changes.
-      vscode.workspace.onDidChangeTextDocument(this.addDecorationsDebounced),
+      ide().onDidChangeTextDocument(this.addDecorationsDebounced),
       // An Event which fires when the selection in an editor has changed.
-      vscode.window.onDidChangeTextEditorSelection(
-        this.addDecorationsDebounced,
-      ),
+      ide().onDidChangeTextEditorSelection(this.addDecorationsDebounced),
       // An Event which fires when the visible ranges of an editor has changed.
-      vscode.window.onDidChangeTextEditorVisibleRanges(
-        this.addDecorationsDebounced,
-      ),
+      ide().onDidChangeTextEditorVisibleRanges(this.addDecorationsDebounced),
       // Re-draw hats on grapheme splitting algorithm change in case they
       // changed their token hat splitting setting.
       tokenGraphemeSplitter().registerAlgorithmChangeListener(
         this.addDecorationsDebounced,
       ),
     );
+  }
+  handleAvailableHatStyles(handleAvailableHatStyles: any): vscode.Disposable {
+    throw new Error("Method not implemented.");
   }
 
   private clearEditorDecorations(editor: vscode.TextEditor) {

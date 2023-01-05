@@ -2,7 +2,7 @@ import {
   HatColor,
   HatShape,
   HatStyleName,
-} from "./commandRunner/typings/hatStyles.types";
+} from "../libs/common/ide/types/hatStyles.types";
 
 export function getStyleName(color: HatColor, shape: HatShape): HatStyleName {
   if (shape === "default") {
