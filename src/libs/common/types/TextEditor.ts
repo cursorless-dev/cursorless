@@ -79,20 +79,6 @@ export interface EditableTextEditor extends TextEditor {
   focus(): Promise<void>;
 
   /**
-   * Adds a set of decorations to the text editor. If a set of decorations already exists with
-   * the given {@link TextEditorDecorationType decoration type}, they will be replaced. If
-   * `ranges` is empty, the existing decorations with the given {@link TextEditorDecorationType decoration type}
-   * will be removed.
-   *
-   * @param decorationType A decoration type.
-   * @param ranges  {@link Range ranges}
-   */
-  setHighlights(
-    id: HighlightId,
-    locations: readonly HighlightRangeDescriptor[],
-  ): Promise<void>;
-
-  /**
    * Perform an edit on the document associated with this text editor.
    *
    * The given callback-function is invoked with an {@link TextEditorEdit edit-builder} which must

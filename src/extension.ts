@@ -36,6 +36,7 @@ export async function activate(
   const commandServerApi = await getCommandServerApi();
 
   const vscodeIDE = new VscodeIDE(context);
+  await vscodeIDE.init();
 
   if (vscodeIDE.runMode !== "production") {
     injectIde(

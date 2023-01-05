@@ -1,8 +1,6 @@
 import { pickBy } from "lodash";
 import * as vscode from "vscode";
-
 import { HatStyleInfo, HatStyleMap } from "../../libs/common/ide/types/Hats";
-import { HatStyleName } from "../../libs/common/ide/types/hatStyles.types";
 import { Listener, Notifier } from "../../libs/common/util/Notifier";
 import isTesting from "../../testUtil/isTesting";
 import {
@@ -10,6 +8,7 @@ import {
   HatShape,
   HAT_COLORS,
   HAT_NON_DEFAULT_SHAPES,
+  VscodeHatStyleName,
 } from "./hatStyles.types";
 
 export interface ExtendedHatStyleInfo extends HatStyleInfo {
@@ -17,7 +16,9 @@ export interface ExtendedHatStyleInfo extends HatStyleInfo {
   shape: HatShape;
 }
 
-export type ExtendedHatStyleMap = Record<HatStyleName, ExtendedHatStyleInfo>;
+export type ExtendedHatStyleMap = Partial<
+  Record<VscodeHatStyleName, ExtendedHatStyleInfo>
+>;
 
 export default class VscodeAvailableHatStyles {
   hatStyleMap!: ExtendedHatStyleMap;

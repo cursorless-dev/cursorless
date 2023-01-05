@@ -1,19 +1,31 @@
+import { Range, TextEditor } from "@cursorless/common";
 import * as vscode from "vscode";
 import { Disposable } from "vscode";
-import { HatRanges, Hats, HatStyleMap } from "../../libs/common/ide/types/Hats";
+import { HatRange, Hats, HatStyleMap } from "../../libs/common/ide/types/Hats";
+import { HatStyleName } from "../../libs/common/ide/types/hatStyles.types";
 import { Listener, Notifier } from "../../libs/common/util/Notifier";
+import { toVscodeRange } from "../../libs/vscode-common/vscodeUtil";
+import { VscodeHatStyleName } from "./hatStyles.types";
 import VscodeAvailableHatStyles from "./VscodeAvailableHatStyles";
-import VscodeHatRenderer from "./VscodeHatRenderer";
+import VscodeHatDecorationMap from "./VscodeHatDecorationMap";
+import type VscodeIDE from "./VscodeIDE";
+import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export class VscodeHats implements Hats {
   private _availableHatStyles: VscodeAvailableHatStyles;
-  private hatRenderer: VscodeHatRenderer;
+  private hatDecorationMap: VscodeHatDecorationMap;
   isActive: boolean;
   private isActiveNotifier: Notifier<[boolean]> = new Notifier();
 
-  constructor(extensionContext: vscode.ExtensionContext) {
+  constructor(
+    private ide: VscodeIDE,
+    extensionContext: vscode.ExtensionContext,
+  ) {
     this._availableHatStyles = new VscodeAvailableHatStyles(extensionContext);
-    this.hatRenderer = new VscodeHatRenderer(extensionContext);
+    this.hatDecorationMap = new VscodeHatDecorationMap(
+      extensionContext,
+      this._availableHatStyles,
+    );
 
     this.toggle = this.toggle.bind(this);
 
@@ -29,13 +41,44 @@ export class VscodeHats implements Hats {
     );
   }
 
+  async init() {
+    await this.hatDecorationMap.init();
+  }
+
   private toggle() {
     this.isActive = !this.isActive;
     this.isActiveNotifier.notifyListeners(this.isActive);
   }
 
-  setHatRanges(hatRanges: HatRanges): Promise<void> {
-    throw new Error("Method not implemented.");
+  async setHatRanges(hatRanges: HatRange[]): Promise<void> {
+    const hatStyleNames = Object.keys(this.availableHatStyles);
+
+    const decorationRanges: Map<
+      TextEditor,
+      {
+        [decorationName in HatStyleName]?: Range[];
+      }
+    > = new Map(
+      this.ide.visibleTextEditors.map((editor) => [
+        editor,
+        Object.fromEntries(hatStyleNames.map((name) => [name, []])),
+      ]),
+    );
+
+    hatRanges.forEach(({ editor, range, styleName }) => {
+      decorationRanges.get(editor)![styleName]!.push(range);
+    });
+
+    decorationRanges.forEach((ranges, editor) => {
+      hatStyleNames.forEach((hatStyleName) => {
+        (editor as VscodeTextEditorImpl).vscodeEditor.setDecorations(
+          this.hatDecorationMap.getHatDecoration(
+            hatStyleName as VscodeHatStyleName,
+          )!,
+          ranges[hatStyleName]?.map((range) => toVscodeRange(range)) ?? [],
+        );
+      });
+    });
   }
 
   get availableHatStyles(): HatStyleMap {

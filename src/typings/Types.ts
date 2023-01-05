@@ -8,7 +8,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
 import Cheatsheet from "../core/Cheatsheet";
 import Debug from "../core/Debug";
-import VscodeHatRenderer from "../ide/vscode/VscodeHatRenderer";
+import VscodeHatDecorationMap from "../ide/vscode/VscodeHatDecorationMap";
 import { EditStyles } from "../core/editStyles";
 import FontMeasurements from "../ide/vscode/FontMeasurements";
 import HatTokenMap from "../core/HatTokenMap";
@@ -126,7 +126,7 @@ export interface Graph {
   /**
    * Responsible for all the hat styles
    */
-  readonly decorations: VscodeHatRenderer;
+  readonly decorations: VscodeHatDecorationMap;
 
   /**
    * Takes measurements of the user's font

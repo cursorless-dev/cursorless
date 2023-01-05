@@ -1,9 +1,12 @@
-import { Disposable } from "vscode";
-import type { TextEditorRange } from "../../types/location.types";
 import { Listener } from "../../util/Notifier";
 import type { HatStyleName } from "./hatStyles.types";
+import { Disposable } from "./ide.types";
 
-export type HatRanges = Record<HatStyleName, readonly TextEditorRange[]>;
+export interface HatRange {
+  styleName: HatStyleName;
+  editor: TextEditor;
+  range: Range;
+}
 
 export interface HatStyleInfo {
   penalty: number;
@@ -22,7 +25,7 @@ export interface Hats {
    * Set which ranges each hat should have
    * @param hatRanges The ranges that all hats should have
    */
-  setHatRanges(hatRanges: HatRanges): Promise<void>;
+  setHatRanges(hatRanges: HatRange[]): Promise<void>;
 
   /**
    * Mapping from available hat styles to their priorities

@@ -38,8 +38,12 @@ export default class VscodeIDE implements IDE {
     this.messages = new VscodeMessages();
     this.clipboard = new VscodeClipboard();
     this.capabilities = new VscodeCapabilities();
-    this.hats = new VscodeHats(extensionContext);
+    this.hats = new VscodeHats(this, extensionContext);
     this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
+  }
+
+  async init() {
+    await this.hats.init();
   }
 
   get assetsRoot(): string {

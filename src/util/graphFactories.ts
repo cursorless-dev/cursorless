@@ -1,7 +1,7 @@
 import Actions from "../actions";
 import Cheatsheet from "../core/Cheatsheet";
 import Debug from "../core/Debug";
-import VscodeHatRenderer from "../ide/vscode/VscodeHatRenderer";
+import VscodeHatDecorationMap from "../ide/vscode/VscodeHatDecorationMap";
 import { EditStyles } from "../core/editStyles";
 import FontMeasurements from "../ide/vscode/FontMeasurements";
 import HatTokenMap from "../core/HatTokenMap";
@@ -21,7 +21,7 @@ const graphConstructors: Partial<ConstructorMap<Graph>> = {
   actions: Actions,
   editStyles: EditStyles,
   hatTokenMap: HatTokenMap,
-  decorations: VscodeHatRenderer,
+  decorations: VscodeHatDecorationMap,
   fontMeasurements: FontMeasurements,
   snippets: Snippets,
   rangeUpdater: RangeUpdater,

@@ -16,7 +16,9 @@ type HatDecorationMap = Partial<
   Record<VscodeHatStyleName, vscode.TextEditorDecorationType>
 >;
 
-export default class VscodeHatRenderer {
+const hatConfigSections = ["editor.fontSize", "editor."];
+
+export default class VscodeHatDecorationMap {
   private decorationMap!: HatDecorationMap;
   private disposables: vscode.Disposable[] = [];
   private fontMeasurements: FontMeasurements;
@@ -39,13 +41,23 @@ export default class VscodeHatRenderer {
         },
       ),
 
-      vscode.workspace.onDidChangeConfiguration(this.recomputeDecorations),
+      vscode.workspace.onDidChangeConfiguration(
+        async ({ affectsConfiguration }) => {
+          if (affectsConfiguration("")) {
+            await this.recomputeDecorations();
+          }
+        },
+      ),
     );
   }
 
   async init() {
     await this.fontMeasurements.calculate();
     this.constructDecorations(this.fontMeasurements);
+  }
+
+  getHatDecoration(name: VscodeHatStyleName) {
+    return this.decorationMap[name];
   }
 
   private destroyDecorations() {

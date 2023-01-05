@@ -20,7 +20,6 @@ export class HatAllocator {
     ide().disposeOnExit(this);
 
     this.addDecorationsDebounced = this.addDecorationsDebounced.bind(this);
-    this.clearEditorDecorations = this.clearEditorDecorations.bind(this);
 
     this.disposables.push(
       ide().hats.onDidChangeAvailableHatStyles(this.handleAvailableHatStyles),
@@ -62,14 +61,10 @@ export class HatAllocator {
     ).map(([hatStyleName, _]) => hatStyleName as HatStyleName);
   }
 
-  private clearEditorDecorations(editor: vscode.TextEditor) {
-    this.graph.decorations.decorations.forEach(({ decoration }) => {
-      editor.setDecorations(decoration, []);
-    });
-  }
-
   async addDecorations() {
     const activeMap = await this.context.getActiveMap();
+
+    activeMap.clear();
 
     if (ide().hats.isActive) {
       const { visibleTextEditors } = ide();
@@ -81,40 +76,21 @@ export class HatAllocator {
         visibleTextEditors,
       );
 
-      activeMap.clear();
-
-      const decorationRanges: Map<
-        TextEditor,
-        {
-          [decorationName in HatStyleName]?: Range[];
-        }
-      > = new Map(
-        visibleTextEditors.map((editor) => [
-          editor,
-          Object.fromEntries(
-            this.sortedHatStyleNames.map((name) => [name, []]),
-          ),
-        ]),
-      );
-
-      hatRangeDescriptors.forEach(({ hatStyle, grapheme, token, hatRange }) => {
+      hatRangeDescriptors.forEach(({ hatStyle, grapheme, token }) => {
         activeMap.addToken(hatStyle, grapheme, token);
-        decorationRanges.get(token.editor)![hatStyle]!.push(hatRange);
       });
 
-      decorationRanges.forEach((ranges, editor) => {
-        decorations.hatStyleNames.forEach((hatStyleName) => {
-          ide()
-            .getEditableTextEditor(editor)
-            .setDecorations(
-              decorations.decorationMap[hatStyleName]!,
-              ranges[hatStyleName]!,
-            );
-        });
-      });
+      await ide().hats.setHatRanges(
+        hatRangeDescriptors.map(
+          ({ hatStyle, hatRange, token: { editor } }) => ({
+            editor,
+            range: hatRange,
+            styleName: hatStyle,
+          }),
+        ),
+      );
     } else {
-      vscode.window.visibleTextEditors.forEach(this.clearEditorDecorations);
-      activeMap.clear();
+      await ide().hats.setHatRanges([]);
     }
   }
 
