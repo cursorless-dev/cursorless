@@ -6,8 +6,14 @@ import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
 suite("Basic keyboard test", async function () {
   endToEndTestSetup(this);
 
+  this.afterEach(async () => {
+    await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOff");
+  });
+
   test("Don't take keyboard control on startup", () => checkKeyboardStartup());
   test("Basic keyboard test", () => basic());
+  test("Check that entering and leaving mode is no-op", () =>
+    enterAndLeaveIsNoOp());
 });
 
 async function checkKeyboardStartup() {
@@ -46,6 +52,21 @@ async function basic() {
   await typeText("a");
 
   assert.equal(editor.document.getText().trim(), "a");
+}
+
+async function enterAndLeaveIsNoOp() {
+  const editor = await openNewEditor("hello");
+
+  const originalSelection = new vscode.Selection(0, 0, 0, 0);
+  editor.selection = originalSelection;
+
+  await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOn");
+
+  assert.isTrue(editor.selection.isEqual(originalSelection));
+
+  await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOff");
+
+  assert.isTrue(editor.selection.isEqual(originalSelection));
 }
 
 async function typeText(text: string) {
