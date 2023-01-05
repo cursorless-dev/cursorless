@@ -1,18 +1,6 @@
 import { readFileSync } from "fs";
-import { filter, pull, sortBy } from "lodash";
 import { join } from "path";
 import * as vscode from "vscode";
-import {
-  HatColor,
-  HatShape,
-  HatStyle,
-  HAT_COLORS,
-  HAT_NON_DEFAULT_SHAPES,
-  HAT_SHAPES,
-  VscodeHatStyleName,
-} from "./hatStyles.types";
-import isTesting from "../../testUtil/isTesting";
-import FontMeasurements from "./FontMeasurements";
 import getHatThemeColors from "../../core/getHatThemeColors";
 import {
   defaultShapeAdjustments,
@@ -20,44 +8,38 @@ import {
   DEFAULT_VERTICAL_OFFSET_EM,
   IndividualHatAdjustmentMap,
 } from "../../core/shapeAdjustments";
+import FontMeasurements from "./FontMeasurements";
+import { HatShape, HAT_SHAPES, VscodeHatStyleName } from "./hatStyles.types";
+import VscodeAvailableHatStyles from "./VscodeAvailableHatStyles";
 
-export type DecorationMap = {
-  [k in VscodeHatStyleName]?: vscode.TextEditorDecorationType;
-};
-
-export interface NamedDecoration {
-  name: VscodeHatStyleName;
-  decoration: vscode.TextEditorDecorationType;
-}
-
-type DecorationChangeListener = () => void;
+type HatDecorationMap = Partial<
+  Record<VscodeHatStyleName, vscode.TextEditorDecorationType>
+>;
 
 export default class VscodeHatRenderer {
-  decorations!: NamedDecoration[];
-  decorationMap!: DecorationMap;
-  private hatStyleMap!: Record<VscodeHatStyleName, HatStyle>;
-  hatStyleNames!: VscodeHatStyleName[];
-  private decorationChangeListeners: DecorationChangeListener[] = [];
+  private decorationMap!: HatDecorationMap;
   private disposables: vscode.Disposable[] = [];
   private fontMeasurements: FontMeasurements;
 
-  constructor(private extensionContext: vscode.ExtensionContext) {
+  constructor(
+    private extensionContext: vscode.ExtensionContext,
+    private availableHatStyles: VscodeAvailableHatStyles,
+  ) {
     extensionContext.subscriptions.push(this);
     this.fontMeasurements = new FontMeasurements(extensionContext);
 
-    this.recomputeDecorationStyles = this.recomputeDecorationStyles.bind(this);
+    this.recomputeDecorations = this.recomputeDecorations.bind(this);
 
     this.disposables.push(
       vscode.commands.registerCommand(
         "cursorless.recomputeDecorationStyles",
         () => {
           this.fontMeasurements.clearCache();
-          this.recomputeDecorationStyles();
+          this.recomputeDecorations();
         },
       ),
 
-      // Don't use fine grained settings here until tokenizer has migrated to graph
-      vscode.workspace.onDidChangeConfiguration(this.recomputeDecorationStyles),
+      vscode.workspace.onDidChangeConfiguration(this.recomputeDecorations),
     );
   }
 
@@ -66,35 +48,19 @@ export default class VscodeHatRenderer {
     this.constructDecorations(this.fontMeasurements);
   }
 
-  /**
-   * Register to be notified when decoration styles are updated, for example if
-   * the user enables a new hat style
-   * @param listener A function to be called when decoration styles are updated
-   * @returns A function that can be called to unsubscribe from notifications
-   */
-  registerDecorationChangeListener(listener: DecorationChangeListener) {
-    this.decorationChangeListeners.push(listener);
-
-    return () => {
-      pull(this.decorationChangeListeners, listener);
-    };
-  }
-
   private destroyDecorations() {
-    this.decorations.forEach(({ decoration }) => {
+    Object.values(this.decorationMap).forEach((decoration) => {
       decoration.dispose();
     });
   }
 
-  private async recomputeDecorationStyles() {
+  private async recomputeDecorations() {
     this.destroyDecorations();
     await this.fontMeasurements.calculate();
     this.constructDecorations(this.fontMeasurements);
   }
 
   private constructDecorations(fontMeasurements: FontMeasurements) {
-    this.constructHatStyleMap();
-
     const userSizeAdjustment = vscode.workspace
       .getConfiguration("cursorless")
       .get<number>(`hatSizeAdjustment`)!;
@@ -138,104 +104,37 @@ export default class VscodeHatRenderer {
       }),
     );
 
-    this.decorations = this.hatStyleNames.map((styleName) => {
-      const { color, shape } = this.hatStyleMap[styleName];
-      const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shape];
-
-      const { light, dark } = getHatThemeColors(color);
-
-      return {
-        name: styleName,
-        decoration: vscode.window.createTextEditorDecorationType({
-          rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-          light: {
-            before: {
-              contentIconPath: this.constructColoredSvgDataUri(svg, light),
-            },
-          },
-          dark: {
-            before: {
-              contentIconPath: this.constructColoredSvgDataUri(svg, dark),
-            },
-          },
-          before: {
-            margin: `-${svgHeightPx}px -${svgWidthPx}px 0 0`,
-            width: `${svgWidthPx}px`,
-            height: `${svgHeightPx}px`,
-          },
-        }),
-      };
-    });
-
     this.decorationMap = Object.fromEntries(
-      this.decorations.map(({ name, decoration }) => [name, decoration]),
-    );
+      Object.entries(this.availableHatStyles.hatStyleMap).map(
+        ([styleName, { color, shape }]) => {
+          const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shape];
 
-    this.decorationChangeListeners.forEach((listener) => listener());
-  }
+          const { light, dark } = getHatThemeColors(color);
 
-  private constructHatStyleMap() {
-    const shapeEnablement = vscode.workspace
-      .getConfiguration("cursorless.hatEnablement")
-      .get<Record<HatShape, boolean>>("shapes")!;
-    const colorEnablement = vscode.workspace
-      .getConfiguration("cursorless.hatEnablement")
-      .get<Record<HatColor, boolean>>("colors")!;
-    const shapePenalties = vscode.workspace
-      .getConfiguration("cursorless.hatPenalties")
-      .get<Record<HatShape, number>>("shapes")!;
-    const colorPenalties = vscode.workspace
-      .getConfiguration("cursorless.hatPenalties")
-      .get<Record<HatColor, number>>("colors")!;
-    const maxPenalty = vscode.workspace
-      .getConfiguration("cursorless")
-      .get<number>("maximumHatStylePenalty")!;
-
-    shapeEnablement.default = true;
-    colorEnablement.default = true;
-    shapePenalties.default = 0;
-    colorPenalties.default = 0;
-
-    // So that unit tests don't fail locally if you have some colors disabled
-    const activeHatColors = isTesting()
-      ? HAT_COLORS.filter((color) => !color.startsWith("user"))
-      : HAT_COLORS.filter((color) => colorEnablement[color]);
-    const activeNonDefaultHatShapes = HAT_NON_DEFAULT_SHAPES.filter(
-      (shape) => shapeEnablement[shape],
-    );
-
-    this.hatStyleMap = {
-      ...Object.fromEntries(
-        activeHatColors.map((color) => [color, { color, shape: "default" }]),
+          return [
+            styleName,
+            vscode.window.createTextEditorDecorationType({
+              rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
+              light: {
+                before: {
+                  contentIconPath: this.constructColoredSvgDataUri(svg, light),
+                },
+              },
+              dark: {
+                before: {
+                  contentIconPath: this.constructColoredSvgDataUri(svg, dark),
+                },
+              },
+              before: {
+                margin: `-${svgHeightPx}px -${svgWidthPx}px 0 0`,
+                width: `${svgWidthPx}px`,
+                height: `${svgHeightPx}px`,
+              },
+            }),
+          ];
+        },
       ),
-      ...Object.fromEntries(
-        activeHatColors.flatMap((color) =>
-          activeNonDefaultHatShapes.map((shape) => [
-            `${color}-${shape}`,
-            { color, shape },
-          ]),
-        ),
-      ),
-    } as Record<VscodeHatStyleName, HatStyle>;
-
-    if (maxPenalty > 0) {
-      this.hatStyleMap = {
-        ...Object.fromEntries(
-          filter(
-            Object.entries(this.hatStyleMap),
-            ([_, hatStyle]) =>
-              colorPenalties[hatStyle.color] + shapePenalties[hatStyle.shape] <=
-              maxPenalty,
-          ),
-        ),
-      } as Record<VscodeHatStyleName, HatStyle>;
-    }
-
-    this.hatStyleNames = sortBy(
-      Object.entries(this.hatStyleMap),
-      ([_, hatStyle]) =>
-        colorPenalties[hatStyle.color] + shapePenalties[hatStyle.shape],
-    ).map(([hatStyleName, _]) => hatStyleName as VscodeHatStyleName);
+    );
   }
 
   private constructColoredSvgDataUri(originalSvg: string, color: string) {

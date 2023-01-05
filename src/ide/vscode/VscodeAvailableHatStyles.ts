@@ -1,4 +1,4 @@
-import { pickBy, sortBy } from "lodash";
+import { pickBy } from "lodash";
 import * as vscode from "vscode";
 
 import { HatStyleInfo, HatStyleMap } from "../../libs/common/ide/types/Hats";
@@ -10,7 +10,6 @@ import {
   HatShape,
   HAT_COLORS,
   HAT_NON_DEFAULT_SHAPES,
-  VscodeHatStyleName,
 } from "./hatStyles.types";
 
 export interface ExtendedHatStyleInfo extends HatStyleInfo {
@@ -34,6 +33,8 @@ export default class VscodeAvailableHatStyles {
         this.recomputeAvailableHatStyles,
       ),
     );
+
+    this.constructHatStyleMap();
   }
 
   registerListener(listener: Listener<[HatStyleMap]>) {
@@ -102,11 +103,5 @@ export default class VscodeAvailableHatStyles {
         ({ penalty }) => penalty <= maxPenalty,
       );
     }
-
-    this.hatStyleNames = sortBy(
-      Object.entries(this.hatStyleMap),
-      ([_, hatStyle]) =>
-        colorPenalties[hatStyle.color] + shapePenalties[hatStyle.shape],
-    ).map(([hatStyleName, _]) => hatStyleName as VscodeHatStyleName);
   }
 }

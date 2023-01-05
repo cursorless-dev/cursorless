@@ -28,6 +28,11 @@ export interface Hats {
    * Mapping from available hat styles to their priorities
    */
   readonly availableHatStyles: HatStyleMap;
-
   onDidChangeAvailableHatStyles(listener: Listener<[HatStyleMap]>): Disposable;
+
+  /**
+   * Whether hats should be active
+   */
+  readonly isActive: boolean;
+  onDidChangeIsActive(listener: Listener<[boolean]>): Disposable;
 }

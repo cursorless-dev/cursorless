@@ -1,9 +1,6 @@
 import { Range, TextEditor } from "@cursorless/common";
 import { concat, flatten, maxBy, min } from "lodash";
-import VscodeHatRenderer from "../ide/vscode/VscodeHatRenderer";
 import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
-import { IndividualHatMap } from "../core/IndividualHatMap";
-import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { TokenGraphemeSplitter } from "../libs/cursorless-engine/tokenGraphemeSplitter";
 import { getMatcher } from "../libs/cursorless-engine/tokenizer";
 import { Token } from "../typings/Types";
@@ -11,23 +8,27 @@ import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
 
-export function addDecorationsToEditors(
-  hatTokenMap: IndividualHatMap,
-  decorations: VscodeHatRenderer,
-  tokenGraphemeSplitter: TokenGraphemeSplitter,
-) {
-  hatTokenMap.clear();
+export interface HatRangeDescriptor {
+  hatStyle: HatStyleName;
+  grapheme: string;
+  token: Token;
+  hatRange: Range;
+}
 
+export function computeHatRanges(
+  tokenGraphemeSplitter: TokenGraphemeSplitter,
+  sortedHatStyleNames: HatStyleName[],
+  activeTextEditor: TextEditor | undefined,
+  visibleTextEditors: readonly TextEditor[],
+): HatRangeDescriptor[] {
   let editors: readonly TextEditor[];
 
-  if (ide().activeTextEditor == null) {
-    editors = ide().visibleTextEditors;
+  if (activeTextEditor == null) {
+    editors = visibleTextEditors;
   } else {
     editors = [
-      ide().activeTextEditor!,
-      ...ide().visibleTextEditors.filter(
-        (editor) => editor !== ide().activeTextEditor,
-      ),
+      activeTextEditor!,
+      ...visibleTextEditors.filter((editor) => editor !== activeTextEditor),
     ];
   }
 
@@ -103,20 +104,6 @@ export function addDecorationsToEditors(
 
   const graphemeDecorationIndices: { [grapheme: string]: number } = {};
 
-  const decorationRanges: Map<
-    TextEditor,
-    {
-      [decorationName in HatStyleName]?: Range[];
-    }
-  > = new Map(
-    editors.map((editor) => [
-      editor,
-      Object.fromEntries(
-        decorations.decorations.map((decoration) => [decoration.name, []]),
-      ),
-    ]),
-  );
-
   // Picks the character with minimum color such that the next token that contains
   // that character is as far away as possible.
   // TODO: Could be improved by ignoring subsequent tokens that also contain
@@ -127,63 +114,53 @@ export function addDecorationsToEditors(
   //
   // Here is an example where the existing algorithm false down:
   // "ab ax b"
-  tokens.forEach((token, tokenIdx) => {
-    const tokenGraphemes = tokenGraphemeSplitter
-      .getTokenGraphemes(token.text)
-      .map((grapheme) => ({
-        ...grapheme,
-        decorationIndex:
-          grapheme.text in graphemeDecorationIndices
-            ? graphemeDecorationIndices[grapheme.text]
-            : 0,
-      }));
+  return tokens
+    .map<HatRangeDescriptor | undefined>((token, tokenIdx) => {
+      const tokenGraphemes = tokenGraphemeSplitter
+        .getTokenGraphemes(token.text)
+        .map((grapheme) => ({
+          ...grapheme,
+          decorationIndex:
+            grapheme.text in graphemeDecorationIndices
+              ? graphemeDecorationIndices[grapheme.text]
+              : 0,
+        }));
 
-    const minDecorationIndex = min(
-      tokenGraphemes.map(({ decorationIndex }) => decorationIndex),
-    )!;
+      const minDecorationIndex = min(
+        tokenGraphemes.map(({ decorationIndex }) => decorationIndex),
+      )!;
 
-    if (minDecorationIndex >= decorations.decorations.length) {
-      return;
-    }
+      if (minDecorationIndex >= sortedHatStyleNames.length) {
+        return undefined;
+      }
 
-    const bestGrapheme = maxBy(
-      tokenGraphemes.filter(
-        ({ decorationIndex }) => decorationIndex === minDecorationIndex,
-      ),
-      ({ text }) =>
-        min(
-          graphemeTokenIndices[text].filter(
-            (laterTokenIdx) => laterTokenIdx > tokenIdx,
-          ),
-        ) ?? Infinity,
-    )!;
+      const bestGrapheme = maxBy(
+        tokenGraphemes.filter(
+          ({ decorationIndex }) => decorationIndex === minDecorationIndex,
+        ),
+        ({ text }) =>
+          min(
+            graphemeTokenIndices[text].filter(
+              (laterTokenIdx) => laterTokenIdx > tokenIdx,
+            ),
+          ) ?? Infinity,
+      )!;
 
-    const currentDecorationIndex = bestGrapheme.decorationIndex;
+      const currentDecorationIndex = bestGrapheme.decorationIndex;
 
-    const hatStyleName = decorations.decorations[currentDecorationIndex].name;
+      const hatStyleName = sortedHatStyleNames[currentDecorationIndex];
 
-    decorationRanges
-      .get(token.editor)!
-      [hatStyleName]!.push(
-        new Range(
+      graphemeDecorationIndices[bestGrapheme.text] = currentDecorationIndex + 1;
+
+      return {
+        hatStyle: hatStyleName,
+        grapheme: bestGrapheme.text,
+        token,
+        hatRange: new Range(
           token.range.start.translate(undefined, bestGrapheme.tokenStartOffset),
           token.range.start.translate(undefined, bestGrapheme.tokenEndOffset),
         ),
-      );
-
-    hatTokenMap.addToken(hatStyleName, bestGrapheme.text, token);
-
-    graphemeDecorationIndices[bestGrapheme.text] = currentDecorationIndex + 1;
-  });
-
-  decorationRanges.forEach((ranges, editor) => {
-    decorations.hatStyleNames.forEach((hatStyleName) => {
-      ide()
-        .getEditableTextEditor(editor)
-        .setDecorations(
-          decorations.decorationMap[hatStyleName]!,
-          ranges[hatStyleName]!,
-        );
-    });
-  });
+      };
+    })
+    .filter((value): value is HatRangeDescriptor => value != null);
 }
