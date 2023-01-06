@@ -1,5 +1,3 @@
-import type { HatStyleName } from "../../../libs/common/ide/types/hatStyles.types";
-
 export interface CursorMark {
   type: "cursor";
 }
@@ -22,7 +20,7 @@ export interface LastCursorPositionMark {
 
 export interface DecoratedSymbolMark {
   type: "decoratedSymbol";
-  symbolColor: HatStyleName;
+  symbolColor: string;
   character: string;
 }
 

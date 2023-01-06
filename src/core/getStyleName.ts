@@ -1,10 +1,13 @@
 import {
   HatColor,
   HatShape,
-  HatStyleName,
-} from "../libs/common/ide/types/hatStyles.types";
+  VscodeHatStyleName,
+} from "../ide/vscode/hatStyles.types";
 
-export function getStyleName(color: HatColor, shape: HatShape): HatStyleName {
+export function getStyleName(
+  color: HatColor,
+  shape: HatShape,
+): VscodeHatStyleName {
   if (shape === "default") {
     return color;
   }

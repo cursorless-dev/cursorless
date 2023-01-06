@@ -1,6 +1,7 @@
 import { sortBy } from "lodash";
 import { HatStyleMap } from "../libs/common/ide/types/Hats";
 import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
+import type { Disposable } from "../libs/common/ide/types/ide.types";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
 import { Graph } from "../typings/Types";

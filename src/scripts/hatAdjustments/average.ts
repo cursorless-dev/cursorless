@@ -1,12 +1,12 @@
 /**
  * This script can be used to add hat tweaks to the currently shipping ones
  */
-import { HAT_SHAPES } from "../../libs/common/ide/types/hatStyles.types";
 import {
   defaultShapeAdjustments,
   HatAdjustments,
   IndividualHatAdjustmentMap,
 } from "../../core/shapeAdjustments";
+import { HAT_SHAPES } from "../../ide/vscode/hatStyles.types";
 import { postProcessValue } from "./lib";
 
 /**

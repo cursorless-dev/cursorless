@@ -1,10 +1,7 @@
 import { ActionType } from "../core/commandRunner/typings/ActionCommand";
-import {
-  HatColor,
-  HatShape,
-} from "../libs/common/ide/types/hatStyles.types";
-import isTesting from "../testUtil/isTesting";
 import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
+import isTesting from "../testUtil/isTesting";
 
 export type Keymap<T> = Record<string, T>;
 

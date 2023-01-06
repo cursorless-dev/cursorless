@@ -36,42 +36,58 @@ export default class PassthroughIDEBase implements IDE {
     thisArgs?: any,
     disposables?: Disposable[],
   ): Disposable {
-    return this.onDidOpenTextDocument(listener, thisArgs, disposables);
+    return this.original.onDidOpenTextDocument(listener, thisArgs, disposables);
   }
   onDidCloseTextDocument(
     listener: (e: TextDocument) => any,
     thisArgs?: any,
     disposables?: Disposable[],
   ): Disposable {
-    return this.onDidCloseTextDocument(listener, thisArgs, disposables);
+    return this.original.onDidCloseTextDocument(
+      listener,
+      thisArgs,
+      disposables,
+    );
   }
   onDidChangeActiveTextEditor(
     listener: (e: TextEditor | undefined) => any,
     thisArgs?: any,
     disposables?: Disposable[],
   ): Disposable {
-    return this.onDidChangeActiveTextEditor(listener, thisArgs, disposables);
+    return this.original.onDidChangeActiveTextEditor(
+      listener,
+      thisArgs,
+      disposables,
+    );
   }
   onDidChangeVisibleTextEditors(
     listener: (e: TextEditor[]) => any,
     thisArgs?: any,
     disposables?: Disposable[],
   ): Disposable {
-    return this.onDidChangeVisibleTextEditors(listener, thisArgs, disposables);
+    return this.original.onDidChangeVisibleTextEditors(
+      listener,
+      thisArgs,
+      disposables,
+    );
   }
   onDidChangeTextEditorSelection(
     listener: (e: TextEditorSelectionChangeEvent) => any,
     thisArgs?: any,
     disposables?: Disposable[],
   ): Disposable {
-    return this.onDidChangeTextEditorSelection(listener, thisArgs, disposables);
+    return this.original.onDidChangeTextEditorSelection(
+      listener,
+      thisArgs,
+      disposables,
+    );
   }
   onDidChangeTextEditorVisibleRanges(
     listener: (e: TextEditorVisibleRangesChangeEvent) => any,
     thisArgs?: any,
     disposables?: Disposable[],
   ): Disposable {
-    return this.onDidChangeTextEditorVisibleRanges(
+    return this.original.onDidChangeTextEditorVisibleRanges(
       listener,
       thisArgs,
       disposables,

@@ -30,24 +30,6 @@ export interface Event<T> {
 }
 
 /**
- * Represents sources that can cause {@link window.onDidChangeTextEditorSelection selection change events}.
- */
-export enum TextEditorSelectionChangeKind {
-  /**
-   * Selection changed due to typing in the editor.
-   */
-  keyboard = 1,
-  /**
-   * Selection change due to clicking in the editor.
-   */
-  mouse = 2,
-  /**
-   * Selection changed because a command ran.
-   */
-  command = 3,
-}
-
-/**
  * Represents an event describing the change in a {@link TextEditor.selections text editor's selections}.
  */
 export interface TextEditorSelectionChangeEvent {
@@ -59,11 +41,6 @@ export interface TextEditorSelectionChangeEvent {
    * The new value for the {@link TextEditor.selections text editor's selections}.
    */
   readonly selections: readonly Selection[];
-  /**
-   * The {@link TextEditorSelectionChangeKind change kind} which has triggered this
-   * event. Can be `undefined`.
-   */
-  readonly kind?: TextEditorSelectionChangeKind;
 }
 
 /**

@@ -5,6 +5,7 @@ import type {
   TextDocumentChangeReason,
   TextDocumentContentChangeEvent,
 } from "../../libs/common/ide/types/Events";
+import { Event } from "../../libs/common/ide/types/events.types";
 import type { Disposable } from "../../libs/common/ide/types/ide.types";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 
@@ -42,4 +43,19 @@ function fromVscodeReason(
     default:
       return undefined;
   }
+}
+
+export function forwardEvent<S, T>(
+  vscodeEvent: vscode.Event<S>,
+  transform: (e: S) => T,
+): Event<T> {
+  function event(
+    listener: (e: T) => any,
+    thisArgs?: any,
+    disposables?: Disposable[],
+  ): Disposable {
+    return vscodeEvent((e: S) => listener(transform(e)), thisArgs, disposables);
+  }
+
+  return event;
 }
