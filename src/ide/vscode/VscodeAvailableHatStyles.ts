@@ -20,6 +20,15 @@ export type ExtendedHatStyleMap = Partial<
   Record<VscodeHatStyleName, ExtendedHatStyleInfo>
 >;
 
+/**
+ * Keeps track of the available hat styles, along with their associated color
+ * and shape identifiers, and penalties.  Note that this class is not
+ * responsible for deciding how these colors / shapes should be displayed.  The
+ * actual display mechanics are handled by {@link VscodeHatDecorationMap}.
+ *
+ * In VSCode, there is a hat style for every shape-color combination, filtered
+ * by those whose penalty is not too large.
+ */
 export default class VscodeAvailableHatStyles {
   hatStyleMap!: ExtendedHatStyleMap;
   private notifier: Notifier<[HatStyleMap]> = new Notifier();

@@ -20,6 +20,10 @@ type HatDecorationMap = Partial<
   Record<VscodeHatStyleName, vscode.TextEditorDecorationType>
 >;
 
+/**
+ * VSCode configuration sections that influence hat rendering.  We redraw hats
+ * if any of these sections change.
+ */
 const hatConfigSections = [
   "editor.fontSize",
   "editor.fontFamily",
@@ -29,6 +33,12 @@ const hatConfigSections = [
   "cursorless.individualHatAdjustments",
 ];
 
+/**
+ * Maintains the VSCode decoration objects corresponding to each hat style.
+ * This class is responsible for the actual svgs / colors used to render the
+ * hats.  The decision about which hat styles should be available is up to
+ * {@link VscodeAvailableHatStyles}
+ */
 export default class VscodeHatDecorationMap {
   private decorationMap!: HatDecorationMap;
   private disposables: vscode.Disposable[] = [];
