@@ -9,7 +9,6 @@ import { ActionRecord } from "../actions/actions.types";
 import Cheatsheet from "../core/Cheatsheet";
 import Debug from "../core/Debug";
 import { EditStyles } from "../core/editStyles";
-import FontMeasurements from "../ide/vscode/hats/FontMeasurements";
 import HatTokenMap from "../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
@@ -121,11 +120,6 @@ export interface Graph {
    * as the document changes
    */
   readonly rangeUpdater: RangeUpdater;
-
-  /**
-   * Takes measurements of the user's font
-   */
-  readonly fontMeasurements: FontMeasurements;
 
   /**
    * API object for interacting with the command server, if it exists
