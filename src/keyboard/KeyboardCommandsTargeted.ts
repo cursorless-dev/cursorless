@@ -247,7 +247,7 @@ export default class KeyboardCommandsTargeted {
   targetSelection = () =>
     executeCursorlessCommand({
       action: {
-        name: "setSelection",
+        name: "highlight",
       },
       targets: [
         {
@@ -255,6 +255,7 @@ export default class KeyboardCommandsTargeted {
           mark: {
             type: "cursor",
           },
+          modifiers: [{ type: "toRawSelection" }],
         },
       ],
     });
