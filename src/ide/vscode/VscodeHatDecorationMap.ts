@@ -1,4 +1,5 @@
 import { readFileSync } from "fs";
+import { cloneDeep, isEqual } from "lodash";
 import { join } from "path";
 import * as vscode from "vscode";
 import getHatThemeColors from "../../core/getHatThemeColors";
@@ -11,7 +12,9 @@ import {
 import { Listener, Notifier } from "../../libs/common/util/Notifier";
 import FontMeasurements from "./FontMeasurements";
 import { HatShape, HAT_SHAPES, VscodeHatStyleName } from "./hatStyles.types";
-import VscodeAvailableHatStyles from "./VscodeAvailableHatStyles";
+import VscodeAvailableHatStyles, {
+  ExtendedHatStyleMap,
+} from "./VscodeAvailableHatStyles";
 
 type HatDecorationMap = Partial<
   Record<VscodeHatStyleName, vscode.TextEditorDecorationType>
@@ -31,6 +34,7 @@ export default class VscodeHatDecorationMap {
   private disposables: vscode.Disposable[] = [];
   private fontMeasurements: FontMeasurements;
   private notifier: Notifier<[]> = new Notifier();
+  private lastSeenAvailableHatStyles: ExtendedHatStyleMap = {};
 
   constructor(
     private extensionContext: vscode.ExtensionContext,
@@ -60,6 +64,19 @@ export default class VscodeHatDecorationMap {
         },
       ),
     );
+  }
+
+  async handleNewStylesIfNecessary() {
+    if (
+      isEqual(
+        this.lastSeenAvailableHatStyles,
+        this.availableHatStyles.hatStyleMap,
+      )
+    ) {
+      return;
+    }
+
+    await this.recomputeDecorations();
   }
 
   registerListener(listener: Listener<[]>) {
@@ -162,6 +179,10 @@ export default class VscodeHatDecorationMap {
           ];
         },
       ),
+    );
+
+    this.lastSeenAvailableHatStyles = cloneDeep(
+      this.availableHatStyles.hatStyleMap,
     );
   }
 

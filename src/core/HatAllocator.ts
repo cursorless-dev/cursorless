@@ -1,5 +1,4 @@
 import { sortBy } from "lodash";
-import { HatStyleMap } from "../libs/common/ide/types/Hats";
 import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
 import type { Disposable } from "../libs/common/ide/types/ide.types";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
@@ -15,7 +14,6 @@ interface Context {
 export class HatAllocator {
   private timeoutHandle: NodeJS.Timeout | null = null;
   private disposables: Disposable[] = [];
-  private sortedHatStyleNames!: HatStyleName[];
 
   constructor(private graph: Graph, private context: Context) {
     ide().disposeOnExit(this);
@@ -23,7 +21,7 @@ export class HatAllocator {
     this.addDecorationsDebounced = this.addDecorationsDebounced.bind(this);
 
     this.disposables.push(
-      ide().hats.onDidChangeAvailableHatStyles(this.handleAvailableHatStyles),
+      ide().hats.onDidChangeAvailableHatStyles(this.addDecorationsDebounced),
       ide().hats.onDidChangeIsActive(this.addDecorationsDebounced),
 
       // An event that fires when a text document opens
@@ -46,18 +44,11 @@ export class HatAllocator {
         this.addDecorationsDebounced,
       ),
     );
-
-    this.computeSortedHatStyleNames(ide().hats.availableHatStyles);
   }
 
-  private handleAvailableHatStyles(availableHatStyles: HatStyleMap): void {
-    this.computeSortedHatStyleNames(availableHatStyles);
-    this.addDecorationsDebounced();
-  }
-
-  private computeSortedHatStyleNames(availableHatStyles: HatStyleMap): void {
-    this.sortedHatStyleNames = sortBy(
-      Object.entries(availableHatStyles),
+  private getSortedHatStyleNames() {
+    return sortBy(
+      Object.entries(ide().hats.availableHatStyles),
       ([_, { penalty }]) => penalty,
     ).map(([hatStyleName, _]) => hatStyleName as HatStyleName);
   }
@@ -72,7 +63,7 @@ export class HatAllocator {
 
       const hatRangeDescriptors = computeHatRanges(
         tokenGraphemeSplitter(),
-        this.sortedHatStyleNames,
+        this.getSortedHatStyleNames(),
         ide().activeTextEditor,
         visibleTextEditors,
       );

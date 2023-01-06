@@ -8,7 +8,6 @@ import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
 import Cheatsheet from "../core/Cheatsheet";
 import Debug from "../core/Debug";
-import VscodeHatDecorationMap from "../ide/vscode/VscodeHatDecorationMap";
 import { EditStyles } from "../core/editStyles";
 import FontMeasurements from "../ide/vscode/FontMeasurements";
 import HatTokenMap from "../core/HatTokenMap";
@@ -122,11 +121,6 @@ export interface Graph {
    * as the document changes
    */
   readonly rangeUpdater: RangeUpdater;
-
-  /**
-   * Responsible for all the hat styles
-   */
-  readonly decorations: VscodeHatDecorationMap;
 
   /**
    * Takes measurements of the user's font

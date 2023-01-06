@@ -60,7 +60,6 @@ export async function activate(
   } as FactoryMap<Graph>);
   graph.debug.init();
   graph.snippets.init();
-  await graph.decorations.init();
   graph.hatTokenMap.init();
   graph.testCaseRecorder.init();
   graph.cheatsheet.init();

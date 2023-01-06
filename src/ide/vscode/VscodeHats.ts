@@ -56,16 +56,31 @@ export class VscodeHats implements Hats {
   }
 
   private handleHatDecorationMapUpdated() {
+    if (
+      this.hatRanges.some(
+        ({ styleName }) => !(styleName in this.availableHatStyles),
+      )
+    ) {
+      // This happens if the user updated multiple settings simultaneously: one
+      // that affects hat rendering and one that alters the set of available
+      // hats. If the render setting notification fires first, then applying the
+      // old hat decorations will fail, so we bail for now, knowing that the
+      // notification for new hat allocations will come immediately after
+      return;
+    }
+
     this.applyHatDecorations();
   }
 
   async setHatRanges(hatRanges: HatRange[]): Promise<void> {
     this.hatRanges = hatRanges;
-    this.applyHatDecorations();
+    await this.applyHatDecorations();
   }
 
-  private applyHatDecorations(): void {
+  private async applyHatDecorations(): Promise<void> {
     const hatStyleNames = Object.keys(this.availableHatStyles);
+
+    await this.hatDecorationMap.handleNewStylesIfNecessary();
 
     const decorationRanges: Map<
       TextEditor,
