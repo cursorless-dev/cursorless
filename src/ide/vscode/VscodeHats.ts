@@ -16,6 +16,7 @@ export class VscodeHats implements Hats {
   private hatDecorationMap: VscodeHatDecorationMap;
   isActive: boolean;
   private isActiveNotifier: Notifier<[boolean]> = new Notifier();
+  private hatRanges: HatRange[] = [];
 
   constructor(
     private ide: VscodeIDE,
@@ -28,6 +29,10 @@ export class VscodeHats implements Hats {
     );
 
     this.toggle = this.toggle.bind(this);
+    this.handleHatDecorationMapUpdated =
+      this.handleHatDecorationMapUpdated.bind(this);
+
+    this.hatDecorationMap.registerListener(this.handleHatDecorationMapUpdated);
 
     this.isActive = vscode.workspace
       .getConfiguration("cursorless")
@@ -50,7 +55,16 @@ export class VscodeHats implements Hats {
     this.isActiveNotifier.notifyListeners(this.isActive);
   }
 
+  private handleHatDecorationMapUpdated() {
+    this.applyHatDecorations();
+  }
+
   async setHatRanges(hatRanges: HatRange[]): Promise<void> {
+    this.hatRanges = hatRanges;
+    this.applyHatDecorations();
+  }
+
+  private applyHatDecorations(): void {
     const hatStyleNames = Object.keys(this.availableHatStyles);
 
     const decorationRanges: Map<
@@ -65,7 +79,7 @@ export class VscodeHats implements Hats {
       ]),
     );
 
-    hatRanges.forEach(({ editor, range, styleName }) => {
+    this.hatRanges.forEach(({ editor, range, styleName }) => {
       decorationRanges.get(editor)![styleName]!.push(range);
     });
 

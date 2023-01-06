@@ -8,6 +8,7 @@ import {
   DEFAULT_VERTICAL_OFFSET_EM,
   IndividualHatAdjustmentMap,
 } from "../../core/shapeAdjustments";
+import { Listener, Notifier } from "../../libs/common/util/Notifier";
 import FontMeasurements from "./FontMeasurements";
 import { HatShape, HAT_SHAPES, VscodeHatStyleName } from "./hatStyles.types";
 import VscodeAvailableHatStyles from "./VscodeAvailableHatStyles";
@@ -16,12 +17,20 @@ type HatDecorationMap = Partial<
   Record<VscodeHatStyleName, vscode.TextEditorDecorationType>
 >;
 
-const hatConfigSections = ["editor.fontSize", "editor."];
+const hatConfigSections = [
+  "editor.fontSize",
+  "editor.fontFamily",
+  "cursorless.colors",
+  "cursorless.hatSizeAdjustment",
+  "cursorless.hatVerticalOffset",
+  "cursorless.individualHatAdjustments",
+];
 
 export default class VscodeHatDecorationMap {
   private decorationMap!: HatDecorationMap;
   private disposables: vscode.Disposable[] = [];
   private fontMeasurements: FontMeasurements;
+  private notifier: Notifier<[]> = new Notifier();
 
   constructor(
     private extensionContext: vscode.ExtensionContext,
@@ -35,15 +44,17 @@ export default class VscodeHatDecorationMap {
     this.disposables.push(
       vscode.commands.registerCommand(
         "cursorless.recomputeDecorationStyles",
-        () => {
+        async () => {
           this.fontMeasurements.clearCache();
-          this.recomputeDecorations();
+          await this.recomputeDecorations();
         },
       ),
 
       vscode.workspace.onDidChangeConfiguration(
         async ({ affectsConfiguration }) => {
-          if (affectsConfiguration("")) {
+          if (
+            hatConfigSections.some((section) => affectsConfiguration(section))
+          ) {
             await this.recomputeDecorations();
           }
         },
@@ -51,9 +62,12 @@ export default class VscodeHatDecorationMap {
     );
   }
 
+  registerListener(listener: Listener<[]>) {
+    return this.notifier.registerListener(listener);
+  }
+
   async init() {
-    await this.fontMeasurements.calculate();
-    this.constructDecorations(this.fontMeasurements);
+    await this.constructDecorations();
   }
 
   getHatDecoration(name: VscodeHatStyleName) {
@@ -68,11 +82,13 @@ export default class VscodeHatDecorationMap {
 
   private async recomputeDecorations() {
     this.destroyDecorations();
-    await this.fontMeasurements.calculate();
-    this.constructDecorations(this.fontMeasurements);
+    await this.constructDecorations();
+    this.notifier.notifyListeners();
   }
 
-  private constructDecorations(fontMeasurements: FontMeasurements) {
+  private async constructDecorations() {
+    await this.fontMeasurements.calculate();
+
     const userSizeAdjustment = vscode.workspace
       .getConfiguration("cursorless")
       .get<number>(`hatSizeAdjustment`)!;
@@ -107,7 +123,7 @@ export default class VscodeHatDecorationMap {
         return [
           shape,
           this.processSvg(
-            fontMeasurements,
+            this.fontMeasurements,
             shape,
             scaleFactor,
             finalVerticalOffsetEm,

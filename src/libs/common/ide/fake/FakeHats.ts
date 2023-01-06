@@ -1,0 +1,21 @@
+import { Listener } from "../../util/Notifier";
+import { HatRange, Hats, HatStyleMap } from "../types/Hats";
+import { Disposable } from "../types/ide.types";
+
+export class FakeHats implements Hats {
+  setHatRanges(_hatRanges: HatRange[]): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
+  availableHatStyles: HatStyleMap = {};
+  onDidChangeAvailableHatStyles(
+    _listener: Listener<[HatStyleMap]>,
+  ): Disposable {
+    throw new Error("Method not implemented.");
+  }
+
+  isActive: boolean = false;
+  onDidChangeIsActive(_listener: Listener<[boolean]>): Disposable {
+    throw new Error("Method not implemented.");
+  }
+}

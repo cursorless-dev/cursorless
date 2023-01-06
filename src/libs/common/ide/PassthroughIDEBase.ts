@@ -1,8 +1,15 @@
+import { TextDocument } from "../types/TextDocument";
 import { EditableTextEditor, TextEditor } from "../types/TextEditor";
 import { Capabilities } from "./types/Capabilities";
 import { Clipboard } from "./types/Clipboard";
 import { Configuration } from "./types/Configuration";
 import { TextDocumentChangeEvent } from "./types/Events";
+import {
+  TextEditorSelectionChangeEvent,
+  TextEditorVisibleRangesChangeEvent,
+} from "./types/events.types";
+
+import { Hats } from "./types/Hats";
 import { Disposable, IDE, RunMode, WorkspaceFolder } from "./types/ide.types";
 import { Messages } from "./types/Messages";
 import { State } from "./types/State";
@@ -13,6 +20,7 @@ export default class PassthroughIDEBase implements IDE {
   clipboard: Clipboard;
   messages: Messages;
   capabilities: Capabilities;
+  hats: Hats;
 
   constructor(private original: IDE) {
     this.configuration = original.configuration;
@@ -20,6 +28,54 @@ export default class PassthroughIDEBase implements IDE {
     this.clipboard = original.clipboard;
     this.messages = original.messages;
     this.capabilities = original.capabilities;
+    this.hats = original.hats;
+  }
+
+  onDidOpenTextDocument(
+    listener: (e: TextDocument) => any,
+    thisArgs?: any,
+    disposables?: Disposable[],
+  ): Disposable {
+    return this.onDidOpenTextDocument(listener, thisArgs, disposables);
+  }
+  onDidCloseTextDocument(
+    listener: (e: TextDocument) => any,
+    thisArgs?: any,
+    disposables?: Disposable[],
+  ): Disposable {
+    return this.onDidCloseTextDocument(listener, thisArgs, disposables);
+  }
+  onDidChangeActiveTextEditor(
+    listener: (e: TextEditor | undefined) => any,
+    thisArgs?: any,
+    disposables?: Disposable[],
+  ): Disposable {
+    return this.onDidChangeActiveTextEditor(listener, thisArgs, disposables);
+  }
+  onDidChangeVisibleTextEditors(
+    listener: (e: TextEditor[]) => any,
+    thisArgs?: any,
+    disposables?: Disposable[],
+  ): Disposable {
+    return this.onDidChangeVisibleTextEditors(listener, thisArgs, disposables);
+  }
+  onDidChangeTextEditorSelection(
+    listener: (e: TextEditorSelectionChangeEvent) => any,
+    thisArgs?: any,
+    disposables?: Disposable[],
+  ): Disposable {
+    return this.onDidChangeTextEditorSelection(listener, thisArgs, disposables);
+  }
+  onDidChangeTextEditorVisibleRanges(
+    listener: (e: TextEditorVisibleRangesChangeEvent) => any,
+    thisArgs?: any,
+    disposables?: Disposable[],
+  ): Disposable {
+    return this.onDidChangeTextEditorVisibleRanges(
+      listener,
+      thisArgs,
+      disposables,
+    );
   }
 
   public get activeTextEditor(): TextEditor | undefined {

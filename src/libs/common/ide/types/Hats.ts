@@ -1,3 +1,5 @@
+import { Range } from "../../types/Range";
+import { TextEditor } from "../../types/TextEditor";
 import { Listener } from "../../util/Notifier";
 import type { HatStyleName } from "./hatStyles.types";
 import { Disposable } from "./ide.types";
