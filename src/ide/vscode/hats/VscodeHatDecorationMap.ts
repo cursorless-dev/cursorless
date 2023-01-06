@@ -2,19 +2,19 @@ import { readFileSync } from "fs";
 import { cloneDeep, isEqual } from "lodash";
 import { join } from "path";
 import * as vscode from "vscode";
-import getHatThemeColors from "../../core/getHatThemeColors";
+import getHatThemeColors from "../../../core/getHatThemeColors";
 import {
   defaultShapeAdjustments,
   DEFAULT_HAT_HEIGHT_EM,
   DEFAULT_VERTICAL_OFFSET_EM,
   IndividualHatAdjustmentMap,
-} from "../../core/shapeAdjustments";
-import { Listener, Notifier } from "../../libs/common/util/Notifier";
+} from "../../../core/shapeAdjustments";
+import { Listener, Notifier } from "../../../libs/common/util/Notifier";
 import FontMeasurements from "./FontMeasurements";
-import { HatShape, HAT_SHAPES, VscodeHatStyleName } from "./hatStyles.types";
+import { HatShape, HAT_SHAPES, VscodeHatStyleName } from "../hatStyles.types";
 import VscodeAvailableHatStyles, {
   ExtendedHatStyleMap,
-} from "./VscodeAvailableHatStyles";
+} from "../VscodeAvailableHatStyles";
 
 type HatDecorationMap = Partial<
   Record<VscodeHatStyleName, vscode.TextEditorDecorationType>

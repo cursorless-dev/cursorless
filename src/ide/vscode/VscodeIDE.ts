@@ -22,7 +22,7 @@ import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
 import { forwardEvent, vscodeOnDidChangeTextDocument } from "./VscodeEvents";
 import VscodeGlobalState from "./VscodeGlobalState";
-import { VscodeHats } from "./VscodeHats";
+import { VscodeHats } from "./hats/VscodeHats";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
