@@ -156,6 +156,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     if (ranges != null) {
       this.selections = ranges.map((range) => range.toSelection(false));
     }
+    await this.focus();
     await vscode.commands.executeCommand("editor.action.insertLineAfter");
   }
 

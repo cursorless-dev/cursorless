@@ -12,7 +12,9 @@ suite("fold", async function () {
 });
 
 async function foldMade() {
-  const editor = await openNewEditor("function myFunk() {\n\n}", "typescript");
+  const editor = await openNewEditor("function myFunk() {\n\n}", {
+    languageId: "typescript",
+  });
 
   await runCursorlessCommand({
     version: 1,
@@ -35,7 +37,9 @@ async function foldMade() {
 }
 
 async function unfoldMade() {
-  const editor = await openNewEditor("function myFunk() {\n\n}", "typescript");
+  const editor = await openNewEditor("function myFunk() {\n\n}", {
+    languageId: "typescript",
+  });
   await vscode.commands.executeCommand("editor.fold", {
     selectionLines: [0],
   });
