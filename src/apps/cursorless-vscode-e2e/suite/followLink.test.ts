@@ -14,10 +14,9 @@ suite("followLink", async function () {
 });
 
 async function followDefinition() {
-  const editor = await openNewEditor(
-    "const foo = 'hello';\nconst bar = foo;",
-    "typescript",
-  );
+  const editor = await openNewEditor("const foo = 'hello';\nconst bar = foo;", {
+    languageId: "typescript",
+  });
   await vscode.commands.executeCommand("revealLine", {
     lineNumber: 1,
     at: "top",

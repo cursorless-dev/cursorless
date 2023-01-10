@@ -68,10 +68,9 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   graph.editStyles.testDecorations = [];
 
-  const editor = await openNewEditor(
-    fixture.initialState.documentContents,
-    fixture.languageId,
-  );
+  const editor = await openNewEditor(fixture.initialState.documentContents, {
+    languageId: fixture.languageId,
+  });
 
   // Override any user settings and make sure tests run with default tabs.
   editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;

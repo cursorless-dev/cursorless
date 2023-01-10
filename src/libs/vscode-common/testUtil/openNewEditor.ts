@@ -1,20 +1,30 @@
 import { getParseTreeApi } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 
+interface NewEditorOptions {
+  languageId?: string;
+  openBeside?: boolean;
+}
+
 export async function openNewEditor(
   content: string,
-  language: string = "plaintext",
+  { languageId = "plaintext", openBeside = false }: NewEditorOptions = {},
 ) {
-  await vscode.commands.executeCommand("workbench.action.closeAllEditors");
+  if (!openBeside) {
+    await vscode.commands.executeCommand("workbench.action.closeAllEditors");
+  }
 
   const document = await vscode.workspace.openTextDocument({
-    language,
+    language: languageId,
     content,
   });
 
-  await (await getParseTreeApi()).loadLanguage(language);
+  await (await getParseTreeApi()).loadLanguage(languageId);
 
-  const editor = await vscode.window.showTextDocument(document);
+  const editor = await vscode.window.showTextDocument(
+    document,
+    openBeside ? vscode.ViewColumn.Beside : undefined,
+  );
 
   const eol = content.includes("\r\n")
     ? vscode.EndOfLine.CRLF
