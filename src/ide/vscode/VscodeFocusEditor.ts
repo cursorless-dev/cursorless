@@ -94,7 +94,6 @@ async function focusNotebookCell(editor: VscodeTextEditorImpl) {
     }),
   ];
   desiredNotebookEditor.selections = desiredSelections;
-  desiredNotebookEditor.revealRange(desiredSelections[0]);
 
   // Issue a command to tell VSCode to focus the cell input editor
   // NB: We don't issue the command if it's already focused, because it turns
