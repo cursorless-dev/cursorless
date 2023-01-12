@@ -12,9 +12,9 @@ import {
 import { Listener, Notifier } from "../../../libs/common/util/Notifier";
 import FontMeasurements from "./FontMeasurements";
 import { HatShape, HAT_SHAPES, VscodeHatStyleName } from "../hatStyles.types";
-import VscodeAvailableHatStyles, {
+import VscodeEnabledHatStyles, {
   ExtendedHatStyleMap,
-} from "../VscodeAvailableHatStyles";
+} from "../VscodeEnabledHatStyles";
 
 type HatDecorationMap = Partial<
   Record<VscodeHatStyleName, vscode.TextEditorDecorationType>
@@ -37,18 +37,18 @@ const hatConfigSections = [
  * Maintains the VSCode decoration objects corresponding to each hat style.
  * This class is responsible for the actual svgs / colors used to render the
  * hats.  The decision about which hat styles should be available is up to
- * {@link VscodeAvailableHatStyles}
+ * {@link VscodeEnabledHatStyles}
  */
 export default class VscodeHatDecorationMap {
   private decorationMap!: HatDecorationMap;
   private disposables: vscode.Disposable[] = [];
   private fontMeasurements: FontMeasurements;
   private notifier: Notifier<[]> = new Notifier();
-  private lastSeenAvailableHatStyles: ExtendedHatStyleMap = {};
+  private lastSeenEnabledHatStyles: ExtendedHatStyleMap = {};
 
   constructor(
     private extensionContext: vscode.ExtensionContext,
-    private availableHatStyles: VscodeAvailableHatStyles,
+    private enabledHatStyles: VscodeEnabledHatStyles,
   ) {
     extensionContext.subscriptions.push(this);
     this.fontMeasurements = new FontMeasurements(extensionContext);
@@ -78,10 +78,7 @@ export default class VscodeHatDecorationMap {
 
   async handleNewStylesIfNecessary() {
     if (
-      isEqual(
-        this.lastSeenAvailableHatStyles,
-        this.availableHatStyles.hatStyleMap,
-      )
+      isEqual(this.lastSeenEnabledHatStyles, this.enabledHatStyles.hatStyleMap)
     ) {
       return;
     }
@@ -160,7 +157,7 @@ export default class VscodeHatDecorationMap {
     );
 
     this.decorationMap = Object.fromEntries(
-      Object.entries(this.availableHatStyles.hatStyleMap).map(
+      Object.entries(this.enabledHatStyles.hatStyleMap).map(
         ([styleName, { color, shape }]) => {
           const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shape];
 
@@ -191,8 +188,8 @@ export default class VscodeHatDecorationMap {
       ),
     );
 
-    this.lastSeenAvailableHatStyles = cloneDeep(
-      this.availableHatStyles.hatStyleMap,
+    this.lastSeenEnabledHatStyles = cloneDeep(
+      this.enabledHatStyles.hatStyleMap,
     );
   }
 

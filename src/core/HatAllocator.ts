@@ -21,7 +21,7 @@ export class HatAllocator {
     this.addDecorationsDebounced = this.addDecorationsDebounced.bind(this);
 
     this.disposables.push(
-      ide().hats.onDidChangeAvailableHatStyles(this.addDecorationsDebounced),
+      ide().hats.onDidChangeEnabledHatStyles(this.addDecorationsDebounced),
       ide().hats.onDidChangeIsEnabled(this.addDecorationsDebounced),
 
       // An event that fires when a text document opens
@@ -48,7 +48,7 @@ export class HatAllocator {
 
   private getSortedHatStyleNames() {
     return sortBy(
-      Object.entries(ide().hats.availableHatStyles),
+      Object.entries(ide().hats.enabledHatStyles),
       ([_, { penalty }]) => penalty,
     ).map(([hatStyleName, _]) => hatStyleName as HatStyleName);
   }

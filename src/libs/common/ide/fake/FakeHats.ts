@@ -7,10 +7,8 @@ export class FakeHats implements Hats {
     throw new Error("Method not implemented.");
   }
 
-  availableHatStyles: HatStyleMap = {};
-  onDidChangeAvailableHatStyles(
-    _listener: Listener<[HatStyleMap]>,
-  ): Disposable {
+  enabledHatStyles: HatStyleMap = {};
+  onDidChangeEnabledHatStyles(_listener: Listener<[HatStyleMap]>): Disposable {
     throw new Error("Method not implemented.");
   }
 

@@ -29,19 +29,16 @@ export type ExtendedHatStyleMap = Partial<
  * In VSCode, there is a hat style for every shape-color combination, filtered
  * by those whose penalty is not too large.
  */
-export default class VscodeAvailableHatStyles {
+export default class VscodeEnabledHatStyles {
   hatStyleMap!: ExtendedHatStyleMap;
   private notifier: Notifier<[HatStyleMap]> = new Notifier();
 
   constructor(extensionContext: vscode.ExtensionContext) {
-    this.recomputeAvailableHatStyles =
-      this.recomputeAvailableHatStyles.bind(this);
+    this.recomputeEnabledHatStyles = this.recomputeEnabledHatStyles.bind(this);
 
     extensionContext.subscriptions.push(
       // Don't use fine grained settings here until tokenizer has migrated to graph
-      vscode.workspace.onDidChangeConfiguration(
-        this.recomputeAvailableHatStyles,
-      ),
+      vscode.workspace.onDidChangeConfiguration(this.recomputeEnabledHatStyles),
     );
 
     this.constructHatStyleMap();
@@ -51,7 +48,7 @@ export default class VscodeAvailableHatStyles {
     return this.notifier.registerListener(listener);
   }
 
-  private async recomputeAvailableHatStyles() {
+  private async recomputeEnabledHatStyles() {
     this.constructHatStyleMap();
     this.notifier.notifyListeners(this.hatStyleMap);
   }
