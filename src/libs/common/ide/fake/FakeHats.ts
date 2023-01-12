@@ -14,8 +14,8 @@ export class FakeHats implements Hats {
     throw new Error("Method not implemented.");
   }
 
-  isActive: boolean = false;
-  onDidChangeIsActive(_listener: Listener<[boolean]>): Disposable {
+  isEnabled: boolean = false;
+  onDidChangeIsEnabled(_listener: Listener<[boolean]>): Disposable {
     throw new Error("Method not implemented.");
   }
 }

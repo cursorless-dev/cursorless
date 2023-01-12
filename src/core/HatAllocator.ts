@@ -22,7 +22,7 @@ export class HatAllocator {
 
     this.disposables.push(
       ide().hats.onDidChangeAvailableHatStyles(this.addDecorationsDebounced),
-      ide().hats.onDidChangeIsActive(this.addDecorationsDebounced),
+      ide().hats.onDidChangeIsEnabled(this.addDecorationsDebounced),
 
       // An event that fires when a text document opens
       ide().onDidOpenTextDocument(this.addDecorationsDebounced),
@@ -58,7 +58,7 @@ export class HatAllocator {
 
     activeMap.clear();
 
-    if (ide().hats.isActive) {
+    if (ide().hats.isEnabled) {
       const { visibleTextEditors } = ide();
 
       const hatRangeDescriptors = computeHatRanges(

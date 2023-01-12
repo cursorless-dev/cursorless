@@ -18,7 +18,7 @@ import { HatStyleName } from "../../../libs/common/ide/types/hatStyles.types";
 export class VscodeHats implements Hats {
   private _availableHatStyles: VscodeAvailableHatStyles;
   private hatDecorationMap: VscodeHatDecorationMap;
-  isActive: boolean;
+  isEnabled: boolean;
   private isActiveNotifier: Notifier<[boolean]> = new Notifier();
   private hatRanges: HatRange[] = [];
 
@@ -38,7 +38,7 @@ export class VscodeHats implements Hats {
 
     this.hatDecorationMap.registerListener(this.handleHatDecorationMapUpdated);
 
-    this.isActive = vscode.workspace
+    this.isEnabled = vscode.workspace
       .getConfiguration("cursorless")
       .get<boolean>("showOnStart")!;
 
@@ -55,8 +55,8 @@ export class VscodeHats implements Hats {
   }
 
   private toggle() {
-    this.isActive = !this.isActive;
-    this.isActiveNotifier.notifyListeners(this.isActive);
+    this.isEnabled = !this.isEnabled;
+    this.isActiveNotifier.notifyListeners(this.isEnabled);
   }
 
   private handleHatDecorationMapUpdated() {
@@ -122,7 +122,7 @@ export class VscodeHats implements Hats {
     return this._availableHatStyles.registerListener(listener);
   }
 
-  onDidChangeIsActive(listener: Listener<[boolean]>): Disposable {
+  onDidChangeIsEnabled(listener: Listener<[boolean]>): Disposable {
     return this.isActiveNotifier.registerListener(listener);
   }
 }

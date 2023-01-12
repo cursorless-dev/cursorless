@@ -36,8 +36,9 @@ export interface Hats {
   onDidChangeAvailableHatStyles(listener: Listener<[HatStyleMap]>): Disposable;
 
   /**
-   * Whether hats should be active
+   * Whether hats are enabled.  This can be determined by a setting, a toggle
+   * command, or both.
    */
-  readonly isActive: boolean;
-  onDidChangeIsActive(listener: Listener<[boolean]>): Disposable;
+  readonly isEnabled: boolean;
+  onDidChangeIsEnabled(listener: Listener<[boolean]>): Disposable;
 }
