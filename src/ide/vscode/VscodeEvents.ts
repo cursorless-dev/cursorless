@@ -45,6 +45,12 @@ function fromVscodeReason(
   }
 }
 
+/**
+ * Transforms a VSCode event into an event that forwards the VSCode event
+ * @param vscodeEvent The VSCode event to forward
+ * @param transform A function that transforms the VSCode event info into the desired event info
+ * @returns An event that forwards the given VSCode event
+ */
 export function forwardEvent<S, T>(
   vscodeEvent: vscode.Event<S>,
   transform: (e: S) => T,
