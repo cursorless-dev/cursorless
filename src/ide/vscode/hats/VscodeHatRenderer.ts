@@ -12,9 +12,9 @@ import {
 import { Listener, Notifier } from "../../../libs/common/util/Notifier";
 import FontMeasurements from "./FontMeasurements";
 import { HatShape, HAT_SHAPES, VscodeHatStyleName } from "../hatStyles.types";
-import VscodeEnabledHatStyles, {
+import VscodeEnabledHatStyleManager, {
   ExtendedHatStyleMap,
-} from "../VscodeEnabledHatStyles";
+} from "../VscodeEnabledHatStyleManager";
 
 type HatDecorationMap = Partial<
   Record<VscodeHatStyleName, vscode.TextEditorDecorationType>
@@ -34,12 +34,12 @@ const hatConfigSections = [
 ];
 
 /**
- * Maintains the VSCode decoration objects corresponding to each hat style.
+ * Maintains the VSCode decoration type objects corresponding to each hat style.
  * This class is responsible for the actual svgs / colors used to render the
  * hats.  The decision about which hat styles should be available is up to
  * {@link VscodeEnabledHatStyles}
  */
-export default class VscodeHatDecorationMap {
+export default class VscodeHatRenderer {
   private decorationMap!: HatDecorationMap;
   private disposables: vscode.Disposable[] = [];
   private fontMeasurements: FontMeasurements;
@@ -48,7 +48,7 @@ export default class VscodeHatDecorationMap {
 
   constructor(
     private extensionContext: vscode.ExtensionContext,
-    private enabledHatStyles: VscodeEnabledHatStyles,
+    private enabledHatStyles: VscodeEnabledHatStyleManager,
   ) {
     extensionContext.subscriptions.push(this);
     this.fontMeasurements = new FontMeasurements(extensionContext);
@@ -94,8 +94,13 @@ export default class VscodeHatDecorationMap {
     await this.constructDecorations();
   }
 
-  getHatDecoration(name: VscodeHatStyleName) {
-    return this.decorationMap[name];
+  /**
+   * Gets the VSCode decoration type to use for the given hat style
+   * @param hatStyle The name of the hat style
+   * @returns A VSCode decoration type used to render the given hat style
+   */
+  getDecorationType(hatStyle: VscodeHatStyleName) {
+    return this.decorationMap[hatStyle];
   }
 
   private destroyDecorations() {

@@ -9,34 +9,36 @@ import {
 import { Listener, Notifier } from "../../../libs/common/util/Notifier";
 import { toVscodeRange } from "../../../libs/vscode-common/vscodeUtil";
 import { VscodeHatStyleName } from "../hatStyles.types";
-import VscodeEnabledHatStyles from "../VscodeEnabledHatStyles";
-import VscodeHatDecorationMap from "./VscodeHatDecorationMap";
+import VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
+import VscodeHatRenderer from "./VscodeHatRenderer";
 import type VscodeIDE from "../VscodeIDE";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 import { HatStyleName } from "../../../libs/common/ide/types/hatStyles.types";
 
 export class VscodeHats implements Hats {
-  private _enabledHatStyles: VscodeEnabledHatStyles;
-  private hatDecorationMap: VscodeHatDecorationMap;
+  private enabledHatStyleManager: VscodeEnabledHatStyleManager;
+  private hatRenderer: VscodeHatRenderer;
   isEnabled: boolean;
-  private isActiveNotifier: Notifier<[boolean]> = new Notifier();
+  private isEnabledNotifier: Notifier<[boolean]> = new Notifier();
   private hatRanges: HatRange[] = [];
 
   constructor(
     private ide: VscodeIDE,
     extensionContext: vscode.ExtensionContext,
   ) {
-    this._enabledHatStyles = new VscodeEnabledHatStyles(extensionContext);
-    this.hatDecorationMap = new VscodeHatDecorationMap(
+    this.enabledHatStyleManager = new VscodeEnabledHatStyleManager(
       extensionContext,
-      this._enabledHatStyles,
+    );
+    this.hatRenderer = new VscodeHatRenderer(
+      extensionContext,
+      this.enabledHatStyleManager,
     );
 
     this.toggle = this.toggle.bind(this);
     this.handleHatDecorationMapUpdated =
       this.handleHatDecorationMapUpdated.bind(this);
 
-    this.hatDecorationMap.registerListener(this.handleHatDecorationMapUpdated);
+    this.hatRenderer.registerListener(this.handleHatDecorationMapUpdated);
 
     this.isEnabled = vscode.workspace
       .getConfiguration("cursorless")
@@ -51,12 +53,12 @@ export class VscodeHats implements Hats {
   }
 
   async init() {
-    await this.hatDecorationMap.init();
+    await this.hatRenderer.init();
   }
 
   private toggle() {
     this.isEnabled = !this.isEnabled;
-    this.isActiveNotifier.notifyListeners(this.isEnabled);
+    this.isEnabledNotifier.notifyListeners(this.isEnabled);
   }
 
   private handleHatDecorationMapUpdated() {
@@ -84,7 +86,7 @@ export class VscodeHats implements Hats {
   private async applyHatDecorations(): Promise<void> {
     const hatStyleNames = Object.keys(this.enabledHatStyles);
 
-    await this.hatDecorationMap.handleNewStylesIfNecessary();
+    await this.hatRenderer.handleNewStylesIfNecessary();
 
     const decorationRanges: Map<
       TextEditor,
@@ -105,7 +107,7 @@ export class VscodeHats implements Hats {
     decorationRanges.forEach((ranges, editor) => {
       hatStyleNames.forEach((hatStyleName) => {
         (editor as VscodeTextEditorImpl).vscodeEditor.setDecorations(
-          this.hatDecorationMap.getHatDecoration(
+          this.hatRenderer.getDecorationType(
             hatStyleName as VscodeHatStyleName,
           )!,
           ranges[hatStyleName]?.map((range) => toVscodeRange(range)) ?? [],
@@ -115,14 +117,14 @@ export class VscodeHats implements Hats {
   }
 
   get enabledHatStyles(): HatStyleMap {
-    return this._enabledHatStyles.hatStyleMap;
+    return this.enabledHatStyleManager.hatStyleMap;
   }
 
   onDidChangeEnabledHatStyles(listener: Listener<[HatStyleMap]>): Disposable {
-    return this._enabledHatStyles.registerListener(listener);
+    return this.enabledHatStyleManager.registerListener(listener);
   }
 
   onDidChangeIsEnabled(listener: Listener<[boolean]>): Disposable {
-    return this.isActiveNotifier.registerListener(listener);
+    return this.isEnabledNotifier.registerListener(listener);
   }
 }
