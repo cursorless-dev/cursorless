@@ -16,6 +16,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   private map: {
     [decoratedCharacter: string]: Token;
   } = {};
+  descriptors: HatRangeDescriptor[];
 
   constructor(private graph: Graph) {}
 

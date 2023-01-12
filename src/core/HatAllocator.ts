@@ -1,5 +1,3 @@
-import { sortBy } from "lodash";
-import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
 import type { Disposable } from "../libs/common/ide/types/ide.types";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
@@ -46,13 +44,6 @@ export class HatAllocator {
     );
   }
 
-  private getSortedHatStyleNames() {
-    return sortBy(
-      Object.entries(ide().hats.enabledHatStyles),
-      ([_, { penalty }]) => penalty,
-    ).map(([hatStyleName, _]) => hatStyleName as HatStyleName);
-  }
-
   async addDecorations() {
     const activeMap = await this.context.getActiveMap();
 
@@ -63,7 +54,8 @@ export class HatAllocator {
 
       const hatRangeDescriptors = computeHatRanges(
         tokenGraphemeSplitter(),
-        this.getSortedHatStyleNames(),
+        ide().hats.enabledHatStyles,
+        activeMap.descriptors,
         ide().activeTextEditor,
         visibleTextEditors,
       );
@@ -71,6 +63,8 @@ export class HatAllocator {
       hatRangeDescriptors.forEach(({ hatStyle, grapheme, token }) => {
         activeMap.addToken(hatStyle, grapheme, token);
       });
+
+      activeMap.descriptors = hatRangeDescriptors;
 
       await ide().hats.setHatRanges(
         hatRangeDescriptors.map(

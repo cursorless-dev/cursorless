@@ -1,5 +1,6 @@
 import { Range, TextEditor } from "@cursorless/common";
-import { flatten, maxBy, min } from "lodash";
+import { flatten, maxBy, min, sortBy } from "lodash";
+import { HatStyleMap } from "../libs/common/ide/types/Hats";
 import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
 import { TokenGraphemeSplitter } from "../libs/cursorless-engine/tokenGraphemeSplitter";
 import { getMatcher } from "../libs/cursorless-engine/tokenizer";
@@ -17,10 +18,14 @@ export interface HatRangeDescriptor {
 
 export function computeHatRanges(
   tokenGraphemeSplitter: TokenGraphemeSplitter,
-  sortedHatStyleNames: HatStyleName[],
+  enabledHatStyles: HatStyleMap,
+  oldHatRangeDescriptors: HatRangeDescriptor[],
   activeTextEditor: TextEditor | undefined,
   visibleTextEditors: readonly TextEditor[],
 ): HatRangeDescriptor[] {
+  const sortedHatStyleNames: HatStyleName[] =
+    getSortedHatStyleNames(enabledHatStyles);
+
   let editors: readonly TextEditor[];
 
   if (activeTextEditor == null) {
@@ -97,7 +102,11 @@ export function computeHatRanges(
       });
   });
 
-  const graphemeDecorationIndices: { [grapheme: string]: number } = {};
+  // TODO: Keep track of which grapheme / style combinations have been used
+  // Would behave like a Python defaultdict
+  const usedGraphemeStyles = new DefaultDict<string, Set<HatStyleName>>(
+    () => new Set<HatStyleName>(),
+  );
 
   // Picks the character with minimum color such that the next token that contains
   // that character is as far away as possible.
@@ -107,32 +116,52 @@ export function computeHatRanges(
   // current color, and add the number of times it appears in between the
   // current token and the given subsequent token.
   //
-  // Here is an example where the existing algorithm false down:
+  // Here is an example where the existing algorithm falls down:
   // "ab ax b"
   return tokens
     .map<HatRangeDescriptor | undefined>((token, tokenIdx) => {
-      const tokenGraphemes = tokenGraphemeSplitter
+      const availableGraphemeHats = tokenGraphemeSplitter
         .getTokenGraphemes(token.text)
-        .map((grapheme) => ({
-          ...grapheme,
-          decorationIndex:
-            grapheme.text in graphemeDecorationIndices
-              ? graphemeDecorationIndices[grapheme.text]
-              : 0,
-        }));
+        .map((grapheme) => {
+          const usedStyles: Set<HatStyleName> = usedGraphemeStyles.get(
+            grapheme.text,
+          );
 
-      const minDecorationIndex = min(
-        tokenGraphemes.map(({ decorationIndex }) => decorationIndex),
-      )!;
+          return {
+            grapheme,
+            availableStyles: sortedHatStyleNames
+              .filter((value) => !usedStyles.has(value))
+              .map((style) => ({
+                style,
+                penalty: enabledHatStyles[style].penalty,
+              })),
+          };
+        });
 
-      if (minDecorationIndex >= sortedHatStyleNames.length) {
+      const minStylePenalty = min(
+        availableGraphemeHats.flatMap(({ availableStyles }) =>
+          availableStyles.map(({ penalty }) => penalty),
+        ),
+      );
+
+      if (minStylePenalty == null) {
         return undefined;
       }
 
+      const equalPenaltyHats = availableGraphemeHats
+        .flatMap(({ grapheme, availableStyles }) =>
+          availableStyles.map((style) => ({ style, grapheme })),
+        )
+        .filter(({ style: { penalty } }) => penalty === minStylePenalty);
+
+      // TODO: If one of equalPenaltyHats is the hat used for this token in
+      // oldHatRangeDescriptors, use that one.
+
+      // Otherwise, pick the grapheme that is used in the token furthest away
+      // TODO: Should we take into account whether the grapheme that we pick
+      // steals a hat from another grapheme in oldHatRangeDescriptors?
       const bestGrapheme = maxBy(
-        tokenGraphemes.filter(
-          ({ decorationIndex }) => decorationIndex === minDecorationIndex,
-        ),
+        equalPenaltyHats,
         ({ text }) =>
           min(
             graphemeTokenIndices[text].filter(
@@ -141,21 +170,32 @@ export function computeHatRanges(
           ) ?? Infinity,
       )!;
 
-      const currentDecorationIndex = bestGrapheme.decorationIndex;
-
-      const hatStyleName = sortedHatStyleNames[currentDecorationIndex];
-
-      graphemeDecorationIndices[bestGrapheme.text] = currentDecorationIndex + 1;
+      usedGraphemeStyles
+        .get(bestGrapheme.grapheme.text)
+        .add(bestGrapheme.style.style);
 
       return {
-        hatStyle: hatStyleName,
-        grapheme: bestGrapheme.text,
+        hatStyle: bestGrapheme.style.style,
+        grapheme: bestGrapheme.grapheme.text,
         token,
         hatRange: new Range(
-          token.range.start.translate(undefined, bestGrapheme.tokenStartOffset),
-          token.range.start.translate(undefined, bestGrapheme.tokenEndOffset),
+          token.range.start.translate(
+            undefined,
+            bestGrapheme.grapheme.tokenStartOffset,
+          ),
+          token.range.start.translate(
+            undefined,
+            bestGrapheme.grapheme.tokenEndOffset,
+          ),
         ),
       };
     })
     .filter((value): value is HatRangeDescriptor => value != null);
+}
+
+function getSortedHatStyleNames(enabledHatStyles: HatStyleMap) {
+  return sortBy(
+    Object.entries(enabledHatStyles),
+    ([_, { penalty }]) => penalty,
+  ).map(([hatStyleName, _]) => hatStyleName as HatStyleName);
 }
