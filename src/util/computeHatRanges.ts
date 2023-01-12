@@ -1,5 +1,5 @@
 import { Range, TextEditor } from "@cursorless/common";
-import { concat, flatten, maxBy, min } from "lodash";
+import { flatten, maxBy, min } from "lodash";
 import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
 import { TokenGraphemeSplitter } from "../libs/cursorless-engine/tokenGraphemeSplitter";
 import { getMatcher } from "../libs/cursorless-engine/tokenizer";
@@ -32,50 +32,45 @@ export function computeHatRanges(
     ];
   }
 
-  const tokens = concat(
-    [],
-    ...editors.map((editor) => {
-      /**
-       * The reference position that will be used to judge how likely a given
-       * token is to be used.  Tokens closer to this position will be considered
-       * more likely to be used, and will get better hats.  We use the first
-       * selection's {@link Selection.active active}.
-       */
-      const referencePosition = editor.selections[0].active;
-      const displayLineMap = getDisplayLineMap(editor, [
-        referencePosition.line,
-      ]);
-      const languageId = editor.document.languageId;
-      const tokens: Token[] = flatten(
-        editor.visibleRanges.map((range) =>
-          getTokensInRange(editor, range).map((partialToken) => ({
-            ...partialToken,
-            displayLine: displayLineMap.get(partialToken.range.start.line)!,
-            editor,
-            expansionBehavior: {
-              start: {
-                type: "regex",
-                regex: getMatcher(languageId).tokenMatcher,
-              },
-              end: {
-                type: "regex",
-                regex: getMatcher(languageId).tokenMatcher,
-              },
+  const tokens = editors.flatMap((editor) => {
+    /**
+     * The reference position that will be used to judge how likely a given
+     * token is to be used.  Tokens closer to this position will be considered
+     * more likely to be used, and will get better hats.  We use the first
+     * selection's {@link Selection.active active}.
+     */
+    const referencePosition = editor.selections[0].active;
+    const displayLineMap = getDisplayLineMap(editor, [referencePosition.line]);
+    const languageId = editor.document.languageId;
+    const tokens: Token[] = flatten(
+      editor.visibleRanges.map((range) =>
+        getTokensInRange(editor, range).map((partialToken) => ({
+          ...partialToken,
+          displayLine: displayLineMap.get(partialToken.range.start.line)!,
+          editor,
+          expansionBehavior: {
+            start: {
+              type: "regex",
+              regex: getMatcher(languageId).tokenMatcher,
             },
-          })),
-        ),
-      );
+            end: {
+              type: "regex",
+              regex: getMatcher(languageId).tokenMatcher,
+            },
+          },
+        })),
+      ),
+    );
 
-      tokens.sort(
-        getTokenComparator(
-          displayLineMap.get(referencePosition.line)!,
-          referencePosition.character,
-        ),
-      );
+    tokens.sort(
+      getTokenComparator(
+        displayLineMap.get(referencePosition.line)!,
+        referencePosition.character,
+      ),
+    );
 
-      return tokens;
-    }),
-  );
+    return tokens;
+  });
 
   /**
    * Maps each grapheme to a list of the indices of the tokens in which the given
