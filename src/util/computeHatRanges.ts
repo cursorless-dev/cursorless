@@ -123,8 +123,6 @@ export function computeHatRanges(
       });
   });
 
-  // TODO: Keep track of which grapheme / style combinations have been used
-  // Would behave like a Python defaultdict
   const availableGraphemeStyles = new DefaultMap<string, HatStyleMap>(() =>
     clone(enabledHatStyles),
   );
