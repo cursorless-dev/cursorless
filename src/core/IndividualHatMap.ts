@@ -2,6 +2,7 @@ import { getKey, TextDocument } from "@cursorless/common";
 import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
 import { Graph, Token } from "../typings/Types";
 import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
+import { HatRangeDescriptor } from "../util/computeHatRanges";
 
 export interface ReadOnlyHatMap {
   getEntries(): [string, Token][];
@@ -16,7 +17,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   private map: {
     [decoratedCharacter: string]: Token;
   } = {};
-  descriptors: HatRangeDescriptor[];
+  descriptors: HatRangeDescriptor[] = [];
 
   constructor(private graph: Graph) {}
 

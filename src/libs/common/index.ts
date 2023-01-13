@@ -31,3 +31,5 @@ export * from "./types/TextEditorDecorationType";
 export * from "./types/TextEditorEdit";
 export * from "./types/TextEditorOptions";
 export * from "./types/TextLine";
+export { default as DefaultMap } from "./util/DefaultMap";
+export { default as minByAll } from "./util/minByAll";

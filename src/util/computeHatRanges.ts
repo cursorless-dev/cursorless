@@ -1,7 +1,8 @@
-import { Range, TextEditor } from "@cursorless/common";
-import { flatten, maxBy, min, sortBy } from "lodash";
+import { DefaultMap, minByAll, Range, TextEditor } from "@cursorless/common";
+import { clone, flatten, maxBy, min } from "lodash";
 import { HatStyleMap } from "../libs/common/ide/types/Hats";
 import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
+import CompositeKeyMap from "../libs/common/util/CompositeKeyMap";
 import { TokenGraphemeSplitter } from "../libs/cursorless-engine/tokenGraphemeSplitter";
 import { getMatcher } from "../libs/cursorless-engine/tokenizer";
 import { Token } from "../typings/Types";
@@ -23,8 +24,13 @@ export function computeHatRanges(
   activeTextEditor: TextEditor | undefined,
   visibleTextEditors: readonly TextEditor[],
 ): HatRangeDescriptor[] {
-  const sortedHatStyleNames: HatStyleName[] =
-    getSortedHatStyleNames(enabledHatStyles);
+  const oldTokenHatMap = new CompositeKeyMap<Token, HatRangeDescriptor>(
+    ({ editor, offsets }) => [editor.id, offsets.start, offsets.end],
+  );
+
+  oldHatRangeDescriptors.forEach((descriptor) =>
+    oldTokenHatMap.set(descriptor.token, descriptor),
+  );
 
   let editors: readonly TextEditor[];
 
@@ -104,8 +110,8 @@ export function computeHatRanges(
 
   // TODO: Keep track of which grapheme / style combinations have been used
   // Would behave like a Python defaultdict
-  const usedGraphemeStyles = new DefaultDict<string, Set<HatStyleName>>(
-    () => new Set<HatStyleName>(),
+  const availableGraphemeStyles = new DefaultMap<string, HatStyleMap>(() =>
+    clone(enabledHatStyles),
   );
 
   // Picks the character with minimum color such that the next token that contains
@@ -120,82 +126,70 @@ export function computeHatRanges(
   // "ab ax b"
   return tokens
     .map<HatRangeDescriptor | undefined>((token, tokenIdx) => {
-      const availableGraphemeHats = tokenGraphemeSplitter
+      const tokenAvailableHats = tokenGraphemeSplitter
         .getTokenGraphemes(token.text)
-        .map((grapheme) => {
-          const usedStyles: Set<HatStyleName> = usedGraphemeStyles.get(
-            grapheme.text,
-          );
+        .flatMap((grapheme) =>
+          Object.entries(availableGraphemeStyles.get(grapheme.text)).map(
+            ([style, { penalty }]) => ({
+              grapheme,
+              style,
+              penalty,
+            }),
+          ),
+        );
 
-          return {
-            grapheme,
-            availableStyles: sortedHatStyleNames
-              .filter((value) => !usedStyles.has(value))
-              .map((style) => ({
-                style,
-                penalty: enabledHatStyles[style].penalty,
-              })),
-          };
-        });
-
-      const minStylePenalty = min(
-        availableGraphemeHats.flatMap(({ availableStyles }) =>
-          availableStyles.map(({ penalty }) => penalty),
-        ),
-      );
-
-      if (minStylePenalty == null) {
+      if (tokenAvailableHats.length === 0) {
         return undefined;
       }
 
-      const equalPenaltyHats = availableGraphemeHats
-        .flatMap(({ grapheme, availableStyles }) =>
-          availableStyles.map((style) => ({ style, grapheme })),
-        )
-        .filter(({ style: { penalty } }) => penalty === minStylePenalty);
+      const minimumPenaltyHats = minByAll(
+        tokenAvailableHats,
+        ({ penalty }) => penalty,
+      );
 
-      // TODO: If one of equalPenaltyHats is the hat used for this token in
-      // oldHatRangeDescriptors, use that one.
+      const existingTokenHat = oldTokenHatMap.get(token);
+
+      const chosenGrapheme =
+        (existingTokenHat != null
+          ? minimumPenaltyHats.find(
+              (hat) =>
+                hat.grapheme.text === existingTokenHat.grapheme &&
+                hat.style === existingTokenHat.hatStyle,
+            )
+          : null) ??
+        maxBy(
+          minimumPenaltyHats,
+          ({ grapheme: { text } }) =>
+            min(
+              graphemeTokenIndices[text].filter(
+                (laterTokenIdx) => laterTokenIdx > tokenIdx,
+              ),
+            ) ?? Infinity,
+        )!;
 
       // Otherwise, pick the grapheme that is used in the token furthest away
       // TODO: Should we take into account whether the grapheme that we pick
       // steals a hat from another grapheme in oldHatRangeDescriptors?
-      const bestGrapheme = maxBy(
-        equalPenaltyHats,
-        ({ text }) =>
-          min(
-            graphemeTokenIndices[text].filter(
-              (laterTokenIdx) => laterTokenIdx > tokenIdx,
-            ),
-          ) ?? Infinity,
-      )!;
 
-      usedGraphemeStyles
-        .get(bestGrapheme.grapheme.text)
-        .add(bestGrapheme.style.style);
+      delete availableGraphemeStyles.get(chosenGrapheme.grapheme.text)[
+        chosenGrapheme.style
+      ];
 
       return {
-        hatStyle: bestGrapheme.style.style,
-        grapheme: bestGrapheme.grapheme.text,
+        hatStyle: chosenGrapheme.style,
+        grapheme: chosenGrapheme.grapheme.text,
         token,
         hatRange: new Range(
           token.range.start.translate(
             undefined,
-            bestGrapheme.grapheme.tokenStartOffset,
+            chosenGrapheme.grapheme.tokenStartOffset,
           ),
           token.range.start.translate(
             undefined,
-            bestGrapheme.grapheme.tokenEndOffset,
+            chosenGrapheme.grapheme.tokenEndOffset,
           ),
         ),
       };
     })
     .filter((value): value is HatRangeDescriptor => value != null);
-}
-
-function getSortedHatStyleNames(enabledHatStyles: HatStyleMap) {
-  return sortBy(
-    Object.entries(enabledHatStyles),
-    ([_, { penalty }]) => penalty,
-  ).map(([hatStyleName, _]) => hatStyleName as HatStyleName);
 }
