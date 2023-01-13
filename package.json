@@ -687,6 +687,16 @@
               "url"
             ]
           }
+        },
+        "cursorless.experimental.hatStability": {
+          "description": "Determines how hard Cursorless should try to keep old hats",
+          "type": "string",
+          "default": "low",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
         }
       }
     },

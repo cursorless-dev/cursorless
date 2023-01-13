@@ -1,5 +1,11 @@
-import { DefaultMap, minByAll, Range, TextEditor } from "@cursorless/common";
-import { clone, flatten, maxBy, min } from "lodash";
+import {
+  DefaultMap,
+  maxByMultiple,
+  minByAll,
+  Range,
+  TextEditor,
+} from "@cursorless/common";
+import { clone, flatten, min } from "lodash";
 import { HatStyleMap } from "../libs/common/ide/types/Hats";
 import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
 import CompositeKeyMap from "../libs/common/util/CompositeKeyMap";
@@ -21,6 +27,7 @@ export function computeHatRanges(
   tokenGraphemeSplitter: TokenGraphemeSplitter,
   enabledHatStyles: HatStyleMap,
   oldHatRangeDescriptors: HatRangeDescriptor[],
+  equallyPreferablePenalty: (penalty: number) => number,
   activeTextEditor: TextEditor | undefined,
   visibleTextEditors: readonly TextEditor[],
 ): HatRangeDescriptor[] {
@@ -90,8 +97,16 @@ export function computeHatRanges(
   const graphemeTokenIndices: {
     [key: string]: number[];
   } = {};
+  const oldGraphemeHatTokenIndices = new CompositeKeyMap<
+    { grapheme: string; hatStyle: HatStyleName },
+    number
+  >(({ grapheme, hatStyle }) => [grapheme, hatStyle]);
 
   tokens.forEach((token, tokenIdx) => {
+    const existingTokenHat = oldTokenHatMap.get(token);
+    if (existingTokenHat != null) {
+      oldGraphemeHatTokenIndices.set(existingTokenHat, tokenIdx);
+    }
     tokenGraphemeSplitter
       .getTokenGraphemes(token.text)
       .forEach(({ text: graphemeText }) => {
@@ -142,14 +157,14 @@ export function computeHatRanges(
         return undefined;
       }
 
-      const minimumPenaltyHats = minByAll(
-        tokenAvailableHats,
-        ({ penalty }) => penalty,
+      const minimumPenaltyHats = minByAll(tokenAvailableHats, ({ penalty }) =>
+        equallyPreferablePenalty(penalty),
       );
 
       const existingTokenHat = oldTokenHatMap.get(token);
 
       const chosenGrapheme =
+        // If one of the equally preferable hats is already in use, use that
         (existingTokenHat != null
           ? minimumPenaltyHats.find(
               (hat) =>
@@ -157,19 +172,26 @@ export function computeHatRanges(
                 hat.style === existingTokenHat.hatStyle,
             )
           : null) ??
-        maxBy(
-          minimumPenaltyHats,
+        // Otherwise pick hat based on various criteria
+        maxByMultiple(minimumPenaltyHats, [
+          // First sort by minimum penalty
+          ({ penalty }) => -penalty,
+
+          // Then by how far away is the nearest token in the old map whose hat
+          // we'd steal
+          ({ grapheme: { text: grapheme }, style }) =>
+            oldGraphemeHatTokenIndices.get({ grapheme, hatStyle: style }) ??
+            Infinity,
+
+          // Then by how far away is the nearest token that contains the same
+          // grapheme
           ({ grapheme: { text } }) =>
             min(
               graphemeTokenIndices[text].filter(
                 (laterTokenIdx) => laterTokenIdx > tokenIdx,
               ),
             ) ?? Infinity,
-        )!;
-
-      // Otherwise, pick the grapheme that is used in the token furthest away
-      // TODO: Should we take into account whether the grapheme that we pick
-      // steals a hat from another grapheme in oldHatRangeDescriptors?
+        ])!;
 
       delete availableGraphemeStyles.get(chosenGrapheme.grapheme.text)[
         chosenGrapheme.style

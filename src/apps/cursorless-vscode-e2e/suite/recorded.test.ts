@@ -235,6 +235,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
 function setupFake(ide: NormalizedIDE) {
   ide.configuration.mockConfiguration("experimental", {
     snippetsDir: getFixturePath("cursorless-snippets"),
+    hatStability: "low",
   });
 }
 

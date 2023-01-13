@@ -56,6 +56,7 @@ export class HatAllocator {
         tokenGraphemeSplitter(),
         ide().hats.enabledHatStyles,
         activeMap.descriptors,
+        getEquallyPreferablePenaltyFn(),
         ide().activeTextEditor,
         visibleTextEditors,
       );
@@ -101,5 +102,18 @@ export class HatAllocator {
     if (this.timeoutHandle != null) {
       clearTimeout(this.timeoutHandle);
     }
+  }
+}
+
+function getEquallyPreferablePenaltyFn(): (penalty: number) => number {
+  switch (
+    ide().configuration.getOwnConfiguration("experimental.hatStability")
+  ) {
+    case "low":
+      return (penalty) => penalty;
+    case "medium":
+      return (penalty) => Math.floor(penalty);
+    case "high":
+      return (_penalty) => 0;
   }
 }

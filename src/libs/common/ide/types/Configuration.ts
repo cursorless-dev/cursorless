@@ -2,10 +2,12 @@ import { Listener } from "@cursorless/common";
 import { Disposable } from "./ide.types";
 import { GetFieldType, Paths } from "./Paths";
 
+type HatStability = "low" | "medium" | "high";
+
 export type CursorlessConfiguration = {
   tokenHatSplittingMode: TokenHatSplittingMode;
   wordSeparators: string[];
-  experimental: { snippetsDir: string | undefined };
+  experimental: { snippetsDir: string | undefined; hatStability: HatStability };
   decorationDebounceDelayMs: number;
 };
 
@@ -20,7 +22,7 @@ export const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
   },
   wordSeparators: ["_"],
   decorationDebounceDelayMs: 50,
-  experimental: { snippetsDir: undefined },
+  experimental: { snippetsDir: undefined, hatStability: "low" },
 };
 
 export interface Configuration {
