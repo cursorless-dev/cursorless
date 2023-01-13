@@ -1,7 +1,12 @@
 import type { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { pull } from "lodash";
-import { Capabilities } from "../types/Capabilities";
+import { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
+import {
+  Event,
+  TextEditorSelectionChangeEvent,
+  TextEditorVisibleRangesChangeEvent,
+} from "../types/events.types";
 import type {
   Disposable,
   IDE,
@@ -12,26 +17,30 @@ import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
 import FakeGlobalState from "./FakeGlobalState";
+import { FakeHats } from "./FakeHats";
 import FakeMessages from "./FakeMessages";
 
 export default class FakeIDE implements IDE {
-  configuration: FakeConfiguration;
-  messages: FakeMessages;
-  globalState: FakeGlobalState;
-  clipboard: FakeClipboard;
-  capabilities: Capabilities;
+  configuration: FakeConfiguration = new FakeConfiguration();
+  messages: FakeMessages = new FakeMessages();
+  globalState: FakeGlobalState = new FakeGlobalState();
+  clipboard: FakeClipboard = new FakeClipboard();
+  capabilities: FakeCapabilities = new FakeCapabilities();
+  hats: FakeHats = new FakeHats();
+
   runMode: RunMode = "test";
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
 
-  constructor() {
-    this.configuration = new FakeConfiguration();
-    this.messages = new FakeMessages();
-    this.globalState = new FakeGlobalState();
-    this.clipboard = new FakeClipboard();
-    this.capabilities = new FakeCapabilities();
-  }
+  onDidOpenTextDocument: Event<TextDocument> = dummyEvent;
+  onDidCloseTextDocument: Event<TextDocument> = dummyEvent;
+  onDidChangeActiveTextEditor: Event<TextEditor | undefined> = dummyEvent;
+  onDidChangeVisibleTextEditors: Event<TextEditor[]> = dummyEvent;
+  onDidChangeTextEditorSelection: Event<TextEditorSelectionChangeEvent> =
+    dummyEvent;
+  onDidChangeTextEditorVisibleRanges: Event<TextEditorVisibleRangesChangeEvent> =
+    dummyEvent;
 
   public mockAssetsRoot(_assetsRoot: string) {
     this.assetsRoot_ = _assetsRoot;
@@ -92,4 +101,12 @@ export default class FakeIDE implements IDE {
   exit(): void {
     this.disposables.forEach((disposable) => disposable.dispose());
   }
+}
+
+function dummyEvent() {
+  return {
+    dispose() {
+      // empty
+    },
+  };
 }

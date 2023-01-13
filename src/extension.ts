@@ -36,6 +36,7 @@ export async function activate(
   const commandServerApi = await getCommandServerApi();
 
   const vscodeIDE = new VscodeIDE(context);
+  await vscodeIDE.init();
 
   if (vscodeIDE.runMode !== "production") {
     injectIde(
@@ -59,8 +60,6 @@ export async function activate(
   } as FactoryMap<Graph>);
   graph.debug.init();
   graph.snippets.init();
-  graph.fontMeasurements.init(context);
-  await graph.decorations.init(context);
   graph.hatTokenMap.init();
   graph.testCaseRecorder.init();
   graph.cheatsheet.init();

@@ -24,7 +24,7 @@ export class Notifier<T extends Arr = []> {
    * @param listener A function to be called when {@link notifyListeners} is called
    * @returns A function that can be called to unsubscribe from notifications
    */
-  registerListener(listener: Listener): Disposable {
+  registerListener(listener: Listener<T>): Disposable {
     this.listeners.push(listener);
 
     return {

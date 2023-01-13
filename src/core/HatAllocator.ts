@@ -1,9 +1,10 @@
-import * as vscode from "vscode";
-import { Disposable } from "vscode";
+import { sortBy } from "lodash";
+import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
+import type { Disposable } from "../libs/common/ide/types/ide.types";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
 import { Graph } from "../typings/Types";
-import { addDecorationsToEditors } from "../util/addDecorationsToEditor";
+import { computeHatRanges } from "../util/computeHatRanges";
 import { IndividualHatMap } from "./IndividualHatMap";
 
 interface Context {
@@ -12,51 +13,31 @@ interface Context {
 
 export class HatAllocator {
   private timeoutHandle: NodeJS.Timeout | null = null;
-  private isActive: boolean;
   private disposables: Disposable[] = [];
-  private disposalFunctions: (() => void)[] = [];
 
   constructor(private graph: Graph, private context: Context) {
     ide().disposeOnExit(this);
 
-    this.isActive = vscode.workspace
-      .getConfiguration("cursorless")
-      .get<boolean>("showOnStart")!;
-
     this.addDecorationsDebounced = this.addDecorationsDebounced.bind(this);
-    this.toggleDecorations = this.toggleDecorations.bind(this);
-    this.clearEditorDecorations = this.clearEditorDecorations.bind(this);
-
-    this.disposalFunctions.push(
-      graph.decorations.registerDecorationChangeListener(
-        this.addDecorationsDebounced,
-      ),
-    );
 
     this.disposables.push(
-      vscode.commands.registerCommand(
-        "cursorless.toggleDecorations",
-        this.toggleDecorations,
-      ),
+      ide().hats.onDidChangeEnabledHatStyles(this.addDecorationsDebounced),
+      ide().hats.onDidChangeIsEnabled(this.addDecorationsDebounced),
 
       // An event that fires when a text document opens
-      vscode.workspace.onDidOpenTextDocument(this.addDecorationsDebounced),
+      ide().onDidOpenTextDocument(this.addDecorationsDebounced),
       // An event that fires when a text document closes
-      vscode.workspace.onDidCloseTextDocument(this.addDecorationsDebounced),
+      ide().onDidCloseTextDocument(this.addDecorationsDebounced),
       // An Event which fires when the active editor has changed. Note that the event also fires when the active editor changes to undefined.
-      vscode.window.onDidChangeActiveTextEditor(this.addDecorationsDebounced),
+      ide().onDidChangeActiveTextEditor(this.addDecorationsDebounced),
       // An Event which fires when the array of visible editors has changed.
-      vscode.window.onDidChangeVisibleTextEditors(this.addDecorationsDebounced),
+      ide().onDidChangeVisibleTextEditors(this.addDecorationsDebounced),
       // An event that is emitted when a text document is changed. This usually happens when the contents changes but also when other things like the dirty-state changes.
-      vscode.workspace.onDidChangeTextDocument(this.addDecorationsDebounced),
+      ide().onDidChangeTextDocument(this.addDecorationsDebounced),
       // An Event which fires when the selection in an editor has changed.
-      vscode.window.onDidChangeTextEditorSelection(
-        this.addDecorationsDebounced,
-      ),
+      ide().onDidChangeTextEditorSelection(this.addDecorationsDebounced),
       // An Event which fires when the visible ranges of an editor has changed.
-      vscode.window.onDidChangeTextEditorVisibleRanges(
-        this.addDecorationsDebounced,
-      ),
+      ide().onDidChangeTextEditorVisibleRanges(this.addDecorationsDebounced),
       // Re-draw hats on grapheme splitting algorithm change in case they
       // changed their token hat splitting setting.
       tokenGraphemeSplitter().registerAlgorithmChangeListener(
@@ -65,24 +46,43 @@ export class HatAllocator {
     );
   }
 
-  private clearEditorDecorations(editor: vscode.TextEditor) {
-    this.graph.decorations.decorations.forEach(({ decoration }) => {
-      editor.setDecorations(decoration, []);
-    });
+  private getSortedHatStyleNames() {
+    return sortBy(
+      Object.entries(ide().hats.enabledHatStyles),
+      ([_, { penalty }]) => penalty,
+    ).map(([hatStyleName, _]) => hatStyleName as HatStyleName);
   }
 
   async addDecorations() {
     const activeMap = await this.context.getActiveMap();
 
-    if (this.isActive) {
-      addDecorationsToEditors(
-        activeMap,
-        this.graph.decorations,
+    activeMap.clear();
+
+    if (ide().hats.isEnabled) {
+      const { visibleTextEditors } = ide();
+
+      const hatRangeDescriptors = computeHatRanges(
         tokenGraphemeSplitter(),
+        this.getSortedHatStyleNames(),
+        ide().activeTextEditor,
+        visibleTextEditors,
+      );
+
+      hatRangeDescriptors.forEach(({ hatStyle, grapheme, token }) => {
+        activeMap.addToken(hatStyle, grapheme, token);
+      });
+
+      await ide().hats.setHatRanges(
+        hatRangeDescriptors.map(
+          ({ hatStyle, hatRange, token: { editor } }) => ({
+            editor,
+            range: hatRange,
+            styleName: hatStyle,
+          }),
+        ),
       );
     } else {
-      vscode.window.visibleTextEditors.forEach(this.clearEditorDecorations);
-      activeMap.clear();
+      await ide().hats.setHatRanges([]);
     }
   }
 
@@ -91,9 +91,9 @@ export class HatAllocator {
       clearTimeout(this.timeoutHandle);
     }
 
-    const decorationDebounceDelayMs = vscode.workspace
-      .getConfiguration("cursorless")
-      .get<number>("decorationDebounceDelayMs")!;
+    const decorationDebounceDelayMs = ide().configuration.getOwnConfiguration(
+      "decorationDebounceDelayMs",
+    );
 
     this.timeoutHandle = setTimeout(() => {
       this.addDecorations();
@@ -101,14 +101,8 @@ export class HatAllocator {
     }, decorationDebounceDelayMs);
   }
 
-  private toggleDecorations() {
-    this.isActive = !this.isActive;
-    this.addDecorationsDebounced();
-  }
-
   dispose() {
     this.disposables.forEach(({ dispose }) => dispose());
-    this.disposalFunctions.forEach((dispose) => dispose());
 
     if (this.timeoutHandle != null) {
       clearTimeout(this.timeoutHandle);

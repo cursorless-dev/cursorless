@@ -13,13 +13,19 @@ import type {
   IDE,
   RunMode,
 } from "../../libs/common/ide/types/ide.types";
+import {
+  fromVscodeRange,
+  fromVscodeSelection,
+} from "../../libs/vscode-common/vscodeUtil";
 import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
-import { vscodeOnDidChangeTextDocument } from "./VscodeEvents";
+import { forwardEvent, vscodeOnDidChangeTextDocument } from "./VscodeEvents";
 import VscodeGlobalState from "./VscodeGlobalState";
+import { VscodeHats } from "./hats/VscodeHats";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
+import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export default class VscodeIDE implements IDE {
@@ -28,6 +34,7 @@ export default class VscodeIDE implements IDE {
   readonly messages: VscodeMessages;
   readonly clipboard: VscodeClipboard;
   readonly capabilities: VscodeCapabilities;
+  readonly hats: VscodeHats;
   private editorMap;
 
   constructor(private extensionContext: ExtensionContext) {
@@ -36,7 +43,12 @@ export default class VscodeIDE implements IDE {
     this.messages = new VscodeMessages();
     this.clipboard = new VscodeClipboard();
     this.capabilities = new VscodeCapabilities();
+    this.hats = new VscodeHats(this, extensionContext);
     this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
+  }
+
+  async init() {
+    await this.hats.init();
   }
 
   get assetsRoot(): string {
@@ -102,6 +114,37 @@ export default class VscodeIDE implements IDE {
   ): Disposable {
     return vscodeOnDidChangeTextDocument(listener);
   }
+
+  onDidOpenTextDocument = forwardEvent(
+    workspace.onDidOpenTextDocument,
+    (document) => new VscodeTextDocumentImpl(document),
+  );
+  onDidCloseTextDocument = forwardEvent(
+    workspace.onDidCloseTextDocument,
+    (document) => new VscodeTextDocumentImpl(document),
+  );
+  onDidChangeActiveTextEditor = forwardEvent(
+    window.onDidChangeActiveTextEditor,
+    (editor) => (editor == null ? editor : this.fromVscodeEditor(editor)),
+  );
+  onDidChangeVisibleTextEditors = forwardEvent(
+    window.onDidChangeVisibleTextEditors,
+    (editors) => editors.map((editor) => this.fromVscodeEditor(editor)),
+  );
+  onDidChangeTextEditorSelection = forwardEvent(
+    window.onDidChangeTextEditorSelection,
+    ({ textEditor, selections }) => ({
+      textEditor: this.fromVscodeEditor(textEditor),
+      selections: selections.map(fromVscodeSelection),
+    }),
+  );
+  onDidChangeTextEditorVisibleRanges = forwardEvent(
+    window.onDidChangeTextEditorVisibleRanges,
+    ({ textEditor, visibleRanges }) => ({
+      textEditor: this.fromVscodeEditor(textEditor),
+      visibleRanges: visibleRanges.map(fromVscodeRange),
+    }),
+  );
 
   public fromVscodeEditor(editor: vscode.TextEditor): VscodeTextEditorImpl {
     if (!this.editorMap.has(editor)) {
