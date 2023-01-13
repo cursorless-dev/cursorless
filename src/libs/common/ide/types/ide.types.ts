@@ -1,6 +1,7 @@
 import type {
   EditableTextEditor,
   InputBoxOptions,
+  TextDocument,
   TextEditor,
 } from "@cursorless/common";
 import { URI } from "vscode-uri";
@@ -8,6 +9,12 @@ import { Capabilities } from "./Capabilities";
 import { Clipboard } from "./Clipboard";
 import { Configuration } from "./Configuration";
 import { TextDocumentChangeEvent } from "./Events";
+import {
+  Event,
+  TextEditorSelectionChangeEvent,
+  TextEditorVisibleRangesChangeEvent,
+} from "./events.types";
+import { Hats } from "./Hats";
 import { Messages } from "./Messages";
 import { State } from "./State";
 
@@ -18,6 +25,7 @@ export interface IDE {
   readonly messages: Messages;
   readonly globalState: State;
   readonly clipboard: Clipboard;
+  readonly hats: Hats;
 
   /**
    * Register disposables to be disposed of on IDE exit.
@@ -94,6 +102,55 @@ export interface IDE {
    * @return An editor for the text document at the given path
    */
   openTextDocument(path: string): Promise<TextEditor>;
+
+  /**
+   * An event that is emitted when a {@link TextDocument text document} is opened or when the language id
+   * of a text document {@link languages.setTextDocumentLanguage has been changed}.
+   *
+   * To add an event listener when a visible text document is opened, use the {@link TextEditor} events in the
+   * {@link window} namespace. Note that:
+   *
+   * - The event is emitted before the {@link TextDocument document} is updated in the
+   * {@link window.activeTextEditor active text editor}
+   * - When a {@link TextDocument text document} is already open (e.g.: open in another {@link window.visibleTextEditors visible text editor}) this event is not emitted
+   *
+   */
+  onDidOpenTextDocument: Event<TextDocument>;
+
+  /**
+   * An event that is emitted when a {@link TextDocument text document} is disposed or when the language id
+   * of a text document {@link languages.setTextDocumentLanguage has been changed}.
+   *
+   * *Note 1:* There is no guarantee that this event fires when an editor tab is closed, use the
+   * {@linkcode window.onDidChangeVisibleTextEditors onDidChangeVisibleTextEditors}-event to know when editors change.
+   *
+   * *Note 2:* A document can be open but not shown in an editor which means this event can fire
+   * for a document that has not been shown in an editor.
+   */
+  onDidCloseTextDocument: Event<TextDocument>;
+
+  /**
+   * An {@link Event} which fires when the {@link window.activeTextEditor active editor}
+   * has changed. *Note* that the event also fires when the active editor changes
+   * to `undefined`.
+   */
+  onDidChangeActiveTextEditor: Event<TextEditor | undefined>;
+
+  /**
+   * An {@link Event} which fires when the array of {@link window.visibleTextEditors visible editors}
+   * has changed.
+   */
+  onDidChangeVisibleTextEditors: Event<TextEditor[]>;
+
+  /**
+   * An {@link Event} which fires when the selection in an editor has changed.
+   */
+  onDidChangeTextEditorSelection: Event<TextEditorSelectionChangeEvent>;
+
+  /**
+   * An {@link Event} which fires when the visible ranges of an editor has changed.
+   */
+  onDidChangeTextEditorVisibleRanges: Event<TextEditorVisibleRangesChangeEvent>;
 
   /**
    * Opens an input box to ask the user for input.

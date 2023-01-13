@@ -47,8 +47,8 @@ async function runTest() {
   const { hatStyle: hatStyle2, character: char2 } = splitKey(hat2![0]);
 
   await runCursorlessCommand({
-    version: 1,
-    action: "swapTargets",
+    version: 4,
+    action: { name: "swapTargets" },
     targets: [
       {
         type: "primitive",
@@ -67,6 +67,7 @@ async function runTest() {
         },
       },
     ],
+    usePrePhraseSnapshot: false,
   });
 
   assert.deepStrictEqual(document.getText(), "world hello");

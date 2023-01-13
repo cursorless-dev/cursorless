@@ -8,9 +8,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
 import Cheatsheet from "../core/Cheatsheet";
 import Debug from "../core/Debug";
-import Decorations from "../core/Decorations";
 import { EditStyles } from "../core/editStyles";
-import FontMeasurements from "../core/FontMeasurements";
 import HatTokenMap from "../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
@@ -122,16 +120,6 @@ export interface Graph {
    * as the document changes
    */
   readonly rangeUpdater: RangeUpdater;
-
-  /**
-   * Responsible for all the hat styles
-   */
-  readonly decorations: Decorations;
-
-  /**
-   * Takes measurements of the user's font
-   */
-  readonly fontMeasurements: FontMeasurements;
 
   /**
    * API object for interacting with the command server, if it exists

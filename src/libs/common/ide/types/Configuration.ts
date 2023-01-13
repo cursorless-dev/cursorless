@@ -6,6 +6,7 @@ export type CursorlessConfiguration = {
   tokenHatSplittingMode: TokenHatSplittingMode;
   wordSeparators: string[];
   experimental: { snippetsDir: string | undefined };
+  decorationDebounceDelayMs: number;
 };
 
 export type CursorlessConfigKey = keyof CursorlessConfiguration;
@@ -18,6 +19,7 @@ export const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
     symbolsToPreserve: [],
   },
   wordSeparators: ["_"],
+  decorationDebounceDelayMs: 50,
   experimental: { snippetsDir: undefined },
 };
 
