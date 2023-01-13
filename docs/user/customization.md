@@ -111,10 +111,11 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
 
 ### Public Talon actions
 
-- `user.cursorless_command(action_id: str, target: cursorless_target)`
+- `user.cursorless_command(action_id: str, target: cursorless_target)`:
   Perform a Cursorless command on the given target
-  eg: `user.cursorless_command("setSelection", cursorless_target)`
-- `user.cursorless_ide_command(command_id: str, target: cursorless_target)`
+  eg: `user.cursorless_command("setSelection", cursorless_target)`.
+  Note that for `"bring"` (`replaceWithTarget`), `cursorless_target` will be the source of the bring and the destination will be the current selection(s), as if you had said `"bring <target>"`
+- `user.cursorless_ide_command(command_id: str, target: cursorless_target)`:
   Performs a built-in IDE command on the given target
   eg: `user.cursorless_ide_command("editor.action.addCommentLine", cursorless_target)`
 

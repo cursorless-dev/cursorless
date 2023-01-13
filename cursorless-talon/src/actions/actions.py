@@ -1,6 +1,7 @@
 from talon import Module, actions, app
 
 from ..csv_overrides import init_csv_and_watch_changes
+from ..primitive_target import IMPLICIT_TARGET
 from .actions_callback import callback_action_defaults, callback_action_map
 from .actions_custom import custom_action_defaults
 from .actions_simple import (
@@ -43,6 +44,10 @@ class Actions:
             actions.user.cursorless_single_target_command_no_wait(action_id, target)
             if action_id in no_wait_actions_post_sleep:
                 actions.sleep(no_wait_actions_post_sleep[action_id])
+        elif action_id in ["replaceWithTarget", "moveToTarget"]:
+            actions.user.cursorless_multiple_target_command(
+                action_id, [target, IMPLICIT_TARGET.copy()]
+            )
         else:
             return actions.user.cursorless_single_target_command(action_id, target)
 
