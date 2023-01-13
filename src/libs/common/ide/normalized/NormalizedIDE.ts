@@ -1,8 +1,10 @@
+import { EditorGeneralizedRange } from "../../types/GeneralizedRange";
 import FakeClipboard from "../fake/FakeClipboard";
 import FakeConfiguration from "../fake/FakeConfiguration";
 import FakeGlobalState from "../fake/FakeGlobalState";
 import FakeIDE from "../fake/FakeIDE";
 import PassthroughIDEBase from "../PassthroughIDEBase";
+import { FlashDescriptor } from "../types/FlashDescriptor";
 import type { IDE } from "../types/ide.types";
 
 export default class NormalizedIDE extends PassthroughIDEBase {
@@ -10,7 +12,11 @@ export default class NormalizedIDE extends PassthroughIDEBase {
   globalState: FakeGlobalState;
   clipboard: FakeClipboard;
 
-  constructor(original: IDE, fakeIde: FakeIDE, isSilent: boolean) {
+  constructor(
+    original: IDE,
+    private fakeIde: FakeIDE,
+    private isSilent: boolean,
+  ) {
     super(original);
 
     this.messages = isSilent ? fakeIde.messages : original.messages;
@@ -37,5 +43,20 @@ export default class NormalizedIDE extends PassthroughIDEBase {
       { wordSeparators: ["_", "-"] },
       true,
     );
+  }
+
+  flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
+    return this.isSilent
+      ? this.fakeIde.flashRanges(flashDescriptors)
+      : super.flashRanges(flashDescriptors);
+  }
+
+  setHighlightRanges(
+    highlightId: string,
+    ranges: EditorGeneralizedRange[],
+  ): Promise<void> {
+    return this.isSilent
+      ? this.fakeIde.setHighlightRanges(highlightId, ranges)
+      : super.setHighlightRanges(highlightId, ranges);
   }
 }

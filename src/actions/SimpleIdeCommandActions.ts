@@ -133,8 +133,8 @@ function callback(
   ranges: Range[] | undefined,
   command: CommandId,
 ): Promise<void> {
-  // Multi target actions
   switch (command) {
+    // Multi target actions
     case "toggleLineComment":
       return editor.toggleLineComment(ranges);
     case "indentLine":
@@ -147,27 +147,27 @@ function callback(
       return editor.fold(ranges);
     case "unfold":
       return editor.unfold(ranges);
-  }
 
-  const range = ranges?.[0];
-
-  // Single target actions
-  switch (command) {
+    // Single target actions
     case "rename":
-      return editor.rename(range);
+      return editor.rename(ranges?.[0]);
     case "showReferences":
-      return editor.showReferences(range);
+      return editor.showReferences(ranges?.[0]);
     case "quickFix":
-      return editor.quickFix(range);
+      return editor.quickFix(ranges?.[0]);
     case "revealDefinition":
-      return editor.revealDefinition(range);
+      return editor.revealDefinition(ranges?.[0]);
     case "revealTypeDefinition":
-      return editor.revealTypeDefinition(range);
+      return editor.revealTypeDefinition(ranges?.[0]);
     case "showHover":
-      return editor.showHover(range);
+      return editor.showHover(ranges?.[0]);
     case "showDebugHover":
-      return editor.showDebugHover(range);
+      return editor.showDebugHover(ranges?.[0]);
     case "extractVariable":
-      return editor.extractVariable(range);
+      return editor.extractVariable(ranges?.[0]);
+
+    // Unsupported as simple action
+    case "highlight":
+      throw Error("Highlight command not supported as simple action");
   }
 }

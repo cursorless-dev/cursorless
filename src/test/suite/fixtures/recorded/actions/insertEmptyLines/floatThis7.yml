@@ -28,9 +28,8 @@ finalState:
         end: {line: 2, character: 0}
       isReversed: false
       hasExplicitRange: false
+ide:
+  flashedRanges:
+    - range: {type: line, start: 2, end: 2}
+      style: justAdded
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]
-decorations:
-  - name: justAddedBackground
-    type: line
-    start: {line: 2, character: 0}
-    end: {line: 2, character: 0}

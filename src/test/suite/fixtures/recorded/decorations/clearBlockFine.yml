@@ -29,9 +29,11 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
-decorations:
-  - name: pendingDeleteBackground
-    type: token
-    start: {line: 1, character: 4}
-    end: {line: 2, character: 7}
+ide:
+  flashedRanges:
+    - range:
+        type: character
+        start: {line: 1, character: 4}
+        end: {line: 2, character: 7}
+      style: pendingDelete
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: [{type: containingScope, scopeType: {type: paragraph}}]}]

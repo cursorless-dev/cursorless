@@ -1,10 +1,11 @@
 import { Range } from "@cursorless/common";
+import { FlashStyle } from "../../libs/common/ide/types/FlashDescriptor";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import isTesting from "../../testUtil/isTesting";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
-import { ensureSingleTarget } from "../../util/targetUtils";
+import { ensureSingleTarget, flashTargets } from "../../util/targetUtils";
 import { Action, ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
@@ -62,10 +63,7 @@ export default class GenerateSnippet implements Action {
     // immediately starts saying the name of the snippet (eg command chain
     // "snippet make funk camel my function"), we're more likely to
     // win the race and have the input box ready for them
-    this.graph.editStyles.displayPendingEditDecorations(
-      targets,
-      this.graph.editStyles.referenced,
-    );
+    flashTargets(ide(), targets, FlashStyle.referenced);
 
     if (snippetName == null) {
       snippetName = await ide().showInputBox({

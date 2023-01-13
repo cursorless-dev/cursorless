@@ -1,8 +1,9 @@
-import { RangeExpansionBehavior } from "@cursorless/common";
+import { RangeExpansionBehavior, toCharacterRange } from "@cursorless/common";
 import {
   callFunctionAndUpdateSelections,
   callFunctionAndUpdateSelectionsWithBehavior,
 } from "../core/updateSelections/updateSelections";
+import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -60,13 +61,12 @@ export class PasteFromClipboard {
       await originalEditor.focus();
     }
 
-    this.graph.editStyles.displayPendingEditDecorationsForRanges(
+    await ide().flashRanges(
       updatedTargetSelections.map((selection) => ({
-        editor: editor,
-        range: selection,
+        editor,
+        range: toCharacterRange(selection),
+        style: FlashStyle.justAdded,
       })),
-      this.graph.editStyles.justAdded,
-      true,
     );
 
     return {

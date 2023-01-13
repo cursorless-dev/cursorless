@@ -33,13 +33,10 @@ finalState:
         end: {line: 2, character: 11}
       isReversed: false
       hasExplicitRange: true
+ide:
+  flashedRanges:
+    - range: {type: line, start: 1, end: 1}
+      style: justAdded
+    - range: {type: line, start: 3, end: 3}
+      style: justAdded
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]
-decorations:
-  - name: justAddedBackground
-    type: line
-    start: {line: 1, character: 0}
-    end: {line: 1, character: 0}
-  - name: justAddedBackground
-    type: line
-    start: {line: 3, character: 0}
-    end: {line: 3, character: 0}

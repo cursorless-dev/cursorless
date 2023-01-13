@@ -1,9 +1,14 @@
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
+import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { containingSurroundingPairIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
+import {
+  createThatMark,
+  flashTargets,
+  runOnTargetsForEachEditor,
+} from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Rewrap implements Action {
@@ -28,10 +33,7 @@ export default class Rewrap implements Action {
       return boundary;
     });
 
-    await this.graph.editStyles.displayPendingEditDecorations(
-      boundaryTargets,
-      this.graph.editStyles.pendingModification0,
-    );
+    await flashTargets(ide(), boundaryTargets, FlashStyle.pendingModification0);
 
     const results = await runOnTargetsForEachEditor(
       boundaryTargets,

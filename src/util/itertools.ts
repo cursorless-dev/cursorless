@@ -24,3 +24,19 @@ export function groupBy<T, U>(list: T[], func: (element: T) => U): Map<U, T[]> {
 
   return map;
 }
+
+export function partition<T, U>(
+  list: (T | U)[],
+  predicate: (elem: T | U) => elem is T,
+): [T[], U[]] {
+  const first: T[] = [];
+  const second: U[] = [];
+  for (const elem of list) {
+    if (predicate(elem)) {
+      first.push(elem);
+    } else {
+      second.push(elem);
+    }
+  }
+  return [first, second];
+}

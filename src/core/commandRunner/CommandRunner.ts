@@ -125,14 +125,12 @@ export default class CommandRunner {
       };
 
       if (this.graph.testCaseRecorder.isActive()) {
-        this.graph.editStyles.testDecorations = [];
         const context = {
           targets: targetDescriptors,
           thatMark: this.thatMark,
           sourceMark: this.sourceMark,
           hatTokenMap: readableHatMap,
           spokenForm,
-          decorations: this.graph.editStyles.testDecorations,
         };
         await this.graph.testCaseRecorder.preCommandHook(
           commandComplete,

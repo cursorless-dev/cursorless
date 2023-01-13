@@ -1,7 +1,12 @@
+import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { createThatMark, ensureSingleTarget } from "../util/targetUtils";
+import {
+  createThatMark,
+  ensureSingleTarget,
+  flashTargets,
+} from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class FollowLink implements Action {
@@ -12,10 +17,7 @@ export default class FollowLink implements Action {
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const target = ensureSingleTarget(targets);
 
-    await this.graph.editStyles.displayPendingEditDecorations(
-      targets,
-      this.graph.editStyles.referenced,
-    );
+    await flashTargets(ide(), targets, FlashStyle.referenced);
 
     const openedLink = await ide()
       .getEditableTextEditor(target.editor)

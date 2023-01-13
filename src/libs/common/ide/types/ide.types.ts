@@ -5,6 +5,7 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import { URI } from "vscode-uri";
+import { EditorGeneralizedRange } from "../../types/GeneralizedRange";
 import { Capabilities } from "./Capabilities";
 import { Clipboard } from "./Clipboard";
 import { Configuration } from "./Configuration";
@@ -15,10 +16,12 @@ import {
   TextEditorVisibleRangesChangeEvent,
 } from "./events.types";
 import { Hats } from "./Hats";
+import { FlashDescriptor } from "./FlashDescriptor";
 import { Messages } from "./Messages";
 import { State } from "./State";
 
 export type RunMode = "production" | "development" | "test";
+export type HighlightId = string;
 
 export interface IDE {
   readonly configuration: Configuration;
@@ -173,6 +176,28 @@ export interface IDE {
    * `undefined` when the command handler function doesn't return anything.
    */
   executeCommand<T>(command: string, ...args: any[]): Promise<T | undefined>;
+
+  /**
+   * Temporarily emphasize the given ranges to the user.  This function is used
+   * to show ranges that eg are about to be deleted, are the source of a bring,
+   * etc. The promise should resolve when the flash is complete.
+   *
+   * @param flashDescriptors Descriptions of the ranges to flash, including
+   * information about the type of flash
+   */
+  flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void>;
+
+  /**
+   * Set the ranges to which {@link highlightId} should be applied.  Removes
+   * the given highlight from all other ranges in all editors.
+   *
+   * @param highlightId The id of the highlight to apply
+   * @param ranges The ranges to apply the highlight to
+   */
+  setHighlightRanges(
+    highlightId: HighlightId,
+    ranges: EditorGeneralizedRange[],
+  ): Promise<void>;
 }
 
 export interface WorkspaceFolder {

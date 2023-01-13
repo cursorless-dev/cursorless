@@ -1,6 +1,8 @@
-import { EditStyleName } from "../core/editStyles";
+import { HighlightId } from "@cursorless/common";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
+import { toGeneralizedRange } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Highlight implements Action {
@@ -10,12 +12,19 @@ export default class Highlight implements Action {
 
   async run(
     [targets]: [Target[]],
-    styleName: EditStyleName = "highlight0",
+    highlightId: HighlightId = "highlight0",
   ): Promise<ActionReturnValue> {
-    const style = this.graph.editStyles[styleName];
+    if (ide().capabilities.commands["highlight"] == null) {
+      throw Error(`The highlight action is not supported by your ide`);
+    }
 
-    this.graph.editStyles.clearDecorations(style);
-    await this.graph.editStyles.setDecorations(targets, style);
+    await ide().setHighlightRanges(
+      highlightId,
+      targets.map((target) => ({
+        editor: target.editor,
+        range: toGeneralizedRange(target),
+      })),
+    );
 
     return {
       thatTargets: targets,
