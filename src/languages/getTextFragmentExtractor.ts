@@ -193,4 +193,8 @@ const textFragmentExtractors: Record<
     "xml",
     htmlStringTextFragmentExtractor,
   ),
+  xaml: constructDefaultTextFragmentExtractor(
+    "xaml",
+    htmlStringTextFragmentExtractor,
+  ),
 };
