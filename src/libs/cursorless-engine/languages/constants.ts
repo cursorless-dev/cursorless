@@ -23,6 +23,7 @@ export const supportedLanguageIds = [
   "typescript",
   "typescriptreact",
   "xml",
+  "xaml",
 ] as const;
 
 /**

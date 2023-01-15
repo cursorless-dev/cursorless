@@ -77,6 +77,7 @@ const languageMatchers: Record<
   typescript,
   typescriptreact: typescript,
   xml: html,
+  xaml: html,
 };
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {

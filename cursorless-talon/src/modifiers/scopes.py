@@ -51,7 +51,7 @@ scope_types = {
     "value": "value",
     "condition": "condition",
     "unit": "unit",
-    #  XML, JSX
+    #  XML, JSX, XAML
     "element": "xmlElement",
     "tags": "xmlBothTags",
     "start tag": "xmlStartTag",
