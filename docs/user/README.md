@@ -464,6 +464,16 @@ eg:
 
 Swaps the given tokens.
 
+### Indent / dedent
+
+- `"dedent <TARGET>"` decreases the indentation level of `<TARGET>`
+- `"indent <TARGET>"` increases the indentation level of `<TARGET>`
+
+For example:
+
+- `"indent air"`
+- `"dedent funk bat"`
+
 ### Insert empty lines
 
 - `"drink <TARGET>"`: Inserts a new line above the target line, and moves the cursor to the newly created line
