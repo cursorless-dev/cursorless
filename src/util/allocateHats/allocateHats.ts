@@ -1,6 +1,6 @@
 import { DefaultMap, Range, TextEditor } from "@cursorless/common";
 import { clone } from "lodash";
-import { HatStability } from "../../libs/common/ide/types/Configuration";
+import { HatStability } from "../../libs/common/ide/types/HatStability";
 import { HatStyleMap } from "../../libs/common/ide/types/Hats";
 import { HatStyleName } from "../../libs/common/ide/types/hatStyles.types";
 import CompositeKeyMap from "../../libs/common/util/CompositeKeyMap";

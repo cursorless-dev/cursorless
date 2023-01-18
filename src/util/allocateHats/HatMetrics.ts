@@ -1,5 +1,5 @@
 import { min } from "lodash";
-import { HatStability } from "../../libs/common/ide/types/Configuration";
+import { HatStability } from "../../libs/common/ide/types/HatStability";
 import { HatCandidate } from "./allocateHats";
 import CompositeKeyMap from "../../libs/common/util/CompositeKeyMap";
 

@@ -1,4 +1,4 @@
-import { HatStability } from "../../libs/common/ide/types/Configuration";
+import { HatStability } from "../../libs/common/ide/types/HatStability";
 import { RankingContext } from "./getHatRankingContext";
 import { TokenHat, HatCandidate } from "./allocateHats";
 import { maxByMultiple } from "./maxByMultiple";
@@ -70,11 +70,33 @@ export function chooseTokenHat(
   );
 
   return maxByMultiple(candidates, [
-    ...(hatStability >= HatStability.higher
-      ? [metrics.getHatOldTokenRank, metrics.getNegativePenalty]
-      : [metrics.getNegativePenalty, metrics.getHatOldTokenRank]),
+    ...getHatTheftMetrics(hatStability, metrics),
     metrics.minimumTokenRankContainingGrapheme,
   ])!;
+}
+
+function getHatTheftMetrics(
+  hatStability: HatStability,
+  metrics: HatMetrics,
+): HatMetric[] {
+  switch (hatStability) {
+    case HatStability.low:
+    case HatStability.lowRounded:
+    case HatStability.lowThresholded:
+    case HatStability.high:
+      return [metrics.getNegativePenalty, metrics.getHatOldTokenRank];
+
+    case HatStability.highThresholded:
+      return [
+        ({ penalty }) => (penalty < 2 ? 1 : 0),
+        metrics.getHatOldTokenRank,
+        metrics.getNegativePenalty,
+      ];
+
+    case HatStability.higher:
+    case HatStability.strict:
+      return [metrics.getHatOldTokenRank, metrics.getNegativePenalty];
+  }
 }
 
 function getHatPenaltyEquivalenceClassFn(
@@ -85,9 +107,10 @@ function getHatPenaltyEquivalenceClassFn(
       return ({ penalty }) => penalty;
     case HatStability.lowRounded:
       return ({ penalty }) => Math.floor(penalty);
-    case HatStability.medium:
+    case HatStability.lowThresholded:
       return ({ penalty }) => (penalty < 2 ? 0 : 1);
     case HatStability.high:
+    case HatStability.highThresholded:
     case HatStability.higher:
     case HatStability.strict:
       throw new Error("No penalty equivalence class for high stability");

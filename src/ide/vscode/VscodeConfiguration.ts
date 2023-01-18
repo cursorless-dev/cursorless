@@ -4,8 +4,8 @@ import {
   Configuration,
   ConfigurationScope,
   CursorlessConfiguration,
-  HatStability,
 } from "../../libs/common/ide/types/Configuration";
+import { HatStability } from "../../libs/common/ide/types/HatStability";
 import { GetFieldType, Paths } from "../../libs/common/ide/types/Paths";
 import { Notifier } from "../../libs/common/util/Notifier";
 import type VscodeIDE from "./VscodeIDE";
