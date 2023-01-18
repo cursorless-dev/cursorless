@@ -2,7 +2,7 @@ import { maxByMultiple } from "@cursorless/common";
 import { min } from "lodash";
 import { HatStability } from "../../libs/common/ide/types/Configuration";
 import { RankingContext } from "./getHatRankingContext";
-import { HatRangeDescriptor, HatCandidate } from "./allocateHats";
+import { TokenHat, HatCandidate } from "./allocateHats";
 
 /**
  * IMPORTANT: This function assumes that all tokens with a lower rank than the given
@@ -29,7 +29,7 @@ export function chooseTokenHat(
   { hatOldTokenRanks, graphemeTokenRanks }: RankingContext,
   hatStability: HatStability,
   tokenRank: number,
-  oldTokenHat: HatRangeDescriptor | undefined,
+  oldTokenHat: TokenHat | undefined,
   candidates: HatCandidate[],
 ) {
   const oldCandidate =

@@ -21,6 +21,7 @@ export function getRankedTokens(
     activeTextEditor,
     visibleTextEditors,
   );
+
   return editors.flatMap((editor) => {
     /**
      * The reference position that will be used to judge how likely a given

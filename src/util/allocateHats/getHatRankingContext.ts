@@ -2,7 +2,7 @@ import { HatStyleName } from "../../libs/common/ide/types/hatStyles.types";
 import CompositeKeyMap from "../../libs/common/util/CompositeKeyMap";
 import { TokenGraphemeSplitter } from "../../libs/cursorless-engine/tokenGraphemeSplitter";
 import { Token } from "../../typings/Types";
-import { HatRangeDescriptor } from "./allocateHats";
+import { TokenHat } from "./allocateHats";
 import { RankedToken } from "./getRankedTokens";
 
 export interface RankingContext {
@@ -29,7 +29,7 @@ export interface RankingContext {
 
 export function getHatRankingContext(
   tokens: RankedToken[],
-  oldTokenHatMap: CompositeKeyMap<Token, HatRangeDescriptor>,
+  oldTokenHatMap: CompositeKeyMap<Token, TokenHat>,
   tokenGraphemeSplitter: TokenGraphemeSplitter,
 ): RankingContext {
   const graphemeTokenRanks: {

@@ -13,7 +13,7 @@ import { chooseTokenHat } from "./chooseTokenHat";
 import { getHatRankingContext } from "./getHatRankingContext";
 import { getRankedTokens } from "./getRankedTokens";
 
-export interface HatRangeDescriptor {
+export interface TokenHat {
   hatStyle: HatStyleName;
   grapheme: string;
   token: Token;
@@ -22,19 +22,19 @@ export interface HatRangeDescriptor {
 
 export interface HatCandidate {
   grapheme: Grapheme;
-  style: string;
+  style: HatStyleName;
   penalty: number;
 }
 
 export function allocateHats(
   tokenGraphemeSplitter: TokenGraphemeSplitter,
   enabledHatStyles: HatStyleMap,
-  oldHatRangeDescriptors: HatRangeDescriptor[],
+  oldTokenHats: readonly TokenHat[],
   hatStability: HatStability,
   activeTextEditor: TextEditor | undefined,
   visibleTextEditors: readonly TextEditor[],
-): HatRangeDescriptor[] {
-  const tokenOldHatMap = getTokenOldHatMap(oldHatRangeDescriptors);
+): TokenHat[] {
+  const tokenOldHatMap = getTokenOldHatMap(oldTokenHats);
   const tokens = getRankedTokens(activeTextEditor, visibleTextEditors);
   const context = getHatRankingContext(
     tokens,
@@ -51,7 +51,7 @@ export function allocateHats(
   );
 
   return tokens
-    .map<HatRangeDescriptor | undefined>(({ token, rank: tokenRank }) => {
+    .map<TokenHat | undefined>(({ token, rank: tokenRank }) => {
       const tokenRemainingHatCandidates = getTokenRemainingHatCandidates(
         tokenGraphemeSplitter,
         token,
@@ -76,20 +76,20 @@ export function allocateHats(
 
       return constructHatRangeDescriptor(token, chosenHat);
     })
-    .filter((value): value is HatRangeDescriptor => value != null);
+    .filter((value): value is TokenHat => value != null);
 }
 
 /**
  *
- * @param oldHatRangeDescriptors The list of the hats currently shown onscreen
+ * @param oldTokenHats The list of the hats currently shown onscreen
  * @returns A mapping from tokens to their preexisting hat
  */
-function getTokenOldHatMap(oldHatRangeDescriptors: HatRangeDescriptor[]) {
-  const tokenOldHatMap = new CompositeKeyMap<Token, HatRangeDescriptor>(
+function getTokenOldHatMap(oldTokenHats: readonly TokenHat[]) {
+  const tokenOldHatMap = new CompositeKeyMap<Token, TokenHat>(
     ({ editor, offsets }) => [editor.id, offsets.start, offsets.end],
   );
 
-  oldHatRangeDescriptors.forEach((descriptor) =>
+  oldTokenHats.forEach((descriptor) =>
     tokenOldHatMap.set(descriptor.token, descriptor),
   );
   return tokenOldHatMap;
@@ -116,7 +116,7 @@ function getTokenRemainingHatCandidates(
 function constructHatRangeDescriptor(
   token: Token,
   chosenHat: HatCandidate,
-): HatRangeDescriptor {
+): TokenHat {
   return {
     hatStyle: chosenHat.style,
     grapheme: chosenHat.grapheme.text,

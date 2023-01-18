@@ -47,36 +47,29 @@ export class HatAllocator {
   async addDecorations() {
     const activeMap = await this.context.getActiveMap();
 
-    activeMap.clear();
-
     if (ide().hats.isEnabled) {
       const { visibleTextEditors } = ide();
 
-      const hatRangeDescriptors = allocateHats(
+      const tokenHats = allocateHats(
         tokenGraphemeSplitter(),
         ide().hats.enabledHatStyles,
-        activeMap.descriptors,
+        activeMap.tokenHats,
         ide().configuration.getOwnConfiguration("experimental.hatStability"),
         ide().activeTextEditor,
         visibleTextEditors,
       );
 
-      hatRangeDescriptors.forEach(({ hatStyle, grapheme, token }) => {
-        activeMap.addToken(hatStyle, grapheme, token);
-      });
-
-      activeMap.descriptors = hatRangeDescriptors;
+      activeMap.setTokenHats(tokenHats);
 
       await ide().hats.setHatRanges(
-        hatRangeDescriptors.map(
-          ({ hatStyle, hatRange, token: { editor } }) => ({
-            editor,
-            range: hatRange,
-            styleName: hatStyle,
-          }),
-        ),
+        tokenHats.map(({ hatStyle, hatRange, token: { editor } }) => ({
+          editor,
+          range: hatRange,
+          styleName: hatStyle,
+        })),
       );
     } else {
+      activeMap.setTokenHats([]);
       await ide().hats.setHatRanges([]);
     }
   }

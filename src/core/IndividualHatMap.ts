@@ -2,7 +2,7 @@ import { getKey, TextDocument } from "@cursorless/common";
 import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
 import { Graph, Token } from "../typings/Types";
 import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
-import { HatRangeDescriptor } from "../util/allocateHats/allocateHats";
+import { TokenHat } from "../util/allocateHats/allocateHats";
 
 export interface ReadOnlyHatMap {
   getEntries(): [string, Token][];
@@ -17,7 +17,12 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   private map: {
     [decoratedCharacter: string]: Token;
   } = {};
-  descriptors: HatRangeDescriptor[] = [];
+
+  private _tokenHats: readonly TokenHat[] = [];
+
+  get tokenHats() {
+    return this._tokenHats;
+  }
 
   constructor(private graph: Graph) {}
 
@@ -56,8 +61,16 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     this.getDocumentTokenList(token.editor.document).push(token);
   }
 
-  addToken(hatStyle: HatStyleName, character: string, token: Token) {
-    this.addTokenByKey(getKey(hatStyle, character), token);
+  setTokenHats(tokenHats: readonly TokenHat[]) {
+    this.map = {};
+    this.documentTokenLists = new Map();
+    this.deregisterFunctions.forEach((func) => func());
+
+    tokenHats.forEach(({ hatStyle, grapheme, token }) => {
+      this.addTokenByKey(getKey(hatStyle, grapheme), token);
+    });
+
+    this._tokenHats = tokenHats;
   }
 
   getToken(hatStyle: HatStyleName, character: string) {
@@ -65,12 +78,6 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     return this.map[
       getKey(hatStyle, tokenGraphemeSplitter().normalizeGrapheme(character))
     ];
-  }
-
-  clear() {
-    this.map = {};
-    this.documentTokenLists = new Map();
-    this.deregisterFunctions.forEach((func) => func());
   }
 
   checkExpired() {
