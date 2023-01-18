@@ -11,15 +11,15 @@ export interface ReadOnlyHatMap {
   getToken(hatStyle: HatStyleName, character: string): Token;
 }
 
-interface FullToken extends Token, FullRangeInfo {}
+interface LiveToken extends Token, FullRangeInfo {}
 
 export class IndividualHatMap implements ReadOnlyHatMap {
   private isExpired: boolean = false;
-  private documentTokenLists: Map<string, FullToken[]> = new Map();
+  private documentTokenLists: Map<string, LiveToken[]> = new Map();
   private deregisterFunctions: (() => void)[] = [];
 
   private map: {
-    [decoratedCharacter: string]: FullToken;
+    [decoratedCharacter: string]: LiveToken;
   } = {};
 
   private _tokenHats: readonly TokenHat[] = [];
@@ -58,10 +58,12 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     this.documentTokenLists = new Map();
     this.deregisterFunctions.forEach((func) => func());
 
-    tokenHats.forEach(({ hatStyle, grapheme, token }) => {
+    const liveTokenHats: TokenHat[] = tokenHats.map((tokenHat) => {
+      const { hatStyle, grapheme, token } = tokenHat;
+
       const languageId = token.editor.document.languageId;
 
-      const fullToken: FullToken = {
+      const liveToken: LiveToken = {
         ...token,
         expansionBehavior: {
           start: {
@@ -75,11 +77,13 @@ export class IndividualHatMap implements ReadOnlyHatMap {
         },
       };
 
-      this.map[getKey(hatStyle, grapheme)] = fullToken;
-      this.getDocumentTokenList(token.editor.document).push(fullToken);
+      this.map[getKey(hatStyle, grapheme)] = liveToken;
+      this.getDocumentTokenList(token.editor.document).push(liveToken);
+
+      return { ...tokenHat, token: liveToken };
     });
 
-    this._tokenHats = tokenHats;
+    this._tokenHats = liveTokenHats;
   }
 
   getEntries(): readonly [string, Token][] {
