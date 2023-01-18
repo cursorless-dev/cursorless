@@ -10,6 +10,7 @@ export {
 } from "./testUtil/runTestSubset";
 export { default as serialize } from "./testUtil/serialize";
 export { default as SpyIDE } from "./ide/spy/SpyIDE";
+export { HatStability } from "./ide/types/Configuration";
 export * from "./util";
 export { getKey, splitKey } from "./util/splitKey";
 export { hrtimeBigintToSeconds } from "./util/timeUtils";

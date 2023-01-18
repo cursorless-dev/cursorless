@@ -1,12 +1,24 @@
+import { get } from "lodash";
 import * as vscode from "vscode";
 import {
   Configuration,
   ConfigurationScope,
   CursorlessConfiguration,
+  HatStability,
 } from "../../libs/common/ide/types/Configuration";
 import { GetFieldType, Paths } from "../../libs/common/ide/types/Paths";
 import { Notifier } from "../../libs/common/util/Notifier";
 import type VscodeIDE from "./VscodeIDE";
+
+// FIXME: Translate from string to enum for hatStability
+
+const translators = {
+  experimental: {
+    hatStability(value: string) {
+      return HatStability[value as keyof typeof HatStability];
+    },
+  },
+};
 
 export default class VscodeConfiguration implements Configuration {
   private notifier = new Notifier();
@@ -23,9 +35,11 @@ export default class VscodeConfiguration implements Configuration {
     path: Path,
     scope?: ConfigurationScope,
   ): GetFieldType<CursorlessConfiguration, Path> {
-    return vscode.workspace
+    const rawValue = vscode.workspace
       .getConfiguration("cursorless", scope)
       .get<GetFieldType<CursorlessConfiguration, Path>>(path)!;
+
+    return get(translators, path)?.(rawValue) ?? rawValue;
   }
 
   onDidChangeConfiguration = this.notifier.registerListener;

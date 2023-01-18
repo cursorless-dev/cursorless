@@ -2,7 +2,7 @@ import { getKey, TextDocument } from "@cursorless/common";
 import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
 import { Graph, Token } from "../typings/Types";
 import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
-import { HatRangeDescriptor } from "../util/computeHatRanges";
+import { HatRangeDescriptor } from "../util/allocateHats/allocateHats";
 
 export interface ReadOnlyHatMap {
   getEntries(): [string, Token][];

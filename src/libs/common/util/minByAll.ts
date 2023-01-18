@@ -4,7 +4,7 @@ export function minByAll<T>(arr: T[], fn: (item: T) => number): T[] {
 }
 
 export function maxByAll<T>(arr: T[], fn: (item: T) => number): T[] {
-  const max = Math.max(...arr.map(fn));
+  const max = Math.max(...arr.map(fn).filter((item) => !isNaN(item)));
   return arr.filter((item) => fn(item) === max);
 }
 
@@ -14,11 +14,16 @@ export function maxByMultiple<T>(
 ): T | undefined {
   let remainingValues = arr;
   for (const fn of fns) {
-    remainingValues = maxByAll(remainingValues, fn);
-
     if (remainingValues.length === 1) {
       return remainingValues[0];
     }
+
+    if (remainingValues.length === 0) {
+      return undefined;
+    }
+
+    remainingValues = maxByAll(remainingValues, fn);
   }
+
   return remainingValues[0];
 }

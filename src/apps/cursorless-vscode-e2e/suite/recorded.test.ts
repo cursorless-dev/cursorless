@@ -1,4 +1,4 @@
-import type { SpyIDE } from "@cursorless/common";
+import { HatStability, SpyIDE } from "@cursorless/common";
 import { extractTargetedMarks, serialize, splitKey } from "@cursorless/common";
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
@@ -235,7 +235,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
 function setupFake(ide: NormalizedIDE) {
   ide.configuration.mockConfiguration("experimental", {
     snippetsDir: getFixturePath("cursorless-snippets"),
-    hatStability: "low",
+    hatStability: HatStability.low,
   });
 }
 

@@ -2,7 +2,7 @@ import type { Disposable } from "../libs/common/ide/types/ide.types";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
 import { Graph } from "../typings/Types";
-import { computeHatRanges } from "../util/computeHatRanges";
+import { allocateHats } from "../util/allocateHats";
 import { IndividualHatMap } from "./IndividualHatMap";
 
 interface Context {
@@ -52,11 +52,11 @@ export class HatAllocator {
     if (ide().hats.isEnabled) {
       const { visibleTextEditors } = ide();
 
-      const hatRangeDescriptors = computeHatRanges(
+      const hatRangeDescriptors = allocateHats(
         tokenGraphemeSplitter(),
         ide().hats.enabledHatStyles,
         activeMap.descriptors,
-        getEquallyPreferablePenaltyFn(),
+        ide().configuration.getOwnConfiguration("experimental.hatStability"),
         ide().activeTextEditor,
         visibleTextEditors,
       );
@@ -102,18 +102,5 @@ export class HatAllocator {
     if (this.timeoutHandle != null) {
       clearTimeout(this.timeoutHandle);
     }
-  }
-}
-
-function getEquallyPreferablePenaltyFn(): (penalty: number) => number {
-  switch (
-    ide().configuration.getOwnConfiguration("experimental.hatStability")
-  ) {
-    case "low":
-      return (penalty) => penalty;
-    case "medium":
-      return (penalty) => Math.floor(penalty);
-    case "high":
-      return (_penalty) => 0;
   }
 }
