@@ -1,10 +1,9 @@
 import { TextEditor } from "@cursorless/common";
 import { flatten } from "lodash";
-import { getMatcher } from "../../libs/cursorless-engine/tokenizer";
 import { Token } from "../../typings/Types";
-import { getDisplayLineMap } from "../getDisplayLineMap";
-import { getTokenComparator } from "../getTokenComparator";
-import { getTokensInRange } from "../getTokensInRange";
+import { getDisplayLineMap } from "./getDisplayLineMap";
+import { getTokenComparator } from "./getTokenComparator";
+import { getTokensInRange } from "./getTokensInRange";
 
 /**
  * Constructs a list of all tokens that are visible in the given editors ordered
@@ -31,23 +30,11 @@ export function getRankedTokens(
      */
     const referencePosition = editor.selections[0].active;
     const displayLineMap = getDisplayLineMap(editor, [referencePosition.line]);
-    const languageId = editor.document.languageId;
-    const tokens: Token[] = flatten(
+    const tokens = flatten(
       editor.visibleRanges.map((range) =>
         getTokensInRange(editor, range).map((partialToken) => ({
           ...partialToken,
           displayLine: displayLineMap.get(partialToken.range.start.line)!,
-          editor,
-          expansionBehavior: {
-            start: {
-              type: "regex",
-              regex: getMatcher(languageId).tokenMatcher,
-            },
-            end: {
-              type: "regex",
-              regex: getMatcher(languageId).tokenMatcher,
-            },
-          },
         })),
       ),
     );

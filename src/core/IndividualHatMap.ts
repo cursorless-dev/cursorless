@@ -3,19 +3,23 @@ import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGra
 import { Graph, Token } from "../typings/Types";
 import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
 import { TokenHat } from "../util/allocateHats/allocateHats";
+import { FullRangeInfo } from "../typings/updateSelections";
+import { getMatcher } from "../libs/cursorless-engine/tokenizer";
 
 export interface ReadOnlyHatMap {
-  getEntries(): [string, Token][];
+  getEntries(): readonly [string, Token][];
   getToken(hatStyle: HatStyleName, character: string): Token;
 }
 
+interface FullToken extends Token, FullRangeInfo {}
+
 export class IndividualHatMap implements ReadOnlyHatMap {
   private isExpired: boolean = false;
-  private documentTokenLists: Map<string, Token[]> = new Map();
+  private documentTokenLists: Map<string, FullToken[]> = new Map();
   private deregisterFunctions: (() => void)[] = [];
 
   private map: {
-    [decoratedCharacter: string]: Token;
+    [decoratedCharacter: string]: FullToken;
   } = {};
 
   private _tokenHats: readonly TokenHat[] = [];
@@ -44,21 +48,9 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   clone() {
     const ret = new IndividualHatMap(this.graph);
 
-    this.getEntries().forEach(([key, token]) => {
-      ret.addTokenByKey(key, { ...token });
-    });
+    ret.setTokenHats(this._tokenHats);
 
     return ret;
-  }
-
-  getEntries() {
-    this.checkExpired();
-    return Object.entries(this.map);
-  }
-
-  private addTokenByKey(key: string, token: Token) {
-    this.map[key] = token;
-    this.getDocumentTokenList(token.editor.document).push(token);
   }
 
   setTokenHats(tokenHats: readonly TokenHat[]) {
@@ -67,20 +59,42 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     this.deregisterFunctions.forEach((func) => func());
 
     tokenHats.forEach(({ hatStyle, grapheme, token }) => {
-      this.addTokenByKey(getKey(hatStyle, grapheme), token);
+      const languageId = token.editor.document.languageId;
+
+      const fullToken: FullToken = {
+        ...token,
+        expansionBehavior: {
+          start: {
+            type: "regex",
+            regex: getMatcher(languageId).tokenMatcher,
+          },
+          end: {
+            type: "regex",
+            regex: getMatcher(languageId).tokenMatcher,
+          },
+        },
+      };
+
+      this.map[getKey(hatStyle, grapheme)] = fullToken;
+      this.getDocumentTokenList(token.editor.document).push(fullToken);
     });
 
     this._tokenHats = tokenHats;
   }
 
-  getToken(hatStyle: HatStyleName, character: string) {
+  getEntries(): readonly [string, Token][] {
+    this.checkExpired();
+    return Object.entries(this.map);
+  }
+
+  getToken(hatStyle: HatStyleName, character: string): Token {
     this.checkExpired();
     return this.map[
       getKey(hatStyle, tokenGraphemeSplitter().normalizeGrapheme(character))
     ];
   }
 
-  checkExpired() {
+  private checkExpired() {
     if (this.isExpired) {
       throw Error("Map snapshot has expired");
     }
