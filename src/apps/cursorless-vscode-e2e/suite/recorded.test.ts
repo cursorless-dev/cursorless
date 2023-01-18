@@ -18,13 +18,13 @@ import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import type { ReadOnlyHatMap } from "../../../core/IndividualHatMap";
-import type NormalizedIDE from "../../../libs/common/ide/normalized/NormalizedIDE";
 import type { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
-import { getFixturePath, getRecordedTestPaths } from "../getFixturePaths";
+import { getRecordedTestPaths } from "../getFixturePaths";
 import { runCursorlessCommand } from "../runCommand";
 import shouldUpdateFixtures from "../shouldUpdateFixtures";
+import { setupFake } from "./setupFake";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -43,7 +43,7 @@ suite("recorded test cases", async function () {
     // Necessary because opening a notebook opens the panel for some reason
     await vscode.commands.executeCommand("workbench.action.closePanel");
     const { ide } = (await getCursorlessApi()).testHelpers!;
-    setupFake(ide);
+    setupFake(ide, HatStability.strict);
   });
 
   getRecordedTestPaths().forEach((path) =>
@@ -230,13 +230,6 @@ async function runTest(file: string, spyIde: SpyIDE) {
       "Unexpected ide captured values",
     );
   }
-}
-
-function setupFake(ide: NormalizedIDE) {
-  ide.configuration.mockConfiguration("experimental", {
-    snippetsDir: getFixturePath("cursorless-snippets"),
-    hatStability: HatStability.low,
-  });
 }
 
 function checkMarks(

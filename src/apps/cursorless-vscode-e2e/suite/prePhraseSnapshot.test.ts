@@ -1,3 +1,4 @@
+import { HatStability } from "@cursorless/common";
 import {
   fromVscodeSelection,
   getCursorlessApi,
@@ -9,19 +10,25 @@ import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
 import { runCursorlessCommand } from "../runCommand";
+import { setupFake } from "./setupFake";
 
 /**
  * The selections we expect when the pre-phrase snapshot is used
  */
-const snapshotExpectedSelections = [new vscode.Selection(0, 6, 0, 11)];
+const snapshotExpectedSelections = [new vscode.Selection(0, 0, 0, 1)];
 
 /**
  * The selections we expect when the pre-phrase snapshot is not used
  */
-const noSnapshotExpectedSelections = [new vscode.Selection(1, 6, 1, 11)];
+const noSnapshotExpectedSelections = [new vscode.Selection(1, 0, 1, 1)];
 
 suite("Pre-phrase snapshots", async function () {
   endToEndTestSetup(this);
+
+  suiteSetup(async () => {
+    const { ide } = (await getCursorlessApi()).testHelpers!;
+    setupFake(ide, HatStability.low);
+  });
 
   test("Pre-phrase snapshot; single phrase", () =>
     runTest(true, false, snapshotExpectedSelections));
@@ -41,9 +48,9 @@ async function runTest(
 ) {
   const { graph } = (await getCursorlessApi()).testHelpers!;
 
-  const editor = await openNewEditor("Hello world testing whatever");
+  const editor = await openNewEditor("a\n");
 
-  editor.selections = [new vscode.Selection(0, 0, 0, 0)];
+  editor.selections = [new vscode.Selection(1, 0, 1, 0)];
 
   let prePhraseVersion = "version1";
   mockPrePhraseGetVersion(graph, async () => prePhraseVersion);
@@ -52,17 +59,25 @@ async function runTest(
   prePhraseVersion = "version2";
 
   await runCursorlessCommand({
-    version: 1,
+    version: 4,
     spokenForm: "whatever",
-    action: "replaceWithTarget",
+    action: {
+      name: "replaceWithTarget",
+    },
     targets: [
-      { type: "primitive", selectionType: "line", mark: { type: "cursor" } },
       {
         type: "primitive",
-        mark: { type: "cursor" },
-        position: "after",
+        mark: {
+          type: "decoratedSymbol",
+          symbolColor: "default",
+          character: "a",
+        },
+      },
+      {
+        type: "implicit",
       },
     ],
+    usePrePhraseSnapshot: false,
   });
 
   await graph.hatTokenMap.addDecorations();
@@ -82,7 +97,7 @@ async function runTest(
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
-          character: "o",
+          character: "a",
         },
       },
     ],

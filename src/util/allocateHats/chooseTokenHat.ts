@@ -1,8 +1,8 @@
-import { maxByMultiple } from "@cursorless/common";
-import { min } from "lodash";
 import { HatStability } from "../../libs/common/ide/types/Configuration";
 import { RankingContext } from "./getHatRankingContext";
 import { TokenHat, HatCandidate } from "./allocateHats";
+import { maxByMultiple } from "./maxByMultiple";
+import { HatMetrics, HatMetric } from "./HatMetrics";
 
 /**
  * IMPORTANT: This function assumes that all tokens with a lower rank than the given
@@ -32,6 +32,9 @@ export function chooseTokenHat(
   oldTokenHat: TokenHat | undefined,
   candidates: HatCandidate[],
 ) {
+  /**
+   * The hat candidate that was previously used for this token, if any
+   */
   const oldCandidate =
     oldTokenHat == null
       ? undefined
@@ -53,45 +56,26 @@ export function chooseTokenHat(
       hatPenaltyEquivalenceClassFn(oldCandidate) <=
       Math.min(...candidates.map(hatPenaltyEquivalenceClassFn))
     ) {
+      // If stability is less than high, then we only want to reuse the old hat
+      // if its penalty is in the same equivalence class as the minimum penalty
       return oldCandidate;
     }
   }
 
-  const exactPenalty: HatMetric = ({ penalty }) => -penalty;
-
-  // Then by how far away is the nearest token in the old map whose hat
-  // we'd steal
-  const getHatOldTokenRank: HatMetric = ({
-    grapheme: { text: grapheme },
-    style,
-  }) => {
-    const hatOldTokenRank = hatOldTokenRanks.get({
-      grapheme,
-      hatStyle: style,
-    });
-
-    return hatOldTokenRank == null
-      ? Infinity
-      : hatStability === HatStability.strict
-      ? NaN
-      : hatOldTokenRank;
-  };
-
-  // Then by how far away is the nearest token that contains the same
-  // grapheme
-  const minimumTokenRankContainingGrapheme: HatMetric = ({
-    grapheme: { text },
-  }) => min(graphemeTokenRanks[text].filter((r) => r > tokenRank)) ?? Infinity;
+  const metrics = new HatMetrics(
+    hatOldTokenRanks,
+    hatStability,
+    graphemeTokenRanks,
+    tokenRank,
+  );
 
   return maxByMultiple(candidates, [
     ...(hatStability >= HatStability.higher
-      ? [getHatOldTokenRank, exactPenalty]
-      : [exactPenalty, getHatOldTokenRank]),
-    minimumTokenRankContainingGrapheme,
+      ? [metrics.getHatOldTokenRank, metrics.getNegativePenalty]
+      : [metrics.getNegativePenalty, metrics.getHatOldTokenRank]),
+    metrics.minimumTokenRankContainingGrapheme,
   ])!;
 }
-
-type HatMetric = (hat: HatCandidate) => number;
 
 function getHatPenaltyEquivalenceClassFn(
   hatStability: HatStability,

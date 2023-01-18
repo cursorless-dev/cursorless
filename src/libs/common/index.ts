@@ -33,4 +33,3 @@ export * from "./types/TextEditorEdit";
 export * from "./types/TextEditorOptions";
 export * from "./types/TextLine";
 export { default as DefaultMap } from "./util/DefaultMap";
-export * from "./util/minByAll";

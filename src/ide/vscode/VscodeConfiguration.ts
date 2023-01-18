@@ -10,8 +10,6 @@ import { GetFieldType, Paths } from "../../libs/common/ide/types/Paths";
 import { Notifier } from "../../libs/common/util/Notifier";
 import type VscodeIDE from "./VscodeIDE";
 
-// FIXME: Translate from string to enum for hatStability
-
 const translators = {
   experimental: {
     hatStability(value: string) {
