@@ -21,7 +21,7 @@ export default class CompositeKeyMap<K, V> {
     return this.hash(key) in this.map;
   }
 
-  get(key: K): V {
+  get(key: K): V | undefined {
     return this.map[this.hash(key)];
   }
 

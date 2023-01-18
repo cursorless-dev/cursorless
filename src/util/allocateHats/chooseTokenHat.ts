@@ -22,58 +22,73 @@ import { HatRangeDescriptor, HatCandidate } from "./allocateHats";
  * @param hatStability
  * @param tokenRank
  * @param oldTokenHat
- * @param tokenAvailableHats
+ * @param candidates
  * @returns
  */
 export function chooseTokenHat(
   { hatOldTokenRanks, graphemeTokenRanks }: RankingContext,
   hatStability: HatStability,
   tokenRank: number,
-  oldTokenHat: HatRangeDescriptor,
-  tokenAvailableHats: HatCandidate[],
+  oldTokenHat: HatRangeDescriptor | undefined,
+  candidates: HatCandidate[],
 ) {
-  const isHatForCurrentToken: HatMetric = (hat) =>
-    hat.grapheme.text === oldTokenHat.grapheme &&
-    hat.style === oldTokenHat.hatStyle
-      ? 1
-      : 0;
+  const oldCandidate =
+    oldTokenHat == null
+      ? undefined
+      : candidates.find(
+          (hat) =>
+            hat.grapheme.text === oldTokenHat.grapheme &&
+            hat.style === oldTokenHat.hatStyle,
+        );
+
+  if (oldCandidate != null) {
+    if (hatStability >= HatStability.high) {
+      return oldCandidate;
+    }
+
+    const hatPenaltyEquivalenceClassFn =
+      getHatPenaltyEquivalenceClassFn(hatStability);
+
+    if (
+      hatPenaltyEquivalenceClassFn(oldCandidate) <=
+      Math.min(...candidates.map(hatPenaltyEquivalenceClassFn))
+    ) {
+      return oldCandidate;
+    }
+  }
 
   const exactPenalty: HatMetric = ({ penalty }) => -penalty;
 
   // Then by how far away is the nearest token in the old map whose hat
   // we'd steal
-  const getHatOldTokenScore: HatMetric = ({
+  const getHatOldTokenRank: HatMetric = ({
     grapheme: { text: grapheme },
     style,
   }) => {
-    const oldHatTokenScore = hatOldTokenRanks.get({
+    const hatOldTokenRank = hatOldTokenRanks.get({
       grapheme,
       hatStyle: style,
     });
 
-    return oldHatTokenScore == null
+    return hatOldTokenRank == null
       ? Infinity
       : hatStability === HatStability.strict
       ? NaN
-      : oldHatTokenScore;
+      : hatOldTokenRank;
   };
 
   // Then by how far away is the nearest token that contains the same
   // grapheme
-  const minimumTokenScoreContainingGrapheme: HatMetric = ({
+  const minimumTokenRankContainingGrapheme: HatMetric = ({
     grapheme: { text },
   }) => min(graphemeTokenRanks[text].filter((r) => r > tokenRank)) ?? Infinity;
 
-  const chosenGrapheme = maxByMultiple(tokenAvailableHats, [
-    getHatPenaltyEquivalenceClassFn(hatStability),
-    isHatForCurrentToken,
-    ...(hatStability === HatStability.higher
-      ? [getHatOldTokenScore, exactPenalty]
-      : [exactPenalty, getHatOldTokenScore]),
-    minimumTokenScoreContainingGrapheme,
+  return maxByMultiple(candidates, [
+    ...(hatStability >= HatStability.higher
+      ? [getHatOldTokenRank, exactPenalty]
+      : [exactPenalty, getHatOldTokenRank]),
+    minimumTokenRankContainingGrapheme,
   ])!;
-
-  return chosenGrapheme;
 }
 
 type HatMetric = (hat: HatCandidate) => number;
@@ -83,14 +98,14 @@ function getHatPenaltyEquivalenceClassFn(
 ): HatMetric {
   switch (hatStability) {
     case HatStability.low:
-      return ({ penalty }) => -penalty;
+      return ({ penalty }) => penalty;
     case HatStability.lowRounded:
-      return ({ penalty }) => -Math.floor(penalty);
+      return ({ penalty }) => Math.floor(penalty);
     case HatStability.medium:
-      return ({ penalty }) => (penalty < 2 ? 1 : 0);
+      return ({ penalty }) => (penalty < 2 ? 0 : 1);
     case HatStability.high:
     case HatStability.higher:
     case HatStability.strict:
-      return (_) => 0;
+      throw new Error("No penalty equivalence class for high stability");
   }
 }
