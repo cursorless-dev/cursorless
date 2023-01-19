@@ -34,7 +34,6 @@ export function chooseTokenHat(
 ) {
   const metrics = new HatMetrics(
     hatOldTokenRanks,
-    hatStability,
     graphemeTokenRanks,
     tokenRank,
   );
