@@ -26,8 +26,7 @@ export class HatMetrics {
   /**
    * @returns Infinity if the hat candidate is not in use in the old allocation,
    * otherwise the rank of the token from the old map that we'd steal the hat
-   * from, or NaN if {@link hatStability} is {@link HatStability.strict} (so
-   * that it will never be chosen)
+   * from
    */
   getHatOldTokenRank: HatMetric = ({ grapheme: { text: grapheme }, style }) => {
     const hatOldTokenRank = this.hatOldTokenRanks.get({
@@ -35,11 +34,7 @@ export class HatMetrics {
       hatStyle: style,
     });
 
-    return hatOldTokenRank == null
-      ? Infinity
-      : this.hatStability === HatStability.strict
-      ? NaN
-      : hatOldTokenRank;
+    return hatOldTokenRank == null ? Infinity : hatOldTokenRank;
   };
 
   /**
