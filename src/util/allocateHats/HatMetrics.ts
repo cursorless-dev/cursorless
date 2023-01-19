@@ -1,5 +1,4 @@
 import { min } from "lodash";
-import { HatStability } from "../../libs/common/ide/types/HatStability";
 import { HatCandidate } from "./allocateHats";
 import CompositeKeyMap from "../../libs/common/util/CompositeKeyMap";
 
@@ -13,7 +12,6 @@ export class HatMetrics {
       { grapheme: string; hatStyle: string },
       number
     >,
-    private hatStability: HatStability,
     private graphemeTokenRanks: { [key: string]: number[] },
     private tokenRank: number,
   ) {}

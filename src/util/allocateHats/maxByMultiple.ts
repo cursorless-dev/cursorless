@@ -1,5 +1,5 @@
 function maxByAll<T>(arr: T[], fn: (item: T) => number): T[] {
-  const max = Math.max(...arr.map(fn).filter((item) => !isNaN(item)));
+  const max = Math.max(...arr.map(fn));
   return arr.filter((item) => fn(item) === max);
 }
 
@@ -9,10 +9,8 @@ function maxByAll<T>(arr: T[], fn: (item: T) => number): T[] {
  * mathematical lexicographic order.  Ie, first narrows down to items that share
  * the maximum value for the first function, then of those remaining, narrows
  * down to those that have the maximum value for the second, etc.  Whenever
- * there is only 1 item remaining, that item is returned.  If every item is
- * eliminated, undefined is returned.
- *
- * Whenever a function returns NaN for an item, that item is removed.
+ * there is only 1 item remaining, that item is returned.  If the list is empty,
+ * undefined is returned.
  *
  * @example maxByMultiple([{a: 1, b: 1}, {a: 1, b: 2}], [({a}) => a, ({b}) =>
  * b]) === {a: 1, b: 2}
@@ -31,10 +29,6 @@ export function maxByMultiple<T>(
   for (const fn of fns) {
     if (remainingValues.length === 1) {
       return remainingValues[0];
-    }
-
-    if (remainingValues.length === 0) {
-      return undefined;
     }
 
     remainingValues = maxByAll(remainingValues, fn);
