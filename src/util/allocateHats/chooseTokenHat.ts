@@ -60,13 +60,13 @@ function getHatPolicyEquivalenceFn(
 ): HatMetric {
   switch (hatComparisonPolicy) {
     case HatComparisonPolicy.greedy:
-      return ({ penalty }) => penalty;
+      return ({ penalty }) => -penalty;
     case HatComparisonPolicy.floor:
-      return ({ penalty }) => Math.floor(penalty);
+      return ({ penalty }) => -Math.floor(penalty);
     case HatComparisonPolicy.round:
-      return ({ penalty }) => Math.round(penalty);
+      return ({ penalty }) => -Math.round(penalty);
     case HatComparisonPolicy.threshold:
-      return ({ penalty }) => (penalty < 2 ? 0 : 1);
+      return ({ penalty }) => -(penalty < 2 ? 0 : 1);
     case HatComparisonPolicy.stable:
       return (_) => 0;
   }
