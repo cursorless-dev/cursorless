@@ -86,6 +86,7 @@ function getHatTheftMetrics(
     case HatStability.high:
       return [metrics.getNegativePenalty, metrics.getHatOldTokenRank];
 
+    case HatStability.thresholded:
     case HatStability.highThresholded:
       return [
         ({ penalty }) => (penalty < 2 ? 1 : 0),
@@ -108,6 +109,7 @@ function getHatPenaltyEquivalenceClassFn(
     case HatStability.lowRounded:
       return ({ penalty }) => Math.floor(penalty);
     case HatStability.lowThresholded:
+    case HatStability.thresholded:
       return ({ penalty }) => (penalty < 2 ? 0 : 1);
     case HatStability.high:
     case HatStability.highThresholded:
