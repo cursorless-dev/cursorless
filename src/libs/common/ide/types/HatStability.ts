@@ -16,14 +16,14 @@ enum HatComparisonPolicy {
    * Only try to reuse an old hat when doing so wouldn't cause a token's hat
    * penalty to cross the next whole number
    */
-  floored = "floored",
+  floor = "floor",
 
   /**
    * TODO: Change this
    * Only try to reuse an old hat when doing so wouldn't cause a token's hat
    * penalty to go from <2 to >=2
    */
-  rounded = "rounded",
+  round = "round",
 
   /**
    * TODO: Change this
