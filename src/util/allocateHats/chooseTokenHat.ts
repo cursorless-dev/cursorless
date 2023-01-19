@@ -1,8 +1,8 @@
-import { HatStability } from "../../libs/common/ide/types/HatStability";
 import { RankingContext } from "./getHatRankingContext";
 import { TokenHat, HatCandidate } from "./allocateHats";
 import { maxByMultiple } from "./maxByMultiple";
 import { HatMetrics, HatMetric } from "./HatMetrics";
+import { HatComparisonPolicy, HatStability } from "@cursorless/common";
 
 /**
  * IMPORTANT: This function assumes that all tokens with a lower rank than the given
@@ -32,36 +32,6 @@ export function chooseTokenHat(
   oldTokenHat: TokenHat | undefined,
   candidates: HatCandidate[],
 ) {
-  /**
-   * The hat candidate that was previously used for this token, if any
-   */
-  const oldCandidate =
-    oldTokenHat == null
-      ? undefined
-      : candidates.find(
-          (hat) =>
-            hat.grapheme.text === oldTokenHat.grapheme &&
-            hat.style === oldTokenHat.hatStyle,
-        );
-
-  if (oldCandidate != null) {
-    if (hatStability >= HatStability.high) {
-      return oldCandidate;
-    }
-
-    const hatPenaltyEquivalenceClassFn =
-      getHatPenaltyEquivalenceClassFn(hatStability);
-
-    if (
-      hatPenaltyEquivalenceClassFn(oldCandidate) <=
-      Math.min(...candidates.map(hatPenaltyEquivalenceClassFn))
-    ) {
-      // If stability is less than high, then we only want to reuse the old hat
-      // if its penalty is in the same equivalence class as the minimum penalty
-      return oldCandidate;
-    }
-  }
-
   const metrics = new HatMetrics(
     hatOldTokenRanks,
     hatStability,
@@ -70,51 +40,34 @@ export function chooseTokenHat(
   );
 
   return maxByMultiple(candidates, [
-    ...getHatTheftMetrics(hatStability, metrics),
+    getHatPolicyEquivalenceFn(hatStability.keepingPolicy),
+    (hat) =>
+      hat.grapheme.text === oldTokenHat?.grapheme &&
+      hat.style === oldTokenHat?.hatStyle
+        ? 1
+        : 0,
+
+    getHatPolicyEquivalenceFn(hatStability.stealingPolicy),
+    metrics.getHatOldTokenRank,
+
+    metrics.getNegativePenalty,
     metrics.minimumTokenRankContainingGrapheme,
   ])!;
 }
 
-function getHatTheftMetrics(
-  hatStability: HatStability,
-  metrics: HatMetrics,
-): HatMetric[] {
-  switch (hatStability) {
-    case HatStability.low:
-    case HatStability.lowRounded:
-    case HatStability.lowThresholded:
-    case HatStability.high:
-      return [metrics.getNegativePenalty, metrics.getHatOldTokenRank];
-
-    case HatStability.thresholded:
-    case HatStability.highThresholded:
-      return [
-        ({ penalty }) => (penalty < 2 ? 1 : 0),
-        metrics.getHatOldTokenRank,
-        metrics.getNegativePenalty,
-      ];
-
-    case HatStability.higher:
-    case HatStability.strict:
-      return [metrics.getHatOldTokenRank, metrics.getNegativePenalty];
-  }
-}
-
-function getHatPenaltyEquivalenceClassFn(
-  hatStability: HatStability,
+function getHatPolicyEquivalenceFn(
+  hatComparisonPolicy: HatComparisonPolicy,
 ): HatMetric {
-  switch (hatStability) {
-    case HatStability.low:
+  switch (hatComparisonPolicy) {
+    case HatComparisonPolicy.greedy:
       return ({ penalty }) => penalty;
-    case HatStability.lowRounded:
+    case HatComparisonPolicy.floor:
       return ({ penalty }) => Math.floor(penalty);
-    case HatStability.lowThresholded:
-    case HatStability.thresholded:
+    case HatComparisonPolicy.round:
+      return ({ penalty }) => Math.round(penalty);
+    case HatComparisonPolicy.threshold:
       return ({ penalty }) => (penalty < 2 ? 0 : 1);
-    case HatStability.high:
-    case HatStability.highThresholded:
-    case HatStability.higher:
-    case HatStability.strict:
-      throw new Error("No penalty equivalence class for high stability");
+    case HatComparisonPolicy.stable:
+      return (_) => 0;
   }
 }

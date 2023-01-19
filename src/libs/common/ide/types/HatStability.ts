@@ -3,7 +3,7 @@ export interface HatStability {
   stealingPolicy: HatComparisonPolicy;
 }
 
-enum HatComparisonPolicy {
+export enum HatComparisonPolicy {
   /**
    * TODO: Change this
    * Only try to reuse an old hat when doing so wouldn't cause a token's hat
