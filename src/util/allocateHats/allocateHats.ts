@@ -26,6 +26,25 @@ export interface HatCandidate {
   penalty: number;
 }
 
+/**
+ * Allocates hats to all the visible tokens.  Proceeds by ranking tokens
+ * according to desirability (how far they are from the curosr), then assigning
+ * a hat to each one in turn, deciding whether to keep old hat, steal a hat from
+ * another token, or use a freely available hat.
+ *
+ * See [hat assignment](../../../docs/user/hatAssignment.md) for more info.
+ *
+ * @param tokenGraphemeSplitter Splits tokens into graphemes
+ * @param enabledHatStyles A list of all enabled hat styles
+ * @param oldTokenHats The previous allocation, so that we can try to maintain
+ * hat stability
+ * @param hatStability The user setting indicating how to trade off quality vs
+ * stability
+ * @param activeTextEditor Currently active text editor
+ * @param visibleTextEditors All visible text editors
+ * @returns A hat assignment, which is a list wher each entry contains a token
+ * and the hat that it will wear
+ */
 export function allocateHats(
   tokenGraphemeSplitter: TokenGraphemeSplitter,
   enabledHatStyles: HatStyleMap,
@@ -34,24 +53,44 @@ export function allocateHats(
   activeTextEditor: TextEditor | undefined,
   visibleTextEditors: readonly TextEditor[],
 ): TokenHat[] {
+  /**
+   * Maps from tokens to their assigned hat in previous allocation
+   */
   const tokenOldHatMap = getTokenOldHatMap(oldTokenHats);
-  const tokens = getRankedTokens(activeTextEditor, visibleTextEditors);
+
+  /**
+   * A list of tokens in all visible document, ranked by how likely they are to
+   * be used.
+   */
+  const rankedTokens = getRankedTokens(activeTextEditor, visibleTextEditors);
+
+  /**
+   * Lookup tables with information about which graphemes / hats appear in which
+   * tokens
+   */
   const context = getHatRankingContext(
-    tokens,
+    rankedTokens,
     tokenOldHatMap,
     tokenGraphemeSplitter,
   );
 
   /**
    * A map from graphemes to the remaining hat styles that have not yet been
-   * used for that grapheme
+   * used for that grapheme.  As we assign hats to tokens, we remove them from
+   * these lists so that they don't get used again in this pass.
    */
   const graphemeRemainingHatCandidates = new DefaultMap<string, HatStyleMap>(
     () => clone(enabledHatStyles),
   );
 
-  return tokens
+  // Iterate through tokens in order of decreasing rank, assigning each one a
+  // hat
+  return rankedTokens
     .map<TokenHat | undefined>(({ token, rank: tokenRank }) => {
+      /**
+       * All hats for the graphemes in this token that weren't taken by a
+       * higher ranked token
+       */
       const tokenRemainingHatCandidates = getTokenRemainingHatCandidates(
         tokenGraphemeSplitter,
         token,
@@ -66,10 +105,13 @@ export function allocateHats(
         tokenRemainingHatCandidates,
       );
 
+      // If there are no hats left for the graphemes in this token, the token
+      // will get no hat
       if (chosenHat == null) {
         return undefined;
       }
 
+      // Remove the hat we chose from consideration for lower ranked tokens
       delete graphemeRemainingHatCandidates.get(chosenHat.grapheme.text)[
         chosenHat.style
       ];
@@ -113,6 +155,12 @@ function getTokenRemainingHatCandidates(
     );
 }
 
+/**
+ * @param token The token that recevied the hat
+ * @param chosenHat The hat we chose for the token
+ * @returns An object indicating the hat assigned to the token, along with the
+ * range of the grapheme upon which it sits
+ */
 function constructHatRangeDescriptor(
   token: Token,
   chosenHat: HatCandidate,

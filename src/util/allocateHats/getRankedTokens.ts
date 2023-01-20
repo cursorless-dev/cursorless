@@ -8,9 +8,7 @@ import { getTokensInRange } from "./getTokensInRange";
 /**
  * Constructs a list of all tokens that are visible in the given editors ordered
  * by their rank along with their ranks
- * @param editors The editors from which to generate tokens for their visible
- * ranges
- * @returns A list of tokens along with their ranks sorted by a increasing rank
+ * @returns A list of tokens along with their ranks, sorted by decreasing rank
  */
 export function getRankedTokens(
   activeTextEditor: TextEditor | undefined,
@@ -46,7 +44,7 @@ export function getRankedTokens(
       ),
     );
 
-    return tokens.map((token, index) => ({ token, rank: index }));
+    return tokens.map((token, index) => ({ token, rank: -index }));
   });
 }
 
@@ -73,7 +71,7 @@ export interface RankedToken {
   /**
    * A number indicating how likely the token is to be used.  Tokens closer to
    * the cursor will be considered more likely to be used, and will receive a
-   * lower rank, causing them to be assigned better hats.
+   * higher rank, causing them to be assigned better hats.
    */
   rank: number;
 }
