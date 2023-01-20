@@ -1,5 +1,10 @@
-import { HatStability, SpyIDE } from "@cursorless/common";
-import { extractTargetedMarks, serialize, splitKey } from "@cursorless/common";
+import {
+  extractTargetedMarks,
+  HatComparisonPolicy,
+  serialize,
+  splitKey,
+  SpyIDE,
+} from "@cursorless/common";
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
@@ -43,7 +48,7 @@ suite("recorded test cases", async function () {
     // Necessary because opening a notebook opens the panel for some reason
     await vscode.commands.executeCommand("workbench.action.closePanel");
     const { ide } = (await getCursorlessApi()).testHelpers!;
-    setupFake(ide, HatStability.strict);
+    setupFake(ide, HatComparisonPolicy.stable);
   });
 
   getRecordedTestPaths().forEach((path) =>

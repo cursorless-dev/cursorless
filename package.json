@@ -688,29 +688,42 @@
             ]
           }
         },
-        "cursorless.experimental.hatStability": {
-          "description": "Determines how hard Cursorless should try to keep hats from moving around",
+        "cursorless.experimental.hatStability.keepingPolicy": {
+          "description": "Determines how Cursorless decides whether a token should keep its own hat if a higher ranked token hasn't already stolen it",
           "type": "string",
-          "default": "low",
+          "default": "threshold",
           "enum": [
-            "low",
-            "lowRounded",
-            "lowThresholded",
-            "thresholded",
-            "high",
-            "highThresholded",
-            "higher",
-            "strict"
+            "greedy",
+            "floor",
+            "round",
+            "threshold",
+            "stable"
           ],
           "enumDescriptions": [
-            "Only try to reuse an old hat when doing so wouldn't cause a token's hat penalty to increase",
-            "Only try to reuse an old hat when doing so wouldn't cause a token's hat penalty to cross the next whole nunber",
-            "Only try to reuse an old hat when doing so wouldn't cause a token's hat penalty to go from <2 to >=2",
-            "TODO: Document",
-            "Always reuse a token's old hat unless a token with a higher score (determined by proximity to cursor) needs to steal the hat to get its desired penalty",
-            "Always reuse a token's old hat unless a token with a higher score (determined by proximity to cursor) needs to steal the hat to get its penalty below 2",
-            "Always reuse a token's old hat unless a token with a higher score (determined by proximity to cursor) has no option but to steal a hat to get a hat at all",
-            "Never remove a hat from a token while the token remains visible"
+            "Only keep current hat if it is as good as best hat",
+            "Only keep current hat if its penalty's floor (integer part) is the same as floor of best hat",
+            "Only keep current hat if its rounded penalty is the same as best hat's rounded penalty",
+            "Keep current hat unless token can drop its penalty below 2 by switching.",
+            "Always keep current hat if it is available."
+          ]
+        },
+        "cursorless.experimental.hatStability.stealingPolicy": {
+          "description": "Determines how Cursorless decides whether a token should steal a hat from a lower ranked token",
+          "type": "string",
+          "default": "threshold",
+          "enum": [
+            "greedy",
+            "floor",
+            "round",
+            "threshold",
+            "stable"
+          ],
+          "enumDescriptions": [
+            "Use a free hat if it is as good as best hat",
+            "Use a free hat if its penalty's floor (integer part) is the same as floor of best hat",
+            "Use a free hat hat if its rounded penalty is the same as best hat's rounded penalty",
+            "Use a free hat unless token can drop its penalty below 2 by stealing.",
+            "Always use a free hat if one is available."
           ]
         }
       }

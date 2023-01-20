@@ -1,8 +1,14 @@
+import { HatStability } from "@cursorless/common";
+import { HatCandidate, TokenHat } from "./allocateHats";
 import { RankingContext } from "./getHatRankingContext";
-import { TokenHat, HatCandidate } from "./allocateHats";
+import {
+  hatOldTokenRank,
+  isOldTokenHat,
+  minimumTokenRankContainingGrapheme,
+  negativePenalty,
+  penaltyEquivalenceClass,
+} from "./HatMetrics";
 import { maxByMultiple } from "./maxByMultiple";
-import { HatMetrics, HatMetric } from "./HatMetrics";
-import { HatComparisonPolicy, HatStability } from "@cursorless/common";
 
 /**
  * IMPORTANT: This function assumes that all tokens with a lower rank than the given
@@ -27,46 +33,32 @@ import { HatComparisonPolicy, HatStability } from "@cursorless/common";
  */
 export function chooseTokenHat(
   { hatOldTokenRanks, graphemeTokenRanks }: RankingContext,
-  hatStability: HatStability,
+  { keepingPolicy, stealingPolicy }: HatStability,
   tokenRank: number,
   oldTokenHat: TokenHat | undefined,
   candidates: HatCandidate[],
 ) {
-  const metrics = new HatMetrics(
-    hatOldTokenRanks,
-    graphemeTokenRanks,
-    tokenRank,
-  );
-
   return maxByMultiple(candidates, [
-    getHatPolicyEquivalenceFn(hatStability.keepingPolicy),
-    (hat) =>
-      hat.grapheme.text === oldTokenHat?.grapheme &&
-      hat.style === oldTokenHat?.hatStyle
-        ? 1
-        : 0,
+    // 1. Discard any hats that are sufficiently worse than the best hat that we
+    //    wouldn't use them even if they were our old hat
+    penaltyEquivalenceClass(keepingPolicy),
 
-    getHatPolicyEquivalenceFn(hatStability.stealingPolicy),
-    metrics.getHatOldTokenRank,
+    // 2. Use our old hat if it's still in the running
+    isOldTokenHat(oldTokenHat),
 
-    metrics.getNegativePenalty,
-    metrics.minimumTokenRankContainingGrapheme,
+    // 3. Discard any hats that are sufficiently worse than the best hat that we
+    //    wouldn't use them even if we have to steal a lower ranked hat
+    penaltyEquivalenceClass(stealingPolicy),
+
+    // 4. Use a free hat if possible; if not, steal the hat of the token with
+    //    lowest rank
+    hatOldTokenRank(hatOldTokenRanks),
+
+    // 5. Narrow to the hats with the lowest penalty
+    negativePenalty,
+
+    // 6. Prefer hats that sit on a grapheme that doesn't appear in any highly
+    //    ranked token
+    minimumTokenRankContainingGrapheme(tokenRank, graphemeTokenRanks),
   ])!;
-}
-
-function getHatPolicyEquivalenceFn(
-  hatComparisonPolicy: HatComparisonPolicy,
-): HatMetric {
-  switch (hatComparisonPolicy) {
-    case HatComparisonPolicy.greedy:
-      return ({ penalty }) => -penalty;
-    case HatComparisonPolicy.floor:
-      return ({ penalty }) => -Math.floor(penalty);
-    case HatComparisonPolicy.round:
-      return ({ penalty }) => -Math.round(penalty);
-    case HatComparisonPolicy.threshold:
-      return ({ penalty }) => -(penalty < 2 ? 0 : 1);
-    case HatComparisonPolicy.stable:
-      return (_) => 0;
-  }
 }

@@ -1,40 +1,55 @@
 export interface HatStability {
+  /**
+   * Determines how Cursorless decides whether a token should keep its own hat
+   * if a higher ranked token hasn't already stolen it
+   */
   keepingPolicy: HatComparisonPolicy;
+
+  /**
+   * Determines how Cursorless decides whether a token should steal a hat from a
+   * lower ranked token
+   */
   stealingPolicy: HatComparisonPolicy;
 }
 
+/**
+ * Determines what equivalence class to use when deciding whether to keep or
+ * steal a hat
+ */
 export enum HatComparisonPolicy {
   /**
-   * TODO: Change this
-   * Only try to reuse an old hat when doing so wouldn't cause a token's hat
-   * penalty to increase
+   * Prefer hat quality above all else
+   *
+   * Equivalence class: (x) => x
    */
   greedy = "greedy",
 
   /**
-   * TODO: Change this
-   * Only try to reuse an old hat when doing so wouldn't cause a token's hat
-   * penalty to cross the next whole number
+   * Prefer hat quality unless the difference doesn't cross to next whole number
+   *
+   * Equivalence class: (x) => Math.floor(x)
    */
   floor = "floor",
 
   /**
-   * TODO: Change this
-   * Only try to reuse an old hat when doing so wouldn't cause a token's hat
-   * penalty to go from <2 to >=2
+   * Prefer hat quality unless both candidates are near the same whole number
+   *
+   * Equivalence class: (x) => Math.round(x)
    */
   round = "round",
 
   /**
-   * TODO: Change this
+   * Prefer hat quality only if it causes token's hat penalty to drop below 2
+   *
+   * Equivalence class: (x) => x < 2
    */
   threshold = "threshold",
 
   /**
-   * TODO: Change this
-   * Always reuse a token's old hat unless a token with a higher score
-   * (determined by proximity to cursor) needs to steal the hat to get its
-   * desired penalty
+   * Not greedy at all; for keepingPolicy will always keep hat if possible, for
+   * stealingPolicy will never steal if possible
+   *
+   * Equivalence class: (x) => 0
    */
   stable = "stable",
 }

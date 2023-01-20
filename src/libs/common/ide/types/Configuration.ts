@@ -1,5 +1,5 @@
 import { Listener } from "@cursorless/common";
-import { HatStability } from "./HatStability";
+import { HatComparisonPolicy, HatStability } from "./HatStability";
 import { Disposable } from "./ide.types";
 import { GetFieldType, Paths } from "./Paths";
 
@@ -21,7 +21,13 @@ export const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
   },
   wordSeparators: ["_"],
   decorationDebounceDelayMs: 50,
-  experimental: { snippetsDir: undefined, hatStability: HatStability.low },
+  experimental: {
+    snippetsDir: undefined,
+    hatStability: {
+      keepingPolicy: HatComparisonPolicy.threshold,
+      stealingPolicy: HatComparisonPolicy.threshold,
+    },
+  },
 };
 
 export interface Configuration {
