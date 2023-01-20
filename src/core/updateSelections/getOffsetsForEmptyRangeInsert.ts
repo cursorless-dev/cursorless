@@ -1,13 +1,12 @@
 import { invariant } from "immutability-helper";
-import {
-  leftAnchored,
-  rightAnchored,
-} from "../../libs/cursorless-engine/util/regex";
+import { matchAtEnd, matchAtStart } from "../../libs/cursorless-engine/util/regex";
 import {
   ChangeEventInfo,
   FullRangeInfo,
-  RangeOffsets,
+  RangeOffsets
 } from "../../typings/updateSelections";
+
+
 
 /**
  * Gets updated offsets for the range `rangeInfo` after the change described by
@@ -65,16 +64,16 @@ export default function getOffsetsForEmptyRangeInsert(
         return { start, end };
 
       case "regex": {
-        const matches = text.match(leftAnchored(expansionBehavior.regex));
+        const index = matchAtStart(text, expansionBehavior.regex);
 
-        return matches == null
+        return index === -1
           ? {
               start,
               end: start,
             }
           : {
               start,
-              end: start + matches[0].length,
+              end: start + index,
             };
       }
     }
@@ -93,7 +92,7 @@ export default function getOffsetsForEmptyRangeInsert(
         return { start, end };
 
       case "regex": {
-        const index = text.search(rightAnchored(expansionBehavior.regex));
+        const index = matchAtEnd(text, expansionBehavior.regex);
 
         return index === -1
           ? {
