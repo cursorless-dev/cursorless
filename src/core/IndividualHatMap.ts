@@ -11,6 +11,10 @@ export interface ReadOnlyHatMap {
   getToken(hatStyle: HatStyleName, character: string): Token;
 }
 
+/**
+ * A token with information that the rangeUpdater can use to keep its
+ * {@link range} up to date.
+ */
 interface LiveToken extends Token, FullRangeInfo {}
 
 export class IndividualHatMap implements ReadOnlyHatMap {
@@ -53,37 +57,50 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     return ret;
   }
 
+  /**
+   * Overwrites the hat assignemnt for this hat token map.
+   *
+   * @param tokenHats The new hat assignments
+   */
   setTokenHats(tokenHats: readonly TokenHat[]) {
+    // Clear the old assignment
     this.map = {};
     this.documentTokenLists = new Map();
     this.deregisterFunctions.forEach((func) => func());
 
+    // Iterate through the hats in the new assignment, registering them with the
+    // rangeUpdater so that their ranges stay up to date
     const liveTokenHats: TokenHat[] = tokenHats.map((tokenHat) => {
       const { hatStyle, grapheme, token } = tokenHat;
-
-      const languageId = token.editor.document.languageId;
-
-      const liveToken: LiveToken = {
-        ...token,
-        expansionBehavior: {
-          start: {
-            type: "regex",
-            regex: getMatcher(languageId).tokenMatcher,
-          },
-          end: {
-            type: "regex",
-            regex: getMatcher(languageId).tokenMatcher,
-          },
-        },
-      };
-
+      const liveToken: LiveToken = this.makeTokenLive(token);
       this.map[getKey(hatStyle, grapheme)] = liveToken;
-      this.getDocumentTokenList(token.editor.document).push(liveToken);
 
       return { ...tokenHat, token: liveToken };
     });
 
     this._tokenHats = liveTokenHats;
+  }
+
+  private makeTokenLive(token: Token): LiveToken {
+    const { tokenMatcher } = getMatcher(token.editor.document.languageId);
+
+    const liveToken: LiveToken = {
+      ...token,
+      expansionBehavior: {
+        start: {
+          type: "regex",
+          regex: tokenMatcher,
+        },
+        end: {
+          type: "regex",
+          regex: tokenMatcher,
+        },
+      },
+    };
+
+    this.getDocumentTokenList(token.editor.document).push(liveToken);
+
+    return liveToken;
   }
 
   getEntries(): readonly [string, Token][] {
