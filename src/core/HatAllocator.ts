@@ -48,15 +48,13 @@ export class HatAllocator {
     const activeMap = await this.context.getActiveMap();
 
     if (ide().hats.isEnabled) {
-      const { visibleTextEditors } = ide();
-
       const tokenHats = allocateHats(
         tokenGraphemeSplitter(),
         ide().hats.enabledHatStyles,
         activeMap.tokenHats,
         ide().configuration.getOwnConfiguration("experimental.hatStability"),
         ide().activeTextEditor,
-        visibleTextEditors,
+        ide().visibleTextEditors,
       );
 
       activeMap.setTokenHats(tokenHats);
