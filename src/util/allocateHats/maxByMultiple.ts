@@ -1,8 +1,3 @@
-function maxByAll<T>(arr: T[], fn: (item: T) => number): T[] {
-  const max = Math.max(...arr.map(fn));
-  return arr.filter((item) => fn(item) === max);
-}
-
 /**
  * Given an array of items and a list of functions that return a number for each
  * item, return the item that has the maximum value according to the
@@ -26,12 +21,14 @@ export function maxByMultiple<T>(
   fns: ((item: T) => number)[],
 ): T | undefined {
   let remainingValues = arr;
+
   for (const fn of fns) {
     if (remainingValues.length === 1) {
       return remainingValues[0];
     }
 
-    remainingValues = maxByAll(remainingValues, fn);
+    const max = Math.max(...remainingValues.map(fn));
+    remainingValues = remainingValues.filter((item) => fn(item) === max);
   }
 
   return remainingValues[0];

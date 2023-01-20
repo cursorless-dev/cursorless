@@ -10,14 +10,17 @@ import { HatCandidate, TokenHat } from "./allocateHats";
 export type HatMetric = (hat: HatCandidate) => number;
 
 /**
- * @returns negative penalty of the given hat candidate
+ * @returns A metric that just returns the negative penalty of the given hat
+ * candidate
  */
 export const negativePenalty: HatMetric = ({ penalty }) => -penalty;
 
 /**
- * @returns Infinity if the hat candidate is not in use in the old allocation,
- * otherwise the rank of the token from the old map that we'd steal the hat
- * from
+ * @param hatOldTokenRanks A map from a hat candidate (grapheme+style combination) to the score of the
+ * token that used the given hat in the previous hat allocation.
+ * @returns A metric that returns Infinity if the hat candidate is not in use in
+ * the old allocation, otherwise the rank of the token from the old allocation
+ * that we'd steal the hat from
  */
 export function hatOldTokenRank(
   hatOldTokenRanks: CompositeKeyMap<
@@ -36,7 +39,13 @@ export function hatOldTokenRank(
 }
 
 /**
- * @returns the minimum token rank among tokens we haven't seen that contain the given grapheme
+ * @param tokenRank The rank of the current token, so that we don't consider
+ * higher ranked tokens (which already have been assigned hats)
+ * @param graphemeTokenRanks A map from graphemes to an ordered list of the
+ * ranks of tokens containing the grapheme
+ * @returns A metric which returns the minimum token rank among lower ranked
+ * tokens that contain the hat's grapheme (or Infinity if the grapheme doesn't
+ * appear in any lower ranked tokens)
  */
 export function minimumTokenRankContainingGrapheme(
   tokenRank: number,
@@ -46,6 +55,11 @@ export function minimumTokenRankContainingGrapheme(
     min(graphemeTokenRanks[text].filter((r) => r > tokenRank)) ?? Infinity;
 }
 
+/**
+ * @param oldTokenHat The old hat for the token to which we're assigning a hat
+ * @returns A metric which returns 1 if the hat candidate is the one the token
+ * currently has, 0 otherwise
+ */
 export function isOldTokenHat(oldTokenHat: TokenHat | undefined): HatMetric {
   return (hat) =>
     hat.grapheme.text === oldTokenHat?.grapheme &&
@@ -54,6 +68,14 @@ export function isOldTokenHat(oldTokenHat: TokenHat | undefined): HatMetric {
       : 0;
 }
 
+/**
+ * Given a {@link hatComparisonPolicy}, returns its equivalence class function.
+ *
+ * @param hatComparisonPolicy The user setting for which we need to return
+ * equivalence class
+ * @returns A hat metric that will collapse hats that are not different enough
+ * to justify keeping / stealing
+ */
 export function penaltyEquivalenceClass(
   hatComparisonPolicy: HatComparisonPolicy,
 ): HatMetric {

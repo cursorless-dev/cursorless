@@ -11,11 +11,19 @@ import {
 import { maxByMultiple } from "./maxByMultiple";
 
 /**
- * IMPORTANT: This function assumes that all tokens with a lower rank than the given
- * token have already been assigned hats.
+ * Selects a hat for a given token from amongst {@link candidates}, trading off
+ * hat quality and hat stability
  *
- * Picks the character with minimum color such that the next token that contains
- * that character is as far away as possible.
+ * **IMPORTANT**: This function assumes that all tokens with a lower rank than
+ * the given token have already been assigned hats.
+ *
+ * We proceed as follows:
+ *
+ * 1. Decide whether to keep our own hat, if a higher ranked token hasn't
+ *    already taken it
+ * 2. Decide whether to steal a hat from a lower ranked token
+ *
+ * See [hat assignment](../../../docs/user/hatAssignment.md) for more info.
  *
  * TODO: Could be improved by ignoring subsequent tokens that also contain
  * another character that can be used with lower color. To compute that, look at
@@ -24,11 +32,16 @@ import { maxByMultiple } from "./maxByMultiple";
  * token and the given subsequent token.
  *
  * Here is an example where the existing algorithm falls down: "ab ax b"
- * @param context
- * @param hatStability
- * @param tokenRank
- * @param oldTokenHat
- * @param candidates
+ *
+ * @param context Lookup tables with information about which graphemes / hats
+ * other tokens have
+ * @param hatStability The user settings that determine when to keep / steal
+ * hats
+ * @param tokenRank The rank of the token for whom we're picking a hat
+ * @param oldTokenHat The hat that was on the token before (or `undefined` if it
+ * didn't have one)
+ * @param candidates The set of candidate hats under consideration (includes
+ * both hat style and grapheme)
  * @returns
  */
 export function chooseTokenHat(
@@ -38,6 +51,8 @@ export function chooseTokenHat(
   oldTokenHat: TokenHat | undefined,
   candidates: HatCandidate[],
 ) {
+  // We narrow down the candidates by a series of criteria until there is only
+  // one left
   return maxByMultiple(candidates, [
     // 1. Discard any hats that are sufficiently worse than the best hat that we
     //    wouldn't use them even if they were our old hat
