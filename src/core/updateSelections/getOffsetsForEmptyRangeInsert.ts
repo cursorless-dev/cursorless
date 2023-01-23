@@ -1,12 +1,13 @@
 import { invariant } from "immutability-helper";
-import { matchAtEnd, matchAtStart } from "../../libs/cursorless-engine/util/regex";
+import {
+  matchAtEnd,
+  matchAtStart,
+} from "../../libs/cursorless-engine/util/regex";
 import {
   ChangeEventInfo,
   FullRangeInfo,
-  RangeOffsets
+  RangeOffsets,
 } from "../../typings/updateSelections";
-
-
 
 /**
  * Gets updated offsets for the range `rangeInfo` after the change described by
