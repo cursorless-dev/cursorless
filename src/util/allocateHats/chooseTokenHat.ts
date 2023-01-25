@@ -46,7 +46,7 @@ import { maxByMultiple } from "./maxByMultiple";
  */
 export function chooseTokenHat(
   { hatOldTokenRanks, graphemeTokenRanks }: RankingContext,
-  { keepingPolicy, stealingPolicy }: HatStability,
+  hatStability: HatStability,
   tokenRank: number,
   oldTokenHat: TokenHat | undefined,
   candidates: HatCandidate[],
@@ -56,23 +56,19 @@ export function chooseTokenHat(
   return maxByMultiple(candidates, [
     // 1. Discard any hats that are sufficiently worse than the best hat that we
     //    wouldn't use them even if they were our old hat
-    penaltyEquivalenceClass(keepingPolicy),
+    penaltyEquivalenceClass(hatStability),
 
     // 2. Use our old hat if it's still in the running
     isOldTokenHat(oldTokenHat),
 
-    // 3. Discard any hats that are sufficiently worse than the best hat that we
-    //    wouldn't use them even if we have to steal a lower ranked hat
-    penaltyEquivalenceClass(stealingPolicy),
-
-    // 4. Use a free hat if possible; if not, steal the hat of the token with
+    // 3. Use a free hat if possible; if not, steal the hat of the token with
     //    lowest rank
     hatOldTokenRank(hatOldTokenRanks),
 
-    // 5. Narrow to the hats with the lowest penalty
+    // 4. Narrow to the hats with the lowest penalty
     negativePenalty,
 
-    // 6. Prefer hats that sit on a grapheme that doesn't appear in any highly
+    // 5. Prefer hats that sit on a grapheme that doesn't appear in any highly
     //    ranked token
     minimumTokenRankContainingGrapheme(tokenRank, graphemeTokenRanks),
   ])!;

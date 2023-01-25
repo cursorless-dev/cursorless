@@ -1,6 +1,6 @@
 # Hat assignment
 
-Every time you move your cursor, edit the document, or scroll, Cursorless assigns hats to the tokens in each visible editor. When selecting hats, Cursorless attempts to give "good" hats to tokens near your cursor, while keeping hats from moving around too much.
+Every time you move your cursor, edit a document, or scroll, Cursorless assigns hats to the tokens in each visible editor. When selecting hats, Cursorless attempts to give "good" hats to tokens near your cursor, while keeping hats from moving around too much.
 
 Hats are considered "good" that require fewer syllables to say, so for example, a gray dot is the best kind of hat, because you just say the letter it sits on, whereas a colored shape (eg `"blue fox"`) is the worst kind of hat, because you need to say both color and shape. Each hat style has a penalty associated with it that indicates how many syllables it requires to say:
 
@@ -13,11 +13,11 @@ Hats are considered "good" that require fewer syllables to say, so for example, 
 
 ## The algorithm
 
-Every time you move your cursor, edit the document, or scroll, Cursorless does a pass through all visible tokens, assigning them hats. It does so by walking through the tokens one by one in order of their "rank". A token's rank is determined by how close it is to your cursor: tokens near your cursor are considered higher rank and get to pick their hats first. For each token, Cursorless decides:
+Every time you move your cursor, edit the document, or scroll, Cursorless does a pass through all visible tokens, assigning them hats. It does so by walking through the tokens one by one in order of their "rank". A token's rank is determined by how close it is to your cursor: tokens near your cursor are considered higher rank and get to pick their hats first. For each token, Cursorless proceeds as follows:
 
-### 1. Should the token keep its hat?
+### 1. Discard any hats that are considered unacceptable
 
-If a token currently has a hat, and a higher ranked token hasn't already stolen it during this pass, we need to decide whether the token should keep its hat or pick a new one. To decide, Cursorless compares the token's current hat to the best available hat (ie not already taken by a higher ranked token in this pass). It consults the `cursorless.experimental.hatStability.keepingPolicy` setting:
+During a pass through the document to If a token currently has a hat, and a higher ranked token hasn't already stolen it during this pass, we need to decide whether the token should keep its hat or pick a new one. To decide, Cursorless compares the token's current hat to the best available hat (ie not already taken by a higher ranked token in this pass). It consults the `cursorless.experimental.hatStability.keepingPolicy` setting:
 
 | Setting value           | Behaviour                                                                                    |
 | ----------------------- | -------------------------------------------------------------------------------------------- |

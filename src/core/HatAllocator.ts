@@ -47,29 +47,26 @@ export class HatAllocator {
   async addDecorations() {
     const activeMap = await this.context.getActiveMap();
 
-    if (ide().hats.isEnabled) {
-      const tokenHats = allocateHats(
-        tokenGraphemeSplitter(),
-        ide().hats.enabledHatStyles,
-        activeMap.tokenHats,
-        ide().configuration.getOwnConfiguration("experimental.hatStability"),
-        ide().activeTextEditor,
-        ide().visibleTextEditors,
-      );
+    const tokenHats = ide().hats.isEnabled
+      ? allocateHats(
+          tokenGraphemeSplitter(),
+          ide().hats.enabledHatStyles,
+          activeMap.tokenHats,
+          ide().configuration.getOwnConfiguration("experimental.hatStability"),
+          ide().activeTextEditor,
+          ide().visibleTextEditors,
+        )
+      : [];
 
-      activeMap.setTokenHats(tokenHats);
+    activeMap.setTokenHats(tokenHats);
 
-      await ide().hats.setHatRanges(
-        tokenHats.map(({ hatStyle, hatRange, token: { editor } }) => ({
-          editor,
-          range: hatRange,
-          styleName: hatStyle,
-        })),
-      );
-    } else {
-      activeMap.setTokenHats([]);
-      await ide().hats.setHatRanges([]);
-    }
+    await ide().hats.setHatRanges(
+      tokenHats.map(({ hatStyle, hatRange, token: { editor } }) => ({
+        editor,
+        range: hatRange,
+        styleName: hatStyle,
+      })),
+    );
   }
 
   addDecorationsDebounced() {

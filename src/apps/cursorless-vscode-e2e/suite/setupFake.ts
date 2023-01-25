@@ -1,16 +1,10 @@
 import type NormalizedIDE from "../../../libs/common/ide/normalized/NormalizedIDE";
-import type { HatComparisonPolicy } from "../../../libs/common/ide/types/HatStability";
+import type { HatStability } from "../../../libs/common/ide/types/HatStability";
 import { getFixturePath } from "../getFixturePaths";
 
-export function setupFake(
-  ide: NormalizedIDE,
-  hatComparisonPolicy: HatComparisonPolicy,
-) {
+export function setupFake(ide: NormalizedIDE, hatStability: HatStability) {
   ide.configuration.mockConfiguration("experimental", {
     snippetsDir: getFixturePath("cursorless-snippets"),
-    hatStability: {
-      keepingPolicy: hatComparisonPolicy,
-      stealingPolicy: hatComparisonPolicy,
-    },
+    hatStability,
   });
 }

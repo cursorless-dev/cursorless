@@ -1,4 +1,4 @@
-import { HatComparisonPolicy } from "@cursorless/common";
+import { HatStability } from "@cursorless/common";
 import {
   fromVscodeSelection,
   getCursorlessApi,
@@ -27,7 +27,7 @@ suite("Pre-phrase snapshots", async function () {
 
   suiteSetup(async () => {
     const { ide } = (await getCursorlessApi()).testHelpers!;
-    setupFake(ide, HatComparisonPolicy.greedy);
+    setupFake(ide, HatStability.greedy);
   });
 
   test("Pre-phrase snapshot; single phrase", () =>

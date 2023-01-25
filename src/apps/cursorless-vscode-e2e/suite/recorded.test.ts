@@ -1,6 +1,6 @@
 import {
   extractTargetedMarks,
-  HatComparisonPolicy,
+  HatStability,
   serialize,
   splitKey,
   SpyIDE,
@@ -48,7 +48,7 @@ suite("recorded test cases", async function () {
     // Necessary because opening a notebook opens the panel for some reason
     await vscode.commands.executeCommand("workbench.action.closePanel");
     const { ide } = (await getCursorlessApi()).testHelpers!;
-    setupFake(ide, HatComparisonPolicy.stable);
+    setupFake(ide, HatStability.stable);
   });
 
   getRecordedTestPaths().forEach((path) =>

@@ -1,5 +1,5 @@
 import { min } from "lodash";
-import { HatComparisonPolicy } from "../../libs/common/ide/types/HatStability";
+import { HatStability } from "../../libs/common/ide/types/HatStability";
 import CompositeKeyMap from "../../libs/common/util/CompositeKeyMap";
 import { HatCandidate, TokenHat } from "./allocateHats";
 
@@ -69,26 +69,20 @@ export function isOldTokenHat(oldTokenHat: TokenHat | undefined): HatMetric {
 }
 
 /**
- * Given a {@link hatComparisonPolicy}, returns its equivalence class function.
+ * Given a {@link HatStability}, returns its equivalence class function.
  *
- * @param hatComparisonPolicy The user setting for which we need to return
+ * @param HatStability The user setting for which we need to return
  * equivalence class
  * @returns A hat metric that will collapse hats that are not different enough
  * to justify keeping / stealing
  */
-export function penaltyEquivalenceClass(
-  hatComparisonPolicy: HatComparisonPolicy,
-): HatMetric {
-  switch (hatComparisonPolicy) {
-    case HatComparisonPolicy.greedy:
+export function penaltyEquivalenceClass(hatStability: HatStability): HatMetric {
+  switch (hatStability) {
+    case HatStability.greedy:
       return ({ penalty }) => -penalty;
-    case HatComparisonPolicy.floor:
-      return ({ penalty }) => -Math.floor(penalty);
-    case HatComparisonPolicy.round:
-      return ({ penalty }) => -Math.round(penalty);
-    case HatComparisonPolicy.threshold:
+    case HatStability.balanced:
       return ({ penalty }) => -(penalty < 2 ? 0 : 1);
-    case HatComparisonPolicy.stable:
+    case HatStability.stable:
       return (_) => 0;
   }
 }

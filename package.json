@@ -688,42 +688,19 @@
             ]
           }
         },
-        "cursorless.experimental.hatStability.keepingPolicy": {
-          "description": "Determines how Cursorless decides whether a token should keep its own hat if a higher ranked token hasn't already stolen it",
+        "cursorless.experimental.hatStability": {
+          "description": "Determines how Cursorless trades of hat stability against ensuring that good hats appear near the cursor",
           "type": "string",
-          "default": "threshold",
+          "default": "balanced",
           "enum": [
             "greedy",
-            "floor",
-            "round",
-            "threshold",
+            "balanced",
             "stable"
           ],
           "enumDescriptions": [
-            "Only keep current hat if it is as good as best hat",
-            "Only keep current hat if its penalty's floor (integer part) is the same as floor of best hat",
-            "Only keep current hat if its rounded penalty is the same as best hat's rounded penalty",
-            "Keep current hat unless token can drop its penalty below 2 by switching.",
-            "Always keep current hat if it is available."
-          ]
-        },
-        "cursorless.experimental.hatStability.stealingPolicy": {
-          "description": "Determines how Cursorless decides whether a token should steal a hat from a lower ranked token",
-          "type": "string",
-          "default": "threshold",
-          "enum": [
-            "greedy",
-            "floor",
-            "round",
-            "threshold",
-            "stable"
-          ],
-          "enumDescriptions": [
-            "Use a free hat if it is as good as best hat",
-            "Use a free hat if its penalty's floor (integer part) is the same as floor of best hat",
-            "Use a free hat hat if its rounded penalty is the same as best hat's rounded penalty",
-            "Use a free hat unless token can drop its penalty below 2 by stealing.",
-            "Always use a free hat if one is available."
+            "Always ensure that the best hats are nearest the cursor",
+            "Only move hats to keep hat penalties near the cursor below 2 (ie to avoid colored shapes near the cursor)",
+            "Favor stability by only moving hats to ensure that tokens near the cursor get a hat, no matter how bad the hat is.  Note that if you have no shapes enabled, this setting is equivalent to `balanced`"
           ]
         }
       }
