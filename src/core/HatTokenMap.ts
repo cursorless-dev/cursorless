@@ -1,6 +1,7 @@
 import { hrtime } from "process";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import type { Graph } from "../typings/Types";
+import { TokenHat } from "../util/allocateHats/allocateHats";
 import { abs } from "../util/bigint";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap, ReadOnlyHatMap } from "./IndividualHatMap";
@@ -46,8 +47,8 @@ export default class HatTokenMap {
     return this.hatAllocator.addDecorations();
   }
 
-  addDecorations() {
-    return this.hatAllocator.addDecorations();
+  addDecorations(oldTokenHats?: TokenHat[]) {
+    return this.hatAllocator.addDecorations(oldTokenHats);
   }
 
   private async getActiveMap() {

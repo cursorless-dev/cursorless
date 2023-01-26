@@ -4,6 +4,7 @@ import {
   serialize,
   splitKey,
   SpyIDE,
+  TextEditor,
 } from "@cursorless/common";
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
@@ -23,7 +24,9 @@ import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import type { ReadOnlyHatMap } from "../../../core/IndividualHatMap";
+import { plainObjectToRange } from "../../../testUtil/fromPlainObject";
 import type { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
+import { TokenHat } from "../../../util/allocateHats/allocateHats";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { getRecordedTestPaths } from "../getFixturePaths";
@@ -106,7 +109,9 @@ async function runTest(file: string, spyIde: SpyIDE) {
     // spyIde.clipboard.writeText(fixture.initialState.clipboard);
   }
 
-  await graph.hatTokenMap.addDecorations();
+  await graph.hatTokenMap.addDecorations(
+    getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
+  );
 
   const readableHatMap = await graph.hatTokenMap.getReadableMap(
     usePrePhraseSnapshot,
@@ -250,5 +255,36 @@ function checkMarks(
     const currentToken = hatTokenMap.getToken(hatStyle, character);
     assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
     assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
+  });
+}
+
+function getTokenHats(
+  marks: SerializedMarks | undefined,
+  editor: TextEditor,
+): TokenHat[] {
+  if (marks == null) {
+    return [];
+  }
+
+  return Object.entries(marks).map(([key, token]) => {
+    const { hatStyle, character } = splitKey(key);
+    const range = plainObjectToRange(token);
+
+    return {
+      hatStyle,
+      grapheme: character,
+      token: {
+        editor,
+        range,
+        offsets: {
+          start: editor.document.offsetAt(range.start),
+          end: editor.document.offsetAt(range.end),
+        },
+        text: editor.document.getText(range),
+      },
+
+      // NB: We don't care about the hat range for this test
+      hatRange: range,
+    };
   });
 }

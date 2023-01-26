@@ -3,6 +3,7 @@ import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
 import { Graph } from "../typings/Types";
 import { allocateHats } from "../util/allocateHats";
+import { TokenHat } from "../util/allocateHats/allocateHats";
 import { IndividualHatMap } from "./IndividualHatMap";
 
 interface Context {
@@ -44,14 +45,14 @@ export class HatAllocator {
     );
   }
 
-  async addDecorations() {
+  async addDecorations(oldTokenHats?: TokenHat[]) {
     const activeMap = await this.context.getActiveMap();
 
     const tokenHats = ide().hats.isEnabled
       ? allocateHats(
           tokenGraphemeSplitter(),
           ide().hats.enabledHatStyles,
-          activeMap.tokenHats,
+          oldTokenHats ?? activeMap.tokenHats,
           ide().configuration.getOwnConfiguration("experimental.hatStability"),
           ide().activeTextEditor,
           ide().visibleTextEditors,
