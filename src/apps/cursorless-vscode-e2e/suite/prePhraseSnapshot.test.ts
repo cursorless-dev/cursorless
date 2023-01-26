@@ -1,9 +1,8 @@
-import { HatStability } from "@cursorless/common";
+import { HatStability, selectionToPlainObject } from "@cursorless/common";
 import {
   fromVscodeSelection,
   getCursorlessApi,
   openNewEditor,
-  selectionToPlainObject,
 } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";

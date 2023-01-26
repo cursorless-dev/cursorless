@@ -1,24 +1,24 @@
 import {
   extractTargetedMarks,
   HatStability,
+  marksToPlainObject,
   plainObjectToRange,
+  PositionPlainObject,
+  rangeToPlainObject,
+  SelectionPlainObject,
   serialize,
+  SerializedMarks,
   splitKey,
   SpyIDE,
+  testDecorationsToPlainObject,
   TextEditor,
 } from "@cursorless/common";
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
   getCursorlessApi,
-  marksToPlainObject,
   openNewEditor,
-  PositionPlainObject,
-  rangeToPlainObject,
-  SelectionPlainObject,
-  SerializedMarks,
   takeSnapshot,
-  testDecorationsToPlainObject,
 } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import { promises as fsp } from "fs";
