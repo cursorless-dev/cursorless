@@ -17,35 +17,42 @@ export class HatAllocator {
   constructor(private graph: Graph, private context: Context) {
     ide().disposeOnExit(this);
 
-    this.addDecorationsDebounced = this.addDecorationsDebounced.bind(this);
+    this.allocateHatsDebounced = this.allocateHatsDebounced.bind(this);
 
     this.disposables.push(
-      ide().hats.onDidChangeEnabledHatStyles(this.addDecorationsDebounced),
-      ide().hats.onDidChangeIsEnabled(this.addDecorationsDebounced),
+      ide().hats.onDidChangeEnabledHatStyles(this.allocateHatsDebounced),
+      ide().hats.onDidChangeIsEnabled(this.allocateHatsDebounced),
 
       // An event that fires when a text document opens
-      ide().onDidOpenTextDocument(this.addDecorationsDebounced),
+      ide().onDidOpenTextDocument(this.allocateHatsDebounced),
       // An event that fires when a text document closes
-      ide().onDidCloseTextDocument(this.addDecorationsDebounced),
+      ide().onDidCloseTextDocument(this.allocateHatsDebounced),
       // An Event which fires when the active editor has changed. Note that the event also fires when the active editor changes to undefined.
-      ide().onDidChangeActiveTextEditor(this.addDecorationsDebounced),
+      ide().onDidChangeActiveTextEditor(this.allocateHatsDebounced),
       // An Event which fires when the array of visible editors has changed.
-      ide().onDidChangeVisibleTextEditors(this.addDecorationsDebounced),
+      ide().onDidChangeVisibleTextEditors(this.allocateHatsDebounced),
       // An event that is emitted when a text document is changed. This usually happens when the contents changes but also when other things like the dirty-state changes.
-      ide().onDidChangeTextDocument(this.addDecorationsDebounced),
+      ide().onDidChangeTextDocument(this.allocateHatsDebounced),
       // An Event which fires when the selection in an editor has changed.
-      ide().onDidChangeTextEditorSelection(this.addDecorationsDebounced),
+      ide().onDidChangeTextEditorSelection(this.allocateHatsDebounced),
       // An Event which fires when the visible ranges of an editor has changed.
-      ide().onDidChangeTextEditorVisibleRanges(this.addDecorationsDebounced),
+      ide().onDidChangeTextEditorVisibleRanges(this.allocateHatsDebounced),
       // Re-draw hats on grapheme splitting algorithm change in case they
       // changed their token hat splitting setting.
       tokenGraphemeSplitter().registerAlgorithmChangeListener(
-        this.addDecorationsDebounced,
+        this.allocateHatsDebounced,
       ),
     );
   }
 
-  async addDecorations(oldTokenHats?: TokenHat[]) {
+  /**
+   * Allocate hats to the visible tokens.
+   *
+   * @param oldTokenHats If supplied, pretend that this allocation was the
+   * previous allocation when trying to maintain stable hats.  This parameter is
+   * used for testing.
+   */
+  async allocateHats(oldTokenHats?: TokenHat[]) {
     const activeMap = await this.context.getActiveMap();
 
     const tokenHats = ide().hats.isEnabled
@@ -70,7 +77,7 @@ export class HatAllocator {
     );
   }
 
-  addDecorationsDebounced() {
+  allocateHatsDebounced() {
     if (this.timeoutHandle != null) {
       clearTimeout(this.timeoutHandle);
     }
@@ -80,7 +87,7 @@ export class HatAllocator {
     );
 
     this.timeoutHandle = setTimeout(() => {
-      this.addDecorations();
+      this.allocateHats();
       this.timeoutHandle = null;
     }, decorationDebounceDelayMs);
   }

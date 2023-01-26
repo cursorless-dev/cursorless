@@ -110,7 +110,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   }
 
   // Ensure that the expected hats are present
-  await graph.hatTokenMap.addDecorations(
+  await graph.hatTokenMap.allocateHats(
     getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
   );
 
