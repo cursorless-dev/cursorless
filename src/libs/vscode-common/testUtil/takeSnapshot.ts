@@ -11,7 +11,7 @@ import {
   SerializedMarks,
   TargetPlainObject,
   targetToPlainObject,
-} from "./toPlainObject";
+} from "../../common/testUtil/toPlainObject";
 
 export type ExtraSnapshotField = keyof TestCaseSnapshot;
 export type ExcludableSnapshotField = keyof TestCaseSnapshot;

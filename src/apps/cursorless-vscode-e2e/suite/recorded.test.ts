@@ -1,6 +1,7 @@
 import {
   extractTargetedMarks,
   HatStability,
+  plainObjectToRange,
   serialize,
   splitKey,
   SpyIDE,
@@ -24,9 +25,8 @@ import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import type { ReadOnlyHatMap } from "../../../core/IndividualHatMap";
-import { plainObjectToRange } from "../../../testUtil/fromPlainObject";
 import type { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
-import { TokenHat } from "../../../util/allocateHats/allocateHats";
+import type { TokenHat } from "../../../util/allocateHats/allocateHats";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { getRecordedTestPaths } from "../getFixturePaths";
@@ -109,6 +109,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
     // spyIde.clipboard.writeText(fixture.initialState.clipboard);
   }
 
+  // Ensure that the expected hats are present
   await graph.hatTokenMap.addDecorations(
     getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
   );
