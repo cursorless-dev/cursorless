@@ -689,7 +689,7 @@
           }
         },
         "cursorless.experimental.hatStability": {
-          "description": "Determines how Cursorless trades of hat stability against ensuring that good hats appear near the cursor",
+          "description": "Determines how Cursorless trades off hat stability against ensuring that good hats appear near the cursor.  See https://www.cursorless.org/docs/user/hatAssignment/",
           "type": "string",
           "default": "balanced",
           "enum": [
@@ -698,9 +698,9 @@
             "stable"
           ],
           "enumDescriptions": [
-            "Always ensure that the best hats are nearest the cursor",
-            "Only move hats to keep hat penalties near the cursor below 2 (ie to avoid colored shapes near the cursor)",
-            "Favor stability by only moving hats to ensure that tokens near the cursor get a hat, no matter how bad the hat is.  Note that if you have no shapes enabled, this setting is equivalent to `balanced`"
+            "Only consider hats whose penalty is just as good as the best candidate hat. This setting will result in less stable hats, but ensure that tokens near the cursor always get the best hats hat.",
+            "If the best candidate hat has a penalty below 2 (eg it is a gray shape or colored dot), then discard all hats whose penalty is 2 or greater. This setting results in fairly stable hats, while ensuring that all tokens near the cursor have a penalty less than 2.",
+            "Don't discard any hats. Always use existing hat if it wasn't stolen, and don't steal hats unless there are no free hats left to this token. Note that if you don't have shapes enabled, then this setting is equivalent to `balanced`."
           ]
         }
       }

@@ -17,30 +17,20 @@ Every time you move your cursor, edit the document, or scroll, Cursorless does a
 
 ### 1. Discard any hats that are considered unacceptable
 
-During a pass through the document to If a token currently has a hat, and a higher ranked token hasn't already stolen it during this pass, we need to decide whether the token should keep its hat or pick a new one. To decide, Cursorless compares the token's current hat to the best available hat (ie not already taken by a higher ranked token in this pass). It consults the `cursorless.experimental.hatStability.keepingPolicy` setting:
+When a token is picking its hat, it will have a pool of available hats based on
 
-| Setting value           | Behaviour                                                                                    |
-| ----------------------- | -------------------------------------------------------------------------------------------- |
-| `greedy`                | Only keep current hat if it is as good as best hat                                           |
-| `floor`                 | Only keep current hat if its penalty's floor (integer part) is the same as floor of best hat |
-| `round`                 | Only keep current hat if its rounded penalty is the same as best hat's rounded penalty       |
-| `threshold` _(default)_ | Keep current hat unless token can drop its penalty below 2 by switching.                     |
-| `stable`                | Always keep current hat if it is available.                                                  |
+- Which hats are enabled,
+- What characters make up the token,
+- Which hats have already been taken by a higher ranked hat.
 
-This setting tends to have a greater impact on how much hats move when you're just moving your cursor without editing or scrolling, as no new tokens are appearing, so there are fewer new tokens trying to steal hats from lower ranked tokens.
+One of these candidate hats might be the hat the token was already wearing before this pass started (if it had one), and some of them will be hats that lower ranked tokens were wearing before the pass started.
 
-Now, if we have decided to keep our hat, we move on to the next token. Otherwise, we need to decide which new hat to use, the important question being:
+The token will start by figuring out the penalty of the best candidate hat (eg is there a gray dot? Are they all colored shapes? etc). Based on that penalty, it will consider only the candidate hats whose penalty is sufficiently close to the best hat. The definition of "sufficiently close" is determined by the user setting `cursorless.experimental.hatStability`:
 
-### 2. Should we steal a hat from a lower ranked token?
+| Setting value          | Behaviour                                                                                                                                                                                                                                                           |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `greedy`               | Only consider hats whose penalty is just as good as the best candidate hat. This setting will result in less stable hats, but ensure that tokens near the cursor always get the best hats hat.                                                                      |
+| `balanced` _(default)_ | If the best candidate hat has a penalty below 2 (eg it is a gray shape or colored dot), then discard all hats whose penalty is 2 or greater. This setting results in fairly stable hats, while ensuring that all tokens near the cursor have a penalty less than 2. |
+| `stable`               | Don't discard any hats. Always use existing hat if it wasn't stolen, and don't steal hats unless there are no free hats left to this token. Note that if you don't have shapes enabled, then this setting is equivalent to `balanced`.                              |
 
-If a token decides not to keep its hat, then it needs to decide whether it should steal a hat from a lower ranked token or use a hat that is not currently in use. To decide, Cursorless compares the best available hat to the best free hat (not currently in use by a lower ranked token). It consults the `cursorless.experimental.hatStability.stealingPolicy` setting:
-
-| Setting value           | Behaviour                                                                             |
-| ----------------------- | ------------------------------------------------------------------------------------- |
-| `greedy`                | Use a free hat if it is as good as best hat                                           |
-| `floor`                 | Use a free hat if its penalty's floor (integer part) is the same as floor of best hat |
-| `round`                 | Use a free hat hat if its rounded penalty is the same as best hat's rounded penalty   |
-| `threshold` _(default)_ | Use a free hat unless token can drop its penalty below 2 by stealing.                 |
-| `stable`                | Always use a free hat if one is available.                                            |
-
-This setting tends to have a greater impact on how much hats move when you're editing or scrolling, as new tokens are appearing that may want to steal hats from existing tokens.
+Once the "unacceptable" hats are discarded, then if the token's existing hat is amongst the remaining acceptable hats, it will keep it. If not, it will pick a hat that won't require it to steal from a lower ranked token if any such hats are left. If it can't keep its own hat or avoid stealing a hat, it will steal a hat from the lowest ranked token.
