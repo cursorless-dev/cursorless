@@ -20,7 +20,7 @@ import { plainObjectToRange } from "../libs/common/testUtil/fromPlainObject";
 
 export function plainObjectToTarget(
   editor: TextEditor,
-  plainObject: TargetPlainObject
+  plainObject: TargetPlainObject,
 ): Target {
   switch (plainObject.type) {
     case "UntypedTarget":
