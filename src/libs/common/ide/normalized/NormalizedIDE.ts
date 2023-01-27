@@ -1,4 +1,5 @@
-import { EditorGeneralizedRange } from "../../types/GeneralizedRange";
+import { GeneralizedRange } from "../../types/GeneralizedRange";
+import { TextEditor } from "../../types/TextEditor";
 import FakeClipboard from "../fake/FakeClipboard";
 import FakeConfiguration from "../fake/FakeConfiguration";
 import FakeGlobalState from "../fake/FakeGlobalState";
@@ -53,10 +54,11 @@ export default class NormalizedIDE extends PassthroughIDEBase {
 
   setHighlightRanges(
     highlightId: string,
-    ranges: EditorGeneralizedRange[],
+    editor: TextEditor,
+    ranges: GeneralizedRange[],
   ): Promise<void> {
     return this.isSilent
-      ? this.fakeIde.setHighlightRanges(highlightId, ranges)
-      : super.setHighlightRanges(highlightId, ranges);
+      ? this.fakeIde.setHighlightRanges(highlightId, editor, ranges)
+      : super.setHighlightRanges(highlightId, editor, ranges);
   }
 }

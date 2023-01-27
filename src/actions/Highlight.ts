@@ -2,7 +2,10 @@ import { HighlightId } from "@cursorless/common";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { toGeneralizedRange } from "../util/targetUtils";
+import {
+  runOnTargetsForEachEditor,
+  toGeneralizedRange,
+} from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Highlight implements Action {
@@ -18,12 +21,12 @@ export default class Highlight implements Action {
       throw Error(`The highlight action is not supported by your ide`);
     }
 
-    await ide().setHighlightRanges(
-      highlightId,
-      targets.map((target) => ({
-        editor: target.editor,
-        range: toGeneralizedRange(target),
-      })),
+    await runOnTargetsForEachEditor(targets, (editor, targets) =>
+      ide().setHighlightRanges(
+        highlightId,
+        editor,
+        targets.map(toGeneralizedRange),
+      ),
     );
 
     return {

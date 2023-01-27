@@ -166,7 +166,7 @@ export function spyIDERecordedValuesToPlainObject(
     })),
     highlights: input.highlights?.map((highlight) => ({
       highlightId: highlight.highlightId,
-      ranges: highlight.ranges.map(({ range }) =>
+      ranges: highlight.ranges.map((range) =>
         generalizedRangeToPlainObject(range),
       ),
     })),

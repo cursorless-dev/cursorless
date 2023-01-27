@@ -1,6 +1,6 @@
 import type { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { pull } from "lodash";
-import { EditorGeneralizedRange } from "../../types/GeneralizedRange";
+import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
 import {
@@ -41,7 +41,8 @@ export default class FakeIDE implements IDE {
 
   async setHighlightRanges(
     _highlightId: string,
-    _ranges: EditorGeneralizedRange[],
+    _editor: TextEditor,
+    _ranges: GeneralizedRange[],
   ): Promise<void> {
     // empty
   }

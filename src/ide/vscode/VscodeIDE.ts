@@ -1,5 +1,6 @@
 import type {
   EditableTextEditor,
+  GeneralizedRange,
   InputBoxOptions,
   TextEditor,
 } from "@cursorless/common";
@@ -15,7 +16,6 @@ import type {
   IDE,
   RunMode,
 } from "../../libs/common/ide/types/ide.types";
-import { EditorGeneralizedRange } from "../../libs/common/types/GeneralizedRange";
 import {
   fromVscodeRange,
   fromVscodeSelection,
@@ -49,8 +49,8 @@ export default class VscodeIDE implements IDE {
     this.globalState = new VscodeGlobalState(extensionContext);
     this.messages = new VscodeMessages();
     this.clipboard = new VscodeClipboard();
-    this.highlights = new VscodeHighlights(this, extensionContext);
-    this.flashHandler = new VscodeFlashHandler(this.highlights);
+    this.highlights = new VscodeHighlights(extensionContext);
+    this.flashHandler = new VscodeFlashHandler(this, this.highlights);
     this.capabilities = new VscodeCapabilities();
     this.hats = new VscodeHats(this, extensionContext);
     this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
@@ -62,10 +62,12 @@ export default class VscodeIDE implements IDE {
 
   setHighlightRanges(
     highlightId: HighlightId,
-    ranges: EditorGeneralizedRange[],
+    editor: TextEditor,
+    ranges: GeneralizedRange[],
   ): Promise<void> {
     return this.highlights.setHighlightRanges(
       HighlightStyle[highlightId as keyof typeof HighlightStyle],
+      editor as VscodeTextEditorImpl,
       ranges,
     );
   }

@@ -1,18 +1,22 @@
-import { sleep } from "@cursorless/common";
+import { EditorGeneralizedRange, sleep } from "@cursorless/common";
 import { workspace } from "vscode";
-import { FlashDescriptor } from "../../libs/common/ide/types/FlashDescriptor";
+import {
+  FlashDescriptor,
+  FlashStyle,
+} from "../../libs/common/ide/types/FlashDescriptor";
 import { groupBy } from "../../util/itertools";
 import VscodeHighlights from "./VscodeHighlights";
+import VscodeIDE from "./VscodeIDE";
 
 export default class VscodeFlashHandler {
-  constructor(private highlights: VscodeHighlights) {}
+  constructor(private ide: VscodeIDE, private highlights: VscodeHighlights) {}
 
   async flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
     const flashMap = groupBy(flashDescriptors, ({ style }) => style);
 
     await Promise.all(
       Array.from(flashMap.entries()).map(([style, descriptors]) =>
-        this.highlights.setHighlightRanges(style, descriptors),
+        this.setDecorationRanges(style, descriptors),
       ),
     );
 
@@ -20,9 +24,23 @@ export default class VscodeFlashHandler {
 
     await Promise.all(
       Array.from(flashMap.keys()).map((style) =>
-        this.highlights.setHighlightRanges(style, []),
+        this.setDecorationRanges(style, []),
       ),
     );
+  }
+
+  private async setDecorationRanges(
+    style: FlashStyle,
+    ranges: EditorGeneralizedRange[],
+  ): Promise<void> {
+    const editorRangeMap = groupBy(ranges, ({ editor }) => editor.id);
+
+    this.ide.visibleTextEditors.forEach((editor) => {
+      const ranges = (editorRangeMap.get(editor.id) ?? []).map(
+        ({ range }) => range,
+      );
+      this.highlights.setHighlightRanges(style, editor, ranges);
+    });
   }
 }
 

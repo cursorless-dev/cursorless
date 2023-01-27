@@ -1,5 +1,6 @@
 import { pickBy, values } from "lodash";
-import { EditorGeneralizedRange } from "../../types/GeneralizedRange";
+import { GeneralizedRange } from "../../types/GeneralizedRange";
+import { TextEditor } from "../../types/TextEditor";
 import PassthroughIDEBase from "../PassthroughIDEBase";
 import { FlashDescriptor } from "../types/FlashDescriptor";
 import type { HighlightId, IDE } from "../types/ide.types";
@@ -7,7 +8,7 @@ import SpyMessages, { Message } from "./SpyMessages";
 
 interface Highlight {
   highlightId: HighlightId;
-  ranges: EditorGeneralizedRange[];
+  ranges: GeneralizedRange[];
 }
 
 export interface SpyIDERecordedValues {
@@ -45,12 +46,13 @@ export default class SpyIDE extends PassthroughIDEBase {
 
   setHighlightRanges(
     highlightId: string,
-    ranges: EditorGeneralizedRange[],
+    editor: TextEditor,
+    ranges: GeneralizedRange[],
   ): Promise<void> {
     this.highlights.push({
       highlightId,
       ranges,
     });
-    return super.setHighlightRanges(highlightId, ranges);
+    return super.setHighlightRanges(highlightId, editor, ranges);
   }
 }

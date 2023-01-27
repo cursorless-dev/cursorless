@@ -5,7 +5,7 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import { URI } from "vscode-uri";
-import { EditorGeneralizedRange } from "../../types/GeneralizedRange";
+import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { Capabilities } from "./Capabilities";
 import { Clipboard } from "./Clipboard";
 import { Configuration } from "./Configuration";
@@ -15,8 +15,8 @@ import {
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "./events.types";
-import { Hats } from "./Hats";
 import { FlashDescriptor } from "./FlashDescriptor";
+import { Hats } from "./Hats";
 import { Messages } from "./Messages";
 import { State } from "./State";
 
@@ -188,15 +188,18 @@ export interface IDE {
   flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void>;
 
   /**
-   * Set the ranges to which {@link highlightId} should be applied.  Removes
-   * the given highlight from all other ranges in all editors.
+   * Set the ranges in {@link editor} to which {@link highlightId} should be
+   * applied.  Removes the given highlight from all other ranges in
+   * {@link editor}.
    *
    * @param highlightId The id of the highlight to apply
+   * @param editor The editor for which to set highlights ranges
    * @param ranges The ranges to apply the highlight to
    */
   setHighlightRanges(
     highlightId: HighlightId,
-    ranges: EditorGeneralizedRange[],
+    editor: TextEditor,
+    ranges: GeneralizedRange[],
   ): Promise<void>;
 }
 
