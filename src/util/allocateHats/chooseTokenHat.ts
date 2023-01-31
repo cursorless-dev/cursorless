@@ -45,7 +45,7 @@ import { maxByMultiple } from "./maxByMultiple";
  * didn't have one)
  * @param candidates The set of candidate hats under consideration (includes
  * both hat style and grapheme)
- * @returns
+ * @returns The chosen hat, or `undefined` if {@link candidates} was empty
  */
 export function chooseTokenHat(
   { hatOldTokenRanks, graphemeTokenRanks }: RankingContext,
@@ -53,7 +53,7 @@ export function chooseTokenHat(
   tokenRank: number,
   oldTokenHat: TokenHat | undefined,
   candidates: HatCandidate[],
-) {
+): HatCandidate | undefined {
   // We narrow down the candidates by a series of criteria until there is only
   // one left
   return maxByMultiple(candidates, [
