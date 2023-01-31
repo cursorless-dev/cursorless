@@ -27,11 +27,14 @@ import { maxByMultiple } from "./maxByMultiple";
  *
  * TODO: Could be improved by ignoring subsequent tokens that also contain
  * another character that can be used with lower color. To compute that, look at
- * all the other characters in the given su  åbsequent token, look at their
- * current color, and add the number of times it appears in between the current
- * token and the given subsequent token.
+ * all the other characters in the given subsequent token, look at their current
+ * color, and add the number of times it appears in between the current token
+ * and the given subsequent token.
  *
- * Here is an example where the existing algorithm falls down: "ab ax b"
+ * Here is an example where the existing algorithm falls down: "ab ax b".  It
+ * will put a hat on `b` for token `ab` because `b` appears two tokens away
+ * whereas `a` appears in the next token.  However, if it had chosen `a`, then
+ * it could use `x` for `ax`, leaving `b` free for the final `b` token.
  *
  * @param context Lookup tables with information about which graphemes / hats
  * other tokens have

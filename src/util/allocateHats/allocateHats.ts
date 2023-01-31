@@ -28,7 +28,7 @@ export interface HatCandidate {
 
 /**
  * Allocates hats to all the visible tokens.  Proceeds by ranking tokens
- * according to desirability (how far they are from the curosr), then assigning
+ * according to desirability (how far they are from the cursor), then assigning
  * a hat to each one in turn, deciding whether to keep old hat, steal a hat from
  * another token, or use a freely available hat.
  *
@@ -42,7 +42,7 @@ export interface HatCandidate {
  * stability
  * @param activeTextEditor Currently active text editor
  * @param visibleTextEditors All visible text editors
- * @returns A hat assignment, which is a list wher each entry contains a token
+ * @returns A hat assignment, which is a list where each entry contains a token
  * and the hat that it will wear
  */
 export function allocateHats(
