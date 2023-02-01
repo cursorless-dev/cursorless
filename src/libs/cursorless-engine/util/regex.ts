@@ -30,32 +30,6 @@ function makeCache<T, U>(func: (arg: T) => U) {
 export const rightAnchored = makeCache(_rightAnchored);
 export const leftAnchored = makeCache(_leftAnchored);
 
-/**
- * Match {@link regex} at start of {@link text}
- * @param text The text in which to search
- * @param regex The regex to search for
- * @returns The index at which the {@link regex} ends, or -1 if it doesn't
- * appear at the start of {@link text}
- */
-export function matchAtStart(text: string, regex: RegExp): number {
-  const leftAnchoredRegex = leftAnchored(regex);
-  leftAnchoredRegex.lastIndex = 0;
-  return text.match(leftAnchoredRegex)?.[0].length ?? -1;
-}
-
-/**
- * Match {@link regex} at end of {@link text}
- * @param text The text in which to search
- * @param regex The regex to search for
- * @returns The index at which the {@link regex} starts, or -1 if it doesn't
- * appear at the end of {@link text}
- */
-export function matchAtEnd(text: string, regex: RegExp): number {
-  const rightAnchoredRegex = rightAnchored(regex);
-  rightAnchoredRegex.lastIndex = 0;
-  return text.search(rightAnchoredRegex);
-}
-
 export function matchAll<T>(
   text: string,
   regex: RegExp,
