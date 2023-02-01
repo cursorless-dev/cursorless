@@ -38,6 +38,7 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
         return;
       }
 
+      // Hack; see https://github.com/cursorless-dev/cursorless/issues/1243
       let match = link.match(/^(\.\.\/)+docs\//);
       if (match != null) {
         link = "/docs/" + link.substring(match[0].length);
