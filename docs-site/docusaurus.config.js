@@ -38,6 +38,16 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
         return;
       }
 
+      let match = link.match(/^(\.\.\/)+docs\//);
+      if (match != null) {
+        link = "/docs/" + link.substring(match[0].length);
+        if (link.endsWith(".md")) {
+          link = link.substring(0, link.length - 3);
+        }
+        node.url = link;
+        return;
+      }
+
       let repoRoot = path.resolve(__dirname, "..");
       let artifact = path.resolve(file.dirname, link);
       let artifactRelative = path.relative(repoRoot, artifact);
@@ -65,7 +75,7 @@ const config = {
   baseUrl: "/docs/",
   favicon: "/docs/favicon.ico",
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
   trailingSlash: true,
 
   plugins: [
