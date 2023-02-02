@@ -25,6 +25,16 @@ export function groupBy<T, U>(list: T[], func: (element: T) => U): Map<U, T[]> {
   return map;
 }
 
+/**
+ * Partitions a list into two lists, one containing all elements for which the
+ * predicate returned `true`, the other containing all elements for which the
+ * predicate returned `false`
+ * @param list The list to partition
+ * @param predicate The predicate to use to partition the list
+ * @returns A tuple of two lists, the first containing all elements for which
+ * the predicate returned `true`, the second containing all elements for which the
+ * predicate returned `false`
+ */
 export function partition<T, U>(
   list: (T | U)[],
   predicate: (elem: T | U) => elem is T,
