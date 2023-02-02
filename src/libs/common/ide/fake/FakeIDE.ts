@@ -40,7 +40,7 @@ export default class FakeIDE implements IDE {
   }
 
   async setHighlightRanges(
-    _highlightId: string,
+    _highlightId: string | undefined,
     _editor: TextEditor,
     _ranges: GeneralizedRange[],
   ): Promise<void> {

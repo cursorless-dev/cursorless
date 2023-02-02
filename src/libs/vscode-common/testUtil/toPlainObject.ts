@@ -36,7 +36,7 @@ interface PlainFlashDescriptor {
 }
 
 interface PlainHighlight {
-  highlightId: string;
+  highlightId: string | undefined;
   ranges: GeneralizedRangePlainObject[];
 }
 

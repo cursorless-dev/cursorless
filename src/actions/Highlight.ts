@@ -15,7 +15,7 @@ export default class Highlight implements Action {
 
   async run(
     [targets]: [Target[]],
-    highlightId: HighlightId = "highlight0",
+    highlightId?: HighlightId,
   ): Promise<ActionReturnValue> {
     if (ide().capabilities.commands["highlight"] == null) {
       throw Error(`The highlight action is not supported by your ide`);

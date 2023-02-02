@@ -1,4 +1,4 @@
-import type { SpyIDE } from "@cursorless/common";
+import { omitByDeep, SpyIDE } from "@cursorless/common";
 import { extractTargetedMarks, serialize, splitKey } from "@cursorless/common";
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
@@ -16,7 +16,7 @@ import {
 import { assert } from "chai";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
-import { isUndefined, omitBy } from "lodash";
+import { isUndefined } from "lodash";
 import * as vscode from "vscode";
 import type { ReadOnlyHatMap } from "../../../core/IndividualHatMap";
 import type NormalizedIDE from "../../../libs/common/ide/normalized/NormalizedIDE";
@@ -186,7 +186,10 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const actualSpyIdeValues =
     rawSpyIdeValues == null
       ? undefined
-      : omitBy(spyIDERecordedValuesToPlainObject(rawSpyIdeValues), isUndefined);
+      : omitByDeep(
+          spyIDERecordedValuesToPlainObject(rawSpyIdeValues),
+          isUndefined,
+        );
 
   if (shouldUpdateFixtures()) {
     const outputFixture = {

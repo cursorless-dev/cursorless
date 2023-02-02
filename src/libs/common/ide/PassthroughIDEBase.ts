@@ -37,7 +37,7 @@ export default class PassthroughIDEBase implements IDE {
   }
 
   setHighlightRanges(
-    highlightId: string,
+    highlightId: string | undefined,
     editor: TextEditor,
     ranges: GeneralizedRange[],
   ): Promise<void> {

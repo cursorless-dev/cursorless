@@ -35,3 +35,4 @@ export * from "./types/TextEditorEdit";
 export * from "./types/TextEditorOptions";
 export * from "./types/TextLine";
 export * from "./types/GeneralizedRange";
+export * from "./util/omitByDeep";

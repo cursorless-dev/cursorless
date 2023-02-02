@@ -192,12 +192,13 @@ export interface IDE {
    * applied.  Removes the given highlight from all other ranges in
    * {@link editor}.
    *
-   * @param highlightId The id of the highlight to apply
+   * @param highlightId The id of the highlight to apply; if undefined then
+   * should use whatever the default highlight is for this ide
    * @param editor The editor for which to set highlights ranges
    * @param ranges The ranges to apply the highlight to
    */
   setHighlightRanges(
-    highlightId: HighlightId,
+    highlightId: HighlightId | undefined,
     editor: TextEditor,
     ranges: GeneralizedRange[],
   ): Promise<void>;

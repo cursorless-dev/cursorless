@@ -21,6 +21,5 @@ finalState:
   thatMark: []
 ide:
   highlights:
-    - highlightId: highlight0
-      ranges: []
+    - ranges: []
 fullTargets: [{type: primitive, mark: {type: nothing}, modifiers: []}]

@@ -61,12 +61,16 @@ export default class VscodeIDE implements IDE {
   }
 
   setHighlightRanges(
-    highlightId: HighlightId,
+    highlightId: HighlightId | undefined,
     editor: TextEditor,
     ranges: GeneralizedRange[],
   ): Promise<void> {
+    const vscodeHighlightId =
+      highlightId == null
+        ? HighlightStyle.highlight0
+        : HighlightStyle[highlightId as keyof typeof HighlightStyle];
     return this.highlights.setHighlightRanges(
-      HighlightStyle[highlightId as keyof typeof HighlightStyle],
+      vscodeHighlightId,
       editor as VscodeTextEditorImpl,
       ranges,
     );

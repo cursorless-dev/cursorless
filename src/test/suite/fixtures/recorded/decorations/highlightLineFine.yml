@@ -39,7 +39,6 @@ finalState:
       hasExplicitRange: true
 ide:
   highlights:
-    - highlightId: highlight0
-      ranges:
+    - ranges:
         - {type: line, start: 1, end: 1}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: [{type: containingScope, scopeType: {type: line}}]}]

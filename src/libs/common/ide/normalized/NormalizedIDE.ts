@@ -53,7 +53,7 @@ export default class NormalizedIDE extends PassthroughIDEBase {
   }
 
   setHighlightRanges(
-    highlightId: string,
+    highlightId: string | undefined,
     editor: TextEditor,
     ranges: GeneralizedRange[],
   ): Promise<void> {

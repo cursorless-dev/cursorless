@@ -7,7 +7,7 @@ import type { HighlightId, IDE } from "../types/ide.types";
 import SpyMessages, { Message } from "./SpyMessages";
 
 interface Highlight {
-  highlightId: HighlightId;
+  highlightId: HighlightId | undefined;
   ranges: GeneralizedRange[];
 }
 
@@ -45,7 +45,7 @@ export default class SpyIDE extends PassthroughIDEBase {
   }
 
   setHighlightRanges(
-    highlightId: string,
+    highlightId: string | undefined,
     editor: TextEditor,
     ranges: GeneralizedRange[],
   ): Promise<void> {
