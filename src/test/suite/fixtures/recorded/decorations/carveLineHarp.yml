@@ -27,7 +27,7 @@ finalState:
       active: {line: 0, character: 0}
   clipboard: "hello world"
 ide:
-  flashedRanges:
+  flashes:
     - style: referenced
       range:
         type: character

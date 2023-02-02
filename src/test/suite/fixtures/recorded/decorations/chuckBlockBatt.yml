@@ -37,7 +37,7 @@ finalState:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
 ide:
-  flashedRanges:
+  flashes:
     - range: {type: line, start: 5, end: 8}
       style: pendingDelete
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [{type: containingScope, scopeType: {type: paragraph}}]}]

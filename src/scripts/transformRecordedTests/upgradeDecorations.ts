@@ -43,7 +43,7 @@ export const upgradeDecorations: FixtureTransformation = (
   fixture.ide = {
     ...(fixture.ide ?? {
       messages: undefined,
-      flashedRanges: undefined,
+      flashes: undefined,
       highlights: undefined,
     }),
     highlights:
@@ -55,7 +55,7 @@ export const upgradeDecorations: FixtureTransformation = (
               ranges: highlights.map(extractHighlightRange),
             }),
           ),
-    flashedRanges:
+    flashes:
       flashes.length === 0
         ? undefined
         : flashes.map((flash) => ({

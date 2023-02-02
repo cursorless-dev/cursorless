@@ -35,7 +35,7 @@ finalState:
       isReversed: false
       hasExplicitRange: true
 ide:
-  flashedRanges:
+  flashes:
     - range:
         type: character
         start: {line: 0, character: 12}

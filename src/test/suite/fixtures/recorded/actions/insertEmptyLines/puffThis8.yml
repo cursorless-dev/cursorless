@@ -30,7 +30,7 @@ finalState:
       isReversed: false
       hasExplicitRange: false
 ide:
-  flashedRanges:
+  flashes:
     - range: {type: line, start: 2, end: 2}
       style: justAdded
     - range: {type: line, start: 2, end: 2}

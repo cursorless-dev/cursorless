@@ -42,7 +42,7 @@ interface PlainHighlight {
 
 export interface PlainSpyIDERecordedValues {
   messages: Message[] | undefined;
-  flashedRanges: PlainFlashDescriptor[] | undefined;
+  flashes: PlainFlashDescriptor[] | undefined;
   highlights: PlainHighlight[] | undefined;
 }
 
@@ -160,7 +160,7 @@ export function spyIDERecordedValuesToPlainObject(
 ): PlainSpyIDERecordedValues {
   return {
     messages: input.messages,
-    flashedRanges: input.flashedRanges?.map((descriptor) => ({
+    flashes: input.flashes?.map((descriptor) => ({
       style: descriptor.style,
       range: generalizedRangeToPlainObject(descriptor.range),
     })),

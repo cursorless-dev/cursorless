@@ -33,7 +33,7 @@ finalState:
       isReversed: false
       hasExplicitRange: true
 ide:
-  flashedRanges:
+  flashes:
     - range: {type: line, start: 2, end: 2}
       style: justAdded
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

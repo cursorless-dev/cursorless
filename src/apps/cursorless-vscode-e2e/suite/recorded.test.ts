@@ -180,9 +180,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
     vscode.env.clipboard,
   );
 
-  const rawSpyIdeValues = spyIde.getSpyValues(
-    fixture.ide?.flashedRanges != null,
-  );
+  const rawSpyIdeValues = spyIde.getSpyValues(fixture.ide?.flashes != null);
   const actualSpyIdeValues =
     rawSpyIdeValues == null
       ? undefined

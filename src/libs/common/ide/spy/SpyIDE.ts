@@ -13,13 +13,13 @@ interface Highlight {
 
 export interface SpyIDERecordedValues {
   messages?: Message[];
-  flashedRanges?: FlashDescriptor[];
+  flashes?: FlashDescriptor[];
   highlights?: Highlight[];
 }
 
 export default class SpyIDE extends PassthroughIDEBase {
   messages: SpyMessages;
-  private flashedRanges: FlashDescriptor[] = [];
+  private flashes: FlashDescriptor[] = [];
   private highlights: Highlight[] = [];
 
   constructor(original: IDE) {
@@ -30,7 +30,7 @@ export default class SpyIDE extends PassthroughIDEBase {
   getSpyValues(isFlashTest: boolean): SpyIDERecordedValues | undefined {
     const ret: SpyIDERecordedValues = {
       messages: this.messages.getSpyValues(),
-      flashedRanges: isFlashTest ? this.flashedRanges : undefined,
+      flashes: isFlashTest ? this.flashes : undefined,
       highlights: this.highlights.length === 0 ? undefined : this.highlights,
     };
 
@@ -40,7 +40,7 @@ export default class SpyIDE extends PassthroughIDEBase {
   }
 
   flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
-    this.flashedRanges.push(...flashDescriptors);
+    this.flashes.push(...flashDescriptors);
     return super.flashRanges(flashDescriptors);
   }
 
