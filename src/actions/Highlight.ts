@@ -21,13 +21,27 @@ export default class Highlight implements Action {
       throw Error(`The highlight action is not supported by your ide`);
     }
 
-    await runOnTargetsForEachEditor(targets, (editor, targets) =>
-      ide().setHighlightRanges(
-        highlightId,
-        editor,
-        targets.map(toGeneralizedRange),
-      ),
-    );
+    if (targets.length === 0) {
+      // Special case to clear highlights for the active editor when user says
+      // "highlight nothing"
+      const { activeTextEditor } = ide();
+
+      if (activeTextEditor == null) {
+        throw Error(
+          "The `highlight nothing` command requires an active text editor",
+        );
+      }
+
+      await ide().setHighlightRanges(highlightId, activeTextEditor, []);
+    } else {
+      await runOnTargetsForEachEditor(targets, (editor, targets) =>
+        ide().setHighlightRanges(
+          highlightId,
+          editor,
+          targets.map(toGeneralizedRange),
+        ),
+      );
+    }
 
     return {
       thatTargets: targets,
