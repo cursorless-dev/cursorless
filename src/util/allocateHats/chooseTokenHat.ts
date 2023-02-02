@@ -8,7 +8,7 @@ import {
   negativePenalty,
   penaltyEquivalenceClass,
 } from "./HatMetrics";
-import { maxByMultiple } from "./maxByMultiple";
+import { maxByFirstDiffering } from "./maxByFirstDiffering";
 
 /**
  * Selects a hat for a given token from amongst {@link candidates}, trading off
@@ -25,7 +25,7 @@ import { maxByMultiple } from "./maxByMultiple";
  *
  * See [hat assignment](../../../docs/user/hatAssignment.md) for more info.
  *
- * TODO: Could be improved by ignoring subsequent tokens that also contain
+ * FIXME: Could be improved by ignoring subsequent tokens that also contain
  * another character that can be used with lower color. To compute that, look at
  * all the other characters in the given subsequent token, look at their current
  * color, and add the number of times it appears in between the current token
@@ -56,7 +56,7 @@ export function chooseTokenHat(
 ): HatCandidate | undefined {
   // We narrow down the candidates by a series of criteria until there is only
   // one left
-  return maxByMultiple(candidates, [
+  return maxByFirstDiffering(candidates, [
     // 1. Discard any hats that are sufficiently worse than the best hat that we
     //    wouldn't use them even if they were our old hat
     penaltyEquivalenceClass(hatStability),

@@ -1,4 +1,10 @@
-// Based on https://stackoverflow.com/a/54523103
+/**
+ * A map that can use a composite key, i.e. a key that is an array or object.
+ * The key is hashed by running {@link hashFunction}, which is expected to
+ * output a list whose entries can be converted to string.
+ *
+ * Based on https://stackoverflow.com/a/54523103
+ */
 export default class CompositeKeyMap<K, V> {
   private map: Record<string, V> = {};
 

@@ -17,7 +17,6 @@ import { plainObjectToRange } from "../libs/common/testUtil/fromPlainObject";
  * @param plainObject A plain object describing a `Target`
  * @returns A `Target` constructed from the given plain object
  */
-
 export function plainObjectToTarget(
   editor: TextEditor,
   plainObject: TargetPlainObject,

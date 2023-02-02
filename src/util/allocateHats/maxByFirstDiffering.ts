@@ -7,7 +7,7 @@
  * there is only 1 item remaining, that item is returned.  If the list is empty,
  * undefined is returned.
  *
- * @example maxByMultiple([{a: 1, b: 1}, {a: 1, b: 2}], [({a}) => a, ({b}) =>
+ * @example maxByFirstDiffering([{a: 1, b: 1}, {a: 1, b: 2}], [({a}) => a, ({b}) =>
  * b]) === {a: 1, b: 2}
  *
  * @param arr The array to find the max value of
@@ -16,7 +16,7 @@
  * @returns The item in the array that has the maximum value, or undefined if
  * array is empty or all items are removed
  */
-export function maxByMultiple<T>(
+export function maxByFirstDiffering<T>(
   arr: T[],
   fns: ((item: T) => number)[],
 ): T | undefined {

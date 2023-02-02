@@ -1,5 +1,12 @@
-// Based on https://aaronmoat.com/implementing-pythons-defaultdict-in-javascript/
+/**
+ * A map that returns a default value when a key is not found.
+ *
+ * Based on https://aaronmoat.com/implementing-pythons-defaultdict-in-javascript/
+ */
 export default class DefaultMap<K, V> extends Map<K, V> {
+  /**
+   * @param getDefaultValue A function that returns the default value for a given key
+   */
   constructor(private getDefaultValue: (key: K) => V) {
     super();
   }
