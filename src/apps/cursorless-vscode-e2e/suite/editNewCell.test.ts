@@ -30,7 +30,7 @@ async function runTest(
 
   // FIXME: There seems to be some timing issue when you create a notebook
   // editor
-  await sleepWithBackoff(1000);
+  await sleepWithBackoff(100);
 
   await graph.hatTokenMap.addDecorations();
 
@@ -49,6 +49,8 @@ async function runTest(
       },
     ],
   });
+
+  await sleepWithBackoff(100);
 
   assert.equal(notebook.cellCount, 2);
 
