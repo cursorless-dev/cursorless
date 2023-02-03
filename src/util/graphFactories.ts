@@ -1,5 +1,4 @@
 import Actions from "../actions";
-import Cheatsheet from "../core/Cheatsheet";
 import Debug from "../core/Debug";
 import { EditStyles } from "../core/editStyles";
 import HatTokenMap from "../core/HatTokenMap";
@@ -23,7 +22,6 @@ const graphConstructors: Partial<ConstructorMap<Graph>> = {
   rangeUpdater: RangeUpdater,
   debug: Debug,
   testCaseRecorder: TestCaseRecorder,
-  cheatsheet: Cheatsheet,
   statusBarItem: StatusBarItem,
   keyboardCommands: KeyboardCommands,
 };

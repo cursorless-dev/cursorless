@@ -6,7 +6,6 @@ import type {
 } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
-import Cheatsheet from "../core/Cheatsheet";
 import Debug from "../core/Debug";
 import { EditStyles } from "../core/editStyles";
 import HatTokenMap from "../core/HatTokenMap";
@@ -143,11 +142,6 @@ export interface Graph {
    * Used for recording test cases
    */
   readonly testCaseRecorder: TestCaseRecorder;
-
-  /**
-   * Used to display cheatsheet
-   */
-  readonly cheatsheet: Cheatsheet;
 
   /**
    * Creates a VSCode status bar item
