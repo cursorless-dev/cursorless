@@ -1,7 +1,7 @@
+import { showError } from "@cursorless/common";
 import { readFile, stat } from "fs/promises";
 import { cloneDeep, max, merge } from "lodash";
 import { join } from "path";
-import { window } from "vscode";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { walkFiles } from "../testUtil/walkAsync";
 import { Snippet, SnippetMap } from "../typings/snippet";
@@ -128,7 +128,7 @@ export class Snippets {
           this.userSnippetsDir
         }": ${(err as Error).message}`;
 
-        window.showErrorMessage(errorMessage);
+        showError(ide().messages, "snippetsDirError", errorMessage);
 
         this.directoryErrorMessage = {
           directory: this.userSnippetsDir!,
@@ -170,7 +170,9 @@ export class Snippets {
 
             return JSON.parse(content);
           } catch (err) {
-            window.showErrorMessage(
+            showError(
+              ide().messages,
+              "snippetsFileError",
               `Error with cursorless snippets file "${path}": ${
                 (err as Error).message
               }`,

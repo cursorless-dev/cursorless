@@ -1,4 +1,4 @@
-import { HatShape } from "../ide/vscode/hatStyles.types";
+import { HatShape } from "../hatStyles.types";
 
 export interface HatAdjustments {
   sizeAdjustment?: number;
