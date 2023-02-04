@@ -32,7 +32,7 @@ async function basic() {
   const editor = await openNewEditor("function foo() {}\n", {
     languageId: "typescript",
   });
-  await graph.hatTokenMap.allocateHats();
+  await graph.hatTokenMap.addDecorations();
 
   editor.selection = new vscode.Selection(1, 0, 1, 0);
 

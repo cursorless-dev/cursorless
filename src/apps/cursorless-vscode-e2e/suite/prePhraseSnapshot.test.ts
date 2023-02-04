@@ -1,33 +1,27 @@
-import { HatStability, selectionToPlainObject } from "@cursorless/common";
 import {
   fromVscodeSelection,
   getCursorlessApi,
   openNewEditor,
+  selectionToPlainObject,
 } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
 import { runCursorlessCommand } from "../runCommand";
-import { setupFake } from "./setupFake";
 
 /**
  * The selections we expect when the pre-phrase snapshot is used
  */
-const snapshotExpectedSelections = [new vscode.Selection(0, 0, 0, 1)];
+const snapshotExpectedSelections = [new vscode.Selection(0, 6, 0, 11)];
 
 /**
  * The selections we expect when the pre-phrase snapshot is not used
  */
-const noSnapshotExpectedSelections = [new vscode.Selection(1, 0, 1, 1)];
+const noSnapshotExpectedSelections = [new vscode.Selection(1, 6, 1, 11)];
 
 suite("Pre-phrase snapshots", async function () {
   endToEndTestSetup(this);
-
-  suiteSetup(async () => {
-    const { ide } = (await getCursorlessApi()).testHelpers!;
-    setupFake(ide, HatStability.greedy);
-  });
 
   test("Pre-phrase snapshot; single phrase", () =>
     runTest(true, false, snapshotExpectedSelections));
@@ -47,39 +41,31 @@ async function runTest(
 ) {
   const { graph } = (await getCursorlessApi()).testHelpers!;
 
-  const editor = await openNewEditor("a\n");
+  const editor = await openNewEditor("Hello world testing whatever");
 
-  editor.selections = [new vscode.Selection(1, 0, 1, 0)];
+  editor.selections = [new vscode.Selection(0, 0, 0, 0)];
 
   let prePhraseVersion = "version1";
   mockPrePhraseGetVersion(graph, async () => prePhraseVersion);
 
-  await graph.hatTokenMap.allocateHats();
+  await graph.hatTokenMap.addDecorations();
   prePhraseVersion = "version2";
 
   await runCursorlessCommand({
-    version: 4,
+    version: 1,
     spokenForm: "whatever",
-    action: {
-      name: "replaceWithTarget",
-    },
+    action: "replaceWithTarget",
     targets: [
+      { type: "primitive", selectionType: "line", mark: { type: "cursor" } },
       {
         type: "primitive",
-        mark: {
-          type: "decoratedSymbol",
-          symbolColor: "default",
-          character: "a",
-        },
-      },
-      {
-        type: "implicit",
+        mark: { type: "cursor" },
+        position: "after",
       },
     ],
-    usePrePhraseSnapshot: false,
   });
 
-  await graph.hatTokenMap.allocateHats();
+  await graph.hatTokenMap.addDecorations();
 
   if (multiplePhrases) {
     // If test is simulating separate phrases, we simulate pre-phrase signal being sent
@@ -96,7 +82,7 @@ async function runTest(
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
-          character: "a",
+          character: "o",
         },
       },
     ],

@@ -23,7 +23,7 @@ async function runTest() {
   // editor
   await sleepWithBackoff(1000);
 
-  await graph.hatTokenMap.allocateHats();
+  await graph.hatTokenMap.addDecorations();
 
   await runCursorlessCommand({
     version: 1,
