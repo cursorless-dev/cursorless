@@ -128,6 +128,18 @@
       ]
     },
     {
+      "name": "Docusaurus Build (Debug)",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/docs-site",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "build"],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+    {
       "name": "cursorless.org client-side",
       "type": "chrome",
       "request": "launch",
