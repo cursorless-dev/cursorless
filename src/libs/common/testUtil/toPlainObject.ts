@@ -1,7 +1,9 @@
 import type { TestDecoration } from "../../../core/editStyles";
 import type { Target } from "../../../typings/target.types";
 import type { Token } from "../../../typings/Types";
-import type { Range, Selection, Position } from "@cursorless/common";
+import { Position } from "../types/Position";
+import { Range } from "../types/Range";
+import { Selection } from "../types/Selection";
 
 export type PositionPlainObject = {
   line: number;

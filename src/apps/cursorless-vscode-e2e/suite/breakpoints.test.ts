@@ -24,7 +24,7 @@ suite("breakpoints", async function () {
 async function breakpointHarpAdd() {
   const { graph } = (await getCursorlessApi()).testHelpers!;
   await openNewEditor("  hello");
-  await graph.hatTokenMap.addDecorations();
+  await graph.hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
     version: 1,
@@ -51,7 +51,7 @@ async function breakpointHarpAdd() {
 async function breakpointTokenHarpAdd() {
   const { graph } = (await getCursorlessApi()).testHelpers!;
   await openNewEditor("  hello");
-  await graph.hatTokenMap.addDecorations();
+  await graph.hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
     version: 1,
@@ -79,7 +79,7 @@ async function breakpointTokenHarpAdd() {
 async function breakpointHarpRemove() {
   const { graph } = (await getCursorlessApi()).testHelpers!;
   const editor = await openNewEditor("  hello");
-  await graph.hatTokenMap.addDecorations();
+  await graph.hatTokenMap.allocateHats();
 
   vscode.debug.addBreakpoints([
     new vscode.SourceBreakpoint(
@@ -110,7 +110,7 @@ async function breakpointHarpRemove() {
 async function breakpointTokenHarpRemove() {
   const { graph } = (await getCursorlessApi()).testHelpers!;
   const editor = await openNewEditor("  hello");
-  await graph.hatTokenMap.addDecorations();
+  await graph.hatTokenMap.allocateHats();
 
   vscode.debug.addBreakpoints([
     new vscode.SourceBreakpoint(

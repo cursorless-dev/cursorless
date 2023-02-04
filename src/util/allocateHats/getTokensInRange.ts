@@ -1,17 +1,8 @@
 import { Range, TextEditor } from "@cursorless/common";
-import { tokenize } from "../libs/cursorless-engine/tokenizer";
-import { RangeOffsets } from "../typings/updateSelections";
+import { tokenize } from "../../libs/cursorless-engine/tokenizer";
+import { Token } from "../../typings/Types";
 
-export interface PartialToken {
-  text: string;
-  range: Range;
-  offsets: RangeOffsets;
-}
-
-export function getTokensInRange(
-  editor: TextEditor,
-  range: Range,
-): PartialToken[] {
+export function getTokensInRange(editor: TextEditor, range: Range): Token[] {
   const languageId = editor.document.languageId;
   const text = editor.document.getText(range);
   const rangeOffset = editor.document.offsetAt(range.start);
@@ -25,6 +16,7 @@ export function getTokensInRange(
     );
 
     return {
+      editor,
       text: match[0],
       range,
       offsets: { start: startOffset, end: endOffset },
