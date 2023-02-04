@@ -2,35 +2,20 @@ import { getKey, TextDocument } from "@cursorless/common";
 import tokenGraphemeSplitter from "../libs/cursorless-engine/singletons/tokenGraphemeSplitter.singleton";
 import { Graph, Token } from "../typings/Types";
 import { HatStyleName } from "../libs/common/ide/types/hatStyles.types";
-import { TokenHat } from "../util/allocateHats/allocateHats";
-import { FullRangeInfo } from "../typings/updateSelections";
-import { getMatcher } from "../libs/cursorless-engine/tokenizer";
 
 export interface ReadOnlyHatMap {
-  getEntries(): readonly [string, Token][];
+  getEntries(): [string, Token][];
   getToken(hatStyle: HatStyleName, character: string): Token;
 }
 
-/**
- * A token with information that the rangeUpdater can use to keep its
- * {@link range} up to date.
- */
-interface LiveToken extends Token, FullRangeInfo {}
-
 export class IndividualHatMap implements ReadOnlyHatMap {
   private isExpired: boolean = false;
-  private documentTokenLists: Map<string, LiveToken[]> = new Map();
+  private documentTokenLists: Map<string, Token[]> = new Map();
   private deregisterFunctions: (() => void)[] = [];
 
   private map: {
-    [decoratedCharacter: string]: LiveToken;
+    [decoratedCharacter: string]: Token;
   } = {};
-
-  private _tokenHats: readonly TokenHat[] = [];
-
-  get tokenHats() {
-    return this._tokenHats;
-  }
 
   constructor(private graph: Graph) {}
 
@@ -52,70 +37,41 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   clone() {
     const ret = new IndividualHatMap(this.graph);
 
-    ret.setTokenHats(this._tokenHats);
+    this.getEntries().forEach(([key, token]) => {
+      ret.addTokenByKey(key, { ...token });
+    });
 
     return ret;
   }
 
-  /**
-   * Overwrites the hat assignemnt for this hat token map.
-   *
-   * @param tokenHats The new hat assignments
-   */
-  setTokenHats(tokenHats: readonly TokenHat[]) {
-    // Clear the old assignment
-    this.map = {};
-    this.documentTokenLists = new Map();
-    this.deregisterFunctions.forEach((func) => func());
-
-    // Iterate through the hats in the new assignment, registering them with the
-    // rangeUpdater so that their ranges stay up to date
-    const liveTokenHats: TokenHat[] = tokenHats.map((tokenHat) => {
-      const { hatStyle, grapheme, token } = tokenHat;
-      const liveToken: LiveToken = this.makeTokenLive(token);
-      this.map[getKey(hatStyle, grapheme)] = liveToken;
-
-      return { ...tokenHat, token: liveToken };
-    });
-
-    this._tokenHats = liveTokenHats;
-  }
-
-  private makeTokenLive(token: Token): LiveToken {
-    const { tokenMatcher } = getMatcher(token.editor.document.languageId);
-
-    const liveToken: LiveToken = {
-      ...token,
-      expansionBehavior: {
-        start: {
-          type: "regex",
-          regex: tokenMatcher,
-        },
-        end: {
-          type: "regex",
-          regex: tokenMatcher,
-        },
-      },
-    };
-
-    this.getDocumentTokenList(token.editor.document).push(liveToken);
-
-    return liveToken;
-  }
-
-  getEntries(): readonly [string, Token][] {
+  getEntries() {
     this.checkExpired();
     return Object.entries(this.map);
   }
 
-  getToken(hatStyle: HatStyleName, character: string): Token {
+  private addTokenByKey(key: string, token: Token) {
+    this.map[key] = token;
+    this.getDocumentTokenList(token.editor.document).push(token);
+  }
+
+  addToken(hatStyle: HatStyleName, character: string, token: Token) {
+    this.addTokenByKey(getKey(hatStyle, character), token);
+  }
+
+  getToken(hatStyle: HatStyleName, character: string) {
     this.checkExpired();
     return this.map[
       getKey(hatStyle, tokenGraphemeSplitter().normalizeGrapheme(character))
     ];
   }
 
-  private checkExpired() {
+  clear() {
+    this.map = {};
+    this.documentTokenLists = new Map();
+    this.deregisterFunctions.forEach((func) => func());
+  }
+
+  checkExpired() {
     if (this.isExpired) {
       throw Error("Map snapshot has expired");
     }

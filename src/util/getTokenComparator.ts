@@ -1,8 +1,4 @@
-import { Token } from "../../typings/Types";
-
-interface TokenWithDisplayLine extends Token {
-  displayLine: number;
-}
+import { Token } from "../typings/Types";
 
 /**
  * Gets a comparison function that can be used to sort tokens based on their
@@ -13,7 +9,7 @@ interface TokenWithDisplayLine extends Token {
 export function getTokenComparator(
   selectionDisplayLine: number,
   selectionCharacterIndex: number,
-): (a: TokenWithDisplayLine, b: TokenWithDisplayLine) => number {
+): (a: Token, b: Token) => number {
   return (token1, token2) => {
     const token1LineDiff = Math.abs(token1.displayLine - selectionDisplayLine);
     const token2LineDiff = Math.abs(token2.displayLine - selectionDisplayLine);

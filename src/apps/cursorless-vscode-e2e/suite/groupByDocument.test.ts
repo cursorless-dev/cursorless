@@ -27,7 +27,7 @@ async function runTest() {
     vscode.ViewColumn.Beside,
   );
 
-  await graph.hatTokenMap.allocateHats();
+  await graph.hatTokenMap.addDecorations();
   const hatMap = await graph.hatTokenMap.getReadableMap(false);
 
   const hat1 = hatMap

@@ -16,6 +16,7 @@ def get_list(name, type, descriptions=None):
 
 
 def get_lists(names: list[str], type: str, descriptions=None):
+
     return [item for name in names for item in get_list(name, type, descriptions)]
 
 

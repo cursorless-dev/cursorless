@@ -15,7 +15,7 @@ async function runTest() {
   const { document: document1 } = await openNewEditor("hello world");
   const { document: document2 } = await openNewEditor("", { openBeside: true });
 
-  await graph.hatTokenMap.allocateHats();
+  await graph.hatTokenMap.addDecorations();
 
   await runCursorlessCommand({
     version: 4,

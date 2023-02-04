@@ -28,6 +28,7 @@ def dispose(json_str):
     former_index = None
 
     for index, char in enumerate(json_str):
+
         if escaped:  # We have just met a '\'
             escaped = False
             continue

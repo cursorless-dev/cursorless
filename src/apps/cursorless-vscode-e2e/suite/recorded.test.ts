@@ -1,38 +1,30 @@
-import {
-  extractTargetedMarks,
-  HatStability,
-  marksToPlainObject,
-  plainObjectToRange,
-  PositionPlainObject,
-  rangeToPlainObject,
-  SelectionPlainObject,
-  serialize,
-  SerializedMarks,
-  splitKey,
-  SpyIDE,
-  testDecorationsToPlainObject,
-  TextEditor,
-} from "@cursorless/common";
+import type { SpyIDE } from "@cursorless/common";
+import { extractTargetedMarks, serialize, splitKey } from "@cursorless/common";
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
   getCursorlessApi,
+  marksToPlainObject,
   openNewEditor,
+  PositionPlainObject,
+  rangeToPlainObject,
+  SelectionPlainObject,
+  SerializedMarks,
   takeSnapshot,
+  testDecorationsToPlainObject,
 } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import * as vscode from "vscode";
 import type { ReadOnlyHatMap } from "../../../core/IndividualHatMap";
+import type NormalizedIDE from "../../../libs/common/ide/normalized/NormalizedIDE";
 import type { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
-import type { TokenHat } from "../../../util/allocateHats/allocateHats";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
-import { getRecordedTestPaths } from "../getFixturePaths";
+import { getFixturePath, getRecordedTestPaths } from "../getFixturePaths";
 import { runCursorlessCommand } from "../runCommand";
 import shouldUpdateFixtures from "../shouldUpdateFixtures";
-import { setupFake } from "./setupFake";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -51,7 +43,7 @@ suite("recorded test cases", async function () {
     // Necessary because opening a notebook opens the panel for some reason
     await vscode.commands.executeCommand("workbench.action.closePanel");
     const { ide } = (await getCursorlessApi()).testHelpers!;
-    setupFake(ide, HatStability.stable);
+    setupFake(ide);
   });
 
   getRecordedTestPaths().forEach((path) =>
@@ -109,10 +101,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
     // spyIde.clipboard.writeText(fixture.initialState.clipboard);
   }
 
-  // Ensure that the expected hats are present
-  await graph.hatTokenMap.allocateHats(
-    getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
-  );
+  await graph.hatTokenMap.addDecorations();
 
   const readableHatMap = await graph.hatTokenMap.getReadableMap(
     usePrePhraseSnapshot,
@@ -243,6 +232,12 @@ async function runTest(file: string, spyIde: SpyIDE) {
   }
 }
 
+function setupFake(ide: NormalizedIDE) {
+  ide.configuration.mockConfiguration("experimental", {
+    snippetsDir: getFixturePath("cursorless-snippets"),
+  });
+}
+
 function checkMarks(
   marks: SerializedMarks | undefined,
   hatTokenMap: ReadOnlyHatMap,
@@ -256,36 +251,5 @@ function checkMarks(
     const currentToken = hatTokenMap.getToken(hatStyle, character);
     assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
     assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
-  });
-}
-
-function getTokenHats(
-  marks: SerializedMarks | undefined,
-  editor: TextEditor,
-): TokenHat[] {
-  if (marks == null) {
-    return [];
-  }
-
-  return Object.entries(marks).map(([key, token]) => {
-    const { hatStyle, character } = splitKey(key);
-    const range = plainObjectToRange(token);
-
-    return {
-      hatStyle,
-      grapheme: character,
-      token: {
-        editor,
-        range,
-        offsets: {
-          start: editor.document.offsetAt(range.start),
-          end: editor.document.offsetAt(range.end),
-        },
-        text: editor.document.getText(range),
-      },
-
-      // NB: We don't care about the hat range for this test
-      hatRange: range,
-    };
   });
 }
