@@ -18,14 +18,16 @@ import KeyboardCommands from "../keyboard/KeyboardCommands";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
 import { Target } from "./target.types";
-import { FullRangeInfo } from "./updateSelections";
+import { RangeOffsets } from "./updateSelections";
 
 /**
- * A token within a text editor, including the current display line of the token
+ * A token within a text editor
  */
-export interface Token extends FullRangeInfo {
+export interface Token {
   editor: TextEditor;
-  displayLine: number;
+  range: Range;
+  offsets: RangeOffsets;
+  text: string;
 }
 
 export interface ProcessedTargetsContext {

@@ -1,6 +1,7 @@
 import { hrtime } from "process";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import type { Graph } from "../typings/Types";
+import { TokenHat } from "../util/allocateHats/allocateHats";
 import { abs } from "../util/bigint";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap, ReadOnlyHatMap } from "./IndividualHatMap";
@@ -43,11 +44,18 @@ export default class HatTokenMap {
   }
 
   init() {
-    return this.hatAllocator.addDecorations();
+    return this.hatAllocator.allocateHats();
   }
 
-  addDecorations() {
-    return this.hatAllocator.addDecorations();
+  /**
+   * Allocate hats to the visible tokens.
+   *
+   * @param oldTokenHats If supplied, pretend that this allocation was the
+   * previous allocation when trying to maintain stable hats.  This parameter is
+   * used for testing.
+   */
+  allocateHats(oldTokenHats?: TokenHat[]) {
+    return this.hatAllocator.allocateHats(oldTokenHats);
   }
 
   private async getActiveMap() {
