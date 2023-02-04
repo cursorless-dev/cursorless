@@ -17,7 +17,7 @@ async function runTest() {
 
   editor.selections = [new vscode.Selection(0, 0, 0, 0)];
 
-  await graph.hatTokenMap.addDecorations();
+  await graph.hatTokenMap.allocateHats();
 
   await vscode.commands.executeCommand(
     CURSORLESS_COMMAND_ID,

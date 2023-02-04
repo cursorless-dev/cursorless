@@ -1,12 +1,8 @@
-import { Position, Range, Selection, TextEditor } from "@cursorless/common";
-import type {
-  PositionPlainObject,
-  RangePlainObject,
-  SelectionPlainObject,
-  TargetPlainObject,
-} from "../libs/vscode-common/testUtil/toPlainObject";
+import { TextEditor } from "@cursorless/common";
+import { TargetPlainObject } from "../libs/common/testUtil/toPlainObject";
 import { UntypedTarget } from "../processTargets/targets";
-import type { Target } from "../typings/target.types";
+import { Target } from "../typings/target.types";
+import { plainObjectToRange } from "../libs/common/testUtil/fromPlainObject";
 
 /**
  * Given a plain object describing a target, constructs a `Target` object.
@@ -36,25 +32,4 @@ export function plainObjectToTarget(
     default:
       throw Error(`Unsupported target type ${plainObject.type}`);
   }
-}
-
-export function plainObjectToPosition({
-  line,
-  character,
-}: PositionPlainObject): Position {
-  return new Position(line, character);
-}
-
-export function plainObjectToRange({ start, end }: RangePlainObject): Range {
-  return new Range(plainObjectToPosition(start), plainObjectToPosition(end));
-}
-
-export function plainObjectToSelection({
-  anchor,
-  active,
-}: SelectionPlainObject): Selection {
-  return new Selection(
-    plainObjectToPosition(anchor),
-    plainObjectToPosition(active),
-  );
 }
