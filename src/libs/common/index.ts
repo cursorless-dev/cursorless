@@ -10,7 +10,6 @@ export {
 } from "./testUtil/runTestSubset";
 export { default as serialize } from "./testUtil/serialize";
 export { default as SpyIDE } from "./ide/spy/SpyIDE";
-export { HatStability } from "./ide/types/HatStability";
 export * from "./util";
 export * from "./ide/util/messages";
 export { getKey, splitKey } from "./util/splitKey";
@@ -33,6 +32,3 @@ export * from "./types/TextEditorDecorationType";
 export * from "./types/TextEditorEdit";
 export * from "./types/TextEditorOptions";
 export * from "./types/TextLine";
-export * from "./testUtil/fromPlainObject";
-export * from "./testUtil/toPlainObject";
-export { default as DefaultMap } from "./util/DefaultMap";

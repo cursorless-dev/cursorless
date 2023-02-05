@@ -14,8 +14,8 @@ import {
   getCommandServerApi,
   getParseTreeApi,
 } from "./libs/vscode-common/getExtensionApi";
-import { TargetPlainObject } from "./libs/common/testUtil/toPlainObject";
-import { plainObjectToTarget } from "./testUtil/plainObjectToTarget";
+import { TargetPlainObject } from "./libs/vscode-common/testUtil/toPlainObject";
+import { plainObjectToTarget } from "./testUtil/fromPlainObject";
 import isTesting from "./testUtil/isTesting";
 import { Graph } from "./typings/Types";
 import graphFactories from "./util/graphFactories";

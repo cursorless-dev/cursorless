@@ -19,7 +19,7 @@ import {
   marksToPlainObject,
   SerializedMarks,
   testDecorationsToPlainObject,
-} from "../libs/common/testUtil/toPlainObject";
+} from "../libs/vscode-common/testUtil/toPlainObject";
 import { TargetDescriptor } from "../typings/TargetDescriptor";
 import { Token } from "../typings/Types";
 import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";

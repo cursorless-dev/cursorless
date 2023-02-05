@@ -11,7 +11,7 @@ import {
   SerializedMarks,
   TargetPlainObject,
   targetToPlainObject,
-} from "@cursorless/common";
+} from "./toPlainObject";
 
 export type ExtraSnapshotField = keyof TestCaseSnapshot;
 export type ExcludableSnapshotField = keyof TestCaseSnapshot;

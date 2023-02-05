@@ -1,7 +1,7 @@
 import { invariant } from "immutability-helper";
 import {
-  matchAtEnd,
-  matchAtStart,
+  leftAnchored,
+  rightAnchored,
 } from "../../libs/cursorless-engine/util/regex";
 import {
   ChangeEventInfo,
@@ -81,21 +81,21 @@ export default function getOffsetsForNonEmptyRangeInsert(
 
       case "regex": {
         let text = insertedText + originalRangeText;
-        let matchStart = matchAtEnd(text, expansionBehavior.regex);
-        while (matchStart > insertedText.length) {
-          // If the original range contains multiple matching instances of the
-          // regex use the leftmost one
-          text = text.slice(0, matchStart);
-          matchStart = matchAtEnd(text, expansionBehavior.regex);
+        const regex = rightAnchored(expansionBehavior.regex);
+        let index = text.search(regex);
+        while (index > insertedText.length) {
+          // If the original range contains multiple matching instances of the regex use the leftmost one
+          text = text.slice(0, index);
+          index = text.search(regex);
         }
 
-        return matchStart === -1
+        return index === -1
           ? {
               start: rangeStart,
               end: newRangeEnd,
             }
           : {
-              start: rangeStart + matchStart,
+              start: rangeStart + index,
               end: newRangeEnd,
             };
       }
@@ -119,21 +119,24 @@ export default function getOffsetsForNonEmptyRangeInsert(
 
       case "regex": {
         let text = originalRangeText + insertedText;
-        let matchEnd = matchAtStart(text, expansionBehavior.regex);
-        while (matchEnd !== -1 && matchEnd < originalRangeText.length) {
+        const regex = leftAnchored(expansionBehavior.regex);
+        let matches = text.match(regex);
+        let matchLength = matches == null ? 0 : matches[0].length;
+        while (matchLength !== 0 && matchLength < originalRangeText.length) {
           // If the original range contains multiple matching instances of the regex use the rightmost one
-          text = originalRangeText.slice(matchEnd) + insertedText;
-          matchEnd = matchAtStart(text, expansionBehavior.regex);
+          text = originalRangeText.slice(matchLength) + insertedText;
+          matches = text.match(regex);
+          matchLength = matches == null ? 0 : matchLength + matches[0].length;
         }
 
-        return matchEnd === -1
+        return matchLength === 0
           ? {
               start: newRangeStart,
               end: rangeEnd,
             }
           : {
               start: newRangeStart,
-              end: rangeStart + matchEnd,
+              end: rangeStart + matchLength,
             };
       }
     }

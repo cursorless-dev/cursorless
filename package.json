@@ -687,21 +687,6 @@
               "url"
             ]
           }
-        },
-        "cursorless.experimental.hatStability": {
-          "markdownDescription": "As you scroll, edit, and move your cursor, this setting determines how much Cursorless will move hats around to ensure that the best hats are near the cursor.  See https://www.cursorless.org/docs/user/hatAssignment/",
-          "type": "string",
-          "default": "balanced",
-          "enum": [
-            "greedy",
-            "balanced",
-            "stable"
-          ],
-          "markdownEnumDescriptions": [
-            "Always put the best hats near the cursor",
-            "Only move hats to avoid having colored shapes near the cursor (eg `\"blue fox\"`); otherwise leave hats where they are",
-            "Only move hats to ensure that the tokens near the cursor have a hat at all, no matter how bad the hat is.  Note that if you have no shapes enabled, then this setting is the same as `balanced`"
-          ]
         }
       }
     },
