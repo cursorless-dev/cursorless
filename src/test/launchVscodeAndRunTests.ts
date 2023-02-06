@@ -44,15 +44,30 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       },
     );
 
+    const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");
+    const logsDir = getEnvironmentVariableStrict("VSCODE_LOGS_DIR");
+
     // Run the integration test
     await runTests({
       vscodeExecutablePath,
       extensionDevelopmentPath,
       extensionTestsPath,
+      launchArgs: [
+        `--crash-reporter-directory=${crashDir}`,
+        `--logsPath=${logsDir}`,
+      ],
     });
   } catch (err) {
     console.error("Test run threw exception:");
     console.error(err);
     process.exit(1);
   }
+}
+
+function getEnvironmentVariableStrict(name: string): string {
+  const value = process.env[name];
+  if (value == null) {
+    throw new Error(`Missing environment variable ${name}`);
+  }
+  return value;
 }
