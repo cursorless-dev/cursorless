@@ -41,8 +41,10 @@ jobs:
         with:
           name: logs
           path: ${{ env.VSCODE_LOGS_DIR }}
+        if: failure()
       - name: Archive dumps
         uses: actions/upload-artifact@v3
         with:
           name: dumps
           path: ${{ env.VSCODE_CRASH_DIR }}
+        if: failure()
