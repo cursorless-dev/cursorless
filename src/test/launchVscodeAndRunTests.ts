@@ -51,7 +51,8 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       extensionTestsPath,
     });
   } catch (err) {
-    console.error("Failed to run tests");
+    console.error("Failed to run tests:");
+    console.error(err);
     process.exit(1);
   }
 }
