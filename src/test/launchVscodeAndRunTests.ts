@@ -53,7 +53,6 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       extensionDevelopmentPath,
       extensionTestsPath,
       launchArgs: [
-        "--verbose",
         `--crash-reporter-directory=${crashDir}`,
         `--logsPath=${logsDir}`,
       ],
