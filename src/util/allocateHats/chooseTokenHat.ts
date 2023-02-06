@@ -23,7 +23,7 @@ import { maxByFirstDiffering } from "./maxByFirstDiffering";
  *    already taken it
  * 2. Decide whether to steal a hat from a lower ranked token
  *
- * See [hat assignment](../../../docs/user/hatAssignment.md) for more info.
+ * See [hat assignment](/docs/user/hatAssignment) for more info.
  *
  * FIXME: Could be improved by ignoring subsequent tokens that also contain
  * another character that can be used with lower color. To compute that, look at
