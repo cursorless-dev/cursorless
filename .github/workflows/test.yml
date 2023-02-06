@@ -29,7 +29,8 @@ jobs:
         with:
           node-version: 16
           cache: yarn
-      - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}"
+      - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}"
+      - run: mkdir -p "${{ env.VSCODE_LOGS_DIR }}"
       - run: yarn install --frozen-lockfile
       - run: xvfb-run -a yarn test
         if: runner.os == 'Linux'
