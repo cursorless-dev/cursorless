@@ -53,6 +53,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       vscodeExecutablePath,
       extensionDevelopmentPath,
       extensionTestsPath,
+      // Note: Crash dump causes legacy VSCode to hang, so we just don't bother
       launchArgs: useLegacyVscode
         ? undefined
         : [`--crash-reporter-directory=${crashDir}`, `--logsPath=${logsDir}`],
