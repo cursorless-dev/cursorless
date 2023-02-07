@@ -5,7 +5,6 @@ import {
   resolveCliArgsFromVSCodeExecutablePath,
   runTests,
 } from "@vscode/test-electron";
-import { env } from "process";
 import { extensionDependencies } from "./extensionDependencies";
 
 /**
@@ -20,10 +19,15 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
     // Passed to `--extensionDevelopmentPath`
     const extensionDevelopmentPath = path.resolve(__dirname, "../../");
 
+    const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");
+    const logsDir = getEnvironmentVariableStrict("VSCODE_LOGS_DIR");
+    const useLegacyVscode =
+      getEnvironmentVariableStrict("VSCODE_VERSION") === "legacy";
+
     // NB: We include the exact version here instead of in `test.yml` so that
     // we don't have to update the branch protection rules every time we bump
     // the legacy VSCode version.
-    const vscodeVersion = env.VSCODE_VERSION === "legacy" ? "1.66.0" : "stable";
+    const vscodeVersion = useLegacyVscode ? "1.66.0" : "stable";
     const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     const [cli, ...args] =
       resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
@@ -44,18 +48,14 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       },
     );
 
-    const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");
-    const logsDir = getEnvironmentVariableStrict("VSCODE_LOGS_DIR");
-
     // Run the integration test
     await runTests({
       vscodeExecutablePath,
       extensionDevelopmentPath,
       extensionTestsPath,
-      launchArgs: [
-        `--crash-reporter-directory=${crashDir}`,
-        `--logsPath=${logsDir}`,
-      ],
+      launchArgs: useLegacyVscode
+        ? undefined
+        : [`--crash-reporter-directory=${crashDir}`, `--logsPath=${logsDir}`],
     });
   } catch (err) {
     console.error("Test run threw exception:");
