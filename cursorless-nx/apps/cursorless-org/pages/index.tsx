@@ -42,7 +42,7 @@ export default function LandingPage() {
         </div>
         <div className="flex-1 flex flex-col">
           <div className="flex flex-row justify-around sm:justify-center w-full my-auto sm:gap-[12.8em]">
-            <Button text="Start" href="/docs" isExternal={false} />{' '}
+            <Button text="Docs" href="/docs" isExternal={false} />{' '}
             <Button
               text="Donate"
               href="https://github.com/sponsors/pokey"
