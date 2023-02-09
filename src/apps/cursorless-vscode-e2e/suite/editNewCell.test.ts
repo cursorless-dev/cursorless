@@ -12,6 +12,7 @@ import { skipIfWindowsCi } from "./skipIfWindowsCi";
 
 // Check that setSelection is able to focus the correct cell
 suite("Edit new cell", async function () {
+  // Skipped for now; see #1260
   skipIfWindowsCi();
   endToEndTestSetup(this);
 
