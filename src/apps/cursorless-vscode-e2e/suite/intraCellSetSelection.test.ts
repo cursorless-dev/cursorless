@@ -6,9 +6,11 @@ import * as assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { runCursorlessCommand } from "../runCommand";
+import { skipIfWindowsCi } from "./skipIfWindowsCi";
 
 // Check that setSelection is able to focus the correct cell
 suite("Within cell set selection", async function () {
+  skipIfWindowsCi();
   endToEndTestSetup(this);
 
   test("Within cell set selection", runTest);
