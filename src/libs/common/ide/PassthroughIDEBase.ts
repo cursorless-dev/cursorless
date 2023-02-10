@@ -1,3 +1,4 @@
+import { GeneralizedRange } from "../types/GeneralizedRange";
 import { TextDocument } from "../types/TextDocument";
 import { EditableTextEditor, TextEditor } from "../types/TextEditor";
 import { Capabilities } from "./types/Capabilities";
@@ -8,7 +9,7 @@ import {
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "./types/events.types";
-
+import { FlashDescriptor } from "./types/FlashDescriptor";
 import { Hats } from "./types/Hats";
 import { Disposable, IDE, RunMode, WorkspaceFolder } from "./types/ide.types";
 import { Messages } from "./types/Messages";
@@ -29,6 +30,18 @@ export default class PassthroughIDEBase implements IDE {
     this.messages = original.messages;
     this.capabilities = original.capabilities;
     this.hats = original.hats;
+  }
+
+  flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
+    return this.original.flashRanges(flashDescriptors);
+  }
+
+  setHighlightRanges(
+    highlightId: string | undefined,
+    editor: TextEditor,
+    ranges: GeneralizedRange[],
+  ): Promise<void> {
+    return this.original.setHighlightRanges(highlightId, editor, ranges);
   }
 
   onDidOpenTextDocument(

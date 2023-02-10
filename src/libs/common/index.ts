@@ -9,8 +9,11 @@ export {
   TEST_SUBSET_GREP_STRING,
 } from "./testUtil/runTestSubset";
 export { default as serialize } from "./testUtil/serialize";
+export { Message } from "./ide/spy/SpyMessages";
+export { SpyIDERecordedValues } from "./ide/spy/SpyIDE";
 export { default as SpyIDE } from "./ide/spy/SpyIDE";
 export * from "./util";
+export * from "./ide/util/messages";
 export { getKey, splitKey } from "./util/splitKey";
 export { hrtimeBigintToSeconds } from "./util/timeUtils";
 export { walkFilesSync } from "./util/walkSync";
@@ -19,6 +22,7 @@ export { TokenHatSplittingMode } from "./ide/types/Configuration";
 export * from "./ide/types/ide.types";
 export * from "./ide/types/Capabilities";
 export * from "./ide/types/CommandId";
+export * from "./ide/types/FlashDescriptor";
 export * from "./types/RangeExpansionBehavior";
 export * from "./types/InputBoxOptions";
 export * from "./types/Position";
@@ -31,3 +35,5 @@ export * from "./types/TextEditorDecorationType";
 export * from "./types/TextEditorEdit";
 export * from "./types/TextEditorOptions";
 export * from "./types/TextLine";
+export * from "./types/GeneralizedRange";
+export * from "./util/omitByDeep";

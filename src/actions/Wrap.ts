@@ -1,8 +1,13 @@
-import { RangeExpansionBehavior, Selection } from "@cursorless/common";
+import {
+  RangeExpansionBehavior,
+  Selection,
+  toCharacterRange,
+} from "@cursorless/common";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
+import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Edit, Graph } from "../typings/Types";
@@ -107,13 +112,12 @@ export default class Wrap implements Action {
 
         setSelectionsWithoutFocusingEditor(editableEditor, cursorSelections);
 
-        this.graph.editStyles.displayPendingEditDecorationsForRanges(
+        await ide().flashRanges(
           delimiterSelections.map((selection) => ({
             editor,
-            range: selection,
+            range: toCharacterRange(selection),
+            style: FlashStyle.justAdded,
           })),
-          this.graph.editStyles.justAdded,
-          true,
         );
 
         return {

@@ -6,7 +6,7 @@ import {
   defaultShapeAdjustments,
   HatAdjustments,
   IndividualHatAdjustmentMap,
-} from "../../core/shapeAdjustments";
+} from "../../ide/vscode/hats/shapeAdjustments";
 import { HAT_SHAPES } from "../../ide/vscode/hatStyles.types";
 import { postProcessValue } from "./lib";
 

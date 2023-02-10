@@ -4,7 +4,6 @@ import type {
   RevealLineAt,
   Selection,
   TextDocument,
-  TextEditorDecorationType,
   TextEditorEdit,
   TextEditorOptions,
 } from "@cursorless/common";
@@ -78,20 +77,6 @@ export interface EditableTextEditor extends TextEditor {
    * Focus the editor.
    */
   focus(): Promise<void>;
-
-  /**
-   * Adds a set of decorations to the text editor. If a set of decorations already exists with
-   * the given {@link TextEditorDecorationType decoration type}, they will be replaced. If
-   * `ranges` is empty, the existing decorations with the given {@link TextEditorDecorationType decoration type}
-   * will be removed.
-   *
-   * @param decorationType A decoration type.
-   * @param ranges  {@link Range ranges}
-   */
-  setDecorations(
-    decorationType: TextEditorDecorationType,
-    ranges: readonly Range[],
-  ): Promise<void>;
 
   /**
    * Perform an edit on the document associated with this text editor.
