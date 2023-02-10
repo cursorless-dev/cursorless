@@ -12,7 +12,7 @@ import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
 import StatusBarItem from "../core/StatusBarItem";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { CommandServerApi } from "../libs/vscode-common/getExtensionApi";
+import type { CommandServerApi } from "../libs/vscode-common/getExtensionApi";
 import KeyboardCommands from "../keyboard/KeyboardCommands";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";

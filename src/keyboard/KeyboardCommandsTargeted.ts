@@ -11,7 +11,7 @@ import {
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
-import { getStyleName } from "../core/getStyleName";
+import { getStyleName } from "../ide/vscode/hats/getStyleName";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Graph } from "../typings/Types";

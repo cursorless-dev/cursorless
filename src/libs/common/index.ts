@@ -13,6 +13,7 @@ export { Message } from "./ide/spy/SpyMessages";
 export { SpyIDERecordedValues } from "./ide/spy/SpyIDE";
 export { default as SpyIDE } from "./ide/spy/SpyIDE";
 export * from "./util";
+export * from "./ide/util/messages";
 export { getKey, splitKey } from "./util/splitKey";
 export { hrtimeBigintToSeconds } from "./util/timeUtils";
 export { walkFilesSync } from "./util/walkSync";
