@@ -21,6 +21,7 @@ import { upgradeV0ToV1 } from "./upgradeV0ToV1";
 import { upgradeV1ToV2 } from "./upgradeV1ToV2";
 import { upgradeV2ToV3 } from "./upgradeV2ToV3";
 import { upgradeV3ToV4 } from "./upgradeV3ToV4";
+import { showWarning } from "@cursorless/common";
 
 /**
  * Given a command argument which comes from the client, normalize it so that it
@@ -135,7 +136,8 @@ export async function checkForOldInference(
     const hideInferenceWarning = globalState.get("hideInferenceWarning");
 
     if (!hideInferenceWarning) {
-      const pressed = await messages.showWarning(
+      const pressed = await showWarning(
+        messages,
         "deprecatedPositionInference",
         'The "past start of" / "past end of" form has changed behavior.  For the old behavior, update cursorless-talon (https://www.cursorless.org/docs/user/updating/), and then you can now say "past start of its" / "past end of its". For example, "take air past end of its line".  You may also consider using "head" / "tail" instead; see https://www.cursorless.org/docs/#head-and-tail',
         "Don't show again",

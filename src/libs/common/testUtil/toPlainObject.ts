@@ -1,4 +1,11 @@
-import type { TestDecoration } from "../../../core/editStyles";
+import type {
+  CharacterRange,
+  GeneralizedRange,
+  LineRange,
+  Message,
+  SpyIDERecordedValues,
+} from "@cursorless/common";
+import { FlashStyle, isLineRange } from "@cursorless/common";
 import type { Target } from "../../../typings/target.types";
 import type { Token } from "../../../typings/Types";
 import { Position } from "../types/Position";
@@ -14,6 +21,30 @@ export type RangePlainObject = {
   start: PositionPlainObject;
   end: PositionPlainObject;
 };
+
+export type CharacterRangePlainObject = {
+  type: "character";
+  start: PositionPlainObject;
+  end: PositionPlainObject;
+};
+
+export type GeneralizedRangePlainObject = CharacterRangePlainObject | LineRange;
+
+interface PlainFlashDescriptor {
+  style: keyof typeof FlashStyle;
+  range: GeneralizedRangePlainObject;
+}
+
+interface PlainHighlight {
+  highlightId: string | undefined;
+  ranges: GeneralizedRangePlainObject[];
+}
+
+export interface PlainSpyIDERecordedValues {
+  messages: Message[] | undefined;
+  flashes: PlainFlashDescriptor[] | undefined;
+  highlights: PlainHighlight[] | undefined;
+}
 
 export type SelectionPlainObject = {
   anchor: PositionPlainObject;
@@ -108,11 +139,36 @@ export function marksToPlainObject(marks: {
   return serializedMarks;
 }
 
-export function testDecorationsToPlainObject(decorations: TestDecoration[]) {
-  return decorations.map(({ name, type, start, end }) => ({
-    name,
-    type,
-    start: positionToPlainObject(start),
-    end: positionToPlainObject(end),
-  }));
+export function generalizedRangeToPlainObject(
+  range: GeneralizedRange,
+): GeneralizedRangePlainObject {
+  return isLineRange(range) ? range : characterRangeToPlainObject(range);
+}
+
+export function characterRangeToPlainObject(
+  range: CharacterRange,
+): CharacterRangePlainObject {
+  return {
+    type: "character",
+    start: positionToPlainObject(range.start),
+    end: positionToPlainObject(range.end),
+  };
+}
+
+export function spyIDERecordedValuesToPlainObject(
+  input: SpyIDERecordedValues,
+): PlainSpyIDERecordedValues {
+  return {
+    messages: input.messages,
+    flashes: input.flashes?.map((descriptor) => ({
+      style: descriptor.style,
+      range: generalizedRangeToPlainObject(descriptor.range),
+    })),
+    highlights: input.highlights?.map((highlight) => ({
+      highlightId: highlight.highlightId,
+      ranges: highlight.ranges.map((range) =>
+        generalizedRangeToPlainObject(range),
+      ),
+    })),
+  };
 }

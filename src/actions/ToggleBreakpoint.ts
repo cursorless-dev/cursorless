@@ -1,9 +1,10 @@
+import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
 import { BreakpointDescriptor } from "../libs/common/types/TextEditor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { runOnTargetsForEachEditor } from "../util/targetUtils";
+import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class ToggleBreakpoint implements Action {
@@ -16,10 +17,7 @@ export default class ToggleBreakpoint implements Action {
   async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
     const thatTargets = targets.map(({ thatTarget }) => thatTarget);
 
-    await this.graph.editStyles.displayPendingEditDecorations(
-      thatTargets,
-      this.graph.editStyles.referenced,
-    );
+    await flashTargets(ide(), thatTargets, FlashStyle.referenced);
 
     await runOnTargetsForEachEditor(targets, async (editor, targets) => {
       const breakpointDescriptors: BreakpointDescriptor[] = targets.map(

@@ -87,7 +87,7 @@ export default abstract class BaseTarget implements Target {
     return "edit";
   }
 
-  getRemovalHighlightRange(): Range | undefined {
+  getRemovalHighlightRange(): Range {
     return this.getRemovalRange();
   }
 

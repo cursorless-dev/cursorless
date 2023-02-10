@@ -6,15 +6,13 @@ import type {
 } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
-import Cheatsheet from "../core/Cheatsheet";
 import Debug from "../core/Debug";
-import { EditStyles } from "../core/editStyles";
 import HatTokenMap from "../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
 import StatusBarItem from "../core/StatusBarItem";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { CommandServerApi } from "../libs/vscode-common/getExtensionApi";
+import type { CommandServerApi } from "../libs/vscode-common/getExtensionApi";
 import KeyboardCommands from "../keyboard/KeyboardCommands";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testUtil/TestCaseRecorder";
@@ -101,12 +99,6 @@ export interface Graph {
   readonly actions: ActionRecord;
 
   /**
-   * Maintains decorations that can be used to visually indicate to the user
-   * the targets of their actions.
-   */
-  readonly editStyles: EditStyles;
-
-  /**
    * Maps from (hatStyle, character) pairs to tokens
    */
   readonly hatTokenMap: HatTokenMap;
@@ -145,11 +137,6 @@ export interface Graph {
    * Used for recording test cases
    */
   readonly testCaseRecorder: TestCaseRecorder;
-
-  /**
-   * Used to display cheatsheet
-   */
-  readonly cheatsheet: Cheatsheet;
 
   /**
    * Creates a VSCode status bar item
