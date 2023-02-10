@@ -10,7 +10,6 @@ export function reorderFields(
     marksToCheck: fixture.marksToCheck,
     initialState: fixture.initialState,
     finalState: fixture.finalState,
-    decorations: fixture.decorations,
     returnValue: fixture.returnValue,
     thrownError: fixture.thrownError,
     ide: fixture.ide,

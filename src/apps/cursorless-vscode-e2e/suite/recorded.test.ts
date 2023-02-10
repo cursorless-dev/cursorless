@@ -1,4 +1,4 @@
-import type { SpyIDE } from "@cursorless/common";
+import { omitByDeep, SpyIDE } from "@cursorless/common";
 import { extractTargetedMarks, serialize, splitKey } from "@cursorless/common";
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
@@ -10,12 +10,13 @@ import {
   rangeToPlainObject,
   SelectionPlainObject,
   SerializedMarks,
+  spyIDERecordedValuesToPlainObject,
   takeSnapshot,
-  testDecorationsToPlainObject,
 } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
+import { isUndefined } from "lodash";
 import * as vscode from "vscode";
 import type { ReadOnlyHatMap } from "../../../core/IndividualHatMap";
 import type NormalizedIDE from "../../../libs/common/ide/normalized/NormalizedIDE";
@@ -65,8 +66,6 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   const cursorlessApi = await getCursorlessApi();
   const { graph, plainObjectToTarget } = cursorlessApi.testHelpers!;
-
-  graph.editStyles.testDecorations = [];
 
   const editor = await openNewEditor(fixture.initialState.documentContents, {
     languageId: fixture.languageId,
@@ -181,18 +180,19 @@ async function runTest(file: string, spyIde: SpyIDE) {
     vscode.env.clipboard,
   );
 
-  const actualDecorations =
-    fixture.decorations == null
+  const rawSpyIdeValues = spyIde.getSpyValues(fixture.ide?.flashes != null);
+  const actualSpyIdeValues =
+    rawSpyIdeValues == null
       ? undefined
-      : testDecorationsToPlainObject(graph.editStyles.testDecorations);
-
-  const actualSpyIdeValues = spyIde.getSpyValues();
+      : omitByDeep(
+          spyIDERecordedValuesToPlainObject(rawSpyIdeValues),
+          isUndefined,
+        );
 
   if (shouldUpdateFixtures()) {
     const outputFixture = {
       ...fixture,
       finalState: resultState,
-      decorations: actualDecorations,
       returnValue,
       ide: actualSpyIdeValues,
       thrownError: undefined,
@@ -210,12 +210,6 @@ async function runTest(file: string, spyIde: SpyIDE) {
       resultState,
       fixture.finalState,
       "Unexpected final state",
-    );
-
-    assert.deepStrictEqual(
-      actualDecorations,
-      fixture.decorations,
-      "Unexpected decorations",
     );
 
     assert.deepStrictEqual(

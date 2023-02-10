@@ -3,6 +3,7 @@ export type CommandId =
   | "fold"
   | "unfold"
   | "toggleLineComment"
+  | "highlight"
   | "indentLine"
   | "outdentLine"
   | "rename"
