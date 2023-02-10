@@ -3,6 +3,8 @@ name: Test docs
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  merge_group:
+    branches: [main]
 
 jobs:
   test-docs-build:

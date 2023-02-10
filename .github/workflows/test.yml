@@ -6,6 +6,8 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+  merge_group:
+    branches: [main]
 
 jobs:
   test:
