@@ -1,7 +1,7 @@
 import type { CommandLatest } from "../core/commandRunner/typings/command.types";
-import { TargetDescriptor } from "../typings/TargetDescriptor";
+import { PlainSpyIDERecordedValues } from "../libs/common/testUtil/toPlainObject";
 import type { TestCaseSnapshot } from "../libs/vscode-common/testUtil/takeSnapshot";
-import type { PlainSpyIDERecordedValues } from "../libs/vscode-common/testUtil/toPlainObject";
+import type { TargetDescriptor } from "../typings/TargetDescriptor";
 
 export type TestCaseCommand = CommandLatest;
 

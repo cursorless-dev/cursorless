@@ -3,14 +3,14 @@ import type {
   GeneralizedRange,
   LineRange,
   Message,
-  Position,
-  Range,
-  Selection,
   SpyIDERecordedValues,
 } from "@cursorless/common";
 import { FlashStyle, isLineRange } from "@cursorless/common";
 import type { Target } from "../../../typings/target.types";
 import type { Token } from "../../../typings/Types";
+import { Position } from "../types/Position";
+import { Range } from "../types/Range";
+import { Selection } from "../types/Selection";
 
 export type PositionPlainObject = {
   line: number;

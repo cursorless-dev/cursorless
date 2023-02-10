@@ -35,7 +35,7 @@ async function runTest(
   // editor
   await sleepWithBackoff(100);
 
-  await graph.hatTokenMap.addDecorations();
+  await graph.hatTokenMap.allocateHats();
 
   assert.equal(notebook.cellCount, 1);
 

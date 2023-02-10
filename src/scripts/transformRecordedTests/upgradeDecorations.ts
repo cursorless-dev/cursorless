@@ -1,13 +1,12 @@
-import { TestCaseFixture } from "../../testUtil/TestCaseFixture";
-
-import { FixtureTransformation } from "./types";
 import { groupBy, partition } from "lodash";
+import { FlashStyle } from "../../libs/common/ide/types/FlashDescriptor";
 import {
   GeneralizedRangePlainObject,
   PositionPlainObject,
-} from "../../libs/vscode-common/testUtil/toPlainObject";
-import { FlashStyle } from "../../libs/common/ide/types/FlashDescriptor";
+} from "../../libs/common/testUtil/toPlainObject";
+import { TestCaseFixture } from "../../testUtil/TestCaseFixture";
 import { reorderFields } from "./transformations/reorderFields";
+import { FixtureTransformation } from "./types";
 
 interface PlainTestDecoration {
   name: string;

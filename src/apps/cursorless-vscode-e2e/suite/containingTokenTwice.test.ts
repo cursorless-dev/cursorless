@@ -16,7 +16,7 @@ suite("Take token twice", async function () {
 async function runTest() {
   const { graph } = (await getCursorlessApi()).testHelpers!;
   const editor = await openNewEditor("a)");
-  await graph.hatTokenMap.addDecorations();
+  await graph.hatTokenMap.allocateHats();
 
   for (let i = 0; i < 2; ++i) {
     editor.selection = new vscode.Selection(0, 1, 0, 1);

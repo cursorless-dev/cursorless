@@ -8,18 +8,18 @@ import {
   extractTargetKeys,
 } from "../libs/common/testUtil/extractTargetedMarks";
 import serialize from "../libs/common/testUtil/serialize";
+import {
+  marksToPlainObject,
+  PlainSpyIDERecordedValues,
+  SerializedMarks,
+  spyIDERecordedValuesToPlainObject,
+} from "../libs/common/testUtil/toPlainObject";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import {
   ExtraSnapshotField,
   takeSnapshot,
   TestCaseSnapshot,
 } from "../libs/vscode-common/testUtil/takeSnapshot";
-import {
-  marksToPlainObject,
-  PlainSpyIDERecordedValues,
-  SerializedMarks,
-  spyIDERecordedValuesToPlainObject,
-} from "../libs/vscode-common/testUtil/toPlainObject";
 import { TargetDescriptor } from "../typings/TargetDescriptor";
 import { Token } from "../typings/Types";
 import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
