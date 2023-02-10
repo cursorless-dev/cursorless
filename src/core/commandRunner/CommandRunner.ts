@@ -1,10 +1,6 @@
-import * as vscode from "vscode";
 import { ActionType } from "./typings/ActionCommand";
-import { OutdatedExtensionError } from "../../errors";
-import { CURSORLESS_COMMAND_ID } from "../../libs/common/commandIds";
 import ide from "../../libs/cursorless-engine/singletons/ide.singleton";
 import processTargets from "../../processTargets";
-import isTesting from "../../testUtil/isTesting";
 import { Target } from "../../typings/target.types";
 import {
   Graph,
@@ -24,24 +20,13 @@ import { selectionToThatTarget } from "./selectionToThatTarget";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export default class CommandRunner {
-  private disposables: vscode.Disposable[] = [];
-
   constructor(
     private graph: Graph,
     private thatMark: ThatMark,
     private sourceMark: ThatMark,
   ) {
-    ide().disposeOnExit(this);
-
     this.runCommandBackwardCompatible =
       this.runCommandBackwardCompatible.bind(this);
-
-    this.disposables.push(
-      vscode.commands.registerCommand(
-        CURSORLESS_COMMAND_ID,
-        this.runCommandBackwardCompatible,
-      ),
-    );
   }
 
   /**
@@ -166,16 +151,9 @@ export default class CommandRunner {
 
       return returnValue;
     } catch (e) {
-      await this.graph.testCaseRecorder.commandErrorHook(e as Error);
       const err = e as Error;
-      if (err instanceof OutdatedExtensionError) {
-        this.showUpdateExtensionErrorMessage(err);
-      } else if (!isTesting()) {
-        vscode.window.showErrorMessage(err.message);
-      }
-      console.error(err.message);
       console.error(err.stack);
-      throw err;
+      throw e;
     } finally {
       if (this.graph.testCaseRecorder.isActive()) {
         this.graph.testCaseRecorder.finallyHook();
@@ -183,22 +161,7 @@ export default class CommandRunner {
     }
   }
 
-  async showUpdateExtensionErrorMessage(err: OutdatedExtensionError) {
-    const item = await vscode.window.showErrorMessage(
-      err.message,
-      "Check for updates",
-    );
-
-    if (item == null) {
-      return;
-    }
-
-    await vscode.commands.executeCommand(
-      "workbench.extensions.action.checkForUpdates",
-    );
-  }
-
-  private runCommandBackwardCompatible(
+  runCommandBackwardCompatible(
     spokenFormOrCommand: string | Command,
     ...rest: unknown[]
   ) {
@@ -225,10 +188,6 @@ export default class CommandRunner {
     }
 
     return this.runCommand(command);
-  }
-
-  dispose() {
-    this.disposables.forEach(({ dispose }) => dispose());
   }
 }
 

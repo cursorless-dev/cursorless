@@ -8,6 +8,7 @@ import { pull } from "lodash";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
 import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
+import { OutdatedExtensionError } from "../../errors";
 import type { TextDocumentChangeEvent } from "../../libs/common/ide/types/Events";
 import { FlashDescriptor } from "../../libs/common/ide/types/FlashDescriptor";
 import type {
@@ -183,6 +184,29 @@ export default class VscodeIDE implements IDE {
       );
     }
     return this.editorMap.get(editor)!;
+  }
+
+  handleCommandError(err: Error) {
+    if (err instanceof OutdatedExtensionError) {
+      this.showUpdateExtensionErrorMessage(err);
+    } else {
+      vscode.window.showErrorMessage(err.message);
+    }
+  }
+
+  private async showUpdateExtensionErrorMessage(err: OutdatedExtensionError) {
+    const item = await vscode.window.showErrorMessage(
+      err.message,
+      "Check for updates",
+    );
+
+    if (item == null) {
+      return;
+    }
+
+    await vscode.commands.executeCommand(
+      "workbench.extensions.action.checkForUpdates",
+    );
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
