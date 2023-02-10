@@ -6,12 +6,12 @@ import { identity } from "./transformations/identity";
 import { upgrade } from "./transformations/upgrade";
 import { transformFile } from "./transformFile";
 import { FixtureTransformation } from "./types";
-import { upgradeThatMarks } from "./upgradeThatMarks";
+import { upgradeDecorations } from "./upgradeDecorations";
 
 const AVAILABLE_TRANSFORMATIONS: Record<string, FixtureTransformation> = {
   upgrade,
   autoFormat: identity,
-  custom: upgradeThatMarks,
+  custom: upgradeDecorations,
 };
 
 async function main(transformationName: string | undefined) {

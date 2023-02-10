@@ -1,6 +1,4 @@
-import type { MessageId, Messages } from "../types/Messages";
-
-type MessageType = "info" | "warning" | "error";
+import type { MessageId, Messages, MessageType } from "../types/Messages";
 
 export interface Message {
   type: MessageType;
@@ -17,14 +15,15 @@ export default class SpyMessages implements Messages {
 
   constructor(private original: Messages) {}
 
-  showWarning(
+  showMessage(
+    type: MessageType,
     id: MessageId,
     message: string,
     ...options: string[]
   ): Promise<string | undefined> {
-    this.shownMessages.push({ type: "warning", id });
+    this.shownMessages.push({ type, id });
 
-    return this.original.showWarning(id, message, ...options);
+    return this.original.showMessage(type, id, message, ...options);
   }
 
   getSpyValues() {
