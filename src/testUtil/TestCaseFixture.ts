@@ -2,7 +2,7 @@ import type { CommandLatest } from "../core/commandRunner/typings/command.types"
 import type { SpyIDERecordedValues } from "../libs/common/ide/spy/SpyIDE";
 import { TargetDescriptor } from "../typings/TargetDescriptor";
 import type { TestCaseSnapshot } from "../libs/vscode-common/testUtil/takeSnapshot";
-import type { PositionPlainObject } from "../libs/common/testUtil/toPlainObject";
+import type { PositionPlainObject } from "../libs/vscode-common/testUtil/toPlainObject";
 
 export type TestCaseCommand = CommandLatest;
 export interface PlainTestDecoration {

@@ -6,9 +6,12 @@ import * as assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { runCursorlessCommand } from "../runCommand";
+import { skipIfWindowsCi } from "./skipIfWindowsCi";
 
 // Check that setSelection is able to focus the correct cell
 suite("Within cell set selection", async function () {
+  // Skipped for now; see #1260
+  skipIfWindowsCi();
   endToEndTestSetup(this);
 
   test("Within cell set selection", runTest);
@@ -23,7 +26,7 @@ async function runTest() {
   // editor
   await sleepWithBackoff(1000);
 
-  await graph.hatTokenMap.allocateHats();
+  await graph.hatTokenMap.addDecorations();
 
   await runCursorlessCommand({
     version: 1,

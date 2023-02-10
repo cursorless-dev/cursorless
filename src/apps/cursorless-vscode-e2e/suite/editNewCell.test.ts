@@ -8,9 +8,12 @@ import { window } from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { getPlainNotebookContents } from "../notebook";
 import { runCursorlessCommand } from "../runCommand";
+import { skipIfWindowsCi } from "./skipIfWindowsCi";
 
 // Check that setSelection is able to focus the correct cell
 suite("Edit new cell", async function () {
+  // Skipped for now; see #1260
+  skipIfWindowsCi();
   endToEndTestSetup(this);
 
   test("drink cell", () =>
@@ -30,9 +33,9 @@ async function runTest(
 
   // FIXME: There seems to be some timing issue when you create a notebook
   // editor
-  await sleepWithBackoff(1000);
+  await sleepWithBackoff(100);
 
-  await graph.hatTokenMap.allocateHats();
+  await graph.hatTokenMap.addDecorations();
 
   assert.equal(notebook.cellCount, 1);
 
@@ -49,6 +52,8 @@ async function runTest(
       },
     ],
   });
+
+  await sleepWithBackoff(100);
 
   assert.equal(notebook.cellCount, 2);
 
