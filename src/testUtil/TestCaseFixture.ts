@@ -1,16 +1,9 @@
 import type { CommandLatest } from "../core/commandRunner/typings/command.types";
-import type { SpyIDERecordedValues } from "../libs/common/ide/spy/SpyIDE";
 import { TargetDescriptor } from "../typings/TargetDescriptor";
 import type { TestCaseSnapshot } from "../libs/vscode-common/testUtil/takeSnapshot";
-import type { PositionPlainObject } from "../libs/vscode-common/testUtil/toPlainObject";
+import type { PlainSpyIDERecordedValues } from "../libs/vscode-common/testUtil/toPlainObject";
 
 export type TestCaseCommand = CommandLatest;
-export interface PlainTestDecoration {
-  name: string;
-  type: "token" | "line";
-  start: PositionPlainObject;
-  end: PositionPlainObject;
-}
 
 export type ThrownError = {
   name: string;
@@ -28,11 +21,8 @@ export type TestCaseFixture = {
   marksToCheck?: string[];
 
   initialState: TestCaseSnapshot;
-  /**
-   * Expected decorations in the test case, for example highlighting deletions in red.
-   */
-  decorations?: PlainTestDecoration[];
-  ide?: SpyIDERecordedValues;
+
+  ide?: PlainSpyIDERecordedValues;
   /** The final state after a command is issued. Undefined if we are testing a non-match(error) case. */
   finalState?: TestCaseSnapshot;
   /** Used to assert if an error has been thrown. */

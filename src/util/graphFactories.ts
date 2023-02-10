@@ -1,6 +1,5 @@
 import Actions from "../actions";
 import Debug from "../core/Debug";
-import { EditStyles } from "../core/editStyles";
 import HatTokenMap from "../core/HatTokenMap";
 import { Snippets } from "../core/Snippets";
 import StatusBarItem from "../core/StatusBarItem";
@@ -16,7 +15,6 @@ type ConstructorMap<T> = {
 
 const graphConstructors: Partial<ConstructorMap<Graph>> = {
   actions: Actions,
-  editStyles: EditStyles,
   hatTokenMap: HatTokenMap,
   snippets: Snippets,
   rangeUpdater: RangeUpdater,

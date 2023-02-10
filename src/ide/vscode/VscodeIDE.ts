@@ -1,5 +1,6 @@
 import type {
   EditableTextEditor,
+  GeneralizedRange,
   InputBoxOptions,
   TextEditor,
 } from "@cursorless/common";
@@ -9,8 +10,10 @@ import * as vscode from "vscode";
 import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
 import { OutdatedExtensionError } from "../../errors";
 import type { TextDocumentChangeEvent } from "../../libs/common/ide/types/Events";
+import { FlashDescriptor } from "../../libs/common/ide/types/FlashDescriptor";
 import type {
   Disposable,
+  HighlightId,
   IDE,
   RunMode,
 } from "../../libs/common/ide/types/ide.types";
@@ -18,12 +21,14 @@ import {
   fromVscodeRange,
   fromVscodeSelection,
 } from "../../libs/vscode-common/vscodeUtil";
+import { VscodeHats } from "./hats/VscodeHats";
 import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
 import { forwardEvent, vscodeOnDidChangeTextDocument } from "./VscodeEvents";
+import VscodeFlashHandler from "./VscodeFlashHandler";
 import VscodeGlobalState from "./VscodeGlobalState";
-import { VscodeHats } from "./hats/VscodeHats";
+import VscodeHighlights, { HighlightStyle } from "./VscodeHighlights";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
@@ -36,6 +41,8 @@ export default class VscodeIDE implements IDE {
   readonly clipboard: VscodeClipboard;
   readonly capabilities: VscodeCapabilities;
   readonly hats: VscodeHats;
+  private flashHandler: VscodeFlashHandler;
+  private highlights: VscodeHighlights;
   private editorMap;
 
   constructor(private extensionContext: ExtensionContext) {
@@ -43,6 +50,8 @@ export default class VscodeIDE implements IDE {
     this.globalState = new VscodeGlobalState(extensionContext);
     this.messages = new VscodeMessages();
     this.clipboard = new VscodeClipboard();
+    this.highlights = new VscodeHighlights(extensionContext);
+    this.flashHandler = new VscodeFlashHandler(this, this.highlights);
     this.capabilities = new VscodeCapabilities();
     this.hats = new VscodeHats(this, extensionContext);
     this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
@@ -50,6 +59,26 @@ export default class VscodeIDE implements IDE {
 
   async init() {
     await this.hats.init();
+  }
+
+  setHighlightRanges(
+    highlightId: HighlightId | undefined,
+    editor: TextEditor,
+    ranges: GeneralizedRange[],
+  ): Promise<void> {
+    const vscodeHighlightId =
+      highlightId == null
+        ? HighlightStyle.highlight0
+        : HighlightStyle[highlightId as keyof typeof HighlightStyle];
+    return this.highlights.setHighlightRanges(
+      vscodeHighlightId,
+      editor as VscodeTextEditorImpl,
+      ranges,
+    );
+  }
+
+  flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
+    return this.flashHandler.flashRanges(flashDescriptors);
   }
 
   get assetsRoot(): string {
@@ -78,7 +107,7 @@ export default class VscodeIDE implements IDE {
       : undefined;
   }
 
-  get visibleTextEditors(): TextEditor[] {
+  get visibleTextEditors(): VscodeTextEditorImpl[] {
     return window.visibleTextEditors.map((e) => this.fromVscodeEditor(e));
   }
 

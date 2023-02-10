@@ -1,4 +1,6 @@
 import { RevealLineAt } from "@cursorless/common";
+import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
+import { toLineRange } from "../libs/common/types/GeneralizedRange";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -43,10 +45,12 @@ class Scroll implements Action {
       );
     });
 
-    await this.graph.editStyles.displayPendingEditDecorationsForTargets(
-      decorationTargets,
-      this.graph.editStyles.referenced,
-      false,
+    await ide().flashRanges(
+      decorationTargets.map((target) => ({
+        editor: target.editor,
+        range: toLineRange(target.contentRange),
+        style: FlashStyle.referenced,
+      })),
     );
 
     return {

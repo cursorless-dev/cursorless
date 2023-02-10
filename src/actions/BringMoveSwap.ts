@@ -8,11 +8,16 @@ import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
+import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { EditWithRangeUpdater, Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
-import { getContentRange, runForEachEditor } from "../util/targetUtils";
+import {
+  flashTargets,
+  getContentRange,
+  runForEachEditor,
+} from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -47,23 +52,23 @@ class BringMoveSwap implements Action {
   }
 
   private getDecorationContext() {
-    let sourceStyle;
+    let sourceStyle: FlashStyle;
     let getSourceRangeCallback;
     if (this.type === "bring") {
-      sourceStyle = this.graph.editStyles.referenced;
+      sourceStyle = FlashStyle.referenced;
       getSourceRangeCallback = getContentRange;
     } else if (this.type === "move") {
-      sourceStyle = this.graph.editStyles.pendingDelete;
+      sourceStyle = FlashStyle.pendingDelete;
       getSourceRangeCallback = getRemovalHighlightRange;
     }
     // NB this.type === "swap"
     else {
-      sourceStyle = this.graph.editStyles.pendingModification1;
+      sourceStyle = FlashStyle.pendingModification1;
       getSourceRangeCallback = getContentRange;
     }
     return {
       sourceStyle,
-      destinationStyle: this.graph.editStyles.pendingModification0,
+      destinationStyle: FlashStyle.pendingModification0,
       getSourceRangeCallback,
     };
   }
@@ -71,15 +76,13 @@ class BringMoveSwap implements Action {
   private async decorateTargets(sources: Target[], destinations: Target[]) {
     const decorationContext = this.getDecorationContext();
     await Promise.all([
-      this.graph.editStyles.displayPendingEditDecorations(
+      flashTargets(
+        ide(),
         sources,
         decorationContext.sourceStyle,
         decorationContext.getSourceRangeCallback,
       ),
-      this.graph.editStyles.displayPendingEditDecorations(
-        destinations,
-        decorationContext.destinationStyle,
-      ),
+      flashTargets(ide(), destinations, decorationContext.destinationStyle),
     ]);
   }
 
@@ -220,12 +223,14 @@ class BringMoveSwap implements Action {
     const getRange = (target: Target) =>
       thatMark.find((t) => t.target === target)!.selection;
     return Promise.all([
-      this.graph.editStyles.displayPendingEditDecorations(
+      flashTargets(
+        ide(),
         thatMark.filter(({ isSource }) => isSource).map(({ target }) => target),
         decorationContext.sourceStyle,
         getRange,
       ),
-      this.graph.editStyles.displayPendingEditDecorations(
+      flashTargets(
+        ide(),
         thatMark
           .filter(({ isSource }) => !isSource)
           .map(({ target }) => target),

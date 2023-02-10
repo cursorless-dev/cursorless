@@ -16,6 +16,7 @@ const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   showDebugHover: { acceptsLocation: false },
   extractVariable: { acceptsLocation: false },
   fold: { acceptsLocation: true },
+  highlight: { acceptsLocation: true },
   unfold: { acceptsLocation: true },
   showReferences: { acceptsLocation: false },
 };

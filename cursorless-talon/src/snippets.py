@@ -1,10 +1,12 @@
-from talon import Context, Module, actions, app
+from talon import Module, actions, app
 
 from .csv_overrides import init_csv_and_watch_changes
 
 mod = Module()
 mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet action")
 
+# Deprecated tag; we should probably remove this and notify users that they
+# should get rid of it, but I don't think it's worth the effort right now
 mod.tag(
     "cursorless_experimental_snippets",
     desc="tag for enabling experimental snippet support",
@@ -32,12 +34,6 @@ def cursorless_insertion_snippet(m) -> str:
         pass
 
     return m.cursorless_insertion_snippet_single_phrase.split(".")[0]
-
-
-experimental_snippets_ctx = Context()
-experimental_snippets_ctx.matches = r"""
-tag: user.cursorless_experimental_snippets
-"""
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
@@ -87,7 +83,6 @@ def on_ready():
         },
         allow_unknown_values=True,
         default_list_name="wrapper_snippet",
-        ctx=experimental_snippets_ctx,
     )
     init_csv_and_watch_changes(
         "experimental/insertion_snippets",
@@ -96,7 +91,6 @@ def on_ready():
         },
         allow_unknown_values=True,
         default_list_name="insertion_snippet_no_phrase",
-        ctx=experimental_snippets_ctx,
     )
     init_csv_and_watch_changes(
         "experimental/insertion_snippets_single_phrase",
@@ -105,14 +99,12 @@ def on_ready():
         },
         allow_unknown_values=True,
         default_list_name="insertion_snippet_single_phrase",
-        ctx=experimental_snippets_ctx,
     )
     init_csv_and_watch_changes(
         "experimental/miscellaneous",
         {
             "phrase_terminator": {"over": "phraseTerminator"},
         },
-        ctx=experimental_snippets_ctx,
     )
 
 
