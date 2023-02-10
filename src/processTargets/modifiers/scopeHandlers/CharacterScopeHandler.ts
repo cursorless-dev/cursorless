@@ -1,6 +1,6 @@
 import { imap } from "itertools";
 import { NestedScopeHandler } from ".";
-import { generateMatchesInRange } from "../../../apps/cursorless-vscode/getMatchesInRange";
+import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import {
   Direction,
   ScopeType,

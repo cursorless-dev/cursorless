@@ -8,11 +8,11 @@ import {
   window,
 } from "vscode";
 import { getCellIndex } from "../../libs/vscode-common/notebook";
-import { getNotebookFromCellDocument } from "../../util/notebook";
+import { getNotebookFromCellDocument } from "./notebook/notebook";
 import {
   focusNotebookCellLegacy,
   isVscodeLegacyNotebookVersion,
-} from "../../util/notebookLegacy";
+} from "./notebook/notebookLegacy";
 import type VscodeIDE from "./VscodeIDE";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 

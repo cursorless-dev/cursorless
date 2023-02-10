@@ -1,9 +1,10 @@
 import { flatten, zip } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { runForEachEditor } from "../util/targetUtils";
+import { flashTargets, runForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 type RangeGenerator = { start: number };
@@ -35,10 +36,7 @@ export default class Replace implements Action {
     [targets]: [Target[]],
     replaceWith: string[] | RangeGenerator,
   ): Promise<ActionReturnValue> {
-    await this.graph.editStyles.displayPendingEditDecorations(
-      targets,
-      this.graph.editStyles.pendingModification0,
-    );
+    await flashTargets(ide(), targets, FlashStyle.pendingModification0);
 
     const texts = this.getTexts(targets, replaceWith);
 

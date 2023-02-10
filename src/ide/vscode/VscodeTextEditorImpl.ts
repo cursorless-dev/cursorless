@@ -8,7 +8,6 @@ import {
   sleep,
   TextDocument,
   TextEditor,
-  TextEditorDecorationType,
   TextEditorEdit,
   TextEditorOptions,
 } from "@cursorless/common";
@@ -83,13 +82,6 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   public revealLine(lineNumber: number, at: RevealLineAt): Promise<void> {
     return vscodeRevealLine(this, lineNumber, at);
-  }
-
-  public async setDecorations(
-    decorationType: TextEditorDecorationType,
-    ranges: readonly Range[],
-  ): Promise<void> {
-    this.editor.setDecorations(decorationType, ranges.map(toVscodeRange));
   }
 
   public edit(

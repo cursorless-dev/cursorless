@@ -1,12 +1,24 @@
 import { window } from "vscode";
-import { MessageId, Messages } from "../../libs/common/ide/types/Messages";
+import {
+  MessageId,
+  Messages,
+  MessageType,
+} from "../../libs/common/ide/types/Messages";
 
 export default class VscodeMessages implements Messages {
-  async showWarning(
+  async showMessage(
+    type: MessageType,
     _id: MessageId,
     message: string,
     ...options: string[]
   ): Promise<string | undefined> {
-    return await window.showWarningMessage(message, ...options);
+    switch (type) {
+      case MessageType.info:
+        return await window.showInformationMessage(message, ...options);
+      case MessageType.warning:
+        return await window.showWarningMessage(message, ...options);
+      case MessageType.error:
+        return await window.showErrorMessage(message, ...options);
+    }
   }
 }

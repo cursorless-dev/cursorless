@@ -1,6 +1,8 @@
+import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { ensureSingleTarget } from "../util/targetUtils";
+import { ensureSingleTarget, flashTargets } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class GetText implements Action {
@@ -16,10 +18,7 @@ export default class GetText implements Action {
     } = {},
   ): Promise<ActionReturnValue> {
     if (showDecorations) {
-      await this.graph.editStyles.displayPendingEditDecorations(
-        targets,
-        this.graph.editStyles.referenced,
-      );
+      await flashTargets(ide(), targets, FlashStyle.referenced);
     }
 
     if (doEnsureSingleTarget) {

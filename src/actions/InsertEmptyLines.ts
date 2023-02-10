@@ -1,6 +1,8 @@
 import { Range, Selection } from "@cursorless/common";
 import { flatten } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
+import { toLineRange } from "../libs/common/types/GeneralizedRange";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -85,10 +87,14 @@ class InsertEmptyLines implements Action {
       }),
     );
 
-    await this.graph.editStyles.displayPendingEditDecorationsForRanges(
-      results.flatMap((result) => result.lineSelections),
-      this.graph.editStyles.justAdded,
-      false,
+    await ide().flashRanges(
+      results.flatMap((result) =>
+        result.lineSelections.map(({ editor, range }) => ({
+          editor,
+          range: toLineRange(range),
+          style: FlashStyle.justAdded,
+        })),
+      ),
     );
 
     const thatMark = results.flatMap((result) => result.thatMark);
