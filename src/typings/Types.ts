@@ -8,7 +8,6 @@ import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
 import Cheatsheet from "../core/Cheatsheet";
 import Debug from "../core/Debug";
-import { EditStyles } from "../core/editStyles";
 import HatTokenMap from "../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
@@ -97,12 +96,6 @@ export interface Graph {
    * Keeps a map from action names to objects that implement the given action
    */
   readonly actions: ActionRecord;
-
-  /**
-   * Maintains decorations that can be used to visually indicate to the user
-   * the targets of their actions.
-   */
-  readonly editStyles: EditStyles;
 
   /**
    * Maps from (hatStyle, character) pairs to tokens

@@ -34,9 +34,11 @@ finalState:
         end: {line: 0, character: 17}
       isReversed: false
       hasExplicitRange: true
-decorations:
-  - name: justAddedBackground
-    type: token
-    start: {line: 0, character: 6}
-    end: {line: 0, character: 11}
+ide:
+  flashes:
+    - range:
+        type: character
+        start: {line: 0, character: 6}
+        end: {line: 0, character: 11}
+      style: justAdded
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: token}}]}]
