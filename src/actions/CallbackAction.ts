@@ -2,6 +2,7 @@ import { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { flatten } from "lodash";
 import { selectionToThatTarget } from "../core/commandRunner/selectionToThatTarget";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
@@ -12,6 +13,7 @@ import {
 import {
   ensureSingleEditor,
   ensureSingleTarget,
+  flashTargets,
   runOnTargetsForEachEditor,
   runOnTargetsForEachEditorSequentially,
 } from "../util/targetUtils";
@@ -41,10 +43,7 @@ export class CallbackAction implements Action {
     options: CallbackOptions,
   ): Promise<ActionReturnValue> {
     if (options.showDecorations) {
-      await this.graph.editStyles.displayPendingEditDecorations(
-        targets,
-        this.graph.editStyles.referenced,
-      );
+      await flashTargets(ide(), targets, FlashStyle.referenced);
     }
 
     if (options.ensureSingleEditor) {

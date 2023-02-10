@@ -123,7 +123,7 @@ export interface Target {
   /** The range of the delimiter after the content selection */
   getTrailingDelimiterTarget(): Target | undefined;
   getRemovalRange(): Range;
-  getRemovalHighlightRange(): Range | undefined;
+  getRemovalHighlightRange(): Range;
   getEditNewActionType(): EditNewActionType;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;

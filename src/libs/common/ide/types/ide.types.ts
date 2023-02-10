@@ -5,6 +5,7 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import { URI } from "vscode-uri";
+import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { Capabilities } from "./Capabilities";
 import { Clipboard } from "./Clipboard";
 import { Configuration } from "./Configuration";
@@ -14,11 +15,13 @@ import {
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "./events.types";
+import { FlashDescriptor } from "./FlashDescriptor";
 import { Hats } from "./Hats";
 import { Messages } from "./Messages";
 import { State } from "./State";
 
 export type RunMode = "production" | "development" | "test";
+export type HighlightId = string;
 
 export interface IDE {
   readonly configuration: Configuration;
@@ -173,6 +176,32 @@ export interface IDE {
    * `undefined` when the command handler function doesn't return anything.
    */
   executeCommand<T>(command: string, ...args: any[]): Promise<T | undefined>;
+
+  /**
+   * Temporarily emphasize the given ranges to the user.  This function is used
+   * to show ranges that eg are about to be deleted, are the source of a bring,
+   * etc. The promise should resolve when the flash is complete.
+   *
+   * @param flashDescriptors Descriptions of the ranges to flash, including
+   * information about the type of flash
+   */
+  flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void>;
+
+  /**
+   * Set the ranges in {@link editor} to which {@link highlightId} should be
+   * applied.  Removes the given highlight from all other ranges in
+   * {@link editor}.
+   *
+   * @param highlightId The id of the highlight to apply; if undefined then
+   * should use whatever the default highlight is for this ide
+   * @param editor The editor for which to set highlights ranges
+   * @param ranges The ranges to apply the highlight to
+   */
+  setHighlightRanges(
+    highlightId: HighlightId | undefined,
+    editor: TextEditor,
+    ranges: GeneralizedRange[],
+  ): Promise<void>;
 }
 
 export interface WorkspaceFolder {

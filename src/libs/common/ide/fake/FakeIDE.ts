@@ -1,5 +1,6 @@
 import type { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { pull } from "lodash";
+import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
 import {
@@ -7,6 +8,7 @@ import {
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "../types/events.types";
+import { FlashDescriptor } from "../types/FlashDescriptor";
 import type {
   Disposable,
   IDE,
@@ -32,6 +34,18 @@ export default class FakeIDE implements IDE {
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
+
+  async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
+    // empty
+  }
+
+  async setHighlightRanges(
+    _highlightId: string | undefined,
+    _editor: TextEditor,
+    _ranges: GeneralizedRange[],
+  ): Promise<void> {
+    // empty
+  }
 
   onDidOpenTextDocument: Event<TextDocument> = dummyEvent;
   onDidCloseTextDocument: Event<TextDocument> = dummyEvent;
