@@ -22,17 +22,13 @@ export default class Highlight implements Action {
     }
 
     if (targets.length === 0) {
-      // Special case to clear highlights for the active editor when user says
+      // Special case to clear highlights for all editors when user says
       // "highlight nothing"
-      const { activeTextEditor } = ide();
-
-      if (activeTextEditor == null) {
-        throw Error(
-          "The `highlight nothing` command requires an active text editor",
-        );
-      }
-
-      await ide().setHighlightRanges(highlightId, activeTextEditor, []);
+      await Promise.all(
+        ide().visibleTextEditors.map((editor) =>
+          ide().setHighlightRanges(highlightId, editor, []),
+        ),
+      );
     } else {
       await runOnTargetsForEachEditor(targets, (editor, targets) =>
         ide().setHighlightRanges(
