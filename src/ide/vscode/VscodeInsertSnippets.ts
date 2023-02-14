@@ -11,6 +11,7 @@ export async function vscodeInsertSnippet(
     editor.selections = ranges.map((range) => range.toSelection(false));
   }
 
+  await editor.focus();
   await vscode.commands.executeCommand("editor.action.insertSnippet", {
     snippet,
   });
