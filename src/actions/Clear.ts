@@ -24,17 +24,15 @@ export default class Clear implements Action {
         }),
     );
 
-    const { thatSelections: thatMark } = await this.graph.actions.remove.run([
-      plainTargets,
-    ]);
+    const { thatTargets } = await this.graph.actions.remove.run([plainTargets]);
 
-    if (thatMark != null) {
+    if (thatTargets != null) {
       await setSelectionsAndFocusEditor(
         ide().getEditableTextEditor(editor),
-        thatMark.map(({ selection }) => selection),
+        thatTargets.map(({ contentSelection }) => contentSelection),
       );
     }
 
-    return { thatSelections: thatMark };
+    return { thatTargets };
   }
 }
