@@ -59,12 +59,12 @@ export class CutToClipboard implements Action {
 
     await this.graph.actions.copyToClipboard.run([targets], options);
 
-    const { thatSelections: thatMark } = await this.graph.actions.remove.run(
+    const { thatTargets } = await this.graph.actions.remove.run(
       [targets],
       options,
     );
 
-    return { thatSelections: thatMark };
+    return { thatTargets };
   }
 }
 
