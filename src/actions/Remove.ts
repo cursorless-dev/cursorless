@@ -1,14 +1,11 @@
-import { flatten } from "lodash";
+import { flatten, zip } from "lodash";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
 import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
+import { RawSelectionTarget } from "../processTargets/targets";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import {
-  createThatMark,
-  flashTargets,
-  runOnTargetsForEachEditor,
-} from "../util/targetUtils";
+import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -30,7 +27,7 @@ export default class Delete implements Action {
       );
     }
 
-    const thatMark = flatten(
+    const thatTargets = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const edits = targets.map((target) => target.constructRemovalEdit());
         const ranges = edits.map((edit) => edit.range);
@@ -42,10 +39,17 @@ export default class Delete implements Action {
           [ranges],
         );
 
-        return createThatMark(targets, updatedRanges);
+        return zip(targets, updatedRanges).map(
+          ([target, range]) =>
+            new RawSelectionTarget({
+              editor: target!.editor,
+              isReversed: target!.isReversed,
+              contentRange: range!,
+            }),
+        );
       }),
     );
 
-    return { thatSelections: thatMark };
+    return { thatTargets };
   }
 }
