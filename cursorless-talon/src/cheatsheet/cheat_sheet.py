@@ -1,5 +1,6 @@
 import webbrowser
 from pathlib import Path
+import platformdirs
 
 from talon import Context, Module, app
 
@@ -45,7 +46,9 @@ class Actions:
         """Show cursorless html cheat sheet"""
         # NB: We use the user's documents directory instead of temp to make sure that
         # Linux snaps work
-        cheatsheet_out_dir = Path.home() / "Documents" / ".cursorless" / "cheatsheet"
+        cheatsheet_out_dir = (
+            Path(platformdirs.user_documents_dir()) / ".cursorless" / "cheatsheet"
+        )
         cheatsheet_out_dir.mkdir(parents=True, exist_ok=True)
         cheatsheet_out_path = cheatsheet_out_dir / "index.html"
         run_rpc_command_and_wait(
