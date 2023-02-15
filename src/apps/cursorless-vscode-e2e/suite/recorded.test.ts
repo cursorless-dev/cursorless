@@ -2,6 +2,7 @@ import {
   extractTargetedMarks,
   HatStability,
   marksToPlainObject,
+  omitByDeep,
   plainObjectToRange,
   PositionPlainObject,
   rangeToPlainObject,
@@ -10,7 +11,7 @@ import {
   SerializedMarks,
   splitKey,
   SpyIDE,
-  testDecorationsToPlainObject,
+  spyIDERecordedValuesToPlainObject,
   TextEditor,
 } from "@cursorless/common";
 import {
@@ -23,6 +24,7 @@ import {
 import { assert } from "chai";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
+import { isUndefined } from "lodash";
 import * as vscode from "vscode";
 import type { ReadOnlyHatMap } from "../../../core/IndividualHatMap";
 import type { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
@@ -73,8 +75,6 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   const cursorlessApi = await getCursorlessApi();
   const { graph, plainObjectToTarget } = cursorlessApi.testHelpers!;
-
-  graph.editStyles.testDecorations = [];
 
   const editor = await openNewEditor(fixture.initialState.documentContents, {
     languageId: fixture.languageId,
@@ -192,18 +192,19 @@ async function runTest(file: string, spyIde: SpyIDE) {
     vscode.env.clipboard,
   );
 
-  const actualDecorations =
-    fixture.decorations == null
+  const rawSpyIdeValues = spyIde.getSpyValues(fixture.ide?.flashes != null);
+  const actualSpyIdeValues =
+    rawSpyIdeValues == null
       ? undefined
-      : testDecorationsToPlainObject(graph.editStyles.testDecorations);
-
-  const actualSpyIdeValues = spyIde.getSpyValues();
+      : omitByDeep(
+          spyIDERecordedValuesToPlainObject(rawSpyIdeValues),
+          isUndefined,
+        );
 
   if (shouldUpdateFixtures()) {
     const outputFixture = {
       ...fixture,
       finalState: resultState,
-      decorations: actualDecorations,
       returnValue,
       ide: actualSpyIdeValues,
       thrownError: undefined,
@@ -221,12 +222,6 @@ async function runTest(file: string, spyIde: SpyIDE) {
       resultState,
       fixture.finalState,
       "Unexpected final state",
-    );
-
-    assert.deepStrictEqual(
-      actualDecorations,
-      fixture.decorations,
-      "Unexpected decorations",
     );
 
     assert.deepStrictEqual(

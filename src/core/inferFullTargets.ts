@@ -170,12 +170,41 @@ function shouldInferPreviousMark(
 function getPreservedModifiers(
   target: PartialPrimitiveTargetDescriptor,
 ): Modifier[] | undefined {
-  const preservedModifiers = target.modifiers?.filter(
-    (modifier) => !["position", "inferPreviousMark"].includes(modifier.type),
-  );
-  return preservedModifiers == null || preservedModifiers.length === 0
-    ? undefined
-    : preservedModifiers;
+  const preservedModifiers =
+    target.modifiers?.filter(
+      (modifier) => !["position", "inferPreviousMark"].includes(modifier.type),
+    ) ?? [];
+  if (preservedModifiers.length !== 0) {
+    return preservedModifiers;
+  }
+  // In the absence of any other modifiers line number marks are infer as a containing line scope
+  if (isLineNumberMark(target)) {
+    return [
+      {
+        type: "containingScope",
+        scopeType: {
+          type: "line",
+        },
+      },
+    ];
+  }
+  return undefined;
+}
+
+/**
+ * Returns true if this target has a line number mark.
+ * @param target The target to check for line number mark
+ * @returns True if this target has a line number mark
+ */
+function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
+  const isLineNumber = (mark?: Mark) => mark?.type === "lineNumber";
+  if (isLineNumber(target.mark)) {
+    return true;
+  }
+  if (target.mark?.type === "range") {
+    return isLineNumber(target.mark.anchor) && isLineNumber(target.mark.active);
+  }
+  return false;
 }
 
 function getPreviousMark(

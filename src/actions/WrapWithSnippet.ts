@@ -1,4 +1,5 @@
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { Target } from "../typings/target.types";
@@ -7,7 +8,7 @@ import {
   findMatchingSnippetDefinitionStrict,
   transformSnippetVariables,
 } from "../util/snippet";
-import { ensureSingleEditor } from "../util/targetUtils";
+import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
 import { SnippetParser } from "../vendor/snippet/snippetParser";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -66,10 +67,7 @@ export default class WrapWithSnippet implements Action {
 
     const snippetString = parsedSnippet.toTextmateString();
 
-    await this.graph.editStyles.displayPendingEditDecorations(
-      targets,
-      this.graph.editStyles.pendingModification0,
-    );
+    await flashTargets(ide(), targets, FlashStyle.pendingModification0);
 
     const targetSelections = targets.map((target) => target.contentSelection);
 

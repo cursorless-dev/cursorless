@@ -1,6 +1,11 @@
-import { EditStyleName } from "../core/editStyles";
+import { HighlightId } from "@cursorless/common";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
+import {
+  runOnTargetsForEachEditor,
+  toGeneralizedRange,
+} from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Highlight implements Action {
@@ -10,12 +15,29 @@ export default class Highlight implements Action {
 
   async run(
     [targets]: [Target[]],
-    styleName: EditStyleName = "highlight0",
+    highlightId?: HighlightId,
   ): Promise<ActionReturnValue> {
-    const style = this.graph.editStyles[styleName];
+    if (ide().capabilities.commands["highlight"] == null) {
+      throw Error(`The highlight action is not supported by your ide`);
+    }
 
-    this.graph.editStyles.clearDecorations(style);
-    await this.graph.editStyles.setDecorations(targets, style);
+    if (targets.length === 0) {
+      // Special case to clear highlights for all editors when user says
+      // "highlight nothing"
+      await Promise.all(
+        ide().visibleTextEditors.map((editor) =>
+          ide().setHighlightRanges(highlightId, editor, []),
+        ),
+      );
+    } else {
+      await runOnTargetsForEachEditor(targets, (editor, targets) =>
+        ide().setHighlightRanges(
+          highlightId,
+          editor,
+          targets.map(toGeneralizedRange),
+        ),
+      );
+    }
 
     return {
       thatTargets: targets,

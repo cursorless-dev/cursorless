@@ -2,9 +2,11 @@ import {
   RangeExpansionBehavior,
   Selection,
   TextEditor,
+  toCharacterRange,
 } from "@cursorless/common";
 import { flatten, zip } from "lodash";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
+import { FlashStyle } from "../libs/common/ide/types/FlashDescriptor";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
@@ -26,15 +28,14 @@ class InsertCopy implements Action {
       await runOnTargetsForEachEditor(targets, this.runForEditor),
     );
 
-    await this.graph.editStyles.displayPendingEditDecorationsForRanges(
+    await ide().flashRanges(
       results.flatMap((result) =>
         result.thatMark.map((that) => ({
           editor: that.editor,
-          range: that.selection,
+          range: toCharacterRange(that.selection),
+          style: FlashStyle.justAdded,
         })),
       ),
-      this.graph.editStyles.justAdded,
-      true,
     );
 
     return {

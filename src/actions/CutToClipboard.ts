@@ -1,7 +1,15 @@
-import { PlainTarget } from "../processTargets/targets";
+import { Range } from "@cursorless/common";
+import {
+  FlashDescriptor,
+  FlashStyle,
+} from "../libs/common/ide/types/FlashDescriptor";
+import {
+  toCharacterRange,
+  toLineRange,
+} from "../libs/common/types/GeneralizedRange";
+import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
-import { getOutsideOverflow } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export class CutToClipboard implements Action {
@@ -10,42 +18,66 @@ export class CutToClipboard implements Action {
   }
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
-    const overflowTargets = targets.flatMap((target) => {
-      const range = target.getRemovalHighlightRange();
-      if (range == null) {
-        return [];
-      }
-      return getOutsideOverflow(target.editor, target.contentRange, range).map(
-        (overflow): Target =>
-          // TODO Instead of creating a new target display decorations by range
-          new PlainTarget({
-            editor: target.editor,
-            contentRange: overflow,
-            isReversed: target.isReversed,
-          }),
-      );
-    });
+    await ide().flashRanges(
+      targets.flatMap((target) => {
+        const { editor, contentRange } = target;
+        const removalHighlightRange = target.getRemovalHighlightRange();
 
-    await Promise.all([
-      this.graph.editStyles.displayPendingEditDecorations(
-        targets,
-        this.graph.editStyles.referenced,
-      ),
-      this.graph.editStyles.displayPendingEditDecorations(
-        overflowTargets,
-        this.graph.editStyles.pendingDelete,
-      ),
-    ]);
+        if (target.isLine) {
+          return [
+            {
+              editor,
+              range: toCharacterRange(contentRange),
+              style: FlashStyle.referenced,
+            },
+            {
+              editor,
+              range: toLineRange(removalHighlightRange),
+              style: FlashStyle.pendingDelete,
+            },
+          ];
+        }
+
+        return [
+          {
+            editor,
+            range: toCharacterRange(contentRange),
+            style: FlashStyle.referenced,
+          },
+          ...getOutsideOverflow(contentRange, removalHighlightRange).map(
+            (overflow): FlashDescriptor => ({
+              editor,
+              range: toCharacterRange(overflow),
+              style: FlashStyle.pendingDelete,
+            }),
+          ),
+        ];
+      }),
+    );
 
     const options = { showDecorations: false };
 
     await this.graph.actions.copyToClipboard.run([targets], options);
 
-    const { thatSelections: thatMark } = await this.graph.actions.remove.run(
+    const { thatTargets } = await this.graph.actions.remove.run(
       [targets],
       options,
     );
 
-    return { thatSelections: thatMark };
+    return { thatTargets };
   }
+}
+
+/** Get the possible leading and trailing overflow ranges of the outside range compared to the inside range */
+function getOutsideOverflow(insideRange: Range, outsideRange: Range): Range[] {
+  const { start: insideStart, end: insideEnd } = insideRange;
+  const { start: outsideStart, end: outsideEnd } = outsideRange;
+  const result = [];
+  if (outsideStart.isBefore(insideStart)) {
+    result.push(new Range(outsideStart, insideStart));
+  }
+  if (outsideEnd.isAfter(insideEnd)) {
+    result.push(new Range(insideEnd, outsideEnd));
+  }
+  return result;
 }

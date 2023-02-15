@@ -1,5 +1,14 @@
-import { Range, Selection, TextEditor } from "@cursorless/common";
+import { IDE, Range, Selection, TextEditor } from "@cursorless/common";
 import { zip } from "lodash";
+import {
+  FlashDescriptor,
+  FlashStyle,
+} from "../libs/common/ide/types/FlashDescriptor";
+import {
+  GeneralizedRange,
+  toCharacterRange,
+  toLineRange,
+} from "../libs/common/types/GeneralizedRange";
 import { Target } from "../typings/target.types";
 import { SelectionWithEditor } from "../typings/Types";
 import { groupBy } from "./itertools";
@@ -75,24 +84,6 @@ function groupForEachEditor<T>(
   });
 }
 
-/** Get the possible leading and trailing overflow ranges of the outside range compared to the inside range */
-export function getOutsideOverflow(
-  editor: TextEditor,
-  insideRange: Range,
-  outsideRange: Range,
-): Range[] {
-  const { start: insideStart, end: insideEnd } = insideRange;
-  const { start: outsideStart, end: outsideEnd } = outsideRange;
-  const result = [];
-  if (outsideStart.isBefore(insideStart)) {
-    result.push(new Range(outsideStart, insideStart));
-  }
-  if (outsideEnd.isAfter(insideEnd)) {
-    result.push(new Range(insideEnd, outsideEnd));
-  }
-  return result;
-}
-
 export function getContentRange(target: Target) {
   return target.contentRange;
 }
@@ -114,4 +105,35 @@ export function createThatMark(
           selection: target.contentSelection,
         }));
   return thatMark;
+}
+
+export function toGeneralizedRange(target: Target): GeneralizedRange {
+  const range = target.contentRange;
+
+  return target.isLine ? toLineRange(range) : toCharacterRange(range);
+}
+
+export function flashTargets(
+  ide: IDE,
+  targets: Target[],
+  style: FlashStyle,
+  getRange: (target: Target) => Range | undefined = getContentRange,
+) {
+  return ide.flashRanges(
+    targets
+      .map((target) => {
+        const range = getRange(target);
+
+        if (range == null) {
+          return null;
+        }
+
+        return {
+          editor: target.editor,
+          range: target.isLine ? toLineRange(range) : toCharacterRange(range),
+          style,
+        };
+      })
+      .filter((flash): flash is FlashDescriptor => flash != null),
+  );
 }

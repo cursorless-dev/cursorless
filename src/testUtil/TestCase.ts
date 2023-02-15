@@ -1,30 +1,29 @@
 import { pick } from "lodash";
 import { ActionType } from "../core/commandRunner/typings/ActionCommand";
-import { TestDecoration } from "../core/editStyles";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ThatMark } from "../core/ThatMark";
-import SpyIDE, { SpyIDERecordedValues } from "../libs/common/ide/spy/SpyIDE";
+import SpyIDE from "../libs/common/ide/spy/SpyIDE";
 import {
   extractTargetedMarks,
   extractTargetKeys,
 } from "../libs/common/testUtil/extractTargetedMarks";
 import serialize from "../libs/common/testUtil/serialize";
+import {
+  marksToPlainObject,
+  PlainSpyIDERecordedValues,
+  SerializedMarks,
+  spyIDERecordedValuesToPlainObject,
+} from "../libs/common/testUtil/toPlainObject";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
 import {
   ExtraSnapshotField,
   takeSnapshot,
   TestCaseSnapshot,
 } from "../libs/vscode-common/testUtil/takeSnapshot";
-import {
-  marksToPlainObject,
-  SerializedMarks,
-  testDecorationsToPlainObject,
-} from "../libs/common/testUtil/toPlainObject";
 import { TargetDescriptor } from "../typings/TargetDescriptor";
 import { Token } from "../typings/Types";
 import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 import type {
-  PlainTestDecoration,
   TestCaseCommand,
   TestCaseFixture,
   ThrownError,
@@ -34,7 +33,6 @@ export type TestCaseContext = {
   thatMark: ThatMark;
   sourceMark: ThatMark;
   targets: TargetDescriptor[];
-  decorations: TestDecoration[];
   hatTokenMap: ReadOnlyHatMap;
 };
 
@@ -42,7 +40,6 @@ export class TestCase {
   private languageId: string;
   private fullTargets: TargetDescriptor[];
   private initialState: TestCaseSnapshot | null = null;
-  private decorations?: PlainTestDecoration[];
   private finalState?: TestCaseSnapshot;
   thrownError?: ThrownError;
   private returnValue?: unknown;
@@ -50,7 +47,7 @@ export class TestCase {
   private _awaitingFinalMarkInfo: boolean;
   private marksToCheck?: string[];
   command: TestCaseCommand;
-  private spyIdeValues?: SpyIDERecordedValues;
+  private spyIdeValues?: PlainSpyIDERecordedValues;
 
   constructor(
     command: TestCaseCommand,
@@ -72,13 +69,6 @@ export class TestCase {
     this.languageId = activeEditor.document.languageId;
     this.fullTargets = targets;
     this._awaitingFinalMarkInfo = isHatTokenMapTest;
-  }
-
-  recordDecorations() {
-    const decorations = this.context.decorations;
-    if (this.isDecorationsTest && decorations.length > 0) {
-      this.decorations = testDecorationsToPlainObject(decorations);
-    }
   }
 
   private getMarks() {
@@ -161,7 +151,6 @@ export class TestCase {
       marksToCheck: this.marksToCheck,
       initialState: this.initialState,
       finalState: this.finalState,
-      decorations: this.decorations,
       returnValue: this.returnValue,
       thrownError: this.thrownError,
       ide: this.spyIdeValues,
@@ -197,12 +186,13 @@ export class TestCase {
       this.isHatTokenMapTest ? this.getMarks() : undefined,
       { startTimestamp: this.startTimestamp },
     );
-    this.recordDecorations();
     this.recordSpyIdeValues();
   }
 
   private recordSpyIdeValues() {
-    this.spyIdeValues = this.spyIde.getSpyValues();
+    const raw = this.spyIde.getSpyValues(this.isDecorationsTest);
+    this.spyIdeValues =
+      raw == null ? undefined : spyIDERecordedValuesToPlainObject(raw);
   }
 
   filterMarks(command: TestCaseCommand, context: TestCaseContext) {
