@@ -43,9 +43,9 @@ class Actions:
 class Actions:
     def cursorless_cheat_sheet_show_html():
         """Show cursorless html cheat sheet"""
-        # NB: We use the user's home directory instead of temp to make sure that
+        # NB: We use the user's documents directory instead of temp to make sure that
         # Linux snaps work
-        cheatsheet_out_dir = Path.home() / ".cursorless" / "cheatsheet"
+        cheatsheet_out_dir = Path.home() / "Documents" / ".cursorless" / "cheatsheet"
         cheatsheet_out_dir.mkdir(parents=True, exist_ok=True)
         cheatsheet_out_path = cheatsheet_out_dir / "index.html"
         run_rpc_command_and_wait(
