@@ -1,7 +1,4 @@
-import {
-  SupportedLanguageId,
-  supportedLanguageIds,
-} from "./constants";
+import { SupportedLanguageId, supportedLanguageIds } from "./constants";
 
 export function isLanguageSupported(
   languageId: string,
