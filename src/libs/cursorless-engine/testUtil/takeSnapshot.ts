@@ -34,7 +34,7 @@ export type TestCaseSnapshot = {
   metadata?: unknown;
 };
 
-interface ExtraContext {
+export interface ExtraContext {
   startTimestamp?: bigint;
 }
 

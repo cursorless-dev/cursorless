@@ -30,6 +30,7 @@ import { TestCaseRecorder } from "./libs/cursorless-engine/testCaseRecorder/Test
 import { Graph } from "./libs/cursorless-engine/typings/Types";
 import graphFactories from "./libs/cursorless-engine/util/graphFactories";
 import makeGraph, { FactoryMap } from "./libs/cursorless-engine/util/makeGraph";
+import { takeSnapshot } from "./libs/cursorless-engine/testUtil/takeSnapshot";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -102,6 +103,10 @@ export async function activate(
               plainObject,
             );
           },
+
+          // FIXME: Remove this once we have a better way to get this function
+          // accessible from our tests
+          takeSnapshot,
         }
       : undefined,
 

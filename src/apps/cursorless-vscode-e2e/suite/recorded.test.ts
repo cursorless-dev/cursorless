@@ -13,6 +13,7 @@ import {
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
   TextEditor,
+  DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
 } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
@@ -22,11 +23,7 @@ import { isUndefined } from "lodash";
 import * as vscode from "vscode";
 import type { ReadOnlyHatMap } from "../../../libs/cursorless-engine/core/IndividualHatMap";
 import type { TestCaseFixture } from "../../../libs/cursorless-engine/testCaseRecorder/TestCaseFixture";
-import {
-  ExcludableSnapshotField,
-  takeSnapshot,
-} from "../../../libs/cursorless-engine/testUtil/takeSnapshot";
-import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "../../../libs/cursorless-engine/testUtil/testConstants";
+import type { ExcludableSnapshotField } from "../../../libs/cursorless-engine/testUtil/takeSnapshot";
 import type { TokenHat } from "../../../libs/cursorless-engine/util/allocateHats/allocateHats";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
@@ -73,7 +70,8 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const usePrePhraseSnapshot = false;
 
   const cursorlessApi = await getCursorlessApi();
-  const { graph, plainObjectToTarget } = cursorlessApi.testHelpers!;
+  const { graph, plainObjectToTarget, takeSnapshot } =
+    cursorlessApi.testHelpers!;
 
   const editor = await openNewEditor(fixture.initialState.documentContents, {
     languageId: fixture.languageId,

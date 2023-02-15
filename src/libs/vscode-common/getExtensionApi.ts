@@ -1,12 +1,22 @@
+import type { TextEditor } from "@cursorless/common";
 import * as vscode from "vscode";
 import type { SyntaxNode } from "web-tree-sitter";
-import type { ThatMark } from "../cursorless-engine/core/ThatMark";
-import type { SnippetMap } from "../cursorless-engine/snippets/snippet.types";
-import type { Target } from "../cursorless-engine/typings/target.types";
-import type { Graph } from "../cursorless-engine/typings/Types";
 import type NormalizedIDE from "../common/ide/normalized/NormalizedIDE";
 import type { IDE } from "../common/ide/types/ide.types";
-import type { TargetPlainObject } from "../common/testUtil/toPlainObject";
+import type {
+  SerializedMarks,
+  TargetPlainObject,
+} from "../common/testUtil/toPlainObject";
+import type { ThatMark } from "../cursorless-engine/core/ThatMark";
+import type { SnippetMap } from "../cursorless-engine/snippets/snippet.types";
+import type {
+  ExcludableSnapshotField,
+  ExtraContext,
+  ExtraSnapshotField,
+  TestCaseSnapshot,
+} from "../cursorless-engine/testUtil/takeSnapshot";
+import type { Target } from "../cursorless-engine/typings/target.types";
+import type { Graph } from "../cursorless-engine/typings/Types";
 
 interface TestHelpers {
   graph: Graph;
@@ -19,6 +29,21 @@ interface TestHelpers {
     editor: vscode.TextEditor,
     plainObject: TargetPlainObject,
   ): Target;
+
+  // FIXME: Remove this once we have a better way to get this function
+  // accessible from our tests
+  takeSnapshot(
+    thatMark: ThatMark | undefined,
+    sourceMark: ThatMark | undefined,
+    excludeFields: ExcludableSnapshotField[],
+    extraFields: ExtraSnapshotField[],
+    editor: TextEditor,
+    ide: IDE,
+    marks?: SerializedMarks,
+    extraContext?: ExtraContext,
+    metadata?: unknown,
+    clipboard?: vscode.Clipboard,
+  ): Promise<TestCaseSnapshot>;
 }
 
 export interface CursorlessApi {

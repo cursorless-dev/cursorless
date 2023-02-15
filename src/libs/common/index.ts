@@ -44,3 +44,4 @@ export { default as DefaultMap } from "./util/DefaultMap";
 export * from "./types/GeneralizedRange";
 export * from "./util/omitByDeep";
 export * from "./testUtil/isTesting";
+export * from "./testUtil/testConstants";
