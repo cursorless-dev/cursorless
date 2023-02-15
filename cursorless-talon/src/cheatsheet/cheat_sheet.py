@@ -1,7 +1,7 @@
 import webbrowser
 from pathlib import Path
-import platformdirs
 
+import platformdirs
 from talon import Context, Module, app
 
 from ..cursorless_command_server import run_rpc_command_and_wait
