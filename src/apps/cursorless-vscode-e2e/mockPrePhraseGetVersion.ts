@@ -1,5 +1,5 @@
 import * as sinon from "sinon";
-import type { Graph } from "../../typings/Types";
+import type { Graph } from "../../libs/cursorless-engine/typings/Types";
 
 export function mockPrePhraseGetVersion(
   graph: Graph,

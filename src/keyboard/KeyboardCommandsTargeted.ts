@@ -1,20 +1,20 @@
 import * as vscode from "vscode";
 import { runCursorlessCommand } from "../apps/cursorless-vscode-e2e/runCommand";
-import { ActionType } from "../core/commandRunner/typings/ActionCommand";
+import { ActionType } from "../libs/cursorless-engine/core/commandRunner/typings/ActionCommand";
 import {
   CommandLatest,
   LATEST_VERSION,
-} from "../core/commandRunner/typings/command.types";
+} from "../libs/cursorless-engine/core/commandRunner/typings/command.types";
 import {
   ImplicitTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
-} from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+} from "../libs/cursorless-engine/core/commandRunner/typings/PartialTargetDescriptor.types";
 import { getStyleName } from "../ide/vscode/hats/getStyleName";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import { Graph } from "../typings/Types";
+import { Graph } from "../libs/cursorless-engine/typings/Types";
 
 type TargetingMode = "replace" | "extend" | "append";
 

@@ -27,8 +27,8 @@ import {
   marksToPlainObject,
   SerializedMarks,
 } from "../libs/common/testUtil/toPlainObject";
-import { DecoratedSymbolMark } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
-import { Graph } from "../typings/Types";
+import { DecoratedSymbolMark } from "../libs/cursorless-engine/core/commandRunner/typings/PartialTargetDescriptor.types";
+import { Graph } from "../libs/cursorless-engine/typings/Types";
 import { TestCase, TestCaseContext } from "./TestCase";
 import { TestCaseCommand } from "./TestCaseFixture";
 

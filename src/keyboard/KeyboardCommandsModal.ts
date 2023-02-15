@@ -1,7 +1,7 @@
 import { keys, merge, toPairs } from "lodash";
 import * as vscode from "vscode";
 import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import { Graph } from "../typings/Types";
+import { Graph } from "../libs/cursorless-engine/typings/Types";
 import {
   DEFAULT_ACTION_KEYMAP,
   DEFAULT_COLOR_KEYMAP,

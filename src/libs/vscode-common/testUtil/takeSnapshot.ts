@@ -1,6 +1,6 @@
 import type { TextEditor } from "@cursorless/common";
 import { hrtimeBigintToSeconds } from "@cursorless/common";
-import type { ThatMark } from "../../../core/ThatMark";
+import type { ThatMark } from "../../cursorless-engine/core/ThatMark";
 import type { Clipboard } from "../../common/ide/types/Clipboard";
 import type { IDE } from "../../common/ide/types/ide.types";
 import {

@@ -8,7 +8,7 @@ import { pull } from "lodash";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
 import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
-import { OutdatedExtensionError } from "../../errors";
+import { OutdatedExtensionError } from "../../libs/common/errors";
 import type { TextDocumentChangeEvent } from "../../libs/common/ide/types/Events";
 import { FlashDescriptor } from "../../libs/common/ide/types/FlashDescriptor";
 import type {

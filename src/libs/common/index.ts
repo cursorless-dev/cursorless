@@ -18,6 +18,7 @@ export * from "./ide/util/messages";
 export { getKey, splitKey } from "./util/splitKey";
 export { hrtimeBigintToSeconds } from "./util/timeUtils";
 export { walkFilesSync } from "./util/walkSync";
+export { walkFiles } from "./util/walkAsync";
 export { Listener, Notifier } from "./util/Notifier";
 export { TokenHatSplittingMode } from "./ide/types/Configuration";
 export * from "./ide/types/ide.types";

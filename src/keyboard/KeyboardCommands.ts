@@ -1,4 +1,4 @@
-import { Graph } from "../typings/Types";
+import { Graph } from "../libs/cursorless-engine/typings/Types";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardHandler from "./KeyboardHandler";

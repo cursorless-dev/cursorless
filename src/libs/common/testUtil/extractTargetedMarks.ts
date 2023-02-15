@@ -1,10 +1,10 @@
 import { getKey, splitKey } from "@cursorless/common";
-import type { ReadOnlyHatMap } from "../../../core/IndividualHatMap";
+import type { ReadOnlyHatMap } from "../../cursorless-engine/core/IndividualHatMap";
 import type {
   PrimitiveTargetDescriptor,
   TargetDescriptor,
-} from "../../../typings/TargetDescriptor";
-import type { Token } from "../../../typings/Types";
+} from "../../cursorless-engine/typings/TargetDescriptor";
+import type { Token } from "../../cursorless-engine/typings/Types";
 
 function extractPrimitiveTargetKeys(...targets: PrimitiveTargetDescriptor[]) {
   const keys: string[] = [];

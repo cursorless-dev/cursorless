@@ -1,7 +1,7 @@
 import { pick } from "lodash";
-import { ActionType } from "../core/commandRunner/typings/ActionCommand";
-import { ReadOnlyHatMap } from "../core/IndividualHatMap";
-import { ThatMark } from "../core/ThatMark";
+import { ActionType } from "../libs/cursorless-engine/core/commandRunner/typings/ActionCommand";
+import { ReadOnlyHatMap } from "../libs/cursorless-engine/core/IndividualHatMap";
+import { ThatMark } from "../libs/cursorless-engine/core/ThatMark";
 import SpyIDE from "../libs/common/ide/spy/SpyIDE";
 import {
   extractTargetedMarks,
@@ -20,8 +20,8 @@ import {
   takeSnapshot,
   TestCaseSnapshot,
 } from "../libs/vscode-common/testUtil/takeSnapshot";
-import { TargetDescriptor } from "../typings/TargetDescriptor";
-import { Token } from "../typings/Types";
+import { TargetDescriptor } from "../libs/cursorless-engine/typings/TargetDescriptor";
+import { Token } from "../libs/cursorless-engine/typings/Types";
 import { cleanUpTestCaseCommand } from "./cleanUpTestCaseCommand";
 import type {
   TestCaseCommand,

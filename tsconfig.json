@@ -19,7 +19,7 @@
   "exclude": [
     "cursorless-nx",
     "node_modules",
-    "src/vendor",
+    "**/vendor/**",
     ".vscode-test",
     "data"
   ]

@@ -4,7 +4,7 @@ import {
   FlashDescriptor,
   FlashStyle,
 } from "../../libs/common/ide/types/FlashDescriptor";
-import { groupBy } from "../../util/itertools";
+import { groupBy } from "../../libs/cursorless-engine/util/itertools";
 import VscodeHighlights from "./VscodeHighlights";
 import VscodeIDE from "./VscodeIDE";
 

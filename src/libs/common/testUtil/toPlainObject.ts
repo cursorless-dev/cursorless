@@ -6,8 +6,8 @@ import type {
   SpyIDERecordedValues,
 } from "@cursorless/common";
 import { FlashStyle, isLineRange } from "@cursorless/common";
-import type { Target } from "../../../typings/target.types";
-import type { Token } from "../../../typings/Types";
+import type { Target } from "../../cursorless-engine/typings/target.types";
+import type { Token } from "../../cursorless-engine/typings/Types";
 import { Position } from "../types/Position";
 import { Range } from "../types/Range";
 import { Selection } from "../types/Selection";

@@ -7,7 +7,7 @@ import {
   isLineRange,
   LineRange,
 } from "../../libs/common/types/GeneralizedRange";
-import { partition } from "../../util/itertools";
+import { partition } from "../../libs/cursorless-engine/util/itertools";
 import { VscodeHighlightDecorationTypes } from "./VscodeHighlightDecorationTypes";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
