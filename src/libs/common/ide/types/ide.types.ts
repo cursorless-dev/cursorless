@@ -18,6 +18,7 @@ import {
 import { FlashDescriptor } from "./FlashDescriptor";
 import { Hats } from "./Hats";
 import { Messages } from "./Messages";
+import { QuickPickOptions } from "./QuickPickOptions";
 import { State } from "./State";
 
 export type RunMode = "production" | "development" | "test";
@@ -166,6 +167,18 @@ export interface IDE {
    * @return A promise that resolves to a string the user provided or to `undefined` in case of dismissal.
    */
   showInputBox(options?: InputBoxOptions): Promise<string | undefined>;
+
+  /**
+   * Shows a selection list.
+   *
+   * @param items An array of string choices to present to the user.
+   * @param options Configures the behavior of the selection list.
+   * @return A promise that resolves to the selection or `undefined`.
+   */
+  showQuickPick(
+    items: readonly string[],
+    options?: QuickPickOptions,
+  ): Promise<string | undefined>;
 
   /**
    * Executes the built-in ide command denoted by the given command identifier.

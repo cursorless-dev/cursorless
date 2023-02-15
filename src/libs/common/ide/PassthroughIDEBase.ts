@@ -13,6 +13,7 @@ import { FlashDescriptor } from "./types/FlashDescriptor";
 import { Hats } from "./types/Hats";
 import { Disposable, IDE, RunMode, WorkspaceFolder } from "./types/ide.types";
 import { Messages } from "./types/Messages";
+import { QuickPickOptions } from "./types/QuickPickOptions";
 import { State } from "./types/State";
 
 export default class PassthroughIDEBase implements IDE {
@@ -137,6 +138,13 @@ export default class PassthroughIDEBase implements IDE {
 
   public openTextDocument(path: string): Promise<TextEditor> {
     return this.original.openTextDocument(path);
+  }
+
+  public showQuickPick(
+    items: readonly string[],
+    options?: QuickPickOptions,
+  ): Promise<string | undefined> {
+    return this.original.showQuickPick(items, options);
   }
 
   public showInputBox(options?: any): Promise<string | undefined> {

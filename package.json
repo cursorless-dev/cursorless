@@ -146,6 +146,15 @@
           "light": "#60daff7a",
           "highContrast": "#60daff7a"
         }
+      },
+      {
+        "id": "cursorless.timingCalibrationBackground",
+        "description": "Background color to use for calibrating timing when recording a video",
+        "defaults": {
+          "dark": "#230026",
+          "light": "#230026",
+          "highContrast": "#230026"
+        }
       }
     ],
     "configurationDefaults": {
