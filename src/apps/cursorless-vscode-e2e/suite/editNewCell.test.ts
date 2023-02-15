@@ -33,7 +33,7 @@ async function runTest(
 
   // FIXME: There seems to be some timing issue when you create a notebook
   // editor
-  await sleepWithBackoff(100);
+  await sleepWithBackoff(200);
 
   await graph.hatTokenMap.allocateHats();
 
