@@ -1,4 +1,4 @@
-import { TestCaseCommand } from "./TestCaseFixture";
+import { TestCaseCommand } from "../testCaseRecorder/TestCaseFixture";
 import { merge } from "lodash";
 
 export function cleanUpTestCaseCommand(

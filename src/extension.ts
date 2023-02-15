@@ -1,7 +1,15 @@
-import { CURSORLESS_COMMAND_ID, Range, TextDocument } from "@cursorless/common";
+import {
+  CURSORLESS_COMMAND_ID,
+  isTesting,
+  Range,
+  TextDocument,
+} from "@cursorless/common";
 import { toVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
-import { showCheatsheet, updateDefaults } from "./libs/cursorless-engine/core/Cheatsheet";
+import {
+  showCheatsheet,
+  updateDefaults,
+} from "./libs/cursorless-engine/core/Cheatsheet";
 import CommandRunner from "./libs/cursorless-engine/core/commandRunner/CommandRunner";
 import { Command } from "./libs/cursorless-engine/core/commandRunner/typings/command.types";
 import { ThatMark } from "./libs/cursorless-engine/core/ThatMark";
@@ -18,8 +26,7 @@ import {
 } from "./libs/vscode-common/getExtensionApi";
 import { TargetPlainObject } from "./libs/common/testUtil/toPlainObject";
 import { plainObjectToTarget } from "./libs/cursorless-engine/testUtil/plainObjectToTarget";
-import isTesting from "./testUtil/isTesting";
-import { TestCaseRecorder } from "./testUtil/TestCaseRecorder";
+import { TestCaseRecorder } from "./libs/cursorless-engine/testCaseRecorder/TestCaseRecorder";
 import { Graph } from "./libs/cursorless-engine/typings/Types";
 import graphFactories from "./libs/cursorless-engine/util/graphFactories";
 import makeGraph, { FactoryMap } from "./libs/cursorless-engine/util/makeGraph";

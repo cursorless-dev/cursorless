@@ -4,7 +4,7 @@ import {
   GeneralizedRangePlainObject,
   PositionPlainObject,
 } from "../../libs/common/testUtil/toPlainObject";
-import { TestCaseFixture } from "../../testUtil/TestCaseFixture";
+import { TestCaseFixture } from "../../libs/cursorless-engine/testCaseRecorder/TestCaseFixture";
 import { reorderFields } from "./transformations/reorderFields";
 import { FixtureTransformation } from "./types";
 

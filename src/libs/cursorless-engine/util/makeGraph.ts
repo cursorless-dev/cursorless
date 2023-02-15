@@ -1,4 +1,4 @@
-import isTesting from "../../../testUtil/isTesting";
+import { isTesting } from "@cursorless/common";
 
 export type FactoryMap<T> = {
   [P in keyof T]: (t: T) => T[P];

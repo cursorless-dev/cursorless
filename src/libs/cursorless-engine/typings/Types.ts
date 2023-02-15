@@ -15,7 +15,7 @@ import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import type { CommandServerApi } from "../../vscode-common/getExtensionApi";
 import KeyboardCommands from "../../../keyboard/KeyboardCommands";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
-import { TestCaseRecorder } from "../../../testUtil/TestCaseRecorder";
+import { TestCaseRecorder } from "../testCaseRecorder/TestCaseRecorder";
 import { Target } from "./target.types";
 import { RangeOffsets } from "./updateSelections";
 

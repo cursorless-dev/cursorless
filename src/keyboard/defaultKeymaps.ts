@@ -1,7 +1,7 @@
 import { ActionType } from "../libs/cursorless-engine/core/commandRunner/typings/ActionCommand";
 import { SimpleScopeTypeType } from "../libs/cursorless-engine/core/commandRunner/typings/PartialTargetDescriptor.types";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
-import isTesting from "../testUtil/isTesting";
+import { isTesting } from "@cursorless/common";
 
 export type Keymap<T> = Record<string, T>;
 

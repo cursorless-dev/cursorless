@@ -1,9 +1,7 @@
-import type { TextEditor } from "@cursorless/common";
-import { hrtimeBigintToSeconds } from "@cursorless/common";
-import type { ThatMark } from "../../cursorless-engine/core/ThatMark";
-import type { Clipboard } from "../../common/ide/types/Clipboard";
-import type { IDE } from "../../common/ide/types/ide.types";
 import {
+  Clipboard,
+  hrtimeBigintToSeconds,
+  IDE,
   RangePlainObject,
   rangeToPlainObject,
   SelectionPlainObject,
@@ -11,7 +9,9 @@ import {
   SerializedMarks,
   TargetPlainObject,
   targetToPlainObject,
+  TextEditor,
 } from "@cursorless/common";
+import type { ThatMark } from "../core/ThatMark";
 
 export type ExtraSnapshotField = keyof TestCaseSnapshot;
 export type ExcludableSnapshotField = keyof TestCaseSnapshot;

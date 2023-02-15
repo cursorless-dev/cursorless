@@ -1,4 +1,4 @@
-import { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
+import { TestCaseFixture } from "../../../libs/cursorless-engine/testCaseRecorder/TestCaseFixture";
 import { transformPartialPrimitiveTargets } from "../../../libs/cursorless-engine/util/getPrimitiveTargets";
 import { PartialPrimitiveTargetDescriptor } from "../../../libs/cursorless-engine/core/commandRunner/typings/PartialTargetDescriptor.types";
 

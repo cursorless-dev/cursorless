@@ -1,36 +1,29 @@
 import {
+  extractTargetedMarks,
   getKey,
+  IDE,
+  marksToPlainObject,
+  serialize,
+  SerializedMarks,
   showInfo,
+  sleep,
+  SpyIDE,
   TextEditorOptions,
   toLineRange,
+  walkDirsSync,
 } from "@cursorless/common";
 import * as fs from "fs";
 import { readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash";
 import * as path from "path";
-import SpyIDE from "../libs/common/ide/spy/SpyIDE";
-import { IDE } from "../libs/common/ide/types/ide.types";
-import { extractTargetedMarks } from "../libs/common/testUtil/extractTargetedMarks";
-import serialize from "../libs/common/testUtil/serialize";
-import sleep from "../libs/common/util/sleep";
-import { walkDirsSync } from "../libs/common/util/walkSync";
-import ide, {
-  injectIde,
-} from "../libs/cursorless-engine/singletons/ide.singleton";
-import {
-  ExtraSnapshotField,
-  takeSnapshot,
-} from "../libs/vscode-common/testUtil/takeSnapshot";
-import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "../libs/vscode-common/testUtil/testConstants";
-import {
-  marksToPlainObject,
-  SerializedMarks,
-} from "../libs/common/testUtil/toPlainObject";
-import { DecoratedSymbolMark } from "../libs/cursorless-engine/core/commandRunner/typings/PartialTargetDescriptor.types";
-import { Graph } from "../libs/cursorless-engine/typings/Types";
-import { TestCase, TestCaseContext } from "./TestCase";
+import ide, { injectIde } from "../singletons/ide.singleton";
+import { ExtraSnapshotField, takeSnapshot } from "../testUtil/takeSnapshot";
+import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "../testUtil/testConstants";
+import { DecoratedSymbolMark } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { Graph } from "../typings/Types";
 import { TestCaseCommand } from "./TestCaseFixture";
+import { TestCase, TestCaseContext } from "./TestCase";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 

@@ -1,7 +1,7 @@
-import type { CommandLatest } from "../libs/cursorless-engine/core/commandRunner/typings/command.types";
-import { PlainSpyIDERecordedValues } from "../libs/common/testUtil/toPlainObject";
-import type { TestCaseSnapshot } from "../libs/vscode-common/testUtil/takeSnapshot";
-import type { TargetDescriptor } from "../libs/cursorless-engine/typings/TargetDescriptor";
+import { PlainSpyIDERecordedValues } from "@cursorless/common";
+import type { CommandLatest } from "../core/commandRunner/typings/command.types";
+import type { TestCaseSnapshot } from "../testUtil/takeSnapshot";
+import type { TargetDescriptor } from "../typings/TargetDescriptor";
 
 export type TestCaseCommand = CommandLatest;
 

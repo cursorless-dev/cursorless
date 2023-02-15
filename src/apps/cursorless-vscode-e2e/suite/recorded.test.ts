@@ -14,20 +14,19 @@ import {
   spyIDERecordedValuesToPlainObject,
   TextEditor,
 } from "@cursorless/common";
-import {
-  DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
-  ExcludableSnapshotField,
-  getCursorlessApi,
-  openNewEditor,
-  takeSnapshot,
-} from "@cursorless/vscode-common";
+import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
 import * as vscode from "vscode";
 import type { ReadOnlyHatMap } from "../../../libs/cursorless-engine/core/IndividualHatMap";
-import type { TestCaseFixture } from "../../../testUtil/TestCaseFixture";
+import type { TestCaseFixture } from "../../../libs/cursorless-engine/testCaseRecorder/TestCaseFixture";
+import {
+  ExcludableSnapshotField,
+  takeSnapshot,
+} from "../../../libs/cursorless-engine/testUtil/takeSnapshot";
+import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "../../../libs/cursorless-engine/testUtil/testConstants";
 import type { TokenHat } from "../../../libs/cursorless-engine/util/allocateHats/allocateHats";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";

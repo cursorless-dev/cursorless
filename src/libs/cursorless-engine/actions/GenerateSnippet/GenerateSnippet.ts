@@ -1,8 +1,6 @@
-import { Range } from "@cursorless/common";
-import { FlashStyle } from "../../../common/ide/types/FlashDescriptor";
-import ide from "../../singletons/ide.singleton";
+import { FlashStyle, isTesting, Range } from "@cursorless/common";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
-import isTesting from "../../../../testUtil/isTesting";
+import ide from "../../singletons/ide.singleton";
 import { Target } from "../../typings/target.types";
 import { Graph } from "../../typings/Types";
 import { ensureSingleTarget, flashTargets } from "../../util/targetUtils";
