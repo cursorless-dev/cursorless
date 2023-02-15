@@ -1,30 +1,30 @@
+import { UnsupportedLanguageError } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
-import { notSupported } from "../util/nodeMatchers";
-import { selectionWithEditorFromRange } from "../util/selectionUtils";
+import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
 import {
   NodeMatcher,
   NodeMatcherValue,
   SelectionWithEditor,
 } from "../typings/Types";
-import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
-import cpp from "./cpp";
+import { notSupported } from "../util/nodeMatchers";
+import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import clojure from "./clojure";
+import { SupportedLanguageId } from "./constants";
+import cpp from "./cpp";
 import csharp from "./csharp";
-import { patternMatchers as json } from "./json";
-import { patternMatchers as typescript } from "./typescript";
-import java from "./java";
+import go from "./go";
 import { patternMatchers as html } from "./html";
+import java from "./java";
+import { patternMatchers as json } from "./json";
+import latex from "./latex";
+import markdown from "./markdown";
 import php from "./php";
 import python from "./python";
-import markdown from "./markdown";
-import scala from "./scala";
-import { patternMatchers as scss } from "./scss";
-import go from "./go";
-import latex from "./latex";
 import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
-import { UnsupportedLanguageError } from "../../common/errors";
-import { SupportedLanguageId } from "./constants";
+import scala from "./scala";
+import { patternMatchers as scss } from "./scss";
+import { patternMatchers as typescript } from "./typescript";
 
 export function getNodeMatcher(
   languageId: string,

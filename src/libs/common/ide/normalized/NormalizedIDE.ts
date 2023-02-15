@@ -8,7 +8,7 @@ import PassthroughIDEBase from "../PassthroughIDEBase";
 import { FlashDescriptor } from "../types/FlashDescriptor";
 import type { IDE } from "../types/ide.types";
 
-export default class NormalizedIDE extends PassthroughIDEBase {
+export class NormalizedIDE extends PassthroughIDEBase {
   configuration: FakeConfiguration;
   globalState: FakeGlobalState;
   clipboard: FakeClipboard;

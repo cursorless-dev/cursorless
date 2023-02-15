@@ -1,10 +1,10 @@
-import type { TextDocument } from "@cursorless/common";
-import { pull } from "lodash";
 import type {
+  Disposable,
+  TextDocument,
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
-} from "../../../common/ide/types/Events";
-import type { Disposable } from "../../../common/ide/types/ide.types";
+} from "@cursorless/common";
+import { pull } from "lodash";
 import ide from "../../singletons/ide.singleton";
 import type { Edit } from "../../typings/Types";
 import {

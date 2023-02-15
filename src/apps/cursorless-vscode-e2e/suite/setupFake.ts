@@ -1,4 +1,4 @@
-import type NormalizedIDE from "../../../libs/common/ide/normalized/NormalizedIDE";
+import type { NormalizedIDE } from "../../../libs/common/ide/normalized/NormalizedIDE";
 import type { HatStability } from "../../../libs/common/ide/types/HatStability";
 import { getFixturePath } from "../getFixturePaths";
 

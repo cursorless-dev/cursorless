@@ -1,15 +1,15 @@
+import { FlashStyle } from "@cursorless/common";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { FlashStyle } from "../../common/ide/types/FlashDescriptor";
-import ide from "../singletons/ide.singleton";
 import { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
-import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import ide from "../singletons/ide.singleton";
 import {
   findMatchingSnippetDefinitionStrict,
   transformSnippetVariables,
 } from "../snippets/snippet";
-import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
+import { Target } from "../typings/target.types";
+import { Graph } from "../typings/Types";
+import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class WrapWithSnippet implements Action {

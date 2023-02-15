@@ -1,4 +1,5 @@
 import {
+  FlashStyle,
   RangeExpansionBehavior,
   Selection,
   TextEditor,
@@ -6,9 +7,8 @@ import {
 } from "@cursorless/common";
 import { flatten, zip } from "lodash";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
-import { FlashStyle } from "../../common/ide/types/FlashDescriptor";
-import ide from "../singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
+import ide from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";

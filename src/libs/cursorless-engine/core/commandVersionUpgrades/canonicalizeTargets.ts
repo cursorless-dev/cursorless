@@ -1,12 +1,12 @@
+import { HatStyleName } from "@cursorless/common";
 import update from "immutability-helper";
 import { flow } from "lodash";
+import { transformPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import {
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "../commandRunner/typings/PartialTargetDescriptor.types";
-import { transformPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
-import { HatStyleName } from "../../../common/ide/types/hatStyles.types";
 
 const SCOPE_TYPE_CANONICALIZATION_MAPPING: Record<string, SimpleScopeTypeType> =
   {

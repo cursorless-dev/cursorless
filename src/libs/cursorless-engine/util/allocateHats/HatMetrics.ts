@@ -1,6 +1,5 @@
+import { CompositeKeyMap, HatStability } from "@cursorless/common";
 import { min } from "lodash";
-import { HatStability } from "../../../common/ide/types/HatStability";
-import CompositeKeyMap from "../../../common/util/CompositeKeyMap";
 import { HatCandidate, TokenHat } from "./allocateHats";
 
 /**

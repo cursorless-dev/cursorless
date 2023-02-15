@@ -1,4 +1,4 @@
-import type { Disposable } from "../../common/ide/types/ide.types";
+import type { Disposable } from "@cursorless/common";
 import ide from "../singletons/ide.singleton";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
 import { Graph } from "../typings/Types";

@@ -1,10 +1,9 @@
-import { getKey, TextDocument } from "@cursorless/common";
+import { getKey, HatStyleName, TextDocument } from "@cursorless/common";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
-import { Graph, Token } from "../typings/Types";
-import { HatStyleName } from "../../common/ide/types/hatStyles.types";
-import { TokenHat } from "../util/allocateHats/allocateHats";
-import { FullRangeInfo } from "../typings/updateSelections";
 import { getMatcher } from "../tokenizer";
+import { Graph, Token } from "../typings/Types";
+import { FullRangeInfo } from "../typings/updateSelections";
+import { TokenHat } from "../util/allocateHats/allocateHats";
 
 export interface ReadOnlyHatMap {
   getEntries(): readonly [string, Token][];

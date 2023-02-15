@@ -1,14 +1,14 @@
-import { Target } from "../../../typings/target.types";
+import { NoContainingScopeError } from "@cursorless/common";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
 } from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { Target } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
+import getModifierStage from "../../getModifierStage";
 import { ModifierStage } from "../../PipelineStages.types";
 import { TokenTarget } from "../../targets";
-import getModifierStage from "../../getModifierStage";
 import { processSurroundingPair } from "../surroundingPair";
-import { NoContainingScopeError } from "../../../../common/errors";
 
 /**
  * Intersection of NonWhitespaceSequenceStage and a surrounding pair

@@ -1,11 +1,10 @@
-import { Range, TextEditor } from "@cursorless/common";
-import { NoContainingScopeError } from "../../../../common/errors";
-import { Target } from "../../../typings/target.types";
+import { NoContainingScopeError, Range, TextEditor } from "@cursorless/common";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
   SimpleScopeTypeType,
 } from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { Target } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getInsertionDelimiter } from "../../../util/nodeSelectors";
 import { getRangeLength } from "../../../util/rangeUtils";

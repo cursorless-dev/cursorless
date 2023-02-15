@@ -1,12 +1,12 @@
-import type { TextEditor } from "@cursorless/common";
-import * as vscode from "vscode";
-import type { SyntaxNode } from "web-tree-sitter";
-import type NormalizedIDE from "../common/ide/normalized/NormalizedIDE";
-import type { IDE } from "../common/ide/types/ide.types";
 import type {
+  IDE,
+  NormalizedIDE,
   SerializedMarks,
   TargetPlainObject,
-} from "../common/testUtil/toPlainObject";
+  TextEditor,
+} from "@cursorless/common";
+import * as vscode from "vscode";
+import type { SyntaxNode } from "web-tree-sitter";
 import type { ThatMark } from "../cursorless-engine/core/ThatMark";
 import type { SnippetMap } from "../cursorless-engine/snippets/snippet.types";
 import type {

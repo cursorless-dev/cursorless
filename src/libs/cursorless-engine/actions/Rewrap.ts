@@ -1,7 +1,7 @@
+import { FlashStyle } from "@cursorless/common";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
-import { FlashStyle } from "../../common/ide/types/FlashDescriptor";
-import ide from "../singletons/ide.singleton";
 import { containingSurroundingPairIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
+import ide from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";
 import {

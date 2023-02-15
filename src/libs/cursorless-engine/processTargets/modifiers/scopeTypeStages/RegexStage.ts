@@ -1,10 +1,14 @@
-import { Position, Range, TextEditor } from "@cursorless/common";
-import { NoContainingScopeError } from "../../../../common/errors";
-import { Target } from "../../../typings/target.types";
+import {
+  NoContainingScopeError,
+  Position,
+  Range,
+  TextEditor,
+} from "@cursorless/common";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
 } from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { Target } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import { TokenTarget } from "../../targets";

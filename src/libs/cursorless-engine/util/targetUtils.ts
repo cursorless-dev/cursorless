@@ -1,14 +1,15 @@
-import { IDE, Range, Selection, TextEditor } from "@cursorless/common";
-import { zip } from "lodash";
 import {
   FlashDescriptor,
   FlashStyle,
-} from "../../common/ide/types/FlashDescriptor";
-import {
   GeneralizedRange,
+  IDE,
+  Range,
+  Selection,
+  TextEditor,
   toCharacterRange,
   toLineRange,
-} from "../../common/types/GeneralizedRange";
+} from "@cursorless/common";
+import { zip } from "lodash";
 import { Target } from "../typings/target.types";
 import { SelectionWithEditor } from "../typings/Types";
 import { groupBy } from "./itertools";

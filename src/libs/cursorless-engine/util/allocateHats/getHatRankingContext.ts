@@ -1,5 +1,4 @@
-import { HatStyleName } from "../../../common/ide/types/hatStyles.types";
-import CompositeKeyMap from "../../../common/util/CompositeKeyMap";
+import { CompositeKeyMap, HatStyleName } from "@cursorless/common";
 import { TokenGraphemeSplitter } from "../../tokenGraphemeSplitter";
 import { Token } from "../../typings/Types";
 import { TokenHat } from "./allocateHats";

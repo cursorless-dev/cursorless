@@ -1,9 +1,12 @@
-import { RangeExpansionBehavior, toCharacterRange } from "@cursorless/common";
+import {
+  FlashStyle,
+  RangeExpansionBehavior,
+  toCharacterRange,
+} from "@cursorless/common";
 import {
   callFunctionAndUpdateSelections,
   callFunctionAndUpdateSelectionsWithBehavior,
 } from "../core/updateSelections/updateSelections";
-import { FlashStyle } from "../../common/ide/types/FlashDescriptor";
 import ide from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";

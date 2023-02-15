@@ -1,6 +1,4 @@
-import { RevealLineAt } from "@cursorless/common";
-import { FlashStyle } from "../../common/ide/types/FlashDescriptor";
-import { toLineRange } from "../../common/types/GeneralizedRange";
+import { FlashStyle, RevealLineAt, toLineRange } from "@cursorless/common";
 import ide from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";

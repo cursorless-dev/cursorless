@@ -1,8 +1,6 @@
-import { Range, Selection } from "@cursorless/common";
+import { FlashStyle, Range, Selection, toLineRange } from "@cursorless/common";
 import { flatten } from "lodash";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { FlashStyle } from "../../common/ide/types/FlashDescriptor";
-import { toLineRange } from "../../common/types/GeneralizedRange";
 import ide from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";

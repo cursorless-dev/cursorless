@@ -1,8 +1,8 @@
-import type { Range } from "@cursorless/common";
 import type {
+  Range,
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
-} from "../../common/ide/types/Events";
+} from "@cursorless/common";
 
 export interface RangeOffsets {
   start: number;

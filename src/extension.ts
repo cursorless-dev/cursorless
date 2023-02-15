@@ -6,6 +6,10 @@ import {
 } from "@cursorless/common";
 import { toVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
+import VscodeIDE from "./ide/vscode/VscodeIDE";
+import FakeIDE from "./libs/common/ide/fake/FakeIDE";
+import { NormalizedIDE } from "./libs/common/ide/normalized/NormalizedIDE";
+import { TargetPlainObject } from "./libs/common/testUtil/toPlainObject";
 import {
   showCheatsheet,
   updateDefaults,
@@ -13,24 +17,20 @@ import {
 import CommandRunner from "./libs/cursorless-engine/core/commandRunner/CommandRunner";
 import { Command } from "./libs/cursorless-engine/core/commandRunner/typings/command.types";
 import { ThatMark } from "./libs/cursorless-engine/core/ThatMark";
-import VscodeIDE from "./ide/vscode/VscodeIDE";
-import FakeIDE from "./libs/common/ide/fake/FakeIDE";
-import NormalizedIDE from "./libs/common/ide/normalized/NormalizedIDE";
 import ide, {
   injectIde,
 } from "./libs/cursorless-engine/singletons/ide.singleton";
+import { TestCaseRecorder } from "./libs/cursorless-engine/testCaseRecorder/TestCaseRecorder";
+import { plainObjectToTarget } from "./libs/cursorless-engine/testUtil/plainObjectToTarget";
+import { takeSnapshot } from "./libs/cursorless-engine/testUtil/takeSnapshot";
+import { Graph } from "./libs/cursorless-engine/typings/Types";
+import graphFactories from "./libs/cursorless-engine/util/graphFactories";
+import makeGraph, { FactoryMap } from "./libs/cursorless-engine/util/makeGraph";
 import {
   CursorlessApi,
   getCommandServerApi,
   getParseTreeApi,
 } from "./libs/vscode-common/getExtensionApi";
-import { TargetPlainObject } from "./libs/common/testUtil/toPlainObject";
-import { plainObjectToTarget } from "./libs/cursorless-engine/testUtil/plainObjectToTarget";
-import { TestCaseRecorder } from "./libs/cursorless-engine/testCaseRecorder/TestCaseRecorder";
-import { Graph } from "./libs/cursorless-engine/typings/Types";
-import graphFactories from "./libs/cursorless-engine/util/graphFactories";
-import makeGraph, { FactoryMap } from "./libs/cursorless-engine/util/makeGraph";
-import { takeSnapshot } from "./libs/cursorless-engine/testUtil/takeSnapshot";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.

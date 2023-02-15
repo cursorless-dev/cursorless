@@ -1,13 +1,12 @@
-import { Selection } from "@cursorless/common";
+import { NoContainingScopeError, Selection } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { NoContainingScopeError } from "../../../../common/errors";
-import { getNodeMatcher } from "../../../languages/getNodeMatcher";
-import type { Target } from "../../../typings/target.types";
 import type {
   ContainingScopeModifier,
   EveryScopeModifier,
   SimpleScopeType,
 } from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { getNodeMatcher } from "../../../languages/getNodeMatcher";
+import type { Target } from "../../../typings/target.types";
 import type {
   NodeMatcher,
   ProcessedTargetsContext,

@@ -1,12 +1,10 @@
-import { Range } from "@cursorless/common";
 import {
   FlashDescriptor,
   FlashStyle,
-} from "../../common/ide/types/FlashDescriptor";
-import {
+  Range,
   toCharacterRange,
   toLineRange,
-} from "../../common/types/GeneralizedRange";
+} from "@cursorless/common";
 import ide from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Types";

@@ -5,7 +5,7 @@
  *
  * Based on https://stackoverflow.com/a/54523103
  */
-export default class CompositeKeyMap<K, V> {
+export class CompositeKeyMap<K, V> {
   private map: Record<string, V> = {};
 
   /**

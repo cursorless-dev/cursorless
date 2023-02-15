@@ -1,9 +1,12 @@
-import { ActionType } from "../commandRunner/typings/ActionCommand";
-import { OutdatedExtensionError } from "../../../common/errors";
-import { EnforceUndefined } from "../../../common/util/typeUtils";
+import {
+  EnforceUndefined,
+  OutdatedExtensionError,
+  showWarning,
+} from "@cursorless/common";
 import ide from "../../singletons/ide.singleton";
 import { Graph } from "../../typings/Types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
+import { ActionType } from "../commandRunner/typings/ActionCommand";
 import {
   Command,
   CommandComplete,
@@ -21,7 +24,6 @@ import { upgradeV0ToV1 } from "./upgradeV0ToV1";
 import { upgradeV1ToV2 } from "./upgradeV1ToV2";
 import { upgradeV2ToV3 } from "./upgradeV2ToV3";
 import { upgradeV3ToV4 } from "./upgradeV3ToV4";
-import { showWarning } from "@cursorless/common";
 
 /**
  * Given a command argument which comes from the client, normalize it so that it

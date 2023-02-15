@@ -1,13 +1,14 @@
-import { DefaultMap, Range, TextEditor } from "@cursorless/common";
-import { clone } from "lodash";
-import { HatStability } from "../../../common/ide/types/HatStability";
-import { HatStyleMap } from "../../../common/ide/types/Hats";
-import { HatStyleName } from "../../../common/ide/types/hatStyles.types";
-import CompositeKeyMap from "../../../common/util/CompositeKeyMap";
 import {
-  Grapheme,
-  TokenGraphemeSplitter,
-} from "../../tokenGraphemeSplitter";
+  CompositeKeyMap,
+  DefaultMap,
+  HatStability,
+  HatStyleMap,
+  HatStyleName,
+  Range,
+  TextEditor,
+} from "@cursorless/common";
+import { clone } from "lodash";
+import { Grapheme, TokenGraphemeSplitter } from "../../tokenGraphemeSplitter";
 import { Token } from "../../typings/Types";
 import { chooseTokenHat } from "./chooseTokenHat";
 import { getHatRankingContext } from "./getHatRankingContext";

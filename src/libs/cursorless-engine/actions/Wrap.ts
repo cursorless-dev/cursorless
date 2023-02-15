@@ -1,4 +1,5 @@
 import {
+  FlashStyle,
   RangeExpansionBehavior,
   Selection,
   toCharacterRange,
@@ -7,7 +8,6 @@ import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
-import { FlashStyle } from "../../common/ide/types/FlashDescriptor";
 import ide from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Edit, Graph } from "../typings/Types";
