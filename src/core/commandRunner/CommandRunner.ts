@@ -153,6 +153,7 @@ export default class CommandRunner {
     } catch (e) {
       const err = e as Error;
       console.error(err.stack);
+      await this.graph.testCaseRecorder.commandErrorHook(err);
       throw e;
     } finally {
       if (this.graph.testCaseRecorder.isActive()) {

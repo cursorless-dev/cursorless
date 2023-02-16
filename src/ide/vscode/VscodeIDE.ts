@@ -17,6 +17,7 @@ import type {
   IDE,
   RunMode,
 } from "../../libs/common/ide/types/ide.types";
+import { QuickPickOptions } from "../../libs/common/ide/types/QuickPickOptions";
 import {
   fromVscodeRange,
   fromVscodeSelection,
@@ -31,6 +32,7 @@ import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeHighlights, { HighlightStyle } from "./VscodeHighlights";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
+import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
@@ -55,6 +57,13 @@ export default class VscodeIDE implements IDE {
     this.capabilities = new VscodeCapabilities();
     this.hats = new VscodeHats(this, extensionContext);
     this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
+  }
+
+  async showQuickPick(
+    items: readonly string[],
+    options?: QuickPickOptions,
+  ): Promise<string | undefined> {
+    return await vscodeShowQuickPick(items, options);
   }
 
   async init() {

@@ -14,6 +14,10 @@ import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 export enum HighlightStyle {
   highlight0 = "highlight0",
   highlight1 = "highlight1",
+  /**
+   * Used for calibrating timing when recording a video
+   */
+  timingCalibration = "timingCalibration",
 }
 
 export type VscodeStyle = FlashStyle | HighlightStyle;

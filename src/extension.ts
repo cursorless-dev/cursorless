@@ -64,7 +64,6 @@ export async function activate(
   graph.debug.init();
   graph.snippets.init();
   graph.hatTokenMap.init();
-  graph.testCaseRecorder.init();
   graph.statusBarItem.init();
   graph.keyboardCommands.init();
 
@@ -116,8 +115,9 @@ function registerCommands(
   commandRunner: CommandRunner,
   testCaseRecorder: TestCaseRecorder,
 ): void {
-  extensionContext.subscriptions.push(
-    vscode.commands.registerCommand(
+  const commands = [
+    // The core Cursorless command
+    [
       CURSORLESS_COMMAND_ID,
       async (spokenFormOrCommand: string | Command, ...rest: unknown[]) => {
         try {
@@ -126,23 +126,28 @@ function registerCommands(
             ...rest,
           );
         } catch (e) {
-          const error = e as Error;
           if (!isTesting()) {
-            vscodeIde.handleCommandError(error);
+            vscodeIde.handleCommandError(e as Error);
           }
-          await testCaseRecorder.commandErrorHook(error);
-          throw error;
+          throw e;
         }
       },
-    ),
+    ],
 
-    vscode.commands.registerCommand(
-      "cursorless.showCheatsheet",
-      showCheatsheet,
-    ),
-    vscode.commands.registerCommand(
-      "cursorless.internal.updateCheatsheetDefaults",
-      updateDefaults,
+    // Cheatsheet commands
+    ["cursorless.showCheatsheet", showCheatsheet],
+    ["cursorless.internal.updateCheatsheetDefaults", updateDefaults],
+
+    // Testcase recorder commands
+    ["cursorless.recordTestCase", testCaseRecorder.toggle],
+    ["cursorless.pauseRecording", testCaseRecorder.pause],
+    ["cursorless.resumeRecording", testCaseRecorder.resume],
+    ["cursorless.takeSnapshot", testCaseRecorder.takeSnapshot],
+  ] as const;
+
+  extensionContext.subscriptions.push(
+    ...commands.map(([commandId, callback]) =>
+      vscode.commands.registerCommand(commandId, callback),
     ),
   );
 }
