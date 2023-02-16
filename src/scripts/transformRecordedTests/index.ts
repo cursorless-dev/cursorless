@@ -1,7 +1,7 @@
 // Ensures that the aliases such as @cursorless/common that we define in
 // package.json are active
 import "module-alias/register";
-import { getRecordedTestPaths } from "../../apps/cursorless-vscode-e2e/getFixturePaths";
+import { getRecordedTestPaths } from "../../packages/cursorless-vscode-e2e/getFixturePaths";
 import { identity } from "./transformations/identity";
 import { upgrade } from "./transformations/upgrade";
 import { transformFile } from "./transformFile";

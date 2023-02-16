@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { runCursorlessCommand } from "../apps/cursorless-vscode-e2e/runCommand";
+import { runCursorlessCommand } from "../packages/cursorless-vscode-e2e/runCommand";
 import { ActionType } from "../packages/cursorless-engine/core/commandRunner/typings/ActionCommand";
 import {
   CommandLatest,
