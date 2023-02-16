@@ -255,7 +255,7 @@ export class TestCaseRecorder {
 
     showInfo(
       ide().messages,
-      "recordStart ",
+      "recordStart",
       `Recording test cases for following commands in:\n${this.targetDirectory}`,
     );
 
@@ -390,10 +390,8 @@ export class TestCaseRecorder {
       );
     }
 
-    const subdirectories = walkDirsSync(this.fixtureRoot).concat("/");
-
     const subdirectorySelection: string | undefined = await ide().showQuickPick(
-      [...subdirectories],
+      walkDirsSync(this.fixtureRoot).concat("/"),
       {
         title: "Select directory for new test cases",
         unknownValues: {
