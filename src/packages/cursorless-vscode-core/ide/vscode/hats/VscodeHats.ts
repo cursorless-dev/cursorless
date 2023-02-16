@@ -1,11 +1,7 @@
 import { Range, TextEditor } from "../../../../common";
 import * as vscode from "vscode";
 import { Disposable } from "vscode";
-import {
-  HatRange,
-  Hats,
-  HatStyleMap,
-} from "../../../../common/ide/types/Hats";
+import { HatRange, Hats, HatStyleMap } from "../../../../common/ide/types/Hats";
 import { Listener, Notifier } from "../../../../common/util/Notifier";
 import { toVscodeRange } from "../../../../vscode-common/vscodeUtil";
 import { VscodeHatStyleName } from "../hatStyles.types";
