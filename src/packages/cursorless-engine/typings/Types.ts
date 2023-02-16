@@ -13,7 +13,7 @@ import { Snippets } from "../core/Snippets";
 import StatusBarItem from "../core/StatusBarItem";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import type { CommandServerApi } from "../../vscode-common/getExtensionApi";
-import KeyboardCommands from "../../../keyboard/KeyboardCommands";
+import KeyboardCommands from "../../cursorless-vscode-core/keyboard/KeyboardCommands";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { TestCaseRecorder } from "../testCaseRecorder/TestCaseRecorder";
 import { Target } from "./target.types";

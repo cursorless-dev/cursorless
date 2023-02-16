@@ -6,7 +6,7 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import * as vscode from "vscode";
-import type { VscodeTextEditorImpl } from "../../ide/vscode/VscodeTextEditorImpl";
+import type { VscodeTextEditorImpl } from "../cursorless-vscode-core/ide/vscode/VscodeTextEditorImpl";
 
 export function toVscodeRange(range: Range): vscode.Range {
   return new vscode.Range(
