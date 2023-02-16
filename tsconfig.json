@@ -12,8 +12,8 @@
     // "noFallthroughCasesInSwitch": true, /* Report errors for fallthrough cases in switch statement. */
     // "noUnusedParameters": true,  /* Report errors on unused parameters. */
     "paths": {
-      "@cursorless/common": ["./src/libs/common/index.ts"],
-      "@cursorless/vscode-common": ["./src/libs/vscode-common/index.ts"]
+      "@cursorless/common": ["./src/packages/common/index.ts"],
+      "@cursorless/vscode-common": ["./src/packages/vscode-common/index.ts"]
     }
   },
   "exclude": [
