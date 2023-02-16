@@ -390,7 +390,7 @@ export class TestCaseRecorder {
       );
     }
 
-    const subdirectorySelection: string | undefined = await ide().showQuickPick(
+    const subdirectorySelection = await ide().showQuickPick(
       walkDirsSync(this.fixtureRoot).concat("/"),
       {
         title: "Select directory for new test cases",
