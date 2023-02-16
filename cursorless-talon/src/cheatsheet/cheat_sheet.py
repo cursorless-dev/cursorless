@@ -46,13 +46,13 @@ class Actions:
         # On Linux browsers installed using snap can't open files in a hidden directory
         if app.platform == "linux":
             cheatsheet_out_dir = cheatsheet_dir_linux()
-            cheat_sheet_filename = "cursorless-cheatsheet.html"
+            cheatsheet_filename = "cursorless-cheatsheet.html"
         else:
             cheatsheet_out_dir = Path.home() / ".cursorless"
-            cheat_sheet_filename = "cheatsheet.html"
+            cheatsheet_filename = "cheatsheet.html"
 
         cheatsheet_out_dir.mkdir(parents=True, exist_ok=True)
-        cheatsheet_out_path = cheatsheet_out_dir / cheat_sheet_filename
+        cheatsheet_out_path = cheatsheet_out_dir / cheatsheet_filename
         run_rpc_command_and_wait(
             "cursorless.showCheatsheet",
             {
