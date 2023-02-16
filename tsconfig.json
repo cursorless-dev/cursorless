@@ -13,7 +13,10 @@
     // "noUnusedParameters": true,  /* Report errors on unused parameters. */
     "paths": {
       "@cursorless/common": ["./src/packages/common/index.ts"],
-      "@cursorless/vscode-common": ["./src/packages/vscode-common/index.ts"]
+      "@cursorless/vscode-common": ["./src/packages/vscode-common/index.ts"],
+      "@cursorless/cursorless-vscode-core": [
+        "./src/packages/cursorless-vscode-core/index.ts"
+      ]
     }
   },
   "exclude": [

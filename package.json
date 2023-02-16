@@ -744,7 +744,8 @@
   "funding": "https://github.com/sponsors/pokey",
   "_moduleAliases": {
     "@cursorless/common": "./out/packages/common/index.js",
-    "@cursorless/vscode-common": "./out/packages/vscode-common/index.js"
+    "@cursorless/vscode-common": "./out/packages/vscode-common/index.js",
+    "@cursorless/cursorless-vscode-core": "./out/packages/cursorless-vscode-core/index.js"
   },
   "scripts": {
     "vscode:prepublish": "npm run -S esbuild-base -- --minify",
