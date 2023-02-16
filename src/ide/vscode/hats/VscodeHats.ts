@@ -1,19 +1,19 @@
-import { Range, TextEditor } from "@cursorless/common";
+import { Range, TextEditor } from "../../../packages/common";
 import * as vscode from "vscode";
 import { Disposable } from "vscode";
 import {
   HatRange,
   Hats,
   HatStyleMap,
-} from "../../../libs/common/ide/types/Hats";
-import { Listener, Notifier } from "../../../libs/common/util/Notifier";
-import { toVscodeRange } from "../../../libs/vscode-common/vscodeUtil";
+} from "../../../packages/common/ide/types/Hats";
+import { Listener, Notifier } from "../../../packages/common/util/Notifier";
+import { toVscodeRange } from "../../../packages/vscode-common/vscodeUtil";
 import { VscodeHatStyleName } from "../hatStyles.types";
 import VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
 import VscodeHatRenderer from "./VscodeHatRenderer";
 import type VscodeIDE from "../VscodeIDE";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
-import { HatStyleName } from "../../../libs/common/ide/types/hatStyles.types";
+import { HatStyleName } from "../../../packages/common/ide/types/hatStyles.types";
 
 export class VscodeHats implements Hats {
   private enabledHatStyleManager: VscodeEnabledHatStyleManager;

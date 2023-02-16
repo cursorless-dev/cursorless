@@ -1,4 +1,4 @@
-import { TextEditor } from "@cursorless/common";
+import { TextEditor } from "../..";
 import { GeneralizedRange } from "../../types/GeneralizedRange";
 
 export enum FlashStyle {

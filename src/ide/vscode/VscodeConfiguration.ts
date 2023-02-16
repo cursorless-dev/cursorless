@@ -1,13 +1,13 @@
-import { HatStability } from "@cursorless/common";
+import { HatStability } from "../../packages/common";
 import { get } from "lodash";
 import * as vscode from "vscode";
 import {
   Configuration,
   ConfigurationScope,
   CursorlessConfiguration,
-} from "../../libs/common/ide/types/Configuration";
-import { GetFieldType, Paths } from "../../libs/common/ide/types/Paths";
-import { Notifier } from "../../libs/common/util/Notifier";
+} from "../../packages/common/ide/types/Configuration";
+import { GetFieldType, Paths } from "../../packages/common/ide/types/Paths";
+import { Notifier } from "../../packages/common/util/Notifier";
 import type VscodeIDE from "./VscodeIDE";
 
 const translators = {

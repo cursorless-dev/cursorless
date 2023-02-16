@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { openNewEditor } from "../../libs/vscode-common/testUtil/openNewEditor";
+import { openNewEditor } from "../../packages/vscode-common/testUtil/openNewEditor";
 import VscodeTextLineImpl from "./VscodeTextLineImpl";
 
 /**

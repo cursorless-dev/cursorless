@@ -1,4 +1,4 @@
-import { TextEditorEdit } from "@cursorless/common";
+import { TextEditorEdit } from "../../packages/common";
 import {
   toVscodeEndOfLine,
   toVscodePosition,

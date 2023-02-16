@@ -1,4 +1,4 @@
-import { Range, TextLine } from "@cursorless/common";
+import { Range, TextLine } from "../../packages/common";
 import { fromVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 

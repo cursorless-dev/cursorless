@@ -1,4 +1,4 @@
-import type { EditableTextEditor, TextEditor } from "@cursorless/common";
+import type { EditableTextEditor, TextEditor } from "../..";
 import { pull } from "lodash";
 import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { TextDocument } from "../../types/TextDocument";

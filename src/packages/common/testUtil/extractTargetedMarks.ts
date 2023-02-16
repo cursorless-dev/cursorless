@@ -1,4 +1,4 @@
-import { getKey, splitKey } from "@cursorless/common";
+import { getKey, splitKey } from "..";
 import type { ReadOnlyHatMap } from "../../cursorless-engine/core/IndividualHatMap";
 import type {
   PrimitiveTargetDescriptor,

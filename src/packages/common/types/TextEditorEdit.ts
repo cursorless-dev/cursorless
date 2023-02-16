@@ -1,4 +1,4 @@
-import type { EndOfLine, Position, Range } from "@cursorless/common";
+import type { EndOfLine, Position, Range } from "..";
 
 /**
  * A complex edit that will be applied in one transaction on a TextEditor.

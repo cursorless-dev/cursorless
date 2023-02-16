@@ -1,8 +1,8 @@
 import { pull } from "lodash";
 import * as vscode from "vscode";
 import { Disposable } from "vscode";
-import ide from "../libs/cursorless-engine/singletons/ide.singleton";
-import { Graph } from "../libs/cursorless-engine/typings/Types";
+import ide from "../packages/cursorless-engine/singletons/ide.singleton";
+import { Graph } from "../packages/cursorless-engine/typings/Types";
 
 /**
  * This when clause context is active if any Cursorless listener is in control

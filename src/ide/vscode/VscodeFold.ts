@@ -1,4 +1,4 @@
-import { Range } from "@cursorless/common";
+import { Range } from "../../packages/common";
 import * as vscode from "vscode";
 import VscodeIDE from "./VscodeIDE";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";

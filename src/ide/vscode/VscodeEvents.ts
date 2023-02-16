@@ -4,9 +4,9 @@ import type {
   TextDocumentChangeEvent,
   TextDocumentChangeReason,
   TextDocumentContentChangeEvent,
-} from "../../libs/common/ide/types/Events";
-import { Event } from "../../libs/common/ide/types/events.types";
-import type { Disposable } from "../../libs/common/ide/types/ide.types";
+} from "../../packages/common/ide/types/Events";
+import { Event } from "../../packages/common/ide/types/events.types";
+import type { Disposable } from "../../packages/common/ide/types/ide.types";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 
 export function vscodeOnDidChangeTextDocument(

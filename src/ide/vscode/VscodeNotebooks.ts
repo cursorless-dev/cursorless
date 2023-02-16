@@ -1,4 +1,4 @@
-import { Selection } from "@cursorless/common";
+import { Selection } from "../../packages/common";
 import * as vscode from "vscode";
 import { getNotebookFromCellDocument } from "./notebook/notebook";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";

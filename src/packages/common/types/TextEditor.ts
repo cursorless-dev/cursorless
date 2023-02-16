@@ -6,7 +6,7 @@ import type {
   TextDocument,
   TextEditorEdit,
   TextEditorOptions,
-} from "@cursorless/common";
+} from "..";
 
 /**
  * Represents a read-only reference to a text editor.  If you need to modify the

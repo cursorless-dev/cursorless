@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { Position, Selection } from "@cursorless/common";
+import { Position, Selection } from "..";
 
 suite("Selection", () => {
   test("constructor", () => {

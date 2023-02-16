@@ -3,7 +3,7 @@ import type {
   InputBoxOptions,
   TextDocument,
   TextEditor,
-} from "@cursorless/common";
+} from "../..";
 import { URI } from "vscode-uri";
 import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { Capabilities } from "./Capabilities";

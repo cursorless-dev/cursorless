@@ -1,4 +1,4 @@
-import { Listener } from "@cursorless/common";
+import { Listener } from "../..";
 import { HatStability } from "./HatStability";
 import { Disposable } from "./ide.types";
 import { GetFieldType, Paths } from "./Paths";

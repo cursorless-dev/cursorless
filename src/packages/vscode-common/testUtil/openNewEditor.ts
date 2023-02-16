@@ -1,4 +1,4 @@
-import { getParseTreeApi } from "@cursorless/vscode-common";
+import { getParseTreeApi } from "..";
 import * as vscode from "vscode";
 
 interface NewEditorOptions {

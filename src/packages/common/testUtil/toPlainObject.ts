@@ -4,8 +4,8 @@ import type {
   LineRange,
   Message,
   SpyIDERecordedValues,
-} from "@cursorless/common";
-import { FlashStyle, isLineRange } from "@cursorless/common";
+} from "..";
+import { FlashStyle, isLineRange } from "..";
 import type { Target } from "../../cursorless-engine/typings/target.types";
 import type { Token } from "../../cursorless-engine/typings/Types";
 import { Position } from "../types/Position";

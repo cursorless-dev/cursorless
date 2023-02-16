@@ -3,34 +3,34 @@ import {
   isTesting,
   Range,
   TextDocument,
-} from "@cursorless/common";
-import { toVscodeRange } from "@cursorless/vscode-common";
+} from "./packages/common";
+import { toVscodeRange } from "./packages/vscode-common";
 import * as vscode from "vscode";
 import VscodeIDE from "./ide/vscode/VscodeIDE";
-import FakeIDE from "./libs/common/ide/fake/FakeIDE";
-import { NormalizedIDE } from "./libs/common/ide/normalized/NormalizedIDE";
-import { TargetPlainObject } from "./libs/common/testUtil/toPlainObject";
+import FakeIDE from "./packages/common/ide/fake/FakeIDE";
+import { NormalizedIDE } from "./packages/common/ide/normalized/NormalizedIDE";
+import { TargetPlainObject } from "./packages/common/testUtil/toPlainObject";
 import {
   showCheatsheet,
   updateDefaults,
-} from "./libs/cursorless-engine/core/Cheatsheet";
-import CommandRunner from "./libs/cursorless-engine/core/commandRunner/CommandRunner";
-import { Command } from "./libs/cursorless-engine/core/commandRunner/typings/command.types";
-import { ThatMark } from "./libs/cursorless-engine/core/ThatMark";
+} from "./packages/cursorless-engine/core/Cheatsheet";
+import CommandRunner from "./packages/cursorless-engine/core/commandRunner/CommandRunner";
+import { Command } from "./packages/cursorless-engine/core/commandRunner/typings/command.types";
+import { ThatMark } from "./packages/cursorless-engine/core/ThatMark";
 import ide, {
   injectIde,
-} from "./libs/cursorless-engine/singletons/ide.singleton";
-import { TestCaseRecorder } from "./libs/cursorless-engine/testCaseRecorder/TestCaseRecorder";
-import { plainObjectToTarget } from "./libs/cursorless-engine/testUtil/plainObjectToTarget";
-import { takeSnapshot } from "./libs/cursorless-engine/testUtil/takeSnapshot";
-import { Graph } from "./libs/cursorless-engine/typings/Types";
-import graphFactories from "./libs/cursorless-engine/util/graphFactories";
-import makeGraph, { FactoryMap } from "./libs/cursorless-engine/util/makeGraph";
+} from "./packages/cursorless-engine/singletons/ide.singleton";
+import { TestCaseRecorder } from "./packages/cursorless-engine/testCaseRecorder/TestCaseRecorder";
+import { plainObjectToTarget } from "./packages/cursorless-engine/testUtil/plainObjectToTarget";
+import { takeSnapshot } from "./packages/cursorless-engine/testUtil/takeSnapshot";
+import { Graph } from "./packages/cursorless-engine/typings/Types";
+import graphFactories from "./packages/cursorless-engine/util/graphFactories";
+import makeGraph, { FactoryMap } from "./packages/cursorless-engine/util/makeGraph";
 import {
   CursorlessApi,
   getCommandServerApi,
   getParseTreeApi,
-} from "./libs/vscode-common/getExtensionApi";
+} from "./packages/vscode-common/getExtensionApi";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.

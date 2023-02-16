@@ -1,4 +1,4 @@
-import { Position, Selection } from "@cursorless/common";
+import { Position, Selection } from "..";
 
 export class Range {
   /**

@@ -1,5 +1,5 @@
 import { ExtensionContext, ExtensionMode } from "vscode";
-import type { RunMode } from "@cursorless/common";
+import type { RunMode } from "../../packages/common";
 
 const EXTENSION_MODE_MAP: Record<ExtensionMode, RunMode> = {
   [ExtensionMode.Development]: "development",

@@ -3,8 +3,8 @@ import type {
   State,
   StateData,
   StateKey,
-} from "../../libs/common/ide/types/State";
-import { STATE_DEFAULTS } from "../../libs/common/ide/types/State";
+} from "../../packages/common/ide/types/State";
+import { STATE_DEFAULTS } from "../../packages/common/ide/types/State";
 
 export default class VscodeGlobalState implements State {
   constructor(private extensionContext: ExtensionContext) {

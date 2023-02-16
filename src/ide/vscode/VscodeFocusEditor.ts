@@ -7,7 +7,7 @@ import {
   ViewColumn,
   window,
 } from "vscode";
-import { getCellIndex } from "../../libs/vscode-common/notebook";
+import { getCellIndex } from "../../packages/vscode-common/notebook";
 import { getNotebookFromCellDocument } from "./notebook/notebook";
 import {
   focusNotebookCellLegacy,

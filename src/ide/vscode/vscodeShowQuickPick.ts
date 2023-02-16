@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import {
   QuickPickOptions,
   UnknownValuesOptions,
-} from "../../libs/common/ide/types/QuickPickOptions";
+} from "../../packages/common/ide/types/QuickPickOptions";
 
 export async function vscodeShowQuickPick(
   items: readonly string[],

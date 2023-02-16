@@ -1,7 +1,7 @@
 import * as globRaw from "glob";
 import * as Mocha from "mocha";
 import * as path from "path";
-import { runTestSubset, TEST_SUBSET_GREP_STRING } from "@cursorless/common";
+import { runTestSubset, TEST_SUBSET_GREP_STRING } from "../../packages/common";
 import { promisify } from "util";
 
 const glob = promisify(globRaw);

@@ -1,10 +1,10 @@
-import { EditorGeneralizedRange, sleep } from "@cursorless/common";
+import { EditorGeneralizedRange, sleep } from "../../packages/common";
 import { workspace } from "vscode";
 import {
   FlashDescriptor,
   FlashStyle,
-} from "../../libs/common/ide/types/FlashDescriptor";
-import { groupBy } from "../../libs/cursorless-engine/util/itertools";
+} from "../../packages/common/ide/types/FlashDescriptor";
+import { groupBy } from "../../packages/cursorless-engine/util/itertools";
 import VscodeHighlights from "./VscodeHighlights";
 import VscodeIDE from "./VscodeIDE";
 

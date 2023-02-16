@@ -4,7 +4,7 @@ import * as semver from "semver";
 import { commands, NotebookDocument, TextDocument, version } from "vscode";
 import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 import type VscodeIDE from "../VscodeIDE";
-import { getCellIndex } from "../../../libs/vscode-common/notebook";
+import { getCellIndex } from "../../../packages/vscode-common/notebook";
 import { getNotebookFromCellDocument } from "./notebook";
 
 export function isVscodeLegacyNotebookVersion() {

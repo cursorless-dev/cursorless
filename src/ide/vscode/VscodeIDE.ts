@@ -3,25 +3,25 @@ import type {
   GeneralizedRange,
   InputBoxOptions,
   TextEditor,
-} from "@cursorless/common";
+} from "../../packages/common";
 import { pull } from "lodash";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
 import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
-import { OutdatedExtensionError } from "../../libs/common/errors";
-import type { TextDocumentChangeEvent } from "../../libs/common/ide/types/Events";
-import { FlashDescriptor } from "../../libs/common/ide/types/FlashDescriptor";
+import { OutdatedExtensionError } from "../../packages/common/errors";
+import type { TextDocumentChangeEvent } from "../../packages/common/ide/types/Events";
+import { FlashDescriptor } from "../../packages/common/ide/types/FlashDescriptor";
 import type {
   Disposable,
   HighlightId,
   IDE,
   RunMode,
-} from "../../libs/common/ide/types/ide.types";
-import { QuickPickOptions } from "../../libs/common/ide/types/QuickPickOptions";
+} from "../../packages/common/ide/types/ide.types";
+import { QuickPickOptions } from "../../packages/common/ide/types/QuickPickOptions";
 import {
   fromVscodeRange,
   fromVscodeSelection,
-} from "../../libs/vscode-common/vscodeUtil";
+} from "../../packages/vscode-common/vscodeUtil";
 import { VscodeHats } from "./hats/VscodeHats";
 import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";

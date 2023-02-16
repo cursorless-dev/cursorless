@@ -1,7 +1,7 @@
 import {
   Capabilities,
   CommandCapabilityMap,
-} from "../../libs/common/ide/types/Capabilities";
+} from "../../packages/common/ide/types/Capabilities";
 
 const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   clipboardCopy: { acceptsLocation: false },
