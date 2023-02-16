@@ -1,10 +1,4 @@
-import { fromVscodeRange } from "@cursorless/vscode-common";
-import {
-  Disposable,
-  TextEditorSelectionChangeEvent,
-  window,
-  workspace,
-} from "vscode";
+import { Disposable, TextEditorSelectionChangeEvent } from "@cursorless/common";
 import { SyntaxNode, TreeCursor } from "web-tree-sitter";
 import ide from "../singletons/ide.singleton";
 import { Graph } from "../typings/Types";
@@ -33,9 +27,8 @@ export default class Debug {
       // Production mode. Enable based on user setting.
       case "production":
         this.evaluateSetting();
-        this.disposableConfiguration = workspace.onDidChangeConfiguration(
-          this.evaluateSetting,
-        );
+        this.disposableConfiguration =
+          ide().configuration.onDidChangeConfiguration(this.evaluateSetting);
         break;
     }
   }
@@ -61,7 +54,7 @@ export default class Debug {
 
   private enableDebugLog() {
     this.active = true;
-    this.disposableSelection = window.onDidChangeTextEditorSelection(
+    this.disposableSelection = ide().onDidChangeTextEditorSelection(
       this.logBranchTypes,
     );
   }
@@ -75,9 +68,7 @@ export default class Debug {
   }
 
   private evaluateSetting() {
-    const debugEnabled = workspace
-      .getConfiguration("cursorless")
-      .get<boolean>("debug")!;
+    const debugEnabled = ide().configuration.getOwnConfiguration("debug");
     if (debugEnabled) {
       this.enableDebugLog();
     } else {
@@ -90,7 +81,7 @@ export default class Debug {
     try {
       node = this.graph.getNodeAtLocation(
         ide().activeTextEditor!.document,
-        fromVscodeRange(event.selections[0]),
+        event.selections[0],
       );
     } catch (error) {
       return;

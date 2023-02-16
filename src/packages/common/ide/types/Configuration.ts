@@ -8,6 +8,7 @@ export type CursorlessConfiguration = {
   wordSeparators: string[];
   experimental: { snippetsDir: string | undefined; hatStability: HatStability };
   decorationDebounceDelayMs: number;
+  debug: boolean;
 };
 
 export type CursorlessConfigKey = keyof CursorlessConfiguration;
@@ -25,6 +26,7 @@ export const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
     snippetsDir: undefined,
     hatStability: HatStability.balanced,
   },
+  debug: false,
 };
 
 export interface Configuration {

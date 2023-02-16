@@ -28,6 +28,7 @@ export * from "./ide/types/FlashDescriptor";
 export * from "./ide/types/Clipboard";
 export * from "./ide/types/Hats";
 export * from "./ide/types/Events";
+export * from "./ide/types/events.types";
 export * from "./types/RangeExpansionBehavior";
 export * from "./types/InputBoxOptions";
 export * from "./types/Position";
