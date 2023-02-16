@@ -1,5 +1,5 @@
-import { EnforceUndefined } from "../../../packages/common/util/typeUtils";
-import { TestCaseFixture } from "../../../packages/cursorless-engine/testCaseRecorder/TestCaseFixture";
+import { EnforceUndefined } from "../../../common/util/typeUtils";
+import { TestCaseFixture } from "../../../cursorless-engine/testCaseRecorder/TestCaseFixture";
 
 export function reorderFields(
   fixture: TestCaseFixture,

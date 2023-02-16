@@ -2,7 +2,7 @@ import * as path from "path";
 import { walkFilesSync } from "@cursorless/common";
 
 export function getFixturesPath() {
-  return path.join(__dirname, "../../../src/test/suite/fixtures");
+  return path.join(__dirname, "suite/fixtures");
 }
 
 export function getFixturePath(fixturePath: string) {

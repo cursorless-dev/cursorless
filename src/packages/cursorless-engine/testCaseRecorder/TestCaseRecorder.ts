@@ -109,7 +109,10 @@ export class TestCaseRecorder {
       : null;
 
     this.fixtureRoot = this.workspacePath
-      ? path.join(this.workspacePath, "src/test/suite/fixtures/recorded")
+      ? path.join(
+          this.workspacePath,
+          "src/packages/cursorless-vscode-e2e/suite/fixtures/recorded",
+        )
       : null;
 
     this.toggle = this.toggle.bind(this);

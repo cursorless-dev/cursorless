@@ -6,8 +6,8 @@ import {
   defaultShapeAdjustments,
   HatAdjustments,
   IndividualHatAdjustmentMap,
-} from "../../packages/cursorless-vscode-core/ide/vscode/hats/shapeAdjustments";
-import { HAT_SHAPES } from "../../packages/cursorless-vscode-core/ide/vscode/hatStyles.types";
+} from "../../cursorless-vscode-core/ide/vscode/hats/shapeAdjustments";
+import { HAT_SHAPES } from "../../cursorless-vscode-core/ide/vscode/hatStyles.types";
 import { postProcessValue } from "./lib";
 
 /**

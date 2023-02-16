@@ -1,10 +1,10 @@
 import { groupBy, partition } from "lodash";
-import { FlashStyle } from "../../packages/common/ide/types/FlashDescriptor";
+import { FlashStyle } from "../../common/ide/types/FlashDescriptor";
 import {
   GeneralizedRangePlainObject,
   PositionPlainObject,
-} from "../../packages/common/testUtil/toPlainObject";
-import { TestCaseFixture } from "../../packages/cursorless-engine/testCaseRecorder/TestCaseFixture";
+} from "../../common/testUtil/toPlainObject";
+import { TestCaseFixture } from "../../cursorless-engine/testCaseRecorder/TestCaseFixture";
 import { reorderFields } from "./transformations/reorderFields";
 import { FixtureTransformation } from "./types";
 

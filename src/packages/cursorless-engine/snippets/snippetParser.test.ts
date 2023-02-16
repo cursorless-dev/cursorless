@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See https://github.com/microsoft/vscode/blob/6915debdd61d3db26c39e831babf70b573b1baf0/LICENSE.txt for license information.
  *--------------------------------------------------------------------------------------------*/
 import * as assert from "assert";
-import { SnippetParser } from "../../packages/cursorless-engine/snippets/vendor/vscodeSnippet/snippetParser";
+import { SnippetParser } from "./vendor/vscodeSnippet/snippetParser";
 
 suite("SnippetParser", () => {
   test("Marker, toTextmateString()", function () {
