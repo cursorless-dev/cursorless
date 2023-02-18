@@ -184,7 +184,7 @@ We support several modifiers that allow you to refer to scopes relative to the i
 
 Here is a diagram of the possible relative / ordinal modifiers:
 
-![Relative ordinal diagram](images/relative-ordinal.jpeg)
+![Relative ordinal diagram](images/relative_ordinal.png)
 
 And here is a table of the spoken forms:
 
