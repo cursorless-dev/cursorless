@@ -15,6 +15,7 @@ import type {
   RunMode,
   WorkspaceFolder,
 } from "../types/ide.types";
+import { QuickPickOptions } from "../types/QuickPickOptions";
 import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
@@ -90,6 +91,13 @@ export default class FakeIDE implements IDE {
 
   public openTextDocument(_path: string): Promise<TextEditor> {
     throw Error("Not implemented");
+  }
+
+  public showQuickPick(
+    _items: readonly string[],
+    _options?: QuickPickOptions,
+  ): Promise<string | undefined> {
+    throw new Error("Method not implemented.");
   }
 
   public showInputBox(_options?: any): Promise<string | undefined> {
