@@ -6,7 +6,7 @@ import {
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
-} from "../commandRunner/typings/PartialTargetDescriptor.types";
+} from "../../../common/types/command/PartialTargetDescriptor.types";
 
 const SCOPE_TYPE_CANONICALIZATION_MAPPING: Record<string, SimpleScopeTypeType> =
   {

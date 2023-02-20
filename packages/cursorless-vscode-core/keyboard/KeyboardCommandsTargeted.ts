@@ -1,15 +1,15 @@
 import * as vscode from "vscode";
-import type { ActionType } from "../../cursorless-engine/core/commandRunner/typings/ActionCommand";
+import type { ActionType } from "../../common/types/command/ActionCommand";
 import type {
   CommandLatest,
   LATEST_VERSION,
-} from "../../cursorless-engine/core/commandRunner/typings/command.types";
+} from "../../common/types/command/command.types";
 import type {
   ImplicitTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
-} from "../../cursorless-engine/core/commandRunner/typings/PartialTargetDescriptor.types";
+} from "../../common/types/command/PartialTargetDescriptor.types";
 import type { runCursorlessCommand } from "../../cursorless-vscode-e2e/runCommand";
 import type { getStyleName } from "../ide/vscode/hats/getStyleName";
 import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";

@@ -1,4 +1,4 @@
-import { ActionType } from "../commandRunner/typings/ActionCommand";
+import { ActionType } from "../../../common/types/command/ActionCommand";
 
 const actionAliasToCanonicalName: Record<string, ActionType> = {
   bring: "replaceWithTarget",

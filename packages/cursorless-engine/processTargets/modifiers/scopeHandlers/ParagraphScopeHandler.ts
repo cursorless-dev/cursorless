@@ -8,7 +8,7 @@ import {
 import {
   Direction,
   ScopeType,
-} from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
+} from "../../../../common/types/command/PartialTargetDescriptor.types";
 import { ParagraphTarget } from "../../targets";
 import BaseScopeHandler from "./BaseScopeHandler";
 import { fitRangeToLineContent } from "./LineScopeHandler";

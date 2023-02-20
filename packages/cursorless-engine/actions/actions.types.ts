@@ -1,7 +1,7 @@
 import type { ModifierStage } from "../processTargets/PipelineStages.types";
 import type { Target } from "../typings/target.types";
 import type { SelectionWithEditor } from "../typings/Types";
-import type { ActionType } from "../core/commandRunner/typings/ActionCommand";
+import type { ActionType } from "../../common/types/command/ActionCommand";
 
 /**
  * To be returned by {@link Action.run}

@@ -2,7 +2,7 @@ import type {
   ContainingScopeModifier,
   EveryScopeModifier,
   SurroundingPairModifier,
-} from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
+} from "../../../common/types/command/PartialTargetDescriptor.types";
 import type { ModifierStage } from "../PipelineStages.types";
 import ItemStage from "./ItemStage";
 import BoundedNonWhitespaceSequenceStage from "./scopeTypeStages/BoundedNonWhitespaceStage";

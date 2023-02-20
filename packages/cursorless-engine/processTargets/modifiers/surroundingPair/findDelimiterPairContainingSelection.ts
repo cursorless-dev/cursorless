@@ -5,7 +5,7 @@ import {
   Offsets,
 } from "./types";
 import { generateUnmatchedDelimiters } from "./generateUnmatchedDelimiters";
-import { SimpleSurroundingPairName } from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { SimpleSurroundingPairName } from "../../../../common/types/command/PartialTargetDescriptor.types";
 
 /**
  * Looks for a surrounding pair that contains the selection, returning null if none is found.

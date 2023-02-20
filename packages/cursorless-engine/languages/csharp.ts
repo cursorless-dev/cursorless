@@ -11,7 +11,7 @@ import {
   patternMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative } from "../typings/Types";
-import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { SimpleScopeTypeType } from "../../common/types/command/PartialTargetDescriptor.types";
 import { nodeFinder, typedNodeFinder } from "../util/nodeFinders";
 import { delimitedSelector, childRangeSelector } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";

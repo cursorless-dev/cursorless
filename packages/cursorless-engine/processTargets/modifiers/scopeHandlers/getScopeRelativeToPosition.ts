@@ -1,5 +1,5 @@
 import { Position, TextEditor } from "@cursorless/common";
-import { Direction } from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { Direction } from "../../../../common/types/command/PartialTargetDescriptor.types";
 import { OutOfRangeError } from "../targetSequenceUtils";
 import { TargetScope } from "./scope.types";
 import { ScopeHandler } from "./scopeHandler.types";

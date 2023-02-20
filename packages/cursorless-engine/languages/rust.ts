@@ -1,6 +1,6 @@
 import { TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { SimpleScopeTypeType } from "../../common/types/command/PartialTargetDescriptor.types";
 import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {

@@ -1,5 +1,5 @@
 import { Position } from "@cursorless/common";
-import { Direction } from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { Direction } from "../../../../common/types/command/PartialTargetDescriptor.types";
 import { strictlyContains } from "../../../util/rangeUtils";
 import { compareTargetScopes } from "./compareTargetScopes";
 import { TargetScope } from "./scope.types";

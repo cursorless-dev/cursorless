@@ -2,7 +2,7 @@ import { TextEditor } from "@cursorless/common";
 import type {
   LineNumberMark,
   LineNumberType,
-} from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
+} from "../../../common/types/command/PartialTargetDescriptor.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import { createLineTarget } from "../modifiers/scopeHandlers";
 import type { MarkStage } from "../PipelineStages.types";

@@ -5,7 +5,7 @@ import {
   SimpleSurroundingPairName,
   SurroundingPairName,
   SurroundingPairScopeType,
-} from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
+} from "../../../../common/types/command/PartialTargetDescriptor.types";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";

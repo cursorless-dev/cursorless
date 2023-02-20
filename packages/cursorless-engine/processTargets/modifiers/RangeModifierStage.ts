@@ -1,5 +1,5 @@
 import { Target } from "../../typings/target.types";
-import { RangeModifier } from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { RangeModifier } from "../../../common/types/command/PartialTargetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 import { ModifierStage } from "../PipelineStages.types";

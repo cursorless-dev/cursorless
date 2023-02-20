@@ -1,4 +1,4 @@
-import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { SimpleScopeTypeType } from "../../common/types/command/PartialTargetDescriptor.types";
 import { TextFormatterName } from "../typings/Types";
 
 export interface SnippetScope {

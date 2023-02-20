@@ -1,5 +1,5 @@
 import { NoContainingScopeError, Range } from "@cursorless/common";
-import type { EveryScopeModifier } from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
+import type { EveryScopeModifier } from "../../../common/types/command/PartialTargetDescriptor.types";
 import type { Target } from "../../typings/target.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";

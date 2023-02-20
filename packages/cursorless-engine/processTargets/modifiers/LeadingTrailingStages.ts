@@ -2,7 +2,7 @@ import { Target } from "../../typings/target.types";
 import {
   LeadingModifier,
   TrailingModifier,
-} from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
+} from "../../../common/types/command/PartialTargetDescriptor.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import { containingTokenIfUntypedStage } from "./commonContainingScopeIfUntypedStages";

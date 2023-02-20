@@ -1,6 +1,6 @@
 import { Range } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
-import { Position } from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { Position } from "../../../common/types/command/PartialTargetDescriptor.types";
 import { PositionTarget } from "../targets";
 
 export function toPositionTarget(target: Target, position: Position): Target {

@@ -1,4 +1,4 @@
-import { SurroundingPairDirection } from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { SurroundingPairDirection } from "../../../../common/types/command/PartialTargetDescriptor.types";
 import { findUnmatchedDelimiter } from "./generateUnmatchedDelimiters";
 import {
   DelimiterOccurrence,

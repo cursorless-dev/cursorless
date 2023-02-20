@@ -1,7 +1,7 @@
 import { Range, Selection, TextEditor } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { getMatchesInRange } from "../util/getMatchesInRange";
-import { SimpleScopeTypeType } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { SimpleScopeTypeType } from "../../common/types/command/PartialTargetDescriptor.types";
 import {
   NodeFinder,
   NodeMatcherAlternative,

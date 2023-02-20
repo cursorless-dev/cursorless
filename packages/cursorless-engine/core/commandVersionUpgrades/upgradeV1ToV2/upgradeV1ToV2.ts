@@ -1,18 +1,18 @@
-import { ActionType } from "../../commandRunner/typings/ActionCommand";
-import { CommandV2 } from "../../commandRunner/typings/legacy/CommandV2.types";
+import { ActionType } from "../../../../common/types/command/ActionCommand";
+import { CommandV2 } from "../../../../common/types/command/legacy/CommandV2.types";
 import {
   ModifierV2,
   PartialPrimitiveTargetDescriptorV2,
   PartialRangeTargetDescriptorV2,
   PartialTargetDescriptorV2,
   SimpleScopeTypeTypeV2,
-} from "../../commandRunner/typings/legacy/targetDescriptorV2.types";
+} from "../../../../common/types/command/legacy/targetDescriptorV2.types";
 import {
   CommandV1,
   ModifierV0V1,
   PartialPrimitiveTargetV0V1,
   PartialTargetV0V1,
-} from "../../commandRunner/typings/legacy/CommandV0V1.types";
+} from "../../../../common/types/command/legacy/CommandV0V1.types";
 import { upgradeStrictHere } from "./upgradeStrictHere";
 
 export function upgradeV1ToV2(command: CommandV1): CommandV2 {

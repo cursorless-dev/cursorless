@@ -3,7 +3,7 @@ import { TextEditor, Position } from "@cursorless/common";
 import {
   Direction,
   OneOfScopeType,
-} from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
+} from "../../../../common/types/command/PartialTargetDescriptor.types";
 import BaseScopeHandler from "./BaseScopeHandler";
 import { compareTargetScopes } from "./compareTargetScopes";
 import { getInitialIteratorInfos, advanceIteratorsUntil } from "./IteratorInfo";

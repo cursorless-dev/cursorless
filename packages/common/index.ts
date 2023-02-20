@@ -53,3 +53,4 @@ export * from "./ide/types/hatStyles.types";
 export * from "./errors";
 export * from "./util/CompositeKeyMap";
 export * from "./ide/normalized/NormalizedIDE";
+export * from "./types/command/command.types";

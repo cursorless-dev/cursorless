@@ -3,7 +3,7 @@ import {
   ContainingScopeModifier,
   EveryScopeModifier,
   SimpleScopeTypeType,
-} from "../../../core/commandRunner/typings/PartialTargetDescriptor.types";
+} from "../../../../common/types/command/PartialTargetDescriptor.types";
 import { Target } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { getInsertionDelimiter } from "../../../util/nodeSelectors";

@@ -1,15 +1,15 @@
-import { CommandV4 } from "../../commandRunner/typings/CommandV4.types";
-import { CommandV3 } from "../../commandRunner/typings/legacy/CommandV3.types";
+import { CommandV4 } from "../../../../common/types/command/CommandV4.types";
+import { CommandV3 } from "../../../../common/types/command/legacy/CommandV3.types";
 import {
   PartialPrimitiveTargetDescriptorV3,
   PartialTargetDescriptorV3,
-} from "../../commandRunner/typings/legacy/PartialTargetDescriptorV3.types";
+} from "../../../../common/types/command/legacy/PartialTargetDescriptorV3.types";
 import {
   ImplicitTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
-} from "../../commandRunner/typings/PartialTargetDescriptor.types";
+} from "../../../../common/types/command/PartialTargetDescriptor.types";
 
 export function upgradeV3ToV4(command: CommandV3): CommandV4 {
   return {

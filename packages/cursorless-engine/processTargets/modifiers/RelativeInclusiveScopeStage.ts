@@ -2,7 +2,7 @@ import { NoContainingScopeError, Range, TextEditor } from "@cursorless/common";
 import type {
   Direction,
   RelativeScopeModifier,
-} from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
+} from "../../../common/types/command/PartialTargetDescriptor.types";
 import type { Target } from "../../typings/target.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { ModifierStage } from "../PipelineStages.types";

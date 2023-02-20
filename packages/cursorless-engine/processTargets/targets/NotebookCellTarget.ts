@@ -1,5 +1,5 @@
 import { Target } from "../../typings/target.types";
-import { Position } from "../../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { Position } from "../../../common/types/command/PartialTargetDescriptor.types";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import { removalUnsupportedForPosition } from "./PositionTarget";
 

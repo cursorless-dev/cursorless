@@ -6,18 +6,18 @@ import {
 import ide from "../../singletons/ide.singleton";
 import { Graph } from "../../typings/Types";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
-import { ActionType } from "../commandRunner/typings/ActionCommand";
+import { ActionType } from "../../../common/types/command/ActionCommand";
 import {
   Command,
   CommandComplete,
   CommandLatest,
   LATEST_VERSION,
-} from "../commandRunner/typings/command.types";
+} from "../../../common/types/command/command.types";
 import {
   Modifier,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
-} from "../commandRunner/typings/PartialTargetDescriptor.types";
+} from "../../../common/types/command/PartialTargetDescriptor.types";
 import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";

@@ -3,7 +3,7 @@ import {
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
-} from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+} from "../../common/types/command/PartialTargetDescriptor.types";
 import {
   PrimitiveTargetDescriptor,
   TargetDescriptor,

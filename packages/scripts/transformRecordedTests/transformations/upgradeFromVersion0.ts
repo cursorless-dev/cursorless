@@ -1,6 +1,6 @@
 import { TestCaseFixture } from "../../../cursorless-engine/testCaseRecorder/TestCaseFixture";
 import { transformPartialPrimitiveTargets } from "../../../cursorless-engine/util/getPrimitiveTargets";
-import { PartialPrimitiveTargetDescriptor } from "../../../cursorless-engine/core/commandRunner/typings/PartialTargetDescriptor.types";
+import { PartialPrimitiveTargetDescriptor } from "../../../common/types/command/PartialTargetDescriptor.types";
 
 export function upgradeFromVersion0(fixture: TestCaseFixture) {
   const { command, spokenForm: oldSpokenForm, ...rest } = fixture as any;

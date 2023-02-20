@@ -1,7 +1,7 @@
 import { Range, TextEditor } from "@cursorless/common";
 import { imap } from "itertools";
 import { matchAll } from "./regex";
-import type { Direction } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+import type { Direction } from "../../common/types/command/PartialTargetDescriptor.types";
 
 export function getMatchesInRange(
   regex: RegExp,

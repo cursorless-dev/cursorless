@@ -1,4 +1,4 @@
-import { Modifier } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { Modifier } from "../../common/types/command/PartialTargetDescriptor.types";
 import CascadingStage from "./modifiers/CascadingStage";
 import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
 import { EveryScopeStage } from "./modifiers/EveryScopeStage";

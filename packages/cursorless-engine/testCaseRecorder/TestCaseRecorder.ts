@@ -18,7 +18,7 @@ import { readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash";
 import * as path from "path";
-import { DecoratedSymbolMark } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { DecoratedSymbolMark } from "../../common/types/command/PartialTargetDescriptor.types";
 import ide, { injectIde } from "../singletons/ide.singleton";
 import { ExtraSnapshotField, takeSnapshot } from "../testUtil/takeSnapshot";
 import { Graph } from "../typings/Types";

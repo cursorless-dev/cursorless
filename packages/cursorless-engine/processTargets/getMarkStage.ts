@@ -1,4 +1,4 @@
-import { Mark } from "../core/commandRunner/typings/PartialTargetDescriptor.types";
+import { Mark } from "../../common/types/command/PartialTargetDescriptor.types";
 import CursorStage from "./marks/CursorStage";
 import DecoratedSymbolStage from "./marks/DecoratedSymbolStage";
 import LineNumberStage from "./marks/LineNumberStage";
