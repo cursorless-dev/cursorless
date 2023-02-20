@@ -1,11 +1,11 @@
 import { Range, TextEditor, UnsupportedError } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from ".";
-import { Position } from "../../../common/types/command/PartialTargetDescriptor.types";
+import { TargetPosition } from "../../../common/types/command/PartialTargetDescriptor.types";
 import { EditNewActionType } from "../../typings/target.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 
 interface PositionTargetParameters extends CommonTargetParameters {
-  readonly position: Position;
+  readonly position: TargetPosition;
   readonly insertionDelimiter: string;
   readonly isRaw: boolean;
 }
@@ -13,7 +13,7 @@ interface PositionTargetParameters extends CommonTargetParameters {
 export default class PositionTarget extends BaseTarget {
   insertionDelimiter: string;
   isRaw: boolean;
-  private position: Position;
+  private position: TargetPosition;
   private isLineDelimiter: boolean;
   private isBefore: boolean;
   private indentationString: string;

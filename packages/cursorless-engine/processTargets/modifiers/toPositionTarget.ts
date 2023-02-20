@@ -1,9 +1,9 @@
 import { Range } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
-import { Position } from "../../../common/types/command/PartialTargetDescriptor.types";
+import { TargetPosition } from "../../../common/types/command/PartialTargetDescriptor.types";
 import { PositionTarget } from "../targets";
 
-export function toPositionTarget(target: Target, position: Position): Target {
+export function toPositionTarget(target: Target, position: TargetPosition): Target {
   const { start, end } = target.contentRange;
   let contentRange: Range;
   let insertionDelimiter: string;

@@ -266,11 +266,11 @@ export interface InferPreviousMarkModifier {
   type: "inferPreviousMark";
 }
 
-export type Position = "before" | "after" | "start" | "end";
+export type TargetPosition = "before" | "after" | "start" | "end";
 
 export interface PositionModifier {
   type: "position";
-  position: Position;
+  position: TargetPosition;
 }
 
 export interface PartialPrimitiveTargetDescriptor {

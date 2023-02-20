@@ -17,7 +17,7 @@ import type {
 } from "../processTargets/targets";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import type { Snippet, SnippetVariable } from "../snippets/snippet.types";
-import type { Position } from "../../common/types/command/PartialTargetDescriptor.types";
+import type { TargetPosition } from "../../common/types/command/PartialTargetDescriptor.types";
 import type { EditWithRangeUpdater } from "./Types";
 
 export type EditNewActionType = "edit" | "insertLineAfter";
@@ -142,5 +142,5 @@ export interface Target {
    * Construct a position target with the given position.
    * @param position The position to use, eg `start`, `end`, `before`, `after`
    */
-  toPositionTarget(position: Position): Target;
+  toPositionTarget(position: TargetPosition): Target;
 }

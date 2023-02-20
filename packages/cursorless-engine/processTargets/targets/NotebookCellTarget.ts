@@ -1,5 +1,5 @@
 import { Target } from "../../typings/target.types";
-import { Position } from "../../../common/types/command/PartialTargetDescriptor.types";
+import { TargetPosition } from "../../../common/types/command/PartialTargetDescriptor.types";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import { removalUnsupportedForPosition } from "./PositionTarget";
 
@@ -19,7 +19,7 @@ export default class NotebookCellTarget extends BaseTarget {
     return this.state;
   }
 
-  toPositionTarget(position: Position): Target {
+  toPositionTarget(position: TargetPosition): Target {
     return new NotebookCellPositionTarget({
       ...this.state,
       thatTarget: this,
@@ -29,13 +29,13 @@ export default class NotebookCellTarget extends BaseTarget {
 }
 
 interface NotebookCellPositionTargetParameters extends CommonTargetParameters {
-  readonly position: Position;
+  readonly position: TargetPosition;
 }
 
 export class NotebookCellPositionTarget extends BaseTarget {
   insertionDelimiter = "\n";
   isNotebookCell = true;
-  public position: Position;
+  public position: TargetPosition;
 
   constructor(parameters: NotebookCellPositionTargetParameters) {
     super(parameters);

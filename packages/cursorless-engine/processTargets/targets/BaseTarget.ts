@@ -5,7 +5,7 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import { isEqual } from "lodash";
-import type { Position } from "../../../common/types/command/PartialTargetDescriptor.types";
+import type { TargetPosition } from "../../../common/types/command/PartialTargetDescriptor.types";
 import type { EditNewActionType, Target } from "../../typings/target.types";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import { isSameType } from "../../util/typeUtils";
@@ -177,7 +177,7 @@ export default abstract class BaseTarget implements Target {
     };
   }
 
-  toPositionTarget(position: Position): Target {
+  toPositionTarget(position: TargetPosition): Target {
     return toPositionTarget(this, position);
   }
 
