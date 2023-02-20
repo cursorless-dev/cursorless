@@ -8,7 +8,7 @@ import {
 } from "../../../common/ide/types/Configuration";
 import { GetFieldType, Paths } from "../../../common/ide/types/Paths";
 import { Notifier } from "../../../common/util/Notifier";
-import type VscodeIDE from "./VscodeIDE";
+import type { VscodeIDE } from "./VscodeIDE";
 
 const translators = {
   experimental: {

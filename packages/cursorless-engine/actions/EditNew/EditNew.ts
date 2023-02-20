@@ -1,9 +1,9 @@
-import ide from "../../singletons/ide.singleton";
+import { ide } from "../../singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
 import { Target } from "../../typings/target.types";
-import { Graph } from "../../typings/Types";
+import { Graph } from "../../typings/Graph";
 import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
 import { Action, ActionReturnValue } from "../actions.types";

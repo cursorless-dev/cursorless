@@ -21,7 +21,7 @@ export function injectIde(ide: IDE | undefined) {
  * constructing your objects lazily
  * @returns The IDE object
  */
-export default function ide(): IDE {
+export function ide(): IDE {
   if (ide_ == null) {
     throw Error("Tried to access ide before it was injected");
   }

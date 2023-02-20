@@ -1,27 +1,25 @@
-import type {
+import {
+  Disposable,
   EditableTextEditor,
+  FlashDescriptor,
   GeneralizedRange,
+  HighlightId,
+  IDE,
   InputBoxOptions,
+  OutdatedExtensionError,
+  QuickPickOptions,
+  RunMode,
+  TextDocumentChangeEvent,
   TextEditor,
-} from "../../../common";
+} from "@cursorless/common";
+import {
+  fromVscodeRange,
+  fromVscodeSelection,
+} from "@cursorless/vscode-common";
 import { pull } from "lodash";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
 import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
-import { OutdatedExtensionError } from "../../../common/errors";
-import type { TextDocumentChangeEvent } from "../../../common/ide/types/Events";
-import { FlashDescriptor } from "../../../common/ide/types/FlashDescriptor";
-import type {
-  Disposable,
-  HighlightId,
-  IDE,
-  RunMode,
-} from "../../../common/ide/types/ide.types";
-import { QuickPickOptions } from "../../../common/ide/types/QuickPickOptions";
-import {
-  fromVscodeRange,
-  fromVscodeSelection,
-} from "../../../vscode-common/vscodeUtil";
 import { VscodeHats } from "./hats/VscodeHats";
 import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";
@@ -36,7 +34,7 @@ import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
-export default class VscodeIDE implements IDE {
+export class VscodeIDE implements IDE {
   readonly configuration: VscodeConfiguration;
   readonly globalState: VscodeGlobalState;
   readonly messages: VscodeMessages;

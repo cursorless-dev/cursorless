@@ -1,14 +1,14 @@
 import { FlashStyle } from "@cursorless/common";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
-import ide from "../singletons/ide.singleton";
+import { ide } from "../singletons/ide.singleton";
 import {
   findMatchingSnippetDefinitionStrict,
   transformSnippetVariables,
 } from "../snippets/snippet";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import { Graph } from "../typings/Graph";
 import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 

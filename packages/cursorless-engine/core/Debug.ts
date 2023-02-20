@@ -1,7 +1,7 @@
 import { Disposable, TextEditorSelectionChangeEvent } from "@cursorless/common";
 import { SyntaxNode, TreeCursor } from "web-tree-sitter";
-import ide from "../singletons/ide.singleton";
-import { Graph } from "../typings/Types";
+import { ide } from "../singletons/ide.singleton";
+import { Graph } from "../typings/Graph";
 
 export default class Debug {
   private disposableConfiguration?: Disposable;

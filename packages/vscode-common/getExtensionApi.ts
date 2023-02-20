@@ -1,22 +1,21 @@
 import type {
-  IDE,
-  NormalizedIDE,
-  SerializedMarks,
-  TargetPlainObject,
-  TextEditor,
-} from "@cursorless/common";
-import * as vscode from "vscode";
-import type { SyntaxNode } from "web-tree-sitter";
-import type { ThatMark } from "../cursorless-engine/core/ThatMark";
-import type { SnippetMap } from "../cursorless-engine/snippets/snippet.types";
-import type {
+  CommandServerApi,
   ExcludableSnapshotField,
   ExtraContext,
   ExtraSnapshotField,
+  Graph,
+  IDE,
+  NormalizedIDE,
+  SerializedMarks,
+  SnippetMap,
+  Target,
+  TargetPlainObject,
   TestCaseSnapshot,
-} from "../cursorless-engine/testUtil/takeSnapshot";
-import type { Target } from "../cursorless-engine/typings/target.types";
-import type { Graph } from "../cursorless-engine/typings/Types";
+  TextEditor,
+  ThatMark,
+} from "@cursorless/common";
+import * as vscode from "vscode";
+import type { SyntaxNode } from "web-tree-sitter";
 
 interface TestHelpers {
   graph: Graph;
@@ -63,16 +62,6 @@ export interface CursorlessApi {
 export interface ParseTreeApi {
   getNodeAtLocation(location: vscode.Location): SyntaxNode;
   loadLanguage: (languageId: string) => Promise<boolean>;
-}
-
-export interface InboundSignal {
-  getVersion(): Promise<string | null>;
-}
-
-export interface CommandServerApi {
-  signals: {
-    prePhrase: InboundSignal;
-  };
 }
 
 export async function getExtensionApi<T>(extensionId: string) {

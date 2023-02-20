@@ -1,21 +1,12 @@
 import type {
   Range,
   Selection,
-  TextEditor,
   TextDocument,
+  TextEditor,
 } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
-import { ActionRecord } from "../actions/actions.types";
-import Debug from "../core/Debug";
-import HatTokenMap from "../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
-import { Snippets } from "../core/Snippets";
-import StatusBarItem from "../../cursorless-vscode-core/StatusBarItem";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import type { CommandServerApi } from "../../vscode-common/getExtensionApi";
-import KeyboardCommands from "../../cursorless-vscode-core/keyboard/KeyboardCommands";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
-import { TestCaseRecorder } from "../testCaseRecorder/TestCaseRecorder";
 import { Target } from "./target.types";
 import { RangeOffsets } from "./updateSelections";
 
@@ -90,63 +81,6 @@ export type SelectionWithEditorWithContext = {
 export interface SelectionWithContext {
   selection: Selection;
   context: SelectionContext;
-}
-
-export interface Graph {
-  /**
-   * Keeps a map from action names to objects that implement the given action
-   */
-  readonly actions: ActionRecord;
-
-  /**
-   * Maps from (hatStyle, character) pairs to tokens
-   */
-  readonly hatTokenMap: HatTokenMap;
-
-  /**
-   * Keeps a merged list of all user-contributed, core, and
-   * extension-contributed cursorless snippets
-   */
-  readonly snippets: Snippets;
-
-  /**
-   * This component can be used to register a list of ranges to keep up to date
-   * as the document changes
-   */
-  readonly rangeUpdater: RangeUpdater;
-
-  /**
-   * API object for interacting with the command server, if it exists
-   */
-  readonly commandServerApi: CommandServerApi | null;
-
-  /**
-   * Function to access nodes in the tree sitter.
-   */
-  readonly getNodeAtLocation: (
-    document: TextDocument,
-    range: Range,
-  ) => SyntaxNode;
-
-  /**
-   * Debug logger
-   */
-  readonly debug: Debug;
-
-  /**
-   * Used for recording test cases
-   */
-  readonly testCaseRecorder: TestCaseRecorder;
-
-  /**
-   * Creates a VSCode status bar item
-   */
-  readonly statusBarItem: StatusBarItem;
-
-  /**
-   * Set of simplified commands that can be easily mapped to keyboard shortcuts.
-   */
-  readonly keyboardCommands: KeyboardCommands;
 }
 
 export type NodeMatcherValue = {

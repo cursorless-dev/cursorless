@@ -1,6 +1,6 @@
 import { EditableTextEditor } from "@cursorless/common";
 import { callFunctionAndUpdateRanges } from "../../core/updateSelections/updateSelections";
-import { Graph } from "../../typings/Types";
+import { Graph } from "../../typings/Graph";
 import { EditTarget, State } from "./EditNew.types";
 
 /**

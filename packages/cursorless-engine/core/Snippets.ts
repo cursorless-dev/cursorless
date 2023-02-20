@@ -2,9 +2,9 @@ import { showError, walkFiles } from "@cursorless/common";
 import { readFile, stat } from "fs/promises";
 import { cloneDeep, max, merge } from "lodash";
 import { join } from "path";
-import ide from "../singletons/ide.singleton";
+import { ide } from "../singletons/ide.singleton";
 import { Snippet, SnippetMap } from "../snippets/snippet.types";
-import { Graph } from "../typings/Types";
+import { Graph } from "../typings/Graph";
 import { mergeStrict } from "../util/object";
 
 const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";

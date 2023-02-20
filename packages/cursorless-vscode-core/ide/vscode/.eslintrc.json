@@ -5,8 +5,9 @@
       {
         "patterns": [
           {
-            "group": ["../*"],
-            "message": "VSCode common shouldn't import from Cursorless extension"
+            "group": ["../../*"],
+            "message": "VSCode common shouldn't import from Cursorless extension",
+            "allowTypeImports": true
           }
         ]
       }

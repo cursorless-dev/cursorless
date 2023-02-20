@@ -2,7 +2,7 @@ import { openNewEditor } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "../runCommand";
+import { runCursorlessCommand } from "../../vscode-common/runCommand";
 
 suite("scroll", async function () {
   endToEndTestSetup(this);

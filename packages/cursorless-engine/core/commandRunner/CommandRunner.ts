@@ -1,12 +1,12 @@
 import { ActionType } from "../../../common/types/command/ActionCommand";
-import ide from "../../singletons/ide.singleton";
+import { ide } from "../../singletons/ide.singleton";
 import processTargets from "../../processTargets";
 import { Target } from "../../typings/target.types";
 import {
-  Graph,
   ProcessedTargetsContext,
   SelectionWithEditor,
 } from "../../typings/Types";
+import { Graph } from "../../typings/Graph";
 import { isString } from "../../util/type";
 import {
   canonicalizeAndValidateCommand,
@@ -19,7 +19,7 @@ import { Command } from "../../../common/types/command/command.types";
 import { selectionToThatTarget } from "./selectionToThatTarget";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
-export default class CommandRunner {
+export class CommandRunner {
   constructor(
     private graph: Graph,
     private thatMark: ThatMark,

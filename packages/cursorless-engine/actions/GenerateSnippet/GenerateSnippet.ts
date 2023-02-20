@@ -1,8 +1,8 @@
 import { FlashStyle, isTesting, Range } from "@cursorless/common";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
-import ide from "../../singletons/ide.singleton";
+import { ide } from "../../singletons/ide.singleton";
 import { Target } from "../../typings/target.types";
-import { Graph } from "../../typings/Types";
+import { Graph } from "../../typings/Graph";
 import { ensureSingleTarget, flashTargets } from "../../util/targetUtils";
 import { Action, ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";

@@ -1,7 +1,7 @@
-import ide from "../singletons/ide.singleton";
+import { ide } from "../singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import { Graph } from "../typings/Graph";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 import { BreakpointDescriptor, FlashStyle } from "@cursorless/common";

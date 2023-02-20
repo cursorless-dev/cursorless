@@ -13,7 +13,7 @@ import {
   focusNotebookCellLegacy,
   isVscodeLegacyNotebookVersion,
 } from "./notebook/notebookLegacy";
-import type VscodeIDE from "./VscodeIDE";
+import type { VscodeIDE } from "./VscodeIDE";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 const columnFocusCommands = {

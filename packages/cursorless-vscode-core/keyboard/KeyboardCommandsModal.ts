@@ -1,7 +1,5 @@
 import { keys, merge, toPairs } from "lodash";
 import * as vscode from "vscode";
-import ide from "../../cursorless-engine/singletons/ide.singleton";
-import { Graph } from "../../cursorless-engine/typings/Types";
 import {
   DEFAULT_ACTION_KEYMAP,
   DEFAULT_COLOR_KEYMAP,
@@ -9,6 +7,8 @@ import {
   DEFAULT_SCOPE_KEYMAP,
   DEFAULT_SHAPE_KEYMAP,
 } from "./defaultKeymaps";
+import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
+import KeyboardHandler from "./KeyboardHandler";
 
 type SectionName = "actions" | "scopes" | "colors" | "shapes";
 
@@ -35,7 +35,11 @@ export default class KeyboardCommandsModal {
    */
   private mergedKeymap!: Record<string, KeyHandler<any>>;
 
-  constructor(private graph: Graph) {
+  constructor(
+    private extensionContext: vscode.ExtensionContext,
+    private targeted: KeyboardCommandsTargeted,
+    private keyboardHandler: KeyboardHandler,
+  ) {
     this.modeOn = this.modeOn.bind(this);
     this.modeOff = this.modeOff.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -44,19 +48,7 @@ export default class KeyboardCommandsModal {
   }
 
   init() {
-    ide().disposeOnExit(
-      vscode.commands.registerCommand(
-        "cursorless.keyboard.modal.modeOn",
-        this.modeOn,
-      ),
-      vscode.commands.registerCommand(
-        "cursorless.keyboard.modal.modeOff",
-        this.modeOff,
-      ),
-      vscode.commands.registerCommand(
-        "cursorless.keyboard.modal.modeToggle",
-        this.modeToggle,
-      ),
+    this.extensionContext.subscriptions.push(
       vscode.workspace.onDidChangeConfiguration((event) => {
         if (
           event.affectsConfiguration(
@@ -73,20 +65,20 @@ export default class KeyboardCommandsModal {
     this.mergedKeymap = {};
 
     this.handleSection("actions", DEFAULT_ACTION_KEYMAP, (value) =>
-      this.graph.keyboardCommands.targeted.performActionOnTarget(value),
+      this.targeted.performActionOnTarget(value),
     );
     this.handleSection("scopes", DEFAULT_SCOPE_KEYMAP, (value) =>
-      this.graph.keyboardCommands.targeted.targetScopeType({
+      this.targeted.targetScopeType({
         scopeType: value,
       }),
     );
     this.handleSection("colors", DEFAULT_COLOR_KEYMAP, (value) =>
-      this.graph.keyboardCommands.targeted.targetDecoratedMark({
+      this.targeted.targetDecoratedMark({
         color: value,
       }),
     );
     this.handleSection("shapes", DEFAULT_SHAPE_KEYMAP, (value) =>
-      this.graph.keyboardCommands.targeted.targetDecoratedMark({
+      this.targeted.targetDecoratedMark({
         shape: value,
       }),
     );
@@ -138,19 +130,18 @@ export default class KeyboardCommandsModal {
       return;
     }
 
-    this.inputDisposable =
-      this.graph.keyboardCommands.keyboardHandler.pushListener({
-        handleInput: this.handleInput,
-        displayOptions: {
-          cursorStyle: vscode.TextEditorCursorStyle.BlockOutline,
-          whenClauseContext: "cursorless.keyboard.modal.mode",
-          statusBarText: "Listening...",
-        },
-        handleCancelled: this.modeOff,
-      });
+    this.inputDisposable = this.keyboardHandler.pushListener({
+      handleInput: this.handleInput,
+      displayOptions: {
+        cursorStyle: vscode.TextEditorCursorStyle.BlockOutline,
+        whenClauseContext: "cursorless.keyboard.modal.mode",
+        statusBarText: "Listening...",
+      },
+      handleCancelled: this.modeOff,
+    });
 
     // Set target to current selection when we enter the mode
-    await this.graph.keyboardCommands.targeted.targetSelection();
+    await this.targeted.targetSelection();
   };
 
   modeOff = async () => {
@@ -162,7 +153,7 @@ export default class KeyboardCommandsModal {
     this.inputDisposable = undefined;
 
     // Clear target upon exiting mode; this will remove the highlight
-    await this.graph.keyboardCommands.targeted.clearTarget();
+    await this.targeted.clearTarget();
   };
 
   modeToggle = () => {
@@ -190,12 +181,11 @@ export default class KeyboardCommandsModal {
         throw Error(errorMessage);
       }
 
-      const nextKey =
-        await this.graph.keyboardCommands.keyboardHandler.awaitSingleKeypress({
-          cursorStyle: vscode.TextEditorCursorStyle.Underline,
-          whenClauseContext: "cursorless.keyboard.targeted.awaitingKeys",
-          statusBarText: "Finish sequence...",
-        });
+      const nextKey = await this.keyboardHandler.awaitSingleKeypress({
+        cursorStyle: vscode.TextEditorCursorStyle.Underline,
+        whenClauseContext: "cursorless.keyboard.targeted.awaitingKeys",
+        statusBarText: "Finish sequence...",
+      });
 
       if (nextKey == null) {
         return;

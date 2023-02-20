@@ -1,5 +1,5 @@
 import { deburr, escapeRegExp } from "lodash";
-import ide from "../singletons/ide.singleton";
+import { ide } from "../singletons/ide.singleton";
 import {
   TokenHatSplittingMode,
   Disposable,

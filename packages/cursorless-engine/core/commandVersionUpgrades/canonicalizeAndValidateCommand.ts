@@ -3,8 +3,8 @@ import {
   OutdatedExtensionError,
   showWarning,
 } from "@cursorless/common";
-import ide from "../../singletons/ide.singleton";
-import { Graph } from "../../typings/Types";
+import { ide } from "../../singletons/ide.singleton";
+import { Graph } from "../../typings/Graph";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import { ActionType } from "../../../common/types/command/ActionCommand";
 import {

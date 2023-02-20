@@ -1,6 +1,6 @@
 import { Range } from "../../../common";
 import * as vscode from "vscode";
-import VscodeIDE from "./VscodeIDE";
+import { VscodeIDE } from "./VscodeIDE";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export async function vscodeFold(

@@ -1,9 +1,9 @@
 import { FlashStyle } from "@cursorless/common";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
 import { containingSurroundingPairIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
-import ide from "../singletons/ide.singleton";
+import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import { Graph } from "../typings/Graph";
 import {
   createThatMark,
   flashTargets,

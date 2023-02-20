@@ -6,7 +6,7 @@ import {
 } from "../../../common/ide/types/FlashDescriptor";
 import { groupBy } from "../../../cursorless-engine/util/itertools";
 import VscodeHighlights from "./VscodeHighlights";
-import VscodeIDE from "./VscodeIDE";
+import { VscodeIDE } from "./VscodeIDE";
 
 export default class VscodeFlashHandler {
   constructor(private ide: VscodeIDE, private highlights: VscodeHighlights) {}

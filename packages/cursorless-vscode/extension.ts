@@ -6,9 +6,9 @@ import {
   Range,
   TargetPlainObject,
   TextDocument,
+  Command,
 } from "@cursorless/common";
 import {
-  Command,
   CommandRunner,
   FactoryMap,
   Graph,
@@ -29,6 +29,7 @@ import {
   showQuickPick,
   StatusBarItem,
   VscodeIDE,
+  KeyboardCommands,
 } from "@cursorless/cursorless-vscode-core";
 import {
   CursorlessApi,
@@ -37,7 +38,6 @@ import {
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
-import KeyboardCommands from "../cursorless-vscode-core/keyboard/KeyboardCommands";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -79,9 +79,9 @@ export async function activate(
   graph.debug.init();
   graph.snippets.init();
   graph.hatTokenMap.init();
-  graph.statusBarItem.init();
-  graph.keyboardCommands.init();
+
   const statusBarItem = StatusBarItem.create(commandIds.showQuickPick);
+  const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
@@ -89,7 +89,13 @@ export async function activate(
   // TODO: Do this using the graph once we migrate its dependencies onto the graph
   const commandRunner = new CommandRunner(graph, thatMark, sourceMark);
 
-  registerCommands(context, vscodeIDE, commandRunner, graph.testCaseRecorder);
+  registerCommands(
+    context,
+    vscodeIDE,
+    commandRunner,
+    graph.testCaseRecorder,
+    keyboardCommands,
+  );
 
   return {
     thatMark,
@@ -169,7 +175,13 @@ function registerCommands(
     [commandIds.showQuickPick, showQuickPick],
     ["cursorless.showDocumentation", showDocumentation],
 
-    // Keyboard
+    // General keyboard commands
+    [
+      "cursorless.keyboard.escape",
+      keyboardCommands.keyboardHandler.cancelActiveListener,
+    ],
+
+    // Targeted keyboard commands
     [
       "cursorless.keyboard.targeted.targetHat",
       keyboardCommands.targeted.targetDecoratedMark,
@@ -190,6 +202,11 @@ function registerCommands(
       "cursorless.keyboard.targeted.runActionOnTarget",
       keyboardCommands.targeted.performActionOnTarget,
     ],
+
+    // Modal keyboard commands
+    ["cursorless.keyboard.modal.modeOn", keyboardCommands.modal.modeOn],
+    ["cursorless.keyboard.modal.modeOff", keyboardCommands.modal.modeOff],
+    ["cursorless.keyboard.modal.modeToggle", keyboardCommands.modal.modeToggle],
   ] as const;
 
   extensionContext.subscriptions.push(

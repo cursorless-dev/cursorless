@@ -12,7 +12,7 @@ import { pick } from "lodash";
 import { ActionType } from "../../common/types/command/ActionCommand";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ThatMark } from "../core/ThatMark";
-import ide from "../singletons/ide.singleton";
+import { ide } from "../singletons/ide.singleton";
 import {
   TestCaseCommand,
   TestCaseFixture,

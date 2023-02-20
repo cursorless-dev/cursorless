@@ -2,9 +2,9 @@ import { EditableTextEditor, FlashStyle, TextEditor } from "@cursorless/common";
 import { flatten } from "lodash";
 import { selectionToThatTarget } from "../core/commandRunner/selectionToThatTarget";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import ide from "../singletons/ide.singleton";
+import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import { Graph } from "../typings/Graph";
 import {
   setSelectionsAndFocusEditor,
   setSelectionsWithoutFocusingEditor,

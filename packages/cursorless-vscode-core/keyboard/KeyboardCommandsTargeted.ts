@@ -1,17 +1,15 @@
-import * as vscode from "vscode";
-import type { ActionType } from "../../common/types/command/ActionCommand";
-import type {
+import {
+  ActionType,
   CommandLatest,
-  LATEST_VERSION,
-} from "../../common/types/command/command.types";
-import type {
   ImplicitTargetDescriptor,
+  LATEST_VERSION,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
-} from "../../common/types/command/PartialTargetDescriptor.types";
-import type { runCursorlessCommand } from "../../cursorless-vscode-e2e/runCommand";
-import type { getStyleName } from "../ide/vscode/hats/getStyleName";
+} from "@cursorless/common";
+import { runCursorlessCommand } from "@cursorless/vscode-common";
+import * as vscode from "vscode";
+import { getStyleName } from "../ide/vscode/hats/getStyleName";
 import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardHandler from "./KeyboardHandler";
@@ -40,15 +38,18 @@ interface TargetScopeTypeArgument {
  * actions on highlighted targets.
  */
 export default class KeyboardCommandsTargeted {
-  constructor(
-    private keyboardHandler: KeyboardHandler,
-    private modal: KeyboardCommandsModal,
-  ) {
+  private modal!: KeyboardCommandsModal;
+
+  constructor(private keyboardHandler: KeyboardHandler) {
     this.targetDecoratedMark = this.targetDecoratedMark.bind(this);
     this.performActionOnTarget = this.performActionOnTarget.bind(this);
     this.targetScopeType = this.targetScopeType.bind(this);
     this.targetSelection = this.targetSelection.bind(this);
     this.clearTarget = this.clearTarget.bind(this);
+  }
+
+  init(modal: KeyboardCommandsModal) {
+    this.modal = modal;
   }
 
   /**

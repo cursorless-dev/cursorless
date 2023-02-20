@@ -1,8 +1,7 @@
 import { pull } from "lodash";
 import * as vscode from "vscode";
 import { Disposable } from "vscode";
-import ide from "../../cursorless-engine/singletons/ide.singleton";
-import { Graph } from "../../cursorless-engine/typings/Types";
+import { StatusBarItem } from "../StatusBarItem";
 
 /**
  * This when clause context is active if any Cursorless listener is in control
@@ -87,9 +86,12 @@ export default class KeyboardHandler {
   private isActivated = false;
   private disposables: Disposable[] = [];
 
-  constructor(private graph: Graph) {
+  constructor(
+    extensionContext: vscode.ExtensionContext,
+    private statusBarItem: StatusBarItem,
+  ) {
     this.cancelActiveListener = this.cancelActiveListener.bind(this);
-    ide().disposeOnExit(this);
+    extensionContext.subscriptions.push(this);
   }
 
   init() {
@@ -307,9 +309,9 @@ export default class KeyboardHandler {
       this.activeListener?.listener.displayOptions.statusBarText;
 
     if (statusBarText == null) {
-      this.graph.statusBarItem.unsetText();
+      this.statusBarItem.unsetText();
     } else {
-      this.graph.statusBarItem.setText(statusBarText);
+      this.statusBarItem.setText(statusBarText);
     }
   }
 

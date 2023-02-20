@@ -1,6 +1,6 @@
 import { shuffle } from "lodash";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import { Graph } from "../typings/Graph";
 import { Action, ActionReturnValue } from "./actions.types";
 
 abstract class SortBase implements Action {

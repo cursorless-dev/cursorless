@@ -1,7 +1,7 @@
 import { CommandId, EditableTextEditor, Range } from "@cursorless/common";
-import ide from "../singletons/ide.singleton";
+import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import { Graph } from "../typings/Graph";
 import { ActionReturnValue } from "./actions.types";
 import { CallbackAction } from "./CallbackAction";
 

@@ -1,6 +1,6 @@
 import { hrtime } from "process";
-import ide from "../singletons/ide.singleton";
-import type { Graph } from "../typings/Types";
+import { ide } from "../singletons/ide.singleton";
+import { Graph } from "../typings/Graph";
 import { TokenHat } from "../util/allocateHats/allocateHats";
 import { abs } from "../util/bigint";
 import { HatAllocator } from "./HatAllocator";

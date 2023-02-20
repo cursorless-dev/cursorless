@@ -5,7 +5,7 @@ import {
 } from "@cursorless/common";
 import { zip } from "lodash";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
-import { Graph } from "../../typings/Types";
+import { Graph } from "../../typings/Graph";
 import { EditTarget, State } from "./EditNew.types";
 
 /**

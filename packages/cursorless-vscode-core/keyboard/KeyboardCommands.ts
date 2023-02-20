@@ -1,28 +1,36 @@
+import { ExtensionContext } from "vscode";
 import { StatusBarItem } from "../StatusBarItem";
 import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import KeyboardHandler from "./KeyboardHandler";
 
-export default class KeyboardCommands {
+export class KeyboardCommands {
   targeted: KeyboardCommandsTargeted;
   modal: KeyboardCommandsModal;
   keyboardHandler: KeyboardHandler;
 
-  private constructor(statusBarItem: StatusBarItem) {
-    this.targeted = new KeyboardCommandsTargeted();
-    this.modal = new KeyboardCommandsModal();
-    this.keyboardHandler = new KeyboardHandler(statusBarItem);
+  private constructor(
+    private context: ExtensionContext,
+    statusBarItem: StatusBarItem,
+  ) {
+    this.keyboardHandler = new KeyboardHandler(context, statusBarItem);
+    this.targeted = new KeyboardCommandsTargeted(this.keyboardHandler);
+    this.modal = new KeyboardCommandsModal(
+      context,
+      this.targeted,
+      this.keyboardHandler,
+    );
   }
 
-  static create(statusBarItem: StatusBarItem) {
-    const keyboardCommands = new KeyboardCommands(statusBarItem);
+  static create(context: ExtensionContext, statusBarItem: StatusBarItem) {
+    const keyboardCommands = new KeyboardCommands(context, statusBarItem);
     keyboardCommands.init();
     return keyboardCommands;
   }
 
   private init() {
-    this.targeted.init();
     this.modal.init();
     this.keyboardHandler.init();
+    this.targeted.init(this.modal);
   }
 }

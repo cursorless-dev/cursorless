@@ -1,7 +1,7 @@
-import ide from "../singletons/ide.singleton";
+import { ide } from "../singletons/ide.singleton";
 import { PlainTarget } from "../processTargets/targets";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Types";
+import { Graph } from "../typings/Graph";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";

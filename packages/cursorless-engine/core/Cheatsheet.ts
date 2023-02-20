@@ -3,7 +3,7 @@ import parse from "node-html-parser";
 import path = require("path");
 import produce from "immer";
 import { sortBy } from "lodash";
-import ide from "../singletons/ide.singleton";
+import { ide } from "../singletons/ide.singleton";
 
 /**
  * The argument expected by the cheatsheet command.

@@ -4,7 +4,7 @@ import * as os from "os";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { getFixturePath } from "../getFixturePaths";
-import { runCursorlessCommand } from "../runCommand";
+import { runCursorlessCommand } from "../../vscode-common/runCommand";
 
 suite("followLink", async function () {
   endToEndTestSetup(this);

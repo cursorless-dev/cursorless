@@ -1,7 +1,8 @@
 import { getKey, HatStyleName, TextDocument } from "@cursorless/common";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
 import { getMatcher } from "../tokenizer";
-import { Graph, Token } from "../typings/Types";
+import { Token } from "../typings/Types";
+import { Graph } from "../typings/Graph";
 import { FullRangeInfo } from "../typings/updateSelections";
 import { TokenHat } from "../util/allocateHats/allocateHats";
 

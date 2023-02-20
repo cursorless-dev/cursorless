@@ -9,9 +9,10 @@ import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
-import ide from "../singletons/ide.singleton";
+import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { EditWithRangeUpdater, Graph } from "../typings/Types";
+import { EditWithRangeUpdater } from "../typings/Types";
+import { Graph } from "../typings/Graph";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import {
   flashTargets,

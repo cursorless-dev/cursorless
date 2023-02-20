@@ -1,4 +1,5 @@
 import {
+  DecoratedSymbolMark,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
   getKey,
@@ -18,10 +19,9 @@ import { readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash";
 import * as path from "path";
-import { DecoratedSymbolMark } from "../../common/types/command/PartialTargetDescriptor.types";
-import ide, { injectIde } from "../singletons/ide.singleton";
+import { ide, injectIde } from "../singletons/ide.singleton";
 import { ExtraSnapshotField, takeSnapshot } from "../testUtil/takeSnapshot";
-import { Graph } from "../typings/Types";
+import { Graph } from "../typings/Graph";
 import { TestCase, TestCaseContext } from "./TestCase";
 import { TestCaseCommand } from "./TestCaseFixture";
 

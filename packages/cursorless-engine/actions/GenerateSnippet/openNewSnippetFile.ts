@@ -1,6 +1,6 @@
 import { open } from "fs/promises";
 import { join } from "path";
-import ide from "../../singletons/ide.singleton";
+import { ide } from "../../singletons/ide.singleton";
 
 /**
  * Creates a new empty file in the users snippet directory and opens an editor

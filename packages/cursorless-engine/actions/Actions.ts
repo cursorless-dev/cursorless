@@ -1,4 +1,4 @@
-import { Graph } from "../typings/Types";
+import { Graph } from "../typings/Graph";
 import { ActionRecord } from "./actions.types";
 import {
   ToggleLineComment,

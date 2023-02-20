@@ -28,7 +28,7 @@ import type { TokenHat } from "../../cursorless-engine/util/allocateHats/allocat
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { getRecordedTestPaths } from "../getFixturePaths";
-import { runCursorlessCommand } from "../runCommand";
+import { runCursorlessCommand } from "../../vscode-common/runCommand";
 import shouldUpdateFixtures from "../shouldUpdateFixtures";
 import { setupFake } from "./setupFake";
 

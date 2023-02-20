@@ -2,7 +2,7 @@ import { HatStability } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "../runCommand";
+import { runCursorlessCommand } from "../../vscode-common/runCommand";
 import { setupFake } from "./setupFake";
 
 suite("Wrap with snippet across split", async function () {
