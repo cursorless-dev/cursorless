@@ -1,20 +1,20 @@
 import * as vscode from "vscode";
-import { runCursorlessCommand } from "../../cursorless-vscode-e2e/runCommand";
-import { ActionType } from "../../cursorless-engine/core/commandRunner/typings/ActionCommand";
-import {
+import type { ActionType } from "../../cursorless-engine/core/commandRunner/typings/ActionCommand";
+import type {
   CommandLatest,
   LATEST_VERSION,
 } from "../../cursorless-engine/core/commandRunner/typings/command.types";
-import {
+import type {
   ImplicitTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "../../cursorless-engine/core/commandRunner/typings/PartialTargetDescriptor.types";
-import { getStyleName } from "../ide/vscode/hats/getStyleName";
-import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
-import ide from "../../cursorless-engine/singletons/ide.singleton";
-import { Graph } from "../../cursorless-engine/typings/Types";
+import type { runCursorlessCommand } from "../../cursorless-vscode-e2e/runCommand";
+import type { getStyleName } from "../ide/vscode/hats/getStyleName";
+import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
+import KeyboardCommandsModal from "./KeyboardCommandsModal";
+import KeyboardHandler from "./KeyboardHandler";
 
 type TargetingMode = "replace" | "extend" | "append";
 
@@ -40,37 +40,15 @@ interface TargetScopeTypeArgument {
  * actions on highlighted targets.
  */
 export default class KeyboardCommandsTargeted {
-  constructor(private graph: Graph) {
+  constructor(
+    private keyboardHandler: KeyboardHandler,
+    private modal: KeyboardCommandsModal,
+  ) {
     this.targetDecoratedMark = this.targetDecoratedMark.bind(this);
     this.performActionOnTarget = this.performActionOnTarget.bind(this);
     this.targetScopeType = this.targetScopeType.bind(this);
     this.targetSelection = this.targetSelection.bind(this);
     this.clearTarget = this.clearTarget.bind(this);
-  }
-
-  init() {
-    ide().disposeOnExit(
-      vscode.commands.registerCommand(
-        "cursorless.keyboard.targeted.targetHat",
-        this.targetDecoratedMark,
-      ),
-      vscode.commands.registerCommand(
-        "cursorless.keyboard.targeted.targetScope",
-        this.targetScopeType,
-      ),
-      vscode.commands.registerCommand(
-        "cursorless.keyboard.targeted.targetSelection",
-        this.targetSelection,
-      ),
-      vscode.commands.registerCommand(
-        "cursorless.keyboard.targeted.clearTarget",
-        this.clearTarget,
-      ),
-      vscode.commands.registerCommand(
-        "cursorless.keyboard.targeted.runActionOnTarget",
-        this.performActionOnTarget,
-      ),
-    );
   }
 
   /**
@@ -87,7 +65,7 @@ export default class KeyboardCommandsTargeted {
   }: TargetDecoratedMarkArgument) => {
     character =
       character ??
-      (await this.graph.keyboardCommands.keyboardHandler.awaitSingleKeypress({
+      (await this.keyboardHandler.awaitSingleKeypress({
         cursorStyle: vscode.TextEditorCursorStyle.Underline,
         whenClauseContext: "cursorless.keyboard.targeted.awaitingHatCharacter",
         statusBarText: "Which hat?",
@@ -231,7 +209,7 @@ export default class KeyboardCommandsTargeted {
     if (EXIT_CURSORLESS_MODE_ACTIONS.includes(action)) {
       // For some Cursorless actions, it is more convenient if we automatically
       // exit modal mode
-      await this.graph.keyboardCommands.modal.modeOff();
+      await this.modal.modeOff();
     }
 
     return returnValue;

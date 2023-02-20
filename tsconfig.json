@@ -16,7 +16,8 @@
       "@cursorless/vscode-common": ["./packages/vscode-common/index.ts"],
       "@cursorless/cursorless-vscode-core": [
         "./packages/cursorless-vscode-core/index.ts"
-      ]
+      ],
+      "@cursorless/cursorless-engine": ["./packages/cursorless-engine/index.ts"]
     }
   },
   "exclude": [

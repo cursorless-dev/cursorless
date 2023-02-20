@@ -2,7 +2,7 @@ import Actions from "../actions";
 import Debug from "../core/Debug";
 import HatTokenMap from "../core/HatTokenMap";
 import { Snippets } from "../core/Snippets";
-import StatusBarItem from "../core/StatusBarItem";
+import StatusBarItem from "../../cursorless-vscode-core/StatusBarItem";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import KeyboardCommands from "../../cursorless-vscode-core/keyboard/KeyboardCommands";
 import { TestCaseRecorder } from "../testCaseRecorder/TestCaseRecorder";

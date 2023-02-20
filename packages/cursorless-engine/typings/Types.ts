@@ -10,7 +10,7 @@ import Debug from "../core/Debug";
 import HatTokenMap from "../core/HatTokenMap";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { Snippets } from "../core/Snippets";
-import StatusBarItem from "../core/StatusBarItem";
+import StatusBarItem from "../../cursorless-vscode-core/StatusBarItem";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import type { CommandServerApi } from "../../vscode-common/getExtensionApi";
 import KeyboardCommands from "../../cursorless-vscode-core/keyboard/KeyboardCommands";

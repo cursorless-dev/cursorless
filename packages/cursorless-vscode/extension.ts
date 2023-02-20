@@ -1,34 +1,43 @@
 import {
   CURSORLESS_COMMAND_ID,
+  FakeIDE,
   isTesting,
+  NormalizedIDE,
   Range,
+  TargetPlainObject,
   TextDocument,
-} from "../common";
-import { toVscodeRange } from "../vscode-common";
-import * as vscode from "vscode";
-import VscodeIDE from "../cursorless-vscode-core/ide/vscode/VscodeIDE";
-import FakeIDE from "../common/ide/fake/FakeIDE";
-import { NormalizedIDE } from "../common/ide/normalized/NormalizedIDE";
-import { TargetPlainObject } from "../common/testUtil/toPlainObject";
+} from "@cursorless/common";
 import {
+  Command,
+  CommandRunner,
+  FactoryMap,
+  Graph,
+  graphFactories,
+  ide,
+  injectIde,
+  makeGraph,
+  plainObjectToTarget,
   showCheatsheet,
+  takeSnapshot,
+  TestCaseRecorder,
+  ThatMark,
   updateDefaults,
-} from "../cursorless-engine/core/Cheatsheet";
-import CommandRunner from "../cursorless-engine/core/commandRunner/CommandRunner";
-import { Command } from "../cursorless-engine/core/commandRunner/typings/command.types";
-import { ThatMark } from "../cursorless-engine/core/ThatMark";
-import ide, { injectIde } from "../cursorless-engine/singletons/ide.singleton";
-import { TestCaseRecorder } from "../cursorless-engine/testCaseRecorder/TestCaseRecorder";
-import { plainObjectToTarget } from "../cursorless-engine/testUtil/plainObjectToTarget";
-import { takeSnapshot } from "../cursorless-engine/testUtil/takeSnapshot";
-import { Graph } from "../cursorless-engine/typings/Types";
-import graphFactories from "../cursorless-engine/util/graphFactories";
-import makeGraph, { FactoryMap } from "../cursorless-engine/util/makeGraph";
+} from "@cursorless/cursorless-engine";
+import {
+  commandIds,
+  showDocumentation,
+  showQuickPick,
+  StatusBarItem,
+  VscodeIDE,
+} from "@cursorless/cursorless-vscode-core";
 import {
   CursorlessApi,
   getCommandServerApi,
   getParseTreeApi,
-} from "../vscode-common/getExtensionApi";
+  toVscodeRange,
+} from "@cursorless/vscode-common";
+import * as vscode from "vscode";
+import KeyboardCommands from "../cursorless-vscode-core/keyboard/KeyboardCommands";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -72,6 +81,7 @@ export async function activate(
   graph.hatTokenMap.init();
   graph.statusBarItem.init();
   graph.keyboardCommands.init();
+  const statusBarItem = StatusBarItem.create(commandIds.showQuickPick);
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
@@ -124,6 +134,7 @@ function registerCommands(
   vscodeIde: VscodeIDE,
   commandRunner: CommandRunner,
   testCaseRecorder: TestCaseRecorder,
+  keyboardCommands: KeyboardCommands,
 ): void {
   const commands = [
     // The core Cursorless command
@@ -153,6 +164,32 @@ function registerCommands(
     ["cursorless.pauseRecording", testCaseRecorder.pause],
     ["cursorless.resumeRecording", testCaseRecorder.resume],
     ["cursorless.takeSnapshot", testCaseRecorder.takeSnapshot],
+
+    // Other commands
+    [commandIds.showQuickPick, showQuickPick],
+    ["cursorless.showDocumentation", showDocumentation],
+
+    // Keyboard
+    [
+      "cursorless.keyboard.targeted.targetHat",
+      keyboardCommands.targeted.targetDecoratedMark,
+    ],
+    [
+      "cursorless.keyboard.targeted.targetScope",
+      keyboardCommands.targeted.targetScopeType,
+    ],
+    [
+      "cursorless.keyboard.targeted.targetSelection",
+      keyboardCommands.targeted.targetSelection,
+    ],
+    [
+      "cursorless.keyboard.targeted.clearTarget",
+      keyboardCommands.targeted.clearTarget,
+    ],
+    [
+      "cursorless.keyboard.targeted.runActionOnTarget",
+      keyboardCommands.targeted.performActionOnTarget,
+    ],
   ] as const;
 
   extensionContext.subscriptions.push(
