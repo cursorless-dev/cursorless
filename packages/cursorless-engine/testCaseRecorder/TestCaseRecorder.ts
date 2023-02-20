@@ -111,7 +111,7 @@ export class TestCaseRecorder {
     this.fixtureRoot = this.workspacePath
       ? path.join(
           this.workspacePath,
-          "src/packages/cursorless-vscode-e2e/suite/fixtures/recorded",
+          "packages/cursorless-vscode-e2e/suite/fixtures/recorded",
         )
       : null;
 
