@@ -7,7 +7,7 @@
 import "module-alias/register";
 
 import * as path from "path";
-import { launchVscodeAndRunTests } from "../launchVscodeAndRunTests";
+import { launchVscodeAndRunTests } from "../util/launchVscodeAndRunTests";
 
 async function main() {
   // Note that we run all tests, including unit tests, in VSCode, even though
