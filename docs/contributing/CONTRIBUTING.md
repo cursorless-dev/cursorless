@@ -95,7 +95,7 @@ code --profile=cursorlessDevelopment --install-extension bundle.vsix
 You'll probably want to run the following to make sure the SVGs have everything they need:
 
 ```sh
-yarn run compile && node ./out/scripts/preprocessSvgHats.js
+yarn run compile && node out/cursorless-vscode-core/scripts/preprocessSvgHats.js
 ```
 
 This script will add dummy width, height and fill attributes as necessary to appease the regex in `Decorations.ts`
@@ -109,11 +109,11 @@ can paste the settings into `packages/cursorless-vscode-core/scripts/hatAdjustme
 your updates:
 
 ```sh
-yarn run compile && node ./out/cursorless-vscode-core/ide/vscode/scripts/hatAdjustments/add.js
+yarn run compile && node ./out/cursorless-vscode-core/scripts/hatAdjustments/add.js
 ```
 
 If instead, you want to average your adjustments with those in main and see the differences to get to yours and main, you can paste the settings into `packages/cursorless-vscode-core/scripts/hatAdjustments/average.ts` and run:
 
 ```sh
-yarn run compile && node ./out/cursorless-vscode-core/ide/vscode/scripts/hatAdjustments/average.js
+yarn run compile && node ./out/cursorless-vscode-core/scripts/hatAdjustments/average.js
 ```

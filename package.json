@@ -761,8 +761,8 @@
     "lint": "eslint packages --ext ts",
     "test": "env CURSORLESS_TEST=true node ./out/test/scripts/runTestsCI.js",
     "unused-exports": "ts-unused-exports tsconfig.json --showLineNumber",
-    "init-launch-sandbox": "node ./out/scripts/initLaunchSandbox.js",
-    "prepare-for-extension-publish": "node ./out/scripts/prepareForExtensionPublish.js",
+    "init-launch-sandbox": "node ./out/cursorless-vscode-core/scripts/initLaunchSandbox.js",
+    "prepare-for-extension-publish": "node ./out/cursorless-vscode-core/scripts/prepareForExtensionPublish.js",
     "transform-recorded-tests": "node ./out/cursorless-engine/scripts/transformRecordedTests/index.js"
   },
   "devDependencies": {
