@@ -17,7 +17,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
   try {
     // The folder containing the Extension Manifest package.json
     // Passed to `--extensionDevelopmentPath`
-    const extensionDevelopmentPath = path.resolve(__dirname, "../../");
+    const extensionDevelopmentPath = path.resolve(__dirname, "../../../");
 
     const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");
     const logsDir = getEnvironmentVariableStrict("VSCODE_LOGS_DIR");
