@@ -5,8 +5,8 @@ import * as path from "path";
 import { runAllTestsInDirs } from "../util/runAllTestsInDir";
 
 const testDirectories = [
-  "../../libs/cursorless-engine",
-  "../../libs/common",
+  "../../cursorless-engine",
+  "../../common",
   "../../test/suite",
 ];
 

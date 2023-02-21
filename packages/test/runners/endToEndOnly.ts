@@ -12,6 +12,6 @@ import { runAllTestsInDir } from "../util/runAllTestsInDir";
  */
 export function run(): Promise<void> {
   return runAllTestsInDir(
-    path.resolve(__dirname, "../../apps/cursorless-vscode-e2e"),
+    path.resolve(__dirname, "../../packages/cursorless-vscode-e2e"),
   );
 }

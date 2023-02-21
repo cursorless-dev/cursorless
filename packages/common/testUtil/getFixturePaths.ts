@@ -2,7 +2,7 @@ import * as path from "path";
 import { walkFilesSync } from "../util/walkSync";
 
 export function getFixturesPath() {
-  return path.join(__dirname, "suite/fixtures");
+  return path.join(__dirname, "../../cursorless-vscode-e2e/suite/fixtures");
 }
 
 export function getFixturePath(fixturePath: string) {
