@@ -2,6 +2,10 @@
  * This file can be run from node to run tests in CI
  */
 
+// Ensures that the aliases such as @cursorless/common that we define in
+// package.json are active
+import "module-alias/register";
+
 import * as path from "path";
 import { launchVscodeAndRunTests } from "../launchVscodeAndRunTests";
 
