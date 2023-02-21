@@ -10,7 +10,7 @@ import {
   TextEditor,
   TextEditorEdit,
   TextEditorOptions,
-} from "../../../common";
+} from "@cursorless/common";
 import {
   fromVscodeRange,
   fromVscodeSelection,

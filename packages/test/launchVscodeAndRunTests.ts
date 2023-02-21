@@ -5,7 +5,7 @@ import {
   resolveCliArgsFromVSCodeExecutablePath,
   runTests,
 } from "@vscode/test-electron";
-import { extensionDependencies } from "./extensionDependencies";
+import { extensionDependencies } from "@cursorless/common";
 
 /**
  * Downloads and launches VSCode, instructing it to run the test runner

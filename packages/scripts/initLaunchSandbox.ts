@@ -3,8 +3,8 @@
  * allowing you to have a separate set of extensions and settings for use when
  * developing the Cursorless VSCode extension locally.
  */
+import { extensionDependencies } from "@cursorless/common";
 import * as cp from "child_process";
-import { extensionDependencies } from "../test/extensionDependencies";
 
 const extraExtensions = ["pokey.command-server", "pokey.talon"];
 

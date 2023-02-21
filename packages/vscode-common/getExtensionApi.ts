@@ -6,17 +6,17 @@ import type {
   TargetPlainObject,
   TextEditor,
 } from "@cursorless/common";
-import * as vscode from "vscode";
-import type { SyntaxNode } from "web-tree-sitter";
-import type { ThatMark } from "../cursorless-engine/core/ThatMark";
-import type { SnippetMap } from "../cursorless-engine/snippets/snippet.types";
 import type {
   ExcludableSnapshotField,
-  ExtraSnapshotField,
   ExtraContext,
+  ExtraSnapshotField,
+  Graph,
   TestCaseSnapshot,
-} from "../cursorless-engine/testUtil/takeSnapshot";
-import type { Graph } from "../cursorless-engine/typings/Graph";
+  ThatMark,
+} from "@cursorless/cursorless-engine";
+import * as vscode from "vscode";
+import type { SyntaxNode } from "web-tree-sitter";
+import type { SnippetMap } from "../cursorless-engine/snippets/snippet.types";
 import type { Target } from "../cursorless-engine/typings/target.types";
 
 interface TestHelpers {

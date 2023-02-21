@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { RevealLineAt } from "../../../common";
+import { RevealLineAt } from "@cursorless/common";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export async function vscodeRevealLine(

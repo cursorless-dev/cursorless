@@ -1,4 +1,4 @@
-import { isTesting } from "../../../common";
+import { isTesting } from "@cursorless/common";
 import { pickBy } from "lodash";
 import * as vscode from "vscode";
 import { HatStyleInfo, HatStyleMap } from "@cursorless/common";

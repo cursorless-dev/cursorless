@@ -1,13 +1,12 @@
 import * as vscode from "vscode";
 import { ExtensionContext } from "vscode";
-import { FlashStyle } from "@cursorless/common";
+import { FlashStyle, partition } from "@cursorless/common";
 import {
   CharacterRange,
   GeneralizedRange,
   isLineRange,
   LineRange,
 } from "@cursorless/common";
-import { partition } from "../../../cursorless-engine/util/itertools";
 import { VscodeHighlightDecorationTypes } from "./VscodeHighlightDecorationTypes";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 

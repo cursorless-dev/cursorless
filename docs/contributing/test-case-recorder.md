@@ -86,9 +86,9 @@ To upgrade all the test fixtures to the latest command version, run the command 
 
 ### Custom transformation
 
-1. Add a new transformation to the `scripts/transformRecordedTests/transformations` directory. Look at the existing transformations in that directory for inspiration.
+1. Add a new transformation to the [`transformRecordedTests` directory](../../packages/cursorless-engine/scripts/transformRecordedTests). Look at the existing transformations in that directory for inspiration.
 1. Change the value at the `custom` key in `AVAILABLE_TRANSFORMATIONS` at the top of
-   [`transformRecordedTests/index.ts`](../../packages/scripts/transformRecordedTests/index.ts) to
+   [`transformRecordedTests/index.ts`](../../packages/cursorless-engine/scripts/transformRecordedTests/index.ts) to
    point to your new transformation
 1. Run `yarn compile && yarn transform-recorded-tests custom`
 

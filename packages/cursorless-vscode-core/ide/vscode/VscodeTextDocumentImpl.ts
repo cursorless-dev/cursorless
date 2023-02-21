@@ -1,4 +1,4 @@
-import { Position, Range, TextDocument, TextLine } from "../../../common";
+import { Position, Range, TextDocument, TextLine } from "@cursorless/common";
 import {
   fromVscodePosition,
   toVscodePosition,

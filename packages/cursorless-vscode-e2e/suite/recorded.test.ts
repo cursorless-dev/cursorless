@@ -1,6 +1,7 @@
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
+  getRecordedTestPaths,
   HatStability,
   marksToPlainObject,
   omitByDeep,
@@ -25,15 +26,14 @@ import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
 import * as vscode from "vscode";
-import type { ReadOnlyHatMap } from "../../cursorless-engine/core/IndividualHatMap";
-import type { TestCaseFixture } from "../../cursorless-engine/testCaseRecorder/TestCaseFixture";
-import type { ExcludableSnapshotField } from "../../cursorless-engine/testUtil/takeSnapshot";
-import type { TokenHat } from "../../cursorless-engine/util/allocateHats/allocateHats";
+import type { TestCaseFixture } from "@cursorless/cursorless-engine";
+import type { ExcludableSnapshotField } from "@cursorless/cursorless-engine";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
-import { getRecordedTestPaths } from "../getFixturePaths";
 import shouldUpdateFixtures from "../shouldUpdateFixtures";
 import { setupFake } from "./setupFake";
+import type { ReadOnlyHatMap } from "../../cursorless-engine/core/IndividualHatMap";
+import type { TokenHat } from "../../cursorless-engine/util/allocateHats/allocateHats";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);

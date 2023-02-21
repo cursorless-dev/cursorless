@@ -1,4 +1,4 @@
-import { BreakpointDescriptor } from "../../../common";
+import { BreakpointDescriptor } from "@cursorless/common";
 import { toVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";

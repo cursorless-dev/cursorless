@@ -2,6 +2,7 @@ import {
   FlashDescriptor,
   FlashStyle,
   GeneralizedRange,
+  groupBy,
   IDE,
   Range,
   Selection,
@@ -12,7 +13,6 @@ import {
 import { zip } from "lodash";
 import { Target } from "../typings/target.types";
 import { SelectionWithEditor } from "../typings/Types";
-import { groupBy } from "./itertools";
 
 export function ensureSingleEditor(targets: Target[]): TextEditor {
   if (targets.length === 0) {

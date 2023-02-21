@@ -1,5 +1,5 @@
 import * as path from "path";
-import { walkFilesSync } from "@cursorless/common";
+import { walkFilesSync } from "../util/walkSync";
 
 export function getFixturesPath() {
   return path.join(__dirname, "suite/fixtures");

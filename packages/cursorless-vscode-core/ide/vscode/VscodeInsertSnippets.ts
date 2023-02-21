@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { Range } from "../../../common";
+import { Range } from "@cursorless/common";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export async function vscodeInsertSnippet(

@@ -5,14 +5,14 @@
       {
         "patterns": [
           {
-            "group": ["../*"],
-            "message": "Tests have restricted dependencies"
+            "group": ["../../../*"],
+            "message": "Scripts have restricted dependencies"
           }
         ],
         "paths": [
           {
             "name": "vscode",
-            "message": "Tests shouldn't depend on vscode"
+            "message": "Scripts shouldn't depend on vscode"
           }
         ]
       }

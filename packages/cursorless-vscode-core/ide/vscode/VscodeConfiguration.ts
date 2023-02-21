@@ -1,4 +1,4 @@
-import { HatStability } from "../../../common";
+import { HatStability } from "@cursorless/common";
 import { get } from "lodash";
 import * as vscode from "vscode";
 import {

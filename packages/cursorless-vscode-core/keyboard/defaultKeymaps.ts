@@ -1,7 +1,7 @@
 import { ActionType } from "@cursorless/common";
 import { SimpleScopeTypeType } from "@cursorless/common";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
-import { isTesting } from "../../common";
+import { isTesting } from "@cursorless/common";
 
 export type Keymap<T> = Record<string, T>;
 

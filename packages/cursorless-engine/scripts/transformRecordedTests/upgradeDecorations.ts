@@ -4,7 +4,7 @@ import {
   GeneralizedRangePlainObject,
   PositionPlainObject,
 } from "@cursorless/common";
-import { TestCaseFixture } from "../../cursorless-engine/testCaseRecorder/TestCaseFixture";
+import { TestCaseFixture } from "@cursorless/cursorless-engine";
 import { reorderFields } from "./transformations/reorderFields";
 import { FixtureTransformation } from "./types";
 
