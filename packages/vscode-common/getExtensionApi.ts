@@ -1,21 +1,23 @@
 import type {
   CommandServerApi,
-  ExcludableSnapshotField,
-  ExtraContext,
-  ExtraSnapshotField,
-  Graph,
   IDE,
   NormalizedIDE,
   SerializedMarks,
-  SnippetMap,
-  Target,
   TargetPlainObject,
-  TestCaseSnapshot,
   TextEditor,
-  ThatMark,
 } from "@cursorless/common";
 import * as vscode from "vscode";
 import type { SyntaxNode } from "web-tree-sitter";
+import type { ThatMark } from "../cursorless-engine/core/ThatMark";
+import type { SnippetMap } from "../cursorless-engine/snippets/snippet.types";
+import type {
+  ExcludableSnapshotField,
+  ExtraSnapshotField,
+  ExtraContext,
+  TestCaseSnapshot,
+} from "../cursorless-engine/testUtil/takeSnapshot";
+import type { Graph } from "../cursorless-engine/typings/Graph";
+import type { Target } from "../cursorless-engine/typings/target.types";
 
 interface TestHelpers {
   graph: Graph;

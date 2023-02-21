@@ -1,4 +1,5 @@
 import {
+  DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
   HatStability,
   marksToPlainObject,
@@ -13,9 +14,12 @@ import {
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
   TextEditor,
-  DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
 } from "@cursorless/common";
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
+import {
+  getCursorlessApi,
+  openNewEditor,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
 import { assert } from "chai";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
@@ -28,7 +32,6 @@ import type { TokenHat } from "../../cursorless-engine/util/allocateHats/allocat
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { getRecordedTestPaths } from "../getFixturePaths";
-import { runCursorlessCommand } from "../../vscode-common/runCommand";
 import shouldUpdateFixtures from "../shouldUpdateFixtures";
 import { setupFake } from "./setupFake";
 
