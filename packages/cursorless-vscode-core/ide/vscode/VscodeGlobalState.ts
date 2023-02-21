@@ -1,9 +1,5 @@
 import type { ExtensionContext } from "vscode";
-import type {
-  State,
-  StateData,
-  StateKey,
-} from "@cursorless/common";
+import type { State, StateData, StateKey } from "@cursorless/common";
 import { STATE_DEFAULTS } from "@cursorless/common";
 
 export default class VscodeGlobalState implements State {

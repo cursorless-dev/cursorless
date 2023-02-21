@@ -1,9 +1,5 @@
 import { window } from "vscode";
-import {
-  MessageId,
-  Messages,
-  MessageType,
-} from "@cursorless/common";
+import { MessageId, Messages, MessageType } from "@cursorless/common";
 
 export default class VscodeMessages implements Messages {
   async showMessage(

@@ -1,8 +1,5 @@
 import { TextEditor, Position } from "@cursorless/common";
-import {
-  Direction,
-  ScopeType,
-} from "@cursorless/common";
+import { Direction, ScopeType } from "@cursorless/common";
 import { DocumentTarget } from "../../targets";
 import BaseScopeHandler from "./BaseScopeHandler";
 import { TargetScope } from "./scope.types";

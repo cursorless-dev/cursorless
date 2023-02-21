@@ -1,10 +1,7 @@
 import { imap } from "itertools";
 import { NestedScopeHandler } from ".";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";
-import {
-  Direction,
-  ScopeType,
-} from "@cursorless/common";
+import { Direction, ScopeType } from "@cursorless/common";
 import { getMatcher } from "../../../tokenizer";
 import { testRegex } from "../../../util/regex";
 import { PlainTarget } from "../../targets";

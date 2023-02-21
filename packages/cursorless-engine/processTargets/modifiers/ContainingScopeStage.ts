@@ -3,10 +3,7 @@ import {
   Position,
   TextEditor,
 } from "@cursorless/common";
-import type {
-  ContainingScopeModifier,
-  Direction,
-} from "@cursorless/common";
+import type { ContainingScopeModifier, Direction } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { ModifierStage } from "../PipelineStages.types";

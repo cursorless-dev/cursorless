@@ -1,7 +1,4 @@
-import {
-  Modifier,
-  ModifyIfUntypedModifier,
-} from "@cursorless/common";
+import { Modifier, ModifyIfUntypedModifier } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";

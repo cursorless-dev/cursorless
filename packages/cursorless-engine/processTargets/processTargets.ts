@@ -1,9 +1,6 @@
 import { Range } from "@cursorless/common";
 import { uniqWith, zip } from "lodash";
-import {
-  ImplicitTargetDescriptor,
-  Modifier,
-} from "@cursorless/common";
+import { ImplicitTargetDescriptor, Modifier } from "@cursorless/common";
 import { Target } from "../typings/target.types";
 import {
   PrimitiveTargetDescriptor,

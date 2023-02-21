@@ -1,10 +1,7 @@
 import { Position, TextEditor } from "@cursorless/common";
 import { flatmap } from "itertools";
 import { getScopeHandler } from ".";
-import type {
-  Direction,
-  ScopeType,
-} from "@cursorless/common";
+import type { Direction, ScopeType } from "@cursorless/common";
 import BaseScopeHandler from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
 import type {

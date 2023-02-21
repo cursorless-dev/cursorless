@@ -1,8 +1,5 @@
 import { Target } from "../../typings/target.types";
-import {
-  SourceMark,
-  ThatMark,
-} from "@cursorless/common";
+import { SourceMark, ThatMark } from "@cursorless/common";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { MarkStage } from "../PipelineStages.types";
 

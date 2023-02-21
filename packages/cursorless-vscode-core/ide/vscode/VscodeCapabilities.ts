@@ -1,7 +1,4 @@
-import {
-  Capabilities,
-  CommandCapabilityMap,
-} from "@cursorless/common";
+import { Capabilities, CommandCapabilityMap } from "@cursorless/common";
 
 const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   clipboardCopy: { acceptsLocation: false },

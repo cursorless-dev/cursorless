@@ -1,9 +1,6 @@
 import { Range } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
-import {
-  HeadTailModifier,
-  Modifier,
-} from "@cursorless/common";
+import { HeadTailModifier, Modifier } from "@cursorless/common";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import {
