@@ -55,7 +55,7 @@ By default, we don't capture the `that` mark returned by a command, unless the t
 
 #### Testing the hat map
 
-We have a way to test that the hats in the hat map update correctly during the course of a single phrase. These tests are also how we usually test our [range updating code](../api/modules/core_updateSelections_updateSelections).
+We have a way to test that the hats in the hat map update correctly during the course of a single phrase. These tests are also how we usually test our [range updating code](../api/modules/cursorless_engine_core_updateSelections_updateSelections).
 
 Any tests recorded in the `hatTokenMap` directory will automatically be treated as hat token map tests. To initiate a series of hat token map tests in another directory, say `"cursorless record navigation"`.
 
@@ -63,7 +63,7 @@ Then each time you record a test, you need to issue two commands. The second com
 
 ### Default config per test case directory
 
-Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../packages/cursorless-vscode-e2e/suite/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark. For a full list of keys supported in this json, see [the api docs](../api/interfaces/testutil_testcaserecorder.internal.recordtestcasecommandarg/).
+Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../packages/cursorless-vscode-e2e/suite/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark. For a full list of keys supported in this json, see [the api docs](../api/interfaces/cursorless_engine_testCaseRecorder_TestCaseRecorder.internal.RecordTestCaseCommandArg/).
 
 ### Navigation map tests
 
