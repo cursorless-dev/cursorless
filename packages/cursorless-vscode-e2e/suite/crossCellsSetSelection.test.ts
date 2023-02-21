@@ -5,7 +5,7 @@ import {
 import * as assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "../../vscode-common/runCommand";
+import { runCursorlessCommand } from "@cursorless/vscode-common";
 import { skipIfWindowsCi } from "./skipIfWindowsCi";
 
 // Check that setSelection is able to focus the correct cell

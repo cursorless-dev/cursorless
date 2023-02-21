@@ -3,7 +3,7 @@ import { getCursorlessApi, toVscodeEditor } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "../../vscode-common/runCommand";
+import { runCursorlessCommand } from "@cursorless/vscode-common";
 
 suite("Group by document", async function () {
   endToEndTestSetup(this);

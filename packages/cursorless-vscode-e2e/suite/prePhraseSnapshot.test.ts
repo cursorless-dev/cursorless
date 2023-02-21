@@ -8,7 +8,7 @@ import * as assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
-import { runCursorlessCommand } from "../../vscode-common/runCommand";
+import { runCursorlessCommand } from "@cursorless/vscode-common";
 import { setupFake } from "./setupFake";
 
 /**
