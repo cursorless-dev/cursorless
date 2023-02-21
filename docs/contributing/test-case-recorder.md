@@ -35,7 +35,7 @@ command run, and the final state, all in the form of a yaml document. See
 
 ## Test case recorder options
 
-The test case recorder has several additional configuration options. The default configuration works for most tests, but you may find the following useful. For a full list of supported configuration options, see [the api docs](../api/interfaces/testutil_testcaserecorder.internal.recordtestcasecommandarg/).
+The test case recorder has several additional configuration options. The default configuration works for most tests, but you may find the following useful. For a full list of supported configuration options, see [the api docs](../api/interfaces/cursorless_engine_testCaseRecorder_TestCaseRecorder.internal.RecordTestCaseCommandArg/).
 
 ### The options
 
