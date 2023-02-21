@@ -759,7 +759,7 @@
     "watch": "tsc -watch -p ./",
     "pretest": "yarn run compile && yarn run lint && yarn run esbuild",
     "lint": "eslint packages --ext ts",
-    "test": "env CURSORLESS_TEST=true node ./out/testHarness/scripts/runTestsCI.js",
+    "test": "env CURSORLESS_TEST=true node ./out/test-harness/scripts/runTestsCI.js",
     "unused-exports": "ts-unused-exports tsconfig.json --showLineNumber",
     "init-launch-sandbox": "node ./out/cursorless-vscode-core/scripts/initLaunchSandbox.js",
     "prepare-for-extension-publish": "node ./out/cursorless-vscode-core/scripts/prepareForExtensionPublish.js",
