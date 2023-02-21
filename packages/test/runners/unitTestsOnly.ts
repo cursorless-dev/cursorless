@@ -4,16 +4,12 @@ import "module-alias/register";
 import * as path from "path";
 import { runAllTestsInDirs } from "../util/runAllTestsInDir";
 
-const testDirectories = [
-  "../../cursorless-engine",
-  "../../common",
-  "../../test/suite",
-];
+const testDirectories = ["cursorless-engine", "common"];
 
 export function run(): Promise<void> {
   return runAllTestsInDirs(
     testDirectories.map((testDirectory) =>
-      path.resolve(__dirname, testDirectory),
+      path.resolve(__dirname, `../../${testDirectory}`),
     ),
   );
 }
