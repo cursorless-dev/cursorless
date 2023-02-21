@@ -96,10 +96,6 @@ export default class KeyboardHandler {
 
   init() {
     this.disposables.push(
-      vscode.commands.registerCommand(
-        "cursorless.keyboard.escape",
-        this.cancelActiveListener,
-      ),
       vscode.window.onDidChangeActiveTextEditor((textEditor) => {
         if (!textEditor) {
           return;
