@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { Clipboard } from "../../../common/ide/types/Clipboard";
+import { Clipboard } from "@cursorless/common";
 
 export default class VscodeClipboard implements Clipboard {
   readText(): Thenable<string> {

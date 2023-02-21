@@ -1,4 +1,4 @@
-import { SimpleSurroundingPairName } from "../../../../common/types/command/PartialTargetDescriptor.types";
+import { SimpleSurroundingPairName } from "@cursorless/common";
 import { IndividualDelimiter } from "./types";
 import { delimiterToText } from "./delimiterMaps";
 import { concat, uniq } from "lodash";

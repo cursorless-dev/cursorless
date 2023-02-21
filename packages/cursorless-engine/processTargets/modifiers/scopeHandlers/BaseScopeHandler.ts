@@ -3,7 +3,7 @@ import { Position, Range, TextEditor } from "@cursorless/common";
 import type {
   Direction,
   ScopeType,
-} from "../../../../common/types/command/PartialTargetDescriptor.types";
+} from "@cursorless/common";
 import type { TargetScope } from "./scope.types";
 import type {
   ScopeHandler,

@@ -5,7 +5,7 @@ import {
   PositionModifier,
   RangeType,
   ImplicitTargetDescriptor,
-} from "../../common/types/command/PartialTargetDescriptor.types";
+} from "@cursorless/common";
 
 export interface PrimitiveTargetDescriptor
   extends PartialPrimitiveTargetDescriptor {

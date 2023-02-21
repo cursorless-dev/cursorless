@@ -7,7 +7,7 @@ import {
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
   PositionModifier,
-} from "../../common/types/command/PartialTargetDescriptor.types";
+} from "@cursorless/common";
 import {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,

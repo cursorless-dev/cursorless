@@ -9,7 +9,7 @@ import {
   spyIDERecordedValuesToPlainObject,
 } from "@cursorless/common";
 import { pick } from "lodash";
-import { ActionType } from "../../common/types/command/ActionCommand";
+import { ActionType } from "@cursorless/common";
 import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ThatMark } from "../core/ThatMark";
 import { ide } from "../singletons/ide.singleton";

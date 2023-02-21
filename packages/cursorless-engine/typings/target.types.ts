@@ -17,7 +17,7 @@ import type {
 } from "../processTargets/targets";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import type { Snippet, SnippetVariable } from "../snippets/snippet.types";
-import type { TargetPosition } from "../../common/types/command/PartialTargetDescriptor.types";
+import type { TargetPosition } from "@cursorless/common";
 import type { EditWithRangeUpdater } from "./Types";
 
 export type EditNewActionType = "edit" | "insertLineAfter";

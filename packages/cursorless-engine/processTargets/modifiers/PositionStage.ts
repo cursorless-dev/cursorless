@@ -1,5 +1,5 @@
 import { Target } from "../../typings/target.types";
-import { PositionModifier } from "../../../common/types/command/PartialTargetDescriptor.types";
+import { PositionModifier } from "@cursorless/common";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 

@@ -1,5 +1,5 @@
 import { Position, Range } from "@cursorless/common";
-import { Direction } from "../../../../common/types/command/PartialTargetDescriptor.types";
+import { Direction } from "@cursorless/common";
 import { TargetScope } from "./scope.types";
 
 /**

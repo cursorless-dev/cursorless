@@ -4,7 +4,7 @@ import type {
   ContainingScopeModifier,
   EveryScopeModifier,
   SimpleScopeType,
-} from "../../../../common/types/command/PartialTargetDescriptor.types";
+} from "@cursorless/common";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
 import type { Target } from "../../../typings/target.types";
 import type {

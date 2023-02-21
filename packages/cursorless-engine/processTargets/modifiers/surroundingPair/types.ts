@@ -1,4 +1,4 @@
-import { SimpleSurroundingPairName } from "../../../../common/types/command/PartialTargetDescriptor.types";
+import { SimpleSurroundingPairName } from "@cursorless/common";
 
 /**
  * Used to indicate whether a particular side of the delimiter is left or right

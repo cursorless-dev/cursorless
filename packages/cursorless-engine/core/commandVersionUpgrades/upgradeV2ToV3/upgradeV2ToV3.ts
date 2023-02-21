@@ -1,6 +1,6 @@
 import { isEqual } from "lodash";
-import { CommandV2 } from "../../../../common/types/command/legacy/CommandV2.types";
-import { CommandV3 } from "../../../../common/types/command/legacy/CommandV3.types";
+import { CommandV2 } from "@cursorless/common";
+import { CommandV3 } from "@cursorless/common";
 import {
   LineNumberMarkV3,
   MarkV3,
@@ -11,7 +11,7 @@ import {
   PartialTargetDescriptorV3,
   RangeMarkV3,
   RangeModifierV3,
-} from "../../../../common/types/command/legacy/PartialTargetDescriptorV3.types";
+} from "@cursorless/common";
 import {
   LineNumberMarkV2,
   LineNumberPositionV2,
@@ -21,7 +21,7 @@ import {
   PartialPrimitiveTargetDescriptorV2,
   PartialTargetDescriptorV2,
   ScopeTypeV2,
-} from "../../../../common/types/command/legacy/targetDescriptorV2.types";
+} from "@cursorless/common";
 
 export function upgradeV2ToV3(command: CommandV2): CommandV3 {
   return {

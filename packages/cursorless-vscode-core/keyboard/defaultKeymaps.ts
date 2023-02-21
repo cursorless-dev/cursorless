@@ -1,5 +1,5 @@
-import { ActionType } from "../../common/types/command/ActionCommand";
-import { SimpleScopeTypeType } from "../../common/types/command/PartialTargetDescriptor.types";
+import { ActionType } from "@cursorless/common";
+import { SimpleScopeTypeType } from "@cursorless/common";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { isTesting } from "../../common";
 

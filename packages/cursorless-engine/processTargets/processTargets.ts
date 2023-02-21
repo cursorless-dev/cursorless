@@ -3,7 +3,7 @@ import { uniqWith, zip } from "lodash";
 import {
   ImplicitTargetDescriptor,
   Modifier,
-} from "../../common/types/command/PartialTargetDescriptor.types";
+} from "@cursorless/common";
 import { Target } from "../typings/target.types";
 import {
   PrimitiveTargetDescriptor,

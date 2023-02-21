@@ -3,7 +3,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import {
   SimpleSurroundingPairName,
   SurroundingPairScopeType,
-} from "../../../../common/types/command/PartialTargetDescriptor.types";
+} from "@cursorless/common";
 import { getNodeRange } from "../../../util/nodeSelectors";
 import { isContainedInErrorNode } from "../../../util/treeSitterUtils";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";

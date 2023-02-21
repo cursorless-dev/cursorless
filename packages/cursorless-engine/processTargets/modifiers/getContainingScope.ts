@@ -1,5 +1,5 @@
 import { TextEditor, Position } from "@cursorless/common";
-import { Direction } from "../../../common/types/command/PartialTargetDescriptor.types";
+import { Direction } from "@cursorless/common";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
 /**

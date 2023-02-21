@@ -1,18 +1,18 @@
-import { ActionType } from "../../../../common/types/command/ActionCommand";
-import { CommandV2 } from "../../../../common/types/command/legacy/CommandV2.types";
+import { ActionType } from "@cursorless/common";
+import { CommandV2 } from "@cursorless/common";
 import {
   ModifierV2,
   PartialPrimitiveTargetDescriptorV2,
   PartialRangeTargetDescriptorV2,
   PartialTargetDescriptorV2,
   SimpleScopeTypeTypeV2,
-} from "../../../../common/types/command/legacy/targetDescriptorV2.types";
+} from "@cursorless/common";
 import {
   CommandV1,
   ModifierV0V1,
   PartialPrimitiveTargetV0V1,
   PartialTargetV0V1,
-} from "../../../../common/types/command/legacy/CommandV0V1.types";
+} from "@cursorless/common";
 import { upgradeStrictHere } from "./upgradeStrictHere";
 
 export function upgradeV1ToV2(command: CommandV1): CommandV2 {

@@ -5,9 +5,9 @@ import {
   Configuration,
   ConfigurationScope,
   CursorlessConfiguration,
-} from "../../../common/ide/types/Configuration";
-import { GetFieldType, Paths } from "../../../common/ide/types/Paths";
-import { Notifier } from "../../../common/util/Notifier";
+} from "@cursorless/common";
+import { GetFieldType, Paths } from "@cursorless/common";
+import { Notifier } from "@cursorless/common";
 import type { VscodeIDE } from "./VscodeIDE";
 
 const translators = {

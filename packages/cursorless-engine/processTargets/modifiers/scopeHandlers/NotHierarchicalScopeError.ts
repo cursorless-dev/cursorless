@@ -1,4 +1,4 @@
-import { ScopeType } from "../../../../common/types/command/PartialTargetDescriptor.types";
+import { ScopeType } from "@cursorless/common";
 import { scopeTypeToString } from "./scopeTypeUtil";
 
 /**

@@ -1,4 +1,4 @@
-import { SimpleScopeTypeType } from "../../common/types/command/PartialTargetDescriptor.types";
+import { SimpleScopeTypeType } from "@cursorless/common";
 import { NodeMatcherAlternative } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {

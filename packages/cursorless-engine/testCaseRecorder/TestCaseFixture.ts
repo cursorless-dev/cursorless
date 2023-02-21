@@ -1,5 +1,5 @@
 import { PlainSpyIDERecordedValues } from "@cursorless/common";
-import type { CommandLatest } from "../../common/types/command/command.types";
+import type { CommandLatest } from "@cursorless/common";
 import type { TestCaseSnapshot } from "../testUtil/takeSnapshot";
 import type { TargetDescriptor } from "../typings/TargetDescriptor";
 

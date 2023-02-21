@@ -3,7 +3,7 @@ import {
   MessageId,
   Messages,
   MessageType,
-} from "../../../common/ide/types/Messages";
+} from "@cursorless/common";
 
 export default class VscodeMessages implements Messages {
   async showMessage(

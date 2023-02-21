@@ -9,7 +9,7 @@ import {
   DEFAULT_VERTICAL_OFFSET_EM,
   IndividualHatAdjustmentMap,
 } from "./shapeAdjustments";
-import { Listener, Notifier } from "../../../../common/util/Notifier";
+import { Listener, Notifier } from "@cursorless/common";
 import FontMeasurements from "./FontMeasurements";
 import { HatShape, HAT_SHAPES, VscodeHatStyleName } from "../hatStyles.types";
 import VscodeEnabledHatStyleManager, {

@@ -1,5 +1,5 @@
 import { Target } from "../../typings/target.types";
-import { ScopeType } from "../../../common/types/command/PartialTargetDescriptor.types";
+import { ScopeType } from "@cursorless/common";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import getModifierStage from "../getModifierStage";
 

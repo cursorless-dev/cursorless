@@ -2,7 +2,7 @@ import { sortedIndexBy } from "lodash";
 import {
   SimpleSurroundingPairName,
   SurroundingPairScopeType,
-} from "../../../../common/types/command/PartialTargetDescriptor.types";
+} from "@cursorless/common";
 import { findDelimiterPairAdjacentToSelection } from "./findDelimiterPairAdjacentToSelection";
 import { findDelimiterPairContainingSelection } from "./findDelimiterPairContainingSelection";
 import {

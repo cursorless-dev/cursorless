@@ -1,5 +1,5 @@
 import { range } from "lodash";
-import { SimpleSurroundingPairName } from "../../../../common/types/command/PartialTargetDescriptor.types";
+import { SimpleSurroundingPairName } from "@cursorless/common";
 import {
   DelimiterOccurrence,
   DelimiterSide,

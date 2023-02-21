@@ -1,8 +1,8 @@
 import { isTesting } from "../../../common";
 import { pickBy } from "lodash";
 import * as vscode from "vscode";
-import { HatStyleInfo, HatStyleMap } from "../../../common/ide/types/Hats";
-import { Listener, Notifier } from "../../../common/util/Notifier";
+import { HatStyleInfo, HatStyleMap } from "@cursorless/common";
+import { Listener, Notifier } from "@cursorless/common";
 import {
   HatColor,
   HatShape,

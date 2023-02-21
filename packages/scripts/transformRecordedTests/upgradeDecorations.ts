@@ -1,9 +1,9 @@
 import { groupBy, partition } from "lodash";
-import { FlashStyle } from "../../common/ide/types/FlashDescriptor";
+import { FlashStyle } from "@cursorless/common";
 import {
   GeneralizedRangePlainObject,
   PositionPlainObject,
-} from "../../common/testUtil/toPlainObject";
+} from "@cursorless/common";
 import { TestCaseFixture } from "../../cursorless-engine/testCaseRecorder/TestCaseFixture";
 import { reorderFields } from "./transformations/reorderFields";
 import { FixtureTransformation } from "./types";

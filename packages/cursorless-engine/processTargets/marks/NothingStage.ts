@@ -1,5 +1,5 @@
 import { Target } from "../../typings/target.types";
-import { NothingMark } from "../../../common/types/command/PartialTargetDescriptor.types";
+import { NothingMark } from "@cursorless/common";
 import { MarkStage } from "../PipelineStages.types";
 
 export default class implements MarkStage {

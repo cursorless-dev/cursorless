@@ -5,7 +5,7 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import { isEqual } from "lodash";
-import type { TargetPosition } from "../../../common/types/command/PartialTargetDescriptor.types";
+import type { TargetPosition } from "@cursorless/common";
 import type { EditNewActionType, Target } from "../../typings/target.types";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import { isSameType } from "../../util/typeUtils";

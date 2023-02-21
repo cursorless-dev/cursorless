@@ -1,5 +1,5 @@
 import { Target } from "../../typings/target.types";
-import { OrdinalScopeModifier } from "../../../common/types/command/PartialTargetDescriptor.types";
+import { OrdinalScopeModifier } from "@cursorless/common";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStage } from "../PipelineStages.types";
 import {

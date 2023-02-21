@@ -1,7 +1,7 @@
 import { Range } from "@cursorless/common";
 import { findLastIndex } from "lodash";
 import { Target } from "../../typings/target.types";
-import { RelativeScopeModifier } from "../../../common/types/command/PartialTargetDescriptor.types";
+import { RelativeScopeModifier } from "@cursorless/common";
 import { ProcessedTargetsContext } from "../../typings/Types";
 import { UntypedTarget } from "../targets";
 import {

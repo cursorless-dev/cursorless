@@ -1,4 +1,4 @@
-import { EnforceUndefined } from "../../../common/util/typeUtils";
+import { EnforceUndefined } from "@cursorless/common";
 import { TestCaseFixture } from "../../../cursorless-engine/testCaseRecorder/TestCaseFixture";
 
 export function reorderFields(

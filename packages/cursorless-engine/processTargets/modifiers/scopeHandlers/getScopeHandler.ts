@@ -8,7 +8,7 @@ import {
   OneOfScopeHandler,
   ParagraphScopeHandler,
 } from ".";
-import type { ScopeType } from "../../../../common/types/command/PartialTargetDescriptor.types";
+import type { ScopeType } from "@cursorless/common";
 import type { ScopeHandler } from "./scopeHandler.types";
 
 /**

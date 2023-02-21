@@ -1,6 +1,6 @@
 import { Range, TextEditor, UnsupportedError } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from ".";
-import { TargetPosition } from "../../../common/types/command/PartialTargetDescriptor.types";
+import { TargetPosition } from "@cursorless/common";
 import { EditNewActionType } from "../../typings/target.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
 

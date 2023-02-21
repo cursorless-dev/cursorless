@@ -3,7 +3,7 @@ import {
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
-} from "../../common/types/command/PartialTargetDescriptor.types";
+} from "@cursorless/common";
 import {
   PrimitiveTargetDescriptor,
   TargetDescriptor,

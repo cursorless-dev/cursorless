@@ -1,7 +1,7 @@
 import {
   Capabilities,
   CommandCapabilityMap,
-} from "../../../common/ide/types/Capabilities";
+} from "@cursorless/common";
 
 const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   clipboardCopy: { acceptsLocation: false },

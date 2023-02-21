@@ -1,5 +1,5 @@
 import type { Target } from "../../typings/target.types";
-import type { RelativeScopeModifier } from "../../../common/types/command/PartialTargetDescriptor.types";
+import type { RelativeScopeModifier } from "@cursorless/common";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { ModifierStage } from "../PipelineStages.types";
 import RelativeExclusiveScopeStage from "./RelativeExclusiveScopeStage";

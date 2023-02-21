@@ -10,7 +10,7 @@ import {
   trailingMatcher,
 } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
-import { SimpleScopeTypeType } from "../../common/types/command/PartialTargetDescriptor.types";
+import { SimpleScopeTypeType } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { getNodeRange } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";

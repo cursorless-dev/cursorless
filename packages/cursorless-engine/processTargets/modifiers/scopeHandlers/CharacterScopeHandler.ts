@@ -4,7 +4,7 @@ import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import {
   Direction,
   ScopeType,
-} from "../../../../common/types/command/PartialTargetDescriptor.types";
+} from "@cursorless/common";
 import { getMatcher } from "../../../tokenizer";
 import { testRegex } from "../../../util/regex";
 import { PlainTarget } from "../../targets";

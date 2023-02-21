@@ -1,15 +1,15 @@
-import { CommandV4 } from "../../../../common/types/command/CommandV4.types";
-import { CommandV3 } from "../../../../common/types/command/legacy/CommandV3.types";
+import { CommandV4 } from "@cursorless/common";
+import { CommandV3 } from "@cursorless/common";
 import {
   PartialPrimitiveTargetDescriptorV3,
   PartialTargetDescriptorV3,
-} from "../../../../common/types/command/legacy/PartialTargetDescriptorV3.types";
+} from "@cursorless/common";
 import {
   ImplicitTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
-} from "../../../../common/types/command/PartialTargetDescriptor.types";
+} from "@cursorless/common";
 
 export function upgradeV3ToV4(command: CommandV3): CommandV4 {
   return {

@@ -3,7 +3,7 @@ import { workspace } from "vscode";
 import {
   FlashDescriptor,
   FlashStyle,
-} from "../../../common/ide/types/FlashDescriptor";
+} from "@cursorless/common";
 import { groupBy } from "../../../cursorless-engine/util/itertools";
 import VscodeHighlights from "./VscodeHighlights";
 import { VscodeIDE } from "./VscodeIDE";

@@ -1,4 +1,4 @@
-import { ActionType } from "../../../common/types/command/ActionCommand";
+import { ActionType } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
 import processTargets from "../../processTargets";
 import { Target } from "../../typings/target.types";
@@ -12,10 +12,10 @@ import {
   canonicalizeAndValidateCommand,
   checkForOldInference,
 } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { PartialTargetV0V1 } from "../../../common/types/command/legacy/CommandV0V1.types";
+import { PartialTargetV0V1 } from "@cursorless/common";
 import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
-import { Command } from "../../../common/types/command/command.types";
+import { Command } from "@cursorless/common";
 import { selectionToThatTarget } from "./selectionToThatTarget";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
