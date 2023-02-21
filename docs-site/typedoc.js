@@ -1,6 +1,6 @@
 module.exports = {
   tsconfig: "../tsconfig.json",
-  entryPoints: ["../src/"],
+  entryPoints: ["../packages/"],
   entryPointStrategy: "expand",
 
   readme: "../docs/contributing/_api-index.md",
