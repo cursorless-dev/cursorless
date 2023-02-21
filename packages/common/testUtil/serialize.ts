@@ -58,8 +58,6 @@ function replacer(key: string, value: unknown) {
   return value; // default
 }
 
-const serialize = (obj: unknown) =>
+export const serialize = (obj: unknown) =>
   new CustomDump(obj, { noRefs: true, quotingType: '"' }).represent().trim() +
   "\n";
-
-export default serialize;
