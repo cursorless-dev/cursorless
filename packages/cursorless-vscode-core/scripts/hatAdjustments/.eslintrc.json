@@ -5,7 +5,7 @@
       {
         "patterns": [
           {
-            "group": ["../../../*"],
+            "group": ["@cursorless/cursorless-vscode-core", "../../../*"],
             "message": "Scripts have restricted dependencies"
           }
         ],
