@@ -1,48 +1,57 @@
 \documentclass[tikz]{standalone}
 \usepackage{tikz}
-\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.pathreplacing,calligraphy}
 
 % To build:
 % pdflatex relative_ordinal.tex
+% To auto build on save:
+% latexmk -pdf -pvc -halt-on-error relative_ordinal.tex
+% To build png:
 % convert -density 300 relative_ordinal.pdf -quality 100 -background white -alpha remove relative_ordinal.png
 
 \begin{document}
-\def\spacing{1.4cm}
-\newcommand{\abrace}[4]{
-    \draw [decorate, decoration = {brace, amplitude=5pt}] (#2*\spacing, #1*0.8cm + 0.5cm) --  (#3*\spacing, #1*0.8cm + 0.5cm)
-    node[above=5pt, pos=0.5, scale=0.8] {\texttt{"#4"}};
+
+\def\vspacing{0.5cm}
+\def\hspacing{0.4cm}
+\def\overshoot{0.1cm}
+
+\newcommand{\abrace}[5][0.5]{
+    \draw [decorate, decoration = {calligraphic brace, amplitude=5pt, aspect=#1}, very thick]
+    (#2*\hspacing + 0.3cm, -#3*\vspacing+\overshoot) --  (#2*\hspacing + 0.3cm, -#4*\vspacing-\overshoot)
+    node[right=5pt, pos=#1, scale=0.8] {#5};
 }
-\newcommand{\bbrace}[4]{
-    \draw [decorate, decoration ={brace, amplitude=5pt}] (#2*\spacing, #1*0.8cm + 0.5cm) --  (#3*\spacing, #1*0.8cm + 0.5cm)
-    node[above=-20pt, pos=0.5, scale=0.8] {#4};
+
+\newcommand{\funk}[3][black]{
+    \draw[fill=#1] (0,-#2*\vspacing) circle (0.1cm) node[left=3pt,align=right,scale=0.8]
+    {\texttt{"#3"}};
 }
-\newcommand{\funk}[2]{
-    \draw[fill=black] (#1*\spacing,0) circle (0.1cm) node[below=3pt, text width=1cm,align=left,scale=0.7] (F#1)
-    {\texttt{"#2"}};
-}
-\begin{tikzpicture}[ultra thick]
+
+\begin{tikzpicture}
 
 \funk{0}{first funk}
 \funk{1}{second funk}
 \funk{2}{third previous funk}
 \funk{3}{second previous funk}
 \funk{4}{previous funk}
-\funk{5}{funk}
+\funk[red]{5}{funk}
 \funk{6}{next funk}
 \funk{7}{second next funk}
 \funk{8}{third next funk}
 \funk{9}{second last funk}
 \funk{10}{last funk}
 
-\draw[latex-] (F5) -- +(0,-0.8cm) node[below=2pt,scale=0.8] {input target};
+\draw[fill=red] (-3.3cm,-11.5*\vspacing) circle (0.1cm) node[right=3pt,align=left,scale=0.8] {= input target};
 
-\abrace{0}{6}{8}{next three funks};
-\abrace{0}{2}{4}{previous three funks};
-\abrace{1}{5}{7}{three funks};
-\abrace{2}{3}{5}{three funks backward};
-\abrace{0}{0}{1}{first two funks};
-\abrace{0}{9}{10}{last two funks};
-\bbrace{-3}{10}{0}{iteration scope};
+% \abrace [aspect], horizontal offset, start funk, end funk, text
+\abrace[0.7]{0}{6}{8}{\texttt{"next three funks"}};
+\abrace[0.3]{0}{2}{4}{\texttt{"previous three funks"}};
+\abrace{1}{5}{7}{\texttt{"three funks"}};
+\abrace{2}{3}{5}{\texttt{"three funks backward"}};
+\abrace{0}{0}{1}{\texttt{"first two funks"}};
+\abrace{0}{9}{10}{\texttt{"last two funks"}};
+
+\abrace{11.5}{0}{10}{iteration scope};
+
 \end{tikzpicture}
 
 \end{document}
