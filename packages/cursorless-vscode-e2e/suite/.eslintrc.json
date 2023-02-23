@@ -6,8 +6,7 @@
         "patterns": [
           {
             "group": ["../../*"],
-            "message": "Cursorless end-to-end tests shouldn't import from Cursorless extension",
-            "allowTypeImports": true
+            "message": "Cursorless end-to-end tests shouldn't import from Cursorless extension"
           }
         ]
       }

@@ -6,8 +6,7 @@
         "patterns": [
           {
             "group": ["../../*"],
-            "message": "Common shouldn't have any dependencies",
-            "allowTypeImports": true
+            "message": "Common shouldn't have any dependencies"
           }
         ],
         "paths": [
