@@ -1,4 +1,4 @@
-import { TestCaseFixture } from "@cursorless/cursorless-engine";
+import { TestCaseFixture } from "../../../testCaseRecorder/TestCaseFixture";
 
 export function identity(fixture: TestCaseFixture) {
   return fixture;

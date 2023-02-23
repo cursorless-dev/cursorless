@@ -1,8 +1,8 @@
 import { flow } from "lodash";
-import { TestCaseFixture } from "@cursorless/cursorless-engine";
-import { reorderFields } from "./reorderFields";
 import { canonicalizeAndValidateCommand } from "../../../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
+import { TestCaseFixture } from "../../../testCaseRecorder/TestCaseFixture";
 import { cleanUpTestCaseCommand } from "../../../testUtil/cleanUpTestCaseCommand";
+import { reorderFields } from "./reorderFields";
 
 export const upgrade = flow(upgradeCommand, reorderFields);
 
