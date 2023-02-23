@@ -1,8 +1,5 @@
 export * from "./commandIds";
-export {
-  extractTargetedMarks,
-  extractTargetKeys,
-} from "./testUtil/extractTargetedMarks";
+export * from "./testUtil/extractTargetedMarks";
 export { default as FakeIDE } from "./ide/fake/FakeIDE";
 export {
   runTestSubset,
@@ -45,10 +42,13 @@ export * from "./types/TextEditorDecorationType";
 export * from "./types/TextEditorEdit";
 export * from "./types/TextEditorOptions";
 export * from "./types/TextLine";
+export * from "./types/Token";
+export * from "./types/ReadOnlyHatMap";
 export * from "./testUtil/fromPlainObject";
 export * from "./testUtil/toPlainObject";
 export { default as DefaultMap } from "./util/DefaultMap";
 export * from "./types/GeneralizedRange";
+export * from "./types/RangeOffsets";
 export * from "./util/omitByDeep";
 export * from "./testUtil/isTesting";
 export * from "./testUtil/testConstants";

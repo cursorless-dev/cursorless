@@ -1,6 +1,6 @@
 import { Range, TextEditor } from "@cursorless/common";
 import { tokenize } from "../../tokenizer";
-import { Token } from "../../typings/Types";
+import { Token } from "@cursorless/common";
 
 export function getTokensInRange(editor: TextEditor, range: Range): Token[] {
   const languageId = editor.document.languageId;

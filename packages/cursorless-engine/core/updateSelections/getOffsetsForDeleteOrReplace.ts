@@ -2,8 +2,8 @@ import { invariant } from "immutability-helper";
 import {
   ChangeEventInfo,
   FullRangeInfo,
-  RangeOffsets,
 } from "../../typings/updateSelections";
+import { RangeOffsets } from "@cursorless/common";
 
 /**
  * Gets updated offsets for the range `rangeInfo` after the change described by

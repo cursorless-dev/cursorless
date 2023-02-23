@@ -8,6 +8,7 @@ import {
   plainObjectToRange,
   PositionPlainObject,
   rangeToPlainObject,
+  ReadOnlyHatMap,
   SelectionPlainObject,
   serialize,
   SerializedMarks,
@@ -16,6 +17,10 @@ import {
   spyIDERecordedValuesToPlainObject,
   TextEditor,
 } from "@cursorless/common";
+import type {
+  ExcludableSnapshotField,
+  TestCaseFixture,
+} from "@cursorless/cursorless-engine";
 import {
   getCursorlessApi,
   openNewEditor,
@@ -26,14 +31,11 @@ import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
 import * as vscode from "vscode";
-import type { TestCaseFixture } from "@cursorless/cursorless-engine";
-import type { ExcludableSnapshotField } from "@cursorless/cursorless-engine";
+import type { TokenHat } from "../../cursorless-engine/util/allocateHats/allocateHats";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import shouldUpdateFixtures from "../shouldUpdateFixtures";
 import { setupFake } from "./setupFake";
-import type { ReadOnlyHatMap } from "../../cursorless-engine/core/IndividualHatMap";
-import type { TokenHat } from "../../cursorless-engine/util/allocateHats/allocateHats";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);

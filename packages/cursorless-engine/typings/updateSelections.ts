@@ -1,13 +1,9 @@
 import type {
   Range,
+  RangeOffsets,
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
-
-export interface RangeOffsets {
-  start: number;
-  end: number;
-}
 
 type SingleEdgeExpansionBehavior =
   | SimpleExpansionBehavior
@@ -59,11 +55,6 @@ export interface ChangeEventInfo {
    * Indicates the difference between the final token length and the original token length
    */
   displacement: number;
-}
-
-export interface RangeOffsets {
-  start: number;
-  end: number;
 }
 
 export interface SelectionInfo extends RangeInfo {

@@ -4,7 +4,8 @@ import { Graph } from "../typings/Graph";
 import { TokenHat } from "../util/allocateHats/allocateHats";
 import { abs } from "../util/bigint";
 import { HatAllocator } from "./HatAllocator";
-import { IndividualHatMap, ReadOnlyHatMap } from "./IndividualHatMap";
+import { IndividualHatMap } from "./IndividualHatMap";
+import { ReadOnlyHatMap } from "@cursorless/common";
 
 /**
  * Maximum age for the pre-phrase snapshot before we consider it to be stale

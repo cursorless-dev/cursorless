@@ -6,10 +6,10 @@ import {
   HatStyleName,
   Range,
   TextEditor,
+  Token,
 } from "@cursorless/common";
 import { clone } from "lodash";
 import { Grapheme, TokenGraphemeSplitter } from "../../tokenGraphemeSplitter";
-import { Token } from "../../typings/Types";
 import { chooseTokenHat } from "./chooseTokenHat";
 import { getHatRankingContext } from "./getHatRankingContext";
 import { getRankedTokens } from "./getRankedTokens";

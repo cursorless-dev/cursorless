@@ -7,7 +7,7 @@ import type {
 } from "..";
 import { FlashStyle, isLineRange } from "..";
 import type { Target } from "../../cursorless-engine/typings/target.types";
-import type { Token } from "../../cursorless-engine/typings/Types";
+import { Token } from "../types/Token";
 import { Position } from "../types/Position";
 import { Range } from "../types/Range";
 import { Selection } from "../types/Selection";

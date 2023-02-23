@@ -1,24 +1,13 @@
 import type {
   Range,
+  ReadOnlyHatMap,
   Selection,
   TextDocument,
   TextEditor,
 } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
-import { ReadOnlyHatMap } from "../core/IndividualHatMap";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { Target } from "./target.types";
-import { RangeOffsets } from "./updateSelections";
-
-/**
- * A token within a text editor
- */
-export interface Token {
-  editor: TextEditor;
-  range: Range;
-  offsets: RangeOffsets;
-  text: string;
-}
 
 export interface ProcessedTargetsContext {
   /**
