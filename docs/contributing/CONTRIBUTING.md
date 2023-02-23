@@ -45,7 +45,7 @@ Extension" or "Extension Tests".
 
 ### Running a subset of tests
 
-The entire test suite takes a little while to run (1-2 mins), so if you'd like to run just a subset of the tests, you can edit the constant in [`runTestSubset`](../../src/test/suite/runTestSubset.ts) to a string supported by [mocha grep](https://mochajs.org/#-grep-regexp-g-regexp) and use the "Run Test Subset" launch config instead of the usual "Extension Tests".
+The entire test suite takes a little while to run (1-2 mins), so if you'd like to run just a subset of the tests, you can edit the constant in [`runTestSubset`](../../packages/common/testUtil/runTestSubset.ts) to a string supported by [mocha grep](https://mochajs.org/#-grep-regexp-g-regexp) and use the "Run Test Subset" launch config instead of the usual "Extension Tests".
 
 ## Code formatting
 
@@ -95,7 +95,7 @@ code --profile=cursorlessDevelopment --install-extension bundle.vsix
 You'll probably want to run the following to make sure the SVGs have everything they need:
 
 ```sh
-yarn run compile && node ./out/scripts/preprocessSvgHats.js
+yarn run compile && node out/cursorless-vscode-core/scripts/preprocessSvgHats.js
 ```
 
 This script will add dummy width, height and fill attributes as necessary to appease the regex in `Decorations.ts`
@@ -105,15 +105,15 @@ This script will add dummy width, height and fill attributes as necessary to app
 While tweaking, the easiest approach is probably to use the
 `cursorless.individualHatAdjustments` setting in your settings.json to change
 size / alignment so you don't need to refresh every time. Once you're done, you
-can paste the settings into `scripts/hatAdjustments/add.ts` and run the following to get
+can paste the settings into `packages/cursorless-vscode-core/scripts/hatAdjustments/add.ts` and run the following to get
 your updates:
 
 ```sh
-yarn run compile && node ./out/scripts/hatAdjustments/add.js
+yarn run compile && node ./out/cursorless-vscode-core/scripts/hatAdjustments/add.js
 ```
 
-If instead, you want to average your adjustments with those in main and see the differences to get to yours and main, you can paste the settings into `scripts/hatAdjustments/average.ts` and run:
+If instead, you want to average your adjustments with those in main and see the differences to get to yours and main, you can paste the settings into `packages/cursorless-vscode-core/scripts/hatAdjustments/average.ts` and run:
 
 ```sh
-yarn run compile && node ./out/scripts/hatAdjustments/average.js
+yarn run compile && node ./out/cursorless-vscode-core/scripts/hatAdjustments/average.js
 ```

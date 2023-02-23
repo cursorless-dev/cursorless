@@ -1,0 +1,21 @@
+{
+  "rules": {
+    "@typescript-eslint/no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["../../*"],
+            "message": "Cursorless engine has restricted dependencies"
+          }
+        ],
+        "paths": [
+          {
+            "name": "vscode",
+            "message": "Cursorless engine shouldn't depend on vscode"
+          }
+        ]
+      }
+    ]
+  }
+}

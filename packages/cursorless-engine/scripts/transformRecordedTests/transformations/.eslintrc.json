@@ -1,0 +1,21 @@
+{
+  "rules": {
+    "@typescript-eslint/no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["../../../../*"],
+            "message": "Scripts have restricted dependencies"
+          }
+        ],
+        "paths": [
+          {
+            "name": "vscode",
+            "message": "Scripts shouldn't depend on vscode"
+          }
+        ]
+      }
+    ]
+  }
+}

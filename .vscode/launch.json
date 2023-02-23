@@ -30,7 +30,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
+        "--extensionTestsPath=${workspaceFolder}/out/test-harness/runners/all"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
@@ -43,7 +43,7 @@
       "type": "node",
       "request": "launch",
       "name": "Unit tests only",
-      "program": "${workspaceFolder}/out/test/scripts/runUnitTestsOnly",
+      "program": "${workspaceFolder}/out/test-harness/scripts/runUnitTestsOnly",
       "env": {
         "CURSORLESS_TEST": "true"
       },
@@ -65,7 +65,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
+        "--extensionTestsPath=${workspaceFolder}/out/test-harness/runners/all"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
@@ -85,7 +85,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
+        "--extensionTestsPath=${workspaceFolder}/out/test-harness/runners/all"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
@@ -106,7 +106,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
+        "--extensionTestsPath=${workspaceFolder}/out/test-harness/runners/all"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",

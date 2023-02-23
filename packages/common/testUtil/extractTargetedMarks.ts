@@ -1,0 +1,51 @@
+import { getKey, splitKey } from "..";
+import type { ReadOnlyHatMap } from "../../cursorless-engine/core/IndividualHatMap";
+import type {
+  PrimitiveTargetDescriptor,
+  TargetDescriptor,
+} from "../../cursorless-engine/typings/TargetDescriptor";
+import type { Token } from "../../cursorless-engine/typings/Types";
+
+function extractPrimitiveTargetKeys(...targets: PrimitiveTargetDescriptor[]) {
+  const keys: string[] = [];
+  targets.forEach((target) => {
+    if (target.mark.type === "decoratedSymbol") {
+      const { character, symbolColor } = target.mark;
+      keys.push(getKey(symbolColor, character));
+    }
+  });
+  return keys;
+}
+
+export function extractTargetKeys(target: TargetDescriptor): string[] {
+  switch (target.type) {
+    case "primitive":
+      return extractPrimitiveTargetKeys(target);
+
+    case "list":
+      return target.elements.map(extractTargetKeys).flat();
+
+    case "range":
+      return [
+        ...extractTargetKeys(target.anchor),
+        ...extractPrimitiveTargetKeys(target.active),
+      ];
+
+    default:
+      return [];
+  }
+}
+
+export function extractTargetedMarks(
+  targetKeys: string[],
+  hatTokenMap: ReadOnlyHatMap,
+) {
+  const targetedMarks: { [decoratedCharacter: string]: Token } = {};
+
+  targetKeys.forEach((key) => {
+    const { hatStyle, character } = splitKey(key);
+    targetedMarks[key] = hatTokenMap.getToken(hatStyle, character);
+  });
+
+  return targetedMarks;
+}
