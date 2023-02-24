@@ -10,12 +10,12 @@ suite("Pour across split", async function () {
 });
 
 async function runTest() {
-  const { graph } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
   const { document: document1 } = await openNewEditor("hello world");
   const { document: document2 } = await openNewEditor("", { openBeside: true });
 
-  await graph.hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
     version: 4,

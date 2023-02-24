@@ -1,41 +1,40 @@
 import type {
   CommandServerApi,
-  IDE,
-  NormalizedIDE,
-  SerializedMarks,
-  TargetPlainObject,
-  TextEditor,
-} from "@cursorless/common";
-import type {
   ExcludableSnapshotField,
   ExtraContext,
   ExtraSnapshotField,
-  Graph,
+  HatTokenMap,
+  IDE,
+  NormalizedIDE,
+  SerializedMarks,
+  SnippetMap,
+  TargetPlainObject,
   TestCaseSnapshot,
-  ThatMark,
-} from "@cursorless/cursorless-engine";
+  TextEditor,
+} from "@cursorless/common";
 import * as vscode from "vscode";
 import type { SyntaxNode } from "web-tree-sitter";
-import type { SnippetMap } from "../cursorless-engine/snippets/snippet.types";
-import type { Target } from "../cursorless-engine/typings/target.types";
 
 interface TestHelpers {
-  graph: Graph;
   ide: NormalizedIDE;
   injectIde: (ide: IDE) => void;
 
-  // FIXME: Remove this once we have a better way to get this function
-  // accessible from our tests
-  plainObjectToTarget(
+  hatTokenMap: HatTokenMap;
+
+  toVscodeEditor(editor: TextEditor): vscode.TextEditor;
+
+  setThatMark(
     editor: vscode.TextEditor,
-    plainObject: TargetPlainObject,
-  ): Target;
+    targets: TargetPlainObject[] | undefined,
+  ): void;
+  setSourceMark(
+    editor: vscode.TextEditor,
+    targets: TargetPlainObject[] | undefined,
+  ): void;
 
   // FIXME: Remove this once we have a better way to get this function
   // accessible from our tests
   takeSnapshot(
-    thatMark: ThatMark | undefined,
-    sourceMark: ThatMark | undefined,
     excludeFields: ExcludableSnapshotField[],
     extraFields: ExtraSnapshotField[],
     editor: TextEditor,
@@ -48,9 +47,6 @@ interface TestHelpers {
 }
 
 export interface CursorlessApi {
-  thatMark: ThatMark;
-  sourceMark: ThatMark;
-
   testHelpers: TestHelpers | undefined;
 
   experimental: {

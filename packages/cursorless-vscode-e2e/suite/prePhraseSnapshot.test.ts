@@ -45,7 +45,7 @@ async function runTest(
   multiplePhrases: boolean,
   expectedSelections: vscode.Selection[],
 ) {
-  const { graph } = (await getCursorlessApi()).testHelpers!;
+  const { graph, hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
   const editor = await openNewEditor("a\n");
 
@@ -54,7 +54,7 @@ async function runTest(
   let prePhraseVersion = "version1";
   mockPrePhraseGetVersion(graph, async () => prePhraseVersion);
 
-  await graph.hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
   prePhraseVersion = "version2";
 
   await runCursorlessCommand({
@@ -79,7 +79,7 @@ async function runTest(
     usePrePhraseSnapshot: false,
   });
 
-  await graph.hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
 
   if (multiplePhrases) {
     // If test is simulating separate phrases, we simulate pre-phrase signal being sent

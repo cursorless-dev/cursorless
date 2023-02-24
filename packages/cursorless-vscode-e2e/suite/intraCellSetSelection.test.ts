@@ -18,7 +18,7 @@ suite("Within cell set selection", async function () {
 });
 
 async function runTest() {
-  const { graph } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
   await openNewNotebookEditor(['"hello world"']);
 
@@ -26,7 +26,7 @@ async function runTest() {
   // editor
   await sleepWithBackoff(1000);
 
-  await graph.hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
     version: 1,

@@ -3,7 +3,7 @@ import { readFile, stat } from "fs/promises";
 import { cloneDeep, max, merge } from "lodash";
 import { join } from "path";
 import { ide } from "../singletons/ide.singleton";
-import { Snippet, SnippetMap } from "../snippets/snippet.types";
+import { Snippet, SnippetMap } from "../../common/types/snippet.types";
 import { Graph } from "../typings/Graph";
 import { mergeStrict } from "../util/object";
 

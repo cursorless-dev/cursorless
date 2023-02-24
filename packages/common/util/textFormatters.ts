@@ -1,7 +1,6 @@
-import { TextFormatterName } from "../typings/Types";
-
 type TextFormatter = (tokens: string[]) => string;
-const textFormatters: Record<TextFormatterName, TextFormatter> = {
+
+export const textFormatters: Record<TextFormatterName, TextFormatter> = {
   camelCase(tokens: string[]) {
     if (tokens.length === 0) {
       return "";
@@ -29,4 +28,8 @@ function capitalizeToken(token: string): string {
   return token.length === 0 ? "" : token[0].toUpperCase() + token.substr(1);
 }
 
-export default textFormatters;
+export type TextFormatterName =
+  | "camelCase"
+  | "pascalCase"
+  | "snakeCase"
+  | "upperSnakeCase";

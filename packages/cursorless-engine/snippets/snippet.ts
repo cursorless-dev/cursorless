@@ -1,4 +1,4 @@
-import { SnippetDefinition } from "./snippet.types";
+import { SnippetDefinition } from "../../common/types/snippet.types";
 import { Target } from "../typings/target.types";
 import {
   Placeholder,

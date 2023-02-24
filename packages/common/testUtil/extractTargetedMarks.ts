@@ -1,5 +1,5 @@
 import { splitKey } from "..";
-import { ReadOnlyHatMap } from "../types/ReadOnlyHatMap";
+import { ReadOnlyHatMap } from "../types/HatTokenMap";
 import { Token } from "../types/Token";
 
 export function extractTargetedMarks(

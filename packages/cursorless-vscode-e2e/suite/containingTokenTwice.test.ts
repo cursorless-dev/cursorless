@@ -1,8 +1,11 @@
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
+import {
+  getCursorlessApi,
+  openNewEditor,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
 import { assert } from "chai";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 
 // Check that we don't run afoul of stateful regex craziness
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
@@ -14,9 +17,9 @@ suite("Take token twice", async function () {
 });
 
 async function runTest() {
-  const { graph } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
   const editor = await openNewEditor("a)");
-  await graph.hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
 
   for (let i = 0; i < 2; ++i) {
     editor.selection = new vscode.Selection(0, 1, 0, 1);

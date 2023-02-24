@@ -124,9 +124,3 @@ export interface EditWithRangeUpdater extends Edit {
    */
   updateRange: (range: Range) => Range;
 }
-
-export type TextFormatterName =
-  | "camelCase"
-  | "pascalCase"
-  | "snakeCase"
-  | "upperSnakeCase";

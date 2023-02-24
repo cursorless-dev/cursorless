@@ -16,10 +16,9 @@ import { ide } from "../singletons/ide.singleton";
 import { cleanUpTestCaseCommand } from "../testUtil/cleanUpTestCaseCommand";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";
 import {
-  ExtraSnapshotField,
   takeSnapshot,
-  TestCaseSnapshot,
 } from "../testUtil/takeSnapshot";
+import { ExtraSnapshotField, TestCaseSnapshot } from "../../common/testUtil/TestCaseSnapshot";
 import { TargetDescriptor } from "../typings/TargetDescriptor";
 import {
   TestCaseCommand,

@@ -1,13 +1,12 @@
 import {
   getCellIndex,
   getCursorlessApi,
-  openNewNotebookEditor,
+  openNewNotebookEditor, runCursorlessCommand
 } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { getPlainNotebookContents } from "../notebook";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 import { skipIfWindowsCi } from "./skipIfWindowsCi";
 
 // Check that setSelection is able to focus the correct cell
@@ -28,14 +27,14 @@ async function runTest(
   expectedActiveCellIndex: number,
   expectedNotebookContents: string[],
 ) {
-  const { graph } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
   const notebook = await openNewNotebookEditor(["hello"]);
 
   // FIXME: There seems to be some timing issue when you create a notebook
   // editor
   await sleepWithBackoff(200);
 
-  await graph.hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
 
   assert.equal(notebook.cellCount, 1);
 

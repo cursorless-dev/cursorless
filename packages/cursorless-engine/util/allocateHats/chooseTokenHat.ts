@@ -1,5 +1,5 @@
-import { HatStability } from "@cursorless/common";
-import { HatCandidate, TokenHat } from "./allocateHats";
+import { HatStability, TokenHat } from "@cursorless/common";
+import { HatCandidate } from "./allocateHats";
 import { RankingContext } from "./getHatRankingContext";
 import {
   hatOldTokenRank,

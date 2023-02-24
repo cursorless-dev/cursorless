@@ -1,11 +1,11 @@
 import {
   getCursorlessApi,
   openNewNotebookEditor,
+  runCursorlessCommand,
 } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 import { skipIfWindowsCi } from "./skipIfWindowsCi";
 
 // Check that setSelection is able to focus the correct cell
@@ -18,7 +18,7 @@ suite("Cross-cell set selection", async function () {
 });
 
 async function runTest() {
-  const { graph } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
   await openNewNotebookEditor(['"hello"', '"world"']);
 
@@ -26,7 +26,7 @@ async function runTest() {
   // editor
   await sleepWithBackoff(1000);
 
-  await graph.hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
     version: 1,

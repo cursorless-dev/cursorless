@@ -1,8 +1,11 @@
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
+import {
+  getCursorlessApi,
+  openNewEditor,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 
 suite("breakpoints", async function () {
   endToEndTestSetup(this);
@@ -22,9 +25,9 @@ suite("breakpoints", async function () {
 });
 
 async function breakpointHarpAdd() {
-  const { graph } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
   await openNewEditor("  hello");
-  await graph.hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
     version: 1,
@@ -49,9 +52,9 @@ async function breakpointHarpAdd() {
 }
 
 async function breakpointTokenHarpAdd() {
-  const { graph } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
   await openNewEditor("  hello");
-  await graph.hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
     version: 1,
@@ -77,9 +80,9 @@ async function breakpointTokenHarpAdd() {
 }
 
 async function breakpointHarpRemove() {
-  const { graph } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
   const editor = await openNewEditor("  hello");
-  await graph.hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
 
   vscode.debug.addBreakpoints([
     new vscode.SourceBreakpoint(
@@ -108,9 +111,9 @@ async function breakpointHarpRemove() {
 }
 
 async function breakpointTokenHarpRemove() {
-  const { graph } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
   const editor = await openNewEditor("  hello");
-  await graph.hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
 
   vscode.debug.addBreakpoints([
     new vscode.SourceBreakpoint(

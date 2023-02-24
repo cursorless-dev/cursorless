@@ -1,11 +1,10 @@
+import { HatTokenMap, ReadOnlyHatMap, TokenHat } from "@cursorless/common";
 import { hrtime } from "process";
 import { ide } from "../singletons/ide.singleton";
 import { Graph } from "../typings/Graph";
-import { TokenHat } from "../util/allocateHats/allocateHats";
 import { abs } from "../util/bigint";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap } from "./IndividualHatMap";
-import { ReadOnlyHatMap } from "@cursorless/common";
 
 /**
  * Maximum age for the pre-phrase snapshot before we consider it to be stale
@@ -15,7 +14,7 @@ const PRE_PHRASE_SNAPSHOT_MAX_AGE_NS = BigInt(6e10); // 60 seconds
 /**
  * Maps from (hatStyle, character) pairs to tokens
  */
-export default class HatTokenMap {
+export default class HatTokenMapImpl implements HatTokenMap {
   /**
    * This is the active map the changes every time we reallocate hats. It is
    * liable to change in the middle of a phrase.
@@ -38,6 +37,7 @@ export default class HatTokenMap {
     this.activeMap = new IndividualHatMap(graph);
 
     this.getActiveMap = this.getActiveMap.bind(this);
+    this.allocateHats = this.allocateHats.bind(this);
 
     this.hatAllocator = new HatAllocator(graph, {
       getActiveMap: this.getActiveMap,

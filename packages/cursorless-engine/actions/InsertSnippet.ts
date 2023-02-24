@@ -1,20 +1,23 @@
-import { RangeExpansionBehavior } from "@cursorless/common";
-import textFormatters from "../core/textFormatters";
+import {
+  RangeExpansionBehavior,
+  Snippet,
+  SnippetDefinition,
+  textFormatters,
+} from "@cursorless/common";
 import {
   callFunctionAndUpdateSelectionInfos,
   getSelectionInfo,
 } from "../core/updateSelections/updateSelections";
-import { ide } from "../singletons/ide.singleton";
 import { ModifyIfUntypedExplicitStage } from "../processTargets/modifiers/ConditionalModifierStages";
-import { Snippet, SnippetDefinition } from "../snippets/snippet.types";
-import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
+import { ide } from "../singletons/ide.singleton";
 import {
   findMatchingSnippetDefinitionStrict,
   transformSnippetVariables,
 } from "../snippets/snippet";
-import { ensureSingleEditor } from "../util/targetUtils";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
+import { Graph } from "../typings/Graph";
+import { Target } from "../typings/target.types";
+import { ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class InsertSnippet implements Action {

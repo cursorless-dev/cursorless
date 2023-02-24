@@ -1,4 +1,5 @@
 import {
+  Command,
   CURSORLESS_COMMAND_ID,
   FakeIDE,
   isTesting,
@@ -6,7 +7,6 @@ import {
   Range,
   TargetPlainObject,
   TextDocument,
-  Command,
 } from "@cursorless/common";
 import {
   CommandRunner,
@@ -25,11 +25,12 @@ import {
 } from "@cursorless/cursorless-engine";
 import {
   commandIds,
+  KeyboardCommands,
   showDocumentation,
   showQuickPick,
   StatusBarItem,
+  toVscodeEditor,
   VscodeIDE,
-  KeyboardCommands,
 } from "@cursorless/cursorless-vscode-core";
 import {
   CursorlessApi,
@@ -98,29 +99,40 @@ export async function activate(
   );
 
   return {
-    thatMark,
-    sourceMark,
     testHelpers: isTesting()
       ? {
           graph,
           ide: ide() as NormalizedIDE,
           injectIde,
 
-          // FIXME: Remove this once we have a better way to get this function
-          // accessible from our tests
-          plainObjectToTarget: (
-            editor: vscode.TextEditor,
-            plainObject: TargetPlainObject,
-          ) => {
-            return plainObjectToTarget(
-              vscodeIDE.fromVscodeEditor(editor),
-              plainObject,
-            );
-          },
+          toVscodeEditor,
 
           // FIXME: Remove this once we have a better way to get this function
           // accessible from our tests
           takeSnapshot,
+
+          setThatMark(
+            editor: vscode.TextEditor,
+            targets: TargetPlainObject[] | undefined,
+          ): void {
+            thatMark.set(
+              targets?.map((target) =>
+                plainObjectToTarget(vscodeIDE.fromVscodeEditor(editor), target),
+              ),
+            );
+          },
+          setSourceMark(
+            editor: vscode.TextEditor,
+            targets: TargetPlainObject[] | undefined,
+          ): void {
+            sourceMark.set(
+              targets?.map((target) =>
+                plainObjectToTarget(vscodeIDE.fromVscodeEditor(editor), target),
+              ),
+            );
+          },
+
+          hatTokenMap: graph.hatTokenMap,
         }
       : undefined,
 

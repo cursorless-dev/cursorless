@@ -11,13 +11,13 @@ suite("Backward compatibility", async function () {
 });
 
 async function runTest() {
-  const { graph } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
   const editor = await openNewEditor("");
 
   editor.selections = [new vscode.Selection(0, 0, 0, 0)];
 
-  await graph.hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
 
   await vscode.commands.executeCommand(
     CURSORLESS_COMMAND_ID,
