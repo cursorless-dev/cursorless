@@ -18,11 +18,11 @@
 \newcommand{\abrace}[5][0.5]{
     \draw [decorate, decoration = {calligraphic brace, amplitude=5pt, aspect=#1}, very thick]
     (#2*\hspacing + 0.3cm, -#3*\vspacing+\overshoot) --  (#2*\hspacing + 0.3cm, -#4*\vspacing-\overshoot)
-    node[right=5pt, pos=#1, scale=0.8] {#5};
+    node[right=5pt, pos=#1] {#5};
 }
 
 \newcommand{\funk}[3][black]{
-    \draw[fill=#1] (0,-#2*\vspacing) circle (0.1cm) node[left=3pt,align=right,scale=0.8]
+    \draw[fill=#1] (0,-#2*\vspacing) circle (0.1cm) node[left=3pt,align=right]
     {\texttt{"#3"}};
 }
 
@@ -40,17 +40,17 @@
 \funk{9}{second last funk}
 \funk{10}{last funk}
 
-\draw[fill=red] (-3.3cm,-11.5*\vspacing) circle (0.1cm) node[right=3pt,align=left,scale=0.8] {= input target};
+\draw[fill=red] (-4.1cm,-11.5*\vspacing) circle (0.1cm) node[right=3pt,align=left] {= input target};
 
 % \abrace [aspect], horizontal offset, start funk, end funk, text
-\abrace[0.7]{0}{6}{8}{\texttt{"next three funks"}};
-\abrace[0.3]{0}{2}{4}{\texttt{"previous three funks"}};
+\abrace[0.75]{0}{6}{8}{\texttt{"next three funks"}};
+\abrace[0.25]{0}{2}{4}{\texttt{"previous three funks"}};
 \abrace{1}{5}{7}{\texttt{"three funks"}};
 \abrace{2}{3}{5}{\texttt{"three funks backward"}};
 \abrace{0}{0}{1}{\texttt{"first two funks"}};
 \abrace{0}{9}{10}{\texttt{"last two funks"}};
 
-\abrace{11.5}{0}{10}{iteration scope};
+\abrace{13.5}{0}{10}{iteration scope};
 
 \end{tikzpicture}
 
