@@ -5,9 +5,9 @@ export function mockPrePhraseGetVersion(
   commandServerApi: CommandServerApi,
   getVersion: () => Promise<string>,
 ) {
-  sinon.replaceGetter(commandServerApi, "signals", () => ({
+  sinon.replace(commandServerApi, "signals", {
     prePhrase: {
       getVersion,
     },
-  }));
+  });
 }
