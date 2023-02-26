@@ -1,16 +1,16 @@
+import { Command, CURSORLESS_COMMAND_ID, isTesting } from "@cursorless/common";
 import {
-  Command,
-  CURSORLESS_COMMAND_ID, isTesting
-} from "@cursorless/common";
-import {
-  CommandRunner, showCheatsheet,
-  TestCaseRecorder, updateDefaults
+  CommandRunner,
+  showCheatsheet,
+  TestCaseRecorder,
+  updateDefaults,
 } from "@cursorless/cursorless-engine";
 import {
   commandIds,
   KeyboardCommands,
   showDocumentation,
-  showQuickPick, VscodeIDE
+  showQuickPick,
+  VscodeIDE,
 } from "@cursorless/cursorless-vscode-core";
 import * as vscode from "vscode";
 
@@ -19,7 +19,8 @@ export function registerCommands(
   vscodeIde: VscodeIDE,
   commandRunner: CommandRunner,
   testCaseRecorder: TestCaseRecorder,
-  keyboardCommands: KeyboardCommands): void {
+  keyboardCommands: KeyboardCommands,
+): void {
   const commands = [
     // The core Cursorless command
     [
@@ -28,7 +29,7 @@ export function registerCommands(
         try {
           return await commandRunner.runCommandBackwardCompatible(
             spokenFormOrCommand,
-            ...rest
+            ...rest,
           );
         } catch (e) {
           if (!isTesting()) {
@@ -88,7 +89,8 @@ export function registerCommands(
   ] as const;
 
   extensionContext.subscriptions.push(
-    ...commands.map(([commandId, callback]) => vscode.commands.registerCommand(commandId, callback)
-    )
+    ...commands.map(([commandId, callback]) =>
+      vscode.commands.registerCommand(commandId, callback),
+    ),
   );
 }

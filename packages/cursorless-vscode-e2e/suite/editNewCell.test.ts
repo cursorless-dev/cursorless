@@ -1,7 +1,8 @@
 import {
   getCellIndex,
   getCursorlessApi,
-  openNewNotebookEditor, runCursorlessCommand
+  openNewNotebookEditor,
+  runCursorlessCommand,
 } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import { window } from "vscode";

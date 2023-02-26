@@ -1,7 +1,4 @@
-import {
-  ChangeEventInfo,
-  FullRangeInfo,
-} from "../../typings/updateSelections";
+import { ChangeEventInfo, FullRangeInfo } from "../../typings/updateSelections";
 import { RangeOffsets } from "@cursorless/common";
 
 /**
