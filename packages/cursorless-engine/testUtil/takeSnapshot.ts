@@ -8,11 +8,11 @@ import {
   rangeToPlainObject,
   selectionToPlainObject,
   SerializedMarks,
-  targetToPlainObject,
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
 import type { ThatMark } from "../core/ThatMark";
+import { targetToPlainObject } from "./targetToPlainObject";
 
 export async function takeSnapshot(
   thatMark: ThatMark | undefined,

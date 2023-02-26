@@ -1,9 +1,8 @@
-import { showError, walkFiles } from "@cursorless/common";
+import { showError, Snippet, SnippetMap, walkFiles } from "@cursorless/common";
 import { readFile, stat } from "fs/promises";
 import { cloneDeep, max, merge } from "lodash";
 import { join } from "path";
 import { ide } from "../singletons/ide.singleton";
-import { Snippet, SnippetMap } from "../../common/types/snippet.types";
 import { Graph } from "../typings/Graph";
 import { mergeStrict } from "../util/object";
 

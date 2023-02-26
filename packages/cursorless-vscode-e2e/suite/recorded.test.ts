@@ -29,7 +29,7 @@ import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
 import * as vscode from "vscode";
-import { TestCaseFixture } from "../../cursorless-engine/testCaseRecorder/TestCaseFixture";
+import { TestCaseFixture } from "@cursorless/common";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import shouldUpdateFixtures from "../shouldUpdateFixtures";

@@ -1,4 +1,4 @@
-import { TestCaseCommand } from "../testCaseRecorder/TestCaseFixture";
+import { TestCaseCommand } from "@cursorless/common";
 import { merge } from "lodash";
 
 export function cleanUpTestCaseCommand(

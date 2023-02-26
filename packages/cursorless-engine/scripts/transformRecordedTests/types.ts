@@ -1,4 +1,4 @@
-import { TestCaseFixture } from "../../testCaseRecorder/TestCaseFixture";
+import { TestCaseFixture } from "@cursorless/common";
 
 export type FixtureTransformation = (
   originalFixture: TestCaseFixture,

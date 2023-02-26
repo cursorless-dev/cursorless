@@ -1,7 +1,7 @@
 import { serialize } from "@cursorless/common";
 import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
-import { TestCaseFixture } from "../../testCaseRecorder/TestCaseFixture";
+import { TestCaseFixture } from "@cursorless/common";
 import { FixtureTransformation } from "./types";
 
 export async function transformFile(

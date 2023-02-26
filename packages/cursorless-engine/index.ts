@@ -7,5 +7,4 @@ export * from "./singletons/ide.singleton";
 export * from "./core/Cheatsheet";
 export * from "./testUtil/takeSnapshot";
 export * from "./testCaseRecorder/TestCaseRecorder";
-export * from "./testCaseRecorder/TestCaseFixture";
 export * from "./core/ThatMark";

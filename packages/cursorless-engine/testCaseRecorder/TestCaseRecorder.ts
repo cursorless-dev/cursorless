@@ -2,6 +2,7 @@ import {
   DecoratedSymbolMark,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
+  ExtraSnapshotField,
   getKey,
   IDE,
   marksToPlainObject,
@@ -21,10 +22,9 @@ import { merge } from "lodash";
 import * as path from "path";
 import { ide, injectIde } from "../singletons/ide.singleton";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
-import { ExtraSnapshotField } from "../../common/testUtil/TestCaseSnapshot";
 import { Graph } from "../typings/Graph";
 import { TestCase, TestCaseContext } from "./TestCase";
-import { TestCaseCommand } from "./TestCaseFixture";
+import { TestCaseCommand } from "@cursorless/common";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 

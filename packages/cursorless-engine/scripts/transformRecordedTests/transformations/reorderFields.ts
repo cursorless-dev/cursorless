@@ -1,5 +1,5 @@
 import { EnforceUndefined } from "@cursorless/common";
-import { TestCaseFixture } from "../../../testCaseRecorder/TestCaseFixture";
+import { TestCaseFixture } from "@cursorless/common";
 
 export function reorderFields(
   fixture: TestCaseFixture,
@@ -15,6 +15,5 @@ export function reorderFields(
     ide: fixture.ide,
     postEditorOpenSleepTimeMs: fixture.postEditorOpenSleepTimeMs,
     postCommandSleepTimeMs: fixture.postCommandSleepTimeMs,
-    fullTargets: fixture.fullTargets,
   };
 }

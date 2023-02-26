@@ -4,7 +4,7 @@ import {
   PositionPlainObject,
 } from "@cursorless/common";
 import { groupBy, partition } from "lodash";
-import { TestCaseFixture } from "../../testCaseRecorder/TestCaseFixture";
+import { TestCaseFixture } from "@cursorless/common";
 import { reorderFields } from "./transformations/reorderFields";
 import { FixtureTransformation } from "./types";
 

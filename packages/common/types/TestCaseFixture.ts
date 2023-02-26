@@ -1,9 +1,6 @@
-import type { CommandLatest } from "@cursorless/common";
-import {
-  PlainSpyIDERecordedValues,
-  TestCaseSnapshot,
-} from "@cursorless/common";
-import type { TargetDescriptor } from "../typings/TargetDescriptor";
+import { TestCaseSnapshot } from "../testUtil/TestCaseSnapshot";
+import { PlainSpyIDERecordedValues } from "../testUtil/toPlainObject";
+import { CommandLatest } from "./command/command.types";
 
 export type TestCaseCommand = CommandLatest;
 
@@ -35,7 +32,4 @@ export type TestCaseFixture = {
    * error test case.
    */
   returnValue?: unknown;
-
-  /** Inferred full targets added for context; not currently used in testing */
-  fullTargets: TargetDescriptor[];
 };

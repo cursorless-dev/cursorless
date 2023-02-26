@@ -15,7 +15,7 @@ import type {
 import * as vscode from "vscode";
 import type { SyntaxNode } from "web-tree-sitter";
 
-interface TestHelpers {
+export interface TestHelpers {
   ide: NormalizedIDE;
   injectIde: (ide: IDE) => void;
 

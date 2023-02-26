@@ -1,6 +1,7 @@
 import {
   ActionType,
   extractTargetedMarks,
+  ExtraSnapshotField,
   marksToPlainObject,
   PlainSpyIDERecordedValues,
   ReadOnlyHatMap,
@@ -8,6 +9,7 @@ import {
   SerializedMarks,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
+  TestCaseSnapshot,
   Token,
 } from "@cursorless/common";
 import { pick } from "lodash";
@@ -15,16 +17,13 @@ import { ThatMark } from "../core/ThatMark";
 import { ide } from "../singletons/ide.singleton";
 import { cleanUpTestCaseCommand } from "../testUtil/cleanUpTestCaseCommand";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";
-import {
-  takeSnapshot,
-} from "../testUtil/takeSnapshot";
-import { ExtraSnapshotField, TestCaseSnapshot } from "../../common/testUtil/TestCaseSnapshot";
+import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { TargetDescriptor } from "../typings/TargetDescriptor";
 import {
   TestCaseCommand,
   TestCaseFixture,
   ThrownError,
-} from "./TestCaseFixture";
+} from "@cursorless/common";
 
 export type TestCaseContext = {
   thatMark: ThatMark;
@@ -151,7 +150,6 @@ export class TestCase {
       returnValue: this.returnValue,
       thrownError: this.thrownError,
       ide: this.spyIdeValues,
-      fullTargets: this.fullTargets,
     };
     return serialize(fixture);
   }

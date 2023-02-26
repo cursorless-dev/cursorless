@@ -75,3 +75,4 @@ export * from "./types/CommandServerApi";
 export * from "./util/itertools";
 export * from "./extensionDependencies";
 export * from "./getFakeCommandServerApi";
+export * from "./types/TestCaseFixture";
