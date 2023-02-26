@@ -9,7 +9,10 @@ import {
   SerializedMarks,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
+  TestCaseCommand,
+  TestCaseFixture,
   TestCaseSnapshot,
+  ThrownError,
   Token,
 } from "@cursorless/common";
 import { pick } from "lodash";
@@ -19,11 +22,6 @@ import { cleanUpTestCaseCommand } from "../testUtil/cleanUpTestCaseCommand";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { TargetDescriptor } from "../typings/TargetDescriptor";
-import {
-  TestCaseCommand,
-  TestCaseFixture,
-  ThrownError,
-} from "@cursorless/common";
 
 export type TestCaseContext = {
   thatMark: ThatMark;
