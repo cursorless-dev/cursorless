@@ -21,6 +21,8 @@ interface TestHelpers {
 
   hatTokenMap: HatTokenMap;
 
+  commandServerApi: CommandServerApi;
+
   toVscodeEditor(editor: TextEditor): vscode.TextEditor;
 
   setThatMark(

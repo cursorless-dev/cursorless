@@ -74,3 +74,4 @@ export * from "./types/command/legacy/PartialTargetDescriptorV3.types";
 export * from "./types/CommandServerApi";
 export * from "./util/itertools";
 export * from "./extensionDependencies";
+export * from "./getFakeCommandServerApi";

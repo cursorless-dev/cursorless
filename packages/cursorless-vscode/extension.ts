@@ -2,6 +2,7 @@ import {
   Command,
   CURSORLESS_COMMAND_ID,
   FakeIDE,
+  getFakeCommandServerApi,
   isTesting,
   NormalizedIDE,
   Range,
@@ -52,7 +53,6 @@ export async function activate(
   context: vscode.ExtensionContext,
 ): Promise<CursorlessApi> {
   const parseTreeApi = await getParseTreeApi();
-  const commandServerApi = await getCommandServerApi();
 
   const vscodeIDE = new VscodeIDE(context);
   await vscodeIDE.init();
@@ -64,6 +64,11 @@ export async function activate(
   } else {
     injectIde(vscodeIDE);
   }
+
+  const commandServerApi =
+    vscodeIDE.runMode === "test"
+      ? getFakeCommandServerApi()
+      : await getCommandServerApi();
 
   const getNodeAtLocation = (document: TextDocument, range: Range) => {
     return parseTreeApi.getNodeAtLocation(
@@ -101,7 +106,7 @@ export async function activate(
   return {
     testHelpers: isTesting()
       ? {
-          graph,
+          commandServerApi,
           ide: ide() as NormalizedIDE,
           injectIde,
 

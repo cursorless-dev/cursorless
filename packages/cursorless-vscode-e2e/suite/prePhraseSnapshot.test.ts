@@ -3,12 +3,12 @@ import {
   fromVscodeSelection,
   getCursorlessApi,
   openNewEditor,
+  runCursorlessCommand,
 } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { mockPrePhraseGetVersion } from "../mockPrePhraseGetVersion";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 import { setupFake } from "./setupFake";
 
 /**
@@ -45,14 +45,15 @@ async function runTest(
   multiplePhrases: boolean,
   expectedSelections: vscode.Selection[],
 ) {
-  const { graph, hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap, commandServerApi } = (await getCursorlessApi())
+    .testHelpers!;
 
   const editor = await openNewEditor("a\n");
 
   editor.selections = [new vscode.Selection(1, 0, 1, 0)];
 
   let prePhraseVersion = "version1";
-  mockPrePhraseGetVersion(graph, async () => prePhraseVersion);
+  mockPrePhraseGetVersion(commandServerApi, async () => prePhraseVersion);
 
   await hatTokenMap.allocateHats();
   prePhraseVersion = "version2";
