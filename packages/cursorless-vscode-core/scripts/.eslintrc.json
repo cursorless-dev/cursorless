@@ -1,14 +1,8 @@
 {
   "rules": {
-    "@typescript-eslint/no-restricted-imports": [
+    "no-restricted-imports": [
       "error",
       {
-        "patterns": [
-          {
-            "group": ["@cursorless/cursorless-vscode-core", "../../*"],
-            "message": "Scripts have restricted dependencies"
-          }
-        ],
         "paths": [
           {
             "name": "vscode",
