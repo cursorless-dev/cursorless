@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "transform-recorded-tests": "node ../../out/cursorless-engine/scripts/transformRecordedTests/index.js"
   },
   "keywords": [],
   "author": "",

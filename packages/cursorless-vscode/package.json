@@ -750,20 +750,9 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run -S esbuild-base -- --minify",
-    "update-licenses": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv",
     "esbuild-base": "esbuild ./extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
     "esbuild": "npm run -S esbuild-base -- --sourcemap",
-    "esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch",
-    "test-compile": "tsc -p ./",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "yarn run compile && yarn run lint && yarn run esbuild",
-    "lint": "eslint packages --ext ts",
-    "test": "env CURSORLESS_TEST=true node ./out/test-harness/scripts/runTestsCI.js",
-    "unused-exports": "ts-unused-exports tsconfig.json --showLineNumber",
-    "init-launch-sandbox": "node ./out/cursorless-vscode-core/scripts/initLaunchSandbox.js",
-    "prepare-for-extension-publish": "node ./out/cursorless-vscode-core/scripts/prepareForExtensionPublish.js",
-    "transform-recorded-tests": "node ./out/cursorless-engine/scripts/transformRecordedTests/index.js"
+    "esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",

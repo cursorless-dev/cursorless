@@ -10,7 +10,7 @@
       "type": "extensionHost",
       "request": "launch",
       "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode",
         "--profile=cursorlessDevelopment"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
@@ -29,7 +29,7 @@
       },
       "args": [
         "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode",
         "--extensionTestsPath=${workspaceFolder}/out/test-harness/runners/all"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
@@ -64,7 +64,7 @@
       },
       "args": [
         "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode",
         "--extensionTestsPath=${workspaceFolder}/out/test-harness/runners/all"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
@@ -84,7 +84,7 @@
       },
       "args": [
         "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode",
         "--extensionTestsPath=${workspaceFolder}/out/test-harness/runners/all"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
@@ -105,7 +105,7 @@
       },
       "args": [
         "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode",
         "--extensionTestsPath=${workspaceFolder}/out/test-harness/runners/all"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],

@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test-compile": "tsc -p ./",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "pnpm run compile && pnpm run lint && pnpm run --filter '@cursorless/cursorless-vscode' esbuild",
+    "lint": "eslint packages --ext ts",
+    "test": "env CURSORLESS_TEST=true node ./out/test-harness/scripts/runTestsCI.js",
+    "unused-exports": "ts-unused-exports tsconfig.json --showLineNumber",
+    "update-licenses": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv"
   },
   "keywords": [],
   "author": "",
