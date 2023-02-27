@@ -1,12 +1,28 @@
 lockfileVersion: 5.4
 
-specifiers:
-  '@types/node': ^18.14.2
-  typescript: ^4.6.3
+importers:
 
-devDependencies:
-  '@types/node': 18.14.2
-  typescript: 4.6.3
+  .:
+    specifiers:
+      '@types/node': ^18.14.2
+      typescript: ^4.6.3
+    devDependencies:
+      '@types/node': 18.14.2
+      typescript: 4.6.3
+
+  packages/common:
+    specifiers:
+      vscode-uri: ^3.0.6
+    dependencies:
+      vscode-uri: 3.0.7
+
+  packages/cursorless-vscode-core:
+    specifiers:
+      uuid: ^9.0.0
+      vscode-uri: ^3.0.6
+    dependencies:
+      uuid: 9.0.0
+      vscode-uri: 3.0.7
 
 packages:
 
@@ -19,3 +35,12 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
+
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: false
+
+  /vscode-uri/3.0.7:
+    resolution: {integrity: sha512-eOpPHogvorZRobNqJGhapa0JdwaxpjVvyBp0QIUMRMSf8ZAlqOdEquKuRmw9Qwu0qXtJIWqFtMkmvJjUZmMjVA==}
+    dev: false

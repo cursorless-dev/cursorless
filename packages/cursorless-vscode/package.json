@@ -801,8 +801,6 @@
     "immutability-helper": "^3.1.1",
     "itertools": "^1.7.1",
     "lodash": "^4.17.21",
-    "node-html-parser": "^5.3.3",
-    "uuid": "^9.0.0",
-    "vscode-uri": "^3.0.6"
+    "node-html-parser": "^5.3.3"
   }
 }
