@@ -5,11 +5,39 @@ importers:
   .:
     specifiers:
       '@types/node': ^18.14.2
+      '@typescript-eslint/eslint-plugin': ^5.20.0
+      '@typescript-eslint/parser': ^5.20.0
+      eslint: ^8.13.0
+      eslint-config-prettier: ^8.5.0
+      eslint-plugin-unused-imports: ^2.0.0
+      fast-xml-parser: ^3.20.0
+      glob: ^7.1.7
+      js-yaml: ^4.1.0
+      mocha: ^8.1.3
+      module-alias: ^2.2.2
+      npm-license-crawler: ^0.2.1
       prettier: 2.7.1
+      semver: ^7.3.7
+      sinon: ^11.1.1
+      ts-unused-exports: ^8.0.0
       typescript: ^4.6.3
     devDependencies:
       '@types/node': 18.14.2
+      '@typescript-eslint/eslint-plugin': 5.53.0_zacehr7pv3rbwl3x76rpuxvdba
+      '@typescript-eslint/parser': 5.53.0_uzojwigngz6z6gjoclmgl5f5uq
+      eslint: 8.35.0
+      eslint-config-prettier: 8.6.0_eslint@8.35.0
+      eslint-plugin-unused-imports: 2.0.0_uztrg2li4mdp4mfzjurxdo7omq
+      fast-xml-parser: 3.21.1
+      glob: 7.2.3
+      js-yaml: 4.1.0
+      mocha: 8.4.0
+      module-alias: 2.2.2
+      npm-license-crawler: 0.2.1
       prettier: 2.7.1
+      semver: 7.3.8
+      sinon: 11.1.2
+      ts-unused-exports: 8.0.5_typescript@4.6.3
       typescript: 4.6.3
 
   packages/common:
@@ -51,32 +79,13 @@ importers:
       '@types/chai': ^4.3.3
       '@types/glob': ^7.1.3
       '@types/js-yaml': ^4.0.2
-      '@types/lodash': ^4.14.168
       '@types/mocha': ^8.0.4
       '@types/node': ^16.11.3
       '@types/semver': ^7.3.9
       '@types/sinon': ^10.0.2
-      '@types/uuid': ^8.3.4
       '@types/vscode': ~1.61.0
-      '@typescript-eslint/eslint-plugin': ^5.20.0
-      '@typescript-eslint/parser': ^5.20.0
-      '@vscode/test-electron': ^2.1.3
       chai: ^4.3.6
       esbuild: ^0.11.12
-      eslint: ^8.13.0
-      eslint-config-prettier: ^8.5.0
-      eslint-plugin-unused-imports: ^2.0.0
-      fast-xml-parser: ^3.20.0
-      glob: ^7.1.7
-      js-yaml: ^4.1.0
-      mocha: ^8.1.3
-      module-alias: ^2.2.2
-      npm-license-crawler: ^0.2.1
-      prettier: 2.7.1
-      semver: ^7.3.7
-      sinon: ^11.1.1
-      ts-unused-exports: ^8.0.0
-      typescript: 4.6.3
     dependencies:
       '@cursorless/common': link:../common
       '@cursorless/cursorless-engine': link:../cursorless-engine
@@ -86,32 +95,13 @@ importers:
       '@types/chai': 4.3.4
       '@types/glob': 7.2.0
       '@types/js-yaml': 4.0.5
-      '@types/lodash': 4.14.191
       '@types/mocha': 8.2.3
       '@types/node': 16.18.13
       '@types/semver': 7.3.13
       '@types/sinon': 10.0.13
-      '@types/uuid': 8.3.4
       '@types/vscode': 1.61.0
-      '@typescript-eslint/eslint-plugin': 5.53.0_zacehr7pv3rbwl3x76rpuxvdba
-      '@typescript-eslint/parser': 5.53.0_uzojwigngz6z6gjoclmgl5f5uq
-      '@vscode/test-electron': 2.2.3
       chai: 4.3.7
       esbuild: 0.11.23
-      eslint: 8.35.0
-      eslint-config-prettier: 8.6.0_eslint@8.35.0
-      eslint-plugin-unused-imports: 2.0.0_uztrg2li4mdp4mfzjurxdo7omq
-      fast-xml-parser: 3.21.1
-      glob: 7.2.3
-      js-yaml: 4.1.0
-      mocha: 8.4.0
-      module-alias: 2.2.2
-      npm-license-crawler: 0.2.1
-      prettier: 2.7.1
-      semver: 7.3.8
-      sinon: 11.1.2
-      ts-unused-exports: 8.0.5_typescript@4.6.3
-      typescript: 4.6.3
 
   packages/cursorless-vscode-core:
     specifiers:
@@ -140,6 +130,7 @@ importers:
       '@cursorless/vscode-common': workspace:*
       '@types/lodash': ^4.14.168
       '@types/vscode': ~1.61.0
+      '@vscode/test-electron': ^2.1.3
       lodash: ^4.17.21
     dependencies:
       '@cursorless/common': link:../common
@@ -148,6 +139,7 @@ importers:
     devDependencies:
       '@types/lodash': 4.14.191
       '@types/vscode': 1.61.0
+      '@vscode/test-electron': 2.2.3
 
   packages/test-harness:
     specifiers:
@@ -1222,7 +1214,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.4
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
