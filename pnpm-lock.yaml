@@ -5,22 +5,28 @@ importers:
   .:
     specifiers:
       '@types/node': ^18.14.2
+      prettier: 2.7.1
       typescript: ^4.6.3
     devDependencies:
       '@types/node': 18.14.2
+      prettier: 2.7.1
       typescript: 4.6.3
 
   packages/common:
     specifiers:
+      '@types/lodash': ^4.14.168
       lodash: ^4.17.21
       vscode-uri: ^3.0.6
     dependencies:
       lodash: 4.17.21
       vscode-uri: 3.0.7
+    devDependencies:
+      '@types/lodash': 4.14.191
 
   packages/cursorless-engine:
     specifiers:
       '@cursorless/common': workspace:*
+      '@types/lodash': ^4.14.168
       immer: ^9.0.15
       immutability-helper: ^3.1.1
       itertools: ^1.7.1
@@ -33,6 +39,8 @@ importers:
       itertools: 1.7.1
       lodash: 4.17.21
       node-html-parser: 5.4.2
+    devDependencies:
+      '@types/lodash': 4.14.191
 
   packages/cursorless-vscode:
     specifiers:
@@ -109,6 +117,8 @@ importers:
     specifiers:
       '@cursorless/common': workspace:*
       '@cursorless/vscode-common': workspace:*
+      '@types/lodash': ^4.14.168
+      '@types/uuid': ^8.3.4
       '@types/vscode': ~1.61.0
       lodash: ^4.17.21
       uuid: ^9.0.0
@@ -120,12 +130,15 @@ importers:
       uuid: 9.0.0
       vscode-uri: 3.0.7
     devDependencies:
+      '@types/lodash': 4.14.191
+      '@types/uuid': 8.3.4
       '@types/vscode': 1.61.0
 
   packages/cursorless-vscode-e2e:
     specifiers:
       '@cursorless/common': workspace:*
       '@cursorless/vscode-common': workspace:*
+      '@types/lodash': ^4.14.168
       '@types/vscode': ~1.61.0
       lodash: ^4.17.21
     dependencies:
@@ -133,6 +146,7 @@ importers:
       '@cursorless/vscode-common': link:../vscode-common
       lodash: 4.17.21
     devDependencies:
+      '@types/lodash': 4.14.191
       '@types/vscode': 1.61.0
 
   packages/test-harness:
