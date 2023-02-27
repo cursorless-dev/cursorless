@@ -109,6 +109,7 @@ importers:
     specifiers:
       '@cursorless/common': workspace:*
       '@cursorless/vscode-common': workspace:*
+      '@types/vscode': ~1.61.0
       lodash: ^4.17.21
       uuid: ^9.0.0
       vscode-uri: ^3.0.6
@@ -118,16 +119,21 @@ importers:
       lodash: 4.17.21
       uuid: 9.0.0
       vscode-uri: 3.0.7
+    devDependencies:
+      '@types/vscode': 1.61.0
 
   packages/cursorless-vscode-e2e:
     specifiers:
       '@cursorless/common': workspace:*
       '@cursorless/vscode-common': workspace:*
+      '@types/vscode': ~1.61.0
       lodash: ^4.17.21
     dependencies:
       '@cursorless/common': link:../common
       '@cursorless/vscode-common': link:../vscode-common
       lodash: 4.17.21
+    devDependencies:
+      '@types/vscode': 1.61.0
 
   packages/test-harness:
     specifiers:
@@ -138,8 +144,11 @@ importers:
   packages/vscode-common:
     specifiers:
       '@cursorless/common': workspace:*
+      '@types/vscode': ~1.61.0
     dependencies:
       '@cursorless/common': link:../common
+    devDependencies:
+      '@types/vscode': 1.61.0
 
 packages:
 

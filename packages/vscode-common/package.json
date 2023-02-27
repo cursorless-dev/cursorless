@@ -11,5 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "@cursorless/common": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/vscode": "~1.61.0"
   }
 }

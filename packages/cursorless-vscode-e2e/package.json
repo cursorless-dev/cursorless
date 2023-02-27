@@ -13,5 +13,8 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
     "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/vscode": "~1.61.0"
   }
 }
