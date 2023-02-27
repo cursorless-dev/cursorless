@@ -10,6 +10,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@cursorless/common": "workspace:*",
+    "@cursorless/vscode-common": "workspace:*",
     "lodash": "^4.17.21"
   }
 }

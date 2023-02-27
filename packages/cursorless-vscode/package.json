@@ -797,6 +797,9 @@
     "typescript": "4.6.3"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*"
+    "@cursorless/common": "workspace:*",
+    "@cursorless/cursorless-engine": "workspace:*",
+    "@cursorless/cursorless-vscode-core": "workspace:*",
+    "@cursorless/vscode-common": "workspace:*"
   }
 }
