@@ -18,7 +18,7 @@
     "vscode-uri": "^3.0.6"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.168",
+    "@types/lodash": "4.14.181",
     "@types/uuid": "^8.3.4",
     "@types/vscode": "~1.61.0"
   }

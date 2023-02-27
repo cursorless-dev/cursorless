@@ -15,6 +15,7 @@
       "label": "ESBuild",
       "type": "npm",
       "script": "esbuild",
+      "path": "packages/cursorless-vscode",
       "isBackground": true,
       "presentation": {
         "reveal": "never"
