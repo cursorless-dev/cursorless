@@ -14,7 +14,6 @@ importers:
       glob: ^7.1.7
       js-yaml: ^4.1.0
       mocha: ^8.1.3
-      module-alias: ^2.2.2
       npm-license-crawler: ^0.2.1
       prettier: 2.7.1
       semver: ^7.3.7
@@ -32,7 +31,6 @@ importers:
       glob: 7.2.3
       js-yaml: 4.1.0
       mocha: 8.4.0
-      module-alias: 2.2.2
       npm-license-crawler: 0.2.1
       prettier: 2.7.1
       semver: 7.3.8
@@ -1586,10 +1584,6 @@ packages:
       yargs: 16.2.0
       yargs-parser: 20.2.4
       yargs-unparser: 2.0.0
-    dev: true
-
-  /module-alias/2.2.2:
-    resolution: {integrity: sha512-A/78XjoX2EmNvppVWEhM2oGk3x4lLxnkEA4jTbaK97QKSDjkIoOsKQlfylt/d3kKKi596Qy3NP5XrXJ6fZIC9Q==}
     dev: true
 
   /ms/2.1.2:

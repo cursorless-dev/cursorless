@@ -1,7 +1,6 @@
 // Ensures that the aliases such as @cursorless/common that we define in
 // package.json are active
 // NOTE: This must be at the top!
-import "module-alias/register";
 
 import { getRecordedTestPaths } from "@cursorless/common";
 import { identity } from "./transformations/identity";

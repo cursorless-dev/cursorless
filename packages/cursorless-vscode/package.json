@@ -742,12 +742,6 @@
     "url": "https://github.com/sponsors/pokey"
   },
   "funding": "https://github.com/sponsors/pokey",
-  "_moduleAliases": {
-    "@cursorless/common": "./out/common/index.js",
-    "@cursorless/vscode-common": "./out/vscode-common/index.js",
-    "@cursorless/cursorless-vscode-core": "./out/cursorless-vscode-core/index.js",
-    "@cursorless/cursorless-engine": "./out/cursorless-engine/index.js"
-  },
   "scripts": {
     "vscode:prepublish": "npm run -S esbuild-base -- --minify",
     "esbuild-base": "esbuild ./extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
