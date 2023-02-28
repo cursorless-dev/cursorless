@@ -12,7 +12,7 @@ export default class VscodeGlobalState implements State {
     return this.extensionContext.globalState.get(key, STATE_DEFAULTS[key]);
   }
 
-  set<K extends StateKey>(key: K, value: StateData[K]): Thenable<void> {
+  set<K extends StateKey>(key: K, value: StateData[K]): Promise<void> {
     return this.extensionContext.globalState.update(key, value);
   }
 }

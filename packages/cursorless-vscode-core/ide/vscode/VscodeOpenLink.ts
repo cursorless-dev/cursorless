@@ -27,7 +27,7 @@ function getLinksForEditor(editor: vscode.TextEditor) {
   return vscode.commands.executeCommand(
     "vscode.executeLinkProvider",
     editor.document.uri,
-  ) as Thenable<vscode.DocumentLink[]>;
+  ) as Promise<vscode.DocumentLink[]>;
 }
 
 function openLink(link: vscode.DocumentLink) {

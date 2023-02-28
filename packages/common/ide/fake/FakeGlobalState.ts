@@ -8,7 +8,7 @@ export default class FakeGlobalState implements State {
     return this.data[key];
   }
 
-  set<K extends StateKey>(key: K, value: StateData[K]): Thenable<void> {
+  set<K extends StateKey>(key: K, value: StateData[K]): Promise<void> {
     this.data[key] = value;
     return Promise.resolve();
   }

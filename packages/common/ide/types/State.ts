@@ -26,5 +26,5 @@ export interface State {
    * @param key A string.
    * @param value A value. MUST not contain cyclic references.
    */
-  set<K extends StateKey>(key: K, value: StateData[K]): Thenable<void>;
+  set<K extends StateKey>(key: K, value: StateData[K]): Promise<void>;
 }
