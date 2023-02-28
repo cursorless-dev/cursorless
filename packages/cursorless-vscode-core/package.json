@@ -15,12 +15,16 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
     "lodash": "^4.17.21",
+    "semver": "^7.3.7",
     "uuid": "^9.0.0",
     "vscode-uri": "^3.0.6"
   },
   "devDependencies": {
     "@types/lodash": "4.14.181",
+    "@types/mocha": "^8.0.4",
+    "@types/semver": "^7.3.9",
     "@types/uuid": "^8.3.4",
-    "@types/vscode": "~1.61.0"
+    "@types/vscode": "~1.61.0",
+    "mocha": "^8.1.3"
   }
 }

@@ -2,11 +2,11 @@ import * as vscode from "vscode";
 import { Clipboard } from "@cursorless/common";
 
 export default class VscodeClipboard implements Clipboard {
-  readText(): Promise<string> {
-    return vscode.env.clipboard.readText();
+  async readText(): Promise<string> {
+    return await vscode.env.clipboard.readText();
   }
 
-  writeText(value: string): Promise<void> {
-    return vscode.env.clipboard.writeText(value);
+  async writeText(value: string): Promise<void> {
+    return await vscode.env.clipboard.writeText(value);
   }
 }

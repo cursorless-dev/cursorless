@@ -1,7 +1,6 @@
 import type {
   CommandServerApi,
   ExcludableSnapshotField,
-  ExtraContext,
   ExtraSnapshotField,
   HatTokenMap,
   IDE,
@@ -41,10 +40,8 @@ export interface TestHelpers {
     extraFields: ExtraSnapshotField[],
     editor: TextEditor,
     ide: IDE,
-    marks?: SerializedMarks,
-    extraContext?: ExtraContext,
-    metadata?: unknown,
-    clipboard?: vscode.Clipboard,
+    marks: SerializedMarks | undefined,
+    forceRealClipboard: boolean,
   ): Promise<TestCaseSnapshot>;
 }
 
