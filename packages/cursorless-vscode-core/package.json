@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "init-launch-sandbox": "node ../../out/cursorless-vscode-core/scripts/initLaunchSandbox.js",
-    "prepare-for-extension-publish": "node ../../out/cursorless-vscode-core/scripts/prepareForExtensionPublish.js"
+    "prepare-for-extension-publish": "node ../../out/cursorless-vscode-core/scripts/prepareForExtensionPublish.js",
+    "compile": "tsc --build --pretty"
   },
   "keywords": [],
   "author": "",

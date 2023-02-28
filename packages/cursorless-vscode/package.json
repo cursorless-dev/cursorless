@@ -746,7 +746,8 @@
     "vscode:prepublish": "npm run -S esbuild-base -- --minify",
     "esbuild-base": "esbuild ./extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
     "esbuild": "npm run -S esbuild-base -- --sourcemap",
-    "esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch"
+    "esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch",
+    "compile": "tsc --build --pretty"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",

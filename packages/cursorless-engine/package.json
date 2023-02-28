@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile": "tsc -p ./",
+    "compile": "tsc --build --pretty",
     "transform-recorded-tests": "node ../../out/cursorless-engine/scripts/transformRecordedTests/index.js"
   },
   "keywords": [],
