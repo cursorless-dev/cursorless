@@ -5,9 +5,8 @@
       {
         "patterns": [
           {
-            "group": ["../../*"],
-            "message": "Common shouldn't have any dependencies",
-            "allowTypeImports": true
+            "group": ["@cursorless/*", "../../*"],
+            "message": "Common shouldn't have any dependencies"
           }
         ],
         "paths": [

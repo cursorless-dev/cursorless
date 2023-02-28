@@ -6,8 +6,8 @@ import {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,
   ChangeEventInfo,
-  RangeOffsets,
 } from "../../typings/updateSelections";
+import { RangeOffsets } from "@cursorless/common";
 import { getUpdatedText } from "./getUpdatedText";
 
 /**

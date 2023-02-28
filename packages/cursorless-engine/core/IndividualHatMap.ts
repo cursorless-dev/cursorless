@@ -1,15 +1,15 @@
-import { getKey, HatStyleName, TextDocument } from "@cursorless/common";
+import {
+  getKey,
+  HatStyleName,
+  ReadOnlyHatMap,
+  TextDocument,
+  Token,
+  TokenHat,
+} from "@cursorless/common";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
 import { getMatcher } from "../tokenizer";
-import { Token } from "../typings/Types";
 import { Graph } from "../typings/Graph";
 import { FullRangeInfo } from "../typings/updateSelections";
-import { TokenHat } from "../util/allocateHats/allocateHats";
-
-export interface ReadOnlyHatMap {
-  getEntries(): readonly [string, Token][];
-  getToken(hatStyle: HatStyleName, character: string): Token;
-}
 
 /**
  * A token with information that the rangeUpdater can use to keep its

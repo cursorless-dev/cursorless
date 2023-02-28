@@ -1,5 +1,5 @@
 import { splitKey } from "@cursorless/common";
-import { getCursorlessApi, toVscodeEditor } from "@cursorless/vscode-common";
+import { getCursorlessApi } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -12,7 +12,8 @@ suite("Group by document", async function () {
 });
 
 async function runTest() {
-  const { graph } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap, toVscodeEditor } = (await getCursorlessApi())
+    .testHelpers!;
 
   await vscode.commands.executeCommand("workbench.action.closeAllEditors");
 
@@ -27,8 +28,8 @@ async function runTest() {
     vscode.ViewColumn.Beside,
   );
 
-  await graph.hatTokenMap.allocateHats();
-  const hatMap = await graph.hatTokenMap.getReadableMap(false);
+  await hatTokenMap.allocateHats();
+  const hatMap = await hatTokenMap.getReadableMap(false);
 
   const hat1 = hatMap
     .getEntries()

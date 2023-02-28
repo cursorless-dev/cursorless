@@ -27,12 +27,12 @@ async function checkKeyboardStartup() {
 }
 
 async function basic() {
-  const { graph } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
   const editor = await openNewEditor("function foo() {}\n", {
     languageId: "typescript",
   });
-  await graph.hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
 
   editor.selection = new vscode.Selection(1, 0, 1, 0);
 

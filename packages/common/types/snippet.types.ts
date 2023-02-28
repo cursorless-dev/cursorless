@@ -1,5 +1,5 @@
-import { SimpleScopeTypeType } from "@cursorless/common";
-import { TextFormatterName } from "../typings/Types";
+import { TextFormatterName } from "../util/textFormatters";
+import { SimpleScopeTypeType } from "./command/PartialTargetDescriptor.types";
 
 export interface SnippetScope {
   /**

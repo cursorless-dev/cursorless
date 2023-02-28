@@ -1,6 +1,6 @@
 import Actions from "../actions";
 import Debug from "../core/Debug";
-import HatTokenMap from "../core/HatTokenMap";
+import HatTokenMapImpl from "../core/HatTokenMapImpl";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { TestCaseRecorder } from "../testCaseRecorder/TestCaseRecorder";
@@ -13,7 +13,7 @@ type ConstructorMap<T> = {
 
 const graphConstructors: Partial<ConstructorMap<Graph>> = {
   actions: Actions,
-  hatTokenMap: HatTokenMap,
+  hatTokenMap: HatTokenMapImpl,
   snippets: Snippets,
   rangeUpdater: RangeUpdater,
   debug: Debug,

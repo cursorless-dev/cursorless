@@ -5,7 +5,7 @@
       {
         "patterns": [
           {
-            "group": ["../../*"],
+            "group": ["@cursorless/*", "!@cursorless/common", "../../../*"],
             "message": "Scripts have restricted dependencies"
           }
         ],
