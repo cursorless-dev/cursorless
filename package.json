@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test-compile": "tsc -p ./",
+    "compile": "tsc --build packages/*",
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint && pnpm run --filter '@cursorless/cursorless-vscode' esbuild",
     "lint": "eslint packages --ext ts",
