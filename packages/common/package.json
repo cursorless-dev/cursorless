@@ -15,6 +15,10 @@
     "vscode-uri": "^3.0.6"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.181"
+    "@types/js-yaml": "^4.0.2",
+    "@types/lodash": "4.14.181",
+    "@types/mocha": "^8.0.4",
+    "js-yaml": "^4.1.0",
+    "mocha": "^8.1.3"
   }
 }
