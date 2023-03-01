@@ -1,3 +1,3 @@
-import updater from './lib/index.js'
+import updater from "./out/index.js";
 
-export default updater
+export default updater;

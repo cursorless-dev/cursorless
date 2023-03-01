@@ -218,7 +218,7 @@ async function updateManifest (workspaceDir: string, manifest: ProjectManifest, 
     files.push('bin')
   } else {
     // the order is important
-    files.push('lib')
+    files.push('out')
     files.push('!*.map')
     if (manifest.bin) {
       files.push('bin')
@@ -247,7 +247,7 @@ async function updateManifest (workspaceDir: string, manifest: ProjectManifest, 
     repository,
     scripts,
     exports: {
-      '.': manifest.name === 'pnpm' ? './package.json' : './lib/index.js',
+      '.': manifest.name === 'pnpm' ? './package.json' : './out/index.js',
     },
   }
 }
