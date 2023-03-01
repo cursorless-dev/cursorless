@@ -8,7 +8,11 @@
     "compile": "tsc --build packages/*",
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint && pnpm run --filter '@cursorless/cursorless-vscode' esbuild",
-    "lint": "eslint packages --ext ts",
+    "meta-updater:base": "pnpm --filter=@cursorless/meta-updater compile && pnpm --config.use-node-version=16.4.0 exec meta-updater",
+    "meta-updater": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json",
+    "lint:meta": "pnpm run meta-updater:base --test",
+    "lint": "pnpm run lint:meta && pnpm run lint:ts",
+    "lint:ts": "eslint packages .meta-updater --ext ts",
     "test": "env CURSORLESS_TEST=true node ./out/test-harness/scripts/runTestsCI.js",
     "unused-exports": "ts-unused-exports tsconfig.json --showLineNumber",
     "update-licenses": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv"

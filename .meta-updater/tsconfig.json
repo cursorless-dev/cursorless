@@ -4,8 +4,12 @@
     "outDir": "out",
     "rootDir": ".",
     "composite": true,
+    "target": "es2020",
+    "module": "ES2020",
+    "moduleResolution": "node",
     "esModuleInterop": true
   },
   "include": ["**/*.ts"],
-  "exclude": ["**/node_modules/**", "out/**"]
+  "exclude": ["**/node_modules/**", "out/**"],
+  "references": []
 }

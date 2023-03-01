@@ -4,7 +4,7 @@ import normalizePath from "normalize-path";
 import path from "path";
 import exists from "path-exists";
 
-export default async (workspaceDir: string) => {
+export const updater = async (workspaceDir: string) => {
   const lockfile = await readWantedLockfile(workspaceDir, {
     ignoreIncompatible: false,
   });
