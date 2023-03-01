@@ -6,5 +6,10 @@
     "composite": true
   },
   "include": ["**/*.ts"],
-  "exclude": ["**/node_modules/**", "out/**"]
+  "exclude": ["**/node_modules/**", "out/**"],
+  "references": [
+    {
+      "path": "../common"
+    }
+  ]
 }

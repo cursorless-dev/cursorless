@@ -5,7 +5,14 @@
     "rootDir": ".",
     "composite": true
   },
-  "references": [{ "path": "../common" }],
+  "references": [
+    {
+      "path": "../common"
+    },
+    {
+      "path": "../vscode-common"
+    }
+  ],
   "include": ["**/*.ts"],
   "exclude": ["**/node_modules/**", "out/**"]
 }
