@@ -5,7 +5,7 @@
   "tasks": [
     {
       "label": "Build",
-      "dependsOn": ["ESBuild", "TSBuild"],
+      "dependsOn": ["ESBuild", "TSBuild", "Populate dist"],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -27,6 +27,17 @@
       "type": "npm",
       "script": "compile",
       "problemMatcher": "$tsc-watch",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": "build"
+    },
+    {
+      "label": "Populate dist",
+      "type": "npm",
+      "script": "populate-dist",
+      "path": "packages/cursorless-vscode",
       "isBackground": true,
       "presentation": {
         "reveal": "never"
