@@ -11,7 +11,7 @@
     "meta-updater:base": "pnpm --filter=@cursorless/meta-updater compile && pnpm --config.use-node-version=16.4.0 exec meta-updater",
     "meta-updater": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json",
     "lint:meta": "pnpm run meta-updater:base --test",
-    "lint": "pnpm run lint:meta && pnpm run lint:ts",
+    "lint": "pnpm run lint:meta && syncpack list-mismatches && pnpm run lint:ts",
     "lint:ts": "eslint packages --ext ts",
     "test": "env CURSORLESS_TEST=true node ./out/test-harness/scripts/runTestsCI.js",
     "unused-exports": "ts-unused-exports tsconfig.json --showLineNumber",
@@ -29,6 +29,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "2.7.1",
+    "syncpack": "9.8.4",
     "typescript": "^4.9.5"
   }
 }
