@@ -1,9 +1,8 @@
-import type { Disposable } from "@cursorless/common";
+import type { Disposable, TokenHat } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
 import { Graph } from "../typings/Graph";
 import { allocateHats } from "../util/allocateHats";
-import { TokenHat } from "../util/allocateHats/allocateHats";
 import { IndividualHatMap } from "./IndividualHatMap";
 
 interface Context {

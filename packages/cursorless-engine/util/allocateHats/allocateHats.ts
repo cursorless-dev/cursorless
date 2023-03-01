@@ -6,20 +6,14 @@ import {
   HatStyleName,
   Range,
   TextEditor,
+  Token,
+  TokenHat,
 } from "@cursorless/common";
 import { clone } from "lodash";
 import { Grapheme, TokenGraphemeSplitter } from "../../tokenGraphemeSplitter";
-import { Token } from "../../typings/Types";
 import { chooseTokenHat } from "./chooseTokenHat";
 import { getHatRankingContext } from "./getHatRankingContext";
 import { getRankedTokens } from "./getRankedTokens";
-
-export interface TokenHat {
-  hatStyle: HatStyleName;
-  grapheme: string;
-  token: Token;
-  hatRange: Range;
-}
 
 export interface HatCandidate {
   grapheme: Grapheme;

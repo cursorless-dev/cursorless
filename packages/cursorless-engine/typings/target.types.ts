@@ -6,7 +6,15 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import type { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
-import type { Range, Selection, TextEditor } from "@cursorless/common";
+import type {
+  Range,
+  Selection,
+  TextEditor,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+  Snippet,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+  SnippetVariable,
+} from "@cursorless/common";
 import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
   ScopeTypeTarget,
@@ -15,8 +23,6 @@ import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
   UntypedTarget,
 } from "../processTargets/targets";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
-import type { Snippet, SnippetVariable } from "../snippets/snippet.types";
 import type { TargetPosition } from "@cursorless/common";
 import type { EditWithRangeUpdater } from "./Types";
 

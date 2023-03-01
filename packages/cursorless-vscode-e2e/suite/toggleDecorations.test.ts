@@ -10,7 +10,7 @@ suite("toggle decorations", async function () {
 });
 
 async function runTest() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!.graph;
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
   await openNewEditor("Hello world testing whatever");
 

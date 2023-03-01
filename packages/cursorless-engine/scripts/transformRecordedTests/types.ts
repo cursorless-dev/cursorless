@@ -1,4 +1,4 @@
-import { TestCaseFixture } from "@cursorless/cursorless-engine";
+import { TestCaseFixture } from "@cursorless/common";
 
 export type FixtureTransformation = (
   originalFixture: TestCaseFixture,

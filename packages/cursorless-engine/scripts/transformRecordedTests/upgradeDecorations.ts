@@ -1,10 +1,10 @@
-import { groupBy, partition } from "lodash";
-import { FlashStyle } from "@cursorless/common";
 import {
+  FlashStyle,
   GeneralizedRangePlainObject,
   PositionPlainObject,
 } from "@cursorless/common";
-import { TestCaseFixture } from "@cursorless/cursorless-engine";
+import { groupBy, partition } from "lodash";
+import { TestCaseFixture } from "@cursorless/common";
 import { reorderFields } from "./transformations/reorderFields";
 import { FixtureTransformation } from "./types";
 

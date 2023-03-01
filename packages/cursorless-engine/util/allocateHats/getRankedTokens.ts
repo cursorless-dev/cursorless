@@ -1,6 +1,6 @@
 import { TextEditor } from "@cursorless/common";
 import { flatten } from "lodash";
-import { Token } from "../../typings/Types";
+import { Token } from "@cursorless/common";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";

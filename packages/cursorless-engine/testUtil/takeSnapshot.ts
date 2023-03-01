@@ -1,42 +1,18 @@
 import {
   Clipboard,
+  ExcludableSnapshotField,
+  ExtraContext,
+  ExtraSnapshotField,
   hrtimeBigintToSeconds,
   IDE,
-  RangePlainObject,
   rangeToPlainObject,
-  SelectionPlainObject,
   selectionToPlainObject,
   SerializedMarks,
-  TargetPlainObject,
-  targetToPlainObject,
+  TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
 import type { ThatMark } from "../core/ThatMark";
-
-export type ExtraSnapshotField = keyof TestCaseSnapshot;
-export type ExcludableSnapshotField = keyof TestCaseSnapshot;
-
-export type TestCaseSnapshot = {
-  documentContents: string;
-  selections: SelectionPlainObject[];
-  clipboard?: string;
-  // TODO Visible ranges are not asserted during testing, see:
-  // https://github.com/cursorless-dev/cursorless/issues/160
-  visibleRanges?: RangePlainObject[];
-  marks?: SerializedMarks;
-  thatMark?: TargetPlainObject[];
-  sourceMark?: TargetPlainObject[];
-  timeOffsetSeconds?: number;
-
-  /**
-   * Extra information about the snapshot. Must be json serializable
-   */
-  metadata?: unknown;
-};
-
-export interface ExtraContext {
-  startTimestamp?: bigint;
-}
+import { targetToPlainObject } from "./targetToPlainObject";
 
 export async function takeSnapshot(
   thatMark: ThatMark | undefined,

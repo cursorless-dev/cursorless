@@ -2,7 +2,7 @@ import { CommandServerApi, Range, TextDocument } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
 import Debug from "../core/Debug";
-import HatTokenMap from "../core/HatTokenMap";
+import HatTokenMapImpl from "../core/HatTokenMapImpl";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { TestCaseRecorder } from "../testCaseRecorder/TestCaseRecorder";
@@ -16,7 +16,7 @@ export interface Graph {
   /**
    * Maps from (hatStyle, character) pairs to tokens
    */
-  readonly hatTokenMap: HatTokenMap;
+  readonly hatTokenMap: HatTokenMapImpl;
 
   /**
    * Keeps a merged list of all user-contributed, core, and

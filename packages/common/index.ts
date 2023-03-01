@@ -1,8 +1,5 @@
 export * from "./commandIds";
-export {
-  extractTargetedMarks,
-  extractTargetKeys,
-} from "./testUtil/extractTargetedMarks";
+export * from "./testUtil/extractTargetedMarks";
 export { default as FakeIDE } from "./ide/fake/FakeIDE";
 export {
   runTestSubset,
@@ -45,15 +42,21 @@ export * from "./types/TextEditorDecorationType";
 export * from "./types/TextEditorEdit";
 export * from "./types/TextEditorOptions";
 export * from "./types/TextLine";
+export * from "./types/Token";
+export * from "./types/HatTokenMap";
+export * from "./util/textFormatters";
+export * from "./types/snippet.types";
 export * from "./testUtil/fromPlainObject";
 export * from "./testUtil/toPlainObject";
 export { default as DefaultMap } from "./util/DefaultMap";
 export * from "./types/GeneralizedRange";
+export * from "./types/RangeOffsets";
 export * from "./util/omitByDeep";
 export * from "./testUtil/isTesting";
 export * from "./testUtil/testConstants";
 export * from "./testUtil/getFixturePaths";
 export * from "./testUtil/serialize";
+export * from "./testUtil/TestCaseSnapshot";
 export * from "./util/typeUtils";
 export * from "./ide/types/hatStyles.types";
 export * from "./errors";
@@ -71,3 +74,5 @@ export * from "./types/command/legacy/PartialTargetDescriptorV3.types";
 export * from "./types/CommandServerApi";
 export * from "./util/itertools";
 export * from "./extensionDependencies";
+export * from "./getFakeCommandServerApi";
+export * from "./types/TestCaseFixture";

@@ -1,5 +1,6 @@
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
+  ExcludableSnapshotField,
   extractTargetedMarks,
   getRecordedTestPaths,
   HatStability,
@@ -8,6 +9,7 @@ import {
   plainObjectToRange,
   PositionPlainObject,
   rangeToPlainObject,
+  ReadOnlyHatMap,
   SelectionPlainObject,
   serialize,
   SerializedMarks,
@@ -15,6 +17,7 @@ import {
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
   TextEditor,
+  TokenHat,
 } from "@cursorless/common";
 import {
   getCursorlessApi,
@@ -26,14 +29,11 @@ import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
 import * as vscode from "vscode";
-import type { TestCaseFixture } from "@cursorless/cursorless-engine";
-import type { ExcludableSnapshotField } from "@cursorless/cursorless-engine";
+import { TestCaseFixture } from "@cursorless/common";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import shouldUpdateFixtures from "../shouldUpdateFixtures";
 import { setupFake } from "./setupFake";
-import type { ReadOnlyHatMap } from "../../cursorless-engine/core/IndividualHatMap";
-import type { TokenHat } from "../../cursorless-engine/util/allocateHats/allocateHats";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -73,7 +73,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const usePrePhraseSnapshot = false;
 
   const cursorlessApi = await getCursorlessApi();
-  const { graph, plainObjectToTarget, takeSnapshot } =
+  const { hatTokenMap, takeSnapshot, setThatMark, setSourceMark } =
     cursorlessApi.testHelpers!;
 
   const editor = await openNewEditor(fixture.initialState.documentContents, {
@@ -90,17 +90,11 @@ async function runTest(file: string, spyIde: SpyIDE) {
   editor.selections = fixture.initialState.selections.map(createSelection);
 
   if (fixture.initialState.thatMark) {
-    const initialThatTargets = fixture.initialState.thatMark.map((mark) =>
-      plainObjectToTarget(editor, mark),
-    );
-    cursorlessApi.thatMark.set(initialThatTargets);
+    setThatMark(editor, fixture.initialState.thatMark);
   }
 
   if (fixture.initialState.sourceMark) {
-    const initialSourceTargets = fixture.initialState.sourceMark.map((mark) =>
-      plainObjectToTarget(editor, mark),
-    );
-    cursorlessApi.sourceMark.set(initialSourceTargets);
+    setSourceMark(editor, fixture.initialState.sourceMark);
   }
 
   if (fixture.initialState.clipboard) {
@@ -110,13 +104,11 @@ async function runTest(file: string, spyIde: SpyIDE) {
   }
 
   // Ensure that the expected hats are present
-  await graph.hatTokenMap.allocateHats(
+  await hatTokenMap.allocateHats(
     getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
   );
 
-  const readableHatMap = await graph.hatTokenMap.getReadableMap(
-    usePrePhraseSnapshot,
-  );
+  const readableHatMap = await hatTokenMap.getReadableMap(usePrePhraseSnapshot);
 
   // Assert that recorded decorations are present
   checkMarks(fixture.initialState.marks, readableHatMap);
@@ -179,8 +171,6 @@ async function runTest(file: string, spyIde: SpyIDE) {
   // TODO Visible ranges are not asserted, see:
   // https://github.com/cursorless-dev/cursorless/issues/160
   const { visibleRanges, ...resultState } = await takeSnapshot(
-    cursorlessApi.thatMark,
-    cursorlessApi.sourceMark,
     excludeFields,
     [],
     spyIde.activeTextEditor!,

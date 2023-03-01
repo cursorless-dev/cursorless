@@ -5,9 +5,13 @@
       {
         "patterns": [
           {
-            "group": ["../../../*"],
-            "message": "Cursorless end-to-end tests shouldn't import from Cursorless extension",
-            "allowTypeImports": true
+            "group": [
+              "@cursorless/*",
+              "!@cursorless/common",
+              "!@cursorless/vscode-common",
+              "../../../*"
+            ],
+            "message": "Cursorless end-to-end tests shouldn't import from Cursorless extension"
           }
         ]
       }

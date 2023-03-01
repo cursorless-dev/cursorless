@@ -1,10 +1,10 @@
-import { toVscodeEditor } from "@cursorless/vscode-common";
+import { getCellIndex } from "@cursorless/vscode-common";
 import { range } from "lodash";
 import * as semver from "semver";
 import { commands, NotebookDocument, TextDocument, version } from "vscode";
-import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
+import { toVscodeEditor } from "../toVscodeEditor";
 import type { VscodeIDE } from "../VscodeIDE";
-import { getCellIndex } from "@cursorless/vscode-common";
+import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 import { getNotebookFromCellDocument } from "./notebook";
 
 export function isVscodeLegacyNotebookVersion() {

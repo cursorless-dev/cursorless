@@ -1,4 +1,4 @@
-import { SnippetDefinition } from "./snippet.types";
+import { SnippetDefinition } from "@cursorless/common";
 import { Target } from "../typings/target.types";
 import {
   Placeholder,

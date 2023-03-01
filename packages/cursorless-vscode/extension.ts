@@ -1,35 +1,25 @@
 import {
-  CURSORLESS_COMMAND_ID,
   FakeIDE,
+  getFakeCommandServerApi,
   isTesting,
   NormalizedIDE,
   Range,
-  TargetPlainObject,
   TextDocument,
-  Command,
 } from "@cursorless/common";
 import {
   CommandRunner,
   FactoryMap,
   Graph,
   graphFactories,
-  ide,
   injectIde,
   makeGraph,
-  plainObjectToTarget,
-  showCheatsheet,
-  takeSnapshot,
-  TestCaseRecorder,
   ThatMark,
-  updateDefaults,
 } from "@cursorless/cursorless-engine";
 import {
   commandIds,
-  showDocumentation,
-  showQuickPick,
+  KeyboardCommands,
   StatusBarItem,
   VscodeIDE,
-  KeyboardCommands,
 } from "@cursorless/cursorless-vscode-core";
 import {
   CursorlessApi,
@@ -38,6 +28,8 @@ import {
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
+import { constructTestHelpers } from "./constructTestHelpers";
+import { registerCommands } from "./registerCommands";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -51,7 +43,6 @@ export async function activate(
   context: vscode.ExtensionContext,
 ): Promise<CursorlessApi> {
   const parseTreeApi = await getParseTreeApi();
-  const commandServerApi = await getCommandServerApi();
 
   const vscodeIDE = new VscodeIDE(context);
   await vscodeIDE.init();
@@ -63,6 +54,11 @@ export async function activate(
   } else {
     injectIde(vscodeIDE);
   }
+
+  const commandServerApi =
+    vscodeIDE.runMode === "test"
+      ? getFakeCommandServerApi()
+      : await getCommandServerApi();
 
   const getNodeAtLocation = (document: TextDocument, range: Range) => {
     return parseTreeApi.getNodeAtLocation(
@@ -98,30 +94,14 @@ export async function activate(
   );
 
   return {
-    thatMark,
-    sourceMark,
     testHelpers: isTesting()
-      ? {
+      ? constructTestHelpers(
+          commandServerApi,
+          thatMark,
+          sourceMark,
+          vscodeIDE,
           graph,
-          ide: ide() as NormalizedIDE,
-          injectIde,
-
-          // FIXME: Remove this once we have a better way to get this function
-          // accessible from our tests
-          plainObjectToTarget: (
-            editor: vscode.TextEditor,
-            plainObject: TargetPlainObject,
-          ) => {
-            return plainObjectToTarget(
-              vscodeIDE.fromVscodeEditor(editor),
-              plainObject,
-            );
-          },
-
-          // FIXME: Remove this once we have a better way to get this function
-          // accessible from our tests
-          takeSnapshot,
-        }
+        )
       : undefined,
 
     experimental: {
@@ -133,85 +113,4 @@ export async function activate(
 // this method is called when your extension is deactivated
 export function deactivate() {
   // do nothing
-}
-
-function registerCommands(
-  extensionContext: vscode.ExtensionContext,
-  vscodeIde: VscodeIDE,
-  commandRunner: CommandRunner,
-  testCaseRecorder: TestCaseRecorder,
-  keyboardCommands: KeyboardCommands,
-): void {
-  const commands = [
-    // The core Cursorless command
-    [
-      CURSORLESS_COMMAND_ID,
-      async (spokenFormOrCommand: string | Command, ...rest: unknown[]) => {
-        try {
-          return await commandRunner.runCommandBackwardCompatible(
-            spokenFormOrCommand,
-            ...rest,
-          );
-        } catch (e) {
-          if (!isTesting()) {
-            vscodeIde.handleCommandError(e as Error);
-          }
-          throw e;
-        }
-      },
-    ],
-
-    // Cheatsheet commands
-    ["cursorless.showCheatsheet", showCheatsheet],
-    ["cursorless.internal.updateCheatsheetDefaults", updateDefaults],
-
-    // Testcase recorder commands
-    ["cursorless.recordTestCase", testCaseRecorder.toggle],
-    ["cursorless.pauseRecording", testCaseRecorder.pause],
-    ["cursorless.resumeRecording", testCaseRecorder.resume],
-    ["cursorless.takeSnapshot", testCaseRecorder.takeSnapshot],
-
-    // Other commands
-    [commandIds.showQuickPick, showQuickPick],
-    ["cursorless.showDocumentation", showDocumentation],
-
-    // General keyboard commands
-    [
-      "cursorless.keyboard.escape",
-      keyboardCommands.keyboardHandler.cancelActiveListener,
-    ],
-
-    // Targeted keyboard commands
-    [
-      "cursorless.keyboard.targeted.targetHat",
-      keyboardCommands.targeted.targetDecoratedMark,
-    ],
-    [
-      "cursorless.keyboard.targeted.targetScope",
-      keyboardCommands.targeted.targetScopeType,
-    ],
-    [
-      "cursorless.keyboard.targeted.targetSelection",
-      keyboardCommands.targeted.targetSelection,
-    ],
-    [
-      "cursorless.keyboard.targeted.clearTarget",
-      keyboardCommands.targeted.clearTarget,
-    ],
-    [
-      "cursorless.keyboard.targeted.runActionOnTarget",
-      keyboardCommands.targeted.performActionOnTarget,
-    ],
-
-    // Modal keyboard commands
-    ["cursorless.keyboard.modal.modeOn", keyboardCommands.modal.modeOn],
-    ["cursorless.keyboard.modal.modeOff", keyboardCommands.modal.modeOff],
-    ["cursorless.keyboard.modal.modeToggle", keyboardCommands.modal.modeToggle],
-  ] as const;
-
-  extensionContext.subscriptions.push(
-    ...commands.map(([commandId, callback]) =>
-      vscode.commands.registerCommand(commandId, callback),
-    ),
-  );
 }
