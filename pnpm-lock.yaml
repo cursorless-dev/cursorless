@@ -24,22 +24,6 @@ importers:
       prettier: 2.7.1
       typescript: 4.9.5
 
-  .meta-updater:
-    specifiers:
-      '@pnpm/lockfile-file': 7.0.5
-      '@pnpm/logger': ^5.0.0
-      '@pnpm/types': 8.9.0
-      '@types/normalize-path': ^3.0.0
-      normalize-path: ^3.0.0
-      path-exists: ^4.0.0
-    dependencies:
-      '@pnpm/lockfile-file': 7.0.5_@pnpm+logger@5.0.0
-      '@pnpm/logger': 5.0.0
-      '@pnpm/types': 8.9.0
-      '@types/normalize-path': 3.0.0
-      normalize-path: 3.0.0
-      path-exists: 4.0.0
-
   packages/common:
     specifiers:
       '@types/js-yaml': ^4.0.2
@@ -184,6 +168,22 @@ importers:
       js-yaml: 4.1.0
       mocha: 8.4.0
       sinon: 11.1.2
+
+  packages/meta-updater:
+    specifiers:
+      '@pnpm/lockfile-file': 7.0.5
+      '@pnpm/logger': ^5.0.0
+      '@pnpm/types': 8.9.0
+      '@types/normalize-path': ^3.0.0
+      normalize-path: ^3.0.0
+      path-exists: ^4.0.0
+    dependencies:
+      '@pnpm/lockfile-file': 7.0.5_@pnpm+logger@5.0.0
+      '@pnpm/logger': 5.0.0
+      '@pnpm/types': 8.9.0
+      '@types/normalize-path': 3.0.0
+      normalize-path: 3.0.0
+      path-exists: 4.0.0
 
   packages/test-harness:
     specifiers:
@@ -963,7 +963,7 @@ packages:
       '@pnpm/find-workspace-dir': 5.0.1
       '@pnpm/find-workspace-packages': 5.0.36_nniiwt454icplhvq2p7dukp2xi
       '@pnpm/logger': 5.0.0
-      '@pnpm/types': 8.10.0
+      '@pnpm/types': 8.9.0
       '@yarnpkg/core': 4.0.0-rc.14
       load-json-file: 7.0.1
       meow: 10.1.5
@@ -1413,7 +1413,6 @@ packages:
   /@pnpm/types/8.9.0:
     resolution: {integrity: sha512-3MYHYm8epnciApn6w5Fzx6sepawmsNU7l6lvIq+ER22/DPSrr83YMhU/EQWnf4lORn2YyiXFj0FJSyJzEtIGmw==}
     engines: {node: '>=14.6'}
-    dev: false
 
   /@pnpm/util.lex-comparator/1.0.0:
     resolution: {integrity: sha512-3aBQPHntVgk5AweBWZn+1I/fqZ9krK/w01197aYVkAJQGftb+BVWgEepxY5GChjSW12j52XX+CmfynYZ/p0DFQ==}

@@ -12,6 +12,7 @@ export const updater = async (workspaceDir: string) => {
     throw new Error("no lockfile found");
   }
   return createUpdateOptions({
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     "tsconfig.json": updateTSConfig.bind(null, {
       lockfile,
       workspaceDir,
@@ -27,21 +28,28 @@ async function updateTSConfig(
   tsConfig: object | null,
   { dir }: FormatPluginFnOptions,
 ) {
-  if (tsConfig == null) return tsConfig;
+  if (tsConfig == null) {
+    return tsConfig;
+  }
   const relative = normalizePath(path.relative(context.workspaceDir, dir));
   const pathToRoot = normalizePath(path.relative(dir, context.workspaceDir));
   const importer = context.lockfile.importers[relative];
-  if (!importer) return tsConfig;
+  if (!importer) {
+    return tsConfig;
+  }
   const deps = {
     ...importer.dependencies,
     ...importer.devDependencies,
   };
   const references = [] as Array<{ path: string }>;
   for (const spec of Object.values(deps)) {
-    if (!spec.startsWith("link:") || spec.length === 5) continue;
-    const relativePath = spec.slice(5);
-    if (!(await exists(path.join(dir, relativePath, "tsconfig.json"))))
+    if (!spec.startsWith("link:") || spec.length === 5) {
       continue;
+    }
+    const relativePath = spec.slice(5);
+    if (!(await exists(path.join(dir, relativePath, "tsconfig.json")))) {
+      continue;
+    }
     references.push({ path: relativePath });
   }
 

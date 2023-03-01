@@ -12,7 +12,7 @@
     "meta-updater": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json",
     "lint:meta": "pnpm run meta-updater:base --test",
     "lint": "pnpm run lint:meta && pnpm run lint:ts",
-    "lint:ts": "eslint packages .meta-updater --ext ts",
+    "lint:ts": "eslint packages --ext ts",
     "test": "env CURSORLESS_TEST=true node ./out/test-harness/scripts/runTestsCI.js",
     "unused-exports": "ts-unused-exports tsconfig.json --showLineNumber",
     "update-licenses": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv"

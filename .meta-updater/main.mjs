@@ -1,3 +1,3 @@
-import { updater } from "./out/src/index.js";
+import { updater } from "../packages/meta-updater/out/index.js";
 
 export default updater;
