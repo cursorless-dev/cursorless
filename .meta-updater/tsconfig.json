@@ -1,15 +1,11 @@
 {
-  "extends": "@pnpm/tsconfig",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "out",
-    "rootDir": "src",
-    "module": "ES2020"
+    "rootDir": ".",
+    "composite": true,
+    "esModuleInterop": true
   },
-  "include": ["src/**/*.ts", "../typings/**/*.d.ts"],
-  "references": [
-    {
-      "path": "../lockfile/lockfile-file"
-    }
-  ],
-  "composite": true
+  "include": ["**/*.ts"],
+  "exclude": ["**/node_modules/**", "out/**"]
 }

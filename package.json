@@ -17,9 +17,10 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@pnpm/meta-updater": "0.2.2",
+    "@types/node": "^16.11.3",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
-    "@types/node": "^16.11.3",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-unused-imports": "^2.0.0",

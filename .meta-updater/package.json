@@ -1,13 +1,14 @@
 {
-  "name": "@pnpm-private/updater",
-  "version": "0.4.9",
+  "name": "@cursorless/meta-updater",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
     "compile": "tsc --build"
   },
   "dependencies": {
-    "@pnpm/lockfile-file": "workspace:*",
+    "@pnpm/lockfile-file": "7.0.5",
+    "@pnpm/logger": "^5.0.0",
     "@pnpm/types": "8.9.0",
     "@types/normalize-path": "^3.0.0",
     "is-subdir": "^1.2.0",
@@ -15,8 +16,5 @@
     "normalize-path": "^3.0.0",
     "path-exists": "^4.0.0",
     "write-json-file": "^4.3.0"
-  },
-  "devDependencies": {
-    "@pnpm-private/updater": "workspace:*"
   }
 }
