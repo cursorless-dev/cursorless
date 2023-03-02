@@ -1,7 +1,7 @@
 {
   "name": "cursorless",
   "version": "0.1.0",
-  "description": "",
+  "description": "The root of the Cursorless monorepo",
   "main": "index.js",
   "scripts": {
     "test-compile": "tsc -p ./",

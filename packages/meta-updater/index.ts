@@ -94,8 +94,8 @@ async function updatePackageJson(
 ) {
   const packageJson: PackageJson = (config ?? {}) as PackageJson;
 
-  if (packageJson.description == null) {
-    throw new Error(`No description found in ${dir}`);
+  if (packageJson.description == null || packageJson.description === "") {
+    throw new Error(`No description found in ${dir}/package.json`);
   }
 
   if (packageJson.name === "cursorless") {

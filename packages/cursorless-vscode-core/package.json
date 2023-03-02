@@ -1,7 +1,7 @@
 {
   "name": "@cursorless/cursorless-vscode-core",
   "version": "0.1.0",
-  "description": "",
+  "description": "The core VSCode functionality for Cursorless",
   "main": "out/index.js",
   "scripts": {
     "init-launch-sandbox": "node ../../out/cursorless-vscode-core/scripts/initLaunchSandbox.js",
