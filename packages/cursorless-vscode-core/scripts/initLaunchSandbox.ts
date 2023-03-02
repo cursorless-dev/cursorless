@@ -3,6 +3,11 @@
  * allowing you to have a separate set of extensions and settings for use when
  * developing the Cursorless VSCode extension locally.
  */
+
+// Ensures that the aliases such as @cursorless/common that we define in
+// package.json are active
+import "module-alias/register";
+
 import { extensionDependencies } from "@cursorless/common";
 import * as cp from "child_process";
 
