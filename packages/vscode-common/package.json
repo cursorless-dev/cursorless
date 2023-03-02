@@ -2,10 +2,11 @@
   "name": "@cursorless/vscode-common",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "out/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "tsc --build --pretty"
+    "compile": "tsc --build",
+    "watch": "tsc --build --watch"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +16,7 @@
   },
   "devDependencies": {
     "@types/vscode": "~1.61.0"
-  }
+  },
+  "licence": "MIT",
+  "types": "out/index.d.ts"
 }

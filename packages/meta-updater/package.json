@@ -1,10 +1,12 @@
 {
   "name": "@cursorless/meta-updater",
+  "description": "Cursorless configuration for meta-updater",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "compile": "tsc --build"
+    "compile": "tsc --build",
+    "watch": "tsc --build --watch"
   },
   "dependencies": {
     "@pnpm/lockfile-file": "7.0.5",
@@ -14,5 +16,8 @@
     "normalize-path": "^3.0.0",
     "path-exists": "^4.0.0",
     "type-fest": "3.6.1"
-  }
+  },
+  "licence": "MIT",
+  "main": "out/index.js",
+  "types": "out/index.d.ts"
 }

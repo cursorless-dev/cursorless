@@ -2,10 +2,11 @@
   "name": "@cursorless/test-harness",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "out/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "tsc --build --pretty"
+    "compile": "tsc --build",
+    "watch": "tsc --build --watch"
   },
   "keywords": [],
   "author": "",
@@ -19,5 +20,7 @@
     "@types/mocha": "^8.0.4",
     "@vscode/test-electron": "^2.1.3",
     "mocha": "^8.1.3"
-  }
+  },
+  "licence": "MIT",
+  "types": "out/index.d.ts"
 }

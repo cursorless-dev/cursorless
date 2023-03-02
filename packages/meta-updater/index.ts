@@ -54,9 +54,7 @@ async function updateTSConfig(
   const pathToRoot = normalizePath(path.relative(dir, context.workspaceDir));
   const importer = context.lockfile.importers[relative];
   if (!importer) {
-    // Raise an error here because we're not really prepared to handle packages
-    // that have no dependencies.  Eg the above code that pulls all packages
-    // into root references list might break
+    // Raise an error here because there should always be an entry in the lockfile.
     throw new Error(`No importer found for ${relative}`);
   }
   const deps = {
@@ -70,7 +68,7 @@ async function updateTSConfig(
     }
     const relativePath = spec.slice(5);
     if (!(await exists(path.join(dir, relativePath, "tsconfig.json")))) {
-      continue;
+      throw new Error(`No tsconfig found for ${relativePath} in ${dir}`);
     }
     references.push({ path: relativePath });
   }
@@ -105,14 +103,19 @@ async function updatePackageJson(
     return packageJson;
   }
 
+  const name = packageJson.name?.startsWith("@cursorless/")
+    ? packageJson.name
+    : `@cursorless/${packageJson.name}`;
+
   return {
     ...packageJson,
+    name,
     licence: "MIT",
     main: "out/index.js",
     types: "out/index.d.ts",
     scripts: {
       ...(packageJson.scripts ?? {}),
-      build: "tsc --build",
+      compile: "tsc --build",
       watch: "tsc --build --watch",
     },
   };
