@@ -1,8 +1,5 @@
-import {
-  getFixturePath,
-  HatStability,
-  NormalizedIDE,
-} from "@cursorless/common";
+import { HatStability, NormalizedIDE } from "@cursorless/common";
+import { getFixturePath } from "../getFixturePaths";
 
 export function setupFake(ide: NormalizedIDE, hatStability: HatStability) {
   ide.configuration.mockConfiguration("experimental", {

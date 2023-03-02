@@ -1,10 +1,14 @@
+import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as path from "path";
-import { walkFilesSync } from "../util/walkSync";
+import { walkFilesSync } from "../common/util/walkSync";
 
 export function getFixturesPath() {
   return path.join(
-    __dirname,
-    "../../../packages/cursorless-vscode-e2e/suite/fixtures",
+    getCursorlessRepoRoot(),
+    "packages",
+    "cursorless-vscode-e2e",
+    "suite",
+    "fixtures",
   );
 }
 
