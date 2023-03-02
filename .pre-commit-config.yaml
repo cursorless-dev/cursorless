@@ -32,14 +32,14 @@ repos:
     hooks:
       - id: flynt
   - repo: https://github.com/Zac-HD/shed
-    rev: 0.10.9
+    rev: 2023.2.1
     hooks:
       - id: shed
         # TODO: bump to --py310-plus when Talon moves to Python 3.10.
         args: [--refactor, --py39-plus]
         types_or: [python, markdown, rst]
   - repo: https://github.com/wenkokke/talonfmt
-    rev: 1.8.1
+    rev: 1.9.0
     hooks:
       - id: talonfmt
-        args: ["--in-place", "--max-line-width=88"]
+        args: ["--in-place"]
