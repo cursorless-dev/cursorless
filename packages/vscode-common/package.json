@@ -2,7 +2,7 @@
   "name": "@cursorless/vscode-common",
   "version": "0.1.0",
   "description": "Common utility functions usable anywhere that VSCode api is available",
-  "main": "out/index.js",
+  "main": "./out/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc --build",
@@ -17,6 +17,6 @@
   "devDependencies": {
     "@types/vscode": "~1.61.0"
   },
-  "types": "out/index.d.ts",
+  "types": "./out/index.d.ts",
   "exports": "./out/index.js"
 }

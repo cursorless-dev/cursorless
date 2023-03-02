@@ -2,7 +2,7 @@
   "name": "@cursorless/cursorless-engine",
   "version": "0.1.0",
   "description": "The core Cursorless engine, which is responsible for parsing and executing commands, allocating hats, etc",
-  "main": "out/index.js",
+  "main": "./out/index.js",
   "scripts": {
     "compile": "tsc --build",
     "transform-recorded-tests": "node ../../out/cursorless-engine/scripts/transformRecordedTests/index.js",
@@ -28,6 +28,6 @@
     "mocha": "^8.1.3",
     "sinon": "^11.1.1"
   },
-  "types": "out/index.d.ts",
+  "types": "./out/index.d.ts",
   "exports": "./out/index.js"
 }
