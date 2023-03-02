@@ -35,11 +35,27 @@ async function updateTSConfig(
   if (tsConfig == null) {
     return tsConfig;
   }
+  if (dir === context.workspaceDir) {
+    // Root tsconfig includes no files, but references all packages to make find
+    // references work by loading all packages
+    return {
+      files: [],
+      include: [],
+      references: Object.keys(context.lockfile.importers)
+        .filter((importer) => importer !== ".")
+        .map((importer) => ({
+          path: `./${importer}`,
+        })),
+    };
+  }
   const relative = normalizePath(path.relative(context.workspaceDir, dir));
   const pathToRoot = normalizePath(path.relative(dir, context.workspaceDir));
   const importer = context.lockfile.importers[relative];
   if (!importer) {
-    return tsConfig;
+    // Raise an error here because we're not really prepared to handle packages
+    // that have no dependencies.  Eg the above code that pulls all packages
+    // into root references list might break
+    throw new Error(`No importer found for ${relative}`);
   }
   const deps = {
     ...importer.dependencies,
