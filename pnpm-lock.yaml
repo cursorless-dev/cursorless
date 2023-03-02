@@ -187,6 +187,7 @@ importers:
       '@types/normalize-path': ^3.0.0
       normalize-path: ^3.0.0
       path-exists: ^4.0.0
+      type-fest: 3.6.1
     dependencies:
       '@pnpm/lockfile-file': 7.0.5_@pnpm+logger@5.0.0
       '@pnpm/logger': 5.0.0
@@ -194,6 +195,7 @@ importers:
       '@types/normalize-path': 3.0.0
       normalize-path: 3.0.0
       path-exists: 4.0.0
+      type-fest: 3.6.1
 
   packages/test-harness:
     specifiers:
@@ -5962,6 +5964,11 @@ packages:
     resolution: {integrity: sha512-yGSza74xk0UG8k+pLh5oeoYirvIiWo5t0/o3zHHAO2tRDiZcxWP7fywNlXhqb6/r6sWvwi+RsyQMWhVLe4BVuA==}
     engines: {node: '>=10'}
     dev: true
+
+  /type-fest/3.6.1:
+    resolution: {integrity: sha512-htXWckxlT6U4+ilVgweNliPqlsVSSucbxVexRYllyMVJDtf5rTjv6kF/s+qAd4QSL1BZcnJPEJavYBPQiWuZDA==}
+    engines: {node: '>=14.16'}
+    dev: false
 
   /typed-array-length/1.0.4:
     resolution: {integrity: sha512-KjZypGq+I/H7HI5HlOoGHkWUUGq+Q0TPhQurLbyrVrvnKTBgzLhIJ7j6J/XTQOi0d1RjyZ0wdas8bKs2p0x3Ng==}

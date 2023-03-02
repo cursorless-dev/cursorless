@@ -2,13 +2,29 @@
   "files": [],
   "include": [],
   "references": [
-    { "path": "./packages/common" },
-    { "path": "./packages/cursorless-engine" },
-    { "path": "./packages/cursorless-vscode" },
-    { "path": "./packages/cursorless-vscode-core" },
-    { "path": "./packages/cursorless-vscode-e2e" },
-    { "path": "./packages/meta-updater" },
-    { "path": "./packages/test-harness" },
-    { "path": "./packages/vscode-common" }
+    {
+      "path": "./packages/common"
+    },
+    {
+      "path": "./packages/cursorless-engine"
+    },
+    {
+      "path": "./packages/cursorless-vscode"
+    },
+    {
+      "path": "./packages/cursorless-vscode-core"
+    },
+    {
+      "path": "./packages/cursorless-vscode-e2e"
+    },
+    {
+      "path": "./packages/meta-updater"
+    },
+    {
+      "path": "./packages/test-harness"
+    },
+    {
+      "path": "./packages/vscode-common"
+    }
   ]
 }

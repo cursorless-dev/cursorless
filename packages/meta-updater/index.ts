@@ -7,6 +7,7 @@ import { createUpdateOptions, FormatPluginFnOptions } from "@pnpm/meta-updater";
 import normalizePath from "normalize-path";
 import path from "path";
 import exists from "path-exists";
+import { PackageJson, TsConfigJson } from "type-fest";
 
 export const updater = async (workspaceDir: string) => {
   const lockfile = await readWantedLockfile(workspaceDir, {
@@ -16,6 +17,8 @@ export const updater = async (workspaceDir: string) => {
     throw new Error("no lockfile found");
   }
   return createUpdateOptions({
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    "package.json": updatePackageJson,
     // eslint-disable-next-line @typescript-eslint/naming-convention
     "tsconfig.json": updateTSConfig.bind(null, {
       lockfile,
@@ -29,12 +32,11 @@ async function updateTSConfig(
     lockfile: Lockfile;
     workspaceDir: string;
   },
-  tsConfig: object | null,
+  config: object | null,
   { dir }: FormatPluginFnOptions,
-) {
-  if (tsConfig == null) {
-    tsConfig = {};
-  }
+): Promise<TsConfigJson> {
+  const tsConfig: TsConfigJson = (config ?? {}) as TsConfigJson;
+
   if (dir === context.workspaceDir) {
     // Root tsconfig includes no files, but references all packages to make find
     // references work by loading all packages
@@ -77,7 +79,7 @@ async function updateTSConfig(
     ...tsConfig,
     extends: path.join(pathToRoot, "tsconfig.base.json"),
     compilerOptions: {
-      ...(tsConfig as any)["compilerOptions"],
+      ...(tsConfig.compilerOptions ?? {}),
       rootDir: ".",
       outDir: "out",
       composite: true,
@@ -85,5 +87,33 @@ async function updateTSConfig(
     references: references.sort((r1, r2) => r1.path.localeCompare(r2.path)),
     include: ["**/*.ts"],
     exclude: ["**/node_modules/**", "out/**"],
+  };
+}
+
+async function updatePackageJson(
+  config: object | null,
+  { dir }: FormatPluginFnOptions,
+) {
+  const packageJson: PackageJson = (config ?? {}) as PackageJson;
+
+  if (packageJson.description == null) {
+    throw new Error(`No description found in ${dir}`);
+  }
+
+  if (packageJson.name === "cursorless") {
+    // FIXME: Switch to @cursorless/cursorless-vscode
+    return packageJson;
+  }
+
+  return {
+    ...packageJson,
+    licence: "MIT",
+    main: "out/index.js",
+    types: "out/index.d.ts",
+    scripts: {
+      ...(packageJson.scripts ?? {}),
+      build: "tsc --build",
+      watch: "tsc --build --watch",
+    },
   };
 }
