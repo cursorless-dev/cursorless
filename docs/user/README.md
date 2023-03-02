@@ -315,7 +315,7 @@ Cursorless has support for expanding the selection to the nearest containing pai
 
 - `"take round"` expands selection to include containing parentheses `(` and `)`
 - `"take curly"` expands selection to include containing parentheses `{` and `}`
-- `"take box"` expands selection to include containing parentheses `[` and `]`.  See [paired delimiters](#paired-delimiters) for other possible surrounding pairs.
+- `"take box"` expands selection to include containing parentheses `[` and `]`. See [paired delimiters](#paired-delimiters) for other possible surrounding pairs.
 - `"take inside round"` is the same as `"take round"`, but excludes the parentheses themselves
 - `"take bound round"` selects only the parentheses
 - `"take pair"` expands to include the nearest containing pair of any kind
