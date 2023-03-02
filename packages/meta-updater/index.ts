@@ -18,7 +18,7 @@ export const updater = async (workspaceDir: string) => {
   }
   return createUpdateOptions({
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    "package.json": updatePackageJson,
+    "package.json": updatePackageJson.bind(null, { workspaceDir }),
     // eslint-disable-next-line @typescript-eslint/naming-convention
     "tsconfig.json": updateTSConfig.bind(null, {
       lockfile,
@@ -89,10 +89,18 @@ async function updateTSConfig(
 }
 
 async function updatePackageJson(
+  context: {
+    workspaceDir: string;
+  },
   config: object | null,
   { dir }: FormatPluginFnOptions,
 ): Promise<PackageJson> {
   const packageJson: PackageJson = (config ?? {}) as PackageJson;
+
+  if (dir === context.workspaceDir) {
+    // Don't touch root-level config
+    return packageJson;
+  }
 
   if (packageJson.description == null || packageJson.description === "") {
     throw new Error(`No description found in ${dir}/package.json`);
