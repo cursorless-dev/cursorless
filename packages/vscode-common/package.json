@@ -17,6 +17,6 @@
   "devDependencies": {
     "@types/vscode": "~1.61.0"
   },
-  "licence": "MIT",
-  "types": "out/index.d.ts"
+  "types": "out/index.d.ts",
+  "exports": "./out/index.js"
 }

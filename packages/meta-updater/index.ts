@@ -91,7 +91,7 @@ async function updateTSConfig(
 async function updatePackageJson(
   config: object | null,
   { dir }: FormatPluginFnOptions,
-) {
+): Promise<PackageJson> {
   const packageJson: PackageJson = (config ?? {}) as PackageJson;
 
   if (packageJson.description == null || packageJson.description === "") {
@@ -110,7 +110,7 @@ async function updatePackageJson(
   return {
     ...packageJson,
     name,
-    licence: "MIT",
+    license: "MIT",
     main: "out/index.js",
     types: "out/index.d.ts",
     scripts: {
@@ -118,5 +118,6 @@ async function updatePackageJson(
       compile: "tsc --build",
       watch: "tsc --build --watch",
     },
-  };
+    exports: "./out/index.js",
+  } as PackageJson;
 }

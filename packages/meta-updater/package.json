@@ -17,7 +17,8 @@
     "path-exists": "^4.0.0",
     "type-fest": "3.6.1"
   },
-  "licence": "MIT",
   "main": "out/index.js",
-  "types": "out/index.d.ts"
+  "types": "out/index.d.ts",
+  "license": "MIT",
+  "exports": "./out/index.js"
 }
