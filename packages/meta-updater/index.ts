@@ -33,7 +33,7 @@ async function updateTSConfig(
   { dir }: FormatPluginFnOptions,
 ) {
   if (tsConfig == null) {
-    return tsConfig;
+    tsConfig = {};
   }
   if (dir === context.workspaceDir) {
     // Root tsconfig includes no files, but references all packages to make find
