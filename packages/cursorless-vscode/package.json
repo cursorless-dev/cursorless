@@ -743,7 +743,7 @@
   },
   "funding": "https://github.com/sponsors/pokey",
   "scripts": {
-    "vscode:prepublish": "pnpm run esbuild:base --minify",
+    "vscode:prepublish": "pnpm run esbuild:base --minify && pnpm run populate-dist && pnpm -F cursorless-cheatsheet build",
     "esbuild:base": "esbuild ./extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
     "esbuild": "pnpm run esbuild:base --sourcemap",
     "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
