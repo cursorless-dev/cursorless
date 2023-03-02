@@ -1,6 +1,7 @@
 // Ensures that the aliases such as @cursorless/common that we define in
 // package.json are active
 
+import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as path from "path";
 import { runAllTestsInDir } from "../util/runAllTestsInDir";
 
@@ -12,6 +13,6 @@ import { runAllTestsInDir } from "../util/runAllTestsInDir";
  */
 export function run(): Promise<void> {
   return runAllTestsInDir(
-    path.resolve(__dirname, "../../packages/cursorless-vscode-e2e"),
+    path.resolve(getCursorlessRepoRoot(), "packages/cursorless-vscode-e2e"),
   );
 }

@@ -5,7 +5,10 @@ import {
   resolveCliArgsFromVSCodeExecutablePath,
   runTests,
 } from "@vscode/test-electron";
-import { extensionDependencies } from "@cursorless/common";
+import {
+  extensionDependencies,
+  getCursorlessRepoRoot,
+} from "@cursorless/common";
 import { getEnvironmentVariableStrict } from "@cursorless/common";
 
 /**
@@ -18,7 +21,10 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
   try {
     // The folder containing the Extension Manifest package.json
     // Passed to `--extensionDevelopmentPath`
-    const extensionDevelopmentPath = path.resolve(__dirname, "../../../");
+    const extensionDevelopmentPath = path.resolve(
+      getCursorlessRepoRoot(),
+      "packages/cursorless-vscode/dist",
+    );
 
     const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");
     const logsDir = getEnvironmentVariableStrict("VSCODE_LOGS_DIR");

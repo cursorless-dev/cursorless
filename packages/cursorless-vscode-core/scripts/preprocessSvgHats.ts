@@ -1,9 +1,10 @@
+import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as parser from "fast-xml-parser";
 import { promises as fsp, readdirSync } from "fs";
 import * as path from "path";
 
 async function main() {
-  const directory = path.join(__dirname, "../../images/hats");
+  const directory = path.join(getCursorlessRepoRoot(), "images/hats");
 
   const dumper = new parser.j2xParser({
     ignoreAttributes: false,
