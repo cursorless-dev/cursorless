@@ -76,3 +76,4 @@ export * from "./util/itertools";
 export * from "./extensionDependencies";
 export * from "./getFakeCommandServerApi";
 export * from "./types/TestCaseFixture";
+export * from "./util/getEnvironmentVariableStrict";

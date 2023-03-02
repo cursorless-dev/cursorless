@@ -6,6 +6,7 @@ import {
   runTests,
 } from "@vscode/test-electron";
 import { extensionDependencies } from "@cursorless/common";
+import { getEnvironmentVariableStrict } from "@cursorless/common";
 
 /**
  * Downloads and launches VSCode, instructing it to run the test runner
@@ -63,12 +64,4 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
     console.error(err);
     process.exit(1);
   }
-}
-
-function getEnvironmentVariableStrict(name: string): string {
-  const value = process.env[name];
-  if (value == null) {
-    throw new Error(`Missing environment variable ${name}`);
-  }
-  return value;
 }

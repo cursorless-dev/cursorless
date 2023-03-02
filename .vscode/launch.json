@@ -25,12 +25,13 @@
       "type": "extensionHost",
       "request": "launch",
       "env": {
-        "CURSORLESS_TEST": "true"
+        "CURSORLESS_TEST": "true",
+        "WORKSPACE_FOLDER": "${workspaceFolder}"
       },
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/out/test-harness/runners/all"
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/all"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",

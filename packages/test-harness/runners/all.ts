@@ -2,7 +2,10 @@
 // package.json are active
 
 import * as path from "path";
+import { getEnvironmentVariableStrict } from "@cursorless/common";
 import { runAllTestsInDir } from "../util/runAllTestsInDir";
+
+const workspaceFolder = getEnvironmentVariableStrict("WORKSPACE_FOLDER");
 
 /**
  * Runs all tests.  This function should only be called via the
@@ -11,5 +14,5 @@ import { runAllTestsInDir } from "../util/runAllTestsInDir";
  * @returns A promise that resolves when tests have finished running
  */
 export function run(): Promise<void> {
-  return runAllTestsInDir(path.resolve(__dirname, "../.."));
+  return runAllTestsInDir(path.join(workspaceFolder, "packages"));
 }
