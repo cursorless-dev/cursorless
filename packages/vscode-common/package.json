@@ -17,6 +17,6 @@
   "devDependencies": {
     "@types/vscode": "~1.61.0"
   },
-  "types": "./out/index.d.ts",
+  "types": "./index.ts",
   "exports": "./out/index.js"
 }

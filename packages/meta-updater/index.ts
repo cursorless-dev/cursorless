@@ -120,7 +120,7 @@ async function updatePackageJson(
     name,
     license: "MIT",
     main: "./out/index.js",
-    types: "./out/index.d.ts",
+    types: "./index.ts",
     scripts: {
       ...(packageJson.scripts ?? {}),
       compile: "tsc --build",
