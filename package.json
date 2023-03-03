@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "test-compile": "tsc -p ./",
-    "compile": "tsc --build packages/*",
-    "watch": "tsc -watch -p ./",
+    "test-compile": "tsc --build",
+    "compile": "tsc --build",
+    "watch": "tsc --build -watch",
     "pretest": "pnpm run compile && pnpm run lint && pnpm run --filter '@cursorless/cursorless-vscode' esbuild",
     "meta-updater:base": "pnpm --filter=@cursorless/meta-updater compile && pnpm --config.use-node-version=16.4.0 exec meta-updater",
     "meta-updater": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json",
