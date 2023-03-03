@@ -5,7 +5,7 @@
     "rootDir": ".",
     "composite": true
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "../../typings/**/*.d.ts"],
   "exclude": ["**/node_modules/**", "out/**"],
   "references": []
 }
