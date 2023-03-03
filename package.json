@@ -4,6 +4,7 @@
   "description": "The root of the Cursorless monorepo",
   "main": "index.js",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "test-compile": "tsc -p ./",
     "compile": "tsc --build packages/*",
     "watch": "tsc -watch -p ./",
