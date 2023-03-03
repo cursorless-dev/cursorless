@@ -314,8 +314,8 @@ Saying `"every paint"` would select `foo.bar` and `baz|bongo`.
 Cursorless has support for expanding the selection to the nearest containing paired delimiter, eg the surrounding parentheses, curly brackets, etc.
 
 - `"take round"` expands selection to include containing parentheses `(` and `)`
-- `"take curly"` expands selection to include containing parentheses `{` and `}`
-- `"take box"` expands selection to include containing parentheses `[` and `]`. See [paired delimiters](#paired-delimiters) for other possible surrounding pairs.
+- `"take curly"` expands selection to include containing braces `{` and `}`
+- `"take box"` expands selection to include containing brackets `[` and `]`. See [paired delimiters](#paired-delimiters) for other possible surrounding pairs.
 - `"take inside round"` is the same as `"take round"`, but excludes the parentheses themselves
 - `"take bound round"` selects only the parentheses
 - `"take pair"` expands to include the nearest containing pair of any kind
