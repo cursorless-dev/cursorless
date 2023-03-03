@@ -1,6 +1,6 @@
-import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as path from "path";
-import { walkFilesSync } from "../common/util/walkSync";
+import { walkFilesSync } from "../util/walkSync";
+import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 
 export function getFixturesPath() {
   return path.join(

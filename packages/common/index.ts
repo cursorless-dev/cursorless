@@ -54,6 +54,7 @@ export * from "./types/RangeOffsets";
 export * from "./util/omitByDeep";
 export * from "./testUtil/isTesting";
 export * from "./testUtil/testConstants";
+export * from "./testUtil/getFixturePaths";
 export * from "./testUtil/getCursorlessRepoRoot";
 export * from "./testUtil/serialize";
 export * from "./testUtil/TestCaseSnapshot";

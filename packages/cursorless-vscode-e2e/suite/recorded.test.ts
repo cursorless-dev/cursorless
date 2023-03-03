@@ -2,6 +2,7 @@ import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
   extractTargetedMarks,
+  getRecordedTestPaths,
   HatStability,
   marksToPlainObject,
   omitByDeep,
@@ -33,7 +34,6 @@ import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import shouldUpdateFixtures from "../shouldUpdateFixtures";
 import { setupFake } from "./setupFake";
-import { getRecordedTestPaths } from "../getFixturePaths";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
