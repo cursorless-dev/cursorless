@@ -445,6 +445,17 @@ This command will delete a target and leave the cursor where the target used to 
   `change blue air`
   Deletes the token containing letter 'a' with a blue hat then places your cursor where the token had been.
 
+### Clone
+
+This command will insert a copy of the function you are in.
+
+- `"clone <TARGET>"` <br>
+
+  eg:
+   `clone funk`
+   Will insert the copy of funk
+   
+
 ### Cut / copy
 
 - `"carve <TARGET>"`: cut
