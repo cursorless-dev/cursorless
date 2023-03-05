@@ -452,9 +452,8 @@ This command will insert a copy of the function you are in.
 - `"clone <TARGET>"` <br>
 
   eg:
-   `clone funk`
-   Will insert the copy of funk
-   
+  `clone funk`
+  Will insert the copy of funk
 
 ### Cut / copy
 
