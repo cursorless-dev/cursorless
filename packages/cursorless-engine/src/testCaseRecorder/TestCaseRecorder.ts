@@ -14,6 +14,7 @@ import {
   TextEditorOptions,
   toLineRange,
   walkDirsSync,
+  TestCaseCommand,
 } from "@cursorless/common";
 import * as fs from "fs";
 import { readFile } from "fs/promises";
@@ -24,7 +25,6 @@ import { ide, injectIde } from "../singletons/ide.singleton";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { Graph } from "../typings/Graph";
 import { TestCase, TestCaseContext } from "./TestCase";
-import { TestCaseCommand } from "@cursorless/common";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
@@ -112,7 +112,7 @@ export class TestCaseRecorder {
     this.fixtureRoot = this.workspacePath
       ? path.join(
           this.workspacePath,
-          "packages/cursorless-vscode-e2e/suite/fixtures/recorded",
+          "packages/cursorless-vscode-e2e/src/suite/fixtures/recorded",
         )
       : null;
 

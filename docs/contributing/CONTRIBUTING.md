@@ -45,7 +45,7 @@ Extension" or "Extension Tests".
 
 ### Running a subset of tests
 
-The entire test suite takes a little while to run (1-2 mins), so if you'd like to run just a subset of the tests, you can edit the constant in [`runTestSubset`](../../packages/common/testUtil/runTestSubset.ts) to a string supported by [mocha grep](https://mochajs.org/#-grep-regexp-g-regexp) and use the "Run Test Subset" launch config instead of the usual "Extension Tests".
+The entire test suite takes a little while to run (1-2 mins), so if you'd like to run just a subset of the tests, you can edit the constant in [`runTestSubset`](../../packages/common/src/testUtil/runTestSubset.ts) to a string supported by [mocha grep](https://mochajs.org/#-grep-regexp-g-regexp) and use the "Run Test Subset" launch config instead of the usual "Extension Tests".
 
 ## Code formatting
 
@@ -112,7 +112,7 @@ your updates:
 yarn run compile && node ./out/cursorless-vscode-core/scripts/hatAdjustments/add.js
 ```
 
-If instead, you want to average your adjustments with those in main and see the differences to get to yours and main, you can paste the settings into `packages/cursorless-vscode-core/scripts/hatAdjustments/average.ts` and run:
+If instead, you want to average your adjustments with those in main and see the differences to get to yours and main, you can paste the settings into `packages/cursorless-vscode-core/src/scripts/hatAdjustments/average.ts` and run:
 
 ```sh
 yarn run compile && node ./out/cursorless-vscode-core/scripts/hatAdjustments/average.js

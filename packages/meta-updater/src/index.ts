@@ -83,7 +83,7 @@ async function updateTSConfig(
       composite: true,
     },
     references: references.sort((r1, r2) => r1.path.localeCompare(r2.path)),
-    include: ["**/*.ts", path.join(pathToRoot, "typings", "**/*.d.ts")],
+    include: ["src/**/*.ts", path.join(pathToRoot, "typings", "**/*.d.ts")],
     exclude: ["**/node_modules/**", "out/**"],
   };
 }
@@ -119,7 +119,7 @@ async function updatePackageJson(
     name,
     license: "MIT",
     main: "./out/index.js",
-    types: "./index.ts",
+    types: "./out/index.d.ts",
     scripts: {
       ...(packageJson.scripts ?? {}),
       compile: "tsc --build",

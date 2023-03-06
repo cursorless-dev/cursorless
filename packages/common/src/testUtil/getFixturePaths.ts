@@ -7,6 +7,7 @@ export function getFixturesPath() {
     getCursorlessRepoRoot(),
     "packages",
     "cursorless-vscode-e2e",
+    "src",
     "suite",
     "fixtures",
   );

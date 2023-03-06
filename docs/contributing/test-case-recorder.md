@@ -6,17 +6,17 @@ like `hello world`), positioning your cursor where you want, tell cursorless to
 start recording, and then issue one or more cursorless commands. It works by
 recording the initial state of the file including cursor position(s), the
 command run, and the final state, all in the form of a yaml document. See
-[existing test cases](../../packages/cursorless-vscode-e2e/suite/fixtures/recorded) for example outputs.
+[existing test cases](../../packages/cursorless-vscode-e2e/src/suite/fixtures/recorded) for example outputs.
 
 ## Recording new tests
 
 1. Start debugging (F5)
 1. Create a minimal file to use for recording tests. And position your cursor
    where you'd like. Check out the `initialState.documentContents` field of
-   [existing test cases](../../packages/cursorless-vscode-e2e/suite/fixtures/recorded) for examples.
+   [existing test cases](../../packages/cursorless-vscode-e2e/src/suite/fixtures/recorded) for examples.
 1. Issue the `"cursorless record"` command. Alternately, issue one of the special recording commands listed in
    - List of target directories is shown. All test cases will be put into the
-     given subdirectory of `packages/cursorless-vscode-e2e/suite/fixtures/recorded`
+     given subdirectory of `packages/cursorless-vscode-e2e/src/suite/fixtures/recorded`
 1. Select existing directory or create new one
    - Select `Create new folder`
    - If the new directory name contains any `/`, it will create nested
@@ -63,7 +63,7 @@ Then each time you record a test, you need to issue two commands. The second com
 
 ### Default config per test case directory
 
-Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../packages/cursorless-vscode-e2e/suite/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark. For a full list of keys supported in this json, see [the api docs](../api/interfaces/cursorless_engine_testCaseRecorder_TestCaseRecorder.internal.RecordTestCaseCommandArg/).
+Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark. For a full list of keys supported in this json, see [the api docs](../api/interfaces/cursorless_engine_testCaseRecorder_TestCaseRecorder.internal.RecordTestCaseCommandArg/).
 
 ### Navigation map tests
 
@@ -86,9 +86,9 @@ To upgrade all the test fixtures to the latest command version, run the command 
 
 ### Custom transformation
 
-1. Add a new transformation to the [`transformRecordedTests` directory](../../packages/cursorless-engine/scripts/transformRecordedTests). Look at the existing transformations in that directory for inspiration.
+1. Add a new transformation to the [`transformRecordedTests` directory](../../packages/common/src/scripts/transformRecordedTests). Look at the existing transformations in that directory for inspiration.
 1. Change the value at the `custom` key in `AVAILABLE_TRANSFORMATIONS` at the top of
-   [`transformRecordedTests/index.ts`](../../packages/cursorless-engine/scripts/transformRecordedTests/index.ts) to
+   [`transformRecordedTests/index.ts`](../../packages/common/src/scripts/transformRecordedTests/index.ts) to
    point to your new transformation
 1. Run `yarn compile && yarn transform-recorded-tests custom`
 

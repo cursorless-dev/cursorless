@@ -21,8 +21,8 @@ repos:
         # with a line that has trailing white space. Many of our recorded
         # tests use strings with trailing white space to represent the final
         # document contents. For example
-        # packages/cursorless-vscode-e2e/suite/fixtures/recorded/languages/ruby/changeCondition.yml
-        exclude: ^packages/cursorless-vscode-e2e/suite/fixtures/recorded/.*/[^/]*\.yml$
+        # packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/languages/ruby/changeCondition.yml
+        exclude: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: "v2.7.1"
     hooks:

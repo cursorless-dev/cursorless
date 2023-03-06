@@ -18,10 +18,10 @@ First a few notes / tips:
 
 Minimum changes that each language needs:
 
-- new file in `/packages/cursorless-engine/languages/<yourlanguage>.ts`. Take a look at [existing languages](../../packages/cursorless-engine/languages) as a base. At its core you're implementing your language's version of the `nodeMatchers` const, mapping scope types found in [`Types.ts:ScopeType`](../../packages/cursorless-engine/typings/Types.ts) with matching expressions that align with the parse tree output.
-- new entry in [`getNodeMatcher.ts:languageMatchers`](../../packages/cursorless-engine/languages/getNodeMatcher.ts), importing your new file above
-- new entry in [`constants.ts`](../../packages/cursorless-engine/languages/constants.ts)
-- new text fragment extractor (default is likely fine) in [`getTextFragmentExtractor.ts:textFragmentExtractors`](../../packages/cursorless-engine/languages/getTextFragmentExtractor.ts)
+- new file in `/packages/common/src/languages/<yourlanguage>.ts`. Take a look at [existing languages](../../packages/cursorless-engine/languages) as a base. At its core you're implementing your language's version of the `nodeMatchers` const, mapping scope types found in [`Types.ts:ScopeType`](../../packages/common/src/typings/Types.ts) with matching expressions that align with the parse tree output.
+- new entry in [`getNodeMatcher.ts:languageMatchers`](../../packages/common/src/languages/getNodeMatcher.ts), importing your new file above
+- new entry in [`constants.ts`](../../packages/common/src/languages/constants.ts)
+- new text fragment extractor (default is likely fine) in [`getTextFragmentExtractor.ts:textFragmentExtractors`](../../packages/common/src/languages/getTextFragmentExtractor.ts)
 
 The parse trees exposed by tree-sitter are often pretty close to what we're
 looking for, but we often need to look for specific patterns within the parse
@@ -39,6 +39,6 @@ domain-specific language that makes these definitions fairly compact.
 Test cases can be automatically recorded, which should speed things up a lot.
 See the [docs](test-case-recorder.md) for the test case recorder. It will also
 likely be helpful to look at the existing recorded test cases (eg
-[java](../../packages/cursorless-vscode-e2e/suite/fixtures/recorded/languages/java)) to see how
+[java](../../packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/languages/java)) to see how
 they
 should end up looking when they're recorded.

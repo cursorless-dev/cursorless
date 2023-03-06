@@ -1,7 +1,7 @@
 **/vendor
 
 # We use our own format for our recorded yaml tests to keep them compact
-/packages/cursorless-vscode-e2e/suite/fixtures/recorded/**/*.yml
+/packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/**/*.yml
 
 # This was swizzled from a Docusaurus core class
 docs-site/src/theme/SearchBar/index.js
