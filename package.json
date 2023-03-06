@@ -14,7 +14,7 @@
     "lint:meta": "pnpm run meta-updater:base --test",
     "lint": "pnpm run lint:meta && syncpack list-mismatches && pnpm run lint:ts",
     "lint:ts": "eslint packages --ext ts",
-    "test": "env CURSORLESS_TEST=true node ./out/test-harness/scripts/runTestsCI.js",
+    "test": "pnpm -F @cursorless/test-harness test",
     "unused-exports": "ts-unused-exports tsconfig.json --showLineNumber",
     "update-licenses": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv"
   },

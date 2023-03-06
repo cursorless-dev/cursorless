@@ -13,7 +13,7 @@
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
         "--profile=cursorlessDevelopment"
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -33,7 +33,7 @@
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
         "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/all"
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -48,7 +48,7 @@
       "env": {
         "CURSORLESS_TEST": "true"
       },
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -68,7 +68,7 @@
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
         "--extensionTestsPath=${workspaceFolder}/out/test-harness/runners/all"
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -88,7 +88,7 @@
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
         "--extensionTestsPath=${workspaceFolder}/out/test-harness/runners/all"
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -109,7 +109,7 @@
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
         "--extensionTestsPath=${workspaceFolder}/out/test-harness/runners/all"
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",

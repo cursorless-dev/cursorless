@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "out",
-    "rootDir": ".",
+    "rootDir": "src",
     "composite": true
   },
   "references": [
@@ -13,6 +13,5 @@
       "path": "../vscode-common"
     }
   ],
-  "include": ["**/*.ts", "../../typings/**/*.d.ts"],
-  "exclude": ["**/node_modules/**", "out/**"]
+  "include": ["src/**/*.ts", "../../typings/**/*.d.ts"]
 }

@@ -18,7 +18,7 @@
     "type-fest": "3.6.1"
   },
   "main": "./out/index.js",
-  "types": "./index.ts",
+  "types": "./out/index.d.ts",
   "license": "MIT",
   "exports": "./out/index.js"
 }

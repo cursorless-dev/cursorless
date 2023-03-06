@@ -78,13 +78,12 @@ async function updateTSConfig(
     extends: path.join(pathToRoot, "tsconfig.base.json"),
     compilerOptions: {
       ...(tsConfig.compilerOptions ?? {}),
-      rootDir: ".",
+      rootDir: "src",
       outDir: "out",
       composite: true,
     },
     references: references.sort((r1, r2) => r1.path.localeCompare(r2.path)),
     include: ["src/**/*.ts", path.join(pathToRoot, "typings", "**/*.d.ts")],
-    exclude: ["**/node_modules/**", "out/**"],
   };
 }
 

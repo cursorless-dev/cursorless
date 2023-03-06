@@ -4,8 +4,11 @@
   "description": "The core VSCode functionality for Cursorless",
   "main": "./out/index.js",
   "scripts": {
-    "init-launch-sandbox": "node ../../out/cursorless-vscode-core/scripts/initLaunchSandbox.js",
-    "prepare-for-extension-publish": "node ../../out/cursorless-vscode-core/scripts/prepareForExtensionPublish.js",
+    "init-launch-sandbox": "tsx src/scripts/initLaunchSandbox.ts",
+    "prepare-for-extension-publish": "tsx src/scripts/prepareForExtensionPublish.ts",
+    "preprocess-svg-hats": "tsx src/scripts/preprocessSvgHats.ts",
+    "hat-adjustment-add": "tsx src/scripts/hatAssignments/add.ts",
+    "hat-adjustment-average": "tsx src/scripts/hatAssignments/add.ts",
     "compile": "tsc --build",
     "watch": "tsc --build --watch"
   },
@@ -29,6 +32,6 @@
     "fast-xml-parser": "^3.20.0",
     "mocha": "^8.1.3"
   },
-  "types": "./index.ts",
+  "types": "./out/index.d.ts",
   "exports": "./out/index.js"
 }

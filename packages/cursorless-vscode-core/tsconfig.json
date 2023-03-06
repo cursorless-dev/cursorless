@@ -2,11 +2,10 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "out",
-    "rootDir": ".",
+    "rootDir": "src",
     "composite": true
   },
-  "include": ["**/*.ts", "../../typings/**/*.d.ts"],
-  "exclude": ["**/node_modules/**", "out/**"],
+  "include": ["src/**/*.ts", "../../typings/**/*.d.ts"],
   "references": [
     {
       "path": "../common"

@@ -4,7 +4,7 @@
   "description": "Contains scripts and runners for testing Cursorless",
   "main": "./out/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "env CURSORLESS_TEST=true tsx src/scripts/runTestsCI.ts",
     "compile": "tsc --build",
     "watch": "tsc --build --watch"
   },
@@ -21,6 +21,6 @@
     "@vscode/test-electron": "^2.1.3",
     "mocha": "^8.1.3"
   },
-  "types": "./index.ts",
+  "types": "./out/index.d.ts",
   "exports": "./out/index.js"
 }
