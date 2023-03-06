@@ -8,3 +8,5 @@ node_modules
 
 # TypeDoc output
 docs/contributing/api/
+
+tsconfig.tsbuildinfo

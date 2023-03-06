@@ -746,11 +746,11 @@
     "vscode:prepublish": "pnpm run build:prod",
     "build": "pnpm run esbuild && pnpm -F cursorless-cheatsheet build && pnpm run populate-dist",
     "build:prod": "pnpm run esbuild:prod && pnpm -F cursorless-cheatsheet build && pnpm run populate-dist",
-    "esbuild:base": "esbuild ./extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "esbuild:base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
     "esbuild": "pnpm run esbuild:base --sourcemap",
     "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
     "esbuild:prod": "pnpm run esbuild:base --minify",
-    "populate-dist": "tsx ./scripts/populateDist.ts",
+    "populate-dist": "tsx ./src/scripts/populateDist.ts",
     "compile": "tsc --build"
   },
   "devDependencies": {

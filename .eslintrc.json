@@ -4,9 +4,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "plugin:import/recommended",
-    "plugin:import/typescript"
+    "prettier"
   ],
   "parserOptions": {
     "ecmaVersion": 6,
@@ -17,7 +15,6 @@
     // turn on errors for missing imports
     "import/no-unresolved": "error",
     "import/no-relative-packages": "error",
-    "import/no-internal-modules": "error",
     "@typescript-eslint/consistent-type-assertions": [
       "error",
       {

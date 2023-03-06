@@ -1,5 +1,5 @@
 import { Selection, TextEditor } from "@cursorless/common";
-import { SyntaxNode } from "web-tree-sitter";
+import type { SyntaxNode } from "web-tree-sitter";
 import { SelectionExtractor, SelectionWithContext } from "../typings/Types";
 import {
   childRangeSelector,
