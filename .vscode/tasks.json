@@ -54,6 +54,9 @@
       "presentation": {
         "reveal": "never"
       },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
       "group": "build"
     },
     {

@@ -20,5 +20,6 @@
     "pojo",
     "subword"
   ],
+  "task.allowAutomaticTasks": "on",
   "files.eol": "\n"
 }
