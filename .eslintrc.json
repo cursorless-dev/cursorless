@@ -12,9 +12,7 @@
   },
   "plugins": ["@typescript-eslint", "unused-imports"],
   "rules": {
-    // Note: you must disable the base rule as it can report incorrect errors
-    "no-restricted-imports": "off",
-    "@typescript-eslint/no-restricted-imports": "error",
+    "import/no-relative-packages": "error",
     "@typescript-eslint/consistent-type-assertions": [
       "error",
       {
