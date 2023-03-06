@@ -5,7 +5,7 @@
   "tasks": [
     {
       "label": "Build",
-      "dependsOn": ["ESBuild", "TSBuild", "Populate dist"],
+      "dependsOn": ["Populate dist"],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -15,6 +15,7 @@
       "label": "ESBuild",
       "type": "npm",
       "script": "esbuild",
+      "dependsOn": ["TSBuild"],
       "path": "packages/cursorless-vscode",
       "isBackground": true,
       "presentation": {
@@ -37,6 +38,7 @@
       "label": "Populate dist",
       "type": "npm",
       "script": "populate-dist",
+      "dependsOn": ["ESBuild"],
       "path": "packages/cursorless-vscode",
       "isBackground": true,
       "presentation": {
