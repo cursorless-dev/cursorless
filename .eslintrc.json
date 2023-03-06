@@ -66,5 +66,5 @@
       }
     }
   },
-  "ignorePatterns": ["**/vendor/**/*.ts", "**/vendor/**/*.js"]
+  "ignorePatterns": ["**/vendor/**/*.ts", "**/vendor/**/*.js", "**/out/**"]
 }
