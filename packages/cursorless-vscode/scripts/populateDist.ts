@@ -1,12 +1,13 @@
 // Copies files into `dist` directory for packaging
 import { copy } from "fs-extra";
-import { lstat, mkdir } from "fs/promises";
+import { lstat, mkdir, readFile, writeFile } from "fs/promises";
 import * as path from "path";
 
 interface Asset {
   source: string;
   destination: string;
   ciOnly?: boolean;
+  transformJson?: (json: any) => any;
 }
 
 const assets: Asset[] = [
@@ -35,7 +36,14 @@ const assets: Asset[] = [
     destination: "third-party-licenses.csv",
   },
   { source: "build-info.json", destination: "build-info.json", ciOnly: true },
-  { source: "package.json", destination: "package.json" },
+  {
+    source: "package.json",
+    destination: "package.json",
+    transformJson(json: any) {
+      json.name = "cursorless";
+      return json;
+    },
+  },
 ];
 
 const sourceRoot = ".";
@@ -48,15 +56,24 @@ const isCI = "CI" in process.env;
 // copied recursively.
 async function run() {
   await Promise.all(
-    assets.map(async ({ source, destination, ciOnly }) => {
+    assets.map(async ({ source, destination, ciOnly, transformJson }) => {
       if (!isCI && ciOnly) {
         return;
       }
 
       const fullSource = path.join(sourceRoot, source);
       const fullDestination = path.join(destinationRoot, destination);
-      console.log(`Copying ${fullSource} to ${fullDestination}`);
       await mkdir(path.dirname(fullDestination), { recursive: true });
+      if (transformJson != null) {
+        console.log(`Transforming ${fullSource} to ${fullDestination}`);
+        const json = JSON.parse(await readFile(fullSource, "utf8"));
+        await writeFile(
+          fullDestination,
+          JSON.stringify(transformJson(json), null, 2),
+        );
+        return;
+      }
+      console.log(`Copying ${fullSource} to ${fullDestination}`);
       // If directory, copy recursively
       if ((await lstat(fullSource)).isDirectory()) {
         await mkdir(fullDestination, { recursive: true });

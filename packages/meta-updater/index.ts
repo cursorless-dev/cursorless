@@ -106,8 +106,7 @@ async function updatePackageJson(
     throw new Error(`No description found in ${dir}/package.json`);
   }
 
-  if (packageJson.name === "cursorless") {
-    // FIXME: Switch to @cursorless/cursorless-vscode
+  if (packageJson.name === "@cursorless/cursorless-vscode") {
     return packageJson;
   }
 

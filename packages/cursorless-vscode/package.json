@@ -1,5 +1,5 @@
 {
-  "name": "cursorless",
+  "name": "@cursorless/cursorless-vscode",
   "displayName": "Cursorless",
   "description": "Structural voice coding at the speed of thought",
   "icon": "images/icon.png",
