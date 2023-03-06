@@ -71,18 +71,17 @@ If you want to check how the navigation map gets updated in response to changes,
 
 ## Run recorded tests
 
-Recorded tests will automatically be picked up and run with the normal tests,
-and can be run in vscode or via yarn in terminal.
+Recorded tests will automatically be picked up and run with the normal tests.
 
 ## Changing recorded test cases in bulk
 
 ### Autoformatting
 
-To clean up the formatting of all of the yaml test cases, run `yarn compile && yarn transform-recorded-tests`
+To clean up the formatting of all of the yaml test cases, run `pnpm transform-recorded-tests`
 
 ### Upgrading fixtures
 
-To upgrade all the test fixtures to the latest command version, run the command `yarn compile && yarn transform-recorded-tests upgrade`. This command should be idempotent.
+To upgrade all the test fixtures to the latest command version, run the command `pnpm transform-recorded-tests upgrade`. This command should be idempotent.
 
 ### Custom transformation
 
@@ -90,7 +89,7 @@ To upgrade all the test fixtures to the latest command version, run the command 
 1. Change the value at the `custom` key in `AVAILABLE_TRANSFORMATIONS` at the top of
    [`transformRecordedTests/index.ts`](../../packages/common/src/scripts/transformRecordedTests/index.ts) to
    point to your new transformation
-1. Run `yarn compile && yarn transform-recorded-tests custom`
+1. Run `pnpm transform-recorded-tests custom`
 
 Example of a custom transformation
 

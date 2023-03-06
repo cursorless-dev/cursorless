@@ -11,7 +11,7 @@ extension](#running--testing-extension-locally), you may want to check out the
 
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en/)
-- [yarn](https://yarnpkg.com/)
+- [pnpm](https://pnpm.io/installation)
 - [VSCode](https://code.visualstudio.com/); minimum version for local development is 1.72.0 in order to support settings profiles for sandboxed development. Please file an issue if that is a problem.
 
 ### Steps
@@ -21,12 +21,12 @@ extension](#running--testing-extension-locally), you may want to check out the
 3. Run the following in the terminal:
 
    ```bash
-   yarn
-   yarn compile
-   yarn init-launch-sandbox
+   pnpm
+   pnpm compile
+   pnpm -F @cursorless/cursorless-vscode init-launch-sandbox
    ```
 
-   The `yarn init-launch-sandbox` command creates a local [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. This approach is [suggested](https://code.visualstudio.com/updates/v1_72#_extension-debugging-in-a-clean-environment) by the VSCode documentation. If you'd like to use additional extensions when debugging locally, you can use the following command:
+   The `init-launch-sandbox` command creates a local [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. This approach is [suggested](https://code.visualstudio.com/updates/v1_72#_extension-debugging-in-a-clean-environment) by the VSCode documentation. If you'd like to use additional extensions when debugging locally, you can use the following command:
 
    ```bash
    code --profile=cursorlessDevelopment --install-extension some.extension

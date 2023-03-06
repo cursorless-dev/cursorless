@@ -4,7 +4,7 @@ set -euo pipefail
 
 # We still need the main project to have all depedencies
 # it will be compiled as part of API docs generation
-yarn install --frozen-lockfile
+pnpm install
 
 # Build the documentation site
 cd docs-site

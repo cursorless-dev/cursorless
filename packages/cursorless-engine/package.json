@@ -5,7 +5,7 @@
   "main": "./out/index.js",
   "scripts": {
     "compile": "tsc --build",
-    "transform-recorded-tests": "tsx src/scripts/transformRecordedTests",
+    "transform-recorded-tests": "tsx src/scripts/transformRecordedTests/index.ts",
     "watch": "tsc --build --watch"
   },
   "keywords": [],
