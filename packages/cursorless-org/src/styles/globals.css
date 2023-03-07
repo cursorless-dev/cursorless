@@ -16,61 +16,61 @@
 }
 
 @font-face {
-  font-family: 'Inconsolata-SemiExpanded';
+  font-family: "Inconsolata-SemiExpanded";
   font-style: normal;
   font-weight: 300;
   font-stretch: 1% 500%; /* Required by Chrome */
-  src: local(''),
-    /* Modern Browsers */ url('/fonts/Inconsolata_SemiExpanded-Light.ttf')
-      format('truetype');
+  src: local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-Light.ttf")
+      format("truetype");
 }
 
 @font-face {
-  font-family: 'Inconsolata-SemiExpanded';
+  font-family: "Inconsolata-SemiExpanded";
   font-style: normal;
   font-weight: 400;
   font-stretch: 1% 500%; /* Required by Chrome */
-  src: local(''),
-    /* Modern Browsers */ url('/fonts/Inconsolata_SemiExpanded-Regular.ttf')
-      format('truetype');
+  src: local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-Regular.ttf")
+      format("truetype");
 }
 
 @font-face {
-  font-family: 'Inconsolata-SemiExpanded';
+  font-family: "Inconsolata-SemiExpanded";
   font-style: normal;
   font-weight: 500;
   font-stretch: 1% 500%; /* Required by Chrome */
-  src: local(''),
-    /* Modern Browsers */ url('/fonts/Inconsolata_SemiExpanded-Medium.ttf')
-      format('truetype');
+  src: local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-Medium.ttf")
+      format("truetype");
 }
 
 @font-face {
-  font-family: 'Inconsolata-SemiExpanded';
+  font-family: "Inconsolata-SemiExpanded";
   font-style: normal;
   font-weight: 600;
   font-stretch: 1% 500%; /* Required by Chrome */
-  src: local(''),
-    /* Modern Browsers */ url('/fonts/Inconsolata_SemiExpanded-SemiBold.ttf')
-      format('truetype');
+  src: local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-SemiBold.ttf")
+      format("truetype");
 }
 
 @font-face {
-  font-family: 'Inconsolata-SemiExpanded';
+  font-family: "Inconsolata-SemiExpanded";
   font-style: normal;
   font-weight: 700;
   font-stretch: 1% 500%; /* Required by Chrome */
-  src: local(''),
-    /* Modern Browsers */ url('/fonts/Inconsolata_SemiExpanded-Bold.ttf')
-      format('truetype');
+  src: local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-Bold.ttf")
+      format("truetype");
 }
 
 @font-face {
-  font-family: 'Inconsolata-SemiExpanded';
+  font-family: "Inconsolata-SemiExpanded";
   font-style: normal;
   font-weight: 800;
   font-stretch: 1% 500%; /* Required by Chrome */
-  src: local(''),
-    /* Modern Browsers */ url('/fonts/Inconsolata_SemiExpanded-ExtraBold.ttf')
-      format('truetype');
+  src: local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-ExtraBold.ttf")
+      format("truetype");
 }

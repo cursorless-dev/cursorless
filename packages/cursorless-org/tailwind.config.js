@@ -1,7 +1,6 @@
-// apps/app1/tailwind.config.js
-const { createGlobPatternsForDependencies } = require('@nrwl/react/tailwind');
-const defaultTheme = require('tailwindcss/defaultTheme');
-const { join } = require('path');
+const defaultTheme = require("tailwindcss/defaultTheme");
+const { join } = require("path");
+const { readFileSync } = require("fs");
 
 const CONTENT_RATIO = 1000 / 814;
 
@@ -44,22 +43,22 @@ const {
   fontSize: stretchedFontSize,
 } = getScalingStrings(5, 5);
 
+const references = JSON.parse(
+  readFileSync(join(__dirname, "tsconfig.json"), "utf-8"),
+).references.map((ref) => ref.path);
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    join(
-      __dirname,
-      '{src,pages,components}/**/*!(*.stories|*.spec).{ts,tsx,html}'
-    ),
-    ...createGlobPatternsForDependencies(__dirname),
-  ],
+  content: [".", ...references].map(
+    (package) => `${package}/src/**/*.{js,ts,jsx,tsx}`,
+  ),
   theme: {
     extend: {
       screens: {
-        stretched: { raw: '(min-aspect-ratio: 2/1), (max-aspect-ratio: 1/1)' },
+        stretched: { raw: "(min-aspect-ratio: 2/1), (max-aspect-ratio: 1/1)" },
       },
       fontFamily: {
-        mono: ['Inconsolata-SemiExpanded', ...defaultTheme.fontFamily.mono],
+        mono: ["Inconsolata-SemiExpanded", ...defaultTheme.fontFamily.mono],
       },
       width: {
         smBase: smallWidth,
@@ -72,17 +71,17 @@ module.exports = {
       fontSize: {
         smBase: smallFontSize,
         stretchedBase: stretchedFontSize,
-        xs: '1.2em',
-        lg: '1.8em',
-        '2xl': '2.4em',
+        xs: "1.2em",
+        lg: "1.8em",
+        "2xl": "2.4em",
       },
       colors: {
         salmon: {
-          100: '#FFFAF8',
-          300: '#F8C9BA',
-          400: '#FF9273',
-          800: '#161110',
-          900: '#0A0707',
+          100: "#FFFAF8",
+          300: "#F8C9BA",
+          400: "#FF9273",
+          800: "#161110",
+          900: "#0A0707",
         },
       },
     },

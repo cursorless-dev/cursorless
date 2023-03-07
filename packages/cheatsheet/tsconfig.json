@@ -3,9 +3,9 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "out",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "composite": true
   },
   "references": [],
-  "include": ["src/**/*.ts", "../../typings/**/*.d.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "../../typings/**/*.d.ts"]
 }
