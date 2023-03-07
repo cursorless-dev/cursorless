@@ -14,7 +14,7 @@ export default function CheatsheetListComponent({
   const variations = section.items.flatMap((item) => item.variations);
 
   variations.sort((form1, form2) =>
-    form1.spokenForm.localeCompare(form2.spokenForm)
+    form1.spokenForm.localeCompare(form2.spokenForm),
   );
 
   const borderClassName = isHighlighted
