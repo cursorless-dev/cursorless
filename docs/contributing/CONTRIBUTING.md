@@ -25,7 +25,7 @@ extension](#running--testing-extension-locally), you may want to check out the
    yarn compile
    ```
 
-4. Run `code --profile=cursorlessDevelopment`, and then close the window that opens (eg say `"window close"`).  This step is necessary to create the [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode.  Once https://github.com/microsoft/vscode/issues/176372 is resolved, we will be able to remove this step, as the profile can then automatically be created.
+4. Run `code --profile=cursorlessDevelopment`, and then close the window that opens (eg say `"window close"`). This step is necessary to create the [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. Once https://github.com/microsoft/vscode/issues/176372 is resolved, we will be able to remove this step, as the profile can then automatically be created.
 
 5. Run the following in the terminal:
 
@@ -41,7 +41,7 @@ extension](#running--testing-extension-locally), you may want to check out the
 
    where `some.extension` is the id of the extension you'd like to install into the sandbox
 
-4. Copy / symlink `cursorless-talon-dev` into your Talon user directory for some useful voice commands for developing Cursorless.
+6. Copy / symlink `cursorless-talon-dev` into your Talon user directory for some useful voice commands for developing Cursorless.
 
 ## Running / testing extension locally
 
