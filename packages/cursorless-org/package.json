@@ -1,0 +1,19 @@
+{
+  "name": "@cursorless/cursorless-org",
+  "version": "1.0.0",
+  "description": "The cursorless.org website",
+  "main": "./out/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc --build",
+    "watch": "tsc --build --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "types": "./out/index.d.ts",
+  "exports": "./out/index.js",
+  "dependencies": {
+    "@cursorless/embedded-video": "workspace:*"
+  }
+}

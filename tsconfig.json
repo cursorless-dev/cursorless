@@ -3,10 +3,19 @@
   "include": [],
   "references": [
     {
+      "path": "./packages/cheatsheet"
+    },
+    {
+      "path": "./packages/cheatsheet-local"
+    },
+    {
       "path": "./packages/common"
     },
     {
       "path": "./packages/cursorless-engine"
+    },
+    {
+      "path": "./packages/cursorless-org"
     },
     {
       "path": "./packages/cursorless-vscode"
@@ -16,6 +25,9 @@
     },
     {
       "path": "./packages/cursorless-vscode-e2e"
+    },
+    {
+      "path": "./packages/embedded-video"
     },
     {
       "path": "./packages/meta-updater"

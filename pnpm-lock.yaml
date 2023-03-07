@@ -30,6 +30,15 @@ importers:
       syncpack: 9.8.4
       typescript: 4.9.5
 
+  packages/cheatsheet:
+    specifiers: {}
+
+  packages/cheatsheet-local:
+    specifiers:
+      '@cursorless/cheatsheet': workspace:*
+    dependencies:
+      '@cursorless/cheatsheet': link:../cheatsheet
+
   packages/common:
     specifiers:
       '@types/js-yaml': ^4.0.2
@@ -79,6 +88,12 @@ importers:
       js-yaml: 4.1.0
       mocha: 8.4.0
       sinon: 11.1.2
+
+  packages/cursorless-org:
+    specifiers:
+      '@cursorless/embedded-video': workspace:*
+    dependencies:
+      '@cursorless/embedded-video': link:../embedded-video
 
   packages/cursorless-vscode:
     specifiers:
@@ -182,6 +197,9 @@ importers:
       js-yaml: 4.1.0
       mocha: 8.4.0
       sinon: 11.1.2
+
+  packages/embedded-video:
+    specifiers: {}
 
   packages/meta-updater:
     specifiers:

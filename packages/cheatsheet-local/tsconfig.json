@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "out",
+    "jsx": "react",
+    "composite": true
+  },
+  "references": [
+    {
+      "path": "../cheatsheet"
+    }
+  ],
+  "include": ["src/**/*.ts", "../../typings/**/*.d.ts"]
+}

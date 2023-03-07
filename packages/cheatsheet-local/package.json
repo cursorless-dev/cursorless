@@ -1,0 +1,19 @@
+{
+  "name": "@cursorless/cheatsheet-local",
+  "version": "1.0.0",
+  "description": "Thin wrapper around the cheatsheet for showing local cheatsheet",
+  "main": "./out/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc --build",
+    "watch": "tsc --build --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "types": "./out/index.d.ts",
+  "exports": "./out/index.js",
+  "dependencies": {
+    "@cursorless/cheatsheet": "workspace:*"
+  }
+}
