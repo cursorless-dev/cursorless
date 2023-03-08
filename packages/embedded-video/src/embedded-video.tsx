@@ -1,7 +1,5 @@
-import styles from './embedded-video.module.css';
-
-import { useState } from 'react';
-import ReactPlayer from 'react-player/youtube';
+import { useState } from "react";
+import ReactPlayer from "react-player/youtube";
 
 interface Props {
   youtubeSlug: string;
@@ -11,16 +9,17 @@ export function EmbeddedVideo({ youtubeSlug }: Props) {
   const [isError, setIsError] = useState(false);
 
   return (
-    <div className={styles['playerWrapper']}>
+    <div style={{ position: "relative", paddingTop: "56.25%" }}>
       {isError ? (
         <div
-          className={`${styles['reactPlayer']} text-red-600 text-center w-full h-full flex border border-black`}
+          className={`text-red-600 text-center w-full h-full flex border border-black`}
+          style={{ position: "absolute", top: 0, left: 0 }}
         >
           <div className="m-auto">Error loading YouTube video</div>
         </div>
       ) : (
         <ReactPlayer
-          className={styles['reactPlayer']}
+          style={{ position: "absolute", top: 0, left: 0 }}
           url={`https://www.youtube-nocookie.com/watch?v=${youtubeSlug}`}
           width="100%"
           height="100%"

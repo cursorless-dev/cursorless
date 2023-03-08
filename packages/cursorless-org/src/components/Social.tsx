@@ -6,7 +6,7 @@ import {
   TITLE,
   VIDEO_SHARE_THUMBNAIL_WIDTH,
   VIDEO_SHARE_THUMBNAIL_HEIGHT,
-} from './constants';
+} from "./constants";
 
 export default function Social() {
   return (
@@ -83,23 +83,7 @@ export default function Social() {
       <meta itemProp="description" content={DESCRIPTION} />
       <meta itemProp="paid" content="false" />
       <meta itemProp="channelId" content="UCIh61mLlS6Do3R_8KnEScIQ" />
-      <span itemProp="author" itemScope itemType="http://schema.org/Person">
-        <link
-          itemProp="url"
-          href="https://www.youtube.com/channel/UCIh61mLlS6Do3R_8KnEScIQ"
-        />
-        <meta itemProp="name" content="Cursorless" />
-      </span>
       <link itemProp="thumbnailUrl" href={VIDEO_SHARE_THUMBNAIL_URL} />
-      <span
-        itemProp="thumbnail"
-        itemScope
-        itemType="http://schema.org/ImageObject"
-      >
-        <link itemProp="url" href={VIDEO_SHARE_THUMBNAIL_URL} />
-        <meta itemProp="width" content={VIDEO_SHARE_THUMBNAIL_WIDTH} />
-        <meta itemProp="height" content={VIDEO_SHARE_THUMBNAIL_HEIGHT} />
-      </span>
       <meta itemProp="isFamilyFriendly" content="true" />
       <meta
         itemProp="regionsAllowed"

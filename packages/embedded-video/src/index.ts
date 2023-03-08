@@ -1,1 +1,1 @@
-export * from './lib/embedded-video';
+export * from "./embedded-video";

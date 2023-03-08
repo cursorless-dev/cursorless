@@ -30,5 +30,6 @@
     {
       "path": "../embedded-video"
     }
-  ]
+  ],
+  "exclude": ["node_modules"]
 }

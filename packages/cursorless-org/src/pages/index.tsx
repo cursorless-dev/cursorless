@@ -1,9 +1,19 @@
-import { EmbeddedVideo } from "@cursorless/embedded-video";
 import Head from "next/head";
 import Button from "../components/Button";
 import { TITLE, YOUTUBE_SLUG } from "../components/constants";
 import Social from "../components/Social";
-import Image from "next/image";
+import Logo from "./logo.svg";
+
+import dynamic from "next/dynamic";
+const EmbeddedVideo = dynamic(
+  () => import("@cursorless/embedded-video").then((mod) => mod.EmbeddedVideo),
+  {
+    ssr: false,
+    loading: () => (
+      <div style={{ position: "relative", paddingTop: "56.25%" }} />
+    ),
+  },
+);
 
 export default function LandingPage() {
   const smallScaling = "sm:w-smBase sm:h-smBase sm:text-smBase";
@@ -31,10 +41,8 @@ export default function LandingPage() {
               <div className="align-middle mr-auto text-2xl uppercase">
                 Cursorless
               </div>
-              <Image
+              <Logo
                 title="Logo"
-                alt="Cursorless logo"
-                src="/logo.svg"
                 className="align-middle w-[30px] h-[30px] sm:w-[4em] sm:h-[4em]"
               />
             </header>
