@@ -4,7 +4,9 @@
     "rootDir": "src",
     "outDir": "out",
     "jsx": "react-jsx",
-    "composite": true
+    "skipLibCheck": true,
+    "composite": true,
+    "lib": ["es5", "es6", "dom"]
   },
   "references": [],
   "include": ["src/**/*.ts", "src/**/*.tsx", "../../typings/**/*.d.ts"]
