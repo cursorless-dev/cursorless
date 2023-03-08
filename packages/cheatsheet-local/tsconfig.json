@@ -4,7 +4,8 @@
     "rootDir": "src",
     "outDir": "out",
     "jsx": "react-jsx",
-    "composite": true
+    "composite": true,
+    "lib": ["es5", "es6", "dom"]
   },
   "references": [
     {
