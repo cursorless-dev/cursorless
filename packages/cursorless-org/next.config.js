@@ -10,7 +10,6 @@ const nextConfig = {
     return config;
   },
   reactStrictMode: true,
-  transpilePackages: ["@cursorless/embedded-video"],
 };
 
 module.exports = nextConfig;

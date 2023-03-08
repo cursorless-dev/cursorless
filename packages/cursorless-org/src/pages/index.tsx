@@ -1,19 +1,9 @@
+import { EmbeddedVideo } from "../components/embedded-video";
 import Head from "next/head";
 import Button from "../components/Button";
 import { TITLE, YOUTUBE_SLUG } from "../components/constants";
 import Social from "../components/Social";
 import Logo from "./logo.svg";
-
-import dynamic from "next/dynamic";
-const EmbeddedVideo = dynamic(
-  () => import("@cursorless/embedded-video").then((mod) => mod.EmbeddedVideo),
-  {
-    ssr: false,
-    loading: () => (
-      <div style={{ position: "relative", paddingTop: "56.25%" }} />
-    ),
-  },
-);
 
 export default function LandingPage() {
   const smallScaling = "sm:w-smBase sm:h-smBase sm:text-smBase";

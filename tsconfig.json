@@ -27,9 +27,6 @@
       "path": "./packages/cursorless-vscode-e2e"
     },
     {
-      "path": "./packages/embedded-video"
-    },
-    {
       "path": "./packages/meta-updater"
     },
     {

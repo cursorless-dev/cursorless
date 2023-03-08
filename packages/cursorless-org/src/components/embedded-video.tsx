@@ -1,9 +1,14 @@
 import { useState } from "react";
-import ReactPlayer from "react-player/youtube";
 
 interface Props {
   youtubeSlug: string;
 }
+
+import dynamic from "next/dynamic";
+const ReactPlayer = dynamic(
+  () => import("react-player/lazy").then((mod) => mod.default),
+  { ssr: false },
+);
 
 export function EmbeddedVideo({ youtubeSlug }: Props) {
   const [isError, setIsError] = useState(false);

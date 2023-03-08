@@ -13,9 +13,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    },
     "rootDir": "src",
     "outDir": "out",
     "composite": true
@@ -26,10 +23,6 @@
     "next-env.d.ts",
     "../../typings/**/*.d.ts"
   ],
-  "references": [
-    {
-      "path": "../embedded-video"
-    }
-  ],
+  "references": [],
   "exclude": ["node_modules"]
 }
