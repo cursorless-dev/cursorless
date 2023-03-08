@@ -4,10 +4,17 @@
     "rootDir": "src",
     "outDir": "out",
     "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "composite": true,
     "lib": ["es5", "es6", "dom"]
   },
   "references": [],
-  "include": ["src/**/*.ts", "src/**/*.tsx", "../../typings/**/*.d.ts"]
+  "include": [
+    "src/**/*.json",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "../../typings/**/*.d.ts"
+  ]
 }

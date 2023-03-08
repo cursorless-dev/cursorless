@@ -13,6 +13,9 @@
   "license": "MIT",
   "types": "./out/index.d.ts",
   "exports": "./out/index.js",
+  "sideEffects": [
+    "*.css"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "6.3.0",
     "@fortawesome/free-solid-svg-icons": "6.3.0",

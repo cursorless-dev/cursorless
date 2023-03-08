@@ -1,5 +1,10 @@
-import { CheatsheetPage, CheatsheetInfo } from '@cursorless/cheatsheet';
-import { environment } from '../environments/environment';
+import {
+  CheatsheetPage,
+  CheatsheetInfo,
+  defaultCheatsheetInfo,
+} from "@cursorless/cheatsheet";
+import { environment } from "../environments/environment";
+import "../styles.css";
 
 /**
  * The data describing the cheatsheet spoken forms.
@@ -13,7 +18,7 @@ import { environment } from '../environments/environment';
  */
 const cheatsheetData: CheatsheetInfo = environment.production
   ? (document as unknown as { cheatsheetData: CheatsheetInfo }).cheatsheetData
-  : require('libs/cheatsheet/src/lib/data/sampleSpokenFormInfos/defaults.json');
+  : defaultCheatsheetInfo;
 
 export function App() {
   return <CheatsheetPage cheatsheetInfo={cheatsheetData} />;

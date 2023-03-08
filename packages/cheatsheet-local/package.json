@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc --build",
-    "watch": "tsc --build --watch"
+    "watch": "webpack --watch",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "serve": "webpack serve"
   },
   "keywords": [],
   "author": "",
@@ -20,13 +24,24 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@effortlessmotion/html-webpack-inline-source-plugin": "1.0.3",
     "@testing-library/react": "14.0.0",
     "@types/jest": "29.4.0",
+    "@types/node": "^16.11.3",
     "@types/react": "18.0.28",
-    "html-webpack-inline-source-plugin": "0.0.10",
+    "@webpack-cli/generators": "3.0.1",
+    "autoprefixer": "10.4.13",
+    "css-loader": "6.7.3",
     "html-webpack-plugin": "5.5.0",
     "jest": "29.5.0",
+    "postcss": "8.4.21",
+    "postcss-loader": "7.0.2",
+    "style-loader": "3.3.1",
+    "tailwindcss": "3.2.7",
+    "ts-loader": "9.4.2",
+    "typescript": "^4.9.5",
     "webpack": "5.75.0",
-    "webpack-cli": "5.0.1"
+    "webpack-cli": "5.0.1",
+    "webpack-dev-server": "4.11.1"
   }
 }
