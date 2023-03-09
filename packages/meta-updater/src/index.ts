@@ -84,6 +84,7 @@ async function updateTSConfig(
     references: references.sort((r1, r2) => r1.path.localeCompare(r2.path)),
     include: [
       "src/**/*.ts",
+      "src/**/*.json",
 
       ...(tsConfig.compilerOptions?.jsx == null ? [] : ["src/**/*.tsx"]),
 

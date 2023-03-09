@@ -4,7 +4,6 @@
     "rootDir": "src",
     "outDir": "out",
     "jsx": "react-jsx",
-    "composite": true,
     "lib": ["es5", "es6", "dom"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -22,5 +21,10 @@
       "path": "../cheatsheet"
     }
   ],
-  "include": ["src/**/*.ts", "src/**/*.tsx", "../../typings/**/*.d.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json",
+    "src/**/*.tsx",
+    "../../typings/**/*.d.ts"
+  ]
 }

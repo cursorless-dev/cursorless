@@ -3,12 +3,11 @@
   "compilerOptions": {
     "outDir": "out",
     "rootDir": "src",
-    "composite": true,
     "target": "es2020",
     "module": "ES2020",
     "moduleResolution": "node",
     "esModuleInterop": true
   },
-  "include": ["src/**/*.ts", "../../typings/**/*.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
   "references": []
 }

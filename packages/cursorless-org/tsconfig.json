@@ -14,11 +14,11 @@
     "jsx": "preserve",
     "incremental": true,
     "rootDir": "src",
-    "outDir": "out",
-    "composite": true
+    "outDir": "out"
   },
   "include": [
     "src/**/*.ts",
+    "src/**/*.json",
     "src/**/*.tsx",
     "next-env.d.ts",
     "../../typings/**/*.d.ts"
