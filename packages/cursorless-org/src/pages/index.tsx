@@ -5,6 +5,7 @@ import { TITLE, YOUTUBE_SLUG } from "../components/constants";
 import Social from "../components/Social";
 import Logo from "./logo.svg";
 
+// See https://github.com/vercel/next.js/discussions/12325#discussioncomment-1116108
 export async function getStaticProps() {
   return { props: { bodyClasses: "bg-salmon-100 dark:bg-salmon-900" } };
 }
