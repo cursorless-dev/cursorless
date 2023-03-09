@@ -4,7 +4,7 @@ import CheatsheetLegendComponent from "./components/CheatsheetLegendComponent";
 import cheatsheetLegend from "./cheatsheetLegend";
 import Helmet from "react-helmet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
+import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons/faCircleQuestion";
 import CheatsheetNotesComponent from "./components/CheatsheetNotesComponent";
 import SmartLink from "./components/SmartLink";
 import { CheatsheetInfo } from "./CheatsheetInfo";
