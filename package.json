@@ -6,7 +6,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "test-compile": "tsc --build",
-    "build": "pnpm -F @cursorless/cursorless-vscode build:prod",
+    "build": "pnpm -F @cursorless/cursorless-vscode build",
     "compile": "tsc --build",
     "watch": "tsc --build -watch",
     "pretest": "pnpm run compile && pnpm run lint && pnpm run --filter '@cursorless/cursorless-vscode' esbuild",
