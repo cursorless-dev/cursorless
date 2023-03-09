@@ -445,6 +445,19 @@ This command will delete a target and leave the cursor where the target used to 
   `change blue air`
   Deletes the token containing letter 'a' with a blue hat then places your cursor where the token had been.
 
+### `"clone"` / `"clone up"`
+
+These commands insert a copy of the target either before or after the target itself, leaving your cursor(s) in the newly created clone.
+
+- `"clone <TARGET>"`
+- `"clone up <TARGET>"`
+
+For example:
+
+- `"clone funk"` inserts a copy of the function containing your cursor just below the function
+- `"clone up funk"` inserts a copy of the function containing your cursor just above the function
+- `"clone state air"` inserts a copy of the statement containing `a` with a gray hat below the given statement itself
+
 ### Cut / copy
 
 - `"carve <TARGET>"`: cut
