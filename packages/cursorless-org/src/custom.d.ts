@@ -1,4 +1,10 @@
 declare module "*.svg" {
-  const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
+  /**
+   * Use `any` to avoid conflicts with
+   * `@svgr/webpack` plugin or
+   * `babel-plugin-inline-react-svg` plugin.
+   */
+  const content: any;
+
   export default content;
 }
