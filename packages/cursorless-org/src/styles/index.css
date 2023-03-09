@@ -1,5 +1,0 @@
-@layer base {
-  body {
-    @apply bg-salmon-100 dark:bg-salmon-900;
-  }
-}

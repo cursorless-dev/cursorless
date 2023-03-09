@@ -4,7 +4,10 @@ import Button from "../components/Button";
 import { TITLE, YOUTUBE_SLUG } from "../components/constants";
 import Social from "../components/Social";
 import Logo from "./logo.svg";
-import "../styles/index.css";
+
+export async function getStaticProps() {
+  return { props: { bodyClasses: "bg-salmon-100 dark:bg-salmon-900" } };
+}
 
 export default function LandingPage() {
   const smallScaling = "sm:w-smBase sm:h-smBase sm:text-smBase";
