@@ -2,9 +2,7 @@
  * This file can be run from node to run tests in CI
  */
 
-// Ensures that the aliases such as @cursorless/common that we define in
-// package.json are active
-
+import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as path from "path";
 import { launchVscodeAndRunTests } from "../util/launchVscodeAndRunTests";
 
@@ -14,7 +12,10 @@ async function main() {
   // separately, we could instead use `../runners/endToEndOnly` instead of
   // `../runners/all` and then just call `await runUnitTests()` beforehand to
   // run the unit tests directly, instead of as part of VSCode runner.
-  const extensionTestsPath = path.resolve(__dirname, "../runners/all");
+  const extensionTestsPath = path.resolve(
+    getCursorlessRepoRoot(),
+    "packages/test-harness/out/runners/all",
+  );
 
   await launchVscodeAndRunTests(extensionTestsPath);
 }
