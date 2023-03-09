@@ -35,6 +35,7 @@ jobs:
       - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}"
         shell: bash
       - run: pnpm install
+      - run: pnpm compile
       - run: xvfb-run -a pnpm test
         if: runner.os == 'Linux'
       - run: pnpm test
