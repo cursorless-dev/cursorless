@@ -2,9 +2,11 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 /*eslint-env node*/
 
-const path = require("path");
 var HtmlWebpackInlineSourcePlugin = require("@effortlessmotion/html-webpack-inline-source-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const cheatsheetBodyClasses =
+  require("@cursorless/cheatsheet").cheatsheetBodyClasses;
+const fakeCheatsheetInfo = require("@cursorless/cheatsheet").fakeCheatsheetInfo;
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -19,10 +21,15 @@ const config = {
     open: true,
     host: "localhost",
   },
+  mode: isProduction ? "production" : "development",
   plugins: [
     new HtmlWebpackPlugin({
       inject: "body",
       template: "src/index.html",
+      templateParameters: {
+        bodyClasses: cheatsheetBodyClasses,
+        fakeCheatsheetInfo: JSON.stringify(fakeCheatsheetInfo),
+      },
       inlineSource: ".(js|css)$", // embed all javascript and css inline
     }),
 
@@ -53,11 +60,4 @@ const config = {
   },
 };
 
-module.exports = () => {
-  if (isProduction) {
-    config.mode = "production";
-  } else {
-    config.mode = "development";
-  }
-  return config;
-};
+module.exports = () => config;

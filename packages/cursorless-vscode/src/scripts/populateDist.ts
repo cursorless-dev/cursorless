@@ -16,8 +16,8 @@ const assets: Asset[] = [
   { source: "../../NOTICE.md", destination: "NOTICE.md" },
   { source: "../../README.md", destination: "README.md" },
   {
-    source: "../../cursorless-nx/dist/apps/cheatsheet-local/index.html",
-    destination: "cursorless-nx/dist/apps/cheatsheet-local/index.html",
+    source: "../cheatsheet-local/dist/index.html",
+    destination: "cheatsheet.html",
   },
   { source: "../../cursorless-snippets", destination: "cursorless-snippets" },
   {

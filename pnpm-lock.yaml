@@ -44,7 +44,6 @@ importers:
       jest-environment-jsdom: 29.5.0
       react: 18.2.0
       react-dom: 18.2.0
-      react-helmet: 6.1.0
       react-string-replace: 1.1.0
       react-use: 17.4.0
       ts-jest: 29.0.5
@@ -56,7 +55,6 @@ importers:
       jest: 29.5.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      react-helmet: 6.1.0_react@18.2.0
       react-string-replace: 1.1.0
       react-use: 17.4.0_biqbaboplfbrettd7655fr4n2y
     devDependencies:
@@ -172,6 +170,7 @@ importers:
 
   packages/cursorless-org:
     specifiers:
+      '@cursorless/cheatsheet': workspace:*
       '@svgr/webpack': 6.5.1
       '@types/node': ^16.11.3
       '@types/react': 18.0.28
@@ -187,6 +186,7 @@ importers:
       tailwindcss: 3.2.7
       typescript: ^4.9.5
     dependencies:
+      '@cursorless/cheatsheet': link:../cheatsheet
       eslint: 8.35.0
       eslint-config-next: 13.2.3_ycpbpc6yetojsgtrx3mwntkhsu
       next: 13.2.3_biqbaboplfbrettd7655fr4n2y
@@ -11143,18 +11143,6 @@ packages:
     resolution: {integrity: sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==}
     dev: false
 
-  /react-helmet/6.1.0_react@18.2.0:
-    resolution: {integrity: sha512-4uMzEY9nlDlgxr61NL3XbKRy1hEkXmKNXhjbAIOVw5vcFrsdYbH2FEwcNyWvWinl103nXgzYNlns9ca+8kFiWw==}
-    peerDependencies:
-      react: '>=16.3.0'
-    dependencies:
-      object-assign: 4.1.1
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-fast-compare: 3.2.0
-      react-side-effect: 2.1.2_react@18.2.0
-    dev: false
-
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: false
@@ -11177,14 +11165,6 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-fast-compare: 3.2.0
-    dev: false
-
-  /react-side-effect/2.1.2_react@18.2.0:
-    resolution: {integrity: sha512-PVjOcvVOyIILrYoyGEpDN3vmYNLdy1CajSFNt4TDsVQC5KpTijDvWVoR+/7Rz2xT978D8/ZtFceXxzsPwZEDvw==}
-    peerDependencies:
-      react: ^16.3.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.2.0
     dev: false
 
   /react-string-replace/1.1.0:

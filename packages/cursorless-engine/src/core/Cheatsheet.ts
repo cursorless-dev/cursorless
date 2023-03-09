@@ -35,14 +35,7 @@ export async function showCheatsheet({
     throw new Error(`Unsupported cheatsheet api version: ${version}`);
   }
 
-  const cheatsheetPath = path.join(
-    ide().assetsRoot,
-    "cursorless-nx",
-    "dist",
-    "apps",
-    "cheatsheet-local",
-    "index.html",
-  );
+  const cheatsheetPath = path.join(ide().assetsRoot, "cheatsheet.html");
 
   const cheatsheetContent = (await readFile(cheatsheetPath)).toString();
 
@@ -50,7 +43,7 @@ export async function showCheatsheet({
 
   root.getElementById(
     "cheatsheet-data",
-  ).textContent = `document.cheatsheetData = ${JSON.stringify(
+  ).textContent = `document.cheatsheetInfo = ${JSON.stringify(
     spokenFormInfo,
   )};`;
 
@@ -78,12 +71,10 @@ export async function updateDefaults(spokenFormInfo: CheatsheetInfo) {
 
   const defaultsPath = path.join(
     workspacePath,
-    "cursorless-nx",
-    "libs",
+    "packages",
     "cheatsheet",
     "src",
     "lib",
-    "data",
     "sampleSpokenFormInfos",
     "defaults.json",
   );

@@ -9,12 +9,6 @@
   --safe-area-inset-right: env(safe-area-inset-right);
 }
 
-@layer base {
-  body {
-    @apply bg-salmon-100 dark:bg-salmon-900;
-  }
-}
-
 @font-face {
   font-family: "Inconsolata-SemiExpanded";
   font-style: normal;

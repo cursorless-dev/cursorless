@@ -1,6 +1,6 @@
-import { CheatsheetSection, Variation } from '../CheatsheetInfo';
-import useIsHighlighted from '../hooks/useIsHighlighted';
-import { formatCaptures } from './formatCaptures';
+import { CheatsheetSection, Variation } from "../CheatsheetInfo";
+import useIsHighlighted from "../hooks/useIsHighlighted";
+import { formatCaptures } from "./formatCaptures";
 
 type Props = {
   section: CheatsheetSection;
@@ -14,12 +14,12 @@ export default function CheatsheetListComponent({
   const variations = section.items.flatMap((item) => item.variations);
 
   variations.sort((form1, form2) =>
-    form1.spokenForm.localeCompare(form2.spokenForm)
+    form1.spokenForm.localeCompare(form2.spokenForm),
   );
 
   const borderClassName = isHighlighted
-    ? 'border-violet-500 dark:border-violet-400'
-    : 'border-stone-300 dark:border-stone-500';
+    ? "border-violet-500 dark:border-violet-400"
+    : "border-stone-300 dark:border-stone-500";
 
   return (
     <div
@@ -38,7 +38,10 @@ export default function CheatsheetListComponent({
         </thead>
         <tbody>
           {variations.map((variation) => (
-            <CheatsheetListEntry variation={variation} />
+            <CheatsheetListEntry
+              key={variation.spokenForm}
+              variation={variation}
+            />
           ))}
         </tbody>
       </table>
@@ -54,7 +57,7 @@ function CheatsheetListEntry({
   variation: { spokenForm, description },
 }: CheatsheetListEntryProps): JSX.Element {
   return (
-    <tr key={spokenForm} className="odd:bg-stone-200 dark:odd:bg-stone-600">
+    <tr className="odd:bg-stone-200 dark:odd:bg-stone-600">
       <td className="px-1">
         <span key="openingQuote" className="text-stone-400">
           &#8220;

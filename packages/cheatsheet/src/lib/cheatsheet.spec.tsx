@@ -1,29 +1,12 @@
 import { render } from "@testing-library/react";
 
 import { CheatsheetPage } from "./cheatsheet";
+import { fakeCheatsheetInfo } from "./fakeCheatsheetInfo";
 
 describe("Cheatsheet", () => {
   it("should render successfully", () => {
     const { baseElement } = render(
-      <CheatsheetPage
-        cheatsheetInfo={{
-          sections: [
-            {
-              name: "foo",
-              id: "foo",
-              items: [
-                {
-                  id: "bar",
-                  type: "bar",
-                  variations: [
-                    { spokenForm: "Hello", description: "Some hello" },
-                  ],
-                },
-              ],
-            },
-          ],
-        }}
-      />,
+      <CheatsheetPage cheatsheetInfo={fakeCheatsheetInfo} />,
     );
     expect(baseElement).toBeTruthy();
   });

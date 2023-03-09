@@ -2,7 +2,6 @@ import * as React from "react";
 import CheatsheetListComponent from "./components/CheatsheetListComponent";
 import CheatsheetLegendComponent from "./components/CheatsheetLegendComponent";
 import cheatsheetLegend from "./cheatsheetLegend";
-import Helmet from "react-helmet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons/faCircleQuestion";
 import CheatsheetNotesComponent from "./components/CheatsheetNotesComponent";
@@ -13,17 +12,11 @@ type CheatsheetPageProps = {
   cheatsheetInfo: CheatsheetInfo;
 };
 
-// markup
 export const CheatsheetPage: React.FC<CheatsheetPageProps> = ({
   cheatsheetInfo,
 }) => {
   return (
     <main className="dark:text-stone-100">
-      <Helmet
-        bodyAttributes={{
-          class: "bg-stone-50 dark:bg-stone-800",
-        }}
-      />
       <h1 className="text-2xl md:text-3xl text-center mt-2 mb-1 xl:mt-4">
         Cursorless Cheatsheet{" "}
         <span className="text-sm inline-block align-middle">

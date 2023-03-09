@@ -1,4 +1,6 @@
 export * from "./lib/cheatsheet";
 export * from "./lib/CheatsheetInfo";
-import * as defaultCheatsheetInfo from "./lib/data/sampleSpokenFormInfos/defaults.json";
+export * from "./lib/cheatsheetBodyClasses";
+export * from "./lib/fakeCheatsheetInfo";
+import defaultCheatsheetInfo from "./lib/sampleSpokenFormInfos/defaults.json";
 export { defaultCheatsheetInfo };

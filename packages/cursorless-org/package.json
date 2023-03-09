@@ -13,6 +13,7 @@
     "watch": "tsc --build --watch"
   },
   "dependencies": {
+    "@cursorless/cheatsheet": "workspace:*",
     "eslint": "^8.13.0",
     "eslint-config-next": "13.2.3",
     "next": "13.2.3",

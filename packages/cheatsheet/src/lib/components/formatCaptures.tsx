@@ -13,8 +13,11 @@ export function formatCaptures(input: string) {
       );
 
     return (
-      <span className="inline-block p-[2px] rounded-md text-[#000000E3] dark:text-[#FFFFFFE3] bg-[#8686864C] dark:bg-[#FFFFFF33]">
-        <SmartLink key={i} to="#legend" noFormatting={true}>
+      <span
+        key={i}
+        className="inline-block p-[2px] rounded-md text-[#000000E3] dark:text-[#FFFFFFE3] bg-[#8686864C] dark:bg-[#FFFFFF33]"
+      >
+        <SmartLink to="#legend" noFormatting={true}>
           {"["}
           {innerElement}
           {"]"}

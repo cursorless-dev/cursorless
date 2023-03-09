@@ -80,15 +80,17 @@ async function updateTSConfig(
       ...(tsConfig.compilerOptions ?? {}),
       rootDir: "src",
       outDir: "out",
-      composite: true,
     },
     references: references.sort((r1, r2) => r1.path.localeCompare(r2.path)),
     include: [
       "src/**/*.ts",
+
       ...(tsConfig.compilerOptions?.jsx == null ? [] : ["src/**/*.tsx"]),
+
       ...((await exists(path.join(dir, "next.config.js")))
         ? ["next-env.d.ts"]
         : []),
+
       path.join(pathToRoot, "typings", "**/*.d.ts"),
     ],
   };

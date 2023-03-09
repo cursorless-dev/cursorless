@@ -1,9 +1,4 @@
-import {
-  CheatsheetPage,
-  CheatsheetInfo,
-  defaultCheatsheetInfo,
-} from "@cursorless/cheatsheet";
-import { environment } from "../environments/environment";
+import { CheatsheetPage, CheatsheetInfo } from "@cursorless/cheatsheet";
 import "../styles.css";
 
 /**
@@ -11,17 +6,13 @@ import "../styles.css";
  *
  * In production, we rely on a hack where we inject the user's actual
  * cheatsheet json into a script tag that places the object on the `document`
- *
- * In development, we require the default cheatsheet json so we have something
- * to look at.  We should figure out how to properly respect nx module
- * boundaries and use @cursorless/cheatsheet
  */
-const cheatsheetData: CheatsheetInfo = environment.production
-  ? (document as unknown as { cheatsheetData: CheatsheetInfo }).cheatsheetData
-  : defaultCheatsheetInfo;
+const cheatsheetInfo: CheatsheetInfo = (
+  document as unknown as { cheatsheetInfo: CheatsheetInfo }
+).cheatsheetInfo;
 
 export function App() {
-  return <CheatsheetPage cheatsheetInfo={cheatsheetData} />;
+  return <CheatsheetPage cheatsheetInfo={cheatsheetInfo} />;
 }
 
 export default App;

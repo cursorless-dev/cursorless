@@ -6,6 +6,9 @@
     "target": "es6",
     "lib": ["es2020"],
     "sourceMap": true,
+    "declarationMap": true,
+    "resolveJsonModule": true,
+    "composite": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true /* enable all strict type-checking options */
     /* Additional Checks */
