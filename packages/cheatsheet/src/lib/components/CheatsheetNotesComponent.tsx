@@ -1,5 +1,5 @@
-import * as React from 'react';
-import SmartLink from './SmartLink';
+import * as React from "react";
+import SmartLink from "./SmartLink";
 
 export default function CheatsheetNotesComponent(): JSX.Element {
   return (
@@ -12,10 +12,10 @@ export default function CheatsheetNotesComponent(): JSX.Element {
       </h2>
       <ul>
         <li className="">
-          See the{' '}
-          <SmartLink to={'https://www.cursorless.org/docs/'}>
+          See the{" "}
+          <SmartLink to={"https://www.cursorless.org/docs/"}>
             full documentation
-          </SmartLink>{' '}
+          </SmartLink>{" "}
           to learn more.
         </li>
       </ul>
