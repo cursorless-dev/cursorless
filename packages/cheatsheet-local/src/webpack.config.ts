@@ -12,14 +12,9 @@ import type { Configuration } from "webpack";
 const isProduction = process.env.NODE_ENV === "production";
 
 const config: Configuration = {
-  entry: "./src/main.tsx",
+  entry: "./src/index.tsx",
   output: {
-    // path: path.resolve(__dirname, "dist"),
     publicPath: "/",
-  },
-  devServer: {
-    open: true,
-    host: "localhost",
   },
   mode: isProduction ? "production" : "development",
   plugins: [
