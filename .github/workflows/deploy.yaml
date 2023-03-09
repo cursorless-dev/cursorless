@@ -24,11 +24,11 @@ jobs:
           cache: pnpm
       - run: pnpm install
       - run: pnpm compile
+      - run: pnpm build
+        env:
+          CURSORLESS_DEPLOY: true
       - name: Initialize cursorless-nx subdir
         run: npm ci
-        working-directory: cursorless-nx
-      - name: Build cheatsheet html
-        run: npx nx build cheatsheet-local
         working-directory: cursorless-nx
       - run: pnpm prepare-for-extension-publish
       - name: Publish to Open VSX Registry

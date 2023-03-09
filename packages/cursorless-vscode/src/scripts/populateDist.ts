@@ -6,7 +6,7 @@ import * as path from "path";
 interface Asset {
   source: string;
   destination: string;
-  ciOnly?: boolean;
+  deployOnly?: boolean;
   transformJson?: (json: any) => any;
 }
 
@@ -35,7 +35,11 @@ const assets: Asset[] = [
     source: "../../third-party-licenses.csv",
     destination: "third-party-licenses.csv",
   },
-  { source: "build-info.json", destination: "build-info.json", ciOnly: true },
+  {
+    source: "build-info.json",
+    destination: "build-info.json",
+    deployOnly: true,
+  },
   {
     source: "package.json",
     destination: "package.json",
@@ -49,15 +53,15 @@ const assets: Asset[] = [
 const sourceRoot = ".";
 const destinationRoot = "dist";
 
-const isCI = "CI" in process.env;
+const isDeploy = "CURSORLESS_DEPLOY" in process.env;
 
 // Iterate over assets, copying each file to the destination.  Any parent
 // directories will be created as necessary, and source directories will be
 // copied recursively.
 async function run() {
   await Promise.all(
-    assets.map(async ({ source, destination, ciOnly, transformJson }) => {
-      if (!isCI && ciOnly) {
+    assets.map(async ({ source, destination, deployOnly, transformJson }) => {
+      if (!isDeploy && deployOnly) {
         return;
       }
 
