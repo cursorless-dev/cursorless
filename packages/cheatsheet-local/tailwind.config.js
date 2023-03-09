@@ -12,7 +12,7 @@ const references = JSON.parse(
 
 module.exports = {
   content: [".", ...references].map(
-    (package) => `${package}/src/**/*!(*.stories|*.spec).{ts,tsx,html}`,
+    (dir) => `${dir}/src/**/*!(*.stories|*.spec).{ts,tsx,html}`,
   ),
   theme: {
     extend: {},

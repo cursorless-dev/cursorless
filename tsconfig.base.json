@@ -5,6 +5,7 @@
     "moduleDetection": "force",
     "target": "es6",
     "lib": ["es2020"],
+    "skipLibCheck": true,
     "sourceMap": true,
     "declarationMap": true,
     "resolveJsonModule": true,

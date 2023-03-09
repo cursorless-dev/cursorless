@@ -1,17 +1,17 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 /*eslint-env node*/
 
-var HtmlWebpackInlineSourcePlugin = require("@effortlessmotion/html-webpack-inline-source-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const cheatsheetBodyClasses =
-  require("@cursorless/cheatsheet").cheatsheetBodyClasses;
-const fakeCheatsheetInfo = require("@cursorless/cheatsheet").fakeCheatsheetInfo;
+import {
+  cheatsheetBodyClasses,
+  fakeCheatsheetInfo,
+} from "@cursorless/cheatsheet";
+import HtmlWebpackInlineSourcePlugin from "@effortlessmotion/html-webpack-inline-source-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import type { Configuration } from "webpack";
 
 const isProduction = process.env.NODE_ENV === "production";
 
-/** @type { import('webpack').Configuration } */
-const config = {
+const config: Configuration = {
   entry: "./src/main.tsx",
   output: {
     // path: path.resolve(__dirname, "dist"),
@@ -33,6 +33,8 @@ const config = {
       inlineSource: ".(js|css)$", // embed all javascript and css inline
     }),
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore - Not sure why this is not in the type definition
     new HtmlWebpackInlineSourcePlugin(),
   ],
   module: {
