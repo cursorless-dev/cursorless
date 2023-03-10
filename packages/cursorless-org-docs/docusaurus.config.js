@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
+/*eslint-env node*/
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
@@ -38,7 +40,7 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
         return;
       }
 
-      let repoRoot = path.resolve(__dirname, "..");
+      let repoRoot = path.resolve(__dirname, "../..");
       let artifact = path.resolve(file.dirname, link);
       let artifactRelative = path.relative(repoRoot, artifact);
 
@@ -74,7 +76,7 @@ const config = {
       // TypeDoc options merged with docusaurus specific options
       {
         ...require("./typedoc.js"),
-        docsRoot: "../docs",
+        docsRoot: "../../docs",
         // Out path is relative to docsRoot
         out: "contributing/api",
       },
@@ -87,7 +89,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          path: "../docs",
+          path: "../../docs",
           // Followed https://ricard.dev/how-to-set-docs-as-homepage-for-docusaurus/
           // to serve a markdown document on homepage
           routeBasePath: "/",

@@ -18,6 +18,9 @@
       "path": "./packages/cursorless-org"
     },
     {
+      "path": "./packages/cursorless-org-docs"
+    },
+    {
       "path": "./packages/cursorless-vscode"
     },
     {

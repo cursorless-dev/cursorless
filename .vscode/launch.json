@@ -120,9 +120,9 @@
       "name": "Docusaurus Start (Debug)",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}/docs-site",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "start"],
+      "cwd": "${workspaceFolder}/packages/cursorless-org-docs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["start"],
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
@@ -132,9 +132,9 @@
       "name": "Docusaurus Build (Debug)",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}/docs-site",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "build"],
+      "cwd": "${workspaceFolder}/packages/cursorless-org-docs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["build"],
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
@@ -145,7 +145,7 @@
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:4200",
-      "webRoot": "${workspaceFolder}/cursorless-nx",
+      "webRoot": "${workspaceFolder}/packages/cursorless-org",
       "sourceMapPathOverrides": {
         "webpack://_N_E/*": "${webRoot}/apps/cursorless-org/*",
         "webpack://_N_E/libs/*": "${webRoot}/libs/*",
