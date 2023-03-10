@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "description": "Our VSCode end-to-end tests",
   "main": "./out/index.js",
-  "exports": "./out/index.js",
+  "exports": {
+    ".": {
+      "bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc --build",

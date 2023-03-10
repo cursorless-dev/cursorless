@@ -134,6 +134,11 @@ async function updatePackageJson(
       compile: "tsc --build",
       watch: "tsc --build --watch",
     },
-    exports: "./out/index.js",
+    exports: {
+      ["."]: {
+        bundler: "./src/index.ts",
+        default: "./out/index.js",
+      },
+    },
   } as PackageJson;
 }

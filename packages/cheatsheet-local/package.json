@@ -17,7 +17,12 @@
   "author": "",
   "license": "MIT",
   "types": "./out/index.d.ts",
-  "exports": "./out/index.js",
+  "exports": {
+    ".": {
+      "bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",
     "@types/react-dom": "18.0.11",

@@ -745,11 +745,11 @@
   "scripts": {
     "build": "pnpm run esbuild:prod && pnpm -F cheatsheet-local build:prod && pnpm run populate-dist",
     "build:dev": "pnpm run esbuild && pnpm -F cheatsheet-local build && pnpm run populate-dist",
-    "esbuild:base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "esbuild:base": "esbuild ./src/extension.ts --conditions=bundler --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
     "esbuild": "pnpm run esbuild:base --sourcemap",
     "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
     "esbuild:prod": "pnpm run esbuild:base --minify --keep-names",
-    "populate-dist": "tsx ./src/scripts/populateDist.ts",
+    "populate-dist": "tsx --conditions=bundler ./src/scripts/populateDist.ts",
     "compile": "tsc --build"
   },
   "devDependencies": {
@@ -763,10 +763,9 @@
     "@types/sinon": "^10.0.2",
     "@types/vscode": "~1.61.0",
     "chai": "^4.3.6",
-    "esbuild": "^0.11.12",
+    "esbuild": "^0.17.11",
     "fs-extra": "11.1.0",
-    "glob": "^7.1.7",
-    "tsx": "3.12.3"
+    "glob": "^7.1.7"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",

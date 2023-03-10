@@ -34,5 +34,10 @@
   "license": "MIT",
   "main": "./out/index.js",
   "types": "./out/index.d.ts",
-  "exports": "./out/index.js"
+  "exports": {
+    ".": {
+      "bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  }
 }
