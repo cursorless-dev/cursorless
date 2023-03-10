@@ -19,7 +19,7 @@ async function main() {
 
   const newVersion = `${major}.${minor}.${commitCount}`;
 
-  await runCommand(`npm --no-git-tag-version version ${newVersion}`);
+  await runCommand(`pnpm --no-git-tag-version version ${newVersion}`);
 
   // These are automatically set for Github actions
   // See https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables

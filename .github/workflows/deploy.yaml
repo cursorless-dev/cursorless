@@ -27,17 +27,16 @@ jobs:
       - run: pnpm build
         env:
           CURSORLESS_DEPLOY: true
-      - name: Initialize cursorless-nx subdir
-        run: npm ci
-        working-directory: cursorless-nx
       - run: pnpm prepare-for-extension-publish
       - name: Publish to Open VSX Registry
         uses: HaaLeo/publish-vscode-extension@v1
         id: publishToOpenVSX
+        working-directory: packages/cursorless-vscode/dist
         with:
           pat: ${{ secrets.OPEN_VSX_TOKEN }}
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
+        working-directory: packages/cursorless-vscode/dist
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com

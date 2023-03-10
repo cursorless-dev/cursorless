@@ -6,7 +6,23 @@ import * as path from "path";
 interface Asset {
   source: string;
   destination: string;
+
+  /**
+   * Indicates that the file should only be copied when deploying
+   */
   deployOnly?: boolean;
+
+  /**
+   * Indicates that it is ok for the file to not exist in dev mode
+   */
+  optionalInDev?: boolean;
+
+  /**
+   * Can be used to transform the given file's json before writing it to the
+   * destination
+   * @param json The input json
+   * @returns The transformed json
+   */
   transformJson?: (json: any) => any;
 }
 
@@ -18,6 +34,9 @@ const assets: Asset[] = [
   {
     source: "../cheatsheet-local/dist/index.html",
     destination: "cheatsheet.html",
+    // We allow this to be optional in dev mode because it is expensive to
+    // build, and is only used when they say "cursorless cheatsheet".
+    optionalInDev: true,
   },
   { source: "../../cursorless-snippets", destination: "cursorless-snippets" },
   {

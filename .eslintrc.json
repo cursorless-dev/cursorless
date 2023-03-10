@@ -51,6 +51,20 @@
     "no-throw-literal": "warn",
     "semi": "off"
   },
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "rules": {
+        "@typescript-eslint/naming-convention": [
+          "warn",
+          {
+            "selector": ["function"],
+            "format": ["PascalCase", "camelCase"]
+          }
+        ]
+      }
+    }
+  ],
   "settings": {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
