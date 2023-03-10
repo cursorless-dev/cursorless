@@ -75,7 +75,7 @@ async function updateTSConfig(
 
   return {
     ...tsConfig,
-    extends: path.join(pathToRoot, "tsconfig.base.json"),
+    extends: toPosixPath(path.join(pathToRoot, "tsconfig.base.json")),
     compilerOptions: {
       ...(tsConfig.compilerOptions ?? {}),
       rootDir: "src",
@@ -92,9 +92,13 @@ async function updateTSConfig(
         ? ["next-env.d.ts"]
         : []),
 
-      path.join(pathToRoot, "typings", "**/*.d.ts"),
+      toPosixPath(path.join(pathToRoot, "typings", "**/*.d.ts")),
     ],
   };
+}
+
+function toPosixPath(p: string) {
+  return p.split(path.sep).join(path.posix.sep);
 }
 
 async function updatePackageJson(
