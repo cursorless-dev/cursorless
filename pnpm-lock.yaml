@@ -230,7 +230,6 @@ importers:
       esbuild: ^0.17.11
       fs-extra: 11.1.0
       glob: ^7.1.7
-      tsx: 3.12.3
     dependencies:
       '@cursorless/common': link:../common
       '@cursorless/cursorless-engine': link:../cursorless-engine
@@ -250,7 +249,6 @@ importers:
       esbuild: 0.17.11
       fs-extra: 11.1.0
       glob: 7.2.3
-      tsx: 3.12.3
 
   packages/cursorless-vscode-core:
     specifiers:
