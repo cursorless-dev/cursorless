@@ -1,18 +1,17 @@
-// Original swizzled version: https://github.com/cursorless-dev/cursorless/blob/01028c948387ad98e3c6099c3eda9e8a96753c19/website/src/theme/SearchBar/index.js
-
-import React, {useState, useRef, useCallback, useMemo} from 'react';
-import {createPortal} from 'react-dom';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import {useHistory} from '@docusaurus/router';
-import {useBaseUrlUtils} from '@docusaurus/useBaseUrl';
-import Link from '@docusaurus/Link';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
+import {DocSearchButton, useDocSearchKeyboardEvents} from '@docsearch/react';
 import Head from '@docusaurus/Head';
+import Link from '@docusaurus/Link';
+import {useHistory} from '@docusaurus/router';
 import {isRegexpStringMatch} from '@docusaurus/theme-common';
 import {useSearchPage} from '@docusaurus/theme-common/internal';
-import {DocSearchButton, useDocSearchKeyboardEvents} from '@docsearch/react';
-import {useAlgoliaContextualFacetFilters} from '@docusaurus/theme-search-algolia/client';
-import useIsBrowser from '@docusaurus/useIsBrowser';
+import {
+  useAlgoliaContextualFacetFilters,
+  useSearchResultUrlProcessor,
+} from '@docusaurus/theme-search-algolia/client';
 import Translate from '@docusaurus/Translate';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import {createPortal} from 'react-dom';
 import translations from '@theme/SearchTranslations';
 let DocSearchModal = null;
 function Hit({hit, children}) {
@@ -36,6 +35,7 @@ function mergeFacetFilters(f1, f2) {
 }
 function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
   const {siteMetadata} = useDocusaurusContext();
+  const processSearchResultUrl = useSearchResultUrlProcessor();
   const contextualSearchFacetFilters = useAlgoliaContextualFacetFilters();
   const configFacetFilters = props.searchParameters?.facetFilters ?? [];
   const facetFilters = contextualSearch
@@ -43,30 +43,11 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
       mergeFacetFilters(contextualSearchFacetFilters, configFacetFilters)
     : // ... or use config facetFilters
       configFacetFilters;
-
-  const isBrowser = useIsBrowser()
-
-  // Tweak search so that we prefer:
-  // - the same lvl0 as the current doc (eg "For users"),
-  // - docs that are not api docs.
-  // Note that the below lvl0 query was written to match the query used by the
-  // crawler at https://crawler.algolia.com/admin/crawlers
-  const lvl0 =
-    (isBrowser
-      ? document.querySelector(".navbar__item.navbar__link--active")
-          ?.textContent
-      : null) ?? "Documentation";
-
   // We let user override default searchParameters if she wants to
   const searchParameters = {
     ...props.searchParameters,
     facetFilters,
-    optionalFilters: [
-      `hierarchy.lvl0: ${lvl0}`,
-      "is_api: no"
-    ],
   };
-  const {withBaseUrl} = useBaseUrlUtils();
   const history = useHistory();
   const searchContainer = useRef(null);
   const searchButtonRef = useRef(null);
@@ -119,19 +100,14 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
     },
   }).current;
   const transformItems = useRef((items) =>
-    items.map((item) => {
-      // If Algolia contains a external domain, we should navigate without
-      // relative URL
-      if (isRegexpStringMatch(externalUrlRegex, item.url)) {
-        return item;
-      }
-      // We transform the absolute URL into a relative URL.
-      const url = new URL(item.url);
-      return {
-        ...item,
-        url: withBaseUrl(`${url.pathname}${url.hash}`),
-      };
-    }),
+    props.transformItems
+      ? // Custom transformItems
+        props.transformItems(items)
+      : // Default transformItems
+        items.map((item) => ({
+          ...item,
+          url: processSearchResultUrl(item.url),
+        })),
   ).current;
   const resultsFooterComponent = useMemo(
     () =>
