@@ -4,6 +4,6 @@
 /packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/**/*.yml
 
 # This was swizzled from a Docusaurus core class
-docs-site/src/theme/SearchBar/index.js
+packages/cursorless-org-docs/src/theme/SearchBar/index.js
 
 pnpm-lock.yaml
