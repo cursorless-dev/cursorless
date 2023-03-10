@@ -140,6 +140,13 @@ async function updatePackageJson(
     },
     exports: {
       ["."]: {
+        // We add a custom condition called `bundler` for use with esbuild to
+        // ensure that it uses source .ts files when importing from another
+        // package in our monorepo.  We use this both for esbuild and for tsx.
+        // See
+        // https://github.com/evanw/esbuild/issues/1250#issuecomment-1463826174
+        // and
+        // https://github.com/esbuild-kit/tsx/issues/96#issuecomment-1463825643
         bundler: "./src/index.ts",
         default: "./out/index.js",
       },
