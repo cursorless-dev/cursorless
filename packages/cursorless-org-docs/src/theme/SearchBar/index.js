@@ -1,3 +1,6 @@
+// Original swizzled version: https://github.com/cursorless-dev/cursorless/blob/bc4abddeed4544832b837ff60b319606d003ce6c/packages/cursorless-org-docs/src/theme/SearchBar/index.js
+
+import useIsBrowser from '@docusaurus/useIsBrowser';
 import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {DocSearchButton, useDocSearchKeyboardEvents} from '@docsearch/react';
 import Head from '@docusaurus/Head';
@@ -43,10 +46,28 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
       mergeFacetFilters(contextualSearchFacetFilters, configFacetFilters)
     : // ... or use config facetFilters
       configFacetFilters;
+
+  const isBrowser = useIsBrowser()
+
+  // Tweak search so that we prefer:
+  // - the same lvl0 as the current doc (eg "For users"),
+  // - docs that are not api docs.
+  // Note that the below lvl0 query was written to match the query used by the
+  // crawler at https://crawler.algolia.com/admin/crawlers
+  const lvl0 =
+    (isBrowser
+      ? document.querySelector(".navbar__item.navbar__link--active")
+          ?.textContent
+      : null) ?? "Documentation";
+
   // We let user override default searchParameters if she wants to
   const searchParameters = {
     ...props.searchParameters,
     facetFilters,
+    optionalFilters: [
+      `hierarchy.lvl0: ${lvl0}`,
+      "is_api: no"
+    ],
   };
   const history = useHistory();
   const searchContainer = useRef(null);
