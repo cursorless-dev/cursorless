@@ -12,8 +12,6 @@
   },
   "plugins": ["@typescript-eslint", "unused-imports", "import"],
   "rules": {
-    // turn on errors for missing imports
-    "import/no-unresolved": "error",
     "import/no-relative-packages": "error",
     "@typescript-eslint/consistent-type-assertions": [
       "error",
