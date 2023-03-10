@@ -6,16 +6,15 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "test-compile": "tsc --build",
-    "build": "pnpm -F @cursorless/cursorless-vscode build",
+    "build": "pnpm compile && pnpm -r build",
     "compile": "tsc --build",
     "watch": "tsc --build -watch",
-    "pretest": "pnpm run compile && pnpm run lint",
     "meta-updater:base": "pnpm --filter=@cursorless/meta-updater compile && meta-updater",
     "meta-updater": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json",
     "lint:meta": "pnpm run meta-updater:base --test",
     "lint": "pnpm run lint:meta && syncpack list-mismatches && pnpm run lint:ts",
     "lint:ts": "eslint packages --ext ts",
-    "test": "pnpm pretest && pnpm -F @cursorless/test-harness test",
+    "test": "pnpm compile && pnpm lint && pnpm -r test",
     "transform-recorded-tests": "pnpm -F @cursorless/cursorless-engine transform-recorded-tests",
     "unused-exports": "ts-unused-exports tsconfig.json --showLineNumber",
     "update-licenses": "npx npm-license-crawler --onlyDirectDependencies --csv third-party-licenses.csv"

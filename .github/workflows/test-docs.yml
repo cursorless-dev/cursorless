@@ -12,5 +12,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: yarn
+          cache: pnpm
       - run: bash -x scripts/docs-build.sh

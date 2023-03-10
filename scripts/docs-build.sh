@@ -12,12 +12,6 @@ yarn install --frozen-lockfile
 yarn build
 cd ..
 
-# Build the root site
-cd cursorless-nx
-npm ci
-npx nx export cursorless-org
-cd ..
-
 # Merge the root site and the documentation site, placing the documentation site
 # under docs/
 root_dir=dist/cursorless-org
