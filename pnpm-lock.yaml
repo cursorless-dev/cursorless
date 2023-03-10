@@ -1,5 +1,10 @@
 lockfileVersion: 5.4
 
+patchedDependencies:
+  '@docusaurus/theme-search-algolia@2.3.1':
+    hash: dfty3zxmjzsb7sg6jf27rbwooe
+    path: patches/@docusaurus__theme-search-algolia@2.3.1.patch
+
 importers:
 
   .:
@@ -240,7 +245,7 @@ importers:
       '@docusaurus/core': 2.3.1_jgxnvbe4faw3ohf4h6p42qq6oy
       '@docusaurus/preset-classic': 2.3.1_vphgvkepqxhslqfs2temy3edu4
       '@docusaurus/theme-common': 2.3.1_jgxnvbe4faw3ohf4h6p42qq6oy
-      '@docusaurus/theme-search-algolia': 2.3.1_vphgvkepqxhslqfs2temy3edu4
+      '@docusaurus/theme-search-algolia': 2.3.1_dfty3zxmjzsb7sg6jf27rbwooe_vphgvkepqxhslqfs2temy3edu4
       '@mdx-js/react': 1.6.22_react@17.0.2
       clsx: 1.2.1
       mdast-util-find-and-replace: 2.2.2
@@ -2456,7 +2461,7 @@ packages:
       '@docusaurus/plugin-sitemap': 2.3.1_jgxnvbe4faw3ohf4h6p42qq6oy
       '@docusaurus/theme-classic': 2.3.1_jgxnvbe4faw3ohf4h6p42qq6oy
       '@docusaurus/theme-common': 2.3.1_qy6u2m3twle75rldwm5f2xep3a
-      '@docusaurus/theme-search-algolia': 2.3.1_je4a6ngc5sfxwec57j3pto2jpe
+      '@docusaurus/theme-search-algolia': 2.3.1_dfty3zxmjzsb7sg6jf27rbwooe_je4a6ngc5sfxwec57j3pto2jpe
       '@docusaurus/types': 2.3.1_sfoxds7t5ydpegc3knd667wn6m
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -2629,7 +2634,7 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/theme-search-algolia/2.3.1_je4a6ngc5sfxwec57j3pto2jpe:
+  /@docusaurus/theme-search-algolia/2.3.1_dfty3zxmjzsb7sg6jf27rbwooe_je4a6ngc5sfxwec57j3pto2jpe:
     resolution: {integrity: sha512-JdHaRqRuH1X++g5fEMLnq7OtULSGQdrs9AbhcWRQ428ZB8/HOiaN6mj3hzHvcD3DFgu7koIVtWPQnvnN7iwzHA==}
     engines: {node: '>=16.14'}
     peerDependencies:
@@ -2674,8 +2679,9 @@ packages:
       - vue-template-compiler
       - webpack-cli
     dev: false
+    patched: true
 
-  /@docusaurus/theme-search-algolia/2.3.1_vphgvkepqxhslqfs2temy3edu4:
+  /@docusaurus/theme-search-algolia/2.3.1_dfty3zxmjzsb7sg6jf27rbwooe_vphgvkepqxhslqfs2temy3edu4:
     resolution: {integrity: sha512-JdHaRqRuH1X++g5fEMLnq7OtULSGQdrs9AbhcWRQ428ZB8/HOiaN6mj3hzHvcD3DFgu7koIVtWPQnvnN7iwzHA==}
     engines: {node: '>=16.14'}
     peerDependencies:
@@ -2720,6 +2726,7 @@ packages:
       - vue-template-compiler
       - webpack-cli
     dev: false
+    patched: true
 
   /@docusaurus/theme-translations/2.3.1:
     resolution: {integrity: sha512-BsBZzAewJabVhoGG1Ij2u4pMS3MPW6gZ6sS4pc+Y7czevRpzxoFNJXRtQDVGe7mOpv/MmRmqg4owDK+lcOTCVQ==}
@@ -7949,7 +7956,7 @@ packages:
       postcss-modules-values: 4.0.0_postcss@8.4.21
       postcss-value-parser: 4.2.0
       semver: 7.3.8
-      webpack: 5.75.0
+      webpack: 5.75.0_webpack-cli@5.0.1
     dev: true
 
   /css-loader/6.7.3_webpack@5.76.0:
@@ -10224,7 +10231,7 @@ packages:
       lodash: 4.17.21
       pretty-error: 4.0.0
       tapable: 2.2.1
-      webpack: 5.75.0
+      webpack: 5.75.0_webpack-cli@5.0.1
     dev: true
 
   /html-webpack-plugin/5.5.0_webpack@5.76.0:
@@ -13576,7 +13583,7 @@ packages:
       klona: 2.0.6
       postcss: 8.4.21
       semver: 7.3.8
-      webpack: 5.75.0
+      webpack: 5.75.0_webpack-cli@5.0.1
     dev: true
 
   /postcss-loader/7.0.2_ynsp4hpcl6ftpkdbhj2ssg4tva:
@@ -15981,7 +15988,7 @@ packages:
       schema-utils: 3.1.1
       serialize-javascript: 6.0.1
       terser: 5.16.5
-      webpack: 5.75.0
+      webpack: 5.75.0_webpack-cli@5.0.1
     dev: true
 
   /terser-webpack-plugin/5.3.7_webpack@5.76.0:
@@ -17044,7 +17051,7 @@ packages:
       mime-types: 2.1.35
       range-parser: 1.2.1
       schema-utils: 4.0.0
-      webpack: 5.75.0
+      webpack: 5.75.0_webpack-cli@5.0.1
     dev: true
 
   /webpack-dev-middleware/5.3.3_webpack@5.76.0:
@@ -17168,46 +17175,6 @@ packages:
   /webpack-sources/3.2.3:
     resolution: {integrity: sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==}
     engines: {node: '>=10.13.0'}
-
-  /webpack/5.75.0:
-    resolution: {integrity: sha512-piaIaoVJlqMsPtX/+3KTTO6jfvrSYgauFVdt8cr9LTHKmcq/AMd4mhzsiP7ZF/PGRNPGA8336jldh9l2Kt2ogQ==}
-    engines: {node: '>=10.13.0'}
-    hasBin: true
-    peerDependencies:
-      webpack-cli: '*'
-    peerDependenciesMeta:
-      webpack-cli:
-        optional: true
-    dependencies:
-      '@types/eslint-scope': 3.7.4
-      '@types/estree': 0.0.51
-      '@webassemblyjs/ast': 1.11.1
-      '@webassemblyjs/wasm-edit': 1.11.1
-      '@webassemblyjs/wasm-parser': 1.11.1
-      acorn: 8.8.2
-      acorn-import-assertions: 1.8.0_acorn@8.8.2
-      browserslist: 4.21.5
-      chrome-trace-event: 1.0.3
-      enhanced-resolve: 5.12.0
-      es-module-lexer: 0.9.3
-      eslint-scope: 5.1.1
-      events: 3.3.0
-      glob-to-regexp: 0.4.1
-      graceful-fs: 4.2.10
-      json-parse-even-better-errors: 2.3.1
-      loader-runner: 4.3.0
-      mime-types: 2.1.35
-      neo-async: 2.6.2
-      schema-utils: 3.1.1
-      tapable: 2.2.1
-      terser-webpack-plugin: 5.3.6_webpack@5.75.0
-      watchpack: 2.4.0
-      webpack-sources: 3.2.3
-    transitivePeerDependencies:
-      - '@swc/core'
-      - esbuild
-      - uglify-js
-    dev: true
 
   /webpack/5.75.0_webpack-cli@5.0.1:
     resolution: {integrity: sha512-piaIaoVJlqMsPtX/+3KTTO6jfvrSYgauFVdt8cr9LTHKmcq/AMd4mhzsiP7ZF/PGRNPGA8336jldh9l2Kt2ogQ==}
