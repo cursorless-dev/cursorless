@@ -218,7 +218,7 @@ export default class VscodeHatRenderer {
   /**
    * Creates an SVG from the hat SVG that pads, offsets and scales it to end up
    * in the right size / place relative to the character it will be placed over.
-   * [This image](../../images/svg-calculations.png) may or may not be helpful.
+   * [This image](../../../../images/svg-calculations.png) may or may not be helpful.
    *
    * @param fontMeasurements Info about the user's font
    * @param shape The hat shape to process

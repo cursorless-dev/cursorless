@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/*eslint-env node*/
 const { readFileSync } = require("fs");
 const path = require("path");
 
@@ -14,14 +16,14 @@ module.exports = {
   readme: "../../docs/contributing/_api-index.md",
 
   exclude: ["**/node_modules/**", "**/out/**"],
-  // excludeInternal: true,
-  // // typedoc-plugin-missing-exports option
-  // internalNamespace: "internal",
+
+  // typedoc-plugin-missing-exports option
+  internalModule: "internal",
 
   plugin: [
     "typedoc-plugin-rename-defaults",
     "typedoc-plugin-mdn-links",
-    // "typedoc-plugin-missing-exports",
+    "typedoc-plugin-missing-exports",
     "typedoc-plugin-resolve-crossmodule-references",
   ],
 };
