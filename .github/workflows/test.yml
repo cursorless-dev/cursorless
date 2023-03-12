@@ -36,7 +36,7 @@ jobs:
         shell: bash
       - run: pnpm --color install
       - run: pnpm --color compile
-      - run: pnpm --filter '!cursorless-org' --filter '!cursorless-org-*' build
+      - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
       - run: xvfb-run -a pnpm --color test
         if: runner.os == 'Linux'
       - run: pnpm --color test
