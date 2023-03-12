@@ -37,6 +37,7 @@ jobs:
       - run: pnpm install
       - run: pnpm compile
       - run: pnpm build
+      - run: bash -x scripts/assemble-website.sh
       - run: xvfb-run -a pnpm test
         if: runner.os == 'Linux'
       - run: pnpm test
