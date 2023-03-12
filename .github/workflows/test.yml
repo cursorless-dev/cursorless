@@ -34,12 +34,12 @@ jobs:
           cache: pnpm
       - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}"
         shell: bash
-      - run: pnpm install
-      - run: pnpm compile
+      - run: pnpm --color install
+      - run: pnpm --color compile
       - run: pnpm --filter '!cursorless-org' --filter '!cursorless-org-*' build
-      - run: xvfb-run -a pnpm test
+      - run: xvfb-run -a pnpm --color test
         if: runner.os == 'Linux'
-      - run: pnpm test
+      - run: pnpm --color test
         if: runner.os != 'Linux'
       - name: Archive logs
         uses: actions/upload-artifact@v3
