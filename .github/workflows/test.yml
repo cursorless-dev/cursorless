@@ -36,8 +36,7 @@ jobs:
         shell: bash
       - run: pnpm install
       - run: pnpm compile
-      - run: pnpm build
-      - run: bash -x scripts/assemble-website.sh
+      - run: pnpm --filter '!cursorless-org' --filter '!cursorless-org-*' build
       - run: xvfb-run -a pnpm test
         if: runner.os == 'Linux'
       - run: pnpm test
