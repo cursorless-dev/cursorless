@@ -40,6 +40,18 @@
   "pnpm": {
     "patchedDependencies": {
       "@docusaurus/theme-search-algolia@2.3.1": "patches/@docusaurus__theme-search-algolia@2.3.1.patch"
+    },
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@docusaurus/core",
+        "@docusaurus/mdx-loader",
+        "@docusaurus/plugin-content-blog",
+        "@docusaurus/preset-classic"
+      ],
+      "allowedVersions": {
+        "react": "18",
+        "react-dom": "18"
+      }
     }
   }
 }
