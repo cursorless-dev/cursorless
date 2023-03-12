@@ -17,7 +17,7 @@
     "watch": "tsc --build --watch"
   },
   "dependencies": {
-    "@algolia/client-search": "<6",
+    "@algolia/client-search": "4.15.0",
     "@docsearch/react": "3.3.3",
     "@docusaurus/core": "~2.3.1",
     "@docusaurus/preset-classic": "~2.3.1",
@@ -27,8 +27,8 @@
     "clsx": "^1.2.1",
     "mdast-util-find-and-replace": "^2.2.2",
     "prism-react-renderer": "^1.3.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "unist-util-visit": "^4.1.2"
   },
   "browserslist": {
@@ -47,11 +47,11 @@
     "docusaurus-plugin-typedoc": "^0.18.0",
     "typedoc": "^0.23.26",
     "typedoc-plugin-markdown": "^3.14.0",
-    "typedoc-plugin-mdn-links": "^2.0.2",
+    "typedoc-plugin-mdn-links": "^3.0.3",
     "typedoc-plugin-missing-exports": "^1.0.0",
     "typedoc-plugin-rename-defaults": "^0.6.4",
     "typedoc-plugin-resolve-crossmodule-references": "0.3.3",
-    "typescript": "4.9.5"
+    "typescript": "^4.9.5"
   },
   "license": "MIT",
   "main": "./out/index.js",
