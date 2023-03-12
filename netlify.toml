@@ -1,4 +1,3 @@
 [build]
   command = "./scripts/build-and-assemble-website.sh"
   publish = "dist/cursorless-org"
-  environment = {NODE_OPTIONS = "--max-old-space-size=4096"}

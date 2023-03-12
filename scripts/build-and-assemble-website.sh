@@ -3,7 +3,12 @@ set -euo pipefail
 
 pnpm install
 pnpm compile
-pnpm --filter 'cursorless-org' --filter 'cursorless-org-*' build
+
+NODE_OPTIONS="--max-old-space-size=4096" \
+  pnpm \
+  --filter 'cursorless-org' \
+  --filter 'cursorless-org-*' \
+  build
 
 # Merge the root site and the documentation site, placing the documentation site
 # under docs/
