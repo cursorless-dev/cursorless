@@ -1,0 +1,40 @@
+languageId: perl
+command:
+  version: 4
+  spokenForm: change condition
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    while ( $a < 0 ) {
+        # ...
+    }
+
+    while ( ( $a < 0 ) ) {
+        # ...
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 5, character: 4}
+      active: {line: 5, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    while () {
+        # ...
+    }
+
+    while () {
+        # ...
+    }
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+    - anchor: {line: 4, character: 7}
+      active: {line: 4, character: 7}

@@ -1,0 +1,26 @@
+languageId: perl
+command:
+  version: 4
+  spokenForm: change map
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: map}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    %hash = (
+        first => "1st",
+        second => "yup",
+    )
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+finalState:
+  documentContents: "%hash = "
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

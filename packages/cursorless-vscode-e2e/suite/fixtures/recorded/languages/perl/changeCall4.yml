@@ -1,0 +1,28 @@
+languageId: perl
+command:
+  version: 4
+  spokenForm: change call
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    my $var = 1;
+    $var = Other::Package::func();
+    $var = 2;
+  selections:
+    - anchor: {line: 1, character: 24}
+      active: {line: 1, character: 24}
+  marks: {}
+finalState:
+  documentContents: |-
+    my $var = 1;
+    $var = ;
+    $var = 2;
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
