@@ -1,3 +1,4 @@
 [build]
   command = "./scripts/netlify.sh"
   publish = "dist/cursorless-org"
+  NODE_OPTIONS = "--max-old-space-size=4096"
