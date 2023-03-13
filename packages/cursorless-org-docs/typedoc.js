@@ -18,6 +18,7 @@ module.exports = {
   exclude: ["**/node_modules/**", "**/out/**"],
 
   // typedoc-plugin-missing-exports option
+  // Workaround for https://github.com/Gerrit0/typedoc-plugin-missing-exports/issues/13
   internalModule: "internal",
 
   plugin: [
