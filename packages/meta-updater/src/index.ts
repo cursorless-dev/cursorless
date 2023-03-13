@@ -17,10 +17,8 @@ export const updater = async (workspaceDir: string) => {
     throw new Error("no lockfile found");
   }
   return createUpdateOptions({
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    "package.json": updatePackageJson.bind(null, { workspaceDir }),
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    "tsconfig.json": updateTSConfig.bind(null, {
+    ["package.json"]: updatePackageJson.bind(null, { workspaceDir }),
+    ["tsconfig.json"]: updateTSConfig.bind(null, {
       lockfile,
       workspaceDir,
     }),
