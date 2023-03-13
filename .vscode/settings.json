@@ -21,5 +21,7 @@
     "subword"
   ],
   "task.allowAutomaticTasks": "on",
-  "files.eol": "\n"
+  "files.eol": "\n",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
