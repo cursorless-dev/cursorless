@@ -2,12 +2,12 @@ languageId: perl
 command:
   version: 4
   spokenForm: chuck item
-  action: { name: remove }
+  action: {name: remove}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: { type: collectionItem }
+          scopeType: {type: collectionItem}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
@@ -16,8 +16,8 @@ initialState:
         two => 2,
     );
   selections:
-    - anchor: { line: 1, character: 8 }
-      active: { line: 1, character: 8 }
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
   marks: {}
 finalState:
   documentContents: |-
@@ -25,5 +25,5 @@ finalState:
         two => 2,
     );
   selections:
-    - anchor: { line: 1, character: 4 }
-      active: { line: 1, character: 4 }
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
