@@ -128,5 +128,3 @@ export function stringTextFragmentExtractor(
 
   return null;
 }
-
-// EOF

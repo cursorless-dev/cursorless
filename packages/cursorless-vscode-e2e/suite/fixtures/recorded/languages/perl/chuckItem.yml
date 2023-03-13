@@ -1,8 +1,8 @@
 languageId: perl
 command:
   version: 4
-  spokenForm: change item
-  action: {name: clearAndSetSelection}
+  spokenForm: chuck item
+  action: {name: remove}
   targets:
     - type: primitive
       modifiers:
@@ -16,15 +16,14 @@ initialState:
         two => 2,
     );
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
   marks: {}
 finalState:
   documentContents: |-
     %hash = (
-        ,
         two => 2,
     );
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

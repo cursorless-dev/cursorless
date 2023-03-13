@@ -1,0 +1,42 @@
+languageId: perl
+command:
+  version: 4
+  spokenForm: chuck round
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    "aaa (bbb) ccc"
+    'aaa (bbb) ccc'
+    q(aaa (bbb) ccc)
+    qq(aaa (bbb) ccc)
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+    - anchor: {line: 3, character: 9}
+      active: {line: 3, character: 9}
+  marks: {}
+finalState:
+  documentContents: |-
+    "aaa ccc"
+    'aaa ccc'
+    q(aaa ccc)
+    qq(aaa ccc)
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+    - anchor: {line: 1, character: 5}
+      active: {line: 1, character: 5}
+    - anchor: {line: 2, character: 6}
+      active: {line: 2, character: 6}
+    - anchor: {line: 3, character: 7}
+      active: {line: 3, character: 7}

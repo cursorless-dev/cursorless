@@ -16,7 +16,7 @@ initialState:
       active: {line: 0, character: 36}
   marks: {}
 finalState:
-  documentContents: some_funky_func(  )
+  documentContents: some_funky_func( "three", "args" )
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
