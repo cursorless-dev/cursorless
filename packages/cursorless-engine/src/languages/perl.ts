@@ -34,7 +34,7 @@ const nodeMatchers: Partial<
   anonymousFunction: "anonymous_function",
   regularExpression: ["regex_pattern", "regex_pattern_qr"],
   collectionKey: "*[key]", // TODO: child of "value: hash?"
-  collectionItem: "*[value]", // TODO: child of "value: hash?"
+  collectionItem: "hash[variable]",
   argumentOrParameter: [
     "empty_parenthesized_argument",
     "parenthesized_argument",

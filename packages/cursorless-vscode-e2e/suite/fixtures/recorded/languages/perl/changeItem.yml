@@ -26,5 +26,5 @@ finalState:
         two => 2,
     );
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
