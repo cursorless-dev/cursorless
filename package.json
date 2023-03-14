@@ -53,5 +53,6 @@
         "react-dom": "18"
       }
     }
-  }
+  },
+  "packageManager": "pnpm@7.29.1"
 }
