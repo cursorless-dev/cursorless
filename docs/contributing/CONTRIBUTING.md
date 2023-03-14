@@ -95,6 +95,22 @@ Once you have your package then you can install it into the sandbox using the fo
 code --profile=cursorlessDevelopment --install-extension bundle.vsix
 ```
 
+## Installing a local build of the Cursorless extension
+
+You can install a local build of the Cursorless extension by running the following command:
+
+```bash
+pnpm -F cursorless-vscode install-local
+```
+
+This will bundle and install a local version of Cursorless, uninstalling production Cursorless first and using a special extension id to break the update chain.
+
+To uninstall the local build and revert to production cursorless, run the following command:
+
+```bash
+pnpm -F cursorless-vscode uninstall-local
+```
+
 ## Changing SVGs
 
 ### SVG preprocessing script

@@ -3,6 +3,12 @@ import { copy, exists } from "fs-extra";
 import { lstat, mkdir, readFile, writeFile } from "fs/promises";
 import * as path from "path";
 
+/**
+ * If `true`, then we override the extension id in order to install the
+ * extension locally without new Cursorless version releases clobbering it.
+ */
+const isForLocalInstall = process.argv.includes("--local-install");
+
 interface Asset {
   source: string;
   destination: string;
@@ -63,7 +69,18 @@ const assets: Asset[] = [
     source: "package.json",
     destination: "package.json",
     transformJson(json: any) {
-      json.name = "cursorless";
+      if (isForLocalInstall) {
+        json.name = "cursorless-development";
+        json.displayName = "Cursorless (development)";
+      } else {
+        json.name = "cursorless";
+      }
+
+      json.dependencies = [];
+      json.devDependencies = {
+        ["@types/vscode"]: json.devDependencies["@types/vscode"],
+      };
+
       return json;
     },
   },
