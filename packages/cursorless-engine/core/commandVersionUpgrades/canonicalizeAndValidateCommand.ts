@@ -111,12 +111,13 @@ function usesScopeType(
   scopeTypeType: SimpleScopeTypeType,
   partialTargets: PartialTargetDescriptor[],
 ) {
-  return getPartialPrimitiveTargets(partialTargets).some((partialTarget) =>
-    partialTarget.modifiers?.find(
-      (mod: Modifier) =>
-        (mod.type === "containingScope" || mod.type === "everyScope") &&
-        mod.scopeType.type === scopeTypeType,
-    ),
+  return getPartialPrimitiveTargets(partialTargets).some(
+    (partialTarget) =>
+      partialTarget.modifiers?.find(
+        (mod: Modifier) =>
+          (mod.type === "containingScope" || mod.type === "everyScope") &&
+          mod.scopeType.type === scopeTypeType,
+      ),
   );
 }
 
