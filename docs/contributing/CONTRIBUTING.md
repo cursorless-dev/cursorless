@@ -30,7 +30,7 @@ extension](#running--testing-extension-locally), you may want to check out the
 5. Run the following in the terminal:
 
    ```bash
-   pnpm -F @cursorless/cursorless-vscode init-launch-sandbox
+   pnpm -F @cursorless/cursorless-vscode-core init-launch-sandbox
    ```
 
    The `init-launch-sandbox` command creates a local [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. This approach is [suggested](https://code.visualstudio.com/updates/v1_72#_extension-debugging-in-a-clean-environment) by the VSCode documentation. If you'd like to use additional extensions when debugging locally, you can use the following command:
