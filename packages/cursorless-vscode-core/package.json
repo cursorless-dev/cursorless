@@ -5,7 +5,6 @@
   "main": "./out/index.js",
   "scripts": {
     "init-launch-sandbox": "tsx --conditions=bundler src/scripts/initLaunchSandbox.ts",
-    "prepare-for-extension-publish": "tsx --conditions=bundler src/scripts/prepareForExtensionPublish.ts",
     "preprocess-svg-hats": "tsx --conditions=bundler src/scripts/preprocessSvgHats.ts",
     "hat-adjustment-add": "tsx --conditions=bundler src/scripts/hatAssignments/add.ts",
     "hat-adjustment-average": "tsx --conditions=bundler src/scripts/hatAssignments/add.ts",

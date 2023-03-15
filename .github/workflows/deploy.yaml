@@ -27,7 +27,6 @@ jobs:
       - run: pnpm build
         env:
           CURSORLESS_DEPLOY: true
-      - run: pnpm prepare-for-extension-publish
       - name: Publish to Open VSX Registry
         uses: HaaLeo/publish-vscode-extension@v1
         id: publishToOpenVSX

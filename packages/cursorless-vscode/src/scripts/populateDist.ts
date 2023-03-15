@@ -1,7 +1,11 @@
 // Copies files into `dist` directory for packaging
+import { getEnvironmentVariableStrict } from "@cursorless/common";
+import { exec } from "child_process";
 import { copy, exists } from "fs-extra";
 import { lstat, mkdir, readFile, writeFile } from "fs/promises";
 import * as path from "path";
+import * as semver from "semver";
+import { promisify } from "util";
 
 /**
  * If `true`, then we override the extension id in order to install the
@@ -9,14 +13,22 @@ import * as path from "path";
  */
 const isForLocalInstall = process.argv.includes("--local-install");
 
+const isDeploy = "CURSORLESS_DEPLOY" in process.env;
+const isCi = "CI" in process.env;
+
 interface Asset {
-  source: string;
-  destination: string;
+  source?: string;
 
   /**
-   * Indicates that the file should only be copied when deploying
+   * If `generateContent` is defined, then it will be called in order to
+   * generate the content of the destination file. Mutually exclusive with
+   * {@link source}.
+   * @returns The content to write to the destination file, or `undefined` if
+   * the destination file should not be created.
    */
-  deployOnly?: boolean;
+  generateContent?(): Promise<string | undefined>;
+
+  destination: string;
 
   /**
    * Indicates that it is ok for the file to not exist in dev mode
@@ -29,7 +41,7 @@ interface Asset {
    * @param json The input json
    * @returns The transformed json
    */
-  transformJson?: (json: any) => any;
+  transformJson?: (json: any) => Promise<any>;
 }
 
 const assets: Asset[] = [
@@ -61,14 +73,31 @@ const assets: Asset[] = [
     destination: "third-party-licenses.csv",
   },
   {
-    source: "build-info.json",
     destination: "build-info.json",
-    deployOnly: true,
+    async generateContent() {
+      // During deployment we generate a file called `build-info.json` that
+      // contains information about the build for provenance. We include the git
+      // sha of the current branch as well as the build URL.
+      if (!isDeploy) {
+        return undefined;
+      }
+
+      // These are automatically set for Github actions
+      // See https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
+      const repository = getEnvironmentVariableStrict("GITHUB_REPOSITORY");
+      const runId = getEnvironmentVariableStrict("GITHUB_RUN_ID");
+      const githubBaseUrl = getEnvironmentVariableStrict("GITHUB_SERVER_URL");
+
+      return JSON.stringify({
+        gitSha: (await runCommand("git rev-parse HEAD")).trim(),
+        buildUrl: `${githubBaseUrl}/${repository}/actions/runs/${runId}`,
+      });
+    },
   },
   {
     source: "package.json",
     destination: "package.json",
-    transformJson(json: any) {
+    async transformJson(json: any) {
       if (isForLocalInstall) {
         json.name = "cursorless-development";
         json.displayName = "Cursorless (development)";
@@ -81,6 +110,16 @@ const assets: Asset[] = [
         ["@types/vscode"]: json.devDependencies["@types/vscode"],
       };
 
+      if (isDeploy) {
+        // During deployment, we change the package version so that the patch
+        // number is the number of commits on the current branch
+        const { major, minor } = semver.parse(json.version)!;
+        const commitCount = (
+          await runCommand("git rev-list --count HEAD")
+        ).trim();
+        json.version = `${major}.${minor}.${commitCount}`;
+      }
+
       return json;
     },
   },
@@ -88,9 +127,6 @@ const assets: Asset[] = [
 
 const sourceRoot = ".";
 const destinationRoot = "dist";
-
-const isDeploy = "CURSORLESS_DEPLOY" in process.env;
-const isCi = "CI" in process.env;
 
 // Iterate over assets, copying each file to the destination.  Any parent
 // directories will be created as necessary, and source directories will be
@@ -100,17 +136,49 @@ async function run() {
     assets.map(
       async ({
         source,
+        generateContent,
         destination,
-        deployOnly,
         transformJson,
         optionalInDev,
       }) => {
-        if (!isDeploy && deployOnly) {
+        if (
+          (source == null && generateContent == null) ||
+          (source != null && generateContent != null)
+        ) {
+          throw Error(
+            "Must specify either `source` or `generateContent`, but not both",
+          );
+        }
+
+        const fullDestination = path.join(destinationRoot, destination);
+        await mkdir(path.dirname(fullDestination), { recursive: true });
+
+        if (source == null) {
+          if (generateContent == null) {
+            throw Error(
+              "Must specify either `source` or `generateContent`, but not both",
+            );
+          }
+
+          const content = await generateContent();
+
+          if (content != null) {
+            console.log(`Generating ${fullDestination}`);
+            await writeFile(fullDestination, content);
+          } else {
+            console.log(`Skipping ${fullDestination}`);
+          }
+
           return;
         }
 
+        if (generateContent != null) {
+          throw Error(
+            "Must specify either `source` or `generateContent`, but not both",
+          );
+        }
+
         const fullSource = path.join(sourceRoot, source);
-        const fullDestination = path.join(destinationRoot, destination);
 
         if (!(await exists(fullSource))) {
           if (isCi || !optionalInDev) {
@@ -120,16 +188,16 @@ async function run() {
           return;
         }
 
-        await mkdir(path.dirname(fullDestination), { recursive: true });
         if (transformJson != null) {
           console.log(`Transforming ${fullSource} to ${fullDestination}`);
           const json = JSON.parse(await readFile(fullSource, "utf8"));
           await writeFile(
             fullDestination,
-            JSON.stringify(transformJson(json), null, 2),
+            JSON.stringify(await transformJson(json), null, 2),
           );
           return;
         }
+
         console.log(`Copying ${fullSource} to ${fullDestination}`);
         // If directory, copy recursively
         if ((await lstat(fullSource)).isDirectory()) {
@@ -139,6 +207,18 @@ async function run() {
       },
     ),
   );
+}
+
+const execAsync = promisify(exec);
+
+async function runCommand(command: string) {
+  const { stdout, stderr } = await execAsync(command);
+
+  if (stderr) {
+    throw new Error(stderr);
+  }
+
+  return stdout;
 }
 
 run();
