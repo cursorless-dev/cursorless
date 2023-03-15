@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "out",
+    "rootDir": "src"
+  },
+  "references": [
+    {
+      "path": "../common"
+    },
+    {
+      "path": "../vscode-common"
+    }
+  ],
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
+}

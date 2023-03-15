@@ -10,11 +10,9 @@
     "ecmaVersion": 6,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "unused-imports"],
+  "plugins": ["@typescript-eslint", "unused-imports", "import"],
   "rules": {
-    // Note: you must disable the base rule as it can report incorrect errors
-    "no-restricted-imports": "off",
-    "@typescript-eslint/no-restricted-imports": "error",
+    "import/no-relative-packages": "error",
     "@typescript-eslint/consistent-type-assertions": [
       "error",
       {
@@ -51,5 +49,31 @@
     "no-throw-literal": "warn",
     "semi": "off"
   },
-  "ignorePatterns": ["**/vendor/**/*.ts", "**/vendor/**/*.js"]
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "rules": {
+        "@typescript-eslint/naming-convention": [
+          "warn",
+          {
+            "selector": ["function"],
+            "format": ["PascalCase", "camelCase"]
+          }
+        ]
+      }
+    }
+  ],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+
+        "project": ["tsconfig.json", "packages/*/tsconfig.json"]
+      }
+    }
+  },
+  "ignorePatterns": ["**/vendor/**/*.ts", "**/vendor/**/*.js", "**/out/**"]
 }
